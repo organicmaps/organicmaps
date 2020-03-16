@@ -70,8 +70,8 @@ class DownloadMapsViewController: MWMViewController {
       let addMapsButton = button(with: UIImage(named: "ic_nav_bar_add"), action: #selector(onAddMaps))
       navigationItem.rightBarButtonItem = addMapsButton
     }
-    MWMFrameworkListener.add(self)
-    noMapsContainer.isHidden = !dataSource.isEmpty || Storage.downloadInProgress()
+    Storage.shared().add(self)
+    noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
     if !dataSource.isRoot {
       searchBarTopOffset.constant = -searchBar.frame.height
     } else {
@@ -124,7 +124,7 @@ class DownloadMapsViewController: MWMViewController {
       switch $0 {
       case .showOnMap:
         action = UIAlertAction(title: L("zoom_to_country"), style: .default, handler: { _ in
-          Storage.showNode(nodeAttrs.countryId)
+          Storage.shared().showNode(nodeAttrs.countryId)
           self.navigationController?.popToRootViewController(animated: true)
         })
       case .download:
@@ -132,26 +132,26 @@ class DownloadMapsViewController: MWMViewController {
         action = UIAlertAction(title: "\(prefix) (\(formattedSize(nodeAttrs.totalSize)))",
                                style: .default,
                                handler: { _ in
-                                Storage.downloadNode(nodeAttrs.countryId)
+                                Storage.shared().downloadNode(nodeAttrs.countryId)
         })
       case .update:
         let size = formattedSize(nodeAttrs.totalUpdateSizeBytes)
         let title = "\(L("downloader_status_outdated")) \(size)"
         action = UIAlertAction(title: title, style: .default, handler: { _ in
-          Storage.updateNode(nodeAttrs.countryId)
+          Storage.shared().updateNode(nodeAttrs.countryId)
         })
       case .cancelDownload:
         action = UIAlertAction(title: L("cancel_download"), style: .destructive, handler: { _ in
-          Storage.cancelDownloadNode(nodeAttrs.countryId)
+          Storage.shared().cancelDownloadNode(nodeAttrs.countryId)
           Statistics.logEvent(kStatDownloaderDownloadCancel, withParameters: [kStatFrom: kStatMap])
         })
       case .retryDownload:
         action = UIAlertAction(title: L("downloader_retry"), style: .destructive, handler: { _ in
-          Storage.retryDownloadNode(nodeAttrs.countryId)
+          Storage.shared().retryDownloadNode(nodeAttrs.countryId)
         })
       case .delete:
         action = UIAlertAction(title: L("downloader_delete_map"), style: .destructive, handler: { _ in
-          Storage.deleteNode(nodeAttrs.countryId)
+          Storage.shared().deleteNode(nodeAttrs.countryId)
         })
       }
       actionSheet.addAction(action)
@@ -189,7 +189,7 @@ class DownloadMapsViewController: MWMViewController {
         }
       }
     } else {
-      let updateInfo = Storage.updateInfo(withParent: dataSource.parentAttributes().countryId)
+      let updateInfo = Storage.shared().updateInfo(withParent: dataSource.parentAttributes().countryId)
       if updateInfo.numberOfFiles > 0 {
         setAllMapsButton(.download("\(L("downloader_update_all_button")) (\(formattedSize(updateInfo.updateSize)))"))
       } else {
@@ -204,9 +204,9 @@ class DownloadMapsViewController: MWMViewController {
   @IBAction func onAllMaps(_ sender: UIButton) {
     skipCountryEvent = true
     if mode == .downloaded {
-      Storage.updateNode(dataSource.parentAttributes().countryId)
+      Storage.shared().updateNode(dataSource.parentAttributes().countryId)
     } else {
-      Storage.downloadNode(dataSource.parentAttributes().countryId)
+      Storage.shared().downloadNode(dataSource.parentAttributes().countryId)
     }
     skipCountryEvent = false
     self.processCountryEvent(dataSource.parentAttributes().countryId)
@@ -214,7 +214,7 @@ class DownloadMapsViewController: MWMViewController {
 
   @IBAction func onCancelAllMaps(_ sender: UIButton) {
     skipCountryEvent = true
-    Storage.cancelDownloadNode(dataSource.parentAttributes().countryId)
+    Storage.shared().cancelDownloadNode(dataSource.parentAttributes().countryId)
     Statistics.logEvent(kStatDownloaderDownloadCancel, withParameters: [kStatFrom: kStatMap])
     skipCountryEvent = false
     self.processCountryEvent(dataSource.parentAttributes().countryId)
@@ -298,7 +298,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete{
       let nodeAttrs = dataSource.item(at: indexPath)
-      Storage.deleteNode(nodeAttrs.countryId)
+      Storage.shared().deleteNode(nodeAttrs.countryId)
     }
   }
 }
@@ -349,14 +349,14 @@ extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
     let nodeAttrs = dataSource.item(at: indexPath)
     switch (nodeAttrs.nodeStatus) {
     case .undefined, .error:
-      Storage.retryDownloadNode(nodeAttrs.countryId)
+      Storage.shared().retryDownloadNode(nodeAttrs.countryId)
       break
     case .downloading, .applying, .inQueue:
-      Storage.cancelDownloadNode(nodeAttrs.countryId)
+      Storage.shared().cancelDownloadNode(nodeAttrs.countryId)
       Statistics.logEvent(kStatDownloaderDownloadCancel, withParameters: [kStatFrom: kStatMap])
       break
     case .onDiskOutOfDate:
-      Storage.updateNode(nodeAttrs.countryId)
+      Storage.shared().updateNode(nodeAttrs.countryId)
       break
     case .onDisk:
       //do nothing
@@ -365,7 +365,7 @@ extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
       if nodeAttrs.hasChildren {
         showChildren(nodeAttrs)
       } else {
-        Storage.downloadNode(nodeAttrs.countryId)
+        Storage.shared().downloadNode(nodeAttrs.countryId)
       }
       break
     @unknown default:
@@ -380,17 +380,16 @@ extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
   }
 }
 
-// MARK: - MWMFrameworkStorageObserver
+// MARK: - StorageObserver
 
-extension DownloadMapsViewController: MWMFrameworkStorageObserver {
+extension DownloadMapsViewController: StorageObserver {
   func processCountryEvent(_ countryId: String) {
-    print("processCountryEvent: \(countryId)")
     if skipCountryEvent && countryId == dataSource.parentAttributes().countryId {
       return
     }
     dataSource.reload {
       tableView.reloadData()
-      noMapsContainer.isHidden = !dataSource.isEmpty || Storage.downloadInProgress()
+      noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
     }
     if countryId == dataSource.parentAttributes().countryId {
       configButtons()

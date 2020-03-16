@@ -15,13 +15,13 @@ class DownloadedMapsDataSource {
   private class func loadData(_ parentId: String?) -> [String] {
     let countryIds: [String]
     if let parentId = parentId {
-      countryIds = Storage.downloadedCountries(withParent: parentId)
+      countryIds = Storage.shared().downloadedCountries(withParent: parentId)
     } else {
-      countryIds = Storage.downloadedCountries()
+      countryIds = Storage.shared().downloadedCountries()
     }
 
     return countryIds.map {
-      CountryIdAndName(countryId: $0, name: Storage.name(forCountry: $0))
+      CountryIdAndName(countryId: $0, name: Storage.shared().name(forCountry: $0))
     }.sorted {
       $0.countryName.compare($1.countryName) == .orderedAscending
     }.map {
@@ -43,7 +43,7 @@ extension DownloadedMapsDataSource: IDownloaderDataSource {
     guard let parentCountryId = parentCountryId else {
       return L("downloader_my_maps_title")
     }
-    return Storage.name(forCountry: parentCountryId)
+    return Storage.shared().name(forCountry: parentCountryId)
   }
 
   var isRoot: Bool {
@@ -56,9 +56,9 @@ extension DownloadedMapsDataSource: IDownloaderDataSource {
 
   func parentAttributes() -> MapNodeAttributes {
     guard let parentId = parentCountryId else {
-      return Storage.attributesForRoot()
+      return Storage.shared().attributesForRoot()
     }
-    return Storage.attributes(forCountry: parentId)
+    return Storage.shared().attributes(forCountry: parentId)
   }
 
   func numberOfSections() -> Int {
@@ -75,7 +75,7 @@ extension DownloadedMapsDataSource: IDownloaderDataSource {
     }
     guard indexPath.section == 0 else { fatalError() }
     let countryId = countryIds[indexPath.item]
-    return Storage.attributes(forCountry: countryId)
+    return Storage.shared().attributes(forCountry: countryId)
   }
 
   func matchedName(at indexPath: IndexPath) -> String? {
@@ -87,10 +87,10 @@ extension DownloadedMapsDataSource: IDownloaderDataSource {
       return searchDataSource.title(for: section)
     }
     if let parentCountryId = parentCountryId {
-      let attributes = Storage.attributes(forCountry: parentCountryId)
-      return Storage.name(forCountry: parentCountryId) + " (\(formattedSize(attributes.downloadedSize)))"
+      let attributes = Storage.shared().attributes(forCountry: parentCountryId)
+      return Storage.shared().name(forCountry: parentCountryId) + " (\(formattedSize(attributes.downloadedSize)))"
     }
-    let attributes = Storage.attributesForRoot()
+    let attributes = Storage.shared().attributesForRoot()
     return L("downloader_downloaded_subtitle") + " (\(formattedSize(attributes.downloadedSize)))"
   }
 

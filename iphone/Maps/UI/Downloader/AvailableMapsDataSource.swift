@@ -18,16 +18,16 @@ class AvailableMapsDataSource {
     self.parentCountryId = parentCountryId
     let countryIds: [String]
     if let parentCountryId = parentCountryId {
-      countryIds = Storage.allCountries(withParent: parentCountryId)
+      countryIds = Storage.shared().allCountries(withParent: parentCountryId)
     } else {
-      countryIds = Storage.allCountries()
+      countryIds = Storage.shared().allCountries()
     }
     configSections(countryIds, location: location)
   }
 
   private func configSections(_ countryIds: [String], location: CLLocationCoordinate2D?) {
     let countries = countryIds.map {
-      CountryIdAndName(countryId: $0, name: Storage.name(forCountry: $0))
+      CountryIdAndName(countryId: $0, name: Storage.shared().name(forCountry: $0))
     }.sorted {
       $0.countryName.compare($1.countryName) == .orderedAscending
     }
@@ -35,7 +35,7 @@ class AvailableMapsDataSource {
     sections = []
     sectionsContent = [:]
 
-    if let location = location, let nearbySection = Storage.nearbyAvailableCountries(location) {
+    if let location = location, let nearbySection = Storage.shared().nearbyAvailableCountries(location) {
       sections?.append(Const.locationArrow)
       sectionsContent![Const.locationArrow] = nearbySection
     }
@@ -63,7 +63,7 @@ extension AvailableMapsDataSource: IDownloaderDataSource {
     guard let parentCountryId = parentCountryId else {
       return L("download_maps")
     }
-    return Storage.name(forCountry: parentCountryId)
+    return Storage.shared().name(forCountry: parentCountryId)
   }
 
   var isRoot: Bool {
@@ -76,9 +76,9 @@ extension AvailableMapsDataSource: IDownloaderDataSource {
 
   func parentAttributes() -> MapNodeAttributes {
     guard let parentId = parentCountryId else {
-      return Storage.attributesForRoot()
+      return Storage.shared().attributesForRoot()
     }
-    return Storage.attributes(forCountry: parentId)
+    return Storage.shared().attributes(forCountry: parentId)
   }
 
   func numberOfSections() -> Int {
@@ -100,7 +100,7 @@ extension AvailableMapsDataSource: IDownloaderDataSource {
     let sectionIndex = sections![indexPath.section]
     let sectionItems = sectionsContent![sectionIndex]
     let countryId = sectionItems![indexPath.item]
-    return Storage.attributes(forCountry: countryId)
+    return Storage.shared().attributes(forCountry: countryId)
   }
 
   func matchedName(at indexPath: IndexPath) -> String? {

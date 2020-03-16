@@ -1,7 +1,5 @@
 #import "MWMAutoupdateController.h"
 #import "MWMCircularProgress.h"
-#import "MWMFrameworkListener.h"
-#import "MWMFrameworkStorageObserver.h"
 #import "MWMStorage+UI.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
@@ -143,7 +141,7 @@ using namespace storage;
 
 @end
 
-@interface MWMAutoupdateController () <MWMCircularProgressProtocol, MWMFrameworkStorageObserver>
+@interface MWMAutoupdateController () <MWMCircularProgressProtocol, MWMStorageObserver>
 {
   std::unordered_set<CountryId> m_updatingCountries;
 }
@@ -164,7 +162,7 @@ using namespace storage;
   controller.todo = todo;
   auto view = static_cast<MWMAutoupdateView *>(controller.view);
   view.delegate = controller;
-  [MWMFrameworkListener addObserver:controller];
+  [[MWMStorage sharedStorage] addObserver:controller];
   [controller updateSize];
   return controller;
 }
@@ -179,7 +177,7 @@ using namespace storage;
   if (self.todo == Framework::DoAfterUpdate::AutoupdateMaps)
   {
     [view stateDownloading];
-    [MWMStorage updateNode:RootId() onCancel:^{
+    [[MWMStorage sharedStorage] updateNode:RootId() onCancel:^{
       [self updateSize];
       [view stateWaiting];
     }];
@@ -196,7 +194,7 @@ using namespace storage;
 {
   [static_cast<MWMAutoupdateView *>(self.view) stopSpinner];
   [self dismissViewControllerAnimated:YES completion:^{
-    [MWMFrameworkListener removeObserver:self];
+    [[MWMStorage sharedStorage] removeObserver:self];
   }];
 }
 
@@ -216,7 +214,7 @@ using namespace storage;
 {
   MWMAutoupdateView *view = (MWMAutoupdateView *)self.view;
   [view stateDownloading];
-  [MWMStorage updateNode:RootId() onCancel:^{
+  [[MWMStorage sharedStorage] updateNode:RootId() onCancel:^{
     [self updateSize];
     [view stateWaiting];
   }];
@@ -238,7 +236,7 @@ using namespace storage;
       [UIAlertAction actionWithTitle:L(@"cancel_download")
                                style:UIAlertActionStyleDestructive
                              handler:^(UIAlertAction * action) {
-                               [MWMStorage cancelDownloadNode:RootId()];
+                               [[MWMStorage sharedStorage] cancelDownloadNode:RootId()];
                                [self dismiss];
                                [Statistics logEvent:view.state == State::Downloading
                                                         ? kStatDownloaderOnStartScreenCancelDownload
@@ -279,7 +277,7 @@ using namespace storage;
 
 - (void)progressButtonPressed:(MWMCircularProgress *)progress { [self cancel]; }
 
-#pragma mark - MWMFrameworkStorageObserver
+#pragma mark - MWMStorageObserver
 
 - (void)processCountryEvent:(NSString *)countryId
 {
@@ -313,7 +311,7 @@ using namespace storage;
 {
   [self updateSize];
   [static_cast<MWMAutoupdateView *>(self.view) stateWaiting];
-  [MWMStorage cancelDownloadNode:RootId()];
+  [[MWMStorage sharedStorage] cancelDownloadNode:RootId()];
   auto errorType = ^NSString * (NodeErrorCode code)
   {
     switch (code)

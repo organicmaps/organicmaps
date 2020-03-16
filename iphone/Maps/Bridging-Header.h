@@ -34,7 +34,6 @@
 #import "MWMController.h"
 #import "MWMEditorHelper.h"
 #import "MWMFrameworkListener.h"
-#import "MWMFrameworkStorageObserver.h"
 #import "MWMGeoTrackerCore.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"

@@ -1,5 +1,4 @@
 #import "MWMFrameworkObserver.h"
-#import "MWMFrameworkStorageObserver.h"
 #import "MWMRouterRecommendation.h"
 
 #include "routing/router.hpp"

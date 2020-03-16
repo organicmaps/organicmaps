@@ -17,6 +17,8 @@ typedef NS_ENUM(NSInteger, MWMActionBarButtonType) {
   MWMActionBarButtonTypeAvoidFerry
 } NS_SWIFT_NAME(ActionBarButtonType);
 
+NS_ASSUME_NONNULL_BEGIN
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -38,14 +40,16 @@ NS_SWIFT_NAME(ActionBarButtonDelegate)
 NS_SWIFT_NAME(ActionBarButton)
 @interface MWMActionBarButton : UIView
 
+@property(nonatomic, readonly) MWMActionBarButtonType type;
+@property(nonatomic, readonly, nullable) MWMCircularProgress *mapDownloadProgress;
+@property(nonatomic, readonly) NSInteger partnerIndex;
+
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
                                 buttonType:(MWMActionBarButtonType)type
                               partnerIndex:(NSInteger)partnerIndex
                                 isSelected:(BOOL)isSelected
                                 isDisabled:(BOOL)isDisabled;
 
-- (MWMActionBarButtonType)type;
-- (MWMCircularProgress *)mapDownloadProgress;
-- (NSInteger)partnerIndex;
-
 @end
+
+NS_ASSUME_NONNULL_END

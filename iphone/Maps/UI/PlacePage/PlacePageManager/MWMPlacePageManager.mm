@@ -1,7 +1,6 @@
 #import "MWMPlacePageManager.h"
 #import "CLLocation+Mercator.h"
 #import "MWMActivityViewController.h"
-#import "MWMFrameworkStorageObserver.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
 #import "MWMRoutePoint+CPP.h"

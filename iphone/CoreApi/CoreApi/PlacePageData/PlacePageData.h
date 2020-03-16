@@ -12,6 +12,7 @@
 @class HotelRooms;
 @class UgcData;
 @class ElevationProfileData;
+@class MWMMapNodeAttributes;
 
 typedef NS_ENUM(NSInteger, PlacePageSponsoredType) {
   PlacePageSponsoredTypeNone,
@@ -58,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) HotelRooms *hotelRooms;
 @property(nonatomic, readonly, nullable) UgcData *ugcData;
 @property(nonatomic, readonly, nullable) ElevationProfileData *elevationProfileData;
+@property(nonatomic, readonly) MWMMapNodeAttributes *mapNodeAttributes;
 @property(nonatomic, readonly, nullable) NSString *bookingSearchUrl;
 @property(nonatomic, readonly) BOOL isLargeToponim;
 @property(nonatomic, readonly) BOOL isSightseeing;
@@ -79,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *sponsoredReviewURL;
 @property(nonatomic, readonly, nullable) NSString *sponsoredDeeplink;
 @property(nonatomic, copy, nullable) MWMVoidBlock onBookmarkStatusUpdate;
+@property(nonatomic, copy, nullable) MWMVoidBlock onMapNodeStatusUpdate;
+@property(nonatomic, copy, nullable) void (^onMapNodeProgressUpdate)(uint64_t downloadedBytes, uint64_t totalBytes);
 
 - (instancetype)initWithLocalizationProvider:(id<IOpeningHoursLocalization>)localization;
 - (instancetype)init NS_UNAVAILABLE;

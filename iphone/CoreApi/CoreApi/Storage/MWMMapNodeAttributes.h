@@ -10,7 +10,7 @@ typedef NS_ENUM(NSInteger, MWMMapNodeStatus) {
   MWMMapNodeStatusOnDisk,
   MWMMapNodeStatusNotDownloaded,
   MWMMapNodeStatusPartly
-};
+} NS_SWIFT_NAME(MapNodeStatus);
 
 NS_ASSUME_NONNULL_BEGIN
 

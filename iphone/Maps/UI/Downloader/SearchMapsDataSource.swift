@@ -25,7 +25,7 @@ extension SearchMapsDataSource: IDownloaderDataSource {
   }
 
   func parentAttributes() -> MapNodeAttributes {
-    return Storage.attributesForRoot()
+    return Storage.shared().attributesForRoot()
   }
 
   func numberOfItems(in section: Int) -> Int {
@@ -33,7 +33,7 @@ extension SearchMapsDataSource: IDownloaderDataSource {
   }
 
   func item(at indexPath: IndexPath) -> MapNodeAttributes {
-    Storage.attributes(forCountry: searchResults[indexPath.item].countryId)
+    Storage.shared().attributes(forCountry: searchResults[indexPath.item].countryId)
   }
 
   func matchedName(at indexPath: IndexPath) -> String? {

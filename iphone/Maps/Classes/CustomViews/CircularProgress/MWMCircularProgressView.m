@@ -116,8 +116,14 @@ static CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progres
   self.backgroundLayer.lineWidth = self.progressLayer.lineWidth = kLineWidth;
   self.backgroundLayer.strokeColor = self.spinnerBackgroundColor.CGColor;
   self.progressLayer.strokeColor = self.progressLayerColor;
-  CGRect rect = CGRectInset(self.bounds, kLineWidth, kLineWidth);
-  self.backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
+  CGPoint center = CGPointMake(self.width / 2.0, self.height / 2.0);
+  CGFloat radius = MIN(center.x, center.y) - kLineWidth;
+  UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center
+                                                       radius:radius
+                                                   startAngle:angleWithProgress(0.0)
+                                                     endAngle:angleWithProgress(1.0)
+                                                    clockwise:YES];
+  self.backgroundLayer.path = path.CGPath;
   NSString * imageName = self.images[@(self.state)];
   if (imageName)
   {

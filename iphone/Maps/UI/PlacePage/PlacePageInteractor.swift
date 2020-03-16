@@ -205,7 +205,16 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
     case .call:
       MWMPlacePageManagerHelper.call(placePageData)
     case .download:
-      fatalError()
+      switch placePageData.mapNodeAttributes.nodeStatus {
+      case .downloading, .inQueue, .applying:
+        Storage.shared().cancelDownloadNode(placePageData.mapNodeAttributes.countryId)
+      case .notDownloaded, .partly, .error:
+        Storage.shared().downloadNode(placePageData.mapNodeAttributes.countryId)
+      case .undefined, .onDiskOutOfDate, .onDisk:
+        fatalError("Download button shouldn't be displayed when node is in these states")
+      @unknown default:
+        fatalError()
+      }
     case .opentable:
       fatalError("Opentable is not supported and will be deleted")
     case .partner:

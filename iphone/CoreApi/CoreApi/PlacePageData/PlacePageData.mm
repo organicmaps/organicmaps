@@ -9,6 +9,7 @@
 #import "HotelRooms+Core.h"
 #import "UgcData+Core.h"
 #import "ElevationProfileData+Core.h"
+#import "MWMMapNodeAttributes.h"
 
 #include <CoreApi/CoreApi.h>
 #include "platform/network_policy.hpp"
@@ -63,6 +64,10 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
       return PlacePageRoadTypeNone;
   }
 }
+
+@interface PlacePageData () <MWMStorageObserver>
+
+@end
 
 @implementation PlacePageData
 
@@ -125,9 +130,15 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
       _sponsoredDeeplink = @(rawData().GetSponsoredDeepLink().c_str());
     }
 
+    _mapNodeAttributes = [[MWMStorage sharedStorage] attributesForCountry:@(rawData().GetCountryId().c_str())];
+    [[MWMStorage sharedStorage] addObserver:self];
 //    _elevationProfileData = [[ElevationProfileData alloc] init];
   }
   return self;
+}
+
+- (void)dealloc {
+  [[MWMStorage sharedStorage] removeObserver:self];
 }
 
 - (void)loadOnlineDataWithCompletion:(MWMVoidBlock)completion {
@@ -267,6 +278,23 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   }
   if (self.onBookmarkStatusUpdate != nil) {
     self.onBookmarkStatusUpdate();
+  }
+}
+
+#pragma mark - MWMStorageObserver
+
+- (void)processCountryEvent:(NSString *)countryId {
+  if ([countryId isEqualToString:self.mapNodeAttributes.countryId]) {
+    _mapNodeAttributes = [[MWMStorage sharedStorage] attributesForCountry:@(rawData().GetCountryId().c_str())];
+    if (self.onMapNodeStatusUpdate != nil) {
+      self.onMapNodeStatusUpdate();
+    }
+  }
+}
+
+- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes {
+  if ([countryId isEqualToString:self.mapNodeAttributes.countryId] && self.onMapNodeProgressUpdate != nil) {
+    self.onMapNodeProgressUpdate(downloadedBytes, totalBytes);
   }
 }
 

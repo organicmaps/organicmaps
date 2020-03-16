@@ -1430,7 +1430,6 @@
 		473464A6218B0BC000D6AF5B /* MWMPurchaseValidation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPurchaseValidation.mm; sourceTree = "<group>"; };
 		4735008923A83CF700661A95 /* DownloadedMapsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedMapsDataSource.swift; sourceTree = "<group>"; };
 		473500C023A8F81800661A95 /* MWMFrameworkObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkObserver.h; sourceTree = "<group>"; };
-		473500C123A8F85A00661A95 /* MWMFrameworkStorageObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkStorageObserver.h; sourceTree = "<group>"; };
 		4738A8E6239FC513007C0F43 /* AdBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerView.swift; sourceTree = "<group>"; };
 		4738A8E8239FC526007C0F43 /* AdBannerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdBannerView.xib; sourceTree = "<group>"; };
 		473CBF9A2164DD470059BD54 /* SettingsTableViewSelectableProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewSelectableProgressCell.swift; sourceTree = "<group>"; };
@@ -2960,7 +2959,6 @@
 				3486B5131E27AD3B0069C126 /* MWMFrameworkListener.mm */,
 				3486B5141E27AD3B0069C126 /* MWMFrameworkObservers.h */,
 				473500C023A8F81800661A95 /* MWMFrameworkObserver.h */,
-				473500C123A8F85A00661A95 /* MWMFrameworkStorageObserver.h */,
 			);
 			path = Framework;
 			sourceTree = "<group>";

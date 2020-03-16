@@ -1,6 +1,5 @@
 #import "MWMSearchManager.h"
 #import "MWMFrameworkListener.h"
-#import "MWMFrameworkStorageObserver.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMNoMapsViewController.h"
 #import "MWMRoutePoint+CPP.h"
@@ -31,7 +30,7 @@ using Observers = NSHashTable<Observer>;
 @end
 
 @interface MWMSearchManager ()<MWMSearchTableViewProtocol, MWMSearchTabViewControllerDelegate,
-                               UITextFieldDelegate, MWMFrameworkStorageObserver, MWMSearchObserver>
+                               UITextFieldDelegate, MWMStorageObserver, MWMSearchObserver>
 
 @property(weak, nonatomic, readonly) UIViewController * ownerController;
 
@@ -179,7 +178,7 @@ using Observers = NSHashTable<Observer>;
     self.state = MWMSearchManagerStateHidden;
 }
 
-#pragma mark - MWMFrameworkStorageObserver
+#pragma mark - MWMStorageObserver
 
 - (void)processCountryEvent:(NSString *)countryId
 {
@@ -369,7 +368,7 @@ using Observers = NSHashTable<Observer>;
 
 - (UIViewController *)topController
 {
-  [MWMFrameworkListener removeObserver:self];
+  [[MWMStorage sharedStorage] removeObserver:self];
   self.noMapsController = nil;
   switch (self.state)
   {
@@ -382,7 +381,7 @@ using Observers = NSHashTable<Observer>;
         return tabViewController;
       }
       self.noMapsController = [MWMNoMapsViewController controller];
-      [MWMFrameworkListener addObserver:self];
+      [[MWMStorage sharedStorage] addObserver:self];
       return self.noMapsController;
     }
     case MWMSearchManagerStateTableSearch: return self.tableViewController;

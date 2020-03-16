@@ -3,8 +3,6 @@
 #import "CLLocation+Mercator.h"
 #import "MWMBookmarksBannerViewController.h"
 #import "MWMCircularProgress.h"
-#import "MWMFrameworkListener.h"
-#import "MWMFrameworkStorageObserver.h"
 #import "MWMMegafonBannerViewController.h"
 #import "MWMStorage+UI.h"
 #import "MapViewController.h"
@@ -56,7 +54,7 @@ promo::DownloaderPromo::Banner getPromoBanner(std::string const &mwmId) {
 
 using namespace storage;
 
-@interface MWMMapDownloadDialog () <MWMFrameworkStorageObserver, MWMCircularProgressProtocol>
+@interface MWMMapDownloadDialog () <MWMStorageObserver, MWMCircularProgressProtocol>
 @property(strong, nonatomic) IBOutlet UILabel *parentNode;
 @property(strong, nonatomic) IBOutlet UILabel *node;
 @property(strong, nonatomic) IBOutlet UILabel *nodeSize;
@@ -140,10 +138,10 @@ using namespace storage;
                   kStatScenario: kStatDownload
                 }];
           m_autoDownloadCountryId = m_countryId;
-          [MWMStorage downloadNode:@(m_countryId.c_str())
-                         onSuccess:^{
-                           [self showInQueue];
-                         }];
+          [[MWMStorage sharedStorage] downloadNode:@(m_countryId.c_str())
+                                         onSuccess:^{
+                                                      [self showInQueue];
+                                                    }];
         } else {
           m_autoDownloadCountryId = kInvalidCountryId;
           [self showDownloadRequest];
@@ -189,7 +187,7 @@ using namespace storage;
     return;
   MapViewController *controller = self.controller;
   [controller.view insertSubview:self aboveSubview:controller.controlsView];
-  [MWMFrameworkListener addObserver:self];
+  [[MWMStorage sharedStorage] addObserver:self];
 }
 
 - (void)removeFromSuperview {
@@ -197,7 +195,7 @@ using namespace storage;
     [[MWMCarPlayService shared] hideNoMapAlert];
   }
   self.progress.state = MWMCircularProgressStateNormal;
-  [MWMFrameworkListener removeObserver:self];
+  [[MWMStorage sharedStorage] removeObserver:self];
   [super removeFromSuperview];
 }
 
@@ -220,11 +218,11 @@ using namespace storage;
             kStatScenario: kStatDownload
           }];
     [self showInQueue];
-    [MWMStorage retryDownloadNode:@(self->m_countryId.c_str())];
+    [[MWMStorage sharedStorage] retryDownloadNode:@(self->m_countryId.c_str())];
   };
   auto const cancelBlock = ^{
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom: kStatMap}];
-    [MWMStorage cancelDownloadNode:@(self->m_countryId.c_str())];
+    [[MWMStorage sharedStorage] cancelDownloadNode:@(self->m_countryId.c_str())];
   };
   switch (errorCode) {
     case NodeErrorCode::NoError:
@@ -361,7 +359,7 @@ using namespace storage;
   [self layoutIfNeeded];
 }
 
-#pragma mark - MWMFrameworkStorageObserver
+#pragma mark - MWMStorageObserver
 
 - (void)processCountryEvent:(NSString *)countryId {
   if (m_countryId != countryId.UTF8String)
@@ -391,12 +389,12 @@ using namespace storage;
             kStatScenario: kStatDownload
           }];
     [self showInQueue];
-    [MWMStorage retryDownloadNode:@(m_countryId.c_str())];
+    [[MWMStorage sharedStorage] retryDownloadNode:@(m_countryId.c_str())];
   } else {
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom: kStatMap}];
     if (m_autoDownloadCountryId == m_countryId)
       self.isAutoDownloadCancelled = YES;
-    [MWMStorage cancelDownloadNode:@(m_countryId.c_str())];
+    [[MWMStorage sharedStorage] cancelDownloadNode:@(m_countryId.c_str())];
   }
 }
 
@@ -419,8 +417,8 @@ using namespace storage;
           kStatFrom: kStatMap,
           kStatScenario: kStatDownload
         }];
-  [MWMStorage downloadNode:@(m_countryId.c_str())
-                 onSuccess:^{ [self showInQueue]; }];
+  [[MWMStorage sharedStorage] downloadNode:@(m_countryId.c_str())
+                                 onSuccess:^{ [self showInQueue]; }];
 }
 
 #pragma mark - Properties

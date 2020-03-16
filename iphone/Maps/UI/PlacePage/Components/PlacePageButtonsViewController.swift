@@ -11,7 +11,19 @@ class PlacePageButtonsViewController: UIViewController {
   @IBOutlet var editPlaceButton: UIButton!
   @IBOutlet var addBusinessButton: UIButton!
 
+  private var buttons: [UIButton?] {
+    [bookingButton, addPlaceButton, editPlaceButton, addBusinessButton]
+  }
+
   var buttonsData: PlacePageButtonsData!
+  var buttonsEnabled = true {
+    didSet {
+      buttons.forEach {
+        $0?.isEnabled = buttonsEnabled
+      }
+    }
+  }
+
   weak var delegate: PlacePageButtonsViewControllerDelegate?
   
   override func viewDidLoad() {
@@ -22,7 +34,9 @@ class PlacePageButtonsViewController: UIViewController {
     editPlaceButton.isHidden = !buttonsData.showEditPlace
     addBusinessButton.isHidden = !buttonsData.showAddBusiness
 
-      // Do any additional setup after loading the view.
+    buttons.forEach {
+      $0?.isEnabled = buttonsEnabled
+    }
   }
     
   @IBAction func onBooking(_ sender: UIButton) {

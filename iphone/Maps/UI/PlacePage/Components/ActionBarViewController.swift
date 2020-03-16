@@ -4,7 +4,8 @@ protocol ActionBarViewControllerDelegate: AnyObject {
 
 class ActionBarViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
-  
+  var downloadButton: ActionBarButton? = nil
+
   var placePageData: PlacePageData!
   var isRoutePlanning = false
   var canAddStop = false
@@ -14,9 +15,7 @@ class ActionBarViewController: UIViewController {
 
   weak var delegate: ActionBarViewControllerDelegate?
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
+  private func configureButtons() {
     if placePageData.isRoutePoint {
       visibleButtons.append(.routeRemoveStop)
     } else if placePageData.roadType != .none {
@@ -46,16 +45,64 @@ class ActionBarViewController: UIViewController {
           disabled = !bookmarkData.isEditable
         }
       }
-      guard let button = ActionBarButton(delegate: self,
-                                         buttonType: buttonType,
-                                         partnerIndex: placePageData.partnerIndex,
-                                         isSelected: selected,
-                                         isDisabled: disabled) else { continue }
+      let button = ActionBarButton(delegate: self,
+                                   buttonType: buttonType,
+                                   partnerIndex: placePageData.partnerIndex,
+                                   isSelected: selected,
+                                   isDisabled: disabled)
       stackView.addArrangedSubview(button)
+      if buttonType == .download {
+        downloadButton = button
+        updateDownloadButtonState(placePageData.mapNodeAttributes.nodeStatus)
+      }
+    }
+  }
+
+  func resetButtons() {
+    stackView.arrangedSubviews.forEach {
+      stackView.removeArrangedSubview($0)
+      $0.removeFromSuperview()
+    }
+    visibleButtons.removeAll()
+    additionalButtons.removeAll()
+    downloadButton = nil
+    configureButtons()
+  }
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    configureButtons()
+  }
+
+  func updateDownloadButtonState(_ nodeStatus: MapNodeStatus) {
+    guard let downloadButton = downloadButton else { return }
+    switch self.placePageData.mapNodeAttributes.nodeStatus {
+    case .downloading:
+      downloadButton.mapDownloadProgress?.state = .progress
+    case .applying, .inQueue:
+      downloadButton.mapDownloadProgress?.state = .spinner
+    case .error:
+      downloadButton.mapDownloadProgress?.state = .failed
+    case .onDisk, .undefined, .onDiskOutOfDate:
+      downloadButton.mapDownloadProgress?.state = .completed
+    case .notDownloaded, .partly:
+      downloadButton.mapDownloadProgress?.state = .normal
+    @unknown default:
+      fatalError()
     }
   }
 
   private func configButton1() {
+    switch placePageData.mapNodeAttributes.nodeStatus {
+    case .onDiskOutOfDate, .onDisk, .undefined:
+      break
+    case .downloading, .applying, .inQueue, .error, .notDownloaded, .partly:
+      visibleButtons.append(.download)
+      return
+    @unknown default:
+      fatalError()
+    }
     var buttons: [ActionBarButtonType] = []
     if isRoutePlanning {
       buttons.append(.routeFrom)

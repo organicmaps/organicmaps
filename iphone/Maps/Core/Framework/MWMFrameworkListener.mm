@@ -9,13 +9,11 @@ namespace
 {
 using Observer = id<MWMFrameworkObserver>;
 using TRouteBuildingObserver = id<MWMFrameworkRouteBuilderObserver>;
-using TStorageObserver = id<MWMFrameworkStorageObserver>;
 using TDrapeObserver = id<MWMFrameworkDrapeObserver>;
 
 using Observers = NSHashTable<Observer>;
 
 Protocol * pRouteBuildingObserver = @protocol(MWMFrameworkRouteBuilderObserver);
-Protocol * pStorageObserver = @protocol(MWMFrameworkStorageObserver);
 Protocol * pDrapeObserver = @protocol(MWMFrameworkDrapeObserver);
 
 using TLoopBlock = void (^)(__kindof Observer observer);
@@ -35,7 +33,6 @@ void loopWrappers(Observers * observers, TLoopBlock block)
 @interface MWMFrameworkListener ()
 
 @property(nonatomic) Observers * routeBuildingObservers;
-@property(nonatomic) Observers * storageObservers;
 @property(nonatomic) Observers * drapeObservers;
 
 @end
@@ -58,8 +55,6 @@ void loopWrappers(Observers * observers, TLoopBlock block)
     MWMFrameworkListener * listener = [MWMFrameworkListener listener];
     if ([observer conformsToProtocol:pRouteBuildingObserver])
       [listener.routeBuildingObservers addObject:observer];
-    if ([observer conformsToProtocol:pStorageObserver])
-      [listener.storageObservers addObject:observer];
     if ([observer conformsToProtocol:pDrapeObserver])
       [listener.drapeObservers addObject:observer];
   });
@@ -70,7 +65,6 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   dispatch_async(dispatch_get_main_queue(), ^{
     MWMFrameworkListener * listener = [MWMFrameworkListener listener];
     [listener.routeBuildingObservers removeObject:observer];
-    [listener.storageObservers removeObject:observer];
     [listener.drapeObservers removeObject:observer];
   });
 }
@@ -81,11 +75,9 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   if (self)
   {
     _routeBuildingObservers = [Observers weakObjectsHashTable];
-    _storageObservers = [Observers weakObjectsHashTable];
     _drapeObservers = [Observers weakObjectsHashTable];
 
     [self registerRouteBuilderListener];
-    [self registerStorageObserver];
     [self registerDrapeObserver];
   }
   return self;
@@ -136,26 +128,6 @@ void loopWrappers(Observers * observers, TLoopBlock block)
           [observer speedCameraLeftVisibleArea];
     });
   });
-}
-
-#pragma mark - MWMFrameworkStorageObserver
-
-- (void)registerStorageObserver
-{
-  Observers * observers = self.storageObservers;
-  auto & s = GetFramework().GetStorage();
-  s.Subscribe(
-      [observers](CountryId const & countryId) {
-        for (TStorageObserver observer in observers)
-          [observer processCountryEvent:@(countryId.c_str())];
-      },
-      [observers](CountryId const & countryId, downloader::Progress const & progress) {
-        for (TStorageObserver observer in observers)
-        {
-          if ([observer respondsToSelector:@selector(processCountry:downloadedBytes:totalBytes:)])
-            [observer processCountry:@(countryId.c_str()) downloadedBytes:progress.first totalBytes:progress.second];
-        }
-      });
 }
 
 #pragma mark - MWMFrameworkDrapeObserver

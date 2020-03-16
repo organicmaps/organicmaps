@@ -2,8 +2,6 @@
 #import "MWMCircularProgress.h"
 #import "MWMDownloaderDialogCell.h"
 #import "MWMDownloaderDialogHeader.h"
-#import "MWMFrameworkListener.h"
-#import "MWMFrameworkStorageObserver.h"
 #import "MWMStorage+UI.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
@@ -24,7 +22,7 @@ CGFloat const kMinimumOffset = 20.;
 CGFloat const kAnimationDuration = .05;
 } // namespace
 
-@interface MWMDownloadTransitMapAlert () <UITableViewDataSource, UITableViewDelegate, MWMFrameworkStorageObserver, MWMCircularProgressProtocol>
+@interface MWMDownloadTransitMapAlert () <UITableViewDataSource, UITableViewDelegate, MWMStorageObserver, MWMCircularProgressProtocol>
 
 @property(copy, nonatomic) MWMVoidBlock cancelBlock;
 @property(copy, nonatomic) MWMDownloadBlock downloadBlock;
@@ -102,7 +100,7 @@ CGFloat const kAnimationDuration = .05;
   alert->m_countries = storage::CountriesVec(countries.begin(), countries.end());
   [alert configure];
   [alert updateCountriesList];
-  [MWMFrameworkListener addObserver:alert];
+  [[MWMStorage sharedStorage] addObserver:alert];
   return alert;
 }
 
@@ -141,11 +139,11 @@ CGFloat const kAnimationDuration = .05;
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
   for (auto const & countryId : m_countries)
-    [MWMStorage cancelDownloadNode:@(countryId.c_str())];
+    [[MWMStorage sharedStorage] cancelDownloadNode:@(countryId.c_str())];
   [self cancelButtonTap];
 }
 
-#pragma mark - MWMFrameworkStorageObserver
+#pragma mark - MWMStorageObserver
 
 - (void)processCountryEvent:(NSString *)countryId
 {
@@ -292,7 +290,7 @@ CGFloat const kAnimationDuration = .05;
 
 - (void)close:(MWMVoidBlock)completion
 {
-  [MWMFrameworkListener removeObserver:self];
+  [[MWMStorage sharedStorage] removeObserver:self];
   [super close:completion];
 }
 

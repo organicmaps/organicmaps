@@ -8,7 +8,6 @@
 #import "MWMEditBookmarkController.h"
 #import "MWMEditorViewController.h"
 #import "MWMFrameworkListener.h"
-#import "MWMFrameworkStorageObserver.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMLocationHelpers.h"
 #import "MWMMapDownloadDialog.h"
@@ -74,7 +73,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 @end
 
-@interface MapViewController ()<MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
+@interface MapViewController ()<MWMFrameworkDrapeObserver, MWMStorageObserver,
                                 MWMWelcomePageControllerProtocol, MWMKeyboardObserver,
                                 RemoveAdsViewControllerDelegate, MWMBookmarksObserver>
 
@@ -430,6 +429,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [[MWMBookmarksManager sharedManager] addObserver: self];
   [[MWMBookmarksManager sharedManager] loadBookmarks];
   [MWMFrameworkListener addObserver:self];
+  [[MWMStorage sharedStorage] addObserver:self];
 }
 
 - (void)dealloc {
@@ -657,7 +657,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [self.downloadDialog processViewportCountryEvent:countryId];
 }
 
-#pragma mark - MWMFrameworkStorageObserver
+#pragma mark - MWMStorageObserver
 
 - (void)processCountryEvent:(NSString *)countryId
 {

@@ -108,7 +108,7 @@ void OverrideUserAgent()
 
 using namespace osm_auth_ios;
 
-@interface MapsAppDelegate ()<MWMFrameworkStorageObserver,
+@interface MapsAppDelegate ()<MWMStorageObserver,
                               NotificationManagerDelegate,
                               AppsFlyerTrackerDelegate,
                               CPApplicationDelegate>
@@ -188,7 +188,7 @@ using namespace osm_auth_ios;
   [HttpThreadImpl setDownloadIndicatorProtocol:self];
   InitLocalizedStrings();
   GetFramework().SetupMeasurementSystem();
-  [MWMFrameworkListener addObserver:self];
+  [[MWMStorage sharedStorage] addObserver:self];
   [MapsAppDelegate customizeAppearance];
 
   self.standbyCounter = 0;
@@ -613,7 +613,7 @@ continueUserActivity:(NSUserActivity *)userActivity
   return updateInfo.m_numberOfMwmFilesToUpdate;
 }
 
-#pragma mark - MWMFrameworkStorageObserver
+#pragma mark - MWMStorageObserver
 
 - (void)processCountryEvent:(NSString *)countryId
 {

@@ -726,8 +726,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
           for (auto const &cid : downloadCountries) {
             [array addObject:@(cid.c_str())];
           }
-          [MWMStorage downloadNodes:array
-                          onSuccess:onSuccess];
+          [[MWMStorage sharedStorage] downloadNodes:array onSuccess:onSuccess];
         }
         downloadCompleteBlock:^{
           [MWMRouter rebuildWithBestRouter:NO];
