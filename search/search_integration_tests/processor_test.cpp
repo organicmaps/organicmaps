@@ -2522,7 +2522,7 @@ UNIT_CLASS_TEST(ProcessorTest, ViewportFilter)
     params.m_viewport = m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
     params.m_mode = Mode::Everywhere;
 
-    // |street23| should be in everyvhere search results because everywhere search mode does not
+    // |street23| should be in everywhere search results because everywhere search mode does not
     // have matched tokens number restriction.
     Rules const rulesViewport = {ExactMatch(countryId, street23), ExactMatch(countryId, street8)};
 

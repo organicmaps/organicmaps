@@ -54,7 +54,7 @@ public:
     bool m_viewportSearch = false;
     bool m_categorialRequest = false;
 
-    std::string m_query;
+    size_t m_numQueryTokens = 0;
   };
 
   PreRanker(DataSource const & dataSource, Ranker & ranker);
