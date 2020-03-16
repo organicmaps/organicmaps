@@ -34,7 +34,7 @@ public class SimplePlacePageController implements PlacePageController
   private int mViewportMinHeight;
   private int mViewPortMinWidth;
   @NonNull
-  private final PlacePageViewRenderer<UserMarkInterface> mViewRenderer;
+  private final PlacePageViewRenderer<PlacePageData> mViewRenderer;
   @NonNull
   private final BottomSheetChangedListener mBottomSheetChangedListener =
       new BottomSheetChangedListener()
@@ -93,16 +93,16 @@ public class SimplePlacePageController implements PlacePageController
   private boolean mDeactivateMapSelection = true;
 
   SimplePlacePageController(@NonNull SlideListener slideListener,
-                            @NonNull PlacePageViewRenderer<UserMarkInterface> renderer)
+                            @NonNull PlacePageViewRenderer<PlacePageData> renderer)
   {
     mSlideListener = slideListener;
     mViewRenderer = renderer;
   }
 
   @Override
-  public void openFor(@NonNull UserMarkInterface userMark)
+  public void openFor(@NonNull PlacePageData data)
   {
-    mViewRenderer.render(userMark);
+    mViewRenderer.render(data);
     if (mSheetBehavior.getSkipCollapsed())
       mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);
     else
@@ -236,9 +236,9 @@ public class SimplePlacePageController implements PlacePageController
   }
 
   @Override
-  public boolean support(@NonNull UserMarkInterface object)
+  public boolean support(@NonNull PlacePageData data)
   {
-    return object instanceof ElevationInfo;
+    return data instanceof ElevationInfo;
   }
 
   private static class SimplePlacePageGestureListener extends PlacePageGestureListener

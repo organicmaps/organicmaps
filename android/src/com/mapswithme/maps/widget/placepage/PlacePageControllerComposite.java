@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 
 import java.util.ArrayList;
@@ -35,22 +34,22 @@ class PlacePageControllerComposite implements PlacePageController
   }
 
   @Override
-  public void openFor(@NonNull UserMarkInterface object)
+  public void openFor(@NonNull PlacePageData data)
   {
-    boolean support = mActiveController.support(object);
+    boolean support = mActiveController.support(data);
     if (support)
     {
-      mActiveController.openFor(object);
+      mActiveController.openFor(data);
       return;
     }
 
     mActiveController.close(false);
-    PlacePageController controller = findControllerFor(object);
+    PlacePageController controller = findControllerFor(data);
     if (controller == null)
-      throw new UnsupportedOperationException("Map object '" + object + "' can't be opened " +
+      throw new UnsupportedOperationException("Place page data '" + data + "' not supported " +
                                               "by existing controllers");
     mActiveController = controller;
-    mActiveController.openFor(object);
+    mActiveController.openFor(data);
   }
 
   @Override
@@ -148,7 +147,7 @@ class PlacePageControllerComposite implements PlacePageController
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    UserMarkInterface userMark = inState.getParcelable(PlacePageUtils.EXTRA_USER_MARK);
+    PlacePageData userMark = inState.getParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA);
     if (userMark != null)
     {
       PlacePageController controller = findControllerFor(userMark);
@@ -159,7 +158,7 @@ class PlacePageControllerComposite implements PlacePageController
   }
 
   @Nullable
-  private PlacePageController findControllerFor(@NonNull UserMarkInterface object)
+  private PlacePageController findControllerFor(@NonNull PlacePageData object)
   {
     for (PlacePageController controller : mControllers)
     {
@@ -171,7 +170,7 @@ class PlacePageControllerComposite implements PlacePageController
   }
 
   @Override
-  public boolean support(@NonNull UserMarkInterface object)
+  public boolean support(@NonNull PlacePageData object)
   {
     return mActiveController.support(object);
   }

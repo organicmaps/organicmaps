@@ -15,7 +15,7 @@ import com.mapswithme.maps.routing.RoutingController;
 
 import java.util.Objects;
 
-public class ElevationProfileViewRenderer implements PlacePageViewRenderer<UserMarkInterface>
+public class ElevationProfileViewRenderer implements PlacePageViewRenderer<PlacePageData>
 {
   private static final int MAX_DIFFICULTY_LEVEL = 3;
 
@@ -47,9 +47,9 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<UserM
 
   @SuppressLint("SetTextI18n")
   @Override
-  public void render(@NonNull UserMarkInterface userMark)
+  public void render(@NonNull PlacePageData data)
   {
-    mElevationInfo = (ElevationInfo) userMark;
+    mElevationInfo = (ElevationInfo) data;
     mChartController.setData(mElevationInfo);
     Resources resources = mTitle.getResources();
     String meters = " " + resources.getString(R.string.elevation_profile_m);
@@ -99,13 +99,13 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<UserM
   @Override
   public void onSave(@NonNull Bundle outState)
   {
-    outState.putParcelable(PlacePageUtils.EXTRA_USER_MARK, mElevationInfo);
+    outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mElevationInfo);
   }
 
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    mElevationInfo = inState.getParcelable(PlacePageUtils.EXTRA_USER_MARK);
+    mElevationInfo = inState.getParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA);
     if (mElevationInfo != null)
       render(mElevationInfo);
   }

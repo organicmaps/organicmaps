@@ -93,7 +93,7 @@ namespace
   return g_framework->NativeFramework();
 }
 
-jobject g_userMarkActivationListener = nullptr;
+jobject g_placePageActivationListener = nullptr;
 int const kUndefinedTip = -1;
 
 android::AndroidVulkanContextFactory * CastFactory(drape_ptr<dp::GraphicsContextFactory> const & f)
@@ -1016,52 +1016,52 @@ Java_com_mapswithme_maps_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jc
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetUserMarkActivationListener(JNIEnv *env, jclass clazz,
-                                                                       jobject jListener)
+Java_com_mapswithme_maps_Framework_nativePlacePageActivationListener(JNIEnv *env, jclass clazz,
+                                                                     jobject jListener)
 {
   LOG(LINFO, ("Set global map object listener"));
-  g_userMarkActivationListener = env->NewGlobalRef(jListener);
-  // void onUserMarkActivated(MapObject object);
-  jmethodID const activatedId = jni::GetMethodID(env, g_userMarkActivationListener,
-                                                 "onUserMarkActivated",
-                                                 "(Lcom/mapswithme/maps/widget/placepage/UserMarkInterface;)V");
-  // void onUserMarkDeactivated(boolean switchFullScreenMode);
-  jmethodID const deactivateId = jni::GetMethodID(env, g_userMarkActivationListener,
-                                                  "onUserMarkDeactivated", "(Z)V");
+  g_placePageActivationListener = env->NewGlobalRef(jListener);
+  // void onPlacePageActivated(MapObject object);
+  jmethodID const activatedId = jni::GetMethodID(env, g_placePageActivationListener,
+                                                 "onPlacePageActivated",
+                                                 "(Lcom/mapswithme/maps/widget/placepage/PlacePageData;)V");
+  // void onPlacePageDeactivated(boolean switchFullScreenMode);
+  jmethodID const deactivateId = jni::GetMethodID(env, g_placePageActivationListener,
+                                                  "onPlacePageDeactivated", "(Z)V");
   auto const fillPlacePage = [activatedId]()
   {
     JNIEnv * env = jni::GetEnv();
     auto const & info = frm()->GetCurrentPlacePageInfo();
-    jni::TScopedLocalRef userMarkRef(env, nullptr);
+    jni::TScopedLocalRef placePageDataRef(env, nullptr);
     if (info.IsTrack())
     {
       auto const elevationInfo = frm()->GetBookmarkManager().MakeElevationInfo(info.GetTrackId());
-      userMarkRef.reset(usermark_helper::CreateElevationInfo(env, elevationInfo));
+      placePageDataRef.reset(usermark_helper::CreateElevationInfo(env, elevationInfo));
     }
     else
     {
-      userMarkRef.reset(usermark_helper::CreateMapObject(env, info));
+      placePageDataRef.reset(usermark_helper::CreateMapObject(env, info));
     }
-    env->CallVoidMethod(g_userMarkActivationListener, activatedId, userMarkRef.get());
+    env->CallVoidMethod(g_placePageActivationListener, activatedId, placePageDataRef.get());
   };
   auto const closePlacePage = [deactivateId](bool switchFullScreenMode)
   {
     JNIEnv * env = jni::GetEnv();
-    env->CallVoidMethod(g_userMarkActivationListener, deactivateId, switchFullScreenMode);
+    env->CallVoidMethod(g_placePageActivationListener, deactivateId, switchFullScreenMode);
   };
   frm()->SetPlacePageListeners(fillPlacePage, closePlacePage, fillPlacePage);
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeRemoveUserMarkActivationListener(JNIEnv *env, jclass)
+Java_com_mapswithme_maps_Framework_nativeRemovePlacePageActivationListener(JNIEnv *env, jclass)
 {
-  if (g_userMarkActivationListener == nullptr)
+  if (g_placePageActivationListener == nullptr)
     return;
 
   frm()->SetPlacePageListeners({} /* onOpen */, {} /* onClose */, {} /* onUpdate */);
   LOG(LINFO, ("Remove global map object listener"));
-  env->DeleteGlobalRef(g_userMarkActivationListener);
-  g_userMarkActivationListener = nullptr;
+  env->DeleteGlobalRef(g_placePageActivationListener);
+  g_placePageActivationListener = nullptr;
 }
 
 JNIEXPORT jstring JNICALL

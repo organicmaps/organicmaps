@@ -4,14 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import com.mapswithme.maps.widget.placepage.UserMarkInterface;
+import com.mapswithme.maps.widget.placepage.PlacePageData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ElevationInfo implements UserMarkInterface
+public class ElevationInfo implements PlacePageData
 {
   private final long mId;
   @NonNull

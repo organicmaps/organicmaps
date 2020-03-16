@@ -17,7 +17,7 @@ import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 class PlacePageUtils
 {
-  static final String EXTRA_USER_MARK = "extra_user_mark";
+  static final String EXTRA_PLACE_PAGE_DATA = "extra_place_page_data";
 
   static void moveViewportUp(@NonNull View placePageView, int viewportMinHeight)
   {

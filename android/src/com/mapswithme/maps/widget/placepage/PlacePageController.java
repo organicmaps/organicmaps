@@ -12,9 +12,9 @@ import com.mapswithme.maps.base.Supportable;
 public interface PlacePageController extends Initializable<Activity>,
                                              Savable<Bundle>,
                                              Application.ActivityLifecycleCallbacks,
-                                             Supportable<UserMarkInterface>
+                                             Supportable<PlacePageData>
 {
-  void openFor(@NonNull UserMarkInterface object);
+  void openFor(@NonNull PlacePageData data);
   void close(boolean deactivateMapSelection);
   boolean isClosed();
 

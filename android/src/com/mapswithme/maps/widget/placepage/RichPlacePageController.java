@@ -247,7 +247,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   }
 
   @Override
-  public void openFor(@NonNull UserMarkInterface data)
+  public void openFor(@NonNull PlacePageData data)
   {
     MapObject object = (MapObject) data;
     mPlacePage.setMapObject(object, (policy, isSameObject) -> {
@@ -448,7 +448,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   public void onSave(@NonNull Bundle outState)
   {
     mPlacePageTracker.onSave(outState);
-    outState.putParcelable(PlacePageUtils.EXTRA_USER_MARK, mPlacePage.getMapObject());
+    outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mPlacePage.getMapObject());
   }
 
   @Override
@@ -464,7 +464,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       return;
     }
 
-    MapObject object = inState.getParcelable(PlacePageUtils.EXTRA_USER_MARK);
+    MapObject object = inState.getParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA);
     if (object == null)
       return;
 
@@ -567,8 +567,8 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   }
 
   @Override
-  public boolean support(@NonNull UserMarkInterface userMark)
+  public boolean support(@NonNull PlacePageData data)
   {
-    return userMark instanceof MapObject;
+    return data instanceof MapObject;
   }
 }

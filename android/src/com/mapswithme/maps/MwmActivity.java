@@ -30,7 +30,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import com.mapswithme.maps.Framework.UserMarkActivationListener;
+import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
@@ -124,9 +124,9 @@ import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
+import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
-import com.mapswithme.maps.widget.placepage.UserMarkInterface;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.NetworkPolicy;
@@ -150,7 +150,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
-    implements UserMarkActivationListener,
+    implements PlacePageActivationListener,
                View.OnTouchListener,
                OnClickListener,
                MapRenderingListener,
@@ -1402,7 +1402,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStart()
   {
     super.onStart();
-    Framework.nativeSetUserMarkActivationListener(this);
+    Framework.nativePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
     BookmarkManager.INSTANCE.addCatalogListener(this);
     RoutingController.get().attach(this);
@@ -1416,7 +1416,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStop()
   {
     super.onStop();
-    Framework.nativeRemoveUserMarkActivationListener();
+    Framework.nativeRemovePlacePageActivationListener();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     BookmarkManager.INSTANCE.removeCatalogListener(this);
     LocationHelper.INSTANCE.detach(!isFinishing());
@@ -1545,11 +1545,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // Called from JNI.
   @Override
-  public void onUserMarkActivated(@NonNull UserMarkInterface userMark)
+  public void onPlacePageActivated(@NonNull PlacePageData data)
   {
-    if (userMark instanceof MapObject)
+    if (data instanceof MapObject)
     {
-      MapObject object = (MapObject) userMark;
+      MapObject object = (MapObject) data;
       if (MapObject.isOfType(MapObject.API_POINT, object))
       {
         final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
@@ -1563,7 +1563,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setFullscreen(false);
 
-    mPlacePageController.openFor(userMark);
+    mPlacePageController.openFor(data);
 
     if (UiUtils.isVisible(mFadeView))
       mFadeView.fadeOut();
@@ -1571,7 +1571,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // Called from JNI.
   @Override
-  public void onUserMarkDeactivated(boolean switchFullScreenMode)
+  public void onPlacePageDeactivated(boolean switchFullScreenMode)
   {
     if (switchFullScreenMode)
     {
