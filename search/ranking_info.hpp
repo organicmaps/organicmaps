@@ -65,6 +65,10 @@ struct RankingInfo
   // True iff all tokens retrieved from search index were matched without misprints.
   bool m_exactMatch = true;
 
+  // True iff feature has country or capital type and matches request: full match with all tokens
+  // used and without misprints.
+  bool m_exactCountryOrCapital = true;
+
   // Search type for the feature.
   Model::Type m_type = Model::TYPE_COUNT;
 

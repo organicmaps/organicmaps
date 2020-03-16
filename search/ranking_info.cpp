@@ -33,6 +33,7 @@ double constexpr kFalseCats = -0.4172461;
 double constexpr kErrorsMade = -0.0391331;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
+double constexpr kExactCountryOrCapital = 0.1247733;
 double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
   0.0085962 /* Zero */,
   -0.0099698 /* Substring */,
@@ -57,6 +58,7 @@ static_assert(kDistanceToPivot <= 0, "");
 static_assert(kRank >= 0, "");
 static_assert(kPopularity >= 0, "");
 static_assert(kErrorsMade <= 0, "");
+static_assert(kExactCountryOrCapital >= 0, "");
 
 double TransformDistance(double distance)
 {
@@ -119,6 +121,7 @@ void RankingInfo::PrintCSVHeader(ostream & os)
      << ",PureCats"
      << ",FalseCats"
      << ",AllTokensUsed"
+     << ",ExactCountryOrCapital"
      << ",IsCategorialRequest"
      << ",HasName";
 }
@@ -142,6 +145,7 @@ string DebugPrint(RankingInfo const & info)
   os << ", m_pureCats:" << info.m_pureCats;
   os << ", m_falseCats:" << info.m_falseCats;
   os << ", m_allTokensUsed:" << info.m_allTokensUsed;
+  os << ", m_exactCountryOrCapital:" << info.m_exactCountryOrCapital;
   os << ", m_categorialRequest:" << info.m_categorialRequest;
   os << ", m_hasName:" << info.m_hasName;
   os << "]";
@@ -162,6 +166,7 @@ void RankingInfo::ToCSV(ostream & os) const
   os << m_pureCats << ",";
   os << m_falseCats << ",";
   os << (m_allTokensUsed ? 1 : 0) << ",";
+  os << (m_exactCountryOrCapital ? 1 : 0) << ",";
   os << (m_categorialRequest ? 1 : 0) << ",";
   os << (m_hasName ? 1 : 0);
 }
@@ -202,6 +207,7 @@ double RankingInfo::GetLinearModelRank() const
     result += kErrorsMade * GetErrorsMadePerToken();
     result += kMatchedFraction * m_matchedFraction;
     result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
+    result += (m_exactCountryOrCapital ? 1 : 0) * kExactCountryOrCapital;
   }
   else
   {

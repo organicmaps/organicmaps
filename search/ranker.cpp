@@ -433,6 +433,24 @@ class RankerResultMaker
       info.m_matchedFraction =
           totalLength == 0 ? 1.0
                            : static_cast<double>(matchedLength) / static_cast<double>(totalLength);
+
+      auto const isCountryOrCapital = [](FeatureType & ft) {
+        auto static const countryType = classif().GetTypeByPath({"place", "country"});
+        auto static const capitalType = classif().GetTypeByPath({"place", "city", "capital", "2"});
+
+        bool hasType = false;
+        ft.ForEachType([&hasType](uint32_t type) {
+          if (hasType)
+            return;
+          if (type == countryType || type == capitalType)
+            hasType = true;
+        });
+
+        return hasType;
+      };
+      info.m_exactCountryOrCapital = info.m_errorsMade == ErrorsMade(0) && info.m_allTokensUsed &&
+                                     info.m_nameScore == NAME_SCORE_FULL_MATCH &&
+                                     isCountryOrCapital(ft);
     }
 
     CategoriesInfo const categoriesInfo(feature::TypesHolder(ft),
