@@ -104,4 +104,41 @@ UNIT_CLASS_TEST(RankerTest, UniteSameResults)
          ());
   }
 }
+
+UNIT_CLASS_TEST(RankerTest, PreferCountry)
+{
+  string const countryName = "Wonderland";
+  TestCountry wonderland(m2::PointD(10.0, 10.0), countryName, "en");
+  TestPOI cafe(m2::PointD(0.0, 0.0), "Wonderland", "en");
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(wonderland); });
+  auto wonderlandId =
+      BuildCountry(countryName, [&](TestMwmBuilder & builder) { builder.Add(cafe); });
+
+  SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(0.0, 0.0)));
+  {
+    // Country which exactly matches the query should be preferred even if cafe is much closer to
+    // viewport center.
+    auto request = MakeRequest("Wonderland");
+    auto const & results = request->Results();
+
+    Rules rules = {ExactMatch(worldId, wonderland), ExactMatch(wonderlandId, cafe)};
+    TEST(ResultsMatch(results, rules), ());
+
+    TEST_EQUAL(results.size(), 2, ());
+    TEST(ResultsMatch({results[0]}, {rules[0]}), ());
+    TEST(ResultsMatch({results[1]}, {rules[1]}), ());
+  }
+  {
+    // Country name does not exactly match, we should prefer cafe.
+    auto request = MakeRequest("Wanderland");
+    auto const & results = request->Results();
+
+    Rules rules = {ExactMatch(worldId, wonderland), ExactMatch(wonderlandId, cafe)};
+    TEST(ResultsMatch(results, rules), ());
+
+    TEST_EQUAL(results.size(), 2, ());
+    TEST(ResultsMatch({results[0]}, {rules[1]}), ());
+    TEST(ResultsMatch({results[1]}, {rules[0]}), ());
+  }
+}
 }  // namespace
