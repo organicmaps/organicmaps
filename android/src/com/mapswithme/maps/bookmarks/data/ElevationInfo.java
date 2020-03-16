@@ -27,7 +27,7 @@ public class ElevationInfo implements PlacePageData
 
   public ElevationInfo(long trackId, @NonNull String name, @NonNull Point[] points,
                        int ascent, int descent, int minAltitude, int maxAltitude, int difficulty,
-                       long m_duration)
+                       long duration)
   {
     mId = trackId;
     mName = name;
@@ -37,7 +37,7 @@ public class ElevationInfo implements PlacePageData
     mMinAltitude = minAltitude;
     mMaxAltitude = maxAltitude;
     mDifficulty = difficulty;
-    this.mDuration = m_duration;
+    mDuration = duration;
   }
 
   protected ElevationInfo(Parcel in)
