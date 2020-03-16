@@ -2488,5 +2488,48 @@ UNIT_CLASS_TEST(ProcessorTest, Suburbs)
     TEST_ALMOST_EQUAL_ABS(info.m_matchedFraction, 1.0, 1e-12, ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, ViewportFilter)
+{
+  TestStreet street23({m2::PointD(0.5, -1.0), m2::PointD(0.5, 1.0)}, "23rd February street", "en");
+  TestStreet street8({m2::PointD(0.0, -1.0), m2::PointD(0.0, 1.0)}, "8th March street", "en");
+
+  auto const countryId = BuildCountry("Wounderland", [&](TestMwmBuilder & builder) {
+    builder.Add(street23);
+    builder.Add(street8);
+  });
+
+  {
+    SearchParams params;
+    params.m_query = "8th March street 23";
+    params.m_inputLocale = "en";
+    params.m_viewport = m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
+    params.m_mode = Mode::Viewport;
+
+    // |street23| should not appear in viewport search because it has 2 unmatched tokens.
+    // |street8| has 1 unmatched token.
+    Rules const rulesViewport = {ExactMatch(countryId, street8)};
+
+    TestSearchRequest request(m_engine, params);
+    request.Run();
+    TEST(ResultsMatch(request.Results(), rulesViewport), ());
+  }
+
+  {
+    SearchParams params;
+    params.m_query = "8th March street 23";
+    params.m_inputLocale = "en";
+    params.m_viewport = m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
+    params.m_mode = Mode::Everywhere;
+
+    // |street23| should be in everyvhere search results because everywhere search mode does not
+    // have matched tokens number restriction.
+    Rules const rulesViewport = {ExactMatch(countryId, street23), ExactMatch(countryId, street8)};
+
+    TestSearchRequest request(m_engine, params);
+    request.Run();
+    TEST(ResultsMatch(request.Results(), rulesViewport), ());
+  }
+}
 }  // namespace
 }  // namespace search
