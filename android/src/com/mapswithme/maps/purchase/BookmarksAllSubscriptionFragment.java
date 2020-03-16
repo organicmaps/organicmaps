@@ -78,23 +78,11 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
     ParallaxBackgroundViewPager viewPager = root.findViewById(R.id.pager);
     PagerAdapter adapter = new ParallaxFragmentPagerAdapter(requireFragmentManager(),
                                                             items);
-    DotPager pager = makeDotPager(root.findViewById(R.id.indicator), viewPager, adapter);
-    pager.show();
+    viewPager.setAdapter(adapter);
     ViewPager.OnPageChangeListener listener = new ParallaxBackgroundPageListener(requireActivity(),
                                                                                  viewPager, items);
     viewPager.addOnPageChangeListener(listener);
     viewPager.startAutoScroll();
-  }
-
-  @NonNull
-  private DotPager makeDotPager(@NonNull ViewGroup indicatorContainer, @NonNull ViewPager viewPager,
-                                @NonNull PagerAdapter adapter)
-  {
-    return new DotPager.Builder(requireContext(), viewPager, adapter)
-        .setIndicatorContainer(indicatorContainer)
-        .setActiveDotDrawable(R.drawable.bookmarks_all_marker_active)
-        .setInactiveDotDrawable(R.drawable.bookmarks_all_marker_inactive)
-        .build();
   }
 
   @NonNull

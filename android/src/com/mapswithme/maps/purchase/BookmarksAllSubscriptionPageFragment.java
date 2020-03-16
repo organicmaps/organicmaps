@@ -1,6 +1,7 @@
 package com.mapswithme.maps.purchase;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class BookmarksAllSubscriptionPageFragment extends Fragment
     BookmarksAllSubscriptionPage page = BookmarksAllSubscriptionPage.values()[index];
     FragmentBookmarksAllSubscriptionBinding binding = makeBinding(inflater, container);
     binding.setPage(page);
+    binding.description.setText(Html.fromHtml(getString(page.getDescriptionId())));
     return binding.getRoot();
   }
 

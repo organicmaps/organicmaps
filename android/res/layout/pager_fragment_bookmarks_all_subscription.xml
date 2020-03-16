@@ -41,51 +41,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent" />
-      <TextView
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_base_plus_quarter"
-        android:layout_marginTop="@dimen/all_pass_top_offset"
-        android:layout_marginEnd="@dimen/margin_base_plus_quarter"
-        android:fontFamily="@string/robotoMedium"
-        android:gravity="center"
-        android:text="@string/all_pass_subscription_header"
-        android:textAllCaps="true"
-        android:textColor="@color/white_lightest"
-        android:textSize="@dimen/text_size_body_4" />
-      <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_base_plus_quarter"
-        android:layout_marginTop="@dimen/margin_half"
-        android:layout_marginEnd="@dimen/margin_base_plus_quarter"
-        android:layout_marginBottom="@dimen/auth_dialog_padding_top"
-        android:fontFamily="@font/fredoka_one"
-        android:gravity="center"
-        android:text="@string/all_pass_subscription_subheader"
-        android:textColor="@color/all_pass_subtitle"
-        android:textSize="@dimen/text_size_title" />
-      <com.mapswithme.maps.widget.ParallaxBackgroundViewPager
-        android:id="@+id/pager"
+      <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="start"
+        android:paddingTop="@dimen/margin_half_plus"
+        android:paddingBottom="@dimen/margin_half_plus"
+        android:background="@drawable/all_subs_header_bg"
+        android:layout_marginTop="@dimen/margin_base_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+          android:id="@+id/header"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_base_plus_quarter"
+          android:layout_marginEnd="@dimen/margin_base_plus_quarter"
+          android:fontFamily="@string/robotoMedium"
+          android:gravity="center|start"
+          android:text="@string/all_pass_subscription_header"
+          android:textColor="@color/black_primary"
+          android:textSize="@dimen/text_size_button" />
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_base_plus_quarter"
+          android:layout_marginTop="@dimen/margin_half"
+          android:layout_marginEnd="@dimen/margin_base_plus_quarter"
+          android:fontFamily="@string/robotoMedium"
+          android:textStyle="bold"
+          android:includeFontPadding="false"
+          android:lineSpacingExtra="@dimen/no_line_spacing_extra"
+          android:gravity="center|start"
+          android:text="@string/all_pass_subscription_subheader"
+          android:textColor="@color/black_primary"
+          android:textSize="@dimen/text_size_toolbar" />
+      </LinearLayout>
+
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/subscription_view_pager_height"
-        android:overScrollMode="never"
-        app:autoScroll="true"
-        app:scrollPeriod="4000" />
+        android:gravity="bottom">
+        <com.mapswithme.maps.widget.ParallaxBackgroundViewPager
+          android:id="@+id/pager"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:overScrollMode="never"
+          app:autoScroll="true"
+          app:scrollPeriod="4000" />
+      </LinearLayout>
       <LinearLayout
         android:id="@+id/bottom_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginTop="@dimen/default_elevation"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-        <LinearLayout
-          android:id="@+id/indicator"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_base_plus"
-          android:orientation="horizontal" />
         <com.mapswithme.maps.widget.SubscriptionButton
           android:id="@+id/annual_button"
           android:layout_width="match_parent"
@@ -123,7 +134,7 @@
           android:text="@string/restore"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
-          android:textColor="@color/white_primary"
+          android:textColor="@color/routing_button_pressed_tint"
           tools:ignore="UnusedAttribute"
           tools:text="Restore purchases" />
         <LinearLayout
@@ -143,7 +154,7 @@
             android:lineSpacingExtra="@dimen/terms_of_use_line_spacing"
             android:text="@string/subscription_terms_android"
             android:textAppearance="?android:textAppearance"
-            android:textColor="@color/white_lightest"
+            android:textColor="@color/routing_button_pressed_tint"
             android:textSize="@dimen/text_size_icon_title"
             android:textStyle="normal"
             tools:targetApi="o" />
@@ -165,7 +176,7 @@
                 android:letterSpacing="-0.01"
                 android:singleLine="true"
                 android:text="@string/terms_of_use"
-                android:textColor="@color/white_lightest"
+                android:textColor="@color/routing_button_pressed_tint"
                 android:textSize="@dimen/text_size_body_5"
                 android:textStyle="normal"
                 tools:targetApi="lollipop"
@@ -188,7 +199,7 @@
                 android:letterSpacing="-0.01"
                 android:singleLine="true"
                 android:text="@string/privacy_policy"
-                android:textColor="@color/white_lightest"
+                android:textColor="@color/routing_button_pressed_tint"
                 android:textSize="@dimen/text_size_body_5"
                 android:textStyle="normal"
                 tools:targetApi="lollipop"
