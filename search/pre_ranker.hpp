@@ -14,6 +14,7 @@
 #include <optional>
 #include <random>
 #include <set>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -52,6 +53,8 @@ public:
 
     bool m_viewportSearch = false;
     bool m_categorialRequest = false;
+
+    std::string m_query;
   };
 
   PreRanker(DataSource const & dataSource, Ranker & ranker);

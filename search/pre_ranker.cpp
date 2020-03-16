@@ -258,10 +258,15 @@ void PreRanker::ClearCaches()
 void PreRanker::FilterForViewportSearch()
 {
   auto const & viewport = m_params.m_viewport;
+  size_t tokensNumber = 0;
+  strings::Tokenize(m_params.m_query, " ",
+                    [&tokensNumber](auto const & /* token */) { ++tokensNumber; });
 
-  base::EraseIf(m_results, [&viewport](PreRankerResult const & result) {
+  base::EraseIf(m_results, [&viewport, &tokensNumber](PreRankerResult const & result) {
     auto const & info = result.GetInfo();
-    return !viewport.IsPointInside(info.m_center);
+    if (!viewport.IsPointInside(info.m_center))
+      return true;
+    return result.GetMatchedTokensNumber() + 1 < tokensNumber;
   });
 
   SweepNearbyResults(m_params.m_minDistanceOnMapBetweenResults, m_prevEmit, m_results);

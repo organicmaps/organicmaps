@@ -750,6 +750,7 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
   params.m_limit = max(SearchParams::kPreResultsCount, searchParams.m_maxNumResults);
   params.m_viewportSearch = viewportSearch;
   params.m_categorialRequest = geocoderParams.IsCategorialRequest();
+  params.m_query = searchParams.m_query;
 
   m_preRanker.Init(params);
 }
