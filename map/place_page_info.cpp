@@ -1,4 +1,5 @@
 #include "map/place_page_info.hpp"
+
 #include "map/bookmark_helpers.hpp"
 #include "map/reachable_by_taxi_checker.hpp"
 

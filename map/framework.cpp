@@ -3,6 +3,7 @@
 #include "map/catalog_headers_provider.hpp"
 #include "map/chart_generator.hpp"
 #include "map/displayed_categories_modifiers.hpp"
+#include "map/download_on_map_ads_delegate.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/notifications/notification_manager_delegate.hpp"
@@ -516,7 +517,8 @@ Framework::Framework(FrameworkParams const & params)
 
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
-  m_adsEngine = make_unique<ads::Engine>();
+  m_adsEngine = make_unique<ads::Engine>(
+      make_unique<ads::DownloadOnMapDelegate>(*m_infoGetter, m_storage, *m_promoApi, *m_purchase));
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
@@ -556,6 +558,7 @@ Framework::~Framework()
 
   // Must be destroyed implicitly at the start of destruction,
   // since it stores raw pointers to other subsystems.
+  m_adsEngine.reset();
   m_purchase.reset();
 
   osm::Editor & editor = osm::Editor::Instance();
@@ -2564,9 +2567,7 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     return {};
 
   outInfo.SetBuildInfo(buildInfo);
-
-  if (m_purchase && !m_purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
-    outInfo.SetAdsEngine(m_adsEngine.get());
+  outInfo.SetAdsEngine(m_adsEngine.get());
 
   if (buildInfo.IsUserMarkMatchingEnabled())
   {

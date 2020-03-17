@@ -26,35 +26,38 @@ class PoiContainerBase
 public:
   virtual ~PoiContainerBase() = default;
   virtual std::string GetBanner(feature::TypesHolder const & types,
-                                storage::CountryId const & countryId,
+                                storage::CountriesVec const & countryIds,
                                 std::string const & userLanguage) const = 0;
 
 private:
-  virtual bool HasBanner(feature::TypesHolder const & types, storage::CountryId const & countryId,
+  virtual bool HasBanner(feature::TypesHolder const & types,
+                         storage::CountriesVec const & countryIds,
                          std::string const & userLanguage) const = 0;
   virtual std::string GetBannerForOtherTypes() const = 0;
 };
 
 // Class which matches feature types and banner ids.
 class PoiContainer : public PoiContainerBase,
-                     public WithSupportedLanguages,
-                     public WithSupportedCountries
+                     protected WithSupportedLanguages,
+                     protected WithSupportedCountries
 {
 public:
   PoiContainer();
 
   // PoiContainerBase overrides:
-  std::string GetBanner(feature::TypesHolder const & types, storage::CountryId const & countryId,
+  std::string GetBanner(feature::TypesHolder const & types,
+                        storage::CountriesVec const & countryIds,
                         std::string const & userLanguage) const override;
 
   std::string GetBannerForOtherTypesForTesting() const;
+
 protected:
   void AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,
                    std::string const & id);
   void AppendExcludedTypes(std::initializer_list<std::initializer_list<char const *>> && types);
 
 private:
-  bool HasBanner(feature::TypesHolder const & types, storage::CountryId const & countryId,
+  bool HasBanner(feature::TypesHolder const & types, storage::CountriesVec const & countryIds,
                  std::string const & userLanguage) const override;
   std::string GetBannerForOtherTypes() const override;
 
@@ -76,5 +79,38 @@ private:
   virtual bool HasBanner() const = 0;
 
   DISALLOW_COPY(SearchContainerBase);
+};
+
+class DownloadOnMapContainer : protected WithSupportedLanguages,
+                               protected WithSupportedCountries,
+                               protected WithSupportedUserPos
+{
+public:
+  class Delegate
+  {
+  public:
+    virtual ~Delegate() = default;
+
+    virtual storage::CountryId GetCountryId(m2::PointD const & pos) = 0;
+    virtual storage::CountriesVec GetTopmostNodesFor(storage::CountryId const & mwmId) const = 0;
+    virtual std::string GetMwmTopCityGeoId(storage::CountryId const & mwmId) const = 0;
+    virtual std::string GetLinkForGeoId(std::string const & id) const = 0;
+  };
+
+  DownloadOnMapContainer(Delegate & delegate);
+  virtual ~DownloadOnMapContainer() = default;
+
+  virtual std::string GetBanner(storage::CountryId const & mwmId, m2::PointD const & userPos,
+                                std::string const & userLanguage) const;
+
+protected:
+  Delegate & m_delegate;
+
+private:
+  virtual bool HasBanner(storage::CountryId const & mwmId, m2::PointD const & userPos,
+                         std::string const & userLanguage) const;
+  virtual std::string GetBannerInternal() const;
+
+  DISALLOW_COPY(DownloadOnMapContainer);
 };
 }  // namespace ads

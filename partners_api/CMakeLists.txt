@@ -11,14 +11,24 @@ set(
   ads/ads_utils.cpp
   ads/ads_utils.hpp
   ads/banner.hpp
+  ads/bookmark_catalog_ads.cpp
+  ads/bookmark_catalog_ads.hpp
   ads/facebook_ads.cpp
   ads/facebook_ads.hpp
   ads/google_ads.cpp
   ads/google_ads.hpp
   ads/mopub_ads.cpp
   ads/mopub_ads.hpp
+  ads/mts_ads.cpp
+  ads/mts_ads.hpp
   ads/rb_ads.cpp
   ads/rb_ads.hpp
+  ads/skyeng_ads.cpp
+  ads/skyeng_ads.hpp
+  ads/tinkoff_allairlines_ads.cpp
+  ads/tinkoff_allairlines_ads.hpp
+  ads/tinkoff_insurance_ads.cpp
+  ads/tinkoff_insurance_ads.hpp
   booking_api.cpp
   booking_api.hpp
   booking_availability_params.cpp

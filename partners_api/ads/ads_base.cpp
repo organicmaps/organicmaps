@@ -38,10 +38,10 @@ void PoiContainer::AppendExcludedTypes(
 }
 
 std::string PoiContainer::GetBanner(feature::TypesHolder const & types,
-                                    storage::CountryId const & countryId,
+                                    storage::CountriesVec const & countryIds,
                                     std::string const & userLanguage) const
 {
-  if (!HasBanner(types, countryId, userLanguage))
+  if (!HasBanner(types, countryIds, userLanguage))
     return {};
 
   auto const it = m_typesToBanners.Find(types);
@@ -57,14 +57,66 @@ std::string PoiContainer::GetBannerForOtherTypesForTesting() const
 }
 
 bool PoiContainer::HasBanner(feature::TypesHolder const & types,
-                             storage::CountryId const & countryId,
+                             storage::CountriesVec const & countryIds,
                              std::string const & userLanguage) const
 {
-  return (IsCountrySupported(countryId) || IsLanguageSupported(userLanguage)) &&
+  auto const isCountryExcluded =
+      std::any_of(countryIds.begin(), countryIds.end(),
+                  [this](auto const & id) { return IsCountryExcluded(id); });
+
+  if (isCountryExcluded)
+    return false;
+
+  auto isCountrySupported = std::any_of(countryIds.begin(), countryIds.end(),
+                                        [this](auto const & id) { return IsCountrySupported(id); });
+
+  // When all countries are not supported - check user`s language.
+  return (isCountrySupported || IsLanguageSupported(userLanguage)) &&
          !m_excludedTypes.Contains(types);
 }
 
 std::string PoiContainer::GetBannerForOtherTypes() const
+{
+  return {};
+}
+
+DownloadOnMapContainer::DownloadOnMapContainer(Delegate & delegate)
+  : m_delegate(delegate)
+{
+}
+
+std::string DownloadOnMapContainer::GetBanner(storage::CountryId const & mwmId,
+                                              m2::PointD const & userPos,
+                                              std::string const & userLanguage) const
+{
+  if (!HasBanner(mwmId, userPos, userLanguage))
+    return {};
+
+  return GetBannerInternal();
+}
+
+bool DownloadOnMapContainer::HasBanner(storage::CountryId const & downloadMwmId,
+                                       m2::PointD const & userPos,
+                                       std::string const & userLanguage) const
+{
+  auto const userPosMwm = m_delegate.GetCountryId(userPos);
+  auto userPosCountries = m_delegate.GetTopmostNodesFor(userPosMwm);
+  userPosCountries.push_back(userPosMwm);
+  auto downloadMwmCountries = m_delegate.GetTopmostNodesFor(downloadMwmId);
+  downloadMwmCountries.push_back(downloadMwmId);
+
+  return !std::any_of(userPosCountries.begin(), userPosCountries.end(),
+                      [this](auto const & id) { return IsUserPosCountryExcluded(id); }) &&
+         !std::any_of(downloadMwmCountries.begin(), downloadMwmCountries.end(),
+                      [this](auto const & id) { return IsCountryExcluded(id); }) &&
+         std::any_of(userPosCountries.begin(), userPosCountries.end(),
+                     [this](auto const & id) { return IsUserPosCountrySupported(id); }) &&
+         std::any_of(downloadMwmCountries.begin(), downloadMwmCountries.end(),
+                     [this](auto const & id) { return IsCountrySupported(id); }) &&
+         IsLanguageSupported(userLanguage);
+}
+
+std::string DownloadOnMapContainer::GetBannerInternal() const
 {
   return {};
 }

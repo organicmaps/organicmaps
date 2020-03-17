@@ -12,6 +12,7 @@ struct Banner
   {
     Search = 0,
     Poi = 1,
+    DownloadOnMap = 2,
   };
 
   enum class Type : uint8_t
@@ -20,6 +21,11 @@ struct Banner
     Facebook = 1,
     RB = 2,
     Mopub = 3,
+    TinkoffAllAirlines = 4,
+    TinkoffInsurance = 5,
+    Mts = 6,
+    Skyeng = 7,
+    BookmarkCatalog = 8,
   };
 
   Banner() = default;
@@ -37,6 +43,11 @@ inline std::string DebugPrint(Banner::Type type)
   case Banner::Type::Facebook: return "Facebook";
   case Banner::Type::RB: return "RB";
   case Banner::Type::Mopub: return "Mopub";
+  case Banner::Type::TinkoffAllAirlines: return "TinkoffAllAirlines";
+  case Banner::Type::TinkoffInsurance: return "TinkoffInsurance";
+  case Banner::Type::Mts: return "Mts";
+  case Banner::Type::Skyeng: return "Skyeng";
+  case Banner::Type::BookmarkCatalog: return "BookmarkCatalog";
   }
   UNREACHABLE();
 }

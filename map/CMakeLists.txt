@@ -47,6 +47,8 @@ set(
   displacement_mode_manager.hpp
   displayed_categories_modifiers.cpp
   displayed_categories_modifiers.hpp
+  download_on_map_ads_delegate.cpp
+  download_on_map_ads_delegate.hpp
   elevation_info.cpp
   elevation_info.hpp
   everywhere_search_callback.cpp

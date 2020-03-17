@@ -28,9 +28,43 @@ void WithSupportedCountries::AppendSupportedCountries(
   m_supportedCountries.insert(countries.begin(), countries.end());
 }
 
+void WithSupportedCountries::AppendExcludedCountries(
+    std::initializer_list<storage::CountryId> const & countries)
+{
+  m_excludedCountries.insert(countries.begin(), countries.end());
+}
+
 bool WithSupportedCountries::IsCountrySupported(storage::CountryId const & countryId) const
 {
-  return m_supportedCountries.empty() ||
-         m_supportedCountries.find(countryId) != m_supportedCountries.cend();
+  return m_excludedCountries.find(countryId) == m_excludedCountries.cend() &&
+         (m_supportedCountries.empty() ||
+          m_supportedCountries.find(countryId) != m_supportedCountries.cend());
+}
+
+bool WithSupportedCountries::IsCountryExcluded(storage::CountryId const & countryId) const
+{
+  return m_excludedCountries.find(countryId) != m_excludedCountries.cend();
+}
+
+void WithSupportedUserPos::AppendSupportedUserPosCountries(
+    std::initializer_list<storage::CountryId> const & countries)
+{
+  m_countries.AppendSupportedCountries(countries);
+}
+
+void WithSupportedUserPos::AppendExcludedUserPosCountries(
+    std::initializer_list<storage::CountryId> const & countries)
+{
+  m_countries.AppendExcludedCountries(countries);
+}
+
+bool WithSupportedUserPos::IsUserPosCountrySupported(storage::CountryId const & countryId) const
+{
+  return m_countries.IsCountrySupported(countryId);
+}
+
+bool WithSupportedUserPos::IsUserPosCountryExcluded(storage::CountryId const & countryId) const
+{
+  return m_countries.IsCountryExcluded(countryId);
 }
 }  // namespace ads

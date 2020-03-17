@@ -6,6 +6,8 @@ set(
   SRC
   ads_engine_tests.cpp
   booking_tests.cpp
+  bookmark_catalog_ads_tests.cpp
+  download_on_map_container_delegate.hpp
   facebook_tests.cpp
   freenow_tests.cpp
   google_tests.cpp
@@ -14,12 +16,15 @@ set(
 # Megafon project is disabled until the contract is renewed or extended.
 # megafon_countries_tests.cpp
   mopub_tests.cpp
+  mts_tests.cpp
   promo_tests.cpp
   rb_tests.cpp
   rutaxi_tests.cpp
+  skyeng_tests.cpp
   taxi_engine_tests.cpp
   taxi_places_tests.cpp
-# Uber taxi project is disabled.
+  tinkoff_airlines_tests.cpp
+  tinkoff_insurance_tests.cpp
 # uber_tests.cpp
   yandex_tests.cpp
 )

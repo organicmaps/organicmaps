@@ -17,12 +17,21 @@ namespace ads
 class Engine
 {
 public:
-  Engine();
+  class Delegate : public DownloadOnMapContainer::Delegate
+  {
+  public:
+    virtual bool IsAdsRemoved() const = 0;
+  };
+
+  explicit Engine(std::unique_ptr<Delegate> delegate);
 
   std::vector<Banner> GetPoiBanners(feature::TypesHolder const & types,
                                     storage::CountriesVec const & countryIds,
                                     std::string const & userLanguage) const;
   std::vector<Banner> GetSearchBanners() const;
+  std::vector<Banner> GetDownloadOnMapBanners(storage::CountryId const & downloadMwmId,
+                                              m2::PointD const & userPos,
+                                              std::string const & userLanguage) const;
 
   void DisableAdProvider(Banner::Type const type, Banner::Place const place);
 
@@ -53,7 +62,10 @@ private:
     }
   }
 
+  std::unique_ptr<Delegate> m_delegate;
+
   std::vector<ContainerItem<PoiContainerBase>> m_poiBanners;
   std::vector<ContainerItem<SearchContainerBase>> m_searchBanners;
+  std::vector<ContainerItem<DownloadOnMapContainer>> m_downloadOnMapBanners;
 };
 }  // namespace ads
