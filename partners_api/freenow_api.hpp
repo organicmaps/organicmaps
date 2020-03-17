@@ -39,8 +39,6 @@ public:
   Token Get() const;
 
 private:
-  SafeToken(Token const & token);
-
   mutable std::mutex m_mutex;
   Token m_token;
 };

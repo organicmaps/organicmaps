@@ -1,5 +1,3 @@
-
-
 #include "testing/testing.hpp"
 
 #include "partners_api/freenow_api.hpp"

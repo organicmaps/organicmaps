@@ -23,20 +23,6 @@
 namespace
 {
 auto const kTimeoutSec = 15;
-
-bool CheckResponse(json_t const * answer)
-{
-  if (answer == nullptr)
-    return false;
-
-  if (!json_is_array(answer))
-    return false;
-
-  if (json_array_size(answer) <= 0)
-    return false;
-
-  return true;
-}
 }  // namespace
 
 namespace taxi
@@ -71,11 +57,6 @@ bool RawApi::GetServiceTypes(ms::LatLon const & from, ms::LatLon const & to,
   request.SetRawHeader("Accept-Language", languages::GetCurrentOrig());
 
   return request.RunHttpRequest(result);
-}
-
-SafeToken::SafeToken(Token const & token)
-  : m_token(token)
-{
 }
 
 void SafeToken::Set(Token const & token)
@@ -121,7 +102,16 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
         return;
       }
 
-      token = MakeTokenFromJson(tokenSource);
+      try
+      {
+        token = MakeTokenFromJson(tokenSource);
+      }
+      catch (base::Json::Exception const & e)
+      {
+        LOG(LERROR, (e.Msg(), tokenSource));
+        errorFn(ErrorCode::NoProducts);
+        return;
+      }
       m_accessToken.Set(token);
     }
 
@@ -139,7 +129,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
     }
     catch (base::Json::Exception const & e)
     {
-      LOG(LERROR, (e.Msg()));
+      LOG(LERROR, (e.Msg(), httpResult));
       products.clear();
     }
 
@@ -147,7 +137,6 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
       errorFn(ErrorCode::NoProducts);
     else
       successFn(products);
-
   });
 }
 
@@ -163,7 +152,7 @@ RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::Lat
            << "mytaxi://de.mytaxi.passenger/order?pickup_coordinate=" << from.m_lat << ","
            << from.m_lon << "&destination_coordinate=" << to.m_lat << "," << to.m_lon
            << "&token=" << FREENOW_CLIENT_ID;
-  url::Params deepLinkParams = {{"af_dp", url::UrlEncode(deepLink.str())}};
+  url::Params const deepLinkParams = {{"af_dp", url::UrlEncode(deepLink.str())}};
 
   auto const result = url::Make(universalLink, deepLinkParams);
   return {result, result};
@@ -175,21 +164,18 @@ std::vector<taxi::Product> MakeProductsFromJson(std::string const & src)
 
   base::Json root(src.c_str());
   auto const serviceTypesArray = json_object_get(root.get(), "serviceTypes");
-  if (!CheckResponse(serviceTypesArray))
-    return {};
 
   auto const count = json_array_size(serviceTypesArray);
   for (size_t i = 0; i < count; ++i)
   {
     taxi::Product product;
-    uint64_t time = 0;
-    uint64_t price = 0;
     auto const item = json_array_get(serviceTypesArray, i);
 
     FromJSONObjectOptionalField(item, "id", product.m_productId);
     FromJSONObjectOptionalField(item, "displayName", product.m_name);
 
     auto const eta = json_object_get(item, "eta");
+    uint64_t time = 0;
     FromJSONObjectOptionalField(eta, "value", time);
     product.m_time = strings::to_string(time);
 
