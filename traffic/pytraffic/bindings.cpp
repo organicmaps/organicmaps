@@ -99,7 +99,7 @@ boost::python::list GenerateTrafficKeys(std::string const & mwmPath)
 {
   std::vector<traffic::TrafficInfo::RoadSegmentId> result;
   traffic::TrafficInfo::ExtractTrafficKeys(mwmPath, result);
-  return std_vector_to_python_list(result);
+  return pyhelpers::StdVectorToPythonList(result);
 }
 
 std::vector<uint8_t> GenerateTrafficValues(std::vector<traffic::TrafficInfo::RoadSegmentId> const & keys,
@@ -143,7 +143,7 @@ std::vector<uint8_t> GenerateTrafficValuesFromList(boost::python::list const & k
                                                    boost::python::dict const & segmentMappingDict)
 {
   std::vector<traffic::TrafficInfo::RoadSegmentId> keysVec =
-      python_list_to_std_vector<traffic::TrafficInfo::RoadSegmentId>(keys);
+      pyhelpers::PythonListToStdVector<traffic::TrafficInfo::RoadSegmentId>(keys);
 
   return GenerateTrafficValues(keysVec, segmentMappingDict, 1 /* useTempBlock */);
 }

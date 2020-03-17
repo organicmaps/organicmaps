@@ -98,7 +98,7 @@ struct LocalizableStringAdapter
     if (dict.is_none())
       return;
 
-    auto const langs = python_list_to_std_vector<std::string>(dict.keys());
+    auto const langs = pyhelpers::PythonListToStdVector<std::string>(dict.keys());
     for (auto const & lang : langs)
     {
       auto const langIndex = StringUtf8Multilang::GetLangIndex(lang);
@@ -200,7 +200,7 @@ struct PropertiesAdapter
     if (dict.is_none())
       return;
 
-    auto const keys = python_list_to_std_vector<std::string>(dict.keys());
+    auto const keys = pyhelpers::PythonListToStdVector<std::string>(dict.keys());
     for (auto const & k : keys)
       props[k] = extract<std::string>(dict[k]);
   }
@@ -227,7 +227,7 @@ struct VectorAdapter
 {
   static boost::python::list Get(std::vector<T> const & v)
   {
-    return std_vector_to_python_list(v);
+    return pyhelpers::StdVectorToPythonList(v);
   }
 
   static void Set(std::vector<T> & v, boost::python::object const & iterable)
@@ -237,7 +237,7 @@ struct VectorAdapter
       v.clear();
       return;
     }
-    v = python_list_to_std_vector<T>(iterable);
+    v = pyhelpers::PythonListToStdVector<T>(iterable);
   }
 
   static void PrintType(std::ostringstream & out, T const & t)
@@ -561,7 +561,7 @@ boost::python::list GetLanguages(std::vector<int8_t> const & langs)
       throw std::runtime_error("Language not found");
     result.emplace_back(std::move(lang));
   }
-  return std_vector_to_python_list(result);
+  return pyhelpers::StdVectorToPythonList(result);
 }
 
 void SetLanguages(std::vector<int8_t> & langs, boost::python::object const & iterable)
@@ -570,7 +570,7 @@ void SetLanguages(std::vector<int8_t> & langs, boost::python::object const & ite
   if (iterable.is_none())
     return;
 
-  auto const langStr = python_list_to_std_vector<std::string>(iterable);
+  auto const langStr = pyhelpers::PythonListToStdVector<std::string>(iterable);
   langs.reserve(langStr.size());
   for (auto const & lang : langStr)
   {
@@ -588,7 +588,7 @@ boost::python::list GetSupportedLanguages()
   langs.reserve(supportedLangs.size());
   for (auto const & lang : supportedLangs)
     langs.emplace_back(lang.m_code);
-  return std_vector_to_python_list(langs);
+  return pyhelpers::StdVectorToPythonList(langs);
 }
 
 boost::python::object GetLanguageIndex(std::string const & lang)
