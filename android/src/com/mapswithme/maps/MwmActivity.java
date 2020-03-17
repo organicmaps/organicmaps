@@ -1236,7 +1236,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     com.mapswithme.maps.dialog.AlertDialog dialog = new com.mapswithme.maps.dialog.AlertDialog.Builder()
-        .setTitleId(R.string.title_error_downloading_bookmarks)
+        .setTitleId(R.string.downloader_update_maps)
         .setMessageId(R.string.isolines_activation_error_dialog)
         .setPositiveBtnId(R.string.ok)
         .setNegativeBtnId(R.string.cancel)
