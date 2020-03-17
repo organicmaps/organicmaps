@@ -155,16 +155,18 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
 RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::LatLon const & from,
                                           ms::LatLon const & to) const
 {
+  std::string const universalLink = "https://mytaxi.onelink.me/HySP?pid=maps.me&c=in-app-referral-"
+                                    "link_030320_my_pa_in_0_gl_gl_-_mx_mo_co_mx_af_-_ge_-_-_-_-_-"
+                                    "&is_retargeting=true";
   std::ostringstream deepLink;
   deepLink << std::fixed << std::setprecision(6)
            << "mytaxi://de.mytaxi.passenger/order?pickup_coordinate=" << from.m_lat << ","
-           << from.m_lon << "&destination_coordinate=" << to.m_lat << "," << to.m_lon;
+           << from.m_lon << "&destination_coordinate=" << to.m_lat << "," << to.m_lon
+           << "&token=" << FREENOW_CLIENT_ID;
+  url::Params deepLinkParams = {{"af_dp", url::UrlEncode(deepLink.str())}};
 
-  std::string const universalLink = "https://mytaxi.onelink.me/HySP?pid=maps.me&c=in-app-referral-"
-                                    "link_030320_my_pa_in_0_gl_gl_-_mx_mo_co_mx_af_-_ge_-_-_-_-_-"
-                                    "&is_retargeting=true&af_dp=mytaxi%3A%2F%2Fde.mytaxi.passenger";
-  return {deepLink.str(), universalLink};
-
+  auto const result = url::Make(universalLink, deepLinkParams);
+  return {result, result};
 }
 
 std::vector<taxi::Product> MakeProductsFromJson(std::string const & src)

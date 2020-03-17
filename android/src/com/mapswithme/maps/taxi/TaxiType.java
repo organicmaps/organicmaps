@@ -148,7 +148,7 @@ public enum TaxiType
         @NonNull
         public Utils.PartnerAppOpenMode getOpenMode()
         {
-          return Utils.PartnerAppOpenMode.Direct;
+          return Utils.PartnerAppOpenMode.Indirect;
         }
 
         @DrawableRes
