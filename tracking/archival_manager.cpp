@@ -124,8 +124,8 @@ void ArchivalManager::CreateUploadTask(std::string const & filePath)
   platform::HttpPayload payload;
   payload.m_url = m_url;
   payload.m_filePath = filePath;
-  payload.m_headers = {{"TrackInfo", base::GetNameFromFullPathWithoutExt(filePath)},
-                       {"Aloha", GetPlatform().UniqueIdHash()},
+  payload.m_headers = {{"X-Mapsme-TrackInfo", base::GetNameFromFullPathWithoutExt(filePath)},
+                       {"X-Mapsme-Device-Id", GetPlatform().UniqueIdHash()},
                        {"User-Agent", GetPlatform().GetAppUserAgent()}};
   platform::HttpUploaderBackground uploader(payload);
   uploader.Upload();
