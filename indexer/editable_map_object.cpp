@@ -301,11 +301,11 @@ string EditableMapObject::GetWikipedia() const
 void EditableMapObject::ForEachMetadataItem(
     bool skipSponsored, function<void(string const & tag, string const & value)> const & fn) const
 {
-  for (auto const type : m_metadata.GetPresentTypes())
+  for (auto const type : m_metadata.GetKeys())
   {
-    if (skipSponsored && m_metadata.IsSponsoredType(static_cast<feature::Metadata::EType>(type)))
+    if (skipSponsored && m_metadata.IsSponsoredType(type))
       continue;
-    auto const attributeName = ToString(static_cast<feature::Metadata::EType>(type));
+    auto const attributeName = ToString(type);
     fn(attributeName, m_metadata.Get(type));
   }
 }

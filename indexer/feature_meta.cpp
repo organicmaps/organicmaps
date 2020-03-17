@@ -18,6 +18,17 @@ char constexpr const * kBaseWikiUrl =
 #endif
 } // namespace
 
+std::vector<Metadata::EType> Metadata::GetKeys() const
+{
+  std::vector<Metadata::EType> types;
+  types.reserve(m_metadata.size());
+
+  for (auto const & item : m_metadata)
+    types.push_back(static_cast<Metadata::EType>(item.first));
+
+  return types;
+}
+
 string Metadata::GetWikiURL() const
 {
   string v = this->Get(FMD_WIKIPEDIA);

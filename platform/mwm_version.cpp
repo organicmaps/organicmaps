@@ -13,6 +13,8 @@
 
 #include "defines.hpp"
 
+#include <sstream>
+
 namespace version
 {
 namespace
@@ -67,6 +69,13 @@ bool MwmVersion::IsEditableMap() const
 std::string DebugPrint(Format f)
 {
   return "v" + strings::to_string(static_cast<uint32_t>(f) + 1);
+}
+
+std::string DebugPrint(MwmVersion const & mwmVersion)
+{
+  std::stringstream s;
+  s << DebugPrint(mwmVersion.GetFormat()) << ":" << mwmVersion.GetSecondsSinceEpoch() << "s";
+  return s.str();
 }
 
 void WriteVersion(Writer & w, uint64_t secondsSinceEpoch)

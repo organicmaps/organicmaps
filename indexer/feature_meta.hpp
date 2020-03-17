@@ -148,7 +148,16 @@ public:
   static bool TypeFromString(std::string const & osmTagKey, EType & outType);
   static bool IsSponsoredType(EType const & type);
 
-  void Set(EType type, std::string const & value) { MetadataBase::Set(type, value); }
+  std::vector<Metadata::EType> GetKeys() const;
+
+  using MetadataBase::Has;
+  using MetadataBase::Get;
+  bool Has(EType type) const { return MetadataBase::Has(static_cast<uint8_t>(type)); }
+  std::string Get(EType type) const { return MetadataBase::Get(static_cast<uint8_t>(type)); }
+  bool Get(EType type, std::string & value) const { return MetadataBase::Get(static_cast<uint8_t>(type), value);  }
+
+  using MetadataBase::Set;
+  void Set(EType type, std::string const & value) { MetadataBase::Set(static_cast<uint8_t>(type), value); }
   void Drop(EType type) { Set(type, std::string()); }
   std::string GetWikiURL() const;
 

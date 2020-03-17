@@ -53,6 +53,8 @@ private:
   uint64_t m_secondsSinceEpoch{0};
 };
 
+std::string DebugPrint(MwmVersion const & mwmVersion);
+
 /// Writes latest format and current timestamp to the writer.
 void WriteVersion(Writer & w, uint64_t secondsSinceEpoch);
 

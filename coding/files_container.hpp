@@ -19,6 +19,16 @@ class FilesContainerBase
 public:
   using Tag = std::string;
 
+  struct Info
+  {
+    Tag m_tag;
+    uint64_t m_offset;
+    uint64_t m_size;
+
+    Info() {}
+    Info(Tag const & tag, uint64_t offset) : m_tag(tag), m_offset(offset) {}
+  };
+
   /// Alignment of each new section that will be added to a file
   /// container, i.e. section's offset in bytes will be a multiple of
   /// this value.
@@ -32,22 +42,12 @@ public:
   }
 
   template <typename ToDo>
-  void ForEachTag(ToDo && toDo) const
+  void ForEachInfo(ToDo && toDo) const
   {
     std::for_each(m_info.begin(), m_info.end(), std::forward<ToDo>(toDo));
   }
 
 protected:
-  struct Info
-  {
-    Tag m_tag;
-    uint64_t m_offset;
-    uint64_t m_size;
-
-    Info() {}
-    Info(Tag const & tag, uint64_t offset) : m_tag(tag), m_offset(offset) {}
-  };
-
   struct LessInfo
   {
     bool operator() (Info const & t1, Info const & t2) const
@@ -100,8 +100,6 @@ protected:
     Tag const & m_tag;
   };
 
-  friend std::string DebugPrint(Info const & info);
-
   Info const * GetInfo(Tag const & tag) const;
 
   template <typename Reader>
@@ -110,6 +108,8 @@ protected:
   using InfoContainer = std::vector<Info>;
   InfoContainer m_info;
 };
+
+std::string DebugPrint(FilesContainerBase::Info const & info);
 
 class FilesContainerR : public FilesContainerBase
 {

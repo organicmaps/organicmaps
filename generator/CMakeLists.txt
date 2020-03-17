@@ -253,6 +253,7 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
+omim_add_pybindings_subdirectory(pygen)
 omim_add_test_subdirectory(generator_tests_support)
 omim_add_test_subdirectory(generator_tests)
 omim_add_test_subdirectory(generator_integration_tests)
