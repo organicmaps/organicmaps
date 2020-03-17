@@ -1082,33 +1082,33 @@ BookmarkManager::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD 
     for (auto trackId : category.GetUserLines())
     {
       auto const track = GetTrack(trackId);
-      auto const trackRect = track->GetLimitRect();
+      auto const & trackRect = track->GetLimitRect();
 
-      if (trackRect.IsIntersect(touchRect))
+      if (!trackRect.IsIntersect(touchRect))
+        continue;
+
+      auto const & pointsWithAlt = track->GetPointsWithAltitudes();
+      for (size_t i = 0; i + 1 < pointsWithAlt.size(); ++i)
       {
-        auto const & pointsWithAlt = track->GetPointsWithAltitudes();
-        for (size_t i = 0; i + 1 < pointsWithAlt.size(); ++i)
-        {
-          auto pt1 = pointsWithAlt[i].GetPoint();
-          auto pt2 = pointsWithAlt[i + 1].GetPoint();
-          if (m2::Intersect(touchRect, pt1, pt2))
-          {
-            m2::ParametrizedSegment<m2::PointD> seg(pt1, pt2);
-            auto const closestPoint = seg.ClosestPointTo(touchRect.Center());
-            auto const squaredDist = closestPoint.SquaredLength(touchRect.Center());
-            if (squaredDist < minSquaredDist)
-            {
-              minSquaredDist = squaredDist;
-              selectionInfo.m_trackId = trackId;
-              selectionInfo.m_trackPoint = closestPoint;
+        auto pt1 = pointsWithAlt[i].GetPoint();
+        auto pt2 = pointsWithAlt[i + 1].GetPoint();
+        if (!m2::Intersect(touchRect, pt1, pt2))
+          continue;
 
-              auto const segDistInMeters = mercator::DistanceOnEarth(pointsWithAlt[i].GetPoint(),
-                                                                     closestPoint);
-              selectionInfo.m_distanceInMeters = segDistInMeters;
-              if (i > 0)
-                selectionInfo.m_distanceInMeters += track->GetLengthMeters(i - 1);
-            }
-          }
+        m2::ParametrizedSegment<m2::PointD> seg(pt1, pt2);
+        auto const closestPoint = seg.ClosestPointTo(touchRect.Center());
+        auto const squaredDist = closestPoint.SquaredLength(touchRect.Center());
+        if (squaredDist < minSquaredDist)
+        {
+          minSquaredDist = squaredDist;
+          selectionInfo.m_trackId = trackId;
+          selectionInfo.m_trackPoint = closestPoint;
+
+          auto const segDistInMeters = mercator::DistanceOnEarth(pointsWithAlt[i].GetPoint(),
+                                                                 closestPoint);
+          selectionInfo.m_distanceInMeters = segDistInMeters;
+          if (i > 0)
+            selectionInfo.m_distanceInMeters += track->GetLengthMeters(i - 1);
         }
       }
     }

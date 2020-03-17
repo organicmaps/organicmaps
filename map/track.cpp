@@ -13,11 +13,13 @@ Track::Track(kml::TrackData && data)
 {
   m_data.m_id = GetId();
   CHECK_GREATER(m_data.m_pointsWithAltitudes.size(), 1, ());
-  CacheLengths();
+  CacheLengthsAndLimitRect();
 }
 
-void Track::CacheLengths()
+void Track::CacheLengthsAndLimitRect()
 {
+  m_cachedLimitRect.MakeEmpty();
+  m_cachedLimitRect.Add(m_data.m_pointsWithAltitudes.front().GetPoint());
   m_cachedLengths.resize(m_data.m_pointsWithAltitudes.size() - 1);
   double length = 0.0;
   for (size_t i = 1; i < m_data.m_pointsWithAltitudes.size(); ++i)
@@ -27,6 +29,7 @@ void Track::CacheLengths()
     auto const segmentLength = mercator::DistanceOnEarth(pt1, pt2);
     length += segmentLength;
     m_cachedLengths[i - 1] = length;
+    m_cachedLimitRect.Add(pt2);
   }
 }
 
@@ -35,12 +38,9 @@ std::string Track::GetName() const
   return GetPreferredBookmarkStr(m_data.m_name);
 }
 
-m2::RectD Track::GetLimitRect() const
+m2::RectD const & Track::GetLimitRect() const
 {
-  m2::RectD rect;
-  for (auto const & point : m_data.m_pointsWithAltitudes)
-    rect.Add(point.GetPoint());
-  return rect;
+  return m_cachedLimitRect;
 }
 
 double Track::GetLengthMeters() const

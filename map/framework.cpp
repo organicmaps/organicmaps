@@ -2611,16 +2611,6 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     return outInfo;
   }
 
-  if (buildInfo.IsTrackMatchingEnabled())
-  {
-    auto const trackSelectionInfo = FindTrackInTapPosition(buildInfo);
-    if (trackSelectionInfo.m_trackId != kml::kInvalidTrackId)
-    {
-      BuildTrackPlacePage(trackSelectionInfo, outInfo);
-      return outInfo;
-    }
-  }
-
   if (!buildInfo.m_postcode.empty())
   {
     outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
@@ -2635,6 +2625,18 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
 
   FeatureID selectedFeature = buildInfo.m_featureId;
   auto const isFeatureMatchingEnabled = buildInfo.IsFeatureMatchingEnabled();
+
+  if (buildInfo.IsTrackMatchingEnabled() && !buildInfo.m_isLongTap &&
+      !(isFeatureMatchingEnabled && selectedFeature.IsValid()))
+  {
+    auto const trackSelectionInfo = FindTrackInTapPosition(buildInfo);
+    if (trackSelectionInfo.m_trackId != kml::kInvalidTrackId)
+    {
+      BuildTrackPlacePage(trackSelectionInfo, outInfo);
+      return outInfo;
+    }
+  }
+
   if (isFeatureMatchingEnabled && !selectedFeature.IsValid())
     selectedFeature = FindBuildingAtPoint(buildInfo.m_mercator);
 

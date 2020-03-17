@@ -20,7 +20,7 @@ public:
   kml::TrackData const & GetData() const { return m_data; }
 
   std::string GetName() const;
-  m2::RectD GetLimitRect() const;
+  m2::RectD const & GetLimitRect() const;
   double GetLengthMeters() const;
   double GetLengthMeters(size_t segmentIndex) const;
 
@@ -41,11 +41,12 @@ public:
   bool GetPoint(double distanceInMeters, m2::PointD & pt) const;
 
 private:
-  void CacheLengths();
+  void CacheLengthsAndLimitRect();
 
   kml::TrackData m_data;
   kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;
   kml::MarkId m_selectionMarkId = kml::kInvalidMarkId;
   std::vector<double> m_cachedLengths;
+  m2::RectD m_cachedLimitRect;
   mutable bool m_isDirty = true;
 };
