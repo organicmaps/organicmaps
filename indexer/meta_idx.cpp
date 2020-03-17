@@ -43,26 +43,30 @@ bool MetadataIndex::Get(uint32_t id, uint32_t & offset) const
 // static
 unique_ptr<MetadataIndex> MetadataIndex::Load(Reader & reader)
 {
-  auto table = make_unique<MetadataIndex>();
-
   Header header;
   header.Read(reader);
 
-  CHECK_EQUAL(header.m_version, table->m_version, ());
+  CHECK_EQUAL(header.m_version, MetadataIndex::Version::V0, ());
 
-  table->m_indexSubreader = reader.CreateSubReader(header.m_indexOffset, header.m_indexSize);
-  if (!table->m_indexSubreader)
+  auto subreader = reader.CreateSubReader(header.m_indexOffset, header.m_indexSize);
+  if (!subreader)
     return {};
-  if (!table->Init(*(table->m_indexSubreader)))
+
+  auto table = make_unique<MetadataIndex>();
+  if (!table->Init(move(subreader)))
     return {};
+
   return table;
 }
 
-bool MetadataIndex::Init(Reader & reader)
+bool MetadataIndex::Init(unique_ptr<Reader> reader)
 {
+  m_indexSubreader = move(reader);
+
   // Decodes block encoded by writeBlockCallback from MetadataIndexBuilder::Freeze.
   auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize,
                                      vector<uint32_t> & values) {
+    ASSERT_NOT_EQUAL(blockSize, 0, ());
     values.resize(blockSize);
     values[0] = ReadVarUint<uint32_t>(source);
     for (size_t i = 1; i < blockSize && source.Size() > 0; ++i)
@@ -72,7 +76,7 @@ bool MetadataIndex::Init(Reader & reader)
     }
   };
 
-  m_map = Map::Load(reader, readBlockCallback);
+  m_map = Map::Load(*m_indexSubreader, readBlockCallback);
   return m_map != nullptr;
 }
 

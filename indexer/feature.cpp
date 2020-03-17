@@ -186,11 +186,11 @@ uint8_t ReadByte(TSource & src)
 }  // namespace
 
 FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer,
-                         MetadataIndex const * metaidx)
-  : m_loadInfo(loadInfo), m_data(buffer), m_metaidx(metaidx)
+                         MetadataIndex const * metadataIndex)
+  : m_loadInfo(loadInfo), m_data(buffer), m_metadataIndex(metadataIndex)
 {
   CHECK(loadInfo, ());
-  ASSERT(m_loadInfo->GetMWMFormat() < version::Format::v10 || m_metaidx,
+  ASSERT(m_loadInfo->GetMWMFormat() < version::Format::v10 || m_metadataIndex,
          (m_loadInfo->GetMWMFormat()));
 
   m_header = Header(m_data);
@@ -525,8 +525,8 @@ void FeatureType::ParseMetadata()
     if (format >= version::Format::v10)
     {
       uint32_t offset;
-      CHECK(m_metaidx, ("metadata index shold be set for mwm format >= v10"));
-      if (m_metaidx->Get(m_id.m_index, offset))
+      CHECK(m_metadataIndex, ("metadata index should be set for mwm format >= v10"));
+      if (m_metadataIndex->Get(m_id.m_index, offset))
       {
         ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetMetadataReader());
         src.Skip(offset);
@@ -543,11 +543,8 @@ void FeatureType::ParseMetadata()
       DDVector<MetadataIndexEntry, FilesContainerR::TReader> idx(
           m_loadInfo->GetMetadataIndexReader());
 
-      auto it = lower_bound(idx.begin(), idx.end(),
-                            MetadataIndexEntry{static_cast<uint32_t>(m_id.m_index), 0},
-                            [](MetadataIndexEntry const & v1, MetadataIndexEntry const & v2) {
-                              return v1.key < v2.key;
-                            });
+      auto it = lower_bound(idx.begin(), idx.end(), m_id.m_index,
+                            [](auto const & idx, auto val) { return idx.key < val; });
 
       if (it != idx.end() && m_id.m_index == it->key)
       {

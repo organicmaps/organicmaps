@@ -35,7 +35,7 @@ public:
   using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::kMaxScalesCount>;
 
   FeatureType(feature::SharedLoadInfo const * loadInfo, std::vector<uint8_t> && buffer,
-              feature::MetadataIndex const * metaidx);
+              feature::MetadataIndex const * metadataIndex);
   FeatureType(osm::MapObject const & emo);
 
   feature::GeomType GetGeomType() const;
@@ -247,7 +247,7 @@ private:
   feature::SharedLoadInfo const * m_loadInfo = nullptr;
   std::vector<uint8_t> m_data;
   // Pointer to shared metadata index. Must be set for mwm format >= Format::v10
-  feature::MetadataIndex const * m_metaidx = nullptr;
+  feature::MetadataIndex const * m_metadataIndex = nullptr;
 
   ParsedFlags m_parsed;
   Offsets m_offsets;

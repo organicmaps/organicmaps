@@ -51,11 +51,10 @@ public:
 private:
   using Map = MapUint32ToValue<uint32_t>;
 
-  bool Init(Reader & reader);
+  bool Init(std::unique_ptr<Reader> reader);
 
   std::unique_ptr<Map> m_map;
   std::unique_ptr<Reader> m_indexSubreader;
-  Version m_version = Version::Latest;
 };
 
 class MetadataIndexBuilder
