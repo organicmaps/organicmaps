@@ -69,6 +69,8 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.maplayer.OnIsolinesLayerToggleListener;
+import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
+import com.mapswithme.maps.maplayer.isolines.IsolinesState;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
@@ -200,8 +202,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final int REQ_CODE_ERROR_DRIVING_OPTIONS_DIALOG = 5;
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
   public static final int REQ_CODE_CATALOG_UNLIMITED_ACCESS = 7;
+  private static final int REQ_CODE_ISOLINES_ERROR = 8;
   public static final String ERROR_DRIVING_OPTIONS_DIALOG_TAG = "error_driving_options_dialog_tag";
   public static final String CATALOG_UNLIMITED_ACCESS_DIALOG_TAG = "catalog_unlimited_access_dialog_tag";
+  private static final String ISOLINES_ERROR_DIALOG_TAG = "isolines_dialog_tag";
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -1223,6 +1227,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mToggleMapLayerController.toggleMode(Mode.ISOLINES);
   }
 
+  private void onIsolinesStateChanged(@NonNull IsolinesState type)
+  {
+    if (type != IsolinesState.EXPIREDDATA)
+    {
+      type.activate(getApplicationContext());
+      return;
+    }
+
+    com.mapswithme.maps.dialog.AlertDialog dialog = new com.mapswithme.maps.dialog.AlertDialog.Builder()
+        .setTitleId(R.string.title_error_downloading_bookmarks)
+        .setMessageId(R.string.isolines_activation_error_dialog)
+        .setPositiveBtnId(R.string.ok)
+        .setNegativeBtnId(R.string.cancel)
+        .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .setReqCode(REQ_CODE_ISOLINES_ERROR)
+        .build();
+    dialog.show(this, ISOLINES_ERROR_DIALOG_TAG);
+  }
+
   @Override
   public void onImportStarted(@NonNull String serverId)
   {
@@ -1406,6 +1429,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkManager.INSTANCE.addLoadingListener(this);
     BookmarkManager.INSTANCE.addCatalogListener(this);
     RoutingController.get().attach(this);
+    IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
     mPlacePageController.onActivityStarted(this);
@@ -1423,6 +1447,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().detach();
     mPlacePageController.onActivityStopped(this);
     MwmApplication.backgroundTracker(getActivity()).removeListener(this);
+    IsolinesManager.from(getApplicationContext()).detach();
   }
 
   @CallSuper
@@ -2453,6 +2478,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       BookmarksCatalogActivity.startForResult(this,
                                               BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
                                               BookmarkManager.INSTANCE.getCatalogFrontendUrl(UTM.UTM_NONE));
+    else if (requestCode == REQ_CODE_ISOLINES_ERROR)
+      startActivity(new Intent(this, DownloaderActivity.class));
   }
 
   @Override

@@ -13,7 +13,7 @@ public enum IsolinesState
   EXPIREDDATA
       {
         @Override
-        void activate(@NonNull Context context)
+        public void activate(@NonNull Context context)
         {
           Toast.makeText(context, R.string.isolines_activation_error_dialog, Toast.LENGTH_SHORT)
                .show();
@@ -22,14 +22,14 @@ public enum IsolinesState
   NODATA
       {
         @Override
-        void activate(@NonNull Context context)
+        public void activate(@NonNull Context context)
         {
           Toast.makeText(context, R.string.isolines_location_error_dialog, Toast.LENGTH_SHORT)
                .show();
         }
       };
 
-  void activate(@NonNull Context context)
+  public void activate(@NonNull Context context)
   {
     /* Do nothing by default */
   }

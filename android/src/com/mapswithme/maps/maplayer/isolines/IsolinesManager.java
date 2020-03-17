@@ -7,13 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.maplayer.subway.OnIsolinesChangedListener;
 
-public class IsolinesManager implements Initializable<Void>
+public class IsolinesManager implements Initializable<Void>, Detachable<IsolinesErrorDialogListener>
 {
   @NonNull
-  private final OnIsolinesChangedListener mListener;
+  private final OnIsolinesChangedListenerImpl mListener;
 
   public IsolinesManager(@NonNull Application application)
   {
@@ -64,4 +65,16 @@ public class IsolinesManager implements Initializable<Void>
 
   private static native void nativeAddListener(@NonNull OnIsolinesChangedListener listener);
   private static native void nativeRemoveListener(@NonNull OnIsolinesChangedListener listener);
+
+  @Override
+  public void attach(@NonNull IsolinesErrorDialogListener listener)
+  {
+    mListener.attach(listener);
+  }
+
+  @Override
+  public void detach()
+  {
+    mListener.detach();
+  }
 }
