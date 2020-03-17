@@ -134,6 +134,26 @@ private:
     Count
   };
 
+  struct MwmType
+  {
+    bool IsFirstBatchMwm(bool inViewport) const {
+      if (inViewport)
+        return m_viewportIntersect;
+      return m_viewportIntersect || m_userPosition || m_matchedCity;
+    }
+
+    bool m_viewportIntersect = false;
+    bool m_userPosition = false;
+    bool m_matchedCity = false;
+  };
+
+  struct MwmInfosWithType
+  {
+    using MwmInfoWithType = std::pair<std::shared_ptr<MwmInfo>, MwmType>;
+    std::vector<MwmInfoWithType> m_infos;
+    size_t m_firstBatchSize = 0;
+  };
+
   struct Postcodes
   {
     void Clear()
@@ -160,7 +180,7 @@ private:
   // Sets search query params for categorial search.
   void SetParamsForCategorialSearch(Params const & params);
 
-  void GoImpl(std::vector<std::shared_ptr<MwmInfo>> & infos, bool inViewport);
+  void GoImpl(std::vector<std::shared_ptr<MwmInfo>> const & infos, bool inViewport);
 
   template <typename Locality>
   using TokenToLocalities = std::map<TokenRange, std::vector<Locality>>;
@@ -183,7 +203,7 @@ private:
   bool CityHasPostcode(BaseContext const & ctx) const;
 
   template <typename Fn>
-  void ForEachCountry(std::vector<std::shared_ptr<MwmInfo>> const & infos, Fn && fn);
+  void ForEachCountry(MwmInfosWithType const & infos, Fn && fn);
 
   // Throws CancelException if cancelled.
   void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
@@ -270,7 +290,8 @@ private:
   // center.
   // For non-viewport search mode prefix consists of maps intersecting with pivot, map with user location
   // and maps with cities matched to the query, sorting prefers mwms that contain the user's position.
-  size_t OrderCountries(bool inViewport, std::vector<std::shared_ptr<MwmInfo>> & infos);
+  MwmInfosWithType OrderCountries(bool inViewport,
+                                  std::vector<std::shared_ptr<MwmInfo>> const & infos);
 
   DataSource const & m_dataSource;
   storage::CountryInfoGetter const & m_infoGetter;

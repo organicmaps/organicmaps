@@ -440,17 +440,14 @@ void Geocoder::SetParamsForCategorialSearch(Params const & params)
   LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
 
-size_t Geocoder::OrderCountries(bool inViewport, vector<shared_ptr<MwmInfo>> & infos)
+Geocoder::MwmInfosWithType Geocoder::OrderCountries(bool inViewport,
+                                                    vector<shared_ptr<MwmInfo>> const & infos)
 {
   vector<KeyedMwmInfo> keyedInfos;
   keyedInfos.reserve(infos.size());
   for (auto const & info : infos)
     keyedInfos.emplace_back(info, m_params.m_position, m_params.m_pivot, inViewport);
   sort(keyedInfos.begin(), keyedInfos.end());
-
-  infos.clear();
-  for (auto const & info : keyedInfos)
-    infos.emplace_back(info.m_info);
 
   set<storage::CountryId> mwmsWithCities;
   if (!inViewport)
@@ -462,21 +459,28 @@ size_t Geocoder::OrderCountries(bool inViewport, vector<shared_ptr<MwmInfo>> & i
     }
   }
 
-  auto const firstBatch = [&](shared_ptr<MwmInfo> const & info) {
-    if (!inViewport)
-    {
-      if (m_params.m_position && info->m_bordersRect.IsPointInside(*m_params.m_position))
-        return true;
-      if (mwmsWithCities.count(info->GetCountryName()) != 0)
-        return true;
-    }
-    return m_params.m_pivot.IsIntersect(info->m_bordersRect);
+  auto const getMwmType = [&](auto const & info) {
+    MwmType mwmType;
+    mwmType.m_viewportIntersect = m_params.m_pivot.IsIntersect(info->m_bordersRect);
+    mwmType.m_userPosition = m_params.m_position &&
+                             info->m_bordersRect.IsPointInside(*m_params.m_position);
+    mwmType.m_matchedCity = mwmsWithCities.count(info->GetCountryName()) != 0;
+    return mwmType;
   };
-  auto const sep = stable_partition(infos.begin(), infos.end(), firstBatch);
-  return distance(infos.begin(), sep);
+
+  MwmInfosWithType res;
+  for (auto const & info : keyedInfos)
+    res.m_infos.emplace_back(info.m_info, getMwmType(info.m_info));
+
+  auto const firstBatch = [&](auto const & infoWithType) {
+    return infoWithType.second.IsFirstBatchMwm(inViewport);
+  };
+  auto const sep = stable_partition(res.m_infos.begin(), res.m_infos.end(), firstBatch);
+  res.m_firstBatchSize = distance(res.m_infos.begin(), sep);
+  return res;
 }
 
-void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
+void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> const & infos, bool inViewport)
 {
   // base::PProf pprof("/tmp/geocoder.prof");
 
@@ -517,11 +521,11 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
   // maps are ordered by distance from pivot, and we stop to call
   // MatchAroundPivot() on them as soon as at least one feature is
   // found.
-  size_t const numIntersectingMaps = OrderCountries(inViewport, infos);
+  auto const infosWithType = OrderCountries(inViewport, infos);
 
   // MatchAroundPivot() should always be matched in mwms
   // intersecting with position and viewport.
-  auto processCountry = [&](size_t index, unique_ptr<MwmContext> context) {
+  auto processCountry = [&](MwmType const & mwmType, unique_ptr<MwmContext> context, bool updatePreranker) {
     ASSERT(context, ());
     m_context = move(context);
 
@@ -560,20 +564,21 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     FillVillageLocalities(ctx);
     SCOPE_GUARD(remove_villages, [&]() { m_cities = citiesFromWorld; });
 
-    bool const intersectsPivot = index < numIntersectingMaps;
     if (m_params.IsCategorialRequest())
     {
-      MatchCategories(ctx, intersectsPivot);
+      MatchCategories(ctx, mwmType.IsFirstBatchMwm(inViewport));
     }
     else
     {
       MatchRegions(ctx, Region::TYPE_COUNTRY);
 
-      if (intersectsPivot || m_preRanker.NumSentResults() == 0)
+      if (mwmType.IsFirstBatchMwm(inViewport) || m_preRanker.NumSentResults() == 0)
+      {
         MatchAroundPivot(ctx);
+      }
     }
 
-    if (index + 1 >= numIntersectingMaps)
+    if (updatePreranker)
       m_preRanker.UpdateResults(false /* lastUpdate */);
 
     if (m_preRanker.IsFull())
@@ -583,7 +588,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
   };
 
   // Iterates through all alive mwms and performs geocoding.
-  ForEachCountry(infos, processCountry);
+  ForEachCountry(infosWithType, processCountry);
 }
 
 void Geocoder::InitBaseContext(BaseContext & ctx)
@@ -792,11 +797,11 @@ bool Geocoder::CityHasPostcode(BaseContext const & ctx) const
 }
 
 template <typename Fn>
-void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, Fn && fn)
+void Geocoder::ForEachCountry(MwmInfosWithType const & infosWithType, Fn && fn)
 {
-  for (size_t i = 0; i < infos.size(); ++i)
+  for (size_t i = 0; i < infosWithType.m_infos.size(); ++i)
   {
-    auto const & info = infos[i];
+    auto const & info = infosWithType.m_infos[i].first;
     if (info->GetType() != MwmInfo::COUNTRY && info->GetType() != MwmInfo::WORLD)
       continue;
     if (info->GetType() == MwmInfo::COUNTRY && m_params.m_mode == Mode::Downloader)
@@ -808,8 +813,13 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, Fn && f
     auto & value = *handle.GetValue();
     if (!value.HasSearchIndex() || !value.HasGeometryIndex())
       continue;
-    if (fn(i, make_unique<MwmContext>(move(handle))) == base::ControlFlow::Break)
+    bool const updatePreranker = i + 1 >= infosWithType.m_firstBatchSize;
+    auto const mwmType = infosWithType.m_infos[i].second;
+    if (fn(mwmType, make_unique<MwmContext>(move(handle)), updatePreranker) ==
+        base::ControlFlow::Break)
+    {
       break;
+    }
   }
 }
 
