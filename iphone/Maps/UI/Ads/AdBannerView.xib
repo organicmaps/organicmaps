@@ -99,7 +99,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AdCallToActionButton"/>
                             </userDefinedRuntimeAttributes>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqm-uV-OY1">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqm-uV-OY1">
                             <rect key="frame" x="12" y="56" width="189" height="36"/>
                             <color key="backgroundColor" red="0.95294117649999999" green="0.92156862750000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>

@@ -72,7 +72,7 @@
 - (void)configTable
 {
   UITableView * tv = self.tableView;
-  [tv registerWithCellClass:[MWMStreetEditorEditTableViewCell class]];
+  [tv registerNibWithCellClass:[MWMStreetEditorEditTableViewCell class]];
 }
 
 #pragma mark - Actions

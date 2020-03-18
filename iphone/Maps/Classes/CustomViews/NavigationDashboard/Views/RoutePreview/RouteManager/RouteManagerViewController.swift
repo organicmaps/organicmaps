@@ -186,7 +186,7 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
   }
 
   private func setupTableView() {
-    tableView.register(cellClass: RouteManagerCell.self)
+    tableView.registerNib(cellClass: RouteManagerCell.self)
     tableView.estimatedRowHeight = 48
     tableView.rowHeight = UITableView.automaticDimension
   }

@@ -54,8 +54,8 @@ final class UGCAddReviewController: MWMTableViewController {
   }
 
   private func configTableView() {
-    tableView.register(cellClass: UGCAddReviewRatingCell.self)
-    tableView.register(cellClass: UGCAddReviewTextCell.self)
+    tableView.registerNib(cellClass: UGCAddReviewRatingCell.self)
+    tableView.registerNib(cellClass: UGCAddReviewTextCell.self)
 
     tableView.estimatedRowHeight = 48
     tableView.rowHeight = UITableView.automaticDimension

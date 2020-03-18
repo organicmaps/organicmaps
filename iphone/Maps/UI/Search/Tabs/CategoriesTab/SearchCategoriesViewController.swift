@@ -26,8 +26,8 @@ final class SearchCategoriesViewController: MWMTableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.register(cellClass: SearchCategoryCell.self)
-    tableView.register(cellClass: SearchBannerCell.self)
+    tableView.registerNib(cellClass: SearchCategoryCell.self)
+    tableView.registerNib(cellClass: SearchBannerCell.self)
     tableView.separatorStyle = .none
     tableView.keyboardDismissMode = .onDrag
   }

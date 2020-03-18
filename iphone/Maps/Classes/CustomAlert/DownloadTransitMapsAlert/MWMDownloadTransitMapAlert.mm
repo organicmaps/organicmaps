@@ -108,7 +108,7 @@ CGFloat const kAnimationDuration = .05;
 
 - (void)configure
 {
-  [self.dialogsTableView registerWithCellClass:[MWMDownloaderDialogCell class]];
+  [self.dialogsTableView registerNibWithCellClass:[MWMDownloaderDialogCell class]];
   self.listExpanded = NO;
   CALayer * containerViewLayer = self.containerView.layer;
   containerViewLayer.shouldRasterize = YES;

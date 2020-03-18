@@ -431,20 +431,27 @@
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4M-6d-Z3r">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="E6r-rB-Pqn">
                                         <rect key="frame" x="4" y="176" width="367" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="l8R-pq-CqB"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="place_page_search_similar_hotel"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="onSimilarHotels:" destination="76G-o4-sUY" eventType="touchUpInside" id="qKO-iW-agB"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4M-6d-Z3r">
+                                                <rect key="frame" x="12" y="0.0" width="343" height="36"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="l8R-pq-CqB"/>
+                                                </constraints>
+                                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                                <state key="normal" title="Button"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="place_page_search_similar_hotel"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="onSimilarHotels:" destination="76G-o4-sUY" eventType="touchUpInside" id="qKO-iW-agB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
+                                    </stackView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="0.0" left="4" bottom="0.0" right="4"/>
                             </stackView>
@@ -489,6 +496,7 @@
                         <outlet property="scheduleContainerView" destination="fKt-f3-qqN" id="uqC-c2-IS6"/>
                         <outlet property="scheduleLabel" destination="caI-ec-meo" id="dqL-Ov-367"/>
                         <outlet property="searchSimilarButton" destination="s4M-6d-Z3r" id="s8P-Xo-rog"/>
+                        <outlet property="searchSimilarContainerView" destination="E6r-rB-Pqn" id="JCE-oH-Opu"/>
                         <outlet property="stackView" destination="Gmb-Zm-Z10" id="M2z-ue-zMa"/>
                         <outlet property="subtitleContainerView" destination="YyN-l5-4le" id="k1n-hA-QbV"/>
                         <outlet property="subtitleDirectionView" destination="jaa-Yj-XQR" id="hhg-oX-YnF"/>

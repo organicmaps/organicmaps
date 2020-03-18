@@ -78,9 +78,9 @@ enum RowInMetaInfo
 - (void)registerCells
 {
   UITableView * tv = self.tableView;
-  [tv registerWithCellClass:[MWMButtonCell class]];
-  [tv registerWithCellClass:[MWMBookmarkTitleCell class]];
-  [tv registerWithCellClass:[MWMNoteCell class]];
+  [tv registerNibWithCellClass:[MWMButtonCell class]];
+  [tv registerNibWithCellClass:[MWMBookmarkTitleCell class]];
+  [tv registerNibWithCellClass:[MWMNoteCell class]];
 }
 
 - (void)onSave

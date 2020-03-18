@@ -1,6 +1,10 @@
 extension UITableView {
-  @objc func register(cellClass: AnyClass) {
+  @objc func registerNib(cellClass: AnyClass) {
     register(UINib(cellClass), forCellReuseIdentifier: toString(cellClass))
+  }
+
+  @objc func registerClass(cellClass: AnyClass) {
+    register(cellClass, forCellReuseIdentifier: toString(cellClass))
   }
 
   @objc func dequeueReusableCell(withCellClass cellClass: AnyClass) -> UITableViewCell? {

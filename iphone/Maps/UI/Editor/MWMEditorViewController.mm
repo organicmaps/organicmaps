@@ -151,7 +151,7 @@ std::vector<MWMEditorCellType> cellsForProperties(std::vector<osm::Props> const 
 void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UITableView * tv)
 {
   for (auto const c : cells)
-    [tv registerWithCellClass:cellClass(c)];
+    [tv registerNibWithCellClass:cellClass(c)];
 }
 }  // namespace
 

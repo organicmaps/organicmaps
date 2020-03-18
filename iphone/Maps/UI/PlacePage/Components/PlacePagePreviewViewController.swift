@@ -32,6 +32,7 @@ class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var addressContainerView: UIStackView!
   @IBOutlet var searchSimilarButton: UIButton!
   @IBOutlet var scheduleContainerView: UIStackView!
+  @IBOutlet var searchSimilarContainerView: UIStackView!
 
   @IBOutlet var titleDirectionView: DirectionView!
   @IBOutlet var subtitleDirectionView: DirectionView!
@@ -78,7 +79,7 @@ class PlacePagePreviewViewController: UIViewController {
       priceLabel.isHidden = true
     }
     popularView.isHidden = !placePagePreviewData.isPopular
-    searchSimilarButton.isHidden = placePagePreviewData.hotelType == .none
+    searchSimilarContainerView.isHidden = placePagePreviewData.hotelType == .none
     configSchedule()
     configUgc()
     ugcContainerView.isHidden = !placePagePreviewData.isBookingPlace

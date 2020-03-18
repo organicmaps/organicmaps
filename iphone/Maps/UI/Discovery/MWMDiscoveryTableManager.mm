@@ -162,12 +162,12 @@ using namespace discovery;
 
 - (void)registerCells {
   auto tv = self.tableView;
-  [tv registerWithCellClass:[MWMDiscoverySpinnerCell class]];
-  [tv registerWithCellClass:[MWMDiscoveryOnlineTemplateCell class]];
-  [tv registerWithCellClass:[MWMDiscoverySearchCollectionHolderCell class]];
-  [tv registerWithCellClass:[MWMDiscoveryGuideCollectionHolderCell class]];
-  [tv registerWithCellClass:[MWMDiscoveryBookingCollectionHolderCell class]];
-  [tv registerWithCellClass:[MWMDiscoveryNoResultsCell class]];
+  [tv registerNibWithCellClass:[MWMDiscoverySpinnerCell class]];
+  [tv registerNibWithCellClass:[MWMDiscoveryOnlineTemplateCell class]];
+  [tv registerNibWithCellClass:[MWMDiscoverySearchCollectionHolderCell class]];
+  [tv registerNibWithCellClass:[MWMDiscoveryGuideCollectionHolderCell class]];
+  [tv registerNibWithCellClass:[MWMDiscoveryBookingCollectionHolderCell class]];
+  [tv registerNibWithCellClass:[MWMDiscoveryNoResultsCell class]];
 }
 
 - (NSInteger)position:(ItemType const)type {

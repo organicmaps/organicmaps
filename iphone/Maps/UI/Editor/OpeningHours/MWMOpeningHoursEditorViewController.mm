@@ -67,7 +67,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 {
   [kMWMOpeningHoursEditorTableCells
       enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, Class cls, BOOL * _Nonnull stop) {
-        [self.tableView registerWithCellClass:cls];
+        [self.tableView registerNibWithCellClass:cls];
       }];
 }
 

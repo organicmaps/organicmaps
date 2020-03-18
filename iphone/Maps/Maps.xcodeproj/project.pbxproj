@@ -149,8 +149,7 @@
 		3486B5081E27A4B50069C126 /* LocalNotificationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3486B5061E27A4B50069C126 /* LocalNotificationManager.mm */; };
 		3486B50D1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3486B50B1E27A6DA0069C126 /* MWMPushNotifications.mm */; };
 		3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3486B5131E27AD3B0069C126 /* MWMFrameworkListener.mm */; };
-		3488B0131E9D0AEC0068AFD8 /* AdBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488B0101E9D0AEC0068AFD8 /* AdBanner.swift */; };
-		3488B0161E9D0AEC0068AFD8 /* AdBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3488B0111E9D0AEC0068AFD8 /* AdBanner.xib */; };
+		3488B0131E9D0AEC0068AFD8 /* AdBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488B0101E9D0AEC0068AFD8 /* AdBannerCell.swift */; };
 		3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488B0181E9D0B230068AFD8 /* UIColor+Modifications.swift */; };
 		3488B03B1E9D13EF0068AFD8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3488B03A1E9D13EF0068AFD8 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		348A8DF51F66775A00D83026 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348A8DF11F66775A00D83026 /* RatingView.swift */; };
@@ -1101,8 +1100,7 @@
 		3486B5121E27AD3B0069C126 /* MWMFrameworkListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkListener.h; sourceTree = "<group>"; };
 		3486B5131E27AD3B0069C126 /* MWMFrameworkListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkListener.mm; sourceTree = "<group>"; };
 		3486B5141E27AD3B0069C126 /* MWMFrameworkObservers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkObservers.h; sourceTree = "<group>"; };
-		3488B0101E9D0AEC0068AFD8 /* AdBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBanner.swift; sourceTree = "<group>"; };
-		3488B0111E9D0AEC0068AFD8 /* AdBanner.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdBanner.xib; sourceTree = "<group>"; };
+		3488B0101E9D0AEC0068AFD8 /* AdBannerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBannerCell.swift; sourceTree = "<group>"; };
 		3488B0181E9D0B230068AFD8 /* UIColor+Modifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Modifications.swift"; sourceTree = "<group>"; };
 		3488B03A1E9D13EF0068AFD8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		348A8DF11F66775A00D83026 /* RatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
@@ -2626,10 +2624,9 @@
 		3432E17F1E49BEFA008477E9 /* Ads */ = {
 			isa = PBXGroup;
 			children = (
-				3488B0101E9D0AEC0068AFD8 /* AdBanner.swift */,
-				3488B0111E9D0AEC0068AFD8 /* AdBanner.xib */,
 				474AC76A2139E4F2002F9BF9 /* RemoveAdsViewController.swift */,
 				474AC76B2139E4F2002F9BF9 /* RemoveAdsViewController.xib */,
+				3488B0101E9D0AEC0068AFD8 /* AdBannerCell.swift */,
 				4738A8E6239FC513007C0F43 /* AdBannerView.swift */,
 				4738A8E8239FC526007C0F43 /* AdBannerView.xib */,
 			);
@@ -5046,7 +5043,6 @@
 				F6E2FF001E097BA00083EBEC /* SearchCategoryCell.xib in Resources */,
 				F6E2FF331E097BA00083EBEC /* MWMSearchCommonCell.xib in Resources */,
 				F6E2FF061E097BA00083EBEC /* SearchHistoryClearCell.xib in Resources */,
-				3488B0161E9D0AEC0068AFD8 /* AdBanner.xib in Resources */,
 				BB7626B61E85599C0031D71C /* icudt57l.dat in Resources */,
 				34AB665C1FC5AA330078E451 /* TransportTransitIntermediatePoint.xib in Resources */,
 				F6E2FF151E097BA00083EBEC /* SearchHistoryQueryCell.xib in Resources */,
@@ -5581,7 +5577,7 @@
 				993DF12923F6BDB100AC231A /* ThemeManager.swift in Sources */,
 				337F98A621D37B7400C8AC27 /* SearchTabViewController.swift in Sources */,
 				479D306122C6634900D18278 /* MWMMegafonBannerViewController.m in Sources */,
-				3488B0131E9D0AEC0068AFD8 /* AdBanner.swift in Sources */,
+				3488B0131E9D0AEC0068AFD8 /* AdBannerCell.swift in Sources */,
 				3404755F1E081A4600C92850 /* MWMLocationPredictor.mm in Sources */,
 				993DF11523F6BDB100AC231A /* UISearchBarRenderer.swift in Sources */,
 				F6E2FE041E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,

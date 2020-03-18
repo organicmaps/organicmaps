@@ -216,7 +216,7 @@ using namespace std;
   [self.noResultsView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
   self.tableView.estimatedRowHeight = 44;
-  [self.tableView registerWithCellClass:MWMCategoryInfoCell.class];
+  [self.tableView registerNibWithCellClass:MWMCategoryInfoCell.class];
 
   auto regularTitleAttributes = @{ NSFontAttributeName: [UIFont regular16],
                                    NSForegroundColorAttributeName: [UIColor linkBlue] };
