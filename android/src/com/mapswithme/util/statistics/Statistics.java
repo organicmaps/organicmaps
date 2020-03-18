@@ -180,11 +180,13 @@ public enum Statistics
   }
 
   @NonNull
-  public static ParameterBuilder makeDownloaderBannerParamBuilder(@NonNull String provider)
+  public static ParameterBuilder makeDownloaderBannerParamBuilder(@NonNull String provider,
+                                                                  @NonNull String mwmId)
   {
     return new ParameterBuilder()
             .add(EventParam.FROM, ParamValue.MAP)
-            .add(PROVIDER, provider);
+            .add(PROVIDER, provider)
+            .add(MWM_NAME, mwmId);
   }
 
   @NonNull
@@ -774,6 +776,10 @@ public enum Statistics
     public static final String DELETE_GROUP = "delete_group";
     public static final String OFFSCREEEN = "Offscreen";
     public static final String MAPSME_GUIDES = "MapsMeGuides";
+    public static final String TINKOFF_INSURANCE = "Tinkoff_Insurance";
+    public static final String TINKOFF_ALL_AIRLINES= "Tinkoff_AllAirlines";
+    public static final String SKYENG = "Skyeng";
+    public static final String MTS = "MTS";
     public static final String BY_DEFAULT = "Default";
     public static final String BY_DATE = "Date";
     public static final String BY_DISTANCE = "Distance";

@@ -1930,9 +1930,6 @@ Java_com_mapswithme_maps_Framework_nativeDeleteSavedRoutePoints()
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetSearchBanners(JNIEnv * env, jclass)
 {
-  auto const & purchase = frm()->GetPurchase();
-  if (purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
-    return nullptr;
   return usermark_helper::ToBannersArray(env, frm()->GetAdsEngine().GetSearchBanners());
 }
 
@@ -2035,24 +2032,20 @@ Java_com_mapswithme_maps_Framework_nativeGetDownloaderPromoBanner(JNIEnv * env, 
   static jmethodID const downloaderPromoBannerConstructor = jni::GetConstructorID(env,
       downloaderPromoBannerClass, "(ILjava/lang/String;)V");
 
-  auto const & purchase = frm()->GetPurchase();
-  bool const hasSubscription = purchase != nullptr &&
-                               purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
-
-  promo::DownloaderPromo::Banner banner;
-  auto const policy = platform::GetCurrentNetworkPolicy();
-  if (policy.CanUse())
+  std::vector<ads::Banner> banners;
+  auto const pos = frm()->GetCurrentPosition();
+  if (pos)
   {
-    auto const * promoApi = frm()->GetPromoApi(policy);
-    CHECK(promoApi != nullptr, ());
-    banner = promo::DownloaderPromo::GetBanner(frm()->GetStorage(), *promoApi,
-                                               jni::ToNativeString(env, mwmId),
-                                               languages::GetCurrentNorm(), hasSubscription);
+    banners = frm()->GetAdsEngine().GetDownloadOnMapBanners(jni::ToNativeString(env, mwmId), *pos,
+                                                            languages::GetCurrentNorm());
   }
 
-  jni::TScopedLocalRef const url(env, jni::ToJavaString(env, banner.m_url));
+  if (banners.empty())
+    return nullptr;
+
+  jni::TScopedLocalRef const url(env, jni::ToJavaString(env, banners[0].m_value));
   return env->NewObject(downloaderPromoBannerClass, downloaderPromoBannerConstructor,
-                        static_cast<jint>(banner.m_type), url.get());
+                        static_cast<jint>(banners[0].m_type), url.get());
 }
 
 JNIEXPORT jboolean JNICALL

@@ -113,8 +113,6 @@
         android:fontFamily="@string/robotoMedium"
         android:textAllCaps="false"
         android:textSize="@dimen/text_size_body_3"
-        android:text="@string/banner_megafon_banner_button"
-        android:background="@drawable/button_megafon"
         style="?android:attr/borderlessButtonStyle"
         android:textColor="@color/white_primary"
         tools:targetApi="jelly_bean"/>

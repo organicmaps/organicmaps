@@ -43,6 +43,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   @NonNull
   private final View mCatalogCallToActionContainer;
   @NonNull
+  private final View mBannerContainer;
+  @NonNull
   private final View mPromoContentDivider;
 
   private int mStorageSubscriptionSlot;
@@ -244,11 +246,17 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
      });
 
     mFrame.findViewById(R.id.banner_button).setOnClickListener(v -> {
-      if (mPromoBanner != null && mPromoBanner.getType() != DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO)
-        Utils.openUrl(mActivity, mPromoBanner.getUrl());
+      if (mPromoBanner == null)
+        return;
+
+      Utils.openUrl(mActivity, mPromoBanner.getUrl());
+
+      if (mCurrentCountry == null)
+        return;
 
       Statistics.ParameterBuilder builder =
-          Statistics.makeDownloaderBannerParamBuilder(Statistics.ParamValue.MEGAFON);
+          Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
+                                                      mCurrentCountry.id);
       Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_CLICK, builder);
     });
 
@@ -256,6 +264,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     mCatalogCallToActionContainer = mFrame.findViewById(R.id.catalog_call_to_action_container);
     downloadGuidesBtn.setOnClickListener(new CatalogCallToActionListener());
     mPromoContentDivider = mFrame.findViewById(R.id.onmap_downloader_divider);
+    mBannerContainer = mFrame.findViewById(R.id.banner);
   }
 
   private void updateBannerVisibility()
@@ -264,26 +273,31 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       return;
 
     mPromoBanner = Framework.nativeGetDownloaderPromoBanner(mCurrentCountry.id);
-    boolean isPromoFound = mPromoBanner.getType() != DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_NO_PROMO;
+    boolean isPromoFound = mPromoBanner != null;
 
     boolean enqueued = mCurrentCountry.status == CountryItem.STATUS_ENQUEUED;
     boolean progress = mCurrentCountry.status == CountryItem.STATUS_PROGRESS;
     boolean applying = mCurrentCountry.status == CountryItem.STATUS_APPLYING;
     boolean isDownloading = enqueued || progress || applying;
-    UiUtils.showIf(isPromoFound && isDownloading, mPromoContentDivider);
 
-    boolean hasMegafonPromo = mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_MEGAFON;
-    boolean hasCatalogPromo = mPromoBanner.getType() == DownloaderPromoBanner.DOWNLOADER_PROMO_TYPE_BOOKMARK_CATALOG;
-
-    UiUtils.showIf(isDownloading && hasMegafonPromo, mFrame, R.id.banner);
-    UiUtils.showIf(isDownloading && hasCatalogPromo, mCatalogCallToActionContainer);
-
-
-    if (!isPromoFound)
+    if (!isDownloading || !isPromoFound)
+    {
+      UiUtils.hide(mPromoContentDivider, mBannerContainer, mCatalogCallToActionContainer);
       return;
+    }
+    UiUtils.show(mPromoContentDivider);
+
+    boolean hasCatalogPromo = mPromoBanner.getType() == DownloaderBannerType.BOOKMARK_CATALOG;
+
+    View bannerView = hasCatalogPromo ? mCatalogCallToActionContainer : mBannerContainer;
+    mPromoBanner.getType().getViewConfigStrategy().ConfigureView(bannerView, R.id.icon, R.id.text,
+                                                                 R.id.banner_button);
+    UiUtils.showIf(!hasCatalogPromo, mBannerContainer);
+    UiUtils.showIf(hasCatalogPromo, mCatalogCallToActionContainer);
 
     Statistics.ParameterBuilder builder =
-        Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.toStatisticValue());
+        Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
+                                                    mCurrentCountry.id);
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_SHOW, builder);
   }
@@ -336,8 +350,13 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
       BookmarksCatalogActivity.startForResult(mActivity, BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
                                               mPromoBanner.getUrl());
+
+      if (mCurrentCountry == null)
+        return;
+
       Statistics.ParameterBuilder builder =
-          Statistics.makeDownloaderBannerParamBuilder(Statistics.ParamValue.MAPSME_GUIDES);
+          Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
+                                                      mCurrentCountry.id);
       Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_CLICK, builder);
     }
   }

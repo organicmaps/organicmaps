@@ -503,7 +503,7 @@ public class Framework
   @NonNull
   public static native String nativeMoPubInitializationBannerId();
 
-  @NonNull
+  @Nullable
   public static native DownloaderPromoBanner nativeGetDownloaderPromoBanner(@NonNull String mwmId);
 
   public static native boolean nativeHasMegafonCategoryBanner();
