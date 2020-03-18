@@ -572,7 +572,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> const & infos, bool inViewport
     {
       MatchRegions(ctx, Region::TYPE_COUNTRY);
 
-      if (mwmType.IsFirstBatchMwm(inViewport) || m_preRanker.NumSentResults() == 0)
+      if (mwmType.m_viewportIntersect || mwmType.m_userPosition || m_preRanker.NumSentResults() == 0)
       {
         MatchAroundPivot(ctx);
       }
