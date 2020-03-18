@@ -222,34 +222,36 @@ private:
 
   // Tries to find all countries and states in a search query and then
   // performs matching of cities in found maps.
-  void MatchRegions(BaseContext & ctx, Region::Type type);
+  void MatchRegions(BaseContext & ctx, MwmType mwmType, Region::Type type);
 
   // Tries to find all cities in a search query and then performs
   // matching of streets in found cities.
-  void MatchCities(BaseContext & ctx);
+  void MatchCities(BaseContext & ctx, MwmType mwmType);
 
   // Tries to do geocoding without localities, ie. find POIs,
   // BUILDINGs and STREETs without knowledge about country, state,
   // city or village. If during the geocoding too many features are
   // retrieved, viewport is used to throw away excess features.
-  void MatchAroundPivot(BaseContext & ctx);
+  void MatchAroundPivot(BaseContext & ctx, MwmType mwmType);
 
   // Tries to do geocoding in a limited scope, assuming that knowledge
   // about high-level features, like cities or countries, is
   // incorporated into |filter|.
-  void LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter);
+  void LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter,
+                     std::vector<m2::PointD> const & centers);
 
   template <typename Fn>
   void WithPostcodes(BaseContext & ctx, Fn && fn);
 
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in street vicinities.
-  void GreedilyMatchStreets(BaseContext & ctx);
+  void GreedilyMatchStreets(BaseContext & ctx, std::vector<m2::PointD> const & centers);
   // Matches suburbs and streets inside suburbs like |GreedilyMatchStreets|.
-  void GreedilyMatchStreetsWithSuburbs(BaseContext & ctx);
+  void GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, std::vector<m2::PointD> const & centers);
 
   void CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
-                                             StreetsMatcher::Prediction const & prediction);
+                                             StreetsMatcher::Prediction const & prediction,
+                                             std::vector<m2::PointD> const & centers);
 
   // Tries to find all paths in a search tree, where each edge is
   // marked with some substring of the query tokens. These paths are

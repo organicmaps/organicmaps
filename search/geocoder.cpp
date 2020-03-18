@@ -564,12 +564,12 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> const & infos, bool inViewport
     }
     else
     {
-      MatchRegions(ctx, Region::TYPE_COUNTRY);
+      MatchRegions(ctx, mwmType, Region::TYPE_COUNTRY);
 
       if (mwmType.m_viewportIntersected || mwmType.m_containsUserPosition ||
           m_preRanker.NumSentResults() == 0)
       {
-        MatchAroundPivot(ctx);
+        MatchAroundPivot(ctx, mwmType);
       }
     }
 
@@ -849,7 +849,7 @@ void Geocoder::MatchCategories(BaseContext & ctx, bool aroundPivot)
   features.ForEach(emit);
 }
 
-void Geocoder::MatchRegions(BaseContext & ctx, Region::Type type)
+void Geocoder::MatchRegions(BaseContext & ctx, MwmType mwmType, Region::Type type)
 {
   TRACE(MatchRegions);
 
@@ -858,12 +858,12 @@ void Geocoder::MatchRegions(BaseContext & ctx, Region::Type type)
   case Region::TYPE_STATE:
     // Tries to skip state matching and go to cities matching.
     // Then, performs states matching.
-    MatchCities(ctx);
+    MatchCities(ctx, mwmType);
     break;
   case Region::TYPE_COUNTRY:
     // Tries to skip country matching and go to states matching.
     // Then, performs countries matching.
-    MatchRegions(ctx, Region::TYPE_STATE);
+    MatchRegions(ctx, mwmType, Region::TYPE_STATE);
     break;
   case Region::TYPE_COUNT: ASSERT(false, ("Invalid region type.")); return;
   }
@@ -924,15 +924,15 @@ void Geocoder::MatchRegions(BaseContext & ctx, Region::Type type)
 
       switch (type)
       {
-      case Region::TYPE_STATE: MatchCities(ctx); break;
-      case Region::TYPE_COUNTRY: MatchRegions(ctx, Region::TYPE_STATE); break;
+      case Region::TYPE_STATE: MatchCities(ctx, mwmType); break;
+      case Region::TYPE_COUNTRY: MatchRegions(ctx, mwmType, Region::TYPE_STATE); break;
       case Region::TYPE_COUNT: ASSERT(false, ("Invalid region type.")); break;
       }
     }
   }
 }
 
-void Geocoder::MatchCities(BaseContext & ctx)
+void Geocoder::MatchCities(BaseContext & ctx, MwmType mwmType)
 {
   TRACE(MatchCities);
 
@@ -978,7 +978,7 @@ void Geocoder::MatchCities(BaseContext & ctx)
       LocalityFilter filter(cityFeatures);
 
       size_t const numEmitted = ctx.m_numEmitted;
-      LimitedSearch(ctx, filter);
+      LimitedSearch(ctx, filter, {city.m_rect.Center()});
       if (numEmitted == ctx.m_numEmitted)
       {
         TRACE(Relaxed);
@@ -988,17 +988,29 @@ void Geocoder::MatchCities(BaseContext & ctx)
   }
 }
 
-void Geocoder::MatchAroundPivot(BaseContext & ctx)
+void Geocoder::MatchAroundPivot(BaseContext & ctx, MwmType mwmType)
 {
   TRACE(MatchAroundPivot);
 
   CBV features;
   features.SetFull();
   ViewportFilter filter(features, m_preRanker.Limit() /* threshold */);
-  LimitedSearch(ctx, filter);
+
+  vector<m2::PointD> centers = {m_params.m_pivot.Center()};
+  if (mwmType.m_containsUserPosition)
+  {
+    CHECK(m_params.m_position, ());
+    if (mwmType.m_viewportIntersected)
+      centers.push_back(*m_params.m_position);
+    else
+      centers = {*m_params.m_position};
+  }
+
+  LimitedSearch(ctx, filter, centers);
 }
 
-void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter)
+void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter,
+                             vector<m2::PointD> const & centers)
 {
   m_filter = &filter;
   SCOPE_GUARD(resetFilter, [&]() { m_filter = nullptr; });
@@ -1011,8 +1023,8 @@ void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter)
 
   MatchUnclassified(ctx, 0 /* curToken */);
 
-  auto const search = [this, &ctx]() {
-    GreedilyMatchStreets(ctx);
+  auto const search = [this, &ctx, &centers]() {
+    GreedilyMatchStreets(ctx, centers);
     MatchPOIsAndBuildings(ctx, 0 /* curToken */);
   };
 
@@ -1088,7 +1100,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, Fn && fn)
   }
 }
 
-void Geocoder::GreedilyMatchStreets(BaseContext & ctx)
+void Geocoder::GreedilyMatchStreets(BaseContext & ctx, vector<m2::PointD> const & centers)
 {
   TRACE(GreedilyMatchStreets);
 
@@ -1097,12 +1109,13 @@ void Geocoder::GreedilyMatchStreets(BaseContext & ctx)
   StreetsMatcher::Go(ctx, ctx.m_streets, *m_filter, m_params, predictions);
 
   for (auto const & prediction : predictions)
-    CreateStreetsLayerAndMatchLowerLayers(ctx, prediction);
+    CreateStreetsLayerAndMatchLowerLayers(ctx, prediction, centers);
 
-  GreedilyMatchStreetsWithSuburbs(ctx);
+  GreedilyMatchStreetsWithSuburbs(ctx, centers);
 }
 
-void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx)
+void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx,
+                                               vector<m2::PointD> const & centers)
 {
   TRACE(GreedilyMatchStreetsWithSuburbs);
   vector<StreetsMatcher::Prediction> suburbs;
@@ -1136,13 +1149,14 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx)
       StreetsMatcher::Go(ctx, suburbStreets, *m_filter, m_params, predictions);
 
       for (auto const & prediction : predictions)
-        CreateStreetsLayerAndMatchLowerLayers(ctx, prediction);
+        CreateStreetsLayerAndMatchLowerLayers(ctx, prediction, centers);
     });
   }
 }
 
 void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
-                                                     StreetsMatcher::Prediction const & prediction)
+                                                     StreetsMatcher::Prediction const & prediction,
+                                                     vector<m2::PointD> const & centers)
 {
   auto & layers = ctx.m_layers;
 
