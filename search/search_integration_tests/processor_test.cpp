@@ -2537,5 +2537,86 @@ UNIT_CLASS_TEST(ProcessorTest, ViewportFilter)
     TEST(ResultsMatch(request.Results(), rulesViewport), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, FilterStreetPredictions)
+{
+  TestStreet lenina0({m2::PointD(0.0, -1.0), m2::PointD(0.0, 1.0)}, "Lenina", "en");
+  TestStreet lenina1({m2::PointD(1.0, -1.0), m2::PointD(1.0, 1.0)}, "Lenina", "en");
+  TestStreet lenina2({m2::PointD(2.0, -1.0), m2::PointD(2.0, 1.0)}, "Lenina", "en");
+  TestStreet lenina3({m2::PointD(3.0, -1.0), m2::PointD(3.0, 1.0)}, "Lenina", "en");
+
+  auto const countryId = BuildCountry("Wounderland", [&](TestMwmBuilder & builder) {
+    builder.Add(lenina0);
+    builder.Add(lenina1);
+    builder.Add(lenina2);
+    builder.Add(lenina3);
+  });
+
+  SearchParams defaultParams;
+  defaultParams.m_query = "Lenina";
+  defaultParams.m_inputLocale = "en";
+  defaultParams.m_viewport = m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0));
+  defaultParams.m_mode = Mode::Everywhere;
+  defaultParams.m_streetSearchRadiusM = TestSearchRequest::kDefaultTestStreetSearchRadiusM;
+
+  {
+    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina1),
+                         ExactMatch(countryId, lenina2), ExactMatch(countryId, lenina3)};
+
+    TestSearchRequest request(m_engine, defaultParams);
+    request.Run();
+    TEST(ResultsMatch(request.Results(), rules), ());
+  }
+
+  {
+    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina1),
+                         ExactMatch(countryId, lenina2)};
+
+    auto params = defaultParams;
+    params.m_streetSearchRadiusM =
+        mercator::DistanceOnEarth(params.m_viewport.Center(), m2::PointD(3.0, 0.0)) - 1.0;
+
+    TestSearchRequest request(m_engine, params);
+    request.Run();
+    TEST(ResultsMatch(request.Results(), rules), ());
+  }
+
+  {
+    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina1)};
+
+    auto params = defaultParams;
+    params.m_streetSearchRadiusM =
+        mercator::DistanceOnEarth(params.m_viewport.Center(), m2::PointD(2.0, 0.0)) - 1.0;
+
+    TestSearchRequest request(m_engine, params);
+    request.Run();
+    TEST(ResultsMatch(request.Results(), rules), ());
+  }
+
+  {
+    Rules const rules = {ExactMatch(countryId, lenina0)};
+
+    auto params = defaultParams;
+    params.m_streetSearchRadiusM =
+        mercator::DistanceOnEarth(params.m_viewport.Center(), m2::PointD(1.0, 0.0)) - 1.0;
+
+    TestSearchRequest request(m_engine, params);
+    request.Run();
+    TEST(ResultsMatch(request.Results(), rules), ());
+  }
+
+  {
+    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina3)};
+
+    auto params = defaultParams;
+    params.m_streetSearchRadiusM =
+        mercator::DistanceOnEarth(params.m_viewport.Center(), m2::PointD(1.0, 0.0)) - 1.0;
+    params.m_position = m2::PointD(3.0, 0.0);
+
+    TestSearchRequest request(m_engine, params);
+    request.Run();
+    TEST(ResultsMatch(request.Results(), rules), ());
+  }
+}
 }  // namespace
 }  // namespace search
