@@ -566,7 +566,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> const & infos, bool inViewport
 
     if (m_params.IsCategorialRequest())
     {
-      MatchCategories(ctx, mwmType.IsFirstBatchMwm(inViewport));
+      MatchCategories(ctx, mwmType.m_viewportIntersect /* aroundPivot */);
     }
     else
     {
