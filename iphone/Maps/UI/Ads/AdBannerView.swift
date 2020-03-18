@@ -36,7 +36,7 @@ private func attributedTitle(title: String, indent: CGFloat) -> NSAttributedStri
   return NSAttributedString(string: title,
                         attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle,
                                      NSAttributedString.Key.font: UIFont.bold12(),
-                                     NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText()
+                                     NSAttributedString.Key.foregroundColor: UIColor.isNightMode() ? UIColor.pressBackground() : UIColor.blackSecondaryText()
                                     ])
 }
 
@@ -232,7 +232,6 @@ class AdBannerView: UIView {
       adCallToActionButtons.forEach { $0.setTitle(ad.ctaText, for: .normal) }
     }
     mpNativeAd?.setAdView(self, iconView: adIconImageView, actionButtons: adCallToActionButtons)
-
     adTitleLabel.attributedText = attributedTitle(title: ad.title,
                                                   indent: adPrivacyImage.width + DAAImageWidth.constant)
     adBodyLabel.text = ad.text
@@ -259,5 +258,12 @@ class AdBannerView: UIView {
   override func willMove(toSuperview newSuperview: UIView?) {
     super.willMove(toSuperview: newSuperview)
     mpNativeAd?.nativeViewWillMove(toSuperview: newSuperview)
+  }
+
+
+  override func applyTheme() {
+    super.applyTheme()
+    adTitleLabel.attributedText = attributedTitle(title: adTitleLabel.attributedText?.string ?? "",
+                                                  indent: adPrivacyImage.width + DAAImageWidth.constant)
   }
 }

@@ -19,7 +19,7 @@
 - (void)setAdView:(UIView *)view iconView:(UIImageView *)iconImageView actionButtons:(NSArray<UIButton *> *)buttons
 {
   self.associatedView = (MPNativeView *)view;
-  ((MWMAdBanner *)view).mpNativeAd = self;
+  ((AdBannerView *)view).mpNativeAd = self;
   if (!self.hasAttachedToView) {
     id<MPNativeAdAdapter> adapter = self.adAdapter;
     if ([adapter isKindOfClass:[FacebookNativeAdAdapter class]])

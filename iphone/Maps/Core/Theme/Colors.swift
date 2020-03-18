@@ -34,7 +34,7 @@ class DayColors: IColors {
   var blackOpaque = UIColor(0, 0, 0, alpha04)
   var toastBackground = UIColor(255, 255, 255, alpha87)
   var statusBarBackground = UIColor(255, 255, 255, alpha36)
-  var bannerBackground = UIColor(249, 251, 231, alpha100)
+  var bannerBackground = UIColor(242, 245, 212, alpha100)
   var border = UIColor(0, 0, 0, alpha04)
   var discountBackground = UIColor(240, 100, 60, alpha100)
   var discountText = UIColor(60, 64, 68, alpha100)
@@ -49,7 +49,7 @@ class DayColors: IColors {
   var ratingYellow = UIColor(245, 176, 39, alpha100)
   var ratingLightGreen = UIColor(124, 179, 66, alpha100)
   var ratingGreen = UIColor(67, 160, 71, alpha100)
-  var bannerButtonBackground = UIColor(0, 0, 0, alpha12)
+  var bannerButtonBackground = UIColor(60, 140, 60, alpha70)
   var facebookButtonBackground = UIColor(59, 89, 152, alpha100);
   var facebookButtonBackgroundDisabled = UIColor(59, 89, 152, alpha70);
   var allPassSubscriptionTitle = UIColor(0, 0, 0, alpha100)
@@ -100,7 +100,7 @@ class NightColors: IColors {
   var blackOpaque =  UIColor(255, 255, 255, alpha04)
   var toastBackground =  UIColor(0, 0, 0, alpha87)
   var statusBarBackground =  UIColor(0, 0, 0, alpha32)
-  var bannerBackground = UIColor(71, 75, 79, alpha100)
+  var bannerBackground = UIColor(255, 255, 255, alpha54)
   var border = UIColor(255, 255, 255, alpha04)
   var discountBackground = UIColor(240, 100, 60, alpha100)
   var discountText = UIColor(60, 64, 68, alpha100)
@@ -115,7 +115,7 @@ class NightColors: IColors {
   var ratingYellow = UIColor(245, 176, 39, alpha100)
   var ratingLightGreen = UIColor(124, 179, 66, alpha100)
   var ratingGreen = UIColor(67, 160, 71, alpha100)
-  var bannerButtonBackground = UIColor(255, 255, 255, alpha12)
+  var bannerButtonBackground = UIColor(89, 115, 128, alpha70)
   var facebookButtonBackground = UIColor(59, 89, 152, alpha100);
   var facebookButtonBackgroundDisabled = UIColor(59, 89, 152, alpha70);
   var allPassSubscriptionTitle = UIColor(0, 0, 0, alpha100)

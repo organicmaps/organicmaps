@@ -6,6 +6,26 @@ class AdsStyleSheet: IStyleSheet {
       s.backgroundColor = colors.bannerBackground
     }
 
+    theme.add(styleName: "AdBannerTitle", forType: .light) { (s) -> (Void) in
+      s.font = fonts.bold12
+      s.fontColor = colors.blackSecondaryText
+    }
+
+    theme.add(styleName: "AdBannerTitle", forType: .dark) { (s) -> (Void) in
+      s.font = fonts.bold12
+      s.fontColor = colors.primaryDark
+    }
+
+    theme.add(styleName: "AdBannerSubtitle", forType: .light) { (s) -> (Void) in
+      s.font = fonts.regular12
+      s.fontColor = colors.blackSecondaryText
+    }
+
+    theme.add(styleName: "AdBannerSubtitle", forType: .dark) { (s) -> (Void) in
+      s.font = fonts.regular12
+      s.fontColor = colors.pressBackground
+    }
+
     theme.add(styleName: "AdBannerPrivacyImage") { (s) -> (Void) in
       s.cornerRadius = 4
       s.clip = true
@@ -14,13 +34,13 @@ class AdsStyleSheet: IStyleSheet {
     theme.add(styleName: "AdBannerButton") { (s) -> (Void) in
       s.font = fonts.medium14
       s.backgroundColor = colors.bannerButtonBackground
-      s.fontColor = colors.blackSecondaryText
+      s.fontColor = UIColor.white
       s.clip = true
-      s.cornerRadius = 8
+      s.cornerRadius = 10
     }
 
     theme.add(styleName: "AdCallToActionButton", from: "AdBannerButton") { (s) -> (Void) in
-      s.cornerRadius = 10
+      s.font = fonts.medium12
     }
 
     theme.add(styleName: "RemoveAdsOptionsButton") { (s) -> (Void) in

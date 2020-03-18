@@ -31,6 +31,7 @@ class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var addressLabel: UILabel!
   @IBOutlet var addressContainerView: UIStackView!
   @IBOutlet var searchSimilarButton: UIButton!
+  @IBOutlet var scheduleContainerView: UIStackView!
 
   @IBOutlet var titleDirectionView: DirectionView!
   @IBOutlet var subtitleDirectionView: DirectionView!
@@ -191,7 +192,7 @@ class PlacePagePreviewViewController: UIViewController {
       scheduleLabel.text = L("closed_now")
       scheduleLabel.textColor = UIColor.red
     case .openingHoursUnknown:
-      scheduleLabel.isHidden = true
+      scheduleContainerView.isHidden = true
     @unknown default:
       fatalError()
     }
