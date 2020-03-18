@@ -14,12 +14,18 @@ public:
   void SetTrackId(kml::TrackId trackId);
   kml::TrackId GetTrackId() const { return m_trackId; }
 
+  // df::UserPointMark overrides.
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
   dp::Anchor GetAnchor() const override { return dp::Bottom; }
   bool IsVisible() const override { return m_isVisible; }
   bool SymbolIsPOI() const override { return true; }
-  df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
+
+  df::SpecialDisplacement GetDisplacement() const override
+  {
+    return df::SpecialDisplacement::SpecialModeUserMark;
+  }
+
   df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::RoutingMarkLayer; }
 
 private:
@@ -46,6 +52,7 @@ public:
   void SetMyPositionDistance(double distance);
   double GetMyPositionDistance() const { return m_myPositionDistance; }
 
+  // df::UserPointMark overrides.
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 
 private:
