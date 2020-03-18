@@ -1,50 +1,134 @@
 #!/usr/bin/env python
 
 import argparse
+import os
+import timeit
 
 from pygen import classif
 from pygen import mwm
 
 
-def main(args):
-    map = mwm.Mwm(args.m)
-    print("{} with type {} has {} features.".format(args.m, map.type(), len(map)))
-    print("Mwm version is {}".format(map.version()))
-    print("Bounds are {}".format(map.bounds()))
-    print("Sections info is {}".format(map.sections_info()))
+def example__storing_features_in_a_collection(path):
+    ft_list = [ft for ft in mwm.Mwm(path)]
+    print("List size:", len(ft_list))
 
-    fts_with_metadata = [ft for ft in map if ft.metadata()]
-    print("{} features have metadata.".format(len(fts_with_metadata)))
+    ft_tuple = tuple(ft for ft in mwm.Mwm(path))
+    print("Tuple size:", len(ft_tuple))
 
-    first = fts_with_metadata[0]
-    print(first)
+    def slow():
+        ft_with_metadata_list = []
+        for ft in mwm.Mwm(path):
+            if ft.metadata():
+                ft_with_metadata_list.append(ft)
+        return ft_with_metadata_list
 
-    metadata = first.metadata()
-    if mwm.EType.FMD_CUISINE in metadata:
-        print("Metadata has mwm.EType.FMD_CUISINE.")
+    ft_with_metadata_list = slow()
+    print("Features with metadata:", len(ft_with_metadata_list))
+    print("First three are:", ft_with_metadata_list[:3])
 
-    if mwm.EType.FMD_WEBSITE in metadata:
-        print("Metadata has mwm.EType.FMD_WEBSITE.")
+    def fast():
+        ft_with_metadata_list = []
+        for ft in mwm.Mwm(path, False):
+            if ft.metadata():
+                ft_with_metadata_list.append(ft.parse())
+        return ft_with_metadata_list
 
-    for k, v in metadata.items():
-        print("{}: {}".format(k, v))
+    tslow = timeit.timeit(slow, number=100)
+    tfast = timeit.timeit(fast, number=100)
+    print("Slow took {}, fast took {}.".format(tslow, tfast))
 
-    last = fts_with_metadata[-1]
-    print(last.metadata())
-    for t in last.types():
-        print(classif.readable_type(t))
 
-    print("Index is {}".format(last.index()))
-    print("Center is {}".format(last.center()))
+def example__features_generator(path):
+    def make_gen(path):
+        return (ft for ft in mwm.Mwm(path))
+
+    cnt = 0
+    print("Names of several first features:")
+    for ft in make_gen(path):
+        print(ft.names())
+        if cnt == 5:
+            break
+
+        cnt += 1
+
+    def return_ft(num):
+        cnt = 0
+        for ft in mwm.Mwm(path):
+            if cnt == num:
+                return ft
+
+            cnt += 1
+
+    print(return_ft(10))
+
+
+def example__sequential_processing(path):
+    long_names = []
+    for ft in mwm.Mwm(path):
+        if len(ft.readable_name()) > 100:
+            long_names.append(ft.readable_name())
+
+    print("Long names:", long_names)
+
+
+def example__working_with_features(path):
+    it = iter(mwm.Mwm(path))
+    ft = it.next()
+    print("Feature members are:", dir(ft))
+
+    print("index:", ft.index())
     print(
-        "Names are {}, readable name is {}.".format(last.names(), last.readable_name())
+        "types:",
+        ft.types(),
+        "redable types:",
+        [classif.readable_type(t) for t in ft.types()],
     )
+    print("metadata:", ft.metadata())
+    print("names:", ft.names())
+    print("readable_name:", ft.readable_name())
+    print("rank:", ft.rank())
+    print("population:", ft.population())
+    print("road_number:", ft.road_number())
+    print("house_number:", ft.house_number())
+    print("postcode:", ft.postcode())
+    print("layer:", ft.layer())
+    print("geom_type:", ft.geom_type())
+    print("center:", ft.center())
+    print("geometry:", ft.geometry())
+    print("limit_rect:", ft.limit_rect())
+    print("__repr__:", ft)
+
+    for ft in it:
+      geometry = ft.geometry()
+      if ft.geom_type() == mwm.GeomType.Area and len(geometry) < 10:
+        print("area geometry", geometry)
+        break
+
+def example__working_with_mwm(path):
+    map = mwm.Mwm(path)
+    print("Mwm members are:", dir(map))
+
+    print("version:", map.version())
+    print("type:", map.type())
+    print("bounds:", map.bounds())
+    print("sections_info:", map.sections_info())
+
+
+def main(path):
+    example__storing_features_in_a_collection(path)
+    example__features_generator(path)
+    example__sequential_processing(path)
+    example__working_with_features(path)
+    example__working_with_mwm(path)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Example usage of pygen module.")
-    parser.add_argument(
-        "-m", metavar="MWM_PATH", type=str, default="", help="Path to mwm files."
+    main(
+        os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            "..",
+            "..",
+            "data",
+            "minsk-pass.mwm",
+        )
     )
-    args = parser.parse_args()
-    main(args)

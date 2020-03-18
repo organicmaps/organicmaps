@@ -44,7 +44,7 @@ void Write(Sink & sink, Info const & i)
   WriteVarUint(sink, i.m_size);
 }
 
-string DebugPrint(FilesContainerBase::Info const & info)
+string DebugPrint(FilesContainerBase::TagInfo const & info)
 {
   ostringstream ss;
   ss << "{ " << info.m_tag << ", " << info.m_offset << ", " << info.m_size << " }";
@@ -86,7 +86,7 @@ FilesContainerR::FilesContainerR(TReader const & file)
 
 FilesContainerR::TReader FilesContainerR::GetReader(Tag const & tag) const
 {
-  Info const * p = GetInfo(tag);
+  TagInfo const * p = GetInfo(tag);
   if (!p)
     MYTHROW(Reader::OpenException, ("Can't find section:", GetFileName(), tag));
   return m_source.SubReader(p->m_offset, p->m_size);
@@ -94,7 +94,7 @@ FilesContainerR::TReader FilesContainerR::GetReader(Tag const & tag) const
 
 pair<uint64_t, uint64_t> FilesContainerR::GetAbsoluteOffsetAndSize(Tag const & tag) const
 {
-  Info const * p = GetInfo(tag);
+  TagInfo const * p = GetInfo(tag);
   if (!p)
     MYTHROW(Reader::OpenException, ("Can't find section:", GetFileName(), tag));
 
@@ -103,7 +103,7 @@ pair<uint64_t, uint64_t> FilesContainerR::GetAbsoluteOffsetAndSize(Tag const & t
   return make_pair(offset + p->m_offset, p->m_size);
 }
 
-FilesContainerBase::Info const * FilesContainerBase::GetInfo(Tag const & tag) const
+FilesContainerBase::TagInfo const * FilesContainerBase::GetInfo(Tag const & tag) const
 {
   auto i = lower_bound(m_info.begin(), m_info.end(), tag, LessInfo());
   if (i != m_info.end() && i->m_tag == tag)
@@ -236,7 +236,7 @@ void FilesMappingContainer::Close()
 
 FilesMappingContainer::Handle FilesMappingContainer::Map(Tag const & tag) const
 {
-  Info const * p = GetInfo(tag);
+  TagInfo const * p = GetInfo(tag);
   if (!p)
     MYTHROW(Reader::OpenException, ("Can't find section:", m_name, tag));
 
@@ -246,7 +246,7 @@ FilesMappingContainer::Handle FilesMappingContainer::Map(Tag const & tag) const
 
 FileReader FilesMappingContainer::GetReader(Tag const & tag) const
 {
-  Info const * p = GetInfo(tag);
+  TagInfo const * p = GetInfo(tag);
   if (!p)
     MYTHROW(Reader::OpenException, ("Can't find section:", m_name, tag));
   return FileReader(m_name).SubReader(p->m_offset, p->m_size);

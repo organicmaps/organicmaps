@@ -74,7 +74,9 @@ std::string DebugPrint(Format f)
 std::string DebugPrint(MwmVersion const & mwmVersion)
 {
   std::stringstream s;
-  s << DebugPrint(mwmVersion.GetFormat()) << ":" << mwmVersion.GetSecondsSinceEpoch() << "s";
+  s << "MwmVersion [format:" << DebugPrint(mwmVersion.GetFormat())
+    << ", seconds:" << mwmVersion.GetSecondsSinceEpoch()  << "]";
+
   return s.str();
 }
 

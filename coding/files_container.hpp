@@ -19,14 +19,14 @@ class FilesContainerBase
 public:
   using Tag = std::string;
 
-  struct Info
+  struct TagInfo
   {
-    Tag m_tag;
-    uint64_t m_offset;
-    uint64_t m_size;
+    TagInfo() = default;
+    TagInfo(Tag const & tag, uint64_t offset) : m_tag(tag), m_offset(offset) {}
 
-    Info() {}
-    Info(Tag const & tag, uint64_t offset) : m_tag(tag), m_offset(offset) {}
+    Tag m_tag;
+    uint64_t m_offset = 0;
+    uint64_t m_size = 0;
   };
 
   /// Alignment of each new section that will be added to a file
@@ -42,7 +42,7 @@ public:
   }
 
   template <typename ToDo>
-  void ForEachInfo(ToDo && toDo) const
+  void ForEachTagInfo(ToDo && toDo) const
   {
     std::for_each(m_info.begin(), m_info.end(), std::forward<ToDo>(toDo));
   }
@@ -50,15 +50,15 @@ public:
 protected:
   struct LessInfo
   {
-    bool operator() (Info const & t1, Info const & t2) const
+    bool operator() (TagInfo const & t1, TagInfo const & t2) const
     {
       return (t1.m_tag < t2.m_tag);
     }
-    bool operator() (Info const & t1, Tag const & t2) const
+    bool operator() (TagInfo const & t1, Tag const & t2) const
     {
       return (t1.m_tag < t2);
     }
-    bool operator() (Tag const & t1, Info const & t2) const
+    bool operator() (Tag const & t1, TagInfo const & t2) const
     {
       return (t1 < t2.m_tag);
     }
@@ -66,7 +66,7 @@ protected:
 
   struct LessOffset
   {
-    bool operator() (Info const & t1, Info const & t2) const
+    bool operator() (TagInfo const & t1, TagInfo const & t2) const
     {
       if (t1.m_offset == t2.m_offset)
       {
@@ -77,11 +77,11 @@ protected:
       else
         return (t1.m_offset < t2.m_offset);
     }
-    bool operator() (Info const & t1, uint64_t const & t2) const
+    bool operator() (TagInfo const & t1, uint64_t const & t2) const
     {
       return (t1.m_offset < t2);
     }
-    bool operator() (uint64_t const & t1, Info const & t2) const
+    bool operator() (uint64_t const & t1, TagInfo const & t2) const
     {
       return (t1 < t2.m_offset);
     }
@@ -91,7 +91,7 @@ protected:
   {
   public:
     EqualTag(Tag const & tag) : m_tag(tag) {}
-    bool operator() (Info const & t) const
+    bool operator() (TagInfo const & t) const
     {
       return (t.m_tag == m_tag);
     }
@@ -100,16 +100,16 @@ protected:
     Tag const & m_tag;
   };
 
-  Info const * GetInfo(Tag const & tag) const;
+  TagInfo const * GetInfo(Tag const & tag) const;
 
   template <typename Reader>
   void ReadInfo(Reader & reader);
 
-  using InfoContainer = std::vector<Info>;
+  using InfoContainer = std::vector<TagInfo>;
   InfoContainer m_info;
 };
 
-std::string DebugPrint(FilesContainerBase::Info const & info);
+std::string DebugPrint(FilesContainerBase::TagInfo const & info);
 
 class FilesContainerR : public FilesContainerBase
 {
