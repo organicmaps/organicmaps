@@ -64,6 +64,11 @@ void TrackSelectionMark::SetDistance(double distance)
   m_distance = distance;
 }
 
+void TrackSelectionMark::SetMyPositionDistance(double distance)
+{
+  m_myPositionDistance = distance;
+}
+
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TrackSelectionMark::GetSymbolNames() const
 {
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();

@@ -60,6 +60,7 @@ public:
 
   using BookmarksChangedCallback = std::function<void()>;
   using ElevationActivePointChangedCallback = std::function<void()>;
+  using ElevationMyPositionChangedCallback = std::function<void()>;
 
   using AsyncLoadingStartedCallback = std::function<void()>;
   using AsyncLoadingFinishedCallback = std::function<void()>;
@@ -452,10 +453,18 @@ public:
   static bool IsGuide(kml::AccessRules accessRules);
 
   ElevationInfo MakeElevationInfo(kml::TrackId trackId) const;
+
   void SetElevationActivePoint(kml::TrackId const & trackId, double distanceInMeters);
-  // Returns distance from start of the track to active point in meters.
+  // Returns distance from the start of the track to active point in meters.
   double GetElevationActivePoint(kml::TrackId const & trackId) const;
+
+  void UpdateElevationMyPosition(kml::TrackId const & trackId);
+  // Returns distance from the start of the track to my position in meters.
+  // Returns negative value if my position is not on the track.
+  double GetElevationMyPosition(kml::TrackId const & trackId) const;
+
   void SetElevationActivePointChangedCallback(ElevationActivePointChangedCallback const & cb);
+  void SetElevationMyPositionChangedCallback(ElevationMyPositionChangedCallback const & cb);
 
   struct TrackSelectionInfo
   {
@@ -471,7 +480,9 @@ public:
     double m_distanceInMeters = 0.0;
   };
 
-  TrackSelectionInfo FindNearestTrack(m2::RectD const & touchRect) const;
+  using TracksFilter = std::function<bool(Track const * track)>;
+  TrackSelectionInfo FindNearestTrack(m2::RectD const & touchRect,
+                                      TracksFilter const & tracksFilter = nullptr) const;
   TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
 
   void SelectTrack(TrackSelectionInfo const & trackSelectionInfo);
@@ -766,6 +777,9 @@ private:
 
   BookmarksChangedCallback m_categoriesChangedCallback;
   ElevationActivePointChangedCallback m_elevationActivePointChanged;
+  ElevationMyPositionChangedCallback m_elevationMyPositionChanged;
+  m2::PointD m_lastElevationMyPosition = m2::PointD::Zero();
+
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
   size_t m_openedEditSessionsCount = 0;

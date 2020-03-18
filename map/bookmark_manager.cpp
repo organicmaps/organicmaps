@@ -61,6 +61,7 @@ std::string const kMetadataFileName = "bm.json";
 std::string const kSortingTypeProperty = "sortingType";
 size_t const kMinCommonTypesCount = 3;
 double const kNearDistanceInMeters = 20 * 1000.0;
+double const kMyPositionTrackSnapInMeters = 20.0;
 
 // Returns extension with a dot in a lower case.
 std::string GetFileExt(std::string const & filePath)
@@ -1036,6 +1037,58 @@ ElevationInfo BookmarkManager::MakeElevationInfo(kml::TrackId trackId) const
   return ElevationInfo(*track);
 }
 
+void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  double myPositionDistance = TrackSelectionMark::kInvalidDistance;
+  if (m_myPositionMark->HasPosition())
+  {
+    double const kEps = 1e-5;
+    if (m_lastElevationMyPosition.EqualDxDy(m_myPositionMark->GetPivot(), kEps))
+      return;
+    m_lastElevationMyPosition = m_myPositionMark->GetPivot();
+
+    auto const snapRect = mercator::RectByCenterXYAndSizeInMeters(m_myPositionMark->GetPivot(),
+                                                                  kMyPositionTrackSnapInMeters);
+    auto const selectionInfo = FindNearestTrack(
+      snapRect, [trackId](Track const *track) { return track->GetId() == trackId; });
+    if (selectionInfo.m_trackId != trackId)
+      myPositionDistance = selectionInfo.m_distanceInMeters;
+  }
+  else
+  {
+    m_lastElevationMyPosition = m2::PointD::Zero();
+  }
+
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  auto es = GetEditSession();
+  auto trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+
+  trackSelectionMark->SetMyPositionDistance(myPositionDistance);
+  if (m_elevationMyPositionChanged)
+    m_elevationMyPositionChanged();
+}
+
+double BookmarkManager::GetElevationMyPosition(kml::TrackId const & trackId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  CHECK(markId != kml::kInvalidMarkId, ());
+
+  auto const trackSelectionMark = GetMark<TrackSelectionMark>(markId);
+  return trackSelectionMark->GetMyPositionDistance();
+}
+
+void BookmarkManager::SetElevationMyPositionChangedCallback(
+    ElevationMyPositionChangedCallback const & cb)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  m_elevationMyPositionChanged = cb;
+}
+
 void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, double targetDistance)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1067,7 +1120,8 @@ void BookmarkManager::SetElevationActivePointChangedCallback(ElevationActivePoin
   m_elevationActivePointChanged = cb;
 }
 
-BookmarkManager::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD const & touchRect) const
+BookmarkManager::TrackSelectionInfo BookmarkManager::FindNearestTrack(
+    m2::RectD const & touchRect, TracksFilter const & tracksFilter) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   TrackSelectionInfo selectionInfo;
@@ -1082,6 +1136,9 @@ BookmarkManager::TrackSelectionInfo BookmarkManager::FindNearestTrack(m2::RectD 
     for (auto trackId : category.GetUserLines())
     {
       auto const track = GetTrack(trackId);
+      if (tracksFilter && !tracksFilter(track))
+        continue;
+
       auto const & trackRect = track->GetLimitRect();
 
       if (!trackRect.IsIntersect(touchRect))

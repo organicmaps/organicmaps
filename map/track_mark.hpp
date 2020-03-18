@@ -31,6 +31,8 @@ private:
 class TrackSelectionMark : public UserMark
 {
 public:
+  double static constexpr kInvalidDistance = -1.0;
+
   explicit TrackSelectionMark(m2::PointD const & ptOrg);
 
   void SetPosition(m2::PointD const & ptOrg);
@@ -41,9 +43,13 @@ public:
   void SetDistance(double distance);
   double GetDistance() const { return m_distance; }
 
+  void SetMyPositionDistance(double distance);
+  double GetMyPositionDistance() const { return m_myPositionDistance; }
+
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 
 private:
   double m_distance = 0.0;
+  double m_myPositionDistance = kInvalidDistance;
   kml::TrackId m_trackId = kml::kInvalidTrackId;
 };

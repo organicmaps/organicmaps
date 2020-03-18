@@ -326,6 +326,9 @@ IsolinesManager const & Framework::GetIsolinesManager() const
 void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
   GetBookmarkManager().MyPositionMark().SetUserPosition(position, hasPosition);
+  if (m_currentPlacePageInfo && m_currentPlacePageInfo->GetTrackId() != kml::kInvalidTrackId)
+    GetBookmarkManager().UpdateElevationMyPosition(m_currentPlacePageInfo->GetTrackId());
+
   m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
 }
@@ -2418,6 +2421,8 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
   if (placePageInfo)
   {
+    auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId()
+                                                    : kml::kInvalidTrackId;
     m_currentPlacePageInfo = placePageInfo;
 
     // Log statistics events.
@@ -2484,6 +2489,14 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
                                                                {{"provider", "booking.com"}});
       }
     }
+
+    if (m_currentPlacePageInfo->GetTrackId() != kml::kInvalidTrackId)
+    {
+      if (m_currentPlacePageInfo->GetTrackId() == prevTrackId)
+        return;
+      GetBookmarkManager().UpdateElevationMyPosition(m_currentPlacePageInfo->GetTrackId());
+    }
+
     ActivateMapSelection(m_currentPlacePageInfo);
   }
   else
