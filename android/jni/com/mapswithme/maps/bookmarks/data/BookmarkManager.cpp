@@ -1410,7 +1410,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetElevationActive
   JNIEnv *env, jclass clazz, jlong trackId)
 {
   auto & bm = frm()->GetBookmarkManager();
-  return static_cast<jdouble >(bm.GetElevationActivePoint(static_cast<kml::TrackId>(trackId)));
+  return static_cast<jdouble>(bm.GetElevationActivePoint(static_cast<kml::TrackId>(trackId)));
 }
 
 JNIEXPORT void JNICALL
