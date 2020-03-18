@@ -1168,8 +1168,16 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
 
   vector<uint32_t> sortedFeatures;
   sortedFeatures.reserve(base::checked_cast<size_t>(prediction.m_features.PopCount()));
-  prediction.m_features.ForEach([&sortedFeatures](uint64_t bit) {
-    sortedFeatures.push_back(base::asserted_cast<uint32_t>(bit));
+  prediction.m_features.ForEach([&](uint64_t bit) {
+    auto const fid = base::asserted_cast<uint32_t>(bit);
+    m2::PointD streetCenter;
+    if (m_context->GetCenter(fid, streetCenter) &&
+        any_of(centers.begin(), centers.end(), [&](auto const & center) {
+          return mercator::DistanceOnEarth(center, streetCenter) <= m_params.m_streetSearchRadiusM;
+        }))
+    {
+      sortedFeatures.push_back(base::asserted_cast<uint32_t>(bit));
+    }
   });
   layer.m_sortedFeatures = &sortedFeatures;
 

@@ -25,6 +25,8 @@ class TestSearchEngine;
 class TestSearchRequest
 {
 public:
+  inline static double const kDefaultTestStreetSearchRadiusM = 2e7;
+
   TestSearchRequest(TestSearchEngine & engine, std::string const & query,
                     std::string const & locale, Mode mode, m2::RectD const & viewport);
   TestSearchRequest(TestSearchEngine & engine, SearchParams const & params);
