@@ -1840,6 +1840,14 @@
 	<string name="view_on_map_downloaded_error">This guide has been deleted from this device</string>
 	<string name="subscription">Subscription</string>
 	<string name="freenow_taxi_title">FREE NOW</string>
+	<string name="tinkoff_allairlines_map_downloader_title">Карта Тинькофф All Airlines. 3000 миль в подарок</string>
+	<string name="tinkoff_allairlines_map_downloader_cta_button">Оформить карту</string>
+	<string name="tinkoff_insurance_map_downloader_title">Полис Тинькофф со скидкой! Подходит для любых виз.</string>
+	<string name="tinkoff_insurance_map_downloader_cta_button">Промокод</string>
+	<string name="mts_map_downloader_title">Забугорище: интернет и звонки за границей как дома</string>
+	<string name="mts_map_downloader_cta_button">Подключить</string>
+	<string name="skyeng_map_downloader_title">Дарим 4 бесплатных урока английского от Skyeng.</string>
+	<string name="skyeng_map_downloader_cta_button">Подробнее</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
