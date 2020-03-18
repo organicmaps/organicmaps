@@ -31,7 +31,7 @@ private:
 class TrackSelectionMark : public UserMark
 {
 public:
-  double static constexpr kInvalidDistance = -1.0;
+  static double constexpr kInvalidDistance = -1.0;
 
   explicit TrackSelectionMark(m2::PointD const & ptOrg);
 

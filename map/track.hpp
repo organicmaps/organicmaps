@@ -22,7 +22,7 @@ public:
   std::string GetName() const;
   m2::RectD const & GetLimitRect() const;
   double GetLengthMeters() const;
-  double GetLengthMeters(size_t segmentIndex) const;
+  double GetLengthMeters(size_t pointIndex) const;
 
   int GetMinZoom() const override { return 1; }
   df::DepthLayer GetDepthLayer() const override;

@@ -20,15 +20,16 @@ void Track::CacheLengthsAndLimitRect()
 {
   m_cachedLimitRect.MakeEmpty();
   m_cachedLimitRect.Add(m_data.m_pointsWithAltitudes.front().GetPoint());
-  m_cachedLengths.resize(m_data.m_pointsWithAltitudes.size() - 1);
+  m_cachedLengths.resize(m_data.m_pointsWithAltitudes.size());
   double length = 0.0;
+  m_cachedLengths[0] = 0.0;
   for (size_t i = 1; i < m_data.m_pointsWithAltitudes.size(); ++i)
   {
     auto const & pt1 = m_data.m_pointsWithAltitudes[i - 1].GetPoint();
     auto const & pt2 = m_data.m_pointsWithAltitudes[i].GetPoint();
     auto const segmentLength = mercator::DistanceOnEarth(pt1, pt2);
     length += segmentLength;
-    m_cachedLengths[i - 1] = length;
+    m_cachedLengths[i] = length;
     m_cachedLimitRect.Add(pt2);
   }
 }
@@ -48,10 +49,10 @@ double Track::GetLengthMeters() const
   return m_cachedLengths.back();
 }
 
-double Track::GetLengthMeters(size_t segmentIndex) const
+double Track::GetLengthMeters(size_t pointIndex) const
 {
-  CHECK_LESS(segmentIndex, m_cachedLengths.size(), (segmentIndex));
-  return m_cachedLengths[segmentIndex];
+  CHECK_LESS(pointIndex, m_cachedLengths.size(), (pointIndex, m_cachedLengths.size()));
+  return m_cachedLengths[pointIndex];
 }
 
 df::DepthLayer Track::GetDepthLayer() const
@@ -116,7 +117,7 @@ bool Track::GetPoint(double distanceInMeters, m2::PointD & pt) const
 {
   CHECK_GREATER_OR_EQUAL(distanceInMeters, 0.0, (distanceInMeters));
 
-  if (distanceInMeters == 0.0)
+  if (fabs(distanceInMeters - m_cachedLengths.front()) < 1e-2)
   {
     pt = m_data.m_pointsWithAltitudes.front().GetPoint();
     return true;
@@ -132,14 +133,14 @@ bool Track::GetPoint(double distanceInMeters, m2::PointD & pt) const
   if (it == m_cachedLengths.end())
     return false;
 
-  auto const segmentIndex = it - m_cachedLengths.begin();
+  auto const pointIndex = std::distance(m_cachedLengths.begin(), it);
   auto const length = *it;
 
-  auto const segmentLength = length - (segmentIndex == 0 ? 0.0 : m_cachedLengths[segmentIndex - 1]);
+  auto const segmentLength = length - m_cachedLengths[pointIndex - 1];
   auto const k = (segmentLength - (length - distanceInMeters)) / segmentLength;
 
-  auto const & pt1 = m_data.m_pointsWithAltitudes[segmentIndex].GetPoint();
-  auto const & pt2 = m_data.m_pointsWithAltitudes[segmentIndex + 1].GetPoint();
+  auto const & pt1 = m_data.m_pointsWithAltitudes[pointIndex - 1].GetPoint();
+  auto const & pt2 = m_data.m_pointsWithAltitudes[pointIndex].GetPoint();
   pt = pt1 + (pt2 - pt1) * k;
 
   return true;

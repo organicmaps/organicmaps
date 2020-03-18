@@ -1097,7 +1097,7 @@ void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, doub
   CHECK(track != nullptr, ());
 
   m2::PointD pt;
-  CHECK(track->GetPoint(targetDistance, pt), (trackId, targetDistance));
+  VERIFY(track->GetPoint(targetDistance, pt), (trackId, targetDistance));
 
   SelectTrack(TrackSelectionInfo(trackId, pt, targetDistance));
 }
@@ -1155,18 +1155,16 @@ BookmarkManager::TrackSelectionInfo BookmarkManager::FindNearestTrack(
         m2::ParametrizedSegment<m2::PointD> seg(pt1, pt2);
         auto const closestPoint = seg.ClosestPointTo(touchRect.Center());
         auto const squaredDist = closestPoint.SquaredLength(touchRect.Center());
-        if (squaredDist < minSquaredDist)
-        {
-          minSquaredDist = squaredDist;
-          selectionInfo.m_trackId = trackId;
-          selectionInfo.m_trackPoint = closestPoint;
+        if (squaredDist >= minSquaredDist)
+          continue;
 
-          auto const segDistInMeters = mercator::DistanceOnEarth(pointsWithAlt[i].GetPoint(),
-                                                                 closestPoint);
-          selectionInfo.m_distanceInMeters = segDistInMeters;
-          if (i > 0)
-            selectionInfo.m_distanceInMeters += track->GetLengthMeters(i - 1);
-        }
+        minSquaredDist = squaredDist;
+        selectionInfo.m_trackId = trackId;
+        selectionInfo.m_trackPoint = closestPoint;
+
+        auto const segDistInMeters = mercator::DistanceOnEarth(pointsWithAlt[i].GetPoint(),
+                                                               closestPoint);
+        selectionInfo.m_distanceInMeters = segDistInMeters + track->GetLengthMeters(i);
       }
     }
   }
@@ -1244,7 +1242,7 @@ void BookmarkManager::ShowDefaultTrackInfo(kml::TrackId trackId)
 
   auto const & points = track->GetPointsWithAltitudes();
   auto const pt = points[points.size() / 2].GetPoint();
-  auto const distance = track->GetLengthMeters(points.size() / 2 - 1);
+  auto const distance = track->GetLengthMeters(points.size() / 2);
 
   auto es = GetEditSession();
   auto trackInfoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
