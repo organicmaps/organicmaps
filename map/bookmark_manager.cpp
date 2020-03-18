@@ -1041,6 +1041,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  static_assert(TrackSelectionMark::kInvalidDistance < 0, "");
   double myPositionDistance = TrackSelectionMark::kInvalidDistance;
   if (m_myPositionMark->HasPosition())
   {

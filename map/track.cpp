@@ -117,13 +117,14 @@ bool Track::GetPoint(double distanceInMeters, m2::PointD & pt) const
 {
   CHECK_GREATER_OR_EQUAL(distanceInMeters, 0.0, (distanceInMeters));
 
-  if (fabs(distanceInMeters - m_cachedLengths.front()) < 1e-2)
+  double const kEpsMeters = 1e-2;
+  if (base::AlmostEqualAbs(distanceInMeters, m_cachedLengths.front(), kEpsMeters))
   {
     pt = m_data.m_pointsWithAltitudes.front().GetPoint();
     return true;
   }
 
-  if (fabs(distanceInMeters - m_cachedLengths.back()) < 1e-2)
+  if (base::AlmostEqualAbs(distanceInMeters, m_cachedLengths.back(), kEpsMeters))
   {
     pt = m_data.m_pointsWithAltitudes.back().GetPoint();
     return true;
