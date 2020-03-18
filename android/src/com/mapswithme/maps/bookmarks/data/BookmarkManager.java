@@ -98,6 +98,9 @@ public enum BookmarkManager
   @NonNull
   private final List<BookmarksInvalidCategoriesListener> mInvalidCategoriesListeners = new ArrayList<>();
 
+  @Nullable
+  private OnElevationActivePointChangedListener mOnElevationActivePointChangedListener;
+
   static
   {
     ICONS.add(new Icon(Icon.PREDEFINED_COLOR_RED, Icon.BOOKMARK_ICON_TYPE_NONE));
@@ -214,6 +217,17 @@ public enum BookmarkManager
   public void removeCatalogPingListener(@NonNull BookmarksCatalogPingListener listener)
   {
     mCatalogPingListeners.remove(listener);
+  }
+
+  public void setElevationActivePointChangedListener(
+      @Nullable OnElevationActivePointChangedListener listener)
+  {
+    if (listener != null)
+      nativeSetElevationActiveChangedListener();
+    else
+      nativeRemoveElevationActiveChangedListener();
+
+    mOnElevationActivePointChangedListener = listener;
   }
 
   // Called from JNI.
@@ -418,6 +432,15 @@ public enum BookmarkManager
   {
     for (BookmarksInvalidCategoriesListener listener : mInvalidCategoriesListeners)
       listener.onCheckInvalidCategories(hasInvalidCategories);
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onElevationActivePointChanged()
+  {
+    if (mOnElevationActivePointChangedListener != null)
+      mOnElevationActivePointChangedListener.onElevationActivePointChanged();
   }
 
   public boolean isVisible(long catId)
@@ -923,6 +946,16 @@ public enum BookmarkManager
     }
   }
 
+  public void setElevationActivePoint(long trackId, double distance)
+  {
+    nativeSetElevationActivePoint(trackId, distance);
+  }
+
+  public double getElevationActivePointDistance(long trackId)
+  {
+    return nativeGetElevationActivePointDistance(trackId);
+  }
+
   private native int nativeGetCategoriesCount();
 
   private native int nativeGetCategoryPositionById(long catId);
@@ -1128,6 +1161,19 @@ public enum BookmarkManager
   @NonNull
   private static native String nativeGetBookmarkAddress(@IntRange(from = 0) long bookmarkId);
 
+  private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters);
+
+  private static native double nativeGetElevationActivePointDistance(long trackId);
+
+  private static native void nativeSetElevationActiveChangedListener();
+
+  public static native void nativeRemoveElevationActiveChangedListener();
+
+  public interface ElevationActivePointChangedListener
+  {
+    void onElevationActivePointChanged();
+  }
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
@@ -1291,6 +1337,11 @@ public enum BookmarkManager
     {
       /* do noting by default */
     }
+  }
+
+  public interface OnElevationActivePointChangedListener
+  {
+    void onElevationActivePointChanged();
   }
 
   public enum UploadResult

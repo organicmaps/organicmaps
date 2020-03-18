@@ -21,11 +21,13 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.mapswithme.maps.base.Initializable;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.ElevationInfo;
 import com.mapswithme.maps.widget.placepage.AxisValueFormatter;
 import com.mapswithme.maps.widget.placepage.CurrentLocationMarkerView;
 import com.mapswithme.maps.widget.placepage.FloatingMarkerView;
 import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +35,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class ChartController implements OnChartValueSelectedListener, Initializable<View>
+public class ChartController implements OnChartValueSelectedListener, Initializable<View>,
+                                        BookmarkManager.OnElevationActivePointChangedListener
 {
   private static final int CHART_Y_LABEL_COUNT = 3;
   private static final int CHART_X_LABEL_COUNT = 6;
@@ -58,6 +61,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   private TextView mMinAltitude;
   @NonNull
   private final Context mContext;
+  private long mTrackId = Utils.INVALID_ID;
 
   public ChartController(@NonNull Context context)
   {
@@ -68,6 +72,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   public void initialize(@Nullable View view)
   {
     Objects.requireNonNull(view);
+    BookmarkManager.INSTANCE.setElevationActivePointChangedListener(this);
     final Resources resources = mContext.getResources();
     mChart = view.findViewById(R.id.elevation_profile_chart);
 
@@ -101,7 +106,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   @Override
   public void destroy()
   {
-    // No op.
+    BookmarkManager.INSTANCE.setElevationActivePointChangedListener(null);
   }
 
   private void highlightChartCurrentLocation()
@@ -140,6 +145,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   @SuppressLint("SetTextI18n")
   public void setData(@NonNull ElevationInfo info)
   {
+    mTrackId = info.getId();
     List<Entry> values = new ArrayList<>();
 
     for (ElevationInfo.Point point: info.getPoints())
@@ -171,6 +177,8 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     String meter = mContext.getResources().getString(R.string.elevation_profile_m);
     mMinAltitude.setText(info.getMinAltitude() + " " + meter);
     mMaxAltitude.setText(info.getMaxAltitude() + " " + meter);
+
+    highlightActivePoint();
   }
 
   @Override
@@ -181,6 +189,10 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
 
     mChart.highlightValues(Arrays.asList(curPos, h),
                            Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
+    if (mTrackId == Utils.INVALID_ID)
+      return;
+
+    BookmarkManager.INSTANCE.setElevationActivePoint(mTrackId, e.getX());
   }
 
   @NonNull
@@ -195,5 +207,25 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   public void onNothingSelected()
   {
     highlightChartCurrentLocation();
+  }
+
+  @Override
+  public void onElevationActivePointChanged()
+  {
+    if (mTrackId == Utils.INVALID_ID)
+      return;
+
+    highlightActivePoint();
+  }
+
+  private void highlightActivePoint()
+  {
+    double activeX = BookmarkManager.INSTANCE.getElevationActivePointDistance(mTrackId);
+    Highlight highlight = new Highlight((float) activeX, 0, 0);
+    mFloatingMarkerView.updateOffsets(new Entry((float) activeX, 0f), highlight);
+    Highlight curPos = getCurrentPosHighlight();
+
+    mChart.highlightValues(Arrays.asList(curPos, highlight),
+                           Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
   }
 }
