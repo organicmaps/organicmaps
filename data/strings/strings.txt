@@ -46999,3 +46999,27 @@
 
   [freenow_taxi_title]
     en = FREE NOW
+
+  [tinkoff_allairlines_map_downloader_title]
+    en = Карта Тинькофф All Airlines. 3000 миль в подарок
+
+  [tinkoff_allairlines_map_downloader_cta_button]
+    en = Оформить карту
+
+  [tinkoff_insurance_map_downloader_title]
+    en = Полис Тинькофф со скидкой! Подходит для любых виз.
+
+  [tinkoff_insurance_map_downloader_cta_button]
+    en = Промокод
+
+  [mts_map_downloader_title]
+    en = Забугорище: интернет и звонки за границей как дома
+
+  [mts_map_downloader_cta_button]
+    en = Подключить
+
+  [skyeng_map_downloader_title]
+    en = Дарим 4 бесплатных урока английского от Skyeng.
+
+  [skyeng_map_downloader_cta_button]
+    en = Подробнее
