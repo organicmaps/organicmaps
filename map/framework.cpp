@@ -2552,7 +2552,7 @@ void Framework::BuildTrackPlacePage(BookmarkManager::TrackSelectionInfo const & 
   info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   auto const & track = *GetBookmarkManager().GetTrack(trackSelectionInfo.m_trackId);
   FillTrackInfo(track, trackSelectionInfo.m_trackPoint, info);
-  GetBookmarkManager().SelectTrack(trackSelectionInfo);
+  GetBookmarkManager().SelectTrack(trackSelectionInfo, true /* notifyListeners */);
   GetBookmarkManager().HideTrackInfo(trackSelectionInfo.m_trackId);
 }
 

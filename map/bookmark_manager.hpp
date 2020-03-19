@@ -485,7 +485,7 @@ public:
                                       TracksFilter const & tracksFilter = nullptr) const;
   TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
 
-  void SelectTrack(TrackSelectionInfo const & trackSelectionInfo);
+  void SelectTrack(TrackSelectionInfo const & trackSelectionInfo, bool notifyListeners);
   void DeselectTrack(kml::TrackId trackId);
 
   void ShowDefaultTrackInfo(kml::TrackId trackId);

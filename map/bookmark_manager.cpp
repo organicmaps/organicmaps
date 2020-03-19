@@ -1054,7 +1054,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
                                                                   kMyPositionTrackSnapInMeters);
     auto const selectionInfo = FindNearestTrack(
       snapRect, [trackId](Track const *track) { return track->GetId() == trackId; });
-    if (selectionInfo.m_trackId != trackId)
+    if (selectionInfo.m_trackId == trackId)
       myPositionDistance = selectionInfo.m_distanceInMeters;
   }
   else
@@ -1066,9 +1066,14 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
   auto es = GetEditSession();
   auto trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
 
-  trackSelectionMark->SetMyPositionDistance(myPositionDistance);
-  if (m_elevationMyPositionChanged)
-    m_elevationMyPositionChanged();
+  double const kEpsMeters = 1e-2;
+  if (!base::AlmostEqualAbs(trackSelectionMark->GetMyPositionDistance(),
+                            myPositionDistance, kEpsMeters))
+  {
+    trackSelectionMark->SetMyPositionDistance(myPositionDistance);
+    if (m_elevationMyPositionChanged)
+      m_elevationMyPositionChanged();
+  }
 }
 
 double BookmarkManager::GetElevationMyPosition(kml::TrackId const & trackId) const
@@ -1100,7 +1105,7 @@ void BookmarkManager::SetElevationActivePoint(kml::TrackId const & trackId, doub
   m2::PointD pt;
   VERIFY(track->GetPoint(targetDistance, pt), (trackId, targetDistance));
 
-  SelectTrack(TrackSelectionInfo(trackId, pt, targetDistance));
+  SelectTrack(TrackSelectionInfo(trackId, pt, targetDistance), false /* notifyListeners */);
 }
 
 double BookmarkManager::GetElevationActivePoint(kml::TrackId const & trackId) const
@@ -1198,7 +1203,8 @@ kml::MarkId BookmarkManager::GetTrackSelectionMarkId(kml::TrackId trackId) const
   return kml::kInvalidMarkId;
 }
 
-void BookmarkManager::SelectTrack(TrackSelectionInfo const & trackSelectionInfo)
+void BookmarkManager::SelectTrack(TrackSelectionInfo const & trackSelectionInfo,
+                                  bool notifyListeners)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK_NOT_EQUAL(trackSelectionInfo.m_trackId, kml::kInvalidTrackId, ());
@@ -1220,7 +1226,7 @@ void BookmarkManager::SelectTrack(TrackSelectionInfo const & trackSelectionInfo)
   trackSelectionMark->SetPosition(trackSelectionInfo.m_trackPoint);
   trackSelectionMark->SetDistance(trackSelectionInfo.m_distanceInMeters);
 
-  if (m_elevationActivePointChanged != nullptr)
+  if (notifyListeners && m_elevationActivePointChanged != nullptr)
     m_elevationActivePointChanged();
 }
 
@@ -1251,7 +1257,7 @@ void BookmarkManager::ShowDefaultTrackInfo(kml::TrackId trackId)
   trackInfoMark->SetIsVisible(true);
   trackInfoMark->SetTrackId(trackId);
 
-  SelectTrack(TrackSelectionInfo(trackId, pt, distance));
+  SelectTrack(TrackSelectionInfo(trackId, pt, distance), true /* notifyListeners */);
 }
 
 void BookmarkManager::HideTrackInfo(kml::TrackId trackId)
