@@ -138,13 +138,13 @@ private:
   {
     bool IsFirstBatchMwm(bool inViewport) const {
       if (inViewport)
-        return m_viewportIntersect;
-      return m_viewportIntersect || m_userPosition || m_matchedCity;
+        return m_viewportIntersected;
+      return m_viewportIntersected || m_containsUserPosition || m_containsMatchedCity;
     }
 
-    bool m_viewportIntersect = false;
-    bool m_userPosition = false;
-    bool m_matchedCity = false;
+    bool m_viewportIntersected = false;
+    bool m_containsUserPosition = false;
+    bool m_containsMatchedCity = false;
   };
 
   struct MwmInfosWithType
@@ -285,11 +285,13 @@ private:
                                              Model::Type & type);
 
   // Reorders maps in a way that prefix consists of "best" maps to search and suffix consists of all
-  // other maps ordered by minimum distance from pivot. Returns number of maps in prefix.
+  // other maps ordered by minimum distance from pivot. Returns MwmInfosWithType structure which
+  // consists of vector of mwms with MwmType information and number of "best" maps to search.
   // For viewport mode prefix consists of maps intersecting with pivot ordered by distance from pivot
   // center.
-  // For non-viewport search mode prefix consists of maps intersecting with pivot, map with user location
-  // and maps with cities matched to the query, sorting prefers mwms that contain the user's position.
+  // For non-viewport search mode prefix consists of maps intersecting with pivot, map with user
+  // location and maps with cities matched to the query, sorting prefers mwms that contain the
+  // user's position.
   MwmInfosWithType OrderCountries(bool inViewport,
                                   std::vector<std::shared_ptr<MwmInfo>> const & infos);
 

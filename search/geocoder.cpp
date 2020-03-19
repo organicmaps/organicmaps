@@ -461,10 +461,10 @@ Geocoder::MwmInfosWithType Geocoder::OrderCountries(bool inViewport,
 
   auto const getMwmType = [&](auto const & info) {
     MwmType mwmType;
-    mwmType.m_viewportIntersect = m_params.m_pivot.IsIntersect(info->m_bordersRect);
-    mwmType.m_userPosition = m_params.m_position &&
-                             info->m_bordersRect.IsPointInside(*m_params.m_position);
-    mwmType.m_matchedCity = mwmsWithCities.count(info->GetCountryName()) != 0;
+    mwmType.m_viewportIntersected = m_params.m_pivot.IsIntersect(info->m_bordersRect);
+    mwmType.m_containsUserPosition =
+        m_params.m_position && info->m_bordersRect.IsPointInside(*m_params.m_position);
+    mwmType.m_containsMatchedCity = mwmsWithCities.count(info->GetCountryName()) != 0;
     return mwmType;
   };
 
@@ -566,13 +566,14 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> const & infos, bool inViewport
 
     if (m_params.IsCategorialRequest())
     {
-      MatchCategories(ctx, mwmType.m_viewportIntersect /* aroundPivot */);
+      MatchCategories(ctx, mwmType.m_viewportIntersected /* aroundPivot */);
     }
     else
     {
       MatchRegions(ctx, Region::TYPE_COUNTRY);
 
-      if (mwmType.m_viewportIntersect || mwmType.m_userPosition || m_preRanker.NumSentResults() == 0)
+      if (mwmType.m_viewportIntersected || mwmType.m_containsUserPosition ||
+          m_preRanker.NumSentResults() == 0)
       {
         MatchAroundPivot(ctx);
       }
