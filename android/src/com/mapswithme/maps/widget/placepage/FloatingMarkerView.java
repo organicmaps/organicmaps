@@ -108,13 +108,15 @@ public class FloatingMarkerView extends MarkerView
   {
     LayoutParams layoutParams = (LayoutParams) mTextContentContainer.getLayoutParams();
     float posY = entry.getY();
-    if (posY + convertContainerHeight() / 2f >= getChartView().getYChartMax())
+    float halfContent = convertContainerHeight() / 2f;
+
+    if (posY + halfContent >= getChartView().getYChartMax())
     {
       layoutParams.addRule(ALIGN_PARENT_BOTTOM);
       layoutParams.removeRule(ALIGN_PARENT_TOP);
       layoutParams.removeRule(CENTER_VERTICAL);
     }
-    else if (posY - convertContainerHeight() / 2f <= getChartView().getYChartMin())
+    else if (posY - halfContent <= getChartView().getYChartMin())
     {
       layoutParams.addRule(ALIGN_PARENT_TOP);
       layoutParams.removeRule(ALIGN_PARENT_BOTTOM);
