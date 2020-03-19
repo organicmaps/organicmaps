@@ -129,6 +129,9 @@ class FontStyleSheet: IStyleSheet {
     theme.add(styleName: "heavy20") { (s) -> (Void) in
       s.font = fonts.heavy20
     }
+    theme.add(styleName: "heavy32") { (s) -> (Void) in
+      s.font = fonts.heavy32
+    }
     theme.add(styleName: "heavy38") { (s) -> (Void) in
       s.font = fonts.heavy38
     }

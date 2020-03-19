@@ -58,8 +58,9 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
 
     annualDiscountLabel.isHidden = true
 
-    let fontFamily = UIFont.systemFont(ofSize: 17).familyName
-    let css = "<style type=\"text/css\">b{font-weight: 900;}body{font-weight: 300; font-size: 17; font-family: '-apple-system','\(fontFamily)';}</style>"
+    let fontSize: CGFloat = UIScreen.main.bounds.width > 320 ? 17.0 : 14.0
+    let fontFamily = UIFont.systemFont(ofSize: fontSize).familyName
+    let css = "<style type=\"text/css\">b{font-weight: 900;}body{font-weight: 300; font-size: \(fontSize); font-family: '-apple-system','\(fontFamily)';}</style>"
     zip(descriptionSubtitles, ["all_pass_subscription_message_subtitle",
                                "all_pass_subscription_message_subtitle_2",
                                "all_pass_subscription_message_subtitle_3"]).forEach { (title, loc) in

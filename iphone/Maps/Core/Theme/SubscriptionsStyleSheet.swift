@@ -94,7 +94,7 @@ class SubscriptionsStyleSheet: IStyleSheet {
     }
 
     theme.add(styleName: "AllPassSubscriptionDescription1") { (s) -> (Void) in
-      s.font = fonts.heavy38
+      s.font = UIScreen.main.bounds.width > 320 ? fonts.heavy38 : fonts.heavy32
       s.fontColor = colors.allPassSubscriptionDescription
     }
 
