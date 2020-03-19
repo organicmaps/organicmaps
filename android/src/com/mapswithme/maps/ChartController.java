@@ -68,7 +68,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   @NonNull
   private final Context mContext;
   private long mTrackId = Utils.INVALID_ID;
-  private boolean mCurrentPositionOutOfTrack;
+  private boolean mCurrentPositionOutOfTrack = true;
 
   public ChartController(@NonNull Context context)
   {
@@ -179,9 +179,6 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     data.setDrawValues(false);
 
     mChart.setData(data);
-    if (!mCurrentPositionOutOfTrack)
-      highlightChartCurrentLocation();
-
     mChart.animateX(CHART_ANIMATION_DURATION);
 
     mMinAltitude.setText(StringUtils.nativeFormatDistance(info.getMinAltitude()));
