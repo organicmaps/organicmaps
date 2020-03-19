@@ -28,6 +28,8 @@ import com.mapswithme.maps.widget.placepage.FloatingMarkerView;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +45,10 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   private static final int CHART_ANIMATION_DURATION = 1500;
   private static final int CHART_FILL_ALPHA = (int) (0.12 * 255);
   private static final float CUBIC_INTENSITY = 0.2f;
+  private static final int CURRENT_POSITION_OUT_OF_TRACK = -1;
+
+  private static final String TAG = ChartController.class.getName();
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -62,6 +68,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   @NonNull
   private final Context mContext;
   private long mTrackId = Utils.INVALID_ID;
+  private boolean mCurrentPositionOutOfTrack;
 
   public ChartController(@NonNull Context context)
   {
@@ -101,12 +108,14 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     Legend l = mChart.getLegend();
     l.setEnabled(false);
     initAxises();
+    BookmarkManager.INSTANCE.setElevationCurPositionChangedListener(this::onCurrentPositionChanged);
   }
 
   @Override
   public void destroy()
   {
     BookmarkManager.INSTANCE.setElevationActivePointChangedListener(null);
+    BookmarkManager.INSTANCE.setElevationCurPositionChangedListener(null);
   }
 
   private void highlightChartCurrentLocation()
@@ -170,23 +179,32 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     data.setDrawValues(false);
 
     mChart.setData(data);
-    highlightChartCurrentLocation();
+    if (!mCurrentPositionOutOfTrack)
+      highlightChartCurrentLocation();
+
     mChart.animateX(CHART_ANIMATION_DURATION);
 
     mMinAltitude.setText(StringUtils.nativeFormatDistance(info.getMinAltitude()));
     mMaxAltitude.setText(StringUtils.nativeFormatDistance(info.getMaxAltitude()));
 
-    highlightActivePoint();
+    highlightActivePointManually();
   }
 
   @Override
-  public void onValueSelected(Entry e, Highlight h)
-  {
+  public void onValueSelected(Entry e, Highlight h) {
     mFloatingMarkerView.updateOffsets(e, h);
     Highlight curPos = getCurrentPosHighlight();
 
-    mChart.highlightValues(Arrays.asList(curPos, h),
-                           Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
+    mChart.highlightValues(
+
+            mCurrentPositionOutOfTrack
+                    ? Collections.singletonList(h)
+                    : Arrays.asList(curPos, h),
+
+            mCurrentPositionOutOfTrack
+                    ? Collections.singletonList(mFloatingMarkerView)
+                    : Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
+
     if (mTrackId == Utils.INVALID_ID)
       return;
 
@@ -196,15 +214,28 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   @NonNull
   private Highlight getCurrentPosHighlight()
   {
-    LineData data = mChart.getData();
-    final Entry entryForIndex = data.getDataSetByIndex(0).getEntryForIndex(5);
-    return new Highlight(entryForIndex.getX(), 0, 5);
+    double activeX = BookmarkManager.INSTANCE.getElevationCurPositionDistance(mTrackId);
+    return new Highlight((float) activeX, 0f, 0);
   }
 
   @Override
   public void onNothingSelected()
   {
+    if (mCurrentPositionOutOfTrack)
+      return;
+
     highlightChartCurrentLocation();
+  }
+
+  private void onCurrentPositionChanged()
+  {
+    if (mTrackId == Utils.INVALID_ID)
+      return;
+
+    double distance = BookmarkManager.INSTANCE.getElevationCurPositionDistance(mTrackId);
+    mCurrentPositionOutOfTrack = distance == CURRENT_POSITION_OUT_OF_TRACK;
+    highlightActivePointManually();
+    if (mCurrentPositionOutOfTrack) LOGGER.d(TAG, "mCurrentPositionOutOfTrack = true");
   }
 
   @Override
@@ -213,17 +244,18 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     if (mTrackId == Utils.INVALID_ID)
       return;
 
-    highlightActivePoint();
+    highlightActivePointManually();
   }
 
-  private void highlightActivePoint()
+  private void highlightActivePointManually()
   {
-    double activeX = BookmarkManager.INSTANCE.getElevationActivePointDistance(mTrackId);
-    Highlight highlight = new Highlight((float) activeX, 0, 0);
-    mFloatingMarkerView.updateOffsets(new Entry((float) activeX, 0f), highlight);
-    Highlight curPos = getCurrentPosHighlight();
+    Highlight highlight = getActivePoint();
+    mChart.highlightValue(highlight, true);
+  }
 
-    mChart.highlightValues(Arrays.asList(curPos, highlight),
-                           Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
+  @NonNull
+  private Highlight getActivePoint() {
+    double activeX = BookmarkManager.INSTANCE.getElevationActivePointDistance(mTrackId);
+    return new Highlight((float) activeX, 0f, 0);
   }
 }

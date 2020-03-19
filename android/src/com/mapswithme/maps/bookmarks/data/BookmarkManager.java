@@ -99,6 +99,9 @@ public enum BookmarkManager
   private final List<BookmarksInvalidCategoriesListener> mInvalidCategoriesListeners = new ArrayList<>();
 
   @Nullable
+  private OnElevationCurrentPositionChangedListener mOnElevationCurrentPositionChangedListener;
+
+  @Nullable
   private OnElevationActivePointChangedListener mOnElevationActivePointChangedListener;
 
   static
@@ -432,6 +435,25 @@ public enum BookmarkManager
   {
     for (BookmarksInvalidCategoriesListener listener : mInvalidCategoriesListeners)
       listener.onCheckInvalidCategories(hasInvalidCategories);
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onElevationCurPositionChanged()
+  {
+    if (mOnElevationCurrentPositionChangedListener != null)
+      mOnElevationCurrentPositionChangedListener.onCurrentPositionChanged();
+  }
+
+  public void setElevationCurPositionChangedListener(@Nullable OnElevationCurrentPositionChangedListener listener)
+  {
+    if (listener != null)
+      nativeSetElevationCurPositionChangedListener();
+    else
+      nativeRemoveElevationCurPositionChangedListener();
+
+    mOnElevationCurrentPositionChangedListener = listener;
   }
 
   // Called from JNI.
@@ -946,6 +968,11 @@ public enum BookmarkManager
     }
   }
 
+  public double getElevationCurPositionDistance(long trackId)
+  {
+   return nativeGetElevationCurPositionDistance(trackId);
+  }
+
   public void setElevationActivePoint(long trackId, double distance)
   {
     nativeSetElevationActivePoint(trackId, distance);
@@ -1160,6 +1187,12 @@ public enum BookmarkManager
 
   @NonNull
   private static native String nativeGetBookmarkAddress(@IntRange(from = 0) long bookmarkId);
+
+  private static native double nativeGetElevationCurPositionDistance(long trackId);
+
+  private static native void nativeSetElevationCurPositionChangedListener();
+
+  public static native void nativeRemoveElevationCurPositionChangedListener();
 
   private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters);
 

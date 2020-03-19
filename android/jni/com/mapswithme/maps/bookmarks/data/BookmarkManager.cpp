@@ -41,6 +41,7 @@ jmethodID g_onCustomPropertiesReceivedMethod;
 jmethodID g_onUploadStartedMethod;
 jmethodID g_onUploadFinishedMethod;
 jmethodID g_onElevationActivePointChangedMethod;
+jmethodID g_onElevationCurrentPositionChangedMethod;
 jclass g_bookmarkCategoryClass;
 jmethodID g_bookmarkCategoryConstructor;
 jclass g_catalogTagClass;
@@ -186,8 +187,19 @@ void PrepareClassRefs(JNIEnv * env)
     jni::GetConstructorID(env, g_catalogCustomPropertyClass,
                           "(Ljava/lang/String;Ljava/lang/String;Z"
                           "[Lcom/mapswithme/maps/bookmarks/data/CatalogCustomPropertyOption;)V");
+  g_onElevationCurrentPositionChangedMethod =
+      jni::GetMethodID(env, bookmarkManagerInstance, "onElevationCurPositionChanged", "()V");
   g_onElevationActivePointChangedMethod =
-    jni::GetMethodID(env, bookmarkManagerInstance, "onElevationActivePointChanged", "()V");
+      jni::GetMethodID(env, bookmarkManagerInstance, "onElevationActivePointChanged", "()V");
+}
+
+void OnElevationCurPositionChanged(JNIEnv * env)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+  jobject bookmarkManagerInstance =
+      env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onElevationCurrentPositionChangedMethod);
+  jni::HandleJavaException(env);
 }
 
 void OnElevationActivePointChanged(JNIEnv * env)
@@ -1394,6 +1406,29 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkAddress
 {
   auto const address = frm()->GetAddressAtPoint(getBookmark(bmkId)->GetPivot()).FormatAddress();
   return jni::ToJavaString(env, address);
+}
+
+JNIEXPORT jdouble JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetElevationCurPositionDistance(
+    JNIEnv * env, jclass clazz, jlong trackId)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  return static_cast<jdouble>(bm.GetElevationMyPosition(static_cast<kml::TrackId>(trackId)));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetElevationCurPositionChangedListener(
+    JNIEnv * env, jclass clazz)
+{
+  frm()->GetBookmarkManager().SetElevationMyPositionChangedCallback(
+      std::bind(&OnElevationCurPositionChanged, env));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeRemoveElevationCurPositionChangedListener(
+    JNIEnv * env, jclass)
+{
+  frm()->GetBookmarkManager().SetElevationMyPositionChangedCallback(nullptr);
 }
 
 JNIEXPORT void JNICALL
