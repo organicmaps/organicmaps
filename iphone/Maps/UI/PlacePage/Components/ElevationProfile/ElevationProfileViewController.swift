@@ -1,3 +1,5 @@
+import Chart
+
 protocol ElevationProfileViewProtocol: class {
   var presenter: ElevationProfilePresenterProtocol?  { get set }
   
@@ -5,11 +7,14 @@ protocol ElevationProfileViewProtocol: class {
   func setExtendedDifficultyGrade(_ value: String)
   func setTrackTime(_ value: String?)
   func setDifficulty(_ value: ElevationDifficulty)
+  func setChartData(_ data: ChartPresentationData)
+  func setActivePoint(_ distance: Double)
 }
 
 class ElevationProfileViewController: UIViewController {
   var presenter: ElevationProfilePresenterProtocol?
   
+  @IBOutlet private var chartView: ChartView!
   @IBOutlet private var graphViewContainer: UIView!
   @IBOutlet private var descriptionCollectionView: UICollectionView!
   @IBOutlet private var difficultyView: DifficultyView!
@@ -22,6 +27,9 @@ class ElevationProfileViewController: UIViewController {
     descriptionCollectionView.dataSource = presenter
     descriptionCollectionView.delegate = presenter
     presenter?.configure()
+    chartView.onSelectedPointChanged = { [weak self] in
+      self?.presenter?.onMapPointChanged($0)
+    }
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -55,10 +63,20 @@ extension ElevationProfileViewController: ElevationProfileViewProtocol {
   func setExtendedDifficultyGrade(_ value: String) {
     extendedDifficultyGradeLabel.text = value
   }
+
   func setTrackTime(_ value: String?) {
     trackTimeLabel.text = value
   }
+
   func setDifficulty(_ value: ElevationDifficulty) {
     difficultyView.difficulty = value
+  }
+
+  func setChartData(_ data: ChartPresentationData) {
+    chartView.chartData = data
+  }
+
+  func setActivePoint(_ distance: Double) {
+    chartView.setInfoX(CGFloat(distance))
   }
 }

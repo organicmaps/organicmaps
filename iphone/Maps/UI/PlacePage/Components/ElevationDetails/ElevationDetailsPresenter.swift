@@ -20,8 +20,8 @@ class ElevationDetailsPresenter {
 extension ElevationDetailsPresenter: ElevationDetailsPresenterProtocol {
   func configure() {
     view?.setDifficulty(data.difficulty)
-    view?.setExtendedDifficultyGrade(data.extendedDifficultyGrade ?? "")
-    view?.setDifficultyDescription(data.extendedDifficultyDescription ?? "")
+//    view?.setExtendedDifficultyGrade(data.extendedDifficultyGrade ?? "")
+//    view?.setDifficultyDescription(data.extendedDifficultyDescription ?? "")
 
     Statistics.logEvent(kStatElevationProfilePageDetailsOpen, withParameters: [kStatType: data.difficulty.rawValue]);
   }

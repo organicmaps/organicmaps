@@ -119,5 +119,7 @@ typedef void (^PingCompletionBlock)(BOOL success);
 - (NSString *)deviceId;
 - (NSDictionary<NSString *, NSString *> *)getCatalogHeaders;
 
+- (void)setElevationActivePoint:(double)distance trackId:(uint64_t)trackId;
+
 @end
 NS_ASSUME_NONNULL_END

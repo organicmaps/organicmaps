@@ -5,9 +5,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ElevationHeightPoint : NSObject
 
 @property(nonatomic, readonly) double distance;
-@property(nonatomic, readonly) double height;
+@property(nonatomic, readonly) double altitude;
 
-- (instancetype)initWithDistance:(double)distance andHeight:(double)height;
+- (instancetype)initWithDistance:(double)distance andAltitude:(double)altitude;
 
 @end
 

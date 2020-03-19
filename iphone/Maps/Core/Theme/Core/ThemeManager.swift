@@ -13,7 +13,7 @@ final class ThemeManager: NSObject {
 
   @objc static func setDarkModeEnabled(_ val: Bool) {
     instance.isDarkModeEnabled = val
-    instance.update(theme: MWMSettings.theme())
+    instance.update(theme: Settings.theme())
   }
 
   private func update(theme: MWMTheme) {
@@ -68,7 +68,7 @@ final class ThemeManager: NSObject {
   }
 
   @objc static func invalidate() {
-    instance.update(theme: MWMSettings.theme())
+    instance.update(theme: Settings.theme())
   }
 
   @available(iOS, deprecated:13.0)

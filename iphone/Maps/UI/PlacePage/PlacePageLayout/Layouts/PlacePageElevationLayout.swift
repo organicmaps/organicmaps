@@ -31,7 +31,7 @@ class PlacePageElevationLayout: IPlacePageLayout {
 
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
-    viewControllers.append(previewViewController)
+//    viewControllers.append(previewViewController)
     viewControllers.append(elevationMapViewController)
 
     return viewControllers

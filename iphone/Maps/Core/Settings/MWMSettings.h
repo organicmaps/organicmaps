@@ -1,3 +1,4 @@
+NS_SWIFT_NAME(Settings)
 @interface MWMSettings : NSObject
 
 + (BOOL)adServerForbidden;

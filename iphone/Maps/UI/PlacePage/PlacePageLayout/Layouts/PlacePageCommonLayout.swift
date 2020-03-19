@@ -92,7 +92,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   lazy var buttonsViewController: PlacePageButtonsViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageButtonsViewController.self)
     vc.buttonsData = placePageData.buttonsData!
-    vc.buttonsEnabled = placePageData.mapNodeAttributes.nodeStatus == .onDisk
+    vc.buttonsEnabled = placePageData.mapNodeAttributes!.nodeStatus == .onDisk
     vc.delegate = interactor
     return vc
   } ()
@@ -208,8 +208,8 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
     placePageData.onMapNodeStatusUpdate = { [weak self] in
       guard let self = self else { return }
-      self.actionBarViewController.updateDownloadButtonState(self.placePageData.mapNodeAttributes.nodeStatus)
-      if self.placePageData.mapNodeAttributes.nodeStatus == .onDisk {
+      self.actionBarViewController.updateDownloadButtonState(self.placePageData.mapNodeAttributes!.nodeStatus)
+      if self.placePageData.mapNodeAttributes!.nodeStatus == .onDisk {
         self.actionBarViewController.resetButtons()
         if self.placePageData.buttonsData != nil {
           self.buttonsViewController.buttonsEnabled = true

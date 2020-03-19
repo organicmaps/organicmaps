@@ -124,7 +124,7 @@
 		9957FAE8237AE5B000855F48 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FAE6237AE5B000855F48 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9957FAE9237AE5B000855F48 /* Logger.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FAE7237AE5B000855F48 /* Logger.mm */; };
 		9974CA2923DF1968003FE824 /* ElevationProfileData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2723DF1968003FE824 /* ElevationProfileData.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9974CA2A23DF1968003FE824 /* ElevationProfileData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9974CA2823DF1968003FE824 /* ElevationProfileData.m */; };
+		9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9974CA2823DF1968003FE824 /* ElevationProfileData.mm */; };
 		9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */; };
 		999D3A64237B097C00C5F7A8 /* DeepLinkSubscriptionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		999D3A65237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */; };
@@ -259,7 +259,7 @@
 		9957FAE6237AE5B000855F48 /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		9957FAE7237AE5B000855F48 /* Logger.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Logger.mm; sourceTree = "<group>"; };
 		9974CA2723DF1968003FE824 /* ElevationProfileData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevationProfileData.h; sourceTree = "<group>"; };
-		9974CA2823DF1968003FE824 /* ElevationProfileData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElevationProfileData.m; sourceTree = "<group>"; };
+		9974CA2823DF1968003FE824 /* ElevationProfileData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ElevationProfileData.mm; sourceTree = "<group>"; };
 		9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ElevationProfileData+Core.h"; sourceTree = "<group>"; };
 		999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkSubscriptionData.h; sourceTree = "<group>"; };
 		999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkSubscriptionData.mm; sourceTree = "<group>"; };
@@ -633,7 +633,7 @@
 			isa = PBXGroup;
 			children = (
 				9974CA2723DF1968003FE824 /* ElevationProfileData.h */,
-				9974CA2823DF1968003FE824 /* ElevationProfileData.m */,
+				9974CA2823DF1968003FE824 /* ElevationProfileData.mm */,
 				9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */,
 				9940621E23EAC57900493D1A /* ElevationHeightPoint.h */,
 				9940621F23EAC57900493D1A /* ElevationHeightPoint.m */,
@@ -809,7 +809,7 @@
 				47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */,
 				4738A8E1239FACE7007C0F43 /* CoreBanner.mm in Sources */,
 				47942D86237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm in Sources */,
-				9974CA2A23DF1968003FE824 /* ElevationProfileData.m in Sources */,
+				9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */,
 				47942D82237CC52A00DEFAE3 /* MWMOpeningHours.mm in Sources */,
 				47942D73237CC41400DEFAE3 /* OpeningHours.mm in Sources */,
 				47C637DC2354B79B00E12DE0 /* MWMSearchFrameworkHelper.mm in Sources */,

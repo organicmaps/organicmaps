@@ -8,7 +8,7 @@ typedef void (^MWMBoolBlock)(BOOL);
 
 typedef NS_ENUM(NSUInteger, MWMDayTime) { MWMDayTimeDay, MWMDayTimeNight };
 
-typedef NS_ENUM(NSUInteger, MWMUnits) { MWMUnitsMetric, MWMUnitsImperial };
+typedef NS_ENUM(NSUInteger, MWMUnits) { MWMUnitsMetric, MWMUnitsImperial } NS_SWIFT_NAME(Units);
 
 typedef NS_ENUM(NSUInteger, MWMTheme) {
   MWMThemeDay,

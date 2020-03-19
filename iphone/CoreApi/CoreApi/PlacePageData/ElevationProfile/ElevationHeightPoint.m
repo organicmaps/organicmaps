@@ -2,11 +2,11 @@
 
 @implementation ElevationHeightPoint
 
-- (instancetype)initWithDistance:(double)distance andHeight:(double)height {
+- (instancetype)initWithDistance:(double)distance andAltitude:(double)altitude {
   self = [super init];
   if (self) {
     _distance = distance;
-    _height = height;
+    _altitude = altitude;
   }
   return self;
 }

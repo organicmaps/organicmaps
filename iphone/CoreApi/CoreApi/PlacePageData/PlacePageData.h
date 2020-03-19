@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) HotelRooms *hotelRooms;
 @property(nonatomic, readonly, nullable) UgcData *ugcData;
 @property(nonatomic, readonly, nullable) ElevationProfileData *elevationProfileData;
-@property(nonatomic, readonly) MWMMapNodeAttributes *mapNodeAttributes;
+@property(nonatomic, readonly, nullable) MWMMapNodeAttributes *mapNodeAttributes;
 @property(nonatomic, readonly, nullable) NSString *bookingSearchUrl;
 @property(nonatomic, readonly) BOOL isLargeToponim;
 @property(nonatomic, readonly) BOOL isSightseeing;

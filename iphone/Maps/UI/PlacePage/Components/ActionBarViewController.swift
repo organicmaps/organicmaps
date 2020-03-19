@@ -56,7 +56,7 @@ class ActionBarViewController: UIViewController {
       stackView.addArrangedSubview(button)
       if buttonType == .download {
         downloadButton = button
-        updateDownloadButtonState(placePageData.mapNodeAttributes.nodeStatus)
+        updateDownloadButtonState(placePageData.mapNodeAttributes!.nodeStatus)
       }
     }
   }
@@ -79,8 +79,8 @@ class ActionBarViewController: UIViewController {
   }
 
   func updateDownloadButtonState(_ nodeStatus: MapNodeStatus) {
-    guard let downloadButton = downloadButton else { return }
-    switch self.placePageData.mapNodeAttributes.nodeStatus {
+    guard let downloadButton = downloadButton, let mapNodeAttributes = placePageData.mapNodeAttributes else { return }
+    switch mapNodeAttributes.nodeStatus {
     case .downloading:
       downloadButton.mapDownloadProgress?.state = .progress
     case .applying, .inQueue:
@@ -97,14 +97,16 @@ class ActionBarViewController: UIViewController {
   }
 
   private func configButton1() {
-    switch placePageData.mapNodeAttributes.nodeStatus {
-    case .onDiskOutOfDate, .onDisk, .undefined:
-      break
-    case .downloading, .applying, .inQueue, .error, .notDownloaded, .partly:
-      visibleButtons.append(.download)
-      return
-    @unknown default:
-      fatalError()
+    if let mapNodeAttributes = placePageData.mapNodeAttributes {
+      switch mapNodeAttributes.nodeStatus {
+      case .onDiskOutOfDate, .onDisk, .undefined:
+        break
+      case .downloading, .applying, .inQueue, .error, .notDownloaded, .partly:
+        visibleButtons.append(.download)
+        return
+      @unknown default:
+        fatalError()
+      }
     }
     var buttons: [ActionBarButtonType] = []
     if isRoutePlanning {

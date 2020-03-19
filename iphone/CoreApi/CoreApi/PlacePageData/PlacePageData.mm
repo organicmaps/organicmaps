@@ -132,15 +132,26 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
       _sponsoredDeeplink = @(rawData().GetSponsoredDeepLink().c_str());
     }
 
-    _mapNodeAttributes = [[MWMStorage sharedStorage] attributesForCountry:@(rawData().GetCountryId().c_str())];
-    [[MWMStorage sharedStorage] addObserver:self];
-//    _elevationProfileData = [[ElevationProfileData alloc] init];
+    if (rawData().IsTrack()) {
+      auto const &bm = GetFramework().GetBookmarkManager();
+      auto const &trackId = rawData().GetTrackId();
+      _elevationProfileData = [[ElevationProfileData alloc] initWithElevationInfo:bm.MakeElevationInfo(trackId)
+                                                                      activePoint:bm.GetElevationActivePoint(trackId)];
+    }
+
+    auto const &countryId = rawData().GetCountryId();
+    if (!countryId.empty()) {
+      _mapNodeAttributes = [[MWMStorage sharedStorage] attributesForCountry:@(rawData().GetCountryId().c_str())];
+      [[MWMStorage sharedStorage] addObserver:self];
+    }
   }
   return self;
 }
 
 - (void)dealloc {
-  [[MWMStorage sharedStorage] removeObserver:self];
+  if (self.mapNodeAttributes != nil) {
+    [[MWMStorage sharedStorage] removeObserver:self];
+  }
 }
 
 - (void)loadOnlineDataWithCompletion:(MWMVoidBlock)completion {

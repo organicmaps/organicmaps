@@ -205,11 +205,14 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
     case .call:
       MWMPlacePageManagerHelper.call(placePageData)
     case .download:
-      switch placePageData.mapNodeAttributes.nodeStatus {
+      guard let mapNodeAttributes = placePageData.mapNodeAttributes else {
+        fatalError("Download button can't be displayed if mapNodeAttributes is empty")
+      }
+      switch mapNodeAttributes.nodeStatus {
       case .downloading, .inQueue, .applying:
-        Storage.shared().cancelDownloadNode(placePageData.mapNodeAttributes.countryId)
+        Storage.shared().cancelDownloadNode(mapNodeAttributes.countryId)
       case .notDownloaded, .partly, .error:
-        Storage.shared().downloadNode(placePageData.mapNodeAttributes.countryId)
+        Storage.shared().downloadNode(mapNodeAttributes.countryId)
       case .undefined, .onDiskOutOfDate, .onDisk:
         fatalError("Download button shouldn't be displayed when node is in these states")
       @unknown default:
@@ -250,5 +253,9 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
 extension PlacePageInteractor: ElevationProfileViewControllerDelegate {
   func openDifficultyPopup() {
     MWMPlacePageManagerHelper.openElevationDifficultPopup(placePageData)
+  }
+
+  func updateMapPoint(_ distance: Double) {
+    MWMBookmarksManager.shared().setElevationActivePoint(distance, trackId: placePageData.elevationProfileData!.trackId)
   }
 }
