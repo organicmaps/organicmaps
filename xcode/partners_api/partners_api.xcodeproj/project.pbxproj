@@ -89,8 +89,6 @@
 		4566605320D920000085E8C1 /* megafon_countries_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566605220D920000085E8C1 /* megafon_countries_tests.cpp */; };
 		4566605520D920220085E8C1 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566605420D920220085E8C1 /* libstorage.a */; };
 		45AC338F22C4F449004DC574 /* utm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45AC338E22C4F448004DC574 /* utm.hpp */; };
-		45BABC33229812830060FA53 /* downloader_promo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45BABC31229812820060FA53 /* downloader_promo.cpp */; };
-		45BABC34229812830060FA53 /* downloader_promo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45BABC32229812830060FA53 /* downloader_promo.hpp */; };
 		45C380772094C5B400C18D81 /* partners.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C380752094C5B400C18D81 /* partners.cpp */; };
 		45C380782094C5B400C18D81 /* partners.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45C380762094C5B400C18D81 /* partners.hpp */; };
 		56DAC37A2399261E000BC50D /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC3792399261E000BC50D /* libsuccinct.a */; };
@@ -207,8 +205,6 @@
 		4566605220D920000085E8C1 /* megafon_countries_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = megafon_countries_tests.cpp; sourceTree = "<group>"; };
 		4566605420D920220085E8C1 /* libstorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libstorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45AC338E22C4F448004DC574 /* utm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utm.hpp; sourceTree = "<group>"; };
-		45BABC31229812820060FA53 /* downloader_promo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = downloader_promo.cpp; sourceTree = "<group>"; };
-		45BABC32229812830060FA53 /* downloader_promo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_promo.hpp; sourceTree = "<group>"; };
 		45C380752094C5B400C18D81 /* partners.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = partners.cpp; sourceTree = "<group>"; };
 		45C380762094C5B400C18D81 /* partners.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = partners.hpp; sourceTree = "<group>"; };
 		56DAC3792399261E000BC50D /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -342,8 +338,6 @@
 				3DCD415120DAB33700143533 /* booking_block_params.cpp */,
 				3DCD415220DAB33700143533 /* booking_block_params.hpp */,
 				3DA5713320B57358007BDE27 /* booking_params_base.hpp */,
-				45BABC31229812820060FA53 /* downloader_promo.cpp */,
-				45BABC32229812830060FA53 /* downloader_promo.hpp */,
 				BB1956E41F543D7B003ECE6C /* locals_api.cpp */,
 				BB1956E51F543D7C003ECE6C /* locals_api.hpp */,
 				349CFD09204571FF00569949 /* maxim_api.cpp */,
@@ -468,7 +462,6 @@
 				3DBD7C0D24251BF000ED9FE8 /* mts_ads.hpp in Headers */,
 				3D15ACE7214AA1B000F725D5 /* rutaxi_api.hpp in Headers */,
 				45C380782094C5B400C18D81 /* partners.hpp in Headers */,
-				45BABC34229812830060FA53 /* downloader_promo.hpp in Headers */,
 				3DBD7B9924112DE100ED9FE8 /* freenow_api.hpp in Headers */,
 				3D15ACE6214AA1B000F725D5 /* taxi_delegate.hpp in Headers */,
 				3DFEBF9A1EFBFC1500317D5C /* taxi_base.hpp in Headers */,
@@ -611,7 +604,6 @@
 				3DBD7C0724251BF000ED9FE8 /* mts_ads.cpp in Sources */,
 				F67E75251DB8F06F00D6741F /* opentable_api.cpp in Sources */,
 				3DBD7C1F24251C1100ED9FE8 /* mts_tests.cpp in Sources */,
-				45BABC33229812830060FA53 /* downloader_promo.cpp in Sources */,
 				3D18DC4422956E0900A583A6 /* promo_tests.cpp in Sources */,
 				3DBD7C2324251C1100ED9FE8 /* tinkoff_airlines_tests.cpp in Sources */,
 				BB1956E61F543D7C003ECE6C /* locals_api.cpp in Sources */,

@@ -36,8 +36,6 @@ set(
   booking_block_params.cpp
   booking_block_params.hpp
   booking_params_base.hpp
-  downloader_promo.cpp
-  downloader_promo.hpp
   freenow_api.cpp
   freenow_api.hpp
   locals_api.cpp

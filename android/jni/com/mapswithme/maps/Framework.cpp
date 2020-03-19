@@ -17,7 +17,6 @@
 #include "partners_api/ads/banner.hpp"
 #include "partners_api/ads/mopub_ads.hpp"
 #include "partners_api/booking_block_params.hpp"
-#include "partners_api/downloader_promo.hpp"
 #include "partners_api/megafon_countries.hpp"
 
 #include "web_api/utils.hpp"
