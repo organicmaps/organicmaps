@@ -147,10 +147,19 @@ private:
     bool m_containsMatchedCity = false;
   };
 
-  struct MwmInfosWithType
+  struct ExtendedMwmInfos
   {
-    using MwmInfoWithType = std::pair<std::shared_ptr<MwmInfo>, MwmType>;
-    std::vector<MwmInfoWithType> m_infos;
+    struct ExtendedMwmInfo
+    {
+      bool operator<(ExtendedMwmInfo const & rhs) const;
+
+      std::shared_ptr<MwmInfo> m_info;
+      MwmType m_type;
+      double m_similarity;
+      double m_distance;
+    };
+
+    std::vector<ExtendedMwmInfo> m_infos;
     size_t m_firstBatchSize = 0;
   };
 
@@ -203,7 +212,7 @@ private:
   bool CityHasPostcode(BaseContext const & ctx) const;
 
   template <typename Fn>
-  void ForEachCountry(MwmInfosWithType const & infos, Fn && fn);
+  void ForEachCountry(ExtendedMwmInfos const & infos, Fn && fn);
 
   // Throws CancelException if cancelled.
   void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
@@ -284,15 +293,19 @@ private:
   WARN_UNUSED_RESULT bool GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
                                              Model::Type & type);
 
+  ExtendedMwmInfos::ExtendedMwmInfo GetExtendedMwmInfo(
+      std::shared_ptr<MwmInfo> const & info, bool inViewport,
+      std::function<bool(std::shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedCity) const;
+
   // Reorders maps in a way that prefix consists of "best" maps to search and suffix consists of all
-  // other maps ordered by minimum distance from pivot. Returns MwmInfosWithType structure which
+  // other maps ordered by minimum distance from pivot. Returns ExtendedMwmInfos structure which
   // consists of vector of mwms with MwmType information and number of "best" maps to search.
-  // For viewport mode prefix consists of maps intersecting with pivot ordered by distance from pivot
-  // center.
+  // For viewport mode prefix consists of maps intersecting with pivot ordered by distance from
+  // pivot center.
   // For non-viewport search mode prefix consists of maps intersecting with pivot, map with user
   // location and maps with cities matched to the query, sorting prefers mwms that contain the
   // user's position.
-  MwmInfosWithType OrderCountries(bool inViewport,
+  ExtendedMwmInfos OrderCountries(bool inViewport,
                                   std::vector<std::shared_ptr<MwmInfo>> const & infos);
 
   DataSource const & m_dataSource;

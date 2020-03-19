@@ -259,31 +259,6 @@ double GetDistanceMeters(m2::PointD const & pivot, m2::RectD const & rect)
   return distance;
 }
 
-struct KeyedMwmInfo
-{
-  KeyedMwmInfo(shared_ptr<MwmInfo> const & info, optional<m2::PointD> const & position,
-               m2::RectD const & pivot, bool inViewport)
-    : m_info(info)
-  {
-    auto const & rect = m_info->m_bordersRect;
-    m_similarity = GetSimilarity(pivot, rect);
-    m_distance = GetDistanceMeters(pivot.Center(), rect);
-    if (!inViewport && position && rect.IsPointInside(*position))
-      m_distance = 0.0;
-  }
-
-  bool operator<(KeyedMwmInfo const & rhs) const
-  {
-    if (m_distance == 0.0 && rhs.m_distance == 0.0)
-      return m_similarity > rhs.m_similarity;
-    return m_distance < rhs.m_distance;
-  }
-
-  shared_ptr<MwmInfo> m_info;
-  double m_similarity;
-  double m_distance;
-};
-
 unique_ptr<MwmContext> GetWorldContext(DataSource const & dataSource)
 {
   vector<shared_ptr<MwmInfo>> infos;
@@ -298,6 +273,15 @@ unique_ptr<MwmContext> GetWorldContext(DataSource const & dataSource)
   m_resultTracer.CallMethod(ResultTracer::Branch::branch); \
   SCOPE_GUARD(tracerGuard, [&] { m_resultTracer.LeaveMethod(ResultTracer::Branch::branch); });
 }  // namespace
+
+// Geocoder::ExtendedMwmInfos::ExtendedMwmInfo -----------------------------------------------------
+bool Geocoder::ExtendedMwmInfos::ExtendedMwmInfo::operator<(
+    Geocoder::ExtendedMwmInfos::ExtendedMwmInfo const & rhs) const
+{
+  if (m_distance == 0.0 && rhs.m_distance == 0.0)
+    return m_similarity > rhs.m_similarity;
+  return m_distance < rhs.m_distance;
+}
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
@@ -440,15 +424,30 @@ void Geocoder::SetParamsForCategorialSearch(Params const & params)
   LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
 
-Geocoder::MwmInfosWithType Geocoder::OrderCountries(bool inViewport,
+Geocoder::ExtendedMwmInfos::ExtendedMwmInfo Geocoder::GetExtendedMwmInfo(
+    shared_ptr<MwmInfo> const & info, bool inViewport,
+    function<bool(shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedCity) const
+{
+  ExtendedMwmInfos::ExtendedMwmInfo extendedInfo;
+  extendedInfo.m_info = info;
+
+  auto const & rect = info->m_bordersRect;
+  extendedInfo.m_type.m_viewportIntersected = m_params.m_pivot.IsIntersect(rect);
+  extendedInfo.m_type.m_containsUserPosition =
+      m_params.m_position && rect.IsPointInside(*m_params.m_position);
+  extendedInfo.m_type.m_containsMatchedCity = isMwmWithMatchedCity(info);
+
+  extendedInfo.m_similarity = GetSimilarity(m_params.m_pivot, rect);
+  if (!inViewport && extendedInfo.m_type.m_containsUserPosition)
+    extendedInfo.m_distance = 0.0;
+  else
+    extendedInfo.m_distance = GetDistanceMeters(m_params.m_pivot.Center(), rect);
+  return extendedInfo;
+}
+
+Geocoder::ExtendedMwmInfos Geocoder::OrderCountries(bool inViewport,
                                                     vector<shared_ptr<MwmInfo>> const & infos)
 {
-  vector<KeyedMwmInfo> keyedInfos;
-  keyedInfos.reserve(infos.size());
-  for (auto const & info : infos)
-    keyedInfos.emplace_back(info, m_params.m_position, m_params.m_pivot, inViewport);
-  sort(keyedInfos.begin(), keyedInfos.end());
-
   set<storage::CountryId> mwmsWithCities;
   if (!inViewport)
   {
@@ -459,21 +458,18 @@ Geocoder::MwmInfosWithType Geocoder::OrderCountries(bool inViewport,
     }
   }
 
-  auto const getMwmType = [&](auto const & info) {
-    MwmType mwmType;
-    mwmType.m_viewportIntersected = m_params.m_pivot.IsIntersect(info->m_bordersRect);
-    mwmType.m_containsUserPosition =
-        m_params.m_position && info->m_bordersRect.IsPointInside(*m_params.m_position);
-    mwmType.m_containsMatchedCity = mwmsWithCities.count(info->GetCountryName()) != 0;
-    return mwmType;
-  };
+  ExtendedMwmInfos res;
+  res.m_infos.reserve(infos.size());
+  for (auto const & info : infos)
+  {
+    res.m_infos.push_back(GetExtendedMwmInfo(info, inViewport, [&mwmsWithCities](auto const & i) {
+      return mwmsWithCities.count(i->GetCountryName()) != 0;
+    }));
+  }
+  sort(res.m_infos.begin(), res.m_infos.end());
 
-  MwmInfosWithType res;
-  for (auto const & info : keyedInfos)
-    res.m_infos.emplace_back(info.m_info, getMwmType(info.m_info));
-
-  auto const firstBatch = [&](auto const & infoWithType) {
-    return infoWithType.second.IsFirstBatchMwm(inViewport);
+  auto const firstBatch = [&](auto const & extendedInfo) {
+    return extendedInfo.m_type.IsFirstBatchMwm(inViewport);
   };
   auto const sep = stable_partition(res.m_infos.begin(), res.m_infos.end(), firstBatch);
   res.m_firstBatchSize = distance(res.m_infos.begin(), sep);
@@ -798,11 +794,11 @@ bool Geocoder::CityHasPostcode(BaseContext const & ctx) const
 }
 
 template <typename Fn>
-void Geocoder::ForEachCountry(MwmInfosWithType const & infosWithType, Fn && fn)
+void Geocoder::ForEachCountry(ExtendedMwmInfos const & extendedInfos, Fn && fn)
 {
-  for (size_t i = 0; i < infosWithType.m_infos.size(); ++i)
+  for (size_t i = 0; i < extendedInfos.m_infos.size(); ++i)
   {
-    auto const & info = infosWithType.m_infos[i].first;
+    auto const & info = extendedInfos.m_infos[i].m_info;
     if (info->GetType() != MwmInfo::COUNTRY && info->GetType() != MwmInfo::WORLD)
       continue;
     if (info->GetType() == MwmInfo::COUNTRY && m_params.m_mode == Mode::Downloader)
@@ -814,8 +810,8 @@ void Geocoder::ForEachCountry(MwmInfosWithType const & infosWithType, Fn && fn)
     auto & value = *handle.GetValue();
     if (!value.HasSearchIndex() || !value.HasGeometryIndex())
       continue;
-    bool const updatePreranker = i + 1 >= infosWithType.m_firstBatchSize;
-    auto const mwmType = infosWithType.m_infos[i].second;
+    bool const updatePreranker = i + 1 >= extendedInfos.m_firstBatchSize;
+    auto const & mwmType = extendedInfos.m_infos[i].m_type;
     if (fn(mwmType, make_unique<MwmContext>(move(handle)), updatePreranker) ==
         base::ControlFlow::Break)
     {
