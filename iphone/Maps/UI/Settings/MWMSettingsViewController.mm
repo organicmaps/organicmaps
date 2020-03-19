@@ -442,18 +442,21 @@ using namespace power_management;
   dispatch_group_enter(dispatchGroup);
   [[InAppPurchase adsRemovalSubscriptionManager] restore:^(MWMValidationResult result) {
     adsResult = result;
+    [[InAppPurchase adsRemovalSubscriptionManager] setSubscriptionActive: result == MWMValidationResultValid];
     dispatch_group_leave(dispatchGroup);
   }];
 
   dispatch_group_enter(dispatchGroup);
   [[InAppPurchase bookmarksSubscriptionManager] restore:^(MWMValidationResult result) {
     bookmarksResult = result;
+    [[InAppPurchase bookmarksSubscriptionManager] setSubscriptionActive: result == MWMValidationResultValid];
     dispatch_group_leave(dispatchGroup);
   }];
 
   dispatch_group_enter(dispatchGroup);
   [[InAppPurchase allPassSubscriptionManager] restore:^(MWMValidationResult result) {
     allPassResult = result;
+    [[InAppPurchase allPassSubscriptionManager] setSubscriptionActive: result == MWMValidationResultValid];
     dispatch_group_leave(dispatchGroup);
   }];
 

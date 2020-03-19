@@ -86,7 +86,7 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
     }
   }
 
-  func setSubscriptionActive(_ value: Bool) {
+  @objc func setSubscriptionActive(_ value: Bool) {
     switch serverId {
     case MWMPurchaseManager.allPassSubscriptionServerId():
       MWMPurchaseManager.setAllPassSubscriptionActive(value)
