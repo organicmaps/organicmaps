@@ -6,7 +6,7 @@
 
 #include <CoreApi/Framework.h>
 
-#include "partners_api/ads_engine.hpp"
+#include "partners_api/ads/ads_engine.hpp"
 #include "platform/network_policy.hpp"
 
 namespace

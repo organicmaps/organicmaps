@@ -469,7 +469,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
         withParameters:@{
           kStatIsAuthenticated: @(AuthorizationHaveCredentials()),
           kStatIsOnline: Platform::IsConnected() ? kStatYes : kStatNo,
-          kStatEditorMWMName: @(featureID.GetMwmName().c_str()),
+          kStatMWMName: @(featureID.GetMwmName().c_str()),
           kStatEditorMWMVersion: @(featureID.GetMwmVersion())
         }];
   [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.featureHolder];

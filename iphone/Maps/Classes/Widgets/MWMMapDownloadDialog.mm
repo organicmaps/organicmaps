@@ -1,9 +1,9 @@
 #import "MWMMapDownloadDialog.h"
 #import <SafariServices/SafariServices.h>
 #import "CLLocation+Mercator.h"
+#import "MWMBannerHelpers.h"
 #import "MWMBookmarksBannerViewController.h"
 #import "MWMCircularProgress.h"
-#import "MWMMegafonBannerViewController.h"
 #import "MWMStorage+UI.h"
 #import "MapViewController.h"
 #import "Statistics.h"
@@ -11,7 +11,8 @@
 
 #include <CoreApi/Framework.h>
 
-#include "partners_api/downloader_promo.hpp"
+#include "partners_api/ads/ads_engine.hpp"
+#include "partners_api/ads/banner.hpp"
 
 #include "storage/country_info_getter.hpp"
 
@@ -39,16 +40,17 @@ BOOL canAutoDownload(storage::CountryId const &countryId) {
   return YES;
 }
 
-promo::DownloaderPromo::Banner getPromoBanner(std::string const &mwmId) {
-  auto const &purchase = GetFramework().GetPurchase();
-  bool const hasRemoveAdsSubscription = purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
-  auto const policy = platform::GetCurrentNetworkPolicy();
-  if (!policy.CanUse())
+ads::Banner getPromoBanner(std::string const &mwmId) {
+  std::vector<ads::Banner> banners;
+  auto const pos = GetFramework().GetCurrentPosition();
+  if (pos) {
+    banners = GetFramework().GetAdsEngine().GetDownloadOnMapBanners(mwmId, *pos, languages::GetCurrentNorm());
+  }
+
+  if (banners.empty())
     return {};
-  auto const *promoApi = GetFramework().GetPromoApi(policy);
-  CHECK(promoApi != nullptr, ());
-  return promo::DownloaderPromo::GetBanner(GetFramework().GetStorage(), *promoApi, mwmId, languages::GetCurrentNorm(),
-                                           hasRemoveAdsSubscription);
+
+  return banners[0];
 }
 }  // namespace
 
@@ -77,7 +79,7 @@ using namespace storage;
 @implementation MWMMapDownloadDialog {
   CountryId m_countryId;
   CountryId m_autoDownloadCountryId;
-  promo::DownloaderPromo::Banner m_promoBanner;
+  ads::Banner m_promoBanner;
 }
 
 + (instancetype)dialogForController:(MapViewController *)controller {
@@ -278,13 +280,41 @@ using namespace storage;
   m_promoBanner = getPromoBanner(m_countryId);
   [self layoutIfNeeded];
   if (self.bannerView.hidden) {
+    NSString *statProvider;
     switch (m_promoBanner.m_type) {
-      case promo::DownloaderPromo::Type::Megafon:
-      case promo::DownloaderPromo::Type::BookmarkCatalog: {
+      case ads::Banner::Type::TinkoffAllAirlines:
+        statProvider = kStatTinkoffAirlines;
+      case ads::Banner::Type::TinkoffInsurance:
+        statProvider = kStatTinkoffInsurance;
+      case ads::Banner::Type::Mts:
+        statProvider = kStatMts;
+      case ads::Banner::Type::Skyeng: {
+        statProvider = kStatSkyeng;
+        __weak __typeof(self) ws = self;
+        PartnerBannerViewController *controller = [[PartnerBannerViewController alloc] initWithTapHandler:^{
+          [ws bannerAction];
+          [Statistics logEvent:kStatDownloaderBannerClick
+                withParameters:@{
+                  kStatFrom: kStatMap,
+                  kStatProvider: statProvider,
+                  kStatMWMName: @(self->m_countryId.c_str())
+                }];
+        }];
+        [Statistics logEvent:kStatDownloaderBannerShow
+              withParameters:@{
+                kStatFrom: kStatMap,
+                kStatProvider: statProvider,
+                kStatMWMName: @(self->m_countryId.c_str())
+              }];
+        [controller configWithType:banner_helpers::MatchBannerType(m_promoBanner.m_type)];
+        self.bannerViewController = controller;
+        break;
+      }
+      case ads::Banner::Type::BookmarkCatalog: {
         __weak __typeof(self) ws = self;
         self.bannerViewController = [[MWMBookmarksBannerViewController alloc] initWithTapHandler:^{
           __strong __typeof(self) self = ws;
-          NSString *urlString = @(self->m_promoBanner.m_url.c_str());
+          NSString *urlString = @(self->m_promoBanner.m_value.c_str());
           if (urlString.length == 0) {
             return;
           }
@@ -303,7 +333,7 @@ using namespace storage;
                                }];
         break;
       }
-      case promo::DownloaderPromo::Type::NoPromo:
+      default:
         self.bannerViewController = nil;
         break;
     }
@@ -401,10 +431,10 @@ using namespace storage;
 #pragma mark - Actions
 
 - (IBAction)bannerAction {
-  if (m_promoBanner.m_url.empty())
+  if (m_promoBanner.m_value.empty())
     return;
 
-  NSURL *bannerURL = [NSURL URLWithString:@(m_promoBanner.m_url.c_str())];
+  NSURL *bannerURL = [NSURL URLWithString:@(m_promoBanner.m_value.c_str())];
   SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:bannerURL];
   [self.controller presentViewController:safari animated:YES completion:nil];
 }

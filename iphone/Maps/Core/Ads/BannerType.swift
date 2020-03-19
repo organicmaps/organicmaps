@@ -24,10 +24,10 @@ enum BannerType {
 
   init(type: MWMBannerType, id: String, query: String = "") {
     switch type {
-    case .none: self = .none
     case .facebook: self = .facebook(id)
     case .rb: self = .rb(id)
     case .mopub: self = .mopub(id)
+    default: self = .none
     }
   }
 }

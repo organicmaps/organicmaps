@@ -1,6 +1,6 @@
 #import <CoreApi/CoreBanner.h>
 
-#include "partners_api/banner.hpp"
+#include "partners_api/ads/banner.hpp"
 
 #include <vector>
 
@@ -14,6 +14,11 @@ static inline MWMBannerType MatchBannerType(ads::Banner::Type coreType)
   case ads::Banner::Type::Facebook: return MWMBannerTypeFacebook;
   case ads::Banner::Type::RB: return MWMBannerTypeRb;
   case ads::Banner::Type::Mopub: return MWMBannerTypeMopub;
+  case ads::Banner::Type::TinkoffAllAirlines: return MWMBannerTypeTinkoffAllAirlines;
+  case ads::Banner::Type::TinkoffInsurance: return MWMBannerTypeTinkoffInsurance;
+  case ads::Banner::Type::Mts: return MWMBannerTypeMts;
+  case ads::Banner::Type::Skyeng: return MWMBannerTypeSkyeng;
+  case ads::Banner::Type::BookmarkCatalog: return MWMBannerTypeBookmarkCatalog;
   }
 }
 

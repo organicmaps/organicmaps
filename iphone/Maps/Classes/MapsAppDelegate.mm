@@ -35,9 +35,9 @@
 #include "map/framework_light.hpp"
 #include "map/gps_tracker.hpp"
 
+#include "partners_api/ads/mopub_ads.hpp"
 #include "platform/http_thread_apple.h"
 #include "platform/local_country_file_utils.hpp"
-#include "partners_api/mopub_ads.hpp"
 
 #include "base/assert.hpp"
 

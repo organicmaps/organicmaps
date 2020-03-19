@@ -96,7 +96,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
         withParameters:@{
           kStatIsAuthenticated: @(AuthorizationHaveCredentials()),
           kStatIsOnline: Platform::IsConnected() ? kStatYes : kStatNo,
-          kStatEditorMWMName: @(featureID.GetMwmName().c_str()),
+          kStatMWMName: @(featureID.GetMwmName().c_str()),
           kStatEditorMWMVersion: @(featureID.GetMwmVersion())
         }];
 }

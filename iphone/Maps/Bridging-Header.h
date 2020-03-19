@@ -87,3 +87,4 @@
 #import "DeepLinkRouteStrategyAdapter.h"
 #import "MWMMapViewControlsManager.h"
 #import "SwizzleStyle.h"
+#import "MWMDownloadBannerViewController.h"
