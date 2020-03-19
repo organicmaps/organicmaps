@@ -44,9 +44,8 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="done" textContentType="name"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background:regular14:blackPrimaryText"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="bookmark_set_name"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="editingChangedWithSender:" destination="QQB-Ml-wwB" eventType="editingChanged" id="Rab-rj-UaD"/>
