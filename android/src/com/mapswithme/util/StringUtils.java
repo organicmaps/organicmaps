@@ -4,10 +4,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
 
-import java.util.Locale;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+
+import java.util.Locale;
 
 public class StringUtils
 {
@@ -22,6 +22,7 @@ public class StringUtils
   public static native String[] nativeFilterContainsNormalized(String[] strings, String substr);
 
   public static native Pair<String, String> nativeFormatSpeedAndUnits(double metersPerSecond);
+  public static native String nativeFormatDistance(double meters);
 
   /**
    * Removes html tags, generated from edittext content after it's transformed to html.

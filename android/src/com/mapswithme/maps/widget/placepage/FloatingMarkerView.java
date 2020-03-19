@@ -13,8 +13,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.mapswithme.maps.R;
-
-import java.util.Locale;
+import com.mapswithme.util.StringUtils;
 
 @SuppressLint("ViewConstructor")
 public class FloatingMarkerView extends MarkerView
@@ -118,9 +117,9 @@ public class FloatingMarkerView extends MarkerView
 
   private void updatePointValues(@NonNull Entry entry)
   {
-    mDistanceTextView.setText("Distance : ");
-    mDistanceValueView.setText(String.format("%s km", entry.getX()));
-    mAltitudeView.setText(String.format(Locale.US, "%.2fm", entry.getY()));
+    mDistanceTextView.setText(R.string.elevation_profile_distance);
+    mDistanceValueView.setText(StringUtils.nativeFormatDistance(entry.getX()));
+    mAltitudeView.setText(StringUtils.nativeFormatDistance(entry.getY()));
   }
 
   private void updateHorizontal(@NonNull Highlight highlight)

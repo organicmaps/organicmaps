@@ -1,6 +1,5 @@
 package com.mapswithme.maps;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -26,6 +25,7 @@ import com.mapswithme.maps.bookmarks.data.ElevationInfo;
 import com.mapswithme.maps.widget.placepage.AxisValueFormatter;
 import com.mapswithme.maps.widget.placepage.CurrentLocationMarkerView;
 import com.mapswithme.maps.widget.placepage.FloatingMarkerView;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.Utils;
 
@@ -142,7 +142,6 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     mChart.getAxisRight().setEnabled(false);
   }
 
-  @SuppressLint("SetTextI18n")
   public void setData(@NonNull ElevationInfo info)
   {
     mTrackId = info.getId();
@@ -174,9 +173,8 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     highlightChartCurrentLocation();
     mChart.animateX(CHART_ANIMATION_DURATION);
 
-    String meter = mContext.getResources().getString(R.string.elevation_profile_m);
-    mMinAltitude.setText(info.getMinAltitude() + " " + meter);
-    mMaxAltitude.setText(info.getMaxAltitude() + " " + meter);
+    mMinAltitude.setText(StringUtils.nativeFormatDistance(info.getMinAltitude()));
+    mMaxAltitude.setText(StringUtils.nativeFormatDistance(info.getMaxAltitude()));
 
     highlightActivePoint();
   }

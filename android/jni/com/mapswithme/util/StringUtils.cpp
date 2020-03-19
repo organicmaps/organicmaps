@@ -49,4 +49,13 @@ Java_com_mapswithme_util_StringUtils_nativeFormatSpeedAndUnits(JNIEnv * env, jcl
                         jni::ToJavaString(env, measurement_utils::FormatSpeed(metersPerSecond, units)),
                         jni::ToJavaString(env, measurement_utils::FormatSpeedUnits(units)));
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_util_StringUtils_nativeFormatDistance(JNIEnv *env, jclass thiz,
+                                                          jdouble distanceInMeters)
+{
+  std::string formattedDistance;
+  measurement_utils::FormatDistance(distanceInMeters, formattedDistance);
+  return jni::ToJavaString(env, formattedDistance);
+}
 } // extern "C"
