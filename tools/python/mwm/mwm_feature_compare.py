@@ -1,52 +1,38 @@
-import argparse
 import multiprocessing
 import os
 
-from .mwm import MWM
-
-OMIM_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..")
+from mwm.find_feature import find_features
 
 
-def count_feature(mwm_path, feature_name):
-    mwm = MWM(open(mwm_path, "rb"))
-    mwm.read_header()
-    mwm.read_types(os.path.join(OMIM_ROOT, "data", "types.txt"))
-    counter = 0
-    for feature in mwm.iter_features():
-        if feature_name in feature["header"]["types"]:
-            counter += 1
-    return counter
+def compare_feature_num(old_mwm, new_mwm, name, threshold):
+    old_count = len(find_features(old_mwm, "et", name))
+    new_count = len(find_features(new_mwm, "et", name))
 
-
-def compare_feature_num(args_tuple):
-    old_mwm, new_mwm, feature_name, threshold = args_tuple
-    old_feature_count = count_feature(old_mwm, feature_name)
-    new_feature_count = count_feature(new_mwm, feature_name)
-    delta = new_feature_count - old_feature_count
-
+    delta = new_count - old_count
     if delta < 0:
-        p_change = float(abs(delta)) / old_feature_count * 100
-
+        p_change = float(abs(delta)) / old_count * 100
         if p_change > threshold:
-            print("In \"{0}\" number of \"{1}\" decreased by {2:.0f}% ({3} → {4})".format(
-                os.path.basename(new_mwm), feature_name, round(p_change), old_feature_count, new_feature_count))
+            print(
+                f'In "{os.path.basename(new_mwm)}" number of "{name}" '
+                f"decreased by {round(p_change)} ({old_count} → {new_count})"
+            )
             return False
     return True
 
 
-def compare_mwm(old_mwm_path, new_mwm_path, feature_name, threshold):
-    def valid_mwm(mwm_name):
-        return mwm_name.endswith(".mwm") and not mwm_name.startswith("World")
+def compare_mwm(old_mwm_path, new_mwm_path, name, threshold):
+    def generate_names(path):
+        return {
+            file_name: os.path.abspath(os.path.join(path, file_name))
+            for file_name in os.listdir(path)
+            if file_name.endswith(".mwm") and not file_name.startswith("World")
+        }
 
-    def generate_names_dict(path):
-        return dict((file_name, os.path.abspath(os.path.join(path, file_name)))
-                    for file_name in os.listdir(path) if valid_mwm(file_name))
+    old_mwms = generate_names(old_mwm_path)
+    new_mwms = generate_names(new_mwm_path)
 
-    old_mwm_list = generate_names_dict(old_mwm_path)
-    new_mwm_list = generate_names_dict(new_mwm_path)
-
-    same_mwm_names = set(new_mwm_list).intersection(set(old_mwm_list))
-    args = ((old_mwm_list[mwm], new_mwm_list[mwm], feature_name, threshold) for mwm in same_mwm_names)
+    same_mwms = set(new_mwms) & set(new_mwms)
+    args = ((old_mwms[mwm], new_mwms[mwm], name, threshold) for mwm in same_mwms)
 
     pool = multiprocessing.Pool()
     return all(pool.imap(compare_feature_num, args))

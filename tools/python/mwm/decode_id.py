@@ -1,11 +1,12 @@
 import re
 
-from . import mwm
+from mwm.ft2osm import OsmIdCode
+from mwm.ft2osm import unpack_osmid
 
 
 def decode_id(id):
     if id.isdigit():
-        osm_id = mwm.unpack_osmid(int(id))
+        osm_id = unpack_osmid(int(id))
         type_abbr = {"n": "node", "w": "way", "r": "relation"}
         return f"https://www.openstreetmap.org/{type_abbr[osm_id[0]]}/{osm_id[1]}"
     else:
@@ -13,11 +14,11 @@ def decode_id(id):
         if m:
             oid = int(m.group(2))
             if m.group(1) == "node":
-                oid |= mwm.OsmIdCode.NODE
+                oid |= OsmIdCode.NODE
             elif m.group(1) == "way":
-                oid |= mwm.OsmIdCode.WAY
+                oid |= OsmIdCode.WAY
             elif m.group(1) == "relation":
-                oid |= mwm.OsmIdCode.RELATION
+                oid |= OsmIdCode.RELATION
             return oid
         else:
             return None

@@ -1,33 +1,51 @@
 import json
-import os.path
+from typing import List
 
-from .mwm import MWM
+from mwm import EnumAsStrEncoder
+from mwm import Feature
+from mwm import Mwm
+from mwm import readable_type
 
 
-def find_feature(path, typ, string):
-    mwm = MWM(open(path, "rb"))
-    mwm.read_header()
-    mwm.read_types(os.path.join(os.path.dirname(__file__),
-                                "..", "..", "..", "data", "types.txt"))
-
-    parse_metadata = typ == "m"
-    for i, feature in enumerate(mwm.iter_features(metadata=parse_metadata)):
+def find_features(path: str, typ: str, string: str) -> List[Feature]:
+    features = []
+    for feature in Mwm(path):
         found = False
-        if typ == "n" and "name" in feature["header"]:
-            for value in feature["header"]["name"].values():
+        if typ == "n":
+            for value in feature.names().values():
                 if string in value:
                     found = True
+                    break
         elif typ in ("t", "et"):
-            for t in feature["header"]["types"]:
-                if t == string:
+            for t in feature.types():
+                readable_type_ = readable_type(t)
+                if readable_type_ == string:
                     found = True
-                elif typ == "t" and string in t:
+                    break
+                elif typ == "t" and string in readable_type_:
                     found = True
-        elif typ == "m" and "metadata" in feature:
-            if string in feature["metadata"]:
-                found = True
-        elif typ == "id" and i == int(string):
+                    break
+        elif typ == "m":
+            for f in feature.metadata():
+                if string in f.name:
+                    found = True
+                    break
+        elif typ == "id" and int(string) == feature.index():
             found = True
+
         if found:
-            print(json.dumps(feature, ensure_ascii=False,
-                             sort_keys=True).encode("utf-8"))
+            features.append(feature)
+
+    return features
+
+
+def find_and_print_features(path: str, typ: str, string: str):
+    for feature in find_features(path, typ, string):
+        print(
+            json.dumps(
+                feature.to_json(),
+                ensure_ascii=False,
+                sort_keys=True,
+                cls=EnumAsStrEncoder,
+            )
+        )
