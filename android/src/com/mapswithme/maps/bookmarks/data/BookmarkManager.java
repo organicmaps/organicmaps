@@ -440,18 +440,18 @@ public enum BookmarkManager
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
-  public void onElevationCurPositionChanged()
+  public void onElevationCurrentPositionChanged()
   {
     if (mOnElevationCurrentPositionChangedListener != null)
       mOnElevationCurrentPositionChangedListener.onCurrentPositionChanged();
   }
 
-  public void setElevationCurPositionChangedListener(@Nullable OnElevationCurrentPositionChangedListener listener)
+  public void setElevationCurrentPositionChangedListener(@Nullable OnElevationCurrentPositionChangedListener listener)
   {
     if (listener != null)
-      nativeSetElevationCurPositionChangedListener();
+      nativeSetElevationCurrentPositionChangedListener();
     else
-      nativeRemoveElevationCurPositionChangedListener();
+      nativeRemoveElevationCurrentPositionChangedListener();
 
     mOnElevationCurrentPositionChangedListener = listener;
   }
@@ -1190,9 +1190,9 @@ public enum BookmarkManager
 
   private static native double nativeGetElevationCurPositionDistance(long trackId);
 
-  private static native void nativeSetElevationCurPositionChangedListener();
+  private static native void nativeSetElevationCurrentPositionChangedListener();
 
-  public static native void nativeRemoveElevationCurPositionChangedListener();
+  public static native void nativeRemoveElevationCurrentPositionChangedListener();
 
   private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters);
 
@@ -1375,6 +1375,11 @@ public enum BookmarkManager
   public interface OnElevationActivePointChangedListener
   {
     void onElevationActivePointChanged();
+  }
+
+  public interface OnElevationCurrentPositionChangedListener
+  {
+    void onCurrentPositionChanged();
   }
 
   public enum UploadResult
