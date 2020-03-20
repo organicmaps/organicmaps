@@ -92,22 +92,21 @@ public:
     virtual ~Delegate() = default;
 
     virtual storage::CountryId GetCountryId(m2::PointD const & pos) = 0;
-    virtual storage::CountriesVec GetTopmostNodesFor(storage::CountryId const & mwmId) const = 0;
-    virtual std::string GetMwmTopCityGeoId(storage::CountryId const & mwmId) const = 0;
-    virtual std::string GetLinkForGeoId(std::string const & id) const = 0;
+    virtual storage::CountriesVec GetTopmostNodesFor(storage::CountryId const & countryId) const = 0;
+    virtual std::string GetLinkForCountryId(storage::CountryId const & countryId) const = 0;
   };
 
-  DownloadOnMapContainer(Delegate & delegate);
+  explicit DownloadOnMapContainer(Delegate & delegate);
   virtual ~DownloadOnMapContainer() = default;
 
-  virtual std::string GetBanner(storage::CountryId const & mwmId, m2::PointD const & userPos,
+  virtual std::string GetBanner(storage::CountryId const & countryId, m2::PointD const & userPos,
                                 std::string const & userLanguage) const;
 
 protected:
   Delegate & m_delegate;
 
 private:
-  virtual bool HasBanner(storage::CountryId const & mwmId, m2::PointD const & userPos,
+  virtual bool HasBanner(storage::CountryId const & countryId, m2::PointD const & userPos,
                          std::string const & userLanguage) const;
   virtual std::string GetBannerInternal() const;
 

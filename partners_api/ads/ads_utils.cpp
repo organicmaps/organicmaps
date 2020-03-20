@@ -10,16 +10,15 @@ void WithSupportedLanguages::AppendSupportedUserLanguages(
   for (auto const & language : languages)
   {
     int8_t const langIndex = StringUtf8Multilang::GetLangIndex(language);
-    if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
-      continue;
-    m_supportedUserLanguages.insert(langIndex);
+    if (langIndex != StringUtf8Multilang::kUnsupportedLanguageCode)
+      m_supportedUserLanguages.insert(langIndex);
   }
 }
 
 bool WithSupportedLanguages::IsLanguageSupported(std::string const & lang) const
 {
-  auto const userLangCode = StringUtf8Multilang::GetLangIndex(lang);
-  return m_supportedUserLanguages.find(userLangCode) != m_supportedUserLanguages.end();
+  auto const langIndex = StringUtf8Multilang::GetLangIndex(lang);
+  return m_supportedUserLanguages.find(langIndex) != m_supportedUserLanguages.end();
 }
 
 void WithSupportedCountries::AppendSupportedCountries(

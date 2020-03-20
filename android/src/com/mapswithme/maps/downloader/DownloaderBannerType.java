@@ -12,8 +12,8 @@ enum DownloaderBannerType implements StatisticValueConverter<String>
   TINKOFF_AIRLINES(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_tinkoff,
                                                              R.string.tinkoff_allairlines_map_downloader_title,
                                                              R.string.tinkoff_allairlines_map_downloader_cta_button,
-                                                             Color.parseColor("#000000"),
-                                                             Color.parseColor("#FFDD2D")))
+                                                             R.color.black_primary,
+                                                             R.color.tinkoff_button))
   {
     @NonNull
     @Override
@@ -25,8 +25,8 @@ enum DownloaderBannerType implements StatisticValueConverter<String>
   TINKOFF_INSURANCE(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_tinkoff,
                                                               R.string.tinkoff_insurance_map_downloader_title,
                                                               R.string.tinkoff_insurance_map_downloader_cta_button,
-                                                              Color.parseColor("#000000"),
-                                                              Color.parseColor("#FFDD2D")))
+                                                              R.color.black_primary,
+                                                              R.color.tinkoff_button))
   {
     @NonNull
     @Override
@@ -38,8 +38,8 @@ enum DownloaderBannerType implements StatisticValueConverter<String>
   MTS(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_mts,
                                                 R.string.mts_map_downloader_title,
                                                 R.string.mts_map_downloader_cta_button,
-                                                Color.parseColor("#FFFFFF"),
-                                                Color.parseColor("#E30611")))
+                                                R.color.white_primary,
+                                                R.color.mts_button))
   {
     @NonNull
     @Override
@@ -51,8 +51,8 @@ enum DownloaderBannerType implements StatisticValueConverter<String>
   SKYENG(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_skyeng,
                                                    R.string.skyeng_map_downloader_title,
                                                    R.string.skyeng_map_downloader_cta_button,
-                                                   Color.parseColor("#FFFFFF"),
-                                                   Color.parseColor("#4287DF")))
+                                                   R.color.white_primary,
+                                                   R.color.skyeng_button))
   {
     @NonNull
     @Override

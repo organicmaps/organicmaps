@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -13,19 +14,19 @@ import androidx.annotation.StringRes;
 class DownloaderBannerConfigStrategyPartner implements DownloaderBannerConfigStrategy
 {
   @DrawableRes
-  private int mIcon;
+  private final int mIcon;
   @StringRes
-  private int mMessage;
+  private final int mMessage;
   @StringRes
-  private int mButtonText;
-  @ColorInt
-  private int mButtonTextColor;
-  @ColorInt
-  private int mButtonColor;
+  private final int mButtonText;
+  @ColorRes
+  private final int mButtonTextColor;
+  @ColorRes
+  private final int mButtonColor;
 
   DownloaderBannerConfigStrategyPartner(@DrawableRes int icon, @StringRes int message,
-                                        @StringRes int buttonText, @ColorInt int buttonTextColor,
-                                        @ColorInt int buttonColor)
+                                        @StringRes int buttonText, @ColorRes int buttonTextColor,
+                                        @ColorRes int buttonColor)
   {
     mIcon = icon;
     mMessage = message;
@@ -35,7 +36,7 @@ class DownloaderBannerConfigStrategyPartner implements DownloaderBannerConfigStr
   }
 
   @Override
-  public void ConfigureView(@NonNull View parent, @IdRes int iconViewId, @IdRes int messageViewId,
+  public void configureView(@NonNull View parent, @IdRes int iconViewId, @IdRes int messageViewId,
                             @IdRes int buttonViewId)
   {
     ImageView icon = parent.findViewById(iconViewId);
@@ -44,7 +45,7 @@ class DownloaderBannerConfigStrategyPartner implements DownloaderBannerConfigStr
     message.setText(mMessage);
     TextView button = parent.findViewById(buttonViewId);
     button.setText(mButtonText);
-    button.setTextColor(mButtonTextColor);
-    button.setBackgroundColor(mButtonColor);
+    button.setTextColor(button.getResources().getColor(mButtonTextColor));
+    button.setBackgroundColor(button.getResources().getColor(mButtonColor));
   }
 }

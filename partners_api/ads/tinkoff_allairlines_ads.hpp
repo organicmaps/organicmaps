@@ -7,7 +7,7 @@ namespace ads
 class TinkoffAllAirlines : public DownloadOnMapContainer
 {
 public:
-  TinkoffAllAirlines(Delegate & delegate);
+  explicit  TinkoffAllAirlines(Delegate & delegate);
 
 private:
   std::string GetBannerInternal() const override;

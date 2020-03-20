@@ -296,6 +296,7 @@
 		3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1958EA213804B6009A83EC /* libmetrics.a */; };
 		3DB1C57122D5DDA60097EC4C /* PromoAfterBookingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB1C57022D5DDA60097EC4C /* PromoAfterBookingViewController.xib */; };
 		3DBD7B9F242363E500ED9FE8 /* PartnerBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B9E242363E500ED9FE8 /* PartnerBannerViewController.swift */; };
+		3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */; };
 		3DE1762422D614B8000214FF /* PromoAfterBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1762322D614B8000214FF /* PromoAfterBookingViewController.swift */; };
 		3DEE1AEB21F72CD300054A91 /* MWMPowerManagmentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1AEA21F72CD300054A91 /* MWMPowerManagmentViewController.mm */; };
 		3DF9C22B207CC14A00DA0793 /* taxi_places in Resources */ = {isa = PBXBuildFile; fileRef = 3DF9C22A207CC14A00DA0793 /* taxi_places */; };
@@ -1369,6 +1370,7 @@
 		3D1958EA213804B6009A83EC /* libmetrics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB1C57022D5DDA60097EC4C /* PromoAfterBookingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromoAfterBookingViewController.xib; sourceTree = "<group>"; };
 		3DBD7B9E242363E500ED9FE8 /* PartnerBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerBannerViewController.swift; sourceTree = "<group>"; };
+		3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParntersStyleSheet.swift; sourceTree = "<group>"; };
 		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
 		3DE1762322D614B8000214FF /* PromoAfterBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoAfterBookingViewController.swift; sourceTree = "<group>"; };
 		3DEE1AE921F72CD300054A91 /* MWMPowerManagmentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPowerManagmentViewController.h; sourceTree = "<group>"; };
@@ -3723,6 +3725,7 @@
 				994AEC3323AB7B410079B81F /* DiscoveryStyleSheet.swift */,
 				999FC12A23ABB4B800B0E6F9 /* FontStyleSheet.swift */,
 				99A614D423C8911A00D8D8D0 /* AuthStyleSheet.swift */,
+				3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -5324,6 +5327,7 @@
 				F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */,
 				340475621E081A4600C92850 /* MWMNetworkPolicy+UI.m in Sources */,
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.m in Sources */,
+				3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */,
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
 				342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
 				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,

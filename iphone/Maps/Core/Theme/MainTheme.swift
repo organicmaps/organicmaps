@@ -10,6 +10,7 @@ class MainTheme: Theme {
     self.registerStyleSheet(AuthStyleSheet.self)
     self.registerStyleSheet(SubscriptionsStyleSheet.self)
     self.registerStyleSheet(PlacePageStyleSheet.self)
+    self.registerStyleSheet(PartnersStyleSheet.self)
   }
 }
 

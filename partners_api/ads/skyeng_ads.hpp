@@ -7,7 +7,7 @@ namespace ads
 class Skyeng : public DownloadOnMapContainer
 {
 public:
-  Skyeng(Delegate & delegate);
+  explicit Skyeng(Delegate & delegate);
 
 private:
   std::string GetBannerInternal() const override;

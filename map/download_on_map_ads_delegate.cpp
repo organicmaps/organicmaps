@@ -17,27 +17,27 @@ storage::CountryId DownloadOnMapDelegate::GetCountryId(m2::PointD const & pos)
   return m_countryInfoGetter.GetRegionCountryId(pos);
 }
 
-storage::CountriesVec DownloadOnMapDelegate::GetTopmostNodesFor(storage::CountryId const & mwmId) const
+storage::CountriesVec DownloadOnMapDelegate::GetTopmostNodesFor(storage::CountryId const & countryId) const
 {
   storage::CountriesVec countries;
-  m_storage.GetTopmostNodesFor(mwmId, countries);
+  m_storage.GetTopmostNodesFor(countryId, countries);
   return countries;
 }
 
-std::string DownloadOnMapDelegate::GetMwmTopCityGeoId(storage::CountryId const & mwmId) const
+std::string DownloadOnMapDelegate::GetLinkForCountryId(storage::CountryId const & countryId) const
 {
   auto const & cities = m_storage.GetMwmTopCityGeoIds();
-  auto const it = cities.find(mwmId);
+  auto const it = cities.find(countryId);
 
   if (it == cities.cend())
     return {};
 
-  return strings::to_string(it->second.GetEncodedId());
-}
+  auto const cityGeoId = strings::to_string(it->second.GetEncodedId());
 
-std::string DownloadOnMapDelegate::GetLinkForGeoId(std::string const & id) const
-{
-  return m_promoApi.GetLinkForDownloader(id);
+  if (!cityGeoId.empty())
+    return {};
+
+  return m_promoApi.GetLinkForDownloader(countryId);
 }
 
 bool DownloadOnMapDelegate::IsAdsRemoved() const

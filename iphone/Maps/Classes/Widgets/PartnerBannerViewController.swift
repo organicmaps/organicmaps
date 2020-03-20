@@ -1,9 +1,9 @@
 @objc
 final class PartnerBannerViewController: MWMDownloadBannerViewController {
 
-  @IBOutlet weak var icon: UIImageView!
-  @IBOutlet weak var message: UILabel!
-  @IBOutlet weak var button: UIButton!
+  @IBOutlet var icon: UIImageView!
+  @IBOutlet var message: UILabel!
+  @IBOutlet var button: UIButton!
   
   var bannerType: MWMBannerType = .none
   
@@ -14,10 +14,10 @@ final class PartnerBannerViewController: MWMDownloadBannerViewController {
   override func viewDidLoad() {
     let iconImage = { () -> UIImage in
       switch self.bannerType {
-       case .tinkoffAllAirlines: return #imageLiteral(resourceName: "ic_logo_tinkoff")
-       case .tinkoffInsurance: return #imageLiteral(resourceName: "ic_logo_tinkoff")
-       case .mts: return #imageLiteral(resourceName: "ic_logo_mts")
-       case .skyeng: return #imageLiteral(resourceName: "ic_logo_skyeng")
+       case .tinkoffAllAirlines: return UIImage(named: "ic_logo_tinkoff")!
+       case .tinkoffInsurance: return UIImage(named: "ic_logo_tinkoff")!
+       case .mts: return UIImage(named: "ic_logo_mts")!
+       case .skyeng: return UIImage(named: "ic_logo_skyeng")!
        default: fatalError()
        }
      }
@@ -42,22 +42,12 @@ final class PartnerBannerViewController: MWMDownloadBannerViewController {
        }
      }
      
-     let buttonBackgroundColor = { () -> UIColor in
+     let getStyleName = { () -> String in
       switch self.bannerType {
-       case .tinkoffAllAirlines: return UIColor.init(fromHexString: "FFDD2D")
-       case .tinkoffInsurance: return UIColor.init(fromHexString: "FFDD2D")
-       case .mts: return UIColor.init(fromHexString: "E30611")
-       case .skyeng: return UIColor.init(fromHexString: "4287DF")
-       default: fatalError()
-       }
-     }
-     
-     let buttonTextColor = { () -> UIColor in
-      switch self.bannerType {
-       case .tinkoffAllAirlines: return .black
-       case .tinkoffInsurance: return .black
-       case .mts: return .white
-       case .skyeng: return .white
+       case .tinkoffAllAirlines: return "Tinkoff"
+       case .tinkoffInsurance: return "Tinkoff"
+       case .mts: return "Mts"
+       case .skyeng: return "Skyeng"
        default: fatalError()
        }
      }
@@ -65,7 +55,6 @@ final class PartnerBannerViewController: MWMDownloadBannerViewController {
      icon.image = iconImage()
      message.text = messageString()
      button.localizedText = buttonString()
-     button.backgroundColor = buttonBackgroundColor()
-     button.titleLabel?.textColor = buttonTextColor()
+     button.styleName = getStyleName()
 }
 }

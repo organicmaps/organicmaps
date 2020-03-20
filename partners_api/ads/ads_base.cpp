@@ -85,25 +85,25 @@ DownloadOnMapContainer::DownloadOnMapContainer(Delegate & delegate)
 {
 }
 
-std::string DownloadOnMapContainer::GetBanner(storage::CountryId const & mwmId,
+std::string DownloadOnMapContainer::GetBanner(storage::CountryId const & countryId,
                                               m2::PointD const & userPos,
                                               std::string const & userLanguage) const
 {
-  if (!HasBanner(mwmId, userPos, userLanguage))
+  if (!HasBanner(countryId, userPos, userLanguage))
     return {};
 
   return GetBannerInternal();
 }
 
-bool DownloadOnMapContainer::HasBanner(storage::CountryId const & downloadMwmId,
+bool DownloadOnMapContainer::HasBanner(storage::CountryId const & countryId,
                                        m2::PointD const & userPos,
                                        std::string const & userLanguage) const
 {
   auto const userPosMwm = m_delegate.GetCountryId(userPos);
   auto userPosCountries = m_delegate.GetTopmostNodesFor(userPosMwm);
   userPosCountries.push_back(userPosMwm);
-  auto downloadMwmCountries = m_delegate.GetTopmostNodesFor(downloadMwmId);
-  downloadMwmCountries.push_back(downloadMwmId);
+  auto downloadMwmCountries = m_delegate.GetTopmostNodesFor(countryId);
+  downloadMwmCountries.push_back(countryId);
 
   return !std::any_of(userPosCountries.begin(), userPosCountries.end(),
                       [this](auto const & id) { return IsUserPosCountryExcluded(id); }) &&

@@ -7,6 +7,6 @@ import androidx.annotation.NonNull;
 
 interface DownloaderBannerConfigStrategy
 {
-  void ConfigureView(@NonNull View parent, @IdRes int iconViewId, @IdRes int messageViewId,
+  void configureView(@NonNull View parent, @IdRes int iconViewId, @IdRes int messageViewId,
                      @IdRes int buttonViewId);
 }

@@ -10,26 +10,12 @@ UNIT_TEST(BokmarkCatalogAds_GetBanner)
   ads::BookmarkCatalog catalogAds(delegate);
 
   {
-    delegate.SetTopCityGeoId("123");
-    delegate.SetLinkForGeoId("123");
+    delegate.SetLinkForCountryId("123");
     auto const banner = catalogAds.GetBanner("", {}, "");
     TEST(!banner.empty(), ());
   }
   {
-    delegate.SetTopCityGeoId("123");
-    delegate.SetLinkForGeoId("");
-    auto const banner = catalogAds.GetBanner("", {}, "");
-    TEST(banner.empty(), ());
-  }
-  {
-    delegate.SetTopCityGeoId("");
-    delegate.SetLinkForGeoId("123");
-    auto const banner = catalogAds.GetBanner("", {}, "");
-    TEST(banner.empty(), ());
-  }
-  {
-    delegate.SetTopCityGeoId("");
-    delegate.SetLinkForGeoId("");
+    delegate.SetLinkForCountryId("");
     auto const banner = catalogAds.GetBanner("", {}, "");
     TEST(banner.empty(), ());
   }

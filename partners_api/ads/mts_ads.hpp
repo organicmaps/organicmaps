@@ -7,7 +7,7 @@ namespace ads
 class Mts : public DownloadOnMapContainer
 {
 public:
-  Mts(Delegate & delegate);
+  explicit Mts(Delegate & delegate);
 
 private:
   std::string GetBannerInternal() const override;

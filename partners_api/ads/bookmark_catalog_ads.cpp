@@ -7,14 +7,10 @@ BookmarkCatalog::BookmarkCatalog(Delegate & delegate)
 {
 }
 
-std::string BookmarkCatalog::GetBanner(storage::CountryId const & mwmId, m2::PointD const & userPos,
+std::string BookmarkCatalog::GetBanner(storage::CountryId const & countryId,
+                                       m2::PointD const & userPos,
                                        std::string const & userLanguage) const
 {
-  auto const cityGeoId = m_delegate.GetMwmTopCityGeoId(mwmId);
-
-  if (!cityGeoId.empty())
-    return m_delegate.GetLinkForGeoId(cityGeoId);
-
-  return {};
+  return m_delegate.GetLinkForCountryId(countryId);
 }
 }  // namespace ads

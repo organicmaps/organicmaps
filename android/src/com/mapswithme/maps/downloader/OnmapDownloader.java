@@ -290,7 +290,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     boolean hasCatalogPromo = mPromoBanner.getType() == DownloaderBannerType.BOOKMARK_CATALOG;
 
     View bannerView = hasCatalogPromo ? mCatalogCallToActionContainer : mBannerContainer;
-    mPromoBanner.getType().getViewConfigStrategy().ConfigureView(bannerView, R.id.icon, R.id.text,
+    mPromoBanner.getType().getViewConfigStrategy().configureView(bannerView, R.id.icon, R.id.text,
                                                                  R.id.banner_button);
     UiUtils.showIf(!hasCatalogPromo, mBannerContainer);
     UiUtils.showIf(hasCatalogPromo, mCatalogCallToActionContainer);
