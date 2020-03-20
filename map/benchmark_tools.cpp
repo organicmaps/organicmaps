@@ -34,7 +34,7 @@ struct BenchmarkHandle
   size_t m_regionsToDownloadCounter = 0;
 
 #ifdef DRAPE_MEASURER_BENCHMARK
-  std::vector<std::pair<string, df::DrapeMeasurer::DrapeStatistic>> m_drapeStatistic;
+  std::vector<std::pair<std::string, df::DrapeMeasurer::DrapeStatistic>> m_drapeStatistic;
 #endif
 };
 
@@ -131,14 +131,14 @@ void RunGraphicsBenchmark(Framework * framework)
           auto stepElem = json_array_get(stepsNode, j);
           if (stepElem == nullptr)
             return;
-          string actionType;
+          std::string actionType;
           FromJSONObject(stepElem, "actionType", actionType);
           if (actionType == "waitForTime")
           {
             json_int_t timeInSeconds = 0;
             FromJSONObject(stepElem, "time", timeInSeconds);
             scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
-                                 new ScenarioManager::WaitForTimeAction(seconds(timeInSeconds))));
+                new ScenarioManager::WaitForTimeAction(std::chrono::seconds(timeInSeconds))));
           }
           else if (actionType == "centerViewport")
           {
