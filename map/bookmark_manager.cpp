@@ -59,6 +59,7 @@ std::string const kHotelsBookmarks = "Hotels";
 std::string const kBookmarkCloudSettingsParam = "BookmarkCloudParam";
 std::string const kMetadataFileName = "bm.json";
 std::string const kSortingTypeProperty = "sortingType";
+std::string const kLargestBookmarkSymbolName = "bookmark-default-m";
 size_t const kMinCommonTypesCount = 3;
 double const kNearDistanceInMeters = 20 * 1000.0;
 double const kMyPositionTrackSnapInMeters = 20.0;
@@ -1854,8 +1855,8 @@ void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   m_firstDrapeNotification = true;
 
   std::vector<std::string> symbols;
-  symbols.push_back("bookmark-default-m");
-  symbols.push_back("ic_marker_ontrack");
+  symbols.push_back(kLargestBookmarkSymbolName);
+  symbols.push_back(TrackSelectionMark::GetInitialSymbolName());
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
       [this](std::map<std::string, m2::PointF> && sizes)
@@ -1865,8 +1866,9 @@ void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
             {
               auto es = GetEditSession();
               auto infoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
-              infoMark->SetOffset(m2::PointF(0.0, -sizes.at("ic_marker_ontrack").y / 2));
-              m_maxBookmarkSymbolSize = sizes.at("bookmark-default-m");
+              auto const & sz = sizes.at(TrackSelectionMark::GetInitialSymbolName());
+              infoMark->SetOffset(m2::PointF(0.0, -sz.y / 2));
+              m_maxBookmarkSymbolSize = sizes.at(kLargestBookmarkSymbolName);
             });
       });
 }

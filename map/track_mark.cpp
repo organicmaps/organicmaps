@@ -2,6 +2,12 @@
 
 #include "indexer/scales.hpp"
 
+namespace
+{
+std::string const kTrackSelectedSymbolName = "track_marker_selected";
+std::string const kTrackDeselectedSymbolName = "track_marker_deselected";
+}  // namespace
+
 TrackInfoMark::TrackInfoMark(m2::PointD const & ptOrg)
   : UserMark(ptOrg, UserMark::TRACK_INFO)
 {
@@ -33,7 +39,7 @@ void TrackInfoMark::SetTrackId(kml::TrackId trackId)
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TrackInfoMark::GetSymbolNames() const
 {
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(1 /* zoomLevel */, "ic_marker_infosign"));
+  symbol->insert(std::make_pair(1 /* zoomLevel */, "infosign"));
   return symbol;
 }
 
@@ -72,6 +78,12 @@ void TrackSelectionMark::SetMyPositionDistance(double distance)
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TrackSelectionMark::GetSymbolNames() const
 {
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(1 /* zoomLevel */, "ic_marker_ontrack"));
+  symbol->insert(std::make_pair(1 /* zoomLevel */, kTrackSelectedSymbolName));
   return symbol;
+}
+
+// static
+std::string TrackSelectionMark::GetInitialSymbolName()
+{
+  return kTrackSelectedSymbolName;
 }

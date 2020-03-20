@@ -55,6 +55,8 @@ public:
   // df::UserPointMark overrides.
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 
+  static std::string GetInitialSymbolName();
+
 private:
   double m_distance = 0.0;
   double m_myPositionDistance = kInvalidDistance;
