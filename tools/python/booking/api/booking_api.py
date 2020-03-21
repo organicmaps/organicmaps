@@ -1,3 +1,4 @@
+import json
 import logging
 from functools import partial
 from random import randint
@@ -51,35 +52,39 @@ class BookingApi:
                 except requests.exceptions.ReadTimeout:
                     logging.exception("Timeout error.")
                     continue
-                if response.status_code == 200:
+                except requests.exceptions.SSLError:
+                    logging.exception("SSL error.")
+                    continue
+
+                code = response.status_code
+                try:
                     data = response.json()
+                except json.decoder.JSONDecodeError:
+                    logging.exception(f"JSON decode error. "
+                                      f"Content: {response.content}")
+                    continue
+
+                if code == 200:
                     return data["result"]
                 else:
-                    self._handle_errors(response)
+                    self._handle_http_errors(code, data)
             raise AttemptsSpentError(f"{ATTEMPTS_COUNT} attempts were spent.")
         except Exception as e:
             if not self._event.is_set():
                 self._event.set()
             raise e
 
-    def _handle_errors(self, response):
-        error_message = ""
-        data = response.json()
-        try:
-            error_message = ",".join(x["message"] for x in data["errors"])
-        except KeyError:
-            error_message = data
-
-        if response.status_code == 429:
+    def _handle_http_errors(self, code, data):
+        if code == 429:
             self._event.clear()
             wait_seconds = randint(*MINMAX_LIMIT_WAIT_AFTER_429_ERROR_SECONDS)
-            logging.warning(f"Http error {response.status_code}: {error_message}. "
+            logging.warning(f"Http error {code}: {data}. "
                             f"It waits {wait_seconds} seconds and tries again.")
             sleep(wait_seconds)
             self._event.set()
         else:
             raise HTTPError(
-                f"Http error with code {response.status_code}: {error_message}.")
+                f"Http error with code {code}: {data}.")
 
     def _set_endpoints(self):
         for endpoint in BookingApi.ENDPOINTS:
