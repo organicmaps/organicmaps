@@ -2,41 +2,6 @@
 # Format: type,id,key1=value1,key2=value2,...
 # Example: way,34306743,olympics=stadium
 
-# Megafon at airports
-
-node,3712583937,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-node,4476251491,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-node,3014385158,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-node,5499257621,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-
-# Railway stations
-node,4535342189,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-node,4646518494,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-node,4400926398,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-node,4241941480,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-node,5209087822,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-node,1051501783,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-node,2548281036,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-node,3050031346,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
-
-# Sixt
-
-node,927111971,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,527393428,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,4231383698,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,289784564,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,1259727164,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,922431479,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-way,435056304,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,1703012813,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-way,253715314,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,2138910330,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,2080867375,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,3846388758,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,5928571156,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,3711772868,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-node,293711262,sponsored=partner2,banner_url=https://localads.maps.me/redirects/sixt
-
 # Pedestrian streets of high popularity
 
 way,78749776,tourism=attraction
