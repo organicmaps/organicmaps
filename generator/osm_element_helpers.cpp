@@ -58,7 +58,9 @@ uint64_t GetPopulation(std::string const & populationStr)
     return 0;
 
   uint64_t result = 0;
-  CHECK(strings::to_uint64(number, result), (number));
+  if (!strings::to_uint64(number, result))
+    LOG(LWARNING, ("Failed to get population from", number, populationStr));
+
   return result;
 }
 
