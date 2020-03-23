@@ -109,13 +109,13 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
   return -1;
 }
 
-uint32_t CalcOffset(ArrayByteSource const & source, FeatureType::Buffer const data)
+uint32_t CalcOffset(ArrayByteSource const & source, const char * start)
 {
-  ASSERT_GREATER_OR_EQUAL(source.PtrC(), data, ());
-  return static_cast<uint32_t>(source.PtrC() - data);
+  ASSERT_GREATER_OR_EQUAL(source.PtrC(), start, ());
+  return static_cast<uint32_t>(source.PtrC() - start);
 }
 
-uint8_t Header(FeatureType::Buffer const data) { return static_cast<uint8_t>(*data); }
+uint8_t Header(FeatureType::Buffer const & data) { return static_cast<uint8_t>(data[0]); }
 
 void ReadOffsets(SharedLoadInfo const & loadInfo, ArrayByteSource & src, uint8_t mask,
                  FeatureType::GeometryOffsets & offsets)
@@ -181,11 +181,10 @@ uint8_t ReadByte(TSource & src)
 }
 }  // namespace
 
-FeatureType::FeatureType(SharedLoadInfo const * loadInfo, Buffer buffer)
+FeatureType::FeatureType(SharedLoadInfo const * loadInfo, Buffer && buffer) : m_data(buffer)
 {
   CHECK(loadInfo, ());
   m_loadInfo = loadInfo;
-  m_data = buffer;
   m_header = Header(m_data);
 
   m_offsets.Reset();
@@ -270,7 +269,7 @@ void FeatureType::ParseTypes()
 
   auto const typesOffset = sizeof(m_header);
   Classificator & c = classif();
-  ArrayByteSource source(m_data + typesOffset);
+  ArrayByteSource source(m_data.data() + typesOffset);
 
   size_t const count = GetTypesCount();
   uint32_t index = 0;
@@ -290,7 +289,7 @@ void FeatureType::ParseTypes()
     throw;
   }
 
-  m_offsets.m_common = CalcOffset(source, m_data);
+  m_offsets.m_common = CalcOffset(source, m_data.data());
   m_parsed.m_types = true;
 }
 
@@ -302,7 +301,7 @@ void FeatureType::ParseCommon()
   CHECK(m_loadInfo, ());
   ParseTypes();
 
-  ArrayByteSource source(m_data + m_offsets.m_common);
+  ArrayByteSource source(m_data.data() + m_offsets.m_common);
   uint8_t const h = Header(m_data);
   m_params.Read(source, h);
 
@@ -312,7 +311,7 @@ void FeatureType::ParseCommon()
     m_limitRect.Add(m_center);
   }
 
-  m_offsets.m_header2 = CalcOffset(source, m_data);
+  m_offsets.m_header2 = CalcOffset(source, m_data.data());
   m_parsed.m_common = true;
 }
 
@@ -341,7 +340,7 @@ void FeatureType::ParseHeader2()
   ParseCommon();
 
   uint8_t ptsCount = 0, ptsMask = 0, trgCount = 0, trgMask = 0;
-  BitSource bitSource(m_data + m_offsets.m_header2);
+  BitSource bitSource(m_data.data() + m_offsets.m_header2);
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
 
   if (headerGeomType == HeaderGeomType::Line)
@@ -400,7 +399,7 @@ void FeatureType::ParseHeader2()
       ReadOffsets(*m_loadInfo, src, trgMask, m_offsets.m_trg);
     }
   }
-  m_innerStats.m_size = CalcOffset(src, m_data);
+  m_innerStats.m_size = CalcOffset(src, m_data.data());
   m_parsed.m_header2 = true;
 }
 
