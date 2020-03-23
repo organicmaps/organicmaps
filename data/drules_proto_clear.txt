@@ -29498,6 +29498,7 @@ cont {
       }
       priority: 15000
     }
+    apply_if: "name"
   }
   element {
     scale: 18
@@ -29514,6 +29515,7 @@ cont {
       }
       priority: 15000
     }
+    apply_if: "name"
   }
   element {
     scale: 19
@@ -29530,6 +29532,7 @@ cont {
       }
       priority: 15000
     }
+    apply_if: "name"
   }
 }
 cont {
