@@ -50,6 +50,7 @@
       android:protectionLevel="signature"/>
 
   <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE"/>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove"/>
 
   <!-- -->
   <supports-screens
