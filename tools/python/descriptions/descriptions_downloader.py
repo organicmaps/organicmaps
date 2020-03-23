@@ -55,6 +55,8 @@ def try_get(obj, prop, *args, **kwargs):
                 raise GettingError(f"Page not found {e.msg}")
         except KeyError:
             raise GettingError(f"Getting {prop} field failed. {prop} not found.")
+        except urllib.error.URLError:
+            raise GettingError(f"URLError: {obj}, {prop}, {args}, {kwargs}")
 
     raise GettingError(f"Getting {prop} field failed. "
                        f"All {REQUEST_ATTEMPTS} attempts are spent")
