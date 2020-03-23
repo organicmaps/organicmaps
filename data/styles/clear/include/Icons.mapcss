@@ -1172,8 +1172,10 @@ area|z16[historic=fort],
 node|z16[historic=castle],
 area|z16[historic=castle]
 {icon-image: remains-m.svg;text-offset: 1;}
-node|z17-[historic=ruins],
-area|z17-[historic=ruins],
+node|z17-[historic=ruins][name],
+area|z17-[historic=ruins][name],
+node|z19-[historic=ruins],
+area|z19-[historic=ruins],
 node|z17-[historic=fort],
 area|z17-[historic=fort],
 node|z17-[historic=castle],
