@@ -192,8 +192,9 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
     activateState(BookmarkPaymentState.PRODUCT_DETAILS_LOADING);
     mPurchaseController.queryProductDetails();
+    SubscriptionType type = SubscriptionType.getTypeByBookmarksGroup(mPaymentData.getGroup());
     List<String> subsProductIds =
-        Collections.singletonList(PrivateVariables.bookmarksSubscriptionMonthlyProductId());
+        Collections.singletonList(type.getMonthlyProductId());
     mSubsProductDetailsLoadingManager.queryProductDetails(subsProductIds);
   }
 
