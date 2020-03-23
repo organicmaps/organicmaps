@@ -146,6 +146,7 @@ class StageDownloadDescriptions(Stage):
             user_resource_path=env.paths.user_resource_path,
             dump_wikipedia_urls=env.paths.wiki_url_path,
             idToWikidata=env.paths.id_to_wikidata_path,
+            threads_count=settings.THREADS_COUNT,
         )
 
         langs = ("en", "ru", "es", "fr", "de")

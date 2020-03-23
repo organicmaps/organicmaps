@@ -62,4 +62,5 @@ def make_coastline(env: Env):
         user_resource_path=env.paths.user_resource_path,
         make_coasts=True,
         fail_on_coasts=True,
+        threads_count=settings.THREADS_COUNT,
     )
