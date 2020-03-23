@@ -5434,7 +5434,7 @@ sk:3Autoservis|autoopravovňa
 sw:Fundi wa gari
 fa:تعمیرگاه ماشین
 
-tourism-camp_site
+tourism-camp_site|@hotel
 en:4Camping|campsite|campground|U+26FA
 ru:4Кемпинг
 ar:تخييم|مكان التخييم|أرض التخييم
