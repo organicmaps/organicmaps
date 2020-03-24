@@ -74,7 +74,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         if (mCurrentCountry.id.equals(item.countryId))
         {
           mCurrentCountry.update();
-          updateState(false);
+          updateProgressState(false);
 
           return;
         }
@@ -87,7 +87,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
       {
         mCurrentCountry.update();
-        updateState(false);
+        updateProgressState(false);
       }
     }
   };
@@ -102,7 +102,25 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     }
   };
 
-  public void updateState(boolean shouldAutoDownload)
+  public void updateState(boolean shouldAutoDownload) {
+    updateStateInternal(shouldAutoDownload);
+
+    if (mPromoBanner == null || mCurrentCountry == null)
+      return;
+
+    Statistics.ParameterBuilder builder =
+            Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
+                    mCurrentCountry.id);
+
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_SHOW, builder);
+  }
+
+  private void updateProgressState(boolean shouldAutoDownload)
+  {
+    updateStateInternal(shouldAutoDownload);
+  }
+
+  private void updateStateInternal(boolean shouldAutoDownload)
   {
     boolean showFrame = (mCurrentCountry != null &&
                          !mCurrentCountry.present &&
@@ -294,12 +312,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                                                                  R.id.banner_button);
     UiUtils.showIf(!hasCatalogPromo, mBannerContainer);
     UiUtils.showIf(hasCatalogPromo, mCatalogCallToActionContainer);
-
-    Statistics.ParameterBuilder builder =
-        Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
-                                                    mCurrentCountry.id);
-
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_SHOW, builder);
   }
 
   @Override
