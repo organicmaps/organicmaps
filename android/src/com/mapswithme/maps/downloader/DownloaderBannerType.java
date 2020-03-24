@@ -45,7 +45,7 @@ enum DownloaderBannerType implements StatisticValueConverter<String>
     @Override
     public String toStatisticValue()
     {
-      return Statistics.ParamValue.SKYENG;
+      return Statistics.ParamValue.MTS;
     }
   },
   SKYENG(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_skyeng,
@@ -58,7 +58,7 @@ enum DownloaderBannerType implements StatisticValueConverter<String>
     @Override
     public String toStatisticValue()
     {
-      return Statistics.ParamValue.MTS;
+      return Statistics.ParamValue.SKYENG;
     }
   },
   BOOKMARK_CATALOG(new DownloaderBannerConfigStrategyDefault())
