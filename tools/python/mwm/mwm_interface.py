@@ -9,6 +9,7 @@ from typing import Union
 
 from mwm.types import readable_type
 
+# See coding/string_utf8_multilang.cpp to synchronize languages.
 LANGS = (
     "default",
     "en",
@@ -39,35 +40,35 @@ LANGS = (
     "uk",
     "ca",
     "hu",
-    "hsb",
+    "reserved (earlier hsb)",
     "eu",
     "fa",
-    "br",
+    "reserved (earlier br)",
     "pl",
     "hy",
-    "kn",
+    "reserved (earlier kn)",
     "sl",
     "ro",
     "sq",
     "am",
-    "fy",
+    "reserved (earlier fy)",
     "cs",
-    "gd",
+    "reserved (earlier gd)",
     "sk",
     "af",
     "ja_kana",
-    "lb",
+    "reserved (earlier lb)",
     "pt",
     "hr",
-    "fur",
+    "reserved (earlier fur)",
     "vi",
     "tr",
     "bg",
-    "eo",
+    "reserved (earlier eo)",
     "lt",
-    "la",
+    "reserved (earlier la)",
     "kk",
-    "gsw",
+    "reserved (earlier gsw)",
     "et",
     "ku",
     "mn",
@@ -310,6 +311,9 @@ class Feature(ABC):
     def types(self) -> List[int]:
         pass
 
+    def readable_types(self) -> List[str]:
+        return [readable_type(i) for i in self.types()]
+
     @abstractmethod
     def metadata(self) -> Dict[MetadataField, str]:
         pass
@@ -371,7 +375,7 @@ class Feature(ABC):
             f"Feature[\n"
             f"  index: {self.index()}\n"
             f"  readable name: {self.readable_name()}\n"
-            f"  types: {[readable_type(t) for t in self.types()]}\n"
+            f"  types: {self.readable_types()}\n"
             f"  names: {self.names()}\n"
             f"  metadata: {self.metadata()}\n"
             f"  geom_type: {self.geom_type()}\n"

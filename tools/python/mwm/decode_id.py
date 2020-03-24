@@ -12,12 +12,13 @@ def decode_id(id):
     else:
         m = re.search(r"/(node|way|relation)/(\d+)", id)
         if m:
+            type_name = m.group(1)
             oid = int(m.group(2))
-            if m.group(1) == "node":
+            if type_name == "node":
                 oid |= OsmIdCode.NODE
-            elif m.group(1) == "way":
+            elif type_name == "way":
                 oid |= OsmIdCode.WAY
-            elif m.group(1) == "relation":
+            elif type_name == "relation":
                 oid |= OsmIdCode.RELATION
             return oid
         else:

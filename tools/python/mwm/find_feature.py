@@ -9,6 +9,7 @@ from mwm import readable_type
 
 def find_features(path: str, typ: str, string: str) -> List[Feature]:
     features = []
+    index = int(string) if typ == "id" else None
     for feature in Mwm(path):
         found = False
         if typ == "n":
@@ -30,7 +31,7 @@ def find_features(path: str, typ: str, string: str) -> List[Feature]:
                 if string in f.name:
                     found = True
                     break
-        elif typ == "id" and int(string) == feature.index():
+        elif typ == "id" and index == feature.index():
             found = True
 
         if found:

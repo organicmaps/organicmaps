@@ -359,7 +359,6 @@ class StageLocalAds(Stage):
             env.paths.localads_path,
             env.paths.mwm_path,
             env.paths.mwm_path,
-            env.paths.types_path,
             env.mwm_version,
             multiprocessing.cpu_count(),
         )

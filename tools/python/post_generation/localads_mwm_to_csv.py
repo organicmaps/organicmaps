@@ -6,7 +6,9 @@ import sys
 from multiprocessing import Pool, Queue, Process
 from zlib import adler32
 
-from mwm import mwm
+from mwm import MetadataField
+from mwm import Mwm
+from mwm.ft2osm import read_osm2ft
 
 HEADERS = {
     "mapping": "osmid fid mwm_id mwm_version source_type".split(),
@@ -27,39 +29,39 @@ def generate_id_from_name_and_version(name, version):
     return ctypes.c_long((adler32(bytes(name, "utf-8")) << 32) | version).value
 
 
-def parse_mwm(mwm_name, osm2ft_name, override_version, types_name):
+def parse_mwm(mwm_name, osm2ft_name, override_version):
     region_name = os.path.splitext(os.path.basename(mwm_name))[0]
     logging.info(region_name)
     with open(osm2ft_name, "rb") as f:
-        ft2osm = mwm.read_osm2ft(f, ft2osm=True, tuples=False)
-    with open(mwm_name, "rb") as f:
-        mwm_file = mwm.MWM(f)
-        version = override_version or mwm_file.read_version()["version"]
-        mwm_id = generate_id_from_name_and_version(region_name, version)
-        QUEUES["mwm"].put((mwm_id, region_name, version))
-        mwm_file.read_header()
-        mwm_file.read_types(types_name)
-        for feature in mwm_file.iter_features(metadata=True):
-            osm_id = ft2osm.get(feature["id"], None)
-            if osm_id is None:
-                if "metadata" in feature and "ref:sponsored" in feature["metadata"]:
-                    for t in feature["header"]["types"]:
-                        if t.startswith("sponsored-"):
-                            QUEUES["sponsored"].put((feature["metadata"]["ref:sponsored"],
-                                                     feature["id"],
-                                                     mwm_id,
-                                                     version,
-                                                     SOURCE_TYPES[t[t.find("-") + 1:]]))
-                            break
-            else:
-                for t in feature["header"]["types"]:
-                    if t.startswith(GOOD_TYPES):
-                        QUEUES["mapping"].put((ctypes.c_long(osm_id).value,
-                                               feature["id"],
-                                               mwm_id,
-                                               version,
-                                               SOURCE_TYPES["osm"]))
+        ft2osm = read_osm2ft(f, ft2osm=True, tuples=False)
+
+    mwm_file = Mwm(mwm_name)
+    version = override_version or mwm_file.version().version
+    mwm_id = generate_id_from_name_and_version(region_name, version)
+    QUEUES["mwm"].put((mwm_id, region_name, version))
+    for feature in mwm_file:
+        osm_id = ft2osm.get(feature.index(), None)
+        readable_types = feature.readable_types()
+        if osm_id is None:
+            metadata = feature.metadata()
+            if metadata is not None and MetadataField.sponsored_id in metadata:
+                for t in readable_types:
+                    if t.startswith("sponsored-"):
+                        QUEUES["sponsored"].put((metadata[MetadataField.sponsored_id],
+                                                 feature.index(),
+                                                 mwm_id,
+                                                 version,
+                                                 SOURCE_TYPES[t[t.find("-") + 1:]]))
                         break
+        else:
+            for t in readable_types:
+                if t.startswith(GOOD_TYPES):
+                    QUEUES["mapping"].put((ctypes.c_long(osm_id).value,
+                                           feature.index(),
+                                           mwm_id,
+                                           version,
+                                           SOURCE_TYPES["osm"]))
+                    break
 
 
 def write_csv(output_dir, qtype):
@@ -72,7 +74,7 @@ def write_csv(output_dir, qtype):
             mapping = QUEUES[qtype].get()
 
 
-def create_csv(output, mwm_path, osm2ft_path, types, version, threads):
+def create_csv(output, mwm_path, osm2ft_path, version, threads):
     if not os.path.isdir(output):
         os.mkdir(output)
 
@@ -89,7 +91,7 @@ def create_csv(output, mwm_path, osm2ft_path, types, version, threads):
         if not os.path.exists(osm2ft_name):
             logging.error("Cannot find %s", osm2ft_name)
             sys.exit(2)
-        parse_mwm_args = (os.path.join(mwm_path, mwm_name), osm2ft_name, int(version), types)
+        parse_mwm_args = (os.path.join(mwm_path, mwm_name), osm2ft_name, int(version))
         pool.apply_async(parse_mwm, parse_mwm_args)
     pool.close()
     pool.join()

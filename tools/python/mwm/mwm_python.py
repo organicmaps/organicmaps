@@ -15,12 +15,12 @@ from mwm import mwm_interface as mi
 logger = logging.getLogger(__name__)
 
 
-class MwmNative(mi.Mwm):
+class MwmPython(mi.Mwm):
     def __init__(self, filename: str, parse: bool = False):
         super().__init__(filename)
 
-        self.f = open(filename, "r+b")
-        self.file = mmap.mmap(self.f.fileno(), 0)
+        self.f = open(filename, "rb")
+        self.file = mmap.mmap(self.f.fileno(), 0, access=mmap.ACCESS_READ)
 
         self.tags = self._read_sections_info()
 
@@ -28,7 +28,6 @@ class MwmNative(mi.Mwm):
         coord_bits = read_varuint(self.file)
         self.coord_size = (1 << coord_bits) - 1
         self.base_point = mwm_bitwise_split(read_varuint(self.file))
-        self.bp = to_4326(self.coord_size, self.base_point)
         self.bounds_ = read_bounds(self.file, self.coord_size)
         self.scales = read_uint_array(self.file)
         self.langs = [mi.LANGS[code] for code in read_uint_array(self.file)]
@@ -66,7 +65,7 @@ class MwmNative(mi.Mwm):
 
     def __iter__(self) -> Iterable:
         assert self.has_tag("dat")
-        return MwmNativeIter(self)
+        return MwmPythonIter(self)
 
     def get_tag(self, name: str) -> mi.SectionInfo:
         return self.tags[name]
@@ -113,25 +112,25 @@ class MwmNative(mi.Mwm):
         )
 
 
-class MwmNativeIter:
-    def __init__(self, mwm: MwmNative):
+class MwmPythonIter:
+    def __init__(self, mwm: MwmPython):
         self.mwm = mwm
         self.index = 0
         tag_info = self.mwm.get_tag("dat")
         self.pos = tag_info.offset
         self.end = self.pos + tag_info.size
 
-    def __iter__(self) -> "MwmNativeIter":
+    def __iter__(self) -> "MwmPythonIter":
         return self
 
-    def __next__(self) -> "FeatureNative":
-        if self.end < self.pos:
+    def __next__(self) -> "FeaturePython":
+        if self.end <= self.pos:
             raise StopIteration
 
         self.mwm.file.seek(self.pos)
         feature_size = read_varuint(self.mwm.file)
         self.pos = self.mwm.file.tell() + feature_size
-        feature = FeatureNative(self.mwm, self.index)
+        feature = FeaturePython(self.mwm, self.index)
         self.index += 1
         return feature
 
@@ -143,8 +142,8 @@ class GeomType:
     POINT_EX = 3 << 5
 
 
-class FeatureNative(mi.Feature):
-    def __init__(self, mwm: MwmNative, index: int):
+class FeaturePython(mi.Feature):
+    def __init__(self, mwm: MwmPython, index: int):
         self.mwm = mwm
         self._index = index
 
@@ -171,7 +170,18 @@ class FeatureNative(mi.Feature):
             elif geom_type == GeomType.AREA or geom_type == GeomType.POINT_EX:
                 self._house_number = read_numeric_string(self.mwm.file)
 
-        self._geom_type, self._geometry = self._init_geom(geom_type)
+        self._geom_type = mi.GeomType.undefined
+        self._geometry = []
+
+        if geom_type == GeomType.POINT or geom_type == GeomType.POINT_EX:
+            self._geometry = mi.GeomType.point
+            geometry = [
+                read_coord(self.mwm.file, self.mwm.base_point, self.mwm.coord_size)
+            ]
+        elif geom_type == GeomType.LINE:
+            self._geometry = mi.GeomType.line
+        elif geom_type == GeomType.AREA:
+            self._geometry = mi.GeomType.area
 
     def readable_name(self) -> str:
         if "default" in self._names:
@@ -249,33 +259,19 @@ class FeatureNative(mi.Feature):
         return self._geom_type
 
     def geometry(self) -> Union[List[mi.Point], List[mi.Triangle]]:
+        if self._geometry == mi.GeomType.line:
+            logger.warn("Method geometry() does not have an implementation for line.")
+        elif self._geometry == mi.GeomType.area:
+            logger.warn("Method geometry() does not have an implementation for area.")
+
         return self._geometry
 
     def parse(self):
         pass
 
-    def _init_geom(self, t):
-        geom_type = None
-        geometry = []
-        if t == GeomType.POINT or t == GeomType.POINT_EX:
-            geom_type = mi.GeomType.point
-            geometry = [
-                read_coord(self.mwm.file, self.mwm.base_point, self.mwm.coord_size)
-            ]
-        elif t == GeomType.LINE:
-            geom_type = mi.GeomType.line
-            logger.warn("Method geometry() does not have an implementation for line.")
-        elif t == GeomType.AREA:
-            geom_type = mi.GeomType.area
-            logger.warn("Method geometry() does not have an implementation for area.")
-        else:
-            geom_type = mi.GeomType.undefined
-
-        return geom_type, geometry
-
 
 def get_region_info(path):
-    m = MwmNative(path)
+    m = MwmPython(path)
     if not m.has_tag("rgninfo"):
         return {}
 
@@ -284,46 +280,11 @@ def get_region_info(path):
     sz = read_varuint(m.file)
     for _ in range(sz):
         t = read_varuint(m.file)
-        filed = mi.RegionDataField(t)
-        region_info[filed] = read_string(m.file)
+        field = mi.RegionDataField(t)
+        region_info[field] = read_string(m.file)
         if t == mi.RegionDataField.languages:
-            region_info[filed] = [mi.LANGS[ord(x)] for x in region_info[filed]]
+            region_info[field] = [mi.LANGS[ord(x)] for x in region_info[field]]
     return region_info
-
-
-def get_crossmwm(path):
-    m = MwmNative(path)
-    if not m.has_tag("chrysler"):
-        return {}
-
-    m.seek_tag("chrysler")
-    # Ingoing nodes: array of (nodeId, coord) tuples
-    incomingCount = read_uint(m.file, 4)
-    incoming = []
-    for _ in range(incomingCount):
-        nodeId = read_uint(m.file, 4)
-        point = read_coord(m.file, m.base_point, m.coord_size, False)
-        incoming.append((nodeId, point))
-    # Outgoing nodes: array of (nodeId, coord, outIndex) tuples
-    # outIndex is an index in neighbours array
-    outgoingCount = read_uint(m.file, 4)
-    outgoing = []
-    for _ in range(outgoingCount):
-        nodeId = read_uint(m.file, 4)
-        point = read_coord(m.file, m.base_point, m.coord_size, False)
-        outIndex = read_uint(m.file, 1)
-        outgoing.append((nodeId, point, outIndex))
-    # Adjacency matrix: costs of routes for each (incoming, outgoing) tuple
-    matrix = []
-    for _ in range(incomingCount):
-        matrix.append([read_uint(m.file, 4) for _ in range(outgoingCount)])
-    # List of mwms to which leads each outgoing node
-    neighboursCount = read_uint(m.file, 4)
-    neighbours = []
-    for _ in range(neighboursCount):
-        size = read_uint(m.file, 4)
-        neighbours.append(m.file.read(size).decode("utf-8"))
-    return {"in": incoming, "out": outgoing, "matrix": matrix, "neighbours": neighbours}
 
 
 def read_point(f, base_point: mi.Point, packed: bool = True) -> mi.Point:
@@ -414,7 +375,10 @@ def read_multilang(f) -> Dict[str, str]:
         except TypeError:
             lng = s[i] & 0x3F
         if lng < len(mi.LANGS):
-            langs[mi.LANGS[lng]] = s[i + 1 : n].decode("utf-8")
+            try:
+                langs[mi.LANGS[lng]] = s[i + 1: n].decode("utf-8")
+            except:
+                print(s[i + 1: n])
         i = n
     return langs
 

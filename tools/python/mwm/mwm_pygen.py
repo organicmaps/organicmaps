@@ -34,7 +34,7 @@ class MwmPygen(mi.Mwm):
     def sections_info(self) -> Dict[str, mi.SectionInfo]:
         si = self.mwm.sections_info()
         return {
-            k: mi.SectionInfo(name=v.tag, offset=v.offset, size=v.offset)
+            k: mi.SectionInfo(name=v.tag, offset=v.offset, size=v.size)
             for k, v in si.items()
         }
 

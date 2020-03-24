@@ -1,24 +1,27 @@
-from mwm.mwm_native import read_uint
-from mwm.mwm_native import read_varuint
+from mwm.mwm_python import read_uint
+from mwm.mwm_python import read_varuint
 
 
 class OsmIdCode:
+    # We use here obsolete types. If we change this types to new types,
+    # we must support it here. See base/geo_object_id.hpp.
     NODE = 0x4000000000000000
     WAY = 0x8000000000000000
     RELATION = 0xC000000000000000
-    RESET = ~(NODE | WAY | RELATION)
+    FULL_MASK = NODE | WAY | RELATION
+    RESET = ~FULL_MASK
 
     @staticmethod
     def is_node(code):
-        return code & OsmIdCode.NODE == OsmIdCode.NODE
+        return code & OsmIdCode.FULL_MASK == OsmIdCode.NODE
 
     @staticmethod
     def is_way(code):
-        return code & OsmIdCode.WAY == OsmIdCode.WAY
+        return code & OsmIdCode.FULL_MASK == OsmIdCode.WAY
 
     @staticmethod
     def is_relation(code):
-        return code & OsmIdCode.RELATION == OsmIdCode.RELATION
+        return code & OsmIdCode.FULL_MASK == OsmIdCode.RELATION
 
     @staticmethod
     def get_type(code):
@@ -64,6 +67,8 @@ def _read_osm2ft_v1(f, ft2osm, tuples):
     result = {}
     for i in range(count):
         osmid = read_uint(f, 8)
+        # V1 use complex ids. Here we want to skip second part of complex id
+        # to save old interface osm2ft.
         read_uint(f, 8)
         if tuples:
             osmid = unpack_osmid(osmid)
