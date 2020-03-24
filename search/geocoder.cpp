@@ -419,8 +419,6 @@ void Geocoder::SetParamsForCategorialSearch(Params const & params)
   m_tokenRequests.clear();
   m_prefixTokenRequest.Clear();
 
-  ASSERT(!m_params.LastTokenIsPrefix(), ());
-
   LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
 
