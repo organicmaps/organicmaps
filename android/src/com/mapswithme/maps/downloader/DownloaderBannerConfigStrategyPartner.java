@@ -1,15 +1,16 @@
 package com.mapswithme.maps.downloader;
 
+import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import com.mapswithme.maps.R;
 
 class DownloaderBannerConfigStrategyPartner implements DownloaderBannerConfigStrategy
 {
@@ -46,6 +47,9 @@ class DownloaderBannerConfigStrategyPartner implements DownloaderBannerConfigStr
     TextView button = parent.findViewById(buttonViewId);
     button.setText(mButtonText);
     button.setTextColor(button.getResources().getColor(mButtonTextColor));
-    button.setBackgroundColor(button.getResources().getColor(mButtonColor));
+    GradientDrawable background = new GradientDrawable();
+    background.setColor(button.getResources().getColor(mButtonColor));
+    background.setCornerRadius(R.dimen.downloader_partner_button_min_height);
+    button.setBackground(background);
   }
 }

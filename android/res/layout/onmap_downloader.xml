@@ -88,7 +88,6 @@
           android:id="@+id/icon"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/ic_brand_megafon_green"
           android:layout_marginRight="@dimen/margin_half"
           android:layout_marginEnd="@dimen/margin_half"/>
         <TextView
@@ -96,8 +95,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="@style/MwmTextAppearance.Body4"
-          android:textColor="?android:textColorPrimary"
-          android:text="@string/banner_megafon_banner_message"/>
+          android:textColor="?android:textColorPrimary"/>
       </LinearLayout>
       <Button
         android:id="@+id/banner_button"

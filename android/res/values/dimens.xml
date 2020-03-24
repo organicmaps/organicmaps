@@ -203,8 +203,8 @@
   <dimen name="placepage_banner_small_action_corner">20dp</dimen>
   <dimen name="placepage_banner_remove_button_size">14dp</dimen>
   <dimen name="placepage_banner_open_touch_slop">50dp</dimen>
-  <dimen name="megafon_button_min_height">28dp</dimen>
-  <dimen name="megafon_button_corner_radius">@dimen/megafon_button_min_height</dimen>
+  <dimen name="downloader_partner_button_min_height">28dp</dimen>
+  <dimen name="downloader_partner_button_corner_radius">@dimen/downloader_partner_button_min_height</dimen>
 
   <!-- Place page taxi-->
   <dimen name="placepage_taxi_button_min_width">96dp</dimen>
