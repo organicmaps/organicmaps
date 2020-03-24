@@ -401,6 +401,7 @@
 		47CF2E6123BA090400D11C30 /* FacilitiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CF2E6023BA090400D11C30 /* FacilitiesController.swift */; };
 		47CF2E6323BA0DD500D11C30 /* CopyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CF2E6223BA0DD500D11C30 /* CopyLabel.swift */; };
 		47D0026721999DA900F651A2 /* PendingTransactionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D0026621999DA900F651A2 /* PendingTransactionsHandler.swift */; };
+		47D48BD0242A475700FEFB1F /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D48BCF242A475700FEFB1F /* AuthenticationServices.framework */; };
 		47DF72B922520CE20004AB10 /* MWMRoutingOptions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 474902D9224A54EC008D71E0 /* MWMRoutingOptions.mm */; };
 		47DF72BB225356BF0004AB10 /* DrivingOptions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DF72BA225356BF0004AB10 /* DrivingOptions.storyboard */; };
 		47E3C72121108E9F008B3B27 /* BookmarksLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C71F21108E9F008B3B27 /* BookmarksLoadedViewController.swift */; };
@@ -1502,6 +1503,7 @@
 		47CF2E6023BA090400D11C30 /* FacilitiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesController.swift; sourceTree = "<group>"; };
 		47CF2E6223BA0DD500D11C30 /* CopyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyLabel.swift; sourceTree = "<group>"; };
 		47D0026621999DA900F651A2 /* PendingTransactionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingTransactionsHandler.swift; sourceTree = "<group>"; };
+		47D48BCF242A475700FEFB1F /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		47DF72BA225356BF0004AB10 /* DrivingOptions.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DrivingOptions.storyboard; sourceTree = "<group>"; };
 		47E3C71F21108E9F008B3B27 /* BookmarksLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksLoadedViewController.swift; sourceTree = "<group>"; };
 		47E3C72021108E9F008B3B27 /* BookmarksLoadedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksLoadedViewController.xib; sourceTree = "<group>"; };
@@ -2116,6 +2118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47D48BD0242A475700FEFB1F /* AuthenticationServices.framework in Frameworks */,
 				39CDE69123E1B6C8007CDA58 /* libge0.a in Frameworks */,
 				47A65CAD2350044800DCD85F /* CoreApi.framework in Frameworks */,
 				4577B28121F2066A00864FAC /* libvulkan_wrapper.a in Frameworks */,
@@ -2295,6 +2298,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				47D48BCF242A475700FEFB1F /* AuthenticationServices.framework */,
 				39CDE69023E1B6C8007CDA58 /* libge0.a */,
 				4740184123F5BDD300A93C81 /* minizip.framework */,
 				450B5C822355F50200E9019E /* libweb_api.a */,

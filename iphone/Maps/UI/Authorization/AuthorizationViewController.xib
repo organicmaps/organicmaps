@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,6 +18,7 @@
                 <outlet property="privacyPolicyCheck" destination="33D-0u-y3N" id="kAN-wB-yUl"/>
                 <outlet property="privacyPolicyTextView" destination="LhW-gs-XN9" id="HWt-AO-vvH"/>
                 <outlet property="separator" destination="hWD-aE-jYh" id="myS-1z-Saw"/>
+                <outlet property="signInAppleContainerView" destination="M31-V1-EXf" id="Fos-Nk-PPk"/>
                 <outlet property="termsOfUseCheck" destination="3cN-Qb-mdM" id="lk9-6H-kB5"/>
                 <outlet property="termsOfUseTextView" destination="PBR-9l-2Gh" id="aBv-qx-F9h"/>
                 <outlet property="textLabel" destination="0EA-1u-hvB" id="oDy-2V-Lrx"/>
@@ -38,7 +41,7 @@
                     </connections>
                 </view>
                 <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mb9-vK-FLE">
-                    <rect key="frame" x="0.0" y="441.5" width="414" height="454.5"/>
+                    <rect key="frame" x="0.0" y="392" width="414" height="504"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with social" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFT-Lb-6jj">
                             <rect key="frame" x="16" y="10" width="382" height="24"/>
@@ -61,25 +64,29 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="250" bounces="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1g-0v-suZ">
-                            <rect key="frame" x="0.0" y="45" width="414" height="409.5"/>
+                            <rect key="frame" x="0.0" y="45" width="414" height="459"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H2u-Ej-d0V">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="409.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="459"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="AlH-L6-B76">
-                                            <rect key="frame" x="16" y="16" width="343" height="416"/>
+                                            <rect key="frame" x="16" y="16" width="382" height="427"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully. " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0EA-1u-hvB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="33.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="33.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.0" alpha="0.5428312059859155" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="sign_message_gdpr"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-p5-Bbb">
-                                                    <rect key="frame" x="32" y="59" width="350" height="55.5"/>
+                                                    <rect key="frame" x="0.0" y="49.5" width="382" height="55.5"/>
                                                     <subviews>
                                                         <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="33D-0u-y3N" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="5" width="40" height="40"/>
+                                                            <rect key="frame" x="0.0" y="8" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="awT-NV-5En"/>
                                                                 <constraint firstAttribute="height" priority="750" constant="40" id="wCl-1O-rWh"/>
@@ -93,7 +100,7 @@
                                                             </connections>
                                                         </view>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" scrollEnabled="NO" editable="NO" text="I agree to Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="LhW-gs-XN9" customClass="LinkTextView" customModule="maps_me" customModuleProvider="target">
-                                                            <rect key="frame" x="40" y="0.0" width="182.5" height="50"/>
+                                                            <rect key="frame" x="40" y="0.0" width="182.5" height="55.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -104,7 +111,7 @@
                                                                 <userDefinedRuntimeAttribute type="rect" keyPath="textContainerInset">
                                                                     <rect key="value" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TermsOfUseLinkText"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TermsOfUseLinkText"/>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <outlet property="delegate" destination="-1" id="JGn-dX-5rs"/>
@@ -123,10 +130,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHd-bd-GsP">
-                                                    <rect key="frame" x="32" y="114.5" width="350" height="55.5"/>
+                                                    <rect key="frame" x="0.0" y="121" width="382" height="55.5"/>
                                                     <subviews>
                                                         <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="3cN-Qb-mdM" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="5" width="40" height="40"/>
+                                                            <rect key="frame" x="0.0" y="8" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="Gsk-Bp-DHv"/>
                                                                 <constraint firstAttribute="height" priority="750" constant="40" id="SoD-Xr-JE3"/>
@@ -140,7 +147,7 @@
                                                             </connections>
                                                         </view>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to Terms of Use" translatesAutoresizingMaskIntoConstraints="NO" id="PBR-9l-2Gh" customClass="LinkTextView" customModule="maps_me" customModuleProvider="target">
-                                                            <rect key="frame" x="40" y="0.0" width="178.5" height="50"/>
+                                                            <rect key="frame" x="40" y="0.0" width="178.5" height="55.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -151,7 +158,7 @@
                                                                 <userDefinedRuntimeAttribute type="rect" keyPath="textContainerInset">
                                                                     <rect key="value" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TermsOfUseLinkText"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TermsOfUseLinkText"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </textView>
                                                     </subviews>
@@ -167,7 +174,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NF-GO-a8Q">
-                                                    <rect key="frame" x="0.0" y="181.5" width="343" height="54.5"/>
+                                                    <rect key="frame" x="0.0" y="192.5" width="382" height="54.5"/>
                                                     <subviews>
                                                         <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Z2X-Qq-dwV" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="7.5" width="40" height="40"/>
@@ -181,7 +188,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to recieve the latest news about MAPS.ME products" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p04-D7-97V">
-                                                            <rect key="frame" x="40" y="0.0" width="295" height="54.5"/>
+                                                            <rect key="frame" x="40" y="0.0" width="298.5" height="54.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -192,7 +199,7 @@
                                                                 <userDefinedRuntimeAttribute type="rect" keyPath="textContainerInset">
                                                                     <rect key="value" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TermsOfUseLinkText"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TermsOfUseLinkText"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </textView>
                                                     </subviews>
@@ -207,22 +214,29 @@
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p04-D7-97V" secondAttribute="trailing" constant="8" id="u9Y-IJ-lA3"/>
                                                     </constraints>
                                                 </view>
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M31-V1-EXf">
+                                                    <rect key="frame" x="0.0" y="255" width="382" height="44"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="O1Z-1l-0jr"/>
+                                                    </constraints>
+                                                </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iU-Se-s8N" customClass="LeftAlignedIconButton" customModule="maps_me" customModuleProvider="target">
-                                                    <rect key="frame" x="32" y="237.5" width="350" height="40"/>
+                                                    <rect key="frame" x="0.0" y="263" width="382" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="GEc-UM-DNb"/>
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Google" image="login_google_button"/>
                                                     <userDefinedRuntimeAttributes>
-                                                      <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="GoogleButton"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="GoogleButton"/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="googleSignIn" destination="-1" eventType="touchUpInside" id="pit-ir-2fB"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8A-fR-loh" customClass="LeftAlignedIconButton" customModule="maps_me" customModuleProvider="target">
-                                                    <rect key="frame" x="32" y="293.5" width="350" height="40"/>
+                                                    <rect key="frame" x="0.0" y="323" width="382" height="44"/>
                                                     <color key="backgroundColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="Evn-BD-u7u"/>
@@ -230,14 +244,14 @@
                                                     <inset key="imageEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <state key="normal" title="Facebook" image="login_facebook_button"/>
                                                     <userDefinedRuntimeAttributes>
-                                                      <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FacebookButton"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FacebookButton"/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="facebookSignIn" destination="-1" eventType="touchUpInside" id="t2x-dC-1bh"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDx-fj-xoO">
-                                                    <rect key="frame" x="32" y="349.5" width="350" height="40"/>
+                                                    <rect key="frame" x="0.0" y="383" width="382" height="44"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="jEe-rd-j73"/>
@@ -254,7 +268,7 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="AlH-L6-B76" secondAttribute="bottom" constant="16" id="0hs-Hp-ovP"/>
                                         <constraint firstAttribute="trailing" secondItem="AlH-L6-B76" secondAttribute="trailing" constant="16" id="EoK-Xs-7Wq"/>
@@ -263,6 +277,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="H2u-Ej-d0V" firstAttribute="leading" secondItem="C1g-0v-suZ" secondAttribute="leading" id="1db-Wj-7VQ"/>
                                 <constraint firstItem="H2u-Ej-d0V" firstAttribute="top" secondItem="C1g-0v-suZ" secondAttribute="top" id="H12-lT-eSj"/>

@@ -84,6 +84,11 @@ std::string AuthenticationUrl(std::string const & socialToken,
     ss << "/otp/token/";
     return ss.str();
   }
+  case User::SocialTokenType::Apple:
+  {
+    ss << "/register-by-token/apple-id/";
+    return ss.str();
+  }
   }
   UNREACHABLE();
 }

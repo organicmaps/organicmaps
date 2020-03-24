@@ -2,6 +2,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
 import SafariServices
+import AuthenticationServices
 
 @objc enum AuthorizationError: Int {
   case cancelled
@@ -25,12 +26,15 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
 
-  @IBOutlet private weak var contentView: UIView!
-  @IBOutlet private weak var titleLabel: UILabel!
-  @IBOutlet weak var separator: UIView!
-  @IBOutlet private weak var textLabel: UILabel!
+  @IBOutlet private var contentView: UIView!
+  @IBOutlet private var titleLabel: UILabel!
+  @IBOutlet var separator: UIView!
+  @IBOutlet private var textLabel: UILabel!
 
-  @IBOutlet private weak var googleButton: UIButton! {
+  @IBOutlet private var signInAppleContainerView: UIView!
+  private var signInAppleButton: UIControl?
+
+  @IBOutlet private var googleButton: UIButton! {
     didSet {
       googleButton.setTitle("Google", for: .normal)
       googleButton.isEnabled = false
@@ -48,7 +52,7 @@ final class AuthorizationViewController: MWMViewController {
     gid.signIn()
   }
 
-  @IBOutlet private weak var facebookButton: UIButton! {
+  @IBOutlet private var facebookButton: UIButton! {
     didSet {
       facebookButton.isEnabled = false
     }
@@ -78,15 +82,15 @@ final class AuthorizationViewController: MWMViewController {
     self.present(navVC, animated: true)
   }
   
-  @IBOutlet private weak var phoneSignInButton: UIButton! {
+  @IBOutlet private var phoneSignInButton: UIButton! {
     didSet {
       phoneSignInButton.isEnabled = false
     }
   }
 
-  @IBOutlet private weak var privacyPolicyCheck: Checkmark!
-  @IBOutlet private weak var termsOfUseCheck: Checkmark!
-  @IBOutlet private weak var latestNewsCheck: Checkmark!
+  @IBOutlet private var privacyPolicyCheck: Checkmark!
+  @IBOutlet private var termsOfUseCheck: Checkmark!
+  @IBOutlet private var latestNewsCheck: Checkmark!
   
   @IBAction func onCheck(_ sender: Checkmark) {
     let allButtonsChecked = privacyPolicyCheck.isChecked &&
@@ -95,9 +99,10 @@ final class AuthorizationViewController: MWMViewController {
     googleButton.isEnabled = allButtonsChecked;
     facebookButton.isEnabled = allButtonsChecked;
     phoneSignInButton.isEnabled = allButtonsChecked;
+    signInAppleButton?.isEnabled = allButtonsChecked;
   }
   
-  @IBOutlet private weak var privacyPolicyTextView: UITextView! {
+  @IBOutlet private var privacyPolicyTextView: UITextView! {
     didSet {
       let htmlString = String(coreFormat: L("sign_agree_pp_gdpr"), arguments: [User.privacyPolicyLink()])
       privacyPolicyTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
@@ -106,7 +111,7 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
   
-  @IBOutlet private weak var termsOfUseTextView: UITextView! {
+  @IBOutlet private var termsOfUseTextView: UITextView! {
     didSet {
       let htmlString = String(coreFormat: L("sign_agree_tof_gdpr"), arguments: [User.termsOfUseLink()])
       termsOfUseTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
@@ -115,14 +120,14 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
   
-  @IBOutlet private weak var latestNewsTextView: UITextView! {
+  @IBOutlet private var latestNewsTextView: UITextView! {
     didSet {
       let text = L("sign_agree_news_gdpr")
       latestNewsTextView.attributedText = NSAttributedString(string: text, attributes: [:])
     }
   }
   
-  @IBOutlet private weak var topToContentConstraint: NSLayoutConstraint!
+  @IBOutlet private var topToContentConstraint: NSLayoutConstraint!
 
   typealias SuccessHandler = (SocialTokenType) -> Void
   typealias ErrorHandler = (AuthorizationError) -> Void
@@ -166,6 +171,16 @@ final class AuthorizationViewController: MWMViewController {
     iPadSpecific {
       topToContentConstraint.isActive = false
     }
+    if #available(iOS 13, *) {
+      signInAppleContainerView.isHidden = false
+      let button = ASAuthorizationAppleIDButton(type: .default, style: .whiteOutline)
+      button.isEnabled = false
+      button.cornerRadius = 8
+      button.addTarget(self, action: #selector(onAppleSignIn), for: .touchUpInside)
+      signInAppleContainerView.addSubview(button)
+      button.alignToSuperview()
+      signInAppleButton = button
+    }
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -177,6 +192,18 @@ final class AuthorizationViewController: MWMViewController {
     iPadSpecific {
       preferredContentSize = contentView.systemLayoutSizeFitting(preferredContentSize, withHorizontalFittingPriority: .fittingSizeLevel, verticalFittingPriority: .fittingSizeLevel)
     }
+  }
+
+  @available(iOS 13.0, *)
+  @objc func onAppleSignIn() {
+    let appleIDProvider = ASAuthorizationAppleIDProvider()
+    let request = appleIDProvider.createRequest()
+    request.requestedScopes = [.fullName, .email]
+
+    let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+    authorizationController.delegate = self
+    authorizationController.presentationContextProvider = self
+    authorizationController.performRequests()
   }
 
   @IBAction func onCancel() {
@@ -195,6 +222,7 @@ final class AuthorizationViewController: MWMViewController {
     case .facebook: return kStatFacebook
     case .google: return kStatGoogle
     case .phone: return kStatPhone
+    case .apple: return kStatApple
     @unknown default:
       fatalError()
     }
@@ -237,6 +265,8 @@ final class AuthorizationViewController: MWMViewController {
       provider = kStatFacebook
     case .phone:
       provider = kStatPhone
+    case .apple:
+      provider = kStatApple
     @unknown default:
       fatalError()
     }
@@ -277,5 +307,29 @@ extension AuthorizationViewController: UITextViewDelegate {
     let safari = SFSafariViewController(url: URL)
     self.present(safari, animated: true, completion: nil)
     return false;
+  }
+}
+
+@available(iOS 13.0, *)
+extension AuthorizationViewController: ASAuthorizationControllerDelegate {
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    switch authorization.credential {
+    case let appleIDCredential as ASAuthorizationAppleIDCredential:
+      guard let token = appleIDCredential.identityToken, let tokenString = String(data: token, encoding: .utf8) else { return }
+      process(token: tokenString, type: .apple)
+    default:
+      break
+    }
+  }
+
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    process(error: error, type: .apple)
+  }
+}
+
+@available(iOS 13.0, *)
+extension AuthorizationViewController: ASAuthorizationControllerPresentationContextProviding {
+  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    return self.view.window!
   }
 }

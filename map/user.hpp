@@ -28,7 +28,8 @@ public:
   {
     Facebook,
     Google,
-    Phone
+    Phone,
+    Apple
   };
 
   struct Subscriber

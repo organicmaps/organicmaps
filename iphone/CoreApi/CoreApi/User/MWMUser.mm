@@ -40,6 +40,9 @@
     case MWMSocialTokenTypePhone:
       socialTokenType = User::SocialTokenType::Phone;
       break;
+    case MWMSocialTokenTypeApple:
+      socialTokenType = User::SocialTokenType::Apple;
+      break;
   }
   auto s = std::make_unique<User::Subscriber>();
   s->m_postCallAction = User::Subscriber::Action::RemoveSubscriber;

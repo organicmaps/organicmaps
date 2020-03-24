@@ -11,6 +11,7 @@
 #import "Pushwoosh/PushNotificationManager.h"
 #import "UIKit/UIKit.h"
 #import "CarPlay/CarPlay.h"
+#import "AuthenticationServices/AuthenticationServices.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "MPNativeAd+MWM.h"

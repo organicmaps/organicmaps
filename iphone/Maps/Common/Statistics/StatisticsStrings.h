@@ -26,6 +26,7 @@ static NSString * const kStatAllMaps = @"all_maps";
 static NSString * const kStatAlways = @"Always";
 static NSString * const kStatAny = @"any";
 static NSString * const kStatApartment = @"apartment";
+static NSString * const kStatApple = @"Apple";
 static NSString * const kStatApplication = @"Application";
 static NSString * const kStatApplicationColdStartupInfo = @"Application_ColdStartup_info";
 static NSString * const kStatApply = @"Apply";
