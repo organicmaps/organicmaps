@@ -149,6 +149,7 @@ public class FloatingMarkerView extends MarkerView
     LayoutParams toBecomeDependent = isInvertedOrder ? imgParams : textParams;
 
     toBecomeAnchor.removeRule(RelativeLayout.END_OF);
+    toBecomeAnchor.removeRule(RelativeLayout.RIGHT_OF);
     toBecomeDependent.addRule(RelativeLayout.END_OF, anchorId);
 
     mFloatingTriangle.setRotation(isInvertedOrder ? 0 : TRIANGLE_ROTATION_ANGLE);
@@ -163,6 +164,7 @@ public class FloatingMarkerView extends MarkerView
     anchorId = isInvertedOrder ? mTextContentContainer.getId() : mFloatingTriangle.getId();
 
     toBecomeAnchor.removeRule(RelativeLayout.END_OF);
+    toBecomeAnchor.removeRule(RelativeLayout.RIGHT_OF);
     toBecomeDependent.addRule(END_OF, anchorId);
 
     mFloatingTriangle.setLayoutParams(triangleParams);
