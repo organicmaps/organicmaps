@@ -62,7 +62,7 @@ final class BMCDefaultViewModel: NSObject {
   }
 
   private func setNotifications() {
-    notifications.append(.load)
+    notifications = [.load]
   }
   
   func reloadData() {
