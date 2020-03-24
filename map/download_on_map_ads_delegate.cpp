@@ -34,7 +34,7 @@ std::string DownloadOnMapDelegate::GetLinkForCountryId(storage::CountryId const 
 
   auto const cityGeoId = strings::to_string(it->second.GetEncodedId());
 
-  if (!cityGeoId.empty())
+  if (cityGeoId.empty())
     return {};
 
   return m_promoApi.GetLinkForDownloader(countryId);
