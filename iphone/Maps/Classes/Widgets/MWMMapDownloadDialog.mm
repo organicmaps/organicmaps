@@ -44,7 +44,8 @@ ads::Banner getPromoBanner(std::string const &mwmId) {
   std::vector<ads::Banner> banners;
   auto const pos = GetFramework().GetCurrentPosition();
   if (pos) {
-    banners = GetFramework().GetAdsEngine().GetDownloadOnMapBanners(mwmId, *pos, "ru");//languages::GetCurrentNorm());
+    banners = GetFramework().GetAdsEngine().GetDownloadOnMapBanners(mwmId, *pos,
+                                                                    languages::GetCurrentNorm());
   }
 
   if (banners.empty())
