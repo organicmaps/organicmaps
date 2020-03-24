@@ -338,10 +338,34 @@ void MainWindow::CreateNavigationBar()
   }
 
   {
-    m_trafficEnableAction = pToolBar->addAction(QIcon(":/navig64/traffic.png"), tr("Show traffic"),
-                                                this, SLOT(OnTrafficEnabled()));
-    m_trafficEnableAction->setCheckable(true);
-    m_trafficEnableAction->setChecked(m_pDrawWidget->GetFramework().LoadTrafficEnabled());
+    m_selectLayerTrafficAction = new QAction(QIcon(":/navig64/traffic.png"), tr("Traffic"), this);
+    m_selectLayerTrafficAction->setCheckable(true);
+    m_selectLayerTrafficAction->setChecked(m_pDrawWidget->GetFramework().LoadTrafficEnabled());
+    connect(m_selectLayerTrafficAction, SIGNAL(triggered()), this, SLOT(OnTrafficEnabled()));
+
+    m_selectLayerTransitAction =
+        new QAction(QIcon(":/navig64/subway.png"), tr("Public transport"), this);
+    m_selectLayerTransitAction->setCheckable(true);
+    m_selectLayerTransitAction->setChecked(
+        m_pDrawWidget->GetFramework().LoadTransitSchemeEnabled());
+    connect(m_selectLayerTransitAction, SIGNAL(triggered()), this, SLOT(OnTransitEnabled()));
+
+    m_selectLayerIsolinesAction =
+        new QAction(QIcon(":/navig64/isolines.png"), tr("Isolines"), this);
+    m_selectLayerIsolinesAction->setCheckable(true);
+    m_selectLayerIsolinesAction->setChecked(m_pDrawWidget->GetFramework().LoadIsolinesEnabled());
+    connect(m_selectLayerIsolinesAction, SIGNAL(triggered()), this, SLOT(OnIsolinesEnabled()));
+
+    auto layersMenu = new QMenu();
+    layersMenu->addAction(m_selectLayerTrafficAction);
+    layersMenu->addAction(m_selectLayerTransitAction);
+    layersMenu->addAction(m_selectLayerIsolinesAction);
+
+    m_selectLayerButton = new QToolButton();
+    m_selectLayerButton->setPopupMode(QToolButton::MenuButtonPopup);
+    m_selectLayerButton->setMenu(layersMenu);
+    m_selectLayerButton->setIcon(QIcon(":/navig64/layers.png"));
+    pToolBar->addWidget(m_selectLayerButton);
     pToolBar->addSeparator();
 
     m_bookmarksAction = pToolBar->addAction(QIcon(":/navig64/bookmark.png"), tr("Show bookmarks and tracks"),
@@ -961,11 +985,61 @@ void MainWindow::OnRetryDownloadClicked()
   m_pDrawWidget->RetryToDownloadCountry(m_lastCountry);
 }
 
+void MainWindow::SetEnabledTraffic(bool enable)
+{
+  m_selectLayerTrafficAction->setChecked(enable);
+  m_pDrawWidget->GetFramework().GetTrafficManager().SetEnabled(enable);
+  m_pDrawWidget->GetFramework().SaveTrafficEnabled(enable);
+}
+
+void MainWindow::SetEnabledTransit(bool enable)
+{
+  m_selectLayerTransitAction->setChecked(enable);
+  m_pDrawWidget->GetFramework().GetTransitManager().EnableTransitSchemeMode(enable);
+  m_pDrawWidget->GetFramework().SaveTransitSchemeEnabled(enable);
+}
+
+void MainWindow::SetEnabledIsolines(bool enable)
+{
+  m_selectLayerIsolinesAction->setChecked(enable);
+  m_pDrawWidget->GetFramework().GetIsolinesManager().SetEnabled(enable);
+  m_pDrawWidget->GetFramework().SaveIsolonesEnabled(enable);
+}
+
 void MainWindow::OnTrafficEnabled()
 {
-  bool const enabled = m_trafficEnableAction->isChecked();
-  m_pDrawWidget->GetFramework().GetTrafficManager().SetEnabled(enabled);
-  m_pDrawWidget->GetFramework().SaveTrafficEnabled(enabled);
+  bool const enabled = m_selectLayerTrafficAction->isChecked();
+  SetEnabledTraffic(enabled);
+
+  if (enabled)
+  {
+    SetEnabledTransit(false);
+    SetEnabledIsolines(false);
+  }
+}
+
+void MainWindow::OnTransitEnabled()
+{
+  bool const enabled = m_selectLayerTransitAction->isChecked();
+  SetEnabledTransit(enabled);
+
+  if (enabled)
+  {
+    SetEnabledIsolines(false);
+    SetEnabledTraffic(false);
+  }
+}
+
+void MainWindow::OnIsolinesEnabled()
+{
+  bool const enabled = m_selectLayerIsolinesAction->isChecked();
+  SetEnabledIsolines(enabled);
+
+  if (enabled)
+  {
+    SetEnabledTraffic(false);
+    SetEnabledTransit(false);
+  }
 }
 
 void MainWindow::OnRulerEnabled()
