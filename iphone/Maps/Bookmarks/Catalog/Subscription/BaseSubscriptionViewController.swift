@@ -43,11 +43,13 @@ class BaseSubscriptionViewController: MWMViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     subscriptionManager?.addListener(self)
+    loadingView.isHidden = false
   }
 
   func configure(buttons: [SubscriptionPeriod: BookmarksSubscriptionButton],
                  discountLabels: [SubscriptionPeriod: InsetsLabel]) {
     subscriptionManager?.getAvailableSubscriptions { [weak self] (subscriptions, error) in
+      self?.loadingView.isHidden = true
       guard let subscriptions = subscriptions, subscriptions.count >= buttons.count else {
         MWMAlertViewController.activeAlert().presentInfoAlert(L("price_error_title"),
                                                               text: L("price_error_subtitle"))
