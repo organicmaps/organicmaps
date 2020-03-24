@@ -44,10 +44,8 @@ public:
 private:
   void CacheDataForInteraction();
   bool HasAltitudes() const;
-  void GetLengthsImpl(std::vector<double> & lengths) const;
+  std::vector<double> GetLengthsImpl() const;
   m2::RectD GetLimitRectImpl() const;
-  bool GetPointImpl(std::vector<double> const & lengths, double distanceInMeters,
-                    m2::PointD & pt) const;
 
   kml::TrackData m_data;
   kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;

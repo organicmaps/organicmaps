@@ -7,6 +7,60 @@
 
 #include <utility>
 
+namespace
+{
+bool GetTrackPoint(std::vector<geometry::PointWithAltitude> const & points,
+                   std::vector<double> const & lengths, double distanceInMeters, m2::PointD & pt)
+{
+  CHECK_GREATER_OR_EQUAL(distanceInMeters, 0.0, ());
+  CHECK_EQUAL(points.size(), lengths.size(), ());
+
+  double const kEpsMeters = 1e-2;
+  if (base::AlmostEqualAbs(distanceInMeters, lengths.front(), kEpsMeters))
+  {
+    pt = points.front().GetPoint();
+    return true;
+  }
+
+  if (base::AlmostEqualAbs(distanceInMeters, lengths.back(), kEpsMeters))
+  {
+    pt = points.back().GetPoint();
+    return true;
+  }
+
+  auto const it = std::lower_bound(lengths.begin(), lengths.end(), distanceInMeters);
+  if (it == lengths.end())
+    return false;
+
+  auto const pointIndex = std::distance(lengths.begin(), it);
+  auto const length = *it;
+
+  auto const segmentLength = length - lengths[pointIndex - 1];
+  auto const k = (segmentLength - (length - distanceInMeters)) / segmentLength;
+
+  auto const & pt1 = points[pointIndex - 1].GetPoint();
+  auto const & pt2 = points[pointIndex].GetPoint();
+  pt = pt1 + (pt2 - pt1) * k;
+
+  return true;
+}
+
+double GetLengthInMeters(std::vector<geometry::PointWithAltitude> const & points, size_t pointIndex)
+{
+  CHECK_LESS(pointIndex, points.size(), (pointIndex, points.size()));
+
+  double length = 0.0;
+  for (size_t i = 1; i <= pointIndex; ++i)
+  {
+  auto const & pt1 = points[i - 1].GetPoint();
+  auto const & pt2 = points[i].GetPoint();
+  auto const segmentLength = mercator::DistanceOnEarth(pt1, pt2);
+  length += segmentLength;
+  }
+  return length;
+}
+}  // namespace
+
 Track::Track(kml::TrackData && data, bool interactive)
   : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
   , m_data(std::move(data))
@@ -20,14 +74,13 @@ Track::Track(kml::TrackData && data, bool interactive)
 void Track::CacheDataForInteraction()
 {
   m_interactionData = InteractionData();
-  GetLengthsImpl(m_interactionData->m_lengths);
+  m_interactionData->m_lengths = GetLengthsImpl();
   m_interactionData->m_limitRect = GetLimitRectImpl();
 }
 
-void Track::GetLengthsImpl(std::vector<double> & lengths) const
+std::vector<double> Track::GetLengthsImpl() const
 {
-  lengths.resize(m_data.m_pointsWithAltitudes.size());
-  lengths[0] = 0.0;
+  std::vector<double> lengths(m_data.m_pointsWithAltitudes.size(), 0.0);
   for (size_t i = 1; i < m_data.m_pointsWithAltitudes.size(); ++i)
   {
     auto const & pt1 = m_data.m_pointsWithAltitudes[i - 1].GetPoint();
@@ -35,6 +88,7 @@ void Track::GetLengthsImpl(std::vector<double> & lengths) const
     auto const segmentLength = mercator::DistanceOnEarth(pt1, pt2);
     lengths[i] = lengths[i - 1] + segmentLength;
   }
+  return lengths;
 }
 
 m2::RectD Track::GetLimitRectImpl() const
@@ -52,7 +106,8 @@ bool Track::HasAltitudes() const
   {
     if (pt.GetAltitude() == geometry::kInvalidAltitude)
       return false;
-    hasNonDefaultAltitude |= pt.GetAltitude() != geometry::kDefaultAltitudeMeters;
+    if (!hasNonDefaultAltitude && pt.GetAltitude() != geometry::kDefaultAltitudeMeters)
+      hasNonDefaultAltitude = true;
   }
 
   return hasNonDefaultAltitude;
@@ -75,26 +130,18 @@ double Track::GetLengthMeters() const
   if (m_interactionData)
     return m_interactionData->m_lengths.back();
 
-  return GetLengthMeters(m_data.m_pointsWithAltitudes.size() - 1);
+  return GetLengthInMeters(m_data.m_pointsWithAltitudes, m_data.m_pointsWithAltitudes.size() - 1);
 }
 
 double Track::GetLengthMeters(size_t pointIndex) const
 {
-  CHECK_LESS(pointIndex, m_data.m_pointsWithAltitudes.size(),
-             (pointIndex, m_data.m_pointsWithAltitudes.size()));
-
   if (m_interactionData)
-    return m_interactionData->m_lengths[pointIndex];
-
-  double length = 0.0;
-  for (size_t i = 1; i <= pointIndex; ++i)
   {
-    auto const & pt1 = m_data.m_pointsWithAltitudes[i - 1].GetPoint();
-    auto const & pt2 = m_data.m_pointsWithAltitudes[i].GetPoint();
-    auto const segmentLength = mercator::DistanceOnEarth(pt1, pt2);
-    length += segmentLength;
+    CHECK_LESS(pointIndex, m_interactionData->m_lengths.size(), ());
+    return m_interactionData->m_lengths[pointIndex];
   }
-  return length;
+
+  return GetLengthInMeters(m_data.m_pointsWithAltitudes, pointIndex);
 }
 
 bool Track::IsInteractive() const
@@ -162,45 +209,12 @@ void Track::SetSelectionMarkId(kml::MarkId markId)
 
 bool Track::GetPoint(double distanceInMeters, m2::PointD & pt) const
 {
-  CHECK_GREATER_OR_EQUAL(distanceInMeters, 0.0, (distanceInMeters));
-
   if (m_interactionData)
-    return GetPointImpl(m_interactionData->m_lengths, distanceInMeters, pt);
-
-  std::vector<double> lengths;
-  GetLengthsImpl(lengths);
-  return GetPointImpl(lengths, distanceInMeters, pt);
-}
-
-bool Track::GetPointImpl(std::vector<double> const & lengths, double distanceInMeters,
-                         m2::PointD & pt) const
-{
-  double const kEpsMeters = 1e-2;
-  if (base::AlmostEqualAbs(distanceInMeters, lengths.front(), kEpsMeters))
   {
-    pt = m_data.m_pointsWithAltitudes.front().GetPoint();
-    return true;
+    return GetTrackPoint(m_data.m_pointsWithAltitudes, m_interactionData->m_lengths,
+                         distanceInMeters, pt);
   }
 
-  if (base::AlmostEqualAbs(distanceInMeters, lengths.back(), kEpsMeters))
-  {
-    pt = m_data.m_pointsWithAltitudes.back().GetPoint();
-    return true;
-  }
-
-  auto const it = std::lower_bound(lengths.begin(), lengths.end(), distanceInMeters);
-  if (it == lengths.end())
-    return false;
-
-  auto const pointIndex = std::distance(lengths.begin(), it);
-  auto const length = *it;
-
-  auto const segmentLength = length - lengths[pointIndex - 1];
-  auto const k = (segmentLength - (length - distanceInMeters)) / segmentLength;
-
-  auto const & pt1 = m_data.m_pointsWithAltitudes[pointIndex - 1].GetPoint();
-  auto const & pt2 = m_data.m_pointsWithAltitudes[pointIndex].GetPoint();
-  pt = pt1 + (pt2 - pt1) * k;
-
-  return true;
+  auto const lengths = GetLengthsImpl();
+  return GetTrackPoint(m_data.m_pointsWithAltitudes, lengths, distanceInMeters, pt);
 }
