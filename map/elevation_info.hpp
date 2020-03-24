@@ -39,6 +39,8 @@ public:
   uint32_t GetDuration() const { return m_duration; }
 
 private:
+  static uint8_t constexpr kMaxDifficulty = 3;
+
   kml::TrackId m_id = kml::kInvalidTrackId;
   std::string m_name;
   // Points with distance from start of the track and altitude.
@@ -51,7 +53,7 @@ private:
   uint16_t m_minAltitude = 0;
   // Altitude in meters.
   uint16_t m_maxAltitude = 0;
-  // Some digital difficulty level with value in range [0-3]
+  // Some digital difficulty level with value in range [0-kMaxDifficulty]
   uint8_t m_difficulty = 0;
   // Duration in seconds.
   uint32_t m_duration = 0;

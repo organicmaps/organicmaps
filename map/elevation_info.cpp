@@ -44,6 +44,13 @@ ElevationInfo::ElevationInfo(Track const & track)
   FillProperty(properties, kDescentKey, m_descent);
   FillProperty(properties, kLowestPointKey, m_minAltitude);
   FillProperty(properties, kHighestPointKey, m_maxAltitude);
+
   FillProperty(properties, kDifficultyKey, m_difficulty);
+  if (m_difficulty > kMaxDifficulty)
+  {
+    LOG(LWARNING, ("Invalid difficulty value", m_difficulty, "in track", track.GetName()));
+    m_difficulty = kMaxDifficulty;
+  }
+
   FillProperty(properties, kDurationKey, m_duration);
 }
