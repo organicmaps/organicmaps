@@ -1137,7 +1137,8 @@ void Framework::ShowTrack(kml::TrackId trackId)
   StopLocationFollow();
   ShowRect(rect);
 
-  GetBookmarkManager().ShowDefaultTrackInfo(trackId);
+  if (track->IsInteractive())
+    GetBookmarkManager().ShowDefaultTrackInfo(trackId);
 }
 
 void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation)

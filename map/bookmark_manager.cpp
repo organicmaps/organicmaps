@@ -705,7 +705,7 @@ void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
 Track * BookmarkManager::CreateTrack(kml::TrackData && trackData)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return AddTrack(std::make_unique<Track>(std::move(trackData)));
+  return AddTrack(std::make_unique<Track>(std::move(trackData), false /* interactive */));
 }
 
 Track const * BookmarkManager::GetTrack(kml::TrackId trackId) const
@@ -1143,10 +1143,10 @@ BookmarkManager::TrackSelectionInfo BookmarkManager::FindNearestTrack(
     for (auto trackId : category.GetUserLines())
     {
       auto const track = GetTrack(trackId);
-      if (tracksFilter && !tracksFilter(track))
+      if (!track->IsInteractive() || (tracksFilter && !tracksFilter(track)))
         continue;
 
-      auto const & trackRect = track->GetLimitRect();
+      auto const trackRect = track->GetLimitRect();
 
       if (!trackRect.IsIntersect(touchRect))
         continue;
@@ -2733,7 +2733,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     }
     for (auto & trackData : fileData.m_tracksData)
     {
-      auto track = std::make_unique<Track>(std::move(trackData));
+      auto track = std::make_unique<Track>(std::move(trackData), group->IsCategoryFromCatalog());
       auto * t = AddTrack(std::move(track));
       t->Attach(groupId);
       group->AttachTrack(t->GetId());

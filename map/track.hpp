@@ -10,7 +10,7 @@ class Track : public df::UserLineMark
 {
   using Base = df::UserLineMark;
 public:
-  explicit Track(kml::TrackData && data);
+  Track(kml::TrackData && data, bool interactive);
 
   kml::MarkGroupId GetGroupId() const override { return m_groupID; }
 
@@ -20,9 +20,10 @@ public:
   kml::TrackData const & GetData() const { return m_data; }
 
   std::string GetName() const;
-  m2::RectD const & GetLimitRect() const;
+  m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
   double GetLengthMeters(size_t pointIndex) const;
+  bool IsInteractive() const;
 
   int GetMinZoom() const override { return 1; }
   df::DepthLayer GetDepthLayer() const override;
@@ -41,12 +42,23 @@ public:
   bool GetPoint(double distanceInMeters, m2::PointD & pt) const;
 
 private:
-  void CacheLengthsAndLimitRect();
+  void CacheDataForInteraction();
+  bool HasAltitudes() const;
+  void GetLengthsImpl(std::vector<double> & lengths) const;
+  m2::RectD GetLimitRectImpl() const;
+  bool GetPointImpl(std::vector<double> const & lengths, double distanceInMeters,
+                    m2::PointD & pt) const;
 
   kml::TrackData m_data;
   kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;
   kml::MarkId m_selectionMarkId = kml::kInvalidMarkId;
-  std::vector<double> m_cachedLengths;
-  m2::RectD m_cachedLimitRect;
+
+  struct InteractionData
+  {
+    std::vector<double> m_lengths;
+    m2::RectD m_limitRect;
+  };
+  std::optional<InteractionData> m_interactionData;
+
   mutable bool m_isDirty = true;
 };
