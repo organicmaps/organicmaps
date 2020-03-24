@@ -345,7 +345,6 @@
 		472E3F4C2147D5700020E412 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F4B2147D5700020E412 /* Subscription.swift */; };
 		473464A7218B0BC000D6AF5B /* MWMPurchaseValidation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 473464A6218B0BC000D6AF5B /* MWMPurchaseValidation.mm */; };
 		4735008A23A83CF700661A95 /* DownloadedMapsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4735008923A83CF700661A95 /* DownloadedMapsDataSource.swift */; };
-		47375E572420ECA900FFCC49 /* Chart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47375E562420ECA800FFCC49 /* Chart.framework */; };
 		4738A8E7239FC513007C0F43 /* AdBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738A8E6239FC513007C0F43 /* AdBannerView.swift */; };
 		4738A8E9239FC526007C0F43 /* AdBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4738A8E8239FC526007C0F43 /* AdBannerView.xib */; };
 		473CBF9B2164DD470059BD54 /* SettingsTableViewSelectableProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473CBF9A2164DD470059BD54 /* SettingsTableViewSelectableProgressCell.swift */; };
@@ -402,7 +401,9 @@
 		47CF2E6123BA090400D11C30 /* FacilitiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CF2E6023BA090400D11C30 /* FacilitiesController.swift */; };
 		47CF2E6323BA0DD500D11C30 /* CopyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CF2E6223BA0DD500D11C30 /* CopyLabel.swift */; };
 		47D0026721999DA900F651A2 /* PendingTransactionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D0026621999DA900F651A2 /* PendingTransactionsHandler.swift */; };
-		47D48BD0242A475700FEFB1F /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D48BCF242A475700FEFB1F /* AuthenticationServices.framework */; };
+		47D48BCD242A0F7200FEFB1F /* Chart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47375E562420ECA800FFCC49 /* Chart.framework */; };
+		47D48BCE242A0F7200FEFB1F /* Chart.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 47375E562420ECA800FFCC49 /* Chart.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		47D48BD0242A475700FEFB1F /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D48BCF242A475700FEFB1F /* AuthenticationServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		47DF72B922520CE20004AB10 /* MWMRoutingOptions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 474902D9224A54EC008D71E0 /* MWMRoutingOptions.mm */; };
 		47DF72BB225356BF0004AB10 /* DrivingOptions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DF72BA225356BF0004AB10 /* DrivingOptions.storyboard */; };
 		47E3C72121108E9F008B3B27 /* BookmarksLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C71F21108E9F008B3B27 /* BookmarksLoadedViewController.swift */; };
@@ -878,6 +879,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4740184423F5BDE900A93C81 /* minizip.framework in Embed Frameworks */,
+				47D48BCE242A0F7200FEFB1F /* Chart.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2121,7 +2123,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				47D48BD0242A475700FEFB1F /* AuthenticationServices.framework in Frameworks */,
-				47375E572420ECA900FFCC49 /* Chart.framework in Frameworks */,
 				39CDE69123E1B6C8007CDA58 /* libge0.a in Frameworks */,
 				47A65CAD2350044800DCD85F /* CoreApi.framework in Frameworks */,
 				4577B28121F2066A00864FAC /* libvulkan_wrapper.a in Frameworks */,
@@ -2172,6 +2173,7 @@
 				6741AAC91BF356BA002C974C /* libindexer.a in Frameworks */,
 				6741AACA1BF356BA002C974C /* libjansson.a in Frameworks */,
 				340474F11E08199D00C92850 /* Crashlytics.framework in Frameworks */,
+				47D48BCD242A0F7200FEFB1F /* Chart.framework in Frameworks */,
 				6741AACC1BF356BA002C974C /* libmap.a in Frameworks */,
 				6741AACE1BF356BA002C974C /* libopening_hours.a in Frameworks */,
 				347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */,

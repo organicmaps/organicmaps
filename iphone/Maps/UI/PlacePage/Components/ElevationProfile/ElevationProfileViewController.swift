@@ -28,7 +28,7 @@ class ElevationProfileViewController: UIViewController {
     descriptionCollectionView.delegate = presenter
     presenter?.configure()
     chartView.onSelectedPointChanged = { [weak self] in
-      self?.presenter?.onMapPointChanged($0)
+      self?.presenter?.onSelectedPointChanged($0)
     }
   }
 
@@ -77,6 +77,6 @@ extension ElevationProfileViewController: ElevationProfileViewProtocol {
   }
 
   func setActivePoint(_ distance: Double) {
-    chartView.setInfoX(CGFloat(distance))
+    chartView.setSelectedPoint(distance)
   }
 }

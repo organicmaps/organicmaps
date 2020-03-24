@@ -9,7 +9,7 @@ protocol ElevationProfilePresenterProtocol: UICollectionViewDataSource, UICollec
   func onDragBegin()
   func onZoomBegin()
   func onNavigateBegin()
-  func onMapPointChanged(_ point: CGFloat)
+  func onSelectedPointChanged(_ point: CGFloat)
 }
 
 protocol ElevationProfileViewControllerDelegate: AnyObject {
@@ -60,14 +60,17 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
                                                  formatter: ChartFormatter(imperial: imperialUnits),
                                                  useFilter: true)
     view?.setChartData(presentationData)
-    let routeLength = data.points.last!.distance
-    view?.setActivePoint(data.activePoint / routeLength)
+    view?.setActivePoint(data.activePoint)
 //    if let extendedDifficultyGrade = data.extendedDifficultyGrade {
 //      view?.isExtendedDifficultyLabelHidden = false
 //      view?.setExtendedDifficultyGrade(extendedDifficultyGrade)
 //    } else {
       view?.isExtendedDifficultyLabelHidden = true
 //    }
+
+    MWMBookmarksManager.shared().setElevationActivePointChanged(data.trackId) { [weak self] distance in
+      self?.view?.setActivePoint(distance)
+    }
   }
 
   func onAppear() {
@@ -107,7 +110,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
                           :])
   }
 
-  func onMapPointChanged(_ point: CGFloat) {
+  func onSelectedPointChanged(_ point: CGFloat) {
     let x1 = Int(floor(point))
     let x2 = Int(ceil(point))
     let d1: Double = chartData.points[x1].distance
