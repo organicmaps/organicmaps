@@ -277,20 +277,28 @@ using namespace storage;
     [self configDialog];
 }
 
+- (NSString *)getStatProvider:(MWMBannerType)bannerType {
+  switch (bannerType) {
+  case MWMBannerTypeTinkoffAllAirlines: return kStatTinkoffAirlines;
+  case MWMBannerTypeTinkoffInsurance: return kStatTinkoffInsurance;
+  case MWMBannerTypeMts: return kStatMts;
+  case MWMBannerTypeSkyeng: return kStatSkyeng;
+  case MWMBannerTypeBookmarkCatalog: return kStatMapsmeGuides;
+  default: return @("");
+  }
+}
+
 - (void)showBannerIfNeeded {
   m_promoBanner = getPromoBanner(m_countryId);
   [self layoutIfNeeded];
   if (self.bannerView.hidden) {
-    NSString *statProvider;
-    switch (m_promoBanner.m_type) {
-      case ads::Banner::Type::TinkoffAllAirlines:
-        statProvider = kStatTinkoffAirlines;
-      case ads::Banner::Type::TinkoffInsurance:
-        statProvider = kStatTinkoffInsurance;
-      case ads::Banner::Type::Mts:
-        statProvider = kStatMts;
-      case ads::Banner::Type::Skyeng: {
-        statProvider = kStatSkyeng;
+    MWMBannerType bannerType = banner_helpers::MatchBannerType(m_promoBanner.m_type);
+    NSString *statProvider = [self getStatProvider:bannerType];
+    switch (bannerType) {
+      case MWMBannerTypeTinkoffAllAirlines:
+      case MWMBannerTypeTinkoffInsurance:
+      case MWMBannerTypeMts:
+      case MWMBannerTypeSkyeng: {
         __weak __typeof(self) ws = self;
         PartnerBannerViewController *controller = [[PartnerBannerViewController alloc] initWithTapHandler:^{
           [ws bannerAction];
@@ -307,11 +315,11 @@ using namespace storage;
                 kStatProvider: statProvider,
                 kStatMWMName: @(self->m_countryId.c_str())
               }];
-        [controller configWithType:banner_helpers::MatchBannerType(m_promoBanner.m_type)];
+        [controller configWithType:bannerType];
         self.bannerViewController = controller;
         break;
       }
-      case ads::Banner::Type::BookmarkCatalog: {
+      case MWMBannerTypeBookmarkCatalog: {
         __weak __typeof(self) ws = self;
         self.bannerViewController = [[MWMBookmarksBannerViewController alloc] initWithTapHandler:^{
           __strong __typeof(self) self = ws;
@@ -324,13 +332,13 @@ using namespace storage;
           [Statistics logEvent:kStatDownloaderBannerClick
                 withParameters:@{
                                  kStatFrom: kStatMap,
-                                 kStatProvider: kStatMapsmeGuides
+                                 kStatProvider: statProvider
                                  }];
         }];
         [Statistics logEvent:kStatDownloaderBannerShow
               withParameters:@{
                                kStatFrom: kStatMap,
-                               kStatProvider: kStatMapsmeGuides
+                               kStatProvider: statProvider
                                }];
         break;
       }
