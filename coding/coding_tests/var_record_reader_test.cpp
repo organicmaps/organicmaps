@@ -19,14 +19,14 @@ namespace
 {
   struct SaveForEachParams
   {
-    explicit SaveForEachParams(vector<pair<uint64_t, string> > & data) : m_Data(data) {}
+    explicit SaveForEachParams(vector<pair<uint64_t, string>> & data) : m_data(data) {}
 
     void operator()(uint64_t pos, vector<char> && data) const
     {
-      m_Data.emplace_back(pos, string(data.begin(), data.end()));
+      m_data.emplace_back(pos, string(data.begin(), data.end()));
     }
 
-    vector<pair<uint64_t, string> > & m_Data;
+    vector<pair<uint64_t, string>> & m_data;
   };
 
 }

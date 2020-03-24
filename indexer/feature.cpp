@@ -109,13 +109,13 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
   return -1;
 }
 
-uint32_t CalcOffset(ArrayByteSource const & source, const char * start)
+uint32_t CalcOffset(ArrayByteSource const & source, char const * start)
 {
   ASSERT_GREATER_OR_EQUAL(source.PtrC(), start, ());
-  return static_cast<uint32_t>(source.PtrC() - start);
+  return static_cast<uint32_t>(distance(start, source.PtrC()));
 }
 
-uint8_t Header(FeatureType::Buffer const & data) { return static_cast<uint8_t>(data[0]); }
+uint8_t Header(vector<char> const & data) { return static_cast<uint8_t>(data[0]); }
 
 void ReadOffsets(SharedLoadInfo const & loadInfo, ArrayByteSource & src, uint8_t mask,
                  FeatureType::GeometryOffsets & offsets)
@@ -181,17 +181,11 @@ uint8_t ReadByte(TSource & src)
 }
 }  // namespace
 
-FeatureType::FeatureType(SharedLoadInfo const * loadInfo, Buffer && buffer) : m_data(buffer)
+FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<char> && buffer)
+  : m_data(buffer), m_loadInfo(loadInfo)
 {
-  CHECK(loadInfo, ());
-  m_loadInfo = loadInfo;
+  CHECK(m_loadInfo, ());
   m_header = Header(m_data);
-
-  m_offsets.Reset();
-  m_ptsSimpMask = 0;
-  m_limitRect.MakeEmpty();
-  m_parsed.Reset();
-  m_innerStats.MakeZero();
 }
 
 FeatureType::FeatureType(osm::MapObject const & emo)

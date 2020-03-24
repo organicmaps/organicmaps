@@ -26,13 +26,13 @@ UNIT_TEST(ReadFeatures_Smoke)
 
   FeaturesLoaderGuard const guard(dataSource, handle.GetId());
   LOG(LINFO, (guard.GetNumFeatures()));
-  for (uint32_t i = 0; i < guard.GetNumFeatures() - 1; ++i)
+  for (uint32_t i = 0; i + 1 < guard.GetNumFeatures(); ++i)
   {
     LOG(LINFO, ("Trying", i, i + 1));
     auto ft1 = guard.GetFeatureByIndex(i);
     auto ft2 = guard.GetFeatureByIndex(i + 1);
 
-    ft2->ForEachType([](auto const t) {});
-    ft1->ForEachType([](auto const t) {});
+    ft2->ForEachType([](auto const /* t */) {});
+    ft1->ForEachType([](auto const /* t */) {});
   }
 }

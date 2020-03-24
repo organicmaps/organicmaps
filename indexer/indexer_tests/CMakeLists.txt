@@ -27,7 +27,7 @@ set(
   postcodes_matcher_tests.cpp
   postcodes_tests.cpp
   rank_table_test.cpp
-  read_features_test.cpp
+  read_features_tests.cpp
   scale_index_reading_tests.cpp
   scales_test.cpp
   search_string_utils_test.cpp

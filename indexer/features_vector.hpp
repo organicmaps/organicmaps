@@ -54,7 +54,6 @@ private:
 
   feature::SharedLoadInfo m_loadInfo;
   VarRecordReader<FilesContainerR::TReader> m_recordReader;
-  mutable std::vector<char> m_buffer;
   feature::FeaturesOffsetsTable const * m_table;
 };
 

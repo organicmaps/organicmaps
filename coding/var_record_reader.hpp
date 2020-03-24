@@ -16,12 +16,12 @@ template <class ReaderT>
 class VarRecordReader
 {
 public:
-  VarRecordReader(ReaderT const & reader) : m_reader(reader), m_readerSize(reader.Size()) {}
+  VarRecordReader(ReaderT const & reader) : m_reader(reader) {}
 
   std::vector<char> ReadRecord(uint64_t const pos) const
   {
-    ASSERT_LESS(pos, m_readerSize, ());
     ReaderSource source(m_reader);
+    ASSERT_LESS(pos, source.Size(), ());
     source.Skip(pos);
     uint32_t const recordSize = ReadVarUint<uint32_t>(source);
     std::vector<char> buffer(recordSize);
@@ -31,20 +31,17 @@ public:
 
   void ForEachRecord(std::function<void(uint32_t, std::vector<char> &&)> const & f) const
   {
-    uint64_t pos = 0;
     ReaderSource source(m_reader);
-    while (pos < m_readerSize)
+    while (source.Size() > 0)
     {
+      auto const pos = source.Pos();
       uint32_t const recordSize = ReadVarUint<uint32_t>(source);
       std::vector<char> buffer(recordSize);
       source.Read(buffer.data(), recordSize);
       f(static_cast<uint32_t>(pos), std::move(buffer));
-      pos = source.Pos();
     }
-    ASSERT_EQUAL(pos, m_ReaderSize, ());
   }
 
 protected:
   ReaderT m_reader;
-  uint64_t m_readerSize;
 };
