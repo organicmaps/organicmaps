@@ -28,6 +28,9 @@
         <file>phonepack.png</file>
         <file>bookmark.png</file>
         <file>ruler.png</file>
+        <file>layers.png</file>
+        <file>subway.png</file>
+        <file>isolines.png</file>
         <file>settings-routing.png</file>
         <file>borders_selection.png</file>
     </qresource>
