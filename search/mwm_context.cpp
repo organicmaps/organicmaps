@@ -23,6 +23,17 @@ MwmContext::MwmContext(MwmSet::MwmHandle handle)
 {
 }
 
+MwmContext::MwmContext(MwmSet::MwmHandle handle, MwmType type)
+  : m_handle(std::move(handle))
+  , m_value(*m_handle.GetValue())
+  , m_vector(m_value.m_cont, m_value.GetHeader(), m_value.m_table.get())
+  , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG), m_value.m_factory)
+  , m_centers(m_value)
+  , m_editableSource(m_handle)
+  , m_type(type)
+{
+}
+
 std::unique_ptr<FeatureType> MwmContext::GetFeature(uint32_t index) const
 {
   std::unique_ptr<FeatureType> ft;

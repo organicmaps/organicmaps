@@ -16,6 +16,7 @@
 
 #include <cstdint>
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 
@@ -30,11 +31,27 @@ void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result);
 class MwmContext
 {
 public:
+  struct MwmType
+  {
+    bool IsFirstBatchMwm(bool inViewport) const
+    {
+      if (inViewport)
+        return m_viewportIntersected;
+      return m_viewportIntersected || m_containsUserPosition || m_containsMatchedCity;
+    }
+
+    bool m_viewportIntersected = false;
+    bool m_containsUserPosition = false;
+    bool m_containsMatchedCity = false;
+  };
+
   explicit MwmContext(MwmSet::MwmHandle handle);
+  MwmContext(MwmSet::MwmHandle handle, MwmType type);
 
   MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   std::string const & GetName() const { return GetInfo()->GetCountryName(); }
   std::shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
+  std::optional<MwmType> const & GetType() const { return m_type; }
 
   template <typename Fn>
   void ForEachIndex(covering::Intervals const & intervals, uint32_t scale, Fn && fn) const
@@ -113,6 +130,7 @@ private:
   ScaleIndex<ModelReaderPtr> m_index;
   LazyCentersTable m_centers;
   EditableFeatureSource m_editableSource;
+  std::optional<MwmType> m_type;
 
   DISALLOW_COPY_AND_MOVE(MwmContext);
 };

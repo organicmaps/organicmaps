@@ -135,19 +135,6 @@ private:
     Count
   };
 
-  struct MwmType
-  {
-    bool IsFirstBatchMwm(bool inViewport) const {
-      if (inViewport)
-        return m_viewportIntersected;
-      return m_viewportIntersected || m_containsUserPosition || m_containsMatchedCity;
-    }
-
-    bool m_viewportIntersected = false;
-    bool m_containsUserPosition = false;
-    bool m_containsMatchedCity = false;
-  };
-
   struct ExtendedMwmInfos
   {
     struct ExtendedMwmInfo
@@ -155,7 +142,7 @@ private:
       bool operator<(ExtendedMwmInfo const & rhs) const;
 
       std::shared_ptr<MwmInfo> m_info;
-      MwmType m_type;
+      MwmContext::MwmType m_type;
       double m_similarity;
       double m_distance;
     };
@@ -223,17 +210,17 @@ private:
 
   // Tries to find all countries and states in a search query and then
   // performs matching of cities in found maps.
-  void MatchRegions(BaseContext & ctx, MwmType mwmType, Region::Type type);
+  void MatchRegions(BaseContext & ctx, Region::Type type);
 
   // Tries to find all cities in a search query and then performs
   // matching of streets in found cities.
-  void MatchCities(BaseContext & ctx, MwmType mwmType);
+  void MatchCities(BaseContext & ctx);
 
   // Tries to do geocoding without localities, ie. find POIs,
   // BUILDINGs and STREETs without knowledge about country, state,
   // city or village. If during the geocoding too many features are
   // retrieved, viewport is used to throw away excess features.
-  void MatchAroundPivot(BaseContext & ctx, MwmType mwmType);
+  void MatchAroundPivot(BaseContext & ctx);
 
   // Tries to do geocoding in a limited scope, assuming that knowledge
   // about high-level features, like cities or countries, is
