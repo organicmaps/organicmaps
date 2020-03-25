@@ -102,6 +102,7 @@ public class SimplePlacePageController implements PlacePageController
   @Override
   public void openFor(@NonNull PlacePageData data)
   {
+    mDeactivateMapSelection = true;
     mViewRenderer.render(data);
     if (mSheetBehavior.getSkipCollapsed())
       mSheetBehavior.setState(AnchorBottomSheetBehavior.STATE_EXPANDED);

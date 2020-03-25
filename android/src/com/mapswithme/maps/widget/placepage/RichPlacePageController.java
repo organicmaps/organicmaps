@@ -249,6 +249,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @Override
   public void openFor(@NonNull PlacePageData data)
   {
+    mDeactivateMapSelection = true;
     MapObject object = (MapObject) data;
     mPlacePage.setMapObject(object, (policy, isSameObject) -> {
       @AnchorBottomSheetBehavior.State
