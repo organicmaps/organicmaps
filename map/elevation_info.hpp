@@ -40,6 +40,7 @@ public:
 
 private:
   static uint8_t constexpr kMaxDifficulty = 3;
+  static uint8_t constexpr kInvalidDifficulty = kMaxDifficulty + 1;
 
   kml::TrackId m_id = kml::kInvalidTrackId;
   std::string m_name;
@@ -54,7 +55,8 @@ private:
   // Altitude in meters.
   uint16_t m_maxAltitude = 0;
   // Some digital difficulty level with value in range [0-kMaxDifficulty]
-  uint8_t m_difficulty = 0;
+  // or kInvalidDifficulty when difficulty is not found or incorrect.
+  uint8_t m_difficulty = kInvalidDifficulty;
   // Duration in seconds.
   uint32_t m_duration = 0;
 };
