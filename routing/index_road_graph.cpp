@@ -1,5 +1,6 @@
 #include "routing/index_road_graph.hpp"
 
+#include "routing/fake_feature_ids.hpp"
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"
@@ -64,6 +65,12 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
   }
 
   FeatureID const featureId = edge.GetFeatureId();
+  if (FakeFeatureIds::IsGuidesFeature(featureId.m_index))
+  {
+    types = feature::TypesHolder(feature::GeomType::Line);
+    return;
+  }
+
   FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
   auto ft = loader.GetFeatureByIndex(featureId.m_index);
   if (!ft)

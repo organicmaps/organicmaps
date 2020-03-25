@@ -141,6 +141,8 @@ double EdgeEstimator::CalcLeapWeight(ms::LatLon const & from, ms::LatLon const &
   return TimeBetweenSec(from, to, m_maxWeightSpeedMpS / 2.0);
 }
 
+double EdgeEstimator::GetMaxWeightSpeedMpS() const { return m_maxWeightSpeedMpS; }
+
 double EdgeEstimator::CalcOffroad(ms::LatLon const & from, ms::LatLon const & to,
                                   Purpose purpose) const
 {

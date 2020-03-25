@@ -2,38 +2,33 @@
 
 #include "routing/base/astar_progress.hpp"
 #include "routing/base/bfs.hpp"
-
 #include "routing/car_directions.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
-#include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/index_road_graph.hpp"
 #include "routing/junction_visitor.hpp"
 #include "routing/leaps_graph.hpp"
 #include "routing/leaps_postprocessor.hpp"
 #include "routing/pedestrian_directions.hpp"
-#include "routing/restriction_loader.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
 #include "routing/speed_camera_prohibition.hpp"
-#include "routing/transit_info.hpp"
 #include "routing/transit_world_graph.hpp"
 #include "routing/turns_generator.hpp"
 #include "routing/vehicle_mask.hpp"
+
+#include "transit/transit_speed_limits.hpp"
 
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
 
-#include "transit/transit_speed_limits.hpp"
-
 #include "indexer/data_source.hpp"
-#include "indexer/feature_altitude.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/mwm_traits.hpp"
@@ -49,14 +44,15 @@
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 
+#include "defines.hpp"
+
 #include <algorithm>
 #include <cstdlib>
 #include <deque>
 #include <iterator>
 #include <limits>
 #include <map>
-
-#include "defines.hpp"
+#include <optional>
 
 using namespace routing;
 using namespace std;
@@ -368,6 +364,8 @@ bool IndexRouter::FindClosestProjectionToRoad(m2::PointD const & point,
   return true;
 }
 
+void IndexRouter::SetGuides(GuidesTracks && guides) { m_guides = GuidesConnections(guides); }
+
 RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
                                              m2::PointD const & startDirection,
                                              bool adjustToPrevRoute,
@@ -419,11 +417,133 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
   }
 }
 
+std::vector<Segment> IndexRouter::GetBestSegments(m2::PointD const & checkpoint, WorldGraph & graph)
+{
+  bool startSegmentIsAlmostCodirectional = false;
+  std::vector<Segment> segments;
+
+  FindBestSegments(checkpoint, m2::PointD::Zero() /* startDirection */, true /* isOutgoing */,
+                   graph, segments, startSegmentIsAlmostCodirectional);
+
+  return segments;
+}
+
+void IndexRouter::AppendPartsOfReal(LatLonWithAltitude const & point1,
+                                    LatLonWithAltitude const & point2, uint32_t & startIdx,
+                                    ConnectionToOsm & link)
+{
+  uint32_t const fakeFeatureId = FakeFeatureIds::kIndexGraphStarterId;
+
+  FakeVertex vertexForward(m_guides.GetMwmId(), point1 /* from */, point2 /* to */,
+                           FakeVertex::Type::PartOfReal);
+
+  FakeVertex vertexBackward(m_guides.GetMwmId(), point2 /* from */, point1 /* to */,
+                            FakeVertex::Type::PartOfReal);
+
+  link.m_partsOfReal.emplace_back(
+      vertexForward, Segment(kFakeNumMwmId, fakeFeatureId, startIdx++, true /* forward */));
+  link.m_partsOfReal.emplace_back(
+      vertexBackward, Segment(kFakeNumMwmId, fakeFeatureId, startIdx++, true /* forward */));
+}
+
+void IndexRouter::ConnectCheckpointsOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints,
+                                                  WorldGraph & graph)
+{
+  for (size_t checkpointIdx = 0; checkpointIdx < checkpoints.size(); ++checkpointIdx)
+  {
+    if (!m_guides.IsCheckpointAttached(checkpointIdx))
+      continue;
+
+    if (m_guides.FitsForDirectLinkToGuide(checkpointIdx, checkpoints.size()))
+      continue;
+
+    auto const & checkpoint = checkpoints[checkpointIdx];
+    auto const & bestSegmentsOsm = GetBestSegments(checkpoint, graph);
+    if (bestSegmentsOsm.empty())
+      continue;
+
+    m_guides.OverwriteFakeEnding(checkpointIdx, MakeFakeEnding(bestSegmentsOsm, checkpoint, graph));
+  }
+}
+
+uint32_t IndexRouter::ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints,
+                                                 WorldGraph & graph)
+{
+  uint32_t segmentIdx = 0;
+
+  for (size_t checkpointIdx = 0; checkpointIdx < checkpoints.size(); ++checkpointIdx)
+  {
+    auto osmConnections = m_guides.GetOsmConnections(checkpointIdx);
+
+    if (osmConnections.empty())
+      continue;
+
+    for (size_t i = 0; i < osmConnections.size(); ++i)
+    {
+      auto & link = osmConnections[i];
+      geometry::PointWithAltitude const & proj = link.m_projectedPoint;
+
+      auto const & segmentsProj = GetBestSegments(proj.GetPoint(), graph);
+      if (segmentsProj.empty())
+        continue;
+
+      auto newFakeEndingProj = MakeFakeEnding(segmentsProj, proj.GetPoint(), graph);
+
+      if (link.m_fakeEnding.m_projections.empty())
+        link.m_fakeEnding = newFakeEndingProj;
+      else
+        GuidesConnections::ExtendFakeEndingProjections(newFakeEndingProj, link.m_fakeEnding);
+
+      LatLonWithAltitude const loopPoint = link.m_loopVertex.GetJunctionTo();
+
+      if (!(loopPoint == link.m_realFrom))
+        AppendPartsOfReal(link.m_realFrom, loopPoint, segmentIdx, link);
+
+      if (!(loopPoint == link.m_realTo))
+        AppendPartsOfReal(loopPoint, link.m_realTo, segmentIdx, link);
+    }
+    m_guides.UpdateOsmConnections(checkpointIdx, osmConnections);
+  }
+  return segmentIdx;
+}
+
+void IndexRouter::AddGuidesOsmConnectionsToGraphStarter(size_t checkpointIdxFrom,
+                                                        size_t checkpointIdxTo,
+                                                        IndexGraphStarter & starter)
+{
+  auto linksFrom = m_guides.GetOsmConnections(checkpointIdxFrom);
+  auto linksTo = m_guides.GetOsmConnections(checkpointIdxTo);
+  for (auto const & link : linksTo)
+  {
+    auto it =
+        std::find_if(linksFrom.begin(), linksFrom.end(), [&link](ConnectionToOsm const & cur) {
+          return link.m_fakeEnding.m_originJunction == cur.m_fakeEnding.m_originJunction &&
+                 link.m_fakeEnding.m_projections == cur.m_fakeEnding.m_projections &&
+                 link.m_realSegment == cur.m_realSegment && link.m_realTo == cur.m_realTo;
+        });
+
+    if (it == linksFrom.end())
+    {
+      linksFrom.push_back(link);
+    }
+  }
+
+  for (auto & connOsm : linksFrom)
+  {
+    starter.AddEnding(connOsm.m_fakeEnding);
+
+    starter.ConnectLoopToGuideSegments(connOsm.m_loopVertex, connOsm.m_realSegment,
+                                       connOsm.m_realFrom, connOsm.m_realTo, connOsm.m_partsOfReal);
+  }
+}
+
 RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
                                                m2::PointD const & startDirection,
                                                RouterDelegate const & delegate, Route & route)
 {
   m_lastRoute.reset();
+  // MwmId used for guides segments in RedressRoute().
+  NumMwmId guidesMwmId = kFakeNumMwmId;
 
   for (auto const & checkpoint : checkpoints.GetPoints())
   {
@@ -438,29 +558,46 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
 
     auto const country = platform::CountryFile(countryName);
     if (!m_dataSource.IsLoaded(country))
+    {
       route.AddAbsentCountry(country.GetName());
+    }
+    else if (guidesMwmId == kFakeNumMwmId)
+    {
+      guidesMwmId = m_numMwmIds->GetId(country);
+    };
   }
 
   if (!route.GetAbsentCountries().empty())
     return RouterResultCode::NeedMoreMaps;
 
   TrafficStash::Guard guard(m_trafficStash);
-  auto graph = MakeWorldGraph();
+  unique_ptr<WorldGraph> graph = MakeWorldGraph();
 
   vector<Segment> segments;
 
   vector<Segment> startSegments;
   bool startSegmentIsAlmostCodirectionalDirection = false;
-  if (!FindBestSegments(checkpoints.GetPointFrom(), startDirection, true /* isOutgoing */, *graph,
-                        startSegments, startSegmentIsAlmostCodirectionalDirection))
+  bool const foundStart =
+      FindBestSegments(checkpoints.GetPointFrom(), startDirection, true /* isOutgoing */, *graph,
+                       startSegments, startSegmentIsAlmostCodirectionalDirection);
+
+  m_guides.SetGuidesGraphParams(guidesMwmId, m_estimator->GetMaxWeightSpeedMpS());
+  m_guides.ConnectToGuidesGraph(checkpoints.GetPoints());
+
+  if (!m_guides.IsActive() && !foundStart)
   {
     return RouterResultCode::StartPointNotFound;
   }
 
+  ConnectCheckpointsOnGuidesToOsm(checkpoints.GetPoints(), *graph);
+  uint32_t const startIdx = ConnectTracksOnGuidesToOsm(checkpoints.GetPoints(), *graph);
+
   size_t subrouteSegmentsBegin = 0;
   vector<Route::SubrouteAttrs> subroutes;
   PushPassedSubroutes(checkpoints, subroutes);
+
   unique_ptr<IndexGraphStarter> starter;
+
   auto progress = make_shared<AStarProgress>();
   double const checkpointsLength = checkpoints.GetSummaryLengthBetweenPointsMeters();
 
@@ -471,11 +608,17 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     auto const & startCheckpoint = checkpoints.GetPoint(i);
     auto const & finishCheckpoint = checkpoints.GetPoint(i + 1);
 
+    FakeEnding finishFakeEnding = m_guides.GetFakeEnding(i + 1);
+
     vector<Segment> finishSegments;
     bool dummy = false;
+
+    // Stop building route if |finishCheckpoint| is not connected to OSM and is not connected to
+    // the guides graph.
     if (!FindBestSegments(finishCheckpoint, m2::PointD::Zero() /* direction */,
                           false /* isOutgoing */, *graph, finishSegments,
-                          dummy /* bestSegmentIsAlmostCodirectional */))
+                          dummy /* bestSegmentIsAlmostCodirectional */) &&
+        finishFakeEnding.m_projections.empty())
     {
       return isLastSubroute ? RouterResultCode::EndPointNotFound
                             : RouterResultCode::IntermediatePointNotFound;
@@ -485,10 +628,24 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     if (isFirstSubroute)
       isStartSegmentStrictForward = startSegmentIsAlmostCodirectionalDirection;
 
-    IndexGraphStarter subrouteStarter(MakeFakeEnding(startSegments, startCheckpoint, *graph),
-                                      MakeFakeEnding(finishSegments, finishCheckpoint, *graph),
-                                      starter ? starter->GetNumFakeSegments() : 0,
+    FakeEnding startFakeEnding = m_guides.GetFakeEnding(i);
+
+    if (startFakeEnding.m_projections.empty())
+      startFakeEnding = MakeFakeEnding(startSegments, startCheckpoint, *graph);
+
+    if (finishFakeEnding.m_projections.empty())
+      finishFakeEnding = MakeFakeEnding(finishSegments, finishCheckpoint, *graph);
+
+    uint32_t const fakeNumerationStart =
+        starter ? starter->GetNumFakeSegments() + startIdx : startIdx;
+    IndexGraphStarter subrouteStarter(startFakeEnding, finishFakeEnding, fakeNumerationStart,
                                       isStartSegmentStrictForward, *graph);
+
+    if (m_guides.IsAttached())
+    {
+      subrouteStarter.SetGuides(m_guides.GetGuidesGraph());
+      AddGuidesOsmConnectionsToGraphStarter(i, i + 1, subrouteStarter);
+    }
 
     vector<Segment> subroute;
     double contributionCoef = kAlmostZeroContribution;
@@ -503,8 +660,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     progress->AppendSubProgress(subProgress);
     SCOPE_GUARD(eraseProgress, [&progress]() { progress->PushAndDropLastSubProgress(); });
 
-    auto const result =
-        CalculateSubroute(checkpoints, i, delegate, progress, subrouteStarter, subroute);
+    auto const result = CalculateSubroute(checkpoints, i, delegate, progress, subrouteStarter,
+                                          subroute, m_guides.IsAttached());
 
     if (result != RouterResultCode::NoError)
       return result;
@@ -580,17 +737,17 @@ vector<Segment> ProcessJoints(vector<JointSegment> const & jointsPath,
   return path;
 }
 
-RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
-                                                size_t subrouteIdx,
+RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
                                                 RouterDelegate const & delegate,
                                                 shared_ptr<AStarProgress> const & progress,
                                                 IndexGraphStarter & starter,
-                                                vector<Segment> & subroute)
+                                                vector<Segment> & subroute,
+                                                bool guidesActive /* = false */)
 {
   CHECK(progress, (checkpoints));
   subroute.clear();
 
-  SetupAlgorithmMode(starter);
+  SetupAlgorithmMode(starter, guidesActive);
   LOG(LINFO, ("Routing in mode:", starter.GetGraph().GetMode()));
 
   base::ScopedTimerWithLog timer("Route build");
@@ -1436,8 +1593,16 @@ void IndexRouter::FillSpeedCamProhibitedMwms(vector<Segment> const & segments,
   }
 }
 
-void IndexRouter::SetupAlgorithmMode(IndexGraphStarter & starter)
+void IndexRouter::SetupAlgorithmMode(IndexGraphStarter & starter, bool guidesActive)
 {
+  // We use NoLeaps for pedestrians and bicycles with route points near to the Guides tracks
+  // because it is much easier to implement. Otherwise for pedestrians and bicycles we use Joints.
+  if (guidesActive)
+  {
+    starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
+    return;
+  }
+
   // We use leaps for cars only. Other vehicle types do not have weights in their cross-mwm sections.
   switch (m_vehicleType)
   {

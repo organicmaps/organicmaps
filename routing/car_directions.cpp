@@ -1,5 +1,6 @@
 #include "routing/car_directions.hpp"
 
+#include "routing/fake_feature_ids.hpp"
 #include "routing/road_point.hpp"
 #include "routing/router_delegate.hpp"
 #include "routing/routing_exceptions.hpp"
@@ -13,7 +14,6 @@
 #include "routing_common/car_model.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/scales.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -231,6 +231,9 @@ void CarDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, Loaded
   if (!featureId.IsValid())
     return;
 
+  if (FakeFeatureIds::IsGuidesFeature(featureId.m_index))
+    return;
+
   auto ft = GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index);
   if (!ft)
     return;
@@ -263,6 +266,9 @@ void CarDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
       continue;
 
     auto const & outFeatureId = edge.GetFeatureId();
+    if (FakeFeatureIds::IsGuidesFeature(outFeatureId.m_index))
+      continue;
+
     auto ft = GetLoader(outFeatureId.m_mwmId).GetFeatureByIndex(outFeatureId.m_index);
     if (!ft)
       continue;

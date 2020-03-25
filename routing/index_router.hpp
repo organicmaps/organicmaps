@@ -3,12 +3,12 @@
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_progress.hpp"
 #include "routing/base/routing_result.hpp"
-
 #include "routing/cross_mwm_graph.hpp"
 #include "routing/directions_engine.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/fake_edges_container.hpp"
 #include "routing/features_road_graph.hpp"
+#include "routing/guides_connections.hpp"
 #include "routing/index_graph_starter_joints.hpp"
 #include "routing/joint.hpp"
 #include "routing/nearest_edge_finder.hpp"
@@ -89,9 +89,11 @@ public:
   // IRouter overrides:
   std::string GetName() const override { return m_name; }
   void ClearState() override;
-  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                  bool adjustToPrevRoute, RouterDelegate const & delegate,
-                                  Route & route) override;
+
+  void SetGuides(GuidesTracks && guides) override;
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints,
+                                  m2::PointD const & startDirection, bool adjustToPrevRoute,
+                                  RouterDelegate const & delegate, Route & route) override;
 
   bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction,
                                    double radius, EdgeProj & proj) override;
@@ -119,7 +121,8 @@ private:
   RouterResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
                                      RouterDelegate const & delegate,
                                      std::shared_ptr<AStarProgress> const & progress,
-                                     IndexGraphStarter & graph, std::vector<Segment> & subroute);
+                                     IndexGraphStarter & graph, std::vector<Segment> & subroute,
+                                     bool guidesActive = false);
 
   RouterResultCode AdjustRoute(Checkpoints const & checkpoints,
                                m2::PointD const & startDirection,
@@ -213,7 +216,20 @@ private:
         mwmIds, ConvertResult<Vertex, Edge, Weight>(algorithm.FindPathBidirectional(params, routingResult)));
   }
 
-  void SetupAlgorithmMode(IndexGraphStarter & starter);
+  void SetupAlgorithmMode(IndexGraphStarter & starter, bool guidesActive = false);
+  uint32_t ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints,
+                                      WorldGraph & graph);
+
+  void ConnectCheckpointsOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints,
+                                       WorldGraph & graph);
+
+  void AddGuidesOsmConnectionsToGraphStarter(size_t checkpointIdxFrom, size_t checkpointIdxTo,
+                                             IndexGraphStarter & starter);
+
+  void AppendPartsOfReal(LatLonWithAltitude const & point1, LatLonWithAltitude const & point2,
+                         uint32_t & startIdx, ConnectionToOsm & link);
+
+  std::vector<Segment> GetBestSegments(m2::PointD const & checkpoint, WorldGraph & graph);
 
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
@@ -232,5 +248,8 @@ private:
   std::unique_ptr<IDirectionsEngine> m_directionsEngine;
   std::unique_ptr<SegmentedRoute> m_lastRoute;
   std::unique_ptr<FakeEdgesContainer> m_lastFakeEdges;
+
+  // If a ckeckpoint is near to the guide track we need to build route through this track.
+  GuidesConnections m_guides;
 };
 }  // namespace routing

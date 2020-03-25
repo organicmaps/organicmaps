@@ -28,6 +28,7 @@ struct Projection final
     , m_junction(junction)
   {
   }
+  bool operator==(Projection const & other) const;
 
   Segment m_segment;
   bool m_isOneWay = false;

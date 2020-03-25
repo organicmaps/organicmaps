@@ -3,11 +3,11 @@
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
 #include "routing/base/routing_result.hpp"
-
 #include "routing/fake_ending.hpp"
 #include "routing/fake_feature_ids.hpp"
 #include "routing/fake_graph.hpp"
 #include "routing/fake_vertex.hpp"
+#include "routing/guides_graph.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/joint.hpp"
 #include "routing/latlon_with_altitude.hpp"
@@ -48,13 +48,20 @@ public:
     return segment.GetFeatureId() == kFakeFeatureId;
   }
 
+  static bool IsGuidesSegment(Segment const & segment)
+  {
+    return FakeFeatureIds::IsGuidesFeature(segment.GetFeatureId());
+  }
+
   // strictForward flag specifies which parts of real segment should be placed from the start
-  // vertex. true: place exactly one fake edge to the m_segment with indicated m_forward. false:
+  // vertex. true: place exactly one fake edge to the m_segment indicated with m_forward. false:
   // place two fake edges to the m_segment with both directions.
   IndexGraphStarter(FakeEnding const & startEnding, FakeEnding const & finishEnding,
                     uint32_t fakeNumerationStart, bool strictForward, WorldGraph & graph);
 
   void Append(FakeEdgesContainer const & container);
+
+  void SetGuides(GuidesGraph const & guides);
 
   WorldGraph & GetGraph() const { return m_graph; }
   WorldGraphMode GetMode() const { return m_graph.GetMode(); }
@@ -148,6 +155,8 @@ public:
   }
 
   RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const;
+  RouteWeight CalcGuidesSegmentWeight(Segment const & segment,
+                                      EdgeEstimator::Purpose purpose) const;
   double CalculateETA(Segment const & from, Segment const & to) const;
   double CalculateETAWithoutPenalty(Segment const & segment) const;
 
@@ -193,9 +202,23 @@ public:
   Ending const & GetStartEnding() const { return m_start; }
   Ending const & GetFinishEnding() const { return m_finish; }
 
+  uint32_t GetFakeNumerationStart() const { return m_fakeNumerationStart; }
+
+  // Creates fake edges for guides fake ending and adds them to the fake graph.
+  void AddEnding(FakeEnding const & thisEnding);
+
+  void ConnectLoopToGuideSegments(FakeVertex const & loop, Segment const & realSegment,
+                                  LatLonWithAltitude realFrom, LatLonWithAltitude realTo,
+                                  std::vector<std::pair<FakeVertex, Segment>> const & partsOfReal);
+
   ~IndexGraphStarter() override = default;
 
 private:
+  // Creates fake edges for fake ending and adds it to fake graph. |otherEnding| is used to
+  // generate proper fake edges in case both endings have projections to the same segment.
+  void AddEnding(FakeEnding const & thisEnding, FakeEnding const & otherEnding, bool isStart,
+                 bool strictForward);
+
   static Segment GetFakeSegment(uint32_t segmentIdx)
   {
     // We currently ignore |isForward| and use FakeGraph to get ingoing/outgoing.
@@ -204,23 +227,14 @@ private:
     return Segment(kFakeNumMwmId, kFakeFeatureId, segmentIdx, true /* isForward */);
   }
 
-  static Segment GetFakeSegmentAndIncr(uint32_t & segmentIdx)
-  {
-    CHECK_LESS(segmentIdx, std::numeric_limits<uint32_t>::max(), ());
-    return GetFakeSegment(segmentIdx++);
-  }
+  Segment GetFakeSegmentAndIncr();
 
   void GetEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing,
                     bool useAccessConditional, std::vector<SegmentEdge> & edges) const;
 
-  // Creates fake edges for fake ending and adds it to  fake graph. |otherEnding| used to generate
-  // propper fake edges in case both endings have projections to the same segment.
-  void AddEnding(FakeEnding const & thisEnding, FakeEnding const & otherEnding, bool isStart,
-                 bool strictForward, uint32_t & fakeNumerationStart);
-  void AddStart(FakeEnding const & startEnding, FakeEnding const & finishEnding, bool strictForward,
-                uint32_t & fakeNumerationStart);
-  void AddFinish(FakeEnding const & finishEnding, FakeEnding const & startEnding,
-                 uint32_t & fakeNumerationStart);
+  void AddStart(FakeEnding const & startEnding, FakeEnding const & finishEnding,
+                bool strictForward);
+  void AddFinish(FakeEnding const & finishEnding, FakeEnding const & startEnding);
 
   // Adds fake edges of type PartOfReal which correspond real edges from |edges| and are connected
   // to |segment|
@@ -241,5 +255,9 @@ private:
   Ending m_finish;
   double m_startToFinishDistanceM;
   FakeGraph<Segment, FakeVertex> m_fake;
+  GuidesGraph m_guides;
+  uint32_t m_fakeNumerationStart;
+
+  std::vector<FakeEnding> m_otherEndings;
 };
 }  // namespace routing

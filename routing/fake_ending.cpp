@@ -9,6 +9,7 @@
 
 #include "base/math.hpp"
 
+#include <tuple>
 #include <utility>
 
 using namespace routing;
@@ -43,6 +44,13 @@ LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin,
 
 namespace routing
 {
+bool Projection::operator==(const Projection & other) const
+{
+  return tie(m_segment, m_isOneWay, m_segmentFront, m_segmentBack, m_junction) ==
+         tie(other.m_segment, other.m_isOneWay, other.m_segmentFront, other.m_segmentBack,
+             other.m_junction);
+}
+
 FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & point,
                           WorldGraph & graph)
 {

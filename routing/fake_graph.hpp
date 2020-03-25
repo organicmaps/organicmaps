@@ -1,5 +1,9 @@
 #pragma once
 
+#include "routing/fake_feature_ids.hpp"
+#include "routing/fake_vertex.hpp"
+#include "routing/latlon_with_altitude.hpp"
+
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/stl_iterator.hpp"
@@ -8,6 +12,7 @@
 #include <cstdint>
 #include <map>
 #include <set>
+#include <utility>
 
 namespace routing
 {
@@ -55,16 +60,23 @@ public:
   // Merges |rhs| into this.
   void Append(FakeGraph const & rhs)
   {
-    auto IsIntersectionEmpty = [](std::map<SegmentType, VertexType> const & lhs,
-                                  std::map<SegmentType, VertexType> const & rhs) {
-      auto const counter =
-          std::set_intersection(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), CounterIterator(),
-                                base::LessBy(&std::pair<SegmentType, VertexType>::first));
-      return counter.GetCount() == 0;
-    };
+    std::map<SegmentType, VertexType> intersection;
+    typename std::map<SegmentType, VertexType>::iterator intersectionIt(intersection.begin());
 
-    CHECK(IsIntersectionEmpty(m_segmentToVertex, rhs.m_segmentToVertex),
-          ("Fake segments are not unique."));
+    std::set_intersection(m_segmentToVertex.begin(), m_segmentToVertex.end(),
+                          rhs.m_segmentToVertex.begin(), rhs.m_segmentToVertex.end(),
+                          std::inserter(intersection, intersectionIt),
+                          base::LessBy(&std::pair<SegmentType, VertexType>::first));
+
+    size_t countEqual = 0;
+    for (auto const & segmentVertexPair : intersection)
+    {
+      auto const it = m_fakeToReal.find(segmentVertexPair.first);
+      if (it == m_fakeToReal.cend() || !FakeFeatureIds::IsGuidesFeature(it->second.GetFeatureId()))
+        countEqual++;
+    }
+
+    CHECK_EQUAL(countEqual, 0, ("Fake segments are not unique."));
 
     m_segmentToVertex.insert(rhs.m_segmentToVertex.begin(), rhs.m_segmentToVertex.end());
     m_vertexToSegment.insert(rhs.m_vertexToSegment.begin(), rhs.m_vertexToSegment.end());
@@ -81,7 +93,7 @@ public:
     m_fakeToReal.insert(rhs.m_fakeToReal.begin(), rhs.m_fakeToReal.end());
   }
 
-  // Returns Vertex which corresponds |segment|. Segment must be a part of the fake graph.
+  // Returns Vertex which corresponds to |segment|. Segment must be a part of the fake graph.
   VertexType const & GetVertex(SegmentType const & segment) const
   {
     auto const it = m_segmentToVertex.find(segment);
@@ -132,14 +144,88 @@ public:
     return true;
   }
 
+  // Connects loop to the VertexType::Type::PartOfReal segments on the Guides track.
+  void ConnectLoopToGuideSegments(
+      FakeVertex const & loop, SegmentType const & guidesSegment,
+      LatLonWithAltitude const & guidesSegmentFrom, LatLonWithAltitude const & guidesSegmentTo,
+      std::vector<std::pair<FakeVertex, SegmentType>> const & partsOfReal)
+  {
+    auto itLoop = m_vertexToSegment.find(loop);
+    CHECK(itLoop != m_vertexToSegment.end(), (loop));
+
+    auto const & loopSegment = itLoop->second;
+    auto const & loopPoint = loop.GetPointTo();
+
+    auto const backwardReal =
+        SegmentType(guidesSegment.GetMwmId(), guidesSegment.GetFeatureId(),
+                    guidesSegment.GetSegmentIdx(), !guidesSegment.IsForward());
+
+    ConnectLoopToExistentPartsOfReal(loop, guidesSegment, backwardReal);
+
+    for (auto & [newVertex, newSegment] : partsOfReal)
+    {
+      auto const [it, inserted] = m_vertexToSegment.emplace(newVertex, newSegment);
+      SegmentType const & segment = it->second;
+
+      SegmentType const & directedReal = (newVertex.GetPointFrom() == guidesSegmentTo.GetLatLon() ||
+                                          newVertex.GetPointTo() == guidesSegmentFrom.GetLatLon())
+                                             ? backwardReal
+                                             : guidesSegment;
+
+      m_realToFake[directedReal].insert(segment);
+
+      if (inserted)
+      {
+        m_fakeToReal[segment] = directedReal;
+        m_segmentToVertex[segment] = newVertex;
+        m_vertexToSegment[newVertex] = segment;
+      }
+
+      CHECK((newVertex.GetPointFrom() == loopPoint || newVertex.GetPointTo() == loopPoint),
+            (newVertex, loopPoint));
+
+      auto const & to = (newVertex.GetPointTo() == loopPoint) ? loopSegment : segment;
+      auto const & from = (newVertex.GetPointFrom() == loopPoint) ? loopSegment : segment;
+
+      m_ingoing[to].insert(from);
+      m_outgoing[from].insert(to);
+    }
+  }
+
 private:
+  void ConnectLoopToExistentPartsOfReal(FakeVertex const & loop, SegmentType const & guidesSegment,
+                                        SegmentType const & directedGuidesSegment)
+  {
+    auto const & loopSegment = m_vertexToSegment[loop];
+    auto const & loopPoint = loop.GetPointTo();
+
+    for (auto const & real : {guidesSegment, directedGuidesSegment})
+    {
+      for (auto const & partOfReal : GetFake(real))
+      {
+        auto const & partOfRealVertex = m_segmentToVertex[partOfReal];
+        if (partOfRealVertex.GetPointTo() == loopPoint)
+        {
+          m_outgoing[partOfReal].insert(loopSegment);
+          m_ingoing[loopSegment].insert(partOfReal);
+        }
+
+        if (partOfRealVertex.GetPointFrom() == loopPoint)
+        {
+          m_outgoing[loopSegment].insert(partOfReal);
+          m_ingoing[partOfReal].insert(loopSegment);
+        }
+      }
+    }
+  }
+
   // Key is fake segment, value is set of outgoing fake segments.
   std::map<SegmentType, std::set<SegmentType>> m_outgoing;
   // Key is fake segment, value is set of ingoing fake segments.
   std::map<SegmentType, std::set<SegmentType>> m_ingoing;
   // Key is fake segment, value is fake vertex which corresponds fake segment.
   std::map<SegmentType, VertexType> m_segmentToVertex;
-  // Key is fake vertex value is fake segment which corresponds fake vertex.
+  // Key is fake vertex, value is fake segment which corresponds fake vertex.
   std::map<VertexType, SegmentType> m_vertexToSegment;
   // Key is fake segment of type VertexType::Type::PartOfReal, value is corresponding real segment.
   std::map<SegmentType, SegmentType> m_fakeToReal;
