@@ -51,6 +51,10 @@ set(
   following_info.hpp
   geometry.cpp
   geometry.hpp
+  guides_connections.cpp
+  guides_connections.hpp
+  guides_graph.cpp
+  guides_graph.hpp
   index_graph.cpp
   index_graph.hpp
   index_graph_loader.cpp
