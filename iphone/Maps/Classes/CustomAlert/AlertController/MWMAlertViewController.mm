@@ -20,7 +20,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 + (nonnull MWMAlertViewController *)activeAlertController
 {
-  UIViewController * tvc = [UIViewController topViewController];
+  UIViewController * tvc = [MapViewController sharedController];
   ASSERT([tvc conformsToProtocol:@protocol(MWMController)], ());
   UIViewController<MWMController> * mwmController =
       static_cast<UIViewController<MWMController> *>(tvc);
