@@ -8,4 +8,6 @@ uint32_t constexpr FakeFeatureIds::kIndexGraphStarterId;
 uint32_t constexpr FakeFeatureIds::k24BitsOffset;
 // static
 uint32_t constexpr FakeFeatureIds::kTransitGraphFeaturesStart;
+// static
+uint32_t constexpr FakeFeatureIds::kGuidesGraphFeaturesStart;
 }  // namespace routing
