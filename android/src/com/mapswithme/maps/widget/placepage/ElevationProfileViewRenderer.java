@@ -12,6 +12,7 @@ import com.mapswithme.maps.ChartController;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.ElevationInfo;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.util.UiUtils;
 
 import java.util.Objects;
 
@@ -45,6 +46,12 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   private ChartController mChartController;
   @Nullable
   private ElevationInfo mElevationInfo;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mDifficultyContainer;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mTimeContainer;
 
   @SuppressLint("SetTextI18n")
   @Override
@@ -60,6 +67,7 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     mDescent.setText(mElevationInfo.getDescent() +  meters);
     mMaxAltitude.setText(mElevationInfo.getMaxAltitude() + meters);
     mMinAltitude.setText(mElevationInfo.getMinAltitude() + meters);
+    UiUtils.hideIf(mElevationInfo.getDuration() == 0, mTimeContainer);
     mTime.setText(RoutingController.formatRoutingTime(mTitle.getContext(),
                                                       (int) mElevationInfo.getDuration(),
                                                       R.dimen.text_size_body_2));
@@ -80,6 +88,8 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     mDifficultyLevels[0] = view.findViewById(R.id.difficulty_level_1);
     mDifficultyLevels[1] = view.findViewById(R.id.difficulty_level_2);
     mDifficultyLevels[2] = view.findViewById(R.id.difficulty_level_3);
+    mDifficultyContainer = view.findViewById(R.id.difficulty_container);
+    mTimeContainer = view.findViewById(R.id.time_container);
   }
 
   @Override
@@ -93,7 +103,10 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     for (View levelView : mDifficultyLevels)
       levelView.setEnabled(false);
 
-    if (level > MAX_DIFFICULTY_LEVEL)
+    boolean invalidDifficulty = level > MAX_DIFFICULTY_LEVEL;
+    UiUtils.hideIf(invalidDifficulty, mDifficultyContainer);
+
+    if (invalidDifficulty)
       return;
 
     for (int i = 0; i < level; i++)
