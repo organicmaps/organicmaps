@@ -15,18 +15,12 @@ namespace storage
 {
 void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
 {
-  // The goal is to call Download(queuedCountry) on the current (UI) thread
-  // after the server list has been received on the network thread.
-
-  // Fast path: the server list was received before.
   if (!m_serversList.empty())
   {
     Download(queuedCountry);
     return;
   }
 
-  // Slow path: until we know the servers list, we have to route all
-  // requests through the network thread, thus implicitly synchronizing them.
   if (!m_isServersListRequested)
   {
     m_isServersListRequested = true;
@@ -34,18 +28,36 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
     GetPlatform().RunTask(Platform::Thread::Network, [=]() mutable {
       GetServersList([=](ServersList const & serversList) mutable {
                        m_serversList = serversList;
+                       for (auto & country : m_quarantine)
+                       {
+                         Download(country);
+                       }
+                       m_quarantine.clear();
                      });
     });
   }
 
-  GetPlatform().RunTask(Platform::Thread::Network, [=]() mutable {
-    // This task has arrived to the network thread after GetServersList
-    // synchronously downloaded the server list.
-    // It is now safe to repost the download task to the UI thread.
-      GetPlatform().RunTask(Platform::Thread::Gui, [=]() mutable {
-        Download(queuedCountry);
-      });
-  });
+  m_quarantine.emplace_back(std::move(queuedCountry));
+}
+
+void MapFilesDownloader::Remove(CountryId const & id)
+{
+  if (m_quarantine.empty())
+    return;
+
+  auto it = std::find(m_quarantine.begin(), m_quarantine.end(), id);
+  if (it != m_quarantine.end())
+    m_quarantine.erase(it);
+}
+
+void MapFilesDownloader::Clear()
+{
+  m_quarantine.clear();
+}
+
+Queue const & MapFilesDownloader::GetQueue() const
+{
+  return m_quarantine;
 }
 
 void MapFilesDownloader::Subscribe(Subscriber * subscriber)

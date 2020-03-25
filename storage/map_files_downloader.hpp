@@ -53,10 +53,18 @@ public:
 
   virtual void Pause() = 0;
   virtual void Resume() = 0;
-  virtual void Remove(CountryId const & id) = 0;
-  virtual void Clear() = 0;
 
-  virtual Queue const & GetQueue() const = 0;
+  // Removes item from m_quarantine queue when list of servers is not received.
+  // Parent method must be called into override method.
+  virtual void Remove(CountryId const & id);
+
+  // Clears m_quarantine queue when list of servers is not received.
+  // Parent method must be called into override method.
+  virtual void Clear();
+
+  // Returns m_quarantine queue when list of servers is not received.
+  // Parent method must be called into override method.
+  virtual Queue const & GetQueue() const;
 
   void Subscribe(Subscriber * subscriber);
   void UnsubscribeAll();
@@ -87,5 +95,9 @@ private:
   ServersList m_serversList;
   bool m_isServersListRequested = false;
   DownloadingPolicy * m_downloadingPolicy = nullptr;
+
+  // This queue accumulates download requests before
+  // the servers list is received on the network thread.
+  Queue m_quarantine;
 };
 }  // namespace storage

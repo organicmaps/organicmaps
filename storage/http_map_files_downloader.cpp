@@ -117,6 +117,8 @@ void HttpMapFilesDownloader::Remove(CountryId const & id)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
+  MapFilesDownloader::Remove(id);
+
   if (m_queue.empty())
     return;
 
@@ -138,6 +140,8 @@ void HttpMapFilesDownloader::Clear()
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
+  MapFilesDownloader::Clear();
+
   auto needNotify = m_request != nullptr;
 
   m_request.reset();
@@ -153,6 +157,10 @@ void HttpMapFilesDownloader::Clear()
 Queue const & HttpMapFilesDownloader::GetQueue() const
 {
   CHECK_THREAD_CHECKER(m_checker, ());
+
+  if (m_queue.empty())
+    return MapFilesDownloader::GetQueue();
+
   return m_queue;
 }
 
