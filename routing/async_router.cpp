@@ -8,6 +8,7 @@
 #include "base/timer.hpp"
 
 #include <functional>
+#include <utility>
 
 using namespace std;
 using namespace std::placeholders;
@@ -213,11 +214,11 @@ void AsyncRouter::SetRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFet
 }
 
 void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
-                                 bool adjustToPrevRoute, ReadyCallbackOwnership const & readyCallback,
+                                 bool adjustToPrevRoute,
+                                 ReadyCallbackOwnership const & readyCallback,
                                  NeedMoreMapsCallback const & needMoreMapsCallback,
                                  RemoveRouteCallback const & removeRouteCallback,
-                                 ProgressCallback const & progressCallback,
-                                 uint32_t timeoutSec)
+                                 ProgressCallback const & progressCallback, uint32_t timeoutSec)
 {
   unique_lock<mutex> ul(m_guard);
 
@@ -233,6 +234,12 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
   
   m_hasRequest = true;
   m_threadCondVar.notify_one();
+}
+
+void AsyncRouter::SetGuidesTracks(GuidesTracks && guides)
+{
+  unique_lock<mutex> ul(m_guard);
+  m_guides = move(guides);
 }
 
 void AsyncRouter::ClearState()
@@ -372,6 +379,8 @@ void AsyncRouter::CalculateRoute()
     routeId = ++m_routeCounter;
     routingStatisticsCallback = m_routingStatisticsCallback;
     routerName = router->GetName();
+    router->SetGuides(move(m_guides));
+    m_guides.clear();
   }
 
   auto route = make_shared<Route>(router->GetName(), routeId);
@@ -391,7 +400,7 @@ void AsyncRouter::CalculateRoute()
     // Run basic request.
     code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute,
                                   delegateProxy->GetDelegate(), *route);
-
+    router->SetGuides({});
     elapsedSec = timer.ElapsedSeconds(); // routing time
     LogCode(code, elapsedSec);
     LOG(LINFO, ("ETA:", route->GetTotalTimeSec(), "sec."));

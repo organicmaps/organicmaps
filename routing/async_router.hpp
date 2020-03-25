@@ -55,6 +55,7 @@ public:
                       ProgressCallback const & progressCallback,
                       uint32_t timeoutSec = RouterDelegate::kNoTimeout);
 
+  void SetGuidesTracks(GuidesTracks && guides);
   /// Interrupt routing and clear buffers
   void ClearState();
 
@@ -116,6 +117,8 @@ private:
   /// Current request parameters
   bool m_clearState = false;
   Checkpoints m_checkpoints;
+  GuidesTracks m_guides;
+
   m2::PointD m_startDirection = m2::PointD::Zero();
   bool m_adjustToPrevRoute = false;
   std::shared_ptr<RouterDelegateProxy> m_delegateProxy;

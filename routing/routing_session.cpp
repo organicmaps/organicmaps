@@ -80,13 +80,15 @@ void RoutingSession::Init(RoutingStatisticsCallback const & routingStatisticsFn,
   alohalytics::LogEvent("OnRoutingInit", params);
 }
 
-void RoutingSession::BuildRoute(Checkpoints const & checkpoints,
+void RoutingSession::BuildRoute(Checkpoints const & checkpoints, GuidesTracks && guides,
                                 uint32_t timeoutSec)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_router, ());
   m_checkpoints = checkpoints;
   m_router->ClearState();
+  m_router->SetGuidesTracks(std::move(guides));
+
   m_isFollowing = false;
   m_routingRebuildCount = -1; // -1 for the first rebuild.
 
@@ -115,8 +117,8 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
   m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute,
-                           DoReadyCallback(*this, readyCallback),
-                           needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
+                           DoReadyCallback(*this, readyCallback), needMoreMapsCallback,
+                           removeRouteCallback, m_progressCallback, timeoutSec);
 }
 
 m2::PointD RoutingSession::GetStartPoint() const

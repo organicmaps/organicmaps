@@ -58,8 +58,7 @@ public:
 
   /// @param[in] checkpoints in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
-  void BuildRoute(Checkpoints const & checkpoints,
-                  uint32_t timeoutSec);
+  void BuildRoute(Checkpoints const & checkpoints, GuidesTracks && guides, uint32_t timeoutSec);
   void RebuildRoute(m2::PointD const & startPoint, ReadyCallback const & readyCallback,
                     NeedMoreMapsCallback const & needMoreMapsCallback,
                     RemoveRouteCallback const & removeRouteCallback, uint32_t timeoutSec,

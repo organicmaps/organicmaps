@@ -8,18 +8,19 @@
 
 #include "routing/following_info.hpp"
 #include "routing/route.hpp"
+#include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
 #include "routing/routing_session.hpp"
 #include "routing/speed_camera_manager.hpp"
+
+#include "tracking/archival_reporter.hpp"
+#include "tracking/reporter.hpp"
 
 #include "storage/storage_defines.hpp"
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
 #include "drape/pointers.hpp"
-
-#include "tracking/archival_reporter.hpp"
-#include "tracking/reporter.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
@@ -140,6 +141,7 @@ public:
   bool IsOnRoute() const { return m_routingSession.IsOnRoute(); }
   bool IsRoutingFollowing() const { return m_routingSession.IsFollowing(); }
   bool IsRouteValid() const { return m_routingSession.IsRouteValid(); }
+  routing::GuidesTracks GetGuidesTracks() const;
   void BuildRoute(uint32_t timeoutSec = routing::RouterDelegate::kNoTimeout);
   void SetUserCurrentPosition(m2::PointD const & position);
   void ResetRoutingSession() { m_routingSession.Reset(); }
