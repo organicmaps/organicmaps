@@ -102,7 +102,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     }
   };
 
-  public void updateState(boolean shouldAutoDownload) {
+  public void updateState(boolean shouldAutoDownload)
+  {
     updateStateInternal(shouldAutoDownload);
 
     if (mPromoBanner == null || mCurrentCountry == null)
