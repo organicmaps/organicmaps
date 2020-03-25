@@ -225,11 +225,11 @@ class PathProvider:
 
     @property
     def packed_polygons_path(self) -> AnyStr:
-        return os.path.join(self.intermediate_data_path, "packed_polygons.bin")
+        return os.path.join(self.mwm_path, "packed_polygons.bin")
 
     @property
     def localads_path(self) -> AnyStr:
-        return os.path.join(self.intermediate_data_path, f"localads_{self.mwm_version}")
+        return os.path.join(self.build_path, f"localads_{self.mwm_version}")
 
     @property
     def types_path(self) -> AnyStr:
