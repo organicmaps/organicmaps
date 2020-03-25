@@ -15,6 +15,7 @@ set(
   edge_estimator_tests.cpp
   fake_graph_test.cpp
   followed_polyline_test.cpp
+  guides_tests.cpp
   index_graph_test.cpp
   index_graph_tools.cpp
   index_graph_tools.hpp

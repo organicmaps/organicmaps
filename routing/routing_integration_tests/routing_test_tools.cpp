@@ -39,6 +39,7 @@
 #include <memory>
 #include <set>
 #include <tuple>
+#include <utility>
 
 using namespace routing;
 using namespace routing_test;
@@ -159,6 +160,20 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
   RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
       Checkpoints(startPoint, finalPoint), startDirection, false /* adjust */, delegate, *route);
   ASSERT(route, ());
+  routerComponents.GetRouter().SetGuides({});
+  return TRouteResult(route, result);
+}
+
+TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
+                            Checkpoints const & checkpoints, GuidesTracks && guides)
+{
+  RouterDelegate delegate;
+  shared_ptr<Route> route = make_shared<Route>("mapsme", 0 /* route id */);
+  routerComponents.GetRouter().SetGuides(move(guides));
+  RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
+      checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, *route);
+  ASSERT(route, ());
+  routerComponents.GetRouter().SetGuides({});
   return TRouteResult(route, result);
 }
 

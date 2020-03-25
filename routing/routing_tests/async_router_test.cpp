@@ -36,6 +36,7 @@ public:
   
   // IRouter overrides:
   string GetName() const override { return "Dummy"; }
+  void SetGuides(GuidesTracks && /* guides */) override {}
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                             bool adjustToPrevRoute, RouterDelegate const & delegate,
                             Route & route) override

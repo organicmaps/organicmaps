@@ -1,6 +1,10 @@
 #include "testing/testing.hpp"
 
+#include "routing/fake_feature_ids.hpp"
 #include "routing/fake_graph.hpp"
+#include "routing/segment.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -12,13 +16,21 @@ using namespace std;
 
 namespace
 {
+Segment GetSegment(uint32_t segmentIdx, bool isReal = false)
+{
+  static NumMwmId constexpr kFakeNumMwmId = std::numeric_limits<NumMwmId>::max();
+  static uint32_t constexpr kFakeFeatureId = FakeFeatureIds::kIndexGraphStarterId;
+  if (isReal)
+    return Segment(0 /* mwmId */, 0 /* featureId */, segmentIdx, true /* isForward */);
+  return Segment(kFakeNumMwmId, kFakeFeatureId, segmentIdx, true /* isForward */);
+}
 // Constructs simple fake graph where vertex (i + 1) is child of vertex (i) with |numFake| fake
 // vertices and |numReal| real vertices. Checks vetex-to-segment, segment-to-vertex, fake-to-real,
 // real-to-fake mappings for each vertex. Checks ingoing and outgoing sets.
-FakeGraph<int32_t /* SegmentType */, m2::PointD /* VertexType */>
+FakeGraph<Segment /* SegmentType */, m2::PointD /* VertexType */>
 ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_t numReal)
 {
-  FakeGraph<int32_t, m2::PointD> fakeGraph;
+  FakeGraph<Segment, m2::PointD> fakeGraph;
 
   TEST_EQUAL(fakeGraph.GetSize(), 0, ("Constructed fake graph not empty"));
   if (numFake < 1)
@@ -28,19 +40,19 @@ ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_t numReal)
     return fakeGraph;
   }
 
-  int32_t const startSegment = numerationStart;
-  auto const startVertex = m2::PointD(numerationStart, numerationStart);
+  auto const startSegment = GetSegment(numerationStart);
+  m2::PointD const startVertex(numerationStart, numerationStart);
   fakeGraph.AddStandaloneVertex(startSegment, startVertex);
 
   // Add pure fake.
   for (uint32_t prevNumber = numerationStart; prevNumber + 1 < numerationStart + numFake + numReal;
        ++prevNumber)
   {
-    bool const newIsReal = prevNumber + 1 < numerationStart + numFake ? false : true;
-    int32_t const prevSegment = prevNumber;
-    int32_t const newSegment = prevNumber + 1;
-    auto const newVertex = m2::PointD(prevNumber + 1, prevNumber + 1);
-    int32_t const realSegment = -(prevNumber + 1);
+    bool const newIsReal = prevNumber + 1 >= numerationStart + numFake;
+    auto const prevSegment = GetSegment(prevNumber);
+    auto const newSegment = GetSegment(prevNumber + 1);
+    m2::PointD const newVertex(prevNumber + 1, prevNumber + 1);
+    auto const realSegment = GetSegment(prevNumber + 1, true /* isReal */);
 
     fakeGraph.AddVertex(prevSegment, newSegment, newVertex, true /* isOutgoing */,
                         newIsReal /* isPartOfReal */, realSegment);
@@ -48,21 +60,21 @@ ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_t numReal)
     // Test segment to vertex mapping.
     TEST_EQUAL(fakeGraph.GetVertex(newSegment), newVertex, ("Wrong segment to vertex mapping."));
     // Test outgoing edge.
-    TEST_EQUAL(fakeGraph.GetEdges(newSegment, false /* isOutgoing */), set<int32_t>{prevSegment},
+    TEST_EQUAL(fakeGraph.GetEdges(newSegment, false /* isOutgoing */), set<Segment>{prevSegment},
                ("Wrong ingoing edges set."));
     // Test ingoing edge.
-    TEST_EQUAL(fakeGraph.GetEdges(prevSegment, true /* isOutgoing */), set<int32_t>{newSegment},
+    TEST_EQUAL(fakeGraph.GetEdges(prevSegment, true /* isOutgoing */), set<Segment>{newSegment},
                ("Wrong ingoing edges set."));
     // Test graph size
     TEST_EQUAL(fakeGraph.GetSize() + numerationStart, prevNumber + 2, ("Wrong fake graph size."));
     // Test fake to real and real to fake mapping.
-    int32_t realFound;
+    Segment realFound;
     if (newIsReal)
     {
       TEST_EQUAL(fakeGraph.FindReal(newSegment, realFound), true,
                  ("Unexpected real segment found."));
       TEST_EQUAL(realSegment, realFound, ("Wrong fake to real mapping."));
-      TEST_EQUAL(fakeGraph.GetFake(realSegment), set<int32_t>{newSegment},
+      TEST_EQUAL(fakeGraph.GetFake(realSegment), set<Segment>{newSegment},
                  ("Unexpected fake segment found."));
     }
     else
@@ -79,7 +91,7 @@ ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_t numReal)
 namespace routing
 {
 // Test constructs two fake graphs, performs checks during construction, merges graphs
-// using FakeGraph::Append and checks topology of merged graph.
+// Calls FakeGraph::Append and checks topology of the merged graph.
 UNIT_TEST(FakeGraphTest)
 {
   uint32_t const fake0 = 5;
@@ -99,8 +111,8 @@ UNIT_TEST(FakeGraphTest)
   // Test merged graph.
   for (uint32_t i = 0; i + 1 < fakeGraph0.GetSize(); ++i)
   {
-    int32_t const segmentFrom = i;
-    int32_t const segmentTo = i + 1;
+    auto const segmentFrom = GetSegment(i);
+    auto const segmentTo = GetSegment(i + 1);
 
     TEST_EQUAL(fakeGraph0.GetVertex(segmentFrom), m2::PointD(i, i), ("Wrong segment to vertex mapping."));
     TEST_EQUAL(fakeGraph0.GetVertex(segmentTo), m2::PointD(i + 1, i + 1), ("Wrong segment to vertex mapping."));
@@ -114,10 +126,10 @@ UNIT_TEST(FakeGraphTest)
     }
     else
     {
-      TEST_EQUAL(fakeGraph0.GetEdges(segmentFrom, true /* isOutgoing */), set<int32_t>{segmentTo},
+      TEST_EQUAL(fakeGraph0.GetEdges(segmentFrom, true /* isOutgoing */), set<Segment>{segmentTo},
                  ("Wrong ingoing edges set."));
       TEST_EQUAL(fakeGraph0.GetEdges(segmentTo, false /* isOutgoing */),
-                 set<int32_t>{segmentFrom}, ("Wrong ingoing edges set."));
+                 set<Segment>{segmentFrom}, ("Wrong ingoing edges set."));
     }
   }
 }

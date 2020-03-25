@@ -515,12 +515,11 @@ void IndexRouter::AddGuidesOsmConnectionsToGraphStarter(size_t checkpointIdxFrom
   auto linksTo = m_guides.GetOsmConnections(checkpointIdxTo);
   for (auto const & link : linksTo)
   {
-    auto it =
-        std::find_if(linksFrom.begin(), linksFrom.end(), [&link](ConnectionToOsm const & cur) {
-          return link.m_fakeEnding.m_originJunction == cur.m_fakeEnding.m_originJunction &&
-                 link.m_fakeEnding.m_projections == cur.m_fakeEnding.m_projections &&
-                 link.m_realSegment == cur.m_realSegment && link.m_realTo == cur.m_realTo;
-        });
+    auto it = find_if(linksFrom.begin(), linksFrom.end(), [&link](ConnectionToOsm const & cur) {
+      return link.m_fakeEnding.m_originJunction == cur.m_fakeEnding.m_originJunction &&
+             link.m_fakeEnding.m_projections == cur.m_fakeEnding.m_projections &&
+             link.m_realSegment == cur.m_realSegment && link.m_realTo == cur.m_realTo;
+    });
 
     if (it == linksFrom.end())
     {
