@@ -50,7 +50,7 @@ fragment float4 fsAccuracy(const FragmentAccuracy_T in [[stage_in]],
                           texture2d<float> u_colorTex [[texture(0)]],
                           sampler u_colorTexSampler [[sampler(0)]])
 {
-  float4 color = u_colorTex.sample(u_colorTexSampler, in.a_colorTexCoords);
+  float4 color = u_colorTex.sample(u_colorTexSampler, in.colorTexCoords);
   color.a *= uniforms.u_opacity;
   return color;
 }
