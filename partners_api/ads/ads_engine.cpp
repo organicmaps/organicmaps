@@ -57,7 +57,6 @@ Engine::Engine(std::unique_ptr<Delegate> delegate)
                                       std::make_unique<TinkoffAllAirlines>(*m_delegate));
   m_downloadOnMapBanners.emplace_back(Banner::Type::TinkoffInsurance,
                                       std::make_unique<TinkoffInsurance>(*m_delegate));
-  m_downloadOnMapBanners.emplace_back(Banner::Type::Mts, std::make_unique<Mts>(*m_delegate));
   m_downloadOnMapBanners.emplace_back(Banner::Type::Skyeng, std::make_unique<Skyeng>(*m_delegate));
   m_downloadOnMapBanners.emplace_back(Banner::Type::BookmarkCatalog,
                                       std::make_unique<BookmarkCatalog>(*m_delegate));
