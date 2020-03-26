@@ -161,10 +161,10 @@
     android:layout_marginEnd="@dimen/margin_base"
     android:orientation="horizontal">
     <LinearLayout
+      android:id="@+id/difficulty_container"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:gravity="center_vertical"
-      android:id="@+id/difficulty_container"
       android:orientation="horizontal">
       <TextView
         android:layout_width="wrap_content"
@@ -199,6 +199,7 @@
       </LinearLayout>
     </LinearLayout>
     <View
+      android:id="@+id/medium_divider"
       android:layout_width="0dp"
       android:layout_weight="1"
       android:layout_height="@dimen/margin_base"

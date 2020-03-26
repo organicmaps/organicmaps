@@ -52,6 +52,9 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mTimeContainer;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mMediumDivider;
 
   @SuppressLint("SetTextI18n")
   @Override
@@ -84,12 +87,13 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     mDescent = view.findViewById(R.id.descent);
     mMaxAltitude = view.findViewById(R.id.max_altitude);
     mMinAltitude = view.findViewById(R.id.min_altitude);
-    mTime = view.findViewById(R.id.time);
-    mDifficultyLevels[0] = view.findViewById(R.id.difficulty_level_1);
-    mDifficultyLevels[1] = view.findViewById(R.id.difficulty_level_2);
-    mDifficultyLevels[2] = view.findViewById(R.id.difficulty_level_3);
-    mDifficultyContainer = view.findViewById(R.id.difficulty_container);
     mTimeContainer = view.findViewById(R.id.time_container);
+    mTime = mTimeContainer.findViewById(R.id.time);
+    mDifficultyContainer = view.findViewById(R.id.difficulty_container);
+    mDifficultyLevels[0] = mDifficultyContainer.findViewById(R.id.difficulty_level_1);
+    mDifficultyLevels[1] = mDifficultyContainer.findViewById(R.id.difficulty_level_2);
+    mDifficultyLevels[2] = mDifficultyContainer.findViewById(R.id.difficulty_level_3);
+    mMediumDivider = view.findViewById(R.id.medium_divider);
   }
 
   @Override
@@ -105,6 +109,7 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
 
     boolean invalidDifficulty = level > MAX_DIFFICULTY_LEVEL;
     UiUtils.hideIf(invalidDifficulty, mDifficultyContainer);
+    UiUtils.hideIf(invalidDifficulty, mMediumDivider);
 
     if (invalidDifficulty)
       return;
