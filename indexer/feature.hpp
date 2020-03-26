@@ -33,7 +33,7 @@ class FeatureType
 public:
   using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::kMaxScalesCount>;
 
-  FeatureType(feature::SharedLoadInfo const * loadInfo, std::vector<char> && buffer);
+  FeatureType(feature::SharedLoadInfo const * loadInfo, std::vector<uint8_t> && buffer);
   FeatureType(osm::MapObject const & emo);
 
   feature::GeomType GetGeomType() const;
@@ -243,7 +243,7 @@ private:
 
   // Non-owning pointer to shared load info. SharedLoadInfo created once per FeaturesVector.
   feature::SharedLoadInfo const * m_loadInfo = nullptr;
-  std::vector<char> m_data;
+  std::vector<uint8_t> m_data;
 
   ParsedFlags m_parsed;
   Offsets m_offsets;

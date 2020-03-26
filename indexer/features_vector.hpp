@@ -31,7 +31,7 @@ public:
   template <class ToDo> void ForEach(ToDo && toDo) const
   {
     uint32_t index = 0;
-    m_recordReader.ForEachRecord([&](uint32_t pos, std::vector<char> && data) {
+    m_recordReader.ForEachRecord([&](uint32_t pos, std::vector<uint8_t> && data) {
       FeatureType ft(&m_loadInfo, std::move(data));
 
       // We can't properly set MwmId here, because FeaturesVector
@@ -46,7 +46,8 @@ public:
   template <class ToDo> static void ForEachOffset(ModelReaderPtr reader, ToDo && toDo)
   {
     VarRecordReader<ModelReaderPtr> recordReader(reader);
-    recordReader.ForEachRecord([&](uint32_t pos, std::vector<char> && /* data */) { toDo(pos); });
+    recordReader.ForEachRecord(
+        [&](uint32_t pos, std::vector<uint8_t> && /* data */) { toDo(pos); });
   }
 
 private:

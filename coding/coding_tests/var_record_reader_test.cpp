@@ -21,7 +21,7 @@ namespace
   {
     explicit SaveForEachParams(vector<pair<uint64_t, string>> & data) : m_data(data) {}
 
-    void operator()(uint64_t pos, vector<char> && data) const
+    void operator()(uint64_t pos, vector<uint8_t> && data) const
     {
       m_data.emplace_back(pos, string(data.begin(), data.end()));
     }
@@ -33,13 +33,13 @@ namespace
 
 UNIT_TEST(VarRecordReader_Simple)
 {
-  vector<char> data;
+  vector<uint8_t> data;
   char const longString[] = "0123456789012345678901234567890123456789012345678901234567890123456789"
                             "012345678901234567890123456789012345678901234567890123456789012345";
   size_t const longStringSize = sizeof(longString) - 1;
   TEST_GREATER(longStringSize, 128, ());
   {
-    MemWriter<vector<char>> writer(data);
+    MemWriter<vector<uint8_t>> writer(data);
     WriteVarUint(writer, 3U);                   //  0
     writer.Write("abc", 3);                     //  1
     WriteVarUint(writer, longStringSize);       //  4

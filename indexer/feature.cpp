@@ -109,13 +109,17 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
   return -1;
 }
 
-uint32_t CalcOffset(ArrayByteSource const & source, char const * start)
+uint32_t CalcOffset(ArrayByteSource const & source, uint8_t const * start)
 {
-  ASSERT_GREATER_OR_EQUAL(source.PtrC(), start, ());
-  return static_cast<uint32_t>(distance(start, source.PtrC()));
+  ASSERT_GREATER_OR_EQUAL(source.PtrUint8(), start, ());
+  return static_cast<uint32_t>(distance(start, source.PtrUint8()));
 }
 
-uint8_t Header(vector<char> const & data) { return static_cast<uint8_t>(data[0]); }
+uint8_t Header(vector<uint8_t> const & data)
+{
+ CHECK(!data.empty(), ());
+ return data[0];
+}
 
 void ReadOffsets(SharedLoadInfo const & loadInfo, ArrayByteSource & src, uint8_t mask,
                  FeatureType::GeometryOffsets & offsets)
@@ -138,11 +142,11 @@ void ReadOffsets(SharedLoadInfo const & loadInfo, ArrayByteSource & src, uint8_t
 
 class BitSource
 {
-  char const * m_ptr;
+  uint8_t const * m_ptr;
   uint8_t m_pos;
 
 public:
-  explicit BitSource(char const * p) : m_ptr(p), m_pos(0) {}
+  explicit BitSource(uint8_t const * p) : m_ptr(p), m_pos(0) {}
 
   uint8_t Read(uint8_t count)
   {
@@ -163,7 +167,7 @@ public:
     return v;
   }
 
-  char const * RoundPtr()
+  uint8_t const * RoundPtr()
   {
     if (m_pos > 0)
     {
@@ -181,8 +185,8 @@ uint8_t ReadByte(TSource & src)
 }
 }  // namespace
 
-FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<char> && buffer)
-  : m_data(buffer), m_loadInfo(loadInfo)
+FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer)
+  : m_loadInfo(loadInfo), m_data(buffer)
 {
   CHECK(m_loadInfo, ());
   m_header = Header(m_data);
@@ -368,9 +372,9 @@ void FeatureType::ParseHeader2()
         m_ptsSimpMask += (mask << (i << 3));
       }
 
-      char const * start = src.PtrC();
+      auto const * start = src.PtrUint8();
       src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_points));
-      m_innerStats.m_points = static_cast<uint32_t>(src.PtrC() - start);
+      m_innerStats.m_points = static_cast<uint32_t>(src.PtrUint8() - start);
     }
     else
     {
@@ -384,7 +388,7 @@ void FeatureType::ParseHeader2()
     {
       trgCount += 2;
 
-      char const * start = static_cast<char const *>(src.PtrC());
+      auto const * start = src.PtrUint8();
       src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, m_triangles));
       m_innerStats.m_strips = CalcOffset(src, start);
     }
