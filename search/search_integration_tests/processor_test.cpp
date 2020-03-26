@@ -2540,6 +2540,8 @@ UNIT_CLASS_TEST(ProcessorTest, ViewportFilter)
 
 UNIT_CLASS_TEST(ProcessorTest, FilterStreetPredictions)
 {
+  TestCity smallCity(m2::PointD(3.0, 0.0), "SmallCity", "en", 1 /* rank */);
+
   TestStreet lenina0({m2::PointD(0.0, -1.0), m2::PointD(0.0, 1.0)}, "Lenina", "en");
   TestStreet lenina1({m2::PointD(1.0, -1.0), m2::PointD(1.0, 1.0)}, "Lenina", "en");
   TestStreet lenina2({m2::PointD(2.0, -1.0), m2::PointD(2.0, 1.0)}, "Lenina", "en");
@@ -2551,6 +2553,8 @@ UNIT_CLASS_TEST(ProcessorTest, FilterStreetPredictions)
     builder.Add(lenina2);
     builder.Add(lenina3);
   });
+
+  BuildWorld([&](TestMwmBuilder & builder) { builder.Add(smallCity); });
 
   SearchParams defaultParams;
   defaultParams.m_query = "Lenina";
@@ -2612,6 +2616,19 @@ UNIT_CLASS_TEST(ProcessorTest, FilterStreetPredictions)
     params.m_streetSearchRadiusM =
         mercator::DistanceOnEarth(params.m_viewport.Center(), m2::PointD(1.0, 0.0)) - 1.0;
     params.m_position = m2::PointD(3.0, 0.0);
+
+    TestSearchRequest request(m_engine, params);
+    request.Run();
+    TEST(ResultsMatch(request.Results(), rules), ());
+  }
+
+  {
+    Rules const rules = {ExactMatch(countryId, lenina0), ExactMatch(countryId, lenina3)};
+
+    auto params = defaultParams;
+    params.m_streetSearchRadiusM =
+        mercator::DistanceOnEarth(params.m_viewport.Center(), m2::PointD(1.0, 0.0)) - 1.0;
+    params.m_query = "SmallCity Lenina";
 
     TestSearchRequest request(m_engine, params);
     request.Run();
