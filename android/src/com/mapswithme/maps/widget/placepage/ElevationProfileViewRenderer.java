@@ -20,6 +20,7 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
 {
   // Must be correspond to map/elevation_info.hpp constants.
   private static final int MAX_DIFFICULTY_LEVEL = 3;
+  private static final int UNKNOWN_DIFFICULTY = 0;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -107,7 +108,7 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     for (View levelView : mDifficultyLevels)
       levelView.setEnabled(false);
 
-    boolean invalidDifficulty = level > MAX_DIFFICULTY_LEVEL;
+    boolean invalidDifficulty = level > MAX_DIFFICULTY_LEVEL || level == UNKNOWN_DIFFICULTY;
     UiUtils.hideIf(invalidDifficulty, mDifficultyContainer);
     UiUtils.hideIf(invalidDifficulty, mMediumDivider);
 
