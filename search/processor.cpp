@@ -730,6 +730,7 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   geocoderParams.m_preferredTypes = m_preferredTypes;
   geocoderParams.m_tracer = searchParams.m_tracer;
   geocoderParams.m_streetSearchRadiusM = searchParams.m_streetSearchRadiusM;
+  geocoderParams.m_villageSearchRadiusM = searchParams.m_villageSearchRadiusM;
 
   m_geocoder.SetParams(geocoderParams);
 }

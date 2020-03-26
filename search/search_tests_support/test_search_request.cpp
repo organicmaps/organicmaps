@@ -26,6 +26,7 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   m_params.m_viewport = viewport;
   m_params.m_mode = mode;
   m_params.m_streetSearchRadiusM = kDefaultTestStreetSearchRadiusM;
+  m_params.m_villageSearchRadiusM = kDefaultTestVillageSearchRadiusM;
   SetUpCallbacks();
   SetUpResultParams();
 }
@@ -49,6 +50,7 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   m_params.m_onStarted = onStarted;
   m_params.m_onResults = onResults;
   m_params.m_streetSearchRadiusM = kDefaultTestStreetSearchRadiusM;
+  m_params.m_villageSearchRadiusM = kDefaultTestVillageSearchRadiusM;
   SetUpResultParams();
 }
 

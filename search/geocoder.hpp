@@ -93,6 +93,7 @@ public:
     std::vector<uint32_t> m_preferredTypes;
     std::shared_ptr<Tracer> m_tracer;
     double m_streetSearchRadiusM = 0.0;
+    double m_villageSearchRadiusM = 0.0;
   };
 
   Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
@@ -285,7 +286,8 @@ private:
 
   ExtendedMwmInfos::ExtendedMwmInfo GetExtendedMwmInfo(
       std::shared_ptr<MwmInfo> const & info, bool inViewport,
-      std::function<bool(std::shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedCity) const;
+      std::function<bool(std::shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedCity,
+      std::function<bool(std::shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedState) const;
 
   // Reorders maps in a way that prefix consists of "best" maps to search and suffix consists of all
   // other maps ordered by minimum distance from pivot. Returns ExtendedMwmInfos structure which

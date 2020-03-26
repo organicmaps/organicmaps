@@ -43,6 +43,7 @@ public:
     bool m_viewportIntersected = false;
     bool m_containsUserPosition = false;
     bool m_containsMatchedCity = false;
+    bool m_containsMatchedState = false;
   };
 
   explicit MwmContext(MwmSet::MwmHandle handle);

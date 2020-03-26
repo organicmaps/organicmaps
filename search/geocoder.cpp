@@ -424,7 +424,8 @@ void Geocoder::SetParamsForCategorialSearch(Params const & params)
 
 Geocoder::ExtendedMwmInfos::ExtendedMwmInfo Geocoder::GetExtendedMwmInfo(
     shared_ptr<MwmInfo> const & info, bool inViewport,
-    function<bool(shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedCity) const
+    function<bool(shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedCity,
+    function<bool(shared_ptr<MwmInfo> const &)> const & isMwmWithMatchedState) const
 {
   ExtendedMwmInfos::ExtendedMwmInfo extendedInfo;
   extendedInfo.m_info = info;
@@ -434,6 +435,7 @@ Geocoder::ExtendedMwmInfos::ExtendedMwmInfo Geocoder::GetExtendedMwmInfo(
   extendedInfo.m_type.m_containsUserPosition =
       m_params.m_position && rect.IsPointInside(*m_params.m_position);
   extendedInfo.m_type.m_containsMatchedCity = isMwmWithMatchedCity(info);
+  extendedInfo.m_type.m_containsMatchedState = isMwmWithMatchedState(info);
 
   extendedInfo.m_similarity = GetSimilarity(m_params.m_pivot, rect);
   if (!inViewport && extendedInfo.m_type.m_containsUserPosition)
@@ -447,6 +449,7 @@ Geocoder::ExtendedMwmInfos Geocoder::OrderCountries(bool inViewport,
                                                     vector<shared_ptr<MwmInfo>> const & infos)
 {
   set<storage::CountryId> mwmsWithCities;
+  set<storage::CountryId> mwmsWithStates;
   if (!inViewport)
   {
     for (auto const & p : m_cities)
@@ -454,15 +457,26 @@ Geocoder::ExtendedMwmInfos Geocoder::OrderCountries(bool inViewport,
       for (auto const & city : p.second)
         mwmsWithCities.insert(m_infoGetter.GetRegionCountryId(city.m_rect.Center()));
     }
+    for (auto const & p : m_regions[Region::TYPE_STATE])
+    {
+      for (auto const & state : p.second)
+      {
+        mwmsWithStates.insert(m_infoGetter.GetRegionCountryId(state.m_center));
+      }
+    }
   }
 
   ExtendedMwmInfos res;
   res.m_infos.reserve(infos.size());
+  auto const hasMatchedCity = [&mwmsWithCities](auto const & i) {
+    return mwmsWithCities.count(i->GetCountryName()) != 0;
+  };
+  auto const hasMatchedState = [&mwmsWithStates](auto const & i) {
+    return mwmsWithStates.count(i->GetCountryName()) != 0;
+  };
   for (auto const & info : infos)
   {
-    res.m_infos.push_back(GetExtendedMwmInfo(info, inViewport, [&mwmsWithCities](auto const & i) {
-      return mwmsWithCities.count(i->GetCountryName()) != 0;
-    }));
+    res.m_infos.push_back(GetExtendedMwmInfo(info, inViewport, hasMatchedCity, hasMatchedState));
   }
   sort(res.m_infos.begin(), res.m_infos.end());
 
@@ -766,8 +780,24 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     if (m_model.GetType(*ft) != Model::TYPE_VILLAGE)
       continue;
 
-    // We accept lines and areas as village features.
-    auto const center = feature::GetCenter(*ft);
+    m2::PointD center;
+    // m_context->GetCenter is faster but may not work for editor created features.
+    if (!m_context->GetCenter(l.m_featureId, center))
+      center = feature::GetCenter(*ft);
+
+    vector<m2::PointD> pivotPoints = {m_params.m_pivot.Center()};
+    if (m_params.m_position)
+      pivotPoints.push_back(*m_params.m_position);
+    auto const mwmType = m_context->GetType();
+    CHECK(mwmType, ());
+    if (!mwmType->m_containsMatchedState &&
+        !any_of(pivotPoints.begin(), pivotPoints.end(), [&](auto const & p) {
+          return mercator::DistanceOnEarth(center, p) <= m_params.m_villageSearchRadiusM;
+        }))
+    {
+      continue;
+    }
+
     ++numVillages;
     City village(l, Model::TYPE_VILLAGE);
 
