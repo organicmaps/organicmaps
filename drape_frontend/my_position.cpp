@@ -170,7 +170,7 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
     glsl::vec2 normal = glsl::rotate(startNormal, i * etalonSector);
     glsl::vec2 nextNormal = glsl::rotate(startNormal, (i + 1) * etalonSector);
 
-    buffer.emplace_back(startNormal, colorCoord);
+    buffer.emplace_back(glsl::vec2(0.0f, 0.0f), colorCoord);
     buffer.emplace_back(normal, colorCoord);
     buffer.emplace_back(nextNormal, colorCoord);
   }

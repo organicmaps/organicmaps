@@ -24,6 +24,7 @@ namespace df
 {
 namespace
 {
+std::string const kTrackSelectedSymbolName = "track_marker_selected";
 df::ColorConstant const kSelectionColor = "Selection";
 double const kPointEqualityEps = 1e-7;
 float const kLeftSide = 1.0f;
@@ -138,7 +139,7 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionMarker(ref_ptr<d
     auto const normal = glsl::rotate(startNormal, i * etalonSector);
     auto const nextNormal = glsl::rotate(startNormal, (i + 1) * etalonSector);
 
-    buffer.emplace_back(startNormal, colorCoord);
+    buffer.emplace_back(glsl::vec2(0.0f, 0.0f), colorCoord);
     buffer.emplace_back(normal, colorCoord);
     buffer.emplace_back(nextNormal, colorCoord);
   }
@@ -164,6 +165,51 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionMarker(ref_ptr<d
 
     batcher.InsertTriangleList(context, state, make_ref(&provider), nullptr);
   }
+  return renderNode;
+}
+
+// static
+drape_ptr<RenderNode> SelectionShapeGenerator::GenerateTrackSelectionMarker(
+    ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
+{
+  dp::TextureManager::SymbolRegion region;
+  mng->GetSymbolRegion(kTrackSelectedSymbolName, region);
+  m2::RectF const & texRect = region.GetTexRect();
+  m2::PointF const pxSize = region.GetPixelSize();
+  float const halfWidth = 0.5f * pxSize.x;
+  float const halfHeight = 0.5f * pxSize.y;
+
+  size_t constexpr kVertexCount = 4;
+  buffer_vector<MarkerVertex, kVertexCount> buffer;
+  buffer.emplace_back(glsl::vec2(-halfWidth, halfHeight), glsl::ToVec2(texRect.LeftTop()));
+  buffer.emplace_back(glsl::vec2(-halfWidth, -halfHeight), glsl::ToVec2(texRect.LeftBottom()));
+  buffer.emplace_back(glsl::vec2(halfWidth, halfHeight), glsl::ToVec2(texRect.RightTop()));
+  buffer.emplace_back(glsl::vec2(halfWidth, -halfHeight), glsl::ToVec2(texRect.RightBottom()));
+
+  auto state = CreateRenderState(gpu::Program::Accuracy, DepthLayer::OverlayLayer);
+  state.SetColorTexture(region.GetTexture());
+  state.SetDepthTestEnabled(false);
+  state.SetTextureFilter(dp::TextureFilter::Nearest);
+  state.SetTextureIndex(region.GetTextureIndex());
+
+  drape_ptr<RenderNode> renderNode;
+  {
+    dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
+    batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
+    dp::SessionGuard guard(context, batcher, [&renderNode](dp::RenderState const & state,
+                                                           drape_ptr<dp::RenderBucket> && b)
+    {
+      drape_ptr<dp::RenderBucket> bucket = std::move(b);
+      ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
+      renderNode = make_unique_dp<RenderNode>(state, bucket->MoveBuffer());
+    });
+
+    dp::AttributeProvider provider(1 /* stream count */, kVertexCount);
+    provider.InitStream(0 /* stream index */, GetMarkerBindingInfo(), make_ref(buffer.data()));
+
+    batcher.InsertTriangleStrip(context, state, make_ref(&provider), nullptr);
+  }
+
   return renderNode;
 }
 

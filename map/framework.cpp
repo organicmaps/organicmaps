@@ -1127,7 +1127,8 @@ void Framework::ShowBookmark(Bookmark const * mark)
 
 void Framework::ShowTrack(kml::TrackId trackId)
 {
-  auto const track = GetBookmarkManager().GetTrack(trackId);
+  auto & bm = GetBookmarkManager();
+  auto const track = bm.GetTrack(trackId);
   if (track == nullptr)
     return;
 
@@ -1138,12 +1139,13 @@ void Framework::ShowTrack(kml::TrackId trackId)
   ShowRect(rect);
 
   if (track->IsInteractive())
-    GetBookmarkManager().ShowDefaultTrackInfo(trackId);
+    bm.SetDefaultTrackSelection(trackId, true /* showInfoSign */);
 }
 
 void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation)
 {
-  auto rect = GetBookmarkManager().GetCategoryRect(categoryId);
+  auto & bm = GetBookmarkManager();
+  auto rect = bm.GetCategoryRect(categoryId);
   if (!rect.IsValid())
     return;
 
@@ -1151,6 +1153,15 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
 
   StopLocationFollow();
   ShowRect(rect, -1 /* maxScale */, animation);
+
+  auto const trackIds = bm.GetTrackIds(categoryId);
+  for (auto trackId : trackIds)
+  {
+    if (!bm.GetTrack(trackId)->IsInteractive())
+      continue;
+    bm.SetDefaultTrackSelection(trackId, true /* showInfoSign */);
+    break;
+  }
 }
 
 void Framework::ShowFeature(FeatureID const & featureId)
@@ -2380,6 +2391,9 @@ void Framework::ActivateMapSelection(std::optional<place_page::Info> const & inf
   if (!info)
     return;
 
+  if (info->GetSelectedObject() == df::SelectionShape::OBJECT_TRACK)
+    GetBookmarkManager().OnTrackSelected(info->GetTrackId());
+
   CHECK_NOT_EQUAL(info->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   if (m_drapeEngine != nullptr)
   {
@@ -2406,8 +2420,14 @@ void Framework::DeactivateMapSelection(bool notifyUI)
 
   m_currentPlacePageInfo = {};
 
-  if (somethingWasAlreadySelected && m_drapeEngine != nullptr)
-    m_drapeEngine->DeselectObject();
+  if (somethingWasAlreadySelected)
+  {
+    if (m_currentPlacePageInfo->GetSelectedObject() == df::SelectionShape::OBJECT_TRACK)
+      GetBookmarkManager().OnTrackDeselected(m_currentPlacePageInfo->GetTrackId());
+
+    if (m_drapeEngine != nullptr)
+      m_drapeEngine->DeselectObject();
+  }
 
   SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION, false /* show */);
 }
@@ -2556,8 +2576,7 @@ void Framework::BuildTrackPlacePage(BookmarkManager::TrackSelectionInfo const & 
   info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   auto const & track = *GetBookmarkManager().GetTrack(trackSelectionInfo.m_trackId);
   FillTrackInfo(track, trackSelectionInfo.m_trackPoint, info);
-  GetBookmarkManager().SelectTrack(trackSelectionInfo, true /* notifyListeners */);
-  GetBookmarkManager().HideTrackInfo(trackSelectionInfo.m_trackId);
+  GetBookmarkManager().SetTrackSelectionInfo(trackSelectionInfo, true /* notifyListeners */);
 }
 
 std::optional<place_page::Info> Framework::BuildPlacePageInfo(

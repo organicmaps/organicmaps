@@ -485,11 +485,10 @@ public:
                                       TracksFilter const & tracksFilter = nullptr) const;
   TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
 
-  void SelectTrack(TrackSelectionInfo const & trackSelectionInfo, bool notifyListeners);
-  void DeselectTrack(kml::TrackId trackId);
-
-  void ShowDefaultTrackInfo(kml::TrackId trackId);
-  void HideTrackInfo(kml::TrackId trackId);
+  void SetTrackSelectionInfo(TrackSelectionInfo const & trackSelectionInfo, bool notifyListeners);
+  void SetDefaultTrackSelection(kml::TrackId trackId, bool showInfoSign);
+  void OnTrackSelected(kml::TrackId trackId);
+  void OnTrackDeselected(kml::TrackId trackId);
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider

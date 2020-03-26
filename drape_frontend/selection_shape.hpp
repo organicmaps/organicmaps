@@ -63,6 +63,7 @@ private:
   ESelectedObject m_selectedObject;
 
   drape_ptr<RenderNode> m_renderNode;
+  drape_ptr<RenderNode> m_trackRenderNode;
   ValueMapping<float> m_mapping;
 
   std::vector<drape_ptr<RenderNode>> m_selectionGeometry;
