@@ -34,7 +34,9 @@ void Load(Info & info)
 
   std::vector<int8_t> infoFileData;
   std::vector<int8_t> mapObjectsFileData;
-  if (!Storage::LoadInfo(infoFileData) && !Storage::LoadMapObjects(mapObjectsFileData))
+  auto const isInfoLoaded = Storage::LoadInfo(infoFileData);
+  auto const isMapObjectsLoaded = Storage::LoadMapObjects(mapObjectsFileData);
+  if (!isInfoLoaded && !isMapObjectsLoaded)
   {
     info = {};
     return;
