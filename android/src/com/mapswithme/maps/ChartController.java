@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.MarkerView;
@@ -44,6 +43,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   private static final int CHART_X_LABEL_COUNT = 6;
   private static final int CHART_ANIMATION_DURATION = 1500;
   private static final int CHART_FILL_ALPHA = (int) (0.12 * 255);
+  private static final int CHART_AXIS_GRANULARITY = 100;
   private static final float CUBIC_INTENSITY = 0.2f;
   private static final int CURRENT_POSITION_OUT_OF_TRACK = -1;
 
@@ -93,9 +93,8 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     mChart.setTouchEnabled(true);
     mChart.setOnChartValueSelectedListener(this);
     mChart.setDrawGridBackground(false);
-    mChart.setDragEnabled(true);
-    mChart.setScaleEnabled(true);
-    mChart.setPinchZoom(true);
+    mChart.setScaleXEnabled(true);
+    mChart.setScaleYEnabled(false);
     mChart.setExtraTopOffset(0);
     int sideOffset = resources.getDimensionPixelSize(R.dimen.margin_base);
     int topOffset = 0;
@@ -125,13 +124,14 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   {
     XAxis x = mChart.getXAxis();
     x.setLabelCount(CHART_X_LABEL_COUNT, false);
-    x.setAvoidFirstLastClipping(true);
     x.setDrawGridLines(false);
+    x.setGranularity(CHART_AXIS_GRANULARITY);
+    x.setGranularityEnabled(true);
     x.setTextColor(ThemeUtils.getColor(mContext, R.attr.elevationProfileAxisLabelColor));
     x.setPosition(XAxis.XAxisPosition.BOTTOM);
     x.setAxisLineColor(ThemeUtils.getColor(mContext, R.attr.dividerHorizontal));
     x.setAxisLineWidth(mContext.getResources().getDimensionPixelSize(R.dimen.divider_height));
-    ValueFormatter xAxisFormatter = new AxisValueFormatter();
+    ValueFormatter xAxisFormatter = new AxisValueFormatter(mChart);
     x.setValueFormatter(xAxisFormatter);
 
     YAxis y = mChart.getAxisLeft();
