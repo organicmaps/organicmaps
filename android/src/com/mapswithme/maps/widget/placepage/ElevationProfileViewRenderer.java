@@ -1,7 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import android.annotation.SuppressLint;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -9,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.ChartController;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.ElevationInfo;
 import com.mapswithme.maps.routing.RoutingController;
@@ -57,24 +56,27 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   @NonNull
   private View mMediumDivider;
 
-  @SuppressLint("SetTextI18n")
   @Override
   public void render(@NonNull PlacePageData data)
   {
     mElevationInfo = (ElevationInfo) data;
     mChartController.setData(mElevationInfo);
-    Resources resources = mTitle.getResources();
-    String meters = " " + resources.getString(R.string.elevation_profile_m);
     mTitle.setText(mElevationInfo.getName());
     setDifficulty(mElevationInfo.getDifficulty());
-    mAscent.setText(mElevationInfo.getAscent() + meters);
-    mDescent.setText(mElevationInfo.getDescent() +  meters);
-    mMaxAltitude.setText(mElevationInfo.getMaxAltitude() + meters);
-    mMinAltitude.setText(mElevationInfo.getMinAltitude() + meters);
+    mAscent.setText(formatDistance(mElevationInfo.getAscent()));
+    mDescent.setText(formatDistance(mElevationInfo.getDescent()));
+    mMaxAltitude.setText(formatDistance(mElevationInfo.getMaxAltitude()));
+    mMinAltitude.setText(formatDistance(mElevationInfo.getMinAltitude()));
     UiUtils.hideIf(mElevationInfo.getDuration() == 0, mTimeContainer);
     mTime.setText(RoutingController.formatRoutingTime(mTitle.getContext(),
                                                       (int) mElevationInfo.getDuration(),
                                                       R.dimen.text_size_body_2));
+  }
+
+  @NonNull
+  private static String formatDistance(int distance)
+  {
+    return Framework.nativeFormatAltitude(distance);
   }
 
   @Override

@@ -12,6 +12,7 @@ import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.StringUtils;
 
@@ -135,7 +136,7 @@ public class FloatingMarkerView extends MarkerView
   {
     mDistanceTextView.setText(R.string.elevation_profile_distance);
     mDistanceValueView.setText(StringUtils.nativeFormatDistance(entry.getX()));
-    mAltitudeView.setText(StringUtils.nativeFormatDistance(entry.getY()));
+    mAltitudeView.setText(Framework.nativeFormatAltitude(entry.getY()));
   }
 
   private void updateHorizontal(@NonNull Highlight highlight)

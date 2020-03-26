@@ -25,7 +25,6 @@ import com.mapswithme.maps.bookmarks.data.ElevationInfo;
 import com.mapswithme.maps.widget.placepage.AxisValueFormatter;
 import com.mapswithme.maps.widget.placepage.CurrentLocationMarkerView;
 import com.mapswithme.maps.widget.placepage.FloatingMarkerView;
-import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.Utils;
 
@@ -178,8 +177,8 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     mChart.setData(data);
     mChart.animateX(CHART_ANIMATION_DURATION);
 
-    mMinAltitude.setText(StringUtils.nativeFormatDistance(info.getMinAltitude()));
-    mMaxAltitude.setText(StringUtils.nativeFormatDistance(info.getMaxAltitude()));
+    mMinAltitude.setText(Framework.nativeFormatAltitude(info.getMinAltitude()));
+    mMaxAltitude.setText(Framework.nativeFormatAltitude(info.getMaxAltitude()));
 
     highlightActivePointManually();
   }
