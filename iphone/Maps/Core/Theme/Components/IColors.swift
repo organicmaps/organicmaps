@@ -45,6 +45,7 @@ let alpha100: CGFloat = 1.0
   var toastBackground: UIColor { get }
   var statusBarBackground: UIColor { get }
   var bannerBackground: UIColor { get }
+  var searchPromoBackground: UIColor { get }
   var border: UIColor { get }
   var discountBackground: UIColor { get }
   var discountText: UIColor { get }

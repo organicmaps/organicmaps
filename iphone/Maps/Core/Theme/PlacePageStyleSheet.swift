@@ -10,6 +10,16 @@ class PlacePageStyleSheet: IStyleSheet {
       s.cornerRadius = 10
     }
 
+    theme.add(styleName: "PPActionBarTitle") { (s) -> (Void) in
+      s.font = fonts.regular10
+      s.fontColor = colors.blackSecondaryText
+    }
+
+    theme.add(styleName: "PPActionBarTitlePartner") { (s) -> (Void) in
+      s.font = fonts.regular10
+      s.fontColor = UIColor.white
+    }
+
     theme.add(styleName: "ElevationProfileDescriptionCell") { (s) -> (Void) in
       s.backgroundColor = colors.blackOpaque
       s.cornerRadius = 6

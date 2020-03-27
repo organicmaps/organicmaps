@@ -1876,7 +1876,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="sw2-Oa-u57" firstAttribute="leading" secondItem="Uvb-Ju-e8X" secondAttribute="leading" id="8FR-ww-mC8"/>
                                             <constraint firstItem="Yw5-Jp-V9B" firstAttribute="leading" secondItem="sw2-Oa-u57" secondAttribute="trailing" constant="4" id="9Jg-oZ-8n0"/>
@@ -1947,6 +1947,9 @@
                             <constraint firstItem="EVy-Wt-5En" firstAttribute="centerY" secondItem="2IW-oU-HLV" secondAttribute="centerY" id="z1m-zE-Bbt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PcM-qb-4Kv"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="cwY-CP-54a" appends="YES" id="vMU-0Y-skz"/>
                         </connections>
@@ -3170,7 +3173,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="dNa-uo-9Ny" secondAttribute="trailing" id="HA6-5J-Ku5"/>
                                             <constraint firstAttribute="bottom" secondItem="cWv-35-rjm" secondAttribute="bottom" id="Hbq-1N-RQG"/>
@@ -3214,6 +3217,9 @@
                             <constraint firstItem="lIJ-bh-coX" firstAttribute="top" secondItem="Bn7-Ag-wuu" secondAttribute="top" constant="12" id="tpq-hf-4gG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hQb-fZ-zig"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="100"/>
                     <connections>

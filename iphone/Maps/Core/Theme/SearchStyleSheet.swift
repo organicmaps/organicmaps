@@ -5,11 +5,11 @@ class SearchStyleSheet: IStyleSheet {
       s.clip = true
       s.font = fonts.medium12
       s.fontColor = colors.blackSecondaryText
-      s.backgroundColor = colors.bannerBackground
+      s.backgroundColor = colors.searchPromoBackground
     }
 
     theme.add(styleName: "SearchBanner") { (s) -> (Void) in
-      s.backgroundColor = colors.bannerBackground
+      s.backgroundColor = colors.searchPromoBackground
     }
 
     theme.add(styleName: "SearchClosedBackground") { (s) -> (Void) in
@@ -105,7 +105,7 @@ class SearchStyleSheet: IStyleSheet {
     }
 
     theme.add(styleName: "SearchCellAds", from: "TableCell") { (s) -> (Void) in
-      s.backgroundColor = colors.bannerBackground
+      s.backgroundColor = colors.searchPromoBackground
     }
 
     theme.add(styleName: "SearchCellAvaliable", from: "TableCell") { (s) -> (Void) in
