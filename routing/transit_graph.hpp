@@ -71,7 +71,7 @@ private:
 
   NumMwmId const m_mwmId = kFakeNumMwmId;
   std::shared_ptr<EdgeEstimator> m_estimator;
-  FakeGraph<Segment, FakeVertex> m_fake;
+  FakeGraph m_fake;
   std::map<Segment, transit::Edge> m_segmentToEdge;
   std::map<Segment, transit::Gate> m_segmentToGate;
   std::map<transit::LineId, double> m_transferPenalties;

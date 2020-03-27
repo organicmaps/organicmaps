@@ -44,6 +44,7 @@ set(
   fake_ending.hpp
   fake_feature_ids.cpp
   fake_feature_ids.hpp
+  fake_graph.cpp
   fake_graph.hpp
   fake_vertex.hpp
   features_road_graph.cpp

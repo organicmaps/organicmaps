@@ -254,7 +254,7 @@ private:
   // Finish segment id
   Ending m_finish;
   double m_startToFinishDistanceM;
-  FakeGraph<Segment, FakeVertex> m_fake;
+  FakeGraph m_fake;
   GuidesGraph m_guides;
   uint32_t m_fakeNumerationStart;
 

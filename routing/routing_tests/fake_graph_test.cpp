@@ -1,12 +1,12 @@
+#include "routing/fake_graph.hpp"
+
 #include "testing/testing.hpp"
 
 #include "routing/fake_feature_ids.hpp"
-#include "routing/fake_graph.hpp"
+#include "routing/latlon_with_altitude.hpp"
 #include "routing/segment.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
-
-#include "geometry/point2d.hpp"
 
 #include <cstdint>
 #include <set>
@@ -24,14 +24,22 @@ Segment GetSegment(uint32_t segmentIdx, bool isReal = false)
     return Segment(0 /* mwmId */, 0 /* featureId */, segmentIdx, true /* isForward */);
   return Segment(kFakeNumMwmId, kFakeFeatureId, segmentIdx, true /* isForward */);
 }
-// Constructs simple fake graph where vertex (i + 1) is child of vertex (i) with |numFake| fake
-// vertices and |numReal| real vertices. Checks vetex-to-segment, segment-to-vertex, fake-to-real,
-// real-to-fake mappings for each vertex. Checks ingoing and outgoing sets.
-FakeGraph<Segment /* SegmentType */, m2::PointD /* VertexType */>
-ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_t numReal)
-{
-  FakeGraph<Segment, m2::PointD> fakeGraph;
 
+FakeVertex GetFakeVertex(uint32_t index)
+{
+  auto const indexCoord = static_cast<double>(index);
+  LatLonWithAltitude const coord({indexCoord, indexCoord}, 0 /* altitude */);
+  //  FakeVertex(NumMwmId numMwmId, LatLonWithAltitude const & from,
+  //             LatLonWithAltitude const & to, Type type)
+  return FakeVertex(0 /* mwmId */, coord, coord, FakeVertex::Type::PureFake);
+}
+
+// Constructs simple fake graph where vertex (i + 1) is child of vertex (i) with |numFake| fake
+// vertices and |numReal| real vertices. Checks vertex-to-segment, segment-to-vertex, fake-to-real,
+// real-to-fake mappings for each vertex. Checks ingoing and outgoing sets.
+FakeGraph ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_t numReal)
+{
+  FakeGraph fakeGraph;
   TEST_EQUAL(fakeGraph.GetSize(), 0, ("Constructed fake graph not empty"));
   if (numFake < 1)
   {
@@ -41,7 +49,7 @@ ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_t numReal)
   }
 
   auto const startSegment = GetSegment(numerationStart);
-  m2::PointD const startVertex(numerationStart, numerationStart);
+  auto const startVertex = GetFakeVertex(numerationStart);
   fakeGraph.AddStandaloneVertex(startSegment, startVertex);
 
   // Add pure fake.
@@ -51,7 +59,7 @@ ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_t numReal)
     bool const newIsReal = prevNumber + 1 >= numerationStart + numFake;
     auto const prevSegment = GetSegment(prevNumber);
     auto const newSegment = GetSegment(prevNumber + 1);
-    m2::PointD const newVertex(prevNumber + 1, prevNumber + 1);
+    auto const newVertex = GetFakeVertex(prevNumber + 1);
     auto const realSegment = GetSegment(prevNumber + 1, true /* isReal */);
 
     fakeGraph.AddVertex(prevSegment, newSegment, newVertex, true /* isOutgoing */,
@@ -114,8 +122,10 @@ UNIT_TEST(FakeGraphTest)
     auto const segmentFrom = GetSegment(i);
     auto const segmentTo = GetSegment(i + 1);
 
-    TEST_EQUAL(fakeGraph0.GetVertex(segmentFrom), m2::PointD(i, i), ("Wrong segment to vertex mapping."));
-    TEST_EQUAL(fakeGraph0.GetVertex(segmentTo), m2::PointD(i + 1, i + 1), ("Wrong segment to vertex mapping."));
+    TEST_EQUAL(fakeGraph0.GetVertex(segmentFrom), GetFakeVertex(i),
+               ("Wrong segment to vertex mapping."));
+    TEST_EQUAL(fakeGraph0.GetVertex(segmentTo), GetFakeVertex(i + 1),
+               ("Wrong segment to vertex mapping."));
     // No connection to next fake segment; next segment was in separate fake graph before Append.
     if (i + 1 == fake0 + real0)
     {
