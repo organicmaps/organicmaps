@@ -47,6 +47,8 @@ public:
     return {};
   }
 
+  m2::PointD const & GetCenter() const { return m_center; }
+
   feature::Metadata & GetMetadata() { return m_metadata; }
 
   virtual void Serialize(feature::FeatureBuilder & fb) const;
@@ -83,6 +85,16 @@ class TestCountry : public TestFeature
 {
 public:
   TestCountry(m2::PointD const & center, std::string const & name, std::string const & lang);
+
+  // TestFeature overrides:
+  void Serialize(feature::FeatureBuilder & fb) const override;
+  std::string ToDebugString() const override;
+};
+
+class TestState : public TestFeature
+{
+public:
+  TestState(m2::PointD const & center, std::string const & name, std::string const & lang);
 
   // TestFeature overrides:
   void Serialize(feature::FeatureBuilder & fb) const override;
