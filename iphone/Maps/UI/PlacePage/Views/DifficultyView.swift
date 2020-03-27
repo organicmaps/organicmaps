@@ -6,7 +6,7 @@ class DifficultyView: UIView {
       updateView()
     }
   }
-  var colors: [UIColor] = [.green, .orange, .red]
+  var colors: [UIColor] = [.gray, .green, .orange, .red]
     {
     didSet {
       updateView()
@@ -55,7 +55,7 @@ class DifficultyView: UIView {
     }
     let fillColor = colors[difficulty.rawValue]
     for (idx, view) in views.enumerated() {
-      if idx <= difficulty.rawValue {
+      if idx < difficulty.rawValue {
         view.backgroundColor = fillColor
       } else {
         view.backgroundColor = emptyColor

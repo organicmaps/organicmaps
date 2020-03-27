@@ -1,5 +1,19 @@
 #import "ElevationProfileData+Core.h"
 
+static ElevationDifficulty convertDifficulty(uint8_t difficulty) {
+  switch (difficulty) {
+    case ElevationInfo::Difficulty::Easy:
+      return ElevationDifficulty::ElevationDifficultyEasy;
+    case ElevationInfo::Difficulty::Medium:
+      return ElevationDifficulty::ElevationDifficultyMedium;
+    case ElevationInfo::Difficulty::Hard:
+      return ElevationDifficulty::ElevationDifficultyHard;
+    case ElevationInfo::Difficulty::Unknown:
+      return ElevationDifficulty::ElevationDifficultyDisabled;
+  }
+  return ElevationDifficulty::ElevationDifficultyDisabled;
+}
+
 @implementation ElevationProfileData
 
 @end
@@ -16,7 +30,7 @@
     _descent = elevationInfo.GetDescent();
     _maxAttitude = elevationInfo.GetMaxAltitude();
     _minAttitude = elevationInfo.GetMinAltitude();
-    _difficulty = (ElevationDifficulty)elevationInfo.GetDifficulty();
+    _difficulty = convertDifficulty(elevationInfo.GetDifficulty());
     _trackTime = elevationInfo.GetDuration();
     NSMutableArray *pointsArray = [NSMutableArray array];
     for (auto const &p : elevationInfo.GetPoints()) {

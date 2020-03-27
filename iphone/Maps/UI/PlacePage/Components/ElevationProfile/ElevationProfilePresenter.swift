@@ -59,20 +59,29 @@ class ElevationProfilePresenter: NSObject {
 
 extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   func configure() {
-    view?.setDifficulty(data.difficulty)
-    view?.setTrackTime("\(data.trackTime)")
+    if data.difficulty != .disabled {
+      view?.isDifficultyHidden = false
+      view?.setDifficulty(data.difficulty)
+    } else {
+      view?.isDifficultyHidden = true
+    }
+
+    if data.trackTime != 0, let eta = DateComponentsFormatter.etaString(from: TimeInterval(data.trackTime)) {
+      view?.isTimeHidden = false
+      view?.setTrackTime("\(eta)")
+    } else {
+      view?.isTimeHidden = true
+    }
+
+    view?.isBottomPanelHidden = data.trackTime == 0 && data.difficulty == .disabled
+    view?.isExtendedDifficultyLabelHidden = true
+
     let presentationData = ChartPresentationData(chartData,
                                                  formatter: formatter,
                                                  useFilter: true)
     view?.setChartData(presentationData)
     view?.setActivePoint(data.activePoint)
     view?.setMyPosition(data.myPosition)
-//    if let extendedDifficultyGrade = data.extendedDifficultyGrade {
-//      view?.isExtendedDifficultyLabelHidden = false
-//      view?.setExtendedDifficultyGrade(extendedDifficultyGrade)
-//    } else {
-      view?.isExtendedDifficultyLabelHidden = true
-//    }
 
     MWMBookmarksManager.shared().setElevationActivePointChanged(data.trackId) { [weak self] distance in
       self?.view?.setActivePoint(distance)

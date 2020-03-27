@@ -4,8 +4,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, ElevationDifficulty) {
+  ElevationDifficultyDisabled,
   ElevationDifficultyEasy,
-  ElevationDifficultyModerate,
+  ElevationDifficultyMedium,
   ElevationDifficultyHard
 };
 
@@ -18,8 +19,6 @@ typedef NS_ENUM(NSInteger, ElevationDifficulty) {
 @property(nonatomic, readonly) NSUInteger minAttitude;
 @property(nonatomic, readonly) ElevationDifficulty difficulty;
 @property(nonatomic, readonly) NSUInteger trackTime;
-//@property(nonatomic, readonly, nullable) NSString *extendedDifficultyGrade;
-//@property(nonatomic, readonly, nullable) NSString *extendedDifficultyDescription;
 @property(nonatomic, readonly) NSArray<ElevationHeightPoint *> *points;
 @property(nonatomic, readonly) double activePoint;
 @property(nonatomic, readonly) double myPosition;

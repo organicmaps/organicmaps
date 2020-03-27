@@ -3143,11 +3143,14 @@
                     <connections>
                         <outlet property="chartView" destination="jIS-0e-Ztd" id="KHY-Bn-Pe6"/>
                         <outlet property="descriptionCollectionView" destination="Xc9-ED-V4K" id="dHB-dH-HYE"/>
+                        <outlet property="difficultyTitle" destination="FIo-No-CbK" id="Rbh-8b-zK9"/>
                         <outlet property="difficultyView" destination="bc9-z0-p88" id="p5u-Au-7i2"/>
+                        <outlet property="diffucultyConstraint" destination="vaG-aV-kw5" id="t7C-va-ntM"/>
                         <outlet property="extendedDifficultyGradeLabel" destination="GPk-XR-oL1" id="SpR-XZ-6ou"/>
                         <outlet property="extendedGradeButton" destination="g6D-fD-0Ug" id="8br-bF-NqA"/>
                         <outlet property="graphViewContainer" destination="jKi-gT-ZfM" id="SUq-a3-G5F"/>
                         <outlet property="trackTimeLabel" destination="dQJ-fW-QVh" id="LxB-Xa-NrL"/>
+                        <outlet property="trackTimeTitle" destination="hoy-lg-Wl9" id="Eed-Ul-Fd6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfQ-ai-TWx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

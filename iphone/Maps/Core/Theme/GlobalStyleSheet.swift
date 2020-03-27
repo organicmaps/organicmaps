@@ -72,7 +72,7 @@ class GlobalStyleSheet: IStyleSheet {
     }
 
     theme.add(styleName: "DifficultyView") { (s) -> (Void) in
-      s.colors = [colors.ratingGreen, colors.ratingYellow, colors.ratingRed]
+      s.colors = [colors.blackSecondaryText, colors.ratingGreen, colors.ratingYellow, colors.ratingRed]
       s.offTintColor = colors.blackSecondaryText
       s.backgroundColor = colors.clear
     }

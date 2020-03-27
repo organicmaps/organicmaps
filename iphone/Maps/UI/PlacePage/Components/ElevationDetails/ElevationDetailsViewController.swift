@@ -45,7 +45,7 @@ extension ElevationDetailsViewController: ElevationDetailsViewProtocol {
     switch value {
     case .easy:
       difficultyLabel.text = L("elevation_profile_diff_level_easy")
-    case .moderate:
+    case .medium:
       difficultyLabel.text = L("elevation_profile_diff_level_moderate")
     case .hard:
       difficultyLabel.text = L("elevation_profile_diff_level_hard")
