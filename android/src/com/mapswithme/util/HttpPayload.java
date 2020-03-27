@@ -3,8 +3,8 @@ package com.mapswithme.util;
 import androidx.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class HttpPayload
@@ -36,8 +36,8 @@ public class HttpPayload
   {
     mMethod = method;
     mUrl = url;
-    mParams = Collections.unmodifiableList(Arrays.asList(params));
-    mHeaders = Collections.unmodifiableList(Arrays.asList(headers));
+    mParams = new ArrayList<>(Arrays.asList(params));
+    mHeaders = new ArrayList<>(Arrays.asList(headers));
     mFileKey = fileKey;
     mFilePath = filePath;
     mNeedClientAuth = needClientAuth;
