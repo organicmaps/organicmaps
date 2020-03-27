@@ -95,33 +95,33 @@ UNIT_TEST(FormatAltitude)
 {
   ScopedSettings guard;
   settings::Set(settings::kMeasurementUnits, Units::Imperial);
-  TEST_EQUAL(FormatAltitude(10000), "32808ft", ());
+  TEST_EQUAL(FormatAltitude(10000), "32808 ft", ());
   settings::Set(settings::kMeasurementUnits, Units::Metric);
-  TEST_EQUAL(FormatAltitude(5), "5m", ());
+  TEST_EQUAL(FormatAltitude(5), "5 m", ());
 }
 
 UNIT_TEST(FormatSpeedWithDeviceUnits)
 {
   {
     ScopedSettings guard(Units::Metric);
-    TEST_EQUAL(FormatSpeedWithDeviceUnits(10), "36km/h", ());
-    TEST_EQUAL(FormatSpeedWithDeviceUnits(1), "3.6km/h", ());
+    TEST_EQUAL(FormatSpeedWithDeviceUnits(10), "36 km/h", ());
+    TEST_EQUAL(FormatSpeedWithDeviceUnits(1), "3.6 km/h", ());
   }
 
   {
     ScopedSettings guard(Units::Imperial);
-    TEST_EQUAL(FormatSpeedWithDeviceUnits(10), "22mph", ());
-    TEST_EQUAL(FormatSpeedWithDeviceUnits(1), "2.2mph", ());
+    TEST_EQUAL(FormatSpeedWithDeviceUnits(10), "22 mph", ());
+    TEST_EQUAL(FormatSpeedWithDeviceUnits(1), "2.2 mph", ());
   }
 }
 
 UNIT_TEST(FormatSpeedWithUnits)
 {
-  TEST_EQUAL(FormatSpeedWithUnits(10, Units::Metric), "36km/h", ());
-  TEST_EQUAL(FormatSpeedWithUnits(1, Units::Metric), "3.6km/h", ());
+  TEST_EQUAL(FormatSpeedWithUnits(10, Units::Metric), "36 km/h", ());
+  TEST_EQUAL(FormatSpeedWithUnits(1, Units::Metric), "3.6 km/h", ());
 
-  TEST_EQUAL(FormatSpeedWithUnits(10, Units::Imperial), "22mph", ());
-  TEST_EQUAL(FormatSpeedWithUnits(1, Units::Imperial), "2.2mph", ());
+  TEST_EQUAL(FormatSpeedWithUnits(10, Units::Imperial), "22 mph", ());
+  TEST_EQUAL(FormatSpeedWithUnits(1, Units::Imperial), "2.2 mph", ());
 }
 
 UNIT_TEST(FormatSpeed)
@@ -135,8 +135,8 @@ UNIT_TEST(FormatSpeed)
 
 UNIT_TEST(FormatSpeedUnits)
 {
-  TEST_EQUAL(FormatSpeedUnits(Units::Metric), "km/h", ());
-  TEST_EQUAL(FormatSpeedUnits(Units::Imperial), "mph", ());
+  TEST_EQUAL(FormatSpeedUnits(Units::Metric), " km/h", ());
+  TEST_EQUAL(FormatSpeedUnits(Units::Imperial), " mph", ());
 }
 
 UNIT_TEST(OSMDistanceToMetersString)

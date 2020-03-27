@@ -196,8 +196,8 @@ string FormatAltitude(double altitudeInMeters)
   /// @todo Put string units resources.
   switch (units)
   {
-  case Units::Imperial: ss << MetersToFeet(altitudeInMeters) << "ft"; break;
-  case Units::Metric: ss << altitudeInMeters << "m"; break;
+  case Units::Imperial: ss << MetersToFeet(altitudeInMeters) << " ft"; break;
+  case Units::Metric: ss << altitudeInMeters << " m"; break;
   }
   return ss.str();
 }
@@ -242,8 +242,8 @@ string FormatSpeedUnits(Units units)
 {
   switch (units)
   {
-  case Units::Imperial: return "mph";
-  case Units::Metric: return "km/h";
+  case Units::Imperial: return " mph";
+  case Units::Metric: return " km/h";
   }
   UNREACHABLE();
 }
