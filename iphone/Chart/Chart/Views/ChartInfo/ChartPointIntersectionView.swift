@@ -46,39 +46,33 @@ fileprivate class CircleView: UIView {
   }
 }
 
-class ChartPointIntersectionsView: UIView {
-  fileprivate var intersectionViews: [CircleView] = []
+class ChartPointIntersectionView: UIView {
+  fileprivate var intersectionView = CircleView()
+
+  var color: UIColor = UIColor(red: 0.14, green: 0.61, blue: 0.95, alpha: 1) {
+    didSet {
+      intersectionView.color = color
+      backgroundColor = color.withAlphaComponent(0.5)
+    }
+  }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = UIColor(red: 0.14, green: 0.61, blue: 0.95, alpha: 0.5)
+    backgroundColor = color.withAlphaComponent(0.5)
     transform = CGAffineTransform.identity.scaledBy(x: 1, y: -1)
+
+    intersectionView.color = color
+    intersectionView.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+    intersectionView.center = CGPoint(x: bounds.midX, y: bounds.midY)
+    addSubview(intersectionView)
   }
 
   required init?(coder aDecoder: NSCoder) {
     fatalError()
   }
 
-  func setPoints(_ points: [ChartLineInfo]) {
-    intersectionViews.forEach { $0.removeFromSuperview() }
-    intersectionViews.removeAll()
-
-    for point in points {
-      let v = CircleView()
-      v.color = point.color
-      v.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-      v.center = CGPoint(x: bounds.midX, y: point.point.y)
-      intersectionViews.append(v)
-      addSubview(v)
-    }
-  }
-
-  func updatePoints(_ points: [ChartLineInfo]) {
-    for i in 0..<intersectionViews.count {
-      let v = intersectionViews[i]
-      let p = points[i]
-      v.center = CGPoint(x: bounds.midX, y: p.point.y)
-    }
+  func updatePoint(_ point: ChartLineInfo) {
+    intersectionView.center = CGPoint(x: bounds.midX, y: point.point.y)
   }
 }
 

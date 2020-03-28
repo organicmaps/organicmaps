@@ -25,16 +25,19 @@ public class ChartPresentationData {
   var upper = CGFloat(Int.min)
 
   func labelAt(_ point: CGFloat) -> String {
+    formatter.distanceString(from: xAxisValueAt(point))
+  }
+
+  func xAxisValueAt(_ point: CGFloat) -> Double {
     let p1 = Int(floor(point))
     let p2 = Int(ceil(point))
     let v1 = chartData.xAxisValues[p1]
     let v2 = chartData.xAxisValues[p2]
-    let value = v1 + (v2 - v1) * Double(point.truncatingRemainder(dividingBy: 1))
-    return formatter.distanceString(from: value)
+    return v1 + (v2 - v1) * Double(point.truncatingRemainder(dividingBy: 1))
   }
 
   func lineAt(_ index: Int) -> ChartPresentationLine {
-    return presentationLines[index]
+    presentationLines[index]
   }
 
   private func recalcBounds() {

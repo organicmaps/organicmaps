@@ -16,7 +16,7 @@ class ChartInfoView: UIView {
   weak var delegate: ChartInfoViewDelegate?
 
   private let pointInfoView = ChartPointInfoView()
-  private let pointsView = ChartPointIntersectionsView(frame: CGRect(x: 0, y: 0, width: 2, height: 0))
+  private let pointsView = ChartPointIntersectionView(frame: CGRect(x: 0, y: 0, width: 2, height: 0))
   private let myPositionView = ChartMyPositionView(frame: CGRect(x: 50, y: 0, width: 2, height: 0))
   private var lineInfo: ChartLineInfo?
 
@@ -26,13 +26,12 @@ class ChartInfoView: UIView {
     }
   }
 
-  var infoX: CGFloat = 0 {
-    didSet {
-      if bounds.width > 0 {
-        let x = bounds.width * infoX
-        update(x)
-        updateViews(point: lineInfo!.point)
-      }
+  private var _infoX: CGFloat = 0
+  var infoX: CGFloat {
+    get { _infoX }
+    set {
+      _infoX = newValue
+      update(bounds.width * _infoX)
     }
   }
 
@@ -68,18 +67,15 @@ class ChartInfoView: UIView {
   }
 
   func update(_ x: CGFloat? = nil) {
+    guard bounds.width > 0 else { return }
     let x = x ?? pointsView.center.x
+    _infoX = x / bounds.width
     guard let delegate = delegate,
       let (label, intersectionPoints) = delegate.chartInfoView(self, infoAtPointX: x) else { return }
     lineInfo = intersectionPoints[0]
-    self.pointsView.updatePoints(intersectionPoints)
+    pointsView.updatePoint(lineInfo!)
     pointInfoView.update(x: x, label: label, points: intersectionPoints)
     updateViews(point: lineInfo!.point)
-    let y = max(pointInfoView.frame.height / 2 + 5,
-                min(bounds.height - pointInfoView.frame.height / 2 - 5, bounds.height - lineInfo!.point.y));
-    pointInfoView.center = CGPoint(x: pointInfoView.center.x, y: y)
-    let arrowPoint = convert(CGPoint(x: 0, y: bounds.height - lineInfo!.point.y), to: pointInfoView)
-    pointInfoView.arrowY = arrowPoint.y
   }
 
   @objc func onPan(_ sender: UIPanGestureRecognizer) {
@@ -96,7 +92,6 @@ class ChartInfoView: UIView {
           return
         }
         update(x)
-        updateViews(point: lineInfo!.point)
       }
     case .ended, .cancelled, .failed:
       captured = false
@@ -105,19 +100,21 @@ class ChartInfoView: UIView {
     }
   }
 
-  func updateViews(point: CGPoint) {
+  private func updateViews(point: CGPoint) {
     pointsView.alpha = 1
     pointsView.center = CGPoint(x: point.x, y: bounds.midY)
     
     let s = pointInfoView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     pointInfoView.frame.size = s
+    let y = max(pointInfoView.frame.height / 2 + 5,
+                min(bounds.height - pointInfoView.frame.height / 2 - 5, bounds.height - lineInfo!.point.y));
     let orientationChangeX = pointInfoView.alignment == .left ? s.width + 40 : bounds.width - s.width - 40
     if point.x > orientationChangeX {
       pointInfoView.alignment = .left
-      pointInfoView.center = CGPoint(x: point.x - s.width / 2 - 20, y: pointInfoView.center.y)
+      pointInfoView.center = CGPoint(x: point.x - s.width / 2 - 20, y: y)
     } else {
       pointInfoView.alignment = .right
-      pointInfoView.center = CGPoint(x: point.x + s.width / 2 + 20, y: pointInfoView.center.y)
+      pointInfoView.center = CGPoint(x: point.x + s.width / 2 + 20, y: y)
     }
     var f = pointInfoView.frame
     if f.minX < 0 {
@@ -127,6 +124,8 @@ class ChartInfoView: UIView {
       f.origin.x = bounds.width - f.width
       pointInfoView.frame = f
     }
+    let arrowPoint = convert(CGPoint(x: 0, y: bounds.height - lineInfo!.point.y), to: pointInfoView)
+    pointInfoView.arrowY = arrowPoint.y
   }
 
   override func layoutSubviews() {
@@ -141,14 +140,7 @@ class ChartInfoView: UIView {
     mf.size.height = bounds.height
     myPositionView.frame = mf
 
-    if lineInfo == nil, bounds.width > 0 {
-      let x = bounds.width * infoX
-      guard let (date, intersectionPoints) = delegate?.chartInfoView(self, infoAtPointX: x) else { return }
-      lineInfo = intersectionPoints[0]
-      pointsView.setPoints(intersectionPoints)
-      pointInfoView.set(x: x, label: date, points: intersectionPoints)
-      updateViews(point: lineInfo!.point)
-    }
+    update(bounds.width * infoX)
   }
 }
 

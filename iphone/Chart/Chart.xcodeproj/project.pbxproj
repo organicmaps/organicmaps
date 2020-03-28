@@ -15,7 +15,7 @@
 		47375E4D2420E97100FFCC49 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E412420E96D00FFCC49 /* ChartView.swift */; };
 		47375E4E2420E97100FFCC49 /* ChartInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E432420E96F00FFCC49 /* ChartInfoView.swift */; };
 		47375E4F2420E97100FFCC49 /* ChartPointInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E442420E96F00FFCC49 /* ChartPointInfoView.swift */; };
-		47375E502420E97100FFCC49 /* ChartPointIntersectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E452420E96F00FFCC49 /* ChartPointIntersectionsView.swift */; };
+		47375E502420E97100FFCC49 /* ChartPointIntersectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E452420E96F00FFCC49 /* ChartPointIntersectionView.swift */; };
 		47375E512420E97100FFCC49 /* ChartMyPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E462420E96F00FFCC49 /* ChartMyPositionView.swift */; };
 		47375E522420E97100FFCC49 /* ChartYAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E472420E96F00FFCC49 /* ChartYAxisView.swift */; };
 		47375E542420E97100FFCC49 /* ChartPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E492420E97100FFCC49 /* ChartPreviewView.swift */; };
@@ -32,7 +32,7 @@
 		47375E412420E96D00FFCC49 /* ChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		47375E432420E96F00FFCC49 /* ChartInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartInfoView.swift; sourceTree = "<group>"; };
 		47375E442420E96F00FFCC49 /* ChartPointInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartPointInfoView.swift; sourceTree = "<group>"; };
-		47375E452420E96F00FFCC49 /* ChartPointIntersectionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartPointIntersectionsView.swift; sourceTree = "<group>"; };
+		47375E452420E96F00FFCC49 /* ChartPointIntersectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartPointIntersectionView.swift; sourceTree = "<group>"; };
 		47375E462420E96F00FFCC49 /* ChartMyPositionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartMyPositionView.swift; sourceTree = "<group>"; };
 		47375E472420E96F00FFCC49 /* ChartYAxisView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartYAxisView.swift; sourceTree = "<group>"; };
 		47375E492420E97100FFCC49 /* ChartPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartPreviewView.swift; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 			children = (
 				47375E432420E96F00FFCC49 /* ChartInfoView.swift */,
 				47375E442420E96F00FFCC49 /* ChartPointInfoView.swift */,
-				47375E452420E96F00FFCC49 /* ChartPointIntersectionsView.swift */,
+				47375E452420E96F00FFCC49 /* ChartPointIntersectionView.swift */,
 				47375E462420E96F00FFCC49 /* ChartMyPositionView.swift */,
 			);
 			path = ChartInfo;
@@ -192,7 +192,7 @@
 				47375E512420E97100FFCC49 /* ChartMyPositionView.swift in Sources */,
 				47375E3E2420E94E00FFCC49 /* ChartData.swift in Sources */,
 				47375E4C2420E97100FFCC49 /* ChartLineView.swift in Sources */,
-				47375E502420E97100FFCC49 /* ChartPointIntersectionsView.swift in Sources */,
+				47375E502420E97100FFCC49 /* ChartPointIntersectionView.swift in Sources */,
 				47375E522420E97100FFCC49 /* ChartYAxisView.swift in Sources */,
 				47375E4B2420E97100FFCC49 /* ChartXAxisView.swift in Sources */,
 				47375E542420E97100FFCC49 /* ChartPreviewView.swift in Sources */,

@@ -135,8 +135,28 @@ public class ChartView: UIView {
   }
 
   public func setSelectedPoint(_ x: Double) {
-    let routeLength = chartData.xAxisValues.last!
-    chartInfoView.infoX = CGFloat(x / routeLength)
+    let routeLength = chartData.xAxisValueAt(CGFloat(chartData.pointsCount - 1))
+    let upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
+    var lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
+    let rangeLength = upper - lower
+    if x < lower || x > upper {
+      let current = Double(chartInfoView.infoX) * rangeLength + lower
+      let dx = x - current
+      let dIdx = Int(dx / routeLength * Double(chartData.pointsCount))
+      var lowerIdx = chartPreviewView.minX + dIdx
+      var upperIdx = chartPreviewView.maxX + dIdx
+      if lowerIdx < 0 {
+        upperIdx -= lowerIdx
+        lowerIdx = 0
+      } else if upperIdx >= chartData.pointsCount {
+        lowerIdx -= upperIdx - chartData.pointsCount - 1
+        upperIdx = chartData.pointsCount - 1
+      }
+      chartPreviewView.setX(min: lowerIdx, max: upperIdx)
+      lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
+    }
+    chartInfoView.infoX = CGFloat((x - lower) / rangeLength)
+
   }
 
   override public func layoutSubviews() {
