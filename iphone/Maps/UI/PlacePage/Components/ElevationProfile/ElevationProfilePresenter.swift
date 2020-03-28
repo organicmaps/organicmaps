@@ -50,6 +50,11 @@ class ElevationProfilePresenter: NSObject {
       DescriptionsViewModel(title: L("elevation_profile_minaltitude"), value: data.minAttitude, imageName: "ic_em_min_attitude_24")
     ]
   }
+
+  deinit {
+    MWMBookmarksManager.shared().resetElevationActivePointChanged()
+    MWMBookmarksManager.shared().resetElevationMyPositionChanged()
+  }
 }
 
 extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
@@ -61,6 +66,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
                                                  useFilter: true)
     view?.setChartData(presentationData)
     view?.setActivePoint(data.activePoint)
+    view?.setMyPosition(data.myPosition)
 //    if let extendedDifficultyGrade = data.extendedDifficultyGrade {
 //      view?.isExtendedDifficultyLabelHidden = false
 //      view?.setExtendedDifficultyGrade(extendedDifficultyGrade)
@@ -70,6 +76,9 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 
     MWMBookmarksManager.shared().setElevationActivePointChanged(data.trackId) { [weak self] distance in
       self?.view?.setActivePoint(distance)
+    }
+    MWMBookmarksManager.shared().setElevationMyPositionChanged(data.trackId) { [weak self] distance in
+      self?.view?.setMyPosition(distance)
     }
   }
 

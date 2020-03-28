@@ -9,6 +9,7 @@ protocol ElevationProfileViewProtocol: class {
   func setDifficulty(_ value: ElevationDifficulty)
   func setChartData(_ data: ChartPresentationData)
   func setActivePoint(_ distance: Double)
+  func setMyPosition(_ distance: Double)
 }
 
 class ElevationProfileViewController: UIViewController {
@@ -78,5 +79,9 @@ extension ElevationProfileViewController: ElevationProfileViewProtocol {
 
   func setActivePoint(_ distance: Double) {
     chartView.setSelectedPoint(distance)
+  }
+
+  func setMyPosition(_ distance: Double) {
+    chartView.myPosition = distance
   }
 }

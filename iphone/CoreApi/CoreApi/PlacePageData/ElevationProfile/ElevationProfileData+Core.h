@@ -6,7 +6,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ElevationProfileData (Core)
 
-- (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo activePoint:(double)activePoint;
+- (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo
+                          activePoint:(double)activePoint
+                           myPosition:(double)myPosition;
 
 @end
 

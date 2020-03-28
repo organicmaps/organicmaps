@@ -122,6 +122,9 @@ typedef void (^ElevationPointChangedBlock)(double distance);
 
 - (void)setElevationActivePoint:(double)distance trackId:(uint64_t)trackId;
 - (void)setElevationActivePointChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback;
+- (void)resetElevationActivePointChanged;
+- (void)setElevationMyPositionChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback;
+- (void)resetElevationMyPositionChanged;
 
 @end
 NS_ASSUME_NONNULL_END

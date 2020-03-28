@@ -6,7 +6,9 @@
 
 @implementation ElevationProfileData (Core)
 
-- (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo activePoint:(double)activePoint {
+- (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo
+                          activePoint:(double)activePoint
+                           myPosition:(double)myPosition {
   self = [super init];
   if (self) {
     _trackId = elevationInfo.GetId();
@@ -24,6 +26,7 @@
     }
     _points = [pointsArray copy];
     _activePoint = activePoint;
+    _myPosition = myPosition;
   }
   return self;
 }

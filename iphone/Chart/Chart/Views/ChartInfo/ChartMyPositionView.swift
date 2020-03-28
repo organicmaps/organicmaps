@@ -13,6 +13,8 @@ class ChartMyPositionView: UIView {
     shapeLayer.lineWidth = 2
     shapeLayer.strokeColor = UIColor(red: 0.142, green: 0.614, blue: 0.95, alpha: 0.3).cgColor
     addSubview(pinView)
+    transform = CGAffineTransform.identity.scaledBy(x: 1, y: -1)
+    pinView.transform = CGAffineTransform.identity.scaledBy(x: 1, y: -1)
   }
   
   required init?(coder: NSCoder) {
@@ -27,6 +29,10 @@ class ChartMyPositionView: UIView {
     shapeLayer.path = path.cgPath
 
     pinView.center = CGPoint(x: bounds.midX, y: bounds.midY)
+  }
+
+  func updatePoint(_ y: CGFloat) {
+    pinView.center = CGPoint(x: bounds.midX, y: y + pinView.bounds.height / 2)
   }
 }
 

@@ -10,6 +10,7 @@ struct ChartLineInfo {
 protocol ChartInfoViewDelegate: AnyObject {
   func chartInfoView(_ view: ChartInfoView, infoAtPointX pointX: CGFloat) -> (String, [ChartLineInfo])?
   func chartInfoView(_ view: ChartInfoView, didCaptureInfoView captured: Bool)
+  func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat)
 }
 
 class ChartInfoView: UIView {
@@ -32,6 +33,18 @@ class ChartInfoView: UIView {
     set {
       _infoX = newValue
       update(bounds.width * _infoX)
+    }
+  }
+
+  var myPositionX: CGFloat = -1 {
+    didSet {
+      if myPositionX < 0 || myPositionX > 1 {
+        myPositionView.isHidden = true
+        return
+      }
+      myPositionView.isHidden = false
+      myPositionView.center = CGPoint(x: bounds.width * myPositionX, y: myPositionView.center.y)
+      updateMyPosition()
     }
   }
 
@@ -78,6 +91,11 @@ class ChartInfoView: UIView {
     updateViews(point: lineInfo!.point)
   }
 
+  private func updateMyPosition() {
+    guard let (_, myPositionPoints) = delegate?.chartInfoView(self, infoAtPointX: myPositionView.center.x) else { return }
+    myPositionView.updatePoint(myPositionPoints[0].point.y)
+  }
+
   @objc func onPan(_ sender: UIPanGestureRecognizer) {
     let x = sender.location(in: self).x
     switch sender.state {
@@ -85,13 +103,14 @@ class ChartInfoView: UIView {
       break
     case .began:
       guard let lineInfo = lineInfo else { return }
-      captured = abs(x - lineInfo.point.x) < 22
+      captured = abs(x - lineInfo.point.x) <= 22
     case .changed:
       if captured {
         if x < bounds.minX || x > bounds.maxX {
           return
         }
         update(x)
+        delegate?.chartInfoView(self, didMoveToPoint: x)
       }
     case .ended, .cancelled, .failed:
       captured = false
@@ -141,6 +160,7 @@ class ChartInfoView: UIView {
     myPositionView.frame = mf
 
     update(bounds.width * infoX)
+    updateMyPosition()
   }
 }
 

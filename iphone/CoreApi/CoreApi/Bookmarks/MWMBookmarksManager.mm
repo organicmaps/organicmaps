@@ -783,4 +783,16 @@
   self.bm.SetElevationActivePointChangedCallback(nullptr);
 }
 
+- (void)setElevationMyPositionChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback {
+  __weak __typeof(self) ws = self;
+  self.bm.SetElevationMyPositionChangedCallback([callback, trackId, ws] () {
+    callback(ws.bm.GetElevationMyPosition(trackId));
+  });
+}
+
+- (void)resetElevationMyPositionChanged {
+  self.bm.SetElevationMyPositionChangedCallback(nullptr);
+}
+
+
 @end

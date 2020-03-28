@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, ElevationDifficulty) {
 //@property(nonatomic, readonly, nullable) NSString *extendedDifficultyDescription;
 @property(nonatomic, readonly) NSArray<ElevationHeightPoint *> *points;
 @property(nonatomic, readonly) double activePoint;
+@property(nonatomic, readonly) double myPosition;
 
 @end
 

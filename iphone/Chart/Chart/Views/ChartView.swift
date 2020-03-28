@@ -20,6 +20,12 @@ public class ChartView: UIView {
   private var pinchStartUpper = 0
   private var pinchGR: UIPinchGestureRecognizer!
 
+  public var myPosition: Double = -1 {
+    didSet {
+      setMyPosition(myPosition)
+    }
+  }
+
   public var previewSelectorColor: UIColor = UIColor.lightGray.withAlphaComponent(0.9) {
     didSet {
       chartPreviewView.selectorColor = previewSelectorColor
@@ -156,7 +162,13 @@ public class ChartView: UIView {
       lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
     }
     chartInfoView.infoX = CGFloat((x - lower) / rangeLength)
+  }
 
+  fileprivate func setMyPosition(_ x: Double) {
+    let upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
+    let lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
+    let rangeLength = upper - lower
+    chartInfoView.myPositionX = CGFloat((x - lower) / rangeLength)
   }
 
   override public func layoutSubviews() {
@@ -274,10 +286,19 @@ extension ChartView: ChartPreviewViewDelegate {
     xAxisView.setBounds(lower: minX, upper: maxX)
     updateCharts(animationStyle: .none)
     chartInfoView.update()
+    setMyPosition(myPosition)
+    let x = chartInfoView.infoX * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
+    onSelectedPointChanged?(x)
   }
 }
 
 extension ChartView: ChartInfoViewDelegate {
+  func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat) {
+    let p = convert(CGPoint(x: pointX, y: 0), from: view)
+    let x = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
+    onSelectedPointChanged?(x)
+  }
+
   func chartInfoView(_ view: ChartInfoView, didCaptureInfoView captured: Bool) {
     panGR.isEnabled = !captured
   }
@@ -305,7 +326,6 @@ extension ChartView: ChartInfoViewDelegate {
       let v1 = line.originalValues[x1]
       let v2 = line.originalValues[x2]
       let v = round(dx * CGFloat(v2 - v1)) + CGFloat(v1)
-      onSelectedPointChanged?(x)
       result.append(ChartLineInfo(name: line.name,
                                   color: line.color,
                                   point: chartsContainerView.convert(CGPoint(x: p.x, y: py), to: view),
