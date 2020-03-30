@@ -37,7 +37,7 @@ std::string DownloadOnMapDelegate::GetLinkForCountryId(storage::CountryId const 
   if (cityGeoId.empty())
     return {};
 
-  return m_promoApi.GetLinkForDownloader(countryId);
+  return m_promoApi.GetLinkForDownloader(cityGeoId);
 }
 
 bool DownloadOnMapDelegate::IsAdsRemoved() const
