@@ -21,7 +21,6 @@ class DownloadMapsViewController: MWMViewController {
 
   @IBOutlet var tableView: UITableView!
   @IBOutlet var allMapsView: UIView!
-  @IBOutlet var allMapsViewBottomOffset: NSLayoutConstraint!
   @IBOutlet var allMapsButton: UIButton!
   @IBOutlet var allMapsCancelButton: UIButton!
   @IBOutlet var searchBar: UISearchBar!
@@ -35,6 +34,7 @@ class DownloadMapsViewController: MWMViewController {
   @objc var mode: MWMMapDownloaderMode = .downloaded
   private var skipCountryEvent = false
   private var hasAddMapSection: Bool { dataSource.isRoot && mode == .downloaded }
+  private let allMapsViewBottomOffsetConstant: CGFloat = 60
 
   lazy var noSerchResultViewController: SearchNoResultsViewController = {
     let vc = storyboard!.instantiateViewController(ofType: SearchNoResultsViewController.self)
@@ -172,6 +172,11 @@ class DownloadMapsViewController: MWMViewController {
       allMapsButton.isHidden = true
       allMapsCancelButton.isHidden = false
       allMapsCancelButton.setTitle(buttonTitle, for: .normal)
+    }
+    if !allMapsView.isHidden {
+      tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: allMapsViewBottomOffsetConstant, right: 0)
+    } else {
+      tableView.contentInset = UIEdgeInsets.zero
     }
   }
 
