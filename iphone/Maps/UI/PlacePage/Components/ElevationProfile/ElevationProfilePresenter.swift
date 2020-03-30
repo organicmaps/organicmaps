@@ -31,7 +31,7 @@ class ElevationProfilePresenter: NSObject {
   private let cellSpacing: CGFloat = 8
   private let descriptionModels: [DescriptionsViewModel]
   private let chartData: ElevationProfileChartData
-  private let imperialUnits: Bool
+  private let formatter: ChartFormatter
 
   init(view: ElevationProfileViewProtocol,
        data: ElevationProfileData,
@@ -39,9 +39,9 @@ class ElevationProfilePresenter: NSObject {
        delegate: ElevationProfileViewControllerDelegate?) {
     self.view = view
     self.data = data
-    self.imperialUnits = imperialUnits
     self.delegate = delegate
     chartData = ElevationProfileChartData(data)
+    formatter = ChartFormatter(imperial: imperialUnits)
 
     descriptionModels = [
       DescriptionsViewModel(title: L("elevation_profile_ascent"), value: data.ascent, imageName: "ic_em_ascent_24"),
@@ -62,7 +62,7 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     view?.setDifficulty(data.difficulty)
     view?.setTrackTime("\(data.trackTime)")
     let presentationData = ChartPresentationData(chartData,
-                                                 formatter: ChartFormatter(imperial: imperialUnits),
+                                                 formatter: formatter,
                                                  useFilter: true)
     view?.setChartData(presentationData)
     view?.setActivePoint(data.activePoint)
@@ -140,7 +140,7 @@ extension ElevationProfilePresenter {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ElevationProfileDescriptionCell", for: indexPath) as! ElevationProfileDescriptionCell
     let model = descriptionModels[indexPath.row]
-    cell.configure(title: model.title, value: "\(model.value)", imageName: model.imageName)
+    cell.configure(title: model.title, value: formatter.altitudeString(from: Double(model.value)), imageName: model.imageName)
     return cell
   }
 }
