@@ -48,6 +48,7 @@
           android:id="@+id/distance_text"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:textSize="@dimen/margin_half_plus_eight"
           android:singleLine="true"
           android:ellipsize="end"
           android:maxWidth="@dimen/dialog_min_height" />
@@ -56,6 +57,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_below="@id/distance_text"
+          android:textSize="@dimen/margin_half_plus_eight"
           android:singleLine="true"
           android:ellipsize="end"
           android:maxWidth="@dimen/dialog_min_height" />
@@ -76,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_quarter"
+            android:textSize="@dimen/margin_half_plus_eight"
             android:singleLine="true"
             android:ellipsize="end" />
         </LinearLayout>
