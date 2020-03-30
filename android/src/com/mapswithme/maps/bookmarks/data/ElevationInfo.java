@@ -127,7 +127,7 @@ public class ElevationInfo implements PlacePageData
     dest.writeLong(mDuration);
     // All collections are deserialized AFTER non-collection and primitive type objects,
     // so collections must be always serialized at the end.
-    dest.writeList(mPoints);
+    dest.writeTypedList(mPoints);
   }
 
   public static class Point implements Parcelable
