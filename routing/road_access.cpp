@@ -33,6 +33,10 @@ void PrintKV(ostringstream & oss, KV const & kvs, size_t maxKVToShow)
 namespace routing
 {
 // RoadAccess --------------------------------------------------------------------------------------
+// @TODO(bykoinako) It's a fast fix for release. The idea behind it is to remember the time of
+// creation RoadAccess instance and return it instread of getting time when m_currentTimeGetter() is
+// called. But it's not understadbale now why m_currentTimeGetter() is called when
+// cross_mwm section is built.
 RoadAccess::RoadAccess() : m_currentTimeGetter([time = GetCurrentTimestamp()]() { return time; }) {}
 
 pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(

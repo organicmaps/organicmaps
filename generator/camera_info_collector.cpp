@@ -262,6 +262,7 @@ std::optional<std::pair<double, uint32_t>> CamerasInfoCollector::Camera::FindMys
   double coef = 0.0;
   bool isRoad = true;
   uint32_t result = 0;
+  bool cannotFindMyself = false;
 
   auto const readFeature = [&](FeatureType & ft) {
     bool found = false;
@@ -281,8 +282,15 @@ std::optional<std::pair<double, uint32_t>> CamerasInfoCollector::Camera::FindMys
 
     ft.ForEachPoint(findPoint, scales::GetUpperScale());
 
-    CHECK(found, ("Cannot find camera point at the feature:", wayFeatureId,
-                  "; camera center:", mercator::ToLatLon(m_data.m_center)));
+//    CHECK(found, ("Cannot find camera point at the feature:", wayFeatureId,
+//                  "; camera center:", mercator::ToLatLon(m_data.m_center)));
+    // @TODO(bykoianko) The invariant above is valid. But as a fast fix, let's remove
+    // all the cameras in case of no feature ends matches.
+    if (!found)
+    {
+      cannotFindMyself = true;
+      return;
+    }
 
     // If point with number - N, is end of feature, we cannot say: segmentId = N,
     // because number of segments is N - 1, so we say segmentId = N - 1, and coef = 1
@@ -297,6 +305,13 @@ std::optional<std::pair<double, uint32_t>> CamerasInfoCollector::Camera::FindMys
 
   FeatureID featureID(mwmId, wayFeatureId);
   dataSource.ReadFeature(readFeature, featureID);
+
+  if (cannotFindMyself)
+  {
+    LOG(LWARNING, ("Cannot find camera point at the feature:", wayFeatureId,
+                   "; camera center:", mercator::ToLatLon(m_data.m_center)));
+    return {};
+  }
 
   if (isRoad)
     return std::optional<std::pair<double, uint32_t>>({coef, result});
