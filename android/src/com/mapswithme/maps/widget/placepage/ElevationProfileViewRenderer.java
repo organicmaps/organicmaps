@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import com.mapswithme.maps.ChartController;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
@@ -21,6 +22,9 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   private static final int MAX_DIFFICULTY_LEVEL = 3;
   private static final int UNKNOWN_DIFFICULTY = 0;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private NestedScrollView mScrollView;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private TextView mTitle;
@@ -85,6 +89,7 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     Objects.requireNonNull(view);
     mChartController = new ChartController(view.getContext());
     mChartController.initialize(view);
+    mScrollView = (NestedScrollView) view;
     mTitle = view.findViewById(R.id.title);
     mAscent = view.findViewById(R.id.ascent);
     mDescent = view.findViewById(R.id.descent);
@@ -133,5 +138,12 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     mElevationInfo = inState.getParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA);
     if (mElevationInfo != null)
       render(mElevationInfo);
+  }
+
+  @Override
+  public void onHide()
+  {
+    mScrollView.scrollTo(0, 0);
+    mChartController.onHide();
   }
 }

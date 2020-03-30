@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.mapswithme.maps.base.Hideable;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.ElevationInfo;
@@ -35,8 +36,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class ChartController implements OnChartValueSelectedListener, Initializable<View>,
-        BookmarkManager.OnElevationActivePointChangedListener,
-        BookmarkManager.OnElevationCurrentPositionChangedListener
+                                        BookmarkManager.OnElevationActivePointChangedListener,
+                                        BookmarkManager.OnElevationCurrentPositionChangedListener,
+                                        Hideable
 {
   private static final int CHART_Y_LABEL_COUNT = 3;
   private static final int CHART_X_LABEL_COUNT = 6;
@@ -246,5 +248,11 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   {
     double activeX = BookmarkManager.INSTANCE.getElevationActivePointDistance(mTrackId);
     return new Highlight((float) activeX, 0f, 0);
+  }
+
+  @Override
+  public void onHide()
+  {
+    mChart.fitScreen();
   }
 }

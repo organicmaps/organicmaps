@@ -224,6 +224,7 @@ public class SimplePlacePageController implements PlacePageController
 
   private void onHiddenInternal()
   {
+    mViewRenderer.onHide();
     if (mDeactivateMapSelection)
       Framework.nativeDeactivatePopup();
     mDeactivateMapSelection = true;
