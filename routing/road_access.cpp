@@ -33,9 +33,7 @@ void PrintKV(ostringstream & oss, KV const & kvs, size_t maxKVToShow)
 namespace routing
 {
 // RoadAccess --------------------------------------------------------------------------------------
-RoadAccess::RoadAccess() : m_currentTimeGetter([](){ return GetCurrentTimestamp(); })
-{
-}
+RoadAccess::RoadAccess() : m_currentTimeGetter([time = GetCurrentTimestamp()]() { return time; }) {}
 
 pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
     uint32_t featureId, RouteWeight const & weightToFeature) const
