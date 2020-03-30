@@ -1,6 +1,7 @@
 protocol PlacePageViewProtocol: class {
   var presenter: PlacePagePresenterProtocol!  { get set }
   var scrollView: UIScrollView! { get set }
+  var beginDragging: Bool { get set }
 
   func addToStack(_ viewController: UIViewController)
   func addActionBar(_ actionBarViewController: UIViewController)
@@ -74,9 +75,7 @@ final class TouchTransparentView: UIView {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    if !beginDragging {
-      presenter?.updatePreviewOffset()
-    }
+    presenter?.updatePreviewOffset()
   }
 }
 
