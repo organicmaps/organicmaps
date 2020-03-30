@@ -43,6 +43,7 @@ public:
 
   void SetPosition(m2::PointD const & ptOrg);
   void SetIsVisible(bool isVisible);
+  void SetMinVisibleZoom(int zoom);
 
   void SetTrackId(kml::TrackId trackId);
   kml::TrackId GetTrackId() const { return m_trackId; }
@@ -55,11 +56,13 @@ public:
 
   // df::UserPointMark overrides.
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+  int GetMinZoom() const override { return m_minVisibleZoom; }
   bool IsVisible() const override { return m_isVisible; }
 
   static std::string GetInitialSymbolName();
 
 private:
+  int m_minVisibleZoom = 1;
   double m_distance = 0.0;
   double m_myPositionDistance = kInvalidDistance;
   kml::TrackId m_trackId = kml::kInvalidTrackId;

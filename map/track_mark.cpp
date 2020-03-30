@@ -6,7 +6,6 @@ namespace
 {
 std::string const kTrackDeselectedSymbolName = "track_marker_deselected";
 std::string const kInfoSignSymbolName = "infosign";
-int constexpr kMinVisibleZoom = 1;
 int constexpr kMinInfoVisibleZoom = 1;
 }  // namespace
 
@@ -68,6 +67,12 @@ void TrackSelectionMark::SetIsVisible(bool isVisible)
   m_isVisible = isVisible;
 }
 
+void TrackSelectionMark::SetMinVisibleZoom(int zoom)
+{
+  SetDirty();
+  m_minVisibleZoom = zoom;
+}
+
 void TrackSelectionMark::SetTrackId(kml::TrackId trackId)
 {
   m_trackId = trackId;
@@ -86,7 +91,7 @@ void TrackSelectionMark::SetMyPositionDistance(double distance)
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TrackSelectionMark::GetSymbolNames() const
 {
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(kMinVisibleZoom, kTrackDeselectedSymbolName));
+  symbol->insert(std::make_pair(m_minVisibleZoom, kTrackDeselectedSymbolName));
   return symbol;
 }
 

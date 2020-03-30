@@ -1224,6 +1224,10 @@ void BookmarkManager::SetTrackSelectionInfo(TrackSelectionInfo const & trackSele
   {
     trackSelectionMark = es.CreateUserMark<TrackSelectionMark>(trackSelectionInfo.m_trackPoint);
     trackSelectionMark->SetTrackId(trackSelectionInfo.m_trackId);
+
+    auto track = GetTrack(trackSelectionInfo.m_trackId);
+    auto const zoom = std::min(df::GetDrawTileScale(track->GetLimitRect()), 14);
+    trackSelectionMark->SetMinVisibleZoom(zoom);
   }
   else
   {
@@ -1243,6 +1247,7 @@ void BookmarkManager::SetDefaultTrackSelection(kml::TrackId trackId, bool showIn
 
   auto track = GetTrack(trackId);
   CHECK(track != nullptr, ());
+  CHECK(track->IsInteractive(), ());
 
   auto const & points = track->GetPointsWithAltitudes();
   auto const pt = points[points.size() / 2].GetPoint();
