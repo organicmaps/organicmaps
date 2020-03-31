@@ -791,8 +791,8 @@ void Geocoder::FillVillageLocalities(BaseContext const & ctx)
     auto const mwmType = m_context->GetType();
     CHECK(mwmType, ());
     if (!mwmType->m_containsMatchedState &&
-        !any_of(pivotPoints.begin(), pivotPoints.end(), [&](auto const & p) {
-          return mercator::DistanceOnEarth(center, p) <= m_params.m_villageSearchRadiusM;
+        all_of(pivotPoints.begin(), pivotPoints.end(), [&](auto const & p) {
+          return mercator::DistanceOnEarth(center, p) > m_params.m_villageSearchRadiusM;
         }))
     {
       continue;

@@ -2639,7 +2639,7 @@ UNIT_CLASS_TEST(ProcessorTest, FilterStreetPredictions)
 UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
 {
   TestState moscowRegion(m2::PointD(10.0, 10.0), "Moscow Region", "en");
-  // |moscowRegion| feature shold belong to MoscowRegion with some margin due to mwmPointAccuracy.
+  // |moscowRegion| feature should belong to MoscowRegion with some margin due to mwmPointAccuracy.
   TestPOI dummy(m2::PointD(9.99, 9.99), "", "en");
   TestVillage petrovskoeMoscow(m2::PointD(10.5, 10.5), "Petrovskoe", "en", 5 /* rank */);
 
