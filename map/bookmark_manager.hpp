@@ -761,6 +761,13 @@ private:
   std::vector<std::string> GetAllPaidCategoriesIds() const;
 
   kml::MarkId GetTrackSelectionMarkId(kml::TrackId trackId) const;
+  int GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const;
+  void DeleteTrackSelectionMark(kml::TrackId trackId);
+  void SetTrackInfoMark(kml::TrackId trackId, m2::PointD const & pt);
+  void ResetTrackInfoMark(kml::TrackId trackId);
+
+  void UpdateTrackMarks();
+  void RequestSymbolSizes();
 
   ThreadChecker m_threadChecker;
 

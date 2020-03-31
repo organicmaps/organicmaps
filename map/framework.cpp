@@ -2723,6 +2723,8 @@ BookmarkManager::TrackSelectionInfo Framework::FindTrackInTapPosition(
   auto const & bm = GetBookmarkManager();
   if (buildInfo.m_trackId != kml::kInvalidTrackId)
   {
+    if (bm.GetTrack(buildInfo.m_trackId) == nullptr)
+      return {};
     auto const selection = bm.GetTrackSelectionInfo(buildInfo.m_trackId);
     CHECK_NOT_EQUAL(selection.m_trackId, kml::kInvalidTrackId, ());
     return selection;

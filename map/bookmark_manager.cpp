@@ -733,9 +733,7 @@ void BookmarkManager::DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId
 void BookmarkManager::DeleteTrack(kml::TrackId trackId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const markId = GetTrackSelectionMarkId(trackId);
-  if (markId != kml::kInvalidMarkId)
-    DeleteUserMark(markId);
+  DeleteTrackSelectionMark(trackId);
   auto it = m_tracks.find(trackId);
   auto const groupId = it->second->GetGroupId();
   if (groupId != kml::kInvalidMarkGroupId)
@@ -1210,24 +1208,64 @@ kml::MarkId BookmarkManager::GetTrackSelectionMarkId(kml::TrackId trackId) const
   return kml::kInvalidMarkId;
 }
 
+int BookmarkManager::GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const
+{
+  auto track = GetTrack(trackId);
+  CHECK(track != nullptr, ());
+
+  auto const zoom = std::min(df::GetDrawTileScale(track->GetLimitRect()), 14);
+  return zoom;
+}
+
+void BookmarkManager::DeleteTrackSelectionMark(kml::TrackId trackId)
+{
+  auto es = GetEditSession();
+  auto const markId = GetTrackSelectionMarkId(trackId);
+  if (markId != kml::kInvalidMarkId)
+    es.DeleteUserMark(markId);
+
+  ResetTrackInfoMark(trackId);
+}
+
+void BookmarkManager::SetTrackInfoMark(kml::TrackId trackId, m2::PointD const & pt)
+{
+  auto es = GetEditSession();
+  auto trackInfoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+  trackInfoMark->SetPosition(pt);
+  trackInfoMark->SetIsVisible(true);
+  trackInfoMark->SetTrackId(trackId);
+}
+
+void BookmarkManager::ResetTrackInfoMark(kml::TrackId trackId)
+{
+  auto es = GetEditSession();
+  auto trackInfoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+  if (trackInfoMark->GetTrackId() == trackId)
+  {
+    trackInfoMark->SetPosition(m2::PointD::Zero());
+    trackInfoMark->SetIsVisible(false);
+    trackInfoMark->SetTrackId(kml::kInvalidTrackId);
+  }
+}
+
 void BookmarkManager::SetTrackSelectionInfo(TrackSelectionInfo const & trackSelectionInfo,
                                             bool notifyListeners)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK_NOT_EQUAL(trackSelectionInfo.m_trackId, kml::kInvalidTrackId, ());
 
-  auto const markId = GetTrackSelectionMarkId(trackSelectionInfo.m_trackId);
+  auto const trackId = trackSelectionInfo.m_trackId;
+  auto const markId = GetTrackSelectionMarkId(trackId);
 
   auto es = GetEditSession();
   TrackSelectionMark * trackSelectionMark = nullptr;
   if (markId == kml::kInvalidMarkId)
   {
     trackSelectionMark = es.CreateUserMark<TrackSelectionMark>(trackSelectionInfo.m_trackPoint);
-    trackSelectionMark->SetTrackId(trackSelectionInfo.m_trackId);
+    trackSelectionMark->SetTrackId(trackId);
 
-    auto track = GetTrack(trackSelectionInfo.m_trackId);
-    auto const zoom = std::min(df::GetDrawTileScale(track->GetLimitRect()), 14);
-    trackSelectionMark->SetMinVisibleZoom(zoom);
+    if (m_drapeEngine)
+      trackSelectionMark->SetMinVisibleZoom(GetTrackSelectionMarkMinZoom(trackId));
   }
   else
   {
@@ -1255,14 +1293,9 @@ void BookmarkManager::SetDefaultTrackSelection(kml::TrackId trackId, bool showIn
 
   auto es = GetEditSession();
   if (showInfoSign)
-  {
-    auto trackInfoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
-    trackInfoMark->SetPosition(pt);
-    trackInfoMark->SetIsVisible(true);
-    trackInfoMark->SetTrackId(trackId);
-  }
+    SetTrackInfoMark(trackId, pt);
 
-  SetTrackSelectionInfo(TrackSelectionInfo(trackId, pt, distance), true /* notifyListeners */);
+  SetTrackSelectionInfo(TrackSelectionInfo(trackId, pt, distance), false /* notifyListeners */);
   OnTrackDeselected(trackId);
 }
 
@@ -1271,13 +1304,7 @@ void BookmarkManager::OnTrackSelected(kml::TrackId trackId)
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto es = GetEditSession();
-  auto trackInfoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
-  if (trackInfoMark->GetTrackId() == trackId)
-  {
-    trackInfoMark->SetPosition(m2::PointD::Zero());
-    trackInfoMark->SetIsVisible(false);
-    trackInfoMark->SetTrackId(kml::kInvalidTrackId);
-  }
+  ResetTrackInfoMark(trackId);
 
   auto const markId = GetTrackSelectionMarkId(trackId);
   CHECK_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
@@ -1704,6 +1731,7 @@ void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
   }
   for (auto trackId : group->GetUserLines())
   {
+    DeleteTrackSelectionMark(trackId);
     m_changesTracker.OnDeleteLine(trackId);
     m_tracks.erase(trackId);
   }
@@ -1873,11 +1901,19 @@ void BookmarkManager::PrepareForSearch(kml::MarkGroupId groupId)
   m_callbacks.m_getSearchAPI().EnableIndexingOfBookmarkGroup(groupId, true /* enable */);
 }
 
-void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
+void BookmarkManager::UpdateTrackMarks()
 {
-  m_drapeEngine.Set(engine);
-  m_firstDrapeNotification = true;
+  auto es = GetEditSession();
+  auto const marks = GetUserMarkIds(UserMark::TRACK_SELECTION);
+  for (auto markId : marks)
+  {
+    auto mark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+    mark->SetMinVisibleZoom(GetTrackSelectionMarkMinZoom(mark->GetTrackId()));
+  }
+}
 
+void BookmarkManager::RequestSymbolSizes()
+{
   std::vector<std::string> symbols;
   symbols.push_back(kLargestBookmarkSymbolName);
   symbols.push_back(TrackSelectionMark::GetInitialSymbolName());
@@ -1895,6 +1931,15 @@ void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
               m_maxBookmarkSymbolSize = sizes.at(kLargestBookmarkSymbolName);
             });
       });
+}
+
+void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
+{
+  m_drapeEngine.Set(engine);
+  m_firstDrapeNotification = true;
+
+  UpdateTrackMarks();
+  RequestSymbolSizes();
 }
 
 void BookmarkManager::InitRegionAddressGetter(DataSource const & dataSource,
