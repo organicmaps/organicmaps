@@ -254,5 +254,6 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
   public void onHide()
   {
     mChart.fitScreen();
+    mTrackId = Utils.INVALID_ID;
   }
 }
