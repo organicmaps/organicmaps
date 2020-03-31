@@ -34,7 +34,7 @@
           "\u0141\u00f3d\u017a", 
           "Pozna\u0144", 
           "Warsaw", 
-          "Wroc\u0142aw"
+          "Wroclaw"
         ], 
         "id": "Poland"
       }, 
@@ -64,7 +64,7 @@
           "Oxford", 
           "Reading"
         ], 
-        "id": "Great Britain"
+        "id": "United Kingdom"
       }, 
       {
         "cities": [
@@ -78,6 +78,7 @@
           "Bottrop", 
           "Brunswick", 
           "Bremen", 
+          "Cologne", 
           "Dachau", 
           "Darmstadt", 
           "Dortmund", 
@@ -85,7 +86,7 @@
           "Dusseldorf", 
           "Duisburg", 
           "Ebersberg", 
-          "Emmendingen (Kernstadt)", 
+          "Emmendingen", 
           "Erding", 
           "Erfurt", 
           "Erlangen", 
@@ -117,7 +118,6 @@
           "Kassel", 
           "Kiel", 
           "Koblenz", 
-          "K\u00f6ln", 
           "Krefeld", 
           "Landsberg am Lech", 
           "Leipzig", 
