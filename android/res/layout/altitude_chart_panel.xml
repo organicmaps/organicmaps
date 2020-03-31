@@ -19,7 +19,7 @@
 
     <ImageView
         android:id="@+id/altitude_chart"
-        android:layout_width="@dimen/altitude_chart_image_width"
-        android:layout_height="@dimen/altitude_chart_image_height"
-        android:layout_marginBottom="8dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin_half"/>
 </LinearLayout>

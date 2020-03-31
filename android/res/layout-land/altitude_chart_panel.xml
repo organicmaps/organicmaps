@@ -19,11 +19,10 @@
     <include layout="@layout/routing_details"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:layout_marginRight="24dp"
-             android:layout_marginEnd="24dp"/>
+             android:layout_marginEnd="@dimen/margin_base_plus"/>
 
     <ImageView
         android:id="@+id/altitude_chart"
-        android:layout_width="@dimen/altitude_chart_image_width"
-        android:layout_height="@dimen/altitude_chart_image_height"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
