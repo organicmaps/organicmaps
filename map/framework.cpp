@@ -1116,6 +1116,9 @@ void Framework::ShowBookmark(Bookmark const * mark)
   if (scale == 0)
     scale = scales::GetUpperComfortScale();
 
+  auto es = GetBookmarkManager().GetEditSession();
+  es.SetIsVisible(mark->GetGroupId(), true /* visible */);
+
   if (m_drapeEngine != nullptr)
   {
     m_drapeEngine->SetModelViewCenter(mark->GetPivot(), scale, true /* isAnim */,
@@ -1138,6 +1141,9 @@ void Framework::ShowTrack(kml::TrackId trackId)
   StopLocationFollow();
   ShowRect(rect);
 
+  auto es = GetBookmarkManager().GetEditSession();
+  es.SetIsVisible(track->GetGroupId(), true /* visible */);
+
   if (track->IsInteractive())
     bm.SetDefaultTrackSelection(trackId, true /* showInfoSign */);
 }
@@ -1153,6 +1159,9 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
 
   StopLocationFollow();
   ShowRect(rect, -1 /* maxScale */, animation);
+
+  auto es = bm.GetEditSession();
+  es.SetIsVisible(categoryId, true /* visible */);
 
   auto const trackIds = bm.GetTrackIds(categoryId);
   for (auto trackId : trackIds)
