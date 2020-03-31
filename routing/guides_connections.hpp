@@ -35,6 +35,7 @@ struct ConnectionToOsm
   std::vector<std::pair<FakeVertex, Segment>> m_partsOfReal;
   // Projection of the checkpoint to the track.
   geometry::PointWithAltitude m_projectedPoint;
+  bool m_fromCheckpoint = false;
 };
 
 // Information about checkpoint projection to the nearest guides track.
@@ -109,7 +110,7 @@ public:
 private:
   // Fills |ConnectionToOsm| for checkpoints for its further attachment to the roads graph.
   void AddConnectionToOsm(size_t checkpointIdx, Segment const & real,
-                          geometry::PointWithAltitude const & loop);
+                          geometry::PointWithAltitude const & loop, bool fromCheckpoint);
 
   // Attaches checkpoints to the nearest guides tracks if possible.
   void PullCheckpointsToTracks(std::vector<m2::PointD> const & checkpoints);

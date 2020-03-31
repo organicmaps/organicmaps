@@ -457,6 +457,10 @@ void IndexRouter::ConnectCheckpointsOnGuidesToOsm(std::vector<m2::PointD> const 
     if (m_guides.FitsForDirectLinkToGuide(checkpointIdx, checkpoints.size()))
       continue;
 
+    // Projection of this checkpoint is not connected to OSM.
+    if (m_guides.GetOsmConnections(checkpointIdx).empty())
+      continue;
+
     auto const & checkpoint = checkpoints[checkpointIdx];
     auto const & bestSegmentsOsm = GetBestSegments(checkpoint, graph);
     if (bestSegmentsOsm.empty())
@@ -478,6 +482,7 @@ uint32_t IndexRouter::ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const &
     if (osmConnections.empty())
       continue;
 
+    bool foundSegmentsForProjection = false;
     for (size_t i = 0; i < osmConnections.size(); ++i)
     {
       auto & link = osmConnections[i];
@@ -486,6 +491,9 @@ uint32_t IndexRouter::ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const &
       auto const & segmentsProj = GetBestSegments(proj.GetPoint(), graph);
       if (segmentsProj.empty())
         continue;
+
+      if (link.m_fromCheckpoint)
+        foundSegmentsForProjection = true;
 
       auto newFakeEndingProj = MakeFakeEnding(segmentsProj, proj.GetPoint(), graph);
 
@@ -502,7 +510,10 @@ uint32_t IndexRouter::ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const &
       if (!(loopPoint == link.m_realTo))
         AppendPartsOfReal(loopPoint, link.m_realTo, segmentIdx, link);
     }
-    m_guides.UpdateOsmConnections(checkpointIdx, osmConnections);
+    if (foundSegmentsForProjection)
+      m_guides.UpdateOsmConnections(checkpointIdx, osmConnections);
+    else
+      m_guides.UpdateOsmConnections(checkpointIdx, {});
   }
   return segmentIdx;
 }
@@ -529,6 +540,9 @@ void IndexRouter::AddGuidesOsmConnectionsToGraphStarter(size_t checkpointIdxFrom
 
   for (auto & connOsm : linksFrom)
   {
+    if (connOsm.m_fakeEnding.m_projections.empty())
+      continue;
+
     starter.AddEnding(connOsm.m_fakeEnding);
 
     starter.ConnectLoopToGuideSegments(connOsm.m_loopVertex, connOsm.m_realSegment,
@@ -588,8 +602,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     return RouterResultCode::StartPointNotFound;
   }
 
-  ConnectCheckpointsOnGuidesToOsm(checkpoints.GetPoints(), *graph);
   uint32_t const startIdx = ConnectTracksOnGuidesToOsm(checkpoints.GetPoints(), *graph);
+  ConnectCheckpointsOnGuidesToOsm(checkpoints.GetPoints(), *graph);
 
   size_t subrouteSegmentsBegin = 0;
   vector<Route::SubrouteAttrs> subroutes;

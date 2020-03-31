@@ -56,7 +56,14 @@ void GuidesConnections::UpdateOsmConnections(size_t checkpointIdx,
 {
   auto const it = m_connectionsToOsm.find(checkpointIdx);
   CHECK(it != m_connectionsToOsm.cend(), (checkpointIdx));
-  it->second = links;
+  it->second.clear();
+  for (auto const & link : links)
+  {
+    if (!link.m_fakeEnding.m_projections.empty())
+      it->second.push_back(link);
+  }
+  if (it->second.empty())
+    m_connectionsToOsm.erase(it);
 }
 
 GuidesConnections::GuidesConnections(GuidesTracks const & guides) : m_allTracks(guides) {}
@@ -267,14 +274,15 @@ void GuidesConnections::ConnectToGuidesGraph(std::vector<m2::PointD> const & che
     bool const fitsForOsmLink = !FitsForDirectLinkToGuide(checkpointIdx, checkpoints.size());
 
     if (fitsForOsmLink)
-      AddConnectionToOsm(checkpointIdx, segmentOnTrack, checkpointProj);
+      AddConnectionToOsm(checkpointIdx, segmentOnTrack, checkpointProj, true /* fromCheckpoint */);
 
     // Connect to OSM start and finish points of the track.
     auto const & firstPointOnTrack = m_allTracks[proj.m_guideId][proj.m_trackIdx][0];
     if (!(fitsForOsmLink && firstPointOnTrack == checkpointProj))
     {
       auto const & firstSegmentOnTrack = m_graph.FindSegment(segmentOnTrack, 0);
-      AddConnectionToOsm(checkpointIdx, firstSegmentOnTrack, firstPointOnTrack);
+      AddConnectionToOsm(checkpointIdx, firstSegmentOnTrack, firstPointOnTrack,
+                         false /* fromCheckpoint */);
     }
 
     auto const & lastPointIdx = m_allTracks[proj.m_guideId][proj.m_trackIdx].size() - 1;
@@ -282,13 +290,15 @@ void GuidesConnections::ConnectToGuidesGraph(std::vector<m2::PointD> const & che
     if (!(fitsForOsmLink && lastPointOnTrack == checkpointProj))
     {
       auto const & lastSegmentOnTrack = m_graph.FindSegment(segmentOnTrack, lastPointIdx - 1);
-      AddConnectionToOsm(checkpointIdx, lastSegmentOnTrack, lastPointOnTrack);
+      AddConnectionToOsm(checkpointIdx, lastSegmentOnTrack, lastPointOnTrack,
+                         false /* fromCheckpoint */);
     }
   }
 }
 
 void GuidesConnections::AddConnectionToOsm(size_t checkpointIdx, Segment const & real,
-                                           geometry::PointWithAltitude const & loop)
+                                           geometry::PointWithAltitude const & loop,
+                                           bool fromCheckpoint)
 {
   LatLonWithAltitude const loopPoint(mercator::ToLatLon(loop.GetPoint()), loop.GetAltitude());
 
@@ -296,6 +306,7 @@ void GuidesConnections::AddConnectionToOsm(size_t checkpointIdx, Segment const &
   link.m_loopVertex = FakeVertex(kFakeNumMwmId, loopPoint, loopPoint, FakeVertex::Type::PureFake);
   link.m_realSegment = real;
   link.m_projectedPoint = loop;
+  link.m_fromCheckpoint = fromCheckpoint;
   std::tie(link.m_realFrom, link.m_realTo) = m_graph.GetFromTo(real);
 
   m_connectionsToOsm[checkpointIdx].push_back(link);
