@@ -1232,7 +1232,8 @@ void BookmarkManager::SetTrackInfoMark(kml::TrackId trackId, m2::PointD const & 
   auto es = GetEditSession();
   auto trackInfoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
   trackInfoMark->SetPosition(pt);
-  trackInfoMark->SetIsVisible(true);
+  auto const isVisible = IsVisible(GetTrack(trackId)->GetGroupId());
+  trackInfoMark->SetIsVisible(isVisible);
   trackInfoMark->SetTrackId(trackId);
 }
 
@@ -1323,7 +1324,8 @@ void BookmarkManager::OnTrackDeselected(kml::TrackId trackId)
 
   auto es = GetEditSession();
   auto * trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
-  trackSelectionMark->SetIsVisible(true);
+  auto const isVisible = IsVisible(GetTrack(trackId)->GetGroupId());
+  trackSelectionMark->SetIsVisible(isVisible);
 }
 
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
@@ -1865,6 +1867,7 @@ void BookmarkManager::SetIsVisible(kml::MarkGroupId groupId, bool visible)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   GetGroup(groupId)->SetIsVisible(visible);
+  UpdateTrackMarksVisibility(groupId);
 }
 
 bool BookmarkManager::IsVisible(kml::MarkGroupId groupId) const
@@ -1901,14 +1904,32 @@ void BookmarkManager::PrepareForSearch(kml::MarkGroupId groupId)
   m_callbacks.m_getSearchAPI().EnableIndexingOfBookmarkGroup(groupId, true /* enable */);
 }
 
-void BookmarkManager::UpdateTrackMarks()
+void BookmarkManager::UpdateTrackMarksMinZoom()
 {
   auto es = GetEditSession();
-  auto const marks = GetUserMarkIds(UserMark::TRACK_SELECTION);
-  for (auto markId : marks)
+  auto const marksIds = GetUserMarkIds(UserMark::TRACK_SELECTION);
+  for (auto markId : marksIds)
   {
     auto mark = es.GetMarkForEdit<TrackSelectionMark>(markId);
     mark->SetMinVisibleZoom(GetTrackSelectionMarkMinZoom(mark->GetTrackId()));
+  }
+}
+
+void BookmarkManager::UpdateTrackMarksVisibility(kml::MarkGroupId groupId)
+{
+  auto es = GetEditSession();
+  auto const isVisible = IsVisible(groupId);
+  auto const tracksIds = GetTrackIds(groupId);
+  auto infoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+  for (auto trackId : tracksIds)
+  {
+    auto markId = GetTrackSelectionMarkId(trackId);
+    if (markId == kml::kInvalidMarkId)
+      continue;
+    if (infoMark->GetTrackId() == trackId && infoMark->IsVisible())
+      infoMark->SetIsVisible(isVisible);
+    auto mark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+    mark->SetIsVisible(isVisible);
   }
 }
 
@@ -1938,7 +1959,7 @@ void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   m_drapeEngine.Set(engine);
   m_firstDrapeNotification = true;
 
-  UpdateTrackMarks();
+  UpdateTrackMarksMinZoom();
   RequestSymbolSizes();
 }
 
@@ -2809,7 +2830,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       if (t->IsInteractive())
         SetDefaultTrackSelection(t->GetId(), false /* showInfoSign */);
     }
-
+    UpdateTrackMarksVisibility(groupId);
     UserMarkIdStorage::Instance().EnableSaving(true);
   }
   m_restoringCache.clear();

@@ -766,7 +766,8 @@ private:
   void SetTrackInfoMark(kml::TrackId trackId, m2::PointD const & pt);
   void ResetTrackInfoMark(kml::TrackId trackId);
 
-  void UpdateTrackMarks();
+  void UpdateTrackMarksMinZoom();
+  void UpdateTrackMarksVisibility(kml::MarkGroupId groupId);
   void RequestSymbolSizes();
 
   ThreadChecker m_threadChecker;

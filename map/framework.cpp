@@ -2769,7 +2769,10 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
 
       return df::TapInfo::GetDefaultSearchRect(buildInfo.m_mercator, m_currentModelView);
     },
-    [](UserMark::Type) { return false; });
+    [](UserMark::Type type)
+    {
+      return type == UserMark::Type::TRACK_INFO || type == UserMark::Type::TRACK_SELECTION;
+    });
   return mark;
 }
 

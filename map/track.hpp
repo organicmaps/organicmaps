@@ -37,8 +37,6 @@ public:
   void Attach(kml::MarkGroupId groupId);
   void Detach();
 
-  kml::MarkId GetSelectionMarkId() const { return m_selectionMarkId; }
-  void SetSelectionMarkId(kml::MarkId markId);
   bool GetPoint(double distanceInMeters, m2::PointD & pt) const;
 
 private:
@@ -49,7 +47,6 @@ private:
 
   kml::TrackData m_data;
   kml::MarkGroupId m_groupID = kml::kInvalidMarkGroupId;
-  kml::MarkId m_selectionMarkId = kml::kInvalidMarkId;
 
   struct InteractionData
   {

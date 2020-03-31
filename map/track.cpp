@@ -202,11 +202,6 @@ void Track::Detach()
   m_groupID = kml::kInvalidMarkGroupId;
 }
 
-void Track::SetSelectionMarkId(kml::MarkId markId)
-{
-  m_selectionMarkId = markId;
-}
-
 bool Track::GetPoint(double distanceInMeters, m2::PointD & pt) const
 {
   if (m_interactionData)
