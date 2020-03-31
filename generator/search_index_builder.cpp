@@ -18,6 +18,7 @@
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
+#include "indexer/road_shields_parser.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
@@ -40,15 +41,15 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include "defines.hpp"
+
 #include <algorithm>
 #include <fstream>
 #include <map>
 #include <mutex>
+#include <thread>
 #include <unordered_map>
 #include <vector>
-#include <thread>
-
-#include "defines.hpp"
 
 using namespace std;
 
@@ -322,8 +323,12 @@ public:
       return;
 
     // Road number.
-    if (hasStreetType && !f.GetParams().ref.empty())
-      inserter(StringUtf8Multilang::kDefaultCode, f.GetParams().ref);
+    if (hasStreetType && !f.GetRoadNumber().empty())
+    {
+      auto const shields = ftypes::GetRoadShields(f);
+      for (auto const & shield : shields)
+        inserter(StringUtf8Multilang::kDefaultCode, shield.m_name);
+    }
 
     if (ftypes::IsAirportChecker::Instance()(types))
     {

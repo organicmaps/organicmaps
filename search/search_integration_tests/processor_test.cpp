@@ -2375,6 +2375,30 @@ UNIT_CLASS_TEST(ProcessorTest, StreetNumber)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, StreetNumberEnriched)
+{
+  string const countryName = "Wonderland";
+
+  TestStreet street(vector<m2::PointD>{m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)}, "Нева", "ru");
+  street.SetRoadNumber("M-11;ru:national/M-11");
+
+  auto countryId =
+      BuildCountry(countryName, [&](TestMwmBuilder & builder) { builder.Add(street); });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 2.0)));
+  {
+    Rules rules = {ExactMatch(countryId, street)};
+    TEST(ResultsMatch("M-11 ", rules), ());
+  }
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 2.0)));
+  {
+    Rules rules = {};
+    TEST(ResultsMatch("ru ", rules), ());
+    TEST(ResultsMatch("national ", rules), ());
+  }
+}
+
 UNIT_CLASS_TEST(ProcessorTest, Postbox)
 {
   string const countryName = "Wonderland";
