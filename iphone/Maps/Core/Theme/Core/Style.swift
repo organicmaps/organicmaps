@@ -46,6 +46,11 @@ class Style: ExpressibleByDictionaryLiteral {
     case images
     case exclusions
     case unknown
+
+    case gridColor
+    case previewSelectorColor
+    case previewTintColor
+    case infoBackground
   }
 
   typealias Key = Parameter
@@ -304,5 +309,25 @@ extension Style {
   var exclusions: Set<String>? {
     get { return self[.exclusions] as? Set<String> }
     set { params[.exclusions] = newValue }
+  }
+
+  var gridColor: UIColor? {
+    get { return self[.gridColor] as? UIColor }
+    set { params[.gridColor] = newValue }
+  }
+
+  var previewSelectorColor: UIColor? {
+    get { return self[.previewSelectorColor] as? UIColor }
+    set { params[.previewSelectorColor] = newValue }
+  }
+
+  var previewTintColor: UIColor? {
+    get { return self[.previewTintColor] as? UIColor }
+    set { params[.previewTintColor] = newValue }
+  }
+
+  var infoBackground: UIColor? {
+    get { return self[.infoBackground] as? UIColor }
+    set { params[.infoBackground] = newValue }
   }
 }

@@ -48,11 +48,39 @@ class ChartInfoView: UIView {
     }
   }
 
-  var bgColor: UIColor = UIColor.white
+  var tooltipBackgroundColor: UIColor = UIColor.white {
+    didSet {
+      pointInfoView.backgroundColor = tooltipBackgroundColor
+    }
+  }
+
+  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
+    didSet {
+      pointInfoView.font = font
+    }
+  }
 
   var textColor: UIColor = UIColor.black {
     didSet {
       pointInfoView.textColor = textColor
+    }
+  }
+
+  public var infoBackgroundColor: UIColor = UIColor.white {
+    didSet {
+      pointInfoView.backgroundColor = infoBackgroundColor
+    }
+  }
+
+  public var infoShadowColor: UIColor = UIColor.black {
+    didSet {
+      pointInfoView.layer.shadowColor = infoShadowColor.cgColor
+    }
+  }
+
+  public var infoShadowOpacity: Float = 0.25 {
+    didSet {
+      pointInfoView.layer.shadowOpacity = infoShadowOpacity
     }
   }
 
@@ -69,6 +97,8 @@ class ChartInfoView: UIView {
     panGR = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
     panGR.delegate = self
     addGestureRecognizer(panGR)
+    pointInfoView.textColor = textColor
+    pointInfoView.backgroundColor = tooltipBackgroundColor
   }
 
   required init?(coder aDecoder: NSCoder) {

@@ -17,19 +17,31 @@ fileprivate class ChartYAxisInnerView: UIView {
   let lowerLabelBackground = UIView()
   let upperLabelBackground = UIView()
   var alignment: ChartYAxisViewAlignment = .left
-  var textColor: UIColor?
-  var gridColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+
+  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
     didSet {
-      if textColor == nil {
-        lowerLabel.textColor = gridColor
-        upperLabel.textColor = gridColor
-      }
+      lowerLabel.font = font
+      upperLabel.font = font
     }
   }
 
-  var gridLineColor: UIColor = UIColor.white {
+  var textColor: UIColor = UIColor(white: 0, alpha: 0.3) {
     didSet {
-      shapeLayer.strokeColor = gridLineColor.cgColor
+      lowerLabel.textColor = textColor
+      upperLabel.textColor = textColor
+    }
+  }
+
+  var textBackgroundColor: UIColor = UIColor(white: 1, alpha: 0.7) {
+    didSet {
+      lowerLabelBackground.backgroundColor = textBackgroundColor
+      upperLabelBackground.backgroundColor = textBackgroundColor
+    }
+  }
+
+  var gridColor: UIColor = UIColor.white {
+    didSet {
+      shapeLayer.strokeColor = gridColor.cgColor
     }
   }
 
@@ -74,8 +86,12 @@ fileprivate class ChartYAxisInnerView: UIView {
       upperLabelBackground.rightAnchor.constraint(equalTo: rightAnchor, constant:  -5)
     ])
 
+    lowerLabel.textColor = textColor
+    upperLabel.textColor = textColor
+    lowerLabelBackground.backgroundColor = textBackgroundColor
+    upperLabelBackground.backgroundColor = textBackgroundColor
     shapeLayer.fillColor = UIColor.clear.cgColor
-    shapeLayer.strokeColor = gridLineColor.cgColor
+    shapeLayer.strokeColor = gridColor.cgColor
     shapeLayer.lineDashPattern = [2, 3]
     shapeLayer.lineWidth = 1
   }
@@ -159,17 +175,28 @@ class ChartYAxisView: UIView {
   var lowerBound: CGFloat = 0
   var upperBound: CGFloat = 0
   var alignment: ChartYAxisViewAlignment = .right
-  var textColor: UIColor?
+
+  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
+    didSet {
+      gridView?.font = font
+    }
+  }
+
+  var textColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+    didSet {
+      gridView?.textColor = textColor
+    }
+  }
+
+  var textBackgroundColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+    didSet {
+      gridView?.textBackgroundColor = textBackgroundColor
+    }
+  }
 
   var gridColor: UIColor = UIColor(white: 0, alpha: 0.3) {
     didSet {
       gridView?.gridColor = gridColor
-    }
-  }
-
-  var gridLineColor: UIColor = UIColor(white: 0, alpha: 0.3) {
-    didSet {
-      gridView?.gridLineColor = gridLineColor
     }
   }
 
@@ -191,7 +218,7 @@ class ChartYAxisView: UIView {
     gv.alignment = alignment
     gv.textColor = textColor
     gv.gridColor = gridColor
-    gv.gridLineColor = gridLineColor
+    gv.textBackgroundColor = textBackgroundColor
     gv.frame = bounds
     gv.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     addSubview(gv)

@@ -112,5 +112,17 @@ class PlacePageStyleSheet: IStyleSheet {
     theme.add(styleName: "PPCloseButton") { (s) -> (Void) in
       s.tintColor = colors.blackDividers
     }
+
+    theme.add(styleName: "ChartView") { (s) -> (Void) in
+      s.backgroundColor = colors.white
+      s.fontColor = colors.blackSecondaryText
+      s.font = fonts.regular12
+      s.gridColor = colors.blackDividers
+      s.previewSelectorColor = colors.elevationPreviewSelector
+      s.previewTintColor = colors.elevationPreviewTint
+      s.shadowOpacity = 0.25
+      s.shadowColor = colors.shadow
+      s.infoBackground = colors.pressBackground
+    }
   }
 }

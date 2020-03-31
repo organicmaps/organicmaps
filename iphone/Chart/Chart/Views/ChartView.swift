@@ -38,39 +38,50 @@ public class ChartView: UIView {
     }
   }
 
-  public var headerTextColor: UIColor = UIColor.lightGray {
+  public var infoBackgroundColor: UIColor = UIColor.white {
     didSet {
-      chartInfoView.textColor = headerTextColor
+      chartInfoView.infoBackgroundColor = infoBackgroundColor
+      yAxisView.textBackgroundColor = infoBackgroundColor.withAlphaComponent(0.7)
     }
   }
 
-  public var gridTextColor: UIColor = UIColor(white: 0, alpha: 0.2) {
+  public var infoShadowColor: UIColor = UIColor.black {
     didSet {
-      xAxisView.gridColor = gridTextColor
-      yAxisView.gridColor = gridTextColor
+      chartInfoView.infoShadowColor = infoShadowColor
     }
   }
 
-  public var gridLineColor: UIColor = UIColor(white: 0, alpha: 0.2) {
+  public var infoShadowOpacity: Float = 0.25 {
     didSet {
-      yAxisView.gridLineColor = gridLineColor
+      chartInfoView.infoShadowOpacity = infoShadowOpacity
     }
   }
 
-  public var bgColor: UIColor = UIColor.white {
+  public var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
     didSet {
-      chartInfoView.bgColor = bgColor
+      xAxisView.font = font
+      yAxisView.font = font
+      chartInfoView.font = font
     }
   }
 
-  weak var headerUpdateTimer: Timer?
-
-  public var rasterize = false {
+  public var textColor: UIColor = UIColor(white: 0, alpha: 0.2) {
     didSet {
-      lineViews.forEach {
-        $0.layer.shouldRasterize = rasterize
-        $0.layer.rasterizationScale = UIScreen.main.scale
-      }
+      xAxisView.textColor = textColor
+      yAxisView.textColor = textColor
+      chartInfoView.textColor = textColor
+    }
+  }
+
+  public var gridColor: UIColor = UIColor(white: 0, alpha: 0.2) {
+    didSet {
+      yAxisView.gridColor = gridColor
+    }
+  }
+
+  public override var backgroundColor: UIColor? {
+    didSet {
+      chartInfoView.tooltipBackgroundColor = backgroundColor ?? .white
     }
   }
 
@@ -98,8 +109,7 @@ public class ChartView: UIView {
       chartInfoView.frame = chartsContainerView.bounds
       chartInfoView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
       chartInfoView.delegate = self
-      chartInfoView.bgColor = bgColor
-      chartInfoView.textColor = headerTextColor
+      chartInfoView.textColor = textColor
       chartsContainerView.addSubview(chartInfoView)
 
       xAxisView.values = chartData.labels
@@ -109,8 +119,8 @@ public class ChartView: UIView {
     }
   }
 
-  public typealias OnSelectePointChangedClosure = (_ px: CGFloat) -> Void
-  public var onSelectedPointChanged: OnSelectePointChangedClosure?
+  public typealias OnSelectedPointChangedClosure = (_ px: CGFloat) -> Void
+  public var onSelectedPointChanged: OnSelectedPointChangedClosure?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -123,12 +133,16 @@ public class ChartView: UIView {
   }
 
   private func setup() {
-    xAxisView.gridColor = gridTextColor
-    yAxisView.gridColor = gridTextColor
-    yAxisView.gridLineColor = gridTextColor
-    chartInfoView.bgColor = bgColor
+    xAxisView.font = font
+    xAxisView.textColor = textColor
+    yAxisView.font = font
+    yAxisView.textColor = textColor
+    yAxisView.gridColor = textColor
+    chartInfoView.font = font
     chartPreviewView.selectorTintColor = previewTintColor
     chartPreviewView.selectorColor = previewSelectorColor
+    chartInfoView.tooltipBackgroundColor = backgroundColor ?? .white
+    yAxisView.textBackgroundColor = infoBackgroundColor.withAlphaComponent(0.7)
 
     panGR = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
     chartsContainerView.addGestureRecognizer(panGR)
@@ -258,7 +272,7 @@ public class ChartView: UIView {
     let step = ceil((upper - lower) / CGFloat(stepsCount))
     upper = lower + step * CGFloat(stepsCount)
     var steps: [CGFloat] = []
-    for i in 0..<stepsCount {
+    for i in 0...stepsCount {
       steps.append(lower + step * CGFloat(i))
     }
 

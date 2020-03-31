@@ -22,7 +22,7 @@ enum RowInMetaInfo
 {
   Title,
   Color,
-  Category,
+  Categori,
   RowsInMetaInfoCount
 };
 }  // namespace
@@ -158,7 +158,7 @@ enum RowInMetaInfo
       cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
       return cell;
     }
-    case Category:
+    case Categori:
     {
       Class cls = [UITableViewCell class];
       auto cell = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
@@ -226,7 +226,7 @@ enum RowInMetaInfo
     [self.navigationController pushViewController:cvc animated:YES];
     break;
   }
-  case Category:
+  case Categori:
   {
     kml::MarkGroupId categoryId = self.cachedNewBookmarkCatId;
     if (categoryId == kml::kInvalidMarkGroupId)
@@ -282,7 +282,7 @@ enum RowInMetaInfo
 {
   self.cachedCategory = category;
   self.cachedNewBookmarkCatId = categoryId;
-  [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:Category inSection:MetaInfo]] withRowAnimation:UITableViewRowAnimationAutomatic];
+  [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:Categori inSection:MetaInfo]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - MWMBookmarkTitleDelegate

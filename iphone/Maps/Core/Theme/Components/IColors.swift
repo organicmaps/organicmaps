@@ -73,4 +73,7 @@ let alpha100: CGFloat = 1.0
   var allPassSubscriptionTermsTitle: UIColor { get }
   var fadeBackground: UIColor { get }
   var blackStatusBarBackground: UIColor { get }
+  var elevationPreviewSelector: UIColor { get }
+  var elevationPreviewTint: UIColor { get }
+  var shadow: UIColor { get }
 }

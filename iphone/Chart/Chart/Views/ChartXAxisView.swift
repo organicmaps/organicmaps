@@ -1,15 +1,20 @@
 import UIKit
 
 fileprivate class ChartXAxisInnerView: UIView {
-  private let font = UIFont.systemFont(ofSize: 12, weight: .regular)
   var lowerBound = 0
   var upperBound = 0
   var steps: [String] = []
   var labels: [UILabel] = []
 
-  var gridColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
     didSet {
-      labels.forEach { $0.textColor = gridColor }
+      labels.forEach { $0.font = font }
+    }
+  }
+
+  var textColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+    didSet {
+      labels.forEach { $0.textColor = textColor }
     }
   }
 
@@ -24,7 +29,7 @@ fileprivate class ChartXAxisInnerView: UIView {
   func makeLabel(text: String) -> UILabel {
     let label = UILabel()
     label.font = font
-    label.textColor = gridColor
+    label.textColor = textColor
     label.text = text
     label.frame = CGRect(x: 0, y: 0, width: 50, height: 15)
     return label
@@ -74,9 +79,15 @@ class ChartXAxisView: UIView {
 
   var values: [String] = []
 
-  var gridColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
     didSet {
-      labelsView?.gridColor = gridColor
+      labelsView?.font = font
+    }
+  }
+
+  var textColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+    didSet {
+      labelsView?.textColor = textColor
     }
   }
 
@@ -96,7 +107,7 @@ class ChartXAxisView: UIView {
 
     let lv = ChartXAxisInnerView()
     lv.frame = bounds
-    lv.gridColor = gridColor
+    lv.textColor = textColor
     lv.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     addSubview(lv)
 

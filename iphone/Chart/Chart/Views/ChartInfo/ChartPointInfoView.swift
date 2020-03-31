@@ -26,6 +26,14 @@ class ChartPointInfoView: UIView {
     }
   }
 
+  var font: UIFont = UIFont.systemFont(ofSize: 12, weight: .regular) {
+    didSet {
+      captionLabel.font = font
+      distanceLabel.font = font
+      altitudeLabel.font = font
+    }
+  }
+
   var textColor: UIColor = .lightGray {
     didSet {
       captionLabel.textColor = textColor
@@ -34,8 +42,11 @@ class ChartPointInfoView: UIView {
     }
   }
 
-  let font = UIFont.systemFont(ofSize: 12, weight: .medium)
-  let lightFont = UIFont.systemFont(ofSize: 12)
+  override var backgroundColor: UIColor? {
+    didSet {
+      maskLayer.fillColor = backgroundColor?.cgColor
+    }
+  }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -46,7 +57,7 @@ class ChartPointInfoView: UIView {
     layer.shadowOpacity = 0.25
     layer.shadowRadius = 2
     layer.shadowOffset = CGSize(width: 0, height: 2)
-    maskLayer.fillColor = UIColor.white.cgColor
+    maskLayer.fillColor = backgroundColor?.cgColor
     layer.addSublayer(maskLayer)
 
     stackView.alignment = .leading
@@ -66,11 +77,11 @@ class ChartPointInfoView: UIView {
     stackView.addArrangedSubview(altitudeLabel)
     stackView.setCustomSpacing(6, after: distanceLabel)
 
-    captionLabel.text = "Distance:"
+    captionLabel.text = NSLocalizedString("placepage_distance", comment: "") + ":"
 
-    captionLabel.font = lightFont
-    distanceLabel.font = lightFont
-    altitudeLabel.font = lightFont
+    captionLabel.font = font
+    distanceLabel.font = font
+    altitudeLabel.font = font
 
     captionLabel.textColor = textColor
     distanceLabel.textColor = textColor
