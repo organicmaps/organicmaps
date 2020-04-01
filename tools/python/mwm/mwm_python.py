@@ -34,7 +34,8 @@ class MwmPython(mi.Mwm):
         self.map_type = mi.MapType(read_varint(self.file))
 
         self.version_ = self._read_version()
-        self.metadata_offsets = self._read_metadata_offsets()
+        if self.version_.format < 10 :
+          self.metadata_offsets = self._read_metadata_offsets()
 
     def version(self) -> mi.MwmVersion:
         return self.version_
@@ -88,6 +89,7 @@ class MwmPython(mi.Mwm):
         return tags
 
     def _read_metadata_offsets(self) -> Dict[int, int]:
+        assert self.version_.format < 10
         self.seek_tag("metaidx")
         tag_info = self.get_tag("metaidx")
         current = 0

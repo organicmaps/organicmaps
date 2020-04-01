@@ -348,6 +348,7 @@ BOOST_PYTHON_MODULE(pygen)
         .value("v7", version::Format::v7)
         .value("v8", version::Format::v8)
         .value("v9", version::Format::v9)
+        .value("v10", version::Format::v10)
         .value("last", version::Format::lastFormat);
 
     bp::class_<FilesContainerR::TagInfo>("SectionInfo", bp::no_init)
