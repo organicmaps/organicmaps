@@ -176,6 +176,7 @@
     <item name="elevationProfileSelectedPointBg">@drawable/bg_point_desc</item>
     <item name="elevationProfileSelectedPointTriangle">@drawable/ic_triangle</item>
     <item name="elevationProfileFloatingTriangle">@drawable/ic_triangle_elevation</item>
+    <item name="elevationProfileColor">@color/elevation_profile</item>
   </style>
 
   <!-- Night theme -->
@@ -351,5 +352,6 @@
     <item name="elevationProfileSelectedPointBg">@drawable/bg_point_desc_night</item>
     <item name="elevationProfileSelectedPointTriangle">@drawable/ic_triangle_night</item>
     <item name="elevationProfileFloatingTriangle">@drawable/ic_triangle_elevation_night</item>
+    <item name="elevationProfileColor">@color/elevation_profile_dark</item>
   </style>
 </resources>

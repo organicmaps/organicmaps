@@ -221,6 +221,8 @@
 
   <color name="elevation_profile_dot_enabled">#FF9600</color>
   <color name="elevation_profile">#1E96F0</color>
+  <color name="elevation_profile_dark">#4BB9E6</color>
+
 
   <color name="tinkoff_button">#FFDD2D</color>
   <color name="mts_button">#E30611</color>

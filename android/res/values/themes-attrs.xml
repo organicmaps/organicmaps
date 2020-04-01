@@ -140,6 +140,7 @@
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.ElevationProfile">
+    <attr name="elevationProfileColor" format="color"/>
     <attr name="elevationProfilePropertyBg" format="reference" />
     <attr name="elevationProfilePropIconTint" format="color" />
     <attr name="altitudeBg" format="reference"/>

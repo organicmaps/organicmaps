@@ -170,7 +170,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     set.setDrawHorizontalHighlightIndicator(false);
     set.setHighlightLineWidth(lineThickness);
     set.setHighLightColor(mContext.getResources().getColor(R.color.base_accent_transparent));
-    set.setFillColor(mContext.getResources().getColor(R.color.elevation_profile));
+    set.setFillColor(ThemeUtils.getColor(mContext, R.attr.elevationProfileColor));
 
     LineData data = new LineData(set);
     data.setValueTextSize(mContext.getResources().getDimensionPixelSize(R.dimen.text_size_icon_title));
