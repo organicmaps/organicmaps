@@ -4,9 +4,10 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
-#include "geometry/point2d.hpp"
+#include "platform/localization.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
@@ -372,5 +373,33 @@ vector<int8_t> GetDescriptionLangPriority(RegionData const & regionData, int8_t 
 {
   bool const preferDefault = IsNativeLang(regionData, deviceLang);
   return MakePrimaryNamePriorityList(deviceLang, preferDefault);
+}
+
+vector<string> GetCuisines(TypesHolder const & types)
+{
+  vector<string> cuisines;
+  auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
+  for (auto const t : types)
+  {
+    if (!isCuisine(t))
+      continue;
+    auto const cuisine = classif().GetFullObjectNamePath(t);
+    CHECK_EQUAL(cuisine.size(), 2, (cuisine));
+    cuisines.push_back(cuisine[1]);
+  }
+  return cuisines;
+}
+
+vector<string> GetLocalizedCuisines(TypesHolder const & types)
+{
+  vector<string> localized;
+  auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
+  for (auto const t : types)
+  {
+    if (!isCuisine(t))
+      continue;
+    localized.push_back(platform::GetLocalizedTypeName(classif().GetReadableObjectName(t)));
+  }
+  return localized;
 }
 } // namespace feature

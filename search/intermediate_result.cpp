@@ -278,6 +278,9 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     details.m_hotelApproximatePricing = pricingStr;
   }
 
+  auto const cuisines = feature::GetLocalizedCuisines(feature::TypesHolder(ft));
+  details.m_cuisine = strings::JoinStrings(cuisines, " • ");
+
   details.m_isInitialized = true;
 }
 

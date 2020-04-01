@@ -2,6 +2,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "platform/localization.hpp"
@@ -168,32 +169,11 @@ Internet MapObject::GetInternet() const
   return Internet::Unknown;
 }
 
-vector<string> MapObject::GetCuisines() const
-{
-  vector<string> cuisines;
-  auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
-  for (auto const t : m_types)
-  {
-    if (!isCuisine(t))
-      continue;
-    auto const cuisine = classif().GetFullObjectNamePath(t);
-    CHECK_EQUAL(cuisine.size(), 2, (cuisine));
-    cuisines.push_back(cuisine[1]);
-  }
-  return cuisines;
-}
+vector<string> MapObject::GetCuisines() const { return feature::GetCuisines(m_types); }
 
 vector<string> MapObject::GetLocalizedCuisines() const
 {
-  vector<string> localized;
-  auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
-  for (auto const t : m_types)
-  {
-    if (!isCuisine(t))
-      continue;
-    localized.push_back(platform::GetLocalizedTypeName(classif().GetReadableObjectName(t)));
-  }
-  return localized;
+  return feature::GetLocalizedCuisines(m_types);
 }
 
 string MapObject::FormatCuisines() const { return strings::JoinStrings(GetLocalizedCuisines(), " • "); }

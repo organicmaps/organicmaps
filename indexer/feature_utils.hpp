@@ -77,4 +77,10 @@ namespace feature
   /// - international language code;
   /// - english language code;
   std::vector<int8_t> GetDescriptionLangPriority(RegionData const & regionData, int8_t const deviceLang);
+
+  // Returns vector of cuisines readable names from classificator.
+  std::vector<std::string> GetCuisines(TypesHolder const & types);
+
+  // Returns vector of cuisines names localized by platform.
+  std::vector<std::string> GetLocalizedCuisines(TypesHolder const & types);
 }  // namespace feature
