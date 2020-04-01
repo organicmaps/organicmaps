@@ -28,7 +28,7 @@ std::vector<std::string> CountriesFilesAffiliation::GetAffiliations(FeatureBuild
 {
   std::vector<std::string> countries;
   std::vector<std::reference_wrapper<borders::CountryPolygons const>> countriesContainer;
-  m_countryPolygonsTree.ForEachPolygonInRect(fb.GetLimitRect(), [&](auto const & countryPolygons) {
+  m_countryPolygonsTree.ForEachCountryInRect(fb.GetLimitRect(), [&](auto const & countryPolygons) {
     countriesContainer.emplace_back(countryPolygons);
   });
 
@@ -59,7 +59,7 @@ CountriesFilesAffiliation::GetAffiliations(m2::PointD const & point) const
 {
   std::vector<std::string> countries;
   std::vector<std::reference_wrapper<borders::CountryPolygons const>> countriesContainer;
-  m_countryPolygonsTree.ForEachPolygonInRect(m2::RectD(point, point), [&](auto const & countryPolygons) {
+  m_countryPolygonsTree.ForEachCountryInRect(m2::RectD(point, point), [&](auto const & countryPolygons) {
     countriesContainer.emplace_back(countryPolygons);
   });
 
@@ -188,7 +188,7 @@ CountriesFilesIndexAffiliation::BuildIndex(const std::vector<m2::RectD> & net)
     {
       pool.SubmitWork([&, rect]() {
         std::vector<std::reference_wrapper<borders::CountryPolygons const>> countries;
-        m_countryPolygonsTree.ForEachPolygonInRect(rect, [&](auto const & country) {
+        m_countryPolygonsTree.ForEachCountryInRect(rect, [&](auto const & country) {
           countries.emplace_back(country);
         });
         if (m_haveBordersForWholeWorld && countries.size() == 1)

@@ -15,6 +15,7 @@
 #include <mutex>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -107,9 +108,13 @@ public:
   size_t GetSize() const { return m_countryPolygonsMap.size(); }
 
   template <typename ToDo>
-  void ForEachPolygonInRect(m2::RectD const & rect, ToDo && toDo) const
+  void ForEachCountryInRect(m2::RectD const & rect, ToDo && toDo) const
   {
-    m_regionsTree.ForEachInRect(rect, std::forward<ToDo>(toDo));
+    std::unordered_set<CountryPolygons const *> uniq;
+    m_regionsTree.ForEachInRect(rect, [&](auto const & countryPolygons) {
+      if (uniq.emplace(&countryPolygons.get()).second)
+        toDo(countryPolygons);
+    });
   }
 
   bool HasRegionByName(std::string const & name) const
