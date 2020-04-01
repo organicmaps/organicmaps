@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import argparse
 import os
 import timeit
@@ -100,7 +99,7 @@ def example__working_with_features(path):
 
     for ft in it:
       geometry = ft.geometry()
-      if ft.geom_type() == mwm.GeomType.Area and len(geometry) < 10:
+      if ft.geom_type() == mwm.GeomType.area and len(geometry) < 10:
         print("area geometry", geometry)
         break
 

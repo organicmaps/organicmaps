@@ -71,7 +71,7 @@ public:
     bp::dict mnames;
     auto const & name = m_feature->GetNames();
     name.ForEach([&](auto code, auto && str) {
-      mnames[StringUtf8Multilang::GetLangByCode(code)] = std::move(str);
+      mnames[StringUtf8Multilang::GetLangByCode(code)] = str;
     });
 
     return mnames;
@@ -170,9 +170,13 @@ public:
   }
 
   version::MwmVersion const & GetVersion() const { return m_mwmValue.GetMwmVersion(); }
+
   DataHeader::MapType GetType() const { return m_mwmValue.GetHeader().GetType(); }
+
   m2::RectD GetBounds() const { return m_mwmValue.GetHeader().GetBounds(); }
+
   size_t Size() const { return m_guard->GetNumFeatures(); }
+
   FeatureTypeWrapper GetFeatureByIndex(uint32_t index)
   {
     FeatureTypeWrapper ftw(m_self.lock(), m_guard->GetFeatureByIndex(index));
@@ -291,47 +295,47 @@ BOOST_PYTHON_MODULE(pygen)
     bp::scope mwmNamespace = bp::class_<MwmNamespace>("mwm");
 
     bp::enum_<Metadata::EType>("EType")
-        .value("FMD_CUISINE", Metadata::EType::FMD_CUISINE)
-        .value("FMD_OPEN_HOURS", Metadata::EType::FMD_OPEN_HOURS)
-        .value("FMD_PHONE_NUMBER", Metadata::EType::FMD_PHONE_NUMBER)
-        .value("FMD_FAX_NUMBER", Metadata::EType::FMD_FAX_NUMBER)
-        .value("FMD_STARS", Metadata::EType::FMD_STARS)
-        .value("FMD_OPERATOR", Metadata::EType::FMD_OPERATOR)
-        .value("FMD_URL", Metadata::EType::FMD_URL)
-        .value("FMD_WEBSITE", Metadata::EType::FMD_WEBSITE)
-        .value("FMD_INTERNET", Metadata::EType::FMD_INTERNET)
-        .value("FMD_ELE", Metadata::EType::FMD_ELE)
-        .value("FMD_TURN_LANES", Metadata::EType::FMD_TURN_LANES)
-        .value("FMD_TURN_LANES_FORWARD", Metadata::EType::FMD_TURN_LANES_FORWARD)
-        .value("FMD_TURN_LANES_BACKWARD", Metadata::EType::FMD_TURN_LANES_BACKWARD)
-        .value("FMD_EMAIL", Metadata::EType::FMD_EMAIL)
-        .value("FMD_POSTCODE", Metadata::EType::FMD_POSTCODE)
-        .value("FMD_WIKIPEDIA", Metadata::EType::FMD_WIKIPEDIA)
-        .value("FMD_FLATS", Metadata::EType::FMD_FLATS)
-        .value("FMD_HEIGHT", Metadata::EType::FMD_HEIGHT)
-        .value("FMD_MIN_HEIGHT", Metadata::EType::FMD_MIN_HEIGHT)
-        .value("FMD_DENOMINATION", Metadata::EType::FMD_DENOMINATION)
-        .value("FMD_BUILDING_LEVELS", Metadata::EType::FMD_BUILDING_LEVELS)
-        .value("FMD_TEST_ID", Metadata::EType::FMD_TEST_ID)
-        .value("FMD_SPONSORED_ID", Metadata::EType::FMD_SPONSORED_ID)
-        .value("FMD_PRICE_RATE", Metadata::EType::FMD_PRICE_RATE)
-        .value("FMD_RATING", Metadata::EType::FMD_RATING)
-        .value("FMD_BANNER_URL", Metadata::EType::FMD_BANNER_URL)
-        .value("FMD_LEVEL", Metadata::EType::FMD_LEVEL)
-        .value("FMD_AIRPORT_IATA", Metadata::EType::FMD_AIRPORT_IATA)
-        .value("FMD_BRAND", Metadata::EType::FMD_BRAND)
-        .value("FMD_DURATION", Metadata::EType::FMD_DURATION);
+        .value("cuisine", Metadata::EType::FMD_CUISINE)
+        .value("open_hours", Metadata::EType::FMD_OPEN_HOURS)
+        .value("phone_number", Metadata::EType::FMD_PHONE_NUMBER)
+        .value("fax_number", Metadata::EType::FMD_FAX_NUMBER)
+        .value("stars", Metadata::EType::FMD_STARS)
+        .value("operator", Metadata::EType::FMD_OPERATOR)
+        .value("url", Metadata::EType::FMD_URL)
+        .value("website", Metadata::EType::FMD_WEBSITE)
+        .value("internet", Metadata::EType::FMD_INTERNET)
+        .value("ele", Metadata::EType::FMD_ELE)
+        .value("turn_lanes", Metadata::EType::FMD_TURN_LANES)
+        .value("turn_lanes_forward", Metadata::EType::FMD_TURN_LANES_FORWARD)
+        .value("turn_lanes_backward", Metadata::EType::FMD_TURN_LANES_BACKWARD)
+        .value("email", Metadata::EType::FMD_EMAIL)
+        .value("postcode", Metadata::EType::FMD_POSTCODE)
+        .value("wikipedia", Metadata::EType::FMD_WIKIPEDIA)
+        .value("flats", Metadata::EType::FMD_FLATS)
+        .value("height", Metadata::EType::FMD_HEIGHT)
+        .value("min_height", Metadata::EType::FMD_MIN_HEIGHT)
+        .value("denomination", Metadata::EType::FMD_DENOMINATION)
+        .value("building_levels", Metadata::EType::FMD_BUILDING_LEVELS)
+        .value("test_id", Metadata::EType::FMD_TEST_ID)
+        .value("sponsored_id", Metadata::EType::FMD_SPONSORED_ID)
+        .value("price_rate", Metadata::EType::FMD_PRICE_RATE)
+        .value("rating", Metadata::EType::FMD_RATING)
+        .value("banner_url", Metadata::EType::FMD_BANNER_URL)
+        .value("level", Metadata::EType::FMD_LEVEL)
+        .value("airport_iata", Metadata::EType::FMD_AIRPORT_IATA)
+        .value("brand", Metadata::EType::FMD_BRAND)
+        .value("duration", Metadata::EType::FMD_DURATION);
 
     bp::enum_<GeomType>("GeomType")
-        .value("Undefined", GeomType::Undefined)
-        .value("Point", GeomType::Point)
-        .value("Line", GeomType::Line)
-        .value("Area", GeomType::Area);
+        .value("undefined", GeomType::Undefined)
+        .value("point", GeomType::Point)
+        .value("line", GeomType::Line)
+        .value("area", GeomType::Area);
 
     bp::enum_<DataHeader::MapType>("MapType")
-        .value("World", DataHeader::MapType::World)
-        .value("WorldCoasts", DataHeader::MapType::WorldCoasts)
-        .value("Country", DataHeader::MapType::Country);
+        .value("world", DataHeader::MapType::World)
+        .value("worldCoasts", DataHeader::MapType::WorldCoasts)
+        .value("country", DataHeader::MapType::Country);
 
     bp::enum_<version::Format>("MwmFormat")
         .value("unknown", version::Format::unknownFormat)
@@ -391,7 +395,7 @@ BOOST_PYTHON_MODULE(pygen)
         .def("next", &MwmIter::Next);
 
     bp::class_<Mwm, boost::shared_ptr<Mwm>, boost::noncopyable>("Mwm_", bp::no_init)
-        .def("version", &Mwm::GetVersion, bp::return_internal_reference<>())
+        .def("version", &Mwm::GetVersion, bp::return_value_policy<bp::copy_const_reference>())
         .def("type", &Mwm::GetType)
         .def("bounds", &Mwm::GetBounds)
         .def("sections_info", &Mwm::GetSectionsInfo)
