@@ -77,7 +77,6 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   self = [super init];
   if (self) {
     _buttonsData = [[PlacePageButtonsData alloc] initWithRawData:rawData()];
-    _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
     _infoData = [[PlacePageInfoData alloc] initWithRawData:rawData() ohLocalization:localization];
 
     if (rawData().IsBookmark()) {
@@ -135,9 +134,13 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
     if (rawData().IsTrack()) {
       auto const &bm = GetFramework().GetBookmarkManager();
       auto const &trackId = rawData().GetTrackId();
-      _elevationProfileData = [[ElevationProfileData alloc] initWithElevationInfo:bm.MakeElevationInfo(trackId)
+      auto const &elevationInfo = bm.MakeElevationInfo(trackId);
+      _elevationProfileData = [[ElevationProfileData alloc] initWithElevationInfo:elevationInfo
                                                                       activePoint:bm.GetElevationActivePoint(trackId)
                                                                        myPosition:bm.GetElevationMyPosition(trackId)];
+      _previewData = [[PlacePagePreviewData alloc] initWithElevationInfo:elevationInfo];
+    } else {
+      _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
     }
 
     auto const &countryId = rawData().GetCountryId();

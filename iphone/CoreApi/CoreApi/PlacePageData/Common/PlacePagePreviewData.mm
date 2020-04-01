@@ -61,6 +61,14 @@ static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChec
 
 @implementation PlacePagePreviewData (Core)
 
+- (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo {
+  self = [super init];
+  if (self) {
+     _title = @(elevationInfo.GetName().c_str());
+  }
+  return self;
+}
+
 - (instancetype)initWithRawData:(place_page::Info const &)rawData {
   self = [super init];
   if (self) {
