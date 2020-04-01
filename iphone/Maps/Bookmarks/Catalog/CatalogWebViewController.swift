@@ -128,11 +128,14 @@ final class CatalogWebViewController: WebViewController {
     self.view.styleName = "Background"
     
     updateProgress()
-    let backButton = UIBarButtonItem(image: UIImage(named: "ic_nav_bar_back"),
-                                  style: .plain,
-                                  target: self,
-                                  action: #selector(onBack))
-    navigationItem.leftBarButtonItem = backButton
+    navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_nav_bar_back"),
+                                                       style: .plain,
+                                                       target: self,
+                                                       action: #selector(onBack))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: L("core_exit"),
+                                                        style: .plain,
+                                                        target: self,
+                                                        action:  #selector(goBack))
   }
 
   override func viewDidAppear(_ animated: Bool) {
