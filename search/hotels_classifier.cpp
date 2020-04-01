@@ -16,8 +16,8 @@ bool HotelsClassifier::IsHotelResults(Results const & results)
 
 void HotelsClassifier::Add(Result const & result)
 {
-  if (result.m_metadata.m_isHotel)
-   ++m_numHotels;
+  if (result.m_details.m_isHotel)
+    ++m_numHotels;
 
   ++m_numResults;
 }

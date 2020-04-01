@@ -27,10 +27,11 @@ search::Result MakeResultFromFeatureType(FeatureType & ft)
   feature::TypesHolder holder(ft);
   holder.SortBySpec();
 
-  search::Result::Metadata metadata;
-  search::ProcessMetadata(ft, metadata);
+  search::Result::Details details;
+  search::FillDetails(ft, details);
 
-  return {ft.GetID(), feature::GetCenter(ft), name, "", holder.GetBestType(), metadata};
+  return {ft.GetID(),       feature::GetCenter(ft), name,
+          "" /* address */, holder.GetBestType(),   details};
 }
 
 class GreaterRating
@@ -38,7 +39,7 @@ class GreaterRating
 public:
   bool operator()(search::Result const & lhs, search::Result const & rhs) const
   {
-    return lhs.m_metadata.m_hotelRating > rhs.m_metadata.m_hotelRating;
+    return lhs.m_details.m_hotelRating > rhs.m_details.m_hotelRating;
   }
 };
 }  // namespace

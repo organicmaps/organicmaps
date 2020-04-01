@@ -1778,11 +1778,11 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
     mark->SetMatchedName(r.GetString());
 
-    if (r.m_metadata.m_isSponsoredHotel)
+    if (r.m_details.m_isSponsoredHotel)
     {
       mark->SetBookingType(isFeature && m_localAdsManager.HasVisualization(r.GetFeatureID()) /* hasLocalAds */);
-      mark->SetRating(r.m_metadata.m_hotelRating);
-      mark->SetPricing(r.m_metadata.m_hotelPricing);
+      mark->SetRating(r.m_details.m_hotelRating);
+      mark->SetPricing(r.m_details.m_hotelPricing);
     }
     else if (isFeature)
     {
@@ -3172,9 +3172,9 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       string name;
       ft->GetReadableName(name);
       feature::TypesHolder const types(*ft);
-      search::Result::Metadata smd;
+      search::Result::Details details;
       results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*ft), name, edit.second,
-                                               types.GetBestType(), smd));
+                                               types.GetBestType(), details));
     }
     params.m_onResults(results);
 

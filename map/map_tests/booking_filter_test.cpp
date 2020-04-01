@@ -104,9 +104,9 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
   search::Results expectedResults;
   m_dataSource.ForEachInRect(
       [&results, &expectedResults](FeatureType & ft) {
-        search::Result::Metadata metadata;
-        metadata.m_isSponsoredHotel = true;
-        search::Result result(ft.GetID(), ft.GetCenter(), "", "", 0, metadata);
+        search::Result::Details details;
+        details.m_isSponsoredHotel = true;
+        search::Result result(ft.GetID(), ft.GetCenter(), "", "", 0, details);
         auto copy = result;
         results.AddResult(std::move(result));
         expectedResults.AddResult(std::move(copy));
@@ -177,11 +177,11 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
   search::Results expectedAvailableWithDeals;
   m_dataSource.ForEachInRect(
     [&](FeatureType & ft) {
-      search::Result::Metadata metadata;
-      metadata.m_isSponsoredHotel = true;
+      search::Result::Details details;
+      details.m_isSponsoredHotel = true;
       std::string name;
       ft.GetName(StringUtf8Multilang::kDefaultCode, name);
-      search::Result result(ft.GetID(), ft.GetCenter(), name, "", 0, metadata);
+      search::Result result(ft.GetID(), ft.GetCenter(), name, "", 0, details);
       InsertResult(result, results);
 
       auto const sponsoredId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
@@ -300,9 +300,9 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ApplyFilterOntoWithFeatureIds)
   std::vector<FeatureID> expectedFeatureIds;
   m_dataSource.ForEachInRect(
     [&results, &allFeatureIds, &expectedFeatureIds, &kHotelIds](FeatureType & ft) {
-      search::Result::Metadata metadata;
-      metadata.m_isSponsoredHotel = true;
-      search::Result result(ft.GetID(), ft.GetCenter(), "", "", 0, metadata);
+      search::Result::Details details;
+      details.m_isSponsoredHotel = true;
+      search::Result result(ft.GetID(), ft.GetCenter(), "", "", 0, details);
       auto copy = result;
       results.AddResult(std::move(result));
 

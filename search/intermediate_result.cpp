@@ -1,4 +1,5 @@
 #include "search/intermediate_result.hpp"
+
 #include "search/geometry_utils.hpp"
 #include "search/reverse_geocoder.hpp"
 
@@ -9,13 +10,14 @@
 #include "indexer/cuisines.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/ftypes_sponsored.hpp"
 #include "indexer/scales.hpp"
 
-#include "geometry/angles.hpp"
-
 #include "platform/measurement_utils.hpp"
+
+#include "geometry/angles.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -148,7 +150,7 @@ RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::Point
   m_region.SetParams(fileName, center);
   m_distance = PointDistance(center, pivot);
 
-  ProcessMetadata(f, m_metadata);
+  FillDetails(f, m_details);
 }
 
 RankerResult::RankerResult(double lat, double lon)
@@ -224,15 +226,15 @@ bool RankerResult::RegionInfo::GetCountryId(storage::CountryInfoGetter const & i
 }
 
 // Functions ---------------------------------------------------------------------------------------
-void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
+void FillDetails(FeatureType & ft, Result::Details & details)
 {
-  if (meta.m_isInitialized)
+  if (details.m_isInitialized)
     return;
 
   feature::Metadata const & src = ft.GetMetadata();
 
-  meta.m_airportIata = src.Get(feature::Metadata::FMD_AIRPORT_IATA);
-  meta.m_brand = src.Get(feature::Metadata::FMD_BRAND);
+  details.m_airportIata = src.Get(feature::Metadata::FMD_AIRPORT_IATA);
+  details.m_brand = src.Get(feature::Metadata::FMD_BRAND);
 
   string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())
@@ -241,18 +243,18 @@ void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
     // TODO: We should check closed/open time for specific feature's timezone.
     time_t const now = time(nullptr);
     if (oh.IsValid() && !oh.IsUnknown(now))
-      meta.m_isOpenNow = oh.IsOpen(now) ? osm::Yes : osm::No;
+      details.m_isOpenNow = oh.IsOpen(now) ? osm::Yes : osm::No;
     // In else case value us osm::Unknown, it's set in preview's constructor.
   }
 
-  if (strings::to_int(src.Get(feature::Metadata::FMD_STARS), meta.m_stars))
-    meta.m_stars = base::Clamp(meta.m_stars, 0, 5);
+  if (strings::to_int(src.Get(feature::Metadata::FMD_STARS), details.m_stars))
+    details.m_stars = base::Clamp(details.m_stars, 0, 5);
   else
-    meta.m_stars = 0;
+    details.m_stars = 0;
 
   bool const isSponsoredHotel = ftypes::IsBookingChecker::Instance()(ft);
-  meta.m_isSponsoredHotel = isSponsoredHotel;
-  meta.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
+  details.m_isSponsoredHotel = isSponsoredHotel;
+  details.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
 
   if (isSponsoredHotel)
   {
@@ -261,9 +263,8 @@ void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
     {
       float raw;
       if (strings::to_float(r.c_str(), raw))
-        meta.m_hotelRating = raw;
+        details.m_hotelRating = raw;
     }
-
 
     int pricing;
     if (!strings::to_int(src.Get(feature::Metadata::FMD_PRICE_RATE), pricing))
@@ -273,11 +274,11 @@ void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
     for (auto i = 0; i < pricing; i++)
       pricingStr.append(kPricingSymbol);
 
-    meta.m_hotelPricing = pricing;
-    meta.m_hotelApproximatePricing = pricingStr;
+    details.m_hotelPricing = pricing;
+    details.m_hotelApproximatePricing = pricingStr;
   }
 
-  meta.m_isInitialized = true;
+  details.m_isInitialized = true;
 }
 
 string DebugPrint(RankerResult const & r)

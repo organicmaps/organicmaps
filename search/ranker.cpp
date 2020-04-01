@@ -586,7 +586,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
     case RankerResult::Type::Building:
     {
       auto const type = rankerResult.GetBestType(m_params.m_preferredTypes);
-      return Result(r.GetID(), r.GetCenter(), name, address, type, r.GetMetadata());
+      return Result(r.GetID(), r.GetCenter(), name, address, type, r.GetDetails());
     }
     case RankerResult::Type::LatLon: return Result(r.GetCenter(), name, address);
     case RankerResult::Type::Postcode: return Result(r.GetCenter(), name);

@@ -147,7 +147,7 @@ void PrepareData(DataSource const & dataSource, search::Results const & results,
 
   for (auto const & r : results)
   {
-    if (!r.m_metadata.m_isSponsoredHotel || r.GetResultType() != search::Result::Type::Feature)
+    if (!r.m_details.m_isSponsoredHotel || r.GetResultType() != search::Result::Type::Feature)
       continue;
 
     features.push_back(r.GetFeatureID());
@@ -320,7 +320,7 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
 
   for (auto const & r : results)
   {
-    if (!r.m_metadata.m_isSponsoredHotel || r.GetResultType() != search::Result::Type::Feature)
+    if (!r.m_details.m_isSponsoredHotel || r.GetResultType() != search::Result::Type::Feature)
       continue;
 
     features.push_back(r.GetFeatureID());

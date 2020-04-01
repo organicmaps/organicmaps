@@ -15,14 +15,14 @@ namespace search
 {
 // Result ------------------------------------------------------------------------------------------
 Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
-               string const & address, uint32_t featureType, Metadata const & meta)
+               string const & address, uint32_t featureType, Details const & details)
   : m_resultType(Type::Feature)
   , m_id(id)
   , m_center(pt)
   , m_str(str)
   , m_address(address)
   , m_featureType(featureType)
-  , m_metadata(meta)
+  , m_details(details)
 {
 }
 

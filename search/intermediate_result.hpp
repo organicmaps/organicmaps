@@ -121,7 +121,7 @@ public:
   m2::PointD GetCenter() const { return m_region.m_point; }
   double GetDistance() const { return m_distance; }
   feature::GeomType GetGeomType() const { return m_geomType; }
-  Result::Metadata GetMetadata() const { return m_metadata; }
+  Result::Details GetDetails() const { return m_details; }
 
   double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
   double GetLinearModelRank() const { return m_info.GetLinearModelRank(); }
@@ -161,13 +161,13 @@ private:
   Type m_resultType;
   RankingInfo m_info;
   feature::GeomType m_geomType;
-  Result::Metadata m_metadata;
+  Result::Details m_details;
 
   // The call path in the Geocoder that leads to this result.
   std::vector<ResultTracer::Branch> m_provenance;
 };
 
-void ProcessMetadata(FeatureType & ft, Result::Metadata & meta);
+void FillDetails(FeatureType & ft, Result::Details & meta);
 
 std::string DebugPrint(RankerResult const & r);
 }  // namespace search
