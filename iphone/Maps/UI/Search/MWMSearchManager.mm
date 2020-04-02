@@ -33,6 +33,7 @@ using Observers = NSHashTable<Observer>;
                                UITextFieldDelegate, MWMStorageObserver, MWMSearchObserver>
 
 @property(weak, nonatomic, readonly) UIViewController * ownerController;
+@property(weak, nonatomic, readonly) UIView * actionBarContainer;
 
 @property(nonatomic) IBOutlet UIView * searchBarView;
 
@@ -438,18 +439,19 @@ using Observers = NSHashTable<Observer>;
   UIView * actionBarView = self.actionBarView;
   UIView * contentView = self.contentView;
   UIView * parentView = self.ownerController.view;
+  UIView * actionBarContaner = self.actionBarContainer;
 
   if (!hidden)
   {
     if (searchBarView.superview)
     {
       [parentView bringSubviewToFront:searchBarView];
-      [parentView bringSubviewToFront:actionBarView];
+      [actionBarContaner bringSubviewToFront:actionBarView];
       [parentView bringSubviewToFront:contentView];
       return;
     }
     [parentView addSubview:searchBarView];
-    [parentView addSubview:actionBarView];
+    [actionBarContaner addSubview:actionBarView];
     [parentView addSubview:contentView];
     [self layoutTopViews];
   }
@@ -505,4 +507,5 @@ using Observers = NSHashTable<Observer>;
 }
 
 - (UIViewController *)ownerController { return [MapViewController sharedController]; }
+- (UIView *)actionBarContainer { return [MapViewController sharedController].controlsView; }
 @end
