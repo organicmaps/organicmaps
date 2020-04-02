@@ -227,6 +227,8 @@
         android:layout_marginStart="@dimen/margin_half"
         android:textAppearance="?android:textAppearanceMedium"
         android:textStyle="bold"
+        android:singleLine="true"
+        android:ellipsize="end"
         tools:text="3 h. 25 min." />
     </LinearLayout>
   </LinearLayout>
