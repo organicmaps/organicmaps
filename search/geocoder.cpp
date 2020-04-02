@@ -585,7 +585,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> const & infos, bool inViewport
       auto const mwmType = m_context->GetType();
       CHECK(mwmType, ());
       if (mwmType->m_viewportIntersected || mwmType->m_containsUserPosition ||
-          m_preRanker.NumSentResults() == 0)
+          m_preRanker.Size() == 0)
       {
         MatchAroundPivot(ctx);
       }
