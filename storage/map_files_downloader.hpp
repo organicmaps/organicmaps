@@ -34,8 +34,6 @@ public:
 
     virtual void OnStartDownloading() = 0;
     virtual void OnFinishDownloading() = 0;
-    virtual void OnCountryInQueue(CountryId const & id) = 0;
-    virtual void OnStartDownloadingCountry(CountryId const & id) = 0;
   };
 
   virtual ~MapFilesDownloader() = default;

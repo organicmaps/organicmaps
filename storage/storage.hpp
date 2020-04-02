@@ -147,7 +147,8 @@ struct NodeStatuses
 // Downloading of only one mwm at a time is supported, so while the
 // mwm at the top of the queue is being downloaded (or updated by
 // applying a diff file) all other mwms have to wait.
-class Storage : public MapFilesDownloader::Subscriber
+class Storage : public MapFilesDownloader::Subscriber,
+                public QueuedCountry::Subscriber
 {
 public:
   struct StatusCallback;
@@ -260,15 +261,18 @@ private:
   void ReportProgressForHierarchy(CountryId const & countryId,
                                   downloader::Progress const & leafProgress);
 
+  // QueuedCountry::Subscriber overrides:
+  void OnCountryInQueue(QueuedCountry const & queuedCountry) override;
+  void OnStartDownloading(QueuedCountry const & queuedCountry) override;
   /// Called on the main thread by MapFilesDownloader when
   /// downloading of a map file succeeds/fails.
-  void OnMapFileDownloadFinished(QueuedCountry const & queuedCountry,
-                                 downloader::DownloadStatus status);
+  void OnDownloadFinished(QueuedCountry const & queuedCountry,
+                          downloader::DownloadStatus status) override;
 
   /// Periodically called on the main thread by MapFilesDownloader
   /// during the downloading process.
-  void OnMapFileDownloadProgress(QueuedCountry const & queuedCountry,
-                                 downloader::Progress const & progress);
+  void OnDownloadProgress(QueuedCountry const & queuedCountry,
+                          downloader::Progress const & progress) override;
 
   void RegisterDownloadedFiles(CountryId const & countryId, MapFileType type);
 
@@ -563,10 +567,9 @@ public:
 
   void SetStartDownloadingCallback(StartDownloadingCallback const & cb);
 
+  // MapFilesDownloader::Subscriber overrides:
   void OnStartDownloading() override;
   void OnFinishDownloading() override;
-  void OnCountryInQueue(CountryId const & id) override;
-  void OnStartDownloadingCountry(CountryId const & id) override;
 
 private:
   friend struct UnitClass_StorageTest_DeleteCountry;

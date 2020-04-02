@@ -548,8 +548,7 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
 
   QueuedCountry queuedCountry(countryFile, countryId, type, GetCurrentDataVersion(), m_dataDir,
                               m_diffsDataSource);
-  queuedCountry.SetOnFinishCallback(bind(&Storage::OnMapFileDownloadFinished, this, _1, _2));
-  queuedCountry.SetOnProgressCallback(bind(&Storage::OnMapFileDownloadProgress, this, _1, _2));
+  queuedCountry.Subscribe(*this);
 
   m_downloader->DownloadMapFile(queuedCountry);
 }
@@ -670,15 +669,6 @@ void Storage::Unsubscribe(int slotId)
   }
 }
 
-void Storage::OnMapFileDownloadFinished(QueuedCountry const & queuedCountry, DownloadStatus status)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  m_downloadingCountries.erase(queuedCountry.GetCountryId());
-
-  OnMapDownloadFinished(queuedCountry.GetCountryId(), status, queuedCountry.GetFileType());
-}
-
 void Storage::ReportProgress(CountryId const & countryId, Progress const & p)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -708,8 +698,19 @@ void Storage::ReportProgressForHierarchy(CountryId const & countryId, Progress c
   ForEachAncestorExceptForTheRoot(countryId, calcProgress);
 }
 
-void Storage::OnMapFileDownloadProgress(QueuedCountry const & queuedCountry,
-                                        Progress const & progress)
+void Storage::OnCountryInQueue(QueuedCountry const & queuedCountry)
+{
+  NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
+  SaveDownloadQueue();
+}
+
+void Storage::OnStartDownloading(QueuedCountry const & queuedCountry)
+{
+  m_downloadingCountries[queuedCountry.GetCountryId()] = {0, kUnknownTotalSize};
+  NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
+}
+
+void Storage::OnDownloadProgress(QueuedCountry const & queuedCountry, Progress const & progress)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
@@ -719,6 +720,15 @@ void Storage::OnMapFileDownloadProgress(QueuedCountry const & queuedCountry,
   m_downloadingCountries[queuedCountry.GetCountryId()] = progress;
 
   ReportProgressForHierarchy(queuedCountry.GetCountryId(), progress);
+}
+
+void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadStatus status)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  m_downloadingCountries.erase(queuedCountry.GetCountryId());
+
+  OnMapDownloadFinished(queuedCountry.GetCountryId(), status, queuedCountry.GetFileType());
 }
 
 void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType type)
@@ -1353,18 +1363,6 @@ void Storage::OnFinishDownloading()
   if (!localMaps.empty())
     GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapDownloadDiscovered);
   return;
-}
-
-void Storage::OnCountryInQueue(CountryId const & id)
-{
-  NotifyStatusChangedForHierarchy(id);
-  SaveDownloadQueue();
-}
-
-void Storage::OnStartDownloadingCountry(CountryId const & id)
-{
-  m_downloadingCountries[id] = {0, kUnknownTotalSize};
-  NotifyStatusChangedForHierarchy(id);
 }
 
 void Storage::OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs)

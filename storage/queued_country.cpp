@@ -39,6 +39,16 @@ QueuedCountry::QueuedCountry(platform::CountryFile const & countryFile, CountryI
   ASSERT(m_diffsDataSource != nullptr, ());
 }
 
+void QueuedCountry::Subscribe(Subscriber & subscriber)
+{
+  m_subscriber = &subscriber;
+}
+
+void QueuedCountry::Unsubscribe()
+{
+  m_subscriber = nullptr;
+}
+
 void QueuedCountry::SetFileType(MapFileType type)
 {
   m_fileType = type;
@@ -95,26 +105,28 @@ void QueuedCountry::ClarifyDownloadingType()
   }
 }
 
-void QueuedCountry::SetOnFinishCallback(DownloadingFinishCallback const & onDownloaded)
+void QueuedCountry::OnCountryInQueue() const
 {
-  m_downloadingFinishCallback = onDownloaded;
+  if (m_subscriber != nullptr)
+    m_subscriber->OnCountryInQueue(*this);
 }
 
-void QueuedCountry::SetOnProgressCallback(DownloadingProgressCallback const & onProgress)
+void QueuedCountry::OnStartDownloading() const
 {
-  m_downloadingProgressCallback = onProgress;
-}
-
-void QueuedCountry::OnDownloadFinished(downloader::DownloadStatus status) const
-{
-  if (m_downloadingFinishCallback)
-    m_downloadingFinishCallback(*this, status);
+  if (m_subscriber != nullptr)
+    m_subscriber->OnStartDownloading(*this);
 }
 
 void QueuedCountry::OnDownloadProgress(downloader::Progress const & progress) const
 {
-  if (m_downloadingProgressCallback)
-    m_downloadingProgressCallback(*this, progress);
+  if (m_subscriber != nullptr)
+    m_subscriber->OnDownloadProgress(*this, progress);
+}
+
+void QueuedCountry::OnDownloadFinished(downloader::DownloadStatus status) const
+{
+  if (m_subscriber != nullptr)
+    m_subscriber->OnDownloadFinished(*this, status);
 }
 
 bool QueuedCountry::operator==(CountryId const & countryId) const

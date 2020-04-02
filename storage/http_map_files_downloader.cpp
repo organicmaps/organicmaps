@@ -41,9 +41,7 @@ void HttpMapFilesDownloader::Download(QueuedCountry & queuedCountry)
   CHECK_THREAD_CHECKER(m_checker, ());
 
   m_queue.emplace_back(std::move(queuedCountry));
-
-  for (auto const subscriber : m_subscribers)
-    subscriber->OnCountryInQueue(queuedCountry.GetCountryId());
+  m_queue.back().OnCountryInQueue();
 
   if (m_queue.size() != 1)
     return;
@@ -70,8 +68,7 @@ void HttpMapFilesDownloader::Download()
 
   if (IsDownloadingAllowed())
   {
-    for (auto const subscriber : m_subscribers)
-      subscriber->OnStartDownloadingCountry(queuedCountry.GetCountryId());
+    queuedCountry.OnStartDownloading();
 
     m_request.reset(downloader::HttpRequest::GetFile(
         urls, path, size,

@@ -13,17 +13,33 @@ namespace storage
 {
 class QueuedCountry;
 
-using DownloadingFinishCallback =
-    std::function<void(QueuedCountry const & queuedCountry, downloader::DownloadStatus status)>;
+using CountryInQueueCallback =
+std::function<void(QueuedCountry const & queuedCountry)>;
+using DownloadingStartCallback =
+    std::function<void(QueuedCountry const & queuedCountry)>;
 using DownloadingProgressCallback =
     std::function<void(QueuedCountry const & queuedCountry, downloader::Progress const & progress)>;
+using DownloadingFinishCallback =
+    std::function<void(QueuedCountry const & queuedCountry, downloader::DownloadStatus status)>;
 
 class QueuedCountry
 {
 public:
+  class Subscriber
+  {
+  public:
+    virtual void OnCountryInQueue(QueuedCountry const & queuedCountry) = 0;
+    virtual void OnStartDownloading(QueuedCountry const & queuedCountry) = 0;
+    virtual void OnDownloadProgress(QueuedCountry const & queuedCountry, downloader::Progress const & progress) = 0;
+    virtual void OnDownloadFinished(QueuedCountry const & queuedCountry, downloader::DownloadStatus status) = 0;
+  };
+
   QueuedCountry(platform::CountryFile const & countryFile, CountryId const & m_countryId,
                 MapFileType type, int64_t currentDataVersion, std::string const & dataDir,
                 diffs::DiffsSourcePtr const & diffs);
+
+  void Subscribe(Subscriber & subscriber);
+  void Unsubscribe();
 
   void SetFileType(MapFileType type);
   MapFileType GetFileType() const;
@@ -36,11 +52,10 @@ public:
 
   void ClarifyDownloadingType();
 
-  void SetOnFinishCallback(DownloadingFinishCallback const & onDownloaded);
-  void SetOnProgressCallback(DownloadingProgressCallback const & onProgress);
-
-  void OnDownloadFinished(downloader::DownloadStatus status) const;
+  void OnCountryInQueue() const;
+  void OnStartDownloading() const;
   void OnDownloadProgress(downloader::Progress const & progress) const;
+  void OnDownloadFinished(downloader::DownloadStatus status) const;
 
   bool operator==(CountryId const & countryId) const;
 
@@ -52,7 +67,6 @@ private:
   std::string m_dataDir;
   diffs::DiffsSourcePtr m_diffsDataSource;
 
-  DownloadingFinishCallback m_downloadingFinishCallback;
-  DownloadingProgressCallback m_downloadingProgressCallback;
+  Subscriber * m_subscriber;
 };
 }  // namespace storage

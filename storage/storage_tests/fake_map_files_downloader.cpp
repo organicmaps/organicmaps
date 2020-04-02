@@ -27,11 +27,11 @@ void FakeMapFilesDownloader::Download(QueuedCountry & queuedCountry)
 
   m_queue.push_back(queuedCountry);
 
-  for (auto const subscriber : m_subscribers)
-    subscriber->OnCountryInQueue(queuedCountry.GetCountryId());
-
   if (m_queue.size() != 1)
+  {
+    m_queue.back().OnCountryInQueue();
     return;
+  }
 
   for (auto const subscriber : m_subscribers)
     subscriber->OnStartDownloading();
@@ -81,8 +81,7 @@ void FakeMapFilesDownloader::Download()
     return;
   }
 
-  for (auto const subscriber : m_subscribers)
-    subscriber->OnStartDownloadingCountry(queuedCountry.GetCountryId());
+  queuedCountry.OnStartDownloading();
 
   ++m_timestamp;
   m_progress = {0, queuedCountry.GetDownloadSize()};
