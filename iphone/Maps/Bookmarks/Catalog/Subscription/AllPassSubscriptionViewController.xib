@@ -155,7 +155,7 @@
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription1"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_title_2"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_title_3"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysy-K0-iWY">
@@ -165,7 +165,7 @@
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription2"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_subtitle_2"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_subtitle_3"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
@@ -191,7 +191,7 @@
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription1"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_title_3"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_title_2"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8li-NQ-mbT">
@@ -201,7 +201,7 @@
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription2"/>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_subtitle_3"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_subtitle_2"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
