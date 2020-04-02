@@ -22,7 +22,7 @@ struct ArchivingSettings
   size_t m_dumpIntervalSeconds = 60;
   size_t m_maxFilesToSave = 100;
   size_t m_maxArchivesToSave = 10;
-  size_t m_uploadIntervalSeconds = 15 * 60;
+  size_t m_uploadIntervalSeconds = 60 * 60 * 24;
   uint32_t m_version = 1;
 };
 
