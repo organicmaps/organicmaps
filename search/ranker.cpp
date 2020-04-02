@@ -14,8 +14,8 @@
 #include "indexer/brands_holder.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/road_shields_parser.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
@@ -147,9 +147,8 @@ pair<NameScores, size_t> GetNameScores(FeatureType & ft, Geocoder::Params const 
 
   if (type == Model::TYPE_STREET)
   {
-    auto const shields = ftypes::GetRoadShields(ft);
-    for (auto const & shield : shields)
-      UpdateNameScores(shield.m_name, sliceNoCategories, bestScores);
+    for (auto const & shield : feature::GetRoadShieldsNames(ft.GetRoadNumber()))
+      UpdateNameScores(shield, sliceNoCategories, bestScores);
   }
 
   return make_pair(bestScores, matchedLength);

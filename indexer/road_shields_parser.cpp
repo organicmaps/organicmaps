@@ -538,12 +538,8 @@ std::set<RoadShield> GetRoadShields(FeatureType & f)
   // Find out country name.
   std::string mwmName = f.GetID().GetMwmName();
 
-  // |mwmName| may be empty when GetRoadShields is called from generator.
-  if (mwmName == FeatureID::kInvalidFileName)
-  {
-    return SimpleRoadShieldParser(roadNumber, SimpleRoadShieldParser::ShieldTypes())
-        .GetRoadShields();
-  }
+  ASSERT_NOT_EQUAL(mwmName, FeatureID::kInvalidFileName,
+                   ("Use GetRoadShields(rawRoadNumber) for unknown mwms."));
 
   auto const underlinePos = mwmName.find('_');
   if (underlinePos != std::string::npos)

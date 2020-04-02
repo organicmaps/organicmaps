@@ -18,7 +18,6 @@
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
-#include "indexer/road_shields_parser.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
@@ -323,11 +322,10 @@ public:
       return;
 
     // Road number.
-    if (hasStreetType && !f.GetRoadNumber().empty())
+    if (hasStreetType)
     {
-      auto const shields = ftypes::GetRoadShields(f);
-      for (auto const & shield : shields)
-        inserter(StringUtf8Multilang::kDefaultCode, shield.m_name);
+      for (auto const & shield : feature::GetRoadShieldsNames(f.GetRoadNumber()))
+        inserter(StringUtf8Multilang::kDefaultCode, shield);
     }
 
     if (ftypes::IsAirportChecker::Instance()(types))
