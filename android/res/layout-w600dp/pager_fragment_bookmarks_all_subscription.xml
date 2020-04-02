@@ -10,19 +10,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
-    android:src="@drawable/img_bonfire" />
+    android:src="@drawable/all_pass_premium_61" />
   <ImageView
     android:id="@+id/img2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
-    android:src="@drawable/img_camping" />
+    android:src="@drawable/all_pass_premium_62" />
   <ImageView
     android:id="@+id/img3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
-    android:src="@drawable/img_winter" />
+    android:src="@drawable/all_pass_premium_60" />
   <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"

@@ -10,21 +10,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
-    android:src="@drawable/img_bonfire" />
+    android:src="@drawable/all_pass_premium_61" />
   <ImageView
     android:id="@+id/img2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
-    android:src="@drawable/img_camping" />
+    android:src="@drawable/all_pass_premium_62" />
   <ImageView
     android:id="@+id/img3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
-    android:src="@drawable/img_winter" />
+    android:src="@drawable/all_pass_premium_60" />
   <FrameLayout
-    android:background="@color/black_50"
+    android:background="@drawable/all_pass_overlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
   <androidx.core.widget.NestedScrollView
@@ -58,7 +58,7 @@
           android:layout_marginEnd="@dimen/margin_base_plus_quarter"
           android:fontFamily="@string/robotoMedium"
           android:gravity="center|start"
-          android:text="@string/all_pass_subscription_header"
+          android:text="@string/subscription"
           android:textColor="@color/black_primary"
           android:textSize="@dimen/text_size_button" />
         <TextView
