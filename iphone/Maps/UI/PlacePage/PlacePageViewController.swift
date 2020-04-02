@@ -113,7 +113,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
   }
 
   func scrollTo(_ point: CGPoint, animated: Bool, forced: Bool, completion: (()->())?) {
-    if traitCollection.horizontalSizeClass != .compact || (beginDragging && !forced) {
+    if (traitCollection.horizontalSizeClass != .compact || beginDragging) && !forced {
       return
     }
     let scrollPosition = CGPoint(x: point.x, y: min((scrollView.contentSize.height - scrollView.height), point.y))
