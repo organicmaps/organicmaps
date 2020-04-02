@@ -185,10 +185,6 @@ fileprivate struct ElevationProfileChartData {
   init(_ elevationData: ElevationProfileData) {
     points = ElevationProfileChartData.rearrangePoints(elevationData.points)
     let values = points.map { Int($0.altitude) }
-//    let formatter = MKDistanceFormatter()
-//    formatter.unitStyle = .abbreviated
-//    formatter.units = .metric
-//    labels = points.map { formatter.string(fromDistance: $0.distance )}
     distances = points.map { $0.distance }
     let color = UIColor(red: 0.12, green: 0.59, blue: 0.94, alpha: 1)
     let l1 = Line(values: values, name: "Altitude", color: color, type: .line)
@@ -204,7 +200,7 @@ fileprivate struct ElevationProfileChartData {
     var result: [ElevationHeightPoint] = []
 
     let distance = points.last?.distance ?? 0
-    let step = floor(distance / Double(points.count))
+    let step = max(1, points.count > 50 ? floor(distance / Double(points.count)) : floor(distance / 50))
     result.append(points[0])
     var currentDistance = step
     var i = 1
@@ -222,6 +218,8 @@ fileprivate struct ElevationProfileChartData {
         i += 1
       }
     }
+
+    result.append(points.last!)
 
     return result
   }
