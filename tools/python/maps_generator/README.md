@@ -140,6 +140,8 @@ optional arguments:
   -c [CONTINUE], --continue [CONTINUE]
                         Continue the last build or specified in CONTINUE from
                         the last stopped stage.
+  -s SUFFIX, --suffix SUFFIX
+                        Suffix the name of a build directory.
   --countries COUNTRIES
                         List of regions, separated by a comma or a semicolon,
                         or path to file with regions, separated by a line

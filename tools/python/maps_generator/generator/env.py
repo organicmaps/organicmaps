@@ -346,6 +346,7 @@ class Env:
         countries: Optional[List[AnyStr]] = None,
         production: bool = False,
         build_name: Optional[AnyStr] = None,
+        build_suffix: AnyStr = "",
         skipped_stages: Optional[Set[Type[Stage]]] = None,
     ):
         self.setup_logging()
@@ -366,18 +367,24 @@ class Env:
         self.node_storage = settings.NODE_STORAGE
 
         version_format = "%Y_%m_%d__%H_%M_%S"
+        suffix_div = "-"
         dt = None
         if build_name is None:
             dt = datetime.datetime.now()
             build_name = dt.strftime(version_format)
+            if build_suffix:
+                build_name = f"{build_name}{suffix_div}{build_suffix}"
         else:
-            dt = datetime.datetime.strptime(build_name, version_format)
+            date_str, build_suffix = build_name.split(suffix_div, maxsplit=1)
+            dt = datetime.datetime.strptime(date_str, version_format)
 
+        self.build_suffix = build_suffix
         self.mwm_version = dt.strftime("%y%m%d")
         self.planet_version = dt.strftime("%s")
         self.build_path = os.path.join(settings.MAIN_OUT_PATH, build_name)
         self.build_name = build_name
 
+        logger.info(f"Build name is {self.build_name}.")
         logger.info(f"Build path is {self.build_path}.")
 
         self.paths = PathProvider(self.build_path, self.mwm_version)
