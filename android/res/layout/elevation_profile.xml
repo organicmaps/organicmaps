@@ -9,6 +9,11 @@
     android:id="@+id/elevation_profile_chart"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
+  <com.mapswithme.maps.widget.placepage.FloatingMarkerView
+    android:id="@+id/floating_marker"
+    android:visibility="gone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
   <TextView
     android:id="@+id/highest_altitude"
     android:layout_width="wrap_content"

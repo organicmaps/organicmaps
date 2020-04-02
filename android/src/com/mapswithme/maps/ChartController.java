@@ -82,7 +82,7 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     final Resources resources = mContext.getResources();
     mChart = view.findViewById(R.id.elevation_profile_chart);
 
-    mFloatingMarkerView = new FloatingMarkerView(mContext);
+    mFloatingMarkerView = view.findViewById(R.id.floating_marker);
     mCurrentLocationMarkerView = new CurrentLocationMarkerView(mContext);
     mFloatingMarkerView.setChartView(mChart);
     mCurrentLocationMarkerView.setChartView(mChart);

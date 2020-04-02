@@ -3,12 +3,19 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Canvas;
+import android.os.Build;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import com.github.mikephil.charting.components.MarkerView;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.components.IMarker;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
@@ -17,36 +24,77 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.StringUtils;
 
 @SuppressLint("ViewConstructor")
-public class FloatingMarkerView extends MarkerView
+public class FloatingMarkerView extends RelativeLayout implements IMarker
 {
+  @Nullable
+  private Chart mChart;
   private static final int TRIANGLE_ROTATION_ANGLE = 180;
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final View mImage;
+  private View mImage;
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final View mInfoFloatingContainer;
+  private View mInfoFloatingContainer;
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final View mSlidingContainer;
+  private TextView mAltitudeView;
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final TextView mAltitudeView;
+  private TextView mDistanceTextView;
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final TextView mDistanceTextView;
+  private TextView mDistanceValueView;
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final TextView mDistanceValueView;
+  private View mFloatingTriangle;
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final View mFloatingTriangle;
-  @NonNull
-  private final View mTextContentContainer;
+  private View mTextContentContainer;
 
   private float mOffset;
 
   public FloatingMarkerView(@NonNull Context context)
   {
-    super(context, R.layout.floating_marker_view);
+    super(context);
+    LayoutInflater.from(getContext()).inflate(R.layout.floating_marker_view, this, true);
+  }
+
+  public FloatingMarkerView(Context context, AttributeSet attrs)
+  {
+    super(context, attrs);
+    LayoutInflater.from(getContext()).inflate(R.layout.floating_marker_view, this, true);
+  }
+
+  public FloatingMarkerView(Context context, AttributeSet attrs, int defStyleAttr)
+  {
+    super(context, attrs, defStyleAttr);
+    LayoutInflater.from(getContext()).inflate(R.layout.floating_marker_view, this, true);
+  }
+
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  public FloatingMarkerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
+  {
+    super(context, attrs, defStyleAttr, defStyleRes);
+    LayoutInflater.from(getContext()).inflate(R.layout.floating_marker_view, this, true);
+  }
+
+  public void setChartView(@NonNull Chart chart) {
+    mChart = chart;
+  }
+
+  @Nullable
+  public Chart getChartView() {
+    return mChart;
+  }
+
+  @Override
+  protected void onFinishInflate()
+  {
+    super.onFinishInflate();
     mInfoFloatingContainer = findViewById(R.id.info_floating_container);
     mTextContentContainer = findViewById(R.id.floating_text_container);
     mFloatingTriangle = findViewById(R.id.floating_triangle);
     mImage = findViewById(R.id.image);
-    mSlidingContainer = findViewById(R.id.sliding_container);
     mDistanceTextView = findViewById(R.id.distance_text);
     mAltitudeView = findViewById(R.id.altitude);
     mDistanceValueView = findViewById(R.id.distance_value);
@@ -59,7 +107,9 @@ public class FloatingMarkerView extends MarkerView
   {
     updatePointValues(e);
 
-    super.refreshContent(e, highlight);
+    measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+            MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+    layout(0, 0, getMeasuredWidth(), getMeasuredHeight());
   }
 
   @Override
@@ -102,7 +152,7 @@ public class FloatingMarkerView extends MarkerView
     float height = getChartView().getContentRect().height();
     float delta = getChartView().getYMax() - getChartView().getYMin();
     float factor =  delta / height;
-    return factor * mSlidingContainer.getHeight();
+    return factor * mTextContentContainer.getHeight();
   }
 
   private void updateVertical(@NonNull Entry entry)
@@ -129,6 +179,7 @@ public class FloatingMarkerView extends MarkerView
       layoutParams.removeRule(ALIGN_PARENT_TOP);
       layoutParams.removeRule(ALIGN_PARENT_BOTTOM);
     }
+
     mTextContentContainer.setLayoutParams(layoutParams);
   }
 
@@ -170,5 +221,18 @@ public class FloatingMarkerView extends MarkerView
 
     mFloatingTriangle.setLayoutParams(triangleParams);
     mTextContentContainer.setLayoutParams(textContentParams);
+  }
+
+  @Override
+  public void draw(Canvas canvas, float posX, float posY)
+  {
+
+    MPPointF offset = getOffsetForDrawingAtPoint(posX, posY);
+
+    int saveId = canvas.save();
+    // translate to the correct position and draw
+    canvas.translate(posX + offset.x, posY + offset.y);
+    draw(canvas);
+    canvas.restoreToCount(saveId);
   }
 }
