@@ -118,6 +118,11 @@ std::string Info::FormatSubtitle(bool withType) const
   if (!iata.empty())
     subtitle.push_back(iata);
 
+  // Road numbers/ids.
+  std::string const roadShields = FormatRoadShields();
+  if (!roadShields.empty())
+    subtitle.push_back(roadShields);
+
   // Stars.
   std::string const stars = FormatStars();
   if (!stars.empty())

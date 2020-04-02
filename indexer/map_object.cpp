@@ -75,6 +75,7 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
   m_types = feature::TypesHolder(ft);
   m_metadata = ft.GetMetadata();
   m_houseNumber = ft.GetHouseNumber();
+  m_roadNumber = ft.GetRoadNumber();
   m_postcode = ft.GetPostcode();
   m_featureID = ft.GetID();
   m_geomType = ft.GetGeomType();
@@ -177,6 +178,16 @@ vector<string> MapObject::GetLocalizedCuisines() const
 }
 
 string MapObject::FormatCuisines() const { return strings::JoinStrings(GetLocalizedCuisines(), " • "); }
+
+vector<string> MapObject::GetRoadShields() const
+{
+  return feature::GetRoadShieldsNames(m_roadNumber);
+}
+
+string MapObject::FormatRoadShields() const
+{
+  return strings::JoinStrings(GetRoadShields(), " • ");
+}
 
 string MapObject::GetOpeningHours() const
 {

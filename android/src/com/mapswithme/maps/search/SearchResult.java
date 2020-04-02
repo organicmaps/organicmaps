@@ -31,6 +31,7 @@ public class SearchResult implements PopularityProvider
     public final String cuisine;
     public final String brand;
     public final String airportIata;
+    public final String roadShields;
     public final String pricing;
     public final float rating;
     public final int stars;
@@ -38,7 +39,7 @@ public class SearchResult implements PopularityProvider
     public final boolean hasPopularityHigherPriority;
 
     public Description(FeatureId featureId, String featureType, String region, String distance,
-                       String cuisine, String brand, String airportIata, String pricing,
+                       String cuisine, String brand, String airportIata, String roadShields, String pricing,
                        float rating, int stars, int openNow, boolean hasPopularityHigherPriority)
     {
       this.featureId = featureId;
@@ -48,6 +49,7 @@ public class SearchResult implements PopularityProvider
       this.cuisine = cuisine;
       this.brand = brand;
       this.airportIata = airportIata;
+      this.roadShields = roadShields;
       this.pricing = pricing;
       this.rating = rating;
       this.stars = stars;

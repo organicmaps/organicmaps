@@ -74,6 +74,7 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   NSUInteger const starsCount = result.GetStarsCount();
   NSString * cuisine = @(result.GetCuisine().c_str()).capitalizedString;
   NSString * airportIata = @(result.GetAirportIata().c_str());
+  NSString * roadShields = @(result.GetRoadShields().c_str());
   NSString * brand  = @"";
   if (!result.GetBrand().empty())
     brand = @(platform::GetLocalizedBrandName(result.GetBrand()).c_str());
@@ -82,6 +83,8 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
     [self setInfoRating:starsCount];
   else if (airportIata.length > 0)
     [self setInfoText:airportIata];
+  else if (roadShields.length > 0)
+    [self setInfoText:roadShields];
   else if (brand.length > 0 && cuisine.length > 0)
     [self setInfoText:[NSString stringWithFormat:@"%@ • %@", brand, cuisine]];
   else if (brand.length > 0)

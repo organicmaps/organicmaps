@@ -281,6 +281,9 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   auto const cuisines = feature::GetLocalizedCuisines(feature::TypesHolder(ft));
   details.m_cuisine = strings::JoinStrings(cuisines, " • ");
 
+  auto const roadShields = feature::GetRoadShieldsNames(ft.GetRoadNumber());
+  details.m_roadShields = strings::JoinStrings(roadShields, " • ");
+
   details.m_isInitialized = true;
 }
 

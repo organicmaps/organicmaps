@@ -581,6 +581,15 @@ std::set<RoadShield> GetRoadShields(FeatureType & f)
   return SimpleRoadShieldParser(roadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
 }
 
+std::set<RoadShield> GetRoadShields(std::string const & rawRoadNumber)
+{
+  if (rawRoadNumber.empty())
+    return {};
+
+  return SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes())
+      .GetRoadShields();
+}
+
 std::string DebugPrint(RoadShieldType shieldType)
 {
   using ftypes::RoadShieldType;

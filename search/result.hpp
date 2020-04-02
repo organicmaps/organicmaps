@@ -53,6 +53,9 @@ public:
     // Valid only if not empty, used for brand name.
     std::string m_brand;
 
+    // Valid only if not empty, used for roads.
+    std::string m_roadShields;
+
     // Following fields are used for hotels only.
     int m_hotelPricing = 0;
     std::string m_hotelApproximatePricing;
@@ -93,6 +96,7 @@ public:
   std::string const & GetCuisine() const { return m_details.m_cuisine; }
   std::string const & GetAirportIata() const { return m_details.m_airportIata; }
   std::string const & GetBrand() const { return m_details.m_brand; }
+  std::string const & GetRoadShields() const { return m_details.m_roadShields; }
   float GetHotelRating() const { return m_details.m_hotelRating; }
   std::string const & GetHotelApproximatePricing() const
   {

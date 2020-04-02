@@ -85,6 +85,8 @@ public:
   std::vector<std::string> GetLocalizedCuisines() const;
   /// @returns translated and formatted cuisines.
   std::string FormatCuisines() const;
+  std::vector<std::string> GetRoadShields() const;
+  std::string FormatRoadShields() const;
   std::string GetOpeningHours() const;
   std::string GetOperator() const;
   int GetStars() const;
@@ -120,6 +122,7 @@ protected:
 
   StringUtf8Multilang m_name;
   std::string m_houseNumber;
+  std::string m_roadNumber;
   std::string m_postcode;
   feature::TypesHolder m_types;
   feature::Metadata m_metadata;

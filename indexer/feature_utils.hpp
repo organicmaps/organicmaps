@@ -83,4 +83,7 @@ namespace feature
 
   // Returns vector of cuisines names localized by platform.
   std::vector<std::string> GetLocalizedCuisines(TypesHolder const & types);
+
+  // Returns names of feature road shields. Applicable for road features.
+  std::vector<std::string> GetRoadShieldsNames(std::string const & rawRoadNumber);
 }  // namespace feature

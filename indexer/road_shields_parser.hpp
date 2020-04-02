@@ -52,7 +52,12 @@ struct RoadShield
   }
 };
 
+// Use specific country road shield styles based on mwm feature belongs to.
 std::set<RoadShield> GetRoadShields(FeatureType & f);
+
+// Simple parsing without specific country styles.
+std::set<RoadShield> GetRoadShields(std::string const & rawRoadNumber);
+
 std::string DebugPrint(RoadShieldType shieldType);
 std::string DebugPrint(RoadShield const & shield);
 }  // namespace ftypes

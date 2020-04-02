@@ -5,6 +5,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/road_shields_parser.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/localization.hpp"
@@ -401,5 +402,14 @@ vector<string> GetLocalizedCuisines(TypesHolder const & types)
     localized.push_back(platform::GetLocalizedTypeName(classif().GetReadableObjectName(t)));
   }
   return localized;
+}
+
+vector<string> GetRoadShieldsNames(string const & rawRoadNumber)
+{
+  vector<string> names;
+  for (auto const & shield : ftypes::GetRoadShields(rawRoadNumber))
+    names.push_back(shield.m_name);
+
+  return names;
 }
 } // namespace feature

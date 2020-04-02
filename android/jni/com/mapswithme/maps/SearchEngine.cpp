@@ -345,6 +345,7 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
   jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));
   jni::TScopedLocalRef brand(env, jni::ToJavaString(env, result.GetBrand()));
   jni::TScopedLocalRef airportIata(env, jni::ToJavaString(env, result.GetAirportIata()));
+  jni::TScopedLocalRef roadShields(env, jni::ToJavaString(env, result.GetRoadShields()));
   jni::TScopedLocalRef pricing(env, jni::ToJavaString(env, result.GetHotelApproximatePricing()));
 
 
@@ -356,7 +357,7 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
   jni::TScopedLocalRef desc(env, env->NewObject(g_descriptionClass, g_descriptionConstructor,
                                                 featureId.get(), featureType.get(), address.get(),
                                                 dist.get(), cuisine.get(), brand.get(), airportIata.get(),
-                                                pricing.get(), rating,
+                                                roadShields.get(), pricing.get(), rating,
                                                 result.GetStarsCount(),
                                                 static_cast<jint>(result.IsOpenNow()),
                                                 static_cast<jboolean>(popularityHasHigherPriority)));
@@ -655,7 +656,7 @@ extern "C"
                                                      "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;"
                                                      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
                                                      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
-                                                     "Ljava/lang/String;FIIZ)V");
+                                                     "Ljava/lang/String;Ljava/lang/String;FIIZ)V");
 
     g_popularityClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/Popularity");
     g_popularityConstructor = jni::GetConstructorID(env, g_popularityClass, "(I)V");
