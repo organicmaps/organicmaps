@@ -69,13 +69,12 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
   }
 
   func updatePreviewOffset() {
-    guard !view.beginDragging else {
-      return
-    }
     layoutIfNeeded()
     scrollSteps = layout.calculateSteps(inScrollView: view.scrollView)
-    let state = isPreviewPlus ? scrollSteps[2] : scrollSteps[1]
-    view.scrollTo(CGPoint(x: 0, y: state.offset))
+    if !view.beginDragging  {
+      let state = isPreviewPlus ? scrollSteps[2] : scrollSteps[1]
+      view.scrollTo(CGPoint(x: 0, y: state.offset))
+    }
   }
 
   func layoutIfNeeded() {
