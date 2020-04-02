@@ -1,7 +1,8 @@
 import logging
 import statistics
 from collections import defaultdict
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import as_completed
 from functools import partial
 from multiprocessing.pool import ThreadPool
 
@@ -9,8 +10,9 @@ import math
 from eviltransform import gcj2wgs_exact
 from tqdm import tqdm
 
-from .api.booking_api import BookingApi, BookingListApi
-from .api.exceptions import GettingMinPriceError
+from booking.api.booking_api import BookingApi
+from booking.api.booking_api import BookingListApi
+from booking.api.exceptions import GettingMinPriceError
 
 SUPPORTED_LANGUAGES = ("en", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de",
                        "hu", "id", "it", "ja", "ko", "pl", "pt", "ro", "es",

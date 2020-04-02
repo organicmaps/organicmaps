@@ -1,7 +1,7 @@
 import argparse
 
-from .generator.statistics import diff
-from .generator.statistics import read_types
+from maps_generator.generator.statistics import diff
+from maps_generator.generator.statistics import read_types
 
 
 def get_args():

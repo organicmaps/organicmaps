@@ -2,9 +2,9 @@ import logging
 from typing import AnyStr
 from typing import Optional
 
-from .generator import stages_declaration as sd
-from .generator.env import Env
-from .generator.generation import Generation
+from maps_generator.generator import stages_declaration as sd
+from maps_generator.generator.env import Env
+from maps_generator.generator.generation import Generation
 
 logger = logging.getLogger("maps_generator")
 

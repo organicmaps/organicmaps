@@ -8,8 +8,8 @@ from typing import AnyStr
 from typing import Dict
 from typing import List
 
-from .env import WORLDS_NAMES
-from .exceptions import ParseError
+from maps_generator.generator.env import WORLDS_NAMES
+from maps_generator.generator.exceptions import ParseError
 
 logger = logging.getLogger("maps_generator")
 

@@ -7,13 +7,12 @@ from typing import Union
 
 import filelock
 
-from . import settings
-from .env import Env
-from .exceptions import ContinueError
-from .stages import Stage
-from .stages import get_stage_name
-from .stages import stages
-from .status import Status
+from maps_generator.generator.env import Env
+from maps_generator.generator.exceptions import ContinueError
+from maps_generator.generator.stages import Stage
+from maps_generator.generator.stages import get_stage_name
+from maps_generator.generator.stages import stages
+from maps_generator.generator.status import Status
 
 
 class Generation:

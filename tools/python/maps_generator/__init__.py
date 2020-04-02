@@ -1,6 +1,6 @@
 import os
 
-from .generator import settings
+from maps_generator.generator import settings
 
 CONFIG_PATH = os.path.join(
     os.path.dirname(os.path.join(os.path.realpath(__file__))),

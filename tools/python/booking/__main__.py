@@ -6,9 +6,9 @@ import sys
 
 from tqdm import tqdm
 
-from .api.booking_api import LIMIT_REQUESTS_PER_MINUTE
-from .download_hotels import download
-from .download_test_data import download_test_data
+from booking.api.booking_api import LIMIT_REQUESTS_PER_MINUTE
+from booking.download_hotels import download
+from booking.download_test_data import download_test_data
 
 
 def process_options():

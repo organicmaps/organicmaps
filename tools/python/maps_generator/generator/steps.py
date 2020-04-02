@@ -8,20 +8,20 @@ import shutil
 import subprocess
 from typing import AnyStr
 
-from . import settings
-from .env import Env
-from .env import PathProvider
-from .env import WORLDS_NAMES
-from .env import WORLD_NAME
-from .env import get_all_countries_list
-from .gen_tool import run_gen_tool
-from .osmtools import osmconvert
-from .osmtools import osmupdate
-from ..utils.file import download_file
-from ..utils.file import is_verified
-from ..utils.file import symlink_force
-from ..utils.md5 import md5
-from ..utils.md5 import write_md5sum
+from maps_generator.generator import settings
+from maps_generator.generator.env import Env
+from maps_generator.generator.env import PathProvider
+from maps_generator.generator.env import WORLDS_NAMES
+from maps_generator.generator.env import WORLD_NAME
+from maps_generator.generator.env import get_all_countries_list
+from maps_generator.generator.gen_tool import run_gen_tool
+from maps_generator.generator.osmtools import osmconvert
+from maps_generator.generator.osmtools import osmupdate
+from maps_generator.utils.file import download_file
+from maps_generator.utils.file import is_verified
+from maps_generator.utils.file import symlink_force
+from maps_generator.utils.md5 import md5
+from maps_generator.utils.md5 import write_md5sum
 
 logger = logging.getLogger("maps_generator")
 

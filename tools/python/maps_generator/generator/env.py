@@ -16,13 +16,13 @@ from typing import Set
 from typing import Type
 from typing import Union
 
-from . import settings
-from .osmtools import build_osmtools
-from .stages import Stage
-from .status import Status
-from ..utils.file import find_executable
-from ..utils.file import is_executable
-from ..utils.file import symlink_force
+from maps_generator.generator import settings
+from maps_generator.generator.osmtools import build_osmtools
+from maps_generator.generator.stages import Stage
+from maps_generator.generator.status import Status
+from maps_generator.utils.file import find_executable
+from maps_generator.utils.file import is_executable
+from maps_generator.utils.file import symlink_force
 
 logger = logging.getLogger("maps_generator")
 

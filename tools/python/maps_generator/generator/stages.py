@@ -21,9 +21,9 @@ from typing import Optional
 from typing import Type
 from typing import Union
 
-from .status import Status
-from ..utils.log import DummyObject
-from ..utils.log import create_file_logger
+from maps_generator.generator.status import Status
+from maps_generator.utils.log import DummyObject
+from maps_generator.utils.log import create_file_logger
 
 logger = logging.getLogger("maps_generator")
 

@@ -8,8 +8,8 @@ from pathlib import Path
 from typing import Any
 from typing import AnyStr
 
-from ..utils.md5 import md5
-from ..utils.system import total_virtual_memory
+from maps_generator.utils.md5 import md5
+from maps_generator.utils.system import total_virtual_memory
 
 parser = argparse.ArgumentParser(add_help=False)
 opt_config = "--config"

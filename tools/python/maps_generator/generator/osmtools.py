@@ -1,9 +1,9 @@
 import os
 import subprocess
 
-from . import settings
-from .exceptions import BadExitStatusError
-from .exceptions import wait_and_raise_if_fail
+from maps_generator.generator import settings
+from maps_generator.generator.exceptions import BadExitStatusError
+from maps_generator.generator.exceptions import wait_and_raise_if_fail
 
 
 def build_osmtools(path, output=subprocess.DEVNULL, error=subprocess.DEVNULL):

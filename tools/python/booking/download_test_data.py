@@ -1,12 +1,10 @@
 import logging
-import statistics
 from functools import partial
 from multiprocessing.pool import ThreadPool
 
-import math
 from tqdm import tqdm
 
-from .api.booking_api import BookingApi, BookingListApi
+from booking.api.booking_api import BookingApi, BookingListApi
 
 SUPPORTED_LANGUAGES = ("en", "ru")
 

@@ -3,20 +3,20 @@ import os
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
 
-from .generator import settings
-from .generator import stages
-from .generator import stages_declaration as sd
-from .generator.env import Env
-from .generator.env import PathProvider
-from .generator.env import WORLDS_NAMES
-from .generator.env import find_last_build_dir
-from .generator.env import get_all_countries_list
-from .generator.exceptions import ContinueError
-from .generator.exceptions import SkipError
-from .generator.exceptions import ValidationError
-from .maps_generator import generate_coasts
-from .maps_generator import generate_maps
-from .utils.algo import unique
+from maps_generator.generator import settings
+from maps_generator.generator import stages
+from maps_generator.generator import stages_declaration as sd
+from maps_generator.generator.env import Env
+from maps_generator.generator.env import PathProvider
+from maps_generator.generator.env import WORLDS_NAMES
+from maps_generator.generator.env import find_last_build_dir
+from maps_generator.generator.env import get_all_countries_list
+from maps_generator.generator.exceptions import ContinueError
+from maps_generator.generator.exceptions import SkipError
+from maps_generator.generator.exceptions import ValidationError
+from maps_generator.maps_generator import generate_coasts
+from maps_generator.maps_generator import generate_maps
+from maps_generator.utils.algo import unique
 
 logger = logging.getLogger("maps_generator")
 

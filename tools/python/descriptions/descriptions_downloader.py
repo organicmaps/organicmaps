@@ -15,7 +15,8 @@ import wikipediaapi
 from bs4 import BeautifulSoup
 from wikidata.client import Client
 
-from .exceptions import GettingError, ParseError
+from descriptions.exceptions import GettingError
+from descriptions.exceptions import ParseError
 
 """
 This script downloads Wikipedia pages for different languages.

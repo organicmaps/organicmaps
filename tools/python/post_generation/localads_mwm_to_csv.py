@@ -3,7 +3,9 @@ import ctypes
 import logging
 import os
 import sys
-from multiprocessing import Pool, Queue, Process
+from multiprocessing import Pool
+from multiprocessing import Process
+from multiprocessing import Queue
 from zlib import adler32
 
 from mwm import MetadataField

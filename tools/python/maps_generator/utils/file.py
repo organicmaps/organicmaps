@@ -9,8 +9,8 @@ from typing import AnyStr
 from typing import Dict
 from typing import Optional
 
-from .md5 import check_md5
-from .md5 import md5
+from maps_generator.utils.md5 import check_md5
+from maps_generator.utils.md5 import md5
 
 logger = logging.getLogger("maps_generator")
 
