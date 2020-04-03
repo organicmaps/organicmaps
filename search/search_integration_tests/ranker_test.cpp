@@ -107,12 +107,12 @@ UNIT_CLASS_TEST(RankerTest, UniteSameResults)
 
 UNIT_CLASS_TEST(RankerTest, PreferCountry)
 {
-  string const countryName = "Wonderland";
-  TestCountry wonderland(m2::PointD(10.0, 10.0), countryName, "en");
+  TestCountry wonderland(m2::PointD(10.0, 10.0), "Wonderland", "en");
   TestPOI cafe(m2::PointD(0.0, 0.0), "Wonderland", "en");
-  auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(wonderland); });
-  auto wonderlandId =
-      BuildCountry(countryName, [&](TestMwmBuilder & builder) { builder.Add(cafe); });
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder) {
+    builder.Add(wonderland);
+    builder.Add(cafe);
+  });
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(0.0, 0.0)));
   {
@@ -121,7 +121,7 @@ UNIT_CLASS_TEST(RankerTest, PreferCountry)
     auto request = MakeRequest("Wonderland");
     auto const & results = request->Results();
 
-    Rules rules = {ExactMatch(worldId, wonderland), ExactMatch(wonderlandId, cafe)};
+    Rules rules = {ExactMatch(worldId, wonderland), ExactMatch(worldId, cafe)};
     TEST(ResultsMatch(results, rules), ());
 
     TEST_EQUAL(results.size(), 2, ());
@@ -133,7 +133,7 @@ UNIT_CLASS_TEST(RankerTest, PreferCountry)
     auto request = MakeRequest("Wanderland");
     auto const & results = request->Results();
 
-    Rules rules = {ExactMatch(worldId, wonderland), ExactMatch(wonderlandId, cafe)};
+    Rules rules = {ExactMatch(worldId, wonderland), ExactMatch(worldId, cafe)};
     TEST(ResultsMatch(results, rules), ());
 
     TEST_EQUAL(results.size(), 2, ());
