@@ -22,6 +22,7 @@ constexpr char const * kWlan = "wlan";
 constexpr char const * kWired = "wired";
 constexpr char const * kYes = "yes";
 constexpr char const * kNo = "no";
+constexpr char const * kFieldsSeparator = " • ";
 
 void SetInetIfNeeded(FeatureType & ft, feature::Metadata & metadata)
 {
@@ -177,7 +178,10 @@ vector<string> MapObject::GetLocalizedCuisines() const
   return feature::GetLocalizedCuisines(m_types);
 }
 
-string MapObject::FormatCuisines() const { return strings::JoinStrings(GetLocalizedCuisines(), " • "); }
+string MapObject::FormatCuisines() const
+{
+  return strings::JoinStrings(GetLocalizedCuisines(), kFieldsSeparator);
+}
 
 vector<string> MapObject::GetRoadShields() const
 {
@@ -186,7 +190,7 @@ vector<string> MapObject::GetRoadShields() const
 
 string MapObject::FormatRoadShields() const
 {
-  return strings::JoinStrings(GetRoadShields(), " • ");
+  return strings::JoinStrings(GetRoadShields(), kFieldsSeparator);
 }
 
 string MapObject::GetOpeningHours() const

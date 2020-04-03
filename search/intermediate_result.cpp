@@ -278,11 +278,12 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     details.m_hotelApproximatePricing = pricingStr;
   }
 
+  string const kFieldsSeparator = " • ";
   auto const cuisines = feature::GetLocalizedCuisines(feature::TypesHolder(ft));
-  details.m_cuisine = strings::JoinStrings(cuisines, " • ");
+  details.m_cuisine = strings::JoinStrings(cuisines, kFieldsSeparator);
 
   auto const roadShields = feature::GetRoadShieldsNames(ft.GetRoadNumber());
-  details.m_roadShields = strings::JoinStrings(roadShields, " • ");
+  details.m_roadShields = strings::JoinStrings(roadShields, kFieldsSeparator);
 
   details.m_isInitialized = true;
 }
