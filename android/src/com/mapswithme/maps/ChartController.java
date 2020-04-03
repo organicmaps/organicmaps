@@ -164,13 +164,14 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     set.setDrawCircles(false);
     int lineThickness = mContext.getResources().getDimensionPixelSize(R.dimen.divider_width);
     set.setLineWidth(lineThickness);
-    set.setCircleColor(mContext.getResources().getColor(R.color.base_accent));
-    set.setColor(mContext.getResources().getColor(R.color.base_accent));
+    int color = ThemeUtils.getColor(mContext, R.attr.elevationProfileColor);
+    set.setCircleColor(color);
+    set.setColor(color);
     set.setFillAlpha(CHART_FILL_ALPHA);
+    set.setFillColor(color);
     set.setDrawHorizontalHighlightIndicator(false);
     set.setHighlightLineWidth(lineThickness);
     set.setHighLightColor(mContext.getResources().getColor(R.color.base_accent_transparent));
-    set.setFillColor(ThemeUtils.getColor(mContext, R.attr.elevationProfileColor));
 
     LineData data = new LineData(set);
     data.setValueTextSize(mContext.getResources().getDimensionPixelSize(R.dimen.text_size_icon_title));
