@@ -1,4 +1,4 @@
-protocol BMCPermissionsHeaderDelegate {
+protocol BMCPermissionsHeaderDelegate: AnyObject {
   func collapseAction(isCollapsed: Bool)
 }
 
@@ -25,7 +25,7 @@ final class BMCPermissionsHeader: UIView {
     }
   }
 
-  var delegate: BMCPermissionsHeaderDelegate!
+  weak var delegate: BMCPermissionsHeaderDelegate?
 
   private func updateButton() {
     UIView.animate(withDuration: kDefaultAnimationDuration) {
@@ -34,6 +34,6 @@ final class BMCPermissionsHeader: UIView {
   }
 
   @IBAction private func buttonAction() {
-    delegate.collapseAction(isCollapsed: isCollapsed)
+    delegate?.collapseAction(isCollapsed: isCollapsed)
   }
 }

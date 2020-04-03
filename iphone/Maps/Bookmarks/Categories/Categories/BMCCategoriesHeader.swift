@@ -1,4 +1,4 @@
-protocol BMCCategoriesHeaderDelegate {
+protocol BMCCategoriesHeaderDelegate: AnyObject {
   func visibilityAction(_ categoriesHeader: BMCCategoriesHeader)
 }
 
@@ -23,9 +23,9 @@ final class BMCCategoriesHeader: UITableViewHeaderFooterView {
     }
   }
 
-  var delegate: BMCCategoriesHeaderDelegate!
+  weak var delegate: BMCCategoriesHeaderDelegate?
 
   @IBAction private func buttonAction() {
-    delegate.visibilityAction(self)
+    delegate?.visibilityAction(self)
   }
 }

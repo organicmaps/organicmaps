@@ -1,4 +1,4 @@
-protocol BMCPermissionsCellDelegate {
+protocol BMCPermissionsCellDelegate: AnyObject {
   func permissionAction(permission: BMCPermission, anchor: UIView)
 }
 
@@ -32,7 +32,7 @@ final class BMCPermissionsCell: MWMTableViewCell {
     }
   }
 
-  private var delegate: BMCPermissionsCellDelegate!
+  private weak var delegate: BMCPermissionsCellDelegate?
 
   func config(permission: BMCPermission, delegate: BMCPermissionsCellDelegate) -> UITableViewCell {
     self.permission = permission
@@ -43,6 +43,6 @@ final class BMCPermissionsCell: MWMTableViewCell {
   }
 
   @IBAction private func buttonAction() {
-    delegate.permissionAction(permission: permission, anchor: button)
+    delegate?.permissionAction(permission: permission, anchor: button)
   }
 }

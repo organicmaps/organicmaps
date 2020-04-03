@@ -1,4 +1,4 @@
-protocol BMCCategoryCellDelegate {
+protocol BMCCategoryCellDelegate: AnyObject {
   func cell(_ cell: BMCCategoryCell, didCheck visible: Bool)
   func cell(_ cell: BMCCategoryCell, didPress moreButton: UIButton)
 }
@@ -22,7 +22,7 @@ final class BMCCategoryCell: MWMTableViewCell {
     }
   }
 
-  private var delegate: BMCCategoryCellDelegate?
+  private weak var delegate: BMCCategoryCellDelegate?
 
   func config(category: MWMCategory, delegate: BMCCategoryCellDelegate) -> UITableViewCell {
     self.category = category
