@@ -173,7 +173,7 @@ final class AuthorizationViewController: MWMViewController {
     }
     if #available(iOS 13, *) {
       signInAppleContainerView.isHidden = false
-      let button = ASAuthorizationAppleIDButton(type: .default, style: .whiteOutline)
+      let button = ASAuthorizationAppleIDButton(type: .default, style: UIColor.isNightMode() ? .white : .black)
       button.isEnabled = false
       button.cornerRadius = 8
       button.addTarget(self, action: #selector(onAppleSignIn), for: .touchUpInside)
