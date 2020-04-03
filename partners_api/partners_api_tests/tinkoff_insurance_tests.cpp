@@ -10,28 +10,36 @@ UNIT_TEST(TinkoffInsurance_GetBanner)
   ads::TinkoffInsurance tinkoffInsurance(delegate);
 
   {
-    delegate.SetTopmostNodes({"France", "Russian Federation"});
-    auto const banner = tinkoffInsurance.GetBanner("", {}, "ru");
-    TEST(!banner.empty(), ());
-  }
-  {
-    delegate.SetTopmostNodes({"France", "Russian Federation"});
-    auto const banner = tinkoffInsurance.GetBanner("", {}, "en");
-    TEST(banner.empty(), ());
-  }
-  {
-    delegate.SetTopmostNodes({"France", "Cote dIvoire"});
+    delegate.SetTopmostParent("France");
     auto const banner = tinkoffInsurance.GetBanner("", {}, "ru");
     TEST(banner.empty(), ());
   }
   {
-    delegate.SetTopmostNodes({"Nepal"});
+    delegate.SetTopmostParent("France");
     delegate.SetCountryId("Russian Federation");
     auto const banner = tinkoffInsurance.GetBanner("", {}, "ru");
     TEST(!banner.empty(), ());
   }
   {
-    delegate.SetTopmostNodes({"Nepal"});
+    delegate.SetTopmostParent("France");
+    delegate.SetCountryId("Russian Federation");
+    auto const banner = tinkoffInsurance.GetBanner("", {}, "en");
+    TEST(banner.empty(), ());
+  }
+  {
+    delegate.SetTopmostParent("Russian Federation");
+    delegate.SetCountryId("Russian Federation");
+    auto const banner = tinkoffInsurance.GetBanner("", {}, "en");
+    TEST(banner.empty(), ());
+  }
+  {
+    delegate.SetTopmostParent("Nepal");
+    delegate.SetCountryId("Russian Federation");
+    auto const banner = tinkoffInsurance.GetBanner("", {}, "ru");
+    TEST(!banner.empty(), ());
+  }
+  {
+    delegate.SetTopmostParent("Nepal");
     delegate.SetCountryId("Norway");
     auto const banner = tinkoffInsurance.GetBanner("", {}, "ru");
     TEST(banner.empty(), ());

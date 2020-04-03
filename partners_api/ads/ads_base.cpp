@@ -99,11 +99,14 @@ bool DownloadOnMapContainer::HasBanner(storage::CountryId const & countryId,
                                        m2::PointD const & userPos,
                                        std::string const & userLanguage) const
 {
-  auto const userPosMwm = m_delegate.GetCountryId(userPos);
-  auto userPosCountries = m_delegate.GetTopmostNodesFor(userPosMwm);
-  userPosCountries.push_back(userPosMwm);
-  auto downloadMwmCountries = m_delegate.GetTopmostNodesFor(countryId);
-  downloadMwmCountries.push_back(countryId);
+  storage::CountriesVec userPosCountries;
+  auto const userPosCountryId = m_delegate.GetCountryId(userPos);
+  userPosCountries.emplace_back(userPosCountryId);
+  userPosCountries.emplace_back(m_delegate.GetTopmostParentFor(userPosCountryId));
+
+  storage::CountriesVec downloadMwmCountries;
+  downloadMwmCountries.emplace_back(countryId);
+  downloadMwmCountries.emplace_back(m_delegate.GetTopmostParentFor(countryId));
 
   return !std::any_of(userPosCountries.begin(), userPosCountries.end(),
                       [this](auto const & id) { return IsUserPosCountryExcluded(id); }) &&

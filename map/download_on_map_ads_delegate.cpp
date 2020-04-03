@@ -17,11 +17,9 @@ storage::CountryId DownloadOnMapDelegate::GetCountryId(m2::PointD const & pos)
   return m_countryInfoGetter.GetRegionCountryId(pos);
 }
 
-storage::CountriesVec DownloadOnMapDelegate::GetTopmostNodesFor(storage::CountryId const & countryId) const
+storage::CountryId DownloadOnMapDelegate::GetTopmostParentFor(storage::CountryId const & countryId) const
 {
-  storage::CountriesVec countries;
-  m_storage.GetTopmostNodesFor(countryId, countries);
-  return countries;
+  return m_storage.GetTopmostParentFor(countryId);
 }
 
 std::string DownloadOnMapDelegate::GetLinkForCountryId(storage::CountryId const & countryId) const

@@ -27,7 +27,7 @@ public:
 
   // DownloadOnMapContainer::Delegate overrides:
   storage::CountryId GetCountryId(m2::PointD const & pos) override;
-  storage::CountriesVec GetTopmostNodesFor(storage::CountryId const & countryId) const override;
+  storage::CountryId GetTopmostParentFor(storage::CountryId const & countryId) const override;
   std::string GetLinkForCountryId(storage::CountryId const & countryId) const override;
 
 private:

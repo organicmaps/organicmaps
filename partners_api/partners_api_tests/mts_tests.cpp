@@ -10,29 +10,29 @@ UNIT_TEST(Mts_GetBanner)
   ads::Mts mts(delegate);
 
   {
-    delegate.SetTopmostNodes({"France"});
+    delegate.SetTopmostParent("France");
     auto const banner = mts.GetBanner("", {}, "ru");
     TEST(!banner.empty(), ());
   }
   {
-    delegate.SetTopmostNodes({"France"});
+    delegate.SetTopmostParent("France");
     auto const banner = mts.GetBanner("", {}, "en");
     TEST(banner.empty(), ());
   }
   {
-    delegate.SetTopmostNodes({"France"});
+    delegate.SetTopmostParent("France");
     delegate.SetCountryId("Russian Federation");
     auto const banner = mts.GetBanner("", {}, "ru");
     TEST(banner.empty(), ());
   }
   {
-    delegate.SetTopmostNodes({"France", "Thailand"});
+    delegate.SetTopmostParent("Thailand");
     delegate.SetCountryId("Russian Federation");
     auto const banner = mts.GetBanner("", {}, "ru");
     TEST(banner.empty(), ());
   }
   {
-    delegate.SetTopmostNodes({"France", "Thailand"});
+    delegate.SetTopmostParent("Thailand");
     delegate.SetCountryId("Cote dIvoire");
     auto const banner = mts.GetBanner("", {}, "ru");
     TEST(!banner.empty(), ());

@@ -10,28 +10,43 @@ UNIT_TEST(TinkoffAirlines_GetBanner)
   ads::TinkoffAllAirlines tinkoffAirlines(delegate);
 
   {
-    delegate.SetTopmostNodes({"Germany", "Russian Federation"});
-    auto const banner = tinkoffAirlines.GetBanner("", {}, "ru");
-    TEST(!banner.empty(), ());
-  }
-  {
-    delegate.SetTopmostNodes({"Germany", "Russian Federation"});
-    auto const banner = tinkoffAirlines.GetBanner("", {}, "en");
-    TEST(banner.empty(), ());
-  }
-  {
-    delegate.SetTopmostNodes({"Germany", "Cote dIvoire"});
-    auto const banner = tinkoffAirlines.GetBanner("", {}, "ru");
-    TEST(banner.empty(), ());
-  }
-  {
-    delegate.SetTopmostNodes({"Norway"});
+    delegate.SetTopmostParent("Germany");
     delegate.SetCountryId("Russian Federation");
     auto const banner = tinkoffAirlines.GetBanner("", {}, "ru");
     TEST(!banner.empty(), ());
   }
   {
-    delegate.SetTopmostNodes({"Norway"});
+    delegate.SetTopmostParent("Russian Federation");
+    delegate.SetCountryId("Russian Federation");
+    auto const banner = tinkoffAirlines.GetBanner("", {}, "ru");
+    TEST(banner.empty(), ());
+  }
+  {
+    delegate.SetTopmostParent("Germany");
+    delegate.SetCountryId("Russian Federation");
+    auto const banner = tinkoffAirlines.GetBanner("", {}, "en");
+    TEST(banner.empty(), ());
+  }
+  {
+    delegate.SetTopmostParent("Russian Federation");
+    delegate.SetCountryId("Russian Federation");
+    auto const banner = tinkoffAirlines.GetBanner("", {}, "en");
+    TEST(banner.empty(), ());
+  }
+  {
+    delegate.SetTopmostParent("Germany");
+    delegate.SetCountryId("Cote dIvoire");
+    auto const banner = tinkoffAirlines.GetBanner("", {}, "ru");
+    TEST(banner.empty(), ());
+  }
+  {
+    delegate.SetTopmostParent({"Norway"});
+    delegate.SetCountryId("Russian Federation");
+    auto const banner = tinkoffAirlines.GetBanner("", {}, "ru");
+    TEST(!banner.empty(), ());
+  }
+  {
+    delegate.SetTopmostParent({"Norway"});
     delegate.SetCountryId("Ukraine");
     auto const banner = tinkoffAirlines.GetBanner("", {}, "ru");
     TEST(banner.empty(), ());

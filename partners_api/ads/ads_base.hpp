@@ -92,7 +92,7 @@ public:
     virtual ~Delegate() = default;
 
     virtual storage::CountryId GetCountryId(m2::PointD const & pos) = 0;
-    virtual storage::CountriesVec GetTopmostNodesFor(storage::CountryId const & countryId) const = 0;
+    virtual storage::CountryId GetTopmostParentFor(storage::CountryId const & countryId) const = 0;
     virtual std::string GetLinkForCountryId(storage::CountryId const & countryId) const = 0;
   };
 

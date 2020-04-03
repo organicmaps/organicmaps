@@ -12,9 +12,9 @@ class DownloadOnMapContainerDelegateForTesting : public ads::DownloadOnMapContai
 {
 public:
   void SetCountryId(storage::CountryId const & countryId) { m_countryId = countryId; }
-  void SetTopmostNodes(storage::CountriesVec const & topmostNodes)
+  void SetTopmostParent(storage::CountryId const & topmostParent)
   {
-    m_topmostNodes = topmostNodes;
+    m_topmostParent = topmostParent;
   }
   void SetLinkForCountryId(std::string const & linkForCountryId)
   {
@@ -23,9 +23,9 @@ public:
 
   // ads::DownloadOnMapContainer::Delegate
   storage::CountryId GetCountryId(m2::PointD const & pos) override { return m_countryId; }
-  storage::CountriesVec GetTopmostNodesFor(storage::CountryId const & mwmId) const override
+  storage::CountryId GetTopmostParentFor(storage::CountryId const & mwmId) const override
   {
-    return m_topmostNodes;
+    return m_topmostParent;
   }
   std::string GetLinkForCountryId(storage::CountryId const & countryId) const override
   {
@@ -34,6 +34,6 @@ public:
 
 private:
   storage::CountryId m_countryId;
-  storage::CountriesVec m_topmostNodes;
+  storage::CountryId m_topmostParent;
   std::string m_linkForCountryId;
 };

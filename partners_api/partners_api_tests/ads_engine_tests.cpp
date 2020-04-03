@@ -22,7 +22,7 @@ public:
 
   // ads::DownloadOnMapContainer::Delegate
   storage::CountryId GetCountryId(m2::PointD const & pos) override { return {}; }
-  storage::CountriesVec GetTopmostNodesFor(storage::CountryId const & mwmId) const override { return {}; };
+  storage::CountryId GetTopmostParentFor(storage::CountryId const & mwmId) const override { return {}; };
   std::string GetLinkForCountryId(storage::CountryId const & countryId) const override { return {}; };
 };
 

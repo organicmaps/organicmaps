@@ -29,7 +29,6 @@ std::initializer_list<storage::CountryId> const kSupportedCountries = {
   "Hungary",
   "Indonesia",
   "Iran",
-  "Ireland",
   "Israel",
   "Jerusalem",
   "Jordan",
