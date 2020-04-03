@@ -2792,5 +2792,40 @@ UNIT_CLASS_TEST(ProcessorTest, MatchedFraction)
     TEST(ResultsMatch("8 ", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, AvoidMathcAroundPivotInMwmWithCity)
+{
+  string const minskCountryName = "Minsk";
+
+  TestCity minsk(m2::PointD(-10.0, -10.0), "Minsk", "en", 10 /* rank */);
+  // World.mwm should intersect viewport.
+  TestPOI dummy(m2::PointD(10.0, 10.0), "", "en");
+
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder) {
+    builder.Add(minsk);
+    builder.Add(dummy);
+  });
+
+  TestCafe minskCafe(m2::PointD(-9.99, -9.99), "Minsk cafe", "en");
+  auto minskId = BuildCountry(minskCountryName, [&](TestMwmBuilder & builder) {
+    builder.Add(minsk);
+    builder.Add(minskCafe);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
+  {
+    // Minsk cafe should not appear here because we have (worldId, minsk) result with all tokens
+    // used.
+    Rules rules = {ExactMatch(worldId, minsk)};
+    TEST(ResultsMatch("Minsk ", rules), ());
+    TEST(ResultsMatch("Minsk", rules), ());
+  }
+  {
+    // We search for pois until we find result with all tokens used. We do not emit relaxed result
+    // from world.
+    Rules rules = {ExactMatch(minskId, minskCafe)};
+    TEST(ResultsMatch("Minsk cafe", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search
