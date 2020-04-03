@@ -82,6 +82,10 @@ class GlobalStyleSheet: IStyleSheet {
       s.backgroundColor = colors.blackDividers
     }
 
+    theme.add(styleName: "SolidDivider") { (s) -> (Void) in
+      s.backgroundColor = colors.solidDividers
+    }
+
     theme.add(styleName: "Background") { (s) -> (Void) in
       s.backgroundColor = colors.white
     }
