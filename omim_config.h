@@ -12,5 +12,6 @@
 //#define STAGE_BOOKING_EXTENDED_INFO
 //#define STAGE_PICTURES_SERVER
 //#define STAGE_ALOHALYTICS_SERVER
+//#define STAGE_TRACKING_HISTORICAL_SERVER
 // Integer values of percents are only supported.
 //#define TEST_CROWN_PERCENT_OF_DEVICES
