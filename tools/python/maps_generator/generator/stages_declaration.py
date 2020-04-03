@@ -30,9 +30,11 @@ from maps_generator.generator.env import WORLD_COASTS_NAME
 from maps_generator.generator.env import WORLD_NAME
 from maps_generator.generator.exceptions import BadExitStatusError
 from maps_generator.generator.gen_tool import run_gen_tool
+from maps_generator.generator.stages import InternalDependency as D
 from maps_generator.generator.stages import Stage
 from maps_generator.generator.stages import build_lock
 from maps_generator.generator.stages import country_stage
+from maps_generator.generator.stages import depends_from_internal
 from maps_generator.generator.stages import helper_stage_for
 from maps_generator.generator.stages import mwm_stage
 from maps_generator.generator.stages import outer_stage
@@ -52,33 +54,6 @@ logger = logging.getLogger("maps_generator")
 
 def is_accepted(env: Env, stage: Type[Stage]) -> bool:
     return env.is_accepted_stage(stage)
-
-
-@outer_stage
-class StageDownloadExternal(Stage):
-    def apply(self, env: Env):
-        download_files(
-            {settings.SUBWAY_URL: env.paths.subway_path,}
-        )
-
-
-@outer_stage
-@production_only
-class StageDownloadProductionExternal(Stage):
-    def apply(self, env: Env):
-        download_files(
-            {
-                settings.UGC_URL: env.paths.ugc_path,
-                settings.HOTELS_URL: env.paths.hotels_path,
-                settings.PROMO_CATALOG_CITIES_URL: env.paths.promo_catalog_cities_path,
-                settings.PROMO_CATALOG_COUNTRIES_URL: env.paths.promo_catalog_countries_path,
-                settings.POPULARITY_URL: env.paths.popularity_path,
-                settings.FOOD_URL: env.paths.food_paths,
-                settings.FOOD_TRANSLATIONS_URL: env.paths.food_translations_path,
-                settings.UK_POSTCODES_URL: env.paths.uk_postcodes_path,
-                settings.US_POSTCODES_URL: env.paths.us_postcodes_path,
-            }
-        )
 
 
 @outer_stage
@@ -135,13 +110,20 @@ class StagePreprocess(Stage):
 
 
 @outer_stage
+@depends_from_internal(
+    D(settings.HOTELS_URL, PathProvider.hotels_path, "p"),
+    D(settings.PROMO_CATALOG_CITIES_URL, PathProvider.promo_catalog_cities_path, "p"),
+    D(settings.POPULARITY_URL, PathProvider.popularity_path, "p"),
+    D(settings.FOOD_URL, PathProvider.food_paths, "p"),
+    D(settings.FOOD_TRANSLATIONS_URL, PathProvider.food_translations_path, "p"),
+)
 @build_lock
 class StageFeatures(Stage):
     def apply(self, env: Env):
         extra = {}
         if is_accepted(env, StageDescriptions):
             extra.update({"idToWikidata": env.paths.id_to_wikidata_path})
-        if is_accepted(env, StageDownloadProductionExternal):
+        if env.production:
             extra.update(
                 {
                     "booking_data": env.paths.hotels_path,
@@ -219,6 +201,10 @@ class StageMwm(Stage):
 
 
 @country_stage
+@depends_from_internal(
+    D(settings.UK_POSTCODES_URL, PathProvider.uk_postcodes_path, "p"),
+    D(settings.US_POSTCODES_URL, PathProvider.us_postcodes_path, "p"),
+)
 @build_lock
 class StageIndex(Stage):
     def apply(self, env: Env, country, **kwargs):
@@ -227,7 +213,7 @@ class StageIndex(Stage):
         elif country == WORLD_COASTS_NAME:
             steps.step_coastline_index(env, country, **kwargs)
         else:
-            if is_accepted(env, StageDownloadProductionExternal):
+            if env.production:
                 kwargs.update(
                     {
                         "uk_postcodes_dataset": env.paths.uk_postcodes_path,
@@ -246,6 +232,7 @@ class StageCitiesIdsWorld(Stage):
 
 
 @country_stage
+@depends_from_internal(D(settings.UGC_URL, PathProvider.ugc_path),)
 @build_lock
 @production_only
 class StageUgc(Stage):
@@ -293,6 +280,7 @@ class StageRouting(Stage):
 
 
 @country_stage
+@depends_from_internal(D(settings.SUBWAY_URL, PathProvider.subway_path),)
 @build_lock
 class StageRoutingTransit(Stage):
     def apply(self, env: Env, country, **kwargs):
@@ -300,6 +288,9 @@ class StageRoutingTransit(Stage):
 
 
 @outer_stage
+@depends_from_internal(
+    D(settings.PROMO_CATALOG_COUNTRIES_URL, PathProvider.promo_catalog_countries_path, "p")
+)
 @build_lock
 class StageCountriesTxt(Stage):
     def apply(self, env: Env):
@@ -311,7 +302,7 @@ class StageCountriesTxt(Stage):
             env.paths.mwm_path,
             env.paths.mwm_version,
         )
-        if is_accepted(env, StageDownloadProductionExternal):
+        if env.production:
             countries_json = json.loads(countries)
             inject_promo_ids(
                 countries_json,

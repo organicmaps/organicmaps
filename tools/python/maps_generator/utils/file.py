@@ -5,6 +5,8 @@ import logging
 import os
 import shutil
 import urllib.request
+from functools import partial
+from multiprocessing.pool import ThreadPool
 from typing import AnyStr
 from typing import Dict
 from typing import Optional
@@ -33,15 +35,24 @@ def find_executable(path: AnyStr, exe: Optional[AnyStr] = None) -> AnyStr:
     raise FileNotFoundError(f"{exe} not found in {path}")
 
 
-def download_file(url: AnyStr, name: AnyStr):
+def download_file(url: AnyStr, name: AnyStr, download_if_exists: bool = True):
     logger.info(f"Trying to download {name} from {url}.")
-    urllib.request.urlretrieve(url, name)
+    if not download_if_exists and os.path.exists(name):
+        logger.info(f"File {name} already exists.")
+        return
+
+    tmp_name = f"{name}__"
+    urllib.request.urlretrieve(url, tmp_name)
+    shutil.move(tmp_name, name)
     logger.info(f"File {name} was downloaded from {url}.")
 
 
-def download_files(url_to_path: Dict[AnyStr, AnyStr]):
-    for k, v in url_to_path.items():
-        download_file(k, v)
+def download_files(url_to_path: Dict[AnyStr, AnyStr], download_if_exists: bool = True):
+    with ThreadPool() as pool:
+        pool.starmap(
+            partial(download_file, download_if_exists=download_if_exists),
+            url_to_path.items(),
+        )
 
 
 def is_exists_file_and_md5(name: AnyStr) -> bool:

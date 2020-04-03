@@ -14,6 +14,7 @@ import time
 from abc import ABC
 from abc import abstractmethod
 from collections import defaultdict
+from multiprocessing import Lock
 from typing import AnyStr
 from typing import Callable
 from typing import List
@@ -22,10 +23,18 @@ from typing import Type
 from typing import Union
 
 from maps_generator.generator.status import Status
+from maps_generator.utils.file import download_files
 from maps_generator.utils.log import DummyObject
 from maps_generator.utils.log import create_file_logger
 
 logger = logging.getLogger("maps_generator")
+
+
+class InternalDependency:
+    def __init__(self, url, path_method, mode=""):
+        self.url = url
+        self.path_method = path_method
+        self.mode = mode
 
 
 class Stage(ABC):
@@ -255,6 +264,43 @@ def helper_stage_for(*deps) -> Callable[[Type[Stage],], Type[Stage]]:
     def wrapper(stage: Type[Stage]) -> Type[Stage]:
         stages.add_dependency_for(stage, *deps)
         stage.is_helper = True
+        return stage
+
+    return wrapper
+
+
+def depends_from_internal(*deps) -> Callable[[Type[Stage],], Type[Stage]]:
+    def new_apply(method):
+        def apply(obj: Stage, env: "Env", *args, **kwargs):
+            if hasattr(obj, "internal_dependencies") and obj.internal_dependencies:
+                with obj.depends_from_internal_lock:
+                    if not obj.depends_from_internal_downloaded:
+                        deps = {}
+                        for d in obj.internal_dependencies:
+                            if "p" in d.mode and not env.production:
+                                continue
+
+                            path = None
+                            if type(d.path_method) is property:
+                                path = d.path_method.__get__(env.paths)
+
+                            assert path is not None, type(d.path_method)
+                            deps[d.url] = path
+
+                        if deps:
+                            download_files(deps, env.force_download_files)
+
+                        obj.depends_from_internal_downloaded = True
+
+            method(obj, env, *args, **kwargs)
+
+        return apply
+
+    def wrapper(stage: Type[Stage]) -> Type[Stage]:
+        stage.internal_dependencies = deps
+        stage.depends_from_internal_lock = Lock()
+        stage.depends_from_internal_downloaded = False
+        stage.apply = new_apply(stage.apply)
         return stage
 
     return wrapper

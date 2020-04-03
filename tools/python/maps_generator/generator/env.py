@@ -348,6 +348,7 @@ class Env:
         build_name: Optional[AnyStr] = None,
         build_suffix: AnyStr = "",
         skipped_stages: Optional[Set[Type[Stage]]] = None,
+        force_download_files: bool = False
     ):
         self.setup_logging()
 
@@ -359,6 +360,7 @@ class Env:
         self.gen_tool = self.setup_generator_tool()
 
         self.production = production
+        self.force_download_files = force_download_files
         self.countries = countries
         self.skipped_stages = set() if skipped_stages is None else skipped_stages
         if self.countries is None:

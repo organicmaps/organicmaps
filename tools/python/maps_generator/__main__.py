@@ -131,6 +131,12 @@ def parse_options():
         help="Build only WorldCoasts.raw and WorldCoasts.rawgeom files",
     )
     parser.add_argument(
+        "--force_download_files",
+        default=False,
+        action="store_true",
+        help="If build is continued, files will always be downloaded again.",
+    )
+    parser.add_argument(
         "--production",
         default=False,
         action="store_true",
@@ -278,6 +284,7 @@ def main():
         build_name=build_name,
         build_suffix=options.suffix,
         skipped_stages=skipped_stages,
+        force_download_files=options["force_download_files"]
     )
     from_stage = None
     if options.from_stage:

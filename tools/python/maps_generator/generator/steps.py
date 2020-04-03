@@ -17,7 +17,7 @@ from maps_generator.generator.env import get_all_countries_list
 from maps_generator.generator.gen_tool import run_gen_tool
 from maps_generator.generator.osmtools import osmconvert
 from maps_generator.generator.osmtools import osmupdate
-from maps_generator.utils.file import download_file
+from maps_generator.utils.file import download_files
 from maps_generator.utils.file import is_verified
 from maps_generator.utils.file import symlink_force
 from maps_generator.utils.md5 import md5
@@ -36,11 +36,6 @@ def multithread_run_if_one_country(func):
     return wrap
 
 
-def download_planet(planet: AnyStr):
-    download_file(settings.PLANET_URL, planet)
-    download_file(settings.PLANET_MD5_URL, md5(planet))
-
-
 def convert_planet(
     tool: AnyStr,
     in_planet: AnyStr,
@@ -54,7 +49,13 @@ def convert_planet(
 
 def step_download_and_convert_planet(env: Env, force_download: bool, **kwargs):
     if force_download or not is_verified(env.paths.planet_osm_pbf):
-        download_planet(env.paths.planet_osm_pbf)
+        download_files(
+            {
+                settings.PLANET_URL: env.paths.planet_osm_pbf,
+                settings.PLANET_MD5_URL: md5(env.paths.planet_osm_pbf),
+            },
+            env.force_download_files,
+        )
 
     convert_planet(
         env[settings.OSM_TOOL_CONVERT],

@@ -141,7 +141,7 @@ optional arguments:
                         Continue the last build or specified in CONTINUE from
                         the last stopped stage.
   -s SUFFIX, --suffix SUFFIX
-                        Suffix the name of a build directory.
+                        Suffix of the name of a build directory.
   --countries COUNTRIES
                         List of regions, separated by a comma or a semicolon,
                         or path to file with regions, separated by a line
@@ -153,22 +153,23 @@ optional arguments:
                         Syntax is the same as for --countries.
   --skip SKIP           List of stages, separated by a comma or a semicolon,
                         for which building will be skipped. Available skip
-                        stages: DownloadExternal, DownloadProductionExternal,
-                        DownloadAndConvertPlanet, UpdatePlanet, Coastline,
-                        Preprocess, Features, Mwm, Index, CitiesIdsWorld, Ugc,
-                        Popularity, Srtm, Descriptions, Routing,
-                        RoutingTransit, CountriesTxt, ExternalResources,
-                        LocalAds, Statistics, Cleanup.
+                        stages: DownloadAndConvertPlanet, UpdatePlanet,
+                        Coastline, Preprocess, Features, Mwm, Index,
+                        CitiesIdsWorld, Ugc, Popularity, Srtm, IsolinesInfo,
+                        Descriptions, Routing, RoutingTransit, CountriesTxt,
+                        ExternalResources, LocalAds, Statistics, Cleanup.
   --from_stage FROM_STAGE
                         Stage from which maps will be rebuild. Available
-                        stages: DownloadExternal, DownloadProductionExternal,
-                        DownloadAndConvertPlanet, UpdatePlanet, Coastline,
-                        Preprocess, Features, Mwm, Index, CitiesIdsWorld, Ugc,
-                        Popularity, Srtm, Descriptions, Routing,
-                        RoutingTransit, CountriesTxt, ExternalResources,
-                        LocalAds, Statistics, Cleanup.
+                        stages: DownloadAndConvertPlanet, UpdatePlanet,
+                        Coastline, Preprocess, Features, Mwm, Index,
+                        CitiesIdsWorld, Ugc, Popularity, Srtm, IsolinesInfo,
+                        Descriptions, Routing, RoutingTransit, CountriesTxt,
+                        ExternalResources, LocalAds, Statistics, Cleanup.
   --coasts              Build only WorldCoasts.raw and WorldCoasts.rawgeom
                         files
+  --force_download_files
+                        If build is continued, files will always be downloaded
+                        again.
   --production          Build production maps. In another case, 'osm only
                         maps' are built - maps without additional data and
                         advertising.

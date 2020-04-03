@@ -20,8 +20,6 @@ def run_generation(env, stages, from_stage: Optional[AnyStr] = None):
 def generate_maps(env: Env, from_stage: Optional[AnyStr] = None):
     """"Runs maps generation."""
     stages = [
-        sd.StageDownloadExternal(),
-        sd.StageDownloadProductionExternal(),
         sd.StageDownloadAndConvertPlanet(),
         sd.StageUpdatePlanet(),
         sd.StageCoastline(),
