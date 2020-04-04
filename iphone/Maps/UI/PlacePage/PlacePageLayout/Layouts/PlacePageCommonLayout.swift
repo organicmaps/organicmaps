@@ -138,7 +138,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   } ()
 
-  lazy var placePageHeaderViewController: PlacePageHeaderViewController = {
+  lazy var header: PlacePageHeaderViewController = {
     return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)
   } ()
 
@@ -154,7 +154,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
-    viewControllers.append(placePageHeaderViewController)
     viewControllers.append(previewViewController)
     if placePageData.isPromoCatalog {
       viewControllers.append(catalogSingleItemViewController)

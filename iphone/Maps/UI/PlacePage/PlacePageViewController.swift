@@ -3,6 +3,7 @@ protocol PlacePageViewProtocol: class {
   var scrollView: UIScrollView! { get set }
   var beginDragging: Bool { get set }
 
+  func addHeader(_ headerViewController: UIViewController)
   func addToStack(_ viewController: UIViewController)
   func addActionBar(_ actionBarViewController: UIViewController)
   func hideActionBar(_ value: Bool)
@@ -67,6 +68,15 @@ final class PlacePageScrollView: UIScrollView {
 extension PlacePageViewController: PlacePageViewProtocol {
   func hideActionBar(_ value: Bool) {
     actionBarHeightConstraint.constant = !value ? kActionBarHeight : 0
+  }
+
+  func addHeader(_ headerViewController: UIViewController) {
+    addToStack(headerViewController)
+    // TODO: workaround. Custom spacing isn't working if visibility of any arranged subview
+    // changes after setting custom spacing
+    DispatchQueue.main.async {
+      self.stackView.setCustomSpacing(0, after: headerViewController.view)
+    }
   }
 
   func addToStack(_ viewController: UIViewController) {

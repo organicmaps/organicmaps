@@ -12,7 +12,7 @@ class PlacePageElevationLayout: IPlacePageLayout {
   var navigationBar: UIViewController? = nil
   var adState: AdBannerState = .unset
 
-  lazy var placePageHeaderViewController: PlacePageHeaderViewController = {
+  lazy var header: PlacePageHeaderViewController = {
     return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)
   } ()
 
@@ -29,7 +29,6 @@ class PlacePageElevationLayout: IPlacePageLayout {
 
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
-    viewControllers.append(placePageHeaderViewController)
     viewControllers.append(elevationMapViewController)
 
     return viewControllers

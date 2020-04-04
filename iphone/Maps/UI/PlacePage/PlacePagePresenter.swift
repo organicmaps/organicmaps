@@ -51,6 +51,7 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
   }
 
   func configure() {
+    view.addHeader(layout.header)
     for viewController in layout.viewControllers {
       view.addToStack(viewController)
     }

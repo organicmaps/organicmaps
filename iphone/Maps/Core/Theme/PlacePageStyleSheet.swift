@@ -101,7 +101,7 @@ class PlacePageStyleSheet: IStyleSheet {
     }
 
     theme.add(styleName: "PPBackgroundView") { (s) -> (Void) in
-      s.backgroundColor = colors.white
+      s.backgroundColor = colors.pressBackground
       s.cornerRadius = 10
       s.shadowColor = UIColor.black
       s.shadowOffset = CGSize(width: 0, height: 1)
