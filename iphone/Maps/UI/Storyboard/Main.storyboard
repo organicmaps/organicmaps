@@ -80,7 +80,7 @@
                                     <constraint firstItem="65S-M4-TnM" firstAttribute="leading" secondItem="rL1-9E-4b7" secondAttribute="leading" priority="100" id="zBX-w3-K7G"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="500" translatesAutoresizingMaskIntoConstraints="NO" id="rbx-Oj-jeo">
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="500" translatesAutoresizingMaskIntoConstraints="NO" id="rbx-Oj-jeo" customClass="TouchTransparentView" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="414" height="832"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>

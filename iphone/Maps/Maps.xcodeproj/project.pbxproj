@@ -314,6 +314,7 @@
 		4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		45CBCCBA20590AAB006B55C2 /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CBCCBB20590AAB006B55C2 /* libkml.a */; };
 		45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD65C1E965EBE00DB854E /* liblocal_ads.a */; };
+		4701A93D243A917900B87683 /* TouchTransparentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4701A93C243A917800B87683 /* TouchTransparentView.swift */; };
 		4707E4B12372FE860017DF6E /* PlacePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4707E4AF2372FE860017DF6E /* PlacePageViewController.swift */; };
 		4707E4B42372FF480017DF6E /* PlacePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4707E4B32372FF480017DF6E /* PlacePage.storyboard */; };
 		470A89FD21342A9D00D72FBF /* TutorialBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470A89FC21342A9D00D72FBF /* TutorialBlurView.swift */; };
@@ -1407,6 +1408,7 @@
 		46F26CD610F623BA00ECCA39 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EAGLView.h; sourceTree = "<group>"; };
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; };
+		4701A93C243A917800B87683 /* TouchTransparentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchTransparentView.swift; sourceTree = "<group>"; };
 		4707E4AF2372FE860017DF6E /* PlacePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageViewController.swift; sourceTree = "<group>"; };
 		4707E4B32372FF480017DF6E /* PlacePage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlacePage.storyboard; sourceTree = "<group>"; };
 		470A89FC21342A9D00D72FBF /* TutorialBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialBlurView.swift; sourceTree = "<group>"; };
@@ -3374,6 +3376,7 @@
 				470F0B7E2388431E006AEC94 /* StarRatingView.swift */,
 				478F6FA323C447E500054A53 /* ReviewView.swift */,
 				478F6FA723C5067C00054A53 /* MyReviewView.swift */,
+				4701A93C243A917800B87683 /* TouchTransparentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5731,6 +5734,7 @@
 				3DE1762422D614B8000214FF /* PromoAfterBookingViewController.swift in Sources */,
 				4707E4B12372FE860017DF6E /* PlacePageViewController.swift in Sources */,
 				34AB66441FC5AA330078E451 /* RouteManagerViewModelProtocol.swift in Sources */,
+				4701A93D243A917900B87683 /* TouchTransparentView.swift in Sources */,
 				3486B5081E27A4B50069C126 /* LocalNotificationManager.mm in Sources */,
 				3454D7BF1E07F045004AF2AD /* DateComponentsFormatter+ETA.swift in Sources */,
 				991FCA2423B11E61009AD684 /* BookmarksStyleSheet.swift in Sources */,

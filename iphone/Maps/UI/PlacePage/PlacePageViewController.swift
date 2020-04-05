@@ -1,5 +1,5 @@
 protocol PlacePageViewProtocol: class {
-  var presenter: PlacePagePresenterProtocol!  { get set }
+  var presenter: PlacePagePresenterProtocol! { get set }
   var scrollView: UIScrollView! { get set }
   var beginDragging: Bool { get set }
 
@@ -23,17 +23,6 @@ final class PlacePageScrollView: UIScrollView {
   }
 }
 
-final class TouchTransparentView: UIView {
-  var targetView: UIView?
-  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-    guard let targetView = targetView else {
-      return super.point(inside: point, with: event)
-    }
-    let targetPoint = convert(point, to: targetView)
-    return targetView.point(inside: targetPoint, with: event)
-  }
-}
-
 @objc final class PlacePageViewController: UIViewController {
   @IBOutlet var scrollView: UIScrollView!
   @IBOutlet var stackView: UIStackView!
@@ -54,10 +43,6 @@ final class TouchTransparentView: UIView {
   override func viewDidLoad() {
     super.viewDidLoad()
     presenter?.configure()
-
-    if let touchTransparentView = view as? TouchTransparentView {
-      touchTransparentView.targetView = scrollView
-    }
 
     let bgView = UIView()
     bgView.styleName = "PPBackgroundView"
