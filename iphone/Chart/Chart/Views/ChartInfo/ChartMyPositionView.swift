@@ -3,6 +3,11 @@ import UIKit
 class ChartMyPositionView: UIView {
   override class var layerClass: AnyClass { CAShapeLayer.self }
   var shapeLayer: CAShapeLayer { layer as! CAShapeLayer }
+  var pinY: CGFloat = 0 {
+    didSet {
+      updatePin()
+    }
+  }
 
   fileprivate let pinView = MyPositionPinView(frame: CGRect(x: 0, y: 0, width: 12, height: 16))
 
@@ -28,11 +33,11 @@ class ChartMyPositionView: UIView {
     path.addLine(to: CGPoint(x: bounds.width / 2, y: bounds.height))
     shapeLayer.path = path.cgPath
 
-    pinView.center = CGPoint(x: bounds.midX, y: bounds.midY)
+    updatePin()
   }
 
-  func updatePoint(_ y: CGFloat) {
-    pinView.center = CGPoint(x: bounds.midX, y: y + pinView.bounds.height / 2)
+  private func updatePin() {
+    pinView.center = CGPoint(x: bounds.midX, y: pinY + pinView.bounds.height / 2)
   }
 }
 

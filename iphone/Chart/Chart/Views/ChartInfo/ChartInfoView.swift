@@ -18,7 +18,7 @@ class ChartInfoView: UIView {
 
   private let pointInfoView = ChartPointInfoView()
   private let pointsView = ChartPointIntersectionView(frame: CGRect(x: 0, y: 0, width: 2, height: 0))
-  private let myPositionView = ChartMyPositionView(frame: CGRect(x: 50, y: 0, width: 2, height: 0))
+  private let myPositionView = ChartMyPositionView(frame: CGRect(x: 0, y: 0, width: 2, height: 0))
   private var lineInfo: ChartLineInfo?
 
   fileprivate var captured = false {
@@ -43,7 +43,6 @@ class ChartInfoView: UIView {
         return
       }
       myPositionView.isHidden = false
-      myPositionView.center = CGPoint(x: bounds.width * myPositionX, y: myPositionView.center.y)
       updateMyPosition()
     }
   }
@@ -122,8 +121,9 @@ class ChartInfoView: UIView {
   }
 
   private func updateMyPosition() {
+    myPositionView.center = CGPoint(x: bounds.width * myPositionX, y: myPositionView.center.y)
     guard let (_, myPositionPoints) = delegate?.chartInfoView(self, infoAtPointX: myPositionView.center.x) else { return }
-    myPositionView.updatePoint(myPositionPoints[0].point.y)
+    myPositionView.pinY = myPositionPoints[0].point.y
   }
 
   @objc func onPan(_ sender: UIPanGestureRecognizer) {
