@@ -2765,5 +2765,32 @@ UNIT_CLASS_TEST(ProcessorTest, FilterVillages)
     TEST(ResultsMatch(request.Results(), rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, MatchedFraction)
+{
+  string const countryName = "Wonderland";
+  string const streetName = "Октябрьский проспaект";
+
+  TestStreet street1(vector<m2::PointD>{m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)},
+                     "Первомайская", "ru");
+  TestStreet street2(vector<m2::PointD>{m2::PointD(-1.0, 1.0), m2::PointD(1.0, -1.0)},
+                     "8 марта", "ru");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(street1);
+    builder.Add(street2);
+  });
+
+  SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
+  {
+    // |8 марта| should not match because matched fraction is too low (1/13 <= 0.1).
+    Rules rules = {ExactMatch(countryId, street1)};
+    TEST(ResultsMatch("первомайская 8 ", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(countryId, street2)};
+    TEST(ResultsMatch("8 ", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search

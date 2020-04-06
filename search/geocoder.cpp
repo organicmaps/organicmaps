@@ -1557,6 +1557,33 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
 {
   FeatureID id(mwmId, ftId);
 
+  double matchedFraction = 1.0;
+  // For categorial requests |allTokensUsed| == true and matchedFraction can not be calculated from |ctx|.
+  if (!allTokensUsed)
+  {
+    size_t length = 0;
+    size_t matchedLength = 0;
+    TokenSlice slice(m_params, TokenRange(0, ctx.m_numTokens));
+    for (size_t tokenIdx = 0; tokenIdx < ctx.m_numTokens; ++tokenIdx)
+    {
+      auto const tokenLength = slice.Get(tokenIdx).GetOriginal().size();
+      length += tokenLength;
+      if (ctx.IsTokenUsed(tokenIdx))
+        matchedLength += tokenLength;
+    }
+    CHECK_NOT_EQUAL(length, 0, ());
+
+    matchedFraction = static_cast<double>(matchedLength) / static_cast<double>(length);
+  }
+
+  // In our samples the least value for matched fraction for relevant result is 0.116.
+  // It is "Горнолыжный комплекс Ключи" feature for "Спортивно стрелковый комплекс Ключи
+  // Новосибирск" query. It is relevant not found result (search does not find it, but it's
+  // relevant). The least matched fraction for found relevant result is 0.241935, for found vital
+  // result is 0.269231.
+  if (matchedFraction <= 0.1)
+    return;
+
   if (ctx.m_hotelsFilter && !ctx.m_hotelsFilter->Matches(id))
     return;
 
