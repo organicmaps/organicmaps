@@ -175,13 +175,19 @@ std::vector<taxi::Product> MakeProductsFromJson(std::string const & src)
     FromJSONObjectOptionalField(item, "displayName", product.m_name);
 
     auto const eta = json_object_get(item, "eta");
-    uint64_t time = 0;
-    FromJSONObjectOptionalField(eta, "value", time);
-    product.m_time = strings::to_string(time);
+    if (json_is_object(eta))
+    {
+      uint64_t time = 0;
+      FromJSONObjectOptionalField(eta, "value", time);
+      product.m_time = strings::to_string(time);
+    }
 
     auto const fare = json_object_get(item, "fare");
-    FromJSONObjectOptionalField(fare, "displayValue", product.m_price);
-    FromJSONObjectOptionalField(fare, "currencyCode", product.m_currency);
+    if (json_is_object(fare))
+    {
+      FromJSONObjectOptionalField(fare, "displayValue", product.m_price);
+      FromJSONObjectOptionalField(fare, "currencyCode", product.m_currency);
+    }
 
     if (product.m_name.empty() || product.m_time.empty() || product.m_price.empty())
       continue;
