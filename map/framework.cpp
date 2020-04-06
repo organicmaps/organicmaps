@@ -2526,7 +2526,15 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     if (m_currentPlacePageInfo->GetTrackId() != kml::kInvalidTrackId)
     {
       if (m_currentPlacePageInfo->GetTrackId() == prevTrackId)
+      {
+        if (m_drapeEngine)
+        {
+          m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK,
+                                      m_currentPlacePageInfo->GetMercator(), FeatureID(),
+                                      false /* isAnim */, false /* isGeometrySelectionAllowed */);
+        }
         return;
+      }
       GetBookmarkManager().UpdateElevationMyPosition(m_currentPlacePageInfo->GetTrackId());
     }
 
