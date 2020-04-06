@@ -65,19 +65,10 @@ class Generation:
         if from_stage is not None:
             self.reset_to_stage(from_stage)
 
-        build_lock = filelock.FileLock(
-            f"{os.path.join(self.env.paths.build_path, 'lock')}.lock"
-        )
-        try:
+        lock_filename = f"{os.path.join(self.env.paths.build_path, 'lock')}.lock"
+        with filelock.FileLock(lock_filename):
             for stage in self.runnable_stages:
-                if stage.need_build_lock:
-                    build_lock.acquire()
-                else:
-                    build_lock.release()
-
                 stage(self.env)
-        finally:
-            build_lock.release()
 
     def reset_to_stage(self, stage_name: AnyStr):
         """

@@ -245,16 +245,6 @@ def mwm_stage(stage: Type[Stage]) -> Type[Stage]:
     return stage
 
 
-def planet_lock(stage: Type[Stage]) -> Type[Stage]:
-    stage.need_planet_lock = True
-    return stage
-
-
-def build_lock(stage: Type[Stage]) -> Type[Stage]:
-    stage.need_build_lock = True
-    return stage
-
-
 def production_only(stage: Type[Stage]) -> Type[Stage]:
     stage.is_production_only = True
     return stage

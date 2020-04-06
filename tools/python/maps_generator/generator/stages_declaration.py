@@ -30,13 +30,11 @@ from maps_generator.generator.exceptions import BadExitStatusError
 from maps_generator.generator.gen_tool import run_gen_tool
 from maps_generator.generator.stages import InternalDependency as D
 from maps_generator.generator.stages import Stage
-from maps_generator.generator.stages import build_lock
 from maps_generator.generator.stages import country_stage
 from maps_generator.generator.stages import depends_from_internal
 from maps_generator.generator.stages import helper_stage_for
 from maps_generator.generator.stages import mwm_stage
 from maps_generator.generator.stages import outer_stage
-from maps_generator.generator.stages import planet_lock
 from maps_generator.generator.stages import production_only
 from maps_generator.generator.stages import stages
 from maps_generator.generator.statistics import get_stages_info
@@ -54,7 +52,6 @@ def is_accepted(env: Env, stage: Type[Stage]) -> bool:
 
 
 @outer_stage
-@planet_lock
 class StageDownloadAndConvertPlanet(Stage):
     def apply(self, env: Env, force_download: bool = True, **kwargs):
         if force_download or not is_verified(env.paths.planet_o5m):
@@ -64,14 +61,12 @@ class StageDownloadAndConvertPlanet(Stage):
 
 
 @outer_stage
-@planet_lock
 class StageUpdatePlanet(Stage):
     def apply(self, env: Env, **kwargs):
         steps.step_update_planet(env, **kwargs)
 
 
 @outer_stage
-@build_lock
 class StageCoastline(Stage):
     def apply(self, env: Env, use_old_if_fail=True):
         coasts_geom = "WorldCoasts.geom"
@@ -100,7 +95,6 @@ class StageCoastline(Stage):
 
 
 @outer_stage
-@build_lock
 class StagePreprocess(Stage):
     def apply(self, env: Env, **kwargs):
         steps.step_preprocess(env, **kwargs)
@@ -114,7 +108,6 @@ class StagePreprocess(Stage):
     D(settings.FOOD_URL, PathProvider.food_paths, "p"),
     D(settings.FOOD_TRANSLATIONS_URL, PathProvider.food_translations_path, "p"),
 )
-@build_lock
 class StageFeatures(Stage):
     def apply(self, env: Env):
         extra = {}
@@ -141,7 +134,6 @@ class StageFeatures(Stage):
 
 
 @outer_stage
-@build_lock
 @production_only
 @helper_stage_for("StageDescriptions")
 class StageDownloadDescriptions(Stage):
@@ -167,7 +159,6 @@ class StageDownloadDescriptions(Stage):
 
 
 @outer_stage
-@build_lock
 @mwm_stage
 class StageMwm(Stage):
     def apply(self, env: Env):
@@ -203,7 +194,6 @@ class StageMwm(Stage):
     D(settings.UK_POSTCODES_URL, PathProvider.uk_postcodes_path, "p"),
     D(settings.US_POSTCODES_URL, PathProvider.us_postcodes_path, "p"),
 )
-@build_lock
 class StageIndex(Stage):
     def apply(self, env: Env, country, **kwargs):
         if country == WORLD_NAME:
@@ -222,7 +212,6 @@ class StageIndex(Stage):
 
 
 @country_stage
-@build_lock
 @production_only
 class StageCitiesIdsWorld(Stage):
     def apply(self, env: Env, country, **kwargs):
@@ -231,7 +220,6 @@ class StageCitiesIdsWorld(Stage):
 
 @country_stage
 @depends_from_internal(D(settings.UGC_URL, PathProvider.ugc_path),)
-@build_lock
 @production_only
 class StageUgc(Stage):
     def apply(self, env: Env, country, **kwargs):
@@ -239,7 +227,6 @@ class StageUgc(Stage):
 
 
 @country_stage
-@build_lock
 @production_only
 class StagePopularity(Stage):
     def apply(self, env: Env, country, **kwargs):
@@ -247,7 +234,6 @@ class StagePopularity(Stage):
 
 
 @country_stage
-@build_lock
 @production_only
 class StageSrtm(Stage):
     def apply(self, env: Env, country, **kwargs):
@@ -255,7 +241,6 @@ class StageSrtm(Stage):
 
 
 @country_stage
-@build_lock
 @production_only
 class StageIsolinesInfo(Stage):
     def apply(self, env: Env, country, **kwargs):
@@ -263,7 +248,6 @@ class StageIsolinesInfo(Stage):
 
 
 @country_stage
-@build_lock
 @production_only
 class StageDescriptions(Stage):
     def apply(self, env: Env, country, **kwargs):
@@ -271,7 +255,6 @@ class StageDescriptions(Stage):
 
 
 @country_stage
-@build_lock
 class StageRouting(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_routing(env, country, **kwargs)
@@ -279,14 +262,12 @@ class StageRouting(Stage):
 
 @country_stage
 @depends_from_internal(D(settings.SUBWAY_URL, PathProvider.subway_path),)
-@build_lock
 class StageRoutingTransit(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_routing_transit(env, country, **kwargs)
 
 
 @country_stage
-@build_lock
 @helper_stage_for("StageStatistics")
 class StageMwmStatistics(Stage):
     def apply(self, env: Env, country, **kwargs):
@@ -297,7 +278,6 @@ class StageMwmStatistics(Stage):
 @depends_from_internal(
     D(settings.PROMO_CATALOG_COUNTRIES_URL, PathProvider.promo_catalog_countries_path, "p")
 )
-@build_lock
 class StageCountriesTxt(Stage):
     def apply(self, env: Env):
         countries = hierarchy_to_countries(
@@ -323,9 +303,7 @@ class StageCountriesTxt(Stage):
                 json.dump(countries_json, f, ensure_ascii=True, indent=1)
 
 
-
 @outer_stage
-@build_lock
 class StageExternalResources(Stage):
     def apply(self, env: Env):
         black_list = {"00_roboto_regular.ttf"}
@@ -349,7 +327,6 @@ class StageExternalResources(Stage):
 
 
 @outer_stage
-@build_lock
 @production_only
 class StageLocalAds(Stage):
     def apply(self, env: Env):
@@ -368,7 +345,6 @@ class StageLocalAds(Stage):
 
 
 @outer_stage
-@build_lock
 class StageStatistics(Stage):
     def apply(self, env: Env):
         steps_info = get_stages_info(env.paths.log_path, {"statistics"})
@@ -392,7 +368,6 @@ class StageStatistics(Stage):
 
 
 @outer_stage
-@build_lock
 class StageCleanup(Stage):
     def apply(self, env: Env):
         logger.info(
