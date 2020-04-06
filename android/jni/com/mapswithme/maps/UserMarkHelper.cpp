@@ -211,19 +211,21 @@ jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo::Points const & p
                          });
 }
 
-jobject CreateElevationInfo(JNIEnv * env, ElevationInfo const & info)
+jobject CreateElevationInfo(JNIEnv * env, std::string const & serverId, ElevationInfo const & info)
 {
   // public ElevationInfo(long trackId, @NonNull String name, @NonNull Point[] points,
   //                      int ascent, int descent, int minAltitude, int maxAltitude, int difficulty,
   //                      long m_duration)
   static jmethodID const ctorId =
-      jni::GetConstructorID(env, g_elevationInfoClazz, "(JLjava/lang/String;"
+      jni::GetConstructorID(env, g_elevationInfoClazz, "(JLjava/lang/String;Ljava/lang/String;"
                                                        "[Lcom/mapswithme/maps/bookmarks/data/ElevationInfo$Point;"
                                                        "IIIIIJ)V");
+  jni::TScopedLocalRef jServerId(env, jni::ToJavaString(env, serverId));
   jni::TScopedLocalRef jName(env, jni::ToJavaString(env, info.GetName()));
   jni::TScopedLocalObjectArrayRef jPoints(env, ToElevationPointArray(env, info.GetPoints()));
   return env->NewObject(g_elevationInfoClazz, ctorId, static_cast<jlong>(info.GetId()),
-                        jName.get(), jPoints.get(), static_cast<jint>(info.GetAscent()),
+                        jServerId.get(), jName.get(), jPoints.get(),
+                        static_cast<jint>(info.GetAscent()),
                         static_cast<jint>(info.GetDescent()),
                         static_cast<jint>(info.GetMinAltitude()),
                         static_cast<jint>(info.GetMaxAltitude()),

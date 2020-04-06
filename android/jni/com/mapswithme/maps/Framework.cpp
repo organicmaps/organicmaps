@@ -1034,8 +1034,10 @@ Java_com_mapswithme_maps_Framework_nativePlacePageActivationListener(JNIEnv *env
     jni::TScopedLocalRef placePageDataRef(env, nullptr);
     if (info.IsTrack())
     {
+      auto const categoryId = info.GetBookmarkCategoryId();
+      auto const serverId = frm()->GetBookmarkManager().GetCategoryServerId(categoryId);
       auto const elevationInfo = frm()->GetBookmarkManager().MakeElevationInfo(info.GetTrackId());
-      placePageDataRef.reset(usermark_helper::CreateElevationInfo(env, elevationInfo));
+      placePageDataRef.reset(usermark_helper::CreateElevationInfo(env, serverId, elevationInfo));
     }
     else
     {

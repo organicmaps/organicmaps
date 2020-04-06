@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import java.util.List;
 public class ElevationInfo implements PlacePageData
 {
   private final long mId;
+  @Nullable
+  private final String mServerId;
   @NonNull
   private final String mName;
   @NonNull
@@ -25,11 +28,12 @@ public class ElevationInfo implements PlacePageData
   private final int mDifficulty;
   private final long mDuration;
 
-  public ElevationInfo(long trackId, @NonNull String name, @NonNull Point[] points,
-                       int ascent, int descent, int minAltitude, int maxAltitude, int difficulty,
-                       long duration)
+  public ElevationInfo(long trackId, @Nullable String serverId, @NonNull String name,
+                       @NonNull Point[] points, int ascent, int descent, int minAltitude,
+                       int maxAltitude, int difficulty, long duration)
   {
     mId = trackId;
+    mServerId = serverId;
     mName = name;
     mPoints = Arrays.asList(points);
     mAscent = ascent;
@@ -43,6 +47,7 @@ public class ElevationInfo implements PlacePageData
   protected ElevationInfo(Parcel in)
   {
     mId = in.readLong();
+    mServerId = in.readString();
     mName = in.readString();
     mAscent = in.readInt();
     mDescent = in.readInt();
@@ -64,6 +69,12 @@ public class ElevationInfo implements PlacePageData
   public long getId()
   {
     return mId;
+  }
+
+  @Nullable
+  public String getServerId()
+  {
+    return mServerId;
   }
 
   @NonNull
@@ -118,6 +129,7 @@ public class ElevationInfo implements PlacePageData
   public void writeToParcel(Parcel dest, int flags)
   {
     dest.writeLong(mId);
+    dest.writeString(mServerId);
     dest.writeString(mName);
     dest.writeInt(mAscent);
     dest.writeInt(mDescent);
