@@ -284,7 +284,7 @@ def main():
         build_name=build_name,
         build_suffix=options.suffix,
         skipped_stages=skipped_stages,
-        force_download_files=options["force_download_files"]
+        force_download_files=options.force_download_files
     )
     from_stage = None
     if options.from_stage:

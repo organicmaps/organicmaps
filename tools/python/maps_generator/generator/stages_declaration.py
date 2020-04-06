@@ -12,7 +12,6 @@ import os
 import shutil
 import tarfile
 from collections import defaultdict
-from functools import partial
 from multiprocessing.pool import ThreadPool
 from typing import AnyStr
 from typing import Type
@@ -25,7 +24,6 @@ from maps_generator.generator import settings
 from maps_generator.generator import steps
 from maps_generator.generator.env import Env
 from maps_generator.generator.env import PathProvider
-from maps_generator.generator.env import WORLDS_NAMES
 from maps_generator.generator.env import WORLD_COASTS_NAME
 from maps_generator.generator.env import WORLD_NAME
 from maps_generator.generator.exceptions import BadExitStatusError
@@ -42,7 +40,6 @@ from maps_generator.generator.stages import planet_lock
 from maps_generator.generator.stages import production_only
 from maps_generator.generator.stages import stages
 from maps_generator.generator.statistics import get_stages_info
-from maps_generator.generator.statistics import make_stats
 from maps_generator.utils.file import download_files
 from maps_generator.utils.file import is_verified
 from post_generation.hierarchy_to_countries import hierarchy_to_countries
@@ -197,6 +194,7 @@ class StageMwm(Stage):
             StageRouting(country=country)(env)
             StageRoutingTransit(country=country)(env)
 
+        StageMwmStatistics(country=country)(env)
         env.finish_mwm(country)
 
 
@@ -287,6 +285,14 @@ class StageRoutingTransit(Stage):
         steps.step_routing_transit(env, country, **kwargs)
 
 
+@country_stage
+@build_lock
+@helper_stage_for("StageStatistics")
+class StageMwmStatistics(Stage):
+    def apply(self, env: Env, country, **kwargs):
+        steps.step_statistics(env, country, **kwargs)
+
+
 @outer_stage
 @depends_from_internal(
     D(settings.PROMO_CATALOG_COUNTRIES_URL, PathProvider.promo_catalog_countries_path, "p")
@@ -312,9 +318,10 @@ class StageCountriesTxt(Stage):
                 env.paths.types_path,
                 env.paths.mwm_path,
             )
-            countries = json.dumps(countries_json, ensure_ascii=True, indent=1)
-        with open(env.paths.counties_txt_path, "w") as f:
-            f.write(countries)
+
+            with open(env.paths.counties_txt_path, "w") as f:
+                json.dump(countries_json, f, ensure_ascii=True, indent=1)
+
 
 
 @outer_stage
@@ -364,36 +371,15 @@ class StageLocalAds(Stage):
 @build_lock
 class StageStatistics(Stage):
     def apply(self, env: Env):
-        result = defaultdict(lambda: defaultdict(dict))
-
-        def stage_mwm_statistics(env: Env, country, **kwargs):
-            stats_tmp = os.path.join(env.paths.draft_path, f"{country}.stat")
-            with open(os.devnull, "w") as dev_null:
-                with open(stats_tmp, "w") as f:
-                    steps.run_gen_tool_with_recovery_country(
-                        env,
-                        env.gen_tool,
-                        out=f,
-                        err=dev_null,
-                        data_path=env.paths.mwm_path,
-                        user_resource_path=env.paths.user_resource_path,
-                        type_statistics=True,
-                        output=country,
-                        **kwargs,
-                    )
-            result["countries"][country]["types"] = make_stats(
-                settings.STATS_TYPES_CONFIG, stats_tmp
-            )
-
-        names = env.get_tmp_mwm_names()
-        countries = filter(lambda x: x not in WORLDS_NAMES, names)
-        with ThreadPool(settings.THREADS_COUNT) as pool:
-            pool.map(partial(stage_mwm_statistics, env), countries)
-
         steps_info = get_stages_info(env.paths.log_path, {"statistics"})
-        result["steps"] = steps_info["steps"]
-        for c in steps_info["countries"]:
-            result["countries"][c]["steps"] = steps_info["countries"][c]
+        stats = defaultdict(lambda: defaultdict(dict))
+        stats["steps"] = steps_info["steps"]
+        for country in env.get_tmp_mwm_names():
+            with open(os.path.join(env.paths.stats_path, f"{country}.json")) as f:
+                stats["countries"][country] = {
+                    "types": json.load(f),
+                    "steps": steps_info["countries"][country]
+                }
 
         def default(o):
             if isinstance(o, datetime.timedelta):
@@ -401,7 +387,7 @@ class StageStatistics(Stage):
 
         with open(os.path.join(env.paths.stats_path, "stats.json"), "w") as f:
             json.dump(
-                result, f, ensure_ascii=False, sort_keys=True, indent=2, default=default
+                stats, f, ensure_ascii=False, sort_keys=True, indent=2, default=default
             )
 
 

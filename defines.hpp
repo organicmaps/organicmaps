@@ -15,6 +15,7 @@
 #define OSM_DATA_FILE_EXTENSION ".osm"
 #define ARCHIVE_TRACKS_FILE_EXTENSION ".track"
 #define ARCHIVE_TRACKS_ZIPPED_FILE_EXTENSION ".track.zip"
+#define STATS_EXTENSION ".stats"
 
 #define NODES_FILE "nodes.dat"
 #define WAYS_FILE "ways.dat"

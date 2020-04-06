@@ -6,6 +6,7 @@ import logging
 import os
 import shutil
 import subprocess
+import json
 from typing import AnyStr
 
 from maps_generator.generator import settings
@@ -17,6 +18,7 @@ from maps_generator.generator.env import get_all_countries_list
 from maps_generator.generator.gen_tool import run_gen_tool
 from maps_generator.generator.osmtools import osmconvert
 from maps_generator.generator.osmtools import osmupdate
+from maps_generator.generator.statistics import make_stats
 from maps_generator.utils.file import download_files
 from maps_generator.utils.file import is_verified
 from maps_generator.utils.file import symlink_force
@@ -312,3 +314,28 @@ def step_routing_transit(env: Env, country: AnyStr, **kwargs):
         output=country,
         **kwargs,
     )
+
+
+def step_statistics(env: Env, country: AnyStr, **kwargs):
+    run_gen_tool_with_recovery_country(
+        env,
+        env.gen_tool,
+        out=env.get_subprocess_out(country),
+        err=env.get_subprocess_out(country),
+        data_path=env.paths.mwm_path,
+        intermediate_data_path=env.paths.intermediate_data_path,
+        user_resource_path=env.paths.user_resource_path,
+        type_statistics=True,
+        output=country,
+        **kwargs,
+    )
+
+    with open(os.path.join(env.paths.stats_path, f"{country}.json"), "w") as f:
+        json.dump(
+            make_stats(
+                settings.STATS_TYPES_CONFIG,
+                os.path.join(env.paths.intermediate_data_path,
+                             f"{country}.stats")
+            ),
+            f
+        )

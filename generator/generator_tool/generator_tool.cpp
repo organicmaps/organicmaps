@@ -571,12 +571,14 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   {
     LOG(LINFO, ("Calculating statistics for", datFile));
 
-    stats::FileContainerStatistic(datFile);
-    stats::FileContainerStatistic(datFile + ROUTING_FILE_EXTENSION);
+
+    auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
+    stats::FileContainerStatistic(file, datFile);
+    stats::FileContainerStatistic(file, datFile + ROUTING_FILE_EXTENSION);
 
     stats::MapInfo info;
     stats::CalcStatistic(datFile, info);
-    stats::PrintStatistic(info);
+    stats::PrintStatistic(file, info);
   }
 
   if (FLAGS_type_statistics)
@@ -585,7 +587,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     stats::MapInfo info;
     stats::CalcStatistic(datFile, info);
-    stats::PrintTypeStatistic(info);
+    auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
+    stats::PrintTypeStatistic(file, info);
   }
 
   if (FLAGS_dump_types)

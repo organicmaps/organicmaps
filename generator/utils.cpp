@@ -253,4 +253,13 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
 
   return rules;
 }
+
+std::ofstream OfstreamWithExceptions(std::string const & name)
+{
+  std::ofstream f;
+  f.exceptions(std::ios::failbit | std::ios::badbit);
+  f.open(name);
+  return f;
+}
+
 }  // namespace generator

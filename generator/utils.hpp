@@ -19,6 +19,7 @@
 
 #include <csignal>
 #include <cstdint>
+#include <fstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -108,4 +109,6 @@ using TypeStrings = std::vector<std::string>;
 using MapcssRules = std::vector<std::pair<TypeStrings, MapcssRule>>;
 
 MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader);
+
+std::ofstream OfstreamWithExceptions(std::string const & name);
 }  // namespace generator

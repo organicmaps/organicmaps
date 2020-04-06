@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <map>
+#include <ostream>
 #include <string>
 
 namespace stats
@@ -54,9 +55,9 @@ namespace stats
     GeneralInfo m_inner[3];
   };
 
-  void FileContainerStatistic(std::string const & fPath);
+  void FileContainerStatistic(std::ostream & os, std::string const & fPath);
 
   void CalcStatistic(std::string const & fPath, MapInfo & info);
-  void PrintStatistic(MapInfo & info);
-  void PrintTypeStatistic(MapInfo & info);
+  void PrintStatistic(std::ostream & os, MapInfo & info);
+  void PrintTypeStatistic(std::ostream & os, MapInfo & info);
 }
