@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -3240,12 +3240,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7IG-Oq-zg1">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
-                                <connections>
-                                    <action selector="onExpandButtonPressed:" destination="aB1-Yk-7p4" eventType="touchUpInside" id="mo5-Vn-moX"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDI-4A-1Xp">
+                                <rect key="frame" x="0.0" y="0.0" width="329" height="59"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysM-7b-O4g">
                                 <rect key="frame" x="175.5" y="16" width="24" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.1218428938" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3260,7 +3258,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Хинкальная" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19H-pJ-DHW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="Хинкальная" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19H-pJ-DHW">
                                 <rect key="frame" x="16" y="28" width="313" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -3298,18 +3296,18 @@
                         <constraints>
                             <constraint firstItem="ysM-7b-O4g" firstAttribute="centerX" secondItem="My8-Gu-lky" secondAttribute="centerX" id="0Xo-fd-9IQ"/>
                             <constraint firstItem="19H-pJ-DHW" firstAttribute="top" secondItem="ysM-7b-O4g" secondAttribute="bottom" constant="8" id="1T0-Sf-aK9"/>
+                            <constraint firstItem="XDI-4A-1Xp" firstAttribute="leading" secondItem="My8-Gu-lky" secondAttribute="leading" id="72i-Ah-HuU"/>
                             <constraint firstAttribute="trailing" secondItem="9yD-7s-dW6" secondAttribute="trailing" id="CPo-N6-i9z"/>
-                            <constraint firstItem="7IG-Oq-zg1" firstAttribute="bottom" secondItem="My8-Gu-lky" secondAttribute="bottom" id="GGo-oQ-GJb"/>
                             <constraint firstItem="nOV-hF-ri0" firstAttribute="top" secondItem="My8-Gu-lky" secondAttribute="top" constant="4" id="Iej-t0-L4p"/>
-                            <constraint firstItem="7IG-Oq-zg1" firstAttribute="trailing" secondItem="My8-Gu-lky" secondAttribute="trailing" id="KEr-ti-W9P"/>
-                            <constraint firstItem="7IG-Oq-zg1" firstAttribute="leading" secondItem="My8-Gu-lky" secondAttribute="leading" id="LRj-X3-5So"/>
                             <constraint firstItem="19H-pJ-DHW" firstAttribute="leading" secondItem="My8-Gu-lky" secondAttribute="leading" constant="16" id="Mnq-9Y-mqW"/>
-                            <constraint firstItem="nOV-hF-ri0" firstAttribute="leading" secondItem="19H-pJ-DHW" secondAttribute="trailing" constant="4" id="N78-ln-VxM"/>
+                            <constraint firstItem="My8-Gu-lky" firstAttribute="bottom" secondItem="XDI-4A-1Xp" secondAttribute="bottom" id="T3g-Kf-WU1"/>
                             <constraint firstItem="9yD-7s-dW6" firstAttribute="leading" secondItem="xTs-NP-HcT" secondAttribute="leading" id="ZZ5-9n-Za6"/>
                             <constraint firstItem="9yD-7s-dW6" firstAttribute="bottom" secondItem="xTs-NP-HcT" secondAttribute="bottom" id="fEq-qx-FsB"/>
+                            <constraint firstItem="My8-Gu-lky" firstAttribute="trailing" secondItem="XDI-4A-1Xp" secondAttribute="trailing" constant="46" id="kR9-Wo-IOe"/>
                             <constraint firstItem="ysM-7b-O4g" firstAttribute="top" secondItem="xTs-NP-HcT" secondAttribute="top" constant="16" id="lLa-Ek-sSF"/>
-                            <constraint firstItem="7IG-Oq-zg1" firstAttribute="top" secondItem="My8-Gu-lky" secondAttribute="top" id="mQe-fg-hYi"/>
+                            <constraint firstItem="nOV-hF-ri0" firstAttribute="leading" secondItem="19H-pJ-DHW" secondAttribute="trailing" constant="4" id="lao-6I-EeY"/>
                             <constraint firstItem="My8-Gu-lky" firstAttribute="trailing" secondItem="nOV-hF-ri0" secondAttribute="trailing" constant="12" id="nMU-BO-O1C"/>
+                            <constraint firstItem="XDI-4A-1Xp" firstAttribute="top" secondItem="My8-Gu-lky" secondAttribute="top" id="nRE-GG-4YO"/>
                             <constraint firstItem="9yD-7s-dW6" firstAttribute="top" secondItem="19H-pJ-DHW" secondAttribute="bottom" constant="6" id="zVt-Xc-9Lm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="My8-Gu-lky"/>
@@ -3319,7 +3317,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="59"/>
                     <connections>
-                        <outlet property="expandButton" destination="7IG-Oq-zg1" id="ZIb-Ge-IvE"/>
+                        <outlet property="expandView" destination="XDI-4A-1Xp" id="XSW-S9-QHV"/>
                         <outlet property="titleLabel" destination="19H-pJ-DHW" id="PYH-4G-zxO"/>
                         <outlet property="view" destination="xTs-NP-HcT" id="jQF-X9-Xlv"/>
                     </connections>

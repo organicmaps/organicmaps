@@ -2,21 +2,23 @@ protocol PlacePageHeaderViewProtocol: class {
   var presenter: PlacePageHeaderPresenterProtocol?  { get set }
   func setTitle(_ title: String)
   func setViewStyle(_ style: String)
-  func setExpandButtonEnabled(_ val: Bool)
+  func setExpandViewEnabled(_ val: Bool)
 }
 
 class PlacePageHeaderViewController: UIViewController {
   var presenter: PlacePageHeaderPresenterProtocol?
 
   @IBOutlet private var titleLabel: UILabel!
-  @IBOutlet private var expandButton: UIButton!
+  @IBOutlet private var expandView: UIView!
 
   override func viewDidLoad() {
     super.viewDidLoad()
     presenter?.configure()
+    let tap = UITapGestureRecognizer(target: self, action: #selector(onExpandPressed(sender:)))
+    expandView.addGestureRecognizer(tap)
   }
 
-  @IBAction func onExpandButtonPressed(_ sender: Any) {
+  @objc func onExpandPressed(sender: UITapGestureRecognizer) {
     presenter?.onExpandPress()
   }
 
@@ -34,7 +36,7 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
     view.setStyleAndApply(style)
   }
 
-  func setExpandButtonEnabled(_ val: Bool) {
-    expandButton.isHidden = !val
+  func setExpandViewEnabled(_ val: Bool) {
+    expandView.isHidden = !val
   }
 }

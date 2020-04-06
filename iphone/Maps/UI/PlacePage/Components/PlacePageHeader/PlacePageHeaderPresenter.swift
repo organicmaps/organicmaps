@@ -37,10 +37,10 @@ extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
     switch headerType {
     case .flexible:
       view?.setViewStyle("PPHeaderView")
-      view?.setExpandButtonEnabled(true)
+      view?.setExpandViewEnabled(true)
     case .fixed:
       view?.setViewStyle("PPNavigationBarView")
-      view?.setExpandButtonEnabled(false)
+      view?.setExpandViewEnabled(false)
     }
   }
 
