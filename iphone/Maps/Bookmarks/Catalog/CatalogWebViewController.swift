@@ -131,11 +131,11 @@ final class CatalogWebViewController: WebViewController {
     navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_nav_bar_back"),
                                                        style: .plain,
                                                        target: self,
-                                                       action: #selector(onBack))
+                                                       action: #selector(onBackPressed))
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: L("core_exit"),
                                                         style: .plain,
                                                         target: self,
-                                                        action:  #selector(goBack))
+                                                        action:  #selector(onExitPressed))
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -406,12 +406,19 @@ final class CatalogWebViewController: WebViewController {
     progressBgView.isHidden = numberOfTasks == 0
   }
 
-  @objc private func onBack() {
+  @objc private func onBackPressed() {
     if (webView.canGoBack) {
       back()
+      Statistics.logEvent(kStatGuidesBack, withParameters: [kStatMethod: kStatBack])
     } else {
       navigationController?.popViewController(animated: true)
+      Statistics.logEvent(kStatGuidesClose, withParameters: [kStatMethod: kStatBack])
     }
+  }
+
+  @objc private func onExitPressed() {
+    goBack()
+    Statistics.logEvent(kStatGuidesClose, withParameters: [kStatMethod: kStatDone])
   }
 
   @objc private func onFwd() {
