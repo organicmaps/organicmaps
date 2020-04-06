@@ -377,7 +377,11 @@ class Env:
             if build_suffix:
                 build_name = f"{build_name}{suffix_div}{build_suffix}"
         else:
-            date_str, build_suffix = build_name.split(suffix_div, maxsplit=1)
+            s = build_name.split(suffix_div, maxsplit=1)
+            if len(s) == 1:
+                s.append("")
+
+            date_str, build_suffix = s
             dt = datetime.datetime.strptime(date_str, version_format)
 
         self.build_suffix = build_suffix
