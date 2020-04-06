@@ -127,6 +127,10 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)dismissPlacePage {
+  GetFramework().DeactivateMapSelection(true);
+}
+
+- (void)hidePlacePage {
   [self.placePageVC.view removeFromSuperview];
   [self.placePageVC willMoveToParentViewController:nil];
   [self.placePageVC removeFromParentViewController];
@@ -137,7 +141,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)onMapObjectDeselected:(bool)switchFullScreenMode
 {
-  [self dismissPlacePage];
+  [self hidePlacePage];
 
   if (!switchFullScreenMode)
     return;
@@ -153,7 +157,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)onMapObjectSelected {
-  [self dismissPlacePage];
+  [self hidePlacePage];
   [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL) {
     [self showPlacePage];
   }];
