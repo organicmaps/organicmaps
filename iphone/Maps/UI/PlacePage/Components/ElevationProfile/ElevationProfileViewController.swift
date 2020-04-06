@@ -55,6 +55,11 @@ class ElevationProfileViewController: UIViewController {
     presenter?.onDissapear()
   }
 
+  override func viewWillLayoutSubviews() {
+    super.viewWillLayoutSubviews()
+    descriptionCollectionView.reloadData()
+  }
+
   @IBAction func onExtendedDifficultyButtonPressed(_ sender: Any) {
     presenter?.onDifficultyButtonPressed()
   }

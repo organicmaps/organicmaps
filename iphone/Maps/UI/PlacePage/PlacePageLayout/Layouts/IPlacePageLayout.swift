@@ -29,5 +29,5 @@ protocol IPlacePageLayout: class {
   var navigationBar: UIViewController? { get }
   var adState: AdBannerState { get set }
 
-  func calculateSteps(inScrollView scrollView: UIScrollView) -> [PlacePageState]
+  func calculateSteps(inScrollView scrollView: UIScrollView, compact: Bool) -> [PlacePageState]
 }

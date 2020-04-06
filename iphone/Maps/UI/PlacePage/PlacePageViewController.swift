@@ -2,6 +2,7 @@ protocol PlacePageViewProtocol: class {
   var presenter: PlacePagePresenterProtocol! { get set }
   var scrollView: UIScrollView! { get set }
   var beginDragging: Bool { get set }
+  var traitCollection: UITraitCollection { get }
 
   func addHeader(_ headerViewController: UIViewController)
   func addToStack(_ viewController: UIViewController)
@@ -36,6 +37,7 @@ final class PlacePageScrollView: UIScrollView {
   var rootViewController: MapViewController {
     MapViewController.shared()
   }
+  private var previousTraitCollection: UITraitCollection?
 
   let kActionBarHeight:CGFloat = 50
 
@@ -54,18 +56,39 @@ final class PlacePageScrollView: UIScrollView {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    if traitCollection.horizontalSizeClass == .compact {
-      scrollView.contentInset = UIEdgeInsets(top: scrollView.height, left: 0, bottom: 0, right: 0)
+    if previousTraitCollection == nil {
+      scrollView.contentInset = alternative(iPhone: UIEdgeInsets(top: scrollView.height, left: 0, bottom: 0, right: 0),
+                                            iPad: UIEdgeInsets.zero)
+      presenter.updateSteps()
     }
+    self.previousTraitCollection = self.traitCollection
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     presenter?.updatePreviewOffset()
   }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if self.previousTraitCollection != nil {
+      DispatchQueue.main.async {
+        self.presenter.updateSteps()
+        self.presenter.showLastStop()
+        self.scrollView.contentInset = alternative(iPhone: UIEdgeInsets(top: self.scrollView.height, left: 0, bottom: 0, right: 0),
+                                                   iPad: UIEdgeInsets.zero)
+      }
+    }
+  }
 }
 
 extension PlacePageViewController: PlacePageViewProtocol {
+  override var traitCollection: UITraitCollection {
+    get {
+      return super.traitCollection
+    }
+  }
+
   func hideActionBar(_ value: Bool) {
     actionBarHeightConstraint.constant = !value ? kActionBarHeight : 0
   }
@@ -108,8 +131,11 @@ extension PlacePageViewController: PlacePageViewProtocol {
   }
 
   func scrollTo(_ point: CGPoint, animated: Bool, forced: Bool, completion: (()->())?) {
-    if (traitCollection.horizontalSizeClass != .compact || beginDragging) && !forced {
+    if alternative(iPhone: beginDragging, iPad: true) && !forced {
       return
+    }
+    if forced {
+      beginDragging = true
     }
     let scrollPosition = CGPoint(x: point.x, y: min((scrollView.contentSize.height - scrollView.height), point.y))
     if animated {

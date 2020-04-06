@@ -3,10 +3,12 @@ protocol PlacePagePresenterProtocol: class {
 
   func configure()
   func setAdState(_ state: AdBannerState)
+  func updateSteps()
   func updatePreviewOffset()
   func layoutIfNeeded()
   func findNextStop(_ offset: CGFloat, velocity: CGFloat) -> PlacePageState
   func showNextStop()
+  func showLastStop()
   func onOffsetChanged(_ offset: CGFloat)
   func closeAnimated()
 }
@@ -69,9 +71,14 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
     layout.adState = state
   }
 
-  func updatePreviewOffset() {
+  func updateSteps() {
     layoutIfNeeded()
-    scrollSteps = layout.calculateSteps(inScrollView: view.scrollView)
+    scrollSteps = layout.calculateSteps(inScrollView: view.scrollView,
+                                        compact: view.traitCollection.verticalSizeClass == .compact)
+  }
+
+  func updatePreviewOffset() {
+    updateSteps()
     if !view.beginDragging  {
       let state = isPreviewPlus ? scrollSteps[2] : scrollSteps[1]
       view.scrollTo(CGPoint(x: 0, y: state.offset))
@@ -122,6 +129,12 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
   func showNextStop() {
     if let nextStop = scrollSteps.last(where: { $0.offset > view.scrollView.contentOffset.y }) {
       view.scrollTo(CGPoint(x: 0, y: nextStop.offset), forced: true)
+    }
+  }
+
+  func showLastStop() {
+    if let lastStop = scrollSteps.last {
+      view.scrollTo(CGPoint(x: 0, y: lastStop.offset), forced: true)
     }
   }
 

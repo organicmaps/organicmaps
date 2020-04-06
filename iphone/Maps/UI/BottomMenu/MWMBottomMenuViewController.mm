@@ -102,6 +102,15 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [self refreshLayout];
 }
 
+-(void)viewDidLayoutSubviews {
+  [super viewDidLayoutSubviews];
+  if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+    [self.dimBackground setStyleAndApply:@"ClearBackground"];
+  } else {
+    [self.dimBackground setStyleAndApply:@"FadeBackground"];
+  }
+}
+
 - (void)updateBadgeVisible:(BOOL)visible { self.downloadBadge.hidden = !visible; }
 #pragma mark - Refresh Collection View layout
 

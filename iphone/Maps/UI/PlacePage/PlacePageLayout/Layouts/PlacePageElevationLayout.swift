@@ -9,11 +9,19 @@ class PlacePageElevationLayout: IPlacePageLayout {
   }()
 
   var actionBar: ActionBarViewController? = nil
-  var navigationBar: UIViewController? = nil
+
+  var navigationBar: UIViewController? {
+    return placePageNavigationViewController
+  }
+
   var adState: AdBannerState = .unset
 
   lazy var header: PlacePageHeaderViewController = {
     return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)
+  } ()
+
+  lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
+    return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .fixed)
   } ()
 
   lazy var elevationMapViewController: ElevationProfileViewController = {
@@ -34,7 +42,7 @@ class PlacePageElevationLayout: IPlacePageLayout {
     return viewControllers
   }
 
-  func calculateSteps(inScrollView scrollView: UIScrollView) -> [PlacePageState] {
+  func calculateSteps(inScrollView scrollView: UIScrollView, compact: Bool) -> [PlacePageState] {
     var steps: [PlacePageState] = []
     let scrollHeight = scrollView.height
     let previewHeight = elevationMapViewController.getPreviewHeight()
@@ -45,6 +53,7 @@ class PlacePageElevationLayout: IPlacePageLayout {
     let previewFrame = scrollView.convert(previewView.bounds, from: previewView)
     steps.append(.preview(previewFrame.maxY - scrollHeight - previewHeight))
     steps.append(.expanded(previewFrame.maxY - scrollHeight))
+    steps.append(.full(0))
     return steps
   }
 }

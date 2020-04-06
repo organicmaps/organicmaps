@@ -235,7 +235,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return viewControllers
   }
 
-  func calculateSteps(inScrollView scrollView: UIScrollView) -> [PlacePageState] {
+  func calculateSteps(inScrollView scrollView: UIScrollView, compact: Bool) -> [PlacePageState] {
     var steps: [PlacePageState] = []
     let scrollHeight = scrollView.height
     steps.append(.closed(-scrollHeight))
@@ -244,10 +244,12 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     }
     let previewFrame = scrollView.convert(preview.bounds, from: preview)
     steps.append(.preview(previewFrame.maxY - scrollHeight))
-    if placePageData.isPreviewPlus {
-      steps.append(.previewPlus(-scrollHeight * 0.55))
+    if !compact {
+      if placePageData.isPreviewPlus {
+        steps.append(.previewPlus(-scrollHeight * 0.55))
+      }
+      steps.append(.expanded(-scrollHeight * 0.3))
     }
-    steps.append(.expanded(-scrollHeight * 0.3))
     steps.append(.full(0))
     return steps
   }
