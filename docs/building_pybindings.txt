@@ -115,7 +115,7 @@ python installation on your system, you may need to help it:
          -DPYBINDINGS_VERSION=9.5.0 \
          -DPYTHON_VERSION=3.7.5 \
          -DPYTHON_EXECUTABLE=/usr/local/opt/python3/Frameworks/Python.framework/Versions/3.7/bin/python3 \
-         -DPYTHON_INCLUDE_DIRS=/usr/local/opt/python3/Frameworks/Python.framework/Versions/3.7/Headers \
+         -DPYTHON_INCLUDE_DIR=/usr/local/opt/python3/Frameworks/Python.framework/Versions/3.7/Headers \
          -DPYTHON_LIBRARY=/usr/local/opt/python3/Frameworks/Python.framework/Versions/3.7/lib/libpython3.7m.dylib
 
 
