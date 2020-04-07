@@ -106,7 +106,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   {
     updateStateInternal(shouldAutoDownload);
 
-    if (mPromoBanner == null || mCurrentCountry == null)
+    if (mPromoBanner == null || !hasMapDownloading(mCurrentCountry))
       return;
 
     Statistics.ParameterBuilder builder =
@@ -114,6 +114,16 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                     mCurrentCountry.id);
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_SHOW, builder);
+  }
+
+  private static boolean hasMapDownloading(@Nullable CountryItem country)
+  {
+    if (country == null) return false;
+
+    boolean enqueued = country.status == CountryItem.STATUS_ENQUEUED;
+    boolean progress = country.status == CountryItem.STATUS_PROGRESS;
+    boolean applying = country.status == CountryItem.STATUS_APPLYING;
+    return enqueued || progress || applying;
   }
 
   private void updateProgressState(boolean shouldAutoDownload)
@@ -293,11 +303,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
     mPromoBanner = Framework.nativeGetDownloaderPromoBanner(mCurrentCountry.id);
     boolean isPromoFound = mPromoBanner != null;
-
-    boolean enqueued = mCurrentCountry.status == CountryItem.STATUS_ENQUEUED;
-    boolean progress = mCurrentCountry.status == CountryItem.STATUS_PROGRESS;
-    boolean applying = mCurrentCountry.status == CountryItem.STATUS_APPLYING;
-    boolean isDownloading = enqueued || progress || applying;
+    boolean isDownloading = hasMapDownloading(mCurrentCountry);
 
     if (!isDownloading || !isPromoFound)
     {
