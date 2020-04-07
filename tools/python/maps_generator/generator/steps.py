@@ -2,11 +2,11 @@
 This file contains basic api for generator_tool and osm tools to generate maps.
 """
 import functools
+import json
 import logging
 import os
 import shutil
 import subprocess
-import json
 from typing import AnyStr
 
 from maps_generator.generator import settings
@@ -15,6 +15,7 @@ from maps_generator.generator.env import PathProvider
 from maps_generator.generator.env import WORLDS_NAMES
 from maps_generator.generator.env import WORLD_NAME
 from maps_generator.generator.env import get_all_countries_list
+from maps_generator.generator.exceptions import ValidationError
 from maps_generator.generator.gen_tool import run_gen_tool
 from maps_generator.generator.osmtools import osmconvert
 from maps_generator.generator.osmtools import osmupdate
@@ -22,7 +23,7 @@ from maps_generator.generator.statistics import make_stats
 from maps_generator.utils.file import download_files
 from maps_generator.utils.file import is_verified
 from maps_generator.utils.file import symlink_force
-from maps_generator.utils.md5 import md5
+from maps_generator.utils.md5 import md5_ext
 from maps_generator.utils.md5 import write_md5sum
 
 logger = logging.getLogger("maps_generator")
@@ -46,7 +47,7 @@ def convert_planet(
     error=subprocess.DEVNULL,
 ):
     osmconvert(tool, in_planet, out_planet, output=output, error=error)
-    write_md5sum(out_planet, md5(out_planet))
+    write_md5sum(out_planet, md5_ext(out_planet))
 
 
 def step_download_and_convert_planet(env: Env, force_download: bool, **kwargs):
@@ -54,10 +55,13 @@ def step_download_and_convert_planet(env: Env, force_download: bool, **kwargs):
         download_files(
             {
                 settings.PLANET_URL: env.paths.planet_osm_pbf,
-                settings.PLANET_MD5_URL: md5(env.paths.planet_osm_pbf),
+                settings.PLANET_MD5_URL: md5_ext(env.paths.planet_osm_pbf),
             },
             env.force_download_files,
         )
+
+        if not is_verified(env.paths.planet_osm_pbf):
+            raise ValidationError(f"Wrong md5 sum for {env.paths.planet_osm_pbf}.")
 
     convert_planet(
         env[settings.OSM_TOOL_CONVERT],
@@ -67,7 +71,7 @@ def step_download_and_convert_planet(env: Env, force_download: bool, **kwargs):
         error=env.get_subprocess_out(),
     )
     os.remove(env.paths.planet_osm_pbf)
-    os.remove(md5(env.paths.planet_osm_pbf))
+    os.remove(md5_ext(env.paths.planet_osm_pbf))
 
 
 def step_update_planet(env: Env, **kwargs):
@@ -82,7 +86,7 @@ def step_update_planet(env: Env, **kwargs):
     )
     os.remove(env.paths.planet_o5m)
     os.rename(tmp, env.paths.planet_o5m)
-    write_md5sum(env.paths.planet_o5m, md5(env.paths.planet_o5m))
+    write_md5sum(env.paths.planet_o5m, md5_ext(env.paths.planet_o5m))
 
 
 def step_preprocess(env: Env, **kwargs):

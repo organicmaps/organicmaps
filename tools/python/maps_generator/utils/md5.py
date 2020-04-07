@@ -27,5 +27,5 @@ def check_md5(fname, name):
     return False
 
 
-def md5(name):
+def md5_ext(name):
     return f"{name}.md5"

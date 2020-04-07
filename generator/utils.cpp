@@ -261,5 +261,4 @@ std::ofstream OfstreamWithExceptions(std::string const & name)
   f.open(name);
   return f;
 }
-
 }  // namespace generator

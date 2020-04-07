@@ -12,7 +12,7 @@ from typing import Dict
 from typing import Optional
 
 from maps_generator.utils.md5 import check_md5
-from maps_generator.utils.md5 import md5
+from maps_generator.utils.md5 import md5_ext
 
 logger = logging.getLogger("maps_generator")
 
@@ -56,11 +56,11 @@ def download_files(url_to_path: Dict[AnyStr, AnyStr], download_if_exists: bool =
 
 
 def is_exists_file_and_md5(name: AnyStr) -> bool:
-    return os.path.isfile(name) and os.path.isfile(md5(name))
+    return os.path.isfile(name) and os.path.isfile(md5_ext(name))
 
 
 def is_verified(name: AnyStr) -> bool:
-    return is_exists_file_and_md5(name) and check_md5(name, md5(name))
+    return is_exists_file_and_md5(name) and check_md5(name, md5_ext(name))
 
 
 def copy_overwrite(from_path: AnyStr, to_path: AnyStr):

@@ -118,7 +118,10 @@ namespace stats
     os << prefix << ": size = " << info.m_size << "; count = " << info.m_count;
 
     if (measurements)
-      os << "; length = " << uint64_t(info.m_length) << " m; area = " << uint64_t(info.m_area) << " m²";
+    {
+      os << "; length = " << static_cast<uint64_t>(info.m_length)
+         << " m; area = " << static_cast<uint64_t>(info.m_area) << " m²";
+    }
 
     os << "; names = " << info.m_names << '\n';
   }

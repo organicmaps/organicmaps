@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 from typing import AnyStr
 
-from maps_generator.utils.md5 import md5
+from maps_generator.utils.md5 import md5_ext
 from maps_generator.utils.system import total_virtual_memory
 
 parser = argparse.ArgumentParser(add_help=False)
@@ -68,7 +68,7 @@ class CfgReader:
 
 
 DEFAULT_PLANET_URL = "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
-DEFAULT_PLANET_MD5_URL = md5(DEFAULT_PLANET_URL)
+DEFAULT_PLANET_MD5_URL = md5_ext(DEFAULT_PLANET_URL)
 
 # Main section:
 # If DEBUG is True, a little special planet is downloaded.
@@ -136,7 +136,7 @@ PLANET_COASTS_RAWGEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.rawge
 
 if DEBUG:
     PLANET_URL = "http://osmz.ru/mwm/islands/islands.o5m"
-    PLANET_MD5_URL = "https://cloud.mail.ru/public/5v2F/f7cSaEXBC"
+    PLANET_MD5_URL = "https://cloclo10.cldmail.ru/2n5jWJm11RtdLYm5QFYM/G/QAsr/24zvN9Gf8"
 
 # Common:
 THREADS_COUNT = multiprocessing.cpu_count()
@@ -280,4 +280,4 @@ def init(default_settings_path: AnyStr):
 
     if DEBUG:
         PLANET_URL = "http://osmz.ru/mwm/islands/islands.o5m"
-        PLANET_MD5_URL = "https://cloud.mail.ru/public/5v2F/f7cSaEXBC"
+        PLANET_MD5_URL = "https://cloclo10.cldmail.ru/2n5jWJm11RtdLYm5QFYM/G/QAsr/24zvN9Gf8"
