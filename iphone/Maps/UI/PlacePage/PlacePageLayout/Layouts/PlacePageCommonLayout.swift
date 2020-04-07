@@ -1,4 +1,17 @@
 class PlacePageCommonLayout: NSObject, IPlacePageLayout {
+  private lazy var distanceFormatter: MKDistanceFormatter = {
+    let formatter =  MKDistanceFormatter()
+    formatter.unitStyle = .abbreviated
+    formatter.units = Settings.measurementUnits() == .imperial ? .imperial : .metric
+    return formatter
+  }()
+
+  private lazy var unitsFormatter: MeasurementFormatter = {
+    let formatter = MeasurementFormatter()
+    formatter.unitOptions = [.providedUnit]
+    return formatter
+  }()
+
   private var placePageData: PlacePageData
   private var interactor: PlacePageInteractor
   private let storyboard: UIStoryboard
@@ -212,6 +225,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     MWMLocationManager.add(observer: self)
     if let lastLocation = MWMLocationManager.lastLocation() {
       onLocationUpdate(lastLocation)
+      self.lastLocation = lastLocation
     }
     if let lastHeading = MWMLocationManager.lastHeading() {
       onHeadingUpdate(lastHeading)
@@ -346,19 +360,36 @@ extension PlacePageCommonLayout {
 
 extension PlacePageCommonLayout: MWMLocationObserver {
   func onHeadingUpdate(_ heading: CLHeading) {
-    updateHeading(heading.trueHeading)
+    if !placePageData.isMyPosition {
+      updateHeading(heading.trueHeading)
+    }
   }
 
   func onLocationUpdate(_ location: CLLocation) {
-    let ppLocation = CLLocation(latitude: placePageData.locationCoordinate.latitude,
-                                longitude: placePageData.locationCoordinate.longitude)
-    let distance = location.distance(from: ppLocation)
-    let distanceFormatter = MKDistanceFormatter()
-    distanceFormatter.unitStyle = .abbreviated
-    let formattedDistance = distanceFormatter.string(fromDistance: distance)
-    previewViewController.updateDistance(formattedDistance)
-    lastLocation = location
-    updateHeading(location.course)
+    if placePageData.isMyPosition {
+      let imperial = Settings.measurementUnits() == .imperial
+      let alt = imperial ? location.altitude / 0.3048 : location.altitude
+      let altMeasurement = Measurement(value: alt.rounded(), unit: imperial ? UnitLength.feet : UnitLength.meters)
+      let altString = "▲ \(unitsFormatter.string(from: altMeasurement))"
+
+      if location.speed > 0 && location.timestamp.timeIntervalSinceNow >= -2 {
+        let speed = imperial ? location.speed * 2.237 : location.speed * 3.6
+        let speedMeasurement = Measurement(value: speed.rounded(), unit: imperial ? UnitSpeed.milesPerHour: UnitSpeed.kilometersPerHour)
+        let speedString = "\(MWMLocationManager.speedSymbolFor(location.speed))\(unitsFormatter.string(from: speedMeasurement))"
+        previewViewController.updateSpeedAndAltitude("\(altString)  \(speedString)")
+      } else {
+        previewViewController.updateSpeedAndAltitude(altString)
+      }
+    } else {
+      let ppLocation = CLLocation(latitude: placePageData.locationCoordinate.latitude,
+                                  longitude: placePageData.locationCoordinate.longitude)
+      let distance = location.distance(from: ppLocation)
+      let formattedDistance = distanceFormatter.string(fromDistance: distance)
+      previewViewController.updateDistance(formattedDistance)
+
+      lastLocation = location
+      updateHeading(location.course)
+    }
   }
 
   func onLocationError(_ locationError: MWMLocationStatus) {

@@ -79,6 +79,7 @@ static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChec
     _pricing = rawData.GetApproximatePricing().empty() ? nil : @(rawData.GetApproximatePricing().c_str());
     _rawPricing = rawData.GetRawApproximatePricing() ? nil : [[NSNumber alloc] initWithInt: *(rawData.GetRawApproximatePricing())];
     _rawRating = rawData.GetRatingRawValue();
+    _isMyPosition = rawData.IsMyPosition();
     _isPopular = rawData.GetPopularity() > 0;
     _isBookingPlace = rawData.GetSponsoredType() == place_page::SponsoredType::Booking;
     _schedule = convertOpeningHours(rawData.GetOpeningHours());

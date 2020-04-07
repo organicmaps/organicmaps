@@ -10,27 +10,6 @@
 namespace location_helpers
 {
 
-static inline NSString * formattedSpeedAndAltitude(CLLocation * location)
-{
-  if (!location)
-    return nil;
-  NSMutableString * result = [@"" mutableCopy];
-  if (location.altitude)
-    [result appendString:[NSString stringWithFormat:@"%@ %@", @"\xE2\x96\xB2", @(measurement_utils::FormatAltitude(location.altitude).c_str())]];
-
-  // Speed is actual only for just received location
-  if (location.speed > 0. && location.timestamp.timeIntervalSinceNow >= -2.0)
-  {
-    if (result.length)
-      [result appendString:@"  "];
-
-    [result appendString:[NSString stringWithFormat:@"%@%@",
-                                              [MWMLocationManager speedSymbolFor:location.speed],
-                                              @(measurement_utils::FormatSpeedWithDeviceUnits(location.speed).c_str())]];
-  }
-  return result;
-}
-
 static inline NSString * formattedDistance(double const & meters) {
   if (meters < 0.)
     return nil;
@@ -62,17 +41,6 @@ static inline BOOL isMyPositionPendingOrNoPosition()
     return true;
   return mode == location::EMyPositionMode::PendingPosition ||
          mode == location::EMyPositionMode::NotFollowNoPosition;
-}
-
-static inline double headingToNorthRad(CLHeading * heading)
-{
-  double north = -1.0;
-  if (heading)
-  {
-    north = (heading.trueHeading < 0) ? heading.magneticHeading : heading.trueHeading;
-    north = base::DegToRad(north);
-  }
-  return north;
 }
 
 static inline ms::LatLon ToLatLon(m2::PointD const & p) { return mercator::ToLatLon(p); }

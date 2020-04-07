@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) float rawRating;
 @property(nonatomic, readonly) PlacePageDataSchedule schedule;
 @property(nonatomic, readonly) PlacePageDataHotelType hotelType;
+@property(nonatomic, readonly) BOOL isMyPosition;
 @property(nonatomic, readonly) BOOL hasBanner;
 @property(nonatomic, readonly) BOOL isPopular;
 @property(nonatomic, readonly) BOOL isBookingPlace;

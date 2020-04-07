@@ -46,25 +46,33 @@ class PlacePagePreviewViewController: UIViewController {
   weak var delegate: PlacePagePreviewViewControllerDelegate?
 
   private var distance: String? = nil
+  private var speedAndAltitude: String? = nil
   private var heading: CGFloat? = nil
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    let subtitleString = NSMutableAttributedString()
-    if placePagePreviewData.isPopular {
-      subtitleString.append(NSAttributedString(string: L("popular_place"),
-                                               attributes: [.foregroundColor : UIColor.linkBlue(),
-                                                            .font : UIFont.regular14()]))
-    }
+    if placePagePreviewData.isMyPosition {
+      if let speedAndAltitude = speedAndAltitude {
+        subtitleLabel.text = speedAndAltitude
+      }
+    } else {
+      let subtitleString = NSMutableAttributedString()
+      if placePagePreviewData.isPopular {
+        subtitleString.append(NSAttributedString(string: L("popular_place"),
+                                                 attributes: [.foregroundColor : UIColor.linkBlue(),
+                                                              .font : UIFont.regular14()]))
+      }
 
-    if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
-      subtitleString.append(NSAttributedString(string: placePagePreviewData.isPopular ? " • " + subtitle : subtitle,
-                                               attributes: [.foregroundColor : UIColor.blackSecondaryText(),
-                                                            .font : UIFont.regular14()]))
+      if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
+        subtitleString.append(NSAttributedString(string: placePagePreviewData.isPopular ? " • " + subtitle : subtitle,
+                                                 attributes: [.foregroundColor : UIColor.blackSecondaryText(),
+                                                              .font : UIFont.regular14()]))
+      }
+
+      subtitleLabel.attributedText = subtitleString
     }
 
     directionView = subtitleDirectionView
-    subtitleLabel.attributedText = subtitleString
 
     if let address = placePagePreviewData.address {
       addressLabel.text = address
@@ -171,6 +179,11 @@ class PlacePagePreviewViewController: UIViewController {
                    animations: { [unowned self] in
                     self.directionView?.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
     })
+  }
+
+  func updateSpeedAndAltitude(_ speedAndAltitude: String) {
+    self.speedAndAltitude = speedAndAltitude
+    subtitleLabel?.text = speedAndAltitude
   }
 
   @IBAction func onAddReview(_ sender: UIButton) {
