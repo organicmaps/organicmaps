@@ -50,8 +50,6 @@ public:
   std::string GetFileDownloadPath() const;
   uint64_t GetDownloadSize() const;
 
-  void ClarifyDownloadingType();
-
   void OnCountryInQueue() const;
   void OnStartDownloading() const;
   void OnDownloadProgress(downloader::Progress const & progress) const;

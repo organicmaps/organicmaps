@@ -812,7 +812,7 @@ void Storage::OnMapDownloadFinished(CountryId const & countryId, DownloadStatus 
   {
     if (status == DownloadStatus::FileNotFound && type == MapFileType::Diff)
     {
-      m_diffsDataSource->AbortDiffScheme();
+      AbortDiffScheme();
       NotifyStatusChanged(GetRootId());
     }
 
@@ -1223,7 +1223,7 @@ void Storage::LoadDiffScheme()
 
   if (localMapsInfo.m_localMaps.empty())
   {
-    m_diffsDataSource->AbortDiffScheme();
+    AbortDiffScheme();
     return;
   }
 
@@ -1305,6 +1305,23 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
         if (m_diffsBeingApplied.empty() && m_downloader->GetQueue().IsEmpty())
           OnFinishDownloading();
       });
+}
+
+void Storage::AbortDiffScheme()
+{
+  std::vector<CountryId> countriesToReplace;
+  m_downloader->GetQueue().ForEachCountry([&countriesToReplace](QueuedCountry const & queuedCountry)
+                                          {
+                                            if (queuedCountry.GetFileType() == MapFileType::Diff)
+                                              countriesToReplace.push_back(queuedCountry.GetCountryId());
+                                          });
+
+  for (auto const & countryId : countriesToReplace)
+  {
+    DeleteCountryFilesFromDownloader(countryId);
+    DownloadCountry(countryId, MapFileType::Map);
+  }
+  m_diffsDataSource->AbortDiffScheme();
 }
 
 bool Storage::IsPossibleToAutoupdate() const

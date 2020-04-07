@@ -22,7 +22,7 @@ public:
   void ForEachCountry(ForEachCountryMutable const & fn);
 
   CountryId const & GetFirstId() const;
-  QueuedCountry & GetFirstCountry();
+  QueuedCountry const & GetFirstCountry() const;
   void PopFront();
 
   void Append(QueuedCountry && country)

@@ -650,6 +650,7 @@ private:
 
   void LoadDiffScheme();
   void ApplyDiff(CountryId const & countryId, std::function<void(bool isSuccess)> const & fn);
+  void AbortDiffScheme();
 
   // Should be called once on startup, downloading process should be suspended until this method
   // was not called. Do not call this method manually.

@@ -37,7 +37,7 @@ CountryId const & Queue::GetFirstId() const
   return m_queue.front().GetCountryId();
 }
 
-QueuedCountry & Queue::GetFirstCountry()
+QueuedCountry const & Queue::GetFirstCountry() const
 {
   CHECK(!m_queue.empty(), ());
 

@@ -92,19 +92,6 @@ uint64_t QueuedCountry::GetDownloadSize() const
   return GetRemoteSize(*m_diffsDataSource, m_countryFile);
 }
 
-void QueuedCountry::ClarifyDownloadingType()
-{
-  if (m_fileType != MapFileType::Diff)
-    return;
-
-  using diffs::Status;
-  auto const status = m_diffsDataSource->GetStatus();
-  if (status == Status::NotAvailable || !m_diffsDataSource->HasDiffFor(m_countryId))
-  {
-    m_fileType = MapFileType::Map;
-  }
-}
-
 void QueuedCountry::OnCountryInQueue() const
 {
   if (m_subscriber != nullptr)
