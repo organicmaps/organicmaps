@@ -26,7 +26,11 @@ set(
   diff_scheme/diff_scheme_loader.cpp
   diff_scheme/diff_scheme_loader.hpp
   diff_scheme/diff_types.hpp
+  downloader.hpp
   downloader_search_params.hpp
+  downloader_queue.hpp
+  downloader_queue_universal.cpp
+  downloader_queue_universal.hpp
   downloading_policy.cpp
   downloading_policy.hpp
   http_map_files_downloader.cpp

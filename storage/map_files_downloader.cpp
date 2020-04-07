@@ -27,35 +27,32 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
 
     GetPlatform().RunTask(Platform::Thread::Network, [=]() mutable {
       GetServersList([=](ServersList const & serversList) mutable {
-                       m_serversList = serversList;
-                       for (auto & country : m_quarantine)
-                       {
-                         Download(country);
-                       }
-                       m_quarantine.clear();
-                     });
+                      m_serversList = serversList;
+                      m_quarantine.ForEachCountry([=](QueuedCountry & country) mutable {
+                                                    Download(country);
+                                                  });
+                      m_quarantine.Clear();
+                    });
     });
   }
 
-  m_quarantine.emplace_back(std::move(queuedCountry));
+  m_quarantine.Append(std::move(queuedCountry));
 }
 
 void MapFilesDownloader::Remove(CountryId const & id)
 {
-  if (m_quarantine.empty())
+  if (m_quarantine.IsEmpty())
     return;
 
-  auto it = std::find(m_quarantine.begin(), m_quarantine.end(), id);
-  if (it != m_quarantine.end())
-    m_quarantine.erase(it);
+  m_quarantine.Remove(id);
 }
 
 void MapFilesDownloader::Clear()
 {
-  m_quarantine.clear();
+  m_quarantine.Clear();
 }
 
-Queue const & MapFilesDownloader::GetQueue() const
+QueueInterface const & MapFilesDownloader::GetQueue() const
 {
   return m_quarantine;
 }

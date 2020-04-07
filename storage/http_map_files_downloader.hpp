@@ -1,6 +1,7 @@
 #pragma once
 
 #include "storage/map_files_downloader_with_ping.hpp"
+#include "storage/downloader_queue_universal.hpp"
 
 #include "platform/http_request.hpp"
 
@@ -25,7 +26,7 @@ public:
   // MapFilesDownloader overrides:
   void Remove(CountryId const & id) override;
   void Clear() override;
-  Queue const & GetQueue() const override;
+  QueueInterface const & GetQueue() const override;
 
 private:
   // MapFilesDownloaderWithServerList overrides:

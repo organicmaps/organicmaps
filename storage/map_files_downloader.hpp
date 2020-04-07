@@ -1,5 +1,6 @@
 #pragma once
 
+#include "storage/downloader_queue_universal.hpp"
 #include "storage/downloading_policy.hpp"
 #include "storage/queued_country.hpp"
 
@@ -16,7 +17,6 @@
 
 namespace storage
 {
-using Queue = std::list<QueuedCountry>;
 // This interface encapsulates HTTP routines for receiving servers
 // URLs and downloading a single map file.
 class MapFilesDownloader
@@ -53,7 +53,7 @@ public:
 
   // Returns m_quarantine queue when list of servers is not received.
   // Parent method must be called into override method.
-  virtual Queue const & GetQueue() const;
+  virtual QueueInterface const & GetQueue() const;
 
   void Subscribe(Subscriber * subscriber);
   void UnsubscribeAll();

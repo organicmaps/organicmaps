@@ -656,7 +656,7 @@ private:
   void OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs);
 };
 
-void GetQueuedCountries(Queue const & queue, CountriesSet & resultCountries);
+CountriesSet GetQueuedCountries(QueueInterface const & queue);
 
 template <class ToDo>
 void Storage::ForEachInSubtree(CountryId const & root, ToDo && toDo) const

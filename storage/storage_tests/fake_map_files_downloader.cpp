@@ -25,13 +25,10 @@ void FakeMapFilesDownloader::Download(QueuedCountry & queuedCountry)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
-  m_queue.push_back(queuedCountry);
+  m_queue.Append(std::move(queuedCountry));
 
-  if (m_queue.size() != 1)
-  {
-    m_queue.back().OnCountryInQueue();
+  if (m_queue.Count() != 1)
     return;
-  }
 
   for (auto const subscriber : m_subscribers)
     subscriber->OnStartDownloading();
@@ -43,15 +40,13 @@ void FakeMapFilesDownloader::Remove(CountryId const & id)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
-  if (m_queue.empty())
+  if (m_queue.IsEmpty())
     return;
 
-  if (m_writer && m_queue.front() == id)
+  if (m_writer && m_queue.GetFirstId() == id)
     m_writer.reset();
 
-  auto it = std::find(m_queue.begin(), m_queue.end(), id);
-  if (it != m_queue.end())
-    m_queue.erase(it);
+  m_queue.Remove(id);
 
   ++m_timestamp;
 }
@@ -60,12 +55,12 @@ void FakeMapFilesDownloader::Clear()
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
-  m_queue.clear();
+  m_queue.Clear();
   m_writer.reset();
   ++m_timestamp;
 }
 
-Queue const & FakeMapFilesDownloader::GetQueue() const
+QueueInterface const & FakeMapFilesDownloader::GetQueue() const
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
@@ -74,7 +69,7 @@ Queue const & FakeMapFilesDownloader::GetQueue() const
 
 void FakeMapFilesDownloader::Download()
 {
-  auto const & queuedCountry = m_queue.front();
+  auto const & queuedCountry = m_queue.GetFirstCountry();
   if (!IsDownloadingAllowed())
   {
     OnFileDownloaded(queuedCountry, downloader::DownloadStatus::Failed);
@@ -103,7 +98,7 @@ void FakeMapFilesDownloader::DownloadNextChunk(uint64_t timestamp)
 
   if (m_progress.first == m_progress.second)
   {
-    OnFileDownloaded(m_queue.front(), downloader::DownloadStatus::Completed);
+    OnFileDownloaded(m_queue.GetFirstCountry(), downloader::DownloadStatus::Completed);
     return;
   }
 
@@ -120,7 +115,7 @@ void FakeMapFilesDownloader::DownloadNextChunk(uint64_t timestamp)
     if (timestamp != m_timestamp)
       return;
 
-    m_queue.front().OnDownloadProgress(m_progress);
+    m_queue.GetFirstCountry().OnDownloadProgress(m_progress);
   });
   m_taskRunner.PostTask(std::bind(&FakeMapFilesDownloader::DownloadNextChunk, this, timestamp));
 }
@@ -129,11 +124,11 @@ void FakeMapFilesDownloader::OnFileDownloaded(QueuedCountry const & queuedCountr
                                               downloader::DownloadStatus const & status)
 {
   auto const country = queuedCountry;
-  m_queue.pop_front();
+  m_queue.PopFront();
 
   m_taskRunner.PostTask([country, status]() { country.OnDownloadFinished(status); });
 
-  if (!m_queue.empty())
+  if (!m_queue.IsEmpty())
   {
     Download();
   }
