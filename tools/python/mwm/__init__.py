@@ -1,16 +1,12 @@
 import os
 
-if "MWM_RESOURCES_DIR" not in os.environ:
-    os.environ["MWM_RESOURCES_DIR"] = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), "..", "..", "..", "data",
-    )
+resource_path = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), "..", "..", "..", "data",
+)
 
-try:
-    from mwm.mwm_pygen import MwmPygen as Mwm
-    from mwm.mwm_pygen import FeaturePygen as Feature
-except ImportError:
-    from mwm.mwm_python import MwmPython as Mwm
-    from mwm.mwm_python import FeaturePython as Feature
+from mwm.types import init as _init
+
+_init(resource_path)
 
 from mwm.mwm_interface import GeomType
 from mwm.mwm_interface import MapType
@@ -23,3 +19,14 @@ from mwm.mwm_python import get_region_info
 from mwm.types import readable_type
 from mwm.types import type_index
 from mwm.utils import EnumAsStrEncoder
+
+try:
+    from mwm.mwm_pygen import MwmPygen as Mwm
+    from mwm.mwm_pygen import FeaturePygen as Feature
+
+    from mwm.mwm_pygen import init as _init
+
+    _init(resource_path)
+except ImportError:
+    from mwm.mwm_python import MwmPython as Mwm
+    from mwm.mwm_python import FeaturePython as Feature

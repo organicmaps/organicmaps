@@ -3,10 +3,15 @@ from typing import Iterable
 from typing import List
 from typing import Union
 
+from pygen import classif
 from pygen import geometry
 from pygen import mwm
 
 from mwm import mwm_interface as mi
+
+
+def init(resource_path):
+    classif.init_classificator(resource_path)
 
 
 class MwmPygen(mi.Mwm):

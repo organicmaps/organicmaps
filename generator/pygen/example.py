@@ -98,10 +98,11 @@ def example__working_with_features(path):
     print("__repr__:", ft)
 
     for ft in it:
-      geometry = ft.geometry()
-      if ft.geom_type() == mwm.GeomType.area and len(geometry) < 10:
-        print("area geometry", geometry)
-        break
+        geometry = ft.geometry()
+        if ft.geom_type() == mwm.GeomType.area and len(geometry) < 10:
+            print("area geometry", geometry)
+            break
+
 
 def example__working_with_mwm(path):
     map = mwm.Mwm(path)
@@ -122,12 +123,10 @@ def main(path):
 
 
 if __name__ == "__main__":
-    main(
-        os.path.join(
-            os.path.dirname(os.path.realpath(__file__)),
-            "..",
-            "..",
-            "data",
-            "minsk-pass.mwm",
-        )
+    resource_path = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "..", "..", "data"
     )
+
+    classif.init_classificator(resource_path)
+
+    main(os.path.join(resource_path, "minsk-pass.mwm",))

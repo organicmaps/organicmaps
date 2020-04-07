@@ -10,6 +10,7 @@
 #include "indexer/features_vector.hpp"
 
 #include "platform/mwm_version.hpp"
+#include "platform/platform.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -18,10 +19,12 @@
 #include "geometry/triangle2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
 #include "pyhelpers/module_version.hpp"
 
+#include <fstream>
 #include <map>
 #include <string>
 
@@ -239,6 +242,22 @@ private:
 
 MwmIter Mwm::MakeMwmIter() { return MwmIter(m_self.lock()); }
 
+std::string ReadAll(std::string const & filename)
+{
+  std::ifstream file;
+  file.exceptions(std::ios::failbit | std::ios::badbit);
+  file.open(filename);
+  return std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
+}
+
+bool InitClassificator(std::string const & resourcePath)
+{
+  classificator::LoadTypes(
+        ReadAll(base::JoinPath(resourcePath, "classificator.txt")),
+        ReadAll(base::JoinPath(resourcePath, "types.txt"))
+  );
+}
+
 struct GeometryNamespace
 {
 };
@@ -256,7 +275,6 @@ BOOST_PYTHON_MODULE(pygen)
 {
   bp::scope().attr("__version__") = PYBINDINGS_VERSION;
 
-  classificator::Load();
   {
     bp::scope geometryNamespace = bp::class_<GeometryNamespace>("geometry");
 
@@ -407,6 +425,8 @@ BOOST_PYTHON_MODULE(pygen)
   }
   {
     bp::scope classifNamespace = bp::class_<ClassifNamespace>("classif");
+
+    bp::def("init_classificator", InitClassificator);
 
     bp::def(
         "readable_type", +[](uint32_t index) {
