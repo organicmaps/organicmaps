@@ -580,6 +580,25 @@ void PreprocessElement(OsmElement * p)
     }
   }
 
+  string const kAerodromeTypeKey = "aerodrome:type";
+  auto aerodromeTypes = p->GetTag(kAerodromeTypeKey);
+  if (!aerodromeTypes.empty())
+  {
+    strings::MakeLowerCaseInplace(aerodromeTypes);
+    bool first = true;
+    for (auto type : strings::Tokenize(aerodromeTypes, ",;"))
+    {
+      strings::Trim(type, " ");
+
+      if (first)
+        p->UpdateTag(kAerodromeTypeKey, [&type](auto & value) { value = type; });
+      else
+        p->AddTag(kAerodromeTypeKey, type);
+
+      first = false;
+    }
+  }
+
   // We replace a value of 'place' with a value of 'de: place' because most people regard
   // places names as 'de: place' defines it.
   // TODO(@m.andrianov): A better solution for the future is writing this rule in replaced_tags.txt

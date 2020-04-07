@@ -937,6 +937,19 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_DoNotMergeTags)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_AerodromeType)
+{
+  Tags const tags = {
+      {"aeroway", "aerodrome"},
+      {"aerodrome:type", "international ; public"},
+  };
+
+  auto const params = GetFeatureBuilderParams(tags);
+
+  TEST_EQUAL(params.m_types.size(), 1, (params));
+  TEST(params.IsTypeExist(GetType({"aeroway", "aerodrome", "international"})), (params));
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const simpleTypes = {
