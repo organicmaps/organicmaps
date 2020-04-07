@@ -18,8 +18,7 @@ static int8_t kAgeOfChild = 5;
     _types.insert(ftypes::IsHotelChecker::Type::Hotel);
 
     PlacePagePreviewData *previewData = data.previewData;
-    HotelBookingData *hotelBookingData = data.hotelBooking;
-    CHECK(previewData && hotelBookingData,
+    CHECK(previewData.hotelType != PlacePageDataHotelTypeNone,
           ("Incorrect hotel type at coordinate:", data.locationCoordinate.latitude, data.locationCoordinate.longitude));
     
     if (data.sponsoredType == PlacePageSponsoredTypeBooking)
@@ -30,7 +29,7 @@ static int8_t kAgeOfChild = 5;
         _price.insert(static_cast<Price>(price));
       }
       
-      self.rating = place_page::rating::GetFilterRating(hotelBookingData.score);
+      self.rating = place_page::rating::GetFilterRating(previewData.rawRating);
     }
   }
   

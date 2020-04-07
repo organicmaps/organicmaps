@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *address;
 @property(nonatomic, readonly, nullable) NSString *pricing;
 @property(nonatomic, readonly, nullable) NSNumber *rawPricing;
+@property(nonatomic, readonly) float rawRating;
 @property(nonatomic, readonly) PlacePageDataSchedule schedule;
 @property(nonatomic, readonly) PlacePageDataHotelType hotelType;
 @property(nonatomic, readonly) BOOL hasBanner;
