@@ -2,6 +2,7 @@
 
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
+#include "search/ranking_info.hpp"
 #include "search/token_range.hpp"
 #include "search/token_slice.hpp"
 
@@ -67,5 +68,31 @@ UNIT_TEST(NameTest_Smoke)
   test("Лермонтовъ", "Лермнтовъ", TokenRange(0, 1), NAME_SCORE_FULL_MATCH, 1);
   test("фото на документы", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
   test("фотоателье", "фото", TokenRange(0, 1), NAME_SCORE_PREFIX, 0);
+}
+
+UNIT_TEST(PreferCountry)
+{
+  RankingInfo info;
+  info.m_nameScore = NAME_SCORE_FULL_MATCH;
+  info.m_errorsMade = ErrorsMade(0);
+  info.m_numTokens = 1;
+  info.m_matchedFraction = 1.0;
+  info.m_allTokensUsed = true;
+  info.m_exactMatch = true;
+
+  auto cafe = info;
+  cafe.m_distanceToPivot = 1e3;
+  cafe.m_tokenRanges[Model::TYPE_POI] = TokenRange(0, 1);
+  cafe.m_exactCountryOrCapital = false;
+  cafe.m_type = Model::TYPE_POI;
+
+  auto country = info;
+  country.m_distanceToPivot = 1e6;
+  country.m_tokenRanges[Model::TYPE_COUNTRY] = TokenRange(0, 1);
+  country.m_exactCountryOrCapital = true;
+  country.m_type = Model::TYPE_COUNTRY;
+
+  // Country should be preferred even if cafe is much closer to viewport center.
+  TEST_LESS(cafe.GetLinearModelRank(), country.GetLinearModelRank(),());
 }
 }  // namespace
