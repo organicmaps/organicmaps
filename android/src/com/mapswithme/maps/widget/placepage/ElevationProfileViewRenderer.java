@@ -13,10 +13,12 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.ElevationInfo;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Objects;
 
-public class ElevationProfileViewRenderer implements PlacePageViewRenderer<PlacePageData>
+public class ElevationProfileViewRenderer implements PlacePageViewRenderer<PlacePageData>,
+                                                     PlacePageStateObserver
 {
   // Must be correspond to map/elevation_info.hpp constants.
   private static final int MAX_DIFFICULTY_LEVEL = 3;
@@ -145,5 +147,28 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   {
     mScrollView.scrollTo(0, 0);
     mChartController.onHide();
+  }
+
+  @Override
+  public void onPlacePageDetails()
+  {
+    if (mElevationInfo != null)
+      Statistics.INSTANCE.trackElevationProfilePageOpen(mElevationInfo.getServerId(),
+                                                        Statistics.ParamValue.FULL);
+  }
+
+  @Override
+  public void onPlacePagePreview()
+  {
+    if (mElevationInfo != null)
+      Statistics.INSTANCE.trackElevationProfilePageOpen(mElevationInfo.getServerId(),
+                                                        Statistics.ParamValue.PREVIEW);
+  }
+
+  @Override
+  public void onPlacePageClosed()
+  {
+    if (mElevationInfo != null)
+      Statistics.INSTANCE.trackElevationProfilePageClose(mElevationInfo.getServerId());
   }
 }

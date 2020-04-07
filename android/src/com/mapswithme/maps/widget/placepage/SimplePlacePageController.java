@@ -35,6 +35,8 @@ public class SimplePlacePageController implements PlacePageController
   private int mViewPortMinWidth;
   @NonNull
   private final PlacePageViewRenderer<PlacePageData> mViewRenderer;
+  @Nullable
+  private final PlacePageStateObserver mStateObserver;
   @NonNull
   private final BottomSheetChangedListener mBottomSheetChangedListener =
       new BottomSheetChangedListener()
@@ -43,6 +45,8 @@ public class SimplePlacePageController implements PlacePageController
         public void onSheetHidden()
         {
           onHiddenInternal();
+          if (mStateObserver != null)
+            mStateObserver.onPlacePageClosed();
         }
 
         @Override
@@ -59,6 +63,8 @@ public class SimplePlacePageController implements PlacePageController
         {
           if (UiUtils.isLandscape(mApplication))
             PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
+          if (mStateObserver != null)
+            mStateObserver.onPlacePageDetails();
         }
 
         @Override
@@ -66,6 +72,8 @@ public class SimplePlacePageController implements PlacePageController
         {
           if (UiUtils.isLandscape(mApplication))
             PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
+          if (mStateObserver != null)
+            mStateObserver.onPlacePagePreview();
         }
 
         @Override
@@ -93,10 +101,12 @@ public class SimplePlacePageController implements PlacePageController
   private boolean mDeactivateMapSelection = true;
 
   SimplePlacePageController(@NonNull SlideListener slideListener,
-                            @NonNull PlacePageViewRenderer<PlacePageData> renderer)
+                            @NonNull PlacePageViewRenderer<PlacePageData> renderer,
+                            @Nullable PlacePageStateObserver stateObserver)
   {
     mSlideListener = slideListener;
     mViewRenderer = renderer;
+    mStateObserver = stateObserver;
   }
 
   @Override

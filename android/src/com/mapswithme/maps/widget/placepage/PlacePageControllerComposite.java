@@ -188,6 +188,7 @@ class PlacePageControllerComposite implements PlacePageController
   private static PlacePageController createSimplePlacePageController(
       @NonNull PlacePageController.SlideListener listener)
   {
-    return new SimplePlacePageController(listener, new ElevationProfileViewRenderer());
+    ElevationProfileViewRenderer renderer = new ElevationProfileViewRenderer();
+    return new SimplePlacePageController(listener, renderer, renderer);
   }
 }

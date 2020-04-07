@@ -70,6 +70,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOS
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOSAL_TOGGLE;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.ELEVATION_PROFILE_PAGE_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_BOOKMARK_SELECT;
 import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_SHOWN;
@@ -459,6 +460,10 @@ public enum Statistics
     public static final String PP_HOTEL_SEARCH_SIMILAR = "Placepage_Hotel_search_similar";
     static final String PP_OWNERSHIP_BUTTON_CLICK = "Placepage_OwnershipButton_click";
 
+    //elevation profile
+    static final String ELEVATION_PROFILE_PAGE_OPEN = "ElevationProfilePage_open";
+    static final String ELEVATION_PROFILE_PAGE_CLOSE = "ElevationProfilePage_close";
+
     // toolbar actions
     public static final String TOOLBAR_MY_POSITION = "Toolbar. MyPosition";
     static final String TOOLBAR_CLICK = "Toolbar_click";
@@ -789,6 +794,8 @@ public enum Statistics
     public static final String WIKIPEDIA = "wikipedia";
     static final String TRUE = "True";
     static final String FALSE = "False";
+    public static final String PREVIEW = "preview";
+    public static final String FULL = "full";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -1780,6 +1787,16 @@ public enum Statistics
                                  boolean isFirstLaunch)
   {
     trackEvent(event, params.add(FIRST_LAUNCH, isFirstLaunch ? TRUE : FALSE));
+  }
+
+  public void trackElevationProfilePageOpen(@Nullable String serverId, @NonNull String state)
+  {
+    trackEvent(ELEVATION_PROFILE_PAGE_OPEN, params().add(SERVER_ID, serverId).add(STATE, state));
+  }
+
+  public void trackElevationProfilePageClose(@Nullable String serverId)
+  {
+    trackEvent(ELEVATION_PROFILE_PAGE_CLOSE, params().add(SERVER_ID, serverId));
   }
 
   @NonNull
