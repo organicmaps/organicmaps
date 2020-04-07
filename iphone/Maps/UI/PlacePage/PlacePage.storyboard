@@ -3242,7 +3242,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDI-4A-1Xp">
                                 <rect key="frame" x="0.0" y="0.0" width="329" height="59"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysM-7b-O4g">
                                 <rect key="frame" x="175.5" y="16" width="24" height="4"/>
