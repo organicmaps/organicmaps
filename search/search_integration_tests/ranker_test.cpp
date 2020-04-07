@@ -114,7 +114,7 @@ UNIT_CLASS_TEST(RankerTest, PreferCountry)
     builder.Add(cafe);
   });
 
-  SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(0.0, 0.0)));
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0)));
   {
     // Country which exactly matches the query should be preferred even if cafe is much closer to
     // viewport center.
