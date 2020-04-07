@@ -182,6 +182,7 @@ class StageMwm(Stage):
             StageUgc(country=country)(env)
             StagePopularity(country=country)(env)
             StageSrtm(country=country)(env)
+            StageIsolinesInfo(country=country)(env)
             StageDescriptions(country=country)(env)
             StageRouting(country=country)(env)
             StageRoutingTransit(country=country)(env)
