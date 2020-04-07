@@ -147,10 +147,6 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
   }
 
   func closeAnimated() {
-    view.scrollTo(CGPoint(x: 0, y: -self.view.scrollView.height + 1),
-                  animated: true,
-                  forced: true) {
-                    self.view.scrollTo(CGPoint(x: 0, y: -self.view.scrollView.height), animated: false, forced: true)
-    }
+    view.closeAnimated()
   }
 }

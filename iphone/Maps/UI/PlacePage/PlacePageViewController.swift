@@ -11,6 +11,7 @@ protocol PlacePageViewProtocol: class {
   func addNavigationBar(_ header: UIViewController)
   func scrollTo(_ point: CGPoint, animated: Bool, forced: Bool, completion: (()->())?)
   func layoutIfNeeded()
+  func closeAnimated()
 }
 
 extension PlacePageViewProtocol {
@@ -30,6 +31,7 @@ final class PlacePageScrollView: UIScrollView {
   @IBOutlet var stackView: UIStackView!
   @IBOutlet var actionBarContainerView: UIView!
   @IBOutlet var actionBarHeightConstraint: NSLayoutConstraint!
+  @IBOutlet var panGesture: UIPanGestureRecognizer!
 
   var presenter: PlacePagePresenterProtocol!
 
@@ -57,10 +59,11 @@ final class PlacePageScrollView: UIScrollView {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     if previousTraitCollection == nil {
-      scrollView.contentInset = alternative(iPhone: UIEdgeInsets(top: scrollView.height, left: 0, bottom: 0, right: 0),
-                                            iPad: UIEdgeInsets.zero)
+      scrollView.contentInset = alternativeSizeClass(iPhone: UIEdgeInsets(top: scrollView.height, left: 0, bottom: 0, right: 0),
+                                                     iPad: UIEdgeInsets.zero)
       presenter.updateSteps()
     }
+    panGesture.isEnabled = alternativeSizeClass(iPhone: false, iPad: true)
     self.previousTraitCollection = self.traitCollection
   }
 
@@ -75,8 +78,29 @@ final class PlacePageScrollView: UIScrollView {
       DispatchQueue.main.async {
         self.presenter.updateSteps()
         self.presenter.showLastStop()
-        self.scrollView.contentInset = alternative(iPhone: UIEdgeInsets(top: self.scrollView.height, left: 0, bottom: 0, right: 0),
-                                                   iPad: UIEdgeInsets.zero)
+        self.scrollView.contentInset = self.alternativeSizeClass(iPhone: UIEdgeInsets(top: self.scrollView.height, left: 0, bottom: 0, right: 0),
+                                                                 iPad: UIEdgeInsets.zero)
+      }
+    }
+  }
+
+  @IBAction func onPan(gesture: UIPanGestureRecognizer){
+    let xOffset = gesture.translation(in: view.superview).x
+    gesture.setTranslation(CGPoint.zero, in: view.superview)
+    view.minX += xOffset
+    view.minX = min(view.minX, 0)
+    let alpha = view.maxX / view.width
+    self.view.alpha = alpha
+
+    let state = gesture.state
+    if state == .ended || state == .cancelled {
+      if alpha < 0.8 {
+        self.closeAnimated()
+      } else {
+        UIView.animate(withDuration: kDefaultAnimationDuration) {
+          self.view.minX = 0;
+          self.view.alpha = 1;
+        }
       }
     }
   }
@@ -131,7 +155,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
   }
 
   func scrollTo(_ point: CGPoint, animated: Bool, forced: Bool, completion: (()->())?) {
-    if alternative(iPhone: beginDragging, iPad: true) && !forced {
+    if alternativeSizeClass(iPhone: beginDragging, iPad: true) && !forced {
       return
     }
     if forced {
@@ -141,6 +165,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
     if animated {
       UIView.animate(withDuration: kDefaultAnimationDuration, animations: { [weak scrollView] in
         scrollView?.contentOffset = scrollPosition
+        self.layoutIfNeeded()
       }) { (complete) in
         if complete {
           completion?()
@@ -154,6 +179,25 @@ extension PlacePageViewController: PlacePageViewProtocol {
 
   func layoutIfNeeded() {
     view.layoutIfNeeded()
+  }
+
+  func closeAnimated() {
+    alternativeSizeClass(iPhone: {
+      self.scrollTo(CGPoint(x: 0, y: -self.scrollView.height + 1),
+               animated: true,
+               forced: true) {
+                self.rootViewController.dismissPlacePage()
+      }
+    }, iPad: {
+      UIView.animate(withDuration: kDefaultAnimationDuration,
+                     animations: {
+                      let frame = self.view.frame
+                      self.view.minX = frame.minX - frame.width
+                      self.view.alpha = 0
+      }) { (complete) in
+        self.rootViewController.dismissPlacePage()
+      }
+    })
   }
 }
 

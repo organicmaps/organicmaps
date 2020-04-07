@@ -91,12 +91,12 @@ class PlacePageStyleSheet: IStyleSheet {
       s.clip = true
     }
 
-    theme.add(styleName: "PPNavigationBarView") { (s) -> (Void) in
+    theme.add(styleName: "PPNavigationShadowView") { (s) -> (Void) in
       s.backgroundColor = colors.white
       s.shadowColor = UIColor.black
-      s.shadowOffset = CGSize(width: 0, height: -1)
-      s.shadowOpacity = 1
-      s.shadowOpacity = 0.6
+      s.shadowOffset = CGSize(width: 0, height: 1)
+      s.shadowOpacity = 0.4
+      s.shadowRadius = 1
       s.clip = false
     }
 
@@ -107,6 +107,13 @@ class PlacePageStyleSheet: IStyleSheet {
       s.shadowOffset = CGSize(width: 0, height: 1)
       s.shadowOpacity = 0.6
       s.shadowRadius = 2
+      s.clip = false
+    }
+
+    theme.add(styleName: "PPView") { (s) -> (Void) in
+      s.backgroundColor = colors.clear
+      s.cornerRadius = 10
+      s.clip = true
     }
 
     theme.add(styleName: "PPCloseButton") { (s) -> (Void) in

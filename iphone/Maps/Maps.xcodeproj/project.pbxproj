@@ -533,6 +533,7 @@
 		67B78B551E42333C0018E590 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B541E42333C0018E590 /* AdSupport.framework */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		7BD07E4A8D71CA41F082BEC7 /* Pods_MAPS_ME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E5736C23FC4E77509C9946 /* Pods_MAPS_ME.framework */; };
+		99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012846243F0D6900C72B10 /* UIViewController+alternative.swift */; };
 		9917D17D2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */; };
 		9917D17F2397B1D600A7E06E /* IPadModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917D17E2397B1D600A7E06E /* IPadModalPresentationController.swift */; };
 		991CE2BF2371D349009EB02A /* PromoCampaignManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BA2371D349009EB02A /* PromoCampaignManager.swift */; };
@@ -1598,6 +1599,7 @@
 		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
+		99012846243F0D6900C72B10 /* UIViewController+alternative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+alternative.swift"; sourceTree = "<group>"; };
 		9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRoutesSubscriptionCampaign.swift; sourceTree = "<group>"; };
 		9917D17E2397B1D600A7E06E /* IPadModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPadModalPresentationController.swift; sourceTree = "<group>"; };
 		991CE2BA2371D349009EB02A /* PromoCampaignManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoCampaignManager.swift; sourceTree = "<group>"; };
@@ -2775,6 +2777,7 @@
 				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
 				34F742301E0834F400AC1FD6 /* UIViewController+Navigation.m */,
 				33E905452180C40900868CAC /* UIViewController+Authorization.swift */,
+				99012846243F0D6900C72B10 /* UIViewController+alternative.swift */,
 				347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */,
 				4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */,
 				47699A0621F08E37009E6585 /* NSDate+TimeDistance.h */,
@@ -5562,6 +5565,7 @@
 				4716EABA21A325310029B886 /* IPaidRouteStatistics.swift in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
 				47F4F21523A6F06F0022FD56 /* AvailableMapsDataSource.swift in Sources */,
+				99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */,
 				995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */,
 				47B9065221C7FA400079C85E /* MWMWebImage.m in Sources */,
 				F6E2FE7C1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,

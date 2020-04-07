@@ -1,8 +1,9 @@
 protocol PlacePageHeaderViewProtocol: class {
   var presenter: PlacePageHeaderPresenterProtocol?  { get set }
+  var isExpandViewHidden: Bool { get set }
+  var isShadowViewHidden: Bool { get set }
+
   func setTitle(_ title: String)
-  func setViewStyle(_ style: String)
-  func setExpandViewEnabled(_ val: Bool)
 }
 
 class PlacePageHeaderViewController: UIViewController {
@@ -10,6 +11,7 @@ class PlacePageHeaderViewController: UIViewController {
 
   @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var expandView: UIView!
+  @IBOutlet private var shadowView: UIView!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -28,15 +30,25 @@ class PlacePageHeaderViewController: UIViewController {
 }
 
 extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
+  var isExpandViewHidden: Bool {
+    get {
+      expandView.isHidden
+    }
+    set {
+      expandView.isHidden = newValue
+    }
+  }
+
+  var isShadowViewHidden: Bool {
+    get {
+      shadowView.isHidden
+    }
+    set {
+      shadowView.isHidden = newValue
+    }
+  }
+
   func setTitle(_ title: String) {
     titleLabel.text = title
-  }
-
-  func setViewStyle(_ style: String) {
-    view.setStyleAndApply(style)
-  }
-
-  func setExpandViewEnabled(_ val: Bool) {
-    expandView.isHidden = !val
   }
 }

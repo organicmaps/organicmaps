@@ -36,11 +36,11 @@ extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
     view?.setTitle(placePagePreviewData.title ?? "")
     switch headerType {
     case .flexible:
-      view?.setViewStyle("PPHeaderView")
-      view?.setExpandViewEnabled(true)
+      view?.isExpandViewHidden = false
+      view?.isShadowViewHidden = true
     case .fixed:
-      view?.setViewStyle("PPNavigationBarView")
-      view?.setExpandViewEnabled(false)
+      view?.isExpandViewHidden = true
+      view?.isShadowViewHidden = false
     }
   }
 

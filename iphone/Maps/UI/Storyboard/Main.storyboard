@@ -108,17 +108,12 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="500" translatesAutoresizingMaskIntoConstraints="NO" id="rbx-Oj-jeo" customClass="TouchTransparentView" customModule="maps_me" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="500" translatesAutoresizingMaskIntoConstraints="NO" id="rbx-Oj-jeo" customClass="TouchTransparentView" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="350" height="355"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="6h8-a6-LWn"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="6h8-a6-LWn"/>
@@ -160,6 +155,7 @@
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="rL1-9E-4b7" secondAttribute="trailing" id="QdS-Yx-ADV"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xJx-UU-IdV" secondAttribute="bottom" id="SDX-4J-Jz5"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="xJx-UU-IdV" secondAttribute="bottom" priority="100" id="VfU-Zk-8IU"/>
+                            <constraint firstItem="rbx-Oj-jeo" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" constant="8" id="W0l-NG-7lt"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="top" secondItem="QKu-4A-UgP" secondAttribute="top" priority="100" id="X96-y7-5oI"/>
                             <constraint firstItem="aPn-pa-nCx" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" id="YFX-ma-vAf"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FFY-Dy-Wou" secondAttribute="bottom" id="YUs-MJ-9w8"/>
@@ -177,6 +173,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="u9s-KY-yCt"/>
+                                <exclude reference="W0l-NG-7lt"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
@@ -193,7 +190,9 @@
                             <mask key="constraints">
                                 <exclude reference="9M9-8P-Hzb"/>
                                 <include reference="u9s-KY-yCt"/>
+                                <exclude reference="5Sh-l6-Icd"/>
                                 <exclude reference="9rR-QQ-c1P"/>
+                                <include reference="W0l-NG-7lt"/>
                             </mask>
                         </variation>
                     </view>
