@@ -5,5 +5,5 @@
 05_khmeros.ttf 265552
 06_code2000.ttf 3155104
 07_roboto_medium.ttf 162588
-World.mwm 34530121
-WorldCoasts.mwm 4745448
+World.mwm 34485354
+WorldCoasts.mwm 4730473
