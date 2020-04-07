@@ -35,6 +35,8 @@
 #include "map/gps_tracker.hpp"
 
 #include "partners_api/ads/mopub_ads.hpp"
+
+#include "platform/background_downloader_ios.h"
 #include "platform/http_thread_apple.h"
 #include "platform/local_country_file_utils.hpp"
 
@@ -551,6 +553,12 @@ using namespace osm_auth_ios;
   storage::Storage::UpdateInfo updateInfo{};
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
   return updateInfo.m_numberOfMwmFilesToUpdate;
+}
+
+- (void)application:(UIApplication *)application
+  handleEventsForBackgroundURLSession:(NSString *)identifier
+                    completionHandler:(void (^)())completionHandler {
+  [BackgroundDownloader sharedBackgroundMapDownloader].backgroundCompletionHandler = completionHandler;
 }
 
 #pragma mark - MWMStorageObserver

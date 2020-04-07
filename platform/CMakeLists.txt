@@ -16,6 +16,8 @@ set(
   country_file.cpp
   country_file.hpp
   downloader_defines.hpp
+  downloader_utils.cpp
+  downloader_utils.hpp
   file_logging.cpp
   file_logging.hpp
   get_text_by_id.cpp
@@ -68,6 +70,8 @@ set(
 if(${PLATFORM_IPHONE})
   append(
     SRC
+    background_downloader_ios.h
+    background_downloader_ios.mm
     gui_thread_apple.mm
     http_thread_apple.h
     http_thread_apple.mm

@@ -2,25 +2,12 @@
 
 #include "storage/storage_helpers.hpp"
 
+#include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 
 #include "coding/url.hpp"
 
 #include "base/assert.hpp"
-
-namespace
-{
-std::string MakeRelativeUrl(std::string const & fileName, int64_t dataVersion, uint64_t diffVersion)
-{
-  std::ostringstream url;
-  if (diffVersion != 0)
-    url << "diffs/" << dataVersion << "/" << diffVersion;
-  else
-    url << OMIM_OS_NAME "/" << dataVersion;
-
-  return url::Join(url.str(), url::UrlEncode(fileName));
-}
-}  // namespace
 
 namespace storage
 {
@@ -72,7 +59,7 @@ std::string QueuedCountry::GetRelativeUrl() const
   if (m_fileType == MapFileType::Diff)
     CHECK(m_diffsDataSource->VersionFor(m_countryId, diffVersion), ());
 
-  return MakeRelativeUrl(fileName, m_currentDataVersion, diffVersion);
+  return downloader::GetFileDownloadUrl(fileName, m_currentDataVersion, diffVersion);
 }
 
 std::string QueuedCountry::GetFileDownloadPath() const
