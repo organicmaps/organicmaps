@@ -35,7 +35,7 @@ Current list of available modules and setup's:
 Run chosen setup.py with Python you want to build binding for.
 Examples:
 
-  $ python kml/pykmlib/setup.py build install
+  $ python kml/pykmlib/setup.py build install --user
   $ python3.6 generator/mwm_diff/pymwm_diff/setup.py bdist_wheel 
 
 During build, our setup.py will configure and build boost_python library for
@@ -73,10 +73,21 @@ This will create wheels for all pybindings in `../omim-build/pybindings-dist/`.
 
 Pip installation
 ----------------
-
 One can install pybinding straight from source:
 
   $ pip install git+https://github.com/mapsme/omim.git@master#egg=pykmlib&subdirectory=kml/pykmlib
 
 But this can be a long wait, it is better to use already compiled .whl
 distribution.
+
+
+Running and testing built pybinding
+-----------------------------------
+Install your freshly built pybinding either with `setup.py install`, or by
+installing .whl with `pip install`.
+
+Run tests:
+
+  MWM_RESOURCES_DIR=data \
+  MWM_WRITABLE_DIR=data \
+  search/pysearch/run_search_engine.py

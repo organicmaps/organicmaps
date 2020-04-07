@@ -6,23 +6,33 @@ import os
 import re
 import sys
 
-from setuptools import setup as setuptools_setup
-from setuptools.command.build_ext import build_ext as setuptools_build_ext
-from setuptools.command.build_py import build_py as setuptools_build_py
-from setuptools.command.egg_info import egg_info as setuptools_egg_info, manifest_maker as setuptools_manifest_maker
-from setuptools.command.install import install as setuptools_install
-from setuptools.command.install_lib import install_lib as setuptools_install_lib
-from setuptools.extension import Extension
 from distutils.command.bdist import bdist as distutils_bdist
 from distutils.command.build import build as distutils_build
 from distutils.core import Command
 from distutils.dir_util import mkpath, remove_tree
 from distutils.file_util import copy_file
 from distutils.spawn import spawn, find_executable
-from distutils.sysconfig import get_python_version, get_python_inc, get_config_var
+from distutils.sysconfig import (
+    get_python_version, get_python_inc, get_config_var
+)
 from distutils.version import LooseVersion
 from distutils import log
+from setuptools import dist, setup as setuptools_setup
+from setuptools.command.build_ext import build_ext as setuptools_build_ext
+from setuptools.command.build_py import build_py as setuptools_build_py
+from setuptools.command.egg_info import (
+    egg_info as setuptools_egg_info,
+    manifest_maker as setuptools_manifest_maker
+)
+from setuptools.command.install import install as setuptools_install
+from setuptools.command.install_lib import (
+    install_lib as setuptools_install_lib
+)
+from setuptools.extension import Extension
 
+
+"""Monkey-patching to disable checking package names"""
+dist.check_packages = lambda dist, attr, value: None
 
 pyhelpers_dir = os.path.abspath(os.path.dirname(__file__))
 omim_root = os.path.dirname(pyhelpers_dir)
@@ -181,17 +191,28 @@ class install_lib(setuptools_install_lib, object):
         install_root = self.get_finalized_command('install').root or ''
         excludes = set()
         for ext_name in set(PYBINDINGS.keys()) - include_ext_names:
-            excludes.add(os.path.join(install_root, build_ext.get_ext_filename(ext_name)))
+            excludes.add(os.path.join(
+                install_root, build_ext.get_ext_filename(ext_name)
+            ))
             for data_path in PYBINDINGS[ext_name].get('package_data', []):
                 excludes.add(os.path.join(install_root, data_path))
+
+        own_files = {
+            os.path.join(install_root, data_path)
+            for ext_name in include_ext_names
+            for data_path in PYBINDINGS[ext_name].get('package_data', [])
+        }
+        excludes -= own_files
         
         return super(install_lib, self).get_exclusions() | excludes
 
 
 class build_boost_python(Command, object):
     user_options = [
-        ('force', 'f', "forcibly build boost_python library (ignore existence)"),
-        ('omim-builddir=', None, "Path to omim build directory"),
+        ('force', 'f',
+         "forcibly build boost_python library (ignore existence)"),
+        ('omim-builddir=', None,
+         "Path to omim build directory"),
     ]
     boolean_options = ['force']
 
@@ -340,6 +361,10 @@ VERSIONS_LOCATIONS = {
 PYBINDINGS = {
     'pygen': {
         'description': 'Binding for working with generation data',
+        'package_data': (
+            'data/classificator.txt',
+            'data/types.txt',
+        )
     },
     'pykmlib': {
         'description': 'Binding for working with maps.me KML files',
@@ -356,6 +381,13 @@ PYBINDINGS = {
     },
     'pysearch': {
         'description': 'Binding to access maps.me search engine',
+        'package_data': (
+            'data/categories_brands.txt',
+            'data/categories_cuisines.txt',
+            'data/categories.txt',
+            'data/classificator.txt',
+            'data/types.txt',
+        )
     },
     'pytracking': {
         'description': 'Binding for working with user tracks',
@@ -363,6 +395,10 @@ PYBINDINGS = {
     'pytraffic': {
         'description': 'Binding for generationg traffic '
                        'data for maps.me application',
+        'package_data': (
+            'data/classificator.txt',
+            'data/types.txt',
+        )
     },
 }
 
@@ -372,9 +408,9 @@ def get_version():
         with open(os.path.join(omim_root, *path), 'r') as f:
             for line in f:
                 m = re.search(
-                        "^\s*{}\s*=\s*(.*)".format(varname),
-                        line.strip()
-                        )
+                    "^\s*{}\s*=\s*(.*)".format(varname),
+                    line.strip()
+                )
                 if m:
                     versions.append(LooseVersion(m.group(1)))
                     break
@@ -428,7 +464,8 @@ def setup_omim_pybinding(
         },
         classifiers=[
             # Trove classifiers
-            # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
+            # Full list:
+            # https://pypi.python.org/pypi?%3Aaction=list_classifiers
             'License :: OSI Approved :: Apache Software License',
             'Programming Language :: Python',
             'Programming Language :: Python :: Implementation :: CPython',
