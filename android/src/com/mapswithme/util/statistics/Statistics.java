@@ -3,10 +3,8 @@ package com.mapswithme.util.statistics;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
-import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -70,6 +68,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOS
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOSAL_TOGGLE;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.ELEVATION_PROFILE_PAGE_CLOSE;
 import static com.mapswithme.util.statistics.Statistics.EventName.ELEVATION_PROFILE_PAGE_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_BOOKMARK_SELECT;
 import static com.mapswithme.util.statistics.Statistics.EventName.GUIDES_OPEN;
@@ -363,14 +362,14 @@ public enum Statistics
     public static final String DOWNLOADER_DIALOG_HIDE = "Downloader_OnStartScreen_select_hide";
     public static final String DOWNLOADER_DIALOG_CANCEL = "Downloader_OnStartScreen_cancel_download";
 
-    public static final String SETTINGS_TRACKING_DETAILS = "Settings_Tracking_details";
-    public static final String SETTINGS_TRACKING_TOGGLE = "Settings_Tracking_toggle";
     public static final String PLACEPAGE_DESCRIPTION_MORE = "Placepage_Description_more";
     public static final String PLACEPAGE_DESCRIPTION_OUTBOUND_CLICK = "Placepage_Description_Outbound_click";
     public static final String SETTINGS_SPEED_CAMS = "Settings. Speed_cameras";
     public static final String SETTINGS_MOBILE_INTERNET_CHANGE = "Settings_MobileInternet_change";
     public static final String SETTINGS_RECENT_TRACK_CHANGE = "Settings_RecentTrack_change";
     public static final String MOBILE_INTERNET_ALERT = "MobileInternet_alert";
+    static final String SETTINGS_TRACKING_DETAILS = "Settings_Tracking_details";
+    static final String SETTINGS_TRACKING_TOGGLE = "Settings_Tracking_toggle";
 
     public static final String DOWNLOADER_BANNER_SHOW = "Downloader_Banner_show";
     public static final String DOWNLOADER_BANNER_CLICK = "Downloader_Banner_click";
@@ -380,84 +379,82 @@ public enum Statistics
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
     // bookmarks
-    private static final String BM_SHARING_OPTIONS_UPLOAD_SUCCESS = "Bookmarks_SharingOptions_upload_success";
     public static final String BM_SHARING_OPTIONS_UPLOAD_ERROR = "Bookmarks_SharingOptions_upload_error";
     public static final String BM_SHARING_OPTIONS_ERROR = "Bookmarks_SharingOptions_error";
-    public static final String BM_SHARING_OPTIONS_CLICK = "Bookmarks_SharingOptions_click";
-    public static final String BM_EDIT_SETTINGS_CLICK = "Bookmarks_Bookmark_Settings_click";
-    public static final String BM_EDIT_SETTINGS_CANCEL = "Bookmarks_Bookmark_Settings_cancel";
-    public static final String BM_EDIT_SETTINGS_CONFIRM = "Bookmarks_Bookmark_Settings_confirm";
-    public static final String BM_BOOKMARKS_LIST_SETTINGS_CLICK = "Bookmarks_BookmarksList_settings_click";
-    public static final String BM_BOOKMARKS_LIST_ITEM_SETTINGS = "Bookmarks_BookmarksListItem_settings";
-    public static final String BM_BOOKMARKS_LIST_SORT = "Bookmarks_BookmarksList_sort";
-    public static final String BM_BOOKMARKS_SEARCH = "Bookmarks_Search";
-    public static final String BM_BOOKMARKS_SEARCH_RESULT_SELECTED = "Bookmarks_Search_result_selected";
     public static final String BM_GROUP_CREATED = "Bookmark. Group created";
     public static final String BM_GROUP_CHANGED = "Bookmark. Group changed";
-    public static final String BM_COLOR_CHANGED = "Bookmark. Color changed";
-    public static final String BM_CREATED = "Bookmark. Bookmark created";
-    public static final String BM_SYNC_PROPOSAL_SHOWN = "Bookmarks_SyncProposal_shown";
-    public static final String BM_SYNC_PROPOSAL_APPROVED = "Bookmarks_SyncProposal_approved";
-    public static final String BM_SYNC_PROPOSAL_ERROR = "Bookmarks_SyncProposal_error";
     public static final String BM_SYNC_PROPOSAL_ENABLED = "Bookmarks_SyncProposal_enabled";
-    public static final String BM_SYNC_PROPOSAL_TOGGLE = "Settings_BookmarksSync_toggle";
     public static final String BM_SYNC_STARTED = "Bookmarks_sync_started";
-    public static final String BM_SYNC_ERROR = "Bookmarks_sync_error";
-    public static final String BM_SYNC_SUCCESS = "Bookmarks_sync_success";
     public static final String BM_EDIT_ON_WEB_CLICK = "Bookmarks_EditOnWeb_click";
-    static final String BM_RESTORE_PROPOSAL_CLICK = "Bookmarks_RestoreProposal_click";
     public static final String BM_RESTORE_PROPOSAL_CANCEL = "Bookmarks_RestoreProposal_cancel";
-    public static final String BM_RESTORE_PROPOSAL_SUCCESS = "Bookmarks_RestoreProposal_success";
+    public static final String BM_GUIDEDOWNLOADTOAST_SHOWN = "Bookmarks_GuideDownloadToast_shown";
+    public static final String PP_DRIVING_OPTIONS_ACTION = "Placepage_DrivingOptions_action";
+    static final String BM_SHARING_OPTIONS_CLICK = "Bookmarks_SharingOptions_click";
+    static final String BM_EDIT_SETTINGS_CLICK = "Bookmarks_Bookmark_Settings_click";
+    static final String BM_EDIT_SETTINGS_CANCEL = "Bookmarks_Bookmark_Settings_cancel";
+    static final String BM_EDIT_SETTINGS_CONFIRM = "Bookmarks_Bookmark_Settings_confirm";
+    static final String BM_BOOKMARKS_LIST_SETTINGS_CLICK = "Bookmarks_BookmarksList_settings_click";
+    static final String BM_BOOKMARKS_LIST_ITEM_SETTINGS = "Bookmarks_BookmarksListItem_settings";
+    static final String BM_BOOKMARKS_LIST_SORT = "Bookmarks_BookmarksList_sort";
+    static final String BM_BOOKMARKS_SEARCH = "Bookmarks_Search";
+    static final String BM_BOOKMARKS_SEARCH_RESULT_SELECTED = "Bookmarks_Search_result_selected";
+    static final String BM_COLOR_CHANGED = "Bookmark. Color changed";
+    static final String BM_CREATED = "Bookmark. Bookmark created";
+    static final String BM_SYNC_PROPOSAL_SHOWN = "Bookmarks_SyncProposal_shown";
+    static final String BM_SYNC_PROPOSAL_APPROVED = "Bookmarks_SyncProposal_approved";
+    static final String BM_SYNC_PROPOSAL_ERROR = "Bookmarks_SyncProposal_error";
+    static final String BM_SYNC_PROPOSAL_TOGGLE = "Settings_BookmarksSync_toggle";
+    static final String BM_SYNC_ERROR = "Bookmarks_sync_error";
+    static final String BM_SYNC_SUCCESS = "Bookmarks_sync_success";
+    static final String BM_RESTORE_PROPOSAL_CLICK = "Bookmarks_RestoreProposal_click";
+    static final String BM_RESTORE_PROPOSAL_SUCCESS = "Bookmarks_RestoreProposal_success";
     static final String BM_RESTORE_PROPOSAL_ERROR = "Bookmarks_RestoreProposal_error";
     static final String BM_TAB_CLICK = "Bookmarks_Tab_click";
+    static final String BM_GUIDES_DOWNLOADDIALOGUE_CLICK = "Bookmarks_Guides_DownloadDialogue_click";
+    static final String SETTINGS_DRIVING_OPTIONS_CHANGE = "Settings_Navigation_DrivingOptions_change";
+    private static final String BM_SHARING_OPTIONS_UPLOAD_SUCCESS = "Bookmarks_SharingOptions_upload_success";
     private static final String BM_DOWNLOADED_CATALOGUE_OPEN = "Bookmarks_Downloaded_Catalogue_open";
     private static final String BM_DOWNLOADED_CATALOGUE_ERROR = "Bookmarks_Downloaded_Catalogue_error";
-    public static final String BM_GUIDEDOWNLOADTOAST_SHOWN = "Bookmarks_GuideDownloadToast_shown";
-    public static final String BM_GUIDES_DOWNLOADDIALOGUE_CLICK = "Bookmarks_Guides_DownloadDialogue_click";
-    public static final String SETTINGS_DRIVING_OPTIONS_CHANGE = "Settings_Navigation_DrivingOptions_change";
-    public static final String PP_DRIVING_OPTIONS_ACTION = "Placepage_DrivingOptions_action";
 
     // search
-    public static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
     public static final String SEARCH_ITEM_CLICKED = "Search. Key clicked";
     public static final String SEARCH_ON_MAP_CLICKED = "Search. View on map clicked.";
-    public static final String SEARCH_TAB_SELECTED = "Search_Tab_selected";
     public static final String SEARCH_SPONSOR_CATEGORY_SHOWN = "Search_SponsoredCategory_shown";
     public static final String SEARCH_SPONSOR_CATEGORY_SELECTED = "Search_SponsoredCategory_selected";
     public static final String SEARCH_FILTER_OPEN = "Search_Filter_Open";
     public static final String SEARCH_FILTER_CANCEL = "Search_Filter_Cancel";
     public static final String SEARCH_FILTER_RESET = "Search_Filter_Reset";
     public static final String SEARCH_FILTER_APPLY = "Search_Filter_Apply";
-    public static final String SEARCH_FILTER_CLICK = "Search_Filter_Click";
+    static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
+    static final String SEARCH_TAB_SELECTED = "Search_Tab_selected";
+    static final String SEARCH_FILTER_CLICK = "Search_Filter_Click";
 
     // place page
-    public static final String PP_DETAILS_OPEN = "Placepage_Details_open";
     public static final String PP_SHARE = "PP. Share";
     public static final String PP_BOOKMARK = "PP. Bookmark";
-    public static final String PP_ROUTE = "PP. Route";
     public static final String PP_SPONSORED_DETAILS = "Placepage_Hotel_details";
-    public static final String PP_SPONSORED_BOOK = "Placepage_Hotel_book";
     public static final String PP_SPONSORED_OPENTABLE = "Placepage_Restaurant_book";
-    public static final String PP_SPONSORED_OPEN = "Placepage_SponsoredGalleryPage_opened";
-    public static final String PP_SPONSORED_SHOWN = "Placepage_SponsoredGallery_shown";
-    public static final String PP_SPONSORED_ERROR = "Placepage_SponsoredGallery_error";
     public static final String PP_SPONSORED_ACTION = "Placepage_SponsoredActionButton_click";
-    public static final String PP_SPONSOR_ITEM_SELECTED = "Placepage_SponsoredGallery_ProductItem_selected";
     public static final String PP_SPONSOR_MORE_SELECTED = "Placepage_SponsoredGallery_MoreItem_selected";
-    public static final String PP_SPONSOR_LOGO_SELECTED = "Placepage_SponsoredGallery_LogoItem_selected";
     public static final String PP_DIRECTION_ARROW = "PP. DirectionArrow";
     public static final String PP_DIRECTION_ARROW_CLOSE = "PP. DirectionArrowClose";
     public static final String PP_METADATA_COPY = "PP. CopyMetadata";
     public static final String PP_BANNER_CLICK = "Placepage_Banner_click";
-    public static final String PP_BANNER_SHOW = "Placepage_Banner_show";
-    public static final String PP_BANNER_ERROR = "Placepage_Banner_error";
-    public static final String PP_BANNER_BLANK = "Placepage_Banner_blank";
-    public static final String PP_BANNER_CLOSE = "Placepage_Banner_close";
     public static final String PP_HOTEL_GALLERY_OPEN = "PlacePage_Hotel_Gallery_open";
     public static final String PP_HOTEL_REVIEWS_LAND = "PlacePage_Hotel_Reviews_land";
     public static final String PP_HOTEL_DESCRIPTION_LAND = "PlacePage_Hotel_Description_land";
     public static final String PP_HOTEL_FACILITIES = "PlacePage_Hotel_Facilities_open";
     public static final String PP_HOTEL_SEARCH_SIMILAR = "Placepage_Hotel_search_similar";
+    static final String PP_DETAILS_OPEN = "Placepage_Details_open";
+    static final String PP_SPONSORED_BOOK = "Placepage_Hotel_book";
+    static final String PP_SPONSORED_OPEN = "Placepage_SponsoredGalleryPage_opened";
+    static final String PP_SPONSORED_SHOWN = "Placepage_SponsoredGallery_shown";
+    static final String PP_SPONSORED_ERROR = "Placepage_SponsoredGallery_error";
+    static final String PP_SPONSOR_ITEM_SELECTED = "Placepage_SponsoredGallery_ProductItem_selected";
+    static final String PP_BANNER_SHOW = "Placepage_Banner_show";
+    static final String PP_BANNER_ERROR = "Placepage_Banner_error";
+    static final String PP_BANNER_BLANK = "Placepage_Banner_blank";
+    static final String PP_BANNER_CLOSE = "Placepage_Banner_close";
     static final String PP_OWNERSHIP_BUTTON_CLICK = "Placepage_OwnershipButton_click";
 
     //elevation profile
@@ -470,31 +467,27 @@ public enum Statistics
     static final String TOOLBAR_MENU_CLICK = "Toolbar_Menu_click";
 
     // dialogs
-    public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
     public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";
     public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
     public static final String FACEBOOK_INVITE_INVITED = "Facebook invites dialog accepted.";
-    public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
+    static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
 
     // misc
     public static final String ZOOM_IN = "Zoom. In";
     public static final String ZOOM_OUT = "Zoom. Out";
-    public static final String PLACE_SHARED = "Place Shared";
-    public static final String API_CALLED = "API called";
     public static final String DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN = "Download country notification shown";
-    public static final String ACTIVE_CONNECTION = "Connection";
-    public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
     public static final String TTS_FAILURE_LOCATION = "TTS failure location";
     public static final String UGC_NOT_AUTH_NOTIFICATION_SHOWN = "UGC_UnsentNotification_shown";
     public static final String UGC_NOT_AUTH_NOTIFICATION_CLICKED = "UGC_UnsentNotification_clicked";
     public static final String UGC_REVIEW_NOTIFICATION_SHOWN = "UGC_ReviewNotification_shown";
     public static final String UGC_REVIEW_NOTIFICATION_CLICKED = "UGC_ReviewNotification_clicked";
+    static final String PLACE_SHARED = "Place Shared";
+    static final String API_CALLED = "API called";
+    static final String ACTIVE_CONNECTION = "Connection";
+    static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
 
     // routing
-    public static final String ROUTING_BUILD = "Routing. Build";
     public static final String ROUTING_START_SUGGEST_REBUILD = "Routing. Suggest rebuild";
-    public static final String ROUTING_ROUTE_START = "Routing_Route_start";
-    public static final String ROUTING_ROUTE_FINISH = "Routing_Route_finish";
     public static final String ROUTING_CANCEL = "Routing. Cancel";
     public static final String ROUTING_VEHICLE_SET = "Routing. Set vehicle";
     public static final String ROUTING_PEDESTRIAN_SET = "Routing. Set pedestrian";
@@ -503,81 +496,82 @@ public enum Statistics
     public static final String ROUTING_TRANSIT_SET = "Routing. Set transit";
     public static final String ROUTING_SWAP_POINTS = "Routing. Swap points";
     public static final String ROUTING_SETTINGS = "Routing. Settings";
-    public static final String ROUTING_TAXI_ORDER = "Routing_Taxi_order";
-    public static final String ROUTING_TAXI_INSTALL = "Routing_Taxi_install";
-    public static final String ROUTING_TAXI_SHOW = "Placepage_Taxi_show";
     public static final String ROUTING_TAXI_CLICK_IN_PP = "Placepage_Taxi_click";
     public static final String ROUTING_TAXI_ROUTE_BUILT = "Routing_Build_Taxi";
     public static final String ROUTING_POINT_ADD = "Routing_Point_add";
     public static final String ROUTING_POINT_REMOVE = "Routing_Point_remove";
     public static final String ROUTING_SEARCH_CLICK = "Routing_Search_click";
     public static final String ROUTING_BOOKMARKS_CLICK = "Routing_Bookmarks_click";
-    public static final String ROUTING_PLAN_TOOLTIP_CLICK = "Routing_PlanTooltip_click";
+    static final String ROUTING_BUILD = "Routing. Build";
+    static final String ROUTING_ROUTE_START = "Routing_Route_start";
+    static final String ROUTING_ROUTE_FINISH = "Routing_Route_finish";
+    static final String ROUTING_TAXI_ORDER = "Routing_Taxi_order";
+    static final String ROUTING_TAXI_INSTALL = "Routing_Taxi_install";
+    static final String ROUTING_TAXI_SHOW = "Placepage_Taxi_show";
+    static final String ROUTING_PLAN_TOOLTIP_CLICK = "Routing_PlanTooltip_click";
 
     // editor
-    public static final String EDITOR_START_CREATE = "Editor_Add_start";
     public static final String EDITOR_ADD_CLICK = "Editor_Add_click";
-    public static final String EDITOR_START_EDIT = "Editor_Edit_start";
-    public static final String EDITOR_SUCCESS_CREATE = "Editor_Add_success";
-    public static final String EDITOR_SUCCESS_EDIT = "Editor_Edit_success";
-    public static final String EDITOR_ERROR_CREATE = "Editor_Add_error";
-    public static final String EDITOR_ERROR_EDIT = "Editor_Edit_error";
     public static final String EDITOR_AUTH_DECLINED = "Editor_Auth_declined_by_user";
-    public static final String EDITOR_AUTH_REQUEST = "Editor_Auth_request";
     public static final String EDITOR_AUTH_REQUEST_RESULT = "Editor_Auth_request_result";
     public static final String EDITOR_REG_REQUEST = "Editor_Reg_request";
     public static final String EDITOR_LOST_PASSWORD = "Editor_Lost_password";
     public static final String EDITOR_SHARE_SHOW = "Editor_SecondTimeShare_show";
     public static final String EDITOR_SHARE_CLICK = "Editor_SecondTimeShare_click";
+    static final String EDITOR_START_CREATE = "Editor_Add_start";
+    static final String EDITOR_START_EDIT = "Editor_Edit_start";
+    static final String EDITOR_SUCCESS_CREATE = "Editor_Add_success";
+    static final String EDITOR_SUCCESS_EDIT = "Editor_Edit_success";
+    static final String EDITOR_ERROR_CREATE = "Editor_Add_error";
+    static final String EDITOR_ERROR_EDIT = "Editor_Edit_error";
+    static final String EDITOR_AUTH_REQUEST = "Editor_Auth_request";
 
     // Cold start
-    public static final String APPLICATION_COLD_STARTUP_INFO = "Application_ColdStartup_info";
+    static final String APPLICATION_COLD_STARTUP_INFO = "Application_ColdStartup_info";
 
     // Ugc.
-    public static final String UGC_REVIEW_START = "UGC_Review_start";
     public static final String UGC_REVIEW_CANCEL = "UGC_Review_cancel";
     public static final String UGC_REVIEW_SUCCESS = "UGC_Review_success";
     public static final String UGC_AUTH_SHOWN = "UGC_Auth_shown";
     public static final String UGC_AUTH_DECLINED = "UGC_Auth_declined";
-    public static final String UGC_AUTH_EXTERNAL_REQUEST_SUCCESS = "UGC_Auth_external_request_success";
-    public static final String UGC_AUTH_ERROR = "UGC_Auth_error";
-    public static final String MAP_LAYERS_ACTIVATE = "Map_Layers_activate";
+    static final String UGC_REVIEW_START = "UGC_Review_start";
+    static final String UGC_AUTH_EXTERNAL_REQUEST_SUCCESS = "UGC_Auth_external_request_success";
+    static final String UGC_AUTH_ERROR = "UGC_Auth_error";
+    static final String MAP_LAYERS_ACTIVATE = "Map_Layers_activate";
 
     // Purchases.
-    static final String INAPP_PURCHASE_PREVIEW_SHOW = "InAppPurchase_Preview_show";
-    static final String INAPP_PURCHASE_PREVIEW_SELECT = "InAppPurchase_Preview_select";
     public static final String INAPP_PURCHASE_PREVIEW_PAY = "InAppPurchase_Preview_pay";
     public static final String INAPP_PURCHASE_PREVIEW_CANCEL = "InAppPurchase_Preview_cancel";
     public static final String INAPP_PURCHASE_PREVIEW_RESTORE = "InAppPurchase_Preview_restore";
-
     public static final String INAPP_PURCHASE_STORE_SUCCESS  = "InAppPurchase_Store_success";
-    static final String INAPP_PURCHASE_STORE_ERROR  = "InAppPurchase_Store_error";
     public static final String INAPP_PURCHASE_VALIDATION_SUCCESS  = "InAppPurchase_Validation_success";
+    static final String INAPP_PURCHASE_PREVIEW_SHOW = "InAppPurchase_Preview_show";
+    static final String INAPP_PURCHASE_PREVIEW_SELECT = "InAppPurchase_Preview_select";
+    static final String INAPP_PURCHASE_STORE_ERROR  = "InAppPurchase_Store_error";
     static final String INAPP_PURCHASE_VALIDATION_ERROR  = "InAppPurchase_Validation_error";
     static final String INAPP_PURCHASE_PRODUCT_DELIVERED  = "InAppPurchase_Product_delivered";
 
     public static final String ONBOARDING_SCREEN_SHOW = "OnboardingScreen_show";
     public static final String ONBOARDING_SCREEN_ACCEPT = "OnboardingScreen_accept";
     public static final String ONBOARDING_SCREEN_DECLINE = "OnboardingScreen_decline";
-
     public static final String ONBOARDING_DEEPLINK_SCREEN_SHOW = "OnboardingDeeplinkScreen_show";
     public static final String ONBOARDING_DEEPLINK_SCREEN_ACCEPT = "OnboardingDeeplinkScreen_accept";
     public static final String ONBOARDING_DEEPLINK_SCREEN_DECLINE = "OnboardingDeeplinkScreen_decline";
 
     public static final String TIPS_TRICKS_SHOW = "TipsTricks_show";
-    public static final String TIPS_TRICKS_CLOSE = "TipsTricks_close";
     public static final String TIPS_TRICKS_CLICK = "TipsTricks_click";
+    static final String TIPS_TRICKS_CLOSE = "TipsTricks_close";
 
     public static final String INAPP_SUGGESTION_SHOWN = "MapsMe_InAppSuggestion_shown";
     public static final String INAPP_SUGGESTION_CLICKED = "MapsMe_InAppSuggestion_clicked";
     public static final String INAPP_SUGGESTION_CLOSED = "MapsMe_InAppSuggestion_closed";
 
-    public static final String GUIDES_SHOWN = "Bookmarks_Downloaded_Guides_list";
-    public static final String GUIDES_OPEN = "Bookmarks_Downloaded_Guide_open";
-    public static final String GUIDES_BOOKMARK_SELECT = "Bookmarks_BookmarksList_Bookmark_select";
-    public static final String GUIDES_TRACK_SELECT = "Bookmarks_BookmarksList_Track_select";
     public static final String MAP_SPONSORED_BUTTON_CLICK = "Map_SponsoredButton_click";
     public static final String MAP_SPONSORED_BUTTON_SHOW = "Map_SponsoredButton_show";
+    static final String GUIDES_SHOWN = "Bookmarks_Downloaded_Guides_list";
+    static final String GUIDES_OPEN = "Bookmarks_Downloaded_Guide_open";
+    static final String GUIDES_BOOKMARK_SELECT = "Bookmarks_BookmarksList_Bookmark_select";
+    static final String GUIDES_TRACK_SELECT = "Bookmarks_BookmarksList_Track_select";
 
     public static final String DEEPLINK_CALL = "Deeplink_call";
     public static final String DEEPLINK_CALL_MISSED = "Deeplink_call_missed";
@@ -600,7 +594,7 @@ public enum Statistics
       public static final String MAP_STYLE = "Settings. Map style.";
       public static final String VOICE_ENABLED = "Settings. Switch voice.";
       public static final String VOICE_LANGUAGE = "Settings. Voice language.";
-      public static final String ENERGY_SAVING = "Settings_EnergySaving_change";
+      static final String ENERGY_SAVING = "Settings_EnergySaving_change";
 
       private Settings() {}
     }
@@ -613,48 +607,54 @@ public enum Statistics
     public static final String FROM = "from";
     public static final String TO = "to";
     public static final String OPTION = "option";
-    public static final String TRACKS = "tracks";
-    public static final String POINTS = "points";
     public static final String URL = "url";
-    public static final String TOLL = "toll";
-    public static final String UNPAVED = "unpaved";
-    public static final String FERRY = "ferry";
-    public static final String MOTORWAY = "motorway";
     public static final String SETTINGS = "settings";
     public static final String ROUTE = "route";
-    public static final String SCENARIO = "scenario";
     public static final String BUTTON = "button";
     public static final String SCREEN = "screen";
     public static final String VERSION = "version";
-    static final String TARGET = "target";
-    static final String CATEGORY = "category";
     public static final String TAB = "tab";
-    static final String COUNT = "Count";
-    static final String COUNT_LOWERCASE = "count";
-    static final String CHANNEL = "Channel";
-    static final String CALLER_ID = "Caller ID";
     public static final String ENABLED = "Enabled";
     public static final String RATING = "Rating";
-    static final String CONNECTION_TYPE = "Connection name";
-    static final String CONNECTION_FAST = "Connection fast";
-    static final String CONNECTION_METERED = "Connection limit";
-    static final String MY_POSITION = "my position";
-    static final String POINT = "point";
     public static final String LANGUAGE = "language";
     public static final String NAME = "Name";
     public static final String ACTION = "action";
     public static final String TYPE = "type";
-    static final String IS_AUTHENTICATED = "is_authenticated";
-    static final String IS_ONLINE = "is_online";
     public static final String IS_SUCCESS = "is_success_message";
-    static final String FEATURE_ID = "feature_id";
-    static final String MWM_NAME = "mwm_name";
-    static final String MWM_VERSION = "mwm_version";
     public static final String ERR_MSG = "error_message";
     public static final String OSM = "OSM";
     public static final String FACEBOOK = "Facebook";
     public static final String PROVIDER = "provider";
     public static final String HOTEL = "hotel";
+    public static final String ERROR = "error";
+    public static final String VALUE = "value";
+    public static final String PRICE_CATEGORY = "price_category";
+    public static final String DATE = "date";
+    public static final String STATUS = "status";
+    public static final String SOURCE = "source";
+    static final String TRACKS = "tracks";
+    static final String POINTS = "points";
+    static final String TOLL = "toll";
+    static final String UNPAVED = "unpaved";
+    static final String FERRY = "ferry";
+    static final String MOTORWAY = "motorway";
+    static final String SCENARIO = "scenario";
+    static final String TARGET = "target";
+    static final String CATEGORY = "category";
+    static final String COUNT = "Count";
+    static final String COUNT_LOWERCASE = "count";
+    static final String CHANNEL = "Channel";
+    static final String CALLER_ID = "Caller ID";
+    static final String CONNECTION_TYPE = "Connection name";
+    static final String CONNECTION_FAST = "Connection fast";
+    static final String CONNECTION_METERED = "Connection limit";
+    static final String MY_POSITION = "my position";
+    static final String POINT = "point";
+    static final String IS_AUTHENTICATED = "is_authenticated";
+    static final String IS_ONLINE = "is_online";
+    static final String FEATURE_ID = "feature_id";
+    static final String MWM_NAME = "mwm_name";
+    static final String MWM_VERSION = "mwm_version";
     static final String HOTEL_LAT = "hotel_lat";
     static final String HOTEL_LON = "hotel_lon";
     static final String RESTAURANT = "restaurant";
@@ -667,13 +667,11 @@ public enum Statistics
     static final String BANNER = "banner";
     static final String STATE = "state";
     static final String ERROR_CODE = "error_code";
-    public static final String ERROR = "error";
     static final String ERROR_MESSAGE = "error_message";
     static final String MAP_DATA_SIZE = "map_data_size:";
     static final String BATTERY = "battery";
     static final String CHARGING = "charging";
     static final String NETWORK = "network";
-    public static final String VALUE = "value";
     static final String METHOD = "method";
     static final String MODE = "mode";
     static final String OBJECT_LAT = "object_lat";
@@ -681,17 +679,13 @@ public enum Statistics
     static final String ITEM = "item";
     static final String DESTINATION = "destination";
     static final String PLACEMENT = "placement";
-    public static final String PRICE_CATEGORY = "price_category";
-    public static final String DATE = "date";
     static final String HAS_AUTH = "has_auth";
-    public static final String STATUS = "status";
     static final String INTERRUPTED = "interrupted";
     static final String VENDOR = "vendor";
     static final String PRODUCT = "product";
     static final String PURCHASE = "purchase";
     static final String SERVER_ID = "server_id";
     static final String SERVER_IDS = "server_ids";
-    public static final String SOURCE = "source";
     static final String FIRST_LAUNCH = "first_launch";
 
     private EventParam() {}
@@ -703,16 +697,12 @@ public enum Statistics
     public static final String OSM = "OSM";
     public static final String ON = "on";
     public static final String OFF = "off";
-    public static final String CRASH_REPORTS = "crash_reports";
-    public static final String PERSONAL_ADS = "personal_ads";
     public static final String SHARING_OPTIONS = "sharing_options";
     public static final String EDIT_ON_WEB = "edit_on_web";
     public static final String PUBLIC = "public";
     public static final String PRIVATE = "private";
     public static final String COPY_LINK = "copy_link";
     public static final String CANCEL = "Cancel";
-    public static final String MEGAFON = "Megafon";
-    public static final String MAP = "map";
     public static final String ALWAYS = "always";
     public static final String NEVER = "never";
     public static final String ASK = "ask";
@@ -728,53 +718,22 @@ public enum Statistics
     public static final String OPEN = "open";
     public static final String CLOSE = "close";
     public static final String NEXT = "next";
-    static final String GUIDES_SUBSCRIPTION = "OnboardingGuidesSubscription";
-    static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
-    static final String OPENTABLE = "OpenTable";
-    static final String LOCALS_EXPERTS = "Locals.Maps.Me";
-    static final String SEARCH_RESTAURANTS = "Search.Restaurants";
-    static final String SEARCH_ATTRACTIONS = "Search.Attractions";
-    static final String HOLIDAY = "Holiday";
     public static final String NO_PRODUCTS = "no_products";
-    static final String ADD = "add";
     public static final String EDIT = "edit";
-    static final String AFTER_SAVE = "after_save";
-    static final String PLACEPAGE_PREVIEW = "placepage_preview";
-    static final String PLACEPAGE = "placepage";
-    static final String NOTIFICATION = "notification";
     public static final String FACEBOOK = "facebook";
     public static final String CHECKIN = "check_in";
     public static final String CHECKOUT = "check_out";
     public static final String ANY = "any";
-    public static final String GOOGLE = "google";
     public static final String MAPSME = "mapsme";
-    public static final String PHONE = "phone";
     public static final String UNKNOWN = "unknown";
-    static final String NETWORK = "network";
-    static final String DISK = "disk";
-    static final String AUTH = "auth";
-    static final String USER_INTERRUPTED = "user_interrupted";
-    static final String INVALID_CALL = "invalid_call";
-    static final String NO_BACKUP = "no_backup";
-    static final String DISK_NO_SPACE = "disk_no_space";
-    static final String BACKUP = "backup";
-    static final String RESTORE = "restore";
     public static final String NO_INTERNET = "no_internet";
     public static final String MY = "my";
     public static final String DOWNLOADED = "downloaded";
-    static final String SUBWAY = "subway";
-    static final String TRAFFIC = "traffic";
     public static final String SUCCESS = "success";
     public static final String UNAVAILABLE = "unavailable";
-    static final String PEDESTRIAN = "pedestrian";
-    static final String VEHICLE = "vehicle";
-    static final String BICYCLE = "bicycle";
-    static final String TAXI = "taxi";
-    static final String TRANSIT = "transit";
     public final static String VIEW_ON_MAP = "view on map";
     public final static String NOT_NOW = "not now";
     public final static String CLICK_OUTSIDE = "click outside pop-up";
-    public static final String ADD_DESC = "add_description";
     public static final String SEND_AS_FILE = "send_as_file";
     public static final String MAKE_INVISIBLE_ON_MAP = "make_invisible_on_map";
     public static final String LIST_SETTINGS = "list_settings";
@@ -785,17 +744,51 @@ public enum Statistics
     public static final String TINKOFF_ALL_AIRLINES= "Tinkoff_AllAirlines";
     public static final String SKYENG = "Skyeng";
     public static final String MTS = "MTS";
-    public static final String BY_DEFAULT = "Default";
-    public static final String BY_DATE = "Date";
-    public static final String BY_DISTANCE = "Distance";
-    public static final String BY_TYPE = "Type";
-    public static final String BOOKMARKS_LIST = "BookmarksList";
-    static final String PARTNER = "Partner";
     public static final String WIKIPEDIA = "wikipedia";
-    static final String TRUE = "True";
-    static final String FALSE = "False";
     public static final String PREVIEW = "preview";
     public static final String FULL = "full";
+    static final String CRASH_REPORTS = "crash_reports";
+    static final String PERSONAL_ADS = "personal_ads";
+    static final String MAP = "map";
+    static final String GOOGLE = "google";
+    static final String PHONE = "phone";
+    static final String ADD_DESC = "add_description";
+    static final String BY_DEFAULT = "Default";
+    static final String BY_DATE = "Date";
+    static final String BY_DISTANCE = "Distance";
+    static final String BY_TYPE = "Type";
+    static final String BOOKMARKS_LIST = "BookmarksList";
+    static final String GUIDES_SUBSCRIPTION = "OnboardingGuidesSubscription";
+    static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
+    static final String OPENTABLE = "OpenTable";
+    static final String LOCALS_EXPERTS = "Locals.Maps.Me";
+    static final String SEARCH_RESTAURANTS = "Search.Restaurants";
+    static final String SEARCH_ATTRACTIONS = "Search.Attractions";
+    static final String HOLIDAY = "Holiday";
+    static final String ADD = "add";
+    static final String AFTER_SAVE = "after_save";
+    static final String PLACEPAGE_PREVIEW = "placepage_preview";
+    static final String PLACEPAGE = "placepage";
+    static final String NOTIFICATION = "notification";
+    static final String NETWORK = "network";
+    static final String DISK = "disk";
+    static final String AUTH = "auth";
+    static final String USER_INTERRUPTED = "user_interrupted";
+    static final String INVALID_CALL = "invalid_call";
+    static final String NO_BACKUP = "no_backup";
+    static final String DISK_NO_SPACE = "disk_no_space";
+    static final String BACKUP = "backup";
+    static final String RESTORE = "restore";
+    static final String SUBWAY = "subway";
+    static final String TRAFFIC = "traffic";
+    static final String PEDESTRIAN = "pedestrian";
+    static final String VEHICLE = "vehicle";
+    static final String BICYCLE = "bicycle";
+    static final String TAXI = "taxi";
+    static final String TRANSIT = "transit";
+    static final String PARTNER = "Partner";
+    static final String TRUE = "True";
+    static final String FALSE = "False";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -969,8 +962,6 @@ public enum Statistics
     {
       final NetworkInfo info = ConnectionState.getActiveNetwork();
       boolean isConnectionMetered = false;
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-        isConnectionMetered = ((ConnectivityManager) MwmApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE)).isActiveNetworkMetered();
       //noinspection ConstantConditions
       trackEvent(EventName.ACTIVE_CONNECTION,
                  params().add(EventParam.CONNECTION_TYPE, info.getTypeName() + ":" + info.getSubtypeName())
