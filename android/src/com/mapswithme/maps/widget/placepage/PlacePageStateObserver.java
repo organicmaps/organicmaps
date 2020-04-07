@@ -2,5 +2,7 @@ package com.mapswithme.maps.widget.placepage;
 
 public interface PlacePageStateObserver
 {
-  void onPlacePageStateChanged();
+  void onPlacePageDetails();
+  void onPlacePagePreview();
+  void onPlacePageClosed();
 }
