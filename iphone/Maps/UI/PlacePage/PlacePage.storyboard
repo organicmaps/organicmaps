@@ -2021,9 +2021,6 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="7T3-wt-fdM" appends="YES" id="bYc-ym-Vbu"/>
-                        </connections>
                     </view>
                     <size key="freeformSize" width="375" height="44"/>
                     <connections>
@@ -2031,11 +2028,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c4x-ip-QTW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="7T3-wt-fdM">
-                    <connections>
-                        <action selector="onTap:" destination="tMc-fi-LCE" id="Fjl-bZ-Riq"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1566" y="1177"/>
         </scene>
