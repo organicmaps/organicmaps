@@ -2793,7 +2793,7 @@ UNIT_CLASS_TEST(ProcessorTest, MatchedFraction)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorTest, AvoidMathcAroundPivotInMwmWithCity)
+UNIT_CLASS_TEST(ProcessorTest, AvoidMatchAroundPivotInMwmWithCity)
 {
   string const minskCountryName = "Minsk";
 
