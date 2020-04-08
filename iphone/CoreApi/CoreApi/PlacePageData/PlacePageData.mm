@@ -298,6 +298,20 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   }
 }
 
+- (void)updateUgcStatus {
+  if (!GetFramework().HasPlacePageInfo()) {
+    return;
+  }
+
+  __weak __typeof(self) wSelf = self;
+  [self loadUgcWithCompletion:^{
+    __strong __typeof(wSelf) self = wSelf;
+    if (self.onUgcStatusUpdate != nil) {
+      self.onUgcStatusUpdate();
+    }
+  }];
+}
+
 #pragma mark - MWMStorageObserver
 
 - (void)processCountryEvent:(NSString *)countryId {

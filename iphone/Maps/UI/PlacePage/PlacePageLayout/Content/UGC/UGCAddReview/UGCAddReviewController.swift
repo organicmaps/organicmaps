@@ -1,43 +1,45 @@
 @objc(MWMGCReviewSaver)
 protocol UGCReviewSaver {
   typealias onSaveHandler = (Bool) -> Void
-  func saveUgc(model: UGCAddReviewController.Model, language: String, resultHandler: @escaping onSaveHandler)
+  func saveUgc(placePageData: PlacePageData, model: UGCReviewModel, language: String, resultHandler: @escaping onSaveHandler)
 }
 
 @objc(MWMUGCAddReviewController)
 final class UGCAddReviewController: MWMTableViewController {
-  typealias Model = UGCReviewModel
+  private weak var textCell: UGCAddReviewTextCell?
+  private var reviewPosted = false
 
-  weak var textCell: UGCAddReviewTextCell?
-  var reviewPosted = false
-
-  enum Sections {
+  private enum Sections {
     case ratings
     case text
   }
 
-  @objc static func instance(model: Model, saver: UGCReviewSaver) -> UGCAddReviewController {
-    let vc = UGCAddReviewController(nibName: toString(self), bundle: nil)
-    vc.model = model
-    vc.saver = saver
-    return vc
-  }
-
-  private var model: Model! {
-    didSet {
-      sections = []
-      assert(!model.ratings.isEmpty)
-      sections.append(.ratings)
-      sections.append(.text)
-    }
-  }
-
+  private let placePageData: PlacePageData
+  private let model: UGCReviewModel
+  private let saver: UGCReviewSaver
   private var sections: [Sections] = []
-  private var saver: UGCReviewSaver!
+
+  @objc init(placePageData: PlacePageData, rating: UgcSummaryRatingType, saver: UGCReviewSaver) {
+    self.placePageData = placePageData
+    self.saver = saver
+    let ratings = placePageData.ratingCategories.map {
+      UGCRatingStars(title: $0, value: CGFloat(rating.rawValue))
+    }
+    model = UGCReviewModel(ratings: ratings, text: "")
+    super.init(nibName: toString(UGCAddReviewController.self), bundle: nil)
+    title = placePageData.previewData.title
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    configNavBar()
+    sections.append(.ratings)
+    sections.append(.text)
+
+    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDone))
     configTableView()
   }
 
@@ -46,11 +48,6 @@ final class UGCAddReviewController: MWMTableViewController {
     if isMovingFromParent && !reviewPosted {
       Statistics.logEvent(kStatUGCReviewCancel)
     }
-  }
-
-  private func configNavBar() {
-    title = model.title
-    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDone))
   }
 
   private func configTableView() {
@@ -70,7 +67,10 @@ final class UGCAddReviewController: MWMTableViewController {
     reviewPosted = true
     model.text = text
     
-    saver.saveUgc(model: model, language: textCell?.reviewLanguage ?? "en", resultHandler: { (saveResult) in
+    saver.saveUgc(placePageData: placePageData,
+                  model: model,
+                  language: textCell?.reviewLanguage ?? "en",
+                  resultHandler: { (saveResult) in
       guard let nc = self.navigationController else { return }
 
       if !saveResult {

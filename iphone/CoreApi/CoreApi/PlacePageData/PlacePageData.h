@@ -83,6 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *sponsoredDeeplink;
 @property(nonatomic, copy, nullable) MWMVoidBlock onBookmarkStatusUpdate;
 @property(nonatomic, copy, nullable) MWMVoidBlock onMapNodeStatusUpdate;
+@property(nonatomic, copy, nullable) MWMVoidBlock onUgcStatusUpdate;
 @property(nonatomic, copy, nullable) void (^onMapNodeProgressUpdate)(uint64_t downloadedBytes, uint64_t totalBytes);
 
 - (instancetype)initWithLocalizationProvider:(id<IOpeningHoursLocalization>)localization;
@@ -92,6 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadUgcWithCompletion:(MWMVoidBlock)completion;
 - (void)loadCatalogPromoWithCompletion:(MWMVoidBlock)completion;
 - (void)updateBookmarkStatus;
+- (void)updateUgcStatus;
 
 @end
 

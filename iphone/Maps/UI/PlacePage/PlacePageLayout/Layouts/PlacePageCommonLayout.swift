@@ -221,6 +221,9 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     placePageData.onBookmarkStatusUpdate = { [weak self] in
       self?.updateBookmarkSection()
     }
+    placePageData.onUgcStatusUpdate = { [weak self] in
+      self?.onLoadUgc()
+    }
 
     MWMLocationManager.add(observer: self)
     if let lastLocation = MWMLocationManager.lastLocation() {
@@ -300,17 +303,15 @@ extension PlacePageCommonLayout {
   }
 
   func onLoadUgc() {
-    if let ugcData =  self.placePageData.ugcData {
+    if let ugcData = self.placePageData.ugcData {
       previewViewController.updateUgc(ugcData)
 
       if !ugcData.isTotalRatingEmpty {
         ratingSummaryViewController.ugcData = ugcData
         ratingSummaryViewController.view.isHidden = false
       }
-      if ugcData.isUpdateEmpty {
-        addReviewViewController.view.isHidden = false
-      }
-      if !ugcData.isEmpty {
+      addReviewViewController.view.isHidden = !ugcData.isUpdateEmpty
+      if !ugcData.isEmpty || !ugcData.isUpdateEmpty {
         reviewsViewController.ugcData = ugcData
         reviewsViewController.view.isHidden = false
       }

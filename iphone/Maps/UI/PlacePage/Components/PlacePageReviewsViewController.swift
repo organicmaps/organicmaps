@@ -25,6 +25,11 @@ final class PlacePageReviewsViewController: UIViewController {
   private func updateReviews() {
     guard let ugcData = ugcData else { return }
 
+    stackView.arrangedSubviews.forEach {
+      stackView.removeArrangedSubview($0)
+      $0.removeFromSuperview()
+    }
+
     if let myReview = ugcData.myReview {
       let myReviewView = MyReviewView()
       myReviewView.defaultConfig()
