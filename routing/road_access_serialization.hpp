@@ -69,7 +69,11 @@ public:
     case Header::WithAccessConditional:
     {
       DeserializeAccess(src, vehicleType, roadAccess);
-      DeserializeAccessConditional(src, vehicleType, roadAccess);
+      // access:conditional should be switch off for release 10.0 and probably for the next one.
+      // It means that they should be switch off for cross_mwm section generation and for runtime.
+      // To switch on access:conditional the line below should be uncommented.
+      // Also tests in routing/routing_tests/road_access_test.cpp should be uncommented.
+      // DeserializeAccessConditional(src, vehicleType, roadAccess);
       break;
     }
     default: UNREACHABLE();

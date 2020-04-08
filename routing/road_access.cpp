@@ -55,6 +55,10 @@ pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t fe
                                                                      time_t momentInTime) const
 {
   auto const itConditional = m_wayToAccessConditional.find(featureId);
+  // @TODO This check should be removed when access:conditional is switch on.
+  CHECK(m_pointToAccessConditional.empty(),
+        ("access:conditional is switched off now but m_pointToAccessConditional is not empty.",
+            m_pointToAccessConditional.size()));
   if (itConditional != m_wayToAccessConditional.cend())
   {
     auto const & conditional = itConditional->second;
@@ -75,6 +79,10 @@ pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint c
                                                                      time_t momentInTime) const
 {
   auto const itConditional = m_pointToAccessConditional.find(point);
+  // @TODO This check should be removed when access:conditional is switch on.
+  CHECK(m_pointToAccessConditional.empty(),
+        ("access:conditional is switched off now but m_pointToAccessConditional is not empty.",
+         m_pointToAccessConditional.size()));
   if (itConditional != m_pointToAccessConditional.cend())
   {
     auto const & conditional = itConditional->second;
