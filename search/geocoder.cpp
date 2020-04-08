@@ -1443,6 +1443,7 @@ bool Geocoder::IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const
   uint32_t mask = 0;
   size_t buildingIndex = layers.size();
   size_t streetIndex = layers.size();
+  size_t poiIndex = layers.size();
 
   // Following loop returns false iff there are two different layers
   // of the same search type.
@@ -1461,10 +1462,13 @@ bool Geocoder::IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const
       buildingIndex = i;
     else if (layer.m_type == Model::TYPE_STREET)
       streetIndex = i;
+    else if (layer.m_type == Model::TYPE_POI)
+      poiIndex = i;
   }
 
   bool const hasBuildings = buildingIndex != layers.size();
   bool const hasStreets = streetIndex != layers.size();
+  bool const hasPois = poiIndex != layers.size();
 
   // Checks that building and street layers are neighbours.
   if (hasBuildings && hasStreets)
@@ -1473,6 +1477,10 @@ bool Geocoder::IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const
     auto const & streets = layers[streetIndex];
     if (!buildings.m_tokenRange.AdjacentTo(streets.m_tokenRange))
       return false;
+  }
+  if (hasBuildings && hasPois && !hasStreets)
+  {
+    return false;
   }
 
   return true;

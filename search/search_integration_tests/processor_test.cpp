@@ -1511,9 +1511,9 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
     TEST(ResultsMatch("computing street statistical learning cafe ", {rulePoi}), ());
     TEST(ResultsMatch("computing street 0 cafe ", {rulePoi}), ());
 
-    // POI-BUILDING
-    TEST(ResultsMatch("statistical learning cafe ", {rulePoi}), ());
-    TEST(ResultsMatch("0 cafe ", {rulePoi}), ());
+    // POI-BUILDING is not supported
+    TEST(ResultsMatch("statistical learning cafe ", {}), ());
+    TEST(ResultsMatch("0 cafe ", {}), ());
 
     // POI-STREET
     TEST(ResultsMatch("computing street cafe ", {rulePoi}), ());
