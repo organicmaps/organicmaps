@@ -285,7 +285,7 @@ UNIT_TEST(CzechPragueHiltonToKvetniceViewpoint)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(50.0933, 14.4397), {0., 0.},
-      mercator::FromLatLon(50.0806, 14.3973), 4805.1);
+      mercator::FromLatLon(50.0806, 14.3973), 4448.6);
 }
 
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToAlexanderColumn)

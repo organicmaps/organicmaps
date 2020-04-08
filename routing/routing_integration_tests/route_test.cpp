@@ -407,7 +407,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 6529.2);
+    integration::TestRouteTime(route, 6349.9);
   }
 
   UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
