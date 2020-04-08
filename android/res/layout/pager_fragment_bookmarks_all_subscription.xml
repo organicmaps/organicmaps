@@ -23,10 +23,6 @@
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
     android:src="@drawable/all_pass_premium_60" />
-  <FrameLayout
-    android:background="@drawable/all_pass_overlay"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
   <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
