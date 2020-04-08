@@ -40,6 +40,14 @@
 		3DFACF40243C985A00A29A94 /* downloader_queue_universal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF3C243C985A00A29A94 /* downloader_queue_universal.hpp */; };
 		3DFACF41243C985A00A29A94 /* downloader_queue_universal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFACF3D243C985A00A29A94 /* downloader_queue_universal.cpp */; };
 		3DFACF42243C985A00A29A94 /* downloader_queue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF3E243C985A00A29A94 /* downloader_queue.hpp */; };
+		3DFACF4C243CB1AB00A29A94 /* downloader_delegate_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DFACF44243CB1AB00A29A94 /* downloader_delegate_ios.mm */; };
+		3DFACF4D243CB1AB00A29A94 /* downloader_subscriber_adapter_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF45243CB1AB00A29A94 /* downloader_subscriber_adapter_ios.h */; };
+		3DFACF4E243CB1AB00A29A94 /* downloader_queue_ios.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF46243CB1AB00A29A94 /* downloader_queue_ios.hpp */; };
+		3DFACF4F243CB1AB00A29A94 /* downloader_adapter_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF47243CB1AB00A29A94 /* downloader_adapter_ios.h */; };
+		3DFACF50243CB1AB00A29A94 /* downloader_delegate_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF48243CB1AB00A29A94 /* downloader_delegate_ios.h */; };
+		3DFACF51243CB1AB00A29A94 /* downloader_adapter_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DFACF49243CB1AB00A29A94 /* downloader_adapter_ios.mm */; };
+		3DFACF52243CB1AB00A29A94 /* downloader_subscriber_adapter_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DFACF4A243CB1AB00A29A94 /* downloader_subscriber_adapter_ios.mm */; };
+		3DFACF53243CB1AB00A29A94 /* downloader_queue_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFACF4B243CB1AB00A29A94 /* downloader_queue_ios.cpp */; };
 		401ECED41F56C50900DFDF76 /* country_parent_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 401ECED21F56C50900DFDF76 /* country_parent_getter.cpp */; };
 		401ECED51F56C50900DFDF76 /* country_parent_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */; };
 		402873422295A91F0036AA1C /* country_tree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4028733F2295A91E0036AA1C /* country_tree.hpp */; };
@@ -76,8 +84,6 @@
 		67247FCF1C60BA8A00EDE56A /* fake_map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FC51C60BA8A00EDE56A /* fake_map_files_downloader.hpp */; };
 		67247FD41C60BA8A00EDE56A /* task_runner.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FCA1C60BA8A00EDE56A /* task_runner.hpp */; };
 		67247FD61C60BA8A00EDE56A /* test_map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FCC1C60BA8A00EDE56A /* test_map_files_downloader.hpp */; };
-		6741251E1B4C05FA00A3E828 /* http_map_files_downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125181B4C05FA00A3E828 /* http_map_files_downloader.cpp */; };
-		6741251F1B4C05FA00A3E828 /* http_map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674125191B4C05FA00A3E828 /* http_map_files_downloader.hpp */; };
 		674125201B4C05FA00A3E828 /* map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6741251A1B4C05FA00A3E828 /* map_files_downloader.hpp */; };
 		674125231B4C05FA00A3E828 /* storage_defines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6741251D1B4C05FA00A3E828 /* storage_defines.cpp */; };
 		675343091A3F5A2600A0A8C3 /* country_decl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675342F21A3F5A2600A0A8C3 /* country_decl.cpp */; };
@@ -260,6 +266,14 @@
 		3DFACF3C243C985A00A29A94 /* downloader_queue_universal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_queue_universal.hpp; sourceTree = "<group>"; };
 		3DFACF3D243C985A00A29A94 /* downloader_queue_universal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = downloader_queue_universal.cpp; sourceTree = "<group>"; };
 		3DFACF3E243C985A00A29A94 /* downloader_queue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_queue.hpp; sourceTree = "<group>"; };
+		3DFACF44243CB1AB00A29A94 /* downloader_delegate_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = downloader_delegate_ios.mm; sourceTree = "<group>"; };
+		3DFACF45243CB1AB00A29A94 /* downloader_subscriber_adapter_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = downloader_subscriber_adapter_ios.h; sourceTree = "<group>"; };
+		3DFACF46243CB1AB00A29A94 /* downloader_queue_ios.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_queue_ios.hpp; sourceTree = "<group>"; };
+		3DFACF47243CB1AB00A29A94 /* downloader_adapter_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = downloader_adapter_ios.h; sourceTree = "<group>"; };
+		3DFACF48243CB1AB00A29A94 /* downloader_delegate_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = downloader_delegate_ios.h; sourceTree = "<group>"; };
+		3DFACF49243CB1AB00A29A94 /* downloader_adapter_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = downloader_adapter_ios.mm; sourceTree = "<group>"; };
+		3DFACF4A243CB1AB00A29A94 /* downloader_subscriber_adapter_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = downloader_subscriber_adapter_ios.mm; sourceTree = "<group>"; };
+		3DFACF4B243CB1AB00A29A94 /* downloader_queue_ios.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = downloader_queue_ios.cpp; sourceTree = "<group>"; };
 		401ECED21F56C50900DFDF76 /* country_parent_getter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_parent_getter.cpp; sourceTree = "<group>"; };
 		401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_parent_getter.hpp; sourceTree = "<group>"; };
 		4028733F2295A91E0036AA1C /* country_tree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_tree.hpp; sourceTree = "<group>"; };
@@ -312,8 +326,6 @@
 		67247FFF1C60BD7E00EDE56A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		6724800E1C60CE7300EDE56A /* storage_group_download_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_group_download_tests.cpp; sourceTree = "<group>"; };
 		6724800F1C60CE7300EDE56A /* storage_http_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_http_tests.cpp; sourceTree = "<group>"; };
-		674125181B4C05FA00A3E828 /* http_map_files_downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_map_files_downloader.cpp; sourceTree = "<group>"; };
-		674125191B4C05FA00A3E828 /* http_map_files_downloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_map_files_downloader.hpp; sourceTree = "<group>"; };
 		6741251A1B4C05FA00A3E828 /* map_files_downloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_files_downloader.hpp; sourceTree = "<group>"; };
 		6741251D1B4C05FA00A3E828 /* storage_defines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_defines.cpp; sourceTree = "<group>"; };
 		674709A51C6213F10093DD1B /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = "../../../omim-xcode-build/Debug/libmap.a"; sourceTree = "<group>"; };
@@ -528,6 +540,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3DFACF43243CB1AB00A29A94 /* background_downloading */ = {
+			isa = PBXGroup;
+			children = (
+				3DFACF44243CB1AB00A29A94 /* downloader_delegate_ios.mm */,
+				3DFACF45243CB1AB00A29A94 /* downloader_subscriber_adapter_ios.h */,
+				3DFACF46243CB1AB00A29A94 /* downloader_queue_ios.hpp */,
+				3DFACF47243CB1AB00A29A94 /* downloader_adapter_ios.h */,
+				3DFACF48243CB1AB00A29A94 /* downloader_delegate_ios.h */,
+				3DFACF49243CB1AB00A29A94 /* downloader_adapter_ios.mm */,
+				3DFACF4A243CB1AB00A29A94 /* downloader_subscriber_adapter_ios.mm */,
+				3DFACF4B243CB1AB00A29A94 /* downloader_queue_ios.cpp */,
+			);
+			path = background_downloading;
+			sourceTree = "<group>";
+		};
 		67247FBD1C60B89B00EDE56A /* storage_tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -626,6 +653,7 @@
 		675342E21A3F59EF00A0A8C3 /* storage */ = {
 			isa = PBXGroup;
 			children = (
+				3DFACF43243CB1AB00A29A94 /* background_downloading */,
 				3DFACF3D243C985A00A29A94 /* downloader_queue_universal.cpp */,
 				3DFACF3C243C985A00A29A94 /* downloader_queue_universal.hpp */,
 				3DFACF3E243C985A00A29A94 /* downloader_queue.hpp */,
@@ -663,8 +691,6 @@
 				34B0931E1C61F9BA0066F4C3 /* storage_helpers.hpp */,
 				67AF49FE1BC579DD0048B1ED /* country_info_getter.cpp */,
 				67AF49FF1BC579DD0048B1ED /* country_info_getter.hpp */,
-				674125181B4C05FA00A3E828 /* http_map_files_downloader.cpp */,
-				674125191B4C05FA00A3E828 /* http_map_files_downloader.hpp */,
 				6741251A1B4C05FA00A3E828 /* map_files_downloader.hpp */,
 				6741251D1B4C05FA00A3E828 /* storage_defines.cpp */,
 				675342F21A3F5A2600A0A8C3 /* country_decl.cpp */,
@@ -716,6 +742,7 @@
 			files = (
 				674125201B4C05FA00A3E828 /* map_files_downloader.hpp in Headers */,
 				56D8CB9A1CAC17A80003F420 /* test_defines.hpp in Headers */,
+				3DFACF50243CB1AB00A29A94 /* downloader_delegate_ios.h in Headers */,
 				F68CC5C01F38B967007527C7 /* diff_types.hpp in Headers */,
 				3DFACF3F243C985A00A29A94 /* downloader.hpp in Headers */,
 				402AD2E424A200F600DE5CB1 /* country_tree_helpers.hpp in Headers */,
@@ -723,9 +750,9 @@
 				3DF528E22386B966000ED0D5 /* diffs_data_source.hpp in Headers */,
 				34C9BCFD1C6CCF85000DC38D /* country_name_getter.hpp in Headers */,
 				3DFACF40243C985A00A29A94 /* downloader_queue_universal.hpp in Headers */,
-				6741251F1B4C05FA00A3E828 /* http_map_files_downloader.hpp in Headers */,
 				67BE1DC61CD2180D00572709 /* downloading_policy.hpp in Headers */,
 				675343191A3F5A2600A0A8C3 /* storage_defines.hpp in Headers */,
+				3DFACF4E243CB1AB00A29A94 /* downloader_queue_ios.hpp in Headers */,
 				3DF528E12386B966000ED0D5 /* apply_diff.hpp in Headers */,
 				67247FD41C60BA8A00EDE56A /* task_runner.hpp in Headers */,
 				56D0E4801F8E40340084B18C /* routing_helpers.hpp in Headers */,
@@ -736,6 +763,7 @@
 				3D497EA223292706000FB57D /* map_files_downloader_with_ping.hpp in Headers */,
 				6753430A1A3F5A2600A0A8C3 /* country_decl.hpp in Headers */,
 				67247FCF1C60BA8A00EDE56A /* fake_map_files_downloader.hpp in Headers */,
+				3DFACF4F243CB1AB00A29A94 /* downloader_adapter_ios.h in Headers */,
 				3DFACF42243C985A00A29A94 /* downloader_queue.hpp in Headers */,
 				67AF4A011BC579DD0048B1ED /* country_info_getter.hpp in Headers */,
 				3DD84014233A38DE0008D0ED /* diff_scheme_loader.hpp in Headers */,
@@ -743,6 +771,7 @@
 				402873442295A91F0036AA1C /* downloader_search_params.hpp in Headers */,
 				6753431B1A3F5A2600A0A8C3 /* storage.hpp in Headers */,
 				67247FD61C60BA8A00EDE56A /* test_map_files_downloader.hpp in Headers */,
+				3DFACF4D243CB1AB00A29A94 /* downloader_subscriber_adapter_ios.h in Headers */,
 				34B093231C61F9BA0066F4C3 /* storage_helpers.hpp in Headers */,
 				402873422295A91F0036AA1C /* country_tree.hpp in Headers */,
 			);
@@ -915,17 +944,20 @@
 				34B093221C61F9BA0066F4C3 /* storage_helpers.cpp in Sources */,
 				675343091A3F5A2600A0A8C3 /* country_decl.cpp in Sources */,
 				3DCD414720D80C0900143533 /* country_info_reader_light.cpp in Sources */,
+				3DFACF4C243CB1AB00A29A94 /* downloader_delegate_ios.mm in Sources */,
+				3DFACF52243CB1AB00A29A94 /* downloader_subscriber_adapter_ios.mm in Sources */,
 				56DAC38523992819000BC50D /* queued_country.cpp in Sources */,
 				6753431A1A3F5A2600A0A8C3 /* storage.cpp in Sources */,
 				674125231B4C05FA00A3E828 /* storage_defines.cpp in Sources */,
 				3DFACF41243C985A00A29A94 /* downloader_queue_universal.cpp in Sources */,
 				3DCD414920D80C1B00143533 /* lightweight_matching_tests.cpp in Sources */,
 				67BE1DC51CD2180D00572709 /* downloading_policy.cpp in Sources */,
+				3DFACF51243CB1AB00A29A94 /* downloader_adapter_ios.mm in Sources */,
 				402AD2E524A200F600DE5CB1 /* country_tree_helpers.cpp in Sources */,
 				402873432295A91F0036AA1C /* country_tree.cpp in Sources */,
 				F6BC312C2034366100F677FE /* pinger.cpp in Sources */,
+				3DFACF53243CB1AB00A29A94 /* downloader_queue_ios.cpp in Sources */,
 				34C9BCFC1C6CCF85000DC38D /* country_name_getter.cpp in Sources */,
-				6741251E1B4C05FA00A3E828 /* http_map_files_downloader.cpp in Sources */,
 				3DF528E32386B966000ED0D5 /* diffs_data_source.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
