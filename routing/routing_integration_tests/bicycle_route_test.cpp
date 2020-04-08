@@ -134,12 +134,13 @@ UNIT_TEST(SwedenStockholmBicyclePastFerry)
       mercator::FromLatLon(59.32967, 18.075), 46163.7);
 }
 
+// Test on cross mwm bicycle routing.
 UNIT_TEST(CrossMwmKaliningradRegionToLiepaja)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Bicycle),
-      mercator::FromLatLon(55.15414, 20.85378), {0., 0.},
-      mercator::FromLatLon(56.51119, 21.01847), 192000);
+      mercator::FromLatLon(54.63519, 21.80749), {0., 0.},
+      mercator::FromLatLon(56.51119, 21.01847), 295241);
 }
 
 // Test on riding up from Adeje (sea level) to Vilaflor (altitude 1400 meters).
