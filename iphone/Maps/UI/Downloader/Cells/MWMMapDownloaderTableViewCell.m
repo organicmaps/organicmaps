@@ -91,8 +91,8 @@
 
 - (void)configProgress:(MWMMapNodeAttributes *)nodeAttrs {
   MWMCircularProgress *progress = self.progress;
-  MWMButtonColoring coloring =
-    self.mode == MWMMapDownloaderModeDownloaded ? MWMButtonColoringBlack : MWMButtonColoringBlue;
+  BOOL isModeDownloaded = self.mode == MWMMapDownloaderModeDownloaded;
+  MWMButtonColoring coloring = isModeDownloaded ? MWMButtonColoringBlack : MWMButtonColoringBlue;
   switch (nodeAttrs.nodeStatus) {
     case MWMMapNodeStatusNotDownloaded:
     case MWMMapNodeStatusPartly: {
@@ -103,7 +103,7 @@
       break;
     }
     case MWMMapNodeStatusDownloading:
-      progress.progress = kMaxProgress * nodeAttrs.downloadedSize / nodeAttrs.totalSize;
+      progress.progress = kMaxProgress * nodeAttrs.downloadedSize / (isModeDownloaded ? nodeAttrs.totalUpdateSizeBytes : nodeAttrs.totalSize - nodeAttrs.downloadingSize);
       break;
     case MWMMapNodeStatusApplying:
     case MWMMapNodeStatusInQueue:
