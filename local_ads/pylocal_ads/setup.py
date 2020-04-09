@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.join(module_dir, '..', '..'))
 
 from pyhelpers.setup import setup_omim_pybinding
 
+
 NAME = "pylocal_ads"
 
 setup_omim_pybinding(name=NAME)

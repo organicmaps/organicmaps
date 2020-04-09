@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import multiprocessing
 from contextlib import contextmanager
+import multiprocessing
 import os
 import re
 import sys
 
+from distutils import log
 from distutils.command.bdist import bdist as distutils_bdist
 from distutils.command.build import build as distutils_build
 from distutils.core import Command
@@ -13,20 +14,20 @@ from distutils.dir_util import mkpath, remove_tree
 from distutils.file_util import copy_file
 from distutils.spawn import spawn, find_executable
 from distutils.sysconfig import (
-    get_python_version, get_python_inc, get_config_var
+    get_config_var, get_python_inc, get_python_version,
 )
 from distutils.version import LooseVersion
-from distutils import log
+
 from setuptools import dist, setup as setuptools_setup
 from setuptools.command.build_ext import build_ext as setuptools_build_ext
 from setuptools.command.build_py import build_py as setuptools_build_py
 from setuptools.command.egg_info import (
     egg_info as setuptools_egg_info,
-    manifest_maker as setuptools_manifest_maker
+    manifest_maker as setuptools_manifest_maker,
 )
 from setuptools.command.install import install as setuptools_install
 from setuptools.command.install_lib import (
-    install_lib as setuptools_install_lib
+    install_lib as setuptools_install_lib,
 )
 from setuptools.extension import Extension
 
@@ -39,8 +40,10 @@ omim_root = os.path.dirname(pyhelpers_dir)
 boost_root = os.path.join(omim_root, '3party', 'boost')
 boost_librarydir = os.path.join(boost_root, 'stage', 'lib')
 
+
 def python_static_libdir():
     return get_config_var('LIBPL')
+
 
 def python_ld_library():
     LDLIBRARY = get_config_var('LDLIBRARY')
@@ -50,15 +53,16 @@ def python_ld_library():
     candidates = [
         os.path.join(PYTHONFRAMEWORKPREFIX, LDLIBRARY),
         os.path.join(LIBDIR, LDLIBRARY),
-        os.path.join(LIBPL, LDLIBRARY)
+        os.path.join(LIBPL, LDLIBRARY),
     ]
     for candidate in candidates:
         if os.path.exists(candidate):
             return candidate
 
+
 @contextmanager
 def chdir(target_dir):
-    saved_cwd=os.getcwd()
+    saved_cwd = os.getcwd()
     os.chdir(target_dir)
     try:
         yield
@@ -68,7 +72,7 @@ def chdir(target_dir):
 
 class build(distutils_build, object):
     user_options = setuptools_build_ext.user_options + [
-        ('omim-builddir=', None, "Path to omim build directory"),
+        ('omim-builddir=', None, 'Path to omim build directory'),
     ]
 
     def initialize_options(self):
@@ -106,7 +110,7 @@ class build_py(setuptools_build_py, object):
 
 class bdist(distutils_bdist, object):
     user_options = setuptools_build_ext.user_options + [
-        ('omim-builddir=', None, "Path to omim build directory"),
+        ('omim-builddir=', None, 'Path to omim build directory'),
     ]
 
     def initialize_options(self):
@@ -116,8 +120,8 @@ class bdist(distutils_bdist, object):
     def finalize_options(self):
         super(bdist, self).finalize_options()
         self.set_undefined_options('build',
-            ('omim_builddir', 'omim_builddir'),
-        )
+                                   ('omim_builddir', 'omim_builddir'),
+                                   )
         self.dist_dir = os.path.join(self.omim_builddir, 'pybindings-dist')
 
 
@@ -131,7 +135,7 @@ class manifest_maker(setuptools_manifest_maker, object):
 
 class egg_info(setuptools_egg_info, object):
     user_options = setuptools_build_ext.user_options + [
-        ('omim-builddir=', None, "Path to omim build directory"),
+        ('omim-builddir=', None, 'Path to omim build directory'),
     ]
 
     def initialize_options(self):
@@ -140,8 +144,8 @@ class egg_info(setuptools_egg_info, object):
 
     def finalize_options(self):
         self.set_undefined_options('build',
-            ('omim_builddir', 'omim_builddir'),
-        )
+                                   ('omim_builddir', 'omim_builddir'),
+                                   )
         self.egg_base = os.path.relpath(
             os.path.join(self.omim_builddir, 'pybindings-egg-info')
         )
@@ -150,12 +154,12 @@ class egg_info(setuptools_egg_info, object):
 
     def find_sources(self):
         """
-	Copied from setuptools.command.egg_info method to override
-	internal manifest_maker with our subclass
+        Copied from setuptools.command.egg_info method to override
+        internal manifest_maker with our subclass
 
-	Generate SOURCES.txt manifest file
-	"""
-        manifest_filename = os.path.join(self.egg_info, "SOURCES.txt")
+        Generate SOURCES.txt manifest file
+        """
+        manifest_filename = os.path.join(self.egg_info, 'SOURCES.txt')
         mm = manifest_maker(self.distribution)
         mm.manifest = manifest_filename
         mm.run()
@@ -164,7 +168,7 @@ class egg_info(setuptools_egg_info, object):
 
 class install(setuptools_install, object):
     user_options = setuptools_install.user_options + [
-        ('omim-builddir=', None, "Path to omim build directory"),
+        ('omim-builddir=', None, 'Path to omim build directory'),
     ]
 
     def initialize_options(self):
@@ -174,8 +178,8 @@ class install(setuptools_install, object):
     def finalize_options(self):
         super(install, self).finalize_options()
         self.set_undefined_options('build',
-            ('omim_builddir', 'omim_builddir'),
-        )
+                                   ('omim_builddir', 'omim_builddir'),
+                                   )
 
 
 class install_lib(setuptools_install_lib, object):
@@ -203,16 +207,16 @@ class install_lib(setuptools_install_lib, object):
             for data_path in PYBINDINGS[ext_name].get('package_data', [])
         }
         excludes -= own_files
-        
+
         return super(install_lib, self).get_exclusions() | excludes
 
 
 class build_boost_python(Command, object):
     user_options = [
         ('force', 'f',
-         "forcibly build boost_python library (ignore existence)"),
+         'forcibly build boost_python library (ignore existence)'),
         ('omim-builddir=', None,
-         "Path to omim build directory"),
+         'Path to omim build directory'),
     ]
     boolean_options = ['force']
 
@@ -222,20 +226,20 @@ class build_boost_python(Command, object):
 
     def finalize_options(self):
         self.set_undefined_options('build',
-            ('force', 'force'),
-            ('omim_builddir', 'omim_builddir'),
-        )
+                                   ('force', 'force'),
+                                   ('omim_builddir', 'omim_builddir'),
+                                   )
 
     def get_boost_python_libname(self):
         return (
-            "boost_python{}{}"
+            'boost_python{}{}'
             .format(sys.version_info.major, sys.version_info.minor)
         )
 
     def get_boost_config_path(self):
         return os.path.join(
             self.omim_builddir,
-            "python{}-config.jam".format(get_python_version())
+            'python{}-config.jam'.format(get_python_version())
         )
 
     def configure_omim(self):
@@ -244,8 +248,8 @@ class build_boost_python(Command, object):
 
     def create_boost_config(self):
         mkpath(self.omim_builddir)
-        with open(self.get_boost_config_path(), "w") as f:
-            f.write("using python : {} : {} : {} : {} ;\n".format(
+        with open(self.get_boost_config_path(), 'w') as f:
+            f.write('using python : {} : {} : {} : {} ;\n'.format(
                 get_python_version(), sys.executable,
                 get_python_inc(), python_static_libdir()
             ))
@@ -283,12 +287,12 @@ class build_boost_python(Command, object):
     def run(self):
         lib_path = os.path.join(
             boost_librarydir,
-            "lib{}.a".format(self.get_boost_python_libname())
+            'lib{}.a'.format(self.get_boost_python_libname())
         )
         if os.path.exists(lib_path) and not self.force:
             log.info(
-                "Boost_python library `{}` for current "
-                "python version already present, skipping build"
+                'Boost_python library `{}` for current '
+                'python version already present, skipping build'
                 .format(lib_path)
             )
             return
@@ -300,7 +304,7 @@ class build_boost_python(Command, object):
 
 class build_omim_binding(setuptools_build_ext, object):
     user_options = setuptools_build_ext.user_options + [
-        ('omim-builddir=', None, "Path to omim build directory"),
+        ('omim-builddir=', None, 'Path to omim build directory'),
     ]
 
     def initialize_options(self):
@@ -310,8 +314,8 @@ class build_omim_binding(setuptools_build_ext, object):
     def finalize_options(self):
         super(build_omim_binding, self).finalize_options()
         self.set_undefined_options('build',
-            ('omim_builddir', 'omim_builddir'),
-        )
+                                   ('omim_builddir', 'omim_builddir'),
+                                   )
 
     def cmake_pybindings(self):
         # On some linux systems the cmake we need is called cmake3
@@ -342,7 +346,7 @@ class build_omim_binding(setuptools_build_ext, object):
 
         mkpath(self.build_lib)
         copy_file(
-            os.path.join(self.omim_builddir, "{}.so".format(ext.name)),
+            os.path.join(self.omim_builddir, '{}.so'.format(ext.name)),
             self.get_ext_fullpath(ext.name)
         )
 
@@ -372,7 +376,7 @@ PYBINDINGS = {
             'data/classificator.txt',
             'data/types.txt',
         )
-     },
+    },
     'pylocal_ads': {
         'description': 'Binding for working with maps.me local ads data',
     },
@@ -402,41 +406,42 @@ PYBINDINGS = {
     },
 }
 
+
 def get_version():
     versions = []
     for path, varname in VERSIONS_LOCATIONS.items():
         with open(os.path.join(omim_root, *path), 'r') as f:
             for line in f:
-                m = re.search(
-                    "^\s*{}\s*=\s*(.*)".format(varname),
+                match = re.search(
+                    r'^\s*{}\s*=\s*(?P<version>.*)'.format(varname),
                     line.strip()
                 )
-                if m:
-                    versions.append(LooseVersion(m.group(1)))
+                if match:
+                    versions.append(LooseVersion(match.group('version')))
                     break
     return sorted(versions)[-1]
+
 
 def setup_omim_pybinding(
     name=None,
     version=None,
-    author="My.com B.V. (Mail.Ru Group)",
-    author_email="dev@maps.me",
-    url="https://github.com/mapsme/omim",
-    license="Apache-2.0",
+    author='My.com B.V. (Mail.Ru Group)',
+    author_email='dev@maps.me',
+    url='https://github.com/mapsme/omim',
+    license='Apache-2.0',
     supported_pythons=['2', '2.7', '3', '3.5', '3.6', '3.7'],
 ):
-
     if name is None:
         log("Name not specified, can't setup module")
         sys.exit()
 
     if version is None:
-        version=get_version()
+        version = get_version()
 
     package_data = PYBINDINGS[name].get('package_data', [])
 
     setuptools_setup(
-        name="omim-{}".format(name),
+        name='omim-{}'.format(name),
         version=str(version),
         description=PYBINDINGS[name]['description'],
         author=author,
@@ -445,7 +450,7 @@ def setup_omim_pybinding(
         license=license,
         packages=[''],
         package_data={
-            "": [
+            '': [
                 os.path.join(omim_root, path)
                 for path in package_data
             ]
@@ -473,8 +478,9 @@ def setup_omim_pybinding(
             'Programming Language :: Python :: {}'.format(supported_python)
             for supported_python in supported_pythons
         ],
-)
+    )
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     for binding in PYBINDINGS.keys():
         setup_omim_pybinding(name=binding)

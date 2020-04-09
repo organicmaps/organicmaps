@@ -22,17 +22,18 @@ Ensure you have ran:
 Building single pybinding module
 --------------------------------
 Find a correspoding module's setup.py.
-Current list of available modules and setup's:
+Currently available modules and setup's:
+| module      | path to setup.py                       |
+|-------------|----------------------------------------|
+| pygen       | generator/pygen/setup.py               |
+| pykmlib     | kml/pykmlib/setup.py                   |
+| pylocal_ads | local_ads/pylocal_ads/setup.py         |
+| pymvm_diff  | generator/mwm_diff/pymwm_diff/setup.py |
+| pysearch    | search/pysearch/setup.py               |
+| pytracking  | tracking/pytracking/setup.py           |
+| pytraffic   | traffic/pytraffic/setup.py             |
 
-- generator/mwm_diff/pymwm_diff/setup.py
-- generator/pygen/setup.py
-- kml/pykmlib/setup.py
-- local_ads/pylocal_ads/setup.py
-- search/pysearch/setup.py
-- tracking/pytracking/setup.py
-- traffic/pytraffic/setup.py
-
-Run chosen setup.py with Python you want to build binding for.
+Run the chosen setup.py with Python you want to build binding for.
 Examples:
 
   $ python kml/pykmlib/setup.py build install --user
@@ -81,8 +82,8 @@ But this can be a long wait, it is better to use already compiled .whl
 distribution.
 
 
-Running and testing built pybinding
------------------------------------
+Running and testing a pybinding
+-------------------------------
 Install your freshly built pybinding either with `setup.py install`, or by
 installing .whl with `pip install`.
 
