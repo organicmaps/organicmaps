@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,9 +59,6 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mTimeContainer;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mMediumDivider;
 
   @Override
   public void render(@NonNull PlacePageData data)
@@ -103,7 +101,6 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     mDifficultyLevels[0] = mDifficultyContainer.findViewById(R.id.difficulty_level_1);
     mDifficultyLevels[1] = mDifficultyContainer.findViewById(R.id.difficulty_level_2);
     mDifficultyLevels[2] = mDifficultyContainer.findViewById(R.id.difficulty_level_3);
-    mMediumDivider = view.findViewById(R.id.medium_divider);
   }
 
   @Override
@@ -119,7 +116,13 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
 
     boolean invalidDifficulty = level > MAX_DIFFICULTY_LEVEL || level == UNKNOWN_DIFFICULTY;
     UiUtils.hideIf(invalidDifficulty, mDifficultyContainer);
-    UiUtils.hideIf(invalidDifficulty, mMediumDivider);
+    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mTimeContainer.getLayoutParams();
+    params.removeRule(RelativeLayout.ALIGN_PARENT_END);
+    params.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+    params.removeRule(RelativeLayout.ALIGN_PARENT_START);
+    params.removeRule(RelativeLayout.LEFT_OF);
+    params.addRule(invalidDifficulty ? RelativeLayout.ALIGN_PARENT_START : RelativeLayout.ALIGN_PARENT_END);
+    mTimeContainer.setLayoutParams(params);
 
     if (invalidDifficulty)
       return;

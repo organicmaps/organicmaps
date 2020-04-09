@@ -157,7 +157,7 @@
         tools:text="10000 m" />
     </LinearLayout>
   </LinearLayout>
-  <LinearLayout
+  <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
@@ -204,16 +204,13 @@
           android:enabled="false"/>
       </LinearLayout>
     </LinearLayout>
-    <View
-      android:id="@+id/medium_divider"
-      android:layout_width="0dp"
-      android:layout_weight="1"
-      android:layout_height="@dimen/margin_base"
-      android:minWidth="@dimen/margin_base"/>
     <LinearLayout
+      android:layout_toEndOf="@id/difficulty_container"
+      android:layout_alignParentEnd="true"
       android:id="@+id/time_container"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:gravity="end"
       android:orientation="horizontal">
       <TextView
         android:layout_width="wrap_content"
@@ -228,8 +225,9 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textStyle="bold"
         android:singleLine="true"
+        android:text="30000000000000000003000000000000000000300000000000000000030000000000000000003000000000000000000 h. 25 min." />
         android:ellipsize="end"
         tools:text="3 h. 25 min." />
     </LinearLayout>
-  </LinearLayout>
+  </RelativeLayout>
 </merge>
