@@ -10,7 +10,6 @@ struct MetadataTagProcessorImpl
 
   std::string ValidateAndFormat_maxspeed(std::string const & v) const;
   std::string ValidateAndFormat_stars(std::string const & v) const;
-  std::string ValidateAndFormat_cuisine(std::string v) const;
   std::string ValidateAndFormat_operator(std::string const & v) const;
   std::string ValidateAndFormat_url(std::string const & v) const;
   std::string ValidateAndFormat_phone(std::string const & v) const;

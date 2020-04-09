@@ -950,6 +950,45 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_AerodromeType)
   TEST(params.IsTypeExist(GetType({"aeroway", "aerodrome", "international"})), (params));
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_CuisineType)
+{
+  {
+    // Collapce synonyms to single type.
+    Tags const tags = {
+        {"cuisine", "BBQ ; barbeque, barbecue;bbq"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"cuisine", "barbecue"})), (params));
+  }
+  {
+    // Replace space with underscore, ignore commas and semicolons.
+    Tags const tags = {
+        {"cuisine", ",; ;   ; Fish and  Chips;; , , ;"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"cuisine", "fish_and_chips"})), (params));
+  }
+  {
+    // Multiple cuisines.
+    Tags const tags = {
+        {"cuisine", "Italian Pizza , mediterranean;international,"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType({"cuisine", "italian_pizza"})), (params));
+    TEST(params.IsTypeExist(GetType({"cuisine", "mediterranean"})), (params));
+    TEST(params.IsTypeExist(GetType({"cuisine", "international"})), (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const simpleTypes = {

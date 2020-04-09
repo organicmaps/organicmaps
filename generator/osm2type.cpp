@@ -540,7 +540,6 @@ void PreprocessElement(OsmElement * p)
       value = "specified";
   });
 
-  // todo(@t.yan): remove this code from osm2meta.cpp when types'll be used for cuisines translation.
   string const kCuisineKey = "cuisine";
   auto cuisines = p->GetTag(kCuisineKey);
   if (!cuisines.empty())
@@ -559,6 +558,12 @@ void PreprocessElement(OsmElement * p)
       strings::Trim(normalized, " ");
       collapse(' ', normalized);
       replace(normalized.begin(), normalized.end(), ' ', '_');
+
+      if (normalized.empty())
+      {
+        ++iter;
+        continue;
+      }
 
       // Avoid duplication for some cuisines.
       if (normalized == "bbq" || normalized == "barbeque")
