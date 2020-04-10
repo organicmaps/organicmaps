@@ -225,7 +225,6 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textStyle="bold"
         android:singleLine="true"
-        android:text="30000000000000000003000000000000000000300000000000000000030000000000000000003000000000000000000 h. 25 min." />
         android:ellipsize="end"
         tools:text="3 h. 25 min." />
     </LinearLayout>

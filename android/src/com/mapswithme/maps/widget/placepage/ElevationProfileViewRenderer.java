@@ -120,7 +120,7 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     params.removeRule(RelativeLayout.ALIGN_PARENT_END);
     params.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
     params.removeRule(RelativeLayout.ALIGN_PARENT_START);
-    params.removeRule(RelativeLayout.LEFT_OF);
+    params.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
     params.addRule(invalidDifficulty ? RelativeLayout.ALIGN_PARENT_START : RelativeLayout.ALIGN_PARENT_END);
     mTimeContainer.setLayoutParams(params);
 
