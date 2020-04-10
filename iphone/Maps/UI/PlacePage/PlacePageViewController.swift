@@ -76,6 +76,7 @@ final class PlacePageScrollView: UIScrollView {
     super.traitCollectionDidChange(previousTraitCollection)
     if self.previousTraitCollection != nil {
       DispatchQueue.main.async {
+        self.presenter.setAdState(.detailed)
         self.presenter.updateSteps()
         self.presenter.showLastStop()
         self.scrollView.contentInset = self.alternativeSizeClass(iPhone: UIEdgeInsets(top: self.scrollView.height, left: 0, bottom: 0, right: 0),
@@ -241,6 +242,8 @@ extension PlacePageViewController: UIScrollViewDelegate {
     case .full(_):
       presenter?.setAdState(.detailed)
     }
-    targetContentOffset.pointee = CGPoint(x: 0, y: targetState.offset)
+    presenter.updateSteps()
+    let nextStep = presenter.findNextStop(scrollView.contentOffset.y, velocity: velocity.y)
+    targetContentOffset.pointee = CGPoint(x: 0, y: nextStep.offset)
   }
 }
