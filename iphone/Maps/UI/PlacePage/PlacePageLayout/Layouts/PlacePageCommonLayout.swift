@@ -109,7 +109,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   lazy var buttonsViewController: PlacePageButtonsViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageButtonsViewController.self)
     vc.buttonsData = placePageData.buttonsData!
-    vc.buttonsEnabled = placePageData.mapNodeAttributes!.nodeStatus == .onDisk
+    vc.buttonsEnabled = placePageData.mapNodeAttributes?.nodeStatus == .onDisk
     vc.delegate = interactor
     return vc
   } ()
