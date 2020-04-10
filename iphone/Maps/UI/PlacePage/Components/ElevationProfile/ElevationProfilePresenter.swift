@@ -6,9 +6,6 @@ protocol ElevationProfilePresenterProtocol: UICollectionViewDataSource, UICollec
   func onDissapear()
 
   func onDifficultyButtonPressed()
-  func onDragBegin()
-  func onZoomBegin()
-  func onNavigateBegin()
   func onSelectedPointChanged(_ point: CGFloat)
 }
 
@@ -92,40 +89,16 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   }
 
   func onAppear() {
-    Statistics.logEvent(kStatElevationProfilePageOpen,
-                        withParameters: [/*kStatServerId: data.serverId,*/ //TODO: clarify
-                                         kStatMethod: "info|track",
-                                         kStatState: "preview"])
+    Statistics.logEvent(kStatElevationProfilePageOpen, withParameters: [kStatServerId: data.trackId,
+                                                                        kStatState: "preview"])
   }
 
   func onDissapear() {
-    Statistics.logEvent(kStatElevationProfilePageClose,
-                        withParameters: [/*kStatServerId: data.serverId,*/ //TODO: clarify
-                                         kStatMethod: "swipe"])
+    Statistics.logEvent(kStatElevationProfilePageClose, withParameters: [kStatServerId: data.trackId])
   }
 
   func onDifficultyButtonPressed() {
     delegate?.openDifficultyPopup()
-  }
-
-  func onDragBegin() {
-    Statistics.logEvent(kStatElevationProfilePageDrag,
-                        withParameters: [/*kStatServerId: data.serverId,*/ //TODO: clarify
-                                         kStatAction: "zoom_in|zoom_out|drag",
-                                         kStatSide: "left|right|all"])
-  }
-
-
-  func onZoomBegin() {
-    Statistics.logEvent(kStatElevationProfilePageZoom,
-                        withParameters: [/*kStatServerId: data.serverId,*/ //TODO: clarify
-                                         kStatIsZoomIn: true])
-  }
-
-  func onNavigateBegin() {
-    Statistics.logEvent(kStatElevationProfilePageNavigationAction,
-                        withParameters: [/*kStatServerId: data.serverId,*/ //TODO: clarify
-                          :])
   }
 
   func onSelectedPointChanged(_ point: CGFloat) {
