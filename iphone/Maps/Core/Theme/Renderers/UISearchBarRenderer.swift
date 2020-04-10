@@ -39,7 +39,6 @@ class UISearchBarRenderer: UIViewRenderer {
     }
     if let tintColor = style.tintColor {
       control.tintColor = tintColor
-      searchTextField?.tintColor = tintColor
     }
     if let font = style.font {
       searchTextField?.font = font
@@ -47,6 +46,7 @@ class UISearchBarRenderer: UIViewRenderer {
     if let fontColor = style.fontColor {
       searchTextField?.textColor = fontColor
       searchTextField?.leftView?.tintColor = fontColor
+      searchTextField?.tintColor = fontColor
     }
   }
 
@@ -62,9 +62,7 @@ class UISearchBarRenderer: UIViewRenderer {
       if let fontColor = style.fontColor {
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = fontColor
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).leftView?.tintColor = fontColor
-      }
-      if let tintColor = style.tintColor {
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = tintColor
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = fontColor
       }
     }
   }
