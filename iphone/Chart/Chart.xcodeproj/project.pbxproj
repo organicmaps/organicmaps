@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		472644DE24400C0400B9C053 /* ExpandedTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472644DD24400C0300B9C053 /* ExpandedTouchView.swift */; };
 		47375E3C2420E94E00FFCC49 /* ChartPresentationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E392420E94C00FFCC49 /* ChartPresentationData.swift */; };
 		47375E3E2420E94E00FFCC49 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E3B2420E94E00FFCC49 /* ChartData.swift */; };
 		47375E4B2420E97100FFCC49 /* ChartXAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E3F2420E96C00FFCC49 /* ChartXAxisView.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		472644DD24400C0300B9C053 /* ExpandedTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedTouchView.swift; sourceTree = "<group>"; };
 		47375D962420D4DB00FFCC49 /* Chart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Chart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47375D9A2420D4DB00FFCC49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47375E392420E94C00FFCC49 /* ChartPresentationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartPresentationData.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				47375E492420E97100FFCC49 /* ChartPreviewView.swift */,
 				47375E3F2420E96C00FFCC49 /* ChartXAxisView.swift */,
 				47375E472420E96F00FFCC49 /* ChartYAxisView.swift */,
+				472644DD24400C0300B9C053 /* ExpandedTouchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				47375E542420E97100FFCC49 /* ChartPreviewView.swift in Sources */,
 				47375E3C2420E94E00FFCC49 /* ChartPresentationData.swift in Sources */,
 				47375E4D2420E97100FFCC49 /* ChartView.swift in Sources */,
+				472644DE24400C0400B9C053 /* ExpandedTouchView.swift in Sources */,
 				47375E4F2420E97100FFCC49 /* ChartPointInfoView.swift in Sources */,
 				47375E4E2420E97100FFCC49 /* ChartInfoView.swift in Sources */,
 			);

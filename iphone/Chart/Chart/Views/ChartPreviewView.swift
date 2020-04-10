@@ -28,7 +28,7 @@ class TintView: UIView {
   }
 }
 
-class ViewPortView: UIView {
+class ViewPortView: ExpandedTouchView {
   let maskLayer = CAShapeLayer()
   var tintView: TintView?
 
@@ -58,14 +58,9 @@ class ViewPortView: UIView {
     result.usesEvenOddFillRule = true
     return result
   }
-
-  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-    let rect = bounds.insetBy(dx: -30, dy: 0)
-    return rect.contains(point)
-  }
 }
 
-class ChartPreviewView: UIView {
+class ChartPreviewView: ExpandedTouchView {
   let previewContainerView = UIView()
   let viewPortView = ViewPortView()
   let leftBoundView = UIView()

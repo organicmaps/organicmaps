@@ -2902,19 +2902,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKi-gT-ZfM">
-                                <rect key="frame" x="16" y="0.0" width="343" height="176"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="176"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIS-0e-Ztd" customClass="ChartView" customModule="Chart">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="176"/>
+                                        <rect key="frame" x="16" y="0.0" width="343" height="176"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="jIS-0e-Ztd" firstAttribute="top" secondItem="jKi-gT-ZfM" secondAttribute="top" id="QeA-Yb-58l"/>
-                                    <constraint firstAttribute="trailing" secondItem="jIS-0e-Ztd" secondAttribute="trailing" id="XRb-7G-y3q"/>
+                                    <constraint firstAttribute="trailing" secondItem="jIS-0e-Ztd" secondAttribute="trailing" constant="16" id="XRb-7G-y3q"/>
                                     <constraint firstAttribute="bottom" secondItem="jIS-0e-Ztd" secondAttribute="bottom" id="g8g-f5-krt"/>
-                                    <constraint firstItem="jIS-0e-Ztd" firstAttribute="leading" secondItem="jKi-gT-ZfM" secondAttribute="leading" id="khr-Sp-8jS"/>
+                                    <constraint firstItem="jIS-0e-Ztd" firstAttribute="leading" secondItem="jKi-gT-ZfM" secondAttribute="leading" constant="16" id="khr-Sp-8jS"/>
                                     <constraint firstAttribute="height" constant="176" id="utH-YA-2pe"/>
                                 </constraints>
                             </view>
@@ -3059,7 +3059,7 @@
                             <constraint firstItem="g6D-fD-0Ug" firstAttribute="centerX" secondItem="GPk-XR-oL1" secondAttribute="centerX" id="YFV-Au-wTO"/>
                             <constraint firstItem="hoy-lg-Wl9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="GPk-XR-oL1" secondAttribute="trailing" constant="8" id="eP3-qC-a2f"/>
                             <constraint firstItem="FIo-No-CbK" firstAttribute="leading" secondItem="ezp-sJ-36x" secondAttribute="leading" constant="16" id="eg2-uX-NgT"/>
-                            <constraint firstItem="jKi-gT-ZfM" firstAttribute="leading" secondItem="ezp-sJ-36x" secondAttribute="leading" constant="16" id="kKJ-Jg-wRO"/>
+                            <constraint firstItem="jKi-gT-ZfM" firstAttribute="leading" secondItem="ezp-sJ-36x" secondAttribute="leading" id="kKJ-Jg-wRO"/>
                             <constraint firstItem="dQJ-fW-QVh" firstAttribute="baseline" secondItem="FIo-No-CbK" secondAttribute="baseline" id="kvI-gM-iyU"/>
                             <constraint firstItem="ezp-sJ-36x" firstAttribute="trailing" secondItem="Xc9-ED-V4K" secondAttribute="trailing" constant="16" id="mxE-Mk-VH2"/>
                             <constraint firstItem="bc9-z0-p88" firstAttribute="bottom" secondItem="FIo-No-CbK" secondAttribute="baseline" id="opM-hk-CFP"/>
@@ -3068,7 +3068,7 @@
                             <constraint firstItem="jKi-gT-ZfM" firstAttribute="top" secondItem="ezp-sJ-36x" secondAttribute="top" id="ySA-vA-GW9"/>
                             <constraint firstItem="GPk-XR-oL1" firstAttribute="centerY" secondItem="FIo-No-CbK" secondAttribute="centerY" id="yey-Sw-JqF"/>
                             <constraint firstItem="FIo-No-CbK" firstAttribute="top" secondItem="Xc9-ED-V4K" secondAttribute="bottom" constant="21" id="zDN-ZF-3Ex"/>
-                            <constraint firstItem="ezp-sJ-36x" firstAttribute="trailing" secondItem="jKi-gT-ZfM" secondAttribute="trailing" constant="16" id="zN2-OH-sDZ"/>
+                            <constraint firstItem="ezp-sJ-36x" firstAttribute="trailing" secondItem="jKi-gT-ZfM" secondAttribute="trailing" id="zN2-OH-sDZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ezp-sJ-36x"/>
                         <userDefinedRuntimeAttributes>

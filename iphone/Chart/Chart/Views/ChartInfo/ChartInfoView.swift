@@ -13,7 +13,7 @@ protocol ChartInfoViewDelegate: AnyObject {
   func chartInfoView(_ view: ChartInfoView, didMoveToPoint pointX: CGFloat)
 }
 
-class ChartInfoView: UIView {
+class ChartInfoView: ExpandedTouchView {
   weak var delegate: ChartInfoViewDelegate?
 
   private let pointInfoView = ChartPointInfoView()
@@ -102,10 +102,6 @@ class ChartInfoView: UIView {
 
   required init?(coder aDecoder: NSCoder) {
     fatalError()
-  }
-
-  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-    bounds.insetBy(dx: -22, dy: 0).contains(point)
   }
 
   func update(_ x: CGFloat? = nil) {

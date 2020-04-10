@@ -7,7 +7,7 @@ enum ChartAnimation: TimeInterval {
 }
 
 public class ChartView: UIView {
-  let chartsContainerView = UIView()
+  let chartsContainerView = ExpandedTouchView()
   let chartPreviewView = ChartPreviewView()
   let yAxisView = ChartYAxisView()
   let xAxisView = ChartXAxisView()
@@ -199,6 +199,11 @@ public class ChartView: UIView {
                              width: bounds.width,
                              height: bounds.maxY - previewFrame.height - xAxisFrame.height)
     chartsContainerView.frame = chartsFrame
+  }
+
+  override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    let rect = bounds.insetBy(dx: -30, dy: 0)
+    return rect.contains(point)
   }
 
   @objc func onPinch(_ sender: UIPinchGestureRecognizer) {
