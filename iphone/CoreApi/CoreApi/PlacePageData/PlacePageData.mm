@@ -135,7 +135,9 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
       auto const &bm = GetFramework().GetBookmarkManager();
       auto const &trackId = rawData().GetTrackId();
       auto const &elevationInfo = bm.MakeElevationInfo(trackId);
+      auto const &serverId = bm.GetCategoryServerId(rawData().GetBookmarkCategoryId());
       _elevationProfileData = [[ElevationProfileData alloc] initWithElevationInfo:elevationInfo
+                                                                         serverId:@(serverId.c_str())
                                                                       activePoint:bm.GetElevationActivePoint(trackId)
                                                                        myPosition:bm.GetElevationMyPosition(trackId)];
       _previewData = [[PlacePagePreviewData alloc] initWithElevationInfo:elevationInfo];

@@ -89,12 +89,12 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   }
 
   func onAppear() {
-    Statistics.logEvent(kStatElevationProfilePageOpen, withParameters: [kStatServerId: data.trackId,
+    Statistics.logEvent(kStatElevationProfilePageOpen, withParameters: [kStatServerId: data.serverId,
                                                                         kStatState: "preview"])
   }
 
   func onDissapear() {
-    Statistics.logEvent(kStatElevationProfilePageClose, withParameters: [kStatServerId: data.trackId])
+    Statistics.logEvent(kStatElevationProfilePageClose, withParameters: [kStatServerId: data.serverId])
   }
 
   func onDifficultyButtonPressed() {
