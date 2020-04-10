@@ -183,7 +183,7 @@ extension PlacePageInteractor: CatalogGalleryViewControllerDelegate {
 
 extension PlacePageInteractor: PlacePageBookmarkViewControllerDelegate {
   func bookmarkDidPressEdit() {
-    MWMPlacePageManagerHelper.editBookmark()
+    MWMPlacePageManagerHelper.editBookmark(placePageData)
   }
 }
 

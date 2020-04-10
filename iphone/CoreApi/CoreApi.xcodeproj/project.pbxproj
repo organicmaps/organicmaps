@@ -61,7 +61,7 @@
 		47942D98237D675400DEFAE3 /* CatalogPromoItem+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D96237D675400DEFAE3 /* CatalogPromoItem+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47942D9C237D927800DEFAE3 /* PlacePageBookmarkData.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D9A237D927800DEFAE3 /* PlacePageBookmarkData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942D9B237D927800DEFAE3 /* PlacePageBookmarkData.mm */; };
-		47942DA0237D954400DEFAE3 /* PlacePageBookmarkData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D9E237D954400DEFAE3 /* PlacePageBookmarkData+Core.h */; };
+		47942DA0237D954400DEFAE3 /* PlacePageBookmarkData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D9E237D954400DEFAE3 /* PlacePageBookmarkData+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47942DAB237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942DAA237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47942DAE2382ABE100DEFAE3 /* UgcSummaryRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942DAC2382ABE100DEFAE3 /* UgcSummaryRating.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47942DAF2382ABE100DEFAE3 /* UgcSummaryRating.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942DAD2382ABE100DEFAE3 /* UgcSummaryRating.mm */; };

@@ -27,7 +27,7 @@
 + (void)openCatalogMoreItems:(PlacePageData *)data;
 + (void)addBookmark:(PlacePageData *)data;
 + (void)removeBookmark:(PlacePageData *)data;
-+ (void)editBookmark;
++ (void)editBookmark:(PlacePageData *)data;
 + (void)openPartner:(PlacePageData *)data;
 + (void)book:(PlacePageData *)data;
 + (void)share:(PlacePageData *)data;

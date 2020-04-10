@@ -6,6 +6,10 @@
 #import "SelectSetVC.h"
 #import "SwiftBridge.h"
 
+#import <CoreApi/PlacePageData.h>
+#import <CoreApi/PlacePageBookmarkData+Core.h>
+#import <CoreApi/PlacePagePreviewData.h>
+
 #include <CoreApi/Framework.h>
 
 namespace
@@ -49,13 +53,12 @@ enum RowInMetaInfo
 {
   [super viewDidLoad];
   self.cachedNewBookmarkCatId = kml::kInvalidMarkGroupId;
-  auto const & info = GetFramework().GetCurrentPlacePageInfo();
-  self.cachedDescription = @(GetPreferredBookmarkStr(info.GetBookmarkData().m_description).c_str());
-  self.cachedTitle = info.GetTitle().empty() ? nil : @(info.GetTitle().c_str());
-  self.cachedCategory = @(info.GetBookmarkCategoryName().c_str());
-  self.cachedColor = info.GetBookmarkData().m_color.m_predefinedColor;
-  m_cachedBookmarkId = info.GetBookmarkId();
-  m_cachedBookmarkCatId = info.GetBookmarkCategoryId();
+  self.cachedDescription = self.placePageData.bookmarkData.bookmarkDescription;
+  self.cachedTitle = self.placePageData.previewData.title;
+  self.cachedCategory = self.placePageData.bookmarkData.bookmarkCategory;
+  self.cachedColor = [self.placePageData.bookmarkData kmlColor].m_predefinedColor;
+  m_cachedBookmarkId = self.placePageData.bookmarkData.bookmarkId;
+  m_cachedBookmarkCatId = self.placePageData.bookmarkData.bookmarkGroupId;
   [self configNavBar];
   [self registerCells];
 }
@@ -108,6 +111,7 @@ enum RowInMetaInfo
     bookmark->SetCustomName(self.cachedTitle.UTF8String);
   
   f.UpdatePlacePageInfoForCurrentSelection();
+  [self.placePageData updateBookmarkStatus];
   [self goBack];
 }
 

@@ -1,5 +1,11 @@
 #import "PlacePageBookmarkData+Core.h"
 
+@interface PlacePageBookmarkData() {
+  kml::ColorData _kmlColor;
+}
+
+@end
+
 @implementation PlacePageBookmarkData
 
 @end
@@ -16,8 +22,13 @@
     _bookmarkCategory = rawData.IsBookmark() ? @(rawData.GetBookmarkCategoryName().c_str()) : nil;
     _isHtmlDescription = strings::IsHTML(GetPreferredBookmarkStr(rawData.GetBookmarkData().m_description));
     _isEditable = GetFramework().GetBookmarkManager().IsEditableBookmark(_bookmarkId);
+    _kmlColor = rawData.GetBookmarkData().m_color;
   }
   return self;
+}
+
+- (kml::ColorData)kmlColor {
+  return _kmlColor;
 }
 
 @end

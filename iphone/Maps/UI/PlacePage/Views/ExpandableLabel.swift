@@ -52,6 +52,12 @@ final class ExpandableLabel: UIView {
     }
   }
 
+  override func setContentHuggingPriority(_ priority: UILayoutPriority, for axis: NSLayoutConstraint.Axis) {
+    super.setContentHuggingPriority(priority, for: axis)
+    textLabel.setContentHuggingPriority(priority, for: axis)
+    expandLabel.setContentHuggingPriority(priority, for: axis)
+  }
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     commonInit()
@@ -71,6 +77,8 @@ final class ExpandableLabel: UIView {
     textLabel.textColor = textColor
     textLabel.text = text
     textLabel.attributedText = attributedText
+    textLabel.setContentHuggingPriority(contentHuggingPriority(for: .vertical), for: .vertical)
+    expandLabel.setContentHuggingPriority(contentHuggingPriority(for: .vertical), for: .vertical)
     expandLabel.font = font
     expandLabel.textColor = expandColor
     expandLabel.text = expandText

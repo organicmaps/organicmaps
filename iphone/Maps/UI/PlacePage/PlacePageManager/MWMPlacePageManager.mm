@@ -1,6 +1,7 @@
 #import "MWMPlacePageManager.h"
 #import "CLLocation+Mercator.h"
 #import "MWMActivityViewController.h"
+#import "MWMEditBookmarkController.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
 #import "MWMRoutePoint+CPP.h"
@@ -288,8 +289,11 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   }
 }
 
-- (void)editBookmark {
-  [self.ownerViewController openBookmarkEditor];
+- (void)editBookmark:(PlacePageData *)data {
+  MWMEditBookmarkController *editBookmarkController = [[UIStoryboard instance:MWMStoryboardMain]
+                                                       instantiateViewControllerWithIdentifier:@"MWMEditBookmarkController"];
+  editBookmarkController.placePageData = data;
+  [[MapViewController sharedController].navigationController pushViewController:editBookmarkController animated:YES];
 }
 
 - (void)showPlaceDescription:(NSString *)htmlString

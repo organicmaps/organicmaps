@@ -461,7 +461,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4pU-ex-66e">
-                                <rect key="frame" x="16" y="0.0" width="343" height="147"/>
+                                <rect key="frame" x="16" y="16" width="343" height="131"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="E6c-1w-LKj"/>
@@ -499,7 +499,7 @@
                             <constraint firstItem="soI-1J-JL6" firstAttribute="leading" secondItem="99j-36-7TK" secondAttribute="leading" constant="16" id="Vac-L0-pTZ"/>
                             <constraint firstAttribute="bottom" secondItem="soI-1J-JL6" secondAttribute="bottom" id="XvI-Sc-kIL"/>
                             <constraint firstAttribute="trailing" secondItem="4pU-ex-66e" secondAttribute="trailing" constant="16" id="bVa-3L-AtD"/>
-                            <constraint firstItem="4pU-ex-66e" firstAttribute="top" secondItem="99j-36-7TK" secondAttribute="top" id="f7d-q9-70I"/>
+                            <constraint firstItem="4pU-ex-66e" firstAttribute="top" secondItem="99j-36-7TK" secondAttribute="top" constant="16" id="f7d-q9-70I"/>
                             <constraint firstItem="soI-1J-JL6" firstAttribute="top" secondItem="4pU-ex-66e" secondAttribute="bottom" id="i4f-1B-jfo"/>
                             <constraint firstAttribute="trailing" secondItem="soI-1J-JL6" secondAttribute="trailing" constant="16" id="tu6-L8-fUt"/>
                         </constraints>
@@ -2804,17 +2804,17 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iB6-kj-Bi1">
-                                <rect key="frame" x="16" y="1" width="343" height="199"/>
+                                <rect key="frame" x="16" y="17" width="343" height="183"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="155"/>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="139"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wB7-XJ-Nck">
-                                        <rect key="frame" x="0.0" y="155" width="343" height="44"/>
+                                        <rect key="frame" x="0.0" y="139" width="343" height="44"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XR5-Np-W07">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
@@ -2866,7 +2866,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Ygp-O9-RnI" secondAttribute="trailing" id="6G3-el-OLU"/>
-                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="top" secondItem="G5y-H6-EfE" secondAttribute="bottom" id="Afw-Mq-NV9"/>
+                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="top" secondItem="G5y-H6-EfE" secondAttribute="bottom" constant="16" id="Afw-Mq-NV9"/>
                             <constraint firstAttribute="bottom" secondItem="Ygp-O9-RnI" secondAttribute="bottom" id="FWu-Cg-vld"/>
                             <constraint firstItem="Ygp-O9-RnI" firstAttribute="leading" secondItem="bRD-Uv-Uak" secondAttribute="leading" id="OVz-qv-hfp"/>
                             <constraint firstAttribute="bottom" secondItem="iB6-kj-Bi1" secondAttribute="bottom" id="QQY-yn-M6D"/>
@@ -2887,6 +2887,7 @@
                         <outlet property="expandableLabel" destination="5nz-eA-gNS" id="iui-Iu-EiB"/>
                         <outlet property="spinner" destination="OUV-mg-G9u" id="7Og-Ix-dr7"/>
                         <outlet property="stackView" destination="iB6-kj-Bi1" id="CSH-xH-X4b"/>
+                        <outlet property="topConstraint" destination="Afw-Mq-NV9" id="Oth-ao-05T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcE-Xu-odc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

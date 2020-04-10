@@ -6,6 +6,7 @@ class PlacePageBookmarkViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
   @IBOutlet var spinner: UIImageView!
   @IBOutlet var editButton: UIButton!
+  @IBOutlet var topConstraint: NSLayoutConstraint!
   @IBOutlet var expandableLabel: ExpandableLabel! {
     didSet {
       expandableLabel.font = UIFont.regular14()
@@ -34,9 +35,13 @@ class PlacePageBookmarkViewController: UIViewController {
     if let description = bookmarkData.bookmarkDescription {
       if bookmarkData.isHtmlDescription {
         setHtmlDescription(description)
+        topConstraint.constant = 16
       } else {
         expandableLabel.text = description
+        topConstraint.constant = description.count > 0 ? 16 : 0
       }
+    } else {
+      topConstraint.constant = 0
     }
   }
 
