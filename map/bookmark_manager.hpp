@@ -488,7 +488,7 @@ public:
   void SetTrackSelectionInfo(TrackSelectionInfo const & trackSelectionInfo, bool notifyListeners);
   void SetDefaultTrackSelection(kml::TrackId trackId, bool showInfoSign);
   void OnTrackSelected(kml::TrackId trackId);
-  void OnTrackDeselected(kml::TrackId trackId);
+  void OnTrackDeselected();
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
@@ -762,6 +762,7 @@ private:
 
   kml::MarkId GetTrackSelectionMarkId(kml::TrackId trackId) const;
   int GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const;
+  void SetTrackSelectionMark(kml::TrackId trackId, m2::PointD const & pt, double distance);
   void DeleteTrackSelectionMark(kml::TrackId trackId);
   void SetTrackInfoMark(kml::TrackId trackId, m2::PointD const & pt);
   void ResetTrackInfoMark(kml::TrackId trackId);
@@ -815,6 +816,7 @@ private:
   MyPositionMarkPoint * m_myPositionMark = nullptr;
 
   kml::MarkId m_trackInfoMarkId = kml::kInvalidMarkId;
+  kml::TrackId m_selectedTrackId = kml::kInvalidTrackId;
   m2::PointF m_maxBookmarkSymbolSize;
 
   bool m_asyncLoadingInProgress = false;

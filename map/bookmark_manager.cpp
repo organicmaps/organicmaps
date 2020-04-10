@@ -1217,8 +1217,37 @@ int BookmarkManager::GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const
   return zoom;
 }
 
+void BookmarkManager::SetTrackSelectionMark(kml::TrackId trackId, m2::PointD const & pt,
+                                            double distance)
+{
+  auto const markId = GetTrackSelectionMarkId(trackId);
+
+  auto es = GetEditSession();
+  TrackSelectionMark * trackSelectionMark = nullptr;
+  if (markId == kml::kInvalidMarkId)
+  {
+    trackSelectionMark = es.CreateUserMark<TrackSelectionMark>(pt);
+    trackSelectionMark->SetTrackId(trackId);
+
+    if (m_drapeEngine)
+      trackSelectionMark->SetMinVisibleZoom(GetTrackSelectionMarkMinZoom(trackId));
+  }
+  else
+  {
+    trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+    trackSelectionMark->SetPosition(pt);
+  }
+  trackSelectionMark->SetDistance(distance);
+
+  auto const isVisible = IsVisible(GetTrack(trackId)->GetGroupId());
+  trackSelectionMark->SetIsVisible(isVisible);
+}
+
 void BookmarkManager::DeleteTrackSelectionMark(kml::TrackId trackId)
 {
+  if (trackId == m_selectedTrackId)
+    m_selectedTrackId = kml::kInvalidTrackId;
+
   auto es = GetEditSession();
   auto const markId = GetTrackSelectionMarkId(trackId);
   if (markId != kml::kInvalidMarkId)
@@ -1255,24 +1284,11 @@ void BookmarkManager::SetTrackSelectionInfo(TrackSelectionInfo const & trackSele
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK_NOT_EQUAL(trackSelectionInfo.m_trackId, kml::kInvalidTrackId, ());
 
-  auto const trackId = trackSelectionInfo.m_trackId;
-  auto const markId = GetTrackSelectionMarkId(trackId);
-
   auto es = GetEditSession();
-  TrackSelectionMark * trackSelectionMark = nullptr;
-  if (markId == kml::kInvalidMarkId)
-  {
-    trackSelectionMark = es.CreateUserMark<TrackSelectionMark>(trackSelectionInfo.m_trackPoint);
-    trackSelectionMark->SetTrackId(trackId);
+  auto const markId = GetTrackSelectionMarkId(trackSelectionInfo.m_trackId);
+  CHECK_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
 
-    if (m_drapeEngine)
-      trackSelectionMark->SetMinVisibleZoom(GetTrackSelectionMarkMinZoom(trackId));
-  }
-  else
-  {
-    trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
-  }
-
+  auto trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
   trackSelectionMark->SetPosition(trackSelectionInfo.m_trackPoint);
   trackSelectionMark->SetDistance(trackSelectionInfo.m_distanceInMeters);
 
@@ -1295,9 +1311,7 @@ void BookmarkManager::SetDefaultTrackSelection(kml::TrackId trackId, bool showIn
   auto es = GetEditSession();
   if (showInfoSign)
     SetTrackInfoMark(trackId, pt);
-
-  SetTrackSelectionInfo(TrackSelectionInfo(trackId, pt, distance), false /* notifyListeners */);
-  OnTrackDeselected(trackId);
+  SetTrackSelectionMark(trackId, pt, distance);
 }
 
 void BookmarkManager::OnTrackSelected(kml::TrackId trackId)
@@ -1312,20 +1326,25 @@ void BookmarkManager::OnTrackSelected(kml::TrackId trackId)
 
   auto * trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
   trackSelectionMark->SetIsVisible(false);
+
+  m_selectedTrackId = trackId;
 }
 
-void BookmarkManager::OnTrackDeselected(kml::TrackId trackId)
+void BookmarkManager::OnTrackDeselected()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  CHECK_NOT_EQUAL(trackId, kml::kInvalidTrackId, ());
+  if (m_selectedTrackId == kml::kInvalidTrackId)
+    return;
 
-  auto const markId = GetTrackSelectionMarkId(trackId);
+  auto const markId = GetTrackSelectionMarkId(m_selectedTrackId);
   CHECK_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
 
   auto es = GetEditSession();
   auto * trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
-  auto const isVisible = IsVisible(GetTrack(trackId)->GetGroupId());
+  auto const isVisible = IsVisible(GetTrack(m_selectedTrackId)->GetGroupId());
   trackSelectionMark->SetIsVisible(isVisible);
+
+  m_selectedTrackId = kml::kInvalidTrackId;
 }
 
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,

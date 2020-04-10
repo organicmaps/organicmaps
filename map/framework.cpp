@@ -2402,6 +2402,8 @@ void Framework::ActivateMapSelection(std::optional<place_page::Info> const & inf
 
   if (info->GetSelectedObject() == df::SelectionShape::OBJECT_TRACK)
     GetBookmarkManager().OnTrackSelected(info->GetTrackId());
+  else
+    GetBookmarkManager().OnTrackDeselected();
 
   CHECK_NOT_EQUAL(info->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   if (m_drapeEngine != nullptr)
@@ -2431,9 +2433,7 @@ void Framework::DeactivateMapSelection(bool notifyUI)
 
   if (somethingWasAlreadySelected)
   {
-    if (m_currentPlacePageInfo->GetSelectedObject() == df::SelectionShape::OBJECT_TRACK)
-      GetBookmarkManager().OnTrackDeselected(m_currentPlacePageInfo->GetTrackId());
-
+    GetBookmarkManager().OnTrackDeselected();
     if (m_drapeEngine != nullptr)
       m_drapeEngine->DeselectObject();
   }
