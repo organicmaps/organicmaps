@@ -4,7 +4,7 @@ namespace search
 {
 struct SearchIndexHeader
 {
-  public:
+public:
   enum class Version : uint8_t
   {
     V0 = 0,

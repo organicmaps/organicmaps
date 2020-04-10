@@ -362,15 +362,11 @@ Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cance
 
   version::MwmTraits mwmTraits(value.GetMwmVersion());
   auto const format = mwmTraits.GetSearchIndexFormat();
-  // We do not support mwms older than November 2015.
-  CHECK(format == version::MwmTraits::SearchIndexFormat::CompressedBitVector ||
-            format == version::MwmTraits::SearchIndexFormat::CompressedBitVectorWithHeader,
-        (format));
   if (format == version::MwmTraits::SearchIndexFormat::CompressedBitVector)
   {
     m_reader = context.m_value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
   }
-  else
+  else if (format == version::MwmTraits::SearchIndexFormat::CompressedBitVectorWithHeader)
   {
     FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
 
@@ -379,6 +375,10 @@ Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cance
     CHECK(header.m_version == SearchIndexHeader::Version::V2, (base::Underlying(header.m_version)));
 
     m_reader = reader.SubReader(header.m_indexOffset, header.m_indexSize);
+  }
+  else
+  {
+    CHECK(false, ("Unsupported search index format", format));
   }
   m_root = ReadTrie<Uint64IndexValue>(m_reader);
 }
