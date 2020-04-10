@@ -115,6 +115,10 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   self.placePageVC = [PlacePageBuilder build];
   [self addChildViewController:self.placePageVC];
   self.placePageContainer.hidden = NO;
+  if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
+      self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+    self.controlsManager.menuState = MWMBottomMenuStateHidden;
+  }
   [self.placePageContainer addSubview:self.placePageVC.view];
   self.placePageVC.view.translatesAutoresizingMaskIntoConstraints = NO;
   [NSLayoutConstraint activateConstraints:@[
@@ -137,6 +141,7 @@ NSString * const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   self.placePageVC = nil;
   self.placePageContainer.hidden = YES;
   self.controlsManager.trafficButtonHidden = NO;
+  self.controlsManager.menuState = MWMBottomMenuStateInactive;
 }
 
 - (void)onMapObjectDeselected:(bool)switchFullScreenMode
