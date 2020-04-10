@@ -2,6 +2,7 @@ project(generator_tests)
 
 set(
   SRC
+  affiliation_tests.cpp
   altitude_test.cpp
   booking_tests.cpp
   brands_loader_test.cpp

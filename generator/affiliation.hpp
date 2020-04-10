@@ -20,6 +20,7 @@ public:
   // The method will return the names of the buckets to which the fb belongs.
   virtual std::vector<std::string> GetAffiliations(FeatureBuilder const & fb) const = 0;
   virtual std::vector<std::string> GetAffiliations(m2::PointD const & point) const = 0;
+
   virtual bool HasCountryByName(std::string const & name) const = 0;
 
 };
@@ -51,12 +52,10 @@ public:
 
   // AffiliationInterface overrides:
   std::vector<std::string> GetAffiliations(FeatureBuilder const & fb) const override;
+  std::vector<std::string> GetAffiliations(m2::PointD const & point) const override;
 
 private:
-  static Box MakeBox(m2::RectD const & rect);
   std::shared_ptr<Tree> BuildIndex(std::vector<m2::RectD> const & net);
-  std::optional<std::string> IsOneCountryForBbox(FeatureBuilder const & fb) const;
-  std::vector<std::string> GetHonestAffiliations(FeatureBuilder const & fb) const;
 
   std::shared_ptr<Tree> m_index;
 };
@@ -68,8 +67,9 @@ public:
 
   // AffiliationInterface overrides:
   std::vector<std::string> GetAffiliations(FeatureBuilder const &) const override;
-  bool HasCountryByName(std::string const & name) const override;
   std::vector<std::string> GetAffiliations(m2::PointD const & point) const override;
+
+  bool HasCountryByName(std::string const & name) const override;
 
 private:
   std::string m_filename;
