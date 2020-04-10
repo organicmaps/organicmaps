@@ -19,7 +19,7 @@ std::initializer_list<storage::CountryId> const kSupportedCountries = {
   "Croatia",
   "Cuba",
   "Cyprus",
-  "Czech",
+  "Czech Republic",
   "Denmark",
   "Dominican Republic",
   "Estonia",
