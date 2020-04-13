@@ -20,7 +20,7 @@
 
 namespace routing
 {
-// Do not touch the order, it uses in platforms.
+// Do not change the order, it is used by platforms.
 enum class SpeedCameraManagerMode
 {
   Auto,

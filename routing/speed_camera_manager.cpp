@@ -262,6 +262,9 @@ bool SpeedCameraManager::SetNotificationFlags(double passedDistanceMeters, doubl
     return false;
 
   auto const distToCameraMeters = camera.m_distFromBeginMeters - passedDistanceMeters;
+  // We should reset signal type flags before setting one of them.
+  m_makeBeepSignal = false;
+  m_makeVoiceSignal = false;
 
   Interval interval = SpeedCameraManager::GetIntervalByDistToCam(distToCameraMeters, speedMpS);
   switch (interval)
@@ -362,7 +365,13 @@ void SpeedCameraManager::SendNotificationStat(double passedDistanceMeters, doubl
 
   auto const distToCameraMeters = camera.m_distFromBeginMeters - passedDistanceMeters;
 
-  CHECK(m_makeBeepSignal != m_makeVoiceSignal, ("In each moment of time only one flag should be up."));
+  CHECK(
+      m_makeBeepSignal != m_makeVoiceSignal,
+      ("In each moment of time only one flag should be up.", m_makeVoiceSignal, distToCameraMeters,
+       measurement_utils::MpsToKmph(speedMpS), m_beepSignalCounter, m_voiceSignalCounter,
+       m_hasEnteredTheZone, m_speedLimitExceeded, m_firstNotCheckedSpeedCameraIndex,
+       mercator::ToLatLon(camera.m_position)));
+
   alohalytics::TStringMap params = {{"type", m_makeBeepSignal ? "beep" : "voice"},
                                     {"distance", strings::to_string(distToCameraMeters)},
                                     {"speed", strings::to_string(measurement_utils::MpsToKmph(speedMpS))}};
