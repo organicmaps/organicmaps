@@ -62,6 +62,7 @@ PreRanker::PreRanker(DataSource const & dataSource, Ranker & ranker)
 void PreRanker::Init(Params const & params)
 {
   m_numSentResults = 0;
+  m_haveFullyMatchedResult = false;
   m_results.clear();
   m_relaxedResults.clear();
   m_params = params;
