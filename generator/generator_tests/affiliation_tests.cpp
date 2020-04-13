@@ -25,14 +25,16 @@ public:
   static const std::string kOne;
   static const std::string kTwo;
 
-  static constexpr m2::PointD kPointOne1{3.0, 3.0};
-  static constexpr m2::PointD kPointOne2{4.0, 4.0};
-  static constexpr m2::PointD kPointTwo1{10.0, 3.0};
-  static constexpr m2::PointD kPointTwo2{11.0, 4.0};
-  static constexpr m2::PointD kPointOneTwo1{7.0, 4.0};
-  static constexpr m2::PointD kPointOneTwo2{9.0, 5.0};
-  static constexpr m2::PointD kPointOneBb{1.0, 9.0};
-  static constexpr m2::PointD kPointTwoBb{14.0, 9.0};
+  static constexpr m2::PointD kPointInsideOne1{3.0, 3.0};
+  static constexpr m2::PointD kPointInsideOne2{4.0, 4.0};
+  static constexpr m2::PointD kPointInsideTwo1{10.0, 3.0};
+  static constexpr m2::PointD kPointInsideTwo2{11.0, 4.0};
+  static constexpr m2::PointD kPointInsideOneAndTwo1{7.0, 4.0};
+  static constexpr m2::PointD kPointInsideOneAndTwo2{9.0, 5.0};
+  static constexpr m2::PointD kPointOnBorderOne{1.0, 6.0};
+  static constexpr m2::PointD kPointOnBorderTwo{14.0, 6.0};
+  static constexpr m2::PointD kPointInsideOneBoundingBox{1.0, 9.0};
+  static constexpr m2::PointD kPointInsideTwoBoundingBox{14.0, 9.0};
 
   AffiliationTests()
   {
@@ -102,31 +104,41 @@ bool Test(std::vector<std::string> && res, std::set<std::string> const & answ)
 
 void TestCountriesAffiliationInsideBorders(feature::AffiliationInterface const & affiliation)
 {
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOne1), {AffiliationTests::kOne}),
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOne1),
+            {AffiliationTests::kOne}),
        ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOne2), {AffiliationTests::kOne}),
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOne2),
+            {AffiliationTests::kOne}),
        ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointTwo1), {AffiliationTests::kTwo}),
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOnBorderOne),
+            {AffiliationTests::kOne}),
        ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointTwo2), {AffiliationTests::kTwo}),
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideTwo1),
+            {AffiliationTests::kTwo}),
        ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOneTwo1),
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideTwo2),
+            {AffiliationTests::kTwo}),
+       ());
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOneAndTwo1),
             {AffiliationTests::kOne, AffiliationTests::kTwo}),
        ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOneTwo2),
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOneAndTwo2),
             {AffiliationTests::kOne, AffiliationTests::kTwo}),
+       ());
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOnBorderTwo),
+            {AffiliationTests::kTwo}),
        ());
 
   TEST(Test(affiliation.GetAffiliations(AffiliationTests::MakeLineFb(
-                {AffiliationTests::kPointOne1, AffiliationTests::kPointOne2})),
+                {AffiliationTests::kPointInsideOne1, AffiliationTests::kPointInsideOne2})),
             {AffiliationTests::kOne}),
        ());
   TEST(Test(affiliation.GetAffiliations(AffiliationTests::MakeLineFb(
-                {AffiliationTests::kPointTwo1, AffiliationTests::kPointTwo2})),
+                {AffiliationTests::kPointInsideTwo1, AffiliationTests::kPointInsideTwo2})),
             {AffiliationTests::kTwo}),
        ());
   TEST(Test(affiliation.GetAffiliations(AffiliationTests::MakeLineFb(
-                {AffiliationTests::kPointOne1, AffiliationTests::kPointTwo1})),
+                {AffiliationTests::kPointInsideOne1, AffiliationTests::kPointInsideTwo1})),
             {AffiliationTests::kOne, AffiliationTests::kTwo}),
        ());
 }
@@ -139,17 +151,19 @@ void TestCountriesFilesAffiliation(std::string const & borderPath)
 
     TestCountriesAffiliationInsideBorders(affiliation);
 
-    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOneBb), {}), ());
-    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointTwoBb), {}), ());
+    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOneBoundingBox), {}), ());
+    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideTwoBoundingBox), {}), ());
   }
   {
     T affiliation(borderPath, true /* haveBordersForWholeWorld */);
 
     TestCountriesAffiliationInsideBorders(affiliation);
 
-    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOneBb), {AffiliationTests::kOne}),
+    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOneBoundingBox),
+              {AffiliationTests::kOne}),
          ());
-    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointTwoBb), {AffiliationTests::kTwo}),
+    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideTwoBoundingBox),
+              {AffiliationTests::kTwo}),
          ());
   }
 }
@@ -159,12 +173,12 @@ UNIT_CLASS_TEST(AffiliationTests, SingleAffiliationTests)
   std::string const kName = "Name";
   feature::SingleAffiliation affiliation(kName);
 
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOne1), {kName}), ());
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOne1), {kName}), ());
 
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOneTwo1), {kName}), ());
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOneAndTwo1), {kName}), ());
 
   TEST(Test(affiliation.GetAffiliations(AffiliationTests::MakeLineFb(
-                {AffiliationTests::kPointOne1, AffiliationTests::kPointTwo1})),
+                {AffiliationTests::kPointInsideOne1, AffiliationTests::kPointInsideTwo1})),
             {kName}),
        ());
 

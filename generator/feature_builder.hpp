@@ -70,7 +70,7 @@ public:
   size_t GetTypesCount() const { return m_params.m_types.size(); }
 
   template <class ToDo>
-  void ForEachGeometryPointEx(ToDo && toDo) const
+  void ForEachPoint(ToDo && toDo) const
   {
     if (IsPoint())
     {
@@ -78,48 +78,34 @@ public:
     }
     else
     {
-      for (PointSeq const & points : m_polygons)
+      for (auto const & points : m_polygons)
       {
         for (auto const & pt : points)
-        {
-          if (!toDo(pt))
-            return;
-        }
-        toDo.EndRegion();
+          toDo(pt);
       }
     }
   }
 
   template <class ToDo>
-  void ForEachGeometryPoint(ToDo && toDo) const
-  {
-    ToDoWrapper<ToDo> wrapper(std::forward<ToDo>(toDo));
-    ForEachGeometryPointEx(std::move(wrapper));
-  }
-
-  template <class ToDo>
-  bool ForAnyGeometryPointEx(ToDo && toDo) const
+  bool ForAnyPoint(ToDo && toDo) const
   {
     if (IsPoint())
       return toDo(m_center);
 
-    for (PointSeq const & points : m_polygons)
+    for (auto const & points : m_polygons)
     {
-      for (auto const & pt : points)
-      {
-        if (toDo(pt))
-          return true;
-      }
-      toDo.EndRegion();
+      if (base::AnyOf(points, std::forward<ToDo>(toDo)))
+        return true;
     }
+
     return false;
   }
 
   template <class ToDo>
-  bool ForAnyGeometryPoint(ToDo && toDo) const
+  void ForEachPolygon(ToDo && toDo) const
   {
-    ToDoWrapper<ToDo> wrapper(std::forward<ToDo>(toDo));
-    return ForAnyGeometryPointEx(std::move(wrapper));
+    for (auto const & points : m_polygons)
+      toDo(points);
   }
 
   // To work with geometry type.
@@ -210,18 +196,6 @@ public:
   bool IsCoastCell() const { return (m_coastCell != -1); }
 
 protected:
-  template <class ToDo>
-  class ToDoWrapper
-  {
-  public:
-    ToDoWrapper(ToDo && toDo) : m_toDo(std::forward<ToDo>(toDo)) {}
-    bool operator()(m2::PointD const & p) { return m_toDo(p); }
-    void EndRegion() {}
-
-  private:
-    ToDo && m_toDo;
-  };
-
   // Can be one of the following:
   // - point in point-feature
   // - origin point of text [future] in line-feature

@@ -26,7 +26,7 @@ void CalculateMidPoints::operator()(FeatureBuilder const & ft, uint64_t pos)
   m_midLoc = m2::PointD::Zero();;
   m_locCount = 0;
 
-  ft.ForEachGeometryPoint(*this);
+  ft.ForEachPoint(*this);
   ASSERT_NOT_EQUAL(m_locCount, 0, ());
   m_midLoc = m_midLoc / m_locCount;
 

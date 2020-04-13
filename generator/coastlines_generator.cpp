@@ -28,63 +28,34 @@ CoastlineFeaturesGenerator::CoastlineFeaturesGenerator()
 
 namespace
 {
-  m2::RectD GetLimitRect(RegionT const & rgn)
-  {
-    RectT r = rgn.GetRect();
-    return m2::RectD(r.minX(), r.minY(), r.maxX(), r.maxY());
-  }
+m2::RectD GetLimitRect(RegionT const & rgn)
+{
+  RectT r = rgn.GetRect();
+  return m2::RectD(r.minX(), r.minY(), r.maxX(), r.maxY());
+}
 
-  inline PointT D2I(m2::PointD const & p)
-  {
-    m2::PointU const pu = PointDToPointU(p, kPointCoordBits);
-    return PointT(static_cast<int32_t>(pu.x), static_cast<int32_t>(pu.y));
-  }
-
-  template <class Tree> class DoCreateRegion
-  {
-    Tree & m_tree;
-
-    RegionT m_rgn;
-    m2::PointD m_pt;
-    bool m_exist;
-
-  public:
-    template <typename T>
-    DoCreateRegion(T && tree) : m_tree(std::forward<T>(tree)), m_exist(false) {}
-
-    bool operator()(m2::PointD const & p)
-    {
-      // This logic is to skip last polygon point (that is equal to first).
-
-      if (m_exist)
-      {
-        // add previous point to region
-        m_rgn.AddPoint(D2I(m_pt));
-      }
-      else
-        m_exist = true;
-
-      // save current point
-      m_pt = p;
-      return true;
-    }
-
-    void EndRegion()
-    {
-      m_tree.Add(m_rgn, GetLimitRect(m_rgn));
-
-      m_rgn = RegionT();
-      m_exist = false;
-    }
-  };
+inline PointT D2I(m2::PointD const & p)
+{
+  m2::PointU const pu = PointDToPointU(p, kPointCoordBits);
+  return PointT(static_cast<int32_t>(pu.x), static_cast<int32_t>(pu.y));
+}
 }  // namespace
 
 void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder const & fb)
 {
-  ASSERT ( fb.IsGeometryClosed(), () );
+  ASSERT(fb.IsGeometryClosed(), ());
 
-  DoCreateRegion<TTree> createRgn(m_tree);
-  fb.ForEachGeometryPointEx(createRgn);
+  fb.ForEachPolygon([&](auto const & polygon) {
+    if (polygon.empty())
+      return;
+
+    RegionT rgn;
+    for (auto it = std::next(std::cbegin(polygon)); it != std::cend(polygon); ++it)
+      rgn.AddPoint(D2I(*it));
+
+    auto const limitRect = GetLimitRect(rgn);
+    m_tree.Add(std::move(rgn), limitRect);
+  });
 }
 
 void CoastlineFeaturesGenerator::Process(FeatureBuilder const & fb)

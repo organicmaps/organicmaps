@@ -20,50 +20,53 @@ namespace
 {
 using namespace feature;
 
-template<typename T>
+template <typename T>
 struct RemoveCvref
 {
   typedef std::remove_cv_t<std::remove_reference_t<T>> type;
 };
 
-template<typename T>
+template <typename T>
 using RemoveCvrefT = typename RemoveCvref<T>::type;
 
-template<typename T>
+template <typename T>
 m2::RectD GetLimitRect(T && t)
 {
   using Type = RemoveCvrefT<T>;
   if constexpr(std::is_same_v<Type, FeatureBuilder>)
     return t.GetLimitRect();
-  else if constexpr(std::is_same_v<Type, m2::PointD>)
+  if constexpr(std::is_same_v<Type, m2::PointD>)
     return m2::RectD(t, t);
-  else
-    UNREACHABLE();
+
+  UNREACHABLE();
 }
 
-template<typename T, typename F>
-bool ForAnyGeometryPoint(T && t, F && f)
+template <typename T, typename F>
+bool ForAnyPoint(T && t, F && f)
 {
   using Type = RemoveCvrefT<T>;
   if constexpr(std::is_same_v<Type, FeatureBuilder>)
-    return t.ForAnyGeometryPoint(f);
+    return t.ForAnyPoint(std::forward<F>(f));
+  if constexpr(std::is_same_v<Type, m2::PointD>)
+    return f(std::forward<T>(t));
+
+  UNREACHABLE();
+}
+
+template <typename T, typename F>
+void ForEachPoint(T && t, F && f)
+{
+  using Type = RemoveCvrefT<T>;
+  if constexpr(std::is_same_v<Type, FeatureBuilder>)
+    t.ForEachPoint(std::forward<F>(f));
   else if constexpr(std::is_same_v<Type, m2::PointD>)
-    return f(t);
+    f(std::forward<T>(t));
   else
     UNREACHABLE();
 }
 
-template<typename T, typename F>
-void ForEachGeometryPoint(T && t, F && f)
-{
-  ForAnyGeometryPoint(std::forward<T>(t), [&](auto const & p) {
-    f(p);
-    return false;
-  });
-}
-
 // An implementation for CountriesFilesAffiliation class.
-template<typename T>
+template <typename T>
 std::vector<std::string> GetAffiliations(T && t,
                                          borders::CountryPolygonsCollection const & countryPolygonsTree,
                                          bool haveBordersForWholeWorld)
@@ -85,7 +88,7 @@ std::vector<std::string> GetAffiliations(T && t,
 
   for (borders::CountryPolygons const & countryPolygons : countriesContainer)
   {
-    auto const need = ForAnyGeometryPoint(t, [&](auto const & point) {
+    auto const need = ForAnyPoint(t, [&](auto const & point) {
       return countryPolygons.Contains(point);
     });
 
@@ -125,12 +128,12 @@ std::optional<std::string> IsOneCountryForLimitRect(m2::RectD const & limitRect,
   return country ? country->GetName() : std::optional<std::string>{};
 }
 
-template<typename T>
+template <typename T>
 std::vector<std::string> GetHonestAffiliations(T && t, IndexSharedPtr const & index)
 {
   std::vector<std::string> affiliations;
   std::unordered_set<borders::CountryPolygons const *> countires;
-  ForEachGeometryPoint(t, [&](auto const & point) {
+  ForEachPoint(t, [&](auto const & point) {
     std::vector<CountriesFilesIndexAffiliation::Value> values;
     boost::geometry::index::query(*index, boost::geometry::index::covers(point),
                                   std::back_inserter(values));
@@ -156,7 +159,7 @@ std::vector<std::string> GetHonestAffiliations(T && t, IndexSharedPtr const & in
   return affiliations;
 }
 
-template<typename T>
+template <typename T>
 std::vector<std::string> GetAffiliations(T && t, IndexSharedPtr const & index)
 {
   auto const oneCountry = IsOneCountryForLimitRect(GetLimitRect(t), index);
@@ -195,21 +198,21 @@ CountriesFilesIndexAffiliation::CountriesFilesIndexAffiliation(std::string const
   static std::mutex cacheMutex;
   static std::unordered_map<std::string, std::shared_ptr<Tree>> cache;
   auto const key = borderPath + std::to_string(haveBordersForWholeWorld);
+
+  std::lock_guard<std::mutex> lock(cacheMutex);
+
+  auto const it = cache.find(key);
+  if (it != std::cend(cache))
   {
-    std::lock_guard<std::mutex> lock(cacheMutex);
-    auto const it = cache.find(key);
-    if (it != std::cend(cache))
-    {
-      m_index = it->second;
-      return;
-    }
+    m_index = it->second;
+    return;
   }
+
   auto const net = generator::cells_merger::MakeNet(0.2 /* step */,
                                                     mercator::Bounds::kMinX, mercator::Bounds::kMinY,
                                                     mercator::Bounds::kMaxX, mercator::Bounds::kMaxY);
   auto const index = BuildIndex(net);
   m_index = index;
-  std::lock_guard<std::mutex> lock(cacheMutex);
   cache.emplace(key, index);
 }
 
