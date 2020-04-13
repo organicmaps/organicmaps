@@ -41,6 +41,7 @@ import com.mapswithme.util.BatteryState;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.PowerManagment;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.my.tracker.MyTracker;
@@ -1800,18 +1801,24 @@ public enum Statistics
   public static ParameterBuilder makeParametersFromTypeAndUrl(@NonNull String type, @NonNull String url)
   {
     Statistics.ParameterBuilder result = params();
-    Uri uri = Uri.parse(url);
-    for (String name : uri.getQueryParameterNames())
+    try
     {
-      if (name.startsWith("utm_") || name.equals("affiliate_id"))
+      Uri uri = Uri.parse(url);
+      for (String name : uri.getQueryParameterNames())
       {
-        String value = uri.getQueryParameter(name);
-        result.add(name, value == null ? "" : value);
+        if (name.startsWith("utm_") || name.equals("affiliate_id"))
+        {
+          String value = uri.getQueryParameter(name);
+          result.add(name, value == null ? "" : value);
+        }
       }
+    }
+    catch (Exception e)
+    {
+      CrashlyticsUtils.logException(new RuntimeException("Failed to parse url: " + url, e));
     }
 
     result.add(TYPE, type);
-
     return result;
   }
 
