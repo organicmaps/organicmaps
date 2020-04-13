@@ -87,11 +87,13 @@ class DownloadMapsViewController: MWMViewController {
     navigationController?.pushViewController(vc, animated: true)
   }
 
-  fileprivate func showActions(_ nodeAttrs: MapNodeAttributes) {
+  fileprivate func showActions(_ nodeAttrs: MapNodeAttributes, in cell: UITableViewCell) {
     let menuTitle = nodeAttrs.nodeName
     let multiparent = nodeAttrs.parentInfo.count > 1
     let message = dataSource.isRoot || multiparent ? nil : nodeAttrs.parentInfo.first?.countryName
     let actionSheet = UIAlertController(title: menuTitle, message: message, preferredStyle: .actionSheet)
+    actionSheet.popoverPresentationController?.sourceView = cell
+    actionSheet.popoverPresentationController?.sourceRect = cell.bounds
 
     let actions: [NodeAction]
     switch nodeAttrs.nodeStatus {
@@ -334,7 +336,7 @@ extension DownloadMapsViewController: UITableViewDelegate {
       showChildren(dataSource.item(at: indexPath))
       return
     }
-    showActions(nodeAttrs)
+    showActions(nodeAttrs, in: tableView.cellForRow(at: indexPath)!)
   }
 }
 
@@ -381,7 +383,7 @@ extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
   func mapDownloaderCellDidLongPress(_ cell: MWMMapDownloaderTableViewCell) {
     guard let indexPath = tableView.indexPath(for: cell) else { return }
     let nodeAttrs = dataSource.item(at: indexPath)
-    showActions(nodeAttrs)
+    showActions(nodeAttrs, in: cell)
   }
 }
 
