@@ -168,7 +168,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
     viewControllers.append(previewViewController)
-    if placePageData.isPromoCatalog {
+    if placePageData.isPromoCatalog && placePageData.bookmarkData == nil {
       viewControllers.append(catalogSingleItemViewController)
       viewControllers.append(catalogGalleryViewController)
       placePageData.loadCatalogPromo(completion: onLoadCatalogPromo)
