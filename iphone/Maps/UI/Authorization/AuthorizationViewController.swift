@@ -100,6 +100,7 @@ final class AuthorizationViewController: MWMViewController {
     facebookButton.isEnabled = allButtonsChecked;
     phoneSignInButton.isEnabled = allButtonsChecked;
     signInAppleButton?.isEnabled = allButtonsChecked;
+    signInAppleButton?.alpha = allButtonsChecked ? 1 : 0.5
   }
   
   @IBOutlet private var privacyPolicyTextView: UITextView! {
@@ -175,6 +176,7 @@ final class AuthorizationViewController: MWMViewController {
       signInAppleContainerView.isHidden = false
       let button = ASAuthorizationAppleIDButton(type: .default, style: UIColor.isNightMode() ? .white : .black)
       button.isEnabled = false
+      button.alpha = 0.5
       button.cornerRadius = 8
       button.addTarget(self, action: #selector(onAppleSignIn), for: .touchUpInside)
       signInAppleContainerView.addSubview(button)
