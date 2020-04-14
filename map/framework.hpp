@@ -9,6 +9,7 @@
 #include "map/discovery/discovery_manager.hpp"
 #include "map/displacement_mode_manager.hpp"
 #include "map/features_fetcher.hpp"
+#include "map/guides_manager.hpp"
 #include "map/isolines_manager.hpp"
 #include "map/local_ads_manager.hpp"
 #include "map/mwm_url.hpp"
@@ -241,6 +242,7 @@ protected:
 
   TransitReadManager m_transitManager;
   IsolinesManager m_isolinesManager;
+  GuidesManager m_guidesManager;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
@@ -769,6 +771,8 @@ public:
 
   IsolinesManager & GetIsolinesManager();
   IsolinesManager const & GetIsolinesManager() const;
+
+  GuidesManager & GetGuidesManager();
 
   bool LoadTrafficEnabled();
   void SaveTrafficEnabled(bool trafficEnabled);

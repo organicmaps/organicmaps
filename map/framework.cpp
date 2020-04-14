@@ -324,6 +324,11 @@ IsolinesManager const & Framework::GetIsolinesManager() const
   return m_isolinesManager;
 }
 
+GuidesManager & Framework::GetGuidesManager()
+{
+  return m_guidesManager;
+}
+
 void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
   GetBookmarkManager().MyPositionMark().SetUserPosition(position, hasPosition);
@@ -354,6 +359,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
   m_localAdsManager.UpdateViewport(m_currentModelView);
   m_transitManager.UpdateViewport(m_currentModelView);
   m_isolinesManager.UpdateViewport(m_currentModelView);
+  m_guidesManager.UpdateViewport(m_currentModelView);
 
   if (m_viewportChangedFn != nullptr)
     m_viewportChangedFn(screen);
@@ -2021,6 +2027,7 @@ void Framework::OnRecoverSurface(int width, int height, bool recreateContextDepe
   m_trafficManager.OnRecoverSurface();
   m_transitManager.Invalidate();
   m_isolinesManager.Invalidate();
+  m_guidesManager.Invalidate();
   m_localAdsManager.Invalidate();
 }
 

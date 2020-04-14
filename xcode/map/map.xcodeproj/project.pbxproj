@@ -236,6 +236,8 @@
 		BBA014B220754997007402E4 /* user_mark_id_storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA014B020754996007402E4 /* user_mark_id_storage.cpp */; };
 		BBB7060B23E45F3400A7F29A /* isolines_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7060923E45F3300A7F29A /* isolines_manager.cpp */; };
 		BBB7060C23E45F3400A7F29A /* isolines_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB7060A23E45F3300A7F29A /* isolines_manager.hpp */; };
+		BBBB5ED224460BFA000CBFF4 /* guides_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBBB5ED024460BF9000CBFF4 /* guides_manager.cpp */; };
+		BBBB5ED324460BFA000CBFF4 /* guides_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBBB5ED124460BF9000CBFF4 /* guides_manager.hpp */; };
 		BBD9E2C61EE9D01900DF189A /* routing_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD9E2C41EE9D01900DF189A /* routing_mark.cpp */; };
 		BBD9E2C71EE9D01900DF189A /* routing_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBD9E2C51EE9D01900DF189A /* routing_mark.hpp */; };
 		BBFC7E3A202D29C000531BE7 /* user_mark_layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBFC7E38202D29BF00531BE7 /* user_mark_layer.cpp */; };
@@ -538,6 +540,8 @@
 		BBA014B020754996007402E4 /* user_mark_id_storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark_id_storage.cpp; sourceTree = "<group>"; };
 		BBB7060923E45F3300A7F29A /* isolines_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = isolines_manager.cpp; sourceTree = "<group>"; };
 		BBB7060A23E45F3300A7F29A /* isolines_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isolines_manager.hpp; sourceTree = "<group>"; };
+		BBBB5ED024460BF9000CBFF4 /* guides_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_manager.cpp; sourceTree = "<group>"; };
+		BBBB5ED124460BF9000CBFF4 /* guides_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = guides_manager.hpp; sourceTree = "<group>"; };
 		BBD9E2C41EE9D01900DF189A /* routing_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_mark.cpp; sourceTree = "<group>"; };
 		BBD9E2C51EE9D01900DF189A /* routing_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_mark.hpp; sourceTree = "<group>"; };
 		BBFC7E38202D29BF00531BE7 /* user_mark_layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark_layer.cpp; sourceTree = "<group>"; };
@@ -896,6 +900,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				BBBB5ED024460BF9000CBFF4 /* guides_manager.cpp */,
+				BBBB5ED124460BF9000CBFF4 /* guides_manager.hpp */,
 				3DBD7BE024237FA600ED9FE8 /* download_on_map_ads_delegate.cpp */,
 				3DBD7BDF24237FA500ED9FE8 /* download_on_map_ads_delegate.hpp */,
 				BB1C0195241BF73C0067FD5C /* track_mark.cpp */,
@@ -1105,6 +1111,7 @@
 				3DA5723120C195ED007BDE27 /* everywhere_search_callback.hpp in Headers */,
 				3DF528D9237DC82E000ED0D5 /* catalog_headers_provider.hpp in Headers */,
 				3DD1166721888AAC007A2ED4 /* notification_queue.hpp in Headers */,
+				BBBB5ED324460BFA000CBFF4 /* guides_manager.hpp in Headers */,
 				3DA5723020C195ED007BDE27 /* viewport_search_callback.hpp in Headers */,
 				F6FC3CB51FC323430001D929 /* discovery_client_params.hpp in Headers */,
 				0831F23C200E53600034C365 /* bookmarks_search_params.hpp in Headers */,
@@ -1307,6 +1314,7 @@
 				674C38621BFF3095000D603B /* user_mark.cpp in Sources */,
 				3DA5723320C195ED007BDE27 /* viewport_search_callback.cpp in Sources */,
 				675346641A4054E800A0A8C3 /* framework.cpp in Sources */,
+				BBBB5ED224460BFA000CBFF4 /* guides_manager.cpp in Sources */,
 				40ACC79623191C2600238E21 /* countries_names_tests.cpp in Sources */,
 				3DBD7B92240D523400ED9FE8 /* elevation_info.cpp in Sources */,
 				BB1C0197241BF73C0067FD5C /* track_mark.cpp in Sources */,

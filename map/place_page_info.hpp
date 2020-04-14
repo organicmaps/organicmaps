@@ -150,6 +150,7 @@ public:
   bool IsMyPosition() const { return m_selectedObject == df::SelectionShape::ESelectedObject::OBJECT_MY_POSITION; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
   bool IsRoadType() const { return m_roadType != RoadWarningMarkType::Count; }
+  bool IsGuide() const { return !m_guideId.empty(); }
 
   /// Edit and add
   bool ShouldShowAddPlace() const;
@@ -205,8 +206,13 @@ public:
   void SetBookmarkData(kml::BookmarkData const & data) { m_bookmarkData = data; }
   kml::BookmarkData const & GetBookmarkData() const { return m_bookmarkData; }
 
+  /// Track
   void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; };
   kml::TrackId GetTrackId() const { return m_trackId; };
+
+  /// Guide
+  void SetGuideId(std::string const & guideId) { m_guideId = guideId; }
+  std::string const & GetGuideId() const { return m_guideId; }
 
   /// Api
   void SetApiId(std::string const & apiId) { m_apiId = apiId; }
@@ -344,15 +350,18 @@ private:
   /// Comes from API, shared links etc.
   std::string m_customName;
 
-  /// Bookmarks
+  /// Bookmark or track
+  kml::MarkGroupId m_markGroupId = kml::kInvalidMarkGroupId;
   /// If not invalid, bookmark is bound to this place page.
   kml::MarkId m_markId = kml::kInvalidMarkId;
-  kml::MarkGroupId m_markGroupId = kml::kInvalidMarkGroupId;
   /// Bookmark category name. Empty, if it's not bookmark;
   std::string m_bookmarkCategoryName;
   kml::BookmarkData m_bookmarkData;
-
+  /// If not invalid, track is bound to this place page.
   kml::TrackId m_trackId = kml::kInvalidTrackId;
+
+  /// Guide
+  std::string m_guideId;
 
   /// Api ID passed for the selected object. It's automatically included in api url below.
   std::string m_apiId;

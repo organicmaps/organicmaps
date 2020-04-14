@@ -73,6 +73,8 @@ set(
   gps_track.hpp
   gps_tracker.cpp
   gps_tracker.hpp
+  guides_manager.cpp
+  guides_manager.hpp
   isolines_manager.cpp
   isolines_manager.hpp
   local_ads_manager.cpp
