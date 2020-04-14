@@ -73,6 +73,6 @@ class ChartPointIntersectionView: UIView {
 
   func updatePoint(_ point: ChartLineInfo) {
     intersectionView.center = CGPoint(x: bounds.midX, y: point.point.y)
+    color = point.color
   }
 }
-

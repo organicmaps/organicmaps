@@ -77,4 +77,6 @@ let alpha100: CGFloat = 1.0
   var elevationPreviewSelector: UIColor { get }
   var elevationPreviewTint: UIColor { get }
   var shadow: UIColor { get }
+  var chartLine: UIColor { get }
+  var chartShadow: UIColor { get }
 }

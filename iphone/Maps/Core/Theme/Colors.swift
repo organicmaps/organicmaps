@@ -67,6 +67,8 @@ class DayColors: IColors {
   var elevationPreviewTint = UIColor(193, 209, 224, alpha30)
   var elevationPreviewSelector = UIColor(red: 0.757, green: 0.82, blue: 0.878, alpha: 1)
   var shadow = UIColor(0, 0, 0, alpha100)
+  var chartLine = UIColor(red: 0.118, green: 0.588, blue: 0.941, alpha: 1)
+  var chartShadow = UIColor(red: 0.118, green: 0.588, blue: 0.941, alpha: 0.12)
 }
 
 class NightColors: IColors {
@@ -138,4 +140,6 @@ class NightColors: IColors {
   var elevationPreviewTint = UIColor(0, 0, 0, alpha54)
   var elevationPreviewSelector = UIColor(red: 0.404, green: 0.439, blue: 0.475, alpha: 1)
   var shadow = UIColor.clear
+  var chartLine = UIColor(red: 0.294, green: 0.725, blue: 0.902, alpha: 1)
+  var chartShadow = UIColor(red: 0.294, green: 0.725, blue: 0.902, alpha: 0.12)
 }

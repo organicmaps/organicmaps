@@ -160,8 +160,10 @@ fileprivate struct ElevationProfileChartData {
     let values = points.map { Int($0.altitude) }
     distances = points.map { $0.distance }
     let color = UIColor(red: 0.12, green: 0.59, blue: 0.94, alpha: 1)
-    let l1 = Line(values: values, name: "Altitude", color: color, type: .line)
-    let l2 = Line(values: values, name: "Altitude", color: color.withAlphaComponent(0.12), type: .lineArea)
+    let lineColor = StyleManager.shared.theme?.colors.chartLine ?? color
+    let lineShadowColor = StyleManager.shared.theme?.colors.chartShadow ?? color.withAlphaComponent(0.12)
+    let l1 = Line(values: values, name: "Altitude", color: lineColor, type: .line)
+    let l2 = Line(values: values, name: "Altitude", color: lineShadowColor, type: .lineArea)
     chartLines = [l1, l2]
   }
 
