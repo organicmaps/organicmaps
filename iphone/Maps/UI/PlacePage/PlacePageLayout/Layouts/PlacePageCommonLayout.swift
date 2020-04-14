@@ -389,7 +389,6 @@ extension PlacePageCommonLayout: MWMLocationObserver {
       previewViewController.updateDistance(formattedDistance)
 
       lastLocation = location
-      updateHeading(location.course)
     }
   }
 
