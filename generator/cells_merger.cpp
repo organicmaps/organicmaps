@@ -1,6 +1,7 @@
 #include "generator/cells_merger.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 
@@ -161,7 +162,7 @@ std::optional<m2::PointI> CellsMerger::FindDirection(m2::PointI const & startXy)
 {
   std::array<std::pair<size_t, m2::PointI>, 4> directionsWithWeight;
   std::array<m2::PointI, 4> const directions{{{1, 1}, {-1, 1}, {1, -1}, {-1, -1}}};
-  std::transform(std::begin(directions), std::end(directions), std::begin(directionsWithWeight),
+  base::Transform(directions, std::begin(directionsWithWeight),
                  [&](auto const & direction) {
                    return std::make_pair(
                        TryGet(startXy.x + direction.x, startXy.y).GetSum() +

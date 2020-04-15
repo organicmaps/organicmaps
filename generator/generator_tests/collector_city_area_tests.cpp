@@ -14,6 +14,7 @@
 
 #include "base/geo_object_id.hpp"
 #include "base/scope_guard.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -35,7 +36,7 @@ feature::FeatureBuilder MakeFbForTest(OsmElement element)
 }
 
 bool HasRelationWithId(std::vector<feature::FeatureBuilder> const & fbs, uint64_t id) {
-  return std::find_if(std::begin(fbs), std::end(fbs), [&](auto const & fb) {
+  return base::FindIf(fbs, [&](auto const & fb) {
     return fb.GetMostGenericOsmId() == base::MakeOsmRelation(id);
   }) != std::end(fbs);
 };

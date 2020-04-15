@@ -2,6 +2,8 @@
 
 #include "generator/osm_element.hpp"
 
+#include "base/stl_helpers.hpp"
+
 namespace generator
 {
 RelationTagsBase::RelationTagsBase() : m_cache(14 /* logCacheSize */) {}
@@ -21,9 +23,7 @@ bool RelationTagsBase::IsSkipRelation(std::string const & type)
 bool RelationTagsBase::IsKeyTagExists(std::string const & key) const
 {
   auto const & tags = m_current->m_tags;
-  return std::any_of(std::begin(tags), std::end(tags), [&](OsmElement::Tag const & p) {
-    return p.m_key == key;
-  });
+  return base::AnyOf(tags, [&](OsmElement::Tag const & p) { return p.m_key == key; });
 }
 
 void RelationTagsBase::AddCustomTag(std::pair<std::string, std::string> const & p)

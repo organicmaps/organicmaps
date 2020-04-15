@@ -1,6 +1,7 @@
 #include "generator/filter_collection.hpp"
 
-#include <algorithm>
+#include "base/stl_helpers.hpp"
+
 
 using namespace feature;
 
@@ -16,15 +17,11 @@ std::shared_ptr<FilterInterface> FilterCollection::Clone() const
 
 bool FilterCollection::IsAccepted(OsmElement const & element)
 {
-  return std::all_of(std::begin(m_collection), std::end(m_collection), [&] (auto & filter) {
-    return filter->IsAccepted(element);
-  });
+  return base::AllOf(m_collection, [&] (auto & filter) { return filter->IsAccepted(element); });
 }
 
 bool FilterCollection::IsAccepted(FeatureBuilder const & feature)
 {
-  return std::all_of(std::begin(m_collection), std::end(m_collection), [&] (auto & filter) {
-    return filter->IsAccepted(feature);
-  });
+  return base::AllOf(m_collection, [&] (auto & filter) { return filter->IsAccepted(feature); });
 }
 }  // namespace generator

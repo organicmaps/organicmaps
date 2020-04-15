@@ -1,6 +1,7 @@
 #include "generator/filter_elements.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <fstream>
@@ -38,11 +39,11 @@ bool FilterData::IsMatch(Tags const & elementTags, Tags const & tags)
   auto const fn = [&](OsmElement::Tag const & t)
   {
     auto const pred = [&](OsmElement::Tag const & tag) { return tag.m_key == t.m_key; };
-    auto const it = std::find_if(std::begin(elementTags), std::end(elementTags), pred);
+    auto const it = base::FindIf(elementTags, pred);
     return it == std::end(elementTags) ? false : t.m_value == "*" || it->m_value == t.m_value;
   };
 
-  return std::all_of(std::begin(tags), std::end(tags), fn);
+  return base::AllOf(tags, fn);
 }
 
 void FilterData::AddSkippedId(uint64_t id)

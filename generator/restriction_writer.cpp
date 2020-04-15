@@ -14,6 +14,7 @@
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <fstream>
@@ -42,8 +43,8 @@ std::vector<std::pair<std::string, Restriction::Type>> const kRestrictionTypes =
 /// \returns true if conversion was successful and false otherwise.
 bool TagToType(std::string const & tag, Restriction::Type & type)
 {
-  auto const it = std::find_if(kRestrictionTypes.cbegin(), kRestrictionTypes.cend(),
-                          [&tag](std::pair<std::string, Restriction::Type> const & v) {
+  auto const it = base::FindIf(kRestrictionTypes,
+                               [&tag](std::pair<std::string, Restriction::Type> const & v) {
     return v.first == tag;
   });
   if (it == kRestrictionTypes.cend())
@@ -143,12 +144,9 @@ bool ValidateOsmRestriction(std::vector<RelationElement::Member> & from,
   // https://wiki.openstreetmap.org/wiki/Relation:restriction#Members
   if (via.size() != 1)
   {
-    bool const allMembersAreWays =
-      std::all_of(via.begin(), via.end(),
-                  [&](auto const & member)
-                  {
-                    return GetType(relationElement, member.first) == OsmElement::EntityType::Way;
-                  });
+    bool const allMembersAreWays = base::AllOf(via, [&](auto const & member) {
+      return GetType(relationElement, member.first) == OsmElement::EntityType::Way;
+    });
 
     if (!allMembersAreWays)
       return false;

@@ -6,6 +6,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -274,8 +275,9 @@ HierarchyLinker::Node::Ptrs BuildHierarchy(std::vector<feature::FeatureBuilder> 
   base::EraseIf(fbs, [&](auto const & fb) { return !filter->IsAccepted(fb); });
   HierarchyLinker::Node::Ptrs places;
   places.reserve(fbs.size());
-  std::transform(std::cbegin(fbs), std::cend(fbs), std::back_inserter(places),
-                 [](auto const & fb) { return tree_node::MakeTreeNode(HierarchyPlace(fb)); });
+  base::Transform(fbs, std::back_inserter(places), [](auto const & fb) {
+    return tree_node::MakeTreeNode(HierarchyPlace(fb));
+  });
   auto nodes = HierarchyLinker(std::move(places)).Link();
   // We leave only the trees.
   base::EraseIf(nodes, [](auto const & node) {

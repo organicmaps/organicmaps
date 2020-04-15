@@ -14,8 +14,9 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_mwm.hpp"
 
-#include "base/file_name_utils.hpp"
 #include "base/assert.hpp"
+#include "base/file_name_utils.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <fstream>
@@ -157,8 +158,7 @@ public:
     StringUtf8Multilang str;
     // This is a private function and should take the right path fullPath.
     auto const size = DescriptionsCollectionBuilder::FillStringFromFile(fullPath, langIndex, str);
-    auto const it = std::find_if(std::begin(first.m_pages), std::end(first.m_pages),
-                                 [&](auto const & p) { return p.first == lang; });
+    auto const it = base::FindIf(first.m_pages, [&](auto const & p) { return p.first == lang; });
     CHECK(it != std::end(first.m_pages), ());
     TEST_EQUAL(size, it->second.size(), ());
     TEST(CheckLangs(str, first.m_pages), ());
@@ -253,11 +253,7 @@ private:
     for (auto const & m : kWikiData)
     {
       auto const & pages = m.m_pages;
-      auto const exists = std::any_of(std::begin(pages), std::end(pages), [](auto const & d) {
-        return IsSupportedLang(d.first);
-      });
-
-      if (exists)
+      if (base::AnyOf(pages, [](auto const & d) { return IsSupportedLang(d.first); }))
         ++size;
     }
 
@@ -331,7 +327,7 @@ private:
   {
     bool result = true;
     str.ForEach([&](auto code, auto const &) {
-      auto const it = std::find_if(std::begin(p), std::end(p), [&](auto const & p) {
+      auto const it = base::FindIf(p, [&](auto const & p) {
         return StringUtf8Multilang::GetLangIndex(p.first) == code;
       });
 

@@ -1,9 +1,10 @@
 #include "generator/osm_element.hpp"
 
-#include "base/string_utils.hpp"
 #include "coding/parse_xml.hpp"
 
-#include <algorithm>
+#include "base/string_utils.hpp"
+#include "base/stl_helpers.hpp"
+
 #include <cstdio>
 #include <cstring>
 #include <sstream>
@@ -81,21 +82,17 @@ void OsmElement::AddTag(std::string const & key, std::string const & value)
 
 bool OsmElement::HasTag(std::string const & key) const
 {
-  return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
-    return t.m_key == key;
-  });
+  return base::AnyOf(m_tags, [&](auto const & t) { return t.m_key == key; });
 }
 
 bool OsmElement::HasTag(std::string const & key, std::string const & value) const
 {
-  return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
-    return t.m_key == key && t.m_value == value;
-  });
+  return base::AnyOf(m_tags, [&](auto const & t) { return t.m_key == key && t.m_value == value; });
 }
 
 bool OsmElement::HasAnyTag(std::unordered_multimap<std::string, std::string> const & tags) const
 {
-  return std::any_of(std::begin(m_tags), std::end(m_tags), [&](auto const & t) {
+  return base::AnyOf(m_tags, [&](auto const & t) {
     auto beginEnd = tags.equal_range(t.m_key);
     for (auto it = beginEnd.first; it != beginEnd.second; ++it)
     {
@@ -164,18 +161,14 @@ std::string OsmElement::ToString(std::string const & shift) const
 
 std::string OsmElement::GetTag(std::string const & key) const
 {
-  auto const it = std::find_if(m_tags.cbegin(), m_tags.cend(),
-                               [&key](Tag const & tag) { return tag.m_key == key; });
-
+  auto const it = base::FindIf(m_tags, [&key](Tag const & tag) { return tag.m_key == key; });
   return it == m_tags.cend() ? std::string() : it->m_value;
 }
 
 std::string OsmElement::GetTagValue(std::string const & key,
                                     std::string const & defaultValue) const
 {
-  auto const it = std::find_if(m_tags.cbegin(), m_tags.cend(),
-                               [&key](Tag const & tag) { return tag.m_key == key; });
-
+  auto const it = base::FindIf(m_tags, [&key](Tag const & tag) { return tag.m_key == key; });
   return it != m_tags.cend() ? it->m_value : defaultValue;
 }
 

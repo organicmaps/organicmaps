@@ -2,8 +2,7 @@
 
 #include "generator/osm_element.hpp"
 
-#include <algorithm>
-#include <iterator>
+#include "base/stl_helpers.hpp"
 
 namespace generator
 {
@@ -32,8 +31,7 @@ void TranslatorCollection::Finish()
 
 bool TranslatorCollection::Save()
 {
-  return std::all_of(std::begin(m_collection), std::end(m_collection),
-                     [](auto & t) { return t->Save(); });
+  return base::AllOf(m_collection, [](auto & t) { return t->Save(); });
 }
 
 void TranslatorCollection::Merge(TranslatorInterface const & other) { other.MergeInto(*this); }

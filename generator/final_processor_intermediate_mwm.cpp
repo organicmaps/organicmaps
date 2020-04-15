@@ -216,8 +216,7 @@ public:
 
     std::vector<FeatureBuilder> fbs;
     fbs.reserve(fbsWithIds.size());
-    std::transform(std::cbegin(fbsWithIds), std::cend(fbsWithIds), std::back_inserter(fbs),
-                   base::RetrieveFirst());
+    base::Transform(fbsWithIds, std::back_inserter(fbs), base::RetrieveFirst());
     auto const affiliations = GetAffiliations(fbs, m_affiliation, m_threadsCount);
     AppendToCountries(fbs, affiliations, m_temporaryMwmPath, m_threadsCount);
   }

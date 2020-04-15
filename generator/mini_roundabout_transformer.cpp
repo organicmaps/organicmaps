@@ -6,6 +6,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -51,7 +52,7 @@ void UpdateFeatureGeometry(feature::FeatureBuilder::PointSeq const & seq,
 feature::FeatureBuilder::PointSeq::iterator GetIterOnRoad(m2::PointD const & point,
                                                           feature::FeatureBuilder::PointSeq & road)
 {
-  return std::find_if(road.begin(), road.end(), [&point](m2::PointD const & pointOnRoad) {
+  return base::FindIf(road, [&point](m2::PointD const & pointOnRoad) {
     return base::AlmostEqualAbs(pointOnRoad, point, kMwmPointAccuracy);
   });
 }

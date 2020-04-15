@@ -16,6 +16,7 @@
 #include "base/cancellable.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <exception>
 #include <iostream>
@@ -145,25 +146,22 @@ bool MapcssRule::Matches(std::vector<OsmElement::Tag> const & tags) const
 {
   for (auto const & tag : m_tags)
   {
-    if (!std::any_of(tags.begin(), tags.end(), [&](auto const & t) { return t == tag; }))
+    if (!base::AnyOf(tags, [&](auto const & t) { return t == tag; }))
       return false;
   }
+
   for (auto const & key : m_mandatoryKeys)
   {
-    if (!std::any_of(tags.begin(), tags.end(),
-                     [&](auto const & t) { return t.m_key == key && t.m_value != "no"; }))
-    {
+    if (!base::AnyOf(tags, [&](auto const & t) { return t.m_key == key && t.m_value != "no"; }))
       return false;
-    }
   }
+
   for (auto const & key : m_forbiddenKeys)
   {
-    if (!std::all_of(tags.begin(), tags.end(),
-                     [&](auto const & t) { return t.m_key != key || t.m_value == "no"; }))
-    {
+    if (!base::AllOf(tags, [&](auto const & t) { return t.m_key != key || t.m_value == "no"; }))
       return false;
-    }
   }
+
   return true;
 }
 

@@ -14,6 +14,7 @@
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <string>
 #include <utility>
@@ -62,9 +63,10 @@ public:
   void DeregisterMap(std::string const & name)
   {
     auto const file = platform::CountryFile(name);
-    auto it = find_if(
-        m_files.begin(), m_files.end(),
-        [&file](platform::LocalCountryFile const & f) { return f.GetCountryFile() == file; });
+    auto it = base::FindIf(m_files, [&file](platform::LocalCountryFile const & f) {
+      return f.GetCountryFile() == file;
+    });
+
     if (it == m_files.end())
       return;
 
