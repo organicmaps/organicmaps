@@ -20,11 +20,17 @@
   return @(User::GetPrivacyPolicyLink().c_str());
 }
 
++ (void)logOut {
+  GetFramework().GetUser().ResetAccessToken();
+}
+
 + (void)authenticateWithToken:(NSString *)token
                          type:(MWMSocialTokenType)type
               privacyAccepted:(BOOL)privacyAccepted
                 termsAccepted:(BOOL)termsAccepted
                 promoAccepted:(BOOL)promoAccepted
+                    firstName:(NSString *)firstName
+                     lastName:(NSString *)lastName
                        source:(MWMAuthorizationSource)source
                    onComplete:(MWMBoolBlock)onComplete {
   auto &user = GetFramework().GetUser();
@@ -52,7 +58,8 @@
     });
   };
   user.AddSubscriber(std::move(s));
-  user.Authenticate(token.UTF8String, socialTokenType, privacyAccepted, termsAccepted, promoAccepted);
+  user.Authenticate(token.UTF8String, socialTokenType, privacyAccepted, termsAccepted, promoAccepted,
+                    firstName.UTF8String, lastName.UTF8String);
 }
 
 @end

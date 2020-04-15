@@ -370,6 +370,7 @@
 		478F6FA423C447E500054A53 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F6FA323C447E500054A53 /* ReviewView.swift */; };
 		478F6FA623C4521F00054A53 /* MoreReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */; };
 		478F6FA823C5067C00054A53 /* MyReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F6FA723C5067C00054A53 /* MyReviewView.swift */; };
+		479603732446F17C00F3BDD0 /* User+AppleId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479603722446F17C00F3BDD0 /* User+AppleId.swift */; };
 		479D305722C627CB00D18278 /* PartnerBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479D305522C627CB00D18278 /* PartnerBannerViewController.xib */; };
 		479D305B22C62F4000D18278 /* MWMBookmarksBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479D305922C62F4000D18278 /* MWMBookmarksBannerViewController.xib */; };
 		479D306522C664CE00D18278 /* MWMDownloadBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479D306422C664CE00D18278 /* MWMDownloadBannerViewController.m */; };
@@ -1472,6 +1473,7 @@
 		478F6FA323C447E500054A53 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreReviewsViewController.swift; sourceTree = "<group>"; };
 		478F6FA723C5067C00054A53 /* MyReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewView.swift; sourceTree = "<group>"; };
+		479603722446F17C00F3BDD0 /* User+AppleId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+AppleId.swift"; sourceTree = "<group>"; };
 		479D305522C627CB00D18278 /* PartnerBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartnerBannerViewController.xib; sourceTree = "<group>"; };
 		479D305922C62F4000D18278 /* MWMBookmarksBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMBookmarksBannerViewController.xib; sourceTree = "<group>"; };
 		479D306322C664CE00D18278 /* MWMDownloadBannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDownloadBannerViewController.h; sourceTree = "<group>"; };
@@ -3223,6 +3225,7 @@
 				34BBD64A1F826DB10070CA50 /* AuthorizationViewController.swift */,
 				34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */,
 				47FA14D0230D52FC003DA979 /* PhoneNumberAuthorizationViewController.swift */,
+				479603722446F17C00F3BDD0 /* User+AppleId.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -5542,6 +5545,7 @@
 				993F550B237C622700545511 /* DeepLinkIncorrectStrategy.swift in Sources */,
 				34BBD65C1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */,
 				56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.m in Sources */,
+				479603732446F17C00F3BDD0 /* User+AppleId.swift in Sources */,
 				993DF0CB23F6BD0600AC231A /* ElevationDetailsRouter.swift in Sources */,
 				6741A9F51BF340DE002C974C /* BookmarksVC.mm in Sources */,
 				B33D21B820E130D000BAD749 /* BookmarksTabViewController.swift in Sources */,

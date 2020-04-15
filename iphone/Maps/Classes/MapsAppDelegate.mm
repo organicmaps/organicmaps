@@ -279,6 +279,9 @@ using namespace osm_auth_ios;
     [MoPubKit grantConsent];
 
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
+  if (@available(iOS 13, *)) {
+    [MWMUser verifyAppleId];
+  }
   return YES;
 }
 

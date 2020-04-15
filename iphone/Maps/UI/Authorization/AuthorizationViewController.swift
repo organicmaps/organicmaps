@@ -239,7 +239,11 @@ final class AuthorizationViewController: MWMViewController {
     Crashlytics.sharedInstance().recordError(error)
   }
 
-  private func process(token: String, type: SocialTokenType) {
+  private func process(token: String,
+                       type: SocialTokenType,
+                       firstName: String = "",
+                       lastName: String = "",
+                       completion: ((_ success: Bool) -> Void)? = nil) {
     Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess,
                         withParameters: [kStatProvider: getProviderStatStr(type: type)])
     User.authenticate(withToken: token,
@@ -247,7 +251,10 @@ final class AuthorizationViewController: MWMViewController {
                       privacyAccepted: privacyPolicyCheck.isChecked,
                       termsAccepted: termsOfUseCheck.isChecked,
                       promoAccepted: latestNewsCheck.isChecked,
+                      firstName: firstName,
+                      lastName: lastName,
                       source: sourceComponent) { success in
+                        completion?(success)
                         self.logStats(type: type, success: success)
                         if success {
                           self.successHandler?(type)
@@ -317,8 +324,15 @@ extension AuthorizationViewController: ASAuthorizationControllerDelegate {
   func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
     switch authorization.credential {
     case let appleIDCredential as ASAuthorizationAppleIDCredential:
-      guard let token = appleIDCredential.identityToken, let tokenString = String(data: token, encoding: .utf8) else { return }
-      process(token: tokenString, type: .apple)
+      guard let token = appleIDCredential.identityToken,
+        let tokenString = String(data: token, encoding: .utf8),
+        let fullName = appleIDCredential.fullName else { return }
+      let appleId = appleIDCredential.user
+      process(token: tokenString, type: .apple, firstName: fullName.givenName ?? "", lastName: fullName.familyName ?? "") {
+        if $0 {
+          User.setAppleId(appleId)
+        }
+      }
     default:
       break
     }

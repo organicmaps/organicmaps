@@ -196,6 +196,8 @@ struct SocialNetworkAuthRequestData
   bool m_privacyAccepted = false;
   bool m_termsAccepted = false;
   bool m_promoAccepted = false;
+  std::string m_firstName;
+  std::string m_lastName;
   
   DECLARE_VISITOR(visitor(m_accessToken, "access_token"),
                   visitor(m_clientId, "client_id"),
@@ -203,7 +205,9 @@ struct SocialNetworkAuthRequestData
                   visitor(m_termsLink, "terms_link"),
                   visitor(m_privacyAccepted, "privacy_accepted"),
                   visitor(m_termsAccepted, "terms_accepted"),
-                  visitor(m_promoAccepted, "promo_accepted"))
+                  visitor(m_promoAccepted, "promo_accepted"),
+                  visitor(m_firstName, "first_name"),
+                  visitor(m_lastName, "last_name"))
 };
 
 struct UserDetailsResponseData
@@ -340,7 +344,8 @@ void User::SetAccessToken(std::string const & accessToken)
 }
 
 void User::Authenticate(std::string const & socialToken, SocialTokenType socialTokenType,
-                        bool privacyAccepted, bool termsAccepted, bool promoAccepted)
+                        bool privacyAccepted, bool termsAccepted, bool promoAccepted,
+                        std::string const & firstName, std::string const & lastName)
 {
   std::string const url = AuthenticationUrl(socialToken, socialTokenType);
   if (url.empty())
@@ -371,6 +376,8 @@ void User::Authenticate(std::string const & socialToken, SocialTokenType socialT
     authData.m_termsAccepted = termsAccepted;
     authData.m_privacyAccepted = privacyAccepted;
     authData.m_promoAccepted = promoAccepted;
+    authData.m_firstName = firstName;
+    authData.m_lastName = lastName;
     authParams = [authData = std::move(authData)](platform::HttpClient & request)
     {
       auto jsonData = SerializeToJson(authData);

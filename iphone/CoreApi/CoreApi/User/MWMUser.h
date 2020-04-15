@@ -23,12 +23,15 @@ NS_SWIFT_NAME(User)
 + (BOOL)isAuthenticated;
 + (NSString *)termsOfUseLink;
 + (NSString *)privacyPolicyLink;
++ (void)logOut;
 
 + (void)authenticateWithToken:(NSString *)token
                          type:(MWMSocialTokenType)type
               privacyAccepted:(BOOL)privacyAccepted
                 termsAccepted:(BOOL)termsAccepted
                 promoAccepted:(BOOL)promoAccepted
+                    firstName:(NSString *)firstName
+                     lastName:(NSString *)lastName
                        source:(MWMAuthorizationSource)source
                    onComplete:(MWMBoolBlock)onComplete;
 
