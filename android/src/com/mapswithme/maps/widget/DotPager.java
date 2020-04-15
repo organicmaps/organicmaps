@@ -1,16 +1,16 @@
 package com.mapswithme.maps.widget;
 
 import android.content.Context;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -80,6 +80,7 @@ public class DotPager implements ViewPager.OnPageChangeListener
   private void configurePager()
   {
     mPager.setAdapter(mAdapter);
+    mPager.clearOnPageChangeListeners();
     mPager.addOnPageChangeListener(this);
   }
 
