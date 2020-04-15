@@ -2848,26 +2848,16 @@ UNIT_CLASS_TEST(ProcessorTest, LocalityScorer)
     builder.Add(spAlcantara);
   });
 
-  SetViewport(m2::RectD(m2::PointD(5.0, 5.0), m2::PointD(7.0, 7.0)));
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0)));
   {
     Rules rules = {ExactMatch(worldId, spAtacama)};
     TEST(ResultsMatch("San Pedro de Atacama ", rules), ());
   }
   {
-    // No results because GetToLocalities leaves sp0..sp4 because sp0..sp4 and spAlcantara have
-    // same similarity (1.0) and sp0..sp4 have higher rank.
-    // sp0..sp4 are not in final results because there is no relaxed results for cities with multiple
-    // unmatched tokens.
-    Rules rules = {};
-    TEST(ResultsMatch("San Pedro de Alcantara ", rules), ());
-  }
-  {
-    Rules rules = {ExactMatch(worldId, spAtacama)};
-    TEST(ResultsMatch("Atacama ", rules), ());
-  }
-  {
+    // spAlcantara has the same cosine similarity as sp0..sp4 and lower rank but
+    // more matched tokens.
     Rules rules = {ExactMatch(worldId, spAlcantara)};
-    TEST(ResultsMatch("Alcantara ", rules), ());
+    TEST(ResultsMatch("San Pedro de Alcantara ", rules), ());
   }
 }
 }  // namespace

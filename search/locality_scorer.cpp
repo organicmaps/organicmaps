@@ -239,6 +239,8 @@ void LocalityScorer::LeaveTopBySimilarityAndRank(size_t limit, vector<ExLocality
   sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
     if (lhs.m_similarity != rhs.m_similarity)
       return lhs.m_similarity > rhs.m_similarity;
+    if (lhs.m_locality.m_tokenRange.Size() != rhs.m_locality.m_tokenRange.Size())
+      return lhs.m_locality.m_tokenRange.Size() > rhs.m_locality.m_tokenRange.Size();
     if (lhs.m_rank != rhs.m_rank)
       return lhs.m_rank > rhs.m_rank;
     return lhs.m_locality.m_featureId < rhs.m_locality.m_featureId;

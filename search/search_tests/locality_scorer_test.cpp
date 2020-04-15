@@ -155,7 +155,7 @@ UNIT_CLASS_TEST(LocalityScorerTest, Smoke)
 
   TEST_EQUAL(GetTopLocalities(100 /* limit */), Ids({ID_NEW_ORLEANS, ID_YORK, ID_NEW_YORK}), ());
   TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_YORK, ID_NEW_YORK}), ());
-  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_YORK}), ());
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_NEW_YORK}), ());
 }
 
 UNIT_CLASS_TEST(LocalityScorerTest, NumbersMatch)
@@ -261,6 +261,5 @@ UNIT_CLASS_TEST(LocalityScorerTest, Similarity)
   TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_CARLOS_BARILOCHE}), ());
 
   InitParams("San Carlos de Apoquindo", false /* lastTokenIsPrefix */);
-  // |San Carlos| and |San Carlos de Apoquindo| have same similarity. |San Carlos| has higher rank.
-  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_CARLOS}), ());
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_CARLOS_APOQUINDO}), ());
 }
