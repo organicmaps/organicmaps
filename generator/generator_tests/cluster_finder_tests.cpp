@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "generator/place_processor.hpp"
+#include "generator/cluster_finder.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"

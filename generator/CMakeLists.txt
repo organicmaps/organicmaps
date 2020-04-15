@@ -35,6 +35,7 @@ set(
   cities_ids_builder.hpp
   city_roads_generator.cpp
   city_roads_generator.hpp
+  cluster_finder.hpp
   coastlines_generator.cpp
   coastlines_generator.hpp
   collection_base.hpp

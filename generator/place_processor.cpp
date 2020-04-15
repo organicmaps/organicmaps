@@ -1,5 +1,6 @@
 #include "generator/place_processor.hpp"
 
+#include "generator/cluster_finder.hpp"
 #include "generator/feature_maker_base.hpp"
 #include "generator/type_helper.hpp"
 
