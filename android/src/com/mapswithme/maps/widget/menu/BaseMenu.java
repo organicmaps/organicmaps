@@ -1,12 +1,11 @@
 package com.mapswithme.maps.widget.menu;
 
-import android.animation.Animator;
+import android.view.View;
+
 import androidx.annotation.DimenRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.view.View;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
@@ -16,19 +15,10 @@ public abstract class BaseMenu
 {
   public static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
 
-  private boolean mIsOpen;
-  private boolean mAnimating;
-
   final View mFrame;
   final View mLineFrame;
-  final View mContentFrame;
 
   private final ItemClickListener mItemClickListener;
-
-  int mContentHeight;
-
-  boolean mLayoutMeasured;
-
 
   public interface Item
   {
@@ -38,21 +28,6 @@ public abstract class BaseMenu
   public interface ItemClickListener<T extends Item>
   {
     void onItemClick(T item);
-  }
-
-  private class AnimationListener extends UiUtils.SimpleAnimatorListener
-  {
-    @Override
-    public void onAnimationStart(android.animation.Animator animation)
-    {
-      mAnimating = true;
-    }
-
-    @Override
-    public void onAnimationEnd(android.animation.Animator animation)
-    {
-      mAnimating = false;
-    }
   }
 
   View mapItem(final Item item, View frame)
@@ -85,33 +60,7 @@ public abstract class BaseMenu
       procAfterCorrection.run();
   }
 
-  void measureContent(@Nullable final Runnable procAfterMeasurement)
-  {
-    if (mLayoutMeasured)
-      return;
-
-    UiUtils.measureView(mContentFrame, new UiUtils.OnViewMeasuredListener()
-    {
-      @Override
-      public void onViewMeasured(int width, int height)
-      {
-        if (height != 0)
-        {
-          mContentHeight = height;
-          mLayoutMeasured = true;
-
-          UiUtils.hide(mContentFrame);
-        }
-        afterLayoutMeasured(procAfterMeasurement);
-      }
-    });
-  }
-
-  public void onResume(@Nullable Runnable procAfterMeasurement)
-  {
-    measureContent(procAfterMeasurement);
-    updateMarker();
-  }
+  public abstract void onResume(@Nullable Runnable procAfterMeasurement);
 
   BaseMenu(@NonNull View frame, @NonNull ItemClickListener<? extends Item> itemClickListener)
   {
@@ -119,112 +68,24 @@ public abstract class BaseMenu
     mItemClickListener = itemClickListener;
 
     mLineFrame = mFrame.findViewById(R.id.line_frame);
-    mContentFrame = mFrame.findViewById(R.id.content_frame);
 
     adjustTransparency();
   }
 
-  public boolean isOpen()
-  {
-    return mIsOpen;
-  }
+  public abstract boolean isOpen();
 
-  public boolean isAnimating()
-  {
-    return mAnimating;
-  }
+  public abstract boolean isAnimating();
 
-  public boolean open(boolean animate)
-  {
-    if ((animate && mAnimating) || isOpen())
-      return false;
-
-    mIsOpen = true;
-
-    UiUtils.show(mContentFrame);
-    adjustCollapsedItems();
-    adjustTransparency();
-    updateMarker();
-
-    setToggleState(mIsOpen, animate);
-    if (!animate)
-      return true;
-
-    mFrame.setTranslationY(mContentHeight);
-    mFrame.animate()
-          .setDuration(ANIMATION_DURATION)
-          .translationY(0.0f)
-          .setListener(new AnimationListener())
-          .start();
-
-    return true;
-  }
+  public abstract boolean open(boolean animate);
 
   public boolean close(boolean animate)
   {
     return close(animate, null);
   }
 
-  public boolean close(boolean animate, @Nullable final Runnable onCloseListener)
-  {
-    if (mAnimating || !isOpen())
-    {
-      if (onCloseListener != null)
-        onCloseListener.run();
+  public abstract boolean close(boolean animate, @Nullable final Runnable onCloseListener);
 
-      return false;
-    }
-
-    mIsOpen = false;
-    adjustCollapsedItems();
-    setToggleState(mIsOpen, animate);
-
-    if (!animate)
-    {
-      UiUtils.hide(mContentFrame);
-      adjustTransparency();
-      updateMarker();
-
-      if (onCloseListener != null)
-        onCloseListener.run();
-
-      return true;
-    }
-
-    mFrame.animate()
-          .setDuration(ANIMATION_DURATION)
-          .translationY(mContentHeight)
-          .setListener(new AnimationListener()
-          {
-            @Override
-            public void onAnimationEnd(Animator animation)
-            {
-              super.onAnimationEnd(animation);
-              mFrame.setTranslationY(0.0f);
-              UiUtils.hide(mContentFrame);
-              adjustTransparency();
-              updateMarker();
-
-              if (onCloseListener != null)
-                onCloseListener.run();
-            }
-          }).start();
-
-    return true;
-  }
-
-  public void toggle(boolean animate)
-  {
-    if (mAnimating)
-      return;
-
-    boolean show = !isOpen();
-
-    if (show)
-      open(animate);
-    else
-      close(animate);
-  }
+  public abstract void toggle(boolean animate);
 
   public void show(boolean show)
   {
@@ -239,7 +100,6 @@ public abstract class BaseMenu
     return mFrame;
   }
 
-  protected void adjustCollapsedItems() {}
   protected void updateMarker() {}
   protected void setToggleState(boolean open, boolean animate) {}
 

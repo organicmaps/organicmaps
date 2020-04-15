@@ -1,17 +1,18 @@
 package com.mapswithme.maps.widget.menu;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
+import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
@@ -23,6 +24,16 @@ public class NavMenu extends BaseMenu
   private final ImageView mTts;
   @NonNull
   private final ImageView mTraffic;
+
+  final View mContentFrame;
+
+  int mContentHeight;
+
+  boolean mLayoutMeasured;
+
+  private boolean mIsOpen;
+
+  private boolean mAnimating;
 
   public enum Item implements BaseMenu.Item
   {
@@ -46,10 +57,25 @@ public class NavMenu extends BaseMenu
     }
   }
 
+  private class AnimationListener extends UiUtils.SimpleAnimatorListener
+  {
+    @Override
+    public void onAnimationStart(android.animation.Animator animation)
+    {
+      mAnimating = true;
+    }
+
+    @Override
+    public void onAnimationEnd(android.animation.Animator animation)
+    {
+      mAnimating = false;
+    }
+  }
+
   public NavMenu(View frame, ItemClickListener<Item> listener)
   {
     super(frame, listener);
-
+    mContentFrame = mFrame.findViewById(R.id.content_frame);
     mToggleImage = new RotateDrawable(Graphics.tint(mFrame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight));
     ImageView toggle = (ImageView) mLineFrame.findViewById(R.id.toggle);
     toggle.setImageDrawable(mToggleImage);
@@ -69,8 +95,126 @@ public class NavMenu extends BaseMenu
   @Override
   public void onResume(@Nullable Runnable procAfterMeasurement)
   {
-    super.onResume(procAfterMeasurement);
+    measureContent(procAfterMeasurement);
     refresh();
+  }
+
+  public boolean isOpen()
+  {
+    return mIsOpen;
+  }
+
+  public boolean isAnimating()
+  {
+    return mAnimating;
+  }
+
+  public boolean open(boolean animate)
+  {
+    if ((animate && mAnimating) || isOpen())
+      return false;
+
+    mIsOpen = true;
+
+    UiUtils.show(mContentFrame);
+    adjustTransparency();
+    updateMarker();
+
+    setToggleState(mIsOpen, animate);
+    if (!animate)
+      return true;
+
+    mFrame.setTranslationY(mContentHeight);
+    mFrame.animate()
+          .setDuration(ANIMATION_DURATION)
+          .translationY(0.0f)
+          .setListener(new AnimationListener())
+          .start();
+
+    return true;
+  }
+
+  public boolean close(boolean animate, @Nullable final Runnable onCloseListener)
+  {
+    if (mAnimating || !isOpen())
+    {
+      if (onCloseListener != null)
+        onCloseListener.run();
+
+      return false;
+    }
+
+    mIsOpen = false;
+    setToggleState(mIsOpen, animate);
+
+    if (!animate)
+    {
+      UiUtils.hide(mContentFrame);
+      adjustTransparency();
+      updateMarker();
+
+      if (onCloseListener != null)
+        onCloseListener.run();
+
+      return true;
+    }
+
+    mFrame.animate()
+          .setDuration(ANIMATION_DURATION)
+          .translationY(mContentHeight)
+          .setListener(new AnimationListener()
+          {
+            @Override
+            public void onAnimationEnd(Animator animation)
+            {
+              super.onAnimationEnd(animation);
+              mFrame.setTranslationY(0.0f);
+              UiUtils.hide(mContentFrame);
+              adjustTransparency();
+              updateMarker();
+
+              if (onCloseListener != null)
+                onCloseListener.run();
+            }
+          }).start();
+
+    return true;
+  }
+
+  public void toggle(boolean animate)
+  {
+    if (mAnimating)
+      return;
+
+    boolean show = !isOpen();
+
+    if (show)
+      open(animate);
+    else
+      close(animate);
+  }
+
+
+  void measureContent(@Nullable final Runnable procAfterMeasurement)
+  {
+    if (mLayoutMeasured)
+      return;
+
+    UiUtils.measureView(mContentFrame, new UiUtils.OnViewMeasuredListener()
+    {
+      @Override
+      public void onViewMeasured(int width, int height)
+      {
+        if (height != 0)
+        {
+          mContentHeight = height;
+          mLayoutMeasured = true;
+
+          UiUtils.hide(mContentFrame);
+        }
+        afterLayoutMeasured(procAfterMeasurement);
+      }
+    });
   }
 
   public void refresh()

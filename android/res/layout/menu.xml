@@ -12,10 +12,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-    <Space
-      android:id="@+id/animation_spacer"
-      android:layout_width="0dp"
-      android:layout_height="0dp"/>
 
     <FrameLayout
       android:id="@+id/line_frame"
@@ -47,19 +43,4 @@
         tools:layout_marginTop="60dp"/>
     </FrameLayout>
   </LinearLayout>
-
-  <FrameLayout
-    android:id="@+id/content_frame"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:visibility="invisible"
-    tools:visibility="visible">
-    <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="@color/divider"/>
-
-    <include
-      layout="@layout/menu_content"/>
-  </FrameLayout>
 </LinearLayout>

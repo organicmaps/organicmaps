@@ -871,7 +871,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mIsTabletLayout)
     {
       mPanelAnimator = new PanelAnimator(this);
-      mPanelAnimator.registerListener(mMainMenu.getLeftAnimationTrackListener());
       return;
     }
   }
