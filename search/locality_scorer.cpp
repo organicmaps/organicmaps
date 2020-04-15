@@ -3,6 +3,7 @@
 #include "search/cbv.hpp"
 #include "search/geocoder_context.hpp"
 #include "search/idf_map.hpp"
+#include "search/ranking_utils.hpp"
 #include "search/retrieval.hpp"
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
@@ -267,6 +268,7 @@ void LocalityScorer::GetDocVecs(uint32_t localityId, vector<DocVec> & dvs) const
   {
     vector<UniString> tokens;
     NormalizeAndTokenizeString(name, tokens);
+    base::EraseIf(tokens, &IsStopWord);
 
     DocVec::Builder builder;
     for (auto const & token : tokens)

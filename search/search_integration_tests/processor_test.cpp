@@ -2835,7 +2835,8 @@ UNIT_CLASS_TEST(ProcessorTest, LocalityScorer)
   TestCity sp2(m2::PointD(2.0, 2.0), "San Pedro", "en", 50 /* rank */);
   TestCity sp3(m2::PointD(3.0, 3.0), "San Pedro", "en", 50 /* rank */);
   TestCity sp4(m2::PointD(4.0, 4.0), "San Pedro", "en", 50 /* rank */);
-  TestCity sp_good(m2::PointD(6.0, 6.0), "San Pedro de Atacama", "en", 100 /* rank */);
+  TestCity spAtacama(m2::PointD(5.5, 5.5), "San Pedro de Atacama", "en", 100 /* rank */);
+  TestCity spAlcantara(m2::PointD(6.5, 6.5), "San Pedro de Alcantara", "en", 40 /* rank */);
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder) {
     builder.Add(sp0);
@@ -2843,20 +2844,30 @@ UNIT_CLASS_TEST(ProcessorTest, LocalityScorer)
     builder.Add(sp2);
     builder.Add(sp3);
     builder.Add(sp4);
-    builder.Add(sp_good);
+    builder.Add(spAtacama);
+    builder.Add(spAlcantara);
   });
 
   SetViewport(m2::RectD(m2::PointD(5.0, 5.0), m2::PointD(7.0, 7.0)));
   {
-    // No results because GetToLocalities leaves sp0..sp4 even if |sp_good| has bigger rank and 
-    // is closer to viewort center.
-    // sp0..sp4 are not in final results because there is no relaxed results for cities with multiple unmatched tokens.
-    Rules rules = {};
+    Rules rules = {ExactMatch(worldId, spAtacama)};
     TEST(ResultsMatch("San Pedro de Atacama ", rules), ());
   }
   {
-    Rules rules = {ExactMatch(worldId, sp_good)};
+    // No results because GetToLocalities leaves sp0..sp4 because sp0..sp4 and spAlcantara have
+    // same similarity (1.0) and sp0..sp4 have higher rank.
+    // sp0..sp4 are not in final results because there is no relaxed results for cities with multiple
+    // unmatched tokens.
+    Rules rules = {};
+    TEST(ResultsMatch("San Pedro de Alcantara ", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(worldId, spAtacama)};
     TEST(ResultsMatch("Atacama ", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(worldId, spAlcantara)};
+    TEST(ResultsMatch("Alcantara ", rules), ());
   }
 }
 }  // namespace
