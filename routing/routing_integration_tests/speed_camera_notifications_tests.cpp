@@ -471,4 +471,17 @@ UNIT_TEST(SpeedCameraNotification_NeverMode_1)
     }
   }
 }
+
+// Test on case when a feature is split by a mini_roundabout or by a turning_loop and
+// contains a speed camera. The thing is to pass this test it's necessary to process
+// fake road feature ids correctly while speed cameras generation process.
+UNIT_TEST(SpeedCameraNotification_CameraOnMiniRoundabout)
+{
+  RoutingSession routingSession;
+  InitRoutingSession({41.201998, 69.109587} /* from */, {41.200358, 69.107051} /* to   */,
+                     routingSession, SpeedCameraManagerMode::Never);
+  double const speedKmPH = 100.0;
+  ChangePosition({41.201998, 69.109587}, speedKmPH, routingSession);
+  TEST(!NoCameraFound(routingSession), ());
+}
 }  // namespace
