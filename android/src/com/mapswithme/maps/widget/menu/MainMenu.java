@@ -15,7 +15,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.StatisticValueConverter;
 
 import java.util.Locale;
-import java.util.Optional;
 
 public class MainMenu extends BaseMenu
 {
@@ -26,7 +25,7 @@ public class MainMenu extends BaseMenu
           @Override
           boolean showToggle()
           {
-            return false;
+            return true;
           }
         },
     NAVIGATION,

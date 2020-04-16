@@ -850,12 +850,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     });
   }
 
-  private void toggleMenu()
-  {
-    getCurrentMenu().toggle(true);
-    refreshFade();
-  }
-
   public void refreshFade()
   {
     if (getCurrentMenu().isOpen())
@@ -2665,17 +2659,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onMenuItemClickInternal()
     {
-      if (!getActivity().mMainMenu.isOpen())
-      {
-        Statistics.INSTANCE.trackToolbarClick(getItem());
-        // TODO:
-        if (/*getActivity().mPlacePage.isDocked() &&*/ getActivity().closePlacePage())
-          return;
+      Statistics.INSTANCE.trackToolbarClick(getItem());
+      if (getActivity().closePlacePage())
+        return;
+      if (getActivity().closeSidePanel())
+        return;
 
-        if (getActivity().closeSidePanel())
-          return;
-      }
-      getActivity().toggleMenu();
+      Toast.makeText(getActivity(), "Open bottom sheet menu!", Toast.LENGTH_SHORT).show();
     }
   }
 
