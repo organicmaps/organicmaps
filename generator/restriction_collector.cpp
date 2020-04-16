@@ -52,7 +52,7 @@ RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureId
                                            std::unique_ptr<IndexGraph> && graph)
   : m_indexGraph(std::move(graph))
 {
-  CHECK(ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureId),
+  CHECK(ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureIds),
         ("An error happened while parsing feature id to "
          "osm ids mapping from file:", osmIdsToFeatureIdPath));
 }
@@ -62,7 +62,7 @@ bool RestrictionCollector::Process(std::string const & restrictionPath)
   CHECK(m_indexGraph, ());
 
   SCOPE_GUARD(clean, [this]() {
-    m_osmIdToFeatureId.clear();
+    m_osmIdToFeatureIds.clear();
     m_restrictions.clear();
   });
 
@@ -311,16 +311,18 @@ bool RestrictionCollector::AddRestriction(m2::PointD const & coords,
   std::vector<uint32_t> featureIds(osmIds.size());
   for (size_t i = 0; i < osmIds.size(); ++i)
   {
-    auto const result = m_osmIdToFeatureId.find(osmIds[i]);
-    if (result == m_osmIdToFeatureId.cend())
+    auto const result = m_osmIdToFeatureIds.find(osmIds[i]);
+    if (result == m_osmIdToFeatureIds.cend())
     {
-      // It could happend near mwm border when one of a restriction lines is not included in mwm
+      // It could happens near mwm border when one of a restriction lines is not included in mwm
       // but the restriction is included.
       return false;
     }
 
     // Only one feature id is found for |osmIds[i]|.
-    featureIds[i] = result->second;
+    // @TODO(bykoianko) All the feature ids should be used instead of |result->second.front()|.
+    CHECK(!result->second.empty(), ());
+    featureIds[i] = result->second.front();
   }
 
   if (!IsRestrictionValid(restrictionType, coords, featureIds))
@@ -332,7 +334,7 @@ bool RestrictionCollector::AddRestriction(m2::PointD const & coords,
 
 void RestrictionCollector::AddFeatureId(uint32_t featureId, base::GeoObjectId osmId)
 {
-  ::routing::AddFeatureId(osmId, featureId, m_osmIdToFeatureId);
+  ::routing::AddFeatureId(osmId, featureId, m_osmIdToFeatureIds);
 }
 
 void FromString(std::string const & str, Restriction::Type & type)

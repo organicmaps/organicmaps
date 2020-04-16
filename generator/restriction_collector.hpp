@@ -91,7 +91,7 @@ private:
                       std::vector<base::GeoObjectId> const & osmIds);
 
   std::vector<Restriction> m_restrictions;
-  std::map<base::GeoObjectId, uint32_t> m_osmIdToFeatureId;
+  std::map<base::GeoObjectId, std::vector<uint32_t>> m_osmIdToFeatureIds;
 
   std::unique_ptr<IndexGraph> m_indexGraph;
 

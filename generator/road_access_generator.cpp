@@ -163,7 +163,7 @@ set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccess = {
 };
 
 bool ParseRoadAccess(string const & roadAccessPath,
-                     map<base::GeoObjectId, uint32_t> const & osmIdToFeatureId,
+                     map<base::GeoObjectId, vector<uint32_t>> const & osmIdToFeatureIds,
                      RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
 {
   ifstream stream(roadAccessPath);
@@ -240,14 +240,16 @@ bool ParseRoadAccess(string const & roadAccessPath,
     }
     ++iter;
 
-    auto const it = osmIdToFeatureId.find(base::MakeOsmWay(osmId));
+    auto const it = osmIdToFeatureIds.find(base::MakeOsmWay(osmId));
     // Even though this osm element has a tag that is interesting for us,
     // we have not created a feature from it. Possible reasons:
     // no primary tag, unsupported type, etc.
-    if (it == osmIdToFeatureId.cend())
+    if (it == osmIdToFeatureIds.cend())
       continue;
 
-    uint32_t const featureId = it->second;
+    // @TODO(bykoianko) All the feature ids should be used instead of |it->second.front()|.
+    CHECK(!it->second.empty(), ());
+    uint32_t const featureId = it->second.front();
 
     if (pointIdx == 0)
       addFeature(featureId, vehicleType, roadAccessType, osmId);
@@ -262,7 +264,8 @@ bool ParseRoadAccess(string const & roadAccessPath,
 }
 
 void ParseRoadAccessConditional(
-    string const & roadAccessPath, map<base::GeoObjectId, uint32_t> const & osmIdToFeatureId,
+    string const & roadAccessPath,
+    map<base::GeoObjectId, vector<uint32_t>> const & osmIdToFeatureIds,
     RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
 {
   ifstream stream(roadAccessPath);
@@ -312,10 +315,12 @@ void ParseRoadAccessConditional(
     if (conditional.IsEmpty())
       continue;
 
-    auto const it = osmIdToFeatureId.find(base::MakeOsmWay(osmId));
-    if (it == osmIdToFeatureId.end())
+    auto const it = osmIdToFeatureIds.find(base::MakeOsmWay(osmId));
+    if (it == osmIdToFeatureIds.end())
       continue;
-    uint32_t const featureId = it->second;
+    // @TODO(bykoianko) All the feature ids should be used instead of |it->second.front()|.
+    CHECK(!osmIdToFeatureIds.empty(), ());
+    uint32_t const featureId = it->second.front();
 
     wayToAccessConditional[static_cast<size_t>(vehicleType)].emplace(featureId, move(conditional));
   }
@@ -643,8 +648,8 @@ void RoadAccessWriter::MergeInto(RoadAccessWriter & collector) const
 RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string const & roadAccessPath,
                                          string const & osmIdsToFeatureIdsPath)
 {
-  map<base::GeoObjectId, uint32_t> osmIdToFeatureId;
-  if (!ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
+  map<base::GeoObjectId, vector<uint32_t>> osmIdToFeatureIds;
+  if (!ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
   {
     LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",
                    osmIdsToFeatureIdsPath));
@@ -653,7 +658,7 @@ RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string con
   }
 
   RoadAccessCollector::RoadAccessByVehicleType roadAccessByVehicleType;
-  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureId, roadAccessByVehicleType))
+  if (!ParseRoadAccess(roadAccessPath, osmIdToFeatureIds, roadAccessByVehicleType))
   {
     LOG(LWARNING, ("An error happened while parsing road access from file:", roadAccessPath));
     m_valid = false;
@@ -661,7 +666,7 @@ RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string con
   }
 
   auto const roadAccessConditional = roadAccessPath + ROAD_ACCESS_CONDITIONAL_EXT;
-  ParseRoadAccessConditional(roadAccessConditional, osmIdToFeatureId, roadAccessByVehicleType);
+  ParseRoadAccessConditional(roadAccessConditional, osmIdToFeatureIds, roadAccessByVehicleType);
 
   m_valid = true;
   m_roadAccessByVehicleType.swap(roadAccessByVehicleType);

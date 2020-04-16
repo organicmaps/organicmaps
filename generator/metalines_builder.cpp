@@ -225,8 +225,8 @@ void MetalinesBuilder::MergeInto(MetalinesBuilder & collector) const
 bool WriteMetalinesSection(std::string const & mwmPath, std::string const & metalinesPath,
                            std::string const & osmIdsToFeatureIdsPath)
 {
-  std::map<base::GeoObjectId, uint32_t> osmIdToFeatureId;
-  if (!routing::ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
+  std::map<base::GeoObjectId, std::vector<uint32_t>> osmIdToFeatureIds;
+  if (!routing::ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
     return false;
 
   FileReader reader(metalinesPath);
@@ -243,12 +243,14 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
     for (auto const wayId : ways)
     {
       // We get a negative wayId when a feature direction should be reversed.
-      auto fid = osmIdToFeatureId.find(base::MakeOsmWay(std::abs(wayId)));
-      if (fid == osmIdToFeatureId.cend())
+      auto fids = osmIdToFeatureIds.find(base::MakeOsmWay(std::abs(wayId)));
+      if (fids == osmIdToFeatureIds.cend())
         break;
 
       // Keeping the sign for the feature direction.
-      int32_t const featureId = static_cast<int32_t>(fid->second);
+      // @TODO(bykoianko) All the feature ids should be used instead of |fids->second[0]|.
+      CHECK(!fids->second.empty(), ());
+      int32_t const featureId = static_cast<int32_t>(fids->second.front());
       featureIds.push_back(wayId > 0 ? featureId : -featureId);
     }
 

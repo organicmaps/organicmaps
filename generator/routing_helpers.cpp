@@ -27,19 +27,18 @@ bool ForEachRoadFromFile(string const & filename, ToDo && toDo)
 namespace routing
 {
 void AddFeatureId(base::GeoObjectId osmId, uint32_t featureId,
-                  map<base::GeoObjectId, uint32_t> & osmIdToFeatureId)
+                  map<base::GeoObjectId, std::vector<uint32_t>> & osmIdToFeatureIds)
 {
-  // Failing to insert here usually means that two features were created
-  // from one osm id, for example an area and its boundary.
-  osmIdToFeatureId.emplace(osmId, featureId);
+  osmIdToFeatureIds[osmId].push_back(featureId);
 }
 
-bool ParseRoadsOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
-                                       map<base::GeoObjectId, uint32_t> & osmIdToFeatureId)
+bool ParseRoadsOsmIdToFeatureIdMapping(
+    string const & osmIdsToFeatureIdPath,
+    map<base::GeoObjectId, std::vector<uint32_t>> & osmIdToFeatureIds)
 {
   return ForEachRoadFromFile(osmIdsToFeatureIdPath,
                              [&](uint32_t featureId, base::GeoObjectId osmId) {
-                               AddFeatureId(osmId, featureId, osmIdToFeatureId);
+                               AddFeatureId(osmId, featureId, osmIdToFeatureIds);
                              });
 }
 
