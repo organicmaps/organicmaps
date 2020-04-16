@@ -488,13 +488,6 @@ Framework::Framework(FrameworkParams const & params)
   InitDiscoveryManager();
   InitTaxiEngine();
 
-  RegisterAllMaps();
-  LOG(LDEBUG, ("Maps initialized"));
-
-  // Need to reload cities boundaries because maps in indexer were updated.
-  GetSearchAPI().LoadCitiesBoundaries();
-  GetSearchAPI().CacheWorldLocalities();
-
   // Init storage with needed callback.
   m_storage.Init(
                  bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
@@ -502,6 +495,13 @@ Framework::Framework(FrameworkParams const & params)
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   m_storage.SetStartDownloadingCallback([this]() { UpdatePlacePageInfoForCurrentSelection(); });
   LOG(LDEBUG, ("Storage initialized"));
+  
+  RegisterAllMaps();
+  LOG(LDEBUG, ("Maps initialized"));
+
+  // Need to reload cities boundaries because maps in indexer were updated.
+  GetSearchAPI().LoadCitiesBoundaries();
+  GetSearchAPI().CacheWorldLocalities();
 
   // Local ads manager should be initialized after storage initialization.
   if (params.m_enableLocalAds)
