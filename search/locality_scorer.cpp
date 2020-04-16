@@ -80,14 +80,15 @@ LocalityScorer::ExLocality::ExLocality(Locality const & locality, double queryNo
 }
 
 // LocalityScorer ----------------------------------------------------------------------------------
-LocalityScorer::LocalityScorer(QueryParams const & params, Delegate const & delegate)
-  : m_params(params), m_delegate(delegate)
+LocalityScorer::LocalityScorer(QueryParams const & params, m2::PointD const & pivot,
+                               Delegate & delegate)
+  : m_params(params), m_pivot(pivot), m_delegate(delegate)
 {
 }
 
 void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx,
                                       CBV const & filter, size_t limit,
-                                      vector<Locality> & localities) const
+                                      vector<Locality> & localities)
 {
   double const kUnknownIdf = 1.0;
 
@@ -165,8 +166,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
   LeaveTopLocalities(idfs, limit, localities);
 }
 
-void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit,
-                                        vector<Locality> & localities) const
+void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, vector<Locality> & localities)
 {
   vector<ExLocality> els;
   els.reserve(localities.size());
@@ -199,11 +199,15 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit,
     // for all localities tokens.  Therefore, for tokens not in the
     // query, some default IDF value will be used.
     GetDocVecs(els[i].GetId(), dvs);
+    auto const distance = GetDistanceToPivot(els[i].GetId());
     for (; i < j; ++i)
+    {
       els[i].m_similarity = GetSimilarity(els[i].m_locality.m_queryVec, idfs, dvs);
+      els[i].m_distanceToPivot = distance;
+    }
   }
 
-  LeaveTopBySimilarityAndRank(limit, els);
+  LeaveTopBySimilarityAndOther(limit, els);
   ASSERT_LESS_OR_EQUAL(els.size(), limit, ());
 
   localities.clear();
@@ -234,7 +238,7 @@ void LocalityScorer::LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds,
   base::EraseIf(els, [&](ExLocality const & el) { return seen.find(el.GetId()) == seen.cend(); });
 }
 
-void LocalityScorer::LeaveTopBySimilarityAndRank(size_t limit, vector<ExLocality> & els) const
+void LocalityScorer::LeaveTopBySimilarityAndOther(size_t limit, vector<ExLocality> & els) const
 {
   sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
     if (lhs.m_similarity != rhs.m_similarity)
@@ -246,19 +250,49 @@ void LocalityScorer::LeaveTopBySimilarityAndRank(size_t limit, vector<ExLocality
     return lhs.m_locality.m_featureId < rhs.m_locality.m_featureId;
   });
 
+  auto lessDistance = [](ExLocality const & lhs, ExLocality const & rhs) {
+    return lhs.m_distanceToPivot < rhs.m_distanceToPivot;
+  };
+
+  auto const compareSimilarityAndSize = [](ExLocality const & lhs, ExLocality const & rhs) {
+    if (lhs.m_similarity != rhs.m_similarity)
+      return lhs.m_similarity > rhs.m_similarity;
+    if (lhs.m_locality.m_tokenRange.Size() != rhs.m_locality.m_tokenRange.Size())
+      return lhs.m_locality.m_tokenRange.Size() > rhs.m_locality.m_tokenRange.Size();
+    return false;
+  };
+
+  vector<ExLocality> tmp;
+  tmp.reserve(els.size());
+  auto begin = els.begin();
+  auto const end = els.end();
+  while (begin != end)
+  {
+    // We can split els to equal ranges by similarity and size because we sorted els by similarity
+    // and size first.
+    auto const range = equal_range(begin, end, *begin, compareSimilarityAndSize);
+    auto const closest = min_element(range.first, range.second, lessDistance);
+    tmp.emplace_back(std::move(*closest));
+    for (auto it = range.first; it != range.second; ++it)
+    {
+      if (it != closest)
+        tmp.emplace_back(move(*it));
+    }
+    begin = range.second;
+  }
+
   unordered_set<uint32_t> seen;
 
-  size_t n = 0;
-  for (size_t i = 0; i < els.size() && n < limit; ++i)
+  els.clear();
+  els.reserve(limit);
+  for (size_t i = 0; i < tmp.size() && els.size() < limit; ++i)
   {
-    auto const id = els[i].GetId();
+    auto const id = tmp[i].GetId();
     if (seen.insert(id).second)
     {
-      els[n] = els[i];
-      ++n;
+      els.emplace_back(move(tmp[i]));
     }
   }
-  els.erase(els.begin() + n, els.end());
 }
 
 void LocalityScorer::GetDocVecs(uint32_t localityId, vector<DocVec> & dvs) const
@@ -277,6 +311,17 @@ void LocalityScorer::GetDocVecs(uint32_t localityId, vector<DocVec> & dvs) const
       builder.Add(token);
     dvs.emplace_back(builder);
   }
+}
+
+double LocalityScorer::GetDistanceToPivot(uint32_t localityId)
+{
+  auto distance = numeric_limits<double>::max();
+  auto const center = m_delegate.GetCenter(localityId);
+  if (center)
+  {
+    distance = mercator::DistanceOnEarth(m_pivot, *center);
+  }
+  return distance;
 }
 
 double LocalityScorer::GetSimilarity(QueryVec & qv, IdfMap & docIdfs, vector<DocVec> & dvc) const

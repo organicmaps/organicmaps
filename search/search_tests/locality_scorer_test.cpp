@@ -34,11 +34,21 @@ class LocalityScorerTest : public LocalityScorer::Delegate
 public:
   using Ids = vector<uint32_t>;
 
-  LocalityScorerTest() : m_scorer(m_params, static_cast<LocalityScorer::Delegate &>(*this)) {}
+  LocalityScorerTest()
+    : m_scorer(m_params, m2::PointD(), static_cast<LocalityScorer::Delegate &>(*this))
+  {
+  }
 
   void InitParams(string const & query, bool lastTokenIsPrefix)
   {
+    InitParams(query, m2::PointD(), lastTokenIsPrefix);
+  }
+
+  void InitParams(string const & query, m2::PointD const & pivot, bool lastTokenIsPrefix)
+  {
     m_params.Clear();
+
+    m_scorer.SetPivotForTests(pivot);
 
     vector<UniString> tokens;
     Delimiters delims;
@@ -57,7 +67,8 @@ public:
     }
   }
 
-  void AddLocality(string const & name, uint32_t featureId, uint8_t rank = 0)
+  void AddLocality(string const & name, uint32_t featureId, uint8_t rank = 0,
+                   m2::PointD const & center = {})
   {
     set<UniString> tokens;
     Delimiters delims;
@@ -68,6 +79,7 @@ public:
 
     m_names[featureId].push_back(name);
     m_ranks[featureId] = rank;
+    m_centers[featureId] = center;
   }
 
   Ids GetTopLocalities(size_t limit)
@@ -128,10 +140,17 @@ public:
     return it == m_ranks.end() ? 0 : it->second;
   }
 
+  optional<m2::PointD> GetCenter(uint32_t featureId) override
+  {
+    auto it = m_centers.find(featureId);
+    return it == m_centers.end() ? optional<m2::PointD>() : it->second;
+  }
+
 protected:
   QueryParams m_params;
   unordered_map<uint32_t, vector<string>> m_names;
   unordered_map<uint32_t, uint8_t> m_ranks;
+  unordered_map<uint32_t, m2::PointD> m_centers;
   LocalityScorer m_scorer;
 
   base::MemTrie<UniString, base::VectorValues<uint32_t>> m_searchIndex;
@@ -262,4 +281,28 @@ UNIT_CLASS_TEST(LocalityScorerTest, Similarity)
 
   InitParams("San Carlos de Apoquindo", false /* lastTokenIsPrefix */);
   TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_CARLOS_APOQUINDO}), ());
+}
+
+UNIT_CLASS_TEST(LocalityScorerTest, DistanceToPivot)
+{
+  enum
+  {
+    ID_ABERDEEN_CLOSE,
+    ID_ABERDEEN_RANK1,
+    ID_ABERDEEN_RANK2,
+    ID_ABERDEEN_RANK3
+  };
+
+  AddLocality("Aberdeen", ID_ABERDEEN_CLOSE, 10 /* rank */, m2::PointD(11.0, 11.0));
+  AddLocality("Aberdeen", ID_ABERDEEN_RANK1, 100 /* rank */, m2::PointD(0.0, 0.0));
+  AddLocality("Aberdeen", ID_ABERDEEN_RANK2, 50 /* rank */, m2::PointD(2.0, 2.0));
+  AddLocality("Aberdeen", ID_ABERDEEN_RANK2, 5 /* rank */, m2::PointD(4.0, 4.0));
+
+  InitParams("Aberdeen", m2::PointD(10.0, 10.0) /* pivot */, false /* lastTokenIsPrefix */);
+
+  // Expected order is: the closest one (ID_ABERDEEN_CLOSE) first, than sorted by rank.
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_ABERDEEN_CLOSE}), ());
+  TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_ABERDEEN_CLOSE, ID_ABERDEEN_RANK1}), ());
+  TEST_EQUAL(GetTopLocalities(3 /* limit */),
+             Ids({ID_ABERDEEN_CLOSE, ID_ABERDEEN_RANK1, ID_ABERDEEN_RANK2}), ());
 }

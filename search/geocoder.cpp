@@ -162,7 +162,7 @@ private:
 class LocalityScorerDelegate : public LocalityScorer::Delegate
 {
 public:
-  LocalityScorerDelegate(MwmContext const & context, Geocoder::Params const & params,
+  LocalityScorerDelegate(MwmContext & context, Geocoder::Params const & params,
                          base::Cancellable const & cancellable)
     : m_context(context)
     , m_params(params)
@@ -188,8 +188,24 @@ public:
 
   uint8_t GetRank(uint32_t featureId) const override { return m_ranks.Get(featureId); }
 
+  optional<m2::PointD> GetCenter(uint32_t featureId) override
+  {
+    m2::PointD center;
+    // m_context->GetCenter is faster but may not work for editor created features.
+    if (!m_context.GetCenter(featureId, center))
+    {
+      auto ft = m_context.GetFeature(featureId);
+      if (!ft)
+        return {};
+
+      center = feature::GetCenter(*ft);
+    }
+
+    return center;
+  }
+
 private:
-  MwmContext const & m_context;
+  MwmContext & m_context;
   Geocoder::Params const & m_params;
   base::Cancellable const & m_cancellable;
 
@@ -657,7 +673,7 @@ void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filte
   }
 
   LocalityScorerDelegate delegate(*m_context, m_params, m_cancellable);
-  LocalityScorer scorer(m_params, delegate);
+  LocalityScorer scorer(m_params, m_params.m_pivot.Center(), delegate);
   scorer.GetTopLocalities(m_context->GetId(), ctx, filter, maxNumLocalities, preLocalities);
 }
 
