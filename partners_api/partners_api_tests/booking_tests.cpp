@@ -27,14 +27,6 @@ public:
   }
 };
 
-UNIT_TEST(Booking_GetHotelAvailability)
-{
-  std::string const kHotelId = "98251";  // Booking hotel id for testing.
-  std::string result;
-  TEST(RawApi::GetHotelAvailability(kHotelId, "", result), ());
-  TEST(!result.empty(), ());
-}
-
 UNIT_TEST(Booking_GetExtendedInfo)
 {
   std::string const kHotelId = "0";  // Internal hotel id for testing.
@@ -46,7 +38,7 @@ UNIT_TEST(Booking_GetExtendedInfo)
 UNIT_TEST(Booking_HotelAvailability)
 {
   AvailabilityParams params;
-  params.m_hotelIds = {"98251"};
+  params.m_hotelIds = {"98251"}; // booking hotel id for testing
   params.m_rooms = {{2, AvailabilityParams::Room::kNoChildren}};
   params.m_checkin = std::chrono::system_clock::now() + std::chrono::hours(24);
   params.m_checkout = std::chrono::system_clock::now() + std::chrono::hours(24 * 7);

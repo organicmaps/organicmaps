@@ -111,8 +111,6 @@ struct Blocks
 class RawApi
 {
 public:
-  // Booking Api v1 methods:
-  static bool GetHotelAvailability(std::string const & hotelId, std::string const & currency, std::string & result);
   static bool GetExtendedInfo(std::string const & hotelId, std::string const & lang, std::string & result);
   // Booking Api v2 methods:
   static bool HotelAvailability(AvailabilityParams const & params, std::string & result);

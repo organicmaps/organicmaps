@@ -59,11 +59,6 @@ bool RunSimpleHttpRequest(bool const needAuth, string const & url, string & resu
   return request.RunHttpRequest(result);
 }
 
-std::string FormatTime(system_clock::time_point p)
-{
-  return partners_api::FormatTime(p, "%Y-%m-%d");
-}
-
 string MakeUrlForTesting(string const & func, url::Params const & params, string const & divider)
 {
   ASSERT(!g_BookingUrlForTesting.empty(), ());
@@ -90,11 +85,6 @@ string MakeApiUrlImpl(string const & baseUrl, string const & func, url::Params c
     return MakeUrlForTesting(func, params, divider);
 
   return url::Make(baseUrl + divider + func, params);
-}
-
-string MakeApiUrlV1(string const & func, url::Params const & params)
-{
-  return MakeApiUrlImpl(kBookingApiBaseUrlV1, func, params, ".");
 }
 
 string MakeApiUrlV2(string const & func, url::Params const & params)
@@ -405,18 +395,6 @@ string MakeLabel(string const & labelSource)
 
 namespace booking
 {
-// static
-bool RawApi::GetHotelAvailability(string const & hotelId, string const & currency, string & result)
-{
-  system_clock::time_point p = system_clock::from_time_t(time(nullptr));
-
-  string url = MakeApiUrlV1("getHotelAvailability", {{"hotel_ids", hotelId},
-                                                     {"currency_code", currency},
-                                                     {"arrival_date", FormatTime(p)},
-                                                     {"departure_date", FormatTime(p + hours(24))}});
-  return RunSimpleHttpRequest(true, url, result);
-}
-
 // static
 bool RawApi::GetExtendedInfo(string const & hotelId, string const & lang, string & result)
 {
