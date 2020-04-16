@@ -242,8 +242,7 @@ final class AuthorizationViewController: MWMViewController {
   private func process(token: String,
                        type: SocialTokenType,
                        firstName: String = "",
-                       lastName: String = "",
-                       completion: ((_ success: Bool) -> Void)? = nil) {
+                       lastName: String = "") {
     Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess,
                         withParameters: [kStatProvider: getProviderStatStr(type: type)])
     User.authenticate(withToken: token,
@@ -254,7 +253,6 @@ final class AuthorizationViewController: MWMViewController {
                       firstName: firstName,
                       lastName: lastName,
                       source: sourceComponent) { success in
-                        completion?(success)
                         self.logStats(type: type, success: success)
                         if success {
                           self.successHandler?(type)
@@ -325,14 +323,14 @@ extension AuthorizationViewController: ASAuthorizationControllerDelegate {
     switch authorization.credential {
     case let appleIDCredential as ASAuthorizationAppleIDCredential:
       guard let token = appleIDCredential.identityToken,
-        let tokenString = String(data: token, encoding: .utf8),
-        let fullName = appleIDCredential.fullName else { return }
-      let appleId = appleIDCredential.user
-      process(token: tokenString, type: .apple, firstName: fullName.givenName ?? "", lastName: fullName.familyName ?? "") {
-        if $0 {
-          User.setAppleId(appleId)
-        }
-      }
+        let tokenString = String(data: token, encoding: .utf8) else { return }
+      let fullName = appleIDCredential.fullName
+      let userId = appleIDCredential.user
+      let appleId = User.getAppleId()
+      let firstName = fullName?.givenName ?? appleId?.firstName ?? ""
+      let lastName = fullName?.familyName ?? appleId?.lastName ?? ""
+      User.setAppleId(AppleId(userId: userId, firstName: firstName, lastName: lastName))
+      process(token: tokenString, type: .apple, firstName: firstName, lastName: lastName)
     default:
       break
     }

@@ -371,6 +371,7 @@
 		478F6FA623C4521F00054A53 /* MoreReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */; };
 		478F6FA823C5067C00054A53 /* MyReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F6FA723C5067C00054A53 /* MyReviewView.swift */; };
 		479603732446F17C00F3BDD0 /* User+AppleId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479603722446F17C00F3BDD0 /* User+AppleId.swift */; };
+		4796037524482E3900F3BDD0 /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796037424482E3800F3BDD0 /* KeychainStorage.swift */; };
 		479D305722C627CB00D18278 /* PartnerBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479D305522C627CB00D18278 /* PartnerBannerViewController.xib */; };
 		479D305B22C62F4000D18278 /* MWMBookmarksBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479D305922C62F4000D18278 /* MWMBookmarksBannerViewController.xib */; };
 		479D306522C664CE00D18278 /* MWMDownloadBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479D306422C664CE00D18278 /* MWMDownloadBannerViewController.m */; };
@@ -1474,6 +1475,7 @@
 		478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreReviewsViewController.swift; sourceTree = "<group>"; };
 		478F6FA723C5067C00054A53 /* MyReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewView.swift; sourceTree = "<group>"; };
 		479603722446F17C00F3BDD0 /* User+AppleId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+AppleId.swift"; sourceTree = "<group>"; };
+		4796037424482E3800F3BDD0 /* KeychainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
 		479D305522C627CB00D18278 /* PartnerBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartnerBannerViewController.xib; sourceTree = "<group>"; };
 		479D305922C62F4000D18278 /* MWMBookmarksBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMBookmarksBannerViewController.xib; sourceTree = "<group>"; };
 		479D306322C664CE00D18278 /* MWMDownloadBannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDownloadBannerViewController.h; sourceTree = "<group>"; };
@@ -3226,6 +3228,7 @@
 				34BBD6661F8273350070CA50 /* AuthorizationViewController.xib */,
 				47FA14D0230D52FC003DA979 /* PhoneNumberAuthorizationViewController.swift */,
 				479603722446F17C00F3BDD0 /* User+AppleId.swift */,
+				4796037424482E3800F3BDD0 /* KeychainStorage.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -5835,6 +5838,7 @@
 				F5BD255A0838E70EC012748E /* DiscoverySearchCell.swift in Sources */,
 				47C7F9732191E15A00C2760C /* InAppBilling.swift in Sources */,
 				F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */,
+				4796037524482E3900F3BDD0 /* KeychainStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
