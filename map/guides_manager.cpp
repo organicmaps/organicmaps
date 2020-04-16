@@ -20,12 +20,24 @@ void GuidesManager::Invalidate()
   // TODO: Implement.
 }
 
-bool GuidesManager::GetGallery(std::string const & guideId, std::vector<GuideInfo> & guidesInfo)
+GuidesManager::GuidesGallery GuidesManager::GetGallery() const
 {
   // TODO: Implement.
+  return {};
+}
+
+std::string GuidesManager::GetActiveGuide() const
+{
+  // TODO: Implement.
+  return "";
 }
 
 void GuidesManager::SetActiveGuide(std::string const & guideId)
 {
   // TODO: Implement.
+}
+
+void GuidesManager::SetGalleryListener(GuidesGalleryChangedFn const & onGalleryChangedFn)
+{
+  m_onGalleryChangedFn = onGalleryChangedFn;
 }

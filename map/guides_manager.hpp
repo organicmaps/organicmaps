@@ -17,57 +17,67 @@ public:
     Disabled,
     Enabled,
     NoData,
-    NoInternet,
-    ServerError
+    NetworkError
   };
 
   GuidesState GetState() const;
 
-  using GuidesStateChangedFn = std::function<void(GuidesState)>;
+  using GuidesStateChangedFn = std::function<void(GuidesState state)>;
   void SetStateListener(GuidesStateChangedFn const & onStateChangedFn);
 
   void UpdateViewport(ScreenBase const & screen);
   void Invalidate();
 
-  struct GuideInfo
+  struct GuidesGallery
   {
-    struct CityParams
+    struct Item
     {
-      int m_bookmarksCount = 0;
-      bool m_trackIsAvailable = false;
+      struct CityParams
+      {
+        int m_bookmarksCount = 0;
+        bool m_trackIsAvailable = false;
+      };
+
+      struct OutdoorParams
+      {
+        // Distance in meters.
+        double m_distance = 0.0;
+        // Duration in seconds.
+        uint32_t m_duration = 0;
+        // Ascent in meters.
+        uint16_t m_ascent = 0;
+      };
+
+      enum class Type
+      {
+        City,
+        Outdoor
+      };
+
+      std::string m_guideId;
+      std::string m_url;
+      std::string m_imageUrl;
+      std::string m_title;
+      std::string m_subTitle;
+      Type m_type = Type::City;
+      boost::optional<CityParams> m_cityParams;
+      boost::optional<OutdoorParams> m_outdoorsParams;
     };
 
-    struct OutdoorParams
-    {
-      // Distance in meters.
-      double m_distance = 0.0;
-      // Duration in seconds.
-      uint32_t m_duration = 0;
-      // Ascent in meters.
-      uint16_t m_ascent = 0;
-    };
-
-    enum class Type
-    {
-      City,
-      Outdoor
-    };
-
-    std::string m_guideId;
-    std::string m_imageUrl;
-    std::string m_title;
-    std::string m_subTitle;
-    Type m_type = Type::City;
-    boost::optional<CityParams> m_cityParams;
-    boost::optional<OutdoorParams> m_outdoorsParams;
+    std::vector<Item> m_items;
   };
 
-  bool GetGallery(std::string const & guideId, std::vector<GuideInfo> & guidesInfo);
+  GuidesGallery GetGallery() const;
+  std::string GetActiveGuide() const;
   void SetActiveGuide(std::string const & guideId);
+
+  using GuidesGalleryChangedFn = std::function<void(bool reloadGallery)>;
+  void SetGalleryListener(GuidesGalleryChangedFn const & onGalleryChangedFn);
 
 private:
   GuidesState m_state = GuidesState::Disabled;
   GuidesStateChangedFn m_onStateChangedFn;
+  GuidesGalleryChangedFn m_onGalleryChangedFn;
 };
 
 std::string DebugPrint(GuidesManager::GuidesState state);

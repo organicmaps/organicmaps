@@ -150,7 +150,7 @@ public:
   bool IsMyPosition() const { return m_selectedObject == df::SelectionShape::ESelectedObject::OBJECT_MY_POSITION; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
   bool IsRoadType() const { return m_roadType != RoadWarningMarkType::Count; }
-  bool IsGuide() const { return !m_guideId.empty(); }
+  bool IsGuide() const { return m_isGuide; }
 
   /// Edit and add
   bool ShouldShowAddPlace() const;
@@ -211,8 +211,7 @@ public:
   kml::TrackId GetTrackId() const { return m_trackId; };
 
   /// Guide
-  void SetGuideId(std::string const & guideId) { m_guideId = guideId; }
-  std::string const & GetGuideId() const { return m_guideId; }
+  void SetIsGuide(bool isGuide) { m_isGuide = isGuide; }
 
   /// Api
   void SetApiId(std::string const & apiId) { m_apiId = apiId; }
@@ -361,7 +360,7 @@ private:
   kml::TrackId m_trackId = kml::kInvalidTrackId;
 
   /// Guide
-  std::string m_guideId;
+  bool m_isGuide = false;
 
   /// Api ID passed for the selected object. It's automatically included in api url below.
   std::string m_apiId;
