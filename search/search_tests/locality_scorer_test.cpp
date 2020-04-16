@@ -1,8 +1,10 @@
+#include "search/locality_scorer.hpp"
+
 #include "testing/testing.hpp"
 
 #include "search/cbv.hpp"
 #include "search/geocoder_context.hpp"
-#include "search/locality_scorer.hpp"
+#include "search/ranking_utils.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -41,6 +43,8 @@ public:
     vector<UniString> tokens;
     Delimiters delims;
     SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(tokens), delims);
+    // We remove stop words from query in processor.
+    base::EraseIf(tokens, &IsStopWord);
 
     if (lastTokenIsPrefix)
     {
@@ -235,4 +239,28 @@ UNIT_CLASS_TEST(LocalityScorerTest, Ranks)
              Ids({ID_SAN_MARINO, ID_SAN_ANTONIO, ID_SAN_FRANCISCO}), ());
   TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_SAN_MARINO, ID_SAN_FRANCISCO}), ());
   TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_FRANCISCO}), ());
+}
+
+UNIT_CLASS_TEST(LocalityScorerTest, Similarity)
+{
+  enum
+  {
+    ID_SAN_CARLOS,
+    ID_SAN_CARLOS_BARILOCHE,
+    ID_SAN_CARLOS_APOQUINDO
+  };
+
+  AddLocality("San Carlos", ID_SAN_CARLOS, 20 /* rank */);
+  AddLocality("San Carlos de Bariloche", ID_SAN_CARLOS_BARILOCHE, 30 /* rank */);
+  AddLocality("San Carlos de Apoquindo", ID_SAN_CARLOS_APOQUINDO, 10 /* rank */);
+
+  InitParams("San Carlos", false /* lastTokenIsPrefix */);
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_CARLOS}), ());
+
+  InitParams("San Carlos de Bariloche", false /* lastTokenIsPrefix */);
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_CARLOS_BARILOCHE}), ());
+
+  InitParams("San Carlos de Apoquindo", false /* lastTokenIsPrefix */);
+  // |San Carlos| and |San Carlos de Apoquindo| have same similarity. |San Carlos| has higher rank.
+  TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_CARLOS}), ());
 }
