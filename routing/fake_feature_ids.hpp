@@ -24,9 +24,10 @@ struct FakeFeatureIds
   // It's important that |kGuidesGraphFeaturesStart| is greater than maximum number of real road
   // feature id. Also transit and guides fake feature id should not overlap with real feature id
   // and editor feature ids.
+  static uint32_t constexpr k28BitsOffset = 0xfffffff;
   static uint32_t constexpr k24BitsOffset = 0xffffff;
   static uint32_t constexpr kTransitGraphFeaturesStart =
-      std::numeric_limits<uint32_t>::max() - k24BitsOffset;
+      std::numeric_limits<uint32_t>::max() - k28BitsOffset;
   static uint32_t constexpr kGuidesGraphFeaturesStart = kTransitGraphFeaturesStart - k24BitsOffset;
 };
 
