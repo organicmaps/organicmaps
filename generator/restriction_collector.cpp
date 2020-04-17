@@ -52,7 +52,7 @@ RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureId
                                            std::unique_ptr<IndexGraph> && graph)
   : m_indexGraph(std::move(graph))
 {
-  CHECK(ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureIds),
+  CHECK(ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureIds),
         ("An error happened while parsing feature id to "
          "osm ids mapping from file:", osmIdsToFeatureIdPath));
 }

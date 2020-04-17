@@ -186,7 +186,7 @@ void BuildMaxspeedsSection(string const & dataPath, string const & osmToFeatureP
   LOG(LINFO, ("BuildMaxspeedsSection(", dataPath, ",", osmToFeaturePath, ",", maxspeedsFilename, ")"));
 
   map<uint32_t, base::GeoObjectId> featureIdToOsmId;
-  CHECK(ParseRoadsFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId), ());
+  CHECK(ParseWaysFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId), ());
   BuildMaxspeedsSection(dataPath, featureIdToOsmId, maxspeedsFilename);
 }
 }  // namespace routing

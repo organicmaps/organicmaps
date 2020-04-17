@@ -647,7 +647,7 @@ RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string con
                                          string const & osmIdsToFeatureIdsPath)
 {
   OsmIdToFeatureIds osmIdToFeatureIds;
-  if (!ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
+  if (!ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
   {
     LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",
                    osmIdsToFeatureIdsPath));
