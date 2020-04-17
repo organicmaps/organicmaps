@@ -431,55 +431,26 @@ using namespace power_management;
 #pragma mark - RestoreSubscription
 
 - (void)restoreSubscription {
-  dispatch_group_t dispatchGroup = dispatch_group_create();
-
   [self.restoreSubscriptionCell.progress startAnimating];
   self.restoringSubscription = YES;
-  __block MWMValidationResult adsResult;
-  __block MWMValidationResult bookmarksResult;
-  __block MWMValidationResult allPassResult;
-
-  dispatch_group_enter(dispatchGroup);
-  [[InAppPurchase adsRemovalSubscriptionManager] restore:^(MWMValidationResult result) {
-    adsResult = result;
-    [[InAppPurchase adsRemovalSubscriptionManager] setSubscriptionActive: result == MWMValidationResultValid];
-    dispatch_group_leave(dispatchGroup);
-  }];
-
-  dispatch_group_enter(dispatchGroup);
-  [[InAppPurchase bookmarksSubscriptionManager] restore:^(MWMValidationResult result) {
-    bookmarksResult = result;
-    [[InAppPurchase bookmarksSubscriptionManager] setSubscriptionActive: result == MWMValidationResultValid];
-    dispatch_group_leave(dispatchGroup);
-  }];
-
-  dispatch_group_enter(dispatchGroup);
-  [[InAppPurchase allPassSubscriptionManager] restore:^(MWMValidationResult result) {
-    allPassResult = result;
-    [[InAppPurchase allPassSubscriptionManager] setSubscriptionActive: result == MWMValidationResultValid];
-    dispatch_group_leave(dispatchGroup);
-  }];
 
   __weak auto s = self;
-  dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{
+  [[InAppPurchase adsRemovalSubscriptionManager] restore:^(MWMValidationResult result) {
     __strong auto self = s;
     self.restoringSubscription = NO;
     [self.restoreSubscriptionCell.progress stopAnimating];
     NSString *alertText;
-    if (adsResult == MWMValidationResultNotValid &&
-        bookmarksResult == MWMValidationResultNotValid &&
-        allPassResult == MWMValidationResultNotValid) {
+    [[InAppPurchase adsRemovalSubscriptionManager] setSubscriptionActive: result == MWMValidationResultValid];
+    if (result == MWMValidationResultNotValid) {
       alertText = L(@"restore_no_subscription_alert");
-    } else if (adsResult == MWMValidationResultValid ||
-               bookmarksResult == MWMValidationResultValid ||
-               allPassResult == MWMValidationResultValid) {
+    } else if (result == MWMValidationResultValid) {
       alertText = L(@"restore_success_alert");
     } else {
       alertText = L(@"restore_error_alert");
     }
     [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"restore_subscription")
                                                               text:alertText];
-  });
+  }];
 }
 
 @end
