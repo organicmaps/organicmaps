@@ -111,6 +111,7 @@
   <dimen name="menu_line_button_inset_top">-20dp</dimen>
   <dimen name="menu_line_button_inset_edge">-16dp</dimen>
   <dimen name="menu_list_item_height">48dp</dimen>
+  <dimen name="main_menu_bottom_sheet_width">375dp</dimen>
 
   <!-- Nav menu -->
   <dimen name="nav_elevation">6dp</dimen>

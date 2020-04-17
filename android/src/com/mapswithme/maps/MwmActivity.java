@@ -124,6 +124,8 @@ import com.mapswithme.maps.tips.TutorialAction;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
+import com.mapswithme.maps.widget.menu.MenuController;
+import com.mapswithme.maps.widget.menu.MenuStateObserver;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
@@ -271,6 +273,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PlacePageController mPlacePageController;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private MenuController mMainMenuController;
   @Nullable
   private Tutorial mTutorial;
   @Nullable
@@ -527,6 +532,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageController = PlacePageFactory.createPlacePageController(this, this, this);
     mPlacePageController.initialize(this);
     mPlacePageController.onActivityCreated(this, savedInstanceState);
+
+    // TODO: set state observer.
+    mMainMenuController = com.mapswithme.maps.widget.menu.Factory.createMainMenuController(new MainMenuStateObserver());
+    mMainMenuController.initialize(findViewById(R.id.coordinator));
 
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
@@ -826,8 +835,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void closeMenu(@Nullable Runnable procAfterClose)
   {
     mFadeView.fadeOut();
-    mMainMenu.close(true, procAfterClose);
+    mMainMenuController.close();
+    if (procAfterClose != null)
+      procAfterClose.run();
   }
+
   private boolean closePositionChooser()
   {
     if (UiUtils.isVisible(mPositionChooser))
@@ -1355,18 +1367,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResume();
     mSearchController.refreshToolbar();
-    mMainMenu.onResume(new Runnable()
+    mMainMenu.onResume(null);
+    if (Framework.nativeIsInChoosePositionMode())
     {
-      @Override
-      public void run()
-      {
-        if (Framework.nativeIsInChoosePositionMode())
-        {
-          UiUtils.show(mPositionChooser);
-          setFullscreen(true);
-        }
-      }
-    });
+      UiUtils.show(mPositionChooser);
+      setFullscreen(true);
+    }
     if (mOnmapDownloader != null)
       mOnmapDownloader.onResume();
 
@@ -1460,6 +1466,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mToggleMapLayerController.detachCore();
     TrafficManager.INSTANCE.detachAll();
     mPlacePageController.destroy();
+    mMainMenuController.destroy();
     SearchEngine.INSTANCE.removeListener(this);
   }
 
@@ -1756,11 +1763,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return this;
   }
 
-  public MainMenu getMainMenu()
-  {
-    return mMainMenu;
-  }
-
   @Override
   public void showSearch()
   {
@@ -1782,12 +1784,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (mIsTabletLayout)
-    {
-      mMainMenu.setEnabled(MainMenu.Item.POINT_TO_POINT, !RoutingController.get().isPlanning());
-      mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
-    }
-    else if (RoutingController.get().isPlanning())
+    if (RoutingController.get().isPlanning())
     {
       mMainMenu.setState(MainMenu.State.ROUTE_PREPARE, false, mIsFullscreen);
       return;
@@ -2666,6 +2663,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return;
 
       Toast.makeText(getActivity(), "Open bottom sheet menu!", Toast.LENGTH_SHORT).show();
+      getActivity().mMainMenuController.open();
     }
   }
 
@@ -2855,6 +2853,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
       adjustCompassAndTraffic(UiUtils.isVisible(mSearchController.getToolbar())
                               ? calcFloatingViewsOffset()
                               : UiUtils.getStatusBarHeight(getApplicationContext()));
+    }
+  }
+
+  private class MainMenuStateObserver implements MenuStateObserver
+  {
+
+    @Override
+    public void onMenuOpen()
+    {
+      mFadeView.fadeIn();
+    }
+
+    @Override
+    public void onMenuClosed()
+    {
+      mFadeView.fadeOut();
     }
   }
 }
