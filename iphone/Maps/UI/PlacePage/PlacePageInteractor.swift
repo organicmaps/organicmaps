@@ -195,7 +195,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
     case .booking:
       MWMPlacePageManagerHelper.book(placePageData)
     case .bookingSearch:
-      MWMPlacePageManagerHelper.searchSimilar(placePageData)
+      MWMPlacePageManagerHelper.searchBookingHotels(placePageData)
     case .bookmark:
       if placePageData.bookmarkData != nil {
         MWMPlacePageManagerHelper.removeBookmark(placePageData)

@@ -302,6 +302,13 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   [self.ownerViewController openFullPlaceDescriptionWithHtml:htmlString];
 }
 
+- (void)searchBookingHotels:(PlacePageData *)data {
+  logSponsoredEvent(data, kStatPlacePageHotelBook);
+  NSURL *url = [NSURL URLWithString:data.bookingSearchUrl];
+  NSAssert(url, @"Search url can't be nil!");
+  [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
+}
+
 - (void)openPartner:(PlacePageData *)data withStatisticLog:(NSString *)eventName proposedUrl:(NSURL *)proposedUrl
 {
   logSponsoredEvent(data, eventName);
