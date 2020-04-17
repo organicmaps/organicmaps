@@ -7,9 +7,6 @@ using namespace storage;
   std::vector<storage::MapFilesDownloader::Subscriber *> * m_subscribers;
 }
 
-- (void)didDownloadingStarted;
-- (void)didDownloadingFinished;
-
 @end
 
 @implementation SubscriberAdapter
@@ -24,13 +21,13 @@ using namespace storage;
   return self;
 }
 
-- (void)didDownloadingStarted
+- (void)didStartDownloading
 {
   for (auto const & subscriber : *m_subscribers)
     subscriber->OnStartDownloading();
 }
 
-- (void)didDownloadingFinished
+- (void)didFinishDownloading
 {
   for (auto const & subscriber : *m_subscribers)
     subscriber->OnFinishDownloading();

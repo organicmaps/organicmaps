@@ -4,7 +4,7 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 
-UNIT_TEST(UrlConvertionTest)
+UNIT_TEST(UrlConversionTest)
 {
   {
     std::string const mwmName = "Luna";

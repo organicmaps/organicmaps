@@ -68,4 +68,3 @@ size_t Queue::Count() const
   return m_queue.size();
 }
 }  // namespace storage
-

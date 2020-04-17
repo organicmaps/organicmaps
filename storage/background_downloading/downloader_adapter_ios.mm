@@ -1,6 +1,5 @@
 #import "storage/background_downloading/downloader_adapter_ios.h"
 
-#import "storage/background_downloading/downloader_delegate_ios.h"
 #import "platform/background_downloader_ios.h"
 
 #include "storage/downloader.hpp"
@@ -24,13 +23,13 @@ void BackgroundDownloaderAdapter::Remove(storage::CountryId const & countryId)
 {
   MapFilesDownloader::Remove(countryId);
   
-  if(!m_queue.Contains(countryId))
+  if (!m_queue.Contains(countryId))
     return;
 
   BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
   auto const taskIdentifier = m_queue.GetTaskIdByCountryId(countryId);
   if (taskIdentifier)
-    [downloader cancelWithTaskIdentifier:*taskIdentifier];
+    [downloader cancelTaskWithIdentifier:*taskIdentifier];
   m_queue.Remove(countryId);
 }
 
@@ -79,7 +78,19 @@ void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId
   if (urls.empty())
     return;
   
-  auto onFinish = [this, countryId, downloadPath, urls = urls](downloader::DownloadStatus status) mutable {
+  auto onFinish = [this, countryId, downloadPath, urls = urls](NSURL *location, NSError *error) mutable {
+    if ((!location && !error) || (error && error.code != NSURLErrorCancelled))
+      return;
+     
+    downloader::DownloadStatus status = downloader::DownloadStatus::Completed;
+    if (error)
+    {
+     status = error.code == NSURLErrorFileDoesNotExist ? downloader::DownloadStatus::FileNotFound
+                                                       : downloader::DownloadStatus::Failed;
+    }
+    
+    ASSERT(location, ());
+    
     if (!m_queue.Contains(countryId))
       return;
 
@@ -103,13 +114,9 @@ void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId
     country.OnDownloadProgress({totalWritten, totalExpected});
   };
   
-  DownloaderDelegate * downloaderDelegate =
-      [[DownloaderDelegate alloc] initWithDownloadPath:@(downloadPath.c_str())
-                                   onFinishDownloading:onFinish
-                                            onProgress:onProgress];
   NSURL * url = [NSURL URLWithString:@(urls.back().c_str())];
   BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
-  NSUInteger taskId = [downloader downloadWithUrl:url delegate:downloaderDelegate];
+  NSUInteger taskId = [downloader downloadWithUrl:url completion:onFinish progress:onProgress];
 
   m_queue.SetTaskIdForCountryId(countryId, taskId);
 }

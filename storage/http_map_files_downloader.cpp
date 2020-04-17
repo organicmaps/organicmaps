@@ -88,7 +88,7 @@ void HttpMapFilesDownloader::Remove(CountryId const & id)
 
   MapFilesDownloader::Remove(id);
     
-  if(!m_queue.Contains(id))
+  if (!m_queue.Contains(id))
     return;
 
   if (m_request && m_queue.GetFirstId() == id)

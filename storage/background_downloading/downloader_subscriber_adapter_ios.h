@@ -7,11 +7,15 @@
 
 #include <vector>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SubscriberAdapter : NSObject <BackgroundDownloaderSubscriber>
 
 - (instancetype)initWithSubscribers:(std::vector<storage::MapFilesDownloader::Subscriber *> &)subscribers;
 
-- (void)didDownloadingStarted;
-- (void)didDownloadingFinished;
+- (void)didStartDownloading;
+- (void)didFinishDownloading;
 
 @end
+
+NS_ASSUME_NONNULL_END

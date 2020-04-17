@@ -4,20 +4,26 @@
 
 @interface TaskInfo : NSObject
 
-@property(nonatomic) NSURLSessionDownloadTask *task;
-@property(nonatomic) id<BackgroundDownloaderTaskDelegate> delegate;
+@property(nonatomic, strong) NSURLSessionDownloadTask *task;
+@property(nonatomic, copy) DownloadCompleteBlock completion;
+@property(nonatomic, copy) DownloadProgressBlock progress;
 
-- (instancetype)initWithTask:(NSURLSessionDownloadTask *)task delegate:(id<BackgroundDownloaderTaskDelegate>)delegate;
+- (instancetype)initWithTask:(NSURLSessionDownloadTask *)task
+                  completion:(DownloadCompleteBlock)completion
+                    progress:(DownloadProgressBlock)progress;
 
 @end
 
 @implementation TaskInfo
 
-- (instancetype)initWithTask:(NSURLSessionDownloadTask *)task delegate:(id<BackgroundDownloaderTaskDelegate>)delegate {
+- (instancetype)initWithTask:(NSURLSessionDownloadTask *)task
+                  completion:(DownloadCompleteBlock)completion
+                    progress:(DownloadProgressBlock)progress {
   self = [super init];
   if (self) {
     _task = task;
-    _delegate = delegate;
+    _completion = completion;
+    _progress = progress;
   }
 
   return self;
@@ -25,13 +31,7 @@
 
 @end
 
-@protocol FileSaveStrategy
-
-- (NSURL *)getLocationForWebUrl:(NSURL *)webUrl;
-
-@end
-
-@interface MapFileSaveStrategy : NSObject <FileSaveStrategy>
+@interface MapFileSaveStrategy : NSObject
 
 - (NSURL *)getLocationForWebUrl:(NSURL *)webUrl;
 
@@ -48,10 +48,10 @@
 
 @interface BackgroundDownloader () <NSURLSessionDownloadDelegate>
 
-@property(nonatomic) NSURLSession *session;
-@property(nonatomic) NSMutableDictionary *tasks;
-@property(nonatomic) NSMutableArray *subscribers;
-@property(nonatomic) id<FileSaveStrategy> saveStrategy;
+@property(nonatomic, strong) NSURLSession *session;
+@property(nonatomic, strong) NSMutableDictionary *tasks;
+@property(nonatomic, strong) NSHashTable *subscribers;
+@property(nonatomic, strong) MapFileSaveStrategy *saveStrategy;
 
 @end
 
@@ -60,9 +60,8 @@
 + (BackgroundDownloader *)sharedBackgroundMapDownloader {
   static dispatch_once_t dispatchOnce;
   static BackgroundDownloader *backgroundDownloader;
-  static MapFileSaveStrategy *mapFileSaveStrategy;
   dispatch_once(&dispatchOnce, ^{
-    mapFileSaveStrategy = [[MapFileSaveStrategy alloc] init];
+    MapFileSaveStrategy *mapFileSaveStrategy = [[MapFileSaveStrategy alloc] init];
     backgroundDownloader = [[BackgroundDownloader alloc] initWithSessionName:@"background_map_downloader"
                                                                 saveStrategy:mapFileSaveStrategy];
   });
@@ -70,7 +69,7 @@
   return backgroundDownloader;
 }
 
-- (instancetype)initWithSessionName:(NSString *)name saveStrategy:(id<FileSaveStrategy>)saveStrategy {
+- (instancetype)initWithSessionName:(NSString *)name saveStrategy:(MapFileSaveStrategy *)saveStrategy {
   self = [super init];
   if (self) {
     NSURLSessionConfiguration *configuration =
@@ -78,7 +77,7 @@
     [configuration setSessionSendsLaunchEvents:YES];
     _session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     _tasks = [NSMutableDictionary dictionary];
-    _subscribers = [NSMutableArray array];
+    _subscribers = [NSHashTable weakObjectsHashTable];
     _saveStrategy = saveStrategy;
   }
 
@@ -89,45 +88,49 @@
   [self.subscribers addObject:subscriber];
 }
 
-- (NSUInteger)downloadWithUrl:(NSURL *)url delegate:(id<BackgroundDownloaderTaskDelegate>)delegate {
+- (void)unsubscribe:(id<BackgroundDownloaderSubscriber>)subscriber {
+  [self.subscribers removeObject:subscriber];
+}
+
+- (NSUInteger)downloadWithUrl:(NSURL *)url
+                   completion:(DownloadCompleteBlock)completion
+                     progress:(DownloadProgressBlock)progress {
   NSURLSessionDownloadTask *task = [self.session downloadTaskWithURL:url];
-  TaskInfo *info = [[TaskInfo alloc] initWithTask:task delegate:delegate];
+  TaskInfo *info = [[TaskInfo alloc] initWithTask:task completion:completion progress:progress];
   [self.tasks setObject:info forKey:@([task taskIdentifier])];
   [task resume];
 
   if ([self.tasks count] == 1) {
     for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-      [subscriber didDownloadingStarted];
+      [subscriber didStartDownloading];
   }
 
   return task.taskIdentifier;
 }
 
-- (void)cancelWithTaskIdentifier:(NSUInteger)taskIdentifier {
+- (void)cancelTaskWithIdentifier:(NSUInteger)taskIdentifier {
   TaskInfo *info = self.tasks[@(taskIdentifier)];
-  [info.task cancelByProducingResumeData:^(NSData *resumeData){
-  }];
+  [info.task cancel];
 
   [self.tasks removeObjectForKey:@(taskIdentifier)];
 
   if ([self.tasks count] == 0) {
     for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-      [subscriber didDownloadingFinished];
+      [subscriber didFinishDownloading];
   }
 }
 
 - (void)clear {
-  BOOL needNotify = [self.tasks count];
+  BOOL needNotify = [self.tasks count] > 0;
   for (TaskInfo *info in self.tasks) {
-    [info.task cancelByProducingResumeData:^(NSData *resumeData){
-    }];
+    [info.task cancel];
   }
 
   [self.tasks removeAllObjects];
 
   if (needNotify) {
     for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-      [subscriber didDownloadingFinished];
+      [subscriber didFinishDownloading];
   }
 }
 
@@ -138,23 +141,20 @@
   didFinishDownloadingToURL:(NSURL *)location {
   NSURL *destinationUrl = [self.saveStrategy getLocationForWebUrl:downloadTask.originalRequest.URL];
   NSError *error;
-  BOOL result = [[NSFileManager defaultManager] moveItemAtURL:location.filePathURL toURL:destinationUrl error:&error];
+  [[NSFileManager defaultManager] moveItemAtURL:location.filePathURL toURL:destinationUrl error:&error];
 
   dispatch_async(dispatch_get_main_queue(), ^{
     TaskInfo *info = [self.tasks objectForKey:@(downloadTask.taskIdentifier)];
     if (!info)
       return;
 
-    if (!result)
-      [info.delegate didCompleteWithError:error];
-    else
-      [info.delegate didFinishDownloadingToURL:destinationUrl];
+    info.completion(destinationUrl, error);
 
     [self.tasks removeObjectForKey:@(downloadTask.taskIdentifier)];
 
     if ([self.tasks count] == 0) {
       for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-        [subscriber didDownloadingFinished];
+        [subscriber didFinishDownloading];
     }
   });
 }
@@ -168,8 +168,7 @@
     TaskInfo *info = [self.tasks objectForKey:@(downloadTask.taskIdentifier)];
     if (!info)
       return;
-    [info.delegate downloadingProgressWithTotalBytesWritten:totalBytesWritten
-                                  totalBytesExpectedToWrite:totalBytesExpectedToWrite];
+    info.progress(totalBytesWritten, totalBytesExpectedToWrite);
   });
 }
 
@@ -179,13 +178,13 @@
     if (!info)
       return;
 
-    [info.delegate didCompleteWithError:error];
+    info.completion(nil, error);
 
     [self.tasks removeObjectForKey:@(downloadTask.taskIdentifier)];
 
     if ([self.tasks count] == 0) {
       for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-        [subscriber didDownloadingFinished];
+        [subscriber didFinishDownloading];
     }
   });
 }
