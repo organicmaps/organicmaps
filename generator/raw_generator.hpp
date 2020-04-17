@@ -1,7 +1,8 @@
 #pragma once
 
+#include "generator/composite_id.hpp"
 #include "generator/features_processing_helpers.hpp"
-#include "generator/final_processor_intermediate_mwm.hpp"
+#include "generator/final_processor_interface.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/translator_collection.hpp"

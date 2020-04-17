@@ -7,6 +7,7 @@
 #include "generator/generate_info.hpp"
 #include "generator/raw_generator.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/ftypes_matcher.hpp"
 

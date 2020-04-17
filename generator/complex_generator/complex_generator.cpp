@@ -17,7 +17,7 @@
 
 #include "generator/filter_complex.hpp"
 #include "generator/filter_interface.hpp"
-#include "generator/final_processor_intermediate_mwm.hpp"
+#include "generator/final_processor_complex.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/hierarchy.hpp"
 #include "generator/hierarchy_entry.hpp"

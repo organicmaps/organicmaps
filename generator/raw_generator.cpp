@@ -1,6 +1,10 @@
 #include "generator/raw_generator.hpp"
 
 #include "generator/complex_loader.hpp"
+#include "generator/features_processing_helpers.hpp"
+#include "generator/final_processor_coastline.hpp"
+#include "generator/final_processor_country.hpp"
+#include "generator/final_processor_world.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/processor_factory.hpp"
 #include "generator/raw_generator_writer.hpp"
