@@ -126,7 +126,9 @@ unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue const & value)
     {
       FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG);
       ASSERT(reader.GetPtr(), ("Can't get", SEARCH_ADDRESS_FILE_TAG, "section reader."));
-      result = make_unique<EliasFanoMap>(unique_ptr<Reader>(reader.GetPtr()));
+      auto subreader = reader.GetPtr()->CreateSubReader(0, reader.Size());
+      CHECK(subreader, ());
+      result = make_unique<EliasFanoMap>(move(subreader));
     }
     if (format == version::MwmTraits::HouseToStreetTableFormat::HouseToStreetTableWithHeader)
     {
