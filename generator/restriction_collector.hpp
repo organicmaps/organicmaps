@@ -1,6 +1,7 @@
 #pragma once
 
 #include "generator/restriction_writer.hpp"
+#include "generator/routing_helpers.hpp"
 #include "generator/routing_index_generator.hpp"
 
 #include "routing/index_graph.hpp"
@@ -91,7 +92,7 @@ private:
                       std::vector<base::GeoObjectId> const & osmIds);
 
   std::vector<Restriction> m_restrictions;
-  std::map<base::GeoObjectId, std::vector<uint32_t>> m_osmIdToFeatureIds;
+  OsmIdToFeatureIds m_osmIdToFeatureIds;
 
   std::unique_ptr<IndexGraph> m_indexGraph;
 

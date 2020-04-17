@@ -162,8 +162,7 @@ set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccess = {
     {OsmElement::Tag("highway", "trunk_link")}
 };
 
-bool ParseRoadAccess(string const & roadAccessPath,
-                     map<base::GeoObjectId, vector<uint32_t>> const & osmIdToFeatureIds,
+bool ParseRoadAccess(string const & roadAccessPath, OsmIdToFeatureIds const & osmIdToFeatureIds,
                      RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
 {
   ifstream stream(roadAccessPath);
@@ -264,8 +263,7 @@ bool ParseRoadAccess(string const & roadAccessPath,
 }
 
 void ParseRoadAccessConditional(
-    string const & roadAccessPath,
-    map<base::GeoObjectId, vector<uint32_t>> const & osmIdToFeatureIds,
+    string const & roadAccessPath, OsmIdToFeatureIds const & osmIdToFeatureIds,
     RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
 {
   ifstream stream(roadAccessPath);
@@ -648,7 +646,7 @@ void RoadAccessWriter::MergeInto(RoadAccessWriter & collector) const
 RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string const & roadAccessPath,
                                          string const & osmIdsToFeatureIdsPath)
 {
-  map<base::GeoObjectId, vector<uint32_t>> osmIdToFeatureIds;
+  OsmIdToFeatureIds osmIdToFeatureIds;
   if (!ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
   {
     LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",

@@ -80,9 +80,8 @@ private:
   inline static double constexpr kMaxDistFromCameraToClosestSegmentMeters = 20.0;
   inline static double constexpr kSearchCameraRadiusMeters = 10.0;
 
-  bool ParseIntermediateInfo(
-      std::string const & camerasInfoPath,
-      std::map<base::GeoObjectId, std::vector<uint32_t>> const & osmIdToFeatureIds);
+  bool ParseIntermediateInfo(std::string const & camerasInfoPath,
+                             routing::OsmIdToFeatureIds const & osmIdToFeatureIds);
 
   std::vector<Camera> m_cameras;
 };

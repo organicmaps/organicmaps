@@ -314,7 +314,7 @@ bool RestrictionCollector::AddRestriction(m2::PointD const & coords,
     auto const result = m_osmIdToFeatureIds.find(osmIds[i]);
     if (result == m_osmIdToFeatureIds.cend())
     {
-      // It could happens near mwm border when one of a restriction lines is not included in mwm
+      // It happens near mwm border when one of a restriction lines is not included in mwm
       // but the restriction is included.
       return false;
     }

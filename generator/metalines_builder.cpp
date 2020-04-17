@@ -225,7 +225,7 @@ void MetalinesBuilder::MergeInto(MetalinesBuilder & collector) const
 bool WriteMetalinesSection(std::string const & mwmPath, std::string const & metalinesPath,
                            std::string const & osmIdsToFeatureIdsPath)
 {
-  std::map<base::GeoObjectId, std::vector<uint32_t>> osmIdToFeatureIds;
+  routing::OsmIdToFeatureIds osmIdToFeatureIds;
   if (!routing::ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
     return false;
 

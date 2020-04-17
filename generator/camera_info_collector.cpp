@@ -24,7 +24,7 @@ CamerasInfoCollector::CamerasInfoCollector(std::string const & dataFilePath,
                                            std::string const & camerasInfoPath,
                                            std::string const & osmIdsToFeatureIdsPath)
 {
-  std::map<base::GeoObjectId, std::vector<uint32_t>> osmIdToFeatureIds;
+  routing::OsmIdToFeatureIds osmIdToFeatureIds;
   if (!routing::ParseRoadsOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
   {
     LOG(LCRITICAL, ("An error happened while parsing feature id to osm ids mapping from file:",
@@ -97,8 +97,7 @@ void CamerasInfoCollector::Serialize(FileWriter & writer) const
 }
 
 bool CamerasInfoCollector::ParseIntermediateInfo(
-    std::string const & camerasInfoPath,
-    std::map<base::GeoObjectId, std::vector<uint32_t>> const & osmIdToFeatureIds)
+    std::string const & camerasInfoPath, routing::OsmIdToFeatureIds const & osmIdToFeatureIds)
 {
   FileReader reader(camerasInfoPath);
   ReaderSource<FileReader> src(reader);
