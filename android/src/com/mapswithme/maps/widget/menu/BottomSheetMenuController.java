@@ -76,6 +76,12 @@ public class BottomSheetMenuController implements MenuController
     mSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
   }
 
+  @Override
+  public boolean isClosed()
+  {
+    return BottomSheetMenuUtils.isHiddenState(mSheetBehavior.getState());
+  }
+
   @SuppressLint("ClickableViewAccessibility")
   @Override
   public void initialize(@Nullable View view)

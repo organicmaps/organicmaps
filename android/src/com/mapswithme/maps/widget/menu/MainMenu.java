@@ -69,7 +69,7 @@ public class MainMenu extends BaseMenu
           public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
                                                        @NonNull Item item)
           {
-            return new MwmActivity.AddPlaceDelegate(activity, item);
+            throw new UnsupportedOperationException("Main menu option doesn't support it!");
           }
         },
     DOWNLOAD_GUIDES(R.id.download_guides)
@@ -79,7 +79,7 @@ public class MainMenu extends BaseMenu
           public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
                                                        @NonNull Item item)
           {
-            return new MwmActivity.DownloadGuidesDelegate(activity, item);
+            throw new UnsupportedOperationException("Main menu option doesn't support it!");
           }
         },
     HOTEL_SEARCH(R.id.hotel_search)
@@ -89,7 +89,7 @@ public class MainMenu extends BaseMenu
           public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
                                                        @NonNull Item item)
           {
-            return new MwmActivity.HotelSearchDelegate(activity, item);
+            throw new UnsupportedOperationException("Main menu option doesn't support it!");
           }
 
           @NonNull
@@ -146,7 +146,7 @@ public class MainMenu extends BaseMenu
           public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
                                                        @NonNull Item item)
           {
-            return new MwmActivity.ShareMyLocationDelegate(activity, item);
+            throw new UnsupportedOperationException("Main menu option doesn't support it!");
           }
         },
     DOWNLOAD_MAPS(R.id.download_maps)
@@ -156,7 +156,7 @@ public class MainMenu extends BaseMenu
           public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
                                                        @NonNull Item item)
           {
-            return new MwmActivity.DownloadMapsDelegate(activity, item);
+            throw new UnsupportedOperationException("Main menu option doesn't support it!");
           }
         },
     SETTINGS(R.id.settings)
@@ -166,7 +166,7 @@ public class MainMenu extends BaseMenu
           public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
                                                        @NonNull Item item)
           {
-            return new MwmActivity.SettingsDelegate(activity, item);
+            throw new UnsupportedOperationException("Main menu option doesn't support it!");
           }
         };
 

@@ -8,4 +8,5 @@ public interface MenuController extends Initializable<View>
 {
   void open();
   void close();
+  boolean isClosed();
 }
