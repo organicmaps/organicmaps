@@ -183,7 +183,7 @@ void FeaturesRoadGraph::FindClosestEdges(
 {
   NearestEdgeFinder finder(rect.Center(), nullptr /* IsEdgeProjGood */);
 
-  auto const f = [&finder, &rect, this](FeatureType & ft)
+  auto const f = [&finder, this](FeatureType & ft)
   {
     if (!m_vehicleModel.IsRoad(ft))
       return;
@@ -191,10 +191,6 @@ void FeaturesRoadGraph::FindClosestEdges(
     FeatureID const & featureId = ft.GetID();
 
     IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
-    CHECK_EQUAL(roadInfo.m_speedKMPH, kInvalidSpeedKMPH,
-                (mercator::ToLatLon(rect.Center()), featureId, roadInfo.m_speedKMPH,
-                 roadInfo.m_bidirectional, roadInfo.m_junctions));
-
     finder.AddInformationSource(IRoadGraph::FullRoadInfo(featureId, roadInfo));
   };
 
