@@ -183,7 +183,7 @@ void FeaturesRoadGraph::FindClosestEdges(
 {
   NearestEdgeFinder finder(rect.Center(), nullptr /* IsEdgeProjGood */);
 
-  auto const f = [&finder, this](FeatureType & ft)
+  auto const f = [&finder, &rect, this](FeatureType & ft)
   {
     if (!m_vehicleModel.IsRoad(ft))
       return;
@@ -191,7 +191,9 @@ void FeaturesRoadGraph::FindClosestEdges(
     FeatureID const & featureId = ft.GetID();
 
     IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, kInvalidSpeedKMPH);
-    CHECK_EQUAL(roadInfo.m_speedKMPH, kInvalidSpeedKMPH, ());
+    CHECK_EQUAL(roadInfo.m_speedKMPH, kInvalidSpeedKMPH,
+                (mercator::ToLatLon(rect.Center()), featureId, roadInfo.m_speedKMPH,
+                 roadInfo.m_bidirectional, roadInfo.m_junctions));
 
     finder.AddInformationSource(IRoadGraph::FullRoadInfo(featureId, roadInfo));
   };
@@ -296,12 +298,13 @@ double FeaturesRoadGraph::GetSpeedKMpHFromFt(FeatureType & ft, SpeedParams const
 void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType & ft,
                                         double speedKMpH, RoadInfo & ri) const
 {
+  ri.m_speedKMPH = speedKMpH;
+
   Value const & value = LockMwm(featureId.m_mwmId);
   if (!value.IsAlive())
     return;
 
   ri.m_bidirectional = !IsOneWay(ft);
-  ri.m_speedKMPH = speedKMpH;
 
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
   size_t const pointsCount = ft.GetPointsCount();
