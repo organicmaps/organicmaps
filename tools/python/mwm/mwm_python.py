@@ -6,11 +6,13 @@ from typing import AnyStr
 from typing import Dict
 from typing import Iterable
 from typing import List
+from typing import Tuple
 from typing import Union
 
 import math
 
 from mwm import mwm_interface as mi
+from mwm.exceptions import DatSectionParseError
 
 logger = logging.getLogger(__name__)
 
@@ -50,10 +52,7 @@ class MwmPython(mi.Mwm):
 
     def __len__(self) -> int:
         old_pos = self.file.tell()
-        self.seek_tag("dat")
-        tag_info = self.get_tag("dat")
-        pos = tag_info.offset
-        end = pos + tag_info.size
+        pos, end = self._get_features_offset_and_size()
         size = 0
         while pos < end:
             self.file.seek(pos)
@@ -103,6 +102,26 @@ class MwmPython(mi.Mwm):
             current += 8
         return metadata_offsets
 
+    def _get_features_offset_and_size(self) -> Tuple[int, int]:
+        old_pos = self.file.tell()
+        tag_info = self.get_tag("dat")
+        pos = tag_info.offset
+        end = pos + tag_info.size
+        if self.version_.format >= 10:
+            self.seek_tag("dat")
+            version = read_uint(self.file, 1)
+            if version != 0:
+                self.file.seek(old_pos)
+                raise DatSectionParseError(f"Unexpected dat section version: {version}.")
+            features_offset = read_uint(self.file, bytelen=4)
+            if features_offset >= tag_info.size:
+                self.file.seek(old_pos)
+                raise DatSectionParseError(f"Wrong features offset: {features_offset}.")
+            pos = tag_info.offset + features_offset
+            end = pos + tag_info.size - features_offset
+        self.file.seek(old_pos)
+        return pos, end
+
     def _read_version(self) -> mi.MwmVersion:
         self.seek_tag("version")
         # Skip prolog.
@@ -119,10 +138,8 @@ class MwmPython(mi.Mwm):
 class MwmPythonIter:
     def __init__(self, mwm: MwmPython):
         self.mwm = mwm
+        self.pos, self.end = self.mwm._get_features_offset_and_size()
         self.index = 0
-        tag_info = self.mwm.get_tag("dat")
-        self.pos = tag_info.offset
-        self.end = self.pos + tag_info.size
 
     def __iter__(self) -> "MwmPythonIter":
         return self
