@@ -16,7 +16,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base_plus"
-      android:drawableLeft="@mipmap/ic_launcher"
       android:drawablePadding="@dimen/margin_base"
       android:drawableStart="@mipmap/ic_launcher"
       android:padding="@dimen/margin_half"

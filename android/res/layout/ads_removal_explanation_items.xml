@@ -11,7 +11,6 @@
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:drawableLeft="?attr/accentDot"
     android:drawableStart="?attr/accentDot"
     android:drawablePadding="@dimen/margin_half"
     android:text="@string/why_support_item1"
@@ -20,7 +19,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_half_plus"
-    android:drawableLeft="?attr/accentDot"
     android:drawableStart="?attr/accentDot"
     android:drawablePadding="@dimen/margin_half"
     android:text="@string/why_support_item2"
@@ -29,7 +27,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_half_plus"
-    android:drawableLeft="?attr/accentDot"
     android:drawableStart="?attr/accentDot"
     android:drawablePadding="@dimen/margin_half"
     android:text="@string/why_support_item3"

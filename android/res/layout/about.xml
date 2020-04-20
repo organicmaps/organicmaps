@@ -45,19 +45,16 @@
       <TextView android:id="@+id/web"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/website"
-                android:drawableLeft="@drawable/ic_website"
                 android:drawableStart="@drawable/ic_website"/>
 
       <TextView android:id="@+id/facebook"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/facebook"
-                android:drawableLeft="@drawable/ic_facebook"
                 android:drawableStart="@drawable/ic_facebook"/>
 
       <TextView android:id="@+id/twitter"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/twitter"
-                android:drawableLeft="@drawable/ic_twitter"
                 android:drawableStart="@drawable/ic_twitter"/>
 
       <View android:layout_width="match_parent"
@@ -69,13 +66,11 @@
       <TextView android:id="@+id/rate"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/rate_gp"
-                android:drawableLeft="@drawable/ic_rate"
                 android:drawableStart="@drawable/ic_rate"/>
 
       <TextView android:id="@+id/share"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/tell_friends"
-                android:drawableLeft="@drawable/ic_share"
                 android:drawableStart="@drawable/ic_share"/>
 
       <View android:layout_width="match_parent"

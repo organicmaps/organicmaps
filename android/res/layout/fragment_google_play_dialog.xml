@@ -55,7 +55,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="?clickableBackground"
-      android:drawableLeft="@drawable/ic_edit"
+      android:drawableStart="@drawable/ic_edit"
       android:drawablePadding="@dimen/margin_half"
       android:layout_marginLeft="@dimen/margin_half"
       android:fontFamily="@string/robotoRegular"

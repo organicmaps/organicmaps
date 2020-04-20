@@ -72,7 +72,7 @@ public final class Graphics
 
   public static void tint(TextView view, @AttrRes int tintAttr)
   {
-    final Drawable[] dlist = view.getCompoundDrawables();
+    final Drawable[] dlist = view.getCompoundDrawablesRelative();
     for (int i = 0; i < dlist.length; i++)
       dlist[i] = tint(view.getContext(), dlist[i], tintAttr);
 
@@ -81,7 +81,7 @@ public final class Graphics
 
   public static void tint(TextView view, ColorStateList tintColors)
   {
-    final Drawable[] dlist = view.getCompoundDrawables();
+    final Drawable[] dlist = view.getCompoundDrawablesRelative();
     for (int i = 0; i < dlist.length; i++)
       dlist[i] = tint(dlist[i], tintColors);
 
