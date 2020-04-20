@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget.menu;
 
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.maplayer.BottomSheetItem;
-import com.mapswithme.maps.maplayer.LayersUtils;
 import com.mapswithme.maps.maplayer.LayersAdapter;
+import com.mapswithme.maps.maplayer.LayersUtils;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
+import com.mapswithme.util.Graphics;
 
 import java.util.Objects;
 
@@ -19,9 +21,6 @@ public class MainMenuRenderer implements MenuRenderer
 {
   @NonNull
   private final MainMenuOptionListener mListener;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private RecyclerView mLayersRecycler;
   @NonNull
   @SuppressWarnings("NullableProblems")
   private LayersAdapter mLayersAdapter;
@@ -42,32 +41,39 @@ public class MainMenuRenderer implements MenuRenderer
   {
     Objects.requireNonNull(view);
     initLayersRecycler(view);
-    View addPlace = view.findViewById(R.id.add_place);
+    TextView addPlace = view.findViewById(R.id.add_place);
     addPlace.setOnClickListener(v -> mListener.onAddPlaceOptionSelected());
-    View downloadGuides = view.findViewById(R.id.download_guides);
+    Graphics.tint(addPlace);
+    TextView downloadGuides = view.findViewById(R.id.download_guides);
     downloadGuides.setOnClickListener(v -> mListener.onSearchGuidesOptionSelected());
-    View hotelSearch = view.findViewById(R.id.hotel_search);
+    Graphics.tint(downloadGuides);
+    TextView hotelSearch = view.findViewById(R.id.hotel_search);
     hotelSearch.setOnClickListener(v -> mListener.onHotelSearchOptionSelected());
-    View downloadMaps = view.findViewById(R.id.download_maps_container);
-    downloadMaps.setOnClickListener(v -> mListener.onDownloadMapsOptionSelected());
-    View settings = view.findViewById(R.id.settings);
+    Graphics.tint(hotelSearch);
+    View downloadMapsContainer = view.findViewById(R.id.download_maps_container);
+    downloadMapsContainer.setOnClickListener(v -> mListener.onDownloadMapsOptionSelected());
+    TextView downloadMaps = view.findViewById(R.id.download_maps);
+    Graphics.tint(downloadMaps);
+    TextView settings = view.findViewById(R.id.settings);
     settings.setOnClickListener(v -> mListener.onSettingsOptionSelected());
-    View share = view.findViewById(R.id.share);
+    Graphics.tint(settings);
+    TextView share = view.findViewById(R.id.share);
     share.setOnClickListener(v -> mListener.onShareLocationOptionSelected());
+    Graphics.tint(share);
   }
 
   private void initLayersRecycler(@NonNull View view)
   {
-    mLayersRecycler = view.findViewById(R.id.layers_recycler);
-    RecyclerView.LayoutManager layoutManager = new SpanningLinearLayoutManager(mLayersRecycler.getContext(),
+    RecyclerView layersRecycler = view.findViewById(R.id.layers_recycler);
+    RecyclerView.LayoutManager layoutManager = new SpanningLinearLayoutManager(layersRecycler.getContext(),
                                                                                LinearLayoutManager.HORIZONTAL,
                                                                                false);
-    mLayersRecycler.setLayoutManager(layoutManager);
-    mLayersAdapter = new LayersAdapter(LayersUtils.createItems(mLayersRecycler.getContext(),
+    layersRecycler.setLayoutManager(layoutManager);
+    mLayersAdapter = new LayersAdapter(LayersUtils.createItems(layersRecycler.getContext(),
                                                                new SubwayItemClickListener(),
                                                                new TrafficItemClickListener(),
                                                                new IsolinesItemClickListener()));
-    mLayersRecycler.setAdapter(mLayersAdapter);
+    layersRecycler.setAdapter(mLayersAdapter);
   }
 
   @Override
