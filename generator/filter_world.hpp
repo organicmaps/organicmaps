@@ -15,7 +15,7 @@ public:
   // FilterInterface overrides:
   std::shared_ptr<FilterInterface> Clone() const override;
 
-  bool IsAccepted(feature::FeatureBuilder const & feature) override;
+  bool IsAccepted(feature::FeatureBuilder const & feature) const override;
 
   static bool IsInternationalAirport(feature::FeatureBuilder const & fb);
   static bool IsGoodScale(feature::FeatureBuilder const & fb);

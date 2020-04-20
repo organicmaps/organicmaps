@@ -76,7 +76,7 @@ public:
   // FilterInterface overrides:
   std::shared_ptr<FilterInterface> Clone() const override;
 
-  bool IsAccepted(OsmElement const & element) override;
+  bool IsAccepted(OsmElement const & element) const override;
 
   bool NeedSkip(OsmElement const & element) const;
 

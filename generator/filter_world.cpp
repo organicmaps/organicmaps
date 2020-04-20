@@ -20,7 +20,7 @@ std::shared_ptr<FilterInterface> FilterWorld::Clone() const
   return std::make_shared<FilterWorld>(m_popularityFilename);
 }
 
-bool FilterWorld::IsAccepted(feature::FeatureBuilder const & fb)
+bool FilterWorld::IsAccepted(feature::FeatureBuilder const & fb) const
 {
   return IsGoodScale(fb) ||
       IsPopularAttraction(fb, m_popularityFilename) ||

@@ -9,7 +9,7 @@ std::shared_ptr<FilterInterface> FilterRoads::Clone() const
   return std::make_shared<FilterRoads>();
 }
 
-bool FilterRoads::IsAccepted(OsmElement const & element)
+bool FilterRoads::IsAccepted(OsmElement const & element) const
 {
   return !element.HasTag("highway", "ice_road");
 }

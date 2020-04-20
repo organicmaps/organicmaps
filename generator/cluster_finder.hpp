@@ -12,7 +12,7 @@
 
 namespace generator
 {
-// The class ClustersFinder finds clusters of objects for which IsSameFunc will return the true.
+// The class ClustersFinder finds clusters of objects for which IsSameFunc returns true.
 // RadiusFunc should return the same radius for all objects in one cluster.
 template <typename T, template<typename, typename> class Container, typename Alloc = std::allocator<T>>
 class ClustersFinder

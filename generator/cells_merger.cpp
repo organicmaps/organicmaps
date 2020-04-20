@@ -163,12 +163,12 @@ std::optional<m2::PointI> CellsMerger::FindDirection(m2::PointI const & startXy)
   std::array<std::pair<size_t, m2::PointI>, 4> directionsWithWeight;
   std::array<m2::PointI, 4> const directions{{{1, 1}, {-1, 1}, {1, -1}, {-1, -1}}};
   base::Transform(directions, std::begin(directionsWithWeight),
-                 [&](auto const & direction) {
-                   return std::make_pair(
-                       TryGet(startXy.x + direction.x, startXy.y).GetSum() +
-                           TryGet(startXy.x, startXy.y + direction.y).GetSum() +
-                           TryGet(startXy.x + direction.x, startXy.y + direction.y).GetSum(),
-                       direction);
+                  [&](auto const & direction) {
+                    return std::make_pair(
+                        TryGet(startXy.x + direction.x, startXy.y).GetSum() +
+                            TryGet(startXy.x, startXy.y + direction.y).GetSum() +
+                            TryGet(startXy.x + direction.x, startXy.y + direction.y).GetSum(),
+                        direction);
                  });
   auto const direction =
       std::max_element(std::cbegin(directionsWithWeight), std::cend(directionsWithWeight))->second;

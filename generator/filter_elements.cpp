@@ -36,14 +36,12 @@ namespace generator
 {
 bool FilterData::IsMatch(Tags const & elementTags, Tags const & tags)
 {
-  auto const fn = [&](OsmElement::Tag const & t)
-  {
-    auto const pred = [&](OsmElement::Tag const & tag) { return tag.m_key == t.m_key; };
-    auto const it = base::FindIf(elementTags, pred);
+  return base::AllOf(tags, [&](OsmElement::Tag const & t) {
+    auto const it = base::FindIf(elementTags, [&](OsmElement::Tag const & tag) {
+      return tag.m_key == t.m_key;
+    });
     return it == std::end(elementTags) ? false : t.m_value == "*" || it->m_value == t.m_value;
-  };
-
-  return base::AllOf(tags, fn);
+  });
 }
 
 void FilterData::AddSkippedId(uint64_t id)
@@ -167,7 +165,7 @@ std::shared_ptr<FilterInterface> FilterElements::Clone() const
   return std::make_shared<FilterElements>(m_filename);
 }
 
-bool FilterElements::IsAccepted(OsmElement const & element)
+bool FilterElements::IsAccepted(OsmElement const & element) const
 {
   return !NeedSkip(element);
 }

@@ -9,7 +9,7 @@ std::shared_ptr<FilterInterface> FilterPlanet::Clone() const
   return std::make_shared<FilterPlanet>();
 }
 
-bool FilterPlanet::IsAccepted(OsmElement const & element)
+bool FilterPlanet::IsAccepted(OsmElement const & element) const
 {
   if (element.IsRelation())
     return element.HasAnyTag({{"type", "multipolygon"}, {"type", "boundary"}});
@@ -19,7 +19,7 @@ bool FilterPlanet::IsAccepted(OsmElement const & element)
   return true;
 }
 
-bool FilterPlanet::IsAccepted(FeatureBuilder const & feature)
+bool FilterPlanet::IsAccepted(FeatureBuilder const & feature) const
 {
   auto const & params = feature.GetParams();
   return params.IsValid();

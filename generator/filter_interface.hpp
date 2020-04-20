@@ -15,7 +15,7 @@ public:
 
   virtual std::shared_ptr<FilterInterface> Clone() const = 0;
 
-  virtual bool IsAccepted(OsmElement const &) { return true; }
-  virtual bool IsAccepted(feature::FeatureBuilder const &) { return true; }
+  virtual bool IsAccepted(OsmElement const &) const { return true; }
+  virtual bool IsAccepted(feature::FeatureBuilder const &) const { return true; }
 };
 }  // namespace generator

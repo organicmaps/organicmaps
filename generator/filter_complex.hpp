@@ -13,6 +13,6 @@ public:
   // FilterInterface overrides:
   std::shared_ptr<FilterInterface> Clone() const override;
 
-  bool IsAccepted(feature::FeatureBuilder const & fb) override;
+  bool IsAccepted(feature::FeatureBuilder const & fb) const override;
 };
 }  // namespace generator
