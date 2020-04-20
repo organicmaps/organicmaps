@@ -8,4 +8,7 @@ public interface MainMenuOptionListener
   void onDownloadMapsOptionSelected();
   void onSettingsOptionSelected();
   void onShareLocationOptionSelected();
+  void onSubwayLayerOptionSelected();
+  void onTrafficLayerOptionSelected();
+  void onIsolinesLayerOptionSelected();
 }

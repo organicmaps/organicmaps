@@ -2829,5 +2829,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Statistics.INSTANCE.trackToolbarMenu(MainMenu.Item.SHARE_MY_LOCATION);
       closeMenu(MwmActivity.this::shareMyLocation);
     }
+
+    @Override
+    public void onSubwayLayerOptionSelected()
+    {
+      onSubwayLayerSelected();
+    }
+
+    @Override
+    public void onTrafficLayerOptionSelected()
+    {
+      onTrafficLayerSelected();
+    }
+
+    @Override
+    public void onIsolinesLayerOptionSelected()
+    {
+      onIsolinesLayerSelected();
+    }
   }
 }
