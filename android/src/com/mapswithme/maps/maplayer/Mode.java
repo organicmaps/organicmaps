@@ -3,10 +3,10 @@ package com.mapswithme.maps.maplayer;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
+import com.mapswithme.util.SharedPropertiesUtils;
 
 public enum Mode
 {
@@ -84,4 +84,9 @@ public enum Mode
   public abstract void setEnabled(@NonNull Context context, boolean isEnabled);
 
   public abstract void toggle(@NonNull Context context);
+
+  public boolean isNew(@NonNull Context context)
+  {
+    return SharedPropertiesUtils.shouldShowNewMarkerForLayerMode(context, this);
+  }
 }

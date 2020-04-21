@@ -9,8 +9,10 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
+import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.Animations;
+import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.StatisticValueConverter;
 
@@ -257,7 +259,19 @@ public class MainMenu extends BaseMenu
     UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
     int count = (info == null ? 0 : info.filesCount);
 
-    boolean show = count > 0 && !isOpen();
+    boolean show = (count > 0 && !isOpen());
+
+    UiUtils.showIf(show, mNewsMarker);
+
+    if (show)
+      return;
+
+    for (Mode mode : Mode.values())
+    {
+      show = SharedPropertiesUtils.shouldShowNewMarkerForLayerMode(mFrame.getContext(), mode);
+      if (show)
+        break;
+    }
 
     UiUtils.showIf(show, mNewsMarker);
   }

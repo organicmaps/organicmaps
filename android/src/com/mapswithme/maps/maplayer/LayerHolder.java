@@ -18,6 +18,8 @@ class LayerHolder extends RecyclerView.ViewHolder
   final ImageView mButton;
   @NonNull
   final TextView mTitle;
+  @NonNull
+  final View mNewMarker;
   @Nullable
   BottomSheetItem mItem;
   @Nullable
@@ -26,8 +28,9 @@ class LayerHolder extends RecyclerView.ViewHolder
   LayerHolder(@NonNull View root)
   {
     super(root);
-    mButton = root.findViewById(R.id.btn);
     mTitle = root.findViewById(R.id.name);
+    mNewMarker = root.findViewById(R.id.marker);
+    mButton = root.findViewById(R.id.btn);
     mButton.setOnClickListener(this::onItemClicked);
   }
 

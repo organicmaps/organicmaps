@@ -9,10 +9,10 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.maplayer.BottomSheetItem;
+import com.mapswithme.maps.maplayer.DefaultClickListener;
 import com.mapswithme.maps.maplayer.LayersAdapter;
 import com.mapswithme.maps.maplayer.LayersUtils;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
@@ -90,10 +90,11 @@ public class MainMenuRenderer implements MenuRenderer
                                                                                LinearLayoutManager.HORIZONTAL,
                                                                                false);
     layersRecycler.setLayoutManager(layoutManager);
-    mLayersAdapter = new LayersAdapter(LayersUtils.createItems(layersRecycler.getContext(),
-                                                               new SubwayItemClickListener(),
-                                                               new TrafficItemClickListener(),
-                                                               new IsolinesItemClickListener()));
+    mLayersAdapter = new LayersAdapter();
+    mLayersAdapter.setLayerModes(LayersUtils.createItems(layersRecycler.getContext(),
+                                                         new SubwayItemClickListener(),
+                                                         new TrafficItemClickListener(),
+                                                         new IsolinesItemClickListener()));
     layersRecycler.setAdapter(mLayersAdapter);
   }
 
@@ -109,23 +110,15 @@ public class MainMenuRenderer implements MenuRenderer
     mScrollView.scrollTo(0, 0);
   }
 
-  private abstract class DefaultClickListener implements OnItemClickListener<BottomSheetItem>
-  {
-    @Override
-    public final void onItemClick(@NonNull View v, @NonNull BottomSheetItem item)
-    {
-      item.getMode().toggle(v.getContext());
-      onItemClickInternal(v, item);
-      mLayersAdapter.notifyDataSetChanged();
-    }
-
-    abstract void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item);
-  }
-
   private class SubwayItemClickListener extends DefaultClickListener
   {
+    SubwayItemClickListener()
+    {
+      super(mLayersAdapter);
+    }
+
     @Override
-    void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
+    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
       mListener.onSubwayLayerOptionSelected();
     }
@@ -133,8 +126,13 @@ public class MainMenuRenderer implements MenuRenderer
 
   private class TrafficItemClickListener extends DefaultClickListener
   {
+    TrafficItemClickListener()
+    {
+      super(mLayersAdapter);
+    }
+
     @Override
-    void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
+    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
       mListener.onTrafficLayerOptionSelected();
     }
@@ -142,8 +140,13 @@ public class MainMenuRenderer implements MenuRenderer
 
   private class IsolinesItemClickListener extends DefaultClickListener
   {
+    IsolinesItemClickListener()
+    {
+      super(mLayersAdapter);
+    }
+
     @Override
-    void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
+    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
       mListener.onIsolinesLayerOptionSelected();
     }

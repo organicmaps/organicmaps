@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
@@ -69,9 +68,10 @@ public class ToggleMapLayerDialog extends DialogFragment
                                                                                LinearLayoutManager.HORIZONTAL,
                                                                                false);
     recycler.setLayoutManager(layoutManager);
-    mAdapter = new LayersAdapter(LayersUtils.createItems(requireContext(), new SubwayItemClickListener(),
-                                                         new TrafficItemClickListener(),
-                                                         new IsolinesItemClickListener()));
+    mAdapter = new LayersAdapter();
+    mAdapter.setLayerModes(LayersUtils.createItems(requireContext(), new SubwayItemClickListener(),
+                                                   new TrafficItemClickListener(),
+                                                   new IsolinesItemClickListener()));
     recycler.setAdapter(mAdapter);
   }
 
@@ -89,23 +89,15 @@ public class ToggleMapLayerDialog extends DialogFragment
     fm.executePendingTransactions();
   }
 
-  private abstract class DefaultClickListener implements OnItemClickListener<BottomSheetItem>
-  {
-    @Override
-    public final void onItemClick(@NonNull View v, @NonNull BottomSheetItem item)
-    {
-      item.getMode().toggle(requireContext());
-      onItemClickInternal(v, item);
-      mAdapter.notifyDataSetChanged();
-    }
-
-    abstract void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item);
-  }
-
   private class SubwayItemClickListener extends DefaultClickListener
   {
+    private SubwayItemClickListener()
+    {
+      super(mAdapter);
+    }
+
     @Override
-    void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
+    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
       OnSubwayLayerToggleListener listener = (OnSubwayLayerToggleListener) requireActivity();
       listener.onSubwayLayerSelected();
@@ -114,8 +106,13 @@ public class ToggleMapLayerDialog extends DialogFragment
 
   private class TrafficItemClickListener extends DefaultClickListener
   {
+    private TrafficItemClickListener()
+    {
+      super(mAdapter);
+    }
+
     @Override
-    void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
+    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
       OnTrafficLayerToggleListener listener = (OnTrafficLayerToggleListener) requireActivity();
       listener.onTrafficLayerSelected();
@@ -124,8 +121,13 @@ public class ToggleMapLayerDialog extends DialogFragment
 
   private class IsolinesItemClickListener extends DefaultClickListener
   {
+    private IsolinesItemClickListener()
+    {
+      super(mAdapter);
+    }
+
     @Override
-    void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
+    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
       OnIsolinesLayerToggleListener listener = (OnIsolinesLayerToggleListener) requireActivity();
       listener.onIsolinesLayerSelected();
