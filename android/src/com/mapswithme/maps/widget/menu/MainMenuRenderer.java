@@ -9,11 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
+import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.maplayer.BottomSheetItem;
 import com.mapswithme.maps.maplayer.LayersAdapter;
 import com.mapswithme.maps.maplayer.LayersUtils;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.UiUtils;
 
 import java.util.Objects;
 
@@ -24,6 +27,9 @@ public class MainMenuRenderer implements MenuRenderer
   @NonNull
   @SuppressWarnings("NullableProblems")
   private LayersAdapter mLayersAdapter;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mDownloadMapsCounter;
 
   MainMenuRenderer(@NonNull MainMenuOptionListener listener)
   {
@@ -33,7 +39,16 @@ public class MainMenuRenderer implements MenuRenderer
   @Override
   public void render()
   {
-    // TODO: Implement.
+    renderDownloadMapsCounter();
+  }
+
+  private void renderDownloadMapsCounter()
+  {
+    UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
+    int count = info == null ? 0 : info.filesCount;
+    UiUtils.showIf(count > 0, mDownloadMapsCounter);
+    if (count > 0)
+      mDownloadMapsCounter.setText(String.valueOf(count));
   }
 
   @Override
@@ -52,8 +67,9 @@ public class MainMenuRenderer implements MenuRenderer
     Graphics.tint(hotelSearch);
     View downloadMapsContainer = view.findViewById(R.id.download_maps_container);
     downloadMapsContainer.setOnClickListener(v -> mListener.onDownloadMapsOptionSelected());
-    TextView downloadMaps = view.findViewById(R.id.download_maps);
+    TextView downloadMaps = downloadMapsContainer.findViewById(R.id.download_maps);
     Graphics.tint(downloadMaps);
+    mDownloadMapsCounter = downloadMapsContainer.findViewById(R.id.counter);
     TextView settings = view.findViewById(R.id.settings);
     settings.setOnClickListener(v -> mListener.onSettingsOptionSelected());
     Graphics.tint(settings);
