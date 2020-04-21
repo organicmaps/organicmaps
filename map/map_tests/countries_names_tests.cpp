@@ -53,10 +53,6 @@ UNIT_TEST(CountriesNamesTest)
                                    "Transnistria",
                                    "Nagorno-Karabakh Republic",
                                    "Republic of Artsakh",
-                                   // MAPSME-10611
-                                   "Mayorca Residencial",
-                                   "Magnolias Residencial",
-                                   "Residencial Magnolias",
                                    };
 
   auto const features = cache.Get(mwmContext);
