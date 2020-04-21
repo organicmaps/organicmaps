@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
@@ -30,6 +31,9 @@ public class MainMenuRenderer implements MenuRenderer
   @SuppressWarnings("NullableProblems")
   @NonNull
   private TextView mDownloadMapsCounter;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private NestedScrollView mScrollView;
 
   MainMenuRenderer(@NonNull MainMenuOptionListener listener)
   {
@@ -55,6 +59,7 @@ public class MainMenuRenderer implements MenuRenderer
   public void initialize(@Nullable View view)
   {
     Objects.requireNonNull(view);
+    mScrollView = (NestedScrollView) view;
     initLayersRecycler(view);
     TextView addPlace = view.findViewById(R.id.add_place);
     addPlace.setOnClickListener(v -> mListener.onAddPlaceOptionSelected());
@@ -95,7 +100,13 @@ public class MainMenuRenderer implements MenuRenderer
   @Override
   public void destroy()
   {
-    // TODO: Implement.
+    // Do nothing by default.
+  }
+
+  @Override
+  public void onHide()
+  {
+    mScrollView.scrollTo(0, 0);
   }
 
   private abstract class DefaultClickListener implements OnItemClickListener<BottomSheetItem>

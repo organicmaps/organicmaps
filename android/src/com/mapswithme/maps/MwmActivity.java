@@ -2670,7 +2670,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (getActivity().closeSidePanel())
         return;
 
-      Toast.makeText(getActivity(), "Open bottom sheet menu!", Toast.LENGTH_SHORT).show();
       getActivity().mMainMenuController.open();
     }
   }

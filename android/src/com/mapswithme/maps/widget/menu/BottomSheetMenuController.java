@@ -41,6 +41,7 @@ public class BottomSheetMenuController implements MenuController
 
       if (BottomSheetMenuUtils.isHiddenState(state))
       {
+        mMenuRenderer.onHide();
         mStateObserver.onMenuClosed();
         return;
       }
@@ -90,8 +91,6 @@ public class BottomSheetMenuController implements MenuController
     View sheet = view.findViewById(mSheetResId);
     Objects.requireNonNull(sheet);
     mSheetBehavior = BottomSheetBehavior.from(sheet);
-    // FIXME: bottom sheet should be hidden by default without this call.
-    mSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     mSheetBehavior.setBottomSheetCallback(mSheetCallback);
     GestureDetectorCompat gestureDetector = new GestureDetectorCompat(
         view.getContext(), new BottomSheetMenuGestureListener(mSheetBehavior));
