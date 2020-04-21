@@ -11,6 +11,7 @@
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/string_utils.hpp"
 #include "base/thread_pool_computational.hpp"
 
 #include "defines.hpp"
@@ -26,29 +27,14 @@ namespace generator
 class PlaceHelper
 {
 public:
-  PlaceHelper() : m_table(std::make_shared<OsmIdToBoundariesTable>()), m_processor(m_table) {}
+  PlaceHelper();
+  explicit PlaceHelper(std::string const & filename);
 
-  explicit PlaceHelper(std::string const & filename) : PlaceHelper()
-  {
-    feature::ForEachFeatureRawFormat<feature::serialization_policy::MaxAccuracy>(
-        filename, [&](auto const & fb, auto const &) { m_processor.Add(fb); });
-  }
+  static bool IsPlace(feature::FeatureBuilder const & fb);
 
-  static bool IsPlace(feature::FeatureBuilder const & fb)
-  {
-    auto const type = GetPlaceType(fb);
-    return type != ftype::GetEmptyValue() && !fb.GetName().empty() && NeedProcessPlace(fb);
-  }
-
-  bool Process(feature::FeatureBuilder const & fb)
-  {
-    m_processor.Add(fb);
-    return true;
-  }
-
-  std::vector<PlaceProcessor::PlaceWithIds> GetFeatures() { return m_processor.ProcessPlaces(); }
-
-  std::shared_ptr<OsmIdToBoundariesTable> GetTable() const { return m_table; }
+  bool Process(feature::FeatureBuilder const & fb);
+  std::vector<PlaceProcessor::PlaceWithIds> GetFeatures();
+  std::shared_ptr<OsmIdToBoundariesTable> GetTable() const;
 
 private:
   std::shared_ptr<OsmIdToBoundariesTable> m_table;
@@ -67,7 +53,7 @@ public:
   void Process();
 
 private:
-  void ProcessForPromoCatalog(std::vector<PlaceProcessor::PlaceWithIds> & fbs);
+  void ProcessForPromoCatalog(std::vector<PlaceProcessor::PlaceWithIds> & fbsWithIds);
 
   std::string m_citiesFilename;
   std::string m_temporaryMwmPath;
@@ -77,20 +63,30 @@ private:
 };
 
 template <typename ToDo>
-void ForEachCountry(std::string const & temporaryMwmPath, ToDo && toDo)
+void ForEachMwmTmp(std::string const & temporaryMwmPath, ToDo && toDo, size_t threadsCount = 1)
 {
   Platform::FilesList fileList;
   Platform::GetFilesByExt(temporaryMwmPath, DATA_FILE_EXTENSION_TMP, fileList);
+  base::thread_pool::computational::ThreadPool pool(threadsCount);
   for (auto const & filename : fileList)
-    toDo(filename);
+  {
+    auto countryName = filename;
+    strings::ReplaceLast(countryName, DATA_FILE_EXTENSION_TMP, "");
+    pool.SubmitWork(std::forward<ToDo>(toDo), countryName, base::JoinPath(temporaryMwmPath, filename));
+  }
 }
 
-// Writes |fbs| to countries tmp.mwm files that |fbs| belongs to according to |affiliations|.
+std::vector<std::vector<std::string>> GetAffiliations(
+    std::vector<feature::FeatureBuilder> const & fbs,
+    feature::AffiliationInterface const & affiliation, size_t threadsCount);
+
+// Writes |fbs| to countries mwm.tmp files. Returns affiliations - country matches for |fbs|.
 template <class SerializationPolicy = feature::serialization_policy::MaxAccuracy>
-void AppendToCountries(std::vector<feature::FeatureBuilder> const & fbs,
-                       std::vector<std::vector<std::string>> const & affiliations,
-                       std::string const & temporaryMwmPath, size_t threadsCount)
+std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::FeatureBuilder> const & fbs,
+                       feature::AffiliationInterface const & affiliation,
+                       std::string const & temporaryMwmPath, size_t threadsCount = 1)
 {
+  auto const affiliations = GetAffiliations(fbs, affiliation, threadsCount);
   std::unordered_map<std::string, std::vector<size_t>> countryToFbsIndexes;
   for (size_t i = 0; i < fbs.size(); ++i)
   {
@@ -103,22 +99,16 @@ void AppendToCountries(std::vector<feature::FeatureBuilder> const & fbs,
   {
     pool.SubmitWork([&, country{std::move(p.first)}, indexes{std::move(p.second)}]() {
       auto const path = base::JoinPath(temporaryMwmPath, country + DATA_FILE_EXTENSION_TMP);
-      feature::FeatureBuilderWriter<SerializationPolicy> collector(path, FileWriter::Op::OP_APPEND);
+      feature::FeatureBuilderWriter<SerializationPolicy> collector(
+            path, FileWriter::Op::OP_APPEND);
       for (auto const index : indexes)
         collector.Write(fbs[index]);
     });
   }
+
+  return affiliations;
 }
 
 // Sorting for stable features order in final processors.
 void Sort(std::vector<feature::FeatureBuilder> & fbs);
-
-std::vector<std::vector<std::string>> GetAffiliations(
-    std::vector<feature::FeatureBuilder> const & fbs,
-    feature::AffiliationInterface const & affiliation, size_t threadsCount);
-
-std::string GetCountryNameFromTmpMwmPath(std::string filename);
-
-bool FilenameIsCountry(std::string const & filename,
-                       feature::AffiliationInterface const & affiliation);
 }  // namespace generator

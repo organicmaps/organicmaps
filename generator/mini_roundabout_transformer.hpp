@@ -25,21 +25,38 @@ struct RoundaboutUnit
   FeatureParams::Types m_roadTypes;
 };
 
+class MiniRoundaboutData
+{
+public:
+  MiniRoundaboutData(std::vector<MiniRoundaboutInfo> && data);
+
+  bool RoadExists(feature::FeatureBuilder const & fb) const;
+  std::vector<MiniRoundaboutInfo> const & GetData() const;
+
+private:
+  std::vector<MiniRoundaboutInfo> m_data;
+  std::vector<uint64_t> m_ways;
+};
+
+/// \brief Loads info about mini_roundabouts from binary source.
+MiniRoundaboutData ReadDataMiniRoundabout(std::string const & intermediateFilePath);
+
 class MiniRoundaboutTransformer
 {
 public:
-  explicit MiniRoundaboutTransformer(std::string const & intermediateFilePath);
-  MiniRoundaboutTransformer(std::string const & intermediateFilePath, double radiusMeters);
+  explicit MiniRoundaboutTransformer(std::vector<MiniRoundaboutInfo> const & data,
+                                     feature::AffiliationInterface const & affiliation);
+  explicit MiniRoundaboutTransformer(std::vector<MiniRoundaboutInfo> const & data,
+                                     feature::AffiliationInterface const & affiliation,
+                                     double radiusMeters);
 
-  /// \brief Adds ways with junction=roundabout to |fbs|.
+  void AddRoad(feature::FeatureBuilder && road);
+
+  /// \brief Generates ways with junction=roundabout.
   /// These features are obtained from points with highway=mini_roundabout.
-  void ProcessRoundabouts(feature::CountriesFilesIndexAffiliation const & affiliation,
-                          std::vector<feature::FeatureBuilder> & fbs);
+  std::vector<feature::FeatureBuilder> ProcessRoundabouts();
 
 private:
-  /// \brief Loads info about mini_roundabouts from binary source.
-  void ReadData(std::string const & intermediateFilePath);
-
   /// \brief Sets |road_type| to |found_type| if it is a more important road type.
   void UpdateRoadType(FeatureParams::Types const & foundTypes, uint32_t & roadType);
 
@@ -56,8 +73,11 @@ private:
                            feature::FeatureBuilder::PointSeq & road,
                            std::vector<feature::FeatureBuilder> & newRoads);
 
-  std::vector<MiniRoundaboutInfo> m_roundabouts;
+
+  std::vector<MiniRoundaboutInfo> const & m_roundabouts;
   double const m_radiusMercator = 0.0;
+  feature::AffiliationInterface const * m_affiliation = nullptr;
+  std::vector<feature::FeatureBuilder> m_roads;
 };
 
 /// \brief Calculates Euclidean distance between 2 points on plane.

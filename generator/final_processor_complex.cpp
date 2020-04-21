@@ -6,6 +6,9 @@
 #include "base/file_name_utils.hpp"
 #include "base/thread_pool_computational.hpp"
 
+#include <iterator>
+#include <mutex>
+
 using namespace feature;
 
 namespace generator
@@ -65,77 +68,73 @@ void ComplexFinalProcessor::Process()
   if (!m_buildingPartsFilename.empty())
     m_buildingToParts = std::make_unique<BuildingToBuildingPartsMap>(m_buildingPartsFilename);
 
-  base::thread_pool::computational::ThreadPool pool(m_threadsCount);
-  std::vector<std::future<std::vector<HierarchyEntry>>> futures;
-  ForEachCountry(m_mwmTmpPath, [&](auto const & filename) {
-    auto future = pool.Submit([&, filename]() {
-      auto const countryName = GetCountryNameFromTmpMwmPath(filename);
-      // https://wiki.openstreetmap.org/wiki/Simple_3D_buildings
-      // An object with tag 'building:part' is a part of a relation with outline 'building' or
-      // is contained in an object with tag 'building'. We will split data and work with
-      // these cases separately. First of all let's remove objects with tag building:part is
-      // contained in relations. We will add them back after data processing.
-      std::unordered_map<base::GeoObjectId, FeatureBuilder> relationBuildingParts;
-
-      auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(
-          base::JoinPath(m_mwmTmpPath, filename));
-      if (m_buildingToParts)
-        relationBuildingParts = RemoveRelationBuildingParts(fbs);
-
-      // This case is second. We build a hierarchy using the geometry of objects and their nesting.
-      auto trees = hierarchy::BuildHierarchy(std::move(fbs), m_getMainType, m_filter);
-
-      // We remove tree roots with tag 'building:part'.
-      base::EraseIf(trees, [](auto const & node) {
-        static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
-        return buildingPartChecker(node->GetData().GetTypes());
-      });
-
-      // We want to transform
-      // building
-      //        |_building-part
-      //                       |_building-part
-      // to
-      // building
-      //        |_building-part
-      //        |_building-part
-      hierarchy::FlattenBuildingParts(trees);
-      // In the end we add objects, which were saved by the collector.
-      if (m_buildingToParts)
-      {
-        hierarchy::AddChildrenTo(trees, [&](auto const & compositeId) {
-          auto const & ids = m_buildingToParts->GetBuildingPartsByOutlineId(compositeId);
-          std::vector<hierarchy::HierarchyPlace> places;
-          places.reserve(ids.size());
-          for (auto const & id : ids)
-          {
-            if (relationBuildingParts.count(id) == 0)
-              continue;
-
-            places.emplace_back(hierarchy::HierarchyPlace(relationBuildingParts[id]));
-          }
-          return places;
-        });
-      }
-
-      // We create and save hierarchy lines.
-      hierarchy::HierarchyLinesBuilder hierarchyBuilder(std::move(trees));
-      if (m_useCentersEnricher)
-        hierarchyBuilder.SetHierarchyEntryEnricher(CreateEnricher(countryName));
-
-      hierarchyBuilder.SetCountry(countryName);
-      hierarchyBuilder.SetGetMainTypeFunction(m_getMainType);
-      hierarchyBuilder.SetGetNameFunction(m_getName);
-      return hierarchyBuilder.GetHierarchyLines();
-    });
-    futures.emplace_back(std::move(future));
-  });
+  std::mutex mutex;
   std::vector<HierarchyEntry> allLines;
-  for (auto & f : futures)
-  {
-    auto const lines = f.get();
-    allLines.insert(std::cend(allLines), std::cbegin(lines), std::cend(lines));
-  }
+  ForEachMwmTmp(m_mwmTmpPath, [&](auto const & name, auto const & path) {
+    // https://wiki.openstreetmap.org/wiki/Simple_3D_buildings
+    // An object with tag 'building:part' is a part of a relation with outline 'building' or
+    // is contained in an object with tag 'building'. We will split data and work with
+    // these cases separately. First of all let's remove objects with tag building:part is
+    // contained in relations. We will add them back after data processing.
+    std::unordered_map<base::GeoObjectId, FeatureBuilder> relationBuildingParts;
+
+    auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(path);
+
+    if (m_buildingToParts)
+      relationBuildingParts = RemoveRelationBuildingParts(fbs);
+
+    // This case is second. We build a hierarchy using the geometry of objects and their nesting.
+    auto trees = hierarchy::BuildHierarchy(std::move(fbs), m_getMainType, m_filter);
+
+    // We remove tree roots with tag 'building:part'.
+    base::EraseIf(trees, [](auto const & node) {
+      static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
+      return buildingPartChecker(node->GetData().GetTypes());
+    });
+
+    // We want to transform
+    // building
+    //        |_building-part
+    //                       |_building-part
+    // to
+    // building
+    //        |_building-part
+    //        |_building-part
+    hierarchy::FlattenBuildingParts(trees);
+    // In the end we add objects, which were saved by the collector.
+    if (m_buildingToParts)
+    {
+      hierarchy::AddChildrenTo(trees, [&](auto const & compositeId) {
+        auto const & ids = m_buildingToParts->GetBuildingPartsByOutlineId(compositeId);
+        std::vector<hierarchy::HierarchyPlace> places;
+        places.reserve(ids.size());
+        for (auto const & id : ids)
+        {
+          if (relationBuildingParts.count(id) == 0)
+            continue;
+
+          places.emplace_back(hierarchy::HierarchyPlace(relationBuildingParts[id]));
+        }
+        return places;
+      });
+    }
+
+    // We create and save hierarchy lines.
+    hierarchy::HierarchyLinesBuilder hierarchyBuilder(std::move(trees));
+    if (m_useCentersEnricher)
+      hierarchyBuilder.SetHierarchyEntryEnricher(CreateEnricher(name));
+
+    hierarchyBuilder.SetCountry(name);
+    hierarchyBuilder.SetGetMainTypeFunction(m_getMainType);
+    hierarchyBuilder.SetGetNameFunction(m_getName);
+
+    auto lines = hierarchyBuilder.GetHierarchyLines();
+
+    std::lock_guard<std::mutex> lock(mutex);
+    allLines.insert(std::cend(allLines), std::make_move_iterator(std::begin(lines)),
+                    std::make_move_iterator(std::end(lines)));
+  }, m_threadsCount);
+
   WriteLines(allLines);
 }
 

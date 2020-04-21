@@ -60,23 +60,46 @@ feature::FeatureBuilder::PointSeq::iterator GetIterOnRoad(m2::PointD const & poi
 
 namespace generator
 {
-MiniRoundaboutTransformer::MiniRoundaboutTransformer(std::string const & intermediateFilePath)
-  : m_radiusMercator(mercator::MetersToMercator(kDefaultRadiusMeters))
+MiniRoundaboutData::MiniRoundaboutData(std::vector<MiniRoundaboutInfo> && data)
+  : m_data(std::move(data))
 {
-  ReadData(intermediateFilePath);
+   for (auto const & d : m_data)
+     m_ways.insert(std::end(m_ways), std::cbegin(d.m_ways), std::cend(d.m_ways));
+
+   base::SortUnique(m_ways);
 }
 
-MiniRoundaboutTransformer::MiniRoundaboutTransformer(std::string const & intermediateFilePath,
+bool MiniRoundaboutData::RoadExists(feature::FeatureBuilder const & fb) const
+{
+  return std::binary_search(std::cbegin(m_ways), std::cend(m_ways),
+                            fb.GetMostGenericOsmId().GetSerialId());
+}
+
+std::vector<MiniRoundaboutInfo> const & MiniRoundaboutData::GetData() const
+{
+  return m_data;
+}
+
+MiniRoundaboutData ReadDataMiniRoundabout(std::string const & intermediateFilePath)
+{
+  auto roundabouts = ReadMiniRoundabouts(intermediateFilePath);
+  LOG(LINFO, ("Loaded", roundabouts.size(), "mini_roundabouts from file", intermediateFilePath));
+  return MiniRoundaboutData(std::move(roundabouts));
+}
+
+MiniRoundaboutTransformer::MiniRoundaboutTransformer(std::vector<MiniRoundaboutInfo> const & data,
+                                                     feature::AffiliationInterface const & affiliation)
+  : MiniRoundaboutTransformer(data, affiliation, kDefaultRadiusMeters)
+{
+}
+
+MiniRoundaboutTransformer::MiniRoundaboutTransformer(std::vector<MiniRoundaboutInfo> const & data,
+                                                     feature::AffiliationInterface const & affiliation,
                                                      double radiusMeters)
-  : m_radiusMercator(mercator::MetersToMercator(radiusMeters))
+  : m_roundabouts(data)
+  , m_radiusMercator(mercator::MetersToMercator(radiusMeters))
+  , m_affiliation(&affiliation)
 {
-  ReadData(intermediateFilePath);
-}
-
-void MiniRoundaboutTransformer::ReadData(std::string const & intermediateFilePath)
-{
-  m_roundabouts = ReadMiniRoundabouts(intermediateFilePath);
-  LOG(LINFO, ("Loaded", m_roundabouts.size(), "mini_roundabouts from file", intermediateFilePath));
 }
 
 void MiniRoundaboutTransformer::UpdateRoadType(FeatureParams::Types const & foundTypes,
@@ -210,9 +233,12 @@ std::unordered_map<base::GeoObjectId, size_t> GetFeaturesHashMap(
   return fbsIdToIndex;
 }
 
-void MiniRoundaboutTransformer::ProcessRoundabouts(
-    feature::CountriesFilesIndexAffiliation const & affiliation,
-    std::vector<feature::FeatureBuilder> & fbs)
+void MiniRoundaboutTransformer::AddRoad(feature::FeatureBuilder && road)
+{
+  m_roads.emplace_back(std::move(road));
+}
+
+std::vector<feature::FeatureBuilder> MiniRoundaboutTransformer::ProcessRoundabouts()
 {
   std::vector<feature::FeatureBuilder> fbsRoundabouts;
   fbsRoundabouts.reserve(m_roundabouts.size());
@@ -221,7 +247,7 @@ void MiniRoundaboutTransformer::ProcessRoundabouts(
   std::vector<feature::FeatureBuilder> fbsRoads;
   fbsRoads.reserve(m_roundabouts.size());
 
-  std::unordered_map<base::GeoObjectId, size_t> fbsIdToIndex = GetFeaturesHashMap(fbs);
+  std::unordered_map<base::GeoObjectId, size_t> fbsIdToIndex = GetFeaturesHashMap(m_roads);
 
   for (auto const & rb : m_roundabouts)
   {
@@ -242,12 +268,12 @@ void MiniRoundaboutTransformer::ProcessRoundabouts(
       size_t const i = pairIdIndex->second;
 
       // Transform only mini_roundabouts on roads contained in single mwm
-      if (affiliation.GetAffiliations(fbs[i]).size() != 1)
+      if (m_affiliation->GetAffiliations(m_roads[i]).size() != 1)
       {
         allRoadsInOneMwm = false;
         break;
       }
-      auto itRoad = fbs.begin() + i;
+      auto itRoad = m_roads.begin() + i;
       auto road = itRoad->GetOuterGeometry();
 
       if (GetIterOnRoad(center, road) == road.end())
@@ -291,11 +317,11 @@ void MiniRoundaboutTransformer::ProcessRoundabouts(
   LOG(LINFO, ("Transformed", fbsRoundabouts.size(), "mini_roundabouts to roundabouts.", "Added",
               fbsRoads.size(), "surrogate roads."));
 
-  // Adding new roundabouts to the features.
-  fbs.insert(fbs.end(), std::make_move_iterator(fbsRoundabouts.begin()),
-             std::make_move_iterator(fbsRoundabouts.end()));
-  fbs.insert(fbs.end(), std::make_move_iterator(fbsRoads.begin()),
-             std::make_move_iterator(fbsRoads.end()));
+  fbsRoundabouts.insert(fbsRoundabouts.end(), std::make_move_iterator(fbsRoads.begin()),
+                        std::make_move_iterator(fbsRoads.end()));
+  fbsRoundabouts.insert(fbsRoundabouts.end(), std::make_move_iterator(m_roads.begin()),
+                        std::make_move_iterator(m_roads.end()));
+  return fbsRoundabouts;
 }
 
 double DistanceOnPlain(m2::PointD const & a, m2::PointD const & b) { return a.Length(b); }

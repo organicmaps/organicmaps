@@ -1,9 +1,17 @@
 #pragma once
 
 #include "generator/final_processor_interface.hpp"
+#include "generator/place_processor.hpp"
 
 #include <cstddef>
+#include <memory>
 #include <string>
+#include <vector>
+
+namespace feature
+{
+class AffiliationInterface;
+}  // namespace feature
 
 namespace generator
 {
@@ -37,7 +45,10 @@ private:
   void ProcessRoundabouts();
   void AddFakeNodes();
   void AddIsolines();
+  void DropProhibitedSpeedCameras();
   void Finish();
+
+  bool IsCountry(std::string const & filename);
 
   std::string m_borderPath;
   std::string m_temporaryMwmPath;
@@ -55,7 +66,8 @@ private:
   std::string m_routingCityBoundariesDumpPath;
   std::string m_hierarchySrcFilename;
 
-  bool m_haveBordersForWholeWorld;
+  std::unique_ptr<feature::AffiliationInterface> m_affiliations;
+
   size_t m_threadsCount;
 };
 }  // namespace generator

@@ -1,5 +1,6 @@
 #include "generator/final_processor_country.hpp"
 
+#include "generator/affiliation.hpp"
 #include "generator/booking_dataset.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/final_processor_utils.hpp"
@@ -7,8 +8,10 @@
 #include "generator/mini_roundabout_transformer.hpp"
 #include "generator/node_mixer.hpp"
 #include "generator/osm2type.hpp"
+#include "generator/promo_catalog_cities.hpp"
 #include "generator/routing_city_boundaries_processor.hpp"
 
+#include "routing/routing_helpers.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
 #include "indexer/classificator.hpp"
@@ -17,6 +20,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/thread_pool_computational.hpp"
 
+#include <mutex>
 #include <utility>
 #include <vector>
 
@@ -31,9 +35,14 @@ CountryFinalProcessor::CountryFinalProcessor(std::string const & borderPath,
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::CountriesOrWorld)
   , m_borderPath(borderPath)
   , m_temporaryMwmPath(temporaryMwmPath)
-  , m_haveBordersForWholeWorld(haveBordersForWholeWorld)
+  , m_affiliations(std::make_unique<CountriesFilesIndexAffiliation>(m_borderPath, haveBordersForWholeWorld))
   , m_threadsCount(threadsCount)
 {
+}
+
+bool CountryFinalProcessor::IsCountry(std::string const & filename)
+{
+  return m_affiliations->HasCountryByName(filename);
 }
 
 void CountryFinalProcessor::SetBooking(std::string const & filename)
@@ -98,72 +107,62 @@ void CountryFinalProcessor::Process()
     AddFakeNodes();
   if (!m_isolinesPath.empty())
     AddIsolines();
+
+  DropProhibitedSpeedCameras();
   Finish();
 }
 
 void CountryFinalProcessor::ProcessBooking()
 {
   BookingDataset dataset(m_hotelsFilename);
-  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
-  {
-    ThreadPool pool(m_threadsCount);
-    ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
-      pool.SubmitWork([&, filename]() {
-        std::vector<FeatureBuilder> cities;
-        if (!FilenameIsCountry(filename, affiliation))
-          return;
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path) {
+    if (!IsCountry(name))
+      return;
 
-        auto const fullPath = base::JoinPath(m_temporaryMwmPath, filename);
-        auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(fullPath);
-        FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(fullPath);
-        for (auto & fb : fbs)
-        {
-          auto const id = dataset.FindMatchingObjectId(fb);
-          if (id == BookingHotel::InvalidObjectId())
-          {
-            writer.Write(fb);
-          }
-          else
-          {
-            dataset.PreprocessMatchedOsmObject(id, fb, [&](FeatureBuilder & newFeature) {
-              if (newFeature.PreSerialize())
-                writer.Write(newFeature);
-            });
-          }
-        }
-      });
+    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto & fb, auto /* pos */) {
+      auto const id = dataset.FindMatchingObjectId(fb);
+      if (id == BookingHotel::InvalidObjectId())
+      {
+        writer.Write(fb);
+      }
+      else
+      {
+        dataset.PreprocessMatchedOsmObject(id, fb, [&](FeatureBuilder & newFeature) {
+          if (newFeature.PreSerialize())
+            writer.Write(newFeature);
+        });
+      }
     });
-  }
+  }, m_threadsCount);
+
   std::vector<FeatureBuilder> fbs;
   dataset.BuildOsmObjects([&](auto && fb) { fbs.emplace_back(std::move(fb)); });
-  auto const affiliations = GetAffiliations(fbs, affiliation, m_threadsCount);
-  AppendToCountries(fbs, affiliations, m_temporaryMwmPath, m_threadsCount);
+  AppendToMwmTmp(fbs, *m_affiliations, m_temporaryMwmPath, m_threadsCount);
 }
 
 void CountryFinalProcessor::ProcessRoundabouts()
 {
-  MiniRoundaboutTransformer helper(m_miniRoundaboutsFilename);
+  auto roundabouts = ReadDataMiniRoundabout(m_miniRoundaboutsFilename);
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path) {
+    if (!IsCountry(name))
+      return;
 
-  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
-  {
-    ThreadPool pool(m_threadsCount);
-    ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
-      pool.SubmitWork([&, filename]() {
-        if (!FilenameIsCountry(filename, affiliation))
-          return;
+    MiniRoundaboutTransformer transformer(roundabouts.GetData(), *m_affiliations);
 
-        auto const fullPath = base::JoinPath(m_temporaryMwmPath, filename);
-        auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(fullPath);
-        FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(fullPath);
-
-        // Adds new way features generated from mini-roundabout nodes with those nodes ids.
-        // Transforms points on roads to connect them with these new roundabout junctions.
-        helper.ProcessRoundabouts(affiliation, fbs);
-        for (auto const & fb : fbs)
+    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto && fb, auto /* pos */) {
+        if (routing::IsRoad(fb.GetTypes()) && roundabouts.RoadExists(fb))
+          transformer.AddRoad(std::move(fb));
+        else
           writer.Write(fb);
-      });
     });
-  }
+
+    // Adds new way features generated from mini-roundabout nodes with those nodes ids.
+    // Transforms points on roads to connect them with these new roundabout junctions.
+    for (auto const & fb : transformer.ProcessRoundabouts())
+      writer.Write(fb);
+  }, m_threadsCount);
 }
 
 void CountryFinalProcessor::AddIsolines()
@@ -171,21 +170,13 @@ void CountryFinalProcessor::AddIsolines()
   // For generated isolines must be built isolines_info section based on the same
   // binary isolines file.
   IsolineFeaturesGenerator isolineFeaturesGenerator(m_isolinesPath);
-  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
-  ThreadPool pool(m_threadsCount);
-  ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
-    pool.SubmitWork([&, filename]() {
-      if (!FilenameIsCountry(filename, affiliation))
-        return;
-      auto const countryName = GetCountryNameFromTmpMwmPath(filename);
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path) {
+    if (!IsCountry(name))
+      return;
 
-      auto const fullPath = base::JoinPath(m_temporaryMwmPath, filename);
-      FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(fullPath,
-                                                                     FileWriter::Op::OP_APPEND);
-      isolineFeaturesGenerator.GenerateIsolines(
-          countryName, [&writer](feature::FeatureBuilder && fb) { writer.Write(fb); });
-    });
-  });
+    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, FileWriter::Op::OP_APPEND);
+    isolineFeaturesGenerator.GenerateIsolines(name, [&](auto const & fb) { writer.Write(fb); });
+  }, m_threadsCount);
 }
 
 void CountryFinalProcessor::ProcessRoutingCityBoundaries()
@@ -201,26 +192,25 @@ void CountryFinalProcessor::ProcessRoutingCityBoundaries()
 
 void CountryFinalProcessor::ProcessCities()
 {
-  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
   auto citiesHelper =
       m_citiesAreasTmpFilename.empty() ? PlaceHelper() : PlaceHelper(m_citiesAreasTmpFilename);
-  ProcessorCities processorCities(m_temporaryMwmPath, affiliation, citiesHelper, m_threadsCount);
+
+  ProcessorCities processorCities(m_temporaryMwmPath, *m_affiliations, citiesHelper, m_threadsCount);
   processorCities.SetPromoCatalog(m_citiesFilename);
   processorCities.Process();
-  if (m_citiesBoundariesFilename.empty())
-    return;
 
-  auto const citiesTable = citiesHelper.GetTable();
-  LOG(LINFO, ("Dumping cities boundaries to", m_citiesBoundariesFilename));
-  SerializeBoundariesTable(m_citiesBoundariesFilename, *citiesTable);
+  if (!m_citiesBoundariesFilename.empty())
+  {
+    auto const citiesTable = citiesHelper.GetTable();
+    LOG(LINFO, ("Dumping cities boundaries to", m_citiesBoundariesFilename));
+    SerializeBoundariesTable(m_citiesBoundariesFilename, *citiesTable);
+  }
 }
 
 void CountryFinalProcessor::ProcessCoastline()
 {
-  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
   auto fbs = ReadAllDatRawFormat(m_coastlineGeomFilename);
-  auto const affiliations = GetAffiliations(fbs, affiliation, m_threadsCount);
-  AppendToCountries(fbs, affiliations, m_temporaryMwmPath, m_threadsCount);
+  auto const affiliations = AppendToMwmTmp(fbs, *m_affiliations, m_temporaryMwmPath, m_threadsCount);
   FeatureBuilderWriter<> collector(m_worldCoastsFilename);
   for (size_t i = 0; i < fbs.size(); ++i)
   {
@@ -239,38 +229,43 @@ void CountryFinalProcessor::AddFakeNodes()
     ftype::GetNameAndType(&element, fb.GetParams());
     fbs.emplace_back(std::move(fb));
   });
-  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
-  auto const affiliations = GetAffiliations(fbs, affiliation, m_threadsCount);
-  AppendToCountries(fbs, affiliations, m_temporaryMwmPath, m_threadsCount);
+  AppendToMwmTmp(fbs, *m_affiliations, m_temporaryMwmPath, m_threadsCount);
+}
+
+void CountryFinalProcessor::DropProhibitedSpeedCameras()
+{
+  static auto const speedCameraType = classif().GetTypeByPath({"highway", "speed_camera"});
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path) {
+    if (!IsCountry(country))
+      return;
+
+    if (!routing::AreSpeedCamerasProhibited(platform::CountryFile(country)))
+      return;
+
+    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto const & fb, auto /* pos */) {
+      // Removing point features with speed cameras type from geometry index for some countries.
+      if (fb.IsPoint() && fb.HasType(speedCameraType))
+        return;
+
+      writer.Write(fb);
+    });
+  }, m_threadsCount);
 }
 
 void CountryFinalProcessor::Finish()
 {
-  auto const affiliation = CountriesFilesIndexAffiliation(m_borderPath, m_haveBordersForWholeWorld);
-  ThreadPool pool(m_threadsCount);
-  ForEachCountry(m_temporaryMwmPath, [&](auto const & filename) {
-    pool.SubmitWork([&, filename]() {
-      if (!FilenameIsCountry(filename, affiliation))
-        return;
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path) {
+    if (!IsCountry(country))
+      return;
 
-      auto const fullPath = base::JoinPath(m_temporaryMwmPath, filename);
-      auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(fullPath);
-      Sort(fbs);
+    auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(path);
+    Sort(fbs);
 
-      auto const speedCamerasProhibited =
-          routing::AreSpeedCamerasProhibited(platform::CountryFile(filename));
-      static auto const speedCameraType = classif().GetTypeByPath({"highway", "speed_camera"});
+    FeatureBuilderWriter<> writer(path);
+    for (auto & fb : fbs)
+      writer.Write(fb);
 
-      FeatureBuilderWriter<> collector(fullPath);
-      for (auto & fb : fbs)
-      {
-        // Removing point features with speed cameras type from geometry index for some countries.
-        if (speedCamerasProhibited && fb.IsPoint() && fb.HasType(speedCameraType))
-          continue;
-
-        collector.Write(fb);
-      }
-    });
-  });
+  }, m_threadsCount);
 }
 }  // namespace generator

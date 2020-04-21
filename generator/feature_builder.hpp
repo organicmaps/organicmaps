@@ -4,6 +4,7 @@
 
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 #include "coding/read_write_utils.hpp"
 
 #include "base/geo_object_id.hpp"
@@ -319,8 +320,11 @@ class FeatureBuilderWriter
 {
 public:
   explicit FeatureBuilderWriter(std::string const & filename,
+                                bool mangleName = false,
                                 FileWriter::Op op = FileWriter::Op::OP_WRITE_TRUNCATE)
-    : m_writer(filename, op)
+    : m_filename(filename)
+    , m_mangleName(mangleName)
+    , m_writer(std::make_unique<Writer>(m_mangleName ? m_filename  + "_" : m_filename, op))
   {
     // TODO(maksimandrianov): I would like to support the verification of serialization versions,
     // but this requires reworking of FeatureCollector class and its derived classes. It is in
@@ -328,9 +332,26 @@ public:
     // static_cast<serialization_policy::TypeSerializationVersion>(SerializationPolicy::kSerializationVersion));
   }
 
+  explicit FeatureBuilderWriter(std::string const & filename,
+                                FileWriter::Op op)
+    : FeatureBuilderWriter(filename, false /* mangleName */, op)
+  {
+  }
+
+  ~FeatureBuilderWriter()
+  {
+    if (m_mangleName)
+    {
+      // Flush and close.
+      auto const currentFilename = m_writer->GetName();
+      m_writer.reset();
+      CHECK(base::RenameFileX(currentFilename, m_filename), (currentFilename, m_filename));
+    }
+  }
+
   void Write(FeatureBuilder const & fb)
   {
-    Write(m_writer, fb);
+    Write(*m_writer, fb);
   }
 
   template <typename Sink>
@@ -343,6 +364,8 @@ public:
   }
 
 private:
-  Writer m_writer;
+  std::string m_filename;
+  bool m_mangleName = false;
+  std::unique_ptr<Writer> m_writer;
 };
 }  // namespace feature

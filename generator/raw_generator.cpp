@@ -82,6 +82,10 @@ bool RawGenerator::Execute()
   if (!GenerateFilteredFeatures())
     return false;
 
+  m_translators.reset();
+  m_cache.reset();
+  m_queue.reset();
+
   while (!m_finalProcessors.empty())
   {
     base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
@@ -178,7 +182,7 @@ bool RawGenerator::GenerateFilteredFeatures()
       continue;
 
     translators.Emit(std::move(elements));
-    elements = vector<OsmElement>(m_chunkSize);
+    elements = std::vector<OsmElement>(m_chunkSize);
     element_pos = 0;
   }
   elements.resize(element_pos);
