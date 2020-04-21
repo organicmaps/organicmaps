@@ -28,6 +28,9 @@ public:
   void UpdateViewport(ScreenBase const & screen);
   void Invalidate();
 
+  void SetEnabled(bool enabled);
+  bool IsEnabled() const;
+
   struct GuidesGallery
   {
     struct Item
@@ -60,6 +63,7 @@ public:
       std::string m_title;
       std::string m_subTitle;
       Type m_type = Type::City;
+      bool m_downloaded = false;
       boost::optional<CityParams> m_cityParams;
       boost::optional<OutdoorParams> m_outdoorsParams;
     };
@@ -75,6 +79,8 @@ public:
   void SetGalleryListener(GuidesGalleryChangedFn const & onGalleryChangedFn);
 
 private:
+  void ChangeState(GuidesState newState);
+
   GuidesState m_state = GuidesState::Disabled;
   GuidesStateChangedFn m_onStateChangedFn;
   GuidesGalleryChangedFn m_onGalleryChangedFn;

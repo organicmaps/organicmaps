@@ -20,6 +20,25 @@ void GuidesManager::Invalidate()
   // TODO: Implement.
 }
 
+void GuidesManager::SetEnabled(bool enabled)
+{
+  ChangeState(enabled ? GuidesState::Enabled : GuidesState::Disabled);
+}
+
+bool GuidesManager::IsEnabled() const
+{
+  return m_state != GuidesState::Disabled;
+}
+
+void GuidesManager::ChangeState(GuidesState newState)
+{
+  if (m_state == newState)
+    return;
+  m_state = newState;
+  if (m_onStateChangedFn != nullptr)
+    m_onStateChangedFn(newState);
+}
+
 GuidesManager::GuidesGallery GuidesManager::GetGallery() const
 {
   // TODO: Implement.
