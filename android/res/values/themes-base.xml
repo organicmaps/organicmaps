@@ -177,6 +177,12 @@
     <item name="elevationProfileSelectedPointTriangle">@drawable/ic_triangle</item>
     <item name="elevationProfileFloatingTriangle">@drawable/ic_triangle_elevation</item>
     <item name="elevationProfileColor">@color/elevation_profile</item>
+    <item name="guidesAltitude">@drawable/accent</item>
+    <item name="guidesTime">@drawable/time</item>
+    <item name="guidesSight">@drawable/sights</item>
+    <item name="guidesPlaceholder">@drawable/place_holder</item>
+    <item name="guidesDistance">@drawable/dist</item>
+    <item name="bgRectangleView">@drawable/bg_grey</item>
   </style>
 
   <!-- Night theme -->
@@ -353,5 +359,11 @@
     <item name="elevationProfileSelectedPointTriangle">@drawable/ic_triangle_night</item>
     <item name="elevationProfileFloatingTriangle">@drawable/ic_triangle_elevation_night</item>
     <item name="elevationProfileColor">@color/elevation_profile_dark</item>
+    <item name="guidesAltitude">@drawable/accent_dark</item>
+    <item name="guidesTime">@drawable/time_dark</item>
+    <item name="guidesSight">@drawable/sights_dark</item>
+    <item name="guidesPlaceholder">@drawable/place_holder_dark</item>
+    <item name="guidesDistance">@drawable/dist_dark</item>
+    <item name="bgRectangleView">@drawable/bg_grey_dark</item>
   </style>
 </resources>

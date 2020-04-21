@@ -112,6 +112,12 @@
     <attr name="tipsSecondaryTextColor" format="color"/>
     <attr name="bgCrown" format="reference"/>
     <attr name="bgDogBtn" format="reference"/>
+    <attr name="guidesTime" format="reference"></attr>
+    <attr name="guidesAltitude" format="reference"></attr>
+    <attr name="guidesSight" format="reference"></attr>
+    <attr name="guidesPlaceholder" format="reference"></attr>
+    <attr name="guidesDistance" format="reference"></attr>
+    <attr name="bgRectangleView" format="reference"></attr>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">
