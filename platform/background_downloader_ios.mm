@@ -4,11 +4,11 @@
 
 @interface TaskInfo : NSObject
 
-@property(nonatomic, strong) NSURLSessionDownloadTask *task;
+@property(nonatomic, strong) NSURLSessionTask *task;
 @property(nonatomic, copy) DownloadCompleteBlock completion;
 @property(nonatomic, copy) DownloadProgressBlock progress;
 
-- (instancetype)initWithTask:(NSURLSessionDownloadTask *)task
+- (instancetype)initWithTask:(NSURLSessionTask *)task
                   completion:(DownloadCompleteBlock)completion
                     progress:(DownloadProgressBlock)progress;
 
@@ -16,7 +16,7 @@
 
 @implementation TaskInfo
 
-- (instancetype)initWithTask:(NSURLSessionDownloadTask *)task
+- (instancetype)initWithTask:(NSURLSessionTask *)task
                   completion:(DownloadCompleteBlock)completion
                     progress:(DownloadProgressBlock)progress {
   self = [super init];
@@ -50,6 +50,7 @@
 
 @property(nonatomic, strong) NSURLSession *session;
 @property(nonatomic, strong) NSMutableDictionary *tasks;
+@property(nonatomic, strong) NSMutableDictionary *restoredTasks;
 @property(nonatomic, strong) NSHashTable *subscribers;
 @property(nonatomic, strong) MapFileSaveStrategy *saveStrategy;
 
@@ -79,6 +80,39 @@
     _tasks = [NSMutableDictionary dictionary];
     _subscribers = [NSHashTable weakObjectsHashTable];
     _saveStrategy = saveStrategy;
+    _restoredTasks = [NSMutableDictionary dictionary];
+
+    [_session getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> *_Nonnull downloadTasks) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        for (NSURLSessionTask *downloadTask in downloadTasks) {
+          TaskInfo *info = [self.tasks objectForKey:@(downloadTask.taskIdentifier)];
+          if (info)
+            continue;
+
+          NSString *urlString = downloadTask.originalRequest.URL.path;
+
+          BOOL isTaskReplaced = NO;
+          /// Replacing task with another one which was added into queue earlier (on previous application session).
+          for (TaskInfo *info in self.tasks) {
+            if (![info.task.originalRequest.URL.path isEqualToString:urlString])
+              continue;
+
+            TaskInfo *newInfo = [[TaskInfo alloc] initWithTask:downloadTask
+                                                    completion:info.completion
+                                                      progress:info.progress];
+            [self.tasks setObject:newInfo forKey:@(downloadTask.taskIdentifier)];
+
+            [info.task cancel];
+            [self.tasks removeObjectForKey:@(info.task.taskIdentifier)];
+            isTaskReplaced = YES;
+            break;
+          }
+
+          if (!isTaskReplaced)
+            [self.restoredTasks setObject:downloadTask forKey:urlString];
+        }
+      });
+    }];
   }
 
   return self;
@@ -95,26 +129,47 @@
 - (NSUInteger)downloadWithUrl:(NSURL *)url
                    completion:(DownloadCompleteBlock)completion
                      progress:(DownloadProgressBlock)progress {
-  NSURLSessionDownloadTask *task = [self.session downloadTaskWithURL:url];
-  TaskInfo *info = [[TaskInfo alloc] initWithTask:task completion:completion progress:progress];
-  [self.tasks setObject:info forKey:@([task taskIdentifier])];
-  [task resume];
+  NSUInteger taskIdentifier;
+  NSURLSessionTask *restoredTask = [self.restoredTasks objectForKey:url.path];
+  if (restoredTask) {
+    TaskInfo *info = [[TaskInfo alloc] initWithTask:restoredTask completion:completion progress:progress];
+    [self.tasks setObject:info forKey:@(restoredTask.taskIdentifier)];
+    [self.restoredTasks removeObjectForKey:url.path];
+    taskIdentifier = restoredTask.taskIdentifier;
+  } else {
+    NSURLSessionTask *task = [self.session downloadTaskWithURL:url];
+    TaskInfo *info = [[TaskInfo alloc] initWithTask:task completion:completion progress:progress];
+    [self.tasks setObject:info forKey:@(task.taskIdentifier)];
+    [task resume];
+    taskIdentifier = task.taskIdentifier;
+  }
 
   if ([self.tasks count] == 1) {
     for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
       [subscriber didStartDownloading];
   }
 
-  return task.taskIdentifier;
+  return taskIdentifier;
 }
 
 - (void)cancelTaskWithIdentifier:(NSUInteger)taskIdentifier {
+  BOOL needNotify = [self.tasks count] > 0;
   TaskInfo *info = self.tasks[@(taskIdentifier)];
-  [info.task cancel];
+  if (info) {
+    [info.task cancel];
+    [self.tasks removeObjectForKey:@(taskIdentifier)];
+  } else {
+    for (NSString *key in self.restoredTasks) {
+      NSURLSessionTask *restoredTask = self.restoredTasks[key];
+      if (restoredTask.taskIdentifier == taskIdentifier) {
+        [restoredTask cancel];
+        [self.restoredTasks removeObjectForKey:key];
+        break;
+      }
+    }
+  }
 
-  [self.tasks removeObjectForKey:@(taskIdentifier)];
-
-  if ([self.tasks count] == 0) {
+  if (needNotify && [self.tasks count] == 0) {
     for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
       [subscriber didFinishDownloading];
   }
@@ -126,7 +181,12 @@
     [info.task cancel];
   }
 
+  for (NSURLSessionTask *restoredTask in self.restoredTasks) {
+    [restoredTask cancel];
+  }
+
   [self.tasks removeAllObjects];
+  [self.restoredTasks removeAllObjects];
 
   if (needNotify) {
     for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
@@ -144,6 +204,8 @@
   [[NSFileManager defaultManager] moveItemAtURL:location.filePathURL toURL:destinationUrl error:&error];
 
   dispatch_async(dispatch_get_main_queue(), ^{
+    [self.restoredTasks removeObjectForKey:downloadTask.originalRequest.URL.path];
+
     TaskInfo *info = [self.tasks objectForKey:@(downloadTask.taskIdentifier)];
     if (!info)
       return;
@@ -174,6 +236,8 @@
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)downloadTask didCompleteWithError:(NSError *)error {
   dispatch_async(dispatch_get_main_queue(), ^{
+    [self.restoredTasks removeObjectForKey:downloadTask.originalRequest.URL.path];
+
     TaskInfo *info = [self.tasks objectForKey:@(downloadTask.taskIdentifier)];
     if (!info)
       return;
