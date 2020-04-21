@@ -2,6 +2,8 @@
 
 #include "Framework.h"
 
+static NSString *kGuidesWasShown = @"guidesWasShown";
+
 @interface MWMMapOverlayManager ()
 
 @property(nonatomic) NSHashTable<id<MWMMapOverlayManagerObserver>> *observers;
@@ -42,6 +44,11 @@
         if ([observer respondsToSelector:@selector(onIsoLinesStateUpdated)]) {
           [observer onIsoLinesStateUpdated];
         }
+      }
+    });
+    GetFramework().GetGuidesManager().SetStateListener([self](GuidesManager::GuidesState state) {
+      for (id<MWMMapOverlayManagerObserver> observer in self.observers) {
+        [observer onGuidesStateUpdated];
       }
     });
   }
@@ -105,6 +112,19 @@
   }
 }
 
++ (MWMMapOverlayGuidesState)guidesState {
+  switch (GetFramework().GetGuidesManager().GetState()) {
+    case GuidesManager::GuidesState::Disabled:
+      return MWMMapOverlayGuidesStateDisabled;
+    case GuidesManager::GuidesState::Enabled:
+      return MWMMapOverlayGuidesStateEnabled;
+    case GuidesManager::GuidesState::NoData:
+      return MWMMapOverlayGuidesStateNoData;
+    case GuidesManager::GuidesState::NetworkError:
+      return MWMMapOverlayGuidesStateNetworkError;
+  }
+}
+
 + (BOOL)trafficEnabled {
   return self.trafficState != MWMMapOverlayTrafficStateDisabled;
 }
@@ -117,8 +137,18 @@
   return self.isolinesState != MWMMapOverlayIsolinesStateDisabled;
 }
 
++ (BOOL)guidesEnabled {
+  return self.guidesState != MWMMapOverlayGuidesStateDisabled;
+}
+
++ (BOOL)guidesFirstLaunch {
+  NSUserDefaults *ud = NSUserDefaults.standardUserDefaults;
+  return ![ud boolForKey:kGuidesWasShown];
+}
+
 + (void)setTrafficEnabled:(BOOL)enable {
   if (enable) {
+    [self setGuidesEnabled:false];
     [self setTransitEnabled:false];
     [self setIsoLinesEnabled:false];
   }
@@ -130,6 +160,7 @@
 
 + (void)setTransitEnabled:(BOOL)enable {
   if (enable) {
+    [self setGuidesEnabled:false];
     [self setTrafficEnabled:!enable];
     [self setIsoLinesEnabled:false];
   }
@@ -141,6 +172,7 @@
 
 + (void)setIsoLinesEnabled:(BOOL)enable {
   if (enable) {
+    [self setGuidesEnabled:false];
     [self setTrafficEnabled:false];
     [self setTransitEnabled:false];
   }
@@ -148,6 +180,22 @@
   auto &f = GetFramework();
   f.GetIsolinesManager().SetEnabled(enable);
   f.SaveIsolonesEnabled(enable);
+}
+
++ (void)setGuidesEnabled:(BOOL)enable {
+  if (enable) {
+    [self setTrafficEnabled:false];
+    [self setTransitEnabled:false];
+    [self setIsoLinesEnabled:false];
+
+    NSUserDefaults *ud = NSUserDefaults.standardUserDefaults;
+    [ud setBool:YES forKey:kGuidesWasShown];
+    [ud synchronize];
+  }
+
+  auto &f = GetFramework();
+  f.GetGuidesManager().SetEnabled(enable);
+  f.SaveGuidesEnabled(enable);
 }
 
 @end

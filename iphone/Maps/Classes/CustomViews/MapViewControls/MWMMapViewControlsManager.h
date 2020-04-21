@@ -1,9 +1,10 @@
-#import "MWMBottomMenuViewController.h"
+#import "MWMBottomMenuState.h"
 #import "MWMMapDownloaderMode.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMSearchManager.h"
 
 @class MapViewController;
+@class BottomTabBarViewController;
 @protocol MWMFeatureHolder;
 
 @interface MWMMapViewControlsManager : NSObject
@@ -17,6 +18,7 @@
 @property(nonatomic) MWMBottomMenuState menuState;
 @property(nonatomic) MWMBottomMenuState menuRestoreState;
 @property(nonatomic) BOOL isDirectionViewHidden;
+@property(nonatomic) BottomTabBarViewController *tabBarController;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;

@@ -87,7 +87,7 @@
 
 + (NSArray<NSString *> *)obtainLastSearchQueries {
   NSMutableArray *result = [NSMutableArray array];
-  auto const & queries = GetFramework().GetSearchAPI().GetLastSearchQueries();
+  auto const &queries = GetFramework().GetSearchAPI().GetLastSearchQueries();
   for (auto const &item : queries) {
     [result addObject:@(item.second.c_str())];
   }
@@ -164,6 +164,10 @@
     completion([resultsArray copy], results.m_endMarker);
   };
   GetFramework().GetSearchAPI().SearchInDownloader(searchParams);
+}
+
++ (BOOL)canEditMap {
+  return GetFramework().CanEditMap();
 }
 
 @end

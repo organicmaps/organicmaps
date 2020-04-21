@@ -1,14 +1,11 @@
-#import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <UIKit/UIKit.h>
 
 #import "MWMTypes.h"
 
 @class MWMMapSearchResult;
 
-typedef NS_ENUM(NSUInteger, MWMZoomMode) {
-  MWMZoomModeIn = 0,
-  MWMZoomModeOut
-};
+typedef NS_ENUM(NSUInteger, MWMZoomMode) { MWMZoomModeIn = 0, MWMZoomModeOut };
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -41,7 +38,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)searchInDownloader:(NSString *)query
                inputLocale:(NSString *)locale
                 completion:(SearchInDownloaderCompletions)completion;
-
++ (BOOL)canEditMap;
 @end
 
 NS_ASSUME_NONNULL_END

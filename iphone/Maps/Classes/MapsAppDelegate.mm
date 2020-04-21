@@ -13,17 +13,17 @@
 #import "MWMRouter.h"
 #import "MWMSearch+CoreSpotlight.h"
 #import "MWMTextToSpeech.h"
-#import "NSDate+TimeDistance.h"
 #import "MapViewController.h"
+#import "NSDate+TimeDistance.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#import <CarPlay/CarPlay.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <UserNotifications/UserNotifications.h>
-#import <CarPlay/CarPlay.h>
 
 #import <AppsFlyerLib/AppsFlyerTracker.h>
 #import <Crashlytics/Crashlytics.h>
@@ -46,24 +46,22 @@
 // folder.
 
 // Alert keys.
-extern NSString * const kUDAlreadyRatedKey = @"UserAlreadyRatedApp";
+extern NSString *const kUDAlreadyRatedKey = @"UserAlreadyRatedApp";
 
-namespace
-{
-NSString * const kUDLastLaunchDateKey = @"LastLaunchDate";
-NSString * const kUDSessionsCountKey = @"SessionsCount";
-NSString * const kUDFirstVersionKey = @"FirstVersion";
-NSString * const kUDLastRateRequestDate = @"LastRateRequestDate";
-NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
-NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
-NSString * const kIOSIDFA = @"IFA";
-NSString * const kBundleVersion = @"BundleVersion";
+namespace {
+NSString *const kUDLastLaunchDateKey = @"LastLaunchDate";
+NSString *const kUDSessionsCountKey = @"SessionsCount";
+NSString *const kUDFirstVersionKey = @"FirstVersion";
+NSString *const kUDLastRateRequestDate = @"LastRateRequestDate";
+NSString *const kUDLastShareRequstDate = @"LastShareRequestDate";
+NSString *const kUDAutoNightModeOff = @"AutoNightModeOff";
+NSString *const kIOSIDFA = @"IFA";
+NSString *const kBundleVersion = @"BundleVersion";
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
-void InitLocalizedStrings()
-{
-  Framework & f = GetFramework();
+void InitLocalizedStrings() {
+  Framework &f = GetFramework();
 
   f.AddString("core_entrance", L(@"core_entrance").UTF8String);
   f.AddString("core_exit", L(@"core_exit").UTF8String);
@@ -74,56 +72,50 @@ void InitLocalizedStrings()
   f.AddString("wifi", L(@"wifi").UTF8String);
 }
 
-void InitCrashTrackers()
-{
+void InitCrashTrackers() {
 #ifdef OMIM_PRODUCTION
   if ([MWMSettings crashReportingDisabled])
     return;
 
-  NSString * fabricKey = @(CRASHLYTICS_IOS_KEY);
-  if (fabricKey.length != 0)
-  {
+  NSString *fabricKey = @(CRASHLYTICS_IOS_KEY);
+  if (fabricKey.length != 0) {
     // Initialize Fabric/Crashlytics SDK.
-    [Fabric with:@[ [Crashlytics class] ]];
+    [Fabric with:@ [[Crashlytics class]]];
   }
 #endif
 }
 
-void ConfigCrashTrackers()
-{
+void ConfigCrashTrackers() {
 #ifdef OMIM_PRODUCTION
-  [[Crashlytics sharedInstance] setObjectValue:[Alohalytics installationId]
-                                        forKey:@"AlohalyticsInstallationId"];
+  [[Crashlytics sharedInstance] setObjectValue:[Alohalytics installationId] forKey:@"AlohalyticsInstallationId"];
 #endif
 }
 
-void OverrideUserAgent()
-{
+void OverrideUserAgent() {
   [NSUserDefaults.standardUserDefaults registerDefaults:@{
-    @"UserAgent" : @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 "
-                   @"(KHTML, like Gecko) Version/10.0 Mobile/14E269 Safari/602.1"
+    @"UserAgent": @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 "
+                  @"(KHTML, like Gecko) Version/10.0 Mobile/14E269 Safari/602.1"
   }];
 }
 }  // namespace
 
 using namespace osm_auth_ios;
 
-@interface MapsAppDelegate ()<MWMStorageObserver,
-                              NotificationManagerDelegate,
-                              AppsFlyerTrackerDelegate,
-                              CPApplicationDelegate>
+@interface MapsAppDelegate () <MWMStorageObserver,
+                               NotificationManagerDelegate,
+                               AppsFlyerTrackerDelegate,
+                               CPApplicationDelegate>
 
 @property(nonatomic) NSInteger standbyCounter;
-@property(nonatomic) MWMBackgroundFetchScheduler * backgroundFetchScheduler;
+@property(nonatomic) MWMBackgroundFetchScheduler *backgroundFetchScheduler;
 @property(nonatomic) id<IPendingTransactionsHandler> pendingTransactionHandler;
-@property(nonatomic) NotificationManager * notificationManager;
+@property(nonatomic) NotificationManager *notificationManager;
 
 @end
 
 @implementation MapsAppDelegate
 
-+ (MapsAppDelegate *)theApp
-{
++ (MapsAppDelegate *)theApp {
   return (MapsAppDelegate *)UIApplication.sharedApplication.delegate;
 }
 
@@ -131,45 +123,37 @@ using namespace osm_auth_ios;
 
 // system push notification registration success callback, delegate to pushManager
 - (void)application:(UIApplication *)application
-    didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-  [MWMPushNotifications application:application
-      didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+  didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+  [MWMPushNotifications application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
 // system push notification registration error callback, delegate to pushManager
-- (void)application:(UIApplication *)application
-    didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
-  [MWMPushNotifications application:application
-      didFailToRegisterForRemoteNotificationsWithError:error];
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+  [MWMPushNotifications application:application didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
 // system push notifications callback, delegate to pushManager
 - (void)application:(UIApplication *)application
-    didReceiveRemoteNotification:(NSDictionary *)userInfo
-          fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
+  didReceiveRemoteNotification:(NSDictionary *)userInfo
+        fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
   [MWMPushNotifications application:application
        didReceiveRemoteNotification:userInfo
              fetchCompletionHandler:completionHandler];
 }
 
-- (BOOL)isDrapeEngineCreated
-{
+- (BOOL)isDrapeEngineCreated {
   return self.mapViewController.mapView.drapeEngineCreated;
 }
 
-- (BOOL)isGraphicContextInitialized
-{
+- (BOOL)isGraphicContextInitialized {
   return self.mapViewController.mapView.graphicContextInitialized;
 }
 
-- (void)searchText:(NSString *)searchString
-{
-  if (!self.isDrapeEngineCreated)
-  {
-    dispatch_async(dispatch_get_main_queue(), ^{ [self searchText:searchString]; });
+- (void)searchText:(NSString *)searchString {
+  if (!self.isDrapeEngineCreated) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self searchText:searchString];
+    });
     return;
   }
 
@@ -177,14 +161,12 @@ using namespace osm_auth_ios;
                                    forInputLocale:[MWMSettings spotlightLocaleLanguageId]];
 }
 
-- (void)incrementSessionsCountAndCheckForAlert
-{
+- (void)incrementSessionsCountAndCheckForAlert {
   [self incrementSessionCount];
   [self showAlertIfRequired];
 }
 
-- (void)commonInit
-{
+- (void)commonInit {
   [HttpThreadImpl setDownloadIndicatorProtocol:self];
   InitLocalizedStrings();
   GetFramework().SetupMeasurementSystem();
@@ -193,20 +175,17 @@ using namespace osm_auth_ios;
 
   self.standbyCounter = 0;
   NSTimeInterval const minimumBackgroundFetchIntervalInSeconds = 6 * 60 * 60;
-  [UIApplication.sharedApplication
-      setMinimumBackgroundFetchInterval:minimumBackgroundFetchIntervalInSeconds];
+  [UIApplication.sharedApplication setMinimumBackgroundFetchInterval:minimumBackgroundFetchIntervalInSeconds];
   [MWMMyTarget startAdServerForbiddenCheckTimer];
   [self updateApplicationIconBadgeNumber];
 }
 
-- (BOOL)application:(UIApplication *)application
-    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   NSLog(@"deeplinking: launchOptions %@", launchOptions);
   OverrideUserAgent();
 
   InitCrashTrackers();
-  
+
   [self initMarketingTrackers];
 
   // Initialize all 3party engines.
@@ -223,25 +202,21 @@ using namespace osm_auth_ios;
 
   [self commonInit];
 
-  if ([Alohalytics isFirstSession])
-  {
+  if ([Alohalytics isFirstSession]) {
     [self firstLaunchSetup];
-  }
-  else
-  {
+  } else {
     if ([MWMSettings statisticsEnabled])
       [Alohalytics enable];
     else
       [Alohalytics disable];
     [self incrementSessionsCountAndCheckForAlert];
 
-    //For first launch setup is called by FirstLaunchController
+    // For first launch setup is called by FirstLaunchController
     [MWMPushNotifications setup];
   }
   [self enableTTSForTheFirstTime];
 
-  [GIDSignIn sharedInstance].clientID =
-      [[NSBundle mainBundle] loadWithPlist:@"GoogleService-Info"][@"CLIENT_ID"];
+  [GIDSignIn sharedInstance].clientID = [[NSBundle mainBundle] loadWithPlist:@"GoogleService-Info"][@"CLIENT_ID"];
 
   self.notificationManager = [[NotificationManager alloc] init];
   self.notificationManager.delegate = self;
@@ -268,9 +243,10 @@ using namespace osm_auth_ios;
     }];
   }
 
-  MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@(ads::Mopub::InitializationBannerId().c_str())];
-  NSDictionary * facebookConfig = @{@"native_banner" : @true};
-  NSMutableDictionary * config = [@{@"FacebookAdapterConfiguration" : facebookConfig} mutableCopy];
+  MPMoPubConfiguration *sdkConfig =
+    [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@(ads::Mopub::InitializationBannerId().c_str())];
+  NSDictionary *facebookConfig = @{@"native_banner": @true};
+  NSMutableDictionary *config = [@{@"FacebookAdapterConfiguration": facebookConfig} mutableCopy];
   sdkConfig.mediatedNetworkConfigurations = config;
   sdkConfig.loggingLevel = MPBLogLevelDebug;
   [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:nil];
@@ -286,79 +262,67 @@ using namespace osm_auth_ios;
 }
 
 - (void)application:(UIApplication *)application
-    performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
-               completionHandler:(void (^)(BOOL))completionHandler
-{
+  performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
+             completionHandler:(void (^)(BOOL))completionHandler {
   [self.mapViewController performAction:shortcutItem.type];
   completionHandler(YES);
 }
 
-- (void)runBackgroundTasks:(NSArray<BackgroundFetchTask *> * _Nonnull)tasks
-         completionHandler:(void (^_Nullable)(UIBackgroundFetchResult))completionHandler
-{
-  self.backgroundFetchScheduler =
-      [[MWMBackgroundFetchScheduler alloc] initWithTasks:tasks
-                                       completionHandler:^(UIBackgroundFetchResult result) {
-                                         if (completionHandler)
-                                           completionHandler(result);
-                                       }];
+- (void)runBackgroundTasks:(NSArray<BackgroundFetchTask *> *_Nonnull)tasks
+         completionHandler:(void (^_Nullable)(UIBackgroundFetchResult))completionHandler {
+  self.backgroundFetchScheduler = [[MWMBackgroundFetchScheduler alloc] initWithTasks:tasks
+                                                                   completionHandler:^(UIBackgroundFetchResult result) {
+                                                                     if (completionHandler)
+                                                                       completionHandler(result);
+                                                                   }];
   [self.backgroundFetchScheduler run];
 }
 
 - (void)application:(UIApplication *)application
-    performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-  if ([LocalNotificationManager shouldShowAuthNotification])
-  {
-    AuthNotification * n = [[AuthNotification alloc] initWithTitle:L(@"notification_unsent_reviews_title")
-                                                            text:L(@"notification_unsent_reviews_message")];
+  performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+  if ([LocalNotificationManager shouldShowAuthNotification]) {
+    AuthNotification *n = [[AuthNotification alloc] initWithTitle:L(@"notification_unsent_reviews_title")
+                                                             text:L(@"notification_unsent_reviews_message")];
     [self.notificationManager showNotification:n];
     [LocalNotificationManager authNotificationWasShown];
     completionHandler(UIBackgroundFetchResultNewData);
     return;
   }
 
-  CoreNotificationWrapper * reviewNotification = [LocalNotificationManager reviewNotificationWrapper];
-  if (reviewNotification)
-  {
-    NSString * text = reviewNotification.address.length > 0
-      ? [NSString stringWithFormat:@"%@, %@", reviewNotification.readableName, reviewNotification.address]
-      : reviewNotification.readableName;
-    ReviewNotification * n = [[ReviewNotification alloc] initWithTitle:L(@"notification_leave_review_v2_title")
-                                                                  text:text
-                                                   notificationWrapper:reviewNotification];
+  CoreNotificationWrapper *reviewNotification = [LocalNotificationManager reviewNotificationWrapper];
+  if (reviewNotification) {
+    NSString *text =
+      reviewNotification.address.length > 0
+        ? [NSString stringWithFormat:@"%@, %@", reviewNotification.readableName, reviewNotification.address]
+        : reviewNotification.readableName;
+    ReviewNotification *n = [[ReviewNotification alloc] initWithTitle:L(@"notification_leave_review_v2_title")
+                                                                 text:text
+                                                  notificationWrapper:reviewNotification];
     [self.notificationManager showNotification:n];
     [LocalNotificationManager reviewNotificationWasShown];
   }
 
-  [self runBackgroundTasks:@[[MWMBackgroundStatisticsUpload new],
-                             [MWMBackgroundEditsUpload new],
-                             [MWMBackgroundUGCUpload new]]
-         completionHandler:completionHandler];
+  [self runBackgroundTasks:@ [[MWMBackgroundStatisticsUpload new], [MWMBackgroundEditsUpload new],
+                              [MWMBackgroundUGCUpload new]]
+    completionHandler:completionHandler];
 }
 
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
-{
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
 #ifdef OMIM_PRODUCTION
   auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
                                         code:1
-                                    userInfo:@{
-                                      @"Description" : @"applicationDidReceiveMemoryWarning"
-                                    }];
+                                    userInfo:@{@"Description": @"applicationDidReceiveMemoryWarning"}];
   [[Crashlytics sharedInstance] recordError:err];
 #endif
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
+- (void)applicationWillTerminate:(UIApplication *)application {
   [self.mapViewController onTerminate];
 
 #ifdef OMIM_PRODUCTION
   auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
                                         code:2
-                                    userInfo:@{
-                                      @"Description" : @"applicationWillTerminate"
-                                    }];
+                                    userInfo:@{@"Description": @"applicationWillTerminate"}];
   [[Crashlytics sharedInstance] recordError:err];
 #endif
 
@@ -366,12 +330,10 @@ using namespace osm_auth_ios;
   DeleteFramework();
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
+- (void)applicationDidEnterBackground:(UIApplication *)application {
   LOG(LINFO, ("applicationDidEnterBackground - begin"));
   [DeepLinkHandler.shared reset];
-  if (m_activeDownloadsCounter)
-  {
+  if (m_activeDownloadsCounter) {
     m_backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
       [application endBackgroundTask:self->m_backgroundTask];
       self->m_backgroundTask = UIBackgroundTaskInvalid;
@@ -385,20 +347,16 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationDidEnterBackground - end"));
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
+- (void)applicationWillResignActive:(UIApplication *)application {
   LOG(LINFO, ("applicationWillResignActive - begin"));
   [self.mapViewController onGetFocus:NO];
-  auto & f = GetFramework();
+  auto &f = GetFramework();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
-  if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103)
-  {
+  if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103) {
     f.SetRenderingDisabled(true);
     f.OnDestroySurface();
-  }
-  else
-  {
+  } else {
     f.SetRenderingDisabled(false);
   }
   [MWMLocationManager applicationWillResignActive];
@@ -406,14 +364,13 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationWillResignActive - end"));
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
+- (void)applicationWillEnterForeground:(UIApplication *)application {
   LOG(LINFO, ("applicationWillEnterForeground - begin"));
   if (!GpsTracker::Instance().IsEnabled())
     return;
 
-  MWMViewController * topVc = static_cast<MWMViewController *>(
-      self.mapViewController.navigationController.topViewController);
+  MWMViewController *topVc =
+    static_cast<MWMViewController *>(self.mapViewController.navigationController.topViewController);
   if (![topVc isKindOfClass:[MWMViewController class]])
     return;
 
@@ -428,23 +385,22 @@ using namespace osm_auth_ios;
   LOG(LINFO, ("applicationWillEnterForeground - end"));
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
-  
+
   [self trackMarketingAppLaunch];
 
-  auto & f = GetFramework();
+  auto &f = GetFramework();
   f.EnterForeground();
   [self.mapViewController onGetFocus:YES];
   [[Statistics instance] applicationDidBecomeActive];
   f.SetRenderingEnabled();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
-  if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103)
-  {
+  if ([AppInfo sharedInfo].openGLDriver == MWMOpenGLDriverMetalPre103) {
     CGSize const objcSize = self.mapViewController.mapView.pixelSize;
-    f.OnRecoverSurface(static_cast<int>(objcSize.width), static_cast<int>(objcSize.height), true /* recreateContextDependentResources */);
+    f.OnRecoverSurface(static_cast<int>(objcSize.width), static_cast<int>(objcSize.height),
+                       true /* recreateContextDependentResources */);
   }
   [MWMLocationManager applicationDidBecomeActive];
   [MWMSearch addCategoriesToSpotlight];
@@ -454,11 +410,11 @@ using namespace osm_auth_ios;
 }
 
 - (BOOL)application:(UIApplication *)application
-continueUserActivity:(NSUserActivity *)userActivity
- restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+  continueUserActivity:(NSUserActivity *)userActivity
+    restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *_Nullable))restorationHandler {
   if ([userActivity.activityType isEqualToString:CSSearchableItemActionType]) {
-    NSString * searchStringKey = userActivity.userInfo[CSSearchableItemActivityIdentifier];
-    NSString * searchString = L(searchStringKey);
+    NSString *searchStringKey = userActivity.userInfo[CSSearchableItemActivityIdentifier];
+    NSString *searchString = L(searchStringKey);
     if (searchString) {
       [self searchText:searchString];
       return YES;
@@ -471,12 +427,10 @@ continueUserActivity:(NSUserActivity *)userActivity
   return NO;
 }
 
-- (void)initMarketingTrackers
-{
-  NSString * appsFlyerDevKey = @(APPSFLYER_KEY);
-  NSString * appsFlyerAppIdKey = @(APPSFLYER_APP_ID_IOS);
-  if (appsFlyerDevKey.length != 0 && appsFlyerAppIdKey.length != 0)
-  {
+- (void)initMarketingTrackers {
+  NSString *appsFlyerDevKey = @(APPSFLYER_KEY);
+  NSString *appsFlyerAppIdKey = @(APPSFLYER_APP_ID_IOS);
+  if (appsFlyerDevKey.length != 0 && appsFlyerAppIdKey.length != 0) {
     [AppsFlyerTracker sharedTracker].appsFlyerDevKey = appsFlyerDevKey;
     [AppsFlyerTracker sharedTracker].appleAppID = appsFlyerAppIdKey;
     [AppsFlyerTracker sharedTracker].delegate = self;
@@ -486,37 +440,30 @@ continueUserActivity:(NSUserActivity *)userActivity
   }
 }
 
-- (void)trackMarketingAppLaunch
-{
+- (void)trackMarketingAppLaunch {
   [[AppsFlyerTracker sharedTracker] trackAppLaunch];
 }
 
-- (BOOL)initStatistics:(UIApplication *)application
-    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  Statistics * statistics = [Statistics instance];
-  BOOL returnValue =
-      [statistics application:application didFinishLaunchingWithOptions:launchOptions];
+- (BOOL)initStatistics:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  Statistics *statistics = [Statistics instance];
+  BOOL returnValue = [statistics application:application didFinishLaunchingWithOptions:launchOptions];
 
-  NSString * connectionType;
-  NSString * network = [Statistics connectionTypeString];
-  switch (Platform::ConnectionStatus())
-  {
-  case Platform::EConnectionType::CONNECTION_NONE: break;
-  case Platform::EConnectionType::CONNECTION_WIFI:
-    connectionType = @"Wi-Fi";
-    break;
-  case Platform::EConnectionType::CONNECTION_WWAN:
-    connectionType = [[CTTelephonyNetworkInfo alloc] init].currentRadioAccessTechnology;
-    break;
+  NSString *connectionType;
+  NSString *network = [Statistics connectionTypeString];
+  switch (Platform::ConnectionStatus()) {
+    case Platform::EConnectionType::CONNECTION_NONE:
+      break;
+    case Platform::EConnectionType::CONNECTION_WIFI:
+      connectionType = @"Wi-Fi";
+      break;
+    case Platform::EConnectionType::CONNECTION_WWAN:
+      connectionType = [[CTTelephonyNetworkInfo alloc] init].currentRadioAccessTechnology;
+      break;
   }
   if (!connectionType)
     connectionType = @"Offline";
   [Statistics logEvent:kStatDeviceInfo
-        withParameters:@{
-          kStatCountry : [AppInfo sharedInfo].countryCode,
-          kStatConnection : connectionType
-        }];
+        withParameters:@{kStatCountry: [AppInfo sharedInfo].countryCode, kStatConnection: connectionType}];
 
   auto device = UIDevice.currentDevice;
   device.batteryMonitoringEnabled = YES;
@@ -529,60 +476,54 @@ continueUserActivity:(NSUserActivity *)userActivity
 
   [Statistics logEvent:kStatApplicationColdStartupInfo
         withParameters:@{
-                         kStatBattery : @(UIDevice.currentDevice.batteryLevel * 100),
-                         kStatCharging : charging,
-                         kStatNetwork : network
-                         }];
+          kStatBattery: @(UIDevice.currentDevice.batteryLevel * 100),
+          kStatCharging: charging,
+          kStatNetwork: network
+        }];
 
   return returnValue;
 }
 
-- (void)disableDownloadIndicator
-{
+- (void)disableDownloadIndicator {
   --m_activeDownloadsCounter;
-  if (m_activeDownloadsCounter <= 0)
-  {
+  if (m_activeDownloadsCounter <= 0) {
     dispatch_async(dispatch_get_main_queue(), ^{
       UIApplication.sharedApplication.networkActivityIndicatorVisible = NO;
     });
     m_activeDownloadsCounter = 0;
-    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground)
-    {
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground) {
       [UIApplication.sharedApplication endBackgroundTask:m_backgroundTask];
       m_backgroundTask = UIBackgroundTaskInvalid;
     }
   }
 }
 
-- (void)enableDownloadIndicator
-{
+- (void)enableDownloadIndicator {
   ++m_activeDownloadsCounter;
   dispatch_async(dispatch_get_main_queue(), ^{
     UIApplication.sharedApplication.networkActivityIndicatorVisible = YES;
   });
 }
 
-+ (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar
-{
-  auto backImage = [[UIImage imageNamed:@"ic_nav_bar_back_sys"]
-                    imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
++ (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar {
+  auto backImage =
+    [[UIImage imageNamed:@"ic_nav_bar_back_sys"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
   navigationBar.backIndicatorImage = backImage;
   navigationBar.backIndicatorTransitionMaskImage = backImage;
 }
 
-+ (void)customizeAppearance
-{
++ (void)customizeAppearance {
   [UIButton appearance].exclusiveTouch = YES;
 
   [self customizeAppearanceForNavigationBar:[UINavigationBar appearance]];
 
-  UITextField * textField = [UITextField appearance];
-  textField.keyboardAppearance =
-      [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
+  UITextField *textField = [UITextField appearance];
+  textField.keyboardAppearance = [UIColor isNightMode] ? UIKeyboardAppearanceDark : UIKeyboardAppearanceDefault;
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
-{
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
   BOOL isGoogleURL = [[GIDSignIn sharedInstance] handleURL:url
                                          sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                                 annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
@@ -596,21 +537,18 @@ continueUserActivity:(NSUserActivity *)userActivity
   return [DeepLinkHandler.shared applicationDidOpenUrl:url];
 }
 
-- (void)showMap
-{
+- (void)showMap {
   [(UINavigationController *)self.window.rootViewController popToRootViewControllerAnimated:YES];
 }
 
-- (void)updateApplicationIconBadgeNumber
-{
+- (void)updateApplicationIconBadgeNumber {
   auto const number = [self badgeNumber];
   UIApplication.sharedApplication.applicationIconBadgeNumber = number;
-  [[MWMBottomMenuViewController controller] updateBadgeVisible:number != 0];
+  BottomTabBarViewController.controller.isApplicationBadgeHidden = number == 0;
 }
 
-- (NSUInteger)badgeNumber
-{
-  auto & s = GetFramework().GetStorage();
+- (NSUInteger)badgeNumber {
+  auto &s = GetFramework().GetStorage();
   storage::Storage::UpdateInfo updateInfo{};
   s.GetUpdateInfo(s.GetRootId(), updateInfo);
   return updateInfo.m_numberOfMwmFilesToUpdate;
@@ -618,8 +556,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - MWMStorageObserver
 
-- (void)processCountryEvent:(NSString *)countryId
-{
+- (void)processCountryEvent:(NSString *)countryId {
   // Dispatch this method after delay since there are too many events for group mwms download.
   // We do not need to update badge frequently.
   // Update after 1 second delay (after last country event) is sure enough for app badge.
@@ -630,8 +567,7 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - Properties
 
-- (MapViewController *)mapViewController
-{
+- (MapViewController *)mapViewController {
   return [(UINavigationController *)self.window.rootViewController viewControllers].firstObject;
 }
 
@@ -641,18 +577,20 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - TTS
 
-- (void)enableTTSForTheFirstTime
-{
+- (void)enableTTSForTheFirstTime {
   if (![MWMTextToSpeech savedLanguage].length)
     [MWMTextToSpeech setTTSEnabled:YES];
 }
 
 #pragma mark - Standby
 
-- (void)enableStandby { self.standbyCounter--; }
-- (void)disableStandby { self.standbyCounter++; }
-- (void)setStandbyCounter:(NSInteger)standbyCounter
-{
+- (void)enableStandby {
+  self.standbyCounter--;
+}
+- (void)disableStandby {
+  self.standbyCounter++;
+}
+- (void)setStandbyCounter:(NSInteger)standbyCounter {
   _standbyCounter = MAX(0, standbyCounter);
   dispatch_async(dispatch_get_main_queue(), ^{
     [UIApplication sharedApplication].idleTimerDisabled = (self.standbyCounter != 0);
@@ -661,31 +599,27 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - Alert logic
 
-- (void)firstLaunchSetup
-{
+- (void)firstLaunchSetup {
   [MWMSettings setStatisticsEnabled:YES];
-  NSString * currentVersion =
-      [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-  NSUserDefaults * standartDefaults = NSUserDefaults.standardUserDefaults;
+  NSString *currentVersion = [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+  NSUserDefaults *standartDefaults = NSUserDefaults.standardUserDefaults;
   [standartDefaults setObject:currentVersion forKey:kUDFirstVersionKey];
   [standartDefaults setInteger:1 forKey:kUDSessionsCountKey];
   [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
   [standartDefaults synchronize];
-  
+
   GetPlatform().GetMarketingService().ProcessFirstLaunch();
 }
 
-- (void)incrementSessionCount
-{
-  NSUserDefaults * standartDefaults = NSUserDefaults.standardUserDefaults;
+- (void)incrementSessionCount {
+  NSUserDefaults *standartDefaults = NSUserDefaults.standardUserDefaults;
   NSUInteger sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
   NSUInteger const kMaximumSessionCountForShowingShareAlert = 50;
   if (sessionCount > kMaximumSessionCountForShowingShareAlert)
     return;
 
-  NSDate * lastLaunchDate = [standartDefaults objectForKey:kUDLastLaunchDateKey];
-  if (lastLaunchDate.daysToNow > 0)
-  {
+  NSDate *lastLaunchDate = [standartDefaults objectForKey:kUDLastLaunchDateKey];
+  if (lastLaunchDate.daysToNow > 0) {
     sessionCount++;
     [standartDefaults setInteger:sessionCount forKey:kUDSessionsCountKey];
     [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
@@ -693,10 +627,8 @@ continueUserActivity:(NSUserActivity *)userActivity
   }
 }
 
-- (void)showAlertIfRequired
-{
-  if ([self shouldShowRateAlert])
-  {
+- (void)showAlertIfRequired {
+  if ([self shouldShowRateAlert]) {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showRateAlert) object:nil];
     [self performSelector:@selector(showRateAlert) withObject:nil afterDelay:30.0];
   }
@@ -704,20 +636,17 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - Rate
 
-- (void)showRateAlert
-{
+- (void)showRateAlert {
   if (!Platform::IsConnected() || [MWMRouter isRoutingActive])
     return;
 
   [[MWMAlertViewController activeAlertController] presentRateAlert];
-  [NSUserDefaults.standardUserDefaults setObject:NSDate.date
-                                          forKey:kUDLastRateRequestDate];
+  [NSUserDefaults.standardUserDefaults setObject:NSDate.date forKey:kUDLastRateRequestDate];
 }
 
-- (BOOL)shouldShowRateAlert
-{
+- (BOOL)shouldShowRateAlert {
   NSUInteger const kMaximumSessionCountForShowingAlert = 21;
-  NSUserDefaults const * const standartDefaults = NSUserDefaults.standardUserDefaults;
+  NSUserDefaults const *const standartDefaults = NSUserDefaults.standardUserDefaults;
   if ([standartDefaults boolForKey:kUDAlreadyRatedKey])
     return NO;
 
@@ -725,21 +654,17 @@ continueUserActivity:(NSUserActivity *)userActivity
   if (sessionCount > kMaximumSessionCountForShowingAlert)
     return NO;
 
-  NSDate * const lastRateRequestDate = [standartDefaults objectForKey:kUDLastRateRequestDate];
+  NSDate *const lastRateRequestDate = [standartDefaults objectForKey:kUDLastRateRequestDate];
   NSInteger const daysFromLastRateRequest = lastRateRequestDate.daysToNow;
   // Do not show more than one alert per day.
   if (lastRateRequestDate != nil && daysFromLastRateRequest == 0)
     return NO;
 
-  if (self.userIsNew)
-  {
+  if (self.userIsNew) {
     // It's new user.
-    if (sessionCount == 3 || sessionCount == 10 ||
-        sessionCount == kMaximumSessionCountForShowingAlert)
+    if (sessionCount == 3 || sessionCount == 10 || sessionCount == kMaximumSessionCountForShowingAlert)
       return YES;
-  }
-  else
-  {
+  } else {
     // User just got updated. Show alert, if it first session or if 90 days spent.
     if (daysFromLastRateRequest >= 90 || daysFromLastRateRequest == 0)
       return YES;
@@ -747,11 +672,9 @@ continueUserActivity:(NSUserActivity *)userActivity
   return NO;
 }
 
-- (BOOL)userIsNew
-{
-  NSString * currentVersion =
-      [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-  NSString * firstVersion = [NSUserDefaults.standardUserDefaults stringForKey:kUDFirstVersionKey];
+- (BOOL)userIsNew {
+  NSString *currentVersion = [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+  NSString *firstVersion = [NSUserDefaults.standardUserDefaults stringForKey:kUDFirstVersionKey];
   if (!firstVersion.length || firstVersionIsLessThanSecond(firstVersion, currentVersion))
     return NO;
 
@@ -760,11 +683,10 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - Showcase
 
-- (MWMMyTarget *)myTarget
-{
+- (MWMMyTarget *)myTarget {
   if (![ASIdentifierManager sharedManager].advertisingTrackingEnabled)
     return nil;
-  
+
   if (!_myTarget)
     _myTarget = [[MWMMyTarget alloc] init];
   return _myTarget;
@@ -772,19 +694,15 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - NotificationManagerDelegate
 
-- (void)didOpenNotification:(Notification *)notification
-{
-  if (notification.class == ReviewNotification.class)
-  {
+- (void)didOpenNotification:(Notification *)notification {
+  if (notification.class == ReviewNotification.class) {
     [Statistics logEvent:kStatUGCReviewNotificationClicked];
-    ReviewNotification * reviewNotification = (ReviewNotification *)notification;
+    ReviewNotification *reviewNotification = (ReviewNotification *)notification;
     if (GetFramework().MakePlacePageForNotification(reviewNotification.notificationWrapper.notificationCandidate))
       [[MapViewController sharedController].controlsManager showPlacePageReview];
-  }
-  else if (notification.class == AuthNotification.class)
-  {
+  } else if (notification.class == AuthNotification.class) {
     [Statistics logEvent:@"UGC_UnsentNotification_clicked"];
-    MapViewController * mapViewController = [MapViewController sharedController];
+    MapViewController *mapViewController = [MapViewController sharedController];
     [mapViewController.navigationController popToRootViewControllerAnimated:NO];
     [mapViewController showUGCAuth];
   }
@@ -792,20 +710,19 @@ continueUserActivity:(NSUserActivity *)userActivity
 
 #pragma mark - AppsFlyerTrackerDelegate
 
--(void)onConversionDataReceived:(NSDictionary*) installData {
+- (void)onConversionDataReceived:(NSDictionary *)installData {
   if ([installData[@"is_first_launch"] boolValue]) {
     NSString *deeplink = installData[@"af_dp"];
     NSURL *deeplinkUrl = [NSURL URLWithString:deeplink];
     if (deeplinkUrl != nil) {
       dispatch_async(dispatch_get_main_queue(), ^{
-        [[DeepLinkHandler shared] applicationDidReceiveUniversalLink: deeplinkUrl
-                                                            provider: DeepLinkProviderAppsflyer];
+        [[DeepLinkHandler shared] applicationDidReceiveUniversalLink:deeplinkUrl provider:DeepLinkProviderAppsflyer];
       });
     }
   }
 }
 
--(void)onConversionDataRequestFailure:(NSError *) error {
+- (void)onConversionDataRequestFailure:(NSError *)error {
   dispatch_async(dispatch_get_main_queue(), ^{
     [Crashlytics.sharedInstance recordError:error];
   });
@@ -814,24 +731,19 @@ continueUserActivity:(NSUserActivity *)userActivity
 #pragma mark - CPApplicationDelegate implementation
 
 - (void)application:(UIApplication *)application
-didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
-           toWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
-  [self.carplayService setupWithWindow:window
-                   interfaceController:interfaceController];
-  [self updateAppearanceFromWindow:self.window
-                          toWindow:window
-                isCarplayActivated:YES];
+  didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
+                          toWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
+  [self.carplayService setupWithWindow:window interfaceController:interfaceController];
+  [self updateAppearanceFromWindow:self.window toWindow:window isCarplayActivated:YES];
 
   [Statistics logEvent:kStatCarplayActivated];
 }
 
 - (void)application:(UIApplication *)application
-didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
-         fromWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
+  didDisconnectCarInterfaceController:(CPInterfaceController *)interfaceController
+                           fromWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
   [self.carplayService destroy];
-  [self updateAppearanceFromWindow:window
-                          toWindow:self.window
-                isCarplayActivated:NO];
+  [self updateAppearanceFromWindow:window toWindow:self.window isCarplayActivated:NO];
 
   [Statistics logEvent:kStatCarplayDeactivated];
 }

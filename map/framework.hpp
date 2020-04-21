@@ -786,6 +786,9 @@ public:
   bool LoadIsolinesEnabled();
   void SaveIsolonesEnabled(bool enabled);
 
+  bool LoadGuidesEnabled();
+  void SaveGuidesEnabled(bool trafficEnabled);
+
   dp::ApiVersion LoadPreferredGraphicsAPI();
   void SavePreferredGraphicsAPI(dp::ApiVersion apiVersion);
 

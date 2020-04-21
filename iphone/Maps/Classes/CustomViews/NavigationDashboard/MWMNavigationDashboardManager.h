@@ -1,4 +1,3 @@
-#import "MWMBottomMenuView.h"
 #import "MWMNavigationDashboardObserver.h"
 #import "MWMTaxiPreviewDataSource.h"
 
@@ -18,7 +17,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 + (void)removeObserver:(id<MWMNavigationDashboardObserver>)observer;
 
 @property(nonatomic, readonly) MWMNavigationDashboardState state;
-@property(nonatomic, readonly) MWMTaxiPreviewDataSource * taxiDataSource;
+@property(nonatomic, readonly) MWMTaxiPreviewDataSource *taxiDataSource;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view;

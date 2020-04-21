@@ -144,6 +144,7 @@ char const kAllowAutoZoom[] = "AutoZoom";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
 char const kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
 char const kIsolinesEnabledKey[] = "IsolinesEnabled";
+char const kGuidesEnabledKey[] = "GuidesEnabledKey";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
@@ -523,6 +524,8 @@ Framework::Framework(FrameworkParams const & params)
   m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
+
+  m_guidesManager.SetEnabled(LoadGuidesEnabled());
 
   m_adsEngine = make_unique<ads::Engine>(
       make_unique<ads::DownloadOnMapDelegate>(*m_infoGetter, m_storage, *m_promoApi, *m_purchase));
@@ -3017,6 +3020,19 @@ bool Framework::LoadIsolinesEnabled()
 void Framework::SaveIsolonesEnabled(bool enabled)
 {
   settings::Set(kIsolinesEnabledKey, enabled);
+}
+
+bool Framework::LoadGuidesEnabled()
+{
+  bool enabled;
+  if (!settings::Get(kGuidesEnabledKey, enabled))
+    enabled = false;
+  return enabled;
+}
+
+void Framework::SaveGuidesEnabled(bool guidesEnabled)
+{
+  settings::Set(kGuidesEnabledKey, guidesEnabled);
 }
 
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition,

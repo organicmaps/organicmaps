@@ -11,16 +11,16 @@ typedef NS_ENUM(NSInteger, MWMSearchManagerRoutingTooltipSearch) {
 
 @interface MWMSearchManager : NSObject
 
-+ (nonnull MWMSearchManager *)manager;
++ (nonnull MWMSearchManager *)manager NS_SWIFT_NAME(manager());
 + (void)addObserver:(nonnull id<MWMSearchManagerObserver>)observer;
 + (void)removeObserver:(nonnull id<MWMSearchManagerObserver>)observer;
 
-@property(nullable, weak, nonatomic) IBOutlet MWMSearchTextField * searchTextField;
+@property(nullable, weak, nonatomic) IBOutlet MWMSearchTextField *searchTextField;
 
 @property(nonatomic) MWMSearchManagerState state;
 @property(nonatomic) MWMSearchManagerRoutingTooltipSearch routingTooltipSearch;
 
-@property(nonnull, nonatomic) IBOutletCollection(UIView) NSArray * topViews;
+@property(nonnull, nonatomic) IBOutletCollection(UIView) NSArray *topViews;
 
 - (void)searchText:(nonnull NSString *)text forInputLocale:(nullable NSString *)locale;
 

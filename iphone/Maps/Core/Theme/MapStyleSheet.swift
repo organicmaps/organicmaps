@@ -1,5 +1,20 @@
 class MapStyleSheet: IStyleSheet {
   static func register(theme: Theme, colors: IColors, fonts: IFonts) {
+    theme.add(styleName: "LayersGuidesButtonEnabled") { (s) -> (Void) in
+      s.fontColor = colors.linkBlue
+      s.mwmImage = "btn_menu_guides_on"
+    }
+
+    theme.add(styleName: "LayersGuidesButtonDisabled") { (s) -> (Void) in
+      s.fontColor = colors.blackSecondaryText
+      s.mwmImage =  "btn_menu_guides_off"
+    }
+
+    theme.add(styleName: "LayersGuidesButtonFirstLaunch") { (s) -> (Void) in
+      s.fontColor = colors.blackSecondaryText
+      s.mwmImage =  "btn_menu_guides_first_off"
+    }
+
     theme.add(styleName: "LayersTrafficButtonEnabled") { (s) -> (Void) in
       s.fontColor = colors.linkBlue
       s.mwmImage = "btn_menu_traffic_on"
