@@ -37,7 +37,7 @@ public:
 
   LocalityScorer(QueryParams const & params, m2::PointD const & pivot, Delegate & delegate);
 
-  void SetPivotForTests(m2::PointD const & pivot) { m_pivot = pivot; }
+  void SetPivotForTesting(m2::PointD const & pivot) { m_pivot = pivot; }
 
   // Leaves at most |limit| elements of |localities|, ordered by their
   // features.
@@ -60,8 +60,10 @@ private:
 
   friend std::string DebugPrint(ExLocality const & locality);
 
-  // Leaves at most |limit| elements of |localities|, ordered by some
-  // combination of ranks and number of matched tokens.
+  // Leaves at most |limit| elements of |localities|. Candidates are selected with
+  // LeaveTopByExactMatchNormAndRank. Number of candidates typically is much bigger than |limit|
+  // (100 vs 5). Then final localities are selected from candidates with
+  // LeaveTopBySimilarityAndOther.
   void LeaveTopLocalities(IdfMap & idfs, size_t limit, std::vector<Locality> & localities);
 
   // Selects at most |limitUniqueIds| best features by exact match, query norm and

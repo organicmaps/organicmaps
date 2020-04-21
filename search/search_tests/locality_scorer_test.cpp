@@ -48,7 +48,7 @@ public:
   {
     m_params.Clear();
 
-    m_scorer.SetPivotForTests(pivot);
+    m_scorer.SetPivotForTesting(pivot);
 
     vector<UniString> tokens;
     Delimiters delims;
@@ -296,11 +296,11 @@ UNIT_CLASS_TEST(LocalityScorerTest, DistanceToPivot)
   AddLocality("Aberdeen", ID_ABERDEEN_CLOSE, 10 /* rank */, m2::PointD(11.0, 11.0));
   AddLocality("Aberdeen", ID_ABERDEEN_RANK1, 100 /* rank */, m2::PointD(0.0, 0.0));
   AddLocality("Aberdeen", ID_ABERDEEN_RANK2, 50 /* rank */, m2::PointD(2.0, 2.0));
-  AddLocality("Aberdeen", ID_ABERDEEN_RANK2, 5 /* rank */, m2::PointD(4.0, 4.0));
+  AddLocality("Aberdeen", ID_ABERDEEN_RANK3, 5 /* rank */, m2::PointD(4.0, 4.0));
 
   InitParams("Aberdeen", m2::PointD(10.0, 10.0) /* pivot */, false /* lastTokenIsPrefix */);
 
-  // Expected order is: the closest one (ID_ABERDEEN_CLOSE) first, than sorted by rank.
+  // Expected order is: the closest one (ID_ABERDEEN_CLOSE) first, then sorted by rank.
   TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_ABERDEEN_CLOSE}), ());
   TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_ABERDEEN_CLOSE, ID_ABERDEEN_RANK1}), ());
   TEST_EQUAL(GetTopLocalities(3 /* limit */),
