@@ -147,8 +147,7 @@ protected:
 
   DataSource const & m_dataSource;
 
-  VillagesCache m_villagesCache;
-  LocalitiesCache m_localitiesCache;
+  Geocoder::LocalitiesCaches m_localitiesCaches;
   CitiesBoundariesTable m_citiesBoundaries;
 
   KeywordLangMatcher m_keywordsScorer;

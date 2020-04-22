@@ -159,12 +159,13 @@ void PlaceProcessor::FillTable(FeaturePlaces::const_iterator start, FeaturePlace
 {
   CHECK(m_boundariesTable, ());
   base::GeoObjectId lastId;
+  auto const & isCityTownOrVillage = ftypes::IsCityTownOrVillageChecker::Instance();
   for (auto outerIt = start; outerIt != end; ++outerIt)
   {
     auto const & fbs = outerIt->GetFbs();
     for (auto const & fb : fbs)
     {
-      if (!(fb.IsArea() && ftypes::IsCityTownOrVillage(fb.GetTypes())))
+      if (!(fb.IsArea() && isCityTownOrVillage(fb.GetTypes())))
         continue;
 
       auto const id = fb.GetLastOsmId();

@@ -31,7 +31,8 @@ std::shared_ptr<CollectorInterface> CityAreaCollector::Clone(
 
 void CityAreaCollector::CollectFeature(FeatureBuilder const & feature, OsmElement const &)
 {
-  if (!(feature.IsArea() && ftypes::IsCityTownOrVillage(feature.GetTypes())))
+  auto const & isCityTownOrVillage = ftypes::IsCityTownOrVillageChecker::Instance();
+  if (!(feature.IsArea() && isCityTownOrVillage(feature.GetTypes())))
     return;
 
   auto copy = feature;

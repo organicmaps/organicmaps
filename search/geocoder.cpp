@@ -61,19 +61,13 @@ namespace search
 {
 namespace
 {
-size_t constexpr kMaxNumCities = 5;
-size_t constexpr kMaxNumStates = 5;
+size_t constexpr kMaxNumCities = 10;
+size_t constexpr kMaxNumStates = 10;
 size_t constexpr kMaxNumVillages = 5;
-size_t constexpr kMaxNumCountries = 5;
+size_t constexpr kMaxNumCountries = 10;
 double constexpr kMaxViewportRadiusM = 50.0 * 1000;
 double constexpr kMaxPostcodeRadiusM = 1000;
 double constexpr kMaxSuburbRadiusM = 2000;
-
-// This constant limits number of localities that will be extracted
-// from World map.  Villages are not counted here as they're not
-// included into World map.
-// @vng Set this value to possible maximum.
-size_t const kMaxNumLocalities = LocalityScorer::kDefaultReadLimit;
 
 size_t constexpr kPivotRectsCacheSize = 10;
 size_t constexpr kPostcodesRectsCacheSize = 10;
@@ -299,19 +293,34 @@ bool Geocoder::ExtendedMwmInfos::ExtendedMwmInfo::operator<(
   return m_distance < rhs.m_distance;
 }
 
+// Geocoder::LocalitiesCaches ----------------------------------------------------------------------
+Geocoder::LocalitiesCaches::LocalitiesCaches(base::Cancellable const & cancellable)
+  : m_countries(cancellable)
+  , m_states(cancellable)
+  , m_citiesTownsOrVillages(cancellable)
+  , m_villages(cancellable)
+{
+}
+
+void Geocoder::LocalitiesCaches::Clear()
+{
+  m_countries.Clear();
+  m_states.Clear();
+  m_citiesTownsOrVillages.Clear();
+  m_villages.Clear();
+}
+
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
                    CategoriesHolder const & categories,
                    CitiesBoundariesTable const & citiesBoundaries, PreRanker & preRanker,
-                   VillagesCache & villagesCache, LocalitiesCache & localitiesCache,
-                   base::Cancellable const & cancellable)
+                   LocalitiesCaches & localitiesCaches, base::Cancellable const & cancellable)
   : m_dataSource(dataSource)
   , m_infoGetter(infoGetter)
   , m_categories(categories)
   , m_streetsCache(cancellable)
   , m_suburbsCache(cancellable)
-  , m_villagesCache(villagesCache)
-  , m_localitiesCache(localitiesCache)
+  , m_localitiesCaches(localitiesCaches)
   , m_hotelsCache(cancellable)
   , m_foodCache(cancellable)
   , m_hotelsFilter(m_hotelsCache)
@@ -582,7 +591,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> const & infos, bool inViewport
         features = features.Intersect(viewportCBV);
     }
 
-    ctx.m_villages = m_villagesCache.Get(*m_context);
+    ctx.m_villages = m_localitiesCaches.m_villages.Get(*m_context);
 
     auto citiesFromWorld = m_cities;
     FillVillageLocalities(ctx);
@@ -680,102 +689,106 @@ void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filte
 void Geocoder::CacheWorldLocalities()
 {
   if (auto context = GetWorldContext(m_dataSource))
-    UNUSED_VALUE(m_localitiesCache.Get(*context));
+  {
+    // Get only world localities
+    UNUSED_VALUE(m_localitiesCaches.m_countries.Get(*context));
+    UNUSED_VALUE(m_localitiesCaches.m_states.Get(*context));
+    UNUSED_VALUE(m_localitiesCaches.m_citiesTownsOrVillages.Get(*context));
+  }
 }
 
 void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 {
+  auto addRegionMaps = [&](FeatureType & ft, Locality const & l, Region::Type type) {
+    if (ft.GetGeomType() != feature::GeomType::Point)
+      return;
+
+    string affiliation;
+    if (!GetAffiliationName(ft, affiliation))
+      return;
+
+    Region region(l, type);
+    region.m_center = ft.GetCenter();
+
+    ft.GetName(StringUtf8Multilang::kDefaultCode, region.m_defaultName);
+    LOG(LDEBUG, ("Region =", region.m_defaultName));
+
+    m_infoGetter.GetMatchedRegions(affiliation, region.m_ids);
+    m_regions[type][l.m_tokenRange].push_back(region);
+  };
+
   vector<Locality> preLocalities;
 
-  CBV filter = m_localitiesCache.Get(*m_context);
-  FillLocalityCandidates(ctx, filter, kMaxNumLocalities, preLocalities);
-
-  size_t numCities = 0;
-  size_t numStates = 0;
-  size_t numCountries = 0;
+  CBV filter = m_localitiesCaches.m_countries.Get(*m_context);
+  FillLocalityCandidates(ctx, filter, kMaxNumCountries, preLocalities);
   for (auto & l : preLocalities)
   {
     auto ft = m_context->GetFeature(l.m_featureId);
     if (!ft)
+    {
+      LOG(LWARNING, ("Failed to get country from world", l.m_featureId));
       continue;
+    }
 
-    auto addRegionMaps = [&](size_t maxCount, Region::Type type, size_t & count) {
-      if (count < maxCount && ft->GetGeomType() == feature::GeomType::Point)
+    addRegionMaps(*ft, l, Region::TYPE_COUNTRY);
+  }
+
+  filter = m_localitiesCaches.m_states.Get(*m_context);
+  FillLocalityCandidates(ctx, filter, kMaxNumStates, preLocalities);
+  for (auto & l : preLocalities)
+  {
+    auto ft = m_context->GetFeature(l.m_featureId);
+    if (!ft)
+    {
+      LOG(LWARNING, ("Failed to get state from world", l.m_featureId));
+      continue;
+    }
+
+    addRegionMaps(*ft, l, Region::TYPE_STATE);
+  }
+
+  filter = m_localitiesCaches.m_citiesTownsOrVillages.Get(*m_context);
+  FillLocalityCandidates(ctx, filter, kMaxNumCities, preLocalities);
+  for (auto & l : preLocalities)
+  {
+    auto ft = m_context->GetFeature(l.m_featureId);
+    if (!ft)
+    {
+      LOG(LWARNING, ("Failed to get city from world", l.m_featureId));
+      continue;
+    }
+
+    if (ft->GetGeomType() == feature::GeomType::Point)
+    {
+      City city(l, Model::TYPE_CITY);
+
+      CitiesBoundariesTable::Boundaries boundaries;
+      bool haveBoundary = false;
+      if (m_citiesBoundaries.Get(ft->GetID(), boundaries))
       {
-        string affiliation;
-        if (!GetAffiliationName(*ft, affiliation))
-          return;
-
-        Region region(l, type);
-        region.m_center = ft->GetCenter();
-
-        ft->GetName(StringUtf8Multilang::kDefaultCode, region.m_defaultName);
-        LOG(LDEBUG, ("Region =", region.m_defaultName));
-
-        m_infoGetter.GetMatchedRegions(affiliation, region.m_ids);
-        if (region.m_ids.empty())
-        {
-          LOG(LWARNING,
-              ("Maps not found for region:", region.m_defaultName, "affiliation:", affiliation));
-        }
-
-        ++count;
-        m_regions[type][l.m_tokenRange].push_back(region);
+        city.m_rect = boundaries.GetLimitRect();
+        if (city.m_rect.IsValid())
+          haveBoundary = true;
       }
-    };
 
-    switch (m_model.GetType(*ft))
-    {
-    case Model::TYPE_CITY:
-    {
-      if (numCities < kMaxNumCities && ft->GetGeomType() == feature::GeomType::Point)
+      if (!haveBoundary)
       {
-        ++numCities;
-
-        City city(l, Model::TYPE_CITY);
-
-        CitiesBoundariesTable::Boundaries boundaries;
-        bool haveBoundary = false;
-        if (m_citiesBoundaries.Get(ft->GetID(), boundaries))
-        {
-          city.m_rect = boundaries.GetLimitRect();
-          if (city.m_rect.IsValid())
-            haveBoundary = true;
-        }
-
-        if (!haveBoundary)
-        {
-          auto const center = feature::GetCenter(*ft);
-          auto const population = ftypes::GetPopulation(*ft);
-          auto const radius = ftypes::GetRadiusByPopulation(population);
-          city.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
-        }
+        auto const center = feature::GetCenter(*ft);
+        auto const population = ftypes::GetPopulation(*ft);
+        auto const radius = ftypes::GetRadiusByPopulation(population);
+        city.m_rect = mercator::RectByCenterXYAndSizeInMeters(center, radius);
+      }
 
 #if defined(DEBUG)
-        ft->GetName(StringUtf8Multilang::kDefaultCode, city.m_defaultName);
-        LOG(LINFO,
-            ("City =", city.m_defaultName, "rect =", city.m_rect, "rect source:", haveBoundary ? "table" : "population",
-             "sizeX =",
-             mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.RightTop()),
-             "sizeY =",
-             mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
+      ft->GetName(StringUtf8Multilang::kDefaultCode, city.m_defaultName);
+      LOG(LINFO,
+          ("City =", city.m_defaultName, "rect =", city.m_rect,
+           "rect source:", haveBoundary ? "table" : "population",
+           "sizeX =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.RightTop()),
+           "sizeY =", mercator::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
 #endif
 
-        m_cities[city.m_tokenRange].push_back(city);
-      }
-      break;
-    }
-    case Model::TYPE_STATE:
-    {
-      addRegionMaps(kMaxNumStates, Region::TYPE_STATE, numStates);
-      break;
-    }
-    case Model::TYPE_COUNTRY:
-    {
-      addRegionMaps(kMaxNumCountries, Region::TYPE_COUNTRY, numCountries);
-      break;
-    }
-    default: break;
+      m_cities[city.m_tokenRange].push_back(city);
     }
   }
 }

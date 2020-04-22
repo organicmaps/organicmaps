@@ -96,9 +96,20 @@ public:
     double m_villageSearchRadiusM = 0.0;
   };
 
+  struct LocalitiesCaches
+  {
+    LocalitiesCaches(base::Cancellable const & cancellable);
+    void Clear();
+
+    CountriesCache m_countries;
+    StatesCache m_states;
+    CitiesTownsOrVillagesCache m_citiesTownsOrVillages;
+    VillagesCache m_villages;
+  };
+
   Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
            CategoriesHolder const & categories, CitiesBoundariesTable const & citiesBoundaries,
-           PreRanker & preRanker, VillagesCache & villagesCache, LocalitiesCache & localitiesCache,
+           PreRanker & preRanker, LocalitiesCaches & localitiesCaches,
            base::Cancellable const & cancellable);
   ~Geocoder();
 
@@ -306,8 +317,7 @@ private:
 
   StreetsCache m_streetsCache;
   SuburbsCache m_suburbsCache;
-  VillagesCache & m_villagesCache;
-  LocalitiesCache & m_localitiesCache;
+  LocalitiesCaches & m_localitiesCaches;
   HotelsCache m_hotelsCache;
   FoodCache m_foodCache;
   hotels_filter::HotelsFilter m_hotelsFilter;

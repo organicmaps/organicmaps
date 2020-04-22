@@ -713,6 +713,32 @@ LocalityType IsLocalityChecker::GetType(FeatureType & f) const
   return GetType(types);
 }
 
+IsCountryChecker::IsCountryChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"place", "country"}));
+}
+
+IsStateChecker::IsStateChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"place", "state"}));
+}
+
+IsCityTownOrVillageChecker::IsCityTownOrVillageChecker()
+{
+  vector<pair<string, string>> const types = {
+    {"place", "city"},
+    {"place", "town"},
+    {"place", "village"},
+    {"place", "hamlet"}
+  };
+
+  Classificator const & c = classif();
+  for (auto const & t : types)
+    m_types.push_back(c.GetTypeByPath({t.first, t.second}));
+}
+
 uint64_t GetPopulation(FeatureType & ft)
 {
   uint64_t population = ft.GetPopulation();

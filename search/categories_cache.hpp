@@ -64,10 +64,24 @@ public:
   VillagesCache(base::Cancellable const & cancellable);
 };
 
-class LocalitiesCache : public CategoriesCache
+class CountriesCache : public CategoriesCache
 {
 public:
-  LocalitiesCache(base::Cancellable const & cancellable);
+  CountriesCache(base::Cancellable const & cancellable);
+};
+
+class StatesCache : public CategoriesCache
+{
+public:
+  StatesCache(base::Cancellable const & cancellable);
+};
+
+// Used for cities/towns/villages from world. Currently we do not have villages in World.mwm but
+// it may be good to put some important villages to it: mountain/beach resorts.
+class CitiesTownsOrVillagesCache : public CategoriesCache
+{
+public:
+  CitiesTownsOrVillagesCache(base::Cancellable const & cancellable);
 };
 
 class HotelsCache : public CategoriesCache

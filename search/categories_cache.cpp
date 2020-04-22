@@ -72,9 +72,21 @@ VillagesCache::VillagesCache(base::Cancellable const & cancellable)
 {
 }
 
-// LocalitiesCache ----------------------------------------------------------------------------------
-LocalitiesCache::LocalitiesCache(base::Cancellable const & cancellable)
-  : CategoriesCache(ftypes::IsLocalityChecker::Instance(), cancellable)
+// CountriesCache ----------------------------------------------------------------------------------
+CountriesCache::CountriesCache(base::Cancellable const & cancellable)
+  : CategoriesCache(ftypes::IsCountryChecker::Instance(), cancellable)
+{
+}
+
+// StatesCache -------------------------------------------------------------------------------------
+StatesCache::StatesCache(base::Cancellable const & cancellable)
+  : CategoriesCache(ftypes::IsStateChecker::Instance(), cancellable)
+{
+}
+
+// CitiesTownsOrVillagesCache ----------------------------------------------------------------------
+CitiesTownsOrVillagesCache::CitiesTownsOrVillagesCache(base::Cancellable const & cancellable)
+  : CategoriesCache(ftypes::IsCityTownOrVillageChecker::Instance(), cancellable)
 {
 }
 

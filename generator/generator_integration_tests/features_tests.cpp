@@ -427,7 +427,8 @@ private:
       if (poiChecker(fb.GetTypes()))
         ++actual.m_poi;
 
-      if (ftypes::IsCityTownOrVillage(fb.GetTypes()))
+      auto const & isCityTownOrVillage = ftypes::IsCityTownOrVillageChecker::Instance();
+      if (isCityTownOrVillage(fb.GetTypes()))
         ++actual.m_cityTownOrVillage;
 
       auto static const & bookingChecker = ftypes::IsBookingHotelChecker::Instance();
