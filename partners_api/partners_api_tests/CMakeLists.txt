@@ -11,6 +11,7 @@ set(
   facebook_tests.cpp
   freenow_tests.cpp
   google_tests.cpp
+  guides_on_map_tests.cpp
 # Maxim taxi project is disabled.
 # maxim_tests.cpp
 # Megafon project is disabled until the contract is renewed or extended.

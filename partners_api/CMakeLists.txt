@@ -38,6 +38,8 @@ set(
   booking_params_base.hpp
   freenow_api.cpp
   freenow_api.hpp
+  guides_on_map_api.cpp
+  guides_on_map_api.hpp
   locals_api.cpp
   locals_api.hpp
   maxim_api.cpp

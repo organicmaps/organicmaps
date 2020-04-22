@@ -676,3 +676,42 @@ FREENOW_SERVICE_TYPES = """
   ]
 }
 """
+
+GUIDES_ON_MAP_GALLERY = """
+{
+  "data": [
+    {
+      "point": {
+        "lat": 12.345678,
+        "lon": 91.234567
+      },
+      "bundle_counts": {
+        "sights": 1,
+        "outdoor": 0
+      },
+      "extra": {
+        "server_id": "120-3957012735012rffasfaf",
+        "name": "hello",
+        "image_url": "world",
+        "tag": "tag",
+        "bookmarks_count": 100,
+        "has_track": true,
+        "tracks_length": 1234.11,
+        "tour_duration": 870.4,
+        "ascent": -300
+      }
+    },
+    {
+      "point": {
+        "lat": 91.234567,
+        "lon": 12.345678
+      },
+      "bundle_counts": {
+        "sights": 1,
+        "outdoor": 8
+      },
+      "extra": null
+    }
+  ]
+}
+"""
