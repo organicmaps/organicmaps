@@ -60,3 +60,8 @@ void GuidesManager::SetGalleryListener(GuidesGalleryChangedFn const & onGalleryC
 {
   m_onGalleryChangedFn = onGalleryChangedFn;
 }
+
+void GuidesManager::SetApiDelegate(std::unique_ptr<GuidesOnMapDelegate> apiDelegate)
+{
+  m_api.SetDelegate(std::move(apiDelegate));
+}

@@ -1,13 +1,18 @@
 #pragma once
 
+#include "map/catalog_headers_provider.hpp"
+#include "map/guides_on_map_delegate.hpp"
+
+#include "partners_api/guides_on_map_api.hpp"
+
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include <boost/optional.hpp>
 #include <functional>
+#include <memory>
 #include <string>
 #include <vector>
-
-#include <boost/optional.hpp>
 
 class GuidesManager final
 {
@@ -19,17 +24,6 @@ public:
     NoData,
     NetworkError
   };
-
-  GuidesState GetState() const;
-
-  using GuidesStateChangedFn = std::function<void(GuidesState state)>;
-  void SetStateListener(GuidesStateChangedFn const & onStateChangedFn);
-
-  void UpdateViewport(ScreenBase const & screen);
-  void Invalidate();
-
-  void SetEnabled(bool enabled);
-  bool IsEnabled() const;
 
   struct GuidesGallery
   {
@@ -71,6 +65,17 @@ public:
     std::vector<Item> m_items;
   };
 
+  GuidesState GetState() const;
+
+  using GuidesStateChangedFn = std::function<void(GuidesState state)>;
+  void SetStateListener(GuidesStateChangedFn const & onStateChangedFn);
+
+  void UpdateViewport(ScreenBase const & screen);
+  void Invalidate();
+
+  void SetEnabled(bool enabled);
+  bool IsEnabled() const;
+
   GuidesGallery GetGallery() const;
   std::string GetActiveGuide() const;
   void SetActiveGuide(std::string const & guideId);
@@ -78,12 +83,16 @@ public:
   using GuidesGalleryChangedFn = std::function<void(bool reloadGallery)>;
   void SetGalleryListener(GuidesGalleryChangedFn const & onGalleryChangedFn);
 
+  void SetApiDelegate(std::unique_ptr<GuidesOnMapDelegate> apiDelegate);
+
 private:
   void ChangeState(GuidesState newState);
 
   GuidesState m_state = GuidesState::Disabled;
   GuidesStateChangedFn m_onStateChangedFn;
   GuidesGalleryChangedFn m_onGalleryChangedFn;
+
+  guides_on_map::Api m_api;
 };
 
 std::string DebugPrint(GuidesManager::GuidesState state);
