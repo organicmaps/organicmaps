@@ -69,12 +69,6 @@ private:
   vector<string> m_values;
 };
 
-void CollapseMultipleConsecutiveCharsIntoOne(char c, string & str)
-{
-  auto const comparator = [c](char lhs, char rhs) { return lhs == rhs && lhs == c; };
-  str.erase(unique(str.begin(), str.end(), comparator), str.end());
-}
-
 bool IsNoNameNoAddressBuilding(FeatureParams const & params)
 {
   static uint32_t const buildingType = classif().GetTypeByPath({"building"});
