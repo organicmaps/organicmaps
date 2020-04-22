@@ -9,8 +9,11 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
+#include "platform/platform.hpp"
+
 #include "coding/bit_streams.hpp"
 #include "coding/reader.hpp"
+#include "coding/sha1.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 
@@ -20,6 +23,7 @@
 #include <algorithm>
 #include <array>
 #include <cstdint>
+#include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -55,9 +59,11 @@ public:
   }
 
   template <class Source>
-  static void Deserialize(Source & src, VehicleType vehicleType, RoadAccess & roadAccess)
+  static void Deserialize(Source & src, VehicleType vehicleType, RoadAccess & roadAccess,
+                          std::string const & mwmPath)
   {
-    auto const header = static_cast<Header>(ReadPrimitiveFromSource<uint32_t>(src));
+    auto const readHeader = ReadPrimitiveFromSource<uint32_t>(src);
+    auto const header = static_cast<Header>(readHeader);
     CHECK_LESS_OR_EQUAL(header, kLatestVersion, ());
     switch (header)
     {
@@ -76,7 +82,15 @@ public:
       // DeserializeAccessConditional(src, vehicleType, roadAccess);
       break;
     }
-    default: UNREACHABLE();
+    default:
+    {
+      LOG(LWARNING, ("Wrong roadaccess section header version:", static_cast<int>(readHeader),
+                  ". Mwm name:", mwmPath));
+      if (Platform::IsFileExistsByFullPath(mwmPath))
+        LOG(LWARNING, ("SHA1 is:", coding::SHA1::CalculateBase64(mwmPath)));
+
+      UNREACHABLE();
+    }
     }
   }
 

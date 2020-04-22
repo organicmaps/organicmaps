@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <string>
 #include <vector>
 
 #include "3party/opening_hours/opening_hours.hpp"
@@ -139,7 +140,7 @@ public:
 
     MemReader memReader(m_buffer.data(), m_buffer.size());
     ReaderSource<MemReader> src(memReader);
-    RoadAccessSerializer::Deserialize(src, vehicleType, deserializedRoadAccess);
+    RoadAccessSerializer::Deserialize(src, vehicleType, deserializedRoadAccess, string("unknown"));
     TEST_EQUAL(answer, deserializedRoadAccess, ());
   }
 

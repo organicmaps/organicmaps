@@ -11,6 +11,8 @@
 
 #include "indexer/data_source.hpp"
 
+#include "platform/country_defines.hpp"
+
 #include "coding/files_container.hpp"
 
 #include "base/assert.hpp"
@@ -230,7 +232,8 @@ bool ReadRoadAccessFromMwm(MwmValue const & mwmValue, VehicleType vehicleType,
     auto const reader = mwmValue.m_cont.GetReader(ROAD_ACCESS_FILE_TAG);
     ReaderSource<FilesContainerR::TReader> src(reader);
 
-    RoadAccessSerializer::Deserialize(src, vehicleType, roadAccess);
+    RoadAccessSerializer::Deserialize(src, vehicleType, roadAccess,
+                                      mwmValue.m_file.GetPath(MapFileType::Map));
   }
   catch (Reader::OpenException const & e)
   {

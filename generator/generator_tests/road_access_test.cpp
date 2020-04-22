@@ -104,7 +104,7 @@ void LoadRoadAccess(string const & mwmFilePath, VehicleType vehicleType, RoadAcc
     FilesContainerR::TReader const reader = cont.GetReader(ROAD_ACCESS_FILE_TAG);
     ReaderSource<FilesContainerR::TReader> src(reader);
 
-    RoadAccessSerializer::Deserialize(src, vehicleType, roadAccess);
+    RoadAccessSerializer::Deserialize(src, vehicleType, roadAccess, mwmFilePath);
   }
   catch (Reader::OpenException const & e)
   {
