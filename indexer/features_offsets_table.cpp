@@ -129,7 +129,7 @@ namespace feature
       string const destPath = filePath + ".offsets";
       SCOPE_GUARD(fileDeleter, bind(FileWriter::DeleteFileX, destPath));
 
-      FilesContainerR::TReader reader = FilesContainerR(filePath).GetReader(DATA_FILE_TAG);
+      FilesContainerR::TReader reader = FilesContainerR(filePath).GetReader(FEATURES_FILE_TAG);
 
       DatSectionHeader header;
       header.Read(*reader.GetPtr());

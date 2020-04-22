@@ -334,7 +334,7 @@ int main(int argc, char ** argv)
   generator::SrtmTileManager manager(FLAGS_srtm_dir_path);
 
   Processor processor(manager);
-  ForEachFromDat(FLAGS_mwm_file_path, processor);
+  ForEachFeature(FLAGS_mwm_file_path, processor);
 
   PrintCont(processor.m_altitudeDiffs, "Altitude difference between start and end of features.",
             " feature(s) with altitude difference ", " meter(s)");

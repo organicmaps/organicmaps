@@ -71,7 +71,7 @@ int main(int argc, char * argv[])
 
     size_t all = 0;
     size_t good = 0;
-    ForEachFromDat(path, [&](FeatureType & ft, uint32_t fid) {
+    ForEachFeature(path, [&](FeatureType & ft, uint32_t fid) {
       if (!IsRoad(TypesHolder(ft)))
         return;
 

@@ -160,7 +160,7 @@ void BuildRoadAltitudes(std::string const & mwmPath, AltitudeGetter & altitudeGe
   {
     // Preparing altitude information.
     Processor processor(altitudeGetter);
-    feature::ForEachFromDat(mwmPath, processor);
+    feature::ForEachFeature(mwmPath, processor);
 
     if (!processor.HasAltitudeInfo())
     {

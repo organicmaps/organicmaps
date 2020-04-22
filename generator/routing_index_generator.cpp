@@ -117,7 +117,7 @@ public:
 
   void ProcessAllFeatures(string const & filename)
   {
-    feature::ForEachFromDat(filename, bind(&Processor::ProcessFeature, this, _1, _2));
+    feature::ForEachFeature(filename, bind(&Processor::ProcessFeature, this, _1, _2));
   }
 
   void BuildGraph(IndexGraph & graph) const
@@ -270,7 +270,7 @@ void CalcCrossMwmTransitions(
   auto const crossMwmOsmIdWays =
       generator::CrossMwmOsmWaysCollector::CrossMwmInfo::LoadFromFileToSet(path);
 
-  ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
+  ForEachFeature(mwmFile, [&](FeatureType & f, uint32_t featureId) {
     VehicleMask const roadMask = maskMaker.CalcRoadMask(f);
     if (roadMask == 0)
       return;

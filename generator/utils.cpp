@@ -116,7 +116,7 @@ bool ParseFeatureIdToTestIdMapping(std::string const & path,
                                    std::unordered_map<uint32_t, uint64_t> & mapping)
 {
   bool success = true;
-  feature::ForEachFromDat(path, [&](FeatureType & feature, uint32_t fid) {
+  feature::ForEachFeature(path, [&](FeatureType & feature, uint32_t fid) {
     auto const & metatada = feature.GetMetadata();
     auto const testIdStr = metatada.Get(feature::Metadata::FMD_TEST_ID);
     uint64_t testId;

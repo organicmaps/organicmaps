@@ -32,7 +32,7 @@ bool BuildUgcMwmSection(std::string const & srcDbFilename, std::string const & m
 
   std::vector<IndexUGC> content;
 
-  feature::ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
+  feature::ForEachFeature(mwmFile, [&](FeatureType & f, uint32_t featureId) {
     auto const it = featureToOsmId.find(featureId);
     // Non-OSM features (coastlines, sponsored objects) are not used.
     if (it == featureToOsmId.cend())

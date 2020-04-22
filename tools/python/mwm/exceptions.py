@@ -2,5 +2,5 @@ class MwmError(Exception):
     pass
 
 
-class DatSectionParseError(MwmError):
+class FeaturesSectionParseError(MwmError):
     pass

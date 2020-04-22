@@ -12,15 +12,15 @@
 namespace feature
 {
 template <class ToDo>
-void ForEachFromDat(ModelReaderPtr reader, ToDo && toDo)
+void ForEachFeature(ModelReaderPtr reader, ToDo && toDo)
 {
   FeaturesVectorTest features((FilesContainerR(reader)));
   features.GetVector().ForEach(std::forward<ToDo>(toDo));
 }
 
 template <class ToDo>
-void ForEachFromDat(std::string const & fPath, ToDo && toDo)
+void ForEachFeature(std::string const & fPath, ToDo && toDo)
 {
-  ForEachFromDat(std::make_unique<FileReader>(fPath), std::forward<ToDo>(toDo));
+  ForEachFeature(std::make_unique<FileReader>(fPath), std::forward<ToDo>(toDo));
 }
 }  // namespace feature

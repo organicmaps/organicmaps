@@ -70,7 +70,7 @@ bool BuildPostcodesSection(std::string const & path, std::string const & country
   size_t postcodesFromAddr = 0;
   size_t postcodesFromBoundaries = 0;
   auto const mwmFile = base::JoinPath(path, country + DATA_FILE_EXTENSION);
-  feature::ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
+  feature::ForEachFeature(mwmFile, [&](FeatureType & f, uint32_t featureId) {
     CHECK_LESS(featureId, featuresCount, ());
     auto const postcode = addrs[featureId].Get(feature::AddressData::Type::Postcode);
     if (!postcode.empty())

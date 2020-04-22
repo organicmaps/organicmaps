@@ -25,7 +25,8 @@
 #define ID2REL_EXT ".id2rel"
 
 #define CENTERS_FILE_TAG "centers"
-#define DATA_FILE_TAG "dat"
+#define FEATURES_FILE_TAG_V1_V9 "dat"
+#define FEATURES_FILE_TAG "features"
 #define GEOMETRY_FILE_TAG "geom"
 #define TRIANGLE_FILE_TAG "trg"
 #define INDEX_FILE_TAG "idx"

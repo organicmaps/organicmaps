@@ -12,7 +12,7 @@ from typing import Union
 import math
 
 from mwm import mwm_interface as mi
-from mwm.exceptions import DatSectionParseError
+from mwm.exceptions import FeaturesSectionParseError
 
 logger = logging.getLogger(__name__)
 
@@ -63,7 +63,6 @@ class MwmPython(mi.Mwm):
         return size
 
     def __iter__(self) -> Iterable:
-        assert self.has_tag("dat")
         return MwmPythonIter(self)
 
     def get_tag(self, name: str) -> mi.SectionInfo:
@@ -104,19 +103,25 @@ class MwmPython(mi.Mwm):
 
     def _get_features_offset_and_size(self) -> Tuple[int, int]:
         old_pos = self.file.tell()
-        tag_info = self.get_tag("dat")
-        pos = tag_info.offset
-        end = pos + tag_info.size
-        if self.version_.format >= 10:
-            self.seek_tag("dat")
+        pos = 0
+        end = 0
+        if self.version_.format < 10:
+            assert self.has_tag("dat")
+            tag_info = self.get_tag("dat")
+            pos = tag_info.offset
+            end = pos + tag_info.size
+        else:
+            assert self.has_tag("features")
+            tag_info = self.get_tag("features")
+            self.seek_tag("features")
             version = read_uint(self.file, 1)
             if version != 0:
                 self.file.seek(old_pos)
-                raise DatSectionParseError(f"Unexpected dat section version: {version}.")
+                raise FeaturesSectionParseError(f"Unexpected features section version: {version}.")
             features_offset = read_uint(self.file, bytelen=4)
             if features_offset >= tag_info.size:
                 self.file.seek(old_pos)
-                raise DatSectionParseError(f"Wrong features offset: {features_offset}.")
+                raise FeaturesSectionParseError(f"Wrong features offset: {features_offset}.")
             pos = tag_info.offset + features_offset
             end = pos + tag_info.size - features_offset
         self.file.seek(old_pos)

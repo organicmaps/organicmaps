@@ -330,7 +330,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     }
   }
 
-  // Enumerate over all dat files that were created.
+  // Enumerate over all features files that were created.
   size_t const count = genInfo.m_bucketNames.size();
   for (size_t i = 0; i < count; ++i)
   {

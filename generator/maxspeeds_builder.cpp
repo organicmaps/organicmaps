@@ -79,7 +79,7 @@ MaxspeedsMwmCollector::MaxspeedsMwmCollector(
   OsmIdToMaxspeed osmIdToMaxspeed;
   CHECK(ParseMaxspeeds(maxspeedCsvPath, osmIdToMaxspeed), (maxspeedCsvPath));
 
-  ForEachFromDat(dataPath, [&](FeatureType & ft, uint32_t fid) {
+  ForEachFeature(dataPath, [&](FeatureType & ft, uint32_t fid) {
     if (!routing::IsCarRoad(TypesHolder(ft)))
       return;
 

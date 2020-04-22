@@ -285,9 +285,9 @@ void ReadFromSourceRawFormat(Source & src, FeatureBuilder & fb)
   SerializationPolicy::Deserialize(fb, buffer);
 }
 
-// Process features in .dat file.
+// Process features in features file.
 template <class SerializationPolicy = serialization_policy::MinSize, class ToDo>
-void ForEachFromDatRawFormat(std::string const & filename, ToDo && toDo)
+void ForEachFeatureRawFormat(std::string const & filename, ToDo && toDo)
 {
   FileReader reader(filename);
   ReaderSource<FileReader> src(reader);
@@ -304,14 +304,14 @@ void ForEachFromDatRawFormat(std::string const & filename, ToDo && toDo)
   }
 }
 
-/// Parallel process features in .dat file.
+/// Parallel process features in features file.
 template <class SerializationPolicy = serialization_policy::MinSize, class ToDo>
 void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & filename,
                                      ToDo && toDo)
 {
   CHECK_GREATER_OR_EQUAL(threadsCount, 1, ());
   if (threadsCount == 1)
-    return ForEachFromDatRawFormat(filename, std::forward<ToDo>(toDo));
+    return ForEachFeatureRawFormat(filename, std::forward<ToDo>(toDo));
 
   FileReader reader(filename);
   ReaderSource<FileReader> src(reader);
@@ -350,7 +350,7 @@ template <class SerializationPolicy = serialization_policy::MinSize>
 std::vector<FeatureBuilder> ReadAllDatRawFormat(std::string const & fileName)
 {
   std::vector<FeatureBuilder> fbs;
-  ForEachFromDatRawFormat<SerializationPolicy>(fileName, [&](auto && fb, auto const &) {
+  ForEachFeatureRawFormat<SerializationPolicy>(fileName, [&](auto && fb, auto const &) {
     fbs.emplace_back(std::move(fb));
   });
   return fbs;

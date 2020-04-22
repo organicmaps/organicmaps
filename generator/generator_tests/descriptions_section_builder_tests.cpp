@@ -98,7 +98,7 @@ public:
   void MakeDescriptions() const
   {
     DescriptionsCollectionBuilder b(m_wikiDir, kMwmFile);
-    auto const descriptionList = b.MakeDescriptions<Feature, ForEachFromDatMockAdapt>();
+    auto const descriptionList = b.MakeDescriptions<Feature, ForEachFeatureMockAdapt>();
     auto const  & stat = b.GetStat();
     TEST_EQUAL(GetTestDataPages(), descriptionList.size(), ());
     TEST_EQUAL(GetTestDataPages(), stat.GetNumberOfPages(), ());
@@ -188,7 +188,7 @@ public:
     using namespace platform::tests_support;
     auto const testMwm = kMwmFile + DATA_FILE_EXTENSION;
     ScopedMwm testScopedMwm(testMwm);
-    DescriptionsSectionBuilder<Feature, ForEachFromDatMockAdapt>::Build(m_wikiDir,
+    DescriptionsSectionBuilder<Feature, ForEachFeatureMockAdapt>::Build(m_wikiDir,
                                                                         testScopedMwm.GetFullPath());
     FilesContainerR container(testScopedMwm.GetFullPath());
     TEST(container.IsExist(DESCRIPTIONS_FILE_TAG), ());
@@ -214,7 +214,7 @@ public:
 
 private:
   template <class ToDo>
-  static void ForEachFromDatMock(std::string const &, ToDo && toDo)
+  static void ForEachFeatureMock(std::string const &, ToDo && toDo)
   {
     for (size_t i = 0; i < kWikiData.size(); ++i)
     {
@@ -224,11 +224,11 @@ private:
   }
 
   template <class T>
-  struct ForEachFromDatMockAdapt
+  struct ForEachFeatureMockAdapt
   {
     void operator()(std::string const & str, T && fn) const
     {
-      ForEachFromDatMock(str, std::forward<T>(fn));
+      ForEachFeatureMock(str, std::forward<T>(fn));
     }
   };
 

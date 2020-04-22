@@ -278,7 +278,7 @@ public:
 //     }
 //     {
 //       AccumulatorEtalon acc(r, scale, v2);
-//       feature::ForEachFromDat(reader, acc);
+//       feature::ForEachFeature(reader, acc);
 //       sort(v2.begin(), v2.end(), FeatureIDCmp());
 //     }
 
@@ -289,7 +289,7 @@ public:
 //       if (errInd != emptyInd)
 //       {
 //         FindOffset doFind(scale, v2[errInd]);
-//         feature::ForEachFromDat(reader, doFind);
+//         feature::ForEachFeature(reader, doFind);
 //       }
 
 //       TEST(false, ("Failed for rect:", r, "; Scale level:", scale, "; Etalon size:", v2.size(), "; Index size:", v1.size()));

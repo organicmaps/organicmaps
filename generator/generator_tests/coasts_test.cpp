@@ -205,6 +205,6 @@ UNIT_TEST(WorldCoasts_CheckBounds)
 
   //DoPrintCoasts doProcess(vID);
   DoCopyCoasts doProcess("/Users/alena/omim/omim/data/WorldCoasts.mwm.tmp", vID);
-  ForEachFromDatRawFormat("/Users/alena/omim/omim-indexer-tmp/WorldCoasts.mwm.tmp", doProcess);
+  ForEachFeatureRawFormat("/Users/alena/omim/omim-indexer-tmp/WorldCoasts.mwm.tmp", doProcess);
 }
 */

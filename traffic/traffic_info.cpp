@@ -184,7 +184,7 @@ SpeedGroup TrafficInfo::GetSpeedGroup(RoadSegmentId const & id) const
 void TrafficInfo::ExtractTrafficKeys(string const & mwmPath, vector<RoadSegmentId> & result)
 {
   result.clear();
-  feature::ForEachFromDat(mwmPath, [&](FeatureType & ft, uint32_t const fid) {
+  feature::ForEachFeature(mwmPath, [&](FeatureType & ft, uint32_t const fid) {
     if (!routing::CarModel::AllLimitsInstance().IsRoad(ft))
       return;
 

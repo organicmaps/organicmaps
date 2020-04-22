@@ -111,7 +111,7 @@ UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
       TEST_EQUAL(originalMapping[index], gid.GetSerialId(), ());
     };
 
-    feature::ForEachFromDat(worldMwmPath, test);
+    feature::ForEachFeature(worldMwmPath, test);
 
     TEST_EQUAL(numFeatures, 3, ());
     TEST_EQUAL(numLocalities, 2, ());

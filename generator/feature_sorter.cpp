@@ -54,7 +54,7 @@ class FeaturesCollector2 : public FeaturesCollector
 public:
   FeaturesCollector2(string const & filename, DataHeader const & header,
                      RegionData const & regionData, uint32_t versionDate)
-    : FeaturesCollector(filename + DATA_FILE_TAG)
+    : FeaturesCollector(filename + FEATURES_FILE_TAG)
     , m_filename(filename)
     , m_header(header)
     , m_regionData(regionData)
@@ -107,7 +107,7 @@ public:
 
     {
       FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
-      auto w = writer.GetWriter(DATA_FILE_TAG);
+      auto w = writer.GetWriter(FEATURES_FILE_TAG);
 
       size_t const startOffset = w->Pos();
       CHECK(coding::IsAlign8(startOffset), ());
@@ -341,7 +341,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
 
   // Store cellIds for middle points.
   CalculateMidPoints midPoints;
-  ForEachFromDatRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos) {
+  ForEachFeatureRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos) {
     midPoints(fb, pos);
   });
 
@@ -373,9 +373,9 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
     // Transform features from raw format to optimized format.
     try
     {
-      // FeaturesCollector2 will create temprory file `datFilePath + DATA_FILE_TAG`.
+      // FeaturesCollector2 will create temporary file `datFilePath + FEATURES_FILE_TAG`.
       // We cannot remove it in ~FeaturesCollector2(), we need to remove it in SCOPE_GUARD.
-      SCOPE_GUARD(_, [&](){ Platform::RemoveFileIfExists(datFilePath + DATA_FILE_TAG); });
+      SCOPE_GUARD(_, [&](){ Platform::RemoveFileIfExists(datFilePath + FEATURES_FILE_TAG); });
       FeaturesCollector2 collector(datFilePath, header, regionData, info.m_versionDate);
 
       for (auto const & point : midPoints.GetVector())

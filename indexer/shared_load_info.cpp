@@ -14,7 +14,9 @@ SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & 
 
 SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const
 {
-  return m_cont.GetReader(DATA_FILE_TAG);
+  if (GetMWMFormat() < version::Format::v10)
+    return m_cont.GetReader(FEATURES_FILE_TAG_V1_V9);
+  return m_cont.GetReader(FEATURES_FILE_TAG);
 }
 
 SharedLoadInfo::Reader SharedLoadInfo::GetMetadataReader() const

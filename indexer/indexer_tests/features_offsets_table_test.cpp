@@ -79,7 +79,8 @@ namespace feature
     FileWriter::DeleteFileX(indexFile);
 
     FeaturesOffsetsTable::Builder builder;
-    FeaturesVector::ForEachOffset(baseContainer.GetReader(DATA_FILE_TAG), [&builder](uint32_t offset)
+    // minsk-pass.mwm has old format and old FEATURES_FILE_TAG name.
+    FeaturesVector::ForEachOffset(baseContainer.GetReader(FEATURES_FILE_TAG_V1_V9), [&builder](uint32_t offset)
     {
       builder.PushOffset(offset);
     });

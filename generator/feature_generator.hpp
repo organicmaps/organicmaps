@@ -13,7 +13,7 @@ namespace feature
 {
 class FeatureBuilder;
 
-// Writes features to dat file.
+// Writes features to file.
 class FeaturesCollector
 {
 public:

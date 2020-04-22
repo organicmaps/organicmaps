@@ -30,7 +30,7 @@ public:
 
   explicit PlaceHelper(std::string const & filename) : PlaceHelper()
   {
-    feature::ForEachFromDatRawFormat<feature::serialization_policy::MaxAccuracy>(
+    feature::ForEachFeatureRawFormat<feature::serialization_policy::MaxAccuracy>(
         filename, [&](auto const & fb, auto const &) { m_processor.Add(fb); });
   }
 

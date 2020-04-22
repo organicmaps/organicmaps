@@ -62,7 +62,7 @@ vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boun
   CitiesBoundariesChecker const checker(citiesBoundaries);
 
   vector<uint32_t> cityRoadFeatureIds;
-  ForEachFromDat(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t fid) {
+  ForEachFeature(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t fid) {
     bool const needToProcess =
         routing::IsCarRoad(TypesHolder(ft)) || routing::IsBicycleRoad(TypesHolder(ft));
     if (!needToProcess)

@@ -33,7 +33,7 @@ bool BuildRatingsMwmSection(std::string const & srcDbFilename, std::string const
   bool haveUgc = false;
   uint8_t constexpr kNoRating = 0;
 
-  feature::ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
+  feature::ForEachFeature(mwmFile, [&](FeatureType & f, uint32_t featureId) {
     ugc::UGC ugc;
     auto const it = featureToOsmId.find(featureId);
     // Non-OSM features (coastlines, sponsored objects) are not used.

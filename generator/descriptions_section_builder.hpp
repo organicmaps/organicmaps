@@ -49,11 +49,11 @@ private:
 };
 
 template <class T>
-struct ForEachFromDatAdapt
+struct ForEachFeatureAdapt
 {
   void operator()(std::string const & str, T && fn) const
   {
-    feature::ForEachFromDat(str, std::forward<T>(fn));
+    feature::ForEachFeature(str, std::forward<T>(fn));
   }
 };
 
@@ -103,7 +103,7 @@ public:
                                 std::string const & idToWikidataPath);
   DescriptionsCollectionBuilder(std::string const & wikipediaDir, std::string const & mwmFile);
 
-  template <typename Ft, template <typename> class ForEachFromDatAdapter>
+  template <typename Ft, template <typename> class ForEachFeatureAdapter>
   descriptions::DescriptionsCollection MakeDescriptions()
   {
     descriptions::DescriptionsCollection descriptionList;
@@ -145,7 +145,7 @@ public:
       m_stat.IncPage();
       descriptionList.emplace_back(std::move(description));
     };
-    ForEachFromDatAdapter<decltype(fn)> adapter;
+    ForEachFeatureAdapter<decltype(fn)> adapter;
     adapter(m_mwmFile, std::move(fn));
     return descriptionList;
   }
@@ -167,7 +167,7 @@ private:
   std::string m_mwmFile;
 };
 
-template <typename Ft, template <typename> class ForEachFromDatAdapter = ForEachFromDatAdapt>
+template <typename Ft, template <typename> class ForEachFeatureAdapter = ForEachFeatureAdapt>
 struct DescriptionsSectionBuilder
 {
   static void Build(std::string const & wikipediaDir, std::string const & mwmFile,
@@ -186,7 +186,7 @@ struct DescriptionsSectionBuilder
 private:
   static void Build(std::string const & mwmFile, DescriptionsCollectionBuilder & builder)
   {
-    auto descriptionList = builder.MakeDescriptions<Ft, ForEachFromDatAdapter>();
+    auto descriptionList = builder.MakeDescriptions<Ft, ForEachFeatureAdapter>();
     auto const & stat = builder.GetStat();
     auto const size = stat.GetTotalSize();
     LOG(LINFO, ("Added", stat.GetNumberOfWikipediaUrls(), "pages from wikipedia urls for", mwmFile));
