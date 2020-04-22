@@ -69,7 +69,7 @@ void ComplexFinalProcessor::Process()
   std::vector<std::future<std::vector<HierarchyEntry>>> futures;
   ForEachCountry(m_mwmTmpPath, [&](auto const & filename) {
     auto future = pool.Submit([&, filename]() {
-      auto countryName = GetCountryNameFromTmpMwmPath(filename);
+      auto const countryName = GetCountryNameFromTmpMwmPath(filename);
       // https://wiki.openstreetmap.org/wiki/Simple_3D_buildings
       // An object with tag 'building:part' is a part of a relation with outline 'building' or
       // is contained in an object with tag 'building'. We will split data and work with
@@ -163,7 +163,6 @@ ComplexFinalProcessor::RemoveRelationBuildingParts(std::vector<FeatureBuilder> &
 
 void ComplexFinalProcessor::WriteLines(std::vector<HierarchyEntry> const & lines)
 {
-  ;
   auto stream = OfstreamWithExceptions(m_outFilename);
   for (auto const & line : lines)
     stream << m_printFunction(line) << '\n';

@@ -110,6 +110,7 @@ void AppendToCountries(std::vector<feature::FeatureBuilder> const & fbs,
   }
 }
 
+// Sorting for stable features order in final processors.
 void Sort(std::vector<feature::FeatureBuilder> & fbs);
 
 std::vector<std::vector<std::string>> GetAffiliations(

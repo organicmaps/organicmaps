@@ -41,12 +41,12 @@ void ProcessorCities::Process()
       auto const fullPath = base::JoinPath(m_temporaryMwmPath, filename);
       auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(fullPath);
       FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(fullPath);
-      for (size_t i = 0; i < fbs.size(); ++i)
+      for (auto && fb : fbs)
       {
-        if (PlaceHelper::IsPlace(fbs[i]))
-          cities.emplace_back(std::move(fbs[i]));
+        if (PlaceHelper::IsPlace(fb))
+          cities.emplace_back(std::move(fb));
         else
-          writer.Write(std::move(fbs[i]));
+          writer.Write(std::move(fb));
       }
 
       return cities;
