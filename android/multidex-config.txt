@@ -1,11 +1,13 @@
 com/mapswithme/maps/ads/Banner.class
 com/mapswithme/maps/bookmarks/data/Bookmark.class
+com/mapswithme/maps/bookmarks/data/ElevationInfo.class
 com/mapswithme/maps/bookmarks/data/FeatureId.class
 com/mapswithme/maps/bookmarks/data/MapObject.class
 com/mapswithme/maps/location/PlatformSocket.class
 com/mapswithme/maps/onboarding/OnboardingTip.class
 com/mapswithme/maps/search/PopularityProvider.class
 com/mapswithme/maps/ugc/UGC$Rating.class
+com/mapswithme/maps/widget/placepage/PlacePageData.class
 com/mapswithme/util/AbstractHttpUploader.class
 com/mapswithme/util/HttpBackgroundUploader.class
 com/mapswithme/util/HttpClient$Params.class
