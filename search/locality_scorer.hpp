@@ -33,6 +33,7 @@ public:
     virtual void GetNames(uint32_t featureId, std::vector<std::string> & names) const = 0;
     virtual uint8_t GetRank(uint32_t featureId) const = 0;
     virtual std::optional<m2::PointD> GetCenter(uint32_t featureId) = 0;
+    virtual bool BelongsToMatchedRegion(m2::PointD const & p) const = 0;
   };
 
   LocalityScorer(QueryParams const & params, m2::PointD const & pivot, Delegate & delegate);
@@ -56,6 +57,7 @@ private:
     double m_similarity = 0.0;
     uint8_t m_rank = 0;
     double m_distanceToPivot = std::numeric_limits<double>::max();
+    bool m_belongsToMatchedRegion = false;
   };
 
   friend std::string DebugPrint(ExLocality const & locality);
@@ -72,12 +74,12 @@ private:
   void LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds, std::vector<ExLocality> & els) const;
 
   // Leaves at most |limit| unique best localities by similarity and matched tokens range size. For
-  // elements with the same similarity and matched range size selects the closest one (by distance to
-  // pivot), rest of elements are sorted by rank.
+  // elements with the same similarity and matched range size prefers localities from already
+  // matched regions, then the closest one (by distance to pivot), rest of elements are sorted by
+  // rank.
   void LeaveTopBySimilarityAndOther(size_t limit, std::vector<ExLocality> & els) const;
 
   void GetDocVecs(uint32_t localityId, std::vector<DocVec> & dvs) const;
-  double GetDistanceToPivot(uint32_t localityId);
   double GetSimilarity(QueryVec & qv, IdfMap & docIdfs, std::vector<DocVec> & dvs) const;
 
   QueryParams const & m_params;

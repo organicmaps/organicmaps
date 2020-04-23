@@ -157,13 +157,16 @@ class LocalityScorerDelegate : public LocalityScorer::Delegate
 {
 public:
   LocalityScorerDelegate(MwmContext & context, Geocoder::Params const & params,
+                         function<bool(m2::PointD const &)> const & belongsToMatchedRegionFn,
                          base::Cancellable const & cancellable)
     : m_context(context)
     , m_params(params)
     , m_cancellable(cancellable)
+    , m_belongsToMatchedRegionFn(belongsToMatchedRegionFn)
     , m_retrieval(m_context, m_cancellable)
     , m_ranks(m_context.m_value)
   {
+    ASSERT(m_belongsToMatchedRegionFn, ());
   }
 
   // LocalityScorer::Delegate overrides:
@@ -198,10 +201,17 @@ public:
     return center;
   }
 
+  bool BelongsToMatchedRegion(m2::PointD const & p) const override
+  {
+    ASSERT(m_belongsToMatchedRegionFn, ());
+    return m_belongsToMatchedRegionFn(p);
+  }
+
 private:
   MwmContext & m_context;
   Geocoder::Params const & m_params;
   base::Cancellable const & m_cancellable;
+  function<bool(m2::PointD const &)> m_belongsToMatchedRegionFn;
 
   Retrieval m_retrieval;
 
@@ -681,7 +691,22 @@ void Geocoder::FillLocalityCandidates(BaseContext const & ctx, CBV const & filte
     return;
   }
 
-  LocalityScorerDelegate delegate(*m_context, m_params, m_cancellable);
+  storage::CountryInfoGetter::RegionIdVec ids;
+  for (auto const & type : m_regions)
+  {
+    for (auto const & ranges : type)
+    {
+      for (auto const & regions : ranges.second)
+        ids.insert(ids.end(), regions.m_ids.begin(), regions.m_ids.end());
+    }
+  }
+  base::SortUnique(ids);
+
+  auto const belongsToMatchedRegion = [&](m2::PointD const & point) {
+    return m_infoGetter.BelongsToAnyRegion(point, ids);
+  };
+
+  LocalityScorerDelegate delegate(*m_context, m_params, belongsToMatchedRegion, m_cancellable);
   LocalityScorer scorer(m_params, m_params.m_pivot.Center(), delegate);
   scorer.GetTopLocalities(m_context->GetId(), ctx, filter, maxNumLocalities, preLocalities);
 }

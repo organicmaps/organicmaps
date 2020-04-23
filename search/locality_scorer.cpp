@@ -199,11 +199,18 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, vector<Loca
     // for all localities tokens.  Therefore, for tokens not in the
     // query, some default IDF value will be used.
     GetDocVecs(els[i].GetId(), dvs);
-    auto const distance = GetDistanceToPivot(els[i].GetId());
+
+    auto const center = m_delegate.GetCenter(els[i].GetId());
+    auto const distance =
+        center ? mercator::DistanceOnEarth(m_pivot, *center) : els[i].m_distanceToPivot;
+    auto const belongsToMatchedRegion =
+        center ? m_delegate.BelongsToMatchedRegion(*center) : els[i].m_belongsToMatchedRegion;
+
     for (; i < j; ++i)
     {
       els[i].m_similarity = GetSimilarity(els[i].m_locality.m_queryVec, idfs, dvs);
       els[i].m_distanceToPivot = distance;
+      els[i].m_belongsToMatchedRegion = belongsToMatchedRegion;
     }
   }
 
@@ -245,6 +252,8 @@ void LocalityScorer::LeaveTopBySimilarityAndOther(size_t limit, vector<ExLocalit
       return lhs.m_similarity > rhs.m_similarity;
     if (lhs.m_locality.m_tokenRange.Size() != rhs.m_locality.m_tokenRange.Size())
       return lhs.m_locality.m_tokenRange.Size() > rhs.m_locality.m_tokenRange.Size();
+    if (lhs.m_belongsToMatchedRegion != rhs.m_belongsToMatchedRegion)
+      return lhs.m_belongsToMatchedRegion;
     if (lhs.m_rank != rhs.m_rank)
       return lhs.m_rank > rhs.m_rank;
     return lhs.m_locality.m_featureId < rhs.m_locality.m_featureId;
@@ -254,11 +263,13 @@ void LocalityScorer::LeaveTopBySimilarityAndOther(size_t limit, vector<ExLocalit
     return lhs.m_distanceToPivot < rhs.m_distanceToPivot;
   };
 
-  auto const compareSimilarityAndSize = [](ExLocality const & lhs, ExLocality const & rhs) {
+  auto const compareSimilaritySizeAndRegion = [](ExLocality const & lhs, ExLocality const & rhs) {
     if (lhs.m_similarity != rhs.m_similarity)
       return lhs.m_similarity > rhs.m_similarity;
     if (lhs.m_locality.m_tokenRange.Size() != rhs.m_locality.m_tokenRange.Size())
       return lhs.m_locality.m_tokenRange.Size() > rhs.m_locality.m_tokenRange.Size();
+    if (lhs.m_belongsToMatchedRegion != rhs.m_belongsToMatchedRegion)
+      return lhs.m_belongsToMatchedRegion;
     return false;
   };
 
@@ -269,8 +280,8 @@ void LocalityScorer::LeaveTopBySimilarityAndOther(size_t limit, vector<ExLocalit
   while (begin != end)
   {
     // We can split els to equal ranges by similarity and size because we sorted els by similarity
-    // and size first.
-    auto const range = equal_range(begin, end, *begin, compareSimilarityAndSize);
+    // size and region first.
+    auto const range = equal_range(begin, end, *begin, compareSimilaritySizeAndRegion);
     auto const closest = min_element(range.first, range.second, lessDistance);
     tmp.emplace_back(std::move(*closest));
     for (auto it = range.first; it != range.second; ++it)
@@ -311,17 +322,6 @@ void LocalityScorer::GetDocVecs(uint32_t localityId, vector<DocVec> & dvs) const
       builder.Add(token);
     dvs.emplace_back(builder);
   }
-}
-
-double LocalityScorer::GetDistanceToPivot(uint32_t localityId)
-{
-  auto distance = numeric_limits<double>::max();
-  auto const center = m_delegate.GetCenter(localityId);
-  if (center)
-  {
-    distance = mercator::DistanceOnEarth(m_pivot, *center);
-  }
-  return distance;
 }
 
 double LocalityScorer::GetSimilarity(QueryVec & qv, IdfMap & docIdfs, vector<DocVec> & dvc) const
