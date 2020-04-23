@@ -17,7 +17,7 @@ using namespace base;
 
 namespace
 {
-void ParseGallery(std::string const & src, guides_on_map::GalleryOnMap & result)
+void ParseGallery(std::string const & src, guides_on_map::GuidesOnMap & result)
 {
   Json root(src.c_str());
   auto const dataArray = json_object_get(root.get(), "data");
@@ -27,7 +27,7 @@ void ParseGallery(std::string const & src, guides_on_map::GalleryOnMap & result)
   result.reserve(size);
   for (size_t i = 0; i < size; ++i)
   {
-    guides_on_map::GalleryItem item;
+    guides_on_map::GuidesNode item;
     auto const obj = json_array_get(dataArray, i);
     auto const pointObj = json_object_get(obj, "point");
     if (!json_is_object(pointObj))
@@ -48,22 +48,23 @@ void ParseGallery(std::string const & src, guides_on_map::GalleryOnMap & result)
     auto const extraObj = json_object_get(obj, "extra");
     if (json_is_object(extraObj))
     {
-      FromJSONObject(extraObj, "server_id", item.m_guideInfo.m_id);
-      FromJSONObject(extraObj, "name", item.m_guideInfo.m_name);
-      FromJSONObject(extraObj, "image_url", item.m_guideInfo.m_imageUrl);
-      FromJSONObjectOptionalField(extraObj, "tag", item.m_guideInfo.m_tag);
-      FromJSONObject(extraObj, "bookmarks_count", item.m_guideInfo.m_bookmarksCount);
-      FromJSONObject(extraObj, "has_track", item.m_guideInfo.m_hasTrack);
-      FromJSONObjectOptionalField(extraObj, "tracks_length", item.m_guideInfo.m_tracksLength);
-      FromJSONObjectOptionalField(extraObj, "tour_duration", item.m_guideInfo.m_tourDuration);
-      FromJSONObjectOptionalField(extraObj, "ascent", item.m_guideInfo.m_ascent);
+      auto & info = item.m_guideInfo;
+      FromJSONObject(extraObj, "server_id", info.m_id);
+      FromJSONObject(extraObj, "name", info.m_name);
+      FromJSONObject(extraObj, "image_url", info.m_imageUrl);
+      FromJSONObjectOptionalField(extraObj, "tag", info.m_tag);
+      FromJSONObject(extraObj, "bookmarks_count", info.m_bookmarksCount);
+      FromJSONObject(extraObj, "has_track", info.m_hasTrack);
+      FromJSONObjectOptionalField(extraObj, "tracks_length", info.m_tracksLength);
+      FromJSONObjectOptionalField(extraObj, "tour_duration", info.m_tourDuration);
+      FromJSONObjectOptionalField(extraObj, "ascent", info.m_ascent);
     }
 
     result.emplace_back(std::move(item));
   }
 }
 
-std::string MakeGalleryUrl(std::string const & baseUrl, m2::RectD const & viewport, int zoomLevel,
+std::string MakeGalleryUrl(std::string const & baseUrl, m2::AnyRectD const & viewport, int zoomLevel,
                            std::string const & lang)
 {
   // Support empty baseUrl for opensource build.
@@ -79,10 +80,15 @@ std::string MakeGalleryUrl(std::string const & baseUrl, m2::RectD const & viewpo
     return strings::to_string_dac(latLon.m_lat, 6) + "," + strings::to_string_dac(latLon.m_lon, 6);
   };
 
-  params.emplace_back("left_bottom", toLatLonFormatted(viewport.LeftBottom()));
-  params.emplace_back("left_top", toLatLonFormatted(viewport.LeftTop()));
-  params.emplace_back("right_top", toLatLonFormatted(viewport.RightTop()));
-  params.emplace_back("right_bottom", toLatLonFormatted(viewport.RightBottom()));
+  m2::AnyRectD::Corners corners;
+  viewport.GetGlobalPoints(corners);
+
+  ASSERT_EQUAL(corners.size(), 4, ());
+
+  params.emplace_back("left_bottom", toLatLonFormatted(corners[0]));
+  params.emplace_back("left_top", toLatLonFormatted(corners[1]));
+  params.emplace_back("right_top", toLatLonFormatted(corners[2]));
+  params.emplace_back("right_bottom", toLatLonFormatted(corners[3]));
 
   return url::Make(url::Join(baseUrl, "/gallery/v2/map"), params);
 }
@@ -110,8 +116,8 @@ void Api::SetDelegate(std::unique_ptr<Delegate> delegate)
   m_delegate = std::move(delegate);
 }
 
-void Api::GetGalleryOnMap(m2::RectD const & viewport, uint8_t zoomLevel,
-                          GalleryCallback const & onSuccess, OnError const & onError) const
+void Api::GetGuidesOnMap(m2::AnyRectD const & viewport, uint8_t zoomLevel,
+                         GuidesOnMapCallback const & onSuccess, OnError const & onError) const
 {
   auto const url = MakeGalleryUrl(m_baseUrl, viewport, zoomLevel, languages::GetCurrentNorm());
   if (url.empty())
@@ -130,7 +136,7 @@ void Api::GetGalleryOnMap(m2::RectD const & viewport, uint8_t zoomLevel,
       return;
     }
 
-    GalleryOnMap result;
+    GuidesOnMap result;
     try
     {
       ParseGallery(httpResult, result);

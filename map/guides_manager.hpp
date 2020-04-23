@@ -8,7 +8,6 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include <boost/optional.hpp>
 #include <functional>
 #include <memory>
 #include <string>
@@ -58,8 +57,8 @@ public:
       std::string m_subTitle;
       Type m_type = Type::City;
       bool m_downloaded = false;
-      boost::optional<CityParams> m_cityParams;
-      boost::optional<OutdoorParams> m_outdoorsParams;
+      CityParams m_cityParams;
+      OutdoorParams m_outdoorsParams;
     };
 
     std::vector<Item> m_items;

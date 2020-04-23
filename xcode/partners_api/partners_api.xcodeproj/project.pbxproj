@@ -20,6 +20,9 @@
 		349FEC5A2010D54D00FE5CA3 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC5B2010D54D00FE5CA3 /* liboauthcpp.a */; };
 		349FEC5C2010D56400FE5CA3 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC5D2010D56400FE5CA3 /* libprotobuf.a */; };
 		349FEC5E2010D67B00FE5CA3 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC5F2010D67B00FE5CA3 /* libopening_hours.a */; };
+		3D035CA2245195E600C21B57 /* guides_on_map_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D035CA0245195E500C21B57 /* guides_on_map_api.hpp */; };
+		3D035CA3245195E600C21B57 /* guides_on_map_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D035CA1245195E600C21B57 /* guides_on_map_api.cpp */; };
+		3D035CA5245195EF00C21B57 /* guides_on_map_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D035CA4245195EF00C21B57 /* guides_on_map_tests.cpp */; };
 		3D15ACE6214AA1B000F725D5 /* taxi_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D15ACE3214AA1AF00F725D5 /* taxi_delegate.hpp */; };
 		3D15ACE7214AA1B000F725D5 /* rutaxi_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D15ACE4214AA1B000F725D5 /* rutaxi_api.hpp */; };
 		3D15ACE8214AA1B000F725D5 /* rutaxi_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACE5214AA1B000F725D5 /* rutaxi_api.cpp */; };
@@ -132,6 +135,9 @@
 		349FEC5B2010D54D00FE5CA3 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		349FEC5D2010D56400FE5CA3 /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		349FEC5F2010D67B00FE5CA3 /* libopening_hours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopening_hours.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D035CA0245195E500C21B57 /* guides_on_map_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = guides_on_map_api.hpp; sourceTree = "<group>"; };
+		3D035CA1245195E600C21B57 /* guides_on_map_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_on_map_api.cpp; sourceTree = "<group>"; };
+		3D035CA4245195EF00C21B57 /* guides_on_map_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_on_map_tests.cpp; sourceTree = "<group>"; };
 		3D15ACE3214AA1AF00F725D5 /* taxi_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = taxi_delegate.hpp; sourceTree = "<group>"; };
 		3D15ACE4214AA1B000F725D5 /* rutaxi_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rutaxi_api.hpp; sourceTree = "<group>"; };
 		3D15ACE5214AA1B000F725D5 /* rutaxi_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rutaxi_api.cpp; sourceTree = "<group>"; };
@@ -326,6 +332,8 @@
 		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
 			isa = PBXGroup;
 			children = (
+				3D035CA1245195E600C21B57 /* guides_on_map_api.cpp */,
+				3D035CA0245195E500C21B57 /* guides_on_map_api.hpp */,
 				3DBD7BE524251BF000ED9FE8 /* ads */,
 				3DBD7B9624112DE000ED9FE8 /* freenow_api.cpp */,
 				3DBD7B9724112DE100ED9FE8 /* freenow_api.hpp */,
@@ -377,6 +385,7 @@
 		F6B536441DA521060067EEA5 /* partners_api_tests */ = {
 			isa = PBXGroup;
 			children = (
+				3D035CA4245195EF00C21B57 /* guides_on_map_tests.cpp */,
 				3DBD7C1C24251C1100ED9FE8 /* bookmark_catalog_ads_tests.cpp */,
 				3DBD7C1A24251C1000ED9FE8 /* download_on_map_container_delegate.hpp */,
 				3DBD7C1924251C1000ED9FE8 /* mts_tests.cpp */,
@@ -474,6 +483,7 @@
 				45AC338F22C4F449004DC574 /* utm.hpp in Headers */,
 				4566605120D91FEE0085E8C1 /* megafon_countries.hpp in Headers */,
 				F6B536431DA520E40067EEA5 /* uber_api.hpp in Headers */,
+				3D035CA2245195E600C21B57 /* guides_on_map_api.hpp in Headers */,
 				3DBD7C0424251BF000ED9FE8 /* mopub_ads.hpp in Headers */,
 				3DBD7C1224251BF000ED9FE8 /* ads_utils.hpp in Headers */,
 				3DBD7C0624251BF000ED9FE8 /* ads_engine.hpp in Headers */,
@@ -581,9 +591,11 @@
 				3DFEBFA41EFBFC2300317D5C /* yandex_tests.cpp in Sources */,
 				3D1775A72318198700F8889C /* promo_catalog_types.cpp in Sources */,
 				3D452AEF1EE6D202009EAB9B /* google_tests.cpp in Sources */,
+				3D035CA3245195E600C21B57 /* guides_on_map_api.cpp in Sources */,
 				3D452AF01EE6D202009EAB9B /* mopub_tests.cpp in Sources */,
 				3D18DC3422953FF600A583A6 /* rutaxi_tests.cpp in Sources */,
 				3DBD7C0924251BF000ED9FE8 /* ads_utils.cpp in Sources */,
+				3D035CA5245195EF00C21B57 /* guides_on_map_tests.cpp in Sources */,
 				3DBD7C0824251BF000ED9FE8 /* skyeng_ads.cpp in Sources */,
 				3DBD7BFF24251BF000ED9FE8 /* bookmark_catalog_ads.cpp in Sources */,
 				3D4E997F1FB439300025B48C /* utils.cpp in Sources */,
