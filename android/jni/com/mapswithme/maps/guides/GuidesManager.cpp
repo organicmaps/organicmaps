@@ -19,7 +19,7 @@ static void GuidesStateChanged(GuidesManager::GuidesState state,
 
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_maplayer_Guides_GuidesManager_nativeAddListener(JNIEnv *env, jclass clazz, jobject listener)
+Java_com_mapswithme_maps_maplayer_guides_GuidesManager_nativeAddListener(JNIEnv *env, jclass clazz, jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   g_framework->SetGuidesListener(std::bind(&GuidesStateChanged,
@@ -28,7 +28,7 @@ Java_com_mapswithme_maps_maplayer_Guides_GuidesManager_nativeAddListener(JNIEnv 
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_maplayer_Guides_GuidesManager_nativeRemoveListener(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_maplayer_guides_GuidesManager_nativeRemoveListener(JNIEnv * env, jclass clazz)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   g_framework->SetGuidesListener(nullptr);

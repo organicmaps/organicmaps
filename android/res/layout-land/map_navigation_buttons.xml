@@ -34,6 +34,15 @@
     android:visibility="invisible"/>
 
   <ImageButton
+    android:id="@+id/guides"
+    style="@style/MwmWidget.MapButton.Traffic"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:background="?nav_bg_isolines"
+    android:visibility="invisible"/>
+
+  <ImageButton
     android:id="@+id/nav_zoom_in"
     style="@style/MwmWidget.MapButton"
     android:layout_above="@+id/nav_zoom_out"

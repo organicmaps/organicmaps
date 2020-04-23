@@ -90,6 +90,15 @@
       android:background="?nav_bg_isolines"/>
 
     <ImageView
+      android:id="@+id/guides"
+      android:layout_weight="0.2"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/nav_icon_size"
+      android:scaleType="center"
+      android:visibility="gone"
+      android:background="?nav_bg_isolines"/>
+
+    <ImageView
       android:id="@+id/settings"
       android:layout_weight="0.2"
       android:layout_width="0dp"

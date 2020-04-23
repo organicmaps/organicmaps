@@ -11,4 +11,5 @@ public interface MainMenuOptionListener
   void onSubwayLayerOptionSelected();
   void onTrafficLayerOptionSelected();
   void onIsolinesLayerOptionSelected();
+  void onGuidesLayerOptionSelected();
 }

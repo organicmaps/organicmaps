@@ -97,4 +97,19 @@ public abstract class BottomSheetItem
       return new Isolines(R.drawable.ic_planning_route_isomaps_dark_on, disabled);
     }
   }
+
+  public static class Guides extends BottomSheetItem
+  {
+    private Guides(int drawableResId, int disabledStateDrawableResId)
+    {
+      super(drawableResId, disabledStateDrawableResId, R.string.button_layer_isolines, Mode.GUIDES);
+    }
+
+    public static BottomSheetItem makeInstance(@NonNull Context mContext)
+    {
+      int disabled = ThemeUtils.getResource(mContext, R.attr.isoLinesMenuDisabled);
+
+      return new Guides(R.drawable.ic_planning_route_isomaps_dark_on, disabled);
+    }
+  }
 }

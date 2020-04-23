@@ -68,6 +68,7 @@ import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.maplayer.Mode;
+import com.mapswithme.maps.maplayer.OnGuidesLayerToggleListener;
 import com.mapswithme.maps.maplayer.OnIsolinesLayerToggleListener;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.isolines.IsolinesState;
@@ -181,7 +182,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                AppBackgroundTracker.OnTransitionListener,
                MaterialTapTargetPrompt.PromptStateChangeListener,
                WelcomeDialogFragment.OnboardingStepPassedListener,
-               OnIsolinesLayerToggleListener
+               OnIsolinesLayerToggleListener,
+               OnGuidesLayerToggleListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -793,7 +795,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     TrafficButton traffic = new TrafficButton(trafficBtn);
     View subway = frame.findViewById(R.id.subway);
     View isoLines = frame.findViewById(R.id.isolines);
-    mToggleMapLayerController = new MapLayerCompositeController(traffic, subway, isoLines,this);
+    View guides = frame.findViewById(R.id.guides);
+    mToggleMapLayerController = new MapLayerCompositeController(traffic, subway, isoLines, guides, this);
     mToggleMapLayerController.attachCore();
   }
 
@@ -1232,6 +1235,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onIsolinesLayerSelected()
   {
     mToggleMapLayerController.toggleMode(Mode.ISOLINES);
+  }
+
+  @Override
+  public void onGuidesLayerSelected()
+  {
+    mToggleMapLayerController.toggleMode(Mode.GUIDES);
   }
 
   private void onIsolinesStateChanged(@NonNull IsolinesState type)
@@ -2842,6 +2851,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public void onIsolinesLayerOptionSelected()
     {
       onIsolinesLayerSelected();
+    }
+
+    @Override
+    public void onGuidesLayerOptionSelected()
+    {
+      onGuidesLayerSelected();
     }
   }
 }

@@ -98,7 +98,8 @@ public class MainMenuRenderer implements MenuRenderer
     mLayersAdapter.setLayerModes(LayersUtils.createItems(layersRecycler.getContext(),
                                                          new SubwayItemClickListener(),
                                                          new TrafficItemClickListener(),
-                                                         new IsolinesItemClickListener()));
+                                                         new IsolinesItemClickListener(),
+                                                         new GuidesItemClickListener()));
     layersRecycler.setAdapter(mLayersAdapter);
   }
 
@@ -161,6 +162,20 @@ public class MainMenuRenderer implements MenuRenderer
     public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
       mListener.onIsolinesLayerOptionSelected();
+    }
+  }
+
+  private class GuidesItemClickListener extends DefaultClickListener
+  {
+    GuidesItemClickListener()
+    {
+      super(mLayersAdapter);
+    }
+
+    @Override
+    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
+    {
+      mListener.onGuidesLayerOptionSelected();
     }
   }
 }

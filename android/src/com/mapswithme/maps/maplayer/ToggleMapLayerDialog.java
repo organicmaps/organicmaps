@@ -69,9 +69,11 @@ public class ToggleMapLayerDialog extends DialogFragment
                                                                                false);
     recycler.setLayoutManager(layoutManager);
     mAdapter = new LayersAdapter();
-    mAdapter.setLayerModes(LayersUtils.createItems(requireContext(), new SubwayItemClickListener(),
+    mAdapter.setLayerModes(LayersUtils.createItems(requireContext(),
+                                                   new SubwayItemClickListener(),
                                                    new TrafficItemClickListener(),
-                                                   new IsolinesItemClickListener()));
+                                                   new IsolinesItemClickListener(),
+                                                   new GuidesItemClickListener()));
     recycler.setAdapter(mAdapter);
   }
 
@@ -131,6 +133,21 @@ public class ToggleMapLayerDialog extends DialogFragment
     {
       OnIsolinesLayerToggleListener listener = (OnIsolinesLayerToggleListener) requireActivity();
       listener.onIsolinesLayerSelected();
+    }
+  }
+
+  private class GuidesItemClickListener extends DefaultClickListener
+  {
+    private GuidesItemClickListener()
+    {
+      super(mAdapter);
+    }
+
+    @Override
+    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
+    {
+      OnGuidesLayerToggleListener listener = (OnGuidesLayerToggleListener) requireActivity();
+      listener.onGuidesLayerSelected();
     }
   }
 }
