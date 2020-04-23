@@ -5,28 +5,7 @@
       <option name="TAB_SIZE" value="2" />
     </value>
   </option>
-  <option name="FIELD_NAME_PREFIX" value="m" />
-  <option name="STATIC_FIELD_NAME_PREFIX" value="s" />
-  <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99" />
-  <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99" />
-  <option name="IMPORT_LAYOUT_TABLE">
-    <value>
-      <package name="android" withSubpackages="true" static="false" />
-      <emptyLine />
-      <package name="" withSubpackages="true" static="false" />
-      <emptyLine />
-      <package name="javax" withSubpackages="true" static="false" />
-      <package name="java" withSubpackages="true" static="false" />
-      <emptyLine />
-      <package name="" withSubpackages="true" static="true" />
-    </value>
-  </option>
-  <option name="HTML_ATTRIBUTE_WRAP" value="2" />
-  <option name="HTML_KEEP_LINE_BREAKS_IN_TEXT" value="false" />
-  <option name="HTML_ALIGN_TEXT" value="true" />
-  <option name="HTML_INLINE_ELEMENTS" value="a,abbr,acronym,b,basefont,bdo,big,br,cite,cite,code,dfn,em,font,i,img,input,kbd,label,q,s,samp,select,strike,strong,sub,sup,textarea,tt,u,var,span" />
   <AndroidXmlCodeStyleSettings>
-    <option name="ARRANGEMENT_SETTINGS_MIGRATED_TO_191" value="true" />
     <option name="LAYOUT_SETTINGS">
       <value>
         <option name="INSERT_BLANK_LINE_BEFORE_TAG" value="false" />
@@ -74,6 +53,16 @@
       </value>
     </option>
   </JavaCodeStyleSettings>
+  <Objective-C>
+    <option name="INDENT_NAMESPACE_MEMBERS" value="0" />
+    <option name="INDENT_C_STRUCT_MEMBERS" value="2" />
+    <option name="INDENT_CLASS_MEMBERS" value="2" />
+    <option name="INDENT_INSIDE_CODE_BLOCK" value="2" />
+    <option name="KEEP_NESTED_NAMESPACES_IN_ONE_LINE" value="true" />
+    <option name="NAMESPACE_BRACE_PLACEMENT" value="2" />
+    <option name="FUNCTION_BRACE_PLACEMENT" value="2" />
+    <option name="BLOCK_BRACE_PLACEMENT" value="2" />
+  </Objective-C>
   <XML>
     <option name="XML_ATTRIBUTE_WRAP" value="2" />
     <option name="XML_TEXT_WRAP" value="0" />
@@ -106,13 +95,21 @@
     <option name="SPACE_WITHIN_ARRAY_INITIALIZER_BRACES" value="true" />
     <option name="SPACE_BEFORE_ARRAY_INITIALIZER_LBRACE" value="true" />
     <option name="METHOD_CALL_CHAIN_WRAP" value="5" />
-    <option name="WRAP_LONG_LINES" value="true" />
     <option name="WRAP_ON_TYPING" value="0" />
     <indentOptions>
       <option name="INDENT_SIZE" value="2" />
       <option name="CONTINUATION_INDENT_SIZE" value="4" />
       <option name="TAB_SIZE" value="2" />
       <option name="LABEL_INDENT_ABSOLUTE" value="true" />
+    </indentOptions>
+  </codeStyleSettings>
+  <codeStyleSettings language="ObjectiveC">
+    <option name="BRACE_STYLE" value="2" />
+    <option name="CLASS_BRACE_STYLE" value="2" />
+    <indentOptions>
+      <option name="INDENT_SIZE" value="2" />
+      <option name="CONTINUATION_INDENT_SIZE" value="2" />
+      <option name="TAB_SIZE" value="2" />
     </indentOptions>
   </codeStyleSettings>
   <codeStyleSettings language="XML">
