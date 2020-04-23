@@ -23,6 +23,7 @@ import com.mapswithme.maps.geofence.GeofenceRegistry;
 import com.mapswithme.maps.geofence.GeofenceRegistryImpl;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
+import com.mapswithme.maps.maplayer.guides.GuidesManager;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
@@ -63,6 +64,10 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   @SuppressWarnings("NullableProblems")
   @NonNull
   private IsolinesManager mIsolinesManager;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private GuidesManager mGuidesManager;
 
   private boolean mFrameworkInitialized;
   private boolean mPlatformInitialized;
@@ -191,6 +196,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
+    mGuidesManager = new GuidesManager(this);
     mConnectivityListener = new ConnectivityJobScheduler(this);
     mConnectivityListener.listen();
 
@@ -292,6 +298,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     TrafficManager.INSTANCE.initialize(null);
     SubwayManager.from(this).initialize(null);
     IsolinesManager.from(this).initialize(null);
+    GuidesManager.from(this).initialize(null);
     mPurchaseOperationObservable.initialize(null);
     mBackgroundTracker.addListener(this);
     mFrameworkInitialized = true;
@@ -416,6 +423,12 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public void onTransit(boolean foreground)
   {
     nativeOnTransit(foreground);
+  }
+
+  @NonNull
+  public GuidesManager getGuidesManager()
+  {
+    return mGuidesManager;
   }
 
   private static class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener

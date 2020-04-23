@@ -54,6 +54,7 @@ set(
   com/mapswithme/maps/editor/OsmOAuth.cpp
   com/mapswithme/maps/Framework.cpp
   com/mapswithme/maps/guides/Guides.cpp
+  com/mapswithme/maps/guides/GuidesManager.cpp
   com/mapswithme/maps/isolines/IsolinesManager.cpp
   com/mapswithme/maps/LightFramework.cpp
   com/mapswithme/maps/LocationHelper.cpp
