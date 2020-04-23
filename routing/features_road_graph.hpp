@@ -129,7 +129,6 @@ private:
 
   DataSource const & m_dataSource;
   IRoadGraph::Mode const m_mode;
-
   mutable RoadInfoCache m_cache;
   mutable CrossCountryVehicleModel m_vehicleModel;
   mutable std::map<MwmSet::MwmId, Value> m_mwmLocks;
