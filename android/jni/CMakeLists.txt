@@ -22,13 +22,13 @@ set(
   SRC
   # JNI headers
   ../../private.h
-  com/mapswithme/util/FeatureIdBuilder.hpp
   com/mapswithme/core/jni_helper.hpp
   com/mapswithme/core/logging.hpp
   com/mapswithme/core/ScopedEnv.hpp
   com/mapswithme/core/ScopedLocalRef.hpp
   com/mapswithme/maps/discovery/Locals.hpp
   com/mapswithme/maps/Framework.hpp
+  com/mapswithme/maps/guides/Guides.hpp
   com/mapswithme/maps/promo/Promo.hpp
   com/mapswithme/maps/SearchEngine.hpp
   com/mapswithme/opengl/android_gl_utils.hpp
@@ -37,6 +37,8 @@ set(
   com/mapswithme/opengl/gl3stub.h
   com/mapswithme/platform/GuiThread.hpp
   com/mapswithme/platform/Platform.hpp
+  com/mapswithme/util/FeatureIdBuilder.hpp
+  com/mapswithme/vulkan/android_vulkan_context_factory.hpp
 
   # JNI sources
   com/mapswithme/core/jni_helper.cpp
@@ -47,17 +49,19 @@ set(
   com/mapswithme/maps/discovery/Locals.cpp
   com/mapswithme/maps/DisplayedCategories.cpp
   com/mapswithme/maps/DownloadResourcesLegacyActivity.cpp
-  com/mapswithme/maps/editor/OpeningHours.cpp
   com/mapswithme/maps/editor/Editor.cpp
+  com/mapswithme/maps/editor/OpeningHours.cpp
   com/mapswithme/maps/editor/OsmOAuth.cpp
   com/mapswithme/maps/Framework.cpp
+  com/mapswithme/maps/guides/Guides.cpp
+  com/mapswithme/maps/isolines/IsolinesManager.cpp
   com/mapswithme/maps/LightFramework.cpp
-  com/mapswithme/maps/LocationState.cpp
   com/mapswithme/maps/LocationHelper.cpp
+  com/mapswithme/maps/LocationState.cpp
   com/mapswithme/maps/MapFragment.cpp
   com/mapswithme/maps/MapManager.cpp
-  com/mapswithme/maps/MwmApplication.cpp
   com/mapswithme/maps/metrics/UserActionsLogger.cpp
+  com/mapswithme/maps/MwmApplication.cpp
   com/mapswithme/maps/onboarding/Onboarding.cpp
   com/mapswithme/maps/PrivateVariables.cpp
   com/mapswithme/maps/promo/Promo.cpp
@@ -67,20 +71,19 @@ set(
   com/mapswithme/maps/settings/UnitLocale.cpp
   com/mapswithme/maps/sound/tts.cpp
   com/mapswithme/maps/Sponsored.cpp
+  com/mapswithme/maps/subway/SubwayManager.cpp
   com/mapswithme/maps/taxi/TaxiManager.cpp
   com/mapswithme/maps/TrackRecorder.cpp
   com/mapswithme/maps/TrafficState.cpp
-  com/mapswithme/maps/isolines/IsolinesManager.cpp
-  com/mapswithme/maps/subway/SubwayManager.cpp
   com/mapswithme/maps/ugc/UGC.cpp
   com/mapswithme/maps/UserMarkHelper.cpp
   com/mapswithme/opengl/android_gl_utils.cpp
   com/mapswithme/opengl/androidoglcontext.cpp
   com/mapswithme/opengl/androidoglcontextfactory.cpp
   com/mapswithme/opengl/gl3stub.c
+  com/mapswithme/platform/GuiThread.cpp
   com/mapswithme/platform/HttpThread.cpp
   com/mapswithme/platform/HttpUserAgent.cpp
-  com/mapswithme/platform/GuiThread.cpp
   com/mapswithme/platform/Language.cpp
   com/mapswithme/platform/Localization.cpp
   com/mapswithme/platform/MarketingService.cpp
@@ -90,17 +93,16 @@ set(
   com/mapswithme/platform/SocketImpl.cpp
   com/mapswithme/util/Config.cpp
   com/mapswithme/util/GeoUtils.cpp
+  com/mapswithme/util/HttpBackgroundUploader.cpp
   com/mapswithme/util/HttpClient.cpp
   com/mapswithme/util/HttpUploader.cpp
-  com/mapswithme/util/HttpBackgroundUploader.cpp
   com/mapswithme/util/HttpUploaderUtils.cpp
   com/mapswithme/util/Language.cpp
   com/mapswithme/util/LoggerFactory.cpp
   com/mapswithme/util/NetworkPolicy.cpp
-  com/mapswithme/util/StringUtils.cpp
   com/mapswithme/util/statistics/PushwooshHelper.cpp
+  com/mapswithme/util/StringUtils.cpp
   com/mapswithme/vulkan/android_vulkan_context_factory.cpp
-  com/mapswithme/vulkan/android_vulkan_context_factory.hpp
 )
 
 omim_add_library(mapswithme SHARED ${SRC})
