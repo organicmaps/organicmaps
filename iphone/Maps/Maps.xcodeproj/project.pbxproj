@@ -314,6 +314,9 @@
 		470A89FD21342A9D00D72FBF /* TutorialBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470A89FC21342A9D00D72FBF /* TutorialBlurView.swift */; };
 		470A89FF2134517600D72FBF /* BookmarksTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 470A89FE2134517600D72FBF /* BookmarksTutorialBlur.xib */; };
 		470A8A012136097000D72FBF /* SubwayTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 470A8A002136073000D72FBF /* SubwayTutorialBlur.xib */; };
+		470B3630244E2DB400C0EA9E /* GuidesGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470B362F244E2DB400C0EA9E /* GuidesGalleryViewController.swift */; };
+		470B3632244E2DE200C0EA9E /* GuidesGalleryCityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470B3631244E2DE200C0EA9E /* GuidesGalleryCityCell.swift */; };
+		470B3634244E2DF900C0EA9E /* GuidesGalleryOutdoorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470B3633244E2DF900C0EA9E /* GuidesGalleryOutdoorCell.swift */; };
 		470F0B7D238842EA006AEC94 /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F0B7C238842EA006AEC94 /* ExpandableLabel.swift */; };
 		470F0B7F2388431E006AEC94 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F0B7E2388431E006AEC94 /* StarRatingView.swift */; };
 		470F5A5B2181DE7500754295 /* PaidRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5A592181DE7400754295 /* PaidRouteViewController.swift */; };
@@ -345,9 +348,13 @@
 		473CBF9B2164DD470059BD54 /* SettingsTableViewSelectableProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473CBF9A2164DD470059BD54 /* SettingsTableViewSelectableProgressCell.swift */; };
 		4740184323F5BDE800A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740184123F5BDD300A93C81 /* minizip.framework */; };
 		4740184423F5BDE900A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740184123F5BDD300A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4747045424622EF0006E51E9 /* GuidesGalleryStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4747045324622EF0006E51E9 /* GuidesGalleryStyleSheet.swift */; };
 		474AC76C2139E4F2002F9BF9 /* RemoveAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474AC76A2139E4F2002F9BF9 /* RemoveAdsViewController.swift */; };
 		474AC76D2139E4F2002F9BF9 /* RemoveAdsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474AC76B2139E4F2002F9BF9 /* RemoveAdsViewController.xib */; };
 		474C9F5A213FF75800369009 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474C9F59213FF75800369009 /* StoreKit.framework */; };
+		475EC36D244EDE66003BC295 /* GuidesGalleryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475EC36C244EDE66003BC295 /* GuidesGalleryPresenter.swift */; };
+		475EC36F244EF7A9003BC295 /* GuidesGalleryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475EC36E244EF7A9003BC295 /* GuidesGalleryBuilder.swift */; };
+		475EC373244F0992003BC295 /* PlacePageGalleryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475EC372244F0992003BC295 /* PlacePageGalleryLayout.swift */; };
 		4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CD9E20AAD48A00BD8166 /* Checkmark.swift */; };
 		4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */; };
 		4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */; };
@@ -1415,6 +1422,9 @@
 		470A89FC21342A9D00D72FBF /* TutorialBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialBlurView.swift; sourceTree = "<group>"; };
 		470A89FE2134517600D72FBF /* BookmarksTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksTutorialBlur.xib; sourceTree = "<group>"; };
 		470A8A002136073000D72FBF /* SubwayTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubwayTutorialBlur.xib; sourceTree = "<group>"; };
+		470B362F244E2DB400C0EA9E /* GuidesGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryViewController.swift; sourceTree = "<group>"; };
+		470B3631244E2DE200C0EA9E /* GuidesGalleryCityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryCityCell.swift; sourceTree = "<group>"; };
+		470B3633244E2DF900C0EA9E /* GuidesGalleryOutdoorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryOutdoorCell.swift; sourceTree = "<group>"; };
 		470F0B7C238842EA006AEC94 /* ExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
 		470F0B7E2388431E006AEC94 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		470F5A592181DE7400754295 /* PaidRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRouteViewController.swift; sourceTree = "<group>"; };
@@ -1450,11 +1460,15 @@
 		4738A8E8239FC526007C0F43 /* AdBannerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdBannerView.xib; sourceTree = "<group>"; };
 		473CBF9A2164DD470059BD54 /* SettingsTableViewSelectableProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewSelectableProgressCell.swift; sourceTree = "<group>"; };
 		4740184123F5BDD300A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4747045324622EF0006E51E9 /* GuidesGalleryStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryStyleSheet.swift; sourceTree = "<group>"; };
 		474902D8224A54EC008D71E0 /* MWMRoutingOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMRoutingOptions.h; sourceTree = "<group>"; };
 		474902D9224A54EC008D71E0 /* MWMRoutingOptions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingOptions.mm; sourceTree = "<group>"; };
 		474AC76A2139E4F2002F9BF9 /* RemoveAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAdsViewController.swift; sourceTree = "<group>"; };
 		474AC76B2139E4F2002F9BF9 /* RemoveAdsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoveAdsViewController.xib; sourceTree = "<group>"; };
 		474C9F59213FF75800369009 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		475EC36C244EDE66003BC295 /* GuidesGalleryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryPresenter.swift; sourceTree = "<group>"; };
+		475EC36E244EF7A9003BC295 /* GuidesGalleryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryBuilder.swift; sourceTree = "<group>"; };
+		475EC372244F0992003BC295 /* PlacePageGalleryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageGalleryLayout.swift; sourceTree = "<group>"; };
 		4767CD9E20AAD48A00BD8166 /* Checkmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkmark.swift; sourceTree = "<group>"; };
 		4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+HTML.swift"; sourceTree = "<group>"; };
 		4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedIconButton.swift; sourceTree = "<group>"; };
@@ -3382,6 +3396,18 @@
 			path = Promo;
 			sourceTree = "<group>";
 		};
+		470B362E244E2D7600C0EA9E /* GuidesGallery */ = {
+			isa = PBXGroup;
+			children = (
+				470B362F244E2DB400C0EA9E /* GuidesGalleryViewController.swift */,
+				470B3631244E2DE200C0EA9E /* GuidesGalleryCityCell.swift */,
+				470B3633244E2DF900C0EA9E /* GuidesGalleryOutdoorCell.swift */,
+				475EC36C244EDE66003BC295 /* GuidesGalleryPresenter.swift */,
+				475EC36E244EF7A9003BC295 /* GuidesGalleryBuilder.swift */,
+			);
+			path = GuidesGallery;
+			sourceTree = "<group>";
+		};
 		470F0B7B238842AD006AEC94 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -3768,6 +3794,7 @@
 				999FC12A23ABB4B800B0E6F9 /* FontStyleSheet.swift */,
 				99A614D423C8911A00D8D8D0 /* AuthStyleSheet.swift */,
 				3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */,
+				4747045324622EF0006E51E9 /* GuidesGalleryStyleSheet.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -3873,6 +3900,7 @@
 				99C964222428C0D500E41723 /* PlacePageHeader */,
 				993DF0C223F6BD0600AC231A /* ElevationDetails */,
 				99DEF9D523E420D2006BFD21 /* ElevationProfile */,
+				470B362E244E2D7600C0EA9E /* GuidesGallery */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -3883,6 +3911,7 @@
 				99C6532123F2F506004322F3 /* IPlacePageLayout.swift */,
 				99F3EB0223F4178200C713F8 /* PlacePageCommonLayout.swift */,
 				993DF0B423F6B2EF00AC231A /* PlacePageElevationLayout.swift */,
+				475EC372244F0992003BC295 /* PlacePageGalleryLayout.swift */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -5550,10 +5579,12 @@
 				47C8789022DF525A00A772DA /* SubscriptionSuccessViewController.swift in Sources */,
 				47CF2E6123BA090400D11C30 /* FacilitiesController.swift in Sources */,
 				3462258F1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */,
+				475EC36F244EF7A9003BC295 /* GuidesGalleryBuilder.swift in Sources */,
 				470F5A7D2189BB2F00754295 /* PaidRoutePurchase.swift in Sources */,
 				99A906E323F6F7030005872B /* HotelPhotosViewController.swift in Sources */,
 				34AB66171FC5AA320078E451 /* MWMiPhoneRoutePreview.m in Sources */,
 				99A906EA23F6F7030005872B /* PlacePageInfoViewController.swift in Sources */,
+				470B3634244E2DF900C0EA9E /* GuidesGalleryOutdoorCell.swift in Sources */,
 				47E6688A23196F0100057733 /* UIViewController+Subscription.swift in Sources */,
 				993DF11723F6BDB100AC231A /* UINavigationBarRenderer.swift in Sources */,
 				6741A9E71BF340DE002C974C /* MWMCircularProgressView.m in Sources */,
@@ -5618,6 +5649,7 @@
 				34AB66111FC5AA320078E451 /* NavigationTurnsView.swift in Sources */,
 				348A8DF81F66775A00D83026 /* RatingViewDelegate.swift in Sources */,
 				4716EABA21A325310029B886 /* IPaidRouteStatistics.swift in Sources */,
+				475EC36D244EDE66003BC295 /* GuidesGalleryPresenter.swift in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
 				47F4F21523A6F06F0022FD56 /* AvailableMapsDataSource.swift in Sources */,
 				99012852244732DB00C72B10 /* BottomTabBarBuilder.swift in Sources */,
@@ -5736,6 +5768,7 @@
 				CDCA2743223F8D1E00167D87 /* ListItemInfo.swift in Sources */,
 				B32FE74020D2844600EF7446 /* DownloadedBookmarksViewController.swift in Sources */,
 				340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
+				475EC373244F0992003BC295 /* PlacePageGalleryLayout.swift in Sources */,
 				99A906EF23F6F73D0005872B /* StarRatingViewRenderer.swift in Sources */,
 				478F6FA823C5067C00054A53 /* MyReviewView.swift in Sources */,
 				993DF11F23F6BDB100AC231A /* UITableViewCellRenderer.swift in Sources */,
@@ -5789,6 +5822,7 @@
 				33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */,
 				9917D17D2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift in Sources */,
 				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
+				470B3630244E2DB400C0EA9E /* GuidesGalleryViewController.swift in Sources */,
 				993F550E237C622700545511 /* DeepLinkCataloguePathStrategy.swift in Sources */,
 				3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */,
 				6741AA191BF340DE002C974C /* MWMDownloaderDialogCell.m in Sources */,
@@ -5811,10 +5845,12 @@
 				346B42AC1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm in Sources */,
 				340475091E08199E00C92850 /* MWMMyTarget.mm in Sources */,
 				340416501E7C086000E2B6D6 /* PhotoViewController.swift in Sources */,
+				470B3632244E2DE200C0EA9E /* GuidesGalleryCityCell.swift in Sources */,
 				993DF0C923F6BD0600AC231A /* ElevationDetailsBuilder.swift in Sources */,
 				674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */,
 				34AB66291FC5AA330078E451 /* RouteManagerViewController.swift in Sources */,
 				33B19C65218B46C100B323A7 /* SharingTagsViewController.swift in Sources */,
+				4747045424622EF0006E51E9 /* GuidesGalleryStyleSheet.swift in Sources */,
 				3404754D1E081A4600C92850 /* MWMKeyboard.m in Sources */,
 				993DF10C23F6BDB100AC231A /* MWMTableViewCellRenderer.swift in Sources */,
 				3457C4261F680F1900028233 /* String+BoundingRect.swift in Sources */,

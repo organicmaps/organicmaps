@@ -5,6 +5,7 @@
       fatalError()
     }
     let data = PlacePageData(localizationProvider: OpeinigHoursLocalization())
+    viewController.isPreviewPlus = data.isPreviewPlus
     let interactor = PlacePageInteractor(viewController: viewController, data: data)
     let layout:IPlacePageLayout
     if data.elevationProfileData != nil {
@@ -14,8 +15,7 @@
     }
     let presenter = PlacePagePresenter(view: viewController,
                                        interactor: interactor,
-                                       layout: layout,
-                                       isPreviewPlus: data.isPreviewPlus)
+                                       layout: layout)
 
     interactor.presenter = presenter
     viewController.presenter = presenter

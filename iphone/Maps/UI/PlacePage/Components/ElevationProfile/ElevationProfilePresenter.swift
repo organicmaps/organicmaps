@@ -224,9 +224,10 @@ extension ElevationProfileChartData: IChartData {
   }
 }
 
-fileprivate struct ChartFormatter: IFormatter {
+struct ChartFormatter: IFormatter {
   private let distanceFormatter: MKDistanceFormatter
   private let altFormatter: MeasurementFormatter
+  private let timeFormatter: DateComponentsFormatter
   private let imperial: Bool
 
   init(imperial: Bool) {
@@ -238,6 +239,11 @@ fileprivate struct ChartFormatter: IFormatter {
 
     altFormatter = MeasurementFormatter()
     altFormatter.unitOptions = [.providedUnit]
+
+    timeFormatter = DateComponentsFormatter()
+    timeFormatter.allowedUnits = [.day, .hour, .minute]
+    timeFormatter.unitsStyle = .abbreviated
+    timeFormatter.maximumUnitCount = 2
   }
 
   func distanceString(from value: Double) -> String {
@@ -248,5 +254,9 @@ fileprivate struct ChartFormatter: IFormatter {
     let alt = imperial ? value / 0.3048 : value
     let measurement = Measurement(value: alt.rounded(), unit: imperial ? UnitLength.feet : UnitLength.meters)
     return altFormatter.string(from: measurement)
+  }
+
+  func timeString(from value: Double) -> String {
+    timeFormatter.string(from: value) ?? ""
   }
 }

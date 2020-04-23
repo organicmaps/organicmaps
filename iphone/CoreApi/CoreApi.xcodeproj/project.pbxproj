@@ -14,6 +14,12 @@
 		470016082342541100EBF03D /* MWMTagGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 470016052342541000EBF03D /* MWMTagGroup.m */; };
 		4700160F2342579000EBF03D /* MWMTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 470016042342540F00EBF03D /* MWMTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		470016102342579200EBF03D /* MWMTagGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 470016032342540E00EBF03D /* MWMTagGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		470B3620244DD9E400C0EA9E /* GuidesGalleryData.h in Headers */ = {isa = PBXBuildFile; fileRef = 470B361E244DD9E400C0EA9E /* GuidesGalleryData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		470B3621244DD9E400C0EA9E /* GuidesGalleryData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 470B361F244DD9E400C0EA9E /* GuidesGalleryData.mm */; };
+		470B3624244DDA0A00C0EA9E /* GuidesGalleryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 470B3622244DDA0A00C0EA9E /* GuidesGalleryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		470B3625244DDA0A00C0EA9E /* GuidesGalleryItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 470B3623244DDA0A00C0EA9E /* GuidesGalleryItem.mm */; };
+		470B3628244DDA2600C0EA9E /* GuidesGalleryData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 470B3626244DDA2600C0EA9E /* GuidesGalleryData+Core.h */; };
+		470B362C244DDBF600C0EA9E /* GuidesGalleryItem+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 470B362A244DDBF600C0EA9E /* GuidesGalleryItem+Core.h */; };
 		4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */; };
 		471AB98D23AB925D00F56D49 /* MWMMapSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 471AB98B23AB925D00F56D49 /* MWMMapSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -145,6 +151,12 @@
 		470016062342541100EBF03D /* MWMTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMTag.m; sourceTree = "<group>"; };
 		4700161223425CFD00EBF03D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		470016142342633D00EBF03D /* CoreApi.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = CoreApi.modulemap; sourceTree = "<group>"; };
+		470B361E244DD9E400C0EA9E /* GuidesGalleryData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuidesGalleryData.h; sourceTree = "<group>"; };
+		470B361F244DD9E400C0EA9E /* GuidesGalleryData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GuidesGalleryData.mm; sourceTree = "<group>"; };
+		470B3622244DDA0A00C0EA9E /* GuidesGalleryItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuidesGalleryItem.h; sourceTree = "<group>"; };
+		470B3623244DDA0A00C0EA9E /* GuidesGalleryItem.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GuidesGalleryItem.mm; sourceTree = "<group>"; };
+		470B3626244DDA2600C0EA9E /* GuidesGalleryData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GuidesGalleryData+Core.h"; sourceTree = "<group>"; };
+		470B362A244DDBF600C0EA9E /* GuidesGalleryItem+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GuidesGalleryItem+Core.h"; sourceTree = "<group>"; };
 		4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNetworkPolicy.h; sourceTree = "<group>"; };
 		4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNetworkPolicy.mm; sourceTree = "<group>"; };
 		471AB98B23AB925D00F56D49 /* MWMMapSearchResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapSearchResult.h; sourceTree = "<group>"; };
@@ -349,6 +361,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		470B361D244DD98B00C0EA9E /* GuidesGallery */ = {
+			isa = PBXGroup;
+			children = (
+				470B361E244DD9E400C0EA9E /* GuidesGalleryData.h */,
+				470B3626244DDA2600C0EA9E /* GuidesGalleryData+Core.h */,
+				470B361F244DD9E400C0EA9E /* GuidesGalleryData.mm */,
+				470B3622244DDA0A00C0EA9E /* GuidesGalleryItem.h */,
+				470B362A244DDBF600C0EA9E /* GuidesGalleryItem+Core.h */,
+				470B3623244DDA0A00C0EA9E /* GuidesGalleryItem.mm */,
+			);
+			path = GuidesGallery;
+			sourceTree = "<group>";
+		};
 		4718C42F2355FC0D00640DF1 /* NetworkPolicy */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,6 +469,7 @@
 				47942D5B237CC3B500DEFAE3 /* Common */,
 				47942D65237CC3B500DEFAE3 /* Booking */,
 				9974CA2623DF1931003FE824 /* ElevationProfile */,
+				470B361D244DD98B00C0EA9E /* GuidesGallery */,
 				47942D69237CC3B500DEFAE3 /* UGC */,
 			);
 			path = PlacePageData;
@@ -649,9 +675,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9957FAE8237AE5B000855F48 /* Logger.h in Headers */,
+				470B3624244DDA0A00C0EA9E /* GuidesGalleryItem.h in Headers */,
 				470015F42342509C00EBF03D /* CoreApi.h in Headers */,
 				47942D74237CC41A00DEFAE3 /* HotelBookingData.h in Headers */,
 				479F705F234FBB8F00011E2E /* MWMCategory.h in Headers */,
+				470B3620244DD9E400C0EA9E /* GuidesGalleryData.h in Headers */,
 				471AB99123AB931000F56D49 /* MWMMapSearchResult+Core.h in Headers */,
 				4738A8E0239FACE7007C0F43 /* CoreBanner.h in Headers */,
 				47942D6D237CC3E300DEFAE3 /* PlacePagePreviewData.h in Headers */,
@@ -691,6 +719,7 @@
 				47942D6E237CC3E800DEFAE3 /* PlacePagePreviewData+Core.h in Headers */,
 				4738A8E4239FB46E007C0F43 /* CoreBanner+Core.h in Headers */,
 				47942D7B237CC41A00DEFAE3 /* HotelRoom+Core.h in Headers */,
+				470B3628244DDA2600C0EA9E /* GuidesGalleryData+Core.h in Headers */,
 				47942D94237D673E00DEFAE3 /* CatalogPromoItem.h in Headers */,
 				470016102342579200EBF03D /* MWMTagGroup.h in Headers */,
 				47942D87237CC55800DEFAE3 /* MWMOpeningHoursCommon.h in Headers */,
@@ -721,6 +750,7 @@
 				47D609DC234FE625008ECC47 /* MWMBookmarksObserver.h in Headers */,
 				471AB98D23AB925D00F56D49 /* MWMMapSearchResult.h in Headers */,
 				47942D6F237CC3F400DEFAE3 /* PlacePageInfoData.h in Headers */,
+				470B362C244DDBF600C0EA9E /* GuidesGalleryItem+Core.h in Headers */,
 				475784C22344B422008291A4 /* Framework.h in Headers */,
 				47C637D22354A6FB00E12DE0 /* MWMEye.h in Headers */,
 			);
@@ -802,6 +832,7 @@
 				3D40DED723ED9C9500A0153A /* WebApi.mm in Sources */,
 				99103844237EDFA200893C9F /* DeepLinkData.m in Sources */,
 				47942D88237CCA8800DEFAE3 /* PlacePagePreviewData.mm in Sources */,
+				470B3625244DDA0A00C0EA9E /* GuidesGalleryItem.mm in Sources */,
 				479F7050234FB60400011E2E /* MWMCatalogObserver.mm in Sources */,
 				47942D7F237CC43300DEFAE3 /* UgcData.mm in Sources */,
 				99F31EB823D5DD9000CE2CE1 /* PromoAfterBookingData.mm in Sources */,
@@ -842,6 +873,7 @@
 				47E8163623B1889C008FD836 /* MWMStorage.mm in Sources */,
 				9957FAE9237AE5B000855F48 /* Logger.mm in Sources */,
 				999D3A65237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm in Sources */,
+				470B3621244DD9E400C0EA9E /* GuidesGalleryData.mm in Sources */,
 				47942D7C237CC41A00DEFAE3 /* HotelRoom.mm in Sources */,
 				47942D76237CC41A00DEFAE3 /* HotelBookingData.mm in Sources */,
 			);

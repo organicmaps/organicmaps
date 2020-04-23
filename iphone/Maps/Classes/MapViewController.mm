@@ -100,6 +100,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @property(nonatomic) BOOL deferredFocusValue;
 @property(nonatomic) UIViewController *placePageVC;
 @property(nonatomic) IBOutlet UIView *placePageContainer;
+@property(nonatomic) IBOutlet UIView *guidesCollectionContainer;
 
 @end
 
@@ -114,17 +115,28 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)showPlacePage {
   self.controlsManager.trafficButtonHidden = YES;
-  self.placePageVC = [PlacePageBuilder build];
-  [self addChildViewController:self.placePageVC];
-  self.placePageContainer.hidden = NO;
-  [self.placePageContainer addSubview:self.placePageVC.view];
+  if (PlacePageData.isGuide) {
+    self.placePageVC = [MWMGuidesGalleryBuilder build];
+    [self.guidesCollectionContainer addSubview:self.placePageVC.view];
+    [NSLayoutConstraint activateConstraints:@[
+      [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.guidesCollectionContainer.topAnchor],
+      [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.guidesCollectionContainer.leftAnchor],
+      [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.guidesCollectionContainer.bottomAnchor],
+      [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.guidesCollectionContainer.rightAnchor]
+    ]];
+  } else {
+    self.placePageVC = [PlacePageBuilder build];
+    self.placePageContainer.hidden = NO;
+    [self.placePageContainer addSubview:self.placePageVC.view];
+    [NSLayoutConstraint activateConstraints:@[
+      [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.placePageContainer.safeAreaLayoutGuide.topAnchor],
+      [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.placePageContainer.leftAnchor],
+      [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.placePageContainer.bottomAnchor],
+      [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.placePageContainer.rightAnchor]
+    ]];
+  }
   self.placePageVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-  [NSLayoutConstraint activateConstraints:@[
-    [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.placePageContainer.safeAreaLayoutGuide.topAnchor],
-    [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.placePageContainer.leftAnchor],
-    [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.placePageContainer.bottomAnchor],
-    [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.placePageContainer.rightAnchor]
-  ]];
+  [self addChildViewController:self.placePageVC];
   [self.placePageVC didMoveToParentViewController:self];
 }
 

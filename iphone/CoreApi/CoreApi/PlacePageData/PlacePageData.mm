@@ -9,6 +9,7 @@
 #import "HotelRooms+Core.h"
 #import "UgcData+Core.h"
 #import "ElevationProfileData+Core.h"
+#import "GuidesGalleryData+Core.h"
 #import "MWMMapNodeAttributes.h"
 
 #include <CoreApi/CoreApi.h>
@@ -145,6 +146,12 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
       _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
     }
 
+    if (rawData().IsGuide()) {
+      auto const &gm = GetFramework().GetGuidesManager();
+      auto const &galleryData = gm.GetGallery();
+      _guidesGalleryData = [[GuidesGalleryData alloc] initWithGuidesGallery:galleryData];
+    }
+
     auto const &countryId = rawData().GetCountryId();
     if (!countryId.empty()) {
       _mapNodeAttributes = [[MWMStorage sharedStorage] attributesForCountry:@(rawData().GetCountryId().c_str())];
@@ -228,6 +235,10 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
                        resultHandler,
                        errorHandler);
   }
+}
+
++ (BOOL)isGuide {
+  return rawData().IsGuide();
 }
 
 #pragma mark - Private

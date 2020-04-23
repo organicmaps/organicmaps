@@ -1,23 +1,10 @@
 protocol PlacePageViewProtocol: class {
   var presenter: PlacePagePresenterProtocol! { get set }
-  var scrollView: UIScrollView! { get set }
-  var beginDragging: Bool { get set }
-  var traitCollection: UITraitCollection { get }
-
-  func addHeader(_ headerViewController: UIViewController)
-  func addToStack(_ viewController: UIViewController)
-  func addActionBar(_ actionBarViewController: UIViewController)
-  func hideActionBar(_ value: Bool)
-  func addNavigationBar(_ header: UIViewController)
-  func scrollTo(_ point: CGPoint, animated: Bool, forced: Bool, completion: (()->())?)
+  func setLayout(_ layout: IPlacePageLayout)
   func layoutIfNeeded()
   func closeAnimated()
-}
-
-extension PlacePageViewProtocol {
-  func scrollTo(_ point: CGPoint, animated: Bool = true, forced: Bool = false, completion: (()->())? = nil) {
-    scrollTo(point, animated: animated, forced: forced, completion: completion)
-  }
+  func updatePreviewOffset()
+  func showNextStop()
 }
 
 final class PlacePageScrollView: UIScrollView {
@@ -40,14 +27,32 @@ final class PlacePageScrollView: UIScrollView {
     MapViewController.shared()
   }
   private var previousTraitCollection: UITraitCollection?
+  private var layout: IPlacePageLayout!
+  private var scrollSteps:[PlacePageState] = []
+  var isPreviewPlus: Bool = false
+  private var isNavigationBarVisible = false
 
-  let kActionBarHeight:CGFloat = 50
+  let kActionBarHeight: CGFloat = 50
 
   // MARK: - VC Lifecycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    presenter?.configure()
+
+    if let header = layout.header {
+      addHeader(header)
+    }
+    for viewController in layout.viewControllers {
+      addToStack(viewController)
+    }
+
+    if let actionBar = layout.actionBar {
+      hideActionBar(false)
+      addActionBar(actionBar)
+    } else {
+      hideActionBar(true)
+    }
+    updatePreviewOffset()
 
     let bgView = UIView()
     bgView.styleName = "PPBackgroundView"
@@ -61,7 +66,7 @@ final class PlacePageScrollView: UIScrollView {
     if previousTraitCollection == nil {
       scrollView.contentInset = alternativeSizeClass(iPhone: UIEdgeInsets(top: scrollView.height, left: 0, bottom: 0, right: 0),
                                                      iPad: UIEdgeInsets.zero)
-      presenter.updateSteps()
+      updateSteps()
     }
     panGesture.isEnabled = alternativeSizeClass(iPhone: false, iPad: true)
     self.previousTraitCollection = self.traitCollection
@@ -69,19 +74,76 @@ final class PlacePageScrollView: UIScrollView {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    presenter?.updatePreviewOffset()
+    updatePreviewOffset()
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     if self.previousTraitCollection != nil {
       DispatchQueue.main.async {
-        self.presenter.setAdState(.detailed)
-        self.presenter.updateSteps()
-        self.presenter.showLastStop()
+        self.layout.adState = .detailed
+        self.updateSteps()
+        self.showLastStop()
         self.scrollView.contentInset = self.alternativeSizeClass(iPhone: UIEdgeInsets(top: self.scrollView.height, left: 0, bottom: 0, right: 0),
                                                                  iPad: UIEdgeInsets.zero)
       }
+    }
+  }
+
+  func updateSteps() {
+    layoutIfNeeded()
+    scrollSteps = layout.calculateSteps(inScrollView: scrollView,
+                                        compact: traitCollection.verticalSizeClass == .compact)
+  }
+
+  func updatePreviewOffset() {
+    updateSteps()
+    if !beginDragging  {
+      let state = isPreviewPlus ? scrollSteps[2] : scrollSteps[1]
+      scrollTo(CGPoint(x: 0, y: state.offset))
+    }
+  }
+
+  func findNextStop(_ offset: CGFloat, velocity: CGFloat) -> PlacePageState {
+    if velocity == 0 {
+      return findNearestStop(offset)
+    }
+
+    var result: PlacePageState
+    if velocity < 0 {
+      guard let first = scrollSteps.first else { return .closed(-scrollView.height) }
+      result = first
+      scrollSteps.suffix(from: 1).forEach {
+        if offset > $0.offset {
+          result = $0
+        }
+      }
+    } else {
+      guard let last = scrollSteps.last else { return .closed(-scrollView.height) }
+      result = last
+      scrollSteps.reversed().suffix(from: 1).forEach {
+        if offset < $0.offset {
+          result = $0
+        }
+      }
+    }
+
+    return result
+  }
+
+  private func findNearestStop(_ offset: CGFloat) -> PlacePageState {
+    var result = scrollSteps[0]
+    scrollSteps.suffix(from: 1).forEach { ppState in
+      if abs(result.offset - offset) > abs(ppState.offset - offset) {
+        result = ppState
+      }
+    }
+    return result
+  }
+
+  func showLastStop() {
+    if let lastStop = scrollSteps.last {
+      scrollTo(CGPoint(x: 0, y: lastStop.offset), forced: true)
     }
   }
 
@@ -108,10 +170,8 @@ final class PlacePageScrollView: UIScrollView {
 }
 
 extension PlacePageViewController: PlacePageViewProtocol {
-  override var traitCollection: UITraitCollection {
-    get {
-      return super.traitCollection
-    }
+  func setLayout(_ layout: IPlacePageLayout) {
+    self.layout = layout
   }
 
   func hideActionBar(_ value: Bool) {
@@ -155,7 +215,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
     ])
   }
 
-  func scrollTo(_ point: CGPoint, animated: Bool, forced: Bool, completion: (()->())?) {
+  func scrollTo(_ point: CGPoint, animated: Bool = true, forced: Bool = false, completion: (()->())? = nil) {
     if alternativeSizeClass(iPhone: beginDragging, iPad: true) && !forced {
       return
     }
@@ -175,6 +235,12 @@ extension PlacePageViewController: PlacePageViewProtocol {
     } else {
       scrollView?.contentOffset = scrollPosition
       completion?()
+    }
+  }
+
+  func showNextStop() {
+    if let nextStop = scrollSteps.last(where: { $0.offset > scrollView.contentOffset.y }) {
+      scrollTo(CGPoint(x: 0, y: nextStop.offset), forced: true)
     }
   }
 
@@ -209,7 +275,7 @@ extension PlacePageViewController: UIScrollViewDelegate {
     if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging {
       rootViewController.dismissPlacePage()
     }
-    presenter.onOffsetChanged(scrollView.contentOffset.y)
+    onOffsetChanged(scrollView.contentOffset.y)
   }
 
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -219,31 +285,50 @@ extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                  withVelocity velocity: CGPoint,
                                  targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    let maxOffset = presenter.maxOffset
+    let maxOffset = scrollSteps.last?.offset ?? 0
     if targetContentOffset.pointee.y > maxOffset {
-      presenter?.setAdState(.detailed)
+      layout.adState = .detailed
       return
     }
 
-    let targetState = presenter.findNextStop(scrollView.contentOffset.y, velocity: velocity.y)
+    let targetState = findNextStop(scrollView.contentOffset.y, velocity: velocity.y)
     if targetState.offset > scrollView.contentSize.height - scrollView.contentInset.top {
-      presenter?.setAdState(.detailed)
+      layout.adState = .detailed
       return
     }
     switch targetState {
     case .closed(_):
       fallthrough
     case .preview(_):
-      presenter?.setAdState(.compact)
+      layout.adState = .compact
     case .previewPlus(_):
       fallthrough
     case .expanded(_):
       fallthrough
     case .full(_):
-      presenter?.setAdState(.detailed)
+      layout.adState = .detailed
     }
-    presenter.updateSteps()
-    let nextStep = presenter.findNextStop(scrollView.contentOffset.y, velocity: velocity.y)
+    updateSteps()
+    let nextStep = findNextStop(scrollView.contentOffset.y, velocity: velocity.y)
     targetContentOffset.pointee = CGPoint(x: 0, y: nextStep.offset)
+  }
+
+  func onOffsetChanged(_ offset: CGFloat) {
+    if offset > 0 && !isNavigationBarVisible{
+      setNavigationBarVisible(true)
+    } else if offset <= 0 && isNavigationBarVisible {
+      setNavigationBarVisible(false)
+    }
+  }
+
+  private func setNavigationBarVisible(_ visible: Bool) {
+    guard visible != isNavigationBarVisible, let navigationBar = layout.navigationBar else { return }
+    isNavigationBarVisible = visible
+    if isNavigationBarVisible {
+      addNavigationBar(navigationBar)
+    } else {
+      navigationBar.removeFromParent()
+      navigationBar.view.removeFromSuperview()
+    }
   }
 }

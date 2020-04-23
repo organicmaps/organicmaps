@@ -151,7 +151,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   } ()
 
-  lazy var header: PlacePageHeaderViewController = {
+  lazy var header: PlacePageHeaderViewController? = {
     return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)
   } ()
 

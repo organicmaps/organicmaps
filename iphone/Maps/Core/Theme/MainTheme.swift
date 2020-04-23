@@ -11,6 +11,7 @@ class MainTheme: Theme {
     self.registerStyleSheet(SubscriptionsStyleSheet.self)
     self.registerStyleSheet(PlacePageStyleSheet.self)
     self.registerStyleSheet(PartnersStyleSheet.self)
+    self.registerStyleSheet(GuidesGalleryStyleSheet.self)
   }
 }
 
