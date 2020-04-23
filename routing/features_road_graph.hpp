@@ -17,6 +17,7 @@
 
 #include <map>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <utility>
 #include <vector>
@@ -64,6 +65,8 @@ private:
 
   private:
     using TMwmFeatureCache = base::Cache<uint32_t, RoadInfo>;
+
+    std::mutex m_mutexCache;
     std::map<MwmSet::MwmId, TMwmFeatureCache> m_cache;
   };
 
@@ -126,6 +129,7 @@ private:
 
   DataSource const & m_dataSource;
   IRoadGraph::Mode const m_mode;
+
   mutable RoadInfoCache m_cache;
   mutable CrossCountryVehicleModel m_vehicleModel;
   mutable std::map<MwmSet::MwmId, Value> m_mwmLocks;
