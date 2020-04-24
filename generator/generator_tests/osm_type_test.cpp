@@ -844,6 +844,33 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cuisine)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hotel)
+{
+  using Type = std::vector<std::string>;
+  std::vector<std::pair<std::vector<Type>, Tags>> const types = {
+    {
+      {{"tourism", "hotel"}},
+      {{"tourism", "hotel"}},
+    },
+    {
+      {{"tourism", "hotel"}, {"building"}},
+      {{"building", "hotel"}},
+    },
+    {
+      {{"tourism", "hotel"}},
+      {{"hotel", "yes"}},
+    }
+  };
+
+  for (auto const & t : types)
+  {
+    auto const params = GetFeatureBuilderParams(t.second);
+    TEST_EQUAL(t.first.size(), params.m_types.size(), (params, t));
+    for (auto const & t : t.first)
+      TEST(params.IsTypeExist(GetType(t)), (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_MergeTags)
 {
   {
