@@ -113,8 +113,8 @@ class PlacePageControllerComposite implements PlacePageController
       throw new AssertionError("Place page controllers already initialized!");
 
     PlacePageController richController =
-        PlacePageFactory.createRichPlacePageController(mAdsProvider, mSlideListener,
-                                                       mRoutingModeListener);
+        PlacePageFactory.createRichController(mAdsProvider, mSlideListener,
+                                              mRoutingModeListener);
     richController.initialize(activity);
     mControllers.add(richController);
 
@@ -122,6 +122,11 @@ class PlacePageControllerComposite implements PlacePageController
         PlacePageFactory.createElevationProfilePlacePageController(mSlideListener);
     elevationProfileController.initialize(activity);
     mControllers.add(elevationProfileController);
+
+    PlacePageController guidesGalleryController =
+        PlacePageFactory.createGuidesGalleryController(mSlideListener);
+    guidesGalleryController.initialize(activity);
+    mControllers.add(guidesGalleryController);
 
     mActiveController = richController;
   }
