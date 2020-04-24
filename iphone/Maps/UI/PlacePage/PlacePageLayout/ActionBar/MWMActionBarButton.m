@@ -186,7 +186,7 @@ static UIColor *backgroundColorForPartner(NSInteger partnerIndex) {
 }
 
 - (void)progressButtonPressed:(MWMCircularProgress *)progress {
-  [self.delegate tapOnButtonWithType:MWMActionBarButtonTypeDownload];
+  [self.delegate tapOnButtonWithType:self.type];
 }
 
 - (IBAction)tap {

@@ -1,6 +1,9 @@
 class SearchMapsDataSource {
+  typealias SearchCallback = (Bool) -> Void
+
   fileprivate var searchResults: [MapSearchResult] = []
   fileprivate var searchId = 0
+  fileprivate var onUpdate: SearchCallback?
 }
 
 extension SearchMapsDataSource: IDownloaderDataSource {
@@ -56,20 +59,22 @@ extension SearchMapsDataSource: IDownloaderDataSource {
     completion()
   }
 
-  func search(_ query: String, locale: String, update: @escaping (Bool) -> Void) {
+  func search(_ query: String, locale: String, update: @escaping SearchCallback) {
     searchId += 1
+    onUpdate = update
     FrameworkHelper.search(inDownloader: query, inputLocale: locale) { [weak self, searchId] (results, finished) in
-      self?.searchResults = results
       if searchId != self?.searchId {
         return
       }
+      self?.searchResults = results
       if results.count > 0 || finished {
-        update(finished)
+        self?.onUpdate?(finished)
       }
     }
   }
 
   func cancelSearch() {
-    self.searchResults = []
+    searchResults = []
+    onUpdate = nil
   }
 }

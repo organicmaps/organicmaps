@@ -190,7 +190,7 @@ extension PlacePageInteractor: PlacePageBookmarkViewControllerDelegate {
 // MARK: - ActionBarViewControllerDelegate
 
 extension PlacePageInteractor: ActionBarViewControllerDelegate {
-  func actionBar(_ actionBar: ActionBarViewController, dPressButton type: ActionBarButtonType) {
+  func actionBar(_ actionBar: ActionBarViewController, didPressButton type: ActionBarButtonType) {
     switch type {
     case .booking:
       MWMPlacePageManagerHelper.book(placePageData)

@@ -888,7 +888,7 @@
         <scene sceneID="MOc-50-GOI">
             <objects>
                 <viewController storyboardIdentifier="ActionBarViewController" id="idq-Vs-dIh" customClass="ActionBarViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Odt-s0-pOf">
+                    <view key="view" contentMode="scaleToFill" id="Odt-s0-pOf" customClass="SolidTouchView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

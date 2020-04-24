@@ -22,9 +22,4 @@
     [self setLayoutMargins:UIEdgeInsetsZero];
 }
 
-- (IBAction)buttonPressed
-{
-  [self.delegate onAddMaps];
-}
-
 @end

@@ -219,7 +219,11 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     
     placePageData.loadOnlineData(completion: onLoadOnlineData)
     placePageData.onBookmarkStatusUpdate = { [weak self] in
-      self?.updateBookmarkSection()
+      guard let self = self else { return }
+      if self.placePageData.bookmarkData == nil {
+        self.actionBarViewController.resetButtons()
+      }
+      self.updateBookmarkSection()
     }
     placePageData.onUgcStatusUpdate = { [weak self] in
       self?.onLoadUgc()

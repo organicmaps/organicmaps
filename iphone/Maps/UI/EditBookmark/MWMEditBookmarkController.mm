@@ -252,6 +252,7 @@ enum RowInMetaInfo
 {
   [[MWMBookmarksManager sharedManager] deleteBookmark:m_cachedBookmarkId];
   GetFramework().UpdatePlacePageInfoForCurrentSelection();
+  [self.placePageData updateBookmarkStatus];
   [self goBack];
 }
 

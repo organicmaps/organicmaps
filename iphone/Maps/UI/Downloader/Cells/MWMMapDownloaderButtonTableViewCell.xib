@@ -16,29 +16,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22f-XO-fEh">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Maps Button" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOW-mN-UY7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <constraints>
-                            <constraint firstAttribute="height" priority="750" constant="44" id="ppe-HK-X6q"/>
+                            <constraint firstAttribute="height" constant="44" id="6Wr-jd-ikR"/>
                         </constraints>
-                        <state key="normal" title="Add Maps Button"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:linkBlueText"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="download_maps"/>
                         </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="buttonPressed" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wi2-kT-ib1"/>
-                        </connections>
-                    </button>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="22f-XO-fEh" secondAttribute="bottom" id="Dmd-Qj-hkL"/>
-                    <constraint firstItem="22f-XO-fEh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VTQ-nl-h3g"/>
-                    <constraint firstAttribute="trailing" secondItem="22f-XO-fEh" secondAttribute="trailing" id="j9Y-lb-BeQ"/>
-                    <constraint firstItem="22f-XO-fEh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rRj-TU-xPW"/>
+                    <constraint firstItem="dOW-mN-UY7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="EyM-Ka-jj7"/>
+                    <constraint firstAttribute="trailing" secondItem="dOW-mN-UY7" secondAttribute="trailing" id="K0a-sK-wOb"/>
+                    <constraint firstAttribute="bottom" secondItem="dOW-mN-UY7" secondAttribute="bottom" id="h4g-hj-rht"/>
+                    <constraint firstItem="dOW-mN-UY7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tcn-Sg-XSP"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="139" y="155"/>
         </tableViewCell>
     </objects>

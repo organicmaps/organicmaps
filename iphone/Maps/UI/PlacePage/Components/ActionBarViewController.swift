@@ -1,5 +1,5 @@
 protocol ActionBarViewControllerDelegate: AnyObject {
-  func actionBar(_ actionBar: ActionBarViewController, dPressButton type: ActionBarButtonType)
+  func actionBar(_ actionBar: ActionBarViewController, didPressButton type: ActionBarButtonType)
 }
 
 class ActionBarViewController: UIViewController {
@@ -171,7 +171,7 @@ class ActionBarViewController: UIViewController {
                                           style: .default,
                                           handler: { [weak self] _ in
                                             guard let self = self else { return }
-                                            self.delegate?.actionBar(self, dPressButton: button)
+                                            self.delegate?.actionBar(self, didPressButton: button)
       }))
     }
     actionSheet.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
@@ -189,6 +189,6 @@ extension ActionBarViewController: ActionBarButtonDelegate {
       showMore()
       return
     }
-    delegate?.actionBar(self, dPressButton: type)
+    delegate?.actionBar(self, didPressButton: type)
   }
 }
