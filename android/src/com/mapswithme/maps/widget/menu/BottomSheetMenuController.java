@@ -57,7 +57,7 @@ public class BottomSheetMenuController implements MenuController
   };
 
   BottomSheetMenuController(int sheetResId, @NonNull MenuRenderer menuRenderer,
-                                   @Nullable MenuStateObserver stateObserver)
+                            @Nullable MenuStateObserver stateObserver)
   {
     mSheetResId = sheetResId;
     mMenuRenderer = menuRenderer;

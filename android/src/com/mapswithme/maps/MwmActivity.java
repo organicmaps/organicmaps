@@ -531,7 +531,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setContentView(R.layout.activity_map);
 
-    mPlacePageController = PlacePageFactory.createPlacePageController(this, this, this);
+    mPlacePageController = PlacePageFactory.createCompositePlacePageController(this, this, this);
     mPlacePageController.initialize(this);
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 

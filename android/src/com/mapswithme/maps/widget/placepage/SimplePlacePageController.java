@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.ElevationInfo;
 import com.mapswithme.util.UiUtils;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
@@ -99,11 +99,14 @@ public class SimplePlacePageController implements PlacePageController
       = new DefaultBottomSheetCallback(mBottomSheetChangedListener);
 
   private boolean mDeactivateMapSelection = true;
+  @IdRes
+  private final int mSheetResId;
 
-  SimplePlacePageController(@NonNull SlideListener slideListener,
-                            @NonNull PlacePageViewRenderer<PlacePageData> renderer,
-                            @Nullable PlacePageStateObserver stateObserver)
+  SimplePlacePageController(int sheetResId, @NonNull PlacePageViewRenderer<PlacePageData> renderer,
+                            @Nullable PlacePageStateObserver stateObserver,
+                            @NonNull SlideListener slideListener)
   {
+    mSheetResId = sheetResId;
     mSlideListener = slideListener;
     mViewRenderer = renderer;
     mStateObserver = stateObserver;
@@ -181,7 +184,7 @@ public class SimplePlacePageController implements PlacePageController
   {
     Objects.requireNonNull(activity);
     mApplication = activity.getApplication();
-    mSheet = activity.findViewById(R.id.elevation_profile);
+    mSheet = activity.findViewById(mSheetResId);
     mViewportMinHeight = mSheet.getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
     mViewPortMinWidth = mSheet.getResources().getDimensionPixelSize(R.dimen.viewport_min_width);
     mSheetBehavior = AnchorBottomSheetBehavior.from(mSheet);
@@ -250,7 +253,7 @@ public class SimplePlacePageController implements PlacePageController
   @Override
   public boolean support(@NonNull PlacePageData data)
   {
-    return data instanceof ElevationInfo;
+    return mViewRenderer.support(data);
   }
 
   private static class SimplePlacePageGestureListener extends PlacePageGestureListener

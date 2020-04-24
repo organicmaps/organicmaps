@@ -174,4 +174,10 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     if (mElevationInfo != null)
       Statistics.INSTANCE.trackElevationProfilePageClose(mElevationInfo.getServerId());
   }
+
+  @Override
+  public boolean support(@NonNull PlacePageData data)
+  {
+    return data instanceof ElevationInfo;
+  }
 }

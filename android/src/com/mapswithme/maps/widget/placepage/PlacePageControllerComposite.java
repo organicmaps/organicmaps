@@ -113,14 +113,15 @@ class PlacePageControllerComposite implements PlacePageController
       throw new AssertionError("Place page controllers already initialized!");
 
     PlacePageController richController =
-        createRichPlacePageController(mAdsProvider, mSlideListener, mRoutingModeListener);
+        PlacePageFactory.createRichPlacePageController(mAdsProvider, mSlideListener,
+                                                       mRoutingModeListener);
     richController.initialize(activity);
     mControllers.add(richController);
 
-    PlacePageController simpleController =
-        createSimplePlacePageController(mSlideListener);
-    simpleController.initialize(activity);
-    mControllers.add(simpleController);
+    PlacePageController elevationProfileController =
+        PlacePageFactory.createElevationProfilePlacePageController(mSlideListener);
+    elevationProfileController.initialize(activity);
+    mControllers.add(elevationProfileController);
 
     mActiveController = richController;
   }
@@ -147,10 +148,10 @@ class PlacePageControllerComposite implements PlacePageController
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    PlacePageData userMark = inState.getParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA);
-    if (userMark != null)
+    PlacePageData data = inState.getParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA);
+    if (data != null)
     {
-      PlacePageController controller = findControllerFor(userMark);
+      PlacePageController controller = findControllerFor(data);
       if (controller != null)
         mActiveController = controller;
     }
@@ -173,22 +174,5 @@ class PlacePageControllerComposite implements PlacePageController
   public boolean support(@NonNull PlacePageData object)
   {
     return mActiveController.support(object);
-  }
-
-  @NonNull
-  private static PlacePageController createRichPlacePageController(
-      @NonNull AdsRemovalPurchaseControllerProvider provider,
-      @NonNull PlacePageController.SlideListener listener,
-      @Nullable RoutingModeListener routingModeListener)
-  {
-    return new RichPlacePageController(provider, listener, routingModeListener);
-  }
-
-  @NonNull
-  private static PlacePageController createSimplePlacePageController(
-      @NonNull PlacePageController.SlideListener listener)
-  {
-    ElevationProfileViewRenderer renderer = new ElevationProfileViewRenderer();
-    return new SimplePlacePageController(listener, renderer, renderer);
   }
 }

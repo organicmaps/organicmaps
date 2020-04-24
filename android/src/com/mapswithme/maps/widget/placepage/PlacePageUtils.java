@@ -68,6 +68,10 @@ class PlacePageUtils
   static void setPullDrawable(@NonNull AnchorBottomSheetBehavior behavior, @NonNull View bottomSheet,
                               @IdRes int pullDrawableId)
   {
+    final ImageView img = bottomSheet.findViewById(pullDrawableId);
+    if (img == null)
+      return;
+
     @AnchorBottomSheetBehavior.State
     int state = behavior.getState();
     @DrawableRes
@@ -80,7 +84,6 @@ class PlacePageUtils
     if (drawableId == UiUtils.NO_ID)
       return;
 
-    ImageView img = bottomSheet.findViewById(pullDrawableId);
     Drawable drawable = Graphics.tint(bottomSheet.getContext(), drawableId,
                                       R.attr.bannerButtonBackgroundColor);
     img.setImageDrawable(drawable);
