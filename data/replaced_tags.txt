@@ -11,7 +11,6 @@ bench=yes : amenity=bench
 shelter=yes : amenity=shelter
 toilets=yes : amenity=toilets
 restaurant=yes : amenity=restaurant
-hotel=yes : tourism=hotel
 ford=boat : highway=ford
 ford=intermittent : highway=ford
 ford=seasonal : highway=ford

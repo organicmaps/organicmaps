@@ -101,7 +101,7 @@ barrier|hedge;100;
 amenity|pub;101;
 leisure|swimming_pool;[leisure=swimming_pool],[amenity=swimming_pool];;name;int_name;102;
 natural|land;103;
-tourism|hotel;104;
+tourism|hotel;[tourism=hotel],[building=hotel],[hotel=yes];;name;int_name;104;
 landuse|cemetery;105;
 sport|soccer;106;
 boundary|administrative|4;[boundary=administrative][admin_level=4];;name;int_name;107;
