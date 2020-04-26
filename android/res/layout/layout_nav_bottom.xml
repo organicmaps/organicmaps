@@ -96,7 +96,7 @@
       android:layout_height="@dimen/nav_icon_size"
       android:scaleType="center"
       android:visibility="gone"
-      android:background="?nav_bg_isolines"/>
+      android:background="?guidesIcon"/>
 
     <ImageView
       android:id="@+id/settings"

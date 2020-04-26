@@ -184,6 +184,8 @@
     <item name="guidesDistance">@drawable/dist</item>
     <item name="bgRectangleView">@drawable/bg_grey</item>
     <item name="bgRoundedCard">@drawable/bg_rounded_card</item>
+    <item name="guidesMenuDisabled">@drawable/guides_layer_default_light</item>
+    <item name="guidesIcon">@drawable/bg_guides_light</item>
   </style>
 
   <!-- Night theme -->
@@ -367,5 +369,7 @@
     <item name="guidesDistance">@drawable/dist_dark</item>
     <item name="bgRectangleView">@drawable/bg_grey_dark</item>
     <item name="bgRoundedCard">@drawable/bg_rounded_card_night</item>
+    <item name="guidesIcon">@drawable/bg_guides_night</item>
+    <item name="guidesMenuDisabled">@drawable/guides_layer_default_dark</item>
   </style>
 </resources>

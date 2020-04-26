@@ -107,9 +107,9 @@ public abstract class BottomSheetItem
 
     public static BottomSheetItem makeInstance(@NonNull Context mContext)
     {
-      int disabled = ThemeUtils.getResource(mContext, R.attr.isoLinesMenuDisabled);
+      int disabled = ThemeUtils.getResource(mContext, R.attr.guidesMenuDisabled);
 
-      return new Guides(R.drawable.ic_planning_route_isomaps_dark_on, disabled);
+      return new Guides(R.drawable.guides_layer_active_light, disabled);
     }
   }
 }

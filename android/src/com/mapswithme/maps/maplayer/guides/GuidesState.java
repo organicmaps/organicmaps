@@ -10,7 +10,14 @@ public enum GuidesState
 {
   DISABLED,
   ENABLED,
-  NO_DATA,
+  NO_DATA
+      {
+        @Override
+        public void activate(@NonNull Context context)
+        {
+          Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+        }
+      },
   NETWORK_ERROR;
 
   public void activate(@NonNull Context context)

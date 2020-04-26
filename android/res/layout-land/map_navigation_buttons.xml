@@ -39,7 +39,7 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
-    android:background="?nav_bg_isolines"
+    android:background="?guidesIcon"
     android:visibility="invisible"/>
 
   <ImageButton
