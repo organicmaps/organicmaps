@@ -23,7 +23,7 @@ public:
   virtual ~FeaturesCollector();
 
   static uint64_t GetCurrentPosition();
-  std::string const & GetFilePath() const { return m_datFile.GetName(); }
+  std::string const & GetFilePath() const { return m_dataFile.GetName(); }
   /// \brief Serializes |f|.
   /// \returns Feature id of serialized feature if |f| is serialized after the call
   /// and |kInvalidFeatureId| if not.
@@ -43,7 +43,7 @@ protected:
   uint32_t WriteFeatureBase(std::vector<char> const & bytes, FeatureBuilder const & fb);
   void Flush();
 
-  FileWriter m_datFile;
+  FileWriter m_dataFile;
   m2::RectD m_bounds;
 
 private:

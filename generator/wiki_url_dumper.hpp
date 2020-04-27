@@ -12,7 +12,7 @@ namespace generator
 class WikiUrlDumper
 {
 public:
-  explicit WikiUrlDumper(std::string const & path, std::vector<std::string> const & datFiles);
+  explicit WikiUrlDumper(std::string const & path, std::vector<std::string> const & dataFiles);
 
   static void DumpOne(std::string const & path, std::ostream & stream);
 

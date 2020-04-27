@@ -22,5 +22,5 @@ void BuildIndex(feature::DataHeader const & header, TFeaturesVector const & feat
   }
 
   // doesn't throw exceptions
-  bool BuildIndexFromDataFile(std::string const & datFile, std::string const & tmpFile);
+  bool BuildIndexFromDataFile(std::string const & dataFile, std::string const & tmpFile);
 }  // namespace indexer

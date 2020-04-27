@@ -8,19 +8,19 @@
 
 namespace indexer
 {
-  bool BuildIndexFromDataFile(std::string const & datFile, std::string const & tmpFile)
+  bool BuildIndexFromDataFile(std::string const & dataFile, std::string const & tmpFile)
   {
     try
     {
       std::string const idxFileName(tmpFile + GEOM_INDEX_TMP_EXT);
       {
-        FeaturesVectorTest features(datFile);
+        FeaturesVectorTest features(dataFile);
         FileWriter writer(idxFileName);
 
         BuildIndex(features.GetHeader(), features.GetVector(), writer, tmpFile);
       }
 
-      FilesContainerW(datFile, FileWriter::OP_WRITE_EXISTING).Write(idxFileName, INDEX_FILE_TAG);
+      FilesContainerW(dataFile, FileWriter::OP_WRITE_EXISTING).Write(idxFileName, INDEX_FILE_TAG);
       FileWriter::DeleteFileX(idxFileName);
     }
     catch (Reader::Exception const & e)

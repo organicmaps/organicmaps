@@ -26,9 +26,10 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace feature
 {
-
 FeaturesCollector::FeaturesCollector(std::string const & fName, FileWriter::Op op)
-  : m_datFile(fName, op), m_writeBuffer(kBufferSize) {}
+  : m_dataFile(fName, op), m_writeBuffer(kBufferSize)
+{
+}
 
 FeaturesCollector::~FeaturesCollector()
 {
@@ -54,14 +55,14 @@ std::pair<char[ValueSizeT], uint8_t> PackValue(ValueT v)
 
 void FeaturesCollector::FlushBuffer()
 {
-  m_datFile.Write(m_writeBuffer.data(), m_writePosition);
+  m_dataFile.Write(m_writeBuffer.data(), m_writePosition);
   m_writePosition = 0;
 }
 
 void FeaturesCollector::Flush()
 {
   FlushBuffer();
-  m_datFile.Flush();
+  m_dataFile.Flush();
 }
 
 void FeaturesCollector::Write(char const * src, size_t size)
