@@ -256,7 +256,7 @@ UNIT_CLASS_TEST(ProcessorTest, Smoke)
     TEST(ResultsMatch("     ", Rules()), ());
   }
   {
-    Rules rules = {ExactMatch(wonderlandId, quantumTeleport2)};
+    Rules rules = {ExactMatch(wonderlandId, quantumTeleport2), ExactMatch(wonderlandId, feynmanStreet)};
     TEST(ResultsMatch("teleport feynman street", rules), ());
   }
   {
@@ -1508,7 +1508,7 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
     auto const rulePoi = ExactMatch(countryId, reinforcementCafe);
 
     // POI-BUILDING-STREET
-    TEST(ResultsMatch("computing street statistical learning cafe ", {rulePoi}), ());
+    TEST(ResultsMatch("computing street statistical learning cafe ", {rulePoi, ruleStreet}), ());
     TEST(ResultsMatch("computing street 0 cafe ", {rulePoi}), ());
 
     // POI-BUILDING is not supported
@@ -1516,10 +1516,10 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
     TEST(ResultsMatch("0 cafe ", {}), ());
 
     // POI-STREET
-    TEST(ResultsMatch("computing street cafe ", {rulePoi}), ());
+    TEST(ResultsMatch("computing street cafe ", {rulePoi, ruleStreet}), ());
 
     // BUILDING-STREET
-    TEST(ResultsMatch("computing street statistical learning ", {ruleBuilding}), ());
+    TEST(ResultsMatch("computing street statistical learning ", {ruleBuilding, ruleStreet}), ());
     TEST(ResultsMatch("computing street 0 ", {ruleBuilding}), ());
 
     // POI
@@ -1769,8 +1769,8 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
       vector<m2::PointD>{m2::PointD(-0.5, -0.5), m2::PointD(0.0, 0.0), m2::PointD(0.5, 0.5)},
       "большая свято-покровская улица", "ru");
 
-  TestPOI stPeterEn(m2::PointD(0.0, 0.0), "saint peter basilica", "en");
-  TestPOI stPeterRu(m2::PointD(0.5, 0.5), "собор святого петра", "ru");
+  TestPOI stPeterEn(m2::PointD(2.0, 2.0), "saint peter basilica", "en");
+  TestPOI stPeterRu(m2::PointD(-2.0, -2.0), "собор святого петра", "ru");
 
   auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(streetEn);
@@ -1779,7 +1779,7 @@ UNIT_CLASS_TEST(ProcessorTest, SynonymsTest)
     builder.Add(stPeterRu);
   });
 
-  SetViewport(m2::RectD(-1, -1, 1, 1));
+  SetViewport(m2::RectD(-2.0, -2.0, 2.0, 2.0));
   {
     Rules rules = {ExactMatch(wonderlandId, streetEn)};
     TEST(ResultsMatch("southwest street ", rules), ());
@@ -2013,7 +2013,7 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefix)
 
   SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 2.0)));
   {
-    Rules rules = {ExactMatch(countryId, house)};
+    Rules rules = {ExactMatch(countryId, house), ExactMatch(countryId, street)};
     TEST(ResultsMatch("3 Boulevard Maloney Est", rules), ());
   }
 }
