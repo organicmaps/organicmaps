@@ -304,48 +304,6 @@ void ForEachFeatureRawFormat(std::string const & filename, ToDo && toDo)
   }
 }
 
-/// Parallel process features in features file.
-template <class SerializationPolicy = serialization_policy::MinSize, class ToDo>
-void ForEachParallelFromDatRawFormat(size_t threadsCount, std::string const & filename,
-                                     ToDo && toDo)
-{
-  CHECK_GREATER_OR_EQUAL(threadsCount, 1, ());
-  if (threadsCount == 1)
-    return ForEachFeatureRawFormat(filename, std::forward<ToDo>(toDo));
-
-  FileReader reader(filename);
-  ReaderSource<FileReader> src(reader);
-  //  TryReadAndCheckVersion<SerializationPolicy>(src);
-  auto const fileSize = reader.Size();
-  auto currPos = src.Pos();
-  std::mutex readMutex;
-  auto concurrentProcessor = [&] {
-    for (;;)
-    {
-      FeatureBuilder fb;
-      uint64_t featurePos;
-
-      {
-        std::lock_guard<std::mutex> lock(readMutex);
-
-        if (fileSize <= currPos)
-          break;
-
-        ReadFromSourceRawFormat<SerializationPolicy>(src, fb);
-        featurePos = currPos;
-        currPos = src.Pos();
-      }
-
-      toDo(fb, featurePos);
-    }
-  };
-
-  std::vector<std::thread> workers;
-  for (size_t i = 0; i < threadsCount; ++i)
-    workers.emplace_back(concurrentProcessor);
-  for (auto & thread : workers)
-    thread.join();
-}
 template <class SerializationPolicy = serialization_policy::MinSize>
 std::vector<FeatureBuilder> ReadAllDatRawFormat(std::string const & fileName)
 {
