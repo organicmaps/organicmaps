@@ -1,5 +1,8 @@
 package com.mapswithme.maps.gallery;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -160,7 +163,7 @@ public class Items
     }
   }
 
-  public static class Item
+  public static class Item implements Parcelable
   {
     @NonNull
     private final String mTitle;
@@ -176,6 +179,28 @@ public class Items
       mUrl = url;
       mSubtitle = subtitle;
     }
+
+    protected Item(Parcel in)
+    {
+      mTitle = in.readString();
+      mUrl = in.readString();
+      mSubtitle = in.readString();
+    }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>()
+    {
+      @Override
+      public Item createFromParcel(Parcel in)
+      {
+        return new Item(in);
+      }
+
+      @Override
+      public Item[] newArray(int size)
+      {
+        return new Item[size];
+      }
+    };
 
     @NonNull
     public String getTitle()
@@ -193,6 +218,20 @@ public class Items
     public String getUrl()
     {
       return mUrl;
+    }
+
+    @Override
+    public int describeContents()
+    {
+      return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      dest.writeString(mTitle);
+      dest.writeString(mUrl);
+      dest.writeString(mSubtitle);
     }
   }
 }

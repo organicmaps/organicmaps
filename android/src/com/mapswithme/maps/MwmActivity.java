@@ -2665,11 +2665,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public void onMenuItemClickInternal()
     {
       Statistics.INSTANCE.trackToolbarClick(getItem());
-      if (getActivity().closePlacePage())
-        return;
-      if (getActivity().closeSidePanel())
-        return;
-
+      getActivity().closePlacePage();
+      getActivity().closeSidePanel();
       getActivity().mMainMenuController.open();
     }
   }

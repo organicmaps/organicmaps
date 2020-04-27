@@ -15,14 +15,15 @@ public class GalleryAdapter<VH extends Holders.BaseViewHolder<I>, I extends Item
     mStrategy = strategy;
   }
 
+  @NonNull
   @Override
-  public VH onCreateViewHolder(ViewGroup parent, int viewType)
+  public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
   {
     return mStrategy.createViewHolder(parent, viewType);
   }
 
   @Override
-  public void onBindViewHolder(VH holder, int position)
+  public void onBindViewHolder(@NonNull VH holder, int position)
   {
     mStrategy.onBindViewHolder(holder, position);
   }

@@ -10,6 +10,7 @@ import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.guides.GuidesGallery;
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
@@ -101,6 +102,17 @@ public class Factory
                                                                            item,
                                                                            listener);
     trackProductGalleryShownOrError(gallery.getItems(), GalleryType.PROMO, ONLINE, placement);
+    return new GalleryAdapter<>(strategy);
+  }
+
+  @NonNull
+  public static GalleryAdapter createGuidesAdapter(
+      @NonNull List<GuidesGallery.Item> items, @Nullable ItemSelectedListener<GuidesGallery.Item> listener,
+      @NonNull GalleryPlacement placement)
+  {
+    GuidesAdapterStrategy strategy = new GuidesAdapterStrategy(items, listener);
+    //noinspection ConstantConditions
+    trackProductGalleryShownOrError(items.toArray(), GalleryType.PROMO, ONLINE, placement);
     return new GalleryAdapter<>(strategy);
   }
 

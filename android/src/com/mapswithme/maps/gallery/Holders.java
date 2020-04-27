@@ -6,12 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
-import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,10 +13,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.guides.GuidesGallery;
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.Popularity;
@@ -31,6 +32,7 @@ import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.widget.RatingView;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
@@ -424,6 +426,7 @@ public class Holders
     }
   }
 
+
   public static class CatalogPromoHolder extends BaseViewHolder<PromoEntity>
   {
     @NonNull
@@ -545,6 +548,39 @@ public class Holders
         return;
 
       listener.onItemSelected(item, position);
+    }
+  }
+
+  public static class GuideHodler extends BaseViewHolder<GuidesGallery.Item>
+  {
+    @NonNull
+    private final ImageView mImage;
+    @NonNull
+    private final TextView mSubtitle;
+    // TODO: handle city and outdoor content properly.
+/*    @NonNull
+    private final View mCityContent;
+    @NonNull
+    private final View mOutdoorContent;*/
+    public GuideHodler(@NonNull View itemView, @NonNull List<GuidesGallery.Item> items, @Nullable ItemSelectedListener<GuidesGallery.Item> listener)
+    {
+      super(itemView, items, listener);
+      mImage = itemView.findViewById(R.id.image);
+      mSubtitle = itemView.findViewById(R.id.subtitle);
+    }
+
+    @Override
+    public void bind(@NonNull GuidesGallery.Item item)
+    {
+      super.bind(item);
+      Glide.with(mImage.getContext())
+           .load(item.getImageUrl())
+           .asBitmap()
+           .placeholder(ThemeUtils.getResource(mImage.getContext(), R.attr.guidesPlaceholder))
+           .centerCrop()
+           .into(mImage);
+      mSubtitle.setText(item.getSubtitle());
+      // TODO: another fields comming soon;
     }
   }
 }

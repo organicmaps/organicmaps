@@ -2,6 +2,9 @@ package com.mapswithme.maps.gallery;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.ViewGroup;
 
 import java.util.List;
@@ -80,6 +83,19 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
     {
       super(title, url, subtitle);
       mType = type;
+    }
+
+    protected Item(Parcel in)
+    {
+      super(in);
+      mType = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      super.writeToParcel(dest, flags);
+      dest.writeInt(mType);
     }
 
     public int getType()

@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.mapswithme.maps.gallery.Constants;
+import com.mapswithme.maps.gallery.RegularAdapterStrategy;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 
 import java.util.ArrayList;
@@ -64,18 +66,12 @@ public class GuidesGallery implements PlacePageData
     }
   };
 
-  public static class Item implements Parcelable
+  public static class Item extends RegularAdapterStrategy.Item
   {
     @NonNull
     private final String mGuideId;
     @NonNull
-    private final String mUrl;
-    @NonNull
     private final String mImageUrl;
-    @NonNull
-    private final String mTitle;
-    @NonNull
-    private final String mSubTitle;
     @NonNull
     private final Type mType;
     private final boolean mDownloaded;
@@ -89,11 +85,9 @@ public class GuidesGallery implements PlacePageData
                 boolean downloaded, @Nullable CityParams cityParams,
                 @Nullable OutdoorParams outdoorParams)
     {
+      super(Constants.TYPE_PRODUCT, title, subTitle, url);
       mGuideId = guideId;
-      mUrl = url;
       mImageUrl = imageUrl;
-      mTitle = title;
-      mSubTitle = subTitle;
       mType = Type.values()[type];
       mDownloaded = downloaded;
       mCityParams = cityParams;
@@ -102,11 +96,9 @@ public class GuidesGallery implements PlacePageData
 
     protected Item(Parcel in)
     {
+      super(in);
       mGuideId = in.readString();
-      mUrl = in.readString();
       mImageUrl = in.readString();
-      mTitle = in.readString();
-      mSubTitle = in.readString();
       mType = Type.values()[in.readInt()];
       mDownloaded = in.readByte() != 0;
       mCityParams = in.readParcelable(CityParams.class.getClassLoader());
@@ -134,11 +126,6 @@ public class GuidesGallery implements PlacePageData
       return mGuideId;
     }
 
-    @NonNull
-    public String getUrl()
-    {
-      return mUrl;
-    }
 
     @NonNull
     public String getImageUrl()
@@ -147,19 +134,7 @@ public class GuidesGallery implements PlacePageData
     }
 
     @NonNull
-    public String getTitle()
-    {
-      return mTitle;
-    }
-
-    @NonNull
-    public String getSubTitle()
-    {
-      return mSubTitle;
-    }
-
-    @NonNull
-    public Type getType()
+    public Type getGuideType()
     {
       return mType;
     }
@@ -190,11 +165,9 @@ public class GuidesGallery implements PlacePageData
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
+      super.writeToParcel(dest, flags);
       dest.writeString(mGuideId);
-      dest.writeString(mUrl);
       dest.writeString(mImageUrl);
-      dest.writeString(mTitle);
-      dest.writeString(mSubTitle);
       dest.writeInt(mType.ordinal());
       dest.writeByte((byte) (mDownloaded ? 1 : 0));
       dest.writeParcelable(mCityParams, flags);

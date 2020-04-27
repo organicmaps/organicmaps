@@ -282,19 +282,21 @@
   <dimen name="bookmarks_subs_sale_min_width">84dp</dimen>
   <dimen name="bookmarks_subs_offer_card_width">164dp</dimen>
   <dimen name="bookmarks_subs_card_corner_radius">9dp</dimen>
-
-  <!-- Promo-->
-  <dimen name="promo_after_booking_width">288dp</dimen>
-  <dimen name="subs_card_min_height">226dp</dimen>
-  <dimen name="subs_card_min_width">164dp</dimen>
-  <dimen name="pro_label_margin">52dp</dimen>
-  <dimen name="promo_single_place_container_height">194dp</dimen>
-  <dimen name="subscription_view_pager_height">256dp</dimen>
-  <dimen name="zero">0dp</dimen>
-  <dimen name="all_pass_top_offset">62dp</dimen>
-  <dimen name="welcome_btn_min_width">148dp</dimen>
-  <dimen name="bookmark_all_subscription_content_width">336dp</dimen>
   <dimen name="subs_btn_min_width">328dp</dimen>
   <dimen name="bookmarks_all_subscription_pager_item_margin">@dimen/margin_base_plus</dimen>
   <dimen name="bookmarks_sightseeing_subs_central_content_margin">88dp</dimen>
+  <dimen name="bookmark_all_subscription_content_width">336dp</dimen>
+  <dimen name="all_pass_top_offset">62dp</dimen>
+  <dimen name="subs_card_min_height">226dp</dimen>
+  <dimen name="subs_card_min_width">164dp</dimen>
+  <dimen name="subscription_view_pager_height">256dp</dimen>
+
+  <!-- Promo-->
+  <dimen name="promo_after_booking_width">288dp</dimen>
+  <dimen name="pro_label_margin">52dp</dimen>
+  <dimen name="promo_single_place_container_height">194dp</dimen>
+  <dimen name="zero">0dp</dimen>
+  <dimen name="welcome_btn_min_width">148dp</dimen>
+  <dimen name="guide_gallery_item_width">328dp</dimen>
+
 </resources>

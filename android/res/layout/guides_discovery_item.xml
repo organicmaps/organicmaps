@@ -2,7 +2,7 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
+  android:layout_width="@dimen/guide_gallery_item_width"
   android:layout_height="wrap_content"
   android:background="?cardBackground"
   android:orientation="vertical"
@@ -15,6 +15,7 @@
       android:id="@+id/image"
       android:layout_width="@dimen/nav_street_left"
       android:layout_height="@dimen/nav_street_left"
+      android:layout_centerVertical="true"
       app:srcCompat="?guidesPlaceholder" />
     <LinearLayout
       android:layout_width="match_parent"
@@ -29,10 +30,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@string/robotoRegular"
         android:lines="2"
+        android:ellipsize="end"
         android:textColor="?android:textColorPrimary"
-        android:textSize="@dimen/text_size_body_2"></TextView>
+        android:textSize="@dimen/text_size_body_2"/>
       <TextView
-        android:id="@+id/description"
+        android:id="@+id/subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"

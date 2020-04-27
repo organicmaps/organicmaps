@@ -3,12 +3,19 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/guides_gallery_bottom_sheet"
-  android:orientation="vertical"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@color/red_cross_background"
+  android:layout_height="wrap_content"
+  android:background="@android:color/transparent"
+  android:orientation="vertical"
+  android:paddingTop="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_quadruple"
   app:behavior_defaultState="hidden"
   app:behavior_hideable="true"
   app:behavior_skipAnchored="true"
+  app:behavior_skipCollapsed="true"
   app:layout_behavior="@string/placepage_behavior">
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/guides_gallery"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
 </LinearLayout>
