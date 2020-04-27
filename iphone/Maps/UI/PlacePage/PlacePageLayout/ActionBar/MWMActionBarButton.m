@@ -84,7 +84,7 @@ static UIColor *backgroundColorForPartner(NSInteger partnerIndex) {
 
 @implementation MWMActionBarButton
 
-- (void)configButton:(BOOL)isSelected disabled:(BOOL)isDisabled {
+- (void)configButton:(BOOL)isSelected enabled:(BOOL)isEnabled {
   self.label.text = titleForButton(self.type, self.partnerIndex, isSelected);
   self.extraBackground.hidden = YES;
   switch (self.type) {
@@ -169,19 +169,19 @@ static UIColor *backgroundColorForPartner(NSInteger partnerIndex) {
       [self.button setImage:[UIImage imageNamed:@"ic_avoid_ferry"] forState:UIControlStateNormal];
       break;
   }
-  self.button.enabled = !isDisabled;
+  self.button.enabled = isEnabled;
 }
 
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
                                 buttonType:(MWMActionBarButtonType)type
                               partnerIndex:(NSInteger)partnerIndex
                                 isSelected:(BOOL)isSelected
-                                isDisabled:(BOOL)isDisabled {
+                                isEnabled:(BOOL)isEnabled {
   MWMActionBarButton *button = [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   button.delegate = delegate;
   button.type = type;
   button.partnerIndex = partnerIndex;
-  [button configButton:isSelected disabled:isDisabled];
+  [button configButton:isSelected enabled:isEnabled];
   return button;
 }
 

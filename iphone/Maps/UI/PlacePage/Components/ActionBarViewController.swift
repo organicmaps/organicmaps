@@ -40,19 +40,12 @@ class ActionBarViewController: UIViewController {
     }
 
     for buttonType in visibleButtons {
-      var selected = false
-      var disabled = false
-      if buttonType == .bookmark {
-        if let bookmarkData = placePageData.bookmarkData {
-          selected = true
-          disabled = !bookmarkData.isEditable
-        }
-      }
+      let (selected, enabled) = buttonState(buttonType)
       let button = ActionBarButton(delegate: self,
                                    buttonType: buttonType,
                                    partnerIndex: placePageData.partnerIndex,
                                    isSelected: selected,
-                                   isDisabled: disabled)
+                                   isEnabled: enabled)
       stackView.addArrangedSubview(button)
       if buttonType == .download {
         downloadButton = button
@@ -167,12 +160,15 @@ class ActionBarViewController: UIViewController {
                                         message: placePageData.previewData.subtitle,
                                         preferredStyle: .actionSheet)
     for button in additionalButtons {
-      actionSheet.addAction(UIAlertAction(title: titleForButton(button, placePageData.partnerIndex, false),
-                                          style: .default,
-                                          handler: { [weak self] _ in
-                                            guard let self = self else { return }
-                                            self.delegate?.actionBar(self, didPressButton: button)
-      }))
+      let (selected, enabled) = buttonState(button)
+      let action = UIAlertAction(title: titleForButton(button, placePageData.partnerIndex, selected),
+                                 style: .default,
+                                 handler: { [weak self] _ in
+                                  guard let self = self else { return }
+                                  self.delegate?.actionBar(self, didPressButton: button)
+      })
+      action.isEnabled = enabled
+      actionSheet.addAction(action)
     }
     actionSheet.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
     if let popover = actionSheet.popoverPresentationController, let sourceView = stackView.arrangedSubviews.last {
@@ -180,6 +176,16 @@ class ActionBarViewController: UIViewController {
       popover.sourceRect = sourceView.bounds
     }
     present(actionSheet, animated: true)
+  }
+
+  private func buttonState(_ buttonType: ActionBarButtonType) -> (Bool /* selected */, Bool /* enabled */) {
+    var selected = false
+    var enabled = true
+    if buttonType == .bookmark, let bookmarkData = placePageData.bookmarkData {
+      selected = true
+      enabled = bookmarkData.isEditable
+    }
+    return (selected, enabled)
   }
 }
 

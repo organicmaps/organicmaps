@@ -48,7 +48,7 @@ NS_SWIFT_NAME(ActionBarButton)
                                 buttonType:(MWMActionBarButtonType)type
                               partnerIndex:(NSInteger)partnerIndex
                                 isSelected:(BOOL)isSelected
-                                isDisabled:(BOOL)isDisabled;
+                                isEnabled:(BOOL)isEnabled;
 
 @end
 
