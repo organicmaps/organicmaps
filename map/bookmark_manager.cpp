@@ -1064,7 +1064,7 @@ void BookmarkManager::UpdateElevationMyPosition(kml::TrackId const & trackId)
 
   auto const markId = GetTrackSelectionMarkId(trackId);
   auto es = GetEditSession();
-  auto trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+  auto trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
 
   double const kEpsMeters = 1e-2;
   if (!base::AlmostEqualAbs(trackSelectionMark->GetMyPositionDistance(),
@@ -1222,11 +1222,10 @@ void BookmarkManager::SetTrackSelectionMark(kml::TrackId trackId, m2::PointD con
 {
   auto const markId = GetTrackSelectionMarkId(trackId);
 
-  auto es = GetEditSession();
   TrackSelectionMark * trackSelectionMark = nullptr;
   if (markId == kml::kInvalidMarkId)
   {
-    trackSelectionMark = es.CreateUserMark<TrackSelectionMark>(pt);
+    trackSelectionMark = CreateUserMark<TrackSelectionMark>(pt);
     trackSelectionMark->SetTrackId(trackId);
 
     if (m_drapeEngine)
@@ -1234,7 +1233,7 @@ void BookmarkManager::SetTrackSelectionMark(kml::TrackId trackId, m2::PointD con
   }
   else
   {
-    trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+    trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
     trackSelectionMark->SetPosition(pt);
   }
   trackSelectionMark->SetDistance(distance);
@@ -1248,18 +1247,16 @@ void BookmarkManager::DeleteTrackSelectionMark(kml::TrackId trackId)
   if (trackId == m_selectedTrackId)
     m_selectedTrackId = kml::kInvalidTrackId;
 
-  auto es = GetEditSession();
   auto const markId = GetTrackSelectionMarkId(trackId);
   if (markId != kml::kInvalidMarkId)
-    es.DeleteUserMark(markId);
+    DeleteUserMark(markId);
 
   ResetTrackInfoMark(trackId);
 }
 
 void BookmarkManager::SetTrackInfoMark(kml::TrackId trackId, m2::PointD const & pt)
 {
-  auto es = GetEditSession();
-  auto trackInfoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+  auto trackInfoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
   trackInfoMark->SetPosition(pt);
   auto const isVisible = IsVisible(GetTrack(trackId)->GetGroupId());
   trackInfoMark->SetIsVisible(isVisible);
@@ -1268,8 +1265,7 @@ void BookmarkManager::SetTrackInfoMark(kml::TrackId trackId, m2::PointD const & 
 
 void BookmarkManager::ResetTrackInfoMark(kml::TrackId trackId)
 {
-  auto es = GetEditSession();
-  auto trackInfoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+  auto trackInfoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
   if (trackInfoMark->GetTrackId() == trackId)
   {
     trackInfoMark->SetPosition(m2::PointD::Zero());
@@ -1288,7 +1284,7 @@ void BookmarkManager::SetTrackSelectionInfo(TrackSelectionInfo const & trackSele
   auto const markId = GetTrackSelectionMarkId(trackSelectionInfo.m_trackId);
   CHECK_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
 
-  auto trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+  auto trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
   trackSelectionMark->SetPosition(trackSelectionInfo.m_trackPoint);
   trackSelectionMark->SetDistance(trackSelectionInfo.m_distanceInMeters);
 
@@ -1324,7 +1320,7 @@ void BookmarkManager::OnTrackSelected(kml::TrackId trackId)
   auto const markId = GetTrackSelectionMarkId(trackId);
   CHECK_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
 
-  auto * trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+  auto * trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
   trackSelectionMark->SetIsVisible(false);
 
   m_selectedTrackId = trackId;
@@ -1340,7 +1336,7 @@ void BookmarkManager::OnTrackDeselected()
   CHECK_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
 
   auto es = GetEditSession();
-  auto * trackSelectionMark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+  auto * trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
   auto const isVisible = IsVisible(GetTrack(m_selectedTrackId)->GetGroupId());
   trackSelectionMark->SetIsVisible(isVisible);
 
@@ -1925,21 +1921,19 @@ void BookmarkManager::PrepareForSearch(kml::MarkGroupId groupId)
 
 void BookmarkManager::UpdateTrackMarksMinZoom()
 {
-  auto es = GetEditSession();
   auto const marksIds = GetUserMarkIds(UserMark::TRACK_SELECTION);
   for (auto markId : marksIds)
   {
-    auto mark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+    auto mark = GetMarkForEdit<TrackSelectionMark>(markId);
     mark->SetMinVisibleZoom(GetTrackSelectionMarkMinZoom(mark->GetTrackId()));
   }
 }
 
 void BookmarkManager::UpdateTrackMarksVisibility(kml::MarkGroupId groupId)
 {
-  auto es = GetEditSession();
   auto const isVisible = IsVisible(groupId);
   auto const tracksIds = GetTrackIds(groupId);
-  auto infoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+  auto infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
   for (auto trackId : tracksIds)
   {
     auto markId = GetTrackSelectionMarkId(trackId);
@@ -1947,7 +1941,7 @@ void BookmarkManager::UpdateTrackMarksVisibility(kml::MarkGroupId groupId)
       continue;
     if (infoMark->GetTrackId() == trackId && infoMark->IsVisible())
       infoMark->SetIsVisible(isVisible);
-    auto mark = es.GetMarkForEdit<TrackSelectionMark>(markId);
+    auto mark = GetMarkForEdit<TrackSelectionMark>(markId);
     mark->SetIsVisible(isVisible);
   }
 }
@@ -1965,7 +1959,7 @@ void BookmarkManager::RequestSymbolSizes()
             [this, sizes = move(sizes)]() mutable
             {
               auto es = GetEditSession();
-              auto infoMark = es.GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+              auto infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
               auto const & sz = sizes.at(TrackSelectionMark::GetInitialSymbolName());
               infoMark->SetOffset(m2::PointF(0.0, -sz.y / 2));
               m_maxBookmarkSymbolSize = sizes.at(kLargestBookmarkSymbolName);
@@ -1975,9 +1969,12 @@ void BookmarkManager::RequestSymbolSizes()
 
 void BookmarkManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
   m_drapeEngine.Set(engine);
   m_firstDrapeNotification = true;
 
+  auto es = GetEditSession();
   UpdateTrackMarksMinZoom();
   RequestSymbolSizes();
 }
@@ -3701,7 +3698,7 @@ void BookmarkManager::DeleteInvalidCategories()
 
   auto session = GetEditSession();
   for (auto const markGroupId : m_invalidCategories)
-    session.DeleteBmCategory(markGroupId);
+    DeleteBmCategory(markGroupId);
 }
 
 void BookmarkManager::ResetInvalidCategories()
