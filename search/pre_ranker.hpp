@@ -85,7 +85,7 @@ public:
   // Use |lastUpdate| to indicate that no more results will be added.
   void UpdateResults(bool lastUpdate);
 
-  size_t Size() const { return m_results.size(); }
+  size_t Size() const { return m_results.size() + m_relaxedResults.size(); }
   size_t BatchSize() const { return m_params.m_batchSize; }
   size_t NumSentResults() const { return m_numSentResults; }
   bool HaveFullyMatchedResult() const { return m_haveFullyMatchedResult; }
