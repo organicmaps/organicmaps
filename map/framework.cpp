@@ -6,6 +6,7 @@
 #include "map/download_on_map_ads_delegate.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/gps_tracker.hpp"
+#include "map/guides_manager_delegate.hpp"
 #include "map/guides_on_map_delegate.hpp"
 #include "map/notifications/notification_manager_delegate.hpp"
 #include "map/notifications/notification_queue.hpp"
@@ -525,6 +526,8 @@ Framework::Framework(FrameworkParams const & params)
 
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
+  m_guidesManager.SetDelegate(make_unique<GuidesManagerDelegate>(*this));
+  m_guidesManager.SetApiDelegate(make_unique<GuidesOnMapDelegate>(catalogHeadersProvider));
   m_guidesManager.SetEnabled(LoadGuidesEnabled());
 
   m_adsEngine = make_unique<ads::Engine>(
@@ -552,8 +555,6 @@ Framework::Framework(FrameworkParams const & params)
   m_promoApi->SetDelegate(make_unique<PromoDelegate>(m_featuresFetcher.GetDataSource(),
                           *m_cityFinder, catalogHeadersProvider));
   eye::Eye::Instance().Subscribe(m_promoApi.get());
-
-  m_guidesManager.SetApiDelegate(make_unique<GuidesOnMapDelegate>(catalogHeadersProvider));
 
   // Clean the no longer used key from old devices.
   // Remove this line after April 2020 (assuming the majority of devices

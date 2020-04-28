@@ -19,6 +19,7 @@ enum class UTM : uint8_t
   DiscoverCatalogOnboarding,
   FreeSamplesOnboading,
   OutdoorPlacepageGallery,
+  GuidesOnMapGallery,
 };
 
 enum class UTMContent : uint8_t
@@ -81,6 +82,10 @@ inline std::string InjectUTM(std::string const & url, UTM utm)
   case UTM::OutdoorPlacepageGallery:
     params.emplace_back("utm_medium", "gallery");
     params.emplace_back("utm_campaign", "outdoor_placepage_gallery");
+    break;
+  case UTM::GuidesOnMapGallery:
+    params.emplace_back("utm_medium", "gallery");
+    params.emplace_back("utm_campaign", "map");
     break;
   case UTM::None:
     return url;

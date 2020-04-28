@@ -57,6 +57,8 @@ void ParseGallery(std::string const & src, guides_on_map::GuidesOnMap & result)
       FromJSONObject(extraObj, "has_track", info.m_hasTrack);
       FromJSONObjectOptionalField(extraObj, "tracks_length", info.m_tracksLength);
       FromJSONObjectOptionalField(extraObj, "tour_duration", info.m_tourDuration);
+      // Server returns duration in minutes, so convert value to small units.
+      info.m_tourDuration *= 60;
       FromJSONObjectOptionalField(extraObj, "ascent", info.m_ascent);
     }
 
@@ -144,8 +146,7 @@ void Api::GetGuidesOnMap(m2::AnyRectD const & viewport, uint8_t zoomLevel,
     catch (Json::Exception const & e)
     {
       LOG(LERROR, (e.Msg(), httpResult));
-      onError();
-      return;
+      result.clear();
     }
 
     onSuccess(result);

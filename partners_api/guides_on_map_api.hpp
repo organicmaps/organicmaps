@@ -25,8 +25,11 @@ struct GuidesNode
     std::string m_tag;
     uint32_t m_bookmarksCount = 0;
     bool m_hasTrack = false;
+    // Length in meters.
     double m_tracksLength = 0.0;
+    // Duration in seconds.
     double m_tourDuration = 0.0;
+    // Ascent in meters.
     int32_t m_ascent = 0;
   };
 
