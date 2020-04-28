@@ -47023,3 +47023,9 @@
 
   [skyeng_map_downloader_cta_button]
     en = Подробнее
+
+  [button_layer_guides]
+    en =Guides
+
+  [no_routes_in_the_area_toast]
+    en = No guides found here
