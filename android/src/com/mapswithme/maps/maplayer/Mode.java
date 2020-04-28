@@ -105,8 +105,7 @@ public enum Mode
           SubwayManager.from(context).setEnabled(false);
         }
       };
-
-
+  
   public abstract boolean isEnabled(@NonNull Context context);
 
   public abstract void setEnabled(@NonNull Context context, boolean isEnabled);

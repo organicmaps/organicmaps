@@ -796,7 +796,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     View subway = frame.findViewById(R.id.subway);
     View isoLines = frame.findViewById(R.id.isolines);
     View guides = frame.findViewById(R.id.guides);
-    mToggleMapLayerController = new MapLayerCompositeController(traffic, subway, isoLines, guides, this);
+    mToggleMapLayerController = new MapLayerCompositeController(traffic,
+                                                                subway,
+                                                                isoLines,
+                                                                guides,
+                                                                this);
     mToggleMapLayerController.attachCore();
   }
 

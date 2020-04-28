@@ -30,6 +30,6 @@ public class LayersUtils
     Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> guides
         = new Pair<>(BottomSheetItem.Guides.makeInstance(context), guidesListener);
 
-    return Arrays.asList(traffic, isoLines, subway);
+    return Arrays.asList(guides, traffic, isoLines, subway);
   }
 }

@@ -65,13 +65,14 @@ public class MapLayerCompositeController implements MapLayerController
                                                            trafficButtonController);
     ControllerAndMode isoLineEntry = new ControllerAndMode(Mode.ISOLINES, Tutorial.ISOLINES,
                                                            isoLinesController);
-    ControllerAndMode guidesEntry = new ControllerAndMode(Mode.GUIDES, Tutorial.ISOLINES,
+    ControllerAndMode guidesEntry = new ControllerAndMode(Mode.GUIDES, null,
                                                           guidesController);
 
     List<ControllerAndMode> entries = new ArrayList<>();
     entries.add(subwayEntry);
     entries.add(isoLineEntry);
     entries.add(trafficEntry);
+    entries.add(guidesEntry);
 
     return entries;
   }

@@ -125,7 +125,7 @@ Framework::Framework()
   m_work.GetTrafficManager().SetStateListener(bind(&Framework::TrafficStateChanged, this, _1));
   m_work.GetTransitManager().SetStateListener(bind(&Framework::TransitSchemeStateChanged, this, _1));
   m_work.GetIsolinesManager().SetStateListener(bind(&Framework::IsolinesSchemeStateChanged, this, _1));
-  m_work.GetGuidesManager().SetStateListener(bind(&Framework::GuidesSchemeStateChanged, this, _1));
+  m_work.GetGuidesManager().SetStateListener(bind(&Framework::GuidesLayerStateChanged, this, _1));
   m_work.GetPowerManager().Subscribe(this);
 }
 
@@ -177,7 +177,7 @@ void Framework::IsolinesSchemeStateChanged(IsolinesManager::IsolinesState state)
     m_onIsolinesStateChangedFn(state);
 }
 
-void Framework::GuidesSchemeStateChanged(GuidesManager::GuidesState state)
+void Framework::GuidesLayerStateChanged(GuidesManager::GuidesState state)
 {
   if (m_onGuidesStateChangedFn)
     m_onGuidesStateChangedFn(state);
@@ -1797,12 +1797,11 @@ Java_com_mapswithme_maps_Framework_nativeIsIsolinesLayerEnabled(JNIEnv * env, jc
   return static_cast<jboolean>(frm()->LoadIsolinesEnabled());
 }
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetGuidesLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
+JNIEXPORT void JNICALL Java_com_mapswithme_maps_Framework_nativeSetGuidesLayerEnabled(
+    JNIEnv * env, jclass, jboolean enabled)
 {
-  auto const value = static_cast<bool>(enabled);
-  frm()->GetGuidesManager().SetEnabled(value);
-  frm()->SaveGuidesEnabled(value);
+  frm()->GetGuidesManager().SetEnabled(static_cast<bool>(enabled));
+  frm()->SaveGuidesEnabled(static_cast<bool>(enabled));
 }
 
 JNIEXPORT jboolean JNICALL

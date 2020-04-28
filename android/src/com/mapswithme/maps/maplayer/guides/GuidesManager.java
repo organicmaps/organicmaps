@@ -8,8 +8,6 @@ import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.base.Initializable;
-import com.mapswithme.maps.maplayer.isolines.IsolinesErrorDialogListener;
-import com.mapswithme.maps.maplayer.subway.OnIsolinesChangedListener;
 
 public class GuidesManager implements Initializable<Void>
 {

@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import com.mapswithme.maps.base.Detachable;
-import com.mapswithme.maps.maplayer.subway.OnIsolinesChangedListener;
 
 class OnIsolinesChangedListenerImpl implements OnIsolinesChangedListener, Detachable<IsolinesErrorDialogListener>
 {

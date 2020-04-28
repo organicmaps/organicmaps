@@ -5,5 +5,5 @@ import com.mapswithme.maps.maplayer.isolines.IsolinesState;
 
 public interface GuidesErrorDialogListener
 {
-  void onStateChanged(@NonNull GuidesState type);
+  void onStateChanged(@NonNull GuidesState state);
 }

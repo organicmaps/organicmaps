@@ -71,7 +71,7 @@ namespace android
     void TrafficStateChanged(TrafficManager::TrafficState state);
     void TransitSchemeStateChanged(TransitReadManager::TransitSchemeState state);
     void IsolinesSchemeStateChanged(IsolinesManager::IsolinesState state);
-    void GuidesSchemeStateChanged(GuidesManager::GuidesState state);
+    void GuidesLayerStateChanged(GuidesManager::GuidesState state);
 
     void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
 

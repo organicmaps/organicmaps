@@ -3031,10 +3031,7 @@ bool Framework::LoadGuidesEnabled()
   return enabled;
 }
 
-void Framework::SaveGuidesEnabled(bool enabled)
-{
-  settings::Set(kGuidesEnabledKey, enabled);
-}
+void Framework::SaveGuidesEnabled(bool enabled) { settings::Set(kGuidesEnabledKey, enabled); }
 
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition,
                                          m2::PointD const & position)

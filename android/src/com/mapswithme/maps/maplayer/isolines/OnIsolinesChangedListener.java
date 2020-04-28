@@ -1,4 +1,4 @@
-package com.mapswithme.maps.maplayer.subway;
+package com.mapswithme.maps.maplayer.isolines;
 
 public interface OnIsolinesChangedListener
 {
