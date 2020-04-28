@@ -2860,5 +2860,49 @@ UNIT_CLASS_TEST(ProcessorTest, LocalityScorer)
     TEST(ResultsMatch("San Pedro de Alcantara ", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, StreetWithNumber)
+{
+  string const countryName = "Wonderland";
+
+  TestStreet street1(
+      vector<m2::PointD>{m2::PointD(-0.5, 1.0), m2::PointD(0.0, 1.0), m2::PointD(0.5, 1.0)},
+      "1-я Тверская-Ямская", "ru");
+
+  TestStreet street8(
+      vector<m2::PointD>{m2::PointD(-0.5, 1.0), m2::PointD(0.0, 0.0), m2::PointD(0.5, 0.0)},
+      "8 Марта", "ru");
+
+  TestStreet street11(
+      vector<m2::PointD>{m2::PointD(-0.5, -1.0), m2::PointD(0.0, -1.0), m2::PointD(0.5, -1.0)},
+      "11-я Магистральная", "ru");
+
+  TestBuilding building1(m2::PointD(0.0, 1.00001), "", "1", street1.GetName("ru"), "en");
+  TestBuilding building8(m2::PointD(0.0, 0.00001), "", "8", street8.GetName("ru"), "en");
+  TestBuilding building11(m2::PointD(0.0, -1.00001), "", "11", street11.GetName("ru"), "en");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(street1);
+    builder.Add(street8);
+    builder.Add(street11);
+    builder.Add(building1);
+    builder.Add(building8);
+    builder.Add(building11);
+  });
+
+  SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
+  {
+    Rules rules{ExactMatch(countryId, building1), ExactMatch(countryId, street1)};
+    TEST(ResultsMatch("1-я Тверская-Ямская 1 ", rules), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, building8), ExactMatch(countryId, street8)};
+    TEST(ResultsMatch("8 Марта 8  ", rules), ());
+  }
+  {
+    Rules rules{ExactMatch(countryId, building11), ExactMatch(countryId, street11)};
+    TEST(ResultsMatch("11-я Магистральная 11 ", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search
