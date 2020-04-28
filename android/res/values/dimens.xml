@@ -298,5 +298,6 @@
   <dimen name="zero">0dp</dimen>
   <dimen name="welcome_btn_min_width">148dp</dimen>
   <dimen name="guide_gallery_item_width">328dp</dimen>
-
+  <dimen name="guide_gallery_title_width">176dp</dimen>
+  <dimen name="guide_gallery_title_height">40dp</dimen>
 </resources>

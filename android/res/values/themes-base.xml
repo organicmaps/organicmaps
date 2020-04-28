@@ -183,6 +183,7 @@
     <item name="guidesPlaceholder">@drawable/place_holder</item>
     <item name="guidesDistance">@drawable/dist</item>
     <item name="bgRectangleView">@drawable/bg_grey</item>
+    <item name="bgRoundedCard">@drawable/bg_rounded_card</item>
   </style>
 
   <!-- Night theme -->
@@ -365,5 +366,6 @@
     <item name="guidesPlaceholder">@drawable/place_holder_dark</item>
     <item name="guidesDistance">@drawable/dist_dark</item>
     <item name="bgRectangleView">@drawable/bg_grey_dark</item>
+    <item name="bgRoundedCard">@drawable/bg_rounded_card_night</item>
   </style>
 </resources>
