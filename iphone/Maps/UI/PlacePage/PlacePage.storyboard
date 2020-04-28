@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -176,7 +176,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jaa-Yj-XQR" customClass="DirectionView" customModule="maps_me" customModuleProvider="target">
+                                            <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jaa-Yj-XQR" customClass="PlacePageDirectionView" customModule="maps_me" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
                                                 <subviews>
                                                     <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_direction_light" translatesAutoresizingMaskIntoConstraints="NO" id="4kK-Rj-36V">
@@ -211,9 +211,11 @@
                                                 <connections>
                                                     <outlet property="imageView" destination="4kK-Rj-36V" id="V47-aw-ghM"/>
                                                     <outlet property="label" destination="rA0-Ik-tcS" id="42G-Eg-nG5"/>
+                                                    <outletCollection property="gestureRecognizers" destination="AFh-Ap-6Aj" appends="YES" id="zAl-MD-vmQ"/>
                                                 </connections>
                                             </view>
                                         </subviews>
+                                        <gestureRecognizers/>
                                         <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKt-f3-qqN">
@@ -243,7 +245,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="y54-Rh-kGm" customClass="DirectionView" customModule="maps_me" customModuleProvider="target">
+                                            <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="y54-Rh-kGm" customClass="PlacePageDirectionView" customModule="maps_me" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
                                                 <subviews>
                                                     <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_direction_light" translatesAutoresizingMaskIntoConstraints="NO" id="cGR-t8-OJR">
@@ -278,6 +280,7 @@
                                                 <connections>
                                                     <outlet property="imageView" destination="cGR-t8-OJR" id="Cac-AL-9xs"/>
                                                     <outlet property="label" destination="b5Y-rz-Slv" id="sh4-ay-ktt"/>
+                                                    <outletCollection property="gestureRecognizers" destination="q8Z-W5-IfT" appends="YES" id="H82-UF-dSo"/>
                                                 </connections>
                                             </view>
                                         </subviews>
@@ -449,6 +452,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KiS-ML-wAV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="AFh-Ap-6Aj">
+                    <connections>
+                        <action selector="onDirectionPressed:" destination="76G-o4-sUY" id="FWE-0i-329"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="q8Z-W5-IfT">
+                    <connections>
+                        <action selector="onDirectionPressed:" destination="76G-o4-sUY" id="Ebd-8k-DhB"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="929" y="-958"/>
         </scene>

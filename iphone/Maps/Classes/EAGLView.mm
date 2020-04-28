@@ -1,7 +1,7 @@
 #import "EAGLView.h"
 #import "iosOGLContextFactory.h"
-#import "MWMDirectionView.h"
 #import "MWMMapWidgets.h"
+#import "SwiftBridge.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -182,19 +182,6 @@ double getExactDPI(double contentScaleFactor)
 
   self->_drapeEngineCreated = YES;
   LOG(LINFO, ("CreateDrapeEngine Finished"));
-}
-
-- (void)addSubview:(UIView *)view
-{
-  [super addSubview:view];
-  for (UIView * v in self.subviews)
-  {
-    if ([v isKindOfClass:[MWMDirectionView class]])
-    {
-      [self bringSubviewToFront:v];
-      break;
-    }
-  }
 }
 
 - (CGSize)pixelSize

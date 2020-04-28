@@ -1,4 +1,4 @@
-class DirectionView: UIView {
+class PlacePageDirectionView: UIView {
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var label: UILabel!
 }
@@ -32,10 +32,13 @@ class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var scheduleContainerView: UIStackView!
   @IBOutlet var searchSimilarContainerView: UIStackView!
 
-  @IBOutlet var subtitleDirectionView: DirectionView!
-  @IBOutlet var addressDirectionView: DirectionView!
+  @IBOutlet var subtitleDirectionView: PlacePageDirectionView!
+  @IBOutlet var addressDirectionView: PlacePageDirectionView!
 
-  var directionView: DirectionView?
+  var placePageDirectionView: PlacePageDirectionView?
+  lazy var fullScreenDirectionView: DirectionView = {
+    return Bundle.main.load(viewClass: DirectionView.self)!
+  }()
   lazy var adView: AdBannerView = {
     let view = Bundle.main.load(viewClass: AdBannerView.self)?.first as! AdBannerView
     view.isHidden = true
@@ -72,11 +75,11 @@ class PlacePagePreviewViewController: UIViewController {
       subtitleLabel.attributedText = subtitleString
     }
 
-    directionView = subtitleDirectionView
+    placePageDirectionView = subtitleDirectionView
 
     if let address = placePagePreviewData.address {
       addressLabel.text = address
-      directionView = addressDirectionView
+      placePageDirectionView = addressDirectionView
     } else {
       addressContainerView.isHidden = true
     }
@@ -92,14 +95,14 @@ class PlacePagePreviewViewController: UIViewController {
     ugcContainerView.isHidden = !placePagePreviewData.isBookingPlace
 
     if let distance = distance {
-      directionView?.isHidden = false
-      directionView?.label.text = distance
+      placePageDirectionView?.isHidden = false
+      placePageDirectionView?.label.text = distance
     }
 
     if let heading = heading {
       updateHeading(heading)
     } else {
-      directionView?.imageView.isHidden = true
+      placePageDirectionView?.imageView.isHidden = true
     }
 
     stackView.addArrangedSubview(adView)
@@ -166,19 +169,21 @@ class PlacePagePreviewViewController: UIViewController {
 
   func updateDistance(_ distance: String) {
     self.distance = distance
-    directionView?.isHidden = false
-    directionView?.label.text = distance
+    placePageDirectionView?.isHidden = false
+    placePageDirectionView?.label.text = distance
+    fullScreenDirectionView.updateDistance(distance)
   }
 
   func updateHeading(_ angle: CGFloat) {
     heading = angle
-    directionView?.imageView.isHidden = false
+    placePageDirectionView?.imageView.isHidden = false
     UIView.animate(withDuration: kDefaultAnimationDuration,
                    delay: 0,
                    options: [.beginFromCurrentState, .curveEaseInOut],
                    animations: { [unowned self] in
-                    self.directionView?.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
+                    self.placePageDirectionView?.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
     })
+    fullScreenDirectionView.updateHeading(angle)
   }
 
   func updateSpeedAndAltitude(_ speedAndAltitude: String) {
@@ -192,6 +197,18 @@ class PlacePagePreviewViewController: UIViewController {
 
   @IBAction func onSimilarHotels(_ sender: UIButton) {
     delegate?.previewDidPressSimilarHotels()
+  }
+
+  @IBAction func onDirectionPressed(_ sender: Any) {
+    guard let heading = heading else {
+      return
+    }
+
+    fullScreenDirectionView.updateTitle(placePagePreviewData.title,
+                                        subtitle: placePagePreviewData.subtitle ?? placePagePreviewData.coordinates)
+    fullScreenDirectionView.updateHeading(heading)
+    fullScreenDirectionView.updateDistance(distance)
+    fullScreenDirectionView.show()
   }
   // MARK: private
 

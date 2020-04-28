@@ -627,6 +627,8 @@
 		995739082355CB660019AEE7 /* AllPassSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995739072355CB660019AEE7 /* AllPassSubscriptionViewController.swift */; };
 		995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995F1611244F0AA40060631D /* BottomMenuLayersCell.swift */; };
 		995F1614244F0AA50060631D /* BottomMenuLayersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 995F1612244F0AA40060631D /* BottomMenuLayersCell.xib */; };
+		9959C75624582DA2008FD4FD /* DirectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9959C75524582DA2008FD4FD /* DirectionView.xib */; };
+		9959C75C24599CCD008FD4FD /* DirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9959C75B24599CCC008FD4FD /* DirectionView.swift */; };
 		9977E6A12480E1EE0073780C /* BottomMenuLayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977E6A02480E1EE0073780C /* BottomMenuLayerButton.swift */; };
 		9977E69C247BFB510073780C /* MWMSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977E69B247BFB510073780C /* MWMSearchTextField.swift */; };
 		9977E6A32480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977E6A22480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift */; };
@@ -847,8 +849,6 @@
 		F6E2FE2B1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FC841E097B9F0083EBEC /* MWMStreetEditorEditTableViewCell.m */; };
 		F6E2FE2E1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FC851E097B9F0083EBEC /* MWMStreetEditorEditTableViewCell.xib */; };
 		F6E2FE311E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FC871E097B9F0083EBEC /* MWMStreetEditorViewController.mm */; };
-		F6E2FE431E097BA00083EBEC /* MWMDirectionView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FC951E097B9F0083EBEC /* MWMDirectionView.mm */; };
-		F6E2FE461E097BA00083EBEC /* MWMDirectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FC961E097B9F0083EBEC /* MWMDirectionView.xib */; };
 		F6E2FE4C1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FC9A1E097B9F0083EBEC /* MWMPlacePageManager.mm */; };
 		F6E2FE4F1E097BA00083EBEC /* MWMActionBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FC9F1E097B9F0083EBEC /* MWMActionBarButton.m */; };
 		F6E2FE521E097BA00083EBEC /* MWMActionBarButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FCA01E097B9F0083EBEC /* MWMActionBarButton.xib */; };
@@ -1716,6 +1716,8 @@
 		9957FAE0237AE04900855F48 /* MWMMapViewControlsManager+AddPlace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapViewControlsManager+AddPlace.h"; sourceTree = "<group>"; };
 		995F1610244F07F90060631D /* MWMBottomMenuState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuState.h; sourceTree = "<group>"; };
 		995F1611244F0AA40060631D /* BottomMenuLayersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLayersCell.swift; sourceTree = "<group>"; };
+		9959C75524582DA2008FD4FD /* DirectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionView.xib; sourceTree = "<group>"; };
+		9959C75B24599CCC008FD4FD /* DirectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionView.swift; sourceTree = "<group>"; };
 		995F1612244F0AA40060631D /* BottomMenuLayersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomMenuLayersCell.xib; sourceTree = "<group>"; };
 		9977E6A02480E1EE0073780C /* BottomMenuLayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLayerButton.swift; sourceTree = "<group>"; };
 		9977E69B247BFB510073780C /* MWMSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMSearchTextField.swift; sourceTree = "<group>"; };
@@ -2075,9 +2077,6 @@
 		F6E2FC851E097B9F0083EBEC /* MWMStreetEditorEditTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMStreetEditorEditTableViewCell.xib; sourceTree = "<group>"; };
 		F6E2FC861E097B9F0083EBEC /* MWMStreetEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStreetEditorViewController.h; sourceTree = "<group>"; };
 		F6E2FC871E097B9F0083EBEC /* MWMStreetEditorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStreetEditorViewController.mm; sourceTree = "<group>"; };
-		F6E2FC941E097B9F0083EBEC /* MWMDirectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDirectionView.h; sourceTree = "<group>"; };
-		F6E2FC951E097B9F0083EBEC /* MWMDirectionView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMDirectionView.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		F6E2FC961E097B9F0083EBEC /* MWMDirectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDirectionView.xib; sourceTree = "<group>"; };
 		F6E2FC991E097B9F0083EBEC /* MWMPlacePageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageManager.h; sourceTree = "<group>"; };
 		F6E2FC9A1E097B9F0083EBEC /* MWMPlacePageManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageManager.mm; sourceTree = "<group>"; };
 		F6E2FC9B1E097B9F0083EBEC /* MWMPlacePageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageProtocol.h; sourceTree = "<group>"; };
@@ -4625,9 +4624,8 @@
 		F6E2FC931E097B9F0083EBEC /* DirectionView */ = {
 			isa = PBXGroup;
 			children = (
-				F6E2FC941E097B9F0083EBEC /* MWMDirectionView.h */,
-				F6E2FC951E097B9F0083EBEC /* MWMDirectionView.mm */,
-				F6E2FC961E097B9F0083EBEC /* MWMDirectionView.xib */,
+				9959C75B24599CCC008FD4FD /* DirectionView.swift */,
+				9959C75524582DA2008FD4FD /* DirectionView.xib */,
 			);
 			path = DirectionView;
 			sourceTree = "<group>";
@@ -5104,10 +5102,10 @@
 				349D1AD51E2E325B004A2006 /* BottomMenuItemCell.xib in Resources */,
 				349D1AE11E2E325C004A2006 /* BottomTabBarViewController.xib in Resources */,
 				34D3B01E1E389D05004100F9 /* MWMButtonCell.xib in Resources */,
+				9959C75624582DA2008FD4FD /* DirectionView.xib in Resources */,
 				6741A98B1BF340DE002C974C /* MWMCircularProgress.xib in Resources */,
 				CD96C71122A6820800DB7CFE /* DiscoveryGuideCollectionHolderCell.xib in Resources */,
 				6741A94F1BF340DE002C974C /* MWMDefaultAlert.xib in Resources */,
-				F6E2FE461E097BA00083EBEC /* MWMDirectionView.xib in Resources */,
 				6741A9951BF340DE002C974C /* MWMDownloaderDialogCell.xib in Resources */,
 				6741A9511BF340DE002C974C /* MWMDownloaderDialogHeader.xib in Resources */,
 				6741A96C1BF340DE002C974C /* MWMDownloadTransitMapAlert.xib in Resources */,
@@ -5601,7 +5599,6 @@
 				34E776141F14B17F003040B3 /* AvailableArea.swift in Sources */,
 				34AB66081FC5AA320078E451 /* MWMNavigationDashboardManager.mm in Sources */,
 				991CE2BF2371D349009EB02A /* PromoCampaignManager.swift in Sources */,
-				F6E2FE431E097BA00083EBEC /* MWMDirectionView.mm in Sources */,
 				470F5A5B2181DE7500754295 /* PaidRouteViewController.swift in Sources */,
 				3486B50D1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
 				3404F490202898CC0090E401 /* BMCModels.swift in Sources */,
@@ -5621,6 +5618,7 @@
 				993DF11723F6BDB100AC231A /* UINavigationBarRenderer.swift in Sources */,
 				6741A9E71BF340DE002C974C /* MWMCircularProgressView.m in Sources */,
 				34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */,
+				9959C75C24599CCD008FD4FD /* DirectionView.swift in Sources */,
 				99B6A77F23684573002C94CB /* PromoDiscoveryBuilder.swift in Sources */,
 				4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */,
 				F6E2FD981E097BA00083EBEC /* MWMBookmarkTitleCell.m in Sources */,
