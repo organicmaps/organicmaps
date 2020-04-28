@@ -168,8 +168,19 @@ void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates,
   // Remove predictions with the same m_hash (features) and token range.
   base::SortUnique(predictions, &LessByHashAndRange, &EqualsByHashAndRange);
 
-  // We need all predictions here. Even predictions with the same m_hash (features) and
-  // m_withMisprints. For example:
+  // We should distinguish predictions with the same m_hash (features) but different range and
+  // m_withMisprints. For example, for "Paramount dive" we will have two parses:
+  //
+  // STREET       UNUSED (can be matched to poi later)
+  // Paramount   dive
+  //
+  // STREET       STREET ("drive" with misprints)
+  // Paramount    dive
+  //
+  // The parses will have the same features and hash but we need both of them.
+  //
+  // We also need to distinguish predictions with the same m_hash (features) and m_withMisprints but
+  // different range. For example:
   //
   // STREET STREET STREET  STREET
   // 8      March  street, 8
@@ -178,6 +189,8 @@ void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates,
   // 8      March  street, 8
   //
   // Predictions have the same m_hash (features) and m_withMisprints but lead to different parses.
+  //
+  // That's why we need all predictions here.
 
   sort(predictions.rbegin(), predictions.rend(), base::LessBy(&Prediction::m_prob));
   while (predictions.size() > kMaxNumOfImprobablePredictions &&
