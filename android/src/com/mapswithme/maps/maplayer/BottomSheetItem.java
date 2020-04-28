@@ -102,7 +102,7 @@ public abstract class BottomSheetItem
   {
     private Guides(int drawableResId, int disabledStateDrawableResId)
     {
-      super(drawableResId, disabledStateDrawableResId, R.string.button_layer_isolines, Mode.GUIDES);
+      super(drawableResId, disabledStateDrawableResId, R.string.button_layer_guides, Mode.GUIDES);
     }
 
     public static BottomSheetItem makeInstance(@NonNull Context mContext)

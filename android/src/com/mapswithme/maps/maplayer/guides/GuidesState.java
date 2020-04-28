@@ -15,7 +15,7 @@ public enum GuidesState
         @Override
         public void activate(@NonNull Context context)
         {
-          Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+          Toast.makeText(context, R.string.no_routes_in_the_area_toast, Toast.LENGTH_SHORT).show();
         }
       },
   NETWORK_ERROR;

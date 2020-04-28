@@ -2918,4 +2918,6 @@
 	<string name="brand.yoshinoya">Yoshinoya</string>
 	<string name="brand.yudetaro">Yudetaro</string>
 	<string name="brand.yumean">Yumean</string>
+  <string name="button_layer_guides">Guides</string>
+	<string name="no_routes_in_the_area_toast">No guides found here</string>
 </resources>
