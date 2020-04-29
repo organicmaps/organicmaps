@@ -25,10 +25,7 @@ public:
   static uint64_t GetCurrentPosition();
   std::string const & GetFilePath() const { return m_dataFile.GetName(); }
   /// \brief Serializes |f|.
-  /// \returns Feature id of serialized feature if |f| is serialized after the call
-  /// and |kInvalidFeatureId| if not.
-  /// \note See implementation operator() in derived class for cases when |f| cannot be
-  /// serialized.
+  /// \returns Feature id of serialized feature.
   virtual uint32_t Collect(FeatureBuilder const & f);
   virtual uint32_t Collect(FeatureBuilder & f)
   {
@@ -37,8 +34,6 @@ public:
   virtual void Finish() {}
 
 protected:
-  static uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();
-
   /// \return Feature offset in the file, which is used as an ID later
   uint32_t WriteFeatureBase(std::vector<char> const & bytes, FeatureBuilder const & fb);
   void Flush();

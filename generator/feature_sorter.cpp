@@ -52,6 +52,8 @@ namespace feature
 class FeaturesCollector2 : public FeaturesCollector
 {
 public:
+  static uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();
+
   FeaturesCollector2(string const & filename, DataHeader const & header,
                      RegionData const & regionData, uint32_t versionDate)
     : FeaturesCollector(filename + FEATURES_FILE_TAG)
