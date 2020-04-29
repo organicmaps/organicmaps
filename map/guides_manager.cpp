@@ -99,7 +99,8 @@ void GuidesManager::RequestGuides(m2::AnyRectD const & rect, int zoom)
         else
           ChangeState(GuidesState::NoData);
 
-        m_onGalleryChanged(true);
+        if (m_onGalleryChanged)
+          m_onGalleryChanged(true);
       },
       [this, requestNumber, zoom]() mutable {
         if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError)
