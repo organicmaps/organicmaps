@@ -23,31 +23,30 @@ struct FeatureID
   static char const * const kInvalidFileName;
   static int64_t const kInvalidMwmVersion;
 
-  MwmSet::MwmId m_mwmId;
-  uint32_t m_index;
-
-  FeatureID() : m_index(0) {}
+  FeatureID() = default;
   FeatureID(MwmSet::MwmId const & mwmId, uint32_t index) : m_mwmId(mwmId), m_index(index) {}
 
   bool IsValid() const { return m_mwmId.IsAlive(); }
 
-  inline bool operator<(FeatureID const & r) const
+  bool operator<(FeatureID const & r) const
   {
-    if (m_mwmId == r.m_mwmId)
-      return m_index < r.m_index;
-    else
+    if (m_mwmId != r.m_mwmId)
       return m_mwmId < r.m_mwmId;
+    return m_index < r.m_index;
   }
 
-  inline bool operator==(FeatureID const & r) const
+  bool operator==(FeatureID const & r) const
   {
-    return (m_mwmId == r.m_mwmId && m_index == r.m_index);
+    return m_mwmId == r.m_mwmId && m_index == r.m_index;
   }
 
-  inline bool operator!=(FeatureID const & r) const { return !(*this == r); }
+  bool operator!=(FeatureID const & r) const { return !(*this == r); }
 
   std::string GetMwmName() const;
   int64_t GetMwmVersion() const;
 
-  friend std::string DebugPrint(FeatureID const & id);
+  MwmSet::MwmId m_mwmId;
+  uint32_t m_index = 0;
 };
+
+std::string DebugPrint(FeatureID const & id);
