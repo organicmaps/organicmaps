@@ -7,7 +7,6 @@
 #include "routing_common/vehicle_model.hpp"
 
 #include "indexer/feature.hpp"
-#include "indexer/features_vector.hpp"
 
 #include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
@@ -38,7 +37,6 @@ void CmdTrack(string const & trackFile, string const & mwmName, string const & u
   string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
   shared_ptr<VehicleModelInterface> vehicleModel =
       CarModelFactory({}).GetVehicleModelForCountry(mwmName);
-  FeaturesVectorTest featuresVector(FilesContainerR(make_unique<FileReader>(mwmFile)));
   Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));
 
   uint64_t const duration =
