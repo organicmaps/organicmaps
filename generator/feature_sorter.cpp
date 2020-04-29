@@ -73,13 +73,6 @@ public:
     m_addrFile = make_unique<FileWriter>(filename + TEMP_ADDR_FILENAME);
   }
 
-  ~FeaturesCollector2()
-  {
-    // Check file size.
-    auto const unused = CheckedFilePosCast(m_dataFile);
-    UNUSED_VALUE(unused);
-  }
-
   void Finish()
   {
     // write version information
