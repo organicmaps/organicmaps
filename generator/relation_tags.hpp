@@ -43,8 +43,8 @@ protected:
   void AddCustomTag(std::pair<std::string, std::string> const & p);
   virtual void Process(RelationElement const & e) = 0;
 
-  uint64_t m_featureID;
-  OsmElement * m_current;
+  uint64_t m_featureID = 0;
+  OsmElement * m_current = nullptr;
 
 private:
   base::Cache<uint64_t, RelationElement> m_cache;

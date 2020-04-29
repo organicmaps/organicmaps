@@ -227,7 +227,7 @@ private:
   void ParseGeometryAndTriangles(int scale);
 
   uint8_t m_header = 0;
-  std::array<uint32_t, feature::kMaxTypesCount> m_types;
+  std::array<uint32_t, feature::kMaxTypesCount> m_types = {};
 
   FeatureID m_id;
   FeatureParamsBase m_params;

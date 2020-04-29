@@ -179,7 +179,7 @@ protected:
   std::vector<char> m_stringBuffer;
   size_t m_stringCurrentIndex;
   StreamBuffer m_buffer;
-  size_t m_remainder;
+  size_t m_remainder = 0;
   int64_t m_currentNodeRef = 0;
   int64_t m_currentWayRef = 0;
   int64_t m_currentRelationRef = 0;

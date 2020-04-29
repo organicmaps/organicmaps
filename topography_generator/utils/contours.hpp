@@ -22,9 +22,9 @@ struct Contours
   };
 
   std::unordered_map<ValueType, std::vector<Contour>> m_contours;
-  ValueType m_minValue;
-  ValueType m_maxValue;
-  ValueType m_valueStep;
+  ValueType m_minValue = 0;
+  ValueType m_maxValue = 0;
+  ValueType m_valueStep = 0;
   size_t m_invalidValuesCount = 0; // for debug purpose only.
 };
 

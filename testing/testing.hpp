@@ -51,22 +51,15 @@ void Notify();
 // This struct contains parsed command line options. It may contain pointers to argc contents.
 struct CommandLineOptions
 {
-  CommandLineOptions()
-    : m_filterRegExp(nullptr)
-    , m_suppressRegExp(nullptr)
-    , m_dataPath(nullptr)
-    , m_resourcePath(nullptr)
-    , m_help(false)
-  {
-  }
+  CommandLineOptions() = default;
 
-  char const * m_filterRegExp;
-  char const * m_suppressRegExp;
-  char const * m_dataPath;
-  char const * m_resourcePath;
+  char const * m_filterRegExp = nullptr;
+  char const * m_suppressRegExp = nullptr;
+  char const * m_dataPath = nullptr;
+  char const * m_resourcePath = nullptr;
 
-  bool m_help;
-  bool m_listTests;
+  bool m_help = false;
+  bool m_listTests = false;
 };
 CommandLineOptions const & GetTestingOptions();
 

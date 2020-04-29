@@ -20,9 +20,9 @@ struct Note
   std::string m_note;
 };
 
-inline bool operator==(Note const & a, Note const & b)
+inline bool operator==(Note const & lhs, Note const & rhs)
 {
-  return a.m_point == b.m_point && b.m_note == b.m_note;
+  return lhs.m_point == rhs.m_point && lhs.m_note == rhs.m_note;
 }
 
 class Notes : public std::enable_shared_from_this<Notes>

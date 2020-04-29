@@ -48,7 +48,7 @@ struct RankingInfo
   ErrorsMade m_errorsMade;
 
   // Query tokens number.
-  size_t m_numTokens;
+  size_t m_numTokens = 0;
 
   // Matched parts of the query.
   // todo(@m) Using TokenType instead of ModelType here would

@@ -33,7 +33,7 @@ public:
     QString m_fullFileName;
     QString m_symbolID;
 
-    m2::Packer::handle_t m_handle;
+    m2::Packer::handle_t m_handle = {};
 
     SymbolInfo() {}
     SymbolInfo(QSize size, QString const & fullFileName, QString const & symbolID)

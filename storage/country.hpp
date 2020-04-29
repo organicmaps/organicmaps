@@ -63,9 +63,9 @@ private:
   platform::CountryFile m_file;
   /// The number of descendant mwm files of |m_name|. Only files (leaves in tree) are counted.
   /// If |m_name| is a mwm file name |m_childrenNumber| == 1.
-  MwmCounter m_subtreeMwmNumber;
+  MwmCounter m_subtreeMwmNumber = 0;
   /// Size of descendant mwm files of |m_name|.
   /// If |m_name| is a mwm file name |m_subtreeMwmSizeBytes| is equal to size of the mwm.
-  MwmSize m_subtreeMwmSizeBytes;
+  MwmSize m_subtreeMwmSizeBytes = 0;
 };
 }  // namespace storage

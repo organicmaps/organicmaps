@@ -127,7 +127,7 @@ void CompareWithDefaultQueue(Queue const & lhs)
     TEST_EQUAL(lhsItem.GetType(), rhsItem.GetType(), ());
     TEST_EQUAL(lhsItem.GetBestFeatureType(), rhsItem.GetBestFeatureType(), ());
     TEST_EQUAL(lhsItem.GetReadableName(), rhsItem.GetReadableName(), ());
-    TEST_EQUAL(lhsItem.GetPos(), lhsItem.GetPos(), ());
+    TEST_EQUAL(lhsItem.GetPos(), rhsItem.GetPos(), ());
   }
 }
 

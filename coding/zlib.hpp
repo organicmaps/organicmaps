@@ -114,8 +114,8 @@ private:
 
   protected:
     z_stream m_stream;
-    bool m_init;
-    unsigned char m_buffer[kBufferSize];
+    bool m_init = false;
+    unsigned char m_buffer[kBufferSize] = {};
 
     DISALLOW_COPY_AND_MOVE(Processor);
   };

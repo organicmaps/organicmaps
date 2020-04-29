@@ -118,7 +118,7 @@ namespace feature
     std::vector<std::string> ToObjectNames() const;
 
   private:
-    Types m_types;
+    Types m_types = {};
     size_t m_size = 0;
 
     GeomType m_geomType = GeomType::Undefined;
@@ -279,7 +279,7 @@ public:
     Base::Read(src, header);
   }
 
-  Types m_types;
+  Types m_types = {};
 
 private:
   using Base = FeatureParamsBase;

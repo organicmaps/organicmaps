@@ -169,7 +169,7 @@ private:
   std::string m_suggestionStr;
   buffer_vector<std::pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
 
-  RankingInfo m_info;
+  RankingInfo m_info = {};
 
   // The position that this result occupied in the vector returned by
   // a search query. -1 if undefined.

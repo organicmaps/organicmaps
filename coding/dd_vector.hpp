@@ -122,7 +122,7 @@ public:
   private:
     ReaderType const * m_pReader;
     size_type m_I;
-    mutable T m_Value;
+    mutable T m_Value = {};
     mutable bool m_bValueRead;
 #ifdef DEBUG
     size_type m_Size;

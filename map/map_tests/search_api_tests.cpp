@@ -137,11 +137,13 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
 
   auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) { builder.Add(cafe); });
 
-  EverywhereSearchParams params;
-  params.m_query = "cafe ";
-  params.m_inputLocale = "en";
+  EverywhereSearchParams commonParams;
+  commonParams.m_query = "cafe ";
+  commonParams.m_inputLocale = "en";
 
   {
+    auto params = commonParams;
+
     promise<void> promise;
     auto future = promise.get_future();
 
@@ -163,6 +165,8 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
   }
 
   {
+    auto params = commonParams;
+
     promise<void> promise;
     auto future = promise.get_future();
 

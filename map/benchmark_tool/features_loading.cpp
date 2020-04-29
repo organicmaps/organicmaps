@@ -22,13 +22,6 @@ namespace
 {
   class Accumulator
   {
-    base::Timer m_timer;
-    size_t m_count;
-
-    Result & m_res;
-
-    int m_scale;
-
   public:
     explicit Accumulator(Result & res) : m_res(res) {}
 
@@ -57,6 +50,14 @@ namespace
 
       m_res.Add(m_timer.ElapsedSeconds());
     }
+
+  private:
+    base::Timer m_timer;
+    size_t m_count = 0;
+
+    Result & m_res;
+
+    int m_scale = 0;
   };
 
   void RunBenchmark(FeaturesFetcher const & src, m2::RectD const & rect,

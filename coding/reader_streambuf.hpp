@@ -18,9 +18,6 @@ public:
 
 class ReaderStreamBuf : public BaseStreamBuf
 {
-  std::unique_ptr<Reader> m_p;
-  uint64_t m_pos, m_size;
-
 public:
   ReaderStreamBuf(std::unique_ptr<Reader> && p);
   virtual ~ReaderStreamBuf();
@@ -29,7 +26,10 @@ private:
   virtual std::streamsize xsgetn(char_type * s, std::streamsize n);
   virtual int_type underflow();
 
-  char m_buf[1];
+  std::unique_ptr<Reader> m_p;
+  uint64_t m_pos = 0;
+  uint64_t m_size = 0;
+  char m_buf[1] = {};
 };
 
 class WriterStreamBuf : public BaseStreamBuf

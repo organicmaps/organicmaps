@@ -43,8 +43,8 @@ struct GenerateInfo
   // Current generated file name if --output option is defined.
   std::string m_fileName;
 
-  NodeStorageType m_nodeStorageType;
-  OsmSourceType m_osmFileType;
+  NodeStorageType m_nodeStorageType = NodeStorageType::Memory;
+  OsmSourceType m_osmFileType = OsmSourceType::XML;
   std::string m_osmFileName;
 
   std::string m_bookingDataFilename;

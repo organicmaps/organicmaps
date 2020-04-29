@@ -60,12 +60,12 @@ void SimplifyDP(Iter first, Iter last, double epsilon, DistanceFn & distFn, Out 
 
 struct SimplifyOptimalRes
 {
-  SimplifyOptimalRes() : m_PointCount(-1U) {}
+  SimplifyOptimalRes() = default;
   SimplifyOptimalRes(int32_t nextPoint, uint32_t pointCount)
     : m_NextPoint(nextPoint), m_PointCount(pointCount) {}
 
-  int32_t m_NextPoint;
-  uint32_t m_PointCount;
+  int32_t m_NextPoint = -1;
+  uint32_t m_PointCount = -1U;
 };
 }  // namespace impl
 

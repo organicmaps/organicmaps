@@ -52,7 +52,8 @@ inline void ForceUseValue(T const & t)
 #define FORCE_USE_VALUE(x) ::base::impl::ForceUseValue(x)
 
 #ifdef __GNUC__
-#define PREDICT(x, prediction) __builtin_expect(x, prediction)
+// https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
+#define PREDICT(x, prediction) __builtin_expect(static_cast<long>(x), static_cast<long>(prediction))
 #define PREDICT_TRUE(x) __builtin_expect((x) != 0, 1)
 #define PREDICT_FALSE(x) __builtin_expect((x) != 0, 0)
 #else

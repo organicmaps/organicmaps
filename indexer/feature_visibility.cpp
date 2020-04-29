@@ -7,6 +7,7 @@
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 
 #include <algorithm>
 #include <array>
@@ -82,7 +83,6 @@ vector<string> Classificator::GetFullObjectNamePath(uint32_t type) const
 
 namespace feature
 {
-
 namespace
 {
   class DrawRuleGetter
@@ -578,7 +578,7 @@ pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rule
 TypeSetChecker::TypeSetChecker(initializer_list<char const *> const & lst)
 {
   m_type = classif().GetTypeByPath(lst);
-  m_level = lst.size();
+  m_level = base::checked_cast<uint8_t>(lst.size());
 }
 
 bool TypeSetChecker::IsEqual(uint32_t type) const
@@ -586,5 +586,4 @@ bool TypeSetChecker::IsEqual(uint32_t type) const
   ftype::TruncValue(type, m_level);
   return (m_type == type);
 }
-
 }   // namespace feature

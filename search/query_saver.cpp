@@ -4,9 +4,10 @@
 
 #include "coding/base64.hpp"
 #include "coding/reader.hpp"
-#include "coding/writer.hpp"
 #include "coding/write_to_sink.hpp"
+#include "coding/writer.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -109,14 +110,14 @@ void QuerySaver::Serialize(string & data) const
 {
   vector<uint8_t> rawData;
   MemWriter<vector<uint8_t>> writer(rawData);
-  Length size = m_topQueries.size();
+  auto size = base::checked_cast<Length>(m_topQueries.size());
   WriteToSink(writer, size);
   for (auto const & query : m_topQueries)
   {
-    size = query.first.size();
+    size = base::checked_cast<Length>(query.first.size());
     WriteToSink(writer, size);
     writer.Write(query.first.c_str(), size);
-    size = query.second.size();
+    size = base::checked_cast<Length>(query.second.size());
     WriteToSink(writer, size);
     writer.Write(query.second.c_str(), size);
   }

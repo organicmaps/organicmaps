@@ -62,7 +62,6 @@ void FillInfoAboutBuildTimeGroupByPreviousResults(std::vector<std::string> & lab
   size_t startFrom = 0;
   size_t curCount = 0;
   bars.resize(2);
-  labels.clear();
   double curSumOld = 0;
   double curSumNew = 0;
   for (size_t i = 0; i < times.size(); ++i)
@@ -81,9 +80,12 @@ void FillInfoAboutBuildTimeGroupByPreviousResults(std::vector<std::string> & lab
     labels.emplace_back("[" + strings::to_string_dac(curLeft, 2 /* dac */) + "s, " +
                         strings::to_string_dac(curRight, 2 /* dac */) + "s]\\n" +
                         "Routes count:\\n" + std::to_string(curCount));
-    curSumOld /= curCount;
-    curSumNew /= curCount;
-    double const k = curSumNew / curSumOld;
+    if (curCount != 0)
+    {
+      curSumOld /= curCount;
+      curSumNew /= curCount;
+    }
+    double const k = curSumOld == 0.0 ? 0.0 : curSumNew / curSumOld;
     bars[0].emplace_back(100.0);
     bars[1].emplace_back(100.0 * k);
     curCount = 0;

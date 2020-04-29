@@ -491,6 +491,7 @@ ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn con
   , m_hasArea(false)
   , m_createdByEditor(false)
   , m_obsoleteInEditor(false)
+  , m_isUGC(false)
   , m_depthLayer(depthLayer)
   , m_symbolDepth(dp::kMinDepth)
   , m_symbolRule(nullptr)

@@ -29,7 +29,7 @@ struct ScreenshotParams
     KmlFiles
   };
 
-  Mode m_mode;
+  Mode m_mode = Mode::Points;
   std::string m_points;
   std::string m_rects;
   std::string m_kmlPath;

@@ -101,7 +101,7 @@ namespace qt
   {
     using namespace settings;
 
-    Units u;
+    Units u = Units::Metric;
     switch (i)
     {
     case 0: u = Units::Metric; break;

@@ -175,13 +175,15 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
     };
   }
 
+  auto const width = static_cast<int>(screenshotParams->m_width);
+  auto const height = static_cast<int>(screenshotParams->m_height);
   m_pDrawWidget = new DrawWidget(framework, apiOpenGLES3, std::move(screenshotParams), this);
 
   setCentralWidget(m_pDrawWidget);
 
   if (m_screenshotMode)
   {
-    QSize size(static_cast<int>(screenshotParams->m_width), static_cast<int>(screenshotParams->m_height));
+    QSize size(width, height);
     size.setHeight(size.height() + statusBar()->height());
     m_pDrawWidget->setFixedSize(size);
     setFixedSize(size);

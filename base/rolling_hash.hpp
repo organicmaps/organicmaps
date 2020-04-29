@@ -1,62 +1,65 @@
 #pragma once
+
 #include "base/assert.hpp"
 #include "base/base.hpp"
-#include "base/bits.hpp"
 #include "base/math.hpp"
+
 #ifdef DEBUG
 #include <queue>
 #endif
 
-
 template <typename T, typename HashT> class RabinKarpRollingHasher
 {
 public:
-  typedef T value_type;
-  typedef HashT hash_type;
+  using value_type = T;
+  using hash_type = HashT;
+
   explicit RabinKarpRollingHasher(HashT multiplier)
-    : m_Hash(0), m_Multiplier(multiplier), m_RemoveMultiplier(0)
+    : m_multiplier(multiplier)
   {
   }
 
-  template <typename IterT> hash_type Init(IterT it, uint64_t windowSize)
+  template <typename Iter> hash_type Init(Iter it, uint64_t windowSize)
   {
-    m_WindowSize = windowSize;
-    m_RemoveMultiplier = base::PowUint(m_Multiplier, m_WindowSize - 1);
+    ASSERT_GREATER(m_windowSize, 0, ());
+    m_windowSize = windowSize;
+    m_removeMultiplier = base::PowUint(m_multiplier, m_windowSize - 1);
 #ifdef DEBUG
-    while (!m_Queue.empty()) m_Queue.pop();
+    while (!m_queue.empty()) m_queue.pop();
 #endif
-    m_Hash = 0;
-    for (uint64_t i = 0; i < m_WindowSize; ++it, ++i)
+    m_hash = 0;
+    for (uint64_t i = 0; i < m_windowSize; ++it, ++i)
     {
-      m_Hash = m_Hash * m_Multiplier + *it;
+      m_hash = m_hash * m_multiplier + *it;
 #ifdef DEBUG
-      m_Queue.push(*it);
+      m_queue.push(*it);
 #endif
     }
-    return m_Hash;
+    return m_hash;
   }
 
   hash_type Scroll(T const remove, T const add)
   {
-    ASSERT_NOT_EQUAL(m_RemoveMultiplier, 0, (m_Multiplier, m_WindowSize, remove, add));
-    ASSERT_NOT_EQUAL(m_WindowSize, 0, (m_Multiplier, remove, add));
+    ASSERT_NOT_EQUAL(m_removeMultiplier, 0, (m_multiplier, m_windowSize, remove, add));
+    ASSERT_NOT_EQUAL(m_windowSize, 0, (m_multiplier, remove, add));
 #ifdef DEBUG
-    ASSERT_EQUAL(m_Queue.front(), remove, ());
-    m_Queue.pop();
-    m_Queue.push(add);
+    ASSERT_EQUAL(m_queue.front(), remove, ());
+    m_queue.pop();
+    m_queue.push(add);
 #endif
-    m_Hash -= m_RemoveMultiplier * remove;
-    m_Hash = m_Hash * m_Multiplier + add;
-    return m_Hash;
+    m_hash -= m_removeMultiplier * remove;
+    m_hash = m_hash * m_multiplier + add;
+    return m_hash;
   }
 
 private:
-  hash_type m_Hash;
-  hash_type m_Multiplier;
-  hash_type m_RemoveMultiplier;
-  uint64_t m_WindowSize;
+  hash_type m_hash = 0;
+  hash_type m_multiplier = 1;
+  hash_type m_removeMultiplier = 1;
+  uint64_t m_windowSize = 1;
+
 #ifdef DEBUG
-  std::queue<value_type> m_Queue;
+  std::queue<value_type> m_queue;
 #endif
 };
 
@@ -74,5 +77,5 @@ public:
     : RabinKarpRollingHasher<uint64_t, uint64_t>(6364136223846793005ULL) {}
 };
 
-typedef RabinKarpRollingHasher32 RollingHasher32;
-typedef RabinKarpRollingHasher64 RollingHasher64;
+using RollingHasher32 = RabinKarpRollingHasher32;
+using RollingHasher64 = RabinKarpRollingHasher64;

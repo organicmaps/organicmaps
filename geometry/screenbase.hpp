@@ -136,6 +136,10 @@ public:
     return (m_GtoP == src.m_GtoP) && (m_PtoG == src.m_PtoG);
   }
 
+private:
+  // Used when initializing m_GlobalRect.
+  m2::PointD m_Org;
+
 protected:
   // Update dependent parameters from base parameters.
   // Must be called when base parameters changed.
@@ -169,7 +173,6 @@ private:
 
   double m_Scale;
   ang::AngleD m_Angle;
-  m2::PointD m_Org;
 
   double m_3dFOV;
   double m_3dNearZ;

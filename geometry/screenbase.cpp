@@ -18,13 +18,13 @@ double constexpr kEndPerspectiveScale1 = 0.3e-5;
 double constexpr kEndPerspectiveScale2 = 0.13e-5;
 
 ScreenBase::ScreenBase()
-  : m_GlobalRect(m_Org, ang::AngleD(0), m2::RectD(-320, -240, 320, 240))
+  : m_Org(320, 240)
+  , m_GlobalRect(m_Org, ang::AngleD(0), m2::RectD(-320, -240, 320, 240))
   , m_ClipRect(m2::RectD(0, 0, 640, 480))
   , m_ViewportRect(0, 0, 640, 480)
   , m_PixelRect(m_ViewportRect)
   , m_Scale(0.1)
   , m_Angle(0.0)
-  , m_Org(320, 240)
   , m_3dFOV(kPerspectiveAngleFOV)
   , m_3dNearZ(0.001)
   , m_3dFarZ(0.0)
@@ -45,7 +45,7 @@ ScreenBase::ScreenBase(m2::RectI const & pxRect, m2::AnyRectD const & glbRect)
 }
 
 ScreenBase::ScreenBase(ScreenBase const & s, m2::PointD const & org, double scale, double angle)
-  : m_ViewportRect(s.m_ViewportRect), m_Scale(scale), m_Angle(angle), m_Org(org)
+  : m_Org(org), m_ViewportRect(s.m_ViewportRect), m_Scale(scale), m_Angle(angle)
 {
   UpdateDependentParameters();
 }

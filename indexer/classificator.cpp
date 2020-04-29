@@ -251,7 +251,7 @@ namespace
     vec_t const & m_rules;
     drule::KeysT & m_keys;
 
-    bool m_added;
+    bool m_added = false;
 
     void add_rule(int ft, iter_t i)
     {

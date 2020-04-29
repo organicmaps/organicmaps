@@ -140,7 +140,7 @@ private:
     {
       if (m_x != rhs.m_x)
         return m_x < rhs.m_x;
-      if (m_index < rhs.m_index)
+      if (m_index != rhs.m_index)
         return m_index < rhs.m_index;
       return m_priority < rhs.m_priority;
     }

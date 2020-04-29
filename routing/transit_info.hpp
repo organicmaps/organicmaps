@@ -121,6 +121,9 @@ public:
 
   TransitInfoWrapper & operator=(TransitInfoWrapper const & rhs)
   {
+    if (this == &rhs)
+      return *this;
+
     m_ptr.reset();
     if (rhs.m_ptr)
       m_ptr = std::make_unique<TransitInfo>(*rhs.m_ptr);

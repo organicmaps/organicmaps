@@ -219,8 +219,8 @@ private:
   RoadInfoGetter & m_roadInfoGetter;
 
   std::vector<WayPoint> m_points;
-  double m_positiveOffsetM;
-  double m_negativeOffsetM;
+  double m_positiveOffsetM = 0.0;
+  double m_negativeOffsetM = 0.0;
   std::vector<std::vector<m2::PointD>> m_pivots;
   geometry::PointWithAltitude m_sourceJunction;
   geometry::PointWithAltitude m_targetJunction;

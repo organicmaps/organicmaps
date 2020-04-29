@@ -162,6 +162,8 @@ public:
 
     Handle(Handle && h) { Assign(std::move(h)); }
 
+    Handle & operator=(Handle && h) { Assign(std::move(h)); return *this; }
+
     ~Handle();
 
     void Assign(Handle && h);

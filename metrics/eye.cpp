@@ -357,8 +357,7 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
     if (found || duplication || !item.AlmostEquals(result))
       return;
 
-    if (!found)
-      found = true;
+    found = true;
 
     auto & events = item.GetEditableEvents();
     if (!events.empty() && events.back().m_type == event.m_type &&

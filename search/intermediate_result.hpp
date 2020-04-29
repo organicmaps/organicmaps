@@ -157,10 +157,10 @@ private:
   FeatureID m_id;
   feature::TypesHolder m_types;
   std::string m_str;
-  double m_distance;
+  double m_distance = 0.0;
   Type m_resultType;
-  RankingInfo m_info;
-  feature::GeomType m_geomType;
+  RankingInfo m_info = {};
+  feature::GeomType m_geomType = feature::GeomType::Undefined;
   Result::Details m_details;
 
   // The call path in the Geocoder that leads to this result.

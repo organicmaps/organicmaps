@@ -32,11 +32,17 @@ class SimpleMovableFunctor
 public:
   explicit SimpleMovableFunctor(std::vector<char> * v) : m_v(v) {}
 
-  // movable
   SimpleMovableFunctor(SimpleMovableFunctor && other)
   {
       m_v = other.m_v;
       other.m_v = nullptr;
+  }
+
+  SimpleMovableFunctor & operator=(SimpleMovableFunctor && other)
+  {
+    m_v = other.m_v;
+    other.m_v = nullptr;
+    return *this;
   }
 
   void operator() (char c)

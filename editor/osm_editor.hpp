@@ -196,7 +196,7 @@ private:
 
   struct FeatureTypeInfo
   {
-    FeatureStatus m_status;
+    FeatureStatus m_status = FeatureStatus::Untouched;
     EditableMapObject m_object;
     /// If not empty contains Feature's addr:street, edited by user.
     std::string m_street;

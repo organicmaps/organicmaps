@@ -183,7 +183,7 @@ private:
   std::vector<MwmSet::MwmId> m_lastMwms;
 
   local_ads::Statistics m_statistics;
-  std::atomic<bool> m_isEnabled;
+  std::atomic<bool> m_isEnabled = false;
 
   m2::PointD m_lastCheckedPos;
   std::chrono::steady_clock::time_point m_lastCheckTime;

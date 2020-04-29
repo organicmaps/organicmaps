@@ -125,6 +125,13 @@ XMLFeature::XMLFeature(XMLFeature const & feature)
   // Don't validate feature: it should already be validated.
 }
 
+XMLFeature & XMLFeature::operator=(XMLFeature const & feature)
+{
+  m_document.reset(feature.m_document);
+  // Don't validate feature: it should already be validated.
+  return *this;
+}
+
 bool XMLFeature::operator==(XMLFeature const & other) const
 {
   return ToOSMString() == other.ToOSMString();

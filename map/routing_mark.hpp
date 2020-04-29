@@ -155,7 +155,7 @@ private:
   int m_minZoom = 1;
   int m_minTitleZoom = 1;
   uint32_t m_index = 0;
-  Priority m_priority;
+  Priority m_priority = Priority::Default;
   FeatureID m_featureId;
   TitlesInfo m_titles;
   SymbolNameZoomInfo m_symbolNames;

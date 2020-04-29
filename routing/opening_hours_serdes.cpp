@@ -179,13 +179,10 @@ bool OpeningHoursSerDes::ExistsFeatureInOpeningHours(Header::Bits feature,
 bool OpeningHoursSerDes::CheckSupportedFeatures() const
 {
   if (IsEnabled(Header::Bits::MonthDay) && !IsEnabled(Header::Bits::Month))
-    CHECK(false, ("Can not use MonthDay without Month"));
+    CHECK(false, ("Cannot use MonthDay without Month."));
 
-  if ((IsEnabled(Header::Bits::Hours) && !IsEnabled(Header::Bits::Minutes)) ||
-      (!IsEnabled(Header::Bits::Hours) && IsEnabled(Header::Bits::Minutes)))
-  {
-    CHECK(false, ("Can not use Hours without Minutes and vice versa."));
-  }
+  if (IsEnabled(Header::Bits::Hours) != !IsEnabled(Header::Bits::Minutes))
+    CHECK(false, ("Cannot use Hours without Minutes and vice versa."));
 
   return true;
 }

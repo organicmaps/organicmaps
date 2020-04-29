@@ -114,7 +114,7 @@ public:
   }
 
   using VisibleMask = std::bitset<scales::UPPER_STYLE_SCALE+1>;
-  void SetVisibilityOnScale(bool isVisible, int scale) { m_visibility[scale] = isVisible; }
+  void SetVisibilityOnScale(bool isVisible, int scale) { m_visibility.set(scale, isVisible); }
 
   /// @name Policies for classificator tree serialization.
   //@{
@@ -236,7 +236,7 @@ private:
 
   ClassifObject m_root;
   IndexAndTypeMapping m_mapping;
-  uint32_t m_coastType;
+  uint32_t m_coastType = 0;
 
   DISALLOW_COPY_AND_MOVE(Classificator);
 };
