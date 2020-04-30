@@ -22,6 +22,14 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
       <ImageView
+        android:id="@+id/downloaded"
+        android:layout_marginTop="@dimen/margin_quarter"
+        android:layout_marginStart="@dimen/margin_quarter"
+        app:srcCompat="@drawable/ic_claim"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+      <ImageView
         android:id="@+id/image"
         android:layout_width="@dimen/nav_street_left"
         android:layout_height="@dimen/nav_street_left"
