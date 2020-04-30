@@ -16,7 +16,6 @@
 namespace
 {
 auto constexpr kRequestAttemptsCount = 3;
-double const kMinRequestIntervalTimeSec = 2.0;
 }  // namespace
 
 GuidesManager::GuidesState GuidesManager::GetState() const
@@ -33,11 +32,8 @@ void GuidesManager::UpdateViewport(ScreenBase const & screen)
 {
   auto const zoom = df::GetDrawTileScale(screen);
 
-  if (m_requestTimer.ElapsedSeconds() < kMinRequestIntervalTimeSec)
-    return;
-
   // TODO(a): to implement correct way to filter out same rects.
-  if (m_currentRect.EqualDxDy(screen.GlobalRect(), 1e-5) && m_zoom == zoom)
+  if (m_currentRect.EqualDxDy(screen.GlobalRect(), 1e-4) && m_zoom == zoom)
     return;
 
   m_currentRect = screen.GlobalRect();
@@ -71,6 +67,10 @@ void GuidesManager::SetEnabled(bool enabled)
 
   Clear();
   ChangeState(newState);
+
+  if (!enabled)
+    return;
+
   RequestGuides(m_currentRect, m_zoom);
 }
 
@@ -90,7 +90,9 @@ void GuidesManager::ChangeState(GuidesState newState)
 
 void GuidesManager::RequestGuides(m2::AnyRectD const & rect, int zoom)
 {
-  m_requestTimer.Reset();
+  if (rect.GetLocalRect().IsEmptyInterior())
+    return;
+
   auto const requestNumber = ++m_requestCounter;
   m_api.GetGuidesOnMap(
       rect, zoom,
@@ -109,7 +111,7 @@ void GuidesManager::RequestGuides(m2::AnyRectD const & rect, int zoom)
         UpdateGuidesMarks();
 
         if (m_onGalleryChanged)
-          m_onGalleryChanged(true);
+          m_onGalleryChanged(true /* reload */);
       },
       [this, requestNumber, zoom]() mutable {
         if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError)
@@ -246,7 +248,7 @@ void GuidesManager::SetActiveGuide(std::string const & guideId)
     return;
 
   m_activeGuide = guideId;
-  UpdateGuideSelection();
+  UpdateActiveGuide();
 }
 
 void GuidesManager::SetGalleryListener(GuidesGalleryChangedFn const & onGalleryChanged)
@@ -297,7 +299,7 @@ void GuidesManager::UpdateGuidesMarks()
       mark->SetIndex(++m_nextMarkIndex);
     }
   }
-  UpdateGuideSelection();
+  UpdateActiveGuide();
 }
 
 void GuidesManager::OnClusterSelected(GuidesClusterMark const & mark, ScreenBase const & screen)
@@ -314,10 +316,10 @@ void GuidesManager::OnGuideSelected(GuideMark const & mark)
 
   m_activeGuide = mark.GetGuideId();
   if (m_onGalleryChanged)
-    m_onGalleryChanged(false);
+    m_onGalleryChanged(false /* reload */);
 }
 
-void GuidesManager::UpdateGuideSelection()
+void GuidesManager::UpdateActiveGuide()
 {
   auto es = m_bmManager->GetEditSession();
   es.ClearGroup(UserMark::Type::GUIDE_SELECTION);

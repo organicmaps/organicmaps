@@ -12,8 +12,6 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "base/timer.hpp"
-
 #include <functional>
 #include <memory>
 #include <string>
@@ -100,7 +98,6 @@ public:
 
   void SetApiDelegate(std::unique_ptr<guides_on_map::Api::Delegate> apiDelegate);
 
-  void UpdateGuideSelection();
   void OnClusterSelected(GuidesClusterMark const & mark, ScreenBase const & screen);
   void OnGuideSelected(GuideMark const & mark);
 
@@ -111,6 +108,7 @@ private:
 
   bool IsGuideDownloaded(std::string const & guideId) const;
   void UpdateGuidesMarks();
+  void UpdateActiveGuide();
 
   GuidesState m_state = GuidesState::Disabled;
   GuidesStateChangedFn m_onStateChanged;
@@ -119,7 +117,6 @@ private:
   int m_zoom = 0;
   m2::AnyRectD m_currentRect;
 
-  base::Timer m_requestTimer;
   uint64_t m_requestCounter = 0;
   uint8_t m_errorRequestsCount = 0;
 
