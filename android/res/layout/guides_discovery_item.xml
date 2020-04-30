@@ -36,7 +36,8 @@
         <TextView
           android:id="@+id/title"
           android:layout_width="@dimen/guide_gallery_title_width"
-          android:layout_height="@dimen/guide_gallery_title_height"
+          android:layout_height="wrap_content"
+          android:minHeight="@dimen/guide_gallery_title_height"
           android:gravity="center_vertical"
           android:ellipsize="end"
           android:fontFamily="@string/robotoRegular"
