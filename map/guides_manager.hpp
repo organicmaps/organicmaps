@@ -33,6 +33,7 @@ public:
   class Delegate
   {
   public:
+    virtual ~Delegate() = default;
     virtual bool IsGuideDownloaded(std::string const & guideId) const = 0;
   };
 
