@@ -18,7 +18,8 @@ public enum GuidesState
           Toast.makeText(context, R.string.no_routes_in_the_area_toast, Toast.LENGTH_SHORT).show();
         }
       },
-  NETWORK_ERROR;
+  NETWORK_ERROR,
+  FATAL_NETWORK_ERROR;
 
   public void activate(@NonNull Context context)
   {

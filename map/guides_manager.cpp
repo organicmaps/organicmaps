@@ -328,7 +328,8 @@ void GuidesManager::UpdateGuideSelection()
     if (mark->GetGuideId() == m_activeGuide)
     {
       es.CreateUserMark<GuideSelectionMark>(mark->GetPivot());
-      break;
+      return;
     }
   }
+  m_activeGuide.clear();
 }

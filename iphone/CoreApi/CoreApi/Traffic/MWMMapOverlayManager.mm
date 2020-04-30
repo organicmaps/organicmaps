@@ -122,6 +122,8 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
       return MWMMapOverlayGuidesStateNoData;
     case GuidesManager::GuidesState::NetworkError:
       return MWMMapOverlayGuidesStateNetworkError;
+    case GuidesManager::GuidesState::FatalNetworkError:
+      return MWMMapOverlayGuidesStateNetworkError;
   }
 }
 
