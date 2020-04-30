@@ -79,6 +79,7 @@ public class GuidesGallery implements PlacePageData
     private final CityParams mCityParams;
     @Nullable
     private final OutdoorParams mOutdoorParams;
+    private boolean mActivated = false;
 
     public Item(@NonNull String guideId, @NonNull String url, @NonNull String imageUrl,
                 @NonNull String title, @NonNull String subTitle, int type,
@@ -154,6 +155,16 @@ public class GuidesGallery implements PlacePageData
     public OutdoorParams getOutdoorParams()
     {
       return mOutdoorParams;
+    }
+
+    public void setActivated(boolean activated)
+    {
+      mActivated = activated;
+    }
+
+    public boolean isActivated()
+    {
+      return mActivated;
     }
 
     @Override

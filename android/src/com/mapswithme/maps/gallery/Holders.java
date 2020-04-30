@@ -562,11 +562,14 @@ public class Holders
     private final View mCityContent;
     @NonNull
     private final View mOutdoorContent;*/
+    @NonNull
+    private final View mItemView;
     public GuideHodler(@NonNull View itemView, @NonNull List<GuidesGallery.Item> items, @Nullable ItemSelectedListener<GuidesGallery.Item> listener)
     {
       super(itemView, items, listener);
-      mImage = itemView.findViewById(R.id.image);
-      mSubtitle = itemView.findViewById(R.id.subtitle);
+      mItemView = itemView;
+      mImage = mItemView.findViewById(R.id.image);
+      mSubtitle = mItemView.findViewById(R.id.subtitle);
     }
 
     @Override
@@ -580,7 +583,17 @@ public class Holders
            .centerCrop()
            .into(mImage);
       mSubtitle.setText(item.getSubtitle());
+      bindActivationState(item);
       // TODO: another fields comming soon;
+    }
+
+    private void bindActivationState(@NonNull GuidesGallery.Item item)
+    {
+      boolean activated = mItemView.isActivated();
+      if (activated != item.isActivated())
+      {
+        mItemView.post(() -> mItemView.setActivated(item.isActivated()));
+      }
     }
   }
 }

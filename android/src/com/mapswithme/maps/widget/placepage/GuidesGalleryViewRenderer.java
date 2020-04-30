@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.SnapHelper;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
-import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.guides.GuidesGallery;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
@@ -37,6 +36,8 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
   @NonNull
   private SnapHelper mSnapHelper;
   private int mSnapViewPosition;
+  @Nullable
+  private GuidesGallery.Item mActiveItem;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private RecyclerView.SmoothScroller mSmoothScroller;
@@ -71,6 +72,8 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
       // No op.
     }
   };
+  @Nullable
+  private GalleryAdapter mAdapter;
 
   private void smoothScrollToPosition(int position)
   {
@@ -92,27 +95,48 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
 
   private void setActiveGuide()
   {
+    final int oldSnapViewPosition = mSnapViewPosition;
     View snapView = mSnapHelper.findSnapView(mLayoutManager);
     mSnapViewPosition = snapView == null ? 0 : mLayoutManager.getPosition(snapView);
-    Items.Item item = mGallery.getItems().get(mSnapViewPosition);
-    Toast.makeText(mRecyclerView.getContext(), "TODO: Shift y for = " + item.getTitle(),
-                   Toast.LENGTH_SHORT).show();
+    GuidesGallery.Item item = mGallery.getItems().get(mSnapViewPosition);
+    if (oldSnapViewPosition == mSnapViewPosition)
+    {
+      if (mActiveItem == null)
+      {
+        mActiveItem = item;
+        mActiveItem.setActivated(true);
+        if (mAdapter != null)
+          mAdapter.notifyDataSetChanged();
+        return;
+      }
+      return;
+    }
+
+    if (mActiveItem != null)
+      mActiveItem.setActivated(false);
+    mActiveItem = item;
+    mActiveItem.setActivated(true);
+    if (mAdapter != null)
+      mAdapter.notifyDataSetChanged();
   }
 
   @Override
   public void render(@NonNull PlacePageData data)
   {
     mGallery = (GuidesGallery) data;
-    GalleryAdapter adapter = Factory.createGuidesAdapter(mGallery.getItems(), mItemSelectedListener,
+    mAdapter = Factory.createGuidesAdapter(mGallery.getItems(), mItemSelectedListener,
                                                          GalleryPlacement.MAP);
-    mRecyclerView.setAdapter(adapter);
+    mRecyclerView.setAdapter(mAdapter);
+    mActiveItem = null;
     setActiveGuide();
   }
 
   @Override
   public void onHide()
   {
-
+    mActiveItem = null;
+    mSnapViewPosition = 0;
+    smoothScrollToPosition(0);
   }
 
   @Override
@@ -160,9 +184,9 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
     if (mGallery == null)
       return;
 
-    GalleryAdapter adapter = Factory.createGuidesAdapter(mGallery.getItems(), mItemSelectedListener,
-                                                         GalleryPlacement.MAP);
-    mRecyclerView.setAdapter(adapter);
+    mAdapter = Factory.createGuidesAdapter(mGallery.getItems(), mItemSelectedListener,
+                                           GalleryPlacement.MAP);
+    mRecyclerView.setAdapter(mAdapter);
     mSnapViewPosition = inState.getInt(EXTRA_SNAP_VIEW_POSITION);
     mRecyclerView.post(() -> {
       smoothScrollToPosition(mSnapViewPosition);
