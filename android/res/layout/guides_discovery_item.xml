@@ -52,6 +52,7 @@
           android:lines="1"
           android:textColor="?android:textColorSecondary" />
         <include
+          android:id="@+id/divider"
           layout="@layout/divider_horizontal"
           android:layout_width="match_parent"
           android:layout_height="@dimen/divider_height"
@@ -63,6 +64,10 @@
         <include
           android:id="@+id/outdoor_content"
           layout="@layout/outdoor_content"
+          android:visibility="gone" />
+        <include
+          android:id="@+id/bought_content"
+          layout="@layout/bought_content"
           android:visibility="gone" />
       </LinearLayout>
     </RelativeLayout>

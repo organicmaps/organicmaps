@@ -97,6 +97,7 @@
     <attr name="bgRoundedCard" format="reference" />
     <attr name="guidesIcon" format="reference"></attr>
     <attr name="guidesMenuDisabled" format="reference"></attr>
+    <attr name="bgBoughtContent" format="reference"></attr>
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.NavButtons">
     <attr name="nav_background" format="reference" />

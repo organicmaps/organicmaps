@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:background="?bgBoughtContent"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_marginTop="@dimen/margin_half_plus_eight"
+  android:orientation="horizontal">
+  <TextView
+    android:id="@+id/text"
+    android:background="?selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:fontFamily="@string/robotoRegular"
+    android:lines="1"
+    android:ellipsize="end"
+    android:textColor="?colorAccent"
+    android:textSize="@dimen/text_size_body_3"
+    android:text="@string/hide"
+    android:textAllCaps="true"
+    tools:text="HIDE" />
+</RelativeLayout>

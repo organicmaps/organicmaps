@@ -300,4 +300,5 @@
   <dimen name="guide_gallery_item_width">328dp</dimen>
   <dimen name="guide_gallery_title_width">176dp</dimen>
   <dimen name="guide_gallery_title_height">40dp</dimen>
+  <dimen name="guides_gallery_height">120dp</dimen>
 </resources>
