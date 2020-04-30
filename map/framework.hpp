@@ -441,6 +441,7 @@ private:
   std::optional<place_page::Info> BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
   void BuildTrackPlacePage(BookmarkManager::TrackSelectionInfo const & trackSelectionInfo,
                            place_page::Info & info);
+  void BuildGuidePlacePage(GuideMark const & guideMark, place_page::Info & info);
   BookmarkManager::TrackSelectionInfo FindTrackInTapPosition(place_page::BuildInfo const & buildInfo) const;
   UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;

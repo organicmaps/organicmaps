@@ -4,6 +4,7 @@
 
 #include "partners_api/utm.hpp"
 
+#include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "platform/preferred_languages.hpp"
@@ -15,6 +16,7 @@
 namespace
 {
 auto constexpr kRequestAttemptsCount = 3;
+double const kMinRequestIntervalTimeSec = 2.0;
 }  // namespace
 
 GuidesManager::GuidesState GuidesManager::GetState() const
@@ -30,8 +32,12 @@ void GuidesManager::SetStateListener(GuidesStateChangedFn const & onStateChanged
 void GuidesManager::UpdateViewport(ScreenBase const & screen)
 {
   auto const zoom = df::GetDrawTileScale(screen);
+
+  if (m_requestTimer.ElapsedSeconds() < kMinRequestIntervalTimeSec)
+    return;
+
   // TODO(a): to implement correct way to filter out same rects.
-  if (m_currentRect.EqualDxDy(screen.GlobalRect(), 1e-4) && m_zoom == zoom)
+  if (m_currentRect.EqualDxDy(screen.GlobalRect(), 1e-5) && m_zoom == zoom)
     return;
 
   m_currentRect = screen.GlobalRect();
@@ -84,6 +90,7 @@ void GuidesManager::ChangeState(GuidesState newState)
 
 void GuidesManager::RequestGuides(m2::AnyRectD const & rect, int zoom)
 {
+  m_requestTimer.Reset();
   auto const requestNumber = ++m_requestCounter;
   m_api.GetGuidesOnMap(
       rect, zoom,
@@ -98,6 +105,8 @@ void GuidesManager::RequestGuides(m2::AnyRectD const & rect, int zoom)
           ChangeState(GuidesState::Enabled);
         else
           ChangeState(GuidesState::NoData);
+
+        UpdateGuidesMarks();
 
         if (m_onGalleryChanged)
           m_onGalleryChanged(true);
@@ -127,6 +136,8 @@ void GuidesManager::Clear()
   m_activeGuide.clear();
   m_guides.clear();
   m_errorRequestsCount = 0;
+
+  UpdateGuidesMarks();
 }
 
 GuidesManager::GuidesGallery GuidesManager::GetGallery() const
@@ -197,7 +208,7 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
     item.m_url = std::move(url);
     item.m_imageUrl = info.m_imageUrl;
     item.m_title = info.m_name;
-    item.m_downloaded = m_delegate->IsGuideDownloaded(info.m_id);
+    item.m_downloaded = IsGuideDownloaded(info.m_id);
 
     if (guide.m_sightsCount == 1)
     {
@@ -235,6 +246,7 @@ void GuidesManager::SetActiveGuide(std::string const & guideId)
     return;
 
   m_activeGuide = guideId;
+  UpdateGuideSelection();
 }
 
 void GuidesManager::SetGalleryListener(GuidesGalleryChangedFn const & onGalleryChanged)
@@ -242,12 +254,81 @@ void GuidesManager::SetGalleryListener(GuidesGalleryChangedFn const & onGalleryC
   m_onGalleryChanged = onGalleryChanged;
 }
 
-void GuidesManager::SetDelegate(std::unique_ptr<Delegate> delegate)
+void GuidesManager::SetBookmarkManager(BookmarkManager * bmManager)
 {
-  m_delegate = std::move(delegate);
+  m_bmManager = bmManager;
+}
+
+void GuidesManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
+{
+  m_drapeEngine.Set(engine);
 }
 
 void GuidesManager::SetApiDelegate(std::unique_ptr<guides_on_map::Api::Delegate> apiDelegate)
 {
   m_api.SetDelegate(std::move(apiDelegate));
+}
+
+bool GuidesManager::IsGuideDownloaded(std::string const & guideId) const
+{
+  return m_bmManager->GetCatalog().HasDownloaded(guideId);
+}
+
+void GuidesManager::UpdateGuidesMarks()
+{
+  auto es = m_bmManager->GetEditSession();
+  es.ClearGroup(UserMark::GUIDE_CLUSTER);
+  es.ClearGroup(UserMark::GUIDE);
+  for (auto & guide : m_guides)
+  {
+    if (guide.m_sightsCount + guide.m_outdoorCount > 1)
+    {
+      GuidesClusterMark * mark = es.CreateUserMark<GuidesClusterMark>(guide.m_point);
+      mark->SetGuidesCount(guide.m_sightsCount, guide.m_outdoorCount);
+      mark->SetIndex(++m_nextMarkIndex);
+    }
+    else
+    {
+      GuideMark * mark = es.CreateUserMark<GuideMark>(guide.m_point);
+      mark->SetGuideType(guide.m_sightsCount > 0 ? GuideMark::Type::City
+                                                 : GuideMark::Type::Outdoor);
+      mark->SetGuideId(guide.m_guideInfo.m_id);
+      mark->SetIsDownloaded(IsGuideDownloaded(guide.m_guideInfo.m_id));
+      mark->SetIndex(++m_nextMarkIndex);
+    }
+  }
+  UpdateGuideSelection();
+}
+
+void GuidesManager::OnClusterSelected(GuidesClusterMark const & mark, ScreenBase const & screen)
+{
+  m_drapeEngine.SafeCall(&df::DrapeEngine::Scale, 2.0, screen.GtoP(mark.GetPivot()),
+                         true /* isAnim */);
+}
+
+void GuidesManager::OnGuideSelected(GuideMark const & mark)
+{
+  auto es = m_bmManager->GetEditSession();
+  es.ClearGroup(UserMark::Type::GUIDE_SELECTION);
+  es.CreateUserMark<GuideSelectionMark>(mark.GetPivot());
+
+  m_activeGuide = mark.GetGuideId();
+  if (m_onGalleryChanged)
+    m_onGalleryChanged(false);
+}
+
+void GuidesManager::UpdateGuideSelection()
+{
+  auto es = m_bmManager->GetEditSession();
+  es.ClearGroup(UserMark::Type::GUIDE_SELECTION);
+  auto const ids = m_bmManager->GetUserMarkIds(UserMark::Type::GUIDE);
+  for (auto markId : ids)
+  {
+    GuideMark const * mark = m_bmManager->GetMark<GuideMark>(markId);
+    if (mark->GetGuideId() == m_activeGuide)
+    {
+      es.CreateUserMark<GuideSelectionMark>(mark->GetPivot());
+      break;
+    }
+  }
 }

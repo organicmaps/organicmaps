@@ -109,6 +109,9 @@ std::string DebugPrint(UserMark::Type type)
   case UserMark::Type::TRANSIT: return "TRANSIT";
   case UserMark::Type::TRACK_INFO: return "TRACK_INFO";
   case UserMark::Type::TRACK_SELECTION: return "TRACK_SELECTION";
+  case UserMark::Type::GUIDE: return "GUIDE";
+  case UserMark::Type::GUIDE_CLUSTER: return "GUIDE_CLUSTER";
+  case UserMark::Type::GUIDE_SELECTION: return "GUIDE_SELECTION";
   case UserMark::Type::COLORED: return "COLORED";
   case UserMark::Type::USER_MARK_TYPES_COUNT: return "USER_MARK_TYPES_COUNT";
   case UserMark::Type::USER_MARK_TYPES_COUNT_MAX: return "USER_MARK_TYPES_COUNT_MAX";

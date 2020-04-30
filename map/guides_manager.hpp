@@ -1,12 +1,18 @@
 #pragma once
 
+#include "map/bookmark_manager.hpp"
 #include "map/catalog_headers_provider.hpp"
+#include "map/guides_marks.hpp"
 #include "map/guides_on_map_delegate.hpp"
 
 #include "partners_api/guides_on_map_api.hpp"
 
+#include "drape_frontend/drape_engine_safe_ptr.hpp"
+
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
+
+#include "base/timer.hpp"
 
 #include <functional>
 #include <memory>
@@ -28,13 +34,6 @@ public:
     NetworkError,
     // Several attempts to request guides are failed.
     FatalNetworkError,
-  };
-
-  class Delegate
-  {
-  public:
-    virtual ~Delegate() = default;
-    virtual bool IsGuideDownloaded(std::string const & guideId) const = 0;
   };
 
   struct GuidesGallery
@@ -96,13 +95,22 @@ public:
   using GuidesGalleryChangedFn = std::function<void(bool reloadGallery)>;
   void SetGalleryListener(GuidesGalleryChangedFn const & onGalleryChangedFn);
 
-  void SetDelegate(std::unique_ptr<Delegate> delegate);
+  void SetBookmarkManager(BookmarkManager * bmManager);
+  void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
+
   void SetApiDelegate(std::unique_ptr<guides_on_map::Api::Delegate> apiDelegate);
+
+  void UpdateGuideSelection();
+  void OnClusterSelected(GuidesClusterMark const & mark, ScreenBase const & screen);
+  void OnGuideSelected(GuideMark const & mark);
 
 private:
   void ChangeState(GuidesState newState);
   void RequestGuides(m2::AnyRectD const & rect, int zoom);
   void Clear();
+
+  bool IsGuideDownloaded(std::string const & guideId) const;
+  void UpdateGuidesMarks();
 
   GuidesState m_state = GuidesState::Disabled;
   GuidesStateChangedFn m_onStateChanged;
@@ -111,6 +119,7 @@ private:
   int m_zoom = 0;
   m2::AnyRectD m_currentRect;
 
+  base::Timer m_requestTimer;
   uint64_t m_requestCounter = 0;
   uint8_t m_errorRequestsCount = 0;
 
@@ -119,7 +128,10 @@ private:
   // Initial value is dummy for debug only.
   std::string m_activeGuide = "048f4c49-ee80-463f-8513-e57ade2303ee";
 
-  std::unique_ptr<Delegate> m_delegate;
+  BookmarkManager * m_bmManager = nullptr;
+  df::DrapeEngineSafePtr m_drapeEngine;
+
+  uint32_t m_nextMarkIndex = 0;
 };
 
 std::string DebugPrint(GuidesManager::GuidesState state);

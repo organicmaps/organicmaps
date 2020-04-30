@@ -26,8 +26,6 @@
 		39E3C60423312BA800FB0C37 /* features_fetcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C60223312BA800FB0C37 /* features_fetcher.cpp */; };
 		3D035CA82451960400C21B57 /* guides_on_map_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D035CA62451960400C21B57 /* guides_on_map_delegate.cpp */; };
 		3D035CA92451960400C21B57 /* guides_on_map_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D035CA72451960400C21B57 /* guides_on_map_delegate.hpp */; };
-		3D035CAC24575A5E00C21B57 /* guides_manager_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D035CAA24575A5E00C21B57 /* guides_manager_delegate.cpp */; };
-		3D035CAD24575A5E00C21B57 /* guides_manager_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D035CAB24575A5E00C21B57 /* guides_manager_delegate.hpp */; };
 		3D0AEAFC1FBB0FF400AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */; };
 		3D0AEAFE1FBB0FF400AD042B /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */; };
 		3D0BBAE523F3EEEF00A50354 /* libweb_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBAE423F3EEEF00A50354 /* libweb_api.a */; };
@@ -234,6 +232,8 @@
 		BB4E5F261FCC664A00A77250 /* transit_display.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB4E5F221FCC664A00A77250 /* transit_display.hpp */; };
 		BB4E5F271FCC664A00A77250 /* transit_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB4E5F231FCC664A00A77250 /* transit_reader.hpp */; };
 		BB4E5F281FCC664A00A77250 /* transit_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4E5F241FCC664A00A77250 /* transit_reader.cpp */; };
+		BB5FA777245AE2D0009A81A4 /* guides_marks.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB5FA775245AE2CE009A81A4 /* guides_marks.hpp */; };
+		BB5FA778245AE2D0009A81A4 /* guides_marks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5FA776245AE2CF009A81A4 /* guides_marks.cpp */; };
 		BBA014AD2073C784007402E4 /* bookmark_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA014AB2073C783007402E4 /* bookmark_helpers.cpp */; };
 		BBA014AE2073C784007402E4 /* bookmark_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBA014AC2073C784007402E4 /* bookmark_helpers.hpp */; };
 		BBA014B120754997007402E4 /* user_mark_id_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBA014AF20754996007402E4 /* user_mark_id_storage.hpp */; };
@@ -323,8 +323,6 @@
 		39E3C60223312BA800FB0C37 /* features_fetcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = features_fetcher.cpp; sourceTree = "<group>"; };
 		3D035CA62451960400C21B57 /* guides_on_map_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_on_map_delegate.cpp; sourceTree = "<group>"; };
 		3D035CA72451960400C21B57 /* guides_on_map_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = guides_on_map_delegate.hpp; sourceTree = "<group>"; };
-		3D035CAA24575A5E00C21B57 /* guides_manager_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_manager_delegate.cpp; sourceTree = "<group>"; };
-		3D035CAB24575A5E00C21B57 /* guides_manager_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = guides_manager_delegate.hpp; sourceTree = "<group>"; };
 		3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB001FBB0FF400AD042B /* libindexer_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -542,6 +540,8 @@
 		BB4E5F221FCC664A00A77250 /* transit_display.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = transit_display.hpp; path = transit/transit_display.hpp; sourceTree = "<group>"; };
 		BB4E5F231FCC664A00A77250 /* transit_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = transit_reader.hpp; path = transit/transit_reader.hpp; sourceTree = "<group>"; };
 		BB4E5F241FCC664A00A77250 /* transit_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = transit_reader.cpp; path = transit/transit_reader.cpp; sourceTree = "<group>"; };
+		BB5FA775245AE2CE009A81A4 /* guides_marks.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = guides_marks.hpp; sourceTree = "<group>"; };
+		BB5FA776245AE2CF009A81A4 /* guides_marks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_marks.cpp; sourceTree = "<group>"; };
 		BBA014AB2073C783007402E4 /* bookmark_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_helpers.cpp; sourceTree = "<group>"; };
 		BBA014AC2073C784007402E4 /* bookmark_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bookmark_helpers.hpp; sourceTree = "<group>"; };
 		BBA014AF20754996007402E4 /* user_mark_id_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = user_mark_id_storage.hpp; sourceTree = "<group>"; };
@@ -908,8 +908,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
-				3D035CAA24575A5E00C21B57 /* guides_manager_delegate.cpp */,
-				3D035CAB24575A5E00C21B57 /* guides_manager_delegate.hpp */,
+				BB5FA776245AE2CF009A81A4 /* guides_marks.cpp */,
+				BB5FA775245AE2CE009A81A4 /* guides_marks.hpp */,
 				3D035CA62451960400C21B57 /* guides_on_map_delegate.cpp */,
 				3D035CA72451960400C21B57 /* guides_on_map_delegate.hpp */,
 				BBBB5ED024460BF9000CBFF4 /* guides_manager.cpp */,
@@ -1091,6 +1091,7 @@
 				34583BD01C88556800F94664 /* place_page_info.hpp in Headers */,
 				34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */,
 				3DBD7B93240D523400ED9FE8 /* elevation_info.hpp in Headers */,
+				BB5FA777245AE2D0009A81A4 /* guides_marks.hpp in Headers */,
 				3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */,
 				675346751A4054E800A0A8C3 /* mwm_url.hpp in Headers */,
 				6753464B1A4054E800A0A8C3 /* bookmark.hpp in Headers */,
@@ -1109,7 +1110,6 @@
 				3DF528D8237DC82E000ED0D5 /* position_provider.hpp in Headers */,
 				BBFC7E3B202D29C000531BE7 /* user_mark_layer.hpp in Headers */,
 				3D4E99A51FB4A6410025B48C /* booking_filter.hpp in Headers */,
-				3D035CAD24575A5E00C21B57 /* guides_manager_delegate.hpp in Headers */,
 				56C116612090E5670068BBC0 /* extrapolator.hpp in Headers */,
 				3DD692B3220AD240001C3C62 /* caching_address_getter.hpp in Headers */,
 				3D62CBDA20FF6C8B00E7BB6E /* discovery_search.hpp in Headers */,
@@ -1302,6 +1302,7 @@
 				4564FA83209497A70043CCFB /* bookmark_catalog.cpp in Sources */,
 				3DA5714120B5CC80007BDE27 /* booking_availability_filter.cpp in Sources */,
 				F6B283051C1B03320081957A /* gps_track_filter.cpp in Sources */,
+				BB5FA778245AE2D0009A81A4 /* guides_marks.cpp in Sources */,
 				675346481A4054E800A0A8C3 /* bookmark_manager.cpp in Sources */,
 				BBB7060B23E45F3400A7F29A /* isolines_manager.cpp in Sources */,
 				3D0D2F7323D854AA00945C8D /* tips_api_delegate.cpp in Sources */,
@@ -1329,7 +1330,6 @@
 				3DA5723320C195ED007BDE27 /* viewport_search_callback.cpp in Sources */,
 				3D035CA82451960400C21B57 /* guides_on_map_delegate.cpp in Sources */,
 				675346641A4054E800A0A8C3 /* framework.cpp in Sources */,
-				3D035CAC24575A5E00C21B57 /* guides_manager_delegate.cpp in Sources */,
 				BBBB5ED224460BFA000CBFF4 /* guides_manager.cpp in Sources */,
 				40ACC79623191C2600238E21 /* countries_names_tests.cpp in Sources */,
 				3DBD7B92240D523400ED9FE8 /* elevation_info.cpp in Sources */,

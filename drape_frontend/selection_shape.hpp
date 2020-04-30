@@ -33,7 +33,8 @@ public:
     OBJECT_POI,
     OBJECT_USER_MARK,
     OBJECT_MY_POSITION,
-    OBJECT_TRACK
+    OBJECT_TRACK,
+    OBJECT_GUIDE
   };
 
   SelectionShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);

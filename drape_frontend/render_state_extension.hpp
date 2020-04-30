@@ -22,6 +22,8 @@ enum class DepthLayer : uint8_t
   NavigationLayer,
   RoutingBottomMarkLayer,
   RoutingMarkLayer,
+  GuidesBottomMarkLayer,
+  GuidesMarkLayer,
   SearchMarkLayer,
   GuiLayer,
   LayersCount
@@ -64,6 +66,8 @@ inline std::string DebugPrint(DepthLayer layer)
   case DepthLayer::NavigationLayer: return "NavigationLayer";
   case DepthLayer::RoutingBottomMarkLayer: return "RoutingBottomMarkLayer";
   case DepthLayer::RoutingMarkLayer: return "RoutingMarkLayer";
+  case DepthLayer::GuidesBottomMarkLayer: return "GuidesBottomMarkLayer";
+  case DepthLayer::GuidesMarkLayer: return "GuidesMarkLayer";
   case DepthLayer::SearchMarkLayer: return "SearchMarkLayer";
   case DepthLayer::GuiLayer: return "GuiLayer";
   case DepthLayer::LayersCount: CHECK(false, ("Try to output LayersCount"));

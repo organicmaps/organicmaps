@@ -15,6 +15,8 @@ std::array<drape_ptr<RenderStateExtension>, static_cast<size_t>(DepthLayer::Laye
     make_unique_dp<RenderStateExtension>(DepthLayer::NavigationLayer),
     make_unique_dp<RenderStateExtension>(DepthLayer::RoutingBottomMarkLayer),
     make_unique_dp<RenderStateExtension>(DepthLayer::RoutingMarkLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::GuidesBottomMarkLayer),
+    make_unique_dp<RenderStateExtension>(DepthLayer::GuidesMarkLayer),
     make_unique_dp<RenderStateExtension>(DepthLayer::SearchMarkLayer),
     make_unique_dp<RenderStateExtension>(DepthLayer::GuiLayer)
 };

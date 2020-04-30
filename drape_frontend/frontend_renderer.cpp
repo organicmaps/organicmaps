@@ -1488,6 +1488,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderUserMarksLayer(modelView, DepthLayer::UserMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingBottomMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingMarkLayer);
+      RenderUserMarksLayer(modelView, DepthLayer::GuidesBottomMarkLayer);
+      RenderUserMarksLayer(modelView, DepthLayer::GuidesMarkLayer);
       RenderSearchMarksLayer(modelView);
     }
 
@@ -1856,7 +1858,9 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
                                            DepthLayer::LocalAdsMarkLayer,
                                            DepthLayer::NavigationLayer,
                                            DepthLayer::RoutingBottomMarkLayer,
-                                           DepthLayer::RoutingMarkLayer};
+                                           DepthLayer::RoutingMarkLayer,
+                                           DepthLayer::GuidesBottomMarkLayer,
+                                           DepthLayer::GuidesMarkLayer};
   BeginUpdateOverlayTree(modelView);
   for (auto const & layerId : layers)
   {

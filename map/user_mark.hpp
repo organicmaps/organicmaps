@@ -49,6 +49,9 @@ public:
     LOCAL_ADS,
     TRACK_INFO,
     TRACK_SELECTION,
+    GUIDE,
+    GUIDE_CLUSTER,
+    GUIDE_SELECTION,
     DEBUG_MARK,  // Plain "DEBUG" results in a name collision.
     COLORED,
     USER_MARK_TYPES_COUNT,
