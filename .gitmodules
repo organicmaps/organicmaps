@@ -24,3 +24,7 @@
   url = https://github.com/boostorg/boost.git
   branch = boost-1.68.0
   ignore = dirty
+[submodule "3party/just_gtfs"]
+  path = 3party/just_gtfs
+  url = https://github.com/mapsme/just_gtfs.git
+  branch = for-usage-as-submodule
