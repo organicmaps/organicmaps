@@ -6,6 +6,7 @@
   android:layout_height="wrap_content"
   android:layout_width="wrap_content"
   android:stateListAnimator="@animator/pull_up_on_touch"
+  android:foreground="?selectableItemBackground"
   android:padding="@dimen/margin_eighth"
   android:clipToPadding="false">
   <RelativeLayout
