@@ -175,8 +175,8 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
     };
   }
 
-  auto const width = static_cast<int>(screenshotParams->m_width);
-  auto const height = static_cast<int>(screenshotParams->m_height);
+  int const width = m_screenshotMode ? static_cast<int>(screenshotParams->m_width) : 0;
+  int const height = m_screenshotMode ? static_cast<int>(screenshotParams->m_height) : 0;
   m_pDrawWidget = new DrawWidget(framework, apiOpenGLES3, std::move(screenshotParams), this);
 
   setCentralWidget(m_pDrawWidget);
