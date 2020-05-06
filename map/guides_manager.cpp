@@ -9,6 +9,8 @@
 
 #include "platform/preferred_languages.hpp"
 
+#include "geometry/intersection_score.hpp"
+
 #include "private.h"
 
 #include <utility>
@@ -33,16 +35,36 @@ void GuidesManager::SetStateListener(GuidesStateChangedFn const & onStateChanged
 void GuidesManager::UpdateViewport(ScreenBase const & screen)
 {
   auto const zoom = df::GetDrawTileScale(screen);
-
-  // TODO(a): to implement correct way to filter out same rects.
-  if (m_currentRect.EqualDxDy(screen.GlobalRect(), 1e-4) && m_zoom == zoom)
+  if (m_zoom == zoom && m_currentRect.EqualDxDy(screen.GlobalRect(), 1e-4))
     return;
+
+  if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError)
+  {
+    m_currentRect = screen.GlobalRect();
+    m_zoom = zoom;
+    return;
+  }
+
+  if (screen.GlobalRect().GetLocalRect().IsEmptyInterior())
+    return;
+
+  if (m_zoom == zoom && !m_currentRect.GetLocalRect().IsEmptyInterior())
+  {
+    m2::AnyRectD::Corners currentCorners;
+    m_currentRect.GetGlobalPoints(currentCorners);
+
+    m2::AnyRectD::Corners screenCorners;
+    screen.GlobalRect().GetGlobalPoints(screenCorners);
+
+    auto const score = geometry::GetIntersectionScoreForPoints(currentCorners, screenCorners);
+
+    // If more than 80% of viewport rect intersects with last requested rect then return.
+    if (score > 0.8)
+      return;
+  }
 
   m_currentRect = screen.GlobalRect();
   m_zoom = zoom;
-
-  if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError)
-    return;
 
   RequestGuides(m_currentRect, m_zoom);
 }
