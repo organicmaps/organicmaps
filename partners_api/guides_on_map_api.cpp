@@ -53,12 +53,20 @@ void ParseGallery(std::string const & src, guides_on_map::GuidesOnMap & result)
       FromJSONObject(extraObj, "name", info.m_name);
       FromJSONObject(extraObj, "image_url", info.m_imageUrl);
       FromJSONObjectOptionalField(extraObj, "tag", info.m_tag);
-      FromJSONObject(extraObj, "bookmarks_count", info.m_bookmarksCount);
+      // TODO(a): revert bookmark_count to required field.
+      FromJSONObjectOptionalField(extraObj, "bookmark_count", info.m_bookmarksCount);
       FromJSONObject(extraObj, "has_track", info.m_hasTrack);
       FromJSONObjectOptionalField(extraObj, "tracks_length", info.m_tracksLength);
-      FromJSONObjectOptionalField(extraObj, "tour_duration", info.m_tourDuration);
-      // Server returns duration in minutes, so convert value to small units.
-      info.m_tourDuration *= 60;
+      auto const durationObj = json_object_get(obj, "tour_duration");
+      if (json_is_object(durationObj))
+      {
+        int duration;
+        FromJSONObject(durationObj, "hours", duration);
+        info.m_tourDuration = duration * 60 * 60; // convert hours to seconds
+
+        FromJSONObject(extraObj, "minutes", duration);
+        info.m_tourDuration += duration * 60; // convert minutes to seconds
+      }
       FromJSONObjectOptionalField(extraObj, "ascent", info.m_ascent);
     }
 

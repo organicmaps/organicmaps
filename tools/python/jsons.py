@@ -694,10 +694,13 @@ GUIDES_ON_MAP_GALLERY = """
         "name": "hello",
         "image_url": "world",
         "tag": "tag",
-        "bookmarks_count": 100,
+        "bookmark_count": 100,
         "has_track": true,
         "tracks_length": 1234.11,
-        "tour_duration": 870.4,
+        "tour_duration": {
+          "hours": 5,
+          "minutes": 17
+        },
         "ascent": -300
       }
     },
