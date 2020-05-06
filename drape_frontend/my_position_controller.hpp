@@ -188,6 +188,7 @@ private:
   double m_autoScale2d;
   double m_autoScale3d;
 
+  base::Timer m_lastGPSBearing;
   base::Timer m_pendingTimer;
   bool m_pendingStarted = true;
   base::Timer m_routingNotFollowTimer;

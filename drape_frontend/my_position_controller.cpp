@@ -26,8 +26,8 @@ namespace df
 namespace
 {
 int const kPositionRoutingOffsetY = 104;
-double const kMinSpeedThresholdMps = 1.0;
-
+double const kMinSpeedThresholdMps = 2.8; // 10 km/h
+double const kGpsBearingLifetimeSec = 5.0;
 double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
 double const kMaxNotFollowRoutingTimeSec = 20.0;
@@ -148,6 +148,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_enableAutoZoomInRouting(params.m_isAutozoomEnabled)
   , m_autoScale2d(GetScreenScale(kDefaultAutoZoom))
   , m_autoScale3d(m_autoScale2d)
+  , m_lastGPSBearing(false)
   , m_lastLocationTimestamp(0.0)
   , m_positionRoutingOffsetY(kPositionRoutingOffsetY)
   , m_isDirtyViewport(false)
@@ -422,18 +423,18 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
   }
 
-  // Sets direction based on GPS if compass is not available or the direction must be glued to the
-  // route (route-corrected angle is set only in OnLocationUpdate(): in OnCompassUpdate() the angle
-  // always has the original value.
-  if ((!m_isCompassAvailable || m_isArrowGluedInRouting) && info.HasBearing())
+  // Sets direction based on GPS if:
+  // 1. Compass is not available.
+  // 2. Direction must be glued to the route during routing (route-corrected angle is set only in
+  // OnLocationUpdate(): in OnCompassUpdate() the angle always has the original value.
+  // 3. Device is moving faster then pedestrian.
+  bool const isMovingFast = info.HasSpeed() && info.m_speedMpS > kMinSpeedThresholdMps;
+  bool const glueArrowInRouting = isNavigable && m_isArrowGluedInRouting;
+
+  if ((!m_isCompassAvailable || glueArrowInRouting || isMovingFast) && info.HasBearing())
   {
-    // Sets direction if in routing, or moving with |m_speedMpS| speed, or there is no signal from
-    // the compass sensor.
-    if (isNavigable || (info.HasSpeed() && info.m_speedMpS > kMinSpeedThresholdMps) ||
-        !m_isCompassAvailable)
-    {
-      SetDirection(base::DegToRad(info.m_bearing));
-    }
+    SetDirection(base::DegToRad(info.m_bearing));
+    m_lastGPSBearing.Reset();
   }
 
   if (m_isPositionAssigned && (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut)))
@@ -577,7 +578,7 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
   double const oldAzimut = GetDrawableAzimut();
   m_isCompassAvailable = true;
 
-  if (IsInRouting() && m_isArrowGluedInRouting)
+  if ((IsInRouting() && m_isArrowGluedInRouting) || m_lastGPSBearing.ElapsedSeconds() < kGpsBearingLifetimeSec)
     return;
 
   SetDirection(info.m_bearing);
