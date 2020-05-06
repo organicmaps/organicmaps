@@ -18,23 +18,27 @@ import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.guides.GuidesGallery;
+import com.mapswithme.maps.guides.GuidesGallery.Item;
+import com.mapswithme.maps.maplayer.guides.GuidesManager;
+import com.mapswithme.maps.maplayer.guides.OnGuidesGalleryChangedListener;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.statistics.GalleryPlacement;
 
+import java.util.List;
 import java.util.Objects;
 
 public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePageData>,
-                                                  PlacePageStateObserver
+                                                  PlacePageStateObserver,
+                                                  OnGuidesGalleryChangedListener
 {
   private static final String EXTRA_ACTIVE_POSITION = "extra_active_position";
-  @SuppressWarnings("NullableProblems")
-  @NonNull
+  @Nullable
   private GuidesGallery mGallery;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private RecyclerView mRecyclerView;
   @Nullable
-  private GuidesGallery.Item mActiveItem;
+  private Item mActiveItem;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private RecyclerView.SmoothScroller mSmoothScroller;
@@ -42,11 +46,11 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
   @NonNull
   private LinearLayoutManager mLayoutManager;
   @NonNull
-  private final ItemSelectedListener<GuidesGallery.Item> mItemSelectedListener
-      = new ItemSelectedListener<GuidesGallery.Item>()
+  private final ItemSelectedListener<Item> mItemSelectedListener
+      = new ItemSelectedListener<Item>()
   {
     @Override
-    public void onItemSelected(@NonNull GuidesGallery.Item item, int position)
+    public void onItemSelected(@NonNull Item item, int position)
     {
       if (item == mActiveItem)
       {
@@ -65,13 +69,13 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
     }
 
     @Override
-    public void onMoreItemSelected(@NonNull GuidesGallery.Item item)
+    public void onMoreItemSelected(@NonNull Item item)
     {
       // No op.
     }
 
     @Override
-    public void onActionButtonSelected(@NonNull GuidesGallery.Item item, int position)
+    public void onActionButtonSelected(@NonNull Item item, int position)
     {
       // No op.
     }
@@ -140,8 +144,9 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
 
   private void setActiveGuide(int position)
   {
+    Objects.requireNonNull(mGallery);
     mActivePosition = position;
-    GuidesGallery.Item item = mGallery.getItems().get(position);
+    Item item = mGallery.getItems().get(position);
     if (mActiveItem == item)
       return;
 
@@ -152,6 +157,7 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
     mActiveItem.setActivated(true);
     if (mAdapter != null)
       mAdapter.notifyDataSetChanged();
+    GuidesManager.from(mRecyclerView.getContext()).setActiveGuide(mActiveItem.getGuideId());
   }
 
   @Override
@@ -161,8 +167,6 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
     mAdapter = Factory.createGuidesAdapter(mGallery.getItems(), mItemSelectedListener,
                                                          GalleryPlacement.MAP);
     mRecyclerView.setAdapter(mAdapter);
-    mActiveItem = null;
-    setActiveGuide(0);
   }
 
   @Override
@@ -200,12 +204,13 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
       SnapHelper mSnapHelper = new LinearSnapHelper();
       mSnapHelper.attachToRecyclerView(mRecyclerView);
     }
+    GuidesManager.from(mRecyclerView.getContext()).addGalleryChangedListener(this);
   }
 
   @Override
   public void destroy()
   {
-
+    GuidesManager.from(mRecyclerView.getContext()).removeGalleryChangedListener(this);
   }
 
   @Override
@@ -218,7 +223,6 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    //noinspection ConstantConditions
     mGallery = inState.getParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA);
     if (mGallery == null)
       return;
@@ -242,18 +246,49 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
   @Override
   public void onPlacePageDetails()
   {
-
+    // Do nothing.
   }
 
   @Override
   public void onPlacePagePreview()
   {
-
+    // Do nothing.
   }
 
   @Override
   public void onPlacePageClosed()
   {
+    // Do nothing.
+  }
 
+  @Override
+  public void onGuidesGalleryChanged(boolean reloadGallery)
+  {
+    if (mGallery == null)
+      return;
+
+    GuidesManager manager = GuidesManager.from(mRecyclerView.getContext());
+    if (reloadGallery)
+    {
+      mGallery = manager.getGallery();
+      render(mGallery);
+    }
+
+    String guideId = manager.getActiveGuide();
+    int activePosition = findPositionByGuideId(mGallery, guideId);
+    smoothScrollToPosition(activePosition);
+  }
+
+  private static int findPositionByGuideId(@NonNull GuidesGallery gallery, @NonNull String guideId)
+  {
+    List<Item> items = gallery.getItems();
+    for(int i = 0; i < items.size(); i++)
+    {
+      Item item = items.get(i);
+      if (item.getGuideId().equals(guideId))
+        return i;
+    }
+
+    throw new IllegalStateException("Guide with id '" + guideId + "' not found in gallery!");
   }
 }
