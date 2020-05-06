@@ -46,6 +46,7 @@ set(
   point_with_altitude.cpp
   point_with_altitude.hpp
   polygon.hpp
+  intersection_score.hpp
   polyline2d.hpp
   rect2d.hpp
   rect_intersect.hpp

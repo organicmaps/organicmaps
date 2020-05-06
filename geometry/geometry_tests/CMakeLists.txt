@@ -20,6 +20,7 @@ set(
   distance_on_sphere_test.cpp
   equality.hpp
   intersect_test.cpp
+  intersection_score_tests.cpp
   large_polygon.hpp
   latlon_test.cpp
   line2d_tests.cpp

@@ -1,5 +1,7 @@
 #include "editor/feature_matcher.hpp"
 
+#include "geometry/intersection_score.hpp"
+
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/stl_iterator.hpp"
@@ -34,18 +36,6 @@ using ForEachRefFn = function<void(XMLFeature const & xmlFt)>;
 using ForEachWayFn = function<void(pugi::xml_node const & way, string const & role)>;
 
 double const kPointDiffEps = 1e-5;
-double const kPenaltyScore = -1;
-
-template <typename LGeometry, typename RGeometry>
-AreaType IntersectionArea(LGeometry const & our, RGeometry const & their)
-{
-  ASSERT(bg::is_valid(our), ());
-  ASSERT(bg::is_valid(their), ());
-
-  MultiPolygon result;
-  bg::intersection(our, their, result);
-  return bg::area(result);
-}
 
 void AddInnerIfNeeded(pugi::xml_document const & osmResponse, pugi::xml_node const & way,
                       Polygon & dest)
@@ -83,64 +73,6 @@ void MakeOuterRing(MultiLinestring & outerLines, Polygon & dest)
 
     bg::append(dest.outer(), outerLines[i]);
   }
-}
-
-template <typename LGeometry, typename RGeometry>
-double MatchByGeometry(LGeometry const & lhs, RGeometry const & rhs)
-{
-  if (!bg::is_valid(lhs) || !bg::is_valid(rhs))
-    return kPenaltyScore;
-
-  auto const lhsArea = bg::area(lhs);
-  auto const rhsArea = bg::area(rhs);
-  auto const intersectionArea = IntersectionArea(lhs, rhs);
-  auto const unionArea = lhsArea + rhsArea - intersectionArea;
-
-  // Avoid infinity.
-  if (base::AlmostEqualAbs(unionArea, 0.0, 1e-18))
-    return kPenaltyScore;
-
-  auto const score = intersectionArea / unionArea;
-
-  // If area of the intersection is a half of the object area, penalty score will be returned.
-  if (score <= 0.5)
-    return kPenaltyScore;
-
-  return score;
-}
-
-MultiPolygon TrianglesToPolygon(vector<m2::PointD> const & points)
-{
-  size_t const kTriangleSize = 3;
-  if (points.size() % kTriangleSize != 0)
-    MYTHROW(matcher::NotAPolygonException, ("Count of points must be multiple of", kTriangleSize));
-
-  vector<MultiPolygon> polygons;
-  for (size_t i = 0; i < points.size(); i += kTriangleSize)
-  {
-    MultiPolygon polygon;
-    polygon.resize(1);
-    auto & p = polygon[0];
-    auto & outer = p.outer();
-    for (size_t j = i; j < i + kTriangleSize; ++j)
-      outer.push_back(PointXY(points[j].x, points[j].y));
-    bg::correct(p);
-    if (!bg::is_valid(polygon))
-      MYTHROW(matcher::NotAPolygonException, ("The triangle is not valid"));
-    polygons.push_back(polygon);
-  }
-
-  if (polygons.empty())
-    return {};
-
-  auto & result = polygons[0];
-  for (size_t i = 1; i < polygons.size(); ++i)
-  {
-    MultiPolygon u;
-    bg::union_(result, polygons[i], u);
-    u.swap(result);
-  }
-  return result;
 }
 
 /// Returns value form (-Inf, 1]. Negative values are used as penalty, positive as score.
@@ -268,14 +200,20 @@ double ScoreGeometry(pugi::xml_document const & osmResponse, pugi::xml_node cons
   auto const their = GetWaysOrRelationsGeometry(osmResponse, wayOrRelation);
 
   if (bg::is_empty(their))
-    return kPenaltyScore;
+    return geometry::kPenaltyScore;
 
-  auto const our = TrianglesToPolygon(ourGeometry);
+  auto const our = geometry::TrianglesToPolygon(ourGeometry);
 
   if (bg::is_empty(our))
-    return kPenaltyScore;
+    return geometry::kPenaltyScore;
 
-  return MatchByGeometry(our, their);
+  auto const score = geometry::GetIntersectionScore(our, their);
+
+  // If area of the intersection is a half of the object area, penalty score will be returned.
+  if (score <= 0.5)
+    return geometry::kPenaltyScore;
+
+  return score;
 }
 }  // namespace
 
@@ -283,7 +221,7 @@ namespace matcher
 {
 pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon const & latLon)
 {
-  double bestScore = kPenaltyScore;
+  double bestScore = geometry::kPenaltyScore;
   pugi::xml_node bestMatchNode;
 
   for (auto const & xNode : osmResponse.select_nodes("osm/node"))
@@ -319,7 +257,7 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
 pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse,
                                        vector<m2::PointD> const & geometry)
 {
-  double bestScore = kPenaltyScore;
+  double bestScore = geometry::kPenaltyScore;
   pugi::xml_node bestMatchWay;
 
   auto const xpath = "osm/way|osm/relation[tag[@k='type' and @v='multipolygon']]";
@@ -342,15 +280,13 @@ pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse,
 
 double ScoreTriangulatedGeometries(vector<m2::PointD> const & lhs, vector<m2::PointD> const & rhs)
 {
-  auto const lhsPolygon = TrianglesToPolygon(lhs);
-  if (bg::is_empty(lhsPolygon))
-    return kPenaltyScore;
+  auto const score = geometry::GetIntersectionScoreForTriangulated(lhs, rhs);
 
-  auto const rhsPolygon = TrianglesToPolygon(rhs);
-  if (bg::is_empty(rhsPolygon))
-    return kPenaltyScore;
+  // If area of the intersection is a half of the object area, penalty score will be returned.
+  if (score <= 0.5)
+    return geometry::kPenaltyScore;
 
-  return MatchByGeometry(lhsPolygon, rhsPolygon);
+  return score;
 }
 
 double ScoreTriangulatedGeometriesByPoints(vector<m2::PointD> const & lhs,
