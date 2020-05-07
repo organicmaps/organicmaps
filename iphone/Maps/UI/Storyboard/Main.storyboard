@@ -824,71 +824,6 @@
                                     <outlet property="delegate" destination="h4a-ne-bSJ" id="3jT-yg-FQv"/>
                                 </connections>
                             </tableView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="st5-ZJ-F0A" userLabel="UpdateAllView">
-                                <rect key="frame" x="16" y="818" width="382" height="44"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0aj-pt-FjD">
-                                        <rect key="frame" x="0.0" y="0.0" width="382" height="1"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" priority="750" constant="1" id="6LI-Em-15P"/>
-                                        </constraints>
-                                    </view>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GN0-2F-Ytz" customClass="MWMButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="382" height="44"/>
-                                        <color key="backgroundColor" red="0.034757062792778015" green="0.31522077322006226" blue="0.81491315364837646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="Update All">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton:MWMWhite:regular17"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="onAllMaps:" destination="h4a-ne-bSJ" eventType="touchUpInside" id="dBj-ob-MNu"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQM-6x-WHa" customClass="MWMButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="382" height="44"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="Update All">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:redText"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="onCancelAllMaps:" destination="h4a-ne-bSJ" eventType="touchUpInside" id="Vxv-zA-R1k"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="GN0-2F-Ytz" secondAttribute="bottom" id="1d7-Jm-x6G"/>
-                                    <constraint firstAttribute="trailing" secondItem="GN0-2F-Ytz" secondAttribute="trailing" id="Fla-om-Cu2"/>
-                                    <constraint firstAttribute="bottom" secondItem="bQM-6x-WHa" secondAttribute="bottom" id="GhH-Ej-y9d"/>
-                                    <constraint firstItem="GN0-2F-Ytz" firstAttribute="top" secondItem="st5-ZJ-F0A" secondAttribute="top" id="JFl-uF-Jcg"/>
-                                    <constraint firstItem="0aj-pt-FjD" firstAttribute="leading" secondItem="st5-ZJ-F0A" secondAttribute="leading" id="T1h-9e-CHh"/>
-                                    <constraint firstItem="GN0-2F-Ytz" firstAttribute="centerY" secondItem="st5-ZJ-F0A" secondAttribute="centerY" id="TYj-uT-caw"/>
-                                    <constraint firstAttribute="trailing" secondItem="0aj-pt-FjD" secondAttribute="trailing" id="X27-uq-GY8"/>
-                                    <constraint firstItem="bQM-6x-WHa" firstAttribute="leading" secondItem="st5-ZJ-F0A" secondAttribute="leading" id="YLa-6K-Khm"/>
-                                    <constraint firstItem="0aj-pt-FjD" firstAttribute="top" secondItem="st5-ZJ-F0A" secondAttribute="top" id="k6u-bm-1dm"/>
-                                    <constraint firstItem="bQM-6x-WHa" firstAttribute="top" secondItem="st5-ZJ-F0A" secondAttribute="top" id="lgd-lj-2Qq"/>
-                                    <constraint firstItem="GN0-2F-Ytz" firstAttribute="leading" secondItem="st5-ZJ-F0A" secondAttribute="leading" id="nUN-rN-AXo"/>
-                                    <constraint firstAttribute="trailing" secondItem="bQM-6x-WHa" secondAttribute="trailing" id="pIt-FK-n43"/>
-                                    <constraint firstAttribute="height" priority="750" constant="44" id="r0c-5a-Stj"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="12"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="TYj-uT-caw"/>
-                                    </mask>
-                                </variation>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xxz-fq-71r" userLabel="Status Bar Background">
                                 <rect key="frame" x="0.0" y="-8" width="414" height="108"/>
                                 <color key="backgroundColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -916,6 +851,16 @@
                                     <segue destination="b8o-rZ-x0k" kind="embed" identifier="MapDownloaderNoResultsEmbedViewControllerSegue" id="ish-dC-mkH"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDj-ol-HRP">
+                                <rect key="frame" x="44" y="329" width="808" height="64"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="YoQ-gr-frN"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -924,19 +869,18 @@
                             <constraint firstAttribute="trailing" secondItem="CwW-x8-G3j" secondAttribute="trailing" id="6QL-v4-rNy"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="kXO-Oh-2vO" secondAttribute="bottom" id="8Tl-19-ReF"/>
                             <constraint firstItem="DPt-gs-efn" firstAttribute="top" secondItem="dlW-OQ-WMO" secondAttribute="top" id="DaT-3k-Xu4"/>
-                            <constraint firstItem="st5-ZJ-F0A" firstAttribute="bottom" secondItem="CwW-x8-G3j" secondAttribute="bottom" priority="750" id="J6r-da-BDI"/>
+                            <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="CDj-ol-HRP" secondAttribute="trailing" id="FLZ-Kr-4dV"/>
                             <constraint firstItem="kXO-Oh-2vO" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="M0m-98-7Ev"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="CwW-x8-G3j" secondAttribute="bottom" id="QPk-e4-hZs"/>
                             <constraint firstItem="DPt-gs-efn" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="VJj-Tp-SDf"/>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="leading" secondItem="XQZ-0V-SyR" secondAttribute="leading" id="Wvb-0M-kQl"/>
                             <constraint firstItem="Xxz-fq-71r" firstAttribute="bottom" secondItem="DPt-gs-efn" secondAttribute="bottom" id="ZX5-1D-Odx"/>
                             <constraint firstItem="Xxz-fq-71r" firstAttribute="leading" secondItem="XQZ-0V-SyR" secondAttribute="leading" id="d6U-js-Akg"/>
-                            <constraint firstItem="st5-ZJ-F0A" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" constant="16" id="die-JU-jeY"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="DPt-gs-efn" secondAttribute="trailing" id="dqa-6i-25A"/>
-                            <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="st5-ZJ-F0A" secondAttribute="trailing" constant="16" id="m79-xn-ucm"/>
+                            <constraint firstItem="CDj-ol-HRP" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="mwH-aX-jCV"/>
                             <constraint firstItem="kXO-Oh-2vO" firstAttribute="top" secondItem="DPt-gs-efn" secondAttribute="bottom" id="nAx-dp-QrX"/>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="Xxz-fq-71r" secondAttribute="bottom" id="nLg-Zb-DT9"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="st5-ZJ-F0A" secondAttribute="bottom" constant="16" id="opX-GF-1De"/>
+                            <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="CDj-ol-HRP" secondAttribute="bottom" id="tp7-f9-Sw5"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="kXO-Oh-2vO" secondAttribute="trailing" id="yMA-25-2pq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dlW-OQ-WMO"/>
@@ -945,9 +889,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
-                        <outlet property="allMapsButton" destination="GN0-2F-Ytz" id="Oi0-99-SSP"/>
-                        <outlet property="allMapsCancelButton" destination="bQM-6x-WHa" id="GhS-AQ-EZd"/>
-                        <outlet property="allMapsView" destination="st5-ZJ-F0A" id="KAY-Rx-kCC"/>
+                        <outlet property="downloadAllViewContainer" destination="CDj-ol-HRP" id="GL3-3D-JAQ"/>
                         <outlet property="noMapsContainer" destination="kXO-Oh-2vO" id="fpe-Gj-ZmD"/>
                         <outlet property="searchBar" destination="DPt-gs-efn" id="HS1-0c-JX8"/>
                         <outlet property="searchBarTopOffset" destination="DaT-3k-Xu4" id="8gw-DU-okf"/>
@@ -957,7 +899,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3U-Z9-ALg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3780" y="951"/>
+            <point key="canvasLocation" x="3779.4642857142853" y="950.72463768115949"/>
         </scene>
         <!--No Maps View Controller-->
         <scene sceneID="bz6-ac-EbZ">
