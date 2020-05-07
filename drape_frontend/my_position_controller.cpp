@@ -26,7 +26,7 @@ namespace df
 namespace
 {
 int const kPositionRoutingOffsetY = 104;
-double const kMinSpeedThresholdMps = 2.8; // 10 km/h
+double const kMinSpeedThresholdMps = 2.8;  // 10 km/h
 double const kGpsBearingLifetimeSec = 5.0;
 double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60;
@@ -578,7 +578,8 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
   double const oldAzimut = GetDrawableAzimut();
   m_isCompassAvailable = true;
 
-  if ((IsInRouting() && m_isArrowGluedInRouting) || m_lastGPSBearing.ElapsedSeconds() < kGpsBearingLifetimeSec)
+  if ((IsInRouting() && m_isArrowGluedInRouting) ||
+      m_lastGPSBearing.ElapsedSeconds() < kGpsBearingLifetimeSec)
     return;
 
   SetDirection(info.m_bearing);
