@@ -1,7 +1,9 @@
 #pragma once
 
-#include "base/macros.hpp"
+#include "indexer/scales.hpp"
+
 #include "base/assert.hpp"
+#include "base/macros.hpp"
 
 #include <cstring>
 #include <string>
@@ -10,22 +12,19 @@ namespace strings { class UniString; }
 
 namespace feature
 {
-static int const g_arrWorldScales[] = {3, 5, 7, 9};        // 9 = scales::GetUpperWorldScale()
-static int const g_arrCountryScales[] = {10, 12, 14, 17};  // 17 = scales::GetUpperScale()
+static int const g_arrWorldScales[] = {3, 5, 7, 9};
+static_assert(9 == scales::GetUpperWorldScale(), "");
+static int const g_arrCountryScales[] = {10, 12, 14, 17};
+static_assert(17 == scales::GetUpperScale(), "");
 
-inline std::string GetTagForIndex(char const * prefix, size_t ind)
+inline std::string GetTagForIndex(std::string const & prefix, size_t ind)
 {
-  std::string str;
-  str.reserve(strlen(prefix) + 1);
-  str = prefix;
-
   static char const arrChar[] = {'0', '1', '2', '3'};
   static_assert(ARRAY_SIZE(arrChar) >= ARRAY_SIZE(g_arrWorldScales), "");
   static_assert(ARRAY_SIZE(arrChar) >= ARRAY_SIZE(g_arrCountryScales), "");
   ASSERT(ind >= 0 && ind < ARRAY_SIZE(arrChar), (ind));
 
-  str += arrChar[ind];
-  return str;
+  return prefix + arrChar[ind];
 }
 
 bool IsDigit(int c);
