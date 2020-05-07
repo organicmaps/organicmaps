@@ -15,11 +15,6 @@
 
 class DataSource;
 
-namespace feature
-{
-struct FeatureID;
-}
-
 namespace search
 {
 class CitiesBoundariesTable
