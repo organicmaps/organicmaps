@@ -9,8 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.R;
 
-@SuppressWarnings("WeakerAccess")
-public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
+class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
 {
   @Nullable
   @Override

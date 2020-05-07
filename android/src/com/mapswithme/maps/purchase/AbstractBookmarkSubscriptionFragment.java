@@ -21,7 +21,6 @@ import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.ResolveFragmentManagerStrategy;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
@@ -242,10 +241,12 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   public void onCheckNetworkConnection()
   {
     if (ConnectionState.isConnected())
-      NetworkPolicy.checkNetworkPolicy(requireFragmentManager(),
-                                       this::onNetworkPolicyResult, true);
-    else
-      PurchaseUtils.showNoConnectionDialog(this);
+    {
+      onNetworkCheckPassed();
+      return;
+    }
+
+    PurchaseUtils.showNoConnectionDialog(this);
   }
 
   @Override
@@ -258,14 +259,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   public void onPaymentFailure()
   {
     PurchaseUtils.showPaymentFailureDialog(this, getClass().getSimpleName());
-  }
-
-  private void onNetworkPolicyResult(@NonNull NetworkPolicy policy)
-  {
-    if (policy.canUseNetwork())
-      onNetworkCheckPassed();
-    else
-      requireActivity().finish();
   }
 
   private void onNetworkCheckPassed()
