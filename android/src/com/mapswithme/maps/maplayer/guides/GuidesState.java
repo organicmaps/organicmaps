@@ -5,11 +5,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.UiUtils;
 
 public enum GuidesState
 {
   DISABLED,
-  ENABLED,
+  ENABLED
+      {
+        @Override
+        public void activate(@NonNull Context context)
+        {
+          UiUtils.showToastAtTop(context, R.string.routes_layer_is_on_toast);
+        }
+      },
   NO_DATA
       {
         @Override

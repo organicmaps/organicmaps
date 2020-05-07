@@ -28,6 +28,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.AttrRes;
@@ -550,6 +551,13 @@ public final class UiUtils
   public static int getNotificationColor(@NonNull Context context)
   {
     return context.getResources().getColor(R.color.notification);
+  }
+
+  public static void showToastAtTop(@NonNull Context context, @StringRes int stringId)
+  {
+    Toast toast = Toast.makeText(context, stringId, Toast.LENGTH_LONG);
+    toast.setGravity(Gravity.TOP, 0, 0);
+    toast.show();
   }
 
   // utility class

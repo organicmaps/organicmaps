@@ -1,14 +1,10 @@
 package com.mapswithme.maps.widget.menu;
 
-import android.content.Context;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,6 +43,7 @@ public class MainMenuRenderer implements MenuRenderer
   @Override
   public void render()
   {
+    mLayersAdapter.notifyDataSetChanged();
     renderDownloadMapsCounter();
   }
 
@@ -113,14 +110,6 @@ public class MainMenuRenderer implements MenuRenderer
   public void onHide()
   {
     mScrollView.scrollTo(0, 0);
-  }
-
-  // TODO: use this method to show layer toast.
-  private static void showToast(@NonNull Context context, @StringRes int stringId)
-  {
-    Toast toast = Toast.makeText(context, stringId, Toast.LENGTH_LONG);
-    toast.setGravity(Gravity.TOP, 0, 0);
-    toast.show();
   }
 
   private class SubwayItemClickListener extends DefaultClickListener

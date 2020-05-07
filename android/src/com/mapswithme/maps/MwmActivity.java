@@ -138,6 +138,7 @@ import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.PermissionsUtils;
+import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UTM;
@@ -2780,6 +2781,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public void onMenuOpen()
     {
       mFadeView.fadeIn();
+      if (!SharedPropertiesUtils.shouldShowLayerTutorialToast(getApplicationContext()))
+        return;
+
+      UiUtils.showToastAtTop(getApplicationContext(), R.string.routes_layer_in_menu_toast);
     }
 
     @Override
