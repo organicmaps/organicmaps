@@ -126,18 +126,16 @@ public:
     }
 
     // File Writer finalization function with adding section to the main mwm file.
-    auto const finalizeFn = [this](unique_ptr<TmpFile> w, string const & tag,
-                                   string const & postfix = string()) {
+    auto const finalizeFn = [this](unique_ptr<TmpFile> w, string const & tag) {
       w->Flush();
       FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
-      writer.Write(w->GetName(), tag + postfix);
+      writer.Write(w->GetName(), tag);
     };
 
     for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
     {
-      string const postfix = strings::to_string(i);
-      finalizeFn(move(m_geoFile[i]), GEOMETRY_FILE_TAG, postfix);
-      finalizeFn(move(m_trgFile[i]), TRIANGLE_FILE_TAG, postfix);
+      finalizeFn(move(m_geoFile[i]), GetTagForIndex(GEOMETRY_FILE_TAG, i));
+      finalizeFn(move(m_trgFile[i]), GetTagForIndex(TRIANGLE_FILE_TAG, i));
     }
 
     finalizeFn(move(m_metadataFile), METADATA_FILE_TAG);
