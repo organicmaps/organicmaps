@@ -181,7 +181,7 @@ bool OpeningHoursSerDes::CheckSupportedFeatures() const
   if (IsEnabled(Header::Bits::MonthDay) && !IsEnabled(Header::Bits::Month))
     CHECK(false, ("Cannot use MonthDay without Month."));
 
-  if (IsEnabled(Header::Bits::Hours) != !IsEnabled(Header::Bits::Minutes))
+  if (IsEnabled(Header::Bits::Hours) != IsEnabled(Header::Bits::Minutes))
     CHECK(false, ("Cannot use Hours without Minutes and vice versa."));
 
   return true;
