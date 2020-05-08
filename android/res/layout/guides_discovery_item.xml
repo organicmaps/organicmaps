@@ -50,7 +50,7 @@
           android:minHeight="@dimen/guide_gallery_title_height"
           android:gravity="center_vertical"
           android:ellipsize="end"
-          android:fontFamily="@string/robotoRegular"
+          android:fontFamily="@string/robotoMedium"
           android:lines="2"
           android:textColor="?android:textColorPrimary"
           android:textSize="@dimen/text_size_body_2" />

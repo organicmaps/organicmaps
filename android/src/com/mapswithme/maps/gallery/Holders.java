@@ -25,7 +25,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuidesGallery;
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
@@ -558,6 +557,8 @@ public class Holders
 
   public static class GuideHodler extends BaseViewHolder<GuidesGallery.Item>
   {
+    private static final String DISTANCE_FORMATTER = "%.1f";
+    private static final long MINS_IN_HOUR = TimeUnit.HOURS.toMinutes(1);
     @NonNull
     private final ImageView mImage;
     @NonNull
@@ -609,9 +610,6 @@ public class Holders
     {
       int index = getAdapterPosition();
       GuidesGallery.Item item = mItems.get(index);
-/*//      boolean isVisible = BookmarkManager.INSTANCE.isVisible(item.getGuideId());
-      BookmarkManager.INSTANCE.setVisibility(1, !isVisible);
-      mBoughtContentBtn.setText(!isVisible ? R.string.hide : R.string.show);*/
     }
 
     @Override
@@ -628,7 +626,6 @@ public class Holders
     {
       UiUtils.hideIf(item.isDownloaded(), mDivider, mOutdoorContent, mCityContent);
       UiUtils.showIf(item.isDownloaded(), mBoughtContent, mBoughtContentCheckbox);
-//      mBoughtContentBtn.setText(BookmarkManager.INSTANCE.isVisible(item.getGuideId()) ? R.string.hide : R.string.show);
 
       if (item.isDownloaded())
         return;
@@ -638,7 +635,6 @@ public class Holders
         bindCityBlock(item);
       else
         bindOutdoorBlock(item);
-
     }
 
     private void bindOutdoorBlock(@NonNull GuidesGallery.Item item)
@@ -652,12 +648,11 @@ public class Holders
       String value = params.getAscent() + " " + context.getString(R.string.meter);
       mAltitide.setText(value);
 
-      value = String.format(Locale.US,"%.1f" , params.getDistance() / 1000)
+      value = String.format(Locale.US, DISTANCE_FORMATTER, params.getDistance() / 1000)
               + " " + context.getString(R.string.kilometer);
-
       mDistance.setText(value);
 
-      value = TimeUnit.SECONDS.toHours(params.getDuration()) + context.getString(R.string.hour);
+      value = makeTime(context, params);
       mTime.setText(value);
     }
 
@@ -665,6 +660,7 @@ public class Holders
     {
       UiUtils.show(mCityContent);
       UiUtils.hide(mOutdoorContent);
+
       Context context = mAltitide.getContext();
       String poiCount = String.valueOf(item.getCityParams().getBookmarksCount());
       String text = context.getString(R.string.routes_card_number_of_points, poiCount)
@@ -678,30 +674,6 @@ public class Holders
       mSubtitle.setText(subtitle);
     }
 
-    @NonNull
-    private static Spannable makeSubtitle(Context context, @NonNull GuidesGallery.Item item)
-    {
-      boolean isCity = item.getGuideType() == GuidesGallery.Type.City;
-      SpannableStringBuilder builder =
-          new SpannableStringBuilder(isCity ? context.getString(R.string.type_place_city)
-                                            : context.getString(R.string.type_shop_outdoor));
-
-      int color = isCity ? context.getResources().getColor(R.color.city_color)
-                         : context.getResources().getColor(R.color.outdoor_color);
-
-      builder.setSpan(new ForegroundColorSpan(color), 0, builder.length(),
-                      Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-      boolean isItinerary = isCity && item.getCityParams().isTrackAvailable();
-      String text = context.getResources().getString(isItinerary ? R.string.routes_card_routes_tag : R.string.routes_card_set_tag);
-
-      if (!isCity)
-        text = TextUtils.isEmpty(item.getSubtitle()) ? "" : item.getSubtitle();
-
-      builder.append(TextUtils.isEmpty(text) ? text : UiUtils.PHRASE_SEPARATOR + text);
-      return builder;
-    }
-
     private void bindImage(@NonNull GuidesGallery.Item item)
     {
       Glide.with(mImage.getContext())
@@ -711,6 +683,8 @@ public class Holders
            .centerCrop()
            .into(mImage);
       mSubtitle.setText(item.getSubtitle());
+      bindActivationState(item);
+      // TODO: another fields comming soon;
     }
 
     private void bindActivationState(@NonNull GuidesGallery.Item item)
@@ -720,6 +694,45 @@ public class Holders
       {
         mItemView.post(() -> mItemView.setActivated(item.isActivated()));
       }
+    }
+
+    @NonNull
+    private static String makeTime(@NonNull Context context,
+                                   @NonNull GuidesGallery.OutdoorParams params)
+    {
+      long hours = TimeUnit.SECONDS.toHours(params.getDuration());
+      long mins = TimeUnit.SECONDS.toMinutes(params.getDuration()) - hours * MINS_IN_HOUR;
+
+      String hoursTxt = hours == 0 ? "" : hours + context.getString(R.string.hour);
+      String minsTxt = mins == 0 ? "" : mins + context.getString(R.string.minute);
+      boolean noWhitespace = TextUtils.isEmpty(hoursTxt) ^ TextUtils.isEmpty(minsTxt);
+      return (hoursTxt + (noWhitespace ? "" : " ") + minsTxt).trim();
+    }
+
+    @NonNull
+    private static Spannable makeSubtitle(Context context, @NonNull GuidesGallery.Item item)
+    {
+      boolean isCity = item.getGuideType() == GuidesGallery.Type.City;
+      SpannableStringBuilder builder =
+          new SpannableStringBuilder(isCity ? context.getString(R.string.type_place_city)
+                                            : context.getString(R.string.type_shop_outdoor));
+
+      Resources res = context.getResources();
+      int color = isCity ? res.getColor(R.color.city_color)
+                         : res.getColor(R.color.outdoor_color);
+
+      builder.setSpan(new ForegroundColorSpan(color), 0, builder.length(),
+                      Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+      boolean isItinerary = isCity && item.getCityParams().isTrackAvailable();
+      String text = res.getString(isItinerary ? R.string.routes_card_routes_tag : R.string.routes_card_set_tag);
+
+      if (!isCity)
+        text = TextUtils.isEmpty(item.getOutdoorParams().getString()) ? "" : item.getOutdoorParams()
+                                                                                 .getString();
+
+      builder.append(TextUtils.isEmpty(text) ? text : UiUtils.PHRASE_SEPARATOR + text);
+      return builder;
     }
   }
 }
