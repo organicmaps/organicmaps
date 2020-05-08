@@ -69,6 +69,7 @@ void GuidesManager::SetEnabled(bool enabled)
 
   Clear();
   ChangeState(newState);
+  m_shownGuides.clear();
 
   if (!enabled)
     return;
@@ -209,6 +210,8 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
     auto url = url::Join(BOOKMARKS_CATALOG_FRONT_URL, languages::GetCurrentNorm(), "v3/mobilefront",
                          info.m_id);
     InjectUTM(url, UTM::GuidesOnMapGallery);
+    InjectUTMTerm(url, std::to_string(m_shownGuides.size()));
+
     item.m_url = std::move(url);
     item.m_imageUrl = info.m_imageUrl;
     item.m_title = info.m_name;
@@ -251,6 +254,11 @@ void GuidesManager::SetActiveGuide(std::string const & guideId)
 
   m_activeGuide = guideId;
   UpdateActiveGuide();
+}
+
+uint64_t GuidesManager::GetShownGuidesCount() const
+{
+  return m_shownGuides.size();
 }
 
 void GuidesManager::SetGalleryListener(GuidesGalleryChangedFn const & onGalleryChanged)
@@ -299,6 +307,7 @@ void GuidesManager::UpdateGuidesMarks()
       mark->SetGuideId(guide.m_guideInfo.m_id);
       mark->SetIsDownloaded(IsGuideDownloaded(guide.m_guideInfo.m_id));
       mark->SetIndex(++m_nextMarkIndex);
+      m_shownGuides.insert(guide.m_guideInfo.m_id);
     }
   }
   UpdateActiveGuide();

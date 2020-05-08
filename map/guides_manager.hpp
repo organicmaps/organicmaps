@@ -15,6 +15,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 class GuidesManager final
@@ -90,6 +91,8 @@ public:
   std::string GetActiveGuide() const;
   void SetActiveGuide(std::string const & guideId);
 
+  uint64_t GetShownGuidesCount() const;
+
   using GuidesGalleryChangedFn = std::function<void(bool reloadGallery)>;
   void SetGalleryListener(GuidesGalleryChangedFn const & onGalleryChangedFn);
 
@@ -129,6 +132,8 @@ private:
   df::DrapeEngineSafePtr m_drapeEngine;
 
   uint32_t m_nextMarkIndex = 0;
+
+  std::unordered_set<std::string> m_shownGuides;
 };
 
 std::string DebugPrint(GuidesManager::GuidesState state);
