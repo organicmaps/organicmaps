@@ -155,7 +155,8 @@ char const kShowDebugInfo[] = "DebugInfo";
 char const kICUDataFile[] = "icudt57l.dat";
 #endif
 
-double const kLargeFontsScaleFactor = 1.6;
+auto constexpr kLargeFontsScaleFactor = 1.6;
+auto constexpr kGuidesEnabledInBackgroundMaxHours = 8;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 
 // TODO!
@@ -1499,8 +1500,15 @@ void Framework::EnterForeground()
   m_startForegroundTime = base::Timer::LocalTime();
   if (m_drapeEngine != nullptr && m_startBackgroundTime != 0.0)
   {
-    auto const timeInBackground = m_startForegroundTime - m_startBackgroundTime;
-    m_drapeEngine->SetTimeInBackground(timeInBackground);
+    auto const secondsInBackground = m_startForegroundTime - m_startBackgroundTime;
+    m_drapeEngine->SetTimeInBackground(secondsInBackground);
+
+    if (m_guidesManager.IsEnabled() &&
+      secondsInBackground / 60 / 60 > kGuidesEnabledInBackgroundMaxHours)
+    {
+      m_guidesManager.SetEnabled(false);
+      SaveGuidesEnabled(false);
+    }
   }
 
   m_trafficManager.OnEnterForeground();

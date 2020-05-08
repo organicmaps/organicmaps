@@ -215,6 +215,7 @@ protected:
 
   drape_ptr<df::DrapeEngine> m_drapeEngine;
 
+  // Time in seconds.
   double m_startForegroundTime = 0.0;
   double m_startBackgroundTime = 0.0;
 

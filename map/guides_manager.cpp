@@ -26,6 +26,8 @@ GuidesManager::GuidesState GuidesManager::GetState() const
 void GuidesManager::SetStateListener(GuidesStateChangedFn const & onStateChanged)
 {
   m_onStateChanged = onStateChanged;
+  if (m_onStateChanged != nullptr)
+    m_onStateChanged(m_state);
 }
 
 void GuidesManager::UpdateViewport(ScreenBase const & screen)
