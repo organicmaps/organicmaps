@@ -1521,7 +1521,7 @@ void Geocoder::FindPaths(BaseContext & ctx)
     m_matcher->SetPostcodes(&m_postcodes.m_countryFeatures);
 
   auto isExactMatch = [](BaseContext const & context, IntersectionResult const & result) {
-    bool regionsChecked = false;
+    bool haveRegion = false;
     for (size_t i = 0; i < context.m_tokens.size(); ++i)
     {
       auto const tokenType = context.m_tokens[i];
@@ -1545,15 +1545,18 @@ void Geocoder::FindPaths(BaseContext & ctx)
 
       auto const isRegion = tokenType == BaseContext::TokenType::TOKEN_TYPE_STATE ||
                             tokenType == BaseContext::TokenType::TOKEN_TYPE_COUNTRY;
-      if (isRegion && !regionsChecked)
+      if (isRegion)
+        haveRegion = true;
+    }
+    if (haveRegion)
+    {
+      for (auto const & region : context.m_regions)
       {
-        for (auto const & region : context.m_regions)
-        {
-          if (!region->m_exactMatch)
-            return false;
-        }
+        if (!region->m_exactMatch)
+          return false;
       }
     }
+
     return true;
   };
 
