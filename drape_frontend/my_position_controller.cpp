@@ -148,7 +148,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_enableAutoZoomInRouting(params.m_isAutozoomEnabled)
   , m_autoScale2d(GetScreenScale(kDefaultAutoZoom))
   , m_autoScale3d(m_autoScale2d)
-  , m_lastGPSBearing(false)
+  , m_lastGPSBearingTimer(false)
   , m_lastLocationTimestamp(0.0)
   , m_positionRoutingOffsetY(kPositionRoutingOffsetY)
   , m_isDirtyViewport(false)
@@ -434,7 +434,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   if ((!m_isCompassAvailable || glueArrowInRouting || isMovingFast) && info.HasBearing())
   {
     SetDirection(base::DegToRad(info.m_bearing));
-    m_lastGPSBearing.Reset();
+    m_lastGPSBearingTimer.Reset();
   }
 
   if (m_isPositionAssigned && (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut)))
@@ -578,8 +578,9 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
   double const oldAzimut = GetDrawableAzimut();
   m_isCompassAvailable = true;
 
-  if ((IsInRouting() && m_isArrowGluedInRouting) ||
-      m_lastGPSBearing.ElapsedSeconds() < kGpsBearingLifetimeSec)
+  bool const existsFreshGpsBearing =
+      m_lastGPSBearingTimer.ElapsedSeconds() < kGpsBearingLifetimeSec;
+  if ((IsInRouting() && m_isArrowGluedInRouting) || existsFreshGpsBearing)
     return;
 
   SetDirection(info.m_bearing);
