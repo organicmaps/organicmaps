@@ -11,7 +11,16 @@ MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 
 source "$MY_PATH/../autobuild/ndk_helper.sh"
 export NDK_ROOT=$(GetNdkRoot) || ( echo "Can't read NDK root path from android/local.properties"; exit 1 )
-GLSLC_PATH="$NDK_ROOT/shader-tools/darwin-x86_64/glslc"
+KERNEL_NAME="$( uname -s )"
+if [[ $KERNEL_NAME == 'Darwin' ]]
+then
+    GLSLC_PATH="$NDK_ROOT/shader-tools/darwin-x86_64/glslc"
+elif [[ $KERNEL_NAME == 'Linux' ]]
+then
+    GLSLC_PATH="$NDK_ROOT/shader-tools/linux-x86_64/glslc"
+else
+    echo "Unknown kernel"; exit 1
+fi
 
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 SHADERS_GENERATOR="$OMIM_PATH/shaders/vulkan_shaders_preprocessor.py"
