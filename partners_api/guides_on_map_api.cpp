@@ -51,7 +51,7 @@ void ParseGallery(std::string const & src, guides_on_map::GuidesOnMap & result)
       auto & info = item.m_guideInfo;
       FromJSONObject(extraObj, "server_id", info.m_id);
       FromJSONObject(extraObj, "name", info.m_name);
-      FromJSONObject(extraObj, "image_url", info.m_imageUrl);
+      FromJSONObjectOptionalField(extraObj, "image_url", info.m_imageUrl);
       FromJSONObjectOptionalField(extraObj, "tag", info.m_tag);
       // TODO(a): revert bookmark_count to required field.
       FromJSONObjectOptionalField(extraObj, "bookmark_count", info.m_bookmarksCount);
