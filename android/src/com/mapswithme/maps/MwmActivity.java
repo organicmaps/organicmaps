@@ -62,6 +62,7 @@ import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.editor.FeatureCategoryActivity;
 import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.guides.GuidesGalleryListener;
 import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.intent.MapTask;
 import com.mapswithme.maps.location.CompassData;
@@ -184,7 +185,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                MaterialTapTargetPrompt.PromptStateChangeListener,
                WelcomeDialogFragment.OnboardingStepPassedListener,
                OnIsolinesLayerToggleListener,
-               OnGuidesLayerToggleListener
+               OnGuidesLayerToggleListener,
+               GuidesGalleryListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -534,7 +536,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setContentView(R.layout.activity_map);
 
-    mPlacePageController = PlacePageFactory.createCompositePlacePageController(this, this, this);
+    mPlacePageController = PlacePageFactory.createCompositePlacePageController(
+        this, this, this, this);
     mPlacePageController.initialize(this);
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 
@@ -2602,6 +2605,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onOnboardingStepCancelled()
   {
     // Do nothing by default.
+  }
+
+  @Override
+  public void onGalleryGuideSelected(@NonNull String url)
+  {
+    BookmarksCatalogActivity.startForResult(
+        this, BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY, url);
   }
 
   private class CurrentPositionClickListener implements OnClickListener

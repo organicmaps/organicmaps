@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget.placepage;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.guides.GuidesGalleryListener;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 
 public class PlacePageFactory
@@ -11,9 +12,11 @@ public class PlacePageFactory
   public static PlacePageController createCompositePlacePageController(
       @NonNull AdsRemovalPurchaseControllerProvider provider,
       @NonNull PlacePageController.SlideListener slideListener,
-      @NonNull RoutingModeListener routingModeListener)
+      @NonNull RoutingModeListener routingModeListener,
+      @Nullable GuidesGalleryListener galleryListener)
   {
-    return new PlacePageControllerComposite(provider, slideListener, routingModeListener);
+    return new PlacePageControllerComposite(provider, slideListener, routingModeListener,
+                                            galleryListener);
   }
 
   @NonNull
@@ -35,9 +38,10 @@ public class PlacePageFactory
 
   @NonNull
   static PlacePageController createGuidesGalleryController(
-      @NonNull PlacePageController.SlideListener listener)
+      @NonNull PlacePageController.SlideListener listener,
+      @Nullable GuidesGalleryListener galleryListener)
   {
-    GuidesGalleryViewRenderer renderer = new GuidesGalleryViewRenderer();
+    GuidesGalleryViewRenderer renderer = new GuidesGalleryViewRenderer(galleryListener);
     return new SimplePlacePageController(R.id.guides_gallery_bottom_sheet, renderer, renderer,
                                          listener);
   }

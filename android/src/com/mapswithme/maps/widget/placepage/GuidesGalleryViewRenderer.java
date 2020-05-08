@@ -2,8 +2,8 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +19,7 @@ import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.guides.GuidesGallery;
 import com.mapswithme.maps.guides.GuidesGallery.Item;
+import com.mapswithme.maps.guides.GuidesGalleryListener;
 import com.mapswithme.maps.maplayer.guides.GuidesManager;
 import com.mapswithme.maps.maplayer.guides.OnGuidesGalleryChangedListener;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
@@ -54,8 +55,9 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
     {
       if (item == mActiveItem)
       {
-        Toast.makeText(mRecyclerView.getContext(), "Open catalog coming soon",
-                       Toast.LENGTH_SHORT).show();
+        String url = mActiveItem.getUrl();
+        if (!TextUtils.isEmpty(url) && mGalleryListener != null)
+          mGalleryListener.onGalleryGuideSelected(url);
         return;
       }
 
@@ -82,6 +84,8 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
   };
   @Nullable
   private GalleryAdapter mAdapter;
+  @Nullable
+  private final GuidesGalleryListener mGalleryListener;
 
   @NonNull
   private final OnScrollListener mOnScrollListener = new OnScrollListener()
@@ -121,6 +125,11 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
 
   private int mActivePosition = RecyclerView.NO_POSITION;
   private int mTargetPosition = RecyclerView.NO_POSITION;
+
+  GuidesGalleryViewRenderer(@Nullable GuidesGalleryListener galleryListener)
+  {
+    mGalleryListener = galleryListener;
+  }
 
   private void smoothScrollToPosition(int position)
   {

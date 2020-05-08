@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.mapswithme.maps.guides.GuidesGalleryListener;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ class PlacePageControllerComposite implements PlacePageController
   private final PlacePageController.SlideListener mSlideListener;
   @Nullable
   private final RoutingModeListener mRoutingModeListener;
+  @Nullable
+  private final GuidesGalleryListener mGuidesGalleryListener;
   @NonNull
   private final List<PlacePageController> mControllers = new ArrayList<>();
   @SuppressWarnings("NullableProblems")
@@ -26,11 +29,13 @@ class PlacePageControllerComposite implements PlacePageController
 
   PlacePageControllerComposite(@NonNull AdsRemovalPurchaseControllerProvider adsProvider,
                                @NonNull SlideListener slideListener,
-                               @Nullable RoutingModeListener routingModeListener)
+                               @Nullable RoutingModeListener routingModeListener,
+                               @Nullable GuidesGalleryListener galleryListener)
   {
     mAdsProvider = adsProvider;
     mSlideListener = slideListener;
     mRoutingModeListener = routingModeListener;
+    mGuidesGalleryListener = galleryListener;
   }
 
   @Override
@@ -124,7 +129,7 @@ class PlacePageControllerComposite implements PlacePageController
     mControllers.add(elevationProfileController);
 
     PlacePageController guidesGalleryController =
-        PlacePageFactory.createGuidesGalleryController(mSlideListener);
+        PlacePageFactory.createGuidesGalleryController(mSlideListener, mGuidesGalleryListener);
     guidesGalleryController.initialize(activity);
     mControllers.add(guidesGalleryController);
 
