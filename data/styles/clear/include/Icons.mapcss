@@ -765,6 +765,10 @@ node|z16-[landuse=forest][name],
 area|z16-[landuse=forest][name]
 {fill-color: @forest;icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
 
+node|z12-[landuse=forest][!name],
+area|z12-[landuse=forest][!name]
+{}
+
 node|z14[natural=spring],
 area|z14[natural=spring],
 node|z14[natural=hot_spring],
@@ -1155,14 +1159,16 @@ area|z16[historic=castle]
 {icon-image: remains-m.svg;text-offset: 1;}
 node|z17-[historic=ruins][name],
 area|z17-[historic=ruins][name],
-node|z19-[historic=ruins],
-area|z19-[historic=ruins],
 node|z17-[historic=fort],
 area|z17-[historic=fort],
 node|z17-[historic=castle],
 area|z17-[historic=castle],
 node|z17-[historic=archaeological_site],
 area|z17-[historic=archaeological_site]
+{icon-image: remains-m.svg;}
+
+node|z19-[historic=ruins][!name],
+area|z19-[historic=ruins][!name],
 {icon-image: remains-m.svg;}
 
 node|z13-14[historic=monument],
