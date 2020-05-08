@@ -29534,6 +29534,23 @@ cont {
     }
     apply_if: "name"
   }
+  element {
+    scale: 19
+    symbol {
+      name: "remains-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+    apply_if: "!name"
+  }
 }
 cont {
   name: "historic-ship"
@@ -31112,6 +31129,14 @@ cont {
     apply_if: "name"
   }
   element {
+    scale: 12
+    area {
+      color: 12372094
+      priority: -15941
+    }
+    apply_if: "!name"
+  }
+  element {
     scale: 13
     area {
       color: 11781233
@@ -31132,6 +31157,14 @@ cont {
       priority: 15059
     }
     apply_if: "name"
+  }
+  element {
+    scale: 13
+    area {
+      color: 11781233
+      priority: -15941
+    }
+    apply_if: "!name"
   }
   element {
     scale: 14
@@ -31397,6 +31430,14 @@ cont {
     apply_if: "name"
   }
   element {
+    scale: 12
+    area {
+      color: 12372094
+      priority: -15941
+    }
+    apply_if: "!name"
+  }
+  element {
     scale: 13
     area {
       color: 11781233
@@ -31417,6 +31458,14 @@ cont {
       priority: 15059
     }
     apply_if: "name"
+  }
+  element {
+    scale: 13
+    area {
+      color: 11781233
+      priority: -15941
+    }
+    apply_if: "!name"
   }
   element {
     scale: 14
@@ -31682,6 +31731,14 @@ cont {
     apply_if: "name"
   }
   element {
+    scale: 12
+    area {
+      color: 12372094
+      priority: -15941
+    }
+    apply_if: "!name"
+  }
+  element {
     scale: 13
     area {
       color: 11781233
@@ -31702,6 +31759,14 @@ cont {
       priority: 15059
     }
     apply_if: "name"
+  }
+  element {
+    scale: 13
+    area {
+      color: 11781233
+      priority: -15941
+    }
+    apply_if: "!name"
   }
   element {
     scale: 14
@@ -31967,6 +32032,14 @@ cont {
     apply_if: "name"
   }
   element {
+    scale: 12
+    area {
+      color: 12372094
+      priority: -15941
+    }
+    apply_if: "!name"
+  }
+  element {
     scale: 13
     area {
       color: 11781233
@@ -31987,6 +32060,14 @@ cont {
       priority: 15059
     }
     apply_if: "name"
+  }
+  element {
+    scale: 13
+    area {
+      color: 11781233
+      priority: -15941
+    }
+    apply_if: "!name"
   }
   element {
     scale: 14
