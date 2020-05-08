@@ -74,9 +74,8 @@ void RoutingSession::Init(RoutingStatisticsCallback const & routingStatisticsFn,
   m_router = make_unique<AsyncRouter>(routingStatisticsFn, pointCheckCallback);
 
   alohalytics::TStringMap params = {
-    {"speed_cameras", SpeedCameraManagerModeForStat(m_speedCameraManager.GetMode())},
-    {"voice_enabled", m_turnNotificationsMgr.IsEnabled() ? "1" : "0"}
-  };
+      {"speed_cameras", SpeedCameraManagerModeForStat(m_speedCameraManager.GetMode())},
+      {"voice_enabled", m_turnNotificationsMgr.IsEnabled() ? "1" : "0"}};
   alohalytics::LogEvent("OnRoutingInit", params);
 }
 
@@ -108,9 +107,9 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   SetState(routeRebuildingState);
 
   ++m_routingRebuildCount;
-  auto const & direction = 
-      m_routingSettings.m_useDirectionForRouteBuilding ? m_positionAccumulator.GetDirection()
-                                                       : m2::PointD::Zero();
+  auto const & direction = m_routingSettings.m_useDirectionForRouteBuilding
+                               ? m_positionAccumulator.GetDirection()
+                               : m2::PointD::Zero();
 
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
@@ -433,9 +432,9 @@ double RoutingSession::GetCompletionPercent() const
   if (!m_route->IsValid() || denominator == 0.0)
     return 0;
 
-  double const percent = 100.0 *
-    (m_passedDistanceOnRouteMeters + m_route->GetCurrentDistanceFromBeginMeters()) /
-    denominator;
+  double const percent =
+      100.0 * (m_passedDistanceOnRouteMeters + m_route->GetCurrentDistanceFromBeginMeters()) /
+      denominator;
   if (percent - m_lastCompletionPercent > kCompletionPercentAccuracy)
   {
     auto const lastGoodPoint =
@@ -523,6 +522,11 @@ void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
   double const radius = m_route->GetCurrentRoutingSettings().m_matchingThresholdM;
 
   m2::PointD const direction = m_positionAccumulator.GetDirection();
+
+  static auto constexpr kEps = 1e-5;
+  if (base::AlmostEqualAbs(direction, m2::PointD::Zero(), kEps))
+    return;
+
   EdgeProj proj;
   if (!m_router->FindClosestProjectionToRoad(locationMerc, direction, radius, proj))
   {
@@ -530,27 +534,31 @@ void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
     return;
   }
 
+  // First matching to the same road. We pull coordinates and angle on the following matchings.
   if (!m_projectedToRoadGraph)
   {
     m_projectedToRoadGraph = true;
+    m_proj = proj;
+    return;
   }
-  else
-  {
-    if (m_proj.m_edge.GetFeatureId() == proj.m_edge.GetFeatureId())
-    {
-      location.m_latitude = mercator::YToLat(proj.m_point.y);
-      location.m_longitude = mercator::XToLon(proj.m_point.x);
 
-      if (m_route->GetCurrentRoutingSettings().m_matchRoute)
+  if (m_proj.m_edge.GetFeatureId() == proj.m_edge.GetFeatureId())
+  {
+    if (m_route->GetCurrentRoutingSettings().m_matchRoute)
+    {
+      if (!base::AlmostEqualAbs(m_proj.m_point, proj.m_point, kEps))
       {
         location.m_bearing =
             location::AngleToBearing(base::RadToDeg(ang::AngleTo(m_proj.m_point, proj.m_point)));
       }
     }
-    else
-    {
-      m_projectedToRoadGraph = false;
-    }
+
+    location.m_latitude = mercator::YToLat(proj.m_point.y);
+    location.m_longitude = mercator::XToLon(proj.m_point.x);
+  }
+  else
+  {
+    m_projectedToRoadGraph = false;
   }
 
   m_proj = proj;
