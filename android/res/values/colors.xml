@@ -227,4 +227,6 @@
   <color name="tinkoff_button">#FFDD2D</color>
   <color name="mts_button">#E30611</color>
   <color name="skyeng_button">#4287DF</color>
+  <color name="city_color">#9B24B2</color>
+  <color name="outdoor_color">#3C8C3C</color>
 </resources>

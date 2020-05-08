@@ -318,7 +318,7 @@ public class GuidesGallery implements PlacePageData
     }
   }
 
-  enum Type
+  public enum Type
   {
     City,
     Outdoor

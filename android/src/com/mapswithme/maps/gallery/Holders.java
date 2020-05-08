@@ -6,8 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -23,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuidesGallery;
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
@@ -37,6 +40,8 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class Holders
 {
@@ -558,24 +563,147 @@ public class Holders
     @NonNull
     private final TextView mSubtitle;
     // TODO: handle city and outdoor content properly.
-/*    @NonNull
+    @NonNull
     private final View mCityContent;
     @NonNull
-    private final View mOutdoorContent;*/
+    private final View mOutdoorContent;
     @NonNull
     private final View mItemView;
+    @NonNull
+    private final TextView mAltitide;
+    @NonNull
+    private final TextView mTime;
+    @NonNull
+    private final TextView mDistance;
+    @NonNull
+    private final TextView mDesc;
+    @NonNull
+    private final View mDivider;
+    @NonNull
+    private final View mBoughtContent;
+    @NonNull
+    private final TextView mBoughtContentBtn;
+    @NonNull
+    private final View mBoughtContentCheckbox;
+
     public GuideHodler(@NonNull View itemView, @NonNull List<GuidesGallery.Item> items, @Nullable ItemSelectedListener<GuidesGallery.Item> listener)
     {
       super(itemView, items, listener);
       mItemView = itemView;
       mImage = mItemView.findViewById(R.id.image);
       mSubtitle = mItemView.findViewById(R.id.subtitle);
+      mCityContent = mItemView.findViewById(R.id.city_content);
+      mOutdoorContent = mItemView.findViewById(R.id.outdoor_content);
+      mDistance = mOutdoorContent.findViewById(R.id.distance);
+      mTime = mOutdoorContent.findViewById(R.id.time);
+      mAltitide = mOutdoorContent.findViewById(R.id.altitude);
+      mDesc = mCityContent.findViewById(R.id.description);
+      mDivider = mItemView.findViewById(R.id.divider);
+      mBoughtContent = mItemView.findViewById(R.id.bought_content);
+      mBoughtContentBtn = mBoughtContent.findViewById(R.id.text);
+      mBoughtContentBtn.setOnClickListener(v -> toggleBoughtContentBtnVisibility());
+      mBoughtContentCheckbox = mItemView.findViewById(R.id.downloaded);
+    }
+
+    private void toggleBoughtContentBtnVisibility()
+    {
+      int index = getAdapterPosition();
+      GuidesGallery.Item item = mItems.get(index);
+/*//      boolean isVisible = BookmarkManager.INSTANCE.isVisible(item.getGuideId());
+      BookmarkManager.INSTANCE.setVisibility(1, !isVisible);
+      mBoughtContentBtn.setText(!isVisible ? R.string.hide : R.string.show);*/
     }
 
     @Override
     public void bind(@NonNull GuidesGallery.Item item)
     {
       super.bind(item);
+      bindImage(item);
+      bindActivationState(item);
+      bindSubtitle(item);
+      bindBottomBlock(item);
+    }
+
+    private void bindBottomBlock(@NonNull GuidesGallery.Item item)
+    {
+      UiUtils.hideIf(item.isDownloaded(), mDivider, mOutdoorContent, mCityContent);
+      UiUtils.showIf(item.isDownloaded(), mBoughtContent, mBoughtContentCheckbox);
+//      mBoughtContentBtn.setText(BookmarkManager.INSTANCE.isVisible(item.getGuideId()) ? R.string.hide : R.string.show);
+
+      if (item.isDownloaded())
+        return;
+
+      boolean isCity = item.getGuideType() == GuidesGallery.Type.City;
+      if (isCity)
+        bindCityBlock(item);
+      else
+        bindOutdoorBlock(item);
+
+    }
+
+    private void bindOutdoorBlock(@NonNull GuidesGallery.Item item)
+    {
+      UiUtils.show(mOutdoorContent);
+      UiUtils.hide(mCityContent);
+
+      Context context = mAltitide.getContext();
+      GuidesGallery.OutdoorParams params = item.getOutdoorParams();
+
+      String value = params.getAscent() + " " + context.getString(R.string.meter);
+      mAltitide.setText(value);
+
+      value = String.format(Locale.US,"%.1f" , params.getDistance() / 1000)
+              + " " + context.getString(R.string.kilometer);
+
+      mDistance.setText(value);
+
+      value = TimeUnit.SECONDS.toHours(params.getDuration()) + context.getString(R.string.hour);
+      mTime.setText(value);
+    }
+
+    private void bindCityBlock(@NonNull GuidesGallery.Item item)
+    {
+      UiUtils.show(mCityContent);
+      UiUtils.hide(mOutdoorContent);
+      Context context = mAltitide.getContext();
+      String poiCount = String.valueOf(item.getCityParams().getBookmarksCount());
+      String text = context.getString(R.string.routes_card_number_of_points, poiCount)
+                    + " " + context.getString(R.string.routes_card_plus_track);
+      mDesc.setText(text);
+    }
+
+    private void bindSubtitle(@NonNull GuidesGallery.Item item)
+    {
+      Spannable subtitle = makeSubtitle(mItemView.getContext(), item);
+      mSubtitle.setText(subtitle);
+    }
+
+    @NonNull
+    private static Spannable makeSubtitle(Context context, @NonNull GuidesGallery.Item item)
+    {
+      boolean isCity = item.getGuideType() == GuidesGallery.Type.City;
+      SpannableStringBuilder builder =
+          new SpannableStringBuilder(isCity ? context.getString(R.string.type_place_city)
+                                            : context.getString(R.string.type_shop_outdoor));
+
+      int color = isCity ? context.getResources().getColor(R.color.city_color)
+                         : context.getResources().getColor(R.color.outdoor_color);
+
+      builder.setSpan(new ForegroundColorSpan(color), 0, builder.length(),
+                      Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+      boolean isItinerary = isCity && item.getCityParams().isTrackAvailable();
+      String text = context.getResources().getString(isItinerary ? R.string.routes_card_routes_tag : R.string.routes_card_set_tag);
+
+      if (!isCity)
+        text = TextUtils.isEmpty(item.getSubtitle()) ? "" : item.getSubtitle();
+
+      builder.append(TextUtils.isEmpty(text) ? text : UiUtils.PHRASE_SEPARATOR + text);
+      return builder;
+    }
+
+    private void bindImage(@NonNull GuidesGallery.Item item)
+    {
       Glide.with(mImage.getContext())
            .load(item.getImageUrl())
            .asBitmap()
@@ -583,8 +711,6 @@ public class Holders
            .centerCrop()
            .into(mImage);
       mSubtitle.setText(item.getSubtitle());
-      bindActivationState(item);
-      // TODO: another fields comming soon;
     }
 
     private void bindActivationState(@NonNull GuidesGallery.Item item)
