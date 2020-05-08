@@ -82,11 +82,11 @@ public class GuidesGallery implements PlacePageData
     private boolean mActivated = false;
 
     public Item(@NonNull String guideId, @NonNull String url, @NonNull String imageUrl,
-                @NonNull String title, @NonNull String subTitle, int type,
+                @NonNull String title, int type,
                 boolean downloaded, @Nullable CityParams cityParams,
                 @Nullable OutdoorParams outdoorParams)
     {
-      super(Constants.TYPE_PRODUCT, title, subTitle, url);
+      super(Constants.TYPE_PRODUCT, title, "", url);
       mGuideId = guideId;
       mImageUrl = imageUrl;
       mType = Type.values()[type];
@@ -244,12 +244,15 @@ public class GuidesGallery implements PlacePageData
 
   public static class OutdoorParams implements Parcelable
   {
+    @NonNull
+    private final String mTag;
     private final double mDistance;
     private final long mDuration;
     private final int mAscent;
 
-    public OutdoorParams(double distance, long duration, int ascent)
+    public OutdoorParams(@NonNull String tag, double distance, long duration, int ascent)
     {
+      mTag = tag;
       mDistance = distance;
       mDuration = duration;
       mAscent = ascent;
@@ -257,6 +260,7 @@ public class GuidesGallery implements PlacePageData
 
     protected OutdoorParams(Parcel in)
     {
+      mTag = in.readString();
       mDistance = in.readDouble();
       mDuration = in.readLong();
       mAscent = in.readInt();
@@ -276,6 +280,12 @@ public class GuidesGallery implements PlacePageData
         return new OutdoorParams[size];
       }
     };
+
+    @NonNull
+    public String getString()
+    {
+      return mTag;
+    }
 
     public double getDistance()
     {
@@ -301,6 +311,7 @@ public class GuidesGallery implements PlacePageData
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
+      dest.writeString(mTag);
       dest.writeDouble(mDistance);
       dest.writeLong(mDuration);
       dest.writeInt(mAscent);

@@ -47,6 +47,7 @@ public:
 
       struct OutdoorParams
       {
+        std::string m_tag;
         // Distance in meters.
         double m_distance = 0.0;
         // Duration in seconds.
@@ -65,7 +66,6 @@ public:
       std::string m_url;
       std::string m_imageUrl;
       std::string m_title;
-      std::string m_subTitle;
       Type m_type = Type::City;
       bool m_downloaded = false;
       CityParams m_cityParams;

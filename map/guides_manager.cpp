@@ -156,7 +156,6 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
     item.m_imageUrl = "https://storage.maps.me/bookmarks_catalogue/"
                       "002dc2ae-7b5c-4d3c-88bc-7c7ba109d0e8.jpg?t=1584470956.009026";
     item.m_title = "Moscow by The Village";
-    item.m_subTitle = "awesome city guide";
     item.m_type = GuidesGallery::Item::Type::City;
     item.m_downloaded = false;
     item.m_cityParams.m_bookmarksCount = 32;
@@ -172,7 +171,6 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
     item.m_imageUrl = "https://storage.maps.me/bookmarks_catalogue/"
                       "002dc2ae-7b5c-4d3c-88bc-7c7ba109d0e8.jpg?t=1584470956.009026";
     item.m_title = "Riga City Tour";
-    item.m_subTitle = "awesome city guide";
     item.m_type = GuidesGallery::Item::Type::City;
     item.m_downloaded = true;
     item.m_cityParams.m_bookmarksCount = 31;
@@ -187,9 +185,9 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
     item.m_url = "https://routes.maps.me/en/v3/mobilefront/route/d26a6662-20a3-432c-a357-c9cb3cce6d57";
     item.m_imageUrl = "https://img.oastatic.com/img2/1966324/834x417s/t.jpg";
     item.m_title = "Klassik trifft Romantik";
-    item.m_subTitle = "Hiking / Trekking";
     item.m_type = GuidesGallery::Item::Type::Outdoor;
     item.m_downloaded = false;
+    item.m_outdoorsParams.m_tag = "Hiking / Trekking";
     item.m_outdoorsParams.m_ascent = 400;
     item.m_outdoorsParams.m_distance = 24100;
     item.m_outdoorsParams.m_duration = 749246;
@@ -222,7 +220,6 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
       item.m_type = GuidesGallery::Item::Type::City;
       item.m_cityParams.m_bookmarksCount = guide.m_guideInfo.m_bookmarksCount;
       item.m_cityParams.m_trackIsAvailable = guide.m_guideInfo.m_hasTrack;
-      item.m_subTitle = "TODO(a): to add correct value";
     }
     else
     {
@@ -230,7 +227,7 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
       item.m_outdoorsParams.m_duration = guide.m_guideInfo.m_tourDuration;
       item.m_outdoorsParams.m_distance = guide.m_guideInfo.m_tracksLength;
       item.m_outdoorsParams.m_ascent = guide.m_guideInfo.m_ascent;
-      item.m_subTitle = guide.m_guideInfo.m_tag;
+      item.m_outdoorsParams.m_tag = guide.m_guideInfo.m_tag;
     }
 
     gallery.m_items.emplace_back(std::move(item));

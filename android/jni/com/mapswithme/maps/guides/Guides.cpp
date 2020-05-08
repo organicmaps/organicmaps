@@ -26,7 +26,7 @@ void PrepareClassRefs(JNIEnv *env)
   //             @Nullable OutdoorParams outdoorParams)
   g_itemConstructor
     = jni::GetConstructorID(env, g_itemClass, "(Ljava/lang/String;Ljava/lang/String;"
-                                              "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
+                                              "Ljava/lang/String;Ljava/lang/String;"
                                               "IZLcom/mapswithme/maps/guides/GuidesGallery$CityParams;"
                                               "Lcom/mapswithme/maps/guides/GuidesGallery$OutdoorParams;)"
                                               "V");
@@ -38,7 +38,7 @@ void PrepareClassRefs(JNIEnv *env)
     = jni::GetGlobalClassRef(env, "com/mapswithme/maps/guides/GuidesGallery$OutdoorParams");
   // public OutdoorParams(double distance, long duration, int ascent)
   g_outdoorParamsConstructor
-    = jni::GetConstructorID(env, g_outdoorParamsClass, "(DJI)V");
+    = jni::GetConstructorID(env, g_outdoorParamsClass, "(Ljava/lang/String;DJI)V");
   jni::HandleJavaException(env);
 }
 } // namespace
@@ -55,7 +55,6 @@ jobject CreateGallery(JNIEnv *env, GuidesManager::GuidesGallery const & gallery)
     jni::TScopedLocalRef url(env, jni::ToJavaString(env, item.m_url));
     jni::TScopedLocalRef imageUrl(env, jni::ToJavaString(env, item.m_imageUrl));
     jni::TScopedLocalRef title(env, jni::ToJavaString(env, item.m_title));
-    jni::TScopedLocalRef subtitle(env, jni::ToJavaString(env, item.m_subTitle));
     auto const type = static_cast<jint>(item.m_type);
     auto const downloaded = static_cast<jboolean>(item.m_downloaded);
     jni::TScopedLocalRef cityParams(env, nullptr);
@@ -68,13 +67,14 @@ jobject CreateGallery(JNIEnv *env, GuidesManager::GuidesGallery const & gallery)
     } else if (item.m_type == GuidesManager::GuidesGallery::Item::Type::Outdoor)
     {
       outdoorParams.reset(env->NewObject(g_outdoorParamsClass, g_outdoorParamsConstructor,
+                                         jni::ToJavaString(env, item.m_outdoorsParams.m_tag),
                                          static_cast<jdouble>(item.m_outdoorsParams.m_distance),
                                          static_cast<jlong>(item.m_outdoorsParams.m_duration),
                                          static_cast<jint>(item.m_outdoorsParams.m_ascent)));
     }
 
     return env->NewObject(g_itemClass, g_itemConstructor, guideId.get(), url.get(), imageUrl.get(),
-                          title.get(), subtitle.get(), type, downloaded, cityParams.get(),
+                          title.get(), type, downloaded, cityParams.get(),
                           outdoorParams.get());
   };
 
