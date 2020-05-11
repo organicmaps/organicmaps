@@ -68189,20 +68189,12 @@ colors {
     color: 6381921
   }
   value {
-    name: "GuideCityMarkOutline"
-    color: 6699455
-  }
-  value {
     name: "GuiText"
     color: 609045837
   }
   value {
     name: "BookmarkRed"
     color: 15014691
-  }
-  value {
-    name: "GuideOutdoorMarkBg"
-    color: 15597546
   }
   value {
     name: "PoiDeletedMask"
@@ -68256,10 +68248,6 @@ colors {
   }
   value {
     name: "TransitTransferOuterMarker"
-  }
-  value {
-    name: "GuideOutdoorMarkOutline"
-    color: 3968060
   }
   value {
     name: "RouteTrafficG1"
@@ -68416,8 +68404,8 @@ colors {
     color: 3422763904
   }
   value {
-    name: "GuideCityMarkBg"
-    color: 16118015
+    name: "DefaultTrackColor"
+    color: 2004720
   }
   value {
     name: "RoutePedestrian"
@@ -68539,6 +68527,10 @@ colors {
     color: 15754290
   }
   value {
+    name: "GuideCityMarkText"
+    color: 6699455
+  }
+  value {
     name: "TrackCarSpeed"
     color: 8163038
   }
@@ -68551,7 +68543,7 @@ colors {
     color: 15263452
   }
   value {
-    name: "DefaultTrackColor"
-    color: 2004720
+    name: "GuideOutdoorMarkText"
+    color: 3968060
   }
 }
