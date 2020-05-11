@@ -129,8 +129,6 @@ colors
   SpeedCameraMarkText-color: #FFFFFF;
   SpeedCameraMarkBg-color: #F51E30;
   SpeedCameraMarkOutline-color: #FFFFFF;
-  GuideCityMarkBg-color: #F5F0FF;
-  GuideCityMarkOutline-color: #6639BF;
-  GuideOutdoorMarkBg-color: #EDFFEA;
-  GuideOutdoorMarkOutline-color: #3C8C3C;
+  GuideCityMarkText-color: #6639BF;
+  GuideOutdoorMarkText-color: #3C8C3C;
 }
