@@ -107,10 +107,6 @@ TransitColorsHolder & TransitColors()
 
 namespace df
 {
-string const kTransitColorPrefix = "transit_";
-string const kTransitTextPrefix = "text_";
-string const kTransitLinePrefix = "line_";
-
 ColorConstant GetTransitColorName(ColorConstant const & localName)
 {
   return kTransitColorPrefix + kTransitLinePrefix + localName;
@@ -134,10 +130,10 @@ dp::Color GetColorConstant(ColorConstant const & constant)
   return ToDrapeColor(color);
 }
 
+map<string, dp::Color> const & GetTransitClearColors() { return TransitColors().GetClearColors(); }
+
 void LoadTransitColors()
 {
   TransitColors().Load();
 }
-
-map<string, dp::Color> const & GetClearColors() { return TransitColors().GetClearColors(); }
 }  // namespace df
