@@ -1,5 +1,7 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.text.TextUtils;
+
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
@@ -463,6 +465,17 @@ public enum BookmarkManager
   {
     if (mOnElevationActivePointChangedListener != null)
       mOnElevationActivePointChangedListener.onElevationActivePointChanged();
+  }
+
+  @NonNull
+  public BookmarkCategory getCategoryByServerId(@NonNull String guideId)
+  {
+    List<BookmarkCategory> items = getAllCategoriesSnapshot().getItems();
+    for (BookmarkCategory each : items)
+      if (TextUtils.equals(each.getServerId(), guideId))
+        return each;
+
+    throw new IllegalArgumentException("Guide id not found : " + guideId);
   }
 
   public boolean isVisible(long catId)

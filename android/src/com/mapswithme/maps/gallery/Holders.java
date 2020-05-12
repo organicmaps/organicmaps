@@ -25,6 +25,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuidesGallery;
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
@@ -608,8 +610,13 @@ public class Holders
 
     private void toggleBoughtContentBtnVisibility()
     {
-      int index = getAdapterPosition();
+/*      int index = getAdapterPosition();
       GuidesGallery.Item item = mItems.get(index);
+      BookmarkCategory category =
+          BookmarkManager.INSTANCE.getCategoryByServerId(item.getGuideId());
+      boolean isVisible = category.isVisible();
+      BookmarkManager.INSTANCE.setVisibility(category.getId(), !isVisible);
+      mBoughtContentBtn.setText(!isVisible ? R.string.hide : R.string.show);*/
     }
 
     @Override
@@ -628,13 +635,23 @@ public class Holders
       UiUtils.showIf(item.isDownloaded(), mBoughtContent, mBoughtContentCheckbox);
 
       if (item.isDownloaded())
+      {
+        bindBoughtContentBlock(item);
         return;
+      }
 
       boolean isCity = item.getGuideType() == GuidesGallery.Type.City;
       if (isCity)
         bindCityBlock(item);
       else
         bindOutdoorBlock(item);
+    }
+
+    private void bindBoughtContentBlock(@NonNull GuidesGallery.Item item)
+    {
+/*      BookmarkCategory category =
+          BookmarkManager.INSTANCE.getCategoryByServerId(item.getGuideId());
+      mBoughtContentBtn.setText(category.isVisible() ? R.string.hide : R.string.show);*/
     }
 
     private void bindOutdoorBlock(@NonNull GuidesGallery.Item item)
