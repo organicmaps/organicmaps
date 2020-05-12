@@ -3620,6 +3620,17 @@ bool BookmarkManager::IsCategoryFromCatalog(kml::MarkGroupId categoryId) const
   return cat->IsCategoryFromCatalog();
 }
 
+kml::MarkGroupId BookmarkManager::GetCategoryIdByServerId(std::string const & serverId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & category : m_categories)
+  {
+    if (category.second->GetServerId() == serverId)
+      return category.first;
+  }
+  return kml::kInvalidMarkGroupId;
+}
+
 std::string BookmarkManager::GetCategoryServerId(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

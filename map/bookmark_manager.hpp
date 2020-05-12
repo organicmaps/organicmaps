@@ -402,6 +402,7 @@ public:
   void ImportDownloadedFromCatalog(std::string const & id, std::string const & filePath);
   void UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   bool IsCategoryFromCatalog(kml::MarkGroupId categoryId) const;
+  kml::MarkGroupId GetCategoryIdByServerId(std::string const & serverId) const;
   std::string GetCategoryServerId(kml::MarkGroupId categoryId) const;
   std::string GetCategoryCatalogDeeplink(kml::MarkGroupId categoryId) const;
   std::string GetCategoryCatalogPublicLink(kml::MarkGroupId categoryId) const;
