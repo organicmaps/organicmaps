@@ -107,7 +107,7 @@ void GuidesManager::RequestGuides(m2::AnyRectD const & rect, int zoom)
         m_errorRequestsCount = 0;
 
         if (!m_guides.empty())
-          ChangeState(GuidesState::Enabled);
+          ChangeState(GuidesState::HasData);
         else
           ChangeState(GuidesState::NoData);
 

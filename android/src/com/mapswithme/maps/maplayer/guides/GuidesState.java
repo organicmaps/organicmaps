@@ -10,7 +10,8 @@ import com.mapswithme.util.UiUtils;
 public enum GuidesState
 {
   DISABLED,
-  ENABLED
+  ENABLED,
+  HAS_DATA
       {
         @Override
         public void activate(@NonNull Context context)

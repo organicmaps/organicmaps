@@ -27,7 +27,9 @@ public:
     Disabled,
     // Layer is enabled and no errors after last guide request are found.
     Enabled,
-    // No data into requested rect.
+    // Same as Enabled + nonempty guides data has been received and is available.
+    HasData,
+    // Same as Enabled + no data received for the requested rect.
     NoData,
     // Attempt to request guides is failed.
     NetworkError,
