@@ -9,21 +9,17 @@
 
 namespace
 {
-std::string const kCityMarkOutlineColor = "GuideCityMarkOutline";
-std::string const kCityMarkBgColor = "GuideCityMarkBg";
-std::string const kOutdoorMarkOutlineColor = "GuideOutdoorMarkOutline";
-std::string const kOutdoorMarkBgColor = "GuideOutdoorMarkBg";
+std::string const kCityMarkTextColor = "GuideCityMarkText";
+std::string const kOutdoorMarkTextColor = "GuideOutdoorMarkText";
 std::string const kSelectionMarkColor = "Selection";
 
 float constexpr kGuideMarkSize = 26.0f;
-float constexpr kGuideMarkExSize = 34.0f;
 float constexpr kGuideMarkTextSize = 14.0f;
-float constexpr kGuideMarkTextMargin = 1.5f;
-float constexpr kGuideMarkOutlineWidth = 1.0f;
 float constexpr kGuideMarkRadius = 4.0f;
 float constexpr kGuideSelectionWidth = 10.0f;
-m2::PointF const kCityMarkOffset = {4.0, -5.0};
-m2::PointF const kOutdoorMarkOffset = {5.0, -4.0};
+m2::PointF const kGuideMarkOffset = {0.0f, 2.0};
+m2::PointF const kGuideDownloadedMarkOffset = {1.5, 0.5};
+m2::PointF const kGuideClusterTextOffset = {0.0f, kGuideMarkTextSize + kGuideMarkSize / 2.0f};
 
 int constexpr kMinGuideMarkerZoom = 1;
 }  // namespace
@@ -37,29 +33,18 @@ GuideMark::GuideMark(m2::PointD const & ptOrg)
 void GuideMark::Update()
 {
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-
-  df::ColoredSymbolViewParams params;
-  params.m_color = df::GetColorConstant(m_type == Type::City ? kCityMarkBgColor
-                                                             : kOutdoorMarkBgColor);
-  params.m_shape = df::ColoredSymbolViewParams::Shape::RoundedRectangle;
-  params.m_radiusInPixels = kGuideMarkRadius * vs;
-  params.m_sizeInPixels = m2::PointF(kGuideMarkSize, kGuideMarkSize) * vs;
-  params.m_outlineColor = df::GetColorConstant(m_type == Type::City ? kCityMarkOutlineColor
-                                                                    : kOutdoorMarkOutlineColor);
-  params.m_outlineWidth = kGuideMarkOutlineWidth * vs;
-  m_coloredBgInfo.m_zoomInfo[kMinGuideMarkerZoom] = params;
-
+  m_symbolOffsets = SymbolOffsets(scales::UPPER_STYLE_SCALE,
+                                  m_isDownloaded ? kGuideDownloadedMarkOffset * vs
+                                                 : kGuideMarkOffset * vs);
   if (m_type == Type::City)
   {
     m_symbolInfo[kMinGuideMarkerZoom] = m_isDownloaded ? "guide_city_downloaded"
                                                        : "guide_city";
-    m_symbolOffsets = SymbolOffsets(scales::UPPER_STYLE_SCALE, kCityMarkOffset * vs);
   }
   else
   {
     m_symbolInfo[kMinGuideMarkerZoom] = m_isDownloaded ? "guide_outdoor_downloaded"
                                                        : "guide_outdoor";
-    m_symbolOffsets = SymbolOffsets(scales::UPPER_STYLE_SCALE, kOutdoorMarkOffset * vs);
   }
 }
 
@@ -89,11 +74,6 @@ void GuideMark::SetIndex(uint32_t index)
   m_index = index;
 }
 
-drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> GuideMark::GetColoredSymbols() const
-{
-  return make_unique_dp<ColoredSymbolZoomInfo>(m_coloredBgInfo);
-}
-
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GuideMark::GetSymbolNames() const
 {
   return make_unique_dp<SymbolNameZoomInfo>(m_symbolInfo);
@@ -101,9 +81,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GuideMark::GetSymbolNames() con
 
 drape_ptr<df::UserPointMark::SymbolOffsets> GuideMark::GetSymbolOffsets() const
 {
-  if (m_isDownloaded)
-    return make_unique_dp<SymbolOffsets>(m_symbolOffsets);
-  return nullptr;
+  return make_unique_dp<SymbolOffsets>(m_symbolOffsets);
 }
 
 GuidesClusterMark::GuidesClusterMark(m2::PointD const & ptOrg)
@@ -121,26 +99,28 @@ void GuidesClusterMark::SetIndex(uint32_t index)
 void GuidesClusterMark::Update()
 {
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  m_symbolOffsets = SymbolOffsets(scales::UPPER_STYLE_SCALE, kGuideMarkOffset * vs);
 
   auto const isCity = m_outdoorGuidesCount < m_cityGuidesCount;
   auto const totalCount = m_outdoorGuidesCount + m_cityGuidesCount;
+  auto const bigCluster = totalCount > 99;
+  if (isCity)
+  {
+    m_symbolInfo[kMinGuideMarkerZoom] = bigCluster ? "guide_city_cluster_plus"
+                                                   : "guide_city_cluster";
+  }
+  else
+  {
+    m_symbolInfo[kMinGuideMarkerZoom] = bigCluster ? "guide_outdoor_cluster_plus"
+                                                   : "guide_outdoor_cluster";
+  }
 
-  df::ColoredSymbolViewParams params;
-  params.m_color = df::GetColorConstant(isCity ? kCityMarkBgColor : kOutdoorMarkBgColor);
-  params.m_shape = df::ColoredSymbolViewParams::Shape::RoundedRectangle;
-  params.m_radiusInPixels = kGuideMarkRadius * vs;
-  params.m_sizeInPixels = m2::PointF(totalCount > 99 ? kGuideMarkExSize : kGuideMarkSize,
-                                     kGuideMarkSize) * vs;
-  params.m_outlineColor = df::GetColorConstant(isCity ? kCityMarkOutlineColor
-                                                      : kOutdoorMarkOutlineColor);
-  params.m_outlineWidth = kGuideMarkOutlineWidth * vs;
-  m_coloredBgInfo.m_zoomInfo[kMinGuideMarkerZoom] = params;
-
-  m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(isCity ? kCityMarkOutlineColor
-                                                                      : kOutdoorMarkOutlineColor);
+  m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(isCity ? kCityMarkTextColor
+                                                                      : kOutdoorMarkTextColor);
   m_titleDecl.m_primaryTextFont.m_size = kGuideMarkTextSize;
-  m_titleDecl.m_anchor = dp::Center;
-  m_titleDecl.m_primaryText = totalCount > 99 ? "99+" : strings::to_string(totalCount);
+  m_titleDecl.m_anchor = dp::Bottom;
+  m_titleDecl.m_primaryText = bigCluster ? "99+" : strings::to_string(totalCount);
+  m_titleDecl.m_primaryOffset = kGuideClusterTextOffset - kGuideMarkOffset * 2.0f;
 }
 
 void GuidesClusterMark::SetGuidesCount(uint32_t cityGuidesCount, uint32_t outdoorGuidesCount)
@@ -151,9 +131,14 @@ void GuidesClusterMark::SetGuidesCount(uint32_t cityGuidesCount, uint32_t outdoo
   Update();
 }
 
-drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> GuidesClusterMark::GetColoredSymbols() const
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GuidesClusterMark::GetSymbolNames() const
 {
-  return make_unique_dp<ColoredSymbolZoomInfo>(m_coloredBgInfo);
+  return make_unique_dp<SymbolNameZoomInfo>(m_symbolInfo);
+}
+
+drape_ptr<df::UserPointMark::SymbolOffsets> GuidesClusterMark::GetSymbolOffsets() const
+{
+  return make_unique_dp<SymbolOffsets>(m_symbolOffsets);
 }
 
 drape_ptr<df::UserPointMark::TitlesInfo> GuidesClusterMark::GetTitleDecl() const

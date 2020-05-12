@@ -32,7 +32,6 @@ public:
     return df::SpecialDisplacement::SpecialModeUserMark;
   }
 
-  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
   bool SymbolIsPOI() const override { return true; }
@@ -46,7 +45,6 @@ private:
   Type m_type = Type::City;
   bool m_isDownloaded = false;
 
-  ColoredSymbolZoomInfo m_coloredBgInfo;
   SymbolNameZoomInfo m_symbolInfo;
   SymbolOffsets m_symbolOffsets;
 };
@@ -67,9 +65,10 @@ public:
   {
     return df::SpecialDisplacement::SpecialModeUserMark;
   }
-  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override { return nullptr; }
 
-  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+  drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
+  bool SymbolIsPOI() const override { return true; }
 
   bool HasTitlePriority() const override { return true; }
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
@@ -82,7 +81,8 @@ private:
   uint32_t m_cityGuidesCount = 0;
   uint32_t m_outdoorGuidesCount = 0;
 
-  ColoredSymbolZoomInfo m_coloredBgInfo;
+  SymbolNameZoomInfo m_symbolInfo;
+  SymbolOffsets m_symbolOffsets;
   dp::TitleDecl m_titleDecl;
 };
 
