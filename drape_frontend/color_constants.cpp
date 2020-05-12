@@ -14,7 +14,6 @@
 #include "3party/jansson/myjansson.hpp"
 
 #include <fstream>
-#include <map>
 
 using namespace std;
 
@@ -83,6 +82,8 @@ public:
     }
   }
 
+  map<string, dp::Color> const & GetClearColors() const { return m_clearColors; }
+
 private:
   dp::Color ParseColor(string const & colorStr)
   {
@@ -137,4 +138,6 @@ void LoadTransitColors()
 {
   TransitColors().Load();
 }
+
+map<string, dp::Color> const & GetClearColors() { return TransitColors().GetClearColors(); }
 }  // namespace df
