@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Guider (ny)";
+
+"no_routes_in_the_area_toast" = "Ingen guider fundet her";
+
+"isolines_toast_zooms_1-10" = "Zoom ind for at udforske isolinjekort";
+
+"routes_layer_in_menu_toast" = "Tænd for lag for at finde offline guider, udforske isolinjekort, undergrundslinjer eller trafikpropper";
+
+"routes_layer_is_on_toast" = "Træk kortet for at udforske guiderne";
+
+"connection_error_dialog_guides_title" = "Forbindelsesfejl";
+
+"connection_error_dialog_guides_message" = "Laget virker ikke fordi der ikke er internet eller et svagt signal. For at fortsætte arbejdet, kontroller forbindelsen eller slå laget fra.";
+
+"connection_error_dialog_guides_try" = "Prøv igen";
+
+"connection_error_dialog_guides_layer_turn_off" = "Sluk";
+
+"connection_error_toast_guides" = "Forsøger at tilslutte";
+
+"routes_card_show" = "Vis";
+
+"routes_card_hide" = "Skjul";
+
+"whatsnew_catalog_new_title" = "Nyt guide katalog og rejseidéer";
+
+"whatsnew_catalog_new_message" = "Vi har opdateret guide kataloget og tilføjet oversættelser på alle sprog. Påbegynd planlægning på forhånd!";
+
+"whatsnew_elevation_profile_title" = "Højdeprofil i rejseguides";
+
+"whatsnew_elevation_profile_message" = "Vurder kompleksiteten af kommende offline stigninger og nedstigninger med markøren i profilen af den købte rute.";
+
+"whatsnew_guides_on_map_title" = "Nyt lag til at finde guider let";
+
+"whatsnew_guides_on_map_message" = "Aktiver laget i applikationens indstillinger for hurtigt at finde interessante byruter og rejseguides for udendørs aktiviteter.";
+
+"downloader_updating_ios" = "Opdaterer";
+
+"downloader_loading_ios" = "Downloader";
+
+"routes_card_plus_track" = "+ rute";
+
 
 /**********  Partners  **********/
 

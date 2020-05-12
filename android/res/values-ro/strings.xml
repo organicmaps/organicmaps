@@ -1766,6 +1766,27 @@
 	<string name="hide_screen_map_update">Ascunde și continuă utilizarea aplicației</string>
 	<string name="view_on_map_downloaded_error">Acest ghid a fost șters de pe dispozitiv</string>
 	<string name="subscription">Abonare</string>
+	<string name="button_layer_guides">Ghiduri (noutate)</string>
+	<string name="no_routes_in_the_area_toast">Nu există ghiduri aici</string>
+	<string name="isolines_toast_zooms_1-10">Măriți harta pentru a vedea contururile</string>
+	<string name="routes_layer_in_menu_toast">Includeți straturi pentru a găsi ghiduri offline, explorați contururile, ramurile de metrou sau blocajele de trafic</string>
+	<string name="routes_layer_is_on_toast">Mutați harta pentru a găsi ghiduri</string>
+	<string name="connection_error_dialog_guides_title">Eroare de conectare</string>
+	<string name="connection_error_dialog_guides_message">Stratul nu funcționează deoarece nu există internet sau semnalul este slab. Pentru a continua, verificați conexiunea sau opriți stratul.</string>
+	<string name="connection_error_dialog_guides_try">Încercați din nou</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Opriți</string>
+	<string name="connection_error_toast_guides">Restabilim conexiunea la Internet</string>
+	<string name="routes_card_show">Arată</string>
+	<string name="routes_card_hide">Ascunde</string>
+	<string name="whatsnew_catalog_new_title">Un nou catalog și mii de idei de vacanță</string>
+	<string name="whatsnew_catalog_new_message">Am actualizat catalogul de ghiduri și am adăugat traduceri în toate limbile. Începeți planificarea înainte!</string>
+	<string name="whatsnew_elevation_profile_title">Profilul înălțimilor în ghiduri</string>
+	<string name="whatsnew_elevation_profile_message">Evaluați complexitatea urcărilor și coborârilor viitoare offline cu cursorul în profilul traseului achiziționat.</string>
+	<string name="whatsnew_guides_on_map_title">Strat nou - ghiduri pe hartă!</string>
+	<string name="whatsnew_guides_on_map_message">Activați stratul din meniul setărilor aplicației pentru a găsi rapid rute interesante pentru orașe și ghiduri de călătorie pentru activități în aer liber.</string>
+	<string name="downloader_updating_ios">Actualizare</string>
+	<string name="downloader_loading_ios">Încărcare</string>
+	<string name="routes_card_plus_track">+ track</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

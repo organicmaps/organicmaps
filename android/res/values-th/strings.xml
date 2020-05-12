@@ -1781,6 +1781,27 @@
 	<string name="hide_screen_map_update">ซ่อนและใช้งานต่อ</string>
 	<string name="view_on_map_downloaded_error">คู่มือใช้งานถูกลบออกจากอุปกรณ์แล้ว</string>
 	<string name="subscription">สมัครสมาชิก</string>
+	<string name="button_layer_guides">คู่มือใช้งาน (ใหม่)</string>
+	<string name="no_routes_in_the_area_toast">ไม่มีคู่มือใช้งานที่นี่</string>
+	<string name="isolines_toast_zooms_1-10">ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง</string>
+	<string name="routes_layer_in_menu_toast">เปิดเลเยอร์เพื่อพบกับคู่มือใช้งานแบบออฟไลน์ สำรวจเส้นชั้นความสูง หรือสภาพการจราจร</string>
+	<string name="routes_layer_is_on_toast">ลากแผนที่เพื่อสำรวจคู่มือใช้งาน</string>
+	<string name="connection_error_dialog_guides_title">เกิดความผิดพลาดในการเชื่อมต่อ</string>
+	<string name="connection_error_dialog_guides_message">เลเยอร์ไม่ทำงานเพราะว่าไม่มีสัญญาณอินเทอร์เน็ตหรือสัญญาณอ่อนมาก เพื่อทำงานต่อ เช็กการเชื่อต่อหรือปิดการใช้งานเลเยอร์</string>
+	<string name="connection_error_dialog_guides_try">ลองอีกครั้ง</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">ปิดการทำงาน</string>
+	<string name="connection_error_toast_guides">ลองเชื่อมต่อใหม่</string>
+	<string name="routes_card_show">แสดง</string>
+	<string name="routes_card_hide">ซ่อน</string>
+	<string name="whatsnew_catalog_new_title">ไกด์แคตตาล็อกใหม่และไอเดียในการท่องเที่ยวหลายพันอย่าง</string>
+	<string name="whatsnew_catalog_new_message">เราได้อัปเดตไกด์แคตตาล็อก และเพิ่มการแปลในทุกภาษา มาเริ่มวางแผนทริปของคุณล่วงหน้ากัน!</string>
+	<string name="whatsnew_elevation_profile_title">ข้อมูลของความสูงในคู่มือใช้งานเพื่อการท่องเที่ยว</string>
+	<string name="whatsnew_elevation_profile_message">ประเมินความลำบากของการขึ้นและการลงในเส้นทางข้างหน้าแบบออฟไลน์ ด้วยเคอร์เซอร์ในโปรไฟล์ของเส้นทางที่คุณซื้อไว้</string>
+	<string name="whatsnew_guides_on_map_title">เลเยอร์ใหม่เพื่อหาคู่มือใช้งานเจอได้อย่างง่ายดาย</string>
+	<string name="whatsnew_guides_on_map_message">เปิดใช้งานเลเยอร์ในเมนูการตั้งค่าแอปพลิเคชันเพื่อพบกับเส้นทางของเมืองที่น่าสนใจ และคู่มือใช้งานเพื่อการท่องเที่ยวสำหรับกิจกรรมกลางแจ้งได้อย่างรวดเร็ว</string>
+	<string name="downloader_updating_ios">การอัปเดต</string>
+	<string name="downloader_loading_ios">การดาวน์โหลด</string>
+	<string name="routes_card_plus_track">+ เส้นทาง</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

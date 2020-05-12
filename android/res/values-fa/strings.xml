@@ -1716,6 +1716,27 @@
 	<string name="hide_screen_map_update">پنهان کردن و ادامه دادن</string>
 	<string name="view_on_map_downloaded_error">راهنما از این دستگاه پاک شده است</string>
 	<string name="subscription">عضویت</string>
+	<string name="button_layer_guides">راهنماها (جدید)</string>
+	<string name="no_routes_in_the_area_toast">راهنمایی در اینجا یافت نشد</string>
+	<string name="isolines_toast_zooms_1-10">برای بررسی خطوط تراز زوم کنید</string>
+	<string name="routes_layer_in_menu_toast">برای یافتن راهنمای آفلاین، بررسی خطوط تراز، خطوط مترو یا تراکم رفت و آمد لایه ها را روشن کنید</string>
+	<string name="routes_layer_is_on_toast">برای بررسی راهنما نقشه را حرکت دهید</string>
+	<string name="connection_error_dialog_guides_title">خطای ارتباط</string>
+	<string name="connection_error_dialog_guides_message">لایه به دلیل نبود اینترنت یا سیگنال ضعیف کار نمی کند. برای ادامه کار ارتباط را بررسی کنید یا لایه را خاموش نمایید.</string>
+	<string name="connection_error_dialog_guides_try">دوباره تلاش کنید</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">خاموش</string>
+	<string name="connection_error_toast_guides">در حال برقراری مجدد ارتباط</string>
+	<string name="routes_card_show">نمایش دادن</string>
+	<string name="routes_card_hide">پنهان سازی</string>
+	<string name="whatsnew_catalog_new_title">کاتالوگ راهنما های جدید و هزاران ایده سفر</string>
+	<string name="whatsnew_catalog_new_message">ما کاتالوگ راهنما را به روزرسانی کرده ایم و ترجمه تمامی زبان ها را افزوده ایم. از پیش برنامه ریزی کنید!</string>
+	<string name="whatsnew_elevation_profile_title">پروفایل ارتفاع در راهنمای سفر</string>
+	<string name="whatsnew_elevation_profile_message">پیچیدگی بالا رفتن ها و پایین آمدن های آفلاین بعدی را در پروفایل مسیرهای خریداری شده به وسیله مکان نما ارزیابی کنید.</string>
+	<string name="whatsnew_guides_on_map_title">لایه جدید برای یافتن آسان راهنما</string>
+	<string name="whatsnew_guides_on_map_message">در فهرست تنظیمات برنامه لایه را فعال کنید تا به سرعت مسیرهای جذاب شهری و راهنما های مسافرت برای فعالیت های فضای باز را پیدا کنید.</string>
+	<string name="downloader_updating_ios">در حال بروزرسانی</string>
+	<string name="downloader_loading_ios">در حال دانلود</string>
+	<string name="routes_card_plus_track">+ مسیر</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

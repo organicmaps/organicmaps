@@ -1769,6 +1769,27 @@
 	<string name="hide_screen_map_update">Sembunyikan dan lanjutkan</string>
 	<string name="view_on_map_downloaded_error">Panduan ini telah dihapus dari perangkat ini</string>
 	<string name="subscription">Berlangganan</string>
+	<string name="button_layer_guides">Panduan (baru)</string>
+	<string name="no_routes_in_the_area_toast">Tidak ada panduan yang ditemukan di sini</string>
+	<string name="isolines_toast_zooms_1-10">Perbesar untuk menjelajahi garis kontur</string>
+	<string name="routes_layer_in_menu_toast">Aktifkan lapisan untuk menemukan panduan offline, jelajahi garis kontur, jalur kereta bawah tanah atau kemacetan lalu lintas</string>
+	<string name="routes_layer_is_on_toast">Seret peta untuk menjelajahi panduan</string>
+	<string name="connection_error_dialog_guides_title">Kesalahan koneksi</string>
+	<string name="connection_error_dialog_guides_message">Lapisan tidak berfungsi karena tidak ada Internet atau sinyal lemah. Untuk terus bekerja, periksa koneksi atau matikan lapisan.</string>
+	<string name="connection_error_dialog_guides_try">Coba lagi</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Matikan</string>
+	<string name="connection_error_toast_guides">Mencoba menyambung kembali</string>
+	<string name="routes_card_show">Menampilkan</string>
+	<string name="routes_card_hide">Menyembunyikan</string>
+	<string name="whatsnew_catalog_new_title">Katalog panduan baru dan ribuan ide perjalanan</string>
+	<string name="whatsnew_catalog_new_message">Kami telah memperbarui katalog panduan dan menambahkan terjemahan dalam semua bahasa. Mulai perencanaan terlebih dahulu!</string>
+	<string name="whatsnew_elevation_profile_title">Profil elevasi dalam panduan perjalanan</string>
+	<string name="whatsnew_elevation_profile_message">Mengevaluasi kerumitan kenaikan dan penurunan offline yang akan datang dengan kursor di profil dari rute yang dibeli.</string>
+	<string name="whatsnew_guides_on_map_title">Lapisan baru untuk menemukan panduan dengan mudah</string>
+	<string name="whatsnew_guides_on_map_message">Aktifkan lapisan di menu pengaturan aplikasi untuk dengan cepat menemukan rute kota yang menarik dan panduan perjalanan untuk kegiatan di luar ruangan.</string>
+	<string name="downloader_updating_ios">Memperbarui</string>
+	<string name="downloader_loading_ios">Mengunduh</string>
+	<string name="routes_card_plus_track">+ lintasan</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

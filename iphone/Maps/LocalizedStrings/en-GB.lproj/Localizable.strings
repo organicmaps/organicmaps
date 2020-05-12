@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Guides (new)";
+
+"no_routes_in_the_area_toast" = "No guides found here";
+
+"isolines_toast_zooms_1-10" = "Zoom in to explore isolines";
+
+"routes_layer_in_menu_toast" = "Turn on layers to find offline guides, explore isolines, subway lines, or traffic jams";
+
+"routes_layer_is_on_toast" = "Drag the map to explore the guides";
+
+"connection_error_dialog_guides_title" = "Connection error";
+
+"connection_error_dialog_guides_message" = "The layer doesn't work because there's no Internet or the signal is weak. To continue working, check the connection or turn off the layer.";
+
+"connection_error_dialog_guides_try" = "Try again";
+
+"connection_error_dialog_guides_layer_turn_off" = "Turn off";
+
+"connection_error_toast_guides" = "Trying to reconnect";
+
+"routes_card_show" = "Show";
+
+"routes_card_hide" = "Hide";
+
+"whatsnew_catalog_new_title" = "New guides catalog and thousands of travel ideas";
+
+"whatsnew_catalog_new_message" = "We have updated the guides catalog and added translations in all languages. Start planning in advance!";
+
+"whatsnew_elevation_profile_title" = "Elevation profile in travel guides";
+
+"whatsnew_elevation_profile_message" = "Evaluate the difficulty of upcoming offline ascents and descents with the cursor in the profile of the purchased route.";
+
+"whatsnew_guides_on_map_title" = "New layer to find guides easily";
+
+"whatsnew_guides_on_map_message" = "Activate the layer in the application settings menu to quickly find interesting city routes and travel guides for outdoor activities.";
+
+"downloader_updating_ios" = "Updating";
+
+"downloader_loading_ios" = "Downloading";
+
+"routes_card_plus_track" = "+ track";
+
 
 /**********  Partners  **********/
 

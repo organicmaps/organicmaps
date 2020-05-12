@@ -1780,6 +1780,27 @@
 	<string name="hide_screen_map_update">Ocultar e continuar</string>
 	<string name="view_on_map_downloaded_error">Este guia foi apagado do dispositivo</string>
 	<string name="subscription">Subscrição</string>
+	<string name="button_layer_guides">Guias (novidade)</string>
+	<string name="no_routes_in_the_area_toast">Aqui não há guias</string>
+	<string name="isolines_toast_zooms_1-10">Ampliar mapa para ver as curvas de nível</string>
+	<string name="routes_layer_in_menu_toast">Ative as camadas para encontrar guias offline, estudar as curvas de nível, linhas do metrô ou trânsito</string>
+	<string name="routes_layer_is_on_toast">Move o mapa para encontrar guias</string>
+	<string name="connection_error_dialog_guides_title">Erro de conexão</string>
+	<string name="connection_error_dialog_guides_message">A camada não está ativa por fata de conexão ou sinal fraco. Para continuar, verifique a sua conexão com Internet ou desative a camada.</string>
+	<string name="connection_error_dialog_guides_try">Tentar novamente</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Desativar</string>
+	<string name="connection_error_toast_guides">Restaurando conexão com a Internet</string>
+	<string name="routes_card_show">Mostrar</string>
+	<string name="routes_card_hide">Ocultar</string>
+	<string name="whatsnew_catalog_new_title">Catálogo novo e milhares de ideias para as férias</string>
+	<string name="whatsnew_catalog_new_message">Atualizamos o catálogo de guias e adicionamos traduções para todos os idiomas. Comece a planejar com antecedência!</string>
+	<string name="whatsnew_elevation_profile_title">Perfil de alturas nas guias</string>
+	<string name="whatsnew_elevation_profile_message">Avalie a complexidade de futuras subidas e descidas offline com ajuda de um cursor especial no perfil do percurso adquirido.</string>
+	<string name="whatsnew_guides_on_map_title">Uma nova camada- guias no mapa!</string>
+	<string name="whatsnew_guides_on_map_message">Ative a camada no menu de configurações da aplicação para encontrar rapidamente os percursos urbanos interessantes e guias para férias ativas.</string>
+	<string name="downloader_updating_ios">Atualização</string>
+	<string name="downloader_loading_ios">Carregamento</string>
+	<string name="routes_card_plus_track">+ trilha</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

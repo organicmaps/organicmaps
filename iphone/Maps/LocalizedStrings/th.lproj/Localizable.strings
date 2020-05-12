@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "คู่มือใช้งาน (ใหม่)";
+
+"no_routes_in_the_area_toast" = "ไม่มีคู่มือใช้งานที่นี่";
+
+"isolines_toast_zooms_1-10" = "ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง";
+
+"routes_layer_in_menu_toast" = "เปิดเลเยอร์เพื่อพบกับคู่มือใช้งานแบบออฟไลน์ สำรวจเส้นชั้นความสูง หรือสภาพการจราจร";
+
+"routes_layer_is_on_toast" = "ลากแผนที่เพื่อสำรวจคู่มือใช้งาน";
+
+"connection_error_dialog_guides_title" = "เกิดความผิดพลาดในการเชื่อมต่อ";
+
+"connection_error_dialog_guides_message" = "เลเยอร์ไม่ทำงานเพราะว่าไม่มีสัญญาณอินเทอร์เน็ตหรือสัญญาณอ่อนมาก เพื่อทำงานต่อ เช็กการเชื่อต่อหรือปิดการใช้งานเลเยอร์";
+
+"connection_error_dialog_guides_try" = "ลองอีกครั้ง";
+
+"connection_error_dialog_guides_layer_turn_off" = "ปิดการทำงาน";
+
+"connection_error_toast_guides" = "ลองเชื่อมต่อใหม่";
+
+"routes_card_show" = "แสดง";
+
+"routes_card_hide" = "ซ่อน";
+
+"whatsnew_catalog_new_title" = "ไกด์แคตตาล็อกใหม่และไอเดียในการท่องเที่ยวหลายพันอย่าง";
+
+"whatsnew_catalog_new_message" = "เราได้อัปเดตไกด์แคตตาล็อก และเพิ่มการแปลในทุกภาษา มาเริ่มวางแผนทริปของคุณล่วงหน้ากัน!";
+
+"whatsnew_elevation_profile_title" = "ข้อมูลของความสูงในคู่มือใช้งานเพื่อการท่องเที่ยว";
+
+"whatsnew_elevation_profile_message" = "ประเมินความลำบากของการขึ้นและการลงในเส้นทางข้างหน้าแบบออฟไลน์ ด้วยเคอร์เซอร์ในโปรไฟล์ของเส้นทางที่คุณซื้อไว้";
+
+"whatsnew_guides_on_map_title" = "เลเยอร์ใหม่เพื่อหาคู่มือใช้งานเจอได้อย่างง่ายดาย";
+
+"whatsnew_guides_on_map_message" = "เปิดใช้งานเลเยอร์ในเมนูการตั้งค่าแอปพลิเคชันเพื่อพบกับเส้นทางของเมืองที่น่าสนใจ และคู่มือใช้งานเพื่อการท่องเที่ยวสำหรับกิจกรรมกลางแจ้งได้อย่างรวดเร็ว";
+
+"downloader_updating_ios" = "การอัปเดต";
+
+"downloader_loading_ios" = "การดาวน์โหลด";
+
+"routes_card_plus_track" = "+ เส้นทาง";
+
 
 /**********  Partners  **********/
 

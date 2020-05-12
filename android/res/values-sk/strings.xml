@@ -1775,6 +1775,27 @@
 	<string name="hide_screen_map_update">Skryť a pokračovať</string>
 	<string name="view_on_map_downloaded_error">Tento sprievodca bol z tohto zariadenia odstránený</string>
 	<string name="subscription">Predplatné</string>
+	<string name="button_layer_guides">Sprievodcovia (noví)</string>
+	<string name="no_routes_in_the_area_toast">Nenašli sa tu žiadni sprievodcovia</string>
+	<string name="isolines_toast_zooms_1-10">Priblížením preskúmajte izočiary</string>
+	<string name="routes_layer_in_menu_toast">Ak chcete nájsť offline príručky, preskúmať izočiary, trasy metra alebo dopravné zápchy, zapnite vrstvy</string>
+	<string name="routes_layer_is_on_toast">Potiahnutím mapy preskúmate sprievodcov</string>
+	<string name="connection_error_dialog_guides_title">Chyba spojenia</string>
+	<string name="connection_error_dialog_guides_message">Vrstva nefunguje, pretože nemáte prístup k internetu alebo máte slabý signál. Ak chcete pokračovať, skontrolujte pripojenie alebo vypnite vrstvu.</string>
+	<string name="connection_error_dialog_guides_try">Skúste to znova</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Vypnúť</string>
+	<string name="connection_error_toast_guides">Pokus o opätovné pripojenie</string>
+	<string name="routes_card_show">Zobraziť</string>
+	<string name="routes_card_hide">Skryť</string>
+	<string name="whatsnew_catalog_new_title">Nový katalóg sprievodcov a tisíce nápadov na cestovanie</string>
+	<string name="whatsnew_catalog_new_message">Aktualizovali sme katalóg sprievodcov a pridali preklady do všetkých jazykov. Začnite plánovať vopred!</string>
+	<string name="whatsnew_elevation_profile_title">Výškový profil v cestovných sprievodcoch</string>
+	<string name="whatsnew_elevation_profile_message">Vyhodnoťte zložitosť prichádzajúcich výstupov a zostupov offline pomocou kurzora v profile zakúpenej trasy.</string>
+	<string name="whatsnew_guides_on_map_title">Nová vrstva na jednoduché vyhľadanie sprievodcov</string>
+	<string name="whatsnew_guides_on_map_message">Aktivujte si vrstvu v ponuke nastavení aplikácie, aby ste rýchlo našli zaujímavé mestské trasy a cestovných sprievodcov pre outdoorové aktivity.</string>
+	<string name="downloader_updating_ios">Aktualizovanie</string>
+	<string name="downloader_loading_ios">Sťahovanie</string>
+	<string name="routes_card_plus_track">+ trasu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

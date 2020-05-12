@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Gidsen (nieuw)";
+
+"no_routes_in_the_area_toast" = "Hier zijn geen gidsen";
+
+"isolines_toast_zooms_1-10" = "Zoom in om isolijnen te bekijken";
+
+"routes_layer_in_menu_toast" = "Schakel lagen in om offline gidsen te vinden, isolijnen, metrolijnen of verkeersopstoppingen vast te stellen";
+
+"routes_layer_is_on_toast" = "Versleep de kaart om gidsen te vinden";
+
+"connection_error_dialog_guides_title" = "Verbindingsfout";
+
+"connection_error_dialog_guides_message" = "De laag werkt niet omdat er geen internet of een zwak signaal is. Controleer de verbinding of schakel de laag uit om verder te kunnen werken.";
+
+"connection_error_dialog_guides_try" = "Opnieuw proberen";
+
+"connection_error_dialog_guides_layer_turn_off" = "Uitzetten";
+
+"connection_error_toast_guides" = "Opnieuw proberen verbinding te maken";
+
+"routes_card_show" = "Tonen";
+
+"routes_card_hide" = "Verbergen";
+
+"whatsnew_catalog_new_title" = "Nieuwe reisgidscatalogus en duizenden reisideeën";
+
+"whatsnew_catalog_new_message" = "We hebben de reisgidscatalogus bijgewerkt en vertalingen in alle talen toegevoegd. Begin vooruit te plannen!";
+
+"whatsnew_elevation_profile_title" = "Hoogteprofiel in reisgidsen";
+
+"whatsnew_elevation_profile_message" = "Evalueer de moeilijkheidsgraad van komende beklimmingen en afdalingen offline met de cursor in het profiel van de aangeschafte route.";
+
+"whatsnew_guides_on_map_title" = "Nieuwe laag om gemakkelijk gidsen te vinden";
+
+"whatsnew_guides_on_map_message" = "Activeer de laag in het menu met applicatie-instellingen om snel interessante stadsroutes en reisgidsen voor buitenactiviteiten te vinden.";
+
+"downloader_updating_ios" = "Updaten";
+
+"downloader_loading_ios" = "Downloaden";
+
+"routes_card_plus_track" = "+ route";
+
 
 /**********  Partners  **********/
 

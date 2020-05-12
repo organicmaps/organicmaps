@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Guides (nouveauté)";
+
+"no_routes_in_the_area_toast" = "Ici, il n'y a aucun guide";
+
+"isolines_toast_zooms_1-10" = "Zoomez pour voir les courbes de niveaux";
+
+"routes_layer_in_menu_toast" = "Activez les calques pour trouver les guides hors ligne, étudier les courbes de niveaux, les lignes du métro ou l'état du traffic";
+
+"routes_layer_is_on_toast" = "Faites glisser la carte pour trouver les guides";
+
+"connection_error_dialog_guides_title" = "Erreur de connexion";
+
+"connection_error_dialog_guides_message" = "Le calque ne fonctionne pas car vous n’êtes pas connecté à Internet ou le signal est trop faible. Afin de continuer, veuillez vérifier la connexion ou désactivez le calque.";
+
+"connection_error_dialog_guides_try" = "Réessayer";
+
+"connection_error_dialog_guides_layer_turn_off" = "Désactiver";
+
+"connection_error_toast_guides" = "Reconnexion à Internet en cours";
+
+"routes_card_show" = "Montrer";
+
+"routes_card_hide" = "Masquer";
+
+"whatsnew_catalog_new_title" = "Nouveau catalogue et des miliers d'idées de voyages";
+
+"whatsnew_catalog_new_message" = "Nous avons mis à jour le catalogue des guides et avons ajouté les traductions dans toutes les langues. Planifiez vos voyages à l'avance !";
+
+"whatsnew_elevation_profile_title" = "Profil altimétrique intégré dans les guides";
+
+"whatsnew_elevation_profile_message" = "Vous pouvez estimer la difficulté de vos futures montées et descentes hors connexion à l'aide d'un curseur disponible dans le profil de l'itinéraire acheté.";
+
+"whatsnew_guides_on_map_title" = "Nouveau calque - les guides sur la carte !";
+
+"whatsnew_guides_on_map_message" = "Activez le calque dans les paramètres de l'application afin de pouvoir trouver rapidement les itinéraires intéressants en villes et les guides d'activités en plein air.";
+
+"downloader_updating_ios" = "Misе à jour";
+
+"downloader_loading_ios" = "Téléchargement";
+
+"routes_card_plus_track" = "+ itinéraire";
+
 
 /**********  Partners  **********/
 

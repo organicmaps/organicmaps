@@ -1794,6 +1794,27 @@
 	<string name="hide_screen_map_update">Fermer la fenêtre et continuer la navigation</string>
 	<string name="view_on_map_downloaded_error">Ce guide a été supprimé de votre appareil</string>
 	<string name="subscription">Souscription</string>
+	<string name="button_layer_guides">Guides (nouveauté)</string>
+	<string name="no_routes_in_the_area_toast">Ici, il n\'y a aucun guide</string>
+	<string name="isolines_toast_zooms_1-10">Zoomez pour voir les courbes de niveaux</string>
+	<string name="routes_layer_in_menu_toast">Activez les calques pour trouver les guides hors ligne, étudier les courbes de niveaux, les lignes du métro ou l\'état du traffic</string>
+	<string name="routes_layer_is_on_toast">Faites glisser la carte pour trouver les guides</string>
+	<string name="connection_error_dialog_guides_title">Erreur de connexion</string>
+	<string name="connection_error_dialog_guides_message">Le calque ne fonctionne pas car vous n’êtes pas connecté à Internet ou le signal est trop faible. Afin de continuer, veuillez vérifier la connexion ou désactivez le calque.</string>
+	<string name="connection_error_dialog_guides_try">Réessayer</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Désactiver</string>
+	<string name="connection_error_toast_guides">Reconnexion à Internet en cours</string>
+	<string name="routes_card_show">Montrer</string>
+	<string name="routes_card_hide">Masquer</string>
+	<string name="whatsnew_catalog_new_title">Nouveau catalogue et des miliers d\'idées de voyages</string>
+	<string name="whatsnew_catalog_new_message">Nous avons mis à jour le catalogue des guides et avons ajouté les traductions dans toutes les langues. Planifiez vos voyages à l\'avance !</string>
+	<string name="whatsnew_elevation_profile_title">Profil altimétrique intégré dans les guides</string>
+	<string name="whatsnew_elevation_profile_message">Vous pouvez estimer la difficulté de vos futures montées et descentes hors connexion à l\'aide d\'un curseur disponible dans le profil de l\'itinéraire acheté.</string>
+	<string name="whatsnew_guides_on_map_title">Nouveau calque - les guides sur la carte !</string>
+	<string name="whatsnew_guides_on_map_message">Activez le calque dans les paramètres de l\'application afin de pouvoir trouver rapidement les itinéraires intéressants en villes et les guides d\'activités en plein air.</string>
+	<string name="downloader_updating_ios">Misе à jour</string>
+	<string name="downloader_loading_ios">Téléchargement</string>
+	<string name="routes_card_plus_track">+ itinéraire</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

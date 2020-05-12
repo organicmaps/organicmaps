@@ -1787,6 +1787,27 @@
 	<string name="hide_screen_map_update">Ukryj i kontynuuj</string>
 	<string name="view_on_map_downloaded_error">Ten przewodnik został usunięty z urządzenia</string>
 	<string name="subscription">Subskrypcja</string>
+	<string name="button_layer_guides">Przewodniki (nowe)</string>
+	<string name="no_routes_in_the_area_toast">Tutaj nie znaleziono przewodników</string>
+	<string name="isolines_toast_zooms_1-10">Powiększ mapę, aby zobaczyć izolinie</string>
+	<string name="routes_layer_in_menu_toast">Włącz warstwy, aby znaleźć przewodniki offline, odkrywać izolinie, linie metra lub korki</string>
+	<string name="routes_layer_is_on_toast">Przeciągaj mapę, aby znaleźć przewodniki</string>
+	<string name="connection_error_dialog_guides_title">Błąd połączenia</string>
+	<string name="connection_error_dialog_guides_message">Warstwa nie działa, ponieważ brak połączenia z Internetem lub zbyt słaby sygnał. Aby kontynuować pracę, sprawdź połączenie lub wyłącz warstwę.</string>
+	<string name="connection_error_dialog_guides_try">Spróbuj ponownie</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Wyłącz</string>
+	<string name="connection_error_toast_guides">Próbujemy połączyć się ponownie</string>
+	<string name="routes_card_show">Pokaż</string>
+	<string name="routes_card_hide">Ukryj</string>
+	<string name="whatsnew_catalog_new_title">Nowy katalog przewodników i tysiące pomysłów na podróż</string>
+	<string name="whatsnew_catalog_new_message">Zaktualizowaliśmy katalog przewodników i dodaliśmy tłumaczenia we wszystkich językach. Zacznij planować z wyprzedzeniem!</string>
+	<string name="whatsnew_elevation_profile_title">Profil wysokości w przewodnikach</string>
+	<string name="whatsnew_elevation_profile_message">Oceń złożoność nadchodzących zjazdów i zejść offline za pomocą kursora w profilu zakupionej trasy.</string>
+	<string name="whatsnew_guides_on_map_title">Nowa warstwa — przewodniki na mapie!</string>
+	<string name="whatsnew_guides_on_map_message">Aktywuj warstwę w menu ustawień aplikacji, aby szybko znaleźć ciekawe trasy miejskie i przewodniki do aktywnego wypoczynku.</string>
+	<string name="downloader_updating_ios">Aktualizacja</string>
+	<string name="downloader_loading_ios">Pobieranie</string>
+	<string name="routes_card_plus_track">+ trasa</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

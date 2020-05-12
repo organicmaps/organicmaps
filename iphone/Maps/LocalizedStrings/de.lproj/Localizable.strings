@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Reiseführer (Neu)";
+
+"no_routes_in_the_area_toast" = "Hier sind keine Reiseführer vorhanden";
+
+"isolines_toast_zooms_1-10" = "Karte vergrößern, um Isolinien zu sehen";
+
+"routes_layer_in_menu_toast" = "Aktivieren Sie den Layer Schichten, um Offline-Reiseführer zu finden, Isolinien, U-Bahnzweige oder Staus zu sehen";
+
+"routes_layer_is_on_toast" = "Bewegen Sie die Karte, um die Reiseführer zu finden";
+
+"connection_error_dialog_guides_title" = "Netzwerkverbindungsfehler";
+
+"connection_error_dialog_guides_message" = "Die Schicht wird nicht angezeigt, da keine Internetverbindung aufgebaut wurde oder das Signal zu schwach ist. Überprüfen Sie die Verbindung oder deaktivieren Sie die Schicht.";
+
+"connection_error_dialog_guides_try" = "Noch einmal versuchen";
+
+"connection_error_dialog_guides_layer_turn_off" = "Deaktivieren";
+
+"connection_error_toast_guides" = "Die Internetverbindung wird hergestellt";
+
+"routes_card_show" = "Einblenden";
+
+"routes_card_hide" = "Ausblenden";
+
+"whatsnew_catalog_new_title" = "Neuer Katalog und tausende Erholungsideen";
+
+"whatsnew_catalog_new_message" = "Wir haben das Reiseführerkatalog upgedatet und Übersetzungen in alle Sprachen hinzugefügt. Beginnen Sie im Voraus zu planen!";
+
+"whatsnew_elevation_profile_title" = "Höhenprofil in den Reiseführern";
+
+"whatsnew_elevation_profile_message" = "Bewerten Sie den Schwierigkeitsgrad des bevorstehenden Bergaufs und Bergabs offline per Kursor im Profil der erworbenen Route.";
+
+"whatsnew_guides_on_map_title" = "Eine neue Schicht sind die Reiseführer auf der Karte!";
+
+"whatsnew_guides_on_map_message" = "Aktivieren Sie die Schicht im Einstellungsmenü der App, um schnell interessante Stadtrouten und Reiseführer für aktive Erholung zu finden.";
+
+"downloader_updating_ios" = "Update";
+
+"downloader_loading_ios" = "Download";
+
+"routes_card_plus_track" = "+ Wanderweg";
+
 
 /**********  Partners  **********/
 

@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Guias (novidade)";
+
+"no_routes_in_the_area_toast" = "Aqui não há guias";
+
+"isolines_toast_zooms_1-10" = "Ampliar mapa para ver as curvas de nível";
+
+"routes_layer_in_menu_toast" = "Ative as camadas para encontrar guias offline, estudar as curvas de nível, linhas do metrô ou trânsito";
+
+"routes_layer_is_on_toast" = "Move o mapa para encontrar guias";
+
+"connection_error_dialog_guides_title" = "Erro de conexão";
+
+"connection_error_dialog_guides_message" = "A camada não está ativa por fata de conexão ou sinal fraco. Para continuar, verifique a sua conexão com Internet ou desative a camada.";
+
+"connection_error_dialog_guides_try" = "Tentar novamente";
+
+"connection_error_dialog_guides_layer_turn_off" = "Desativar";
+
+"connection_error_toast_guides" = "Restaurando conexão com a Internet";
+
+"routes_card_show" = "Mostrar";
+
+"routes_card_hide" = "Ocultar";
+
+"whatsnew_catalog_new_title" = "Catálogo novo e milhares de ideias para as férias";
+
+"whatsnew_catalog_new_message" = "Atualizamos o catálogo de guias e adicionamos traduções para todos os idiomas. Comece a planejar com antecedência!";
+
+"whatsnew_elevation_profile_title" = "Perfil de alturas nas guias";
+
+"whatsnew_elevation_profile_message" = "Avalie a complexidade de futuras subidas e descidas offline com ajuda de um cursor especial no perfil do percurso adquirido.";
+
+"whatsnew_guides_on_map_title" = "Uma nova camada- guias no mapa!";
+
+"whatsnew_guides_on_map_message" = "Ative a camada no menu de configurações da aplicação para encontrar rapidamente os percursos urbanos interessantes e guias para férias ativas.";
+
+"downloader_updating_ios" = "Atualização";
+
+"downloader_loading_ios" = "Carregamento";
+
+"routes_card_plus_track" = "+ trilha";
+
 
 /**********  Partners  **********/
 

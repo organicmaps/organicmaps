@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Sprievodcovia (noví)";
+
+"no_routes_in_the_area_toast" = "Nenašli sa tu žiadni sprievodcovia";
+
+"isolines_toast_zooms_1-10" = "Priblížením preskúmajte izočiary";
+
+"routes_layer_in_menu_toast" = "Ak chcete nájsť offline príručky, preskúmať izočiary, trasy metra alebo dopravné zápchy, zapnite vrstvy";
+
+"routes_layer_is_on_toast" = "Potiahnutím mapy preskúmate sprievodcov";
+
+"connection_error_dialog_guides_title" = "Chyba spojenia";
+
+"connection_error_dialog_guides_message" = "Vrstva nefunguje, pretože nemáte prístup k internetu alebo máte slabý signál. Ak chcete pokračovať, skontrolujte pripojenie alebo vypnite vrstvu.";
+
+"connection_error_dialog_guides_try" = "Skúste to znova";
+
+"connection_error_dialog_guides_layer_turn_off" = "Vypnúť";
+
+"connection_error_toast_guides" = "Pokus o opätovné pripojenie";
+
+"routes_card_show" = "Zobraziť";
+
+"routes_card_hide" = "Skryť";
+
+"whatsnew_catalog_new_title" = "Nový katalóg sprievodcov a tisíce nápadov na cestovanie";
+
+"whatsnew_catalog_new_message" = "Aktualizovali sme katalóg sprievodcov a pridali preklady do všetkých jazykov. Začnite plánovať vopred!";
+
+"whatsnew_elevation_profile_title" = "Výškový profil v cestovných sprievodcoch";
+
+"whatsnew_elevation_profile_message" = "Vyhodnoťte zložitosť prichádzajúcich výstupov a zostupov offline pomocou kurzora v profile zakúpenej trasy.";
+
+"whatsnew_guides_on_map_title" = "Nová vrstva na jednoduché vyhľadanie sprievodcov";
+
+"whatsnew_guides_on_map_message" = "Aktivujte si vrstvu v ponuke nastavení aplikácie, aby ste rýchlo našli zaujímavé mestské trasy a cestovných sprievodcov pre outdoorové aktivity.";
+
+"downloader_updating_ios" = "Aktualizovanie";
+
+"downloader_loading_ios" = "Sťahovanie";
+
+"routes_card_plus_track" = "+ trasu";
+
 
 /**********  Partners  **********/
 

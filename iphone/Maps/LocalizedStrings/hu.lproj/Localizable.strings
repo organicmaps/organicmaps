@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Útmutatók (új)";
+
+"no_routes_in_the_area_toast" = "Útmutató itt nem található";
+
+"isolines_toast_zooms_1-10" = "Nagyítás az isovonalak felfedezéséhez";
+
+"routes_layer_in_menu_toast" = "Az offline útmutatók, az isovonalak, a metróvonalak vagy a forgalmi dugók megkereséséhez kapcsolja be a rétegeket";
+
+"routes_layer_is_on_toast" = "Az útmutatók felfedezéséhez húzza el a térképet";
+
+"connection_error_dialog_guides_title" = "Csatlakozási hiba";
+
+"connection_error_dialog_guides_message" = "A réteg nem működik, mert nincs internet kapcsolat vagy gyenge a jel. A folytatáshoz ellenőrizze a kapcsolatot vagy kapcsolja ki a réteget.";
+
+"connection_error_dialog_guides_try" = "Próbálja újra";
+
+"connection_error_dialog_guides_layer_turn_off" = "Kapcsolja ki";
+
+"connection_error_toast_guides" = "Újracsatlakozás";
+
+"routes_card_show" = "Mutat";
+
+"routes_card_hide" = "Elrejt";
+
+"whatsnew_catalog_new_title" = "Új útmutatók katalógusa és több ezer utazási ötlet";
+
+"whatsnew_catalog_new_message" = "Frissítettük az útmutatók katalógusát és minden nyelven hozzáadtuk a fordításokat. Tervezze meg előre utazását!";
+
+"whatsnew_elevation_profile_title" = "Emelkedési profil az utazási útmutatókban";
+
+"whatsnew_elevation_profile_message" = "A kurzorral becsülje meg a közelgő offline felemelkedések és leereszkedések nehézségét a megvásárolt útvonal profiljában.";
+
+"whatsnew_guides_on_map_title" = "Új réteg az útmutatók egyszerű megtalálásához";
+
+"whatsnew_guides_on_map_message" = "Aktiválja az alkalmazás beállításai menüben a réteget, hogy gyorsan megtalálja az érdekes városi útvonalakat és a szabadtéri tevékenységek útmutatóit.";
+
+"downloader_updating_ios" = "Feltöltés";
+
+"downloader_loading_ios" = "Letöltés";
+
+"routes_card_plus_track" = "+ útvonal";
+
 
 /**********  Partners  **********/
 

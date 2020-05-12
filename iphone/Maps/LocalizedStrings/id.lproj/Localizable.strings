@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Panduan (baru)";
+
+"no_routes_in_the_area_toast" = "Tidak ada panduan yang ditemukan di sini";
+
+"isolines_toast_zooms_1-10" = "Perbesar untuk menjelajahi garis kontur";
+
+"routes_layer_in_menu_toast" = "Aktifkan lapisan untuk menemukan panduan offline, jelajahi garis kontur, jalur kereta bawah tanah atau kemacetan lalu lintas";
+
+"routes_layer_is_on_toast" = "Seret peta untuk menjelajahi panduan";
+
+"connection_error_dialog_guides_title" = "Kesalahan koneksi";
+
+"connection_error_dialog_guides_message" = "Lapisan tidak berfungsi karena tidak ada Internet atau sinyal lemah. Untuk terus bekerja, periksa koneksi atau matikan lapisan.";
+
+"connection_error_dialog_guides_try" = "Coba lagi";
+
+"connection_error_dialog_guides_layer_turn_off" = "Matikan";
+
+"connection_error_toast_guides" = "Mencoba menyambung kembali";
+
+"routes_card_show" = "Menampilkan";
+
+"routes_card_hide" = "Menyembunyikan";
+
+"whatsnew_catalog_new_title" = "Katalog panduan baru dan ribuan ide perjalanan";
+
+"whatsnew_catalog_new_message" = "Kami telah memperbarui katalog panduan dan menambahkan terjemahan dalam semua bahasa. Mulai perencanaan terlebih dahulu!";
+
+"whatsnew_elevation_profile_title" = "Profil elevasi dalam panduan perjalanan";
+
+"whatsnew_elevation_profile_message" = "Mengevaluasi kerumitan kenaikan dan penurunan offline yang akan datang dengan kursor di profil dari rute yang dibeli.";
+
+"whatsnew_guides_on_map_title" = "Lapisan baru untuk menemukan panduan dengan mudah";
+
+"whatsnew_guides_on_map_message" = "Aktifkan lapisan di menu pengaturan aplikasi untuk dengan cepat menemukan rute kota yang menarik dan panduan perjalanan untuk kegiatan di luar ruangan.";
+
+"downloader_updating_ios" = "Memperbarui";
+
+"downloader_loading_ios" = "Mengunduh";
+
+"routes_card_plus_track" = "+ lintasan";
+
 
 /**********  Partners  **********/
 

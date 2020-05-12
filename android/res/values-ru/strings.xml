@@ -1822,6 +1822,27 @@
 	<string name="hide_screen_map_update">Скрыть и продолжить работу</string>
 	<string name="view_on_map_downloaded_error">Этот путеводитель был удалён с устройства</string>
 	<string name="subscription">Подписка</string>
+	<string name="button_layer_guides">Путеводители (новинка)</string>
+	<string name="no_routes_in_the_area_toast">Здесь нет путеводителей</string>
+	<string name="isolines_toast_zooms_1-10">Увеличьте карту, чтобы увидеть изолинии</string>
+	<string name="routes_layer_in_menu_toast">Включайте слои, чтобы найти офлайн-путеводители, изучить изолинии, ветки метро или пробки</string>
+	<string name="routes_layer_is_on_toast">Передвигайте карту, чтобы найти путеводители</string>
+	<string name="connection_error_dialog_guides_title">Ошибка соединения</string>
+	<string name="connection_error_dialog_guides_message">Слой не работает, потому что нет интернета или слабый сигнал. Чтобы продолжить работу, проверьте подключение или выключите слой.</string>
+	<string name="connection_error_dialog_guides_try">Попробовать снова</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Выключить</string>
+	<string name="connection_error_toast_guides">Восстанавливаем соединение</string>
+	<string name="routes_card_show">Показать</string>
+	<string name="routes_card_hide">Скрыть</string>
+	<string name="whatsnew_catalog_new_title">Новый каталог и тысячи идей для отдыха</string>
+	<string name="whatsnew_catalog_new_message">Мы обновили каталог путеводителей и добавили переводы на все языки. Начните планировать заранее!</string>
+	<string name="whatsnew_elevation_profile_title">Профиль высот в путеводителях</string>
+	<string name="whatsnew_elevation_profile_message">Оценивайте сложность предстоящих подъемов и спусков офлайн с помощью курсора в профиле приобретенного маршрута.</string>
+	<string name="whatsnew_guides_on_map_title">Новый слой — путеводители на карте!</string>
+	<string name="whatsnew_guides_on_map_message">Активируйте слой в меню настроек приложения, чтобы быстро найти интересные городские маршруты и путеводители для активного отдыха.</string>
+	<string name="downloader_updating_ios">Обновление</string>
+	<string name="downloader_loading_ios">Загрузка</string>
+	<string name="routes_card_plus_track">+ трек</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

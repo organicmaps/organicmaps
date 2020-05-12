@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Guider (nyhet)";
+
+"no_routes_in_the_area_toast" = "Det finns inga guider här";
+
+"isolines_toast_zooms_1-10" = "Förstora kartan för att se isolinjer";
+
+"routes_layer_in_menu_toast" = "Slå på lager för att hitta offline-guider, utforska isolinjer, tunnelbanelinjer eller trafikstockningar";
+
+"routes_layer_is_on_toast" = "Flytta på kartan för att hitta guider";
+
+"connection_error_dialog_guides_title" = "Anslutningsfel";
+
+"connection_error_dialog_guides_message" = "Lagret fungerar inte eftersom det inte finns något internet eller signal är svag. För att fortsätta kontrollera anslutningen eller stäng av lagret.";
+
+"connection_error_dialog_guides_try" = "Försöka igen";
+
+"connection_error_dialog_guides_layer_turn_off" = "Stänga av";
+
+"connection_error_toast_guides" = "Vi återställer Internet-anslutningen";
+
+"routes_card_show" = "Visa";
+
+"routes_card_hide" = "Dölja";
+
+"whatsnew_catalog_new_title" = "En ny katalog och tusentals idéer för vila";
+
+"whatsnew_catalog_new_message" = "Vi har uppdaterat guidebok katalogen och lagt till översättningar till alla språk. Börja planera i förväg!";
+
+"whatsnew_elevation_profile_title" = "Terräng profil i guiderna";
+
+"whatsnew_elevation_profile_message" = "Utvärdera komplexitet för kommande stigningar och backar offline med hjälp av markören i profilen för den förvärvade rutten.";
+
+"whatsnew_guides_on_map_title" = "Nytt lager för att hitta guider enkelt!";
+
+"whatsnew_guides_on_map_message" = "Aktivera lagret i menyn för applikationsinställningar för att hitta snabbt intressanta stadsrutter och guider för utomhusaktiviteter.";
+
+"downloader_updating_ios" = "Uppdatering";
+
+"downloader_loading_ios" = "Nedladdning";
+
+"routes_card_plus_track" = "+ bana";
+
 
 /**********  Partners  **********/
 

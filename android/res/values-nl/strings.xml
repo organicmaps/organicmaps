@@ -1777,6 +1777,27 @@
 	<string name="hide_screen_map_update">Verbergen en doorgaan</string>
 	<string name="view_on_map_downloaded_error">Deze gids is van dit apparaat verwijderd</string>
 	<string name="subscription">Abonnement</string>
+	<string name="button_layer_guides">Gidsen (nieuw)</string>
+	<string name="no_routes_in_the_area_toast">Hier zijn geen gidsen</string>
+	<string name="isolines_toast_zooms_1-10">Zoom in om isolijnen te bekijken</string>
+	<string name="routes_layer_in_menu_toast">Schakel lagen in om offline gidsen te vinden, isolijnen, metrolijnen of verkeersopstoppingen vast te stellen</string>
+	<string name="routes_layer_is_on_toast">Versleep de kaart om gidsen te vinden</string>
+	<string name="connection_error_dialog_guides_title">Verbindingsfout</string>
+	<string name="connection_error_dialog_guides_message">De laag werkt niet omdat er geen internet of een zwak signaal is. Controleer de verbinding of schakel de laag uit om verder te kunnen werken.</string>
+	<string name="connection_error_dialog_guides_try">Opnieuw proberen</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Uitzetten</string>
+	<string name="connection_error_toast_guides">Opnieuw proberen verbinding te maken</string>
+	<string name="routes_card_show">Tonen</string>
+	<string name="routes_card_hide">Verbergen</string>
+	<string name="whatsnew_catalog_new_title">Nieuwe reisgidscatalogus en duizenden reisideeën</string>
+	<string name="whatsnew_catalog_new_message">We hebben de reisgidscatalogus bijgewerkt en vertalingen in alle talen toegevoegd. Begin vooruit te plannen!</string>
+	<string name="whatsnew_elevation_profile_title">Hoogteprofiel in reisgidsen</string>
+	<string name="whatsnew_elevation_profile_message">Evalueer de moeilijkheidsgraad van komende beklimmingen en afdalingen offline met de cursor in het profiel van de aangeschafte route.</string>
+	<string name="whatsnew_guides_on_map_title">Nieuwe laag om gemakkelijk gidsen te vinden</string>
+	<string name="whatsnew_guides_on_map_message">Activeer de laag in het menu met applicatie-instellingen om snel interessante stadsroutes en reisgidsen voor buitenactiviteiten te vinden.</string>
+	<string name="downloader_updating_ios">Updaten</string>
+	<string name="downloader_loading_ios">Downloaden</string>
+	<string name="routes_card_plus_track">+ route</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

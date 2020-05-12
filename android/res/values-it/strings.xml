@@ -1776,6 +1776,27 @@
 	<string name="hide_screen_map_update">Chiudi e prosegui</string>
 	<string name="view_on_map_downloaded_error">Questa guida è stata cancellata dal dispositivo</string>
 	<string name="subscription">Abbonamento</string>
+	<string name="button_layer_guides">Guide (novità)</string>
+	<string name="no_routes_in_the_area_toast">Non ci sono guide presenti</string>
+	<string name="isolines_toast_zooms_1-10">Ingrandisci mappa per vedere l\'isolinea</string>
+	<string name="routes_layer_in_menu_toast">Attiva la modalità per trovare guide offline, analizzare le linee isometriche, la metro e il traffico</string>
+	<string name="routes_layer_is_on_toast">Trascina la mappa per esplorare le guide</string>
+	<string name="connection_error_dialog_guides_title">Errore di connessione</string>
+	<string name="connection_error_dialog_guides_message">La modalità non funziona perché non è presente alcuna connessione alla rete o il segnale è troppo debole. Per continuare, controlla la connessione o disattiva la modalità.</string>
+	<string name="connection_error_dialog_guides_try">Riprova</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Disattiva</string>
+	<string name="connection_error_toast_guides">Tentativo di riconnessione in corso</string>
+	<string name="routes_card_show">Mostra</string>
+	<string name="routes_card_hide">Nascondi</string>
+	<string name="whatsnew_catalog_new_title">Nuovo catalogo guide e migliaia di idee per divertirsi</string>
+	<string name="whatsnew_catalog_new_message">Abbiamo aggiornato il nostro catalogo guide e abbiamo aggiunto traduzioni in tutte le lingue. Programma subito i tuoi viaggi!</string>
+	<string name="whatsnew_elevation_profile_title">Profilo altimetrico e guide</string>
+	<string name="whatsnew_elevation_profile_message">Valuta offline la difficoltà di ascesa e discesa grazie al cursore del profilo altimetrico del percorso acquistato.</string>
+	<string name="whatsnew_guides_on_map_title">Nuova modalità: guide sulla mappa!</string>
+	<string name="whatsnew_guides_on_map_message">Attiva questa modalità nel menu delle impostazione dell\'app per trovare velocemente percorsi cittadini interessanti e guide per sentieri nella natura.</string>
+	<string name="downloader_updating_ios">Aggiornamento in corso</string>
+	<string name="downloader_loading_ios">Caricamento</string>
+	<string name="routes_card_plus_track">+ sentieri</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

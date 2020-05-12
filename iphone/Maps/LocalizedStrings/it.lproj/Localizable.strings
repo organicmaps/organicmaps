@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Guide (novità)";
+
+"no_routes_in_the_area_toast" = "Non ci sono guide presenti";
+
+"isolines_toast_zooms_1-10" = "Ingrandisci mappa per vedere l'isolinea";
+
+"routes_layer_in_menu_toast" = "Attiva la modalità per trovare guide offline, analizzare le linee isometriche, la metro e il traffico";
+
+"routes_layer_is_on_toast" = "Trascina la mappa per esplorare le guide";
+
+"connection_error_dialog_guides_title" = "Errore di connessione";
+
+"connection_error_dialog_guides_message" = "La modalità non funziona perché non è presente alcuna connessione alla rete o il segnale è troppo debole. Per continuare, controlla la connessione o disattiva la modalità.";
+
+"connection_error_dialog_guides_try" = "Riprova";
+
+"connection_error_dialog_guides_layer_turn_off" = "Disattiva";
+
+"connection_error_toast_guides" = "Tentativo di riconnessione in corso";
+
+"routes_card_show" = "Mostra";
+
+"routes_card_hide" = "Nascondi";
+
+"whatsnew_catalog_new_title" = "Nuovo catalogo guide e migliaia di idee per divertirsi";
+
+"whatsnew_catalog_new_message" = "Abbiamo aggiornato il nostro catalogo guide e abbiamo aggiunto traduzioni in tutte le lingue. Programma subito i tuoi viaggi!";
+
+"whatsnew_elevation_profile_title" = "Profilo altimetrico e guide";
+
+"whatsnew_elevation_profile_message" = "Valuta offline la difficoltà di ascesa e discesa grazie al cursore del profilo altimetrico del percorso acquistato.";
+
+"whatsnew_guides_on_map_title" = "Nuova modalità: guide sulla mappa!";
+
+"whatsnew_guides_on_map_message" = "Attiva questa modalità nel menu delle impostazione dell'app per trovare velocemente percorsi cittadini interessanti e guide per sentieri nella natura.";
+
+"downloader_updating_ios" = "Aggiornamento in corso";
+
+"downloader_loading_ios" = "Caricamento";
+
+"routes_card_plus_track" = "+ sentieri";
+
 
 /**********  Partners  **********/
 

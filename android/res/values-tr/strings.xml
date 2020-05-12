@@ -1781,6 +1781,27 @@
 	<string name="hide_screen_map_update">Gizle ve devam et</string>
 	<string name="view_on_map_downloaded_error">Bu rehber cihazdan kaldırıldı</string>
 	<string name="subscription">Abone</string>
+	<string name="button_layer_guides">Rehberler (yeni)</string>
+	<string name="no_routes_in_the_area_toast">Burada seyahat rehberi yok</string>
+	<string name="isolines_toast_zooms_1-10">Konturları görmek için haritayı büyütün</string>
+	<string name="routes_layer_in_menu_toast">Çevrimdışı rehberleri bulmak, konturları, metro hatlarını veya trafik sıkışıklıklarını keşfetmek için katmanları çevirin</string>
+	<string name="routes_layer_is_on_toast">Rehberleri bulmak için haritayı hareket ettirin</string>
+	<string name="connection_error_dialog_guides_title">Bağlantı hatası</string>
+	<string name="connection_error_dialog_guides_message">Katman çalışmıyor çünkü internet yok veya sinyal zayıf. Devam etmek için bağlantıyı kontrol edin veya katmanı kapatın.</string>
+	<string name="connection_error_dialog_guides_try">Tekrar deneyin</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Kapat</string>
+	<string name="connection_error_toast_guides">İnternete yeniden bağlanıyoruz</string>
+	<string name="routes_card_show">Göster</string>
+	<string name="routes_card_hide">Gizle</string>
+	<string name="whatsnew_catalog_new_title">Yeni bir katalog ve binlerce tatil fikri</string>
+	<string name="whatsnew_catalog_new_message">Rehberlerin kataloğunu güncelledik ve tüm dillere çeviriler ekledik. Planlamanızı önceden yapmaya başlayın!</string>
+	<string name="whatsnew_elevation_profile_title">Rehberlerde yükseklik profili</string>
+	<string name="whatsnew_elevation_profile_message">Satın alınan rotanın profilindeki imleci kullanarak, yaklaşan yükselişlerin ve inişlerin zorluk derecesini çevrimdışı olarak değerlendirin.</string>
+	<string name="whatsnew_guides_on_map_title">Rehberleri kolayca bulmak için yeni katman!</string>
+	<string name="whatsnew_guides_on_map_message">Açık hava etkinlikleri için ilginç şehir rotalarını ve seyahat rehberlerini hızlı bir şekilde bulmak için uygulamanın ayarlar menüsündeki katmanı etkinleştirin.</string>
+	<string name="downloader_updating_ios">Güncelleme</string>
+	<string name="downloader_loading_ios">İndir</string>
+	<string name="routes_card_plus_track">+ rota</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

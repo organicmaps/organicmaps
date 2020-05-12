@@ -1669,6 +1669,27 @@
 	<string name="hide_screen_map_update">Skjul og fortsett med appen</string>
 	<string name="view_on_map_downloaded_error">Denne guiden har blitt fjernet fra enheten</string>
 	<string name="subscription">Abonnement</string>
+	<string name="button_layer_guides">Guider (nyhet)</string>
+	<string name="no_routes_in_the_area_toast">Det er ingen guider her</string>
+	<string name="isolines_toast_zooms_1-10">Forstørr kartet for å se høydekurver</string>
+	<string name="routes_layer_in_menu_toast">Slå på lag for å finne offline-guider, utforske høydekurver, T-banelinjer eller biltrafikk</string>
+	<string name="routes_layer_is_on_toast">Dra kart for å finne guidene</string>
+	<string name="connection_error_dialog_guides_title">Tilkoblingsfeil</string>
+	<string name="connection_error_dialog_guides_message">Laget fungerer ikke fordi det magler internettilkoblingen eller signalet er dårlig. For å fortsette, sjekk tilkoblingen eller slå av laget.</string>
+	<string name="connection_error_dialog_guides_try">Prøve på nytt</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Slå av</string>
+	<string name="connection_error_toast_guides">Prøver å koble til på nytt</string>
+	<string name="routes_card_show">Vise</string>
+	<string name="routes_card_hide">Skjule</string>
+	<string name="whatsnew_catalog_new_title">Ny katalog med tusenvis av ferieideer</string>
+	<string name="whatsnew_catalog_new_message">Vi har oppdatert guidekatalogen vår og lagt til oversettelser til alle språk. Begynn å planlegge på forhånd!</string>
+	<string name="whatsnew_elevation_profile_title">Høydeprofil i guidene</string>
+	<string name="whatsnew_elevation_profile_message">Evaluer vanskeligheten til kommende oppstigninger og nedstigninger uten nett med markøren i profilen til den kjøpte ruten.</string>
+	<string name="whatsnew_guides_on_map_title">Nytt lag - guider på kartet!</string>
+	<string name="whatsnew_guides_on_map_message">Aktiver laget i applikasjonsinnstillingsmenyen for å finne interessante byruter og reiseguider for friluftsliv raskt.</string>
+	<string name="downloader_updating_ios">Oppdatering</string>
+	<string name="downloader_loading_ios">Nedlasting</string>
+	<string name="routes_card_plus_track">+ spor</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

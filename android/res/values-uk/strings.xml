@@ -1782,6 +1782,27 @@
 	<string name="hide_screen_map_update">Приховати та поновити роботу</string>
 	<string name="view_on_map_downloaded_error">Цей путівник видалили з пристрою</string>
 	<string name="subscription">Передплата</string>
+	<string name="button_layer_guides">Путівники (новинка)</string>
+	<string name="no_routes_in_the_area_toast">Тут немає путівників</string>
+	<string name="isolines_toast_zooms_1-10">Збільште карту, щоб побачити ізолінії</string>
+	<string name="routes_layer_in_menu_toast">Вмикайте шари, щоб знайти офлайн-путівники, вивчити ізолінії, гілки метро чи пробки</string>
+	<string name="routes_layer_is_on_toast">Пересувайте карту, щоб знайти путівники</string>
+	<string name="connection_error_dialog_guides_title">Помилка з’єднання</string>
+	<string name="connection_error_dialog_guides_message">Шар не працює, тому що немає Інтернету чи слабкий сигнал. Щоб продовжити роботу, перевірте з’єднання чи вимкніть шар.</string>
+	<string name="connection_error_dialog_guides_try">Спробувати ще раз</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Вимкнути</string>
+	<string name="connection_error_toast_guides">Відновлюємо з’єднання з Інтернетом</string>
+	<string name="routes_card_show">Показати</string>
+	<string name="routes_card_hide">Приховати</string>
+	<string name="whatsnew_catalog_new_title">Новий каталог і тисячі ідей для відпочинку</string>
+	<string name="whatsnew_catalog_new_message">Ми оновили каталог путівників і додали переклади на всі мови. Почніть планувати заздалегідь!</string>
+	<string name="whatsnew_elevation_profile_title">Профіль висот у путівниках</string>
+	<string name="whatsnew_elevation_profile_message">Оцінюйте складність майбутніх підйомів і спусків офлайн за допомогою курсору в профілі придбаного маршруту.</string>
+	<string name="whatsnew_guides_on_map_title">Новий шар — путівники на карті!</string>
+	<string name="whatsnew_guides_on_map_message">Активуйте шар у меню налаштувань додатку, щоб швидко знайти цікаві міські маршрути та путівники для активного відпочинку.</string>
+	<string name="downloader_updating_ios">Оновлення</string>
+	<string name="downloader_loading_ios">Завантаження</string>
+	<string name="routes_card_plus_track">+ трек</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

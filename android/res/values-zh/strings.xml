@@ -1774,6 +1774,27 @@
 	<string name="hide_screen_map_update">隐藏并继续</string>
 	<string name="view_on_map_downloaded_error">该指南已从设备中删除</string>
 	<string name="subscription">订阅</string>
+	<string name="button_layer_guides">指南（新）</string>
+	<string name="no_routes_in_the_area_toast">这里没有指南</string>
+	<string name="isolines_toast_zooms_1-10">放大地图以查看等高线</string>
+	<string name="routes_layer_in_menu_toast">打开图层以查找离线指南，查看等值线，地铁线路或交通拥堵状况</string>
+	<string name="routes_layer_is_on_toast">移动地图以查找指南</string>
+	<string name="connection_error_dialog_guides_title">连接错误</string>
+	<string name="connection_error_dialog_guides_message">图层无法加载，因为没有网络或信号较弱。如要继续，请检查连接或关闭图层。</string>
+	<string name="connection_error_dialog_guides_try">再试一次</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">关闭</string>
+	<string name="connection_error_toast_guides">恢复网络连接</string>
+	<string name="routes_card_show">显示</string>
+	<string name="routes_card_hide">隐藏</string>
+	<string name="whatsnew_catalog_new_title">新目录和数千个理想度假胜地</string>
+	<string name="whatsnew_catalog_new_message">我们更新了指南目录，并添加了所有语言的翻译。开始提前计划！</string>
+	<string name="whatsnew_elevation_profile_title">指导中的高度剖面图</string>
+	<string name="whatsnew_elevation_profile_message">使用所获取路线中的光标离线评估即将遇到的上坡和下坡的难度。</string>
+	<string name="whatsnew_guides_on_map_title">新图层—地图上的指南！</string>
+	<string name="whatsnew_guides_on_map_message">激活应用程序设置菜单中的图层，以快速找到有趣的城市路线和户外活动指南。</string>
+	<string name="downloader_updating_ios">更新</string>
+	<string name="downloader_loading_ios">加载</string>
+	<string name="routes_card_plus_track">+路线</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

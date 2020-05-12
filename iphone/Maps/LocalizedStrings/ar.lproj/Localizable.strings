@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "الأدلة (جديد)";
+
+"no_routes_in_the_area_toast" = "لم يتم العثور على أدلة هنا";
+
+"isolines_toast_zooms_1-10" = "قرب لتكتشف خطوط الكنتور";
+
+"routes_layer_in_menu_toast" = "قم بتشغيل الطبقات لتجد أدلة بدون اتصال بالانترنت، وتستعرض خطوط الكنتور، ومسارات المترو، والاختناقات المرورية";
+
+"routes_layer_is_on_toast" = "اسحب الخريطة لاستعراض الأدلة";
+
+"connection_error_dialog_guides_title" = "خطأ في الاتصال";
+
+"connection_error_dialog_guides_message" = "الطبقة لا تعمل بسبب عدم وجود إنترنت أو أن الإشارة ضعيفة. للمتابعة، تحقق من الاتصال أو أوقف تشغيل الطبقة.";
+
+"connection_error_dialog_guides_try" = "أعد المحاولة";
+
+"connection_error_dialog_guides_layer_turn_off" = "إيقاف التشغيل";
+
+"connection_error_toast_guides" = "محاولة إعادة الاتصال";
+
+"routes_card_show" = "عرض";
+
+"routes_card_hide" = "إخفاء";
+
+"whatsnew_catalog_new_title" = "قائمة أدلة جديدة والآلاف من أفكار السفر";
+
+"whatsnew_catalog_new_message" = "لقد قمنا بتحديث قائمة الأدلة وإضافة ترجمات بكل اللغات. ابدأ بتخطيط سفرك مسبقًا!";
+
+"whatsnew_elevation_profile_title" = "ملف تحديد الارتفاع في أدلة السفر";
+
+"whatsnew_elevation_profile_message" = "قم بتقييم درجة صعوبة الصعود والهبوط التاليين دون اتصال باستخدام المؤشر في الملف الخاص بالمسار الذي تم شراؤه.";
+
+"whatsnew_guides_on_map_title" = "طبقة جديدة للعثور على الأدلة بسهولة";
+
+"whatsnew_guides_on_map_message" = "قم بتنشيط الطبقة في قائمة إعدادات التطبيق للعثور على مسارات المدينة المثيرة للاهتمام وأدلة السفر الخاصة بالأنشطة الخارجية بسرعة.";
+
+"downloader_updating_ios" = "جار التحديث";
+
+"downloader_loading_ios" = "جار التحميل";
+
+"routes_card_plus_track" = "+ مسار";
+
 
 /**********  Partners  **********/
 

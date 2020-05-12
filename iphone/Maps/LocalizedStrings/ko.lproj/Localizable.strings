@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "가이드 (new)";
+
+"no_routes_in_the_area_toast" = "여기서 찾은 가이드가 없습니다";
+
+"isolines_toast_zooms_1-10" = "등치선 탐색을 위한 확대";
+
+"routes_layer_in_menu_toast" = "오프라인 가이드 찾기 및 등치선, 지하철 노선 또는 교통 체증 탐색을 위해 레이어를 키세요";
+
+"routes_layer_is_on_toast" = "맵을 드래그하여 가이드를 탐험하세요";
+
+"connection_error_dialog_guides_title" = "연결 오류";
+
+"connection_error_dialog_guides_message" = "인터넷 연결이 되지 않았거나 신호가 약해서 레이어가 작동하지 않습니다. 계속하시려면 연결을 확인하시거나 레이어 기능을 끄십시오.";
+
+"connection_error_dialog_guides_try" = "재시도하기";
+
+"connection_error_dialog_guides_layer_turn_off" = "끄기";
+
+"connection_error_toast_guides" = "재연결 시도하기";
+
+"routes_card_show" = "보기";
+
+"routes_card_hide" = "숨기기";
+
+"whatsnew_catalog_new_title" = "새로운 가이드 카탈로그와 수 많은 여행 아이디어";
+
+"whatsnew_catalog_new_message" = "가이드 카탈로그를 업데이트했고 모든 언어로 된 번역본을 추가했습니다. 미리 여행 계획을 짜보세요!";
+
+"whatsnew_elevation_profile_title" = "여행 가이드의 고도 단면도";
+
+"whatsnew_elevation_profile_message" = "구매한 경로의 프로필에 커서를 두고 곧 있을 오프라인 올라가기 및 내려가기의 어려움을 평가합니다.";
+
+"whatsnew_guides_on_map_title" = "가이드를 쉽게 찾을 수 있는 새로운 레이어";
+
+"whatsnew_guides_on_map_message" = "애플리케이션 설정 메뉴에서 레이어를 활성화하여 야외 활동을 위한 흥미로운 도시 경로 및 여행 가이드를 신속하게 찾을 수 있습니다.";
+
+"downloader_updating_ios" = "업데이트 중";
+
+"downloader_loading_ios" = "다운로드 중";
+
+"routes_card_plus_track" = "+ 경로";
+
 
 /**********  Partners  **********/
 

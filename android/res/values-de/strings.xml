@@ -1784,6 +1784,27 @@
 	<string name="hide_screen_map_update">Ausblenden und Fortsetzen</string>
 	<string name="view_on_map_downloaded_error">Dieser Reiseführer wurde vom Gerät gelöscht</string>
 	<string name="subscription">Abo</string>
+	<string name="button_layer_guides">Reiseführer (Neu)</string>
+	<string name="no_routes_in_the_area_toast">Hier sind keine Reiseführer vorhanden</string>
+	<string name="isolines_toast_zooms_1-10">Karte vergrößern, um Isolinien zu sehen</string>
+	<string name="routes_layer_in_menu_toast">Aktivieren Sie den Layer Schichten, um Offline-Reiseführer zu finden, Isolinien, U-Bahnzweige oder Staus zu sehen</string>
+	<string name="routes_layer_is_on_toast">Bewegen Sie die Karte, um die Reiseführer zu finden</string>
+	<string name="connection_error_dialog_guides_title">Netzwerkverbindungsfehler</string>
+	<string name="connection_error_dialog_guides_message">Die Schicht wird nicht angezeigt, da keine Internetverbindung aufgebaut wurde oder das Signal zu schwach ist. Überprüfen Sie die Verbindung oder deaktivieren Sie die Schicht.</string>
+	<string name="connection_error_dialog_guides_try">Noch einmal versuchen</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Deaktivieren</string>
+	<string name="connection_error_toast_guides">Die Internetverbindung wird hergestellt</string>
+	<string name="routes_card_show">Einblenden</string>
+	<string name="routes_card_hide">Ausblenden</string>
+	<string name="whatsnew_catalog_new_title">Neuer Katalog und tausende Erholungsideen</string>
+	<string name="whatsnew_catalog_new_message">Wir haben das Reiseführerkatalog upgedatet und Übersetzungen in alle Sprachen hinzugefügt. Beginnen Sie im Voraus zu planen!</string>
+	<string name="whatsnew_elevation_profile_title">Höhenprofil in den Reiseführern</string>
+	<string name="whatsnew_elevation_profile_message">Bewerten Sie den Schwierigkeitsgrad des bevorstehenden Bergaufs und Bergabs offline per Kursor im Profil der erworbenen Route.</string>
+	<string name="whatsnew_guides_on_map_title">Eine neue Schicht sind die Reiseführer auf der Karte!</string>
+	<string name="whatsnew_guides_on_map_message">Aktivieren Sie die Schicht im Einstellungsmenü der App, um schnell interessante Stadtrouten und Reiseführer für aktive Erholung zu finden.</string>
+	<string name="downloader_updating_ios">Update</string>
+	<string name="downloader_loading_ios">Download</string>
+	<string name="routes_card_plus_track">+ Wanderweg</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

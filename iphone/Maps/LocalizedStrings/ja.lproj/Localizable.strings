@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "ガイド(新)";
+
+"no_routes_in_the_area_toast" = "ここではガイドが見つかりませんでした";
+
+"isolines_toast_zooms_1-10" = "等高線を調べるためにズームインしましょう";
+
+"routes_layer_in_menu_toast" = "オフラインのガイドを検索したり、等高線や、地下鉄、交通渋滞を調べるたりするためにレイヤーを有効化しましょう";
+
+"routes_layer_is_on_toast" = "ガイドを調べるにはマップをドラッグしてください";
+
+"connection_error_dialog_guides_title" = "接続エラー";
+
+"connection_error_dialog_guides_message" = "このレイヤーはインターネット接続がないため、もしくはシグナルが弱いために利用できません。継続して使用するには、インターネット接続を確認するか、レイヤーを無効化してください。";
+
+"connection_error_dialog_guides_try" = "もう一度お試しください";
+
+"connection_error_dialog_guides_layer_turn_off" = "無効化";
+
+"connection_error_toast_guides" = "再接続を試しています";
+
+"routes_card_show" = "表示";
+
+"routes_card_hide" = "非表示";
+
+"whatsnew_catalog_new_title" = "新しいガイドのカタログと数千の旅行アイディア";
+
+"whatsnew_catalog_new_message" = "ガイドのカタログが更新され、全ての言語に翻訳が追加されました。事前に計画を立てましょう！";
+
+"whatsnew_elevation_profile_title" = "旅行ガイドの標高情報";
+
+"whatsnew_elevation_profile_message" = "購入したルートのプロフィールでカーソルを使って今後のオフラインの上昇と下降の難易度を調べましょう。";
+
+"whatsnew_guides_on_map_title" = "簡単にガイドをみつけるための新しいレイヤー";
+
+"whatsnew_guides_on_map_message" = "興味深い都市ルートとアウトドア活動のための旅行ガイドを素早くみつけるためにアプリの設定メニューでレイヤーを有効化しましょう。";
+
+"downloader_updating_ios" = "更新中";
+
+"downloader_loading_ios" = "ダウンロード中";
+
+"routes_card_plus_track" = "+トラック";
+
 
 /**********  Partners  **********/
 

@@ -1781,6 +1781,27 @@
 	<string name="hide_screen_map_update">إخفاء ومتابعة</string>
 	<string name="view_on_map_downloaded_error">تم حذف هذا الدليل من هذا الجهاز</string>
 	<string name="subscription">الاشتراك</string>
+	<string name="button_layer_guides">الأدلة (جديد)</string>
+	<string name="no_routes_in_the_area_toast">لم يتم العثور على أدلة هنا</string>
+	<string name="isolines_toast_zooms_1-10">قرب لتكتشف خطوط الكنتور</string>
+	<string name="routes_layer_in_menu_toast">قم بتشغيل الطبقات لتجد أدلة بدون اتصال بالانترنت، وتستعرض خطوط الكنتور، ومسارات المترو، والاختناقات المرورية</string>
+	<string name="routes_layer_is_on_toast">اسحب الخريطة لاستعراض الأدلة</string>
+	<string name="connection_error_dialog_guides_title">خطأ في الاتصال</string>
+	<string name="connection_error_dialog_guides_message">الطبقة لا تعمل بسبب عدم وجود إنترنت أو أن الإشارة ضعيفة. للمتابعة، تحقق من الاتصال أو أوقف تشغيل الطبقة.</string>
+	<string name="connection_error_dialog_guides_try">أعد المحاولة</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">إيقاف التشغيل</string>
+	<string name="connection_error_toast_guides">محاولة إعادة الاتصال</string>
+	<string name="routes_card_show">عرض</string>
+	<string name="routes_card_hide">إخفاء</string>
+	<string name="whatsnew_catalog_new_title">قائمة أدلة جديدة والآلاف من أفكار السفر</string>
+	<string name="whatsnew_catalog_new_message">لقد قمنا بتحديث قائمة الأدلة وإضافة ترجمات بكل اللغات. ابدأ بتخطيط سفرك مسبقًا!</string>
+	<string name="whatsnew_elevation_profile_title">ملف تحديد الارتفاع في أدلة السفر</string>
+	<string name="whatsnew_elevation_profile_message">قم بتقييم درجة صعوبة الصعود والهبوط التاليين دون اتصال باستخدام المؤشر في الملف الخاص بالمسار الذي تم شراؤه.</string>
+	<string name="whatsnew_guides_on_map_title">طبقة جديدة للعثور على الأدلة بسهولة</string>
+	<string name="whatsnew_guides_on_map_message">قم بتنشيط الطبقة في قائمة إعدادات التطبيق للعثور على مسارات المدينة المثيرة للاهتمام وأدلة السفر الخاصة بالأنشطة الخارجية بسرعة.</string>
+	<string name="downloader_updating_ios">جار التحديث</string>
+	<string name="downloader_loading_ios">جار التحميل</string>
+	<string name="routes_card_plus_track">+ مسار</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

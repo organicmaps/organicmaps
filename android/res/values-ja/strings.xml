@@ -1769,6 +1769,27 @@
 	<string name="hide_screen_map_update">閉じて継続</string>
 	<string name="view_on_map_downloaded_error">このガイドはこの機器から削除されました</string>
 	<string name="subscription">サブスクリプション</string>
+	<string name="button_layer_guides">ガイド(新)</string>
+	<string name="no_routes_in_the_area_toast">ここではガイドが見つかりませんでした</string>
+	<string name="isolines_toast_zooms_1-10">等高線を調べるためにズームインしましょう</string>
+	<string name="routes_layer_in_menu_toast">オフラインのガイドを検索したり、等高線や、地下鉄、交通渋滞を調べるたりするためにレイヤーを有効化しましょう</string>
+	<string name="routes_layer_is_on_toast">ガイドを調べるにはマップをドラッグしてください</string>
+	<string name="connection_error_dialog_guides_title">接続エラー</string>
+	<string name="connection_error_dialog_guides_message">このレイヤーはインターネット接続がないため、もしくはシグナルが弱いために利用できません。継続して使用するには、インターネット接続を確認するか、レイヤーを無効化してください。</string>
+	<string name="connection_error_dialog_guides_try">もう一度お試しください</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">無効化</string>
+	<string name="connection_error_toast_guides">再接続を試しています</string>
+	<string name="routes_card_show">表示</string>
+	<string name="routes_card_hide">非表示</string>
+	<string name="whatsnew_catalog_new_title">新しいガイドのカタログと数千の旅行アイディア</string>
+	<string name="whatsnew_catalog_new_message">ガイドのカタログが更新され、全ての言語に翻訳が追加されました。事前に計画を立てましょう！</string>
+	<string name="whatsnew_elevation_profile_title">旅行ガイドの標高情報</string>
+	<string name="whatsnew_elevation_profile_message">購入したルートのプロフィールでカーソルを使って今後のオフラインの上昇と下降の難易度を調べましょう。</string>
+	<string name="whatsnew_guides_on_map_title">簡単にガイドをみつけるための新しいレイヤー</string>
+	<string name="whatsnew_guides_on_map_message">興味深い都市ルートとアウトドア活動のための旅行ガイドを素早くみつけるためにアプリの設定メニューでレイヤーを有効化しましょう。</string>
+	<string name="downloader_updating_ios">更新中</string>
+	<string name="downloader_loading_ios">ダウンロード中</string>
+	<string name="routes_card_plus_track">+トラック</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

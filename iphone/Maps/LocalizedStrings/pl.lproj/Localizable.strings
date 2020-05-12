@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Przewodniki (nowe)";
+
+"no_routes_in_the_area_toast" = "Tutaj nie znaleziono przewodników";
+
+"isolines_toast_zooms_1-10" = "Powiększ mapę, aby zobaczyć izolinie";
+
+"routes_layer_in_menu_toast" = "Włącz warstwy, aby znaleźć przewodniki offline, odkrywać izolinie, linie metra lub korki";
+
+"routes_layer_is_on_toast" = "Przeciągaj mapę, aby znaleźć przewodniki";
+
+"connection_error_dialog_guides_title" = "Błąd połączenia";
+
+"connection_error_dialog_guides_message" = "Warstwa nie działa, ponieważ brak połączenia z Internetem lub zbyt słaby sygnał. Aby kontynuować pracę, sprawdź połączenie lub wyłącz warstwę.";
+
+"connection_error_dialog_guides_try" = "Spróbuj ponownie";
+
+"connection_error_dialog_guides_layer_turn_off" = "Wyłącz";
+
+"connection_error_toast_guides" = "Próbujemy połączyć się ponownie";
+
+"routes_card_show" = "Pokaż";
+
+"routes_card_hide" = "Ukryj";
+
+"whatsnew_catalog_new_title" = "Nowy katalog przewodników i tysiące pomysłów na podróż";
+
+"whatsnew_catalog_new_message" = "Zaktualizowaliśmy katalog przewodników i dodaliśmy tłumaczenia we wszystkich językach. Zacznij planować z wyprzedzeniem!";
+
+"whatsnew_elevation_profile_title" = "Profil wysokości w przewodnikach";
+
+"whatsnew_elevation_profile_message" = "Oceń złożoność nadchodzących zjazdów i zejść offline za pomocą kursora w profilu zakupionej trasy.";
+
+"whatsnew_guides_on_map_title" = "Nowa warstwa — przewodniki na mapie!";
+
+"whatsnew_guides_on_map_message" = "Aktywuj warstwę w menu ustawień aplikacji, aby szybko znaleźć ciekawe trasy miejskie i przewodniki do aktywnego wypoczynku.";
+
+"downloader_updating_ios" = "Aktualizacja";
+
+"downloader_loading_ios" = "Pobieranie";
+
+"routes_card_plus_track" = "+ trasa";
+
 
 /**********  Partners  **********/
 

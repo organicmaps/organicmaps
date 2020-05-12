@@ -1766,6 +1766,27 @@
 	<string name="hide_screen_map_update">Thu gọn và tiếp tục thao tác với ứng dụng</string>
 	<string name="view_on_map_downloaded_error">Hướng dẫn này đã được xóa khỏi thiết bị</string>
 	<string name="subscription">Đăng ký</string>
+	<string name="button_layer_guides">Hướng dẫn (mới)</string>
+	<string name="no_routes_in_the_area_toast">Ở đây không có hướng dẫn</string>
+	<string name="isolines_toast_zooms_1-10">Phóng bản đồ để nhìn rõ đường đồng mức</string>
+	<string name="routes_layer_in_menu_toast">Hãy bật các lớp để tìm kiếm hướng dẫn ngoại tuyến, xem xét đường đồng mức, các nhánh metro hay điểm tắc nghẽn giao thông</string>
+	<string name="routes_layer_is_on_toast">Di chuyển bản đồ để tìm hướng dẫn</string>
+	<string name="connection_error_dialog_guides_title">Lỗi kết nối internet</string>
+	<string name="connection_error_dialog_guides_message">Lớp bản đồ không hoạt động vì không có internet hoặc tín hiệu yếu. Để tiếp tục, hãy bật kết nối hoặc tắt lớp.</string>
+	<string name="connection_error_dialog_guides_try">Thử lại lần nữa</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Tắt</string>
+	<string name="connection_error_toast_guides">Chúng tôi đang khôi phục kết nối internet</string>
+	<string name="routes_card_show">Hiển thị</string>
+	<string name="routes_card_hide">Ẩn</string>
+	<string name="whatsnew_catalog_new_title">Danh mục mới và hàng nghìn ý tưởng cho kỳ nghỉ</string>
+	<string name="whatsnew_catalog_new_message">Chúng tôi đã cập nhật danh mục hướng dẫn và bổ sung phần dịch sang tất cả các ngôn ngữ. Hãy lên kế hoạch sớm nào!</string>
+	<string name="whatsnew_elevation_profile_title">Hồ sơ độ cao trong các hướng dẫn</string>
+	<string name="whatsnew_elevation_profile_message">Hãy đánh giá độ khó khi sắp tới điểm đi lên và đi xuống ngoại tuyến bằng cách sử dụng con trỏ trong hồ sơ của tuyến đường đã mua.</string>
+	<string name="whatsnew_guides_on_map_title">Lớp bản đồ mới giúp tìm hướng dẫn dễ dàng!</string>
+	<string name="whatsnew_guides_on_map_message">Kích hoạt lớp bản đồ trong menu cài đặt ứng dụng để nhanh chóng tìm thấy các tuyến đường thành phố thú vị và hướng dẫn du lịch cho các hoạt động ngoài trời.</string>
+	<string name="downloader_updating_ios">Cập nhật</string>
+	<string name="downloader_loading_ios">Tải xuống</string>
+	<string name="routes_card_plus_track">+ tuyến đường</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

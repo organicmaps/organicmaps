@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "راهنماها (جدید)";
+
+"no_routes_in_the_area_toast" = "راهنمایی در اینجا یافت نشد";
+
+"isolines_toast_zooms_1-10" = "برای بررسی خطوط تراز زوم کنید";
+
+"routes_layer_in_menu_toast" = "برای یافتن راهنمای آفلاین، بررسی خطوط تراز، خطوط مترو یا تراکم رفت و آمد لایه ها را روشن کنید";
+
+"routes_layer_is_on_toast" = "برای بررسی راهنما نقشه را حرکت دهید";
+
+"connection_error_dialog_guides_title" = "خطای ارتباط";
+
+"connection_error_dialog_guides_message" = "لایه به دلیل نبود اینترنت یا سیگنال ضعیف کار نمی کند. برای ادامه کار ارتباط را بررسی کنید یا لایه را خاموش نمایید.";
+
+"connection_error_dialog_guides_try" = "دوباره تلاش کنید";
+
+"connection_error_dialog_guides_layer_turn_off" = "خاموش";
+
+"connection_error_toast_guides" = "در حال برقراری مجدد ارتباط";
+
+"routes_card_show" = "نمایش دادن";
+
+"routes_card_hide" = "پنهان سازی";
+
+"whatsnew_catalog_new_title" = "کاتالوگ راهنما های جدید و هزاران ایده سفر";
+
+"whatsnew_catalog_new_message" = "ما کاتالوگ راهنما را به روزرسانی کرده ایم و ترجمه تمامی زبان ها را افزوده ایم. از پیش برنامه ریزی کنید!";
+
+"whatsnew_elevation_profile_title" = "پروفایل ارتفاع در راهنمای سفر";
+
+"whatsnew_elevation_profile_message" = "پیچیدگی بالا رفتن ها و پایین آمدن های آفلاین بعدی را در پروفایل مسیرهای خریداری شده به وسیله مکان نما ارزیابی کنید.";
+
+"whatsnew_guides_on_map_title" = "لایه جدید برای یافتن آسان راهنما";
+
+"whatsnew_guides_on_map_message" = "در فهرست تنظیمات برنامه لایه را فعال کنید تا به سرعت مسیرهای جذاب شهری و راهنما های مسافرت برای فعالیت های فضای باز را پیدا کنید.";
+
+"downloader_updating_ios" = "در حال بروزرسانی";
+
+"downloader_loading_ios" = "در حال دانلود";
+
+"routes_card_plus_track" = "+ مسیر";
+
 
 /**********  Partners  **********/
 

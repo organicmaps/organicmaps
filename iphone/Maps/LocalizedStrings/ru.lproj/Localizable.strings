@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Путеводители (новинка)";
+
+"no_routes_in_the_area_toast" = "Здесь нет путеводителей";
+
+"isolines_toast_zooms_1-10" = "Увеличьте карту, чтобы увидеть изолинии";
+
+"routes_layer_in_menu_toast" = "Включайте слои, чтобы найти офлайн-путеводители, изучить изолинии, ветки метро или пробки";
+
+"routes_layer_is_on_toast" = "Передвигайте карту, чтобы найти путеводители";
+
+"connection_error_dialog_guides_title" = "Ошибка соединения";
+
+"connection_error_dialog_guides_message" = "Слой не работает, потому что нет интернета или слабый сигнал. Чтобы продолжить работу, проверьте подключение или выключите слой.";
+
+"connection_error_dialog_guides_try" = "Попробовать снова";
+
+"connection_error_dialog_guides_layer_turn_off" = "Выключить";
+
+"connection_error_toast_guides" = "Восстанавливаем соединение";
+
+"routes_card_show" = "Показать";
+
+"routes_card_hide" = "Скрыть";
+
+"whatsnew_catalog_new_title" = "Новый каталог и тысячи идей для отдыха";
+
+"whatsnew_catalog_new_message" = "Мы обновили каталог путеводителей и добавили переводы на все языки. Начните планировать заранее!";
+
+"whatsnew_elevation_profile_title" = "Профиль высот в путеводителях";
+
+"whatsnew_elevation_profile_message" = "Оценивайте сложность предстоящих подъемов и спусков офлайн с помощью курсора в профиле приобретенного маршрута.";
+
+"whatsnew_guides_on_map_title" = "Новый слой — путеводители на карте!";
+
+"whatsnew_guides_on_map_message" = "Активируйте слой в меню настроек приложения, чтобы быстро найти интересные городские маршруты и путеводители для активного отдыха.";
+
+"downloader_updating_ios" = "Обновление";
+
+"downloader_loading_ios" = "Загрузка";
+
+"routes_card_plus_track" = "+ трек";
+
 
 /**********  Partners  **********/
 

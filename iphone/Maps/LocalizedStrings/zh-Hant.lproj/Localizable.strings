@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "指南（新）";
+
+"no_routes_in_the_area_toast" = "這裡沒有指南";
+
+"isolines_toast_zooms_1-10" = "放大地圖以查看等高線";
+
+"routes_layer_in_menu_toast" = "打開圖層以查找離線指南，查看等值線，地鐵線路或交通擁堵狀況";
+
+"routes_layer_is_on_toast" = "移動地圖以尋找指南";
+
+"connection_error_dialog_guides_title" = "連接錯誤";
+
+"connection_error_dialog_guides_message" = "本身無法加載，因為沒有網絡或信號較弱。如要繼續，請檢查連接或關閉位置。";
+
+"connection_error_dialog_guides_try" = "再試一次";
+
+"connection_error_dialog_guides_layer_turn_off" = "關閉";
+
+"connection_error_toast_guides" = "恢復網絡連接";
+
+"routes_card_show" = "顯示";
+
+"routes_card_hide" = "隱藏";
+
+"whatsnew_catalog_new_title" = "新目錄和數千個理想度假勝地";
+
+"whatsnew_catalog_new_message" = "我們更新了指南目錄，並添加了所有語言的翻譯。開始提前計劃！";
+
+"whatsnew_elevation_profile_title" = "指南中的高度剖面圖";
+
+"whatsnew_elevation_profile_message" = "使用所獲取路線中的光標離線評估即將遇到的上坡和下坡的難度。";
+
+"whatsnew_guides_on_map_title" = "新圖層—地圖上的指南！";
+
+"whatsnew_guides_on_map_message" = "激活應用程序設置菜單中的圖層，以快速找到有趣的城市路線和戶外活動指南。";
+
+"downloader_updating_ios" = "更新";
+
+"downloader_loading_ios" = "加載";
+
+"routes_card_plus_track" = "+路線";
+
 
 /**********  Partners  **********/
 

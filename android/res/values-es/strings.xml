@@ -1770,6 +1770,27 @@
 	<string name="hide_screen_map_update">Ocultar y continuar</string>
 	<string name="view_on_map_downloaded_error">Esta guía ha sido eliminada del dispositivo</string>
 	<string name="subscription">Suscripción</string>
+	<string name="button_layer_guides">Guías (nuevo)</string>
+	<string name="no_routes_in_the_area_toast">No hay guías aquí</string>
+	<string name="isolines_toast_zooms_1-10">Amplía el mapa para ver las isolíneas</string>
+	<string name="routes_layer_in_menu_toast">Activa las capas para ubicar guías fuera de línea, explorar isolíneas, líneas de metro o atascos de tráfico</string>
+	<string name="routes_layer_is_on_toast">Mueve el mapa para encontrar guías</string>
+	<string name="connection_error_dialog_guides_title">Error de conexión</string>
+	<string name="connection_error_dialog_guides_message">La capa no funciona porque no hay internet o hay una señal débil. Para continuar, verifica la conexión o desactiva la capa.</string>
+	<string name="connection_error_dialog_guides_try">Probar de nuevo</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Apagar</string>
+	<string name="connection_error_toast_guides">Restablecemos la conexión a Internet</string>
+	<string name="routes_card_show">Mostrar</string>
+	<string name="routes_card_hide">Ocultar</string>
+	<string name="whatsnew_catalog_new_title">Nuevo catálogo de guías y miles de ideas para descansar</string>
+	<string name="whatsnew_catalog_new_message">Hemos actualizado el catálogo de guías y agregado traducciones a todos los idiomas. ¡Comienza a planificar con anticipación!</string>
+	<string name="whatsnew_elevation_profile_title">Perfil de altura en las guías</string>
+	<string name="whatsnew_elevation_profile_message">Evalúa la dificultad de los inminentes ascensos y descensos sin conexión, haciendo uso del cursor en el perfil de la ruta adquirida.</string>
+	<string name="whatsnew_guides_on_map_title">Nueva capa para encontrar guías con facilidad</string>
+	<string name="whatsnew_guides_on_map_message">Activa la capa en el menú de configuración de la aplicación, para encontrar rápidamente interesantes rutas urbanas y guías para actividades al aire libre.</string>
+	<string name="downloader_updating_ios">Actualización</string>
+	<string name="downloader_loading_ios">Cargando</string>
+	<string name="routes_card_plus_track">+ pista</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

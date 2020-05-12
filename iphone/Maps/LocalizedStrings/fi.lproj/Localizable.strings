@@ -3262,6 +3262,48 @@
 
 "skyeng_map_downloader_cta_button" = "Подробнее";
 
+"button_layer_guides" = "Matkaoppaat (uutuus)";
+
+"no_routes_in_the_area_toast" = "Täällä ei ole matkaoppaita";
+
+"isolines_toast_zooms_1-10" = "Suurenna kartta nähdäksesi korkeuslinjat";
+
+"routes_layer_in_menu_toast" = "Laita tasoja päälle löytääksesi offline-matkaoppaita, tutkiaksesi korkeuslinjoja, metrolinjoja tai liikenneruuhkia";
+
+"routes_layer_is_on_toast" = "Siirrä karttaa löytääksesi matkaoppaita";
+
+"connection_error_dialog_guides_title" = "Yhteysvirhe";
+
+"connection_error_dialog_guides_message" = "Taso ei toimi, koska Internetiä ei ole tai signaali on heikko. Jatkaaksesi työskentelyä, tarkista yhteys tai sammuta taso.";
+
+"connection_error_dialog_guides_try" = "Yritä uudelleen";
+
+"connection_error_dialog_guides_layer_turn_off" = "Sammuta";
+
+"connection_error_toast_guides" = "Palauttamme Internet-yhteyden";
+
+"routes_card_show" = "Näytä";
+
+"routes_card_hide" = "Piilota";
+
+"whatsnew_catalog_new_title" = "Uusi luettelo ja tuhansia lomasi viettoon liittyviä ideoita";
+
+"whatsnew_catalog_new_message" = "Olemme päivittäneet matkaopasluettelon ja lisänneet käännöksiä kaikille kielille. Aloita suunnittelu etukäteen!";
+
+"whatsnew_elevation_profile_title" = "Korkeuslinjat matkaoppaissa";
+
+"whatsnew_elevation_profile_message" = "Arvioi tulevien ylä- ja alamäkien vaikeus offline-tilassa hankitun reitin profiilissa kursorin avulla.";
+
+"whatsnew_guides_on_map_title" = "Uusi taso — matkaoppaat kartalla!";
+
+"whatsnew_guides_on_map_message" = "Aktivoi taso sovellusasetusvalikossa löytääksesi nopeasti mielenkiintoisia kaupunkireittejä ja ulkoilumatkaoppaita.";
+
+"downloader_updating_ios" = "Päivitys";
+
+"downloader_loading_ios" = "Lataus";
+
+"routes_card_plus_track" = "+ reitti";
+
 
 /**********  Partners  **********/
 

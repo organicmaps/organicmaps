@@ -1770,6 +1770,27 @@
 	<string name="hide_screen_map_update">Piilota ja jatka tausta-ajo</string>
 	<string name="view_on_map_downloaded_error">Tämä matkaopas oli poistettu laitteesta</string>
 	<string name="subscription">Tilaus</string>
+	<string name="button_layer_guides">Matkaoppaat (uutuus)</string>
+	<string name="no_routes_in_the_area_toast">Täällä ei ole matkaoppaita</string>
+	<string name="isolines_toast_zooms_1-10">Suurenna kartta nähdäksesi korkeuslinjat</string>
+	<string name="routes_layer_in_menu_toast">Laita tasoja päälle löytääksesi offline-matkaoppaita, tutkiaksesi korkeuslinjoja, metrolinjoja tai liikenneruuhkia</string>
+	<string name="routes_layer_is_on_toast">Siirrä karttaa löytääksesi matkaoppaita</string>
+	<string name="connection_error_dialog_guides_title">Yhteysvirhe</string>
+	<string name="connection_error_dialog_guides_message">Taso ei toimi, koska Internetiä ei ole tai signaali on heikko. Jatkaaksesi työskentelyä, tarkista yhteys tai sammuta taso.</string>
+	<string name="connection_error_dialog_guides_try">Yritä uudelleen</string>
+	<string name="connection_error_dialog_guides_layer_turn_off">Sammuta</string>
+	<string name="connection_error_toast_guides">Palauttamme Internet-yhteyden</string>
+	<string name="routes_card_show">Näytä</string>
+	<string name="routes_card_hide">Piilota</string>
+	<string name="whatsnew_catalog_new_title">Uusi luettelo ja tuhansia lomasi viettoon liittyviä ideoita</string>
+	<string name="whatsnew_catalog_new_message">Olemme päivittäneet matkaopasluettelon ja lisänneet käännöksiä kaikille kielille. Aloita suunnittelu etukäteen!</string>
+	<string name="whatsnew_elevation_profile_title">Korkeuslinjat matkaoppaissa</string>
+	<string name="whatsnew_elevation_profile_message">Arvioi tulevien ylä- ja alamäkien vaikeus offline-tilassa hankitun reitin profiilissa kursorin avulla.</string>
+	<string name="whatsnew_guides_on_map_title">Uusi taso — matkaoppaat kartalla!</string>
+	<string name="whatsnew_guides_on_map_message">Aktivoi taso sovellusasetusvalikossa löytääksesi nopeasti mielenkiintoisia kaupunkireittejä ja ulkoilumatkaoppaita.</string>
+	<string name="downloader_updating_ios">Päivitys</string>
+	<string name="downloader_loading_ios">Lataus</string>
+	<string name="routes_card_plus_track">+ reitti</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>
