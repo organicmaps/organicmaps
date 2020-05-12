@@ -696,6 +696,7 @@ std::ostream & operator<<(std::ostream & ost, TRuleSequences const & sequences);
 class OpeningHours
 {
 public:
+  OpeningHours() = default;
   OpeningHours(std::string const & rule);
   OpeningHours(TRuleSequences const & rule);
 
@@ -719,6 +720,6 @@ public:
 
 private:
   TRuleSequences m_rule;
-  bool m_valid;
+  bool m_valid = false;
 };
 } // namespace osmoh
