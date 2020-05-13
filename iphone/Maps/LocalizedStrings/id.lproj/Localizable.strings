@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Tidak ada panduan yang ditemukan di sini";
 
-"isolines_toast_zooms_1-10" = "Perbesar untuk menjelajahi garis kontur";
+"isolines_toast_zooms_1_10" = "Perbesar untuk menjelajahi garis kontur";
 
 "routes_layer_in_menu_toast" = "Aktifkan lapisan untuk menemukan panduan offline, jelajahi garis kontur, jalur kereta bawah tanah atau kemacetan lalu lintas";
 

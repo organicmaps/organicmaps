@@ -1824,7 +1824,7 @@
 	<string name="subscription">Подписка</string>
 	<string name="button_layer_guides">Путеводители (новинка)</string>
 	<string name="no_routes_in_the_area_toast">Здесь нет путеводителей</string>
-	<string name="isolines_toast_zooms_1-10">Увеличьте карту, чтобы увидеть изолинии</string>
+	<string name="isolines_toast_zooms_1_10">Увеличьте карту, чтобы увидеть изолинии</string>
 	<string name="routes_layer_in_menu_toast">Включайте слои, чтобы найти офлайн-путеводители, изучить изолинии, ветки метро или пробки</string>
 	<string name="routes_layer_is_on_toast">Передвигайте карту, чтобы найти путеводители</string>
 	<string name="connection_error_dialog_guides_title">Ошибка соединения</string>

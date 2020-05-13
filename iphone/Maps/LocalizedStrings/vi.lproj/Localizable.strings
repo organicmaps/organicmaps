@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Ở đây không có hướng dẫn";
 
-"isolines_toast_zooms_1-10" = "Phóng bản đồ để nhìn rõ đường đồng mức";
+"isolines_toast_zooms_1_10" = "Phóng bản đồ để nhìn rõ đường đồng mức";
 
 "routes_layer_in_menu_toast" = "Hãy bật các lớp để tìm kiếm hướng dẫn ngoại tuyến, xem xét đường đồng mức, các nhánh metro hay điểm tắc nghẽn giao thông";
 

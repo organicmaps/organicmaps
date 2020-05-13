@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "No guides found here";
 
-"isolines_toast_zooms_1-10" = "Zoom in to explore isolines";
+"isolines_toast_zooms_1_10" = "Zoom in to explore isolines";
 
 "routes_layer_in_menu_toast" = "Turn on layers to find offline guides, explore isolines, subway lines, or traffic jams";
 

@@ -1776,7 +1776,7 @@
 	<string name="subscription">订阅</string>
 	<string name="button_layer_guides">指南（新）</string>
 	<string name="no_routes_in_the_area_toast">这里没有指南</string>
-	<string name="isolines_toast_zooms_1-10">放大地图以查看等高线</string>
+	<string name="isolines_toast_zooms_1_10">放大地图以查看等高线</string>
 	<string name="routes_layer_in_menu_toast">打开图层以查找离线指南，查看等值线，地铁线路或交通拥堵状况</string>
 	<string name="routes_layer_is_on_toast">移动地图以查找指南</string>
 	<string name="connection_error_dialog_guides_title">连接错误</string>

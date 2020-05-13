@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Hier sind keine Reiseführer vorhanden";
 
-"isolines_toast_zooms_1-10" = "Karte vergrößern, um Isolinien zu sehen";
+"isolines_toast_zooms_1_10" = "Karte vergrößern, um Isolinien zu sehen";
 
 "routes_layer_in_menu_toast" = "Aktivieren Sie den Layer Schichten, um Offline-Reiseführer zu finden, Isolinien, U-Bahnzweige oder Staus zu sehen";
 

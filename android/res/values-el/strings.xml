@@ -1540,7 +1540,7 @@
 	<string name="subscription">Συνδρομή</string>
 	<string name="button_layer_guides">Ταξιδιωτικοί οδηγοί (νέο)</string>
 	<string name="no_routes_in_the_area_toast">Δεν υπάρχουν ταξιδιωτικοί οδηγοί εδώ</string>
-	<string name="isolines_toast_zooms_1-10">Μεγεθύνετε για να δείτε περιγράμματα</string>
+	<string name="isolines_toast_zooms_1_10">Μεγεθύνετε για να δείτε περιγράμματα</string>
 	<string name="routes_layer_in_menu_toast">Ενεργοποιήστε τα στρώματα για να βρείτε οδηγούς εκτός σύνδεσης, εξερευνήσετε περιγράμματα, γραμμές μετρό ή μποτιλιαρίσματα</string>
 	<string name="routes_layer_is_on_toast">Μετακινήστε τον χάρτη για να βρείτε οδηγούς</string>
 	<string name="connection_error_dialog_guides_title">Σφάλμα σύνδεσης</string>

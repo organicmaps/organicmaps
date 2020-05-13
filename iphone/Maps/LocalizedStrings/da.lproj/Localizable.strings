@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Ingen guider fundet her";
 
-"isolines_toast_zooms_1-10" = "Zoom ind for at udforske isolinjekort";
+"isolines_toast_zooms_1_10" = "Zoom ind for at udforske isolinjekort";
 
 "routes_layer_in_menu_toast" = "Tænd for lag for at finde offline guider, udforske isolinjekort, undergrundslinjer eller trafikpropper";
 

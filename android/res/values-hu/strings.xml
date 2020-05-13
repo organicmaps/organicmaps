@@ -1779,7 +1779,7 @@
 	<string name="subscription">Feliratkozás</string>
 	<string name="button_layer_guides">Útmutatók (új)</string>
 	<string name="no_routes_in_the_area_toast">Útmutató itt nem található</string>
-	<string name="isolines_toast_zooms_1-10">Nagyítás az isovonalak felfedezéséhez</string>
+	<string name="isolines_toast_zooms_1_10">Nagyítás az isovonalak felfedezéséhez</string>
 	<string name="routes_layer_in_menu_toast">Az offline útmutatók, az isovonalak, a metróvonalak vagy a forgalmi dugók megkereséséhez kapcsolja be a rétegeket</string>
 	<string name="routes_layer_is_on_toast">Az útmutatók felfedezéséhez húzza el a térképet</string>
 	<string name="connection_error_dialog_guides_title">Csatlakozási hiba</string>

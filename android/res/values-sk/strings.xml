@@ -1777,7 +1777,7 @@
 	<string name="subscription">Predplatné</string>
 	<string name="button_layer_guides">Sprievodcovia (noví)</string>
 	<string name="no_routes_in_the_area_toast">Nenašli sa tu žiadni sprievodcovia</string>
-	<string name="isolines_toast_zooms_1-10">Priblížením preskúmajte izočiary</string>
+	<string name="isolines_toast_zooms_1_10">Priblížením preskúmajte izočiary</string>
 	<string name="routes_layer_in_menu_toast">Ak chcete nájsť offline príručky, preskúmať izočiary, trasy metra alebo dopravné zápchy, zapnite vrstvy</string>
 	<string name="routes_layer_is_on_toast">Potiahnutím mapy preskúmate sprievodcov</string>
 	<string name="connection_error_dialog_guides_title">Chyba spojenia</string>

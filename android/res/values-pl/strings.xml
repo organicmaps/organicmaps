@@ -1789,7 +1789,7 @@
 	<string name="subscription">Subskrypcja</string>
 	<string name="button_layer_guides">Przewodniki (nowe)</string>
 	<string name="no_routes_in_the_area_toast">Tutaj nie znaleziono przewodników</string>
-	<string name="isolines_toast_zooms_1-10">Powiększ mapę, aby zobaczyć izolinie</string>
+	<string name="isolines_toast_zooms_1_10">Powiększ mapę, aby zobaczyć izolinie</string>
 	<string name="routes_layer_in_menu_toast">Włącz warstwy, aby znaleźć przewodniki offline, odkrywać izolinie, linie metra lub korki</string>
 	<string name="routes_layer_is_on_toast">Przeciągaj mapę, aby znaleźć przewodniki</string>
 	<string name="connection_error_dialog_guides_title">Błąd połączenia</string>

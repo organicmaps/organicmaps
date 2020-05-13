@@ -1786,7 +1786,7 @@
 	<string name="subscription">Abo</string>
 	<string name="button_layer_guides">Reiseführer (Neu)</string>
 	<string name="no_routes_in_the_area_toast">Hier sind keine Reiseführer vorhanden</string>
-	<string name="isolines_toast_zooms_1-10">Karte vergrößern, um Isolinien zu sehen</string>
+	<string name="isolines_toast_zooms_1_10">Karte vergrößern, um Isolinien zu sehen</string>
 	<string name="routes_layer_in_menu_toast">Aktivieren Sie den Layer Schichten, um Offline-Reiseführer zu finden, Isolinien, U-Bahnzweige oder Staus zu sehen</string>
 	<string name="routes_layer_is_on_toast">Bewegen Sie die Karte, um die Reiseführer zu finden</string>
 	<string name="connection_error_dialog_guides_title">Netzwerkverbindungsfehler</string>

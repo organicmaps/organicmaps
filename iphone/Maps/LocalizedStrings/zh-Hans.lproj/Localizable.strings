@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "这里没有指南";
 
-"isolines_toast_zooms_1-10" = "放大地图以查看等高线";
+"isolines_toast_zooms_1_10" = "放大地图以查看等高线";
 
 "routes_layer_in_menu_toast" = "打开图层以查找离线指南，查看等值线，地铁线路或交通拥堵状况";
 

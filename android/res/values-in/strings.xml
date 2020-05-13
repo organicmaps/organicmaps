@@ -1771,7 +1771,7 @@
 	<string name="subscription">Berlangganan</string>
 	<string name="button_layer_guides">Panduan (baru)</string>
 	<string name="no_routes_in_the_area_toast">Tidak ada panduan yang ditemukan di sini</string>
-	<string name="isolines_toast_zooms_1-10">Perbesar untuk menjelajahi garis kontur</string>
+	<string name="isolines_toast_zooms_1_10">Perbesar untuk menjelajahi garis kontur</string>
 	<string name="routes_layer_in_menu_toast">Aktifkan lapisan untuk menemukan panduan offline, jelajahi garis kontur, jalur kereta bawah tanah atau kemacetan lalu lintas</string>
 	<string name="routes_layer_is_on_toast">Seret peta untuk menjelajahi panduan</string>
 	<string name="connection_error_dialog_guides_title">Kesalahan koneksi</string>

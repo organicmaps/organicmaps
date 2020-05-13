@@ -1771,7 +1771,7 @@
 	<string name="subscription">サブスクリプション</string>
 	<string name="button_layer_guides">ガイド(新)</string>
 	<string name="no_routes_in_the_area_toast">ここではガイドが見つかりませんでした</string>
-	<string name="isolines_toast_zooms_1-10">等高線を調べるためにズームインしましょう</string>
+	<string name="isolines_toast_zooms_1_10">等高線を調べるためにズームインしましょう</string>
 	<string name="routes_layer_in_menu_toast">オフラインのガイドを検索したり、等高線や、地下鉄、交通渋滞を調べるたりするためにレイヤーを有効化しましょう</string>
 	<string name="routes_layer_is_on_toast">ガイドを調べるにはマップをドラッグしてください</string>
 	<string name="connection_error_dialog_guides_title">接続エラー</string>

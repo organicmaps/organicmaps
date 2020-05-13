@@ -1783,7 +1783,7 @@
 	<string name="subscription">Abone</string>
 	<string name="button_layer_guides">Rehberler (yeni)</string>
 	<string name="no_routes_in_the_area_toast">Burada seyahat rehberi yok</string>
-	<string name="isolines_toast_zooms_1-10">Konturları görmek için haritayı büyütün</string>
+	<string name="isolines_toast_zooms_1_10">Konturları görmek için haritayı büyütün</string>
 	<string name="routes_layer_in_menu_toast">Çevrimdışı rehberleri bulmak, konturları, metro hatlarını veya trafik sıkışıklıklarını keşfetmek için katmanları çevirin</string>
 	<string name="routes_layer_is_on_toast">Rehberleri bulmak için haritayı hareket ettirin</string>
 	<string name="connection_error_dialog_guides_title">Bağlantı hatası</string>

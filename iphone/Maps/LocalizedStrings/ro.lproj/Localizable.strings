@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Nu există ghiduri aici";
 
-"isolines_toast_zooms_1-10" = "Măriți harta pentru a vedea contururile";
+"isolines_toast_zooms_1_10" = "Măriți harta pentru a vedea contururile";
 
 "routes_layer_in_menu_toast" = "Includeți straturi pentru a găsi ghiduri offline, explorați contururile, ramurile de metrou sau blocajele de trafic";
 

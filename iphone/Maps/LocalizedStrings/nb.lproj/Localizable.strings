@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Det er ingen guider her";
 
-"isolines_toast_zooms_1-10" = "Forstørr kartet for å se høydekurver";
+"isolines_toast_zooms_1_10" = "Forstørr kartet for å se høydekurver";
 
 "routes_layer_in_menu_toast" = "Slå på lag for å finne offline-guider, utforske høydekurver, T-banelinjer eller biltrafikk";
 

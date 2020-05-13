@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Täällä ei ole matkaoppaita";
 
-"isolines_toast_zooms_1-10" = "Suurenna kartta nähdäksesi korkeuslinjat";
+"isolines_toast_zooms_1_10" = "Suurenna kartta nähdäksesi korkeuslinjat";
 
 "routes_layer_in_menu_toast" = "Laita tasoja päälle löytääksesi offline-matkaoppaita, tutkiaksesi korkeuslinjoja, metrolinjoja tai liikenneruuhkia";
 

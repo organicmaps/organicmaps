@@ -1782,7 +1782,7 @@
 	<string name="subscription">Subscrição</string>
 	<string name="button_layer_guides">Guias (novidade)</string>
 	<string name="no_routes_in_the_area_toast">Aqui não há guias</string>
-	<string name="isolines_toast_zooms_1-10">Ampliar mapa para ver as curvas de nível</string>
+	<string name="isolines_toast_zooms_1_10">Ampliar mapa para ver as curvas de nível</string>
 	<string name="routes_layer_in_menu_toast">Ative as camadas para encontrar guias offline, estudar as curvas de nível, linhas do metrô ou trânsito</string>
 	<string name="routes_layer_is_on_toast">Move o mapa para encontrar guias</string>
 	<string name="connection_error_dialog_guides_title">Erro de conexão</string>

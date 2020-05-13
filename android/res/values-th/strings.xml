@@ -1783,7 +1783,7 @@
 	<string name="subscription">สมัครสมาชิก</string>
 	<string name="button_layer_guides">คู่มือใช้งาน (ใหม่)</string>
 	<string name="no_routes_in_the_area_toast">ไม่มีคู่มือใช้งานที่นี่</string>
-	<string name="isolines_toast_zooms_1-10">ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง</string>
+	<string name="isolines_toast_zooms_1_10">ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง</string>
 	<string name="routes_layer_in_menu_toast">เปิดเลเยอร์เพื่อพบกับคู่มือใช้งานแบบออฟไลน์ สำรวจเส้นชั้นความสูง หรือสภาพการจราจร</string>
 	<string name="routes_layer_is_on_toast">ลากแผนที่เพื่อสำรวจคู่มือใช้งาน</string>
 	<string name="connection_error_dialog_guides_title">เกิดความผิดพลาดในการเชื่อมต่อ</string>

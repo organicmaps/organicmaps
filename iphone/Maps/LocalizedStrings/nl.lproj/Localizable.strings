@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Hier zijn geen gidsen";
 
-"isolines_toast_zooms_1-10" = "Zoom in om isolijnen te bekijken";
+"isolines_toast_zooms_1_10" = "Zoom in om isolijnen te bekijken";
 
 "routes_layer_in_menu_toast" = "Schakel lagen in om offline gidsen te vinden, isolijnen, metrolijnen of verkeersopstoppingen vast te stellen";
 

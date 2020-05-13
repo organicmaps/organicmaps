@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Aqui não há guias";
 
-"isolines_toast_zooms_1-10" = "Ampliar mapa para ver as curvas de nível";
+"isolines_toast_zooms_1_10" = "Ampliar mapa para ver as curvas de nível";
 
 "routes_layer_in_menu_toast" = "Ative as camadas para encontrar guias offline, estudar as curvas de nível, linhas do metrô ou trânsito";
 

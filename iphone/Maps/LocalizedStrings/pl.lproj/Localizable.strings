@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Tutaj nie znaleziono przewodników";
 
-"isolines_toast_zooms_1-10" = "Powiększ mapę, aby zobaczyć izolinie";
+"isolines_toast_zooms_1_10" = "Powiększ mapę, aby zobaczyć izolinie";
 
 "routes_layer_in_menu_toast" = "Włącz warstwy, aby znaleźć przewodniki offline, odkrywać izolinie, linie metra lub korki";
 

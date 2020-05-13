@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Burada seyahat rehberi yok";
 
-"isolines_toast_zooms_1-10" = "Konturları görmek için haritayı büyütün";
+"isolines_toast_zooms_1_10" = "Konturları görmek için haritayı büyütün";
 
 "routes_layer_in_menu_toast" = "Çevrimdışı rehberleri bulmak, konturları, metro hatlarını veya trafik sıkışıklıklarını keşfetmek için katmanları çevirin";
 

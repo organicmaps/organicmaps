@@ -1782,7 +1782,7 @@
 	<string name="subscription">Abonnement</string>
 	<string name="button_layer_guides">Guider (ny)</string>
 	<string name="no_routes_in_the_area_toast">Ingen guider fundet her</string>
-	<string name="isolines_toast_zooms_1-10">Zoom ind for at udforske isolinjekort</string>
+	<string name="isolines_toast_zooms_1_10">Zoom ind for at udforske isolinjekort</string>
 	<string name="routes_layer_in_menu_toast">Tænd for lag for at finde offline guider, udforske isolinjekort, undergrundslinjer eller trafikpropper</string>
 	<string name="routes_layer_is_on_toast">Træk kortet for at udforske guiderne</string>
 	<string name="connection_error_dialog_guides_title">Forbindelsesfejl</string>

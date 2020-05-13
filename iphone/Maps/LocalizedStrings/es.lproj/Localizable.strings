@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "No hay guías aquí";
 
-"isolines_toast_zooms_1-10" = "Amplía el mapa para ver las isolíneas";
+"isolines_toast_zooms_1_10" = "Amplía el mapa para ver las isolíneas";
 
 "routes_layer_in_menu_toast" = "Activa las capas para ubicar guías fuera de línea, explorar isolíneas, líneas de metro o atascos de tráfico";
 

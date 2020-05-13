@@ -1718,7 +1718,7 @@
 	<string name="subscription">عضویت</string>
 	<string name="button_layer_guides">راهنماها (جدید)</string>
 	<string name="no_routes_in_the_area_toast">راهنمایی در اینجا یافت نشد</string>
-	<string name="isolines_toast_zooms_1-10">برای بررسی خطوط تراز زوم کنید</string>
+	<string name="isolines_toast_zooms_1_10">برای بررسی خطوط تراز زوم کنید</string>
 	<string name="routes_layer_in_menu_toast">برای یافتن راهنمای آفلاین، بررسی خطوط تراز، خطوط مترو یا تراکم رفت و آمد لایه ها را روشن کنید</string>
 	<string name="routes_layer_is_on_toast">برای بررسی راهنما نقشه را حرکت دهید</string>
 	<string name="connection_error_dialog_guides_title">خطای ارتباط</string>

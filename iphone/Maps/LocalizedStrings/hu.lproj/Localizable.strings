@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Útmutató itt nem található";
 
-"isolines_toast_zooms_1-10" = "Nagyítás az isovonalak felfedezéséhez";
+"isolines_toast_zooms_1_10" = "Nagyítás az isovonalak felfedezéséhez";
 
 "routes_layer_in_menu_toast" = "Az offline útmutatók, az isovonalak, a metróvonalak vagy a forgalmi dugók megkereséséhez kapcsolja be a rétegeket";
 

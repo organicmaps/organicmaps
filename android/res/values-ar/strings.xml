@@ -1783,7 +1783,7 @@
 	<string name="subscription">الاشتراك</string>
 	<string name="button_layer_guides">الأدلة (جديد)</string>
 	<string name="no_routes_in_the_area_toast">لم يتم العثور على أدلة هنا</string>
-	<string name="isolines_toast_zooms_1-10">قرب لتكتشف خطوط الكنتور</string>
+	<string name="isolines_toast_zooms_1_10">قرب لتكتشف خطوط الكنتور</string>
 	<string name="routes_layer_in_menu_toast">قم بتشغيل الطبقات لتجد أدلة بدون اتصال بالانترنت، وتستعرض خطوط الكنتور، ومسارات المترو، والاختناقات المرورية</string>
 	<string name="routes_layer_is_on_toast">اسحب الخريطة لاستعراض الأدلة</string>
 	<string name="connection_error_dialog_guides_title">خطأ في الاتصال</string>

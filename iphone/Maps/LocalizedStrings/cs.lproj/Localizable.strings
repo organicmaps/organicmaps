@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Nebyl zde nalezen žádný průvodce";
 
-"isolines_toast_zooms_1-10" = "Přiblížit pro prozkoumání izolinií";
+"isolines_toast_zooms_1_10" = "Přiblížit pro prozkoumání izolinií";
 
 "routes_layer_in_menu_toast" = "Zapněte vrstvy pro nalezení offline průvodců, prozkoumání izolinií, linek metra nebo dopravních zácp";
 

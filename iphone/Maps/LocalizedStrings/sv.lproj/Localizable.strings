@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Det finns inga guider här";
 
-"isolines_toast_zooms_1-10" = "Förstora kartan för att se isolinjer";
+"isolines_toast_zooms_1_10" = "Förstora kartan för att se isolinjer";
 
 "routes_layer_in_menu_toast" = "Slå på lager för att hitta offline-guider, utforska isolinjer, tunnelbanelinjer eller trafikstockningar";
 

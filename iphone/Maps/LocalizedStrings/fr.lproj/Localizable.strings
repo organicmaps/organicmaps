@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Ici, il n'y a aucun guide";
 
-"isolines_toast_zooms_1-10" = "Zoomez pour voir les courbes de niveaux";
+"isolines_toast_zooms_1_10" = "Zoomez pour voir les courbes de niveaux";
 
 "routes_layer_in_menu_toast" = "Activez les calques pour trouver les guides hors ligne, étudier les courbes de niveaux, les lignes du métro ou l'état du traffic";
 

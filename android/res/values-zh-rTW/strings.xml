@@ -1780,7 +1780,7 @@
 	<string name="subscription">訂閱</string>
 	<string name="button_layer_guides">指南（新）</string>
 	<string name="no_routes_in_the_area_toast">這裡沒有指南</string>
-	<string name="isolines_toast_zooms_1-10">放大地圖以查看等高線</string>
+	<string name="isolines_toast_zooms_1_10">放大地圖以查看等高線</string>
 	<string name="routes_layer_in_menu_toast">打開圖層以查找離線指南，查看等值線，地鐵線路或交通擁堵狀況</string>
 	<string name="routes_layer_is_on_toast">移動地圖以尋找指南</string>
 	<string name="connection_error_dialog_guides_title">連接錯誤</string>

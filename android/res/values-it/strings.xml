@@ -1778,7 +1778,7 @@
 	<string name="subscription">Abbonamento</string>
 	<string name="button_layer_guides">Guide (novità)</string>
 	<string name="no_routes_in_the_area_toast">Non ci sono guide presenti</string>
-	<string name="isolines_toast_zooms_1-10">Ingrandisci mappa per vedere l\'isolinea</string>
+	<string name="isolines_toast_zooms_1_10">Ingrandisci mappa per vedere l\'isolinea</string>
 	<string name="routes_layer_in_menu_toast">Attiva la modalità per trovare guide offline, analizzare le linee isometriche, la metro e il traffico</string>
 	<string name="routes_layer_is_on_toast">Trascina la mappa per esplorare le guide</string>
 	<string name="connection_error_dialog_guides_title">Errore di connessione</string>

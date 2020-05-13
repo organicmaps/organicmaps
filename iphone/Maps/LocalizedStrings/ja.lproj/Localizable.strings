@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "ここではガイドが見つかりませんでした";
 
-"isolines_toast_zooms_1-10" = "等高線を調べるためにズームインしましょう";
+"isolines_toast_zooms_1_10" = "等高線を調べるためにズームインしましょう";
 
 "routes_layer_in_menu_toast" = "オフラインのガイドを検索したり、等高線や、地下鉄、交通渋滞を調べるたりするためにレイヤーを有効化しましょう";
 

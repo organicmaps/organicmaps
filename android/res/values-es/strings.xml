@@ -1772,7 +1772,7 @@
 	<string name="subscription">Suscripción</string>
 	<string name="button_layer_guides">Guías (nuevo)</string>
 	<string name="no_routes_in_the_area_toast">No hay guías aquí</string>
-	<string name="isolines_toast_zooms_1-10">Amplía el mapa para ver las isolíneas</string>
+	<string name="isolines_toast_zooms_1_10">Amplía el mapa para ver las isolíneas</string>
 	<string name="routes_layer_in_menu_toast">Activa las capas para ubicar guías fuera de línea, explorar isolíneas, líneas de metro o atascos de tráfico</string>
 	<string name="routes_layer_is_on_toast">Mueve el mapa para encontrar guías</string>
 	<string name="connection_error_dialog_guides_title">Error de conexión</string>

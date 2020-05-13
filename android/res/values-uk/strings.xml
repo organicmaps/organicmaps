@@ -1784,7 +1784,7 @@
 	<string name="subscription">Передплата</string>
 	<string name="button_layer_guides">Путівники (новинка)</string>
 	<string name="no_routes_in_the_area_toast">Тут немає путівників</string>
-	<string name="isolines_toast_zooms_1-10">Збільште карту, щоб побачити ізолінії</string>
+	<string name="isolines_toast_zooms_1_10">Збільште карту, щоб побачити ізолінії</string>
 	<string name="routes_layer_in_menu_toast">Вмикайте шари, щоб знайти офлайн-путівники, вивчити ізолінії, гілки метро чи пробки</string>
 	<string name="routes_layer_is_on_toast">Пересувайте карту, щоб знайти путівники</string>
 	<string name="connection_error_dialog_guides_title">Помилка з’єднання</string>

@@ -1768,7 +1768,7 @@
 	<string name="subscription">Đăng ký</string>
 	<string name="button_layer_guides">Hướng dẫn (mới)</string>
 	<string name="no_routes_in_the_area_toast">Ở đây không có hướng dẫn</string>
-	<string name="isolines_toast_zooms_1-10">Phóng bản đồ để nhìn rõ đường đồng mức</string>
+	<string name="isolines_toast_zooms_1_10">Phóng bản đồ để nhìn rõ đường đồng mức</string>
 	<string name="routes_layer_in_menu_toast">Hãy bật các lớp để tìm kiếm hướng dẫn ngoại tuyến, xem xét đường đồng mức, các nhánh metro hay điểm tắc nghẽn giao thông</string>
 	<string name="routes_layer_is_on_toast">Di chuyển bản đồ để tìm hướng dẫn</string>
 	<string name="connection_error_dialog_guides_title">Lỗi kết nối internet</string>

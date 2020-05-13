@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Nenašli sa tu žiadni sprievodcovia";
 
-"isolines_toast_zooms_1-10" = "Priblížením preskúmajte izočiary";
+"isolines_toast_zooms_1_10" = "Priblížením preskúmajte izočiary";
 
 "routes_layer_in_menu_toast" = "Ak chcete nájsť offline príručky, preskúmať izočiary, trasy metra alebo dopravné zápchy, zapnite vrstvy";
 

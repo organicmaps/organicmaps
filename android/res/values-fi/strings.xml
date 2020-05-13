@@ -1772,7 +1772,7 @@
 	<string name="subscription">Tilaus</string>
 	<string name="button_layer_guides">Matkaoppaat (uutuus)</string>
 	<string name="no_routes_in_the_area_toast">Täällä ei ole matkaoppaita</string>
-	<string name="isolines_toast_zooms_1-10">Suurenna kartta nähdäksesi korkeuslinjat</string>
+	<string name="isolines_toast_zooms_1_10">Suurenna kartta nähdäksesi korkeuslinjat</string>
 	<string name="routes_layer_in_menu_toast">Laita tasoja päälle löytääksesi offline-matkaoppaita, tutkiaksesi korkeuslinjoja, metrolinjoja tai liikenneruuhkia</string>
 	<string name="routes_layer_is_on_toast">Siirrä karttaa löytääksesi matkaoppaita</string>
 	<string name="connection_error_dialog_guides_title">Yhteysvirhe</string>

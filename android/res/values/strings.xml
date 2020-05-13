@@ -1850,7 +1850,7 @@
 	<string name="skyeng_map_downloader_cta_button">Подробнее</string>
 	<string name="button_layer_guides">Guides (new)</string>
 	<string name="no_routes_in_the_area_toast">No guides found here</string>
-	<string name="isolines_toast_zooms_1-10">Zoom in to explore isolines</string>
+	<string name="isolines_toast_zooms_1_10">Zoom in to explore isolines</string>
 	<string name="routes_layer_in_menu_toast">Turn on layers to find offline guides, explore isolines, subway lines, or traffic jams</string>
 	<string name="routes_layer_is_on_toast">Drag the map to explore the guides</string>
 	<string name="connection_error_dialog_guides_title">Connection error</string>

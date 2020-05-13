@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "여기서 찾은 가이드가 없습니다";
 
-"isolines_toast_zooms_1-10" = "등치선 탐색을 위한 확대";
+"isolines_toast_zooms_1_10" = "등치선 탐색을 위한 확대";
 
 "routes_layer_in_menu_toast" = "오프라인 가이드 찾기 및 등치선, 지하철 노선 또는 교통 체증 탐색을 위해 레이어를 키세요";
 

@@ -1768,7 +1768,7 @@
 	<string name="subscription">Abonare</string>
 	<string name="button_layer_guides">Ghiduri (noutate)</string>
 	<string name="no_routes_in_the_area_toast">Nu există ghiduri aici</string>
-	<string name="isolines_toast_zooms_1-10">Măriți harta pentru a vedea contururile</string>
+	<string name="isolines_toast_zooms_1_10">Măriți harta pentru a vedea contururile</string>
 	<string name="routes_layer_in_menu_toast">Includeți straturi pentru a găsi ghiduri offline, explorați contururile, ramurile de metrou sau blocajele de trafic</string>
 	<string name="routes_layer_is_on_toast">Mutați harta pentru a găsi ghiduri</string>
 	<string name="connection_error_dialog_guides_title">Eroare de conectare</string>

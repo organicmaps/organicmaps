@@ -1778,7 +1778,7 @@
 	<string name="subscription">Prenumeration</string>
 	<string name="button_layer_guides">Guider (nyhet)</string>
 	<string name="no_routes_in_the_area_toast">Det finns inga guider här</string>
-	<string name="isolines_toast_zooms_1-10">Förstora kartan för att se isolinjer</string>
+	<string name="isolines_toast_zooms_1_10">Förstora kartan för att se isolinjer</string>
 	<string name="routes_layer_in_menu_toast">Slå på lager för att hitta offline-guider, utforska isolinjer, tunnelbanelinjer eller trafikstockningar</string>
 	<string name="routes_layer_is_on_toast">Flytta på kartan för att hitta guider</string>
 	<string name="connection_error_dialog_guides_title">Anslutningsfel</string>

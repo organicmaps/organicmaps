@@ -3266,7 +3266,7 @@
 
 "no_routes_in_the_area_toast" = "Non ci sono guide presenti";
 
-"isolines_toast_zooms_1-10" = "Ingrandisci mappa per vedere l'isolinea";
+"isolines_toast_zooms_1_10" = "Ingrandisci mappa per vedere l'isolinea";
 
 "routes_layer_in_menu_toast" = "Attiva la modalità per trovare guide offline, analizzare le linee isometriche, la metro e il traffico";
 

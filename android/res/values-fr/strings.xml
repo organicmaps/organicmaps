@@ -1796,7 +1796,7 @@
 	<string name="subscription">Souscription</string>
 	<string name="button_layer_guides">Guides (nouveauté)</string>
 	<string name="no_routes_in_the_area_toast">Ici, il n\'y a aucun guide</string>
-	<string name="isolines_toast_zooms_1-10">Zoomez pour voir les courbes de niveaux</string>
+	<string name="isolines_toast_zooms_1_10">Zoomez pour voir les courbes de niveaux</string>
 	<string name="routes_layer_in_menu_toast">Activez les calques pour trouver les guides hors ligne, étudier les courbes de niveaux, les lignes du métro ou l\'état du traffic</string>
 	<string name="routes_layer_is_on_toast">Faites glisser la carte pour trouver les guides</string>
 	<string name="connection_error_dialog_guides_title">Erreur de connexion</string>
