@@ -47092,7 +47092,7 @@
     zh-Hant = 這裡沒有指南
     fa = راهنمایی در اینجا یافت نشد
 
-  [isolines_toast_zooms_1-10]
+  [isolines_toast_zooms_1_10]
     en = Zoom in to explore isolines
     ru = Увеличьте карту, чтобы увидеть изолинии
     ar = قرب لتكتشف خطوط الكنتور
