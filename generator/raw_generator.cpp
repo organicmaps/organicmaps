@@ -21,7 +21,7 @@ RawGenerator::RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount,
   : m_genInfo(genInfo)
   , m_threadsCount(threadsCount)
   , m_chunkSize(chunkSize)
-  , m_cache(std::make_shared<generator::cache::IntermediateData>(genInfo))
+  , m_cache(std::make_shared<generator::cache::IntermediateData>(m_intermediateDataObjectsCache, genInfo))
   , m_queue(std::make_shared<FeatureProcessorQueue>())
   , m_translators(std::make_shared<TranslatorCollection>())
 {
@@ -29,7 +29,8 @@ RawGenerator::RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount,
 
 void RawGenerator::ForceReloadCache()
 {
-  m_cache = std::make_shared<cache::IntermediateData>(m_genInfo, true /* forceReload */);
+  m_intermediateDataObjectsCache.Clear();
+  m_cache = std::make_shared<cache::IntermediateData>(m_intermediateDataObjectsCache, m_genInfo);
 }
 
 std::shared_ptr<FeatureProcessorQueue> RawGenerator::GetQueue() { return m_queue; }
@@ -85,6 +86,7 @@ bool RawGenerator::Execute()
   m_translators.reset();
   m_cache.reset();
   m_queue.reset();
+  m_intermediateDataObjectsCache.Clear();
 
   while (!m_finalProcessors.empty())
   {

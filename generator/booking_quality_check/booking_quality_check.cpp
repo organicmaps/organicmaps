@@ -316,7 +316,8 @@ void RunImpl(GenerateInfo & info)
   map<base::GeoObjectId, FeatureBuilder> features;
   LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
 
-  generator::cache::IntermediateData cacheLoader(info);
+  generator::cache::IntermediateDataObjectsCache objectsCache;
+  generator::cache::IntermediateData cacheLoader(objectsCache, info);
   auto translators = make_shared<TranslatorCollection>();
   auto processor = make_shared<ProcessorBooking<Dataset>>(dataset, features);
   translators->Append(CreateTranslator(TranslatorType::Country, processor, cacheLoader.GetCache(), info));

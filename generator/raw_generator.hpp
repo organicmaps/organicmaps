@@ -49,6 +49,7 @@ private:
   feature::GenerateInfo & m_genInfo;
   size_t m_threadsCount;
   size_t m_chunkSize;
+  cache::IntermediateDataObjectsCache m_intermediateDataObjectsCache;
   std::shared_ptr<cache::IntermediateData> m_cache;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::shared_ptr<TranslatorCollection> m_translators;

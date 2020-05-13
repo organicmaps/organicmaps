@@ -115,7 +115,8 @@ public:
 
     // Test load this data from cached file.
     auto collector = make_shared<CameraCollector>(genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME));
-    auto cache = make_shared<generator::cache::IntermediateData>(genInfo, true /* forceReload */);
+    generator::cache::IntermediateDataObjectsCache objectsCache;
+    auto cache = make_shared<generator::cache::IntermediateData>(objectsCache, genInfo);
     auto processor = CreateProcessor(ProcessorType::Noop);
     auto translator = make_shared<TranslatorForTest>(processor, cache);
     translator->SetCollector(collector);

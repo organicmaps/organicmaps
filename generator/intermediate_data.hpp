@@ -134,11 +134,42 @@ public:
   virtual bool Read(Key id, RelationElement & value) = 0;
 };
 
+class IntermediateDataObjectsCache
+{
+public:
+  // It's thread-safe class (All public methods are thread-safe).
+  class AllocatedObjects
+  {
+  public:
+    explicit AllocatedObjects(std::unique_ptr<PointStorageReaderInterface> storageReader)
+     : m_storageReader(std::move(storageReader))
+   {
+   }
+
+   PointStorageReaderInterface const & GetPointStorageReader() const { return *m_storageReader; }
+
+   IndexFileReader const & GetOrCreateIndexReader(std::string const & name);
+
+  private:
+    std::unique_ptr<PointStorageReaderInterface> m_storageReader;
+    std::unordered_map<std::string, IndexFileReader> m_fileReaders;
+  };
+
+  // It's thread-safe method.
+  AllocatedObjects & GetOrCreatePointStorageReader(feature::GenerateInfo::NodeStorageType type,
+                                                   std::string const & name);
+
+  void Clear();
+
+private:
+  std::unordered_map<std::string, AllocatedObjects> m_objects;
+};
+
 class OSMElementCacheReader : public OSMElementCacheReaderInterface
 {
 public:
-  explicit OSMElementCacheReader(std::string const & name, bool preload = false,
-                                 bool forceReload = false);
+  explicit OSMElementCacheReader(IntermediateDataObjectsCache::AllocatedObjects & allocatedObjects,
+                                 std::string const & name, bool preload = false);
 
   // OSMElementCacheReaderInterface overrides:
   bool Read(Key id, WayElement & value) override { return Read<>(id, value); }
@@ -227,8 +258,11 @@ public:
 class IntermediateDataReader : public IntermediateDataReaderInterface
 {
 public:
-  IntermediateDataReader(PointStorageReaderInterface const & nodes,
-                         feature::GenerateInfo const & info, bool forceReload = false);
+  // Constructs IntermediateDataReader.
+  // objs - intermediate allocated objects. It's used for control allocated objects.
+  // info - information about the generation.
+  IntermediateDataReader(IntermediateDataObjectsCache::AllocatedObjects & objs,
+                         feature::GenerateInfo const & info);
 
   // IntermediateDataReaderInterface overrides:
   // TODO |GetNode()|, |lat|, |lon| are used as y, x in real.
@@ -346,11 +380,13 @@ CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, std::strin
 class IntermediateData
 {
 public:
-  explicit IntermediateData(feature::GenerateInfo const & info, bool forceReload = false);
+  explicit IntermediateData(IntermediateDataObjectsCache & objectsCache,
+                            feature::GenerateInfo const & info);
   std::shared_ptr<IntermediateDataReader> const & GetCache() const;
   std::shared_ptr<IntermediateData> Clone() const;
 
 private:
+  IntermediateDataObjectsCache & m_objectsCache;
   feature::GenerateInfo const & m_info;
   std::shared_ptr<IntermediateDataReader> m_reader;
 
