@@ -1,5 +1,7 @@
 #include "routing/routing_quality/routing_quality_tool/error_type_counter.hpp"
 
+#include "base/assert.hpp"
+
 namespace routing_quality::routing_quality_tool
 {
 void ErrorTypeCounter::PushError(routing::RouterResultCode code)
@@ -9,13 +11,14 @@ void ErrorTypeCounter::PushError(routing::RouterResultCode code)
 
 void ErrorTypeCounter::PushError(api::ResultCode code)
 {
-  routing::RouterResultCode routingCode;
+  routing::RouterResultCode routingCode = routing::RouterResultCode::InternalError;
   switch (code)
   {
   case api::ResultCode::ResponseOK: routingCode = routing::RouterResultCode::NoError;
   case api::ResultCode::Error: routingCode = routing::RouterResultCode::RouteNotFound;
   }
-  routingCode = routing::RouterResultCode::InternalError;
+  CHECK_NOT_EQUAL(routingCode, routing::RouterResultCode::InternalError,
+                  ("Wrong value of api::ResultCode:", static_cast<int>(code)));
   PushError(routingCode);
 }
 
