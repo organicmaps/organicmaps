@@ -120,7 +120,7 @@ private:
   GuidesGalleryChangedFn m_onGalleryChanged;
 
   int m_zoom = 0;
-  m2::AnyRectD m_currentRect;
+  ScreenBase m_screen;
 
   uint64_t m_requestCounter = 0;
   uint8_t m_errorRequestsCount = 0;

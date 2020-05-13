@@ -18,6 +18,10 @@
 namespace
 {
 auto constexpr kRequestAttemptsCount = 3;
+// This constant is empirically calculated based on geometry::IntersectionScore.
+// When screen scales are different more than 11.15 percent
+// it is equal less than 80 percents screen rectangles intersection.
+auto constexpr kScaleEps = 0.1115;
 }  // namespace
 
 GuidesManager::GuidesState GuidesManager::GetState() const
@@ -35,12 +39,10 @@ void GuidesManager::SetStateListener(GuidesStateChangedFn const & onStateChanged
 void GuidesManager::UpdateViewport(ScreenBase const & screen)
 {
   auto const zoom = df::GetDrawTileScale(screen);
-  if (m_zoom == zoom && m_currentRect.EqualDxDy(screen.GlobalRect(), 1e-4))
-    return;
 
   if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError)
   {
-    m_currentRect = screen.GlobalRect();
+    m_screen = screen;
     m_zoom = zoom;
     return;
   }
@@ -48,25 +50,40 @@ void GuidesManager::UpdateViewport(ScreenBase const & screen)
   if (screen.GlobalRect().GetLocalRect().IsEmptyInterior())
     return;
 
-  if (m_zoom == zoom && !m_currentRect.GetLocalRect().IsEmptyInterior())
+  if (!m_screen.GlobalRect().GetLocalRect().IsEmptyInterior())
   {
-    m2::AnyRectD::Corners currentCorners;
-    m_currentRect.GetGlobalPoints(currentCorners);
-
-    m2::AnyRectD::Corners screenCorners;
-    screen.GlobalRect().GetGlobalPoints(screenCorners);
-
-    auto const score = geometry::GetIntersectionScoreForPoints(currentCorners, screenCorners);
-
-    // If more than 80% of viewport rect intersects with last requested rect then return.
-    if (score > 0.8)
+    auto const requestedCenter = screen.PtoP3d(screen.GtoP(m_screen.GetOrg()));
+    auto const viewportCenter = screen.PtoP3d(screen.GtoP(screen.GetOrg()));
+    auto const orgDist = requestedCenter.Length(viewportCenter);
+    auto const viewportLength = std::min(screen.PixelRectIn3d().SizeX(),
+                                         screen.PixelRectIn3d().SizeY());
+    // Return when center moves more than 20 percents of smaller side
+    if (orgDist < viewportLength * 0.2)
       return;
+
+    auto const scaleStronglyChanged =
+      fabs(m_screen.GetScale() - screen.GetScale()) / m_screen.GetScale() > kScaleEps;
+
+    if (!scaleStronglyChanged)
+    {
+      m2::AnyRectD::Corners currentCorners;
+      m_screen.GlobalRect().GetGlobalPoints(currentCorners);
+
+      m2::AnyRectD::Corners screenCorners;
+      screen.GlobalRect().GetGlobalPoints(screenCorners);
+
+      auto const score = geometry::GetIntersectionScoreForPoints(currentCorners, screenCorners);
+
+      // If more than 80% of viewport rect intersects with last requested rect then return.
+      if (score > 0.8)
+        return;
+    }
   }
 
-  m_currentRect = screen.GlobalRect();
+  m_screen = screen;
   m_zoom = zoom;
 
-  RequestGuides(m_currentRect, m_zoom);
+  RequestGuides(m_screen.GlobalRect(), m_zoom);
 }
 
 void GuidesManager::Invalidate()
@@ -80,7 +97,7 @@ void GuidesManager::Reconnect()
     return;
 
   ChangeState(GuidesState::Enabled);
-  RequestGuides(m_currentRect, m_zoom);
+  RequestGuides(m_screen.GlobalRect(), m_zoom);
 }
 
 void GuidesManager::SetEnabled(bool enabled)
@@ -96,7 +113,7 @@ void GuidesManager::SetEnabled(bool enabled)
   if (!enabled)
     return;
 
-  RequestGuides(m_currentRect, m_zoom);
+  RequestGuides(m_screen.GlobalRect(), m_zoom);
 }
 
 bool GuidesManager::IsEnabled() const
@@ -154,7 +171,7 @@ void GuidesManager::RequestGuides(m2::AnyRectD const & rect, int zoom)
 
         // Re-request only when no additional requests enqueued.
         if (requestNumber == m_requestCounter)
-          RequestGuides(m_currentRect, zoom);
+          RequestGuides(m_screen.GlobalRect(), zoom);
       });
 }
 

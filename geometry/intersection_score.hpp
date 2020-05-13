@@ -30,15 +30,14 @@ impl::Polygon PointsToPolygon(Container const & points);
 template <typename Container>
 impl::MultiPolygon TrianglesToPolygon(Container const & points);
 
-/// Returns value form [-1.0, 1.0].
-/// Returns positive value when projections of two geometries are
-/// intersects (returns intersection area divided by union area).
-/// Returns zero when projections of two geometries are not intersects.
-/// Returns 1 when provided geometries projections are fully equal.
-/// Returns -1.0 as penalty. It is possible when any of the geometries is empty or not valid.
+// The return value is a real number from [-1.0, 1.0].
+// * Returns positive value when the geometries intersect (returns intersection area divided by union area).
+//   In particular, returns 1.0 when the geometries are equal.
+// * Returns zero when the geometries do not intersect.
+// * Returns kPenaltyScore as penalty. It is possible when any of the geometries is empty or invalid.
 /// |lhs| and |rhs| are any areal boost::geometry types.
-template <typename LPolygon, typename RPolygon>
-double GetIntersectionScore(LPolygon const & lhs, RPolygon const & rhs)
+template <typename LGeometry, typename RGeometry>
+double GetIntersectionScore(LGeometry const & lhs, RGeometry const & rhs)
 {
   if (!boost::geometry::is_valid(lhs) || !boost::geometry::is_valid(rhs) ||
       boost::geometry::is_empty(lhs) || boost::geometry::is_empty(rhs))
@@ -62,7 +61,7 @@ double GetIntersectionScore(LPolygon const & lhs, RPolygon const & rhs)
 /// For detailed info see comment for
 /// double GetIntersectionScore(LPolygon const & lhs, RPolygon const & rhs).
 /// |lhs| and |rhs| are any standard container of m2::Point with random access iterator.
-/// |toPolygonConverter| is a method which converts |lhs| and |rhs| to boost::geometry aerial type.
+/// |toPolygonConverter| is a method which converts |lhs| and |rhs| to boost::geometry areal type.
 template <typename Container, typename Converter>
 double GetIntersectionScore(Container const & lhs, Container const & rhs,
                             Converter const & toPolygonConverter)
