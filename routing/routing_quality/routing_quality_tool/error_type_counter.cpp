@@ -14,8 +14,8 @@ void ErrorTypeCounter::PushError(api::ResultCode code)
   routing::RouterResultCode routingCode = routing::RouterResultCode::InternalError;
   switch (code)
   {
-  case api::ResultCode::ResponseOK: routingCode = routing::RouterResultCode::NoError;
-  case api::ResultCode::Error: routingCode = routing::RouterResultCode::RouteNotFound;
+  case api::ResultCode::ResponseOK: routingCode = routing::RouterResultCode::NoError; break;
+  case api::ResultCode::Error: routingCode = routing::RouterResultCode::RouteNotFound; break;
   }
   CHECK_NOT_EQUAL(routingCode, routing::RouterResultCode::InternalError,
                   ("Wrong value of api::ResultCode:", static_cast<int>(code)));
