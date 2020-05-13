@@ -2,6 +2,8 @@
 
 #include "platform/location.hpp"
 
+#include "base/assert.hpp"
+
 #include <algorithm>
 #include <vector>
 
@@ -12,7 +14,7 @@ namespace
 // If the distance between two sequential turns is less than kMaxTurnDistM
 // the information about the second turn will be shown or pronounced when the user is
 // approaching to the first one.
-double constexpr kMaxTurnDistM = 400.;
+double constexpr kMaxTurnDistM = 400.0;
 
 // Returns true if the closest turn is an entrance to a roundabout and the second is
 // an exit form a roundabout.
@@ -33,6 +35,37 @@ namespace turns
 {
 namespace sound
 {
+NotificationManager::NotificationManager()
+    : m_enabled(false)
+    , m_speedMetersPerSecond(0.0)
+    , m_settings(8 /* m_startBeforeSeconds */, 35 /* m_minStartBeforeMeters */,
+                 150 /* m_maxStartBeforeMeters */, 170 /* m_minDistToSayNotificationMeters */)
+    , m_nextTurnNotificationProgress(PronouncedNotification::Nothing)
+    , m_turnNotificationWithThen(false)
+    , m_nextTurnIndex(0)
+    , m_secondTurnNotification(CarDirection::None)
+{
+}
+
+// static
+NotificationManager NotificationManager::CreateNotificationManagerForTesting(
+    uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters,
+    uint32_t minDistToSayNotificationMeters, measurement_utils::Units lengthUnits,
+    string const & engShortJson, uint32_t notificationTimeSecond, double speedMeterPerSecond)
+{
+  NotificationManager notificationManager;
+  notificationManager.m_settings = Settings(startBeforeSeconds, minStartBeforeMeters,
+                                            maxStartBeforeMeters, minDistToSayNotificationMeters);
+  notificationManager.Enable(true);
+  notificationManager.SetLengthUnits(lengthUnits);
+  notificationManager.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
+  notificationManager.m_settings.ForTestingSetNotificationTimeSecond(notificationTimeSecond);
+  notificationManager.Reset();
+  notificationManager.SetSpeedMetersPerSecond(speedMeterPerSecond);
+
+  return notificationManager;
+}
+
 string NotificationManager::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum,
                                              bool useThenInsteadOfDistance, CarDirection turnDir,
                                              measurement_utils::Units lengthUnits) const
@@ -245,7 +278,7 @@ void NotificationManager::SetLocaleWithJsonForTesting(string const & json, strin
   m_getTtsText.ForTestingSetLocaleWithJson(json, locale);
 }
 
-string DebugPrint(PronouncedNotification const notificationProgress)
+string DebugPrint(PronouncedNotification notificationProgress)
 {
   switch (notificationProgress)
   {

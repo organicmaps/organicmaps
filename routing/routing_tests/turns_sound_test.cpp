@@ -94,22 +94,16 @@ UNIT_TEST(TurnNotificationSettingsNotValidTest)
 
 UNIT_TEST(TurnsSoundMetersTest)
 {
-  NotificationManager notificationManager(5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */,
-                                          100 /* maxStartBeforeMeters */,
-                                          100 /* minDistToSayNotificationMeters */);
-  notificationManager.Enable(true);
-  notificationManager.SetLengthUnits(measurement_utils::Units::Metric);
   string const engShortJson =
       "\
       {\
       \"in_600_meters\":\"In 600 meters.\",\
       \"make_a_right_turn\":\"Make a right turn.\"\
       }";
-  notificationManager.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
-  notificationManager.m_settings.ForTestingSetNotificationTimeSecond(20);
-
-  notificationManager.Reset();
-  notificationManager.SetSpeedMetersPerSecond(30.);
+  auto notificationManager = NotificationManager::CreateNotificationManagerForTesting(
+      5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */, 100 /* maxStartBeforeMeters */,
+      100 /* minDistToSayNotificationMeters */, measurement_utils::Units::Metric, engShortJson,
+      20 /* notificationTimeSecond */, 30.0 /* speedMeterPerSecond */);
 
   vector<TurnItemDist> turns = {{{5 /* idx */, CarDirection::TurnRight}, 1000.}};
   vector<string> turnNotifications;
@@ -192,11 +186,6 @@ UNIT_TEST(TurnsSoundMetersTest)
 // So the first notification of the second turn shall be skipped.
 UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
 {
-  NotificationManager notificationManager(5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */,
-                                          100 /* maxStartBeforeMeters */,
-                                          100 /* minDistToSayNotificationMeters */);
-  notificationManager.Enable(true);
-  notificationManager.SetLengthUnits(measurement_utils::Units::Metric);
   string const engShortJson =
       "\
       {\
@@ -204,11 +193,10 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
       \"make_a_sharp_right_turn\":\"Make a sharp right turn.\",\
       \"enter_the_roundabout\":\"Enter the roundabout.\"\
       }";
-  notificationManager.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
-  notificationManager.m_settings.ForTestingSetNotificationTimeSecond(20);
-
-  notificationManager.Reset();
-  notificationManager.SetSpeedMetersPerSecond(35.);
+  auto notificationManager = NotificationManager::CreateNotificationManagerForTesting(
+      5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */, 100 /* maxStartBeforeMeters */,
+      100 /* minDistToSayNotificationMeters */, measurement_utils::Units::Metric, engShortJson,
+      20 /* notificationTimeSecond */, 35.0 /* speedMeterPerSecond */);
 
   vector<TurnItemDist> turns = {{{5 /* idx */, CarDirection::TurnSharpRight}, 800.}};
   vector<string> turnNotifications;
@@ -269,22 +257,16 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
 
 UNIT_TEST(TurnsSoundFeetTest)
 {
-  NotificationManager notificationManager(5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */,
-                                          100 /* maxStartBeforeMeters */,
-                                          100 /* minDistToSayNotificationMeters */);
-  notificationManager.Enable(true);
-  notificationManager.SetLengthUnits(measurement_utils::Units::Imperial);
   string const engShortJson =
       "\
       {\
       \"in_2000_feet\":\"In 2000 feet.\",\
       \"enter_the_roundabout\":\"Enter the roundabout.\"\
       }";
-  notificationManager.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
-  notificationManager.m_settings.ForTestingSetNotificationTimeSecond(20);
-
-  notificationManager.Reset();
-  notificationManager.SetSpeedMetersPerSecond(30.);
+  auto notificationManager = NotificationManager::CreateNotificationManagerForTesting(
+      5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */, 100 /* maxStartBeforeMeters */,
+      100 /* minDistToSayNotificationMeters */, measurement_utils::Units::Imperial, engShortJson,
+      20 /* notificationTimeSecond */, 30.0 /* speedMeterPerSecond */);
 
   vector<TurnItemDist> turns = {{{7 /* idx */, CarDirection::EnterRoundAbout,
                                   3 /* exitNum */}, 1000.}};
@@ -352,11 +334,6 @@ UNIT_TEST(TurnsSoundFeetTest)
 
 UNIT_TEST(TurnsSoundComposedTurnTest)
 {
-  NotificationManager notificationManager(5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */,
-                                          100 /* maxStartBeforeMeters */,
-                                          100 /* minDistToSayNotificationMeters */);
-  notificationManager.Enable(true);
-  notificationManager.SetLengthUnits(measurement_utils::Units::Metric);
   string const engShortJson =
       "\
       {\
@@ -366,11 +343,11 @@ UNIT_TEST(TurnsSoundComposedTurnTest)
       \"then\":\"Then.\",\
       \"you_have_reached_the_destination\":\"You have reached the destination.\"\
       }";
-  notificationManager.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
-  notificationManager.m_settings.ForTestingSetNotificationTimeSecond(30);
+  auto notificationManager = NotificationManager::CreateNotificationManagerForTesting(
+      5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */, 100 /* maxStartBeforeMeters */,
+      100 /* minDistToSayNotificationMeters */, measurement_utils::Units::Metric, engShortJson,
+      30.0 /* notificationTimeSecond */, 20.0 /* speedMeterPerSecond */);
 
-  notificationManager.Reset();
-  notificationManager.SetSpeedMetersPerSecond(20.);
   vector<string> turnNotifications;
 
   // Starting nearing the first turn.
@@ -429,11 +406,6 @@ UNIT_TEST(TurnsSoundComposedTurnTest)
 
 UNIT_TEST(TurnsSoundRoundaboutTurnTest)
 {
-  NotificationManager notificationManager(5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */,
-                                          100 /* maxStartBeforeMeters */,
-                                          100 /* minDistToSayNotificationMeters */);
-  notificationManager.Enable(true);
-  notificationManager.SetLengthUnits(measurement_utils::Units::Metric);
   string const engShortJson =
       "\
       {\
@@ -445,11 +417,11 @@ UNIT_TEST(TurnsSoundRoundaboutTurnTest)
       \"in_600_meters\":\"In 600 meters.\",\
       \"then\":\"Then.\"\
       }";
-  notificationManager.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
-  notificationManager.m_settings.ForTestingSetNotificationTimeSecond(30);
+  auto notificationManager = NotificationManager::CreateNotificationManagerForTesting(
+      5 /* startBeforeSeconds */, 10 /* minStartBeforeMeters */, 100 /* maxStartBeforeMeters */,
+      100 /* minDistToSayNotificationMeters */, measurement_utils::Units::Metric, engShortJson,
+      30 /* notificationTimeSecond */, 20.0 /* speedMeterPerSecond */);
 
-  notificationManager.Reset();
-  notificationManager.SetSpeedMetersPerSecond(20.);
   vector<string> turnNotifications;
 
   // Starting nearing the first turn.
