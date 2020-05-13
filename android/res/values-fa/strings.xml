@@ -1737,6 +1737,9 @@
 	<string name="downloader_updating_ios">در حال بروزرسانی</string>
 	<string name="downloader_loading_ios">در حال دانلود</string>
 	<string name="routes_card_plus_track">+ مسیر</string>
+	<string name="routes_card_number_of_points">%s مکان ها</string>
+	<string name="routes_card_routes_tag">مسیر سفر</string>
+	<string name="routes_card_set_tag">مکان های ویژه</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

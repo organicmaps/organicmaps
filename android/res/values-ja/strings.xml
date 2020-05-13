@@ -1790,6 +1790,9 @@
 	<string name="downloader_updating_ios">更新中</string>
 	<string name="downloader_loading_ios">ダウンロード中</string>
 	<string name="routes_card_plus_track">+トラック</string>
+	<string name="routes_card_number_of_points">%s個の場所</string>
+	<string name="routes_card_routes_tag">経路</string>
+	<string name="routes_card_set_tag">主要な場所</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

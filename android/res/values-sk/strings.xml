@@ -1796,6 +1796,9 @@
 	<string name="downloader_updating_ios">Aktualizovanie</string>
 	<string name="downloader_loading_ios">Sťahovanie</string>
 	<string name="routes_card_plus_track">+ trasu</string>
+	<string name="routes_card_number_of_points">%s miest</string>
+	<string name="routes_card_routes_tag">Itinerár</string>
+	<string name="routes_card_set_tag">Odporúčané miesta</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

@@ -1808,6 +1808,9 @@
 	<string name="downloader_updating_ios">Aktualizacja</string>
 	<string name="downloader_loading_ios">Pobieranie</string>
 	<string name="routes_card_plus_track">+ trasa</string>
+	<string name="routes_card_number_of_points">%s miejsc</string>
+	<string name="routes_card_routes_tag">Trasa</string>
+	<string name="routes_card_set_tag">Polecane miejsca</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

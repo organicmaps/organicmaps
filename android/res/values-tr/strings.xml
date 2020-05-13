@@ -1802,6 +1802,9 @@
 	<string name="downloader_updating_ios">Güncelleme</string>
 	<string name="downloader_loading_ios">İndir</string>
 	<string name="routes_card_plus_track">+ rota</string>
+	<string name="routes_card_number_of_points">%s yer</string>
+	<string name="routes_card_routes_tag">Yol</string>
+	<string name="routes_card_set_tag">Öne çıkan yerler</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

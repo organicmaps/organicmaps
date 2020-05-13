@@ -1799,6 +1799,9 @@
 	<string name="downloader_updating_ios">更新</string>
 	<string name="downloader_loading_ios">加載</string>
 	<string name="routes_card_plus_track">+路線</string>
+	<string name="routes_card_number_of_points">%s位置</string>
+	<string name="routes_card_routes_tag">路線</string>
+	<string name="routes_card_set_tag">特色景點</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

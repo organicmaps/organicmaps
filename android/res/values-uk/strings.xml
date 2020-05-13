@@ -1803,6 +1803,9 @@
 	<string name="downloader_updating_ios">Оновлення</string>
 	<string name="downloader_loading_ios">Завантаження</string>
 	<string name="routes_card_plus_track">+ трек</string>
+	<string name="routes_card_number_of_points">%s місць</string>
+	<string name="routes_card_routes_tag">Маршрут</string>
+	<string name="routes_card_set_tag">Добірка місць</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

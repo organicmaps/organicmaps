@@ -1843,6 +1843,9 @@
 	<string name="downloader_updating_ios">Обновление</string>
 	<string name="downloader_loading_ios">Загрузка</string>
 	<string name="routes_card_plus_track">+ трек</string>
+	<string name="routes_card_number_of_points">%s мест</string>
+	<string name="routes_card_routes_tag">Маршрут</string>
+	<string name="routes_card_set_tag">Подборка мест</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

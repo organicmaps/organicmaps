@@ -1869,6 +1869,11 @@
 	<string name="downloader_updating_ios">Updating</string>
 	<string name="downloader_loading_ios">Downloading</string>
 	<string name="routes_card_plus_track">+ track</string>
+	<string name="routes_card_city">City</string>
+	<string name="routes_card_outdoor">Outdoor</string>
+	<string name="routes_card_number_of_points">%s places</string>
+	<string name="routes_card_routes_tag">Itinerary</string>
+	<string name="routes_card_set_tag">Featured places</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

@@ -1791,6 +1791,9 @@
 	<string name="downloader_updating_ios">Päivitys</string>
 	<string name="downloader_loading_ios">Lataus</string>
 	<string name="routes_card_plus_track">+ reitti</string>
+	<string name="routes_card_number_of_points">%s paikoista</string>
+	<string name="routes_card_routes_tag">Reitti</string>
+	<string name="routes_card_set_tag">Esitellyt paikat</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

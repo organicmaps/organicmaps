@@ -1801,6 +1801,9 @@
 	<string name="downloader_updating_ios">Opdaterer</string>
 	<string name="downloader_loading_ios">Downloader</string>
 	<string name="routes_card_plus_track">+ rute</string>
+	<string name="routes_card_number_of_points">%s steder</string>
+	<string name="routes_card_routes_tag">Rejseplan</string>
+	<string name="routes_card_set_tag">Fremhævede steder</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

@@ -1800,6 +1800,9 @@
 	<string name="downloader_updating_ios">Probíhá aktualizace</string>
 	<string name="downloader_loading_ios">Probíhá stahování</string>
 	<string name="routes_card_plus_track">+ cesta</string>
+	<string name="routes_card_number_of_points">%s míst</string>
+	<string name="routes_card_routes_tag">Itinerář</string>
+	<string name="routes_card_set_tag">Doporučená místa</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

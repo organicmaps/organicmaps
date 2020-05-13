@@ -1690,6 +1690,9 @@
 	<string name="downloader_updating_ios">Oppdatering</string>
 	<string name="downloader_loading_ios">Nedlasting</string>
 	<string name="routes_card_plus_track">+ spor</string>
+	<string name="routes_card_number_of_points">%s steder</string>
+	<string name="routes_card_routes_tag">Ruten</string>
+	<string name="routes_card_set_tag">Kompilasjon av steder</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

@@ -1802,6 +1802,9 @@
 	<string name="downloader_updating_ios">جار التحديث</string>
 	<string name="downloader_loading_ios">جار التحميل</string>
 	<string name="routes_card_plus_track">+ مسار</string>
+	<string name="routes_card_number_of_points">%s مكان</string>
+	<string name="routes_card_routes_tag">برنامج الرحلة</string>
+	<string name="routes_card_set_tag">أماكن مميزة</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

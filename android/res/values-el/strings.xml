@@ -1559,6 +1559,9 @@
 	<string name="downloader_updating_ios">Ενημέρωση</string>
 	<string name="downloader_loading_ios">Φόρτωση</string>
 	<string name="routes_card_plus_track">+ δρόμος</string>
+	<string name="routes_card_number_of_points">%s τοποθεσιών</string>
+	<string name="routes_card_routes_tag">Διαδρομή</string>
+	<string name="routes_card_set_tag">Προτεινόμενα μέρη</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

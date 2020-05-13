@@ -1790,6 +1790,9 @@
 	<string name="downloader_updating_ios">Memperbarui</string>
 	<string name="downloader_loading_ios">Mengunduh</string>
 	<string name="routes_card_plus_track">+ lintasan</string>
+	<string name="routes_card_number_of_points">%s tempat</string>
+	<string name="routes_card_routes_tag">Rencana perjalanan</string>
+	<string name="routes_card_set_tag">Tempat pilihan</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

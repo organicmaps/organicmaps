@@ -1792,6 +1792,9 @@
 	<string name="downloader_updating_ios">업데이트 중</string>
 	<string name="downloader_loading_ios">다운로드 중</string>
 	<string name="routes_card_plus_track">+ 경로</string>
+	<string name="routes_card_number_of_points">%s 장소</string>
+	<string name="routes_card_routes_tag">일정표</string>
+	<string name="routes_card_set_tag">주요 장소</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

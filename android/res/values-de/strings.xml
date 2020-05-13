@@ -1805,6 +1805,9 @@
 	<string name="downloader_updating_ios">Update</string>
 	<string name="downloader_loading_ios">Download</string>
 	<string name="routes_card_plus_track">+ Wanderweg</string>
+	<string name="routes_card_number_of_points">%s Orte</string>
+	<string name="routes_card_routes_tag">Route</string>
+	<string name="routes_card_set_tag">Selektion der Plätze</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

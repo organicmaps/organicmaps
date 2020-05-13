@@ -1791,6 +1791,9 @@
 	<string name="downloader_updating_ios">Actualización</string>
 	<string name="downloader_loading_ios">Cargando</string>
 	<string name="routes_card_plus_track">+ pista</string>
+	<string name="routes_card_number_of_points">%s lugares</string>
+	<string name="routes_card_routes_tag">Itinerario</string>
+	<string name="routes_card_set_tag">Lugares destacados</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

@@ -1797,6 +1797,9 @@
 	<string name="downloader_updating_ios">Uppdatering</string>
 	<string name="downloader_loading_ios">Nedladdning</string>
 	<string name="routes_card_plus_track">+ bana</string>
+	<string name="routes_card_number_of_points">%s platser</string>
+	<string name="routes_card_routes_tag">Resväg</string>
+	<string name="routes_card_set_tag">Utvalda platser</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

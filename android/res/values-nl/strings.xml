@@ -1798,6 +1798,9 @@
 	<string name="downloader_updating_ios">Updaten</string>
 	<string name="downloader_loading_ios">Downloaden</string>
 	<string name="routes_card_plus_track">+ route</string>
+	<string name="routes_card_number_of_points">%s plaatsen</string>
+	<string name="routes_card_routes_tag">Route</string>
+	<string name="routes_card_set_tag">Aanbevolen plaatsen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

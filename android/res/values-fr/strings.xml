@@ -1815,6 +1815,9 @@
 	<string name="downloader_updating_ios">Misе à jour</string>
 	<string name="downloader_loading_ios">Téléchargement</string>
 	<string name="routes_card_plus_track">+ itinéraire</string>
+	<string name="routes_card_number_of_points">%s places</string>
+	<string name="routes_card_routes_tag">Itinéraire</string>
+	<string name="routes_card_set_tag">Sélection de sièges</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>
