@@ -47737,3 +47737,111 @@
     zh-Hans = +路线
     zh-Hant = +路線
     fa = + مسیر
+
+  [routes_card_city]
+    en = City
+
+  [routes_card_outdoor]
+    en = Outdoor
+
+  [routes_card_number_of_points]
+    en = %s places
+    ru = %s мест
+    ar = %s مكان
+    cs = %s míst
+    da = %s steder
+    nl = %s plaatsen
+    fi = %s paikoista
+    fr = %s places
+    de = %s Orte
+    hu = %s hely
+    id = %s tempat
+    it = %s posti
+    ja = %s個の場所
+    ko = %s 장소
+    nb = %s steder
+    pl = %s miejsc
+    pt = %s locais
+    pt-BR = %s lugares
+    ro = %s locuri
+    es = %s lugares
+    es-MX = %s lugares
+    sv = %s platser
+    th = %s สถานที่
+    tr = %s yer
+    uk = %s місць
+    vi = %s địa điểm
+    el = %s τοποθεσιών
+    sk = %s miest
+    sw = sehemu %s
+    zh-Hant = %s位置
+    zh-Hans = %s位置
+    fa = %s مکان ها
+
+  [routes_card_routes_tag]
+    en = Itinerary
+    ru = Маршрут
+    ar = برنامج الرحلة
+    cs = Itinerář
+    da = Rejseplan
+    nl = Route
+    fi = Reitti
+    fr = Itinéraire
+    de = Route
+    hu = Útiterv
+    id = Rencana perjalanan
+    it = Percorso
+    ja = 経路
+    ko = 일정표
+    nb = Ruten
+    pl = Trasa
+    pt = Percurso
+    pt-BR = Itinerário
+    ro = Traseu
+    es = Itinerario
+    es-MX = Itinerario
+    sv = Resväg
+    th = แผนการเดินทาง
+    tr = Yol
+    uk = Маршрут
+    vi = Tuyến
+    el = Διαδρομή
+    sk = Itinerár
+    sw = Utaratibu wa safari
+    zh-Hans = 路线
+    zh-Hant = 路線
+    fa = مسیر سفر
+
+  [routes_card_set_tag]
+    en = Featured places
+    ru = Подборка мест
+    ar = أماكن مميزة
+    cs = Doporučená místa
+    da = Fremhævede steder
+    nl = Aanbevolen plaatsen
+    fi = Esitellyt paikat
+    fr = Sélection de sièges
+    de = Selektion der Plätze
+    hu = Kiemelt helyek
+    id = Tempat pilihan
+    it = Selezione dei luoghi
+    ja = 主要な場所
+    ko = 주요 장소
+    nb = Kompilasjon av steder
+    pl = Polecane miejsca
+    pt = Lugares em destaque
+    pt-BR = Lugares em destaque
+    ro = Locuri atractive
+    es = Lugares destacados
+    es-MX = Lugares destacados
+    sv = Utvalda platser
+    th = สถานที่แนะนำ
+    tr = Öne çıkan yerler
+    uk = Добірка місць
+    vi = Địa điểm nổi bật
+    el = Προτεινόμενα μέρη
+    sk = Odporúčané miesta
+    sw = Maeneo muhimu
+    zh-Hans = 特色景点
+    zh-Hant = 特色景點
+    fa = مکان های ویژه
