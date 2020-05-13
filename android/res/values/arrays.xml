@@ -24,12 +24,12 @@
 
   <string-array name="news_button_labels">
     <item/>
-    <item>@string/whatsnew_catalog_new_button</item>
+    <item>@string/download_guides_button</item>
   </string-array>
 
   <string-array name="news_button_links">
     <item/>
-    <item>https://routes.maps.me/v3/mobilefront/</item>
+    <item>https://routes.maps.me/v3/mobilefront/?utm_source=maps.me&amp;utm_medium=whatsnew&amp;utm_campaign=100_minor&amp;utm_content=download_guides_button</item>
   </string-array>
 
   <string-array name="news_switch_titles">
