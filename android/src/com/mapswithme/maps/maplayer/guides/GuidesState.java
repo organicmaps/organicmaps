@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 
 public enum GuidesState
@@ -16,6 +17,9 @@ public enum GuidesState
         @Override
         public void activate(@NonNull Context context)
         {
+          if (!SharedPropertiesUtils.shouldShowHowToUseGuidesLayerToast(context))
+            return;
+
           UiUtils.showToastAtTop(context, R.string.routes_layer_is_on_toast);
         }
       },
