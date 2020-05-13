@@ -26,21 +26,21 @@ public:
   struct Vertex
   {
     Vertex() = default;
-    Vertex(glsl::vec3 const & pos, glsl::vec2 const & normal, glsl::vec2 const & color,
-           glsl::vec2 const & outline, glsl::vec2 const & mask)
+    Vertex(glsl::vec3 const & pos, glsl::vec2 const & color, glsl::vec2 const & outline,
+           glsl::vec2 const & normal, glsl::vec2 const & mask)
       : m_position(pos)
-      , m_normal(normal)
       , m_colorTexCoord(color)
       , m_outlineColorTexCoord(outline)
+      , m_normal(normal)
       , m_maskTexCoord(mask)
     {}
 
     static dp::BindingInfo const & GetBindingInfo();
 
     glsl::vec3 m_position;
-    glsl::vec2 m_normal;
     glsl::vec2 m_colorTexCoord;
     glsl::vec2 m_outlineColorTexCoord;
+    glsl::vec2 m_normal;
     glsl::vec2 m_maskTexCoord;
   };
 

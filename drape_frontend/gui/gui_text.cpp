@@ -93,11 +93,11 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
 
     FillPositionDecl(info->GetBindingDecl(0), stride, offset);
     offset += sizeof(glsl::vec3);
-    FillNormalDecl(info->GetBindingDecl(1), stride, offset);
+    FillColorDecl(info->GetBindingDecl(1), stride, offset);
     offset += sizeof(glsl::vec2);
-    FillColorDecl(info->GetBindingDecl(2), stride, offset);
+    FillOutlineDecl(info->GetBindingDecl(2), stride, offset);
     offset += sizeof(glsl::vec2);
-    FillOutlineDecl(info->GetBindingDecl(3), stride, offset);
+    FillNormalDecl(info->GetBindingDecl(3), stride, offset);
     offset += sizeof(glsl::vec2);
     FillMaskDecl(info->GetBindingDecl(4), stride, offset);
     ASSERT_EQUAL(offset + sizeof(glsl::vec2), stride, ());
@@ -192,7 +192,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
       glsl::vec3 position = glsl::vec3(0.0, 0.0, depth);
 
       for (size_t v = 0; v < normals.size(); ++v)
-        rb.push_back(Vertex(position, pen + normals[v], colorTex, outlineTex, maskTex[v]));
+        rb.push_back(Vertex(position, colorTex, outlineTex, pen + normals[v], maskTex[v]));
 
       float const advance = glyph.GetAdvanceX() * textRatio;
       prevLineHeight = std::max(prevLineHeight, offsets.y + glyph.GetPixelHeight() * textRatio);
