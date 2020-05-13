@@ -1148,15 +1148,18 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     //noinspection WrongConstant
     mWaitingPoiPickType = NO_WAITING_POI_PICK;
   }
-
   public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize)
+  {
+    return formatRoutingTime(context, seconds, unitsSize, R.dimen.text_size_routing_number);
+  }
+
+  public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize,
+                                               @DimenRes int textSize)
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);
     String min = context.getString(R.string.minute);
     String hour = context.getString(R.string.hour);
-    @DimenRes
-    int textSize = R.dimen.text_size_routing_number;
     SpannableStringBuilder displayedH = Utils.formatUnitsText(context, textSize, unitsSize,
                                                               String.valueOf(hours), hour);
     SpannableStringBuilder displayedM = Utils.formatUnitsText(context, textSize, unitsSize,
