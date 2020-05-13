@@ -7,8 +7,9 @@ class WhatsNewPresenter {
     var image: UIImage?
     var title: String
     var text: String
-    var buttonNextTitle: String
-    var isCloseButtonHidden: Bool
+    var buttonNextTitle: String = "new_onboarding_button"
+    var isCloseButtonHidden: Bool = true
+    var action: (()->())? = nil
   }
 
   private weak var view: IWelcomeView?
@@ -34,6 +35,9 @@ extension WhatsNewPresenter: IWhatsNewPresenter {
   }
 
   func onNext() {
+    if let action = config.action {
+      action()
+    }
     router.onNext()
     Statistics.logEvent(kStatWhatsNew, withParameters: [kStatAction: kStatNext,
                                                         kStatVersion: appVersion])

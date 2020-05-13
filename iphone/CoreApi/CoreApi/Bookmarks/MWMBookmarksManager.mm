@@ -5,6 +5,7 @@
 #import "MWMCatalogObserver.h"
 #import "MWMTag.h"
 #import "MWMTagGroup+Convenience.h"
+#import "MWMUTM+Core.h"
 
 #include "Framework.h"
 
@@ -535,7 +536,7 @@
 
 - (NSURL *)catalogFrontendUrl:(MWMUTM)utm
 {
-  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl((UTM)utm).c_str());
+  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl(toUTM(utm)).c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
@@ -543,14 +544,14 @@
   if (!url)
     return nil;
   NSString * urlString = @(InjectUTMContent(std::string(url.absoluteString.UTF8String),
-                                            (UTMContent)content).c_str());
+                                            toUTMContent(content)).c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
 - (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
                                             utm:(MWMUTM)utm
 {
-  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl((UTM)utm).c_str());
+  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl(toUTM(utm)).c_str());
   return urlString ? [NSURL URLWithString:[urlString stringByAppendingPathComponent:path]] : nil;
 }
 

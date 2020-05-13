@@ -268,6 +268,7 @@
 		9940621E23EAC57900493D1A /* ElevationHeightPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevationHeightPoint.h; sourceTree = "<group>"; };
 		9940621F23EAC57900493D1A /* ElevationHeightPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElevationHeightPoint.m; sourceTree = "<group>"; };
 		99447847238559F2004DAEE5 /* DeeplinkParsingResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeeplinkParsingResult.h; sourceTree = "<group>"; };
+		994C4E0E246C22CA0018EB1E /* MWMUTM+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMUTM+Core.h"; sourceTree = "<group>"; };
 		9957FACC237AB01400855F48 /* DeepLinkParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkParser.h; sourceTree = "<group>"; };
 		9957FACD237AB01400855F48 /* DeepLinkParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkParser.mm; sourceTree = "<group>"; };
 		9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkSearchData.h; sourceTree = "<group>"; };
@@ -529,6 +530,7 @@
 				479F704D234FB60400011E2E /* MWMCatalogObserver.h */,
 				479F704E234FB60400011E2E /* MWMCatalogObserver.mm */,
 				479F705A234FBAC200011E2E /* MWMUTM.h */,
+				994C4E0E246C22CA0018EB1E /* MWMUTM+Core.h */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";

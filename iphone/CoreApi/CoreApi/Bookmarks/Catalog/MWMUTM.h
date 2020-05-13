@@ -19,5 +19,5 @@ typedef NS_ENUM(NSInteger, MWMUTMContent) {
   MWMUTMContentDescription = 0,
   MWMUTMContentView,
   MWMUTMContentDetails,
-  MWMUTMContentMore,
+  MWMUTMContentMore
 };
