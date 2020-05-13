@@ -84,6 +84,7 @@ final class ExpandableLabel: UIView {
     containerMaximumNumberOfLines = numberOfLines > 0 ? numberOfLines + 1 : 0
     textView.textContainer.lineFragmentPadding = 0;
     textView.isScrollEnabled = false
+    textView.isEditable = false
     textView.textContainerInset = .zero
     textView.contentMode = .topLeft
     textView.font = font
