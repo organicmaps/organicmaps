@@ -52,15 +52,6 @@ void GuidesManager::UpdateViewport(ScreenBase const & screen)
 
   if (!m_screen.GlobalRect().GetLocalRect().IsEmptyInterior())
   {
-    auto const requestedCenter = screen.PtoP3d(screen.GtoP(m_screen.GetOrg()));
-    auto const viewportCenter = screen.PtoP3d(screen.GtoP(screen.GetOrg()));
-    auto const orgDist = requestedCenter.Length(viewportCenter);
-    auto const viewportLength = std::min(screen.PixelRectIn3d().SizeX(),
-                                         screen.PixelRectIn3d().SizeY());
-    // Return when center moves more than 20 percents of smaller side
-    if (orgDist < viewportLength * 0.2)
-      return;
-
     auto const scaleStronglyChanged =
       fabs(m_screen.GetScale() - screen.GetScale()) / m_screen.GetScale() > kScaleEps;
 
