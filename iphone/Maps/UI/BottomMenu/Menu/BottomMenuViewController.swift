@@ -35,7 +35,9 @@ class BottomMenuViewController: MWMViewController {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    heightConstraint.constant = min(self.tableView.contentSize.height, self.view.height)
+    tableView.layoutIfNeeded()
+    heightConstraint.constant = min(tableView.contentSize.height, view.height)
+    tableView.isScrollEnabled = tableView.contentSize.height > heightConstraint.constant;
   }
   
   @IBAction func onClosePressed(_ sender: Any) {
