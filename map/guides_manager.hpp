@@ -108,12 +108,14 @@ public:
 
 private:
   void ChangeState(GuidesState newState);
-  void RequestGuides(m2::AnyRectD const & rect, int zoom);
+  void RequestGuides();
   void Clear();
 
   bool IsGuideDownloaded(std::string const & guideId) const;
   void UpdateGuidesMarks();
   void UpdateActiveGuide();
+
+  bool IsRequestParamsInitialized() const;
 
   GuidesState m_state = GuidesState::Disabled;
   GuidesStateChangedFn m_onStateChanged;

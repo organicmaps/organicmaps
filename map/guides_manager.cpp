@@ -50,7 +50,7 @@ void GuidesManager::UpdateViewport(ScreenBase const & screen)
   if (screen.GlobalRect().GetLocalRect().IsEmptyInterior())
     return;
 
-  if (!m_screen.GlobalRect().GetLocalRect().IsEmptyInterior())
+  if (IsRequestParamsInitialized())
   {
     auto const scaleStronglyChanged =
       fabs(m_screen.GetScale() - screen.GetScale()) / m_screen.GetScale() > kScaleEps;
@@ -74,7 +74,7 @@ void GuidesManager::UpdateViewport(ScreenBase const & screen)
   m_screen = screen;
   m_zoom = zoom;
 
-  RequestGuides(m_screen.GlobalRect(), m_zoom);
+  RequestGuides();
 }
 
 void GuidesManager::Invalidate()
@@ -88,7 +88,7 @@ void GuidesManager::Reconnect()
     return;
 
   ChangeState(GuidesState::Enabled);
-  RequestGuides(m_screen.GlobalRect(), m_zoom);
+  RequestGuides();
 }
 
 void GuidesManager::SetEnabled(bool enabled)
@@ -104,7 +104,7 @@ void GuidesManager::SetEnabled(bool enabled)
   if (!enabled)
     return;
 
-  RequestGuides(m_screen.GlobalRect(), m_zoom);
+  RequestGuides();
 }
 
 bool GuidesManager::IsEnabled() const
@@ -121,14 +121,14 @@ void GuidesManager::ChangeState(GuidesState newState)
     m_onStateChanged(newState);
 }
 
-void GuidesManager::RequestGuides(m2::AnyRectD const & rect, int zoom)
+void GuidesManager::RequestGuides()
 {
-  if (rect.GetLocalRect().IsEmptyInterior())
+  if (!IsRequestParamsInitialized())
     return;
 
   auto const requestNumber = ++m_requestCounter;
   m_api.GetGuidesOnMap(
-      rect, zoom,
+      m_screen.GlobalRect(), m_zoom,
       [this](guides_on_map::GuidesOnMap const & guides) {
         if (m_state == GuidesState::Disabled)
           return;
@@ -146,7 +146,7 @@ void GuidesManager::RequestGuides(m2::AnyRectD const & rect, int zoom)
         if (m_onGalleryChanged)
           m_onGalleryChanged(true /* reload */);
       },
-      [this, requestNumber, zoom]() mutable {
+      [this, requestNumber]() mutable {
         if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError)
           return;
 
@@ -162,7 +162,7 @@ void GuidesManager::RequestGuides(m2::AnyRectD const & rect, int zoom)
 
         // Re-request only when no additional requests enqueued.
         if (requestNumber == m_requestCounter)
-          RequestGuides(m_screen.GlobalRect(), zoom);
+          RequestGuides();
       });
 }
 
@@ -319,4 +319,23 @@ void GuidesManager::UpdateActiveGuide()
     }
   }
   m_activeGuide.clear();
+}
+
+bool GuidesManager::IsRequestParamsInitialized() const
+{
+  return m_screen.GlobalRect().GetLocalRect().IsEmptyInterior() || m_zoom != 0;
+}
+
+std::string DebugPrint(GuidesManager::GuidesState state)
+{
+  switch (state)
+  {
+  case GuidesManager::GuidesState::Disabled: return "Disabled";
+  case GuidesManager::GuidesState::Enabled: return "Enabled";
+  case GuidesManager::GuidesState::HasData: return "HasData";
+  case GuidesManager::GuidesState::NoData: return "NoData";
+  case GuidesManager::GuidesState::NetworkError: return "NetworkError";
+  case GuidesManager::GuidesState::FatalNetworkError: return "FatalNetworkError";
+  }
+  UNREACHABLE();
 }
