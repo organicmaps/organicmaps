@@ -1,12 +1,12 @@
 package com.mapswithme.maps.onboarding;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
@@ -99,6 +99,10 @@ public class NewsFragment extends BaseNewsFragment
     Fragment f = fm.findFragmentByTag(UpdaterDialogFragment.class.getName());
     if (f != null)
       return UpdaterDialogFragment.showOn(activity, listener);
+
+    f = fm.findFragmentByTag(NewsFragment.class.getName());
+    if (f != null)
+      return  true;
 
     String currentTitle = getCurrentTitleConcatenation(activity.getApplicationContext());
     String oldTitle = SharedPropertiesUtils.getWhatsNewTitleConcatenation();
