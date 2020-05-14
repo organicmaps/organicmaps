@@ -127,8 +127,7 @@ private:
 
   guides_on_map::Api m_api;
   guides_on_map::GuidesOnMap m_guides;
-  // Initial value is dummy for debug only.
-  std::string m_activeGuide = "048f4c49-ee80-463f-8513-e57ade2303ee";
+  std::string m_activeGuide;
 
   BookmarkManager * m_bmManager = nullptr;
   df::DrapeEngineSafePtr m_drapeEngine;
