@@ -6,7 +6,6 @@ class BottomMenuPresenter: NSObject {
   enum CellType: Int, CaseIterable {
     case addPlace
     case downloadRoutes
-    case bookingSearch
     case downloadMaps
     case settings
     case share
@@ -61,11 +60,6 @@ extension BottomMenuPresenter {
                        enabled: enabled)
       case .downloadRoutes:
         cell.configure(imageName: "ic_menu_routes", title: L("download_guides"))
-      case .bookingSearch:
-        cell.configure(imageName: "ic_menu_booking_search",
-                       title: L("booking_button_toolbar"),
-                       badgeCount: 0,
-                       enabled: true)
       case .downloadMaps:
         cell.configure(imageName: "ic_menu_download",
                        title: L("download_maps"),
@@ -115,8 +109,6 @@ extension BottomMenuPresenter {
       interactor.addPlace()
     case .downloadRoutes:
       interactor.downloadRoutes()
-    case .bookingSearch:
-      interactor.bookingSearch()
     case .downloadMaps:
       interactor.downloadMaps()
     case .settings:

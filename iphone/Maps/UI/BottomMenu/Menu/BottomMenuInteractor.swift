@@ -2,7 +2,6 @@ protocol BottomMenuInteractorProtocol: class {
   func close()
   func addPlace()
   func downloadRoutes()
-  func bookingSearch()
   func downloadMaps()
   func openSettings()
   func shareLocation(cell: BottomMenuItemCell)
@@ -46,12 +45,6 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
     Statistics.logEvent(kStatToolbarClick, withParameters: [kStatItem : kStatDownloadGuides])
     close()
     mapViewController?.openCatalog(animated: true, utm: .toolbarButton)
-  }
-
-  func bookingSearch() {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatItem : kStatBooking])
-    close()
-    controlsManager?.searchText(onMap: L("booking_hotel").appending(" "), forInputLocale: NSLocale.current.identifier)
   }
 
   func downloadMaps() {
