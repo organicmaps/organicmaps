@@ -58,8 +58,8 @@ Engine::Engine(std::unique_ptr<Delegate> delegate)
   m_downloadOnMapBanners.emplace_back(Banner::Type::TinkoffInsurance,
                                       std::make_unique<TinkoffInsurance>(*m_delegate));
   m_downloadOnMapBanners.emplace_back(Banner::Type::Skyeng, std::make_unique<Skyeng>(*m_delegate));
-  m_downloadOnMapBanners.emplace_back(Banner::Type::BookmarkCatalog,
-                                      std::make_unique<BookmarkCatalog>(*m_delegate));
+  m_downloadOnMapPromo.emplace_back(Banner::Type::BookmarkCatalog,
+                                    std::make_unique<BookmarkCatalog>(*m_delegate));
 }
 
 std::vector<Banner> Engine::GetPoiBanners(feature::TypesHolder const & types,
@@ -78,8 +78,17 @@ std::vector<Banner> Engine::GetDownloadOnMapBanners(storage::CountryId const & d
                                                     m2::PointD const & userPos,
                                                     std::string const & userLanguage) const
 {
-  return GetBanners(m_downloadOnMapBanners, m_delegate->IsAdsRemoved(), downloadMwmId, userPos,
-                    userLanguage);
+  auto result = GetBanners(m_downloadOnMapBanners, m_delegate->IsAdsRemoved(), downloadMwmId,
+                           userPos, userLanguage);
+  // Promo banners are not removable by "Remove Ads" subscription.
+  auto promo = GetBanners(m_downloadOnMapPromo, false /* isAdsRemoved */, downloadMwmId, userPos,
+                          userLanguage);
+  for (auto & promoItem : promo)
+  {
+    result.emplace_back(std::move(promoItem));
+  }
+
+  return result;
 }
 
 void Engine::DisableAdProvider(Banner::Type const type, Banner::Place const place)

@@ -67,5 +67,6 @@ private:
   std::vector<ContainerItem<PoiContainerBase>> m_poiBanners;
   std::vector<ContainerItem<SearchContainerBase>> m_searchBanners;
   std::vector<ContainerItem<DownloadOnMapContainer>> m_downloadOnMapBanners;
+  std::vector<ContainerItem<DownloadOnMapContainer>> m_downloadOnMapPromo;
 };
 }  // namespace ads
