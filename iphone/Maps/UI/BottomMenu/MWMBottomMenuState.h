@@ -4,7 +4,8 @@
 typedef NS_ENUM(NSUInteger, MWMBottomMenuState) {
   MWMBottomMenuStateHidden,
   MWMBottomMenuStateInactive,
-  MWMBottomMenuStateActive
+  MWMBottomMenuStateActive,
+  MWMBottomMenuStateLayers
 };
 
 #endif /* MWMBottomMenuState_h */

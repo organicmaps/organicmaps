@@ -9,6 +9,7 @@
 #import "MapViewController.h"
 #import "SwiftBridge.h"
 #import "base/assert.hpp"
+
 namespace {
 CGFloat const kTopOffset = 6;
 
@@ -160,7 +161,7 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   } else if ([MWMMapOverlayManager guidesEnabled]) {
     [MWMMapOverlayManager setGuidesEnabled:NO];
   } else {
-    MWMMapViewControlsManager.manager.menuState = MWMBottomMenuStateActive;
+    MWMMapViewControlsManager.manager.menuState = MWMBottomMenuStateLayers;
   }
 }
 

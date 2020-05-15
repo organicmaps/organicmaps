@@ -33,7 +33,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 @property(nonatomic) MWMSideButtons *sideButtons;
 @property(nonatomic) MWMTrafficButtonViewController *trafficButton;
 @property(nonatomic) UIButton *promoButton;
-@property(nonatomic) BottomMenuViewController *menuController;
+@property(nonatomic) UIViewController *menuController;
 @property(nonatomic) id<MWMPlacePageProtocol> placePageManager;
 @property(nonatomic) MWMNavigationDashboardManager *navigationManager;
 @property(nonatomic) MWMSearchManager *searchManager;
@@ -328,9 +328,18 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     case MWMBottomMenuStateActive:
       _tabBarController.isHidden = NO;
       if (_menuController == nil) {
-        _menuController = [BottomMenuBuilder buildWithMapViewController:_ownerController
-                                                        controlsManager:self
-                                                               delegate:self];
+        _menuController = [BottomMenuBuilder buildMenuWithMapViewController:_ownerController
+                                                            controlsManager:self
+                                                                   delegate:self];
+        [_ownerController presentViewController:_menuController animated:YES completion:nil];
+      }
+      break;
+    case MWMBottomMenuStateLayers:
+      _tabBarController.isHidden = NO;
+      if (_menuController == nil) {
+        _menuController = [BottomMenuBuilder buildLayersWithMapViewController:_ownerController
+                                                              controlsManager:self
+                                                                     delegate:self];
         [_ownerController presentViewController:_menuController animated:YES completion:nil];
       }
       break;

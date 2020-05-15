@@ -26,6 +26,7 @@ class BottomMenuViewController: MWMViewController {
     
     tableView.layer.cornerRadius = 8
     tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    tableView.sectionFooterHeight = 0
     
     tableView.dataSource = presenter
     tableView.delegate = presenter
