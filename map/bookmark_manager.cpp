@@ -1812,28 +1812,33 @@ std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) co
   return category->GetFileName();
 }
 
-m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId) const
+m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const category = GetBmCategory(categoryId);
   CHECK(category != nullptr, ());
 
-  m2::RectD rect;
+  m2::RectD categoryRect;
   if (category->IsEmpty())
-    return rect;
+    return categoryRect;
 
   for (auto markId : category->GetUserMarks())
   {
     auto const bookmark = GetBookmark(markId);
-    rect.Add(bookmark->GetPivot());
+    categoryRect.Add(bookmark->GetPivot());
+  }
+  if (addIconsSize && !category->GetUserMarks().empty())
+  {
+    double const coeff = m_maxBookmarkSymbolSize.y / (m_viewport.PixelRect().SizeY() - m_maxBookmarkSymbolSize.y);
+    categoryRect.Add(categoryRect.LeftTop() + m2::PointD(0.0, categoryRect.SizeY() * coeff));
   }
   for (auto trackId : category->GetUserLines())
   {
     auto const track = GetTrack(trackId);
-    rect.Add(track->GetLimitRect());
+    categoryRect.Add(track->GetLimitRect());
   }
 
-  return rect;
+  return categoryRect;
 }
 
 kml::CategoryData const & BookmarkManager::GetCategoryData(kml::MarkGroupId categoryId) const
@@ -1952,18 +1957,19 @@ void BookmarkManager::RequestSymbolSizes()
   symbols.push_back(kLargestBookmarkSymbolName);
   symbols.push_back(TrackSelectionMark::GetInitialSymbolName());
 
-  m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
-      [this](std::map<std::string, m2::PointF> && sizes)
-      {
-        GetPlatform().RunTask(Platform::Thread::Gui,
-            [this, sizes = move(sizes)]() mutable
-            {
-              auto es = GetEditSession();
-              auto infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
-              auto const & sz = sizes.at(TrackSelectionMark::GetInitialSymbolName());
-              infoMark->SetOffset(m2::PointF(0.0, -sz.y / 2));
-              m_maxBookmarkSymbolSize = sizes.at(kLargestBookmarkSymbolName);
-            });
+  m_drapeEngine.SafeCall(
+      &df::DrapeEngine::RequestSymbolsSize, symbols,
+      [this](std::map<std::string, m2::PointF> && sizes) {
+        GetPlatform().RunTask(Platform::Thread::Gui, [this, sizes = std::move(sizes)]() mutable {
+          auto es = GetEditSession();
+          auto infoMark = GetMarkForEdit<TrackInfoMark>(m_trackInfoMarkId);
+          auto const & sz = sizes.at(TrackSelectionMark::GetInitialSymbolName());
+          infoMark->SetOffset(m2::PointF(0.0, -sz.y / 2));
+          m_maxBookmarkSymbolSize = sizes.at(kLargestBookmarkSymbolName);
+          m_symbolSizesAcquired = true;
+          if (m_onSymbolSizesAcquiredFn)
+            m_onSymbolSizesAcquiredFn();
+        });
       });
 }
 
@@ -2005,6 +2011,16 @@ void BookmarkManager::SetBookmarksChangedCallback(BookmarksChangedCallback && ca
 void BookmarkManager::SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks)
 {
   m_asyncLoadingCallbacks = std::move(callbacks);
+}
+
+bool BookmarkManager::AreSymbolSizesAcquired(
+    BookmarkManager::OnSymbolSizesAcquiredCallback && callback)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_symbolSizesAcquired)
+    return true;
+  m_onSymbolSizesAcquiredFn = std::move(callback);
+  return false;
 }
 
 void BookmarkManager::Teardown()

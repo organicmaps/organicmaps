@@ -114,7 +114,7 @@ bool ParseRectsStr(std::string const & rectsStr, std::list<m2::RectD> & rects)
 namespace qt
 {
 Screenshoter::Screenshoter(ScreenshotParams const & screenshotParams, Framework & framework,
-                           QWidget * widget)
+                           QOpenGLWidget * widget)
   : m_screenshotParams(screenshotParams)
   , m_framework(framework)
   , m_widget(widget)
@@ -159,11 +159,17 @@ void Screenshoter::ProcessNextItem()
 
   switch (m_screenshotParams.m_mode)
   {
-  case ScreenshotParams::Mode::KmlFiles: return ProcessNextKml();
+  case ScreenshotParams::Mode::KmlFiles: return PrepareToProcessKml();
   case ScreenshotParams::Mode::Points: return ProcessNextPoint();
   case ScreenshotParams::Mode::Rects: return ProcessNextRect();
   }
   UNREACHABLE();
+}
+
+void Screenshoter::PrepareToProcessKml()
+{
+  if (m_framework.GetBookmarkManager().AreSymbolSizesAcquired([this] { ProcessNextKml(); }))
+    ProcessNextKml();
 }
 
 void Screenshoter::ProcessNextKml()
@@ -203,11 +209,6 @@ void Screenshoter::ProcessNextKml()
 
   ChangeState(State::WaitPosition);
   auto const newCatId = bookmarkManager.GetBmGroupsIdList().front();
-
-  auto rect = bookmarkManager.GetCategoryRect(newCatId);
-  ExpandBookmarksRectForPreview(rect);
-  CHECK(rect.IsValid(), ());
-
   m_framework.ShowBookmarkCategory(newCatId, false);
   WaitPosition();
 }
@@ -348,10 +349,14 @@ void Screenshoter::SaveScreenshot()
     return;
   }
 
-  QPixmap pixmap(QSize(m_screenshotParams.m_width, m_screenshotParams.m_height));
-  m_widget->render(&pixmap, QPoint(), QRegion(m_widget->geometry()));
-  if (!pixmap.save(QString::fromStdString(base::JoinPath(m_screenshotParams.m_dstPath, m_nextScreenshotName + ".png")),
-                   nullptr, 100))
+  QSize screenshotSize(m_screenshotParams.m_width, m_screenshotParams.m_height);
+  QImage framebuffer = m_widget->grabFramebuffer();
+  ASSERT_EQUAL(framebuffer.width() % screenshotSize.width(), 0, ());
+  ASSERT_EQUAL(framebuffer.height() % screenshotSize.height(), 0, ());
+  QImage screenshot = framebuffer.scaled(screenshotSize);
+  if (!screenshot.save(QString::fromStdString(base::JoinPath(m_screenshotParams.m_dstPath,
+                                                             m_nextScreenshotName + ".png")),
+                       "PNG", 100))
   {
     ChangeState(State::FileError);
     return;

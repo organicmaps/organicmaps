@@ -1154,7 +1154,7 @@ void Framework::ShowTrack(kml::TrackId trackId)
     return;
 
   auto rect = track->GetLimitRect();
-  ExpandBookmarksRectForPreview(rect);
+  ExpandRectForPreview(rect);
 
   StopLocationFollow();
   ShowRect(rect);
@@ -1169,11 +1169,11 @@ void Framework::ShowTrack(kml::TrackId trackId)
 void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation)
 {
   auto & bm = GetBookmarkManager();
-  auto rect = bm.GetCategoryRect(categoryId);
+  auto rect = bm.GetCategoryRect(categoryId, true /* addIconsSize */);
   if (!rect.IsValid())
     return;
 
-  ExpandBookmarksRectForPreview(rect);
+  ExpandRectForPreview(rect);
 
   StopLocationFollow();
   ShowRect(rect, -1 /* maxScale */, animation);

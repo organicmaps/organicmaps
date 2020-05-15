@@ -183,10 +183,8 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
 
   if (m_screenshotMode)
   {
-    QSize size(width, height);
-    size.setHeight(size.height() + statusBar()->height());
-    m_pDrawWidget->setFixedSize(size);
-    setFixedSize(size);
+    m_pDrawWidget->setFixedSize(width, height);
+    setFixedSize(width, height + statusBar()->height());
   }
 
   QObject::connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));

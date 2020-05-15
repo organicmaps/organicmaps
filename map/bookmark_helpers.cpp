@@ -511,7 +511,7 @@ bool IsMyCategory(User const & user, kml::CategoryData const & categoryData)
   return IsMyCategory(user.GetUserId(), categoryData);
 }
 
-void ExpandBookmarksRectForPreview(m2::RectD & rect)
+void ExpandRectForPreview(m2::RectD & rect)
 {
   if (!rect.IsValid())
     return;

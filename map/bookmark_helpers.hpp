@@ -115,4 +115,4 @@ bool FromCatalog(kml::CategoryData const & categoryData, std::string const & ser
 bool IsMyCategory(std::string const & userId, kml::CategoryData const & categoryData);
 bool IsMyCategory(User const & user, kml::CategoryData const & categoryData);
 
-void ExpandBookmarksRectForPreview(m2::RectD & rect);
+void ExpandRectForPreview(m2::RectD & rect);

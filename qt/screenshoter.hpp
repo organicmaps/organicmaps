@@ -1,12 +1,12 @@
 #pragma once
 
-#include "drape_frontend/visual_params.hpp"
-
 #include "storage/storage_defines.hpp"
+
+#include "drape_frontend/visual_params.hpp"
 
 #include "geometry/rect2d.hpp"
 
-#include <QtWidgets/QWidget>
+#include <QtWidgets/QOpenGLWidget>
 
 #include <list>
 #include <string>
@@ -43,7 +43,8 @@ struct ScreenshotParams
 class Screenshoter
 {
 public:
-  Screenshoter(ScreenshotParams const & screenshotParams, Framework & framework, QWidget * widget);
+  Screenshoter(ScreenshotParams const & screenshotParams, Framework & framework,
+               QOpenGLWidget * widget);
 
   void Start();
 
@@ -67,6 +68,7 @@ private:
   };
 
   void ProcessNextItem();
+  void PrepareToProcessKml();
   void ProcessNextKml();
   void ProcessNextRect();
   void ProcessNextPoint();
@@ -91,7 +93,7 @@ private:
   State m_state = State::NotStarted;
   ScreenshotParams m_screenshotParams;
   Framework & m_framework;
-  QWidget * m_widget;
+  QOpenGLWidget * m_widget;
   std::list<std::string> m_filesToProcess;
   std::list<std::pair<m2::PointD, int>> m_pointsToProcess;
   std::list<m2::RectD> m_rectsToProcess;
