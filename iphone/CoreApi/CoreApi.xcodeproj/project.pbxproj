@@ -108,6 +108,8 @@
 		47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47EEAFF22350CEDA005CF316 /* AppInfo.mm */; };
 		47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF32350CEDB005CF316 /* AppInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47EEAFF72350D060005CF316 /* MWMCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EEAFF52350CEF6005CF316 /* MWMCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47EF73F9246E035C00D32AB8 /* MWMGuidesManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 47EF73F7246E035C00D32AB8 /* MWMGuidesManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47EF73FA246E035C00D32AB8 /* MWMGuidesManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47EF73F8246E035C00D32AB8 /* MWMGuidesManager.mm */; };
 		47F4F1F923A3336C0022FD56 /* MWMMapNodeAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 47F4F1F723A3336B0022FD56 /* MWMMapNodeAttributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47F4F1FA23A3336C0022FD56 /* MWMMapNodeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47F4F1F823A3336C0022FD56 /* MWMMapNodeAttributes.mm */; };
 		47F4F1FD23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47F4F1FB23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -245,6 +247,8 @@
 		47EEAFF22350CEDA005CF316 /* AppInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppInfo.mm; sourceTree = "<group>"; };
 		47EEAFF32350CEDB005CF316 /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		47EEAFF52350CEF6005CF316 /* MWMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCommon.h; sourceTree = "<group>"; };
+		47EF73F7246E035C00D32AB8 /* MWMGuidesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMGuidesManager.h; sourceTree = "<group>"; };
+		47EF73F8246E035C00D32AB8 /* MWMGuidesManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMGuidesManager.mm; sourceTree = "<group>"; };
 		47F4F1F723A3336B0022FD56 /* MWMMapNodeAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapNodeAttributes.h; sourceTree = "<group>"; };
 		47F4F1F823A3336C0022FD56 /* MWMMapNodeAttributes.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapNodeAttributes.mm; sourceTree = "<group>"; };
 		47F4F1FB23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapNodeAttributes+Core.h"; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 		470015F12342509C00EBF03D /* CoreApi */ = {
 			isa = PBXGroup;
 			children = (
+				47EF73F6246E031E00D32AB8 /* GuidesGallery */,
 				47E8163D23B2B97A008FD836 /* User */,
 				47F4F1F623A333280022FD56 /* Storage */,
 				3D40DED323ED9C5C00A0153A /* WebApi */,
@@ -579,6 +584,15 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		47EF73F6246E031E00D32AB8 /* GuidesGallery */ = {
+			isa = PBXGroup;
+			children = (
+				47EF73F7246E035C00D32AB8 /* MWMGuidesManager.h */,
+				47EF73F8246E035C00D32AB8 /* MWMGuidesManager.mm */,
+			);
+			path = GuidesGallery;
+			sourceTree = "<group>";
+		};
 		47F4F1F623A333280022FD56 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
@@ -679,6 +693,7 @@
 				470015F42342509C00EBF03D /* CoreApi.h in Headers */,
 				47942D74237CC41A00DEFAE3 /* HotelBookingData.h in Headers */,
 				479F705F234FBB8F00011E2E /* MWMCategory.h in Headers */,
+				47EF73F9246E035C00D32AB8 /* MWMGuidesManager.h in Headers */,
 				470B3620244DD9E400C0EA9E /* GuidesGalleryData.h in Headers */,
 				471AB99123AB931000F56D49 /* MWMMapSearchResult+Core.h in Headers */,
 				4738A8E0239FACE7007C0F43 /* CoreBanner.h in Headers */,
@@ -851,6 +866,7 @@
 				47942DAF2382ABE100DEFAE3 /* UgcSummaryRating.mm in Sources */,
 				479F705E234FBB8C00011E2E /* MWMCategory.m in Sources */,
 				479834EB2342697400724D1E /* MWMTagGroup+Convenience.mm in Sources */,
+				47EF73FA246E035C00D32AB8 /* MWMGuidesManager.mm in Sources */,
 				470016082342541100EBF03D /* MWMTagGroup.m in Sources */,
 				47942D79237CC41A00DEFAE3 /* HotelRooms.mm in Sources */,
 				479F7057234FB7F200011E2E /* MWMBookmarksManager.mm in Sources */,

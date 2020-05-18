@@ -224,7 +224,7 @@ extension ElevationProfileChartData: IChartData {
   }
 }
 
-struct ChartFormatter: IFormatter {
+final class ChartFormatter: IFormatter {
   private let distanceFormatter: MKDistanceFormatter
   private let altFormatter: MeasurementFormatter
   private let timeFormatter: DateComponentsFormatter

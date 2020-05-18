@@ -425,6 +425,9 @@
 		47E6CB0C2178BA3600EA102B /* SearchBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47E6CB0A2178BA3600EA102B /* SearchBannerCell.xib */; };
 		47E8163323B17734008FD836 /* MWMStorage+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E8163223B17734008FD836 /* MWMStorage+UI.m */; };
 		47EF05B321504D8F00EAC269 /* RemoveAdsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */; };
+		47EF73FC247050E100D32AB8 /* GuidesGalleryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF73FB247050E100D32AB8 /* GuidesGalleryRouter.swift */; };
+		47EF73FE247056A600D32AB8 /* GuidesGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF73FD247056A600D32AB8 /* GuidesGalleryCell.swift */; };
+		47EF7400247429D800D32AB8 /* GuidesGalleryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF73FF247429D800D32AB8 /* GuidesGalleryInteractor.swift */; };
 		47F4F21323A6EC420022FD56 /* DownloadMapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F4F21223A6EC420022FD56 /* DownloadMapsViewController.swift */; };
 		47F4F21523A6F06F0022FD56 /* AvailableMapsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F4F21423A6F06F0022FD56 /* AvailableMapsDataSource.swift */; };
 		47F67D1521CAB21B0069754E /* MWMImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F67D1421CAB21B0069754E /* MWMImageCoder.m */; };
@@ -1549,6 +1552,9 @@
 		47E8163123B17734008FD836 /* MWMStorage+UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMStorage+UI.h"; sourceTree = "<group>"; };
 		47E8163223B17734008FD836 /* MWMStorage+UI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MWMStorage+UI.m"; sourceTree = "<group>"; };
 		47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAdsPresentationController.swift; sourceTree = "<group>"; };
+		47EF73FB247050E100D32AB8 /* GuidesGalleryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryRouter.swift; sourceTree = "<group>"; };
+		47EF73FD247056A600D32AB8 /* GuidesGalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryCell.swift; sourceTree = "<group>"; };
+		47EF73FF247429D800D32AB8 /* GuidesGalleryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryInteractor.swift; sourceTree = "<group>"; };
 		47F4F21223A6EC420022FD56 /* DownloadMapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMapsViewController.swift; sourceTree = "<group>"; };
 		47F4F21423A6F06F0022FD56 /* AvailableMapsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableMapsDataSource.swift; sourceTree = "<group>"; };
 		47F67D0F21CA8F800069754E /* IMWMWebImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMWMWebImage.h; sourceTree = "<group>"; };
@@ -3400,10 +3406,13 @@
 			isa = PBXGroup;
 			children = (
 				470B362F244E2DB400C0EA9E /* GuidesGalleryViewController.swift */,
+				47EF73FD247056A600D32AB8 /* GuidesGalleryCell.swift */,
 				470B3631244E2DE200C0EA9E /* GuidesGalleryCityCell.swift */,
 				470B3633244E2DF900C0EA9E /* GuidesGalleryOutdoorCell.swift */,
 				475EC36C244EDE66003BC295 /* GuidesGalleryPresenter.swift */,
 				475EC36E244EF7A9003BC295 /* GuidesGalleryBuilder.swift */,
+				47EF73FB247050E100D32AB8 /* GuidesGalleryRouter.swift */,
+				47EF73FF247429D800D32AB8 /* GuidesGalleryInteractor.swift */,
 			);
 			path = GuidesGallery;
 			sourceTree = "<group>";
@@ -5440,6 +5449,7 @@
 				F6E2FE4C1E097BA00083EBEC /* MWMPlacePageManager.mm in Sources */,
 				3404757E1E081B3300C92850 /* iosOGLContext.mm in Sources */,
 				34763F071F3092E700F4D2D3 /* String+Format.swift in Sources */,
+				47EF73FC247050E100D32AB8 /* GuidesGalleryRouter.swift in Sources */,
 				993F5513237C622700545511 /* DeepLinkHandler.swift in Sources */,
 				993DF11223F6BDB100AC231A /* UIImageRenderer.swift in Sources */,
 				F6E2FD5C1E097BA00083EBEC /* MWMMapDownloaderCellHeader.m in Sources */,
@@ -5462,6 +5472,7 @@
 				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
 				993DF0B523F6B2EF00AC231A /* PlacePageElevationLayout.swift in Sources */,
+				47EF7400247429D800D32AB8 /* GuidesGalleryInteractor.swift in Sources */,
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
 				99A906DE23F6F7030005872B /* PlacePageBookmarkViewController.swift in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.m in Sources */,
@@ -5731,6 +5742,7 @@
 				47E3C7272111E5A8008B3B27 /* AlertPresentationController.swift in Sources */,
 				F6E2FF4E1E097BA00083EBEC /* MWMAboutController.m in Sources */,
 				993F5512237C622700545511 /* DeepLinkFileStrategy.swift in Sources */,
+				47EF73FE247056A600D32AB8 /* GuidesGalleryCell.swift in Sources */,
 				47B06DF921B95F5E0094CCAD /* IGeoTracker.swift in Sources */,
 				CDCA27812243F59800167D87 /* CarPlayRouter.swift in Sources */,
 				34F407381E9E1AFF00E57AC0 /* FacebookBanner.swift in Sources */,

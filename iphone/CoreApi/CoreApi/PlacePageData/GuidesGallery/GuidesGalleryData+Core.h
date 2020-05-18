@@ -6,7 +6,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GuidesGalleryData (Core)
 
-- (instancetype)initWithGuidesGallery:(GuidesManager::GuidesGallery const &)guidesGallery;
+- (instancetype)initWithGuidesGallery:(GuidesManager::GuidesGallery const &)guidesGallery
+                        activeGuideId:(NSString *)activeGuideId;
 
 @end
 

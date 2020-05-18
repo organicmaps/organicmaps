@@ -149,7 +149,8 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
     if (rawData().IsGuide()) {
       auto const &gm = GetFramework().GetGuidesManager();
       auto const &galleryData = gm.GetGallery();
-      _guidesGalleryData = [[GuidesGalleryData alloc] initWithGuidesGallery:galleryData];
+      NSString *activeGuideId = @(gm.GetActiveGuide().c_str());
+      _guidesGalleryData = [[GuidesGalleryData alloc] initWithGuidesGallery:galleryData activeGuideId:activeGuideId];
     }
 
     auto const &countryId = rawData().GetCountryId();

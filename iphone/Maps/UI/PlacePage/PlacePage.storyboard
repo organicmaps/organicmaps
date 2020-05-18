@@ -3534,6 +3534,9 @@
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="GuidesGalleryShowButton"/>
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routes_card_show"/>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="onShowButton:" destination="vXV-CJ-9mO" eventType="touchUpInside" id="n4Y-oo-boV"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3573,6 +3576,7 @@
                                             <outlet property="infoLabel" destination="T92-vb-Iw2" id="6qo-x5-pdI"/>
                                             <outlet property="subtitleLabel" destination="DJM-1n-xZk" id="eRD-jU-HuB"/>
                                             <outlet property="titleLabel" destination="IHh-ww-fGs" id="ydg-oI-Niu"/>
+                                            <outlet property="visibilityButton" destination="6nH-8K-eby" id="ZoM-hE-g4Q"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GuidesGalleryOutdoorCell" id="fvq-qZ-nN0" customClass="GuidesGalleryOutdoorCell" customModule="maps_me" customModuleProvider="target">
@@ -3800,6 +3804,9 @@
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="GuidesGalleryShowButton"/>
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routes_card_show"/>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="onShowButton:" destination="fvq-qZ-nN0" eventType="touchUpInside" id="q7V-uk-oFJ"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3842,6 +3849,7 @@
                                             <outlet property="timeIcon" destination="JQL-l6-K7z" id="snD-nw-sgO"/>
                                             <outlet property="timeLabel" destination="0DR-KK-hLv" id="oo7-iD-WAB"/>
                                             <outlet property="titleLabel" destination="2ep-jd-hgu" id="Dzd-ja-8Zw"/>
+                                            <outlet property="visibilityButton" destination="IbO-vW-axm" id="INP-GN-ieI"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

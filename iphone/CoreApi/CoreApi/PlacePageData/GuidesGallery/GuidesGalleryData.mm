@@ -7,7 +7,8 @@
 
 @implementation GuidesGalleryData (Core)
 
-- (instancetype)initWithGuidesGallery:(GuidesManager::GuidesGallery const &)guidesGallery {
+- (instancetype)initWithGuidesGallery:(GuidesManager::GuidesGallery const &)guidesGallery
+                        activeGuideId:(NSString *)activeGuideId {
   self = [super init];
   if (self) {
     NSMutableArray *itemsArray = [NSMutableArray arrayWithCapacity:guidesGallery.m_items.size()];
@@ -24,6 +25,7 @@
       [itemsArray addObject:galleryItem];
     }
     _galleryItems = [itemsArray copy];
+    _activeGuideId = [activeGuideId copy];
   }
   return self;
 }

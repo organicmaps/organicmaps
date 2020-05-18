@@ -3,16 +3,25 @@ import Foundation
 protocol IGuidesGalleryPresenter {
   func viewDidLoad()
   func selectItemAtIndex(_ index: Int)
+  func scrollToItemAtIndex(_ index: Int)
+  func toggleVisibilityAtIndex(_ index: Int)
 }
 
 final class GuidesGalleryPresenter {
-  private weak var view: IGuidesGalleryView?
-  private var guidesGallery: GuidesGalleryData
+  private unowned let view: IGuidesGalleryView
+  private let router: IGuidesGalleryRouter
+  private let interactor: IGuidesGalleryInteractor
+  private var galleryItems: [GuidesGalleryItem] = []
   private let formatter = ChartFormatter(imperial: Settings.measurementUnits() == .imperial)
 
-  init(view: IGuidesGalleryView, guidesGallery: GuidesGalleryData) {
+  init(view: IGuidesGalleryView, router: IGuidesGalleryRouter, interactor: IGuidesGalleryInteractor) {
     self.view = view
-    self.guidesGallery = guidesGallery
+    self.router = router
+    self.interactor = interactor
+  }
+
+  deinit {
+    interactor.resetGalleryChangedCallback()
   }
 
   private func makeViewModel(_ item: GuidesGalleryItem) -> IGuidesGalleryItemViewModel {
@@ -27,21 +36,57 @@ final class GuidesGalleryPresenter {
   }
 
   private func makeCityItemViewModel(_ item: CityGalleryItem) -> IGuidesGalleryCityItemViewModel {
-    GalleryCityItemViewModel(item)
+    var model = GalleryCityItemViewModel(item)
+    if model.downloaded {
+      model.visible = interactor.isGalleryItemVisible(item)
+    }
+    return model
   }
 
   private func makeOutdoorItemViewModel(_ item: OutdoorGalleryItem) -> IGuidesGalleryOutdoorItemViewModel {
-    GalleryOutdoorItemViewModel(item, formatter: formatter)
+    var model = GalleryOutdoorItemViewModel(item, formatter: formatter)
+    if model.downloaded {
+      model.visible = interactor.isGalleryItemVisible(item)
+    }
+    return model
   }
 }
 
 extension GuidesGalleryPresenter: IGuidesGalleryPresenter {
   func viewDidLoad() {
-    view?.setGalleryItems(guidesGallery.galleryItems.map({ makeViewModel($0) }))
+    galleryItems = interactor.galleryItems()
+    interactor.setGalleryChangedCallback { [weak self] (reloadGallery) in
+      guard let self = self else { return }
+      let activeGuideId = self.interactor.activeItemId()
+      guard let activeIndex = self.galleryItems.firstIndex(where: {
+        $0.guideId == activeGuideId
+      }) else { return }
+      self.view.setActiveItem(activeIndex, animated: true)
+    }
+
+    view.setGalleryItems(galleryItems.map({ makeViewModel($0) }))
+    guard let activeIndex = galleryItems.firstIndex(where: {
+      $0.guideId == interactor.activeItemId()
+    }) else { return }
+    view.setActiveItem(activeIndex, animated: false)
   }
 
   func selectItemAtIndex(_ index: Int) {
+    let galleryItem = galleryItems[index]
+    guard let url = URL(string: galleryItem.url) else { return }
+    router.openCatalogUrl(url)
+  }
 
+  func scrollToItemAtIndex(_ index: Int) {
+    let galleryItem = galleryItems[index]
+    interactor.setActiveItem(galleryItem)
+  }
+
+  func toggleVisibilityAtIndex(_ index: Int) {
+    let galleryItem = galleryItems[index]
+     interactor.toggleItemVisibility(galleryItem)
+    let model = makeViewModel(galleryItem)
+    view.updateItem(model, at: index)
   }
 }
 
@@ -50,6 +95,7 @@ fileprivate struct GalleryCityItemViewModel: IGuidesGalleryCityItemViewModel {
   var subtitle: String
   var imageUrl: URL?
   var downloaded: Bool
+  var visible: Bool?
   var info: String
 
   init(_ item: CityGalleryItem) {
@@ -70,6 +116,7 @@ fileprivate struct GalleryOutdoorItemViewModel: IGuidesGalleryOutdoorItemViewMod
   var subtitle: String
   var imageUrl: URL?
   var downloaded: Bool
+  var visible: Bool?
   var distance: String
   var duration: String?
   var ascent: String

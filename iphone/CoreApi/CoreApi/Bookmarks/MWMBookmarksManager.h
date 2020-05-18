@@ -116,6 +116,7 @@ typedef void (^ElevationPointChangedBlock)(double distance);
 
 - (BOOL)isGuide:(MWMMarkGroupID)groupId;
 - (NSString *)getServerId:(MWMMarkGroupID)groupId;
+- (MWMMarkGroupID)getGroupId:(NSString *)serverId;
 - (NSString *)getGuidesIds;
 - (NSString *)deviceId;
 - (NSDictionary<NSString *, NSString *> *)getCatalogHeaders;

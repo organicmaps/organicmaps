@@ -11,6 +11,8 @@ typedef NS_ENUM(NSInteger, MWMUTM) {
   MWMUTMBookingPromo,
   MWMUTMDiscoverCatalogOnboarding,
   MWMUTMFreeSamplesOnboading,
+  MWMUTMOutdoorPlacepageGallery,
+  MWMUTMGuidesOnMapGallery,
 };
 
 typedef NS_ENUM(NSInteger, MWMUTMContent) {

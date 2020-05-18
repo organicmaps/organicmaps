@@ -739,6 +739,10 @@
   return @(self.bm.GetCategoryServerId(groupId).c_str());
 }
 
+- (MWMMarkGroupID)getGroupId:(NSString *)serverId {
+  return self.bm.GetCategoryIdByServerId(serverId.UTF8String);
+}
+
 - (NSString *)getGuidesIds {
   auto const guides = self.bm.GetCategoriesFromCatalog(std::bind(&BookmarkManager::IsGuide, std::placeholders::_1));
   return @(strings::JoinStrings(guides.begin(), guides.end(), ',').c_str());
