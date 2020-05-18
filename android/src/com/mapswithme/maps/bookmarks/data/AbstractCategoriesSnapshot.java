@@ -17,7 +17,7 @@ public abstract class AbstractCategoriesSnapshot
   }
 
   @NonNull
-  protected List<BookmarkCategory> getItems()
+  public List<BookmarkCategory> getItems()
   {
     return mSnapshot;
   }

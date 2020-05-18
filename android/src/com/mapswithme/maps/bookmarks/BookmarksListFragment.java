@@ -24,6 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
+import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -490,6 +491,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     return BookmarkManager.INSTANCE.isSearchAllowed(category.getId());
   }
 
+  private boolean isLastOwnedCategory()
+  {
+    AbstractCategoriesSnapshot snapshot = BookmarkManager.INSTANCE.getOwnedCategoriesSnapshot();
+    return snapshot.getItems().size() == 1;
+  }
+
   private void updateSortingProgressBar()
   {
     requireActivity().invalidateOptionsMenu();
@@ -720,6 +727,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
       @BookmarkManager.SortingType int[] types = getAvailableSortingTypes();
       bs.getMenu().findItem(R.id.sort).setVisible(types.length > 0);
+      bs.getMenu().findItem(R.id.delete_category).setVisible(!isLastOwnedCategory());
 
       BottomSheetHelper.tint(bs);
       bs.show();
