@@ -93,7 +93,7 @@ struct RankingInfo
   // Search type for the feature.
   Model::Type m_type = Model::TYPE_COUNT;
 
-  // Type (food/transport/attraction/etc) for POI results for non-categorial requests.
+  // Type (food/transport/attraction/etc) for POI/SUBPOI results for non-categorial requests.
   ResultType m_resultType = ResultType::Count;
 
   // True if all of the tokens that the feature was matched by

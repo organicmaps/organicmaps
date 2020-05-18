@@ -254,7 +254,7 @@ double RankingInfo::GetLinearModelRank() const
     result += kRating * rating;
     result += m_falseCats * kFalseCats;
     result += kType[m_type];
-    if (m_type == Model::TYPE_POI)
+    if (m_type == Model::TYPE_POI || m_type == Model::TYPE_SUBPOI)
       result += kResultType[base::Underlying(m_resultType)];
     result += kNameScore[nameScore];
     result += kErrorsMade * GetErrorsMadePerToken();

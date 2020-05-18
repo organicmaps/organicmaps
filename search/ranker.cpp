@@ -354,7 +354,7 @@ class RankerResultMaker
     info.m_popularity = preInfo.m_popularity;
     info.m_rating = preInfo.m_rating;
     info.m_type = preInfo.m_type;
-    if (info.m_type == Model::TYPE_POI)
+    if (info.m_type == Model::TYPE_POI || info.m_type == Model::TYPE_SUBPOI)
       info.m_resultType = GetResultType(feature::TypesHolder(ft));
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
     info.m_numTokens = m_params.GetNumTokens();

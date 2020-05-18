@@ -51,9 +51,10 @@ namespace search
 // feature-from-parent-layer.  Belongs-to is a partial relation on
 // features, and has different meaning for different search classes:
 //
-// * BUILDING belongs-to STREET iff the building is located on the street;
+// * BUILDING/POI/SUBPOI belongs-to STREET iff it is located on the street;
 // * BUILDING belongs-to CITY iff the building is located in the city;
-// * POI belongs-to BUILDING iff the poi is (roughly) located near or inside the building;
+// * POI/SUBPOI belongs-to BUILDING iff the poi is (roughly) located near or inside the building;
+// * SUBPOI belongs-to POI iff the poi is (roughly) located near or inside the building;
 // * STREET belongs-to CITY iff the street is (roughly) located in the city;
 // * etc.
 //
@@ -105,7 +106,7 @@ public:
       break;
     case Model::TYPE_SUBURB:
       ASSERT(child.m_type == Model::TYPE_STREET || child.m_type == Model::TYPE_BUILDING ||
-                 child.m_type == Model::TYPE_POI,
+                 child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_SUBPOI,
              ());
       // Avoid matching buildings to suburb without street.
       if (child.m_type == Model::TYPE_BUILDING)

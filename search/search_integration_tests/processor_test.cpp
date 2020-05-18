@@ -1480,11 +1480,15 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
       vector<m2::PointD>{m2::PointD{-16.0, -16.0}, m2::PointD(0.0, 0.0), m2::PointD(16.0, 16.0)},
       "Computing street", "en");
 
-  TestBuilding statisticalLearningBuilding(m2::PointD(8.0, 8.0), "Statistical Learning, Inc.", "0",
+  TestBuilding statisticalLearningBuilding(m2::PointD(8.0, 8.0),
+                                           "Statistical Learning Buisiness Center", "0",
                                            computingStreet.GetName("en"), "en");
 
-  TestPOI reinforcementCafe(m2::PointD(8.0, 8.0), "Trattoria Reinforcemento", "en");
-  reinforcementCafe.SetTypes({{"amenity", "cafe"}});
+  TestPOI supervisedOffice(m2::PointD(8.0, 8.0), "Supervised, Inc.", "en");
+  supervisedOffice.SetTypes({{"office", "company"}});
+
+  TestPOI svmCafe(m2::PointD(8.0, 8.0), "Trattoria SVM", "en");
+  svmCafe.SetTypes({{"amenity", "cafe"}});
 
   BuildWorld([&](TestMwmBuilder & builder) {
     builder.Add(scienceCountry);
@@ -1495,7 +1499,8 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(computingStreet);
     builder.Add(statisticalLearningBuilding);
-    builder.Add(reinforcementCafe);
+    builder.Add(supervisedOffice);
+    builder.Add(svmCafe);
   });
 
   SetViewport(m2::RectD(m2::PointD(-100.0, -100.0), m2::PointD(100.0, 100.0)));
@@ -1511,25 +1516,39 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
 
     auto const ruleStreet = ExactMatch(countryId, computingStreet);
     auto const ruleBuilding = ExactMatch(countryId, statisticalLearningBuilding);
-    auto const rulePoi = ExactMatch(countryId, reinforcementCafe);
+    auto const rulePoi = ExactMatch(countryId, supervisedOffice);
+    auto const ruleSubpoi = ExactMatch(countryId, svmCafe);
 
-    // POI-BUILDING-STREET
-    TEST(ResultsMatch("computing street statistical learning cafe ", {rulePoi, ruleStreet}), ());
-    TEST(ResultsMatch("computing street 0 cafe ", {rulePoi}), ());
+    // SUBPOI-POI-BUILDING-STREET
+    TEST(ResultsMatch("computing street 0 supervised cafe ", {ruleSubpoi}), ());
 
-    // POI-BUILDING is not supported
+    // SUBPOI-BUILDING-STREET / POI-BUILDING-STREET
+    TEST(ResultsMatch("computing street statistical learning cafe ", {ruleSubpoi, ruleStreet}), ());
+    TEST(ResultsMatch("computing street 0 cafe ", {ruleSubpoi}), ());
+    TEST(ResultsMatch("computing street statistical learning office ", {rulePoi, ruleStreet}), ());
+    TEST(ResultsMatch("computing street 0 office ", {rulePoi}), ());
+
+    // POI-BUILDING / SUBPOI-BUILDING is not supported
     TEST(ResultsMatch("statistical learning cafe ", {}), ());
     TEST(ResultsMatch("0 cafe ", {}), ());
+    TEST(ResultsMatch("statistical learning supervised ", {}), ());
+    TEST(ResultsMatch("0 office ", {}), ());
 
-    // POI-STREET
-    TEST(ResultsMatch("computing street cafe ", {rulePoi, ruleStreet}), ());
+    // POI-STREET / SUBPOI - STREET
+    TEST(ResultsMatch("computing street cafe ", {ruleSubpoi, ruleStreet}), ());
+    TEST(ResultsMatch("computing street office ", {rulePoi, ruleStreet}), ());
 
     // BUILDING-STREET
     TEST(ResultsMatch("computing street statistical learning ", {ruleBuilding, ruleStreet}), ());
     TEST(ResultsMatch("computing street 0 ", {ruleBuilding}), ());
 
-    // POI
-    TEST(ResultsMatch("cafe ", {rulePoi}), ());
+    // POI / SUBPOI
+    TEST(ResultsMatch("cafe ", {ruleSubpoi}), ());
+    TEST(ResultsMatch("office ", {rulePoi}), ());
+
+    // POI-SUBPOI
+    TEST(ResultsMatch("supervised cafe ", {ruleSubpoi}), ());
+    TEST(ResultsMatch("supervised svm ", {ruleSubpoi}), ());
 
     // BUILDING
     TEST(ResultsMatch("statistical learning ", {ruleBuilding}), ());
