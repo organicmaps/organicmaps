@@ -77,6 +77,9 @@ public:
     std::vector<Item> m_items;
   };
 
+  using CloseGalleryFn = std::function<void()>;
+  explicit GuidesManager(CloseGalleryFn && closeGalleryFn);
+
   GuidesState GetState() const;
 
   using GuidesStateChangedFn = std::function<void(GuidesState state)>;
@@ -116,6 +119,8 @@ private:
   void UpdateActiveGuide();
 
   bool IsRequestParamsInitialized() const;
+
+  CloseGalleryFn m_closeGallery;
 
   GuidesState m_state = GuidesState::Disabled;
   GuidesStateChangedFn m_onStateChanged;

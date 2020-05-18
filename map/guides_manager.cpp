@@ -24,6 +24,12 @@ auto constexpr kRequestAttemptsCount = 3;
 auto constexpr kScaleEps = 0.1115;
 }  // namespace
 
+GuidesManager::GuidesManager(CloseGalleryFn && closeGalleryFn)
+  : m_closeGallery(std::move(closeGalleryFn))
+{
+  CHECK(m_closeGallery != nullptr, ());
+}
+
 GuidesManager::GuidesState GuidesManager::GetState() const
 {
   return m_state;
@@ -70,6 +76,8 @@ void GuidesManager::UpdateViewport(ScreenBase const & screen)
         return;
     }
   }
+
+  m_closeGallery();
 
   m_screen = screen;
   m_zoom = zoom;
@@ -143,8 +151,15 @@ void GuidesManager::RequestGuides()
 
         UpdateGuidesMarks();
 
-        if (m_onGalleryChanged)
-          m_onGalleryChanged(true /* reload */);
+        if (m_activeGuide.empty())
+        {
+          m_closeGallery();
+        }
+        else
+        {
+          if (m_onGalleryChanged)
+            m_onGalleryChanged(true /* reload */);
+        }
       },
       [this, requestNumber]() mutable {
         if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError)
@@ -173,6 +188,7 @@ void GuidesManager::Clear()
   m_errorRequestsCount = 0;
 
   UpdateGuidesMarks();
+  m_closeGallery();
 }
 
 GuidesManager::GuidesGallery GuidesManager::GetGallery() const
@@ -295,6 +311,9 @@ void GuidesManager::OnClusterSelected(GuidesClusterMark const & mark, ScreenBase
 
 void GuidesManager::OnGuideSelected(GuideMark const & mark)
 {
+  if (mark.GetGuideId() == m_activeGuide)
+    return;
+
   auto es = m_bmManager->GetEditSession();
   es.ClearGroup(UserMark::Type::GUIDE_SELECTION);
   es.CreateUserMark<GuideSelectionMark>(mark.GetPivot());

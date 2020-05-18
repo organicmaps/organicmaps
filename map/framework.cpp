@@ -382,6 +382,11 @@ Framework::Framework(FrameworkParams const & params)
                      bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
   , m_isolinesManager(m_featuresFetcher.GetDataSource(),
                       bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
+  , m_guidesManager([this]()
+                    {
+                      if (m_currentPlacePageInfo && m_currentPlacePageInfo->IsGuide())
+                        DeactivateMapSelection(true /* notifyUI */);
+                    })
   , m_routingManager(
         RoutingManager::Callbacks(
             [this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
