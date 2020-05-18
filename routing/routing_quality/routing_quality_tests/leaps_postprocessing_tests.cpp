@@ -13,13 +13,6 @@ using namespace std;
 
 namespace
 {
-UNIT_TEST(RoutingQuality_NoLoop_MoscowToKazan)
-{
-  TEST(!CheckCarRoute({55.63113, 37.63054} /* start */, {55.67914, 52.37389} /* finish */,
-                      {{{55.80643, 37.83981}}} /* reference point */),
-       ());
-}
-
 UNIT_TEST(RoutingQuality_NoLoop_Canada)
 {
   TEST(!CheckCarRoute({53.53540, -113.50798} /* start */, {69.44402, -133.03189} /* finish */,
