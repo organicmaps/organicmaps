@@ -3304,6 +3304,16 @@
 
 "routes_card_plus_track" = "+ เส้นทาง";
 
+"routes_card_city" = "City";
+
+"routes_card_outdoor" = "Outdoor";
+
+"routes_card_number_of_points" = "%s สถานที่";
+
+"routes_card_routes_tag" = "แผนการเดินทาง";
+
+"routes_card_set_tag" = "สถานที่แนะนำ";
+
 
 /**********  Partners  **********/
 

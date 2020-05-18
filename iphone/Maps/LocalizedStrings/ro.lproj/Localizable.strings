@@ -3304,6 +3304,16 @@
 
 "routes_card_plus_track" = "+ track";
 
+"routes_card_city" = "City";
+
+"routes_card_outdoor" = "Outdoor";
+
+"routes_card_number_of_points" = "%s locuri";
+
+"routes_card_routes_tag" = "Traseu";
+
+"routes_card_set_tag" = "Locuri atractive";
+
 
 /**********  Partners  **********/
 

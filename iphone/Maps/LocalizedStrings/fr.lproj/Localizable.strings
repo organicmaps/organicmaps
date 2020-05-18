@@ -3304,6 +3304,16 @@
 
 "routes_card_plus_track" = "+ itinéraire";
 
+"routes_card_city" = "City";
+
+"routes_card_outdoor" = "Outdoor";
+
+"routes_card_number_of_points" = "%s places";
+
+"routes_card_routes_tag" = "Itinéraire";
+
+"routes_card_set_tag" = "Sélection de sièges";
+
 
 /**********  Partners  **********/
 

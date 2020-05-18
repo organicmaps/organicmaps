@@ -3304,6 +3304,16 @@
 
 "routes_card_plus_track" = "+ rute";
 
+"routes_card_city" = "City";
+
+"routes_card_outdoor" = "Outdoor";
+
+"routes_card_number_of_points" = "%s steder";
+
+"routes_card_routes_tag" = "Rejseplan";
+
+"routes_card_set_tag" = "Fremhævede steder";
+
 
 /**********  Partners  **********/
 

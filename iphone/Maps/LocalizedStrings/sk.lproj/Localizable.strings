@@ -3304,6 +3304,16 @@
 
 "routes_card_plus_track" = "+ trasu";
 
+"routes_card_city" = "City";
+
+"routes_card_outdoor" = "Outdoor";
+
+"routes_card_number_of_points" = "%s miest";
+
+"routes_card_routes_tag" = "Itinerár";
+
+"routes_card_set_tag" = "Odporúčané miesta";
+
 
 /**********  Partners  **********/
 
