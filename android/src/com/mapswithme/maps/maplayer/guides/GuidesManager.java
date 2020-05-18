@@ -7,13 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.guides.GuidesGallery;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuidesManager implements Initializable<Void>
+public class GuidesManager implements Initializable<Void>, Detachable<GuidesErrorDialogListener>
 {
   @NonNull
   private final OnGuidesChangedListener mListener;
@@ -22,6 +23,9 @@ public class GuidesManager implements Initializable<Void>
   @NonNull
   private final List<OnGuidesGalleryChangedListener> mGalleryChangedListeners
       = new ArrayList<>();
+
+  @Nullable
+  private GuidesErrorDialogListener mGuidesDialogListener;
 
   public GuidesManager(@NonNull Application application)
   {
@@ -32,7 +36,10 @@ public class GuidesManager implements Initializable<Void>
   private void onStateChanged(int index)
   {
     GuidesState state = GuidesState.values()[index];
-    state.activate(mApplication);
+    if (mGuidesDialogListener == null)
+      state.activate(mApplication);
+    else
+      mGuidesDialogListener.onStateChanged(state);
   }
 
   public boolean isEnabled()
@@ -92,6 +99,18 @@ public class GuidesManager implements Initializable<Void>
   public GuidesGallery getGallery()
   {
     return nativeGetGallery();
+  }
+
+  @Override
+  public void attach(@NonNull GuidesErrorDialogListener listener)
+  {
+    mGuidesDialogListener = listener;
+  }
+
+  @Override
+  public void detach()
+  {
+    mGuidesDialogListener = null;
   }
 
   @NonNull

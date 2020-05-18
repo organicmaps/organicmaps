@@ -30,6 +30,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
@@ -71,6 +72,9 @@ import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.maplayer.OnGuidesLayerToggleListener;
 import com.mapswithme.maps.maplayer.OnIsolinesLayerToggleListener;
+import com.mapswithme.maps.maplayer.ToggleMapLayerDialog;
+import com.mapswithme.maps.maplayer.guides.GuidesManager;
+import com.mapswithme.maps.maplayer.guides.GuidesState;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.isolines.IsolinesState;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
@@ -156,6 +160,7 @@ import com.mapswithme.util.statistics.Statistics;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 public class MwmActivity extends BaseMwmFragmentActivity
@@ -212,7 +217,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final int REQ_CODE_DRIVING_OPTIONS = 6;
   public static final int REQ_CODE_CATALOG_UNLIMITED_ACCESS = 7;
   private static final int REQ_CODE_ISOLINES_ERROR = 8;
+  private static final int REQ_CODE_GUIDES_FATAL_ERROR = 9;
+
   public static final String ERROR_DRIVING_OPTIONS_DIALOG_TAG = "error_driving_options_dialog_tag";
+  public static final String GUIDES_FATAL_ERROR_DIALOG_TAG = "guides_fatal_error_dialog_tag";
   public static final String CATALOG_UNLIMITED_ACCESS_DIALOG_TAG = "catalog_unlimited_access_dialog_tag";
   private static final String ISOLINES_ERROR_DIALOG_TAG = "isolines_dialog_tag";
 
@@ -1448,6 +1456,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkManager.INSTANCE.addCatalogListener(this);
     RoutingController.get().attach(this);
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
+    GuidesManager.from(getApplicationContext()).attach(this::onGuidesStateChanged);
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
     mPlacePageController.onActivityStarted(this);
@@ -1466,6 +1475,42 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageController.onActivityStopped(this);
     MwmApplication.backgroundTracker(getActivity()).removeListener(this);
     IsolinesManager.from(getApplicationContext()).detach();
+    GuidesManager.from(getApplicationContext()).detach();
+  }
+
+  private void onGuidesStateChanged(@NonNull GuidesState state)
+  {
+    if (state == GuidesState.FATAL_NETWORK_ERROR)
+      onGuidesFatalError();
+    else
+      state.activate(getApplicationContext());
+  }
+
+  private void onGuidesFatalError()
+  {
+    mToggleMapLayerController.turnOff();
+    showGuidesFatalErrorDialog();
+    ToggleMapLayerDialog frag = ToggleMapLayerDialog.getInstance(this);
+    if (frag == null)
+      return;
+
+    RecyclerView recycler = frag.getRootView().findViewById(R.id.recycler);
+    Objects.requireNonNull(recycler.getAdapter()).notifyDataSetChanged();
+  }
+
+  private void showGuidesFatalErrorDialog()
+  {
+    com.mapswithme.maps.dialog.AlertDialog dialog =
+        new com.mapswithme.maps.dialog.AlertDialog.Builder()
+            .setTitleId(R.string.connection_error_dialog_guides_title)
+            .setMessageId(R.string.common_check_internet_connection_dialog)
+            .setPositiveBtnId(R.string.ok)
+            .setDialogViewStrategyType(com.mapswithme.maps.dialog.AlertDialog.DialogViewStrategyType.DEFAULT)
+            .setReqCode(REQ_CODE_GUIDES_FATAL_ERROR)
+            .setFragManagerStrategyType(com.mapswithme.maps.dialog.AlertDialog
+                                            .FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+            .build();
+    dialog.show(this, GUIDES_FATAL_ERROR_DIALOG_TAG);
   }
 
   @CallSuper

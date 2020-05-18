@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -28,16 +29,20 @@ public class ToggleMapLayerDialog extends DialogFragment
   @SuppressWarnings("NullableProblems")
   private LayersAdapter mAdapter;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mRoot;
+
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     BottomSheetDialog dialog = new BottomSheetDialog(requireActivity());
     LayoutInflater inflater = requireActivity().getLayoutInflater();
-    View root = inflater.inflate(R.layout.fragment_toggle_map_layer, null, false);
+    mRoot = inflater.inflate(R.layout.fragment_toggle_map_layer, null, false);
     dialog.setOnShowListener(this::onShow);
-    dialog.setContentView(root);
-    initChildren(root);
+    dialog.setContentView(mRoot);
+    initChildren(mRoot);
     return dialog;
   }
 
@@ -89,6 +94,18 @@ public class ToggleMapLayerDialog extends DialogFragment
 
     fm.beginTransaction().add(frag, tag).commitAllowingStateLoss();
     fm.executePendingTransactions();
+  }
+
+  @NonNull
+  public View getRootView()
+  {
+    return mRoot;
+  }
+
+  @Nullable
+  public static ToggleMapLayerDialog getInstance(@NonNull AppCompatActivity activity) {
+    String tag = ToggleMapLayerDialog.class.getCanonicalName();
+    return (ToggleMapLayerDialog) activity.getSupportFragmentManager().findFragmentByTag(tag);
   }
 
   private class SubwayItemClickListener extends DefaultClickListener
