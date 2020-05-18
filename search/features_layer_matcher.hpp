@@ -63,6 +63,7 @@ class FeaturesLayerMatcher
 public:
   static uint32_t const kInvalidId = std::numeric_limits<uint32_t>::max();
   static int constexpr kBuildingRadiusMeters = 50;
+  static int constexpr kBigPoiRadiusMeters = 300;
   static int constexpr kStreetRadiusMeters = 100;
 
   FeaturesLayerMatcher(DataSource const & dataSource, base::Cancellable const & cancellable);
@@ -76,7 +77,7 @@ public:
       return;
     switch (parent.m_type)
     {
-    case Model::TYPE_POI:
+    case Model::TYPE_SUBPOI:
     case Model::TYPE_CITY:
     case Model::TYPE_VILLAGE:
     case Model::TYPE_STATE:
@@ -85,14 +86,19 @@ public:
     case Model::TYPE_COUNT:
       ASSERT(false, ("Invalid parent layer type:", parent.m_type));
       break;
+    case Model::TYPE_POI:
+      ASSERT_EQUAL(child.m_type, Model::TYPE_SUBPOI, ());
+      MatchPOIsWithParent(child, parent, std::forward<Fn>(fn));
+      break;
     case Model::TYPE_BUILDING:
-      ASSERT_EQUAL(child.m_type, Model::TYPE_POI, ());
-      MatchPOIsWithBuildings(child, parent, std::forward<Fn>(fn));
+      ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_SUBPOI, ());
+      MatchPOIsWithParent(child, parent, std::forward<Fn>(fn));
       break;
     case Model::TYPE_STREET:
-      ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_BUILDING,
+      ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_BUILDING ||
+                 child.m_type == Model::TYPE_SUBPOI,
              ("Invalid child layer type:", child.m_type));
-      if (child.m_type == Model::TYPE_POI)
+      if (child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_SUBPOI)
         MatchPOIsWithStreets(child, parent, std::forward<Fn>(fn));
       else
         MatchBuildingsWithStreets(child, parent, std::forward<Fn>(fn));
@@ -115,14 +121,24 @@ private:
   void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
   template <typename Fn>
-  void MatchPOIsWithBuildings(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
+  void MatchPOIsWithParent(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
   {
+    double parentRadius = 0.0;
     // Following code initially loads centers of POIs and then, for
     // each building, tries to find all POIs located at distance less
-    // than kBuildingRadiusMeters.
+    // than parentRadius.
 
-    ASSERT_EQUAL(child.m_type, Model::TYPE_POI, ());
-    ASSERT_EQUAL(parent.m_type, Model::TYPE_BUILDING, ());
+    if (parent.m_type == Model::TYPE_BUILDING)
+    {
+      ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_SUBPOI, ());
+      parentRadius = kBuildingRadiusMeters;
+    }
+    else
+    {
+      ASSERT_EQUAL(parent.m_type, Model::TYPE_POI, ());
+      ASSERT_EQUAL(child.m_type, Model::TYPE_SUBPOI, ());
+      parentRadius = kBigPoiRadiusMeters;
+    }
 
     auto const & pois = *child.m_sortedFeatures;
     auto const & buildings = *parent.m_sortedFeatures;
@@ -143,6 +159,7 @@ private:
 
     std::vector<PointRectMatcher::RectIdPair> buildingRects;
     buildingRects.reserve(buildings.size());
+    auto maxRadius = parentRadius;
     for (size_t i = 0; i < buildings.size(); ++i)
     {
       BailIfCancelled();
@@ -154,14 +171,16 @@ private:
       if (buildingFt->GetGeomType() == feature::GeomType::Point)
       {
         auto const center = feature::GetCenter(*buildingFt, FeatureType::WORST_GEOMETRY);
-        buildingRects.emplace_back(
-            mercator::RectByCenterXYAndSizeInMeters(center, kBuildingRadiusMeters),
-            i /* id */);
+        buildingRects.emplace_back(mercator::RectByCenterXYAndSizeInMeters(center, parentRadius),
+                                   i /* id */);
       }
       else
       {
         buildingRects.emplace_back(buildingFt->GetLimitRect(FeatureType::WORST_GEOMETRY),
                                    i /* id */);
+        double const rectSize =
+            std::max(buildingRects.back().m_rect.SizeX(), buildingRects.back().m_rect.SizeY());
+        maxRadius = std::max(maxRadius, rectSize / 2);
       }
     }
 
@@ -188,7 +207,7 @@ private:
       BailIfCancelled();
 
       m_context->ForEachFeature(
-          mercator::RectByCenterXYAndSizeInMeters(poiCenters[i].m_point, kBuildingRadiusMeters),
+          mercator::RectByCenterXYAndSizeInMeters(poiCenters[i].m_point, maxRadius),
           [&](FeatureType & ft) {
             BailIfCancelled();
 
@@ -202,7 +221,7 @@ private:
             {
               double const distanceM =
                   mercator::DistanceOnEarth(feature::GetCenter(ft), poiCenters[i].m_point);
-              if (distanceM < kBuildingRadiusMeters)
+              if (distanceM < maxRadius)
                 fn(pois[i], ft.GetID().m_index);
             }
           });
@@ -214,7 +233,7 @@ private:
   {
     BailIfCancelled();
 
-    ASSERT_EQUAL(child.m_type, Model::TYPE_POI, ());
+    ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_SUBPOI, ());
     ASSERT_EQUAL(parent.m_type, Model::TYPE_STREET, ());
 
     auto const & pois = *child.m_sortedFeatures;

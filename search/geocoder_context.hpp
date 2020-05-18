@@ -22,6 +22,7 @@ struct BaseContext
 {
   enum TokenType
   {
+    TOKEN_TYPE_SUBPOI,
     TOKEN_TYPE_POI,
     TOKEN_TYPE_BUILDING,
     TOKEN_TYPE_STREET,

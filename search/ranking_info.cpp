@@ -45,6 +45,7 @@ double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
   0.0172047 /* Full Match */
 };
 double constexpr kType[Model::TYPE_COUNT] = {
+  -0.0467816 /* SUBPOI */,
   -0.0467816 /* POI */,
   -0.0467816 /* Building */,
   -0.0444630 /* Street */,

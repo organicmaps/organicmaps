@@ -19,7 +19,7 @@ MAX_RANK = 255.0
 MAX_POPULARITY = 255.0
 RELEVANCES = {'Harmful': -3, 'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring', 'Prefix', 'Full Match']
-SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
+SEARCH_TYPES = ['SUBPOI', 'POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
 RESULT_TYPES = ['TransportMajor', 'TransportLocal', 'Eat', 'Hotel', 'Attraction', 'Service', 'General']
 FEATURES = ['DistanceToPivot', 'Rank', 'Popularity', 'Rating', 'FalseCats', 'ErrorsMade', 'MatchedFraction',
             'AllTokensUsed', 'ExactCountryOrCapital'] + NAME_SCORES + SEARCH_TYPES + RESULT_TYPES
@@ -55,11 +55,11 @@ def normalize_data(data):
 
     # Adds dummy variables to data for SEARCH_TYPES.
 
-    # We unify BUILDING with POI here, as we don't have enough
+    # We unify BUILDING with POI and SUBPOI here, as we don't have enough
     # training data to distinguish between them.  Remove following
     # line as soon as the model will be changed or we will have enough
     # training data.
-    data['SearchType'] = data['SearchType'].apply(lambda v: v if v != 'Building' else 'POI')
+    data['SearchType'] = data['SearchType'].apply(lambda v: v if v != 'Building' and v != 'POI' else 'SUBPOI')
     for st in SEARCH_TYPES:
         data[st] = data['SearchType'].apply(lambda v: int(st == v))
 
@@ -249,9 +249,11 @@ def show_bootstrap_statistics(clf, X, y, features):
         for i, c in enumerate(get_normalized_coefs(clf)):
             coefs[i].append(c)
 
+    subpoi_index = features.index('SUBPOI')
     poi_index = features.index('POI')
     building_index = features.index('Building')
-    coefs[building_index] = coefs[poi_index]
+    coefs[building_index] = coefs[subpoi_index]
+    coefs[poi_index] = coefs[subpoi_index]
 
     intervals = []
 
@@ -307,7 +309,8 @@ def main(args):
     ws = get_normalized_coefs(gs.best_estimator_)
 
     # Following code restores coeffs for merged features.
-    ws[FEATURES.index('Building')] = ws[FEATURES.index('POI')]
+    ws[FEATURES.index('Building')] = ws[FEATURES.index('SUBPOI')]
+    ws[FEATURES.index('POI')] = ws[FEATURES.index('SUBPOI')]
 
     ndcgs = compute_ndcgs_for_ws(data, ws)
 

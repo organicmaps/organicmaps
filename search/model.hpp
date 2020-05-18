@@ -27,8 +27,11 @@ public:
   // WARNING: after modifications to the enum below, re-check all methods in the class.
   enum Type
   {
-    // Low-level features such as amenities, offices, shops, buildings
-    // without house number, etc.
+    // Low-level features such as amenities, offices, shops, buildings without house number, etc.
+    // Can be located inside another POIs. E.g. cafes/shops inside airports/universities/museums.
+    TYPE_SUBPOI,
+
+    // Big pois which can contain another POIs. E.g. airports, train stations, malls, parks.
     TYPE_POI,
 
     // All features with set house number.
