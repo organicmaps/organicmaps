@@ -42,7 +42,6 @@ class BaseSubscriptionViewController: MWMViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    subscriptionManager?.addListener(self)
     loadingView.isHidden = false
   }
 
@@ -80,6 +79,7 @@ class BaseSubscriptionViewController: MWMViewController {
   }
 
   func purchase(sender: UIButton, period: SubscriptionPeriod) {
+    subscriptionManager?.addListener(self)
     guard let subscription = subscriptionGroup?[period]?.subscription else{
       return
     }
@@ -103,6 +103,7 @@ class BaseSubscriptionViewController: MWMViewController {
   }
 
   @IBAction func onRestore(_ sender: UIButton) {
+    subscriptionManager?.addListener(self)
     Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: subscriptionManager?.serverId ?? ""])
     signup(anchor: sender, source: .subscription) { [weak self] (success) in
       guard success else { return }
