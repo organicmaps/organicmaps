@@ -36,8 +36,7 @@ public enum GuidesState
         @Override
         public void activate(@NonNull Context context)
         {
-          Toast.makeText(context, R.string.connection_error_toast_guides, Toast.LENGTH_SHORT)
-               .show();
+          Toast.makeText(context, R.string.connection_error_toast_guides, Toast.LENGTH_SHORT).show();
         }
       },
   FATAL_NETWORK_ERROR;

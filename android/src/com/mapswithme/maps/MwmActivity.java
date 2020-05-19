@@ -1489,6 +1489,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void onGuidesFatalError()
   {
     mToggleMapLayerController.turnOff();
+    RecyclerView bottomSheetRecycler = findViewById(R.id.layers_recycler);
+    Objects.requireNonNull(bottomSheetRecycler.getAdapter()).notifyDataSetChanged();
     showGuidesFatalErrorDialog();
     ToggleMapLayerDialog frag = ToggleMapLayerDialog.getInstance(this);
     if (frag == null)
