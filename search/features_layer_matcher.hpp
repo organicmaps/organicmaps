@@ -98,9 +98,13 @@ public:
         MatchBuildingsWithStreets(child, parent, std::forward<Fn>(fn));
       break;
     case Model::TYPE_SUBURB:
-      // todo(@t.yan): match pois and buildings with suburbs
-      ASSERT(child.m_type == Model::TYPE_STREET, ("Invalid child layer type:", child.m_type));
-      MatchStreetsWithSuburbs(child, parent, std::forward<Fn>(fn));
+      ASSERT(child.m_type == Model::TYPE_STREET || child.m_type == Model::TYPE_BUILDING ||
+                 child.m_type == Model::TYPE_POI,
+             ());
+      // Avoid matching buildings to suburb without street.
+      if (child.m_type == Model::TYPE_BUILDING)
+        break;
+      MatchChildWithSuburbs(child, parent, std::forward<Fn>(fn));
       break;
     }
   }
@@ -381,15 +385,15 @@ private:
   }
 
   template <typename Fn>
-  void MatchStreetsWithSuburbs(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
+  void MatchChildWithSuburbs(FeaturesLayer const & child, FeaturesLayer const & parent, Fn && fn)
   {
-    // We have pre-matched streets from geocoder.
-    auto const & streets = *child.m_sortedFeatures;
+    // We have pre-matched features from geocoder.
+    auto const & childFeatures = *child.m_sortedFeatures;
     CHECK_EQUAL(parent.m_sortedFeatures->size(), 1, ());
     auto const & suburb = parent.m_sortedFeatures->front();
 
-    for (auto const & street : streets)
-      fn(street, suburb);
+    for (auto const & feature : childFeatures)
+      fn(feature, suburb);
   }
 
   // Returns id of a street feature corresponding to a |houseId|/|houseFeature|, or

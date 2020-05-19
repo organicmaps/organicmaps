@@ -16,6 +16,8 @@ namespace search
 class CBV
 {
 public:
+  static CBV const & GetFull();
+
   CBV() = default;
   explicit CBV(std::unique_ptr<coding::CompressedBitVector> p);
   CBV(CBV const & cbv) = default;
@@ -52,6 +54,8 @@ public:
   uint64_t Hash() const;
 
 private:
+  explicit CBV(bool full);
+
   base::RefCountPtr<coding::CompressedBitVector> m_p;
 
   // True iff all bits are set to one.

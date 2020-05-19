@@ -12,9 +12,18 @@ namespace
 uint64_t const kModulo = 18446744073709551557LLU;
 }  // namespace
 
+// static
+CBV const & CBV::GetFull()
+{
+  static CBV const fullCBV(true /*full*/);
+  return fullCBV;
+}
+
 CBV::CBV(unique_ptr<coding::CompressedBitVector> p) : m_p(move(p)) {}
 
 CBV::CBV(CBV && cbv) : m_p(move(cbv.m_p)), m_isFull(cbv.m_isFull) { cbv.m_isFull = false; }
+
+CBV::CBV(bool full) : m_isFull(full) {}
 
 CBV & CBV::operator=(unique_ptr<coding::CompressedBitVector> p)
 {

@@ -1080,9 +1080,7 @@ void Geocoder::MatchAroundPivot(BaseContext & ctx)
 {
   TRACE(MatchAroundPivot);
 
-  CBV features;
-  features.SetFull();
-  ViewportFilter filter(features, m_preRanker.Limit() /* threshold */);
+  ViewportFilter filter(CBV::GetFull(), m_preRanker.Limit() /* threshold */);
 
   vector<m2::PointD> centers = {m_params.m_pivot.Center()};
   auto const mwmType = m_context->GetType();
@@ -1232,14 +1230,16 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx,
 
       auto const rect =
           mercator::RectByCenterXYAndSizeInMeters(feature::GetCenter(*ft), kMaxSuburbRadiusM);
-      auto const suburbStreets =
-          ctx.m_streets.Intersect(RetrieveGeometryFeatures(*m_context, rect, RectId::Suburb));
+      auto const suburbCBV = RetrieveGeometryFeatures(*m_context, rect, RectId::Suburb);
+      auto const suburbStreets = ctx.m_streets.Intersect(suburbCBV);
 
       vector<StreetsMatcher::Prediction> predictions;
       StreetsMatcher::Go(ctx, suburbStreets, *m_filter, m_params, predictions);
 
       for (auto const & prediction : predictions)
         CreateStreetsLayerAndMatchLowerLayers(ctx, prediction, centers);
+
+      MatchPOIsAndBuildings(ctx, 0 /* curToken */, suburbCBV);
     });
   }
 }
@@ -1284,7 +1284,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   }
 }
 
-void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
+void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV const & filter)
 {
   TRACE(MatchPOIsAndBuildings);
 
@@ -1382,8 +1382,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     }
   };
 
-  Retrieval::ExtendedFeatures features;
-  features.SetFull();
+  Retrieval::ExtendedFeatures features(filter);
 
   // Try to consume [curToken, m_numTokens) tokens range.
   for (size_t n = 1; curToken + n <= ctx.m_numTokens && !ctx.IsTokenUsed(curToken + n - 1); ++n)
@@ -1469,7 +1468,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
       ScopedMarkTokens mark(ctx.m_tokens, BaseContext::FromModelType(layer.m_type),
                             TokenRange(curToken, curToken + n));
       if (IsLayerSequenceSane(layers))
-        MatchPOIsAndBuildings(ctx, curToken + n);
+        MatchPOIsAndBuildings(ctx, curToken + n, filter);
     }
   }
 }

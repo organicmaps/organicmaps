@@ -796,6 +796,9 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
   TestPOI toi(m2::PointD(0.0001, 0.0001), "", "en");
   toi.SetTypes({{"amenity", "toilets"}});
 
+  TestPOI namedResidential(m2::PointD(0.04, 0.04), "Residential", "en");
+  namedResidential.SetTypes({{"landuse", "residential"}});
+
   BuildWorld([&](TestMwmBuilder & builder)
              {
                builder.Add(sanFrancisco);
@@ -809,6 +812,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
                                      builder.Add(nonameAtm);
                                      builder.Add(nonameBeach);
                                      builder.Add(toi);
+                                     builder.Add(namedResidential);
                                    });
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
@@ -847,6 +851,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
   TEST(ResultsMatch("beach ",
                     {ExactMatch(wonderlandId, nonameBeach), ExactMatch(wonderlandId, namedBeach)}),
        ());
+  TEST(ResultsMatch("district", {ExactMatch(wonderlandId, namedResidential)}), ());
+  TEST(ResultsMatch("residential", {ExactMatch(wonderlandId, namedResidential)}), ());
 }
 
 // A separate test for the categorial search branch in the geocoder.
@@ -2498,24 +2504,32 @@ UNIT_CLASS_TEST(ProcessorTest, Suburbs)
   house.SetHouseNumber("3");
   house.SetStreetName(street.GetName("en"));
 
+  TestCafe cafe(m2::PointD(0.01, 0.01), "", "en");
+
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(suburb);
     builder.Add(street);
     builder.Add(house);
+    builder.Add(cafe);
   });
 
-  SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
-  {
-    auto request = MakeRequest("Malet place 3, Bloomsbury ");
-
+  auto const testFullMatch = [&](auto const & query, auto const & expected) {
+    auto request = MakeRequest(query);
     auto const & results = request->Results();
     TEST_GREATER(results.size(), 0, (results));
-    TEST(ResultMatches(results[0], ExactMatch(countryId, house)), (results));
+    TEST(ResultMatches(results[0], expected), (query, results));
 
     auto const & info = results[0].GetRankingInfo();
     TEST(info.m_exactMatch, ());
     TEST(info.m_allTokensUsed, ());
     TEST_ALMOST_EQUAL_ABS(info.m_matchedFraction, 1.0, 1e-12, ());
+  };
+
+  SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
+  {
+    testFullMatch("Malet place 3, Bloomsbury ", ExactMatch(countryId, house));
+    testFullMatch("Bloomsbury cafe ", ExactMatch(countryId, cafe));
+    testFullMatch("Bloomsbury ", ExactMatch(countryId, suburb));
   }
 }
 
