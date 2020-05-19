@@ -3667,7 +3667,7 @@ fa:زباله دانی
 
 amenity-recycling
 en:Recycling Center|U+1F6AE|U+267B
-ru:Приём вторсырья|утиль|сырье|сбор сырья|стеклотара|макулатура|прием металлов
+ru:Приём вторсырья|утиль|сырьё|сбор сырья
 ar:مركز إعادة تدوير
 cs:Recyklační středisko
 da:Genbrugsplads
@@ -3697,6 +3697,68 @@ el:Κέντρο ανακύκλωσης
 sk:Zberné suroviny
 sw:Chombo cha kutia taka
 fa:مرکز بازیافت
+
+amenity-recycling_container
+en:Recycling container|U+1F6AE|U+267B
+ru:Контейнер для вторсырья|утиль
+de:Recyclingbehälter
+es:Contenedor de reciclaje
+uk:Контейнер для вторсировини
+
+recycling-toxic
+en:Toxic waste|Batteries
+ru:Ядовитые отходы|Сбор батареек
+de:Giftmüll
+es:Residuos tóxicos
+uk:Отруйні відходи|ЗБір отруйних відходів
+
+recycling-clothes
+en:Old clothes
+ru:Старая одежда
+de:Alte Kleidung
+es:Ropa vieja
+uk:Старий одяг
+
+recycling-glass_bottles
+en:Glass bottles
+ru:Стеклотара
+de:Glas-Container
+es:Vidrio
+uk:Склотара
+
+recycling-paper
+en:Paper waste
+ru:Макулатура
+de:Altpapier
+es:Papel de desecho
+uk:Макулатура
+
+recycling-plastic
+en:Plastic waste
+ru:Пластиковый мусор
+de:Plastik-Müll
+es:Residuos plásticos
+uk:Пластикове сміття
+
+recycling-plastic_bottles
+en:Plastic bottles|PET
+ru:Сбор пластиковых бутылок
+es:Botellas de plástico
+uk:Збір пластикових пляшок
+
+recycling-scrap_metal
+en:Scrap metal
+ru:Металлолом
+de:Altmetall
+es:Chatarra
+uk:Металолом
+
+recycling-small_appliances
+en:Electronic waste
+ru:Электроотходы
+de:Elektroschrott
+es:Chatarra electrónica
+uk:Електровідходи
 
 amenity-school
 en:3School|U+1F392|U+1F3EB

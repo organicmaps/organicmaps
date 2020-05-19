@@ -2517,6 +2517,68 @@
     sk = Zberné suroviny
     fa = مرکز بازیافت
 
+  [type.amenity.recycling_container]
+    en = Recycling container
+    ru = Контейнер для вторсырья
+    de = Recyclingbehälter
+    es = Contenedor de reciclaje
+    uk = Контейнер для вторсировини
+
+  [type.recycling.toxic]
+    en = Toxic waste
+    ru = Ядовитые отходы
+    de = Giftmüll
+    es = Residuos tóxicos
+    uk = Отруйні відходи
+
+  [type.recycling.clothes]
+    en = Old clothes
+    ru = Старая одежда
+    de = Alte Kleidung
+    es = Ropa vieja
+    uk = Старий одяг
+
+  [type.recycling.glass_bottles]
+    en = Glass bottles
+    ru = Стеклотара
+    de = Glas-Container
+    es = Vidrio
+    uk = Склотара
+
+  [type.recycling.paper]
+    en = Paper waste
+    ru = Макулатура
+    de = Altpapier
+    es = Papel de desecho
+    uk = Макулатура
+
+  [type.recycling.plastic]
+    en = Plastic waste
+    ru = Пластиковый мусор
+    de = Plastik-Müll
+    es = Residuos plásticos
+    uk = Пластикове сміття
+
+  [type.recycling.plastic_bottles]
+    en = Plastic bottles
+    ru = Сбор пластиковых бутылок
+    es = Botellas de plástico
+    uk = Збір пластикових пляшок
+
+  [type.recycling.scrap_metal]
+    en = Scrap metal
+    ru = Металлолом
+    de = Altmetall
+    es = Chatarra
+    uk = Металолом
+
+  [type.recycling.small_appliances]
+    en = Electronic waste
+    ru = Электроотходы
+    de = Elektroschrott
+    es = Chatarra electrónica
+    uk = Електровідходи
+
   [type.amenity.restaurant]
     en = Restaurant
     ru = Ресторан

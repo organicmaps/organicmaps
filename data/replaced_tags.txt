@@ -60,3 +60,11 @@ historic=war_memorial : historic=memorial
 place=allotments : place=neighbourhood
 
 crossing=traffic_signals : highway=traffic_signals
+
+
+recycling:small_electrical_appliances=yes : recycling:small_appliances=yes
+recycling:PET=yes : recycling:plastic_bottles=yes
+recycling:plastic_packaging=yes : recycling:plastic=yes
+recycling:glass=yes : recycling:glass_bottles=yes
+recycling:metal=yes : recycling:scrap_metal=yes
+recycling:sheet_metal=yes : recycling:scrap_metal=yes
