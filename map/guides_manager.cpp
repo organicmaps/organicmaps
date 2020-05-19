@@ -56,6 +56,8 @@ void GuidesManager::UpdateViewport(ScreenBase const & screen)
   if (screen.GlobalRect().GetLocalRect().IsEmptyInterior())
     return;
 
+  m_closeGallery();
+
   if (IsRequestParamsInitialized())
   {
     auto const scaleStronglyChanged =
@@ -76,8 +78,6 @@ void GuidesManager::UpdateViewport(ScreenBase const & screen)
         return;
     }
   }
-
-  m_closeGallery();
 
   m_screen = screen;
   m_zoom = zoom;
@@ -235,7 +235,10 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
   return gallery;
 }
 
-std::string GuidesManager::GetActiveGuide() const { return m_activeGuide; }
+std::string GuidesManager::GetActiveGuide() const
+{
+  return m_activeGuide;
+}
 
 void GuidesManager::SetActiveGuide(std::string const & guideId)
 {
@@ -309,16 +312,8 @@ void GuidesManager::OnClusterSelected(GuidesClusterMark const & mark, ScreenBase
                          true /* isAnim */);
 }
 
-void GuidesManager::OnGuideSelected(GuideMark const & mark)
+void GuidesManager::OnGuideSelected()
 {
-  if (mark.GetGuideId() == m_activeGuide)
-    return;
-
-  auto es = m_bmManager->GetEditSession();
-  es.ClearGroup(UserMark::Type::GUIDE_SELECTION);
-  es.CreateUserMark<GuideSelectionMark>(mark.GetPivot());
-
-  m_activeGuide = mark.GetGuideId();
   if (m_onGalleryChanged)
     m_onGalleryChanged(false /* reload */);
 }

@@ -2448,6 +2448,9 @@ void Framework::ActivateMapSelection(std::optional<place_page::Info> const & inf
     m_onPlacePageOpen();
   else
     LOG(LWARNING, ("m_onPlacePageOpen has not been set up."));
+
+  if (info->GetSelectedObject() == df::SelectionShape::OBJECT_GUIDE)
+    m_guidesManager.OnGuideSelected();
 }
 
 void Framework::DeactivateMapSelection(bool notifyUI)
@@ -2569,7 +2572,10 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     }
 
     if (m_currentPlacePageInfo->IsGuide() && prevIsGuide)
+    {
+      m_guidesManager.OnGuideSelected();
       return;
+    }
 
     ActivateMapSelection(m_currentPlacePageInfo);
   }
@@ -2631,7 +2637,7 @@ void Framework::BuildTrackPlacePage(BookmarkManager::TrackSelectionInfo const & 
 
 void Framework::BuildGuidePlacePage(GuideMark const & guideMark, place_page::Info & info)
 {
-  m_guidesManager.OnGuideSelected(guideMark);
+  m_guidesManager.SetActiveGuide(guideMark.GetGuideId());
   info.SetSelectedObject(df::SelectionShape::OBJECT_GUIDE);
   info.SetIsGuide(true);
 }

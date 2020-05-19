@@ -107,7 +107,7 @@ public:
   void SetApiDelegate(std::unique_ptr<guides_on_map::Api::Delegate> apiDelegate);
 
   void OnClusterSelected(GuidesClusterMark const & mark, ScreenBase const & screen);
-  void OnGuideSelected(GuideMark const & mark);
+  void OnGuideSelected();
 
 private:
   void ChangeState(GuidesState newState);
