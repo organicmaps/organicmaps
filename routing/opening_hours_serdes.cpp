@@ -53,7 +53,7 @@ bool ShouldSkipYear(osmoh::MonthdayRange const & range, uint16_t currentYear)
 {
   auto const hasYear = range.GetStart().HasYear() && range.GetEnd().HasYear();
   if (!hasYear)
-    return true;
+    return false;
 
   return ShouldSkipYear(range.GetStart().GetYear(), range.GetEnd().GetYear(), currentYear);
 }
