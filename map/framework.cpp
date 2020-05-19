@@ -2448,9 +2448,6 @@ void Framework::ActivateMapSelection(std::optional<place_page::Info> const & inf
     m_onPlacePageOpen();
   else
     LOG(LWARNING, ("m_onPlacePageOpen has not been set up."));
-
-  if (info->GetSelectedObject() == df::SelectionShape::OBJECT_GUIDE)
-    m_guidesManager.OnGuideSelected();
 }
 
 void Framework::DeactivateMapSelection(bool notifyUI)
