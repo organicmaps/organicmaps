@@ -39,16 +39,23 @@ platform::HttpClient::Headers GetDefaultAuthHeaders()
   return result;
 }
 
+platform::HttpClient::Header GetPositionHeader(m2::PointD const & pos)
+{
+  std::ostringstream latLonStream;
+  auto const latLon = mercator::ToLatLon(pos);
+  latLonStream << std::fixed << std::setprecision(3) << latLon.m_lat << "," << latLon.m_lon;
+
+  return {kLatLonHeader, latLonStream.str()};
+}
+
 platform::HttpClient::Headers GetCatalogHeaders(HeadersParams const & params)
 {
   platform::HttpClient::Headers result = GetDefaultCatalogHeaders();
 
   if (params.m_currentPosition)
   {
-    std::ostringstream latLonStream;
-    auto const latLon = mercator::ToLatLon(*params.m_currentPosition);
-    latLonStream << std::fixed << std::setprecision(3) << latLon.m_lat << "," << latLon.m_lon;
-    result.emplace(kLatLonHeader, latLonStream.str());
+    auto const latLon = GetPositionHeader(*params.m_currentPosition);
+    result.emplace(latLon.m_name, latLon.m_value);
   }
 
   if (!params.m_cityGeoIds.empty())

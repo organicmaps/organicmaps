@@ -8,6 +8,8 @@
 
 #include "platform/http_client.hpp"
 
+#include <optional>
+
 class CatalogHeadersProvider
 {
 public:
@@ -15,6 +17,7 @@ public:
                          storage::Storage const & storage);
 
   platform::HttpClient::Headers GetHeaders();
+  std::optional<platform::HttpClient::Header> GetPositionHeader();
 
 private:
   PositionProvider const & m_positionProvider;

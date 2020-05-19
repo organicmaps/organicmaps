@@ -21,5 +21,6 @@ public:
 
 platform::HttpClient::Headers GetDefaultCatalogHeaders();
 platform::HttpClient::Headers GetDefaultAuthHeaders();
+platform::HttpClient::Header GetPositionHeader(m2::PointD const & pos);
 platform::HttpClient::Headers GetCatalogHeaders(HeadersParams const & params);
 }  // namespace web_api

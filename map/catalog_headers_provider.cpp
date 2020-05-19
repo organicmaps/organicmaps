@@ -32,3 +32,11 @@ platform::HttpClient::Headers CatalogHeadersProvider::GetHeaders()
 
   return web_api::GetCatalogHeaders(params);
 }
+
+std::optional<platform::HttpClient::Header> CatalogHeadersProvider::GetPositionHeader()
+{
+  if (!m_positionProvider.GetCurrentPosition())
+    return {};
+
+  return web_api::GetPositionHeader(*m_positionProvider.GetCurrentPosition());
+}

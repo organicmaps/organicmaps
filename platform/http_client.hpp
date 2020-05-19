@@ -37,6 +37,12 @@ class HttpClient
 public:
   static auto constexpr kNoError = -1;
 
+  struct Header
+  {
+    std::string m_name;
+    std::string m_value;
+  };
+
   using Headers = std::unordered_map<std::string, std::string>;
 
   HttpClient() = default;
