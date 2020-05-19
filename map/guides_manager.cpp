@@ -44,6 +44,7 @@ void GuidesManager::SetStateListener(GuidesStateChangedFn const & onStateChanged
 
 void GuidesManager::UpdateViewport(ScreenBase const & screen)
 {
+  m_lastShownViewport = m_screen.GlobalRect();
   auto const zoom = df::GetDrawTileScale(screen);
 
   if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError)
@@ -134,9 +135,20 @@ void GuidesManager::RequestGuides()
   if (!IsRequestParamsInitialized())
     return;
 
+  auto screenRect = m_screen.GlobalRect();
+
+  auto rect = screenRect.GetGlobalRect();
+  // Increase requesting rect by 20% for each side.
+  screenRect.Inflate(rect.SizeX() * 0.2, rect.SizeY() * 0.2);
+  m2::AnyRectD::Corners corners;
+  screenRect.GetGlobalPoints(corners);
+
+  for (auto & p : corners)
+    mercator::ClampPoint(p);
+
   auto const requestNumber = ++m_requestCounter;
   m_api.GetGuidesOnMap(
-      m_screen.GlobalRect(), m_zoom,
+      corners, m_zoom,
       [this](guides_on_map::GuidesOnMap const & guides) {
         if (m_state == GuidesState::Disabled)
           return;
@@ -197,6 +209,9 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
   for (auto const & guide : m_guides)
   {
     if (guide.m_outdoorCount + guide.m_sightsCount != 1)
+      continue;
+
+    if (!m_lastShownViewport.IsPointInside(guide.m_point))
       continue;
 
     auto const & info = guide.m_guideInfo;

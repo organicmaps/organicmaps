@@ -59,7 +59,7 @@ public:
 
   void SetDelegate(std::unique_ptr<Delegate> delegate);
 
-  void GetGuidesOnMap(m2::AnyRectD const & viewport, uint8_t zoomLevel,
+  void GetGuidesOnMap(m2::AnyRectD::Corners const & corners, uint8_t zoomLevel,
                       GuidesOnMapCallback const & onSuccess, OnError const & onError) const;
 
 private:

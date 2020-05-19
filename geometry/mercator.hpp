@@ -37,6 +37,8 @@ inline bool ValidY(double d) { return base::Between(Bounds::kMinY, Bounds::kMaxY
 inline double ClampX(double d) { return base::Clamp(d, Bounds::kMinX, Bounds::kMaxX); }
 inline double ClampY(double d) { return base::Clamp(d, Bounds::kMinY, Bounds::kMaxY); }
 
+void ClampPoint(m2::PointD & pt);
+
 double YToLat(double y);
 double LatToY(double lat);
 

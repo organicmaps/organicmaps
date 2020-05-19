@@ -74,8 +74,8 @@ void ParseGallery(std::string const & src, guides_on_map::GuidesOnMap & result)
   }
 }
 
-std::string MakeGalleryUrl(std::string const & baseUrl, m2::AnyRectD const & viewport, int zoomLevel,
-                           std::string const & lang)
+std::string MakeGalleryUrl(std::string const & baseUrl, m2::AnyRectD::Corners const & corners,
+                           int zoomLevel, std::string const & lang)
 {
   // Support empty baseUrl for opensource build.
   if (baseUrl.empty())
@@ -89,9 +89,6 @@ std::string MakeGalleryUrl(std::string const & baseUrl, m2::AnyRectD const & vie
     auto const latLon = mercator::ToLatLon(point);
     return strings::to_string_dac(latLon.m_lat, 6) + "," + strings::to_string_dac(latLon.m_lon, 6);
   };
-
-  m2::AnyRectD::Corners corners;
-  viewport.GetGlobalPoints(corners);
 
   ASSERT_EQUAL(corners.size(), 4, ());
 
@@ -126,10 +123,10 @@ void Api::SetDelegate(std::unique_ptr<Delegate> delegate)
   m_delegate = std::move(delegate);
 }
 
-void Api::GetGuidesOnMap(m2::AnyRectD const & viewport, uint8_t zoomLevel,
+void Api::GetGuidesOnMap(m2::AnyRectD::Corners const & corners, uint8_t zoomLevel,
                          GuidesOnMapCallback const & onSuccess, OnError const & onError) const
 {
-  auto const url = MakeGalleryUrl(m_baseUrl, viewport, zoomLevel, languages::GetCurrentNorm());
+  auto const url = MakeGalleryUrl(m_baseUrl, corners, zoomLevel, languages::GetCurrentNorm());
   if (url.empty())
   {
     onSuccess({});

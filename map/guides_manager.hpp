@@ -126,6 +126,7 @@ private:
   GuidesStateChangedFn m_onStateChanged;
   GuidesGalleryChangedFn m_onGalleryChanged;
 
+  m2::AnyRectD m_lastShownViewport;
   int m_zoom = 0;
   ScreenBase m_screen;
 

@@ -61,6 +61,12 @@ double AreaOnEarth(m2::RectD const & rect)
          AreaOnEarth(rect.LeftTop(), rect.RightTop(), rect.RightBottom());
 }
 
+void ClampPoint(m2::PointD & pt)
+{
+  pt.x = ClampX(pt.x);
+  pt.y = ClampY(pt.y);
+}
+
 double YToLat(double y)
 {
   return base::RadToDeg(2.0 * atan(tanh(0.5 * base::DegToRad(y))));
