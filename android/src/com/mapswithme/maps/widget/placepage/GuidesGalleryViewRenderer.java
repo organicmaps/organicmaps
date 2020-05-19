@@ -181,9 +181,7 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
   @Override
   public void onHide()
   {
-    mActiveItem = null;
-    mActivePosition = 0;
-    smoothScrollToPosition(0);
+    // Do nothing.
   }
 
   @Override
