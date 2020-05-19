@@ -38,7 +38,7 @@ osmoh::RuleSequence GetTwentyFourHourRule()
 bool ShouldSkipYear(osmoh::YearRange const & range, uint16_t currentYear)
 {
   if (range.GetStart() > range.GetEnd())
-    return false;
+    return true;
   
   return range.GetStart() < currentYear && range.GetEnd() < currentYear;
 }
@@ -47,12 +47,12 @@ bool ShouldSkipYear(osmoh::MonthdayRange const & range, uint16_t currentYear)
 {
   auto const hasYear = range.GetStart().HasYear() && range.GetEnd().HasYear();
   if (!hasYear)
-    return false;
+    return true;
   
   auto const startYear = range.GetStart().GetYear();
   auto const endYear = range.GetEnd().GetYear();
   if (startYear > endYear)
-    return false;
+    return true;
 
   return hasYear && startYear < currentYear && endYear < currentYear;
 }
