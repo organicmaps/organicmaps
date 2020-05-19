@@ -80,6 +80,7 @@ public:
 
   bool IsDownloading(std::string const & id) const;
   bool HasDownloaded(std::string const & id) const;
+  std::set<std::string> const & GetDownloadedIds() const;
   size_t GetDownloadingCount() const { return m_downloadingIds.size(); }
 
   std::string GetDownloadUrl(std::string const & serverId) const;

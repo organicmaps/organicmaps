@@ -20,6 +20,7 @@ char const * const kUserAgentHeader = "User-Agent";
 char const * const kCitiesHeader = "X-Mapsme-City-Ids";
 char const * const kCountriesHeader = "X-Mapsme-Country-Ids";
 char const * const kLatLonHeader = "X-Mapsme-Lat-Lon";
+char const * const kGuidesHeader = "X-Mapsme-Downloaded-Guides";
 }  // namespace
 
 platform::HttpClient::Headers GetDefaultCatalogHeaders()
@@ -63,6 +64,9 @@ platform::HttpClient::Headers GetCatalogHeaders(HeadersParams const & params)
 
   if (!params.m_countryGeoIds.empty())
     result.emplace(kCountriesHeader, strings::JoinAny(params.m_countryGeoIds));
+
+  if (!params.m_downloadedGuidesIds.empty())
+    result.emplace(kGuidesHeader, strings::JoinAny(params.m_downloadedGuidesIds));
 
   return result;
 }

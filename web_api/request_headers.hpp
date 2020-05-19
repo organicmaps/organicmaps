@@ -17,6 +17,7 @@ public:
   std::optional<m2::PointD> m_currentPosition;
   std::vector<base::GeoObjectId> m_countryGeoIds;
   std::vector<base::GeoObjectId> m_cityGeoIds;
+  std::vector<std::string> m_downloadedGuidesIds;
 };
 
 platform::HttpClient::Headers GetDefaultCatalogHeaders();

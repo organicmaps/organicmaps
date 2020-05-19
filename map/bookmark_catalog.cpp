@@ -258,6 +258,11 @@ bool BookmarkCatalog::HasDownloaded(std::string const & id) const
   return m_registeredInCatalog.find(id) != m_registeredInCatalog.cend();
 }
 
+std::set<std::string> const & BookmarkCatalog::GetDownloadedIds() const
+{
+  return m_registeredInCatalog;
+}
+
 void BookmarkCatalog::Download(std::string const & id, std::string const & accessToken,
                                DownloadStartCallback && startHandler,
                                DownloadFinishCallback && finishHandler)
