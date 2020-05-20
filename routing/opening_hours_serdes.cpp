@@ -60,12 +60,8 @@ bool ShouldSkipYear(osmoh::MonthdayRange const & range, uint16_t currentYear)
 
 bool UselessModifier(osmoh::RuleSequence const & rule)
 {
-  if (rule.GetModifier() == osmoh::RuleSequence::Modifier::Closed ||
-      rule.GetModifier() == osmoh::RuleSequence::Modifier::Open)
-  {
-    return false;
-  }
-  return true;
+  return rule.GetModifier() != osmoh::RuleSequence::Modifier::Closed &&
+         rule.GetModifier() != osmoh::RuleSequence::Modifier::Open;
 }
 }  // namespace
 
