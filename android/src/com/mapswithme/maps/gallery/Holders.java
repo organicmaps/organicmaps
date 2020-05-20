@@ -610,13 +610,13 @@ public class Holders
 
     private void toggleBoughtContentBtnVisibility()
     {
-/*      int index = getAdapterPosition();
+      int index = getAdapterPosition();
       GuidesGallery.Item item = mItems.get(index);
       BookmarkCategory category =
           BookmarkManager.INSTANCE.getCategoryByServerId(item.getGuideId());
       boolean isVisible = category.isVisible();
       BookmarkManager.INSTANCE.setVisibility(category.getId(), !isVisible);
-      mBoughtContentBtn.setText(!isVisible ? R.string.hide : R.string.show);*/
+      mBoughtContentBtn.setText(!isVisible ? R.string.hide : R.string.show);
     }
 
     @Override
@@ -650,9 +650,9 @@ public class Holders
 
     private void bindBoughtContentBlock(@NonNull GuidesGallery.Item item)
     {
-/*      BookmarkCategory category =
+      BookmarkCategory category =
           BookmarkManager.INSTANCE.getCategoryByServerId(item.getGuideId());
-      mBoughtContentBtn.setText(category.isVisible() ? R.string.hide : R.string.show);*/
+      mBoughtContentBtn.setText(category.isVisible() ? R.string.hide : R.string.show);
     }
 
     private void bindOutdoorBlock(@NonNull GuidesGallery.OutdoorParams params)
