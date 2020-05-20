@@ -26,11 +26,11 @@ UNIT_CLASS_TEST(AsyncGuiThread, GuidesOnMap_GetGalleryOnMap)
   {
     guides_on_map::Api api("http://localhost:34568/");
     api.SetDelegate(std::make_unique<DelegateForTesting>());
-    m2::AnyRectD viewport = {};
+    m2::AnyRectD::Corners corners = {};
     uint8_t zoomlevel = 1;
 
     guides_on_map::GuidesOnMap result{};
-    api.GetGuidesOnMap(viewport, zoomlevel, [&result](guides_on_map::GuidesOnMap const & gallery)
+    api.GetGuidesOnMap(corners, zoomlevel, [&result](guides_on_map::GuidesOnMap const & gallery)
                         {
                           result = gallery;
                           testing::Notify();
