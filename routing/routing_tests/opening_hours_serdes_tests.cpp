@@ -183,6 +183,16 @@ UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_EnableTests_2)
   TEST(Serialize("2019 Nov 30 - 2090 Mar 31"), ());
 }
 
+// Test on serialization ranges where start is later than end.
+// It is wrong but still possible data.
+UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_CannotSerialize)
+{
+  Enable(OpeningHoursSerDes::Header::Bits::Year);
+  Enable(OpeningHoursSerDes::Header::Bits::Month);
+  TEST(!Serialize("2020 - 2019"), ());
+  TEST(!Serialize("2020 May 20 - 2018 Nov 30"), ());
+}
+
 UNIT_CLASS_TEST(BitReaderWriter, OpeningHoursSerDes_YearOnly)
 {
   Enable(OpeningHoursSerDes::Header::Bits::Year);
