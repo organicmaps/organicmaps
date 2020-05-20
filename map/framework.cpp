@@ -1860,19 +1860,16 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
   // Distance may be less than 1.0
   UNUSED_VALUE(measurement_utils::FormatDistance(d, distance));
 
-  if (north >= 0.0)
-  {
-    // We calculate azimut even when distance is very short (d ~ 0),
-    // because return value has 2 states (near me or far from me).
+  // We calculate azimuth even when distance is very short (d ~ 0),
+  // because return value has 2 states (near me or far from me).
 
-    azimut = ang::Azimuth(mercator::FromLatLon(lat, lon), point, north);
+  azimut = ang::Azimuth(mercator::FromLatLon(lat, lon), point, north);
 
-    double const pi2 = 2.0*math::pi;
-    if (azimut < 0.0)
-      azimut += pi2;
-    else if (azimut > pi2)
-      azimut -= pi2;
-  }
+  double const pi2 = 2.0*math::pi;
+  if (azimut < 0.0)
+    azimut += pi2;
+  else if (azimut > pi2)
+    azimut -= pi2;
 
   // This constant and return value is using for arrow/flag choice.
   return (d < 25000.0);
