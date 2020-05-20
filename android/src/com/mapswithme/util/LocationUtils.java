@@ -35,6 +35,8 @@ public class LocationUtils
     double correction = 0;
     switch (displayOrientation)
     {
+    case Surface.ROTATION_0:
+      return angle;
     case Surface.ROTATION_90:
       correction = Math.PI / 2.0;
       break;
@@ -46,11 +48,7 @@ public class LocationUtils
       break;
     }
 
-    // negative values (like -1.0) should remain negative (indicates that no direction available)
-    if (angle >= 0.0)
-      angle = correctAngle(angle, correction);
-
-    return angle;
+    return correctAngle(angle, correction);
   }
 
   public static double correctAngle(double angle, double correction)
