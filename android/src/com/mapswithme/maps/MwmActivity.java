@@ -1238,25 +1238,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSubwayLayerSelected()
   {
-    mToggleMapLayerController.toggleMode(Mode.SUBWAY);
+    toggleLayer(Mode.SUBWAY, Statistics.ParamValue.MAP);
   }
 
   @Override
   public void onTrafficLayerSelected()
   {
-    mToggleMapLayerController.toggleMode(Mode.TRAFFIC);
+    toggleLayer(Mode.TRAFFIC, Statistics.ParamValue.MAP);
   }
 
   @Override
   public void onIsolinesLayerSelected()
   {
-    mToggleMapLayerController.toggleMode(Mode.ISOLINES);
+    toggleLayer(Mode.ISOLINES, Statistics.ParamValue.MAP);
   }
 
   @Override
   public void onGuidesLayerSelected()
   {
-    mToggleMapLayerController.toggleMode(Mode.GUIDES);
+    toggleLayer(Mode.GUIDES, Statistics.ParamValue.MAP);
   }
 
   private void onIsolinesStateChanged(@NonNull IsolinesState type)
@@ -2661,6 +2661,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this, BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY, url);
   }
 
+  private void toggleLayer(@NonNull Mode mode, @NonNull String from)
+  {
+    boolean isEnabled = mode.isEnabled(getApplicationContext());
+    Statistics.INSTANCE.trackMapLayerClick(mode, from, isEnabled);
+    mToggleMapLayerController.toggleMode(mode);
+  }
+
   private class CurrentPositionClickListener implements OnClickListener
   {
     @Override
@@ -2904,25 +2911,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onSubwayLayerOptionSelected()
     {
-      onSubwayLayerSelected();
+      toggleLayer(Mode.SUBWAY, Statistics.ParamValue.MENU);
     }
 
     @Override
     public void onTrafficLayerOptionSelected()
     {
-      onTrafficLayerSelected();
+      toggleLayer(Mode.TRAFFIC, Statistics.ParamValue.MENU);
     }
 
     @Override
     public void onIsolinesLayerOptionSelected()
     {
-      onIsolinesLayerSelected();
+      toggleLayer(Mode.ISOLINES, Statistics.ParamValue.MENU);
     }
 
     @Override
     public void onGuidesLayerOptionSelected()
     {
-      onGuidesLayerSelected();
+      toggleLayer(Mode.GUIDES, Statistics.ParamValue.MENU);
     }
   }
 }

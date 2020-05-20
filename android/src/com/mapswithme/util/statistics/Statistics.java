@@ -29,6 +29,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.purchase.ValidationStatus;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingOptions;
@@ -52,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_PLUGGED;
@@ -126,6 +128,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.METHOD;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_NAME;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MWM_VERSION;
+import static com.mapswithme.util.statistics.Statistics.EventParam.NAME;
 import static com.mapswithme.util.statistics.Statistics.EventParam.NETWORK;
 import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LON;
@@ -140,6 +143,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LO
 import static com.mapswithme.util.statistics.Statistics.EventParam.SERVER_ID;
 import static com.mapswithme.util.statistics.Statistics.EventParam.SERVER_IDS;
 import static com.mapswithme.util.statistics.Statistics.EventParam.STATE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.TURN_ON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VENDOR;
@@ -539,6 +543,7 @@ public enum Statistics
     static final String UGC_AUTH_EXTERNAL_REQUEST_SUCCESS = "UGC_Auth_external_request_success";
     static final String UGC_AUTH_ERROR = "UGC_Auth_error";
     static final String MAP_LAYERS_ACTIVATE = "Map_Layers_activate";
+    static final String MAP_LAYERS_CLICK = "Map_Layers_click";
 
     // Purchases.
     public static final String INAPP_PURCHASE_PREVIEW_PAY = "InAppPurchase_Preview_pay";
@@ -616,6 +621,7 @@ public enum Statistics
     public static final String VERSION = "version";
     public static final String TAB = "tab";
     public static final String ENABLED = "Enabled";
+    public static final String TURN_ON = "turn_on";
     public static final String RATING = "Rating";
     public static final String LANGUAGE = "language";
     public static final String NAME = "Name";
@@ -742,7 +748,7 @@ public enum Statistics
     public static final String OFFSCREEEN = "Offscreen";
     public static final String MAPSME_GUIDES = "MapsMeGuides";
     public static final String TINKOFF_INSURANCE = "Tinkoff_Insurance";
-    public static final String TINKOFF_ALL_AIRLINES= "Tinkoff_AllAirlines";
+    public static final String TINKOFF_ALL_AIRLINES = "Tinkoff_AllAirlines";
     public static final String SKYENG = "Skyeng";
     public static final String MTS = "MTS";
     public static final String WIKIPEDIA = "wikipedia";
@@ -750,7 +756,8 @@ public enum Statistics
     public static final String FULL = "full";
     static final String CRASH_REPORTS = "crash_reports";
     static final String PERSONAL_ADS = "personal_ads";
-    static final String MAP = "map";
+    public static final String MAP = "map";
+    public static final String MENU = "menu";
     static final String GOOGLE = "google";
     static final String PHONE = "phone";
     static final String ADD_DESC = "add_description";
@@ -1016,6 +1023,13 @@ public enum Statistics
     ParameterBuilder builder = params().add(EventParam.NAME, eventName)
                                        .add(EventParam.STATUS, status);
     trackEvent(EventName.MAP_LAYERS_ACTIVATE, builder);
+  }
+
+  public void trackMapLayerClick(@NonNull Mode mode, @NonNull String from, boolean turnOn)
+  {
+    ParameterBuilder builder = params().add(NAME, mode.name().toLowerCase(Locale.ENGLISH))
+                                       .add(FROM, from).add(TURN_ON, turnOn);
+    trackEvent(EventName.MAP_LAYERS_CLICK, builder);
   }
 
   public void trackEditorSuccess(boolean newObject)
