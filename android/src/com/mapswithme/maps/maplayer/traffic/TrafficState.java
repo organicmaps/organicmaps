@@ -3,8 +3,6 @@ package com.mapswithme.maps.maplayer.traffic;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 
-import com.mapswithme.util.statistics.Statistics;
-
 import java.util.List;
 
 enum TrafficState
@@ -18,7 +16,7 @@ enum TrafficState
         }
       },
 
-  ENABLED(Statistics.ParamValue.SUCCESS)
+  ENABLED
       {
         @Override
         protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
@@ -45,7 +43,7 @@ enum TrafficState
         }
       },
 
-  NO_DATA(Statistics.ParamValue.UNAVAILABLE)
+  NO_DATA
       {
         @Override
         protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
@@ -54,7 +52,7 @@ enum TrafficState
         }
       },
 
-  NETWORK_ERROR(Statistics.EventParam.ERROR)
+  NETWORK_ERROR
       {
         @Override
         protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
@@ -81,32 +79,10 @@ enum TrafficState
         }
       };
 
-  @NonNull
-  private final String mAnalyticsParamName;
-
-  TrafficState()
-  {
-    mAnalyticsParamName = name();
-  }
-
-  TrafficState(@NonNull String analyticsParamName)
-  {
-    mAnalyticsParamName = analyticsParamName;
-  }
-
-  @NonNull
-  private String getAnalyticsParamName()
-  {
-    return mAnalyticsParamName;
-  }
-
   public void activate(@NonNull List<TrafficManager.TrafficCallback> trafficCallbacks)
   {
     for (TrafficManager.TrafficCallback callback : trafficCallbacks)
-    {
       activateInternal(callback);
-    }
-    Statistics.INSTANCE.trackTrafficEvent(getAnalyticsParamName());
   }
 
   protected abstract void activateInternal(@NonNull TrafficManager.TrafficCallback callback);

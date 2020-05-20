@@ -542,7 +542,6 @@ public enum Statistics
     static final String UGC_REVIEW_START = "UGC_Review_start";
     static final String UGC_AUTH_EXTERNAL_REQUEST_SUCCESS = "UGC_Auth_external_request_success";
     static final String UGC_AUTH_ERROR = "UGC_Auth_error";
-    static final String MAP_LAYERS_ACTIVATE = "Map_Layers_activate";
     static final String MAP_LAYERS_CLICK = "Map_Layers_click";
 
     // Purchases.
@@ -1006,23 +1005,6 @@ public enum Statistics
       PushwooshHelper.nativeSendEditorAddObjectTag();
     else
       PushwooshHelper.nativeSendEditorEditObjectTag();
-  }
-
-  public void trackSubwayEvent(@NonNull String status)
-  {
-    trackMapLayerEvent(ParamValue.SUBWAY, status);
-  }
-
-  public void trackTrafficEvent(@NonNull String status)
-  {
-    trackMapLayerEvent(ParamValue.TRAFFIC, status);
-  }
-
-  private void trackMapLayerEvent(@NonNull String eventName, @NonNull String status)
-  {
-    ParameterBuilder builder = params().add(EventParam.NAME, eventName)
-                                       .add(EventParam.STATUS, status);
-    trackEvent(EventName.MAP_LAYERS_ACTIVATE, builder);
   }
 
   public void trackMapLayerClick(@NonNull Mode mode, @NonNull String from, boolean turnOn)
