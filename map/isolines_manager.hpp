@@ -42,6 +42,8 @@ public:
   void SetEnabled(bool enabled);
   bool IsEnabled() const;
 
+  bool IsVisible() const;
+
   void UpdateViewport(ScreenBase const & screen);
   void Invalidate();
 

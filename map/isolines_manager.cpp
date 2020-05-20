@@ -84,13 +84,21 @@ bool IsolinesManager::IsEnabled() const
   return m_state != IsolinesState::Disabled;
 }
 
+bool IsolinesManager::IsVisible() const
+{
+  return m_currentModelView && df::GetDrawTileScale(*m_currentModelView) >= kMinIsolinesZoom;
+}
+
 void IsolinesManager::UpdateViewport(ScreenBase const & screen)
 {
+  if (screen.GlobalRect().GetLocalRect().IsEmptyInterior())
+    return;
+
   m_currentModelView.reset(screen);
   if (!IsEnabled())
     return;
 
-  if (df::GetZoomLevel(screen.GetScale()) < kMinIsolinesZoom)
+  if (!IsVisible())
   {
     ChangeState(IsolinesState::Enabled);
     return;
