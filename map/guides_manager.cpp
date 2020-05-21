@@ -107,11 +107,17 @@ void GuidesManager::SetEnabled(bool enabled)
     return;
 
   Clear();
-  ChangeState(newState);
   m_shownGuides.clear();
+  ChangeState(newState);
 
   if (!enabled)
     return;
+
+  if (!GetPlatform().IsConnected())
+  {
+    ChangeState(GuidesState::FatalNetworkError);
+    return;
+  }
 
   RequestGuides();
 }
