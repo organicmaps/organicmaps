@@ -7323,6 +7323,41 @@ cont {
   }
 }
 cont {
+  name: "amenity-recycling_container"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+}
+cont {
   name: "amenity-restaurant"
   element {
     scale: 15
@@ -56341,6 +56376,286 @@ cont {
         dd: 8.1
       }
       priority: 1268
+    }
+  }
+}
+cont {
+  name: "recycling-clothes"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+}
+cont {
+  name: "recycling-glass_bottles"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+}
+cont {
+  name: "recycling-paper"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+}
+cont {
+  name: "recycling-plastic"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+}
+cont {
+  name: "recycling-plastic_bottles"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+}
+cont {
+  name: "recycling-scrap_metal"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+}
+cont {
+  name: "recycling-small_appliances"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+}
+cont {
+  name: "recycling-toxic"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling-m"
+      priority: 16455
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
     }
   }
 }

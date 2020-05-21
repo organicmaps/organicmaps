@@ -99,6 +99,7 @@ world  +
         pub  -
         public_bookcase  -
         recycling  -
+        recycling_container  -
         restaurant  -
         school  -
         shelter  -
@@ -831,6 +832,16 @@ world  +
             bridge  -
             tunnel  -
             {}
+        {}
+    recycling  +
+        clothes  -
+        glass_bottles  -
+        paper  -
+        plastic  -
+        plastic_bottles  -
+        scrap_metal  -
+        small_appliances  -
+        toxic  -
         {}
     route  +
         ferry  +
