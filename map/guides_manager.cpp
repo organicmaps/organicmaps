@@ -7,6 +7,7 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "geometry/intersection_score.hpp"
@@ -26,6 +27,7 @@ auto constexpr kScaleEps = 0.1115;
 
 GuidesManager::GuidesManager(CloseGalleryFn && closeGalleryFn)
   : m_closeGallery(std::move(closeGalleryFn))
+  , m_statistics("guides")
 {
   CHECK(m_closeGallery != nullptr, ());
 }
@@ -134,6 +136,9 @@ void GuidesManager::ChangeState(GuidesState newState)
   m_state = newState;
   if (m_onStateChanged != nullptr)
     m_onStateChanged(newState);
+
+  if (m_shownGuides.empty())
+    TrackStatistics();
 }
 
 void GuidesManager::RequestGuides()
@@ -331,12 +336,15 @@ void GuidesManager::OnClusterSelected(GuidesClusterMark const & mark, ScreenBase
 {
   m_drapeEngine.SafeCall(&df::DrapeEngine::Scale, 2.0, screen.GtoP(mark.GetPivot()),
                          true /* isAnim */);
+  m_statistics.LogItemSelected(LayersStatistics::LayerItemType::Cluster);
 }
 
 void GuidesManager::OnGuideSelected()
 {
   if (m_onGalleryChanged)
     m_onGalleryChanged(false /* reload */);
+
+  m_statistics.LogItemSelected(LayersStatistics::LayerItemType::Point);
 }
 
 void GuidesManager::UpdateActiveGuide()
@@ -359,6 +367,16 @@ void GuidesManager::UpdateActiveGuide()
 bool GuidesManager::IsRequestParamsInitialized() const
 {
   return m_screen.GlobalRect().GetLocalRect().IsEmptyInterior() || m_zoom != 0;
+}
+
+void GuidesManager::TrackStatistics() const
+{
+  if (m_state == GuidesState::HasData)
+    m_statistics.LogActivate(LayersStatistics::Status::Success);
+  else if (m_state == GuidesState::NoData)
+    m_statistics.LogActivate(LayersStatistics::Status::Unavailable);
+  else if (m_state == GuidesState::NetworkError || m_state == GuidesState::FatalNetworkError)
+    m_statistics.LogActivate(LayersStatistics::Status::Error);
 }
 
 std::string DebugPrint(GuidesManager::GuidesState state)

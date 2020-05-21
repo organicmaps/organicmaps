@@ -81,6 +81,8 @@ set(
   guides_on_map_delegate.hpp
   isolines_manager.cpp
   isolines_manager.hpp
+  layers_statistics.cpp
+  layers_statistics.hpp
   local_ads_manager.cpp
   local_ads_manager.hpp
   local_ads_mark.cpp

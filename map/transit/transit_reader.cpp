@@ -141,7 +141,10 @@ unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
 TransitReadManager::TransitReadManager(DataSource & dataSource,
                                        TReadFeaturesFn const & readFeaturesFn,
                                        GetMwmsByRectFn const & getMwmsByRectFn)
-  : m_dataSource(dataSource), m_readFeaturesFn(readFeaturesFn), m_getMwmsByRectFn(getMwmsByRectFn)
+  : m_dataSource(dataSource)
+  , m_readFeaturesFn(readFeaturesFn)
+  , m_getMwmsByRectFn(getMwmsByRectFn)
+  , m_statistics("subway")
 {
   Start();
 }
@@ -241,6 +244,8 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
   m_lastActiveMwms.clear();
   auto const currentTime = steady_clock::now();
 
+  std::set<int64_t> mwmVersions;
+
   TransitDisplayInfos newTransitData;
   for (auto const & mwmId : mwms)
   {
@@ -257,6 +262,9 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
     {
       it->second.m_lastActiveTime = currentTime;
     }
+
+    if (m_trackFirstSchemeData)
+      mwmVersions.insert(mwmId.GetInfo()->GetVersion());
   }
 
   if (!newTransitData.empty())
@@ -298,13 +306,9 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
     }
   }
 
-  if (hasData && m_trackFirstSchemeData)
-  {
-    eye::Eye::Event::LayerShown(eye::Layer::Type::PublicTransport);
-    m_trackFirstSchemeData = false;
-  }
-  
   ChangeState(hasData ? TransitSchemeState::Enabled : TransitSchemeState::NoData);
+
+  TrackStatistics(mwmVersions);
 }
 
 void TransitReadManager::ClearCache(MwmSet::MwmId const & mwmId)
@@ -428,4 +432,21 @@ void TransitReadManager::ChangeState(TransitSchemeState newState)
   m_state = newState;
   if (m_onStateChangedFn)
     m_onStateChangedFn(newState);
+}
+
+void TransitReadManager::TrackStatistics(std::set<int64_t> const & mwmVersions)
+{
+  if (m_trackFirstSchemeData)
+  {
+    if (m_state == TransitSchemeState::Enabled)
+    {
+      eye::Eye::Event::LayerShown(eye::Layer::Type::PublicTransport);
+      m_trackFirstSchemeData = false;
+      m_statistics.LogActivate(LayersStatistics::Status::Success, mwmVersions);
+    }
+    else
+    {
+      m_statistics.LogActivate(LayersStatistics::Status::Unavailable, mwmVersions);
+    }
+  }
 }

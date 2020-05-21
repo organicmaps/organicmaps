@@ -1512,8 +1512,12 @@ void Framework::EnterForeground()
     if (m_guidesManager.IsEnabled() &&
       secondsInBackground / 60 / 60 > kGuidesEnabledInBackgroundMaxHours)
     {
+      auto const shownCount = m_guidesManager.GetShownGuidesCount();
       m_guidesManager.SetEnabled(false);
       SaveGuidesEnabled(false);
+
+      alohalytics::LogEvent("Map_Layers_deactivate",
+                            {{"name", "guides"}, {"count", strings::to_string(shownCount)}});
     }
   }
 

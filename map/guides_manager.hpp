@@ -4,6 +4,7 @@
 #include "map/catalog_headers_provider.hpp"
 #include "map/guides_marks.hpp"
 #include "map/guides_on_map_delegate.hpp"
+#include "map/layers_statistics.hpp"
 
 #include "partners_api/guides_on_map_api.hpp"
 
@@ -12,6 +13,7 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <string>
@@ -120,6 +122,8 @@ private:
 
   bool IsRequestParamsInitialized() const;
 
+  void TrackStatistics() const;
+
   CloseGalleryFn m_closeGallery;
 
   GuidesState m_state = GuidesState::Disabled;
@@ -143,6 +147,7 @@ private:
   uint32_t m_nextMarkIndex = 0;
 
   std::unordered_set<std::string> m_shownGuides;
+  LayersStatistics m_statistics;
 };
 
 std::string DebugPrint(GuidesManager::GuidesState state);

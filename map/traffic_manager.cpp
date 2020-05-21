@@ -12,8 +12,6 @@
 
 #include "platform/platform.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
-
 using namespace std::chrono;
 
 namespace
@@ -53,6 +51,7 @@ TrafficManager::TrafficManager(GetMwmsByRectFn const & getMwmsByRectFn, size_t m
   , m_isRunning(true)
   , m_isPaused(false)
   , m_thread(&TrafficManager::ThreadRoutine, this)
+  , m_statistics("traffic")
 {
   CHECK(m_getMwmsByRectFn != nullptr, ());
 }
@@ -97,6 +96,7 @@ void TrafficManager::SetEnabled(bool enabled)
        return;
     Clear();
     ChangeState(enabled ? TrafficState::Enabled : TrafficState::Disabled);
+    m_trackFirstSchemeData = enabled;
   }
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::EnableTraffic, enabled);
@@ -105,9 +105,6 @@ void TrafficManager::SetEnabled(bool enabled)
   {
     Invalidate();
     GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kTrafficDiscovered);
-    alohalytics::LogEvent(
-        "$TrafficEnabled",
-        alohalytics::TStringMap({{"dataVersion", strings::to_string(m_currentDataVersion.load())}}));
   }
   else
   {
@@ -484,6 +481,7 @@ void TrafficManager::UpdateState()
   bool expiredData = false;
   bool noData = false;
 
+  std::set<int64_t> mwmVersions;
   for (MwmSet::MwmId const & mwmId : m_activeDrapeMwms)
   {
     auto it = m_mwmCache.find(mwmId);
@@ -510,8 +508,12 @@ void TrafficManager::UpdateState()
         networkError = true;
       }
     }
+
+    if (m_trackFirstSchemeData)
+      mwmVersions.insert(mwmId.GetInfo()->GetVersion());
   }
 
+  auto const previousState = m_state.load();
   if (networkError || maxPassedTime >= kNetworkErrorTimeout)
     ChangeState(TrafficState::NetworkError);
   else if (waiting)
@@ -526,6 +528,9 @@ void TrafficManager::UpdateState()
     ChangeState(TrafficState::Outdated);
   else
     ChangeState(TrafficState::Enabled);
+
+  if (previousState != m_state)
+    TrackStatistics(mwmVersions);
 }
 
 void TrafficManager::ChangeState(TrafficState newState)
@@ -534,9 +539,6 @@ void TrafficManager::ChangeState(TrafficState newState)
     return;
 
   m_state = newState;
-  alohalytics::LogEvent(
-      "$TrafficChangeState",
-      alohalytics::TStringMap({{"state", DebugPrint(m_state.load())}}));
 
   GetPlatform().RunTask(Platform::Thread::Gui, [this, newState]()
   {
@@ -573,6 +575,27 @@ void TrafficManager::SetSimplifiedColorScheme(bool simplified)
 {
   m_hasSimplifiedColorScheme = simplified;
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetSimplifiedTrafficColors, simplified);
+}
+
+void TrafficManager::TrackStatistics(std::set<int64_t> const & mwmVersions)
+{
+  if (m_trackFirstSchemeData)
+  {
+    if (m_state == TrafficState::Enabled)
+    {
+      m_trackFirstSchemeData = false;
+      m_statistics.LogActivate(LayersStatistics::Status::Success, mwmVersions);
+    }
+    else if (m_state == TrafficState::NetworkError)
+    {
+      m_statistics.LogActivate(LayersStatistics::Status::Error, mwmVersions);
+    }
+    else if (m_state == TrafficState::NoData || m_state == TrafficState::ExpiredData ||
+             m_state == TrafficState::ExpiredApp)
+    {
+      m_statistics.LogActivate(LayersStatistics::Status::Unavailable, mwmVersions);
+    }
+  }
 }
 
 std::string DebugPrint(TrafficManager::TrafficState state)
