@@ -1977,6 +1977,15 @@
 	<string name="type.amenity.pub">Pub</string>
 	<string name="type.amenity.public_bookcase">Book Exchange</string>
 	<string name="type.amenity.recycling">Recycling Center</string>
+	<string name="type.amenity.recycling_container">Recycling container</string>
+	<string name="type.recycling.toxic">Toxic waste</string>
+	<string name="type.recycling.clothes">Old clothes</string>
+	<string name="type.recycling.glass_bottles">Glass bottles</string>
+	<string name="type.recycling.paper">Paper waste</string>
+	<string name="type.recycling.plastic">Plastic waste</string>
+	<string name="type.recycling.plastic_bottles">Plastic bottles</string>
+	<string name="type.recycling.scrap_metal">Scrap metal</string>
+	<string name="type.recycling.small_appliances">Electronic waste</string>
 	<string name="type.amenity.restaurant">Restaurant</string>
 	<string name="type.amenity.school">School</string>
 	<string name="type.amenity.shelter">Shelter</string>

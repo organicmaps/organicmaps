@@ -1936,6 +1936,15 @@
 	<string name="type.amenity.pub">Паб</string>
 	<string name="type.amenity.public_bookcase">Книжный шкаф</string>
 	<string name="type.amenity.recycling">Приём вторсырья</string>
+	<string name="type.amenity.recycling_container">Контейнер для вторсырья</string>
+	<string name="type.recycling.toxic">Ядовитые отходы</string>
+	<string name="type.recycling.clothes">Старая одежда</string>
+	<string name="type.recycling.glass_bottles">Стеклотара</string>
+	<string name="type.recycling.paper">Макулатура</string>
+	<string name="type.recycling.plastic">Пластиковый мусор</string>
+	<string name="type.recycling.plastic_bottles">Сбор пластиковых бутылок</string>
+	<string name="type.recycling.scrap_metal">Металлолом</string>
+	<string name="type.recycling.small_appliances">Электроотходы</string>
 	<string name="type.amenity.restaurant">Ресторан</string>
 	<string name="type.amenity.school">Школа</string>
 	<string name="type.amenity.shelter">Укрытие</string>

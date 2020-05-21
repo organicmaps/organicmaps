@@ -3518,6 +3518,24 @@
 
 "type.amenity.recycling" = "Centro de reciclaje";
 
+"type.amenity.recycling_container" = "Contenedor de reciclaje";
+
+"type.recycling.toxic" = "Residuos tóxicos";
+
+"type.recycling.clothes" = "Ropa vieja";
+
+"type.recycling.glass_bottles" = "Vidrio";
+
+"type.recycling.paper" = "Papel de desecho";
+
+"type.recycling.plastic" = "Residuos plásticos";
+
+"type.recycling.plastic_bottles" = "Botellas de plástico";
+
+"type.recycling.scrap_metal" = "Chatarra";
+
+"type.recycling.small_appliances" = "Chatarra electrónica";
+
 "type.amenity.restaurant" = "Restaurante";
 
 "type.amenity.school" = "Escuela";

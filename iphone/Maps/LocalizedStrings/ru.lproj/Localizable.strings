@@ -3518,6 +3518,24 @@
 
 "type.amenity.recycling" = "Приём вторсырья";
 
+"type.amenity.recycling_container" = "Контейнер для вторсырья";
+
+"type.recycling.toxic" = "Ядовитые отходы";
+
+"type.recycling.clothes" = "Старая одежда";
+
+"type.recycling.glass_bottles" = "Стеклотара";
+
+"type.recycling.paper" = "Макулатура";
+
+"type.recycling.plastic" = "Пластиковый мусор";
+
+"type.recycling.plastic_bottles" = "Сбор пластиковых бутылок";
+
+"type.recycling.scrap_metal" = "Металлолом";
+
+"type.recycling.small_appliances" = "Электроотходы";
+
 "type.amenity.restaurant" = "Ресторан";
 
 "type.amenity.school" = "Школа";

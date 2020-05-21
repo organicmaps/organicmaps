@@ -1887,6 +1887,14 @@
 	<string name="type.amenity.pub">Kneipe</string>
 	<string name="type.amenity.public_bookcase">Bücherschrank</string>
 	<string name="type.amenity.recycling">Recyclinghof</string>
+	<string name="type.amenity.recycling_container">Recyclingbehälter</string>
+	<string name="type.recycling.toxic">Giftmüll</string>
+	<string name="type.recycling.clothes">Alte Kleidung</string>
+	<string name="type.recycling.glass_bottles">Glas-Container</string>
+	<string name="type.recycling.paper">Altpapier</string>
+	<string name="type.recycling.plastic">Plastik-Müll</string>
+	<string name="type.recycling.scrap_metal">Altmetall</string>
+	<string name="type.recycling.small_appliances">Elektroschrott</string>
 	<string name="type.amenity.school">Schule</string>
 	<string name="type.amenity.shelter">Schutzhütte</string>
 	<string name="type.amenity.shower">Dusche</string>

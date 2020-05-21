@@ -3518,6 +3518,24 @@
 
 "type.amenity.recycling" = "Centrum przetwórstwa odpadów";
 
+"type.amenity.recycling_container" = "Recycling container";
+
+"type.recycling.toxic" = "Toxic waste";
+
+"type.recycling.clothes" = "Old clothes";
+
+"type.recycling.glass_bottles" = "Glass bottles";
+
+"type.recycling.paper" = "Paper waste";
+
+"type.recycling.plastic" = "Plastic waste";
+
+"type.recycling.plastic_bottles" = "Plastic bottles";
+
+"type.recycling.scrap_metal" = "Scrap metal";
+
+"type.recycling.small_appliances" = "Electronic waste";
+
 "type.amenity.restaurant" = "Restauracja";
 
 "type.amenity.school" = "Szkoła";

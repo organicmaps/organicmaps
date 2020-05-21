@@ -1870,6 +1870,15 @@
 	<string name="type.amenity.post_office">Oficina de correos</string>
 	<string name="type.amenity.public_bookcase">Intercambio de libros</string>
 	<string name="type.amenity.recycling">Centro de reciclaje</string>
+	<string name="type.amenity.recycling_container">Contenedor de reciclaje</string>
+	<string name="type.recycling.toxic">Residuos tóxicos</string>
+	<string name="type.recycling.clothes">Ropa vieja</string>
+	<string name="type.recycling.glass_bottles">Vidrio</string>
+	<string name="type.recycling.paper">Papel de desecho</string>
+	<string name="type.recycling.plastic">Residuos plásticos</string>
+	<string name="type.recycling.plastic_bottles">Botellas de plástico</string>
+	<string name="type.recycling.scrap_metal">Chatarra</string>
+	<string name="type.recycling.small_appliances">Chatarra electrónica</string>
 	<string name="type.amenity.restaurant">Restaurante</string>
 	<string name="type.amenity.school">Escuela</string>
 	<string name="type.amenity.shelter">Refugio</string>

@@ -3518,6 +3518,24 @@
 
 "type.amenity.recycling" = "Recyclinghof";
 
+"type.amenity.recycling_container" = "Recyclingbehälter";
+
+"type.recycling.toxic" = "Giftmüll";
+
+"type.recycling.clothes" = "Alte Kleidung";
+
+"type.recycling.glass_bottles" = "Glas-Container";
+
+"type.recycling.paper" = "Altpapier";
+
+"type.recycling.plastic" = "Plastik-Müll";
+
+"type.recycling.plastic_bottles" = "Plastic bottles";
+
+"type.recycling.scrap_metal" = "Altmetall";
+
+"type.recycling.small_appliances" = "Elektroschrott";
+
 "type.amenity.restaurant" = "Restaurant";
 
 "type.amenity.school" = "Schule";
