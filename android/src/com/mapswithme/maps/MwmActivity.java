@@ -2879,13 +2879,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onHotelSearchOptionSelected()
-    {
-      Statistics.INSTANCE.trackToolbarMenu(MainMenu.Item.HOTEL_SEARCH);
-      closeMenu(MwmActivity.this::runHotelCategorySearchOnMap);
-    }
-
-    @Override
     public void onDownloadMapsOptionSelected()
     {
       Statistics.INSTANCE.trackToolbarMenu(MainMenu.Item.DOWNLOAD_MAPS);

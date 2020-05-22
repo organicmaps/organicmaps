@@ -84,23 +84,6 @@ public class MainMenu extends BaseMenu
             throw new UnsupportedOperationException("Main menu option doesn't support it!");
           }
         },
-    HOTEL_SEARCH(R.id.hotel_search)
-        {
-          @NonNull
-          @Override
-          public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
-                                                       @NonNull Item item)
-          {
-            throw new UnsupportedOperationException("Main menu option doesn't support it!");
-          }
-
-          @NonNull
-          @Override
-          public String toStatisticValue()
-          {
-            return "booking.com";
-          }
-        },
     SEARCH(R.id.search)
         {
           @NonNull
@@ -286,7 +269,6 @@ public class MainMenu extends BaseMenu
   {
     mapItem(Item.ADD_PLACE);
     mapItem(Item.DOWNLOAD_GUIDES);
-    mapItem(Item.HOTEL_SEARCH);
     mapItem(Item.SEARCH);
     mapItem(Item.POINT_TO_POINT);
     mapItem(Item.DISCOVERY);

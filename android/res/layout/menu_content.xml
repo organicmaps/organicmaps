@@ -51,12 +51,6 @@
       android:textColor="?attr/colorAccent"
       tools:background="#403033FF"
       tools:targetApi="m" />
-    <TextView
-      android:id="@+id/hotel_search"
-      style="@style/MwmTheme.Menu.Content.ListItem"
-      android:drawableStart="@drawable/ic_menu_hotel_search"
-      android:text="@string/booking_button_toolbar"
-      tools:background="#200000FF" />
     <FrameLayout
       android:id="@+id/download_maps_container"
       android:layout_width="match_parent"

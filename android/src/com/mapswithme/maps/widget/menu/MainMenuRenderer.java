@@ -68,9 +68,6 @@ public class MainMenuRenderer implements MenuRenderer
     TextView downloadGuides = view.findViewById(R.id.download_guides);
     downloadGuides.setOnClickListener(v -> mListener.onSearchGuidesOptionSelected());
     Graphics.tint(downloadGuides);
-    TextView hotelSearch = view.findViewById(R.id.hotel_search);
-    hotelSearch.setOnClickListener(v -> mListener.onHotelSearchOptionSelected());
-    Graphics.tint(hotelSearch);
     View downloadMapsContainer = view.findViewById(R.id.download_maps_container);
     downloadMapsContainer.setOnClickListener(v -> mListener.onDownloadMapsOptionSelected());
     TextView downloadMaps = downloadMapsContainer.findViewById(R.id.download_maps);
