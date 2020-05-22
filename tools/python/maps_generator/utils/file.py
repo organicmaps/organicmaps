@@ -4,12 +4,19 @@ import glob
 import logging
 import os
 import shutil
-import urllib.request
 from functools import partial
 from multiprocessing.pool import ThreadPool
 from typing import AnyStr
 from typing import Dict
+from typing import List
 from typing import Optional
+from urllib.parse import unquote
+from urllib.parse import urljoin
+from urllib.parse import urlparse
+
+import requests
+from bs4 import BeautifulSoup
+from requests_file import FileAdapter
 
 from maps_generator.utils.md5 import check_md5
 from maps_generator.utils.md5 import md5_ext
@@ -42,9 +49,77 @@ def download_file(url: AnyStr, name: AnyStr, download_if_exists: bool = True):
         return
 
     tmp_name = f"{name}__"
-    urllib.request.urlretrieve(url, tmp_name)
+    os.makedirs(os.path.dirname(tmp_name), exist_ok=True)
+    with requests.Session() as session:
+        session.mount("file://", FileAdapter())
+        response = session.get(url, stream=True)
+        with open(tmp_name, "wb") as handle:
+            for data in response.iter_content(chunk_size=4096):
+                handle.write(data)
+
     shutil.move(tmp_name, name)
     logger.info(f"File {name} was downloaded from {url}.")
+
+
+def is_dir(url) -> bool:
+    return url.endswith("/")
+
+
+def find_files(url) -> List[AnyStr]:
+    def files_list_file_scheme(path, results=None):
+        if results is None:
+            results = []
+
+        for p in os.listdir(path):
+            new_path = os.path.join(path, p)
+            if os.path.isdir(new_path):
+                files_list_file_scheme(new_path, results)
+            else:
+                results.append(new_path)
+        return results
+
+    def files_list_http_scheme(url, results=None):
+        if results is None:
+            results = []
+
+        page = requests.get(url).content
+        bs = BeautifulSoup(page, "html.parser")
+        links = bs.findAll("a", href=True)
+        for link in links:
+            href = link["href"]
+            if href == "./" or href == "../":
+                continue
+
+            new_url = urljoin(url, href)
+            if is_dir(new_url):
+                files_list_http_scheme(new_url, results)
+            else:
+                results.append(new_url)
+        return results
+
+    parse_result = urlparse(url)
+    if parse_result.scheme == "file":
+        return [
+            f.replace(parse_result.path, "")
+            for f in files_list_file_scheme(parse_result.path)
+        ]
+    if parse_result.scheme == "http" or parse_result.scheme == "https":
+        return [f.replace(url, "") for f in files_list_http_scheme(url)]
+
+    assert False, parse_result
+
+
+def normalize_url_to_path_dict(
+    url_to_path: Dict[AnyStr, AnyStr]
+) -> Dict[AnyStr, AnyStr]:
+    for url in list(url_to_path.keys()):
+        if is_dir(url):
+            path = url_to_path[url]
+            del url_to_path[url]
+            for rel_path in find_files(url):
+                abs_url = urljoin(url, rel_path)
+                url_to_path[abs_url] = unquote(os.path.join(path, rel_path))
+    return url_to_path
 
 
 def download_files(url_to_path: Dict[AnyStr, AnyStr], download_if_exists: bool = True):

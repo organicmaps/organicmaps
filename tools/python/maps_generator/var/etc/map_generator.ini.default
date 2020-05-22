@@ -37,6 +37,8 @@ NEED_PLANET_UPDATE: 0
 
 
 [External]
+# Note: If you want to set a directory name you have to add "/" to the end of url.
+
 # The url to the planet file.
 # PLANET_URL:
 # The url to the file with md5 sum of the planet.

@@ -24,6 +24,7 @@ from typing import Union
 
 from maps_generator.generator.status import Status
 from maps_generator.utils.file import download_files
+from maps_generator.utils.file import normalize_url_to_path_dict
 from maps_generator.utils.log import DummyObject
 from maps_generator.utils.log import create_file_logger
 
@@ -278,6 +279,7 @@ def depends_from_internal(*deps) -> Callable[[Type[Stage],], Type[Stage]]:
                             deps[d.url] = path
 
                         if deps:
+                            deps =  normalize_url_to_path_dict(deps)
                             download_files(deps, env.force_download_files)
 
                         obj.depends_from_internal_downloaded = True
