@@ -78,6 +78,7 @@ class SearchStyleSheet: IStyleSheet {
 
     theme.add(styleName: "SearchSearchTextFieldIcon") { (s) -> (Void) in
       s.tintColor = colors.blackSecondaryText
+      s.coloring = MWMButtonColoring.black
       s.color = colors.blackSecondaryText
     }
 

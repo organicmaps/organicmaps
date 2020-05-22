@@ -1,13 +1,13 @@
 #import "MWMAlertViewController.h"
 #import "MWMSearchManagerObserver.h"
 #import "MWMSearchManagerState.h"
-#import "MWMSearchTextField.h"
 
 typedef NS_ENUM(NSInteger, MWMSearchManagerRoutingTooltipSearch) {
   MWMSearchManagerRoutingTooltipSearchNone,
   MWMSearchManagerRoutingTooltipSearchStart,
   MWMSearchManagerRoutingTooltipSearchFinish
 };
+@class MWMSearchTextField;
 
 @interface MWMSearchManager : NSObject
 

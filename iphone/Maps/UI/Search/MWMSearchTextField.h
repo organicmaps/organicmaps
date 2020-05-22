@@ -1,2 +1,0 @@
-@interface MWMSearchTextField : UITextField
-@end

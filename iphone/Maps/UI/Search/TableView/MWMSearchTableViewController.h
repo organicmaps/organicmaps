@@ -1,11 +1,11 @@
 #import "MWMSearch.h"
 #import "MWMSearchManager.h"
 #import "MWMSearchTabbedViewProtocol.h"
-#import "MWMSearchTextField.h"
 #import "MWMViewController.h"
 
 #include <CoreApi/Framework.h>
 
+@class MWMSearchTextField;
 namespace search
 {
 class Result;

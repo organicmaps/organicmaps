@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,13 +29,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8lb-Vi-0oJ" userLabel="StatusBarBackground">
-                    <rect key="frame" x="-100" y="-100" width="520" height="144"/>
+                    <rect key="frame" x="0.0" y="-100" width="320" height="144"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchBarView"/>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="hna-zw-Zor" userLabel="Search" customClass="MWMSearchTextField">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="hna-zw-Zor" userLabel="Search" customClass="SearchTextField" customModule="maps_me" customModuleProvider="target">
                     <rect key="frame" x="8" y="4" width="246" height="36"/>
                     <accessibility key="accessibilityConfiguration" identifier="queryField"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
@@ -69,22 +69,62 @@
                         <action selector="cancelButtonPressed" destination="-1" eventType="touchUpInside" id="8EF-82-bpl"/>
                     </connections>
                 </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="3pk-lE-he1">
+                    <rect key="frame" x="8" y="4" width="36" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="uQu-zo-HSW"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchSearchTextFieldIcon"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="s62-Rm-IgM">
+                    <rect key="frame" x="8" y="4" width="36" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="RWD-6J-ieA"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchSearchTextFieldIcon"/>
+                    </userDefinedRuntimeAttributes>
+                </activityIndicatorView>
+                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1K1-2y-aoz">
+                    <rect key="frame" x="8" y="4" width="36" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="gYr-En-zli"/>
+                    </constraints>
+                    <state key="normal" image="ic_search_back"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchSearchTextFieldIcon"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="backButtonPressed" destination="-1" eventType="touchUpInside" id="Ez8-FA-m5B"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.12549019607843137" green="0.59607843137254901" blue="0.32156862745098036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="1K1-2y-aoz" firstAttribute="bottom" secondItem="hna-zw-Zor" secondAttribute="bottom" id="5Ov-CR-SHR"/>
+                <constraint firstItem="3pk-lE-he1" firstAttribute="leading" secondItem="hna-zw-Zor" secondAttribute="leading" id="5oe-E7-WjD"/>
+                <constraint firstItem="3pk-lE-he1" firstAttribute="bottom" secondItem="hna-zw-Zor" secondAttribute="bottom" id="6Lk-AC-rKq"/>
                 <constraint firstAttribute="height" constant="44" id="92s-Aa-9VQ"/>
+                <constraint firstItem="1K1-2y-aoz" firstAttribute="leading" secondItem="hna-zw-Zor" secondAttribute="leading" id="ENZ-Rl-5Ew"/>
                 <constraint firstAttribute="bottom" secondItem="hna-zw-Zor" secondAttribute="bottom" constant="4" id="JRS-Wn-APP"/>
                 <constraint firstItem="hna-zw-Zor" firstAttribute="top" secondItem="HcT-Cg-vp3" secondAttribute="top" constant="4" id="OpQ-jn-TbX"/>
                 <constraint firstItem="5Hu-71-uqb" firstAttribute="leading" secondItem="hna-zw-Zor" secondAttribute="trailing" id="UnO-5R-Vaq"/>
+                <constraint firstItem="s62-Rm-IgM" firstAttribute="bottom" secondItem="hna-zw-Zor" secondAttribute="bottom" id="WiD-jZ-hcW"/>
+                <constraint firstItem="1K1-2y-aoz" firstAttribute="top" secondItem="hna-zw-Zor" secondAttribute="top" id="XQs-CO-rFJ"/>
+                <constraint firstItem="3pk-lE-he1" firstAttribute="top" secondItem="hna-zw-Zor" secondAttribute="top" id="XuP-Ho-nzq"/>
                 <constraint firstItem="8lb-Vi-0oJ" firstAttribute="top" secondItem="HcT-Cg-vp3" secondAttribute="top" constant="-100" id="YyR-vY-KLM"/>
-                <constraint firstAttribute="trailing" secondItem="8lb-Vi-0oJ" secondAttribute="trailing" constant="-100" id="cOI-Bb-dVh">
+                <constraint firstAttribute="trailing" secondItem="8lb-Vi-0oJ" secondAttribute="trailing" id="cOI-Bb-dVh">
                     <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                 </constraint>
+                <constraint firstItem="s62-Rm-IgM" firstAttribute="leading" secondItem="hna-zw-Zor" secondAttribute="leading" id="h6n-7q-awP"/>
                 <constraint firstItem="5Hu-71-uqb" firstAttribute="top" secondItem="HcT-Cg-vp3" secondAttribute="top" id="jGx-GC-U0a"/>
                 <constraint firstAttribute="trailing" secondItem="5Hu-71-uqb" secondAttribute="trailing" id="lsP-Aa-SwK"/>
                 <constraint firstAttribute="bottom" secondItem="5Hu-71-uqb" secondAttribute="bottom" id="qqg-dK-O8g"/>
                 <constraint firstItem="hna-zw-Zor" firstAttribute="leading" secondItem="HcT-Cg-vp3" secondAttribute="leading" constant="8" id="tLC-W9-2XZ"/>
-                <constraint firstItem="8lb-Vi-0oJ" firstAttribute="leading" secondItem="HcT-Cg-vp3" secondAttribute="leading" constant="-100" id="wB0-LU-IyU">
+                <constraint firstItem="s62-Rm-IgM" firstAttribute="top" secondItem="hna-zw-Zor" secondAttribute="top" id="und-VX-fTX"/>
+                <constraint firstItem="8lb-Vi-0oJ" firstAttribute="leading" secondItem="HcT-Cg-vp3" secondAttribute="leading" id="wB0-LU-IyU">
                     <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                 </constraint>
                 <constraint firstAttribute="bottom" secondItem="8lb-Vi-0oJ" secondAttribute="bottom" id="wkh-Pc-qKF"/>
@@ -94,7 +134,12 @@
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchBar"/>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="236" y="-242"/>
+            <connections>
+                <outlet property="activityIndicator" destination="s62-Rm-IgM" id="iMc-UV-Rzf"/>
+                <outlet property="backButton" destination="1K1-2y-aoz" id="f5t-dc-4Jg"/>
+                <outlet property="searchIcon" destination="3pk-lE-he1" id="edK-sI-ual"/>
+            </connections>
+            <point key="canvasLocation" x="235.19999999999999" y="-242.87856071964021"/>
         </view>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3Y-13-kVB" userLabel="ActionBar" customClass="SolidTouchView" propertyAccessControl="none">
@@ -104,7 +149,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gPn-bf-cPr" customClass="SolidTouchView">
-                            <rect key="frame" x="-100" y="0.0" width="520" height="164"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
@@ -117,10 +162,10 @@
                             <variation key="heightClass=compact" constant="44"/>
                         </constraint>
                         <constraint firstItem="gPn-bf-cPr" firstAttribute="top" secondItem="Smx-UL-Mcd" secondAttribute="top" id="UER-Ty-xhx"/>
-                        <constraint firstItem="gPn-bf-cPr" firstAttribute="leading" secondItem="Smx-UL-Mcd" secondAttribute="leading" constant="-100" id="b86-tJ-SqB">
+                        <constraint firstItem="gPn-bf-cPr" firstAttribute="leading" secondItem="Smx-UL-Mcd" secondAttribute="leading" id="b86-tJ-SqB">
                             <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                         </constraint>
-                        <constraint firstAttribute="trailing" secondItem="gPn-bf-cPr" secondAttribute="trailing" constant="-100" id="pkz-a1-2QA">
+                        <constraint firstAttribute="trailing" secondItem="gPn-bf-cPr" secondAttribute="trailing" id="pkz-a1-2QA">
                             <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                         </constraint>
                         <constraint firstAttribute="bottom" secondItem="gPn-bf-cPr" secondAttribute="bottom" constant="-100" id="y3i-4D-GKo">
@@ -135,7 +180,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRD-Q7-fQP" customClass="SolidTouchView">
-                            <rect key="frame" x="-100" y="0.0" width="520" height="148"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchChangeModeView"/>
@@ -195,13 +240,13 @@
                         <constraint firstItem="vUE-KN-mbf" firstAttribute="bottom" secondItem="hzG-6h-WLq" secondAttribute="bottom" id="hsI-F8-c35"/>
                         <constraint firstItem="hzG-6h-WLq" firstAttribute="leading" secondItem="JhV-gM-MgM" secondAttribute="trailing" priority="500" constant="8" id="iMA-u6-5S9"/>
                         <constraint firstItem="JhV-gM-MgM" firstAttribute="leading" secondItem="Ysx-Oh-UYF" secondAttribute="leading" id="iwa-86-Rhh"/>
-                        <constraint firstAttribute="trailing" secondItem="KRD-Q7-fQP" secondAttribute="trailing" constant="-100" id="oJj-4y-uvN">
+                        <constraint firstAttribute="trailing" secondItem="KRD-Q7-fQP" secondAttribute="trailing" id="oJj-4y-uvN">
                             <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                         </constraint>
                         <constraint firstAttribute="bottom" secondItem="KRD-Q7-fQP" secondAttribute="bottom" constant="-100" id="pJU-Qh-4tn">
                             <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                         </constraint>
-                        <constraint firstItem="KRD-Q7-fQP" firstAttribute="leading" secondItem="Ysx-Oh-UYF" secondAttribute="leading" constant="-100" id="sMT-St-iws">
+                        <constraint firstItem="KRD-Q7-fQP" firstAttribute="leading" secondItem="Ysx-Oh-UYF" secondAttribute="leading" id="sMT-St-iws">
                             <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                         </constraint>
                         <constraint firstItem="JhV-gM-MgM" firstAttribute="top" secondItem="Ysx-Oh-UYF" secondAttribute="top" id="y3t-5r-CMa"/>
@@ -239,7 +284,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jHn-5d-yXG" customClass="SolidTouchView">
-                    <rect key="frame" x="-100" y="0.0" width="520" height="502"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="402"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
@@ -248,14 +293,14 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="jHn-5d-yXG" firstAttribute="leading" secondItem="u9y-bx-NGd" secondAttribute="leading" constant="-100" id="1Qk-kN-iT5">
+                <constraint firstItem="jHn-5d-yXG" firstAttribute="leading" secondItem="u9y-bx-NGd" secondAttribute="leading" id="1Qk-kN-iT5">
                     <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                 </constraint>
                 <constraint firstItem="jHn-5d-yXG" firstAttribute="top" secondItem="u9y-bx-NGd" secondAttribute="top" id="Bgm-2G-pSD"/>
-                <constraint firstAttribute="trailing" secondItem="jHn-5d-yXG" secondAttribute="trailing" constant="-100" id="aKt-MM-Csi">
+                <constraint firstAttribute="trailing" secondItem="jHn-5d-yXG" secondAttribute="trailing" id="aKt-MM-Csi">
                     <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                 </constraint>
-                <constraint firstAttribute="bottom" secondItem="jHn-5d-yXG" secondAttribute="bottom" constant="-100" id="hm3-xK-oys">
+                <constraint firstAttribute="bottom" secondItem="jHn-5d-yXG" secondAttribute="bottom" id="hm3-xK-oys">
                     <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                 </constraint>
             </constraints>
@@ -269,5 +314,7 @@
     </objects>
     <resources>
         <image name="ic_clear_filters" width="36" height="36"/>
+        <image name="ic_search" width="28" height="28"/>
+        <image name="ic_search_back" width="24" height="24"/>
     </resources>
 </document>

@@ -14,7 +14,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R50-Tj-X0W">
-                    <rect key="frame" x="-100" y="0.0" width="180" height="48"/>
+                    <rect key="frame" x="0.0" y="0.0" width="80" height="48"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W07-Hz-J60" customClass="MWMButton">
@@ -49,7 +49,7 @@
                 <constraint firstItem="R50-Tj-X0W" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZHQ-XD-E90"/>
                 <constraint firstAttribute="bottom" secondItem="rrI-0A-w3s" secondAttribute="bottom" constant="2" id="Zsi-G2-yc8"/>
                 <constraint firstAttribute="bottom" secondItem="R50-Tj-X0W" secondAttribute="bottom" id="adE-76-Hab"/>
-                <constraint firstItem="R50-Tj-X0W" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-100" id="qid-13-F5b"/>
+                <constraint firstItem="R50-Tj-X0W" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qid-13-F5b"/>
                 <constraint firstItem="W07-Hz-J60" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rBR-of-5Ha"/>
                 <constraint firstAttribute="trailing" secondItem="W07-Hz-J60" secondAttribute="trailing" id="teM-gm-CX7"/>
             </constraints>

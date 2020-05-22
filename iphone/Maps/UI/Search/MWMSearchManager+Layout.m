@@ -1,5 +1,5 @@
 #import "MWMSearchManager+Layout.h"
-
+#import "MapViewController.h"
 #import <CoreApi/MWMCommon.h>
 
 static CGFloat const kWidthForiPad = 320.0;
@@ -12,7 +12,7 @@ static CGFloat const kWidthForiPad = 320.0;
 
 @property(nonatomic) NSLayoutConstraint * actionBarViewBottom;
 
-@property(weak, nonatomic, readonly) UIViewController * ownerController;
+@property(weak, nonatomic, readonly) UIView * searchViewContainer;
 
 @end
 
@@ -23,7 +23,7 @@ static CGFloat const kWidthForiPad = 320.0;
   UIView * searchBarView = self.searchBarView;
   UIView * actionBarView = self.actionBarView;
   UIView * contentView = self.contentView;
-  UIView * parentView = self.ownerController.view;
+  UIView * parentView = self.searchViewContainer;
 
   searchBarView.translatesAutoresizingMaskIntoConstraints = NO;
   actionBarView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -31,23 +31,10 @@ static CGFloat const kWidthForiPad = 320.0;
 
   NSLayoutXAxisAnchor * leadingAnchor = parentView.leadingAnchor;
   NSLayoutXAxisAnchor * trailingAnchor = parentView.trailingAnchor;
-  NSLayoutYAxisAnchor * topAnchor = parentView.topAnchor;
-  NSLayoutYAxisAnchor * bottomAnchor = parentView.bottomAnchor;
-  CGFloat topOffset = 0;
-  if (@available(iOS 11.0, *))
-  {
-    UILayoutGuide * safeAreaLayoutGuide = parentView.safeAreaLayoutGuide;
-    leadingAnchor = safeAreaLayoutGuide.leadingAnchor;
-    trailingAnchor = safeAreaLayoutGuide.trailingAnchor;
-    topAnchor = safeAreaLayoutGuide.topAnchor;
-    bottomAnchor = safeAreaLayoutGuide.bottomAnchor;
-  }
-  else
-  {
-    topOffset = statusBarHeight();
-  }
+  NSLayoutYAxisAnchor * topAnchor = parentView.safeAreaLayoutGuide.topAnchor;
+  NSLayoutYAxisAnchor * bottomAnchor = parentView.safeAreaLayoutGuide.bottomAnchor;
 
-  [searchBarView.topAnchor constraintEqualToAnchor:topAnchor constant:topOffset].active = YES;
+  [searchBarView.topAnchor constraintEqualToAnchor:topAnchor].active = YES;
   [searchBarView.leadingAnchor constraintEqualToAnchor:leadingAnchor].active = YES;
   if (IPAD)
     [searchBarView.widthAnchor constraintEqualToConstant:kWidthForiPad].active = YES;

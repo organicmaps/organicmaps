@@ -156,17 +156,22 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (void)onMapObjectDeselected:(bool)switchFullScreenMode {
   [self hidePlacePage];
 
+  BOOL const isSearchResult = [MWMSearchManager manager].state == MWMSearchManagerStateResult;
+  if (isSearchResult) {
+    [MWMSearchManager manager].state = MWMSearchManagerStateMapSearch;
+  }
+
   if (!switchFullScreenMode)
     return;
 
   if (DeepLinkHandler.shared.isLaunchedByDeeplink)
     return;
 
-  BOOL const isSearchHidden = ([MWMSearchManager manager].state == MWMSearchManagerStateHidden);
-  BOOL const isNavigationDashboardHidden =
-    ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden);
-  if (isSearchHidden && isNavigationDashboardHidden)
+  BOOL const isSearchHidden = [MWMSearchManager manager].state == MWMSearchManagerStateHidden;
+  BOOL const isNavigationDashboardHidden = [MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden;
+  if (isSearchHidden && isNavigationDashboardHidden) {
     self.controlsManager.hidden = !self.controlsManager.hidden;
+  }
 }
 
 - (void)onMapObjectSelected {
