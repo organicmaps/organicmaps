@@ -20,8 +20,9 @@ MAX_POPULARITY = 255.0
 RELEVANCES = {'Harmful': -3, 'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring', 'Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
+RESULT_TYPES = ['TransportMajor', 'TransportLocal', 'Eat', 'Hotel', 'Attraction', 'Service', 'General']
 FEATURES = ['DistanceToPivot', 'Rank', 'Popularity', 'Rating', 'FalseCats', 'ErrorsMade', 'MatchedFraction',
-            'AllTokensUsed', 'ExactCountryOrCapital'] + NAME_SCORES + SEARCH_TYPES
+            'AllTokensUsed', 'ExactCountryOrCapital'] + NAME_SCORES + SEARCH_TYPES + RESULT_TYPES
 
 BOOTSTRAP_ITERATIONS = 10000
 
@@ -61,6 +62,10 @@ def normalize_data(data):
     data['SearchType'] = data['SearchType'].apply(lambda v: v if v != 'Building' else 'POI')
     for st in SEARCH_TYPES:
         data[st] = data['SearchType'].apply(lambda v: int(st == v))
+
+    # Adds dummy variables to data for RESULT_TYPES.
+    for rt in RESULT_TYPES:
+        data[rt] = data['ResultType'].apply(lambda v: int(rt == v))
 
 
 def compute_ndcg(relevances):
@@ -215,17 +220,20 @@ def cpp_output(features, ws):
     Prints feature-coeff pairs in the C++-compatible format.
     """
 
-    ns, st = [], []
+    ns, st, rt = [], [], []
 
     for f, w in zip(features, ws):
         if f in NAME_SCORES:
             ns.append((f, w))
         elif f in SEARCH_TYPES:
             st.append((f, w))
+        elif f in RESULT_TYPES:
+            rt.append((f, w))
         else:
             print_const(f, w)
     print_array('kNameScore', 'NameScore::NAME_SCORE_COUNT', ns)
     print_array('kType', 'Model::TYPE_COUNT', st)
+    print_array('kResultType', 'base::Underlying(ResultType::Count)', rt)
 
 
 def show_bootstrap_statistics(clf, X, y, features):

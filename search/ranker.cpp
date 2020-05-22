@@ -14,6 +14,7 @@
 #include "indexer/brands_holder.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -353,6 +354,8 @@ class RankerResultMaker
     info.m_popularity = preInfo.m_popularity;
     info.m_rating = preInfo.m_rating;
     info.m_type = preInfo.m_type;
+    if (info.m_type == Model::TYPE_POI)
+      info.m_resultType = GetResultType(feature::TypesHolder(ft));
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
     info.m_numTokens = m_params.GetNumTokens();
     info.m_exactMatch = preInfo.m_exactMatch;

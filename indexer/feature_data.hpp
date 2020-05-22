@@ -82,6 +82,8 @@ namespace feature
 
     size_t Size() const { return m_size; }
     bool Empty() const { return (m_size == 0); }
+    Types::const_iterator cbegin() const { return m_types.cbegin(); }
+    Types::const_iterator cend() const { return m_types.cbegin() + m_size; }
     Types::const_iterator begin() const { return m_types.cbegin(); }
     Types::const_iterator end() const { return m_types.cbegin() + m_size; }
     Types::iterator begin() { return m_types.begin(); }

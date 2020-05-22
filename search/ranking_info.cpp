@@ -1,10 +1,14 @@
 #include "search/ranking_info.hpp"
 
+#include "search/utils.hpp"
+
 #include "ugc/types.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <iomanip>
 #include <limits>
@@ -49,6 +53,15 @@ double constexpr kType[Model::TYPE_COUNT] = {
   0.0073583 /* City */,
   0.0233254 /* State */,
   0.1679389 /* Country */
+};
+double constexpr kResultType[base::Underlying(ResultType::Count)] = {
+  0.0338794 /* TransportMajor */,
+  0.0216298 /* TransportLocal */,
+  0.0064977 /* Eat */,
+  -0.0275763 /* Hotel */,
+  0.0358858 /* Attraction */,
+  -0.0195234 /* Service */,
+  -0.0128952 /* General */
 };
 
 // Coeffs sanity checks.
@@ -102,6 +115,42 @@ void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const 
   }
   oss << "]";
 }
+
+class IsServiceTypeChecker
+{
+public:
+  IsServiceTypeChecker()
+  {
+    vector<string> const oneLevelTypes = {
+      "barrier",
+      "power",
+      "traffic_calming"
+    };
+
+    vector<vector<string>> const twoLevelTypes = {};
+
+    for (auto const t : oneLevelTypes)
+      m_oneLevelTypes.push_back(classif().GetTypeByPath({t}));
+    for (auto const t : twoLevelTypes)
+      m_twoLevelTypes.push_back(classif().GetTypeByPath(t));
+  }
+
+  bool operator()(feature::TypesHolder const & th) const
+  {
+    auto findType = [](vector<uint32_t> const & v, uint32_t t, uint8_t level) {
+      ftype::TruncValue(t, level);
+      return find(v.begin(), v.end(), t) != v.end();
+    };
+
+    return base::AnyOf(th, [&](auto t) {
+      return findType(m_oneLevelTypes, t, 1) || findType(m_twoLevelTypes, t, 2);
+    });
+  }
+
+private:
+  vector<uint32_t> m_oneLevelTypes;
+  vector<uint32_t> m_twoLevelTypes;
+};
 }  // namespace
 
 // static
@@ -118,6 +167,7 @@ void RankingInfo::PrintCSVHeader(ostream & os)
      << ",ErrorsMade"
      << ",MatchedFraction"
      << ",SearchType"
+     << ",ResultType"
      << ",PureCats"
      << ",FalseCats"
      << ",AllTokensUsed"
@@ -142,6 +192,7 @@ string DebugPrint(RankingInfo const & info)
   os << ", m_numTokens:" << info.m_numTokens;
   os << ", m_matchedFraction:" << info.m_matchedFraction;
   os << ", m_type:" << DebugPrint(info.m_type);
+  os << ", m_resultType:" << DebugPrint(info.m_resultType);
   os << ", m_pureCats:" << info.m_pureCats;
   os << ", m_falseCats:" << info.m_falseCats;
   os << ", m_allTokensUsed:" << info.m_allTokensUsed;
@@ -163,6 +214,7 @@ void RankingInfo::ToCSV(ostream & os) const
   os << GetErrorsMadePerToken() << ",";
   os << m_matchedFraction << ",";
   os << DebugPrint(m_type) << ",";
+  os << DebugPrint(m_resultType) << ",";
   os << m_pureCats << ",";
   os << m_falseCats << ",";
   os << (m_allTokensUsed ? 1 : 0) << ",";
@@ -203,6 +255,8 @@ double RankingInfo::GetLinearModelRank() const
     result += kRating * rating;
     result += m_falseCats * kFalseCats;
     result += kType[m_type];
+    if (m_type == Model::TYPE_POI)
+      result += kResultType[base::Underlying(m_resultType)];
     result += kNameScore[nameScore];
     result += kErrorsMade * GetErrorsMadePerToken();
     result += kMatchedFraction * m_matchedFraction;
@@ -235,5 +289,52 @@ double RankingInfo::GetErrorsMadePerToken() const
 
   CHECK_GREATER(m_numTokens, 0, ());
   return static_cast<double>(m_errorsMade.m_errorsMade) / static_cast<double>(m_numTokens);
+}
+
+ResultType GetResultType(feature::TypesHolder const & th)
+{
+  if (ftypes::IsEatChecker::Instance()(th))
+    return ResultType::Eat;
+  if (ftypes::IsHotelChecker::Instance()(th))
+    return ResultType::Hotel;
+  if (ftypes::IsRailwayStationChecker::Instance()(th) ||
+      ftypes::IsSubwayStationChecker::Instance()(th) || ftypes::IsAirportChecker::Instance()(th))
+  {
+    return ResultType::TransportMajor;
+  }
+  if (ftypes::IsPublicTransportStopChecker::Instance()(th))
+    return ResultType::TransportLocal;
+
+  // We have several lists for attractions: short list in search categories for @tourism and long
+  // list in ftypes::AttractionsChecker. We have highway-pedestrian, place-square, historic-tomb,
+  // landuse-cemetery, amenity-townhall etc in long list and logic of long list is "if this object
+  // has high popularity and/or wiki description probably it is attraction". It's better to use
+  // short list here.
+  auto static const attractionTypes =
+      search::GetCategoryTypes("sights", "en", GetDefaultCategories());
+  if (base::AnyOf(attractionTypes, [&th](auto t) { return th.Has(t); }))
+    return ResultType::Attraction;
+
+  static const IsServiceTypeChecker isServiceTypeChecker;
+  if (isServiceTypeChecker(th))
+    return ResultType::Service;
+
+  return ResultType::General;
+}
+
+string DebugPrint(ResultType type)
+{
+  switch (type)
+  {
+  case ResultType::TransportMajor: return "TransportMajor";
+  case ResultType::TransportLocal: return "TransportLocal";
+  case ResultType::Eat: return "Eat";
+  case ResultType::Hotel: return "Hotel";
+  case ResultType::Attraction: return "Attraction";
+  case ResultType::Service: return "Service";
+  case ResultType::General: return "General";
+  case ResultType::Count: return "Count";
+  }
+  UNREACHABLE();
 }
 }  // namespace search

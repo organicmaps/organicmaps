@@ -4,6 +4,8 @@
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_utils.hpp"
 
+#include "indexer/feature_data.hpp"
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -15,6 +17,25 @@ class FeatureType;
 
 namespace search
 {
+enum class ResultType : uint8_t
+{
+  // Railway/subway stations, airports
+  TransportMajor,
+  // Bus/tram stops
+  TransportLocal,
+  // Cafes, restaurants, bars
+  Eat,
+  // Hotels
+  Hotel,
+  // Attractions
+  Attraction,
+  // Service types: power lines and substations, barrier-fence, etc.
+  Service,
+  // All other POIs
+  General,
+  Count
+};
+
 struct RankingInfo
 {
   static double const kMaxDistMeters;
@@ -72,6 +93,9 @@ struct RankingInfo
   // Search type for the feature.
   Model::Type m_type = Model::TYPE_COUNT;
 
+  // Type (food/transport/attraction/etc) for POI results for non-categorial requests.
+  ResultType m_resultType = ResultType::Count;
+
   // True if all of the tokens that the feature was matched by
   // correspond to this feature's categories.
   bool m_pureCats = false;
@@ -88,5 +112,8 @@ struct RankingInfo
   bool m_hasName = false;
 };
 
+ResultType GetResultType(feature::TypesHolder const & th);
+
 std::string DebugPrint(RankingInfo const & info);
+std::string DebugPrint(ResultType type);
 }  // namespace search
