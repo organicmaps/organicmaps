@@ -294,6 +294,9 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
                                    boolean animate)
   {
     int activePosition = findPositionByGuideId(gallery, guideId);
+    if (activePosition == RecyclerView.NO_POSITION)
+      return;
+
     if (animate)
     {
       mRecyclerView.post(() -> smoothScrollToPosition(activePosition));
@@ -314,6 +317,6 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
         return i;
     }
 
-    throw new IllegalStateException("Guide with id '" + guideId + "' not found in gallery!");
+    return RecyclerView.NO_POSITION;
   }
 }
