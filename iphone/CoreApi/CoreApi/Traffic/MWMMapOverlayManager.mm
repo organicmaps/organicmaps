@@ -29,7 +29,9 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
     _observers = [NSHashTable weakObjectsHashTable];
     GetFramework().GetTrafficManager().SetStateListener([self](TrafficManager::TrafficState state) {
       for (id<MWMMapOverlayManagerObserver> observer in self.observers) {
-        [observer onTrafficStateUpdated];
+        if ([observer respondsToSelector:@selector(onTrafficStateUpdated)]) {
+          [observer onTrafficStateUpdated];
+        }
       }
     });
     GetFramework().GetTransitManager().SetStateListener([self](TransitReadManager::TransitSchemeState state) {
@@ -48,7 +50,9 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
     });
     GetFramework().GetGuidesManager().SetStateListener([self](GuidesManager::GuidesState state) {
       for (id<MWMMapOverlayManagerObserver> observer in self.observers) {
-        [observer onGuidesStateUpdated];
+        if ([observer respondsToSelector:@selector(onGuidesStateUpdated)]) {
+          [observer onGuidesStateUpdated];
+        }
       }
     });
   }

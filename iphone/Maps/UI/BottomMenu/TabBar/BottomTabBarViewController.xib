@@ -129,17 +129,6 @@
                         <constraint firstItem="uDI-ZC-4wx" firstAttribute="centerY" secondItem="svD-yi-GrZ" secondAttribute="centerY" constant="-8" id="yq3-ui-IaL"/>
                     </constraints>
                 </view>
-                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxg-Qt-HzS" userLabel="Separator">
-                    <rect key="frame" x="0.0" y="48" width="373" height="1"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                    <accessibility key="accessibilityConfiguration" identifier="Separator"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="1" id="wSx-Bp-1WM"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="StyleName" value="Divider"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -147,12 +136,9 @@
                 <constraint firstItem="4Uc-SH-J1o" firstAttribute="top" secondItem="vum-s3-PHx" secondAttribute="top" id="0Jc-AD-Qya"/>
                 <constraint firstItem="4Uc-SH-J1o" firstAttribute="leading" secondItem="aaw-Hz-zma" secondAttribute="leading" id="CMh-m4-Ern"/>
                 <constraint firstAttribute="bottom" secondItem="4Uc-SH-J1o" secondAttribute="bottom" id="Hjq-xN-iqA"/>
-                <constraint firstItem="oxg-Qt-HzS" firstAttribute="top" secondItem="vum-s3-PHx" secondAttribute="bottom" id="NZl-aK-dLq"/>
                 <constraint firstItem="vum-s3-PHx" firstAttribute="top" secondItem="zuH-WU-hiP" secondAttribute="top" id="PQS-ro-25e"/>
                 <constraint firstItem="vum-s3-PHx" firstAttribute="leading" secondItem="zuH-WU-hiP" secondAttribute="leading" id="kza-JN-Dul"/>
-                <constraint firstItem="oxg-Qt-HzS" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" id="ohC-pa-lJs"/>
                 <constraint firstAttribute="trailing" secondItem="vum-s3-PHx" secondAttribute="trailing" id="sM6-P2-rN9"/>
-                <constraint firstItem="oxg-Qt-HzS" firstAttribute="leading" secondItem="zuH-WU-hiP" secondAttribute="leading" id="vjV-VK-BXO"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
