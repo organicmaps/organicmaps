@@ -23,6 +23,8 @@ import com.mapswithme.maps.guides.GuidesGalleryListener;
 import com.mapswithme.maps.maplayer.guides.GuidesManager;
 import com.mapswithme.maps.maplayer.guides.OnGuidesGalleryChangedListener;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.GalleryPlacement;
 
 import java.util.List;
@@ -32,7 +34,8 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
                                                   PlacePageStateObserver,
                                                   OnGuidesGalleryChangedListener
 {
-  private static final String EXTRA_ACTIVE_POSITION = "extra_active_position";
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = GuidesGalleryViewRenderer.class.getSimpleName();
   @Nullable
   private GuidesGallery mGallery;
   @SuppressWarnings("NullableProblems")
@@ -123,7 +126,6 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
     }
   };
 
-  private int mActivePosition = RecyclerView.NO_POSITION;
   private int mTargetPosition = RecyclerView.NO_POSITION;
 
   GuidesGalleryViewRenderer(@Nullable GuidesGalleryListener galleryListener)
@@ -154,7 +156,6 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
   private void setActiveGuide(int position)
   {
     Objects.requireNonNull(mGallery);
-    mActivePosition = position;
     Item item = mGallery.getItems().get(position);
     if (mActiveItem == item)
       return;
@@ -173,8 +174,16 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
   public void render(@NonNull PlacePageData data)
   {
     mGallery = (GuidesGallery) data;
-    mAdapter = Factory.createGuidesAdapter(mGallery.getItems(), mItemSelectedListener,
-                                                         GalleryPlacement.MAP);
+    setAdapterForGallery(mGallery);
+    GuidesManager manager = GuidesManager.from(mRecyclerView.getContext());
+    String guideId = manager.getActiveGuide();
+    scrollToActiveGuide(mGallery, guideId, false);
+  }
+
+  private void setAdapterForGallery(@NonNull GuidesGallery gallery)
+  {
+    mAdapter = Factory.createGuidesAdapter(gallery.getItems(), mItemSelectedListener,
+                                           GalleryPlacement.MAP);
     mRecyclerView.setAdapter(mAdapter);
   }
 
@@ -224,7 +233,6 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
   public void onSave(@NonNull Bundle outState)
   {
     outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mGallery);
-    outState.putInt(EXTRA_ACTIVE_POSITION, mActivePosition);
   }
 
   @Override
@@ -234,14 +242,10 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
     if (mGallery == null)
       return;
 
-    mAdapter = Factory.createGuidesAdapter(mGallery.getItems(), mItemSelectedListener,
-                                           GalleryPlacement.MAP);
-    mRecyclerView.setAdapter(mAdapter);
-    mActivePosition = inState.getInt(EXTRA_ACTIVE_POSITION);
-    mRecyclerView.post(() -> {
-      smoothScrollToPosition(mActivePosition);
-      setActiveGuide(mActivePosition);
-    });
+    setAdapterForGallery(mGallery);
+    GuidesManager manager = GuidesManager.from(mRecyclerView.getContext());
+    String guideId = manager.getActiveGuide();
+    scrollToActiveGuide(mGallery, guideId, false);
   }
 
   @Override
@@ -271,6 +275,7 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
   @Override
   public void onGuidesGalleryChanged(boolean reloadGallery)
   {
+    LOGGER.d(TAG, "Guides gallery changed, reloadGallery: " + reloadGallery);
     if (mGallery == null)
       return;
 
@@ -278,12 +283,25 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
     if (reloadGallery)
     {
       mGallery = manager.getGallery();
-      render(mGallery);
+      setAdapterForGallery(mGallery);
     }
 
     String guideId = manager.getActiveGuide();
-    int activePosition = findPositionByGuideId(mGallery, guideId);
-    smoothScrollToPosition(activePosition);
+    scrollToActiveGuide(mGallery, guideId, true);
+  }
+
+  private void scrollToActiveGuide(@NonNull GuidesGallery gallery, @NonNull String guideId,
+                                   boolean animate)
+  {
+    int activePosition = findPositionByGuideId(gallery, guideId);
+    if (animate)
+    {
+      mRecyclerView.post(() -> smoothScrollToPosition(activePosition));
+      return;
+    }
+
+    setActiveGuide(activePosition);
+    mLayoutManager.scrollToPosition(activePosition);
   }
 
   private static int findPositionByGuideId(@NonNull GuidesGallery gallery, @NonNull String guideId)
