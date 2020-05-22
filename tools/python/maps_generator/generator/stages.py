@@ -29,6 +29,7 @@ from maps_generator.utils.file import download_files
 from maps_generator.utils.file import normalize_url_to_path_dict
 from maps_generator.utils.log import DummyObject
 from maps_generator.utils.log import create_file_logger
+from maps_generator.utils.log import create_file_handler
 
 logger = logging.getLogger("maps_generator")
 
@@ -141,28 +142,28 @@ def outer_stage(stage: Type[Stage]) -> Type[Stage]:
         def apply(obj: Stage, env: "Env", *args, **kwargs):
             name = get_stage_name(obj)
             logfile = os.path.join(env.paths.log_path, f"{name}.log")
-            log_handler = logging.FileHandler(logfile)
+            log_handler = create_file_handler(logfile)
             logger.addHandler(log_handler)
-            if not env.is_accepted_stage(stage):
-                logger.info(f"{name} was not accepted.")
-                logger.removeHandler(log_handler)
-                return
-
-            main_status = env.main_status
-            main_status.init(env.paths.main_status_path, name)
-            if main_status.need_skip():
-                logger.warning(f"{name} was skipped.")
-                logger.removeHandler(log_handler)
-                return
-
-            main_status.update_status()
-            logger.info(f"{name}: start ...")
+            logger.info(f"Stage {name}: start ...")
             t = time.time()
-            env.set_subprocess_out(log_handler.stream)
-            method(obj, env, *args, **kwargs)
-            d = time.time() - t
-            logger.info(f"{name}: finished in " f"{str(datetime.timedelta(seconds=d))}")
-            logger.removeHandler(log_handler)
+            try:
+                if not env.is_accepted_stage(stage):
+                    logger.info(f"Stage {name} was not accepted.")
+                    return
+
+                main_status = env.main_status
+                main_status.init(env.paths.main_status_path, name)
+                if main_status.need_skip():
+                    logger.warning(f"Stage {name} was skipped.")
+                    return
+
+                main_status.update_status()
+                env.set_subprocess_out(log_handler.stream)
+                method(obj, env, *args, **kwargs)
+            finally:
+                d = time.time() - t
+                logger.info(f"Stage {name}: finished in " f"{str(datetime.timedelta(seconds=d))}")
+                logger.removeHandler(log_handler)
 
         return apply
 
@@ -182,7 +183,7 @@ def country_stage_status(stage: Type[Stage]) -> Type[Stage]:
                 _logger, _ = countries_meta[country]["logger"]
 
             if not env.is_accepted_stage(stage):
-                _logger.info(f"{name} was not accepted.")
+                _logger.info(f"Stage {name} was not accepted.")
                 return
 
             if "status" not in countries_meta[country]:
@@ -192,9 +193,9 @@ def country_stage_status(stage: Type[Stage]) -> Type[Stage]:
             status_file = os.path.join(
                 env.paths.status_path, status.with_stat_ext(country)
             )
-            country_status.init(status_file, name)
+                
             if country_status.need_skip():
-                _logger.warning(f"{name} was skipped.")
+                _logger.warning(f"Stage {name} was skipped.")
                 return
 
             country_status.update_status()
@@ -218,14 +219,13 @@ def country_stage_log(stage: Type[Stage]) -> Type[Stage]:
                 countries_meta[country]["logger"] = create_file_logger(log_file)
 
             _logger, log_handler = countries_meta[country]["logger"]
-            stage_formatted = " ".join(name.split("_")).capitalize()
-            _logger.info(f"{stage_formatted}: start ...")
+            _logger.info(f"Stage {name}: start ...")
             t = time.time()
             env.set_subprocess_out(log_handler.stream, country)
             method(obj, env, country, *args, logger=_logger, **kwargs)
             d = time.time() - t
             _logger.info(
-                f"{stage_formatted}: finished in "
+                f"Stage {name}: finished in "
                 f"{str(datetime.timedelta(seconds=d))}"
             )
 

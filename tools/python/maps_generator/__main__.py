@@ -158,6 +158,7 @@ def parse_options():
 def main():
     root = logging.getLogger()
     root.addHandler(logging.NullHandler())
+
     options = parse_options()
 
     # Processing of 'continue' option.

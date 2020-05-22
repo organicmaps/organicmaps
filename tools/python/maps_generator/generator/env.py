@@ -342,6 +342,9 @@ class PathProvider:
         return settings.TMPDIR
 
 
+COUNTRIES_NAMES = set(get_all_countries_list(PathProvider.borders_path()))
+
+
 class Env:
     """
     Env provides a generation environment. It sets up instruments and paths,
