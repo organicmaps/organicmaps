@@ -130,6 +130,7 @@ PYHELPERS_DIR = os.path.abspath(os.path.dirname(__file__))
 OMIM_ROOT = os.path.dirname(PYHELPERS_DIR)
 BOOST_ROOT = os.path.join(OMIM_ROOT, '3party', 'boost')
 BOOST_LIBRARYDIR = os.path.join(BOOST_ROOT, 'stage', 'lib')
+ORIGINAL_CWD = os.getcwd()
 
 
 def python_static_libdir():
@@ -171,10 +172,15 @@ class BuildCommand(build, object):
         self.omim_builddir = os.path.join(OMIM_ROOT, 'build')
 
     def finalize_options(self):
+        if os.path.isabs(self.omim_builddir):
+            self.omim_builddir = os.path.abspath(self.omim_builddir)
+        else:
+            self.omim_builddir = os.path.abspath(
+                os.path.join(ORIGINAL_CWD, self.omim_builddir)
+            )
         self.build_base = os.path.relpath(
             os.path.join(self.omim_builddir, 'pybindings-builddir')
         )
-        self.omim_builddir = os.path.abspath(self.omim_builddir)
         super(BuildCommand, self).finalize_options()
 
 
