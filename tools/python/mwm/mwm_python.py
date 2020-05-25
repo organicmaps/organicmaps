@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 class MwmPython(mi.Mwm):
-    def __init__(self, filename: str, parse: bool = False):
+    def __init__(self, filename: str, parse: bool = True):
         super().__init__(filename)
 
         self.f = open(filename, "rb")
