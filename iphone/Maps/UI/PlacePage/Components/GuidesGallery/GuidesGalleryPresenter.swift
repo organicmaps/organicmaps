@@ -65,26 +65,43 @@ extension GuidesGalleryPresenter: IGuidesGalleryPresenter {
     }
 
     view.setGalleryItems(galleryItems.map({ makeViewModel($0) }))
+    let activeGuideId = self.interactor.activeItemId()
     guard let activeIndex = galleryItems.firstIndex(where: {
-      $0.guideId == interactor.activeItemId()
+      $0.guideId == activeGuideId
     }) else { return }
     view.setActiveItem(activeIndex, animated: false)
+
+    Statistics.logEvent(kStatPlacepageSponsoredShow, withParameters: [kStatProvider : kStatMapsmeGuides,
+                                                                      kStatPlacement : kStatMap,
+                                                                      kStatState : kStatOnline,
+                                                                      kStatCount : galleryItems.count])
   }
 
   func selectItemAtIndex(_ index: Int) {
     let galleryItem = galleryItems[index]
     guard let url = URL(string: galleryItem.url) else { return }
     router.openCatalogUrl(url)
+    Statistics.logEvent(kStatPlacepageSponsoredItemSelected, withParameters: [kStatProvider : kStatMapsmeGuides,
+                                                                              kStatPlacement : kStatMap,
+                                                                              kStatItem : index,
+                                                                              kStatDestination : kStatCatalogue])
   }
 
   func scrollToItemAtIndex(_ index: Int) {
     let galleryItem = galleryItems[index]
     interactor.setActiveItem(galleryItem)
+    Statistics.logEvent(kStatPlacepageSponsoredUserItemShown,
+                        withParameters: [kStatProvider : kStatMapsmeGuides,
+                                         kStatPlacement : kStatMap,
+                                         kStatState : kStatOnline,
+                                         kStatItem : index,
+                                         kStatId : galleryItem.guideId],
+                        with: .realtime)
   }
 
   func toggleVisibilityAtIndex(_ index: Int) {
     let galleryItem = galleryItems[index]
-     interactor.toggleItemVisibility(galleryItem)
+    interactor.toggleItemVisibility(galleryItem)
     let model = makeViewModel(galleryItem)
     view.updateItem(model, at: index)
   }

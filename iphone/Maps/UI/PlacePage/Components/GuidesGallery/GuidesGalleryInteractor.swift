@@ -26,6 +26,9 @@ extension GuidesGalleryInteractor: IGuidesGalleryInteractor {
     let groupId = MWMBookmarksManager.shared().getGroupId(item.guideId)
     let visible = MWMBookmarksManager.shared().isCategoryVisible(groupId)
     MWMBookmarksManager.shared().setCategory(groupId, isVisible: !visible)
+    Statistics.logEvent(kStatBookmarkVisibilityChange, withParameters: [kStatFrom : kStatMapGallery,
+                                                                        kStatAction : visible ? kStatHide : kStatShow,
+                                                                        kStatServerId : item.guideId])
   }
 
   func isGalleryItemVisible(_ item: GuidesGalleryItem) -> Bool {

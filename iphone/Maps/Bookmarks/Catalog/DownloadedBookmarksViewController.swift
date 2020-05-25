@@ -73,6 +73,8 @@ class DownloadedBookmarksViewController: MWMViewController {
     if let categoriesHeader = tableView.headerView(forSection: 0) as? BMCCategoriesHeader {
       categoriesHeader.isShowAll = dataSource.allCategoriesHidden
     }
+    Statistics.logEvent(kStatBookmarkVisibilityChange, withParameters: [kStatFrom : kStatBookmarkList,
+                                                                        kStatAction : visible ? kStatShow : kStatHide])
   }
 
   private func deleteCategory(at index: Int) {
