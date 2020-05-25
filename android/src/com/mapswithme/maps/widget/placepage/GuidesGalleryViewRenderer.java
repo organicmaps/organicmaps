@@ -26,6 +26,9 @@ import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.GalleryPlacement;
+import com.mapswithme.util.statistics.GalleryState;
+import com.mapswithme.util.statistics.GalleryType;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 import java.util.Objects;
@@ -168,6 +171,10 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
     if (mAdapter != null)
       mAdapter.notifyDataSetChanged();
     GuidesManager.from(mRecyclerView.getContext()).setActiveGuide(mActiveItem.getGuideId());
+    if (mActiveItem.isDownloaded())
+      Statistics.INSTANCE.trackGalleryUserItemShown(GalleryType.PROMO, GalleryState.ONLINE,
+                                                    GalleryPlacement.MAP, position,
+                                                    mActiveItem.getGuideId());
   }
 
   @Override

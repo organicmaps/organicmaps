@@ -60,6 +60,7 @@ import static com.mapswithme.util.BatteryState.CHARGING_STATUS_PLUGGED;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNKNOWN;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNPLUGGED;
 import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_COLD_STARTUP_INFO;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_BOOKMARKS_VISIBILITY_CHANGE;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_GUIDES_DOWNLOADDIALOGUE_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_ERROR;
@@ -91,6 +92,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_B
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_SHOWN;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_USER_ITEM;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSOR_ITEM_SELECTED;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_TOOLTIP_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_ROUTE_FINISH;
@@ -121,6 +123,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.HAS_AUTH;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
+import static com.mapswithme.util.statistics.Statistics.EventParam.ID;
 import static com.mapswithme.util.statistics.Statistics.EventParam.INTERRUPTED;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ITEM;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MAP_DATA_SIZE;
@@ -290,6 +293,16 @@ public enum Statistics
     trackEvent(EventName.BM_BOOKMARKS_SEARCH_RESULT_SELECTED, builder);
   }
 
+  public void trackBookmarksVisibility(@NonNull String from, @NonNull String action,
+                                       @Nullable String serverId)
+  {
+    ParameterBuilder builder = new ParameterBuilder();
+    builder.add(FROM, from).add(ACTION, action);
+    if (!TextUtils.isEmpty(serverId))
+      builder.add(SERVER_ID, serverId);
+    trackEvent(BM_BOOKMARKS_VISIBILITY_CHANGE, builder.get());
+  }
+
   private void trackEditSettingsScreenOptionClick(@NonNull String value)
   {
     ParameterBuilder builder = new ParameterBuilder().add(OPTION, value);
@@ -403,6 +416,7 @@ public enum Statistics
     static final String BM_BOOKMARKS_LIST_SORT = "Bookmarks_BookmarksList_sort";
     static final String BM_BOOKMARKS_SEARCH = "Bookmarks_Search";
     static final String BM_BOOKMARKS_SEARCH_RESULT_SELECTED = "Bookmarks_Search_result_selected";
+    static final String BM_BOOKMARKS_VISIBILITY_CHANGE = "Bookmarks_Visibility_change";
     static final String BM_COLOR_CHANGED = "Bookmark. Color changed";
     static final String BM_CREATED = "Bookmark. Bookmark created";
     static final String BM_SYNC_PROPOSAL_SHOWN = "Bookmarks_SyncProposal_shown";
@@ -456,6 +470,7 @@ public enum Statistics
     static final String PP_SPONSORED_SHOWN = "Placepage_SponsoredGallery_shown";
     static final String PP_SPONSORED_ERROR = "Placepage_SponsoredGallery_error";
     static final String PP_SPONSOR_ITEM_SELECTED = "Placepage_SponsoredGallery_ProductItem_selected";
+    static final String PP_SPONSORED_USER_ITEM = "Placepage_SponsoredGallery_UsersItem_shown";
     static final String PP_BANNER_SHOW = "Placepage_Banner_show";
     static final String PP_BANNER_ERROR = "Placepage_Banner_error";
     static final String PP_BANNER_BLANK = "Placepage_Banner_blank";
@@ -638,6 +653,7 @@ public enum Statistics
     public static final String DATE = "date";
     public static final String STATUS = "status";
     public static final String SOURCE = "source";
+    static final String ID = "id";
     static final String TRACKS = "tracks";
     static final String POINTS = "points";
     static final String TOLL = "toll";
@@ -753,6 +769,10 @@ public enum Statistics
     public static final String WIKIPEDIA = "wikipedia";
     public static final String PREVIEW = "preview";
     public static final String FULL = "full";
+    public static final String MAP_GALLERY = "map_gallery";
+    public static final String BOOKMARK_LIST = "bookmark_list";
+    public static final String SHOW = "show";
+    public static final String HIDE = "hide";
     static final String CRASH_REPORTS = "crash_reports";
     static final String PERSONAL_ADS = "personal_ads";
     public static final String MAP = "map";
@@ -1282,6 +1302,18 @@ public enum Statistics
                                     .add(PROVIDER, type.getProvider())
                                     .add(PLACEMENT,placement.toString())
                                     .get());
+  }
+
+  public void trackGalleryUserItemShown(@NonNull GalleryType type, @NonNull GalleryState state,
+                                        @NonNull GalleryPlacement placement, int position,
+                                        @NonNull String id)
+  {
+    trackEvent(PP_SPONSORED_USER_ITEM, Statistics.params()
+                                                 .add(PROVIDER, type.getProvider())
+                                                 .add(PLACEMENT, placement.toString())
+                                                 .add(STATE, state.toString())
+                                                 .add(ITEM, position)
+                                                 .add(ID, id), STATISTICS_CHANNEL_REALTIME);
   }
 
   public void trackSearchPromoCategory(@NonNull String eventName, @NonNull String provider)

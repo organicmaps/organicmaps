@@ -3,6 +3,9 @@ package com.mapswithme.maps.bookmarks;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
@@ -10,18 +13,15 @@ import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
+import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
-import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.bookmarks.data.FilterStrategy;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity;
@@ -486,7 +486,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       public void process(@NonNull BaseBookmarkCategoriesFragment frag,
                           @NonNull BookmarkCategory category)
       {
-        BookmarkManager.INSTANCE.toggleCategoryVisibility(category.getId());
+        BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
         frag.getAdapter().notifyDataSetChanged();
       }
     }

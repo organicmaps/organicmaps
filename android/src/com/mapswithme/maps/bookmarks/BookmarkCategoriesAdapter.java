@@ -1,13 +1,13 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -292,7 +292,8 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     @Override
     public void onClick(View v)
     {
-      BookmarkManager.INSTANCE.toggleCategoryVisibility(mHolder.getEntity().getId());
+      BookmarkCategory category = mHolder.getEntity();
+      BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
       notifyItemChanged(mHolder.getAdapterPosition());
       notifyItemChanged(HEADER_POSITION);
     }
