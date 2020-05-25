@@ -92,9 +92,8 @@ final class UGCAddReviewController: MWMTableViewController {
         }
         nc.popViewController(animated: true)
       } else {
-        Statistics.logEvent(kStatUGCReviewAuthShown, withParameters: [kStatFrom: kStatAfterSave])
         let authVC = AuthorizationViewController(barButtonItem: self.navigationItem.rightBarButtonItem!,
-                                                 sourceComponent: .UGC,
+                                                 source: .afterSaveReview,
                                                  successHandler: {_ in onSuccess()},
                                                  errorHandler: {_ in onError()},
                                                  completionHandler: {_ in onComplete()})

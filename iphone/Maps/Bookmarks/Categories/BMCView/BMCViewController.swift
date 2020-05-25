@@ -305,7 +305,7 @@ extension BMCViewController: BMCPermissionsCellDelegate {
     switch permission {
     case .signup:
       viewModel.pendingPermission(isPending: true)
-      signup(anchor: anchor, onComplete: { [viewModel] success in
+      signup(anchor: anchor, source: .bookmarksBackup, onComplete: { [viewModel] success in
         viewModel!.grant(permission: success ? .backup : nil)
       })
     case .backup:

@@ -83,7 +83,7 @@ class BaseSubscriptionViewController: MWMViewController {
     guard let subscription = subscriptionGroup?[period]?.subscription else{
       return
     }
-    signup(anchor: sender) { [weak self] success in
+    signup(anchor: sender, source: .subscription) { [weak self] success in
       guard success else { return }
       self?.loadingView.isHidden = false
       self?.bookmarksManager.ping { success in
@@ -104,7 +104,7 @@ class BaseSubscriptionViewController: MWMViewController {
 
   @IBAction func onRestore(_ sender: UIButton) {
     Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: subscriptionManager?.serverId ?? ""])
-    signup(anchor: sender) { [weak self] (success) in
+    signup(anchor: sender, source: .subscription) { [weak self] (success) in
       guard success else { return }
       self?.loadingView.isHidden = false
       self?.subscriptionManager?.restore { result in

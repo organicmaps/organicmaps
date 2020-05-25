@@ -9,11 +9,6 @@ typedef NS_ENUM(NSInteger, MWMSocialTokenType) {
   MWMSocialTokenTypeApple
 } NS_SWIFT_NAME(SocialTokenType);
 
-typedef NS_ENUM(NSInteger, MWMAuthorizationSource) {
-  MWMAuthorizationSourceUGC,
-  MWMAuthorizationSourceBookmarks
-} NS_SWIFT_NAME(AuthorizationSource);
-
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(User)
@@ -32,7 +27,6 @@ NS_SWIFT_NAME(User)
                 promoAccepted:(BOOL)promoAccepted
                     firstName:(NSString *)firstName
                      lastName:(NSString *)lastName
-                       source:(MWMAuthorizationSource)source
                    onComplete:(MWMBoolBlock)onComplete;
 
 @end

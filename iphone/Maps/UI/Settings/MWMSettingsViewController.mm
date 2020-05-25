@@ -365,7 +365,7 @@ using namespace power_management;
   {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     __weak auto s = self;
-    [self signupWithAnchor:self.restoreSubscriptionCell.progress onComplete:^(BOOL success) {
+    [self signupWithAnchor:self.restoreSubscriptionCell.progress source:AuthorizationSourceSubscription onComplete:^(BOOL success) {
       if (success) {
         [s restoreSubscription];
       }

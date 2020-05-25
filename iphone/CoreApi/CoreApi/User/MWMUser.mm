@@ -31,7 +31,6 @@
                 promoAccepted:(BOOL)promoAccepted
                     firstName:(NSString *)firstName
                      lastName:(NSString *)lastName
-                       source:(MWMAuthorizationSource)source
                    onComplete:(MWMBoolBlock)onComplete {
   auto &user = GetFramework().GetUser();
   User::SocialTokenType socialTokenType;
@@ -52,7 +51,7 @@
   }
   auto s = std::make_unique<User::Subscriber>();
   s->m_postCallAction = User::Subscriber::Action::RemoveSubscriber;
-  s->m_onAuthenticate = [provider, source, onComplete](bool success) {
+  s->m_onAuthenticate = [provider, onComplete](bool success) {
     dispatch_async(dispatch_get_main_queue(), ^{
       onComplete(success);
     });

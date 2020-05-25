@@ -486,10 +486,9 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)showUGCAuth {
-  [Statistics logEvent:kStatUGCReviewAuthShown];
   if (IPAD) {
     auto controller = [[MWMAuthorizationViewController alloc] initWithPopoverSourceView:self.controlsManager.anchorView
-                                                                        sourceComponent:MWMAuthorizationSourceUGC
+                                                                                 source:AuthorizationSourceAfterSaveReview
                                                                permittedArrowDirections:UIPopoverArrowDirectionDown
                                                                          successHandler:nil
                                                                            errorHandler:nil
@@ -500,7 +499,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   }
 
   auto controller = [[MWMAuthorizationViewController alloc] initWithBarButtonItem:nil
-                                                                  sourceComponent:MWMAuthorizationSourceUGC
+                                                                           source:AuthorizationSourceAfterSaveReview
                                                                    successHandler:nil
                                                                      errorHandler:nil
                                                                 completionHandler:nil];

@@ -252,7 +252,7 @@ final class CatalogWebViewController: WebViewController {
         self?.loadingIndicator.stopAnimating()
       case .needAuth:
         if let s = self, let navBar = s.navigationController?.navigationBar {
-          s.signup(anchor: navBar, onComplete: {
+          s.signup(anchor: navBar, source: .guideCatalogue, onComplete: {
             if $0 {
               s.handlePendingTransactions(completion: completion)
             } else {
@@ -319,7 +319,7 @@ final class CatalogWebViewController: WebViewController {
           switch (status) {
           case .needAuth:
             if let s = self, let navBar = s.navigationController?.navigationBar{
-              s.signup(anchor: navBar) {
+              s.signup(anchor: navBar, source: .guideCatalogue) {
                 if $0 { s.download() }
               }
             }

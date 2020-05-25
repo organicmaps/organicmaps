@@ -9,6 +9,29 @@ import AuthenticationServices
   case passportError
 }
 
+@objc enum AuthorizationSource: Int {
+  case afterSaveReview
+  case bookmarksBackup
+  case guideCatalogue
+  case exportBookmarks
+  case subscription
+
+  var stat: String {
+    switch self {
+    case .afterSaveReview:
+      return kStatAuthFromAfterSaveReview
+    case .bookmarksBackup:
+      return kStatAuthFromBookmarksBackup
+    case .guideCatalogue:
+      return kStatAuthFromGuideCatalogue
+    case .exportBookmarks:
+      return kStatAuthFromExportBookmarks
+    case .subscription:
+      return kStatAuthFromSubscription
+    }
+  }
+}
+
 @objc(MWMAuthorizationViewController)
 final class AuthorizationViewController: MWMViewController {
 
@@ -134,14 +157,14 @@ final class AuthorizationViewController: MWMViewController {
   typealias ErrorHandler = (AuthorizationError) -> Void
   typealias CompletionHandler = (AuthorizationViewController) -> Void
 
-  private let sourceComponent: AuthorizationSource
+  private let source: AuthorizationSource
   private let successHandler: SuccessHandler?
   private let errorHandler: ErrorHandler?
   private let completionHandler: CompletionHandler?
 
   @objc
-  init(barButtonItem: UIBarButtonItem?, sourceComponent: AuthorizationSource, successHandler: SuccessHandler? = nil, errorHandler: ErrorHandler? = nil, completionHandler: CompletionHandler? = nil) {
-    self.sourceComponent = sourceComponent
+  init(barButtonItem: UIBarButtonItem?, source: AuthorizationSource, successHandler: SuccessHandler? = nil, errorHandler: ErrorHandler? = nil, completionHandler: CompletionHandler? = nil) {
+    self.source = source
     self.successHandler = successHandler
     self.errorHandler = errorHandler
     self.completionHandler = completionHandler
@@ -152,8 +175,8 @@ final class AuthorizationViewController: MWMViewController {
   }
 
   @objc
-  init(popoverSourceView: UIView? = nil, sourceComponent: AuthorizationSource, permittedArrowDirections: UIPopoverArrowDirection = .unknown, successHandler: SuccessHandler? = nil, errorHandler: ErrorHandler? = nil, completionHandler: CompletionHandler? = nil) {
-    self.sourceComponent = sourceComponent
+  init(popoverSourceView: UIView? = nil, source: AuthorizationSource, permittedArrowDirections: UIPopoverArrowDirection = .unknown, successHandler: SuccessHandler? = nil, errorHandler: ErrorHandler? = nil, completionHandler: CompletionHandler? = nil) {
+    self.source = source
     self.successHandler = successHandler
     self.errorHandler = errorHandler
     self.completionHandler = completionHandler
@@ -187,6 +210,7 @@ final class AuthorizationViewController: MWMViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    Statistics.logEvent(kStatAuthShown, withParameters: [kStatFrom: source.stat])
   }
 
   override func viewDidLayoutSubviews() {
@@ -209,7 +233,7 @@ final class AuthorizationViewController: MWMViewController {
   }
 
   @IBAction func onCancel() {
-    Statistics.logEvent(kStatUGCReviewAuthDeclined)
+    Statistics.logEvent(kStatAuthDeclined, withParameters: [kStatFrom: source.stat])
     errorHandler?(.cancelled)
     onClose()
   }
@@ -231,7 +255,7 @@ final class AuthorizationViewController: MWMViewController {
   }
 
   private func process(error: Error, type: SocialTokenType) {
-    Statistics.logEvent(kStatUGCReviewAuthError, withParameters: [
+    Statistics.logEvent(kStatAuthError, withParameters: [
       kStatProvider: getProviderStatStr(type: type),
       kStatError: error.localizedDescription,
     ])
@@ -243,7 +267,7 @@ final class AuthorizationViewController: MWMViewController {
                        type: SocialTokenType,
                        firstName: String = "",
                        lastName: String = "") {
-    Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess,
+    Statistics.logEvent(kStatAuthExternalRequestSuccess,
                         withParameters: [kStatProvider: getProviderStatStr(type: type)])
     User.authenticate(withToken: token,
                       type: type,
@@ -251,8 +275,7 @@ final class AuthorizationViewController: MWMViewController {
                       termsAccepted: termsOfUseCheck.isChecked,
                       promoAccepted: latestNewsCheck.isChecked,
                       firstName: firstName,
-                      lastName: lastName,
-                      source: sourceComponent) { success in
+                      lastName: lastName) { success in
                         self.logStats(type: type, success: success)
                         if success {
                           self.successHandler?(type)
@@ -278,20 +301,10 @@ final class AuthorizationViewController: MWMViewController {
       fatalError()
     }
 
-    let event: String?
-    switch self.sourceComponent {
-    case .UGC:
-      event = success ? kStatUGCReviewAuthRequestSuccess : kStatUGCReviewAuthError
-    case .bookmarks:
-      event = success ? kStatBookmarksAuthRequestSuccess : kStatBookmarksAuthRequestError
-    @unknown default:
-      fatalError()
-    }
-
     if success {
-      Statistics.logEvent(event, withParameters: [kStatProvider : provider])
+      Statistics.logEvent(kStatAuthRequestSucces, withParameters: [kStatProvider : provider])
     } else {
-      Statistics.logEvent(event, withParameters: [kStatProvider : provider, kStatError : ""])
+      Statistics.logEvent(kStatAuthError, withParameters: [kStatProvider : provider, kStatError : ""])
     }
   }
 }
