@@ -32,6 +32,9 @@ class BottomMenuViewController: MWMViewController {
     tableView.delegate = presenter
     tableView.registerNib(cell: BottomMenuItemCell.self)
     tableView.registerNib(cell: BottomMenuLayersCell.self)
+    performOnce({
+      Toast.toast(withText: L("routes_layer_in_menu_toast")).show(withAlignment: .top)
+    }, "routes_layer_in_menu_toast")
   }
   
   override func viewDidLayoutSubviews() {

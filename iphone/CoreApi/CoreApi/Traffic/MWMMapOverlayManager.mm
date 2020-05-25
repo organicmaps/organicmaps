@@ -123,13 +123,13 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
     case GuidesManager::GuidesState::Enabled:
       return MWMMapOverlayGuidesStateEnabled;
     case GuidesManager::GuidesState::HasData:
-      return MWMMapOverlayGuidesStateEnabled;
+      return MWMMapOverlayGuidesStateHasData;
     case GuidesManager::GuidesState::NoData:
       return MWMMapOverlayGuidesStateNoData;
     case GuidesManager::GuidesState::NetworkError:
       return MWMMapOverlayGuidesStateNetworkError;
     case GuidesManager::GuidesState::FatalNetworkError:
-      return MWMMapOverlayGuidesStateNetworkError;
+      return MWMMapOverlayGuidesStateFatalNetworkError;
   }
 }
 

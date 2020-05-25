@@ -1,5 +1,7 @@
 #import <UIKit/UIKit.h>
 
+#import "MWMTypes.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 static inline BOOL firstVersionIsLessThanSecond(NSString * first, NSString * second)
@@ -52,6 +54,14 @@ static inline CGFloat statusBarHeight()
 {
   CGSize const statusBarSize = UIApplication.sharedApplication.statusBarFrame.size;
   return MIN(statusBarSize.height, statusBarSize.width);
+}
+
+static inline void performOnce(MWMVoidBlock block, NSString *key) {
+  BOOL performed = [[NSUserDefaults standardUserDefaults] boolForKey:key];
+  if (!performed) {
+    block();
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key];
+  }
 }
 
 NS_ASSUME_NONNULL_END

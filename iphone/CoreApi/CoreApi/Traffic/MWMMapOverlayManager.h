@@ -27,7 +27,9 @@ typedef NS_ENUM(NSUInteger, MWMMapOverlayIsolinesState) {
 typedef NS_ENUM(NSUInteger, MWMMapOverlayGuidesState) {
   MWMMapOverlayGuidesStateDisabled,
   MWMMapOverlayGuidesStateEnabled,
+  MWMMapOverlayGuidesStateHasData,
   MWMMapOverlayGuidesStateNetworkError,
+  MWMMapOverlayGuidesStateFatalNetworkError,
   MWMMapOverlayGuidesStateNoData,
 } NS_SWIFT_NAME(MapOverlayGuidesState);
 

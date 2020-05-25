@@ -120,7 +120,7 @@ fileprivate struct GalleryCityItemViewModel: IGuidesGalleryCityItemViewModel {
     subtitle = item.hasTrack ? L("routes_card_routes_tag") : L("routes_card_set_tag")
     imageUrl = URL(string: item.imageUrl)
     downloaded = item.downloaded
-    var infoString = String(coreFormat: "routes_card_number_of_points", arguments: [item.bookmarksCount])
+    var infoString = String(coreFormat: L("routes_card_number_of_points"), arguments: [item.bookmarksCount])
     if item.hasTrack {
       infoString.append(" \(L("routes_card_plus_track"))")
     }

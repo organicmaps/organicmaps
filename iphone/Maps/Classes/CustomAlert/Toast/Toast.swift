@@ -1,10 +1,14 @@
 @objc(MWMToast)
-@objcMembers
 final class Toast: NSObject {
+  @objc(MWMToastAlignment)
+  enum Alignment: Int {
+    case bottom
+    case top
+  }
 
   private var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 
-  static func toast(withText text: String) -> Toast {
+  @objc static func toast(withText text: String) -> Toast {
     return Toast(text)
   }
 
@@ -34,11 +38,15 @@ final class Toast: NSObject {
                                                                        views: views))
   }
 
-  func show() {
-    show(in: UIApplication.shared.keyWindow)
+  @objc func show() {
+    show(in: UIApplication.shared.keyWindow, alignment: .bottom)
   }
 
-  func show(in view: UIView?) {
+  @objc func show(withAlignment alignment: Alignment) {
+    show(in: UIApplication.shared.keyWindow, alignment: alignment)
+  }
+
+  @objc func show(in view: UIView?, alignment: Alignment) {
     guard let v = view else { return }
     blurView.translatesAutoresizingMaskIntoConstraints = false
     v.addSubview(blurView)
@@ -47,7 +55,8 @@ final class Toast: NSObject {
                                                     options: [],
                                                     metrics: [:],
                                                     views: views))
-    v.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[bv]-50-|",
+    let formatString = alignment == .bottom ? "V:[bv]-50-|" : "V:|-50-[bv]"
+    v.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: formatString,
                                                     options: [],
                                                     metrics: [:],
                                                     views: views))

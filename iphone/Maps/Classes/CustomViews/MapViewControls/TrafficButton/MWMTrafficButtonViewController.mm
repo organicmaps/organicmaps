@@ -89,6 +89,66 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   });
 }
 
+- (void)handleTrafficState:(MWMMapOverlayTrafficState)state {
+  MWMButton *btn = (MWMButton *)self.view;
+  UIImageView *iv = btn.imageView;
+  switch (state) {
+    case MWMMapOverlayTrafficStateDisabled:
+      CHECK(false, ("Incorrect traffic manager state."));
+      break;
+    case MWMMapOverlayTrafficStateEnabled:
+      btn.imageName = @"btn_traffic_on";
+      break;
+    case MWMMapOverlayTrafficStateWaitingData:
+      iv.animationImages = imagesWithName(@"btn_traffic_update");
+      iv.animationDuration = 0.8;
+      [iv startAnimating];
+      break;
+    case MWMMapOverlayTrafficStateOutdated:
+      btn.imageName = @"btn_traffic_outdated";
+      break;
+    case MWMMapOverlayTrafficStateNoData:
+      btn.imageName = @"btn_traffic_on";
+      [[MWMToast toastWithText:L(@"traffic_data_unavailable")] show];
+      break;
+    case MWMMapOverlayTrafficStateNetworkError:
+      [MWMMapOverlayManager setTrafficEnabled:NO];
+      [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
+      break;
+    case MWMMapOverlayTrafficStateExpiredData:
+      btn.imageName = @"btn_traffic_outdated";
+      [[MWMToast toastWithText:L(@"traffic_update_maps_text")] show];
+      break;
+    case MWMMapOverlayTrafficStateExpiredApp:
+      btn.imageName = @"btn_traffic_outdated";
+      [[MWMToast toastWithText:L(@"traffic_update_app_message")] show];
+      break;
+  }
+}
+
+- (void)handleGuidesState:(MWMMapOverlayGuidesState)state {
+  switch (state) {
+    case MWMMapOverlayGuidesStateDisabled:
+    case MWMMapOverlayGuidesStateEnabled:
+      break;
+    case MWMMapOverlayGuidesStateHasData:
+      performOnce(^{
+        [[MWMToast toastWithText:L(@"routes_layer_is_on_toast")] showWithAlignment:MWMToastAlignmentTop];
+      }, @"routes_layer_is_on_toast");
+      break;
+    case MWMMapOverlayGuidesStateNetworkError:
+      [[MWMToast toastWithText:L(@"connection_error_toast_guides")] show];
+      break;
+    case MWMMapOverlayGuidesStateFatalNetworkError:
+      [MWMMapOverlayManager setGuidesEnabled:NO];
+      [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
+      break;
+    case MWMMapOverlayGuidesStateNoData:
+      [[MWMToast toastWithText:L(@"no_routes_in_the_area_toast")] show];
+      break;
+  }
+}
+
 - (void)applyTheme {
   MWMButton *btn = static_cast<MWMButton *>(self.view);
   UIImageView *iv = btn.imageView;
@@ -96,38 +156,7 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   // Traffic state machine: https://confluence.mail.ru/pages/viewpage.action?pageId=103680959
   [iv stopAnimating];
   if ([MWMMapOverlayManager trafficEnabled]) {
-    switch ([MWMMapOverlayManager trafficState]) {
-      case MWMMapOverlayTrafficStateDisabled:
-        CHECK(false, ("Incorrect traffic manager state."));
-        break;
-      case MWMMapOverlayTrafficStateEnabled:
-        btn.imageName = @"btn_traffic_on";
-        break;
-      case MWMMapOverlayTrafficStateWaitingData:
-        iv.animationImages = imagesWithName(@"btn_traffic_update");
-        iv.animationDuration = 0.8;
-        [iv startAnimating];
-        break;
-      case MWMMapOverlayTrafficStateOutdated:
-        btn.imageName = @"btn_traffic_outdated";
-        break;
-      case MWMMapOverlayTrafficStateNoData:
-        btn.imageName = @"btn_traffic_on";
-        [[MWMToast toastWithText:L(@"traffic_data_unavailable")] show];
-        break;
-      case MWMMapOverlayTrafficStateNetworkError:
-        [MWMMapOverlayManager setTrafficEnabled:NO];
-        [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
-        break;
-      case MWMMapOverlayTrafficStateExpiredData:
-        btn.imageName = @"btn_traffic_outdated";
-        [[MWMToast toastWithText:L(@"traffic_update_maps_text")] show];
-        break;
-      case MWMMapOverlayTrafficStateExpiredApp:
-        btn.imageName = @"btn_traffic_outdated";
-        [[MWMToast toastWithText:L(@"traffic_update_app_message")] show];
-        break;
-    }
+    [self handleTrafficState:[MWMMapOverlayManager trafficState]];
   } else if ([MWMMapOverlayManager transitEnabled]) {
     btn.imageName = @"btn_subway_on";
     if ([MWMMapOverlayManager transitState] == MWMMapOverlayTransitStateNoData)
@@ -145,12 +174,7 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
       [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_activation_error_dialog") text:@""];
   } else if ([MWMMapOverlayManager guidesEnabled]) {
     btn.imageName = @"btn_layers_off";
-    if ([MWMMapOverlayManager guidesState] == MWMMapOverlayGuidesStateNoData)
-      [[MWMToast toastWithText:L(@"no_routes_in_the_area_toast")] show];
-    else if ([MWMMapOverlayManager guidesState] == MWMMapOverlayGuidesStateNetworkError) {
-      [MWMMapOverlayManager setGuidesEnabled:NO];
-      [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
-    }
+    [self handleGuidesState:[MWMMapOverlayManager guidesState]];
   } else {
     btn.imageName = @"btn_layers";
   }
