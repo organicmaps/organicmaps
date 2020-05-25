@@ -8,7 +8,8 @@ class BottomMenuViewController: MWMViewController {
   
   @IBOutlet var tableView: UITableView!
   @IBOutlet var heightConstraint: NSLayoutConstraint!
-  
+  @IBOutlet var bottomConstraint: NSLayoutConstraint!
+
   lazy var chromeView: UIView = {
     let view = UIView()
     view.styleName = "BlackStatusBarBackground"
@@ -47,7 +48,32 @@ class BottomMenuViewController: MWMViewController {
   @IBAction func onClosePressed(_ sender: Any) {
     presenter?.onClosePressed()
   }
-  
+
+  @IBAction func onPan(_ sender: UIPanGestureRecognizer) {
+    let yOffset = sender.translation(in: view.superview).y
+    let yVelocity = sender.velocity(in: view.superview).y
+    sender.setTranslation(CGPoint.zero, in: view.superview)
+    bottomConstraint.constant = min(bottomConstraint.constant - yOffset, 0);
+
+    let alpha = 1.0 - abs(bottomConstraint.constant / tableView.height)
+    self.chromeView.alpha = alpha
+
+    let state = sender.state
+    if state == .ended || state == .cancelled {
+      if yVelocity > 0 || (yVelocity == 0 && alpha < 0.8) {
+        presenter?.onClosePressed()
+      } else {
+        let duration = min(kDefaultAnimationDuration, TimeInterval(self.bottomConstraint.constant / yVelocity))
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: duration) {
+          self.chromeView.alpha = 1
+          self.bottomConstraint.constant = 0
+          self.view.layoutIfNeeded()
+        }
+      }
+    }
+  }
+
   override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
     get { return transitioningManager }
     set { }

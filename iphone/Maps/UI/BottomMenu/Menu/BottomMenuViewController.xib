@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BottomMenuViewController" customModule="maps_me" customModuleProvider="target">
             <connections>
+                <outlet property="bottomConstraint" destination="Crm-Ym-Ikk" id="K0d-Ad-Q13"/>
                 <outlet property="heightConstraint" destination="dYV-fi-iGj" id="chn-o3-rhF"/>
                 <outlet property="tableView" destination="L4F-0e-1B7" id="dHQ-DU-QPO"/>
                 <outlet property="view" destination="iN0-l3-epB" id="nOL-DH-swt"/>
@@ -45,7 +46,7 @@
                         </mask>
                     </variation>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M4g-vy-YtE">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M4g-vy-YtE" userLabel="Bottom View">
                     <rect key="frame" x="0.0" y="862" width="414" height="34"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <userDefinedRuntimeAttributes>
@@ -56,7 +57,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="DD7-rW-ckP" secondAttribute="bottom" id="64W-bA-Xn4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="L4F-0e-1B7" secondAttribute="bottom" id="Crm-Ym-Ikk"/>
+                <constraint firstItem="M4g-vy-YtE" firstAttribute="top" secondItem="L4F-0e-1B7" secondAttribute="bottom" id="E7M-j3-lrN"/>
+                <constraint firstItem="DD7-rW-ckP" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="LOj-yu-5nE"/>
                 <constraint firstItem="M4g-vy-YtE" firstAttribute="trailing" secondItem="L4F-0e-1B7" secondAttribute="trailing" id="PdB-CC-VOI"/>
                 <constraint firstItem="DD7-rW-ckP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Vxc-mf-jVJ"/>
                 <constraint firstAttribute="trailing" secondItem="DD7-rW-ckP" secondAttribute="trailing" id="WAo-c4-geW"/>
@@ -64,10 +67,8 @@
                 <constraint firstItem="DD7-rW-ckP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="deF-nX-Ae5"/>
                 <constraint firstItem="L4F-0e-1B7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" id="fDu-HA-dhq"/>
                 <constraint firstItem="L4F-0e-1B7" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="g7h-Yh-azG"/>
-                <constraint firstAttribute="bottom" secondItem="M4g-vy-YtE" secondAttribute="bottom" id="hFA-7p-XKe"/>
-                <constraint firstItem="M4g-vy-YtE" firstAttribute="top" secondItem="L4F-0e-1B7" secondAttribute="bottom" id="sZu-vX-nlD"/>
+                <constraint firstAttribute="bottom" secondItem="M4g-vy-YtE" secondAttribute="bottom" priority="750" id="hFA-7p-XKe"/>
                 <constraint firstItem="L4F-0e-1B7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="t8e-ZM-EdJ"/>
-                <constraint firstItem="M4g-vy-YtE" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="xXw-k5-LPD"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <variation key="heightClass=compact">
@@ -75,12 +76,20 @@
                     <exclude reference="g7h-Yh-azG"/>
                 </mask>
             </variation>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="Rdk-jI-mZR" appends="YES" id="bbV-GO-4iF"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
         </view>
-        <tapGestureRecognizer id="sXH-Kv-ZnQ">
+        <tapGestureRecognizer cancelsTouchesInView="NO" id="sXH-Kv-ZnQ">
             <connections>
                 <action selector="onClosePressed:" destination="-1" id="nMr-L4-IGY"/>
             </connections>
         </tapGestureRecognizer>
+        <panGestureRecognizer delaysTouchesBegan="YES" delaysTouchesEnded="NO" minimumNumberOfTouches="1" id="Rdk-jI-mZR">
+            <connections>
+                <action selector="onPan:" destination="-1" id="yGW-xa-dnH"/>
+            </connections>
+        </panGestureRecognizer>
     </objects>
 </document>
