@@ -692,6 +692,12 @@ IsCuisineChecker::IsCuisineChecker() : BaseChecker(1 /* level */)
   m_types.push_back(c.GetTypeByPath({"cuisine"}));
 }
 
+IsRecyclingTypeChecker::IsRecyclingTypeChecker() : BaseChecker(1 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"recycling"}));
+}
+
 IsCityChecker::IsCityChecker()
 {
   m_types.push_back(classif().GetTypeByPath({"place", "city"}));

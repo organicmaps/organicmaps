@@ -386,6 +386,14 @@ public:
   DECLARE_CHECKER_INSTANCE(IsCuisineChecker);
 };
 
+class IsRecyclingTypeChecker : public BaseChecker
+{
+  IsRecyclingTypeChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsRecyclingTypeChecker);
+};
+
 class IsCityChecker : public BaseChecker
 {
   IsCityChecker();

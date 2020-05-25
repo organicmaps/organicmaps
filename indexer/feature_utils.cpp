@@ -19,6 +19,7 @@
 #include <unordered_map>
 #include <utility>
 
+using namespace feature;
 using namespace std;
 
 namespace
@@ -152,6 +153,35 @@ void GetReadableNameImpl(feature::RegionData const & regionData, StringUtf8Multi
   }
 
   GetMwmLangName(regionData, src, out);
+}
+
+// Filters types with |checker|, returns vector of raw type second components.
+// For example for types {"cuisine-sushi", "cuisine-pizza", "cuisine-seafood"} vector
+// of second components is {"sushi", "pizza", "seafood"}.
+vector<string> GetRawTypeSecond(ftypes::BaseChecker const & checker, TypesHolder const & types)
+{
+  vector<string> res;
+  for (auto const t : types)
+  {
+    if (!checker(t))
+      continue;
+    auto const path = classif().GetFullObjectNamePath(t);
+    CHECK_EQUAL(path.size(), 2, (path));
+    res.push_back(path[1]);
+  }
+  return res;
+}
+
+vector<string> GetLocalizedTypes(ftypes::BaseChecker const & checker, TypesHolder const & types)
+{
+  vector<string> localized;
+  for (auto const t : types)
+  {
+    if (!checker(t))
+      continue;
+    localized.push_back(platform::GetLocalizedTypeName(classif().GetReadableObjectName(t)));
+  }
+  return localized;
 }
 }  // namespace
 
@@ -378,30 +408,26 @@ vector<int8_t> GetDescriptionLangPriority(RegionData const & regionData, int8_t 
 
 vector<string> GetCuisines(TypesHolder const & types)
 {
-  vector<string> cuisines;
   auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
-  for (auto const t : types)
-  {
-    if (!isCuisine(t))
-      continue;
-    auto const cuisine = classif().GetFullObjectNamePath(t);
-    CHECK_EQUAL(cuisine.size(), 2, (cuisine));
-    cuisines.push_back(cuisine[1]);
-  }
-  return cuisines;
+  return GetRawTypeSecond(isCuisine, types);
 }
 
 vector<string> GetLocalizedCuisines(TypesHolder const & types)
 {
-  vector<string> localized;
   auto const & isCuisine = ftypes::IsCuisineChecker::Instance();
-  for (auto const t : types)
-  {
-    if (!isCuisine(t))
-      continue;
-    localized.push_back(platform::GetLocalizedTypeName(classif().GetReadableObjectName(t)));
-  }
-  return localized;
+  return GetLocalizedTypes(isCuisine, types);
+}
+
+vector<string> GetRecyclingTypes(TypesHolder const & types)
+{
+  auto const & isRecyclingType = ftypes::IsRecyclingTypeChecker::Instance();
+  return GetRawTypeSecond(isRecyclingType, types);
+}
+
+vector<string> GetLocalizedRecyclingTypes(TypesHolder const & types)
+{
+  auto const & isRecyclingType = ftypes::IsRecyclingTypeChecker::Instance();
+  return GetLocalizedTypes(isRecyclingType, types);
 }
 
 vector<string> GetRoadShieldsNames(string const & rawRoadNumber)
