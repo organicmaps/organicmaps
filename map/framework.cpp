@@ -2430,6 +2430,9 @@ void Framework::ActivateMapSelection(std::optional<place_page::Info> const & inf
   if (!info)
     return;
 
+  if (info->GetSelectedObject() == df::SelectionShape::OBJECT_GUIDE)
+    StopLocationFollow();
+
   if (info->GetSelectedObject() == df::SelectionShape::OBJECT_TRACK)
     GetBookmarkManager().OnTrackSelected(info->GetTrackId());
   else
