@@ -55,10 +55,12 @@ class Check(ABC):
     def get_result(self) -> Any:
         pass
 
-    def print(self, _print=print):
-        _print(self.formatted_string())
+    def print(self, _print=print, silent_if_no_results=False):
+        s = self.formatted_string(silent_if_no_results)
+        if s:
+            _print(s)
 
-    def formatted_string(self) -> str:
+    def formatted_string(self, silent_if_no_results=False) -> str:
         pass
 
 
@@ -108,8 +110,12 @@ class CompareCheck(Check):
         )
         return True
 
-    def formatted_string(self) -> str:
+    def formatted_string(self, silent_if_no_results=False) -> str:
         assert self.result
+
+        if silent_if_no_results and self.result.arrow == Arrow.zero:
+            return ""
+
         return (
             f"{self.name}: {ROW_TO_STR[self.result.arrow]} "
             f"{self.diff_format(self.result.diff)} "
@@ -154,29 +160,41 @@ class CompareCheckSet(Check):
     def get_result(self,) -> List[ResLine]:
         return [c.get_result() for c in self._with_result()]
 
-    def formatted_string(self, offset=0) -> str:
+    def formatted_string(self, silent_if_no_results=False, offset=0) -> str:
         sets = filter(lambda c: isinstance(c, CompareCheckSet), self._with_result())
         checks = filter(lambda c: isinstance(c, CompareCheck), self._with_result())
         checks = sorted(checks, key=lambda c: c.get_result().diff, reverse=True,)
 
-        lines = [
+        sets = list(sets)
+        checks = list(checks)
+
+        no_results = not checks and not sets
+        if silent_if_no_results and no_results:
+            return ""
+
+        head = [
             f"{' ' * offset}Check set[{self.name}]:",
         ]
 
-        sets = list(sets)
-        checks = list(checks)
-        if not checks and not sets:
+        lines = []
+        if no_results:
             lines.append(f"{' ' * offset}No results.")
 
         for c in checks:
-            lines.append(f"{' ' * offset + '  '}{c.formatted_string()}")
+            s = c.formatted_string(silent_if_no_results)
+            if s:
+                lines.append(f"{' ' * offset + '  '}{s}")
 
         for s in sets:
-            lines += [
-                s.formatted_string(offset + 1),
-            ]
+            s = s.formatted_string(silent_if_no_results, offset + 1)
+            if s:
+                lines.append(s)
 
-        return "\n".join(lines)
+        if not lines:
+            return ""
+
+        head += lines
+        return "\n".join(head)
 
     def _with_result(self):
         return (c for c in self.checks if c.get_result() is not None)
