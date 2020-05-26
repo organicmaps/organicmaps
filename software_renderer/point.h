@@ -1,9 +1,11 @@
 #ifndef __IA__POINT__
 #define __IA__POINT__
 
+#include <algorithm>
 #include <cmath>
-#include <iomanip>
 #include <limits>
+#include <ostream>
+#include <vector>
 
 namespace ml
 {
@@ -34,13 +36,13 @@ struct point_base
   T x;
   T y;
 
-  inline point_base()
+  point_base()
       : x(std::numeric_limits<T>::quiet_NaN()), y(std::numeric_limits<T>::quiet_NaN())
   {
   }
-  inline point_base(T ix, T iy) : x(ix), y(iy) {}
+  point_base(T ix, T iy) : x(ix), y(iy) {}
 
-  inline operator bool() const { return (!std::isnan(x) && !std::isnan(y)); }
+  operator bool() const { return (!std::isnan(x) && !std::isnan(y)); }
 
   T lon() const { return x; }
   T lon(T l) { return (x = l); }
@@ -51,7 +53,7 @@ struct point_base
   bool operator==(point_base const & p) const { return (x == p.x) && (y == p.y); }
   bool operator!=(point_base const & p) const { return (x != p.x) || (y != p.y); }
 
-  inline bool in_range(point_base const & a, point_base const & b) const
+  bool in_range(point_base const & a, point_base const & b) const
   {
     return (std::min(a.x, b.x) <= x && x <= std::max(a.x, b.x)) &&
            (std::min(a.y, b.y) <= y && y <= std::max(a.y, b.y));
@@ -59,7 +61,7 @@ struct point_base
 
   bool operator<(point_base const & p) const { return (y == p.y) ? (x < p.x) : (y < p.y); }
 
-  double length() const { return sqrt(x * x + y * y); }
+  double length() const { return std::sqrt(x * x + y * y); }
 
   double length2() const { return x * x + y * y; }
 
@@ -67,19 +69,19 @@ struct point_base
   {
     double dx = pt.x - x;
     double dy = pt.y - y;
-    return ((dx == 0) ? (3.1415 / 2 * (dy > 0 ? 1 : -1)) : atan(dy / dx)) - (dx < 0 ? 3.1415 : 0);
+    return ((dx == 0) ? (3.1415 / 2 * (dy > 0 ? 1 : -1)) : std::atan(dy / dx)) - (dx < 0 ? 3.1415 : 0);
   }
 
   double norm_angle(point_base const & pt) const  // return angle in radians
   {
     double dx = pt.x - x;
     double dy = pt.y - y;
-    return atan(-dy / dx) + ((dx < 0) ? 3.1415926536 : (dy < 0 ? 0 : 3.1415926536 * 2));
+    return std::atan(-dy / dx) + ((dx < 0) ? 3.1415926536 : (dy < 0 ? 0 : 3.1415926536 * 2));
   }
 
   point_base<T> vector(double length, double angle) const
   {
-    return point_base<T>(x + length * cos(angle), y + length * sin(angle));
+    return point_base<T>(x + length * std::cos(angle), y + length * std::sin(angle));
   }
 
   int classify(point_base const & p0, point_base const & p1) const
@@ -134,7 +136,7 @@ inline double distance(point_base<T> const & p1, point_base<T> const & p2)
 {
   double dx = (p1.x - p2.x);
   double dy = (p1.y - p2.y);
-  return sqrt(dx * dx + dy * dy);
+  return std::sqrt(dx * dx + dy * dy);
 }
 
 template <typename T>

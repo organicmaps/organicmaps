@@ -3,8 +3,11 @@
 
 #include "software_renderer/point.h"
 
+#include <algorithm>
+#include <cmath>
 #include <iostream>
-#include <climits>
+#include <limits>
+#include <vector>
 
 namespace ml
 {
@@ -134,9 +137,9 @@ public:
     return *this;
   }
 
-  inline double height() const { return fabs(max.y - min.y); }
+  inline double height() const { return std::fabs(max.y - min.y); }
 
-  inline double width() const { return fabs(max.x - min.x); }
+  inline double width() const { return std::fabs(max.x - min.x); }
 
   inline point center() const { return point((max.x + min.x) / 2, (max.y + min.y) / 2); }
 
