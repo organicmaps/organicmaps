@@ -3,6 +3,7 @@ from abc import ABC
 from abc import abstractmethod
 from collections import namedtuple
 from enum import Enum
+from functools import lru_cache
 from typing import Any
 from typing import Callable
 from typing import List
@@ -208,6 +209,14 @@ class CompareCheckSet(Check):
         return (c for c in self.checks if c.get_result() is not None)
 
 
+@lru_cache(maxsize=None)
+def _get_and_check_files(old_path, new_path, ext):
+    files = list(filter(lambda f: f.endswith(ext), os.listdir(old_path)))
+    s = set(files) ^ set(filter(lambda f: f.endswith(ext), os.listdir(new_path)))
+    assert len(s) == 0, s
+    return files
+
+
 def build_check_set_for_files(
     name: str,
     old_path: str,
@@ -226,12 +235,8 @@ def build_check_set_for_files(
             f"CheckSetBuilderForFiles is not implemented for recursive."
         )
 
-    files = list(filter(lambda f: f.endswith(ext), os.listdir(old_path)))
-    s = set(files) ^ set(filter(lambda f: f.endswith(ext), os.listdir(new_path)))
-    assert len(s) == 0, s
-
     cs = CompareCheckSet(name)
-    for file in files:
+    for file in _get_and_check_files(old_path, new_path, ext):
         cs.add_check(
             CompareCheck(
                 file, os.path.join(old_path, file), os.path.join(new_path, file)
