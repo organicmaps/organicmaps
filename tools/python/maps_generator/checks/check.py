@@ -1,5 +1,6 @@
 import os
 from abc import ABC
+from abc import abstractmethod
 from collections import namedtuple
 from enum import Enum
 from typing import Any
@@ -49,17 +50,20 @@ class Check(ABC):
     def set_format(self, format: Callable[[Any], str]):
         self.format = format
 
-    def check(self):
-        pass
-
-    def get_result(self) -> Any:
-        pass
-
-    def print(self, silent_if_no_results=False, filt=lambda x: Екгу, print_=print):
+    def print(self, silent_if_no_results=False, filt=lambda x: x, print_=print):
         s = self.formatted_string(silent_if_no_results, filt=filt)
         if s:
             print_(s)
 
+    @abstractmethod
+    def check(self):
+        pass
+
+    @abstractmethod
+    def get_result(self) -> Any:
+        pass
+
+    @abstractmethod
     def formatted_string(self, silent_if_no_results=False, **kwargs) -> str:
         pass
 
