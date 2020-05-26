@@ -17,4 +17,7 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 omim_add_test_subdirectory(transit_tests)
-add_subdirectory(world_feed)
+
+if (PLATFORM_DESKTOP)
+    add_subdirectory(world_feed)
+endif()

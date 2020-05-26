@@ -53,21 +53,27 @@ omim_link_libraries(
     stb_image
     sdf_image
     vulkan_wrapper
-    ${Qt5Widgets_LIBRARIES}
-    ${Qt5Network_LIBRARIES}
     ${LIBZ}
 )
 
-if (PLATFORM_LINUX)
+if (PLATFORM_MAC)
     omim_link_libraries(
-            ${PROJECT_NAME}
-            dl
+       ${PROJECT_NAME}
+       ${Qt5Widgets_LIBRARIES}
     )
 endif()
 
+if (PLATFORM_LINUX)
+    omim_link_libraries(
+       ${PROJECT_NAME}
+       dl
+    )
+endif()
+
+
 link_opengl(${PROJECT_NAME})
 link_qt5_core(${PROJECT_NAME})
-link_qt5_network(${PROJECT_NAME})
 
 omim_add_test_subdirectory(world_feed_tests)
+
 add_subdirectory(gtfs_converter)
