@@ -58,6 +58,7 @@ NS_SWIFT_NAME(MapOverlayManager)
 + (BOOL)isoLinesEnabled;
 + (BOOL)guidesEnabled;
 + (BOOL)guidesFirstLaunch;
++ (BOOL)isolinesVisible;
 
 + (void)setTrafficEnabled:(BOOL)enable;
 + (void)setTransitEnabled:(BOOL)enable;

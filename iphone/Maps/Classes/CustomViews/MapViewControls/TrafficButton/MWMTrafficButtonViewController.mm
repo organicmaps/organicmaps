@@ -134,8 +134,13 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
       [[MWMToast toastWithText:L(@"subway_data_unavailable")] show];
   } else if ([MWMMapOverlayManager isoLinesEnabled]) {
     btn.imageName = @"btn_isoMap_on";
-    if ([MWMMapOverlayManager isolinesState] == MWMMapOverlayIsolinesStateNoData)
+    if ([MWMMapOverlayManager isolinesState] == MWMMapOverlayIsolinesStateEnabled &&
+        ![MWMMapOverlayManager isolinesVisible]) {
+      [[MWMToast toastWithText:L(@"isolines_toast_zooms_1_10")] show];
+      [Statistics logEvent:kStatMapToastShow withParameters:@{kStatType : kStatIsolines}];
+    } else if ([MWMMapOverlayManager isolinesState] == MWMMapOverlayIsolinesStateNoData) {
       [[MWMToast toastWithText:L(@"isolines_location_error_dialog")] show];
+    }
     else if ([MWMMapOverlayManager isolinesState] == MWMMapOverlayIsolinesStateExpiredData)
       [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_activation_error_dialog") text:@""];
   } else if ([MWMMapOverlayManager guidesEnabled]) {

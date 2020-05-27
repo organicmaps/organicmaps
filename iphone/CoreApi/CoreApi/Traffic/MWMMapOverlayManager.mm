@@ -154,6 +154,10 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
   return ![ud boolForKey:kGuidesWasShown];
 }
 
++ (BOOL)isolinesVisible {
+  return GetFramework().GetIsolinesManager().IsVisible();
+}
+
 + (void)setTrafficEnabled:(BOOL)enable {
   if (enable) {
     [self setGuidesEnabled:false];

@@ -273,6 +273,7 @@ static NSString * const kStatMapSponsoredButtonShow = @"Map_SponsoredButton_show
 static NSString * const kStatMapSponsoredButtonClick = @"Map_SponsoredButton_click";
 static NSString * const kStatMapDataSize = @"map_data_size";
 static NSString * const kStatMapSearch = @"Map search";
+static NSString * const kStatMapToastShow = @"Map_Toast_show";
 static NSString * const kStatMapViewStyle = @"Map view style";
 static NSString * const kStatMapViewStyleSettings = @"Map view style settings";
 static NSString * const kStatMapsme = @"maps.me";
