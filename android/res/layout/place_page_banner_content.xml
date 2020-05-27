@@ -120,7 +120,6 @@
       android:singleLine="true"
       tools:visibility="visible"
       android:fontFamily="@string/robotoMedium"
-      tools:targetApi="jelly_bean"
       tools:ignore="SpUsage"/>
     <TextView
       android:id="@+id/tv__action_large"
@@ -144,7 +143,6 @@
       tools:text="Заказать"
       tools:visibility="visible"
       android:fontFamily="@string/robotoMedium"
-      tools:targetApi="jelly_bean"
       tools:ignore="SpUsage"/>
   </LinearLayout>
   <ImageButton

@@ -392,10 +392,10 @@ final class BannerController implements PlacePageStateObserver
     {
       Context context = mBannerView.getContext();
       Resources res = context.getResources();
-      int colorFrom = ThemeUtils.isNightTheme() ? res.getColor(R.color.white_12)
-                                                : res.getColor(R.color.black_12);
-      int colorTo = ThemeUtils.isNightTheme() ? res.getColor(R.color.white_24)
-                                              : res.getColor(R.color.black_24);
+      int colorFrom = ThemeUtils.isNightTheme() ? res.getColor(R.color.bg_banner_action_button_night)
+                                                : res.getColor(R.color.bg_banner_action_button);
+      int colorTo = ThemeUtils.isNightTheme() ? res.getColor(R.color.bg_banner_action_button_pressed_night)
+                                              : res.getColor(R.color.bg_banner_action_button_pressed);
       animator = ObjectAnimator.ofObject(mActionLarge, "backgroundColor", new ArgbEvaluator(),
                                          colorFrom, colorTo, colorFrom);
     }
