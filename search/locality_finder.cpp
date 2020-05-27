@@ -167,8 +167,9 @@ void LocalitySelector::operator()(LocalityItem const & item)
   // multivariate Gaussian.
   double const distance = mercator::DistanceOnEarth(item.m_center, m_p);
 
+  // GetPopulationByRadius may return 0.
   double const score =
-      ftypes::GetPopulationByRadius(distance) / static_cast<double>(item.m_population);
+      (ftypes::GetPopulationByRadius(distance) + 1) / static_cast<double>(item.m_population);
 
   if (!inside && m_inside)
     return;
