@@ -179,31 +179,38 @@ class DownloadMapsViewController: MWMViewController {
     downloadAllView.state = .none
     downloadAllView.isSizeHidden = false
     let parentAttributes = dataSource.parentAttributes()
+    let error = parentAttributes.nodeStatus == .error || parentAttributes.nodeStatus == .undefined
+    let downloading = parentAttributes.nodeStatus == .downloading || parentAttributes.nodeStatus == .inQueue || parentAttributes.nodeStatus == .applying
     switch mode {
     case .available:
       if dataSource.isRoot {
         break
       }
-      if parentAttributes.downloadingMwmCount > 0 {
+      if error {
+        downloadAllView.state = .error
+      } else if downloading {
         downloadAllView.state = .dowloading
-        downloadAllView.downloadSize = parentAttributes.downloadingSize
       } else if parentAttributes.downloadedMwmCount < parentAttributes.totalMwmCount {
         downloadAllView.state = .ready
         downloadAllView.style = .download
         downloadAllView.downloadSize = parentAttributes.totalSize - parentAttributes.downloadedSize
       }
     case .downloaded:
-      if parentAttributes.downloadingMwmCount > 0 && dataSource is DownloadedMapsDataSource {
+      let isUpdate = parentAttributes.totalUpdateSizeBytes > 0
+      let size = isUpdate ? parentAttributes.totalUpdateSizeBytes : parentAttributes.downloadingSize
+      if error {
+        downloadAllView.state = dataSource.isRoot ? .none : .error
+        downloadAllView.downloadSize = parentAttributes.downloadingSize
+      } else if downloading && dataSource is DownloadedMapsDataSource {
         downloadAllView.state = .dowloading
         if dataSource.isRoot {
-          downloadAllView.style = parentAttributes.totalUpdateSizeBytes > 0 ? .update : .download
+          downloadAllView.style = .download
           downloadAllView.isSizeHidden = true
         }
-        downloadAllView.downloadSize = parentAttributes.downloadingSize
-      } else if parentAttributes.totalUpdateSizeBytes > 0 {
+      } else if isUpdate {
         downloadAllView.state = .ready
         downloadAllView.style = .update
-        downloadAllView.downloadSize = parentAttributes.totalUpdateSizeBytes
+        downloadAllView.downloadSize = size
       }
     @unknown default:
       fatalError()
@@ -485,6 +492,13 @@ extension DownloadMapsViewController: DownloadAllViewDelegate {
     } else {
       Storage.shared().downloadNode(dataSource.parentAttributes().countryId)
     }
+    skipCountryEvent = false
+    self.processCountryEvent(dataSource.parentAttributes().countryId)
+  }
+
+  func onRetryButtonPressed() {
+    skipCountryEvent = true
+    Storage.shared().retryDownloadNode(dataSource.parentAttributes().countryId)
     skipCountryEvent = false
     self.processCountryEvent(dataSource.parentAttributes().countryId)
   }
