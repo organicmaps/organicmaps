@@ -1,4 +1,5 @@
 import os
+import sys
 from abc import ABC
 from abc import abstractmethod
 from collections import namedtuple
@@ -7,7 +8,6 @@ from functools import lru_cache
 from typing import Any
 from typing import Callable
 from typing import List
-
 
 ResLine = namedtuple("ResLine", ["previous", "current", "diff", "arrow"])
 
@@ -35,6 +35,7 @@ class Check(ABC):
         self.zero: Any = 0
         self.diff_format: Callable[[Any], str] = lambda x: str(x)
         self.format: Callable[[Any], str] = lambda x: str(x)
+        self.filt: Callable[[Any], bool] = lambda x: True
 
     def set_op(self, op: Callable[[Any, Any], Any]):
         self.op = op
@@ -51,10 +52,13 @@ class Check(ABC):
     def set_format(self, format: Callable[[Any], str]):
         self.format = format
 
-    def print(self, silent_if_no_results=False, filt=lambda x: x, print_=print):
-        s = self.formatted_string(silent_if_no_results, filt=filt)
+    def set_filt(self, filt: Callable[[Any], bool]):
+        self.filt = filt
+
+    def print(self, silent_if_no_results=False, filt=None, file=sys.stdout):
+        s = self.formatted_string(silent_if_no_results, filt)
         if s:
-            print_(s)
+            print(s, file=file)
 
     @abstractmethod
     def check(self):
@@ -65,7 +69,7 @@ class Check(ABC):
         pass
 
     @abstractmethod
-    def formatted_string(self, silent_if_no_results=False, **kwargs) -> str:
+    def formatted_string(self, silent_if_no_results=False, *args, **kwargs) -> str:
         pass
 
 
@@ -115,7 +119,7 @@ class CompareCheck(Check):
         )
         return True
 
-    def formatted_string(self, silent_if_no_results=False, **kwargs) -> str:
+    def formatted_string(self, silent_if_no_results=False, *args, **kwargs) -> str:
         assert self.result
 
         if silent_if_no_results and self.result.arrow == Arrow.zero:
@@ -165,12 +169,13 @@ class CompareCheckSet(Check):
     def get_result(self,) -> List[ResLine]:
         return [c.get_result() for c in self._with_result()]
 
-    def formatted_string(
-        self, silent_if_no_results=False, filt=lambda x: True, _offset=0
-    ) -> str:
+    def formatted_string(self, silent_if_no_results=False, filt=None, _offset=0) -> str:
         sets = filter(lambda c: isinstance(c, CompareCheckSet), self._with_result())
         checks = filter(lambda c: isinstance(c, CompareCheck), self._with_result())
-        checks = sorted(checks, key=lambda c: c.get_result().diff, reverse=True,)
+        checks = sorted(checks, key=lambda c: c.get_result().diff, reverse=True)
+
+        if filt is None:
+            filt = self.filt
 
         checks = filter(lambda c: filt(c.get_result()), checks)
 
@@ -190,7 +195,7 @@ class CompareCheckSet(Check):
             lines.append(f"{' ' * _offset}No results.")
 
         for c in checks:
-            s = c.formatted_string(silent_if_no_results)
+            s = c.formatted_string(silent_if_no_results, filt, _offset + 1)
             if s:
                 lines.append(f"{' ' * _offset + '  '}{s}")
 

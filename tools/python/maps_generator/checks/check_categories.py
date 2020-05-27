@@ -29,7 +29,7 @@ def parse_groups(path):
         return groups
 
 
-def get_mwm_categories_check_set(
+def get_categories_check_set(
     old_path: str, new_path: str, categories_path: str
 ) -> check.CompareCheckSet:
     cs = check.CompareCheckSet("Sections categories check")
