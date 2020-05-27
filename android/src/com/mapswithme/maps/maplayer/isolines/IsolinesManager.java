@@ -64,7 +64,7 @@ public class IsolinesManager implements Initializable<Void>, Detachable<Isolines
 
   private static native void nativeAddListener(@NonNull OnIsolinesChangedListener listener);
   private static native void nativeRemoveListener(@NonNull OnIsolinesChangedListener listener);
-  private static native boolean nativeIsVisible();
+  private static native boolean nativeShouldShowNotification();
 
   @Override
   public void attach(@NonNull IsolinesErrorDialogListener listener)
@@ -78,8 +78,8 @@ public class IsolinesManager implements Initializable<Void>, Detachable<Isolines
     mListener.detach();
   }
 
-  public boolean isVisible()
+  public boolean shouldShowNotification()
   {
-    return nativeIsVisible();
+    return nativeShouldShowNotification();
   }
 }
