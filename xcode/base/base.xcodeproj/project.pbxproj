@@ -73,6 +73,8 @@
 		39FD27381CC65AD000AFF551 /* timegm_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39FD26E21CC65A0E00AFF551 /* timegm_test.cpp */; };
 		39FD27391CC65AD000AFF551 /* timer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39FD26E31CC65A0E00AFF551 /* timer_test.cpp */; };
 		39FD273B1CC65B1000AFF551 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675341771A3F57BF00A0A8C3 /* libbase.a */; };
+		3D08987924810A0B00837783 /* linked_map.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D08987824810A0B00837783 /* linked_map.hpp */; };
+		3D08987B24810A1300837783 /* linked_map_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D08987A24810A1300837783 /* linked_map_tests.cpp */; };
 		3D1BE646212D775500ACD94A /* atomic_shared_ptr.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D1BE645212D775500ACD94A /* atomic_shared_ptr.hpp */; };
 		3D74EF111F8B902C0081202C /* suffix_array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF0B1F8B902B0081202C /* suffix_array.cpp */; };
 		3D74EF121F8B902C0081202C /* visitor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF0C1F8B902B0081202C /* visitor.hpp */; };
@@ -222,6 +224,8 @@
 		39FD273D1CC65B1000AFF551 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
 		39FD27401CC65B2800AFF551 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		39FD27421CC65B4800AFF551 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
+		3D08987824810A0B00837783 /* linked_map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = linked_map.hpp; sourceTree = "<group>"; };
+		3D08987A24810A1300837783 /* linked_map_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linked_map_tests.cpp; sourceTree = "<group>"; };
 		3D1BE645212D775500ACD94A /* atomic_shared_ptr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = atomic_shared_ptr.hpp; sourceTree = "<group>"; };
 		3D74EF0B1F8B902B0081202C /* suffix_array.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = suffix_array.cpp; sourceTree = "<group>"; };
 		3D74EF0C1F8B902B0081202C /* visitor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = visitor.hpp; sourceTree = "<group>"; };
@@ -332,6 +336,7 @@
 		39FD26C71CC659D200AFF551 /* base_tests */ = {
 			isa = PBXGroup;
 			children = (
+				3D08987A24810A1300837783 /* linked_map_tests.cpp */,
 				3DBD7B94240FB11200ED9FE8 /* checked_cast_tests.cpp */,
 				3975D20A235F2738004D84D3 /* cancellable_tests.cpp */,
 				395784CE2303034000F2CC07 /* thread_safe_queue_tests.cpp */,
@@ -407,6 +412,7 @@
 		675341791A3F57BF00A0A8C3 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				3D08987824810A0B00837783 /* linked_map.hpp */,
 				3901B744235F02B2006ABD43 /* cancellable.cpp */,
 				3989E363230302EA00D63F84 /* thread_safe_queue.hpp */,
 				397DC50B22BB8EBF007126DB /* bidirectional_map.hpp */,
@@ -568,6 +574,7 @@
 				390F1C0D2294298E00EA58E3 /* file_name_utils.hpp in Headers */,
 				E1B7FFC121FA19FE00F094DC /* thread_pool_computational.hpp in Headers */,
 				675342071A3F57E400A0A8C3 /* thread_pool.hpp in Headers */,
+				3D08987924810A0B00837783 /* linked_map.hpp in Headers */,
 				397DC50D22BB8EBF007126DB /* bidirectional_map.hpp in Headers */,
 				3446C6711DDCA96300146687 /* dfa_helpers.hpp in Headers */,
 				6753420C1A3F57E400A0A8C3 /* threaded_list.hpp in Headers */,
@@ -761,6 +768,7 @@
 				675341F61A3F57E400A0A8C3 /* shared_buffer_manager.cpp in Sources */,
 				56B1A0741E69DE4D00395022 /* random.cpp in Sources */,
 				675341DA1A3F57E400A0A8C3 /* exception.cpp in Sources */,
+				3D08987B24810A1300837783 /* linked_map_tests.cpp in Sources */,
 				3D74EF111F8B902C0081202C /* suffix_array.cpp in Sources */,
 				3917FA57211E009700937DF4 /* geo_object_id.cpp in Sources */,
 				3901B745235F02B3006ABD43 /* cancellable.cpp in Sources */,

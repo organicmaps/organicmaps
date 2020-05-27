@@ -38,6 +38,7 @@ set(
   levenshtein_dfa.cpp
   levenshtein_dfa.hpp
   limited_priority_queue.hpp
+  linked_map.hpp
   logging.cpp
   logging.hpp
   lower_case.cpp

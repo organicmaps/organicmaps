@@ -21,6 +21,7 @@ set(
   file_name_utils_tests.cpp
   geo_object_id_tests.cpp
   levenshtein_dfa_test.cpp
+  linked_map_tests.cpp
   logging_test.cpp
   math_test.cpp
   matrix_test.cpp
