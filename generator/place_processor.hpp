@@ -32,7 +32,6 @@ public:
   base::GeoObjectId GetMostGenericOsmId() const;
   uint8_t GetRank() const;
   std::string GetName() const;
-  m2::PointD GetKeyPoint() const;
   StringUtf8Multilang const & GetMultilangName() const;
   bool IsPoint() const;
 

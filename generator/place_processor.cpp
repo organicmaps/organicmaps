@@ -131,11 +131,6 @@ std::string FeaturePlace::GetName() const
   return GetFb().GetName();
 }
 
-m2::PointD FeaturePlace::GetKeyPoint() const
-{
-  return GetFb().GetKeyPoint();
-}
-
 StringUtf8Multilang const & FeaturePlace::GetMultilangName() const
 {
   return GetFb().GetMultilangName();
@@ -231,7 +226,7 @@ void PlaceProcessor::Add(FeatureBuilder const & fb)
     return;
   // Objects are grouped with the same name and type. This does not guarantee that all objects describe
   // the same place. The logic for the separation of different places of the same name is
-  // implemented in the function GetPlaces().
+  // implemented in the function ProcessPlaces().
   m_nameToPlaces[GetKey(fb)][fb.GetMostGenericOsmId()].Append(fb);
 }
 }  // namespace generator
