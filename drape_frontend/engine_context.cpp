@@ -15,6 +15,7 @@ EngineContext::EngineContext(TileKey tileKey,
                              bool is3dBuildingsEnabled,
                              bool isTrafficEnabled,
                              bool isolinesEnabled,
+                             bool guidesEnabled,
                              int displacementMode,
                              TIsUGCFn const & isUGCFn)
   : m_tileKey(tileKey)
@@ -25,6 +26,7 @@ EngineContext::EngineContext(TileKey tileKey,
   , m_3dBuildingsEnabled(is3dBuildingsEnabled)
   , m_trafficEnabled(isTrafficEnabled)
   , m_isolinesEnabled(isolinesEnabled)
+  , m_guidesEnabled(guidesEnabled)
   , m_displacementMode(displacementMode)
   , m_isUGCFn(isUGCFn)
 {}

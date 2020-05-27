@@ -33,6 +33,7 @@ public:
                 bool is3dBuildingsEnabled,
                 bool isTrafficEnabled,
                 bool isolinesEnabled,
+                bool guidesEnabled,
                 int displacementMode,
                 TIsUGCFn const & isUGCFn);
 
@@ -40,6 +41,7 @@ public:
   bool Is3dBuildingsEnabled() const { return m_3dBuildingsEnabled; }
   bool IsTrafficEnabled() const { return m_trafficEnabled; }
   bool IsolinesEnabled() const { return m_isolinesEnabled; }
+  bool GuidesEnabled() const { return m_guidesEnabled; }
   bool IsUGC(FeatureID const & fid) { return m_isUGCFn ? m_isUGCFn(fid) : false; }
   int GetDisplacementMode() const { return m_displacementMode; }
   CustomFeaturesContextWeakPtr GetCustomFeaturesContext() const { return m_customFeaturesContext; }
@@ -63,6 +65,7 @@ private:
   bool m_3dBuildingsEnabled;
   bool m_trafficEnabled;
   bool m_isolinesEnabled;
+  bool m_guidesEnabled;
   int m_displacementMode;
   TIsUGCFn m_isUGCFn;
 };

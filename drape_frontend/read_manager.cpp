@@ -45,13 +45,14 @@ bool ReadManager::LessByTileInfo::operator()(std::shared_ptr<TileInfo> const & l
 
 ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
                          bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled,
-                         EngineContext::TIsUGCFn && isUGCFn)
+                         bool guidesEnabled, EngineContext::TIsUGCFn && isUGCFn)
   : m_commutator(commutator)
   , m_model(model)
   , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
   , m_trafficEnabled(trafficEnabled)
   , m_isolinesEnabled(isolinesEnabled)
+  , m_guidesEnabled(guidesEnabled)
   , m_displacementMode(dp::displacement::kDefaultMode)
   , m_modeChanged(false)
   , m_ugcRenderingEnabled(false)
@@ -240,7 +241,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
                                                m_commutator, texMng, metalineMng,
                                                m_customFeaturesContext,
                                                m_have3dBuildings && m_allow3dBuildings,
-                                               m_trafficEnabled, m_isolinesEnabled,
+                                               m_trafficEnabled, m_isolinesEnabled, m_guidesEnabled,
                                                m_displacementMode,
                                                m_ugcRenderingEnabled ? m_isUGCFn : nullptr);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
@@ -341,6 +342,15 @@ void ReadManager::SetIsolinesEnabled(bool isolinesEnabled)
   {
     m_modeChanged = true;
     m_isolinesEnabled = isolinesEnabled;
+  }
+}
+
+void ReadManager::SetGuidesEnabled(bool guidesEnabled)
+{
+  if (m_guidesEnabled != guidesEnabled)
+  {
+    m_modeChanged = true;
+    m_guidesEnabled = guidesEnabled;
   }
 }
 

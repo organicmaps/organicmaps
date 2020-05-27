@@ -8,6 +8,10 @@
 
 #include "drape/drape_diagnostics.hpp"
 
+#include "indexer/categories_holder.hpp"
+#include "indexer/classificator.hpp"
+#include "search/utils.hpp"
+
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
@@ -39,6 +43,7 @@ using namespace std::placeholders;
 
 namespace
 {
+int constexpr kMinCountryZoom = 10;
 // The first zoom level in kAverageSegmentsCount.
 int constexpr kFirstZoomInAverageSegments = 10;
 std::vector<size_t> const kAverageSegmentsCount =
@@ -169,6 +174,23 @@ bool UsePreciseFeatureCenter(FeatureType & f)
   // Warning! Large amount of such objects can reduce performance.
   UNUSED_VALUE(f);
   return false;
+}
+
+bool IsGuidesLayerFeature(FeatureType & f)
+{
+  static auto const sightsTypes = search::GetCategoryTypes("Sights", "en", GetDefaultCategories());
+  auto const fTypes = feature::TypesHolder(f);
+  for (auto type : fTypes)
+  {
+    ftype::TruncValue(type, 2);
+    if (find(sightsTypes.begin(), sightsTypes.end(), type) != sightsTypes.end())
+      return true;
+  }
+
+  return ftypes::IsHotelChecker::Instance()(fTypes) ||
+      ftypes::IsTransportChecker::Instance()(fTypes) ||
+      ftypes::IsOutdoorChecker::Instance()(fTypes) ||
+      ftypes::IsParkingChecker::Instance()(fTypes);
 }
 }  // namespace
 
@@ -316,6 +338,12 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
     applyPointStyle = m_globalRect.IsPointInside(featureCenter);
   }
 
+  if (m_context->GuidesEnabled() && m_context->GetTileKey().m_zoomLevel >= kMinCountryZoom &&
+      !IsGuidesLayerFeature(f))
+  {
+    applyPointStyle = false;
+  }
+
   if (applyPointStyle || is3dBuilding)
     minVisibleScale = feature::GetMinDrawableScale(f);
 
@@ -326,6 +354,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
                          s.GetCaptionDescription(), hatchingArea);
   f.ForEachTriangle(apply, zoomLevel);
   apply.SetHotelData(ExtractHotelData(f));
+
   if (applyPointStyle)
   {
     if (UsePreciseFeatureCenter(f))
@@ -440,6 +469,12 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
 {
   if (m_customFeaturesContext && m_customFeaturesContext->NeedDiscardGeometry(f.GetID()))
     return;
+
+  if (m_context->GuidesEnabled() && m_context->GetTileKey().m_zoomLevel >= kMinCountryZoom &&
+      !IsGuidesLayerFeature(f))
+  {
+    return;
+  }
 
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
   bool const isSpeedCamera = ftypes::IsSpeedCamChecker::Instance()(f);

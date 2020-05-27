@@ -35,7 +35,7 @@ BackendRenderer::BackendRenderer(Params && params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model,
                                               params.m_allow3dBuildings, params.m_trafficEnabled,
-                                              params.m_isolinesEnabled,
+                                              params.m_isolinesEnabled, params.m_guidesEnabled,
                                               std::move(params.m_isUGCFn)))
   , m_transitBuilder(make_unique_dp<TransitSchemeBuilder>(
         std::bind(&BackendRenderer::FlushTransitRenderData, this, _1)))
@@ -521,12 +521,23 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                 MessagePriority::Normal);
       break;
     }
+
   case Message::Type::EnableIsolines:
     {
       ref_ptr<EnableIsolinesMessage> msg = message;
       m_readManager->SetIsolinesEnabled(msg->IsEnabled());
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<EnableIsolinesMessage>(msg->IsEnabled()),
+                                MessagePriority::Normal);
+      break;
+    }
+
+  case Message::Type::EnableGuides:
+    {
+      ref_ptr<EnableGuidesMessage> msg = message;
+      m_readManager->SetGuidesEnabled(msg->IsEnabled());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<EnableGuidesMessage>(msg->IsEnabled()),
                                 MessagePriority::Normal);
       break;
     }

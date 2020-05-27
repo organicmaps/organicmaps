@@ -103,6 +103,7 @@ public:
     NotifyRenderThread,
     NotifyGraphicsReady,
     EnableIsolines,
+    EnableGuides,
   };
 
   virtual ~Message() = default;

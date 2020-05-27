@@ -107,6 +107,7 @@ void GuidesManager::SetEnabled(bool enabled)
   auto const newState = enabled ? GuidesState::Enabled : GuidesState::Disabled;
   if (newState == m_state)
     return;
+  m_drapeEngine.SafeCall(&df::DrapeEngine::EnableGuides, enabled);
 
   Clear();
   m_shownGuides.clear();

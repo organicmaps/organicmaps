@@ -91,6 +91,27 @@ public:
   DECLARE_CHECKER_INSTANCE(IsRailwayStationChecker);
 };
 
+class IsOutdoorChecker : public BaseChecker
+{
+  IsOutdoorChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsOutdoorChecker);
+};
+
+class IsTransportChecker : public BaseChecker
+{
+  IsTransportChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsTransportChecker);
+};
+
+class IsParkingChecker : public BaseChecker
+{
+  IsParkingChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsParkingChecker);
+};
+
 class IsSubwayStationChecker : public BaseChecker
 {
   IsSubwayStationChecker();

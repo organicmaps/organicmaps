@@ -103,6 +103,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                    params.m_allow3dBuildings,
                                    params.m_trafficEnabled,
                                    params.m_isolinesEnabled,
+                                   params.m_guidesEnabled,
                                    params.m_simplifiedTrafficColors,
                                    std::move(params.m_isUGCFn),
                                    params.m_onGraphicsContextInitialized);
@@ -810,6 +811,13 @@ void DrapeEngine::EnableIsolines(bool enable)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<EnableIsolinesMessage>(enable),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::EnableGuides(bool enable)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<EnableGuidesMessage>(enable),
                                   MessagePriority::Normal);
 }
 

@@ -1133,6 +1133,21 @@ private:
   bool m_isEnabled = false;
 };
 
+class EnableGuidesMessage : public Message
+{
+public:
+  explicit EnableGuidesMessage(bool isEnabled)
+      : m_isEnabled(isEnabled)
+  {}
+
+  Type GetType() const override { return Type::EnableGuides; }
+
+  bool IsEnabled() { return m_isEnabled; }
+
+private:
+  bool m_isEnabled = false;
+};
+
 class EnableTransitSchemeMessage : public Message
 {
 public:

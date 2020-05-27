@@ -1954,11 +1954,12 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   bool allow3dBuildings;
   Load3dMode(allow3d, allow3dBuildings);
 
-  bool const isAutozoomEnabled = LoadAutoZoom();
-  bool const trafficEnabled = m_trafficManager.IsEnabled();
+  auto const isAutozoomEnabled = LoadAutoZoom();
+  auto const trafficEnabled = m_trafficManager.IsEnabled();
   auto const isolinesEnabled = m_isolinesManager.IsEnabled();
-  bool const simplifiedTrafficColors = m_trafficManager.HasSimplifiedColorScheme();
-  double const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
+  auto const guidesEnabled = m_guidesManager.IsEnabled();
+  auto const simplifiedTrafficColors = m_trafficManager.HasSimplifiedColorScheme();
+  auto const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
 
   df::DrapeEngine::Params p(
       params.m_apiVersion, contextFactory,
@@ -1967,7 +1968,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
                           move(isCountryLoadedByNameFn), move(updateCurrentCountryFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),
       make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
-      move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
+      move(myPositionModeChangedFn), allow3dBuildings,
+      trafficEnabled, isolinesEnabled, guidesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
       m_routingManager.IsRoutingActive() && m_routingManager.IsRoutingFollowing(),
       isAutozoomEnabled, simplifiedTrafficColors, move(overlaysShowStatsFn), move(isUGCFn),

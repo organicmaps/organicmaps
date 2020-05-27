@@ -64,6 +64,7 @@ public:
            bool allow3dBuildings,
            bool trafficEnabled,
            bool isolinesEnabled,
+           bool guidesEnabled,
            bool blockTapEvents,
            bool showChoosePositionMark,
            std::vector<m2::TriangleD> && boundAreaTriangles,
@@ -86,6 +87,7 @@ public:
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
       , m_isolinesEnabled(isolinesEnabled)
+      , m_guidesEnabled(guidesEnabled)
       , m_blockTapEvents(blockTapEvents)
       , m_showChoosePositionMark(showChoosePositionMark)
       , m_boundAreaTriangles(std::move(boundAreaTriangles))
@@ -110,6 +112,7 @@ public:
     bool m_allow3dBuildings;
     bool m_trafficEnabled;
     bool m_isolinesEnabled;
+    bool m_guidesEnabled;
     bool m_blockTapEvents;
     bool m_showChoosePositionMark;
     std::vector<m2::TriangleD> m_boundAreaTriangles;
@@ -226,6 +229,8 @@ public:
   void ClearAllTransitSchemeCache();
 
   void EnableIsolines(bool enable);
+
+  void EnableGuides(bool enable);
 
   void SetFontScaleFactor(double scaleFactor);
 
