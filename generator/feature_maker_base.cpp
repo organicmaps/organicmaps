@@ -68,7 +68,6 @@ void TransformToPoint(FeatureBuilder & feature)
     return;
 
   auto const center = feature.GetGeometryCenter();
-  feature.ResetGeometry();
   feature.SetCenter(center);
   auto & params = feature.GetParams();
   if (!params.house.IsEmpty())

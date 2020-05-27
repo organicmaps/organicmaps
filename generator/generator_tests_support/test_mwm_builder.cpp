@@ -96,7 +96,6 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
     m_boundariesTable.Append(testId, indexer::CityBoundary(fb.GetOuterGeometry()));
 
     auto const center = fb.GetGeometryCenter();
-    fb.ResetGeometry();
     fb.SetCenter(center);
   }
 

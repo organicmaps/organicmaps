@@ -114,6 +114,7 @@ m2::PointD FeatureBuilder::GetKeyPoint() const
 
 void FeatureBuilder::SetCenter(m2::PointD const & p)
 {
+  ResetGeometry();
   m_center = p;
   m_params.SetGeomType(GeomType::Point);
   m_limitRect.Add(p);
