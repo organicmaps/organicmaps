@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
+import com.mapswithme.maps.maplayer.AbstractIsoLinesClickListener;
 import com.mapswithme.maps.maplayer.BottomSheetItem;
 import com.mapswithme.maps.maplayer.DefaultClickListener;
 import com.mapswithme.maps.maplayer.LayersAdapter;
@@ -137,7 +138,7 @@ public class MainMenuRenderer implements MenuRenderer
     }
   }
 
-  private class IsolinesItemClickListener extends DefaultClickListener
+  private class IsolinesItemClickListener extends AbstractIsoLinesClickListener
   {
     IsolinesItemClickListener()
     {
@@ -147,6 +148,7 @@ public class MainMenuRenderer implements MenuRenderer
     @Override
     public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
+      super.onItemClickInternal(v, item);
       mListener.onIsolinesLayerOptionSelected();
     }
   }

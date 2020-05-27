@@ -386,6 +386,7 @@ public enum Statistics
     public static final String SETTINGS_MOBILE_INTERNET_CHANGE = "Settings_MobileInternet_change";
     public static final String SETTINGS_RECENT_TRACK_CHANGE = "Settings_RecentTrack_change";
     public static final String MOBILE_INTERNET_ALERT = "MobileInternet_alert";
+    public static final String MAP_TOAST_SHOW = "Map_Toast_show";
     static final String SETTINGS_TRACKING_DETAILS = "Settings_Tracking_details";
     static final String SETTINGS_TRACKING_TOGGLE = "Settings_Tracking_toggle";
 
@@ -777,6 +778,7 @@ public enum Statistics
     static final String PERSONAL_ADS = "personal_ads";
     public static final String MAP = "map";
     public static final String MENU = "menu";
+    public static final String ISOLINES = "isolines";
     static final String GOOGLE = "google";
     static final String PHONE = "phone";
     static final String ADD_DESC = "add_description";

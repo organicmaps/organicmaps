@@ -33,4 +33,11 @@ Java_com_mapswithme_maps_maplayer_isolines_IsolinesManager_nativeRemoveListener(
   CHECK(g_framework, ("Framework isn't created yet!"));
   g_framework->SetIsolinesListener(nullptr);
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_maplayer_isolines_IsolinesManager_nativeIsVisible(JNIEnv *env, jclass clazz)
+{
+  CHECK(g_framework, ("Framework isn't created yet!"));
+  return static_cast<jboolean>(g_framework->NativeFramework()->GetIsolinesManager().IsVisible());
+}
 }

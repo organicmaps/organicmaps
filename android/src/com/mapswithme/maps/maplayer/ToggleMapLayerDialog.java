@@ -138,7 +138,7 @@ public class ToggleMapLayerDialog extends DialogFragment
     }
   }
 
-  private class IsolinesItemClickListener extends DefaultClickListener
+  private class IsolinesItemClickListener extends AbstractIsoLinesClickListener
   {
     private IsolinesItemClickListener()
     {
@@ -148,6 +148,7 @@ public class ToggleMapLayerDialog extends DialogFragment
     @Override
     public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
+      super.onItemClickInternal(v,item);
       OnIsolinesLayerToggleListener listener = (OnIsolinesLayerToggleListener) requireActivity();
       listener.onIsolinesLayerSelected();
     }
