@@ -108,3 +108,22 @@ UNIT_TEST(Protocol_DecodeDataPacket)
   DecodeDataPacketVersionTest(points, Protocol::PacketType::DataV0);
   DecodeDataPacketVersionTest(points, Protocol::PacketType::DataV1);
 }
+
+UNIT_TEST(Protocol_DecodeWrongDataPacket)
+{
+  vector<vector<uint8_t>> payloads = {
+      vector<uint8_t>{},
+      vector<uint8_t>{0x25},
+      vector<uint8_t>{0x0},
+      vector<uint8_t>{0x0, 0x0, 0x23, 0xFF},
+      vector<uint8_t>{0xFF, 0x1, 0x23, 0xFF, 0x1, 0x0, 0x27, 0x63, 0x32, 0x9, 0xFF},
+  };
+  for (auto const packetType : {Protocol::PacketType::DataV0, Protocol::PacketType::DataV1})
+  {
+    for (auto const & payload : payloads)
+    {
+      auto result = Protocol::DecodeDataPacket(packetType, payload);
+      TEST(result.empty(), (packetType, payload));
+    }
+  }
+}

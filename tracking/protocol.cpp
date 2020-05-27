@@ -121,7 +121,7 @@ Protocol::DataElementsVec Protocol::DecodeDataPacket(PacketType type, vector<uin
   }
   catch (Reader::SizeException const & ex)
   {
-    LOG(LERROR, ("Wrong packet. SizeException. Msg:", ex.Msg(), ". What:", ex.what()));
+    LOG(LWARNING, ("Wrong packet. SizeException. Msg:", ex.Msg(), ". What:", ex.what()));
     return {};
   }
 }
