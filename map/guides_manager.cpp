@@ -233,8 +233,8 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
 
     auto url = url::Join(BOOKMARKS_CATALOG_FRONT_URL, languages::GetCurrentNorm(),
                          "v3/mobilefront/route", info.m_id);
-    InjectUTM(url, UTM::GuidesOnMapGallery);
-    InjectUTMTerm(url, std::to_string(m_shownGuides.size()));
+    url = InjectUTM(url, UTM::GuidesOnMapGallery);
+    url = InjectUTMTerm(url, std::to_string(m_shownGuides.size()));
 
     item.m_url = std::move(url);
     item.m_imageUrl = info.m_imageUrl;
