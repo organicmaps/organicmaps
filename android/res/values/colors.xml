@@ -179,8 +179,8 @@
   <color name="bg_brand_opentable_pressed">#FFFC5965</color>
 
   <!-- Banner colors -->
-  <color name="bg_banner_color">#FFFDFFE6</color>
-  <color name="bg_banner_color_night">#FF484C50</color>
+  <color name="bg_banner_color">#F2F5D4</color>
+  <color name="bg_banner_color_night">#FFFFFF</color>
   <color name="text_banner_color">#28000000</color>
   <color name="text_banner_color_night">#28FFFFFF</color>
   <color name="text_ads_color">#FFFFFBF2</color>
@@ -188,6 +188,10 @@
   <color name="megafon_button">@color/bg_brand_partner19</color>
   <color name="megafon_button_pressed">@color/bg_brand_partner19_pressed</color>
   <color name="red_cross_background">#FFE53935</color>
+  <color name="bg_banner_action_button">#73AC6A</color>
+  <color name="bg_banner_action_button_pressed">#DE73AC6A</color>
+  <color name="bg_banner_action_button_night">#597380</color>
+  <color name="bg_banner_action_button_pressed_night">#DE597380</color>
 
   <!-- Rating colors -->
   <color name="rating_excellent">#43A047</color>

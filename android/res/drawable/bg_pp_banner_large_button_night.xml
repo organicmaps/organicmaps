@@ -4,14 +4,14 @@
   <item android:state_pressed="true">
     <shape
       android:shape="rectangle">
-      <solid android:color="@color/white_24"/>
+      <solid android:color="@color/bg_banner_action_button_pressed_night"/>
       <corners android:radius="@dimen/cardview_default_radius"/>
     </shape>
   </item>
-  <item>
+  <item android:state_pressed="false">
     <shape
       android:shape="rectangle">
-      <solid android:color="@color/white_12"/>
+      <solid android:color="@color/bg_banner_action_button_night"/>
       <corners android:radius="@dimen/cardview_default_radius"/>
     </shape>
   </item>

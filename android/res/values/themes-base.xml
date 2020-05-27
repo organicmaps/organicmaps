@@ -94,11 +94,10 @@
     <item name="bannerBackground">@drawable/bg_pp_banner</item>
     <item name="bannerButtonBackground">@drawable/bg_pp_banner_large_button</item>
     <item name="bannerButtonBackgroundColor">@color/black_12</item>
-    <item name="bannerRemoveButtonBackground">@drawable/bg_pp_banner_remove_button</item>
     <item name="adsBackground">@drawable/bg_ads</item>
     <item name="adsText">@color/text_ads_color</item>
     <item name="adsActionBackground">@drawable/bg_ads_action</item>
-    <item name="textBannerTitle">@color/black_60</item>
+    <item name="textBannerTitle">@color/black_secondary</item>
 
     <item name="steadyIconTint">@color/black_secondary</item>
     <item name="steadyIconBackground">@drawable/bg_steady_icon</item>
@@ -285,11 +284,10 @@
     <item name="bannerBackground">@drawable/bg_pp_banner_night</item>
     <item name="bannerButtonBackground">@drawable/bg_pp_banner_large_button_night</item>
     <item name="bannerButtonBackgroundColor">@color/white_12</item>
-    <item name="bannerRemoveButtonBackground">@drawable/bg_pp_banner_remove_button_night</item>
     <item name="adsBackground">@drawable/bg_ads_night</item>
     <item name="adsText">@color/text_ads_color_night</item>
     <item name="adsActionBackground">@drawable/bg_ads_action_night</item>
-    <item name="textBannerTitle">@color/white_60</item>
+    <item name="textBannerTitle">@color/bg_primary_night</item>
 
     <item name="steadyIconTint">@color/white_secondary</item>
     <item name="steadyIconBackground">@drawable/bg_steady_icon_night</item>
