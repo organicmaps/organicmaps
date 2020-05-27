@@ -30,19 +30,19 @@ void GuiThread::ProcessTask(jlong task)
   (*t)();
 }
 
-bool GuiThread::Push(Task && task)
+GuiThread::TaskId GuiThread::Push(Task && task)
 {
   // Pointer will be deleted in ProcessTask.
   auto t = new Task(std::move(task));
   jni::GetEnv()->CallVoidMethod(m_object, m_method, reinterpret_cast<jlong>(t));
-  return true;
+  return {};
 }
 
-bool GuiThread::Push(Task const & task)
+GuiThread::TaskId GuiThread::Push(Task const & task)
 {
   // Pointer will be deleted in ProcessTask.
   auto t = new Task(task);
   jni::GetEnv()->CallVoidMethod(m_object, m_method, reinterpret_cast<jlong>(t));
-  return true;
+  return {};
 }
 }  // namespace android

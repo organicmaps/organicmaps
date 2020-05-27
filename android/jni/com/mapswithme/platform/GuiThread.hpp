@@ -15,8 +15,8 @@ public:
   static void ProcessTask(jlong task);
 
   // TaskLoop overrides:
-  bool Push(Task && task) override;
-  bool Push(Task const & task) override;
+  TaskId Push(Task && task) override;
+  TaskId Push(Task const & task) override;
 
 private:
   jobject m_object = nullptr;

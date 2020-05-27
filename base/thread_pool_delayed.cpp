@@ -1,5 +1,7 @@
 #include "base/thread_pool_delayed.hpp"
 
+#include "base/id_generator.hpp"
+
 #include <array>
 
 using namespace std;
@@ -10,8 +12,15 @@ namespace thread_pool
 {
 namespace delayed
 {
+namespace
+{
+using Ids = IdGenerator<uint64_t>;
+}  // namespace
+
 ThreadPool::ThreadPool(size_t threadsCount /* = 1 */, Exit e /* = Exit::SkipPending */)
   : m_exit(e)
+  , m_immediateLastId(Ids::GetInitialId())
+  , m_delayedLastId(Ids::GetInitialId())
 {
   for (size_t i = 0; i < threadsCount; ++i)
     m_threads.emplace_back(threads::SimpleThread(&ThreadPool::ProcessTasks, this));
@@ -22,26 +31,59 @@ ThreadPool::~ThreadPool()
   ShutdownAndJoin();
 }
 
-bool ThreadPool::Push(Task && t)
+ThreadPool::TaskId ThreadPool::Push(Task && t)
 {
-  return TouchQueues([&]() { m_immediate.emplace(move(t)); });
+  return AddImmediate(move(t));
 }
 
-bool ThreadPool::Push(Task const & t)
+ThreadPool::TaskId ThreadPool::Push(Task const & t)
 {
-  return TouchQueues([&]() { m_immediate.emplace(t); });
+  return AddImmediate(t);
 }
 
-bool ThreadPool::PushDelayed(Duration const & delay, Task && t)
+ThreadPool::TaskId ThreadPool::PushDelayed(Duration const & delay, Task && t)
+{
+  return AddDelayed(delay, move(t));
+}
+
+ThreadPool::TaskId ThreadPool::PushDelayed(Duration const & delay, Task const & t)
+{
+  return AddDelayed(delay, t);
+}
+
+template <typename T>
+ThreadPool::TaskId ThreadPool::AddImmediate(T && task)
+{
+  return AddTask(m_immediateLastId, [&](TaskId const & newId) {
+    VERIFY(m_immediate.Emplace(newId, forward<T>(task)), ());
+    m_immediateLastId = newId;
+  });
+}
+
+template <typename T>
+ThreadPool::TaskId ThreadPool::AddDelayed(Duration const & delay, T && task)
 {
   auto const when = Now() + delay;
-  return TouchQueues([&]() { m_delayed.emplace(when, move(t)); });
+  return AddTask(m_delayedLastId, [&](TaskId const & newId) {
+    m_delayed.emplace(newId, when, forward<T>(task));
+    m_delayedLastId = newId;
+  });
 }
 
-bool ThreadPool::PushDelayed(Duration const & delay, Task const & t)
+template <typename Add>
+ThreadPool::TaskId ThreadPool::AddTask(TaskId const & currentId, Add && add)
 {
-  auto const when = Now() + delay;
-  return TouchQueues([&]() { m_delayed.emplace(when, t); });
+  lock_guard<mutex> lk(m_mu);
+  if (m_shutdown)
+    return {};
+
+  TaskId newId = Ids::GetNextId(currentId);
+  if (newId.empty())
+    return {};
+
+  add(newId);
+  m_cv.notify_one();
+  return newId;
 }
 
 void ThreadPool::ProcessTasks()
@@ -61,10 +103,10 @@ void ThreadPool::ProcessTasks()
         // task may be executed, given that an immediate task or a
         // delayed task with an earlier execution time may arrive
         // while we are waiting.
-        auto const when = m_delayed.top().m_when;
+        auto const when = m_delayed.cbegin()->m_when;
         m_cv.wait_until(lk, when, [this, when]() {
-          return m_shutdown || !m_immediate.empty() || m_delayed.empty() ||
-              (!m_delayed.empty() && m_delayed.top().m_when < when);
+          return m_shutdown || !m_immediate.IsEmpty() || m_delayed.empty() ||
+                 (!m_delayed.empty() && m_delayed.cbegin()->m_when < when);
         });
       }
       else
@@ -72,7 +114,7 @@ void ThreadPool::ProcessTasks()
         // When there are no delayed tasks in the queue, we need to
         // wait until there is at least one immediate or delayed task.
         m_cv.wait(lk,
-                  [this]() { return m_shutdown || !m_immediate.empty() || !m_delayed.empty(); });
+                  [this]() { return m_shutdown || !m_immediate.IsEmpty() || !m_delayed.empty(); });
       }
 
       if (m_shutdown)
@@ -80,8 +122,8 @@ void ThreadPool::ProcessTasks()
         switch (m_exit)
         {
         case Exit::ExecPending:
-          ASSERT(pendingImmediate.empty(), ());
-          m_immediate.swap(pendingImmediate);
+          ASSERT(pendingImmediate.IsEmpty(), ());
+          m_immediate.Swap(pendingImmediate);
 
           ASSERT(pendingDelayed.empty(), ());
           m_delayed.swap(pendingDelayed);
@@ -92,19 +134,19 @@ void ThreadPool::ProcessTasks()
         break;
       }
 
-      auto const canExecImmediate = !m_immediate.empty();
-      auto const canExecDelayed = !m_delayed.empty() && Now() >= m_delayed.top().m_when;
+      auto const canExecImmediate = !m_immediate.IsEmpty();
+      auto const canExecDelayed = !m_delayed.empty() && Now() >= m_delayed.cbegin()->m_when;
 
       if (canExecImmediate)
       {
-        tasks[QUEUE_TYPE_IMMEDIATE] = move(m_immediate.front());
-        m_immediate.pop();
+        tasks[QUEUE_TYPE_IMMEDIATE] = move(m_immediate.Front());
+        m_immediate.Pop();
       }
 
       if (canExecDelayed)
       {
-        tasks[QUEUE_TYPE_DELAYED] = move(m_delayed.top().m_task);
-        m_delayed.pop();
+        tasks[QUEUE_TYPE_DELAYED] = move(m_delayed.cbegin()->m_task);
+        m_delayed.erase(m_delayed.cbegin());
       }
     }
 
@@ -115,12 +157,12 @@ void ThreadPool::ProcessTasks()
     }
   }
 
-  for (; !pendingImmediate.empty(); pendingImmediate.pop())
-    pendingImmediate.front()();
+  for (; !pendingImmediate.IsEmpty(); pendingImmediate.Pop())
+    pendingImmediate.Front()();
 
-  for (; !pendingDelayed.empty(); pendingDelayed.pop())
+  while (!pendingDelayed.empty())
   {
-    auto const & top = pendingDelayed.top();
+    auto const & top = *pendingDelayed.cbegin();
     while (true)
     {
       auto const now = Now();
@@ -131,16 +173,55 @@ void ThreadPool::ProcessTasks()
     }
     ASSERT(Now() >= top.m_when, ());
     top.m_task();
+
+    pendingDelayed.erase(pendingDelayed.cbegin());
   }
+}
+
+bool ThreadPool::Cancel(TaskId const & id)
+{
+  lock_guard<mutex> lk(m_mu);
+
+  if (m_shutdown || id.empty())
+    return false;
+
+  auto const result = m_immediate.Erase(id);
+  if (result)
+    m_cv.notify_one();
+  return result;
+
+  return false;
+}
+
+bool ThreadPool::CancelDelayed(TaskId const & id)
+{
+  lock_guard<mutex> lk(m_mu);
+
+  if (m_shutdown || id.empty())
+    return false;
+
+  for (auto it = m_delayed.begin(); it != m_delayed.end(); ++it)
+  {
+    if (it->m_id == id)
+    {
+      m_delayed.erase(it);
+      m_cv.notify_one();
+      return true;
+    }
+  }
+
+  return false;
 }
 
 bool ThreadPool::Shutdown(Exit e)
 {
-  lock_guard<mutex> lk(m_mu);
-  if (m_shutdown)
-    return false;
-  m_shutdown = true;
-  m_exit = e;
+  {
+    lock_guard<mutex> lk(m_mu);
+    if (m_shutdown)
+      return false;
+    m_shutdown = true;
+    m_exit = e;
+  }
   m_cv.notify_all();
   return true;
 }

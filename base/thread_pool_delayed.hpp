@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base/assert.hpp"
+#include "base/linked_map.hpp"
 #include "base/task_loop.hpp"
 #include "base/thread.hpp"
 #include "base/thread_checker.hpp"
@@ -8,7 +9,7 @@
 #include <chrono>
 #include <condition_variable>
 #include <mutex>
-#include <queue>
+#include <set>
 #include <utility>
 #include <vector>
 
@@ -39,15 +40,17 @@ public:
   ~ThreadPool() override;
 
   // Pushes task to the end of the thread's queue of immediate tasks.
-  // Returns false when the thread is shut down.
+  // Returns task id or empty string when any error occurs
+  // or the thread is shut down.
   //
   // The task |t| is going to be executed after all immediate tasks
   // that were pushed pushed before it.
-  bool Push(Task && t) override;
-  bool Push(Task const & t) override;
+  TaskId Push(Task && t) override;
+  TaskId Push(Task const & t) override;
 
-  // Pushes task to the thread's queue of delayed tasks. Returns false
-  // when the thread is shut down.
+  // Pushes task to the thread's queue of delayed tasks.
+  // Returns task id or empty string when any error occurs
+  // or the thread is shut down.
   //
   // The task |t| is going to be executed not earlier than after
   // |delay|.  No other guarantees about execution order are made.  In
@@ -60,8 +63,15 @@ public:
   //
   // NOTE: current implementation depends on the fact that
   // steady_clock is the same for different threads.
-  bool PushDelayed(Duration const & delay, Task && t);
-  bool PushDelayed(Duration const & delay, Task const & t);
+  TaskId PushDelayed(Duration const & delay, Task && t);
+  TaskId PushDelayed(Duration const & delay, Task const & t);
+
+  // Cancels task if it is in queue and is not running yet.
+  // Returns false when thread is shut down,
+  // task is not found or already running, otherwise true.
+  // The complexity is O(1) for immediate tasks and O(N) for delayed tasks.
+  bool Cancel(TaskId const & id);
+  bool CancelDelayed(TaskId const & id);
 
   // Sends a signal to the thread to shut down. Returns false when the
   // thread was shut down previously.
@@ -84,31 +94,30 @@ private:
   struct DelayedTask
   {
     template <typename T>
-    DelayedTask(TimePoint const & when, T && task) : m_when(when), m_task(std::forward<T>(task))
+    DelayedTask(TaskId const & id, TimePoint const & when, T && task)
+      : m_id(id)
+      , m_when(when)
+      , m_task(std::forward<T>(task))
     {
     }
 
     bool operator<(DelayedTask const & rhs) const { return m_when < rhs.m_when; }
     bool operator>(DelayedTask const & rhs) const { return rhs < *this; }
 
+    TaskId m_id;
     TimePoint m_when = {};
     Task m_task = {};
   };
 
-  using ImmediateQueue = std::queue<Task>;
-  using DelayedQueue =
-  std::priority_queue<DelayedTask, std::vector<DelayedTask>, std::greater<DelayedTask>>;
+  using ImmediateQueue = base::LinkedMap<TaskId, Task>;
+  using DelayedQueue = std::multiset<DelayedTask>;
 
-  template <typename Fn>
-  bool TouchQueues(Fn && fn)
-  {
-    std::lock_guard<std::mutex> lk(m_mu);
-    if (m_shutdown)
-      return false;
-    fn();
-    m_cv.notify_one();
-    return true;
-  }
+  template <typename T>
+  TaskId AddImmediate(T && task);
+  template <typename T>
+  TaskId AddDelayed(Duration const & delay, T && task);
+  template <typename Add>
+  TaskId AddTask(TaskId const & currentId, Add && add);
 
   void ProcessTasks();
 
@@ -121,6 +130,9 @@ private:
 
   ImmediateQueue m_immediate;
   DelayedQueue m_delayed;
+
+  TaskId m_immediateLastId;
+  TaskId m_delayedLastId;
 
   ThreadChecker m_checker;
 };

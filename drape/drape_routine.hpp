@@ -62,13 +62,13 @@ public:
   static ResultPtr Run(Task && t)
   {
     ResultPtr result(new Result(Instance().GetNextId()));
-    bool const success = Instance().m_workerThread.Push([result, t = std::move(t)]() mutable
+    auto const id = Instance().m_workerThread.Push([result, t = std::move(t)]() mutable
     {
       t();
       Instance().Notify(result->Finish());
     });
 
-    if (!success)
+    if (id.empty())
       return {};
 
     return result;
@@ -78,13 +78,13 @@ public:
   static ResultPtr RunDelayed(base::thread_pool::delayed::ThreadPool::Duration const & duration, Task && t)
   {
     ResultPtr result(new Result(Instance().GetNextId()));
-    bool const success = Instance().m_workerThread.PushDelayed(duration, [result, t = std::move(t)]() mutable
+    auto const id = Instance().m_workerThread.PushDelayed(duration, [result, t = std::move(t)]() mutable
     {
       t();
       Instance().Notify(result->Finish());
     });
 
-    if (!success)
+    if (id.empty())
       return {};
 
     return result;
@@ -95,13 +95,13 @@ public:
   static ResultPtr RunSequential(Task && t)
   {
     ResultPtr result(new Result(Instance().GetNextId()));
-    bool const success = Instance().m_sequentialWorkerThread.Push([result, t = std::move(t)]() mutable
+    auto const id = Instance().m_sequentialWorkerThread.Push([result, t = std::move(t)]() mutable
     {
       t();
       Instance().Notify(result->Finish());
     });
 
-    if (!success)
+    if (id.empty())
       return {};
 
     return result;
