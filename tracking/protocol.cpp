@@ -1,9 +1,11 @@
 #include "tracking/protocol.hpp"
 
 #include "coding/endianness.hpp"
+#include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #include <sstream>
 
@@ -101,19 +103,27 @@ string Protocol::DecodeAuthPacket(Protocol::PacketType type, vector<uint8_t> con
 Protocol::DataElementsVec Protocol::DecodeDataPacket(PacketType type, vector<uint8_t> const & data)
 {
   DataElementsVec points;
-  MemReader memReader(data.data(), data.size());
-  ReaderSource<MemReader> src(memReader);
-  switch (type)
+  MemReaderWithExceptions memReader(data.data(), data.size());
+  ReaderSource<MemReaderWithExceptions> src(memReader);
+  try
   {
-  case Protocol::PacketType::DataV0:
-    Encoder::DeserializeDataPoints(0 /* version */, src, points);
-    break;
-  case Protocol::PacketType::DataV1:
-    Encoder::DeserializeDataPoints(1 /* version */, src, points);
-    break;
-  case Protocol::PacketType::AuthV0: ASSERT(false, ("Not a DATA packet.")); break;
+    switch (type)
+    {
+    case Protocol::PacketType::DataV0:
+      Encoder::DeserializeDataPoints(0 /* version */, src, points);
+      break;
+    case Protocol::PacketType::DataV1:
+      Encoder::DeserializeDataPoints(1 /* version */, src, points);
+      break;
+    case Protocol::PacketType::AuthV0: ASSERT(false, ("Not a DATA packet.")); break;
+    }
+    return points;
   }
-  return points;
+  catch (Reader::SizeException const & ex)
+  {
+    LOG(LERROR, ("Wrong packet. SizeException. Msg:", ex.Msg(), ". What:", ex.what()));
+    return {};
+  }
 }
 
 //  static
