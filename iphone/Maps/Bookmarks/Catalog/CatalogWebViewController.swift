@@ -162,20 +162,33 @@ final class CatalogWebViewController: WebViewController {
                         decidePolicyFor navigationAction: WKNavigationAction,
                         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
     let subscribePath = "subscribe"
+    let showOnMapPath = "map"
     guard let url = navigationAction.request.url,
-      url.scheme == "mapsme" || url.path.contains("buy_kml") || url.path.contains(subscribePath) else {
-        super.webView(webView, decidePolicyFor: navigationAction, decisionHandler: decisionHandler)
-        return
+      url.scheme == "mapsme" ||
+        url.path.contains("buy_kml") ||
+        url.path.contains(subscribePath) ||
+        url.path.contains(showOnMapPath) else {
+          super.webView(webView, decidePolicyFor: navigationAction, decisionHandler: decisionHandler)
+          return
+    }
+
+    defer {
+      decisionHandler(.cancel);
     }
 
     if url.path.contains(subscribePath) {
       showSubscribe(type: SubscriptionGroupType(catalogURL: url))
-      decisionHandler(.cancel);
+      return
+    }
+
+    if url.path.contains(showOnMapPath) {
+      guard let components = url.queryParams() else { return }
+      guard let serverId = components["server_id"] else { return }
+      showOnMap(serverId)
       return
     }
 
     processDeeplink(url)
-    decisionHandler(.cancel);
   }
 
   override func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
@@ -210,6 +223,12 @@ final class CatalogWebViewController: WebViewController {
                                                                   }
     }
     present(subscribeViewController, animated: true)
+  }
+
+  private func showOnMap(_ serverId: String) {
+    let groupId = MWMBookmarksManager.shared().getGroupId(serverId)
+    FrameworkHelper.show(onMap: groupId)
+    navigationController?.popToRootViewController(animated: true)
   }
 
   private func buildHeaders(completion: @escaping ([String : String]?) -> Void) {
@@ -269,10 +288,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private func parseUrl(_ url: URL) -> CatalogCategoryInfo? {
-    guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return nil }
-    guard let components = urlComponents.queryItems?.reduce(into: [:], { $0[$1.name] = $1.value })
-      else { return nil }
-
+    guard let components = url.queryParams() else { return nil }
     return CatalogCategoryInfo(components, type: SubscriptionGroupType(catalogURL: url))
   }
 

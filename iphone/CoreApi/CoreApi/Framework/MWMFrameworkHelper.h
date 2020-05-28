@@ -39,6 +39,7 @@ NS_SWIFT_NAME(FrameworkHelper)
                inputLocale:(NSString *)locale
                 completion:(SearchInDownloaderCompletions)completion;
 + (BOOL)canEditMap;
++ (void)showOnMap:(MWMMarkGroupID)categoryId;
 @end
 
 NS_ASSUME_NONNULL_END

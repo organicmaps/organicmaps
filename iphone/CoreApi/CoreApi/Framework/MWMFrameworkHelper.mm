@@ -170,4 +170,8 @@
   return GetFramework().CanEditMap();
 }
 
++ (void)showOnMap:(MWMMarkGroupID)categoryId {
+  GetFramework().ShowBookmarkCategory(categoryId);
+}
+
 @end
