@@ -25,6 +25,15 @@ ROW_TO_STR = {
 }
 
 
+def norm(value):
+    if isinstance(value, (int, float)):
+        return abs(value)
+    elif hasattr(value, "__len__"):
+        return len(value)
+
+    assert False, type(value)
+
+
 class Check(ABC):
     def __init__(self, name: str):
         self.name = name
@@ -125,11 +134,19 @@ class CompareCheck(Check):
         if silent_if_no_results and self.result.arrow == Arrow.zero:
             return ""
 
+        rel = 0.0
+        if self.result.arrow != Arrow.zero:
+            rel = (
+                norm(self.result.diff)
+                * 100.0
+                / max(norm(self.result.previous), norm(self.result.current))
+            )
+
         return (
-            f"{self.name}: {ROW_TO_STR[self.result.arrow]} "
-            f"{self.diff_format(self.result.diff)} "
-            f"[previous: {self.format(self.result.previous)}, "
-            f"current: {self.format(self.result.current)}]"
+            f"{self.name}: {ROW_TO_STR[self.result.arrow]} {rel:.2f}% "
+            f"[{self.format(self.result.previous)} → "
+            f"{self.format(self.result.current)}: "
+            f"{self.diff_format(self.result.diff)}]"
         )
 
 
@@ -172,7 +189,7 @@ class CompareCheckSet(Check):
     def formatted_string(self, silent_if_no_results=False, filt=None, _offset=0) -> str:
         sets = filter(lambda c: isinstance(c, CompareCheckSet), self._with_result())
         checks = filter(lambda c: isinstance(c, CompareCheck), self._with_result())
-        checks = sorted(checks, key=lambda c: c.get_result().diff, reverse=True)
+        checks = sorted(checks, key=lambda c: norm(c.get_result().diff), reverse=True)
 
         if filt is None:
             filt = self.filt
@@ -208,7 +225,7 @@ class CompareCheckSet(Check):
             return ""
 
         head += lines
-        return "\n".join(head)
+        return "\n".join(head) + "\n"
 
     def _with_result(self):
         return (c for c in self.checks if c.get_result() is not None)

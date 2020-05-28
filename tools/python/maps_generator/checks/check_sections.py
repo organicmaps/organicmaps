@@ -26,6 +26,9 @@ class SectionNames:
             return self.sections > other.sections
         assert False, type(other)
 
+    def __len__(self):
+        return len(self.sections)
+
     def __str__(self):
         return str(self.sections)
 
