@@ -13,12 +13,12 @@
 #include <string>
 #include <utility>
 
-namespace // namespace
+namespace  // namespace
 {
 // You can download this archive to current directory by running:
 // rsync -v -p testdata.mapsme.cloud.devmail.ru::testdata/gtfs-feeds-for-tests.zip .
 std::string const kArchiveWithFeeds = "gtfs-feeds-for-tests";
-}
+}  // namespace
 
 namespace transit
 {
@@ -49,10 +49,7 @@ public:
     }
   }
 
-  ~WorldFeedIntegrationTests()
-  {
-    CHECK(Platform::RmDirRecursively(m_testPath), ());
-  }
+  ~WorldFeedIntegrationTests() { CHECK(Platform::RmDirRecursively(m_testPath), ()); }
 
   void ReadMinimalisticFeed()
   {
@@ -105,4 +102,4 @@ UNIT_CLASS_TEST(WorldFeedIntegrationTests, RealLifeFeed)
 {
   WorldFeedIntegrationTests::ReadRealLifeFeed();
 }
-}  // namespace
+}  // namespace transit
