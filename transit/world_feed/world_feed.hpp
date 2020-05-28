@@ -19,6 +19,8 @@
 
 namespace transit
 {
+class WorldFeedIntegrationTests;
+
 // File names for saving resulting data exported from GTFS.
 inline std::string const kTransitFileExtension = std::string(TRANSIT_FILE_EXTENSION);
 inline std::string const kNetworksFile = "networks" + kTransitFileExtension;
@@ -283,6 +285,8 @@ public:
   inline static size_t GetCorruptedStopSequenceCount() { return m_badStopSeqCount; }
 
 private:
+  friend class WorldFeedIntegrationTests;
+
   bool SetFeedLanguage();
   // Fills networks from GTFS agencies data.
   bool FillNetworks();

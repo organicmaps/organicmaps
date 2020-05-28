@@ -75,5 +75,5 @@ link_opengl(${PROJECT_NAME})
 link_qt5_core(${PROJECT_NAME})
 
 omim_add_test_subdirectory(world_feed_tests)
-
+omim_add_test_subdirectory(world_feed_integration_tests)
 add_subdirectory(gtfs_converter)
