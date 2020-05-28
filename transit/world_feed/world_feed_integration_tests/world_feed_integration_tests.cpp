@@ -8,6 +8,7 @@
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <string>
@@ -83,7 +84,7 @@ public:
     TEST_EQUAL(m_globalFeed.m_gates.m_data.size(), 0, ());
     TEST_EQUAL(m_globalFeed.m_transfers.m_data.size(), 0, ());
     TEST_EQUAL(m_globalFeed.m_edges.m_data.size(), 10091, ());
-    TEST_EQUAL(m_globalFeed.m_edgesTransfer.m_data.size(), 0, ());
+    TEST_EQUAL(m_globalFeed.m_edgesTransfers.m_data.size(), 0, ());
   }
 
 private:

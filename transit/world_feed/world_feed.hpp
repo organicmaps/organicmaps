@@ -43,6 +43,7 @@ using TransitId = uint32_t;
 class IdGenerator
 {
 public:
+  IdGenerator() = default;
   explicit IdGenerator(std::string const & idMappingPath);
   void Save();
 
