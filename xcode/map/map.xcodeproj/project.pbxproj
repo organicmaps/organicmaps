@@ -26,6 +26,8 @@
 		39E3C60423312BA800FB0C37 /* features_fetcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C60223312BA800FB0C37 /* features_fetcher.cpp */; };
 		3D035CA82451960400C21B57 /* guides_on_map_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D035CA62451960400C21B57 /* guides_on_map_delegate.cpp */; };
 		3D035CA92451960400C21B57 /* guides_on_map_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D035CA72451960400C21B57 /* guides_on_map_delegate.hpp */; };
+		3D089872247FF5FE00837783 /* layers_statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D089870247FF5FE00837783 /* layers_statistics.cpp */; };
+		3D089873247FF5FE00837783 /* layers_statistics.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D089871247FF5FE00837783 /* layers_statistics.hpp */; };
 		3D0AEAFC1FBB0FF400AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */; };
 		3D0AEAFE1FBB0FF400AD042B /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */; };
 		3D0BBAE523F3EEEF00A50354 /* libweb_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBAE423F3EEEF00A50354 /* libweb_api.a */; };
@@ -323,6 +325,8 @@
 		39E3C60223312BA800FB0C37 /* features_fetcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = features_fetcher.cpp; sourceTree = "<group>"; };
 		3D035CA62451960400C21B57 /* guides_on_map_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_on_map_delegate.cpp; sourceTree = "<group>"; };
 		3D035CA72451960400C21B57 /* guides_on_map_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = guides_on_map_delegate.hpp; sourceTree = "<group>"; };
+		3D089870247FF5FE00837783 /* layers_statistics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layers_statistics.cpp; sourceTree = "<group>"; };
+		3D089871247FF5FE00837783 /* layers_statistics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = layers_statistics.hpp; sourceTree = "<group>"; };
 		3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB001FBB0FF400AD042B /* libindexer_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -908,6 +912,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3D089870247FF5FE00837783 /* layers_statistics.cpp */,
+				3D089871247FF5FE00837783 /* layers_statistics.hpp */,
 				BB5FA776245AE2CF009A81A4 /* guides_marks.cpp */,
 				BB5FA775245AE2CE009A81A4 /* guides_marks.hpp */,
 				3D035CA62451960400C21B57 /* guides_on_map_delegate.cpp */,
@@ -1090,6 +1096,7 @@
 				3D4E99831FB462B60025B48C /* viewport_search_params.hpp in Headers */,
 				34583BD01C88556800F94664 /* place_page_info.hpp in Headers */,
 				34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */,
+				3D089873247FF5FE00837783 /* layers_statistics.hpp in Headers */,
 				3DBD7B93240D523400ED9FE8 /* elevation_info.hpp in Headers */,
 				BB5FA777245AE2D0009A81A4 /* guides_marks.hpp in Headers */,
 				3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */,
@@ -1354,6 +1361,7 @@
 				BBA014AD2073C784007402E4 /* bookmark_helpers.cpp in Sources */,
 				3D4F44BC21345D270005E765 /* tips_api.cpp in Sources */,
 				F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */,
+				3D089872247FF5FE00837783 /* layers_statistics.cpp in Sources */,
 				3D74ABBE1EA76F1D0063A898 /* local_ads_supported_types.cpp in Sources */,
 				3DBD7BE224237FA600ED9FE8 /* download_on_map_ads_delegate.cpp in Sources */,
 				45A2D9D51F7556EB003310A0 /* user.cpp in Sources */,
