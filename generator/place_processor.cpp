@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <limits>
 #include <tuple>
 
 using namespace feature;
@@ -45,18 +46,51 @@ double GetRadiusM(ftypes::LocalityType const & type)
 template <typename T>
 bool IsWorsePlace(T const & left, T const & right)
 {
-  auto const rankL = left.GetRank();
-  auto const rankR = right.GetRank();
-  auto const levelL = ftype::GetLevel(GetPlaceType(left));
-  auto const levelR = ftype::GetLevel(GetPlaceType(right));
-  auto const langCntL = left.GetMultilangName().CountLangs();
-  auto const langCntR = right.GetMultilangName().CountLangs();
-  auto const isPointL = left.IsPoint();
-  auto const isPointR = right.IsPoint();
-  auto const boxAreaL = left.GetLimitRect().Area();
-  auto const boxAreaR = right.GetLimitRect().Area();
-  return std::tie(rankL, levelL, langCntL, isPointL, boxAreaL) <
-      std::tie(rankR, levelR, langCntR, isPointR, boxAreaR);
+  double constexpr kRankCoeff = 1.0;
+  double constexpr kIsCapitalCoeff = 1.0;
+  double constexpr kLangsCountCoeff = 1.0;
+  double constexpr kIsPointCoeff = 0.1;
+  double constexpr kIsNodeCoeff = 0.1;
+  double constexpr kAreaCoeff = 0.1;
+
+  auto const normalizeRank = [](uint8_t rank) {
+    return static_cast<double>(rank) / static_cast<double>(std::numeric_limits<uint8_t>::max());
+  };
+  auto const normalizeLangsCount = [](uint8_t langsCount) {
+    return static_cast<double>(langsCount) /
+           static_cast<double>(StringUtf8Multilang::kMaxSupportedLanguages);
+  };
+  auto const normalizeArea = [](double area) {
+    double const kMaxAreaM2 = 2e9;
+    area = base::Clamp(area, 0.0, kMaxAreaM2);
+    return area / kMaxAreaM2;
+  };
+
+  static_assert(kRankCoeff >= 0, "");
+  static_assert(kIsCapitalCoeff >= 0, "");
+  static_assert(kLangsCountCoeff >= 0, "");
+
+  auto const getScore = [&](auto const place) {
+    auto const rank = place.GetRank();
+    auto const isCapital = ftypes::IsCapitalChecker::Instance()(GetPlaceType(place));
+    auto const langsCount = place.GetMultilangName().CountLangs();
+    auto const isPoint = place.IsPoint();
+
+    auto const type = place.GetMostGenericOsmId().GetType();
+    auto const isNode = (type == base::GeoObjectId::Type::OsmNode) ||
+                        (type == base::GeoObjectId::Type::ObsoleteOsmNode);
+
+    auto const area = mercator::AreaOnEarth(place.GetLimitRect());
+
+    return kRankCoeff * normalizeRank(rank) +
+           kIsCapitalCoeff * (isCapital ? 1.0 : 0.0) +
+           kLangsCountCoeff * normalizeLangsCount(langsCount) +
+           kIsPointCoeff * (isPoint ? 1.0 : 0.0) +
+           kIsNodeCoeff * (isNode ? 1.0 : 0.0) +
+           kAreaCoeff * normalizeArea(area);
+  };
+
+  return getScore(left) < getScore(right);
 }
 
 template <typename T>
@@ -97,7 +131,7 @@ void FeaturePlace::Append(FeatureBuilder const & fb)
     m_bestIndex = m_fbs.size();
 
   m_fbs.emplace_back(fb);
-  m_limitRect.Add(fb.GetLimitRect());
+  m_allFbsLimitRect.Add(fb.GetLimitRect());
 }
 
 FeatureBuilder const & FeaturePlace::GetFb() const
@@ -111,10 +145,9 @@ FeaturePlace::FeaturesBuilders const & FeaturePlace::GetFbs() const
   return m_fbs;
 }
 
-m2::RectD const & FeaturePlace::GetLimitRect() const
-{
-  return m_limitRect;
-}
+m2::RectD const & FeaturePlace::GetLimitRect() const { return GetFb().GetLimitRect(); }
+
+m2::RectD const & FeaturePlace::GetAllFbsLimitRect() const { return m_allFbsLimitRect; }
 
 base::GeoObjectId FeaturePlace::GetMostGenericOsmId() const
 {
@@ -141,10 +174,7 @@ bool FeaturePlace::IsPoint() const
   return GetFb().IsPoint();
 }
 
-m2::RectD GetLimitRect(FeaturePlace const & fp)
-{
-  return fp.GetLimitRect();
-}
+m2::RectD GetLimitRect(FeaturePlace const & fp) { return fp.GetAllFbsLimitRect(); }
 
 PlaceProcessor::PlaceProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable)
   : m_boundariesTable(boundariesTable) {}

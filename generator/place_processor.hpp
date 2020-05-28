@@ -28,15 +28,20 @@ public:
   void Append(feature::FeatureBuilder const & fb);
   feature::FeatureBuilder const & GetFb() const;
   FeaturesBuilders const & GetFbs() const;
-  m2::RectD const & GetLimitRect() const;
+
+  // Returns limit rect around all stored feature builders.
+  m2::RectD const & GetAllFbsLimitRect() const;
+
+  // Methods return values for best stored feature builder.
   base::GeoObjectId GetMostGenericOsmId() const;
   uint8_t GetRank() const;
   std::string GetName() const;
   StringUtf8Multilang const & GetMultilangName() const;
   bool IsPoint() const;
+  m2::RectD const & GetLimitRect() const;
 
 private:
-  m2::RectD m_limitRect;
+  m2::RectD m_allFbsLimitRect;
   FeaturesBuilders m_fbs;
   size_t m_bestIndex;
 };
