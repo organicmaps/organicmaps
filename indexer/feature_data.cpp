@@ -359,7 +359,7 @@ void FeatureParams::SetGeomTypePointEx()
 feature::GeomType FeatureParams::GetGeomType() const
 {
   CHECK(IsValid(), ());
-  switch (m_geomType)
+  switch (*m_geomType)
   {
   case HeaderGeomType::Line: return GeomType::Line;
   case HeaderGeomType::Area: return GeomType::Area;
@@ -370,7 +370,7 @@ feature::GeomType FeatureParams::GetGeomType() const
 HeaderGeomType FeatureParams::GetHeaderGeomType() const
 {
   CHECK(IsValid(), ());
-  return m_geomType;
+  return *m_geomType;
 }
 
 void FeatureParams::SetRwSubwayType(char const * cityName)
@@ -477,7 +477,7 @@ uint32_t FeatureParams::FindType(uint32_t comp, uint8_t level) const
 
 bool FeatureParams::IsValid() const
 {
-  if (m_types.empty() || m_types.size() > kMaxTypesCount)
+  if (m_types.empty() || m_types.size() > kMaxTypesCount || !m_geomType)
     return false;
 
   return FeatureParamsBase::IsValid();
