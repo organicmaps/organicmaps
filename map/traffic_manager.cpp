@@ -97,6 +97,7 @@ void TrafficManager::SetEnabled(bool enabled)
     Clear();
     ChangeState(enabled ? TrafficState::Enabled : TrafficState::Disabled);
     m_trackFirstSchemeData = enabled;
+    m_lastTrackedStatus = {};
   }
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::EnableTraffic, enabled);
@@ -513,7 +514,6 @@ void TrafficManager::UpdateState()
       mwmVersions.insert(mwmId.GetInfo()->GetVersion());
   }
 
-  auto const previousState = m_state.load();
   if (networkError || maxPassedTime >= kNetworkErrorTimeout)
     ChangeState(TrafficState::NetworkError);
   else if (waiting)
@@ -529,8 +529,7 @@ void TrafficManager::UpdateState()
   else
     ChangeState(TrafficState::Enabled);
 
-  if (previousState != m_state)
-    TrackStatistics(mwmVersions);
+  TrackStatistics(mwmVersions);
 }
 
 void TrafficManager::ChangeState(TrafficState newState)
@@ -579,23 +578,37 @@ void TrafficManager::SetSimplifiedColorScheme(bool simplified)
 
 void TrafficManager::TrackStatistics(std::set<int64_t> const & mwmVersions)
 {
-  if (m_trackFirstSchemeData)
+  if (!m_trackFirstSchemeData)
+    return;
+
+  std::optional<LayersStatistics::Status> statisticStatus;
+  if (m_state == TrafficState::Enabled)
   {
-    if (m_state == TrafficState::Enabled)
+    if (mwmVersions.empty())
+    {
+      statisticStatus = LayersStatistics::Status::Unavailable;
+    }
+    else
     {
       m_trackFirstSchemeData = false;
-      m_statistics.LogActivate(LayersStatistics::Status::Success, mwmVersions);
-    }
-    else if (m_state == TrafficState::NetworkError)
-    {
-      m_statistics.LogActivate(LayersStatistics::Status::Error, mwmVersions);
-    }
-    else if (m_state == TrafficState::NoData || m_state == TrafficState::ExpiredData ||
-             m_state == TrafficState::ExpiredApp)
-    {
-      m_statistics.LogActivate(LayersStatistics::Status::Unavailable, mwmVersions);
+      statisticStatus = LayersStatistics::Status::Success;
     }
   }
+  else if (m_state == TrafficState::NetworkError)
+  {
+    statisticStatus = LayersStatistics::Status::Error;
+  }
+  else if (m_state == TrafficState::NoData || m_state == TrafficState::ExpiredData ||
+           m_state == TrafficState::ExpiredApp)
+  {
+    statisticStatus = LayersStatistics::Status::Unavailable;
+  }
+
+  if (!statisticStatus || m_lastTrackedStatus == statisticStatus)
+    return;
+
+  m_lastTrackedStatus = statisticStatus;
+  m_statistics.LogActivate(*statisticStatus, mwmVersions);
 }
 
 std::string DebugPrint(TrafficManager::TrafficState state)

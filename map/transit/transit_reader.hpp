@@ -156,6 +156,8 @@ private:
   bool m_isSchemeMode = false;
   bool m_isSchemeModeBlocked = false;
   std::pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false /* initialized */};
+
   bool m_trackFirstSchemeData = false;
+  std::optional<LayersStatistics::Status> m_lastTrackedStatus;
   LayersStatistics m_statistics;
 };

@@ -184,6 +184,7 @@ void TransitReadManager::EnableTransitSchemeMode(bool enable)
     return;
   m_isSchemeMode = enable;
   m_trackFirstSchemeData = enable;
+  m_lastTrackedStatus = {};
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::EnableTransitScheme, enable);
 
@@ -436,17 +437,24 @@ void TransitReadManager::ChangeState(TransitSchemeState newState)
 
 void TransitReadManager::TrackStatistics(std::set<int64_t> const & mwmVersions)
 {
-  if (m_trackFirstSchemeData)
+  if (!m_trackFirstSchemeData)
+    return;
+
+  LayersStatistics::Status statisticStatus;
+  if (m_state == TransitSchemeState::Enabled && !mwmVersions.empty())
   {
-    if (m_state == TransitSchemeState::Enabled)
-    {
-      eye::Eye::Event::LayerShown(eye::Layer::Type::PublicTransport);
-      m_trackFirstSchemeData = false;
-      m_statistics.LogActivate(LayersStatistics::Status::Success, mwmVersions);
-    }
-    else
-    {
-      m_statistics.LogActivate(LayersStatistics::Status::Unavailable, mwmVersions);
-    }
+    eye::Eye::Event::LayerShown(eye::Layer::Type::PublicTransport);
+    m_trackFirstSchemeData = false;
+    statisticStatus = LayersStatistics::Status::Success;
   }
+  else
+  {
+    statisticStatus = LayersStatistics::Status::Unavailable;
+  }
+
+  if (statisticStatus == m_lastTrackedStatus)
+    return;
+
+  m_lastTrackedStatus = statisticStatus;
+  m_statistics.LogActivate(statisticStatus, mwmVersions);
 }

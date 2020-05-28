@@ -24,6 +24,7 @@
 #include <cstdint>
 #include <map>
 #include <mutex>
+#include <optional>
 #include <set>
 #include <string>
 #include <utility>
@@ -190,6 +191,7 @@ private:
   threads::SimpleThread m_thread;
 
   bool m_trackFirstSchemeData = false;
+  std::optional<LayersStatistics::Status> m_lastTrackedStatus;
   LayersStatistics m_statistics;
 };
 
