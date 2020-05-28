@@ -53,6 +53,7 @@ class MainWindow : public QMainWindow, location::LocationObserver
   QAction * m_selectLayerTrafficAction = nullptr;
   QAction * m_selectLayerTransitAction = nullptr;
   QAction * m_selectLayerIsolinesAction = nullptr;
+  QAction * m_selectLayerGuidesAction = nullptr;
 
   QAction * m_selectionCityBoundariesMode = nullptr;
   QAction * m_selectionCityRoadsMode = nullptr;
@@ -126,10 +127,12 @@ protected Q_SLOTS:
   void OnTrafficEnabled();
   void OnTransitEnabled();
   void OnIsolinesEnabled();
+  void OnGuidesEnabled();
 
   void SetEnabledTraffic(bool enable);
   void SetEnabledTransit(bool enable);
   void SetEnabledIsolines(bool enable);
+  void SetEnabledGuides(bool enable);
 
   void OnRulerEnabled();
   void OnStartPointSelected();

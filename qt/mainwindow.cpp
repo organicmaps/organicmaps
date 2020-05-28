@@ -356,10 +356,17 @@ void MainWindow::CreateNavigationBar()
     m_selectLayerIsolinesAction->setChecked(m_pDrawWidget->GetFramework().LoadIsolinesEnabled());
     connect(m_selectLayerIsolinesAction, SIGNAL(triggered()), this, SLOT(OnIsolinesEnabled()));
 
+    m_selectLayerGuidesAction =
+        new QAction(QIcon(":/navig64/guides.png"), tr("Guides"), this);
+    m_selectLayerGuidesAction->setCheckable(true);
+    m_selectLayerGuidesAction->setChecked(m_pDrawWidget->GetFramework().LoadGuidesEnabled());
+    connect(m_selectLayerGuidesAction, SIGNAL(triggered()), this, SLOT(OnGuidesEnabled()));
+
     auto layersMenu = new QMenu();
     layersMenu->addAction(m_selectLayerTrafficAction);
     layersMenu->addAction(m_selectLayerTransitAction);
     layersMenu->addAction(m_selectLayerIsolinesAction);
+    layersMenu->addAction(m_selectLayerGuidesAction);
 
     m_selectLayerButton = new QToolButton();
     m_selectLayerButton->setPopupMode(QToolButton::MenuButtonPopup);
@@ -1006,6 +1013,13 @@ void MainWindow::SetEnabledIsolines(bool enable)
   m_pDrawWidget->GetFramework().SaveIsolinesEnabled(enable);
 }
 
+void MainWindow::SetEnabledGuides(bool enable)
+{
+  m_selectLayerGuidesAction->setChecked(enable);
+  m_pDrawWidget->GetFramework().GetGuidesManager().SetEnabled(enable);
+  m_pDrawWidget->GetFramework().SaveGuidesEnabled(enable);
+}
+
 void MainWindow::OnTrafficEnabled()
 {
   bool const enabled = m_selectLayerTrafficAction->isChecked();
@@ -1015,6 +1029,7 @@ void MainWindow::OnTrafficEnabled()
   {
     SetEnabledTransit(false);
     SetEnabledIsolines(false);
+    SetEnabledGuides(false);
   }
 }
 
@@ -1027,6 +1042,7 @@ void MainWindow::OnTransitEnabled()
   {
     SetEnabledIsolines(false);
     SetEnabledTraffic(false);
+    SetEnabledGuides(false);
   }
 }
 
@@ -1039,6 +1055,20 @@ void MainWindow::OnIsolinesEnabled()
   {
     SetEnabledTraffic(false);
     SetEnabledTransit(false);
+    SetEnabledGuides(false);
+  }
+}
+
+void MainWindow::OnGuidesEnabled()
+{
+  bool const enabled = m_selectLayerGuidesAction->isChecked();
+  SetEnabledGuides(enabled);
+
+  if (enabled)
+  {
+    SetEnabledTraffic(false);
+    SetEnabledTransit(false);
+    SetEnabledIsolines(false);
   }
 }
 

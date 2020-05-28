@@ -31,6 +31,7 @@
         <file>layers.png</file>
         <file>subway.png</file>
         <file>isolines.png</file>
+        <file>guides.png</file>
         <file>settings-routing.png</file>
         <file>borders_selection.png</file>
     </qresource>
