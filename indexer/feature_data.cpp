@@ -117,6 +117,7 @@ private:
         {"sponsored"},
         {"entrance"},
         {"cuisine"},
+        {"recycling"},
         {"area:highway"},
         {"earthquake:damage"},
         // 2-arity
