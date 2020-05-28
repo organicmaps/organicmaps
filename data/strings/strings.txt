@@ -22086,7 +22086,7 @@
     nl = Taxi hier niet beschikbaar
     fi = Taksi ei ole saatavilla täällä
     fr = Taxi pas disponible ici
-    de = Taxi ist hie nicht verfügbar
+    de = Taxi ist hier nicht verfügbar
     hu = Itt nincs taxi
     id = Taksi tidak tersedia di sini
     it = Taxi non disponibile qui
