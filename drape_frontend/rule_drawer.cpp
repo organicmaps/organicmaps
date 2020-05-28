@@ -43,7 +43,6 @@ using namespace std::placeholders;
 
 namespace
 {
-int constexpr kMinCountryZoom = 10;
 // The first zoom level in kAverageSegmentsCount.
 int constexpr kFirstZoomInAverageSegments = 10;
 std::vector<size_t> const kAverageSegmentsCount =
@@ -282,6 +281,15 @@ bool RuleDrawer::CheckCoastlines(FeatureType & f, Stylist const & s)
   return true;
 }
 
+bool RuleDrawer::CheckPointStyle(FeatureType & f)
+{
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
+  if (!m_context->GuidesEnabled() || zoomLevel < scales::GetUpperCountryScale())
+    return true;
+
+  return IsGuidesLayerFeature(f);
+}
+
 void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
                                   TInsertShapeFn const & insertShape, int & minVisibleScale)
 {
@@ -338,11 +346,8 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
     applyPointStyle = m_globalRect.IsPointInside(featureCenter);
   }
 
-  if (m_context->GuidesEnabled() && m_context->GetTileKey().m_zoomLevel >= kMinCountryZoom &&
-      !IsGuidesLayerFeature(f))
-  {
+  if (!CheckPointStyle(f))
     applyPointStyle = false;
-  }
 
   if (applyPointStyle || is3dBuilding)
     minVisibleScale = feature::GetMinDrawableScale(f);
@@ -470,11 +475,8 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
   if (m_customFeaturesContext && m_customFeaturesContext->NeedDiscardGeometry(f.GetID()))
     return;
 
-  if (m_context->GuidesEnabled() && m_context->GetTileKey().m_zoomLevel >= kMinCountryZoom &&
-      !IsGuidesLayerFeature(f))
-  {
+  if (!CheckPointStyle(f))
     return;
-  }
 
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
   bool const isSpeedCamera = ftypes::IsSpeedCamChecker::Instance()(f);

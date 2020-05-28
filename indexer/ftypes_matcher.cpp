@@ -237,7 +237,8 @@ IsOutdoorChecker::IsOutdoorChecker()
 
                            {"natural", "beach"},
                            {"natural", "cape"},
-                           {"natural", "glacier"}};
+                           {"natural", "glacier"},
+                           {"highway", "ford"}};
   for (auto const & p : arr)
     m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
 }

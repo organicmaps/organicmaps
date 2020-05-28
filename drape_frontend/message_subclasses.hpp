@@ -1127,7 +1127,7 @@ public:
 
   Type GetType() const override { return Type::EnableIsolines; }
 
-  bool IsEnabled() { return m_isEnabled; }
+  bool IsEnabled() const { return m_isEnabled; }
 
 private:
   bool m_isEnabled = false;
@@ -1142,7 +1142,7 @@ public:
 
   Type GetType() const override { return Type::EnableGuides; }
 
-  bool IsEnabled() { return m_isEnabled; }
+  bool IsEnabled() const { return m_isEnabled; }
 
 private:
   bool m_isEnabled = false;
@@ -1157,7 +1157,7 @@ public:
 
   Type GetType() const override { return Type::EnableTransitScheme; }
 
-  bool IsEnabled() { return m_isEnabled; }
+  bool IsEnabled() const { return m_isEnabled; }
 
 private:
   bool m_isEnabled = false;
@@ -1172,7 +1172,7 @@ public:
 
   Type GetType() const override { return Type::ClearTransitSchemeData; }
 
-  MwmSet::MwmId const & GetMwmId() { return m_mwmId; }
+  MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
 
 private:
   MwmSet::MwmId m_mwmId;
@@ -1193,7 +1193,7 @@ public:
 
   Type GetType() const override { return Type::UpdateTransitScheme; }
 
-  TransitDisplayInfos const & GetTransitDisplayInfos() { return m_transitInfos; }
+  TransitDisplayInfos const & GetTransitDisplayInfos() const { return m_transitInfos; }
 
 private:
   TransitDisplayInfos m_transitInfos;
