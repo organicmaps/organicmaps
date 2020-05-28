@@ -14,7 +14,7 @@
 #include <string>
 #include <utility>
 
-namespace  // namespace
+namespace
 {
 // You can download this archive to current directory by running:
 // rsync -v -p testdata.mapsme.cloud.devmail.ru::testdata/gtfs-feeds-for-tests.zip .
