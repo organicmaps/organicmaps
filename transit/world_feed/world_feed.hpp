@@ -19,8 +19,6 @@
 
 namespace transit
 {
-class WorldFeedIntegrationTests;
-
 // File names for saving resulting data exported from GTFS.
 inline std::string const kTransitFileExtension = std::string(TRANSIT_FILE_EXTENSION);
 inline std::string const kNetworksFile = "networks" + kTransitFileExtension;
