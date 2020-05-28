@@ -52,6 +52,7 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
 }
 
 std::string const kCustomImageProperty = "CustomImage";
+std::string const kHasElevationProfileProperty = "has_elevation_profile";
 }  // namespace
 
 Bookmark::Bookmark(m2::PointD const & ptOrg)
@@ -352,6 +353,12 @@ std::string BookmarkCategory::GetName() const
 bool BookmarkCategory::IsCategoryFromCatalog() const
 {
   return FromCatalog(m_data, m_serverId);
+}
+
+bool BookmarkCategory::HasElevationProfile() const
+{
+  auto const it = m_data.m_properties.find(kHasElevationProfileProperty);
+  return (it != m_data.m_properties.end()) && (it->second != "0");
 }
 
 std::string BookmarkCategory::GetCatalogDeeplink() const

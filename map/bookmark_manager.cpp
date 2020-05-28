@@ -2857,7 +2857,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     }
     for (auto & trackData : fileData.m_tracksData)
     {
-      auto track = std::make_unique<Track>(std::move(trackData), group->IsCategoryFromCatalog());
+      auto track = std::make_unique<Track>(std::move(trackData), group->HasElevationProfile());
       auto * t = AddTrack(std::move(track));
       t->Attach(groupId);
       group->AttachTrack(t->GetId());

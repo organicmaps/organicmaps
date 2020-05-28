@@ -96,6 +96,7 @@ public:
   std::string const & GetServerId() const { return m_serverId; }
 
   bool IsCategoryFromCatalog() const;
+  bool HasElevationProfile() const;
   std::string GetCatalogDeeplink() const;
   std::string GetCatalogPublicLink() const;
 
