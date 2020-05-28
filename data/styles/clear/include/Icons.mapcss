@@ -86,6 +86,7 @@ area[amenity=post_box],
 node[amenity=telephone],
 node[emergency=phone],
 node[amenity=recycling],
+node[amenity=recycling_container],
 area[amenity=recycling],
 node[amenity=vending_machine],
 area[amenity=vending_machine],
@@ -2165,6 +2166,7 @@ node|z17-[emergency=phone]
 {icon-image: phone-m.svg;icon-min-distance: 30;}
 
 node|z17-[amenity=recycling],
+node|z17-[amenity=recycling_container],
 area|z17-[amenity=recycling]
 {icon-image: recycling-m.svg;icon-min-distance: 30;}
 
