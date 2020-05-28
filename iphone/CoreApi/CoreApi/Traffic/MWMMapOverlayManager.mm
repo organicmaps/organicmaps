@@ -191,7 +191,7 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
 
   auto &f = GetFramework();
   f.GetIsolinesManager().SetEnabled(enable);
-  f.SaveIsolonesEnabled(enable);
+  f.SaveIsolinesEnabled(enable);
 }
 
 + (void)setGuidesEnabled:(BOOL)enable {

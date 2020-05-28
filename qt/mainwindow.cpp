@@ -1003,7 +1003,7 @@ void MainWindow::SetEnabledIsolines(bool enable)
 {
   m_selectLayerIsolinesAction->setChecked(enable);
   m_pDrawWidget->GetFramework().GetIsolinesManager().SetEnabled(enable);
-  m_pDrawWidget->GetFramework().SaveIsolonesEnabled(enable);
+  m_pDrawWidget->GetFramework().SaveIsolinesEnabled(enable);
 }
 
 void MainWindow::OnTrafficEnabled()

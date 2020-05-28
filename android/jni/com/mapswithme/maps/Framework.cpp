@@ -1788,7 +1788,7 @@ Java_com_mapswithme_maps_Framework_nativeSetIsolinesLayerEnabled(JNIEnv * env, j
 {
   auto const isolinesEnabled = static_cast<bool>(enabled);
   frm()->GetIsolinesManager().SetEnabled(isolinesEnabled);
-  frm()->SaveIsolonesEnabled(isolinesEnabled);
+  frm()->SaveIsolinesEnabled(isolinesEnabled);
 }
 
 JNIEXPORT jboolean JNICALL

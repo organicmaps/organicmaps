@@ -786,7 +786,7 @@ public:
   void SaveTransitSchemeEnabled(bool enabled);
 
   bool LoadIsolinesEnabled();
-  void SaveIsolonesEnabled(bool enabled);
+  void SaveIsolinesEnabled(bool enabled);
 
   bool LoadGuidesEnabled();
   void SaveGuidesEnabled(bool enabled);
