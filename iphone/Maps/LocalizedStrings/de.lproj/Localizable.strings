@@ -1673,7 +1673,7 @@
 "taxi_not_found" = "Es konnte kein Taxi in der Nähe gefunden werden";
 
 /* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Taxi ist hie nicht verfügbar";
+"taxi_no_providers" = "Taxi ist hier nicht verfügbar";
 
 "install_app" = "Installieren";
 

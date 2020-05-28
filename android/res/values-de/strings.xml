@@ -986,7 +986,7 @@
 	<!-- When there are no available taxis nearby -->
 	<string name="taxi_not_found">Es konnte kein Taxi in der Nähe gefunden werden</string>
 	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Taxi ist hie nicht verfügbar</string>
+	<string name="taxi_no_providers">Taxi ist hier nicht verfügbar</string>
 	<string name="install_app">Installieren</string>
 	<!-- `Filter` is a noun here -->
 	<string name="booking_filters">Filter</string>
