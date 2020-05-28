@@ -123,18 +123,19 @@ void Api::SetDelegate(std::unique_ptr<Delegate> delegate)
   m_delegate = std::move(delegate);
 }
 
-void Api::GetGuidesOnMap(m2::AnyRectD::Corners const & corners, uint8_t zoomLevel,
-                         GuidesOnMapCallback const & onSuccess, OnError const & onError) const
+base::TaskLoop::TaskId Api::GetGuidesOnMap(m2::AnyRectD::Corners const & corners, uint8_t zoomLevel,
+                                           GuidesOnMapCallback const & onSuccess,
+                                           OnError const & onError) const
 {
   auto const url = MakeGalleryUrl(m_baseUrl, corners, zoomLevel, languages::GetCurrentNorm());
   if (url.empty())
   {
     onSuccess({});
-    return;
+    return base::TaskLoop::kIncorrectId;
   }
 
   auto const headers = m_delegate->GetHeaders();
-  GetPlatform().RunTask(Platform::Thread::Network, [url, headers, onSuccess, onError]()
+  return GetPlatform().RunTask(Platform::Thread::Network, [url, headers, onSuccess, onError]()
   {
     std::string httpResult;
     if (!GetGalleryRaw(url, headers, httpResult))

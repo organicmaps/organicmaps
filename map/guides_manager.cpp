@@ -159,7 +159,7 @@ void GuidesManager::RequestGuides()
     mercator::ClampPoint(p);
 
   auto const requestNumber = ++m_requestCounter;
-  m_api.GetGuidesOnMap(
+  auto const id = m_api.GetGuidesOnMap(
       corners, m_zoom,
       [this](guides_on_map::GuidesOnMap const & guides) {
         if (m_state == GuidesState::Disabled)
@@ -203,6 +203,14 @@ void GuidesManager::RequestGuides()
         if (requestNumber == m_requestCounter)
           RequestGuides();
       });
+
+  if (id != base::TaskLoop::kIncorrectId)
+  {
+    if (m_previousRequestsId != base::TaskLoop::kIncorrectId)
+      GetPlatform().CancelTask(Platform::Thread::Network, m_previousRequestsId);
+
+    m_previousRequestsId = id;
+  }
 }
 
 void GuidesManager::Clear()

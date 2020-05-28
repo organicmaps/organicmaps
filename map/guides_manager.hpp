@@ -13,6 +13,8 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include "base/task_loop.hpp"
+
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -136,6 +138,7 @@ private:
 
   uint64_t m_requestCounter = 0;
   uint8_t m_errorRequestsCount = 0;
+  base::TaskLoop::TaskId m_previousRequestsId = base::TaskLoop::kIncorrectId;
 
   guides_on_map::Api m_api;
   guides_on_map::GuidesOnMap m_guides;

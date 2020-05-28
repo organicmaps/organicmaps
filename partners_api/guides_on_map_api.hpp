@@ -6,6 +6,8 @@
 #include "geometry/any_rect2d.hpp"
 #include "geometry/point2d.hpp"
 
+#include "base/task_loop.hpp"
+
 #include "private.h"
 
 #include <cstdint>
@@ -59,8 +61,9 @@ public:
 
   void SetDelegate(std::unique_ptr<Delegate> delegate);
 
-  void GetGuidesOnMap(m2::AnyRectD::Corners const & corners, uint8_t zoomLevel,
-                      GuidesOnMapCallback const & onSuccess, OnError const & onError) const;
+  base::TaskLoop::TaskId GetGuidesOnMap(m2::AnyRectD::Corners const & corners, uint8_t zoomLevel,
+                                        GuidesOnMapCallback const & onSuccess,
+                                        OnError const & onError) const;
 
 private:
   std::unique_ptr<Delegate> m_delegate;
