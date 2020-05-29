@@ -151,19 +151,19 @@ UNIT_TEST(ThreadPoolDelayed_CancelImmediate)
         ++value;
         testing::Wait();
       });
-      TEST_EQUAL(id, ThreadPool::kImmediateMinId + 1, ());
+      TEST_EQUAL(id, ThreadPool::kImmediateMinId, ());
     }
 
     {
       cancelTaskId = thread.Push([&]() { value += 1023; });
 
-      TEST_EQUAL(cancelTaskId, ThreadPool::kImmediateMinId + 2, ());
+      TEST_EQUAL(cancelTaskId, ThreadPool::kImmediateMinId + 1, ());
     }
 
     {
       auto const id = thread.Push([&]() { ++value; });
 
-      TEST_EQUAL(id, ThreadPool::kImmediateMinId + 3, ());
+      TEST_EQUAL(id, ThreadPool::kImmediateMinId + 2, ());
     }
 
     TEST(thread.Cancel(cancelTaskId), ());
@@ -185,22 +185,22 @@ UNIT_TEST(ThreadPoolDelayed_CancelDelayed)
     ThreadPool thread;
     {
       auto const id = thread.Push([]() { testing::Wait(); });
-      TEST_EQUAL(id, ThreadPool::kImmediateMinId + 1, ());
+      TEST_EQUAL(id, ThreadPool::kImmediateMinId, ());
     }
 
     {
       auto const delayedId = thread.PushDelayed(milliseconds(1), [&value]() { ++value; });
-      TEST_EQUAL(delayedId, ThreadPool::kDelayedMinId + 1, ());
+      TEST_EQUAL(delayedId, ThreadPool::kDelayedMinId, ());
     }
 
     {
       cancelTaskId = thread.PushDelayed(milliseconds(2), [&]() { value += 1023; });
-      TEST_EQUAL(cancelTaskId, ThreadPool::kDelayedMinId + 2, ());
+      TEST_EQUAL(cancelTaskId, ThreadPool::kDelayedMinId + 1, ());
     }
 
     {
       auto const delayedId = thread.PushDelayed(milliseconds(3), [&value]() { ++value; });
-      TEST_EQUAL(delayedId, ThreadPool::kDelayedMinId + 3, ());
+      TEST_EQUAL(delayedId, ThreadPool::kDelayedMinId + 2, ());
     }
 
     TEST(thread.Cancel(cancelTaskId), ());

@@ -27,7 +27,7 @@ public:
     return true;
   }
 
-  void Pop()
+  void PopFront()
   {
     CHECK(!m_map.empty(), ());
     m_map.erase(m_list.front().first);

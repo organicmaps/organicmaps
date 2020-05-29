@@ -27,7 +27,7 @@ UNIT_TEST(LinkedMap_Smoke)
   TEST_EQUAL(getResult, "world", ());
 
   TEST_EQUAL(container.Front(), "hello", ());
-  container.Pop();
+  container.PopFront();
   TEST_EQUAL(container.Front(), "world", ());
 
   TEST_EQUAL(container.Size(), 2, ());

@@ -47,7 +47,7 @@ public:
   ~ThreadPool() override;
 
   // Pushes task to the end of the thread's queue of immediate tasks.
-  // Returns task id or empty string when any error occurs
+  // Returns task id or |TaskLoop::kIncorrectId| when any error occurs
   // or the thread is shut down.
   //
   // The task |t| is going to be executed after all immediate tasks
@@ -56,7 +56,7 @@ public:
   TaskId Push(Task const & t) override;
 
   // Pushes task to the thread's queue of delayed tasks.
-  // Returns task id or empty string when any error occurs
+  // Returns task id or |TaskLoop::kIncorrectId| when any error occurs
   // or the thread is shut down.
   //
   // The task |t| is going to be executed not earlier than after
@@ -110,7 +110,7 @@ private:
     bool operator<(DelayedTask const & rhs) const { return m_when < rhs.m_when; }
     bool operator>(DelayedTask const & rhs) const { return rhs < *this; }
 
-    TaskId m_id;
+    TaskId m_id = kIncorrectId;
     TimePoint m_when = {};
     Task m_task = {};
   };

@@ -23,8 +23,8 @@ TaskLoop::TaskId MakeNextId(TaskLoop::TaskId id, TaskLoop::TaskId minId, TaskLoo
 
 ThreadPool::ThreadPool(size_t threadsCount /* = 1 */, Exit e /* = Exit::SkipPending */)
   : m_exit(e)
-  , m_immediateLastId(kImmediateMinId)
-  , m_delayedLastId(kDelayedMinId)
+  , m_immediateLastId(kImmediateMaxId)
+  , m_delayedLastId(kDelayedMaxId)
 {
   for (size_t i = 0; i < threadsCount; ++i)
     m_threads.emplace_back(threads::SimpleThread(&ThreadPool::ProcessTasks, this));
@@ -144,7 +144,7 @@ void ThreadPool::ProcessTasks()
       if (canExecImmediate)
       {
         tasks[QUEUE_TYPE_IMMEDIATE] = move(m_immediate.Front());
-        m_immediate.Pop();
+        m_immediate.PopFront();
       }
 
       if (canExecDelayed)
@@ -161,7 +161,7 @@ void ThreadPool::ProcessTasks()
     }
   }
 
-  for (; !pendingImmediate.IsEmpty(); pendingImmediate.Pop())
+  for (; !pendingImmediate.IsEmpty(); pendingImmediate.PopFront())
     pendingImmediate.Front()();
 
   while (!pendingDelayed.empty())
