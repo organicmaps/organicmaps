@@ -196,7 +196,7 @@ def country_stage_status(stage: Type[Stage]) -> Type[Stage]:
             status_file = os.path.join(
                 env.paths.status_path, status.with_stat_ext(country)
             )
-                
+            country_status.init(status_file, name)
             if country_status.need_skip():
                 _logger.warning(f"Stage {name} was skipped.")
                 return
