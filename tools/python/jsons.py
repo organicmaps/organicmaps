@@ -715,6 +715,9 @@ GUIDES_ON_MAP_GALLERY = """
       },
       "extra": null
     }
-  ]
+  ],
+  "meta": {
+    "suggested_zoom_level": 5
+  }
 }
 """

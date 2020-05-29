@@ -165,7 +165,7 @@ void GuidesManager::RequestGuides()
 
   auto const requestNumber = ++m_requestCounter;
   auto const id = m_api.GetGuidesOnMap(
-      corners, m_zoom,
+      corners, m_zoom, m_shownGuides.empty(),
       [this, requestNumber](guides_on_map::GuidesOnMap const & guides) {
         if (m_state == GuidesState::Disabled || requestNumber != m_requestCounter)
           return;
@@ -173,7 +173,7 @@ void GuidesManager::RequestGuides()
         m_guides = guides;
         m_errorRequestsCount = 0;
 
-        if (!m_guides.empty())
+        if (!m_guides.m_nodes.empty())
           ChangeState(GuidesState::HasData);
         else
           ChangeState(GuidesState::NoData);
@@ -221,7 +221,7 @@ void GuidesManager::RequestGuides()
 void GuidesManager::Clear()
 {
   m_activeGuide.clear();
-  m_guides.clear();
+  m_guides = {};
   m_errorRequestsCount = 0;
 
   UpdateGuidesMarks();
@@ -231,7 +231,7 @@ void GuidesManager::Clear()
 GuidesManager::GuidesGallery GuidesManager::GetGallery() const
 {
   GuidesGallery gallery;
-  for (auto const & guide : m_guides)
+  for (auto const & guide : m_guides.m_nodes)
   {
     if (guide.m_outdoorCount + guide.m_sightsCount != 1)
       continue;
@@ -324,7 +324,7 @@ void GuidesManager::UpdateGuidesMarks()
   auto es = m_bmManager->GetEditSession();
   es.ClearGroup(UserMark::GUIDE_CLUSTER);
   es.ClearGroup(UserMark::GUIDE);
-  for (auto & guide : m_guides)
+  for (auto & guide : m_guides.m_nodes)
   {
     if (guide.m_sightsCount + guide.m_outdoorCount > 1)
     {

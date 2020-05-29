@@ -24,7 +24,7 @@ void ParseGallery(std::string const & src, guides_on_map::GuidesOnMap & result)
 
   auto const size = json_array_size(dataArray);
 
-  result.reserve(size);
+  result.m_nodes.reserve(size);
   for (size_t i = 0; i < size; ++i)
   {
     guides_on_map::GuidesNode item;
@@ -70,12 +70,15 @@ void ParseGallery(std::string const & src, guides_on_map::GuidesOnMap & result)
       FromJSONObjectOptionalField(extraObj, "ascent", info.m_ascent);
     }
 
-    result.emplace_back(std::move(item));
+    result.m_nodes.emplace_back(std::move(item));
   }
+
+  auto const meta = json_object_get(root.get(), "meta");
+  FromJSONObjectOptionalField(meta, "suggested_zoom_level", result.m_suggestedZoom);
 }
 
 std::string MakeGalleryUrl(std::string const & baseUrl, m2::AnyRectD::Corners const & corners,
-                           int zoomLevel, std::string const & lang)
+                           int zoomLevel, bool suggestZoom, std::string const & lang)
 {
   // Support empty baseUrl for opensource build.
   if (baseUrl.empty())
@@ -83,6 +86,8 @@ std::string MakeGalleryUrl(std::string const & baseUrl, m2::AnyRectD::Corners co
 
   url::Params params = {{"zoom_level", strings::to_string(zoomLevel)}, {"locale", lang}};
 
+  if (suggestZoom)
+    params.emplace_back("suggest_zoom_level", "1");
 
   auto const toLatLonFormatted = [](m2::PointD const & point)
   {
@@ -124,10 +129,11 @@ void Api::SetDelegate(std::unique_ptr<Delegate> delegate)
 }
 
 base::TaskLoop::TaskId Api::GetGuidesOnMap(m2::AnyRectD::Corners const & corners, uint8_t zoomLevel,
-                                           GuidesOnMapCallback const & onSuccess,
+                                           bool suggestZoom, GuidesOnMapCallback const & onSuccess,
                                            OnError const & onError) const
 {
-  auto const url = MakeGalleryUrl(m_baseUrl, corners, zoomLevel, languages::GetCurrentNorm());
+  auto const url =
+      MakeGalleryUrl(m_baseUrl, corners, zoomLevel, suggestZoom, languages::GetCurrentNorm());
   if (url.empty())
   {
     onSuccess({});
@@ -152,7 +158,7 @@ base::TaskLoop::TaskId Api::GetGuidesOnMap(m2::AnyRectD::Corners const & corners
     catch (Json::Exception const & e)
     {
       LOG(LERROR, (e.Msg(), httpResult));
-      result.clear();
+      result = {};
     }
 
     onSuccess(result);
