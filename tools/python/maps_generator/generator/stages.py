@@ -14,15 +14,17 @@ import time
 from abc import ABC
 from abc import abstractmethod
 from collections import defaultdict
-from multiprocessing import Lock
 from typing import AnyStr
 from typing import Callable
+from typing import Dict
 from typing import List
 from typing import Optional
 from typing import Type
 from typing import Union
 
-from maps_generator.generator.status import Status
+import filelock
+
+from maps_generator.generator import status
 from maps_generator.utils.file import download_files
 from maps_generator.utils.file import normalize_url_to_path_dict
 from maps_generator.utils.log import DummyObject
@@ -184,16 +186,18 @@ def country_stage_status(stage: Type[Stage]) -> Type[Stage]:
                 return
 
             if "status" not in countries_meta[country]:
-                countries_meta[country]["status"] = Status()
+                countries_meta[country]["status"] = status.Status()
 
-            status = countries_meta[country]["status"]
-            status_file = os.path.join(env.paths.status_path, f"{country}.status")
-            status.init(status_file, name)
-            if status.need_skip():
+            country_status = countries_meta[country]["status"]
+            status_file = os.path.join(
+                env.paths.status_path, status.with_stat_ext(country)
+            )
+            country_status.init(status_file, name)
+            if country_status.need_skip():
                 _logger.warning(f"{name} was skipped.")
                 return
 
-            status.update_status()
+            country_status.update_status()
             method(obj, env, country, *args, **kwargs)
 
         return apply
@@ -261,28 +265,39 @@ def helper_stage_for(*deps) -> Callable[[Type[Stage],], Type[Stage]]:
 
 
 def depends_from_internal(*deps) -> Callable[[Type[Stage],], Type[Stage]]:
+    def get_urls(
+        env: "Env", internal_dependencies: List[InternalDependency]
+    ) -> Dict[AnyStr, AnyStr]:
+        deps = {}
+        for d in internal_dependencies:
+            if "p" in d.mode and not env.production:
+                continue
+
+            path = None
+            if type(d.path_method) is property:
+                path = d.path_method.__get__(env.paths)
+
+            assert path is not None, type(d.path_method)
+            deps[d.url] = path
+
+        return deps
+
+    def download_under_lock(env: "Env", urls: Dict[AnyStr, AnyStr], stage_name: AnyStr):
+        lock_name = f"{os.path.join(env.paths.status_path, stage_name)}.lock"
+        status_name = f"{os.path.join(env.paths.status_path, stage_name)}.download"
+        with filelock.FileLock(lock_name):
+            s = status.Status(status_name)
+            if not s.is_finished():
+                urls = normalize_url_to_path_dict(urls)
+                download_files(urls, env.force_download_files)
+                s.finish()
+
     def new_apply(method):
         def apply(obj: Stage, env: "Env", *args, **kwargs):
             if hasattr(obj, "internal_dependencies") and obj.internal_dependencies:
-                with obj.depends_from_internal_lock:
-                    if not obj.depends_from_internal_downloaded:
-                        deps = {}
-                        for d in obj.internal_dependencies:
-                            if "p" in d.mode and not env.production:
-                                continue
-
-                            path = None
-                            if type(d.path_method) is property:
-                                path = d.path_method.__get__(env.paths)
-
-                            assert path is not None, type(d.path_method)
-                            deps[d.url] = path
-
-                        if deps:
-                            deps =  normalize_url_to_path_dict(deps)
-                            download_files(deps, env.force_download_files)
-
-                        obj.depends_from_internal_downloaded = True
+                urls = get_urls(env, obj.internal_dependencies)
+                if urls:
+                    download_under_lock(env, urls, get_stage_name(obj))
 
             method(obj, env, *args, **kwargs)
 
@@ -290,8 +305,6 @@ def depends_from_internal(*deps) -> Callable[[Type[Stage],], Type[Stage]]:
 
     def wrapper(stage: Type[Stage]) -> Type[Stage]:
         stage.internal_dependencies = deps
-        stage.depends_from_internal_lock = Lock()
-        stage.depends_from_internal_downloaded = False
         stage.apply = new_apply(stage.apply)
         return stage
 

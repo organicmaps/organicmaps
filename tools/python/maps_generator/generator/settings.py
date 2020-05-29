@@ -135,8 +135,12 @@ PLANET_COASTS_GEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.geom")
 PLANET_COASTS_RAWGEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.rawgeom")
 
 if DEBUG:
-    PLANET_URL = "http://osmz.ru/mwm/islands/islands.o5m"
-    PLANET_MD5_URL = "https://cloclo10.cldmail.ru/2n5jWJm11RtdLYm5QFYM/G/QAsr/24zvN9Gf8"
+    PLANET_URL = "https://www.dropbox.com/s/m3ru5tnj8g9u4cz/planet-latest.o5m?raw=1"
+    PLANET_MD5_URL = (
+        "https://www.dropbox.com/s/8wdl2hy22jgisk5/planet-latest.o5m.md5?raw=1"
+    )
+    NODE_STORAGE = "map"
+    NEED_PLANET_UPDATE = False
 
 # Common:
 THREADS_COUNT = multiprocessing.cpu_count()
@@ -279,5 +283,9 @@ def init(default_settings_path: AnyStr):
     PLANET_COASTS_RAWGEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.rawgeom")
 
     if DEBUG:
-        PLANET_URL = "http://osmz.ru/mwm/islands/islands.o5m"
-        PLANET_MD5_URL = "https://cloclo10.cldmail.ru/2n5jWJm11RtdLYm5QFYM/G/QAsr/24zvN9Gf8"
+        PLANET_URL = "https://www.dropbox.com/s/m3ru5tnj8g9u4cz/planet-latest.o5m?raw=1"
+        PLANET_MD5_URL = (
+            "https://www.dropbox.com/s/8wdl2hy22jgisk5/planet-latest.o5m.md5?raw=1"
+        )
+        NODE_STORAGE = "map"
+        NEED_PLANET_UPDATE = False

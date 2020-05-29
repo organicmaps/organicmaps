@@ -144,12 +144,16 @@ def copy_overwrite(from_path: AnyStr, to_path: AnyStr):
     shutil.copytree(from_path, to_path)
 
 
-def symlink_force(target: AnyStr, link_name: AnyStr):
+def make_symlink(target: AnyStr, link_name: AnyStr):
     try:
         os.symlink(target, link_name)
     except OSError as e:
         if e.errno == errno.EEXIST:
-            os.remove(link_name)
-            os.symlink(target, link_name)
+            if os.path.islink(link_name):
+                link = os.readlink(link_name)
+                if os.path.abspath(target) != os.path.abspath(link):
+                    raise e
+            else:
+                raise e
         else:
             raise e

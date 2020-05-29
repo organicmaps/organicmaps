@@ -22,7 +22,7 @@ from maps_generator.generator.osmtools import osmupdate
 from maps_generator.generator.statistics import make_stats
 from maps_generator.utils.file import download_files
 from maps_generator.utils.file import is_verified
-from maps_generator.utils.file import symlink_force
+from maps_generator.utils.file import make_symlink
 from maps_generator.utils.md5 import md5_ext
 from maps_generator.utils.md5 import write_md5sum
 
@@ -141,7 +141,7 @@ def run_gen_tool_with_recovery_country(env: Env, *args, **kwargs):
     mwm = f"{kwargs['output']}.mwm"
     osm2ft = f"{mwm}.osm2ft"
     kwargs["data_path"] = env.paths.draft_path
-    symlink_force(
+    make_symlink(
         os.path.join(prev_data_path, osm2ft), os.path.join(env.paths.draft_path, osm2ft)
     )
     shutil.copy(
@@ -338,8 +338,7 @@ def step_statistics(env: Env, country: AnyStr, **kwargs):
         json.dump(
             make_stats(
                 settings.STATS_TYPES_CONFIG,
-                os.path.join(env.paths.intermediate_data_path,
-                             f"{country}.stats")
+                os.path.join(env.paths.intermediate_data_path, f"{country}.stats"),
             ),
-            f
+            f,
         )

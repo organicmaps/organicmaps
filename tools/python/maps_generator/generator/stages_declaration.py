@@ -278,7 +278,11 @@ class StageMwmStatistics(Stage):
 
 @outer_stage
 @depends_from_internal(
-    D(settings.PROMO_CATALOG_COUNTRIES_URL, PathProvider.promo_catalog_countries_path, "p")
+    D(
+        settings.PROMO_CATALOG_COUNTRIES_URL,
+        PathProvider.promo_catalog_countries_path,
+        "p",
+    )
 )
 class StageCountriesTxt(Stage):
     def apply(self, env: Env):
@@ -356,7 +360,7 @@ class StageStatistics(Stage):
             with open(os.path.join(env.paths.stats_path, f"{country}.json")) as f:
                 stats["countries"][country] = {
                     "types": json.load(f),
-                    "steps": steps_info["countries"][country]
+                    "steps": steps_info["countries"][country],
                 }
 
         def default(o):
@@ -373,7 +377,7 @@ class StageStatistics(Stage):
 class StageCleanup(Stage):
     def apply(self, env: Env):
         logger.info(
-            f"osm2ft files will be moved from {env.paths.build_path} "
+            f"osm2ft files will be moved from {env.paths.mwm_path} "
             f"to {env.paths.osm2ft_path}."
         )
         for x in os.listdir(env.paths.mwm_path):
