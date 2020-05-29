@@ -12,16 +12,6 @@ ADDR_PATTERN = re.compile(
 )
 
 
-class AddrInfo:
-    def __init__(self, matched_percent, total, missing):
-        self.matched_percent = float(matched_percent)
-        self.total = float(total)
-        self.matched = self.total - float(missing)
-
-    def __str__(self):
-        return f"Matched percent: {self.matched_percent}, total: {self.total}, matched: {self.matched}"
-
-
 def get_addresses_check_set(old_path: str, new_path: str) -> check.CompareCheckSet:
     def do(path: str):
         log = logs_reader.Log(path)
@@ -33,11 +23,8 @@ def get_addresses_check_set(old_path: str, new_path: str) -> check.CompareCheckS
             return None
 
         d = found[0][0]
-        return AddrInfo(**d)
-
-    def op(lhs: AddrInfo, rhs: AddrInfo):
-        return lhs.matched_percent - rhs.matched_percent
+        return float(d["matched_percent"])
 
     return check.build_check_set_for_files(
-        "Addresses check", old_path, new_path, do=do, op=op
+        "Addresses check", old_path, new_path, ext=".log", do=do
     )

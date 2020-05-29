@@ -14,6 +14,7 @@ import maps_generator.generator.env as env
 from maps_generator.generator.stages import get_stage_type
 from maps_generator.utils.algo import parse_timedelta
 
+
 logger = logging.getLogger(__name__)
 
 

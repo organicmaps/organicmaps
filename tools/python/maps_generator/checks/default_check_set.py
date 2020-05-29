@@ -1,4 +1,3 @@
-import os
 import sys
 from collections import namedtuple
 from enum import Enum
@@ -6,8 +5,9 @@ from typing import Callable
 from typing import Mapping
 
 from maps_generator.checks import check
+from maps_generator.checks.check_addresses import get_addresses_check_set
 from maps_generator.checks.check_categories import get_categories_check_set
-from maps_generator.checks.check_mwm_types import count_all_types
+from maps_generator.checks.check_log_levels import get_log_levels_check_set
 from maps_generator.checks.check_mwm_types import get_mwm_all_types_check_set
 from maps_generator.checks.check_mwm_types import get_mwm_type_check_set
 from maps_generator.checks.check_sections import get_sections_existence_check_set
@@ -43,17 +43,7 @@ def get_threshold(check_type: CheckType) -> Threshold:
 
 def make_default_filter(threshold: Threshold):
     def default_filter(r: check.ResLine):
-        if isinstance(r.diff, (int, float)):
-            diff = abs(r.diff)
-            previous = r.previous
-            current = r.current
-        else:
-            assert False, type(r.diff)
-
-        return (
-            diff > threshold.abs
-            and (diff * 100.0 / max(previous, current)) > threshold.rel
-        )
+        return check.norm(r.diff) > threshold.abs and check.get_rel(r) > threshold.rel
 
     return default_filter
 
@@ -72,6 +62,15 @@ def get_mwm_check_sets_and_filters(
         get_size_check_set(old_path, new_path): make_default_filter,
         get_sections_size_check_set(old_path, new_path): make_default_filter,
         get_sections_existence_check_set(old_path, new_path): None,
+    }
+
+
+def get_logs_check_sets_and_filters(
+    old_path: str, new_path: str
+) -> Mapping[check.Check, Callable]:
+    return {
+        get_addresses_check_set(old_path, new_path): make_default_filter,
+        get_log_levels_check_set(old_path, new_path): None,
     }
 
 

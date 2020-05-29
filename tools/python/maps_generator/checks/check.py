@@ -30,8 +30,21 @@ def norm(value):
         return abs(value)
     elif hasattr(value, "__len__"):
         return len(value)
+    elif hasattr(value, "norm"):
+        return value.norm()
 
     assert False, type(value)
+
+
+def get_rel(r: ResLine) -> bool:
+    rel = 0.0
+    if r.arrow != Arrow.zero:
+        prev = norm(r.previous)
+        if prev == 0:
+            rel = 100.0
+        else:
+            rel = norm(r.diff) * 100.0 / prev
+    return rel
 
 
 class Check(ABC):
@@ -134,14 +147,7 @@ class CompareCheck(Check):
         if silent_if_no_results and self.result.arrow == Arrow.zero:
             return ""
 
-        rel = 0.0
-        if self.result.arrow != Arrow.zero:
-            rel = (
-                norm(self.result.diff)
-                * 100.0
-                / max(norm(self.result.previous), norm(self.result.current))
-            )
-
+        rel = get_rel(self.result)
         return (
             f"{self.name}: {ROW_TO_STR[self.result.arrow]} {rel:.2f}% "
             f"[{self.format(self.result.previous)} → "

@@ -109,6 +109,9 @@ class Stages:
         for dep in deps:
             self.dependencies[stage].add(dep)
 
+    def get_invisible_stages_names(self) -> List[AnyStr]:
+        return [get_stage_name(st) for st in self.helper_stages]
+
     def get_visible_stages_names(self) -> List[AnyStr]:
         """Returns all stages names except helper stages names."""
         stages = []
