@@ -40,6 +40,8 @@
 #include "routing/cross_mwm_ids.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
+#include "storage/country_parent_getter.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
@@ -50,8 +52,6 @@
 #include "indexer/map_style_reader.hpp"
 #include "indexer/rank_table.hpp"
 
-#include "storage/country_parent_getter.hpp"
-
 #include "platform/platform.hpp"
 
 #include "coding/endianness.hpp"
@@ -60,6 +60,8 @@
 #include "base/file_name_utils.hpp"
 #include "base/timer.hpp"
 
+#include "defines.hpp"
+
 #include <csignal>
 #include <cstdlib>
 #include <fstream>
@@ -67,10 +69,9 @@
 #include <string>
 #include <thread>
 
-#include "build_version.hpp"
-#include "defines.hpp"
-
 #include "3party/gflags/src/gflags/gflags.h"
+
+#include "build_version.hpp"
 
 using namespace std;
 
@@ -138,12 +139,18 @@ DEFINE_bool(make_routing_index, false, "Make sections with the routing informati
 DEFINE_bool(make_cross_mwm, false,
             "Make section for cross mwm routing (for dynamic indexed routing).");
 DEFINE_bool(make_transit_cross_mwm, false, "Make section for cross mwm transit routing.");
+DEFINE_bool(make_transit_cross_mwm_experimental, false,
+            "Experimental parameter. If set the new version of transit cross-mwm section will be "
+            "generated. Makes section for cross mwm transit routing.");
 DEFINE_bool(disable_cross_mwm_progress, false,
             "Disable log of cross mwm section building progress.");
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
 DEFINE_string(transit_path, "", "Path to directory with transit graphs in json.");
+DEFINE_string(transit_path_experimental, "",
+              "Experimental parameter. If set the new version of transit section will be "
+              "generated. Path to directory with json generated from GTFS.");
 DEFINE_bool(generate_cameras, false, "Generate section with speed cameras info.");
 DEFINE_bool(
     make_city_roads, false,
@@ -310,7 +317,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   // Load mwm tree only if we need it
   unique_ptr<storage::CountryParentGetter> countryParentGetter;
   if (FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
-      !FLAGS_uk_postcodes_dataset.empty() || !FLAGS_us_postcodes_dataset.empty())
+      FLAGS_make_transit_cross_mwm_experimental || !FLAGS_uk_postcodes_dataset.empty() ||
+      !FLAGS_us_postcodes_dataset.empty())
   {
     countryParentGetter = make_unique<storage::CountryParentGetter>();
   }
@@ -451,8 +459,15 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(dataFile, FLAGS_srtm_path);
 
-    if (!FLAGS_transit_path.empty())
+    if (!FLAGS_transit_path_experimental.empty())
+    {
+      // TODO(o.khlopkova) Build transit.
+      LOG(LINFO, ("Transit experimental building."));
+    }
+    else if (!FLAGS_transit_path.empty())
+    {
       routing::transit::BuildTransit(path, country, osmToFeatureFilename, FLAGS_transit_path);
+    }
 
     if (FLAGS_generate_cameras)
     {
@@ -506,7 +521,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       routing::BuildMaxspeedsSection(dataFile, osmToFeatureFilename, maxspeedsFilename);
     }
 
-    if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)
+    if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
+        FLAGS_make_transit_cross_mwm_experimental)
     {
       if (!countryParentGetter)
       {
@@ -524,8 +540,15 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
                                              FLAGS_disable_cross_mwm_progress);
       }
 
-      if (FLAGS_make_transit_cross_mwm)
+      if (FLAGS_make_transit_cross_mwm_experimental)
+      {
+        // TODO(o.khlopkova): Implement BuildTransitCrossMwmSection().
+        LOG(LINFO, ("Make cross mwm for experimental transit."));
+      }
+      else if (FLAGS_make_transit_cross_mwm)
+      {
         routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter);
+      }
     }
 
     if (!FLAGS_ugc_data.empty())
