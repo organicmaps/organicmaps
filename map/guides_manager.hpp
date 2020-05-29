@@ -115,7 +115,7 @@ public:
 
 private:
   void ChangeState(GuidesState newState);
-  void RequestGuides();
+  void RequestGuides(bool suggestZoom = false);
   void Clear();
 
   bool IsGuideDownloaded(std::string const & guideId) const;

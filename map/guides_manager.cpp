@@ -126,7 +126,7 @@ void GuidesManager::SetEnabled(bool enabled)
     return;
   }
 
-  RequestGuides();
+  RequestGuides(true /* suggestZoom */);
 }
 
 bool GuidesManager::IsEnabled() const
@@ -146,7 +146,7 @@ void GuidesManager::ChangeState(GuidesState newState)
     TrackStatistics();
 }
 
-void GuidesManager::RequestGuides()
+void GuidesManager::RequestGuides(bool suggestZoom)
 {
   if (!IsRequestParamsInitialized())
     return;
@@ -165,8 +165,8 @@ void GuidesManager::RequestGuides()
 
   auto const requestNumber = ++m_requestCounter;
   auto const id = m_api.GetGuidesOnMap(
-      corners, m_zoom, m_shownGuides.empty(),
-      [this, requestNumber](guides_on_map::GuidesOnMap const & guides) {
+      corners, m_zoom, suggestZoom,
+      [this, suggestZoom, requestNumber](guides_on_map::GuidesOnMap const & guides) {
         if (m_state == GuidesState::Disabled || requestNumber != m_requestCounter)
           return;
 
@@ -176,7 +176,19 @@ void GuidesManager::RequestGuides()
         if (!m_guides.m_nodes.empty())
           ChangeState(GuidesState::HasData);
         else
-          ChangeState(GuidesState::NoData);
+        {
+          if (suggestZoom && m_zoom > m_guides.m_suggestedZoom)
+          {
+            m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewCenter,
+                                   m_lastShownViewport.GetGlobalRect().Center(),
+                                   m_guides.m_suggestedZoom,
+                                   true /* isAnim */, false /* trackVisibleViewport */);
+          }
+          else
+          {
+            ChangeState(GuidesState::NoData);
+          }
+        }
 
         UpdateGuidesMarks();
 
