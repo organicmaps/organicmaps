@@ -1,22 +1,22 @@
 import UIKit
 
 class BottomMenuLayersCell: UITableViewCell {
-  @IBOutlet var guidesButton: VerticallyAlignedButton! {
+  @IBOutlet var guidesButton: BottomMenuLayerButton! {
     didSet {
       updateGuidesButton()
     }
   }
-  @IBOutlet private var trafficButton: VerticallyAlignedButton! {
+  @IBOutlet private var trafficButton: BottomMenuLayerButton! {
     didSet {
       updateTrafficButton()
     }
   }
-  @IBOutlet private var subwayButton: VerticallyAlignedButton! {
+  @IBOutlet private var subwayButton: BottomMenuLayerButton! {
     didSet {
       updateSubwayButton()
     }
   }
-  @IBOutlet private var isoLinesButton: VerticallyAlignedButton! {
+  @IBOutlet private var isoLinesButton: BottomMenuLayerButton! {
     didSet {
       updateIsoLinesButton()
     }
@@ -39,27 +39,23 @@ class BottomMenuLayersCell: UITableViewCell {
   
   private func updateGuidesButton() {
     let enabled = MapOverlayManager.guidesEnabled()
-    let isFirtLaunch = MapOverlayManager.guidesFirstLaunch()
-    if enabled {
-      guidesButton.setStyleAndApply("LayersGuidesButtonEnabled")
-    } else {
-      guidesButton.setStyleAndApply(isFirtLaunch ? "LayersGuidesButtonFirstLaunch" : "LayersGuidesButtonDisabled")
-    }
+    guidesButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
+    guidesButton.isBadgeHidden = !MapOverlayManager.guidesFirstLaunch()
   }
   
   private func updateTrafficButton() {
     let enabled = MapOverlayManager.trafficEnabled()
-    trafficButton.setStyleAndApply(enabled ? "LayersTrafficButtonEnabled" : "LayersTrafficButtonDisabled")
+    trafficButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
   }
   
   private func updateSubwayButton() {
     let enabled = MapOverlayManager.transitEnabled()
-    subwayButton.setStyleAndApply(enabled ? "LayersSubwayButtonEnabled" : "LayersSubwayButtonDisabled")
+    subwayButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
   }
   
   private func updateIsoLinesButton() {
     let enabled = MapOverlayManager.isoLinesEnabled()
-    isoLinesButton.setStyleAndApply(enabled ? "LayersIsolinesButtonEnabled" : "LayersIsolinesButtonDisabled")
+    isoLinesButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
   }
   
   @IBAction func onCloseButtonPressed(_ sender: Any) {

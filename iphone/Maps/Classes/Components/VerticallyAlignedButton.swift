@@ -1,5 +1,7 @@
 @IBDesignable
 class VerticallyAlignedButton: MWMButton {
+  @IBInspectable
+  var spacing: CGFloat = 4
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -39,6 +41,6 @@ class VerticallyAlignedButton: MWMButton {
     let titleRect = super.titleRect(forContentRect: r)
     let w = CGFloat.maximum(imageRect.width, titleRect.width)
 
-    return CGSize(width: w, height: imageRect.height + titleRect.height + 4)
+    return CGSize(width: w, height: imageRect.height + titleRect.height + spacing)
   }
 }

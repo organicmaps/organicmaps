@@ -72,19 +72,22 @@
                         </variation>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="sRd-zd-xSl">
-                        <rect key="frame" x="16" y="56" width="309" height="98"/>
+                        <rect key="frame" x="16" y="56" width="309" height="88"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNA-XR-mPR">
-                                <rect key="frame" x="0.0" y="0.0" width="77.5" height="98"/>
+                                <rect key="frame" x="0.0" y="0.0" width="77.5" height="88"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNT-jM-BGw" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="1.5" y="29" width="74" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNT-jM-BGw" customClass="BottomMenuLayerButton" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="-0.5" y="22" width="78" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <state key="normal" title="Guides" image="btn_menu_traffic_off_light">
+                                        <state key="normal" title="Guides" image="btn_menu_guides">
                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_guides"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onGuidesButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bcD-pp-RtJ"/>
@@ -98,16 +101,19 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QR7-Ds-43I">
-                                <rect key="frame" x="77.5" y="0.0" width="77" height="98"/>
+                                <rect key="frame" x="77.5" y="0.0" width="77" height="88"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Si-54-ubF" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="2.5" y="29" width="72" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Si-54-ubF" customClass="BottomMenuLayerButton" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.5" y="22" width="76" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <state key="normal" title="Traffic" image="btn_menu_traffic_off_light">
+                                        <state key="normal" title="Traffic" image="btn_menu_traffic">
                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_traffic"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onTrafficButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="x9b-yU-SjG"/>
@@ -121,16 +127,19 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PSf-7s-mdn">
-                                <rect key="frame" x="154.5" y="0.0" width="77.5" height="98"/>
+                                <rect key="frame" x="154.5" y="0.0" width="77.5" height="88"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ms-FI-jtO" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="-1" y="29" width="79" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ms-FI-jtO" customClass="BottomMenuLayerButton" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="-3" y="22" width="83" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <state key="normal" title="Contour" image="btn_menu_isomaps_off_light">
+                                        <state key="normal" title="Contour" image="btn_menu_isomaps">
                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_isolines"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onIsoLinesButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cRN-3C-Hw7"/>
@@ -144,16 +153,19 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOD-l7-NDs">
-                                <rect key="frame" x="232" y="0.0" width="77" height="98"/>
+                                <rect key="frame" x="232" y="0.0" width="77" height="88"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iib-us-Ysk" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="-0.5" y="29" width="78" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iib-us-Ysk" customClass="BottomMenuLayerButton" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="-2.5" y="22" width="82" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <state key="normal" title="Subway" image="btn_menu_subway_off_light">
+                                        <state key="normal" title="Subway" image="btn_menu_subway">
                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_subway"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onSubwayButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="V1a-gI-mJn"/>
@@ -170,7 +182,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="70" id="d0H-kE-IWx"/>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="nea-IB-ZkL"/>
-                            <constraint firstAttribute="height" constant="98" id="t9j-kf-yze"/>
+                            <constraint firstAttribute="height" constant="88" id="t9j-kf-yze"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -209,7 +221,7 @@
                     <constraint firstItem="W1i-v6-zbz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="RLh-Jr-7dm"/>
                     <constraint firstAttribute="trailing" secondItem="sRd-zd-xSl" secondAttribute="trailing" priority="750" constant="16" id="Z8f-X6-r4N"/>
                     <constraint firstItem="sRd-zd-xSl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" priority="750" constant="16" id="hJE-fg-IEX"/>
-                    <constraint firstAttribute="bottom" secondItem="sRd-zd-xSl" secondAttribute="bottom" id="iwo-vC-EI9"/>
+                    <constraint firstAttribute="bottom" secondItem="sRd-zd-xSl" secondAttribute="bottom" constant="10" id="iwo-vC-EI9"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -229,9 +241,10 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="btn_menu_isomaps_off_light" width="40" height="40"/>
-        <image name="btn_menu_subway_off_light" width="40" height="40"/>
-        <image name="btn_menu_traffic_off_light" width="40" height="40"/>
+        <image name="btn_menu_guides" width="44" height="44"/>
+        <image name="btn_menu_isomaps" width="44" height="44"/>
+        <image name="btn_menu_subway" width="44" height="44"/>
+        <image name="btn_menu_traffic" width="44" height="44"/>
         <image name="ic_clear_24" width="20" height="20"/>
     </resources>
 </document>

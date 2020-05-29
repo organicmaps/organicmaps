@@ -627,6 +627,8 @@
 		995739082355CB660019AEE7 /* AllPassSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995739072355CB660019AEE7 /* AllPassSubscriptionViewController.swift */; };
 		995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995F1611244F0AA40060631D /* BottomMenuLayersCell.swift */; };
 		995F1614244F0AA50060631D /* BottomMenuLayersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 995F1612244F0AA40060631D /* BottomMenuLayersCell.xib */; };
+		9977E6A12480E1EE0073780C /* BottomMenuLayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977E6A02480E1EE0073780C /* BottomMenuLayerButton.swift */; };
+		9977E6A32480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977E6A22480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift */; };
 		998927302449DE1500260CE2 /* TabBarArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9989272F2449DE1500260CE2 /* TabBarArea.swift */; };
 		998927382449E60200260CE2 /* BottomMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998927322449E60200260CE2 /* BottomMenuPresenter.swift */; };
 		9989273A2449E60200260CE2 /* BottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998927342449E60200260CE2 /* BottomMenuViewController.swift */; };
@@ -1715,6 +1717,8 @@
 		995F1610244F07F90060631D /* MWMBottomMenuState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuState.h; sourceTree = "<group>"; };
 		995F1611244F0AA40060631D /* BottomMenuLayersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLayersCell.swift; sourceTree = "<group>"; };
 		995F1612244F0AA40060631D /* BottomMenuLayersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomMenuLayersCell.xib; sourceTree = "<group>"; };
+		9977E6A02480E1EE0073780C /* BottomMenuLayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLayerButton.swift; sourceTree = "<group>"; };
+		9977E6A22480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLayerButtonRenderer.swift; sourceTree = "<group>"; };
 		9989272F2449DE1500260CE2 /* TabBarArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarArea.swift; sourceTree = "<group>"; };
 		998927322449E60200260CE2 /* BottomMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuPresenter.swift; sourceTree = "<group>"; };
 		998927342449E60200260CE2 /* BottomMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuViewController.swift; sourceTree = "<group>"; };
@@ -3730,6 +3734,7 @@
 				993DF0EF23F6BDB100AC231A /* UIViewControllerRenderer.swift */,
 				993DF0F023F6BDB100AC231A /* UINavigationItemRenderer.swift */,
 				47D48BF42432A7C900FEFB1F /* ChartViewRenderer.swift */,
+				9977E6A22480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -3855,6 +3860,7 @@
 				9989273F2449ECC200260CE2 /* BottomMenuItemCell.swift */,
 				995F1611244F0AA40060631D /* BottomMenuLayersCell.swift */,
 				995F1612244F0AA40060631D /* BottomMenuLayersCell.xib */,
+				9977E6A02480E1EE0073780C /* BottomMenuLayerButton.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5437,6 +5443,7 @@
 				999FC12023ABA9AD00B0E6F9 /* SearchStyleSheet.swift in Sources */,
 				99B6A74E2362F5CD002C94CB /* PromoCoordinator.swift in Sources */,
 				3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */,
+				9977E6A32480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift in Sources */,
 				F69739B21FD197DB00FDA07D /* MWMDiscoveryTableManager.mm in Sources */,
 				3454D7D11E07F045004AF2AD /* UIImage+RGBAData.m in Sources */,
 				99A906E723F6F7030005872B /* HotelReviewsViewController.swift in Sources */,
@@ -5491,6 +5498,7 @@
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
 				99A906DE23F6F7030005872B /* PlacePageBookmarkViewController.swift in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.m in Sources */,
+				9977E6A12480E1EE0073780C /* BottomMenuLayerButton.swift in Sources */,
 				479D306522C664CE00D18278 /* MWMDownloadBannerViewController.m in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.m in Sources */,
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
