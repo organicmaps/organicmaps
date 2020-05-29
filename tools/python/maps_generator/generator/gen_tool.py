@@ -71,6 +71,7 @@ class GenTool:
         "regions_key_value": str,
         "srtm_path": str,
         "transit_path": str,
+        "transit_path_experimental": str,
         "ugc_data": str,
         "uk_postcodes_dataset": str,
         "us_postcodes_dataset": str,

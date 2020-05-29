@@ -213,6 +213,12 @@ class PathProvider:
         return self.intermediate_data_path
 
     @property
+    def transit_path_experimental(self) -> AnyStr:
+        return os.path.join(
+            self.intermediate_data_path, "transit_from_gtfs"
+        )
+
+    @property
     def planet_osm_pbf(self) -> AnyStr:
         return os.path.join(self.build_path, f"{settings.PLANET}.osm.pbf")
 

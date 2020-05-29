@@ -314,6 +314,7 @@ def step_routing_transit(env: Env, country: AnyStr, **kwargs):
         intermediate_data_path=env.paths.intermediate_data_path,
         user_resource_path=env.paths.user_resource_path,
         transit_path=env.paths.transit_path,
+        transit_path_experimental=env.paths.transit_path_experimental,
         make_transit_cross_mwm=True,
         output=country,
         **kwargs,
