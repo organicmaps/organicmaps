@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "generator/affiliation.hpp"
+
 #include "transit/world_feed/world_feed.hpp"
 
 #include "platform/platform.hpp"
@@ -26,7 +28,9 @@ namespace transit
 class WorldFeedIntegrationTests
 {
 public:
-  WorldFeedIntegrationTests() : m_globalFeed(m_generator, m_colorPicker)
+  WorldFeedIntegrationTests()
+    : m_mwmMatcher(GetTestingOptions().m_resourcePath, false /* haveBordersForWholeWorld */)
+    , m_globalFeed(m_generator, m_colorPicker, m_mwmMatcher)
   {
     auto const & options = GetTestingOptions();
 
@@ -91,6 +95,7 @@ private:
   std::string m_testPath;
   IdGenerator m_generator;
   transit::ColorPicker m_colorPicker;
+  feature::CountriesFilesAffiliation m_mwmMatcher;
   WorldFeed m_globalFeed;
 };
 

@@ -1,21 +1,23 @@
 #pragma once
+#include "generator/affiliation.hpp"
+
 #include "transit/world_feed/color_picker.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include "defines.hpp"
+
 #include <cstdint>
 #include <fstream>
-#include <set>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 
 #include "3party/just_gtfs/just_gtfs.h"
 #include "3party/opening_hours/opening_hours.hpp"
-
-#include "defines.hpp"
 
 namespace transit
 {
@@ -56,12 +58,14 @@ private:
 // Here are MAPS.ME representations for GTFS entities, e.g. networks for GTFS agencies.
 // https://developers.google.com/transit/gtfs/reference
 
+using IdSet = std::unordered_set<TransitId>;
+
 // Mapping of language id to text.
 using Translations = std::unordered_map<std::string, std::string>;
 
 struct Networks
 {
-  void Write(std::ofstream & stream) const;
+  void Write(IdSet const & ids, std::ofstream & stream) const;
 
   // Id to agency name mapping.
   std::unordered_map<TransitId, Translations> m_data;
@@ -77,7 +81,7 @@ struct RouteData
 
 struct Routes
 {
-  void Write(std::ofstream & stream) const;
+  void Write(IdSet const & ids, std::ofstream & stream) const;
 
   std::unordered_map<TransitId, RouteData> m_data;
 };
@@ -121,7 +125,7 @@ struct LineData
 
 struct Lines
 {
-  void Write(std::ofstream & stream) const;
+  void Write(std::unordered_map<TransitId, IdList> const & ids, std::ofstream & stream) const;
 
   std::unordered_map<TransitId, LineData> m_data;
 };
@@ -133,12 +137,12 @@ struct ShapeData
 
   std::vector<m2::PointD> m_points;
   // Field not for dumping to json:
-  std::unordered_set<TransitId> m_lineIds;
+  IdSet m_lineIds;
 };
 
 struct Shapes
 {
-  void Write(std::ofstream & stream) const;
+  void Write(IdSet const & ids, std::ofstream & stream) const;
 
   std::unordered_map<TransitId, ShapeData> m_data;
 };
@@ -158,7 +162,7 @@ struct StopData
 
 struct Stops
 {
-  void Write(std::ofstream & stream) const;
+  void Write(IdSet const & ids, std::ofstream & stream) const;
 
   std::unordered_map<TransitId, StopData> m_data;
 };
@@ -180,6 +184,8 @@ struct EdgeIdHasher
   size_t operator()(EdgeId const & key) const;
 };
 
+using IdEdgeSet = std::unordered_set<EdgeId, EdgeIdHasher>;
+
 struct EdgeData
 {
   ShapeLink m_shapeLink;
@@ -188,25 +194,34 @@ struct EdgeData
 
 struct Edges
 {
-  void Write(std::ofstream & stream) const;
+  void Write(IdEdgeSet const & ids, std::ofstream & stream) const;
 
   std::unordered_map<EdgeId, EdgeData, EdgeIdHasher> m_data;
 };
 
-struct EdgeTransferData
+struct EdgeTransferId
 {
+  EdgeTransferId() = default;
+  EdgeTransferId(TransitId fromStopId, TransitId toStopId);
+
+  bool operator==(EdgeTransferId const & other) const;
+
   TransitId m_fromStopId = 0;
   TransitId m_toStopId = 0;
-  size_t m_weight = 0;
 };
 
-bool operator<(EdgeTransferData const & d1, EdgeTransferData const & d2);
+struct EdgeTransferIdHasher
+{
+  size_t operator()(EdgeTransferId const & key) const;
+};
+
+using IdEdgeTransferSet = std::unordered_set<EdgeTransferId, EdgeTransferIdHasher>;
 
 struct EdgesTransfer
 {
-  void Write(std::ofstream & stream) const;
-
-  std::set<EdgeTransferData> m_data;
+  void Write(IdEdgeTransferSet const & ids, std::ofstream & stream) const;
+  // Key is pair of stops and value is weight (in seconds).
+  std::unordered_map<EdgeTransferId, size_t, EdgeTransferIdHasher> m_data;
 };
 
 struct TransferData
@@ -217,7 +232,7 @@ struct TransferData
 
 struct Transfers
 {
-  void Write(std::ofstream & stream) const;
+  void Write(IdSet const & ids, std::ofstream & stream) const;
 
   std::unordered_map<TransitId, TransferData> m_data;
 };
@@ -241,7 +256,7 @@ struct GateData
 
 struct Gates
 {
-  void Write(std::ofstream & stream) const;
+  void Write(IdSet const & ids, std::ofstream & stream) const;
 
   std::unordered_map<TransitId, GateData> m_data;
 };
@@ -266,15 +281,42 @@ struct StopsOnLines
   explicit StopsOnLines(IdList const & ids);
 
   IdList m_stopSeq;
-  std::unordered_set<TransitId> m_lines;
+  IdSet m_lines;
   bool m_isValid = true;
 };
 
+using IdsInRegion = std::unordered_map<std::string, IdSet>;
+using LineIdsInRegion = std::unordered_map<std::string, std::unordered_map<TransitId, IdList>>;
+using EdgeIdsInRegion = std::unordered_map<std::string, IdEdgeSet>;
+using EdgeTransferIdsInRegion = std::unordered_map<std::string, IdEdgeTransferSet>;
+
+using Regions = std::vector<std::string>;
+
+struct TransitByRegion
+{
+  IdsInRegion m_networks;
+  IdsInRegion m_routes;
+  LineIdsInRegion m_lines;
+  IdsInRegion m_shapes;
+  IdsInRegion m_stops;
+  EdgeIdsInRegion m_edges;
+  EdgeTransferIdsInRegion m_edgesTransfers;
+  IdsInRegion m_transfers;
+  IdsInRegion m_gates;
+};
+
 // Class for merging scattered GTFS feeds into one World feed with static ids.
+// The usage scenario consists of steps:
+// 1) Initialize |WorldFeed| instance with |IdGenerator| for correct id assignment to GTFS entities,
+// |ColorPicker| for choosing route colors from our palette, |CountriesFilesAffiliation| for
+// splitting result feed into regions.
+// 2) Call SetFeed(...) method to convert GTFS entities into objects convenient for dumping to json.
+// 3) Call Save(...) to save result data as a set of json files in the specified directory.
 class WorldFeed
 {
 public:
-  WorldFeed(IdGenerator & generator, ColorPicker & colorPicker);
+  WorldFeed(IdGenerator & generator, ColorPicker & colorPicker,
+            feature::CountriesFilesAffiliation & mwmMatcher);
   // Transforms GTFS feed into the global feed.
   bool SetFeed(gtfs::Feed && feed);
 
@@ -286,10 +328,12 @@ public:
 private:
   friend class WorldFeedIntegrationTests;
 
+  void SaveRegions(std::string const & worldFeedDir, std::string const & region, bool overwrite);
+
   bool SetFeedLanguage();
   // Fills networks from GTFS agencies data.
   bool FillNetworks();
-  // Fills routes from GTFS foutes data.
+  // Fills routes from GTFS routes data.
   bool FillRoutes();
   // Fills lines and corresponding shapes from GTFS trips and shapes.
   bool FillLinesAndShapes();
@@ -334,10 +378,31 @@ private:
 
   LineIntervals GetFrequencies(std::unordered_map<std::string, LineIntervals> & cache,
                                std::string const & tripId);
+
+  // Splits data into regions.
+  void SplitFeedIntoRegions();
+  // Splits |m_stops|, |m_edges| and |m_edgesTransfer| into regions. The following stops are
+  // added to corresponding regions: stops inside borders; stops which are connected with an edge
+  // from |m_edges| or |m_edgesTransfer| with stops inside borders. Edge from |m_edges| or
+  // |m_edgesTransfer| is added to the region if one of its stop ids lies inside mwm.
+  void SplitStopsBasedData();
+  // Splits |m_lines|, |m_shapes|, |m_routes| and |m_networks| into regions. If one of the line
+  // stops (|m_stopIds|) lies inside region, then this line is added to this region. But only stops
+  // whose stop ids are contained in this region will be attached to the line in this region. Shape,
+  // route or network is added to the region if it is linked to the line in this region.
+  void SplitLinesBasedData();
+  // Splits |m_transfers| and |m_gates| into regions. Transfer is added to the region if there is
+  // stop in |m_stopsIds| which is inside this region. Gate is added to the region if there is stop
+  // in |m_weights| which is inside the region.
+  void SplitSupplementalData();
+  // Extend existing ids containers by appending to them |fromId| and |toId|. If one of the ids is
+  // present in region, then the other is also added.
+  std::pair<Regions, Regions> ExtendRegionsByPair(TransitId fromId, TransitId toId);
+
   // Current GTFS feed which is being merged to the global feed.
   gtfs::Feed m_feed;
 
-  // Entities for json'izing and feeding to the generator_tool.
+  // Entities for json'izing and feeding to the generator_tool (Not split by regions).
   Networks m_networks;
   Routes m_routes;
   Lines m_lines;
@@ -348,10 +413,15 @@ private:
   Transfers m_transfers;
   Gates m_gates;
 
+  // Ids of entities for json'izing, split by regions.
+  TransitByRegion m_splitting;
+
   // Generator of ids, globally unique and constant between re-runs.
   IdGenerator & m_idGenerator;
   // Color name picker of the nearest color for route RBG from our constant list of transfer colors.
   ColorPicker & m_colorPicker;
+  // Mwm matcher for m2:Points representing stops and other entities.
+  feature::CountriesFilesAffiliation & m_affiliation;
 
   // GTFS id -> entity hash mapping. Maps GTFS id string (unique only for current feed) to the
   // globally unique hash.

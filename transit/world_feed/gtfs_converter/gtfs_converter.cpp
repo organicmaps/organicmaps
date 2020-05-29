@@ -1,3 +1,5 @@
+#include "generator/affiliation.hpp"
+
 #include "transit/world_feed/color_picker.hpp"
 #include "transit/world_feed/world_feed.hpp"
 
@@ -198,6 +200,9 @@ int main(int argc, char ** argv)
   GetPlatform().SetResourceDir(FLAGS_path_resources);
   transit::ColorPicker colorPicker;
 
+  feature::CountriesFilesAffiliation mwmMatcher(GetPlatform().ResourcesDir(),
+                                                false /* haveBordersForWholeWorld */);
+
   for (size_t i = 0; i < gtfsFeeds.size(); ++i)
   {
     base::Timer feedTimer;
@@ -231,7 +236,7 @@ int main(int argc, char ** argv)
       continue;
     }
 
-    transit::WorldFeed globalFeed(generator, colorPicker);
+    transit::WorldFeed globalFeed(generator, colorPicker, mwmMatcher);
 
     if (!globalFeed.SetFeed(std::move(feed)))
     {

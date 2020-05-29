@@ -17,7 +17,6 @@
 #include "base/newtype.hpp"
 
 #include <algorithm>
-#include <fstream>
 #include <iosfwd>
 #include <memory>
 #include <tuple>
@@ -45,6 +44,37 @@ auto BuildHash(Values... values)
   hash.pop_back();
 
   return hash;
+}
+
+template <class C, class ID>
+void AddToRegions(C & container, ID const & id, transit::Regions const & regions)
+{
+  for (auto const & region : regions)
+    container[region].emplace(id);
+}
+
+template <class C, class ID, class S>
+transit::Regions AddToRegions(C & container, S const & splitter, ID const & id,
+                              m2::PointD const & point)
+{
+  auto const & regions = splitter.GetAffiliations(point);
+  CHECK_LESS_OR_EQUAL(
+      regions.size(), 1,
+      ("Point", mercator::ToLatLon(point), "belongs to multiple regions:", regions));
+
+  AddToRegions(container, id, regions);
+  return regions;
+}
+
+template <class C>
+void AddToRegionsIfMatches(C & container, transit::TransitId idForAdd,
+                           transit::IdsInRegion const & stopsInRegion, transit::TransitId stopId)
+{
+  for (auto const & [region, stopIds] : stopsInRegion)
+  {
+    if (stopIds.find(stopId) != stopIds.end())
+      container[region].emplace(idForAdd);
+  }
 }
 
 void WriteJson(json_t * node, std::ofstream & output)
@@ -99,8 +129,8 @@ base::JSONPtr TranslationsToJson(transit::Translations const & translations)
   return translationsArr;
 }
 
-template <class T>
-bool DumpData(T const & container, std::string const & path, bool overwrite)
+template <class C, class S>
+bool DumpData(C const & container, S const & idSet, std::string const & path, bool overwrite)
 {
   std::ofstream output;
   output.exceptions(std::ofstream::failbit | std::ofstream::badbit);
@@ -113,7 +143,7 @@ bool DumpData(T const & container, std::string const & path, bool overwrite)
     if (!output.is_open())
       return false;
 
-    container.Write(output);
+    container.Write(idSet, output);
   }
   catch (std::ofstream::failure const & se)
   {
@@ -195,6 +225,15 @@ bool EdgeId::operator==(EdgeId const & other) const
          std::tie(other.m_fromStopId, other.m_toStopId, other.m_lineId);
 }
 
+EdgeTransferId::EdgeTransferId(TransitId fromStopId, TransitId toStopId)
+  : m_fromStopId(fromStopId), m_toStopId(toStopId)
+{
+}
+
+bool EdgeTransferId::operator==(EdgeTransferId const & other) const
+{
+  return std::tie(m_fromStopId, m_toStopId) == std::tie(other.m_fromStopId, other.m_toStopId);
+}
 size_t EdgeIdHasher::operator()(EdgeId const & key) const
 {
   size_t seed = 0;
@@ -204,9 +243,12 @@ size_t EdgeIdHasher::operator()(EdgeId const & key) const
   return seed;
 }
 
-bool operator<(EdgeTransferData const & d1, EdgeTransferData const & d2)
+size_t EdgeTransferIdHasher::operator()(EdgeTransferId const & key) const
 {
-  return std::tie(d1.m_fromStopId, d1.m_toStopId) < std::tie(d2.m_fromStopId, d2.m_toStopId);
+  size_t seed = 0;
+  boost::hash_combine(seed, key.m_fromStopId);
+  boost::hash_combine(seed, key.m_toStopId);
+  return seed;
 }
 
 ShapeData::ShapeData(std::vector<m2::PointD> const & points) : m_points(points) {}
@@ -335,8 +377,9 @@ void StopData::UpdateTimetable(TransitId lineId, gtfs::StopTime const & stopTime
   it->second = osmoh::OpeningHours({ruleSeq});
 }
 
-WorldFeed::WorldFeed(IdGenerator & generator, ColorPicker & colorPicker)
-  : m_idGenerator(generator), m_colorPicker(colorPicker)
+WorldFeed::WorldFeed(IdGenerator & generator, ColorPicker & colorPicker,
+                     feature::CountriesFilesAffiliation & mwmMatcher)
+  : m_idGenerator(generator), m_colorPicker(colorPicker), m_affiliation(mwmMatcher)
 {
 }
 
@@ -672,7 +715,7 @@ void WorldFeed::ModifyLinesAndShapes()
   size_t subShapesCount = 0;
 
   // Shape ids of shapes fully contained in other shapes.
-  std::unordered_set<TransitId> shapesForRemoval;
+  IdSet shapesForRemoval;
 
   // Shape id matching to the line id linked to this shape id.
   std::unordered_map<TransitId, TransitId> matchingCache;
@@ -1018,14 +1061,11 @@ void WorldFeed::FillTransfers()
     std::tie(std::ignore, inserted) = m_transfers.m_data.emplace(transitId, data);
     if (inserted)
     {
-      EdgeTransferData edgeData;
-      edgeData.m_fromStopId = stop1Id;
-      edgeData.m_toStopId = stop2Id;
-      edgeData.m_weight = transfer.min_transfer_time;  // Can be 0.
-
-      std::tie(std::ignore, inserted) = m_edgesTransfers.m_data.insert(edgeData);
+      EdgeTransferId const transferId(stop1Id, stop2Id);
+      std::tie(std::ignore, inserted) =
+          m_edgesTransfers.m_data.emplace(transferId, transfer.min_transfer_time);
       if (!inserted)
-        LOG(LINFO, ("Transfers copy", transfer.from_stop_id, transfer.to_stop_id));
+        LOG(LWARNING, ("Transfers copy", transfer.from_stop_id, transfer.to_stop_id));
     }
   }
 }
@@ -1141,12 +1181,13 @@ bool WorldFeed::SetFeed(gtfs::Feed && feed)
   return true;
 }
 
-void Networks::Write(std::ofstream & stream) const
+void Networks::Write(IdSet const & ids, std::ofstream & stream) const
 {
-  for (auto const & [networkId, networkTitle] : m_data)
+  for (auto networkId : ids)
   {
-    auto node = base::NewJSONObject();
+    auto const & networkTitle = m_data.find(networkId)->second;
 
+    auto node = base::NewJSONObject();
     ToJSONObject(*node, "id", networkId);
     json_object_set_new(node.get(), "title", TranslationsToJson(networkTitle).release());
 
@@ -1154,10 +1195,11 @@ void Networks::Write(std::ofstream & stream) const
   }
 }
 
-void Routes::Write(std::ofstream & stream) const
+void Routes::Write(IdSet const & ids, std::ofstream & stream) const
 {
-  for (auto const & [routeId, route] : m_data)
+  for (auto routeId : ids)
   {
+    auto const & route = m_data.find(routeId)->second;
     auto node = base::NewJSONObject();
     ToJSONObject(*node, "id", routeId);
     ToJSONObject(*node, "network_id", route.m_networkId);
@@ -1169,17 +1211,19 @@ void Routes::Write(std::ofstream & stream) const
   }
 }
 
-void Lines::Write(std::ofstream & stream) const
+void Lines::Write(std::unordered_map<TransitId, IdList> const & ids, std::ofstream & stream) const
 {
-  for (auto const & [lineId, line] : m_data)
+  for (auto const & [lineId, stopIds] : ids)
   {
+    auto const & line = m_data.find(lineId)->second;
     auto node = base::NewJSONObject();
     ToJSONObject(*node, "id", lineId);
     ToJSONObject(*node, "route_id", line.m_routeId);
     json_object_set_new(node.get(), "shape", ShapeLinkToJson(line.m_shapeLink).release());
 
     json_object_set_new(node.get(), "title", TranslationsToJson(line.m_title).release());
-    json_object_set_new(node.get(), "stops_ids", StopIdsToJson(line.m_stopIds).release());
+    // Save only stop ids inside current region.
+    json_object_set_new(node.get(), "stops_ids", StopIdsToJson(stopIds).release());
     ToJSONObject(*node, "service_days", ToString(line.m_serviceDays));
 
     auto intervalsArr = base::NewJSONArray();
@@ -1198,10 +1242,11 @@ void Lines::Write(std::ofstream & stream) const
   }
 }
 
-void Shapes::Write(std::ofstream & stream) const
+void Shapes::Write(IdSet const & ids, std::ofstream & stream) const
 {
-  for (auto const & [shapeId, shape] : m_data)
+  for (auto shapeId : ids)
   {
+    auto const & shape = m_data.find(shapeId)->second;
     auto node = base::NewJSONObject();
     ToJSONObject(*node, "id", shapeId);
     auto pointsArr = base::NewJSONArray();
@@ -1215,13 +1260,13 @@ void Shapes::Write(std::ofstream & stream) const
   }
 }
 
-void Stops::Write(std::ofstream & stream) const
+void Stops::Write(IdSet const & ids, std::ofstream & stream) const
 {
-  for (auto const & [stopId, stop] : m_data)
+  for (auto stopId : ids)
   {
+    auto const & stop = m_data.find(stopId)->second;
     auto node = base::NewJSONObject();
     ToJSONObject(*node, "id", stopId);
-
     json_object_set_new(node.get(), "point", PointToJson(stop.m_point).release());
     json_object_set_new(node.get(), "title", TranslationsToJson(stop.m_title).release());
 
@@ -1240,12 +1285,12 @@ void Stops::Write(std::ofstream & stream) const
   }
 }
 
-void Edges::Write(std::ofstream & stream) const
+void Edges::Write(IdEdgeSet const & ids, std::ofstream & stream) const
 {
-  for (auto const & [edgeId, edge] : m_data)
+  for (auto const & edgeId : ids)
   {
+    auto const & edge = m_data.find(edgeId)->second;
     auto node = base::NewJSONObject();
-
     ToJSONObject(*node, "line_id", edgeId.m_lineId);
     ToJSONObject(*node, "stop_id_from", edgeId.m_fromStopId);
     ToJSONObject(*node, "stop_id_to", edgeId.m_toStopId);
@@ -1256,26 +1301,28 @@ void Edges::Write(std::ofstream & stream) const
   }
 }
 
-void EdgesTransfer::Write(std::ofstream & stream) const
+void EdgesTransfer::Write(IdEdgeTransferSet const & ids, std::ofstream & stream) const
 {
-  for (auto const & edge : m_data)
+  for (auto const & edgeTransferId : ids)
   {
+    auto const weight = m_data.find(edgeTransferId)->second;
     auto node = base::NewJSONObject();
 
-    ToJSONObject(*node, "stop_id_from", edge.m_fromStopId);
-    ToJSONObject(*node, "stop_id_to", edge.m_toStopId);
-    ToJSONObject(*node, "weight", edge.m_weight);
+    ToJSONObject(*node, "stop_id_from", edgeTransferId.m_fromStopId);
+    ToJSONObject(*node, "stop_id_to", edgeTransferId.m_toStopId);
+    ToJSONObject(*node, "weight", weight);
 
     WriteJson(node.get(), stream);
   }
 }
 
-void Transfers::Write(std::ofstream & stream) const
+void Transfers::Write(IdSet const & ids, std::ofstream & stream) const
 {
-  for (auto const & [transferId, transfer] : m_data)
+  for (auto transferId : ids)
   {
-    auto node = base::NewJSONObject();
+    auto const & transfer = m_data.find(transferId)->second;
 
+    auto node = base::NewJSONObject();
     ToJSONObject(*node, "id", transferId);
     json_object_set_new(node.get(), "point", PointToJson(transfer.m_point).release());
     json_object_set_new(node.get(), "stops_ids", StopIdsToJson(transfer.m_stopsIds).release());
@@ -1284,10 +1331,11 @@ void Transfers::Write(std::ofstream & stream) const
   }
 }
 
-void Gates::Write(std::ofstream & stream) const
+void Gates::Write(IdSet const & ids, std::ofstream & stream) const
 {
-  for (auto const & [gateId, gate] : m_data)
+  for (auto gateId : ids)
   {
+    auto const & gate = m_data.find(gateId)->second;
     if (gate.m_weights.empty())
       continue;
 
@@ -1314,6 +1362,119 @@ void Gates::Write(std::ofstream & stream) const
   }
 }
 
+void WorldFeed::SplitFeedIntoRegions()
+{
+  SplitStopsBasedData();
+  LOG(LINFO, ("Split stops into", m_splitting.m_stops.size(), "regions."));
+  SplitLinesBasedData();
+  SplitSupplementalData();
+}
+
+void WorldFeed::SplitStopsBasedData()
+{
+  // Fill regional stops from edges.
+  for (auto const & [edgeId, data] : m_edges.m_data)
+  {
+    auto const [regFrom, regTo] = ExtendRegionsByPair(edgeId.m_fromStopId, edgeId.m_toStopId);
+    AddToRegions(m_splitting.m_edges, edgeId, regFrom);
+    AddToRegions(m_splitting.m_edges, edgeId, regTo);
+  }
+
+  // Fill regional stops from transfer edges.
+  for (auto const & [edgeTransferId, data] : m_edgesTransfers.m_data)
+  {
+    auto const [regFrom, regTo] =
+        ExtendRegionsByPair(edgeTransferId.m_fromStopId, edgeTransferId.m_toStopId);
+    AddToRegions(m_splitting.m_edgesTransfers, edgeTransferId, regFrom);
+    AddToRegions(m_splitting.m_edgesTransfers, edgeTransferId, regTo);
+  }
+}
+
+void WorldFeed::SplitLinesBasedData()
+{
+  // Fill regional lines and corresponding shapes and routes.
+  for (auto const & [lineId, lineData] : m_lines.m_data)
+  {
+    for (auto stopId : lineData.m_stopIds)
+    {
+      for (auto const & [region, stopIds] : m_splitting.m_stops)
+      {
+        if (stopIds.find(stopId) == stopIds.end())
+          continue;
+
+        m_splitting.m_lines[region][lineId].emplace_back(stopId);
+        m_splitting.m_shapes[region].emplace(lineData.m_shapeLink.m_shapeId);
+        m_splitting.m_routes[region].emplace(lineData.m_routeId);
+      }
+    }
+  }
+
+  // Fill regional networks based on routes.
+  for (auto const & [region, routeIds] : m_splitting.m_routes)
+  {
+    for (auto routeId : routeIds)
+      m_splitting.m_networks[region].emplace(m_routes.m_data[routeId].m_networkId);
+  }
+}
+
+void WorldFeed::SplitSupplementalData()
+{
+  for (auto const & [gateId, gateData] : m_gates.m_data)
+  {
+    for (auto const & weight : gateData.m_weights)
+      AddToRegionsIfMatches(m_splitting.m_gates, gateId, m_splitting.m_stops, weight.m_stopId);
+  }
+
+  for (auto const & [transferId, transferData] : m_transfers.m_data)
+  {
+    for (auto const & stopId : transferData.m_stopsIds)
+      AddToRegionsIfMatches(m_splitting.m_transfers, transferId, m_splitting.m_stops, stopId);
+  }
+}
+
+std::pair<Regions, Regions> WorldFeed::ExtendRegionsByPair(TransitId fromId, TransitId toId)
+{
+  auto const & pointFrom = m_stops.m_data[fromId].m_point;
+  auto const & pointTo = m_stops.m_data[toId].m_point;
+  auto const regionsFrom = AddToRegions(m_splitting.m_stops, m_affiliation, fromId, pointFrom);
+  auto const regionsTo = AddToRegions(m_splitting.m_stops, m_affiliation, toId, pointTo);
+
+  AddToRegions(m_splitting.m_stops, toId, regionsFrom);
+  AddToRegions(m_splitting.m_stops, fromId, regionsTo);
+  return {regionsFrom, regionsTo};
+}
+
+void WorldFeed::SaveRegions(std::string const & worldFeedDir, std::string const & region,
+                            bool overwrite)
+{
+  auto const path = base::JoinPath(worldFeedDir, region);
+  CHECK(Platform::MkDirRecursively(path), (path));
+
+  CHECK(DumpData(m_networks, m_splitting.m_networks[region], base::JoinPath(path, kNetworksFile),
+                 overwrite),
+        ());
+  CHECK(DumpData(m_routes, m_splitting.m_routes[region], base::JoinPath(path, kRoutesFile),
+                 overwrite),
+        ());
+  CHECK(DumpData(m_lines, m_splitting.m_lines[region], base::JoinPath(path, kLinesFile), overwrite),
+        ());
+  CHECK(DumpData(m_shapes, m_splitting.m_shapes[region], base::JoinPath(path, kShapesFile),
+                 overwrite),
+        ());
+  CHECK(DumpData(m_stops, m_splitting.m_stops[region], base::JoinPath(path, kStopsFile), overwrite),
+        ());
+  CHECK(DumpData(m_edges, m_splitting.m_edges[region], base::JoinPath(path, kEdgesFile), overwrite),
+        ());
+  CHECK(DumpData(m_edgesTransfers, m_splitting.m_edgesTransfers[region],
+                 base::JoinPath(path, kEdgesTransferFile), overwrite),
+        ());
+  CHECK(DumpData(m_transfers, m_splitting.m_transfers[region], base::JoinPath(path, kTransfersFile),
+                 overwrite),
+        ());
+  CHECK(DumpData(m_gates, m_splitting.m_gates[region], base::JoinPath(path, kGatesFile), overwrite),
+        ());
+}
+
 bool WorldFeed::Save(std::string const & worldFeedDir, bool overwrite)
 {
   CHECK(!worldFeedDir.empty(), ());
@@ -1328,17 +1489,12 @@ bool WorldFeed::Save(std::string const & worldFeedDir, bool overwrite)
   }
 
   CHECK(!m_edges.m_data.empty(), ());
-  LOG(LINFO, ("Saving feed to", worldFeedDir));
-  CHECK(DumpData(m_networks, base::JoinPath(worldFeedDir, kNetworksFile), overwrite), ());
-  CHECK(DumpData(m_routes, base::JoinPath(worldFeedDir, kRoutesFile), overwrite), ());
-  CHECK(DumpData(m_lines, base::JoinPath(worldFeedDir, kLinesFile), overwrite), ());
-  CHECK(DumpData(m_shapes, base::JoinPath(worldFeedDir, kShapesFile), overwrite), ());
-  CHECK(DumpData(m_stops, base::JoinPath(worldFeedDir, kStopsFile), overwrite), ());
-  CHECK(DumpData(m_edges, base::JoinPath(worldFeedDir, kEdgesFile), overwrite), ());
-  CHECK(DumpData(m_edgesTransfers, base::JoinPath(worldFeedDir, kEdgesTransferFile), overwrite),
-        ());
-  CHECK(DumpData(m_transfers, base::JoinPath(worldFeedDir, kTransfersFile), overwrite), ());
-  CHECK(DumpData(m_gates, base::JoinPath(worldFeedDir, kGatesFile), overwrite), ());
+  LOG(LINFO, ("Started splitting feed into regions."));
+  SplitFeedIntoRegions();
+  LOG(LINFO, ("Finished splitting feed into regions. Saving to", worldFeedDir));
+
+  for (auto const & regionAndData : m_splitting.m_stops)
+    SaveRegions(worldFeedDir, regionAndData.first, overwrite);
 
   return true;
 }
