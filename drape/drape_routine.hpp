@@ -68,7 +68,7 @@ public:
       Instance().Notify(result->Finish());
     });
 
-    if (id.empty())
+    if (id == base::TaskLoop::kIncorrectId)
       return {};
 
     return result;
@@ -84,7 +84,7 @@ public:
       Instance().Notify(result->Finish());
     });
 
-    if (id.empty())
+    if (id == base::TaskLoop::kIncorrectId)
       return {};
 
     return result;
@@ -101,7 +101,7 @@ public:
       Instance().Notify(result->Finish());
     });
 
-    if (id.empty())
+    if (id == base::TaskLoop::kIncorrectId)
       return {};
 
     return result;

@@ -8,6 +8,7 @@
 
 #include <chrono>
 #include <condition_variable>
+#include <cstdint>
 #include <mutex>
 #include <set>
 #include <utility>
@@ -29,6 +30,12 @@ public:
   using Clock = std::chrono::steady_clock;
   using Duration = Clock::duration;
   using TimePoint = Clock::time_point;
+
+  // Use it outside the class for testing purposes only.
+  static constexpr TaskId kImmediateMinId = 1;
+  static constexpr TaskId kImmediateMaxId = std::numeric_limits<TaskId>::max() / 2;
+  static constexpr TaskId kDelayedMinId = kImmediateMaxId + 1;
+  static constexpr TaskId kDelayedMaxId = std::numeric_limits<TaskId>::max();
 
   enum class Exit
   {
@@ -70,8 +77,7 @@ public:
   // Returns false when thread is shut down,
   // task is not found or already running, otherwise true.
   // The complexity is O(1) for immediate tasks and O(N) for delayed tasks.
-  bool Cancel(TaskId const & id);
-  bool CancelDelayed(TaskId const & id);
+  bool Cancel(TaskId id);
 
   // Sends a signal to the thread to shut down. Returns false when the
   // thread was shut down previously.
@@ -94,7 +100,7 @@ private:
   struct DelayedTask
   {
     template <typename T>
-    DelayedTask(TaskId const & id, TimePoint const & when, T && task)
+    DelayedTask(TaskId id, TimePoint const & when, T && task)
       : m_id(id)
       , m_when(when)
       , m_task(std::forward<T>(task))
@@ -117,7 +123,7 @@ private:
   template <typename T>
   TaskId AddDelayed(Duration const & delay, T && task);
   template <typename Add>
-  TaskId AddTask(TaskId const & currentId, Add && add);
+  TaskId AddTask(Add && add);
 
   void ProcessTasks();
 

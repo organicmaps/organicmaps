@@ -3,7 +3,6 @@
 #include "base/assert.hpp"
 
 #include <list>
-#include <optional>
 #include <unordered_map>
 
 namespace base
@@ -24,12 +23,13 @@ public:
       return false;
 
     m_list.emplace_back(key, std::forward<T>(value));
-    m_map.emplace(key, --(m_list.end()));
+    m_map.emplace(key, std::prev(m_list.end()));
     return true;
   }
 
   void Pop()
   {
+    CHECK(!m_map.empty(), ());
     m_map.erase(m_list.front().first);
     m_list.pop_front();
   }

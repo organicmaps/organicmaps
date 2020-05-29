@@ -17,15 +17,15 @@ void PerformImpl(void * task)
 
 namespace platform
 {
-GuiThread::TaskId GuiThread::Push(Task && task)
+base::TaskLoop::TaskId GuiThread::Push(Task && task)
 {
   dispatch_async_f(dispatch_get_main_queue(), new Task(std::move(task)), &PerformImpl);
-  return {};
+  return TaskLoop::kIncorrectId;
 }
 
-GuiThread::TaskId GuiThread::Push(Task const & task)
+base::TaskLoop::TaskId GuiThread::Push(Task const & task)
 {
   dispatch_async_f(dispatch_get_main_queue(), new Task(task), &PerformImpl);
-  return {};
+  return TaskLoop::kIncorrectId;
 }
 }  // namespace platform

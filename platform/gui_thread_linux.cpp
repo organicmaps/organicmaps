@@ -6,19 +6,23 @@
 
 namespace platform
 {
-bool GuiThread::Push(Task && task)
+base::TaskLoop::TaskId GuiThread::Push(Task && task)
 {
   // Following hack is used to post on main message loop |fn| when
   // |source| is destroyed (at the exit of the code block).
   QObject source;
-  return QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), std::move(task));
+  QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), std::move(task));
+
+  return base::TaskLoop::kIncorrectId;
 }
 
-bool GuiThread::Push(Task const & task)
+base::TaskLoop::TaskId GuiThread::Push(Task const & task)
 {
   // Following hack is used to post on main message loop |fn| when
   // |source| is destroyed (at the exit of the code block).
   QObject source;
-  return QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), task);
+  QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), task);
+
+  return base::TaskLoop::kIncorrectId;
 }
 }  // namespace platform

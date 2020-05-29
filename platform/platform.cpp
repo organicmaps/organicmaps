@@ -357,7 +357,7 @@ void Platform::RunThreads()
   m_backgroundThread = make_unique<base::thread_pool::delayed::ThreadPool>();
 }
 
-void Platform::CancelTask(Thread thread, base::thread_pool::delayed::ThreadPool::TaskId const & id)
+void Platform::CancelTask(Thread thread, base::TaskLoop::TaskId id)
 {
   ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
   switch (thread)
@@ -366,19 +366,6 @@ void Platform::CancelTask(Thread thread, base::thread_pool::delayed::ThreadPool:
   case Thread::Network: m_networkThread->Cancel(id); return;
   case Thread::Gui: CHECK(false, ("Task cancelling for gui thread is not supported yet")); return;
   case Thread::Background: m_backgroundThread->Cancel(id); return;
-  }
-}
-
-void Platform::CancelDelayedTask(Thread thread,
-                                 base::thread_pool::delayed::ThreadPool::TaskId const & id)
-{
-  ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
-  switch (thread)
-  {
-  case Thread::File: m_fileThread->CancelDelayed(id); return;
-  case Thread::Network: m_networkThread->CancelDelayed(id); return;
-  case Thread::Gui: CHECK(false, ("Task cancelling for gui thread is not supported yet")); return;
-  case Thread::Background: m_backgroundThread->CancelDelayed(id); return;
   }
 }
 

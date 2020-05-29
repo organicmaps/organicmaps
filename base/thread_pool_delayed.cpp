@@ -1,7 +1,5 @@
 #include "base/thread_pool_delayed.hpp"
 
-#include "base/id_generator.hpp"
-
 #include <array>
 
 using namespace std;
@@ -14,13 +12,19 @@ namespace delayed
 {
 namespace
 {
-using Ids = IdGenerator<uint64_t>;
+TaskLoop::TaskId MakeNextId(TaskLoop::TaskId id, TaskLoop::TaskId minId, TaskLoop::TaskId maxId)
+{
+  if (id == maxId)
+    return minId;
+
+  return ++id;
+}
 }  // namespace
 
 ThreadPool::ThreadPool(size_t threadsCount /* = 1 */, Exit e /* = Exit::SkipPending */)
   : m_exit(e)
-  , m_immediateLastId(Ids::GetInitialId())
-  , m_delayedLastId(Ids::GetInitialId())
+  , m_immediateLastId(kImmediateMinId)
+  , m_delayedLastId(kDelayedMinId)
 {
   for (size_t i = 0; i < threadsCount; ++i)
     m_threads.emplace_back(threads::SimpleThread(&ThreadPool::ProcessTasks, this));
@@ -31,57 +35,57 @@ ThreadPool::~ThreadPool()
   ShutdownAndJoin();
 }
 
-ThreadPool::TaskId ThreadPool::Push(Task && t)
+TaskLoop::TaskId ThreadPool::Push(Task && t)
 {
   return AddImmediate(move(t));
 }
 
-ThreadPool::TaskId ThreadPool::Push(Task const & t)
+TaskLoop::TaskId ThreadPool::Push(Task const & t)
 {
   return AddImmediate(t);
 }
 
-ThreadPool::TaskId ThreadPool::PushDelayed(Duration const & delay, Task && t)
+TaskLoop::TaskId ThreadPool::PushDelayed(Duration const & delay, Task && t)
 {
   return AddDelayed(delay, move(t));
 }
 
-ThreadPool::TaskId ThreadPool::PushDelayed(Duration const & delay, Task const & t)
+TaskLoop::TaskId ThreadPool::PushDelayed(Duration const & delay, Task const & t)
 {
   return AddDelayed(delay, t);
 }
 
 template <typename T>
-ThreadPool::TaskId ThreadPool::AddImmediate(T && task)
+TaskLoop::TaskId ThreadPool::AddImmediate(T && task)
 {
-  return AddTask(m_immediateLastId, [&](TaskId const & newId) {
+  return AddTask([&]() {
+    auto const newId = MakeNextId(m_immediateLastId, kImmediateMinId, kImmediateMaxId);
     VERIFY(m_immediate.Emplace(newId, forward<T>(task)), ());
     m_immediateLastId = newId;
+    return newId;
   });
 }
 
 template <typename T>
-ThreadPool::TaskId ThreadPool::AddDelayed(Duration const & delay, T && task)
+TaskLoop::TaskId ThreadPool::AddDelayed(Duration const & delay, T && task)
 {
   auto const when = Now() + delay;
-  return AddTask(m_delayedLastId, [&](TaskId const & newId) {
+  return AddTask([&]() {
+    auto const newId = MakeNextId(m_delayedLastId, kDelayedMinId, kDelayedMaxId);
     m_delayed.emplace(newId, when, forward<T>(task));
     m_delayedLastId = newId;
+    return newId;
   });
 }
 
 template <typename Add>
-ThreadPool::TaskId ThreadPool::AddTask(TaskId const & currentId, Add && add)
+TaskLoop::TaskId ThreadPool::AddTask(Add && add)
 {
   lock_guard<mutex> lk(m_mu);
   if (m_shutdown)
-    return {};
+    return kIncorrectId;
 
-  TaskId newId = Ids::GetNextId(currentId);
-  if (newId.empty())
-    return {};
-
-  add(newId);
+  auto const newId = add();
   m_cv.notify_one();
   return newId;
 }
@@ -178,35 +182,31 @@ void ThreadPool::ProcessTasks()
   }
 }
 
-bool ThreadPool::Cancel(TaskId const & id)
+bool ThreadPool::Cancel(TaskId id)
 {
   lock_guard<mutex> lk(m_mu);
 
-  if (m_shutdown || id.empty())
+  if (m_shutdown || id == kIncorrectId)
     return false;
 
-  auto const result = m_immediate.Erase(id);
-  if (result)
-    m_cv.notify_one();
-  return result;
-
-  return false;
-}
-
-bool ThreadPool::CancelDelayed(TaskId const & id)
-{
-  lock_guard<mutex> lk(m_mu);
-
-  if (m_shutdown || id.empty())
-    return false;
-
-  for (auto it = m_delayed.begin(); it != m_delayed.end(); ++it)
+  if (id <= kImmediateMaxId)
   {
-    if (it->m_id == id)
+    if (m_immediate.Erase(id))
     {
-      m_delayed.erase(it);
       m_cv.notify_one();
       return true;
+    }
+  }
+  else
+  {
+    for (auto it = m_delayed.begin(); it != m_delayed.end(); ++it)
+    {
+      if (it->m_id == id)
+      {
+        m_delayed.erase(it);
+        m_cv.notify_one();
+        return true;
+      }
     }
   }
 
@@ -215,13 +215,11 @@ bool ThreadPool::CancelDelayed(TaskId const & id)
 
 bool ThreadPool::Shutdown(Exit e)
 {
-  {
-    lock_guard<mutex> lk(m_mu);
-    if (m_shutdown)
-      return false;
-    m_shutdown = true;
-    m_exit = e;
-  }
+  lock_guard<mutex> lk(m_mu);
+  if (m_shutdown)
+    return false;
+  m_shutdown = true;
+  m_exit = e;
   m_cv.notify_all();
   return true;
 }

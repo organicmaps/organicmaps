@@ -1,7 +1,7 @@
 #pragma once
 
+#include <cstdint>
 #include <functional>
-#include <string>
 
 namespace base
 {
@@ -9,7 +9,9 @@ class TaskLoop
 {
 public:
   using Task = std::function<void()>;
-  using TaskId = std::string;
+  using TaskId = uint64_t;
+
+  static TaskId constexpr kIncorrectId = 0;
 
   virtual ~TaskLoop() = default;
 
