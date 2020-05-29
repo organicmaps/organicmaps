@@ -52,6 +52,9 @@ NEED_PLANET_UPDATE: 0
 # The url to the subway file.
 SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
 
+# The url of the location with the transit files extracted from GTFS.
+# TRANSIT_URL:
+
 # Urls for production maps generation.
 # UGC_URL:
 # HOTELS_URL:
