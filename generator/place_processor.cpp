@@ -47,47 +47,74 @@ template <typename T>
 bool IsWorsePlace(T const & left, T const & right)
 {
   double constexpr kRankCoeff = 1.0;
-  double constexpr kIsCapitalCoeff = 0.1;
   double constexpr kLangsCountCoeff = 1.0;
-  double constexpr kIsPointCoeff = 0.1;
-  double constexpr kIsNodeCoeff = 0.1;
-  double constexpr kAreaCoeff = 0.1;
+  double constexpr kAreaCoeff = 0.05;
+  double constexpr kIsCapitalCoeff = 0.1;
+  double constexpr kIsNodeCoeff = 0.15;
+  double constexpr kIsAreaTooBigCoeff = -0.5;
 
   auto const normalizeRank = [](uint8_t rank) {
     return static_cast<double>(rank) / static_cast<double>(std::numeric_limits<uint8_t>::max());
   };
+
   auto const normalizeLangsCount = [](uint8_t langsCount) {
     return static_cast<double>(langsCount) /
            static_cast<double>(StringUtf8Multilang::kMaxSupportedLanguages);
   };
+
   auto const normalizeArea = [](double area) {
-    double const kMaxAreaM2 = 2e9;
+    // We need to compare areas to choose bigger feature from multipolygonal features.
+    // |kMaxAreaM2| should be greater than cities exclaves (like airports or Zelenograd for Moscow).
+    double const kMaxAreaM2 = 4e8;
     area = base::Clamp(area, 0.0, kMaxAreaM2);
     return area / kMaxAreaM2;
   };
 
+  auto const isAreaTooBig = [](ftypes::LocalityType type, double area) {
+    // 100*100 km. There are few such big cities in the world (Beijing, Tokyo). These cities are
+    // well-maped and have node which we want to prefer because relation boundaries may include big
+    // exclaves and/or have bad center: https://www.openstreetmap.org/relation/1543125.
+    if (type == ftypes::LocalityType::City)
+      return area > 1e10;
+
+    // ~14*14 km
+    if (type == ftypes::LocalityType::Town)
+      return area > 2e8;
+
+    // 10*10 km
+    if (type == ftypes::LocalityType::Village)
+      return area > 1e8;
+
+    return false;
+  };
+
   static_assert(kRankCoeff >= 0, "");
-  static_assert(kIsCapitalCoeff >= 0, "");
   static_assert(kLangsCountCoeff >= 0, "");
+  static_assert(kAreaCoeff >= 0, "");
+  static_assert(kIsCapitalCoeff >= 0, "");
+  static_assert(kIsAreaTooBigCoeff <= 0, "");
 
   auto const getScore = [&](auto const place) {
     auto const rank = place.GetRank();
-    auto const isCapital = ftypes::IsCapitalChecker::Instance()(GetPlaceType(place));
     auto const langsCount = place.GetMultilangName().CountLangs();
-    auto const isPoint = place.IsPoint();
+    auto const area = mercator::AreaOnEarth(place.GetLimitRect());
+
+    auto const placeType = GetPlaceType(place);
+    auto const isCapital = ftypes::IsCapitalChecker::Instance()(placeType);
 
     auto const type = place.GetMostGenericOsmId().GetType();
     auto const isNode = (type == base::GeoObjectId::Type::OsmNode) ||
                         (type == base::GeoObjectId::Type::ObsoleteOsmNode);
 
-    auto const area = mercator::AreaOnEarth(place.GetLimitRect());
+    auto const tooBig =
+        isAreaTooBig(ftypes::IsLocalityChecker::Instance().GetType(placeType), area);
 
     return kRankCoeff * normalizeRank(rank) +
-           kIsCapitalCoeff * (isCapital ? 1.0 : 0.0) +
            kLangsCountCoeff * normalizeLangsCount(langsCount) +
-           kIsPointCoeff * (isPoint ? 1.0 : 0.0) +
+           kAreaCoeff * normalizeArea(area) +
+           kIsCapitalCoeff * (isCapital ? 1.0 : 0.0) +
            kIsNodeCoeff * (isNode ? 1.0 : 0.0) +
-           kAreaCoeff * normalizeArea(area);
+           kIsAreaTooBigCoeff * (tooBig ? 1.0 : 0.0);
   };
 
   return getScore(left) < getScore(right);
