@@ -23,6 +23,9 @@ auto constexpr kRequestAttemptsCount = 3;
 // When screen scales are different more than 11.15 percent
 // it is equal less than 80 percents screen rectangles intersection.
 auto constexpr kScaleEps = 0.1115;
+
+auto constexpr kMinViewportsIntersectionScore = 0.9;
+auto constexpr kRequestingRectSidesIncrease = 0.3;
 }  // namespace
 
 GuidesManager::GuidesManager(CloseGalleryFn && closeGalleryFn)
@@ -76,8 +79,9 @@ void GuidesManager::UpdateViewport(ScreenBase const & screen)
 
       auto const score = geometry::GetIntersectionScoreForPoints(currentCorners, screenCorners);
 
-      // If more than 80% of viewport rect intersects with last requested rect then return.
-      if (score > 0.8)
+      // If more than |kMinViewportsIntersectionScore| of viewport rect
+      // intersects with last requested rect then return.
+      if (score > kMinViewportsIntersectionScore)
         return;
     }
   }
@@ -150,8 +154,9 @@ void GuidesManager::RequestGuides()
   auto screenRect = m_screen.GlobalRect();
 
   auto rect = screenRect.GetGlobalRect();
-  // Increase requesting rect by 20% for each side.
-  screenRect.Inflate(rect.SizeX() * 0.2, rect.SizeY() * 0.2);
+
+  screenRect.Inflate(rect.SizeX() * kRequestingRectSidesIncrease,
+                     rect.SizeY() * kRequestingRectSidesIncrease);
   m2::AnyRectD::Corners corners;
   screenRect.GetGlobalPoints(corners);
 
@@ -161,8 +166,8 @@ void GuidesManager::RequestGuides()
   auto const requestNumber = ++m_requestCounter;
   auto const id = m_api.GetGuidesOnMap(
       corners, m_zoom,
-      [this](guides_on_map::GuidesOnMap const & guides) {
-        if (m_state == GuidesState::Disabled)
+      [this, requestNumber](guides_on_map::GuidesOnMap const & guides) {
+        if (m_state == GuidesState::Disabled || requestNumber != m_requestCounter)
           return;
 
         m_guides = guides;
