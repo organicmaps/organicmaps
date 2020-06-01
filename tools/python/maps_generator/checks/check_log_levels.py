@@ -13,6 +13,11 @@ def _get_log_stages(path):
 
 
 def get_log_levels_check_set(old_path: str, new_path: str) -> check.CompareCheckSet:
+    """
+    Returns a log levels check set, that checks a difference in a number of
+    message levels from warning and higher for each stage between old mwms
+    and new mwms.
+    """
     cs = check.CompareCheckSet("Log levels check")
 
     def make_do(level, stage_name, cache={}):

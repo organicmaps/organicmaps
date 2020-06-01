@@ -48,8 +48,55 @@ def get_rel(r: ResLine) -> bool:
 
 
 class Check(ABC):
+    """
+    Base class for any checks.
+    Usual flow:
+
+      # Create check object.
+      check = AnyCheck("ExampleCheck")
+      # Do work.
+      check.check()
+
+      # Get results and process them
+      raw_result = check.get_result()
+      process_result(raw_result)
+
+      # or print result
+      check.print()
+    """
     def __init__(self, name: str):
         self.name = name
+
+    def print(self, silent_if_no_results=False, filt=None, file=sys.stdout):
+        s = self.formatted_string(silent_if_no_results, filt)
+        if s:
+            print(s, file=file)
+
+    @abstractmethod
+    def check(self):
+        """
+        Performs a logic of the check.
+        """
+        pass
+
+    @abstractmethod
+    def get_result(self) -> Any:
+        """
+        Returns a raw result of the check.
+        """
+        pass
+
+    @abstractmethod
+    def formatted_string(self, silent_if_no_results=False, *args, **kwargs) -> str:
+        """
+        Returns a formatted string of a raw result of the check.
+        """
+        pass
+
+
+class CompareCheckBase(Check, ABC):
+    def __init__(self, name: str):
+        super().__init__(name)
         self.op: Callable[
             [Any, Any], Any
         ] = lambda previous, current: current - previous
@@ -77,25 +124,8 @@ class Check(ABC):
     def set_filt(self, filt: Callable[[Any], bool]):
         self.filt = filt
 
-    def print(self, silent_if_no_results=False, filt=None, file=sys.stdout):
-        s = self.formatted_string(silent_if_no_results, filt)
-        if s:
-            print(s, file=file)
 
-    @abstractmethod
-    def check(self):
-        pass
-
-    @abstractmethod
-    def get_result(self) -> Any:
-        pass
-
-    @abstractmethod
-    def formatted_string(self, silent_if_no_results=False, *args, **kwargs) -> str:
-        pass
-
-
-class CompareCheck(Check):
+class CompareCheck(CompareCheckBase):
     def __init__(
         self, name: str, old: Any, new: Any,
     ):
@@ -156,7 +186,7 @@ class CompareCheck(Check):
         )
 
 
-class CompareCheckSet(Check):
+class CompareCheckSet(CompareCheckBase):
     def __init__(self, name: str):
         super().__init__(name)
 
@@ -215,15 +245,15 @@ class CompareCheckSet(Check):
 
         lines = []
         if no_results:
-            lines.append(f"{' ' * _offset}No results.")
+            lines.append(f"{' ' * (_offset + 2)}No results.")
 
         for c in checks:
-            s = c.formatted_string(silent_if_no_results, filt, _offset + 1)
+            s = c.formatted_string(silent_if_no_results, filt, _offset + 2)
             if s:
-                lines.append(f"{' ' * _offset + '  '}{s}")
+                lines.append(f"{' ' * (_offset + 2)}{s}")
 
         for s in sets:
-            s = s.formatted_string(silent_if_no_results, filt, _offset + 1)
+            s = s.formatted_string(silent_if_no_results, filt, _offset + 2)
             if s:
                 lines.append(s)
 

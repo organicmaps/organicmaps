@@ -10,7 +10,9 @@ class SectionNames:
         self.sections = sections
 
     def __sub__(self, other):
-        return SectionNames(self.sections - other.sections)
+        return SectionNames(
+            {k: self.sections[k] for k in set(self.sections) - set(other.sections)}
+        )
 
     def __lt__(self, other):
         if isinstance(other, int):
@@ -46,8 +48,8 @@ def get_appeared_sections_check_set(
         old_path,
         new_path,
         ext=".mwm",
-        do=lambda path: SectionNames(read_sections(path).keys()),
-        diff_format=lambda s: ",".join(s.sections),
+        do=lambda path: SectionNames(read_sections(path)),
+        diff_format=lambda s: ", ".join(f"{k}:{v.size}" for k, v in s.sections.items()),
         format=lambda s: f"number of sections: {len(s.sections)}",
     )
 
@@ -60,9 +62,9 @@ def get_disappeared_sections_check_set(
         old_path,
         new_path,
         ext=".mwm",
-        do=lambda path: SectionNames(read_sections(path).keys()),
+        do=lambda path: SectionNames(read_sections(path)),
         op=lambda previous, current: previous - current,
-        diff_format=lambda s: ",".join(s.sections),
+        diff_format=lambda s: ", ".join(f"{k}:{v.size}" for k, v in s.sections.items()),
         format=lambda s: f"number of sections: {len(s.sections)}",
     )
 
@@ -70,6 +72,10 @@ def get_disappeared_sections_check_set(
 def get_sections_existence_check_set(
     old_path: str, new_path: str
 ) -> check.CompareCheckSet:
+    """
+    Returns a sections existence check set, that checks appeared and
+    disappeared sections between old mwms and new mwms.
+    """
     cs = check.CompareCheckSet("Sections existence check")
     cs.add_check(get_appeared_sections_check_set(old_path, new_path))
     cs.add_check(get_disappeared_sections_check_set(old_path, new_path))
@@ -86,6 +92,10 @@ def _get_sections_set(path):
 
 
 def get_sections_size_check_set(old_path: str, new_path: str) -> check.CompareCheckSet:
+    """
+    Returns a sections size check set, that checks a difference in a size
+    of each sections of mwm between old mwms and new mwms.
+    """
     sections_set = _get_sections_set(old_path)
     sections_set.update(_get_sections_set(new_path))
 

@@ -26,7 +26,7 @@ class TestLogsReader(unittest.TestCase):
 
     def test_read_logs(self):
         self.assertTrue(self.log.name.startswith("Czech_Jihovychod_Jihomoravsky kraj"))
-        self.assertTrue(self.log.is_country_log)
+        self.assertTrue(self.log.is_mwm_log)
         self.assertFalse(self.log.is_stage_log)
         self.assertEqual(len(self.log.lines), 46)
 

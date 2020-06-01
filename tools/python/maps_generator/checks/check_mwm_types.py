@@ -19,23 +19,31 @@ def count_all_types(path: str):
 
 
 def get_mwm_type_check_set(
-    old_path: str, new_path: str, _type: Union[str, int]
+    old_path: str, new_path: str, type_: Union[str, int]
 ) -> check.CompareCheckSet:
-    if isinstance(_type, str):
-        _type = type_index(_type)
-    assert _type >= 0, _type
+    """
+    Returns a  mwm type check set, that checks a difference in a number of
+    type [type_] between old mwms and new mwms.
+    """
+    if isinstance(type_, str):
+        type_ = type_index(type_)
+    assert type_ >= 0, type_
 
     return check.build_check_set_for_files(
-        f"Types check [{readable_type(_type)}]",
+        f"Types check [{readable_type(type_)}]",
         old_path,
         new_path,
         ext=".mwm",
-        do=lambda path: count_all_types(path)[_type],
+        do=lambda path: count_all_types(path)[type_],
     )
 
 
-def get_mwm_all_types_check_set(old_path: str, new_path: str) -> check.CompareCheckSet:
-    cs = check.CompareCheckSet("Sections categories check")
+def get_all_mwm_types_check_set(old_path: str, new_path: str) -> check.CompareCheckSet:
+    """
+    Returns a all mwm types check set, that checks a difference in a number of
+    each type between old mwms and new mwms.
+    """
+    cs = check.CompareCheckSet("Mwm types check")
 
     def make_do(index):
         return lambda path: count_all_types(path)[index]

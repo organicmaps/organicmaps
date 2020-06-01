@@ -32,7 +32,11 @@ def parse_groups(path):
 def get_categories_check_set(
     old_path: str, new_path: str, categories_path: str
 ) -> check.CompareCheckSet:
-    cs = check.CompareCheckSet("Sections categories check")
+    """
+    Returns a categories check set, that checks a difference in a number of
+    objects of categories(from categories.txt) between old mwms and new mwms.
+    """
+    cs = check.CompareCheckSet("Categories check")
 
     def make_do(indexes):
         def do(path):

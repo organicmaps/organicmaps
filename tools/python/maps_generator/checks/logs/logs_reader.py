@@ -55,13 +55,13 @@ class Log:
         self.name = self.path.stem
 
         self.is_stage_log = False
-        self.is_country_log = False
+        self.is_mwm_log = False
         try:
             get_stage_type(self.name)
             self.is_stage_log = True
         except AttributeError:
-            if self.name in env.COUNTRIES_NAMES:
-                self.is_country_log = True
+            if self.name in env.COUNTRIES_NAMES or self.name in env.WORLDS_NAMES:
+                self.is_mwm_log = True
 
         self.lines = self._parse_lines()
 
@@ -88,7 +88,7 @@ class Log:
             if line is not None:
                 lines.append(line)
             else:
-                logger.warn(f"Line '{logline}' was not parsed.")
+                logger.warn(f"Line was not parsed: {logline}")
             logline = ""
 
         with self.path.open() as logfile:
@@ -186,21 +186,22 @@ def split_into_stages(log: Log) -> List[LogStage]:
     return log_stages
 
 
+def _is_worse(lhs: LogStage, rhs: LogStage) -> bool:
+    if (lhs.duration is None) ^ (rhs.duration is None):
+        return lhs.duration is None
+
+    if len(rhs.lines) > len(lhs.lines):
+        return True
+
+    return rhs.duration > lhs.duration
+
+
 def normalize_logs(llogs: List[LogStage]) -> List[LogStage]:
-    def is_better(lhs: LogStage, rhs: LogStage) -> bool:
-        if (lhs.duration is None) ^ (rhs.duration is None):
-            return lhs.duration is None
-
-        if len(rhs.lines) > len(lhs.lines):
-            return True
-
-        return rhs.duration > lhs.duration
-
     normalized_logs = []
     buckets = {}
     for log in llogs:
         if log.name in buckets:
-            if is_better(normalized_logs[buckets[log.name]], log):
+            if _is_worse(normalized_logs[buckets[log.name]], log):
                 normalized_logs[buckets[log.name]] = log
         else:
             normalized_logs.append(log)
