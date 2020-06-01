@@ -471,9 +471,6 @@ extension DownloadMapsViewController: UIBarPositioningDelegate {
   }
 }
 
-  }
-}
-
 // MARK: - DownloadAllViewDelegate
 
 extension DownloadMapsViewController: DownloadAllViewDelegate {
@@ -512,3 +509,5 @@ extension DownloadMapsViewController: DownloadAllViewDelegate {
     skipCountryEvent = false
     self.processCountryEvent(dataSource.parentAttributes().countryId)
     reloadData()
+  }
+}

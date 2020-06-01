@@ -20,6 +20,7 @@ static inline UTM toUTM(MWMUTM utm)
   case MWMUTMDiscoverCatalogOnboarding: return UTM::DiscoverCatalogOnboarding;
   case MWMUTMFreeSamplesOnboading: return UTM::FreeSamplesOnboading;
   case MWMUTMOutdoorPlacepageGallery: return UTM::OutdoorPlacepageGallery;
+  case MWMUTMGuidesOnMapGallery: return UTM::GuidesOnMapGallery;
   }
 }
 
