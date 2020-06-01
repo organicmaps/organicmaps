@@ -3489,7 +3489,7 @@
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="EHt-wj-tiU">
                                                                     <rect key="frame" x="0.0" y="7" width="215" height="24"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routes_gallery_camera" translatesAutoresizingMaskIntoConstraints="NO" id="jGA-UT-BvR">
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="routes_gallery_camera" translatesAutoresizingMaskIntoConstraints="NO" id="jGA-UT-BvR">
                                                                             <rect key="frame" x="0.0" y="0.0" width="14" height="24"/>
                                                                             <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <userDefinedRuntimeAttributes>
@@ -3678,7 +3678,7 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOh-PA-Alc">
                                                                             <rect key="frame" x="0.0" y="0.0" width="71.5" height="24"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routes_gallery_clock" translatesAutoresizingMaskIntoConstraints="NO" id="JQL-l6-K7z">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="routes_gallery_clock" translatesAutoresizingMaskIntoConstraints="NO" id="JQL-l6-K7z">
                                                                                     <rect key="frame" x="0.0" y="6.5" width="11" height="11"/>
                                                                                     <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <userDefinedRuntimeAttributes>
@@ -3710,7 +3710,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HfX-lS-ZTE">
                                                                                     <rect key="frame" x="8.5" y="0.0" width="55" height="24"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routes_gallery_distance" translatesAutoresizingMaskIntoConstraints="NO" id="mUJ-s9-Rcj">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="routes_gallery_distance" translatesAutoresizingMaskIntoConstraints="NO" id="mUJ-s9-Rcj">
                                                                                             <rect key="frame" x="0.0" y="9" width="12" height="6"/>
                                                                                             <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <userDefinedRuntimeAttributes>
@@ -3749,7 +3749,7 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aen-MW-yow">
                                                                             <rect key="frame" x="143.5" y="0.0" width="71.5" height="24"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routes_gallery_attitude" translatesAutoresizingMaskIntoConstraints="NO" id="cnM-Rz-A7p">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="routes_gallery_attitude" translatesAutoresizingMaskIntoConstraints="NO" id="cnM-Rz-A7p">
                                                                                     <rect key="frame" x="11.5" y="4" width="16" height="16"/>
                                                                                     <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <userDefinedRuntimeAttributes>
