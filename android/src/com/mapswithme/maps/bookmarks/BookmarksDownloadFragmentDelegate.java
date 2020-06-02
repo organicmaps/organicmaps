@@ -43,11 +43,19 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
 
   @NonNull
   private final InvalidCategoriesListener mInvalidCategoriesListener;
+  @NonNull
+  private final Bundle mBundle;
 
-   BookmarksDownloadFragmentDelegate(@NonNull Fragment fragment)
+  BookmarksDownloadFragmentDelegate(@NonNull Fragment fragment)
+  {
+    this(fragment, AuthBundleFactory.guideCatalogue());
+  }
+
+  BookmarksDownloadFragmentDelegate(@NonNull Fragment fragment, @NonNull Bundle bundle)
   {
     mFragment = fragment;
     mInvalidCategoriesListener = new InvalidCategoriesListener(fragment);
+    mBundle = bundle;
   }
 
   void onCreate(@Nullable Bundle savedInstanceState)
@@ -205,7 +213,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   void authorize(@NonNull Runnable completionRunnable)
   {
     mAuthCompletionRunnable = completionRunnable;
-    mAuthorizer.authorize();
+    mAuthorizer.authorize(mBundle);
   }
 
   private static class InvalidCategoriesListener implements BookmarkManager.BookmarksInvalidCategoriesListener, Detachable<Fragment>

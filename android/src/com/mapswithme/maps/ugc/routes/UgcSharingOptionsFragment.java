@@ -20,6 +20,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarAuthFragment;
 import com.mapswithme.maps.base.FinishActivityToolbarController;
+import com.mapswithme.maps.bookmarks.AuthBundleFactory;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -346,7 +347,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
     if (isAuthorized())
       onPostAuthCompleted();
     else
-      authorize();
+      authorize(AuthBundleFactory.exportBookmarks());
   }
 
   private void onPostAuthCompleted()

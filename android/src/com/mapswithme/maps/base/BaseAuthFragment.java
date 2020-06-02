@@ -1,12 +1,15 @@
 package com.mapswithme.maps.base;
 
 import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
+import com.mapswithme.maps.bookmarks.AuthBundleFactory;
 
 public abstract class BaseAuthFragment extends BaseAsyncOperationFragment
     implements Authorizer.Callback, TargetFragmentCallback
@@ -16,7 +19,12 @@ public abstract class BaseAuthFragment extends BaseAsyncOperationFragment
 
   protected void authorize()
   {
-    mAuthorizer.authorize();
+    mAuthorizer.authorize(AuthBundleFactory.subscription());
+  }
+
+  protected void authorize(@NonNull Bundle bundle)
+  {
+    mAuthorizer.authorize(bundle);
   }
 
   @Override

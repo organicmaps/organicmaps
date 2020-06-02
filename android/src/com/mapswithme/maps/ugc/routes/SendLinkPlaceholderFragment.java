@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseAuthFragment;
+import com.mapswithme.maps.bookmarks.AuthBundleFactory;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
@@ -106,7 +107,7 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
     if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_SUCCESS)
       onUploadSucceeded();
     else if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_AUTH_ERROR)
-      authorize();
+      authorize(AuthBundleFactory.exportBookmarks());
     else
       onUploadFailed();
   }

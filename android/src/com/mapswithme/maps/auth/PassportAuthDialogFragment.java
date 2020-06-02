@@ -37,7 +37,7 @@ public class PassportAuthDialogFragment extends BaseMwmDialogFragment
     super.onStart();
     mAuthorizer.attach(mAuthCallback);
     if (mSavedInstanceState == null)
-      mAuthorizer.authorize();
+      mAuthorizer.authorize(getArgumentsOrThrow());
   }
 
   @Override

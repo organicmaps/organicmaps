@@ -1,6 +1,8 @@
 package com.mapswithme.maps.base;
 
 import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,9 +21,9 @@ public abstract class BaseToolbarAuthFragment extends BaseMwmToolbarFragment
   @NonNull
   private final Authorizer mAuthorizer = new Authorizer(this);
 
-  protected void authorize()
+  protected void authorize(@NonNull Bundle bundle)
   {
-    mAuthorizer.authorize();
+    mAuthorizer.authorize(bundle);
   }
 
   @Override

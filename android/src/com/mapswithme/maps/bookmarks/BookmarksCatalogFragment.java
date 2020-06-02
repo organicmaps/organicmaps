@@ -106,7 +106,9 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mDelegate = new BookmarksDownloadFragmentDelegate(this);
+    Bundle extra = requireActivity().getIntent()
+                                    .getBundleExtra(BookmarksCatalogActivity.EXTRA_ARGS);
+    mDelegate = new BookmarksDownloadFragmentDelegate(this, extra);
     mDelegate.onCreate(savedInstanceState);
     mInvalidSubsDialogCallback = new InvalidSubscriptionAlertDialogCallback(this);
   }

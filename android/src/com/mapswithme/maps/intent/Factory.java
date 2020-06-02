@@ -3,6 +3,7 @@ package com.mapswithme.maps.intent;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -42,6 +43,7 @@ import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.ugc.UGCEditorActivity;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.CrashlyticsUtils;
+import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.Utils;
@@ -54,6 +56,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class Factory
@@ -1269,11 +1273,20 @@ public class Factory
   {
     private static final long serialVersionUID = 1548931513812565018L;
     @NonNull
-    private String mDialogName;
+    private final String mDialogName;
+    @NonNull
+    private final ArrayList<KeyValue> mKeyValues;
 
     public ShowDialogTask(@NonNull String dialogName)
     {
+
+      this(dialogName, new ArrayList<>());
+    }
+
+    public ShowDialogTask(@NonNull String dialogName, @NonNull ArrayList<KeyValue> keyValues)
+    {
       mDialogName = dialogName;
+      mKeyValues = keyValues;
     }
 
     @Override
@@ -1284,8 +1297,17 @@ public class Factory
         return true;
 
       final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, mDialogName);
+      fragment.setArguments(toDialogArgs(mKeyValues));
       fragment.show(target.getSupportFragmentManager(), mDialogName);
       return true;
+    }
+
+    @NonNull
+    private static Bundle toDialogArgs(@NonNull List<KeyValue> pairs)
+    {
+      Bundle bundle = new Bundle();
+      for (KeyValue each : pairs) bundle.putString(each.getKey(), each.getValue());
+      return bundle;
     }
   }
 

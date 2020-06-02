@@ -29,6 +29,7 @@ import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -313,30 +314,53 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   private void saveMapObjectEdits()
   {
     if (Editor.nativeSaveEditedFeature())
-    {
-      Statistics.INSTANCE.trackEditorSuccess(mIsNewObject);
-      if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
-        Utils.navigateToParent(getActivity());
-      else
-      {
-        final Activity parent = getActivity();
-        Intent intent = new Intent(parent, MwmActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.putExtra(MwmActivity.EXTRA_TASK,
-                        new Factory.ShowDialogTask(AuthDialogFragment.class.getName()));
-        parent.startActivity(intent);
-
-        if (parent instanceof MwmActivity)
-          ((MwmActivity) parent).customOnNavigateUp();
-        else
-          parent.finish();
-      }
-    }
+      processEditedFeatures();
     else
+      processNoFeatures();
+  }
+
+  private void processNoFeatures()
+  {
+    Statistics.INSTANCE.trackEditorError(mIsNewObject);
+    DialogUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
+  }
+
+  private void processEditedFeatures()
+  {
+    Statistics.INSTANCE.trackEditorSuccess(mIsNewObject);
+    if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
     {
-      Statistics.INSTANCE.trackEditorError(mIsNewObject);
-      DialogUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
+      Utils.navigateToParent(getActivity());
+      return;
     }
+
+    final Intent intent = makeParentActivityIntent();
+    final Activity parent = getActivity();
+    parent.startActivity(intent);
+
+    if (parent instanceof MwmActivity)
+      ((MwmActivity) parent).customOnNavigateUp();
+    else
+      parent.finish();
+  }
+
+  private Intent makeParentActivityIntent()
+  {
+    Activity parent = getActivity();
+    Factory.ShowDialogTask task = new Factory.ShowDialogTask(AuthDialogFragment.class.getName(),
+                                                             makeParams());
+    return new Intent(parent, MwmActivity.class)
+        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        .putExtra(MwmActivity.EXTRA_TASK, task);
+  }
+
+  private ArrayList<KeyValue> makeParams()
+  {
+    ArrayList<KeyValue> params = new ArrayList<>();
+    params.add(new KeyValue(Statistics.EventParam.FROM, mIsNewObject
+                                                        ? Statistics.ParamValue.NEW_OBJECT
+                                                        : Statistics.ParamValue.EDIT_OBJECT));
+    return params;
   }
 
   private void saveNote()

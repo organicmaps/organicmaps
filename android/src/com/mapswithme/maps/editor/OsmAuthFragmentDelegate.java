@@ -65,6 +65,8 @@ public abstract class OsmAuthFragmentDelegate implements View.OnClickListener
         Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST_RESULT,
                                        Statistics.params().add(Statistics.EventParam.IS_SUCCESS, false).add(Statistics.EventParam.TYPE, type.name));
       }
+
+      Statistics.INSTANCE.trackOsmAuthRequestStats(Statistics.EventName.AUTH_ERROR);
       return;
     }
 
@@ -73,6 +75,7 @@ public abstract class OsmAuthFragmentDelegate implements View.OnClickListener
       Utils.navigateToParent(mFragment.getActivity());
     Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST_RESULT,
                                    Statistics.params().add(Statistics.EventParam.IS_SUCCESS, true).add(Statistics.EventParam.TYPE, type.name));
+    Statistics.INSTANCE.trackOsmAuthRequestStats(Statistics.EventName.AUTH_EXTERNAL_REQUEST_SUCCESS);
   }
 
   protected void register()

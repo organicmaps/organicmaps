@@ -60,6 +60,9 @@ import static com.mapswithme.util.BatteryState.CHARGING_STATUS_PLUGGED;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNKNOWN;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNPLUGGED;
 import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_COLD_STARTUP_INFO;
+import static com.mapswithme.util.statistics.Statistics.EventName.AUTH_DECLINED;
+import static com.mapswithme.util.statistics.Statistics.EventName.AUTH_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.AUTH_EXTERNAL_REQUEST_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_BOOKMARKS_VISIBILITY_CHANGE;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_GUIDES_DOWNLOADDIALOGUE_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_CLICK;
@@ -103,7 +106,6 @@ import static com.mapswithme.util.statistics.Statistics.EventName.TOOLBAR_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.TOOLBAR_MENU_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_EXTERNAL_REQUEST_SUCCESS;
-import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_SHOWN;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_REVIEW_START;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ACTION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
@@ -387,6 +389,7 @@ public enum Statistics
     public static final String SETTINGS_RECENT_TRACK_CHANGE = "Settings_RecentTrack_change";
     public static final String MOBILE_INTERNET_ALERT = "MobileInternet_alert";
     public static final String MAP_TOAST_SHOW = "Map_Toast_show";
+    public static final String AUTH_ERROR = "Auth_error";
     static final String SETTINGS_TRACKING_DETAILS = "Settings_Tracking_details";
     static final String SETTINGS_TRACKING_TOGGLE = "Settings_Tracking_toggle";
 
@@ -560,6 +563,10 @@ public enum Statistics
     static final String UGC_AUTH_ERROR = "UGC_Auth_error";
     static final String MAP_LAYERS_CLICK = "Map_Layers_click";
 
+    public static final String AUTH_SHOWN = "Auth_shown";
+    public static final String AUTH_DECLINED = "Auth_declined";
+    public static final String AUTH_START = "Auth_start";
+
     // Purchases.
     public static final String INAPP_PURCHASE_PREVIEW_PAY = "InAppPurchase_Preview_pay";
     public static final String INAPP_PURCHASE_PREVIEW_CANCEL = "InAppPurchase_Preview_cancel";
@@ -596,6 +603,8 @@ public enum Statistics
 
     public static final String DEEPLINK_CALL = "Deeplink_call";
     public static final String DEEPLINK_CALL_MISSED = "Deeplink_call_missed";
+    public static final String AUTH_EXTERNAL_REQUEST_SUCCESS = "Auth_external_request_success";
+    public static final String AUTH_REQUEST_SUCCESS = "Auth_request_success";
 
     public static class Settings
     {
@@ -655,6 +664,11 @@ public enum Statistics
     public static final String STATUS = "status";
     public static final String SOURCE = "source";
     static final String ID = "id";
+    public static final String GUIDE_CATALOGUE = "guide_catalogue";
+    public static final String SUBSCRIPTION = "subscription";
+    public static final String EXPORT_BOOKMARKS = "export_bookmarks";
+    public static final String BOOKMARKS_BACKUP = "bookmarks_backup";
+    public static final String AFTER_SAVE_REVIEW = "after_save_review";
     static final String TRACKS = "tracks";
     static final String POINTS = "points";
     static final String TOLL = "toll";
@@ -774,6 +788,8 @@ public enum Statistics
     public static final String BOOKMARK_LIST = "bookmark_list";
     public static final String SHOW = "show";
     public static final String HIDE = "hide";
+    public static final String NEW_OBJECT = "new_object";
+    public static final String EDIT_OBJECT = "edit_object";
     static final String CRASH_REPORTS = "crash_reports";
     static final String PERSONAL_ADS = "personal_ads";
     public static final String MAP = "map";
@@ -1498,9 +1514,9 @@ public enum Statistics
                    .get());
   }
 
-  public void trackUGCAuthDialogShown()
+  public void trackAuthDialogAction(@NonNull String action, @NonNull String value)
   {
-    trackEvent(UGC_AUTH_SHOWN, params().add(EventParam.FROM, ParamValue.AFTER_SAVE).get());
+    trackEvent(action, params().add(EventParam.FROM, value).get());
   }
 
   public void trackUGCExternalAuthSucceed(@NonNull String provider)
@@ -1514,6 +1530,40 @@ public enum Statistics
         .add(EventParam.PROVIDER, getAuthProvider(type))
         .add(EventParam.ERROR, error)
         .get());
+  }
+
+  public void trackAuthError(@Framework.AuthTokenType int type, @Nullable String error)
+  {
+    ParameterBuilder params = params()
+        .add(PROVIDER, getAuthProvider(type))
+        .add(ERROR, error);
+    trackEvent(AUTH_ERROR, params);
+  }
+
+  public void trackAuthExternalRequestSuccess(int type)
+  {
+    Map<String, String> params = Collections.singletonMap(Statistics.EventParam.PROVIDER,
+                                                          Statistics.getAuthProvider(type));
+    trackEvent(AUTH_EXTERNAL_REQUEST_SUCCESS, params);
+  }
+
+  public void trackAuthDeclined(int type)
+  {
+    ParameterBuilder params = params().add(PROVIDER, getAuthProvider(type));
+    trackEvent(AUTH_DECLINED, params);
+  }
+
+  public void trackAuthRequestSuccess(int tokenType)
+  {
+    Map<String, String> params = Collections.singletonMap(PROVIDER,
+                                                          getAuthProvider(tokenType));
+    trackEvent(EventName.AUTH_REQUEST_SUCCESS, params);
+  }
+
+  public void trackOsmAuthRequestStats(@NonNull String event)
+  {
+    trackEvent(event, Collections.singletonMap(PROVIDER,
+                                               ParamValue.OSM.toLowerCase()));
   }
 
   @NonNull
