@@ -19,19 +19,19 @@ namespace search
 {
 enum class ResultType : uint8_t
 {
-  // Railway/subway stations, airports
+  // Railway/subway stations, airports.
   TransportMajor,
-  // Bus/tram stops
+  // Bus/tram stops.
   TransportLocal,
-  // Cafes, restaurants, bars
+  // Cafes, restaurants, bars.
   Eat,
-  // Hotels
+  // Hotels.
   Hotel,
-  // Attractions
+  // Attractions.
   Attraction,
   // Service types: power lines and substations, barrier-fence, etc.
   Service,
-  // All other POIs
+  // All other POIs.
   General,
   Count
 };

@@ -118,7 +118,7 @@ void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const 
 
 class IsServiceTypeChecker
 {
-public:
+private:
   IsServiceTypeChecker()
   {
     vector<string> const oneLevelTypes = {
@@ -127,29 +127,27 @@ public:
       "traffic_calming"
     };
 
-    vector<vector<string>> const twoLevelTypes = {};
-
     for (auto const t : oneLevelTypes)
       m_oneLevelTypes.push_back(classif().GetTypeByPath({t}));
-    for (auto const t : twoLevelTypes)
-      m_twoLevelTypes.push_back(classif().GetTypeByPath(t));
+  }
+
+public:
+  static IsServiceTypeChecker const & Instance()
+  {
+    static const IsServiceTypeChecker instance;
+    return instance;
   }
 
   bool operator()(feature::TypesHolder const & th) const
   {
-    auto findType = [](vector<uint32_t> const & v, uint32_t t, uint8_t level) {
-      ftype::TruncValue(t, level);
-      return find(v.begin(), v.end(), t) != v.end();
-    };
-
     return base::AnyOf(th, [&](auto t) {
-      return findType(m_oneLevelTypes, t, 1) || findType(m_twoLevelTypes, t, 2);
+      ftype::TruncValue(t, 1);
+      return find(m_oneLevelTypes.begin(), m_oneLevelTypes.end(), t) != m_oneLevelTypes.end();
     });
   }
 
 private:
   vector<uint32_t> m_oneLevelTypes;
-  vector<uint32_t> m_twoLevelTypes;
 };
 }  // namespace
 
@@ -315,8 +313,7 @@ ResultType GetResultType(feature::TypesHolder const & th)
   if (base::AnyOf(attractionTypes, [&th](auto t) { return th.Has(t); }))
     return ResultType::Attraction;
 
-  static const IsServiceTypeChecker isServiceTypeChecker;
-  if (isServiceTypeChecker(th))
+  if (IsServiceTypeChecker::Instance()(th))
     return ResultType::Service;
 
   return ResultType::General;
