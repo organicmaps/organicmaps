@@ -1113,7 +1113,7 @@ void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter,
 
   auto const search = [this, &ctx, &centers]() {
     GreedilyMatchStreets(ctx, centers);
-    MatchPOIsAndBuildings(ctx, 0 /* curToken */);
+    MatchPOIsAndBuildings(ctx, 0 /* curToken */, CBV::GetFull());
   };
 
   WithPostcodes(ctx, search);
@@ -1274,7 +1274,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_STREET, prediction.m_tokenRange);
   size_t const numEmitted = ctx.m_numEmitted;
 
-  MatchPOIsAndBuildings(ctx, 0 /* curToken */);
+  MatchPOIsAndBuildings(ctx, 0 /* curToken */, CBV::GetFull());
 
   // A relaxed best effort parse: at least show the street if we can find one.
   if (numEmitted == ctx.m_numEmitted && ctx.SkipUsedTokens(0) != ctx.m_numTokens)
