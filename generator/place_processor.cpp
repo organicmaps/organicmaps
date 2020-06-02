@@ -120,6 +120,9 @@ namespace generator
 {
 bool NeedProcessPlace(feature::FeatureBuilder const & fb)
 {
+  if (fb.GetMultilangName().IsEmpty())
+    return false;
+
   auto const & islandChecker = ftypes::IsIslandChecker::Instance();
   auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
   return islandChecker(fb.GetTypes()) || localityChecker.GetType(GetPlaceType(fb)) != ftypes::LocalityType::None;
