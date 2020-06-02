@@ -30079,24 +30079,48 @@ cont {
 cont {
   name: "isoline-step_10"
   element {
-    scale: 17
+    scale: 15
     lines {
       width: 1.0
-      color: 2574939750
+      color: 2153149782
+      priority: 1313
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.0
+      color: 2153149782
       priority: 1313
     }
   }
   element {
-    scale: 18
+    scale: 17
     lines {
       width: 1.0
-      color: 1299871334
+      color: 1716942166
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 8025702
+        color: 5666134
+      }
+      priority: 16313
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.3
+      color: 861304150
+      priority: 1313
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 5666134
       }
       priority: 16313
     }
@@ -30104,14 +30128,14 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 1299871334
+      width: 1.3
+      color: 861304150
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 8025702
+        color: 5666134
       }
       priority: 16313
     }
@@ -30122,8 +30146,8 @@ cont {
   element {
     scale: 13
     lines {
-      width: 0.7
-      color: 2574018912
+      width: 1.0
+      color: 2152292681
       priority: 1313
       cap: BUTTCAP
     }
@@ -30131,8 +30155,8 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.0
-      color: 2154588512
+      width: 1.3
+      color: 1716085065
       priority: 1313
       cap: BUTTCAP
     }
@@ -30140,15 +30164,15 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
       cap: BUTTCAP
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30156,14 +30180,14 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30171,14 +30195,14 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30186,14 +30210,14 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30201,14 +30225,14 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30219,8 +30243,8 @@ cont {
   element {
     scale: 11
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
       join: BEVELJOIN
       cap: BUTTCAP
@@ -30228,7 +30252,7 @@ cont {
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30236,8 +30260,8 @@ cont {
   element {
     scale: 12
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
       join: BEVELJOIN
       cap: BUTTCAP
@@ -30245,7 +30269,7 @@ cont {
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30253,15 +30277,15 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
       cap: BUTTCAP
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30269,15 +30293,15 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
       cap: BUTTCAP
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30285,15 +30309,15 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
       cap: BUTTCAP
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30301,14 +30325,14 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30316,14 +30340,14 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30331,14 +30355,14 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30346,14 +30370,14 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30365,7 +30389,7 @@ cont {
     scale: 15
     lines {
       width: 1.0
-      color: 2574939750
+      color: 2153149782
       priority: 1313
       cap: BUTTCAP
     }
@@ -30374,7 +30398,7 @@ cont {
     scale: 16
     lines {
       width: 1.0
-      color: 2574939750
+      color: 2153149782
       priority: 1313
     }
   }
@@ -30382,13 +30406,13 @@ cont {
     scale: 17
     lines {
       width: 1.0
-      color: 2155509350
+      color: 1716942166
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 8025702
+        color: 5666134
       }
       priority: 16313
     }
@@ -30396,14 +30420,14 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 1299871334
+      width: 1.3
+      color: 861304150
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 8025702
+        color: 5666134
       }
       priority: 16313
     }
@@ -30411,14 +30435,14 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 1299871334
+      width: 1.3
+      color: 861304150
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 8025702
+        color: 5666134
       }
       priority: 16313
     }
@@ -30429,8 +30453,8 @@ cont {
   element {
     scale: 11
     lines {
-      width: 0.7
-      color: 2574018912
+      width: 1.0
+      color: 2152292681
       priority: 1313
       join: BEVELJOIN
       cap: BUTTCAP
@@ -30439,8 +30463,8 @@ cont {
   element {
     scale: 12
     lines {
-      width: 1.0
-      color: 2154588512
+      width: 1.3
+      color: 1716085065
       priority: 1313
       join: BEVELJOIN
       cap: BUTTCAP
@@ -30448,7 +30472,7 @@ cont {
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30456,15 +30480,15 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
       cap: BUTTCAP
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30472,15 +30496,15 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
       cap: BUTTCAP
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30488,15 +30512,15 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
       cap: BUTTCAP
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30504,14 +30528,14 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30519,14 +30543,14 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30534,14 +30558,14 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30549,14 +30573,14 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 1298950496
+      width: 1.3
+      color: 860447049
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 7104864
+        color: 4809033
       }
       priority: 16313
     }
@@ -30568,7 +30592,7 @@ cont {
     scale: 15
     lines {
       width: 1.0
-      color: 2574939750
+      color: 2153149782
       priority: 1313
       cap: BUTTCAP
     }
@@ -30577,7 +30601,7 @@ cont {
     scale: 16
     lines {
       width: 1.0
-      color: 2574939750
+      color: 2153149782
       priority: 1313
     }
   }
@@ -30585,13 +30609,13 @@ cont {
     scale: 17
     lines {
       width: 1.0
-      color: 2155509350
+      color: 1716942166
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 8025702
+        color: 5666134
       }
       priority: 16313
     }
@@ -30599,14 +30623,14 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.0
-      color: 1299871334
+      width: 1.3
+      color: 861304150
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 8025702
+        color: 5666134
       }
       priority: 16313
     }
@@ -30614,14 +30638,14 @@ cont {
   element {
     scale: 19
     lines {
-      width: 1.0
-      color: 1299871334
+      width: 1.3
+      color: 861304150
       priority: 1313
     }
     path_text {
       primary {
         height: 9
-        color: 8025702
+        color: 5666134
       }
       priority: 16313
     }
