@@ -174,7 +174,9 @@ void GuidesManager::RequestGuides(bool suggestZoom)
         m_errorRequestsCount = 0;
 
         if (!m_guides.m_nodes.empty())
+        {
           ChangeState(GuidesState::HasData);
+        }
         else
         {
           if (suggestZoom && m_zoom > m_guides.m_suggestedZoom)
