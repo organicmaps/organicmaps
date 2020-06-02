@@ -746,5 +746,5 @@ line|z17-[isoline=step_50],
 line|z17-[isoline=zero],
 {text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline50;}
 
-line|z18-[isoline=step_10],
+line|z17-[isoline=step_10],
 {text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline10;}

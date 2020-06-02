@@ -660,40 +660,40 @@ line|z15-[isoline=step_50],
 line|z15-[isoline=zero],
 {color: @isoline50;}
 
-line|z17-[isoline=step_10],
+line|z15-[isoline=step_10],
 {color: @isoline10;}
 
 line|z11-[isoline=step_1000],
-{width: 1.0;opacity: 0.7;}
+{width: 1.3;opacity: 0.8;}
 line|z11[isoline=step_500],
-{width: 0.7;opacity: 0.4;}
+{width: 1.0;opacity: 0.5;}
 
 line|z12[isoline=step_500],
-{width: 1.0;opacity: 0.5;}
+{width: 1.3;opacity: 0.6;}
 
 line|z13-[isoline=step_500],
-{width: 1.0;opacity: 0.7;}
+{width: 1.3;opacity: 0.8;}
 line|z13[isoline=step_100],
-{width: 0.7;opacity: 0.4;}
+{width: 1.0;opacity: 0.5;}
 
 line|z14[isoline=step_100],
-{width: 1.0;opacity: 0.5;}
+{width: 1.3;opacity: 0.6;}
 
 line|z15-16[isoline=step_100],
-{width: 1.0;opacity: 0.7;}
+{width: 1.3;opacity: 0.8;}
 line|z15-16[isoline=step_50],
 line|z15-16[isoline=zero],
-{width: 1.0;opacity: 0.4;}
+line|z15-16[isoline=step_10],
+{width: 1.0;opacity: 0.5;}
 
 line|z17-[isoline=step_100],
-{width: 1.0;opacity: 0.7;}
+{width: 1.3;opacity: 0.8;}
 line|z17[isoline=step_50],
 line|z17[isoline=zero],
-{width: 1.0;opacity: 0.5;}
 line|z17[isoline=step_10],
-{width: 1.0;opacity: 0.4;}
+{width: 1.0;opacity: 0.6;}
 
 line|z18-[isoline=step_50],
 line|z18-[isoline=zero],
 line|z18-[isoline=step_10],
-{width: 1.0;opacity: 0.7;}
+{width: 1.3;opacity: 0.8;}

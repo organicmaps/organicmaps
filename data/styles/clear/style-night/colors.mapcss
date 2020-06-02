@@ -178,14 +178,14 @@
 
 /* 7.ISOLINES COLORS */
 
-@isoline1000: #6c6960;
-@isoline500: #6c6960;
-@isoline100: #6c6960;
-@isoline50: #7a7666;
-@isoline10: #7a7666;
+@isoline1000: #496149;
+@isoline500: #496149;
+@isoline100: #496149;
+@isoline50: #567556;
+@isoline10: #567556;
 
-@label_isoline1000: #6c6960;
-@label_isoline500: #6c6960;
-@label_isoline100: #6c6960;
-@label_isoline50: #7a7666;
-@label_isoline10: #7a7666;
+@label_isoline1000: #496149;
+@label_isoline500: #496149;
+@label_isoline100: #496149;
+@label_isoline50: #567556;
+@label_isoline10: #567556;
