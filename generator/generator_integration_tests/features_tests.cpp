@@ -383,7 +383,7 @@ public:
     TestGeneratedFile(metalines, 288032 /* fileSize */);
     TestGeneratedFile(restrictions, 371110 /* fileSize */);
     TestGeneratedFile(roadAccess, 1915402 /* fileSize */);
-    TestGeneratedFile(m_genInfo.m_citiesBoundariesFilename, 87 /* fileSize */);
+    TestGeneratedFile(m_genInfo.m_citiesBoundariesFilename, 95 /* fileSize */);
   }
 
   void BuildWorldOneThread()
