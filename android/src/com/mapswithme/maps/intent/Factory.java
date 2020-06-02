@@ -1306,7 +1306,8 @@ public class Factory
     private static Bundle toDialogArgs(@NonNull List<KeyValue> pairs)
     {
       Bundle bundle = new Bundle();
-      for (KeyValue each : pairs) bundle.putString(each.getKey(), each.getValue());
+      for (KeyValue each : pairs)
+        bundle.putString(each.getKey(), each.getValue());
       return bundle;
     }
   }

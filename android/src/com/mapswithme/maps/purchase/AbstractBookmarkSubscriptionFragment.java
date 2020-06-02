@@ -16,6 +16,7 @@ import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseAuthFragment;
+import com.mapswithme.maps.bookmarks.AuthBundleFactory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
@@ -110,6 +111,11 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     }
 
     activateState(BookmarkSubscriptionPaymentState.CHECK_NETWORK_CONNECTION);
+  }
+
+  protected void authorize()
+  {
+    authorize(AuthBundleFactory.subscription());
   }
 
   @Override

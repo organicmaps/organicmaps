@@ -17,12 +17,7 @@ public abstract class BaseAuthFragment extends BaseAsyncOperationFragment
   @NonNull
   private final Authorizer mAuthorizer = new Authorizer(this);
 
-  protected void authorize()
-  {
-    mAuthorizer.authorize(AuthBundleFactory.subscription());
-  }
-
-  protected void authorize(@NonNull Bundle bundle)
+  protected final void authorize(@NonNull Bundle bundle)
   {
     mAuthorizer.authorize(bundle);
   }

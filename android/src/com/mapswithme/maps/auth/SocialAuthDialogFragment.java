@@ -107,8 +107,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
         .requestIdToken(PrivateVariables.googleWebClientId())
         .requestEmail()
         .build();
-    mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
-    trackStatsIfArgsExist(Statistics.EventName.AUTH_SHOWN);
+    mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
   }
 
   private void trackStatsIfArgsExist(@NonNull String action)
@@ -165,6 +164,8 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
 
     setButtonAvailability(view, false, R.id.google_button, R.id.facebook_button,
                           R.id.phone_button);
+
+    trackStatsIfArgsExist(Statistics.EventName.AUTH_SHOWN);
     return view;
   }
 
