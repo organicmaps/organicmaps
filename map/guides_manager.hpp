@@ -147,8 +147,6 @@ private:
   BookmarkManager * m_bmManager = nullptr;
   df::DrapeEngineSafePtr m_drapeEngine;
 
-  uint32_t m_nextMarkIndex = 0;
-
   std::unordered_set<std::string> m_shownGuides;
   LayersStatistics m_statistics;
 };

@@ -22,16 +22,11 @@ public:
   void SetGuideId(std::string guideId);
   std::string GetGuideId() const { return m_guideId; }
 
-  void SetIndex(uint32_t index);
+  void SetDepth(float depth);
 
   // df::UserPointMark overrides.
-  uint32_t GetIndex() const override { return m_index; }
+  float GetDepth() const override { return m_depth; }
   df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::GuidesMarkLayer; }
-  df::SpecialDisplacement GetDisplacement() const override
-  {
-    return df::SpecialDisplacement::SpecialModeUserMark;
-  }
-
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
   bool SymbolIsPOI() const override { return true; }
@@ -39,7 +34,7 @@ public:
 private:
   void Update();
 
-  uint32_t m_index = 0;
+  float m_depth = 0.0f;
 
   std::string m_guideId;
   Type m_type = Type::City;
@@ -56,19 +51,14 @@ public:
 
   void SetGuidesCount(uint32_t cityGuidesCount, uint32_t outdoorGuidesCount);
 
-  void SetIndex(uint32_t index);
+  void SetDepth(float depth);
 
   // df::UserPointMark overrides.
-  uint32_t GetIndex() const override { return m_index; }
+  float GetDepth() const override { return m_depth; }
   df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::GuidesMarkLayer; }
-  df::SpecialDisplacement GetDisplacement() const override
-  {
-    return df::SpecialDisplacement::SpecialModeUserMark;
-  }
-
+  bool SymbolIsPOI() const override { return true; }
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
-  bool SymbolIsPOI() const override { return true; }
 
   bool HasTitlePriority() const override { return true; }
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
@@ -76,6 +66,7 @@ public:
 private:
   void Update();
 
+  float m_depth = 0.0f;
   uint32_t m_index = 0;
 
   uint32_t m_cityGuidesCount = 0;

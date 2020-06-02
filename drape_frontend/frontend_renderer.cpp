@@ -1490,8 +1490,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderUserMarksLayer(modelView, DepthLayer::RoutingBottomMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::GuidesBottomMarkLayer);
-      RenderUserMarksLayer(modelView, DepthLayer::GuidesMarkLayer);
-      RenderSearchMarksLayer(modelView);
+      RenderSearchMarksLayer(modelView, DepthLayer::GuidesMarkLayer);
+      RenderSearchMarksLayer(modelView, DepthLayer::SearchMarkLayer);
     }
 
     if (!HasRouteData())
@@ -1686,16 +1686,16 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
     RenderSingleGroup(m_context, modelView, make_ref(group));
 }
 
-void FrontendRenderer::RenderSearchMarksLayer(ScreenBase const & modelView)
+void FrontendRenderer::RenderSearchMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
 {
-  auto & layer = m_layers[static_cast<size_t>(DepthLayer::SearchMarkLayer)];
+  auto & layer = m_layers[static_cast<size_t>(layerId)];
   layer.Sort(nullptr);
   for (drape_ptr<RenderGroup> & group : layer.m_renderGroups)
   {
     group->SetOverlayVisibility(true);
     group->Update(modelView);
   }
-  RenderUserMarksLayer(modelView, DepthLayer::SearchMarkLayer);
+  RenderUserMarksLayer(modelView, layerId);
 }
 
 void FrontendRenderer::RenderEmptyFrame()
@@ -1860,8 +1860,7 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
                                            DepthLayer::NavigationLayer,
                                            DepthLayer::RoutingBottomMarkLayer,
                                            DepthLayer::RoutingMarkLayer,
-                                           DepthLayer::GuidesBottomMarkLayer,
-                                           DepthLayer::GuidesMarkLayer};
+                                           DepthLayer::GuidesBottomMarkLayer};
   BeginUpdateOverlayTree(modelView);
   for (auto const & layerId : layers)
   {

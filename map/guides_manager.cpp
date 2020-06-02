@@ -338,13 +338,28 @@ void GuidesManager::UpdateGuidesMarks()
   auto es = m_bmManager->GetEditSession();
   es.ClearGroup(UserMark::GUIDE_CLUSTER);
   es.ClearGroup(UserMark::GUIDE);
-  for (auto & guide : m_guides.m_nodes)
+
+  std::vector<std::pair<m2::PointD, size_t>> sortedGuides;
+  sortedGuides.reserve(m_guides.m_nodes.size());
+  for (size_t i = 0; i < m_guides.m_nodes.size(); ++i)
+    sortedGuides.emplace_back(m_screen.GtoP(m_guides.m_nodes[i].m_point), i);
+  std::sort(sortedGuides.begin(), sortedGuides.end(),
+            [](std::pair<m2::PointD, size_t> const & lhs, std::pair<m2::PointD, size_t> const & rhs)
+            {
+              if (base::AlmostEqualAbs(lhs.first.y, rhs.first.y, 1e-2))
+                return lhs.first.x < rhs.first.x;
+              return lhs.first.y < rhs.first.y;
+            });
+
+  float depth = 0.0f;
+  for (auto & guidePos : sortedGuides)
   {
+    auto const & guide = m_guides.m_nodes[guidePos.second];
     if (guide.m_sightsCount + guide.m_outdoorCount > 1)
     {
       GuidesClusterMark * mark = es.CreateUserMark<GuidesClusterMark>(guide.m_point);
       mark->SetGuidesCount(guide.m_sightsCount, guide.m_outdoorCount);
-      mark->SetIndex(++m_nextMarkIndex);
+      mark->SetDepth(depth);
     }
     else
     {
@@ -353,9 +368,10 @@ void GuidesManager::UpdateGuidesMarks()
                                                  : GuideMark::Type::Outdoor);
       mark->SetGuideId(guide.m_guideInfo.m_id);
       mark->SetIsDownloaded(IsGuideDownloaded(guide.m_guideInfo.m_id));
-      mark->SetIndex(++m_nextMarkIndex);
+      mark->SetDepth(depth);
       m_shownGuides.insert(guide.m_guideInfo.m_id);
     }
+    depth += 1.0f;
   }
   UpdateActiveGuide();
 }

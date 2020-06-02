@@ -17,8 +17,8 @@ float constexpr kGuideMarkSize = 26.0f;
 float constexpr kGuideMarkTextSize = 14.0f;
 float constexpr kGuideMarkRadius = 4.0f;
 float constexpr kGuideSelectionWidth = 10.0f;
-m2::PointF const kGuideMarkOffset = {0.0f, 2.0};
-m2::PointF const kGuideDownloadedMarkOffset = {1.5, 0.5};
+m2::PointF const kGuideMarkOffset = {0.0f, 2.0f};
+m2::PointF const kGuideDownloadedMarkOffset = {1.5f, 0.5f};
 m2::PointF const kGuideClusterTextOffset = {0.0f, kGuideMarkTextSize + kGuideMarkSize / 2.0f};
 
 int constexpr kMinGuideMarkerZoom = 1;
@@ -68,10 +68,10 @@ void GuideMark::SetGuideId(std::string guideId)
   m_guideId = guideId;
 }
 
-void GuideMark::SetIndex(uint32_t index)
+void GuideMark::SetDepth(float depth)
 {
   SetDirty();
-  m_index = index;
+  m_depth = depth;
 }
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GuideMark::GetSymbolNames() const
@@ -90,10 +90,10 @@ GuidesClusterMark::GuidesClusterMark(m2::PointD const & ptOrg)
   Update();
 }
 
-void GuidesClusterMark::SetIndex(uint32_t index)
+void GuidesClusterMark::SetDepth(float depth)
 {
   SetDirty();
-  m_index = index;
+  m_depth = depth;
 }
 
 void GuidesClusterMark::Update()

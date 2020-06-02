@@ -186,7 +186,7 @@ private:
   void RenderTransitSchemeLayer(ScreenBase const & modelView);
   void RenderTrafficLayer(ScreenBase const & modelView);
   void RenderRouteLayer(ScreenBase const & modelView);
-  void RenderSearchMarksLayer(ScreenBase const & modelView);
+  void RenderSearchMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderTransitBackground();
   void RenderEmptyFrame();
 
