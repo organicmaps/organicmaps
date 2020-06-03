@@ -10,7 +10,7 @@ namespace
 // Secondary should be preferred against residential.
 UNIT_TEST(RoutingQuality_RussiaMoscowTushino)
 {
-  TEST(CheckCarRoute({55.84398, 37.45018} /* start */, {55.85489, 37.43784} /* finish */,
+  TEST(CheckCarRoute({55.84367, 37.44724} /* start */, {55.85489, 37.43784} /* finish */,
                      {{{55.84343, 37.43949}}} /* reference track */),
        ());
 }
@@ -107,13 +107,6 @@ UNIT_TEST(RoutingQuality_BerlinkaWarsawPoland)
                      {{{54.24278, 19.66106}, {54.13679, 19.45166},
                        {54.06452, 19.62416}, {53.69769, 19.98204},
                        {53.11194, 20.40002}, {52.62966, 20.38488}}} /* reference track */),
-       ());
-}
-
-UNIT_TEST(RoutingQuality_LenOblBadPaving)
-{
-  TEST(CheckCarRoute({60.23884, 29.71603} /* start */, {60.29083, 29.80333} /* finish */,
-                     {{{60.2510134, 29.790209}}} /* reference track */),
        ());
 }
 
