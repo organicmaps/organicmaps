@@ -885,7 +885,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 #ifndef OMIM_OS_IPHONE_SIMULATOR
       CHECK(m_context != nullptr, ());
       m_postprocessRenderer->SetEffectEnabled(m_context, PostprocessRenderer::Effect::Antialiasing,
-                                              msg->IsEnabled() ? true : m_isAntialiasingEnabled);
+                                              msg->IsEnabled() || m_isAntialiasingEnabled);
 #endif
       if (!msg->IsEnabled())
         m_transitSchemeRenderer->ClearContextDependentResources(make_ref(m_overlayTree));

@@ -11,6 +11,7 @@ public:
   ApiVersion GetApiVersion() const override;
   std::string GetRendererName() const override;
   std::string GetRendererVersion() const override;
+  void ForgetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override {}
   void ApplyFramebuffer(std::string const & framebufferLabel) override {}
 
   void DebugSynchronizeWithCPU() override;

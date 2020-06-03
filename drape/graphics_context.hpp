@@ -58,6 +58,7 @@ public:
   virtual void DoneCurrent() {}
   // The value 'nullptr' means default(system) framebuffer.
   virtual void SetFramebuffer(ref_ptr<BaseFramebuffer> framebuffer) = 0;
+  virtual void ForgetFramebuffer(ref_ptr<BaseFramebuffer> framebuffer) = 0;
   virtual void ApplyFramebuffer(std::string const & framebufferLabel) = 0;
   // w, h - pixel size of render target (logical size * visual scale).
   virtual void Resize(int /* w */, int /* h */) {}

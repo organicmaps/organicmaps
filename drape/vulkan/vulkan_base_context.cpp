@@ -314,6 +314,14 @@ void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
   m_currentFramebuffer = framebuffer;
 }
 
+void VulkanBaseContext::ForgetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
+{
+  if (m_framebuffersData.count(framebuffer) == 0)
+    return;
+  vkDeviceWaitIdle(m_device);
+  DestroyRenderPassAndFramebuffer(framebuffer);
+}
+
 void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 {
   vkCmdSetStencilReference(m_renderingCommandBuffers[m_inflightFrameIndex], VK_STENCIL_FRONT_AND_BACK,
@@ -860,7 +868,7 @@ void VulkanBaseContext::DestroyRenderPassAndFramebuffers()
 
 void VulkanBaseContext::DestroyRenderPassAndFramebuffer(ref_ptr<BaseFramebuffer> framebuffer)
 {
-  auto const & fbData = m_framebuffersData[m_currentFramebuffer];
+  auto const & fbData = m_framebuffersData[framebuffer];
   if (m_pipeline && fbData.m_renderPass != VK_NULL_HANDLE)
     m_pipeline->ResetCache(m_device, fbData.m_renderPass);
 

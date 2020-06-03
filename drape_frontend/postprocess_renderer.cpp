@@ -430,6 +430,10 @@ void PostprocessRenderer::UpdateFramebuffers(ref_ptr<dp::GraphicsContext> contex
   }
   else
   {
+    context->ForgetFramebuffer(make_ref(m_edgesFramebuffer));
+    context->ForgetFramebuffer(make_ref(m_blendingWeightFramebuffer));
+    context->ForgetFramebuffer(make_ref(m_smaaFramebuffer));
+
     m_edgesFramebuffer.reset();
     m_blendingWeightFramebuffer.reset();
     m_smaaFramebuffer.reset();
