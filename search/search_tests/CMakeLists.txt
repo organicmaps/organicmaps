@@ -41,6 +41,7 @@ omim_link_libraries(
   editor
   indexer
   storage
+  ge0
   platform
   geometry
   coding

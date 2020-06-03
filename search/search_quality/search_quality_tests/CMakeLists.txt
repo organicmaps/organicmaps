@@ -12,6 +12,7 @@ omim_link_libraries(
   search
   indexer
   editor
+  ge0
   platform
   coding
   geometry
