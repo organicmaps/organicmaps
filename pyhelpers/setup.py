@@ -35,10 +35,8 @@ from inspect import (
 
 from setuptools import dist, setup
 from setuptools.command.build_ext import build_ext
-from setuptools.command.build_py import build_py
 from setuptools.command.egg_info import egg_info, manifest_maker
 from setuptools.command.install import install
-from setuptools.command.install_lib import install_lib
 from setuptools.extension import Extension
 
 # Monkey-patching to disable checking package names
@@ -179,28 +177,12 @@ class BuildCommand(build, object):
                 os.path.join(ORIGINAL_CWD, self.omim_builddir)
             )
         self.build_base = os.path.relpath(
-            os.path.join(self.omim_builddir, 'pybindings-builddir')
+            os.path.join(
+                self.omim_builddir,
+                '{}-builddir'.format(self.distribution.get_name()),
+            )
         )
         super(BuildCommand, self).finalize_options()
-
-
-class BuildPyCommand(build_py, object):
-    def _get_data_files(self):
-        data_files = super(BuildPyCommand, self)._get_data_files()
-        if self.distribution.include_package_data:
-            ei_cmd = self.get_finalized_command('egg_info')
-            output_data_files = []
-            for package, src_dir, build_dir, filenames in data_files:
-                filenames = [
-                    f for f in filenames if not f.startswith(ei_cmd.egg_info)
-                ]
-                output_data_files.append(
-                    (package, src_dir, build_dir, filenames)
-                )
-        else:
-            output_data_files = data_files
-
-        return output_data_files
 
 
 class BdistCommand(bdist, object):
@@ -213,11 +195,13 @@ class BdistCommand(bdist, object):
         self.omim_builddir = None
 
     def finalize_options(self):
-        super(BdistCommand, self).finalize_options()
         self.set_undefined_options(
             'build', ('omim_builddir', 'omim_builddir'),
         )
-        self.dist_dir = os.path.join(self.omim_builddir, 'pybindings-dist')
+        self.dist_dir = os.path.join(
+            self.omim_builddir, '{}-dist'.format(self.distribution.get_name())
+        )
+        super(BdistCommand, self).finalize_options()
 
 
 class ManifestMaker(manifest_maker, object):
@@ -242,7 +226,10 @@ class EggInfoCommand(egg_info, object):
             'build', ('omim_builddir', 'omim_builddir'),
         )
         self.egg_base = os.path.relpath(
-            os.path.join(self.omim_builddir, 'pybindings-egg-info')
+            os.path.join(
+                self.omim_builddir,
+                '{}-egg-info'.format(self.distribution.get_name()),
+            )
         )
         mkpath(self.egg_base)
         super(EggInfoCommand, self).finalize_options()
@@ -275,39 +262,6 @@ class InstallCommand(install, object):
         self.set_undefined_options(
             'build', ('omim_builddir', 'omim_builddir'),
         )
-
-
-class InstallLibCommand(install_lib, object):
-    def get_exclusions(self):
-        """
-        A kludge to allow building all pybindings in one run
-        and pack it into wheels separately.
-        """
-        include_ext_names = set(
-            ext.name for ext in self.distribution.ext_modules
-        )
-        build_ext = self.get_finalized_command('build_ext')
-        install_root = self.get_finalized_command('install').root or ''
-        excludes = set()
-        for ext_name in set(PYBINDINGS.keys()) - include_ext_names:
-            excludes.add(
-                os.path.join(
-                    install_root, build_ext.get_ext_filename(ext_name)
-                )
-            )
-            for data_path in PYBINDINGS[ext_name].get('package_data', []):
-                excludes.add(
-                    os.path.join(install_root, os.path.normpath(data_path))
-                )
-
-        own_files = {
-            os.path.join(install_root, os.path.normpath(data_path))
-            for ext_name in include_ext_names
-            for data_path in PYBINDINGS[ext_name].get('package_data', [])
-        }
-
-        excludes -= own_files
-        return super(InstallLibCommand, self).get_exclusions() | excludes
 
 
 class BuildBoostPythonCommand(Command, object):
@@ -576,10 +530,8 @@ def setup_omim_pybinding(
             'build': BuildCommand,
             'build_boost_python': BuildBoostPythonCommand,
             'build_ext': BuildOmimBindingCommand,
-            'build_py': BuildPyCommand,
             'egg_info': EggInfoCommand,
             'install': InstallCommand,
-            'install_lib': InstallLibCommand,
         },
         classifiers=[
             # Trove classifiers
