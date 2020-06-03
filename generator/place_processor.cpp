@@ -47,7 +47,7 @@ template <typename T>
 bool IsWorsePlace(T const & left, T const & right)
 {
   double constexpr kRankCoeff = 1.0;
-  double constexpr kIsCapitalCoeff = 1.0;
+  double constexpr kIsCapitalCoeff = 0.1;
   double constexpr kLangsCountCoeff = 1.0;
   double constexpr kIsPointCoeff = 0.1;
   double constexpr kIsNodeCoeff = 0.1;
