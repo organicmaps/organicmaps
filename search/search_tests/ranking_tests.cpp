@@ -82,9 +82,9 @@ UNIT_TEST(PreferCountry)
 
   auto cafe = info;
   cafe.m_distanceToPivot = 1e3;
-  cafe.m_tokenRanges[Model::TYPE_POI] = TokenRange(0, 1);
+  cafe.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 1);
   cafe.m_exactCountryOrCapital = false;
-  cafe.m_type = Model::TYPE_POI;
+  cafe.m_type = Model::TYPE_SUBPOI;
 
   auto country = info;
   country.m_distanceToPivot = 1e6;

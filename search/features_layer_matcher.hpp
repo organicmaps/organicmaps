@@ -51,10 +51,10 @@ namespace search
 // feature-from-parent-layer.  Belongs-to is a partial relation on
 // features, and has different meaning for different search classes:
 //
-// * BUILDING/POI/SUBPOI belongs-to STREET iff it is located on the street;
+// * BUILDING/POI belongs-to STREET iff it is located on the street;
 // * BUILDING belongs-to CITY iff the building is located in the city;
-// * POI/SUBPOI belongs-to BUILDING iff the poi is (roughly) located near or inside the building;
-// * SUBPOI belongs-to POI iff the poi is (roughly) located near or inside the building;
+// * POI belongs-to BUILDING iff the poi is (roughly) located near or inside the building;
+// * SUBPOI belongs-to COMPLEX_POI iff the SUBPOI is (roughly) located near or inside the COMPLEX_POI;
 // * STREET belongs-to CITY iff the street is (roughly) located in the city;
 // * etc.
 //
@@ -64,7 +64,7 @@ class FeaturesLayerMatcher
 public:
   static uint32_t const kInvalidId = std::numeric_limits<uint32_t>::max();
   static int constexpr kBuildingRadiusMeters = 50;
-  static int constexpr kBigPoiRadiusMeters = 300;
+  static int constexpr kComplexPoiRadiusMeters = 300;
   static int constexpr kStreetRadiusMeters = 100;
 
   FeaturesLayerMatcher(DataSource const & dataSource, base::Cancellable const & cancellable);
@@ -87,26 +87,25 @@ public:
     case Model::TYPE_COUNT:
       ASSERT(false, ("Invalid parent layer type:", parent.m_type));
       break;
-    case Model::TYPE_POI:
+    case Model::TYPE_COMPLEX_POI:
       ASSERT_EQUAL(child.m_type, Model::TYPE_SUBPOI, ());
       MatchPOIsWithParent(child, parent, std::forward<Fn>(fn));
       break;
     case Model::TYPE_BUILDING:
-      ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_SUBPOI, ());
+      ASSERT(Model::IsPoi(child.m_type), ());
       MatchPOIsWithParent(child, parent, std::forward<Fn>(fn));
       break;
     case Model::TYPE_STREET:
-      ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_BUILDING ||
-                 child.m_type == Model::TYPE_SUBPOI,
+      ASSERT(Model::IsPoi(child.m_type) || child.m_type == Model::TYPE_BUILDING,
              ("Invalid child layer type:", child.m_type));
-      if (child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_SUBPOI)
+      if (Model::IsPoi(child.m_type))
         MatchPOIsWithStreets(child, parent, std::forward<Fn>(fn));
       else
         MatchBuildingsWithStreets(child, parent, std::forward<Fn>(fn));
       break;
     case Model::TYPE_SUBURB:
       ASSERT(child.m_type == Model::TYPE_STREET || child.m_type == Model::TYPE_BUILDING ||
-                 child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_SUBPOI,
+                 Model::IsPoi(child.m_type),
              ());
       // Avoid matching buildings to suburb without street.
       if (child.m_type == Model::TYPE_BUILDING)
@@ -131,14 +130,14 @@ private:
 
     if (parent.m_type == Model::TYPE_BUILDING)
     {
-      ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_SUBPOI, ());
+      ASSERT(Model::IsPoi(child.m_type), ());
       parentRadius = kBuildingRadiusMeters;
     }
     else
     {
-      ASSERT_EQUAL(parent.m_type, Model::TYPE_POI, ());
+      ASSERT_EQUAL(parent.m_type, Model::TYPE_COMPLEX_POI, ());
       ASSERT_EQUAL(child.m_type, Model::TYPE_SUBPOI, ());
-      parentRadius = kBigPoiRadiusMeters;
+      parentRadius = kComplexPoiRadiusMeters;
     }
 
     auto const & pois = *child.m_sortedFeatures;
@@ -234,7 +233,7 @@ private:
   {
     BailIfCancelled();
 
-    ASSERT(child.m_type == Model::TYPE_POI || child.m_type == Model::TYPE_SUBPOI, ());
+    ASSERT(Model::IsPoi(child.m_type), ());
     ASSERT_EQUAL(parent.m_type, Model::TYPE_STREET, ());
 
     auto const & pois = *child.m_sortedFeatures;

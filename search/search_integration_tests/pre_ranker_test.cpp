@@ -153,7 +153,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   fv.GetVector().ForEach([&](FeatureType & ft, uint32_t index) {
     FeatureID id(mwmId, index);
     ResultTracer::Provenance provenance;
-    preRanker.Emplace(id, PreRankingInfo(Model::TYPE_POI, TokenRange(0, 1)), provenance);
+    preRanker.Emplace(id, PreRankingInfo(Model::TYPE_SUBPOI, TokenRange(0, 1)), provenance);
 
     TEST_LESS(index, pois.size(), ());
     distances[index] = mercator::DistanceOnEarth(feature::GetCenter(ft), kPivot);

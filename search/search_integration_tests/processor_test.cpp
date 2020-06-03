@@ -1519,22 +1519,22 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
     auto const rulePoi = ExactMatch(countryId, supervisedOffice);
     auto const ruleSubpoi = ExactMatch(countryId, svmCafe);
 
-    // SUBPOI-POI-BUILDING-STREET
+    // SUBPOI-COMPLEX_POI-BUILDING-STREET
     TEST(ResultsMatch("computing street 0 supervised cafe ", {ruleSubpoi}), ());
 
-    // SUBPOI-BUILDING-STREET / POI-BUILDING-STREET
+    // SUBPOI-BUILDING-STREET / COMPLEX_POI-BUILDING-STREET
     TEST(ResultsMatch("computing street statistical learning cafe ", {ruleSubpoi, ruleStreet}), ());
     TEST(ResultsMatch("computing street 0 cafe ", {ruleSubpoi}), ());
     TEST(ResultsMatch("computing street statistical learning office ", {rulePoi, ruleStreet}), ());
     TEST(ResultsMatch("computing street 0 office ", {rulePoi}), ());
 
-    // POI-BUILDING / SUBPOI-BUILDING is not supported
+    // COMPLEX_POI-BUILDING / SUBPOI-BUILDING is not supported
     TEST(ResultsMatch("statistical learning cafe ", {}), ());
     TEST(ResultsMatch("0 cafe ", {}), ());
     TEST(ResultsMatch("statistical learning supervised ", {}), ());
     TEST(ResultsMatch("0 office ", {}), ());
 
-    // POI-STREET / SUBPOI - STREET
+    // COMPLEX_POI-STREET / SUBPOI - STREET
     TEST(ResultsMatch("computing street cafe ", {ruleSubpoi, ruleStreet}), ());
     TEST(ResultsMatch("computing street office ", {rulePoi, ruleStreet}), ());
 
@@ -1542,11 +1542,11 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
     TEST(ResultsMatch("computing street statistical learning ", {ruleBuilding, ruleStreet}), ());
     TEST(ResultsMatch("computing street 0 ", {ruleBuilding}), ());
 
-    // POI / SUBPOI
+    // COMPLEX_POI / SUBPOI
     TEST(ResultsMatch("cafe ", {ruleSubpoi}), ());
     TEST(ResultsMatch("office ", {rulePoi}), ());
 
-    // POI-SUBPOI
+    // COMPLEX_POI-SUBPOI
     TEST(ResultsMatch("supervised cafe ", {ruleSubpoi}), ());
     TEST(ResultsMatch("supervised svm ", {ruleSubpoi}), ());
 

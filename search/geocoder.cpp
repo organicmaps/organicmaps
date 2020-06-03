@@ -1499,7 +1499,7 @@ bool Geocoder::IsLayerSequenceSane(vector<FeaturesLayer> const & layers) const
       buildingIndex = i;
     else if (layer.m_type == Model::TYPE_STREET)
       streetIndex = i;
-    else if (layer.m_type == Model::TYPE_POI || layer.m_type == Model::TYPE_SUBPOI)
+    else if (Model::IsPoi(layer.m_type))
       poiIndex = i;
   }
 
@@ -1553,8 +1553,8 @@ void Geocoder::FindPaths(BaseContext & ctx)
 
       if (tokenType == BaseContext::TokenType::TOKEN_TYPE_SUBPOI)
         id = result.m_subpoi;
-      if (tokenType == BaseContext::TokenType::TOKEN_TYPE_POI)
-        id = result.m_poi;
+      if (tokenType == BaseContext::TokenType::TOKEN_TYPE_COMPLEX_POI)
+        id = result.m_complex_poi;
       if (tokenType == BaseContext::TokenType::TOKEN_TYPE_STREET)
         id = result.m_street;
 
@@ -1599,7 +1599,7 @@ void Geocoder::TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::Mwm
 {
   SCOPE_GUARD(emitParse, [&]() { tracer.EmitParse(ctx.m_tokens); });
 
-  if (type != Model::TYPE_POI && type != Model::TYPE_SUBPOI && type != Model::TYPE_BUILDING)
+  if (!Model::IsPoi(type) && type != Model::TYPE_BUILDING)
     return;
 
   if (mwmId != m_context->GetId())

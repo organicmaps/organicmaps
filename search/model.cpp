@@ -76,9 +76,9 @@ private:
   TwoLevelPOIChecker const m_twoLevel;
 };
 
-class CanContainSubpoisChecker : public ftypes::BaseChecker
+class IsComplexPoiChecker : public ftypes::BaseChecker
 {
-  CanContainSubpoisChecker() : ftypes::BaseChecker()
+  IsComplexPoiChecker() : ftypes::BaseChecker()
   {
     Classificator const & c = classif();
     vector<vector<string>> const paths = {{"aeroway", "aerodrome"},
@@ -112,9 +112,9 @@ class CanContainSubpoisChecker : public ftypes::BaseChecker
   }
 
 public:
-  static CanContainSubpoisChecker const & Instance()
+  static IsComplexPoiChecker const & Instance()
   {
-    static CanContainSubpoisChecker const inst;
+    static IsComplexPoiChecker const inst;
     return inst;
   }
 };
@@ -145,11 +145,11 @@ Model::Type Model::GetType(FeatureType & feature) const
   static auto const & suburbChecker = IsSuburbChecker::Instance();
   static auto const & localityChecker = IsLocalityChecker::Instance();
   static auto const & poiChecker = IsPoiChecker::Instance();
-  static auto const & canContainSubpoisChecker = CanContainSubpoisChecker::Instance();
+  static auto const & complexPoiChecker = IsComplexPoiChecker::Instance();
 
   // Check whether object is POI first to mark POIs with address tags as POI.
-  if (canContainSubpoisChecker(feature))
-      return TYPE_POI;
+  if (complexPoiChecker(feature))
+    return TYPE_COMPLEX_POI;
   if (poiChecker(feature))
     return TYPE_SUBPOI;
 
@@ -185,7 +185,7 @@ string DebugPrint(Model::Type type)
   switch (type)
   {
   case Model::TYPE_SUBPOI: return "SUBPOI";
-  case Model::TYPE_POI: return "POI";
+  case Model::TYPE_COMPLEX_POI: return "COMPLEX_POI";
   case Model::TYPE_BUILDING: return "Building";
   case Model::TYPE_STREET: return "Street";
   case Model::TYPE_SUBURB: return "Suburb";

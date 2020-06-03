@@ -28,11 +28,11 @@ public:
   enum Type
   {
     // Low-level features such as amenities, offices, shops, buildings without house number, etc.
-    // Can be located inside another POIs. E.g. cafes/shops inside airports/universities/museums.
+    // Can be located inside COMPLEX_POIs. E.g. cafes/shops inside airports/universities/museums.
     TYPE_SUBPOI,
 
-    // Big pois which can contain another POIs. E.g. airports, train stations, malls, parks.
-    TYPE_POI,
+    // Big pois which can contain SUBPOIs. E.g. airports, train stations, malls, parks.
+    TYPE_COMPLEX_POI,
 
     // All features with set house number.
     TYPE_BUILDING,
@@ -55,6 +55,8 @@ public:
   {
     return type >= TYPE_VILLAGE && type <= TYPE_COUNTRY;
   }
+
+  static bool IsPoi(Type const type) { return type == TYPE_SUBPOI || type == TYPE_COMPLEX_POI; }
 
   Type GetType(FeatureType & feature) const;
 };
