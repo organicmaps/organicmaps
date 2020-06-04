@@ -3,10 +3,11 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:orientation="vertical"
+  android:layout_marginTop="@dimen/margin_direction_big"
   android:layout_width="wrap_content"
-  android:gravity="center"
   android:layout_height="match_parent">
   <FrameLayout
+    android:layout_gravity="center"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <ImageButton
@@ -31,6 +32,9 @@
   <TextView
     android:id="@+id/name"
     android:layout_marginTop="@dimen/margin_quarter"
+    android:maxLines="2"
+    android:layout_gravity="center"
+    android:gravity="center"
     android:textAppearance="@style/MwmTextAppearance.Body5"
     android:layout_width="wrap_content"
     android:textColor="?attr/accentColorSelector"
