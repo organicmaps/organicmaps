@@ -130,6 +130,10 @@ class GlobalStyleSheet: IStyleSheet {
       s.backgroundColor = colors.blackStatusBarBackground
     }
 
+    theme.add(styleName: "PresentationBackground") { (s) -> (Void) in
+      s.backgroundColor = UIColor.black.withAlphaComponent(alpha40)
+    }
+
     theme.add(styleName: "ClearBackground") { (s) -> (Void) in
       s.backgroundColor = colors.clear
     }

@@ -2,6 +2,15 @@
 class VerticallyAlignedButton: MWMButton {
   @IBInspectable
   var spacing: CGFloat = 4
+  @IBInspectable
+  var numberOfLines: Int {
+    get {
+      return titleLabel?.numberOfLines ?? 0
+    }
+    set {
+      titleLabel?.numberOfLines = newValue
+    }
+  }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -13,34 +22,23 @@ class VerticallyAlignedButton: MWMButton {
     titleLabel?.textAlignment = .center
   }
 
-  override func contentRect(forBounds bounds: CGRect) -> CGRect {
-    let w = CGFloat.maximum(intrinsicContentSize.width, bounds.width)
-    let h = CGFloat.maximum(intrinsicContentSize.height, bounds.height)
-    return CGRect(x: bounds.minX, y: bounds.minY, width: w, height: h)
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    updateView()
   }
 
-  override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
-    let titleRect = super.titleRect(forContentRect: contentRect)
-    return CGRect(x: contentRect.minX,
-                  y: contentRect.height - titleRect.height,
-                  width: contentRect.width,
-                  height: titleRect.height)
-  }
-
-  override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
-    let imageRect = super.imageRect(forContentRect: contentRect)
-    return CGRect(x: floor((contentRect.width - imageRect.width) / 2),
-                  y: 0,
-                  width: imageRect.width,
-                  height: imageRect.height)
-  }
-
-  override var intrinsicContentSize: CGSize {
-    let r = CGRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
-    let imageRect = super.imageRect(forContentRect: r)
-    let titleRect = super.titleRect(forContentRect: r)
-    let w = CGFloat.maximum(imageRect.width, titleRect.width)
-
-    return CGSize(width: w, height: imageRect.height + titleRect.height + spacing)
+  private func updateView() {
+    let imageSize = self.imageView?.frame.size ?? .zero
+    let titleSize = self.titleLabel?.frame.size ?? .zero
+    let size = self.size
+    let height = imageSize.height + titleSize.height + spacing
+    self.imageEdgeInsets = UIEdgeInsets(top: -(size.height - imageSize.height),
+                                        left: 0,
+                                        bottom: 0,
+                                        right: -titleSize.width)
+    self.titleEdgeInsets = UIEdgeInsets(top: height,
+                                        left: -imageSize.width,
+                                        bottom: 0,
+                                        right: 0)
   }
 }
