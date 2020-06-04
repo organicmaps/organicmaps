@@ -16,6 +16,7 @@ from multiprocessing.pool import ThreadPool
 from typing import AnyStr
 from typing import Type
 
+import maps_generator.generator.stages_tests as st
 from descriptions.descriptions_downloader import check_and_get_checker
 from descriptions.descriptions_downloader import download_from_wikidata_tags
 from descriptions.descriptions_downloader import download_from_wikipedia_tags
@@ -30,6 +31,7 @@ from maps_generator.generator.exceptions import BadExitStatusError
 from maps_generator.generator.gen_tool import run_gen_tool
 from maps_generator.generator.stages import InternalDependency as D
 from maps_generator.generator.stages import Stage
+from maps_generator.generator.stages import Test
 from maps_generator.generator.stages import country_stage
 from maps_generator.generator.stages import depends_from_internal
 from maps_generator.generator.stages import helper_stage_for
@@ -37,6 +39,7 @@ from maps_generator.generator.stages import mwm_stage
 from maps_generator.generator.stages import outer_stage
 from maps_generator.generator.stages import production_only
 from maps_generator.generator.stages import stages
+from maps_generator.generator.stages import test_stage
 from maps_generator.generator.statistics import get_stages_info
 from maps_generator.utils.file import download_files
 from maps_generator.utils.file import is_verified
@@ -108,6 +111,7 @@ class StagePreprocess(Stage):
     D(settings.FOOD_URL, PathProvider.food_paths, "p"),
     D(settings.FOOD_TRANSLATIONS_URL, PathProvider.food_translations_path, "p"),
 )
+@test_stage(Test(st.make_test_booking_data(max_days=7), lambda e, _: e.production, True))
 class StageFeatures(Stage):
     def apply(self, env: Env):
         extra = {}

@@ -380,10 +380,10 @@ class Env:
 
         version_format = "%Y_%m_%d__%H_%M_%S"
         suffix_div = "-"
-        dt = None
+        self.dt = None
         if build_name is None:
-            dt = datetime.datetime.now()
-            build_name = dt.strftime(version_format)
+            self.dt = datetime.datetime.now()
+            build_name = self.dt.strftime(version_format)
             if build_suffix:
                 build_name = f"{build_name}{suffix_div}{build_suffix}"
         else:
@@ -392,11 +392,11 @@ class Env:
                 s.append("")
 
             date_str, build_suffix = s
-            dt = datetime.datetime.strptime(date_str, version_format)
+            self.dt = datetime.datetime.strptime(date_str, version_format)
 
         self.build_suffix = build_suffix
-        self.mwm_version = dt.strftime("%y%m%d")
-        self.planet_version = dt.strftime("%s")
+        self.mwm_version = self.dt.strftime("%y%m%d")
+        self.planet_version = self.dt.strftime("%s")
         self.build_path = os.path.join(settings.MAIN_OUT_PATH, build_name)
         self.build_name = build_name
 
