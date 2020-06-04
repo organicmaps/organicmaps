@@ -728,8 +728,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public boolean onTouch()
       {
-        if (!mMainMenuController.isClosed())
-          mMainMenuController.close();
+        if (!getMainMenuController().isClosed())
+          getMainMenuController().close();
 
         return getCurrentMenu().close(true);
       }
@@ -860,7 +860,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void closeMenu(@Nullable Runnable procAfterClose)
   {
     mFadeView.fadeOut();
-    mMainMenuController.close();
+    getMainMenuController().close();
     if (procAfterClose != null)
       procAfterClose.run();
   }
@@ -1536,7 +1536,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mToggleMapLayerController.detachCore();
     TrafficManager.INSTANCE.detachAll();
     mPlacePageController.destroy();
-    mMainMenuController.destroy();
+    getMainMenuController().destroy();
     SearchEngine.INSTANCE.removeListener(this);
   }
 
@@ -1549,9 +1549,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (!mMainMenuController.isClosed())
+    if (!getMainMenuController().isClosed())
     {
-      mMainMenuController.close();
+      getMainMenuController().close();
       return;
     }
 
@@ -2673,6 +2673,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mToggleMapLayerController.toggleMode(mode);
   }
 
+  @NonNull
+  private MenuController getMainMenuController()
+  {
+    return mMainMenuController;
+  }
+
   private class CurrentPositionClickListener implements OnClickListener
   {
     @Override
@@ -2750,7 +2756,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Statistics.INSTANCE.trackToolbarClick(getItem());
       getActivity().closePlacePage();
       getActivity().closeSidePanel();
-      getActivity().mMainMenuController.open();
+      MenuController controller = getActivity().getMainMenuController();
+      if (controller.isClosed())
+        controller.open();
+      else
+        controller.close();
     }
   }
 
