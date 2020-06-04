@@ -728,6 +728,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public boolean onTouch()
       {
+        if (!mMainMenuController.isClosed())
+          mMainMenuController.close();
+
         return getCurrentMenu().close(true);
       }
     });
