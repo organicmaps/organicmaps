@@ -92,6 +92,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *placePageAreaKeyboard;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *sideButtonsAreaBottom;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *sideButtonsAreaKeyboard;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *guidesVisibleConstraint;;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *guidesHiddenConstraint;
 @property(strong, nonatomic) IBOutlet UIImageView *carplayPlaceholderLogo;
 
 @property(strong, nonatomic) NSHashTable<id<MWMLocationModeListener>> *listeners;
@@ -99,6 +101,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @property(nonatomic) BOOL needDeferFocusNotification;
 @property(nonatomic) BOOL deferredFocusValue;
 @property(nonatomic) UIViewController *placePageVC;
+@property(nonatomic) UIViewController *guidesGalleryVC;
 @property(nonatomic) IBOutlet UIView *placePageContainer;
 @property(nonatomic) IBOutlet UIView *guidesCollectionContainer;
 
@@ -113,6 +116,47 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 #pragma mark - Map Navigation
 
+- (void)showRegularPlacePage {
+  self.placePageVC = [PlacePageBuilder build];
+  self.placePageContainer.hidden = NO;
+  [self.placePageContainer addSubview:self.placePageVC.view];
+  [self.view bringSubviewToFront:self.placePageContainer];
+  [NSLayoutConstraint activateConstraints:@[
+    [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.placePageContainer.safeAreaLayoutGuide.topAnchor],
+    [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.placePageContainer.leftAnchor],
+    [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.placePageContainer.bottomAnchor],
+    [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.placePageContainer.rightAnchor]
+  ]];
+  self.placePageVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+  [self addChildViewController:self.placePageVC];
+  [self.placePageVC didMoveToParentViewController:self];
+}
+
+- (void)showGuidesGallery {
+  self.guidesGalleryVC = [MWMGuidesGalleryBuilder build];
+  self.guidesCollectionContainer.hidden = NO;
+  [self.guidesCollectionContainer addSubview:self.guidesGalleryVC.view];
+  [NSLayoutConstraint activateConstraints:@[
+    [self.guidesGalleryVC.view.topAnchor constraintEqualToAnchor:self.guidesCollectionContainer.topAnchor],
+    [self.guidesGalleryVC.view.leftAnchor constraintEqualToAnchor:self.guidesCollectionContainer.leftAnchor],
+    [self.guidesGalleryVC.view.bottomAnchor constraintEqualToAnchor:self.guidesCollectionContainer.bottomAnchor],
+    [self.guidesGalleryVC.view.rightAnchor constraintEqualToAnchor:self.guidesCollectionContainer.rightAnchor]
+  ]];
+  self.guidesGalleryVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+  [self addChildViewController:self.guidesGalleryVC];
+  [self.guidesGalleryVC didMoveToParentViewController:self];
+  self.guidesVisibleConstraint.priority = UILayoutPriorityDefaultLow;
+  self.guidesHiddenConstraint.priority = UILayoutPriorityDefaultHigh;
+  self.guidesCollectionContainer.alpha = 0;
+  [self.view layoutIfNeeded];
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
+    self.guidesVisibleConstraint.priority = UILayoutPriorityDefaultHigh;
+    self.guidesHiddenConstraint.priority = UILayoutPriorityDefaultLow;
+    [self.view layoutIfNeeded];
+    self.guidesCollectionContainer.alpha = 1;
+  }];
+}
+
 - (void)showPlacePage {
   if (!PlacePageData.hasData) {
     return;
@@ -120,41 +164,47 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   
   self.controlsManager.trafficButtonHidden = YES;
   if (PlacePageData.isGuide) {
-    self.placePageVC = [MWMGuidesGalleryBuilder build];
-    [self.guidesCollectionContainer addSubview:self.placePageVC.view];
-    [NSLayoutConstraint activateConstraints:@[
-      [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.guidesCollectionContainer.topAnchor],
-      [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.guidesCollectionContainer.leftAnchor],
-      [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.guidesCollectionContainer.bottomAnchor],
-      [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.guidesCollectionContainer.rightAnchor]
-    ]];
+    [self showGuidesGallery];
   } else {
-    self.placePageVC = [PlacePageBuilder build];
-    self.placePageContainer.hidden = NO;
-    [self.placePageContainer addSubview:self.placePageVC.view];
-  [self.view bringSubviewToFront:self.placePageContainer];
-    [NSLayoutConstraint activateConstraints:@[
-      [self.placePageVC.view.topAnchor constraintEqualToAnchor:self.placePageContainer.safeAreaLayoutGuide.topAnchor],
-      [self.placePageVC.view.leftAnchor constraintEqualToAnchor:self.placePageContainer.leftAnchor],
-      [self.placePageVC.view.bottomAnchor constraintEqualToAnchor:self.placePageContainer.bottomAnchor],
-      [self.placePageVC.view.rightAnchor constraintEqualToAnchor:self.placePageContainer.rightAnchor]
-    ]];
+    [self showRegularPlacePage];
   }
-  self.placePageVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-  [self addChildViewController:self.placePageVC];
-  [self.placePageVC didMoveToParentViewController:self];
 }
 
 - (void)dismissPlacePage {
   GetFramework().DeactivateMapSelection(true);
 }
 
-- (void)hidePlacePage {
+- (void)hideRegularPlacePage {
   [self.placePageVC.view removeFromSuperview];
   [self.placePageVC willMoveToParentViewController:nil];
   [self.placePageVC removeFromParentViewController];
   self.placePageVC = nil;
   self.placePageContainer.hidden = YES;
+}
+
+- (void)hideGuidesGallery {
+  [self.view layoutIfNeeded];
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
+    self.guidesVisibleConstraint.priority = UILayoutPriorityDefaultLow;
+    self.guidesHiddenConstraint.priority = UILayoutPriorityDefaultHigh;
+    [self.view layoutIfNeeded];
+    self.guidesCollectionContainer.alpha = 0;
+  } completion:^(BOOL finished) {
+    [self.guidesGalleryVC.view removeFromSuperview];
+    [self.guidesGalleryVC willMoveToParentViewController:nil];
+    [self.guidesGalleryVC removeFromParentViewController];
+    self.guidesGalleryVC = nil;
+    self.guidesCollectionContainer.hidden = YES;
+    self.guidesVisibleConstraint.constant = 48;
+  }];
+}
+
+- (void)hidePlacePage {
+  if (self.placePageVC != nil) {
+    [self hideRegularPlacePage];
+  } else if (self.guidesGalleryVC != nil) {
+    [self hideGuidesGallery];
+  }
   self.controlsManager.trafficButtonHidden = NO;
 }
 
@@ -188,6 +238,39 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)onMapObjectUpdated {
   //  [self.controlsManager updatePlacePage];
+}
+
+- (IBAction)onGudesGalleryPan:(UIPanGestureRecognizer *)sender {
+  CGFloat originalConstant = 48;
+  UIView *galleryView = self.guidesCollectionContainer;
+  switch (sender.state) {
+    case UIGestureRecognizerStatePossible:
+    case UIGestureRecognizerStateBegan:
+      break;
+    case UIGestureRecognizerStateChanged: {
+      CGFloat dy = [sender translationInView:galleryView].y;
+      [sender setTranslation:CGPointZero inView:galleryView];
+      CGFloat constant = MIN(self.guidesVisibleConstraint.constant - dy, originalConstant);
+      self.guidesVisibleConstraint.constant = constant;
+      galleryView.alpha = (constant + galleryView.frame.size.height) / (galleryView.frame.size.height + originalConstant);
+      break;
+    }
+    case UIGestureRecognizerStateEnded:
+    case UIGestureRecognizerStateCancelled:
+    case UIGestureRecognizerStateFailed:
+      CGFloat velocity = [sender velocityInView:galleryView].y;
+      if (velocity < 0 || (velocity == 0 && galleryView.alpha > 0.8)) {
+        [self.view layoutIfNeeded];
+        [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
+          self.guidesVisibleConstraint.constant = originalConstant;
+          galleryView.alpha = 1;
+          [self.view layoutIfNeeded];
+        }];
+      } else {
+        [self dismissPlacePage];
+      }
+      break;
+  }
 }
 
 - (void)checkMaskedPointer:(UITouch *)touch withEvent:(df::TouchEvent &)e {
