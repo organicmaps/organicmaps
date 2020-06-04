@@ -106,6 +106,12 @@ class DeepLinkURL {
     deeplinkURL = nil
   }
 
+  func getBackUrl() -> String {
+    guard let urlString = deeplinkURL?.url.absoluteString else { return "" }
+    guard let url = URLComponents(string: urlString) else { return "" }
+    return (url.queryItems?.first(where: { $0.name == "backurl" })?.value ?? "")
+  }
+
   private func convertUniversalLink(_ universalLink: URL) -> URL {
     let convertedLink = String(format: "mapsme:/%@?%@", universalLink.path, universalLink.query ?? "")
     return URL(string: convertedLink)!

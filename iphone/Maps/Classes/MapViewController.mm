@@ -832,4 +832,30 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_failed")];
 }
 
+- (BOOL)canBecomeFirstResponder {
+  return YES;
+}
+
+- (NSArray *)keyCommands {
+   return @[[UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow modifierFlags:0 action:@selector(zoomOut) discoverabilityTitle:@"Zoom Out"],
+    [UIKeyCommand keyCommandWithInput:UIKeyInputUpArrow modifierFlags:0 action:@selector(zoomIn) discoverabilityTitle:@"Zoom In"],
+    [UIKeyCommand keyCommandWithInput:UIKeyInputEscape modifierFlags:0 action:@selector(goBack) discoverabilityTitle:@"Go Back"]];
+}
+
+- (void)zoomOut {
+  GetFramework().Scale(Framework::SCALE_MIN, true);
+}
+
+- (void)zoomIn {
+  GetFramework().Scale(Framework::SCALE_MAG, true);
+}
+
+- (void)goBack {
+   NSString *backURL = [DeepLinkHandler.shared getBackUrl];
+   BOOL canOpenURL = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:backURL]];
+   if (canOpenURL){
+     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backURL] options:@{} completionHandler:nil];
+   }
+}
+
 @end
