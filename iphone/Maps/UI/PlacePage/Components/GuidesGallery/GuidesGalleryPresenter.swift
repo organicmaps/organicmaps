@@ -56,25 +56,36 @@ extension GuidesGalleryPresenter: IGuidesGalleryPresenter {
   func viewDidLoad() {
     galleryItems = interactor.galleryItems()
     interactor.setGalleryChangedCallback { [weak self] (reloadGallery) in
-      guard let self = self else { return }
-      let activeGuideId = self.interactor.activeItemId()
-      guard let activeIndex = self.galleryItems.firstIndex(where: {
-        $0.guideId == activeGuideId
-      }) else { return }
-      self.view.setActiveItem(activeIndex, animated: true)
+      self?.setActiveItem()
     }
 
     view.setGalleryItems(galleryItems.map({ makeViewModel($0) }))
-    let activeGuideId = self.interactor.activeItemId()
-    guard let activeIndex = galleryItems.firstIndex(where: {
-      $0.guideId == activeGuideId
-    }) else { return }
-    view.setActiveItem(activeIndex, animated: false)
+    setActiveItem()
 
     Statistics.logEvent(kStatPlacepageSponsoredShow, withParameters: [kStatProvider : kStatMapsmeGuides,
                                                                       kStatPlacement : kStatMap,
                                                                       kStatState : kStatOnline,
                                                                       kStatCount : galleryItems.count])
+  }
+
+  private func setActiveItem() {
+    let activeGuideId = self.interactor.activeItemId()
+    guard let activeIndex = galleryItems.firstIndex(where: {
+      $0.guideId == activeGuideId
+    }) else { return }
+    view.setActiveItem(activeIndex, animated: false)
+    logShowItem(galleryItems[activeIndex])
+  }
+
+  private func logShowItem(_ item: GuidesGalleryItem) {
+    guard item.downloaded else { return }
+    Statistics.logEvent(kStatPlacepageSponsoredUserItemShown,
+                        withParameters: [kStatProvider : kStatMapsmeGuides,
+                                         kStatPlacement : kStatMap,
+                                         kStatState : kStatOnline,
+                                         kStatItem : index,
+                                         kStatId : item.guideId],
+                        with: .realtime)
   }
 
   func selectItemAtIndex(_ index: Int) {
@@ -90,13 +101,7 @@ extension GuidesGalleryPresenter: IGuidesGalleryPresenter {
   func scrollToItemAtIndex(_ index: Int) {
     let galleryItem = galleryItems[index]
     interactor.setActiveItem(galleryItem)
-    Statistics.logEvent(kStatPlacepageSponsoredUserItemShown,
-                        withParameters: [kStatProvider : kStatMapsmeGuides,
-                                         kStatPlacement : kStatMap,
-                                         kStatState : kStatOnline,
-                                         kStatItem : index,
-                                         kStatId : galleryItem.guideId],
-                        with: .realtime)
+    logShowItem(galleryItem)
   }
 
   func toggleVisibilityAtIndex(_ index: Int) {
