@@ -1490,8 +1490,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderUserMarksLayer(modelView, DepthLayer::RoutingBottomMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::GuidesBottomMarkLayer);
-      RenderSearchMarksLayer(modelView, DepthLayer::GuidesMarkLayer);
-      RenderSearchMarksLayer(modelView, DepthLayer::SearchMarkLayer);
+      RenderNonDisplacedUserMarksLayer(modelView, DepthLayer::GuidesMarkLayer);
+      RenderNonDisplacedUserMarksLayer(modelView, DepthLayer::SearchMarkLayer);
     }
 
     if (!HasRouteData())
@@ -1686,7 +1686,8 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
     RenderSingleGroup(m_context, modelView, make_ref(group));
 }
 
-void FrontendRenderer::RenderSearchMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
+void FrontendRenderer::RenderNonDisplacedUserMarksLayer(ScreenBase const & modelView,
+                                                        DepthLayer layerId)
 {
   auto & layer = m_layers[static_cast<size_t>(layerId)];
   layer.Sort(nullptr);

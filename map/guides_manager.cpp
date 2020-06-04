@@ -26,6 +26,24 @@ auto constexpr kScaleEps = 0.1115;
 
 auto constexpr kMinViewportsIntersectionScore = 0.9;
 auto constexpr kRequestingRectSidesIncrease = 0.3;
+
+std::vector<std::pair<m2::PointD, size_t>> SortGuidesByPositions(
+    std::vector<guides_on_map::GuidesNode> const & guides, ScreenBase const & screen)
+{
+  std::vector<std::pair<m2::PointD, size_t>> sortedGuides;
+  sortedGuides.reserve(guides.size());
+  for (size_t i = 0; i < guides.size(); ++i)
+    sortedGuides.emplace_back(screen.GtoP(guides[i].m_point), i);
+
+  std::sort(sortedGuides.begin(), sortedGuides.end(),
+            [](auto const & lhs, auto const & rhs)
+            {
+              if (base::AlmostEqualAbs(lhs.first.y, rhs.first.y, 1e-2))
+                return lhs.first.x < rhs.first.x;
+              return lhs.first.y < rhs.first.y;
+            });
+  return sortedGuides;
+}
 }  // namespace
 
 GuidesManager::GuidesManager(CloseGalleryFn && closeGalleryFn)
@@ -339,20 +357,10 @@ void GuidesManager::UpdateGuidesMarks()
   es.ClearGroup(UserMark::GUIDE_CLUSTER);
   es.ClearGroup(UserMark::GUIDE);
 
-  std::vector<std::pair<m2::PointD, size_t>> sortedGuides;
-  sortedGuides.reserve(m_guides.m_nodes.size());
-  for (size_t i = 0; i < m_guides.m_nodes.size(); ++i)
-    sortedGuides.emplace_back(m_screen.GtoP(m_guides.m_nodes[i].m_point), i);
-  std::sort(sortedGuides.begin(), sortedGuides.end(),
-            [](std::pair<m2::PointD, size_t> const & lhs, std::pair<m2::PointD, size_t> const & rhs)
-            {
-              if (base::AlmostEqualAbs(lhs.first.y, rhs.first.y, 1e-2))
-                return lhs.first.x < rhs.first.x;
-              return lhs.first.y < rhs.first.y;
-            });
+  auto const sortedGuides = SortGuidesByPositions(m_guides.m_nodes, m_screen);
 
   float depth = 0.0f;
-  for (auto & guidePos : sortedGuides)
+  for (auto const & guidePos : sortedGuides)
   {
     auto const & guide = m_guides.m_nodes[guidePos.second];
     if (guide.m_sightsCount + guide.m_outdoorCount > 1)

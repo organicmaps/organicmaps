@@ -183,10 +183,10 @@ private:
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderNavigationOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
+  void RenderNonDisplacedUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderTransitSchemeLayer(ScreenBase const & modelView);
   void RenderTrafficLayer(ScreenBase const & modelView);
   void RenderRouteLayer(ScreenBase const & modelView);
-  void RenderSearchMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderTransitBackground();
   void RenderEmptyFrame();
 
