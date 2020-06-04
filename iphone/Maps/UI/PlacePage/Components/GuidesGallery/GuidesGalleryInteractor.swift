@@ -11,15 +11,12 @@ protocol IGuidesGalleryInteractor {
 }
 
 final class GuidesGalleryInteractor {
-  private var guidesGallery: GuidesGalleryData
-  init(_ guidesGallery: GuidesGalleryData) {
-    self.guidesGallery = guidesGallery
-  }
+
 }
 
 extension GuidesGalleryInteractor: IGuidesGalleryInteractor {
   func galleryItems() -> [GuidesGalleryItem] {
-    guidesGallery.galleryItems
+    GuidesManager.shared().galleryItems()
   }
 
   func toggleItemVisibility(_ item: GuidesGalleryItem) {

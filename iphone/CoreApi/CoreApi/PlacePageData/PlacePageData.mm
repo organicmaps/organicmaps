@@ -9,7 +9,6 @@
 #import "HotelRooms+Core.h"
 #import "UgcData+Core.h"
 #import "ElevationProfileData+Core.h"
-#import "GuidesGalleryData+Core.h"
 #import "MWMMapNodeAttributes.h"
 
 #include <CoreApi/CoreApi.h>
@@ -149,13 +148,6 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
       _previewData = [[PlacePagePreviewData alloc] initWithElevationInfo:elevationInfo];
     } else {
       _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
-    }
-
-    if (rawData().IsGuide()) {
-      auto const &gm = GetFramework().GetGuidesManager();
-      auto const &galleryData = gm.GetGallery();
-      NSString *activeGuideId = @(gm.GetActiveGuide().c_str());
-      _guidesGalleryData = [[GuidesGalleryData alloc] initWithGuidesGallery:galleryData activeGuideId:activeGuideId];
     }
 
     auto const &countryId = rawData().GetCountryId();

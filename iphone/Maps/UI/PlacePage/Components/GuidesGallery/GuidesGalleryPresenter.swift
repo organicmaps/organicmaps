@@ -50,22 +50,10 @@ final class GuidesGalleryPresenter {
     }
     return model
   }
-}
 
-extension GuidesGalleryPresenter: IGuidesGalleryPresenter {
-  func viewDidLoad() {
+  private func reloadGallery() {
     galleryItems = interactor.galleryItems()
-    interactor.setGalleryChangedCallback { [weak self] (reloadGallery) in
-      self?.setActiveItem()
-    }
-
     view.setGalleryItems(galleryItems.map({ makeViewModel($0) }))
-    setActiveItem()
-
-    Statistics.logEvent(kStatPlacepageSponsoredShow, withParameters: [kStatProvider : kStatMapsmeGuides,
-                                                                      kStatPlacement : kStatMap,
-                                                                      kStatState : kStatOnline,
-                                                                      kStatCount : galleryItems.count])
   }
 
   private func setActiveItem() {
@@ -86,6 +74,26 @@ extension GuidesGalleryPresenter: IGuidesGalleryPresenter {
                                          kStatItem : index,
                                          kStatId : item.guideId],
                         with: .realtime)
+  }
+}
+
+extension GuidesGalleryPresenter: IGuidesGalleryPresenter {
+  func viewDidLoad() {
+    reloadGallery()
+    setActiveItem()
+
+    interactor.setGalleryChangedCallback { [weak self] (reloadGallery) in
+      if reloadGallery {
+        self?.reloadGallery()
+      }
+      self?.setActiveItem()
+    }
+
+
+    Statistics.logEvent(kStatPlacepageSponsoredShow, withParameters: [kStatProvider : kStatMapsmeGuides,
+                                                                      kStatPlacement : kStatMap,
+                                                                      kStatState : kStatOnline,
+                                                                      kStatCount : galleryItems.count])
   }
 
   func selectItemAtIndex(_ index: Int) {

@@ -1,4 +1,5 @@
 #import "MWMGuidesManager.h"
+#import "GuidesGalleryItem+Core.h"
 
 #include "Framework.h"
 
@@ -17,6 +18,24 @@ static GuidesManager & guidesManager() { return GetFramework().GetGuidesManager(
     manager = [[self alloc] init];
   });
   return manager;
+}
+
+- (NSArray<GuidesGalleryItem *> *)galleryItems {
+  auto const &guidesGallery = guidesManager().GetGallery();
+  NSMutableArray *itemsArray = [NSMutableArray arrayWithCapacity:guidesGallery.m_items.size()];
+  for (auto const &item : guidesGallery.m_items) {
+    GuidesGalleryItem *galleryItem;
+    switch (item.m_type) {
+      case GuidesManager::GuidesGallery::Item::Type::City:
+        galleryItem = [[CityGalleryItem alloc] initWithGuidesGalleryItem:item];
+        break;
+      case GuidesManager::GuidesGallery::Item::Type::Outdoor:
+        galleryItem = [[OutdoorGalleryItem alloc] initWithGuidesGalleryItem:item];
+        break;
+    }
+    [itemsArray addObject:galleryItem];
+  }
+  return [itemsArray copy];
 }
 
 - (NSString *)activeGuideId {

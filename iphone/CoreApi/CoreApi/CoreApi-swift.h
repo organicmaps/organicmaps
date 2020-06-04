@@ -56,5 +56,4 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/ElevationProfileData.h>
 #import <CoreApi/OpeningHours.h>
 #import <CoreApi/IOpeningHoursLocalization.h>
-#import <CoreApi/GuidesGalleryData.h>
 #import <CoreApi/GuidesGalleryItem.h>

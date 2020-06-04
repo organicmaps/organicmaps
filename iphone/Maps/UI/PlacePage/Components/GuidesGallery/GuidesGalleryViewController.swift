@@ -76,9 +76,6 @@ extension GuidesGalleryViewController: IGuidesGalleryView {
   func setGalleryItems(_ items: [IGuidesGalleryItemViewModel]) {
     galleryItems = items
     collectionView.reloadData()
-    collectionView.performBatchUpdates(nil) { [weak self] _ in
-      self?.applyTransform()
-    }
   }
 
   func setActiveItem(_ index: Int, animated: Bool) {
