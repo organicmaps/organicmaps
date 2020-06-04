@@ -718,10 +718,17 @@ void DrapeEngine::SetKineticScrollEnabled(bool enabled)
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::SetTimeInBackground(double time)
+void DrapeEngine::OnEnterForeground(double backgroundTime)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<SetTimeInBackgroundMessage>(time),
+                                  make_unique_dp<OnEnterForegroundMessage>(backgroundTime),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::OnEnterBackground()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<OnEnterBackgroundMessage>(),
                                   MessagePriority::High);
 }
 

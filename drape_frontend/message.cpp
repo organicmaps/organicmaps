@@ -63,7 +63,7 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::ShowChoosePositionMark: return "ShowChoosePositionMark";
   case Message::Type::SetKineticScrollEnabled: return "SetKineticScrollEnabled";
   case Message::Type::BlockTapEvents: return "BlockTapEvents";
-  case Message::Type::SetTimeInBackground: return "SetTimeInBackground";
+  case Message::Type::OnEnterForeground: return "OnEnterForeground";
   case Message::Type::SetAddNewPlaceMode: return "SetAddNewPlaceMode";
   case Message::Type::SetDisplacementMode: return "SetDisplacementMode";
   case Message::Type::AllowAutoZoom: return "AllowAutoZoom";
@@ -103,6 +103,7 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::NotifyGraphicsReady: return "NotifyGraphicsReady";
   case Message::Type::EnableIsolines: return "EnableIsolines";
   case Message::Type::EnableGuides: return "EnableGuides";
+  case Message::Type::OnEnterBackground: return "OnEnterBackground";
   }
   ASSERT(false, ("Unknown message type."));
   return "Unknown type";

@@ -829,10 +829,16 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::Type::SetTimeInBackground:
+  case Message::Type::OnEnterForeground:
     {
-      ref_ptr<SetTimeInBackgroundMessage> msg = message;
-      m_myPositionController->SetTimeInBackground(msg->GetTime());
+      ref_ptr<OnEnterForegroundMessage> msg = message;
+      m_myPositionController->OnEnterForeground(msg->GetTime());
+      break;
+    }
+
+  case Message::Type::OnEnterBackground:
+    {
+      m_myPositionController->OnEnterBackground();
       break;
     }
 

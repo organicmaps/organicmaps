@@ -1483,6 +1483,9 @@ void Framework::EnterBackground()
   m_startBackgroundTime = base::Timer::LocalTime();
   settings::Set("LastEnterBackground", m_startBackgroundTime);
 
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->OnEnterBackground();
+
   SaveViewport();
 
   m_trafficManager.OnEnterBackground();
@@ -1507,7 +1510,7 @@ void Framework::EnterForeground()
   if (m_drapeEngine != nullptr && m_startBackgroundTime != 0.0)
   {
     auto const secondsInBackground = m_startForegroundTime - m_startBackgroundTime;
-    m_drapeEngine->SetTimeInBackground(secondsInBackground);
+    m_drapeEngine->OnEnterForeground(secondsInBackground);
 
     if (m_guidesManager.IsEnabled() &&
       secondsInBackground / 60 / 60 > kGuidesEnabledInBackgroundMaxHours)

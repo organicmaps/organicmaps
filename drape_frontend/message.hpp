@@ -64,7 +64,7 @@ public:
     ShowChoosePositionMark,
     SetKineticScrollEnabled,
     BlockTapEvents,
-    SetTimeInBackground,
+    OnEnterForeground,
     SetAddNewPlaceMode,
     SetDisplacementMode,
     AllowAutoZoom,
@@ -104,6 +104,7 @@ public:
     NotifyGraphicsReady,
     EnableIsolines,
     EnableGuides,
+    OnEnterBackground,
   };
 
   virtual ~Message() = default;

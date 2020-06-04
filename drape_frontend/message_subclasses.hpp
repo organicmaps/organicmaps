@@ -956,19 +956,25 @@ public:
   Type GetType() const override { return Type::ClearGpsTrackPoints; }
 };
 
-class SetTimeInBackgroundMessage : public Message
+class OnEnterForegroundMessage : public Message
 {
 public:
-  explicit SetTimeInBackgroundMessage(double time)
+  explicit OnEnterForegroundMessage(double time)
     : m_time(time)
   {}
 
-  Type GetType() const override { return Type::SetTimeInBackground; }
+  Type GetType() const override { return Type::OnEnterForeground; }
 
   double GetTime() const { return m_time; }
 
 private:
   double m_time;
+};
+
+class OnEnterBackgroundMessage : public Message
+{
+public:
+  Type GetType() const override { return Type::OnEnterBackground; }
 };
 
 class SetDisplacementModeMessage : public Message

@@ -209,7 +209,8 @@ public:
 
   void SetKineticScrollEnabled(bool enabled);
 
-  void SetTimeInBackground(double time);
+  void OnEnterForeground(double backgroundTime);
+  void OnEnterBackground();
 
   void SetDisplacementMode(int mode);
 

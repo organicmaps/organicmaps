@@ -29,7 +29,7 @@ int const kPositionRoutingOffsetY = 104;
 double const kMinSpeedThresholdMps = 2.8;  // 10 km/h
 double const kGpsBearingLifetimeSec = 5.0;
 double const kMaxPendingLocationTimeSec = 60.0;
-double const kMaxTimeInBackgroundSec = 60.0 * 60;
+double const kMaxTimeInBackgroundSec = 60.0 * 60 * 8;  // 8 hours
 double const kMaxNotFollowRoutingTimeSec = 20.0;
 double const kMaxUpdateLocationInvervalSec = 30.0;
 double const kMaxBlockAutoZoomTimeSec = 10.0;
@@ -131,7 +131,7 @@ void ResetNotification(uint64_t & notifyId)
 
 MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifier> notifier)
   : m_notifier(notifier)
-  , m_mode(location::PendingPosition)
+  , m_mode(params.m_isRoutingActive ? location::PendingPosition : location::NotFollowNoPosition)
   , m_desiredInitMode(params.m_initMode)
   , m_modeChangeCallback(std::move(params.m_myPositionModeCallback))
   , m_hints(params.m_hints)
@@ -177,6 +177,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   }
   else if (params.m_timeInBackground >= kMaxTimeInBackgroundSec)
   {
+    m_mode = location::PendingPosition;
     m_desiredInitMode = location::Follow;
   }
 
@@ -709,13 +710,19 @@ void MyPositionController::StopLocationFollow()
   ResetRoutingNotFollowTimer();
 }
 
-void MyPositionController::SetTimeInBackground(double time)
+void MyPositionController::OnEnterForeground(double backgroundTime)
 {
-  if (time >= kMaxTimeInBackgroundSec && m_mode == location::NotFollow)
+  if (backgroundTime >= kMaxTimeInBackgroundSec && m_mode == location::NotFollow)
   {
     ChangeMode(m_isInRouting ? location::FollowAndRotate : location::Follow);
     UpdateViewport(kDoNotChangeZoom);
   }
+}
+
+void MyPositionController::OnEnterBackground()
+{
+  if (!m_isInRouting)
+    ChangeMode(location::NotFollowNoPosition);
 }
 
 void MyPositionController::OnCompassTapped()

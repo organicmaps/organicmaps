@@ -115,7 +115,8 @@ public:
   void NextMode(ScreenBase const & screen);
   void LoseLocation();
 
-  void SetTimeInBackground(double time);
+  void OnEnterForeground(double backgroundTime);
+  void OnEnterBackground();
 
   void OnCompassTapped();
   void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
