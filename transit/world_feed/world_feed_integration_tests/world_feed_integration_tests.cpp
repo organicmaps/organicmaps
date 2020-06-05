@@ -91,6 +91,47 @@ public:
     TEST_EQUAL(m_globalFeed.m_edgesTransfers.m_data.size(), 0, ());
   }
 
+  // Test for train itinerary that passes through 4 regions in Europe and consists of 4 stops
+  // (each in separate mwm) and 1 route with 1 line. This line passes through 4 stops:
+  // [1] Switzerland_Ticino -> [2] Switzerland_Eastern ->
+  // [3] Italy_Lombardy_Como -> [4] Italy_Lombardy_Monza and Brianza
+  void SplitFeedIntoMultipleRegions()
+  {
+    gtfs::Feed feed(base::JoinPath(m_testPath, "feed_long_itinerary"));
+    TEST_EQUAL(feed.read_feed().code, gtfs::ResultCode::OK, ());
+    TEST(m_globalFeed.SetFeed(std::move(feed)), ());
+
+    TEST_EQUAL(m_globalFeed.m_lines.m_data.size(), 1, ());
+    TEST_EQUAL(m_globalFeed.m_stops.m_data.size(), 4, ());
+    TEST_EQUAL(m_globalFeed.m_edges.m_data.size(), 3, ());
+
+    m_globalFeed.SplitFeedIntoRegions();
+
+    size_t const mwmCount = 4;
+    // We check that count of keys in each regions-to-ids mapping corresponds to the mwms count.
+    TEST_EQUAL(m_globalFeed.m_splitting.m_networks.size(), mwmCount, ());
+    TEST_EQUAL(m_globalFeed.m_splitting.m_routes.size(), mwmCount, ());
+    TEST_EQUAL(m_globalFeed.m_splitting.m_lines.size(), mwmCount, ());
+    TEST_EQUAL(m_globalFeed.m_splitting.m_stops.size(), mwmCount, ());
+
+    auto & stopsInRegions = m_globalFeed.m_splitting.m_stops;
+    auto & edgesInRegions = m_globalFeed.m_splitting.m_edges;
+
+    // First and last stops are connected through 1 edge with 1 nearest stop.
+    // Stops in the middle are connected through 2 edges with 2 nearest stops.
+    TEST_EQUAL(stopsInRegions["Switzerland_Ticino"].size(), 2, ());
+    TEST_EQUAL(edgesInRegions["Switzerland_Ticino"].size(), 1, ());
+
+    TEST_EQUAL(stopsInRegions["Switzerland_Eastern"].size(), 3, ());
+    TEST_EQUAL(edgesInRegions["Switzerland_Eastern"].size(), 2, ());
+
+    TEST_EQUAL(stopsInRegions["Italy_Lombardy_Como"].size(), 3, ());
+    TEST_EQUAL(edgesInRegions["Italy_Lombardy_Como"].size(), 2, ());
+
+    TEST_EQUAL(stopsInRegions["Italy_Lombardy_Monza and Brianza"].size(), 2, ());
+    TEST_EQUAL(edgesInRegions["Italy_Lombardy_Monza and Brianza"].size(), 1, ());
+  }
+
 private:
   std::string m_testPath;
   IdGenerator m_generator;
@@ -101,11 +142,16 @@ private:
 
 UNIT_CLASS_TEST(WorldFeedIntegrationTests, MinimalisticFeed)
 {
-  WorldFeedIntegrationTests::ReadMinimalisticFeed();
+  ReadMinimalisticFeed();
 }
 
 UNIT_CLASS_TEST(WorldFeedIntegrationTests, RealLifeFeed)
 {
-  WorldFeedIntegrationTests::ReadRealLifeFeed();
+  ReadRealLifeFeed();
+}
+
+UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithLongItinerary)
+{
+  SplitFeedIntoMultipleRegions();
 }
 }  // namespace transit
