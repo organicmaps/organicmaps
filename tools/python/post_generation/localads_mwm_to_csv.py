@@ -18,12 +18,29 @@ HEADERS = {
     "mwm": "mwm_id name mwm_version".split(),
 }
 QUEUES = {name: Queue() for name in HEADERS}
-GOOD_TYPES = ("amenity", "shop", "tourism", "leisure", "sport",
-              "craft", "man_made", "office", "historic",
-              "aeroway", "natural-beach", "natural-peak", "natural-volcano",
-              "natural-spring", "natural-cave_entrance",
-              "waterway-waterfall", "place-island", "railway-station",
-              "railway-halt", "aerialway-station", "building-train_station")
+GOOD_TYPES = (
+    "amenity",
+    "shop",
+    "tourism",
+    "leisure",
+    "sport",
+    "craft",
+    "man_made",
+    "office",
+    "historic",
+    "aeroway",
+    "natural-beach",
+    "natural-peak",
+    "natural-volcano",
+    "natural-spring",
+    "natural-cave_entrance",
+    "waterway-waterfall",
+    "place-island",
+    "railway-station",
+    "railway-halt",
+    "aerialway-station",
+    "building-train_station",
+)
 SOURCE_TYPES = {"osm": 0, "booking": 1}
 
 
@@ -49,20 +66,28 @@ def parse_mwm(mwm_name, osm2ft_name, override_version):
             if metadata is not None and MetadataField.sponsored_id in metadata:
                 for t in readable_types:
                     if t.startswith("sponsored-"):
-                        QUEUES["sponsored"].put((metadata[MetadataField.sponsored_id],
-                                                 feature.index(),
-                                                 mwm_id,
-                                                 version,
-                                                 SOURCE_TYPES[t[t.find("-") + 1:]]))
+                        QUEUES["sponsored"].put(
+                            (
+                                metadata[MetadataField.sponsored_id],
+                                feature.index(),
+                                mwm_id,
+                                version,
+                                SOURCE_TYPES[t[t.find("-") + 1 :]],
+                            )
+                        )
                         break
         else:
             for t in readable_types:
                 if t.startswith(GOOD_TYPES):
-                    QUEUES["mapping"].put((ctypes.c_long(osm_id).value,
-                                           feature.index(),
-                                           mwm_id,
-                                           version,
-                                           SOURCE_TYPES["osm"]))
+                    QUEUES["mapping"].put(
+                        (
+                            ctypes.c_long(osm_id).value,
+                            feature.index(),
+                            mwm_id,
+                            version,
+                            SOURCE_TYPES["osm"],
+                        )
+                    )
                     break
 
 
@@ -87,7 +112,11 @@ def create_csv(output, mwm_path, osm2ft_path, version, threads):
 
     pool = Pool(processes=threads)
     for mwm_name in os.listdir(mwm_path):
-        if "World" in mwm_name or "minsk_pass" in mwm_name or not mwm_name.endswith(".mwm"):
+        if (
+            "World" in mwm_name
+            or "minsk_pass" in mwm_name
+            or not mwm_name.endswith(".mwm")
+        ):
             continue
         osm2ft_name = os.path.join(osm2ft_path, os.path.basename(mwm_name) + ".osm2ft")
         if not os.path.exists(osm2ft_name):

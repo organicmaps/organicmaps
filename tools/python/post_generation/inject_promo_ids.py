@@ -20,11 +20,11 @@ class PromoIds(object):
     def inject_into_country(self, country):
         nodes = self._get_nodes(country)
         with Pool() as pool:
-            proposed_ids = pool.map(self._find, (n["id"] for n in nodes),
-                                    chunksize=1)
+            proposed_ids = pool.map(self._find, (n["id"] for n in nodes), chunksize=1)
 
-        countries_ids = [ids for node_ids in proposed_ids for ids in
-                         node_ids["countries"]]
+        countries_ids = [
+            ids for node_ids in proposed_ids for ids in node_ids["countries"]
+        ]
         if countries_ids:
             country["top_countries_geo_ids"] = countries_ids
 
@@ -35,13 +35,10 @@ class PromoIds(object):
             best = self._choose_best_city(node_ids["cities"])
             node["top_city_geo_id"] = best["id"]
             if best["id"] < 0:
-                node["top_city_geo_id"] += (1 << 64)
+                node["top_city_geo_id"] += 1 << 64
 
     def _find(self, leaf_id):
-        result = {
-            "countries": [],
-            "cities": []
-        }
+        result = {"countries": [], "cities": []}
         ft2osm = load_osm2ft(self.osm2ft_path, leaf_id)
 
         for feature in Mwm(os.path.join(self.mwm_path, leaf_id + ".mwm")):
@@ -71,27 +68,24 @@ class PromoIds(object):
         return mwm_nodes
 
     def _get_city(self, osm_id, types):
-        city = {
-            "id": osm_id,
-            "count_of_guides": self.cities[osm_id],
-            "types": []
-        }
+        city = {"id": osm_id, "count_of_guides": self.cities[osm_id], "types": []}
 
         for t in types:
             if t.startswith("place"):
                 city["types"].append(t)
 
         if not city["types"]:
-            logging.error(f"Incorrect types for sponsored-promo_catalog "
-                          f"feature osm_id {osm_id}")
+            logging.error(
+                f"Incorrect types for sponsored-promo_catalog "
+                f"feature osm_id {osm_id}"
+            )
             sys.exit(3)
 
         return city
 
     def _choose_best_city(self, proposed_cities):
         def key_compare(city):
-            return city["count_of_guides"], self._score_city_types(
-                city["types"])
+            return city["count_of_guides"], self._score_city_types(city["types"])
 
         return max(proposed_cities, key=key_compare)
 
@@ -133,10 +127,20 @@ def load_osm2ft(osm2ft_path, mwm_id):
         return read_osm2ft(f, ft2osm=True, tuples=False)
 
 
-def inject_promo_ids(countries_json, promo_cities_path, promo_countries_path,
-                     mwm_path, types_path, osm2ft_path):
-    promo_ids = PromoIds(load_promo_ids(promo_countries_path),
-                         load_promo_ids(promo_cities_path), mwm_path,
-                         types_path, osm2ft_path)
+def inject_promo_ids(
+    countries_json,
+    promo_cities_path,
+    promo_countries_path,
+    mwm_path,
+    types_path,
+    osm2ft_path,
+):
+    promo_ids = PromoIds(
+        load_promo_ids(promo_countries_path),
+        load_promo_ids(promo_cities_path),
+        mwm_path,
+        types_path,
+        osm2ft_path,
+    )
     for country in countries_json["g"]:
         promo_ids.inject_into_country(country)

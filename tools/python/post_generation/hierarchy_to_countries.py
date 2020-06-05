@@ -109,6 +109,7 @@ def parse_borders_vs_osm(borders_vs_osm_csv_path):
                 vsosm[m.group(1)] = [m.group(3)]
     return vsosm
 
+
 def parse_countries_synonyms(countries_synonyms_csv_path):
     countries_synonyms = {}
     if not countries_synonyms_csv_path:
@@ -124,10 +125,15 @@ def parse_countries_synonyms(countries_synonyms_csv_path):
                 countries_synonyms[m.group(1)] = [m.group(2)]
     return countries_synonyms
 
-def hierarchy_to_countries(old_vs_new_csv_path, borders_vs_osm_csv_path,
-                           countries_synonyms_csv_path, hierarchy_path,
-                           target_path, version):
 
+def hierarchy_to_countries(
+    old_vs_new_csv_path,
+    borders_vs_osm_csv_path,
+    countries_synonyms_csv_path,
+    hierarchy_path,
+    target_path,
+    version,
+):
     def fill_last(last, stack):
         name = last["id"]
         if not os.path.exists(os.path.join(target_path, f"{name}.mwm")):

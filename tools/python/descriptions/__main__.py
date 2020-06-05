@@ -13,20 +13,36 @@ from descriptions.descriptions_downloader import log
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Download wiki pages.")
-    parser.add_argument("--output_dir", metavar="PATH", type=str,
-                        help="Output dir for saving pages")
-    parser.add_argument("--popularity", metavar="PATH", type=str,
-                        help="File with popular object ids for which we "
-                             "download wikipedia data. If not given, download "
-                             "for all objects.")
-    parser.add_argument('--wikipedia', metavar="PATH", type=str, required=True,
-                        help="Input file with wikipedia url.")
-    parser.add_argument('--wikidata', metavar="PATH", type=str,
-                        help="Input file with wikidata ids.")
-    parser.add_argument('--langs', metavar="LANGS", type=str, nargs='+',
-                        action='append',
-                        help="Languages ​​for pages. If left blank, pages in all "
-                             "available languages ​​will be loaded.")
+    parser.add_argument(
+        "--output_dir", metavar="PATH", type=str, help="Output dir for saving pages"
+    )
+    parser.add_argument(
+        "--popularity",
+        metavar="PATH",
+        type=str,
+        help="File with popular object ids for which we "
+        "download wikipedia data. If not given, download "
+        "for all objects.",
+    )
+    parser.add_argument(
+        "--wikipedia",
+        metavar="PATH",
+        type=str,
+        required=True,
+        help="Input file with wikipedia url.",
+    )
+    parser.add_argument(
+        "--wikidata", metavar="PATH", type=str, help="Input file with wikidata ids."
+    )
+    parser.add_argument(
+        "--langs",
+        metavar="LANGS",
+        type=str,
+        nargs="+",
+        action="append",
+        help="Languages ​​for pages. If left blank, pages in all "
+        "available languages ​​will be loaded.",
+    )
     return parser.parse_args()
 
 

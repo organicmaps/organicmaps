@@ -14,9 +14,35 @@ from booking.api.booking_api import BookingApi
 from booking.api.booking_api import BookingListApi
 from booking.api.exceptions import GettingMinPriceError
 
-SUPPORTED_LANGUAGES = ("en", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de",
-                       "hu", "id", "it", "ja", "ko", "pl", "pt", "ro", "es",
-                       "sv", "th", "tr", "uk", "vi", "zh", "he", "sk", "el")
+SUPPORTED_LANGUAGES = (
+    "en",
+    "ru",
+    "ar",
+    "cs",
+    "da",
+    "nl",
+    "fi",
+    "fr",
+    "de",
+    "hu",
+    "id",
+    "it",
+    "ja",
+    "ko",
+    "pl",
+    "pt",
+    "ro",
+    "es",
+    "sv",
+    "th",
+    "tr",
+    "uk",
+    "vi",
+    "zh",
+    "he",
+    "sk",
+    "el",
+)
 
 
 class BookingGen:
@@ -55,11 +81,17 @@ class BookingGen:
         return self.api.hotels(country_ids=self.country_code, **params)
 
     def _download_translations(self):
-        extras = ["hotel_info", ]
+        extras = [
+            "hotel_info",
+        ]
         translations = defaultdict(dict)
         with ThreadPoolExecutor(max_workers=len(SUPPORTED_LANGUAGES)) as executor:
-            m = {executor.submit(self._download_hotels, extras=extras, language=lang): lang
-                 for lang in SUPPORTED_LANGUAGES}
+            m = {
+                executor.submit(
+                    self._download_hotels, extras=extras, language=lang
+                ): lang
+                for lang in SUPPORTED_LANGUAGES
+            }
             for future in as_completed(m):
                 lang = m[future]
                 hotels = future.result()
@@ -68,7 +100,7 @@ class BookingGen:
                     hotel_data = hotel["hotel_data"]
                     translations[hotel_id][lang] = {
                         "name": BookingGen._format_string(hotel_data["name"]),
-                        "address": BookingGen._format_string(hotel_data["address"])
+                        "address": BookingGen._format_string(hotel_data["address"]),
                     }
         return translations
 
@@ -162,7 +194,7 @@ class BookingGen:
             hotel_data["review_score"],
             hotel_data["url"],
             hotel_data["hotel_type_id"],
-            self._get_translations(hotel)
+            self._get_translations(hotel),
         )
         return sep.join(BookingGen._format_string(str(x)) for x in row)
 
@@ -174,8 +206,9 @@ def download_hotels_by_country(api, country):
     return rows
 
 
-def download(country_code, user, password, path, threads_count,
-             progress_bar=tqdm(disable=True)):
+def download(
+    country_code, user, password, path, threads_count, progress_bar=tqdm(disable=True)
+):
     api = BookingApi(user, password, "2.4")
     list_api = BookingListApi(api)
     countries = list_api.countries(languages="en")
@@ -186,8 +219,9 @@ def download(country_code, user, password, path, threads_count,
     progress_bar.total = len(countries)
     with open(path, "w") as f:
         with ThreadPool(threads_count) as pool:
-            for lines in pool.imap_unordered(partial(download_hotels_by_country, list_api),
-                                             countries):
+            for lines in pool.imap_unordered(
+                partial(download_hotels_by_country, list_api), countries
+            ):
                 f.writelines([f"{x}\n" for x in lines])
                 progress_bar.update()
     logging.info(f"Hotels were saved to {path}.")

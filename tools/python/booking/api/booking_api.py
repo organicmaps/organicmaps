@@ -16,11 +16,7 @@ MINMAX_LIMIT_WAIT_AFTER_429_ERROR_SECONDS = (30, 120)
 
 
 class BookingApi:
-    ENDPOINTS = {
-        "countries": "list",
-        "hotels": "list",
-        "districts": "list"
-    }
+    ENDPOINTS = {"countries": "list", "hotels": "list", "districts": "list"}
 
     def __init__(self, login, password, version):
         major_minor = version.split(".")
@@ -46,9 +42,12 @@ class BookingApi:
                 attempts -= 1
                 response = None
                 try:
-                    response = requests.get(f"{self._base_url}/{endpoint}",
-                                            auth=(self._login, self._password),
-                                            params=params, timeout=self._timeout)
+                    response = requests.get(
+                        f"{self._base_url}/{endpoint}",
+                        auth=(self._login, self._password),
+                        params=params,
+                        timeout=self._timeout,
+                    )
                 except requests.exceptions.ReadTimeout:
                     logging.exception("Timeout error.")
                     continue
@@ -60,8 +59,9 @@ class BookingApi:
                 try:
                     data = response.json()
                 except json.decoder.JSONDecodeError:
-                    logging.exception(f"JSON decode error. "
-                                      f"Content: {response.content}")
+                    logging.exception(
+                        f"JSON decode error. " f"Content: {response.content}"
+                    )
                     continue
 
                 if code == 200:
@@ -78,13 +78,14 @@ class BookingApi:
         if code == 429:
             self._event.clear()
             wait_seconds = randint(*MINMAX_LIMIT_WAIT_AFTER_429_ERROR_SECONDS)
-            logging.warning(f"Http error {code}: {data}. "
-                            f"It waits {wait_seconds} seconds and tries again.")
+            logging.warning(
+                f"Http error {code}: {data}. "
+                f"It waits {wait_seconds} seconds and tries again."
+            )
             sleep(wait_seconds)
             self._event.set()
         else:
-            raise HTTPError(
-                f"Http error with code {code}: {data}.")
+            raise HTTPError(f"Http error with code {code}: {data}.")
 
     def _set_endpoints(self):
         for endpoint in BookingApi.ENDPOINTS:
@@ -110,11 +111,10 @@ class BookingListApi:
         return result
 
     def _call_endpoint_offset(self, offset, endpoint, **params):
-        r = self.api.call_endpoint(endpoint, **{
-            "offset": offset,
-            "rows": BookingListApi._ROWS_BY_REQUEST,
-            **params
-        })
+        r = self.api.call_endpoint(
+            endpoint,
+            **{"offset": offset, "rows": BookingListApi._ROWS_BY_REQUEST, **params},
+        )
         if not isinstance(r, list):
             raise TypeError(f"Result has unexpected type {type(r)}")
         return r

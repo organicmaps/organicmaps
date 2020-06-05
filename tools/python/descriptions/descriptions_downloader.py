@@ -28,13 +28,37 @@ CHUNK_SIZE = 16
 REQUEST_ATTEMPTS = 32
 ATTEMPTS_PAUSE_MS = 4000
 
-HEADERS = {f"h{x}" for x in range(1,7)}
+HEADERS = {f"h{x}" for x in range(1, 7)}
 BAD_SECTIONS = {
-    "en": ["External links", "Sources", "See also", "Bibliography", "Further reading", "References"],
+    "en": [
+        "External links",
+        "Sources",
+        "See also",
+        "Bibliography",
+        "Further reading",
+        "References",
+    ],
     "ru": ["Литература", "Ссылки", "См. также", "Библиография", "Примечания"],
-    "de": ["Einzelnachweise", "Weblinks", "Literatur", "Siehe auch", "Anmerkungen", "Anmerkungen und Einzelnachweise", "Filme", "Einzelbelege"],
+    "de": [
+        "Einzelnachweise",
+        "Weblinks",
+        "Literatur",
+        "Siehe auch",
+        "Anmerkungen",
+        "Anmerkungen und Einzelnachweise",
+        "Filme",
+        "Einzelbelege",
+    ],
     "es": ["Vínculos de interés", "Véase también", "Enlaces externos", "Referencias"],
-    "fr": ["Bibliographie", "Lien externe", "Voir aussi", "Liens externes", "Références", "Notes et références", "Articles connexes"]
+    "fr": [
+        "Bibliographie",
+        "Lien externe",
+        "Voir aussi",
+        "Liens externes",
+        "Références",
+        "Notes et références",
+        "Articles connexes",
+    ],
 }
 
 
@@ -45,9 +69,11 @@ def try_get(obj, prop, *args, **kwargs):
             attr = getattr(obj, prop)
             is_method = isinstance(attr, types.MethodType)
             return attr(*args, **kwargs) if is_method else attr
-        except (requests.exceptions.ConnectionError,
-                requests.exceptions.ReadTimeout,
-                json.decoder.JSONDecodeError):
+        except (
+            requests.exceptions.ConnectionError,
+            requests.exceptions.ReadTimeout,
+            json.decoder.JSONDecodeError,
+        ):
             time.sleep(random.uniform(0.0, 1.0 / 1000.0 * ATTEMPTS_PAUSE_MS))
             attempts -= 1
         except urllib.error.HTTPError as e:
@@ -58,8 +84,9 @@ def try_get(obj, prop, *args, **kwargs):
         except urllib.error.URLError:
             raise GettingError(f"URLError: {obj}, {prop}, {args}, {kwargs}")
 
-    raise GettingError(f"Getting {prop} field failed. "
-                       f"All {REQUEST_ATTEMPTS} attempts are spent")
+    raise GettingError(
+        f"Getting {prop} field failed. " f"All {REQUEST_ATTEMPTS} attempts are spent"
+    )
 
 
 def read_popularity(path):
@@ -81,6 +108,7 @@ def should_download_page(popularity_set):
     @functools.wraps(popularity_set)
     def wrapped(ident):
         return popularity_set is None or ident in popularity_set
+
     return wrapped
 
 
@@ -135,8 +163,9 @@ def get_page_info(url):
 
 
 def get_wiki_page(lang, page_name):
-    wiki = wikipediaapi.Wikipedia(language=lang,
-                                  extract_format=wikipediaapi.ExtractFormat.HTML)
+    wiki = wikipediaapi.Wikipedia(
+        language=lang, extract_format=wikipediaapi.ExtractFormat.HTML
+    )
     return wiki.page(page_name)
 
 
@@ -171,11 +200,15 @@ def download(directory, url):
 def get_wiki_langs(url):
     lang, page_name = get_page_info(url)
     page = get_wiki_page(lang, page_name)
-    curr_lang = [(lang, url), ]
+    curr_lang = [
+        (lang, url),
+    ]
     try:
         langlinks = try_get(page, "langlinks")
-        return list(zip(langlinks.keys(),
-                        [link.fullurl for link in langlinks.values()])) + curr_lang
+        return (
+            list(zip(langlinks.keys(), [link.fullurl for link in langlinks.values()]))
+            + curr_lang
+        )
     except GettingError as e:
         log.warning(f"Error: no languages for {url} ({e}).")
         return curr_lang
@@ -209,6 +242,7 @@ def wikipedia_worker(output_dir, checker, langs):
         parsed = urllib.parse.urlparse(url)
         path = os.path.join(output_dir, parsed.netloc, parsed.path[1:])
         download_all_from_wikipedia(path, url, langs)
+
     return wrapped
 
 
@@ -228,7 +262,8 @@ def get_wikidata_urls(entity, langs):
         log.exception(f"Sitelinks not found for {entity.id}.")
         return None
     return [
-        entity.data["sitelinks"][k]["url"] for k in keys
+        entity.data["sitelinks"][k]["url"]
+        for k in keys
         if any([k.startswith(lang) for lang in langs])
     ]
 
@@ -259,6 +294,7 @@ def wikidata_worker(output_dir, checker, langs):
         path = os.path.join(output_dir, wikidata_id)
         for url in urls:
             download(path, url)
+
     return wrapped
 
 
@@ -267,8 +303,9 @@ def download_from_wikidata_tags(input_file, output_dir, langs, checker):
     os.makedirs(wikidata_output_dir, exist_ok=True)
     with open(input_file) as file:
         with ThreadPool(processes=WORKERS) as pool:
-            pool.map(wikidata_worker(wikidata_output_dir, checker, langs),
-                     file, CHUNK_SIZE)
+            pool.map(
+                wikidata_worker(wikidata_output_dir, checker, langs), file, CHUNK_SIZE
+            )
 
 
 def check_and_get_checker(popularity_file):
