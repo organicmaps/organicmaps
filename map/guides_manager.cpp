@@ -395,7 +395,10 @@ void GuidesManager::OnGuideSelected()
 {
   if (m_onGalleryChanged)
     m_onGalleryChanged(false /* reload */);
+}
 
+void GuidesManager::LogGuideSelectedStatistic()
+{
   m_statistics.LogItemSelected(LayersStatistics::LayerItemType::Point);
 }
 

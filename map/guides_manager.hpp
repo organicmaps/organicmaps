@@ -113,6 +113,8 @@ public:
   void OnClusterSelected(GuidesClusterMark const & mark, ScreenBase const & screen);
   void OnGuideSelected();
 
+  void LogGuideSelectedStatistic();
+
 private:
   void ChangeState(GuidesState newState);
   void RequestGuides(bool suggestZoom = false);

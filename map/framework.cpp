@@ -2575,10 +2575,14 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
       GetBookmarkManager().UpdateElevationMyPosition(m_currentPlacePageInfo->GetTrackId());
     }
 
-    if (m_currentPlacePageInfo->IsGuide() && prevIsGuide)
+    if (m_currentPlacePageInfo->IsGuide())
     {
-      m_guidesManager.OnGuideSelected();
-      return;
+      m_guidesManager.LogGuideSelectedStatistic();
+      if (prevIsGuide)
+      {
+        m_guidesManager.OnGuideSelected();
+        return;
+      }
     }
 
     ActivateMapSelection(m_currentPlacePageInfo);
