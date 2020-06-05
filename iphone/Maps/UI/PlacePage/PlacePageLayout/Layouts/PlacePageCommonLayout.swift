@@ -241,11 +241,14 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     placePageData.onMapNodeStatusUpdate = { [weak self] in
       guard let self = self else { return }
       self.actionBarViewController.updateDownloadButtonState(self.placePageData.mapNodeAttributes!.nodeStatus)
-      if self.placePageData.mapNodeAttributes!.nodeStatus == .onDisk {
+      switch self.placePageData.mapNodeAttributes!.nodeStatus {
+      case .onDisk, .onDiskOutOfDate, .undefined:
         self.actionBarViewController.resetButtons()
         if self.placePageData.buttonsData != nil {
           self.buttonsViewController.buttonsEnabled = true
         }
+      default:
+        break
       }
     }
     placePageData.onMapNodeProgressUpdate = { [weak self] (downloadedBytes, totalBytes) in
