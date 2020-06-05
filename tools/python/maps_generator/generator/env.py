@@ -214,8 +214,10 @@ class PathProvider:
 
     @property
     def transit_path_experimental(self) -> AnyStr:
-        return os.path.join(
-            self.intermediate_data_path, "transit_from_gtfs"
+        return (
+            os.path.join(self.intermediate_data_path, "transit_from_gtfs")
+            if settings.TRANSIT_URL
+            else ""
         )
 
     @property
