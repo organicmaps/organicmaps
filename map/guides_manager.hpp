@@ -116,7 +116,7 @@ public:
   void LogGuideSelectedStatistic();
 
 private:
-  void ChangeState(GuidesState newState);
+  void ChangeState(GuidesState newState, bool force = false);
   void RequestGuides(bool suggestZoom = false);
   void Clear();
 
@@ -130,6 +130,10 @@ private:
 
   GuidesGallery::Item MakeGalleryItem(guides_on_map::GuidesNode const & guide) const;
 
+  void OnRequestSucceed(guides_on_map::GuidesOnMap const & guides, bool suggestZoom,
+                        uint64_t requestNumber);
+  void OnRequestError();
+
   CloseGalleryFn m_closeGallery;
 
   GuidesState m_state = GuidesState::Disabled;
@@ -142,6 +146,7 @@ private:
 
   uint64_t m_requestCounter = 0;
   uint8_t m_errorRequestsCount = 0;
+  bool m_errorTimeoutExceeded = true;
   base::TaskLoop::TaskId m_previousRequestsId = base::TaskLoop::kIncorrectId;
 
   guides_on_map::Api m_api;

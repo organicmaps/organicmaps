@@ -14,11 +14,15 @@
 
 #include "private.h"
 
+#include <chrono>
 #include <utility>
+
+using namespace std::placeholders;
 
 namespace
 {
 auto constexpr kRequestAttemptsCount = 3;
+auto constexpr kErrorTimeout = std::chrono::seconds(5);
 // This constant is empirically calculated based on geometry::IntersectionScore.
 // When screen scales are different more than 11.15 percent
 // it is equal less than 80 percents screen rectangles intersection.
@@ -28,11 +32,12 @@ auto constexpr kMinViewportsIntersectionScore = 0.9;
 auto constexpr kRequestingRectSidesIncrease = 0.3;
 
 using GalleryItem = GuidesManager::GuidesGallery::Item;
+using SortedGuides = std::vector<std::pair<m2::PointD, size_t>>;
 
-std::vector<std::pair<m2::PointD, size_t>> SortGuidesByPositions(
-    std::vector<guides_on_map::GuidesNode> const & guides, ScreenBase const & screen)
+SortedGuides SortGuidesByPositions(std::vector<guides_on_map::GuidesNode> const & guides,
+                                   ScreenBase const & screen)
 {
-  std::vector<std::pair<m2::PointD, size_t>> sortedGuides;
+  SortedGuides sortedGuides;
   sortedGuides.reserve(guides.size());
   for (size_t i = 0; i < guides.size(); ++i)
     sortedGuides.emplace_back(screen.GtoP(guides[i].m_point), i);
@@ -154,9 +159,9 @@ bool GuidesManager::IsEnabled() const
   return m_state != GuidesState::Disabled;
 }
 
-void GuidesManager::ChangeState(GuidesState newState)
+void GuidesManager::ChangeState(GuidesState newState, bool force /* = false */)
 {
-  if (m_state == newState)
+  if (m_state == newState && !force)
     return;
   m_state = newState;
   if (m_onStateChanged != nullptr)
@@ -186,62 +191,8 @@ void GuidesManager::RequestGuides(bool suggestZoom)
   auto const requestNumber = ++m_requestCounter;
   auto const id = m_api.GetGuidesOnMap(
       corners, m_zoom, suggestZoom,
-      [this, suggestZoom, requestNumber](guides_on_map::GuidesOnMap const & guides) {
-        if (m_state == GuidesState::Disabled || requestNumber != m_requestCounter)
-          return;
-
-        m_guides = guides;
-        m_errorRequestsCount = 0;
-
-        if (!m_guides.m_nodes.empty())
-        {
-          ChangeState(GuidesState::HasData);
-        }
-        else
-        {
-          if (suggestZoom && m_zoom > m_guides.m_suggestedZoom)
-          {
-            m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewCenter,
-                                   m_lastShownViewport.GetGlobalRect().Center(),
-                                   m_guides.m_suggestedZoom,
-                                   true /* isAnim */, false /* trackVisibleViewport */);
-          }
-          else
-          {
-            ChangeState(GuidesState::NoData);
-          }
-        }
-
-        UpdateGuidesMarks();
-
-        if (m_activeGuide.empty())
-        {
-          m_closeGallery();
-        }
-        else
-        {
-          if (m_onGalleryChanged)
-            m_onGalleryChanged(true /* reload */);
-        }
-      },
-      [this, requestNumber]() mutable {
-        if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError)
-          return;
-
-        if (++m_errorRequestsCount >= kRequestAttemptsCount)
-        {
-          Clear();
-          ChangeState(GuidesState::FatalNetworkError);
-        }
-        else
-        {
-          ChangeState(GuidesState::NetworkError);
-        }
-
-        // Re-request only when no additional requests enqueued.
-        if (requestNumber == m_requestCounter)
-          RequestGuides();
-      });
+      std::bind(&GuidesManager::OnRequestSucceed, this, _1, suggestZoom, requestNumber),
+      std::bind(&GuidesManager::OnRequestError, this));
 
   if (id != base::TaskLoop::kIncorrectId)
   {
@@ -250,6 +201,76 @@ void GuidesManager::RequestGuides(bool suggestZoom)
 
     m_previousRequestsId = id;
   }
+}
+
+void GuidesManager::OnRequestSucceed(guides_on_map::GuidesOnMap const & guides, bool suggestZoom,
+                                     uint64_t requestNumber)
+{
+  if (m_state == GuidesState::Disabled || requestNumber != m_requestCounter)
+    return;
+
+  m_guides = guides;
+  m_errorRequestsCount = 0;
+  m_errorTimeoutExceeded = true;
+
+  if (!m_guides.m_nodes.empty())
+  {
+    ChangeState(GuidesState::HasData);
+  }
+  else
+  {
+    if (suggestZoom && m_zoom > m_guides.m_suggestedZoom)
+    {
+      m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewCenter,
+                             m_lastShownViewport.GetGlobalRect().Center(), m_guides.m_suggestedZoom,
+                             true /* isAnim */, false /* trackVisibleViewport */);
+    }
+    else
+    {
+      ChangeState(GuidesState::NoData);
+    }
+  }
+
+  UpdateGuidesMarks();
+
+  if (m_activeGuide.empty())
+  {
+    m_closeGallery();
+  }
+  else
+  {
+    if (m_onGalleryChanged)
+      m_onGalleryChanged(true /* reload */);
+  }
+}
+
+void GuidesManager::OnRequestError()
+{
+  if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError ||
+      !m_errorTimeoutExceeded)
+  {
+    return;
+  }
+
+  if (++m_errorRequestsCount >= kRequestAttemptsCount)
+  {
+    Clear();
+    ChangeState(GuidesState::FatalNetworkError);
+    return;
+  }
+
+  ChangeState(GuidesState::NetworkError, true /* force */);
+
+  m_errorTimeoutExceeded = false;
+  GetPlatform().RunDelayedTask(Platform::Thread::Background, kErrorTimeout, [this]() {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this]() {
+      if (m_state != GuidesState::NetworkError && m_state != GuidesState::FatalNetworkError)
+        return;
+
+      m_errorTimeoutExceeded = true;
+      RequestGuides();
+    });
+  });
 }
 
 void GuidesManager::Clear()
