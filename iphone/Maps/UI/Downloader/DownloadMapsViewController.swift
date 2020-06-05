@@ -247,7 +247,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
 
     let nodeAttrs = dataSource.item(at: indexPath)
     let cell: MWMMapDownloaderTableViewCell
-    if dataSource.item(at: indexPath).hasChildren {
+    if nodeAttrs.hasChildren {
       let cellType = MWMMapDownloaderLargeCountryTableViewCell.self
       let largeCountryCell = tableView.dequeueReusableCell(cell: cellType, indexPath: indexPath)
       cell = largeCountryCell
