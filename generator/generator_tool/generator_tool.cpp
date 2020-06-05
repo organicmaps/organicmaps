@@ -30,6 +30,7 @@
 #include "generator/statistics.hpp"
 #include "generator/traffic_generator.hpp"
 #include "generator/transit_generator.hpp"
+#include "generator/transit_generator_experimental.hpp"
 #include "generator/translator_collection.hpp"
 #include "generator/translator_factory.hpp"
 #include "generator/ugc_section_builder.hpp"
@@ -461,8 +462,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     if (!FLAGS_transit_path_experimental.empty())
     {
-      // TODO(o.khlopkova) Build transit.
-      LOG(LINFO, ("Transit experimental building."));
+      transit::experimental::BuildTransit(path, country, osmToFeatureFilename,
+                                          FLAGS_transit_path_experimental);
     }
     else if (!FLAGS_transit_path.empty())
     {
