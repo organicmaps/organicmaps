@@ -1800,8 +1800,8 @@ Java_com_mapswithme_maps_Framework_nativeIsIsolinesLayerEnabled(JNIEnv * env, jc
 JNIEXPORT void JNICALL Java_com_mapswithme_maps_Framework_nativeSetGuidesLayerEnabled(
     JNIEnv * env, jclass, jboolean enabled)
 {
-  frm()->GetGuidesManager().SetEnabled(static_cast<bool>(enabled));
   frm()->SaveGuidesEnabled(static_cast<bool>(enabled));
+  frm()->GetGuidesManager().SetEnabled(static_cast<bool>(enabled));
 }
 
 JNIEXPORT jboolean JNICALL
