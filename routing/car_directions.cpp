@@ -201,9 +201,18 @@ bool CarDirectionsEngine::Generate(IndexRoadGraph const & graph,
     return false;
 
   ::RoutingResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
-  MakeTurnAnnotation(resultGraph, *m_numMwmIds, cancellable, routeGeometry, turns, streetNames,
-                     segments);
-  CHECK_EQUAL(routeGeometry.size(), pathSize, ());
+  auto const res = MakeTurnAnnotation(resultGraph, *m_numMwmIds, cancellable, routeGeometry, turns,
+                                      streetNames, segments);
+
+  if (res != RouterResultCode::NoError)
+    return false;
+
+  CHECK_EQUAL(
+      routeGeometry.size(), pathSize,
+      ("routeGeometry and path have different sizes. routeGeometry size:", routeGeometry.size(),
+       "path size:", pathSize, "segments size:", segments.size(), "routeEdges size:",
+       routeEdges.size(), "resultGraph.GetSegments() size:", resultGraph.GetSegments().size()));
+
   // In case of bicycle routing |m_pathSegments| may have an empty
   // |LoadedPathSegment::m_segments| fields. In that case |segments| is empty
   // so size of |segments| is not equal to size of |routeEdges|.
