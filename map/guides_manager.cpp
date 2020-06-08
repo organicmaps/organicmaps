@@ -206,12 +206,20 @@ void GuidesManager::RequestGuides(bool suggestZoom)
 void GuidesManager::OnRequestSucceed(guides_on_map::GuidesOnMap const & guides, bool suggestZoom,
                                      uint64_t requestNumber)
 {
-  if (m_state == GuidesState::Disabled || requestNumber != m_requestCounter)
+  if (m_state == GuidesState::Disabled)
+    return;
+
+  m_errorRequestsCount = 0;
+  if (m_retryAfterErrorRequestId != base::TaskLoop::kIncorrectId)
+  {
+    GetPlatform().CancelTask(Platform::Thread::Background, m_retryAfterErrorRequestId);
+    m_retryAfterErrorRequestId = base::TaskLoop::kIncorrectId;
+  }
+
+  if (requestNumber != m_requestCounter)
     return;
 
   m_guides = guides;
-  m_errorRequestsCount = 0;
-  m_errorTimeoutExceeded = true;
 
   if (!m_guides.m_nodes.empty())
   {
@@ -247,7 +255,7 @@ void GuidesManager::OnRequestSucceed(guides_on_map::GuidesOnMap const & guides, 
 void GuidesManager::OnRequestError()
 {
   if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError ||
-      !m_errorTimeoutExceeded)
+      m_retryAfterErrorRequestId != base::TaskLoop::kIncorrectId)
   {
     return;
   }
@@ -261,16 +269,16 @@ void GuidesManager::OnRequestError()
 
   ChangeState(GuidesState::NetworkError, true /* force */);
 
-  m_errorTimeoutExceeded = false;
-  GetPlatform().RunDelayedTask(Platform::Thread::Background, kErrorTimeout, [this]() {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this]() {
-      if (m_state != GuidesState::NetworkError && m_state != GuidesState::FatalNetworkError)
-        return;
+  m_retryAfterErrorRequestId =
+      GetPlatform().RunDelayedTask(Platform::Thread::Background, kErrorTimeout, [this]() {
+        GetPlatform().RunTask(Platform::Thread::Gui, [this]() {
+          if (m_state != GuidesState::NetworkError)
+            return;
 
-      m_errorTimeoutExceeded = true;
-      RequestGuides();
-    });
-  });
+          m_retryAfterErrorRequestId = base::TaskLoop::kIncorrectId;
+          RequestGuides();
+        });
+      });
 }
 
 void GuidesManager::Clear()

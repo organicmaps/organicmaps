@@ -146,7 +146,7 @@ private:
 
   uint64_t m_requestCounter = 0;
   uint8_t m_errorRequestsCount = 0;
-  bool m_errorTimeoutExceeded = true;
+  base::TaskLoop::TaskId m_retryAfterErrorRequestId = base::TaskLoop::kIncorrectId;
   base::TaskLoop::TaskId m_previousRequestsId = base::TaskLoop::kIncorrectId;
 
   guides_on_map::Api m_api;
