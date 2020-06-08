@@ -16,11 +16,11 @@
 #include "base/task_loop.hpp"
 
 #include <cstdint>
+#include <deque>
 #include <functional>
 #include <memory>
 #include <string>
 #include <unordered_set>
-#include <vector>
 
 class GuidesManager final
 {
@@ -78,7 +78,7 @@ public:
       OutdoorParams m_outdoorsParams;
     };
 
-    std::vector<Item> m_items;
+    std::deque<Item> m_items;
   };
 
   using CloseGalleryFn = std::function<void()>;
@@ -127,6 +127,8 @@ private:
   bool IsRequestParamsInitialized() const;
 
   void TrackStatistics() const;
+
+  GuidesGallery::Item MakeGalleryItem(guides_on_map::GuidesNode const & guide) const;
 
   CloseGalleryFn m_closeGallery;
 

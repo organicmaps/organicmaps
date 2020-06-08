@@ -27,6 +27,8 @@ auto constexpr kScaleEps = 0.1115;
 auto constexpr kMinViewportsIntersectionScore = 0.9;
 auto constexpr kRequestingRectSidesIncrease = 0.3;
 
+using GalleryItem = GuidesManager::GuidesGallery::Item;
+
 std::vector<std::pair<m2::PointD, size_t>> SortGuidesByPositions(
     std::vector<guides_on_map::GuidesNode> const & guides, ScreenBase const & screen)
 {
@@ -265,43 +267,16 @@ GuidesManager::GuidesGallery GuidesManager::GetGallery() const
   GuidesGallery gallery;
   for (auto const & guide : m_guides.m_nodes)
   {
-    if (guide.m_outdoorCount + guide.m_sightsCount != 1)
-      continue;
-
-    if (!m_lastShownViewport.IsPointInside(guide.m_point))
-      continue;
-
-    auto const & info = guide.m_guideInfo;
-
-    GuidesGallery::Item item;
-    item.m_guideId = info.m_id;
-
-    auto url = url::Join(BOOKMARKS_CATALOG_FRONT_URL, languages::GetCurrentNorm(),
-                         "v3/mobilefront/route", info.m_id);
-    url = InjectUTM(url, UTM::GuidesOnMapGallery);
-    url = InjectUTMTerm(url, std::to_string(m_shownGuides.size()));
-
-    item.m_url = std::move(url);
-    item.m_imageUrl = info.m_imageUrl;
-    item.m_title = info.m_name;
-    item.m_downloaded = IsGuideDownloaded(info.m_id);
-
-    if (guide.m_sightsCount == 1)
+    if (guide.m_outdoorCount + guide.m_sightsCount != 1 ||
+        !m_lastShownViewport.IsPointInside(guide.m_point))
     {
-      item.m_type = GuidesGallery::Item::Type::City;
-      item.m_cityParams.m_bookmarksCount = guide.m_guideInfo.m_bookmarksCount;
-      item.m_cityParams.m_trackIsAvailable = guide.m_guideInfo.m_hasTrack;
+      continue;
     }
+
+    if (guide.m_guideInfo.m_id == m_activeGuide)
+      gallery.m_items.emplace_front(MakeGalleryItem(guide));
     else
-    {
-      item.m_type = GuidesGallery::Item::Type::Outdoor;
-      item.m_outdoorsParams.m_duration = guide.m_guideInfo.m_tourDuration;
-      item.m_outdoorsParams.m_distance = guide.m_guideInfo.m_tracksLength;
-      item.m_outdoorsParams.m_ascent = guide.m_guideInfo.m_ascent;
-      item.m_outdoorsParams.m_tag = guide.m_guideInfo.m_tag;
-    }
-
-    gallery.m_items.emplace_back(std::move(item));
+      gallery.m_items.emplace_back(MakeGalleryItem(guide));
   }
 
   return gallery;
@@ -432,6 +407,41 @@ void GuidesManager::TrackStatistics() const
     m_statistics.LogActivate(LayersStatistics::Status::Unavailable);
   else if (m_state == GuidesState::NetworkError || m_state == GuidesState::FatalNetworkError)
     m_statistics.LogActivate(LayersStatistics::Status::Error);
+}
+
+GalleryItem GuidesManager::MakeGalleryItem(guides_on_map::GuidesNode const & guide) const
+{
+  auto const & info = guide.m_guideInfo;
+
+  GuidesGallery::Item item;
+  item.m_guideId = info.m_id;
+
+  auto url = url::Join(BOOKMARKS_CATALOG_FRONT_URL, languages::GetCurrentNorm(),
+                       "v3/mobilefront/route", info.m_id);
+  url = InjectUTM(url, UTM::GuidesOnMapGallery);
+  url = InjectUTMTerm(url, std::to_string(m_shownGuides.size()));
+
+  item.m_url = std::move(url);
+  item.m_imageUrl = info.m_imageUrl;
+  item.m_title = info.m_name;
+  item.m_downloaded = IsGuideDownloaded(info.m_id);
+
+  if (guide.m_sightsCount == 1)
+  {
+    item.m_type = GuidesGallery::Item::Type::City;
+    item.m_cityParams.m_bookmarksCount = info.m_bookmarksCount;
+    item.m_cityParams.m_trackIsAvailable = info.m_hasTrack;
+  }
+  else
+  {
+    item.m_type = GuidesGallery::Item::Type::Outdoor;
+    item.m_outdoorsParams.m_duration = info.m_tourDuration;
+    item.m_outdoorsParams.m_distance = info.m_tracksLength;
+    item.m_outdoorsParams.m_ascent = info.m_ascent;
+    item.m_outdoorsParams.m_tag = info.m_tag;
+  }
+
+  return item;
 }
 
 std::string DebugPrint(GuidesManager::GuidesState state)
