@@ -55,16 +55,16 @@ array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> co
      {"ro", "Română", ""},
      {"sq", "Shqip", ""},
      {"am", "አማርኛ", "Amharic-Latin/BGN"},
-     {StringUtf8Multilang::kReservedLang /* fy */, "", ""},
+     {"no", "Norsk", ""}, // Was "fy" before December 2018.
      {"cs", "Čeština", ""},
-     {StringUtf8Multilang::kReservedLang /* gd */, "", ""},
+     {"id", "Bahasa Indonesia", ""}, // Was "gd" before December 2018.
      {"sk", "Slovenčina", ""},
      {"af", "Afrikaans", ""},
      {"ja_kana", "日本語(カタカナ)", "Katakana-Latin"},
      {StringUtf8Multilang::kReservedLang /* lb */, "", ""},
      {"pt", "Português", ""},
      {"hr", "Hrvatski", ""},
-     {StringUtf8Multilang::kReservedLang /* fur */, "", ""},
+     {"da", "Dansk", ""}, // Was "fur" before December 2018.
      {"vi", "Tiếng Việt", ""},
      {"tr", "Türkçe", ""},
      {"bg", "Български", "Bulgarian-Latin/BGN"},
