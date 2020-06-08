@@ -29,12 +29,20 @@ class PlacePageBookmarkViewController: UIViewController {
     updateViews()
   }
 
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    guard let bookmarkData = bookmarkData,
+      bookmarkData.isHtmlDescription,
+      expandableLabel.width > 0,
+      let description = bookmarkData.bookmarkDescription else { return }
+    setHtmlDescription(description, maxWidth: expandableLabel.width)
+  }
+
   func updateViews() {
     guard let bookmarkData = bookmarkData else { return }
     editButton.isEnabled = bookmarkData.isEditable
     if let description = bookmarkData.bookmarkDescription {
       if bookmarkData.isHtmlDescription {
-        setHtmlDescription(description)
         topConstraint.constant = 16
       } else {
         expandableLabel.text = description
@@ -45,7 +53,7 @@ class PlacePageBookmarkViewController: UIViewController {
     }
   }
 
-  private func setHtmlDescription(_ htmlDescription: String) {
+  private func setHtmlDescription(_ htmlDescription: String, maxWidth: CGFloat) {
     DispatchQueue.global().async {
       let font = UIFont.regular14()
       let color = UIColor.blackPrimaryText()
@@ -53,7 +61,7 @@ class PlacePageBookmarkViewController: UIViewController {
       paragraphStyle.lineSpacing = 4
 
       let attributedString: NSAttributedString
-      if let str = NSMutableAttributedString(htmlString: htmlDescription, baseFont: font, paragraphStyle: paragraphStyle) {
+      if let str = NSMutableAttributedString(htmlString: htmlDescription, baseFont: font, paragraphStyle: paragraphStyle, estimatedWidth: maxWidth) {
         str.addAttribute(NSAttributedString.Key.foregroundColor,
                          value: color,
                          range: NSRange(location: 0, length: str.length))

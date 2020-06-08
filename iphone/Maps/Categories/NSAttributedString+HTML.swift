@@ -13,11 +13,14 @@ extension NSAttributedString {
 }
 
 extension NSMutableAttributedString {
-  @objc convenience init?(htmlString: String, baseFont: UIFont, paragraphStyle: NSParagraphStyle?) {
+  @objc convenience init?(htmlString: String, baseFont: UIFont, paragraphStyle: NSParagraphStyle?, estimatedWidth: CGFloat = 0) {
     self.init(htmlString: htmlString, baseFont: baseFont)
     if let paragraphStyle = paragraphStyle {
       addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, length))
     }
+    
+    guard estimatedWidth > 0 else { return }
+    enumerateAttachments(estimatedWidth: estimatedWidth)
   }
   
   @objc convenience init?(htmlString: String, baseFont: UIFont) {
