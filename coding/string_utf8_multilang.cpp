@@ -55,22 +55,22 @@ array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> co
      {"ro", "Română", ""},
      {"sq", "Shqip", ""},
      {"am", "አማርኛ", "Amharic-Latin/BGN"},
-     {"no", "Norsk", ""}, // Was "fy" before December 2018.
+     {"no", "Norsk", ""},  // Was "fy" before December 2018.
      {"cs", "Čeština", ""},
-     {"id", "Bahasa Indonesia", ""}, // Was "gd" before December 2018.
+     {"id", "Bahasa Indonesia", ""},  // Was "gd" before December 2018.
      {"sk", "Slovenčina", ""},
      {"af", "Afrikaans", ""},
      {"ja_kana", "日本語(カタカナ)", "Katakana-Latin"},
      {StringUtf8Multilang::kReservedLang /* lb */, "", ""},
      {"pt", "Português", ""},
      {"hr", "Hrvatski", ""},
-     {"da", "Dansk", ""}, // Was "fur" before December 2018.
+     {"da", "Dansk", ""},  // Was "fur" before December 2018.
      {"vi", "Tiếng Việt", ""},
      {"tr", "Türkçe", ""},
      {"bg", "Български", "Bulgarian-Latin/BGN"},
-     {StringUtf8Multilang::kReservedLang /* eo */, "", ""},
+     {"alt_name", "Alternative name", "Any-Latin"},  // Was "eo" before December 2018.
      {"lt", "Lietuvių", ""},
-     {StringUtf8Multilang::kReservedLang /* la */, "", ""},
+     {"old_name", "Old/Previous name", "Any-Latin"},  // Was "la" before December 2018.
      {"kk", "Қазақ", "Kazakh-Latin/BGN"},
      {StringUtf8Multilang::kReservedLang /* gsw */, "", ""},
      {"et", "Eesti", ""},

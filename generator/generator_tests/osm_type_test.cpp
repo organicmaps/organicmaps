@@ -871,6 +871,44 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hotel)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_OldName)
+{
+  {
+    Tags const tags = {
+      {"highway", "residential"},
+      {"name", "Улица Веткина"},
+      {"old_name", "Царская Ветка"}
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    std::string s;
+    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
+    TEST_EQUAL(s, "Улица Веткина", ());
+    params.name.GetString(StringUtf8Multilang::GetLangIndex("old_name"), s);
+    TEST_EQUAL(s, "Царская Ветка", ());
+  }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
+{
+  {
+    Tags const tags = {
+      {"tourism", "museum"},
+      {"name", "Московский музей современного искусства"},
+      {"alt_name", "MMOMA"}
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    std::string s;
+    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
+    TEST_EQUAL(s, "Московский музей современного искусства", ());
+    params.name.GetString(StringUtf8Multilang::GetLangIndex("alt_name"), s);
+    TEST_EQUAL(s, "MMOMA", ());
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_MergeTags)
 {
   {

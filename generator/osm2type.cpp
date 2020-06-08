@@ -46,8 +46,8 @@ public:
     if (!token)
       return false;
 
-    // Is this an international (latin) name.
-    if (*token == "int_name")
+    // Is this an international (latin) / old / alternative name.
+    if (*token == "int_name" || *token == "old_name" || *token == "alt_name")
     {
       lang = *token;
       return m_savedNames.insert(lang).second;

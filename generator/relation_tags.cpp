@@ -122,8 +122,11 @@ void RelationTagsWay::Process(RelationElement const & e)
       Base::AddCustomTag({"addr:street", p.second});
 
     // All "name" tags should be skipped.
-    if (strings::StartsWith(p.first, "name") || p.first == "int_name")
+    if (strings::StartsWith(p.first, "name") || p.first == "int_name" || p.first == "old_name" ||
+        p.first == "alt_name")
+    {
       continue;
+    }
 
     if (!isBoundary && p.first == "boundary")
       continue;

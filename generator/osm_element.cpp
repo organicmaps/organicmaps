@@ -59,8 +59,6 @@ void OsmElement::AddTag(char const * key, char const * value)
   SKIP_KEY_BY_PREFIX("whitewater"); // https://wiki.openstreetmap.org/wiki/Whitewater_sports
 
   // In future we can use this tags for improve our search
-  SKIP_KEY_BY_PREFIX("old_name");
-  SKIP_KEY_BY_PREFIX("alt_name");
   SKIP_KEY_BY_PREFIX("nat_name");
   SKIP_KEY_BY_PREFIX("reg_name");
   SKIP_KEY_BY_PREFIX("loc_name");
