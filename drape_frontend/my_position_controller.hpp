@@ -213,7 +213,6 @@ private:
   bool m_isCompassAvailable;
 
   bool m_positionIsObsolete;
-  bool m_allowToFollowAfterObsoletePosition;
   bool m_needBlockAutoZoom;
 
   uint64_t m_locationWaitingNotifyId;
