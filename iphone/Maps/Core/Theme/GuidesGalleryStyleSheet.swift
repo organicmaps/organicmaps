@@ -7,11 +7,12 @@ class GuidesGalleryStyleSheet: IStyleSheet {
   static func register(theme: Theme, colors: IColors, fonts: IFonts) {
     theme.add(styleName: "GuidesGalleryCell") { (s) -> (Void) in
       s.backgroundColor = colors.white
-      s.cornerRadius = 4
-      s.clip = true
+      s.cornerRadius = 10
+      s.clip = false
       s.shadowColor = colors.shadow
       s.shadowOpacity = 0.25
       s.shadowRadius = 4
+      s.shadowOffset = CGSize(width: 0, height: 0)
     }
 
     theme.add(styleName: "GuidesGalleryCellImage") { (s) -> (Void) in
