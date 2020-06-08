@@ -70,7 +70,7 @@ class BottomMenuLayersCell: UITableViewCell {
                                                            kStatFrom : source,
                                                            kStatTurnOn : enable])
   }
-  @IBAction func onTrafficButton(_ sender: UIButton) {
+  @IBAction func onTrafficButton(_ sender: Any) {
     let enable = !MapOverlayManager.trafficEnabled()
     MapOverlayManager.setTrafficEnabled(enable)
     Statistics.logEvent(kStatLayersClick, withParameters: [kStatName : kStatTraffic,
@@ -78,7 +78,7 @@ class BottomMenuLayersCell: UITableViewCell {
                                                            kStatTurnOn : enable])
   }
   
-  @IBAction func onSubwayButton(_ sender: UIButton) {
+  @IBAction func onSubwayButton(_ sender: Any) {
     let enable = !MapOverlayManager.transitEnabled()
     MapOverlayManager.setTransitEnabled(enable)
     Statistics.logEvent(kStatLayersClick, withParameters: [kStatName : kStatSubway,
@@ -86,7 +86,7 @@ class BottomMenuLayersCell: UITableViewCell {
                                                            kStatTurnOn : enable])
   }
   
-  @IBAction func onIsoLinesButton(_ sender: UIButton) {
+  @IBAction func onIsoLinesButton(_ sender: Any) {
     let enable = !MapOverlayManager.isoLinesEnabled()
     MapOverlayManager.setIsoLinesEnabled(enable)
     Statistics.logEvent(kStatLayersClick, withParameters: [kStatName : kStatIsolines,

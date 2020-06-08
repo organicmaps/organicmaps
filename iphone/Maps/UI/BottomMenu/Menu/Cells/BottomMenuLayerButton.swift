@@ -20,7 +20,7 @@ final class BottomMenuLayerButton: VerticallyAlignedButton {
     if isBadgeHidden {
       badgeView?.removeFromSuperview()
       badgeView = nil
-    } else if let imageView = imageView{
+    } else {
       if badgeView == nil {
         badgeView = UIView()
         badgeView?.styleName = "Badge"

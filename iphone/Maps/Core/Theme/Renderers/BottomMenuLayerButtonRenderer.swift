@@ -9,18 +9,14 @@ extension BottomMenuLayerButton {
 
 class BottomMenuLayerButtonRenderer {
   class func render(_ control: BottomMenuLayerButton, style: Style) {
-    if let titleLabel = control.titleLabel {
-      if let font = style.font {
-        titleLabel.font = font
-      }
+    if let font = style.font {
+      control.titleLabel.font = font
     }
 
     if let fontColor = style.fontColor {
-      control.setTitleColor(fontColor, for: .normal)
+      control.titleLabel.textColor = fontColor
     }
 
-    if let imageView = control.imageView {
-      UIImageViewRenderer.render(imageView, style: style)
-    }
+    UIImageViewRenderer.render(control.imageView, style: style)
   }
 }
