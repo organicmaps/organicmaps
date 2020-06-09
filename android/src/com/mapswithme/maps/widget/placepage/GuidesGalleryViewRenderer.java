@@ -25,6 +25,7 @@ import com.mapswithme.maps.maplayer.guides.OnGuidesGalleryChangedListener;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Destination;
 import com.mapswithme.util.statistics.GalleryPlacement;
 import com.mapswithme.util.statistics.GalleryState;
 import com.mapswithme.util.statistics.GalleryType;
@@ -63,7 +64,12 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
       {
         String url = mActiveItem.getUrl();
         if (!TextUtils.isEmpty(url) && mGalleryListener != null)
+        {
           mGalleryListener.onGalleryGuideSelected(url);
+          Statistics.INSTANCE.trackGalleryProductItemSelected(GalleryType.PROMO,
+                                                              GalleryPlacement.MAP, position,
+                                                              Destination.CATALOGUE);
+        }
         return;
       }
 
