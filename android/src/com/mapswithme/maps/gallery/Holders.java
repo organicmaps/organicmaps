@@ -723,8 +723,8 @@ public class Holders
     {
       boolean isCity = item.getGuideType() == GuidesGallery.Type.City;
       SpannableStringBuilder builder =
-          new SpannableStringBuilder(isCity ? context.getString(R.string.type_place_city)
-                                            : context.getString(R.string.type_shop_outdoor));
+          new SpannableStringBuilder(isCity ? context.getString(R.string.routes_card_city)
+                                            : context.getString(R.string.routes_card_outdoor));
 
       Resources res = context.getResources();
       int color = isCity ? res.getColor(R.color.city_color)
