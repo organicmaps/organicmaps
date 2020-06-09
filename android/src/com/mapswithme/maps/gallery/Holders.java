@@ -588,7 +588,7 @@ public class Holders
     @NonNull
     private final TextView mBoughtContentBtn;
     @NonNull
-    private final View mBoughtContentCheckbox;
+    private final ImageView mBoughtContentCheckbox;
 
     public GuideHodler(@NonNull View itemView, @NonNull List<GuidesGallery.Item> items, @Nullable ItemSelectedListener<GuidesGallery.Item> listener)
     {
@@ -657,6 +657,8 @@ public class Holders
       BookmarkCategory category =
           BookmarkManager.INSTANCE.getCategoryByServerId(item.getGuideId());
       mBoughtContentBtn.setText(category.isVisible() ? R.string.hide : R.string.show);
+      boolean isCity = item.getCityParams() != null;
+      mBoughtContentCheckbox.setImageResource(isCity ? R.drawable.ic_claim_city : R.drawable.ic_claim);
     }
 
     private void bindOutdoorBlock(@NonNull GuidesGallery.OutdoorParams params)
