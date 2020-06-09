@@ -1866,8 +1866,7 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
                                            DepthLayer::LocalAdsMarkLayer,
                                            DepthLayer::NavigationLayer,
                                            DepthLayer::RoutingBottomMarkLayer,
-                                           DepthLayer::RoutingMarkLayer,
-                                           DepthLayer::GuidesBottomMarkLayer};
+                                           DepthLayer::RoutingMarkLayer};
   BeginUpdateOverlayTree(modelView);
   for (auto const & layerId : layers)
   {

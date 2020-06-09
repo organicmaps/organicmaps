@@ -35,6 +35,7 @@ struct UserMarkRenderParams
   uint32_t m_index = 0;
   bool m_depthTestEnabled = true;
   float m_depth = 0.0;
+  bool m_customDepth = false;
   DepthLayer m_depthLayer = DepthLayer::UserMarkLayer;
   bool m_hasCreationAnimation = false;
   bool m_justCreated = false;

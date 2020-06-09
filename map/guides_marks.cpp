@@ -17,9 +17,8 @@ float constexpr kGuideMarkSize = 26.0f;
 float constexpr kGuideMarkTextSize = 14.0f;
 float constexpr kGuideMarkRadius = 4.0f;
 float constexpr kGuideSelectionWidth = 10.0f;
-m2::PointF const kGuideMarkOffset = {0.0f, 2.0f};
-m2::PointF const kGuideDownloadedMarkOffset = {1.5f, 0.5f};
-m2::PointF const kGuideClusterTextOffset = {0.0f, kGuideMarkTextSize + kGuideMarkSize / 2.0f};
+m2::PointD const kGuideMarkOffset = {0.0, 0.0};
+m2::PointD const kGuideDownloadedMarkOffset = {1.5, -1.5};
 
 int constexpr kMinGuideMarkerZoom = 1;
 }  // namespace
@@ -32,10 +31,6 @@ GuideMark::GuideMark(m2::PointD const & ptOrg)
 
 void GuideMark::Update()
 {
-  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-  m_symbolOffsets = SymbolOffsets(scales::UPPER_STYLE_SCALE,
-                                  m_isDownloaded ? kGuideDownloadedMarkOffset * vs
-                                                 : kGuideMarkOffset * vs);
   if (m_type == Type::City)
   {
     m_symbolInfo[kMinGuideMarkerZoom] = m_isDownloaded ? "guide_city_downloaded"
@@ -46,6 +41,12 @@ void GuideMark::Update()
     m_symbolInfo[kMinGuideMarkerZoom] = m_isDownloaded ? "guide_outdoor_downloaded"
                                                        : "guide_outdoor";
   }
+}
+
+m2::PointD GuideMark::GetPixelOffset() const
+{
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  return m_isDownloaded ? kGuideDownloadedMarkOffset * vs : kGuideMarkOffset * vs;
 }
 
 void GuideMark::SetGuideType(Type type)
@@ -79,11 +80,6 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GuideMark::GetSymbolNames() con
   return make_unique_dp<SymbolNameZoomInfo>(m_symbolInfo);
 }
 
-drape_ptr<df::UserPointMark::SymbolOffsets> GuideMark::GetSymbolOffsets() const
-{
-  return make_unique_dp<SymbolOffsets>(m_symbolOffsets);
-}
-
 GuidesClusterMark::GuidesClusterMark(m2::PointD const & ptOrg)
     : UserMark(ptOrg, UserMark::GUIDE_CLUSTER)
 {
@@ -98,9 +94,6 @@ void GuidesClusterMark::SetDepth(float depth)
 
 void GuidesClusterMark::Update()
 {
-  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-  m_symbolOffsets = SymbolOffsets(scales::UPPER_STYLE_SCALE, kGuideMarkOffset * vs);
-
   auto const isCity = m_outdoorGuidesCount < m_cityGuidesCount;
   auto const totalCount = m_outdoorGuidesCount + m_cityGuidesCount;
   auto const bigCluster = totalCount > 99;
@@ -118,9 +111,8 @@ void GuidesClusterMark::Update()
   m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(isCity ? kCityMarkTextColor
                                                                       : kOutdoorMarkTextColor);
   m_titleDecl.m_primaryTextFont.m_size = kGuideMarkTextSize;
-  m_titleDecl.m_anchor = dp::Bottom;
+  m_titleDecl.m_anchor = dp::Center;
   m_titleDecl.m_primaryText = bigCluster ? "99+" : strings::to_string(totalCount);
-  m_titleDecl.m_primaryOffset = kGuideClusterTextOffset - kGuideMarkOffset * 2.0f;
 }
 
 void GuidesClusterMark::SetGuidesCount(uint32_t cityGuidesCount, uint32_t outdoorGuidesCount)
@@ -134,11 +126,6 @@ void GuidesClusterMark::SetGuidesCount(uint32_t cityGuidesCount, uint32_t outdoo
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GuidesClusterMark::GetSymbolNames() const
 {
   return make_unique_dp<SymbolNameZoomInfo>(m_symbolInfo);
-}
-
-drape_ptr<df::UserPointMark::SymbolOffsets> GuidesClusterMark::GetSymbolOffsets() const
-{
-  return make_unique_dp<SymbolOffsets>(m_symbolOffsets);
 }
 
 drape_ptr<df::UserPointMark::TitlesInfo> GuidesClusterMark::GetTitleDecl() const

@@ -1,7 +1,7 @@
 attribute vec3 a_position;
 attribute vec2 a_normal;
 attribute vec4 a_texCoords;
-attribute vec4 a_colorAndAnimate;
+attribute vec4 a_colorAndAnimateOrZ;
 
 uniform mat4 u_modelView;
 uniform mat4 u_projection;
@@ -14,14 +14,15 @@ varying vec3 v_maskColor;
 void main()
 {
   vec2 normal = a_normal;
-  if (a_colorAndAnimate.w > 0.0)
+  if (a_colorAndAnimateOrZ.w > 0.0)
     normal = u_interpolation * normal;
 
   vec4 p = vec4(a_position, 1.0) * u_modelView;
   vec4 pos = vec4(normal, 0.0, 0.0) + p;
   vec4 projectedPivot = p * u_projection;
   gl_Position = applyPivotTransform(pos * u_projection, u_pivotTransform, 0.0);
-  gl_Position.z = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
+  float newZ = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
+  gl_Position.z = abs(a_colorAndAnimateOrZ.w) * newZ + (1.0 - abs(a_colorAndAnimateOrZ.w)) * gl_Position.z;
   v_texCoords = a_texCoords;
-  v_maskColor = a_colorAndAnimate.rgb;
+  v_maskColor = a_colorAndAnimateOrZ.rgb;
 }

@@ -758,7 +758,7 @@ typedef struct
   float3 a_position [[attribute(0)]];
   float2 a_normal [[attribute(1)]];
   float4 a_texCoords [[attribute(2)]];
-  float4 a_colorAndAnimate [[attribute(3)]];
+  float4 a_colorAndAnimateOrZ [[attribute(3)]];
 } UserMarkVertex_T;
 
 typedef struct
@@ -780,16 +780,18 @@ vertex UserMarkFragment_T vsUserMark(const UserMarkVertex_T in [[stage_in]],
   UserMarkFragment_T out;
   
   float2 normal = in.a_normal;
-  if (in.a_colorAndAnimate.w > 0.0)
+  if (in.a_colorAndAnimateOrZ.w > 0.0)
     normal = uniforms.u_interpolation * normal;
   
   float4 p = float4(in.a_position, 1.0) * uniforms.u_modelView;
   float4 pos = float4(normal, 0.0, 0.0) + p;
   float4 projectedPivot = p * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
-  out.position.z = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
+  float newZ = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
+  out.position.z = abs(in.a_colorAndAnimateOrZ.w) * newZ  + (1.0 - abs(in.a_colorAndAnimateOrZ.w)) * out.position.z;
+
   out.texCoords = in.a_texCoords;
-  out.maskColor = in.a_colorAndAnimate.rgb;
+  out.maskColor = in.a_colorAndAnimateOrZ.rgb;
   
   return out;
 }
@@ -800,17 +802,18 @@ vertex UserMarkFragment_T vsUserMarkBillboard(const UserMarkVertex_T in [[stage_
   UserMarkFragment_T out;
   
   float2 normal = in.a_normal;
-  if (in.a_colorAndAnimate.w > 0.0)
+  if (in.a_colorAndAnimateOrZ.w > 0.0)
     normal = uniforms.u_interpolation * normal;
   
   float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
   float4 offset = float4(normal, 0.0, 0.0) * uniforms.u_projection;
   float4 projectedPivot = pivot * uniforms.u_projection;
   out.position = ApplyBillboardPivotTransform(projectedPivot, uniforms.u_pivotTransform, 0.0, offset.xy);
-  out.position.z = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
-  
+  float newZ = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
+  out.position.z = abs(in.a_colorAndAnimateOrZ.w) * newZ  + (1.0 - abs(in.a_colorAndAnimateOrZ.w)) * out.position.z;
+
   out.texCoords = in.a_texCoords;
-  out.maskColor = in.a_colorAndAnimate.rgb;
+  out.maskColor = in.a_colorAndAnimateOrZ.rgb;
   return out;
 }
 

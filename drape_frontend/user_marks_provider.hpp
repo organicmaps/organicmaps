@@ -6,6 +6,7 @@
 
 #include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
+#include "drape/utils/projection.hpp"
 
 #include "kml/type_utils.hpp"
 
@@ -48,6 +49,8 @@ public:
   using TitlesInfo = std::vector<dp::TitleDecl>;
   using SymbolSizes = std::vector<m2::PointF>;
   using SymbolOffsets = std::vector<m2::PointF>;
+
+  static float constexpr kInvalidDepth = dp::kMinDepth - 1.0;
 
   explicit UserPointMark(kml::MarkId id);
   virtual ~UserPointMark() = default;

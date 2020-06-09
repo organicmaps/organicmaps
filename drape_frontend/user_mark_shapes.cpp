@@ -84,7 +84,8 @@ struct UserPointVertex : public gpu::BaseVertex
     offset += dp::FillDecl<TPosition, UserPointVertex>(0, "a_position", info, offset);
     offset += dp::FillDecl<TNormal, UserPointVertex>(1, "a_normal", info, offset);
     offset += dp::FillDecl<TTexCoord, UserPointVertex>(2, "a_texCoords", info, offset);
-    offset += dp::FillDecl<TColorAndAnimate, UserPointVertex>(3, "a_colorAndAnimate", info, offset);
+    offset += dp::FillDecl<TColorAndAnimate, UserPointVertex>(3, "a_colorAndAnimateOrZ", info,
+                                                              offset);
 
     return info;
   }
@@ -421,8 +422,6 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
         m2::PointD const pixelOffset = renderInfo.m_pixelOffset;
         glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
-        up += offset;
-        down += offset;
 
         dp::Color color = dp::Color::White();
         if (!renderInfo.m_color.empty())
@@ -430,17 +429,24 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
         glsl::vec4 colorAndAnimate(color.GetRedF(), color.GetGreenF(), color.GetBlueF(),
                                    runAnim ? 1.0f : -1.0f);
-        buffer.emplace_back(pos, left + down,
-                            glsl::ToVec4(m2::PointD(texRect.LeftTop()), m2::PointD(bgTexRect.LeftTop())),
+        if (renderInfo.m_customDepth)
+          colorAndAnimate.w = 0.0f;
+
+        buffer.emplace_back(pos, left + down + offset,
+                            glsl::ToVec4(m2::PointD(texRect.LeftTop()),
+                                         m2::PointD(bgTexRect.LeftTop())),
                             colorAndAnimate);
-        buffer.emplace_back(pos, left + up,
-                            glsl::ToVec4(m2::PointD(texRect.LeftBottom()), m2::PointD(bgTexRect.LeftBottom())),
+        buffer.emplace_back(pos, left + up + offset,
+                            glsl::ToVec4(m2::PointD(texRect.LeftBottom()),
+                                         m2::PointD(bgTexRect.LeftBottom())),
                             colorAndAnimate);
-        buffer.emplace_back(pos, right + down,
-                            glsl::ToVec4(m2::PointD(texRect.RightTop()), m2::PointD(bgTexRect.RightTop())),
+        buffer.emplace_back(pos, right + down + offset,
+                            glsl::ToVec4(m2::PointD(texRect.RightTop()),
+                                         m2::PointD(bgTexRect.RightTop())),
                             colorAndAnimate);
-        buffer.emplace_back(pos, right + up,
-                            glsl::ToVec4(m2::PointD(texRect.RightBottom()), m2::PointD(bgTexRect.RightBottom())),
+        buffer.emplace_back(pos, right + up + offset,
+                            glsl::ToVec4(m2::PointD(texRect.RightBottom()),
+                                         m2::PointD(bgTexRect.RightBottom())),
                             colorAndAnimate);
 
         gpu::Program program;

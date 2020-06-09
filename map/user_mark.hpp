@@ -74,7 +74,7 @@ public:
   m2::PointD GetPixelOffset() const override { return {}; }
   dp::Anchor GetAnchor() const override { return dp::Center; }
   bool GetDepthTestEnabled() const override { return true; }
-  float GetDepth() const override { return 0.0f; }
+  float GetDepth() const override { return kInvalidDepth; }
   df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::UserMarkLayer; }
   drape_ptr<TitlesInfo> GetTitleDecl() const override { return nullptr; }
   drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override { return nullptr; }

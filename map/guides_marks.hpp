@@ -28,8 +28,7 @@ public:
   float GetDepth() const override { return m_depth; }
   df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::GuidesMarkLayer; }
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
-  drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
-  bool SymbolIsPOI() const override { return true; }
+  m2::PointD GetPixelOffset() const override;
 
 private:
   void Update();
@@ -41,7 +40,6 @@ private:
   bool m_isDownloaded = false;
 
   SymbolNameZoomInfo m_symbolInfo;
-  SymbolOffsets m_symbolOffsets;
 };
 
 class GuidesClusterMark : public UserMark
@@ -56,24 +54,18 @@ public:
   // df::UserPointMark overrides.
   float GetDepth() const override { return m_depth; }
   df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::GuidesMarkLayer; }
-  bool SymbolIsPOI() const override { return true; }
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
-  drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
-
-  bool HasTitlePriority() const override { return true; }
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
 
 private:
   void Update();
 
   float m_depth = 0.0f;
-  uint32_t m_index = 0;
 
   uint32_t m_cityGuidesCount = 0;
   uint32_t m_outdoorGuidesCount = 0;
 
   SymbolNameZoomInfo m_symbolInfo;
-  SymbolOffsets m_symbolOffsets;
   dp::TitleDecl m_titleDecl;
 };
 
