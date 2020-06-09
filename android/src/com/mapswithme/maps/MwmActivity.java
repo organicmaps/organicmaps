@@ -246,6 +246,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private NavigationController mNavigationController;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private MainMenu mMainMenu;
 
   private PanelAnimator mPanelAnimator;
@@ -1689,6 +1691,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  @NonNull
   private BaseMenu getCurrentMenu()
   {
     return (RoutingController.get().isNavigating()
@@ -2871,6 +2874,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public void onMenuClosed()
     {
       mFadeView.fadeOut();
+      getCurrentMenu().updateMarker();
     }
   }
 

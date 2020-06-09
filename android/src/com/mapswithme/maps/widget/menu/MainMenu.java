@@ -237,7 +237,7 @@ public class MainMenu extends BaseMenu
   }
 
   @Override
-  protected void updateMarker()
+  public void updateMarker()
   {
     UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
     int count = (info == null ? 0 : info.filesCount);

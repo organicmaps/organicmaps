@@ -100,7 +100,7 @@ public abstract class BaseMenu
     return mFrame;
   }
 
-  protected void updateMarker() {}
+  public void updateMarker() {}
   protected void setToggleState(boolean open, boolean animate) {}
 
   protected abstract @DimenRes int getHeightResId();
