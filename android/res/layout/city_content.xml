@@ -19,7 +19,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_quarter_plus"
-    android:fontFamily="@string/robotoRegular"
+    android:fontFamily="@string/robotoMedium"
     android:lines="1"
     android:ellipsize="end"
     android:textColor="?android:textColorSecondary"

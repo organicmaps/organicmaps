@@ -629,7 +629,6 @@ public class Holders
     {
       super.bind(item);
       bindImage(item);
-      bindActivationState(item);
       bindSubtitle(item);
       bindBottomBlock(item);
       bindActivationState(item);
@@ -743,7 +742,7 @@ public class Holders
                                         .getString()) ? "" : item.getOutdoorParams()
                                                                  .getString();
 
-      builder.append(TextUtils.isEmpty(text) ? text : UiUtils.PHRASE_SEPARATOR + text);
+      builder.append(TextUtils.isEmpty(text) ? text : UiUtils.WIDE_PHRASE_SEPARATOR + text);
       return builder;
     }
   }

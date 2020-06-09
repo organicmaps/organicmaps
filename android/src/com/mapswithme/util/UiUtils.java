@@ -50,6 +50,7 @@ public final class UiUtils
   public static final int NO_ID = -1;
   public static final String NEW_STRING_DELIMITER = "\n";
   public static final String PHRASE_SEPARATOR = " • ";
+  public static final String WIDE_PHRASE_SEPARATOR = "  •  ";
   public static final String APPROXIMATE_SYMBOL = "~";
   private static float sScreenDensity;
 
