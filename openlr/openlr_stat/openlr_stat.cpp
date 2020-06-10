@@ -19,6 +19,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <clocale>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
@@ -271,6 +272,7 @@ int main(int argc, char * argv[])
     exit(-1);
   }
 
+  std::setlocale(LC_ALL, "en_US.UTF-8");
   auto const segments = LoadSegments(document);
 
   std::vector<DecodedPath> paths(segments.size());
