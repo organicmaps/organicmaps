@@ -306,7 +306,7 @@ public:
 
   void SetDescription(std::string && description) { m_description = std::move(description); }
 
-  void SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
+  void SetMercator(m2::PointD const & mercator);
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
 
   std::optional<ftypes::IsHotelChecker::Type> GetHotelType() const { return m_hotelType; }

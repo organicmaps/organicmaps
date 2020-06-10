@@ -95,6 +95,12 @@ void Info::SetFromFeatureType(FeatureType & ft)
   m_hotelType = ftypes::IsHotelChecker::Instance().GetHotelType(ft);
 }
 
+void Info::SetMercator(m2::PointD const & mercator)
+{
+  m_mercator = mercator;
+  m_buildInfo.m_mercator = mercator;
+}
+
 std::string Info::FormatSubtitle(bool withType) const
 {
   std::vector<std::string> subtitle;
