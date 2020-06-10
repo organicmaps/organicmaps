@@ -657,7 +657,7 @@ public class Holders
       BookmarkCategory category =
           BookmarkManager.INSTANCE.getCategoryByServerId(item.getGuideId());
       mBoughtContentBtn.setText(category.isVisible() ? R.string.hide : R.string.show);
-      boolean isCity = item.getCityParams() != null;
+      boolean isCity = item.getGuideType() == GuidesGallery.Type.City;
       mBoughtContentCheckbox.setImageResource(isCity ? R.drawable.ic_claim_city : R.drawable.ic_claim);
     }
 
