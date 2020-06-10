@@ -62,10 +62,11 @@ final class GuidesGalleryPresenter {
       $0.guideId == activeGuideId
     }) else { return }
     view.setActiveItem(activeIndex, animated: false)
-    logShowItem(galleryItems[activeIndex])
+    logShowItemAtIndex(activeIndex)
   }
 
-  private func logShowItem(_ item: GuidesGalleryItem) {
+  private func logShowItemAtIndex(_ index: Int) {
+    let item = galleryItems[index]
     guard item.downloaded else { return }
     Statistics.logEvent(kStatPlacepageSponsoredUserItemShown,
                         withParameters: [kStatProvider : kStatMapsmeGuides,
@@ -109,7 +110,7 @@ extension GuidesGalleryPresenter: IGuidesGalleryPresenter {
   func scrollToItemAtIndex(_ index: Int) {
     let galleryItem = galleryItems[index]
     interactor.setActiveItem(galleryItem)
-    logShowItem(galleryItem)
+    logShowItemAtIndex(index)
   }
 
   func toggleVisibilityAtIndex(_ index: Int) {
