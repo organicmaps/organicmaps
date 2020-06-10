@@ -1,13 +1,13 @@
-#import "MWMCategory.h"
+#import "MWMBookmarkGroup.h"
 #import "MWMBookmarksManager.h"
 
-@interface MWMCategory ()
+@interface MWMBookmarkGroup ()
 
 @property(weak, nonatomic) MWMBookmarksManager *manager;
 
 @end
 
-@implementation MWMCategory
+@implementation MWMBookmarkGroup
 
 - (instancetype)initWithCategoryId:(MWMMarkGroupID)categoryId
                   bookmarksManager:(MWMBookmarksManager *)manager {
@@ -60,7 +60,7 @@
   return ![self.manager isCategoryNotEmpty:self.categoryId];
 }
 
-- (MWMCategoryAccessStatus)accessStatus {
+- (MWMBookmarkGroupAccessStatus)accessStatus {
   return [self.manager getCategoryAccessStatus:self.categoryId];
 }
 

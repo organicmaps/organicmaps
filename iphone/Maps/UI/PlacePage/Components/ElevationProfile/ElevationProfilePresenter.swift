@@ -49,8 +49,8 @@ class ElevationProfilePresenter: NSObject {
   }
 
   deinit {
-    MWMBookmarksManager.shared().resetElevationActivePointChanged()
-    MWMBookmarksManager.shared().resetElevationMyPositionChanged()
+    BookmarksManager.shared().resetElevationActivePointChanged()
+    BookmarksManager.shared().resetElevationMyPositionChanged()
   }
 }
 
@@ -80,10 +80,10 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     view?.setActivePoint(data.activePoint)
     view?.setMyPosition(data.myPosition)
 
-    MWMBookmarksManager.shared().setElevationActivePointChanged(data.trackId) { [weak self] distance in
+    BookmarksManager.shared().setElevationActivePointChanged(data.trackId) { [weak self] distance in
       self?.view?.setActivePoint(distance)
     }
-    MWMBookmarksManager.shared().setElevationMyPositionChanged(data.trackId) { [weak self] distance in
+    BookmarksManager.shared().setElevationMyPositionChanged(data.trackId) { [weak self] distance in
       self?.view?.setMyPosition(distance)
     }
   }

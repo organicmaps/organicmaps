@@ -1,6 +1,6 @@
 #import "MWMBookmarksManager.h"
 
-#import "MWMCategory.h"
+#import "MWMBookmarkGroup.h"
 #import "MWMCarPlayBookmarkObject.h"
 #import "MWMCatalogObserver.h"
 #import "MWMTag.h"
@@ -21,6 +21,47 @@
 #include "base/string_utils.hpp"
 
 #include <utility>
+
+static kml::PredefinedColor convertBookmarkColor(MWMBookmarkColor bookmarkColor) {
+  switch (bookmarkColor) {
+    case MWMBookmarkColorNone:
+      return kml::PredefinedColor::None;
+    case MWMBookmarkColorRed:
+      return kml::PredefinedColor::Red;
+    case MWMBookmarkColorBlue:
+      return kml::PredefinedColor::Blue;
+    case MWMBookmarkColorPurple:
+      return kml::PredefinedColor::Purple;
+    case MWMBookmarkColorYellow:
+      return kml::PredefinedColor::Yellow;
+    case MWMBookmarkColorPink:
+      return kml::PredefinedColor::Pink;
+    case MWMBookmarkColorBrown:
+      return kml::PredefinedColor::Brown;
+    case MWMBookmarkColorGreen:
+      return kml::PredefinedColor::Green;
+    case MWMBookmarkColorOrange:
+      return kml::PredefinedColor::Orange;
+    case MWMBookmarkColorDeepPurple:
+      return kml::PredefinedColor::DeepPurple;
+    case MWMBookmarkColorLightBlue:
+      return kml::PredefinedColor::LightBlue;
+    case MWMBookmarkColorCyan:
+      return kml::PredefinedColor::Cyan;
+    case MWMBookmarkColorTeal:
+      return kml::PredefinedColor::Teal;
+    case MWMBookmarkColorLime:
+      return kml::PredefinedColor::Lime;
+    case MWMBookmarkColorDeepOrange:
+      return kml::PredefinedColor::DeepOrange;
+    case MWMBookmarkColorGray:
+      return kml::PredefinedColor::Gray;
+    case MWMBookmarkColorBlueGray:
+      return kml::PredefinedColor::BlueGray;
+    case MWMBookmarkColorCount:
+      return kml::PredefinedColor::Count;
+  }
+}
 
 @interface MWMBookmarksManager ()
 
@@ -290,22 +331,22 @@
   return self.bm.GetTrackIds(groupId).size();
 }
 
-- (MWMCategoryAccessStatus)getCategoryAccessStatus:(MWMMarkGroupID)groupId
+- (MWMBookmarkGroupAccessStatus)getCategoryAccessStatus:(MWMMarkGroupID)groupId
 {
   switch (self.bm.GetCategoryData(groupId).m_accessRules)
   {
     case kml::AccessRules::Local:
-      return MWMCategoryAccessStatusLocal;
+      return MWMBookmarkGroupAccessStatusLocal;
     case kml::AccessRules::Public:
-      return MWMCategoryAccessStatusPublic;
+      return MWMBookmarkGroupAccessStatusPublic;
     case kml::AccessRules::DirectLink:
-      return MWMCategoryAccessStatusPrivate;
+      return MWMBookmarkGroupAccessStatusPrivate;
     case kml::AccessRules::AuthorOnly:
-      return MWMCategoryAccessStatusAuthorOnly;
+      return MWMBookmarkGroupAccessStatusAuthorOnly;
     case kml::AccessRules::P2P:
     case kml::AccessRules::Paid:
     case kml::AccessRules::Count:
-      return MWMCategoryAccessStatusOther;
+      return MWMBookmarkGroupAccessStatusOther;
   }
 }
 
@@ -624,9 +665,9 @@
   return self.bm.IsCategoryFromCatalog(groupId);
 }
 
-- (NSArray<MWMCategory *> *)userCategories
+- (NSArray<MWMBookmarkGroup *> *)userCategories
 {
-  NSMutableArray<MWMCategory *> * result = [NSMutableArray array];
+  NSMutableArray<MWMBookmarkGroup *> * result = [NSMutableArray array];
   auto const & list = self.bm.GetBmGroupsIdList();
   for (auto const & groupId : list)
   {
@@ -636,9 +677,9 @@
   return [result copy];
 }
 
-- (NSArray<MWMCategory *> *)categoriesFromCatalog
+- (NSArray<MWMBookmarkGroup *> *)categoriesFromCatalog
 {
-  NSMutableArray<MWMCategory *>  * result = [NSMutableArray array];
+  NSMutableArray<MWMBookmarkGroup *>  * result = [NSMutableArray array];
   auto const & list = self.bm.GetBmGroupsIdList();
   for (auto const & groupId : list)
   {
@@ -648,8 +689,8 @@
   return [result copy];
 }
 
-- (MWMCategory *)categoryWithId:(MWMMarkGroupID)groupId {
-  return [[MWMCategory alloc] initWithCategoryId:groupId bookmarksManager:self];
+- (MWMBookmarkGroup *)categoryWithId:(MWMMarkGroupID)groupId {
+  return [[MWMBookmarkGroup alloc] initWithCategoryId:groupId bookmarksManager:self];
 }
 
 - (NSInteger)getCatalogDownloadsCount
@@ -665,6 +706,33 @@
 - (BOOL)hasCategoryDownloaded:(NSString *)itemId
 {
   return self.bm.GetCatalog().HasDownloaded(itemId.UTF8String);
+}
+
+- (void)updateBookmark:(MWMMarkID)bookmarkId
+            setGroupId:(MWMMarkGroupID)groupId
+                 title:(NSString *)title
+                 color:(MWMBookmarkColor)color
+           description:(NSString *)description {
+  auto const currentGroupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
+  auto editSession = self.bm.GetEditSession();
+  if (groupId != kml::kInvalidMarkGroupId) {
+    editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
+  }
+
+  auto bookmark = editSession.GetBookmarkForEdit(bookmarkId);
+  if (!bookmark)
+    return;
+
+  auto kmlColor = convertBookmarkColor(color);
+  if (kmlColor != bookmark->GetColor()) {
+    self.bm.SetLastEditedBmColor(kmlColor);
+  }
+
+  bookmark->SetColor(kmlColor);
+  bookmark->SetDescription(description.UTF8String);
+  if (title.UTF8String != bookmark->GetPreferredName()) {
+    bookmark->SetCustomName(title.UTF8String);
+  }
 }
 
 - (void)loadTagsWithLanguage:(NSString *)languageCode completion:(LoadTagsCompletionBlock)completionBlock {
@@ -698,15 +766,14 @@
   self.bm.GetEditSession().SetCategoryTags(groupId, tagIds);
 }
 
-- (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMCategoryAuthorType)author
+- (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMBookmarkGroupAuthorType)author
 {
   switch (author)
   {
-    case MWMCategoryAuthorTypeLocal:
+    case MWMBookmarkGroupAuthorTypeLocal:
       self.bm.GetEditSession().SetCategoryCustomProperty(groupId, @"author_type".UTF8String, @"local".UTF8String);
       break;
-      
-    case MWMCategoryAuthorTypeTraveler:
+    case MWMBookmarkGroupAuthorTypeTraveler:
       self.bm.GetEditSession().SetCategoryCustomProperty(groupId, @"author_type".UTF8String, @"tourist".UTF8String);
   }
 }

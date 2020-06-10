@@ -1,6 +1,6 @@
 class DownloadedBookmarksDataSource {
   
-  private var categories: [MWMCategory] = []
+  private var categories: [BookmarkGroup] = []
   var categoriesCount: NSInteger {
     get {
       return categories.count
@@ -14,13 +14,13 @@ class DownloadedBookmarksDataSource {
       return result
     }
     set {
-      MWMBookmarksManager.shared().setCatalogCategoriesVisible(!newValue)
+      BookmarksManager.shared().setCatalogCategoriesVisible(!newValue)
     }
   }
   
   var guideIds: String {
     get {
-      return MWMBookmarksManager.shared().getGuidesIds()
+      return BookmarksManager.shared().getGuidesIds()
     }
   }
 
@@ -28,12 +28,12 @@ class DownloadedBookmarksDataSource {
     reloadData()
   }
 
-  func category(at index: Int) -> MWMCategory {
+  func category(at index: Int) -> BookmarkGroup {
     return categories[index]
   }
 
   func reloadData() {
-    categories = MWMBookmarksManager.shared().categoriesFromCatalog()
+    categories = BookmarksManager.shared().categoriesFromCatalog()
   }
 
   func setCategory(visible: Bool, at index: Int) {
@@ -42,15 +42,15 @@ class DownloadedBookmarksDataSource {
   }
 
   func deleteCategory(at index: Int) {
-    MWMBookmarksManager.shared().deleteCategory(category(at: index).categoryId)
+    BookmarksManager.shared().deleteCategory(category(at: index).categoryId)
     reloadData()
   }
   
   func getServerId(at index: Int) -> String {
-    return MWMBookmarksManager.shared().getServerId(category(at: index).categoryId)
+    return BookmarksManager.shared().getServerId(category(at: index).categoryId)
   }
   
   func isGuide(at index: Int) -> Bool {
-    return MWMBookmarksManager.shared().isGuide(category(at: index).categoryId)
+    return BookmarksManager.shared().isGuide(category(at: index).categoryId)
   }
 }

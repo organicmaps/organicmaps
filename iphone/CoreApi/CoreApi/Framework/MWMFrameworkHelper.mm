@@ -81,6 +81,10 @@
   return GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI;
 }
 
++ (MWMMarkID)invalidBookmarkId {
+  return kml::kInvalidMarkId;
+}
+
 + (MWMMarkGroupID)invalidCategoryId {
   return kml::kInvalidMarkGroupId;
 }
@@ -172,6 +176,10 @@
 
 + (void)showOnMap:(MWMMarkGroupID)categoryId {
   GetFramework().ShowBookmarkCategory(categoryId);
+}
+
++ (void)updatePlacePageData {
+  GetFramework().UpdatePlacePageInfoForCurrentSelection();
 }
 
 @end

@@ -5,7 +5,6 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMAutoupdateController.h"
-#import "MWMEditBookmarkController.h"
 #import "MWMEditorViewController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"

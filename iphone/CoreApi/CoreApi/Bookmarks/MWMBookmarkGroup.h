@@ -6,7 +6,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MWMBookmarksManager;
 
-@interface MWMCategory : NSObject
+NS_SWIFT_NAME(BookmarkGroup)
+@interface MWMBookmarkGroup : NSObject
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCategoryId:(MWMMarkGroupID)categoryId
@@ -21,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) NSInteger trackCount;
 @property(nonatomic, getter=isVisible) BOOL visible;
 @property(nonatomic, readonly, getter=isEmpty) BOOL empty;
-@property(nonatomic, readonly) MWMCategoryAccessStatus accessStatus;
+@property(nonatomic, readonly) MWMBookmarkGroupAccessStatus accessStatus;
 
 @end
 

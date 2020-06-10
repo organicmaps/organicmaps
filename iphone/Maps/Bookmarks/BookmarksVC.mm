@@ -7,7 +7,6 @@
 #import "MWMKeyboard.h"
 #import "MWMLocationObserver.h"
 #import "MWMSearchNoResults.h"
-#import "SwiftBridge.h"
 #import "TracksSection.h"
 
 #import <CoreApi/CoreApi.h>

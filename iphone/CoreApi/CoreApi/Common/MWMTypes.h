@@ -1,12 +1,14 @@
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef void (^MWMVoidBlock)(void);
 typedef void (^MWMStringBlock)(NSString *);
 typedef void (^MWMURLBlock)(NSURL *);
 typedef BOOL (^MWMCheckStringBlock)(NSString *);
 typedef void (^MWMBoolBlock)(BOOL);
 
-typedef NS_ENUM(NSUInteger, MWMDayTime) { MWMDayTimeDay, MWMDayTimeNight };
+typedef NS_ENUM(NSUInteger, MWMDayTime) { MWMDayTimeDay, MWMDayTimeNight } NS_SWIFT_NAME(DayTime);
 
 typedef NS_ENUM(NSUInteger, MWMUnits) { MWMUnitsMetric, MWMUnitsImperial } NS_SWIFT_NAME(Units);
 
@@ -30,17 +32,19 @@ typedef NS_ENUM(NSUInteger, MWMBookmarksShareStatus) {
   MWMBookmarksShareStatusEmptyCategory,
   MWMBookmarksShareStatusArchiveError,
   MWMBookmarksShareStatusFileError
-};
+} NS_SWIFT_NAME(BookmarksShareStatus);
 
-typedef NS_ENUM(NSUInteger, MWMCategoryAccessStatus) {
-  MWMCategoryAccessStatusLocal,
-  MWMCategoryAccessStatusPublic,
-  MWMCategoryAccessStatusPrivate,
-  MWMCategoryAccessStatusAuthorOnly,
-  MWMCategoryAccessStatusOther
-};
+typedef NS_ENUM(NSUInteger, MWMBookmarkGroupAccessStatus) {
+  MWMBookmarkGroupAccessStatusLocal,
+  MWMBookmarkGroupAccessStatusPublic,
+  MWMBookmarkGroupAccessStatusPrivate,
+  MWMBookmarkGroupAccessStatusAuthorOnly,
+  MWMBookmarkGroupAccessStatusOther
+} NS_SWIFT_NAME(BookmarkGroupAccessStatus);
 
-typedef NS_ENUM(NSUInteger, MWMCategoryAuthorType) {
-  MWMCategoryAuthorTypeLocal,
-  MWMCategoryAuthorTypeTraveler
-};
+typedef NS_ENUM(NSUInteger, MWMBookmarkGroupAuthorType) {
+  MWMBookmarkGroupAuthorTypeLocal,
+  MWMBookmarkGroupAuthorTypeTraveler
+} NS_SWIFT_NAME(BookmarkGroupAuthorType);
+
+NS_ASSUME_NONNULL_END

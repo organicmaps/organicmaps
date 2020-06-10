@@ -7,7 +7,7 @@ final class BookmarksTabViewController: TabViewController {
 
   private static let selectedIndexKey = "BookmarksTabViewController_selectedIndexKey"
 
-  @objc public var activeTab: ActiveTab = ActiveTab.init(rawValue:
+  @objc public var activeTab: ActiveTab = ActiveTab(rawValue:
     UserDefaults.standard.integer(forKey: BookmarksTabViewController.selectedIndexKey)) ?? .user {
     didSet {
       UserDefaults.standard.set(activeTab.rawValue, forKey: BookmarksTabViewController.selectedIndexKey)
@@ -30,7 +30,7 @@ final class BookmarksTabViewController: TabViewController {
 
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    activeTab = ActiveTab.init(rawValue: tabView.selectedIndex ?? 0) ?? .user
+    activeTab = ActiveTab(rawValue: tabView.selectedIndex ?? 0) ?? .user
   }
 }
 

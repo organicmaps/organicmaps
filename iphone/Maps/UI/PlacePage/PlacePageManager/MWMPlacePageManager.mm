@@ -1,7 +1,6 @@
 #import "MWMPlacePageManager.h"
 #import "CLLocation+Mercator.h"
 #import "MWMActivityViewController.h"
-#import "MWMEditBookmarkController.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
 #import "MWMRoutePoint+CPP.h"
@@ -16,8 +15,6 @@
 #include "map/utils.hpp"
 
 #include "platform/downloader_defines.hpp"
-
-#include "geometry/distance_on_sphere.hpp"
 
 using namespace storage;
 

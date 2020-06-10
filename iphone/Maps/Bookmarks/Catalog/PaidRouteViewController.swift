@@ -164,7 +164,7 @@ class PaidRouteViewController: MWMViewController {
   }
 
   private func pingServer(_ completion: @escaping (_ success: Bool) -> Void) {
-    MWMBookmarksManager.shared().ping { (success) in
+    BookmarksManager.shared().ping { (success) in
       completion(success)
     }
   }
@@ -308,7 +308,7 @@ extension PaidRouteViewController : SubscriptionManagerListener {
 
   func didSubscribe(_ subscription: ISubscription) {
     subscriptionManager.setSubscriptionActive(true)
-    MWMBookmarksManager.shared().resetInvalidCategories()
+    BookmarksManager.shared().resetInvalidCategories()
   }
 
   func didDefer(_ subscription: ISubscription) {

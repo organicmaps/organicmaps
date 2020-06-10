@@ -1,8 +1,10 @@
 #import "MWMTableViewCell.h"
 
-@protocol MWMButtonCellDelegate<NSObject>
+NS_ASSUME_NONNULL_BEGIN
 
-- (void)cellSelect:(UITableViewCell *)cell;
+@protocol MWMButtonCellDelegate <NSObject>
+
+- (void)cellDidPressButton:(UITableViewCell *)cell;
 
 @end
 
@@ -11,3 +13,5 @@
 - (void)configureWithDelegate:(id<MWMButtonCellDelegate>)delegate title:(NSString *)title;
 
 @end
+
+NS_ASSUME_NONNULL_END

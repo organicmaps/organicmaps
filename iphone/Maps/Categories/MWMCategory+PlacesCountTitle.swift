@@ -1,6 +1,6 @@
 import Foundation
 
-extension MWMCategory {
+extension BookmarkGroup {
   @objc func placesCountTitle() -> String {
     if (bookmarksCount > 0 && trackCount > 0) ||
       (bookmarksCount == 0 && trackCount == 0) {

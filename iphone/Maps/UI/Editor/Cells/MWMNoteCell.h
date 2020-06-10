@@ -2,22 +2,26 @@
 
 @class MWMNoteCell;
 
-@protocol MWMNoteCelLDelegate<NSObject>
+NS_ASSUME_NONNULL_BEGIN
 
-- (void)cellShouldChangeSize:(MWMNoteCell *)cell text:(NSString *)text;
+@protocol MWMNoteCellDelegate <NSObject>
+
+- (void)cell:(MWMNoteCell *)cell didChangeSizeAndText:(NSString *)text;
 - (void)cell:(MWMNoteCell *)cell didFinishEditingWithText:(NSString *)text;
 
 @end
 
 @interface MWMNoteCell : MWMTableViewCell
 
-- (void)configWithDelegate:(id<MWMNoteCelLDelegate>)delegate
+@property(nonatomic, readonly, class) CGFloat minimalHeight;
+@property(nonatomic, readonly) CGFloat cellHeight;
+@property(nonatomic, readonly) CGFloat textViewContentHeight;
+
+- (void)configWithDelegate:(id<MWMNoteCellDelegate>)delegate
                   noteText:(NSString *)text
                placeholder:(NSString *)placeholder;
-- (CGFloat)cellHeight;
 - (void)updateTextViewForHeight:(CGFloat)height;
-- (CGFloat)textViewContentHeight;
-+ (CGFloat)minimalHeight;
-- (void)registerObserver;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -3,8 +3,9 @@
 #import "MWMBookmarksObserver.h"
 #import "MWMCatalogCommon.h"
 #import "MWMUTM.h"
+#import "PlacePageBookmarkData.h"
 
-@class MWMCategory;
+@class MWMBookmarkGroup;
 @class MWMCarPlayBookmarkObject;
 @class MWMTagGroup;
 @class MWMTag;
@@ -15,6 +16,7 @@ typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags,
 typedef void (^PingCompletionBlock)(BOOL success);
 typedef void (^ElevationPointChangedBlock)(double distance);
 
+NS_SWIFT_NAME(BookmarksManager)
 @interface MWMBookmarksManager : NSObject
 
 + (MWMBookmarksManager *)sharedManager;
@@ -32,7 +34,7 @@ typedef void (^ElevationPointChangedBlock)(double distance);
 - (NSString *)getCategoryName:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryTracksCount:(MWMMarkGroupID)groupId;
-- (MWMCategoryAccessStatus)getCategoryAccessStatus:(MWMMarkGroupID)groupId;
+- (MWMBookmarkGroupAccessStatus)getCategoryAccessStatus:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryAuthorName:(MWMMarkGroupID)groupId;
 
@@ -81,16 +83,21 @@ typedef void (^ElevationPointChangedBlock)(double distance);
                   progress:(_Nullable ProgressBlock)progress
                 completion:(_Nullable DownloadCompletionBlock)completion;
 - (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId;
-- (NSArray<MWMCategory *> *)userCategories;
-- (NSArray<MWMCategory *> *)categoriesFromCatalog;
-- (MWMCategory *)categoryWithId:(MWMMarkGroupID)groupId;
+- (NSArray<MWMBookmarkGroup *> *)userCategories;
+- (NSArray<MWMBookmarkGroup *> *)categoriesFromCatalog;
+- (MWMBookmarkGroup *)categoryWithId:(MWMMarkGroupID)groupId;
 - (NSInteger)getCatalogDownloadsCount;
 - (BOOL)isCategoryDownloading:(NSString *)itemId;
 - (BOOL)hasCategoryDownloaded:(NSString *)itemId;
+- (void)updateBookmark:(MWMMarkID)bookmarkId
+            setGroupId:(MWMMarkGroupID)groupId
+                 title:(NSString *)title
+                 color:(MWMBookmarkColor)color
+           description:(NSString *)description;
 
 - (void)loadTagsWithLanguage:(NSString * _Nullable)languageCode completion:(LoadTagsCompletionBlock)completionBlock;
 - (void)setCategory:(MWMMarkGroupID)groupId tags:(NSArray<MWMTag *> *)tags;
-- (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMCategoryAuthorType)author;
+- (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMBookmarkGroupAuthorType)author;
 
 - (void)uploadAndGetDirectLinkCategoryWithId:(MWMMarkGroupID)itemId
                                     progress:(_Nullable ProgressBlock)progress

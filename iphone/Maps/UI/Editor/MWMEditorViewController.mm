@@ -158,7 +158,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
 @interface MWMEditorViewController ()<
     UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MWMOpeningHoursEditorProtocol,
     MWMPlacePageOpeningHoursCellProtocol, MWMEditorCellProtocol, MWMCuisineEditorProtocol,
-    MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate, MWMNoteCelLDelegate,
+    MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate, MWMNoteCellDelegate,
     MWMEditorAdditionalName, MWMButtonCellDelegate, MWMEditorAdditionalNamesProtocol>
 
 @property(nonatomic) NSMutableDictionary<Class, UITableViewCell *> * offscreenCells;
@@ -710,7 +710,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
   case MWMEditorCellTypeOpenHours: return ((MWMPlacePageOpeningHoursCell *)cell).cellHeight;
   case MWMEditorCellTypeCategory:
   case MWMEditorCellTypeReportButton: return self.tableView.rowHeight;
-  case MWMEditorCellTypeNote: return static_cast<MWMNoteCell *>(cell).cellHeight;
+  case MWMEditorCellTypeNote: return UITableViewAutomaticDimension;
   default:
   {
     [cell setNeedsUpdateConstraints];
@@ -811,11 +811,13 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
 
 #pragma mark - MWMNoteCellDelegate
 
-- (void)cellShouldChangeSize:(MWMNoteCell *)cell text:(NSString *)text
+- (void)cell:(MWMNoteCell *)cell didChangeSizeAndText:(NSString *)text
 {
   self.offscreenCells[cellClass(MWMEditorCellTypeNote)] = cell;
   self.note = text;
+  [UIView setAnimationsEnabled:NO];
   [self.tableView refresh];
+  [UIView setAnimationsEnabled:YES];
   NSIndexPath * ip = [self.tableView indexPathForCell:cell];
   [self.tableView scrollToRowAtIndexPath:ip
                         atScrollPosition:UITableViewScrollPositionBottom
@@ -918,7 +920,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
 
 #pragma mark - MWMEditorCellProtocol && MWMButtonCellDelegate
 
-- (void)cellSelect:(UITableViewCell *)cell
+- (void)cellDidPressButton:(UITableViewCell *)cell
 {
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
   MWMEditorCellType const cellType = [self cellTypeForIndexPath:indexPath];

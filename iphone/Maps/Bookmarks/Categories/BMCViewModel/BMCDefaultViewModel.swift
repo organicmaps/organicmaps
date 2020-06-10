@@ -11,15 +11,13 @@ enum BMCShareCategoryStatus {
 }
 
 final class BMCDefaultViewModel: NSObject {
-  var manager: MWMBookmarksManager {
-    return MWMBookmarksManager.shared()
-  }
+  private let manager = BookmarksManager.shared()
 
   weak var view: BMCView?
 
   private var sections: [BMCSection] = []
   private var permissions: [BMCPermission] = []
-  private var categories: [MWMCategory] = []
+  private var categories: [BookmarkGroup] = []
   private var actions: [BMCAction] = []
   private var notifications: [BMCNotification] = []
 
@@ -115,7 +113,7 @@ extension BMCDefaultViewModel {
     return permissions[index]
   }
 
-  func category(at index: Int) -> MWMCategory {
+  func category(at index: Int) -> BookmarkGroup {
     return categories[index]
   }
 
@@ -348,7 +346,7 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
     reloadData()
   }
   
-  func onBookmarksCategoryFilePrepared(_ status: MWMBookmarksShareStatus) {
+  func onBookmarksCategoryFilePrepared(_ status: BookmarksShareStatus) {
     switch status {
     case .success:
       onPreparedToShareCategory?(.success(manager.shareCategoryURL()))

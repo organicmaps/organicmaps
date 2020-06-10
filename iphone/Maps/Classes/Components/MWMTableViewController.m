@@ -23,8 +23,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  if (@available(iOS 11.0, *))
-    self.tableView.insetsContentViewsToSafeArea = YES;
+  self.tableView.insetsContentViewsToSafeArea = YES;
   self.tableView.styleName = @"TableView:PressBackground";
   [self.navigationController.navigationBar setTranslucent:NO];
   [self.tableView registerClass:[MWMTableViewCell class]
@@ -57,6 +56,14 @@
   if (!_alertController)
     _alertController = [[MWMAlertViewController alloc] initWithViewController:self];
   return _alertController;
+}
+
+@end
+
+@implementation UITableView (MWMTableViewController)
+
+- (UITableViewCell *)dequeueDefaultCellForIndexPath:(NSIndexPath *)indexPath {
+  return [self dequeueReusableCellWithIdentifier:UITableViewCell.className forIndexPath:indexPath];
 }
 
 @end

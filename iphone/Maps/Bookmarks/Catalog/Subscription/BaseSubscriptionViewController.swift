@@ -6,7 +6,7 @@ class BaseSubscriptionViewController: MWMViewController {
 
   //MARK: dependency
   private(set) var subscriptionManager: ISubscriptionManager?
-  private let bookmarksManager: MWMBookmarksManager = MWMBookmarksManager.shared()
+  private let bookmarksManager = BookmarksManager.shared()
 
   private var subscriptionGroup: ISubscriptionGroup?
   @objc var onSubscribe: MWMVoidBlock?

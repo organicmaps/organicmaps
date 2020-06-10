@@ -20,17 +20,17 @@ extension GuidesGalleryInteractor: IGuidesGalleryInteractor {
   }
 
   func toggleItemVisibility(_ item: GuidesGalleryItem) {
-    let groupId = MWMBookmarksManager.shared().getGroupId(item.guideId)
-    let visible = MWMBookmarksManager.shared().isCategoryVisible(groupId)
-    MWMBookmarksManager.shared().setCategory(groupId, isVisible: !visible)
+    let groupId = BookmarksManager.shared().getGroupId(item.guideId)
+    let visible = BookmarksManager.shared().isCategoryVisible(groupId)
+    BookmarksManager.shared().setCategory(groupId, isVisible: !visible)
     Statistics.logEvent(kStatBookmarkVisibilityChange, withParameters: [kStatFrom : kStatMapGallery,
                                                                         kStatAction : visible ? kStatHide : kStatShow,
                                                                         kStatServerId : item.guideId])
   }
 
   func isGalleryItemVisible(_ item: GuidesGalleryItem) -> Bool {
-    let groupId = MWMBookmarksManager.shared().getGroupId(item.guideId)
-    return MWMBookmarksManager.shared().isCategoryVisible(groupId)
+    let groupId = BookmarksManager.shared().getGroupId(item.guideId)
+    return BookmarksManager.shared().isCategoryVisible(groupId)
   }
 
   func setActiveItem(_ item: GuidesGalleryItem) {

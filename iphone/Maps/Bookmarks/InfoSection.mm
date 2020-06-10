@@ -1,6 +1,6 @@
 #import "InfoSection.h"
 #import "MWMCategoryInfoCell.h"
-#import "SwiftBridge.h"
+//#import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
 
@@ -47,7 +47,7 @@
   if (self.infoCell != nil)
     return self.infoCell;
   
-  UITableViewCell *cell = [tableView dequeueReusableCellWithCellClass:MWMCategoryInfoCell.class];
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MWMCategoryInfoCell"];
   CHECK(cell, ("Invalid category info cell."));
 
   auto &bm = GetFramework().GetBookmarkManager();

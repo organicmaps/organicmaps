@@ -1,5 +1,5 @@
 #import "BookmarksSection.h"
-#import "MWMBookmarkColorViewController.h"
+#import "legacy_bookmark_colors.h"
 #import "MWMLocationHelpers.h"
 #import "MWMSearchManager.h"
 

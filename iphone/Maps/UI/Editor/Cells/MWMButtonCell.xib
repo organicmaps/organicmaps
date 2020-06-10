@@ -17,7 +17,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7Y-Nr-P4C">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="Z6u-ES-sTJ"/>
+                        </constraints>
                         <state key="normal" title="Button">
                             <color key="titleColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
@@ -31,7 +34,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="c7Y-Nr-P4C" secondAttribute="trailing" id="AVP-GR-W7u"/>
-                    <constraint firstAttribute="bottom" secondItem="c7Y-Nr-P4C" secondAttribute="bottom" constant="0.5" id="F3N-Zb-tnQ"/>
+                    <constraint firstAttribute="bottom" secondItem="c7Y-Nr-P4C" secondAttribute="bottom" id="F3N-Zb-tnQ"/>
                     <constraint firstItem="c7Y-Nr-P4C" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="JQx-63-Ane"/>
                     <constraint firstItem="c7Y-Nr-P4C" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fTj-1o-vWJ"/>
                 </constraints>

@@ -4,7 +4,7 @@ protocol EditOnWebViewControllerDelegate: AnyObject {
 
 final class EditOnWebViewController: MWMViewController {
   weak var delegate: EditOnWebViewControllerDelegate?
-  var category: MWMCategory!
+  var category: BookmarkGroup!
   
   @IBOutlet weak var activityIndicator: ActivityIndicator!
   @IBOutlet weak var sendMeLinkButton: MWMButton! {
@@ -56,7 +56,7 @@ final class EditOnWebViewController: MWMViewController {
     activityIndicator.isHidden = false
     sendMeLinkButton.isEnabled = false
     sendMeLinkButton.setTitle(nil, for: .normal)
-    MWMBookmarksManager.shared().uploadCategory(withId: category.categoryId, progress: { (progress) in
+    BookmarksManager.shared().uploadCategory(withId: category.categoryId, progress: { (progress) in
 
     }) { [weak self] (error) in
       guard let self = self else { return }
@@ -92,8 +92,8 @@ final class EditOnWebViewController: MWMViewController {
   }
 
   private func presentSharingOptions() {
-    guard let url = MWMBookmarksManager.shared().webEditorUrl(forCategoryId: category.categoryId,
-                                                              language: AppInfo.shared().twoLetterLanguageId ) else {
+    guard let url = BookmarksManager.shared().webEditorUrl(forCategoryId: category.categoryId,
+                                                           language: AppInfo.shared().twoLetterLanguageId ) else {
       assert(false, "Unexpected empty url for category \(category.title)")
       return
     }

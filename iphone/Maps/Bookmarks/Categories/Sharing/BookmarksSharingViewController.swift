@@ -6,14 +6,12 @@ protocol BookmarksSharingViewControllerDelegate: AnyObject {
 }
 
 final class BookmarksSharingViewController: MWMTableViewController {
-  @objc var category: MWMCategory!
+  @objc var category: BookmarkGroup!
   @objc weak var delegate: BookmarksSharingViewControllerDelegate?
   private var sharingTags: [MWMTag]?
-  private var sharingUserStatus: MWMCategoryAuthorType?
+  private var sharingUserStatus: BookmarkGroupAuthorType?
 
-  private var manager: MWMBookmarksManager {
-    return MWMBookmarksManager.shared()
-  }
+  private let manager = BookmarksManager.shared()
   
   private let kPropertiesControllerIdentifier = "chooseProperties"
   private let kTagsControllerIdentifier = "tags"
@@ -494,7 +492,7 @@ extension BookmarksSharingViewController: SharingTagsViewControllerDelegate {
 
 extension BookmarksSharingViewController: SharingPropertiesViewControllerDelegate {
   func sharingPropertiesViewController(_ viewController: SharingPropertiesViewController,
-                                       didSelect userStatus: MWMCategoryAuthorType) {
+                                       didSelect userStatus: BookmarkGroupAuthorType) {
     sharingUserStatus = userStatus
     showSelectTags()
   }

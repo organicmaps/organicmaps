@@ -5,7 +5,7 @@ final class ListTemplateBuilder {
   enum ListTemplateType {
     case history
     case bookmarkLists
-    case bookmarks(category: MWMCategory)
+    case bookmarks(category: BookmarkGroup)
     case searchResults(results: [MWMCarPlaySearchResultObject])
   }
   
@@ -75,7 +75,7 @@ final class ListTemplateBuilder {
   }
   
   private class func obtainCategories(template: CPListTemplate) {
-    let bookmarkManager = MWMBookmarksManager.shared()
+    let bookmarkManager = BookmarksManager.shared()
     let categories = bookmarkManager.userCategories()
     let items: [CPListItem] = categories.compactMap({ category in
       if category.bookmarksCount == 0 { return nil }
@@ -91,7 +91,7 @@ final class ListTemplateBuilder {
   }
   
   private class func obtainBookmarks(template: CPListTemplate, categoryId: MWMMarkGroupID) {
-    let bookmarkManager = MWMBookmarksManager.shared()
+    let bookmarkManager = BookmarksManager.shared()
     let bookmarks = bookmarkManager.bookmarks(forCategory: categoryId)
     let items = bookmarks.map({ (bookmark) -> CPListItem in
       let item = CPListItem(text: bookmark.prefferedName, detailText: bookmark.address)

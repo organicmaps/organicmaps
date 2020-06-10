@@ -1,6 +1,6 @@
 #import "TracksSection.h"
 #import <CoreApi/MWMBookmarksManager.h>
-#import "MWMBookmarkColorViewController.h"
+#import "legacy_bookmark_colors.h"
 #import "Statistics.h"
 
 #include <CoreApi/Framework.h>

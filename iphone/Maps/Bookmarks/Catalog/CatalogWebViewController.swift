@@ -41,7 +41,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private init(_ url: URL? = nil, utm: MWMUTM = .none, isAbsoluteUrl: Bool = false) {
-    var catalogUrl = MWMBookmarksManager.shared().catalogFrontendUrl(utm)!
+    var catalogUrl = BookmarksManager.shared().catalogFrontendUrl(utm)!
     if let u = url {
       if isAbsoluteUrl {
         catalogUrl = u
@@ -49,7 +49,7 @@ final class CatalogWebViewController: WebViewController {
         if u.host == "guides_page" {
           if let urlComponents = URLComponents(url: u, resolvingAgainstBaseURL: false),
             let path = urlComponents.queryItems?.reduce(into: "", { if $1.name == "url" { $0 = $1.value } }),
-            let calculatedUrl = MWMBookmarksManager.shared().catalogFrontendUrlPlusPath(path, utm: utm) {
+            let calculatedUrl = BookmarksManager.shared().catalogFrontendUrlPlusPath(path, utm: utm) {
             catalogUrl = calculatedUrl
           }
         } else {
@@ -226,7 +226,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private func showOnMap(_ serverId: String) {
-    let groupId = MWMBookmarksManager.shared().getGroupId(serverId)
+    let groupId = BookmarksManager.shared().getGroupId(serverId)
     FrameworkHelper.show(onMap: groupId)
     navigationController?.popToRootViewController(animated: true)
   }
@@ -251,7 +251,7 @@ final class CatalogWebViewController: WebViewController {
           return
       }
 
-      var result = MWMBookmarksManager.shared().getCatalogHeaders()
+      var result = BookmarksManager.shared().getCatalogHeaders()
       result["X-Mapsme-Bundle-Tiers"] = encodedString
       completion(result)
     })
@@ -309,7 +309,7 @@ final class CatalogWebViewController: WebViewController {
       return
     }
 
-    if MWMBookmarksManager.shared().isCategoryDownloading(categoryInfo.id) || MWMBookmarksManager.shared().hasCategoryDownloaded(categoryInfo.id) {
+    if BookmarksManager.shared().isCategoryDownloading(categoryInfo.id) || BookmarksManager.shared().hasCategoryDownloaded(categoryInfo.id) {
       MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_already_downloaded_guide"),
                                                                message: nil,
                                                                rightButtonTitle: L("ok"),
@@ -318,7 +318,7 @@ final class CatalogWebViewController: WebViewController {
       return
     }
 
-    MWMBookmarksManager.shared().downloadItem(withId: categoryInfo.id, name: categoryInfo.name, progress: { [weak self] progress in
+    BookmarksManager.shared().downloadItem(withId: categoryInfo.id, name: categoryInfo.name, progress: { [weak self] progress in
       self?.updateProgress()
     }) { [weak self] categoryId, error in
       if let error = error as NSError? {
@@ -351,7 +351,7 @@ final class CatalogWebViewController: WebViewController {
           self?.showImportError()
         }
       } else {
-        if MWMBookmarksManager.shared().getCatalogDownloadsCount() == 0 {
+        if BookmarksManager.shared().getCatalogDownloadsCount() == 0 {
           Statistics.logEvent(kStatInappProductDelivered, withParameters: [kStatVendor: BOOKMARKS_VENDOR,
                                                                            kStatPurchase: categoryInfo.id],
                               with: .realtime)
@@ -412,7 +412,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private func updateProgress() {
-    let numberOfTasks = MWMBookmarksManager.shared().getCatalogDownloadsCount()
+    let numberOfTasks = BookmarksManager.shared().getCatalogDownloadsCount()
     numberOfTasksLabel.text = "\(numberOfTasks)"
     progressBgView.isHidden = numberOfTasks == 0
   }

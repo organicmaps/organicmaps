@@ -16,7 +16,7 @@ final class BMCCategoryCell: MWMTableViewCell {
 
   @IBOutlet weak var visibleCheckmark: Checkmark!
 
-  private var category: MWMCategory? {
+  private var category: BookmarkGroup? {
     didSet {
       categoryUpdated()
     }
@@ -24,7 +24,7 @@ final class BMCCategoryCell: MWMTableViewCell {
 
   private weak var delegate: BMCCategoryCellDelegate?
 
-  func config(category: MWMCategory, delegate: BMCCategoryCellDelegate) -> UITableViewCell {
+  func config(category: BookmarkGroup, delegate: BMCCategoryCellDelegate) -> UITableViewCell {
     self.category = category
     self.delegate = delegate
     return self

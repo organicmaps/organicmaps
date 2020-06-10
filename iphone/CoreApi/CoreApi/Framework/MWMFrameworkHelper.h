@@ -22,6 +22,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (BOOL)canUseNetwork;
 + (BOOL)isNetworkConnected;
 + (BOOL)isWiFiConnected;
++ (MWMMarkID)invalidBookmarkId;
 + (MWMMarkGroupID)invalidCategoryId;
 + (void)zoomMap:(MWMZoomMode)mode;
 + (void)moveMap:(UIOffset)offset;
@@ -40,6 +41,8 @@ NS_SWIFT_NAME(FrameworkHelper)
                 completion:(SearchInDownloaderCompletions)completion;
 + (BOOL)canEditMap;
 + (void)showOnMap:(MWMMarkGroupID)categoryId;
++ (void)updatePlacePageData;
+
 @end
 
 NS_ASSUME_NONNULL_END

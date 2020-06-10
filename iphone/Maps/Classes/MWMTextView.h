@@ -2,7 +2,7 @@
 
 @interface MWMTextView : UITextView
 
-@property (copy, nonatomic) NSString * placeholder;
-@property (nonatomic, readonly) UILabel * placeholderView;
+@property(nonatomic, copy) NSString *placeholder;
+@property(nonatomic, readonly) UILabel *placeholderView;
 
 @end

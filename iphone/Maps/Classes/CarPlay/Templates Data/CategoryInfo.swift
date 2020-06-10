@@ -1,7 +1,7 @@
 struct CategoryInfo: InfoMetadata {
-  let category: MWMCategory
+  let category: BookmarkGroup
   
-  init(category: MWMCategory) {
+  init(category: BookmarkGroup) {
     self.category = category
   }
 }

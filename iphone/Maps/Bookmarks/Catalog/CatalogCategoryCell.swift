@@ -20,7 +20,7 @@ final class CatalogCategoryCell: MWMTableViewCell {
     delegate?.cell(self, didPress: sender)
   }
 
-  func update(with category: MWMCategory, delegate: CatalogCategoryCellDelegate?) {
+  func update(with category: BookmarkGroup, delegate: CatalogCategoryCellDelegate?) {
     titleLabel.text = category.title
     let placesString = category.placesCountTitle()
     let authorString = String(coreFormat: L("author_name_by_prefix"), arguments: [category.author])

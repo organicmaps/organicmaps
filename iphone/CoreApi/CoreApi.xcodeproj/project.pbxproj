@@ -17,6 +17,7 @@
 		470B3624244DDA0A00C0EA9E /* GuidesGalleryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 470B3622244DDA0A00C0EA9E /* GuidesGalleryItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		470B3625244DDA0A00C0EA9E /* GuidesGalleryItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 470B3623244DDA0A00C0EA9E /* GuidesGalleryItem.mm */; };
 		470B362C244DDBF600C0EA9E /* GuidesGalleryItem+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 470B362A244DDBF600C0EA9E /* GuidesGalleryItem+Core.h */; };
+		471527392491EDAA00E91BBA /* MWMBookmarkColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 471527382491EDA400E91BBA /* MWMBookmarkColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */; };
 		471AB98D23AB925D00F56D49 /* MWMMapSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 471AB98B23AB925D00F56D49 /* MWMMapSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -64,7 +65,7 @@
 		47942D98237D675400DEFAE3 /* CatalogPromoItem+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D96237D675400DEFAE3 /* CatalogPromoItem+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47942D9C237D927800DEFAE3 /* PlacePageBookmarkData.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D9A237D927800DEFAE3 /* PlacePageBookmarkData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942D9B237D927800DEFAE3 /* PlacePageBookmarkData.mm */; };
-		47942DA0237D954400DEFAE3 /* PlacePageBookmarkData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D9E237D954400DEFAE3 /* PlacePageBookmarkData+Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47942DA0237D954400DEFAE3 /* PlacePageBookmarkData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942D9E237D954400DEFAE3 /* PlacePageBookmarkData+Core.h */; };
 		47942DAB237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942DAA237ED9FE00DEFAE3 /* IOpeningHoursLocalization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47942DAE2382ABE100DEFAE3 /* UgcSummaryRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 47942DAC2382ABE100DEFAE3 /* UgcSummaryRating.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47942DAF2382ABE100DEFAE3 /* UgcSummaryRating.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47942DAD2382ABE100DEFAE3 /* UgcSummaryRating.mm */; };
@@ -83,8 +84,8 @@
 		479F7056234FB7F200011E2E /* MWMBookmarksManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7054234FB7F100011E2E /* MWMBookmarksManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		479F7057234FB7F200011E2E /* MWMBookmarksManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7055234FB7F100011E2E /* MWMBookmarksManager.mm */; };
 		479F705B234FBB1100011E2E /* MWMUTM.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F705A234FBAC200011E2E /* MWMUTM.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		479F705E234FBB8C00011E2E /* MWMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 479F705C234FBB8B00011E2E /* MWMCategory.m */; };
-		479F705F234FBB8F00011E2E /* MWMCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F705D234FBB8C00011E2E /* MWMCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		479F705E234FBB8C00011E2E /* MWMBookmarkGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 479F705C234FBB8B00011E2E /* MWMBookmarkGroup.m */; };
+		479F705F234FBB8F00011E2E /* MWMBookmarkGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		479F7062234FBC4700011E2E /* MWMCarPlayBookmarkObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */; };
 		479F7063234FBC5900011E2E /* MWMCarPlayBookmarkObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 47A65CAE235008C700DCD85F /* CoreApi-swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -153,6 +154,7 @@
 		470B3622244DDA0A00C0EA9E /* GuidesGalleryItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuidesGalleryItem.h; sourceTree = "<group>"; };
 		470B3623244DDA0A00C0EA9E /* GuidesGalleryItem.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GuidesGalleryItem.mm; sourceTree = "<group>"; };
 		470B362A244DDBF600C0EA9E /* GuidesGalleryItem+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GuidesGalleryItem+Core.h"; sourceTree = "<group>"; };
+		471527382491EDA400E91BBA /* MWMBookmarkColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkColor.h; sourceTree = "<group>"; };
 		4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMNetworkPolicy.h; sourceTree = "<group>"; };
 		4718C4312355FC3C00640DF1 /* MWMNetworkPolicy.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNetworkPolicy.mm; sourceTree = "<group>"; };
 		471AB98B23AB925D00F56D49 /* MWMMapSearchResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapSearchResult.h; sourceTree = "<group>"; };
@@ -219,8 +221,8 @@
 		479F7054234FB7F100011E2E /* MWMBookmarksManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBookmarksManager.h; sourceTree = "<group>"; };
 		479F7055234FB7F100011E2E /* MWMBookmarksManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBookmarksManager.mm; sourceTree = "<group>"; };
 		479F705A234FBAC200011E2E /* MWMUTM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUTM.h; sourceTree = "<group>"; };
-		479F705C234FBB8B00011E2E /* MWMCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMCategory.m; sourceTree = "<group>"; };
-		479F705D234FBB8C00011E2E /* MWMCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCategory.h; sourceTree = "<group>"; };
+		479F705C234FBB8B00011E2E /* MWMBookmarkGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMBookmarkGroup.m; sourceTree = "<group>"; };
+		479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarkGroup.h; sourceTree = "<group>"; };
 		479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCarPlayBookmarkObject.h; sourceTree = "<group>"; };
 		479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCarPlayBookmarkObject.mm; sourceTree = "<group>"; };
 		47A65CAE235008C700DCD85F /* CoreApi-swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreApi-swift.h"; sourceTree = "<group>"; };
@@ -504,11 +506,12 @@
 				479F7051234FB62A00011E2E /* Catalog */,
 				479F7054234FB7F100011E2E /* MWMBookmarksManager.h */,
 				479F7055234FB7F100011E2E /* MWMBookmarksManager.mm */,
-				479F705D234FBB8C00011E2E /* MWMCategory.h */,
-				479F705C234FBB8B00011E2E /* MWMCategory.m */,
+				479F705D234FBB8C00011E2E /* MWMBookmarkGroup.h */,
+				479F705C234FBB8B00011E2E /* MWMBookmarkGroup.m */,
 				479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */,
 				479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */,
 				47D609DB234FE625008ECC47 /* MWMBookmarksObserver.h */,
+				471527382491EDA400E91BBA /* MWMBookmarkColor.h */,
 			);
 			path = Bookmarks;
 			sourceTree = "<group>";
@@ -685,7 +688,7 @@
 				470B3624244DDA0A00C0EA9E /* GuidesGalleryItem.h in Headers */,
 				470015F42342509C00EBF03D /* CoreApi.h in Headers */,
 				47942D74237CC41A00DEFAE3 /* HotelBookingData.h in Headers */,
-				479F705F234FBB8F00011E2E /* MWMCategory.h in Headers */,
+				479F705F234FBB8F00011E2E /* MWMBookmarkGroup.h in Headers */,
 				47EF73F9246E035C00D32AB8 /* MWMGuidesManager.h in Headers */,
 				471AB99123AB931000F56D49 /* MWMMapSearchResult+Core.h in Headers */,
 				4738A8E0239FACE7007C0F43 /* CoreBanner.h in Headers */,
@@ -734,6 +737,7 @@
 				47E8163723B188D3008FD836 /* MWMStorage.h in Headers */,
 				47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */,
 				47F701F3238C877C00D18E95 /* PlacePageButtonsData+Core.h in Headers */,
+				471527392491EDAA00E91BBA /* MWMBookmarkColor.h in Headers */,
 				479F7053234FB7BC00011E2E /* MWMCatalogCommon.h in Headers */,
 				47942D7A237CC41A00DEFAE3 /* HotelRoom.h in Headers */,
 				4700160F2342579000EBF03D /* MWMTag.h in Headers */,
@@ -855,7 +859,7 @@
 				47942D95237D673E00DEFAE3 /* CatalogPromoItem.mm in Sources */,
 				47942D6C237CC3DE00DEFAE3 /* PlacePageData.mm in Sources */,
 				47942DAF2382ABE100DEFAE3 /* UgcSummaryRating.mm in Sources */,
-				479F705E234FBB8C00011E2E /* MWMCategory.m in Sources */,
+				479F705E234FBB8C00011E2E /* MWMBookmarkGroup.m in Sources */,
 				479834EB2342697400724D1E /* MWMTagGroup+Convenience.mm in Sources */,
 				47EF73FA246E035C00D32AB8 /* MWMGuidesManager.mm in Sources */,
 				470016082342541100EBF03D /* MWMTagGroup.m in Sources */,

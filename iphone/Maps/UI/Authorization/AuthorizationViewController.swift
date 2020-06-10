@@ -97,7 +97,7 @@ final class AuthorizationViewController: MWMViewController {
   @IBAction private func phoneSignIn() {
     let authVC = PhoneNumberAuthorizationViewController(success: { [unowned self] token in
       self.dismiss(animated: true)
-      self.process(token: token!, type: .phone)
+      self.process(token: token, type: .phone)
     }, failure: { [unowned self] in
       self.dismiss(animated: true)
       self.process(error: NSError(domain: kMapsmeErrorDomain, code: 0), type: .phone)

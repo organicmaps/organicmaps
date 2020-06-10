@@ -260,7 +260,7 @@ extension PlacePageInteractor: ElevationProfileViewControllerDelegate {
   }
 
   func updateMapPoint(_ distance: Double) {
-    MWMBookmarksManager.shared().setElevationActivePoint(distance, trackId: placePageData.elevationProfileData!.trackId)
+    BookmarksManager.shared().setElevationActivePoint(distance, trackId: placePageData.elevationProfileData!.trackId)
   }
 }
 

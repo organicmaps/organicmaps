@@ -8,14 +8,12 @@ protocol CategorySettingsViewControllerDelegate: AnyObject {
 
 class CategorySettingsViewController: MWMTableViewController {
   
-  @objc var category: MWMCategory!
+  @objc var category: BookmarkGroup!
   @objc var maxCategoryNameLength: UInt = 60
   @objc var minCategoryNameLength: UInt = 0
   private var changesMade = false
   
-  var manager: MWMBookmarksManager {
-    return MWMBookmarksManager.shared()
-  }
+  private let manager = BookmarksManager.shared()
   
   @objc weak var delegate: CategorySettingsViewControllerDelegate?
   

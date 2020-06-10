@@ -87,18 +87,18 @@ final class BMCViewController: MWMViewController {
   }
 
 
-  private func shareCategory(category: MWMCategory, anchor: UIView) {
+  private func shareCategory(category: BookmarkGroup, anchor: UIView) {
     let storyboard = UIStoryboard.instance(.sharing)
     let shareController = storyboard.instantiateInitialViewController() as! BookmarksSharingViewController
-    shareController.category = MWMBookmarksManager.shared().category(withId: category.categoryId)
+    shareController.category = BookmarksManager.shared().category(withId: category.categoryId)
     MapViewController.topViewController().navigationController?.pushViewController(shareController,
                                                                                    animated: true)
   }
   
-  private func openCategorySettings(category: MWMCategory) {
+  private func openCategorySettings(category: BookmarkGroup) {
     let storyboard = UIStoryboard.instance(.categorySettings)
     let settingsController = storyboard.instantiateInitialViewController() as! CategorySettingsViewController
-    settingsController.category = MWMBookmarksManager.shared().category(withId: category.categoryId)
+    settingsController.category = BookmarksManager.shared().category(withId: category.categoryId)
     settingsController.maxCategoryNameLength = viewModel.maxCategoryNameLength
     settingsController.minCategoryNameLength = viewModel.minCategoryNameLength
     settingsController.delegate = self
@@ -107,7 +107,7 @@ final class BMCViewController: MWMViewController {
                                                                                    animated: true)
   }
 
-  private func openCategory(category: MWMCategory) {
+  private func openCategory(category: BookmarkGroup) {
     let bmViewController = BookmarksVC(category: category.categoryId)
     bmViewController.delegate = self
     MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
@@ -158,7 +158,7 @@ final class BMCViewController: MWMViewController {
       Statistics.logEvent(kStatBookmarksListSettingsClick,
                           withParameters: [kStatOption : kStatSharingOptions])
     })
-    shareAction.isEnabled = MWMBookmarksManager.shared().isCategoryNotEmpty(category.categoryId)
+    shareAction.isEnabled = BookmarksManager.shared().isCategoryNotEmpty(category.categoryId)
     actionSheet.addAction(shareAction)
     let delete = L("delete_list")
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in

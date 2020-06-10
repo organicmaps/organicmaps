@@ -1,6 +1,6 @@
 extension UIViewController {
   func checkInvalidSubscription(_ completion: ((_ deleted: Bool) -> Void)? = nil) {
-    MWMBookmarksManager.shared().check { [weak self] hasInvalidSubscription in
+    BookmarksManager.shared().check { [weak self] hasInvalidSubscription in
       guard hasInvalidSubscription else {
         return
       }
@@ -21,7 +21,7 @@ extension UIViewController {
       }
       let onDelete = {
         self?.dismiss(animated: true)
-        MWMBookmarksManager.shared().deleteInvalidCategories()
+        BookmarksManager.shared().deleteInvalidCategories()
         completion?(true)
       }
       let subscriptionExpiredDialog = SubscriptionExpiredViewController(onSubscribe: onSubscribe, onDelete: onDelete)

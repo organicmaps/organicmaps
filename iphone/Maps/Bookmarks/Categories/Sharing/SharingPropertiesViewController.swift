@@ -1,6 +1,6 @@
 protocol SharingPropertiesViewControllerDelegate: AnyObject {
   func sharingPropertiesViewController(_ viewController: SharingPropertiesViewController,
-                                       didSelect userStatus: MWMCategoryAuthorType)
+                                       didSelect userStatus: BookmarkGroupAuthorType)
 }
 
 final class SharingPropertiesViewController: MWMTableViewController {
