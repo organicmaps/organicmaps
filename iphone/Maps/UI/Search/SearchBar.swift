@@ -8,6 +8,7 @@ final class SearchBar: SolidTouchView {
   @IBOutlet var searchIcon: UIImageView!
   @IBOutlet var activityIndicator: UIActivityIndicatorView!
   @IBOutlet var backButton: UIButton!
+  @IBOutlet var searchTextField: SearchTextField!
 
   override var visibleAreaAffectDirections: MWMAvailableAreaAffectDirections { return alternative(iPhone: .top, iPad: .left) }
 
@@ -30,6 +31,8 @@ final class SearchBar: SolidTouchView {
   override func awakeFromNib() {
     super.awakeFromNib()
     updateLeftView()
+    searchTextField.leftViewMode = UITextField.ViewMode.always
+    searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
   }
 
   private func updateLeftView() {

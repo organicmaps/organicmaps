@@ -1,11 +1,5 @@
 @objc(MWMSearchTextField)
 class SearchTextField: UITextField {
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    leftViewMode = UITextField.ViewMode.always
-    leftView = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
-  }
-
   override func drawPlaceholder(in rect: CGRect) {
     guard let font = font, let tint = tintColor else {
       super.drawPlaceholder(in: rect);

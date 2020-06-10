@@ -138,6 +138,7 @@
                 <outlet property="activityIndicator" destination="s62-Rm-IgM" id="iMc-UV-Rzf"/>
                 <outlet property="backButton" destination="1K1-2y-aoz" id="f5t-dc-4Jg"/>
                 <outlet property="searchIcon" destination="3pk-lE-he1" id="edK-sI-ual"/>
+                <outlet property="searchTextField" destination="hna-zw-Zor" id="Z5c-kU-aZz"/>
             </connections>
             <point key="canvasLocation" x="235.19999999999999" y="-242.87856071964021"/>
         </view>
