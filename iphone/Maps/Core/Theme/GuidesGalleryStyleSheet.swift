@@ -40,11 +40,13 @@ class GuidesGalleryStyleSheet: IStyleSheet {
     }
 
     theme.add(styleName: "GuidesGalleryShowButton") { (s) -> (Void) in
-      s.cornerRadius = 14
+      s.cornerRadius = 8
+      s.borderWidth = 1
+      s.borderColor = colors.linkBlue
+      s.fontColor = colors.linkBlue
+      s.backgroundColor = colors.white
       s.clip = true
-      s.backgroundColor = colors.blackOpaque
       s.font = fonts.semibold14
-      s.fontColor = colors.blackSecondaryText
     }
   }
 }
