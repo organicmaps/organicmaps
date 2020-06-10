@@ -52,7 +52,6 @@ final class PlacePageScrollView: UIScrollView {
     } else {
       hideActionBar(true)
     }
-    updatePreviewOffset()
 
     let bgView = UIView()
     bgView.styleName = "PPBackgroundView"
