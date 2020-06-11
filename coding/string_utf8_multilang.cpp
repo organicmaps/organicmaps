@@ -207,6 +207,25 @@ void StringUtf8Multilang::AddString(int8_t lang, string const & utf8s)
   m_s.insert(m_s.end(), utf8s.begin(), utf8s.end());
 }
 
+void StringUtf8Multilang::RemoveString(int8_t lang)
+{
+  size_t i = 0;
+  size_t const sz = m_s.size();
+
+  while (i < sz)
+  {
+    size_t const next = GetNextIndex(i);
+
+    if ((m_s[i] & 0x3F) == lang)
+    {
+      m_s.erase(i, next - i);
+      return;
+    }
+
+    i = next;
+  }
+}
+
 bool StringUtf8Multilang::GetString(int8_t lang, string & utf8s) const
 {
   if (!IsSupportedLangCode(lang))

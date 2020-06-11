@@ -120,6 +120,14 @@ public:
       AddString(l, utf8s);
   }
 
+  void RemoveString(int8_t lang);
+  void RemoveString(std::string const & lang)
+  {
+    int8_t const l = GetLangIndex(lang);
+    if (l >= 0)
+      RemoveString(l);
+  }
+
   // Calls |fn| for each pair of |lang| and |utf8s| stored in this multilang string.
   template <typename Fn>
   void ForEach(Fn && fn) const

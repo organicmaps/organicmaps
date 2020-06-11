@@ -194,3 +194,61 @@ UNIT_TEST(MultilangString_ForEachLanguage)
   TEST(!s.ForEachLanguage(corruptedLanguages, fn), ());
   TEST_EQUAL(testAccumulator.size(), 0, ());
 }
+
+UNIT_TEST(MultilangString_RemoveString)
+{
+  auto testRemove = [](vector<pair<uint8_t, string>> const & strings,
+                       set<uint8_t> const & codesToRemove) {
+    StringUtf8Multilang str;
+    for (auto const & s : strings)
+      str.AddString(s.first, s.second);
+
+    string tmp;
+    for (auto const & s : strings)
+    {
+      TEST(str.HasString(s.first), ());
+      TEST(str.GetString(s.first, tmp), ());
+      TEST_EQUAL(tmp, s.second, ());
+    }
+
+    for (auto c : codesToRemove)
+      str.RemoveString(c);
+
+    for (auto const & s : strings)
+    {
+      if (codesToRemove.find(s.first) == codesToRemove.end())
+      {
+        TEST(str.HasString(s.first), ());
+        TEST(str.GetString(s.first, tmp), ());
+        TEST_EQUAL(tmp, s.second, ());
+      }
+      else
+      {
+        TEST(!str.HasString(s.first), ());
+      }
+    }
+
+    // No extra languages or other data damage.
+    str.ForEach([&](uint8_t lang, auto const &) {
+      TEST(base::FindIf(strings, [&lang](auto const & s) { return s.first == lang; }) !=
+               strings.end(),
+           ());
+      TEST(codesToRemove.find(lang) == codesToRemove.end(), ());
+    });
+  };
+
+  vector<pair<uint8_t, string>> strings = {{0, "aaa"},
+                                           {1, "bbb"},
+                                           {2, "ccc"},
+                                           {9, "ddd"},
+                                           {17, "eee"},
+                                           {27, "fff"},
+                                           {37, "ggg"}};
+
+  testRemove(strings, {0});
+  testRemove(strings, {1});
+  testRemove(strings, {9, 27});
+  testRemove(strings, {37});
+  testRemove(strings, {0, 1, 2, 9, 17, 27, 37});
+  testRemove(strings, {39});
+}
