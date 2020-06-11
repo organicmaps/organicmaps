@@ -31,6 +31,11 @@ final class ExpandableLabel: UIView {
       containerText = text
       textView.text = text
       expandLabel.isHidden = true
+      if let text = text {
+        textView.isHidden = text.count == 0
+      } else {
+        textView.isHidden = true
+      }
     }
   }
 
@@ -39,6 +44,11 @@ final class ExpandableLabel: UIView {
       containerText = attributedText?.string
       textView.attributedText = attributedText
       expandLabel.isHidden = true
+      if let attributedText = attributedText {
+        textView.isHidden = attributedText.length == 0
+      } else {
+        textView.isHidden = true
+      }
     }
   }
 
