@@ -9,6 +9,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.maplayer.AbstractIsoLinesClickListener;
@@ -16,6 +17,7 @@ import com.mapswithme.maps.maplayer.BottomSheetItem;
 import com.mapswithme.maps.maplayer.DefaultClickListener;
 import com.mapswithme.maps.maplayer.LayersAdapter;
 import com.mapswithme.maps.maplayer.LayersUtils;
+import com.mapswithme.maps.maplayer.guides.AbstractGuidesClickListener;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
@@ -35,10 +37,14 @@ public class MainMenuRenderer implements MenuRenderer
   @SuppressWarnings("NullableProblems")
   @NonNull
   private NestedScrollView mScrollView;
+  @NonNull
+  private final NoConnectionListener mNoConnectionListener;
 
-  MainMenuRenderer(@NonNull MainMenuOptionListener listener)
+  MainMenuRenderer(@NonNull MainMenuOptionListener listener,
+                   @NonNull NoConnectionListener noConnectionListener)
   {
     mListener = listener;
+    mNoConnectionListener = noConnectionListener;
   }
 
   @Override
@@ -94,7 +100,7 @@ public class MainMenuRenderer implements MenuRenderer
                                                          new SubwayItemClickListener(),
                                                          new TrafficItemClickListener(),
                                                          new IsolinesItemClickListener(),
-                                                         new GuidesItemClickListener()));
+                                                         new GuidesItemClickListener(mNoConnectionListener)));
     layersRecycler.setAdapter(mLayersAdapter);
   }
 
@@ -153,11 +159,11 @@ public class MainMenuRenderer implements MenuRenderer
     }
   }
 
-  private class GuidesItemClickListener extends DefaultClickListener
+  private class GuidesItemClickListener extends AbstractGuidesClickListener
   {
-    GuidesItemClickListener()
+    GuidesItemClickListener(@NonNull NoConnectionListener connectionListener)
     {
-      super(mLayersAdapter);
+      super(mLayersAdapter, connectionListener);
     }
 
     @Override

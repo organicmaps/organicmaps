@@ -17,7 +17,7 @@ public abstract class DefaultClickListener implements OnItemClickListener<Bottom
   }
 
   @Override
-  public final void onItemClick(@NonNull View v, @NonNull BottomSheetItem item)
+  public void onItemClick(@NonNull View v, @NonNull BottomSheetItem item)
   {
     Mode mode = item.getMode();
     SharedPropertiesUtils.setLayerMarkerShownForLayerMode(v.getContext(), mode);

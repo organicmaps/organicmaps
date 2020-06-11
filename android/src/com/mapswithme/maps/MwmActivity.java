@@ -136,6 +136,7 @@ import com.mapswithme.maps.widget.menu.MenuController;
 import com.mapswithme.maps.widget.menu.MenuControllerFactory;
 import com.mapswithme.maps.widget.menu.MenuStateObserver;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
+import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
@@ -192,7 +193,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                WelcomeDialogFragment.OnboardingStepPassedListener,
                OnIsolinesLayerToggleListener,
                OnGuidesLayerToggleListener,
-               GuidesGalleryListener
+               GuidesGalleryListener,
+               NoConnectionListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -553,7 +555,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 
     mMainMenuController = MenuControllerFactory.createMainMenuController(new MainMenuStateObserver(),
-                                                                         new MainMenuOptionSelectedListener());
+                                                                         new MainMenuOptionSelectedListener(),
+                                                                         this);
     mMainMenuController.initialize(findViewById(R.id.coordinator));
 
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
@@ -585,6 +588,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState == null)
       tryToShowAdditionalViewOnTop();
+  }
+
+  @Override
+  public void onNoConnectionError()
+  {
+    DialogInterface.OnClickListener listener = (dialog, which) -> {};
+    DialogUtils.showAlertDialog(this, R.string.common_check_internet_connection_dialog_title,
+                                R.string.common_check_internet_connection_dialog,
+                                R.string.ok, listener);
   }
 
   private void initControllersAndValidatePurchases(@Nullable Bundle savedInstanceState)
@@ -1495,7 +1507,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void onGuidesFatalError()
   {
-    Mode.GUIDES.setEnabled(getApplicationContext(), false);
     mToggleMapLayerController.turnOff();
     RecyclerView bottomSheetRecycler = findViewById(R.id.layers_recycler);
     Objects.requireNonNull(bottomSheetRecycler.getAdapter()).notifyDataSetChanged();

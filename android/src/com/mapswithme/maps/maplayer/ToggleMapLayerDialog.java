@@ -19,6 +19,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
+import com.mapswithme.maps.maplayer.guides.AbstractGuidesClickListener;
+import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 
 import java.util.Objects;
@@ -154,11 +156,11 @@ public class ToggleMapLayerDialog extends DialogFragment
     }
   }
 
-  private class GuidesItemClickListener extends DefaultClickListener
+  private class GuidesItemClickListener extends AbstractGuidesClickListener
   {
     private GuidesItemClickListener()
     {
-      super(mAdapter);
+      super(mAdapter, (NoConnectionListener) requireActivity());
     }
 
     @Override
