@@ -1067,8 +1067,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     MWMEditorAdditionalNamesTableViewController * dvc = segue.destinationViewController;
     [dvc configWithDelegate:self
                                name:m_mapObject.GetNameMultilang()
-        additionalSkipLanguageCodes:m_newAdditionalLanguages
-               selectedLanguageCode:((NSNumber *)sender).integerValue];
+        additionalSkipLanguageCodes:m_newAdditionalLanguages];
   }
 }
 
