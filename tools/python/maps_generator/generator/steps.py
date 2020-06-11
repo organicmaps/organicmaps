@@ -316,6 +316,7 @@ def step_routing_transit(env: Env, country: AnyStr, **kwargs):
         transit_path=env.paths.transit_path,
         transit_path_experimental=env.paths.transit_path_experimental,
         make_transit_cross_mwm=True,
+        make_transit_cross_mwm_experimental=env.paths.transit_path_experimental,
         output=country,
         **kwargs,
     )

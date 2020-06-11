@@ -41,6 +41,7 @@ class GenTool:
         "make_cross_mwm": bool,
         "make_routing_index": bool,
         "make_transit_cross_mwm": bool,
+        "make_transit_cross_mwm_experimental": bool,
         "preprocess": bool,
         "split_by_polygons": bool,
         "type_statistics": bool,
