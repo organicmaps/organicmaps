@@ -10,6 +10,7 @@
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "coding/bit_streams.hpp"
 #include "coding/byte_stream.hpp"
@@ -299,6 +300,15 @@ void FeatureBuilder::RemoveUselessNames()
       pair<int, int> const range = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
       if (range.first == -1)
         m_params.name.Clear();
+    }
+
+    // We want to skip alt_name which is almost equal to name.
+    std::string altName;
+    std::string name;
+    if (m_params.name.GetString("alt_name", altName) && m_params.name.GetString("default", name) &&
+        search::NormalizeAndSimplifyString(altName) == search::NormalizeAndSimplifyString(name))
+    {
+      m_params.name.RemoveString("alt_name");
     }
   }
 }

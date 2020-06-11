@@ -284,3 +284,62 @@ UNIT_TEST(FeatureBuilder_SerializeAccuratelyForIntermediate)
   TEST(fb2.IsValid(), (fb2));
   TEST(fb1.IsExactEq(fb2), ());
 }
+
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
+{
+  auto const kDefault = StringUtf8Multilang::kDefaultCode;
+  auto const kAltName = StringUtf8Multilang::GetLangIndex("alt_name");
+
+  {
+    FeatureBuilderParams params;
+
+    char const * arr[][2] = {{"amenity", "shop"}};
+    AddTypes(params, arr);
+    params.FinishAddingTypes();
+
+    // We should remove alt_name which is almost equal to name.
+    params.AddName("default", "Перекрёсток");
+    params.AddName("alt_name", "Перекресток");
+
+    FeatureBuilder fb;
+    fb.SetParams(params);
+
+    fb.SetCenter(m2::PointD(0.0, 0.0));
+
+    TEST(!fb.GetName(kDefault).empty(), ());
+    TEST(!fb.GetName(kAltName).empty(), ());
+
+    fb.RemoveUselessNames();
+
+    TEST(!fb.GetName(kDefault).empty(), ());
+    TEST(fb.GetName(kAltName).empty(), ());
+
+    TEST(fb.IsValid(), (fb));
+  }
+  {
+    FeatureBuilderParams params;
+
+    char const * arr[][2] = {{"amenity", "shop"}};
+    AddTypes(params, arr);
+    params.FinishAddingTypes();
+
+    // We should not remove alt_name which differs from name.
+    params.AddName("default", "Государственный Универсальный Магазин");
+    params.AddName("alt_name", "ГУМ");
+
+    FeatureBuilder fb;
+    fb.SetParams(params);
+
+    fb.SetCenter(m2::PointD(0.0, 0.0));
+
+    TEST(!fb.GetName(kDefault).empty(), ());
+    TEST(!fb.GetName(StringUtf8Multilang::GetLangIndex("alt_name")).empty(), ());
+
+    fb.RemoveUselessNames();
+
+    TEST(!fb.GetName(kDefault).empty(), ());
+    TEST(!fb.GetName(kAltName).empty(), ());
+
+    TEST(fb.IsValid(), (fb));
+  }
+}
