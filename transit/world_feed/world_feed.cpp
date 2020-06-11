@@ -686,7 +686,7 @@ bool WorldFeed::FillLinesAndShapes()
     data.m_shapeId = shapeId;
     data.m_gtfsTripId = trip.trip_id;
     data.m_gtfsServiceId = trip.service_id;
-    // data.m_intervals and data.m_schedule will be filled on the next steps.
+    // |m_stopIds|, |m_intervals| and |m_serviceDays| will be filled on the next steps.
     it->second = data;
 
     m_gtfsIdToHash[TripsIdx].emplace(trip.trip_id, lineHash);

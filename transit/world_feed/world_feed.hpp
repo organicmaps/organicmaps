@@ -153,7 +153,8 @@ struct StopData
 
   m2::PointD m_point;
   Translations m_title;
-  // For each line id there is a schedule.
+  // If arrival time at a specific stop for a specific trip on a route is not available,
+  // |m_timetable| can be left empty.
   std::unordered_map<TransitId, osmoh::OpeningHours> m_timetable;
 
   // Field not intended for dumping to json:
@@ -345,7 +346,7 @@ private:
 
   // Adds shape with mercator points instead of WGS83 lat/lon.
   bool AddShape(GtfsIdToHash::iterator & iter, std::string const & gtfsShapeId, TransitId lineId);
-  // Fills stops data and builds corresponding edges for the road graph.
+  // Fills stops data, corresponding fields in |m_lines| and builds edges for the road graph.
   bool FillStopsEdges();
 
   // Generates globally unique id and hash for the stop by its |stopGtfsId|.
