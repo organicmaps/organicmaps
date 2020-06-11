@@ -1554,7 +1554,7 @@ void Geocoder::FindPaths(BaseContext & ctx)
       if (tokenType == BaseContext::TokenType::TOKEN_TYPE_SUBPOI)
         id = result.m_subpoi;
       if (tokenType == BaseContext::TokenType::TOKEN_TYPE_COMPLEX_POI)
-        id = result.m_complex_poi;
+        id = result.m_complexPoi;
       if (tokenType == BaseContext::TokenType::TOKEN_TYPE_STREET)
         id = result.m_street;
 

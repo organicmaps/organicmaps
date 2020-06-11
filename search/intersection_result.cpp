@@ -12,7 +12,7 @@ void IntersectionResult::Set(Model::Type type, uint32_t id)
   switch (type)
   {
   case Model::TYPE_SUBPOI: m_subpoi = id; break;
-  case Model::TYPE_COMPLEX_POI: m_complex_poi = id; break;
+  case Model::TYPE_COMPLEX_POI: m_complexPoi = id; break;
   case Model::TYPE_BUILDING: m_building = id; break;
   case Model::TYPE_STREET: m_street = id; break;
   case Model::TYPE_SUBURB: m_suburb = id; break;
@@ -29,8 +29,8 @@ uint32_t IntersectionResult::InnermostResult() const
 {
   if (m_subpoi != kInvalidId)
     return m_subpoi;
-  if (m_complex_poi != kInvalidId)
-    return m_complex_poi;
+  if (m_complexPoi != kInvalidId)
+    return m_complexPoi;
   if (m_building != kInvalidId)
     return m_building;
   if (m_street != kInvalidId)
@@ -43,7 +43,7 @@ uint32_t IntersectionResult::InnermostResult() const
 void IntersectionResult::Clear()
 {
   m_subpoi = kInvalidId;
-  m_complex_poi = kInvalidId;
+  m_complexPoi = kInvalidId;
   m_building = kInvalidId;
   m_street = kInvalidId;
   m_suburb = kInvalidId;
@@ -55,8 +55,8 @@ std::string DebugPrint(IntersectionResult const & result)
   os << "IntersectionResult [ ";
   if (result.m_subpoi != IntersectionResult::kInvalidId)
     os << "SUBPOI:" << result.m_subpoi << " ";
-  if (result.m_complex_poi != IntersectionResult::kInvalidId)
-    os << "COMPLEX_POI:" << result.m_complex_poi << " ";
+  if (result.m_complexPoi != IntersectionResult::kInvalidId)
+    os << "COMPLEX_POI:" << result.m_complexPoi << " ";
   if (result.m_building != IntersectionResult::kInvalidId)
     os << "BUILDING:" << result.m_building << " ";
   if (result.m_street != IntersectionResult::kInvalidId)

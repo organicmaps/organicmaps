@@ -27,7 +27,7 @@ struct IntersectionResult
   void Clear();
 
   uint32_t m_subpoi = kInvalidId;
-  uint32_t m_complex_poi = kInvalidId;
+  uint32_t m_complexPoi = kInvalidId;
   uint32_t m_building = kInvalidId;
   uint32_t m_street = kInvalidId;
   uint32_t m_suburb = kInvalidId;

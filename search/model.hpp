@@ -28,7 +28,8 @@ public:
   enum Type
   {
     // Low-level features such as amenities, offices, shops, buildings without house number, etc.
-    // Can be located inside COMPLEX_POIs. E.g. cafes/shops inside airports/universities/museums.
+    // Can be stand-alone or located inside COMPLEX_POIs. E.g. cafes/shops inside
+    // airports/universities/museums.
     TYPE_SUBPOI,
 
     // Big pois which can contain SUBPOIs. E.g. airports, train stations, malls, parks.
