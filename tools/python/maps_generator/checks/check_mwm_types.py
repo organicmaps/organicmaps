@@ -38,9 +38,9 @@ def get_mwm_type_check_set(
     )
 
 
-def get_all_mwm_types_check_set(old_path: str, new_path: str) -> check.CompareCheckSet:
+def get_mwm_types_check_set(old_path: str, new_path: str) -> check.CompareCheckSet:
     """
-    Returns a all mwm types check set, that checks a difference in a number of
+    Returns a mwm types check set, that checks a difference in a number of
     each type between old mwms and new mwms.
     """
     cs = check.CompareCheckSet("Mwm types check")

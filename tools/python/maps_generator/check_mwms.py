@@ -2,13 +2,14 @@ import argparse
 import sys
 
 from maps_generator.checks.default_check_set import CheckType
+from maps_generator.checks.default_check_set import MwmsChecks
 from maps_generator.checks.default_check_set import get_mwm_check_sets_and_filters
 from maps_generator.checks.default_check_set import run_checks_and_print_results
 
 
 def get_args():
     parser = argparse.ArgumentParser(
-        description="This script checks maps generation and prints results."
+        description="This script checks mwms and prints results."
     )
     parser.add_argument(
         "--old", type=str, required=True, help="Path to old mwm directory.",
@@ -19,13 +20,21 @@ def get_args():
     parser.add_argument(
         "--categories", type=str, required=True, help="Path to categories file.",
     )
-
+    parser.add_argument(
+        "--checks",
+        action="store",
+        type=str,
+        nargs="*",
+        default=None,
+        help=f"Set of checks: {', '.join(c.name for c in MwmsChecks)}. "
+        f"By default, all checks will run.",
+    )
     parser.add_argument(
         "--level",
         type=str,
         required=False,
         choices=("low", "medium", "hard", "strict"),
-        default="hard",
+        default="medium",
         help="Messages level.",
     )
     parser.add_argument(
@@ -41,7 +50,10 @@ def get_args():
 def main():
     args = get_args()
 
-    s = get_mwm_check_sets_and_filters(args.old, args.new, args.categories)
+    checks = {MwmsChecks[c] for c in args.checks} if args.checks is not None else None
+    s = get_mwm_check_sets_and_filters(
+        args.old, args.new, checks, categories_path=args.categories
+    )
     run_checks_and_print_results(
         s,
         CheckType[args.level],
