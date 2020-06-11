@@ -46,10 +46,7 @@ bool IdBundle::operator<(IdBundle const & rhs) const
   if (m_serializeFeatureIdOnly)
     return m_featureId < rhs.m_featureId;
 
-  if (m_featureId != rhs.m_featureId)
-    return m_featureId < rhs.m_featureId;
-
-  return m_osmId < rhs.m_osmId;
+  return std::tie(m_featureId, m_osmId) < std::tie(rhs.m_featureId, rhs.m_osmId);
 }
 
 bool IdBundle::operator==(IdBundle const & rhs) const
@@ -192,8 +189,7 @@ bool Stop::operator==(Stop const & rhs) const
 
 bool Stop::IsValid() const
 {
-  return ((m_id != kInvalidTransitId) || (m_ids.GetOsmId() != kInvalidOsmId)) &&
-         !m_timetable.empty() && !m_title.empty();
+  return ((m_id != kInvalidTransitId) || (m_ids.GetOsmId() != kInvalidOsmId)) && !m_title.empty();
 }
 
 FeatureId Stop::GetId() const { return m_id; }
