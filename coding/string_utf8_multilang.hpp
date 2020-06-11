@@ -86,6 +86,8 @@ public:
   static int8_t constexpr kDefaultCode = 0;
   static int8_t constexpr kEnglishCode = 1;
   static int8_t constexpr kInternationalCode = 7;
+  static int8_t constexpr kAltNameCode = 53;
+  static int8_t constexpr kOldNameCode = 55;
   /// How many languages we support on indexing stage. See full list in cpp file.
   /// TODO(AlexZ): Review and replace invalid languages by valid ones.
   static int8_t constexpr kMaxSupportedLanguages = 64;

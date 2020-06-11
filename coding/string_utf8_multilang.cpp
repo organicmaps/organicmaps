@@ -104,6 +104,9 @@ StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguage
   // Asserts for generic class constants.
   ASSERT_EQUAL(kLanguages[kDefaultCode].m_code, string("default"), ());
   ASSERT_EQUAL(kLanguages[kInternationalCode].m_code, string("int_name"), ());
+  ASSERT_EQUAL(kLanguages[kAltNameCode].m_code, string("alt_name"), ());
+  ASSERT_EQUAL(kLanguages[kOldNameCode].m_code, string("old_name"), ());
+  ASSERT_EQUAL(kLanguages[kEnglishCode].m_code, string("en"), ());
   static StringUtf8Multilang::Languages languages;
   if (languages.empty())
   {
