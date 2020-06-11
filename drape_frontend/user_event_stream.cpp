@@ -398,7 +398,8 @@ bool UserEventStream::OnSetRect(ref_ptr<SetRectEvent> rectEvent)
 bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
 {
   m2::PointD const & center = centerEvent->GetCenter();
-  double zoom = centerEvent->GetZoom();
+  auto const zoom = centerEvent->GetZoom();
+  auto const scaleFactor = centerEvent->GetScaleFactor();
 
   if (centerEvent->TrackVisibleViewport())
   {
@@ -408,14 +409,19 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
 
   ScreenBase screen = GetCurrentScreen();
 
-  if (zoom == kDoNotChangeZoom)
+  if (zoom != kDoNotChangeZoom)
   {
-    GetTargetScreen(screen);
+    screen.SetFromParams(center, screen.GetAngle(), GetScreenScale(zoom));
     screen.MatchGandP3d(center, m_visibleViewport.Center());
+  }
+  else if (scaleFactor > 0.0)
+  {
+    screen.SetOrg(center);
+    ApplyScale(m_visibleViewport.Center(), scaleFactor, screen);
   }
   else
   {
-    screen.SetFromParams(center, screen.GetAngle(), GetScreenScale(zoom));
+    GetTargetScreen(screen);
     screen.MatchGandP3d(center, m_visibleViewport.Center());
   }
 

@@ -390,8 +390,9 @@ void GuidesManager::UpdateGuidesMarks()
 
 void GuidesManager::OnClusterSelected(GuidesClusterMark const & mark, ScreenBase const & screen)
 {
-  m_drapeEngine.SafeCall(&df::DrapeEngine::Scale, 2.0, screen.GtoP(mark.GetPivot()),
-                         true /* isAnim */);
+  m_drapeEngine.SafeCall(&df::DrapeEngine::ScaleAndSetCenter, mark.GetPivot(),
+                         2.0 /* scaleFactor */, true /* isAnim */,
+                         false /* trackVisibleViewport */);
   m_statistics.LogItemSelected(LayersStatistics::LayerItemType::Cluster);
 }
 
