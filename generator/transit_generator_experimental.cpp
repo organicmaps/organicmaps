@@ -75,24 +75,24 @@ std::vector<routing::Edge> GetBestPedestrianEdges(D const & destination, C && co
                                                   std::unique_ptr<WorldGraph> & worldGraph,
                                                   CountryId const & countryId)
 {
+  std::vector<routing::Edge> edges;
+
   if (countryFileGetter(destination.GetPoint()) != countryId)
-    return {};
+    return edges;
 
   // For pedestrian routing all the segments are considered as two-way segments so
   // IndexRouter::FindBestSegments() finds the same segments for |isOutgoing| == true
   // and |isOutgoing| == false.
-  std::vector<routing::Edge> bestEdges;
   try
   {
     if (countryFileGetter(destination.GetPoint()) != countryId)
-      return {};
+      return edges;
 
     bool dummy = false;
     indexRouter.FindBestEdges(destination.GetPoint(), platform::CountryFile(countryId),
                               m2::PointD::Zero() /* direction */, true /* isOutgoing */,
-                              FeaturesRoadGraph::kClosestEdgesRadiusM, *worldGraph, bestEdges,
-                              dummy);
-    return bestEdges;
+                              FeaturesRoadGraph::kClosestEdgesRadiusM, *worldGraph, edges, dummy);
+    return edges;
   }
   catch (MwmIsNotAliveException const & e)
   {
@@ -105,7 +105,7 @@ std::vector<routing::Edge> GetBestPedestrianEdges(D const & destination, C && co
                     "Destination", mercator::ToLatLon(destination.GetPoint()), e.what()));
   }
 
-  return {};
+  return edges;
 }
 
 /// \brief Calculates best pedestrians segments for gates and stops which are imported from GTFS.

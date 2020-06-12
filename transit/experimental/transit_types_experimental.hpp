@@ -68,6 +68,8 @@ public:
   uint32_t GetSegmentIdx() const { return m_segmentIdx; }
   bool IsForward() const { return m_forward; }
 
+  bool operator==(SingleMwmSegment const & rhs) const;
+
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(SingleMwmSegment, visitor(m_featureId, "feature_id"),
@@ -151,6 +153,7 @@ public:
 
   TransitId GetId() const;
   std::string const GetTitle() const;
+  Translations const & GetTitles() const;
 
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
@@ -174,6 +177,7 @@ public:
 
   TransitId GetId() const;
   std::string const GetTitle() const;
+  Translations const & GetTitles() const;
   std::string const & GetType() const;
   std::string const & GetColor() const;
   TransitId GetNetworkId() const;
@@ -205,7 +209,9 @@ public:
 
   TransitId GetId() const;
   std::string GetNumber() const;
+  Translations const & GetNumbers() const;
   std::string GetTitle() const;
+  Translations const & GetTitles() const;
   TransitId GetRouteId() const;
   ShapeLink const & GetShapeLink() const;
   IdList const & GetStopIds() const;
@@ -281,8 +287,10 @@ public:
 
   bool IsValid() const;
 
+  TransitId GetId() const;
   FeatureId GetFeatureId() const;
   OsmId GetOsmId() const;
+  
   std::vector<SingleMwmSegment> const & GetBestPedestrianSegments() const;
   void SetBestPedestrianSegments(std::vector<SingleMwmSegment> const & seg);
 

@@ -38,6 +38,12 @@ SingleMwmSegment::SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, boo
 {
 }
 
+bool SingleMwmSegment::operator==(SingleMwmSegment const & rhs) const
+{
+  return std::tie(m_featureId, m_segmentIdx, m_forward) ==
+         std::tie(rhs.m_featureId, rhs.m_segmentIdx, rhs.m_forward);
+}
+
 // IdBundle ----------------------------------------------------------------------------------------
 IdBundle::IdBundle(bool serializeFeatureIdOnly) : m_serializeFeatureIdOnly(serializeFeatureIdOnly)
 {
@@ -98,6 +104,8 @@ TransitId Network::GetId() const { return m_id; }
 
 std::string const Network::GetTitle() const { return GetTranslation(m_title); }
 
+Translations const & Network::GetTitles() const { return m_title; }
+
 // Route -------------------------------------------------------------------------------------------
 Route::Route(TransitId id, TransitId networkId, std::string const & routeType,
              Translations const & title, std::string const & color)
@@ -117,6 +125,8 @@ bool Route::IsValid() const
 TransitId Route::GetId() const { return m_id; }
 
 std::string const Route::GetTitle() const { return GetTranslation(m_title); }
+
+Translations const & Route::GetTitles() const { return m_title; }
 
 std::string const & Route::GetType() const { return m_routeType; }
 
@@ -153,7 +163,11 @@ TransitId Line::GetId() const { return m_id; }
 
 std::string Line::GetNumber() const { return GetTranslation(m_number); }
 
+Translations const & Line::GetNumbers() const { return m_number; }
+
 std::string Line::GetTitle() const { return GetTranslation(m_title); }
+
+Translations const & Line::GetTitles() const { return m_title; }
 
 TransitId Line::GetRouteId() const { return m_routeId; }
 
@@ -263,6 +277,8 @@ void Gate::SetBestPedestrianSegments(std::vector<SingleMwmSegment> const & seg)
 FeatureId Gate::GetFeatureId() const { return m_ids.GetFeatureId(); }
 
 OsmId Gate::GetOsmId() const { return m_ids.GetOsmId(); }
+
+TransitId Gate::GetId() const { return m_id; }
 
 std::vector<SingleMwmSegment> const & Gate::GetBestPedestrianSegments() const
 {

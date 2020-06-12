@@ -11,7 +11,6 @@
 #include <fstream>
 #include <tuple>
 
-#include "3party/jansson/myjansson.hpp"
 #include "3party/opening_hours/opening_hours.hpp"
 
 namespace transit
@@ -90,7 +89,7 @@ std::vector<TimeFromGateToStop> GetWeightsFromJson(json_t * obj)
 
   size_t const count = json_array_size(arr);
   std::vector<TimeFromGateToStop> weights;
-  weights.resize(count);
+  weights.reserve(count);
 
   for (size_t i = 0; i < count; ++i)
   {
@@ -113,7 +112,7 @@ IdList GetStopIdsFromJson(json_t * obj)
 
   size_t const count = json_array_size(arr);
   IdList stopIds;
-  stopIds.resize(count);
+  stopIds.reserve(count);
 
   for (size_t i = 0; i < count; ++i)
   {

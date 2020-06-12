@@ -6,7 +6,6 @@
 #include "transit/transit_types.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <memory>
 #include <string>

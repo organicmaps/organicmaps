@@ -45,6 +45,11 @@ using Translations = std::unordered_map<std::string, std::string>;
 
 struct TimeFromGateToStop
 {
+  TimeFromGateToStop() = default;
+  TimeFromGateToStop(TransitId stopId, size_t timeSeconds)
+    : m_stopId(stopId), m_timeSeconds(timeSeconds)
+  {
+  }
   bool operator==(TimeFromGateToStop const & rhs) const
   {
     return std::tie(m_stopId, m_timeSeconds) == std::tie(rhs.m_stopId, rhs.m_timeSeconds);
@@ -58,6 +63,12 @@ struct TimeFromGateToStop
 
 struct LineInterval
 {
+  LineInterval() = default;
+  LineInterval(size_t headwayS, osmoh::OpeningHours const & timeIntervals)
+    : m_headwayS(headwayS), m_timeIntervals(timeIntervals)
+  {
+  }
+
   bool operator==(LineInterval const & rhs) const
   {
     return std::tie(m_headwayS, m_timeIntervals) == std::tie(rhs.m_headwayS, rhs.m_timeIntervals);
@@ -81,6 +92,12 @@ using EdgeWeight = uint32_t;
 // Link to the shape: shape id and indexes in the corresponding polyline.
 struct ShapeLink
 {
+  ShapeLink() = default;
+  ShapeLink(TransitId id, size_t startIndex, size_t endIndex)
+    : m_shapeId(id), m_startIndex(startIndex), m_endIndex(endIndex)
+  {
+  }
+
   bool operator==(ShapeLink const & rhs) const
   {
     return std::tie(m_shapeId, m_startIndex, m_endIndex) ==

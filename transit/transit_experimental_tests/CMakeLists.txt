@@ -1,11 +1,9 @@
-project(transit_tests)
+project(transit_experimental_tests)
 
 set(
   SRC
-  transit_graph_test.cpp
-  transit_json_parsing_test.cpp
-  transit_test.cpp
-  transit_tools.hpp
+  parse_transit_from_json_tests.cpp
+  transit_serdes_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

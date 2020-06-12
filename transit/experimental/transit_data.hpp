@@ -19,11 +19,23 @@
 #include <type_traits>
 #include <vector>
 
+#include "3party/jansson/myjansson.hpp"
+
 namespace transit
 {
 namespace experimental
 {
 using OsmIdToFeatureIdsMap = std::map<base::GeoObjectId, std::vector<FeatureId>>;
+
+// Functions for parsing one line of line-by-line json and creating corresponding item in container.
+void Read(base::Json const & obj, std::vector<Network> & networks);
+void Read(base::Json const & obj, std::vector<Route> & routes);
+void Read(base::Json const & obj, std::vector<Line> & lines);
+void Read(base::Json const & obj, std::vector<Stop> & stops, OsmIdToFeatureIdsMap const & mapping);
+void Read(base::Json const & obj, std::vector<Shape> & shapes);
+void Read(base::Json const & obj, std::vector<Edge> & edges);
+void Read(base::Json const & obj, std::vector<Transfer> & transfers);
+void Read(base::Json const & obj, std::vector<Gate> & gates, OsmIdToFeatureIdsMap const & mapping);
 
 /// \brief The class contains all the information to make TRANSIT_FILE_TAG section.
 class TransitData
@@ -52,6 +64,7 @@ public:
   std::vector<Transfer> const & GetTransfers() const { return m_transfers; }
   std::vector<Line> const & GetLines() const { return m_lines; }
   std::vector<Shape> const & GetShapes() const { return m_shapes; }
+  std::vector<Route> const & GetRoutes() const { return m_routes; }
   std::vector<Network> const & GetNetworks() const { return m_networks; }
 
 private:
@@ -59,7 +72,7 @@ private:
                                   visitor(m_edges, "edges"), visitor(m_transfers, "transfers"),
                                   visitor(m_lines, "lines"), visitor(m_shapes, "shapes"),
                                   visitor(m_networks, "networks"), visitor(m_routes, "routes"))
-
+  friend TransitData FillTestTransitData();
   /// \brief Reads transit form |src|.
   /// \note Before calling any of the method except for ReadHeader() |m_header| has to be filled.
   void ReadHeader(NonOwningReaderSource & src);
