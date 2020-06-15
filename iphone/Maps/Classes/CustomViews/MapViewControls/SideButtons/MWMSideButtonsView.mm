@@ -111,6 +111,8 @@ CGFloat const kButtonsBottomOffset = 6;
   CGFloat const minX = zoomHidden ? self.width + kViewControlsOffsetToBounds : 0.0;
   self.zoomIn.minX = minX;
   self.zoomOut.minX = minX;
+  self.zoomIn.hidden = zoomHidden;
+  self.zoomOut.hidden = zoomHidden;
   [self setNeedsLayout];
 }
 
