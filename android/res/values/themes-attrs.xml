@@ -94,9 +94,6 @@
     <attr name="guidesDistance" format="reference" />
     <attr name="bgRectangleView" format="reference" />
     <attr name="bgRoundedCard" format="reference" />
-    <attr name="guidesIcon" format="reference"></attr>
-    <attr name="guidesMenuDisabled" format="reference"></attr>
-    <attr name="bgBoughtContent" format="reference"></attr>
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.NavButtons">
     <attr name="nav_background" format="reference" />
@@ -129,6 +126,15 @@
     <attr name="elevationProfileSelectedPointBg" format="reference" />
     <attr name="elevationProfileSelectedPointTriangle" format="reference" />
     <attr name="elevationProfileFloatingTriangle" format="reference" />
+  </declare-styleable>
+  <declare-styleable name="ThemeAttrs.GuidesGallery">
+    <attr name="guidesIcon" format="reference" />
+    <attr name="guidesMenuDisabled" format="reference" />
+    <attr name="bgBoughtContent" format="reference" />
+    <attr name="subtitleCityColor" format="color" />
+    <attr name="subtitleOutdoorColor" format="color" />
+    <attr name="cityCheckbox" format="reference" />
+    <attr name="outdoorCheckbox" format="reference" />
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.Fonts">
     <attr name="fontHeadline1" format="reference" />

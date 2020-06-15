@@ -16,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
@@ -658,7 +660,12 @@ public class Holders
           BookmarkManager.INSTANCE.getCategoryByServerId(item.getGuideId());
       mBoughtContentBtn.setText(category.isVisible() ? R.string.hide : R.string.show);
       boolean isCity = item.getGuideType() == GuidesGallery.Type.City;
-      mBoughtContentCheckbox.setImageResource(isCity ? R.drawable.ic_claim_city : R.drawable.ic_claim);
+      Context context = mBoughtContentBtn.getContext();
+      @DrawableRes
+      int drawableRes =
+          ThemeUtils.getResource(context, isCity ? R.attr.cityCheckbox
+                                                 : R.attr.outdoorCheckbox);
+      mBoughtContentCheckbox.setImageResource(drawableRes);
     }
 
     private void bindOutdoorBlock(@NonNull GuidesGallery.OutdoorParams params)
@@ -721,7 +728,8 @@ public class Holders
     }
 
     @NonNull
-    private static Spannable makeSubtitle(Context context, @NonNull GuidesGallery.Item item)
+    private static Spannable makeSubtitle(@NonNull Context context,
+                                          @NonNull GuidesGallery.Item item)
     {
       boolean isCity = item.getGuideType() == GuidesGallery.Type.City;
       SpannableStringBuilder builder =
@@ -729,8 +737,10 @@ public class Holders
                                             : context.getString(R.string.routes_card_outdoor));
 
       Resources res = context.getResources();
-      int color = isCity ? res.getColor(R.color.city_color)
-                         : res.getColor(R.color.outdoor_color);
+
+      @ColorInt
+      int color = isCity ? ThemeUtils.getColor(context, R.attr.subtitleCityColor)
+                         : ThemeUtils.getColor(context, R.attr.subtitleOutdoorColor);
 
       builder.setSpan(new ForegroundColorSpan(color), 0, builder.length(),
                       Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

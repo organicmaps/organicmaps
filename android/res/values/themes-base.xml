@@ -186,6 +186,10 @@
     <item name="bgBoughtContent">@drawable/bg_bought_content</item>
     <item name="guidesMenuDisabled">@drawable/guides_layer_default_light</item>
     <item name="guidesIcon">@drawable/bg_guides_light</item>
+    <item name="subtitleCityColor">@color/city_color</item>
+    <item name="subtitleOutdoorColor">@color/outdoor_color</item>
+    <item name="outdoorCheckbox">@drawable/ic_claim</item>
+    <item name="cityCheckbox">@drawable/ic_claim_city</item>
   </style>
 
   <!-- Night theme -->
@@ -371,5 +375,9 @@
     <item name="guidesIcon">@drawable/bg_guides_night</item>
     <item name="guidesMenuDisabled">@drawable/guides_layer_default_dark</item>
     <item name="bgBoughtContent">@drawable/bg_bought_content_night</item>
+    <item name="subtitleCityColor">@color/city_color_night</item>
+    <item name="subtitleOutdoorColor">@color/outdoor_color_night</item>
+    <item name="outdoorCheckbox">@drawable/ic_claim_night</item>
+    <item name="cityCheckbox">@drawable/ic_claim_city_night</item>
   </style>
 </resources>

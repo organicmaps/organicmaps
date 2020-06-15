@@ -233,4 +233,6 @@
   <color name="skyeng_button">#4287DF</color>
   <color name="city_color">#9B24B2</color>
   <color name="outdoor_color">#3C8C3C</color>
+  <color name="city_color_night">#9867FC</color>
+  <color name="outdoor_color_night">#93BF39</color>
 </resources>
