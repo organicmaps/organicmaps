@@ -57,6 +57,8 @@ void ParseGallery(std::string const & src, guides_on_map::GuidesOnMap & result)
       FromJSONObjectOptionalField(extraObj, "bookmark_count", info.m_bookmarksCount);
       FromJSONObject(extraObj, "has_track", info.m_hasTrack);
       FromJSONObjectOptionalField(extraObj, "tracks_length", info.m_tracksLength);
+      // Convert kilometers to meters.
+      info.m_tracksLength *= 1000;
       auto const durationObj = json_object_get(extraObj, "tour_duration");
       if (json_is_object(durationObj))
       {
