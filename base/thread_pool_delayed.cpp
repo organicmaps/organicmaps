@@ -72,7 +72,7 @@ TaskLoop::TaskId ThreadPool::AddDelayed(Duration const & delay, T && task)
   auto const when = Now() + delay;
   return AddTask([&]() {
     auto const newId = MakeNextId(m_delayedLastId, kDelayedMinId, kDelayedMaxId);
-    m_delayed.emplace(newId, when, forward<T>(task));
+    m_delayed.Add(newId, make_shared<DelayedTask>(newId, when, forward<T>(task)));
     m_delayedLastId = newId;
     return newId;
   });
@@ -101,16 +101,16 @@ void ThreadPool::ProcessTasks()
 
     {
       unique_lock<mutex> lk(m_mu);
-      if (!m_delayed.empty())
+      if (!m_delayed.IsEmpty())
       {
         // We need to wait until the moment when the earliest delayed
         // task may be executed, given that an immediate task or a
         // delayed task with an earlier execution time may arrive
         // while we are waiting.
-        auto const when = m_delayed.cbegin()->m_when;
+        auto const when = m_delayed.GetFirstValue()->m_when;
         m_cv.wait_until(lk, when, [this, when]() {
-          return m_shutdown || !m_immediate.IsEmpty() || m_delayed.empty() ||
-                 (!m_delayed.empty() && m_delayed.cbegin()->m_when < when);
+          return m_shutdown || !m_immediate.IsEmpty() || m_delayed.IsEmpty() ||
+                 (!m_delayed.IsEmpty() && m_delayed.GetFirstValue()->m_when < when);
         });
       }
       else
@@ -118,7 +118,7 @@ void ThreadPool::ProcessTasks()
         // When there are no delayed tasks in the queue, we need to
         // wait until there is at least one immediate or delayed task.
         m_cv.wait(lk,
-                  [this]() { return m_shutdown || !m_immediate.IsEmpty() || !m_delayed.empty(); });
+                  [this]() { return m_shutdown || !m_immediate.IsEmpty() || !m_delayed.IsEmpty(); });
       }
 
       if (m_shutdown)
@@ -129,8 +129,8 @@ void ThreadPool::ProcessTasks()
           ASSERT(pendingImmediate.IsEmpty(), ());
           m_immediate.Swap(pendingImmediate);
 
-          ASSERT(pendingDelayed.empty(), ());
-          m_delayed.swap(pendingDelayed);
+          ASSERT(pendingDelayed.IsEmpty(), ());
+          m_delayed.Swap(pendingDelayed);
           break;
         case Exit::SkipPending: break;
         }
@@ -139,7 +139,8 @@ void ThreadPool::ProcessTasks()
       }
 
       auto const canExecImmediate = !m_immediate.IsEmpty();
-      auto const canExecDelayed = !m_delayed.empty() && Now() >= m_delayed.cbegin()->m_when;
+      auto const canExecDelayed =
+          !m_delayed.IsEmpty() && Now() >= m_delayed.GetFirstValue()->m_when;
 
       if (canExecImmediate)
       {
@@ -149,8 +150,8 @@ void ThreadPool::ProcessTasks()
 
       if (canExecDelayed)
       {
-        tasks[QUEUE_TYPE_DELAYED] = move(m_delayed.cbegin()->m_task);
-        m_delayed.erase(m_delayed.cbegin());
+        tasks[QUEUE_TYPE_DELAYED] = move(m_delayed.GetFirstValue()->m_task);
+        m_delayed.RemoveValue(m_delayed.GetFirstValue());
       }
     }
 
@@ -164,9 +165,9 @@ void ThreadPool::ProcessTasks()
   for (; !pendingImmediate.IsEmpty(); pendingImmediate.PopFront())
     pendingImmediate.Front()();
 
-  while (!pendingDelayed.empty())
+  while (!pendingDelayed.IsEmpty())
   {
-    auto const & top = *pendingDelayed.cbegin();
+    auto const & top = *pendingDelayed.GetFirstValue();
     while (true)
     {
       auto const now = Now();
@@ -178,7 +179,7 @@ void ThreadPool::ProcessTasks()
     ASSERT(Now() >= top.m_when, ());
     top.m_task();
 
-    pendingDelayed.erase(pendingDelayed.cbegin());
+    pendingDelayed.RemoveValue(pendingDelayed.GetFirstValue());
   }
 }
 
@@ -199,14 +200,10 @@ bool ThreadPool::Cancel(TaskId id)
   }
   else
   {
-    for (auto it = m_delayed.begin(); it != m_delayed.end(); ++it)
+    if (m_delayed.RemoveKey(id))
     {
-      if (it->m_id == id)
-      {
-        m_delayed.erase(it);
-        m_cv.notify_one();
-        return true;
-      }
+      m_cv.notify_one();
+      return true;
     }
   }
 

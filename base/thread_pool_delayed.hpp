@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base/assert.hpp"
+#include "base/bidirectional_map.hpp"
 #include "base/linked_map.hpp"
 #include "base/task_loop.hpp"
 #include "base/thread.hpp"
@@ -9,8 +10,10 @@
 #include <chrono>
 #include <condition_variable>
 #include <cstdint>
+#include <map>
+#include <memory>
 #include <mutex>
-#include <set>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -76,7 +79,6 @@ public:
   // Cancels task if it is in queue and is not running yet.
   // Returns false when thread is shut down,
   // task is not found or already running, otherwise true.
-  // The complexity is O(1) for immediate tasks and O(N) for delayed tasks.
   bool Cancel(TaskId id);
 
   // Sends a signal to the thread to shut down. Returns false when the
@@ -107,7 +109,13 @@ private:
     {
     }
 
-    bool operator<(DelayedTask const & rhs) const { return m_when < rhs.m_when; }
+    bool operator<(DelayedTask const & rhs) const
+    {
+      if (m_when == rhs.m_when)
+        return m_id < rhs.m_id;
+
+      return m_when < rhs.m_when;
+    }
     bool operator>(DelayedTask const & rhs) const { return rhs < *this; }
 
     TaskId m_id = kIncorrectId;
@@ -115,8 +123,27 @@ private:
     Task m_task = {};
   };
 
+  template <typename T>
+  struct DeRef
+  {
+    bool operator()(T const & lhs, T const & rhs) const { return *lhs < *rhs; }
+  };
+
   using ImmediateQueue = base::LinkedMap<TaskId, Task>;
-  using DelayedQueue = std::multiset<DelayedTask>;
+
+  using DelayedValue = std::shared_ptr<DelayedTask>;
+  class DelayedQueue : public BidirectionalMap<TaskId, DelayedValue,
+                                              std::unordered_map, std::hash<TaskId>,
+                                              std::multimap, DeRef<DelayedValue>>
+  {
+  public:
+    Value const & GetFirstValue() const
+    {
+      auto const & vTok = GetValuesToKeys();
+      CHECK(!vTok.empty(), ());
+      return vTok.begin()->first;
+    }
+  };
 
   template <typename T>
   TaskId AddImmediate(T && task);
