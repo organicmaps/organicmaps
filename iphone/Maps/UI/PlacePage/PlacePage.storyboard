@@ -3422,6 +3422,12 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="GuidesGalleryCellImage"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routes_gallery_checkmark_bg" translatesAutoresizingMaskIntoConstraints="NO" id="1zd-47-t9G">
+                                                    <rect key="frame" x="14" y="14" width="20" height="20"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="GuidesGalleryCityCheck"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
                                                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routes_gallery_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="OMX-6l-b7h">
                                                     <rect key="frame" x="14" y="14" width="20" height="20"/>
                                                     <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3566,10 +3572,14 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ohu-tQ-2ok" firstAttribute="top" secondItem="SjY-63-Gvr" secondAttribute="top" constant="8" id="2NR-KC-dk4"/>
+                                                <constraint firstItem="1zd-47-t9G" firstAttribute="leading" secondItem="OMX-6l-b7h" secondAttribute="leading" id="7M9-Af-yIm"/>
                                                 <constraint firstItem="ohu-tQ-2ok" firstAttribute="leading" secondItem="XtI-ik-JUp" secondAttribute="trailing" constant="8" id="A8v-bF-QFC"/>
                                                 <constraint firstAttribute="bottom" secondItem="XtI-ik-JUp" secondAttribute="bottom" constant="8" id="Ii8-9B-ujx"/>
+                                                <constraint firstItem="1zd-47-t9G" firstAttribute="trailing" secondItem="OMX-6l-b7h" secondAttribute="trailing" id="MjO-H6-P6X"/>
+                                                <constraint firstItem="1zd-47-t9G" firstAttribute="bottom" secondItem="OMX-6l-b7h" secondAttribute="bottom" id="Rfp-FU-ANR"/>
                                                 <constraint firstItem="XtI-ik-JUp" firstAttribute="leading" secondItem="SjY-63-Gvr" secondAttribute="leading" constant="8" id="WTW-J9-qEh"/>
                                                 <constraint firstItem="XtI-ik-JUp" firstAttribute="top" secondItem="SjY-63-Gvr" secondAttribute="top" constant="8" id="hQD-Pc-iVq"/>
+                                                <constraint firstItem="1zd-47-t9G" firstAttribute="top" secondItem="OMX-6l-b7h" secondAttribute="top" id="jO4-pw-reO"/>
                                                 <constraint firstAttribute="trailing" secondItem="ohu-tQ-2ok" secondAttribute="trailing" constant="8" id="maC-1x-GKe"/>
                                                 <constraint firstAttribute="bottom" secondItem="ohu-tQ-2ok" secondAttribute="bottom" constant="8" id="tZJ-Fs-LuO"/>
                                                 <constraint firstItem="OMX-6l-b7h" firstAttribute="leading" secondItem="XtI-ik-JUp" secondAttribute="leading" constant="6" id="u5N-DQ-caQ"/>
@@ -3584,6 +3594,7 @@
                                         <connections>
                                             <outlet property="buttonContainerView" destination="I2M-Ix-XO6" id="QWa-Nt-qjv"/>
                                             <outlet property="checkmarkImageView" destination="OMX-6l-b7h" id="0xj-lo-13j"/>
+                                            <outlet property="checkmarkImageViewBg" destination="1zd-47-t9G" id="tAN-g1-K1H"/>
                                             <outlet property="imageView" destination="XtI-ik-JUp" id="iSF-Aq-3uK"/>
                                             <outlet property="infoContainerView" destination="NhM-dQ-cOB" id="CTr-bL-8jb"/>
                                             <outlet property="infoLabel" destination="T92-vb-Iw2" id="6qo-x5-pdI"/>
@@ -3606,6 +3617,12 @@
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="GuidesGalleryCellImage"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routes_gallery_checkmark_bg" translatesAutoresizingMaskIntoConstraints="NO" id="BEB-Se-sye">
+                                                    <rect key="frame" x="14" y="14" width="20" height="20"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="GuidesGalleryCityCheck"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routes_gallery_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="pTy-pe-PDg">
@@ -3686,7 +3703,7 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="31Z-sf-Uai">
-                                                                    <rect key="frame" x="0.0" y="7" width="199" height="24"/>
+                                                                    <rect key="frame" x="0.0" y="7" width="211" height="24"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="oOh-PA-Alc">
                                                                             <rect key="frame" x="0.0" y="0.0" width="43" height="24"/>
@@ -3765,7 +3782,7 @@
                                                                             </variation>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aen-MW-yow">
-                                                                            <rect key="frame" x="139" y="0.0" width="60" height="24"/>
+                                                                            <rect key="frame" x="139" y="0.0" width="72" height="24"/>
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="routes_gallery_attitude" translatesAutoresizingMaskIntoConstraints="NO" id="cnM-Rz-A7p">
                                                                                     <rect key="frame" x="0.0" y="4" width="16" height="16"/>
@@ -3775,7 +3792,7 @@
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </imageView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="650 m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5j-6b-uDP">
-                                                                                    <rect key="frame" x="18" y="5" width="42" height="14.5"/>
+                                                                                    <rect key="frame" x="18" y="5" width="54" height="14.5"/>
                                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
@@ -3840,15 +3857,19 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="BEB-Se-sye" firstAttribute="leading" secondItem="pTy-pe-PDg" secondAttribute="leading" id="1wq-5X-3Ko"/>
                                                 <constraint firstItem="PI6-Wr-ZNj" firstAttribute="top" secondItem="tXf-bc-Dxh" secondAttribute="top" constant="8" id="8v3-fZ-aEK"/>
                                                 <constraint firstItem="pTy-pe-PDg" firstAttribute="top" secondItem="ej7-v7-Tc4" secondAttribute="top" constant="6" id="9yL-nn-YJ2"/>
+                                                <constraint firstItem="BEB-Se-sye" firstAttribute="trailing" secondItem="pTy-pe-PDg" secondAttribute="trailing" id="Lc0-20-vHB"/>
                                                 <constraint firstItem="pTy-pe-PDg" firstAttribute="leading" secondItem="ej7-v7-Tc4" secondAttribute="leading" constant="6" id="XBI-jb-Rtt"/>
                                                 <constraint firstAttribute="bottom" secondItem="PI6-Wr-ZNj" secondAttribute="bottom" constant="8" id="fnj-T6-KnW"/>
                                                 <constraint firstAttribute="bottom" secondItem="ej7-v7-Tc4" secondAttribute="bottom" constant="8" id="g4g-YS-BN5"/>
                                                 <constraint firstItem="ej7-v7-Tc4" firstAttribute="leading" secondItem="tXf-bc-Dxh" secondAttribute="leading" constant="8" id="gTf-Nl-QvV"/>
                                                 <constraint firstAttribute="trailing" secondItem="PI6-Wr-ZNj" secondAttribute="trailing" constant="8" id="p8O-1r-hY8"/>
                                                 <constraint firstItem="ej7-v7-Tc4" firstAttribute="top" secondItem="tXf-bc-Dxh" secondAttribute="top" constant="8" id="ry6-3v-eWw"/>
+                                                <constraint firstItem="BEB-Se-sye" firstAttribute="top" secondItem="pTy-pe-PDg" secondAttribute="top" id="ska-EU-TYE"/>
                                                 <constraint firstItem="PI6-Wr-ZNj" firstAttribute="leading" secondItem="ej7-v7-Tc4" secondAttribute="trailing" constant="8" id="svY-fE-AKf"/>
+                                                <constraint firstItem="BEB-Se-sye" firstAttribute="bottom" secondItem="pTy-pe-PDg" secondAttribute="bottom" id="uSb-18-AxS"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -3860,6 +3881,7 @@
                                             <outlet property="ascentLabel" destination="P5j-6b-uDP" id="Cgd-RR-SZO"/>
                                             <outlet property="buttonContainerView" destination="RQ6-iP-rYB" id="tFl-wf-qDE"/>
                                             <outlet property="checkmarkImageView" destination="pTy-pe-PDg" id="qWI-MM-Kim"/>
+                                            <outlet property="checkmarkImageViewBg" destination="BEB-Se-sye" id="7oE-gC-raY"/>
                                             <outlet property="distanceLabel" destination="5lj-0X-MAg" id="Zkc-td-DwH"/>
                                             <outlet property="imageView" destination="ej7-v7-Tc4" id="KbI-AL-5Vd"/>
                                             <outlet property="infoContainerView" destination="UWL-Pt-6rq" id="Axj-g8-qAp"/>
@@ -3917,6 +3939,7 @@
         <image name="routes_gallery_camera" width="14" height="11"/>
         <image name="routes_gallery_cell_image" width="40" height="40"/>
         <image name="routes_gallery_checkmark" width="20" height="20"/>
+        <image name="routes_gallery_checkmark_bg" width="20" height="20"/>
         <image name="routes_gallery_clock" width="16" height="16"/>
         <image name="routes_gallery_distance" width="16" height="16"/>
     </resources>

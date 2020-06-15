@@ -79,4 +79,6 @@ let alpha100: CGFloat = 1.0
   var shadow: UIColor { get }
   var chartLine: UIColor { get }
   var chartShadow: UIColor { get }
+  var cityColor: UIColor { get }
+  var outdoorColor: UIColor { get }
 }

@@ -15,6 +15,7 @@ protocol GuidesGalleryCellDelegate: AnyObject {
 class GuidesGalleryCell: UICollectionViewCell {
   @IBOutlet private var imageView: UIImageView!
   @IBOutlet private var checkmarkImageView: UIImageView!
+  @IBOutlet private var checkmarkImageViewBg: UIImageView!
   @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var subtitleLabel: UILabel!
   @IBOutlet private var infoContainerView: UIView!
@@ -35,6 +36,7 @@ class GuidesGalleryCell: UICollectionViewCell {
     infoContainerView.isHidden = item.downloaded
     buttonContainerView.isHidden = !item.downloaded
     checkmarkImageView.isHidden = !item.downloaded
+    checkmarkImageViewBg.isHidden = !item.downloaded
     if let visible = item.visible {
       visibilityButton.setTitle(L(visible ? "hide" : "show"), for: .normal)
     }

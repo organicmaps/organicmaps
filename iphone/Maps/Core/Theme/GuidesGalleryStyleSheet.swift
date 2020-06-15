@@ -1,9 +1,4 @@
 class GuidesGalleryStyleSheet: IStyleSheet {
-  private enum Const {
-    static let cityColor = UIColor(red: 0.4, green: 0.225, blue: 0.75, alpha: 1)
-    static let outdoorColor = UIColor(red: 0.235, green: 0.549, blue: 0.235, alpha: 1)
-  }
-
   static func register(theme: Theme, colors: IColors, fonts: IFonts) {
     theme.add(styleName: "GuidesGalleryCell") { (s) -> (Void) in
       s.backgroundColor = colors.white
@@ -22,21 +17,21 @@ class GuidesGalleryStyleSheet: IStyleSheet {
     }
 
     theme.add(styleName: "GuidesGalleryCityLabel") { (s) -> (Void) in
-      s.fontColor = Const.cityColor
+      s.fontColor = colors.cityColor
       s.font = fonts.regular12
     }
 
     theme.add(styleName: "GuidesGalleryOutdoorLabel") { (s) -> (Void) in
-      s.fontColor = Const.outdoorColor
+      s.fontColor = colors.outdoorColor
       s.font = fonts.regular12
     }
 
     theme.add(styleName: "GuidesGalleryCityCheck") { (s) -> (Void) in
-      s.tintColor = Const.cityColor
+      s.tintColor = colors.cityColor
     }
 
     theme.add(styleName: "GuidesGalleryOutdoorCheck") { (s) -> (Void) in
-      s.tintColor = Const.outdoorColor
+      s.tintColor = colors.outdoorColor
     }
 
     theme.add(styleName: "GuidesGalleryShowButton") { (s) -> (Void) in
