@@ -37,7 +37,7 @@ MAPS_GEN_LINE_PATTERN = re.compile(
 
 STAGE_START_MSG_PATTERN = re.compile(r"^Stage (?P<name>\w+): start ...$")
 STAGE_FINISH_MSG_PATTERN = re.compile(
-    r"^Stage (?P<name>\w+): finished in (?P<duration_string>[:.0-9]+)$"
+    r"^Stage (?P<name>\w+): finished in (?P<duration_string>.+)$"
 )
 
 LogLine = namedtuple("LogLine", ["timestamp", "level", "tid", "message", "type"])
@@ -88,7 +88,7 @@ class Log:
             if line is not None:
                 lines.append(line)
             else:
-                logger.warn(f"Line was not parsed: {logline}")
+                logger.warn(f"{self.name}: line was not parsed: {logline}")
             logline = ""
 
         with self.path.open() as logfile:
@@ -153,7 +153,8 @@ class LogsReader:
 
     def __iter__(self):
         for filename in os.listdir(self.path):
-            yield Log(os.path.join(self.path, filename))
+            if filename.endswith(".log"):
+                yield Log(os.path.join(self.path, filename))
 
 
 def split_into_stages(log: Log) -> List[LogStage]:
@@ -165,7 +166,7 @@ def split_into_stages(log: Log) -> List[LogStage]:
             m = STAGE_START_MSG_PATTERN.match(line.message)
             if m:
                 if name is not None:
-                    logger.warn(f"Stage {name} has not finish line.")
+                    logger.warn(f"{log.name}: stage {name} has not finish line.")
                     log_stages.append(LogStage(name=name, duration=None, lines=lines))
                 name = m["name"]
 
@@ -180,7 +181,7 @@ def split_into_stages(log: Log) -> List[LogStage]:
             lines.append(line)
 
     if name is not None:
-        logger.warn(f"Stage {name} has not finish line.")
+        logger.warn(f"{log.name}: stage {name} has not finish line.")
         log_stages.append(LogStage(name=name, duration=None, lines=lines))
 
     return log_stages
