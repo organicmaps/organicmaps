@@ -39,8 +39,6 @@ static CGFloat const kErrorLabelHeight = 16;
   [self processValidation];
 }
 
-- (IBAction)changeLanguageTap { [self.delegate editAdditionalNameLanguage:self.code]; }
-
 - (void)processValidation
 {
   if (self.isValid)
