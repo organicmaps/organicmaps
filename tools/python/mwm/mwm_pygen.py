@@ -15,7 +15,7 @@ def init(resource_path):
 
 
 class MwmPygen(mi.Mwm):
-    def __init__(self, filename: str, parse: bool = True):
+    def __init__(self, filename: str, parse: bool = False):
         super().__init__(filename)
 
         self.mwm = mwm.Mwm(filename, parse)
