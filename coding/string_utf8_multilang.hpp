@@ -91,6 +91,10 @@ public:
   /// How many languages we support on indexing stage. See full list in cpp file.
   /// TODO(AlexZ): Review and replace invalid languages by valid ones.
   static int8_t constexpr kMaxSupportedLanguages = 64;
+  // 6 bits language code mask. The language code is encoded with 6 bits that are prepended with
+  // "10".
+  static int8_t constexpr kLangCodeMask = 0x3F;
+  static_assert(kMaxSupportedLanguages == kLangCodeMask + 1, "");
   static char constexpr kReservedLang[] = "reserved";
 
   using Languages = buffer_vector<Lang, kMaxSupportedLanguages>;
@@ -112,19 +116,22 @@ public:
   inline void Clear() { m_s.clear(); }
   inline bool IsEmpty() const { return m_s.empty(); }
 
+  // This method complexity is O(||utf8s||) when adding a new name and O(||m_s|| + ||utf8s||) when
+  // replacing an existing name.
   void AddString(int8_t lang, std::string const & utf8s);
   void AddString(std::string const & lang, std::string const & utf8s)
   {
     int8_t const l = GetLangIndex(lang);
-    if (l >= 0)
+    if (l != kUnsupportedLanguageCode)
       AddString(l, utf8s);
   }
 
+  // This method complexity is O(||m_s||).
   void RemoveString(int8_t lang);
   void RemoveString(std::string const & lang)
   {
     int8_t const l = GetLangIndex(lang);
-    if (l >= 0)
+    if (l != kUnsupportedLanguageCode)
       RemoveString(l);
   }
 
@@ -138,7 +145,7 @@ public:
     while (i < sz)
     {
       size_t const next = GetNextIndex(i);
-      int8_t const code = m_s[i] & 0x3F;
+      int8_t const code = m_s[i] & kLangCodeMask;
       if (GetLangByCode(code) != kReservedLang &&
           wrapper(code, m_s.substr(i + 1, next - i - 1)) == base::ControlFlow::Break)
       {

@@ -193,7 +193,7 @@ void StringUtf8Multilang::AddString(int8_t lang, string const & utf8s)
   {
     size_t const next = GetNextIndex(i);
 
-    if ((m_s[i] & 0x3F) == lang)
+    if ((m_s[i] & kLangCodeMask) == lang)
     {
       ++i;
       m_s.replace(i, next - i, utf8s);
@@ -216,7 +216,7 @@ void StringUtf8Multilang::RemoveString(int8_t lang)
   {
     size_t const next = GetNextIndex(i);
 
-    if ((m_s[i] & 0x3F) == lang)
+    if ((m_s[i] & kLangCodeMask) == lang)
     {
       m_s.erase(i, next - i);
       return;
@@ -238,7 +238,7 @@ bool StringUtf8Multilang::GetString(int8_t lang, string & utf8s) const
   {
     size_t const next = GetNextIndex(i);
 
-    if ((m_s[i] & 0x3F) == lang)
+    if ((m_s[i] & kLangCodeMask) == lang)
     {
       ++i;
       utf8s.assign(m_s.c_str() + i, next - i);
@@ -259,7 +259,7 @@ StringUtf8Multilang::TranslationPositions StringUtf8Multilang::GenerateTranslati
   while (i < sz)
   {
     size_t const next = GetNextIndex(i);
-    int8_t const code = m_s[i] & 0x3F;
+    int8_t const code = m_s[i] & kLangCodeMask;
     if (GetLangByCode(code) != kReservedLang)
       result[code] = Position{i + 1, next - i - 1};
 
@@ -282,7 +282,7 @@ bool StringUtf8Multilang::HasString(int8_t lang) const
 
   for (size_t i = 0; i < m_s.size(); i = GetNextIndex(i))
   {
-    if ((m_s[i] & 0x3F) == lang)
+    if ((m_s[i] & kLangCodeMask) == lang)
       return true;
   }
 
