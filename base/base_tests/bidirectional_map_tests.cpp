@@ -3,7 +3,9 @@
 #include "base/bidirectional_map.hpp"
 #include "base/macros.hpp"
 
+#include <map>
 #include <string>
+#include <unordered_map>
 
 using namespace base;
 using namespace std;
@@ -28,4 +30,67 @@ UNIT_TEST(BidirectionalMap_Smoke)
   TEST(!m.Add(2, "a"), ());
   TEST(m.Add(2, "b"), ());
   TEST(!m.Add(2, "b"), ());
+}
+
+UNIT_TEST(BidirectionalMap_Remove)
+{
+  {
+    BidirectionalMap<int, string> m;
+    TEST(m.Add(1, "a"), ());
+    TEST(m.Add(2, "b"), ());
+
+    TEST_EQUAL(m.Size(), 2, ());
+
+    TEST(!m.RemoveKey(3), ());
+    TEST_EQUAL(m.Size(), 2, ());
+
+    TEST(m.RemoveKey(1), ());
+    TEST_EQUAL(m.Size(), 1, ());
+
+    TEST(!m.RemoveValue("a"), ());
+    TEST_EQUAL(m.Size(), 1, ());
+
+    TEST(m.RemoveValue("b"), ());
+    TEST(m.IsEmpty(), ());
+  }
+
+  {
+    BidirectionalMap<int, int> m;
+    TEST(m.Add(1, 1), ());
+    TEST(m.Add(2, 2), ());
+
+    TEST_EQUAL(m.Size(), 2, ());
+
+    TEST(!m.RemoveKey(3), ());
+    TEST_EQUAL(m.Size(), 2, ());
+
+    TEST(m.RemoveKey(1), ());
+    TEST_EQUAL(m.Size(), 1, ());
+
+    TEST(!m.RemoveValue(1), ());
+    TEST_EQUAL(m.Size(), 1, ());
+
+    TEST(m.RemoveValue(2), ());
+    TEST(m.IsEmpty(), ());
+  }
+
+  {
+    BidirectionalMap<int, int> m;
+    TEST(m.Add(1, 2), ());
+    TEST(m.Add(2, 1), ());
+
+    TEST_EQUAL(m.Size(), 2, ());
+
+    TEST(!m.RemoveKey(3), ());
+    TEST_EQUAL(m.Size(), 2, ());
+
+    TEST(m.RemoveKey(1), ());
+    TEST_EQUAL(m.Size(), 1, ());
+
+    TEST(!m.RemoveValue(2), ());
+    TEST_EQUAL(m.Size(), 1, ());
+
+    TEST(m.RemoveValue(1), ());
+    TEST(m.IsEmpty(), ());
+  }
 }
