@@ -52,9 +52,9 @@ fragment half4 fsRuler(const RulerFragment_T in [[stage_in]])
 typedef struct
 {
   float3 a_position [[attribute(0)]];
-  float2 a_normal [[attribute(1)]];
-  float2 a_colorTexCoord [[attribute(2)]];
-  float2 a_outlineColorTexCoord [[attribute(3)]];
+  float2 a_colorTexCoord [[attribute(1)]];
+  float2 a_outlineColorTexCoord [[attribute(2)]];
+  float2 a_normal [[attribute(3)]];
   float2 a_maskTexCoord [[attribute(4)]];
 } TextStaticOutlinedGuiVertex_T;
 

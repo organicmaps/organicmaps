@@ -55,7 +55,7 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsTextOutlined", "fsText", {{0, 2}, {3, 4}}),  // TextOutlined
   ProgramInfo("vsText", "fsText", {{0, 1}, {2, 3}}),  // Text
   ProgramInfo("vsText", "fsTextFixed", {{0, 1}, {2, 3}}),  // TextFixed
-  ProgramInfo("vsTextStaticOutlinedGui", "fsTextOutlinedGui", {{0, 2}, {3, 4}}),  // TextStaticOutlinedGui
+  ProgramInfo("vsTextStaticOutlinedGui", "fsTextOutlinedGui", {{0, 4}}),  // TextStaticOutlinedGui
   ProgramInfo("vsTextOutlinedGui", "fsTextOutlinedGui", {{0, 2}, {3, 4}}),  // TextOutlinedGui
   ProgramInfo("vsArea", "fsArea", {{0, 1}}),  // Area
   ProgramInfo("vsArea", "fsArea", {{0, 1}}),  // AreaOutline
