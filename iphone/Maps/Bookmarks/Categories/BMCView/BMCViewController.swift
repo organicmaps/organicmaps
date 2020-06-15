@@ -96,11 +96,7 @@ final class BMCViewController: MWMViewController {
   }
   
   private func openCategorySettings(category: BookmarkGroup) {
-    let storyboard = UIStoryboard.instance(.categorySettings)
-    let settingsController = storyboard.instantiateInitialViewController() as! CategorySettingsViewController
-    settingsController.category = BookmarksManager.shared().category(withId: category.categoryId)
-    settingsController.maxCategoryNameLength = viewModel.maxCategoryNameLength
-    settingsController.minCategoryNameLength = viewModel.minCategoryNameLength
+    let settingsController = CategorySettingsViewController(bookmarkGroup: BookmarksManager.shared().category(withId: category.categoryId))
     settingsController.delegate = self
     
     MapViewController.topViewController().navigationController?.pushViewController(settingsController,

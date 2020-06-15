@@ -357,10 +357,9 @@ using namespace std;
 }
 
 - (void)openCategorySettings {
-  auto storyboard = [UIStoryboard instance:MWMStoryboardCategorySettings];
-  auto settingsController = (CategorySettingsViewController *)[storyboard instantiateInitialViewController];
+  auto settingsController = [[CategorySettingsViewController alloc]
+                             initWithBookmarkGroup:[[MWMBookmarksManager sharedManager] categoryWithId:self.categoryId]];
   settingsController.delegate = self;
-  settingsController.category = [[MWMBookmarksManager sharedManager] categoryWithId:self.categoryId];
   [self.navigationController pushViewController:settingsController animated:YES];
 }
 

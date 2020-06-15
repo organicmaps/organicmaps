@@ -1,39 +1,51 @@
-@objc
-protocol CategorySettingsViewControllerDelegate: AnyObject {
+@objc protocol CategorySettingsViewControllerDelegate: AnyObject {
   func categorySettingsController(_ viewController: CategorySettingsViewController,
                                   didEndEditing categoryId: MWMMarkGroupID)
   func categorySettingsController(_ viewController: CategorySettingsViewController,
                                   didDelete categoryId: MWMMarkGroupID)
 }
 
-class CategorySettingsViewController: MWMTableViewController {
-  
-  @objc var category: BookmarkGroup!
-  @objc var maxCategoryNameLength: UInt = 60
-  @objc var minCategoryNameLength: UInt = 0
+final class CategorySettingsViewController: MWMTableViewController {
+  private enum Sections: Int {
+    case info
+    case description
+    case delete
+    case count
+  }
+
+  private enum InfoSectionRows: Int {
+    case title
+    case sharingOptions
+  }
+
+  private let bookmarkGroup: BookmarkGroup
+  private var noteCell: MWMNoteCell?
   private var changesMade = false
-  
-  private let manager = BookmarksManager.shared()
-  
+  private var newName: String?
+  private var newAnnotation: String?
+
   @objc weak var delegate: CategorySettingsViewControllerDelegate?
   
-  @IBOutlet private weak var nameTextField: UITextField!
-  @IBOutlet private weak var descriptionTextView: UITextView!
-  @IBOutlet private weak var descriptionCell: UITableViewCell!
-  @IBOutlet private weak var saveButton: UIBarButtonItem!
-  @IBOutlet private weak var deleteListButton: UIButton!
-  
+  @objc init(bookmarkGroup: BookmarkGroup) {
+    self.bookmarkGroup = bookmarkGroup
+    super.init(style: .grouped)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    assert(category != nil, "must provide category info")
 
     title = L("list_settings")
-    deleteListButton.isEnabled = (manager.userCategories().count > 1)
-    nameTextField.text = category.title
-    descriptionTextView.text = category.detailedAnnotation
-    
-    navigationItem.rightBarButtonItem = saveButton
+    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
+                                                        target: self,
+                                                        action: #selector(onSave))
+
+    tableView.registerNib(cell: BookmarkTitleCell.self)
+    tableView.registerNib(cell: MWMButtonCell.self)
+    tableView.registerNib(cell: MWMNoteCell.self)
   }
   
   override func viewDidDisappear(_ animated: Bool) {
@@ -42,88 +54,114 @@ class CategorySettingsViewController: MWMTableViewController {
       Statistics.logEvent(kStatBookmarkSettingsCancel)
     }
   }
+
+  override func numberOfSections(in tableView: UITableView) -> Int {
+    Sections.count.rawValue
+  }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    switch section {
-    case 0:
-      // if there are no bookmarks in category, hide 'sharing options' row
-      return category.isEmpty ? 1 : 2
-    default:
+    switch Sections(rawValue: section) {
+    case .info:
+      return bookmarkGroup.isEmpty ? 1 : 2
+    case .description, .delete:
       return 1
+    default:
+      fatalError()
     }
   }
-  
-  @IBAction func deleteListButtonPressed(_ sender: Any) {
-    manager.deleteCategory(category.categoryId)
-    delegate?.categorySettingsController(self, didDelete: category.categoryId)
-    Statistics.logEvent(kStatBookmarkSettingsClick,
-                        withParameters: [kStatOption : kStatDelete])
-  }
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if let destinationVC = segue.destination as? BookmarksSharingViewController {
-      destinationVC.category = category
-      Statistics.logEvent(kStatBookmarkSettingsClick,
-                          withParameters: [kStatOption : kStatSharingOptions])
+
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    switch Sections(rawValue: indexPath.section) {
+    case .info:
+      switch InfoSectionRows(rawValue: indexPath.row) {
+      case .title:
+        let cell = tableView.dequeueReusableCell(cell: BookmarkTitleCell.self, indexPath: indexPath)
+        cell.configure(name: bookmarkGroup.title, delegate: self)
+        return cell
+      case .sharingOptions:
+        let cell = tableView.dequeueDefaultCell(for: indexPath)
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = L("sharing_options")
+        return cell
+      default:
+        fatalError()
+      }
+    case .description:
+      if let noteCell = noteCell {
+        return noteCell
+      } else {
+        let cell = tableView.dequeueReusableCell(cell: MWMNoteCell.self, indexPath: indexPath)
+        cell.config(with: self, noteText: bookmarkGroup.detailedAnnotation,
+                    placeholder: L("ugc_route_edit_description_hint"))
+        noteCell = cell
+        return cell
+      }
+    case .delete:
+      let cell = tableView.dequeueReusableCell(cell: MWMButtonCell.self, indexPath: indexPath)
+      cell.configure(with: self, title: L("delete_list"))
+      return cell
+    default:
+      fatalError()
     }
   }
-  
-  @IBAction func onSave(_ sender: Any) {
-    guard let newName = nameTextField.text, !newName.isEmpty else {
-      assert(false)
-      return
+
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    switch InfoSectionRows(rawValue: indexPath.row) {
+    case .sharingOptions:
+      let sharingViewController = UIStoryboard.instance(.sharing).instantiateInitialViewController()
+        as! BookmarksSharingViewController
+      sharingViewController.category = bookmarkGroup
+      navigationController?.pushViewController(sharingViewController, animated: true)
+      Statistics.logEvent(kStatBookmarkSettingsClick, withParameters: [kStatOption : kStatSharingOptions])
+      break
+    default:
+      break
+    }
+  }
+
+  @objc func onSave() {
+    view.endEditing(true)
+    if let newName = newName, !newName.isEmpty {
+      bookmarkGroup.title = newName
+      changesMade = true
     }
 
-    category.title = newName
-    category.detailedAnnotation = descriptionTextView.text
-    changesMade = true
-    delegate?.categorySettingsController(self, didEndEditing: category.categoryId)
+    if let newAnnotation = newAnnotation, !newAnnotation.isEmpty {
+      bookmarkGroup.detailedAnnotation = newAnnotation
+      changesMade = true
+    }
+
+    delegate?.categorySettingsController(self, didEndEditing: bookmarkGroup.categoryId)
     Statistics.logEvent(kStatBookmarkSettingsConfirm)
   }
-  
-  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return UITableView.automaticDimension
+}
+
+extension CategorySettingsViewController: BookmarkTitleCellDelegate {
+  func didFinishEditingTitle(_ title: String) {
+    newName = title
   }
 }
 
-extension CategorySettingsViewController: UITextViewDelegate {
-  func textViewDidChange(_ textView: UITextView) {
-    let size = textView.bounds.size
-    let newSize = textView.sizeThatFits(CGSize(width: size.width,
-                                               height: CGFloat.greatestFiniteMagnitude))
-    
-    // Resize the cell only when cell's size is changed
-    if abs(size.height - newSize.height) >= 1 {
-      UIView.setAnimationsEnabled(false)
-      tableView.beginUpdates()
-      tableView.endUpdates()
-      UIView.setAnimationsEnabled(true)
-      
-      if let thisIndexPath = tableView.indexPath(for: descriptionCell) {
-        tableView?.scrollToRow(at: thisIndexPath, at: .bottom, animated: false)
-      }
-    }
+extension CategorySettingsViewController: MWMNoteCellDelegate {
+  func cell(_ cell: MWMNoteCell, didChangeSizeAndText text: String) {
+    UIView.setAnimationsEnabled(false)
+    tableView.refresh()
+    UIView.setAnimationsEnabled(true)
+    tableView.scrollToRow(at: IndexPath(item: 0, section: Sections.description.rawValue),
+                          at: .bottom,
+                          animated: true)
   }
-  
-  func textViewDidBeginEditing(_ textView: UITextView) {
+
+  func cell(_ cell: MWMNoteCell, didFinishEditingWithText text: String) {
+    newAnnotation = text
+  }
+}
+
+extension CategorySettingsViewController: MWMButtonCellDelegate {
+  func cellDidPressButton(_ cell: UITableViewCell) {
+    BookmarksManager.shared().deleteCategory(bookmarkGroup.categoryId)
+    delegate?.categorySettingsController(self, didDelete: bookmarkGroup.categoryId)
     Statistics.logEvent(kStatBookmarkSettingsClick,
-                        withParameters: [kStatOption : kStatAddDescription])
-  }
-}
-
-extension CategorySettingsViewController: UITextFieldDelegate {
-  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
-                 replacementString string: String) -> Bool {
-    let currentText = textField.text ?? ""
-    guard let stringRange = Range(range, in: currentText) else { return false }
-    let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-    saveButton.isEnabled = updatedText.count > minCategoryNameLength
-    if updatedText.count > maxCategoryNameLength { return false }
-    return true
-  }
-  
-  func textFieldShouldClear(_ textField: UITextField) -> Bool {
-    saveButton.isEnabled = false
-    return true
+                        withParameters: [kStatOption : kStatDelete])
   }
 }

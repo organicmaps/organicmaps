@@ -1,19 +1,19 @@
 import UIKit
 
-protocol BookmarkGroupViewControllerDelegate: AnyObject {
-  func bookmarkGroupViewController(_ viewController: BookmarkGroupViewController,
+protocol SelectBookmarkGroupViewControllerDelegate: AnyObject {
+  func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
                                    didSelect groupTitle: String,
                                    groupId: MWMMarkGroupID)
 }
 
-final class BookmarkGroupViewController: MWMTableViewController {
+final class SelectBookmarkGroupViewController: MWMTableViewController {
   private enum Sections: Int {
     case addGroup
     case groups
     case count
   }
 
-  weak var delegate: BookmarkGroupViewControllerDelegate?
+  weak var delegate: SelectBookmarkGroupViewControllerDelegate?
   private let groupName: String
   private let groupId: MWMMarkGroupID
   private let bookmarkGroups = BookmarksManager.shared().userCategories()

@@ -11,7 +11,6 @@
 		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.m */; };
 		3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */; };
 		33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33046831219C57180041F3A8 /* CategorySettingsViewController.swift */; };
-		33046836219C5A4E0041F3A8 /* CategorySettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */; };
 		330473EA21F7440C00DC4AEA /* MWMHotelParams.mm in Sources */ = {isa = PBXBuildFile; fileRef = 330473E921F7440C00DC4AEA /* MWMHotelParams.mm */; };
 		331630D12191D74B00BB91A9 /* TagSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */; };
 		3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */; };
@@ -324,7 +323,7 @@
 		470F5A7D2189BB2F00754295 /* PaidRoutePurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */; };
 		470F5A7F2189C30800754295 /* InAppPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5A7E2189C30800754295 /* InAppPurchase.swift */; };
 		4715273524907F8200E91BBA /* BookmarkColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4715273424907F8200E91BBA /* BookmarkColorViewController.swift */; };
-		471527372491C20500E91BBA /* BookmarkGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471527362491C20500E91BBA /* BookmarkGroupViewController.swift */; };
+		471527372491C20500E91BBA /* SelectBookmarkGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471527362491C20500E91BBA /* SelectBookmarkGroupViewController.swift */; };
 		4716EABA21A325310029B886 /* IPaidRouteStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4716EAB921A325310029B886 /* IPaidRouteStatistics.swift */; };
 		4716EAC121A6E0570029B886 /* BookmarksVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4716EAC021A6E0570029B886 /* BookmarksVC.xib */; };
 		4719A643219CB61D009F9AA7 /* BillingPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A642219CB61D009F9AA7 /* BillingPendingTransaction.swift */; };
@@ -933,7 +932,6 @@
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
 		3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryCell.swift; sourceTree = "<group>"; };
 		33046831219C57180041F3A8 /* CategorySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViewController.swift; sourceTree = "<group>"; };
-		33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategorySettings.storyboard; sourceTree = "<group>"; };
 		330473E821F7440C00DC4AEA /* MWMHotelParams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMHotelParams.h; sourceTree = "<group>"; };
 		330473E921F7440C00DC4AEA /* MWMHotelParams.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMHotelParams.mm; sourceTree = "<group>"; };
 		331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSectionHeaderView.swift; sourceTree = "<group>"; };
@@ -1440,7 +1438,7 @@
 		470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRoutePurchase.swift; sourceTree = "<group>"; };
 		470F5A7E2189C30800754295 /* InAppPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchase.swift; sourceTree = "<group>"; };
 		4715273424907F8200E91BBA /* BookmarkColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkColorViewController.swift; sourceTree = "<group>"; };
-		471527362491C20500E91BBA /* BookmarkGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkGroupViewController.swift; sourceTree = "<group>"; };
+		471527362491C20500E91BBA /* SelectBookmarkGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBookmarkGroupViewController.swift; sourceTree = "<group>"; };
 		4716EAB921A325310029B886 /* IPaidRouteStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPaidRouteStatistics.swift; sourceTree = "<group>"; };
 		4716EAC021A6E0570029B886 /* BookmarksVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksVC.xib; sourceTree = "<group>"; };
 		4716EACA21B01C270029B886 /* MWMUGCReviewSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUGCReviewSource.h; sourceTree = "<group>"; };
@@ -2425,7 +2423,6 @@
 			isa = PBXGroup;
 			children = (
 				33046831219C57180041F3A8 /* CategorySettingsViewController.swift */,
-				33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */,
 			);
 			path = "Category settings";
 			sourceTree = "<group>";
@@ -4491,6 +4488,7 @@
 				471A7BBD2481A3D000A0D4C1 /* EditBookmarkViewController.swift */,
 				471A7BC3248471BE00A0D4C1 /* BookmarkUIUtils.swift */,
 				4715273424907F8200E91BBA /* BookmarkColorViewController.swift */,
+				471527362491C20500E91BBA /* SelectBookmarkGroupViewController.swift */,
 			);
 			path = EditBookmark;
 			sourceTree = "<group>";
@@ -4928,7 +4926,6 @@
 				BB87BF8922FAF1CA008A8A72 /* TracksSection.mm */,
 				BB87BF8B22FAF3B8008A8A72 /* InfoSection.h */,
 				BB87BF8C22FAF435008A8A72 /* InfoSection.mm */,
-				471527362491C20500E91BBA /* BookmarkGroupViewController.swift */,
 			);
 			path = Bookmarks;
 			sourceTree = "<group>";
@@ -5167,7 +5164,6 @@
 				F6E407D41FC4722F001F7821 /* MWMDiscoveryController.xib in Resources */,
 				F6E2FE7F1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				34AB66711FC5AA330078E451 /* TransportTransitTrain.xib in Resources */,
-				33046836219C5A4E0041F3A8 /* CategorySettings.storyboard in Resources */,
 				34BBD6471F82649D0070CA50 /* GoogleSignIn.bundle in Resources */,
 				47C8789A22DF622400A772DA /* SubscriptionFailViewController.xib in Resources */,
 				47DF72BB225356BF0004AB10 /* DrivingOptions.storyboard in Resources */,
@@ -5493,7 +5489,7 @@
 				99A906DE23F6F7030005872B /* PlacePageBookmarkViewController.swift in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.m in Sources */,
 				9977E6A12480E1EE0073780C /* BottomMenuLayerButton.swift in Sources */,
-				471527372491C20500E91BBA /* BookmarkGroupViewController.swift in Sources */,
+				471527372491C20500E91BBA /* SelectBookmarkGroupViewController.swift in Sources */,
 				479D306522C664CE00D18278 /* MWMDownloadBannerViewController.m in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.m in Sources */,
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,

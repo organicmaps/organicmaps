@@ -117,7 +117,7 @@ final class EditBookmarkViewController: MWMTableViewController {
       colorViewController.delegate = self
       navigationController?.pushViewController(colorViewController, animated: true)
     case .bookmarkGroup:
-      let groupViewController = BookmarkGroupViewController(groupName: bookmarkGroupTitle ?? "", groupId: bookmarkGroupId)
+      let groupViewController = SelectBookmarkGroupViewController(groupName: bookmarkGroupTitle ?? "", groupId: bookmarkGroupId)
       groupViewController.delegate = self
       navigationController?.pushViewController(groupViewController, animated: true)
     default:
@@ -144,8 +144,6 @@ final class EditBookmarkViewController: MWMTableViewController {
 extension EditBookmarkViewController: BookmarkTitleCellDelegate {
   func didFinishEditingTitle(_ title: String) {
     bookmarkTitle = title
-    tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.title.rawValue, section: Sections.info.rawValue)],
-                         with: .none)
   }
 }
 
@@ -182,8 +180,8 @@ extension EditBookmarkViewController: BookmarkColorViewControllerDelegate {
   }
 }
 
-extension EditBookmarkViewController: BookmarkGroupViewControllerDelegate {
-  func bookmarkGroupViewController(_ viewController: BookmarkGroupViewController,
+extension EditBookmarkViewController: SelectBookmarkGroupViewControllerDelegate {
+  func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
                                    didSelect groupTitle: String,
                                    groupId: MWMMarkGroupID) {
     goBack()

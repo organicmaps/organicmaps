@@ -42,7 +42,7 @@ fileprivate func titleForBookmarkColor(_ color: BookmarkColor) -> String {
   }
 }
 
-func localizedTitleForBookmarkColor(_ color: BookmarkColor) -> String {
+fileprivate func localizedTitleForBookmarkColor(_ color: BookmarkColor) -> String {
   L(titleForBookmarkColor(color))
 }
 
@@ -50,7 +50,7 @@ fileprivate func rgbColor(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> UIColor {
   UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: 0.8)
 }
 
-func uiColorForBookmarkColor(_ color: BookmarkColor) -> UIColor {
+fileprivate func uiColorForBookmarkColor(_ color: BookmarkColor) -> UIColor {
   switch color {
   case .red: return rgbColor(229, 27, 35);
   case .pink: return rgbColor(255, 65, 130);
