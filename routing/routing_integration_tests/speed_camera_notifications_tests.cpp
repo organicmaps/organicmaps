@@ -91,7 +91,7 @@ bool CheckBeepSignal(RoutingSession & routingSession)
 SpeedCameraManager::Interval CheckZone(RoutingSession const & routingSession, double speedKmPH)
 {
   SpeedCameraOnRoute const & closestCamera = routingSession.GetSpeedCamManager().GetClosestCamForTests();
-  CHECK(closestCamera.IsValid(), ("No speed camera found."));
+  TEST(closestCamera.IsValid(), ("No speed camera found."));
 
   double const speedMpS = routing::KMPH2MPS(speedKmPH);
   double const passedDist = routingSession.GetRouteForTests()->GetCurrentDistanceFromBeginMeters();
