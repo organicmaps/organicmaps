@@ -3282,8 +3282,10 @@
 
 "connection_error_toast_guides" = "Reconnexion à Internet en cours";
 
-"routes_card_show" = "Montrer";
+/* as few symbols as possible */
+"routes_card_show" = "Voir sur la carte";
 
+/* as few symbols as possible */
 "routes_card_hide" = "Masquer";
 
 "whatsnew_catalog_new_title" = "Nouveau catalogue et des miliers d'idées de voyages";

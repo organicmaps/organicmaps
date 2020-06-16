@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Tentativo di riconnessione in corso";
 
-"routes_card_show" = "Mostra";
+/* as few symbols as possible */
+"routes_card_show" = "Mostra sulla mappa";
 
-"routes_card_hide" = "Nascondi";
+/* as few symbols as possible */
+"routes_card_hide" = "Nascondi dalla mappa";
 
 "whatsnew_catalog_new_title" = "Nuovo catalogo guide e migliaia di idee per divertirsi";
 

@@ -1780,8 +1780,10 @@
 	<string name="connection_error_dialog_guides_try">Yritä uudelleen</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Sammuta</string>
 	<string name="connection_error_toast_guides">Palauttamme Internet-yhteyden</string>
-	<string name="routes_card_show">Näytä</string>
-	<string name="routes_card_hide">Piilota</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Näytä kartalla</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Piilota kartalta</string>
 	<string name="whatsnew_catalog_new_title">Uusi luettelo ja tuhansia lomasi viettoon liittyviä ideoita</string>
 	<string name="whatsnew_catalog_new_message">Olemme päivittäneet matkaopasluettelon ja lisänneet käännöksiä kaikille kielille. Aloita suunnittelu etukäteen!</string>
 	<string name="whatsnew_elevation_profile_title">Korkeuslinjat matkaoppaissa</string>

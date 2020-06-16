@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Probíhá pokus o opětovné připojení";
 
-"routes_card_show" = "Zobrazit";
+/* as few symbols as possible */
+"routes_card_show" = "Ukázat na mapě";
 
-"routes_card_hide" = "Skrýt";
+/* as few symbols as possible */
+"routes_card_hide" = "Skrýt na mapě";
 
 "whatsnew_catalog_new_title" = "Nový katalog průvodců a tisíce nápadů na cestování";
 

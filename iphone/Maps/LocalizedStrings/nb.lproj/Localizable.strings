@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Prøver å koble til på nytt";
 
-"routes_card_show" = "Vise";
+/* as few symbols as possible */
+"routes_card_show" = "Vise på kartet";
 
-"routes_card_hide" = "Skjule";
+/* as few symbols as possible */
+"routes_card_hide" = "Skjule fra kartet";
 
 "whatsnew_catalog_new_title" = "Ny katalog med tusenvis av ferieideer";
 

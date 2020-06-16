@@ -1726,8 +1726,10 @@
 	<string name="connection_error_dialog_guides_try">دوباره تلاش کنید</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">خاموش</string>
 	<string name="connection_error_toast_guides">در حال برقراری مجدد ارتباط</string>
-	<string name="routes_card_show">نمایش دادن</string>
-	<string name="routes_card_hide">پنهان سازی</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">نمایش روی نقشه</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">مخفی کردن از نقشه</string>
 	<string name="whatsnew_catalog_new_title">کاتالوگ راهنما های جدید و هزاران ایده سفر</string>
 	<string name="whatsnew_catalog_new_message">ما کاتالوگ راهنما را به روزرسانی کرده ایم و ترجمه تمامی زبان ها را افزوده ایم. از پیش برنامه ریزی کنید!</string>
 	<string name="whatsnew_elevation_profile_title">پروفایل ارتفاع در راهنمای سفر</string>

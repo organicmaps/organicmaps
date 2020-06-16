@@ -1791,8 +1791,10 @@
 	<string name="connection_error_dialog_guides_try">Tekrar deneyin</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Kapat</string>
 	<string name="connection_error_toast_guides">İnternete yeniden bağlanıyoruz</string>
-	<string name="routes_card_show">Göster</string>
-	<string name="routes_card_hide">Gizle</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Haritada göster</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Haritadan gizle</string>
 	<string name="whatsnew_catalog_new_title">Yeni bir katalog ve binlerce tatil fikri</string>
 	<string name="whatsnew_catalog_new_message">Rehberlerin kataloğunu güncelledik ve tüm dillere çeviriler ekledik. Planlamanızı önceden yapmaya başlayın!</string>
 	<string name="whatsnew_elevation_profile_title">Rehberlerde yükseklik profili</string>

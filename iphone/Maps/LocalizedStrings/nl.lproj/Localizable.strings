@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Opnieuw proberen verbinding te maken";
 
-"routes_card_show" = "Tonen";
+/* as few symbols as possible */
+"routes_card_show" = "Tonen op kaart";
 
-"routes_card_hide" = "Verbergen";
+/* as few symbols as possible */
+"routes_card_hide" = "Verbergen op kaart";
 
 "whatsnew_catalog_new_title" = "Nieuwe reisgidscatalogus en duizenden reisideeën";
 

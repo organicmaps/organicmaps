@@ -1792,8 +1792,10 @@
 	<string name="connection_error_dialog_guides_try">Спробувати ще раз</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Вимкнути</string>
 	<string name="connection_error_toast_guides">Відновлюємо з’єднання з Інтернетом</string>
-	<string name="routes_card_show">Показати</string>
-	<string name="routes_card_hide">Приховати</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Показати на карті</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Приховати з карти</string>
 	<string name="whatsnew_catalog_new_title">Новий каталог і тисячі ідей для відпочинку</string>
 	<string name="whatsnew_catalog_new_message">Ми оновили каталог путівників і додали переклади на всі мови. Почніть планувати заздалегідь!</string>
 	<string name="whatsnew_elevation_profile_title">Профіль висот у путівниках</string>

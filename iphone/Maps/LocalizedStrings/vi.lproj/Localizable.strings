@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Chúng tôi đang khôi phục kết nối internet";
 
-"routes_card_show" = "Hiển thị";
+/* as few symbols as possible */
+"routes_card_show" = "Chỉ trên bản đồ";
 
-"routes_card_hide" = "Ẩn";
+/* as few symbols as possible */
+"routes_card_hide" = "Ẩn khỏi bản đồ";
 
 "whatsnew_catalog_new_title" = "Danh mục mới và hàng nghìn ý tưởng cho kỳ nghỉ";
 

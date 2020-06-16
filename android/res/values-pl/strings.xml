@@ -1797,8 +1797,10 @@
 	<string name="connection_error_dialog_guides_try">Spróbuj ponownie</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Wyłącz</string>
 	<string name="connection_error_toast_guides">Próbujemy połączyć się ponownie</string>
-	<string name="routes_card_show">Pokaż</string>
-	<string name="routes_card_hide">Ukryj</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Pokazać na mapie</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Ukryć na mapie</string>
 	<string name="whatsnew_catalog_new_title">Nowy katalog przewodników i tysiące pomysłów na podróż</string>
 	<string name="whatsnew_catalog_new_message">Zaktualizowaliśmy katalog przewodników i dodaliśmy tłumaczenia we wszystkich językach. Zacznij planować z wyprzedzeniem!</string>
 	<string name="whatsnew_elevation_profile_title">Profil wysokości w przewodnikach</string>

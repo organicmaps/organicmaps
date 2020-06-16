@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Mencoba menyambung kembali";
 
-"routes_card_show" = "Menampilkan";
+/* as few symbols as possible */
+"routes_card_show" = "Tampilkan di peta";
 
-"routes_card_hide" = "Menyembunyikan";
+/* as few symbols as possible */
+"routes_card_hide" = "Sembunyikan dari peta";
 
 "whatsnew_catalog_new_title" = "Katalog panduan baru dan ribuan ide perjalanan";
 

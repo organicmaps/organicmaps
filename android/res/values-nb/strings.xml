@@ -1679,8 +1679,10 @@
 	<string name="connection_error_dialog_guides_try">Prøve på nytt</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Slå av</string>
 	<string name="connection_error_toast_guides">Prøver å koble til på nytt</string>
-	<string name="routes_card_show">Vise</string>
-	<string name="routes_card_hide">Skjule</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Vise på kartet</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Skjule fra kartet</string>
 	<string name="whatsnew_catalog_new_title">Ny katalog med tusenvis av ferieideer</string>
 	<string name="whatsnew_catalog_new_message">Vi har oppdatert guidekatalogen vår og lagt til oversettelser til alle språk. Begynn å planlegge på forhånd!</string>
 	<string name="whatsnew_elevation_profile_title">Høydeprofil i guidene</string>

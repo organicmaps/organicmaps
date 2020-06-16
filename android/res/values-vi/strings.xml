@@ -1776,8 +1776,10 @@
 	<string name="connection_error_dialog_guides_try">Thử lại lần nữa</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Tắt</string>
 	<string name="connection_error_toast_guides">Chúng tôi đang khôi phục kết nối internet</string>
-	<string name="routes_card_show">Hiển thị</string>
-	<string name="routes_card_hide">Ẩn</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Chỉ trên bản đồ</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Ẩn khỏi bản đồ</string>
 	<string name="whatsnew_catalog_new_title">Danh mục mới và hàng nghìn ý tưởng cho kỳ nghỉ</string>
 	<string name="whatsnew_catalog_new_message">Chúng tôi đã cập nhật danh mục hướng dẫn và bổ sung phần dịch sang tất cả các ngôn ngữ. Hãy lên kế hoạch sớm nào!</string>
 	<string name="whatsnew_elevation_profile_title">Hồ sơ độ cao trong các hướng dẫn</string>

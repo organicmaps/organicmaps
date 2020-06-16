@@ -1786,8 +1786,10 @@
 	<string name="connection_error_dialog_guides_try">Riprova</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Disattiva</string>
 	<string name="connection_error_toast_guides">Tentativo di riconnessione in corso</string>
-	<string name="routes_card_show">Mostra</string>
-	<string name="routes_card_hide">Nascondi</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Mostra sulla mappa</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Nascondi dalla mappa</string>
 	<string name="whatsnew_catalog_new_title">Nuovo catalogo guide e migliaia di idee per divertirsi</string>
 	<string name="whatsnew_catalog_new_message">Abbiamo aggiornato il nostro catalogo guide e abbiamo aggiunto traduzioni in tutte le lingue. Programma subito i tuoi viaggi!</string>
 	<string name="whatsnew_elevation_profile_title">Profilo altimetrico e guide</string>

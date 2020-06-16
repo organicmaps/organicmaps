@@ -1786,8 +1786,10 @@
 	<string name="connection_error_dialog_guides_try">Försöka igen</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Stänga av</string>
 	<string name="connection_error_toast_guides">Vi återställer Internet-anslutningen</string>
-	<string name="routes_card_show">Visa</string>
-	<string name="routes_card_hide">Dölja</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Visa på kartan</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Dölja på kartan</string>
 	<string name="whatsnew_catalog_new_title">En ny katalog och tusentals idéer för vila</string>
 	<string name="whatsnew_catalog_new_message">Vi har uppdaterat guidebok katalogen och lagt till översättningar till alla språk. Börja planera i förväg!</string>
 	<string name="whatsnew_elevation_profile_title">Terräng profil i guiderna</string>

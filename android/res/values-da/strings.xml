@@ -1790,8 +1790,10 @@
 	<string name="connection_error_dialog_guides_try">Prøv igen</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Sluk</string>
 	<string name="connection_error_toast_guides">Forsøger at tilslutte</string>
-	<string name="routes_card_show">Vis</string>
-	<string name="routes_card_hide">Skjul</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Vis på kort</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Skjul fra kort</string>
 	<string name="whatsnew_catalog_new_title">Nyt guide katalog og rejseidéer</string>
 	<string name="whatsnew_catalog_new_message">Vi har opdateret guide kataloget og tilføjet oversættelser på alle sprog. Påbegynd planlægning på forhånd!</string>
 	<string name="whatsnew_elevation_profile_title">Højdeprofil i rejseguides</string>

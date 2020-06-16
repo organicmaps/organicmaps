@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Újracsatlakozás";
 
-"routes_card_show" = "Mutat";
+/* as few symbols as possible */
+"routes_card_show" = "Térképen megjelenítés";
 
-"routes_card_hide" = "Elrejt";
+/* as few symbols as possible */
+"routes_card_hide" = "Térképről elrejtés";
 
 "whatsnew_catalog_new_title" = "Új útmutatók katalógusa és több ezer utazási ötlet";
 

@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "恢复网络连接";
 
-"routes_card_show" = "显示";
+/* as few symbols as possible */
+"routes_card_show" = "在地图上显示";
 
-"routes_card_hide" = "隐藏";
+/* as few symbols as possible */
+"routes_card_hide" = "在地图上隐藏";
 
 "whatsnew_catalog_new_title" = "新目录和数千个理想度假胜地";
 

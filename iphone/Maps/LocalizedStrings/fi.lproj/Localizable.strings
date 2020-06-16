@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Palauttamme Internet-yhteyden";
 
-"routes_card_show" = "Näytä";
+/* as few symbols as possible */
+"routes_card_show" = "Näytä kartalla";
 
-"routes_card_hide" = "Piilota";
+/* as few symbols as possible */
+"routes_card_hide" = "Piilota kartalta";
 
 "whatsnew_catalog_new_title" = "Uusi luettelo ja tuhansia lomasi viettoon liittyviä ideoita";
 

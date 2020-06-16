@@ -1789,8 +1789,10 @@
 	<string name="connection_error_dialog_guides_try">Zkusit znovu</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Vypnout</string>
 	<string name="connection_error_toast_guides">Probíhá pokus o opětovné připojení</string>
-	<string name="routes_card_show">Zobrazit</string>
-	<string name="routes_card_hide">Skrýt</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Ukázat na mapě</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Skrýt na mapě</string>
 	<string name="whatsnew_catalog_new_title">Nový katalog průvodců a tisíce nápadů na cestování</string>
 	<string name="whatsnew_catalog_new_message">Aktualizovali jsme katalog průvodců a přidali jsme překlady ve všech jazycích. Začněte plánovat dopředu!</string>
 	<string name="whatsnew_elevation_profile_title">Výškový profil v cestovních průvodcích</string>

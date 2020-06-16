@@ -1779,8 +1779,10 @@
 	<string name="connection_error_dialog_guides_try">もう一度お試しください</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">無効化</string>
 	<string name="connection_error_toast_guides">再接続を試しています</string>
-	<string name="routes_card_show">表示</string>
-	<string name="routes_card_hide">非表示</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">マップ上に表示</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">マップから非表示</string>
 	<string name="whatsnew_catalog_new_title">新しいガイドのカタログと数千の旅行アイディア</string>
 	<string name="whatsnew_catalog_new_message">ガイドのカタログが更新され、全ての言語に翻訳が追加されました。事前に計画を立てましょう！</string>
 	<string name="whatsnew_elevation_profile_title">旅行ガイドの標高情報</string>

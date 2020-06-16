@@ -1784,8 +1784,10 @@
 	<string name="connection_error_dialog_guides_try">再试一次</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">关闭</string>
 	<string name="connection_error_toast_guides">恢复网络连接</string>
-	<string name="routes_card_show">显示</string>
-	<string name="routes_card_hide">隐藏</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">在地图上显示</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">在地图上隐藏</string>
 	<string name="whatsnew_catalog_new_title">新目录和数千个理想度假胜地</string>
 	<string name="whatsnew_catalog_new_message">我们更新了指南目录，并添加了所有语言的翻译。开始提前计划！</string>
 	<string name="whatsnew_elevation_profile_title">指导中的高度剖面图</string>

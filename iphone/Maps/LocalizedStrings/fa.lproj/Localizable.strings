@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "در حال برقراری مجدد ارتباط";
 
-"routes_card_show" = "نمایش دادن";
+/* as few symbols as possible */
+"routes_card_show" = "نمایش روی نقشه";
 
-"routes_card_hide" = "پنهان سازی";
+/* as few symbols as possible */
+"routes_card_hide" = "مخفی کردن از نقشه";
 
 "whatsnew_catalog_new_title" = "کاتالوگ راهنما های جدید و هزاران ایده سفر";
 

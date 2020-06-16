@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Vi återställer Internet-anslutningen";
 
-"routes_card_show" = "Visa";
+/* as few symbols as possible */
+"routes_card_show" = "Visa på kartan";
 
-"routes_card_hide" = "Dölja";
+/* as few symbols as possible */
+"routes_card_hide" = "Dölja på kartan";
 
 "whatsnew_catalog_new_title" = "En ny katalog och tusentals idéer för vila";
 

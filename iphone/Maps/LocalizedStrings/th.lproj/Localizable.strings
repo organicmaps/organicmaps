@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "ลองเชื่อมต่อใหม่";
 
-"routes_card_show" = "แสดง";
+/* as few symbols as possible */
+"routes_card_show" = "แสดงบนแผนที่";
 
-"routes_card_hide" = "ซ่อน";
+/* as few symbols as possible */
+"routes_card_hide" = "ซ่อนจากแผนที่";
 
 "whatsnew_catalog_new_title" = "ไกด์แคตตาล็อกใหม่และไอเดียในการท่องเที่ยวหลายพันอย่าง";
 

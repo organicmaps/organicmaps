@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Восстанавливаем соединение";
 
-"routes_card_show" = "Показать";
+/* as few symbols as possible */
+"routes_card_show" = "Показать на карте";
 
-"routes_card_hide" = "Скрыть";
+/* as few symbols as possible */
+"routes_card_hide" = "Скрыть с карты";
 
 "whatsnew_catalog_new_title" = "Новый каталог и тысячи идей для отдыха";
 

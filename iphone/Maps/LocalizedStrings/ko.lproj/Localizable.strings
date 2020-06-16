@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "재연결 시도하기";
 
-"routes_card_show" = "보기";
+/* as few symbols as possible */
+"routes_card_show" = "지도에서 보이기";
 
-"routes_card_hide" = "숨기기";
+/* as few symbols as possible */
+"routes_card_hide" = "지도에서 숨기기";
 
 "whatsnew_catalog_new_title" = "새로운 가이드 카탈로그와 수 많은 여행 아이디어";
 

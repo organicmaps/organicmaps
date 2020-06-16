@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Відновлюємо з’єднання з Інтернетом";
 
-"routes_card_show" = "Показати";
+/* as few symbols as possible */
+"routes_card_show" = "Показати на карті";
 
-"routes_card_hide" = "Приховати";
+/* as few symbols as possible */
+"routes_card_hide" = "Приховати з карти";
 
 "whatsnew_catalog_new_title" = "Новий каталог і тисячі ідей для відпочинку";
 

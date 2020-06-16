@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "İnternete yeniden bağlanıyoruz";
 
-"routes_card_show" = "Göster";
+/* as few symbols as possible */
+"routes_card_show" = "Haritada göster";
 
-"routes_card_hide" = "Gizle";
+/* as few symbols as possible */
+"routes_card_hide" = "Haritadan gizle";
 
 "whatsnew_catalog_new_title" = "Yeni bir katalog ve binlerce tatil fikri";
 

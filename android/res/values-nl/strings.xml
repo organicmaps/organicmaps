@@ -1787,8 +1787,10 @@
 	<string name="connection_error_dialog_guides_try">Opnieuw proberen</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Uitzetten</string>
 	<string name="connection_error_toast_guides">Opnieuw proberen verbinding te maken</string>
-	<string name="routes_card_show">Tonen</string>
-	<string name="routes_card_hide">Verbergen</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Tonen op kaart</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Verbergen op kaart</string>
 	<string name="whatsnew_catalog_new_title">Nieuwe reisgidscatalogus en duizenden reisideeën</string>
 	<string name="whatsnew_catalog_new_message">We hebben de reisgidscatalogus bijgewerkt en vertalingen in alle talen toegevoegd. Begin vooruit te plannen!</string>
 	<string name="whatsnew_elevation_profile_title">Hoogteprofiel in reisgidsen</string>

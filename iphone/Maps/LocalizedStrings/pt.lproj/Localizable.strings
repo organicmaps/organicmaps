@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Restaurando conexão com a Internet";
 
-"routes_card_show" = "Mostrar";
+/* as few symbols as possible */
+"routes_card_show" = "Exibir no mapa";
 
-"routes_card_hide" = "Ocultar";
+/* as few symbols as possible */
+"routes_card_hide" = "Ocultar do mapa";
 
 "whatsnew_catalog_new_title" = "Catálogo novo e milhares de ideias para as férias";
 

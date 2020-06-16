@@ -1779,8 +1779,10 @@
 	<string name="connection_error_dialog_guides_try">Coba lagi</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Matikan</string>
 	<string name="connection_error_toast_guides">Mencoba menyambung kembali</string>
-	<string name="routes_card_show">Menampilkan</string>
-	<string name="routes_card_hide">Menyembunyikan</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Tampilkan di peta</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Sembunyikan dari peta</string>
 	<string name="whatsnew_catalog_new_title">Katalog panduan baru dan ribuan ide perjalanan</string>
 	<string name="whatsnew_catalog_new_message">Kami telah memperbarui katalog panduan dan menambahkan terjemahan dalam semua bahasa. Mulai perencanaan terlebih dahulu!</string>
 	<string name="whatsnew_elevation_profile_title">Profil elevasi dalam panduan perjalanan</string>

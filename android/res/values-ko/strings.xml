@@ -1781,8 +1781,10 @@
 	<string name="connection_error_dialog_guides_try">재시도하기</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">끄기</string>
 	<string name="connection_error_toast_guides">재연결 시도하기</string>
-	<string name="routes_card_show">보기</string>
-	<string name="routes_card_hide">숨기기</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">지도에서 보이기</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">지도에서 숨기기</string>
 	<string name="whatsnew_catalog_new_title">새로운 가이드 카탈로그와 수 많은 여행 아이디어</string>
 	<string name="whatsnew_catalog_new_message">가이드 카탈로그를 업데이트했고 모든 언어로 된 번역본을 추가했습니다. 미리 여행 계획을 짜보세요!</string>
 	<string name="whatsnew_elevation_profile_title">여행 가이드의 고도 단면도</string>

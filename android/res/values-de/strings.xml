@@ -1794,8 +1794,10 @@
 	<string name="connection_error_dialog_guides_try">Noch einmal versuchen</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Deaktivieren</string>
 	<string name="connection_error_toast_guides">Die Internetverbindung wird hergestellt</string>
-	<string name="routes_card_show">Einblenden</string>
-	<string name="routes_card_hide">Ausblenden</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Auf der Karte einblenden</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Auf der Karte ausblenden</string>
 	<string name="whatsnew_catalog_new_title">Neuer Katalog und tausende Erholungsideen</string>
 	<string name="whatsnew_catalog_new_message">Wir haben das Reiseführerkatalog upgedatet und Übersetzungen in alle Sprachen hinzugefügt. Beginnen Sie im Voraus zu planen!</string>
 	<string name="whatsnew_elevation_profile_title">Höhenprofil in den Reiseführern</string>

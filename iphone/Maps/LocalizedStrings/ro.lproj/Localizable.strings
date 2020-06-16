@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Restabilim conexiunea la Internet";
 
-"routes_card_show" = "Arată";
+/* as few symbols as possible */
+"routes_card_show" = "Arată pe hartă";
 
-"routes_card_hide" = "Ascunde";
+/* as few symbols as possible */
+"routes_card_hide" = "Ascunde de pe hartă";
 
 "whatsnew_catalog_new_title" = "Un nou catalog și mii de idei de vacanță";
 

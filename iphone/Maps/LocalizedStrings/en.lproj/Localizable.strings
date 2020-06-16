@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Trying to reconnect";
 
-"routes_card_show" = "Show";
+/* as few symbols as possible */
+"routes_card_show" = "Show on map";
 
-"routes_card_hide" = "Hide";
+/* as few symbols as possible */
+"routes_card_hide" = "Hide from map";
 
 "whatsnew_catalog_new_title" = "New guides catalog and thousands of travel ideas";
 

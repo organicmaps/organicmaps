@@ -1548,8 +1548,10 @@
 	<string name="connection_error_dialog_guides_try">Δοκιμή ξανά</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Απενεργοποίηση</string>
 	<string name="connection_error_toast_guides">Επαναφορά της σύνδεσής στο Διαδίκτυο</string>
-	<string name="routes_card_show">Εμφάνιση</string>
-	<string name="routes_card_hide">Απόκρυψη</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Εμφάνιση στον χάρτη</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Απόκρυψη από τον χάρτη</string>
 	<string name="whatsnew_catalog_new_title">Νέος κατάλογος οδηγών και χιλιάδες ιδέες για ταξίδια</string>
 	<string name="whatsnew_catalog_new_message">Έχουμε ενημερώσει τον κατάλογο οδηγών και προσθέσαμε μεταφράσεις σε όλες τις γλώσσες. Ξεκινήστε να κάνετε τα σχέδια σας εκ των προτέρων!</string>
 	<string name="whatsnew_elevation_profile_title">Προφίλ υψόμετρου στους οδηγούς</string>

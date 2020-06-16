@@ -1790,8 +1790,10 @@
 	<string name="connection_error_dialog_guides_try">Tentar novamente</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Desativar</string>
 	<string name="connection_error_toast_guides">Restaurando conexão com a Internet</string>
-	<string name="routes_card_show">Mostrar</string>
-	<string name="routes_card_hide">Ocultar</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Exibir no mapa</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Ocultar do mapa</string>
 	<string name="whatsnew_catalog_new_title">Catálogo novo e milhares de ideias para as férias</string>
 	<string name="whatsnew_catalog_new_message">Atualizamos o catálogo de guias e adicionamos traduções para todos os idiomas. Comece a planejar com antecedência!</string>
 	<string name="whatsnew_elevation_profile_title">Perfil de alturas nas guias</string>

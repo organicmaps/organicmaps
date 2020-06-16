@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Próbujemy połączyć się ponownie";
 
-"routes_card_show" = "Pokaż";
+/* as few symbols as possible */
+"routes_card_show" = "Pokazać na mapie";
 
-"routes_card_hide" = "Ukryj";
+/* as few symbols as possible */
+"routes_card_hide" = "Ukryć na mapie";
 
 "whatsnew_catalog_new_title" = "Nowy katalog przewodników i tysiące pomysłów na podróż";
 

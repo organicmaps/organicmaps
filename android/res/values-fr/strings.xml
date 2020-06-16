@@ -1804,7 +1804,9 @@
 	<string name="connection_error_dialog_guides_try">Réessayer</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Désactiver</string>
 	<string name="connection_error_toast_guides">Reconnexion à Internet en cours</string>
-	<string name="routes_card_show">Montrer</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Voir sur la carte</string>
+	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Masquer</string>
 	<string name="whatsnew_catalog_new_title">Nouveau catalogue et des miliers d\'idées de voyages</string>
 	<string name="whatsnew_catalog_new_message">Nous avons mis à jour le catalogue des guides et avons ajouté les traductions dans toutes les langues. Planifiez vos voyages à l\'avance !</string>

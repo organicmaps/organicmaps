@@ -1858,8 +1858,10 @@
 	<string name="connection_error_dialog_guides_try">Try again</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Turn off</string>
 	<string name="connection_error_toast_guides">Trying to reconnect</string>
-	<string name="routes_card_show">Show</string>
-	<string name="routes_card_hide">Hide</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Show on map</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Hide from map</string>
 	<string name="whatsnew_catalog_new_title">New guides catalog and thousands of travel ideas</string>
 	<string name="whatsnew_catalog_new_message">We have updated the guides catalog and added translations in all languages. Start planning in advance!</string>
 	<string name="whatsnew_elevation_profile_title">Elevation profile in travel guides</string>

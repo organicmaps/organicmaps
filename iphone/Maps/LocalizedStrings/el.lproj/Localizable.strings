@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Επαναφορά της σύνδεσής στο Διαδίκτυο";
 
-"routes_card_show" = "Εμφάνιση";
+/* as few symbols as possible */
+"routes_card_show" = "Εμφάνιση στον χάρτη";
 
-"routes_card_hide" = "Απόκρυψη";
+/* as few symbols as possible */
+"routes_card_hide" = "Απόκρυψη από τον χάρτη";
 
 "whatsnew_catalog_new_title" = "Νέος κατάλογος οδηγών και χιλιάδες ιδέες για ταξίδια";
 

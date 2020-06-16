@@ -1787,8 +1787,10 @@
 	<string name="connection_error_dialog_guides_try">Próbálja újra</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">Kapcsolja ki</string>
 	<string name="connection_error_toast_guides">Újracsatlakozás</string>
-	<string name="routes_card_show">Mutat</string>
-	<string name="routes_card_hide">Elrejt</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">Térképen megjelenítés</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">Térképről elrejtés</string>
 	<string name="whatsnew_catalog_new_title">Új útmutatók katalógusa és több ezer utazási ötlet</string>
 	<string name="whatsnew_catalog_new_message">Frissítettük az útmutatók katalógusát és minden nyelven hozzáadtuk a fordításokat. Tervezze meg előre utazását!</string>
 	<string name="whatsnew_elevation_profile_title">Emelkedési profil az utazási útmutatókban</string>

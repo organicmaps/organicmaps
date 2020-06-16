@@ -1791,8 +1791,10 @@
 	<string name="connection_error_dialog_guides_try">أعد المحاولة</string>
 	<string name="connection_error_dialog_guides_layer_turn_off">إيقاف التشغيل</string>
 	<string name="connection_error_toast_guides">محاولة إعادة الاتصال</string>
-	<string name="routes_card_show">عرض</string>
-	<string name="routes_card_hide">إخفاء</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_show">أظهر على الخريطة</string>
+	<!-- as few symbols as possible -->
+	<string name="routes_card_hide">إخفاء من الخريطة</string>
 	<string name="whatsnew_catalog_new_title">قائمة أدلة جديدة والآلاف من أفكار السفر</string>
 	<string name="whatsnew_catalog_new_message">لقد قمنا بتحديث قائمة الأدلة وإضافة ترجمات بكل اللغات. ابدأ بتخطيط سفرك مسبقًا!</string>
 	<string name="whatsnew_elevation_profile_title">ملف تحديد الارتفاع في أدلة السفر</string>

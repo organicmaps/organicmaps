@@ -3282,9 +3282,11 @@
 
 "connection_error_toast_guides" = "Die Internetverbindung wird hergestellt";
 
-"routes_card_show" = "Einblenden";
+/* as few symbols as possible */
+"routes_card_show" = "Auf der Karte einblenden";
 
-"routes_card_hide" = "Ausblenden";
+/* as few symbols as possible */
+"routes_card_hide" = "Auf der Karte ausblenden";
 
 "whatsnew_catalog_new_title" = "Neuer Katalog und tausende Erholungsideen";
 
