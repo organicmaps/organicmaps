@@ -82,7 +82,7 @@ class PlacePageInfoViewController: UIViewController {
 
   var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
-  var showRawCoordinates: Bool {
+  var showFormattedCoordinates: Bool {
     get {
       UserDefaults.standard.bool(forKey: Const.coordinatesKey)
     }
@@ -142,11 +142,11 @@ class PlacePageInfoViewController: UIViewController {
 
     if let formattedCoordinates = placePageInfoData.formattedCoordinates,
       let rawCoordinates = placePageInfoData.rawCoordinates {
-      let coordinates = showRawCoordinates ? rawCoordinates : formattedCoordinates
+      let coordinates = showFormattedCoordinates ? formattedCoordinates : rawCoordinates
       coordinatesView = createInfoItem(coordinates, icon: UIImage(named: "ic_placepage_coordinate")) {
         [unowned self] in
-        self.showRawCoordinates = !self.showRawCoordinates
-        let coordinates = self.showRawCoordinates ? rawCoordinates : formattedCoordinates
+        self.showFormattedCoordinates = !self.showFormattedCoordinates
+        let coordinates = self.showFormattedCoordinates ? formattedCoordinates : rawCoordinates
         self.coordinatesView?.infoLabel.text = coordinates
       }
     } else if let formattedCoordinates = placePageInfoData.formattedCoordinates {
