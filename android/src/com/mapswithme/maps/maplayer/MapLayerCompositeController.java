@@ -266,6 +266,11 @@ public class MapLayerCompositeController implements MapLayerController
     throw new IllegalArgumentException("Mode not found : " + mode);
   }
 
+  public void turnOffCurrentView()
+  {
+    mCurrentLayer.getController().turnOff();
+  }
+
   private static class ControllerAndMode
   {
     @NonNull

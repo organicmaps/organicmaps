@@ -1501,16 +1501,29 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (state == GuidesState.FATAL_NETWORK_ERROR)
       onGuidesFatalError();
+    else if (state == GuidesState.DISABLED)
+      onGuidesDisabled();
     else
       state.activate(getApplicationContext());
+  }
+
+  private void onGuidesDisabled()
+  {
+    mToggleMapLayerController.turnOffCurrentView();
+    notifyGuidesAdapters();
   }
 
   private void onGuidesFatalError()
   {
     mToggleMapLayerController.turnOff();
+    showGuidesFatalErrorDialog();
+    notifyGuidesAdapters();
+  }
+
+  private void notifyGuidesAdapters()
+  {
     RecyclerView bottomSheetRecycler = findViewById(R.id.layers_recycler);
     Objects.requireNonNull(bottomSheetRecycler.getAdapter()).notifyDataSetChanged();
-    showGuidesFatalErrorDialog();
     ToggleMapLayerDialog frag = ToggleMapLayerDialog.getInstance(this);
     if (frag == null)
       return;
