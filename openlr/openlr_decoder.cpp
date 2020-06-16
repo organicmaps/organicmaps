@@ -384,7 +384,7 @@ public:
 
   bool DecodeSegment(LinearSegment const & segment, DecodedPath & path, v2::Stats & stat)
   {
-    LOG(LDEBUG, ("DecodeSegment(...) seg id:", segment.m_segmentId, ", point num:", segment.GetLRPs().size()));
+    LOG(LINFO, ("DecodeSegment(...) seg id:", segment.m_segmentId, ", point num:", segment.GetLRPs().size()));
 
     uint32_t constexpr kMaxJunctionCandidates = 10;
     uint32_t constexpr kMaxProjectionCandidates = 5;
@@ -395,7 +395,7 @@ public:
     CHECK_GREATER(points.size(), 1, ("A segment cannot consist of less than two points"));
     vector<ScorePathVec> lineCandidates;
     lineCandidates.reserve(points.size());
-    LOG(LDEBUG, ("Decoding segment:", segment.m_segmentId, "with", points.size(), "points"));
+    LOG(LINFO, ("Decoding segment:", segment.m_segmentId, "with", points.size(), "points"));
 
     ScoreCandidatePointsGetter pointsGetter(kMaxJunctionCandidates, kMaxProjectionCandidates,
                                             m_dataSource, m_graph);
@@ -431,7 +431,7 @@ public:
       actualRouteDistanceM += EdgeLength(e);
 
     auto const scale = actualRouteDistanceM / requiredRouteDistanceM;
-    LOG(LDEBUG, ("actualRouteDistance:", actualRouteDistanceM,
+    LOG(LINFO, ("actualRouteDistance:", actualRouteDistanceM,
         "requiredRouteDistance:", requiredRouteDistanceM, "scale:", scale));
 
     if (segment.m_locationReference.m_positiveOffsetMeters +
