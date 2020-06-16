@@ -121,6 +121,13 @@ bool ValidatePathByLength(Graph::EdgeVector const & path, double distanceToNextP
 
   return true;
 }
+
+bool AreEdgesEqualWithoutAltitude(Graph::Edge const & e1, Graph::Edge const & e2)
+{
+  return e1.GetType() == e2.GetType() && e1.GetFeatureId() == e2.GetFeatureId() &&
+         e1.IsForward() == e2.IsForward() && e1.GetSegId() == e2.GetSegId() &&
+         e1.GetStartPoint() == e2.GetStartPoint() && e1.GetEndPoint() == e2.GetEndPoint();
+}
 }  // namespace
 
 ScorePathsConnector::ScorePathsConnector(Graph & graph, RoadInfoGetter & infoGetter, v2::Stats & stat)
@@ -254,7 +261,7 @@ bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge
     if (stateScore > scores[stateEdge])
       continue;
 
-    if (stateEdge == to)
+    if (AreEdgesEqualWithoutAltitude(stateEdge, to))
     {
       for (auto edge = stateEdge; edge != from; edge = links[edge])
         path.emplace_back(edge);
@@ -322,7 +329,8 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
   resultPath.insert(resultPath.end(), from.cbegin(), prev(from.cend()));
   resultPath.insert(resultPath.end(), shortestPath.cbegin(), shortestPath.cend());
 
-  CHECK_EQUAL(to.front(), shortestPath.back(), ());
+  CHECK(AreEdgesEqualWithoutAltitude(to.front(), shortestPath.back()),
+        (to.front(), shortestPath.back()));
   resultPath.insert(resultPath.end(), next(to.begin()), to.end());
 
   return !resultPath.empty();

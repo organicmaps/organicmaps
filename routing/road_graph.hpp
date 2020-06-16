@@ -73,6 +73,8 @@ public:
     return GetEndJunction().GetPoint() - GetStartJunction().GetPoint();
   }
 
+  Type GetType() const { return m_type; }
+
   Edge GetReverseEdge() const;
 
   bool SameRoadSegmentAndDirection(Edge const & r) const;
