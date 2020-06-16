@@ -8,6 +8,8 @@
 #include "storage/country_info_getter.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/feature_decl.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
@@ -36,6 +38,9 @@ void ScoreCandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p
   ScorePointVec pointCandidates;
   auto const selectCandidates = [&p, &pointCandidates, this](FeatureType & ft) {
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+    if (ft.GetGeomType() != feature::GeomType::Line || !routing::IsRoad(feature::TypesHolder(ft)))
+      return;
+
     ft.ForEachPoint(
         [&p, &pointCandidates, this](m2::PointD const & candidate) {
           if (mercator::DistanceOnEarth(p, candidate) < kRadius)
