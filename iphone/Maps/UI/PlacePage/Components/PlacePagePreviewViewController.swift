@@ -1,4 +1,4 @@
-class PlacePageDirectionView: UIView {
+final class PlacePageDirectionView: UIView {
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var label: UILabel!
 }
@@ -9,7 +9,7 @@ protocol PlacePagePreviewViewControllerDelegate: AnyObject {
   func previewDidPressRemoveAds()
 }
 
-class PlacePagePreviewViewController: UIViewController {
+final class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
   @IBOutlet var popularView: UIView!
   @IBOutlet var subtitleLabel: UILabel!
@@ -45,7 +45,14 @@ class PlacePagePreviewViewController: UIViewController {
     return view
   }()
 
-  var placePagePreviewData: PlacePagePreviewData!
+  var placePagePreviewData: PlacePagePreviewData! {
+    didSet {
+      if isViewLoaded {
+        updateViews()
+      }
+    }
+  }
+  
   weak var delegate: PlacePagePreviewViewControllerDelegate?
 
   private var distance: String? = nil
@@ -53,6 +60,23 @@ class PlacePagePreviewViewController: UIViewController {
   private var heading: CGFloat? = nil
 
   override func viewDidLoad() {
+    updateViews()
+
+    if let distance = distance {
+      placePageDirectionView?.isHidden = false
+      placePageDirectionView?.label.text = distance
+    }
+
+    if let heading = heading {
+      updateHeading(heading)
+    } else {
+      placePageDirectionView?.imageView.isHidden = true
+    }
+
+    stackView.addArrangedSubview(adView)
+  }
+
+  private func updateViews() {
     super.viewDidLoad()
     if placePagePreviewData.isMyPosition {
       if let speedAndAltitude = speedAndAltitude {
@@ -93,19 +117,6 @@ class PlacePagePreviewViewController: UIViewController {
     configSchedule()
     configUgc()
     ugcContainerView.isHidden = !placePagePreviewData.isBookingPlace
-
-    if let distance = distance {
-      placePageDirectionView?.isHidden = false
-      placePageDirectionView?.label.text = distance
-    }
-
-    if let heading = heading {
-      updateHeading(heading)
-    } else {
-      placePageDirectionView?.imageView.isHidden = true
-    }
-
-    stackView.addArrangedSubview(adView)
   }
 
   func updateBanner(_ banner: MWMBanner) {

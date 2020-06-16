@@ -314,6 +314,7 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   } else {
     _bookmarkData = nil;
   }
+  _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
   if (self.onBookmarkStatusUpdate != nil) {
     self.onBookmarkStatusUpdate();
   }

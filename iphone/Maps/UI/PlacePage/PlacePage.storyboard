@@ -2355,7 +2355,7 @@
         <scene sceneID="HJX-eR-h7W">
             <objects>
                 <viewController storyboardIdentifier="CatalogSingleItemViewController" id="Uqa-lN-kxa" customClass="CatalogSingleItemViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8M2-fC-tzU">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="8M2-fC-tzU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2583,7 +2583,7 @@
         <scene sceneID="2SQ-Cj-ThU">
             <objects>
                 <viewController storyboardIdentifier="CatalogGalleryViewController" id="JgS-R4-vTi" customClass="CatalogGalleryViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VPS-rm-qWf">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="VPS-rm-qWf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="247"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

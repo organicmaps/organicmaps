@@ -223,7 +223,8 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       if self.placePageData.bookmarkData == nil {
         self.actionBarViewController.resetButtons()
       }
-      self.updateBookmarkSection()
+      self.previewViewController.placePagePreviewData = self.placePageData.previewData
+      self.updateBookmarkRelatedSections()
     }
     placePageData.onUgcStatusUpdate = { [weak self] in
       self?.onLoadUgc()
@@ -368,16 +369,17 @@ extension PlacePageCommonLayout {
     presenter?.updatePreviewOffset()
   }
 
-  func updateBookmarkSection() {
-    var hidden = false
+  func updateBookmarkRelatedSections() {
+    var isBookmark = false
     if let bookmarkData = placePageData.bookmarkData {
       bookmarkViewController.bookmarkData = bookmarkData
-    } else {
-      hidden = true
+      isBookmark = true
     }
     self.presenter?.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
-      self.bookmarkViewController.view.isHidden = hidden
+      self.bookmarkViewController.view.isHidden = !isBookmark
+      self.catalogGalleryViewController.view.isHidden = isBookmark
+      self.catalogGalleryViewController.view.isHidden = isBookmark
       self.presenter?.layoutIfNeeded()
     }
   }
