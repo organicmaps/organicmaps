@@ -124,9 +124,10 @@ bool ValidatePathByLength(Graph::EdgeVector const & path, double distanceToNextP
 
 bool AreEdgesEqualWithoutAltitude(Graph::Edge const & e1, Graph::Edge const & e2)
 {
-  return e1.GetType() == e2.GetType() && e1.GetFeatureId() == e2.GetFeatureId() &&
-         e1.IsForward() == e2.IsForward() && e1.GetSegId() == e2.GetSegId() &&
-         e1.GetStartPoint() == e2.GetStartPoint() && e1.GetEndPoint() == e2.GetEndPoint();
+  return make_tuple(e1.GetType(), e1.GetFeatureId(), e1.IsForward(), e1.GetSegId(),
+                    e1.GetStartPoint(), e1.GetEndPoint()) ==
+         make_tuple(e2.GetType(), e2.GetFeatureId(), e2.IsForward(), e2.GetSegId(),
+                    e2.GetStartPoint(), e2.GetEndPoint());
 }
 }  // namespace
 
