@@ -6,7 +6,9 @@
     }
     let data = PlacePageData(localizationProvider: OpeinigHoursLocalization())
     viewController.isPreviewPlus = data.isPreviewPlus
-    let interactor = PlacePageInteractor(viewController: viewController, data: data)
+    let interactor = PlacePageInteractor(viewController: viewController,
+                                         data: data,
+                                         mapViewController: MapViewController.shared())
     let layout:IPlacePageLayout
     if data.elevationProfileData != nil {
       layout = PlacePageElevationLayout(interactor: interactor, storyboard: storyboard, data: data)

@@ -3,6 +3,7 @@ protocol PlacePagePresenterProtocol: class {
   func layoutIfNeeded()
   func showNextStop()
   func closeAnimated()
+  func updateTopBound(_ bound: CGFloat, duration: TimeInterval)
 }
 
 class PlacePagePresenter: NSObject {
@@ -37,5 +38,9 @@ extension PlacePagePresenter: PlacePagePresenterProtocol {
 
   func closeAnimated() {
     view.closeAnimated()
+  }
+
+  func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
+    interactor.updateTopBound(bound, duration: duration)
   }
 }

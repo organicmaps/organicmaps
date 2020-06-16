@@ -1,21 +1,25 @@
 protocol PlacePageInteractorProtocol: class {
-
+  func updateTopBound(_ bound: CGFloat, duration: TimeInterval)
 }
 
 class PlacePageInteractor {
   weak var presenter: PlacePagePresenterProtocol?
   weak var viewController: UIViewController?
+  weak var mapViewController: MapViewController?
 
   private var placePageData: PlacePageData
 
-  init (viewController: UIViewController, data: PlacePageData) {
+  init (viewController: UIViewController, data: PlacePageData, mapViewController: MapViewController) {
     self.placePageData = data
     self.viewController = viewController
+    self.mapViewController = mapViewController
   }
 }
 
 extension PlacePageInteractor: PlacePageInteractorProtocol {
-
+  func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
+    mapViewController?.setPlacePageTopBound(bound, duration: duration)
+  }
 }
 
 // MARK: - PlacePagePreviewViewControllerDelegate

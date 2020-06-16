@@ -155,6 +155,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     [self.view layoutIfNeeded];
     self.guidesCollectionContainer.alpha = 1;
   }];
+  [self setPlacePageTopBound:self.view.height - self.guidesCollectionContainer.minY duration:kDefaultAnimationDuration];
 }
 
 - (void)showPlacePage {
@@ -180,6 +181,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [self.placePageVC removeFromParentViewController];
   self.placePageVC = nil;
   self.placePageContainer.hidden = YES;
+  [self setPlacePageTopBound:0 duration:0];
 }
 
 - (void)hideGuidesGallery {
@@ -197,6 +199,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     self.guidesCollectionContainer.hidden = YES;
     self.guidesVisibleConstraint.constant = 48;
   }];
+  [self setPlacePageTopBound:0 duration:kDefaultAnimationDuration];
 }
 
 - (void)hidePlacePage {
@@ -863,9 +866,12 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   return _downloadDialog;
 }
 
-- (void)setPlacePageTopBound:(CGFloat)bound {
+- (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration {
   self.visibleAreaBottom.constant = bound;
   self.sideButtonsAreaBottom.constant = bound;
+  [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+    [self.view layoutIfNeeded];
+  } completion:nil];
 }
 
 + (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomLevel {
