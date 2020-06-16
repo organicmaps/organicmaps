@@ -103,6 +103,9 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vAr-wN-cIR"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="46.376811594202906" y="191.18303571428569"/>
         </view>
     </objects>
