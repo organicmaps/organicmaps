@@ -102,6 +102,7 @@ final class ExpandableLabel: UIView {
     textView.text = text
     textView.attributedText = attributedText
     textView.setContentHuggingPriority(contentHuggingPriority(for: .vertical), for: .vertical)
+    textView.backgroundColor = .clear
     expandLabel.setContentHuggingPriority(contentHuggingPriority(for: .vertical), for: .vertical)
     expandLabel.font = font
     expandLabel.textColor = expandColor
