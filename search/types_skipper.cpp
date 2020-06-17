@@ -16,13 +16,14 @@ TypesSkipper::TypesSkipper()
 {
   Classificator const & c = classif();
 
-  for (auto const & e : (StringIL[]){{"building"}, {"highway"}, {"landuse"}, {"natural"},
-                                     {"office"}, {"waterway"}, {"area:highway"}})
+  StringIL const typesLengthOne[] = {{"building"}, {"highway"}, {"landuse"}, {"natural"},
+                                     {"office"}, {"waterway"}, {"area:highway"}};
+  for (auto const & e : typesLengthOne)
   {
     m_skipIfEmptyName[0].push_back(c.GetTypeByPath(e));
   }
 
-  for (auto const & e : (StringIL[]){{"man_made", "chimney"},
+  StringIL const typesLengthTwo[] = {{"man_made", "chimney"},
                                      {"place", "country"},
                                      {"place", "state"},
                                      {"place", "county"},
@@ -31,10 +32,12 @@ TypesSkipper::TypesSkipper()
                                      {"place", "town"},
                                      {"place", "suburb"},
                                      {"place", "neighbourhood"},
-                                     {"place", "square"}})
+                                     {"place", "square"}};
+  for (auto const & e : typesLengthTwo)
   {
     m_skipIfEmptyName[1].push_back(c.GetTypeByPath(e));
   }
+
   m_skipAlways[1].push_back(c.GetTypeByPath({"sponsored", "partner18"}));
   m_skipAlways[1].push_back(c.GetTypeByPath({"sponsored", "partner19"}));
   m_skipAlways[0].push_back(c.GetTypeByPath({"isoline"}));
