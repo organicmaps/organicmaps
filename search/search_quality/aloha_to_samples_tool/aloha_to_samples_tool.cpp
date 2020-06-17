@@ -35,7 +35,7 @@ DEFINE_string(data_path, "", "Path to data directory (resources dir).");
 DEFINE_string(categorial, "all",
               "Allowed values: 'all' - save all requests; 'only' - save only categorial requests; "
               "'no' - save all but categorial requests.");
-DEFINE_string(locale, "", "Filter samples by locale.");
+DEFINE_string(locales, "", "Comma separated locales to filter samples.");
 
 struct EmitInfo
 {
@@ -212,6 +212,8 @@ int main(int argc, char * argv[])
   bool newUser = true;
   optional<EmitInfo> info;
 
+  auto const locales = strings::Tokenize<set>(FLAGS_locales, ",");
+
   while (true)
   {
     try
@@ -257,7 +259,7 @@ int main(int argc, char * argv[])
         continue;
       }
 
-      if (!FLAGS_locale.empty() && info->m_locale != FLAGS_locale)
+      if (!locales.empty() && locales.count(info->m_locale) == 0)
         continue;
 
       auto const resultMatches = info->m_results.size() > result->m_pos &&
