@@ -1,6 +1,6 @@
 final class ExpandableLabel: UIView {
   typealias OnExpandClosure = (() -> Void) -> Void
-  
+
   private let stackView = UIStackView()
   private let textView = UITextView()
   private let expandLabel = UILabel()
@@ -32,9 +32,9 @@ final class ExpandableLabel: UIView {
       textView.text = text
       expandLabel.isHidden = true
       if let text = text {
-        textView.isHidden = text.count == 0
+        isHidden = text.isEmpty
       } else {
-        textView.isHidden = true
+        isHidden = true
       }
     }
   }
@@ -45,9 +45,9 @@ final class ExpandableLabel: UIView {
       textView.attributedText = attributedText
       expandLabel.isHidden = true
       if let attributedText = attributedText {
-        textView.isHidden = attributedText.length == 0
+        isHidden = attributedText.length == 0
       } else {
-        textView.isHidden = true
+        isHidden = true
       }
     }
   }
@@ -92,7 +92,7 @@ final class ExpandableLabel: UIView {
     stackView.axis = .vertical
     stackView.alignment = .leading
     containerMaximumNumberOfLines = numberOfLines > 0 ? numberOfLines + 1 : 0
-    textView.textContainer.lineFragmentPadding = 0;
+    textView.textContainer.lineFragmentPadding = 0
     textView.isScrollEnabled = false
     textView.isEditable = false
     textView.textContainerInset = .zero
@@ -119,7 +119,7 @@ final class ExpandableLabel: UIView {
 
   @objc func onExpand(_ sender: UITapGestureRecognizer) {
     if expandLabel.isHidden { return }
-    
+
     let expandClosure = {
       UIView.animate(withDuration: kDefaultAnimationDuration) {
         self.containerMaximumNumberOfLines = 0
