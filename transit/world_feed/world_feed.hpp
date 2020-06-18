@@ -121,6 +121,8 @@ struct StopData
   // |m_timetable| can be left empty.
   TimeTable m_timetable;
 
+  uint64_t m_osmId = 0;
+
   // Field not intended for dumping to json:
   std::string m_gtfsParentId;
 };
@@ -209,6 +211,7 @@ struct GateData
   m2::PointD m_point;
   std::vector<TimeFromGateToStop> m_weights;
 
+  uint64_t m_osmId = 0;
   // Field not intended for dumping to json:
   std::string m_gtfsId;
 };
@@ -286,6 +289,7 @@ public:
 
 private:
   friend class WorldFeedIntegrationTests;
+  friend class SubwayConverter;
 
   void SaveRegions(std::string const & worldFeedDir, std::string const & region, bool overwrite);
 
@@ -399,4 +403,22 @@ private:
   // If the feed explicitly specifies its language, we use its value. Otherwise set to default.
   std::string m_feedLanguage;
 };
+
+// Creates concatenation of |values| separated by delimiter.
+template <typename... Values>
+auto BuildHash(Values... values)
+{
+  static std::string const delimiter = "_";
+
+  size_t constexpr paramsCount = sizeof...(Values);
+  size_t const delimitersSize = (paramsCount - 1) * delimiter.size();
+  size_t const totalSize = (delimitersSize + ... + values.size());
+
+  std::string hash;
+  hash.reserve(totalSize);
+  (hash.append(values + delimiter), ...);
+  hash.pop_back();
+
+  return hash;
+}
 }  // namespace transit

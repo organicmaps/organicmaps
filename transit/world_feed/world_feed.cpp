@@ -29,23 +29,6 @@
 
 namespace
 {
-template <typename... Values>
-auto BuildHash(Values... values)
-{
-  static std::string const delimiter = "_";
-
-  size_t constexpr paramsCount = sizeof...(Values);
-  size_t const delimitersSize = (paramsCount - 1) * delimiter.size();
-  size_t const totalSize = (delimitersSize + ... + values.size());
-
-  std::string hash;
-  hash.reserve(totalSize);
-  (hash.append(values + delimiter), ...);
-  hash.pop_back();
-
-  return hash;
-}
-
 template <class C, class ID>
 void AddToRegions(C & container, ID const & id, transit::Regions const & regions)
 {
@@ -266,7 +249,7 @@ IdGenerator::IdGenerator(std::string const & idMappingPath)
   }
 
   std::ifstream mappingFile;
-  mappingFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+  mappingFile.exceptions(std::ifstream::badbit);
 
   try
   {
@@ -285,7 +268,6 @@ IdGenerator::IdGenerator(std::string const & idMappingPath)
 
     // The first line of the mapping file is current free id.
     m_curId = static_cast<TransitId>(std::stol(idStr));
-    CHECK(routing::FakeFeatureIds::IsTransitFeature(m_curId), (m_curId));
 
     // Next lines are sequences of id and hash pairs, each on new line.
     while (std::getline(mappingFile, idStr))
@@ -296,7 +278,6 @@ IdGenerator::IdGenerator(std::string const & idMappingPath)
 
       std::tie(std::ignore, inserted) = m_hashToId.emplace(hash, id);
       CHECK(inserted, ("Not unique", id, hash));
-      CHECK(routing::FakeFeatureIds::IsTransitFeature(id), (id));
     }
   }
   catch (std::ifstream::failure const & se)
@@ -618,7 +599,8 @@ bool WorldFeed::FillStopsEdges()
       EdgeData data;
       data.m_shapeLink.m_shapeId = shapeId;
       data.m_weight =
-          stopTime2.arrival_time.get_total_seconds() - stopTime1.departure_time.get_total_seconds();
+          static_cast<transit::EdgeWeight>(stopTime2.arrival_time.get_total_seconds() -
+                                           stopTime1.departure_time.get_total_seconds());
 
       auto [itEdge, insertedEdge] = m_edges.m_data.emplace(EdgeId(stop1Id, stop2Id, lineId), data);
 
@@ -1266,7 +1248,11 @@ void Stops::Write(IdSet const & ids, std::ofstream & stream) const
   {
     auto const & stop = m_data.find(stopId)->second;
     auto node = base::NewJSONObject();
-    ToJSONObject(*node, "id", stopId);
+    if (stop.m_osmId == 0)
+      ToJSONObject(*node, "id", stopId);
+    else
+      ToJSONObject(*node, "osm_id", stop.m_osmId);
+
     json_object_set_new(node.get(), "point", PointToJson(stop.m_point).release());
     json_object_set_new(node.get(), "title", TranslationsToJson(stop.m_title).release());
 
@@ -1340,7 +1326,10 @@ void Gates::Write(IdSet const & ids, std::ofstream & stream) const
       continue;
 
     auto node = base::NewJSONObject();
-    ToJSONObject(*node, "id", gateId);
+    if (gate.m_osmId == 0)
+      ToJSONObject(*node, "id", gateId);
+    else
+      ToJSONObject(*node, "osm_id", gate.m_osmId);
 
     auto weightsArr = base::NewJSONArray();
 

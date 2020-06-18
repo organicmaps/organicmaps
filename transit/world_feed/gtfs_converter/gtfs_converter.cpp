@@ -1,6 +1,7 @@
 #include "generator/affiliation.hpp"
 
 #include "transit/world_feed/color_picker.hpp"
+#include "transit/world_feed/subway_converter.hpp"
 #include "transit/world_feed/world_feed.hpp"
 
 #include "platform/platform.hpp"
@@ -13,7 +14,9 @@
 #include "3party/gflags/src/gflags/gflags.h"
 
 DEFINE_string(path_mapping, "", "Path to the mapping file of TransitId to GTFS hash");
+// One of these two paths should be specified: |path_gtfs_feeds| and/or |path_subway_json|.
 DEFINE_string(path_gtfs_feeds, "", "Directory with GTFS feeds subdirectories");
+DEFINE_string(path_subway_json, "", "MAPS.ME json file with subway data from OSM");
 DEFINE_string(path_json, "", "Output directory for dumping json files");
 DEFINE_string(path_resources, "", "MAPS.ME resources directory");
 DEFINE_string(start_feed, "", "Optional. Feed directory from which the process continues");
@@ -156,35 +159,17 @@ FeedStatus ReadFeed(gtfs::Feed & feed)
   return FeedStatus::OK;
 }
 
-int main(int argc, char ** argv)
+// Reads GTFS feeds from directories in |FLAGS_path_gtfs_feeds|. Converts each feed to the WorldFeed
+// object and saves to the |FLAGS_path_json| path in the new transit line-by-line json format.
+bool ConvertFeeds(transit::IdGenerator & generator, transit::ColorPicker & colorPicker,
+                  feature::CountriesFilesAffiliation & mwmMatcher)
 {
-  google::SetUsageMessage("Reads GTFS feeds, produces json with global ids for generator.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
-  auto const toolName = base::GetNameFromFullPath(argv[0]);
-
-  if (FLAGS_path_mapping.empty() || FLAGS_path_gtfs_feeds.empty() || FLAGS_path_json.empty())
-  {
-    LOG(LWARNING, ("Some of the required options are not present."));
-    google::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
-    return -1;
-  }
-
-  if (!Platform::IsDirectory(FLAGS_path_gtfs_feeds) || !Platform::IsDirectory(FLAGS_path_json) ||
-      !Platform::IsDirectory(FLAGS_path_resources))
-  {
-    LOG(LWARNING,
-        ("Some paths set in options are not valid. Check the directories:",
-         FLAGS_path_gtfs_feeds, FLAGS_path_json, FLAGS_path_resources));
-    google::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
-    return -1;
-  }
-
   auto const gtfsFeeds = GetGtfsFeedsInDirectory(FLAGS_path_gtfs_feeds);
 
   if (gtfsFeeds.empty())
   {
     LOG(LERROR, ("No subdirectories with GTFS feeds found in", FLAGS_path_gtfs_feeds));
-    return -1;
+    return false;
   }
 
   std::vector<std::string> invalidFeeds;
@@ -194,14 +179,6 @@ int main(int argc, char ** argv)
   size_t feedsDumped = 0;
   size_t feedsTotal = gtfsFeeds.size();
   bool pass = true;
-
-  transit::IdGenerator generator(FLAGS_path_mapping);
-
-  GetPlatform().SetResourceDir(FLAGS_path_resources);
-  transit::ColorPicker colorPicker;
-
-  feature::CountriesFilesAffiliation mwmMatcher(GetPlatform().ResourcesDir(),
-                                                false /* haveBordersForWholeWorld */);
 
   for (size_t i = 0; i < gtfsFeeds.size(); ++i)
   {
@@ -259,13 +236,82 @@ int main(int argc, char ** argv)
       break;
   }
 
-  generator.Save();
-
   LOG(LINFO, ("Corrupted feeds paths:", invalidFeeds));
   LOG(LINFO, ("Corrupted feeds:", invalidFeeds.size(), "/", feedsTotal));
+  LOG(LINFO, ("Bad stop sequences:", transit::WorldFeed::GetCorruptedStopSequenceCount()));
   LOG(LINFO, ("Feeds with no shapes:", feedsWithNoShapesCount, "/", feedsTotal));
   LOG(LINFO, ("Feeds parsed but not dumped:", feedsNotDumpedCount, "/", feedsTotal));
   LOG(LINFO, ("Total dumped feeds:", feedsDumped, "/", feedsTotal));
-  LOG(LINFO, ("Bad stop sequences:", transit::WorldFeed::GetCorruptedStopSequenceCount()));
-  return 0;
+
+  return true;
+}
+
+// Reads subway json from |FLAGS_path_subway_json|, converts it to the WorldFeed object and saves
+// to the |FLAGS_path_json| path in the new transit line-by-line json format.
+bool ConvertSubway(transit::IdGenerator & generator, transit::ColorPicker & colorPicker,
+                   feature::CountriesFilesAffiliation & mwmMatcher, bool overwrite)
+{
+  transit::WorldFeed globalFeed(generator, colorPicker, mwmMatcher);
+  transit::SubwayConverter converter(FLAGS_path_subway_json, globalFeed);
+
+  if (!converter.Convert())
+    return false;
+
+  globalFeed.Save(FLAGS_path_json, overwrite);
+
+  return true;
+}
+
+int main(int argc, char ** argv)
+{
+  google::SetUsageMessage("Reads GTFS feeds or subway transit.json, produces json with global ids for generator.");
+  google::ParseCommandLineFlags(&argc, &argv, true);
+  auto const toolName = base::GetNameFromFullPath(argv[0]);
+
+  if (FLAGS_path_gtfs_feeds.empty() && FLAGS_path_subway_json.empty())
+  {
+    LOG(LWARNING, ("Path to GTFS feeds directory or path to the subways json must be specified."));
+    google::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
+    return EXIT_FAILURE;
+  }
+
+  if (FLAGS_path_mapping.empty() || FLAGS_path_json.empty())
+  {
+    LOG(LWARNING, ("Some of the required options are not present."));
+    google::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
+    return EXIT_FAILURE;
+  }
+
+  if ((!FLAGS_path_gtfs_feeds.empty() && !Platform::IsDirectory(FLAGS_path_gtfs_feeds)) ||
+      !Platform::IsDirectory(FLAGS_path_json) || !Platform::IsDirectory(FLAGS_path_resources) ||
+      (!FLAGS_path_subway_json.empty() &&
+       !Platform::IsFileExistsByFullPath(FLAGS_path_subway_json)))
+  {
+    LOG(LWARNING, ("Some paths set in options are not valid. Check the directories:",
+                   FLAGS_path_gtfs_feeds, FLAGS_path_json, FLAGS_path_resources));
+    google::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
+    return EXIT_FAILURE;
+  }
+
+  transit::IdGenerator generator(FLAGS_path_mapping);
+
+  GetPlatform().SetResourceDir(FLAGS_path_resources);
+  transit::ColorPicker colorPicker;
+
+  feature::CountriesFilesAffiliation mwmMatcher(GetPlatform().ResourcesDir(),
+                                                false /* haveBordersForWholeWorld */);
+
+  if (!FLAGS_path_gtfs_feeds.empty() && !ConvertFeeds(generator, colorPicker, mwmMatcher))
+    return EXIT_FAILURE;
+
+  if (!FLAGS_path_subway_json.empty() &&
+      !ConvertSubway(generator, colorPicker, mwmMatcher,
+                     FLAGS_path_gtfs_feeds.empty() /* overwrite */))
+  {
+    return EXIT_FAILURE;
+  }
+
+  generator.Save();
+
+  return EXIT_SUCCESS;
 }

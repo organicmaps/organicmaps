@@ -7,6 +7,8 @@ set(SRC
     date_time_helpers.hpp
     feed_helpers.cpp
     feed_helpers.hpp
+    subway_converter.cpp
+    subway_converter.hpp
     world_feed.cpp
     world_feed.hpp
 )
@@ -26,6 +28,8 @@ omim_link_libraries(
     routing_common
     transit
     descriptions
+    storage
+    search
     ugc
     drape
     partners_api

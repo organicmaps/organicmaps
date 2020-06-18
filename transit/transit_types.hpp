@@ -147,6 +147,7 @@ public:
 
   StopId GetId() const { return m_id.Get(); }
   FeatureId GetFeatureId() const { return m_featureIdentifiers.GetFeatureId(); }
+  OsmId GetOsmId() const { return m_featureIdentifiers.GetOsmId(); }
   TransferId GetTransferId() const { return m_transferId; }
   std::vector<LineId> const & GetLineIds() const { return m_lineIds; }
   m2::PointD const & GetPoint() const { return m_point; }
