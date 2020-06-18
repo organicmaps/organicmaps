@@ -339,7 +339,7 @@ def depends_from_internal(*deps) -> Callable[[Type[Stage],], Type[Stage]]:
     ) -> Dict[AnyStr, AnyStr]:
         deps = {}
         for d in internal_dependencies:
-            if "p" in d.mode and not env.production:
+            if "p" in d.mode and not env.production or not d.url:
                 continue
 
             path = None
