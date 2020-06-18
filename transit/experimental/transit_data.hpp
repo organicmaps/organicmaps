@@ -31,18 +31,20 @@ class TransitData
 public:
   void DeserializeFromJson(std::string const & dirWithJsons, OsmIdToFeatureIdsMap const & mapping);
   /// \note This method changes only |m_header| and fills it with correct offsets.
-  // TODO(o.khlopkova) Add implementation for methods:
-  void Serialize(Writer & writer) {}
-  void DeserializeAll(Reader & reader) {}
-  void DeserializeForRouting(Reader & reader) {}
-  void DeserializeForRendering(Reader & reader) {}
-  void DeserializeForCrossMwm(Reader & reader) {}
-  void Clear() {}
-  void CheckValidSortedUnique() const {}
-  bool IsEmpty() const { return false; }
+  void Serialize(Writer & writer);
+  void Deserialize(Reader & reader);
+  void DeserializeForRouting(Reader & reader);
+  void DeserializeForRendering(Reader & reader);
+  void DeserializeForCrossMwm(Reader & reader);
+  void Clear();
+  void CheckValid() const;
+  void CheckSorted() const;
+  void CheckUnique() const;
+  bool IsEmpty() const;
   /// \brief Sorts all class fields by their ids.
-  void Sort() {}
-  void SetGateBestPedestrianSegment(size_t gateIdx, SingleMwmSegment const & s) {}
+  void Sort();
+  void SetGatePedestrianSegments(size_t gateIdx, std::vector<SingleMwmSegment> const & seg);
+  void SetStopPedestrianSegments(size_t stopIdx, std::vector<SingleMwmSegment> const & seg);
 
   std::vector<Stop> const & GetStops() const { return m_stops; }
   std::vector<Gate> const & GetGates() const { return m_gates; }
@@ -58,18 +60,17 @@ private:
                                   visitor(m_lines, "lines"), visitor(m_shapes, "shapes"),
                                   visitor(m_networks, "networks"), visitor(m_routes, "routes"))
 
-  /// \brief Read a transit table form |src|.
+  /// \brief Reads transit form |src|.
   /// \note Before calling any of the method except for ReadHeader() |m_header| has to be filled.
-  // TODO(o.khlopkova) Add implementation for methods:
-  void ReadHeader(NonOwningReaderSource & src) {}
-  void ReadStops(NonOwningReaderSource & src) {}
-  void ReadGates(NonOwningReaderSource & src) {}
-  void ReadEdges(NonOwningReaderSource & src) {}
-  void ReadTransfers(NonOwningReaderSource & src) {}
-  void ReadLines(NonOwningReaderSource & src) {}
-  void ReadShapes(NonOwningReaderSource & src) {}
-  void ReadNetworks(NonOwningReaderSource & src) {}
-  void ReadRoutes(NonOwningReaderSource & src) {}
+  void ReadHeader(NonOwningReaderSource & src);
+  void ReadStops(NonOwningReaderSource & src);
+  void ReadGates(NonOwningReaderSource & src);
+  void ReadEdges(NonOwningReaderSource & src);
+  void ReadTransfers(NonOwningReaderSource & src);
+  void ReadLines(NonOwningReaderSource & src);
+  void ReadShapes(NonOwningReaderSource & src);
+  void ReadRoutes(NonOwningReaderSource & src);
+  void ReadNetworks(NonOwningReaderSource & src);
 
   template <typename Fn>
   void DeserializeWith(Reader & reader, Fn && fn)

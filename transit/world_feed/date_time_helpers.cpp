@@ -73,16 +73,6 @@ void AccumExceptionDates::AddRange()
 
 bool AccumExceptionDates::IsInited() const { return m_inited; }
 
-std::string ToString(osmoh::OpeningHours const & openingHours)
-{
-  if (!openingHours.IsValid())
-    return {};
-
-  std::ostringstream stream;
-  stream << openingHours.GetRule();
-  return stream.str();
-}
-
 osmoh::Weekday ConvertWeekDayIndexToOsmoh(size_t index)
 {
   // Monday index in osmoh is 2.

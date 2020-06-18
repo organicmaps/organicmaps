@@ -17,11 +17,6 @@ namespace experimental
 void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const & transitJsonsPath,
                          TransitData & data);
 
-/// \brief Calculates and adds additional information to transit |data| after deserializing it
-/// from json.
-void ProcessData(std::string const & mwmPath, storage::CountryId const & countryId,
-                 OsmIdToFeatureIdsMap const & osmIdToFeatureIdsMap, TransitData & data);
-
 /// \brief Builds transit section in the mwm based on transit data in json which is already clipped
 /// by the mwm borders.
 /// \param mwmDir is the directory where mwm is located.

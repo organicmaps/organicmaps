@@ -1,8 +1,7 @@
 #pragma once
 
+#include "transit/experimental/transit_types_experimental.hpp"
 #include "transit/transit_types.hpp"
-
-#include "geometry/point2d.hpp"
 
 #include "coding/geometry_coding.hpp"
 #include "coding/point_coding.hpp"
@@ -10,6 +9,8 @@
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
+
+#include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
@@ -22,7 +23,10 @@
 #include <sstream>
 #include <string>
 #include <type_traits>
+#include <unordered_map>
 #include <vector>
+
+#include "3party/opening_hours/opening_hours.hpp"
 
 namespace routing
 {
@@ -117,6 +121,19 @@ public:
       id.Visit(*this);
   }
 
+  void operator()(::transit::experimental::IdBundle const & id, char const * name = nullptr)
+  {
+    if (id.SerializeFeatureIdOnly())
+      (*this)(id.GetFeatureId(), name);
+    else
+      id.Visit(*this);
+  }
+
+  void operator()(osmoh::OpeningHours const & oh, char const * /* name */ = nullptr)
+  {
+    (*this)(ToString(oh));
+  }
+
   void operator()(Edge const & e, char const * /* name */ = nullptr)
   {
     (*this)(e.m_stop1Id);
@@ -151,6 +168,18 @@ public:
     WriteVarUint(m_sink, static_cast<uint64_t>(vs.size()));
     for (auto const & v : vs)
       (*this)(v);
+  }
+
+  template <class K, class V>
+  void operator()(std::unordered_map<K, V> const & container, char const * /* name */ = nullptr)
+  {
+    CHECK_LESS_OR_EQUAL(container.size(), std::numeric_limits<uint64_t>::max(), ());
+    WriteVarUint(m_sink, static_cast<uint64_t>(container.size()));
+    for (auto const & [key, val] : container)
+    {
+      (*this)(key);
+      (*this)(val);
+    }
   }
 
   template <typename T>
@@ -240,6 +269,20 @@ public:
     id.Visit(*this);
   }
 
+  void operator()(::transit::experimental::IdBundle & idBundle, char const * name = nullptr)
+  {
+    if (idBundle.SerializeFeatureIdOnly())
+    {
+      FeatureId featureId;
+      operator()(featureId, name);
+      idBundle.SetFeatureId(featureId);
+      idBundle.SetOsmId(kInvalidOsmId);
+      return;
+    }
+
+    idBundle.Visit(*this);
+  }
+
   void operator()(Edge & e, char const * name = nullptr)
   {
     (*this)(e.m_stop1Id);
@@ -304,6 +347,29 @@ public:
       (*this)(v);
   }
 
+  template <class K, class V>
+  void operator()(std::unordered_map<K, V> & container, char const * /* name */ = nullptr)
+  {
+    auto const size = static_cast<size_t>(ReadVarUint<uint64_t, Source>(m_source));
+    for (size_t i = 0; i < size; ++i)
+    {
+      K key;
+      V val;
+
+      (*this)(key);
+      (*this)(val);
+
+      container.emplace(key, val);
+    }
+  }
+
+  void operator()(osmoh::OpeningHours & oh, char const * /* name */ = nullptr)
+  {
+    std::string ohStr;
+    (*this)(ohStr);
+    oh = osmoh::OpeningHours(ohStr);
+  }
+
   template <typename T>
   std::enable_if_t<std::is_class<T>::value> operator()(T & t, char const * /* name */ = nullptr)
   {
@@ -331,6 +397,11 @@ public:
 
   void operator()(TransitHeader const & header) { header.Visit(*this); }
 
+  void operator()(::transit::experimental::TransitHeader const & headerExperimental)
+  {
+    headerExperimental.Visit(*this);
+  }
+
 private:
   Sink & m_sink;
 };
@@ -349,6 +420,11 @@ public:
   }
 
   void operator()(TransitHeader & header) { header.Visit(*this); }
+
+  void operator()(::transit::experimental::TransitHeader & headerExperimental)
+  {
+    headerExperimental.Visit(*this);
+  }
 
 private:
   Source & m_source;

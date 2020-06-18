@@ -21,19 +21,36 @@
 // subway classes for handling networks, stops and other transit entities. When the time comes this
 // transit implementation will completely replace the subway classes, they will be removed, and the
 // experimental namespace will be also removed.
+namespace routing
+{
+namespace transit
+{
+template <class Sink>
+class Serializer;
+template <class Source>
+class Deserializer;
+template <typename Sink>
+class FixedSizeSerializer;
+template <typename Sink>
+class FixedSizeDeserializer;
+}  // namespace transit
+}  // namespace routing
+
 namespace transit
 {
 namespace experimental
 {
-#define DECLARE_TRANSIT_TYPES_FRIENDS \
-  template <class Sink>               \
-  friend class Serializer;            \
-  template <class Source>             \
-  friend class Deserializer;          \
-  template <typename Sink>            \
-  friend class FixedSizeSerializer;   \
-  template <typename Sink>            \
-  friend class FixedSizeDeserializer;
+constexpr uint16_t kExperimentalTransitVersion = 2;
+
+#define DECLARE_TRANSIT_TYPES_FRIENDS                 \
+  template <class Sink>                               \
+  friend class routing::transit::Serializer;          \
+  template <class Source>                             \
+  friend class routing::transit::Deserializer;        \
+  template <typename Sink>                            \
+  friend class routing::transit::FixedSizeSerializer; \
+  template <typename Sink>                            \
+  friend class routing::transit::FixedSizeDeserializer;
 
 using FeatureId = uint32_t;
 using OsmId = uint64_t;
@@ -90,10 +107,35 @@ private:
   bool m_serializeFeatureIdOnly = true;
 };
 
-class TransitHeader
+struct TransitHeader
 {
-  // TODO(o.khlopkova) Add body.
+  TransitHeader() = default;
+
+  bool IsValid() const;
+
+  DECLARE_TRANSIT_TYPES_FRIENDS
+  DECLARE_VISITOR_AND_DEBUG_PRINT(
+      TransitHeader, visitor(m_version, "version"), visitor(m_reserve, "reserve"),
+      visitor(m_stopsOffset, "stops"), visitor(m_gatesOffset, "gatesOffset"),
+      visitor(m_edgesOffset, "edgesOffset"), visitor(m_transfersOffset, "transfersOffset"),
+      visitor(m_linesOffset, "linesOffset"), visitor(m_shapesOffset, "shapesOffset"),
+      visitor(m_routesOffset, "routesOffset"), visitor(m_networksOffset, "networksOffset"),
+      visitor(m_endOffset, "endOffset"))
+
+  uint16_t m_version = 0;
+  uint16_t m_reserve = 0;
+  uint32_t m_stopsOffset = 0;
+  uint32_t m_gatesOffset = 0;
+  uint32_t m_edgesOffset = 0;
+  uint32_t m_transfersOffset = 0;
+  uint32_t m_linesOffset = 0;
+  uint32_t m_shapesOffset = 0;
+  uint32_t m_routesOffset = 0;
+  uint32_t m_networksOffset = 0;
+  uint32_t m_endOffset = 0;
 };
+
+static_assert(sizeof(TransitHeader) == 40, "Wrong header size of transit section.");
 
 class Network
 {
@@ -104,6 +146,7 @@ public:
 
   bool operator<(Network const & rhs) const;
   bool operator==(Network const & rhs) const;
+
   bool IsValid() const;
 
   TransitId GetId() const;
@@ -126,6 +169,7 @@ public:
 
   bool operator<(Route const & rhs) const;
   bool operator==(Route const & rhs) const;
+
   bool IsValid() const;
 
   TransitId GetId() const;
@@ -156,6 +200,7 @@ public:
 
   bool operator<(Line const & rhs) const;
   bool operator==(Line const & rhs) const;
+
   bool IsValid() const;
 
   TransitId GetId() const;
@@ -173,7 +218,7 @@ private:
                                   visitor(m_shapeLink, "shape_link"), visitor(m_title, "title"),
                                   visitor(m_number, "number"), visitor(m_stopIds, "stop_ids"),
                                   visitor(m_intervals, "intervals"),
-                                  visitor(m_serviceDays.GetRule(), "service_days"))
+                                  visitor(m_serviceDays, "service_days"))
   TransitId m_id = kInvalidTransitId;
   TransitId m_routeId = kInvalidTransitId;
   ShapeLink m_shapeLink;
@@ -194,7 +239,11 @@ public:
 
   bool operator<(Stop const & rhs) const;
   bool operator==(Stop const & rhs) const;
+
   bool IsValid() const;
+
+  void SetBestPedestrianSegments(std::vector<SingleMwmSegment> const & seg);
+  std::vector<SingleMwmSegment> const & GetBestPedestrianSegments() const;
 
   FeatureId GetId() const;
   FeatureId GetFeatureId() const;
@@ -205,12 +254,16 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
-  // TODO(o.khlopkova) add visitor for |m_timetable|.
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_ids, "osm_id"),
-                                  visitor(m_title, "title"), visitor(m_point, "point"))
-
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_ids, "id_bundle"),
+                                  visitor(m_bestPedestrianSegments, "best_pedestrian_segments"),
+                                  visitor(m_title, "title"), visitor(m_timetable, "timetable"),
+                                  visitor(m_point, "point"))
   TransitId m_id = kInvalidTransitId;
   IdBundle m_ids;
+  // |m_bestPedestrianSegments| are segments which can be used for pedestrian routing to leave and
+  // enter the gate. The segments may be invalid because of map date. If so there's no pedestrian
+  // segment which can be used to reach the stop.
+  std::vector<SingleMwmSegment> m_bestPedestrianSegments;
   Translations m_title;
   TimeTable m_timetable;
   m2::PointD m_point;
@@ -225,12 +278,14 @@ public:
 
   bool operator<(Gate const & rhs) const;
   bool operator==(Gate const & rhs) const;
+
   bool IsValid() const;
-  void SetBestPedestrianSegment(SingleMwmSegment const & s);
 
   FeatureId GetFeatureId() const;
   OsmId GetOsmId() const;
-  SingleMwmSegment const & GetBestPedestrianSegment() const;
+  std::vector<SingleMwmSegment> const & GetBestPedestrianSegments() const;
+  void SetBestPedestrianSegments(std::vector<SingleMwmSegment> const & seg);
+
   bool IsEntrance() const;
   bool IsExit() const;
   std::vector<TimeFromGateToStop> const & GetStopsWithWeight() const;
@@ -238,8 +293,8 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_id, "id"), visitor(m_ids, "ids"),
-                                  visitor(m_bestPedestrianSegment, "best_pedestrian_segment"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_id, "id"), visitor(m_ids, "id_bundle"),
+                                  visitor(m_bestPedestrianSegments, "best_pedestrian_segments"),
                                   visitor(m_entrance, "entrance"), visitor(m_exit, "exit"),
                                   visitor(m_weights, "weights"), visitor(m_point, "point"))
 
@@ -247,10 +302,10 @@ private:
   // |m_ids| contains feature id of a feature which represents gates. Usually it's a
   // point feature.
   IdBundle m_ids;
-  // |m_bestPedestrianSegment| is a segment which can be used for pedestrian routing to leave and
-  // enter the gate. The segment may be invalid because of map date. If so there's no pedestrian
+  // |m_bestPedestrianSegments| are segments which can be used for pedestrian routing to leave and
+  // enter the gate. The segments may be invalid because of map date. If so there's no pedestrian
   // segment which can be used to reach the gate.
-  SingleMwmSegment m_bestPedestrianSegment;
+  std::vector<SingleMwmSegment> m_bestPedestrianSegments;
   bool m_entrance = true;
   bool m_exit = true;
   std::vector<TimeFromGateToStop> m_weights;
@@ -267,6 +322,7 @@ public:
   bool operator<(Edge const & rhs) const;
   bool operator==(Edge const & rhs) const;
   bool operator!=(Edge const & rhs) const;
+
   bool IsValid() const;
   void SetWeight(EdgeWeight weight);
 
@@ -300,6 +356,7 @@ public:
 
   bool operator<(Transfer const & rhs) const;
   bool operator==(Transfer const & rhs) const;
+
   bool IsValid() const;
 
   TransitId GetId() const;
@@ -324,6 +381,7 @@ public:
 
   bool operator<(Shape const & rhs) const;
   bool operator==(Shape const & rhs) const;
+
   bool IsValid() const;
 
   TransitId GetId() const;
@@ -336,5 +394,7 @@ private:
   TransitId m_id;
   std::vector<m2::PointD> m_polyline;
 };
+
+#undef DECLARE_TRANSIT_TYPES_FRIENDS
 }  // namespace experimental
 }  // namespace transit

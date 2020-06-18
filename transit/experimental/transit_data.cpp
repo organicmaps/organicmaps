@@ -1,11 +1,13 @@
 #include "transit/experimental/transit_data.hpp"
 
 #include "transit/transit_entities.hpp"
+#include "transit/transit_serdes.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <algorithm>
 #include <fstream>
 #include <tuple>
 
@@ -16,6 +18,64 @@ namespace transit
 {
 namespace experimental
 {
+template <class E>
+void ReadItems(uint32_t start, uint32_t end, std::string const & entityName,
+               NonOwningReaderSource & src, std::vector<E> & entities)
+{
+  routing::transit::Deserializer<NonOwningReaderSource> deserializer(src);
+
+  CHECK_EQUAL(src.Pos(), start, ("Wrong", TRANSIT_FILE_TAG, "section format for:", entityName));
+  deserializer(entities);
+  CHECK_EQUAL(src.Pos(), end, ("Wrong", TRANSIT_FILE_TAG, "section format for", entityName));
+}
+
+struct ClearVisitor
+{
+  template <class C>
+  void operator()(C & container, char const * /* entityName */) const
+  {
+    container.clear();
+  }
+};
+
+struct SortVisitor
+{
+  template <class C>
+  void operator()(C & container, char const * /* entityName */) const
+  {
+    std::sort(container.begin(), container.end());
+  }
+};
+
+struct CheckValidVisitor
+{
+  template <class C>
+  void operator()(C const & container, char const * entityName) const
+  {
+    for (auto const & item : container)
+      CHECK(item.IsValid(), (item, "is not valid in", entityName));
+  }
+};
+
+struct CheckUniqueVisitor
+{
+  template <class C>
+  void operator()(C const & container, char const * entityName) const
+  {
+    auto const it = std::adjacent_find(container.begin(), container.end());
+    CHECK(it == container.end(), (*it, "is not unique in", entityName));
+  }
+};
+
+struct CheckSortedVisitor
+{
+  template <typename C>
+  void operator()(C const & container, char const * entityName) const
+  {
+    CHECK(std::is_sorted(container.begin(), container.end()), (entityName, "is not sorted."));
+  }
+};
+
 TransitId GetIdFromJson(json_t * obj)
 {
   TransitId id;
@@ -372,6 +432,197 @@ void TransitData::DeserializeFromJson(std::string const & dirWithJsons,
   ReadData(base::JoinPath(dirWithJsons, kEdgesTransferFile), m_edges);
   ReadData(base::JoinPath(dirWithJsons, kTransfersFile), m_transfers);
   ReadData(base::JoinPath(dirWithJsons, kGatesFile), m_gates, mapping);
+}
+
+void TransitData::Serialize(Writer & writer)
+{
+  auto const startOffset = writer.Pos();
+
+  routing::transit::Serializer<Writer> serializer(writer);
+  routing::transit::FixedSizeSerializer<Writer> fixedSizeSerializer(writer);
+  m_header = TransitHeader();
+  m_header.m_version = kExperimentalTransitVersion;
+  fixedSizeSerializer(m_header);
+
+  m_header.m_stopsOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  serializer(m_stops);
+
+  m_header.m_gatesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  serializer(m_gates);
+
+  m_header.m_edgesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  serializer(m_edges);
+
+  m_header.m_transfersOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  serializer(m_transfers);
+
+  m_header.m_linesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  serializer(m_lines);
+
+  m_header.m_shapesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  serializer(m_shapes);
+
+  m_header.m_routesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  serializer(m_routes);
+
+  m_header.m_networksOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  serializer(m_networks);
+
+  m_header.m_endOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+
+  // Overwriting updated header.
+  CHECK(m_header.IsValid(), (m_header));
+  auto const endOffset = writer.Pos();
+  writer.Seek(startOffset);
+  fixedSizeSerializer(m_header);
+  writer.Seek(endOffset);
+
+  LOG(LINFO, (TRANSIT_FILE_TAG, "experimental section is ready. Header:", m_header));
+}
+
+void TransitData::Deserialize(Reader & reader)
+{
+  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+    ReadStops(src);
+    ReadGates(src);
+    ReadEdges(src);
+    ReadTransfers(src);
+    ReadLines(src);
+    ReadShapes(src);
+    ReadRoutes(src);
+    ReadNetworks(src);
+  });
+}
+
+void TransitData::DeserializeForRouting(Reader & reader)
+{
+  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+    ReadStops(src);
+    ReadGates(src);
+    ReadEdges(src);
+    src.Skip(m_header.m_linesOffset - src.Pos());
+    ReadLines(src);
+  });
+}
+
+void TransitData::DeserializeForRendering(Reader & reader)
+{
+  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+    ReadStops(src);
+    src.Skip(m_header.m_transfersOffset - src.Pos());
+    ReadTransfers(src);
+    ReadLines(src);
+    ReadShapes(src);
+    ReadRoutes(src);
+  });
+}
+
+void TransitData::DeserializeForCrossMwm(Reader & reader)
+{
+  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+    ReadStops(src);
+    src.Skip(m_header.m_edgesOffset - src.Pos());
+    ReadEdges(src);
+  });
+}
+
+void TransitData::Clear()
+{
+  ClearVisitor const visitor;
+  Visit(visitor);
+}
+
+void TransitData::CheckValid() const
+{
+  CheckValidVisitor const visitor;
+  Visit(visitor);
+}
+
+void TransitData::CheckSorted() const
+{
+  CheckSortedVisitor const visitor;
+  Visit(visitor);
+}
+
+void TransitData::CheckUnique() const
+{
+  CheckUniqueVisitor const visitor;
+  Visit(visitor);
+}
+
+bool TransitData::IsEmpty() const
+{
+  // |m_transfers| and |m_gates| may be empty and it is ok.
+  return m_networks.empty() || m_routes.empty() || m_lines.empty() || m_shapes.empty() ||
+         m_stops.empty() || m_edges.empty();
+}
+
+void TransitData::Sort()
+{
+  SortVisitor const visitor;
+  Visit(visitor);
+}
+
+void TransitData::SetGatePedestrianSegments(size_t gateIdx,
+                                            std::vector<SingleMwmSegment> const & seg)
+{
+  CHECK_LESS(gateIdx, m_gates.size(), ());
+  m_gates[gateIdx].SetBestPedestrianSegments(seg);
+}
+
+void TransitData::SetStopPedestrianSegments(size_t stopIdx,
+                                            std::vector<SingleMwmSegment> const & seg)
+{
+  CHECK_LESS(stopIdx, m_stops.size(), ());
+  m_stops[stopIdx].SetBestPedestrianSegments(seg);
+}
+
+void TransitData::ReadHeader(NonOwningReaderSource & src)
+{
+  routing::transit::FixedSizeDeserializer<NonOwningReaderSource> fixedSizeDeserializer(src);
+  fixedSizeDeserializer(m_header);
+  CHECK_EQUAL(src.Pos(), m_header.m_stopsOffset, ("Wrong", TRANSIT_FILE_TAG, "section format."));
+  CHECK(m_header.IsValid(), ());
+}
+
+void TransitData::ReadStops(NonOwningReaderSource & src)
+{
+  ReadItems(m_header.m_stopsOffset, m_header.m_gatesOffset, "stops", src, m_stops);
+}
+
+void TransitData::ReadGates(NonOwningReaderSource & src)
+{
+  ReadItems(m_header.m_gatesOffset, m_header.m_edgesOffset, "gates", src, m_gates);
+}
+
+void TransitData::ReadEdges(NonOwningReaderSource & src)
+{
+  ReadItems(m_header.m_edgesOffset, m_header.m_transfersOffset, "edges", src, m_edges);
+}
+
+void TransitData::ReadTransfers(NonOwningReaderSource & src)
+{
+  ReadItems(m_header.m_transfersOffset, m_header.m_linesOffset, "transfers", src, m_transfers);
+}
+
+void TransitData::ReadLines(NonOwningReaderSource & src)
+{
+  ReadItems(m_header.m_linesOffset, m_header.m_shapesOffset, "lines", src, m_lines);
+}
+
+void TransitData::ReadShapes(NonOwningReaderSource & src)
+{
+  ReadItems(m_header.m_shapesOffset, m_header.m_routesOffset, "shapes", src, m_shapes);
+}
+
+void TransitData::ReadRoutes(NonOwningReaderSource & src)
+{
+  ReadItems(m_header.m_routesOffset, m_header.m_networksOffset, "routes", src, m_routes);
+}
+
+void TransitData::ReadNetworks(NonOwningReaderSource & src)
+{
+  ReadItems(m_header.m_networksOffset, m_header.m_endOffset, "networks", src, m_networks);
 }
 }  // namespace experimental
 }  // namespace transit

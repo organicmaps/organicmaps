@@ -45,17 +45,26 @@ using Translations = std::unordered_map<std::string, std::string>;
 
 struct TimeFromGateToStop
 {
+  bool operator==(TimeFromGateToStop const & rhs) const
+  {
+    return std::tie(m_stopId, m_timeSeconds) == std::tie(rhs.m_stopId, rhs.m_timeSeconds);
+  }
+
   DECLARE_VISITOR_AND_DEBUG_PRINT(TimeFromGateToStop, visitor(m_stopId, "stopId"),
                                   visitor(m_timeSeconds, "timeSeconds"))
-
   TransitId m_stopId = kInvalidTransitId;
   size_t m_timeSeconds = 0;
 };
 
 struct LineInterval
 {
+  bool operator==(LineInterval const & rhs) const
+  {
+    return std::tie(m_headwayS, m_timeIntervals) == std::tie(rhs.m_headwayS, rhs.m_timeIntervals);
+  }
+
   DECLARE_VISITOR_AND_DEBUG_PRINT(LineInterval, visitor(m_headwayS, "headwayS"),
-                                  visitor(m_timeIntervals.GetRule(), "timeIntervals"))
+                                  visitor(m_timeIntervals, "timeIntervals"))
   // Service interval in seconds between departures from the same stop (headway) for the line,
   // during the time interval specified by |m_timeIntervals|.
   size_t m_headwayS = 0;
@@ -72,6 +81,12 @@ using EdgeWeight = uint32_t;
 // Link to the shape: shape id and indexes in the corresponding polyline.
 struct ShapeLink
 {
+  bool operator==(ShapeLink const & rhs) const
+  {
+    return std::tie(m_shapeId, m_startIndex, m_endIndex) ==
+           std::tie(rhs.m_shapeId, rhs.m_startIndex, rhs.m_endIndex);
+  }
+
   DECLARE_VISITOR_AND_DEBUG_PRINT(ShapeLink, visitor(m_shapeId, "id"),
                                   visitor(m_startIndex, "startIndex"),
                                   visitor(m_endIndex, "endIndex"))

@@ -53,7 +53,6 @@
 
 using namespace feature;
 using namespace platform;
-using namespace routing;
 using namespace std;
 using namespace std::placeholders;
 
@@ -63,54 +62,58 @@ class VehicleMaskBuilder final
 {
 public:
   VehicleMaskBuilder(string const & country,
-                              CountryParentNameGetterFn const & countryParentNameGetterFn)
-    : m_pedestrianModel(
-          PedestrianModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
-    , m_bicycleModel(
-          BicycleModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
-    , m_carModel(CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
+                     routing::CountryParentNameGetterFn const & countryParentNameGetterFn)
+    : m_pedestrianModel(routing::PedestrianModelFactory(countryParentNameGetterFn)
+                            .GetVehicleModelForCountry(country))
+    , m_bicycleModel(routing::BicycleModelFactory(countryParentNameGetterFn)
+                         .GetVehicleModelForCountry(country))
+    , m_carModel(
+          routing::CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country))
   {
     CHECK(m_pedestrianModel, ());
     CHECK(m_bicycleModel, ());
     CHECK(m_carModel, ());
   }
 
-  VehicleMask CalcRoadMask(FeatureType & f) const
+  routing::VehicleMask CalcRoadMask(FeatureType & f) const
   {
-    return CalcMask(
-        f, [&](VehicleModelInterface const & model, FeatureType & f) { return model.IsRoad(f); });
+    return CalcMask(f, [&](routing::VehicleModelInterface const & model, FeatureType & f) {
+      return model.IsRoad(f);
+    });
   }
 
-  VehicleMask CalcOneWayMask(FeatureType & f) const
+  routing::VehicleMask CalcOneWayMask(FeatureType & f) const
   {
-    return CalcMask(
-        f, [&](VehicleModelInterface const & model, FeatureType & f) { return model.IsOneWay(f); });
+    return CalcMask(f, [&](routing::VehicleModelInterface const & model, FeatureType & f) {
+      return model.IsOneWay(f);
+    });
   }
 
 private:
   template <class Fn>
-  VehicleMask CalcMask(FeatureType & f, Fn && fn) const
+  routing::VehicleMask CalcMask(FeatureType & f, Fn && fn) const
   {
-    VehicleMask mask = 0;
+    routing::VehicleMask mask = 0;
     if (fn(*m_pedestrianModel, f))
-      mask |= kPedestrianMask;
+      mask |= routing::kPedestrianMask;
     if (fn(*m_bicycleModel, f))
-      mask |= kBicycleMask;
+      mask |= routing::kBicycleMask;
     if (fn(*m_carModel, f))
-      mask |= kCarMask;
+      mask |= routing::kCarMask;
 
     return mask;
   }
 
-  shared_ptr<VehicleModelInterface> const m_pedestrianModel;
-  shared_ptr<VehicleModelInterface> const m_bicycleModel;
-  shared_ptr<VehicleModelInterface> const m_carModel;
+  shared_ptr<routing::VehicleModelInterface> const m_pedestrianModel;
+  shared_ptr<routing::VehicleModelInterface> const m_bicycleModel;
+  shared_ptr<routing::VehicleModelInterface> const m_carModel;
 };
 
 class Processor final
 {
 public:
-  Processor(string const & country, CountryParentNameGetterFn const & countryParentNameGetterFn)
+  Processor(string const & country,
+            routing::CountryParentNameGetterFn const & countryParentNameGetterFn)
     : m_maskBuilder(country, countryParentNameGetterFn)
   {
   }
@@ -120,9 +123,9 @@ public:
     feature::ForEachFeature(filename, bind(&Processor::ProcessFeature, this, _1, _2));
   }
 
-  void BuildGraph(IndexGraph & graph) const
+  void BuildGraph(routing::IndexGraph & graph) const
   {
-    vector<Joint> joints;
+    vector<routing::Joint> joints;
     for (auto const & it : m_posToJoint)
     {
       // Need only connected points (2 or more roads)
@@ -133,12 +136,12 @@ public:
     graph.Import(joints);
   }
 
-  unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
+  unordered_map<uint32_t, routing::VehicleMask> const & GetMasks() const { return m_masks; }
 
 private:
   void ProcessFeature(FeatureType & f, uint32_t id)
   {
-    VehicleMask const mask = m_maskBuilder.CalcRoadMask(f);
+    routing::VehicleMask const mask = m_maskBuilder.CalcRoadMask(f);
     if (mask == 0)
       return;
 
@@ -148,41 +151,46 @@ private:
     for (size_t i = 0; i < f.GetPointsCount(); ++i)
     {
       uint64_t const locationKey = PointToInt64Obsolete(f.GetPoint(i), kPointCoordBits);
-      m_posToJoint[locationKey].AddPoint(RoadPoint(id, base::checked_cast<uint32_t>(i)));
+      m_posToJoint[locationKey].AddPoint(routing::RoadPoint(id, base::checked_cast<uint32_t>(i)));
     }
   }
 
   VehicleMaskBuilder const m_maskBuilder;
-  unordered_map<uint64_t, Joint> m_posToJoint;
-  unordered_map<uint32_t, VehicleMask> m_masks;
+  unordered_map<uint64_t, routing::Joint> m_posToJoint;
+  unordered_map<uint32_t, routing::VehicleMask> m_masks;
 };
 
 class IndexGraphWrapper final
 {
 public:
-  IndexGraphWrapper(IndexGraph & graph, Segment const & start)
-    : m_graph(graph), m_start(start) {}
+  IndexGraphWrapper(routing::IndexGraph & graph, routing::Segment const & start)
+    : m_graph(graph), m_start(start)
+  {
+  }
 
   // Just for compatibility with IndexGraphStarterJoints
   // @{
-  Segment GetStartSegment() const { return m_start; }
-  Segment GetFinishSegment() const { return {}; }
-  bool ConvertToReal(Segment const & /* segment */) const { return false; }
-  RouteWeight HeuristicCostEstimate(Segment const & /* from */, ms::LatLon const & /* to */)
+  routing::Segment GetStartSegment() const { return m_start; }
+  routing::Segment GetFinishSegment() const { return {}; }
+  bool ConvertToReal(routing::Segment const & /* segment */) const { return false; }
+  routing::RouteWeight HeuristicCostEstimate(routing::Segment const & /* from */,
+                                             ms::LatLon const & /* to */)
   {
     CHECK(false, ("This method exists only for compatibility with IndexGraphStarterJoints"));
-    return GetAStarWeightZero<RouteWeight>();
+    return routing::GetAStarWeightZero<routing::RouteWeight>();
   }
 
-  bool AreWavesConnectible(IndexGraph::Parents<JointSegment> const & /* forwardParents */,
-                           JointSegment const & /* commonVertex */,
-                           IndexGraph::Parents<JointSegment> const & /* backwardParents */,
-                           function<uint32_t(JointSegment const &)> && /* fakeFeatureConverter */)
+  bool AreWavesConnectible(
+      routing::IndexGraph::Parents<routing::JointSegment> const & /* forwardParents */,
+      routing::JointSegment const & /* commonVertex */,
+      routing::IndexGraph::Parents<routing::JointSegment> const & /* backwardParents */,
+      function<uint32_t(routing::JointSegment const &)> && /* fakeFeatureConverter */)
   {
     return true;
   }
 
-  void SetAStarParents(bool /* forward */, IndexGraph::Parents<JointSegment> & parents)
+  void SetAStarParents(bool /* forward */,
+                       routing::IndexGraph::Parents<routing::JointSegment> & parents)
   {
     m_AStarParents = &parents;
   }
@@ -192,63 +200,66 @@ public:
     m_AStarParents = nullptr;
   }
 
-  RouteWeight GetAStarWeightEpsilon() { return RouteWeight(0.0); }
+  routing::RouteWeight GetAStarWeightEpsilon() { return routing::RouteWeight(0.0); }
   // @}
 
-  ms::LatLon const & GetPoint(Segment const & s, bool forward)
+  ms::LatLon const & GetPoint(routing::Segment const & s, bool forward)
   {
     return m_graph.GetPoint(s, forward);
   }
 
-  void GetEdgesList(Segment const & child, bool isOutgoing, vector<SegmentEdge> & edges)
+  void GetEdgesList(routing::Segment const & child, bool isOutgoing,
+                    vector<routing::SegmentEdge> & edges)
   {
     m_graph.GetEdgeList(child, isOutgoing, true /* useRoutingOptions */, edges);
   }
 
-  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & vertexData,
-                   Segment const & parent, bool isOutgoing, vector<JointEdge> & edges,
-                   vector<RouteWeight> & parentWeights) const
+  void GetEdgeList(
+      routing::astar::VertexData<routing::JointSegment, routing::RouteWeight> const & vertexData,
+      routing::Segment const & parent, bool isOutgoing, vector<routing::JointEdge> & edges,
+      vector<routing::RouteWeight> & parentWeights) const
   {
     CHECK(m_AStarParents, ());
     return m_graph.GetEdgeList(vertexData.m_vertex, parent, isOutgoing, edges, parentWeights,
                                *m_AStarParents);
   }
 
-  bool IsJoint(Segment const & segment, bool fromStart) const
+  bool IsJoint(routing::Segment const & segment, bool fromStart) const
   {
     return IsJointOrEnd(segment, fromStart);
   }
 
-  bool IsJointOrEnd(Segment const & segment, bool fromStart) const
+  bool IsJointOrEnd(routing::Segment const & segment, bool fromStart) const
   {
     return m_graph.IsJointOrEnd(segment, fromStart);
   }
 
   template <typename Vertex>
-  RouteWeight HeuristicCostEstimate(Vertex const & /* from */, m2::PointD const & /* to */)
+  routing::RouteWeight HeuristicCostEstimate(Vertex const & /* from */, m2::PointD const & /* to */)
   {
     CHECK(false, ("This method should not be use, it is just for compatibility with "
                   "IndexGraphStarterJoints."));
 
-    return GetAStarWeightZero<RouteWeight>();
+    return routing::GetAStarWeightZero<routing::RouteWeight>();
   }
 
 private:
-  IndexGraph::Parents<JointSegment> * m_AStarParents = nullptr;
-  IndexGraph & m_graph;
-  Segment m_start;
+  routing::IndexGraph::Parents<routing::JointSegment> * m_AStarParents = nullptr;
+  routing::IndexGraph & m_graph;
+  routing::Segment m_start;
 };
 
-class DijkstraWrapperJoints : public IndexGraphStarterJoints<IndexGraphWrapper>
+class DijkstraWrapperJoints : public routing::IndexGraphStarterJoints<IndexGraphWrapper>
 {
 public:
-
-  DijkstraWrapperJoints(IndexGraphWrapper & graph, Segment const & start)
-    : IndexGraphStarterJoints<IndexGraphWrapper>(graph, start) {}
+  DijkstraWrapperJoints(IndexGraphWrapper & graph, routing::Segment const & start)
+    : routing::IndexGraphStarterJoints<IndexGraphWrapper>(graph, start)
+  {
+  }
 
   Weight HeuristicCostEstimate(Vertex const & /* from */, Vertex const & /* to */) override
   {
-    return GetAStarWeightZero<Weight>();
+    return routing::GetAStarWeightZero<Weight>();
   }
 };
 
@@ -256,14 +267,14 @@ public:
 /// |transitions| will be combination of |VehicleType::Pedestrian|, |VehicleType::Bicycle|
 /// and |VehicleType::Car|.
 void CalcCrossMwmTransitions(
-    string const & mwmFile, string const & intermediateDir,
-    string const & mappingFile, vector<m2::RegionD> const & borders,
-    string const & country, CountryParentNameGetterFn const & countryParentNameGetterFn,
-    vector<CrossMwmConnectorSerializer::Transition<base::GeoObjectId>> & transitions)
+    string const & mwmFile, string const & intermediateDir, string const & mappingFile,
+    vector<m2::RegionD> const & borders, string const & country,
+    routing::CountryParentNameGetterFn const & countryParentNameGetterFn,
+    vector<routing::CrossMwmConnectorSerializer::Transition<base::GeoObjectId>> & transitions)
 {
   VehicleMaskBuilder const maskMaker(country, countryParentNameGetterFn);
   map<uint32_t, base::GeoObjectId> featureIdToOsmId;
-  CHECK(ParseWaysFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
+  CHECK(routing::ParseWaysFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
         ("Can't parse feature id to osm id mapping. File:", mappingFile));
 
   auto const & path = base::JoinPath(intermediateDir, CROSS_MWM_OSM_WAYS_DIR, country);
@@ -271,7 +282,7 @@ void CalcCrossMwmTransitions(
       generator::CrossMwmOsmWaysCollector::CrossMwmInfo::LoadFromFileToSet(path);
 
   ForEachFeature(mwmFile, [&](FeatureType & f, uint32_t featureId) {
-    VehicleMask const roadMask = maskMaker.CalcRoadMask(f);
+    routing::VehicleMask const roadMask = maskMaker.CalcRoadMask(f);
     if (roadMask == 0)
       return;
 
@@ -287,7 +298,7 @@ void CalcCrossMwmTransitions(
     {
       f.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-      VehicleMask const oneWayMask = maskMaker.CalcOneWayMask(f);
+      routing::VehicleMask const oneWayMask = maskMaker.CalcOneWayMask(f);
 
       auto const & crossMwmWayInfo = *crossMwmWayInfoIt;
       for (auto const & segmentInfo : crossMwmWayInfo.m_crossMwmSegments)
@@ -303,11 +314,12 @@ void CalcCrossMwmTransitions(
 
 /// \brief Fills |transitions| for transit case. That means Transition::m_roadMask for items in
 /// |transitions| will be equal to VehicleType::Transit after call of this method.
-void CalcCrossMwmTransitions(string const & mwmFile, string const & intermediateDir,
-                             string const & mappingFile,
-                             vector<m2::RegionD> const & borders, string const & country,
-                             CountryParentNameGetterFn const & /* countryParentNameGetterFn */,
-                             vector<CrossMwmConnectorSerializer::Transition<connector::TransitId>> & transitions)
+void CalcCrossMwmTransitions(
+    string const & mwmFile, string const & intermediateDir, string const & mappingFile,
+    vector<m2::RegionD> const & borders, string const & country,
+    routing::CountryParentNameGetterFn const & /* countryParentNameGetterFn */,
+    vector<routing::CrossMwmConnectorSerializer::Transition<routing::connector::TransitId>> &
+        transitions)
 {
   CHECK(mappingFile.empty(), ());
   CHECK(intermediateDir.empty(), ());
@@ -322,13 +334,13 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & intermediate
     }
     auto reader = cont.GetReader(TRANSIT_FILE_TAG);
 
-    transit::GraphData graphData;
+    routing::transit::GraphData graphData;
     graphData.DeserializeForCrossMwm(*reader.GetPtr());
     auto const & stops = graphData.GetStops();
     auto const & edges = graphData.GetEdges();
 
-    auto const getStopIdPoint = [&stops](transit::StopId stopId) -> m2::PointD const & {
-      auto const it = equal_range(stops.cbegin(), stops.cend(), transit::Stop(stopId));
+    auto const getStopIdPoint = [&stops](routing::transit::StopId stopId) -> m2::PointD const & {
+      auto const it = equal_range(stops.cbegin(), stops.cend(), routing::transit::Stop(stopId));
       CHECK_EQUAL(
           distance(it.first, it.second), 1,
           ("A stop with id:", stopId, "is not unique or there's no such item in stops:", stops));
@@ -349,9 +361,10 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & intermediate
         continue;
 
       // Note. One way mask is set to kTransitMask because all transit edges are one way edges.
-      transitions.emplace_back(connector::TransitId(e.GetStop1Id(), e.GetStop2Id(), e.GetLineId()),
-                               i /* feature id */, 0 /* segment index */, kTransitMask,
-                               kTransitMask /* one way mask */, stop2In /* forward is enter */);
+      transitions.emplace_back(
+          routing::connector::TransitId(e.GetStop1Id(), e.GetStop2Id(), e.GetLineId()),
+          i /* feature id */, 0 /* segment index */, routing::kTransitMask,
+          routing::kTransitMask /* one way mask */, stop2In /* forward is enter */);
     }
   }
   catch (Reader::OpenException const & e)
@@ -367,10 +380,11 @@ void CalcCrossMwmTransitions(string const & mwmFile, string const & intermediate
 /// And |VehicleType::Transit| is applicable for |connector::TransitId|.
 template <typename CrossMwmId>
 void CalcCrossMwmConnectors(
-    string const & path, string const & mwmFile, string const & intermediateDir, string const & country,
-    CountryParentNameGetterFn const & countryParentNameGetterFn, string const & mappingFile,
-    vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> & transitions,
-    CrossMwmConnectorPerVehicleType<CrossMwmId> & connectors)
+    string const & path, string const & mwmFile, string const & intermediateDir,
+    string const & country, routing::CountryParentNameGetterFn const & countryParentNameGetterFn,
+    string const & mappingFile,
+    vector<routing::CrossMwmConnectorSerializer::Transition<CrossMwmId>> & transitions,
+    routing::CrossMwmConnectorPerVehicleType<CrossMwmId> & connectors)
 {
   base::Timer timer;
   string const polyFile = base::JoinPath(path, BORDERS_DIR, country + BORDERS_EXTENSION);
@@ -398,14 +412,14 @@ void CalcCrossMwmConnectors(
   {
     for (size_t i = 0; i < connectors.size(); ++i)
     {
-      VehicleMask const mask = GetVehicleMask(static_cast<VehicleType>(i));
-      CrossMwmConnectorSerializer::AddTransition(transition, mask, connectors[i]);
+      routing::VehicleMask const mask = GetVehicleMask(static_cast<routing::VehicleType>(i));
+      routing::CrossMwmConnectorSerializer::AddTransition(transition, mask, connectors[i]);
     }
   }
 
   for (size_t i = 0; i < connectors.size(); ++i)
   {
-    auto const vehicleType = static_cast<VehicleType>(i);
+    auto const vehicleType = static_cast<routing::VehicleType>(i);
     auto const & connector = connectors[i];
     LOG(LINFO, (vehicleType, "model. Number of enters:", connector.GetEnters().size(),
                 "Number of exits:", connector.GetExits().size()));
@@ -414,21 +428,22 @@ void CalcCrossMwmConnectors(
 
 template <typename CrossMwmId>
 void FillWeights(string const & path, string const & mwmFile, string const & country,
-                 CountryParentNameGetterFn const & countryParentNameGetterFn,
-                 bool disableCrossMwmProgress, CrossMwmConnector<CrossMwmId> & connector)
+                 routing::CountryParentNameGetterFn const & countryParentNameGetterFn,
+                 bool disableCrossMwmProgress, routing::CrossMwmConnector<CrossMwmId> & connector)
 {
   base::Timer timer;
 
-  shared_ptr<VehicleModelInterface> vehicleModel =
-      CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country);
-  IndexGraph graph(
-      make_shared<Geometry>(GeometryLoader::CreateFromFile(mwmFile, vehicleModel)),
-      EdgeEstimator::Create(VehicleType::Car, *vehicleModel, nullptr /* trafficStash */));
+  shared_ptr<routing::VehicleModelInterface> vehicleModel =
+      routing::CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country);
+  routing::IndexGraph graph(make_shared<routing::Geometry>(
+                                routing::GeometryLoader::CreateFromFile(mwmFile, vehicleModel)),
+                            routing::EdgeEstimator::Create(routing::VehicleType::Car, *vehicleModel,
+                                                           nullptr /* trafficStash */));
 
   MwmValue mwmValue(LocalCountryFile(path, platform::CountryFile(country), 0 /* version */));
-  DeserializeIndexGraph(mwmValue, VehicleType::Car, graph);
+  DeserializeIndexGraph(mwmValue, routing::VehicleType::Car, graph);
 
-  map<Segment, map<Segment, RouteWeight>> weights;
+  map<routing::Segment, map<routing::Segment, routing::RouteWeight>> weights;
   auto const numEnters = connector.GetEnters().size();
   size_t foundCount = 0;
   size_t notFoundCount = 0;
@@ -437,37 +452,39 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     if (i % 10 == 0)
       LOG(LINFO, ("Building leaps:", i, "/", numEnters, "waves passed"));
 
-    Segment const & enter = connector.GetEnter(i);
+    routing::Segment const & enter = connector.GetEnter(i);
 
-    using Algorithm = AStarAlgorithm<JointSegment, JointEdge, RouteWeight>;
+    using Algorithm =
+        routing::AStarAlgorithm<routing::JointSegment, routing::JointEdge, routing::RouteWeight>;
 
     Algorithm astar;
     IndexGraphWrapper indexGraphWrapper(graph, enter);
     DijkstraWrapperJoints wrapper(indexGraphWrapper, enter);
-    AStarAlgorithm<JointSegment, JointEdge, RouteWeight>::Context context(wrapper);
-    unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
-    astar.PropagateWave(wrapper, wrapper.GetStartJoint(),
-                        [&](JointSegment const & vertex)
-                        {
-                          if (vertex.IsFake())
-                          {
-                            Segment start = wrapper.GetSegmentOfFakeJoint(vertex, true /* start */);
-                            Segment end = wrapper.GetSegmentOfFakeJoint(vertex, false /* start */);
-                            if (start.IsForward() != end.IsForward())
-                              return true;
+    routing::AStarAlgorithm<routing::JointSegment, routing::JointEdge,
+                            routing::RouteWeight>::Context context(wrapper);
+    unordered_map<uint32_t, vector<routing::JointSegment>> visitedVertexes;
+    astar.PropagateWave(
+        wrapper, wrapper.GetStartJoint(),
+        [&](routing::JointSegment const & vertex) {
+          if (vertex.IsFake())
+          {
+            routing::Segment start = wrapper.GetSegmentOfFakeJoint(vertex, true /* start */);
+            routing::Segment end = wrapper.GetSegmentOfFakeJoint(vertex, false /* start */);
+            if (start.IsForward() != end.IsForward())
+              return true;
 
-                            visitedVertexes[end.GetFeatureId()].emplace_back(start, end);
-                          }
-                          else
-                          {
-                            visitedVertexes[vertex.GetFeatureId()].emplace_back(vertex);
-                          }
+            visitedVertexes[end.GetFeatureId()].emplace_back(start, end);
+          }
+          else
+          {
+            visitedVertexes[vertex.GetFeatureId()].emplace_back(vertex);
+          }
 
-                            return true;
-                          } /* visitVertex */,
-                          context);
+          return true;
+        } /* visitVertex */,
+        context);
 
-    for (Segment const & exit : connector.GetExits())
+    for (routing::Segment const & exit : connector.GetExits())
     {
       auto const it = visitedVertexes.find(exit.GetFeatureId());
       if (it == visitedVertexes.cend())
@@ -486,11 +503,11 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
         if ((jointSegment.GetStartSegmentId() <= id && id <= jointSegment.GetEndSegmentId()) ||
             (jointSegment.GetEndSegmentId() <= id && id <= jointSegment.GetStartSegmentId()))
         {
-          RouteWeight weight;
-          Segment parentSegment;
+          routing::RouteWeight weight;
+          routing::Segment parentSegment;
           if (context.HasParent(jointSegment))
           {
-            JointSegment const & parent = context.GetParent(jointSegment);
+            routing::JointSegment const & parent = context.GetParent(jointSegment);
             parentSegment = parent.IsFake() ? wrapper.GetSegmentOfFakeJoint(parent, false /* start */)
                                             : parent.GetSegment(false /* start */);
 
@@ -501,10 +518,10 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
             parentSegment = enter;
           }
 
-          Segment const & firstChild = jointSegment.GetSegment(true /* start */);
+          routing::Segment const & firstChild = jointSegment.GetSegment(true /* start */);
           uint32_t const lastPoint = exit.GetPointId(true /* front */);
 
-          static map<JointSegment, JointSegment> kEmptyParents;
+          static map<routing::JointSegment, routing::JointSegment> kEmptyParents;
           auto optionalEdge =  graph.GetJointEdgeByLastPoint(parentSegment, firstChild,
                                                              true /* isOutgoing */, lastPoint);
 
@@ -521,14 +538,14 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     }
   }
 
-  connector.FillWeights([&](Segment const & enter, Segment const & exit) {
+  connector.FillWeights([&](routing::Segment const & enter, routing::Segment const & exit) {
     auto it0 = weights.find(enter);
     if (it0 == weights.end())
-      return connector::kNoRoute;
+      return routing::connector::kNoRoute;
 
     auto it1 = it0->second.find(exit);
     if (it1 == it0->second.end())
-      return connector::kNoRoute;
+      return routing::connector::kNoRoute;
 
     return it1->second.ToCrossMwmWeight();
   });

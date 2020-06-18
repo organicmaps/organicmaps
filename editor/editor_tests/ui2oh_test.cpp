@@ -9,16 +9,6 @@ using namespace osmoh;
 using namespace editor;
 using namespace editor::ui;
 
-namespace
-{
-std::string ToString(OpeningHours const & oh)
-{
-  std::stringstream sstr;
-  sstr << oh.GetRule();
-  return sstr.str();
-}
-}  // namespace
-
 UNIT_TEST(OpeningHours2TimeTableSet)
 {
   {

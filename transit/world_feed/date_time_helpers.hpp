@@ -15,9 +15,6 @@ osmoh::Time GetTimeOsmoh(gtfs::Time const & gtfsTime);
 // interval.
 osmoh::RuleSequence GetRuleSequenceOsmoh(gtfs::Time const & start, gtfs::Time const & end);
 
-// Converts |openingHours| to string.
-std::string ToString(osmoh::OpeningHours const & openingHours);
-
 // Converts week day |index| in range [0, 6] to the osmoh::Weekday object.
 osmoh::Weekday ConvertWeekDayIndexToOsmoh(size_t index);
 
