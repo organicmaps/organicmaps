@@ -2,6 +2,7 @@ project(world_feed_tests)
 
 set(
     SRC
+    subway_converter_tests.cpp
     world_feed_tests.cpp
 )
 
@@ -10,9 +11,11 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
     ${PROJECT_NAME}
     world_feed
+    generator
     transit
     drape_frontend
     shaders
+    search
     routing
     mwm_diff
     bsdiff

@@ -289,6 +289,7 @@ public:
 
 private:
   friend class WorldFeedIntegrationTests;
+  friend class SubwayConverterTests;
   friend class SubwayConverter;
 
   void SaveRegions(std::string const & worldFeedDir, std::string const & region, bool overwrite);
