@@ -345,7 +345,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           }
         }
       }
-      if (changed)
+      if (changed || m_notFinishedTiles.empty())
         UpdateCanBeDeletedStatus();
 
       if (m_notFinishedTiles.empty())
