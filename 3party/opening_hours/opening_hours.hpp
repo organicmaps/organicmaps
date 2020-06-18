@@ -722,4 +722,7 @@ private:
   TRuleSequences m_rule;
   bool m_valid = false;
 };
+
+std::ostream & operator<<(std::ostream & ost, OpeningHours const & oh);
+std::string ToString(osmoh::OpeningHours const & openingHours);
 } // namespace osmoh

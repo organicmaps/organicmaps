@@ -938,4 +938,20 @@ bool OpeningHours::operator==(OpeningHours const & rhs) const
 {
   return m_valid == rhs.m_valid && m_rule == rhs.m_rule;
 }
+
+std::ostream & operator<<(std::ostream & ost, OpeningHours const & oh)
+{
+  ost << oh.GetRule();
+  return ost;
+}
+
+std::string ToString(osmoh::OpeningHours const & openingHours)
+{
+  if (!openingHours.IsValid())
+    return {};
+
+  std::ostringstream stream;
+  stream << openingHours;
+  return stream.str();
+}
 } // namespace osmoh
