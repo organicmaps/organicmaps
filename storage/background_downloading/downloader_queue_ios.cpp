@@ -30,7 +30,7 @@ void BackgroundDownloaderQueue::SetTaskIdForCountryId(CountryId const & country,
   it->second.m_taskId = taskId;
 }
 
-boost::optional<uint64_t> BackgroundDownloaderQueue::GetTaskIdByCountryId(CountryId const & country) const
+std::optional<uint64_t> BackgroundDownloaderQueue::GetTaskIdByCountryId(CountryId const & country) const
 {
   auto const it = m_queue.find(country);
   if (it == m_queue.cend())

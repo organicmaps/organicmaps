@@ -5,10 +5,9 @@
 #include "storage/storage_defines.hpp"
 
 #include <cstdint>
+#include <optional>
 #include <unordered_map>
 #include <utility>
-
-#include <boost/optional.hpp>
 
 namespace storage
 {
@@ -27,7 +26,7 @@ public:
   }
 
   void SetTaskIdForCountryId(CountryId const & countryId, uint64_t taskId);
-  boost::optional<uint64_t> GetTaskIdByCountryId(CountryId const & countryId) const;
+  std::optional<uint64_t> GetTaskIdByCountryId(CountryId const & countryId) const;
 
   QueuedCountry & GetCountryById(CountryId const & countryId);
 
@@ -40,7 +39,7 @@ private:
     explicit TaskData(QueuedCountry && country) : m_queuedCountry(std::move(country)) {}
 
     QueuedCountry m_queuedCountry;
-    boost::optional<uint64_t> m_taskId;
+    std::optional<uint64_t> m_taskId;
   };
 
   std::unordered_map<CountryId, TaskData> m_queue;

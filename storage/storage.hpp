@@ -632,8 +632,6 @@ private:
 
   /// Calculates progress of downloading for expandable nodes in country tree.
   /// |descendants| All descendants of the parent node.
-  /// |downloadingMwm| Downloading leaf node country id if any. If not, downloadingMwm == kInvalidCountryId.
-  /// |downloadingMwm| Must be only leaf.
   downloader::Progress CalculateProgress(CountriesVec const & descendants) const;
 
   template <class ToDo>

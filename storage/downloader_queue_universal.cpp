@@ -58,6 +58,12 @@ void Queue::PopFront()
   m_queue.pop_front();
 }
 
+void Queue::Append(QueuedCountry && country)
+{
+  m_queue.emplace_back(std::move(country));
+  m_queue.back().OnCountryInQueue();
+}
+
 void Queue::Clear()
 {
   m_queue.clear();

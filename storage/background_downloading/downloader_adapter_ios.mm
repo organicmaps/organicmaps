@@ -19,7 +19,7 @@ BackgroundDownloaderAdapter::BackgroundDownloaderAdapter()
   [downloader subscribe:m_subscriberAdapter];
 }
 
-void BackgroundDownloaderAdapter::Remove(storage::CountryId const & countryId)
+void BackgroundDownloaderAdapter::Remove(CountryId const & countryId)
 {
   MapFilesDownloader::Remove(countryId);
   
@@ -42,7 +42,7 @@ void BackgroundDownloaderAdapter::Clear()
   m_queue.Clear();
 };
 
-storage::QueueInterface const & BackgroundDownloaderAdapter::GetQueue() const
+QueueInterface const & BackgroundDownloaderAdapter::GetQueue() const
 {
   if (m_queue.IsEmpty())
     return MapFilesDownloader::GetQueue();
@@ -50,7 +50,7 @@ storage::QueueInterface const & BackgroundDownloaderAdapter::GetQueue() const
   return m_queue;
 }
 
-void BackgroundDownloaderAdapter::Download(storage::QueuedCountry & queuedCountry)
+void BackgroundDownloaderAdapter::Download(QueuedCountry & queuedCountry)
 {
   if (!IsDownloadingAllowed())
   {
@@ -79,17 +79,12 @@ void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId
     return;
   
   auto onFinish = [this, countryId, downloadPath, urls = urls](NSURL *location, NSError *error) mutable {
-    if ((!location && !error) || (error && error.code != NSURLErrorCancelled))
+    if (!error || error.code == NSURLErrorCancelled)
       return;
      
     downloader::DownloadStatus status = downloader::DownloadStatus::Completed;
-    if (error)
-    {
-     status = error.code == NSURLErrorFileDoesNotExist ? downloader::DownloadStatus::FileNotFound
-                                                       : downloader::DownloadStatus::Failed;
-    }
-    
-    ASSERT(location, ());
+    status = error.code == NSURLErrorFileDoesNotExist ? downloader::DownloadStatus::FileNotFound
+                                                      : downloader::DownloadStatus::Failed;
     
     if (!m_queue.Contains(countryId))
       return;

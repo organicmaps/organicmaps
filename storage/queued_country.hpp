@@ -65,6 +65,6 @@ private:
   std::string m_dataDir;
   diffs::DiffsSourcePtr m_diffsDataSource;
 
-  Subscriber * m_subscriber;
+  Subscriber * m_subscriber = nullptr;
 };
 }  // namespace storage

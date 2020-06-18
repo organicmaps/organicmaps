@@ -38,7 +38,7 @@ std::string GetFilePathByUrl(std::string const & url)
   CHECK(strings::to_int64(urlComponents[1], dataVersion), ());
 
   auto const countryComponents = strings::Tokenize(url::UrlDecode(urlComponents.back()), ".");
-  CHECK(!urlComponents.empty(), ());
+  CHECK(!countryComponents.empty(), ());
 
   auto const fileType = urlComponents[0] == kDiffsPath ? MapFileType::Diff : MapFileType::Map;
 

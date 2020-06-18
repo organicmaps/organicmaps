@@ -705,6 +705,8 @@ void Storage::ReportProgressForHierarchy(CountryId const & countryId, Progress c
 
 void Storage::OnCountryInQueue(QueuedCountry const & queuedCountry)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
   NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
   SaveDownloadQueue();
 }

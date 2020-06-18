@@ -7,27 +7,27 @@
 
 namespace storage
 {
-class BackgroundDownloaderAdapter : public storage::MapFilesDownloaderWithPing
+class BackgroundDownloaderAdapter : public MapFilesDownloaderWithPing
 {
 public:
   BackgroundDownloaderAdapter();
 
   // MapFilesDownloader overrides:
-  void Remove(storage::CountryId const & countryId) override;
+  void Remove(CountryId const & countryId) override;
 
   void Clear() override;
 
-  storage::QueueInterface const & GetQueue() const override;
+  QueueInterface const & GetQueue() const override;
 
 private:
   // MapFilesDownloaderWithServerList overrides:
-  void Download(storage::QueuedCountry & queuedCountry) override;
+  void Download(QueuedCountry & queuedCountry) override;
 
   // Trying to download mwm from different servers recursively.
   void DownloadFromAnyUrl(CountryId const & countryId, std::string const & downloadPath,
                           std::vector<std::string> const & urls);
 
-  storage::BackgroundDownloaderQueue m_queue;
+  BackgroundDownloaderQueue m_queue;
   SubscriberAdapter * m_subscriberAdapter;
 };
 }  // namespace storage

@@ -25,11 +25,7 @@ public:
   QueuedCountry const & GetFirstCountry() const;
   void PopFront();
 
-  void Append(QueuedCountry && country)
-  {
-    m_queue.emplace_back(std::move(country));
-    m_queue.back().OnCountryInQueue();
-  }
+  void Append(QueuedCountry && country);
 
   void Remove(CountryId const & country);
   void Clear();
