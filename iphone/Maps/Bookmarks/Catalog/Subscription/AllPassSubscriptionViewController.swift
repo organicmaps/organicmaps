@@ -1,5 +1,6 @@
 class AllPassSubscriptionViewController: BaseSubscriptionViewController {
-  //MARK:outlets
+  // MARK: outlets
+
   @IBOutlet private var backgroundImageView: ImageViewCrossDisolve!
   @IBOutlet private var annualSubscriptionButton: BookmarksSubscriptionButton!
   @IBOutlet private var annualDiscountLabel: InsetsLabel!
@@ -11,25 +12,23 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
 
   //MARK: locals
   private var pageWidth: CGFloat {
-    return self.descriptionPageScrollView.frame.width;
+    return descriptionPageScrollView.frame.width
   }
-  private let maxPages = 3;
+
+  private let maxPages = 3
   private var currentPage: Int {
-    return Int(self.descriptionPageScrollView.contentOffset.x/self.pageWidth) + 1;
+    return Int(descriptionPageScrollView.contentOffset.x / pageWidth) + 1
   }
+
   private var animatingTask: DispatchWorkItem?
   private let animationDelay: TimeInterval = 2
   private let animationDuration: TimeInterval = 0.75
   private let animationBackDuration: TimeInterval = 0.3
   private let statusBarBackVisibleThreshold: CGFloat = 60
 
-  override var subscriptionManager: ISubscriptionManager? {
-    get { return InAppPurchase.allPassSubscriptionManager }
-  }
-  
-  override var preferredStatusBarStyle: UIStatusBarStyle {
-    get { return .lightContent }
-  }
+  override var subscriptionManager: ISubscriptionManager? { return InAppPurchase.allPassSubscriptionManager }
+
+  override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -43,11 +42,11 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
     super.viewDidLoad()
 
     backgroundImageView.images = [
-      UIImage.init(named: "AllPassSubscriptionBg1"),
-      UIImage.init(named: "AllPassSubscriptionBg2"),
-      UIImage.init(named: "AllPassSubscriptionBg3")
+      UIImage(named: "AllPassSubscriptionBg1"),
+      UIImage(named: "AllPassSubscriptionBg2"),
+      UIImage(named: "AllPassSubscriptionBg3")
     ]
-    startAnimating();
+    startAnimating()
 
     annualSubscriptionButton.config(title: L("annual_subscription_title"),
                                     price: "...",
@@ -63,17 +62,17 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
     let css = "<style type=\"text/css\">b{font-weight: 900;}body{font-weight: 300; font-size: \(fontSize); font-family: '-apple-system','\(fontFamily)';}</style>"
     zip(descriptionSubtitles, ["all_pass_subscription_message_subtitle",
                                "all_pass_subscription_message_subtitle_3",
-                               "all_pass_subscription_message_subtitle_2"]).forEach { (title, loc) in
+                               "all_pass_subscription_message_subtitle_2"]).forEach { title, loc in
                                 title.attributedText = NSAttributedString.string(withHtml: css + L(loc), defaultAttributes: [:])
     }
 
-    self.configure(buttons: [
+    configure(buttons: [
       .year: annualSubscriptionButton,
       .month: monthlySubscriptionButton],
                    discountLabels:[
                     .year: annualDiscountLabel])
 
-    self.preferredContentSize = CGSize(width: 414, height: contentView.frame.height)
+    preferredContentSize = CGSize(width: 414, height: contentView.frame.height)
   }
 
   @IBAction func onAnnualButtonTap(_ sender: UIButton) {
@@ -95,9 +94,9 @@ extension AllPassSubscriptionViewController {
 
   private func startAnimating() {
     if animatingTask != nil {
-      animatingTask?.cancel();
+      animatingTask?.cancel()
     }
-    animatingTask = DispatchWorkItem.init {[weak self, animationDelay] in
+    animatingTask = DispatchWorkItem.init { [weak self, animationDelay] in
       self?.scrollToWithAnimation(page: (self?.currentPage ?? 0) + 1, completion: {
         self?.perform(withDelay: animationDelay, execute: self?.animatingTask)
       })
@@ -106,12 +105,12 @@ extension AllPassSubscriptionViewController {
   }
 
   private func stopAnimating() {
-    animatingTask?.cancel();
+    animatingTask?.cancel()
     animatingTask = nil
     view.layer.removeAllAnimations()
   }
 
-  private func scrollToWithAnimation(page: Int, completion: @escaping ()->()) {
+  private func scrollToWithAnimation(page: Int, completion: @escaping () -> Void) {
     var nextPage = page
     var duration = animationDuration
     if nextPage < 1 || nextPage > maxPages {
@@ -125,7 +124,7 @@ extension AllPassSubscriptionViewController {
                    options: [.curveEaseInOut, .allowUserInteraction],
                    animations: { [weak self] in
                     self?.descriptionPageScrollView.contentOffset.x = xOffset
-      }, completion:{ complete in
+      }, completion: { complete in
         completion()
     })
   }
@@ -134,13 +133,12 @@ extension AllPassSubscriptionViewController {
 extension AllPassSubscriptionViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView == descriptionPageScrollView {
-      let pageProgress = scrollView.contentOffset.x/self.pageWidth
+      let pageProgress = scrollView.contentOffset.x / pageWidth
       backgroundImageView.currentPage = pageProgress
     } else {
-      let statusBarAlpha = min(scrollView.contentOffset.y/self.statusBarBackVisibleThreshold, 1)
+      let statusBarAlpha = min(scrollView.contentOffset.y / statusBarBackVisibleThreshold, 1)
       statusBarBackgroundView.alpha = statusBarAlpha
     }
-
   }
 
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -151,4 +149,3 @@ extension AllPassSubscriptionViewController: UIScrollViewDelegate {
     startAnimating()
   }
 }
-

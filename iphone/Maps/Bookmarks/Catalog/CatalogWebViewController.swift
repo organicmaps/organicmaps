@@ -6,7 +6,7 @@ struct CatalogCategoryInfo {
   var imageUrl: String?
   var subscriptionType: SubscriptionGroupType
 
-  init?(_ components: [String : String], type: SubscriptionGroupType) {
+  init?(_ components: [String: String], type: SubscriptionGroupType) {
     guard let id = components["id"],
       let name = components["name"] else { return nil }
     self.id = id
@@ -33,11 +33,11 @@ final class CatalogWebViewController: WebViewController {
   var noInternetView: CatalogConnectionErrorView!
 
   @objc static func catalogFromAbsoluteUrl(_ url: URL? = nil, utm: MWMUTM = .none) -> CatalogWebViewController {
-    return CatalogWebViewController(url, utm:utm, isAbsoluteUrl:true)
+    return CatalogWebViewController(url, utm: utm, isAbsoluteUrl: true)
   }
-  
+
   @objc static func catalogFromDeeplink(_ url: URL, utm: MWMUTM = .none) -> CatalogWebViewController {
-    return CatalogWebViewController(url, utm:utm)
+    return CatalogWebViewController(url, utm: utm)
   }
 
   private init(_ url: URL? = nil, utm: MWMUTM = .none, isAbsoluteUrl: Bool = false) {
@@ -55,7 +55,7 @@ final class CatalogWebViewController: WebViewController {
         } else {
           deeplink = url
         }
-        Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom : kStatDeeplink])
+        Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom: kStatDeeplink])
       }
     }
     super.init(url: catalogUrl, title: L("guides_catalogue_title"))!
@@ -109,7 +109,7 @@ final class CatalogWebViewController: WebViewController {
     let connected = FrameworkHelper.isNetworkConnected()
     if !connected {
       Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
-                          withParameters: [kStatError : "no_internet"])
+                          withParameters: [kStatError: "no_internet"])
     }
 
     noInternetView.isHidden = connected
@@ -125,8 +125,8 @@ final class CatalogWebViewController: WebViewController {
     }
 
     progressView.styleName = "MWMWhite"
-    self.view.styleName = "Background"
-    
+    view.styleName = "Background"
+
     updateProgress()
     navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_nav_bar_back"),
                                                        style: .plain,
@@ -135,7 +135,7 @@ final class CatalogWebViewController: WebViewController {
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: L("core_exit"),
                                                         style: .plain,
                                                         target: self,
-                                                        action:  #selector(onExitPressed))
+                                                        action: #selector(onExitPressed))
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -145,8 +145,8 @@ final class CatalogWebViewController: WebViewController {
     }
   }
 
-  override func willLoadUrl(_ decisionHandler: @escaping (Bool, Dictionary<String, String>?) -> Void) {
-    buildHeaders { [weak self] (headers) in
+  override func willLoadUrl(_ decisionHandler: @escaping (Bool, [String: String]?) -> Void) {
+    buildHeaders { [weak self] headers in
       self?.handlePendingTransactions {
         decisionHandler($0, headers)
         self?.checkInvalidSubscription()
@@ -173,7 +173,7 @@ final class CatalogWebViewController: WebViewController {
     }
 
     defer {
-      decisionHandler(.cancel);
+      decisionHandler(.cancel)
     }
 
     if url.path.contains(subscribePath) {
@@ -202,7 +202,7 @@ final class CatalogWebViewController: WebViewController {
   override func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
     loadingIndicator.stopAnimating()
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
-                        withParameters: [kStatError : kStatUnknown])
+                        withParameters: [kStatError: kStatUnknown])
   }
 
   override func webView(_ webView: WKWebView,
@@ -210,15 +210,15 @@ final class CatalogWebViewController: WebViewController {
                         withError error: Error) {
     loadingIndicator.stopAnimating()
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
-                        withParameters: [kStatError : kStatUnknown])
+                        withParameters: [kStatError: kStatUnknown])
   }
 
   private func showSubscribe(type: SubscriptionGroupType) {
     let subscribeViewController = SubscriptionViewBuilder.build(type: type,
                                                                 parentViewController: self,
                                                                 source: kStatWebView,
-                                                                successDialog: .success) { [weak self] (success) in
-                                                                  if (success) {
+                                                                successDialog: .success) { [weak self] success in
+                                                                  if success {
                                                                     self?.webView.reloadFromOrigin()
                                                                   }
     }
@@ -231,9 +231,9 @@ final class CatalogWebViewController: WebViewController {
     navigationController?.popToRootViewController(animated: true)
   }
 
-  private func buildHeaders(completion: @escaping ([String : String]?) -> Void) {
-    billing.requestProducts(Set(MWMPurchaseManager.bookmarkInappIds()), completion: { (products, error) in
-      var productsInfo: [String : [String: String]] = [:]
+  private func buildHeaders(completion: @escaping ([String: String]?) -> Void) {
+    billing.requestProducts(Set(MWMPurchaseManager.bookmarkInappIds()), completion: { products, error in
+      var productsInfo: [String: [String: String]] = [:]
       if let products = products {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
@@ -250,7 +250,7 @@ final class CatalogWebViewController: WebViewController {
           completion(nil)
           return
       }
-      
+
       var result = MWMBookmarksManager.shared().getCatalogHeaders()
       result["X-Mapsme-Bundle-Tiers"] = encodedString
       completion(result)
@@ -258,7 +258,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private func handlePendingTransactions(completion: @escaping (Bool) -> Void) {
-    pendingTransactionsHandler.handlePendingTransactions { [weak self] (status) in
+    pendingTransactionsHandler.handlePendingTransactions { [weak self] status in
       switch status {
       case .none:
         fallthrough
@@ -282,7 +282,6 @@ final class CatalogWebViewController: WebViewController {
             }
           })
         }
-        break;
       }
     }
   }
@@ -293,7 +292,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   func processDeeplink(_ url: URL) {
-    self.deeplink = nil
+    deeplink = nil
     guard let categoryInfo = parseUrl(url) else {
       MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
                                                             text: L("subtitle_error_downloading_guide"))
@@ -319,9 +318,9 @@ final class CatalogWebViewController: WebViewController {
       return
     }
 
-    MWMBookmarksManager.shared().downloadItem(withId: categoryInfo.id, name: categoryInfo.name, progress: { [weak self] (progress) in
+    MWMBookmarksManager.shared().downloadItem(withId: categoryInfo.id, name: categoryInfo.name, progress: { [weak self] progress in
       self?.updateProgress()
-    }) { [weak self] (categoryId, error) in
+    }) { [weak self] categoryId, error in
       if let error = error as NSError? {
         if error.code == kCategoryDownloadFailedCode {
           guard let statusCode = error.userInfo[kCategoryDownloadStatusKey] as? NSNumber else {
@@ -332,26 +331,21 @@ final class CatalogWebViewController: WebViewController {
             assertionFailure()
             return
           }
-          switch (status) {
+          switch status {
           case .needAuth:
-            if let s = self, let navBar = s.navigationController?.navigationBar{
+            if let s = self, let navBar = s.navigationController?.navigationBar {
               s.signup(anchor: navBar, source: .guideCatalogue) {
                 if $0 { s.download() }
               }
             }
-            break
           case .needPayment:
             self?.showPaymentScreen(categoryInfo)
-            break
           case .notFound:
             self?.showServerError()
-            break
           case .networkError:
             self?.showNetworkError()
-            break
           case .diskError:
             self?.showDiskError()
-            break
           }
         } else if error.code == kCategoryImportFailedCode {
           self?.showImportError()
@@ -392,7 +386,7 @@ final class CatalogWebViewController: WebViewController {
     paymentVC.delegate = self
     paymentVC.modalTransitionStyle = .coverVertical
     paymentVC.modalPresentationStyle = .fullScreen
-    self.navigationController?.present(paymentVC, animated: true)
+    navigationController?.present(paymentVC, animated: true)
   }
 
   private func showDiskError() {
@@ -400,7 +394,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private func showNetworkError() {
-    MWMAlertViewController.activeAlert().presentNoConnectionAlert();
+    MWMAlertViewController.activeAlert().presentNoConnectionAlert()
   }
 
   private func showServerError() {
@@ -424,7 +418,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   @objc private func onBackPressed() {
-    if (webView.canGoBack) {
+    if webView.canGoBack {
       back()
       Statistics.logEvent(kStatGuidesBack, withParameters: [kStatMethod: kStatBack])
     } else {
@@ -445,14 +439,14 @@ final class CatalogWebViewController: WebViewController {
 
 private func logToPushWoosh(_ categoryInfo: CatalogCategoryInfo) {
   let pushManager = PushNotificationManager.push()
-  
+
   if categoryInfo.productId == nil {
-    pushManager!.setTags(["Bookmarks_Guides_free_title": categoryInfo.name]);
-    pushManager!.setTags(["Bookmarks_Guides_free_date": MWMPushNotifications.formattedTimestamp()]);
+    pushManager!.setTags(["Bookmarks_Guides_free_title": categoryInfo.name])
+    pushManager!.setTags(["Bookmarks_Guides_free_date": MWMPushNotifications.formattedTimestamp()])
   } else {
-    pushManager!.setTags(["Bookmarks_Guides_paid_tier": categoryInfo.productId!]);
-    pushManager!.setTags(["Bookmarks_Guides_paid_title": categoryInfo.name]);
-    pushManager!.setTags(["Bookmarks_Guides_paid_date": MWMPushNotifications.formattedTimestamp()]);
+    pushManager!.setTags(["Bookmarks_Guides_paid_tier": categoryInfo.productId!])
+    pushManager!.setTags(["Bookmarks_Guides_paid_title": categoryInfo.name])
+    pushManager!.setTags(["Bookmarks_Guides_paid_date": MWMPushNotifications.formattedTimestamp()])
   }
 }
 
@@ -460,7 +454,7 @@ extension CatalogWebViewController: PaidRouteViewControllerDelegate {
   func didCompleteSubscription(_ viewController: PaidRouteViewController) {
     dismiss(animated: true)
     download()
-    self.webView.reloadFromOrigin()
+    webView.reloadFromOrigin()
   }
 
   func didCompletePurchase(_ viewController: PaidRouteViewController) {

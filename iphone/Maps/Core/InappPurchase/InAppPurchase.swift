@@ -34,20 +34,20 @@ final class InAppPurchase: NSObject {
   }
 
   @objc static var adsRemovalSubscriptionManager: ISubscriptionManager = {
-    return SubscriptionManager(productIds: MWMPurchaseManager.productIds(),
-                               serverId: MWMPurchaseManager.adsRemovalServerId(),
-                               vendorId: MWMPurchaseManager.adsRemovalVendorId())
-  } ()
+    SubscriptionManager(productIds: MWMPurchaseManager.productIds(),
+                        serverId: MWMPurchaseManager.adsRemovalServerId(),
+                        vendorId: MWMPurchaseManager.adsRemovalVendorId())
+  }()
 
   @objc static var bookmarksSubscriptionManager: ISubscriptionManager = {
-    return SubscriptionManager(productIds: MWMPurchaseManager.bookmakrsProductIds(),
-                               serverId: MWMPurchaseManager.bookmarksSubscriptionServerId(),
-                               vendorId: MWMPurchaseManager.bookmarksSubscriptionVendorId())
-  } ()
+    SubscriptionManager(productIds: MWMPurchaseManager.bookmakrsProductIds(),
+                        serverId: MWMPurchaseManager.bookmarksSubscriptionServerId(),
+                        vendorId: MWMPurchaseManager.bookmarksSubscriptionVendorId())
+  }()
 
   @objc static var allPassSubscriptionManager: ISubscriptionManager = {
-    return SubscriptionManager(productIds: MWMPurchaseManager.allPassProductIds(),
-                               serverId: MWMPurchaseManager.allPassSubscriptionServerId(),
-                               vendorId: MWMPurchaseManager.allPassSubscriptionVendorId())
-  } ()
+    SubscriptionManager(productIds: MWMPurchaseManager.allPassProductIds(),
+                        serverId: MWMPurchaseManager.allPassSubscriptionServerId(),
+                        vendorId: MWMPurchaseManager.allPassSubscriptionVendorId())
+  }()
 }

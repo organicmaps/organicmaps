@@ -14,13 +14,9 @@ class BaseSubscriptionViewController: MWMViewController {
   @objc var source: String = kStatWebView
   private let transitioning = FadeTransitioning<IPadModalPresentationController>()
 
-  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    get { return [.portrait] }
-  }
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask { return [.portrait] }
 
-  override var preferredStatusBarStyle: UIStatusBarStyle {
-    get { return .lightContent }
-  }
+  override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -47,7 +43,7 @@ class BaseSubscriptionViewController: MWMViewController {
 
   func configure(buttons: [SubscriptionPeriod: BookmarksSubscriptionButton],
                  discountLabels: [SubscriptionPeriod: InsetsLabel]) {
-    subscriptionManager?.getAvailableSubscriptions { [weak self] (subscriptions, error) in
+    subscriptionManager?.getAvailableSubscriptions { [weak self] subscriptions, error in
       self?.loadingView.isHidden = true
       guard let subscriptions = subscriptions, subscriptions.count >= buttons.count else {
         MWMAlertViewController.activeAlert().presentInfoAlert(L("price_error_title"),
@@ -65,7 +61,7 @@ class BaseSubscriptionViewController: MWMViewController {
                         enabled: true)
 
           if subscriptionItem.hasDiscount, let discountLabel = discountLabels[period] {
-            discountLabel.isHidden = false;
+            discountLabel.isHidden = false
             discountLabel.text = L("all_pass_screen_best_value")
           }
         }
@@ -80,7 +76,7 @@ class BaseSubscriptionViewController: MWMViewController {
 
   func purchase(sender: UIButton, period: SubscriptionPeriod) {
     subscriptionManager?.addListener(self)
-    guard let subscription = subscriptionGroup?[period]?.subscription else{
+    guard let subscription = subscriptionGroup?[period]?.subscription else {
       return
     }
     signup(anchor: sender, source: .subscription) { [weak self] success in
@@ -108,7 +104,7 @@ class BaseSubscriptionViewController: MWMViewController {
   @IBAction func onRestore(_ sender: UIButton) {
     subscriptionManager?.addListener(self)
     Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: subscriptionManager?.serverId ?? ""])
-    signup(anchor: sender, source: .subscription) { [weak self] (success) in
+    signup(anchor: sender, source: .subscription) { [weak self] success in
       guard success else { return }
       self?.loadingView.isHidden = false
       self?.subscriptionManager?.restore { result in
@@ -135,13 +131,13 @@ class BaseSubscriptionViewController: MWMViewController {
   @IBAction func onTerms(_ sender: UIButton) {
     guard let url = URL(string: User.termsOfUseLink()) else { return }
     let safari = SFSafariViewController(url: url)
-    self.present(safari, animated: true, completion: nil)
+    present(safari, animated: true, completion: nil)
   }
 
   @IBAction func onPrivacy(_ sender: UIButton) {
     guard let url = URL(string: User.privacyPolicyLink()) else { return }
     let safari = SFSafariViewController(url: url)
-    self.present(safari, animated: true, completion: nil)
+    present(safari, animated: true, completion: nil)
   }
 }
 
@@ -160,7 +156,7 @@ extension BaseSubscriptionViewController: SubscriptionManagerListener {
 
   func didValidate(_ isValid: Bool) {
     loadingView.isHidden = true
-    if (isValid) {
+    if isValid {
       onSubscribe?()
     } else {
       MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
@@ -183,5 +179,3 @@ extension BaseSubscriptionViewController: SubscriptionManagerListener {
 
   }
 }
-
-

@@ -51,7 +51,7 @@ class PaidRouteStatistics: IPaidRouteStatistics {
     logEvent(kStatInappValidationSuccess, withParameters: [kStatPurchase: serverId,
                                                            kStatErrorCode: code])
   }
-  
+
   private func logEvent(_ eventName: String, withParameters: [String: Any],
                         withChannel: StatisticsChannel = .default) {
     Statistics.logEvent(eventName, withParameters: withParameters, with: withChannel)
