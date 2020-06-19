@@ -98,6 +98,9 @@ class BaseSubscriptionViewController: MWMViewController {
         self?.subscriptionManager?.subscribe(to: subscription)
       }
     }
+    Statistics.logEvent(kStatInappSelect, withParameters: [kStatPurchase: subscriptionManager?.serverId ?? "",
+                                                           kStatProduct: subscription.productId],
+                        with: .realtime)
     Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager?.serverId ?? ""],
                         with: .realtime)
   }

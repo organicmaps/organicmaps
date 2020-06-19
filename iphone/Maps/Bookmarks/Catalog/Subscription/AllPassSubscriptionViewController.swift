@@ -74,11 +74,6 @@ class AllPassSubscriptionViewController: BaseSubscriptionViewController {
                     .year: annualDiscountLabel])
 
     self.preferredContentSize = CGSize(width: 414, height: contentView.frame.height)
-
-    Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.allPassProductIds,
-                                                         kStatPurchase: MWMPurchaseManager.allPassSubscriptionServerId(),
-                                                         kStatProduct: MWMPurchaseManager.allPassProductIds()[0],
-                                                         kStatFrom: source], with: .realtime)
   }
 
   @IBAction func onAnnualButtonTap(_ sender: UIButton) {

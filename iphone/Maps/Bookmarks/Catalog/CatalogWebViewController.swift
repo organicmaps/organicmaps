@@ -381,7 +381,8 @@ final class CatalogWebViewController: WebViewController {
     let testGroup = PromoCampaignManager.manager().paidRoutesSubscriptionCampaign.testGroupStatName
     let stats = InAppPurchase.paidRouteStatistics(serverId: productInfo.id,
                                                   productId: productId,
-                                                  testGroup: testGroup)
+                                                  testGroup: testGroup,
+                                                  source: kStatWebView)
     let paymentVC = PaidRouteViewController(name: productInfo.name,
                                             author: productInfo.author,
                                             imageUrl: URL(string: productInfo.imageUrl ?? ""),

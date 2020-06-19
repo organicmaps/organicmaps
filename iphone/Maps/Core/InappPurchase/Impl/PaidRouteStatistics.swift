@@ -3,15 +3,18 @@ class PaidRouteStatistics: IPaidRouteStatistics {
   let productId: String
   let vendor: String
   let testGroup: String
+  let source: String
 
   init(serverId: String,
        productId: String,
        vendor: String,
-       testGroup: String) {
+       testGroup: String,
+       source: String) {
     self.serverId = serverId
     self.productId = productId
     self.vendor = vendor
     self.testGroup = testGroup
+    self.source = source
   }
 
   func logPreviewShow() {
