@@ -302,12 +302,12 @@ final class AuthorizationViewController: MWMViewController {
   }
 
   private func logStatStart(type: SocialTokenType) {
-    var agreements = [kStatAgreePrivacy, kStatAgree]
+    var agreements = [kStatAgreePrivacy, kStatAgreeTerms]
     if latestNewsCheck.isChecked {
       agreements.append(kStatAgreeNews)
     }
-    Statistics.logEvent(kStatAuthStart, withParameters: [kStatFrom: getProviderStatStr(type: type),
-                                                         kStatProvider: kStatFacebook,
+    Statistics.logEvent(kStatAuthStart, withParameters: [kStatFrom: source.stat,
+                                                         kStatProvider: getProviderStatStr(type: type),
                                                          kStatAgree: agreements])
   }
 
