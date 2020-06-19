@@ -293,7 +293,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
   {
     FeatureBuilderParams params;
 
-    char const * arr[][2] = {{"amenity", "shop"}};
+    char const * arr[][1] = {{"shop"}};
     AddTypes(params, arr);
     params.FinishAddingTypes();
 
@@ -319,7 +319,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
   {
     FeatureBuilderParams params;
 
-    char const * arr[][2] = {{"amenity", "shop"}};
+    char const * arr[][1] = {{"shop"}};
     AddTypes(params, arr);
     params.FinishAddingTypes();
 
