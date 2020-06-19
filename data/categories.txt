@@ -834,7 +834,7 @@ de:Gemischtwarenladen|Verbauchermarkt|Lebensmittelhändler|Lebensmittelhandlung|
 hu:Csemegebolt|ábécé
 id:Mini market
 it:Minimarket
-ja:コンビニエンスストア|コンビニ
+ja:コンビニエンスストア|コンビニ|スーパー|スーパーマーケット
 ko:편의점
 nb:Nærbutikk|nærbutikk
 pl:Sklep spożywczy
@@ -1382,7 +1382,7 @@ de:3Supermarkt
 hu:3Szupermarket
 id:3Supermarket
 it:3Supermercato
-ja:1スーパーマーケット|ショップ|お買い物|商店
+ja:1スーパーマーケット|ショップ|お買い物|商店|スーパー
 ko:1슈퍼마켓|가게
 nb:3Supermarked
 pl:4Supermarket|zakupy
