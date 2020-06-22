@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -500,6 +500,7 @@
                                 <state key="highlighted" backgroundImage="dialog_btn_press"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MoreButton"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="text_more_button"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="onMore:" destination="WSQ-QR-4WY" eventType="touchUpInside" id="z5J-UQ-f0u"/>
@@ -2401,6 +2402,7 @@
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MoreButton"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="text_more_button"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onMore:" destination="Uqa-lN-kxa" eventType="touchUpInside" id="g2f-r0-gtt"/>
