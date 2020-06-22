@@ -1335,7 +1335,7 @@ isoline|step_50;1334;
 isoline|step_10;1335;
 isoline|zero;1336;
 complex_entry;[complex_entry];;name;int_name;1337;
-recycling|toxic;[amenity=recycling][recycling:batterie=yes],[amenity=recycling][recycling:fluorescent_tubes=yes];;name;int_name;1338;
+recycling|toxic;[amenity=recycling][recycling:batteries=yes],[amenity=recycling][recycling:fluorescent_tubes=yes];;name;int_name;1338;
 recycling|clothes;[amenity=recycling][recycling:clothes=yes];;name;int_name;1339;
 recycling|glass_bottles;[amenity=recycling][recycling:glass_bottles=yes];;name;int_name;1340;
 recycling|paper;[amenity=recycling][recycling:paper=yes];;name;int_name;1341;
