@@ -36,6 +36,9 @@ DEFINE_string(categorial, "all",
               "Allowed values: 'all' - save all requests; 'only' - save only categorial requests; "
               "'no' - save all but categorial requests.");
 DEFINE_string(locales, "", "Comma separated locales to filter samples.");
+DEFINE_string(mode, "clicked",
+              "Allowed values: 'all' - save all searchEmitResultAndCoords event as samples; "
+              "'clicked' - save only samples wits corresponding searchShowResult event, add results to samples.");
 
 struct EmitInfo
 {
@@ -165,7 +168,7 @@ optional<Sample::Result> ParseResultWithCoords(string const & str)
   return res;
 }
 
-optional<Sample> MakeSample(EmitInfo const & info, size_t relevantPos)
+optional<Sample> MakeSample(EmitInfo const & info, optional<size_t> relevantPos)
 {
   Sample sample;
   sample.m_query = MakeUniString(info.m_query);
@@ -173,6 +176,9 @@ optional<Sample> MakeSample(EmitInfo const & info, size_t relevantPos)
   sample.m_pos = info.m_pos;
   sample.m_viewport = info.m_viewport;
   sample.m_results.reserve(info.m_results.size());
+  if (!relevantPos)
+    return sample;
+
   for (size_t i = 0; i < info.m_results.size(); ++i)
   {
     auto res = ParseResultWithCoords(info.m_results[i]);
@@ -186,6 +192,17 @@ optional<Sample> MakeSample(EmitInfo const & info, size_t relevantPos)
   return sample;
 }
 
+void PrintSample(EmitInfo const & info, optional<size_t> relevantPos)
+{
+  auto const sample = MakeSample(info, relevantPos);
+  if (!sample)
+    return;
+
+  string json;
+  Sample::SerializeToJSONLines({*sample}, json);
+  cout << json;
+}
+
 int main(int argc, char * argv[])
 {
   google::SetUsageMessage("This tool converts events from Alohalytics to search samples.");
@@ -195,6 +212,12 @@ int main(int argc, char * argv[])
   {
     LOG(LINFO, ("Invalid categorial filter mode:", FLAGS_categorial,
                 "allowed walues are: 'all', 'only', 'no'."));
+    return EXIT_FAILURE;
+  }
+
+  if (FLAGS_mode != "all" && FLAGS_mode != "clicked")
+  {
+    LOG(LINFO, ("Invalid mode:", FLAGS_mode, "allowed walues are: 'all', 'clicked'."));
     return EXIT_FAILURE;
   }
 
@@ -246,6 +269,9 @@ int main(int argc, char * argv[])
     {
       info = ParseEmitResultsAndCoords(kpe->pairs);
       newUser = false;
+
+      if (FLAGS_mode == "all")
+        PrintSample(*info, {});
     }
     else if (kpe->key == "searchShowResult" && !newUser)
     {
@@ -267,12 +293,7 @@ int main(int argc, char * argv[])
       if (!resultMatches)
         continue;
 
-      if (auto const sample = MakeSample(*info, result->m_pos))
-      {
-        string json;
-        Sample::SerializeToJSONLines({*sample}, json);
-        cout << json;
-      }
+      PrintSample(*info, result->m_pos);
     }
   }
   return EXIT_SUCCESS;
