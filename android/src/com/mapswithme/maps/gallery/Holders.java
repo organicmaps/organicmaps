@@ -687,8 +687,10 @@ public class Holders
 
       Context context = mAltitide.getContext();
       String poiCount = String.valueOf(cityParams.getBookmarksCount());
-      String text = context.getString(R.string.routes_card_number_of_points, poiCount)
-                    + " " + context.getString(R.string.routes_card_plus_track);
+      String text = context.getString(R.string.routes_card_number_of_points, poiCount);
+      if (cityParams.isTrackAvailable())
+        text += " " + context.getString(R.string.routes_card_plus_track);
+
       mDesc.setText(text);
     }
 
