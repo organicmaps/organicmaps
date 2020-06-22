@@ -219,6 +219,9 @@ class DownloadMapsViewController: MWMViewController {
 
   @objc func onAddMaps() {
     let vc = storyboard!.instantiateViewController(ofType: DownloadMapsViewController.self)
+    if !dataSource.isRoot {
+      vc.dataSource = AvailableMapsDataSource(dataSource.parentAttributes().countryId)
+    }
     vc.mode = .available
     navigationController?.pushViewController(vc, animated: true)
   }
