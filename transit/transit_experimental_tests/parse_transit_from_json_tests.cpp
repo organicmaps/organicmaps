@@ -137,8 +137,7 @@ UNIT_TEST(ReadJson_Line)
   std::vector<Line> const linesPlan = {
       Line(4036591532 /* id */, 4036591423 /* routeId */,
            ShapeLink(4036591460 /* id */, 415 /* startIndex */, 1691 /* endIndex */),
-           Translations{{"en", "Downtown"}} /* title */,
-           IdList{4036592571, 4036592572, 4036592573},
+           Translations{{"en", "Downtown"}} /* title */, IdList{4036592571, 4036592572, 4036592573},
            std::vector<LineInterval>{LineInterval(
                3600 /* headwayS */,
                osmoh::OpeningHours("06:40-18:40 open") /* timeIntervals */)} /* intervals */,
