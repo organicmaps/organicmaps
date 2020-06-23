@@ -972,8 +972,36 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
   }
 }
 
-UNIT_CLASS_TEST(ProcessorTest, TestCoords)
+UNIT_CLASS_TEST(ProcessorTest, SearchDebug)
 {
+  string const countryName = "Wonderland";
+
+  TestCity debugville(m2::PointD(0, 0), "Debugville", "en", 100 /* rank */);
+
+  TestCafe cafe(m2::PointD(0.01, 0), "", "ru");
+
+  TestPOI hotel(m2::PointD(0, 0.01), "", "ru");
+  hotel.SetTypes({{"tourism", "hotel"}});
+
+  auto const testWorldId = BuildWorld([&](TestMwmBuilder & builder) {
+    builder.Add(debugville);
+  });
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(hotel);
+    builder.Add(cafe);
+  });
+
+  auto const ruleCity = ExactMatch(testWorldId, debugville);
+  auto const ruleCafe = ExactMatch(wonderlandId, cafe);
+  auto const ruleHotel = ExactMatch(wonderlandId, hotel);
+
+  TEST(ResultsMatch("fid=0", {ruleCity, ruleCafe}), ());
+  TEST(ResultsMatch("fid=1 ", {ruleHotel}), ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, SearchCoordinates)
+{
+  // <query, lat, lon>
   vector<tuple<string, double, double>> tests = {
       {"51.681644 39.183481", 51.681644, 39.183481},
 

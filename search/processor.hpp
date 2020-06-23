@@ -72,6 +72,8 @@ public:
 
   void Search(SearchParams const & params);
 
+  // Tries to parse a custom debugging command from |m_query|.
+  void SearchDebug();
   // Tries to generate a (lat, lon) result from |m_query|.
   void SearchCoordinates();
   // Tries to parse a plus code from |m_query| and generate a (lat, lon) result.
@@ -112,6 +114,16 @@ public:
   bool IsCancelled() const override;
 
 protected:
+  // Show feature by FeatureId. May try to guess as much as possible after the "fid=" prefix but
+  // at least supports the formats below.
+  // 0. fid=123 to search for the feature with index 123, results ordered by distance
+  //    from |m_position| or |m_viewport|, whichever is present and closer.
+  // 1. fid=MwmName,123 or fid=(MwmName,123) to search for the feature with
+  //    index 123 in the Mwm "MwmName" (for example, "Laos" or "Laos.mwm").
+  // 2. fid={ MwmId [Laos, 200623], 123 } or just { MwmId [Laos, 200623], 123 } or whatever current
+  //    format of the string returned by FeatureID's DebugPrint is.
+  void SearchByFeatureId();
+
   Locales GetCategoryLocales() const;
 
   template <typename ToDo>

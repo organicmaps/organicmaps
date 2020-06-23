@@ -59,8 +59,11 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <cctype>
+#include <memory>
 #include <set>
 #include <sstream>
+#include <utility>
 
 #include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/open-location-code/openlocationcode.h"
@@ -430,6 +433,212 @@ bool Processor::IsCancelled() const
   return ret;
 }
 
+void Processor::SearchByFeatureId()
+{
+  // String processing is suboptimal in this method so
+  // we need a guard against very long strings.
+  size_t const kMaxFeatureIdStringSize = 1000;
+  if (m_query.size() > kMaxFeatureIdStringSize)
+    return;
+
+  using Trie = base::MemTrie<storage::CountryId, base::VectorValues<bool>>;
+  static Trie countriesTrie;
+  if (countriesTrie.GetNumNodes() == 1)
+  {
+    for (auto const & country : m_infoGetter.GetCountries())
+      countriesTrie.Add(country.m_countryId, true);
+  }
+
+  auto trimLeadingSpaces = [](string & s) {
+    while (!s.empty() && s.front() == ' ')
+      s = s.substr(1);
+  };
+
+  auto const eatFid = [&trimLeadingSpaces](string & s, uint32_t & fid) -> bool {
+    trimLeadingSpaces(s);
+
+    if (s.empty())
+      return false;
+
+    size_t i = 0;
+    while (i < s.size() && isdigit(s[i]))
+      ++i;
+
+    auto const prefix = s.substr(0, i);
+    if (strings::to_uint32(prefix, fid))
+    {
+      s = s.substr(prefix.size());
+      return true;
+    }
+    return false;
+  };
+
+  auto const eatMwmName = [&trimLeadingSpaces](string & s, storage::CountryId & mwmName) -> bool {
+    trimLeadingSpaces(s);
+
+    // Greedily eat as much as possible because some country names are prefixes of others.
+    optional<size_t> lastPos;
+    for (size_t i = 0; i < s.size(); ++i)
+    {
+      // todo(@m) This must be much faster but MemTrie's iterators do not expose nodes.
+      if (countriesTrie.HasKey(s.substr(0, i)))
+        lastPos = i;
+    }
+    if (!lastPos)
+      return false;
+
+    mwmName = s.substr(0, *lastPos);
+    s = s.substr(*lastPos);
+    strings::EatPrefix(s, ".mwm");
+    return true;
+  };
+
+  auto const eatVersion = [&trimLeadingSpaces](string & s, uint32_t & version) -> bool {
+    trimLeadingSpaces(s);
+
+    if (!s.empty() && s.front() == '0' && (s.size() == 1 || !isdigit(s[1])))
+    {
+      version = 0;
+      s = s.substr(1);
+      return true;
+    }
+
+    size_t const kVersionLength = 6;
+    if (s.size() >= kVersionLength && all_of(s.begin(), s.begin() + kVersionLength, ::isdigit) &&
+        (s.size() == kVersionLength || !isdigit(s[kVersionLength + 1])))
+    {
+      VERIFY(strings::to_uint32(s.substr(0, kVersionLength), version), ());
+      s = s.substr(kVersionLength);
+      return true;
+    }
+
+    return false;
+  };
+
+  // Create a copy of the query to trim it in-place.
+  string query(m_query);
+  strings::Trim(query);
+
+  string const kFidPrefix = "fid";
+  bool hasPrefix = false;
+
+  if (strings::EatPrefix(query, kFidPrefix))
+  {
+    hasPrefix = true;
+
+    strings::Trim(query);
+    if (strings::EatPrefix(query, "="))
+      strings::Trim(query);
+  }
+
+  vector<shared_ptr<MwmInfo>> infos;
+  m_dataSource.GetMwmsInfo(infos);
+
+  // Case 0.
+  if (hasPrefix)
+  {
+    string s = query;
+    uint32_t fid;
+    if (eatFid(s, fid))
+    {
+      // Loop over mwms, sort by distance.
+
+      vector<tuple<double, m2::PointD, std::string, std::unique_ptr<FeatureType>>> results;
+      vector<unique_ptr<FeaturesLoaderGuard>> guards;
+      for (auto const & info : infos)
+      {
+        auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
+        if (fid >= guard->GetNumFeatures())
+          continue;
+        auto ft = guard->GetFeatureByIndex(fid);
+        if (!ft)
+          continue;
+        auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
+        double dist = center.SquaredLength(m_viewport.Center());
+        auto pivot = m_viewport.Center();
+        if (m_position)
+        {
+          auto const distPos = center.SquaredLength(*m_position);
+          if (dist > distPos)
+          {
+            dist = distPos;
+            pivot = *m_position;
+          }
+        }
+        results.emplace_back(dist, pivot, guard->GetCountryFileName(), move(ft));
+        guards.push_back(move(guard));
+      }
+      sort(results.begin(), results.end());
+      for (auto const & [dist, pivot, country, ft] : results)
+      {
+        auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
+        string name;
+        ft->GetReadableName(name);
+        m_emitter.AddResultNoChecks(
+            m_ranker.MakeResult(RankerResult(*ft, center, pivot, name, country),
+                                true /* needAddress */, true /* needHighlighting */));
+        m_emitter.Emit();
+      }
+    }
+  }
+
+  auto const tryEmitting = [this, &infos](storage::CountryId const & mwmName, uint32_t fid) {
+    for (auto const & info : infos)
+    {
+      if (info->GetCountryName() != mwmName)
+        continue;
+
+      auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
+      if (fid >= guard->GetNumFeatures())
+        continue;
+      auto ft = guard->GetFeatureByIndex(fid);
+      if (!ft)
+        continue;
+      auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
+      string name;
+      ft->GetReadableName(name);
+      m_emitter.AddResultNoChecks(m_ranker.MakeResult(
+          RankerResult(*ft, center, m2::PointD() /* pivot */, name, guard->GetCountryFileName()),
+          true /* needAddress */, true /* needHighlighting */));
+      m_emitter.Emit();
+    }
+  };
+
+  // Case 1.
+  if (hasPrefix)
+  {
+    string s = query;
+    bool const parenPref = strings::EatPrefix(s, "(");
+    bool const parenSuff = strings::EatSuffix(s, ")");
+    storage::CountryId mwmName;
+    uint32_t fid;
+    if (parenPref == parenSuff && eatMwmName(s, mwmName) && strings::EatPrefix(s, ",") &&
+        eatFid(s, fid))
+    {
+      tryEmitting(mwmName, fid);
+    }
+  }
+
+  // Case 2.
+  {
+    string s = query;
+    storage::CountryId mwmName;
+    uint32_t version;
+    uint32_t fid;
+
+    bool ok = true;
+    ok = ok && strings::EatPrefix(s, "{ MwmId [");
+    ok = ok && eatMwmName(s, mwmName);
+    ok = ok && strings::EatPrefix(s, ", ");
+    ok = ok && eatVersion(s, version);
+    ok = ok && strings::EatPrefix(s, "], ");
+    ok = ok && eatFid(s, fid);
+    ok = ok && strings::EatPrefix(s, " }");
+    if (ok)
+      tryEmitting(mwmName, fid);
+  }
+}
+
 Locales Processor::GetCategoryLocales() const
 {
   static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
@@ -511,6 +720,7 @@ void Processor::Search(SearchParams const & params)
 
     try
     {
+      SearchDebug();
       SearchCoordinates();
       SearchPlusCode();
       SearchPostcode();
@@ -550,6 +760,11 @@ void Processor::Search(SearchParams const & params)
   // todo(@m) Send the fact of cancelling by timeout to stats?
   if (!viewportSearch && cancellationStatus != Cancellable::Status::CancelCalled)
     SendStatistics(params, viewport, m_emitter.GetResults());
+}
+
+void Processor::SearchDebug()
+{
+  SearchByFeatureId();
 }
 
 void Processor::SearchCoordinates()

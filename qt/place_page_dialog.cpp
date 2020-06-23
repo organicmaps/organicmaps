@@ -82,12 +82,14 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   if (info.IsFeature())
   {
     grid->addWidget(new QLabel("Feature ID"), row, 0);
-    grid->addWidget(new QLabel(QString::fromStdString(DebugPrint(info.GetID()))), row++, 1);
+    auto labelF = new QLabel(QString::fromStdString(DebugPrint(info.GetID())));
+    labelF->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    grid->addWidget(labelF, row++, 1);
 
     grid->addWidget(new QLabel("Raw Types"), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(DebugPrint(info.GetTypes())));
-    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    grid->addWidget(label, row++, 1);
+    QLabel * labelT = new QLabel(QString::fromStdString(DebugPrint(info.GetTypes())));
+    labelT->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    grid->addWidget(labelT, row++, 1);
   }
   for (auto const prop : info.AvailableProperties())
   {
