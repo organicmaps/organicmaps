@@ -168,7 +168,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
     viewControllers.append(previewViewController)
-    if placePageData.isPromoCatalog && placePageData.bookmarkData == nil {
+    if placePageData.isPromoCatalog {
       viewControllers.append(catalogSingleItemViewController)
       viewControllers.append(catalogGalleryViewController)
       placePageData.loadCatalogPromo(completion: onLoadCatalogPromo)
@@ -351,6 +351,22 @@ extension PlacePageCommonLayout {
                                                                       kStatState: kStatOnline,
                                                                       kStatCount: catalogPromo.promoItems.count,
                                                                       kStatPlacement: statPlacement])
+    updateCatalogPromoVisibility()
+  }
+
+  func updateCatalogPromoVisibility() {
+    guard let catalogPromo = self.placePageData.catalogPromo, catalogPromo.promoItems.count > 0 else {
+      catalogSingleItemViewController.view.isHidden = true
+      catalogGalleryViewController.view.isHidden = true
+      return
+    }
+
+    let isBookmark = placePageData.bookmarkData != nil
+    if isBookmark {
+      catalogSingleItemViewController.view.isHidden = true
+      catalogGalleryViewController.view.isHidden = true
+      return
+    }
 
     if catalogPromo.promoItems.count == 1 {
       catalogSingleItemViewController.promoItem = catalogPromo.promoItems.first!
@@ -378,8 +394,12 @@ extension PlacePageCommonLayout {
     self.presenter?.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
       self.bookmarkViewController.view.isHidden = !isBookmark
-      self.catalogGalleryViewController.view.isHidden = isBookmark
-      self.catalogGalleryViewController.view.isHidden = isBookmark
+      if (isBookmark) {
+        self.catalogGalleryViewController.view.isHidden = true
+        self.catalogSingleItemViewController.view.isHidden = true
+      } else {
+        self.updateCatalogPromoVisibility()
+      }
       self.presenter?.layoutIfNeeded()
     }
   }
