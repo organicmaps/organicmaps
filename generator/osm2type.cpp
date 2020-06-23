@@ -5,6 +5,9 @@
 #include "generator/osm_element_helpers.hpp"
 #include "generator/utils.hpp"
 
+#include "storage/country_info_getter.hpp"
+#include "storage/country_tree_helpers.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature_impl.hpp"
 
@@ -15,6 +18,8 @@
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+
+#include "defines.hpp"
 
 #include <algorithm>
 #include <initializer_list>
@@ -615,6 +620,22 @@ void PreprocessElement(OsmElement * p)
       value = dePlace;
     });
   }
+
+  // In Japan, South Korea and Turkey place=province means place=state.
+  auto static const infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
+  CHECK(infoGetter, ());
+  auto static const countryTree = storage::LoadCountriesFromFile(COUNTRIES_FILE);
+  CHECK(countryTree, ());
+  std::set<storage::CountryId> provinceToStateCountries = {"Japan", "South Korea", "Turkey"};
+  p->UpdateTag("place", [&](string & value) {
+    if (value != "province")
+      return;
+
+    auto const pt = mercator::FromLatLon(p->m_lat, p->m_lon);
+    auto const countryId = infoGetter->GetRegionCountryId(pt);
+    if (provinceToStateCountries.count(storage::GetTopmostParentFor(*countryTree, countryId)) > 0)
+      value = "state";
+  });
 }
 
 void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)

@@ -1,11 +1,10 @@
 #include "storage/storage.hpp"
 
+#include "storage/country_tree_helpers.hpp"
 #include "storage/diff_scheme/apply_diff.hpp"
 #include "storage/diff_scheme/diff_scheme_loader.hpp"
 #include "storage/http_map_files_downloader.hpp"
 #include "storage/storage_helpers.hpp"
-
-#include "defines.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/marketing_service.hpp"
@@ -24,11 +23,12 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include "defines.hpp"
+
 #include <algorithm>
 #include <chrono>
-#include <sstream>
-
 #include <limits>
+#include <sstream>
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
@@ -1787,16 +1787,7 @@ CountryId const Storage::GetParentIdFor(CountryId const & countryId) const
 
 CountryId const Storage::GetTopmostParentFor(CountryId const & countryId) const
 {
-  auto const rootId = GetRootId();
-  auto result = countryId;
-  auto parent = GetParentIdFor(result);
-  while (!parent.empty() && parent != rootId)
-  {
-    result = move(parent);
-    parent = GetParentIdFor(result);
-  }
-
-  return result;
+  return ::storage::GetTopmostParentFor(m_countries, countryId);
 }
 
 MwmSize Storage::GetRemoteSize(CountryFile const & file) const

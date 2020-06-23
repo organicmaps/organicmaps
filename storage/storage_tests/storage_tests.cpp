@@ -1384,6 +1384,17 @@ UNIT_TEST(StorageTest_GetTopmostNodesFor)
   TEST_EQUAL(path[1], "Palestine Region", (path));
 }
 
+UNIT_TEST(StorageTest_GetTopmostParentFor)
+{
+  Storage storage;
+
+  TEST_EQUAL(storage.GetTopmostParentFor("France_Auvergne_Allier"), "France", ());
+  TEST_EQUAL(storage.GetTopmostParentFor("France_Auvergne"), "France", ());
+  TEST_EQUAL(storage.GetTopmostParentFor("Belgium"), "Belgium", ());
+  TEST_EQUAL(storage.GetTopmostParentFor("Jerusalem"), "Jerusalem", ());
+  TEST_EQUAL(storage.GetTopmostParentFor("US_California_LA"), "United States of America", ());
+}
+
 UNIT_TEST(StorageTest_GetTopmostNodesForWithLevel)
 {
   Storage storage;

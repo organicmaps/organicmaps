@@ -17,6 +17,8 @@ set(
   country_parent_getter.hpp
   country_tree.cpp
   country_tree.hpp
+  country_tree_helpers.cpp
+  country_tree_helpers.hpp
   diff_scheme/apply_diff.cpp
   diff_scheme/apply_diff.hpp
   diff_scheme/diffs_data_source.cpp

@@ -41,6 +41,8 @@
 		402873422295A91F0036AA1C /* country_tree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4028733F2295A91E0036AA1C /* country_tree.hpp */; };
 		402873432295A91F0036AA1C /* country_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 402873402295A91F0036AA1C /* country_tree.cpp */; };
 		402873442295A91F0036AA1C /* downloader_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 402873412295A91F0036AA1C /* downloader_search_params.hpp */; };
+		402AD2E424A200F600DE5CB1 /* country_tree_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 402AD2E224A200F600DE5CB1 /* country_tree_helpers.hpp */; };
+		402AD2E524A200F600DE5CB1 /* country_tree_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 402AD2E324A200F600DE5CB1 /* country_tree_helpers.cpp */; };
 		4740186123F5BF0C00A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186023F5BF0C00A93C81 /* minizip.framework */; };
 		4740186223F5BF0C00A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186023F5BF0C00A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4740186423F5BF1800A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186323F5BF1800A93C81 /* minizip.framework */; };
@@ -255,6 +257,8 @@
 		4028733F2295A91E0036AA1C /* country_tree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_tree.hpp; sourceTree = "<group>"; };
 		402873402295A91F0036AA1C /* country_tree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_tree.cpp; sourceTree = "<group>"; };
 		402873412295A91F0036AA1C /* downloader_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = downloader_search_params.hpp; sourceTree = "<group>"; };
+		402AD2E224A200F600DE5CB1 /* country_tree_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_tree_helpers.hpp; sourceTree = "<group>"; };
+		402AD2E324A200F600DE5CB1 /* country_tree_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_tree_helpers.cpp; sourceTree = "<group>"; };
 		4069AD9F21495A5A005EB75C /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = categories_cuisines.txt; sourceTree = "<group>"; };
 		4740186023F5BF0C00A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4740186323F5BF1800A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -614,6 +618,8 @@
 		675342E21A3F59EF00A0A8C3 /* storage */ = {
 			isa = PBXGroup;
 			children = (
+				402AD2E324A200F600DE5CB1 /* country_tree_helpers.cpp */,
+				402AD2E224A200F600DE5CB1 /* country_tree_helpers.hpp */,
 				56DAC38323992819000BC50D /* queued_country.cpp */,
 				56DAC38423992819000BC50D /* queued_country.hpp */,
 				3DF528E02386B966000ED0D5 /* apply_diff.cpp */,
@@ -699,6 +705,7 @@
 				674125201B4C05FA00A3E828 /* map_files_downloader.hpp in Headers */,
 				56D8CB9A1CAC17A80003F420 /* test_defines.hpp in Headers */,
 				F68CC5C01F38B967007527C7 /* diff_types.hpp in Headers */,
+				402AD2E424A200F600DE5CB1 /* country_tree_helpers.hpp in Headers */,
 				401ECED51F56C50900DFDF76 /* country_parent_getter.hpp in Headers */,
 				3DF528E22386B966000ED0D5 /* diffs_data_source.hpp in Headers */,
 				34C9BCFD1C6CCF85000DC38D /* country_name_getter.hpp in Headers */,
@@ -898,6 +905,7 @@
 				674125231B4C05FA00A3E828 /* storage_defines.cpp in Sources */,
 				3DCD414920D80C1B00143533 /* lightweight_matching_tests.cpp in Sources */,
 				67BE1DC51CD2180D00572709 /* downloading_policy.cpp in Sources */,
+				402AD2E524A200F600DE5CB1 /* country_tree_helpers.cpp in Sources */,
 				402873432295A91F0036AA1C /* country_tree.cpp in Sources */,
 				F6BC312C2034366100F677FE /* pinger.cpp in Sources */,
 				34C9BCFC1C6CCF85000DC38D /* country_name_getter.cpp in Sources */,
