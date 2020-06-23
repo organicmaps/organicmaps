@@ -586,7 +586,7 @@ void MainWindow::CreateCountryStatusControls()
                                                          storage::Status status,
                                                          uint64_t sizeInBytes, uint8_t progress) {
     m_lastCountry = countryId;
-    if (m_lastCountry.empty() || status == storage::Status::EOnDisk || status == storage::Status::EOnDiskOutOfDate)
+    if (m_lastCountry.empty() || status == storage::Status::OnDisk || status == storage::Status::OnDiskOutOfDate)
     {
       m_downloadButton->setVisible(false);
       m_retryButton->setVisible(false);
@@ -594,7 +594,7 @@ void MainWindow::CreateCountryStatusControls()
     }
     else
     {
-      if (status == storage::Status::ENotDownloaded)
+      if (status == storage::Status::NotDownloaded)
       {
         m_downloadButton->setVisible(true);
         m_retryButton->setVisible(false);
@@ -607,7 +607,7 @@ void MainWindow::CreateCountryStatusControls()
         str << "Download (" << countryName << ") " << sizeToDownload << units;
         m_downloadButton->setText(str.str().c_str());
       }
-      else if (status == storage::Status::EDownloading)
+      else if (status == storage::Status::Downloading)
       {
         m_downloadButton->setVisible(false);
         m_retryButton->setVisible(false);
@@ -617,7 +617,7 @@ void MainWindow::CreateCountryStatusControls()
         str << "Downloading (" << countryName << ") " << (int)progress << "%";
         m_downloadingStatusLabel->setText(str.str().c_str());
       }
-      else if (status == storage::Status::EInQueue)
+      else if (status == storage::Status::InQueue)
       {
         m_downloadButton->setVisible(false);
         m_retryButton->setVisible(false);

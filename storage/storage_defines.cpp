@@ -17,25 +17,25 @@ string DebugPrint(Status status)
 {
   switch (status)
   {
-  case Status::EUndefined:
+  case Status::Undefined:
     return "EUndefined"s;
-  case Status::EOnDisk:
+  case Status::OnDisk:
     return "OnDisk"s;
-  case Status::ENotDownloaded:
+  case Status::NotDownloaded:
     return "NotDownloaded"s;
-  case Status::EDownloadFailed:
+  case Status::DownloadFailed:
     return "DownloadFailed"s;
-  case Status::EDownloading:
+  case Status::Downloading:
     return "Downloading"s;
-  case Status::EApplying:
+  case Status::Applying:
     return "Applying"s;
-  case Status::EInQueue:
+  case Status::InQueue:
     return "InQueue"s;
-  case Status::EUnknown:
+  case Status::UnknownError:
     return "Unknown"s;
-  case Status::EOnDiskOutOfDate:
+  case Status::OnDiskOutOfDate:
     return "OnDiskOutOfDate"s;
-  case Status::EOutOfMemFailed:
+  case Status::OutOfMemFailed:
     return "OutOfMemFailed"s;
   }
   UNREACHABLE();
@@ -87,25 +87,25 @@ StatusAndError ParseStatus(Status innerStatus)
 {
   switch (innerStatus)
   {
-  case Status::EUndefined:
+  case Status::Undefined:
     return StatusAndError(NodeStatus::Undefined, NodeErrorCode::NoError);
-  case Status::EOnDisk:
+  case Status::OnDisk:
     return StatusAndError(NodeStatus::OnDisk, NodeErrorCode::NoError);
-  case Status::ENotDownloaded:
+  case Status::NotDownloaded:
     return StatusAndError(NodeStatus::NotDownloaded, NodeErrorCode::NoError);
-  case Status::EDownloadFailed:
+  case Status::DownloadFailed:
     return StatusAndError(NodeStatus::Error, NodeErrorCode::NoInetConnection);
-  case Status::EDownloading:
+  case Status::Downloading:
     return StatusAndError(NodeStatus::Downloading, NodeErrorCode::NoError);
-  case Status::EApplying:
+  case Status::Applying:
     return StatusAndError(NodeStatus::Applying, NodeErrorCode::NoError);
-  case Status::EInQueue:
+  case Status::InQueue:
     return StatusAndError(NodeStatus::InQueue, NodeErrorCode::NoError);
-  case Status::EUnknown:
+  case Status::UnknownError:
     return StatusAndError(NodeStatus::Error, NodeErrorCode::UnknownError);
-  case Status::EOnDiskOutOfDate:
+  case Status::OnDiskOutOfDate:
     return StatusAndError(NodeStatus::OnDiskOutOfDate, NodeErrorCode::NoError);
-  case Status::EOutOfMemFailed:
+  case Status::OutOfMemFailed:
     return StatusAndError(NodeStatus::Error, NodeErrorCode::OutOfMemFailed);
   }
   UNREACHABLE();

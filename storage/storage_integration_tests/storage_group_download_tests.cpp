@@ -94,11 +94,11 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   storage.GetChildrenInGroups(kGroupCountryId, downloaded, available);
   TEST(downloaded.empty(), ());
 
-  // Check status for the all children nodes is set to ENotDownloaded.
+  // Check status for the all children nodes is set to NotDownloaded.
   MwmSize totalGroupSize = 0;
   for (auto const & countryId : children)
   {
-    TEST_EQUAL(Status::ENotDownloaded, storage.CountryStatusEx(countryId), ());
+    TEST_EQUAL(Status::NotDownloaded, storage.CountryStatusEx(countryId), ());
     NodeAttrs attrs;
     storage.GetNodeAttrs(countryId, attrs);
     TEST_EQUAL(NodeStatus::NotDownloaded, attrs.m_status, ());
@@ -106,7 +106,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
     totalGroupSize += attrs.m_mwmSize;
   }
 
-  // Check status for the group node is set to ENotDownloaded.
+  // Check status for the group node is set to NotDownloaded.
   NodeAttrs attrs;
   storage.GetNodeAttrs(kGroupCountryId, attrs);
   TEST_EQUAL(NodeStatus::NotDownloaded, attrs.m_status, ());
@@ -141,14 +141,14 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   TEST_EQUAL(changed, subTree, ());
   TEST_EQUAL(downloadedChecker, subTree, ());
 
-  // Check status for the group node is set to EOnDisk.
+  // Check status for the group node is set to OnDisk.
   storage.GetNodeAttrs(kGroupCountryId, attrs);
   TEST_EQUAL(NodeStatus::OnDisk, attrs.m_status, ());
 
-  // Check status for the all children nodes is set to EOnDisk.
+  // Check status for the all children nodes is set to OnDisk.
   for (auto const & countryId : children)
   {
-    TEST_EQUAL(Status::EOnDisk, storage.CountryStatusEx(countryId), ());
+    TEST_EQUAL(Status::OnDisk, storage.CountryStatusEx(countryId), ());
     NodeAttrs attrs;
     storage.GetNodeAttrs(countryId, attrs);
     TEST_EQUAL(NodeStatus::OnDisk, attrs.m_status, ());
@@ -224,7 +224,7 @@ void DeleteGroup(Storage & storage, bool oneByOne)
   // Check state for the all children nodes is set to NotDownloaded and NoError.
   for (auto const & countryId : children)
   {
-    TEST_EQUAL(Status::ENotDownloaded, storage.CountryStatusEx(countryId), ());
+    TEST_EQUAL(Status::NotDownloaded, storage.CountryStatusEx(countryId), ());
     NodeAttrs attrs;
     storage.GetNodeAttrs(countryId, attrs);
     TEST_EQUAL(NodeStatus::NotDownloaded, attrs.m_status, ());

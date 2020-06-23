@@ -16,8 +16,8 @@ bool IsPointCoveredByDownloadedMaps(m2::PointD const & position,
 
 bool IsDownloadFailed(Status status)
 {
-  return status == Status::EDownloadFailed || status == Status::EOutOfMemFailed ||
-         status == Status::EUnknown;
+  return status == Status::DownloadFailed || status == Status::OutOfMemFailed ||
+         status == Status::UnknownError;
 }
 
 bool IsEnoughSpaceForDownload(MwmSize mwmSize)

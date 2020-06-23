@@ -445,40 +445,40 @@ Status Storage::CountryStatus(CountryId const & countryId) const
 
   // Check if this country has failed while downloading.
   if (m_failedCountries.count(countryId) > 0)
-    return Status::EDownloadFailed;
+    return Status::DownloadFailed;
 
   // Check if we are already downloading this country or have it in the queue.
   if (IsCountryInQueue(countryId))
   {
     if (m_downloadingCountries.find(countryId) != m_downloadingCountries.cend())
-      return Status::EDownloading;
+      return Status::Downloading;
 
-    return Status::EInQueue;
+    return Status::InQueue;
   }
 
   if (IsDiffApplyingInProgressToCountry(countryId))
-    return Status::EApplying;
+    return Status::Applying;
 
-  return Status::EUnknown;
+  return Status::UnknownError;
 }
 
 Status Storage::CountryStatusEx(CountryId const & countryId) const
 {
   auto const status = CountryStatus(countryId);
-  if (status != Status::EUnknown)
+  if (status != Status::UnknownError)
     return status;
 
   auto localFile = GetLatestLocalFile(countryId);
   if (!localFile || !localFile->OnDisk(MapFileType::Map))
-    return Status::ENotDownloaded;
+    return Status::NotDownloaded;
 
   auto const & countryFile = GetCountryFile(countryId);
   if (GetRemoteSize(countryFile) == 0)
-    return Status::EUnknown;
+    return Status::UnknownError;
 
   if (localFile->GetVersion() != GetCurrentDataVersion())
-    return Status::EOnDiskOutOfDate;
-  return Status::EOnDisk;
+    return Status::OnDiskOutOfDate;
+  return Status::OnDisk;
 }
 
 void Storage::SaveDownloadQueue()
@@ -1122,7 +1122,7 @@ bool Storage::IsNodeDownloaded(CountryId const & countryId) const
 
 bool Storage::HasLatestVersion(CountryId const & countryId) const
 {
-  return CountryStatusEx(countryId) == Status::EOnDisk;
+  return CountryStatusEx(countryId) == Status::OnDisk;
 }
 
 int64_t Storage::GetVersion(CountryId const & countryId) const
@@ -1446,7 +1446,7 @@ StatusAndError Storage::GetNodeStatusInfo(CountryTree::Node const & node,
 
   node.ForEachDescendant(groupStatusCalculator);
   if (allOnDisk)
-    return ParseStatus(Status::EOnDisk);
+    return ParseStatus(Status::OnDisk);
   if (result == NodeStatus::OnDisk)
     return {NodeStatus::Partly, NodeErrorCode::NoError};
 

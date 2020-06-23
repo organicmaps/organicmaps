@@ -37,16 +37,16 @@ bool IsCountryIdValid(CountryId const & countryId);
 /// Inner status which is used inside Storage class
 enum class Status : uint8_t
 {
-  EUndefined = 0,
-  EOnDisk,          /**< Downloaded mwm(s) is up to date. No need to update it. */
-  ENotDownloaded,   /**< Mwm can be download but not downloaded yet. */
-  EDownloadFailed,  /**< Downloading failed because no internet connection. */
-  EDownloading,     /**< Downloading a new mwm or updating an old one. */
-  EApplying,        /**< Applying downloaded diff for an old mwm. */
-  EInQueue,         /**< A mwm is waiting for downloading in the queue. */
-  EUnknown,         /**< Downloading failed because of unknown error. */
-  EOnDiskOutOfDate, /**< An update for a downloaded mwm is ready according to counties.txt. */
-  EOutOfMemFailed,  /**< Downloading failed because it's not enough memory */
+  Undefined = 0,
+  OnDisk,          /**< Downloaded mwm(s) is up to date. No need to update it. */
+  NotDownloaded,   /**< Mwm can be download but not downloaded yet. */
+  DownloadFailed,  /**< Downloading failed because no internet connection. */
+  Downloading,     /**< Downloading a new mwm or updating an old one. */
+  Applying,        /**< Applying downloaded diff for an old mwm. */
+  InQueue,         /**< A mwm is waiting for downloading in the queue. */
+  UnknownError,    /**< Downloading failed because of unknown error. */
+  OnDiskOutOfDate, /**< An update for a downloaded mwm is ready according to counties.txt. */
+  OutOfMemFailed,  /**< Downloading failed because it's not enough memory */
 };
 std::string DebugPrint(Status status);
 

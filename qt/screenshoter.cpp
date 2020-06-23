@@ -275,7 +275,7 @@ void Screenshoter::PrepareCountries()
                                                                                    false /* rough */);
     for (auto const & countryId : countryIds)
     {
-      if (storage.CountryStatusEx(countryId) == storage::Status::ENotDownloaded)
+      if (storage.CountryStatusEx(countryId) == storage::Status::NotDownloaded)
       {
         ChangeState(State::WaitCountries);
         m_countriesToDownload.insert(countryId);
@@ -297,7 +297,7 @@ void Screenshoter::OnCountryChanged(storage::CountryId countryId)
     return;
 
   auto const status = m_framework.GetStorage().CountryStatusEx(countryId);
-  if (status == storage::Status::EOnDisk)
+  if (status == storage::Status::OnDisk)
   {
     m_countriesToDownload.erase(countryId);
     if (m_countriesToDownload.empty())
