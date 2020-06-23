@@ -43,8 +43,10 @@ struct GuidesNode
 
 struct GuidesOnMap
 {
+  static uint8_t constexpr kIncorrectZoom = 0;
+
   std::vector<GuidesNode> m_nodes;
-  uint8_t m_suggestedZoom = 0;
+  uint8_t m_suggestedZoom = kIncorrectZoom;
 };
 
 using GuidesOnMapCallback = platform::SafeCallback<void(GuidesOnMap const & gallery)>;

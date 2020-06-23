@@ -227,7 +227,9 @@ void GuidesManager::OnRequestSucceed(guides_on_map::GuidesOnMap const & guides, 
   }
   else
   {
-    if (suggestZoom && m_zoom > m_guides.m_suggestedZoom)
+    if (suggestZoom &&
+        m_guides.m_suggestedZoom != guides_on_map::GuidesOnMap::kIncorrectZoom &&
+        m_zoom > m_guides.m_suggestedZoom)
     {
       m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewCenter,
                              m_lastShownViewport.GetGlobalRect().Center(), m_guides.m_suggestedZoom,
