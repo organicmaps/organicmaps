@@ -545,6 +545,7 @@ ja:しゃぶ葉|Shabu You
 
 brand.taco_bell
 en:Taco Bell|Tacobell
+ja:タコベル|たこべる
 
 brand.telepizza
 en:Telepizza|Tele Pizza
