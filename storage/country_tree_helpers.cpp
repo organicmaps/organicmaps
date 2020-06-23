@@ -3,6 +3,7 @@
 #include "base/logging.hpp"
 
 #include <vector>
+#include <utility>
 
 namespace storage
 {
@@ -50,6 +51,6 @@ std::optional<CountryTree> LoadCountriesFromFile(std::string const & path)
   if (res == -1)
     return {};
 
-  return countries;
+  return std::optional<CountryTree>(std::move(countries));
 }
 }  // namespace storage
