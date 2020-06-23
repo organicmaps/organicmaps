@@ -134,7 +134,7 @@ def remove_bad_sections(soup, lang):
 
 
 def beautify_page(html, lang):
-    soup = BeautifulSoup(html, "html")
+    soup = BeautifulSoup(html, "html.parser")
     for x in soup.find_all():
         if len(x.text.strip()) == 0:
             x.extract()
