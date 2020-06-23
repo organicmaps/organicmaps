@@ -302,9 +302,6 @@ void Read(base::Json const & obj, std::vector<Line> & lines)
   ShapeLink const shapeLink = GetShapeLinkFromJson(obj.get());
   Translations const title = GetTranslationsFromJson(obj.get(), "title");
 
-  // TODO (o.khlopkova) add "number" to gtfs converter pipeline
-  // and fill number with GetTranslationsFromJson(obj.get(), "number").
-  Translations const number;
   IdList const stopIds = GetStopIdsFromJson(obj.get());
 
   std::vector<LineInterval> const intervals = GetIntervalsFromJson(obj.get());
@@ -313,7 +310,7 @@ void Read(base::Json const & obj, std::vector<Line> & lines)
   FromJSONObject(obj.get(), "service_days", serviceDaysStr);
   osmoh::OpeningHours const serviceDays(serviceDaysStr);
 
-  lines.emplace_back(id, routeId, shapeLink, title, number, stopIds, intervals, serviceDays);
+  lines.emplace_back(id, routeId, shapeLink, title, stopIds, intervals, serviceDays);
 }
 
 void Read(base::Json const & obj, std::vector<Stop> & stops, OsmIdToFeatureIdsMap const & mapping)

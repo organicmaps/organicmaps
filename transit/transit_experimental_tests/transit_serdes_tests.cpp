@@ -119,7 +119,7 @@ TransitData FillTestTransitData()
   data.m_lines = {
       Line(4036598626 /* id */, 4036206872 /* routeId */,
            ShapeLink(4036591460 /* id */, 0 /* startIndex */, 2690 /* endIndex */),
-           Translations{{"default", "740G"}} /* title */, {} /* number */,
+           Translations{{"default", "740G"}} /* title */,
            IdList{4036592571, 4036592572, 4036592573, 4036592574, 4036592575, 4036592576},
            std::vector<LineInterval>{LineInterval(
                10060 /* headwayS */,
@@ -130,7 +130,7 @@ TransitData FillTestTransitData()
       Line(
           4036598627 /* id */, 4036206872 /* routeId */,
           ShapeLink(4036591461 /* id */, 356 /* startIndex */, 40690 /* endIndex */),
-          {} /* title */, {} /* number */,
+          {} /* title */,
           IdList{4027013783, 4027013784, 4027013785, 4027013786, 4027013787, 4027013788, 4027013789,
                  4027013790, 4027013791, 4027013792, 4027013793, 4027013794, 4027013795, 4027013796,
                  4027013797, 4027013798, 4027013799, 4027013800, 4027013801},

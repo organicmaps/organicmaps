@@ -199,7 +199,7 @@ class Line
 public:
   Line() = default;
   Line(TransitId id, TransitId routeId, ShapeLink shapeLink, Translations const & title,
-       Translations const & number, IdList stopIds, std::vector<LineInterval> const & intervals,
+       IdList stopIds, std::vector<LineInterval> const & intervals,
        osmoh::OpeningHours const & serviceDays);
 
   bool operator<(Line const & rhs) const;
@@ -208,8 +208,6 @@ public:
   bool IsValid() const;
 
   TransitId GetId() const;
-  std::string GetNumber() const;
-  Translations const & GetNumbers() const;
   std::string GetTitle() const;
   Translations const & GetTitles() const;
   TransitId GetRouteId() const;
@@ -222,14 +220,12 @@ private:
   DECLARE_TRANSIT_TYPES_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Line, visitor(m_id, "id"), visitor(m_routeId, "route_id"),
                                   visitor(m_shapeLink, "shape_link"), visitor(m_title, "title"),
-                                  visitor(m_number, "number"), visitor(m_stopIds, "stop_ids"),
-                                  visitor(m_intervals, "intervals"),
+                                  visitor(m_stopIds, "stop_ids"), visitor(m_intervals, "intervals"),
                                   visitor(m_serviceDays, "service_days"))
   TransitId m_id = kInvalidTransitId;
   TransitId m_routeId = kInvalidTransitId;
   ShapeLink m_shapeLink;
   Translations m_title;
-  Translations m_number;
   IdList m_stopIds;
   std::vector<LineInterval> m_intervals;
   osmoh::OpeningHours m_serviceDays;

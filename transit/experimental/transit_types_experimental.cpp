@@ -136,13 +136,12 @@ TransitId Route::GetNetworkId() const { return m_networkId; }
 
 // Line --------------------------------------------------------------------------------------------
 Line::Line(TransitId id, TransitId routeId, ShapeLink shapeLink, Translations const & title,
-           Translations const & number, IdList stopIds, std::vector<LineInterval> const & intervals,
+           IdList stopIds, std::vector<LineInterval> const & intervals,
            osmoh::OpeningHours const & serviceDays)
   : m_id(id)
   , m_routeId(routeId)
   , m_shapeLink(shapeLink)
   , m_title(title)
-  , m_number(number)
   , m_stopIds(stopIds)
   , m_intervals(intervals)
   , m_serviceDays(serviceDays)
@@ -160,10 +159,6 @@ bool Line::IsValid() const
 }
 
 TransitId Line::GetId() const { return m_id; }
-
-std::string Line::GetNumber() const { return GetTranslation(m_number); }
-
-Translations const & Line::GetNumbers() const { return m_number; }
 
 std::string Line::GetTitle() const { return GetTranslation(m_title); }
 
