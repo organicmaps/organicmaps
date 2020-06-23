@@ -634,6 +634,13 @@ bool EndsWith(std::string const & s1, char const * s2);
 
 bool EndsWith(std::string const & s1, std::string const & s2);
 
+// If |s| starts with |prefix|, deletes it from |s| and returns true.
+// Otherwise, leaves |s| unmodified and returns false.
+bool EatPrefix(std::string & s, std::string const & prefix);
+// If |s| ends with |suffix|, deletes it from |s| and returns true.
+// Otherwise, leaves |s| unmodified and returns false.
+bool EatSuffix(std::string & s, std::string const & suffix);
+
 /// Try to guess if it's HTML or not. No guarantee.
 bool IsHTML(std::string const & utf8);
 

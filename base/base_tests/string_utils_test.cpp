@@ -825,6 +825,48 @@ UNIT_TEST(EndsWith)
   }
 }
 
+UNIT_TEST(EatPrefix_EatSuffix)
+{
+  // <original string, prefix/suffix to cut, success, string after cutting>
+  std::vector<std::tuple<std::string, std::string, bool, std::string>> kPrefixTestcases = {
+    {"abc", "a", true, "bc"},
+    {"abc", "b", false, "abc"},
+    {"abc", "", true, "abc"},
+    {"abc", "abc", true, ""},
+    {"abc", "abc00", false, "abc"},
+    {"", "", true, ""},
+    {"абв", "а", true, "бв"},
+    {"абв", "б", false, "абв"},
+    {"字符串", "字", true, "符串"},
+  };
+
+  std::vector<std::tuple<std::string, std::string, bool, std::string>> kSuffixTestcases = {
+    {"abc", "c", true, "ab"},
+    {"abc", "b", false, "abc"},
+    {"abc", "", true, "abc"},
+    {"abc", "abc", true, ""},
+    {"abc", "00abc", false, "abc"},
+    {"", "", true, ""},
+    {"абв", "в", true, "аб"},
+    {"абв", "б", false, "абв"},
+    {"字符串", "串", true, "字符"},
+  };
+
+  for (auto const & [original, toCut, success, afterCutting] : kPrefixTestcases)
+  {
+    auto s = original;
+    TEST_EQUAL(strings::EatPrefix(s, toCut), success, (original, toCut));
+    TEST_EQUAL(s, afterCutting, ());
+  }
+
+  for (auto const & [original, toCut, success, afterCutting] : kSuffixTestcases)
+  {
+    auto s = original;
+    TEST_EQUAL(strings::EatSuffix(s, toCut), success, (original, toCut));
+    TEST_EQUAL(s, afterCutting, ());
+  }
+}
+
 UNIT_TEST(UniString_LessAndEqualsAndNotEquals)
 {
   std::vector<strings::UniString> v;
