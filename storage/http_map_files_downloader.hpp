@@ -1,7 +1,7 @@
 #pragma once
 
-#include "storage/map_files_downloader_with_ping.hpp"
 #include "storage/downloader_queue_universal.hpp"
+#include "storage/map_files_downloader_with_ping.hpp"
 
 #include "platform/http_request.hpp"
 

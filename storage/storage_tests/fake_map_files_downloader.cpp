@@ -14,7 +14,7 @@ namespace storage
 int64_t const FakeMapFilesDownloader::kBlockSize;
 
 FakeMapFilesDownloader::FakeMapFilesDownloader(TaskRunner & taskRunner)
-  : m_progress(std::make_pair(0, 0)), m_timestamp(0), m_taskRunner(taskRunner)
+  : m_timestamp(0), m_taskRunner(taskRunner)
 {
   SetServersList({"http://test-url/"});
 }
@@ -79,7 +79,8 @@ void FakeMapFilesDownloader::Download()
   queuedCountry.OnStartDownloading();
 
   ++m_timestamp;
-  m_progress = {0, queuedCountry.GetDownloadSize()};
+  m_progress = {};
+  m_progress.m_bytesTotal = queuedCountry.GetDownloadSize();
   m_writer.reset(new FileWriter(queuedCountry.GetFileDownloadPath()));
   m_taskRunner.PostTask(std::bind(&FakeMapFilesDownloader::DownloadNextChunk, this, m_timestamp));
 }
@@ -93,18 +94,18 @@ void FakeMapFilesDownloader::DownloadNextChunk(uint64_t timestamp)
   if (timestamp != m_timestamp)
     return;
 
-  ASSERT_LESS_OR_EQUAL(m_progress.first, m_progress.second, ());
+  ASSERT_LESS_OR_EQUAL(m_progress.m_bytesDownloaded, m_progress.m_bytesTotal, ());
   ASSERT(m_writer, ());
 
-  if (m_progress.first == m_progress.second)
+  if (m_progress.m_bytesDownloaded == m_progress.m_bytesTotal)
   {
     OnFileDownloaded(m_queue.GetFirstCountry(), downloader::DownloadStatus::Completed);
     return;
   }
 
-  int64_t const bs = std::min(m_progress.second - m_progress.first, kBlockSize);
+  int64_t const bs = std::min(m_progress.m_bytesTotal - m_progress.m_bytesDownloaded, kBlockSize);
 
-  m_progress.first += bs;
+  m_progress.m_bytesDownloaded += bs;
   m_writer->Write(kZeroes.data(), bs);
   m_writer->Flush();
 

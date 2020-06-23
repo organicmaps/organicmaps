@@ -151,9 +151,9 @@ using namespace storage;
         break;
       }
       case NodeStatus::Downloading:
-        if (nodeAttrs.m_downloadingProgress.second != 0)
-          [self showDownloading:(CGFloat)nodeAttrs.m_downloadingProgress.first /
-                                nodeAttrs.m_downloadingProgress.second];
+        if (nodeAttrs.m_downloadingProgress.m_bytesTotal != 0)
+          [self showDownloading:(CGFloat)nodeAttrs.m_downloadingProgress.m_bytesDownloaded /
+                                nodeAttrs.m_downloadingProgress.m_bytesTotal];
         [self showBannerIfNeeded];
         break;
       case NodeStatus::Applying:

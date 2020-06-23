@@ -74,9 +74,9 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   };
 
   CountriesSet downloadedChecker;
-  auto onProgressFn = [&](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
+  auto onProgressFn = [&](CountryId const & countryId, downloader::Progress const & progress) {
     TEST(subTree.find(countryId) != subTree.end(), ());
-    if (mapSize.first == mapSize.second)
+    if (progress.m_bytesDownloaded == progress.m_bytesTotal)
     {
       auto const res = downloadedChecker.insert(countryId);
       TEST_EQUAL(res.second, true, ()); // Every child is downloaded only once.

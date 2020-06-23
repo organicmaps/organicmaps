@@ -136,19 +136,18 @@ void DrawWidget::UpdateCountryStatus(storage::CountryId const & countryId)
     std::string countryName = countryId;
     auto status = m_framework.GetStorage().CountryStatusEx(countryId);
 
-    uint8_t progressInPercentage = 0;
-    downloader::Progress progressInByte = std::make_pair(0, 0);
+    uint8_t percentage = 0;
+    downloader::Progress progress;
     if (!countryId.empty())
     {
       storage::NodeAttrs nodeAttrs;
       m_framework.GetStorage().GetNodeAttrs(countryId, nodeAttrs);
-      progressInByte = nodeAttrs.m_downloadingProgress;
-      if (progressInByte.second != 0)
-        progressInPercentage = static_cast<int8_t>(100 * progressInByte.first / progressInByte.second);
+      progress = nodeAttrs.m_downloadingProgress;
+      if (!progress.IsUnknown() && progress.m_bytesTotal != 0)
+        percentage = static_cast<int8_t>(100 * progress.m_bytesDownloaded / progress.m_bytesTotal);
     }
 
-    m_currentCountryChanged(countryId, countryName, status,
-                            progressInByte.second, progressInPercentage);
+    m_currentCountryChanged(countryId, countryName, status, progress.m_bytesTotal, percentage);
   }
 }
 

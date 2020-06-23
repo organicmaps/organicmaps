@@ -387,7 +387,7 @@ namespace qt
     NodeAttrs attrs;
     st.GetNodeAttrs(countryId, attrs);
 
-    size.first = attrs.m_downloadingProgress.first;
+    size.first = attrs.m_downloadingProgress.m_bytesDownloaded;
     size.second = attrs.m_mwmSize;
 
     switch (attrs.m_status)
@@ -522,7 +522,10 @@ namespace qt
   {
     auto const items = GetTreeItemsByCountryId(countryId);
     for (auto const item : items)
-      item->setText(KColumnIndexSize, QString("%1%").arg(progress.first * 100 / progress.second));
+    {
+      item->setText(KColumnIndexSize, QString("%1%").arg(progress.m_bytesDownloaded * 100 /
+                                                         progress.m_bytesTotal));
+    }
   }
 
   void UpdateDialog::ShowModal()

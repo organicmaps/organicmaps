@@ -279,16 +279,16 @@ protected:
   }
 
   virtual void OnCountryDownloadingProgress(CountryId const & countryId,
-                                            LocalAndRemoteSize const & progress)
+                                            downloader::Progress const & progress)
   {
     if (countryId != m_countryId)
       return;
 
     LOG(LINFO, (m_countryFile, "downloading progress:", progress));
 
-    TEST_GREATER(progress.first, static_cast<
-                 decltype(progress.first)>(m_bytesDownloaded), (m_countryFile));
-    m_bytesDownloaded = progress.first;
+    TEST_GREATER(progress.m_bytesDownloaded, static_cast<
+                 decltype(progress.m_bytesDownloaded)>(m_bytesDownloaded), (m_countryFile));
+    m_bytesDownloaded = progress.m_bytesDownloaded;
     TEST_LESS_OR_EQUAL(m_bytesDownloaded, m_totalBytesToDownload, (m_countryFile));
 
     LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId);
@@ -323,12 +323,12 @@ public:
 protected:
   // CountryDownloaderChecker overrides:
   void OnCountryDownloadingProgress(CountryId const & countryId,
-                                    LocalAndRemoteSize const & progress) override
+                                    downloader::Progress const & progress) override
   {
     CountryDownloaderChecker::OnCountryDownloadingProgress(countryId, progress);
 
     // Cancel downloading when almost done.
-    if (progress.first + 2 * FakeMapFilesDownloader::kBlockSize >= progress.second)
+    if (progress.m_bytesDownloaded + 2 * FakeMapFilesDownloader::kBlockSize >= progress.m_bytesTotal)
     {
       m_runner.PostTask([&]() { m_storage.CancelDownloadNode(m_countryId); });
     }
@@ -388,7 +388,7 @@ private:
   }
 
   void OnCountryDownloadingProgress(CountryId const & /* countryId */,
-                                    LocalAndRemoteSize const & /* progress */)
+                                    downloader::Progress const & /* progress */)
   {
     TEST(false, ("Unexpected country downloading progress."));
   }
@@ -439,7 +439,7 @@ public:
     testing::StopEventLoop();
   }
 
-  void OnProgress(CountryId const & /* countryId */, LocalAndRemoteSize const & /* progress */) {}
+  void OnProgress(CountryId const & /* countryId */, downloader::Progress const & /* progress */) {}
 
 private:
   Storage & m_storage;
@@ -930,8 +930,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
-  TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
-  TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.m_bytesDownloaded, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.m_bytesTotal, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingMwmCounter, 0, ());
@@ -945,8 +945,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
-  TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
-  TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.m_bytesDownloaded, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.m_bytesTotal, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingMwmCounter, 0, ());
@@ -960,8 +960,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Algeria", ());
-  TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
-  TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.m_bytesDownloaded, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.m_bytesTotal, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingMwmCounter, 0, ());
@@ -975,8 +975,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
-  TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
-  TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.m_bytesDownloaded, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.m_bytesTotal, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingMwmCounter, 0, ());
@@ -992,8 +992,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Country1", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_id, "Country2", ());
-  TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
-  TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.m_bytesDownloaded, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.m_bytesTotal, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingMwmCounter, 0, ());
@@ -1314,8 +1314,8 @@ UNIT_TEST(StorageTest_GetOverallProgressSmokeTest)
   InitStorage(storage, runner);
 
   auto const currentProgress = storage.GetOverallProgress({"Abkhazia", "Algeria_Coast"});
-  TEST_EQUAL(currentProgress.first, 0, ());
-  TEST_EQUAL(currentProgress.second, 0, ());
+  TEST_EQUAL(currentProgress.m_bytesDownloaded, 0, ());
+  TEST_EQUAL(currentProgress.m_bytesTotal, 0, ());
 }
 
 UNIT_TEST(StorageTest_GetQueuedChildrenSmokeTest)
@@ -1487,7 +1487,7 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   };
 
   auto const onProgress = [&](CountryId const & /* countryId */,
-                              LocalAndRemoteSize const & /* progress */) {};
+                              downloader::Progress const & /* progress */) {};
 
   auto const slot = storage.Subscribe(onStatusChange, onProgress);
   SCOPE_GUARD(cleanup, [&]() { storage.Unsubscribe(slot); });

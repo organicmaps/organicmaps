@@ -147,7 +147,7 @@ CountriesSet GetQueuedCountries(QueueInterface const & queue)
 
 Progress Storage::GetOverallProgress(CountriesVec const & countries) const
 {
-  Progress overallProgress = {};
+  Progress overallProgress;
   for (auto const & country : countries)
   {
     NodeAttrs attr;
@@ -155,10 +155,10 @@ Progress Storage::GetOverallProgress(CountriesVec const & countries) const
 
     ASSERT_EQUAL(attr.m_mwmCounter, 1, ());
 
-    if (attr.m_downloadingProgress.second != -1)
+    if (!attr.m_downloadingProgress.IsUnknown())
     {
-      overallProgress.first += attr.m_downloadingProgress.first;
-      overallProgress.second += attr.m_downloadingProgress.second;
+      overallProgress.m_bytesDownloaded += attr.m_downloadingProgress.m_bytesDownloaded;
+      overallProgress.m_bytesTotal += attr.m_downloadingProgress.m_bytesTotal;
     }
   }
   return overallProgress;
@@ -392,7 +392,7 @@ LocalAndRemoteSize Storage::CountrySizeInBytes(CountryId const & countryId) cons
 
   auto const it = m_downloadingCountries.find(countryId);
   if (it != m_downloadingCountries.cend())
-    sizes.first = it->second.first + GetRemoteSize(countryFile);
+    sizes.first = it->second.m_bytesDownloaded + GetRemoteSize(countryFile);
 
   return sizes;
 }
@@ -711,7 +711,9 @@ void Storage::OnCountryInQueue(QueuedCountry const & queuedCountry)
 
 void Storage::OnStartDownloading(QueuedCountry const & queuedCountry)
 {
-  m_downloadingCountries[queuedCountry.GetCountryId()] = {0, kUnknownTotalSize};
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  m_downloadingCountries[queuedCountry.GetCountryId()] = Progress::Unknown();
   NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
 }
 
@@ -1479,8 +1481,8 @@ void Storage::GetNodeAttrs(CountryId const & countryId, NodeAttrs & nodeAttrs) c
   {
     // Group or leaf node is on disk and up to date.
     MwmSize const subTreeSizeBytes = node->Value().GetSubtreeMwmSizeBytes();
-    nodeAttrs.m_downloadingProgress.first = subTreeSizeBytes;
-    nodeAttrs.m_downloadingProgress.second = subTreeSizeBytes;
+    nodeAttrs.m_downloadingProgress.m_bytesDownloaded = subTreeSizeBytes;
+    nodeAttrs.m_downloadingProgress.m_bytesTotal = subTreeSizeBytes;
   }
   else
   {
@@ -1578,7 +1580,7 @@ Progress Storage::CalculateProgress(CountriesVec const & descendants) const
 {
   // Function calculates progress correctly ONLY if |downloadingMwm| is leaf.
 
-  Progress localAndRemoteBytes = {};
+  Progress result;
 
   auto const mwmsInQueue = GetQueuedCountries(m_downloader->GetQueue());
   for (auto const & d : descendants)
@@ -1586,24 +1588,24 @@ Progress Storage::CalculateProgress(CountriesVec const & descendants) const
     auto const downloadingIt = m_downloadingCountries.find(d);
     if (downloadingIt != m_downloadingCountries.cend())
     {
-      if (downloadingIt->second.second != downloader::kUnknownTotalSize)
-        localAndRemoteBytes.first += downloadingIt->second.first;
+      if (!downloadingIt->second.IsUnknown())
+        result.m_bytesDownloaded += downloadingIt->second.m_bytesDownloaded;
 
-      localAndRemoteBytes.second += GetRemoteSize(GetCountryFile(d));
+      result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
     }
     else if (mwmsInQueue.count(d) != 0)
     {
-      localAndRemoteBytes.second += GetRemoteSize(GetCountryFile(d));
+      result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
     }
     else if (m_justDownloaded.count(d) != 0)
     {
       MwmSize const localCountryFileSz = GetRemoteSize(GetCountryFile(d));
-      localAndRemoteBytes.first += localCountryFileSz;
-      localAndRemoteBytes.second += localCountryFileSz;
+      result.m_bytesDownloaded += localCountryFileSz;
+      result.m_bytesTotal += localCountryFileSz;
     }
   }
 
-  return localAndRemoteBytes;
+  return result;
 }
 
 void Storage::UpdateNode(CountryId const & countryId)

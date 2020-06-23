@@ -48,7 +48,6 @@ struct NodeAttrs
 {
   NodeAttrs() : m_mwmCounter(0), m_localMwmCounter(0), m_downloadingMwmCounter(0),
     m_mwmSize(0), m_localMwmSize(0), m_downloadingMwmSize(0),
-    m_downloadingProgress({}),
     m_status(NodeStatus::Undefined), m_error(NodeErrorCode::NoError), m_present(false) {}
 
   /// If the node is expandable (a big country) |m_mwmCounter| is number of mwm files (leaves)
@@ -105,9 +104,9 @@ struct NodeAttrs
 
   /// Progress of downloading for the node expandable or not. It reflects downloading progress in case of
   /// downloading and updating mwm.
-  /// m_downloadingProgress.first is number of downloaded bytes.
-  /// m_downloadingProgress.second is size of file(s) in bytes to download.
-  /// So m_downloadingProgress.first <= m_downloadingProgress.second.
+  /// m_downloadingProgress.m_bytesDownloaded is number of downloaded bytes.
+  /// m_downloadingProgress.m_bytesTotal is size of file(s) in bytes to download.
+  /// So m_downloadingProgress.m_bytesDownloaded <= m_downloadingProgress.m_bytesTotal.
   downloader::Progress m_downloadingProgress;
 
   /// Status of group and leaf node.

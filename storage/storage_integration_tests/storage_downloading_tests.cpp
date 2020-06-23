@@ -70,7 +70,7 @@ UNIT_TEST(SmallMwms_ReDownloadExistedMWMIgnored_Test)
   WritableDirChanger writableDirChanger(kMapTestDir);
   Storage storage;
 
-  InitStorage(storage, [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {});
+  InitStorage(storage, [](CountryId const &, downloader::Progress const &) {});
   TEST(!storage.IsDownloadInProgress(), ());
 
   storage.DownloadNode(kCountryId);
@@ -90,7 +90,7 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
   {
     Storage storage;
 
-    auto const onProgressFn = [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
+    auto const onProgressFn = [](CountryId const & countryId, downloader::Progress const & /* progress */) {
       TEST_EQUAL(countryId, kCountryId, ());
       // Interrupt download
       testing::StopEventLoop();
@@ -117,7 +117,7 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
     bool onProgressIsCalled = false;
     NodeAttrs onProgressAttrs;
     auto const onProgressFn =
-      [&](CountryId const & countryId, LocalAndRemoteSize const & mapSize)
+      [&](CountryId const & countryId, downloader::Progress const & /* progress */)
       {
         TEST_EQUAL(countryId, kCountryId, ());
 

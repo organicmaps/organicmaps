@@ -86,7 +86,7 @@ UNIT_TEST(SmallMwms_Update_Test)
 
   Platform & platform = GetPlatform();
 
-  auto onProgressFn = [&](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {};
+  auto onProgressFn = [&](CountryId const &, downloader::Progress const &) {};
 
   // Download countries.txt for version 1
   TEST(DownloadFile(GetCountriesTxtWebUrl(kMwmVersion1), GetCountriesTxtFilePath(), kCountriesTxtFileSize1), ());

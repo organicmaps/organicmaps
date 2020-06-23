@@ -46,7 +46,7 @@ UNIT_TEST(SmallMwms_3levels_Test)
 
   std::string const mapDir = base::JoinPath(platform.WritableDir(), version);
 
-  auto onProgressFn = [&](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {};
+  auto onProgressFn = [&](CountryId const & countryId, downloader::Progress const & /* progress */) {};
 
   auto onChangeCountryFn = [&](CountryId const & countryId) {
     if (!storage.IsDownloadInProgress())

@@ -179,7 +179,7 @@ extern "C"
   {
     JNIEnv * env = jni::GetEnv();
     static jmethodID methodID = jni::GetMethodID(env, *listener, "onProgress", "(I)V");
-    env->CallVoidMethod(*listener, methodID, static_cast<jint>(g_totalDownloadedBytes + req.GetProgress().first));
+    env->CallVoidMethod(*listener, methodID, static_cast<jint>(g_totalDownloadedBytes + req.GetProgress().m_bytesDownloaded));
   }
 
   static void DownloadURLListFinished(HttpRequest const & req, Callback const & onFinish, Callback const & onProgress)

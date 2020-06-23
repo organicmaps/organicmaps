@@ -49,7 +49,9 @@ using namespace storage;
       NSHashTable *observersCopy = [observers copy];
       for (id<MWMStorageObserver> observer in observersCopy) {
         if ([observer respondsToSelector:@selector(processCountry:downloadedBytes:totalBytes:)]) {
-          [observer processCountry:@(countryId.c_str()) downloadedBytes:progress.first totalBytes:progress.second];
+          [observer processCountry:@(countryId.c_str())
+                   downloadedBytes:progress.m_bytesDownloaded
+                        totalBytes:progress.m_bytesTotal];
         }
       }
     };

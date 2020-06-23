@@ -225,13 +225,16 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   env->SetBooleanField(item, countryItemFieldPresent, attrs.m_present);
 
   // Progress
-  int progress = 0;
-  if (attrs.m_downloadingProgress.second != 0)
-    progress = (int)(attrs.m_downloadingProgress.first * kMaxProgress / attrs.m_downloadingProgress.second);
+  int percentage = 0;
+  if (attrs.m_downloadingProgress.m_bytesTotal != 0)
+  {
+    auto const & progress = attrs.m_downloadingProgress;
+    percentage = (int)(progress.m_bytesDownloaded * kMaxProgress / progress.m_bytesTotal);
+  }
 
-  env->SetIntField(item, countryItemFieldProgress, progress);
-  env->SetLongField(item, countryItemFieldDownloadedBytes, attrs.m_downloadingProgress.first);
-  env->SetLongField(item, countryItemFieldBytesToDownload, attrs.m_downloadingProgress.second);
+  env->SetIntField(item, countryItemFieldProgress, percentage);
+  env->SetLongField(item, countryItemFieldDownloadedBytes, attrs.m_downloadingProgress.m_bytesDownloaded);
+  env->SetLongField(item, countryItemFieldBytesToDownload, attrs.m_downloadingProgress.m_bytesTotal);
 }
 
 static void PutItemsToList(
@@ -459,12 +462,13 @@ static void StatusChangedCallback(std::shared_ptr<jobject> const & listenerRef,
 }
 
 static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef,
-                                    CountryId const & countryId, LocalAndRemoteSize const & sizes)
+                                    CountryId const & countryId, downloader::Progress const & progress)
 {
   JNIEnv * env = jni::GetEnv();
 
   jmethodID const methodID = jni::GetMethodID(env, *listenerRef, "onProgress", "(Ljava/lang/String;JJ)V");
-  env->CallVoidMethod(*listenerRef, methodID, jni::ToJavaString(env, countryId), sizes.first, sizes.second);
+  env->CallVoidMethod(*listenerRef, methodID, jni::ToJavaString(env, countryId),
+                      progress.m_bytesDownloaded, progress.m_bytesTotal);
 }
 
 // static int nativeSubscribe(StorageCallback listener);
@@ -548,8 +552,8 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetOverallProgress(JNIEnv *
   downloader::Progress const progress = GetStorage().GetOverallProgress(countries);
 
   jint res = 0;
-  if (progress.second)
-    res = static_cast<jint>(progress.first * kMaxProgressWithoutDiffs / progress.second);
+  if (progress.m_bytesTotal)
+    res = static_cast<jint>(progress.m_bytesDownloaded * kMaxProgressWithoutDiffs / progress.m_bytesTotal);
 
   return res;
 }

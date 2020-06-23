@@ -517,11 +517,13 @@ namespace
     {
       if (m_counter == 0)
       {
-        TEST_EQUAL(request.GetProgress(), Progress(beg2, FILESIZE), ());
+        TEST_EQUAL(request.GetProgress().m_bytesDownloaded, beg2, ());
+        TEST_EQUAL(request.GetProgress().m_bytesTotal, FILESIZE, ());
       }
       else if (m_counter == 1)
       {
-        TEST_EQUAL(request.GetProgress(), Progress(FILESIZE, FILESIZE), ());
+        TEST_EQUAL(request.GetProgress().m_bytesDownloaded, FILESIZE, ());
+        TEST_EQUAL(request.GetProgress().m_bytesTotal, FILESIZE, ());
       }
       else
       {

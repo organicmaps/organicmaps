@@ -161,7 +161,7 @@ CGFloat const kAnimationDuration = .05;
     }
     auto const overallProgress = s.GetOverallProgress(m_countries);
     // Test if downloading has finished by comparing downloaded and total sizes.
-    if (overallProgress.first == overallProgress.second)
+    if (overallProgress.m_bytesDownloaded == overallProgress.m_bytesTotal)
       [self close:self.downloadCompleteBlock];
   }
   else
@@ -182,7 +182,8 @@ CGFloat const kAnimationDuration = .05;
       find(m_countries.begin(), m_countries.end(), countryId.UTF8String) == m_countries.end())
     return;
   auto const overallProgress = GetFramework().GetStorage().GetOverallProgress(m_countries);
-  CGFloat const progressValue = static_cast<CGFloat>(overallProgress.first) / overallProgress.second;
+  CGFloat const progressValue =
+      static_cast<CGFloat>(overallProgress.m_bytesDownloaded) / overallProgress.m_bytesTotal;
   self.progress.progress = progressValue;
   self.titleLabel.text = [NSString stringWithFormat:@"%@%@%%", L(@"downloading"), @(floor(progressValue * 100))];
 }

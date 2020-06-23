@@ -73,7 +73,7 @@ class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
   virtual bool OnWrite(int64_t, void const * buffer, size_t size)
   {
     m_writer.Write(buffer, size);
-    m_progress.first += size;
+    m_progress.m_bytesDownloaded += size;
     if (m_onProgress)
       m_onProgress(*this);
     return true;
@@ -149,7 +149,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     ChunksDownloadStrategy::ResultT result;
     while ((result = m_strategy.NextChunk(url, range)) == ChunksDownloadStrategy::ENextChunk)
     {
-      HttpThread * p = CreateNativeHttpThread(url, *this, range.first, range.second, m_progress.second);
+      HttpThread * p = CreateNativeHttpThread(url, *this, range.first, range.second, m_progress.m_bytesTotal);
       ASSERT ( p, () );
       m_threads.push_back(make_pair(p, range.first));
     }
@@ -208,7 +208,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
       // Flush writer before saving downloaded chunks.
       m_writer->Flush();
 
-      m_strategy.SaveChunks(m_progress.second, m_filePath + RESUME_FILE_EXTENSION);
+      m_strategy.SaveChunks(m_progress.m_bytesTotal, m_filePath + RESUME_FILE_EXTENSION);
     }
     catch (Writer::Exception const & e)
     {
@@ -233,7 +233,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     // report progress
     if (isChunkOk)
     {
-      m_progress.first += (endRange - begRange) + 1;
+      m_progress.m_bytesDownloaded += (endRange - begRange) + 1;
       if (m_onProgress)
         m_onProgress(*this);
     }
@@ -311,12 +311,12 @@ public:
     ASSERT ( !urls.empty(), () );
 
     // Load resume downloading information.
-    m_progress.first = m_strategy.LoadOrInitChunks(m_filePath + RESUME_FILE_EXTENSION,
+    m_progress.m_bytesDownloaded = m_strategy.LoadOrInitChunks(m_filePath + RESUME_FILE_EXTENSION,
                                                    fileSize, chunkSize);
-    m_progress.second = fileSize;
+    m_progress.m_bytesTotal = fileSize;
 
     FileWriter::Op openMode = FileWriter::OP_WRITE_TRUNCATE;
-    if (m_progress.first != 0)
+    if (m_progress.m_bytesDownloaded != 0)
     {
       // Check that resume information is correct with existing file.
       uint64_t size;
@@ -369,7 +369,7 @@ public:
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 HttpRequest::HttpRequest(Callback const & onFinish, Callback const & onProgress)
   : m_status(DownloadStatus::InProgress)
-  , m_progress(make_pair(0, -1))
+  , m_progress(Progress::Unknown())
   , m_onFinish(onFinish)
   , m_onProgress(onProgress)
 {

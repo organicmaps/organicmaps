@@ -114,9 +114,9 @@ using namespace storage;
 - (void)setStatusForNodeName:(NSString *)nodeName rootAttributes:(NodeAttrs const &)nodeAttrs
 {
   auto const progress = nodeAttrs.m_downloadingProgress;
-  if (progress.second > 0)
+  if (progress.m_bytesTotal > 0)
   {
-    CGFloat const prog = kMaxProgress * static_cast<CGFloat>(progress.first) / progress.second;
+    CGFloat const prog = kMaxProgress * static_cast<CGFloat>(progress.m_bytesDownloaded) / progress.m_bytesTotal;
     self.spinner.progress = prog;
 
     NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
@@ -124,8 +124,8 @@ using namespace storage;
     [numberFormatter setMaximumFractionDigits:0];
     [numberFormatter setMultiplier:@100];
     NSString * percent = [numberFormatter stringFromNumber:@(prog)];
-    NSString * downloadedSize = formattedSize(progress.first);
-    NSString * totalSize = formattedSize(progress.second);
+    NSString * downloadedSize = formattedSize(progress.m_bytesDownloaded);
+    NSString * totalSize = formattedSize(progress.m_bytesTotal);
     self.progressLabel.text = [NSString stringWithCoreFormat:L(@"downloader_percent")
                                                    arguments:@[percent, downloadedSize, totalSize]];
   }
@@ -269,7 +269,7 @@ using namespace storage;
   auto view = static_cast<MWMAutoupdateView *>(self.view);
   NSString * nodeName = @(s.GetNodeLocalName(countryId).c_str());
   [view setStatusForNodeName:nodeName rootAttributes:nodeAttrs];
-  if (nodeAttrs.m_downloadingProgress.first == nodeAttrs.m_downloadingProgress.second)
+  if (nodeAttrs.m_downloadingProgress.m_bytesDownloaded == nodeAttrs.m_downloadingProgress.m_bytesTotal)
     self.progressFinished = YES;
 }
 
