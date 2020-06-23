@@ -375,7 +375,7 @@ using namespace power_management;
   {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [UIApplication.sharedApplication
-     openURL:[NSURL URLWithString:@"https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions"]
+     openURL:[NSURL URLWithString:@"https://apps.apple.com/account/subscriptions"]
      options:@{}
      completionHandler:nil];
   }
