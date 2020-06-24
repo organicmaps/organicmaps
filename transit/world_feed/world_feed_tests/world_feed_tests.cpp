@@ -319,7 +319,7 @@ UNIT_TEST(Transit_ColorPicker)
   GetPlatform().SetResourceDir(options.m_resourcePath);
 
   ColorPicker colorPicker;
-  
+
   // We check that we don't match with the 'text' colors subset. This is the color of transit
   // text lime_light and we expect not to pick it.
   TEST_EQUAL(colorPicker.GetNearestColor("827717"), "lime_dark", ());
