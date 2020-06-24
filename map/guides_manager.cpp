@@ -324,6 +324,9 @@ void GuidesManager::SetActiveGuide(std::string const & guideId)
 
 void GuidesManager::ResetActiveGuide()
 {
+  if (m_state == GuidesState::Disabled)
+    return;
+
   if (m_activeGuide.empty())
     return;
 
@@ -373,12 +376,21 @@ void GuidesManager::UpdateDownloadedStatus()
   if (m_state == GuidesState::Disabled)
     return;
 
+  bool changed = false;
   auto es = m_bmManager->GetEditSession();
   for (auto markId : m_bmManager->GetUserMarkIds(UserMark::Type::GUIDE))
   {
     auto * mark = es.GetMarkForEdit<GuideMark>(markId);
-    mark->SetIsDownloaded(IsGuideDownloaded(mark->GetGuideId()));
+    auto const isDownloaded = IsGuideDownloaded(mark->GetGuideId());
+    if (isDownloaded != mark->GetIsDownloaded())
+    {
+      changed = true;
+      mark->SetIsDownloaded(isDownloaded);
+    }
   }
+
+  if (changed && m_onGalleryChanged)
+    m_onGalleryChanged(true /* reload */);
 }
 
 void GuidesManager::UpdateGuidesMarks()

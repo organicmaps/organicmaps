@@ -2752,26 +2752,38 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
                                                       TFindOnlyVisibleChecker const & findOnlyVisible) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  // Among the marks inside the rect (if any) finder stores the closest one to its center.
   BestUserMarkFinder finder(holder, findOnlyVisible, this);
-  auto hasFound = finder(UserMark::Type::ROUTING) ||
-                  finder(UserMark::Type::ROAD_WARNING) ||
-                  finder(UserMark::Type::SEARCH) ||
-                  finder(UserMark::Type::API);
 
-  hasFound = finder(UserMark::Type::GUIDE) || hasFound;
-  hasFound = finder(UserMark::Type::GUIDE_CLUSTER) || hasFound;
+  // Look for the closest mark among GUIDE and GUIDE_CLUSTER marks.
+  finder(UserMark::Type::GUIDE);
+  finder(UserMark::Type::GUIDE_CLUSTER);
 
-  if (!hasFound)
+  if (finder.GetFoundMark() != nullptr)
+    return finder.GetFoundMark();
+
+  // For each type X in the condition, ordered by priority:
+  //  - look for the closest mark among the marks of the same type X.
+  //  - if the mark has been found, stop looking for a closer one in the other types.
+  if (finder(UserMark::Type::ROUTING) ||
+      finder(UserMark::Type::ROAD_WARNING) ||
+      finder(UserMark::Type::SEARCH) ||
+      finder(UserMark::Type::API))
   {
-    for (auto const & pair : m_categories)
-      hasFound = finder(pair.first) || hasFound;
+    return finder.GetFoundMark();
   }
 
-  if (!hasFound)
-  {
-    hasFound = finder(UserMark::Type::TRACK_INFO) ||
-               finder(UserMark::Type::TRACK_SELECTION);
-  }
+  // Look for the closest bookmark.
+  for (auto const & pair : m_categories)
+    finder(pair.first);
+
+  if (finder.GetFoundMark() != nullptr)
+    return finder.GetFoundMark();
+
+  // Look for the closest TRACK_INFO or TRACK_SELECTION mark.
+  finder(UserMark::Type::TRACK_INFO);
+  finder(UserMark::Type::TRACK_SELECTION);
 
   return finder.GetFoundMark();
 }
@@ -3824,8 +3836,10 @@ void BookmarkManager::MarksChangesTracker::OnUpdateMark(kml::MarkId markId)
     m_updatedMarks.insert(markId);
 }
 
-void BookmarkManager::MarksChangesTracker::InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId,
-                                                          GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase)
+void BookmarkManager::MarksChangesTracker::InsertBookmark(kml::MarkId markId,
+                                                          kml::MarkGroupId catId,
+                                                          GroupMarkIdSet & setToInsert,
+                                                          GroupMarkIdSet & setToErase)
 {
   auto const itCat = setToErase.find(catId);
   if (itCat != setToErase.end())
@@ -3842,12 +3856,25 @@ void BookmarkManager::MarksChangesTracker::InsertBookmark(kml::MarkId markId, km
   setToInsert[catId].insert(markId);
 }
 
-void BookmarkManager::MarksChangesTracker::OnAttachBookmark(kml::MarkId markId, kml::MarkGroupId catId)
+bool BookmarkManager::MarksChangesTracker::HasBookmarkCategories(
+    kml::GroupIdSet const & groupIds) const
+{
+  for (auto groupId : groupIds)
+  {
+    if (m_bmManager->IsBookmarkCategory(groupId))
+      return true;
+  }
+  return false;
+}
+
+void BookmarkManager::MarksChangesTracker::OnAttachBookmark(kml::MarkId markId,
+                                                            kml::MarkGroupId catId)
 {
   InsertBookmark(markId, catId, m_attachedBookmarks, m_detachedBookmarks);
 }
 
-void BookmarkManager::MarksChangesTracker::OnDetachBookmark(kml::MarkId markId, kml::MarkGroupId catId)
+void BookmarkManager::MarksChangesTracker::OnDetachBookmark(kml::MarkId markId,
+                                                            kml::MarkGroupId catId)
 {
   InsertBookmark(markId, catId, m_detachedBookmarks, m_attachedBookmarks);
 }
@@ -3959,32 +3986,12 @@ bool BookmarkManager::MarksChangesTracker::HasChanges() const
 
 bool BookmarkManager::MarksChangesTracker::HasBookmarksChanges() const
 {
-  for (auto groupId : m_updatedGroups)
-  {
-    if (m_bmManager->IsBookmarkCategory(groupId))
-      return true;
-  }
-  for (auto groupId : m_removedGroups)
-  {
-    if (m_bmManager->IsBookmarkCategory(groupId))
-      return true;
-  }
-  return false;
+  return HasBookmarkCategories(m_updatedGroups) || HasBookmarkCategories(m_removedGroups);
 }
 
 bool BookmarkManager::MarksChangesTracker::HasCategoriesChanges() const
 {
-  for (auto groupId : m_createdGroups)
-  {
-    if (m_bmManager->IsBookmarkCategory(groupId))
-      return true;
-  }
-  for (auto groupId : m_removedGroups)
-  {
-    if (m_bmManager->IsBookmarkCategory(groupId))
-      return true;
-  }
-  return false;
+  return HasBookmarkCategories(m_createdGroups) || HasBookmarkCategories(m_removedGroups);
 }
 
 void BookmarkManager::MarksChangesTracker::ResetChanges()

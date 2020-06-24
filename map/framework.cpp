@@ -2816,7 +2816,7 @@ BookmarkManager::TrackSelectionInfo Framework::FindTrackInTapPosition(
     CHECK_NOT_EQUAL(selection.m_trackId, kml::kInvalidTrackId, ());
     return selection;
   }
-  auto const touchRect = df::TapInfo::GetDefaultSearchRect(buildInfo.m_mercator,
+  auto const touchRect = df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator,
                                                            m_currentModelView).GetGlobalRect();
   return bm.FindNearestTrack(touchRect);
 }
@@ -2837,18 +2837,18 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
     {
       double constexpr kEps = 1e-7;
       if (buildInfo.m_source != place_page::BuildInfo::Source::User)
-        return df::TapInfo::GetPreciseSearchRect(buildInfo.m_mercator, kEps);
+        return df::TapInfo::GetPreciseTapRect(buildInfo.m_mercator, kEps);
 
       if (type == UserMark::Type::BOOKMARK || type == UserMark::Type::TRACK_INFO)
-        return df::TapInfo::GetBookmarkSearchRect(buildInfo.m_mercator, m_currentModelView);
+        return df::TapInfo::GetBookmarkTapRect(buildInfo.m_mercator, m_currentModelView);
 
       if (type == UserMark::Type::ROUTING || type == UserMark::Type::ROAD_WARNING)
-        return df::TapInfo::GetRoutingPointSearchRect(buildInfo.m_mercator, m_currentModelView);
+        return df::TapInfo::GetRoutingPointTapRect(buildInfo.m_mercator, m_currentModelView);
 
       if (type == UserMark::Type::GUIDE || type == UserMark::Type::GUIDE_CLUSTER)
-        return df::TapInfo::GetGuideSearchRect(buildInfo.m_mercator, m_currentModelView);
+        return df::TapInfo::GetGuideTapRect(buildInfo.m_mercator, m_currentModelView);
 
-      return df::TapInfo::GetDefaultSearchRect(buildInfo.m_mercator, m_currentModelView);
+      return df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView);
     },
     [](UserMark::Type type)
     {

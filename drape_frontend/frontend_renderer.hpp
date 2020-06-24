@@ -64,11 +64,11 @@ struct TapInfo
   bool const m_isMyPositionTapped;
   FeatureID const m_featureTapped;
 
-  static m2::AnyRectD GetDefaultSearchRect(m2::PointD const & mercator, ScreenBase const & screen);
-  static m2::AnyRectD GetBookmarkSearchRect(m2::PointD const & mercator, ScreenBase const & screen);
-  static m2::AnyRectD GetRoutingPointSearchRect(m2::PointD const & mercator, ScreenBase const & screen);
-  static m2::AnyRectD GetGuideSearchRect(m2::PointD const & mercator, ScreenBase const & screen);
-  static m2::AnyRectD GetPreciseSearchRect(m2::PointD const & mercator, double const eps);
+  static m2::AnyRectD GetDefaultTapRect(m2::PointD const & mercator, ScreenBase const & screen);
+  static m2::AnyRectD GetBookmarkTapRect(m2::PointD const & mercator, ScreenBase const & screen);
+  static m2::AnyRectD GetRoutingPointTapRect(m2::PointD const & mercator, ScreenBase const & screen);
+  static m2::AnyRectD GetGuideTapRect(m2::PointD const & mercator, ScreenBase const & screen);
+  static m2::AnyRectD GetPreciseTapRect(m2::PointD const & mercator, double const eps);
 };
 
 class FrontendRenderer : public BaseRenderer,

@@ -555,6 +555,7 @@ private:
 
     void InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId,
                         GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase);
+    bool HasBookmarkCategories(kml::GroupIdSet const & groupIds) const;
 
     BookmarkManager * m_bmManager;
 
