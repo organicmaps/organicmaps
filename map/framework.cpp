@@ -2844,6 +2844,9 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
       if (type == UserMark::Type::ROUTING || type == UserMark::Type::ROAD_WARNING)
         return df::TapInfo::GetRoutingPointSearchRect(buildInfo.m_mercator, m_currentModelView);
 
+      if (type == UserMark::Type::GUIDE || type == UserMark::Type::GUIDE_CLUSTER)
+        return df::TapInfo::GetGuideSearchRect(buildInfo.m_mercator, m_currentModelView);
+
       return df::TapInfo::GetDefaultSearchRect(buildInfo.m_mercator, m_currentModelView);
     },
     [](UserMark::Type type)

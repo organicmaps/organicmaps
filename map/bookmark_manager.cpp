@@ -2740,10 +2740,12 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
   BestUserMarkFinder finder(holder, findOnlyVisible, this);
   auto hasFound = finder(UserMark::Type::ROUTING) ||
                   finder(UserMark::Type::ROAD_WARNING) ||
-                  finder(UserMark::Type::GUIDE) ||
-                  finder(UserMark::Type::GUIDE_CLUSTER) ||
                   finder(UserMark::Type::SEARCH) ||
                   finder(UserMark::Type::API);
+
+  hasFound = finder(UserMark::Type::GUIDE) || hasFound;
+  hasFound = finder(UserMark::Type::GUIDE_CLUSTER) || hasFound;
+
   if (!hasFound)
   {
     for (auto const & pair : m_categories)

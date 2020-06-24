@@ -2706,6 +2706,18 @@ m2::AnyRectD TapInfo::GetRoutingPointSearchRect(m2::PointD const & mercator, Scr
 }
 
 // static
+m2::AnyRectD TapInfo::GetGuideSearchRect(m2::PointD const & mercator, ScreenBase const & screen)
+{
+  static int constexpr kGuideTouchPixelIncrease = 20;
+
+  m2::AnyRectD result;
+  double const sizeExt = kGuideTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
+  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
+  screen.GetTouchRect(screen.GtoP(mercator), halfSize + sizeExt, result);
+  return result;
+}
+
+// static
 m2::AnyRectD TapInfo::GetPreciseSearchRect(m2::PointD const & mercator, double const eps)
 {
   return m2::AnyRectD(mercator, ang::AngleD(0.0) /* angle */, m2::RectD(-eps, -eps, eps, eps));

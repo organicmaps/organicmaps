@@ -67,6 +67,7 @@ struct TapInfo
   static m2::AnyRectD GetDefaultSearchRect(m2::PointD const & mercator, ScreenBase const & screen);
   static m2::AnyRectD GetBookmarkSearchRect(m2::PointD const & mercator, ScreenBase const & screen);
   static m2::AnyRectD GetRoutingPointSearchRect(m2::PointD const & mercator, ScreenBase const & screen);
+  static m2::AnyRectD GetGuideSearchRect(m2::PointD const & mercator, ScreenBase const & screen);
   static m2::AnyRectD GetPreciseSearchRect(m2::PointD const & mercator, double const eps);
 };
 
