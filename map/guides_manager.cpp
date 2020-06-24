@@ -327,6 +327,16 @@ void GuidesManager::SetActiveGuide(std::string const & guideId)
   UpdateActiveGuide();
 }
 
+void GuidesManager::ResetActiveGuide()
+{
+  if (m_activeGuide.empty())
+    return;
+
+  m_activeGuide.clear();
+  auto es = m_bmManager->GetEditSession();
+  es.ClearGroup(UserMark::Type::GUIDE_SELECTION);
+}
+
 uint64_t GuidesManager::GetShownGuidesCount() const
 {
   return m_shownGuides.size();

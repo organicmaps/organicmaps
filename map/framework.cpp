@@ -2592,6 +2592,8 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   }
   else
   {
+    m_guidesManager.ResetActiveGuide();
+
     bool const somethingWasAlreadySelected = (m_currentPlacePageInfo.has_value());
     alohalytics::Stats::Instance().LogEvent(somethingWasAlreadySelected ? "$DelectMapObject" : "$EmptyTapOnMap");
     // UI is always notified even if empty map is tapped,

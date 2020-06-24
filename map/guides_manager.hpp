@@ -99,6 +99,7 @@ public:
   GuidesGallery GetGallery() const;
   std::string GetActiveGuide() const;
   void SetActiveGuide(std::string const & guideId);
+  void ResetActiveGuide();
 
   uint64_t GetShownGuidesCount() const;
 
