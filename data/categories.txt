@@ -1798,7 +1798,7 @@ de:Bushaltestelle|Haltestelle|2Bus|Autobus|ÖPNV
 hu:2Buszmegálló|2busz|megálló
 id:3Halte bus
 it:3Fermata|autobus
-ja:1バス停|停留所|トランスポート|バス|乗合|交通
+ja:1バス停|停留所|トランスポート|バス|乗合|交通|ばす
 ko:운송선|황홀|버스 정류장|버스|모선
 nb:3Busstopp
 pl:2Przystanek autobusowy|autobus
@@ -1863,7 +1863,7 @@ de:4Busbahnhof|Haltestelle|Bus|Autobus|ÖPNV
 hu:2Buszpályaudvar|Buszállomás|2busz|megálló
 id:3Stasiun bus
 it:Autostazione|fermata|autobus
-ja:1バスステーション|バス|駅|乗合|トランスポート|バス停|高速バス|乗車|停留所
+ja:1バスステーション|バス|駅|乗合|トランスポート|バス停|高速バス|乗車|停留所|ばす
 ko:1버스 정류장|버스|역|교통|모선|역|위치|운송선|황홀
 nb:3Busstasjon
 pl:2Stacja autobusowa|Zajezdnia
