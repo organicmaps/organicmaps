@@ -4,7 +4,7 @@
   <item
     android:drawable="@drawable/bg_circle_night"/>
   <item
-    android:drawable="@drawable/guides_layer_default_dark"
+    android:drawable="@drawable/ic_layers_off_night"
     android:left="@dimen/margin_base_plus_quarter"
     android:right="@dimen/margin_base_plus_quarter"
     android:top="@dimen/margin_base_plus_quarter"
