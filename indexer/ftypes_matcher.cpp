@@ -294,9 +294,45 @@ IsSquareChecker::IsSquareChecker()
 IsSuburbChecker::IsSuburbChecker()
 {
   Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"landuse", "residential"}));
-  m_types.push_back(c.GetTypeByPath({"place", "neighbourhood"}));
-  m_types.push_back(c.GetTypeByPath({"place", "suburb"}));
+  auto const residentialType = c.GetTypeByPath({"landuse", "residential"});
+  auto const neighbourhoodType = c.GetTypeByPath({"place", "neighbourhood"});
+  auto const suburbType = c.GetTypeByPath({"place", "suburb"});
+  m_types.push_back(residentialType);
+  m_types.push_back(neighbourhoodType);
+  m_types.push_back(suburbType);
+  CHECK(m_types[static_cast<size_t>(SuburbType::Residential)] == residentialType, ());
+  CHECK(m_types[static_cast<size_t>(SuburbType::Neighbourhood)] == neighbourhoodType, ());
+  CHECK(m_types[static_cast<size_t>(SuburbType::Suburb)] == suburbType, ());
+}
+
+SuburbType IsSuburbChecker::GetType(uint32_t t) const
+{
+  ftype::TruncValue(t, 2);
+
+  for (size_t i = 0; i < m_types.size(); ++i)
+  {
+    if (m_types[i] == t)
+      return static_cast<SuburbType>(i);
+  }
+
+  return SuburbType::None;
+}
+
+SuburbType IsSuburbChecker::GetType(feature::TypesHolder const & types) const
+{
+  for (uint32_t t : types)
+  {
+    auto const type = GetType(t);
+    if (type != SuburbType::None)
+      return type;
+  }
+  return SuburbType::None;
+}
+
+SuburbType IsSuburbChecker::GetType(FeatureType & f) const
+{
+  feature::TypesHolder types(f);
+  return GetType(types);
 }
 
 IsWayChecker::IsWayChecker()

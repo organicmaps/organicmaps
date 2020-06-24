@@ -68,6 +68,8 @@ size_t constexpr kMaxNumCountries = 10;
 double constexpr kMaxViewportRadiusM = 50.0 * 1000;
 double constexpr kMaxPostcodeRadiusM = 1000;
 double constexpr kMaxSuburbRadiusM = 2000;
+double constexpr kMaxNeighbourhoodRadiusM = 500;
+double constexpr kMaxResidentialRadiusM = 500;
 
 size_t constexpr kPivotRectsCacheSize = 10;
 size_t constexpr kPostcodesRectsCacheSize = 10;
@@ -1228,8 +1230,17 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx,
       vector<uint32_t> suburbFeatures = {ft->GetID().m_index};
       layer.m_sortedFeatures = &suburbFeatures;
 
-      auto const rect =
-          mercator::RectByCenterXYAndSizeInMeters(feature::GetCenter(*ft), kMaxSuburbRadiusM);
+      auto const suburbType = ftypes::IsSuburbChecker::Instance().GetType(*ft);
+      double radius = 0.0;
+      switch (suburbType)
+      {
+      case ftypes::SuburbType::Residential: radius = kMaxResidentialRadiusM; break;
+      case ftypes::SuburbType::Neighbourhood: radius = kMaxNeighbourhoodRadiusM; break;
+      case ftypes::SuburbType::Suburb: radius = kMaxSuburbRadiusM; break;
+      default: CHECK(false, ("Bad suburb type:", base::Underlying(suburbType)));
+      }
+
+      auto const rect = mercator::RectByCenterXYAndSizeInMeters(feature::GetCenter(*ft), radius);
       auto const suburbCBV = RetrieveGeometryFeatures(*m_context, rect, RectId::Suburb);
       auto const suburbStreets = ctx.m_streets.Intersect(suburbCBV);
 
