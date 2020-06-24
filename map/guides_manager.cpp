@@ -392,6 +392,7 @@ void GuidesManager::UpdateGuidesMarks()
 
 void GuidesManager::OnClusterSelected(GuidesClusterMark const & mark, ScreenBase const & screen)
 {
+  m_drapeEngine.SafeCall(&df::DrapeEngine::StopLocationFollow);
   m_drapeEngine.SafeCall(&df::DrapeEngine::ScaleAndSetCenter, mark.GetPivot(),
                          2.0 /* scaleFactor */, true /* isAnim */,
                          false /* trackVisibleViewport */);
