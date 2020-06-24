@@ -30,7 +30,7 @@ UNIT_CLASS_TEST(AsyncGuiThread, GuidesOnMap_GetGalleryOnMap)
     uint8_t zoomLevel = 1;
 
     guides_on_map::GuidesOnMap result{};
-    api.GetGuidesOnMap(corners, zoomLevel, true, [&result](guides_on_map::GuidesOnMap const & gallery)
+    api.GetGuidesOnMap(corners, zoomLevel, true, 0, [&result](guides_on_map::GuidesOnMap const & gallery)
                         {
                           result = gallery;
                           testing::Notify();
@@ -57,7 +57,7 @@ UNIT_CLASS_TEST(AsyncGuiThread, GuidesOnMap_GetGalleryOnMap)
     uint8_t zoomLevel = 10;
 
     guides_on_map::GuidesOnMap result{};
-    api.GetGuidesOnMap(corners, zoomLevel, true, [&result](guides_on_map::GuidesOnMap const & gallery)
+    api.GetGuidesOnMap(corners, zoomLevel, true, 0, [&result](guides_on_map::GuidesOnMap const & gallery)
                         {
                           result = gallery;
                           testing::Notify();

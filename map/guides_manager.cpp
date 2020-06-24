@@ -29,7 +29,7 @@ auto constexpr kErrorTimeout = std::chrono::seconds(5);
 auto constexpr kScaleEps = 0.1115;
 
 auto constexpr kMinViewportsIntersectionScore = 0.9;
-auto constexpr kRequestingRectSidesIncrease = 0.3;
+auto constexpr kRequestingRectIncrease = 0.6;
 
 using GalleryItem = GuidesManager::GuidesGallery::Item;
 using SortedGuides = std::vector<std::pair<m2::PointD, size_t>>;
@@ -180,8 +180,8 @@ void GuidesManager::RequestGuides(bool suggestZoom)
 
   auto rect = screenRect.GetGlobalRect();
 
-  screenRect.Inflate(rect.SizeX() * kRequestingRectSidesIncrease,
-                     rect.SizeY() * kRequestingRectSidesIncrease);
+  screenRect.Inflate(rect.SizeX() * (kRequestingRectIncrease / 2),
+                     rect.SizeY() * (kRequestingRectIncrease / 2));
   m2::AnyRectD::Corners corners;
   screenRect.GetGlobalPoints(corners);
 
@@ -190,7 +190,7 @@ void GuidesManager::RequestGuides(bool suggestZoom)
 
   auto const requestNumber = ++m_requestCounter;
   auto const id = m_api.GetGuidesOnMap(
-      corners, m_zoom, suggestZoom,
+      corners, m_zoom, suggestZoom, kRequestingRectIncrease * 100,
       std::bind(&GuidesManager::OnRequestSucceed, this, _1, suggestZoom, requestNumber),
       std::bind(&GuidesManager::OnRequestError, this));
 

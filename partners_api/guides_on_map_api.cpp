@@ -80,13 +80,16 @@ void ParseGallery(std::string const & src, guides_on_map::GuidesOnMap & result)
 }
 
 std::string MakeGalleryUrl(std::string const & baseUrl, m2::AnyRectD::Corners const & corners,
-                           int zoomLevel, bool suggestZoom, std::string const & lang)
+                           int zoomLevel, bool suggestZoom, int rectIncreasedPercent,
+                           std::string const & lang)
 {
   // Support empty baseUrl for opensource build.
   if (baseUrl.empty())
     return {};
 
-  url::Params params = {{"zoom_level", strings::to_string(zoomLevel)}, {"locale", lang}};
+  url::Params params = {{"zoom_level", strings::to_string(zoomLevel)},
+                        {"rect_increased_percent", strings::to_string(rectIncreasedPercent)},
+                        {"locale", lang}};
 
   if (suggestZoom)
     params.emplace_back("suggest_zoom_level", "1");
@@ -131,11 +134,12 @@ void Api::SetDelegate(std::unique_ptr<Delegate> delegate)
 }
 
 base::TaskLoop::TaskId Api::GetGuidesOnMap(m2::AnyRectD::Corners const & corners, uint8_t zoomLevel,
-                                           bool suggestZoom, GuidesOnMapCallback const & onSuccess,
+                                           bool suggestZoom, uint8_t rectIncreasedPercent,
+                                           GuidesOnMapCallback const & onSuccess,
                                            OnError const & onError) const
 {
-  auto const url =
-      MakeGalleryUrl(m_baseUrl, corners, zoomLevel, suggestZoom, languages::GetCurrentNorm());
+  auto const url = MakeGalleryUrl(m_baseUrl, corners, zoomLevel, suggestZoom, rectIncreasedPercent,
+                                  languages::GetCurrentNorm());
   if (url.empty())
   {
     onSuccess({});
