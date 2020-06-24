@@ -1,7 +1,10 @@
 #include "testing/testing.hpp"
 
+#include "transit/world_feed/color_picker.hpp"
 #include "transit/world_feed/date_time_helpers.hpp"
 #include "transit/world_feed/feed_helpers.hpp"
+
+#include "platform/platform.hpp"
 
 #include "base/assert.hpp"
 
@@ -308,5 +311,23 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_NearCircle)
   TestPlanFact(12, false, PrepareNearestPointOnTrack(point_D, 10 /* startIndex */, shape));
   TestPlanFact(14, true, PrepareNearestPointOnTrack(point_E, 12 /* startIndex */, shape));
   TestPlanFact(20, true, PrepareNearestPointOnTrack(point_F, 14 /* startIndex */, shape));
+}
+
+UNIT_TEST(Transit_ColorPicker)
+{
+  auto const & options = GetTestingOptions();
+  GetPlatform().SetResourceDir(options.m_resourcePath);
+
+  ColorPicker colorPicker;
+  
+  // We check that we don't match with the 'text' colors subset. This is the color of transit
+  // text lime_light and we expect not to pick it.
+  TEST_EQUAL(colorPicker.GetNearestColor("827717"), "lime_dark", ());
+
+  // We check the default color for invalid input.
+  TEST_EQUAL(colorPicker.GetNearestColor("94141230"), "default", ());
+
+  // We check that we really find nearest colors. This input is really close to pink light.
+  TEST_EQUAL(colorPicker.GetNearestColor("d18aa2"), "pink_light", ());
 }
 }  // namespace

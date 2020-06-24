@@ -1,7 +1,6 @@
 #include "transit/world_feed/color_picker.hpp"
 
 #include "drape_frontend/apply_feature_functors.hpp"
-#include "drape_frontend/color_constants.hpp"
 
 #include "drape/color.hpp"
 
@@ -27,7 +26,17 @@ double GetSquareDistance(dp::Color const & color1, dp::Color const & color2)
 
 namespace transit
 {
-ColorPicker::ColorPicker() { df::LoadTransitColors(); }
+ColorPicker::ColorPicker()
+{
+  df::LoadTransitColors();
+  // We need only colors for route polylines, not for text. So we skip items like
+  // 'transit_text_navy' and work only with items like 'transit_navy'.
+  for (auto const & [name, color] : df::GetTransitClearColors())
+  {
+    if (name.find(df::kTransitTextPrefix) == std::string::npos)
+      m_drapeClearColors.emplace(name, color);
+  }
+}
 
 std::string ColorPicker::GetNearestColor(std::string const & rgb)
 {
@@ -49,7 +58,7 @@ std::string ColorPicker::GetNearestColor(std::string const & rgb)
   dp::Color const color = df::ToDrapeColor(static_cast<uint32_t>(intColor));
   double minDist = std::numeric_limits<double>::max();
 
-  for (auto const & [name, transitColor] : df::GetTransitClearColors())
+  for (auto const & [name, transitColor] : m_drapeClearColors)
   {
     if (double const dist = GetSquareDistance(color, transitColor); dist < minDist)
     {
@@ -57,6 +66,7 @@ std::string ColorPicker::GetNearestColor(std::string const & rgb)
       nearestColor = name;
     }
   }
+
   if (nearestColor.find(df::kTransitColorPrefix + df::kTransitLinePrefix) == 0)
   {
     nearestColor =
