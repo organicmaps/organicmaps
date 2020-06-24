@@ -543,12 +543,13 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
       if (FLAGS_make_transit_cross_mwm_experimental)
       {
-        // TODO(o.khlopkova): Implement BuildTransitCrossMwmSection().
-        LOG(LINFO, ("Make cross mwm for experimental transit."));
+        routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
+                                             true /* experimentalTransit */);
       }
       else if (FLAGS_make_transit_cross_mwm)
       {
-        routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter);
+        routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
+                                             false /* experimentalTransit */);
       }
     }
 

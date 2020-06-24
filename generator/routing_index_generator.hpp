@@ -24,5 +24,6 @@ void BuildRoutingCrossMwmSection(std::string const & path, std::string const & m
 /// \note Before a call of this method TRANSIT_FILE_TAG should be built.
 void BuildTransitCrossMwmSection(std::string const & path, std::string const & mwmFile,
                                  std::string const & country,
-                                 CountryParentNameGetterFn const & countryParentNameGetterFn);
+                                 CountryParentNameGetterFn const & countryParentNameGetterFn,
+                                 bool experimentalTransit = false);
 }  // namespace routing

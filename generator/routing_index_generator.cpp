@@ -6,11 +6,9 @@
 
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/base/astar_graph.hpp"
-
 #include "routing/cross_mwm_connector.hpp"
 #include "routing/cross_mwm_connector_serialization.hpp"
 #include "routing/cross_mwm_ids.hpp"
-#include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/index_graph_serialization.hpp"
@@ -18,14 +16,14 @@
 #include "routing/joint_segment.hpp"
 #include "routing/vehicle_mask.hpp"
 
+#include "transit/experimental/transit_data.hpp"
+#include "transit/transit_graph_data.hpp"
+#include "transit/transit_serdes.hpp"
+
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
 
-#include "transit/transit_graph_data.hpp"
-#include "transit/transit_serdes.hpp"
-
-#include "indexer/data_header.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
 
@@ -36,6 +34,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/geo_object_id.hpp"
@@ -373,6 +372,78 @@ void CalcCrossMwmTransitions(
   }
 }
 
+/// TODO(o.khlopkova) Rename CalcCrossMwmTransitionsExperimental() and remove
+/// CalcCrossMwmTransitions() when we abandon support of "subway" transit section version.
+/// \brief Fills |transitions| for experimental transit case. It means that Transition::m_roadMask
+/// for items in |transitions| will be equal to VehicleType::Transit after the call of this method.
+void CalcCrossMwmTransitionsExperimental(
+    string const & mwmFile, vector<m2::RegionD> const & borders, string const & country,
+    routing::CountryParentNameGetterFn const & /* countryParentNameGetterFn */,
+    vector<routing::CrossMwmConnectorSerializer::Transition<routing::connector::TransitId>> &
+        transitions)
+{
+  try
+  {
+    FilesContainerR cont(mwmFile);
+    if (!cont.IsExist(TRANSIT_FILE_TAG))
+    {
+      LOG(LINFO, ("Experimental transit cross mwm section is not generated because there is no "
+                  "experimental transit section in mwm:",
+                  mwmFile));
+      return;
+    }
+    auto reader = cont.GetReader(TRANSIT_FILE_TAG);
+
+    transit::experimental::TransitData transitData;
+    transitData.DeserializeForCrossMwm(*reader.GetPtr());
+    auto const & stops = transitData.GetStops();
+    auto const & edges = transitData.GetEdges();
+
+    auto const getStopIdPoint = [&stops](transit::TransitId stopId) {
+      auto const it = find_if(
+          stops.begin(), stops.end(),
+          [stopId](transit::experimental::Stop const & stop) { return stop.GetId() == stopId; });
+
+      CHECK(it != stops.end(),
+            ("stopId:", stopId, "is not found in stops. Size of stops:", stops.size()));
+      return it->GetPoint();
+    };
+
+    // Index |i| is a zero based edge index. This zero based index should be increased with
+    // |FakeFeatureIds::kTransitGraphFeaturesStart| by setting it as |featureNumerationOffset| for
+    // CrossMwmConnector (see CrossMwmIndexGraph::Deserialize()) and then used in Segment class as
+    // feature id in transit case.
+    for (size_t i = 0; i < edges.size(); ++i)
+    {
+      auto const & e = edges[i];
+      m2::PointD const & stop1Point = getStopIdPoint(e.GetStop1Id());
+      m2::PointD const & stop2Point = getStopIdPoint(e.GetStop2Id());
+      bool const stop2In = m2::RegionsContain(borders, stop2Point);
+      if (m2::RegionsContain(borders, stop1Point) == stop2In)
+        continue;
+
+      // Note. One way mask is set to kTransitMask because all transit edges are one way edges.
+      transitions.emplace_back(
+          routing::connector::TransitId(e.GetStop1Id(), e.GetStop2Id(), e.GetLineId()),
+          i /* feature id */, 0 /* segment index */, routing::kTransitMask,
+          routing::kTransitMask /* one way mask */, stop2In /* forward is enter */);
+    }
+  }
+  catch (Reader::OpenException const & e)
+  {
+    CHECK(false, ("Error while reading", TRANSIT_FILE_TAG, "section.", e.Msg()));
+  }
+}
+
+// Dummy specialization. We need it to compile this function overload for experimental transit.
+void CalcCrossMwmTransitionsExperimental(
+    string const & mwmFile, vector<m2::RegionD> const & borders, string const & country,
+    routing::CountryParentNameGetterFn const & countryParentNameGetterFn,
+    vector<routing::CrossMwmConnectorSerializer::Transition<base::GeoObjectId>> & transitions)
+{
+  CHECK(false, ("This is dummy specialization and it shouldn't be called."));
+}
+
 /// \brief Fills |transitions| and |connectors| params.
 /// \note This method fills only |connections| which are applicable for |CrossMwmId|.
 /// For example |VehicleType::Pedestrian|, |VehicleType::Bicycle| and |VehicleType::Car|
@@ -384,7 +455,8 @@ void CalcCrossMwmConnectors(
     string const & country, routing::CountryParentNameGetterFn const & countryParentNameGetterFn,
     string const & mappingFile,
     vector<routing::CrossMwmConnectorSerializer::Transition<CrossMwmId>> & transitions,
-    routing::CrossMwmConnectorPerVehicleType<CrossMwmId> & connectors)
+    routing::CrossMwmConnectorPerVehicleType<CrossMwmId> & connectors,
+    bool experimentalTransit = false)
 {
   base::Timer timer;
   string const polyFile = base::JoinPath(path, BORDERS_DIR, country + BORDERS_EXTENSION);
@@ -401,8 +473,17 @@ void CalcCrossMwmConnectors(
   // Note 2. Taking into account note 1 it's clear that field |Transition<TransitId>::m_roadMask|
   // is always set to |VehicleType::Transit| and field |Transition<OsmId>::m_roadMask| can't have
   // |VehicleType::Transit| value.
-  CalcCrossMwmTransitions(mwmFile, intermediateDir, mappingFile, borders, country, countryParentNameGetterFn,
-                          transitions);
+  if (experimentalTransit)
+  {
+    CalcCrossMwmTransitionsExperimental(mwmFile, borders, country, countryParentNameGetterFn,
+                                        transitions);
+  }
+  else
+  {
+    CalcCrossMwmTransitions(mwmFile, intermediateDir, mappingFile, borders, country,
+                            countryParentNameGetterFn, transitions);
+  }
+
   LOG(LINFO, ("Transitions finished, transitions:", transitions.size(),
       ", elapsed:", timer.ElapsedSeconds(), "seconds"));
 
@@ -629,7 +710,8 @@ void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
 
 void BuildTransitCrossMwmSection(string const & path, string const & mwmFile,
                                  string const & country,
-                                 CountryParentNameGetterFn const & countryParentNameGetterFn)
+                                 CountryParentNameGetterFn const & countryParentNameGetterFn,
+                                 bool experimentalTransit)
 {
   LOG(LINFO, ("Building transit cross mwm section for", country));
   using CrossMwmId = connector::TransitId;
@@ -637,8 +719,8 @@ void BuildTransitCrossMwmSection(string const & path, string const & mwmFile,
   vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> transitions;
 
   CalcCrossMwmConnectors(path, mwmFile, "" /* intermediateDir */, country,
-                         countryParentNameGetterFn, "" /* mapping file */,
-                         transitions, connectors);
+                         countryParentNameGetterFn, "" /* mapping file */, transitions, connectors,
+                         experimentalTransit);
 
   CHECK(connectors[static_cast<size_t>(VehicleType::Pedestrian)].IsEmpty(), ());
   CHECK(connectors[static_cast<size_t>(VehicleType::Bicycle)].IsEmpty(), ());
