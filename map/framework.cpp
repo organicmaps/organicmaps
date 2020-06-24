@@ -2054,7 +2054,6 @@ void Framework::OnRecoverSurface(int width, int height, bool recreateContextDepe
   m_trafficManager.OnRecoverSurface();
   m_transitManager.Invalidate();
   m_isolinesManager.Invalidate();
-  m_guidesManager.Invalidate();
   m_localAdsManager.Invalidate();
 }
 

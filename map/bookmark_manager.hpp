@@ -59,6 +59,7 @@ public:
   using KMLDataCollectionPtr = std::shared_ptr<KMLDataCollection>;
 
   using BookmarksChangedCallback = std::function<void()>;
+  using CategoriesChangedCallback = std::function<void()>;
   using ElevationActivePointChangedCallback = std::function<void()>;
   using ElevationMyPositionChangedCallback = std::function<void()>;
 
@@ -184,6 +185,7 @@ public:
   void ResetRegionAddressGetter();
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
+  void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
 
@@ -521,6 +523,7 @@ private:
     void AcceptDirtyItems();
     bool HasChanges() const;
     bool HasBookmarksChanges() const;
+    bool HasCategoriesChanges() const;
     void ResetChanges();
     void AddChanges(MarksChangesTracker const & changes);
 
@@ -683,6 +686,7 @@ private:
   void UpdateBmGroupIdList();
 
   void NotifyBookmarksChanged();
+  void NotifyCategoriesChanged();
 
   void SendBookmarksChanges(MarksChangesTracker const & changesTracker);
   void GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarks);
@@ -788,7 +792,8 @@ private:
   std::unique_ptr<search::RegionAddressGetter> m_regionAddressGetter;
   std::mutex m_regionAddressMutex;
 
-  BookmarksChangedCallback m_categoriesChangedCallback;
+  BookmarksChangedCallback m_bookmarksChangedCallback;
+  CategoriesChangedCallback m_categoriesChangedCallback;
   ElevationActivePointChangedCallback m_elevationActivePointChanged;
   ElevationMyPositionChangedCallback m_elevationMyPositionChanged;
   m2::PointD m_lastElevationMyPosition = m2::PointD::Zero();

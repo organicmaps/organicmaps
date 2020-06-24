@@ -117,11 +117,6 @@ void GuidesManager::UpdateViewport(ScreenBase const & screen)
   RequestGuides();
 }
 
-void GuidesManager::Invalidate()
-{
-  // TODO: Implement.
-}
-
 void GuidesManager::Reconnect()
 {
   if (m_state != GuidesState::FatalNetworkError)
@@ -349,7 +344,13 @@ void GuidesManager::SetGalleryListener(GuidesGalleryChangedFn const & onGalleryC
 
 void GuidesManager::SetBookmarkManager(BookmarkManager * bmManager)
 {
+  CHECK(bmManager != nullptr, ());
   m_bmManager = bmManager;
+  m_bmManager->SetCategoriesChangedCallback(
+      [this]()
+      {
+        GetPlatform().RunTask(Platform::Thread::Gui, [this](){ UpdateDownloadedStatus(); });
+      });
 }
 
 void GuidesManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
@@ -367,11 +368,24 @@ bool GuidesManager::IsGuideDownloaded(std::string const & guideId) const
   return m_bmManager->GetCatalog().HasDownloaded(guideId);
 }
 
+void GuidesManager::UpdateDownloadedStatus()
+{
+  if (m_state == GuidesState::Disabled)
+    return;
+
+  auto es = m_bmManager->GetEditSession();
+  for (auto markId : m_bmManager->GetUserMarkIds(UserMark::Type::GUIDE))
+  {
+    auto * mark = es.GetMarkForEdit<GuideMark>(markId);
+    mark->SetIsDownloaded(IsGuideDownloaded(mark->GetGuideId()));
+  }
+}
+
 void GuidesManager::UpdateGuidesMarks()
 {
   auto es = m_bmManager->GetEditSession();
-  es.ClearGroup(UserMark::GUIDE_CLUSTER);
-  es.ClearGroup(UserMark::GUIDE);
+  es.ClearGroup(UserMark::Type::GUIDE_CLUSTER);
+  es.ClearGroup(UserMark::Type::GUIDE);
 
   auto const sortedGuides = SortGuidesByPositions(m_guides.m_nodes, m_screen);
 

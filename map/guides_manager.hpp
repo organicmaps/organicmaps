@@ -90,7 +90,6 @@ public:
   void SetStateListener(GuidesStateChangedFn const & onStateChangedFn);
 
   void UpdateViewport(ScreenBase const & screen);
-  void Invalidate();
   void Reconnect();
 
   void SetEnabled(bool enabled);
@@ -122,6 +121,7 @@ private:
   void Clear();
 
   bool IsGuideDownloaded(std::string const & guideId) const;
+  void UpdateDownloadedStatus();
   void UpdateGuidesMarks();
   void UpdateActiveGuide();
 

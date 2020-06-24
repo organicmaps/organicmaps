@@ -788,6 +788,9 @@ void BookmarkManager::NotifyChanges()
   if (m_changesTracker.HasBookmarksChanges())
     NotifyBookmarksChanged();
 
+  if (m_changesTracker.HasCategoriesChanges())
+    NotifyCategoriesChanged();
+
   m_bookmarksChangesTracker.AddChanges(m_changesTracker);
   m_drapeChangesTracker.AddChanges(m_changesTracker);
   m_changesTracker.ResetChanges();
@@ -2005,6 +2008,11 @@ void BookmarkManager::UpdateViewport(ScreenBase const & screen)
 
 void BookmarkManager::SetBookmarksChangedCallback(BookmarksChangedCallback && callback)
 {
+  m_bookmarksChangedCallback = std::move(callback);
+}
+
+void BookmarkManager::SetCategoriesChangedCallback(CategoriesChangedCallback && callback)
+{
   m_categoriesChangedCallback = std::move(callback);
 }
 
@@ -2601,6 +2609,12 @@ void BookmarkManager::SendBookmarksChanges(MarksChangesTracker const & changesTr
 
 void BookmarkManager::NotifyBookmarksChanged()
 {
+  if (m_bookmarksChangedCallback != nullptr)
+    m_bookmarksChangedCallback();
+}
+
+void BookmarkManager::NotifyCategoriesChanged()
+{
   if (m_categoriesChangedCallback != nullptr)
     m_categoriesChangedCallback();
 }
@@ -2642,6 +2656,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
   NotifyBookmarksChanged();
+  NotifyCategoriesChanged();
   return groupId;
 }
 
@@ -3945,6 +3960,21 @@ bool BookmarkManager::MarksChangesTracker::HasChanges() const
 bool BookmarkManager::MarksChangesTracker::HasBookmarksChanges() const
 {
   for (auto groupId : m_updatedGroups)
+  {
+    if (m_bmManager->IsBookmarkCategory(groupId))
+      return true;
+  }
+  for (auto groupId : m_removedGroups)
+  {
+    if (m_bmManager->IsBookmarkCategory(groupId))
+      return true;
+  }
+  return false;
+}
+
+bool BookmarkManager::MarksChangesTracker::HasCategoriesChanges() const
+{
+  for (auto groupId : m_createdGroups)
   {
     if (m_bmManager->IsBookmarkCategory(groupId))
       return true;
