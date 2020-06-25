@@ -2,7 +2,7 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIImageView+Coloring.h"
 
-#import <Crashlytics/Crashlytics.h>
+#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 #import <SafariServices/SafariServices.h>
 
 @implementation NSObject (Optimized)
@@ -180,7 +180,7 @@
                                       userInfo:@{
                                         @"Trying to open nil url" : @YES
                                       }];
-    [[Crashlytics sharedInstance] recordError:err];
+    [[FIRCrashlytics crashlytics] recordError:err];
     return;
   }
   NSString * scheme = url.scheme;
@@ -193,7 +193,7 @@
                                       userInfo:@{
                                         @"Trying to open incorrect url" : urlString
                                       }];
-    [[Crashlytics sharedInstance] recordError:err];
+    [[FIRCrashlytics crashlytics] recordError:err];
     return;
   }
 

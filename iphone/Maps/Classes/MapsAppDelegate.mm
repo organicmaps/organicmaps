@@ -26,8 +26,7 @@
 #import <UserNotifications/UserNotifications.h>
 
 #import <AppsFlyerLib/AppsFlyerTracker.h>
-#import <Crashlytics/Crashlytics.h>
-#import <Fabric/Fabric.h>
+#import <Firebase/Firebase.h>
 
 #include <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
@@ -77,17 +76,16 @@ void InitCrashTrackers() {
   if ([MWMSettings crashReportingDisabled])
     return;
 
-  NSString *fabricKey = @(CRASHLYTICS_IOS_KEY);
-  if (fabricKey.length != 0) {
-    // Initialize Fabric/Crashlytics SDK.
-    [Fabric with:@ [[Crashlytics class]]];
+  NSString *googleConfig = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist"];
+  if ([[NSFileManager defaultManager] fileExistsAtPath:googleConfig]) {
+    [FIRApp configure];
   }
 #endif
 }
 
 void ConfigCrashTrackers() {
 #ifdef OMIM_PRODUCTION
-  [[Crashlytics sharedInstance] setObjectValue:[Alohalytics installationId] forKey:@"AlohalyticsInstallationId"];
+  [[FIRCrashlytics crashlytics] setUserID:[Alohalytics installationId]];
 #endif
 }
 
@@ -216,7 +214,7 @@ using namespace osm_auth_ios;
   }
   [self enableTTSForTheFirstTime];
 
-  [GIDSignIn sharedInstance].clientID = [[NSBundle mainBundle] loadWithPlist:@"GoogleService-Info"][@"CLIENT_ID"];
+  [GIDSignIn sharedInstance].clientID = @(GOOGLE_WEB_CLIENT_ID);
 
   self.notificationManager = [[NotificationManager alloc] init];
   self.notificationManager.delegate = self;
@@ -312,7 +310,7 @@ using namespace osm_auth_ios;
   auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
                                         code:1
                                     userInfo:@{@"Description": @"applicationDidReceiveMemoryWarning"}];
-  [[Crashlytics sharedInstance] recordError:err];
+  [[FIRCrashlytics crashlytics] recordError:err];
 #endif
 }
 
@@ -323,7 +321,7 @@ using namespace osm_auth_ios;
   auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
                                         code:2
                                     userInfo:@{@"Description": @"applicationWillTerminate"}];
-  [[Crashlytics sharedInstance] recordError:err];
+  [[FIRCrashlytics crashlytics] recordError:err];
 #endif
 
   // Global cleanup
@@ -724,7 +722,7 @@ using namespace osm_auth_ios;
 
 - (void)onConversionDataRequestFailure:(NSError *)error {
   dispatch_async(dispatch_get_main_queue(), ^{
-    [Crashlytics.sharedInstance recordError:error];
+    [[FIRCrashlytics crashlytics] recordError:error];
   });
 }
 

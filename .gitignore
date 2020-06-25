@@ -170,6 +170,8 @@ android/pushwoosh.properties
 android/libnotify.properties
 android/google-services.json
 server
+iphone/Maps/com.mapswithme.full/
+iphone/Maps/com.my.maps-beta-enterprise/
 
 *.li
 

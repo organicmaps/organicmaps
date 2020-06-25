@@ -1,5 +1,5 @@
 #import "MWMRouter.h"
-#import <Crashlytics/Crashlytics.h>
+#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 #import "MWMAlertViewController+CPP.h"
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
@@ -143,7 +143,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
                                         @"Description" : @"Invalid number of taxi route points",
                                         @"Count" : @(routePoints.size())
                                       }];
-    [[Crashlytics sharedInstance] recordError:err];
+    [[FIRCrashlytics crashlytics] recordError:err];
   }
 
   [taxiDataSource taxiURL:^(NSURL * url) {
@@ -490,7 +490,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
                                           @"Description" : @"Invalid number of route points",
                                           @"Count" : @(routePoints.size())
                                         }];
-      [[Crashlytics sharedInstance] recordError:err];
+      [[FIRCrashlytics crashlytics] recordError:err];
     }
   };
 

@@ -3,6 +3,7 @@ import FBSDKLoginKit
 import GoogleSignIn
 import SafariServices
 import AuthenticationServices
+import Firebase
 
 @objc enum AuthorizationError: Int {
   case cancelled
@@ -275,7 +276,7 @@ final class AuthorizationViewController: MWMViewController {
       kStatError: error.localizedDescription
     ])
     textLabel.text = L("profile_authorization_error")
-    Crashlytics.sharedInstance().recordError(error)
+    Crashlytics.crashlytics().record(error: error)
   }
 
   private func process(token: String,

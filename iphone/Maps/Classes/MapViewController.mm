@@ -25,7 +25,7 @@
 
 #include "geometry/mercator.hpp"
 
-#import <Crashlytics/Crashlytics.h>
+#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
@@ -743,7 +743,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
                                           code:1
                                       userInfo:@{@"Description": @"attempt to get info from empty countryId"}];
-    [[Crashlytics sharedInstance] recordError:err];
+    [[FIRCrashlytics crashlytics] recordError:err];
 #endif
     return;
   }

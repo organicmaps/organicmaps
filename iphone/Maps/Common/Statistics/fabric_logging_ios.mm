@@ -1,4 +1,4 @@
-#import <Crashlytics/Crashlytics.h>
+#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 
 #include "fabric_logging.hpp"
 
@@ -23,7 +23,7 @@ void LogMessageFabric(base::LogLevel level, base::SrcPoint const & srcPoint, std
 
   std::string const srcString = recordType + DebugPrint(srcPoint) + " " + msg + "\n";
 
-  CLSLog(@"%@", @(srcString.c_str()));
+  [[FIRCrashlytics crashlytics] logWithFormat:@"%@", @(srcString.c_str())];
 }
 
 void IosLogMessage(base::LogLevel level, base::SrcPoint const & srcPoint, std::string const & msg)

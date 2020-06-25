@@ -1,5 +1,5 @@
 #import "MWMPushNotifications.h"
-#import <Crashlytics/Crashlytics.h>
+#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 #import <Pushwoosh/PushNotificationManager.h>
 #import "Statistics.h"
 
@@ -42,7 +42,7 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
     didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
   [[PushNotificationManager pushManager] handlePushRegistrationFailure:error];
-  [[Crashlytics sharedInstance] recordError:error];
+  [[FIRCrashlytics crashlytics] recordError:error];
 }
 
 + (void)application:(UIApplication *)application

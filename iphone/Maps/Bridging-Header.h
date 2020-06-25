@@ -6,7 +6,6 @@
 
 #import "AuthenticationServices/AuthenticationServices.h"
 #import "CarPlay/CarPlay.h"
-#import "Crashlytics/Crashlytics.h"
 #import "FBAudienceNetwork/FBAudienceNetwork.h"
 #import "FBSDKLoginKit/FBSDKLoginKit.h"
 #import "GoogleSignIn/GIDSignIn.h"
