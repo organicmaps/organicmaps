@@ -626,15 +626,20 @@ void PreprocessElement(OsmElement * p)
   CHECK(infoGetter, ());
   auto static const countryTree = storage::LoadCountriesFromFile(COUNTRIES_FILE);
   CHECK(countryTree, ());
-  std::set<storage::CountryId> provinceToStateCountries = {"Japan", "South Korea", "Turkey"};
   p->UpdateTag("place", [&](string & value) {
     if (value != "province")
       return;
 
+    std::array<storage::CountryId, 3> const provinceToStateCountries = {"Japan", "South Korea",
+                                                                        "Turkey"};
     auto const pt = mercator::FromLatLon(p->m_lat, p->m_lon);
     auto const countryId = infoGetter->GetRegionCountryId(pt);
-    if (provinceToStateCountries.count(storage::GetTopmostParentFor(*countryTree, countryId)) > 0)
+    auto const country = storage::GetTopmostParentFor(*countryTree, countryId);
+    if (base::FindIf(provinceToStateCountries, [&](auto const & c) { return c == country; }) !=
+        provinceToStateCountries.end())
+    {
       value = "state";
+    }
   });
 }
 

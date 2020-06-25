@@ -13,7 +13,7 @@ CountryId GetTopmostParentFor(CountryTree const & countries, CountryId const & c
   countries.Find(countryId, nodes);
   if (nodes.empty())
   {
-    LOG(LWARNING, ("CountryId =", countryId, "not found in m_countries."));
+    LOG(LWARNING, ("CountryId =", countryId, "not found in countries."));
     return {};
   }
 
