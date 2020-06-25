@@ -16,5 +16,7 @@ pod 'FBSDKLoginKit', '5.15.1'
 pod 'Flurry-iOS-SDK/FlurrySDK', '10.1'
 pod 'mopub-ios-sdk', '5.10'
 pod 'MoPub-FacebookAudienceNetwork-Adapters', '5.6.0.0'
+pod 'Firebase/Crashlytics', '6.26.0'
+pod 'Firebase/Analytics', '6.26.0'
 
 end

@@ -1,0 +1,1 @@
+../../../FirebaseAnalyticsInterop/Interop/Analytics/Public/FIRAnalyticsInteropListener.h
