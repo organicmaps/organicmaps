@@ -610,6 +610,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
       alert.onViewBlock = ^{
         [self dismissViewControllerAnimated:YES completion:nil];
         [self.navigationController popToRootViewControllerAnimated:YES];
+        GetFramework().DeactivateMapSelection(true);
         GetFramework().ShowBookmarkCategory(categoryId);
       };
       alert.onCancelBlock = ^{
