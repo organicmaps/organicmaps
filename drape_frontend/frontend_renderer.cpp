@@ -1357,7 +1357,11 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
     {
       m2::PointD startPosition;
       m_selectionShape->IsVisible(modelView, startPosition);
-      m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
+      
+      if (msg->GetSelectedObject() == SelectionShape::ESelectedObject::OBJECT_GUIDE)
+        m_selectionTrackInfo.reset();
+      else
+        m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
     }
 
     if (msg->IsGeometrySelectionAllowed())
