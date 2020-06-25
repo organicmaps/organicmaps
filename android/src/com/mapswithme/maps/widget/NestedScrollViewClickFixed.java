@@ -62,7 +62,7 @@ import java.util.List;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
- * NestedScrollView is just like {@link android.widget.ScrollView}, but it supports acting
+ * NestedScrollViewClickFixed is just like {@link android.widget.ScrollView}, but it supports acting
  * as both a nested scrolling parent and child on both new and old versions of Android.
  * Nested scrolling is enabled by default.
  */
@@ -1857,7 +1857,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
         // we rely on the fact the View.scrollBy calls scrollTo.
         if (getChildCount() > 0) {
             View child = getChildAt(0);
-            final NestedScrollView.LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            final NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) child.getLayoutParams();
             int parentSpaceHorizontal = getWidth() - getPaddingLeft() - getPaddingRight();
             int childSizeHorizontal = child.getWidth() + lp.leftMargin + lp.rightMargin;
             int parentSpaceVertical = getHeight() - getPaddingTop() - getPaddingBottom();
