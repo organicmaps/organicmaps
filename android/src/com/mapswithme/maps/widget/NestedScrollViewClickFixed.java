@@ -17,8 +17,6 @@
 
 package androidx.core.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -61,6 +59,8 @@ import androidx.core.view.accessibility.AccessibilityRecordCompat;
 
 import java.util.List;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 /**
  * NestedScrollView is just like {@link android.widget.ScrollView}, but it supports acting
  * as both a nested scrolling parent and child on both new and old versions of Android.
@@ -72,7 +72,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
 
     static final float MAX_SCROLL_FACTOR = 0.5f;
 
-    private static final String TAG = "NestedScrollView";
+    private static final String TAG = "NestedScrollViewClickFixed";
 
     /**
      * Interface definition for a callback to be invoked when the scroll
@@ -408,7 +408,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
         }
 
         View child = getChildAt(0);
-        final NestedScrollView.LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        final NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) child.getLayoutParams();
         final int length = getVerticalFadingEdgeLength();
         final int bottomEdge = getHeight() - getPaddingBottom();
         final int span = child.getBottom() + lp.bottomMargin - getScrollY() - bottomEdge;
@@ -493,7 +493,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
     private boolean canScroll() {
         if (getChildCount() > 0) {
             View child = getChildAt(0);
-            final NestedScrollView.LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            final NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) child.getLayoutParams();
             int childSize = child.getHeight() + lp.topMargin + lp.bottomMargin;
             int parentSpace = getHeight() - getPaddingTop() - getPaddingBottom();
             return childSize > parentSpace;
@@ -566,7 +566,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
 
         if (getChildCount() > 0) {
             View child = getChildAt(0);
-            final NestedScrollView.LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            final NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
             int childSize = child.getMeasuredHeight();
             int parentSpace = getMeasuredHeight()
@@ -1079,7 +1079,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
         int scrollRange = 0;
         if (getChildCount() > 0) {
             View child = getChildAt(0);
-            NestedScrollView.LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) child.getLayoutParams();
             int childSize = child.getHeight() + lp.topMargin + lp.bottomMargin;
             int parentSpace = getHeight() - getPaddingTop() - getPaddingBottom();
             scrollRange = Math.max(0, childSize - parentSpace);
@@ -1189,7 +1189,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
             int count = getChildCount();
             if (count > 0) {
                 View view = getChildAt(count - 1);
-                NestedScrollView.LayoutParams lp = (LayoutParams) view.getLayoutParams();
+                NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) view.getLayoutParams();
                 int bottom = view.getBottom() + lp.bottomMargin + getPaddingBottom();
                 if (mTempRect.top + height > bottom) {
                     mTempRect.top = bottom - height;
@@ -1229,7 +1229,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
             int count = getChildCount();
             if (count > 0) {
                 View view = getChildAt(count - 1);
-                NestedScrollView.LayoutParams lp = (LayoutParams) view.getLayoutParams();
+                NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) view.getLayoutParams();
                 mTempRect.bottom = view.getBottom() + lp.bottomMargin + getPaddingBottom();
                 mTempRect.top = mTempRect.bottom - height;
             }
@@ -1305,7 +1305,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
             } else if (direction == View.FOCUS_DOWN) {
                 if (getChildCount() > 0) {
                     View child = getChildAt(0);
-                    NestedScrollView.LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                    NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) child.getLayoutParams();
                     int daBottom = child.getBottom() + lp.bottomMargin;
                     int screenBottom = getScrollY() + getHeight() - getPaddingBottom();
                     scrollDelta = Math.min(daBottom - screenBottom, maxJump);
@@ -1381,7 +1381,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
         long duration = AnimationUtils.currentAnimationTimeMillis() - mLastScroll;
         if (duration > ANIMATED_SCROLL_GAP) {
             View child = getChildAt(0);
-            NestedScrollView.LayoutParams lp = (LayoutParams) child.getLayoutParams();
+            NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) child.getLayoutParams();
             int childSize = child.getHeight() + lp.topMargin + lp.bottomMargin;
             int parentSpace = getHeight() - getPaddingTop() - getPaddingBottom();
             final int scrollY = getScrollY();
@@ -1424,7 +1424,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
         }
 
         View child = getChildAt(0);
-        NestedScrollView.LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) child.getLayoutParams();
         int scrollRange = child.getBottom() + lp.bottomMargin;
         final int scrollY = getScrollY();
         final int overscrollBottom = Math.max(0, scrollRange - parentSpace);
@@ -1621,7 +1621,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
         // for the target scroll distance).
         // leave room for bottom fading edge as long as rect isn't at very bottom
         View child = getChildAt(0);
-        final NestedScrollView.LayoutParams lp = (LayoutParams) child.getLayoutParams();
+        final NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) child.getLayoutParams();
         if (rect.bottom < child.getHeight() + lp.topMargin + lp.bottomMargin) {
             screenBottom -= fadingEdge;
         }
@@ -1750,7 +1750,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
             int childSize = 0;
             if (getChildCount() > 0) {
                 View child = getChildAt(0);
-                NestedScrollView.LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                NestedScrollViewClickFixed.LayoutParams lp = (LayoutParams) child.getLayoutParams();
                 childSize = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
             }
             int parentSpace = b - t - getPaddingTop() - getPaddingBottom();
@@ -2030,7 +2030,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
             if (super.performAccessibilityAction(host, action, arguments)) {
                 return true;
             }
-            final NestedScrollView nsvHost = (NestedScrollView) host;
+            final NestedScrollViewClickFixed nsvHost = (NestedScrollViewClickFixed) host;
             if (!nsvHost.isEnabled()) {
                 return false;
             }
@@ -2063,7 +2063,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
         @Override
         public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
             super.onInitializeAccessibilityNodeInfo(host, info);
-            final NestedScrollView nsvHost = (NestedScrollView) host;
+            final NestedScrollViewClickFixed nsvHost = (NestedScrollViewClickFixed) host;
             info.setClassName(ScrollView.class.getName());
             if (nsvHost.isEnabled()) {
                 final int scrollRange = nsvHost.getScrollRange();
@@ -2082,7 +2082,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
         @Override
         public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
             super.onInitializeAccessibilityEvent(host, event);
-            final NestedScrollView nsvHost = (NestedScrollView) host;
+            final NestedScrollViewClickFixed nsvHost = (NestedScrollViewClickFixed) host;
             event.setClassName(ScrollView.class.getName());
             final boolean scrollable = nsvHost.getScrollRange() > 0;
             event.setScrollable(scrollable);
