@@ -20,7 +20,14 @@ CountryId GetTopmostParentFor(CountryTree const & countries, CountryId const & c
   if (nodes.size() > 1)
   {
     // Disputed territory. Has multiple parents.
-    return countryId;
+    CHECK(nodes[0]->HasParent(), ());
+    auto const parentId = nodes[0]->Parent().Value().Name();
+    for (size_t i = 1; i < nodes.size(); ++i)
+    {
+      if (nodes[i]->Parent().Value().Name() != parentId)
+        return countryId;
+    }
+    return GetTopmostParentFor(countries, parentId);
   }
 
   auto result = nodes[0];

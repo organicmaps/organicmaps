@@ -368,7 +368,8 @@ public:
                           size_t level = 0) const;
 
   /// \brief Returns topmost country id prior root id or |countryId| itself, if it's already
-  /// a topmost node or it's a disputed territory.
+  /// a topmost node or disputed territory id if |countryId| is a disputed territory or belongs to
+  /// disputed territory.
   CountryId const GetTopmostParentFor(CountryId const & countryId) const;
   /// \brief Returns parent id for node if node has single parent. Otherwise (if node is disputed
   /// territory and has multiple parents or does not exist) returns empty CountryId

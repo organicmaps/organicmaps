@@ -12,6 +12,6 @@ namespace storage
 std::optional<CountryTree> LoadCountriesFromFile(std::string const & path);
 
 // Returns topmost country id prior root id or |countryId| itself, if it's already a topmost node or
-// it's a disputed territory.
+// disputed territory id if |countryId| is a disputed territory or belongs to disputed territory.
 CountryId GetTopmostParentFor(CountryTree const & countries, CountryId const & countryId);
 }  // namespace storage
