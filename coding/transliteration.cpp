@@ -54,10 +54,11 @@ void Transliteration::Init(std::string const & icuDataDir)
 
   for (auto const & lang : StringUtf8Multilang::GetSupportedLanguages())
   {
-    if (strlen(lang.m_transliteratorId) == 0 || m_transliterators.count(lang.m_transliteratorId) != 0)
-      continue;
-
-    m_transliterators.emplace(lang.m_transliteratorId, std::make_unique<TransliteratorInfo>());
+    for (auto const & t : lang.m_transliteratorsIds)
+    {
+      if (m_transliterators.count(t) == 0)
+        m_transliterators.emplace(t, std::make_unique<TransliteratorInfo>());
+    }
   }
 }
 
@@ -74,47 +75,57 @@ bool Transliteration::Transliterate(std::string const & str, int8_t langCode, st
   if (str.empty() || strings::IsASCIIString(str))
     return false;
 
-  std::string transliteratorId(StringUtf8Multilang::GetTransliteratorIdByCode(langCode));
-
-  if (transliteratorId.empty())
-    return false;
-
-  auto it = m_transliterators.find(transliteratorId);
-  if (it == m_transliterators.end())
-  {
-    LOG(LWARNING, ("Transliteration failed, unknown transliterator \"", transliteratorId, "\""));
-    return false;
-  }
-
-  if (!it->second->m_initialized)
-  {
-    std::lock_guard<std::mutex> lock(it->second->m_mutex);
-    if (!it->second->m_initialized)
-    {
-      UErrorCode status = U_ZERO_ERROR;
-
-      std::string const removeDiacriticRule = ";NFD;[\u02B9-\u02D3\u0301-\u0358\u00B7\u0027]Remove;NFC";
-      transliteratorId.append(removeDiacriticRule);
-
-      UnicodeString translitId(transliteratorId.c_str());
-
-      it->second->m_transliterator.reset(Transliterator::createInstance(translitId, UTRANS_FORWARD, status));
-
-      if (it->second->m_transliterator == nullptr)
-        LOG(LWARNING, ("Cannot create transliterator \"", transliteratorId, "\", icu error =", status));
-
-      it->second->m_initialized = true;
-    }
-  }
-
-  if (it->second->m_transliterator == nullptr)
+  auto const & transliteratorsIds = StringUtf8Multilang::GetTransliteratorsIdsByCode(langCode);
+  if (transliteratorsIds.empty())
     return false;
 
   UnicodeString ustr(str.c_str());
-  it->second->m_transliterator->transliterate(ustr);
+  for (auto transliteratorId : transliteratorsIds)
+  {
+    if (transliteratorId.empty())
+      return false;
 
-  if (ustr.isEmpty())
-    return false;
+    auto it = m_transliterators.find(transliteratorId);
+    if (it == m_transliterators.end())
+    {
+      LOG(LWARNING, ("Transliteration failed, unknown transliterator \"", transliteratorId, "\""));
+      return false;
+    }
+
+    if (!it->second->m_initialized)
+    {
+      std::lock_guard<std::mutex> lock(it->second->m_mutex);
+      if (!it->second->m_initialized)
+      {
+        UErrorCode status = U_ZERO_ERROR;
+
+        std::string const removeDiacriticRule =
+            ";NFD;[\u02B9-\u02D3\u0301-\u0358\u00B7\u0027]Remove;NFC";
+        transliteratorId.append(removeDiacriticRule);
+
+        UnicodeString translitId(transliteratorId.c_str());
+
+        it->second->m_transliterator.reset(
+            Transliterator::createInstance(translitId, UTRANS_FORWARD, status));
+
+        if (it->second->m_transliterator == nullptr)
+        {
+          LOG(LWARNING,
+              ("Cannot create transliterator \"", transliteratorId, "\", icu error =", status));
+        }
+
+        it->second->m_initialized = true;
+      }
+    }
+
+    if (it->second->m_transliterator == nullptr)
+      return false;
+
+    it->second->m_transliterator->transliterate(ustr);
+
+    if (ustr.isEmpty())
+      return false;
+  }
 
   ustr.toUTF8String(out);
   return true;

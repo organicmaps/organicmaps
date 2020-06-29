@@ -15,70 +15,70 @@ namespace
 // Note that it's not feasible to increase languages number here due to current encoding (6 bit to
 // store language code).
 array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> const kLanguages = {
-    {{"default", "Native for each country", "Any-Latin"},
-     {"en", "English", ""},
-     {"ja", "日本語", ""},
-     {"fr", "Français", ""},
-     {"ko_rm", "Korean (Romanized)", "Korean-Latin/BGN"},
-     {"ar", "العربية", "Any-Latin"},
-     {"de", "Deutsch", ""},
-     {"int_name", "International (Latin)", "Any-Latin"},
-     {"ru", "Русский", "Russian-Latin/BGN"},
-     {"sv", "Svenska", ""},
-     {"zh", "中文", "Any-Latin"},
-     {"fi", "Suomi", ""},
-     {"be", "Беларуская", "Belarusian-Latin/BGN"},
-     {"ka", "ქართული", "Georgian-Latin"},
-     {"ko", "한국어", "Hangul-Latin/BGN"},
-     {"he", "עברית", "Hebrew-Latin"},
-     {"nl", "Nederlands", ""},
-     {"ga", "Gaeilge", ""},
-     {"ja_rm", "Japanese (Romanized)", "Any-Latin"},
-     {"el", "Ελληνικά", "Greek-Latin"},
-     {"it", "Italiano", ""},
-     {"es", "Español", ""},
-     {"zh_pinyin", "Chinese (Pinyin)", "Any-Latin"},
-     {"th", "ไทย", ""},  // Thai-Latin
-     {"cy", "Cymraeg", ""},
-     {"sr", "Српски", "Serbian-Latin/BGN"},
-     {"uk", "Українська", "Ukrainian-Latin/BGN"},
-     {"ca", "Català", ""},
-     {"hu", "Magyar", ""},
-     {StringUtf8Multilang::kReservedLang /* hsb */, "", ""},
-     {"eu", "Euskara", ""},
-     {"fa", "فارسی", "Any-Latin"},
-     {StringUtf8Multilang::kReservedLang /* br */, "", ""},
-     {"pl", "Polski", ""},
-     {"hy", "Հայերէն", "Armenian-Latin"},
-     {StringUtf8Multilang::kReservedLang /* kn */, "", ""},
-     {"sl", "Slovenščina", ""},
-     {"ro", "Română", ""},
-     {"sq", "Shqip", ""},
-     {"am", "አማርኛ", "Amharic-Latin/BGN"},
-     {"no", "Norsk", ""},  // Was "fy" before December 2018.
-     {"cs", "Čeština", ""},
-     {"id", "Bahasa Indonesia", ""},  // Was "gd" before December 2018.
-     {"sk", "Slovenčina", ""},
-     {"af", "Afrikaans", ""},
-     {"ja_kana", "日本語(カタカナ)", "Katakana-Latin"},
-     {StringUtf8Multilang::kReservedLang /* lb */, "", ""},
-     {"pt", "Português", ""},
-     {"hr", "Hrvatski", ""},
-     {"da", "Dansk", ""},  // Was "fur" before December 2018.
-     {"vi", "Tiếng Việt", ""},
-     {"tr", "Türkçe", ""},
-     {"bg", "Български", "Bulgarian-Latin/BGN"},
-     {"alt_name", "Alternative name", "Any-Latin"},  // Was "eo" before December 2018.
-     {"lt", "Lietuvių", ""},
-     {"old_name", "Old/Previous name", "Any-Latin"},  // Was "la" before December 2018.
-     {"kk", "Қазақ", "Kazakh-Latin/BGN"},
-     {StringUtf8Multilang::kReservedLang /* gsw */, "", ""},
-     {"et", "Eesti", ""},
-     {"ku", "Kurdish", "Any-Latin"},
-     {"mn", "Mongolian", "Mongolian-Latin/BGN"},
-     {"mk", "Македонски", "Macedonian-Latin/BGN"},
-     {"lv", "Latviešu", ""},
-     {"hi", "हिन्दी", "Any-Latin"}}};
+    {{"default", "Native for each country", {"Any-Latin"}},
+     {"en", "English", {}},
+     {"ja", "日本語", {}},
+     {"fr", "Français", {}},
+     {"ko_rm", "Korean (Romanized)", {"Korean-Latin/BGN"}},
+     {"ar", "العربية", {"Any-Latin"}},
+     {"de", "Deutsch", {}},
+     {"int_name", "International (Latin)", {"Any-Latin"}},
+     {"ru", "Русский", {"Russian-Latin/BGN"}},
+     {"sv", "Svenska", {}},
+     {"zh", "中文", {"Any-Latin"}},
+     {"fi", "Suomi", {}},
+     {"be", "Беларуская", {"Belarusian-Latin/BGN"}},
+     {"ka", "ქართული", {"Georgian-Latin"}},
+     {"ko", "한국어", {"Hangul-Latin/BGN"}},
+     {"he", "עברית", {"Hebrew-Latin"}},
+     {"nl", "Nederlands", {}},
+     {"ga", "Gaeilge", {}},
+     {"ja_rm", "Japanese (Romanized)", {"Any-Latin"}},
+     {"el", "Ελληνικά", {"Greek-Latin"}},
+     {"it", "Italiano", {}},
+     {"es", "Español", {}},
+     {"zh_pinyin", "Chinese (Pinyin)", {"Any-Latin"}},
+     {"th", "ไทย", {}},  // Thai-Latin
+     {"cy", "Cymraeg", {}},
+     {"sr", "Српски", {"Serbian-Latin/BGN"}},
+     {"uk", "Українська", {"Ukrainian-Latin/BGN"}},
+     {"ca", "Català", {}},
+     {"hu", "Magyar", {}},
+     {StringUtf8Multilang::kReservedLang /* hsb */, "", {}},
+     {"eu", "Euskara", {}},
+     {"fa", "فارسی", {"Any-Latin"}},
+     {StringUtf8Multilang::kReservedLang /* br */, "", {}},
+     {"pl", "Polski", {}},
+     {"hy", "Հայերէն", {"Armenian-Latin"}},
+     {StringUtf8Multilang::kReservedLang /* kn */, "", {}},
+     {"sl", "Slovenščina", {}},
+     {"ro", "Română", {}},
+     {"sq", "Shqip", {}},
+     {"am", "አማርኛ", {"Amharic-Latin/BGN"}},
+     {"no", "Norsk", {}},  // Was "fy" before December 2018.
+     {"cs", "Čeština", {}},
+     {"id", "Bahasa Indonesia", {}},  // Was "gd" before December 2018.
+     {"sk", "Slovenčina", {}},
+     {"af", "Afrikaans", {}},
+     {"ja_kana", "日本語(カタカナ)", {"Katakana-Latin", "Hiragana-Latin"}},
+     {StringUtf8Multilang::kReservedLang /* lb */, "", {}},
+     {"pt", "Português", {}},
+     {"hr", "Hrvatski", {}},
+     {"da", "Dansk", {}},  // Was "fur" before December 2018.
+     {"vi", "Tiếng Việt", {}},
+     {"tr", "Türkçe", {}},
+     {"bg", "Български", {"Bulgarian-Latin/BGN"}},
+     {"alt_name", "Alternative name", {"Any-Latin"}},  // Was "eo" before December 2018.
+     {"lt", "Lietuvių", {}},
+     {"old_name", "Old/Previous name", {"Any-Latin"}},  // Was "la" before December 2018.
+     {"kk", "Қазақ", {"Kazakh-Latin/BGN"}},
+     {StringUtf8Multilang::kReservedLang /* gsw */, "", {}},
+     {"et", "Eesti", {}},
+     {"ku", "Kurdish", {"Any-Latin"}},
+     {"mn", "Mongolian", {"Mongolian-Latin/BGN"}},
+     {"mk", "Македонски", {"Macedonian-Latin/BGN"}},
+     {"lv", "Latviešu", {}},
+     {"hi", "हिन्दी", {"Any-Latin"}}}};
 
 static_assert(
     kLanguages.size() == StringUtf8Multilang::kMaxSupportedLanguages,
@@ -137,7 +137,7 @@ char const * StringUtf8Multilang::GetLangByCode(int8_t langCode)
   if (!IsSupportedLangCode(langCode))
     return "";
 
-  return kLanguages[langCode].m_code;
+  return kLanguages[langCode].m_code.c_str();
 }
 
 // static
@@ -146,16 +146,17 @@ char const * StringUtf8Multilang::GetLangNameByCode(int8_t langCode)
   if (!IsSupportedLangCode(langCode))
     return "";
 
-  return kLanguages[langCode].m_name;
+  return kLanguages[langCode].m_name.c_str();
 }
 
 // static
-char const * StringUtf8Multilang::GetTransliteratorIdByCode(int8_t langCode)
+vector<string> const & StringUtf8Multilang::GetTransliteratorsIdsByCode(int8_t langCode)
 {
+  static const vector<string> empty;
   if (!IsSupportedLangCode(langCode))
-    return "";
+    return empty;
 
-  return kLanguages[langCode].m_transliteratorId;
+  return kLanguages[langCode].m_transliteratorsIds;
 }
 
 size_t StringUtf8Multilang::GetNextIndex(size_t i) const

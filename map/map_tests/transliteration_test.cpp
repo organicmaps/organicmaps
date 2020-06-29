@@ -38,6 +38,8 @@ UNIT_TEST(Transliteration_CompareSamples)
   TestTransliteration(translit, "hy", "Հայերէն", "Hayeren");
   TestTransliteration(translit, "am", "አማርኛ", "amarinya");
   TestTransliteration(translit, "ja_kana", "カタカナ", "katakana");
+  TestTransliteration(translit, "ja_kana", "ひらがな", "hiragana");
+  TestTransliteration(translit, "ja_kana", "カタカナ ひらがな", "katakana hiragana");
   TestTransliteration(translit, "bg", "Български", "Bulgarski");
   TestTransliteration(translit, "kk", "Қазақ", "Qazaq");
   TestTransliteration(translit, "mn", "Монгол хэл", "Mongol hel");

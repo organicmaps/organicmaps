@@ -13,6 +13,7 @@
 #include <functional>
 #include <string>
 #include <utility>
+#include <vector>
 
 namespace utils
 {
@@ -67,11 +68,11 @@ public:
   struct Lang
   {
     /// OSM language code (e.g. for name:en it's "en" part).
-    char const * m_code;
+    std::string m_code;
     /// Native language name.
-    char const * m_name;
-    /// Transliterator to latin id.
-    char const * m_transliteratorId;
+    std::string m_name;
+    /// Transliterators to latin ids.
+    std::vector<std::string> m_transliteratorsIds;
   };
 
   struct Position
@@ -107,8 +108,8 @@ public:
   static char const * GetLangByCode(int8_t langCode);
   /// @returns empty string if langCode is invalid.
   static char const * GetLangNameByCode(int8_t langCode);
-  /// @returns empty string if langCode is invalid.
-  static char const * GetTransliteratorIdByCode(int8_t langCode);
+  /// @returns empty vector if langCode is invalid.
+  static std::vector<std::string> const & GetTransliteratorsIdsByCode(int8_t langCode);
 
   inline bool operator==(StringUtf8Multilang const & rhs) const { return m_s == rhs.m_s; }
   inline bool operator!=(StringUtf8Multilang const & rhs) const { return !(*this == rhs); }
