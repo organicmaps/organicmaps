@@ -17,6 +17,8 @@ set(
   transit_serdes.hpp
   transit_types.cpp
   transit_types.hpp
+  transit_version.cpp
+  transit_version.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})

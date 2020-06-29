@@ -2,6 +2,7 @@
 
 #include "transit/transit_entities.hpp"
 #include "transit/transit_serdes.hpp"
+#include "transit/transit_version.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
@@ -437,7 +438,7 @@ void TransitData::Serialize(Writer & writer)
   routing::transit::Serializer<Writer> serializer(writer);
   routing::transit::FixedSizeSerializer<Writer> fixedSizeSerializer(writer);
   m_header = TransitHeader();
-  m_header.m_version = kExperimentalTransitVersion;
+  m_header.m_version = static_cast<uint16_t>(TransitVersion::AllPublicTransport);
   fixedSizeSerializer(m_header);
 
   m_header.m_stopsOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);

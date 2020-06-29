@@ -6,6 +6,7 @@
 #include "transit/transit_graph_data.hpp"
 #include "transit/transit_serdes.hpp"
 #include "transit/transit_types.hpp"
+#include "transit/transit_version.hpp"
 
 #include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"

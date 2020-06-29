@@ -2,6 +2,7 @@
 
 #include "transit/transit_serdes.hpp"
 #include "transit/transit_types.hpp"
+#include "transit/transit_version.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
@@ -18,6 +19,8 @@ namespace routing
 {
 namespace transit
 {
+auto constexpr kTransitHeaderVersion = static_cast<uint16_t>(::transit::TransitVersion::OnlySubway);
+
 template<class S, class D, class Obj>
 void TestCommonSerialization(Obj const & obj)
 {
@@ -51,10 +54,10 @@ void TestSerialization(Obj const & obj)
 
 UNIT_TEST(Transit_HeaderRewriting)
 {
-  TransitHeader const bigHeader(1 /* version */, 500 /* stopsOffset */, 1000 /* gatesOffset */,
-                                200000 /* edgesOffset */, 300000 /* transfersOffset */,
-                                400000 /* linesOffset */, 5000000 /* shapesOffset */,
-                                6000000 /* networksOffset */, 700000000 /* endOffset */);
+  TransitHeader const bigHeader(
+      kTransitHeaderVersion /* version */, 500 /* stopsOffset */, 1000 /* gatesOffset */,
+      200000 /* edgesOffset */, 300000 /* transfersOffset */, 400000 /* linesOffset */,
+      5000000 /* shapesOffset */, 6000000 /* networksOffset */, 700000000 /* endOffset */);
 
   TransitHeader header;
   vector<uint8_t> buffer;
@@ -103,9 +106,10 @@ UNIT_TEST(Transit_HeaderSerialization)
     TEST(header.IsValid(), (header));
   }
   {
-    TransitHeader header(1 /* version */, 500 /* stopsOffset */, 1000 /* gatesOffset */,
-                         2000 /* edgesOffset */, 3000 /* transfersOffset */, 4000 /* linesOffset */,
-                         5000 /* shapesOffset */, 6000 /* networksOffset */, 7000 /* endOffset */);
+    TransitHeader header(kTransitHeaderVersion /* version */, 500 /* stopsOffset */,
+                         1000 /* gatesOffset */, 2000 /* edgesOffset */, 3000 /* transfersOffset */,
+                         4000 /* linesOffset */, 5000 /* shapesOffset */, 6000 /* networksOffset */,
+                         7000 /* endOffset */);
     TestSerialization(header);
     TEST(header.IsValid(), (header));
   }
@@ -118,17 +122,17 @@ UNIT_TEST(Transit_TransitHeaderValidity)
     TEST(header.IsValid(), (header));
   }
   {
-    TransitHeader const header(1 /* version */, 40 /* stopsOffset */, 44 /* gatesOffset */,
-                               48 /* edgesOffset */, 52 /* transfersOffset */,
-                               56 /* linesOffset */, 60 /* shapesOffset */,
-                               64 /* networksOffset */, 68 /* endOffset */);
+    TransitHeader const header(kTransitHeaderVersion /* version */, 40 /* stopsOffset */,
+                               44 /* gatesOffset */, 48 /* edgesOffset */, 52 /* transfersOffset */,
+                               56 /* linesOffset */, 60 /* shapesOffset */, 64 /* networksOffset */,
+                               68 /* endOffset */);
     TEST(header.IsValid(), (header));
   }
   {
-    TransitHeader const header(1 /* version */, 44 /* stopsOffset */, 40 /* gatesOffset */,
-                               48 /* edgesOffset */, 52 /* transfersOffset */,
-                               56 /* linesOffset */, 60 /* shapesOffset */,
-                               64 /* networksOffset */, 68 /* endOffset */);
+    TransitHeader const header(kTransitHeaderVersion /* version */, 44 /* stopsOffset */,
+                               40 /* gatesOffset */, 48 /* edgesOffset */, 52 /* transfersOffset */,
+                               56 /* linesOffset */, 60 /* shapesOffset */, 64 /* networksOffset */,
+                               68 /* endOffset */);
     TEST(!header.IsValid(), (header));
   }
 }

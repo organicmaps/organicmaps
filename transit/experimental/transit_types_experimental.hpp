@@ -40,8 +40,6 @@ namespace transit
 {
 namespace experimental
 {
-constexpr uint16_t kExperimentalTransitVersion = 2;
-
 #define DECLARE_TRANSIT_TYPES_FRIENDS                 \
   template <class Sink>                               \
   friend class routing::transit::Serializer;          \
