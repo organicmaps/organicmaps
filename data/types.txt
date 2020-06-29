@@ -1344,3 +1344,4 @@ mapswithme
 *recycling|scrap_metal
 *recycling|small_appliances
 *amenity|recycling_container
+*hwtag|onedir_bicycle

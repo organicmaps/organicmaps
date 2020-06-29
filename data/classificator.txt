@@ -461,6 +461,7 @@ world  +
         nobicycle  -
         nocar  -
         nofoot  -
+        onedir_bicycle  -
         oneway  -
         private  -
         toll  -
