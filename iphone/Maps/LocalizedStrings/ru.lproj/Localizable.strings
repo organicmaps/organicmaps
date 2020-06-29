@@ -4134,6 +4134,8 @@
 
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
 
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
 "type.hwtag.lit" = "hwtag-lit";
 
 "type.hwtag.nobicycle" = "hwtag-nobicycle";

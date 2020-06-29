@@ -2286,6 +2286,7 @@
 	<string name="type.historic.wayside_shrine">historic-wayside_shrine</string>
 	<string name="type.hwtag">hwtag</string>
 	<string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+	<string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
 	<string name="type.hwtag.lit">hwtag-lit</string>
 	<string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
 	<string name="type.hwtag.nocar">hwtag-nocar</string>
