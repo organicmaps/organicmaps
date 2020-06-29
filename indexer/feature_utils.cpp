@@ -31,11 +31,6 @@ int8_t GetIndex(string const & lang)
   return StrUtf8::GetLangIndex(lang);
 }
 
-unordered_map<int8_t, vector<int8_t>> const kSimilarToDeviceLanguages =
-{
-  {GetIndex("be"), {GetIndex("ru")}}
-};
-
 void GetMwmLangName(feature::RegionData const & regionData, StringUtf8Multilang const & src, string & out)
 {
   vector<int8_t> mwmLangCodes;
@@ -101,6 +96,11 @@ bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
 
 vector<int8_t> GetSimilarToDeviceLanguages(int8_t deviceLang)
 {  
+  static unordered_map<int8_t, vector<int8_t>> const kSimilarToDeviceLanguages =
+  {
+    {GetIndex("be"), {GetIndex("ru")}}
+  };
+
   auto const it = kSimilarToDeviceLanguages.find(deviceLang);
   if (it != kSimilarToDeviceLanguages.cend())
     return it->second;
