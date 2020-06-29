@@ -10403,6 +10403,9 @@
   [type.hwtag.bidir_bicycle]
     en = hwtag-bidir_bicycle
 
+  [type.hwtag.onedir_bicycle]
+    en = hwtag-onedir_bicycle
+
   [type.hwtag.lit]
     en = hwtag-lit
 
