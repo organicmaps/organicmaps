@@ -1344,3 +1344,4 @@ recycling|plastic_bottles;[amenity=recycling][recycling:plastic_bottles=yes];;na
 recycling|scrap_metal;[amenity=recycling][recycling:scrap_metal=yes];;name;int_name;1344;
 recycling|small_appliances;[amenity=recycling][recycling:small_appliances=yes];;name;int_name;1345;
 amenity|recycling_container;[amenity=recycling][recycling_type=container],[amenity=recycling][!recycling_type];;name;int_name;1346;
+hwtag|onedir_bicycle;1347;
