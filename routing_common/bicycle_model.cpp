@@ -403,7 +403,7 @@ void BicycleModel::Init()
   m_noBicycleType = classif().GetTypeByPath({"hwtag", "nobicycle"});
   m_yesBicycleType = classif().GetTypeByPath(hwtagYesBicycle);
   m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
-
+  m_onedirBicycleType = classif().GetTypeByPath({"hwtag", "onedir_bicycle"});
   vector<AdditionalRoadTags> const additionalTags = {
       {hwtagYesBicycle, m_maxModelSpeed},
       {{"route", "ferry"}, kDefaultSpeeds.at(HighwayType::RouteFerry)},
@@ -428,6 +428,11 @@ bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
   return types.Has(m_bidirBicycleType);
 }
 
+bool BicycleModel::IsBicycleOnedir(feature::TypesHolder const & types) const
+{
+  return types.Has(m_onedirBicycleType);
+}
+
 SpeedKMpH BicycleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
 {
   return VehicleModel::GetSpeedWihtoutMaxspeed(f, speedParams);
@@ -436,6 +441,9 @@ SpeedKMpH BicycleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParam
 bool BicycleModel::IsOneWay(FeatureType & f) const
 {
   feature::TypesHolder const types(f);
+
+  if (IsBicycleOnedir(types))
+    return true;
 
   if (IsBicycleBidir(types))
     return false;

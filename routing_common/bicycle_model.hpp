@@ -26,10 +26,13 @@ private:
 
   /// @return true if it is allowed to ride a bicycle in both directions.
   bool IsBicycleBidir(feature::TypesHolder const & types) const;
+  // Returns true if the road is explicitly set oneway for bicycles.
+  bool IsBicycleOnedir(feature::TypesHolder const & types) const;
 
   uint32_t m_noBicycleType = 0;
   uint32_t m_yesBicycleType = 0;
   uint32_t m_bidirBicycleType = 0;
+  uint32_t m_onedirBicycleType = 0;
 };
 
 class BicycleModelFactory : public VehicleModelFactory
