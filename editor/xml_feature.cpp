@@ -88,17 +88,6 @@ void ValidateElement(pugi::xml_node const & nodeOrWay)
 
 namespace editor
 {
-char const * const XMLFeature::kDefaultLang =
-    StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode);
-char const * const XMLFeature::kIntlLang =
-    StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kInternationalCode);
-char const * const XMLFeature::kAltLang =
-    StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kAltNameCode);
-char const * const XMLFeature::kOldLang =
-    StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kOldNameCode);
-char const * const XMLFeature::kIntlName = XMLFeature::kIntlLang;
-char const * const XMLFeature::kAltName = XMLFeature::kAltLang;
-char const * const XMLFeature::kOldName = XMLFeature::kOldLang;
 
 XMLFeature::XMLFeature(Type const type)
 {
@@ -244,6 +233,10 @@ vector<m2::PointD> XMLFeature::GetGeometry() const
 
 string XMLFeature::GetName(string const & lang) const
 {
+  ASSERT_EQUAL(kDefaultLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode), ());
+  ASSERT_EQUAL(kIntlLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kInternationalCode), ());
+  ASSERT_EQUAL(kAltLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kAltNameCode), ());
+  ASSERT_EQUAL(kOldLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kOldNameCode), ());
   if (lang == kIntlLang)
     return GetTagValue(kIntlName);
   if (lang == kAltLang)
