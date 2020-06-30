@@ -2937,5 +2937,46 @@ UNIT_CLASS_TEST(ProcessorTest, StreetWithNumber)
     TEST(ResultsMatch("11-я Магистральная 11 ", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, SimilarLanguage)
+{
+  string const countryName = "Wonderland";
+
+  auto testLanguage = [&](string language, string searchString, bool expectedRes) {
+    auto request = MakeRequest(searchString, language);
+    auto const & results = request->Results();
+    TEST_EQUAL(results.size(), expectedRes ? 1 : 0, (results, language, searchString, expectedRes));
+  };
+
+  TestMultilingualPOI poi(m2::PointD(0.0, 0.0), "default",
+                          {{"en", "Jiyugaoka Station"},
+                           {"int_name", "international"},
+                           {"ja", "自由が丘"},
+                           {"ja_kana", "じゆうがおか"},
+                           {"ko", "지유가오카"}});
+
+  auto wonderlandId =
+      BuildCountry(countryName, [&](TestMwmBuilder & builder) { builder.Add(poi); });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+
+  // Languages to search: default, English, international, device language (English by default),
+  // languages similar to device language, input language, languages similar to input language.
+
+  // Search must use default, English and international languages for any query locale.
+  testLanguage("it", "default", true);
+  testLanguage("it", "Jiyugaoka Station", true);
+  testLanguage("it", "international", true);
+
+  testLanguage("ja", "自由が丘", true);
+  // ja_kana is similar to ja. Search must use both ja and ja_kana for ja locale.
+  testLanguage("ja", "じゆうがおか", true);
+
+  // ko is not in language list if query locale is not ko.
+  testLanguage("ja", "지유가오카", false);
+  testLanguage("en", "지유가오카", false);
+  // ko is in language list if query locale is ko.
+  testLanguage("ko", "지유가오카", true);
+}
 }  // namespace
 }  // namespace search

@@ -18,6 +18,11 @@ namespace feature
   /// Get viewport scale to show given feature. Used in search.
   int GetFeatureViewportScale(TypesHolder const & types);
 
+  // Returns following languages given |lang|:
+  // - |lang|;
+  // - similar to |lang| languages if provided;
+  std::vector<int8_t> GetSimilar(int8_t deviceLang);
+
   /// When the language of the device is equal to one of the languages of the MWM
   /// (or similar to device languages) only single name scheme is used. See GetReadableName method.
   /// Primary name using priority:

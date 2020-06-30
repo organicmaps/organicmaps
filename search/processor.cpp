@@ -29,6 +29,7 @@
 #include "indexer/feature_covering.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_impl.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
@@ -202,7 +203,7 @@ void Processor::SetPreferredLocale(string const & locale)
   LOG(LINFO, ("New preferred locale:", locale));
 
   int8_t const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
-  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_CURRENT, {code});
+  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_CURRENT, feature::GetSimilar(code));
 
   m_currentLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 
@@ -219,7 +220,7 @@ void Processor::SetInputLocale(string const & locale)
 
   int8_t const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
   LOG(LDEBUG, ("New input locale:", locale, "locale code:", code));
-  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_INPUT, {code});
+  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_INPUT, feature::GetSimilar(code));
   m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 }
 
