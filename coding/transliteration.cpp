@@ -82,14 +82,13 @@ bool Transliteration::Transliterate(std::string const & str, int8_t langCode, st
   UnicodeString ustr(str.c_str());
   for (auto transliteratorId : transliteratorsIds)
   {
-    if (transliteratorId.empty())
-      return false;
+    CHECK(!transliteratorId.empty(), (transliteratorId));
 
     auto it = m_transliterators.find(transliteratorId);
     if (it == m_transliterators.end())
     {
       LOG(LWARNING, ("Transliteration failed, unknown transliterator \"", transliteratorId, "\""));
-      return false;
+      continue;
     }
 
     if (!it->second->m_initialized)
@@ -119,7 +118,7 @@ bool Transliteration::Transliterate(std::string const & str, int8_t langCode, st
     }
 
     if (it->second->m_transliterator == nullptr)
-      return false;
+      continue;
 
     it->second->m_transliterator->transliterate(ustr);
 
