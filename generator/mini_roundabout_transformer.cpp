@@ -154,6 +154,8 @@ feature::FeatureBuilder CreateFb(std::vector<m2::PointD> const & way, uint64_t i
   fb.AddType(roundaboutType);
   static uint32_t const defaultRoadType = classif().GetTypeByPath({"highway", "tertiary"});
   fb.AddType(roadType == 0 ? defaultRoadType : roadType);
+  static uint32_t const onewayType = classif().GetTypeByPath({"hwtag", "oneway"});
+  fb.AddType(onewayType);
 
   return fb;
 }
