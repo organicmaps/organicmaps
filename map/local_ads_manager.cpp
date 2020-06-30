@@ -108,33 +108,6 @@ std::string GetCustomIcon(osm::MapObject const & mapObject)
   if (bannerUrl.find("sixt") != std::string::npos)
     return "partner2-l";
 
-  if (bannerUrl.find("adidas") != std::string::npos)
-  {
-    if (bannerUrl.find("originals") != std::string::npos)
-      return "partner6-l";
-    if (bannerUrl.find("deti") != std::string::npos)
-      return "partner7-l";
-    return "partner4-l";
-  }
-
-  if (websiteStr.find("costacoffee") != std::string::npos ||
-      bannerUrl.find("costa_coffee") != std::string::npos)
-  {
-    return "partner8-l";
-  }
-
-  if (websiteStr.find("tgifridays") != std::string::npos ||
-      bannerUrl.find("tgi_fridays") != std::string::npos)
-  {
-    return "partner9-l";
-  }
-
-  if (websiteStr.find("sportmaster") != std::string::npos ||
-      bannerUrl.find("sportmaster") != std::string::npos)
-  {
-    return "partner10-l";
-  }
-
   if (bannerUrl.find("azbuka_vkusa") != std::string::npos)
     return "partner12-l";
 
