@@ -19,8 +19,6 @@ using namespace std;
 
 namespace routing_test
 {
-using namespace routing;
-
 namespace
 {
 double constexpr kEpsilon = 1e-6;
@@ -450,7 +448,7 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoade
 unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geometryLoader,
                                               shared_ptr<EdgeEstimator> estimator,
                                               vector<Joint> const & joints,
-                                              transit::GraphData const & transitData)
+                                              routing::transit::GraphData const & transitData)
 {
   auto indexGraph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
   indexGraph->Import(joints);
