@@ -8,7 +8,7 @@ BookmarkCatalog::BookmarkCatalog(Delegate & delegate)
 }
 
 std::string BookmarkCatalog::GetBanner(storage::CountryId const & countryId,
-                                       m2::PointD const & userPos,
+                                       std::optional<m2::PointD> const & userPos,
                                        std::string const & userLanguage) const
 {
   return m_delegate.GetLinkForCountryId(countryId);

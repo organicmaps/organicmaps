@@ -1,3 +1,4 @@
+
 #include "partners_api/ads/ads_base.hpp"
 
 #include "partners_api/promo_catalog_types.hpp"
@@ -86,10 +87,10 @@ DownloadOnMapContainer::DownloadOnMapContainer(Delegate & delegate)
 }
 
 std::string DownloadOnMapContainer::GetBanner(storage::CountryId const & countryId,
-                                              m2::PointD const & userPos,
+                                              std::optional<m2::PointD> const & userPos,
                                               std::string const & userLanguage) const
 {
-  if (!HasBanner(countryId, userPos, userLanguage))
+  if (!userPos || !HasBanner(countryId, *userPos, userLanguage))
     return {};
 
   return GetBannerInternal();

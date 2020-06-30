@@ -75,7 +75,7 @@ std::vector<Banner> Engine::GetSearchBanners() const
 }
 
 std::vector<Banner> Engine::GetDownloadOnMapBanners(storage::CountryId const & downloadMwmId,
-                                                    m2::PointD const & userPos,
+                                                    std::optional<m2::PointD> const & userPos,
                                                     std::string const & userLanguage) const
 {
   auto result = GetBanners(m_downloadOnMapBanners, m_delegate->IsAdsRemoved(), downloadMwmId,

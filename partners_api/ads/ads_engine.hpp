@@ -4,6 +4,7 @@
 #include "partners_api/ads/banner.hpp"
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -30,7 +31,7 @@ public:
                                     std::string const & userLanguage) const;
   std::vector<Banner> GetSearchBanners() const;
   std::vector<Banner> GetDownloadOnMapBanners(storage::CountryId const & downloadMwmId,
-                                              m2::PointD const & userPos,
+                                              std::optional<m2::PointD> const & userPos,
                                               std::string const & userLanguage) const;
 
   void DisableAdProvider(Banner::Type const type, Banner::Place const place);

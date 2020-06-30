@@ -2064,13 +2064,10 @@ Java_com_mapswithme_maps_Framework_nativeGetDownloaderPromoBanner(JNIEnv * env, 
   static jmethodID const downloaderPromoBannerConstructor = jni::GetConstructorID(env,
       downloaderPromoBannerClass, "(ILjava/lang/String;)V");
 
-  std::vector<ads::Banner> banners;
   auto const pos = frm()->GetCurrentPosition();
-  if (pos)
-  {
-    banners = frm()->GetAdsEngine().GetDownloadOnMapBanners(jni::ToNativeString(env, mwmId), *pos,
-                                                            languages::GetCurrentNorm());
-  }
+  auto const banners =
+      frm()->GetAdsEngine().GetDownloadOnMapBanners(jni::ToNativeString(env, mwmId), pos,
+                                                    languages::GetCurrentNorm());
 
   if (banners.empty())
     return nullptr;

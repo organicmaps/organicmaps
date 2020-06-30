@@ -41,12 +41,9 @@ BOOL canAutoDownload(storage::CountryId const &countryId) {
 }
 
 ads::Banner getPromoBanner(std::string const &mwmId) {
-  std::vector<ads::Banner> banners;
   auto const pos = GetFramework().GetCurrentPosition();
-  if (pos) {
-    banners = GetFramework().GetAdsEngine().GetDownloadOnMapBanners(mwmId, *pos,
-                                                                    languages::GetCurrentNorm());
-  }
+  auto const banners =
+      GetFramework().GetAdsEngine().GetDownloadOnMapBanners(mwmId, pos, languages::GetCurrentNorm());
 
   if (banners.empty())
     return {};

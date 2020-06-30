@@ -12,6 +12,7 @@
 
 #include <cstdint>
 #include <initializer_list>
+#include <optional>
 #include <string>
 
 namespace feature
@@ -99,7 +100,8 @@ public:
   explicit DownloadOnMapContainer(Delegate & delegate);
   virtual ~DownloadOnMapContainer() = default;
 
-  virtual std::string GetBanner(storage::CountryId const & countryId, m2::PointD const & userPos,
+  virtual std::string GetBanner(storage::CountryId const & countryId,
+                                std::optional<m2::PointD> const & userPos,
                                 std::string const & userLanguage) const;
 
 protected:

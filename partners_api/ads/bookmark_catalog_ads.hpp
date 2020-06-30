@@ -9,7 +9,8 @@ class BookmarkCatalog : public DownloadOnMapContainer
 public:
   explicit BookmarkCatalog(Delegate & delegate);
 
-  std::string GetBanner(storage::CountryId const & countryId, m2::PointD const & userPos,
+  std::string GetBanner(storage::CountryId const & countryId,
+                        std::optional<m2::PointD> const & userPos,
                         std::string const & userLanguage) const override;
 };
 }  // namespace ads
