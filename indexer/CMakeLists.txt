@@ -128,6 +128,8 @@ set(
   string_slice.hpp
   succinct_trie_builder.hpp
   succinct_trie_reader.hpp
+  transliteration_loader.cpp
+  transliteration_loader.hpp
   tree_structure.hpp
   trie.hpp
   trie_builder.hpp

@@ -67,6 +67,7 @@
 #include "indexer/ftypes_sponsored.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/transliteration_loader.hpp"
 
 #include "metrics/eye.hpp"
 
@@ -150,10 +151,6 @@ char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
 char const kPreferredGraphicsAPI[] = "PreferredGraphicsAPI";
 char const kShowDebugInfo[] = "DebugInfo";
-
-#if defined(OMIM_OS_ANDROID)
-char const kICUDataFile[] = "icudt57l.dat";
-#endif
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
 auto constexpr kGuidesEnabledInBackgroundMaxHours = 8;
@@ -1587,24 +1584,7 @@ void Framework::InitDiscoveryManager()
 
 void Framework::InitTransliteration()
 {
-#if defined(OMIM_OS_ANDROID)
-  if (!GetPlatform().IsFileExistsByFullPath(GetPlatform().WritableDir() + kICUDataFile))
-  {
-    try
-    {
-      ZipFileReader::UnzipFile(GetPlatform().ResourcesDir(),
-                               string("assets/") + kICUDataFile,
-                               GetPlatform().WritableDir() + kICUDataFile);
-    }
-    catch (RootException const & e)
-    {
-      LOG(LWARNING, ("Can't get transliteration data file \"", kICUDataFile, "\", reason:", e.Msg()));
-    }
-  }
-  Transliteration::Instance().Init(GetPlatform().WritableDir());
-#else
-  Transliteration::Instance().Init(GetPlatform().ResourcesDir());
-#endif
+  InitTransliterationInstanceWithDefaultDirs();
 
   if (!LoadTransliteration())
     Transliteration::Instance().SetMode(Transliteration::Mode::Disabled);
