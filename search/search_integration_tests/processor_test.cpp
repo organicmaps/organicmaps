@@ -3078,5 +3078,25 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_IsAltOrOldName)
   checkIsAltOrOldName("Питер проспект Пролетарской Победы Ростикс", true);
   checkIsAltOrOldName("Ленинград проспект Пролетарской Победы Ростикс", true);
 }
+
+UNIT_CLASS_TEST(ProcessorTest, JaKanaNormalizationTest)
+{
+  string const countryName = "Wonderland";
+
+  TestPOI poiHiragana(m2::PointD(0.0, 0.0), "とうきょうと", "default");
+  TestPOI poiKatakana(m2::PointD(1.0, 1.0), "トウキョウト", "default");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(poiHiragana);
+    builder.Add(poiKatakana);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0)));
+  {
+    Rules rules = {ExactMatch(countryId, poiHiragana), ExactMatch(countryId, poiKatakana)};
+    TEST(ResultsMatch("とうきょうと", rules), ());
+    TEST(ResultsMatch("トウキョウト", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search

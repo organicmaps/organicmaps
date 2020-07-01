@@ -1,6 +1,9 @@
 #include "indexer/search_string_utils.hpp"
 
 #include "indexer/string_set.hpp"
+#include "indexer/transliteration_loader.hpp"
+
+#include "coding/transliteration.hpp"
 
 #include "coding/transliteration.hpp"
 
@@ -57,6 +60,14 @@ void RemoveNumeroSigns(UniString & s)
 
     i = j;
   }
+}
+
+void TransliterateHiraganaToKatakana(UniString & s)
+{
+  InitTransliterationInstanceWithDefaultDirs();
+  string out;
+  if (Transliteration::Instance().Transliterate(strings::ToUtf8(s), "Hiragana-Katakana", out))
+    s = MakeUniString(out);
 }
 }  // namespace
 
@@ -134,6 +145,7 @@ UniString NormalizeAndSimplifyString(string const & s)
 
   MakeLowerCaseInplace(uniString);
   NormalizeInplace(uniString);
+  TransliterateHiraganaToKatakana(uniString);
 
   // Remove accents that can appear after NFKD normalization.
   uniString.erase_if([](UniChar const & c) {
