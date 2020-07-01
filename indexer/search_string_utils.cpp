@@ -64,6 +64,10 @@ void RemoveNumeroSigns(UniString & s)
 
 void TransliterateHiraganaToKatakana(UniString & s)
 {
+  // Transliteration is heavy. Check we have any hiragana symbol before transliteration.
+  if (!base::AnyOf(s, [](UniChar c){ return c >= 0x3041 && c<= 0x309F; }))
+    return;
+
   InitTransliterationInstanceWithDefaultDirs();
   string out;
   if (Transliteration::Instance().Transliterate(strings::ToUtf8(s), "Hiragana-Katakana", out))

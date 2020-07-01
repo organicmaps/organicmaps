@@ -237,8 +237,10 @@ public:
   //@}
 
   T const * begin() const { return data(); }
+  T const * cbegin() const { return data(); }
   T       * begin()       { return data(); }
   T const * end() const { return data() + size(); }
+  T const * cend() const { return data() + size(); }
   T       * end()       { return data() + size(); }
   //@}
 
