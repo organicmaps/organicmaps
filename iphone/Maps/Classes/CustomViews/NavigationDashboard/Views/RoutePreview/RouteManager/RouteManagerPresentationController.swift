@@ -1,9 +1,8 @@
-final class RouteManageriPadPresentationController: UIPopoverPresentationController {
-  private let chromeView = UIView()
-
+final class RouteManagerPresentationController: UIPresentationController {
   override func containerViewWillLayoutSubviews() {
     super.containerViewWillLayoutSubviews()
     (presentedViewController as? RouteManagerViewController)?.chromeView.frame = containerView!.bounds
+    presentedView?.frame = frameOfPresentedViewInContainerView
   }
 
   override func presentationTransitionWillBegin() {
@@ -12,6 +11,7 @@ final class RouteManageriPadPresentationController: UIPopoverPresentationControl
       let coordinator = presentedViewController.transitionCoordinator,
       let containerView = containerView else { return }
 
+    containerView.addSubview(presentedView!)
     presentedViewController.containerView = containerView
     presentedViewController.chromeView.frame = containerView.bounds
     presentedViewController.chromeView.alpha = 0

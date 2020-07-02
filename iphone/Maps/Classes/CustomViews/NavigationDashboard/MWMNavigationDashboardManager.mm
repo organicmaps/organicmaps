@@ -9,7 +9,6 @@
 
 namespace
 {
-NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
 NSString * const kRoutePreviewIPhoneXibName = @"MWMiPhoneRoutePreview";
 NSString * const kNavigationInfoViewXibName = @"MWMNavigationInfoView";
 NSString * const kNavigationControlViewXibName = @"NavigationControlView";
@@ -66,7 +65,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)loadPreviewWithStatusBoxes
 {
-  [NSBundle.mainBundle loadNibNamed:IPAD ? kRoutePreviewIPADXibName : kRoutePreviewIPhoneXibName
+  [NSBundle.mainBundle loadNibNamed:kRoutePreviewIPhoneXibName
                               owner:self
                             options:nil];
   auto ownerView = self.ownerView;
@@ -254,20 +253,12 @@ using Observers = NSHashTable<Observer>;
 - (IBAction)showRouteManager
 {
   auto routeManagerViewModel = [[MWMRouteManagerViewModel alloc] init];
-  auto routeManager =
-      [[MWMRouteManagerViewController alloc] initWithViewModel:routeManagerViewModel];
+  auto routeManager = [[MWMRouteManagerViewController alloc] initWithViewModel:routeManagerViewModel];
   routeManager.modalPresentationStyle = UIModalPresentationCustom;
-  if (IPAD)
-  {
-    self.routeManagerTransitioningManager = [[MWMRouteManagerTransitioningManager alloc]
-        initWithPopoverSourceView:self.showRouteManagerButton
-         permittedArrowDirections:UIPopoverArrowDirectionLeft];
-  }
-  else
-  {
-    self.routeManagerTransitioningManager = [[MWMRouteManagerTransitioningManager alloc] init];
-  }
+
+  self.routeManagerTransitioningManager = [[MWMRouteManagerTransitioningManager alloc] init];
   routeManager.transitioningDelegate = self.routeManagerTransitioningManager;
+  
   [[MapViewController sharedController] presentViewController:routeManager animated:YES completion:nil];
 }
 

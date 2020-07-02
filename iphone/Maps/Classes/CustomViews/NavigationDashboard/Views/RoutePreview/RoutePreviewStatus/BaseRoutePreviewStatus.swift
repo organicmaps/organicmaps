@@ -44,31 +44,26 @@ final class BaseRoutePreviewStatus: SolidTouchView {
 
   var elevation: NSAttributedString? {
     didSet {
-      guard let elevation = elevation else { return }
-      alternative(iPhone: { self.updateResultsLabel() },
-                  iPad: { self.heightProfileElevationHeight?.attributedText = elevation })()
+      self.updateResultsLabel()
     }
   }
 
   private var isVisible = false {
     didSet {
-      alternative(iPhone: {
-        guard self.isVisible != oldValue else { return }
-        if self.isVisible {
-          self.addView()
-        }
-        DispatchQueue.main.async {
-          guard let sv = self.superview else { return }
-          sv.animateConstraints(animations: {
-            self.hiddenConstraint.isActive = !self.isVisible
-          }, completion: {
-            if !self.isVisible {
-              self.removeFromSuperview()
-            }
-          })
-        }
-      },
-      iPad: { self.isHidden = !self.isVisible })()
+      guard self.isVisible != oldValue else { return }
+      if self.isVisible {
+        self.addView()
+      }
+      DispatchQueue.main.async {
+        guard let sv = self.superview else { return }
+        sv.animateConstraints(animations: {
+          self.hiddenConstraint.isActive = !self.isVisible
+        }, completion: {
+          if !self.isVisible {
+            self.removeFromSuperview()
+          }
+        })
+      }
     }
   }
 
@@ -185,15 +180,13 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   private func updateResultsLabel() {
     guard let info = navigationInfo else { return }
 
-    resultLabel.attributedText = alternative(iPhone: {
-      let result = info.estimate.mutableCopy() as! NSMutableAttributedString
+    if let result = info.estimate.mutableCopy() as? NSMutableAttributedString {
       if let elevation = self.elevation {
         result.append(info.estimateDot)
         result.append(elevation)
       }
-      return result.copy() as? NSAttributedString
-    },
-    iPad: { info.estimate })()
+      resultLabel.attributedText = result
+    }
   }
 
   @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
@@ -203,14 +196,14 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   }
 
   override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {
-    return alternative(iPhone: .bottom, iPad: [])
+    return .bottom
   }
 
   override var visibleAreaAffectDirections: MWMAvailableAreaAffectDirections {
-    return alternative(iPhone: .bottom, iPad: [])
+    return .bottom
   }
 
   override var widgetsAreaAffectDirections: MWMAvailableAreaAffectDirections {
-    return alternative(iPhone: .bottom, iPad: [])
+    return .bottom
   }
 }

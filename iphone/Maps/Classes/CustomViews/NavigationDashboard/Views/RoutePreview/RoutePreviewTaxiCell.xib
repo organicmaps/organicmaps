@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,14 +18,14 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_uber" translatesAutoresizingMaskIntoConstraints="NO" id="fMe-7t-K8o">
-                        <rect key="frame" x="10" y="16" width="40" height="40"/>
+                        <rect key="frame" x="10" y="12" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="RdA-cX-VRi"/>
                             <constraint firstAttribute="height" constant="40" id="uri-90-2qt"/>
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yW-tR-hvX">
-                        <rect key="frame" x="60" y="19" width="210" height="34"/>
+                        <rect key="frame" x="60" y="15" width="210" height="34"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UberX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="til-vK-WGY">
                                 <rect key="frame" x="0.0" y="0.0" width="210" height="17"/>
@@ -60,9 +60,9 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="fMe-7t-K8o" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="16" id="5bX-nv-qAH"/>
                 <constraint firstAttribute="trailing" secondItem="2yW-tR-hvX" secondAttribute="trailing" id="I2S-wY-mil"/>
                 <constraint firstItem="fMe-7t-K8o" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Mkd-eB-WZt"/>
+                <constraint firstItem="fMe-7t-K8o" firstAttribute="centerY" secondItem="7f1-jQ-gbO" secondAttribute="centerY" id="PWb-d6-dLd"/>
                 <constraint firstItem="2yW-tR-hvX" firstAttribute="leading" secondItem="fMe-7t-K8o" secondAttribute="trailing" constant="10" id="jN3-D6-ys1"/>
                 <constraint firstItem="2yW-tR-hvX" firstAttribute="centerY" secondItem="fMe-7t-K8o" secondAttribute="centerY" id="rLh-XX-3BM"/>
             </constraints>

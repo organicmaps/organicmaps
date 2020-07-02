@@ -350,7 +350,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                     <subviews>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dm8-yS-U68" customClass="MWMTaxiCollectionView">
-                            <rect key="frame" x="0.0" y="0.0" width="220" height="60"/>
+                            <rect key="frame" x="0.0" y="0.0" width="190" height="60"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="yr1-ni-nMn" customClass="MWMTaxiCollectionLayout">
                                 <size key="itemSize" width="320" height="100"/>
@@ -363,10 +363,10 @@
                             </userDefinedRuntimeAttributes>
                         </collectionView>
                         <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXz-KM-xQz" userLabel="Go" customClass="MWMRouteStartButton">
-                            <rect key="frame" x="228" y="14" width="80" height="32"/>
+                            <rect key="frame" x="198" y="14" width="110" height="32"/>
                             <accessibility key="accessibilityConfiguration" identifier="goButton"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="80" id="COX-gy-Yq7"/>
+                                <constraint firstAttribute="width" constant="110" id="COX-gy-Yq7"/>
                                 <constraint firstAttribute="height" constant="32" id="qWi-sH-wKR"/>
                             </constraints>
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>

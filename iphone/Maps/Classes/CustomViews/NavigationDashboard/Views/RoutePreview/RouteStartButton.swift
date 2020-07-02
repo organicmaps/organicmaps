@@ -6,7 +6,7 @@ final class RouteStartButton: UIButton {
   }
 
   @objc func stateError() {
-    isHidden = alternative(iPhone: true, iPad: false)
+    isHidden = true
     isEnabled = false
   }
 

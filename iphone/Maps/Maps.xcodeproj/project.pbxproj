@@ -180,7 +180,7 @@
 		34AB66261FC5AA330078E451 /* RouteManagerDimView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65D81FC5AA320078E451 /* RouteManagerDimView.swift */; };
 		34AB66291FC5AA330078E451 /* RouteManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65D91FC5AA320078E451 /* RouteManagerViewController.swift */; };
 		34AB662C1FC5AA330078E451 /* RouteManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65DA1FC5AA320078E451 /* RouteManagerViewModel.swift */; };
-		34AB662F1FC5AA330078E451 /* RouteManageriPhonePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65DB1FC5AA320078E451 /* RouteManageriPhonePresentationController.swift */; };
+		34AB662F1FC5AA330078E451 /* RouteManagerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65DB1FC5AA320078E451 /* RouteManagerPresentationController.swift */; };
 		34AB66321FC5AA330078E451 /* RouteManagerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65DC1FC5AA320078E451 /* RouteManagerHeaderView.swift */; };
 		34AB66351FC5AA330078E451 /* RouteManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34AB65DD1FC5AA320078E451 /* RouteManagerCell.xib */; };
 		34AB66381FC5AA330078E451 /* RouteManagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65DE1FC5AA320078E451 /* RouteManagerCell.swift */; };
@@ -189,7 +189,6 @@
 		34AB66411FC5AA330078E451 /* RouteManagerTransitioningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65E11FC5AA320078E451 /* RouteManagerTransitioningManager.swift */; };
 		34AB66441FC5AA330078E451 /* RouteManagerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65E21FC5AA320078E451 /* RouteManagerViewModelProtocol.swift */; };
 		34AB66471FC5AA330078E451 /* RouteManagerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65E41FC5AA320078E451 /* RouteManagerTableView.swift */; };
-		34AB664A1FC5AA330078E451 /* RouteManageriPadPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65E51FC5AA320078E451 /* RouteManageriPadPresentationController.swift */; };
 		34AB664D1FC5AA330078E451 /* RouteManagerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65E61FC5AA320078E451 /* RouteManagerFooterView.swift */; };
 		34AB66501FC5AA330078E451 /* RoutePreviewTaxiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65E81FC5AA320078E451 /* RoutePreviewTaxiCell.swift */; };
 		34AB66531FC5AA330078E451 /* MWMiPadRoutePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 34AB65E91FC5AA320078E451 /* MWMiPadRoutePreview.m */; };
@@ -1180,7 +1179,7 @@
 		34AB65D81FC5AA320078E451 /* RouteManagerDimView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerDimView.swift; sourceTree = "<group>"; };
 		34AB65D91FC5AA320078E451 /* RouteManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerViewController.swift; sourceTree = "<group>"; };
 		34AB65DA1FC5AA320078E451 /* RouteManagerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerViewModel.swift; sourceTree = "<group>"; };
-		34AB65DB1FC5AA320078E451 /* RouteManageriPhonePresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManageriPhonePresentationController.swift; sourceTree = "<group>"; };
+		34AB65DB1FC5AA320078E451 /* RouteManagerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerPresentationController.swift; sourceTree = "<group>"; };
 		34AB65DC1FC5AA320078E451 /* RouteManagerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerHeaderView.swift; sourceTree = "<group>"; };
 		34AB65DD1FC5AA320078E451 /* RouteManagerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteManagerCell.xib; sourceTree = "<group>"; };
 		34AB65DE1FC5AA320078E451 /* RouteManagerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerCell.swift; sourceTree = "<group>"; };
@@ -1190,7 +1189,6 @@
 		34AB65E21FC5AA320078E451 /* RouteManagerViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerViewModelProtocol.swift; sourceTree = "<group>"; };
 		34AB65E31FC5AA320078E451 /* MWMRouteManagerPointType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouteManagerPointType.h; sourceTree = "<group>"; };
 		34AB65E41FC5AA320078E451 /* RouteManagerTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerTableView.swift; sourceTree = "<group>"; };
-		34AB65E51FC5AA320078E451 /* RouteManageriPadPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManageriPadPresentationController.swift; sourceTree = "<group>"; };
 		34AB65E61FC5AA320078E451 /* RouteManagerFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManagerFooterView.swift; sourceTree = "<group>"; };
 		34AB65E71FC5AA320078E451 /* MWMRoutePreviewTaxiCellType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutePreviewTaxiCellType.h; sourceTree = "<group>"; };
 		34AB65E81FC5AA320078E451 /* RoutePreviewTaxiCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutePreviewTaxiCell.swift; sourceTree = "<group>"; };
@@ -3162,7 +3160,7 @@
 				34AB65D81FC5AA320078E451 /* RouteManagerDimView.swift */,
 				34AB65D91FC5AA320078E451 /* RouteManagerViewController.swift */,
 				34AB65DA1FC5AA320078E451 /* RouteManagerViewModel.swift */,
-				34AB65DB1FC5AA320078E451 /* RouteManageriPhonePresentationController.swift */,
+				34AB65DB1FC5AA320078E451 /* RouteManagerPresentationController.swift */,
 				34AB65DC1FC5AA320078E451 /* RouteManagerHeaderView.swift */,
 				34AB65DD1FC5AA320078E451 /* RouteManagerCell.xib */,
 				34AB65DE1FC5AA320078E451 /* RouteManagerCell.swift */,
@@ -3172,7 +3170,6 @@
 				34AB65E21FC5AA320078E451 /* RouteManagerViewModelProtocol.swift */,
 				34AB65E31FC5AA320078E451 /* MWMRouteManagerPointType.h */,
 				34AB65E41FC5AA320078E451 /* RouteManagerTableView.swift */,
-				34AB65E51FC5AA320078E451 /* RouteManageriPadPresentationController.swift */,
 				34AB65E61FC5AA320078E451 /* RouteManagerFooterView.swift */,
 			);
 			path = RouteManager;
@@ -5566,7 +5563,6 @@
 				F6E2FF481E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
 				34BBD6581F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */,
 				33F7668F21A57CDF00A88B16 /* EditOnWebViewController.swift in Sources */,
-				34AB664A1FC5AA330078E451 /* RouteManageriPadPresentationController.swift in Sources */,
 				B366130A20D5E2E000E7DC3E /* CatalogCategoryCell.swift in Sources */,
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.m in Sources */,
@@ -5676,7 +5672,7 @@
 				3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */,
 				99CB34C5236B00FD001D28AD /* WelcomeStorage.swift in Sources */,
 				CDB92CF1229EB8A800EC757C /* MWMDiscoverySearchViewModel.m in Sources */,
-				34AB662F1FC5AA330078E451 /* RouteManageriPhonePresentationController.swift in Sources */,
+				34AB662F1FC5AA330078E451 /* RouteManagerPresentationController.swift in Sources */,
 				993F5508237C622700545511 /* DeepLinkRouteStrategyAdapter.mm in Sources */,
 				99A906ED23F6F7030005872B /* PlacePagePreviewViewController.swift in Sources */,
 				993DF10223F6BDB100AC231A /* Colors.swift in Sources */,
