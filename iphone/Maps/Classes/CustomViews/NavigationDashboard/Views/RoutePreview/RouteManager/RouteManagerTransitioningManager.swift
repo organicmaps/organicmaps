@@ -6,7 +6,7 @@ final class RouteManagerTransitioningManager: NSObject, UIViewControllerTransiti
 
   func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source _: UIViewController) -> UIPresentationController? {
       RouteManagerPresentationController(presentedViewController: presented,
-                                               presenting: presenting)
+                                         presenting: presenting)
   }
 
   func animationController(forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {

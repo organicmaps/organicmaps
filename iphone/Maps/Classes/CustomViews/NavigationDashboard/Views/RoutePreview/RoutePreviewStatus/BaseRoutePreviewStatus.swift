@@ -44,15 +44,15 @@ final class BaseRoutePreviewStatus: SolidTouchView {
 
   var elevation: NSAttributedString? {
     didSet {
-      self.updateResultsLabel()
+      updateResultsLabel()
     }
   }
 
   private var isVisible = false {
     didSet {
-      guard self.isVisible != oldValue else { return }
-      if self.isVisible {
-        self.addView()
+      guard isVisible != oldValue else { return }
+      if isVisible {
+        addView()
       }
       DispatchQueue.main.async {
         guard let sv = self.superview else { return }
@@ -155,7 +155,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     } else {
       taxiBox.isHidden = true
       resultsBox.isHidden = false
-      self.elevation = nil
+      elevation = nil
       if MWMRouter.hasRouteAltitude() {
         heightBox.isHidden = false
         MWMRouter.routeAltitudeImage(for: heightProfileImage.frame.size,
@@ -165,7 +165,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
                                        let attributes: [NSAttributedString.Key: Any] =
                                          [
                                            .foregroundColor: UIColor.linkBlue(),
-                                           .font: UIFont.medium14(),
+                                           .font: UIFont.medium14()
                                          ]
                                        self.elevation = NSAttributedString(string: "▲▼ \(elevation)", attributes: attributes)
         })

@@ -11,9 +11,9 @@ final class TransportRoutePreviewStatus: SolidTouchView {
 
   private var isVisible = false {
     didSet {
-      guard self.isVisible != oldValue else { return }
-      if self.isVisible {
-        self.addView()
+      guard isVisible != oldValue else { return }
+      if isVisible {
+        addView()
       }
       DispatchQueue.main.async {
         guard let sv = self.superview else { return }

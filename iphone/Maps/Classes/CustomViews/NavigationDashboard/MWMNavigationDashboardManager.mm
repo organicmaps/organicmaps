@@ -1,5 +1,5 @@
-#import "MWMMapViewControlsManager.h"
 #import "MWMNavigationDashboardManager.h"
+#import "MWMMapViewControlsManager.h"
 #import "MWMNavigationInfoView.h"
 #import "MWMRoutePreview.h"
 #import "MWMSearch.h"
@@ -7,11 +7,10 @@
 
 #import "SwiftBridge.h"
 
-namespace
-{
-NSString * const kRoutePreviewIPhoneXibName = @"MWMiPhoneRoutePreview";
-NSString * const kNavigationInfoViewXibName = @"MWMNavigationInfoView";
-NSString * const kNavigationControlViewXibName = @"NavigationControlView";
+namespace {
+NSString *const kRoutePreviewIPhoneXibName = @"MWMiPhoneRoutePreview";
+NSString *const kNavigationInfoViewXibName = @"MWMNavigationInfoView";
+NSString *const kNavigationControlViewXibName = @"NavigationControlView";
 
 using Observer = id<MWMNavigationDashboardObserver>;
 using Observers = NSHashTable<Observer>;
@@ -19,55 +18,49 @@ using Observers = NSHashTable<Observer>;
 
 @interface MWMMapViewControlsManager ()
 
-@property(nonatomic) MWMNavigationDashboardManager * navigationManager;
+@property(nonatomic) MWMNavigationDashboardManager *navigationManager;
 
 @end
 
-@interface MWMNavigationDashboardManager ()<MWMSearchManagerObserver, MWMRoutePreviewDelegate>
+@interface MWMNavigationDashboardManager () <MWMSearchManagerObserver, MWMRoutePreviewDelegate>
 
-@property(copy, nonatomic) NSDictionary * etaAttributes;
-@property(copy, nonatomic) NSDictionary * etaSecondaryAttributes;
-@property(copy, nonatomic) NSString * errorMessage;
-@property(nonatomic) IBOutlet MWMBaseRoutePreviewStatus * baseRoutePreviewStatus;
-@property(nonatomic) IBOutlet MWMNavigationControlView * navigationControlView;
-@property(nonatomic) IBOutlet MWMNavigationInfoView * navigationInfoView;
-@property(nonatomic) IBOutlet MWMRoutePreview * routePreview;
-@property(nonatomic) IBOutlet MWMTransportRoutePreviewStatus * transportRoutePreviewStatus;
-@property(nonatomic) IBOutletCollection(MWMRouteStartButton) NSArray * goButtons;
-@property(nonatomic) MWMNavigationDashboardEntity * entity;
-@property(nonatomic) MWMRouteManagerTransitioningManager * routeManagerTransitioningManager;
-@property(nonatomic) Observers * observers;
-@property(nonatomic, readwrite) MWMTaxiPreviewDataSource * taxiDataSource;
-@property(weak, nonatomic) IBOutlet MWMTaxiCollectionView * taxiCollectionView;
-@property(weak, nonatomic) IBOutlet UIButton * showRouteManagerButton;
-@property(weak, nonatomic) IBOutlet UIView * goButtonsContainer;
-@property(weak, nonatomic) UIView * ownerView;
+@property(copy, nonatomic) NSDictionary *etaAttributes;
+@property(copy, nonatomic) NSDictionary *etaSecondaryAttributes;
+@property(copy, nonatomic) NSString *errorMessage;
+@property(nonatomic) IBOutlet MWMBaseRoutePreviewStatus *baseRoutePreviewStatus;
+@property(nonatomic) IBOutlet MWMNavigationControlView *navigationControlView;
+@property(nonatomic) IBOutlet MWMNavigationInfoView *navigationInfoView;
+@property(nonatomic) IBOutlet MWMRoutePreview *routePreview;
+@property(nonatomic) IBOutlet MWMTransportRoutePreviewStatus *transportRoutePreviewStatus;
+@property(nonatomic) IBOutletCollection(MWMRouteStartButton) NSArray *goButtons;
+@property(nonatomic) MWMNavigationDashboardEntity *entity;
+@property(nonatomic) MWMRouteManagerTransitioningManager *routeManagerTransitioningManager;
+@property(nonatomic) Observers *observers;
+@property(nonatomic, readwrite) MWMTaxiPreviewDataSource *taxiDataSource;
+@property(weak, nonatomic) IBOutlet MWMTaxiCollectionView *taxiCollectionView;
+@property(weak, nonatomic) IBOutlet UIButton *showRouteManagerButton;
+@property(weak, nonatomic) IBOutlet UIView *goButtonsContainer;
+@property(weak, nonatomic) UIView *ownerView;
 
 @end
 
 @implementation MWMNavigationDashboardManager
 
-+ (MWMNavigationDashboardManager *)sharedManager
-{
++ (MWMNavigationDashboardManager *)sharedManager {
   return [MWMMapViewControlsManager manager].navigationManager;
 }
 
-- (instancetype)initWithParentView:(UIView *)view
-{
+- (instancetype)initWithParentView:(UIView *)view {
   self = [super init];
-  if (self)
-  {
+  if (self) {
     _ownerView = view;
     _observers = [Observers weakObjectsHashTable];
   }
   return self;
 }
 
-- (void)loadPreviewWithStatusBoxes
-{
-  [NSBundle.mainBundle loadNibNamed:kRoutePreviewIPhoneXibName
-                              owner:self
-                            options:nil];
+- (void)loadPreviewWithStatusBoxes {
+  [NSBundle.mainBundle loadNibNamed:kRoutePreviewIPhoneXibName owner:self options:nil];
   auto ownerView = self.ownerView;
   _baseRoutePreviewStatus.ownerView = ownerView;
   _transportRoutePreviewStatus.ownerView = ownerView;
@@ -75,28 +68,27 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - MWMRoutePreview
 
-- (void)setRouteBuilderProgress:(CGFloat)progress
-{
+- (void)setRouteBuilderProgress:(CGFloat)progress {
   [self.routePreview router:[MWMRouter type] setProgress:progress / 100.];
 }
 
 #pragma mark - MWMNavigationGo
 
-- (IBAction)routingStartTouchUpInside { [MWMRouter startRouting]; }
-- (void)updateGoButtonTitle
-{
-  NSString * title = nil;
+- (IBAction)routingStartTouchUpInside {
+  [MWMRouter startRouting];
+}
+- (void)updateGoButtonTitle {
+  NSString *title = nil;
   if ([MWMRouter isTaxi])
     title = [self.taxiDataSource isTaxiInstalled] ? L(@"taxi_order") : L(@"install_app");
   else
     title = L(@"p2p_start");
 
-  for (MWMRouteStartButton * button in self.goButtons)
+  for (MWMRouteStartButton *button in self.goButtons)
     [button setTitle:title forState:UIControlStateNormal];
 }
 
-- (void)onNavigationInfoUpdated
-{
+- (void)onNavigationInfoUpdated {
   auto entity = self.entity;
   if (!entity.isValid)
     return;
@@ -120,16 +112,14 @@ using Observers = NSHashTable<Observer>;
   self.routePreview.drivingOptionsState = MWMDrivingOptionsStateNone;
 }
 
-- (void)onRouteError:(NSString *)error
-{
+- (void)onRouteError:(NSString *)error {
   self.errorMessage = error;
   self.state = MWMNavigationDashboardStateError;
-  self.routePreview.drivingOptionsState = [MWMRouter hasActiveDrivingOptions] ?
-    MWMDrivingOptionsStateChange : MWMDrivingOptionsStateNone;
+  self.routePreview.drivingOptionsState =
+    [MWMRouter hasActiveDrivingOptions] ? MWMDrivingOptionsStateChange : MWMDrivingOptionsStateNone;
 }
 
-- (void)onRouteReady:(BOOL)hasWarnings
-{
+- (void)onRouteReady:(BOOL)hasWarnings {
   if (self.state != MWMNavigationDashboardStateNavigation && ![MWMRouter isTaxi])
     self.state = MWMNavigationDashboardStateReady;
   if ([MWMRouter hasActiveDrivingOptions]) {
@@ -139,8 +129,7 @@ using Observers = NSHashTable<Observer>;
   }
 }
 
-- (void)onRoutePointsUpdated
-{
+- (void)onRoutePointsUpdated {
   if (self.state == MWMNavigationDashboardStateHidden)
     self.state = MWMNavigationDashboardStatePrepare;
   [self.navigationInfoView updateToastView];
@@ -148,8 +137,7 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - State changes
 
-- (void)stateHidden
-{
+- (void)stateHidden {
   self.taxiDataSource = nil;
   self.routePreview = nil;
   self.navigationInfoView.state = MWMNavigationInfoViewStateHidden;
@@ -162,8 +150,7 @@ using Observers = NSHashTable<Observer>;
   _transportRoutePreviewStatus = nil;
 }
 
-- (void)statePrepare
-{
+- (void)statePrepare {
   self.navigationInfoView.state = MWMNavigationInfoViewStatePrepare;
   auto routePreview = self.routePreview;
   [routePreview addToView:self.ownerView];
@@ -172,12 +159,11 @@ using Observers = NSHashTable<Observer>;
   [self updateGoButtonTitle];
   [_baseRoutePreviewStatus hide];
   [_transportRoutePreviewStatus hide];
-  for (MWMRouteStartButton * button in self.goButtons)
+  for (MWMRouteStartButton *button in self.goButtons)
     [button statePrepare];
 }
 
-- (void)statePlanning
-{
+- (void)statePlanning {
   [self statePrepare];
   [self.routePreview router:[MWMRouter type] setState:MWMCircularProgressStateSpinner];
   [self setRouteBuilderProgress:0.];
@@ -188,39 +174,36 @@ using Observers = NSHashTable<Observer>;
   auto pTo = [MWMRouter finishPoint];
   if (!pFrom || !pTo)
     return;
-  if (!Platform::IsConnected())
-  {
+  if (!Platform::IsConnected()) {
     [[MapViewController sharedController].alertController presentNoConnectionAlert];
     [self onRouteError:L(@"dialog_taxi_offline")];
     return;
   }
   __weak auto wSelf = self;
   [self.taxiDataSource requestTaxiFrom:pFrom
-      to:pTo
-      completion:^{
-        wSelf.state = MWMNavigationDashboardStateReady;
-      }
-      failure:^(NSString * error) {
-        [wSelf onRouteError:error];
-      }];
+    to:pTo
+    completion:^{
+      wSelf.state = MWMNavigationDashboardStateReady;
+    }
+    failure:^(NSString *error) {
+      [wSelf onRouteError:error];
+    }];
 }
 
-- (void)stateError
-{
+- (void)stateError {
   if (_state == MWMNavigationDashboardStateReady)
     return;
-  
+
   NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (error)");
   auto routePreview = self.routePreview;
   [routePreview router:[MWMRouter type] setState:MWMCircularProgressStateFailed];
   [self updateGoButtonTitle];
   [self.baseRoutePreviewStatus showErrorWithMessage:self.errorMessage];
-  for (MWMRouteStartButton * button in self.goButtons)
+  for (MWMRouteStartButton *button in self.goButtons)
     [button stateError];
 }
 
-- (void)stateReady
-{
+- (void)stateReady {
   NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (ready)");
   [self setRouteBuilderProgress:100.];
   [self updateGoButtonTitle];
@@ -230,14 +213,17 @@ using Observers = NSHashTable<Observer>;
   else
     [self.baseRoutePreviewStatus showReady];
   self.goButtonsContainer.hidden = isTransport;
-  for (MWMRouteStartButton * button in self.goButtons)
+  for (MWMRouteStartButton *button in self.goButtons)
     [button stateReady];
 }
 
-- (void)onRouteStart { self.state = MWMNavigationDashboardStateNavigation; }
-- (void)onRouteStop { self.state = MWMNavigationDashboardStateHidden; }
-- (void)stateNavigation
-{
+- (void)onRouteStart {
+  self.state = MWMNavigationDashboardStateNavigation;
+}
+- (void)onRouteStop {
+  self.state = MWMNavigationDashboardStateHidden;
+}
+- (void)stateNavigation {
   self.routePreview = nil;
   self.navigationInfoView.state = MWMNavigationInfoViewStateNavigation;
   self.navigationControlView.isVisible = YES;
@@ -250,71 +236,62 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - MWMRoutePreviewStatus
 
-- (IBAction)showRouteManager
-{
+- (IBAction)showRouteManager {
   auto routeManagerViewModel = [[MWMRouteManagerViewModel alloc] init];
   auto routeManager = [[MWMRouteManagerViewController alloc] initWithViewModel:routeManagerViewModel];
   routeManager.modalPresentationStyle = UIModalPresentationCustom;
 
   self.routeManagerTransitioningManager = [[MWMRouteManagerTransitioningManager alloc] init];
   routeManager.transitioningDelegate = self.routeManagerTransitioningManager;
-  
+
   [[MapViewController sharedController] presentViewController:routeManager animated:YES completion:nil];
 }
 
 #pragma mark - MWMNavigationControlView
 
-- (IBAction)ttsButtonAction
-{
+- (IBAction)ttsButtonAction {
   BOOL const isEnabled = [MWMTextToSpeech tts].active;
-  [Statistics logEvent:kStatMenu withParameters:@{kStatTTS : isEnabled ? kStatOn : kStatOff}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatTTS: isEnabled ? kStatOn : kStatOff}];
   [MWMTextToSpeech tts].active = !isEnabled;
 }
 
-- (IBAction)trafficButtonAction
-{
+- (IBAction)trafficButtonAction {
   BOOL const switchOn = ([MWMMapOverlayManager trafficState] == MWMMapOverlayTrafficStateDisabled);
-  [Statistics logEvent:kStatMenu withParameters:@{kStatTraffic : switchOn ? kStatOn : kStatOff}];
+  [Statistics logEvent:kStatMenu withParameters:@{kStatTraffic: switchOn ? kStatOn : kStatOff}];
   [MWMMapOverlayManager setTrafficEnabled:switchOn];
 }
 
-- (IBAction)settingsButtonAction
-{
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
+- (IBAction)settingsButtonAction {
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton: kStatSettings}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
   [[MapViewController sharedController] performSegueWithIdentifier:@"Map2Settings" sender:nil];
 }
 
-- (IBAction)stopRoutingButtonAction
-{
+- (IBAction)stopRoutingButtonAction {
   [MWMSearch clear];
   [MWMRouter stopRouting];
 }
 
 #pragma mark - Add/Remove Observers
 
-+ (void)addObserver:(id<MWMNavigationDashboardObserver>)observer
-{
++ (void)addObserver:(id<MWMNavigationDashboardObserver>)observer {
   [[self sharedManager].observers addObject:observer];
 }
 
-+ (void)removeObserver:(id<MWMNavigationDashboardObserver>)observer
-{
++ (void)removeObserver:(id<MWMNavigationDashboardObserver>)observer {
   [[self sharedManager].observers removeObject:observer];
 }
 
 #pragma mark - MWMNavigationDashboardObserver
 
-- (void)onNavigationDashboardStateChanged
-{
+- (void)onNavigationDashboardStateChanged {
   for (Observer observer in self.observers)
     [observer onNavigationDashboardStateChanged];
 }
 
 #pragma mark - MWMSearchManagerObserver
 
-- (void)onSearchManagerStateChanged
-{
+- (void)onSearchManagerStateChanged {
   auto state = [MWMSearchManager manager].state;
   if (state == MWMSearchManagerStateMapSearch)
     [self setMapSearch];
@@ -322,79 +299,75 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - Available area
 
-+ (void)updateNavigationInfoAvailableArea:(CGRect)frame
-{
++ (void)updateNavigationInfoAvailableArea:(CGRect)frame {
   [[self sharedManager] updateNavigationInfoAvailableArea:frame];
 }
 
-- (void)updateNavigationInfoAvailableArea:(CGRect)frame
-{
+- (void)updateNavigationInfoAvailableArea:(CGRect)frame {
   _navigationInfoView.availableArea = frame;
 }
 #pragma mark - Properties
 
-- (NSDictionary *)etaAttributes
-{
-  if (!_etaAttributes)
-  {
-    _etaAttributes = @{
-      NSForegroundColorAttributeName : [UIColor blackPrimaryText],
-      NSFontAttributeName : [UIFont medium17]
-    };
+- (NSDictionary *)etaAttributes {
+  if (!_etaAttributes) {
+    _etaAttributes =
+      @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: [UIFont medium17]};
   }
   return _etaAttributes;
 }
 
-- (NSDictionary *)etaSecondaryAttributes
-{
-  if (!_etaSecondaryAttributes)
-  {
-    _etaSecondaryAttributes = @{
-      NSForegroundColorAttributeName: [UIColor blackSecondaryText],
-      NSFontAttributeName: [UIFont medium17]
-    };
+- (NSDictionary *)etaSecondaryAttributes {
+  if (!_etaSecondaryAttributes) {
+    _etaSecondaryAttributes =
+      @{NSForegroundColorAttributeName: [UIColor blackSecondaryText], NSFontAttributeName: [UIFont medium17]};
   }
   return _etaSecondaryAttributes;
 }
 
-- (void)setState:(MWMNavigationDashboardState)state
-{
+- (void)setState:(MWMNavigationDashboardState)state {
   if (state == MWMNavigationDashboardStateHidden)
     [MWMSearchManager removeObserver:self];
   else
     [MWMSearchManager addObserver:self];
-  switch (state)
-  {
-  case MWMNavigationDashboardStateHidden: [self stateHidden]; break;
-  case MWMNavigationDashboardStatePrepare: [self statePrepare]; break;
-  case MWMNavigationDashboardStatePlanning: [self statePlanning]; break;
-  case MWMNavigationDashboardStateError: [self stateError]; break;
-  case MWMNavigationDashboardStateReady: [self stateReady]; break;
-  case MWMNavigationDashboardStateNavigation: [self stateNavigation]; break;
+  switch (state) {
+    case MWMNavigationDashboardStateHidden:
+      [self stateHidden];
+      break;
+    case MWMNavigationDashboardStatePrepare:
+      [self statePrepare];
+      break;
+    case MWMNavigationDashboardStatePlanning:
+      [self statePlanning];
+      break;
+    case MWMNavigationDashboardStateError:
+      [self stateError];
+      break;
+    case MWMNavigationDashboardStateReady:
+      [self stateReady];
+      break;
+    case MWMNavigationDashboardStateNavigation:
+      [self stateNavigation];
+      break;
   }
   _state = state;
   [[MapViewController sharedController] updateStatusBarStyle];
   [self onNavigationDashboardStateChanged];
 }
 
-- (MWMTaxiPreviewDataSource *)taxiDataSource
-{
+- (MWMTaxiPreviewDataSource *)taxiDataSource {
   if (!_taxiDataSource)
-    _taxiDataSource =
-        [[MWMTaxiPreviewDataSource alloc] initWithCollectionView:self.taxiCollectionView];
+    _taxiDataSource = [[MWMTaxiPreviewDataSource alloc] initWithCollectionView:self.taxiCollectionView];
   return _taxiDataSource;
 }
 
 @synthesize routePreview = _routePreview;
-- (MWMRoutePreview *)routePreview
-{
+- (MWMRoutePreview *)routePreview {
   if (!_routePreview)
     [self loadPreviewWithStatusBoxes];
   return _routePreview;
 }
 
-- (void)setRoutePreview:(MWMRoutePreview *)routePreview
-{
+- (void)setRoutePreview:(MWMRoutePreview *)routePreview {
   if (routePreview == _routePreview)
     return;
   [_routePreview remove];
@@ -402,24 +375,20 @@ using Observers = NSHashTable<Observer>;
   _routePreview.delegate = self;
 }
 
-- (MWMBaseRoutePreviewStatus *)baseRoutePreviewStatus
-{
+- (MWMBaseRoutePreviewStatus *)baseRoutePreviewStatus {
   if (!_baseRoutePreviewStatus)
     [self loadPreviewWithStatusBoxes];
   return _baseRoutePreviewStatus;
 }
 
-- (MWMTransportRoutePreviewStatus *)transportRoutePreviewStatus
-{
+- (MWMTransportRoutePreviewStatus *)transportRoutePreviewStatus {
   if (!_transportRoutePreviewStatus)
     [self loadPreviewWithStatusBoxes];
   return _transportRoutePreviewStatus;
 }
 
-- (MWMNavigationInfoView *)navigationInfoView
-{
-  if (!_navigationInfoView)
-  {
+- (MWMNavigationInfoView *)navigationInfoView {
+  if (!_navigationInfoView) {
     [NSBundle.mainBundle loadNibNamed:kNavigationInfoViewXibName owner:self options:nil];
     _navigationInfoView.state = MWMNavigationInfoViewStateHidden;
     _navigationInfoView.ownerView = self.ownerView;
@@ -427,25 +396,21 @@ using Observers = NSHashTable<Observer>;
   return _navigationInfoView;
 }
 
-- (MWMNavigationControlView *)navigationControlView
-{
-  if (!_navigationControlView)
-  {
+- (MWMNavigationControlView *)navigationControlView {
+  if (!_navigationControlView) {
     [NSBundle.mainBundle loadNibNamed:kNavigationControlViewXibName owner:self options:nil];
     _navigationControlView.ownerView = self.ownerView;
   }
   return _navigationControlView;
 }
 
-- (MWMNavigationDashboardEntity *)entity
-{
+- (MWMNavigationDashboardEntity *)entity {
   if (!_entity)
     _entity = [[MWMNavigationDashboardEntity alloc] init];
   return _entity;
 }
 
-- (void)setMapSearch
-{
+- (void)setMapSearch {
   [_navigationInfoView setMapSearch];
 }
 
