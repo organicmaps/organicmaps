@@ -19,7 +19,6 @@
 #include <chrono>
 #include <memory>
 
-using namespace routing;
 using namespace std;
 using namespace std::chrono;
 
@@ -80,19 +79,19 @@ void ReadTransitTask::Do()
   auto reader = mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG);
   CHECK(reader.GetPtr() != nullptr, ());
 
-  transit::GraphData graphData;
+  routing::transit::GraphData graphData;
   graphData.DeserializeForRendering(*reader.GetPtr());
 
   FillItemsByIdMap(graphData.GetStops(), m_transitInfo->m_stops);
   for (auto const & stop : m_transitInfo->m_stops)
   {
-    if (stop.second.GetFeatureId() != transit::kInvalidFeatureId)
+    if (stop.second.GetFeatureId() != routing::transit::kInvalidFeatureId)
     {
       auto const featureId = FeatureID(m_mwmId, stop.second.GetFeatureId());
       m_transitInfo->m_features[featureId] = {};
     }
 
-    if (m_loadSubset && (stop.second.GetTransferId() != transit::kInvalidTransferId))
+    if (m_loadSubset && (stop.second.GetTransferId() != routing::transit::kInvalidTransferId))
       m_transitInfo->m_transfers[stop.second.GetTransferId()] = {};
   }
   FillItemsByIdMap(graphData.GetTransfers(), m_transitInfo->m_transfers);
