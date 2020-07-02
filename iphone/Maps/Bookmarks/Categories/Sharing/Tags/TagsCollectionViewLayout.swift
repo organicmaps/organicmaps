@@ -1,9 +1,9 @@
 final class TagsCollectionViewLayout: UICollectionViewLayout {
   private var headersCache: [IndexPath : UICollectionViewLayoutAttributes] = [:]
   private var cellsCache: [IndexPath : UICollectionViewLayoutAttributes] = [:]
-  fileprivate var contentHeight: CGFloat = 0
+  private var contentHeight: CGFloat = 0
 
-  fileprivate var contentWidth: CGFloat {
+  private var contentWidth: CGFloat {
     guard let collectionView = collectionView else {
       return 0
     }
@@ -13,7 +13,7 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
   }
 
   override var collectionViewContentSize: CGSize {
-    return CGSize(width: contentWidth, height: contentHeight)
+    CGSize(width: contentWidth, height: contentHeight)
   }
   
   @IBInspectable var itemHeight: CGFloat = 50
@@ -25,9 +25,7 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
   override func prepare() {
     super.prepare()
     
-    guard let collectionView = collectionView else {
-        return
-    }
+    guard let collectionView = collectionView else { return }
     
     var xOffset: CGFloat = 0
     var yOffset: CGFloat = 0
@@ -73,28 +71,14 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
   }
 
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-    var visibleLayoutAttributes = [UICollectionViewLayoutAttributes]()
-    
-    for (_, attributes) in headersCache {
-      if attributes.frame.intersects(rect) {
-        visibleLayoutAttributes.append(attributes)
-      }
-    }
-    
-    for (_, attributes) in cellsCache {
-      if attributes.frame.intersects(rect) {
-        visibleLayoutAttributes.append(attributes)
-      }
-    }
-
-    return visibleLayoutAttributes
+    [headersCache, cellsCache].reduce([]) { $0 + $1.values }.filter { $0.frame.intersects(rect) }
   }
 
   override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-    return cellsCache[indexPath]
+    cellsCache[indexPath]
   }
   
-  override public func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes,
+  override func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes,
                                               withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes) -> Bool {
     //dont validate layout if original width already equals to contentWidth - it's the best deal we can offer to cell
     if preferredAttributes.size.height != originalAttributes.size.height ||
