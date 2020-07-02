@@ -320,12 +320,17 @@ SuburbType IsSuburbChecker::GetType(uint32_t t) const
 
 SuburbType IsSuburbChecker::GetType(feature::TypesHolder const & types) const
 {
+  auto smallestType = SuburbType::Count;
   for (uint32_t t : types)
   {
     auto const type = GetType(t);
-    if (type != SuburbType::None)
-      return type;
+    if (type != SuburbType::None && type < smallestType)
+      smallestType = type;
   }
+
+  if (smallestType != SuburbType::Count)
+    return smallestType;
+
   return SuburbType::None;
 }
 

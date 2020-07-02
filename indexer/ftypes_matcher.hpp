@@ -136,8 +136,9 @@ public:
   DECLARE_CHECKER_INSTANCE(IsSquareChecker);
 };
 
-/// Type of locality (do not change values and order - they have detalization order)
-/// Suburb > Neighbourhood > Residential
+// Type of suburb.
+// Do not change values and order - they are in the order of decreasing specificity.
+// Suburb > Neighbourhood > Residential
 enum class SuburbType
 {
   None = -1,
