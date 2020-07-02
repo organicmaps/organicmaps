@@ -94,7 +94,7 @@ bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
   return bestIndex < priorityList.size();
 }
 
-vector<int8_t> GetSimilarToDeviceLanguages(int8_t deviceLang)
+vector<int8_t> GetSimilarLanguages(int8_t lang)
 {
   static unordered_map<int8_t, vector<int8_t>> const kSimilarLanguages = {
     {GetIndex("be"), {GetIndex("ru")}},
@@ -102,7 +102,7 @@ vector<int8_t> GetSimilarToDeviceLanguages(int8_t deviceLang)
     {GetIndex("ko"), {GetIndex("ko_rm")}},
     {GetIndex("zh"), {GetIndex("zh_pinyin")}}};
 
-  auto const it = kSimilarLanguages.find(deviceLang);
+  auto const it = kSimilarLanguages.find(lang);
   if (it != kSimilarLanguages.cend())
     return it->second;
 
@@ -114,7 +114,7 @@ bool IsNativeLang(feature::RegionData const & regionData, int8_t deviceLang)
   if (regionData.HasLanguage(deviceLang))
     return true;
 
-  for (auto const lang : GetSimilarToDeviceLanguages(deviceLang))
+  for (auto const lang : GetSimilarLanguages(deviceLang))
   {
     if (regionData.HasLanguage(lang))
       return true;
@@ -129,7 +129,7 @@ vector<int8_t> MakeLanguagesPriorityList(int8_t deviceLang, bool preferDefault)
   if (preferDefault)
     langPriority.push_back(StrUtf8::kDefaultCode);
 
-  auto const similarLangs = GetSimilarToDeviceLanguages(deviceLang);
+  auto const similarLangs = GetSimilarLanguages(deviceLang);
   langPriority.insert(langPriority.cend(), similarLangs.cbegin(), similarLangs.cend());
   langPriority.insert(langPriority.cend(), {StrUtf8::kInternationalCode, StrUtf8::kEnglishCode});
 
@@ -328,7 +328,7 @@ vector<int8_t> GetSimilar(int8_t lang)
 {
   vector<int8_t> langs = {lang};
 
-  auto const similarLangs = GetSimilarToDeviceLanguages(lang);
+  auto const similarLangs = GetSimilarLanguages(lang);
   langs.insert(langs.cend(), similarLangs.cbegin(), similarLangs.cend());
   return langs;
 }

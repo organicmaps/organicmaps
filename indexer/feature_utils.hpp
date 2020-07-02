@@ -20,14 +20,14 @@ namespace feature
 
   // Returns following languages given |lang|:
   // - |lang|;
-  // - similar to |lang| languages if provided;
+  // - languages that we know are similar to |lang|;
   std::vector<int8_t> GetSimilar(int8_t deviceLang);
 
   /// When the language of the device is equal to one of the languages of the MWM
   /// (or similar to device languages) only single name scheme is used. See GetReadableName method.
   /// Primary name using priority:
   /// - device language name;
-  /// - similar to device languages if provided;
+  /// - languages that we know are similar to device language;
   /// - international name;
   /// - english name;
   /// - transliterated name (if allowed).
@@ -46,7 +46,7 @@ namespace feature
   /// the priority is the following:
   /// - device language name;
   /// - default name;
-  /// - similar to device languages if provided;
+  /// - languages that we know are similar to device language;
   /// - international name;
   /// - english name;
   /// - transliterated name (if allowed);
@@ -54,7 +54,7 @@ namespace feature
   /// When MWM does not contain user's language (or similar to device languages),
   /// the priority is the following:
   /// - device language name;
-  /// - similar to device languages if provided;
+  /// - languages that we know are similar to device language;
   /// - international name;
   /// - english name;
   /// - transliterated name (if allowed);
@@ -78,7 +78,7 @@ namespace feature
   /// the priority is the following:
   /// - device language code;
   /// - default language code if MWM contains user's language (or similar to device languages if provided);
-  /// - similar to device languages if provided;
+  /// - languages that we know are similar to device language;
   /// - international language code;
   /// - english language code;
   std::vector<int8_t> GetDescriptionLangPriority(RegionData const & regionData, int8_t const deviceLang);
