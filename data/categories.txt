@@ -259,8 +259,8 @@ th:โรงแรม
 tr:Otel
 uk:Готель
 vi:Khách sạn
-zh-Hans:旅店
-zh-Hant:飯店
+zh-Hans:旅店|酒店
+zh-Hant:飯店|酒店
 el:Ξενοδοχείο
 he:מלון
 sk:Hotel
@@ -4869,7 +4869,7 @@ th:โมเทล
 tr:motel
 uk:мотель
 zh-Hans:2宾馆|汽车旅馆|旅店
-zh-Hant:1飯店|1汽車旅館|旅館|住宿|賓館|酒店|招待所
+zh-Hant:1飯店|1汽車旅館|旅館|住宿|賓館|招待所
 el:μοτέλ
 sk:ubytovňa|motel
 sw:Hoteli
@@ -4902,7 +4902,7 @@ tr:Misafir evi|pansiyon
 uk:Гостинний дім|готель|хостел|постояльний двір
 vi:Nhà khách
 zh-Hans:1招待所์|์旅馆์|์旅社|旅店
-zh-Hant:1賓館|旅館|飯店|酒店|旅舍|住宿|招待所
+zh-Hant:1賓館|旅館|飯店|旅舍|住宿|招待所
 el:Ξενώνας|ξενοδοχείο|ξενώνας
 sk:Penzión|hostel|ubytovňa
 sw:Gesti
