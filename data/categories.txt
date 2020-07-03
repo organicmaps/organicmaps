@@ -7229,7 +7229,7 @@ th:ร้านขายไวน์
 tr:Caviste
 uk:Винна крамниця
 vi:Rượu|Cửa hàng rượu
-zh-Hans:酒店
+zh-Hans:贩酒处
 zh-Hant:販酒處
 el:Οινοπωλείο
 sk:Vinotéka
