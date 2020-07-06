@@ -3,6 +3,7 @@
 #include "transit/world_feed/color_picker.hpp"
 #include "transit/world_feed/date_time_helpers.hpp"
 #include "transit/world_feed/feed_helpers.hpp"
+#include "transit/world_feed/world_feed.hpp"
 
 #include "platform/platform.hpp"
 
@@ -329,5 +330,12 @@ UNIT_TEST(Transit_ColorPicker)
 
   // We check that we really find nearest colors. This input is really close to pink light.
   TEST_EQUAL(colorPicker.GetNearestColor("d18aa2"), "pink_light", ());
+}
+
+UNIT_TEST(Transit_BuildHash1Arg)
+{
+  TEST_EQUAL(BuildHash(std::string("Title")), "Title", ());
+  TEST_EQUAL(BuildHash(std::string("Id1"), std::string("Id2")), "Id1_Id2", ());
+  TEST_EQUAL(BuildHash(std::string("A"), std::string("B"), std::string("C")), "A_B_C", ());
 }
 }  // namespace
