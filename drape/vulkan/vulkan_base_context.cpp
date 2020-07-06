@@ -53,12 +53,14 @@ VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice
                                      VkPhysicalDeviceProperties const & gpuProperties,
                                      VkDevice device, uint32_t renderingQueueFamilyIndex,
                                      ref_ptr<VulkanObjectManager> objectManager,
-                                     drape_ptr<VulkanPipeline> && pipeline)
+                                     drape_ptr<VulkanPipeline> && pipeline,
+                                     bool hasPartialTextureUpdates)
   : m_vulkanInstance(vulkanInstance)
   , m_gpu(gpu)
   , m_gpuProperties(gpuProperties)
   , m_device(device)
   , m_renderingQueueFamilyIndex(renderingQueueFamilyIndex)
+  , m_hasPartialTextureUpdates(hasPartialTextureUpdates)
   , m_objectManager(std::move(objectManager))
   , m_pipeline(std::move(pipeline))
   , m_presentAvailable(true)
@@ -100,6 +102,8 @@ std::string VulkanBaseContext::GetRendererVersion() const
      << VK_VERSION_PATCH(m_gpuProperties.driverVersion);
   return ss.str();
 }
+
+bool VulkanBaseContext::HasPartialTextureUpdates() const { return m_hasPartialTextureUpdates; }
 
 void VulkanBaseContext::Init(ApiVersion apiVersion)
 {

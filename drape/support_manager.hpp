@@ -41,8 +41,12 @@ public:
   bool IsVulkanForbidden() const;
   bool IsVulkanForbidden(std::string const & deviceName,
                          Version apiVersion, Version driverVersion) const;
+  bool IsVulkanTexturePartialUpdateBuggy(int sdkVersion, std::string const & deviceName,
+                                         Version apiVersion, Version driverVersion) const;
 
 private:
+  struct Configuration;
+
   SupportManager() = default;
 
   std::string m_rendererName;

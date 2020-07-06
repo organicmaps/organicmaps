@@ -16,6 +16,13 @@
 
 namespace dp
 {
+struct SupportManager::Configuration
+{
+  std::string m_deviceName;
+  Version m_apiVersion;
+  Version m_driverVersion;
+};
+
 char const * kSupportedAntialiasing = "Antialiasing";
 char const * kVulkanForbidden = "VulkanForbidden";
 
@@ -112,22 +119,14 @@ bool SupportManager::IsVulkanForbidden() const
 bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
                                        Version apiVersion, Version driverVersion) const
 {
-  // On these configurations we've detected fatal driver-specific Vulkan errors.
-  struct Configuration
-  {
-    std::string m_deviceName;
-    Version m_apiVersion;
-    Version m_driverVersion;
-  };
-
   static std::vector<std::string> const kBannedDevices = {"PowerVR Rogue GE8100",
                                                           "PowerVR Rogue GE8300"};
 
+  // On these configurations we've detected fatal driver-specific Vulkan errors.
   static std::vector<Configuration> const kBannedConfigurations = {
     {"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
     {"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
     {"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
-    {"Mali-G76", {1, 1, 97}, {18, 0, 0}},
   };
 
   for (auto const & d : kBannedDevices)
@@ -137,6 +136,31 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
   }
 
   for (auto const & c : kBannedConfigurations)
+  {
+    if (c.m_deviceName == deviceName && c.m_apiVersion == apiVersion &&
+        c.m_driverVersion == driverVersion)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool SupportManager::IsVulkanTexturePartialUpdateBuggy(int sdkVersion,
+                                                       std::string const & deviceName,
+                                                       Version apiVersion,
+                                                       Version driverVersion) const
+{
+  int constexpr kMinSdkVersionForVulkan10 = 29;
+  if (sdkVersion >= kMinSdkVersionForVulkan10)
+    return true;
+
+  // For these configurations partial updates of texture clears whole texture except part updated
+  static std::vector<Configuration> const kBadConfigurations = {
+      {"Mali-G76", {1, 1, 97}, {18, 0, 0}},
+  };
+
+  for (auto const & c : kBadConfigurations)
   {
     if (c.m_deviceName == deviceName && c.m_apiVersion == apiVersion &&
         c.m_driverVersion == driverVersion)

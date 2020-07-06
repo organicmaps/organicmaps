@@ -80,7 +80,6 @@ set(
     GL/user_mark.vsh.glsl
     GL/user_mark_billboard.vsh.glsl
 )
-set_source_files_properties(${shader_files} PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_custom_command(
   WORKING_DIRECTORY
@@ -104,6 +103,8 @@ add_custom_command(
     ${CMAKE_CURRENT_SOURCE_DIR}/gl_shaders.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/gl_shaders.hpp
 )
+
+source_group("Shader Index" FILES GL/shader_index.txt)
 
 include_directories(
   ${OMIM_ROOT}/3party/glm
@@ -129,6 +130,7 @@ target_sources(
     program_params.hpp
     program_pool.hpp
     programs.hpp
+    GL/shader_index.txt
     vulkan_program_params.cpp
     vulkan_program_params.hpp
     vulkan_program_pool.cpp

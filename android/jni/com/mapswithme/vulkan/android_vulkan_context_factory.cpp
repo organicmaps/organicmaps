@@ -23,14 +23,14 @@ class DrawVulkanContext : public dp::vulkan::VulkanBaseContext
 {
 public:
   DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                    VkPhysicalDeviceProperties const & gpuProperties,
-                    VkDevice device, uint32_t renderingQueueFamilyIndex,
-                    ref_ptr<dp::vulkan::VulkanObjectManager> objectManager,
-                    int appVersionCode)
-    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
-                                    renderingQueueFamilyIndex, objectManager,
-                                    make_unique_dp<dp::vulkan::VulkanPipeline>(
-                                      device, appVersionCode))
+                    VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
+                    uint32_t renderingQueueFamilyIndex,
+                    ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, int appVersionCode,
+                    bool hasPartialTextureUpdates)
+    : dp::vulkan::VulkanBaseContext(
+          vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex, objectManager,
+          make_unique_dp<dp::vulkan::VulkanPipeline>(device, appVersionCode),
+          hasPartialTextureUpdates)
   {
     VkQueue queue;
     vkGetDeviceQueue(device, renderingQueueFamilyIndex, 0, &queue);
@@ -48,12 +48,13 @@ class UploadVulkanContext : public dp::vulkan::VulkanBaseContext
 {
 public:
   UploadVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                      VkPhysicalDeviceProperties const & gpuProperties,
-                      VkDevice device, uint32_t renderingQueueFamilyIndex,
-                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager)
+                      VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
+                      uint32_t renderingQueueFamilyIndex,
+                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager,
+                      bool hasPartialTextureUpdates)
     : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
                                     renderingQueueFamilyIndex, objectManager,
-                                    nullptr /* pipeline */)
+                                    nullptr /* pipeline */, hasPartialTextureUpdates)
   {}
 
   void MakeCurrent() override
@@ -85,7 +86,7 @@ public:
 };
 }  // namespace
 
-AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
+AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode, int sdkVersion)
 {
   if (InitVulkan() == 0)
   {
@@ -144,13 +145,14 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
 
   VkPhysicalDeviceProperties gpuProperties;
   vkGetPhysicalDeviceProperties(m_gpu, &gpuProperties);
-  if (dp::SupportManager::Instance().IsVulkanForbidden(gpuProperties.deviceName,
-                                                       {VK_VERSION_MAJOR(gpuProperties.apiVersion),
-                                                        VK_VERSION_MINOR(gpuProperties.apiVersion),
-                                                        VK_VERSION_PATCH(gpuProperties.apiVersion)},
-                                                       {VK_VERSION_MAJOR(gpuProperties.driverVersion),
-                                                        VK_VERSION_MINOR(gpuProperties.driverVersion),
-                                                        VK_VERSION_PATCH(gpuProperties.driverVersion)}))
+  dp::SupportManager::Version apiVersion{VK_VERSION_MAJOR(gpuProperties.apiVersion),
+                                         VK_VERSION_MINOR(gpuProperties.apiVersion),
+                                         VK_VERSION_PATCH(gpuProperties.apiVersion)};
+  dp::SupportManager::Version driverVersion{VK_VERSION_MAJOR(gpuProperties.driverVersion),
+                                            VK_VERSION_MINOR(gpuProperties.driverVersion),
+                                            VK_VERSION_PATCH(gpuProperties.driverVersion)};
+  if (dp::SupportManager::Instance().IsVulkanForbidden(gpuProperties.deviceName, apiVersion,
+                                                       driverVersion))
   {
     LOG_ERROR_VK("GPU/Driver configuration is not supported.");
     return;
@@ -225,13 +227,16 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode)
                                                                     memoryProperties,
                                                                     renderingQueueFamilyIndex);
 
-  m_drawContext = make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
-                                                    m_device, renderingQueueFamilyIndex,
-                                                    make_ref(m_objectManager),
-                                                    appVersionCode);
-  m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties,
-                                                        m_device, renderingQueueFamilyIndex,
-                                                        make_ref(m_objectManager));
+  bool const hasPartialTextureUpdates =
+      !dp::SupportManager::Instance().IsVulkanTexturePartialUpdateBuggy(
+          sdkVersion, gpuProperties.deviceName, apiVersion, driverVersion);
+
+  m_drawContext = make_unique_dp<DrawVulkanContext>(
+      m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
+      make_ref(m_objectManager), appVersionCode, hasPartialTextureUpdates);
+  m_uploadContext = make_unique_dp<UploadVulkanContext>(
+      m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
+      make_ref(m_objectManager), hasPartialTextureUpdates);
 }
 
 AndroidVulkanContextFactory::~AndroidVulkanContextFactory()

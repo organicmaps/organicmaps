@@ -31,10 +31,9 @@ class VulkanBaseContext : public dp::GraphicsContext
 {
 public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                    VkPhysicalDeviceProperties const & gpuProperties,
-                    VkDevice device, uint32_t renderingQueueFamilyIndex,
-                    ref_ptr<VulkanObjectManager> objectManager,
-                    drape_ptr<VulkanPipeline> && pipeline);
+                    VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
+                    uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
+                    drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates);
   ~VulkanBaseContext() override;
 
   using ContextHandler = std::function<void(uint32_t inflightFrameIndex)>;
@@ -54,6 +53,7 @@ public:
   ApiVersion GetApiVersion() const override { return dp::ApiVersion::Vulkan; }
   std::string GetRendererName() const override;
   std::string GetRendererVersion() const override;
+  bool HasPartialTextureUpdates() const override;
 
   void DebugSynchronizeWithCPU() override {}
   void PushDebugLabel(std::string const & label) override {}
@@ -167,6 +167,7 @@ protected:
   VkPhysicalDeviceProperties const m_gpuProperties;
   VkDevice const m_device;
   uint32_t const m_renderingQueueFamilyIndex;
+  bool const m_hasPartialTextureUpdates;
 
   VkQueue m_queue = {};
   VkCommandPool m_commandPool = {};

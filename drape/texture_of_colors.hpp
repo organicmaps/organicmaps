@@ -49,6 +49,7 @@ private:
 
   TPalette m_palette;
   TPalette m_predefinedPalette;
+  buffer_vector<PendingColor, 16> m_nodes;
   buffer_vector<PendingColor, 16> m_pendingNodes;
   m2::PointU m_textureSize;
   m2::PointU m_cursor;

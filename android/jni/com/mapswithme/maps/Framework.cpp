@@ -196,18 +196,16 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   // Vulkan is supported only since Android 8.0, because some Android devices with Android 7.x
   // have fatal driver issue, which can lead to process termination and whole OS destabilization.
   int constexpr kMinSdkVersionForVulkan = 26;
-  // Ban Vulkan temporarily for Android 10.0 because of unfixed rendering artifacts.
-  int constexpr kMaxSdkVersionForVulkan = 28;
   int const sdkVersion = GetAndroidSdkVersion();
   auto const vulkanForbidden = sdkVersion < kMinSdkVersionForVulkan ||
-                               sdkVersion > kMaxSdkVersionForVulkan ||
                                dp::SupportManager::Instance().IsVulkanForbidden();
   if (vulkanForbidden)
     LOG(LWARNING, ("Vulkan API is forbidden on this device."));
 
   if (m_work.LoadPreferredGraphicsAPI() == dp::ApiVersion::Vulkan && !vulkanForbidden)
   {
-    m_vulkanContextFactory = make_unique_dp<AndroidVulkanContextFactory>(appVersionCode);
+    m_vulkanContextFactory =
+        make_unique_dp<AndroidVulkanContextFactory>(appVersionCode, sdkVersion);
     if (!CastFactory(m_vulkanContextFactory)->IsVulkanSupported())
     {
       LOG(LWARNING, ("Vulkan API is not supported."));

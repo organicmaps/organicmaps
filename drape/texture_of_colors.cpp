@@ -78,14 +78,34 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     std::lock_guard<std::mutex> g(m_lock);
     if (m_pendingNodes.empty())
       return;
-    m_pendingNodes.swap(pendingNodes);
+    if (context->HasPartialTextureUpdates())
+    {
+      pendingNodes.swap(m_pendingNodes);
+    }
+    else
+    {
+      m_nodes.insert(m_nodes.end(), m_pendingNodes.begin(), m_pendingNodes.end());
+      m_pendingNodes.clear();
+      pendingNodes = m_nodes;
+    }
+  }
+
+  if (!context->HasPartialTextureUpdates())
+  {
+    PendingColor lastPendingColor = pendingNodes.back();
+    lastPendingColor.m_color = Color::Transparent();
+    while (lastPendingColor.m_rect.maxX() < m_textureSize.x)
+    {
+      lastPendingColor.m_rect.Offset(kResourceSize, 0);
+      pendingNodes.push_back(lastPendingColor);
+    }
   }
 
   buffer_vector<size_t, 3> ranges;
   ranges.push_back(0);
 
   uint32_t minX = pendingNodes[0].m_rect.minX();
-  for (size_t i = 0; i < pendingNodes.size(); ++i)
+  for (size_t i = 1; i < pendingNodes.size(); ++i)
   {
     m2::RectU const & currentRect = pendingNodes[i].m_rect;
     if (minX > currentRect.minX())
@@ -94,6 +114,8 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
       minX = currentRect.minX();
     }
   }
+
+  ASSERT(context->HasPartialTextureUpdates() || ranges.size() == 1, ());
 
   ranges.push_back(pendingNodes.size());
 
