@@ -28,14 +28,6 @@ public:
 class Purchase
 {
 public:
-  using InvalidTokenHandler = std::function<void()>;
-
-  explicit Purchase(InvalidTokenHandler && onInvalidToken);
-  void RegisterSubscription(SubscriptionListener * listener);
-  bool IsSubscriptionActive(SubscriptionType type) const;
-
-  void SetSubscriptionEnabled(SubscriptionType type, bool isEnabled);
-
   enum class ValidationCode
   {
     // Do not change the order.
@@ -55,9 +47,24 @@ public:
     bool IsValid() const { return !m_vendorId.empty() && !m_receiptData.empty(); }
   };
 
+  enum class TrialEligibilityCode
+  {
+    Eligible,    // trial is eligible
+    NotEligible, // trial is not eligible
+    ServerError, // server error during validation
+  };
+
+  using InvalidTokenHandler = std::function<void()>;
   using ValidationCallback = std::function<void(ValidationCode, ValidationInfo const &)>;
   using StartTransactionCallback = std::function<void(bool success, std::string const & serverId,
                                                       std::string const & vendorId)>;
+  using TrialEligibilityCallback = std::function<void(TrialEligibilityCode)>;
+
+  explicit Purchase(InvalidTokenHandler && onInvalidToken);
+  void RegisterSubscription(SubscriptionListener * listener);
+  bool IsSubscriptionActive(SubscriptionType type) const;
+
+  void SetSubscriptionEnabled(SubscriptionType type, bool isEnabled);
 
   void SetValidationCallback(ValidationCallback && callback);
   void Validate(ValidationInfo const & validationInfo, std::string const & accessToken);
@@ -65,6 +72,9 @@ public:
   void SetStartTransactionCallback(StartTransactionCallback && callback);
   void StartTransaction(std::string const & serverId, std::string const & vendorId,
                         std::string const & accessToken);
+
+  void SetTrialEligibilityCallback(TrialEligibilityCallback && callback);
+  void CheckTrialEligibility(ValidationInfo const & validationInfo);
 
 private:
   void ValidateImpl(std::string const & url, ValidationInfo const & validationInfo,
@@ -89,6 +99,7 @@ private:
   ValidationCallback m_validationCallback;
   StartTransactionCallback m_startTransactionCallback;
   InvalidTokenHandler m_onInvalidToken;
+  TrialEligibilityCallback m_trialEligibilityCallback;
 
   ThreadChecker m_threadChecker;
 };

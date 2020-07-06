@@ -232,6 +232,33 @@ void Purchase::StartTransaction(std::string const & serverId, std::string const 
   });
 }
 
+void Purchase::SetTrialEligibilityCallback(TrialEligibilityCallback && callback)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_trialEligibilityCallback = std::move(callback);
+}
+
+void Purchase::CheckTrialEligibility(ValidationInfo const & validationInfo)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  std::string const url = ValidationUrl();
+  auto const status = GetPlatform().ConnectionStatus();
+  if (url.empty() || status == Platform::EConnectionType::CONNECTION_NONE || !validationInfo.IsValid())
+  {
+    if (m_trialEligibilityCallback)
+      m_trialEligibilityCallback(TrialEligibilityCode::ServerError);
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Network, [this, url, validationInfo]()
+  {
+    // Dummy, will be changed to http request when server will be done.
+    if (m_trialEligibilityCallback)
+      m_trialEligibilityCallback(TrialEligibilityCode::Eligible);
+  });
+}
+
 void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & validationInfo,
                             std::string const & accessToken, bool startTransaction,
                             uint8_t attemptIndex, uint32_t waitingTimeInSeconds)
