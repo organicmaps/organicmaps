@@ -160,3 +160,20 @@ UNIT_TEST(SpainTenerifeVilaflorAdeje)
       mercator::FromLatLon(28.15865, -16.63704), {0.0, 0.0},
       mercator::FromLatLon(28.11984, -16.72592), 7979.9 /* expectedTimeSeconds */);
 }
+
+// Two tests on not building route against traffic on road with oneway:bicycle=yes.
+UNIT_TEST(MunichRoadWithOnewayBicycleYes1)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(48.15995, 11.56296), {0.0, 0.0},
+      mercator::FromLatLon(48.16027, 11.56306), 262.1 /* expectedRouteMeters */);
+}
+
+UNIT_TEST(MunichRoadWithOnewayBicycleYes2)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents(VehicleType::Bicycle),
+      mercator::FromLatLon(48.17819, 11.57286), {0.0, 0.0},
+      mercator::FromLatLon(48.17867, 11.57303), 177.2 /* expectedRouteMeters */);
+}
