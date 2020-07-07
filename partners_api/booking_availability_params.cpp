@@ -20,8 +20,8 @@ bool IsAcceptedByFilter(booking::AvailabilityParams::UrlFilter const & filter,
 
 namespace booking
 {
-AvailabilityParams::Room::Room(uint8_t adultsCount, int8_t ageOfChild)
-  : m_adultsCount(adultsCount), m_ageOfChild(ageOfChild)
+AvailabilityParams::Room::Room(uint8_t adultsCount, std::vector<int8_t> const & ageOfChildren)
+  : m_adultsCount(adultsCount), m_ageOfChildren(ageOfChildren)
 {
 }
 
@@ -30,9 +30,9 @@ void AvailabilityParams::Room::SetAdultsCount(uint8_t adultsCount)
   m_adultsCount = adultsCount;
 }
 
-void AvailabilityParams::Room::SetAgeOfChild(int8_t ageOfChild)
+void AvailabilityParams::Room::SetAgeOfChildren(std::vector<int8_t> const & ageOfChildren)
 {
-  m_ageOfChild = ageOfChild;
+  m_ageOfChildren = ageOfChildren;
 }
 
 uint8_t AvailabilityParams::Room::GetAdultsCount() const
@@ -40,26 +40,27 @@ uint8_t AvailabilityParams::Room::GetAdultsCount() const
   return m_adultsCount;
 }
 
-int8_t AvailabilityParams::Room::GetAgeOfChild() const
+std::vector<int8_t> const & AvailabilityParams::Room::GetAgeOfChildren() const
 {
-  return m_ageOfChild;
+  return m_ageOfChildren;
 }
 
 std::string AvailabilityParams::Room::ToString() const
 {
   static std::string const kAdult = "A";
   std::vector<std::string> adults(m_adultsCount, kAdult);
-  std::string child = m_ageOfChild == kNoChildren ? "" : "," + std::to_string(m_ageOfChild);
+  std::string children =
+      m_ageOfChildren.empty() ? "" : "," + strings::JoinAny(m_ageOfChildren, ',', strings::ToStringConverter<int>());
 
   std::ostringstream os;
-  os << strings::JoinStrings(adults, ',') << child;
+  os << strings::JoinStrings(adults, ',') << children;
 
   return os.str();
 }
 
 bool AvailabilityParams::Room::operator!=(AvailabilityParams::Room const & rhs) const
 {
-  return m_adultsCount != rhs.m_adultsCount || m_ageOfChild != rhs.m_ageOfChild;
+  return m_adultsCount != rhs.m_adultsCount || m_ageOfChildren != rhs.m_ageOfChildren;
 }
 
 bool AvailabilityParams::Room::operator==(AvailabilityParams::Room const & rhs) const
@@ -75,7 +76,7 @@ AvailabilityParams AvailabilityParams::MakeDefault()
   result.m_checkin = Clock::now();
   result.m_checkout = Clock::now() + std::chrono::hours(24);
   // Use two adults without children.
-  result.m_rooms = {{2, Room::kNoChildren}};
+  result.m_rooms = {{2, {}}};
 
   return result;
 }

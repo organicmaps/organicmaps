@@ -515,7 +515,7 @@ public:
     m_roomsId = env->GetFieldID(m_bookingFilterParamsClass, "mRooms",
                                 "[Lcom/mapswithme/maps/search/BookingFilterParams$Room;");
     m_roomAdultsCountId = env->GetFieldID(m_roomClass, "mAdultsCount", "I");
-    m_roomAgeOfChildId = env->GetFieldID(m_roomClass, "mAgeOfChild", "I");
+    m_roomAgeOfChildrenId = env->GetFieldID(m_roomClass, "mAgeOfChildren", "[I");
 
     m_initialized = true;
   }
@@ -547,7 +547,23 @@ public:
 
       booking::AvailabilityParams::Room room;
       room.SetAdultsCount(static_cast<uint8_t>(env->GetIntField(jroom, m_roomAdultsCountId)));
-      room.SetAgeOfChild(static_cast<int8_t>(env->GetIntField(jroom, m_roomAgeOfChildId)));
+
+      auto const childrenObject = env->GetObjectField(jroom, m_roomAgeOfChildrenId);
+      if (childrenObject != nullptr)
+      {
+        auto const children = static_cast<jintArray>(childrenObject);
+        auto const dtor = [children, env](jint * data) { env->ReleaseIntArrayElements(children, data, 0); };
+        std::unique_ptr<jint, decltype(dtor)> data{env->GetIntArrayElements(children, nullptr), dtor};
+
+        auto const childrenCount = env->GetArrayLength(children);
+        std::vector<int8_t> ageOfChildren;
+        for (jsize j = 0; j < childrenCount; ++j)
+        {
+          ageOfChildren.push_back(static_cast<int8_t>(data.get()[j]));
+        }
+        room.SetAgeOfChildren(ageOfChildren);
+      }
+
       result.m_rooms[i] = move(room);
     }
     return result;
@@ -610,7 +626,7 @@ private:
   jfieldID m_checkoutMillisecId = nullptr;
   jfieldID m_roomsId = nullptr;
   jfieldID m_roomAdultsCountId = nullptr;
-  jfieldID m_roomAgeOfChildId = nullptr;
+  jfieldID m_roomAgeOfChildrenId = nullptr;
 
   bool m_initialized = false;
 } g_bookingBuilder;

@@ -47,28 +47,21 @@ public class BookingFilterParams implements Parcelable
 
   static class Room implements Parcelable
   {
-    // This value is corresponds to AvailabilityParams::Room::kNoChildren in core.
-    static final int NO_CHILDREN = -1;
-    static final Room DEFAULT = new Room(2);
+    static final Room DEFAULT = new Room(2, null);
     private int mAdultsCount;
-    private int mAgeOfChild;
+    @Nullable
+    private int[] mAgeOfChildren;
 
-    Room(int adultsCount)
+    Room(int adultsCount, @Nullable int[] ageOfChildren)
     {
       mAdultsCount = adultsCount;
-      mAgeOfChild = NO_CHILDREN;
-    }
-
-    Room(int adultsCount, int ageOfChild)
-    {
-      mAdultsCount = adultsCount;
-      mAgeOfChild = ageOfChild;
+      mAgeOfChildren = ageOfChildren;
     }
 
     protected Room(Parcel in)
     {
       mAdultsCount = in.readInt();
-      mAgeOfChild = in.readInt();
+      mAgeOfChildren = in.createIntArray();
     }
 
     public static final Creator<Room> CREATOR = new Creator<Room>()
@@ -96,7 +89,7 @@ public class BookingFilterParams implements Parcelable
     public void writeToParcel(Parcel dest, int flags)
     {
       dest.writeInt(mAdultsCount);
-      dest.writeInt(mAgeOfChild);
+      dest.writeIntArray(mAgeOfChildren);
     }
   }
 

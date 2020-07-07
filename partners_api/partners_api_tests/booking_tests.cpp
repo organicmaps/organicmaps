@@ -39,7 +39,7 @@ UNIT_TEST(Booking_HotelAvailability)
 {
   AvailabilityParams params;
   params.m_hotelIds = {"98251"}; // booking hotel id for testing
-  params.m_rooms = {{2, AvailabilityParams::Room::kNoChildren}};
+  params.m_rooms = {{2, {}}};
   params.m_checkin = std::chrono::system_clock::now() + std::chrono::hours(24);
   params.m_checkout = std::chrono::system_clock::now() + std::chrono::hours(24 * 7);
   params.m_stars = {"4", "5"};
@@ -124,7 +124,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, GetHotelAvailability)
 {
   AvailabilityParams params;
   params.m_hotelIds = {"0"}; // Internal hotel id for testing.
-  params.m_rooms = {{2, AvailabilityParams::Room::kNoChildren}};
+  params.m_rooms = {{2, {}}};
   params.m_checkin = std::chrono::system_clock::now() + std::chrono::hours(24);
   params.m_checkout = std::chrono::system_clock::now() + std::chrono::hours(24 * 7);
   params.m_stars = {"4"};

@@ -79,7 +79,7 @@ unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const & items
 {
   using Clock = booking::AvailabilityParams::Clock;
   booking::AvailabilityParams params;
-  params.m_rooms = {{kAdultsCount, kAgeOfChild}};
+  params.m_rooms = {{kAdultsCount, {kAgeOfChild}}};
   if (Platform::IsConnected())
   {
     params.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);

@@ -17,15 +17,14 @@ struct AvailabilityParams : public ParamsBase
 {
   struct Room
   {
-    static constexpr int8_t kNoChildren = -1;
     Room() = default;
-    Room(uint8_t adultsCount, int8_t ageOfChild);
+    Room(uint8_t adultsCount, std::vector<int8_t> const & ageOfChildren);
 
     void SetAdultsCount(uint8_t adultsCount);
-    void SetAgeOfChild(int8_t ageOfChild);
+    void SetAgeOfChildren(std::vector<int8_t> const & ageOfChildren);
 
     uint8_t GetAdultsCount() const;
-    int8_t GetAgeOfChild() const;
+    std::vector<int8_t> const & GetAgeOfChildren() const;
 
     std::string ToString() const;
 
@@ -34,7 +33,7 @@ struct AvailabilityParams : public ParamsBase
   private:
     uint8_t m_adultsCount = 0;
     // No children by default.
-    int8_t m_ageOfChild = kNoChildren;
+    std::vector<int8_t> m_ageOfChildren;
   };
 
   using Hotels = std::vector<std::string>;
