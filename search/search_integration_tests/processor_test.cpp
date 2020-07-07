@@ -2978,5 +2978,25 @@ UNIT_CLASS_TEST(ProcessorTest, SimilarLanguage)
   // ko is in language list if query locale is ko.
   testLanguage("ko", "지유가오카", true);
 }
+
+UNIT_CLASS_TEST(ProcessorTest, AltAndOldName)
+{
+  string const countryName = "Wonderland";
+
+  TestMultilingualPOI poi(m2::PointD(0.0, 0.0), "default",
+                          {{"en", "english"}, {"alt_name", "alternative"}, {"old_name", "old"}});
+
+  auto wonderlandId =
+      BuildCountry(countryName, [&](TestMwmBuilder & builder) { builder.Add(poi); });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+  {
+    Rules rules{ExactMatch(wonderlandId, poi)};
+    TEST(ResultsMatch("default", rules), ());
+    TEST(ResultsMatch("english", rules), ());
+    TEST(ResultsMatch("alternative", rules), ());
+    TEST(ResultsMatch("old", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search

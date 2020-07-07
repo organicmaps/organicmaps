@@ -77,6 +77,7 @@ enum LanguageTier
   LANGUAGE_TIER_INPUT,
   LANGUAGE_TIER_EN_AND_INTERNATIONAL,
   LANGUAGE_TIER_DEFAULT,
+  LANGUAGE_TIER_ALT_AND_OLD,
   LANGUAGE_TIER_COUNT
 };
 
@@ -177,6 +178,9 @@ Processor::Processor(DataSource const & dataSource, CategoriesHolder const & cat
       {StringUtf8Multilang::kInternationalCode, StringUtf8Multilang::kEnglishCode});
   m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_DEFAULT,
                                 {StringUtf8Multilang::kDefaultCode});
+  m_keywordsScorer.SetLanguages(
+      LanguageTier::LANGUAGE_TIER_ALT_AND_OLD,
+      {StringUtf8Multilang::kAltNameCode, StringUtf8Multilang::kOldNameCode});
 
   SetPreferredLocale("en");
 }
