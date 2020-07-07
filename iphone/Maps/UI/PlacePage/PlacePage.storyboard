@@ -2590,16 +2590,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaX-2N-HwT">
-                                <rect key="frame" x="16" y="16" width="359" height="12"/>
+                                <rect key="frame" x="16" y="16" width="359" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackSecondaryText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="semibold14:blackSecondaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ucb-4d-ebI">
-                                <rect key="frame" x="0.0" y="36" width="375" height="195"/>
+                                <rect key="frame" x="0.0" y="52" width="375" height="195"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="195" id="FjS-sy-xMm"/>
@@ -2608,11 +2608,11 @@
                                     <size key="itemSize" width="160" height="194"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="8" minY="0.0" maxX="16" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiscoveryGuideCell" id="IN7-Mv-bq7" customClass="CatalogPromoItemCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="0.5" width="160" height="194"/>
+                                        <rect key="frame" x="8" y="0.5" width="160" height="194"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="160" height="194"/>
@@ -2714,7 +2714,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MoreCell" id="mBd-QE-OW8">
-                                        <rect key="frame" x="184" y="0.5" width="160" height="194"/>
+                                        <rect key="frame" x="176" y="0.5" width="160" height="194"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="160" height="194"/>
@@ -2775,20 +2775,17 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="LaX-2N-HwT" firstAttribute="top" secondItem="VPS-rm-qWf" secondAttribute="top" constant="16" id="0z8-HE-i5Y"/>
                             <constraint firstAttribute="trailing" secondItem="ucb-4d-ebI" secondAttribute="trailing" id="8PK-4Z-qaq"/>
-                            <constraint firstAttribute="bottom" secondItem="ucb-4d-ebI" secondAttribute="bottom" constant="16" id="PFy-Iq-3nZ"/>
-                            <constraint firstItem="ucb-4d-ebI" firstAttribute="top" secondItem="LaX-2N-HwT" secondAttribute="bottom" constant="8" id="VJa-Vs-neW"/>
+                            <constraint firstAttribute="bottom" secondItem="ucb-4d-ebI" secondAttribute="bottom" id="PFy-Iq-3nZ"/>
+                            <constraint firstItem="ucb-4d-ebI" firstAttribute="top" secondItem="LaX-2N-HwT" secondAttribute="bottom" constant="20" id="VJa-Vs-neW"/>
                             <constraint firstItem="LaX-2N-HwT" firstAttribute="leading" secondItem="VPS-rm-qWf" secondAttribute="leading" constant="16" id="fin-Sx-2mZ"/>
                             <constraint firstAttribute="trailing" secondItem="LaX-2N-HwT" secondAttribute="trailing" id="nKO-eH-CSh"/>
                             <constraint firstItem="ucb-4d-ebI" firstAttribute="leading" secondItem="VPS-rm-qWf" secondAttribute="leading" id="zEO-hz-S9w"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bvx-lu-0o3"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
-                        </userDefinedRuntimeAttributes>
                     </view>
                     <size key="freeformSize" width="375" height="247"/>
                     <connections>

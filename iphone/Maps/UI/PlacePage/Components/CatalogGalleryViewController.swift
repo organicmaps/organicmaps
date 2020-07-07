@@ -60,15 +60,16 @@ class CatalogGalleryViewController: UIViewController {
   @IBOutlet var titleLabel: UILabel!
   @IBOutlet var collectionView: UICollectionView!
 
+  weak var delegate: CatalogGalleryViewControllerDelegate?
+
   var promoData: CatalogPromoData? {
     didSet {
       guard let promoData = promoData else { return }
       collectionView?.reloadData()
       titleLabel.text = String(coreFormat: L("pp_discovery_place_related_tag_header"),
-                               arguments: [promoData.tagsString])
+                               arguments: [promoData.tagsString]).uppercased()
     }
   }
-  weak var delegate: CatalogGalleryViewControllerDelegate?
 }
 
 extension CatalogGalleryViewController: UICollectionViewDataSource {
