@@ -8,7 +8,6 @@
 #include <memory>
 
 using namespace std;
-using namespace routing;
 
 map<TransitType, string> const kTransitSymbols = {
     {TransitType::Subway, "transit_subway"},
@@ -111,11 +110,12 @@ void TransitRouteInfo::UpdateDistanceStrings()
     return;
   for (auto & step : m_steps)
   {
-    FormatDistance(step.m_distanceInMeters, step.m_distanceStr, step.m_distanceUnitsSuffix);
+    routing::FormatDistance(step.m_distanceInMeters, step.m_distanceStr,
+                            step.m_distanceUnitsSuffix);
   }
-  FormatDistance(m_totalDistInMeters, m_totalDistanceStr, m_totalDistanceUnitsSuffix);
-  FormatDistance(m_totalPedestrianDistInMeters, m_totalPedestrianDistanceStr,
-                 m_totalPedestrianUnitsSuffix);
+  routing::FormatDistance(m_totalDistInMeters, m_totalDistanceStr, m_totalDistanceUnitsSuffix);
+  routing::FormatDistance(m_totalPedestrianDistInMeters, m_totalPedestrianDistanceStr,
+                          m_totalPedestrianUnitsSuffix);
 }
 
 void AddTransitGateSegment(m2::PointD const & destPoint, df::ColorConstant const & color, df::Subroute & subroute)
@@ -138,8 +138,9 @@ void AddTransitPedestrianSegment(m2::PointD const & destPoint, df::Subroute & su
   subroute.AddStyle(style);
 }
 
-void AddTransitShapes(std::vector<transit::ShapeId> const & shapeIds, TransitShapesInfo const & shapes,
-                      df::ColorConstant const & color, bool isInverted, df::Subroute & subroute)
+void AddTransitShapes(std::vector<routing::transit::ShapeId> const & shapeIds,
+                      TransitShapesInfo const & shapes, df::ColorConstant const & color,
+                      bool isInverted, df::Subroute & subroute)
 {
   ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
   df::SubrouteStyle style(color);
@@ -184,7 +185,8 @@ TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
   return m_routeInfo;
 }
 
-bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments, df::Subroute & subroute)
+bool TransitRouteDisplay::ProcessSubroute(vector<routing::RouteSegment> const & segments,
+                                          df::Subroute & subroute)
 {
   if (m_subrouteIndex > 0)
   {
@@ -209,7 +211,7 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
   df::ColorConstant lastColor;
   m2::PointD lastDir;
-  auto lastLineId = transit::kInvalidLineId;
+  auto lastLineId = routing::transit::kInvalidLineId;
 
   df::SubrouteMarker marker;
   TransitMarkInfo transitMarkInfo;
@@ -233,7 +235,7 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
       AddTransitPedestrianSegment(s.GetJunction().GetPoint(), subroute);
       lastColor = "";
-      lastLineId = transit::kInvalidLineId;
+      lastLineId = routing::transit::kInvalidLineId;
       transitType = TransitType::Pedestrian;
       continue;
     }
@@ -243,7 +245,7 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
     auto const & transitInfo = s.GetTransitInfo();
     auto const & displayInfo = *transitDisplayInfos.at(mwmId).get();
 
-    if (transitInfo.GetType() == TransitInfo::Type::Edge)
+    if (transitInfo.GetType() == routing::TransitInfo::Type::Edge)
     {
       auto const & edge = transitInfo.GetEdge();
 
@@ -258,8 +260,8 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
       auto const & stop1 = displayInfo.m_stops.at(edge.m_stop1Id);
       auto const & stop2 = displayInfo.m_stops.at(edge.m_stop2Id);
-      bool const isTransfer1 = stop1.GetTransferId() != transit::kInvalidTransferId;
-      bool const isTransfer2 = stop2.GetTransferId() != transit::kInvalidTransferId;
+      bool const isTransfer1 = stop1.GetTransferId() != routing::transit::kInvalidTransferId;
+      bool const isTransfer2 = stop2.GetTransferId() != routing::transit::kInvalidTransferId;
 
       marker.m_distance = prevDistance;
       marker.m_scale = kStopMarkerScale;
@@ -300,14 +302,14 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
       if (lastLineId != currentLineId)
       {
-        if (lastLineId != transit::kInvalidLineId)
+        if (lastLineId != routing::transit::kInvalidLineId)
         {
           marker.m_scale = kTransferMarkerScale;
           transitMarkInfo.m_type = TransitMarkInfo::Type::Transfer;
         }
         marker.m_colors.push_back(currentColor);
 
-        if (stop1.GetFeatureId() != transit::kInvalidFeatureId)
+        if (stop1.GetFeatureId() != routing::transit::kInvalidFeatureId)
         {
           auto const fid = FeatureID(mwmId, stop1.GetFeatureId());
           transitMarkInfo.m_featureId = fid;
@@ -350,7 +352,7 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
       }
 
       transitMarkInfo.m_point = marker.m_position;
-      if (stop2.GetFeatureId() != transit::kInvalidFeatureId)
+      if (stop2.GetFeatureId() != routing::transit::kInvalidFeatureId)
       {
         auto const fid = FeatureID(mwmId, stop2.GetFeatureId());
         transitMarkInfo.m_featureId = fid;
@@ -358,10 +360,10 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
                                                         df::GetTransitTextColorName(line.GetColor())));
       }
     }
-    else if (transitInfo.GetType() == TransitInfo::Type::Gate)
+    else if (transitInfo.GetType() == routing::TransitInfo::Type::Gate)
     {
       auto const & gate = transitInfo.GetGate();
-      if (lastLineId != transit::kInvalidLineId)
+      if (lastLineId != routing::transit::kInvalidLineId)
       {
         m_routeInfo.AddStep(TransitStepInfo(TransitType::Pedestrian, distance, time));
 
@@ -385,7 +387,7 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
       gateMarkInfo.m_point = pendingEntrance ? subroute.m_polyline.Back() : s.GetJunction().GetPoint();
       gateMarkInfo.m_type = TransitMarkInfo::Type::Gate;
       gateMarkInfo.m_symbolName = "zero-icon";
-      if (gate.m_featureId != transit::kInvalidFeatureId)
+      if (gate.m_featureId != routing::transit::kInvalidFeatureId)
       {
         auto const fid = FeatureID(mwmId, gate.m_featureId);
         auto const & featureInfo = displayInfo.m_features.at(fid);
@@ -418,7 +420,7 @@ bool TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
   return isValidSubroute;
 }
 
-void TransitRouteDisplay::CollectTransitDisplayInfo(vector<RouteSegment> const & segments,
+void TransitRouteDisplay::CollectTransitDisplayInfo(vector<routing::RouteSegment> const & segments,
                                                     TransitDisplayInfos & transitDisplayInfos)
 {
   for (auto const & s : segments)
@@ -432,31 +434,31 @@ void TransitRouteDisplay::CollectTransitDisplayInfo(vector<RouteSegment> const &
     if (mwmTransit == nullptr)
       mwmTransit = make_unique<TransitDisplayInfo>();
 
-    TransitInfo const & transitInfo = s.GetTransitInfo();
+    routing::TransitInfo const & transitInfo = s.GetTransitInfo();
     switch (transitInfo.GetType())
     {
-      case TransitInfo::Type::Edge:
-      {
-        auto const & edge = transitInfo.GetEdge();
+    case routing::TransitInfo::Type::Edge:
+    {
+      auto const & edge = transitInfo.GetEdge();
 
-        mwmTransit->m_stops[edge.m_stop1Id] = {};
-        mwmTransit->m_stops[edge.m_stop2Id] = {};
-        mwmTransit->m_lines[edge.m_lineId] = {};
-        for (auto const &shapeId : edge.m_shapeIds)
-          mwmTransit->m_shapes[shapeId] = {};
-        break;
+      mwmTransit->m_stops[edge.m_stop1Id] = {};
+      mwmTransit->m_stops[edge.m_stop2Id] = {};
+      mwmTransit->m_lines[edge.m_lineId] = {};
+      for (auto const & shapeId : edge.m_shapeIds)
+        mwmTransit->m_shapes[shapeId] = {};
+      break;
       }
-      case TransitInfo::Type::Transfer:
+      case routing::TransitInfo::Type::Transfer:
       {
         auto const & transfer = transitInfo.GetTransfer();
         mwmTransit->m_stops[transfer.m_stop1Id] = {};
         mwmTransit->m_stops[transfer.m_stop2Id] = {};
         break;
       }
-      case TransitInfo::Type::Gate:
+      case routing::TransitInfo::Type::Gate:
       {
         auto const & gate = transitInfo.GetGate();
-        if (gate.m_featureId != transit::kInvalidFeatureId)
+        if (gate.m_featureId != routing::transit::kInvalidFeatureId)
         {
           auto const featureId = FeatureID(mwmId, gate.m_featureId);
           TransitFeatureInfo featureInfo;
