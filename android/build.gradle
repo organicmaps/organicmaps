@@ -2,17 +2,12 @@ buildscript {
   repositories {
     google()
     jcenter()
-    maven {
-      url 'https://maven.fabric.io/public'
-    }
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.5.2'
-    // Don't update Fabric plugin until they fix OOM problem during native symbols upload.
-    // The latest version 1.31.2 https://docs.fabric.io/android/changelog.html#october-15-2019
-    // still consists OOM issue.
-    classpath 'io.fabric.tools:gradle:1.27.0'
+    classpath 'com.android.tools.build:gradle:4.0.0'
+    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
+    classpath 'com.google.gms:google-services:4.3.3'
   }
 }
 
@@ -38,8 +33,9 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply from: 'secure.properties'
-apply plugin: 'io.fabric'
 
 dependencies {
 
@@ -65,15 +61,16 @@ dependencies {
   // statistics
   implementation 'com.flurry.android:analytics:12.1.0@aar'
   // crash reporting
-  implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') { transitive = true }
-  implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.4@aar') { transitive = true }
+  implementation 'com.google.firebase:firebase-analytics:17.4.3'
+  implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
+  implementation 'com.google.firebase:firebase-crashlytics-ndk:17.1.0'
+
   // 3-party
   implementation 'com.facebook.android:facebook-android-sdk:5.15.0'
   implementation 'com.facebook.android:audience-network-sdk:5.6.1'
   implementation 'com.mopub.mediation:facebookaudiencenetwork:5.6.1.0'
   implementation 'com.google.code.gson:gson:2.6.1'
   implementation 'com.pushwoosh:pushwoosh:5.19.7'
-  implementation 'com.pushwoosh:pushwoosh-gcm:5.12.1'
   implementation 'com.my.tracker:mytracker-sdk:1.5.3'
   implementation ('com.my.target:mytarget-sdk:5.2.2') {
     exclude group: 'com.google.android.exoplayer', module:'exoplayer-core'
@@ -118,11 +115,6 @@ def osName = System.properties['os.name'].toLowerCase()
 project.ext.versionCodes = ['armeabi-v7a': 30, 'x86': 40, 'arm64-v8a': 50, 'x86_64' : 60]
 project.ext.appId = 'com.mapswithme.maps.pro'
 
-crashlytics {
-  enableNdk true
-  androidNdkLibsOut "./build/intermediates/stripped_native_libs"
-}
-
 configurations.all {
   if (it.getName().contains("lint"))
     return
@@ -166,6 +158,10 @@ configurations.all {
     force "com.google.code.gson:gson:2.8.5"
     force "com.google.guava:guava:27.0.1-jre"
     force "com.android.installreferrer:installreferrer:1.1"
+    force "com.google.firebase:firebase-iid:16.0.0"
+    force "com.google.firebase:firebase-measurement-connector:18.0.0"
+    force "com.google.firebase:firebase-iid-interop:17.0.0"
+    force "com.google.firebase:firebase-common:19.3.0"
 
     failOnVersionConflict();
   }
@@ -191,12 +187,6 @@ android {
     buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
 
-    // Crashlytics API key
-    Properties props = new Properties()
-    props.load(new FileInputStream("${projectDir}/fabric.properties"));
-    manifestPlaceholders = ['FABRIC_API_KEY': props['apiKey']]
-    buildConfigField 'String', 'FABRIC_API_KEY', /"${props['apiKey']}"/
-
     // PushWoosh keys
     Properties pwProps = new Properties()
     pwProps.load(new FileInputStream("${projectDir}/pushwoosh.properties"));
@@ -221,7 +211,7 @@ android {
         cFlags '-ffunction-sections', '-fdata-sections',
                '-Wno-extern-c-compat'
         arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
-                  "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag"
+                  "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag", '-DANDROID_LD=lld'
       }
     }
 
@@ -466,6 +456,9 @@ android {
       shrinkResources true
       proguardFile('proguard-mwm.txt')
       resValue 'string', 'app_id', android.defaultConfig.applicationId
+      firebaseCrashlytics {
+        nativeSymbolUploadEnabled true
+      }
     }
 
     beta {
@@ -475,6 +468,9 @@ android {
       android.sourceSets.beta.setRoot('flavors/beta')
       matchingFallbacks = ['debug', 'release']
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
+      firebaseCrashlytics {
+        nativeSymbolUploadEnabled true
+      }
     }
   }
 
@@ -500,12 +496,6 @@ android {
   }
 
   packagingOptions {
-    exclude 'lib/armeabi/libcrashlytics-envelope.so'
-    exclude 'lib/armeabi/libcrashlytics.so'
-    exclude 'lib/mips64/libcrashlytics-envelope.so'
-    exclude 'lib/mips64/libcrashlytics.so'
-    exclude 'lib/mips/libcrashlytics-envelope.so'
-    exclude 'lib/mips/libcrashlytics.so'
     exclude 'lib/armeabi/libVkLayer_core_validation.so'
     exclude 'lib/armeabi/libVkLayer_threading.so'
     exclude 'lib/armeabi/libVkLayer_image.so'

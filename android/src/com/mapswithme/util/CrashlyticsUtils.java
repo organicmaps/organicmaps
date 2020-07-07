@@ -1,8 +1,9 @@
 package com.mapswithme.util;
 
-import androidx.annotation.NonNull;
+import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.mapswithme.maps.MwmApplication;
 
 public final class CrashlyticsUtils
@@ -12,7 +13,7 @@ public final class CrashlyticsUtils
     if (!checkCrashlytics())
       return;
 
-    Crashlytics.logException(exception);
+    FirebaseCrashlytics.getInstance().recordException(exception);
   }
 
   public static void log(int priority, @NonNull String tag, @NonNull String msg)
@@ -20,18 +21,33 @@ public final class CrashlyticsUtils
     if (!checkCrashlytics())
       return;
 
-    Crashlytics.log(priority, tag, msg);
+    FirebaseCrashlytics.getInstance().log(toLevel(priority) + "/" + tag + ": " + msg);
   }
 
   private static boolean checkCrashlytics()
   {
     MwmApplication app = MwmApplication.get();
-    if (!app.getMediator().isCrashlyticsEnabled())
-      return false;
+    return app.getMediator().isCrashlyticsEnabled();
+  }
 
-    if (!app.getMediator().isCrashlyticsInitialized())
-      app.getMediator().initCrashlytics();
-    return true;
+  @NonNull
+  private static String toLevel(int level)
+  {
+    switch (level)
+    {
+      case Log.VERBOSE:
+        return "V";
+      case Log.DEBUG:
+        return "D";
+      case Log.INFO:
+        return "I";
+      case Log.WARN:
+        return "W";
+      case Log.ERROR:
+        return "E";
+      default:
+        throw new IllegalArgumentException("Undetermined log level: " + level);
+    }
   }
 
   private CrashlyticsUtils() {}

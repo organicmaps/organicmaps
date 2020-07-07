@@ -2,14 +2,15 @@ package com.mapswithme.util.log;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.StorageUtils;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
@@ -179,6 +180,7 @@ public class LoggerFactory
       default:
         logger.v(CORE_TAG, msg);
     }
+    CrashlyticsUtils.log(level, CORE_TAG, msg);
   }
 
   private static native void nativeToggleCoreDebugLogs(boolean enabled);

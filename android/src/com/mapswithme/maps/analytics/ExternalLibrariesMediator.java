@@ -10,12 +10,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import com.appsflyer.AppsFlyerConversionListener;
 import com.appsflyer.AppsFlyerLib;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
-import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
@@ -31,7 +29,6 @@ import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
 import com.mopub.common.privacy.PersonalInfoManager;
 import com.my.target.common.MyTargetPrivacy;
-import io.fabric.sdk.android.Fabric;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,8 +38,6 @@ import java.util.concurrent.TimeoutException;
 
 public class ExternalLibrariesMediator
 {
-  private boolean mCrashlyticsInitialized;
-
   private static final String TAG = ExternalLibrariesMediator.class.getSimpleName();
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
 
@@ -67,7 +62,6 @@ public class ExternalLibrariesMediator
   public void initSensitiveDataToleranceLibraries()
   {
     initMoPub();
-    initCrashlytics();
     initAppsFlyer();
   }
 
@@ -98,30 +92,7 @@ public class ExternalLibrariesMediator
     AppsFlyerLib.getInstance().startTracking(mApplication);
   }
 
-  public void initCrashlytics()
-  {
-    if (!isCrashlyticsEnabled())
-      return;
-
-    if (isCrashlyticsInitialized())
-      return;
-
-    Crashlytics core = new Crashlytics
-        .Builder()
-        .core(new CrashlyticsCore.Builder().disabled(!isFabricEnabled()).build())
-        .build();
-
-    Fabric.with(mApplication, core, new CrashlyticsNdk());
-    nativeInitCrashlytics();
-    mCrashlyticsInitialized = true;
-  }
-
   public boolean isCrashlyticsEnabled()
-  {
-    return !BuildConfig.FABRIC_API_KEY.startsWith("0000");
-  }
-
-  private boolean isFabricEnabled()
   {
     String prefKey = mApplication.getResources().getString(R.string.pref_opt_out_fabric_activated);
     return MwmApplication.prefs(mApplication).getBoolean(prefKey, true);
@@ -131,11 +102,6 @@ public class ExternalLibrariesMediator
   public EventLogger getEventLogger()
   {
     return mEventLogger;
-  }
-
-  public boolean isCrashlyticsInitialized()
-  {
-    return mCrashlyticsInitialized;
   }
 
   public boolean setInstallationIdToCrashlytics()
@@ -149,7 +115,8 @@ public class ExternalLibrariesMediator
     if (TextUtils.isEmpty(installationId))
       return false;
 
-    Crashlytics.setString("AlohalyticsInstallationId", installationId);
+    FirebaseCrashlytics.getInstance().setCustomKey("AlohalyticsInstallationId", installationId);
+    FirebaseCrashlytics.getInstance().setUserId(installationId);
     return true;
   }
 

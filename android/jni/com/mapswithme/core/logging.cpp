@@ -12,9 +12,6 @@
 #include <cassert>
 #include <cstdlib>
 
-
-extern crashlytics_context_t * g_crashlytics;
-
 namespace jni
 {
 
@@ -41,8 +38,6 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, std::string const & s)
   std::string const out = DebugPrint(src) + " " + s;
   jni::TScopedLocalRef msg(env.get(), jni::ToJavaString(env.get(), out));
   env->CallStaticVoidMethod(g_loggerFactoryClazz, logCoreMsgMethod, pr, msg.get());
-  if (g_crashlytics)
-    g_crashlytics->log(g_crashlytics, out.c_str());
 }
 
 void AndroidLogMessage(LogLevel level, SrcPoint const & src, std::string const & s)
