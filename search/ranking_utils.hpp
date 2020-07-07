@@ -118,30 +118,37 @@ enum NameScore
 struct NameScores
 {
   NameScores() = default;
-  NameScores(NameScore nameScore, ErrorsMade const & errorsMade)
-    : m_nameScore(nameScore), m_errorsMade(errorsMade)
+  NameScores(NameScore nameScore, ErrorsMade const & errorsMade, bool isAltOrOldName)
+    : m_nameScore(nameScore), m_errorsMade(errorsMade), m_isAltOrOldName(isAltOrOldName)
   {
   }
 
   void UpdateIfBetter(NameScores const & rhs)
   {
-    if (rhs.m_nameScore > m_nameScore)
+    auto const newNameScoreIsBetter = rhs.m_nameScore > m_nameScore;
+    auto const nameScoresAreEqual = rhs.m_nameScore == m_nameScore;
+    auto const newLanguageIsBetter = m_isAltOrOldName && !rhs.m_isAltOrOldName;
+    auto const languagesAreEqual = m_isAltOrOldName == rhs.m_isAltOrOldName;
+    if (newNameScoreIsBetter || (nameScoresAreEqual && newLanguageIsBetter))
     {
       m_nameScore = rhs.m_nameScore;
       m_errorsMade = rhs.m_errorsMade;
+      m_isAltOrOldName = rhs.m_isAltOrOldName;
       return;
     }
-    if (rhs.m_nameScore == m_nameScore)
+    if (nameScoresAreEqual && languagesAreEqual)
       m_errorsMade = ErrorsMade::Min(m_errorsMade, rhs.m_errorsMade);
   }
 
   bool operator==(NameScores const & rhs)
   {
-    return m_nameScore == rhs.m_nameScore && m_errorsMade == rhs.m_errorsMade;
+    return m_nameScore == rhs.m_nameScore && m_errorsMade == rhs.m_errorsMade &&
+           m_isAltOrOldName == rhs.m_isAltOrOldName;
   }
 
   NameScore m_nameScore = NAME_SCORE_ZERO;
   ErrorsMade m_errorsMade;
+  bool m_isAltOrOldName = false;
 };
 
 // Returns true when |s| is a stop-word and may be removed from a query.
@@ -151,7 +158,8 @@ bool IsStopWord(strings::UniString const & s);
 void PrepareStringForMatching(std::string const & name, std::vector<strings::UniString> & tokens);
 
 template <typename Slice>
-NameScores GetNameScores(std::vector<strings::UniString> const & tokens, Slice const & slice)
+NameScores GetNameScores(std::vector<strings::UniString> const & tokens, uint8_t lang,
+                         Slice const & slice)
 {
   if (slice.Empty())
     return {};
@@ -183,10 +191,13 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, Slice c
     if (!fullErrorsMade.IsValid() && !(prefixErrorsMade.IsValid() && lastTokenIsPrefix))
       continue;
 
+    auto const isAltOrOldName =
+        lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode;
     if (m == n && fullErrorsMade.IsValid())
     {
       scores.m_nameScore = NAME_SCORE_FULL_MATCH;
       scores.m_errorsMade = totalErrorsMade + fullErrorsMade;
+      scores.m_isAltOrOldName = isAltOrOldName;
       return scores;
     }
 
@@ -194,20 +205,24 @@ NameScores GetNameScores(std::vector<strings::UniString> const & tokens, Slice c
         lastTokenIsPrefix ? ErrorsMade::Min(fullErrorsMade, prefixErrorsMade) : fullErrorsMade;
 
     if (offset == 0)
-      scores.UpdateIfBetter(NameScores(NAME_SCORE_PREFIX, totalErrorsMade + newErrors));
+    {
+      scores.UpdateIfBetter(
+          NameScores(NAME_SCORE_PREFIX, totalErrorsMade + newErrors, isAltOrOldName));
+    }
 
-    scores.UpdateIfBetter(NameScores(NAME_SCORE_SUBSTRING, totalErrorsMade + newErrors));
+    scores.UpdateIfBetter(
+        NameScores(NAME_SCORE_SUBSTRING, totalErrorsMade + newErrors, isAltOrOldName));
   }
   return scores;
 }
 
 template <typename Slice>
-NameScores GetNameScores(std::string const & name, Slice const & slice)
+NameScores GetNameScores(std::string const & name, uint8_t lang, Slice const & slice)
 {
   std::vector<strings::UniString> tokens;
   SplitUniString(NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens),
                  Delimiters());
-  return GetNameScores(tokens, slice);
+  return GetNameScores(tokens, lang, slice);
 }
 
 std::string DebugPrint(NameScore score);

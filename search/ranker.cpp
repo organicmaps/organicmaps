@@ -35,16 +35,17 @@ namespace search
 namespace
 {
 template <typename Slice>
-void UpdateNameScores(string const & name, Slice const & slice, NameScores & bestScores)
+void UpdateNameScores(string const & name, uint8_t lang, Slice const & slice,
+                      NameScores & bestScores)
 {
-  bestScores.UpdateIfBetter(GetNameScores(name, slice));
+  bestScores.UpdateIfBetter(GetNameScores(name, lang, slice));
 }
 
 template <typename Slice>
-void UpdateNameScores(vector<strings::UniString> const & tokens, Slice const & slice,
+void UpdateNameScores(vector<strings::UniString> const & tokens, uint8_t lang, Slice const & slice,
                       NameScores & bestScores)
 {
-  bestScores.UpdateIfBetter(GetNameScores(tokens, slice));
+  bestScores.UpdateIfBetter(GetNameScores(tokens, lang, slice));
 }
 
 // This function supports only street names like "abcdstrasse"/"abcd strasse".
@@ -109,47 +110,48 @@ pair<NameScores, size_t> GetNameScores(FeatureType & ft, Geocoder::Params const 
     vector<strings::UniString> tokens;
     PrepareStringForMatching(name, tokens);
 
-    UpdateNameScores(tokens, slice, bestScores);
-    UpdateNameScores(tokens, sliceNoCategories, bestScores);
+    UpdateNameScores(tokens, lang, slice, bestScores);
+    UpdateNameScores(tokens, lang, sliceNoCategories, bestScores);
 
     if (type == Model::TYPE_STREET)
     {
       auto const variants = ModifyStrasse(tokens);
       for (auto const & variant : variants)
       {
-        UpdateNameScores(variant, slice, bestScores);
-        UpdateNameScores(variant, sliceNoCategories, bestScores);
+        UpdateNameScores(variant, lang, slice, bestScores);
+        UpdateNameScores(variant, lang, sliceNoCategories, bestScores);
       }
     }
   }
 
   if (type == Model::TYPE_BUILDING)
-    UpdateNameScores(ft.GetHouseNumber(), sliceNoCategories, bestScores);
+    UpdateNameScores(ft.GetHouseNumber(), StringUtf8Multilang::kDefaultCode, sliceNoCategories,
+                     bestScores);
 
   if (ftypes::IsAirportChecker::Instance()(ft))
   {
     string const iata = ft.GetMetadata().Get(feature::Metadata::FMD_AIRPORT_IATA);
     if (!iata.empty())
-      UpdateNameScores(iata, sliceNoCategories, bestScores);
+      UpdateNameScores(iata, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
   }
 
   string const op = ft.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
   if (!op.empty())
-    UpdateNameScores(op, sliceNoCategories, bestScores);
+    UpdateNameScores(op, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
 
   string const brand = ft.GetMetadata().Get(feature::Metadata::FMD_BRAND);
   if (!brand.empty())
   {
     auto const & brands = indexer::GetDefaultBrands();
     brands.ForEachNameByKey(brand, [&](indexer::BrandsHolder::Brand::Name const & name) {
-      UpdateNameScores(name.m_name, sliceNoCategories, bestScores);
+      UpdateNameScores(name.m_name, name.m_locale, sliceNoCategories, bestScores);
     });
   }
 
   if (type == Model::TYPE_STREET)
   {
     for (auto const & shield : feature::GetRoadShieldsNames(ft.GetRoadNumber()))
-      UpdateNameScores(shield, sliceNoCategories, bestScores);
+      UpdateNameScores(shield, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
   }
 
   return make_pair(bestScores, matchedLength);

@@ -40,7 +40,7 @@ NameScores GetScore(string const & name, string const & query, TokenRange const 
     params.InitNoPrefix(tokens.begin(), tokens.end());
   }
 
-  return GetNameScores(name, TokenSlice(params, tokenRange));
+  return GetNameScores(name, StringUtf8Multilang::kDefaultCode, TokenSlice(params, tokenRange));
 }
 
 UNIT_TEST(NameTest_Smoke)
@@ -49,7 +49,8 @@ UNIT_TEST(NameTest_Smoke)
                        NameScore nameScore, size_t errorsMade) {
     TEST_EQUAL(
         GetScore(name, query, tokenRange),
-        NameScores(nameScore, nameScore == NAME_SCORE_ZERO ? ErrorsMade() : ErrorsMade(errorsMade)),
+        NameScores(nameScore, nameScore == NAME_SCORE_ZERO ? ErrorsMade() : ErrorsMade(errorsMade),
+                   false /* isAltOrOldNAme */),
         (name, query, tokenRange));
   };
 
