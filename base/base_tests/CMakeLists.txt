@@ -17,6 +17,7 @@ set(
   condition_test.cpp
   containers_test.cpp
   control_flow_tests.cpp
+  exception_tests.cpp
   fifo_cache_test.cpp
   file_name_utils_tests.cpp
   geo_object_id_tests.cpp
