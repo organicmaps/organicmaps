@@ -21,7 +21,7 @@ class SubscriptionSuccessViewController: UIViewController {
   override func awakeFromNib() {
     super.awakeFromNib()
     switch screenType {
-    case .sightseeing:
+    case .city:
       titleLabel.text = L("subscription_success_dialog_title_sightseeing_pass")
       textLabel.text = L("subscription_success_dialog_message_sightseeing_pass")
     case .allPass:

@@ -7,14 +7,16 @@ extension UIViewController {
 
       let onSubscribe = {
         self?.dismiss(animated: true)
-        let subscriptionDialog = AllPassSubscriptionViewController()
-        subscriptionDialog.onSubscribe = { [weak self] in
-          self?.dismiss(animated: true)
+        guard let parentViewController = self else {
+          return
         }
-        subscriptionDialog.onCancel = { [weak self] in
-          self?.dismiss(animated: true) {
-            self?.checkInvalidSubscription(completion)
-          }
+        let subscriptionDialog = AllPassSubscriptionBuilder.build(parentViewController: parentViewController,
+                                                                  source: kStatWebView,
+                                                                  successDialog: .none,
+                                                                  subscriptionGroupType: .allPass) { (result) in
+                                                                    if (!result) {
+                                                                      self?.checkInvalidSubscription(completion)
+                                                                    }
         }
         self?.present(subscriptionDialog, animated: true)
         completion?(false)

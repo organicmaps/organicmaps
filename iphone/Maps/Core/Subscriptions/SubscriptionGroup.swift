@@ -1,11 +1,11 @@
 @objc enum SubscriptionGroupType: Int {
   case allPass
-  case sightseeing
+  case city
 
   init?(serverId: String) {
     switch serverId {
     case MWMPurchaseManager.bookmarksSubscriptionServerId():
-      self = .sightseeing
+      self = .city
     case MWMPurchaseManager.allPassSubscriptionServerId():
       self = .allPass
     default:
@@ -25,7 +25,7 @@
     if subscriptionGroups?.first(where: { $0 == MWMPurchaseManager.allPassSubscriptionServerId() }) != nil {
       self = .allPass
     } else if subscriptionGroups?.first(where: { $0 == MWMPurchaseManager.bookmarksSubscriptionServerId() }) != nil {
-      self = .sightseeing
+      self = .city
     } else {
       self = .allPass
     }
@@ -33,7 +33,7 @@
 
   var serverId: String {
     switch self {
-    case .sightseeing:
+    case .city:
       return MWMPurchaseManager.bookmarksSubscriptionServerId()
     case .allPass:
       return MWMPurchaseManager.allPassSubscriptionServerId()

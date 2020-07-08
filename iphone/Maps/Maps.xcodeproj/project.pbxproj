@@ -380,9 +380,8 @@
 		479D306822C66C8F00D18278 /* MWMBookmarksBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479D306722C66C8F00D18278 /* MWMBookmarksBannerViewController.m */; };
 		479EE94A2292FB03009DEBA6 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479EE9492292FB03009DEBA6 /* ActivityIndicator.swift */; };
 		47A65CAD2350044800DCD85F /* CoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A65CAC2350044800DCD85F /* CoreApi.framework */; };
-		47A6F3C4235F47B90053FBA4 /* BookmarksSubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A6F3C1235F47B90053FBA4 /* BookmarksSubscriptionViewController.xib */; };
+		47A6F3C4235F47B90053FBA4 /* CitySubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A6F3C1235F47B90053FBA4 /* CitySubscriptionViewController.xib */; };
 		47A6F3C5235F47B90053FBA4 /* BookmarksSubscriptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6F3C2235F47B90053FBA4 /* BookmarksSubscriptionButton.swift */; };
-		47A6F3C6235F47B90053FBA4 /* BookmarksSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6F3C3235F47B90053FBA4 /* BookmarksSubscriptionViewController.swift */; };
 		47AEF8402231249E00D20538 /* categories_brands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47AEF83F2231249E00D20538 /* categories_brands.txt */; };
 		47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEC21B696C20094CCAD /* GeoTracker.swift */; };
 		47B06DF021B697230094CCAD /* MWMGeoTrackerCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEF21B697230094CCAD /* MWMGeoTrackerCore.mm */; };
@@ -621,12 +620,10 @@
 		99514BB823E82B450085D3A7 /* ElevationProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99514BB223E82B450085D3A7 /* ElevationProfilePresenter.swift */; };
 		99514BBA23E82B450085D3A7 /* ElevationProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99514BB423E82B450085D3A7 /* ElevationProfileViewController.swift */; };
 		99514BBB23E82B450085D3A7 /* ElevationProfileBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99514BB523E82B450085D3A7 /* ElevationProfileBuilder.swift */; };
-		99536111235DABB1008B218F /* BaseSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99536110235DABB1008B218F /* BaseSubscriptionViewController.swift */; };
 		99536113235DB86C008B218F /* InsetsLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99536112235DB86C008B218F /* InsetsLabel.swift */; };
 		995738DB235484410019AEE7 /* AllPassSubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 995738DA235484410019AEE7 /* AllPassSubscriptionViewController.xib */; };
 		995739042355CAA30019AEE7 /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995739032355CAA30019AEE7 /* PageIndicator.swift */; };
 		995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995739052355CAC40019AEE7 /* ImageViewCrossDisolve.swift */; };
-		995739082355CB660019AEE7 /* AllPassSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995739072355CB660019AEE7 /* AllPassSubscriptionViewController.swift */; };
 		9959C75624582DA2008FD4FD /* DirectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9959C75524582DA2008FD4FD /* DirectionView.xib */; };
 		9959C75C24599CCD008FD4FD /* DirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9959C75B24599CCC008FD4FD /* DirectionView.swift */; };
 		995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995F1611244F0AA40060631D /* BottomMenuLayersCell.swift */; };
@@ -674,6 +671,11 @@
 		99B6A74C2362F5AA002C94CB /* PromoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6A74B2362F5AA002C94CB /* PromoButton.swift */; };
 		99B6A74E2362F5CD002C94CB /* PromoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6A74D2362F5CD002C94CB /* PromoCoordinator.swift */; };
 		99B6A77F23684573002C94CB /* PromoDiscoveryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6A77E23684573002C94CB /* PromoDiscoveryBuilder.swift */; };
+		99BFEF0124B48D7600A65F5B /* SubscriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFEEFB24B48D7600A65F5B /* SubscriptionPresenter.swift */; };
+		99BFEF0224B48D7600A65F5B /* SubscriptionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFEEFC24B48D7600A65F5B /* SubscriptionRouter.swift */; };
+		99BFEF0324B48D7600A65F5B /* CitySubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFEEFD24B48D7600A65F5B /* CitySubscriptionViewController.swift */; };
+		99BFEF0424B48D7600A65F5B /* CitySubscriptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFEEFE24B48D7600A65F5B /* CitySubscriptionBuilder.swift */; };
+		99BFEF0524B48D7600A65F5B /* SubscriptionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFEEFF24B48D7600A65F5B /* SubscriptionInteractor.swift */; };
 		99C6532223F2F506004322F3 /* IPlacePageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C6532123F2F506004322F3 /* IPlacePageLayout.swift */; };
 		99C964292428C0F700E41723 /* PlacePageHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C964232428C0F700E41723 /* PlacePageHeaderPresenter.swift */; };
 		99C9642B2428C0F700E41723 /* PlacePageHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C964252428C0F700E41723 /* PlacePageHeaderViewController.swift */; };
@@ -698,6 +700,9 @@
 		99E2B0122368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */; };
 		99E2B01E23698B0800FFABC5 /* WelcomeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B01D23698B0800FFABC5 /* WelcomeProtocols.swift */; };
 		99E2B0232369904800FFABC5 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B0222369904800FFABC5 /* WelcomeViewController.swift */; };
+		99EBF72E24B4C89000FE1F1F /* AllPassSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBF72824B4C88F00FE1F1F /* AllPassSubscriptionViewController.swift */; };
+		99EBF73024B4C89000FE1F1F /* AllPassSubscriptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBF72A24B4C88F00FE1F1F /* AllPassSubscriptionBuilder.swift */; };
+		99EBF73324B4C91000FE1F1F /* SubscriptionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EBF73224B4C91000FE1F1F /* SubscriptionViewProtocol.swift */; };
 		99F3EB0323F4178200C713F8 /* PlacePageCommonLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3EB0223F4178200C713F8 /* PlacePageCommonLayout.swift */; };
 		99F3EB0623F418A200C713F8 /* PlacePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3EB0523F418A200C713F8 /* PlacePagePresenter.swift */; };
 		99F3EB1123F418C900C713F8 /* PlacePageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3EB0B23F418C900C713F8 /* PlacePageBuilder.swift */; };
@@ -1501,9 +1506,8 @@
 		479D306722C66C8F00D18278 /* MWMBookmarksBannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMBookmarksBannerViewController.m; sourceTree = "<group>"; };
 		479EE9492292FB03009DEBA6 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityIndicator.swift; path = CustomViews/ActivityIndicator.swift; sourceTree = "<group>"; };
 		47A65CAC2350044800DCD85F /* CoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		47A6F3C1235F47B90053FBA4 /* BookmarksSubscriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarksSubscriptionViewController.xib; sourceTree = "<group>"; };
+		47A6F3C1235F47B90053FBA4 /* CitySubscriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySubscriptionViewController.xib; sourceTree = "<group>"; };
 		47A6F3C2235F47B90053FBA4 /* BookmarksSubscriptionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksSubscriptionButton.swift; sourceTree = "<group>"; };
-		47A6F3C3235F47B90053FBA4 /* BookmarksSubscriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksSubscriptionViewController.swift; sourceTree = "<group>"; };
 		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = "<group>"; };
 		47B06DEC21B696C20094CCAD /* GeoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoTracker.swift; sourceTree = "<group>"; };
 		47B06DEE21B697230094CCAD /* MWMGeoTrackerCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMGeoTrackerCore.h; sourceTree = "<group>"; };
@@ -1707,12 +1711,10 @@
 		99514BB223E82B450085D3A7 /* ElevationProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfilePresenter.swift; sourceTree = "<group>"; };
 		99514BB423E82B450085D3A7 /* ElevationProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileViewController.swift; sourceTree = "<group>"; };
 		99514BB523E82B450085D3A7 /* ElevationProfileBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileBuilder.swift; sourceTree = "<group>"; };
-		99536110235DABB1008B218F /* BaseSubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSubscriptionViewController.swift; sourceTree = "<group>"; };
 		99536112235DB86C008B218F /* InsetsLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetsLabel.swift; sourceTree = "<group>"; };
 		995738DA235484410019AEE7 /* AllPassSubscriptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllPassSubscriptionViewController.xib; sourceTree = "<group>"; };
 		995739032355CAA30019AEE7 /* PageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicator.swift; sourceTree = "<group>"; };
 		995739052355CAC40019AEE7 /* ImageViewCrossDisolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCrossDisolve.swift; sourceTree = "<group>"; };
-		995739072355CB660019AEE7 /* AllPassSubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPassSubscriptionViewController.swift; sourceTree = "<group>"; };
 		9957FAE0237AE04900855F48 /* MWMMapViewControlsManager+AddPlace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapViewControlsManager+AddPlace.h"; sourceTree = "<group>"; };
 		9959C75524582DA2008FD4FD /* DirectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionView.xib; sourceTree = "<group>"; };
 		9959C75B24599CCC008FD4FD /* DirectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionView.swift; sourceTree = "<group>"; };
@@ -1763,6 +1765,11 @@
 		99B6A74B2362F5AA002C94CB /* PromoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoButton.swift; sourceTree = "<group>"; };
 		99B6A74D2362F5CD002C94CB /* PromoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCoordinator.swift; sourceTree = "<group>"; };
 		99B6A77E23684573002C94CB /* PromoDiscoveryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryBuilder.swift; sourceTree = "<group>"; };
+		99BFEEFB24B48D7600A65F5B /* SubscriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPresenter.swift; sourceTree = "<group>"; };
+		99BFEEFC24B48D7600A65F5B /* SubscriptionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionRouter.swift; sourceTree = "<group>"; };
+		99BFEEFD24B48D7600A65F5B /* CitySubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySubscriptionViewController.swift; sourceTree = "<group>"; };
+		99BFEEFE24B48D7600A65F5B /* CitySubscriptionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySubscriptionBuilder.swift; sourceTree = "<group>"; };
+		99BFEEFF24B48D7600A65F5B /* SubscriptionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionInteractor.swift; sourceTree = "<group>"; };
 		99C6532123F2F506004322F3 /* IPlacePageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPlacePageLayout.swift; sourceTree = "<group>"; };
 		99C964232428C0F700E41723 /* PlacePageHeaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderPresenter.swift; sourceTree = "<group>"; };
 		99C964252428C0F700E41723 /* PlacePageHeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderViewController.swift; sourceTree = "<group>"; };
@@ -1787,6 +1794,9 @@
 		99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWMCategory+PlacesCountTitle.swift"; sourceTree = "<group>"; };
 		99E2B01D23698B0800FFABC5 /* WelcomeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeProtocols.swift; sourceTree = "<group>"; };
 		99E2B0222369904800FFABC5 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		99EBF72824B4C88F00FE1F1F /* AllPassSubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPassSubscriptionViewController.swift; sourceTree = "<group>"; };
+		99EBF72A24B4C88F00FE1F1F /* AllPassSubscriptionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPassSubscriptionBuilder.swift; sourceTree = "<group>"; };
+		99EBF73224B4C91000FE1F1F /* SubscriptionViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewProtocol.swift; sourceTree = "<group>"; };
 		99F3EB0223F4178200C713F8 /* PlacePageCommonLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageCommonLayout.swift; sourceTree = "<group>"; };
 		99F3EB0523F418A200C713F8 /* PlacePagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePagePresenter.swift; sourceTree = "<group>"; };
 		99F3EB0B23F418C900C713F8 /* PlacePageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageBuilder.swift; sourceTree = "<group>"; };
@@ -3802,20 +3812,6 @@
 			path = Theme;
 			sourceTree = "<group>";
 		};
-		995738D9235481FE0019AEE7 /* Subscription */ = {
-			isa = PBXGroup;
-			children = (
-				47A6F3C2235F47B90053FBA4 /* BookmarksSubscriptionButton.swift */,
-				47A6F3C3235F47B90053FBA4 /* BookmarksSubscriptionViewController.swift */,
-				47A6F3C1235F47B90053FBA4 /* BookmarksSubscriptionViewController.xib */,
-				995738DA235484410019AEE7 /* AllPassSubscriptionViewController.xib */,
-				995739072355CB660019AEE7 /* AllPassSubscriptionViewController.swift */,
-				99536110235DABB1008B218F /* BaseSubscriptionViewController.swift */,
-				999D3A66237BFA4600C5F7A8 /* SubscriptionViewBuilder.swift */,
-			);
-			path = Subscription;
-			sourceTree = "<group>";
-		};
 		995739022355CA5D0019AEE7 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
@@ -3877,6 +3873,32 @@
 				99425AF3236855BB00D005C0 /* PromoDiscoveryRouter.swift */,
 			);
 			path = PromoDiscovery;
+			sourceTree = "<group>";
+		};
+		99BFEEFA24B48D3900A65F5B /* Subscription */ = {
+			isa = PBXGroup;
+			children = (
+				999D3A66237BFA4600C5F7A8 /* SubscriptionViewBuilder.swift */,
+				99BFEEFB24B48D7600A65F5B /* SubscriptionPresenter.swift */,
+				99BFEEFC24B48D7600A65F5B /* SubscriptionRouter.swift */,
+				99BFEEFF24B48D7600A65F5B /* SubscriptionInteractor.swift */,
+				99EBF73224B4C91000FE1F1F /* SubscriptionViewProtocol.swift */,
+				99EBF72524B4B54500FE1F1F /* Components */,
+				99EBF72424B4B53800FE1F1F /* AllPass */,
+				99BFEF0824B48D8600A65F5B /* City */,
+			);
+			name = Subscription;
+			path = ../../../xcode/geometry/Subscription;
+			sourceTree = "<group>";
+		};
+		99BFEF0824B48D8600A65F5B /* City */ = {
+			isa = PBXGroup;
+			children = (
+				99BFEEFD24B48D7600A65F5B /* CitySubscriptionViewController.swift */,
+				99BFEEFE24B48D7600A65F5B /* CitySubscriptionBuilder.swift */,
+				47A6F3C1235F47B90053FBA4 /* CitySubscriptionViewController.xib */,
+			);
+			path = City;
 			sourceTree = "<group>";
 		};
 		99C6531F23F2F178004322F3 /* Components */ = {
@@ -3992,6 +4014,24 @@
 			path = TermsOfUse;
 			sourceTree = "<group>";
 		};
+		99EBF72424B4B53800FE1F1F /* AllPass */ = {
+			isa = PBXGroup;
+			children = (
+				99EBF72824B4C88F00FE1F1F /* AllPassSubscriptionViewController.swift */,
+				99EBF72A24B4C88F00FE1F1F /* AllPassSubscriptionBuilder.swift */,
+				995738DA235484410019AEE7 /* AllPassSubscriptionViewController.xib */,
+			);
+			path = AllPass;
+			sourceTree = "<group>";
+		};
+		99EBF72524B4B54500FE1F1F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				47A6F3C2235F47B90053FBA4 /* BookmarksSubscriptionButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		99F3EB0423F417BE00C713F8 /* PlacePageManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -4016,7 +4056,6 @@
 			isa = PBXGroup;
 			children = (
 				47C8788D22DF522B00A772DA /* Dialogs */,
-				995738D9235481FE0019AEE7 /* Subscription */,
 				B32FE73E20D2844600EF7446 /* DownloadedBookmarksViewController.swift */,
 				B32FE73F20D2844600EF7446 /* DownloadedBookmarksViewController.xib */,
 				B32FE74220D2B09600EF7446 /* CatalogWebViewController.swift */,
@@ -4397,6 +4436,7 @@
 		F6E2FBFB1E097B9F0083EBEC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				99BFEEFA24B48D3900A65F5B /* Subscription */,
 				CDB4D4DA222D24EE00104869 /* CarPlay */,
 				F6E407CC1FC45ED4001F7821 /* Discovery */,
 				3432E17F1E49BEFA008477E9 /* Ads */,
@@ -5093,7 +5133,7 @@
 				6741A9951BF340DE002C974C /* MWMDownloaderDialogCell.xib in Resources */,
 				6741A9511BF340DE002C974C /* MWMDownloaderDialogHeader.xib in Resources */,
 				6741A96C1BF340DE002C974C /* MWMDownloadTransitMapAlert.xib in Resources */,
-				47A6F3C4235F47B90053FBA4 /* BookmarksSubscriptionViewController.xib in Resources */,
+				47A6F3C4235F47B90053FBA4 /* CitySubscriptionViewController.xib in Resources */,
 				F653CE0E1C6DEB2E00A453F1 /* MWMDropDown.xib in Resources */,
 				34D3B0241E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
 				34AB667A1FC5AA330078E451 /* RoutePreviewTaxiCell.xib in Resources */,
@@ -5380,7 +5420,6 @@
 				348A8DF51F66775A00D83026 /* RatingView.swift in Sources */,
 				F63AF50F1EA6215100A1DB98 /* FilterPriceCategoryCell.swift in Sources */,
 				993DF12123F6BDB100AC231A /* UIViewControllerRenderer.swift in Sources */,
-				47A6F3C6235F47B90053FBA4 /* BookmarksSubscriptionViewController.swift in Sources */,
 				34D3AFF61E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
 				473464A7218B0BC000D6AF5B /* MWMPurchaseValidation.mm in Sources */,
 				4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */,
@@ -5496,6 +5535,7 @@
 				B33D21AC20DA515800BAD749 /* MWMCategoryInfoCell.mm in Sources */,
 				9989273A2449E60200260CE2 /* BottomMenuViewController.swift in Sources */,
 				473CBF9B2164DD470059BD54 /* SettingsTableViewSelectableProgressCell.swift in Sources */,
+				99BFEF0224B48D7600A65F5B /* SubscriptionRouter.swift in Sources */,
 				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
 				993DF0B523F6B2EF00AC231A /* PlacePageElevationLayout.swift in Sources */,
@@ -5663,6 +5703,7 @@
 				F63AF5131EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */,
 				34AB663E1FC5AA330078E451 /* RouteManagerTransitioning.swift in Sources */,
 				993F550B237C622700545511 /* DeepLinkIncorrectStrategy.swift in Sources */,
+				99BFEF0524B48D7600A65F5B /* SubscriptionInteractor.swift in Sources */,
 				34BBD65C1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */,
 				56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.m in Sources */,
 				479603732446F17C00F3BDD0 /* User+AppleId.swift in Sources */,
@@ -5694,6 +5735,7 @@
 				99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */,
 				995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */,
 				47B9065221C7FA400079C85E /* MWMWebImage.m in Sources */,
+				99EBF73324B4C91000FE1F1F /* SubscriptionViewProtocol.swift in Sources */,
 				F6E2FE7C1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				340E1EFB1E2F614400CE49BF /* Storyboard.swift in Sources */,
 				34E776331F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
@@ -5778,11 +5820,13 @@
 				33BCDF8B218C976D00EF5B74 /* TagsCollectionViewLayout.swift in Sources */,
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
 				F6E2FED91E097BA00083EBEC /* MWMSearchContentView.m in Sources */,
+				99EBF73024B4C89000FE1F1F /* AllPassSubscriptionBuilder.swift in Sources */,
 				F6BD1D211CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
 				47CF2E6323BA0DD500D11C30 /* CopyLabel.swift in Sources */,
 				34AB66321FC5AA330078E451 /* RouteManagerHeaderView.swift in Sources */,
 				347040301EA6470700038379 /* BorderedButton.swift in Sources */,
 				F6E2FF4B1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */,
+				99EBF72E24B4C89000FE1F1F /* AllPassSubscriptionViewController.swift in Sources */,
 				472E3F4A2146C4CD0020E412 /* MWMPurchaseManager.mm in Sources */,
 				34ABA6211C2D517500FE1BEC /* MWMInputValidator.m in Sources */,
 				47C7F97521930F5300C2760C /* IInAppBilling.swift in Sources */,
@@ -5802,7 +5846,6 @@
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
 				F655C027207278300048A241 /* DiscoveryMoreCell.swift in Sources */,
 				337F98B821D3D67E00C8AC27 /* SearchHistoryQueryCell.swift in Sources */,
-				99536111235DABB1008B218F /* BaseSubscriptionViewController.swift in Sources */,
 				34AB66621FC5AA330078E451 /* TransportTransitSeparator.swift in Sources */,
 				CDCA2743223F8D1E00167D87 /* ListItemInfo.swift in Sources */,
 				B32FE74020D2844600EF7446 /* DownloadedBookmarksViewController.swift in Sources */,
@@ -5894,8 +5937,10 @@
 				4747045424622EF0006E51E9 /* GuidesGalleryStyleSheet.swift in Sources */,
 				3404754D1E081A4600C92850 /* MWMKeyboard.m in Sources */,
 				993DF10C23F6BDB100AC231A /* MWMTableViewCellRenderer.swift in Sources */,
+				99BFEF0124B48D7600A65F5B /* SubscriptionPresenter.swift in Sources */,
 				3457C4261F680F1900028233 /* String+BoundingRect.swift in Sources */,
 				34EF94291C05A6F30050B714 /* MWMSegue.m in Sources */,
+				99BFEF0324B48D7600A65F5B /* CitySubscriptionViewController.swift in Sources */,
 				CD96C70C22A681C400DB7CFE /* DiscoveryGuideCell.swift in Sources */,
 				47E3C7312111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift in Sources */,
 				99E2B0122368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift in Sources */,
@@ -5925,7 +5970,6 @@
 				3454D7D71E07F045004AF2AD /* UIKitCategories.m in Sources */,
 				47E6CB0B2178BA3600EA102B /* SearchBannerCell.swift in Sources */,
 				34AB39C21D2BD8310021857D /* MWMStopButton.m in Sources */,
-				995739082355CB660019AEE7 /* AllPassSubscriptionViewController.swift in Sources */,
 				3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.m in Sources */,
@@ -5967,6 +6011,7 @@
 				F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */,
 				4796037524482E3900F3BDD0 /* KeychainStorage.swift in Sources */,
 				471A7BC4248471BE00A0D4C1 /* BookmarkUIUtils.swift in Sources */,
+				99BFEF0424B48D7600A65F5B /* CitySubscriptionBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

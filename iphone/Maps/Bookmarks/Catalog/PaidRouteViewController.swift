@@ -49,7 +49,7 @@ class PaidRouteViewController: MWMViewController {
     self.statistics = statistics
     self.subscriptionType = subscriptionType
     switch subscriptionType {
-    case .sightseeing:
+    case .city:
       self.subscriptionManager = InAppPurchase.bookmarksSubscriptionManager
     case .allPass:
       self.subscriptionManager = InAppPurchase.allPassSubscriptionManager
