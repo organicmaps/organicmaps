@@ -204,13 +204,13 @@ def load_gtfs_zips_from_urls(path, urls_file, threads_count, file_prefix):
                                          os.path.join(path, get_filename(file_prefix, i)), url):
                              url for i, url in enumerate(urls)}
 
-        for j, future in enumerate(concurrent.futures.as_completed(future_to_url)):
+        for j, future in enumerate(concurrent.futures.as_completed(future_to_url), start=1):
             url = future_to_url[future]
 
             loaded = future.result()
             if not loaded:
                 err_count += 1
-            logger.info(f"Loaded {j}/{len(urls)} feeds. feed = {loaded}. {url}")
+            logger.info(f"Handled {j}/{len(urls)} feed. Loaded = {loaded}. {url}")
 
     logger.info(f"Done loading. {err_count}/{len(urls)} errors")
 
