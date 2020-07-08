@@ -157,22 +157,22 @@ pair<NameScores, size_t> GetNameScores(FeatureType & ft, Geocoder::Params const 
   return make_pair(bestScores, matchedLength);
 }
 
-pair<ErrorsMade, size_t> MatchTokenRange(FeatureType & ft, Geocoder::Params const & params,
-                                         TokenRange const & range, Model::Type type)
+void MatchTokenRange(FeatureType & ft, Geocoder::Params const & params, TokenRange const & range,
+                     Model::Type type, ErrorsMade & errorsMade, size_t & matchedLength,
+                     bool & isAltOrOldName)
 {
   auto const scores = GetNameScores(ft, params, range, type);
-  auto errorsMade = scores.first.m_errorsMade;
-  auto matchedLength = scores.second;
+  errorsMade = scores.first.m_errorsMade;
+  isAltOrOldName = scores.first.m_isAltOrOldName;
+  matchedLength = scores.second;
   if (errorsMade.IsValid())
-    return make_pair(errorsMade, matchedLength);
+    return;
 
   for (auto const token : range)
   {
     errorsMade += ErrorsMade{GetMaxErrorsForToken(params.GetToken(token).GetOriginal())};
     matchedLength += params.GetToken(token).GetOriginal().size();
   }
-
-  return make_pair(errorsMade, matchedLength);
 }
 
 void RemoveDuplicatingLinear(vector<RankerResult> & results)
@@ -382,6 +382,7 @@ class RankerResultMaker
 
       auto nameScore = scores.first.m_nameScore;
       auto errorsMade = scores.first.m_errorsMade;
+      bool isAltOrOldName = scores.first.m_isAltOrOldName;
       auto matchedLength = scores.second;
 
       if (info.m_type != Model::TYPE_STREET &&
@@ -397,6 +398,8 @@ class RankerResultMaker
 
           nameScore = min(nameScore, streetScores.first.m_nameScore);
           errorsMade += streetScores.first.m_errorsMade;
+          if (streetScores.first.m_isAltOrOldName)
+            isAltOrOldName = true;
           matchedLength += streetScores.second;
         }
       }
@@ -410,9 +413,15 @@ class RankerResultMaker
         {
           auto const type = Model::TYPE_SUBURB;
           auto const & range = preInfo.m_tokenRanges[type];
-          auto const matchingResult = MatchTokenRange(*suburb, m_params, range, type);
-          errorsMade += matchingResult.first;
-          matchedLength += matchingResult.second;
+          ErrorsMade suburbErrors;
+          size_t suburbMatchedLength = 0;
+          bool suburbNameIsAltNameOrOldName = false;
+          MatchTokenRange(*suburb, m_params, range, type, suburbErrors, suburbMatchedLength,
+                          suburbNameIsAltNameOrOldName);
+          errorsMade += suburbErrors;
+          matchedLength += suburbMatchedLength;
+          if (suburbNameIsAltNameOrOldName)
+            isAltOrOldName = true;
         }
       }
 
@@ -423,9 +432,15 @@ class RankerResultMaker
         {
           auto const type = Model::TYPE_CITY;
           auto const & range = preInfo.m_tokenRanges[type];
-          auto const matchingResult = MatchTokenRange(*city, m_params, range, type);
-          errorsMade += matchingResult.first;
-          matchedLength += matchingResult.second;
+          ErrorsMade cityErrors;
+          size_t cityMatchedLength = 0;
+          bool cityNameIsAltNameOrOldName = false;
+          MatchTokenRange(*city, m_params, range, type, cityErrors, cityMatchedLength,
+                          cityNameIsAltNameOrOldName);
+          errorsMade += cityErrors;
+          matchedLength += cityMatchedLength;
+          if (cityNameIsAltNameOrOldName)
+            isAltOrOldName = true;
         }
       }
 
@@ -435,6 +450,7 @@ class RankerResultMaker
 
       info.m_nameScore = nameScore;
       info.m_errorsMade = errorsMade;
+      info.m_isAltOrOldName = isAltOrOldName;
       info.m_matchedFraction =
           totalLength == 0 ? 1.0
                            : static_cast<double>(matchedLength) / static_cast<double>(totalLength);

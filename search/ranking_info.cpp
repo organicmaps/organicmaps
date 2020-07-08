@@ -188,6 +188,7 @@ string DebugPrint(RankingInfo const & info)
      << "]";
   os << ", m_nameScore:" << DebugPrint(info.m_nameScore);
   os << ", m_errorsMade:" << DebugPrint(info.m_errorsMade);
+  os << ", m_isAltOrOldName: " << info.m_isAltOrOldName;
   os << ", m_numTokens:" << info.m_numTokens;
   os << ", m_matchedFraction:" << info.m_matchedFraction;
   os << ", m_type:" << DebugPrint(info.m_type);

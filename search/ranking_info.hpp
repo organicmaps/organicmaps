@@ -68,6 +68,9 @@ struct RankingInfo
   // Number of misprints.
   ErrorsMade m_errorsMade;
 
+  // alt_name or old_name is used.
+  bool m_isAltOrOldName = false;
+
   // Query tokens number.
   size_t m_numTokens = 0;
 

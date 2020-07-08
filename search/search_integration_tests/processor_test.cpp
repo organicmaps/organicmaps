@@ -2998,5 +2998,85 @@ UNIT_CLASS_TEST(ProcessorTest, AltAndOldName)
     TEST(ResultsMatch("old", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_IsAltOrOldName)
+{
+  string const countryName = "Wonderland";
+
+  StringUtf8Multilang cityName;
+  cityName.AddString("default", "Санкт-Петербург");
+  cityName.AddString("alt_name", "Питер");
+  cityName.AddString("old_name", "Ленинград");
+  TestCity city(m2::PointD(0.0, 0.0), cityName, 100 /* rank */);
+
+  StringUtf8Multilang streetName;
+  streetName.AddString("default", "Большой проспект Васильевского Острова");
+  streetName.AddString("alt_name", "Большой проспект В. О.");
+  streetName.AddString("old_name", "проспект Пролетарской Победы");
+  TestStreet street(
+      vector<m2::PointD>{m2::PointD(0.0, -0.5), m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.5)},
+      streetName);
+
+  TestMultilingualPOI poi(m2::PointD(0.0, 0.0), "KFC",
+                          {{"alt_name", "Kentucky Fried Chicken"}, {"old_name", "Ростикс"}});
+
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(city); });
+
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(city);
+    builder.Add(street);
+    builder.Add(poi);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+
+  auto checkIsAltOrOldName = [&](string const & query, bool isAltOrOldName) {
+    auto request = MakeRequest(query, "ru");
+    auto const & results = request->Results();
+
+    Rules rules{ExactMatch(wonderlandId, poi)};
+    bool found = false;
+    for (auto const & result : results)
+    {
+      if (ResultsMatch({result}, rules))
+      {
+        found = true;
+        TEST_EQUAL(result.GetRankingInfo().m_nameScore, NAME_SCORE_FULL_MATCH, (query, result));
+        TEST_EQUAL(result.GetRankingInfo().m_isAltOrOldName, isAltOrOldName, (query, result));
+      }
+    }
+    TEST(found, (query));
+  };
+
+  checkIsAltOrOldName("Санкт-Петербург Большой проспект Васильевского Острова KFC", false);
+  checkIsAltOrOldName("Питер Большой проспект Васильевского Острова KFC", true);
+  checkIsAltOrOldName("Ленинград Большой проспект Васильевского Острова KFC", true);
+  checkIsAltOrOldName("Санкт-Петербург Большой проспект В. О. KFC", true);
+  checkIsAltOrOldName("Питер Большой проспект В. О. KFC", true);
+  checkIsAltOrOldName("Ленинград Большой проспект В. О. KFC", true);
+  checkIsAltOrOldName("Санкт-Петербург проспект Пролетарской Победы KFC", true);
+  checkIsAltOrOldName("Питер проспект Пролетарской Победы KFC", true);
+  checkIsAltOrOldName("Ленинград проспект Пролетарской Победы KFC", true);
+  checkIsAltOrOldName(
+      "Санкт-Петербург Большой проспект Васильевского Острова Kentucky Fried Chicken", true);
+  checkIsAltOrOldName("Питер Большой проспект Васильевского Острова Kentucky Fried Chicken", true);
+  checkIsAltOrOldName("Ленинград Большой проспект Васильевского Острова Kentucky Fried Chicken",
+                      true);
+  checkIsAltOrOldName("Санкт-Петербург Большой проспект В. О. Kentucky Fried Chicken", true);
+  checkIsAltOrOldName("Питер Большой проспект В. О. Kentucky Fried Chicken", true);
+  checkIsAltOrOldName("Ленинград Большой проспект В. О. Kentucky Fried Chicken", true);
+  checkIsAltOrOldName("Санкт-Петербург проспект Пролетарской Победы Kentucky Fried Chicken", true);
+  checkIsAltOrOldName("Питер проспект Пролетарской Победы Kentucky Fried Chicken", true);
+  checkIsAltOrOldName("Ленинград проспект Пролетарской Победы Kentucky Fried Chicken", true);
+  checkIsAltOrOldName("Санкт-Петербург Большой проспект Васильевского Острова Ростикс", true);
+  checkIsAltOrOldName("Питер Большой проспект Васильевского Острова Ростикс", true);
+  checkIsAltOrOldName("Ленинград Большой проспект Васильевского Острова Ростикс", true);
+  checkIsAltOrOldName("Санкт-Петербург Большой проспект В. О. Ростикс", true);
+  checkIsAltOrOldName("Питер Большой проспект В. О. Ростикс", true);
+  checkIsAltOrOldName("Ленинград Большой проспект В. О. Ростикс", true);
+  checkIsAltOrOldName("Санкт-Петербург проспект Пролетарской Победы Ростикс", true);
+  checkIsAltOrOldName("Питер проспект Пролетарской Победы Ростикс", true);
+  checkIsAltOrOldName("Ленинград проспект Пролетарской Победы Ростикс", true);
+}
 }  // namespace
 }  // namespace search

@@ -66,6 +66,7 @@ protected:
   TestFeature(std::string const & name, std::string const & lang);
   TestFeature(StringUtf8Multilang const & name);
   TestFeature(m2::PointD const & center, std::string const & name, std::string const & lang);
+  TestFeature(m2::PointD const & center, StringUtf8Multilang const & name);
   TestFeature(std::vector<m2::PointD> const & boundary, std::string const & name,
               std::string const & lang);
 
@@ -106,6 +107,7 @@ class TestCity : public TestFeature
 public:
   TestCity(m2::PointD const & center, std::string const & name, std::string const & lang,
            uint8_t rank);
+  TestCity(m2::PointD const & center, StringUtf8Multilang const & name, uint8_t rank);
   TestCity(std::vector<m2::PointD> const & boundary, std::string const & name,
            std::string const & lang, uint8_t rank);
 

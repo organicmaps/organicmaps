@@ -66,6 +66,12 @@ TestFeature::TestFeature(m2::PointD const & center, string const & name, string 
   Init();
 }
 
+TestFeature::TestFeature(m2::PointD const & center, StringUtf8Multilang const & name)
+  : m_id(GenUniqueId()), m_center(center), m_type(Type::Point), m_names(name)
+{
+  Init();
+}
+
 TestFeature::TestFeature(vector<m2::PointD> const & boundary, string const & name,
                          string const & lang)
   : m_id(GenUniqueId()), m_boundary(boundary), m_type(Type::Area)
@@ -179,6 +185,11 @@ string TestState::ToDebugString() const
 TestCity::TestCity(m2::PointD const & center, string const & name, string const & lang,
                    uint8_t rank)
   : TestFeature(center, name, lang), m_rank(rank)
+{
+}
+
+TestCity::TestCity(m2::PointD const & center, StringUtf8Multilang const & name, uint8_t rank)
+  : TestFeature(center, name), m_rank(rank)
 {
 }
 
