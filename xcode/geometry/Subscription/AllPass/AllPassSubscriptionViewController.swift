@@ -1,6 +1,6 @@
 class AllPassSubscriptionViewController: UIViewController {
   var presenter: SubscriptionPresenterProtocol!
-  
+
   @IBOutlet private var backgroundImageView: ImageViewCrossDisolve!
   @IBOutlet private var annualSubscriptionButton: BookmarksSubscriptionButton!
   @IBOutlet private var annualDiscountLabel: InsetsLabel!
@@ -10,27 +10,26 @@ class AllPassSubscriptionViewController: UIViewController {
   @IBOutlet private var statusBarBackgroundView: UIVisualEffectView!
   @IBOutlet private var descriptionSubtitles: [UILabel]!
   @IBOutlet private var loadingView: UIView!
-  
+
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask { return [.portrait] }
   override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
   private let transitioning = FadeTransitioning<IPadModalPresentationController>()
-  
+
   private var pageWidth: CGFloat {
     return descriptionPageScrollView.frame.width
   }
-  
+
   private let maxPages = 3
   private var currentPage: Int {
     return Int(descriptionPageScrollView.contentOffset.x / pageWidth) + 1
   }
-  
+
   private var animatingTask: DispatchWorkItem?
   private let animationDelay: TimeInterval = 2
   private let animationDuration: TimeInterval = 0.75
   private let animationBackDuration: TimeInterval = 0.3
   private let statusBarBackVisibleThreshold: CGFloat = 60
-  
-  
+
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     if UIDevice.current.userInterfaceIdiom == .pad {
@@ -40,22 +39,22 @@ class AllPassSubscriptionViewController: UIViewController {
       modalPresentationStyle = .fullScreen
     }
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     presenter?.configure()
-    
+
     backgroundImageView.images = [
       UIImage(named: "AllPassSubscriptionBg1"),
       UIImage(named: "AllPassSubscriptionBg2"),
       UIImage(named: "AllPassSubscriptionBg3")
     ]
     startAnimating()
-    
+
     let fontSize: CGFloat = UIScreen.main.bounds.width > 320 ? 17.0 : 14.0
     let fontFamily = UIFont.systemFont(ofSize: fontSize).familyName
     let css = "<style type=\"text/css\">b{font-weight: 900;}body{font-weight: 300; font-size: \(fontSize); font-family: '-apple-system','\(fontFamily)';}</style>"
@@ -64,26 +63,26 @@ class AllPassSubscriptionViewController: UIViewController {
                                "all_pass_subscription_message_subtitle_2"]).forEach { title, loc in
                                 title.attributedText = NSAttributedString.string(withHtml: css + L(loc), defaultAttributes: [:])
     }
-    
+
     preferredContentSize = CGSize(width: 414, height: contentView.frame.height)
   }
-  
+
   @IBAction func onAnnualButtonTap(_ sender: UIButton) {
     presenter.purchase(anchor: sender, period: .year)
   }
-  
+
   @IBAction func onMonthlyButtonTap(_ sender: UIButton) {
     presenter.purchase(anchor: sender, period: .month)
   }
-  
+
   @IBAction func onClose(_ sender: UIButton) {
     presenter.onClose()
   }
-  
+
   @IBAction func onTerms(_ sender: UIButton) {
     presenter.onTermsPressed()
   }
-  
+
   @IBAction func onPrivacy(_ sender: UIButton) {
     presenter.onPrivacyPressed()
   }
@@ -98,7 +97,7 @@ extension AllPassSubscriptionViewController: SubscriptionViewProtocol {
       loadingView.isHidden = newValue
     }
   }
-  
+
   func setModel(_ model: SubscriptionViewModel) {
     switch model {
     case .loading:
@@ -109,7 +108,7 @@ extension AllPassSubscriptionViewController: SubscriptionViewProtocol {
                                        price: "...",
                                        enabled: false)
       annualDiscountLabel.isHidden = true
-    case .subsctiption(let subscriptionData):
+    case let .subsctiption(subscriptionData):
       for data in subscriptionData {
         if data.period == .month {
           monthlySubscriptionButton.config(title: data.title,
@@ -124,7 +123,7 @@ extension AllPassSubscriptionViewController: SubscriptionViewProtocol {
           annualDiscountLabel.text = data.discount
         }
       }
-    case .trial(_):
+    case .trial:
       assertionFailure()
     }
   }
@@ -136,14 +135,15 @@ extension AllPassSubscriptionViewController: UIAdaptivePresentationControllerDel
   }
 }
 
-//MARK: Animation
+// MARK: Animation
+
 extension AllPassSubscriptionViewController {
   private func perform(withDelay: TimeInterval, execute: DispatchWorkItem?) {
     if let execute = execute {
       DispatchQueue.main.asyncAfter(deadline: .now() + withDelay, execute: execute)
     }
   }
-  
+
   private func startAnimating() {
     if animatingTask != nil {
       animatingTask?.cancel()
@@ -155,13 +155,13 @@ extension AllPassSubscriptionViewController {
     }
     perform(withDelay: animationDelay, execute: animatingTask)
   }
-  
+
   private func stopAnimating() {
     animatingTask?.cancel()
     animatingTask = nil
     view.layer.removeAllAnimations()
   }
-  
+
   private func scrollToWithAnimation(page: Int, completion: @escaping () -> Void) {
     var nextPage = page
     var duration = animationDuration
@@ -169,7 +169,7 @@ extension AllPassSubscriptionViewController {
       nextPage = 1
       duration = animationBackDuration
     }
-    
+
     let xOffset = CGFloat(nextPage - 1) * pageWidth
     UIView.animate(withDuration: duration,
                    delay: 0,
@@ -192,11 +192,11 @@ extension AllPassSubscriptionViewController: UIScrollViewDelegate {
       statusBarBackgroundView.alpha = statusBarAlpha
     }
   }
-  
+
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     stopAnimating()
   }
-  
+
   func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
     startAnimating()
   }

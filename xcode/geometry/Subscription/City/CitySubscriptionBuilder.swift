@@ -1,4 +1,4 @@
-class CitySubscriptionBuilder {    
+class CitySubscriptionBuilder {
   static func build(parentViewController: UIViewController,
                     source: String,
                     successDialog: SubscriptionSuccessDialog,
@@ -18,10 +18,10 @@ class CitySubscriptionBuilder {
                                           interactor: interactor,
                                           subscriptionManager: InAppPurchase.bookmarksSubscriptionManager,
                                           source: source)
-    
+
     interactor.presenter = presenter
     viewController.presenter = presenter
-    
+
     return viewController
   }
 }

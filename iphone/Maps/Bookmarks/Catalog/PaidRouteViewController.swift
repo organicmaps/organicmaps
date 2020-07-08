@@ -32,10 +32,8 @@ class PaidRouteViewController: MWMViewController {
   private let subscriptionType: SubscriptionGroupType
   private let paidRoutesSubscriptionCampaign = PromoCampaignManager.manager().paidRoutesSubscriptionCampaign
 
-  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    get { return [.portrait] }
-  }
-  
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask { return [.portrait] }
+
   init(name: String,
        author: String?,
        imageUrl: URL?,
@@ -50,13 +48,13 @@ class PaidRouteViewController: MWMViewController {
     self.subscriptionType = subscriptionType
     switch subscriptionType {
     case .city:
-      self.subscriptionManager = InAppPurchase.bookmarksSubscriptionManager
+      subscriptionManager = InAppPurchase.bookmarksSubscriptionManager
     case .allPass:
-      self.subscriptionManager = InAppPurchase.allPassSubscriptionManager
+      subscriptionManager = InAppPurchase.allPassSubscriptionManager
     }
     super.init(nibName: nil, bundle: nil)
     if paidRoutesSubscriptionCampaign.actionType == .instant {
-      self.subscriptionManager.addListener(self)
+      subscriptionManager.addListener(self)
     }
   }
 
@@ -84,13 +82,13 @@ class PaidRouteViewController: MWMViewController {
 
     let dispatchGroup = DispatchGroup()
     dispatchGroup.enter()
-    purchase.requestStoreProduct { (p, error) in
+    purchase.requestStoreProduct { p, error in
       product = p
       dispatchGroup.leave()
     }
 
     dispatchGroup.enter()
-    subscriptionManager.getAvailableSubscriptions { (s, error) in
+    subscriptionManager.getAvailableSubscriptions { s, error in
       subscriptions = s
       dispatchGroup.leave()
     }
@@ -124,15 +122,14 @@ class PaidRouteViewController: MWMViewController {
       case .window:
         titleFormat = subscriptionType == .allPass ? "buy_btn_for_subscription_version_3"
           : "buy_btn_for_subscription_ios_only_mo_version_2"
-
       }
       let title = String(coreFormat: L(titleFormat), arguments: [formatter.string(from: subscriptionItem.price) ?? ""])
       self?.subscribeButton.setTitle(title, for: .normal)
       self?.subscribeButton.isEnabled = true
       self?.subscription = subscriptionItem.subscription
-      Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor : self?.subscriptionManager.vendorId ?? "",
-                                                           kStatProduct : subscriptionItem.productId,
-                                                           kStatPurchase : self?.subscriptionManager.serverId ?? "",
+      Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: self?.subscriptionManager.vendorId ?? "",
+                                                           kStatProduct: subscriptionItem.productId,
+                                                           kStatPurchase: self?.subscriptionManager.serverId ?? "",
                                                            kStatTestGroup: self?.paidRoutesSubscriptionCampaign.testGroupStatName ?? ""],
                           with: .realtime)
     }
@@ -164,7 +161,7 @@ class PaidRouteViewController: MWMViewController {
   }
 
   private func pingServer(_ completion: @escaping (_ success: Bool) -> Void) {
-    BookmarksManager.shared().ping { (success) in
+    BookmarksManager.shared().ping { success in
       completion(success)
     }
   }
@@ -174,7 +171,7 @@ class PaidRouteViewController: MWMViewController {
   @IBAction func onBuy(_ sender: UIButton) {
     statistics.logPay()
     loadingView.isHidden = false
-    pingServer { [weak self] (success) in
+    pingServer { [weak self] success in
       guard success else {
         self?.loadingView.isHidden = true
         let errorDialog = SubscriptionFailViewController { [weak self] in
@@ -184,9 +181,9 @@ class PaidRouteViewController: MWMViewController {
         return
       }
 
-      self?.purchase.makePayment({ [weak self] (code, error) in
+      self?.purchase.makePayment { [weak self] code, error in
         self?.loadingView.isHidden = true
-        switch(code) {
+        switch code {
         case .success:
           self?.statistics.logPaymentSuccess()
           self?.statistics.logValidationSuccess()
@@ -209,7 +206,7 @@ class PaidRouteViewController: MWMViewController {
           MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
                                                                 text: L("purchase_error_subtitle"))
         }
-      })
+      }
     }
   }
 
@@ -230,7 +227,7 @@ class PaidRouteViewController: MWMViewController {
     }
 
     loadingView.isHidden = false
-    pingServer { [weak self] (success) in
+    pingServer { [weak self] success in
       guard success else {
         self?.loadingView.isHidden = true
         let errorDialog = SubscriptionFailViewController { [weak self] in
@@ -240,9 +237,9 @@ class PaidRouteViewController: MWMViewController {
         return
       }
 
-      Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct : subscription.productId,
-                                                             kStatPurchase : self?.subscriptionManager.serverId ?? ""])
-      Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase : self?.subscriptionManager.serverId ?? ""],
+      Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct: subscription.productId,
+                                                             kStatPurchase: self?.subscriptionManager.serverId ?? ""])
+      Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: self?.subscriptionManager.serverId ?? ""],
                           with: .realtime)
       self?.subscriptionManager.subscribe(to: subscription)
     }
@@ -252,34 +249,34 @@ class PaidRouteViewController: MWMViewController {
     let subscriptionView = SubscriptionViewBuilder.build(type: subscriptionType,
                                                          parentViewController: self,
                                                          source: kStatCard,
-                                                         successDialog: .none) {[weak self] (success) in
+                                                         successDialog: .none) { [weak self] success in
                                                           if success, self != nil {
                                                             self?.delegate?.didCompleteSubscription(self!)
                                                           }
     }
-    self.present(subscriptionView, animated: true, completion: nil)
+    present(subscriptionView, animated: true, completion: nil)
   }
 
   @IBAction func onCancel(_ sender: UIButton) {
     statistics.logCancel()
-    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase : subscriptionManager.serverId])
+    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase: subscriptionManager.serverId])
     delegate?.didCancelPurchase(self)
   }
 
   @IBAction func onTerms(_ sender: UIButton) {
     guard let url = URL(string: User.termsOfUseLink()) else { return }
     let safari = SFSafariViewController(url: url)
-    self.present(safari, animated: true, completion: nil)
+    present(safari, animated: true, completion: nil)
   }
 
   @IBAction func onPrivacy(_ sender: UIButton) {
     guard let url = URL(string: User.privacyPolicyLink()) else { return }
     let safari = SFSafariViewController(url: url)
-    self.present(safari, animated: true, completion: nil)
+    present(safari, animated: true, completion: nil)
   }
 }
 
-extension PaidRouteViewController : SubscriptionManagerListener {
+extension PaidRouteViewController: SubscriptionManagerListener {
   func didFailToValidate() {
     loadingView.isHidden = true
     MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
@@ -288,7 +285,7 @@ extension PaidRouteViewController : SubscriptionManagerListener {
 
   func didValidate(_ isValid: Bool) {
     loadingView.isHidden = true
-    if (isValid) {
+    if isValid {
       delegate?.didCompleteSubscription(self)
       let successDialog = SubscriptionSuccessViewController(subscriptionType) { [weak self] in
         self?.dismiss(animated: true)

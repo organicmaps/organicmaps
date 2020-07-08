@@ -13,8 +13,8 @@ extension UIViewController {
         let subscriptionDialog = AllPassSubscriptionBuilder.build(parentViewController: parentViewController,
                                                                   source: kStatWebView,
                                                                   successDialog: .none,
-                                                                  subscriptionGroupType: .allPass) { (result) in
-                                                                    if (!result) {
+                                                                  subscriptionGroupType: .allPass) { result in
+                                                                    if !result {
                                                                       self?.checkInvalidSubscription(completion)
                                                                     }
         }
@@ -31,4 +31,3 @@ extension UIViewController {
     }
   }
 }
-

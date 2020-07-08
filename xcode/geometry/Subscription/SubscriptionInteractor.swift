@@ -1,23 +1,23 @@
-protocol SubscriptionInteractorProtocol: class {
+protocol SubscriptionInteractorProtocol: AnyObject {
   func purchase(anchor: UIView, subscription: ISubscription)
   func restore(anchor: UIView)
 }
 
 class SubscriptionInteractor {
   weak var presenter: SubscriptionPresenterProtocol!
-  
+
   private weak var viewController: UIViewController?
   private let subscriptionManager: ISubscriptionManager
   private let bookmarksManager: BookmarksManager
-  
-  init (viewController: UIViewController,
-        subscriptionManager: ISubscriptionManager,
-        bookmarksManager: BookmarksManager) {
+
+  init(viewController: UIViewController,
+       subscriptionManager: ISubscriptionManager,
+       bookmarksManager: BookmarksManager) {
     self.viewController = viewController
     self.subscriptionManager = subscriptionManager
     self.bookmarksManager = bookmarksManager
   }
-  
+
   deinit {
     subscriptionManager.removeListener(self)
   }
@@ -44,13 +44,13 @@ extension SubscriptionInteractor: SubscriptionInteractorProtocol {
     Statistics.logEvent(kStatInappSelect, withParameters: [kStatPurchase: subscriptionManager.serverId,
                                                            kStatProduct: subscription.productId],
                         with: .realtime)
-    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager.serverId ],
+    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager.serverId],
                         with: .realtime)
   }
-  
+
   func restore(anchor: UIView) {
     subscriptionManager.addListener(self)
-    Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: subscriptionManager.serverId ])
+    Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: subscriptionManager.serverId])
     viewController?.signup(anchor: anchor, source: .subscription) { [weak self] success in
       guard success else { return }
       self?.presenter.isLoadingHidden = false
@@ -79,7 +79,7 @@ extension SubscriptionInteractor: SubscriptionManagerListener {
     MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
                                                           text: L("purchase_error_subtitle"))
   }
-  
+
   func didValidate(_ isValid: Bool) {
     presenter.isLoadingHidden = true
     if isValid {
@@ -89,19 +89,17 @@ extension SubscriptionInteractor: SubscriptionManagerListener {
                                                             text: L("purchase_error_subtitle"))
     }
   }
-  
+
   func didFailToSubscribe(_ subscription: ISubscription, error: Error?) {
     presenter.isLoadingHidden = true
     MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
                                                           text: L("purchase_error_subtitle"))
   }
-  
+
   func didSubscribe(_ subscription: ISubscription) {
     subscriptionManager.setSubscriptionActive(true)
     bookmarksManager.resetInvalidCategories()
   }
-  
-  func didDefer(_ subscription: ISubscription) {
-    
-  }
+
+  func didDefer(_ subscription: ISubscription) {}
 }

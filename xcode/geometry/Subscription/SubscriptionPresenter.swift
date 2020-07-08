@@ -1,4 +1,4 @@
-protocol SubscriptionPresenterProtocol: class {
+protocol SubscriptionPresenterProtocol: AnyObject {
   var isLoadingHidden: Bool { get set }
   func configure()
   func purchase(anchor: UIView, period: SubscriptionPeriod)
@@ -14,12 +14,12 @@ class SubscriptionPresenter {
   private weak var view: SubscriptionViewProtocol?
   private let router: SubscriptionRouterProtocol
   private let interactor: SubscriptionInteractorProtocol
-  
+
   private var subscriptionGroup: ISubscriptionGroup?
   private let subscriptionManager: ISubscriptionManager
   private var source: String = kStatWebView
-  
-  init(view: SubscriptionViewProtocol, 
+
+  init(view: SubscriptionViewProtocol,
        router: SubscriptionRouterProtocol,
        interactor: SubscriptionInteractorProtocol,
        subscriptionManager: ISubscriptionManager,
@@ -41,7 +41,7 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
       view?.isLoadingHidden = newValue
     }
   }
-  
+
   func configure() {
     view?.setModel(SubscriptionViewModel.loading)
     subscriptionManager.getAvailableSubscriptions { [weak self] subscriptions, error in
@@ -52,7 +52,7 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
         self?.onCancel()
         return
       }
-      
+
       let group = SubscriptionGroup(subscriptions: subscriptions)
       self?.subscriptionGroup = group
       var data: [SubscriptionViewModel.SubscriptionData] = []
@@ -69,13 +69,13 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
       }
       self?.view?.setModel(SubscriptionViewModel.subsctiption(data))
     }
-    
+
     Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: subscriptionManager.vendorId,
                                                          kStatPurchase: subscriptionManager.serverId,
                                                          kStatProduct: subscriptionManager.productIds[0],
                                                          kStatFrom: source], with: .realtime)
   }
-  
+
   func purchase(anchor: UIView, period: SubscriptionPeriod) {
     guard let subscription = subscriptionGroup?[period]?.subscription else {
       return
@@ -84,31 +84,31 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
     Statistics.logEvent(kStatInappSelect, withParameters: [kStatPurchase: subscriptionManager.serverId,
                                                            kStatProduct: subscription.productId],
                         with: .realtime)
-    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager.serverId ],
+    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager.serverId],
                         with: .realtime)
   }
-  
+
   func onTermsPressed() {
     router.showTerms()
   }
-  
+
   func onPrivacyPressed() {
     router.showPrivacy()
   }
-  
+
   func onClose() {
     router.cancel()
     Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase: subscriptionManager.serverId])
   }
-  
+
   func restore(anchor: UIView) {
     interactor.restore(anchor: anchor)
   }
-  
+
   func onSubscribe() {
     router.subscribe()
   }
-  
+
   func onCancel() {
     router.cancel()
   }

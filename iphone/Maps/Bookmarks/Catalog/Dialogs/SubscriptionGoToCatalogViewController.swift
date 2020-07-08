@@ -6,8 +6,8 @@
 
   @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var textLabel: UILabel!
-  
-  @objc init(_ screenType:SubscriptionGroupType, onOk: @escaping MWMVoidBlock, onCancel: @escaping MWMVoidBlock) {
+
+  @objc init(_ screenType: SubscriptionGroupType, onOk: @escaping MWMVoidBlock, onCancel: @escaping MWMVoidBlock) {
     self.onOk = onOk
     self.onCancel = onCancel
     self.screenType = screenType

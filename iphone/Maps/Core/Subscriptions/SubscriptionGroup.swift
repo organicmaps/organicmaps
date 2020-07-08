@@ -19,8 +19,8 @@
       return
     }
     let subscriptionGroups = urlComponents.queryItems?
-      .filter({ $0.name == "groups" })
-      .map({ $0.value ?? "" })
+      .filter { $0.name == "groups" }
+      .map { $0.value ?? "" }
 
     if subscriptionGroups?.first(where: { $0 == MWMPurchaseManager.allPassSubscriptionServerId() }) != nil {
       self = .allPass
@@ -57,28 +57,27 @@ class SubscriptionGroup: ISubscriptionGroup {
     formatter.locale = subscriptions.first?.priceLocale
     formatter.numberStyle = .currency
 
-
     let weekCycle = NSDecimalNumber(value: 7.0)
     let mounthCycle = NSDecimalNumber(value: 30.0)
     let yearCycle = NSDecimalNumber(value: 12.0 * 30.0)
-    var rates:[NSDecimalNumber] = []
+    var rates: [NSDecimalNumber] = []
     var maxPriceRate: NSDecimalNumber = NSDecimalNumber.minimum
 
-    maxPriceRate = subscriptions.reduce(into: maxPriceRate) { (result, item) in
+    maxPriceRate = subscriptions.reduce(into: maxPriceRate) { result, item in
       let price = item.price
       var rate: NSDecimalNumber = NSDecimalNumber()
 
       switch item.period {
       case .year:
-        rate = price.dividing(by: yearCycle);
+        rate = price.dividing(by: yearCycle)
       case .month:
-        rate = price.dividing(by: mounthCycle);
+        rate = price.dividing(by: mounthCycle)
       case .week:
-        rate = price.dividing(by: weekCycle);
+        rate = price.dividing(by: weekCycle)
       case .unknown:
         rate = price
       }
-      result = rate.compare(result) == .orderedDescending ? rate : result;
+      result = rate.compare(result) == .orderedDescending ? rate : result
       rates.append(rate)
     }
     self.subscriptions = []
@@ -91,7 +90,7 @@ class SubscriptionGroup: ISubscriptionGroup {
 
   subscript(period: SubscriptionPeriod) -> ISubscriptionGroupItem? {
     return subscriptions.first { (item) -> Bool in
-      return item.period == period
+      item.period == period
     }
   }
 }

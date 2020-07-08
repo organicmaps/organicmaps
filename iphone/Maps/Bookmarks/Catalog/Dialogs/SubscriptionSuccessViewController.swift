@@ -6,7 +6,7 @@ class SubscriptionSuccessViewController: UIViewController {
   @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var textLabel: UILabel!
 
-  init(_ screenType:SubscriptionGroupType, onOk: @escaping MWMVoidBlock) {
+  init(_ screenType: SubscriptionGroupType, onOk: @escaping MWMVoidBlock) {
     self.onOk = onOk
     self.screenType = screenType
     super.init(nibName: nil, bundle: nil)
