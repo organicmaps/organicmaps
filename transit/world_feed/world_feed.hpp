@@ -327,6 +327,8 @@ private:
   void FillTransfers();
   // Fills gates based on GTFS stops.
   void FillGates();
+  // Recalculates 0-weights of edges based on the shape length.
+  bool UpdateEdgeWeights();
 
   bool ProjectStopsToShape(TransitId shapeId, std::vector<m2::PointD> & shape,
                            IdList const & stopIds,

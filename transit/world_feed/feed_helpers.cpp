@@ -117,7 +117,7 @@ std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point, siz
   // We find the most fitting projection of the stop to the polyline. For two different projections
   // with approximately equal distances to the stop the most preferable is the one that is closer
   // to the beginning of the polyline segment.
-  auto const proj =
+  auto proj =
       std::min_element(projections.begin(), projections.end(),
                        [](ProjectionData const & p1, ProjectionData const & p2) {
                          if (CloserToStartAndOnSimilarDistToLine(p1, p2))
@@ -131,6 +131,16 @@ std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point, siz
 
                          return p1.m_distFromPoint < p2.m_distFromPoint;
                        });
+
+  // This case is possible not only for the first stop on the shape. We try to resolve situation
+  // when two stops are projected to the same point on the shape.
+  if (proj->m_indexOnShape == startIndex)
+  {
+    proj = std::min_element(projections.begin(), projections.end(),
+                         [](ProjectionData const & p1, ProjectionData const & p2) {
+                           return p1.m_distFromPoint < p2.m_distFromPoint;
+                         });
+  }
 
   if (proj->m_needsInsertion)
     polyline.insert(polyline.begin() + proj->m_indexOnShape, proj->m_proj);

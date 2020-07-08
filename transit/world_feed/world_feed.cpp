@@ -17,6 +17,7 @@
 #include "base/newtype.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <iosfwd>
 #include <memory>
 #include <tuple>
@@ -29,6 +30,10 @@
 
 namespace
 {
+// TODO(o.khlopkova) Set average speed for each type of transit separately - trains, buses, etc.
+// Average transit speed. Approximately 40 km/h.
+static double constexpr kAvgTransitSpeedMpS = 11.1;
+
 template <class C, class ID>
 void AddToRegions(C & container, ID const & id, transit::Regions const & regions)
 {
@@ -602,6 +607,14 @@ bool WorldFeed::FillStopsEdges()
           static_cast<transit::EdgeWeight>(stopTime2.arrival_time.get_total_seconds() -
                                            stopTime1.departure_time.get_total_seconds());
 
+      if (data.m_weight == 0)
+      {
+        double const distBetweenStopsM =
+            stopTime2.shape_dist_traveled - stopTime1.shape_dist_traveled;
+        if (distBetweenStopsM > 0)
+          data.m_weight = std::ceil(distBetweenStopsM / kAvgTransitSpeedMpS);
+      }
+
       auto [itEdge, insertedEdge] = m_edges.m_data.emplace(EdgeId(stop1Id, stop2Id, lineId), data);
 
       // There can be two identical pairs of stops on the same trip.
@@ -1104,6 +1117,40 @@ void WorldFeed::FillGates()
   }
 }
 
+bool WorldFeed::UpdateEdgeWeights()
+{
+  for (auto & [edgeId, edgeData] : m_edges.m_data)
+  {
+    if (edgeData.m_weight == 0)
+    {
+      auto const polyLine = m_shapes.m_data.at(edgeData.m_shapeLink.m_shapeId).m_points;
+
+      bool const isInverted = edgeData.m_shapeLink.m_startIndex > edgeData.m_shapeLink.m_endIndex;
+
+      size_t const startIndex =
+          isInverted ? edgeData.m_shapeLink.m_endIndex : edgeData.m_shapeLink.m_startIndex;
+      size_t const endIndex =
+          isInverted ? edgeData.m_shapeLink.m_startIndex : edgeData.m_shapeLink.m_endIndex;
+
+      auto const edgePolyLine =
+          std::vector<m2::PointD>(polyLine.begin() + startIndex, polyLine.begin() + endIndex + 1);
+      CHECK_GREATER(edgePolyLine.size(), 1, ());
+
+      double edgeLengthM = 0.0;
+
+      for (size_t i = 0; i < edgePolyLine.size() - 1; ++i)
+        edgeLengthM += mercator::DistanceOnEarth(edgePolyLine[i], edgePolyLine[i + 1]);
+
+      if (edgeLengthM == 0.0)
+        return false;
+
+      edgeData.m_weight = std::ceil(edgeLengthM / kAvgTransitSpeedMpS);
+    }
+  }
+
+  return true;
+}
+
 bool WorldFeed::SetFeed(gtfs::Feed && feed)
 {
   m_feed = std::move(feed);
@@ -1160,6 +1207,14 @@ bool WorldFeed::SetFeed(gtfs::Feed && feed)
 
   FillGates();
   LOG(LINFO, ("Filled gates."));
+
+  if (!UpdateEdgeWeights())
+  {
+    LOG(LWARNING, ("Found inconsistencies while updating edge weights."));
+    return false;
+  }
+
+  LOG(LINFO, ("Updated edges weights."));
   return true;
 }
 
@@ -1280,7 +1335,10 @@ void Edges::Write(IdEdgeSet const & ids, std::ofstream & stream) const
     ToJSONObject(*node, "line_id", edgeId.m_lineId);
     ToJSONObject(*node, "stop_id_from", edgeId.m_fromStopId);
     ToJSONObject(*node, "stop_id_to", edgeId.m_toStopId);
+
+    CHECK_GREATER(edge.m_weight, 0, (edgeId.m_fromStopId, edgeId.m_toStopId, edgeId.m_lineId));
     ToJSONObject(*node, "weight", edge.m_weight);
+
     json_object_set_new(node.get(), "shape", ShapeLinkToJson(edge.m_shapeLink).release());
 
     WriteJson(node.get(), stream);
