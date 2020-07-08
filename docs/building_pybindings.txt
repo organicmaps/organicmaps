@@ -95,11 +95,21 @@ Run tests:
 
 Problems and solutions
 ----------------------
-1. Building binding on MacOS Catalina 10.15.5.
-   If you try to build one of the bindings on MacOS Catalina with Apple clang version 11.0.3 you'll see the error that the flag fcoalesce-templates is not supported. The workaround is to remove this flag from 3party/boost/tools/build/src/tools/darwin.jam and 3party/boost/tools/build/src/tools/darwin.py
+1. Building bindings on MacOS Catalina 10.15.5.
+   If you try to build one of the bindings on MacOS Catalina with Apple clang
+   version 11.0.3 you'll see the error that the flag fcoalesce-templates is not
+   supported. The workaround is to remove this flag from
+   3party/boost/tools/build/src/tools/darwin.jam and
+   3party/boost/tools/build/src/tools/darwin.py
 
-2. If there is a build errors while Boost.Python building the C++ headers are not seen. For example,  fatal error: 'cstddef' file not found. Some flags should be added while building bindings. For example, instead launching:
-  $ python3.7 kml/pykmlib/setup.py build --omim-builddir=kml/pykmlib/cmake-build-release
+2. You may get build errors that standard C++ headers can't be found while
+   building of Boost.Python. For example, fatal error: 'cstddef' file not found.
+   In that case the following flags should be set to correct values:
+   MACOSX_DEPLOYMENT_TARGET, CC, CXX, CFLAGS. For example, instead of launching:
 
-should be launched:
-  $ MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ CFLAGS='-stdlib=libc++' python3.7 kml/pykmlib/setup.py build --omim-builddir=kml/pykmlib/cmake-build-release
+    $ python3.7 kml/pykmlib/setup.py build --omim-builddir=kml/pykmlib/cmake-build-release
+
+   should be launched:
+
+    $ MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ CFLAGS='-stdlib=libc++'
+      python3.7 kml/pykmlib/setup.py build --omim-builddir=kml/pykmlib/cmake-build-release
