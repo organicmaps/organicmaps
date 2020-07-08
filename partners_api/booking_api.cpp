@@ -2,6 +2,7 @@
 #include "partners_api/utils.hpp"
 
 #include "platform/http_client.hpp"
+#include "platform/locale.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/url.hpp"
@@ -29,7 +30,7 @@ using namespace std::chrono;
 namespace
 {
 string const kBookingApiBaseUrlV1 = "https://distribution-xml.booking.com/json/bookings";
-string const kBookingApiBaseUrlV2 = "https://distribution-xml.booking.com/2.0/json";
+string const kBookingApiBaseUrlV2 = "https://distribution-xml.booking.com/2.6/json";
 string const kExtendedHotelInfoBaseUrl = BOOKING_EXTENDED_INFO_BASE_URL;
 string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
 string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
@@ -406,7 +407,11 @@ bool RawApi::GetExtendedInfo(string const & hotelId, string const & lang, string
 // static
 bool RawApi::HotelAvailability(AvailabilityParams const & params, string & result)
 {
-  string url = MakeApiUrlV2("hotelAvailability", params.Get());
+  auto const locale = platform::GetCurrentLocale();
+  auto p = params.Get();
+  p.emplace_back("guest_country", !locale.m_country.empty() ? locale.m_country : "US");
+
+  string url = MakeApiUrlV2("hotelAvailability", p);
 
   return RunSimpleHttpRequest(true, url, result);
 }
@@ -414,7 +419,11 @@ bool RawApi::HotelAvailability(AvailabilityParams const & params, string & resul
 // static
 bool RawApi::BlockAvailability(BlockParams const & params, string & result)
 {
-  string url = MakeApiUrlV2("blockAvailability", params.Get());
+  auto const locale = platform::GetCurrentLocale();
+  auto p = params.Get();
+  p.emplace_back("guest_cc", locale.m_country);
+
+  string url = MakeApiUrlV2("blockAvailability", p);
 
   return RunSimpleHttpRequest(true, url, result);
 }
