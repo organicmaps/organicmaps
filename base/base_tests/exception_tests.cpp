@@ -17,6 +17,11 @@ int FuncThrowsRootExceptionArg(int) { throw RootException("RootException", "Root
 int FuncThrowsExceptionArg(int) { throw std::exception(); }
 int FuncThrowsNumberArg(int) { throw 1; };
 
+void FuncDoesNotThrowVoid(int) noexcept { return; }
+void FuncThrowsRootExceptionVoid(int) { throw RootException("RootException", "RootException"); }
+void FuncThrowsExceptionVoid() { throw std::exception(); }
+void FuncThrowsNumberVoid() { throw 1; };
+
 UNIT_TEST(ExceptionCatcher_FunctionsWithoutArgs)
 {
   ExceptionCatcher("Function without arg.", FuncDoesNotThrow);
@@ -44,5 +49,13 @@ UNIT_TEST(ExceptionCatcher_Lambdas)
       "Lambda", [](int) -> int { throw std::exception(); }, 7);
   ExceptionCatcher(
       "Lambda", [](int) -> int { throw 1; }, 7);
+}
+
+UNIT_TEST(ExceptionCatcher_FunctionsReturnVoid)
+{
+  ExceptionCatcher("Function returns void.", FuncDoesNotThrowVoid, 7);
+  ExceptionCatcher("Function returns void.", FuncThrowsRootExceptionVoid, 7);
+  ExceptionCatcher("Function returns void.", FuncThrowsExceptionVoid);
+  ExceptionCatcher("Function returns void..", FuncThrowsNumberVoid);
 }
 }  // namespace
