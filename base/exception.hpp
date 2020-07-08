@@ -28,9 +28,11 @@ template <typename Fn, typename... Args>
 std::result_of_t<Fn && (Args && ...)> ExceptionCatcher(std::string const & comment, Fn && fn,
                                                        Args &&... args) noexcept
 {
+  bool constexpr isVoidReturned = std::is_same<std::result_of_t<Fn && (Args && ...)>, void>::value;
   try
   {
-    return std::forward<Fn>(fn)(std::forward<Args>(args)...);
+    if constexpr (!isVoidReturned)
+      return std::forward<Fn>(fn)(std::forward<Args>(args)...);
   }
   catch (RootException const & ex)
   {
@@ -44,7 +46,9 @@ std::result_of_t<Fn && (Args && ...)> ExceptionCatcher(std::string const & comme
   {
     LOG(LWARNING, ("Unknown exception.", comment));
   }
-  return {};
+
+  if constexpr (!isVoidReturned)
+    return {};
 }
 
 #define DECLARE_EXCEPTION(exception_name, base_exception) \
