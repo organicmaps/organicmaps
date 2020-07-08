@@ -1,6 +1,7 @@
 #pragma once
 
 #include "base/internal/message.hpp"
+#include "base/logging.hpp"
 #include "base/macros.hpp"
 
 #include <exception>
@@ -22,6 +23,29 @@ private:
   std::string m_whatWithAscii;
   std::string m_msg;
 };
+
+template <typename Fn, typename... Args>
+std::result_of_t<Fn && (Args && ...)> ExceptionCatcher(std::string const & comment, Fn && fn,
+                                                       Args &&... args) noexcept
+{
+  try
+  {
+    return std::forward<Fn>(fn)(std::forward<Args>(args)...);
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("RootException.", comment, ex.Msg(), ex.what()));
+  }
+  catch (std::exception const & ex)
+  {
+    LOG(LWARNING, ("std::exception.", comment, ex.what()));
+  }
+  catch (...)
+  {
+    LOG(LWARNING, ("Unknown exception.", comment));
+  }
+  return {};
+}
 
 #define DECLARE_EXCEPTION(exception_name, base_exception) \
   class exception_name : public base_exception \
