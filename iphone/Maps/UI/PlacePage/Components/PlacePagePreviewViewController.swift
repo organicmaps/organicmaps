@@ -167,7 +167,13 @@ final class PlacePagePreviewViewController: UIViewController {
     ratingSummaryView.value = NSNumber(value: bookingData.score).stringValue
     ratingSummaryView.type = UgcSummaryRatingType(rawValue: rawRating) ?? .none
     guard let rooms = rooms else { return }
-    priceLabel.text = String(coreFormat: L("place_page_starting_from"), arguments: [rooms.minPrice])
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .currency
+    formatter.currencyCode = rooms.currency
+    formatter.maximumFractionDigits = 0
+    let formattedPrice = formatter.string(from: NSNumber(value: rooms.minPrice))
+
+    priceLabel.text = String(coreFormat: L("place_page_starting_from"), arguments: [formattedPrice ?? rooms.minPrice])
     priceLabel.isHidden = false
     if rooms.discount > 0 {
       discountLabel.text = "-\(rooms.discount)%"
