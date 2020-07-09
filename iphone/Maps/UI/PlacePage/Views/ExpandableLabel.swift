@@ -30,7 +30,6 @@ final class ExpandableLabel: UIView {
     didSet {
       containerText = text
       textView.text = text
-      expandLabel.isHidden = true
       if let text = text {
         isHidden = text.isEmpty
       } else {
@@ -43,7 +42,6 @@ final class ExpandableLabel: UIView {
     didSet {
       containerText = attributedText?.string
       textView.attributedText = attributedText
-      expandLabel.isHidden = true
       if let attributedText = attributedText {
         isHidden = attributedText.length == 0
       } else {
@@ -71,6 +69,8 @@ final class ExpandableLabel: UIView {
       textView.invalidateIntrinsicContentSize()
     }
   }
+
+  private var oldWidth: CGFloat = 0
 
   override func setContentHuggingPriority(_ priority: UILayoutPriority, for axis: NSLayoutConstraint.Axis) {
     super.setContentHuggingPriority(priority, for: axis)
@@ -137,6 +137,12 @@ final class ExpandableLabel: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
 
+    if oldWidth != bounds.width, let attributedText = attributedText?.mutableCopy() as? NSMutableAttributedString {
+      attributedText.enumerateAttachments(estimatedWidth: bounds.width)
+      self.attributedText = attributedText
+      oldWidth = bounds.width
+    }
+    
     guard containerMaximumNumberOfLines > 0,
       containerMaximumNumberOfLines != numberOfLines,
       let s = containerText,
