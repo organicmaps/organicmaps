@@ -15,16 +15,18 @@ namespace m2
 {
 // This class can be used to greedily sweep points on a plane that are
 // too close to each other.  Two points are considered to be "too
-// close" when Manhattan distance between them is less than or equal
-// to some preselected epsilon. Note, the result is not the largest
-// subset of points that can be selected, but it can be computed quite
-// fast and gives satisfactory results.
+// close" when distance along axes between them is less than or equal
+// to some preselected epsilon. Different epsilons can be used for different axes.
+// Note, the result is not the largest subset of points that can be selected,
+// but it can be computed quite fast and gives satisfactory results.
 //
 // *NOTE* The class is NOT thread-safe.
 class NearbyPointsSweeper
 {
 public:
   explicit NearbyPointsSweeper(double eps);
+
+  NearbyPointsSweeper(double xEps, double yEps);
 
   // Adds a new point (|x|, |y|) on the plane. |index| is used to
   // identify individual points, and will be reported for survived
@@ -69,7 +71,7 @@ public:
           }
 
           double const x = it->m_x;
-          if (fabs(x - event.m_x) <= m_eps)
+          if (fabs(x - event.m_x) <= m_xEps)
           {
             if (it->m_priority >= event.m_priority)
             {
@@ -80,7 +82,7 @@ public:
             it = line.erase(it);
           }
 
-          if (x + m_eps < event.m_x)
+          if (x + m_xEps < event.m_x)
             break;
 
           if (it == line.begin())
@@ -151,7 +153,7 @@ private:
   };
 
   std::vector<Event> m_events;
-  double const m_eps;
-  double const m_heps;
+  double const m_xEps;
+  double const m_yEps;
 };
 }  // namespace m2

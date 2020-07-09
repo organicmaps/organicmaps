@@ -486,7 +486,9 @@ bool SearchAPI::Search(SearchParams const & params, bool forceSearch)
   // search request.
   CancelQuery(intent.m_handle);
 
-  intent.m_params.m_minDistanceOnMapBetweenResults = m_delegate.GetMinDistanceBetweenResults();
+  intent.m_params.m_minDistanceOnMapBetweenResultsX = m_delegate.GetMinDistanceBetweenResults();
+  intent.m_params.m_minDistanceOnMapBetweenResultsY =
+      intent.m_params.m_minDistanceOnMapBetweenResultsX;
 
   Search(intent);
 

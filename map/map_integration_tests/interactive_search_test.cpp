@@ -160,7 +160,8 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
   params.m_inputLocale = "en";
   params.m_viewport = m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5));
   params.m_mode = Mode::Viewport;
-  params.m_minDistanceOnMapBetweenResults = kEps * 0.9;
+  params.m_minDistanceOnMapBetweenResultsX = kEps * 0.9;
+  params.m_minDistanceOnMapBetweenResultsY = kEps * 0.9;
   params.m_suggestsEnabled = false;
 
   {
@@ -173,7 +174,8 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
          ());
   }
 
-  params.m_minDistanceOnMapBetweenResults = kEps * 1.1;
+  params.m_minDistanceOnMapBetweenResultsX = kEps * 1.1;
+  params.m_minDistanceOnMapBetweenResultsY = kEps * 1.1;
 
   {
     TestSearchRequest request(m_engine, params);

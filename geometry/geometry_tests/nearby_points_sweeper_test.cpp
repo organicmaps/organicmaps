@@ -84,34 +84,13 @@ UNIT_TEST(NearbyPointsSweeper_Smoke)
 
     TEST_EQUAL(expected, actual, ());
   }
-}
-
-UNIT_TEST(NearbyPointsSweeper_CornerCases)
-{
-  uint8_t const priority = 0;
-  vector<PointD> const points = {PointD(0, 0),     PointD(0, 0), PointD(1, 0),
-                                 PointD(0, 1),     PointD(1, 1), PointD(1, 0),
-                                 PointD(0.5, 0.5), PointD(0, 1)};
 
   {
-    // In accordance with the specification, all points must be left
-    // as is when epsilon is negative.
-    NearbyPointsSweeper sweeper(-1.0);
+    uint8_t const priority = 0;
+    vector<PointD> const points = {PointD(0, 0),     PointD(0, 0), PointD(1, 0),
+                                   PointD(0, 1),     PointD(1, 1), PointD(1, 0),
+                                   PointD(0.5, 0.5), PointD(0, 1)};
 
-    TIndexSet expected;
-    for (size_t i = 0; i < points.size(); ++i)
-    {
-      sweeper.Add(points[i].x, points[i].y, i, priority);
-      expected.insert(i);
-    }
-
-    TIndexSet actual;
-    sweeper.Sweep(base::MakeInsertFunctor(actual));
-
-    TEST_EQUAL(expected, actual, ());
-  }
-
-  {
     NearbyPointsSweeper sweeper(10.0);
     for (size_t i = 0; i < points.size(); ++i)
       sweeper.Add(points[i].x, points[i].y, i, priority);

@@ -30,9 +30,10 @@ namespace search
 {
 namespace
 {
-void SweepNearbyResults(double eps, set<FeatureID> const & prevEmit, vector<PreRankerResult> & results)
+void SweepNearbyResults(double xEps, double yEps, set<FeatureID> const & prevEmit,
+                        vector<PreRankerResult> & results)
 {
-  m2::NearbyPointsSweeper sweeper(eps);
+  m2::NearbyPointsSweeper sweeper(xEps, yEps);
   for (size_t i = 0; i < results.size(); ++i)
   {
     auto const & p = results[i].GetInfo().m_center;
@@ -282,7 +283,8 @@ void PreRanker::FilterForViewportSearch()
     return result.GetMatchedTokensNumber() + 1 < m_params.m_numQueryTokens;
   });
 
-  SweepNearbyResults(m_params.m_minDistanceOnMapBetweenResults, m_prevEmit, m_results);
+  SweepNearbyResults(m_params.m_minDistanceOnMapBetweenResultsX,
+                     m_params.m_minDistanceOnMapBetweenResultsY, m_prevEmit, m_results);
 
   size_t const n = m_results.size();
 

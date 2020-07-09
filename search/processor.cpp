@@ -747,7 +747,10 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
   PreRanker::Params params;
 
   if (viewportSearch)
-    params.m_minDistanceOnMapBetweenResults = searchParams.m_minDistanceOnMapBetweenResults;
+  {
+    params.m_minDistanceOnMapBetweenResultsX = searchParams.m_minDistanceOnMapBetweenResultsX;
+    params.m_minDistanceOnMapBetweenResultsY = searchParams.m_minDistanceOnMapBetweenResultsY;
+  }
 
   params.m_viewport = GetViewport();
   params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);

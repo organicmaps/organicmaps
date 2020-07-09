@@ -26,13 +26,22 @@ bool NearbyPointsSweeper::Event::operator<(Event const & rhs) const
 }
 
 // NearbyPointsSweeper -----------------------------------------------------------------------------
-NearbyPointsSweeper::NearbyPointsSweeper(double eps) : m_eps(eps), m_heps(std::max(eps * 0.5, 0.0))
+NearbyPointsSweeper::NearbyPointsSweeper(double eps) : m_xEps(eps), m_yEps(eps)
 {
+  CHECK_GREATER_OR_EQUAL(m_xEps, 0.0, ());
+  CHECK_GREATER_OR_EQUAL(m_yEps, 0.0, ());
+}
+
+NearbyPointsSweeper::NearbyPointsSweeper(double xEps, double yEps) : m_xEps(xEps), m_yEps(yEps)
+{
+  CHECK_GREATER_OR_EQUAL(m_xEps, 0.0, ());
+  CHECK_GREATER_OR_EQUAL(m_yEps, 0.0, ());
 }
 
 void NearbyPointsSweeper::Add(double x, double y, size_t index, uint8_t priority)
 {
-  m_events.emplace_back(Event::TYPE_SEGMENT_START, y - m_heps, x, index, priority);
-  m_events.emplace_back(Event::TYPE_SEGMENT_END, y + m_heps, x, index, priority);
+  auto const yEpsHalf = 0.5 * m_yEps;
+  m_events.emplace_back(Event::TYPE_SEGMENT_START, y - yEpsHalf, x, index, priority);
+  m_events.emplace_back(Event::TYPE_SEGMENT_END, y + yEpsHalf, x, index, priority);
 }
 }  // namespace m2
