@@ -22,17 +22,18 @@ import java.util.List;
 
 public class PurchaseUtils
 {
-  public final static String GROUPS = "groups";
-  final static int REQ_CODE_PRODUCT_DETAILS_FAILURE = 1;
-  final static int REQ_CODE_PAYMENT_FAILURE = 2;
-  final static int REQ_CODE_VALIDATION_SERVER_ERROR = 3;
-  final static int REQ_CODE_START_TRANSACTION_FAILURE = 4;
-  final static int REQ_CODE_PING_FAILURE = 5;
+  public static final String GROUPS = "groups";
+  public static final String SERVER_ID = "server_id";
+  static final int REQ_CODE_PRODUCT_DETAILS_FAILURE = 1;
+  static final int REQ_CODE_PAYMENT_FAILURE = 2;
+  static final int REQ_CODE_VALIDATION_SERVER_ERROR = 3;
+  static final int REQ_CODE_START_TRANSACTION_FAILURE = 4;
+  static final int REQ_CODE_PING_FAILURE = 5;
   public static final int REQ_CODE_CHECK_INVALID_SUBS_DIALOG = 6;
   public static final int REQ_CODE_BMK_SUBS_SUCCESS_DIALOG = 7;
-  public final static int REQ_CODE_PAY_CONTINUE_SUBSCRIPTION = 8;
-  public final static int REQ_CODE_PAY_BOOKMARK = 9;
-  public final static int REQ_CODE_PAY_SUBSCRIPTION = 10;
+  public static final int REQ_CODE_PAY_CONTINUE_SUBSCRIPTION = 8;
+  public static final int REQ_CODE_PAY_BOOKMARK = 9;
+  public static final int REQ_CODE_PAY_SUBSCRIPTION = 10;
   public static final String DIALOG_TAG_CHECK_INVALID_SUBS = "check_invalid_subs";
   public static final String DIALOG_TAG_BMK_SUBSCRIPTION_SUCCESS = "bmk_subscription_success";
   public static final String EXTRA_IS_SUBSCRIPTION = "extra_is_subscription";

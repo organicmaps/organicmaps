@@ -2,10 +2,9 @@ package com.mapswithme.maps.bookmarks;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
-import com.mapswithme.maps.purchase.BookmarkSubscriptionActivity;
+import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
 import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -24,8 +23,8 @@ class InvalidSubscriptionAlertDialogCallback implements AlertDialogCallback
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
-    BookmarkSubscriptionActivity.startForResult(mFragment, PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION,
-                                                Statistics.ParamValue.POPUP);
+    BookmarksAllSubscriptionActivity.startForResult(mFragment, PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION,
+                                                             Statistics.ParamValue.POPUP);
   }
 
   @Override

@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.R;
 
-class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
+public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
 {
   @Nullable
   @Override
