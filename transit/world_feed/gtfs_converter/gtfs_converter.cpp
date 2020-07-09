@@ -301,9 +301,15 @@ int main(int argc, char ** argv)
   feature::CountriesFilesAffiliation mwmMatcher(GetPlatform().ResourcesDir(),
                                                 false /* haveBordersForWholeWorld */);
 
+  // We convert GTFS feeds to the json format suitable for generator_tool and save it to the
+  // corresponding directory.
   if (!FLAGS_path_gtfs_feeds.empty() && !ConvertFeeds(generator, colorPicker, mwmMatcher))
     return EXIT_FAILURE;
 
+  // We mixin data in our "old transit" (in fact subway-only) json format to the resulting files
+  // in experimental line-by-line json format which is processed by generator_tool for building
+  // experimental transit section. We use the same id |generator| so ids of subway and GTFS
+  // itineraries will not conflict.
   if (!FLAGS_path_subway_json.empty() &&
       !ConvertSubway(generator, colorPicker, mwmMatcher,
                      FLAGS_path_gtfs_feeds.empty() /* overwrite */))
