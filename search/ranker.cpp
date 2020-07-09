@@ -756,6 +756,7 @@ void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
 
 void Ranker::GetBestMatchName(FeatureType & f, string & name) const
 {
+  int8_t bestLang;
   KeywordLangMatcher::Score bestScore;
   auto updateScore = [&](int8_t lang, string const & s, bool force) {
     // Ignore name for categorial requests.
@@ -764,6 +765,7 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
     {
       bestScore = score;
       name = s;
+      bestLang = lang;
     }
   };
 
@@ -780,6 +782,14 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
     }
   };
   UNUSED_VALUE(f.ForEachName(bestNameFinder));
+
+  if (bestLang == StringUtf8Multilang::kAltNameCode ||
+      bestLang == StringUtf8Multilang::kOldNameCode)
+  {
+    string readableName;
+    f.GetReadableName(readableName);
+    name = readableName + " (" + name + ")";
+  }
 }
 
 void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale,
