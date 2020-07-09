@@ -231,7 +231,7 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="restore_subscription"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="onRestore:" destination="-1" eventType="touchUpInside" id="3br-rR-hqk"/>
+                                        <action selector="onRestoreWithSender:" destination="-1" eventType="touchUpInside" id="XMh-s6-bT6"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWZ-GP-RxW">

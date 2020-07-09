@@ -15,9 +15,13 @@
                 <outlet property="backgroundImageView" destination="MVh-rE-VHd" id="aK3-Tk-Q82"/>
                 <outlet property="contentView" destination="TaY-K1-Hdb" id="eX6-cq-BPU"/>
                 <outlet property="descriptionPageScrollView" destination="pyJ-8x-bjL" id="763-Gg-LfT"/>
+                <outlet property="loadingStateActivityIndicator" destination="2ym-Gj-Iuc" id="zS6-bG-JtY"/>
                 <outlet property="loadingView" destination="je2-0p-PRM" id="q8x-ah-ZDN"/>
                 <outlet property="monthlySubscriptionButton" destination="UL9-YY-AHH" id="5ms-ia-Lwx"/>
+                <outlet property="stackTopOffset" destination="nfx-oS-pVH" id="271-zC-f5A"/>
                 <outlet property="statusBarBackgroundView" destination="e6Y-4z-J5I" id="uSJ-zL-PuO"/>
+                <outlet property="trialSubscriptionButton" destination="gvB-96-gWL" id="TbF-Rq-Ygy"/>
+                <outlet property="trialSubscriptionLabel" destination="Cfz-Av-jFd" id="wHk-0V-DWm"/>
                 <outlet property="view" destination="ttH-ve-i20" id="OSf-Qm-h6u"/>
                 <outletCollection property="descriptionSubtitles" destination="X8c-aP-lNH" collectionClass="NSMutableArray" id="Zhs-4j-bdx"/>
                 <outletCollection property="descriptionSubtitles" destination="ysy-K0-iWY" collectionClass="NSMutableArray" id="UA8-GU-XUQ"/>
@@ -53,7 +57,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TaY-K1-Hdb">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="975.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1202"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6YG-W2-c2H">
                                     <rect key="frame" x="-10" y="18" width="241.5" height="72.5"/>
@@ -233,10 +237,16 @@
                                     </connections>
                                 </scrollView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="kgh-BN-Pin">
-                                    <rect key="frame" x="20" y="635" width="374" height="144"/>
+                                    <rect key="frame" x="20" y="635" width="374" height="438.5"/>
                                     <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="2ym-Gj-Iuc">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="80"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="80" id="TbD-sm-L80"/>
+                                            </constraints>
+                                        </activityIndicatorView>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lg7-Sn-MNZ" userLabel="Continue" customClass="BookmarksSubscriptionButton" customModule="maps_me" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="64"/>
+                                            <rect key="frame" x="0.0" y="96" width="374" height="64"/>
                                             <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_subscription_annual"/>
                                             <constraints>
@@ -255,7 +265,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UL9-YY-AHH" userLabel="Continue" customClass="BookmarksSubscriptionButton" customModule="maps_me" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="80" width="374" height="64"/>
+                                            <rect key="frame" x="0.0" y="176" width="374" height="64"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_subscription_monthly"/>
                                             <constraints>
@@ -273,15 +283,56 @@
                                                 <action selector="onMonthlyButtonTap:" destination="-1" eventType="touchUpInside" id="iKa-Pf-ltA"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvB-96-gWL" userLabel="Continue">
+                                            <rect key="frame" x="0.0" y="256" width="374" height="64"/>
+                                            <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_subscription_annual"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="64" id="06j-jU-a3H"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                            <state key="normal" title="Trial">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionYearlyButton"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="guides_trial_cta_button"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="onTrialWithSender:" destination="-1" eventType="touchUpInside" id="w5n-hV-8kp"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trial description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cfz-Av-jFd">
+                                            <rect key="frame" x="0.0" y="336" width="374" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular12:whiteText"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wL2-uQ-ivp" userLabel="Restore">
+                                            <rect key="frame" x="0.0" y="372.5" width="374" height="66"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="66" id="edu-2N-QrS"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                            <state key="normal" title="Restore purchases">
+                                                <color key="titleColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionRestoreButton"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="restore_subscription"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="onRestoreWithSender:" destination="-1" eventType="touchUpInside" id="IiS-yQ-yik"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </stackView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f8M-YO-rmG">
-                                    <rect key="frame" x="28" y="612" width="48.5" height="35"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDiscount"/>
-                                    </userDefinedRuntimeAttributes>
-                                </view>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUV-kf-oUo" customClass="InsetsLabel" customModule="maps_me" customModuleProvider="target">
                                     <rect key="frame" x="28" y="612" width="48.5" height="35"/>
                                     <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -295,27 +346,8 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDiscount"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wL2-uQ-ivp" userLabel="Restore">
-                                    <rect key="frame" x="50" y="789" width="314" height="50"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="edu-2N-QrS"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                    <state key="normal" title="Restore purchases">
-                                        <color key="titleColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionRestoreButton"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="restore_subscription"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="onRestore:" destination="-1" eventType="touchUpInside" id="Y63-jh-jyb"/>
-                                    </connections>
-                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Frp-JY-kuq">
-                                    <rect key="frame" x="20" y="847" width="374" height="64.5"/>
+                                    <rect key="frame" x="20" y="1073.5" width="374" height="64.5"/>
                                     <string key="text">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                     <color key="textColor" white="0.0" alpha="0.31555008559999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -326,7 +358,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2O1-n3-hBU" userLabel="TermsOfUse">
-                                    <rect key="frame" x="20" y="911.5" width="66" height="44"/>
+                                    <rect key="frame" x="20" y="1138" width="66" height="44"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -345,7 +377,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUY-sv-eiY" userLabel="PrivacyPolicy">
-                                    <rect key="frame" x="325" y="911.5" width="69" height="44"/>
+                                    <rect key="frame" x="325" y="1138" width="69" height="44"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                     <constraints>
@@ -378,26 +410,20 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstItem="Frp-JY-kuq" firstAttribute="top" secondItem="kgh-BN-Pin" secondAttribute="bottom" priority="250" id="0wA-gx-gHN"/>
                                 <constraint firstAttribute="trailing" secondItem="kgh-BN-Pin" secondAttribute="trailing" constant="20" id="1Gc-BS-Dq3"/>
                                 <constraint firstItem="FUY-sv-eiY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2O1-n3-hBU" secondAttribute="trailing" constant="16" id="1fV-vn-8VV"/>
-                                <constraint firstItem="Frp-JY-kuq" firstAttribute="top" secondItem="wL2-uQ-ivp" secondAttribute="bottom" priority="250" constant="8" id="3SQ-qZ-lRI"/>
                                 <constraint firstItem="2O1-n3-hBU" firstAttribute="top" secondItem="Frp-JY-kuq" secondAttribute="bottom" id="664-Ay-15y"/>
-                                <constraint firstItem="f8M-YO-rmG" firstAttribute="height" secondItem="HUV-kf-oUo" secondAttribute="height" id="BUw-R2-B4i"/>
                                 <constraint firstAttribute="trailing" secondItem="pyJ-8x-bjL" secondAttribute="trailing" id="DrF-w9-dGS"/>
-                                <constraint firstItem="wL2-uQ-ivp" firstAttribute="top" secondItem="kgh-BN-Pin" secondAttribute="bottom" constant="10" id="Fmh-oA-JfP"/>
                                 <constraint firstAttribute="trailing" secondItem="Frp-JY-kuq" secondAttribute="trailing" constant="20" id="GCw-Sz-5EM"/>
                                 <constraint firstItem="pyJ-8x-bjL" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" id="KT8-oK-Hyb"/>
-                                <constraint firstAttribute="trailing" secondItem="wL2-uQ-ivp" secondAttribute="trailing" constant="50" id="KbJ-29-yNc"/>
-                                <constraint firstItem="f8M-YO-rmG" firstAttribute="centerX" secondItem="HUV-kf-oUo" secondAttribute="centerX" id="LCh-Sg-0Cv"/>
                                 <constraint firstItem="6YG-W2-c2H" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" constant="-10" id="Mhi-dC-efa"/>
                                 <constraint firstItem="kgh-BN-Pin" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" constant="20" id="N9e-ZN-k2x"/>
                                 <constraint firstItem="Frp-JY-kuq" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" constant="20" id="OZR-HV-yMB"/>
                                 <constraint firstItem="HUV-kf-oUo" firstAttribute="bottom" secondItem="kgh-BN-Pin" secondAttribute="top" constant="12" id="PvG-gQ-X6Z"/>
                                 <constraint firstItem="v4o-CM-FZh" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" constant="20" id="Qek-67-8MG"/>
                                 <constraint firstAttribute="trailing" secondItem="sqn-U5-uoO" secondAttribute="trailing" constant="8" id="SDh-Bg-4qw"/>
-                                <constraint firstItem="f8M-YO-rmG" firstAttribute="width" secondItem="HUV-kf-oUo" secondAttribute="width" id="bFf-Zh-lRf"/>
                                 <constraint firstItem="pyJ-8x-bjL" firstAttribute="top" secondItem="6YG-W2-c2H" secondAttribute="bottom" constant="22" id="deR-Ta-7uu"/>
-                                <constraint firstItem="f8M-YO-rmG" firstAttribute="centerY" secondItem="HUV-kf-oUo" secondAttribute="centerY" id="f8X-am-A9L"/>
                                 <constraint firstItem="2O1-n3-hBU" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" constant="20" id="hgm-Kf-otC"/>
                                 <constraint firstItem="6YG-W2-c2H" firstAttribute="top" secondItem="TaY-K1-Hdb" secondAttribute="top" constant="18" id="iog-IR-Pr2"/>
                                 <constraint firstItem="HUV-kf-oUo" firstAttribute="leading" secondItem="kgh-BN-Pin" secondAttribute="leading" constant="8" id="loB-it-eSM"/>
@@ -406,7 +432,6 @@
                                 <constraint firstAttribute="trailing" secondItem="FUY-sv-eiY" secondAttribute="trailing" constant="20" id="rxK-OW-Kk4"/>
                                 <constraint firstItem="sqn-U5-uoO" firstAttribute="top" secondItem="TaY-K1-Hdb" secondAttribute="top" constant="4" id="snI-hf-xS5"/>
                                 <constraint firstAttribute="bottom" secondItem="FUY-sv-eiY" secondAttribute="bottom" constant="20" id="szb-30-bdv"/>
-                                <constraint firstItem="wL2-uQ-ivp" firstAttribute="leading" secondItem="TaY-K1-Hdb" secondAttribute="leading" constant="50" id="uIg-7M-SSB"/>
                             </constraints>
                         </view>
                     </subviews>

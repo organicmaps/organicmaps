@@ -3887,8 +3887,7 @@
 				99EBF72424B4B53800FE1F1F /* AllPass */,
 				99BFEF0824B48D8600A65F5B /* City */,
 			);
-			name = Subscription;
-			path = ../../../xcode/geometry/Subscription;
+			path = Subscription;
 			sourceTree = "<group>";
 		};
 		99BFEF0824B48D8600A65F5B /* City */ = {

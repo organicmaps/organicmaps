@@ -5,11 +5,15 @@ class AllPassSubscriptionViewController: UIViewController {
   @IBOutlet private var annualSubscriptionButton: BookmarksSubscriptionButton!
   @IBOutlet private var annualDiscountLabel: InsetsLabel!
   @IBOutlet private var monthlySubscriptionButton: BookmarksSubscriptionButton!
+  @IBOutlet private var trialSubscriptionButton: UIButton!
+  @IBOutlet private var trialSubscriptionLabel: UILabel!
   @IBOutlet private var descriptionPageScrollView: UIScrollView!
   @IBOutlet private var contentView: UIView!
   @IBOutlet private var statusBarBackgroundView: UIVisualEffectView!
   @IBOutlet private var descriptionSubtitles: [UILabel]!
   @IBOutlet private var loadingView: UIView!
+  @IBOutlet private var stackTopOffset: NSLayoutConstraint!
+  @IBOutlet private var loadingStateActivityIndicator: UIActivityIndicatorView!
 
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask { return [.portrait] }
   override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
@@ -29,6 +33,8 @@ class AllPassSubscriptionViewController: UIViewController {
   private let animationDuration: TimeInterval = 0.75
   private let animationBackDuration: TimeInterval = 0.3
   private let statusBarBackVisibleThreshold: CGFloat = 60
+  private let stackTopOffsetSubscriptions: CGFloat = 60
+  private let stackTopOffsetTrial: CGFloat = 48
 
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -86,6 +92,14 @@ class AllPassSubscriptionViewController: UIViewController {
   @IBAction func onPrivacy(_ sender: UIButton) {
     presenter.onPrivacyPressed()
   }
+
+  @IBAction func onRestore(sender: UIButton) {
+    presenter.restore(anchor: sender)
+  }
+
+  @IBAction func onTrial(sender: UIButton) {
+    presenter.trial(anchor: sender)
+  }
 }
 
 extension AllPassSubscriptionViewController: SubscriptionViewProtocol {
@@ -99,16 +113,20 @@ extension AllPassSubscriptionViewController: SubscriptionViewProtocol {
   }
 
   func setModel(_ model: SubscriptionViewModel) {
+    annualSubscriptionButton.isHidden = true
+    monthlySubscriptionButton.isHidden = true
+    trialSubscriptionButton.isHidden = true
+    trialSubscriptionLabel.isHidden = true
+    annualDiscountLabel.isHidden = true
+    loadingStateActivityIndicator.isHidden = true
     switch model {
     case .loading:
-      annualSubscriptionButton.config(title: L("annual_subscription_title"),
-                                      price: "...",
-                                      enabled: false)
-      monthlySubscriptionButton.config(title: L("montly_subscription_title"),
-                                       price: "...",
-                                       enabled: false)
-      annualDiscountLabel.isHidden = true
+      loadingStateActivityIndicator.isHidden = false
+      stackTopOffset.constant = stackTopOffsetSubscriptions
     case let .subsctiption(subscriptionData):
+      annualSubscriptionButton.isHidden = false
+      monthlySubscriptionButton.isHidden = false
+      stackTopOffset.constant = stackTopOffsetSubscriptions
       for data in subscriptionData {
         if data.period == .month {
           monthlySubscriptionButton.config(title: data.title,
@@ -123,8 +141,11 @@ extension AllPassSubscriptionViewController: SubscriptionViewProtocol {
           annualDiscountLabel.text = data.discount
         }
       }
-    case .trial:
-      assertionFailure()
+    case let .trial(trialData):
+      trialSubscriptionButton.isHidden = false
+      trialSubscriptionLabel.isHidden = false
+      stackTopOffset.constant = stackTopOffsetTrial
+      trialSubscriptionLabel.text = String(format: L("guides_trial_message"), trialData.price)
     }
   }
 }

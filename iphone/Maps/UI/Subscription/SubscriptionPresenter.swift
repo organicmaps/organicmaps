@@ -1,8 +1,11 @@
 protocol SubscriptionPresenterProtocol: AnyObject {
   var isLoadingHidden: Bool { get set }
+  // TODO: (boriskov) remove stub
+  var debugTrial: Bool { get set }
   func configure()
   func purchase(anchor: UIView, period: SubscriptionPeriod)
   func restore(anchor: UIView)
+  func trial(anchor: UIView)
   func onTermsPressed()
   func onPrivacyPressed()
   func onClose()
@@ -18,6 +21,7 @@ class SubscriptionPresenter {
   private var subscriptionGroup: ISubscriptionGroup?
   private let subscriptionManager: ISubscriptionManager
   private var source: String = kStatWebView
+  private var _debugTrial: Bool = false
 
   init(view: SubscriptionViewProtocol,
        router: SubscriptionRouterProtocol,
@@ -29,10 +33,20 @@ class SubscriptionPresenter {
     self.interactor = interactor
     self.subscriptionManager = subscriptionManager
     self.source = source
+    debugTrial = subscriptionManager === InAppPurchase.allPassSubscriptionManager
   }
 }
 
 extension SubscriptionPresenter: SubscriptionPresenterProtocol {
+  var debugTrial: Bool {
+    get {
+      _debugTrial
+    }
+    set {
+      _debugTrial = newValue
+    }
+  }
+
   var isLoadingHidden: Bool {
     get {
       return view?.isLoadingHidden ?? false
@@ -55,19 +69,27 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
 
       let group = SubscriptionGroup(subscriptions: subscriptions)
       self?.subscriptionGroup = group
-      var data: [SubscriptionViewModel.SubscriptionData] = []
-      for period in [SubscriptionPeriod.month, SubscriptionPeriod.year] {
-        guard let subscriptionItem = group[period] else {
-          assertionFailure()
+
+      if self!.debugTrial {
+        guard let trialSubscriptionItem = group[.year] else {
           return
         }
-        data.append(SubscriptionViewModel.SubscriptionData(price: subscriptionItem.formattedPrice,
-                                                           title: subscriptionItem.title,
-                                                           period: period,
-                                                           hasDiscount: subscriptionItem.hasDiscount,
-                                                           discount: L("all_pass_screen_best_value")))
+        self?.view?.setModel(SubscriptionViewModel.trial(SubscriptionViewModel.TrialData(price: trialSubscriptionItem.formattedPrice)))
+      } else {
+        var data: [SubscriptionViewModel.SubscriptionData] = []
+        for period in [SubscriptionPeriod.month, SubscriptionPeriod.year] {
+          guard let subscriptionItem = group[period] else {
+            assertionFailure()
+            return
+          }
+          data.append(SubscriptionViewModel.SubscriptionData(price: subscriptionItem.formattedPrice,
+                                                             title: subscriptionItem.title,
+                                                             period: period,
+                                                             hasDiscount: subscriptionItem.hasDiscount,
+                                                             discount: L("all_pass_screen_best_value")))
+        }
+        self?.view?.setModel(SubscriptionViewModel.subsctiption(data))
       }
-      self?.view?.setModel(SubscriptionViewModel.subsctiption(data))
     }
 
     Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: subscriptionManager.vendorId,
@@ -103,6 +125,10 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
 
   func restore(anchor: UIView) {
     interactor.restore(anchor: anchor)
+  }
+
+  func trial(anchor: UIView) {
+    interactor.trial(anchor: anchor)
   }
 
   func onSubscribe() {

@@ -49,6 +49,10 @@ class CitySubscriptionViewController: MWMViewController {
   @IBAction func onPrivacy(_ sender: UIButton) {
     presenter.onPrivacyPressed()
   }
+
+  @IBAction func onRestore(sender: UIButton) {
+    presenter.restore(anchor: sender)
+  }
 }
 
 extension CitySubscriptionViewController: SubscriptionViewProtocol {

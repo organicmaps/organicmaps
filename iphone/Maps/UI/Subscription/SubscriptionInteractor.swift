@@ -1,6 +1,7 @@
 protocol SubscriptionInteractorProtocol: AnyObject {
   func purchase(anchor: UIView, subscription: ISubscription)
   func restore(anchor: UIView)
+  func trial(anchor: UIView)
 }
 
 class SubscriptionInteractor {
@@ -68,6 +69,20 @@ extension SubscriptionInteractor: SubscriptionInteractorProtocol {
           fatalError()
         }
         MWMAlertViewController.activeAlert().presentInfoAlert(L("restore_subscription"), text: alertText)
+      }
+    }
+  }
+
+  func trial(anchor: UIView) {
+    subscriptionManager.addListener(self)
+    viewController?.signup(anchor: anchor, source: .subscription) { [weak self] success in
+      guard success else { return }
+      MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("trial_error_dialog"),
+                                                               message: nil,
+                                                               rightButtonTitle: L("ok"),
+                                                               leftButtonTitle: nil) {
+                                                                self?.presenter.debugTrial = false
+                                                                self?.presenter.configure()
       }
     }
   }

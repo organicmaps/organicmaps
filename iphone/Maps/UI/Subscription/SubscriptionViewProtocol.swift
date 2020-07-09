@@ -5,7 +5,9 @@ protocol SubscriptionViewProtocol: AnyObject {
 }
 
 enum SubscriptionViewModel {
-  struct TrialData {}
+  struct TrialData {
+    let price: String
+  }
 
   struct SubscriptionData {
     let price: String
