@@ -24,105 +24,127 @@ void FuncThrowsNumberVoid() { throw 1; };
 
 UNIT_TEST(ExceptionCatcher_FunctionsWithoutArgs)
 {
-  ExceptionCatcher("Function without arg.", FuncDoesNotThrow);
-  ExceptionCatcher("Function without arg.", FuncThrowsRootException);
-  ExceptionCatcher("Function without arg.", FuncThrowsException);
-  ExceptionCatcher("Function without arg.", FuncThrowsRuntimeError);
-  ExceptionCatcher("Function without arg.", FuncThrowsNumber);
+  bool exception = false;
+  ExceptionCatcher("Function without arg.", exception, FuncDoesNotThrow);
+  TEST(!exception, ());
+  ExceptionCatcher("Function without arg.", exception, FuncThrowsRootException);
+  TEST(exception, ());
+  ExceptionCatcher("Function without arg.", exception, FuncThrowsException);
+  TEST(exception, ());
+  ExceptionCatcher("Function without arg.", exception, FuncThrowsRuntimeError);
+  TEST(exception, ());
+  ExceptionCatcher("Function without arg.", exception, FuncThrowsNumber);
+  TEST(exception, ());
 }
 
 UNIT_TEST(ExceptionCatcher_Functions)
 {
-  ExceptionCatcher("Function with arg.", FuncDoesNotThrowArg, 7);
-  ExceptionCatcher("Function with arg.", FuncThrowsRootExceptionArg, 7);
-  ExceptionCatcher("Function with arg.", FuncThrowsExceptionArg, 7);
-  ExceptionCatcher("Function with arg.", FuncThrowsNumberArg, 7);
+  bool exception = false;
+  ExceptionCatcher("Function with arg.", exception, FuncDoesNotThrowArg, 7);
+  TEST(!exception, ());
+  ExceptionCatcher("Function with arg.", exception, FuncThrowsRootExceptionArg, 7);
+  TEST(exception, ());
+  ExceptionCatcher("Function with arg.", exception, FuncThrowsExceptionArg, 7);
+  TEST(exception, ());
+  ExceptionCatcher("Function with arg.", exception, FuncThrowsNumberArg, 7);
+  TEST(exception, ());
 }
 
 UNIT_TEST(ExceptionCatcher_LambdasReturnInt)
 {
+  bool exception = false;
   size_t callCount = 0;
   ExceptionCatcher(
-      "Lambda",
+      "Lambda", exception,
       [&callCount](int) {
         ++callCount;
         return 1;
       },
       7);
+  TEST(!exception, ());
   TEST_EQUAL(callCount, 1, ());
 
   ExceptionCatcher(
-      "Lambda",
+      "Lambda", exception,
       [&callCount](int) -> int {
         ++callCount;
         throw RootException("RootException", "RootException");
       },
       7);
+  TEST(exception, ());
   TEST_EQUAL(callCount, 2, ());
 
   ExceptionCatcher(
-      "Lambda",
+      "Lambda", exception,
       [&callCount](int) -> int {
         ++callCount;
         throw std::exception();
       },
       7);
+  TEST(exception, ());
   TEST_EQUAL(callCount, 3, ());
 
   ExceptionCatcher(
-      "Lambda",
+      "Lambda", exception,
       [&callCount](int) -> int {
         ++callCount;
         throw 1;
       },
       7);
+  TEST(exception, ());
   TEST_EQUAL(callCount, 4, ());
 }
 
 UNIT_TEST(ExceptionCatcher_LambdasReturnVoid)
 {
+  bool exception = false;
   size_t callCount = 0;
   ExceptionCatcher(
-      "Lambda",
+      "Lambda", exception,
       [&callCount](int) {
         ++callCount;
       },
       7);
+  TEST(!exception, ());
   TEST_EQUAL(callCount, 1, ());
 
   ExceptionCatcher(
-      "Lambda",
+      "Lambda", exception,
       [&callCount](int) {
         ++callCount;
         throw RootException("RootException", "RootException");
       },
       7);
+  TEST(exception, ());
   TEST_EQUAL(callCount, 2, ());
 
   ExceptionCatcher(
-      "Lambda",
+      "Lambda", exception,
       [&callCount](int) {
         ++callCount;
         throw std::exception();
       },
       7);
+  TEST(exception, ());
   TEST_EQUAL(callCount, 3, ());
 
   ExceptionCatcher(
-      "Lambda",
+      "Lambda", exception,
       [&callCount](int) {
         ++callCount;
         throw 1;
       },
       7);
+  TEST(exception, ());
   TEST_EQUAL(callCount, 4, ());
 }
 
 UNIT_TEST(ExceptionCatcher_FunctionsReturnVoid)
 {
-  ExceptionCatcher("Function returns void.", FuncDoesNotThrowVoid, 7);
-  ExceptionCatcher("Function returns void.", FuncThrowsRootExceptionVoid, 7);
-  ExceptionCatcher("Function returns void.", FuncThrowsExceptionVoid);
-  ExceptionCatcher("Function returns void..", FuncThrowsNumberVoid);
+  bool exception = false;
+  ExceptionCatcher("Function returns void.", exception, FuncDoesNotThrowVoid, 7);
+  ExceptionCatcher("Function returns void.", exception, FuncThrowsRootExceptionVoid, 7);
+  ExceptionCatcher("Function returns void.", exception, FuncThrowsExceptionVoid);
+  ExceptionCatcher("Function returns void.", exception, FuncThrowsNumberVoid);
 }
 }  // namespace

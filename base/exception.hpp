@@ -25,11 +25,12 @@ private:
 };
 
 template <typename Fn, typename... Args>
-std::result_of_t<Fn && (Args && ...)> ExceptionCatcher(std::string const & comment, Fn && fn,
-                                                       Args &&... args) noexcept
+std::result_of_t<Fn && (Args && ...)> ExceptionCatcher(
+    std::string const & comment, bool & exceptionWasThrown, Fn && fn, Args &&... args) noexcept
 {
   try
   {
+    exceptionWasThrown = false;
     return std::forward<Fn>(fn)(std::forward<Args>(args)...);
   }
   catch (RootException const & ex)
@@ -45,6 +46,7 @@ std::result_of_t<Fn && (Args && ...)> ExceptionCatcher(std::string const & comme
     LOG(LWARNING, ("Unknown exception.", comment));
   }
 
+  exceptionWasThrown = true;
   return std::result_of_t<Fn && (Args && ...)>();
 }
 
