@@ -39,16 +39,83 @@ UNIT_TEST(ExceptionCatcher_Functions)
   ExceptionCatcher("Function with arg.", FuncThrowsNumberArg, 7);
 }
 
-UNIT_TEST(ExceptionCatcher_Lambdas)
+UNIT_TEST(ExceptionCatcher_LambdasReturnInt)
 {
+  size_t callCount = 0;
   ExceptionCatcher(
-      "Lambda", [](int) { return 1; }, 7);
+      "Lambda",
+      [&callCount](int) {
+        ++callCount;
+        return 1;
+      },
+      7);
+  TEST_EQUAL(callCount, 1, ());
+
   ExceptionCatcher(
-      "Lambda", [](int) -> int { throw RootException("RootException", "RootException"); }, 7);
+      "Lambda",
+      [&callCount](int) -> int {
+        ++callCount;
+        throw RootException("RootException", "RootException");
+      },
+      7);
+  TEST_EQUAL(callCount, 2, ());
+
   ExceptionCatcher(
-      "Lambda", [](int) -> int { throw std::exception(); }, 7);
+      "Lambda",
+      [&callCount](int) -> int {
+        ++callCount;
+        throw std::exception();
+      },
+      7);
+  TEST_EQUAL(callCount, 3, ());
+
   ExceptionCatcher(
-      "Lambda", [](int) -> int { throw 1; }, 7);
+      "Lambda",
+      [&callCount](int) -> int {
+        ++callCount;
+        throw 1;
+      },
+      7);
+  TEST_EQUAL(callCount, 4, ());
+}
+
+UNIT_TEST(ExceptionCatcher_LambdasReturnVoid)
+{
+  size_t callCount = 0;
+  ExceptionCatcher(
+      "Lambda",
+      [&callCount](int) {
+        ++callCount;
+      },
+      7);
+  TEST_EQUAL(callCount, 1, ());
+
+  ExceptionCatcher(
+      "Lambda",
+      [&callCount](int) {
+        ++callCount;
+        throw RootException("RootException", "RootException");
+      },
+      7);
+  TEST_EQUAL(callCount, 2, ());
+
+  ExceptionCatcher(
+      "Lambda",
+      [&callCount](int) {
+        ++callCount;
+        throw std::exception();
+      },
+      7);
+  TEST_EQUAL(callCount, 3, ());
+
+  ExceptionCatcher(
+      "Lambda",
+      [&callCount](int) {
+        ++callCount;
+        throw 1;
+      },
+      7);
+  TEST_EQUAL(callCount, 4, ());
 }
 
 UNIT_TEST(ExceptionCatcher_FunctionsReturnVoid)
