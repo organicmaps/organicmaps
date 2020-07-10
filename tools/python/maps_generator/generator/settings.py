@@ -1,6 +1,7 @@
 import argparse
 import multiprocessing
 import os
+import site
 import sys
 from configparser import ConfigParser
 from configparser import ExtendedInterpolation
@@ -10,6 +11,8 @@ from typing import AnyStr
 
 from maps_generator.utils.md5 import md5_ext
 from maps_generator.utils.system import total_virtual_memory
+
+ETC_DIR = os.path.join(os.path.dirname(__file__), "..", "var", "etc")
 
 parser = argparse.ArgumentParser(add_help=False)
 opt_config = "--config"
@@ -88,7 +91,13 @@ OSM_TOOLS_PATH = os.path.join(_WORK_PATH, "osmctools")
 
 # Generator tool section:
 NODE_STORAGE = "mem" if total_virtual_memory() / 10 ** 9 >= 64 else "map"
-USER_RESOURCE_PATH = os.path.join(OMIM_PATH, "data")
+
+_omim_data_dir = "omim-data"
+USER_RESOURCE_PATH = os.path.join(sys.prefix, _omim_data_dir)
+if not os.path.exists(USER_RESOURCE_PATH):
+    USER_RESOURCE_PATH = os.path.join(site.USER_BASE, _omim_data_dir)
+if not os.path.exists(USER_RESOURCE_PATH):
+    USER_RESOURCE_PATH = os.path.join(OMIM_PATH, "data")
 
 # Stages section:
 NEED_PLANET_UPDATE = False
@@ -115,7 +124,7 @@ SRTM_PATH = ""
 ISOLINES_PATH = ""
 
 # Stats section:
-STATS_TYPES_CONFIG = ""
+STATS_TYPES_CONFIG = os.path.join(ETC_DIR, "stats_types_config.txt")
 
 # Other variables:
 PLANET = "planet"

@@ -1,0 +1,2 @@
+omim-data-basic
+omim-pygen

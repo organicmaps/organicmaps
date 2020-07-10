@@ -1,8 +1,15 @@
 import os
+import site
+import sys
 
-resource_path = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "..", "..", "..", "data",
-)
+_omim_data_dir = "omim-data"
+resource_path = os.path.join(sys.prefix, _omim_data_dir)
+if not os.path.exists(resource_path):
+    resource_path = os.path.join(site.USER_BASE, _omim_data_dir)
+if not os.path.exists(resource_path):
+    resource_path = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)), "..", "..", "..", "data",
+    )
 
 from mwm.types import init as _init
 

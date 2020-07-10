@@ -39,6 +39,13 @@ from setuptools.command.egg_info import egg_info, manifest_maker
 from setuptools.command.install import install
 from setuptools.extension import Extension
 
+try:
+    # for pip >= 10
+    from pip._internal.req import parse_requirements
+except ImportError:
+    # for pip <= 9.0.3
+    from pip.req import parse_requirements
+
 # Monkey-patching to disable checking package names
 dist.check_packages = lambda dist, attr, value: None
 
@@ -497,6 +504,28 @@ def get_version():
                     versions.append(LooseVersion(match.group('version')))
                     break
     return max(versions)
+
+
+def get_requirements(path="", omim_package_version=get_version()):
+    requirements = []
+    fpath = os.path.join(path, "requirements.txt")
+    for d in parse_requirements(fpath, session="s"):
+        try:
+            req_with_version = d.requirement
+        except AttributeError:
+            req_with_version = str(d.req)
+
+        if req_with_version.startswith("omim"):
+            index = len(req_with_version) - 1
+            for i, ch in enumerate(req_with_version):
+                if not (ch.isalnum() or ch in "-_"):
+                    index = i
+                    break
+
+            req_without_version = req_with_version[0: index + 1]
+            req_with_version = "{}=={}".format(req_with_version, omim_package_version)
+        requirements.append(req_with_version)
+    return requirements
 
 
 def setup_omim_pybinding(

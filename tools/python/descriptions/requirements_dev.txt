@@ -1,0 +1,5 @@
+htmlmin==0.1.12
+requests==2.23.0
+beautifulsoup4==4.9.1
+wikidata==0.6.1
+wikipedia-api==0.5.4
