@@ -756,7 +756,7 @@ void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
 
 void Ranker::GetBestMatchName(FeatureType & f, string & name) const
 {
-  int8_t bestLang;
+  int8_t bestLang = StringUtf8Multilang::kUnsupportedLanguageCode;
   KeywordLangMatcher::Score bestScore;
   auto updateScore = [&](int8_t lang, string const & s, bool force) {
     // Ignore name for categorial requests.
@@ -788,7 +788,9 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
   {
     string readableName;
     f.GetReadableName(readableName);
-    name = readableName + " (" + name + ")";
+    // Do nothing if alt/old name is the only name we have.
+    if (readableName != name)
+      name = readableName + " (" + name + ")";
   }
 }
 
