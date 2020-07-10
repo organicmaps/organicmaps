@@ -355,7 +355,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   private static class WebViewBookmarksCatalogClient extends WebViewClient
   {
     private static final String SUBSCRIBE_PATH_SEGMENT = "subscribe";
-    private static final String VIEW_ON_MAP_SEGMENT = "map";
+    private static final String VIEW_ON_MAP_PATH_SEGMENT = "map";
     private final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
     private final String TAG = WebViewBookmarksCatalogClient.class.getSimpleName();
 
@@ -377,7 +377,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       if (fragment == null)
         return false;
 
-      boolean result = fragment.downloadBookmark(url);
+      if (fragment.downloadBookmark(url))
+        return true;
 
       Uri uri = Uri.parse(url);
       List<String> pathSegments = uri.getPathSegments();
@@ -386,14 +387,14 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
         if (TextUtils.equals(each, SUBSCRIBE_PATH_SEGMENT))
           return handleSubscriptionUri(uri);
 
-        if (TextUtils.equals(each, VIEW_ON_MAP_SEGMENT))
+        if (TextUtils.equals(each, VIEW_ON_MAP_PATH_SEGMENT))
           return handleViewOnMapUri(fragment, uri);
       }
 
-      return result;
+      return false;
     }
 
-    private Boolean handleViewOnMapUri(@NonNull BookmarksCatalogFragment fragment, @NonNull Uri uri)
+    private boolean handleViewOnMapUri(@NonNull BookmarksCatalogFragment fragment, @NonNull Uri uri)
     {
       String serverId = uri.getQueryParameter(PurchaseUtils.SERVER_ID);
       if (TextUtils.isEmpty(serverId))

@@ -23,8 +23,9 @@ class InvalidSubscriptionAlertDialogCallback implements AlertDialogCallback
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
-    BookmarksAllSubscriptionActivity.startForResult(mFragment, PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION,
-                                                             Statistics.ParamValue.POPUP);
+    BookmarksAllSubscriptionActivity.startForResult(mFragment,
+                                                    PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION,
+                                                    Statistics.ParamValue.POPUP);
   }
 
   @Override
