@@ -1,14 +1,14 @@
 #include "routing/leaps_graph.hpp"
 
-#include "routing_common/num_mwm_id.hpp"
-
 #include "base/assert.hpp"
 
 #include <set>
+#include <utility>
 
 namespace routing
 {
-LeapsGraph::LeapsGraph(IndexGraphStarter & starter) : m_starter(starter)
+LeapsGraph::LeapsGraph(IndexGraphStarter & starter, MwmHierarchyHandler && hierarchyHandler)
+  : m_starter(starter), m_hierarchyHandler(std::move(hierarchyHandler))
 {
   m_startPoint = m_starter.GetPoint(m_starter.GetStartSegment(), true /* front */);
   m_finishPoint = m_starter.GetPoint(m_starter.GetFinishSegment(), true /* front */);
@@ -59,12 +59,15 @@ void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing,
     return;
 
   auto & crossMwmGraph = m_starter.GetGraph().GetCrossMwmGraph();
+
   if (crossMwmGraph.IsTransition(segment, isOutgoing))
   {
+    auto const segMwmId = segment.GetMwmId();
+
     std::vector<Segment> twins;
     m_starter.GetGraph().GetTwinsInner(segment, isOutgoing, twins);
     for (auto const & twin : twins)
-      edges.emplace_back(twin, RouteWeight(0.0));
+      edges.emplace_back(twin, m_hierarchyHandler.GetCrossBorderPenalty(segMwmId, twin.GetMwmId()));
 
     return;
   }

@@ -6,6 +6,7 @@
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/joint_segment.hpp"
+#include "routing/mwm_hierarchy_handler.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/segment.hpp"
@@ -29,7 +30,8 @@ class SingleVehicleWorldGraph final : public WorldGraph
 public:
   SingleVehicleWorldGraph(std::unique_ptr<CrossMwmGraph> crossMwmGraph,
                           std::unique_ptr<IndexGraphLoader> loader,
-                          std::shared_ptr<EdgeEstimator> estimator);
+                          std::shared_ptr<EdgeEstimator> estimator,
+                          MwmHierarchyHandler && hierarchyHandler);
 
   // WorldGraph overrides:
   // @{
@@ -141,5 +143,7 @@ private:
 
   AStarParents<Segment> m_parentsForSegments;
   AStarParents<JointSegment> m_parentsForJoints;
+
+  MwmHierarchyHandler m_hierarchyHandler;
 };
 }  // namespace routing

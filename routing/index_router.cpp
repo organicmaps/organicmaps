@@ -11,6 +11,7 @@
 #include "routing/junction_visitor.hpp"
 #include "routing/leaps_graph.hpp"
 #include "routing/leaps_postprocessor.hpp"
+#include "routing/mwm_hierarchy_handler.hpp"
 #include "routing/pedestrian_directions.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_exceptions.hpp"
@@ -294,6 +295,7 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
         m_vehicleType, CalcMaxSpeed(*m_numMwmIds, *m_vehicleModelFactory, m_vehicleType),
         CalcOffroadSpeed(*m_vehicleModelFactory), m_trafficStash))
   , m_directionsEngine(CreateDirectionsEngine(m_vehicleType, m_numMwmIds, m_dataSource))
+  , m_countryParentNameGetterFn(countryParentNameGetterFn)
 {
   CHECK(!m_name.empty(), ());
   CHECK(m_numMwmIds, ());
@@ -561,6 +563,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
   for (auto const & checkpoint : checkpoints.GetPoints())
   {
     string const countryName = m_countryFileFn(checkpoint);
+
     if (countryName.empty())
     {
       LOG(LWARNING, ("For point", mercator::ToLatLon(checkpoint),
@@ -841,7 +844,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
     RouterDelegate const & delegate, shared_ptr<AStarProgress> const & progress,
     vector<Segment> & subroute)
 {
-  LeapsGraph leapsGraph(starter);
+  LeapsGraph leapsGraph(starter, MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
 
   using Vertex = LeapsGraph::Vertex;
   using Edge = LeapsGraph::Edge;
@@ -1001,8 +1004,9 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 
   if (m_vehicleType != VehicleType::Transit)
   {
-    auto graph = make_unique<SingleVehicleWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
-                                                      m_estimator);
+    auto graph = make_unique<SingleVehicleWorldGraph>(
+        move(crossMwmGraph), move(indexGraphLoader), m_estimator,
+        MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
     graph->SetRoutingOptions(routingOptions);
     return graph;
   }

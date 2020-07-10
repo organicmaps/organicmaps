@@ -62,8 +62,7 @@ size_t IndexGraphStarter::GetRouteNumPoints(vector<Segment> const & segments)
 }
 
 IndexGraphStarter::IndexGraphStarter(FakeEnding const & startEnding,
-                                     FakeEnding const & finishEnding,
-                                     uint32_t fakeNumerationStart,
+                                     FakeEnding const & finishEnding, uint32_t fakeNumerationStart,
                                      bool strictForward, WorldGraph & graph)
   : m_graph(graph)
 {

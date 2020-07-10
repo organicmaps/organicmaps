@@ -87,6 +87,8 @@ set(
   maxspeeds.hpp
   maxspeeds_serialization.cpp
   maxspeeds_serialization.hpp
+  mwm_hierarchy_handler.cpp
+  mwm_hierarchy_handler.hpp
   nearest_edge_finder.cpp
   nearest_edge_finder.hpp
   online_absent_fetcher.cpp

@@ -21,8 +21,12 @@ SingleVehicleWorldGraph::AStarParents<JointSegment>::kEmpty = {};
 
 SingleVehicleWorldGraph::SingleVehicleWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph,
                                                  unique_ptr<IndexGraphLoader> loader,
-                                                 shared_ptr<EdgeEstimator> estimator)
-  : m_crossMwmGraph(move(crossMwmGraph)), m_loader(move(loader)), m_estimator(move(estimator))
+                                                 shared_ptr<EdgeEstimator> estimator,
+                                                 MwmHierarchyHandler && hierarchyHandler)
+  : m_crossMwmGraph(move(crossMwmGraph))
+  , m_loader(move(loader))
+  , m_estimator(move(estimator))
+  , m_hierarchyHandler(std::move(hierarchyHandler))
 {
   CHECK(m_loader, ());
   CHECK(m_estimator, ());
@@ -35,13 +39,19 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
 {
   bool opposite = !isOutgoing;
   vector<JointEdge> newCrossMwmEdges;
+
+  NumMwmId const mwmId = parent.GetMwmId();
+
   for (size_t i = 0; i < jointEdges.size(); ++i)
   {
     JointSegment const & target = jointEdges[i].GetTarget();
-    if (!m_crossMwmGraph->IsFeatureTransit(target.GetMwmId(), target.GetFeatureId()))
+
+    NumMwmId const edgeMwmId = target.GetMwmId();
+
+    if (!m_crossMwmGraph->IsFeatureTransit(edgeMwmId, target.GetFeatureId()))
       continue;
 
-    auto & currentIndexGraph = GetIndexGraph(parent.GetMwmId());
+    auto & currentIndexGraph = GetIndexGraph(mwmId);
 
     vector<Segment> twins;
     m_crossMwmGraph->GetTwinFeature(target.GetSegment(true /* start */), isOutgoing, twins);
@@ -66,6 +76,8 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
         newCrossMwmEdges.emplace_back(*edge);
         newCrossMwmEdges.back().GetTarget().SetFeatureId(twinFeatureId);
         newCrossMwmEdges.back().GetTarget().SetMwmId(twinMwmId);
+        newCrossMwmEdges.back().GetWeight() +=
+            m_hierarchyHandler.GetCrossBorderPenalty(mwmId, twinMwmId);
 
         parentWeights.emplace_back(parentWeights[i]);
       }

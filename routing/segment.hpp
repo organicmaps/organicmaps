@@ -72,7 +72,7 @@ public:
 
   Segment const & GetTarget() const { return m_target; }
   RouteWeight const & GetWeight() const { return m_weight; }
-
+  RouteWeight & GetWeight() { return m_weight; }
   bool operator==(SegmentEdge const & edge) const;
   bool operator<(SegmentEdge const & edge) const;
 

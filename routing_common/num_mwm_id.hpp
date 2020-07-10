@@ -33,6 +33,12 @@ public:
     return m_fileToId.find(file) != m_fileToId.cend();
   }
 
+  bool ContainsFileForMwm(NumMwmId mwmId) const
+  {
+    size_t const index = base::asserted_cast<size_t>(mwmId);
+    return index < m_idToFile.size();
+  }
+
   platform::CountryFile const & GetFile(NumMwmId mwmId) const
   {
     size_t const index = base::asserted_cast<size_t>(mwmId);

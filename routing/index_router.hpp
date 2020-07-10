@@ -251,5 +251,7 @@ private:
 
   // If a ckeckpoint is near to the guide track we need to build route through this track.
   GuidesConnections m_guides;
+
+  CountryParentNameGetterFn m_countryParentNameGetterFn;
 };
 }  // namespace routing

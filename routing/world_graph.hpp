@@ -117,6 +117,7 @@ public:
   virtual CrossMwmGraph & GetCrossMwmGraph();
   virtual void GetTwinsInner(Segment const & segment, bool isOutgoing,
                              std::vector<Segment> & twins) = 0;
+
 protected:
   void GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                 std::vector<SegmentEdge> & edges);
