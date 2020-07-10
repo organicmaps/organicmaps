@@ -130,6 +130,16 @@ using Observers = NSHashTable<Observer>;
   self.state = MWMSearchManagerStateTableSearch;
 }
 
+- (IBAction)onBookingDateButtonPressed:(id)sender {
+  [self.searchTextField resignFirstResponder];
+  [self.searchBarView setDatesWithCheckin:[[NSDate alloc] init] checkout:[[NSDate alloc] init]];
+}
+
+- (IBAction)onBookingGuestsButtonPressed:(id)sender {
+  [self.searchTextField resignFirstResponder];
+  [self.searchBarView setGuestCount:1];
+}
+
 #pragma mark - Layout
 
 - (void)viewWillTransitionToSize:(CGSize)size
@@ -226,6 +236,7 @@ using Observers = NSHashTable<Observer>;
     self.actionBarViewBottom.priority = UILayoutPriorityDefaultLow;
   }];
   [self viewHidden:NO];
+  self.searchBarView.isBookingSearchViewHidden = ![MWMSearch isHotelResults];
   self.actionBarState = MWMSearchManagerActionBarStateHidden;
   [self.searchTextField becomeFirstResponder];
   [self.searchBarView applyTheme];
@@ -311,6 +322,7 @@ using Observers = NSHashTable<Observer>;
     return;
   [self.tableViewController onSearchCompleted];
   [self updateTableSearchActionBar];
+  self.searchBarView.isBookingSearchViewHidden = ![MWMSearch isHotelResults];
 }
 
 - (void)onSearchStarted {
@@ -318,6 +330,7 @@ using Observers = NSHashTable<Observer>;
   if (self.state != MWMSearchManagerStateTableSearch)
     return;
   self.actionBarState = MWMSearchManagerActionBarStateModeFilter;
+  self.searchBarView.isBookingSearchViewHidden = ![MWMSearch isHotelResults];
 }
 
 - (void)onSearchResultsUpdated {

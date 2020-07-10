@@ -5,10 +5,14 @@
 }
 
 final class SearchBar: SolidTouchView {
-  @IBOutlet var searchIcon: UIImageView!
-  @IBOutlet var activityIndicator: UIActivityIndicatorView!
-  @IBOutlet var backButton: UIButton!
-  @IBOutlet var searchTextField: SearchTextField!
+  @IBOutlet private var searchIcon: UIImageView!
+  @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+  @IBOutlet private var backButton: UIButton!
+  @IBOutlet private var searchTextField: SearchTextField!
+  @IBOutlet private var stackView: UIStackView!
+  @IBOutlet private var bookingSearchView: UIView!
+  @IBOutlet private var bookingGuestCountLabel: UILabel!
+  @IBOutlet private var bookingDatesLabel: UILabel!
 
   override var visibleAreaAffectDirections: MWMAvailableAreaAffectDirections { return alternative(iPhone: .top, iPad: .left) }
 
@@ -28,11 +32,33 @@ final class SearchBar: SolidTouchView {
     }
   }
 
+  @objc var isBookingSearchViewHidden: Bool = true {
+    didSet {
+      if oldValue != isBookingSearchViewHidden {
+        UIView.animate(withDuration: kDefaultAnimationDuration,
+                       delay: 0,
+                       options: [.beginFromCurrentState],
+                       animations: {
+                        self.bookingSearchView.isHidden = self.isBookingSearchViewHidden
+                        self.bookingSearchView.alpha = self.isBookingSearchViewHidden ? 0 : 1
+        }, completion: nil)
+      }
+    }
+  }
+
+  private lazy var dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "EEE, MMM d"
+    return formatter
+  }()
+
   override func awakeFromNib() {
     super.awakeFromNib()
     updateLeftView()
     searchTextField.leftViewMode = UITextField.ViewMode.always
     searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+    bookingSearchView.isHidden = true
+    bookingSearchView.alpha = 0
   }
 
   private func updateLeftView() {
@@ -49,5 +75,21 @@ final class SearchBar: SolidTouchView {
     case .back:
       backButton.isHidden = false
     }
+  }
+
+  @objc func resetGuestCount() {
+    bookingGuestCountLabel.text = "?"
+  }
+
+  @objc func setGuestCount(_ count: Int) {
+    bookingGuestCountLabel.text = "\(count)"
+  }
+
+  @objc func resetDates() {
+    bookingDatesLabel.text = L("date_picker_сhoose_dates_cta")
+  }
+
+  @objc func setDates(checkin: Date, checkout: Date) {
+    bookingDatesLabel.text = "\(dateFormatter.string(from: checkin)) – \(dateFormatter.string(from: checkout))"
   }
 }

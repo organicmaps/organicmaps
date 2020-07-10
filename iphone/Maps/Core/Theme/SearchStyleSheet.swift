@@ -82,6 +82,13 @@ class SearchStyleSheet: IStyleSheet {
       s.color = colors.blackSecondaryText
     }
 
+    theme.add(styleName: "SearchDatePickerField")  { (s) -> (Void) in
+      s.backgroundColor = colors.white
+      s.cornerRadius = 4
+      s.borderColor = colors.solidDividers
+      s.borderWidth = 1
+    }
+
     theme.add(styleName: "FilterRatingButton") { (s) -> (Void) in
       s.cornerRadius = 4
       s.borderWidth = 1
