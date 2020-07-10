@@ -70,7 +70,7 @@ void TransliterateHiraganaToKatakana(UniString & s)
 
   InitTransliterationInstanceWithDefaultDirs();
   string out;
-  if (Transliteration::Instance().Transliterate(strings::ToUtf8(s), "Hiragana-Katakana", out))
+  if (Transliteration::Instance().TransliterateForce(strings::ToUtf8(s), "Hiragana-Katakana", out))
     s = MakeUniString(out);
 }
 }  // namespace

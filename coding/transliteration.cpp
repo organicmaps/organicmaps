@@ -81,6 +81,7 @@ void Transliteration::SetMode(Transliteration::Mode mode)
 
 bool Transliteration::Transliterate(std::string transliteratorId, UnicodeString & ustr) const
 {
+  CHECK(m_inited, ());
   CHECK(!transliteratorId.empty(), (transliteratorId));
 
   auto it = m_transliterators.find(transliteratorId);
@@ -127,9 +128,10 @@ bool Transliteration::Transliterate(std::string transliteratorId, UnicodeString 
   return true;
 }
 
-bool Transliteration::Transliterate(std::string const & str, std::string transliteratorId,
-                                    std::string & out) const
+bool Transliteration::TransliterateForce(std::string const & str, std::string const & transliteratorId,
+                                         std::string & out) const
 {
+  CHECK(m_inited, ());
   UnicodeString ustr(str.c_str());
   auto const res = Transliterate(transliteratorId, ustr);
   if (res)
@@ -140,6 +142,7 @@ bool Transliteration::Transliterate(std::string const & str, std::string transli
 bool Transliteration::Transliterate(std::string const & str, int8_t langCode,
                                     std::string & out) const
 {
+  CHECK(m_inited, ());
   if (m_mode != Mode::Enabled)
     return false;
 
@@ -152,11 +155,7 @@ bool Transliteration::Transliterate(std::string const & str, int8_t langCode,
 
   UnicodeString ustr(str.c_str());
   for (auto transliteratorId : transliteratorsIds)
-  {
-    if (!Transliterate(transliteratorId, ustr))
-      continue;
-
-  }
+    Transliterate(transliteratorId, ustr);
 
   if (ustr.isEmpty())
     return false;
