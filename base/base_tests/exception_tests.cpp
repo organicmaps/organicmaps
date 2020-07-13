@@ -157,7 +157,7 @@ UNIT_TEST(ExceptionCatcher_FunctionsReturnVoid)
   ExceptionCatcher("Function returns void.", exception, FuncThrowsNumberVoid);
 }
 
-UNIT_TEST(ExceptionCatcher_PreventReturningRefOnLocaleTemporaryObj)
+UNIT_TEST(ExceptionCatcher_PreventReturningRefOnLocalTemporaryObj)
 {
   std::string const str = "A string";
   auto const returnedStr = ReturnsByRef(str);
