@@ -39,6 +39,11 @@ std::array<std::string, static_cast<size_t>(SubscriptionType::Count)> const kSub
   "_BookmarksSights"   // bookmarks city
 };
 
+std::array<std::string, static_cast<size_t>(SubscriptionType::Count)> const kTrialSuffix =
+  {
+    "_BookmarksAllTrial",  // removeAds (empty string for back compatibility)
+  };
+
 uint32_t constexpr kFirstWaitingTimeInSec = 1;
 uint32_t constexpr kWaitingTimeScaleFactor = 2;
 uint8_t constexpr kMaxAttemptIndex = 2;
@@ -196,7 +201,7 @@ void Purchase::Validate(ValidationInfo const & validationInfo, std::string const
   if (url.empty() || status == Platform::EConnectionType::CONNECTION_NONE || !validationInfo.IsValid())
   {
     if (m_validationCallback)
-      m_validationCallback(ValidationCode::ServerError, validationInfo);
+      m_validationCallback(ValidationCode::ServerError, {validationInfo, true /* Dummy */});
     return;
   }
 
@@ -349,7 +354,7 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
       else
       {
         if (m_validationCallback)
-          m_validationCallback(code, validationInfo);
+          m_validationCallback(code, {validationInfo, true /* Dummy */});
       }
     });
   }

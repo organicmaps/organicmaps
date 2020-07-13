@@ -62,7 +62,7 @@ public class PurchaseOperationObservable implements Framework.PurchaseValidation
 
   @Override
   public void onValidatePurchase(int code, @NonNull String serverId, @NonNull String vendorId,
-                                 @NonNull String encodedPurchaseData)
+                                 @NonNull String encodedPurchaseData, boolean isTrial)
   {
     byte[] tokenBytes = Base64.decode(encodedPurchaseData, Base64.DEFAULT);
     String purchaseData = new String(tokenBytes);
@@ -76,7 +76,7 @@ public class PurchaseOperationObservable implements Framework.PurchaseValidation
       return;
     }
 
-    observer.onValidatePurchase(status, serverId, vendorId, purchaseData);
+    observer.onValidatePurchase(status, serverId, vendorId, purchaseData, isTrial);
   }
 
   @Override
@@ -98,7 +98,7 @@ public class PurchaseOperationObservable implements Framework.PurchaseValidation
       mLogger.d(TAG, "Post pending validation result to '" + observer + "' for '"
                      + orderId + "'");
       observer.onValidatePurchase(result.getStatus(), result.getServerId(), result.getVendorId(),
-                                  result.getPurchaseData());
+                                  result.getPurchaseData(), true /* Dummy */);
     }
   }
 

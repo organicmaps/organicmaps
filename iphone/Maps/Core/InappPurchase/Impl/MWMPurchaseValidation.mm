@@ -30,7 +30,7 @@ static NSMutableDictionary<NSString *, NSMutableArray<ValidatePurchaseCallback> 
     return;
   }
 
-  GetFramework().GetPurchase()->SetValidationCallback([](auto validationCode, auto const &validationInfo) {
+  GetFramework().GetPurchase()->SetValidationCallback([](auto validationCode, auto const &validationResponse) {
     MWMPurchaseValidationResult result;
     switch (validationCode) {
       case Purchase::ValidationCode::Verified:
@@ -48,7 +48,7 @@ static NSMutableDictionary<NSString *, NSMutableArray<ValidatePurchaseCallback> 
       }
     }
 
-    NSString *serverId = @(validationInfo.m_serverId.c_str());
+    NSString *serverId = @(validationResponse.m_info.m_serverId.c_str());
     NSMutableArray<ValidatePurchaseCallback> *callbackArray = callbacks[serverId];
     [callbackArray enumerateObjectsUsingBlock:^(ValidatePurchaseCallback  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
       obj(result);

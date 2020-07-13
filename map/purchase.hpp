@@ -47,6 +47,12 @@ public:
     bool IsValid() const { return !m_vendorId.empty() && !m_receiptData.empty(); }
   };
 
+  struct ValidationResponse
+  {
+    ValidationInfo m_info;
+    bool m_isTrial = false;
+  };
+
   enum class TrialEligibilityCode
   {
     Eligible,    // trial is eligible
@@ -55,7 +61,7 @@ public:
   };
 
   using InvalidTokenHandler = std::function<void()>;
-  using ValidationCallback = std::function<void(ValidationCode, ValidationInfo const &)>;
+  using ValidationCallback = std::function<void(ValidationCode, ValidationResponse const &)>;
   using StartTransactionCallback = std::function<void(bool success, std::string const & serverId,
                                                       std::string const & vendorId)>;
   using TrialEligibilityCallback = std::function<void(TrialEligibilityCode)>;

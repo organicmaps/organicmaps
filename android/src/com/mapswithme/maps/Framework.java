@@ -151,7 +151,8 @@ public class Framework
   public interface PurchaseValidationListener
   {
     void onValidatePurchase(@PurchaseValidationCode int code, @NonNull String serverId,
-                            @NonNull String vendorId, @NonNull String encodedPurchaseData);
+                            @NonNull String vendorId, @NonNull String encodedPurchaseData,
+                            boolean isTrial);
   }
 
   @SuppressWarnings("unused")
