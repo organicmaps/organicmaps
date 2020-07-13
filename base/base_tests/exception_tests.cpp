@@ -3,6 +3,7 @@
 #include "base/exception.hpp"
 
 #include <exception>
+#include <string>
 
 namespace
 {
@@ -21,6 +22,14 @@ void FuncDoesNotThrowVoid(int) noexcept { return; }
 void FuncThrowsRootExceptionVoid(int) { throw RootException("RootException", "RootException"); }
 void FuncThrowsExceptionVoid() { throw std::exception(); }
 void FuncThrowsNumberVoid() { throw 1; };
+
+std::string const & ReturnsByRef(std::string const & str)
+{
+  bool exception = true;
+  return ExceptionCatcher(
+      "ReturnsByRef().", exception,
+      [](std::string const & str) -> std::string const & { return str; }, str);
+}
 
 UNIT_TEST(ExceptionCatcher_FunctionsWithoutArgs)
 {
@@ -146,5 +155,12 @@ UNIT_TEST(ExceptionCatcher_FunctionsReturnVoid)
   ExceptionCatcher("Function returns void.", exception, FuncThrowsRootExceptionVoid, 7);
   ExceptionCatcher("Function returns void.", exception, FuncThrowsExceptionVoid);
   ExceptionCatcher("Function returns void.", exception, FuncThrowsNumberVoid);
+}
+
+UNIT_TEST(ExceptionCatcher_PreventReturningRefOnLocaleTemporaryObj)
+{
+  std::string const str = "A string";
+  auto const returnedStr = ReturnsByRef(str);
+  TEST_EQUAL(str, returnedStr, ());
 }
 }  // namespace
