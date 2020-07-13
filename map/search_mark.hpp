@@ -46,6 +46,7 @@ public:
   void SetPreparing(bool isPreparing);
   void SetRating(float rating);
   void SetPricing(int pricing);
+  void SetPrice(std::string const & price);
   void SetSale(bool hasSale);
 
 protected:
@@ -71,6 +72,7 @@ protected:
   bool m_isPreparing = false;
   float m_rating = 0.0f;
   int m_pricing = 0;
+  std::string m_price;
   bool m_hasSale = false;
   dp::TitleDecl m_titleDecl;
   dp::TitleDecl m_ugcTitleDecl;

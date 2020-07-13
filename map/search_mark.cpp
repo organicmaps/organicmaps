@@ -422,6 +422,13 @@ drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
   else
   {
     titles->push_back(m_titleDecl);
+    if (!m_price.empty())
+    {
+      auto priceDecl = m_titleDecl;
+      priceDecl.m_primaryText = m_price;
+      priceDecl.m_anchor = dp::Anchor::Left;
+      titles->push_back(priceDecl);
+    }
   }
   return titles;
 }
@@ -483,6 +490,11 @@ void SearchMarkPoint::SetRating(float rating)
 void SearchMarkPoint::SetPricing(int pricing)
 {
   SetAttributeValue(m_pricing, pricing);
+}
+
+void SearchMarkPoint::SetPrice(std::string const & price)
+{
+  SetAttributeValue(m_price, price);
 }
 
 void SearchMarkPoint::SetSale(bool hasSale)
