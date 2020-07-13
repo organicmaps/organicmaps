@@ -25,8 +25,9 @@ private:
 };
 
 template <typename Fn, typename... Args>
-std::result_of_t<Fn && (Args && ...)> ExceptionCatcher(
-    std::string const & comment, bool & exceptionWasThrown, Fn && fn, Args &&... args) noexcept
+std::result_of_t<Fn && (Args && ...)> ExceptionCatcher(std::string const & comment,
+                                                       bool & exceptionWasThrown, Fn && fn,
+                                                       Args &&... args) noexcept
 {
   try
   {
@@ -47,7 +48,12 @@ std::result_of_t<Fn && (Args && ...)> ExceptionCatcher(
   }
 
   exceptionWasThrown = true;
-  return std::result_of_t<Fn && (Args && ...)>();
+  using ReturnType = std::decay_t<std::result_of_t<Fn && (Args && ...)>>;
+  if constexpr (!std::is_same_v<void, ReturnType>)
+  {
+    static const ReturnType defaultResult = {};
+    return defaultResult;
+  }
 }
 
 #define DECLARE_EXCEPTION(exception_name, base_exception) \
