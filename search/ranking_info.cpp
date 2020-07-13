@@ -257,11 +257,11 @@ double RankingInfo::GetLinearModelRank() const
     result += kType[m_type];
     if (Model::IsPoi(m_type))
       result += kResultType[base::Underlying(m_resultType)];
-    result += kNameScore[nameScore];
-    result += kErrorsMade * GetErrorsMadePerToken();
-    result += kMatchedFraction * m_matchedFraction;
     result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
     result += (m_exactCountryOrCapital ? 1 : 0) * kExactCountryOrCapital;
+    auto const nameRank = kNameScore[nameScore] + kErrorsMade * GetErrorsMadePerToken() +
+                          kMatchedFraction * m_matchedFraction;
+    result += (m_isAltOrOldName ? 0.7 : 1.0) * nameRank;
   }
   else
   {
