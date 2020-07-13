@@ -528,6 +528,10 @@ el:χρήματα
 sk:peniaze
 fa:بانک
 
+@recycling
+en:Recycling
+ru:Переработка
+
 amenity-bureau_de_change
 en:3Currency Exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:3Обмен валюты|обмен валют|обменник|4валюта|деньги
@@ -3665,7 +3669,7 @@ he:במכולה|הפשא
 sk:Odpadky|kôš
 fa:زباله دانی
 
-amenity-recycling
+amenity-recycling|@recycling
 en:Recycling Center|U+1F6AE|U+267B
 ru:Приём вторсырья|утиль|сырьё|сбор сырья
 ar:مركز إعادة تدوير
@@ -3698,62 +3702,62 @@ sk:Zberné suroviny
 sw:Chombo cha kutia taka
 fa:مرکز بازیافت
 
-amenity-recycling_container
+amenity-recycling_container|@recycling
 en:Recycling container|U+1F6AE|U+267B
 ru:Контейнер для вторсырья|утиль
 de:Recyclingbehälter
 es:Contenedor de reciclaje
 uk:Контейнер для вторсировини
 
-recycling-toxic
+recycling-toxic|@recycling
 en:Toxic waste|Batteries
 ru:Ядовитые отходы|Сбор батареек
 de:Giftmüll
 es:Residuos tóxicos
 uk:Отруйні відходи|ЗБір отруйних відходів
 
-recycling-clothes
+recycling-clothes|@recycling
 en:Old clothes
 ru:Старая одежда
 de:Alte Kleidung
 es:Ropa vieja
 uk:Старий одяг
 
-recycling-glass_bottles
+recycling-glass_bottles|@recycling
 en:Glass bottles
 ru:Стеклотара
 de:Glas-Container
 es:Vidrio
 uk:Склотара
 
-recycling-paper
+recycling-paper|@recycling
 en:Paper waste
 ru:Макулатура
 de:Altpapier
 es:Papel de desecho
 uk:Макулатура
 
-recycling-plastic
+recycling-plastic|@recycling
 en:Plastic waste
 ru:Пластиковый мусор
 de:Plastik-Müll
 es:Residuos plásticos
 uk:Пластикове сміття
 
-recycling-plastic_bottles
+recycling-plastic_bottles|@recycling
 en:Plastic bottles|PET
 ru:Сбор пластиковых бутылок
 es:Botellas de plástico
 uk:Збір пластикових пляшок
 
-recycling-scrap_metal
+recycling-scrap_metal|@recycling
 en:Scrap metal
 ru:Металлолом
 de:Altmetall
 es:Chatarra
 uk:Металолом
 
-recycling-small_appliances
+recycling-small_appliances|@recycling
 en:Electronic waste
 ru:Электроотходы
 de:Elektroschrott
