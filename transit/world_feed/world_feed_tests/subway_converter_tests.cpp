@@ -23,7 +23,7 @@ void WriteStringToFile(std::string const & fileName, std::string const & data)
 {
   std::ofstream file;
   file.open(fileName);
-  CHECK(file.is_open(), "Could not open file", fileName);
+  CHECK(file.is_open(), ("Could not open file", fileName));
   file << data;
 }
 }  // namespace
