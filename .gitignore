@@ -168,6 +168,7 @@ tools/android/yota.keystore
 android/secure.properties
 android/pushwoosh.properties
 android/libnotify.properties
+android/google-services.json
 server
 
 *.li
