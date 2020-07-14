@@ -103,7 +103,7 @@ struct LocalizableStringAdapter
     {
       auto const langIndex = StringUtf8Multilang::GetLangIndex(lang);
       if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
-        throw std::runtime_error("Unsupported language. lang:" + lang);
+        throw std::runtime_error("Unsupported language. lang: " + lang);
 
       str[langIndex] = extract<std::string>(dict[lang]);
     }
@@ -648,7 +648,7 @@ uint32_t ClassificatorTypeToIndex(std::string const & typeStr)
 
   auto const type = c.GetTypeByReadableObjectName(typeStr);
   if (!c.IsTypeValid(type))
-    throw std::runtime_error("Type is not valid. typeStr:" + typeStr);
+    throw std::runtime_error("Type is not valid. typeStr: " + typeStr);
 
   return c.GetIndexForType(type);
 }
