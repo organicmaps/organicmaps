@@ -7,7 +7,8 @@ namespace platform
 Locale GetCurrentLocale()
 {
   NSLocale * locale = [NSLocale currentLocale];
-  return {[locale.languageCode UTF8String], [locale.countryCode UTF8String],
-          [locale.currencyCode UTF8String]};
+  return {locale.languageCode ? [locale.languageCode UTF8String] : "",
+          locale.countryCode ? [locale.countryCode UTF8String] : "",
+          locale.currencyCode ? [locale.currencyCode UTF8String] : ""};
 }
 }  // namespace platform

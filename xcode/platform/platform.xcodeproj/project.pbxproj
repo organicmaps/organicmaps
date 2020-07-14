@@ -25,6 +25,7 @@
 		3D78156F1F3A14090068B6AC /* gui_thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D78156C1F3A14090068B6AC /* gui_thread.hpp */; };
 		3D78157D1F3D8A0A0068B6AC /* safe_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */; };
 		3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D97F64A1D9C05E800380945 /* http_client.cpp */; };
+		3DE28A7524BE01A30009465C /* locale.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DE28A7424BE01A30009465C /* locale.mm */; };
 		3DE8B98F1DEC3115000E6083 /* network_policy.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DE8B98E1DEC3115000E6083 /* network_policy.hpp */; };
 		3DEE1AE721F7091100054A91 /* battery_tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1AE521F7091100054A91 /* battery_tracker.cpp */; };
 		3DEE1AE821F7091100054A91 /* battery_tracker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DEE1AE621F7091100054A91 /* battery_tracker.hpp */; };
@@ -156,6 +157,7 @@
 		3D78156C1F3A14090068B6AC /* gui_thread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gui_thread.hpp; sourceTree = "<group>"; };
 		3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = safe_callback.hpp; sourceTree = "<group>"; };
 		3D97F64A1D9C05E800380945 /* http_client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_client.cpp; sourceTree = "<group>"; };
+		3DE28A7424BE01A30009465C /* locale.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = locale.mm; sourceTree = "<group>"; };
 		3DE8B98E1DEC3115000E6083 /* network_policy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = network_policy.hpp; sourceTree = "<group>"; };
 		3DEE1AE521F7091100054A91 /* battery_tracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = battery_tracker.cpp; sourceTree = "<group>"; };
 		3DEE1AE621F7091100054A91 /* battery_tracker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = battery_tracker.hpp; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				3DE28A7424BE01A30009465C /* locale.mm */,
 				D593E50323CDBC5F004D6B89 /* http_uploader_background_dummy.cpp */,
 				3DF528EA238BFFC1000ED0D5 /* downloader_defines.hpp */,
 				D5B191CE2386C7E4009CD0D6 /* http_uploader_background.hpp */,
@@ -713,6 +716,7 @@
 				675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */,
 				56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */,
 				3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */,
+				3DE28A7524BE01A30009465C /* locale.mm in Sources */,
 				F6DF73581EC9EAE700D8BA0B /* string_storage_base.cpp in Sources */,
 				3D318A062021DD8B007B2607 /* http_uploader_apple.mm in Sources */,
 				3D78156E1F3A14090068B6AC /* gui_thread_apple.mm in Sources */,
