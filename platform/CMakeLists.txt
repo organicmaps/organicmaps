@@ -36,6 +36,7 @@ set(
   local_country_file.hpp
   local_country_file_utils.cpp
   local_country_file_utils.hpp
+  locale.hpp
   localization.hpp
   location.hpp
   marketing_service.cpp
@@ -72,6 +73,7 @@ if(${PLATFORM_IPHONE})
     http_uploader_apple.mm
     http_user_agent_ios.mm
     localization.mm
+    locale.mm
     marketing_service_ios.mm
     network_policy_ios.h
     network_policy_ios.mm
@@ -127,6 +129,7 @@ else() # neither iPhone nor Android
       http_uploader_apple.mm
       http_uploader_background_dummy.cpp
       http_user_agent_dummy.cpp
+      locale.mm
       marketing_service_dummy.cpp
       platform_mac.mm
       platform_unix_impl.cpp
@@ -145,6 +148,7 @@ else() # neither iPhone nor Android
       http_uploader_dummy.cpp
       http_uploader_background_dummy.cpp
       http_user_agent_dummy.cpp
+      locale_linux.cpp
       marketing_service_dummy.cpp
       platform_linux.cpp
       platform_unix_impl.cpp

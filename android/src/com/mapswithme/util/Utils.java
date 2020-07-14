@@ -557,6 +557,18 @@ public class Utils
     return null;
   }
 
+  @NonNull
+  public static String getCountryCode()
+  {
+    return Locale.getDefault().getCountry();
+  }
+
+  @NonNull
+  public static String getLanguageCode()
+  {
+    return Locale.getDefault().getLanguage();
+  }
+
   @Nullable
   public static Currency getCurrencyForLocale(@NonNull Locale locale)
   {
