@@ -81,6 +81,34 @@ UniChar LastUniChar(std::string const & s)
   return *iter;
 }
 
+bool to_uint32(char const * start, uint32_t & i, int base)
+{
+  uint64_t num = 0;
+  if (!to_uint64(start, num, base))
+    return false;
+
+  if (num > static_cast<uint64_t>(std::numeric_limits<uint32_t>::max()))
+    return false;
+
+  i = static_cast<uint32_t>(num);
+  return true;
+}
+
+bool to_int32(char const * start, int32_t & i)
+{
+  int64_t num = 0;
+  if (!to_int64(start, num))
+    return false;
+
+  if (num > static_cast<int64_t>(std::numeric_limits<int32_t>::max()))
+    return false;
+  if (num < static_cast<int64_t>(std::numeric_limits<int32_t>::min()))
+    return false;
+
+  i = static_cast<int32_t>(num);
+  return true;
+}
+
 bool to_size_t(char const * start, size_t & i, int base)
 {
   uint64_t num = 0;
