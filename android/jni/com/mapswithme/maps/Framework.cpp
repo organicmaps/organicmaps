@@ -941,18 +941,18 @@ void CallSetRoutingLoadPointsListener(shared_ptr<jobject> listener, bool success
 RoutingManager::LoadRouteHandler g_loadRouteHandler;
 
 void CallPurchaseValidationListener(shared_ptr<jobject> listener, Purchase::ValidationCode code,
-                                    Purchase::ValidationResponse const & validationResponce)
+                                    Purchase::ValidationResponse const & validationResponse)
 {
   JNIEnv * env = jni::GetEnv();
   jmethodID const methodId = jni::GetMethodID(env, *listener, "onValidatePurchase",
     "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V");
 
-  jni::TScopedLocalRef const serverId(env, jni::ToJavaString(env, validationResponce.m_info.m_serverId));
-  jni::TScopedLocalRef const vendorId(env, jni::ToJavaString(env, validationResponce.m_info.m_vendorId));
-  jni::TScopedLocalRef const receiptData(env, jni::ToJavaString(env, validationResponce.m_info.m_receiptData));
+  jni::TScopedLocalRef const serverId(env, jni::ToJavaString(env, validationResponse.m_info.m_serverId));
+  jni::TScopedLocalRef const vendorId(env, jni::ToJavaString(env, validationResponse.m_info.m_vendorId));
+  jni::TScopedLocalRef const receiptData(env, jni::ToJavaString(env, validationResponse.m_info.m_receiptData));
 
   env->CallVoidMethod(*listener, methodId, static_cast<jint>(code), serverId.get(), vendorId.get(),
-                      receiptData.get(), static_cast<jboolean>(validationResponce.m_isTrial));
+                      receiptData.get(), static_cast<jboolean>(validationResponse.m_isTrial));
 }
 
 void CallStartPurchaseTransactionListener(shared_ptr<jobject> listener, bool success,
