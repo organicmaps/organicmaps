@@ -47847,3 +47847,15 @@
     zh-Hans = 特色景点
     zh-Hant = 特色景點
     fa = مکان های ویژه
+
+  [guides_trial_cta_button]
+    comment = FIXME
+    en = guides_trial_cta_button
+
+  [guides_trial_message]
+    comment = FIXME
+    en = guides_trial_message%s
+
+  [trial_error_dialog]
+    comment = FIXME
+    en = trial_error_dialog
