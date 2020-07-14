@@ -8,37 +8,38 @@ UNIT_TEST(Skyeng_GetBanner)
 {
   DownloadOnMapContainerDelegateForTesting delegate;
   ads::Skyeng skyeng(delegate);
+  m2::PointD point;
 
   {
-    auto const banner = skyeng.GetBanner("Russia_Tambov Oblast", {}, "ru");
+    auto const banner = skyeng.GetBanner("Russia_Tambov Oblast", point, "ru");
     TEST(!banner.empty(), ());
   }
   {
-    auto const banner = skyeng.GetBanner("US_North Carolina_Raleigh", {}, "ru");
+    auto const banner = skyeng.GetBanner("US_North Carolina_Raleigh", point, "ru");
     TEST(!banner.empty(), ());
   }
   {
-    auto const banner = skyeng.GetBanner("Russia_Tambov Oblast", {}, "en");
+    auto const banner = skyeng.GetBanner("Russia_Tambov Oblast", point, "en");
     TEST(banner.empty(), ());
   }
   {
-    auto const banner = skyeng.GetBanner("US_North Carolina_Raleigh", {}, "en");
+    auto const banner = skyeng.GetBanner("US_North Carolina_Raleigh", point, "en");
     TEST(banner.empty(), ());
   }
   {
-    auto const banner = skyeng.GetBanner("Russia_Moscow", {}, "ru");
+    auto const banner = skyeng.GetBanner("Russia_Moscow", point, "ru");
     TEST(banner.empty(), ());
   }
   {
-    auto const banner = skyeng.GetBanner("Cote dIvoire", {}, "ru");
+    auto const banner = skyeng.GetBanner("Cote dIvoire", point, "ru");
     TEST(banner.empty(), ());
   }
   {
-    auto const banner = skyeng.GetBanner("Russia_Moscow", {}, "en");
+    auto const banner = skyeng.GetBanner("Russia_Moscow", point, "en");
     TEST(banner.empty(), ());
   }
   {
-    auto const banner = skyeng.GetBanner("Cote dIvoire", {}, "en");
+    auto const banner = skyeng.GetBanner("Cote dIvoire", point, "en");
     TEST(banner.empty(), ());
   }
 }

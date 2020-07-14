@@ -8,33 +8,34 @@ UNIT_TEST(Mts_GetBanner)
 {
   DownloadOnMapContainerDelegateForTesting delegate;
   ads::Mts mts(delegate);
+  m2::PointD point;
 
   {
     delegate.SetTopmostParent("France");
-    auto const banner = mts.GetBanner("", {}, "ru");
+    auto const banner = mts.GetBanner("", point, "ru");
     TEST(!banner.empty(), ());
   }
   {
     delegate.SetTopmostParent("France");
-    auto const banner = mts.GetBanner("", {}, "en");
+    auto const banner = mts.GetBanner("", point, "en");
     TEST(banner.empty(), ());
   }
   {
     delegate.SetTopmostParent("France");
     delegate.SetCountryId("Russian Federation");
-    auto const banner = mts.GetBanner("", {}, "ru");
+    auto const banner = mts.GetBanner("", point, "ru");
     TEST(banner.empty(), ());
   }
   {
     delegate.SetTopmostParent("Thailand");
     delegate.SetCountryId("Russian Federation");
-    auto const banner = mts.GetBanner("", {}, "ru");
+    auto const banner = mts.GetBanner("", point, "ru");
     TEST(banner.empty(), ());
   }
   {
     delegate.SetTopmostParent("Thailand");
     delegate.SetCountryId("Cote dIvoire");
-    auto const banner = mts.GetBanner("", {}, "ru");
+    auto const banner = mts.GetBanner("", point, "ru");
     TEST(!banner.empty(), ());
   }
 }
