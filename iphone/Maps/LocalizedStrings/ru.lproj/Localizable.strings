@@ -3316,6 +3316,15 @@
 
 "routes_card_set_tag" = "Подборка мест";
 
+/* FIXME */
+"guides_trial_cta_button" = "guides_trial_cta_button";
+
+/* FIXME */
+"guides_trial_message" = "guides_trial_message%s";
+
+/* FIXME */
+"trial_error_dialog" = "trial_error_dialog";
+
 
 /**********  Partners  **********/
 
