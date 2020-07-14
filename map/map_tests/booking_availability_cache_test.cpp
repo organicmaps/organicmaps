@@ -16,19 +16,28 @@ UNIT_TEST(AvailabilityCache_Smoke)
 
   std::string kHotelId = "0";
 
-  TEST_EQUAL(cache.Get(kHotelId), Cache::HotelStatus::Absent, ());
+  auto info = cache.Get(kHotelId);
+  TEST_EQUAL(info.m_status, Cache::HotelStatus::Absent, ());
+  TEST(!info.m_extras, ());
 
-  cache.Reserve(kHotelId);
+  cache.InsertNotReady(kHotelId);
 
-  TEST_EQUAL(cache.Get(kHotelId), Cache::HotelStatus::NotReady, ());
+  info = cache.Get(kHotelId);
+  TEST_EQUAL(info.m_status, Cache::HotelStatus::NotReady, ());
+  TEST(!info.m_extras, ());
 
-  cache.Insert(kHotelId, Cache::HotelStatus::Available);
+  cache.InsertAvailable(kHotelId, {10.0, "Y"});
 
-  TEST_EQUAL(cache.Get(kHotelId), Cache::HotelStatus::Available, ());
+  info = cache.Get(kHotelId);
+  TEST_EQUAL(info.m_status, Cache::HotelStatus::Available, ());
+  TEST(info.m_extras, ());
+  TEST_EQUAL(info.m_extras->m_currency, "Y", ());
 
-  cache.Insert(kHotelId, Cache::HotelStatus::Unavailable);
+  cache.InsertUnavailable(kHotelId);
 
-  TEST_EQUAL(cache.Get(kHotelId), Cache::HotelStatus::Unavailable, ());
+  info = cache.Get(kHotelId);
+  TEST_EQUAL(info.m_status, Cache::HotelStatus::Unavailable, ());
+  TEST(!info.m_extras, ());
 }
 
 UNIT_TEST(AvailabilityCache_RemoveExtra)
@@ -37,19 +46,19 @@ UNIT_TEST(AvailabilityCache_RemoveExtra)
   std::vector<std::string> const kHotelIds = {"1", "2", "3"};
 
   for (auto const & id : kHotelIds)
-    TEST_EQUAL(cache.Get(id), Cache::HotelStatus::Absent, ());
+    TEST_EQUAL(cache.Get(id).m_status, Cache::HotelStatus::Absent, ());
 
   for (auto const & id : kHotelIds)
-    cache.Insert(id, Cache::HotelStatus::Available);
+    cache.InsertAvailable(id, {1.0, "X"});
 
   for (auto const & id : kHotelIds)
-    TEST_EQUAL(cache.Get(id), Cache::HotelStatus::Available, ());
+    TEST_EQUAL(cache.Get(id).m_status, Cache::HotelStatus::Available, ());
 
-  cache.Insert("4", Cache::HotelStatus::Available);
+  cache.InsertAvailable("4", {1.0, "X"});
 
   for (auto const & id : kHotelIds)
-    TEST_EQUAL(cache.Get(id), Cache::HotelStatus::Absent, ());
+    TEST_EQUAL(cache.Get(id).m_status, Cache::HotelStatus::Absent, ());
 
-  TEST_EQUAL(cache.Get("4"), Cache::HotelStatus::Available, ());
+  TEST_EQUAL(cache.Get("4").m_status, Cache::HotelStatus::Available, ());
 }
 }  // namespace

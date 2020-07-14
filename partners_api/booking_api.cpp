@@ -340,20 +340,24 @@ void FillBlocks(string const & src, string const & currency, Blocks & blocks)
   }
 }
 
-void FillHotelIds(string const & src, vector<std::string> & ids)
+void FillHotels(string const & src, HotelsWithExtras & hotels)
 {
   base::Json root(src.c_str());
   auto const resultsArray = json_object_get(root.get(), "result");
 
   auto const size = json_array_size(resultsArray);
 
-  ids.resize(size);
+  hotels.reserve(size);
   for (size_t i = 0; i < size; ++i)
   {
     auto const obj = json_array_get(resultsArray, i);
     uint64_t id = 0;
+    Extras extras;
     FromJSONObject(obj, "hotel_id", id);
-    ids[i] = std::to_string(id);
+    FromJSONObject(obj, "price", extras.m_price);
+    FromJSONObject(obj, "hotel_currency_code", extras.m_currency);
+
+    hotels.emplace(std::to_string(id), std::move(extras));
   }
 }
 
@@ -536,7 +540,7 @@ void Api::GetHotelAvailability(AvailabilityParams const & params,
 {
   GetPlatform().RunTask(Platform::Thread::Network, [params, fn]()
   {
-    std::vector<std::string> result;
+    HotelsWithExtras result;
     string httpResult;
     if (!RawApi::HotelAvailability(params, httpResult))
     {
@@ -546,7 +550,7 @@ void Api::GetHotelAvailability(AvailabilityParams const & params,
 
     try
     {
-      FillHotelIds(httpResult, result);
+      FillHotels(httpResult, result);
     }
     catch (base::Json::Exception const & e)
     {

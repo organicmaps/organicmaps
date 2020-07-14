@@ -1,11 +1,12 @@
 #pragma once
 
+#include "partners_api/booking_api.hpp"
 #include "partners_api/booking_availability_params.hpp"
 #include "partners_api/booking_params_base.hpp"
 
-#include "platform/safe_callback.hpp"
-
 #include "indexer/feature_decl.hpp"
+
+#include "platform/safe_callback.hpp"
 
 #include <algorithm>
 #include <functional>
@@ -24,8 +25,10 @@ namespace filter
 {
 using Results = platform::SafeCallback<void(std::shared_ptr<ParamsBase> const & params,
                                             std::vector<FeatureID> const & sortedFeatures)>;
-using ResultsUnsafe = std::function<void(search::Results const & results)>;
-using ResultsRawUnsafe = std::function<void(std::vector<FeatureID> const & results)>;
+using ResultsUnsafe =
+    std::function<void(search::Results && results, std::vector<Extras> && extras)>;
+using ResultsRawUnsafe =
+    std::function<void(std::vector<FeatureID> && sortedFeatures, std::vector<Extras> && extras)>;
 
 template <typename R>
 struct ParamsImpl

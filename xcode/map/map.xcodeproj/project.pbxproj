@@ -112,6 +112,8 @@
 		3DD692B02209E272001C3C62 /* notification_manager_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DD692AE2209E272001C3C62 /* notification_manager_delegate.hpp */; };
 		3DD692B12209E272001C3C62 /* notification_manager_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD692AF2209E272001C3C62 /* notification_manager_delegate.cpp */; };
 		3DD692B3220AD240001C3C62 /* caching_address_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DD692B2220AD240001C3C62 /* caching_address_getter.hpp */; };
+		3DE28A7824BE05220009465C /* booking_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DE28A7624BE05220009465C /* booking_utils.cpp */; };
+		3DE28A7924BE05220009465C /* booking_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DE28A7724BE05220009465C /* booking_utils.hpp */; };
 		3DEE1ADE21EE03B400054A91 /* power_management_schemas.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DEE1ADA21EE03B400054A91 /* power_management_schemas.hpp */; };
 		3DEE1ADF21EE03B400054A91 /* power_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DEE1ADB21EE03B400054A91 /* power_manager.hpp */; };
 		3DEE1AE021EE03B400054A91 /* power_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1ADC21EE03B400054A91 /* power_manager.cpp */; };
@@ -416,6 +418,8 @@
 		3DD692AE2209E272001C3C62 /* notification_manager_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = notification_manager_delegate.hpp; sourceTree = "<group>"; };
 		3DD692AF2209E272001C3C62 /* notification_manager_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = notification_manager_delegate.cpp; sourceTree = "<group>"; };
 		3DD692B2220AD240001C3C62 /* caching_address_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = caching_address_getter.hpp; sourceTree = "<group>"; };
+		3DE28A7624BE05220009465C /* booking_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_utils.cpp; sourceTree = "<group>"; };
+		3DE28A7724BE05220009465C /* booking_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_utils.hpp; sourceTree = "<group>"; };
 		3DEE1ADA21EE03B400054A91 /* power_management_schemas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = power_management_schemas.hpp; sourceTree = "<group>"; };
 		3DEE1ADB21EE03B400054A91 /* power_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = power_manager.hpp; sourceTree = "<group>"; };
 		3DEE1ADC21EE03B400054A91 /* power_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = power_manager.cpp; sourceTree = "<group>"; };
@@ -912,6 +916,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3DE28A7624BE05220009465C /* booking_utils.cpp */,
+				3DE28A7724BE05220009465C /* booking_utils.hpp */,
 				3D089870247FF5FE00837783 /* layers_statistics.cpp */,
 				3D089871247FF5FE00837783 /* layers_statistics.hpp */,
 				BB5FA776245AE2CF009A81A4 /* guides_marks.cpp */,
@@ -1106,6 +1112,7 @@
 				3D18DC3C22956DD100A583A6 /* framework_light_delegate.hpp in Headers */,
 				4564FA82209497A70043CCFB /* bookmark_catalog.hpp in Headers */,
 				3DA5714020B5CC80007BDE27 /* booking_filter_params.hpp in Headers */,
+				3DE28A7924BE05220009465C /* booking_utils.hpp in Headers */,
 				3D47B2941F054BC5000828D2 /* taxi_delegate.hpp in Headers */,
 				3D47B2C81F20EF06000828D2 /* displayed_categories_modifiers.hpp in Headers */,
 				3DA5713F20B5CC80007BDE27 /* booking_availability_filter.hpp in Headers */,
@@ -1367,6 +1374,7 @@
 				45A2D9D51F7556EB003310A0 /* user.cpp in Sources */,
 				0C2B73DE1E92AB9900530BB8 /* local_ads_manager.cpp in Sources */,
 				F6B283071C1B03320081957A /* gps_track_storage.cpp in Sources */,
+				3DE28A7824BE05220009465C /* booking_utils.cpp in Sources */,
 				670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */,
 				BBA014B220754997007402E4 /* user_mark_id_storage.cpp in Sources */,
 				6753464A1A4054E800A0A8C3 /* bookmark.cpp in Sources */,

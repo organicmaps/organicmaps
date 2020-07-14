@@ -7,7 +7,9 @@
 
 #include <chrono>
 #include <functional>
+#include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace booking
@@ -107,6 +109,16 @@ struct Blocks
 
   std::vector<BlockInfo> m_blocks;
 };
+struct Extras
+{
+  Extras() = default;
+  Extras(double price, std::string const & currency) : m_price(price), m_currency(currency) {}
+
+  double m_price = 0.0;
+  std::string m_currency;
+};
+
+using HotelsWithExtras = std::unordered_map<std::string, Extras>;
 
 class RawApi
 {
@@ -122,7 +134,7 @@ using BlockAvailabilityCallback =
     platform::SafeCallback<void(std::string const & hotelId, Blocks const & blocks)>;
 using GetHotelInfoCallback = platform::SafeCallback<void(HotelInfo const & hotelInfo)>;
 // NOTE: this callback will be called on the network thread.
-using GetHotelAvailabilityCallback = std::function<void(std::vector<std::string> hotelIds)>;
+using GetHotelAvailabilityCallback = std::function<void(HotelsWithExtras hotels)>;
 
 /// Callbacks will be called in the same order as methods are called.
 class Api

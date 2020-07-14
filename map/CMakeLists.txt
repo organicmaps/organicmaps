@@ -21,6 +21,8 @@ set(
   booking_filter_params.hpp
   booking_filter_processor.cpp
   booking_filter_processor.hpp
+  booking_utils.cpp
+  booking_utils.hpp
   bookmark.cpp
   bookmark.hpp
   bookmark_catalog.cpp

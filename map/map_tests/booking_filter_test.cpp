@@ -114,9 +114,13 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
       rect, scales::GetUpperScale());
   ParamsInternal filterParams;
   search::Results filteredResults;
+  std::vector<booking::Extras> availabilityExtras;
   filterParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
-  filterParams.m_callback = [&filteredResults](search::Results const & results) {
+  filterParams.m_callback = [&filteredResults, &availabilityExtras](
+                                search::Results && results,
+                                std::vector<booking::Extras> && extras) {
     filteredResults = results;
+    availabilityExtras = extras;
     testing::Notify();
   };
 
@@ -126,6 +130,8 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
 
   TEST_NOT_EQUAL(filteredResults.GetCount(), 0, ());
   TEST_EQUAL(filteredResults.GetCount(), expectedResults.GetCount(), ());
+  TEST(!availabilityExtras.empty(), ());
+  TEST_EQUAL(availabilityExtras.size(), filteredResults.GetCount(), ());
 
   for (size_t i = 0; i < filteredResults.GetCount(); ++i)
   {
@@ -200,20 +206,27 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
   TasksInternal tasks;
   ParamsInternal availabilityParams;
   search::Results availabilityResults;
+  std::vector<booking::Extras> availabilityExtras;
   availabilityParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
-  availabilityParams.m_callback = [&availabilityResults](search::Results const & results) {
+  availabilityParams.m_callback = [&availabilityResults, &availabilityExtras](
+                                      search::Results const & results,
+                                      std::vector<booking::Extras> && extras) {
     availabilityResults = results;
+    availabilityExtras = extras;
   };
 
   tasks.emplace_back(Type::Availability, std::move(availabilityParams));
 
   ParamsInternal dealsParams;
   search::Results dealsResults;
+  std::vector<booking::Extras> dealsExtras;
   booking::AvailabilityParams p;
   p.m_dealsOnly = true;
   dealsParams.m_apiParams = std::make_shared<booking::AvailabilityParams>(p);
-  dealsParams.m_callback = [&dealsResults](search::Results const & results) {
+  dealsParams.m_callback = [&dealsResults, &dealsExtras](search::Results const & results,
+                                                         std::vector<booking::Extras> && extras) {
     dealsResults = results;
+    dealsExtras = extras;
     testing::Notify();
   };
 
@@ -227,6 +240,8 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
 
   TEST_NOT_EQUAL(availabilityResults.GetCount(), 0, ());
   TEST_EQUAL(availabilityResults.GetCount(), expectedAvailabilityResults.GetCount(), ());
+  TEST(!availabilityExtras.empty(), ());
+  TEST_EQUAL(availabilityExtras.size(), availabilityResults.GetCount(), ());
 
   for (size_t i = 0; i < availabilityResults.GetCount(); ++i)
   {
@@ -236,6 +251,8 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
 
   TEST_NOT_EQUAL(dealsResults.GetCount(), 0, ());
   TEST_EQUAL(dealsResults.GetCount(), expectedDealsResults.GetCount(), ());
+  TEST(!dealsExtras.empty(), ());
+  TEST_EQUAL(dealsExtras.size(), dealsResults.GetCount(), ());
 
   for (size_t i = 0; i < dealsResults.GetCount(); ++i)
   {
@@ -319,9 +336,13 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ApplyFilterOntoWithFeatureIds)
 
   ParamsRawInternal filterParams;
   std::vector<FeatureID> filteredResults;
+  std::vector<booking::Extras> availabilityExtras;
   filterParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
-  filterParams.m_callback = [&filteredResults](std::vector<FeatureID> const & results) {
+  filterParams.m_callback = [&filteredResults, &availabilityExtras](
+                                std::vector<FeatureID> const & results,
+                                std::vector<booking::Extras> && extras) {
     filteredResults = results;
+    availabilityExtras = extras;
     testing::Notify();
   };
 
@@ -332,5 +353,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ApplyFilterOntoWithFeatureIds)
   TEST_NOT_EQUAL(filteredResults.size(), 0, ());
   TEST_EQUAL(filteredResults.size(), expectedFeatureIds.size(), ());
   TEST_EQUAL(filteredResults, expectedFeatureIds, ());
+  TEST(!availabilityExtras.empty(), ());
+  TEST_EQUAL(availabilityExtras.size(), filteredResults.size(), ());
 }
 }  // namespace

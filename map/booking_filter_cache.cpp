@@ -8,38 +8,99 @@ namespace filter
 {
 namespace availability
 {
+namespace
+{
+bool IsExpired(Cache::Clock::time_point const & timestamp, size_t expiryPeriod)
+{
+  return Cache::Clock::now() > timestamp + seconds(expiryPeriod);
+}
+
+template <typename Item>
+bool IsExpired(Item const & item, size_t expiryPeriod)
+{
+  return Cache::Clock::now() > item.m_timestamp + seconds(expiryPeriod);
+}
+
+template <typename MapType>
+typename MapType::const_iterator GetOrRemove(MapType & src, std::string const & hotelId,
+                                             size_t expiryPeriod)
+{
+  auto const it = src.find(hotelId);
+
+  if (it == src.cend())
+    return src.cend();
+
+  if (expiryPeriod != 0 && IsExpired(it->second, expiryPeriod))
+  {
+    src.erase(it);
+    return src.cend();
+  }
+
+  return it;
+}
+
+template <typename MapType, typename Pred>
+void Remove(MapType & src, Pred const & pred)
+{
+  for (auto it = src.begin(); it != src.end();)
+  {
+    if (pred(it->second))
+      it = src.erase(it);
+    else
+      ++it;
+  }
+}
+}  // namespace
+
 Cache::Cache(size_t maxCount, size_t expiryPeriodSeconds)
   : m_maxCount(maxCount), m_expiryPeriodSeconds(expiryPeriodSeconds)
 {
 }
 
-Cache::HotelStatus Cache::Get(std::string const & hotelId)
+Cache::Info Cache::Get(std::string const & hotelId)
 {
-  HotelStatus result = Get(m_notReadyHotels, hotelId);
+  auto const notReadyIt = GetOrRemove(m_notReadyHotels, hotelId, m_expiryPeriodSeconds);
 
-  if (result == HotelStatus::Absent)
-    result = Get(m_hotelToStatus, hotelId);
+  if (notReadyIt != m_notReadyHotels.cend())
+    return Info(HotelStatus::NotReady);
 
-  return result;
+  auto const unavailableIt = GetOrRemove(m_unavailableHotels, hotelId, m_expiryPeriodSeconds);
+
+  if (unavailableIt != m_unavailableHotels.cend())
+    return Info(HotelStatus::Unavailable);
+
+  auto const availableIt = GetOrRemove(m_availableHotels, hotelId, m_expiryPeriodSeconds);
+
+  if (availableIt != m_availableHotels.cend())
+    return Info(HotelStatus::Available, availableIt->second.m_extras);
+
+  return Info(HotelStatus::Absent);
 }
 
-void Cache::Reserve(std::string const & hotelId)
+void Cache::InsertNotReady(std::string const & hotelId)
 {
-  ASSERT(m_hotelToStatus.find(hotelId) == m_hotelToStatus.end(), ());
+  ASSERT(m_unavailableHotels.find(hotelId) == m_unavailableHotels.end(), ());
+  ASSERT(m_availableHotels.find(hotelId) == m_availableHotels.end(), ());
 
-  m_notReadyHotels.emplace(hotelId, Item());
+  m_notReadyHotels.emplace(hotelId, Clock::now());
 }
 
-void Cache::Insert(std::string const & hotelId, HotelStatus const s)
+void Cache::InsertUnavailable(std::string const & hotelId)
 {
-  ASSERT_NOT_EQUAL(s, HotelStatus::NotReady,
-                   ("Please, use Cache::Reserve method for HotelStatus::NotReady"));
+  RemoveOverly();
 
-  RemoveExtra();
-
-  Item item(s);
-  m_hotelToStatus[hotelId] = std::move(item);
+  m_unavailableHotels[hotelId] = Clock::now();
   m_notReadyHotels.erase(hotelId);
+  m_availableHotels.erase(hotelId);
+}
+
+void Cache::InsertAvailable(std::string const & hotelId, Extras && extras)
+{
+  RemoveOverly();
+
+  m_availableHotels[hotelId] = Item(std::move(extras));
+  m_notReadyHotels.erase(hotelId);
+  m_unavailableHotels.erase(hotelId);
 }
 
 void Cache::RemoveOutdated()
@@ -47,54 +108,27 @@ void Cache::RemoveOutdated()
   if (m_expiryPeriodSeconds == 0)
     return;
 
-  RemoveOutdated(m_hotelToStatus);
-  RemoveOutdated(m_notReadyHotels);
+  Remove(m_notReadyHotels, [this](auto const & v) { return IsExpired(v, m_expiryPeriodSeconds); });
+  Remove(m_unavailableHotels,
+         [this](auto const & v) { return IsExpired(v, m_expiryPeriodSeconds); });
+  Remove(m_availableHotels,
+         [this](auto const & v) { return IsExpired(v.m_timestamp, m_expiryPeriodSeconds); });
 }
 
 void Cache::Clear()
 {
-  m_hotelToStatus.clear();
   m_notReadyHotels.clear();
+  m_unavailableHotels.clear();
+  m_availableHotels.clear();
 }
 
-void Cache::RemoveExtra()
+void Cache::RemoveOverly()
 {
-  if (m_maxCount == 0 || m_hotelToStatus.size() < m_maxCount)
-    return;
+  if (m_maxCount != 0 && m_unavailableHotels.size() >= m_maxCount)
+    m_unavailableHotels.clear();
 
-  m_hotelToStatus.clear();
-}
-
-bool Cache::IsExpired(Clock::time_point const & timestamp) const
-{
-  return Clock::now() > timestamp + seconds(m_expiryPeriodSeconds);
-}
-
-Cache::HotelStatus Cache::Get(HotelsMap & src, std::string const & hotelId)
-{
-  auto const it = src.find(hotelId);
-
-  if (it == src.cend())
-    return HotelStatus::Absent;
-
-  if (m_expiryPeriodSeconds != 0 && IsExpired(it->second.m_timestamp))
-  {
-    src.erase(it);
-    return HotelStatus::Absent;
-  }
-
-  return it->second.m_status;
-}
-
-void Cache::RemoveOutdated(HotelsMap & src)
-{
-  for (auto it = src.begin(); it != src.end();)
-  {
-    if (IsExpired(it->second.m_timestamp))
-      it = src.erase(it);
-    else
-      ++it;
-  }
+  if (m_maxCount != 0 && m_availableHotels.size() >= m_maxCount)
+    m_availableHotels.clear();
 }
 
 std::string DebugPrint(Cache::HotelStatus status)

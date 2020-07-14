@@ -48,11 +48,10 @@ void FilterProcessor::GetFeaturesFromCache(Types const & types, search::Results 
     for (auto const type : types)
     {
       std::vector<FeatureID> featuresSorted;
-      m_filters.at(type)->GetFeaturesFromCache(results, featuresSorted);
+      std::vector<Extras> extras;
+      m_filters.at(type)->GetFeaturesFromCache(results, featuresSorted, extras);
 
-      ASSERT(std::is_sorted(featuresSorted.begin(), featuresSorted.end()), ());
-
-      cachedResults.emplace_back(type, std::move(featuresSorted));
+      cachedResults.emplace_back(type, std::move(featuresSorted), std::move(extras));
     }
 
     callback(std::move(cachedResults));
@@ -92,9 +91,9 @@ void FilterProcessor::ApplyConsecutively(Source const & source, TaskInternalType
     auto const & cb = tasks[i - 1].m_filterParams.m_callback;
 
     tasks[i - 1].m_filterParams.m_callback =
-        [ this, cb, nextTask = std::move(tasks[i]) ](auto const & filterResults) mutable
+        [ this, cb, nextTask = std::move(tasks[i]) ](auto && filterResults, auto && extras) mutable
     {
-      cb(filterResults);
+      cb(std::move(filterResults), std::move(extras));
       // Run the next filter with obtained results from the previous one.
       // Post different task on the file thread to increase granularity.
       // Note: FilterProcessor works on file thread, so all filters will

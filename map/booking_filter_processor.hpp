@@ -10,6 +10,7 @@
 #include "base/macros.hpp"
 
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 class DataSource;
@@ -28,14 +29,16 @@ namespace filter
 
 struct CachedResult
 {
-  CachedResult(Type type, std::vector<FeatureID> && featuresSorted)
+  CachedResult(Type type, std::vector<FeatureID> && featuresSorted, std::vector<Extras> && extras)
     : m_type(type)
-    , m_featuresSorted(featuresSorted)
+    , m_featuresSorted(std::move(featuresSorted))
+    , m_extras(std::move(extras))
   {
   }
 
   Type m_type;
   std::vector<FeatureID> m_featuresSorted;
+  std::vector<Extras> m_extras;
 };
 
 using CachedResults = std::vector<CachedResult>;

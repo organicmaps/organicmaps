@@ -30,24 +30,26 @@ class HotelInfo
 {
 public:
   explicit HotelInfo(T const & requestedVia) : m_mappedValue(requestedVia) {}
-  HotelInfo(std::string const & hotelId, availability::Cache::HotelStatus const & cacheStatus,
-            T const & mappedValue)
-    : m_hotelId(hotelId), m_cacheStatus(cacheStatus), m_mappedValue(mappedValue)
+  HotelInfo(std::string const & hotelId, availability::Cache::Info && info, T const & mappedValue)
+    : m_hotelId(hotelId), m_info(std::move(info)), m_mappedValue(mappedValue)
   {
   }
 
   void SetHotelId(std::string const & hotelId) { m_hotelId = hotelId; }
-  void SetStatus(availability::Cache::HotelStatus cacheStatus) { m_cacheStatus = cacheStatus; }
+  void SetInfo(availability::Cache::Info && info) { m_info = std::move(info); }
 
   std::string const & GetHotelId() const { return m_hotelId; }
-  availability::Cache::HotelStatus GetStatus() const { return m_cacheStatus; }
+  availability::Cache::HotelStatus GetStatus() const { return m_info.m_status; }
+
+  std::optional<booking::Extras> const & GetExtras() const { return m_info.m_extras; }
+  std::optional<booking::Extras> & GetExtras() { return m_info.m_extras; }
 
   T const & GetMappedValue() const { return m_mappedValue; }
   T & GetMappedValue() { return m_mappedValue; }
 
 private:
   std::string m_hotelId;
-  availability::Cache::HotelStatus m_cacheStatus = availability::Cache::HotelStatus::Absent;
+  availability::Cache::Info m_info;
   T m_mappedValue;
 };
 
@@ -60,32 +62,28 @@ using HotelToResults = HotelsMapping<search::Result>;
 using HotelToFeatureIds = HotelsMapping<FeatureID>;
 
 template <typename T>
-void UpdateCache(HotelsMapping<T> const & hotelsMapping, std::vector<std::string> const & hotelIds,
+void UpdateCache(HotelsMapping<T> const & hotelsMapping, booking::HotelsWithExtras const & hotels,
                  availability::Cache & cache)
 {
   using availability::Cache;
-
-  ASSERT(std::is_sorted(hotelIds.begin(), hotelIds.end()), ());
 
   for (auto & hotel : hotelsMapping)
   {
     if (hotel.GetStatus() != Cache::HotelStatus::Absent)
       continue;
-
-    if (std::binary_search(hotelIds.cbegin(), hotelIds.cend(), hotel.GetHotelId()))
-      cache.Insert(hotel.GetHotelId(), Cache::HotelStatus::Available);
+    auto const it = hotels.find(hotel.GetHotelId());
+    if (it != hotels.cend())
+      cache.InsertAvailable(hotel.GetHotelId(), {it->second.m_price, it->second.m_currency});
     else
-      cache.Insert(hotel.GetHotelId(), Cache::HotelStatus::Unavailable);
+      cache.InsertUnavailable(hotel.GetHotelId());
   }
 }
 
 template <typename T, typename Inserter>
-void FillResults(HotelsMapping<T> && hotelsMapping, std::vector<std::string> const & hotelIds,
+void FillResults(HotelsMapping<T> && hotelsMapping, booking::HotelsWithExtras && hotels,
                  availability::Cache & cache, Inserter const & inserter)
 {
   using availability::Cache;
-
-  ASSERT(std::is_sorted(hotelIds.begin(), hotelIds.end()), ());
 
   for (auto & hotel : hotelsMapping)
   {
@@ -94,22 +92,23 @@ void FillResults(HotelsMapping<T> && hotelsMapping, std::vector<std::string> con
     case Cache::HotelStatus::Unavailable: continue;
     case Cache::HotelStatus::Available:
     {
-      inserter(std::move(hotel.GetMappedValue()));
+      inserter(std::move(hotel.GetMappedValue()), std::move(*hotel.GetExtras()));
       continue;
     }
     case Cache::HotelStatus::NotReady:
     {
-      auto hotelStatus = cache.Get(hotel.GetHotelId());
+      auto info = cache.Get(hotel.GetHotelId());
 
-      if (hotelStatus == Cache::HotelStatus::Available)
-        inserter(std::move(hotel.GetMappedValue()));
+      if (info.m_status == Cache::HotelStatus::Available)
+        inserter(std::move(hotel.GetMappedValue()), std::move(*hotel.GetExtras()));
 
       continue;
     }
     case Cache::HotelStatus::Absent:
     {
-      if (std::binary_search(hotelIds.cbegin(), hotelIds.cend(), hotel.GetHotelId()))
-        inserter(std::move(hotel.GetMappedValue()));
+      auto const it = hotels.find(hotel.GetHotelId());
+      if (it != hotels.cend())
+        inserter(std::move(hotel.GetMappedValue()), std::move(it->second));
 
       continue;
     }
@@ -117,26 +116,28 @@ void FillResults(HotelsMapping<T> && hotelsMapping, std::vector<std::string> con
   }
 }
 
-void FillResults(HotelToResults && hotelToResults, std::vector<std::string> const & hotelIds,
-                 availability::Cache & cache, search::Results & results)
+void FillResults(HotelToResults && hotelToResults, booking::HotelsWithExtras && hotels,
+                 availability::Cache & cache, search::Results & results, std::vector<booking::Extras> & extras)
 {
-  auto const inserter = [&results](search::Result && result)
+  auto const inserter = [&results, &extras](search::Result && result, booking::Extras && extra)
   {
     results.AddResult(std::move(result));
+    extras.emplace_back(std::move(extra));
   };
 
-  FillResults(std::move(hotelToResults), hotelIds, cache, inserter);
+  FillResults(std::move(hotelToResults), std::move(hotels), cache, inserter);
 }
 
-void FillResults(HotelToFeatureIds && hotelToFeatureIds, std::vector<std::string> const & hotelIds,
-                 availability::Cache & cache, std::vector<FeatureID> & results)
+void FillResults(HotelToFeatureIds && hotelToFeatureIds, booking::HotelsWithExtras && hotels,
+                 availability::Cache & cache, std::vector<FeatureID> & results, std::vector<booking::Extras> & extras)
 {
-  auto const inserter = [&results](FeatureID && result)
+  auto const inserter = [&results, &extras](FeatureID && result, booking::Extras && extra)
   {
     results.emplace_back(std::move(result));
+    extras.emplace_back(std::move(extra));
   };
 
-  FillResults(std::move(hotelToFeatureIds), hotelIds, cache, inserter);
+  FillResults(std::move(hotelToFeatureIds), std::move(hotels), cache, inserter);
 }
 
 void PrepareData(DataSource const & dataSource, search::Results const & results,
@@ -184,16 +185,17 @@ void PrepareData(DataSource const & dataSource, search::Results const & results,
     if (!ftypes::IsBookingChecker::Instance()(*ft))
       continue;
 
-    auto const hotelId = ft->GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    auto const status = cache.Get(hotelId);
+    auto hotelId = ft->GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+    auto info = cache.Get(hotelId);
+    auto const status = info.m_status;
 
     it->SetHotelId(hotelId);
-    it->SetStatus(status);
+    it->SetInfo(std::move(info));
 
     if (status != availability::Cache::HotelStatus::Absent)
       continue;
 
-    cache.Reserve(hotelId);
+    cache.InsertNotReady(hotelId);
     p.m_hotelIds.push_back(std::move(hotelId));
   }
 }
@@ -225,14 +227,15 @@ void PrepareData(DataSource const & dataSource, std::vector<FeatureID> const & f
       continue;
 
     auto const hotelId = ft->GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    auto const status = cache.Get(hotelId);
+    auto info = cache.Get(hotelId);
+    auto const status = info.m_status;
 
-    hotelToFeatures.emplace_back(hotelId, status, featureId);
+    hotelToFeatures.emplace_back(hotelId, std::move(info), featureId);
 
     if (status != availability::Cache::HotelStatus::Absent)
       continue;
 
-    cache.Reserve(hotelId);
+    cache.InsertNotReady(hotelId);
     p.m_hotelIds.push_back(std::move(hotelId));
   }
 }
@@ -285,25 +288,26 @@ void AvailabilityFilter::ApplyFilterInternal(Source const & source, Parameters c
   if (m_apiParams.m_hotelIds.empty())
   {
     Source result;
-    FillResults(std::move(hotelsToSourceValue), {} /* hotelIds */, *m_cache, result);
-    cb(result);
+    std::vector<Extras> extras;
+    FillResults(std::move(hotelsToSourceValue), {} /* hotelIds */, *m_cache, result, extras);
+    cb(std::move(result), std::move(extras));
 
     return;
   }
 
   auto const apiCallback =
-    [cb, cache = m_cache, hotelToValue = std::move(hotelsToSourceValue)]
-    (std::vector<std::string> hotelIds) mutable
+    [cb, cache = m_cache, hotelToValue = std::move(hotelsToSourceValue)] (booking::HotelsWithExtras hotels) mutable
   {
     GetPlatform().RunTask(
       Platform::Thread::File,
-      [cb, cache, hotelToValue = std::move(hotelToValue), hotelIds = std::move(hotelIds)]() mutable
+      [cb, cache, hotelToValue = std::move(hotelToValue), hotels = std::move(hotels)]() mutable
     {
+      UpdateCache(hotelToValue, hotels, *cache);
+
       Source updatedResults;
-      std::sort(hotelIds.begin(), hotelIds.end());
-      UpdateCache(hotelToValue, hotelIds, *cache);
-      FillResults(std::move(hotelToValue), hotelIds, *cache, updatedResults);
-      cb(updatedResults);
+      std::vector<Extras> extras;
+      FillResults(std::move(hotelToValue), std::move(hotels), *cache, updatedResults, extras);
+      cb(std::move(updatedResults), std::move(extras));
     });
   };
 
@@ -312,7 +316,8 @@ void AvailabilityFilter::ApplyFilterInternal(Source const & source, Parameters c
 }
 
 void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
-                                              std::vector<FeatureID> & sortedResults)
+                                              std::vector<FeatureID> & sortedResults,
+                                              std::vector<Extras> & extras)
 {
   sortedResults.clear();
 
@@ -347,8 +352,12 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
 
     auto const & hotelId = ft->GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
 
-    if (m_cache->Get(hotelId) == availability::Cache::HotelStatus::Available)
+    auto info = m_cache->Get(hotelId);
+    if (info.m_status == availability::Cache::HotelStatus::Available)
+    {
       sortedResults.push_back(featureId);
+      extras.emplace_back(std::move(*info.m_extras));
+    }
   }
 }
 }  // namespace booking

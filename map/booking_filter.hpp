@@ -40,7 +40,8 @@ public:
   virtual void ApplyFilter(std::vector<FeatureID> const & featureIds,
                            ParamsRawInternal const & params) = 0;
   virtual void GetFeaturesFromCache(search::Results const & results,
-                                    std::vector<FeatureID> & sortedResults) = 0;
+                                    std::vector<FeatureID> & sortedResults,
+                                    std::vector<Extras> & extras) = 0;
   virtual void UpdateParams(ParamsBase const & apiParams) = 0;
 
   Delegate const & GetDelegate() const { return m_delegate; }

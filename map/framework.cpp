@@ -1,5 +1,6 @@
 #include "map/framework.hpp"
 #include "map/benchmark_tools.hpp"
+#include "map/booking_utils.hpp"
 #include "map/catalog_headers_provider.hpp"
 #include "map/chart_generator.hpp"
 #include "map/displayed_categories_modifiers.hpp"
@@ -3894,13 +3895,23 @@ void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
 
       for (auto const & filterResult : filtersResults)
       {
-        auto const found = std::binary_search(filterResult.m_featuresSorted.cbegin(),
-                                              filterResult.m_featuresSorted.cend(), id);
+        auto const & features = filterResult.m_featuresSorted;
+        auto const it = std::lower_bound(features.cbegin(), features.cend(), id);
 
+        auto const found = it != features.cend();
         switch (filterResult.m_type)
         {
         case Type::Deals: mark.SetSale(found); break;
         case Type::Availability: mark.SetPreparing(!found); break;
+        }
+
+        if (found && !filterResult.m_extras.empty())
+        {
+          // auto const index = std::distance(features.cbegin(), it);
+          // TODO(a): to implement FormatPrice and SetPrice methods.
+          // auto const price = FormatPrice(filterResult.m_extras[index].m_price,
+          //                                filterResult.m_extras[index].m_currency);
+          // mark.SetPrice(price);
         }
       }
     };
@@ -4170,101 +4181,14 @@ ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
 void Framework::FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
                                             search::Results const & results, bool inViewport)
 {
-  using namespace booking::filter;
-
-  TasksInternal tasksInternal;
-
-  for (auto const & task : filterTasks)
-  {
-    auto const type = task.m_type;
-    auto const & apiParams = task.m_filterParams.m_apiParams;
-    auto const & cb = task.m_filterParams.m_callback;
-
-    if (apiParams->IsEmpty())
-      continue;
-
-    ParamsInternal paramsInternal
-      {
-        apiParams,
-        [this, type, apiParams, cb, inViewport](search::Results const & results)
-        {
-          if (results.GetCount() == 0)
-            return;
-
-          std::vector<FeatureID> features;
-          for (auto const & r : results)
-            features.push_back(r.GetFeatureID());
-
-          std::sort(features.begin(), features.end());
-
-          if (inViewport)
-          {
-            GetPlatform().RunTask(Platform::Thread::Gui, [this, type, features]()
-            {
-              switch (type)
-              {
-              case Type::Deals:
-                m_searchMarks.SetSales(features, true /* hasSale */);
-                break;
-              case Type::Availability:
-                m_searchMarks.SetPreparingState(features, false /* isPreparing */);
-                break;
-              }
-            });
-          }
-          cb(apiParams, features);
-        }
-      };
-
-    tasksInternal.emplace_back(type, move(paramsInternal));
-  }
-
+  auto tasksInternal = booking::MakeInternalTasks(filterTasks, m_searchMarks, inViewport);
   m_bookingFilterProcessor.ApplyFilters(results, move(tasksInternal), filterTasks.GetMode());
 }
 
 void Framework::FilterHotels(booking::filter::Tasks const & filterTasks,
                              vector<FeatureID> && featureIds)
 {
-  using namespace booking::filter;
-
-  TasksRawInternal tasksInternal;
-
-  for (auto const & task : filterTasks)
-  {
-    auto const type = task.m_type;
-    auto const & apiParams = task.m_filterParams.m_apiParams;
-    auto const & cb = task.m_filterParams.m_callback;
-
-    if (apiParams->IsEmpty())
-      continue;
-
-    ParamsRawInternal paramsInternal
-      {
-        apiParams,
-        [this, type, apiParams, cb](vector<FeatureID> const & features)
-        {
-          if (features.empty())
-            return;
-
-          GetPlatform().RunTask(Platform::Thread::Gui, [this, type, features]()
-          {
-            switch (type)
-            {
-            case Type::Deals:
-              m_searchMarks.SetSales(features, true /* hasSale */);
-              break;
-            case Type::Availability:
-              m_searchMarks.SetPreparingState(features, false /* isPreparing */);
-              break;
-            }
-          });
-          cb(apiParams, features);
-        }
-      };
-
-    tasksInternal.emplace_back(type, move(paramsInternal));
-  }
-
+  auto tasksInternal = booking::MakeInternalTasks(filterTasks, m_searchMarks);
   m_bookingFilterProcessor.ApplyFilters(move(featureIds), move(tasksInternal),
                                         filterTasks.GetMode());
 }

@@ -1,9 +1,13 @@
 #pragma once
 
+#include "partners_api/booking_api.hpp"
+
 #include "base/macros.hpp"
 
 #include <chrono>
 #include <map>
+#include <optional>
+#include <utility>
 
 namespace booking
 {
@@ -28,40 +32,49 @@ public:
 
   using Clock = std::chrono::steady_clock;
 
-  struct Item
+  struct Info
   {
-    Item() = default;
+    Info() = default;
+    explicit Info(HotelStatus status) : m_status(status) {}
+    Info(HotelStatus status, Extras const & extras) : m_status(status), m_extras(extras) {}
 
-    explicit Item(HotelStatus s) : m_status(s) {}
-
-    Clock::time_point m_timestamp = Clock::now();
-    HotelStatus m_status = HotelStatus::NotReady;
+    HotelStatus m_status = HotelStatus::Absent;
+    std::optional<Extras> m_extras;
   };
 
   Cache() = default;
   Cache(size_t maxCount, size_t expiryPeriodSeconds);
 
-  HotelStatus Get(std::string const & hotelId);
-  void Reserve(std::string const & hotelId);
-  void Insert(std::string const & hotelId, HotelStatus const s);
+  Info Get(std::string const & hotelId);
+  void InsertNotReady(std::string const & hotelId);
+  void InsertUnavailable(std::string const & hotelId);
+  void InsertAvailable(std::string const & hotelId, Extras && extras);
 
   void RemoveOutdated();
   void Clear();
 
 private:
-  using HotelsMap = std::map<std::string, Item>;
+  struct Item
+  {
+    Item() = default;
+    explicit Item(Extras && extras) : m_extras(std::move(extras)) {}
+
+    Clock::time_point m_timestamp = Clock::now();
+    Extras m_extras;
+  };
+
+  using HotelWithTimestampMap = std::map<std::string, Clock::time_point>;
+  using HotelWithExtrasMap = std::map<std::string, Item>;
   // In case when size >= |m_maxCount| removes items except those who have the status
   // HotelStatus::NotReady.
-  void RemoveExtra();
-  bool IsExpired(Clock::time_point const & timestamp) const;
-  HotelStatus Get(HotelsMap & src, std::string const & hotelId);
-  void RemoveOutdated(HotelsMap & src);
+  void RemoveOverly();
 
-  HotelsMap m_hotelToStatus;
-  HotelsMap m_notReadyHotels;
-  // Max count of |m_hotelToStatus| container.
+  HotelWithTimestampMap m_notReadyHotels;
+  HotelWithTimestampMap m_unavailableHotels;
+  HotelWithExtrasMap m_availableHotels;
+  // Max count of |m_availableHotels| or |m_unavailableHotels| container.
   // Count is unlimited when |m_maxCount| is equal to zero.
-  size_t const m_maxCount = 5000;
+  size_t const m_maxCount = 3000;
   // Do not use aging when |m_expiryPeriodSeconds| is equal to zero.
   size_t const m_expiryPeriodSeconds = 300;
 };
