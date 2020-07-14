@@ -58,14 +58,14 @@ struct LocalizableStringAdapter
     auto const it = str.find(langIndex);
     if (it != str.end())
       return it->second;
-    throw std::runtime_error("Language not found");
+    throw std::runtime_error("Language not found. lang: " + lang);
   }
 
   static void Set(LocalizableString & str, std::string const & lang, std::string const & val)
   {
     auto const langIndex = StringUtf8Multilang::GetLangIndex(lang);
     if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
-      throw std::runtime_error("Unsupported language");
+      throw std::runtime_error("Unsupported language. lang: " + lang);
     str[langIndex] = val;
   }
 
@@ -76,7 +76,7 @@ struct LocalizableStringAdapter
     if (it != str.end())
       str.erase(it);
     else
-      throw std::runtime_error("Language not found");
+      throw std::runtime_error("Language not found. lang: " + lang);
   }
 
   static boost::python::dict GetDict(LocalizableString const & str)
@@ -103,7 +103,7 @@ struct LocalizableStringAdapter
     {
       auto const langIndex = StringUtf8Multilang::GetLangIndex(lang);
       if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
-        throw std::runtime_error("Unsupported language");
+        throw std::runtime_error("Unsupported language. lang:" + lang);
 
       str[langIndex] = extract<std::string>(dict[lang]);
     }
@@ -169,7 +169,7 @@ struct PropertiesAdapter
     auto const it = props.find(key);
     if (it != props.end())
       return it->second;
-    throw std::runtime_error("Property not found");
+    throw std::runtime_error("Property not found. key: " + key);
   }
 
   static void Set(Properties & props, std::string const & key, std::string const & val)
@@ -183,7 +183,7 @@ struct PropertiesAdapter
     if (it != props.end())
       props.erase(it);
     else
-      throw std::runtime_error("Property not found");
+      throw std::runtime_error("Property not found. key: " + key);
   }
 
   static boost::python::dict GetDict(Properties const & props)
@@ -558,7 +558,7 @@ boost::python::list GetLanguages(std::vector<int8_t> const & langs)
   {
     std::string lang = StringUtf8Multilang::GetLangByCode(langCode);
     if (lang.empty())
-      throw std::runtime_error("Language not found");
+      throw std::runtime_error("Language not found. langCode: " + std::to_string(langCode));
     result.emplace_back(std::move(lang));
   }
   return pyhelpers::StdVectorToPythonList(result);
@@ -576,7 +576,7 @@ void SetLanguages(std::vector<int8_t> & langs, boost::python::object const & ite
   {
     auto const langIndex = StringUtf8Multilang::GetLangIndex(lang);
     if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
-      throw std::runtime_error("Unsupported language");
+      throw std::runtime_error("Unsupported language. lang: " + lang);
     langs.emplace_back(langIndex);
   }
 }
@@ -595,7 +595,7 @@ boost::python::object GetLanguageIndex(std::string const & lang)
 {
   auto const langIndex = StringUtf8Multilang::GetLangIndex(lang);
   if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
-    throw std::runtime_error("Unsupported language");
+    throw std::runtime_error("Unsupported language. lang: " + lang);
   return boost::python::object(langIndex);
 }
 
@@ -644,11 +644,11 @@ uint32_t ClassificatorTypeToIndex(std::string const & typeStr)
 
   auto const & c = classif();
   if (!c.HasTypesMapping())
-    throw std::runtime_error("Types mapping is not loaded.");
+    throw std::runtime_error("Types mapping is not loaded. typeStr: " + typeStr);
 
   auto const type = c.GetTypeByReadableObjectName(typeStr);
   if (!c.IsTypeValid(type))
-    throw std::runtime_error("Type is not valid.");
+    throw std::runtime_error("Type is not valid. typeStr:" + typeStr);
 
   return c.GetIndexForType(type);
 }
@@ -666,11 +666,11 @@ std::string IndexToClassificatorType(uint32_t index)
   }
   catch (std::out_of_range const & exc)
   {
-    throw std::runtime_error("Type is not found.");
+    throw std::runtime_error("Type is not found. index: " + std::to_string(index));
   }
 
   if (!c.IsTypeValid(t))
-    throw std::runtime_error("Type is not valid.");
+    throw std::runtime_error("Type is not valid. type: " + std::to_string(t));
 
   return c.GetReadableObjectName(t);
 }
