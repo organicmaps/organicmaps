@@ -86,8 +86,15 @@ public:
   void CheckTrialEligibility(ValidationInfo const & validationInfo);
 
 private:
+  enum class RequestType
+  {
+    Validation,
+    StartTransaction,
+    TrialEligibility,
+  };
+
   void ValidateImpl(std::string const & url, ValidationInfo const & validationInfo,
-                    std::string const & accessToken, bool startTransaction,
+                    std::string const & accessToken, RequestType requestType,
                     uint8_t attemptIndex, uint32_t waitingTimeInSeconds);
 
   // This structure is used in multithreading environment, so

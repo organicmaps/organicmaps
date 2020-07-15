@@ -73,6 +73,13 @@ std::string StartTransactionUrl()
   return kServerUrl + "registrar/preorder";
 }
 
+std::string TrialEligibilityUrl()
+{
+  if (kServerUrl.empty())
+    return {};
+  return kServerUrl + "registrar/check_trial";
+}
+
 struct ReceiptData
 {
   ReceiptData(std::string const & data, std::string const & type)
@@ -112,11 +119,13 @@ struct ValidationResult
 {
   bool m_isValid = false;
   bool m_isTrial = false;
+  bool m_isTrialAvailable = false;
   std::string m_reason;
 
   DECLARE_VISITOR(visitor(m_isValid, false, "valid"),
                   visitor(m_isTrial, false, "is_trial_period"),
-                  visitor(m_reason, "", "reason"))
+                  visitor(m_isTrialAvailable, false, "is_trial_available"),
+                  visitor(m_reason, std::string(), "reason"))
 };
 
 ValidationResult DeserializeResponse(std::string const & response, int httpCode)
@@ -227,7 +236,7 @@ void Purchase::Validate(ValidationInfo const & validationInfo, std::string const
 
   GetPlatform().RunTask(Platform::Thread::Network, [this, url, validationInfo, accessToken]()
   {
-    ValidateImpl(url, validationInfo, accessToken, false /* startTransaction */,
+    ValidateImpl(url, validationInfo, accessToken, RequestType::Validation,
                  0 /* attemptIndex */, kFirstWaitingTimeInSec);
   });
 }
@@ -252,7 +261,7 @@ void Purchase::StartTransaction(std::string const & serverId, std::string const 
 
   GetPlatform().RunTask(Platform::Thread::Network, [this, url, info, accessToken]()
   {
-    ValidateImpl(url, info, accessToken, true /* startTransaction */,
+    ValidateImpl(url, info, accessToken, RequestType::StartTransaction,
                  0 /* attemptIndex */, kFirstWaitingTimeInSec);
   });
 }
@@ -267,7 +276,7 @@ void Purchase::CheckTrialEligibility(ValidationInfo const & validationInfo)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  std::string const url = ValidationUrl();
+  std::string const url = TrialEligibilityUrl();
   auto const status = GetPlatform().ConnectionStatus();
   if (url.empty() || status == Platform::EConnectionType::CONNECTION_NONE || !validationInfo.IsValid())
   {
@@ -278,14 +287,13 @@ void Purchase::CheckTrialEligibility(ValidationInfo const & validationInfo)
 
   GetPlatform().RunTask(Platform::Thread::Network, [this, url, validationInfo]()
   {
-    // Dummy, will be changed to http request when server will be done.
-    if (m_trialEligibilityCallback)
-      m_trialEligibilityCallback(TrialEligibilityCode::Eligible);
+    ValidateImpl(url, validationInfo, {}, RequestType::TrialEligibility,
+                 0 /* attemptIndex */, kFirstWaitingTimeInSec);
   });
 }
 
 void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & validationInfo,
-                            std::string const & accessToken, bool startTransaction,
+                            std::string const & accessToken, RequestType requestType,
                             uint8_t attemptIndex, uint32_t waitingTimeInSeconds)
 {
   platform::HttpClient request(url);
@@ -347,19 +355,18 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
     ++attemptIndex;
     waitingTimeInSeconds *= kWaitingTimeScaleFactor;
     GetPlatform().RunDelayedTask(Platform::Thread::Network, delayTime,
-                                 [this, url, validationInfo, accessToken, startTransaction,
+                                 [this, url, validationInfo, accessToken, requestType,
                                   attemptIndex, waitingTimeInSeconds]()
     {
-      ValidateImpl(url, validationInfo, accessToken, startTransaction,
+      ValidateImpl(url, validationInfo, accessToken, requestType,
                    attemptIndex, waitingTimeInSeconds);
     });
   }
   else
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, code, startTransaction, validationInfo,
-                                                  isTrial = result.m_isTrial]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, code, requestType, validationInfo, result]()
     {
-      if (startTransaction)
+      if (requestType == RequestType::StartTransaction)
       {
         if (m_startTransactionCallback)
         {
@@ -367,10 +374,25 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
                                      validationInfo.m_serverId, validationInfo.m_vendorId);
         }
       }
-      else
+      else if (requestType == RequestType::Validation)
       {
         if (m_validationCallback)
-          m_validationCallback(code, {validationInfo, isTrial});
+          m_validationCallback(code, {validationInfo, result.m_isTrial});
+      }
+      else if (requestType == RequestType::TrialEligibility)
+      {
+        if (m_trialEligibilityCallback)
+        {
+          TrialEligibilityCode eligibilityCode;
+          if (code == ValidationCode::ServerError)
+            eligibilityCode = TrialEligibilityCode::ServerError;
+          else if (code == ValidationCode::Verified && result.m_isTrialAvailable)
+            eligibilityCode = TrialEligibilityCode::Eligible;
+          else
+            eligibilityCode = TrialEligibilityCode::NotEligible;
+
+          m_trialEligibilityCallback(eligibilityCode);
+        }
       }
     });
   }
