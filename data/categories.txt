@@ -529,8 +529,37 @@ sk:peniaze
 fa:بانک
 
 @recycling
-en:Recycling
-ru:Переработка
+en:Recycling|Waste utilization|Recyclables|Separate garbage collection|Waste sorting|Reuse
+ru:Переработка|Переработка отходов|Утилизация отходов|Прием вторсырья|Раздельный сбор мусора|Сортировка мусора|Повторное использование
+ar:إعادة تدوير|استغلال المخلفات|المواد القابلة لإعادة التدوير|جمع القمامة بشكل منفصل|فرز النفايات|إعادة الاستخدام
+cs:Recyklace|Využití odpadu|Recyklovatelné|Oddělený sběr odpadků|Třídění odpadu|Opětovné použití
+da:Genbrug|Affaldsudnyttelse|Genanvendelig|Separate dagrenovationer|Affaldssortering|Genbrug
+nl:Recycling|Afvalgebruik|Recyclebaar materiaal|Gescheiden afvalinzameling|Afval sorteren|Hergebruik
+fi:Jätteiden kierrätys|Jätteiden hyötykäyttö|Kierrätyskelpoinen jäte|Jätelajittelu|Jätteiden lajittelu|Hyötykäyttö
+fr:Traitement des déchets|Recyclage des déchets|Dépôt de matières recyclables|Tri de déchets|Tri des déchets|Réutilisation
+de:Recycling|Abfallverwertung|Recyclebares Material|Getrennte Müllsammlung|Müllsortierung|Wiederverwendung
+hu:Újrahasznosítás|Hulladékhasznosítás|Újrahasznosítható|Elkülönített hulladékgyűjtés|Hulladék válogatás|Újrafelhasználás
+id:Mendaur ulang|Pemanfaatan limbah|Dapat didaur ulang|Pemisahan pengumpulan sampah|Pemilahan limbah|Penggunaan kembali
+it:Riciclo|Utilizzazione dei rifiuti|Ritiro dei materiali riciclabili|Separazione dei rifiuti|Raccolta differenziata|Riutilizzo
+ja:リサイクル|廃物利用|リサイクル可能なもの|ゴミの分別回収|ゴミの分別|再利用
+ko:재활용|폐기물 이용|재활용 가능|쓰레기 모음 분리|쓰레기 정리|재사용
+nb:Resirkulering|Avfallsutnytting|Gjenvinningsstasjon|Kildesortering|Gjenbruk
+pl:Recyrkulacja|Utylizacja odpadów|Do recyklingu|Segregacja śmieci|Sortowanie śmieci|Odzysk
+pt:Reciclagem|Recicláveis|Separação de lixo|Reuso
+pt-BR:Reciclagem|Utilização de resíduos|Recicláveis|Coleta de seletiva|Separação de lixo|Reuso
+ro:Reciclarea deșeurilor|Reciclare|Recepționarea reciclării|Colectarea separată a gunoiului|Sortarea gunoiului|Reutilizare
+es:Reciclaje de residuos|Eliminación de residuos|Materiales reciclables|Recogida selectiva de basura|Clasificación de residuos|Reutilización
+es-MX:Reciclaje de desechos|Eliminación de desechos|Materiales reciclables|Recogida separada de basura|Clasificación de desechos|Reutilización
+sv:Återvinning av avfall|Avfallsbehandling|Återvinningsbart avfall|Separat sopinsamling|Sopsortering|Återanvändning
+th:การรีไซเคิล|การใช้ประโยชน์จากขยะ|รีไซเคิลได้|ที่รวบรวมขยะแยกประเภท|การแยกขยะ|รียูส
+tr:Geri dönüşüm|Atık kullanımı|Geri dönüştürülebilir nesneler|Ayrı çöp toplama|Atık ayırma|Yeniden kullanım
+uk:Переробка відходів|Утилізація відходів|Прийом вторсировини|Роздільний збір сміття|Сортування сміття|Повторне використання
+vi:Tái chế rác thải|Sử dụng rác thải|Tái chế|Thu gom rác riêng|Phân loại rác|Sử dụng lại
+el:Ανακύκλωση|Ανακύκλωση απορριμμάτων|Ανακυκλώσιμα|Ξεχωριστή συλλογή απορριμμάτων|Διαλογή απορριμμάτων|Επαναχρησιμοποίηση
+sk:Recyklácia|Využitie odpadu|Recyklovateľné|Separovaný zber odpadu|Triedenie odpadu|Opätovné použitie
+zh-Hans:回收|废物利用|可回收物|垃圾分类收集|垃圾分类|再利用
+zh-Hant:回收|廢物利用|可回收物|垃圾分類收集|垃圾分類|再利用
+fa:بازیافت|مدیریت پسماند|مواد بازیافتنی|جمعآوری جداگانۀ زبالهها |تفکیک پسماند|بازمصرف
 
 amenity-bureau_de_change
 en:3Currency Exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -3699,70 +3728,304 @@ zh-Hans:回收中心
 zh-Hant:回收中心|回收站
 el:Κέντρο ανακύκλωσης
 sk:Zberné suroviny
-sw:Chombo cha kutia taka
 fa:مرکز بازیافت
 
 amenity-recycling_container|@recycling
 en:Recycling container|U+1F6AE|U+267B
-ru:Контейнер для вторсырья|утиль
-de:Recyclingbehälter
+ru:Контейнер для вторсырья
+ar:حاوية لإعادة التدوير
+cs:Recyklační nádoba
+da:Genbrugscontainer
+nl:Recycling container
+fi:Kierrätysjäteastia
+fr:Conteneur de recyclage
+de:Wertstoffcontainer|Recyclingbehälter
+hu:Újrahasznosító tartály
+id:Wadah daur ulang
+it:Contenitore per materiali riciclabili
+ja:リサイクルボックス
+ko:재활용 쓰레기통
+nb:Gjenvinningsbeholder
+pl:Pojemnik do recyklingu
+pt:Materiais recicláveis
+pt-BR:Recipiente de reciclagem
+ro:Containere pentru reciclare
 es:Contenedor de reciclaje
+es-MX:Contenedor de reciclaje
+sv:Behållare för återvinningsbart avfall
+th:บรรจุภัณฑ์รีไซเคิล
+tr:Atık toplama merkezi
 uk:Контейнер для вторсировини
+vi:Thùng rác
+el:Κάδος ανακύκλωσης
+sk:Recyklačný odpad
+zh-Hans:回收箱
+zh-Hant:回收箱
+fa:ظرف بازیافت
 
 recycling-toxic|@recycling
-en:Toxic waste|Batteries
-ru:Ядовитые отходы|Сбор батареек
-de:Giftmüll
-es:Residuos tóxicos
-uk:Отруйні відходи|ЗБір отруйних відходів
+en:Toxic waste|Battery disposal|Batteries disposal|Hazardous waste
+ru:Ядовитые отходы|Сбор батареек|Утилизация батареек|Опасные отходы
+ar:النفايات الخطرة|البطاريات المستهلكة|نفايات سامة
+cs:Toxický odpad|Likvidace baterií|Nebezpečný odpad
+da:Giftigt affald|Bortskaffelse af batterier|Farligt affald
+nl:Giftig afval|Afvoer van batterijen|Gevaarlijk afval
+fi:Myrkkyjäte|Paristojen keräys|Vaaralliset jätteet
+fr:Déchets toxiques|Recyclage de piles|Déchets dangereux
+de:Giftmüll|Batterierecycling|Gefahrabfälle
+hu:Mérgező hulladék|Akkumulátor ártalmatlanítás|Veszélyes hulladék
+id:Limbah beracun|Pembuangan baterai|Limbah berbahaya
+it:Rifiuti tossici|Riciclo delle batterie|Rifiuti pericolosi
+ja:有毒廃棄物|電池廃棄物|危険廃棄物
+ko:유독성 폐기물|배터리 처|유해성 폐기물
+nb:Giftig avfall|Batterigjenvinning|Farlig avfall
+pl:Odpady toksyczne|Utylizacja akumulatorów|Odpady niebezpieczne
+pt:Resíduo tóxico|Reciclagem de pilhas|Resíduo perigoso
+pt-BR:Lixo tóxico|Descarte da baterias e pilhas|Lixo perigosos
+ro:Deșeuri toxice|Eliminarea bateriilor|Deșeuri periculoase
+es:Residuos tóxicos|Eliminación de pilas|Residuos peligrosos
+es-MX:Desechos tóxicos|Eliminación de pilas|Desechos peligrosos
+sv:Giftigt avfall|Kassering av batterier|Farligt avfall
+th:ขยะสารพิษ|การกำจัดแบตเตอรี่|ขยะอันตราย
+tr:Zehirli atık|Pil geri dönüşüm|Tehlikeli atık
+uk:Отруйні відходи|ЗБір отруйних відходів|Утилізація батарейок|Небезпечні відходи
+vi:Chất thải độc hại|Sử dụng pin|Rác thải nguy hiểm
+el:Τοξικά απόβλητα|Ανακύκλωση μπαταριών|Επικίνδυνα απόβλητα
+sk:Toxický odpad|Likvidácia batérií|Nebezpečný odpad
+zh-Hans:有毒垃圾|废弃电池处理|有害垃圾
+zh-Hant:有毒垃圾|廢棄電池處理|有害垃圾
+fa:پسماند خطرناک|بازیافت باتری|پسماند سمی
 
 recycling-clothes|@recycling
-en:Old clothes
-ru:Старая одежда
-de:Alte Kleidung
-es:Ropa vieja
-uk:Старий одяг
+en:Old clothes|Recycle old clothes
+ru:Старая одежда|Сдать ненужные вещи
+ar:إعادة تدوير الملابس القديم|ملابس قديمة
+cs:Staré oblečení|Recyklujte staré oblečení
+da:Gammelt tøj|Genbrug gammelt tøj
+nl:Oude kleding|Oude kleding recyclen
+fi:Vanhat vaatteet|Jätä tarpeettomat tavarat tähän
+fr:Vêtement usagés|Déposer des affaires non-utilisées
+de:Altkleider|Alte Kleidung|Sachen spenden
+hu:Régi ruhák|Régi ruhák újrahasznosítása
+id:Pakaian lama|Mendaur ulang pakaian lama
+it:Vestiti usati|Riciclare vestiti usati
+ja:古着|古着のリサイクル
+ko:낡은 옷|낡은 옷 재활
+nb:Gamle klær|Levere gamle klær
+pl:Stare ubrania|Przekaz niepotrzebne rzeczy
+pt:Roupas velhas|Entregar coisas desnecessárias
+pt-BR:Roupas velhas|Reciclar roupas velhas
+ro:Haine vechi|Înmânarea lucrurilor inutile
+es:Ropa vieja|Reciclaje de cosas innecesarias
+es-MX:Ropa vieja|Reciclaje de cosas innecesarias
+sv:Gamla kläder|Överlämna onödiga saker
+th:เสื้อผ้าเก่า|รีไซเคิลเสื้อผ้าเก่า
+tr:Eski kıyafetler|Eski kıyafetlerin geri dönüşümü
+uk:Старий одяг|Здати непотрібні речі
+vi:Quần áo cũ|Chuyển giao những thứ không cần thiết
+el:Παλιά ρούχα|Ανακύκλωση παλαιών ρούχων
+sk:Staré oblečenie|Recyklácia starých šiat
+zh-Hans:旧衣物|回收旧衣物
+zh-Hant:舊衣物|回收舊衣物
+fa:بازیافت لباسهای قدیمی|لباسهای قدیمی
 
 recycling-glass_bottles|@recycling
 en:Glass bottles
 ru:Стеклотара
+ar:زجاجات زجاجية
+cs:Skleněné lahve
+da:Glasflasker
+nl:Glazen flessen
+fi:Lasipullot
+fr:Verre
 de:Glas-Container
-es:Vidrio
+hu:Üveg palackok
+id:Botol kaca
+it:Contenitori in vetro
+ja:ガラス瓶
+ko:유리병
+nb:Glassemballasje
+pl:Szkło
+pt:Vidro
+pt-BR:Garrafas de vidro
+ro:Deșeuri de sticlă
+es:Cascos de botellas
+es-MX:Envase de vidrio
+sv:Returglas
+th:ขวดแก้ว
+tr:Cam şişeler
 uk:Склотара
+vi:Chai lọ thủy tinh
+el:Γυάλινα μπουκάλια
+sk:Sklenené fľaše
+zh-Hans:玻璃瓶
+zh-Hant:玻璃瓶
+fa:بطریهای شیشهای
 
 recycling-paper|@recycling
 en:Paper waste
 ru:Макулатура
+ar:نفايات ورقية
+cs:Papírový odpad
+da:Papiraffald
+nl:Papierafval
+fi:Paperi- ja kartonkijäte
+fr:Papier usagé
 de:Altpapier
-es:Papel de desecho
+hu:Papír hulladék
+id:Limbah kertas
+it:Rifiuti in carta e cartone
+ja:紙くず
+ko:종이 쓰레기
+nb:Papiravfall
+pl:Makulatura
+pt:Resíduos de papel
+pt-BR:Lixo de papel
+ro:Deșeuri de hârtie
+es:Desperdicio de papel|Papel de desecho
+es-MX:Desechos de papel
+sv:Returpapper
+th:ขยะกระดาษ
+tr:Kağıt atıkları
 uk:Макулатура
+vi:Giấy phế liệu
+el:Απορρίμματα χαρτιού
+sk:Papierový odpad
+zh-Hans:废纸
+zh-Hant:廢紙
+fa:پسماند کاغذ
 
 recycling-plastic|@recycling
 en:Plastic waste
 ru:Пластиковый мусор
+ar:نفايات بلاستيكية
+cs:Plastový odpad
+da:Plastaffald
+nl:Plastic afval
+fi:Muovijäte
+fr:Déchets plastiques
 de:Plastik-Müll
-es:Residuos plásticos
+hu:Műanyag hulladék
+id:Limbah plastik
+it:Rifiuti in plastica
+ja:プラスチックごみ
+ko:플라스틱 쓰레기
+nb:Plastavfall
+pl:Śmieci z plastiku
+pt:Plástico
+pt-BR:Lixo plástico
+ro:Deșeuri de plastic
+es:Residuos de plástico|Residuos plásticos
+es-MX:Desechos de plástico
+sv:Plastavfall
+th:ขยะพลาสติก
+tr:Plastik atıklar
 uk:Пластикове сміття
+vi:Rác thải nhựa
+el:Πλαστικά απορρίμματα
+sk:Plastový odpad
+zh-Hans:废塑料
+zh-Hant:廢塑料
+fa:پسماند پلاستیک
 
 recycling-plastic_bottles|@recycling
-en:Plastic bottles|PET
+en:Plastic bottles
 ru:Сбор пластиковых бутылок
+ar:زجاجات بلاستيكية
+cs:Plastové lahve
+da:Plastik flasker
+nl:Plastic flessen
+fi:Muovipullot
+fr:Collecte de bouteilles en plastique
+de:Plastikflaschen
+hu:Műanyag palackok
+id:Botol-botol plastik
+it:Bottiglie di plastica
+ja:ペットボトル
+ko:플라스틱 병
+nb:Plastflasker
+pl:Zbieranie plastikowych butelek
+pt:Garrafas plásticas
+pt-BR:Garrafas plasticas
+ro:Sticle de plastic
 es:Botellas de plástico
+es-MX:Botellas de plástico
+sv:Samling av plastflaskor
+th:ขวดพลาสติก
+tr:Plastik şişeler
 uk:Збір пластикових пляшок
+vi:Bộ chai lọ nhựa
+el:Πλαστικά μπουκάλια
+sk:Plastové fľaše
+zh-Hans:塑料瓶
+zh-Hant:塑料瓶
+fa:بطریهای پلاستیک
 
 recycling-scrap_metal|@recycling
 en:Scrap metal
 ru:Металлолом
+ar:نفايات معدنية
+cs:Kovový šrot
+da:Skrot metal
+nl:Schroot
+fi:Metalliromu
+fr:Ferraille
 de:Altmetall
-es:Chatarra
-uk:Металолом
+hu:Fémhulladék
+id:Besi tua
+it:Rifiuti metallici
+ja:スクラップ金属
+ko:고철
+nb:Metallavfall
+pl:Złom
+pt:Sucata
+pt-BR:Ferro velho
+ro:Resturi de metal
+es:Residuos de metal|Chatarra
+es-MX:Desechos de metal
+sv:Metallskrap
+th:โลหะมีคม
+tr:Metal hurdalar
+uk:Металобрухт|Металолом
+vi:Phế liệu kim loại
+el:Παλιοσίδερα
+sk:Kovový šrot
+zh-Hans:废金属
+zh-Hant:廢金屬
+fa:ضایعات فلزی
 
 recycling-small_appliances|@recycling
 en:Electronic waste
 ru:Электроотходы
+ar:نفايات الكترونية
+cs:Elektronický odpad
+da:Elektronik affald
+nl:Elektronisch afval
+fi:Kodinkonejäte
+fr:Déchets d'équipements électriques
 de:Elektroschrott
-es:Chatarra electrónica
+hu:Elektromos hulladék
+id:Limbah elektronik
+it:Rifiuti di apparecchiature elettriche ed elettroniche
+ja:電子廃棄物
+ko:전자제품 쓰레기
+nb:Elektronisk avfall
+pl:Odpady elektryczne
+pt:Resíduo eletrônico
+pt-BR:Lixo eletrônico
+ro:Deșeuri electrice
+es:Residuos electrónicos|Chatarra electrónica
+es-MX:Desechos electrónicos
+sv:Elektriskt avfall
+th:ขยะอิเล็กทรอนิกส์
+tr:Elektronik atık
 uk:Електровідходи
+vi:Chất thải đồ điện
+el:Ηλεκτρονικά απορρίμματα
+sk:Elektronický odpad
+zh-Hans:电子垃圾
+zh-Hant:電子垃圾
+fa:پسماند الکترونیکی
 
 amenity-school
 en:3School|U+1F392|U+1F3EB
@@ -8989,4 +9252,32 @@ fa:یخچال طبیعی
 highway-ford
 en:Ford
 ru:Брод
+ar:مخاضة
+cs:Brod
+da:Vadested
+nl:Voorde
+fi:Kahluupaikka
+fr:Gué
+de:Furt
+hu:Gázló
+id:Menyeberang
+it:Guado
+ja:浅瀬
+ko:여울
+nb:Vadested
 pl:Bród
+pt:Passo
+pt-BR:Rio raso
+ro:Superficial
+es:Vado (de lugar)
+es-MX:Vado (de lugar)
+sv:Vadställe
+th:ที่ตื้นของทางน้ำ
+tr:Geçit
+uk:Брід
+vi:Đập tràn
+el:Πέρασμα
+sk:Brod
+zh-Hans:浅滩
+zh-Hant:淺灘
+fa:گدار
