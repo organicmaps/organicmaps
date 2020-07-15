@@ -18,7 +18,7 @@ bool IsExpired(Cache::Clock::time_point const & timestamp, size_t expiryPeriod)
 template <typename Item>
 bool IsExpired(Item const & item, size_t expiryPeriod)
 {
-  return Cache::Clock::now() > item.m_timestamp + seconds(expiryPeriod);
+  return IsExpired(item.m_timestamp, expiryPeriod);
 }
 
 template <typename MapType>
@@ -77,6 +77,12 @@ Cache::Info Cache::Get(std::string const & hotelId)
   return Info(HotelStatus::Absent);
 }
 
+void Cache::ReserveAdditional(size_t count)
+{
+  ReserveAdditional(m_unavailableHotels, count);
+  ReserveAdditional(m_availableHotels, count);
+}
+
 void Cache::InsertNotReady(std::string const & hotelId)
 {
   ASSERT(m_unavailableHotels.find(hotelId) == m_unavailableHotels.end(), ());
@@ -87,7 +93,7 @@ void Cache::InsertNotReady(std::string const & hotelId)
 
 void Cache::InsertUnavailable(std::string const & hotelId)
 {
-  RemoveOverly();
+  ReserveAdditional(m_unavailableHotels, 1);
 
   m_unavailableHotels[hotelId] = Clock::now();
   m_notReadyHotels.erase(hotelId);
@@ -96,7 +102,7 @@ void Cache::InsertUnavailable(std::string const & hotelId)
 
 void Cache::InsertAvailable(std::string const & hotelId, Extras && extras)
 {
-  RemoveOverly();
+  ReserveAdditional(m_availableHotels, 1);
 
   m_availableHotels[hotelId] = Item(std::move(extras));
   m_notReadyHotels.erase(hotelId);
@@ -122,13 +128,11 @@ void Cache::Clear()
   m_availableHotels.clear();
 }
 
-void Cache::RemoveOverly()
+template <typename Container>
+void Cache::ReserveAdditional(Container & container, size_t additionalCount)
 {
-  if (m_maxCount != 0 && m_unavailableHotels.size() >= m_maxCount)
-    m_unavailableHotels.clear();
-
-  if (m_maxCount != 0 && m_availableHotels.size() >= m_maxCount)
-    m_availableHotels.clear();
+  if (m_maxCount != 0 && (container.size() + additionalCount) > m_maxCount)
+    container.clear();
 }
 
 std::string DebugPrint(Cache::HotelStatus status)

@@ -67,6 +67,8 @@ void UpdateCache(HotelsMapping<T> const & hotelsMapping, booking::HotelsWithExtr
 {
   using availability::Cache;
 
+  cache.ReserveAdditional(hotelsMapping.size());
+
   for (auto & hotel : hotelsMapping)
   {
     if (hotel.GetStatus() != Cache::HotelStatus::Absent)
@@ -256,6 +258,8 @@ void AvailabilityFilter::ApplyFilter(search::Results const & results,
 void AvailabilityFilter::ApplyFilter(std::vector<FeatureID> const & featureIds,
                                      ParamsRawInternal const & filterParams)
 {
+  ASSERT(std::is_sorted(featureIds.cbegin(), featureIds.cend()), ());
+
   ApplyFilterInternal<FeatureID>(featureIds, filterParams);
 }
 

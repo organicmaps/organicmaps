@@ -46,6 +46,10 @@ public:
   Cache(size_t maxCount, size_t expiryPeriodSeconds);
 
   Info Get(std::string const & hotelId);
+  // Removes items from available and unavailable
+  // in case of (current items count + |count|) >= |m_maxCount|.
+  void ReserveAdditional(size_t count);
+
   void InsertNotReady(std::string const & hotelId);
   void InsertUnavailable(std::string const & hotelId);
   void InsertAvailable(std::string const & hotelId, Extras && extras);
@@ -65,9 +69,9 @@ private:
 
   using HotelWithTimestampMap = std::map<std::string, Clock::time_point>;
   using HotelWithExtrasMap = std::map<std::string, Item>;
-  // In case when size >= |m_maxCount| removes items except those who have the status
-  // HotelStatus::NotReady.
-  void RemoveOverly();
+  // Removes items in case size >= |m_maxCount|.
+  template <typename Container>
+  void ReserveAdditional(Container & container, size_t additionalCount);
 
   HotelWithTimestampMap m_notReadyHotels;
   HotelWithTimestampMap m_unavailableHotels;

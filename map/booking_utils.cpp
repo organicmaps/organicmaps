@@ -2,9 +2,15 @@
 
 #include "map/search_mark.hpp"
 
+#include "search/result.hpp"
+
 #include "indexer/feature_decl.hpp"
 
+#include "base/stl_helpers.hpp"
+
+#include <algorithm>
 #include <utility>
+#include <vector>
 
 namespace booking
 {
@@ -15,13 +21,15 @@ void Sort(search::Results && results, std::vector<Extras> && extras,
 {
   if (!extras.empty())
   {
+    CHECK_EQUAL(results.GetCount(), extras.size(), ());
+
     std::vector<std::pair<FeatureID, booking::Extras>> featuresWithExtras;
     featuresWithExtras.reserve(results.GetCount());
     for (size_t i = 0; i < results.GetCount(); ++i)
       featuresWithExtras.emplace_back(std::move(results[i].GetFeatureID()), std::move(extras[i]));
 
     std::sort(featuresWithExtras.begin(), featuresWithExtras.end(),
-              [](auto const & lhs, auto const & rhs) { return lhs.first < rhs.first; });
+              base::LessBy(&std::pair<FeatureID, booking::Extras>::first));
 
     sortedFeatures.reserve(featuresWithExtras.size());
     sortedExtras.reserve(featuresWithExtras.size());
@@ -33,6 +41,7 @@ void Sort(search::Results && results, std::vector<Extras> && extras,
   }
   else
   {
+    sortedFeatures.reserve(results.GetCount());
     for (auto const & r : results)
       sortedFeatures.push_back(r.GetFeatureID());
 

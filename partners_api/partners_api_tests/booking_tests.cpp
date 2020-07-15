@@ -129,9 +129,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, GetHotelAvailability)
   params.m_checkout = std::chrono::system_clock::now() + std::chrono::hours(24 * 7);
   params.m_stars = {"4"};
   Api api;
-  std::vector<std::string> result;
+  HotelsWithExtras result;
 
-  api.GetHotelAvailability(params, [&result](std::vector<std::string> const & r)
+  api.GetHotelAvailability(params, [&result](HotelsWithExtras && r)
   {
     result = r;
     testing::Notify();
@@ -139,8 +139,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, GetHotelAvailability)
   testing::Wait();
 
   TEST_EQUAL(result.size(), 3, ());
-  TEST_EQUAL(result[0], "10623", ());
-  TEST_EQUAL(result[1], "10624", ());
-  TEST_EQUAL(result[2], "10625", ());
+  TEST(result.find("10623") != result.cend(), ());
+  TEST(result.find("10624") != result.cend(), ());
+  TEST(result.find("10625") != result.cend(), ());
 }
 }  // namespace

@@ -134,7 +134,7 @@ using BlockAvailabilityCallback =
     platform::SafeCallback<void(std::string const & hotelId, Blocks const & blocks)>;
 using GetHotelInfoCallback = platform::SafeCallback<void(HotelInfo const & hotelInfo)>;
 // NOTE: this callback will be called on the network thread.
-using GetHotelAvailabilityCallback = std::function<void(HotelsWithExtras hotels)>;
+using GetHotelAvailabilityCallback = std::function<void(HotelsWithExtras && hotels)>;
 
 /// Callbacks will be called in the same order as methods are called.
 class Api

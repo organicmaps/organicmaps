@@ -2,12 +2,6 @@
 
 #include "map/booking_filter_params.hpp"
 
-#include "search/result.hpp"
-
-#include <vector>
-
-struct FeatureID;
-
 class SearchMarks;
 
 namespace booking

@@ -387,6 +387,8 @@ void SearchAPI::FilterAllHotelsInViewport(m2::RectD const & viewport,
     return base::ControlFlow::Continue;
   });
 
+  ASSERT(std::is_sorted(featureIds.cbegin(), featureIds.cend()), ());
+
   if (featureIds.size() <= kMaxHotelFeatures)
     m_delegate.FilterHotels(filterTasks, move(featureIds));
 }
