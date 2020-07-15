@@ -530,7 +530,7 @@ fa:بانک
 
 @recycling
 en:Recycling|Waste utilization|Recyclables|Separate garbage collection|Waste sorting|Reuse
-ru:Переработка|Переработка отходов|Утилизация отходов|Прием вторсырья|Раздельный сбор мусора|Сортировка мусора|Повторное использование
+ru:Переработка|Переработка отходов|Утилизация отходов|Прием вторсырья|Раздельный сбор мусора|Сортировка мусора|Повторное использование|утиль
 ar:إعادة تدوير|استغلال المخلفات|المواد القابلة لإعادة التدوير|جمع القمامة بشكل منفصل|فرز النفايات|إعادة الاستخدام
 cs:Recyklace|Využití odpadu|Recyklovatelné|Oddělený sběr odpadků|Třídění odpadu|Opětovné použití
 da:Genbrug|Affaldsudnyttelse|Genanvendelig|Separate dagrenovationer|Affaldssortering|Genbrug
@@ -3798,7 +3798,7 @@ fa:پسماند خطرناک|بازیافت باتری|پسماند سمی
 
 recycling-clothes|@recycling
 en:Old clothes|Recycle old clothes
-ru:Старая одежда|Сдать ненужные вещи
+ru:Старая одежда|Сдать ненужные вещи|сдать вещи|сдать одежду
 ar:إعادة تدوير الملابس القديم|ملابس قديمة
 cs:Staré oblečení|Recyklujte staré oblečení
 da:Gammelt tøj|Genbrug gammelt tøj
