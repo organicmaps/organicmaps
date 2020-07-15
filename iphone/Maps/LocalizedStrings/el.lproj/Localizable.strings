@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Κέντρο ανακύκλωσης";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Κάδος ανακύκλωσης";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Τοξικά απόβλητα";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Παλιά ρούχα";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Γυάλινα μπουκάλια";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Απορρίμματα χαρτιού";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Πλαστικά απορρίμματα";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Πλαστικά μπουκάλια";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Παλιοσίδερα";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Ηλεκτρονικά απορρίμματα";
 
 "type.amenity.restaurant" = "Εστιατόριο";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Διαδρομή";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Πέρασμα";
 
 "type.highway.living_street" = "Οδός";
 

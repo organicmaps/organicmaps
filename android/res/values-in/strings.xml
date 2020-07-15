@@ -1871,6 +1871,15 @@
 	<string name="type.amenity.post_office">Kantor pos</string>
 	<string name="type.amenity.public_bookcase">Rak Buku</string>
 	<string name="type.amenity.recycling">TPA</string>
+	<string name="type.amenity.recycling_container">Wadah daur ulang</string>
+	<string name="type.recycling.toxic">Limbah beracun</string>
+	<string name="type.recycling.clothes">Pakaian lama</string>
+	<string name="type.recycling.glass_bottles">Botol kaca</string>
+	<string name="type.recycling.paper">Limbah kertas</string>
+	<string name="type.recycling.plastic">Limbah plastik</string>
+	<string name="type.recycling.plastic_bottles">Botol-botol plastik</string>
+	<string name="type.recycling.scrap_metal">Besi tua</string>
+	<string name="type.recycling.small_appliances">Limbah elektronik</string>
 	<string name="type.amenity.restaurant">Restoran</string>
 	<string name="type.amenity.school">Sekolah</string>
 	<string name="type.amenity.shelter">Tempat penampungan</string>
@@ -2014,6 +2023,7 @@
 	<string name="type.highway.footway.mountain_hiking">Jalur</string>
 	<string name="type.highway.footway.permissive">Jalur</string>
 	<string name="type.highway.footway.tunnel">Jalur</string>
+	<string name="type.highway.ford">Menyeberang</string>
 	<string name="type.highway.living_street">Jalan</string>
 	<string name="type.highway.living_street.bridge">Jalan</string>
 	<string name="type.highway.living_street.tunnel">Jalan</string>

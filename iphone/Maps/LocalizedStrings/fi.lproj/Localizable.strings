@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Kierrätyskeskus";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Kierrätysjäteastia";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Myrkkyjäte";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Vanhat vaatteet";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Lasipullot";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Paperi- ja kartonkijäte";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Muovijäte";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Muovipullot";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Metalliromu";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Kodinkonejäte";
 
 "type.amenity.restaurant" = "Ravintola";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Polku";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Kahluupaikka";
 
 "type.highway.living_street" = "Katu";
 

@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "ศูนย์รีไซเคิล";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "บรรจุภัณฑ์รีไซเคิล";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "ขยะสารพิษ";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "เสื้อผ้าเก่า";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "ขวดแก้ว";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "ขยะกระดาษ";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "ขยะพลาสติก";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "ขวดพลาสติก";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "โลหะมีคม";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "ขยะอิเล็กทรอนิกส์";
 
 "type.amenity.restaurant" = "ร้านอาหาร";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "เส้นทาง";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "ที่ตื้นของทางน้ำ";
 
 "type.highway.living_street" = "ถนน";
 

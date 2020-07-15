@@ -1877,6 +1877,15 @@
 	<string name="type.amenity.post_office">Ufficio postale</string>
 	<string name="type.amenity.public_bookcase">Libreria</string>
 	<string name="type.amenity.recycling">Centro di riciclaggio</string>
+	<string name="type.amenity.recycling_container">Contenitore per materiali riciclabili</string>
+	<string name="type.recycling.toxic">Rifiuti tossici</string>
+	<string name="type.recycling.clothes">Vestiti usati</string>
+	<string name="type.recycling.glass_bottles">Contenitori in vetro</string>
+	<string name="type.recycling.paper">Rifiuti in carta e cartone</string>
+	<string name="type.recycling.plastic">Rifiuti in plastica</string>
+	<string name="type.recycling.plastic_bottles">Bottiglie di plastica</string>
+	<string name="type.recycling.scrap_metal">Rifiuti metallici</string>
+	<string name="type.recycling.small_appliances">Rifiuti di apparecchiature elettriche ed elettroniche</string>
 	<string name="type.amenity.restaurant">Ristorante</string>
 	<string name="type.amenity.school">Scuola</string>
 	<string name="type.amenity.shelter">Riparo</string>
@@ -2020,6 +2029,7 @@
 	<string name="type.highway.footway.mountain_hiking">Sentiero</string>
 	<string name="type.highway.footway.permissive">Sentiero</string>
 	<string name="type.highway.footway.tunnel">Sentiero</string>
+	<string name="type.highway.ford">Guado</string>
 	<string name="type.highway.living_street">Via</string>
 	<string name="type.highway.living_street.bridge">Via</string>
 	<string name="type.highway.living_street.tunnel">Via</string>

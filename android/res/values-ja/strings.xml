@@ -1875,6 +1875,15 @@
 	<string name="type.amenity.pub">バー</string>
 	<string name="type.amenity.public_bookcase">書棚</string>
 	<string name="type.amenity.recycling">リサクルセンター</string>
+	<string name="type.amenity.recycling_container">リサイクルボックス</string>
+	<string name="type.recycling.toxic">有毒廃棄物</string>
+	<string name="type.recycling.clothes">古着</string>
+	<string name="type.recycling.glass_bottles">ガラス瓶</string>
+	<string name="type.recycling.paper">紙くず</string>
+	<string name="type.recycling.plastic">プラスチックごみ</string>
+	<string name="type.recycling.plastic_bottles">ペットボトル</string>
+	<string name="type.recycling.scrap_metal">スクラップ金属</string>
+	<string name="type.recycling.small_appliances">電子廃棄物</string>
 	<string name="type.amenity.restaurant">レストラン</string>
 	<string name="type.amenity.school">学校</string>
 	<string name="type.amenity.shelter">避難所</string>
@@ -2020,6 +2029,7 @@
 	<string name="type.highway.footway.mountain_hiking">歩道</string>
 	<string name="type.highway.footway.permissive">歩道</string>
 	<string name="type.highway.footway.tunnel">歩道</string>
+	<string name="type.highway.ford">浅瀬</string>
 	<string name="type.highway.living_street">ストリート</string>
 	<string name="type.highway.living_street.bridge">ストリート</string>
 	<string name="type.highway.living_street.tunnel">ストリート</string>

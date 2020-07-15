@@ -1883,6 +1883,15 @@
 	<string name="type.amenity.pub">Kocsma</string>
 	<string name="type.amenity.public_bookcase">Nyilvános könyvespolc</string>
 	<string name="type.amenity.recycling">Újrahasznosító központ</string>
+	<string name="type.amenity.recycling_container">Újrahasznosító tartály</string>
+	<string name="type.recycling.toxic">Mérgező hulladék</string>
+	<string name="type.recycling.clothes">Régi ruhák</string>
+	<string name="type.recycling.glass_bottles">Üveg palackok</string>
+	<string name="type.recycling.paper">Papír hulladék</string>
+	<string name="type.recycling.plastic">Műanyag hulladék</string>
+	<string name="type.recycling.plastic_bottles">Műanyag palackok</string>
+	<string name="type.recycling.scrap_metal">Fémhulladék</string>
+	<string name="type.recycling.small_appliances">Elektromos hulladék</string>
 	<string name="type.amenity.restaurant">Étterem</string>
 	<string name="type.amenity.school">Iskola</string>
 	<string name="type.amenity.shelter">Menedék</string>
@@ -2027,6 +2036,7 @@
 	<string name="type.highway.footway.mountain_hiking">Ösvény</string>
 	<string name="type.highway.footway.permissive">Ösvény</string>
 	<string name="type.highway.footway.tunnel">Ösvény</string>
+	<string name="type.highway.ford">Gázló</string>
 	<string name="type.highway.living_street">Utca</string>
 	<string name="type.highway.living_street.bridge">Utca</string>
 	<string name="type.highway.living_street.tunnel">Utca</string>

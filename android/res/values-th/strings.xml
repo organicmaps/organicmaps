@@ -1888,6 +1888,15 @@
 	<string name="type.amenity.pub">ผับ</string>
 	<string name="type.amenity.public_bookcase">ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ</string>
 	<string name="type.amenity.recycling">ศูนย์รีไซเคิล</string>
+	<string name="type.amenity.recycling_container">บรรจุภัณฑ์รีไซเคิล</string>
+	<string name="type.recycling.toxic">ขยะสารพิษ</string>
+	<string name="type.recycling.clothes">เสื้อผ้าเก่า</string>
+	<string name="type.recycling.glass_bottles">ขวดแก้ว</string>
+	<string name="type.recycling.paper">ขยะกระดาษ</string>
+	<string name="type.recycling.plastic">ขยะพลาสติก</string>
+	<string name="type.recycling.plastic_bottles">ขวดพลาสติก</string>
+	<string name="type.recycling.scrap_metal">โลหะมีคม</string>
+	<string name="type.recycling.small_appliances">ขยะอิเล็กทรอนิกส์</string>
 	<string name="type.amenity.restaurant">ร้านอาหาร</string>
 	<string name="type.amenity.school">โรงเรียน</string>
 	<string name="type.amenity.shelter">ที่อยู่อาศัย</string>
@@ -2033,6 +2042,7 @@
 	<string name="type.highway.footway.mountain_hiking">เส้นทาง</string>
 	<string name="type.highway.footway.permissive">เส้นทาง</string>
 	<string name="type.highway.footway.tunnel">เส้นทาง</string>
+	<string name="type.highway.ford">ที่ตื้นของทางน้ำ</string>
 	<string name="type.highway.living_street">ถนน</string>
 	<string name="type.highway.living_street.bridge">ถนน</string>
 	<string name="type.highway.living_street.tunnel">ถนน</string>

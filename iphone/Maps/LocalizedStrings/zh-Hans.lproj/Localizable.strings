@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "回收中心";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "回收箱";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "有毒垃圾";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "旧衣物";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "玻璃瓶";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "废纸";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "废塑料";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "塑料瓶";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "废金属";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "电子垃圾";
 
 "type.amenity.restaurant" = "餐厅";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "路径";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "浅滩";
 
 "type.highway.living_street" = "街头";
 

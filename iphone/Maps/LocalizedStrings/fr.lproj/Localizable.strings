@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Centre de recyclage";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Conteneur de recyclage";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Déchets toxiques";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Vêtement usagés";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Verre";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Papier usagé";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Déchets plastiques";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Collecte de bouteilles en plastique";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Ferraille";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Déchets d'équipements électriques";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Chemin";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Gué";
 
 "type.highway.living_street" = "Rue";
 

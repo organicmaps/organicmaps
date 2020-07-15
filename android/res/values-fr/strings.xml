@@ -1892,6 +1892,15 @@
 	<string name="type.amenity.pub">Bistrot</string>
 	<string name="type.amenity.public_bookcase">Bibliothèque</string>
 	<string name="type.amenity.recycling">Centre de recyclage</string>
+	<string name="type.amenity.recycling_container">Conteneur de recyclage</string>
+	<string name="type.recycling.toxic">Déchets toxiques</string>
+	<string name="type.recycling.clothes">Vêtement usagés</string>
+	<string name="type.recycling.glass_bottles">Verre</string>
+	<string name="type.recycling.paper">Papier usagé</string>
+	<string name="type.recycling.plastic">Déchets plastiques</string>
+	<string name="type.recycling.plastic_bottles">Collecte de bouteilles en plastique</string>
+	<string name="type.recycling.scrap_metal">Ferraille</string>
+	<string name="type.recycling.small_appliances">Déchets d\'équipements électriques</string>
 	<string name="type.amenity.school">École</string>
 	<string name="type.amenity.shelter">Refuge</string>
 	<string name="type.amenity.shower">Douche</string>
@@ -2034,6 +2043,7 @@
 	<string name="type.highway.footway.mountain_hiking">Chemin</string>
 	<string name="type.highway.footway.permissive">Chemin</string>
 	<string name="type.highway.footway.tunnel">Chemin</string>
+	<string name="type.highway.ford">Gué</string>
 	<string name="type.highway.living_street">Rue</string>
 	<string name="type.highway.living_street.bridge">Rue</string>
 	<string name="type.highway.living_street.tunnel">Rue</string>

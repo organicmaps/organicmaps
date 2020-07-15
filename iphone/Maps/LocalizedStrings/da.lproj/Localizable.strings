@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Genbrugsplads";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Genbrugscontainer";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Giftigt affald";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Gammelt tøj";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Glasflasker";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Papiraffald";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Plastaffald";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Plastik flasker";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Skrot metal";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Elektronik affald";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Sti";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Vadested";
 
 "type.highway.living_street" = "Gade";
 

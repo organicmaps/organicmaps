@@ -1881,6 +1881,15 @@
 	<string name="type.amenity.pub">Krog</string>
 	<string name="type.amenity.public_bookcase">Bokskåp</string>
 	<string name="type.amenity.recycling">Återvinningscentral</string>
+	<string name="type.amenity.recycling_container">Behållare för återvinningsbart avfall</string>
+	<string name="type.recycling.toxic">Giftigt avfall</string>
+	<string name="type.recycling.clothes">Gamla kläder</string>
+	<string name="type.recycling.glass_bottles">Returglas</string>
+	<string name="type.recycling.paper">Returpapper</string>
+	<string name="type.recycling.plastic">Plastavfall</string>
+	<string name="type.recycling.plastic_bottles">Samling av plastflaskor</string>
+	<string name="type.recycling.scrap_metal">Metallskrap</string>
+	<string name="type.recycling.small_appliances">Elektriskt avfall</string>
 	<string name="type.amenity.restaurant">Restaurang</string>
 	<string name="type.amenity.school">Skola</string>
 	<string name="type.amenity.shelter">Skyddsrum</string>
@@ -2023,6 +2032,7 @@
 	<string name="type.highway.footway.mountain_hiking">Gångväg</string>
 	<string name="type.highway.footway.permissive">Gångväg</string>
 	<string name="type.highway.footway.tunnel">Gångväg</string>
+	<string name="type.highway.ford">Vadställe</string>
 	<string name="type.highway.living_street">Gata</string>
 	<string name="type.highway.living_street.bridge">Gata</string>
 	<string name="type.highway.living_street.tunnel">Gata</string>

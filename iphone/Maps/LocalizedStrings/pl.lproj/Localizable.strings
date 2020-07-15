@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Centrum przetwórstwa odpadów";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Pojemnik do recyklingu";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Odpady toksyczne";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Stare ubrania";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Szkło";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Makulatura";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Śmieci z plastiku";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Zbieranie plastikowych butelek";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Złom";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Odpady elektryczne";
 
 "type.amenity.restaurant" = "Restauracja";
 

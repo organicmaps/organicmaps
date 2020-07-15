@@ -3535,17 +3535,17 @@
 
 "type.recycling.clothes" = "Ropa vieja";
 
-"type.recycling.glass_bottles" = "Vidrio";
+"type.recycling.glass_bottles" = "Cascos de botellas";
 
-"type.recycling.paper" = "Papel de desecho";
+"type.recycling.paper" = "Desperdicio de papel";
 
-"type.recycling.plastic" = "Residuos plásticos";
+"type.recycling.plastic" = "Residuos de plástico";
 
 "type.recycling.plastic_bottles" = "Botellas de plástico";
 
-"type.recycling.scrap_metal" = "Chatarra";
+"type.recycling.scrap_metal" = "Residuos de metal";
 
-"type.recycling.small_appliances" = "Chatarra electrónica";
+"type.recycling.small_appliances" = "Residuos electrónicos";
 
 "type.amenity.restaurant" = "Restaurante";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Camino";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Vado (de lugar)";
 
 "type.highway.living_street" = "Calle";
 

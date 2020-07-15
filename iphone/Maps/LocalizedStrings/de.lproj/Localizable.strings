@@ -3529,19 +3529,19 @@
 
 "type.amenity.recycling" = "Recyclinghof";
 
-"type.amenity.recycling_container" = "Recyclingbehälter";
+"type.amenity.recycling_container" = "Wertstoffcontainer";
 
 "type.recycling.toxic" = "Giftmüll";
 
-"type.recycling.clothes" = "Alte Kleidung";
+"type.recycling.clothes" = "Altkleider";
 
-"type.recycling.glass_bottles" = "Glas-Container";
+"type.recycling.glass_bottles" = "Glas";
 
-"type.recycling.paper" = "Altpapier";
+"type.recycling.paper" = "Papier";
 
-"type.recycling.plastic" = "Plastik-Müll";
+"type.recycling.plastic" = "Kunststoff";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Plastikflaschen";
 
 "type.recycling.scrap_metal" = "Altmetall";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Fußgängertunnel";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Furt";
 
 "type.highway.living_street" = "Spielstraße";
 

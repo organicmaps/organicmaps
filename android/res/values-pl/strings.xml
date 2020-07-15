@@ -1907,6 +1907,15 @@
 	<string name="type.amenity.prison">Więzienie</string>
 	<string name="type.amenity.public_bookcase">Wymiana książek</string>
 	<string name="type.amenity.recycling">Centrum przetwórstwa odpadów</string>
+	<string name="type.amenity.recycling_container">Pojemnik do recyklingu</string>
+	<string name="type.recycling.toxic">Odpady toksyczne</string>
+	<string name="type.recycling.clothes">Stare ubrania</string>
+	<string name="type.recycling.glass_bottles">Szkło</string>
+	<string name="type.recycling.paper">Makulatura</string>
+	<string name="type.recycling.plastic">Śmieci z plastiku</string>
+	<string name="type.recycling.plastic_bottles">Zbieranie plastikowych butelek</string>
+	<string name="type.recycling.scrap_metal">Złom</string>
+	<string name="type.recycling.small_appliances">Odpady elektryczne</string>
 	<string name="type.amenity.restaurant">Restauracja</string>
 	<string name="type.amenity.school">Szkoła</string>
 	<string name="type.amenity.shelter">Wiata</string>

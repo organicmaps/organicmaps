@@ -1820,6 +1820,15 @@
 	<string name="type.amenity.post_office">دفتر پست</string>
 	<string name="type.amenity.pub">میکده</string>
 	<string name="type.amenity.recycling">مرکز بازیافت</string>
+	<string name="type.amenity.recycling_container">ظرف بازیافت</string>
+	<string name="type.recycling.toxic">پسماند سمی</string>
+	<string name="type.recycling.clothes">لباسهای قدیمی</string>
+	<string name="type.recycling.glass_bottles">بطریهای شیشهای</string>
+	<string name="type.recycling.paper">پسماند کاغذ</string>
+	<string name="type.recycling.plastic">پسماند پلاستیک</string>
+	<string name="type.recycling.plastic_bottles">بطریهای پلاستیک</string>
+	<string name="type.recycling.scrap_metal">ضایعات فلزی</string>
+	<string name="type.recycling.small_appliances">پسماند الکترونیکی</string>
 	<string name="type.amenity.restaurant">غذا</string>
 	<string name="type.amenity.school">مدرسه</string>
 	<string name="type.amenity.shelter">پناهگاه</string>
@@ -1879,6 +1888,7 @@
 	<string name="type.highway.footway.mountain_hiking">مسیر</string>
 	<string name="type.highway.footway.permissive">مسیر</string>
 	<string name="type.highway.footway.tunnel">مسیر</string>
+	<string name="type.highway.ford">گدار</string>
 	<string name="type.highway.living_street">جاده</string>
 	<string name="type.highway.living_street.bridge">جاده</string>
 	<string name="type.highway.living_street.tunnel">جاده</string>

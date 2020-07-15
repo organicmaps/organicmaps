@@ -1888,6 +1888,15 @@
 	<string name="type.amenity.pub">بار</string>
 	<string name="type.amenity.public_bookcase">مكتبة، تبادل كتب</string>
 	<string name="type.amenity.recycling">مركز إعادة تدوير</string>
+	<string name="type.amenity.recycling_container">حاوية لإعادة التدوير</string>
+	<string name="type.recycling.toxic">نفايات سامة</string>
+	<string name="type.recycling.clothes">ملابس قديمة</string>
+	<string name="type.recycling.glass_bottles">زجاجات زجاجية</string>
+	<string name="type.recycling.paper">نفايات ورقية</string>
+	<string name="type.recycling.plastic">نفايات بلاستيكية</string>
+	<string name="type.recycling.plastic_bottles">زجاجات بلاستيكية</string>
+	<string name="type.recycling.scrap_metal">نفايات معدنية</string>
+	<string name="type.recycling.small_appliances">نفايات الكترونية</string>
 	<string name="type.amenity.restaurant">مطعم</string>
 	<string name="type.amenity.school">مدرسة</string>
 	<string name="type.amenity.shelter">ملجأ</string>
@@ -2033,6 +2042,7 @@
 	<string name="type.highway.footway.mountain_hiking">مسار</string>
 	<string name="type.highway.footway.permissive">مسار</string>
 	<string name="type.highway.footway.tunnel">مسار</string>
+	<string name="type.highway.ford">مخاضة</string>
 	<string name="type.highway.living_street">شارع</string>
 	<string name="type.highway.living_street.bridge">شارع</string>
 	<string name="type.highway.living_street.tunnel">شارع</string>

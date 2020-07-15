@@ -1875,6 +1875,15 @@
 	<string name="type.amenity.pub">Pubi</string>
 	<string name="type.amenity.public_bookcase">Kirjahylly</string>
 	<string name="type.amenity.recycling">Kierrätyskeskus</string>
+	<string name="type.amenity.recycling_container">Kierrätysjäteastia</string>
+	<string name="type.recycling.toxic">Myrkkyjäte</string>
+	<string name="type.recycling.clothes">Vanhat vaatteet</string>
+	<string name="type.recycling.glass_bottles">Lasipullot</string>
+	<string name="type.recycling.paper">Paperi- ja kartonkijäte</string>
+	<string name="type.recycling.plastic">Muovijäte</string>
+	<string name="type.recycling.plastic_bottles">Muovipullot</string>
+	<string name="type.recycling.scrap_metal">Metalliromu</string>
+	<string name="type.recycling.small_appliances">Kodinkonejäte</string>
 	<string name="type.amenity.restaurant">Ravintola</string>
 	<string name="type.amenity.school">Koulu</string>
 	<string name="type.amenity.shelter">Turvapaikka</string>
@@ -2020,6 +2029,7 @@
 	<string name="type.highway.footway.mountain_hiking">Polku</string>
 	<string name="type.highway.footway.permissive">Polku</string>
 	<string name="type.highway.footway.tunnel">Polku</string>
+	<string name="type.highway.ford">Kahluupaikka</string>
 	<string name="type.highway.living_street">Katu</string>
 	<string name="type.highway.living_street.bridge">Katu</string>
 	<string name="type.highway.living_street.tunnel">Katu</string>

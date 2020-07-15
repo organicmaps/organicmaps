@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "재활용센터";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "재활용 쓰레기통";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "유독성 폐기물";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "낡은 옷";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "유리병";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "종이 쓰레기";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "플라스틱 쓰레기";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "플라스틱 병";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "고철";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "전자제품 쓰레기";
 
 "type.amenity.restaurant" = "레스토랑";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "경로";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "여울";
 
 "type.highway.living_street" = "거리";
 

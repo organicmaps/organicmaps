@@ -1880,6 +1880,15 @@
 	<string name="type.amenity.pub">Kroeg</string>
 	<string name="type.amenity.public_bookcase">Boekenkast</string>
 	<string name="type.amenity.recycling">Milieustraat</string>
+	<string name="type.amenity.recycling_container">Recycling container</string>
+	<string name="type.recycling.toxic">Giftig afval</string>
+	<string name="type.recycling.clothes">Oude kleding</string>
+	<string name="type.recycling.glass_bottles">Glazen flessen</string>
+	<string name="type.recycling.paper">Papierafval</string>
+	<string name="type.recycling.plastic">Plastic afval</string>
+	<string name="type.recycling.plastic_bottles">Plastic flessen</string>
+	<string name="type.recycling.scrap_metal">Schroot</string>
+	<string name="type.recycling.small_appliances">Elektronisch afval</string>
 	<string name="type.amenity.shelter">Beschutting</string>
 	<string name="type.amenity.shower">Douche</string>
 	<string name="type.amenity.telephone">Telefoon</string>
@@ -2019,6 +2028,7 @@
 	<string name="type.highway.footway.mountain_hiking">Pad</string>
 	<string name="type.highway.footway.permissive">Pad</string>
 	<string name="type.highway.footway.tunnel">Pad</string>
+	<string name="type.highway.ford">Voorde</string>
 	<string name="type.highway.living_street">Straat</string>
 	<string name="type.highway.living_street.bridge">Straat</string>
 	<string name="type.highway.living_street.tunnel">Straat</string>

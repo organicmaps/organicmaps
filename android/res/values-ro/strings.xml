@@ -1866,6 +1866,15 @@
 	<string name="type.amenity.post_office">Oficiu poștal</string>
 	<string name="type.amenity.public_bookcase">Bibliotecă</string>
 	<string name="type.amenity.recycling">Centru de reciclare</string>
+	<string name="type.amenity.recycling_container">Containere pentru reciclare</string>
+	<string name="type.recycling.toxic">Deșeuri toxice</string>
+	<string name="type.recycling.clothes">Haine vechi</string>
+	<string name="type.recycling.glass_bottles">Deșeuri de sticlă</string>
+	<string name="type.recycling.paper">Deșeuri de hârtie</string>
+	<string name="type.recycling.plastic">Deșeuri de plastic</string>
+	<string name="type.recycling.plastic_bottles">Sticle de plastic</string>
+	<string name="type.recycling.scrap_metal">Resturi de metal</string>
+	<string name="type.recycling.small_appliances">Deșeuri electrice</string>
 	<string name="type.amenity.school">Școală</string>
 	<string name="type.amenity.shelter">Adăpost</string>
 	<string name="type.amenity.shower">Duș</string>
@@ -2007,6 +2016,7 @@
 	<string name="type.highway.footway.mountain_hiking">Cale</string>
 	<string name="type.highway.footway.permissive">Cale</string>
 	<string name="type.highway.footway.tunnel">Cale</string>
+	<string name="type.highway.ford">Superficial</string>
 	<string name="type.highway.living_street">Stradă</string>
 	<string name="type.highway.living_street.bridge">Stradă</string>
 	<string name="type.highway.living_street.tunnel">Stradă</string>

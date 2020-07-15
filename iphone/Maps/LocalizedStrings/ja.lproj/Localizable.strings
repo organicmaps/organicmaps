@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "リサクルセンター";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "リサイクルボックス";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "有毒廃棄物";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "古着";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "ガラス瓶";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "紙くず";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "プラスチックごみ";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "ペットボトル";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "スクラップ金属";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "電子廃棄物";
 
 "type.amenity.restaurant" = "レストラン";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "歩道";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "浅瀬";
 
 "type.highway.living_street" = "ストリート";
 

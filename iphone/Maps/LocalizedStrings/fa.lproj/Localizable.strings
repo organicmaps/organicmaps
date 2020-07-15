@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "مرکز بازیافت";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "ظرف بازیافت";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "پسماند سمی";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "لباسهای قدیمی";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "بطریهای شیشهای";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "پسماند کاغذ";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "پسماند پلاستیک";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "بطریهای پلاستیک";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "ضایعات فلزی";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "پسماند الکترونیکی";
 
 "type.amenity.restaurant" = "غذا";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "مسیر";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "گدار";
 
 "type.highway.living_street" = "جاده";
 

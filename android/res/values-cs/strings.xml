@@ -1883,6 +1883,15 @@
 	<string name="type.amenity.pub">Hospoda</string>
 	<string name="type.amenity.public_bookcase">Knihovna</string>
 	<string name="type.amenity.recycling">Recyklační středisko</string>
+	<string name="type.amenity.recycling_container">Recyklační nádoba</string>
+	<string name="type.recycling.toxic">Toxický odpad</string>
+	<string name="type.recycling.clothes">Staré oblečení</string>
+	<string name="type.recycling.glass_bottles">Skleněné lahve</string>
+	<string name="type.recycling.paper">Papírový odpad</string>
+	<string name="type.recycling.plastic">Plastový odpad</string>
+	<string name="type.recycling.plastic_bottles">Plastové lahve</string>
+	<string name="type.recycling.scrap_metal">Kovový šrot</string>
+	<string name="type.recycling.small_appliances">Elektronický odpad</string>
 	<string name="type.amenity.restaurant">Restaurace</string>
 	<string name="type.amenity.school">Škola</string>
 	<string name="type.amenity.shelter">Přístřešek</string>
@@ -2027,6 +2036,7 @@
 	<string name="type.highway.footway.mountain_hiking">Cesta</string>
 	<string name="type.highway.footway.permissive">Cesta</string>
 	<string name="type.highway.footway.tunnel">Cesta</string>
+	<string name="type.highway.ford">Brod</string>
 	<string name="type.highway.living_street">Ulice</string>
 	<string name="type.highway.living_street.bridge">Ulice</string>
 	<string name="type.highway.living_street.tunnel">Ulice</string>

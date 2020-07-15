@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "TPA";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Wadah daur ulang";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Limbah beracun";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Pakaian lama";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Botol kaca";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Limbah kertas";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Limbah plastik";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Botol-botol plastik";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Besi tua";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Limbah elektronik";
 
 "type.amenity.restaurant" = "Restoran";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Jalur";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Menyeberang";
 
 "type.highway.living_street" = "Jalan";
 

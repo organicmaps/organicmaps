@@ -3531,21 +3531,21 @@
 
 "type.amenity.recycling_container" = "Recycling container";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Giftig afval";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Oude kleding";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Glazen flessen";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Papierafval";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Plastic afval";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Plastic flessen";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Schroot";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Elektronisch afval";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Pad";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Voorde";
 
 "type.highway.living_street" = "Straat";
 

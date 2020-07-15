@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Återvinningscentral";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Behållare för återvinningsbart avfall";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Giftigt avfall";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Gamla kläder";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Returglas";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Returpapper";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Plastavfall";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Samling av plastflaskor";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Metallskrap";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Elektriskt avfall";
 
 "type.amenity.restaurant" = "Restaurang";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Gångväg";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Vadställe";
 
 "type.highway.living_street" = "Gata";
 

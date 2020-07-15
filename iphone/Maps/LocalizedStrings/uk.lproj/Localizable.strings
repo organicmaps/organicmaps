@@ -3543,7 +3543,7 @@
 
 "type.recycling.plastic_bottles" = "Збір пластикових пляшок";
 
-"type.recycling.scrap_metal" = "Металолом";
+"type.recycling.scrap_metal" = "Металобрухт";
 
 "type.recycling.small_appliances" = "Електровідходи";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Пішохідна доріжка";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Брід";
 
 "type.highway.living_street" = "Вулиця";
 

@@ -1872,6 +1872,15 @@
 	<string name="type.amenity.pub">Quán rượu</string>
 	<string name="type.amenity.public_bookcase">Kệ sách</string>
 	<string name="type.amenity.recycling">Trung tâm tái sinh</string>
+	<string name="type.amenity.recycling_container">Thùng rác</string>
+	<string name="type.recycling.toxic">Chất thải độc hại</string>
+	<string name="type.recycling.clothes">Quần áo cũ</string>
+	<string name="type.recycling.glass_bottles">Chai lọ thủy tinh</string>
+	<string name="type.recycling.paper">Giấy phế liệu</string>
+	<string name="type.recycling.plastic">Rác thải nhựa</string>
+	<string name="type.recycling.plastic_bottles">Bộ chai lọ nhựa</string>
+	<string name="type.recycling.scrap_metal">Phế liệu kim loại</string>
+	<string name="type.recycling.small_appliances">Chất thải đồ điện</string>
 	<string name="type.amenity.restaurant">Quán ăn</string>
 	<string name="type.amenity.school">Trường học</string>
 	<string name="type.amenity.shelter">Chổ nương thân</string>
@@ -2016,6 +2025,7 @@
 	<string name="type.highway.footway.mountain_hiking">Đường</string>
 	<string name="type.highway.footway.permissive">Đường</string>
 	<string name="type.highway.footway.tunnel">Đường</string>
+	<string name="type.highway.ford">Đập tràn</string>
 	<string name="type.highway.living_street">Phố</string>
 	<string name="type.highway.living_street.bridge">Phố</string>
 	<string name="type.highway.living_street.tunnel">Phố</string>

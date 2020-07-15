@@ -1883,6 +1883,15 @@
 	<string name="type.amenity.pub">Værtshus</string>
 	<string name="type.amenity.public_bookcase">Bog udveksling</string>
 	<string name="type.amenity.recycling">Genbrugsplads</string>
+	<string name="type.amenity.recycling_container">Genbrugscontainer</string>
+	<string name="type.recycling.toxic">Giftigt affald</string>
+	<string name="type.recycling.clothes">Gammelt tøj</string>
+	<string name="type.recycling.glass_bottles">Glasflasker</string>
+	<string name="type.recycling.paper">Papiraffald</string>
+	<string name="type.recycling.plastic">Plastaffald</string>
+	<string name="type.recycling.plastic_bottles">Plastik flasker</string>
+	<string name="type.recycling.scrap_metal">Skrot metal</string>
+	<string name="type.recycling.small_appliances">Elektronik affald</string>
 	<string name="type.amenity.school">Skole</string>
 	<string name="type.amenity.shower">Bruser</string>
 	<string name="type.amenity.telephone">Telefon</string>
@@ -2023,6 +2032,7 @@
 	<string name="type.highway.footway.mountain_hiking">Sti</string>
 	<string name="type.highway.footway.permissive">Sti</string>
 	<string name="type.highway.footway.tunnel">Sti</string>
+	<string name="type.highway.ford">Vadested</string>
 	<string name="type.highway.living_street">Gade</string>
 	<string name="type.highway.living_street.bridge">Gade</string>
 	<string name="type.highway.living_street.tunnel">Gade</string>

@@ -1896,7 +1896,7 @@
 	<string name="type.recycling.paper">Макулатура</string>
 	<string name="type.recycling.plastic">Пластикове сміття</string>
 	<string name="type.recycling.plastic_bottles">Збір пластикових пляшок</string>
-	<string name="type.recycling.scrap_metal">Металолом</string>
+	<string name="type.recycling.scrap_metal">Металобрухт</string>
 	<string name="type.recycling.small_appliances">Електровідходи</string>
 	<string name="type.amenity.restaurant">Ресторан</string>
 	<string name="type.amenity.school">Школа</string>
@@ -2043,6 +2043,7 @@
 	<string name="type.highway.footway.mountain_hiking">Пішохідна доріжка</string>
 	<string name="type.highway.footway.permissive">Пішохідна доріжка</string>
 	<string name="type.highway.footway.tunnel">Пішохідна доріжка</string>
+	<string name="type.highway.ford">Брід</string>
 	<string name="type.highway.living_street">Вулиця</string>
 	<string name="type.highway.living_street.bridge">Вулиця</string>
 	<string name="type.highway.living_street.tunnel">Вулиця</string>

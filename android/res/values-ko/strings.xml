@@ -1877,6 +1877,15 @@
 	<string name="type.amenity.pub">술집</string>
 	<string name="type.amenity.public_bookcase">책장, 도서 교환</string>
 	<string name="type.amenity.recycling">재활용센터</string>
+	<string name="type.amenity.recycling_container">재활용 쓰레기통</string>
+	<string name="type.recycling.toxic">유독성 폐기물</string>
+	<string name="type.recycling.clothes">낡은 옷</string>
+	<string name="type.recycling.glass_bottles">유리병</string>
+	<string name="type.recycling.paper">종이 쓰레기</string>
+	<string name="type.recycling.plastic">플라스틱 쓰레기</string>
+	<string name="type.recycling.plastic_bottles">플라스틱 병</string>
+	<string name="type.recycling.scrap_metal">고철</string>
+	<string name="type.recycling.small_appliances">전자제품 쓰레기</string>
 	<string name="type.amenity.restaurant">레스토랑</string>
 	<string name="type.amenity.school">학교</string>
 	<string name="type.amenity.shelter">피난처</string>
@@ -2022,6 +2031,7 @@
 	<string name="type.highway.footway.mountain_hiking">경로</string>
 	<string name="type.highway.footway.permissive">경로</string>
 	<string name="type.highway.footway.tunnel">경로</string>
+	<string name="type.highway.ford">여울</string>
 	<string name="type.highway.living_street">거리</string>
 	<string name="type.highway.living_street.bridge">거리</string>
 	<string name="type.highway.living_street.tunnel">거리</string>

@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Centru de reciclare";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Containere pentru reciclare";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Deșeuri toxice";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Haine vechi";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Deșeuri de sticlă";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Deșeuri de hârtie";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Deșeuri de plastic";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Sticle de plastic";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Resturi de metal";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Deșeuri electrice";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Cale";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Superficial";
 
 "type.highway.living_street" = "Stradă";
 

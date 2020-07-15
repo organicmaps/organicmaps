@@ -1889,12 +1889,13 @@
 	<string name="type.amenity.pub">Kneipe</string>
 	<string name="type.amenity.public_bookcase">Bücherschrank</string>
 	<string name="type.amenity.recycling">Recyclinghof</string>
-	<string name="type.amenity.recycling_container">Recyclingbehälter</string>
+	<string name="type.amenity.recycling_container">Wertstoffcontainer</string>
 	<string name="type.recycling.toxic">Giftmüll</string>
-	<string name="type.recycling.clothes">Alte Kleidung</string>
-	<string name="type.recycling.glass_bottles">Glas-Container</string>
-	<string name="type.recycling.paper">Altpapier</string>
-	<string name="type.recycling.plastic">Plastik-Müll</string>
+	<string name="type.recycling.clothes">Altkleider</string>
+	<string name="type.recycling.glass_bottles">Glas</string>
+	<string name="type.recycling.paper">Papier</string>
+	<string name="type.recycling.plastic">Kunststoff</string>
+	<string name="type.recycling.plastic_bottles">Plastikflaschen</string>
 	<string name="type.recycling.scrap_metal">Altmetall</string>
 	<string name="type.recycling.small_appliances">Elektroschrott</string>
 	<string name="type.amenity.school">Schule</string>
@@ -2037,6 +2038,7 @@
 	<string name="type.highway.footway.mountain_hiking">Wanderweg</string>
 	<string name="type.highway.footway.permissive">Fußweg</string>
 	<string name="type.highway.footway.tunnel">Fußgängertunnel</string>
+	<string name="type.highway.ford">Furt</string>
 	<string name="type.highway.living_street">Spielstraße</string>
 	<string name="type.highway.living_street.bridge">Spielstraße</string>
 	<string name="type.highway.living_street.tunnel">Spielstraßentunnel</string>

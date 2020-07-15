@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Trung tâm tái sinh";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Thùng rác";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Chất thải độc hại";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Quần áo cũ";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Chai lọ thủy tinh";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Giấy phế liệu";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Rác thải nhựa";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Bộ chai lọ nhựa";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Phế liệu kim loại";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Chất thải đồ điện";
 
 "type.amenity.restaurant" = "Quán ăn";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Đường";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Đập tràn";
 
 "type.highway.living_street" = "Phố";
 

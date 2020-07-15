@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Geri dönüşüm merkezi";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Atık toplama merkezi";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Zehirli atık";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Eski kıyafetler";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Cam şişeler";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Kağıt atıkları";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Plastik atıklar";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Plastik şişeler";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Metal hurdalar";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Elektronik atık";
 
 "type.amenity.restaurant" = "Restoran";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Yol";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Geçit";
 
 "type.highway.living_street" = "Cadde";
 

@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Reciclagem";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Materiais recicláveis";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Resíduo tóxico";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Roupas velhas";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Vidro";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Papel";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Plástico";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Garrafas plásticas";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Sucata";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Resíduo eletrônico";
 
 "type.amenity.restaurant" = "Restaurante";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Caminho";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Passo";
 
 "type.highway.living_street" = "Rua";
 

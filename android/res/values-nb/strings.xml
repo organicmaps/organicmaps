@@ -1772,6 +1772,15 @@
 	<string name="type.amenity.post_office">Postkontor</string>
 	<string name="type.amenity.public_bookcase">Bokhylle</string>
 	<string name="type.amenity.recycling">Resirkuleringssenter</string>
+	<string name="type.amenity.recycling_container">Gjenvinningsbeholder</string>
+	<string name="type.recycling.toxic">Giftig avfall</string>
+	<string name="type.recycling.clothes">Gamle klær</string>
+	<string name="type.recycling.glass_bottles">Glassemballasje</string>
+	<string name="type.recycling.paper">Papiravfall</string>
+	<string name="type.recycling.plastic">Plastavfall</string>
+	<string name="type.recycling.plastic_bottles">Plastflasker</string>
+	<string name="type.recycling.scrap_metal">Metallavfall</string>
+	<string name="type.recycling.small_appliances">Elektronisk avfall</string>
 	<string name="type.amenity.school">Skole</string>
 	<string name="type.amenity.shelter">Tilfluktsrom</string>
 	<string name="type.amenity.shower">Dusj</string>
@@ -1916,6 +1925,7 @@
 	<string name="type.highway.footway.mountain_hiking">Sti</string>
 	<string name="type.highway.footway.permissive">Sti</string>
 	<string name="type.highway.footway.tunnel">Sti</string>
+	<string name="type.highway.ford">Vadested</string>
 	<string name="type.highway.living_street">Gate</string>
 	<string name="type.highway.living_street.bridge">Gate</string>
 	<string name="type.highway.living_street.tunnel">Gate</string>

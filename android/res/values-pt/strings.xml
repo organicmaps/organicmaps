@@ -1883,6 +1883,15 @@
 	<string name="type.amenity.post_office">Correios</string>
 	<string name="type.amenity.public_bookcase">Biblioteca livre</string>
 	<string name="type.amenity.recycling">Reciclagem</string>
+	<string name="type.amenity.recycling_container">Materiais recicláveis</string>
+	<string name="type.recycling.toxic">Resíduo tóxico</string>
+	<string name="type.recycling.clothes">Roupas velhas</string>
+	<string name="type.recycling.glass_bottles">Vidro</string>
+	<string name="type.recycling.paper">Papel</string>
+	<string name="type.recycling.plastic">Plástico</string>
+	<string name="type.recycling.plastic_bottles">Garrafas plásticas</string>
+	<string name="type.recycling.scrap_metal">Sucata</string>
+	<string name="type.recycling.small_appliances">Resíduo eletrônico</string>
 	<string name="type.amenity.restaurant">Restaurante</string>
 	<string name="type.amenity.school">Escola</string>
 	<string name="type.amenity.shelter">Abrigo</string>
@@ -2028,6 +2037,7 @@
 	<string name="type.highway.footway.mountain_hiking">Caminho</string>
 	<string name="type.highway.footway.permissive">Caminho</string>
 	<string name="type.highway.footway.tunnel">Caminho</string>
+	<string name="type.highway.ford">Passo</string>
 	<string name="type.highway.living_street">Rua</string>
 	<string name="type.highway.living_street.bridge">Rua</string>
 	<string name="type.highway.living_street.tunnel">Rua</string>

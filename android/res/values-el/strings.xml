@@ -1644,6 +1644,15 @@
 	<string name="type.amenity.pub">Παμπ</string>
 	<string name="type.amenity.public_bookcase">Ανταλλαγή βιβλίων</string>
 	<string name="type.amenity.recycling">Κέντρο ανακύκλωσης</string>
+	<string name="type.amenity.recycling_container">Κάδος ανακύκλωσης</string>
+	<string name="type.recycling.toxic">Τοξικά απόβλητα</string>
+	<string name="type.recycling.clothes">Παλιά ρούχα</string>
+	<string name="type.recycling.glass_bottles">Γυάλινα μπουκάλια</string>
+	<string name="type.recycling.paper">Απορρίμματα χαρτιού</string>
+	<string name="type.recycling.plastic">Πλαστικά απορρίμματα</string>
+	<string name="type.recycling.plastic_bottles">Πλαστικά μπουκάλια</string>
+	<string name="type.recycling.scrap_metal">Παλιοσίδερα</string>
+	<string name="type.recycling.small_appliances">Ηλεκτρονικά απορρίμματα</string>
 	<string name="type.amenity.restaurant">Εστιατόριο</string>
 	<string name="type.amenity.school">Σχολείο</string>
 	<string name="type.amenity.shelter">Καταφύγιο</string>
@@ -1789,6 +1798,7 @@
 	<string name="type.highway.footway.mountain_hiking">Διαδρομή</string>
 	<string name="type.highway.footway.permissive">Διαδρομή</string>
 	<string name="type.highway.footway.tunnel">Διαδρομή</string>
+	<string name="type.highway.ford">Πέρασμα</string>
 	<string name="type.highway.living_street">Οδός</string>
 	<string name="type.highway.living_street.bridge">Οδός</string>
 	<string name="type.highway.living_street.tunnel">Οδός</string>

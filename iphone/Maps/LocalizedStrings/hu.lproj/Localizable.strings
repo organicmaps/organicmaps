@@ -3529,23 +3529,23 @@
 
 "type.amenity.recycling" = "Újrahasznosító központ";
 
-"type.amenity.recycling_container" = "Recycling container";
+"type.amenity.recycling_container" = "Újrahasznosító tartály";
 
-"type.recycling.toxic" = "Toxic waste";
+"type.recycling.toxic" = "Mérgező hulladék";
 
-"type.recycling.clothes" = "Old clothes";
+"type.recycling.clothes" = "Régi ruhák";
 
-"type.recycling.glass_bottles" = "Glass bottles";
+"type.recycling.glass_bottles" = "Üveg palackok";
 
-"type.recycling.paper" = "Paper waste";
+"type.recycling.paper" = "Papír hulladék";
 
-"type.recycling.plastic" = "Plastic waste";
+"type.recycling.plastic" = "Műanyag hulladék";
 
-"type.recycling.plastic_bottles" = "Plastic bottles";
+"type.recycling.plastic_bottles" = "Műanyag palackok";
 
-"type.recycling.scrap_metal" = "Scrap metal";
+"type.recycling.scrap_metal" = "Fémhulladék";
 
-"type.recycling.small_appliances" = "Electronic waste";
+"type.recycling.small_appliances" = "Elektromos hulladék";
 
 "type.amenity.restaurant" = "Étterem";
 
@@ -3919,7 +3919,7 @@
 
 "type.highway.footway.tunnel" = "Ösvény";
 
-"type.highway.ford" = "Ford";
+"type.highway.ford" = "Gázló";
 
 "type.highway.living_street" = "Utca";
 

@@ -1884,6 +1884,15 @@
 	<string name="type.amenity.post_office">Postane</string>
 	<string name="type.amenity.public_bookcase">Kütüphane</string>
 	<string name="type.amenity.recycling">Geri dönüşüm merkezi</string>
+	<string name="type.amenity.recycling_container">Atık toplama merkezi</string>
+	<string name="type.recycling.toxic">Zehirli atık</string>
+	<string name="type.recycling.clothes">Eski kıyafetler</string>
+	<string name="type.recycling.glass_bottles">Cam şişeler</string>
+	<string name="type.recycling.paper">Kağıt atıkları</string>
+	<string name="type.recycling.plastic">Plastik atıklar</string>
+	<string name="type.recycling.plastic_bottles">Plastik şişeler</string>
+	<string name="type.recycling.scrap_metal">Metal hurdalar</string>
+	<string name="type.recycling.small_appliances">Elektronik atık</string>
 	<string name="type.amenity.restaurant">Restoran</string>
 	<string name="type.amenity.school">Okul</string>
 	<string name="type.amenity.shelter">Barınak</string>
@@ -2028,6 +2037,7 @@
 	<string name="type.highway.footway.mountain_hiking">Yol</string>
 	<string name="type.highway.footway.permissive">Yol</string>
 	<string name="type.highway.footway.tunnel">Yol</string>
+	<string name="type.highway.ford">Geçit</string>
 	<string name="type.highway.living_street">Cadde</string>
 	<string name="type.highway.living_street.bridge">Cadde</string>
 	<string name="type.highway.living_street.tunnel">Cadde</string>

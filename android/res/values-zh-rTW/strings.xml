@@ -1885,6 +1885,15 @@
 	<string name="type.amenity.pub">酒館</string>
 	<string name="type.amenity.public_bookcase">書架</string>
 	<string name="type.amenity.recycling">回收中心</string>
+	<string name="type.amenity.recycling_container">回收箱</string>
+	<string name="type.recycling.toxic">有毒垃圾</string>
+	<string name="type.recycling.clothes">舊衣物</string>
+	<string name="type.recycling.glass_bottles">玻璃瓶</string>
+	<string name="type.recycling.paper">廢紙</string>
+	<string name="type.recycling.plastic">廢塑料</string>
+	<string name="type.recycling.plastic_bottles">塑料瓶</string>
+	<string name="type.recycling.scrap_metal">廢金屬</string>
+	<string name="type.recycling.small_appliances">電子垃圾</string>
 	<string name="type.amenity.restaurant">餐廳</string>
 	<string name="type.amenity.school">學校</string>
 	<string name="type.amenity.shelter">隱藏處</string>
@@ -2030,6 +2039,7 @@
 	<string name="type.highway.footway.mountain_hiking">人行步道</string>
 	<string name="type.highway.footway.permissive">人行步道</string>
 	<string name="type.highway.footway.tunnel">人行步道</string>
+	<string name="type.highway.ford">淺灘</string>
 	<string name="type.highway.living_street">路</string>
 	<string name="type.highway.living_street.bridge">路</string>
 	<string name="type.highway.living_street.tunnel">路</string>
