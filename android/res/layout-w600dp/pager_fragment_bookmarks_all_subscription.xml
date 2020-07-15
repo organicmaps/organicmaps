@@ -125,6 +125,27 @@
             app:buttonBackground="@drawable/button_secondary_transparent"
             app:buttonTextColor="@color/white_primary"
             app:progressColor="@color/base_accent" />
+          <Button
+            android:id="@+id/free_trial_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_double_and_half"
+            android:background="@drawable/button_accent"
+            android:text="@string/guides_trial_cta_button"
+            android:textColor="@color/white_primary"
+            android:textSize="@dimen/text_size_body_3"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+          <TextView
+            android:id="@+id/free_trial_mesage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_base"
+            android:text="@string/guides_trial_message"
+            android:textColor="@color/white_primary"
+            android:textSize="@dimen/text_size_body_4"
+            android:visibility="gone"
+            tools:visibility="visible"/>
           <TextView
             android:id="@+id/restore_purchase_btn"
             android:layout_width="wrap_content"

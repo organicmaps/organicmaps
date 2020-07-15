@@ -2,7 +2,9 @@ package com.mapswithme.maps.purchase;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 class ProductDetails implements Parcelable
 {
@@ -13,19 +15,22 @@ class ProductDetails implements Parcelable
   private final String mCurrencyCode;
   @NonNull
   private final String mTitle;
+  @Nullable
+  private final String mFreeTrialPeriod;
 
-  ProductDetails(@NonNull String productId, float price, @NonNull String currencyCode, @NonNull
-      String title)
+  ProductDetails(@NonNull String productId, float price, @NonNull String currencyCode,
+                 @NonNull String title, @Nullable String freeTrialPeriod)
   {
     mProductId = productId;
     mPrice = price;
     mCurrencyCode = currencyCode;
     mTitle = title;
+    mFreeTrialPeriod = freeTrialPeriod;
   }
 
   private ProductDetails(Parcel in)
   {
-    this(in.readString(), in.readFloat(), in.readString(), in.readString());
+    this(in.readString(), in.readFloat(), in.readString(), in.readString(), in.readString());
   }
 
   float getPrice()
@@ -49,6 +54,12 @@ class ProductDetails implements Parcelable
   public String getTitle()
   {
     return mTitle;
+  }
+
+  @Nullable
+  String getFreeTrialPeriod()
+  {
+    return mFreeTrialPeriod;
   }
 
   public static final Creator<ProductDetails> CREATOR = new Creator<ProductDetails>()
@@ -79,5 +90,6 @@ class ProductDetails implements Parcelable
     dest.writeFloat(mPrice);
     dest.writeString(mCurrencyCode);
     dest.writeString(mTitle);
+    dest.writeString(mFreeTrialPeriod);
   }
 }

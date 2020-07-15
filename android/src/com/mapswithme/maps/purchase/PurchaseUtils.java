@@ -81,7 +81,8 @@ public class PurchaseUtils
   {
     float price = normalizePrice(skuDetails.getPriceAmountMicros());
     String currencyCode = skuDetails.getPriceCurrencyCode();
-    return new ProductDetails(skuDetails.getSku(), price, currencyCode, skuDetails.getTitle());
+    return new ProductDetails(skuDetails.getSku(), price, currencyCode, skuDetails.getTitle(),
+                              skuDetails.getFreeTrialPeriod());
   }
 
   @NonNull

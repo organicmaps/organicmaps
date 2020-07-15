@@ -1,25 +1,34 @@
 package com.mapswithme.maps.purchase;
 
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.SubscriptionButton;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
 import java.util.List;
 
 class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegate
 {
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private SubscriptionButton mYearlyButton;
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private SubscriptionButton mMonthlyButton;
   @NonNull
   private PurchaseUtils.Period mSelectedPeriod = PurchaseUtils.Period.P1Y;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private View mFreeTrialButton;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private TextView mFreeTrialMessage;
 
   TwoButtonsSubscriptionFragmentDelegate(@NonNull AbstractBookmarkSubscriptionFragment fragment)
   {
@@ -32,13 +41,12 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
   {
     super.onCreateView(root);
     mYearlyButton = root.findViewById(R.id.annual_button);
-    mYearlyButton.setOnClickListener(v -> {
-      onSubscriptionButtonClicked(PurchaseUtils.Period.P1Y);
-    });
+    mYearlyButton.setOnClickListener(v -> onSubscriptionButtonClicked(PurchaseUtils.Period.P1Y));
     mMonthlyButton = root.findViewById(R.id.monthly_button);
-    mMonthlyButton.setOnClickListener(v -> {
-      onSubscriptionButtonClicked(PurchaseUtils.Period.P1M);
-    });
+    mMonthlyButton.setOnClickListener(v -> onSubscriptionButtonClicked(PurchaseUtils.Period.P1M));
+    mFreeTrialButton = root.findViewById(R.id.free_trial_button);
+    mFreeTrialButton.setOnClickListener(v -> onSubscriptionButtonClicked(PurchaseUtils.Period.P1Y));
+    mFreeTrialMessage = root.findViewById(R.id.free_trial_mesage);
   }
 
   private void onSubscriptionButtonClicked(@NonNull PurchaseUtils.Period period)
@@ -75,6 +83,15 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
 
   private void updatePaymentButtons()
   {
+    ProductDetails details = getFragment().getProductDetailsForPeriod(PurchaseUtils.Period.P1Y);
+    if (!TextUtils.isEmpty(details.getFreeTrialPeriod()))
+    {
+      UiUtils.hide(mYearlyButton, mMonthlyButton);
+      UiUtils.show(mFreeTrialButton, mFreeTrialMessage);
+      String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
+      mFreeTrialMessage.setText(getFragment().getString(R.string.guides_trial_message, price));
+      return;
+    }
     updateYearlyButton();
     updateMonthlyButton();
   }
