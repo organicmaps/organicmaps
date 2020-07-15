@@ -110,10 +110,30 @@ struct ValidationData
 
 struct ValidationResult
 {
+  bool m_isValid = false;
+  bool m_isTrial = false;
   std::string m_reason;
 
-  DECLARE_VISITOR(visitor(m_reason, "reason"))
+  DECLARE_VISITOR(visitor(m_isValid, false, "valid"),
+                  visitor(m_isTrial, false, "is_trial_period"),
+                  visitor(m_reason, "", "reason"))
 };
+
+ValidationResult DeserializeResponse(std::string const & response, int httpCode)
+{
+  ValidationResult result;
+  try
+  {
+    coding::DeserializerJson deserializer(response);
+    deserializer(result);
+  }
+  catch(std::exception const & e)
+  {
+    LOG(LWARNING, ("Bad server response. Code =", httpCode, ". Reason =", e.what()));
+  }
+
+  return result;
+}
 }  // namespace
 
 Purchase::Purchase(InvalidTokenHandler && onInvalidToken)
@@ -201,7 +221,7 @@ void Purchase::Validate(ValidationInfo const & validationInfo, std::string const
   if (url.empty() || status == Platform::EConnectionType::CONNECTION_NONE || !validationInfo.IsValid())
   {
     if (m_validationCallback)
-      m_validationCallback(ValidationCode::ServerError, {validationInfo, true /* Dummy */});
+      m_validationCallback(ValidationCode::ServerError, ValidationResponse(validationInfo));
     return;
   }
 
@@ -283,13 +303,16 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
   }
   request.SetBodyData(std::move(jsonStr), "application/json");
 
+  ValidationResult result;
   ValidationCode code = ValidationCode::ServerError;
   if (request.RunHttpRequest())
   {
     auto const resultCode = request.ErrorCode();
     if (resultCode >= 200 && resultCode < 300)
     {
-      code = ValidationCode::Verified;
+      result = DeserializeResponse(request.ServerResponse(), resultCode);
+      if (result.m_isValid)
+        code = ValidationCode::Verified;
     }
     else if (resultCode == 403)
     {
@@ -302,16 +325,8 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
     {
       code = ValidationCode::NotVerified;
 
-      ValidationResult result;
-      try
-      {
-        coding::DeserializerJson deserializer(request.ServerResponse());
-        deserializer(result);
-      }
-      catch(std::exception const & e)
-      {
-        LOG(LWARNING, ("Bad server response. Code =", resultCode, ". Reason =", e.what()));
-      }
+      result = DeserializeResponse(request.ServerResponse(), resultCode);
+
       if (!result.m_reason.empty())
         LOG(LWARNING, ("Validation error:", result.m_reason));
     }
@@ -341,7 +356,8 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
   }
   else
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, code, startTransaction, validationInfo]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, code, startTransaction, validationInfo,
+                                                  isTrial = result.m_isTrial]()
     {
       if (startTransaction)
       {
@@ -354,7 +370,7 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
       else
       {
         if (m_validationCallback)
-          m_validationCallback(code, {validationInfo, true /* Dummy */});
+          m_validationCallback(code, {validationInfo, isTrial});
       }
     });
   }

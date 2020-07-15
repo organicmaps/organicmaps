@@ -49,6 +49,9 @@ public:
 
   struct ValidationResponse
   {
+    explicit ValidationResponse(ValidationInfo const & info) : m_info(info) {}
+    ValidationResponse(ValidationInfo const & info, bool isTrial) : m_info(info), m_isTrial(isTrial) {}
+
     ValidationInfo m_info;
     bool m_isTrial = false;
   };
