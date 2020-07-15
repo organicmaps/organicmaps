@@ -3372,36 +3372,6 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
     return true;
   }
 
-  static std::string const kFindFeatureDebugKey = "?fid ";
-  if (params.m_query.find(kFindFeatureDebugKey) == 0)
-  {
-    // Format: ?fid<space>index<space>.
-    auto fidStr = params.m_query.substr(kFindFeatureDebugKey.size());
-    bool const canSearch = !fidStr.empty() && fidStr.back() == ' ';
-    strings::Trim(fidStr);
-    uint32_t index = 0;
-    if (canSearch && strings::to_uint(fidStr, index))
-    {
-      bool isShown = false;
-      auto const features = FindFeaturesByIndex(index);
-      for (auto const & fid : features)
-      {
-        if (!fid.IsValid())
-          continue;
-
-        // Show the first feature on the map.
-        if (!isShown)
-        {
-          ShowFeature(fid);
-          isShown = true;
-        }
-
-        // Log found features.
-        LOG(LINFO, ("Feature found:", fid));
-      }
-    }
-    return true;
-  }
   return false;
 }
 
@@ -4092,33 +4062,6 @@ vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool roug
 MwmSet::MwmId Framework::GetMwmIdByName(string const & name) const
 {
   return m_featuresFetcher.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(name));
-}
-
-vector<FeatureID> Framework::FindFeaturesByIndex(uint32_t featureIndex) const
-{
-  vector<FeatureID> result;
-  auto mwms = GetMwmsByRect(m_currentModelView.ClipRect(), false /* rough */);
-  set<MwmSet::MwmId> s(mwms.begin(), mwms.end());
-
-  vector<shared_ptr<LocalCountryFile>> maps;
-  m_storage.GetLocalMaps(maps);
-  for (auto const & localFile : maps)
-  {
-    auto mwmId = GetMwmIdByName(localFile->GetCountryName());
-    if (s.find(mwmId) != s.end())
-      continue;
-
-    if (mwmId.IsAlive())
-      mwms.push_back(move(mwmId));
-  }
-
-  for (auto const & mwmId : mwms)
-  {
-    FeaturesLoaderGuard const guard(m_featuresFetcher.GetDataSource(), mwmId);
-    if (featureIndex < guard.GetNumFeatures() && guard.GetFeatureByIndex(featureIndex))
-      result.emplace_back(mwmId, featureIndex);
-  }
-  return result;
 }
 
 void Framework::ReadFeatures(function<void(FeatureType &)> const & reader,
