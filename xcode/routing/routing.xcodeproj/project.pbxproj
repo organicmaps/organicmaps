@@ -322,6 +322,8 @@
 		D526BA7A241FC5580076E0B0 /* guides_connections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D526BA76241FC5580076E0B0 /* guides_connections.cpp */; };
 		D526BA7B241FC5580076E0B0 /* guides_connections.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D526BA77241FC5580076E0B0 /* guides_connections.hpp */; };
 		D526BA7C241FC5580076E0B0 /* guides_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D526BA78241FC5580076E0B0 /* guides_graph.hpp */; };
+		D5481E4E24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5481E4C24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp */; };
+		D5481E4F24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5481E4D24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp */; };
 		D563401F2423816C00FDE20A /* guides_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D563401E2423816C00FDE20A /* guides_tests.cpp */; };
 		F6C3A1B521AC298F0060EEC8 /* speed_camera_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6C3A1B321AC298E0060EEC8 /* speed_camera_manager.hpp */; };
 		F6C3A1B621AC298F0060EEC8 /* speed_camera_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6C3A1B421AC298F0060EEC8 /* speed_camera_manager.cpp */; };
@@ -612,6 +614,8 @@
 		D526BA76241FC5580076E0B0 /* guides_connections.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_connections.cpp; sourceTree = "<group>"; };
 		D526BA77241FC5580076E0B0 /* guides_connections.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = guides_connections.hpp; sourceTree = "<group>"; };
 		D526BA78241FC5580076E0B0 /* guides_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = guides_graph.hpp; sourceTree = "<group>"; };
+		D5481E4C24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_hierarchy_handler.hpp; sourceTree = "<group>"; };
+		D5481E4D24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_hierarchy_handler.cpp; sourceTree = "<group>"; };
 		D563401E2423816C00FDE20A /* guides_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_tests.cpp; sourceTree = "<group>"; };
 		F6C3A1B321AC298E0060EEC8 /* speed_camera_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera_manager.hpp; sourceTree = "<group>"; };
 		F6C3A1B421AC298F0060EEC8 /* speed_camera_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_manager.cpp; sourceTree = "<group>"; };
@@ -892,6 +896,8 @@
 			isa = PBXGroup;
 			children = (
 				D526BA76241FC5580076E0B0 /* guides_connections.cpp */,
+				D5481E4D24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp */,
+				D5481E4C24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp */,
 				D526BA77241FC5580076E0B0 /* guides_connections.hpp */,
 				D526BA75241FC5580076E0B0 /* guides_graph.cpp */,
 				D526BA78241FC5580076E0B0 /* guides_graph.hpp */,
@@ -1172,6 +1178,7 @@
 				44B284C823F5A21300A3FBB7 /* opening_hours_serdes.hpp in Headers */,
 				44E5574A2136EEC900B01439 /* speed_camera_ser_des.hpp in Headers */,
 				0C5FEC551DDE191E0017688C /* edge_estimator.hpp in Headers */,
+				D5481E4E24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp in Headers */,
 				0C12ED241E5C822A0080D0F4 /* index_router.hpp in Headers */,
 				40C645171F8D167F002E05A0 /* fake_ending.hpp in Headers */,
 				0C5FEC651DDE192A0017688C /* joint.hpp in Headers */,
@@ -1383,6 +1390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5481E4F24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp in Sources */,
 				0C5FEC641DDE192A0017688C /* joint.cpp in Sources */,
 				0C090C871E4E276700D52AFD /* world_graph.cpp in Sources */,
 				44C56C0B22296498006C2A1D /* routing_options.cpp in Sources */,
