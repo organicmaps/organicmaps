@@ -5,6 +5,7 @@
 #include "openlr/score_candidate_points_getter.hpp"
 
 #include "routing/road_graph.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "platform/location.hpp"
 
@@ -54,6 +55,20 @@ double DifferenceInDeg(double a1, double a2)
   CHECK_LESS_OR_EQUAL(diff, 180.0, ());
   CHECK_GREATER_OR_EQUAL(diff, 0.0, ());
   return diff;
+}
+
+void EdgeSortUniqueByStartAndEndPoints(Graph::EdgeVector & edges)
+{
+  base::SortUnique(
+      edges,
+      [](Edge const & e1, Edge const & e2) {
+        if (e1.GetStartPoint() != e2.GetStartPoint())
+          return e1.GetStartPoint() < e2.GetStartPoint();
+        return e1.GetEndPoint() < e2.GetEndPoint();
+      },
+      [](Edge const & e1, Edge const & e2) {
+        return e1.GetStartPoint() == e2.GetStartPoint() && e1.GetEndPoint() == e2.GetEndPoint();
+      });
 }
 }  // namespace
 
@@ -169,6 +184,11 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
       m_graph.GetOutgoingEdges(currentEdge.GetEndJunction(), edges);
     else
       m_graph.GetIngoingEdges(currentEdge.GetStartJunction(), edges);
+
+    // It's possible that road edges are duplicated a lot of times. It's a error but
+    // a mapper may do that. To prevent a combinatorial explosion while matching
+    // duplicated edges should be removed.
+    EdgeSortUniqueByStartAndEndPoints(edges);
 
     for (auto const & e : edges)
     {
