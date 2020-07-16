@@ -61,6 +61,7 @@
 #include <algorithm>
 #include <cctype>
 #include <memory>
+#include <optional>
 #include <set>
 #include <sstream>
 #include <utility>
@@ -441,12 +442,11 @@ void Processor::SearchByFeatureId()
   if (m_query.size() > kMaxFeatureIdStringSize)
     return;
 
-  using Trie = base::MemTrie<storage::CountryId, base::VectorValues<bool>>;
-  static Trie countriesTrie;
-  if (countriesTrie.GetNumNodes() == 1)
+  if (m_countriesTrie == nullptr)
   {
+    m_countriesTrie = make_unique<CountriesTrie>();
     for (auto const & country : m_infoGetter.GetCountries())
-      countriesTrie.Add(country.m_countryId, true);
+      m_countriesTrie->Add(country.m_countryId, true);
   }
 
   auto trimLeadingSpaces = [](string & s) {
@@ -473,7 +473,8 @@ void Processor::SearchByFeatureId()
     return false;
   };
 
-  auto const eatMwmName = [&trimLeadingSpaces](string & s, storage::CountryId & mwmName) -> bool {
+  auto const eatMwmName = [this, &trimLeadingSpaces](string & s,
+                                                     storage::CountryId & mwmName) -> bool {
     trimLeadingSpaces(s);
 
     // Greedily eat as much as possible because some country names are prefixes of others.
@@ -481,7 +482,7 @@ void Processor::SearchByFeatureId()
     for (size_t i = 0; i < s.size(); ++i)
     {
       // todo(@m) This must be much faster but MemTrie's iterators do not expose nodes.
-      if (countriesTrie.HasKey(s.substr(0, i)))
+      if (m_countriesTrie->HasKey(s.substr(0, i)))
         lastPos = i;
     }
     if (!lastPos)
@@ -518,6 +519,8 @@ void Processor::SearchByFeatureId()
   // Create a copy of the query to trim it in-place.
   string query(m_query);
   strings::Trim(query);
+
+  strings::EatPrefix(query, "?");
 
   string const kFidPrefix = "fid";
   bool hasPrefix = false;
@@ -582,10 +585,14 @@ void Processor::SearchByFeatureId()
     }
   }
 
-  auto const tryEmitting = [this, &infos](storage::CountryId const & mwmName, uint32_t fid) {
+  auto const tryEmitting = [this, &infos](storage::CountryId const & mwmName,
+                                          optional<uint32_t> version, uint32_t fid) {
     for (auto const & info : infos)
     {
       if (info->GetCountryName() != mwmName)
+        continue;
+
+      if (version && version != info->GetVersion())
         continue;
 
       auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
@@ -615,7 +622,7 @@ void Processor::SearchByFeatureId()
     if (parenPref == parenSuff && eatMwmName(s, mwmName) && strings::EatPrefix(s, ",") &&
         eatFid(s, fid))
     {
-      tryEmitting(mwmName, fid);
+      tryEmitting(mwmName, {} /* version */, fid);
     }
   }
 
@@ -635,7 +642,7 @@ void Processor::SearchByFeatureId()
     ok = ok && eatFid(s, fid);
     ok = ok && strings::EatPrefix(s, " }");
     if (ok)
-      tryEmitting(mwmName, fid);
+      tryEmitting(mwmName, version, fid);
   }
 }
 

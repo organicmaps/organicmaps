@@ -23,6 +23,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
+#include "base/mem_trie.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstddef>
@@ -116,7 +117,7 @@ public:
 protected:
   // Show feature by FeatureId. May try to guess as much as possible after the "fid=" prefix but
   // at least supports the formats below.
-  // 0. fid=123 to search for the feature with index 123, results ordered by distance
+  // 0. fid=123 or ?fid=123 to search for the feature with index 123, results ordered by distance
   //    from |m_position| or |m_viewport|, whichever is present and closer.
   // 1. fid=MwmName,123 or fid=(MwmName,123) to search for the feature with
   //    index 123 in the Mwm "MwmName" (for example, "Laos" or "Laos.mwm").
@@ -139,6 +140,8 @@ protected:
 
   CategoriesHolder const & m_categories;
   storage::CountryInfoGetter const & m_infoGetter;
+  using CountriesTrie = base::MemTrie<storage::CountryId, base::VectorValues<bool>>;
+  std::unique_ptr<CountriesTrie> m_countriesTrie;
 
   std::string m_region;
   std::string m_query;
