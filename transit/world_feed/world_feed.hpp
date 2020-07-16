@@ -35,7 +35,7 @@ public:
 
 private:
   std::unordered_map<std::string, TransitId> m_hashToId;
-  TransitId m_curId;
+  TransitId m_curId = 0;
   std::string m_idMappingPath;
 };
 
@@ -103,6 +103,8 @@ struct ShapeData
   // Field not for dumping to json:
   IdSet m_lineIds;
 };
+
+using ShapesIter = std::unordered_map<TransitId, ShapeData>::iterator;
 
 struct Shapes
 {
@@ -285,8 +287,6 @@ public:
   // Dumps global feed to |world_feed_path|.
   bool Save(std::string const & worldFeedDir, bool overwrite);
 
-  inline static size_t GetCorruptedStopSequenceCount() { return m_badStopSeqCount; }
-
 private:
   friend class WorldFeedIntegrationTests;
   friend class SubwayConverterTests;
@@ -307,7 +307,7 @@ private:
   bool FillLinesSchedule();
   // Gets frequencies of trips from GTFS.
 
-  // Adds shape with mercator points instead of WGS83 lat/lon.
+  // Adds shape with mercator points instead of WGS84 lat/lon.
   bool AddShape(GtfsIdToHash::iterator & iter, std::string const & gtfsShapeId, TransitId lineId);
   // Fills stops data, corresponding fields in |m_lines| and builds edges for the road graph.
   bool FillStopsEdges();
@@ -331,8 +331,7 @@ private:
   // Recalculates 0-weights of edges based on the shape length.
   bool UpdateEdgeWeights();
 
-  bool ProjectStopsToShape(TransitId shapeId, std::vector<m2::PointD> & shape,
-                           IdList const & stopIds,
+  bool ProjectStopsToShape(ShapesIter & itShape, StopsOnLines const & stopsOnLines,
                            std::unordered_map<TransitId, std::vector<size_t>> & stopsToIndexes);
 
   // Extracts data from GTFS calendar for lines.
@@ -364,7 +363,11 @@ private:
   // Extend existing ids containers by appending to them |fromId| and |toId|. If one of the ids is
   // present in region, then the other is also added.
   std::pair<Regions, Regions> ExtendRegionsByPair(TransitId fromId, TransitId toId);
-
+  // Returns true if edge weight between two stops (stop ids are contained in |edgeId|)
+  // contradicts maximum transit speed.
+  bool SpeedExceedsMaxVal(EdgeId const & edgeId, EdgeData const & edgeData);
+  // Removes entities from feed which are linked only to the |corruptedLineIds|.
+  bool ClearFeedByLineIds(std::unordered_set<TransitId> const & corruptedLineIds);
   // Current GTFS feed which is being merged to the global feed.
   gtfs::Feed m_feed;
 

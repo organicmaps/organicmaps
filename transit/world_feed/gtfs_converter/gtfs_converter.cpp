@@ -238,7 +238,6 @@ bool ConvertFeeds(transit::IdGenerator & generator, transit::ColorPicker & color
 
   LOG(LINFO, ("Corrupted feeds paths:", invalidFeeds));
   LOG(LINFO, ("Corrupted feeds:", invalidFeeds.size(), "/", feedsTotal));
-  LOG(LINFO, ("Bad stop sequences:", transit::WorldFeed::GetCorruptedStopSequenceCount()));
   LOG(LINFO, ("Feeds with no shapes:", feedsWithNoShapesCount, "/", feedsTotal));
   LOG(LINFO, ("Feeds parsed but not dumped:", feedsNotDumpedCount, "/", feedsTotal));
   LOG(LINFO, ("Total dumped feeds:", feedsDumped, "/", feedsTotal));

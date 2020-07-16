@@ -57,6 +57,7 @@ struct TimeFromGateToStop
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(TimeFromGateToStop, visitor(m_stopId, "stopId"),
                                   visitor(m_timeSeconds, "timeSeconds"))
+
   TransitId m_stopId = kInvalidTransitId;
   size_t m_timeSeconds = 0;
 };
