@@ -2,16 +2,12 @@
 
 #import <CoreApi/MWMEye.h>
 
-#import "ActionSheetPicker.h"
 #import "MWMSearchFilterViewController_Protected.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
 namespace
 {
-static NSTimeInterval kDayInterval = 24 * 60 * 60;
-static NSTimeInterval k30DaysInterval = 30 * kDayInterval;
-static NSTimeInterval k360DaysInterval = 360 * kDayInterval;
 static NSString * const kHotelTypePattern = @"search_hotel_filter_%@";
 
 std::array<ftypes::IsHotelChecker::Type, base::Underlying(ftypes::IsHotelChecker::Type::Count)> const
@@ -22,7 +18,6 @@ std::array<ftypes::IsHotelChecker::Type, base::Underlying(ftypes::IsHotelChecker
 
 enum class Section
 {
-  Check,
   Rating,
   PriceCategory,
   Type,
@@ -87,20 +82,16 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 
 @interface MWMSearchHotelsFilterViewController ()<UICollectionViewDelegate,
                                                   UICollectionViewDataSource,
-                                                  MWMFilterCheckCellDelegate, UITableViewDataSource>
+                                                  UITableViewDataSource>
 {
   std::unordered_set<ftypes::IsHotelChecker::Type> m_selectedTypes;
 }
 
-@property(nonatomic) MWMFilterCheckCell * check;
 @property(nonatomic) MWMFilterRatingCell * rating;
 @property(nonatomic) MWMFilterPriceCategoryCell * price;
 @property(nonatomic) MWMFilterCollectionHolderCell * type;
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 @property(weak, nonatomic) IBOutlet UIButton * doneButton;
-
-@property(nonatomic) NSDate * checkInDate;
-@property(nonatomic) NSDate * checkOutDate;
 
 @end
 
@@ -117,12 +108,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 {
   m_selectedTypes = params.types;
   [self.type.collectionView reloadData];
-
-  if (params.checkInDate != nil && params.checkOutDate != nil)
-  {
-    self.checkInDate = params.checkInDate;
-    self.checkOutDate = params.checkOutDate;
-  }
 
   using namespace place_page::rating;
   auto ratingCell = self.rating;
@@ -180,7 +165,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 
 - (void)reset
 {
-  self.check = nil;
   self.rating = nil;
   self.price = nil;
   self.type = nil;
@@ -225,9 +209,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 {
   MWMHotelParams * params = [MWMHotelParams new];
   params.types = m_selectedTypes;
-  params.checkInDate = self.checkInDate;
-  params.checkOutDate = self.checkOutDate;
-  
+
   using namespace place_page::rating;
   MWMFilterRatingCell * rating = self.rating;
   if (rating.good.selected)
@@ -248,13 +230,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   params.price = priceFilter;
     
   return params;
-}
-
-- (void)initialCheckConfig
-{
-  MWMFilterCheckCell * check = self.check;
-  check.isOffline = !Platform::IsConnected();
-  check.delegate = self;
 }
 
 - (void)initialRatingConfig
@@ -279,12 +254,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   [self.type configWithTableView:self.tableView];
 }
 
-- (void)resetCheck
-{
-  self.checkInDate = [NSDate date];
-  self.checkOutDate = [[NSDate date] dateByAddingTimeInterval:kDayInterval];
-}
-
 - (void)resetRating
 {
   MWMFilterRatingCell * rating = self.rating;  
@@ -307,61 +276,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   m_selectedTypes.clear();
 }
 
-#pragma mark - MWMFilterCheckCellDelegate
-
-- (void)checkCellButtonTap:(UIButton * _Nonnull)button
-{
-  NSString * title;
-  NSDate * selectedDate;
-  NSDate * minimumDate;
-  NSDate * maximumDate;
-  if (button == self.check.checkIn)
-  {
-    [Statistics logEvent:kStatSearchFilterClick
-          withParameters:@{kStatCategory: kStatHotel, kStatDate: kStatCheckIn}];
-    title = L(@"booking_filters_check_in");
-    selectedDate = self.checkInDate;
-    minimumDate = [[NSDate date] earlierDate:self.checkOutDate];
-    maximumDate = [minimumDate dateByAddingTimeInterval:k360DaysInterval];
-  }
-  else
-  {
-    [Statistics logEvent:kStatSearchFilterClick
-          withParameters:@{kStatCategory: kStatHotel, kStatDate: kStatCheckOut}];
-    title = L(@"booking_filters_check_out");
-    selectedDate = self.checkOutDate;
-    minimumDate =
-        [[[NSDate date] laterDate:self.checkInDate] dateByAddingTimeInterval:kDayInterval];
-    maximumDate = [self.checkInDate dateByAddingTimeInterval:k30DaysInterval];
-  }
-
-  auto picker = [[ActionSheetDatePicker alloc] initWithTitle:title
-                                              datePickerMode:UIDatePickerModeDate
-                                                selectedDate:selectedDate
-                                                 minimumDate:minimumDate
-                                                 maximumDate:maximumDate
-                                                      target:self
-                                                      action:@selector(datePickerDate:origin:)
-                                                      origin:button];
-  picker.tapDismissAction = TapActionCancel;
-  picker.hideCancel = YES;
-  auto doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                  target:nil
-                                                                  action:nil];
-  [doneButton setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor linkBlue]}
-                            forState:UIControlStateNormal];
-  [picker setDoneButton:doneButton];
-  [picker showActionSheetPicker];
-}
-
-- (void)datePickerDate:(NSDate *)date origin:(id)origin
-{
-  if (origin == self.check.checkIn)
-    self.checkInDate = date;
-  else
-    self.checkOutDate = date;
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -379,16 +293,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   UITableViewCell * cell = nil;
   switch (static_cast<Section>(indexPath.section))
   {
-  case Section::Check:
-    cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterCheckCell className]
-                                           forIndexPath:indexPath];
-    if (!self.check)
-    {
-      self.check = static_cast<MWMFilterCheckCell *>(cell);
-      [self resetCheck];
-    }
-    [self initialCheckConfig];
-    break;
   case Section::Rating:
     cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterRatingCell className] forIndexPath:indexPath];
     if (self.rating != cell)
@@ -493,35 +397,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 {
   auto const type = kTypes[indexPath.row];
   m_selectedTypes.erase(type);
-}
-
-#pragma mark - Properties
-
-- (void)setCheckInDate:(NSDate *)checkInDate
-{
-  _checkInDate = checkInDate;
-  if (auto check = self.check)
-  {
-    [check.checkIn setTitle:[NSDateFormatter localizedStringFromDate:checkInDate
-                                                           dateStyle:NSDateFormatterMediumStyle
-                                                           timeStyle:NSDateFormatterNoStyle]
-                   forState:UIControlStateNormal];
-  }
-  self.checkOutDate = [[checkInDate dateByAddingTimeInterval:k30DaysInterval]
-      earlierDate:[[checkInDate dateByAddingTimeInterval:kDayInterval]
-                      laterDate:self.checkOutDate]];
-}
-
-- (void)setCheckOutDate:(NSDate *)checkOutDate
-{
-  _checkOutDate = checkOutDate;
-  if (auto check = self.check)
-  {
-    [check.checkOut setTitle:[NSDateFormatter localizedStringFromDate:checkOutDate
-                                                            dateStyle:NSDateFormatterMediumStyle
-                                                            timeStyle:NSDateFormatterNoStyle]
-                    forState:UIControlStateNormal];
-  }
 }
 
 #pragma mark - Navigation bar

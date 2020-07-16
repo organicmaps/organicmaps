@@ -1,6 +1,0 @@
-framework module ActionSheetPicker_3_0 {
-  umbrella header "ActionSheetPicker-3.0-umbrella.h"
-
-  export *
-  module * { export * }
-}

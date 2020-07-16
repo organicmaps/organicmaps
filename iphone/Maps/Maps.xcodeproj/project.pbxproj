@@ -66,7 +66,6 @@
 		3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
 		340708651F2905A500029ECC /* NavigationInfoArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340708631F2905A500029ECC /* NavigationInfoArea.swift */; };
 		340708781F2B5D6C00029ECC /* DimBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340708761F2B5D6C00029ECC /* DimBackground.swift */; };
-		3409D50B1FC6D8D2000F9B3E /* FilterCheckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3409D5091FC6D8D2000F9B3E /* FilterCheckCell.swift */; };
 		340B33C61F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340B33C41F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm */; };
 		340E1EEC1E2F614400CE49BF /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 340E1EE41E2F614400CE49BF /* Authorization.storyboard */; };
 		340E1EEF1E2F614400CE49BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 340E1EE51E2F614400CE49BF /* LaunchScreen.storyboard */; };
@@ -1026,7 +1025,6 @@
 		340837121B7243CE00B5C185 /* MWMActivityViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMActivityViewController.mm; sourceTree = "<group>"; };
 		340837141B72451A00B5C185 /* MWMShareActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMShareActivityItem.h; sourceTree = "<group>"; };
 		340837151B72451A00B5C185 /* MWMShareActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMShareActivityItem.mm; sourceTree = "<group>"; };
-		3409D5091FC6D8D2000F9B3E /* FilterCheckCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCheckCell.swift; sourceTree = "<group>"; };
 		340B33C41F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMRouter+RouteManager.mm"; sourceTree = "<group>"; };
 		340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
 		340E1EE41E2F614400CE49BF /* Authorization.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Authorization.storyboard; sourceTree = "<group>"; };
@@ -2319,7 +2317,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* Maps */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				47AEF83F2231249E00D20538 /* categories_brands.txt */,
@@ -4754,7 +4752,6 @@
 		F6E2FCE51E097B9F0083EBEC /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				3409D5091FC6D8D2000F9B3E /* FilterCheckCell.swift */,
 				F63AF5111EA6250F00A1DB98 /* FilterCollectionHolderCell.swift */,
 				F63AF50D1EA6215100A1DB98 /* FilterPriceCategoryCell.swift */,
 				F63AF5091EA6213F00A1DB98 /* FilterRatingCell.swift */,
@@ -5072,7 +5069,7 @@
 				"en-GB",
 				el,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -5351,7 +5348,6 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
@@ -5362,7 +5358,6 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
@@ -5797,7 +5792,6 @@
 				99CB34CD236B054B001D28AD /* DeepLinkInfoRouter.swift in Sources */,
 				99CB34B72369E188001D28AD /* WelcomeRouter.swift in Sources */,
 				99CB34CC236B054B001D28AD /* DeepLinkInfoPresenter.swift in Sources */,
-				3409D50B1FC6D8D2000F9B3E /* FilterCheckCell.swift in Sources */,
 				47E3C72121108E9F008B3B27 /* BookmarksLoadedViewController.swift in Sources */,
 				3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
 				471BBD942130390F00EB17C9 /* TutorialViewController.swift in Sources */,

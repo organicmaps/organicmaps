@@ -23,7 +23,7 @@
 #import <GoogleDataTransport/GDTCORTargets.h>
 
 #import "GDTCCTLibrary/Private/GDTCCTNanopbHelpers.h"
-#import "GDTCCTLibrary/Private/GDTCOREvent+NetworkConnectionInfo.h"
+#import "GDTCCTLibrary/Public/GDTCOREvent+GDTCCTSupport.h"
 
 const static int64_t kMillisPerDay = 8.64e+7;
 

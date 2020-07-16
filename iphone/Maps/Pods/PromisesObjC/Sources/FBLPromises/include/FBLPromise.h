@@ -57,6 +57,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
+@end
+
+@interface FBLPromise<Value>()
+
+/**
+ Adds an object to the set of pending objects to keep strongly while the promise is pending.
+ Used by the Swift wrappers to keep them alive until the underlying ObjC promise is resolved.
+
+ @param object An object to add.
+ */
+- (void)addPendingObject:(id)object NS_REFINED_FOR_SWIFT;
 
 @end
 

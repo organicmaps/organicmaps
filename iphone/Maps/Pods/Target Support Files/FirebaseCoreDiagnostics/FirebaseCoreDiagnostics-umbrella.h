@@ -11,6 +11,8 @@
 #endif
 
 #import "firebasecore.nanopb.h"
+#import "FIRCoreDiagnosticsData.h"
+#import "FIRCoreDiagnosticsInterop.h"
 
 FOUNDATION_EXPORT double FirebaseCoreDiagnosticsVersionNumber;
 FOUNDATION_EXPORT const unsigned char FirebaseCoreDiagnosticsVersionString[];

@@ -40,7 +40,6 @@ BOOL FBLWaitForPromisesWithTimeout(NSTimeInterval timeout) {
 @dynamic isPending;
 @dynamic isFulfilled;
 @dynamic isRejected;
-@dynamic pendingObjects;
 @dynamic value;
 @dynamic error;
 

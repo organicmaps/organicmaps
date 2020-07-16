@@ -31,7 +31,7 @@
 #import <nanopb/pb_decode.h>
 #import <nanopb/pb_encode.h>
 
-#import "GDTCCTLibrary/Private/GDTCOREvent+NetworkConnectionInfo.h"
+#import "GDTCCTLibrary/Public/GDTCOREvent+GDTCCTSupport.h"
 
 #pragma mark - General purpose encoders
 
@@ -144,6 +144,11 @@ gdt_cct_LogEvent GDTCCTConstructLogEvent(GDTCOREvent *event) {
       [networkConnectionInfoData getBytes:&logEvent.network_connection_info
                                    length:networkConnectionInfoData.length];
       logEvent.has_network_connection_info = 1;
+    }
+    NSNumber *eventCode = event.eventCode;
+    if (eventCode != nil) {
+      logEvent.has_event_code = 1;
+      logEvent.event_code = [eventCode intValue];
     }
   }
   NSError *error;

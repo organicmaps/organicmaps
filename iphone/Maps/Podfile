@@ -10,7 +10,6 @@ target 'MAPS.ME' do
 
 pod 'AppsFlyerFramework', '4.9.0'
 pod 'Pushwoosh', '5.16.0'
-pod 'ActionSheetPicker-3.0', '2.3.0'
 pod 'FBSDKCoreKit', '5.15.1'
 pod 'FBSDKLoginKit', '5.15.1'
 pod 'Flurry-iOS-SDK/FlurrySDK', '10.1'

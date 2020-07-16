@@ -10,7 +10,7 @@
 #endif
 #endif
 
-#import "cct.nanopb.h"
+#import "GDTCOREvent+GDTCCTSupport.h"
 
 FOUNDATION_EXPORT double GoogleDataTransportCCTSupportVersionNumber;
 FOUNDATION_EXPORT const unsigned char GoogleDataTransportCCTSupportVersionString[];

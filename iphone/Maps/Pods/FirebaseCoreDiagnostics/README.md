@@ -2,14 +2,20 @@
 [![License](https://img.shields.io/cocoapods/l/Firebase.svg?style=flat)](https://cocoapods.org/pods/Firebase)
 [![Platform](https://img.shields.io/cocoapods/p/Firebase.svg?style=flat)](https://cocoapods.org/pods/Firebase)
 
+[![Actions Status][gh-abtesting-badge]][gh-actions]
 [![Actions Status][gh-auth-badge]][gh-actions]
 [![Actions Status][gh-core-badge]][gh-actions]
+[![Actions Status][gh-crashlytics-badge]][gh-actions]
+[![Actions Status][gh-database-badge]][gh-actions]
 [![Actions Status][gh-datatransport-badge]][gh-actions]
 [![Actions Status][gh-dynamiclinks-badge]][gh-actions]
 [![Actions Status][gh-firebasepod-badge]][gh-actions]
 [![Actions Status][gh-firestore-badge]][gh-actions]
+[![Actions Status][gh-functions-badge]][gh-actions]
+[![Actions Status][gh-inappmessaging-badge]][gh-actions]
 [![Actions Status][gh-interop-badge]][gh-actions]
 [![Actions Status][gh-messaging-badge]][gh-actions]
+[![Actions Status][gh-remoteconfig-badge]][gh-actions]
 [![Actions Status][gh-storage-badge]][gh-actions]
 [![Actions Status][gh-symbolcollision-badge]][gh-actions]
 [![Actions Status][gh-zip-badge]][gh-actions]
@@ -92,7 +98,7 @@ Instructions for installing binary frameworks via
 To develop Firebase software in this repository, ensure that you have at least
 the following software:
 
-  * Xcode 10.1 (or later)
+  * Xcode 10.3 (or later)
   * CocoaPods 1.7.2 (or later)
   * [CocoaPods generate](https://github.com/square/cocoapods-generate)
 
@@ -122,6 +128,10 @@ Firestore has a self contained Xcode project. See
 ### Adding a New Firebase Pod
 
 See [AddNewPod.md](AddNewPod.md).
+
+### Managing Headers and Imports
+
+See [HeadersImports.md](HeadersImports.md).
 
 ### Code Formatting
 
@@ -185,8 +195,16 @@ building and running the FirebaseAuth pod along with various samples and tests.
 
 ### Firebase Database
 
-To run the Database Integration tests, make your database authentication rules
-[public](https://firebase.google.com/docs/database/security/quickstart).
+The Firebase Database Integration tests can be run against a locally running Database Emulator
+or against a production instance.
+
+To run against a local emulator instance, invoke `./scripts/run_database_emulator.sh start` before
+running the integration test.
+
+To run against a production instance, provide a valid GoogleServices-Info.plist and copy it to
+`Example/Database/App/GoogleService-Info.plist`. Your Security Rule must be set to
+[public](https://firebase.google.com/docs/database/security/quickstart) while your tests are
+running.
 
 ### Firebase Storage
 
@@ -274,14 +292,20 @@ Your use of Firebase is governed by the
 [Terms of Service for Firebase Services](https://firebase.google.com/terms/).
 
 [gh-actions]: https://github.com/firebase/firebase-ios-sdk/actions
+[gh-abtesting-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/abtesting/badge.svg
 [gh-auth-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/auth/badge.svg
 [gh-core-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/core/badge.svg
+[gh-crashlytics-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/crashlytics/badge.svg
+[gh-database-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/database/badge.svg
 [gh-datatransport-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/datatransport/badge.svg
 [gh-dynamiclinks-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/dynamiclinks/badge.svg
 [gh-firebasepod-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/firebasepod/badge.svg
 [gh-firestore-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/firestore/badge.svg
+[gh-functions-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/functions/badge.svg
+[gh-inappmessaging-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/inappmessaging/badge.svg
 [gh-interop-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/interop/badge.svg
 [gh-messaging-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/messaging/badge.svg
+[gh-remoteconfig-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/remoteconfig/badge.svg
 [gh-storage-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/storage/badge.svg
 [gh-symbolcollision-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/symbolcollision/badge.svg
 [gh-zip-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/zip/badge.svg
