@@ -48,6 +48,7 @@ NSString * GetLocalizedTypeName(search::Result const & result)
 {
   [super viewWillAppear:animated];
   self.tableView.hidden = NO;
+  self.tableView.insetsContentViewsToSafeArea = YES;
   [(MWMSearchTableView *)self.view hideNoResultsView:YES];
   [self reloadData];
 }

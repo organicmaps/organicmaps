@@ -26,6 +26,7 @@ enum class Price {
 
 - (instancetype)initWithPlacePageData:(PlacePageData *)data;
 - (std::shared_ptr<search::hotels_filter::Rule>)rules;
+- (int)rulesCount;
 - (booking::filter::Params)availabilityParams;
 
 @end

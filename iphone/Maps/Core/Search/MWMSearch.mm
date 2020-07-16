@@ -358,9 +358,21 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   auto filter = [MWMSearch manager].filter;
   if (!filter)
     return NO;
-  auto const hasRules = [filter rules] != nullptr;
-  auto const hasBookingParams = ![filter availabilityParams].IsEmpty();
-  return hasRules || hasBookingParams;
+  return [filter rules] != nullptr;
+}
+
++ (BOOL)hasAvailability {
+  auto filter = [MWMSearch manager].filter;
+  if (!filter)
+    return NO;
+  return !filter.availabilityParams.IsEmpty();
+}
++ (int)filterCount {
+  auto filter = [MWMSearch manager].filter;
+  if (filter && [filter rules]) {
+    return [filter rulesCount];
+  }
+  return 0;
 }
 
 + (MWMHotelParams *)getFilter

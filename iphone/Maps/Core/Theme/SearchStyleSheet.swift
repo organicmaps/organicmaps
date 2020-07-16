@@ -33,41 +33,26 @@ class SearchStyleSheet: IStyleSheet {
       s.shadowOpacity = 1
       s.shadowOffset = CGSize.zero
     }
-    
-    theme.add(styleName: "SearchFilterButtonActive") { (s) -> (Void) in
+
+    theme.add(styleName: "SearchActionBarView") { (s) -> (Void) in
       s.backgroundColor = colors.linkBlue
-      s.backgroundColorHighlighted = colors.linkBlueHighlighted
-      s.fontColor = colors.white
-      s.cornerRadius = 4
-      s.font = fonts.regular17
-    }
-
-    theme.add(styleName: "SearchFilterButtonInActive") { (s) -> (Void) in
-      s.backgroundColor = colors.clear
-      s.backgroundColorHighlighted = colors.clear
-      s.fontColor = colors.linkBlue
-      s.cornerRadius = 4
-      s.font = fonts.regular17
-    }
-
-    theme.add(styleName: "SearchCancelButtonActive") { (s) -> (Void) in
-      s.tintColor = colors.white
-      s.image = "ic_clear_filters"
-      s.coloring = MWMButtonColoring.white
-    }
-
-    theme.add(styleName: "SearchCancelButtonInActive") { (s) -> (Void) in
-      s.tintColor = colors.linkBlueHighlighted
-      s.image = "ic_filter"
-      s.coloring = MWMButtonColoring.blue
-    }
-
-    theme.add(styleName: "SearchChangeModeView") { (s) -> (Void) in
-      s.backgroundColor = colors.pressBackground
-      s.shadowRadius = 2
+      s.cornerRadius = 20
+      s.shadowRadius = 1
       s.shadowColor = UIColor(0, 0, 0, 0.24);
-      s.shadowOffset = CGSize.zero
+      s.shadowOffset = CGSize(width: 0, height: 2)
       s.shadowOpacity = 1
+    }
+
+    theme.add(styleName: "SearchActionBarButton") { (s) -> (Void) in
+      s.backgroundColor = colors.clear
+      s.fontColor = colors.whitePrimaryText
+      s.font = fonts.semibold14
+      s.coloring = .whiteText
+    }
+
+    theme.add(styleName: "SearchFilterAppliedIndicator") { (s) -> (Void) in
+      s.round = true
+      s.clip = true
     }
 
     theme.add(styleName: "SearchSearchTextField") { (s) -> (Void) in

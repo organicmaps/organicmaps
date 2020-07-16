@@ -40,6 +40,8 @@ struct ProductInfo;
 + (BOOL)isHotelResults;
 
 + (BOOL)hasFilter;
++ (BOOL)hasAvailability;
++ (int)filterCount;
 + (MWMHotelParams *)getFilter;
 + (void)clearFilter;
 

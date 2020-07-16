@@ -5,7 +5,7 @@
 @interface MWMSearchManager ()
 
 @property(weak, nonatomic, readonly) UIViewController * ownerController;
-@property(weak, nonatomic) IBOutlet UIButton * actionBarViewFilterButton;
+@property(weak, nonatomic) IBOutlet UIButton * actionBarView;
 
 @property(nonatomic, copy) MWMVoidBlock onFinishCallback;
 
@@ -28,8 +28,8 @@
   {
     navController.modalPresentationStyle = UIModalPresentationPopover;
     UIPopoverPresentationController * popover = navController.popoverPresentationController;
-    popover.sourceView = self.actionBarViewFilterButton;
-    popover.sourceRect = self.actionBarViewFilterButton.bounds;
+    popover.sourceView = self.actionBarView;
+    popover.sourceRect = self.actionBarView.bounds;
     popover.permittedArrowDirections = UIPopoverArrowDirectionLeft;
   }
   

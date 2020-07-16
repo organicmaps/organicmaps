@@ -66,6 +66,27 @@ static int8_t kAgeOfChild = 5;
   return And(And(ratingRule, priceRule), typeRule);
 }
 
+- (int)rulesCount {
+  int result = 0;
+  using namespace search::hotels_filter;
+  using namespace place_page::rating;
+
+  if (self.rating != FilterRating::Any) {
+    result += 1;
+  }
+
+  for (auto const filter : self.price) {
+    if (filter != Price::Any) {
+      result += 1;
+      break;
+    }
+  }
+
+  result += self.types.size();
+
+  return result;
+}
+
 unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const & items)
 {
   unsigned mask = 0;
