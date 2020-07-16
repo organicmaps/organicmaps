@@ -15,7 +15,7 @@
 #include <string>
 #include <vector>
 
-enum class TransitType: uint32_t
+enum class TransitType : uint32_t
 {
   // Do not change the order!
   IntermediatePoint,
@@ -23,7 +23,17 @@ enum class TransitType: uint32_t
   Subway,
   Train,
   LightRail,
-  Monorail
+  Monorail,
+
+  Tram,
+  Bus,
+  Ferry,
+  CableTram,
+  AerialLift,
+  Funicular,
+  Trolleybus,
+  AirService,
+  WaterService
 };
 
 extern std::map<TransitType, std::string> const kTransitSymbols;
@@ -100,6 +110,29 @@ struct TransitMarkInfo
   FeatureID m_featureId;
 };
 
+struct SubrouteParams
+{
+  df::ColorConstant m_lastColor;
+  m2::PointD m_lastDir;
+  ::transit::TransitId m_lastLineId = ::transit::kInvalidTransitId;
+  df::SubrouteMarker m_marker;
+  TransitMarkInfo m_transitMarkInfo;
+  TransitType m_transitType = TransitType::Pedestrian;
+  double m_prevDistance = 0.0;
+  double m_prevTime = 0.0;
+  bool m_pendingEntrance = false;
+};
+
+struct SubrouteSegmentParams
+{
+  SubrouteSegmentParams(routing::TransitInfo const & transitInfo) : m_transitInfo(transitInfo) {}
+  int m_time = 0;
+  double m_distance = 0.0;
+  routing::TransitInfo m_transitInfo;
+  TransitDisplayInfo m_displayInfo;
+  MwmSet::MwmId m_mwmId;
+};
+
 class TransitRouteDisplay
 {
 public:
@@ -116,6 +149,17 @@ public:
   TransitRouteInfo const & GetRouteInfo();
 
 private:
+  void AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
+                                SubrouteParams & sp, SubrouteSegmentParams & ssp);
+  void AddEdgePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
+                            SubrouteParams & sp, SubrouteSegmentParams & ssp);
+
+  void AddGateSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
+                                SubrouteParams & sp, SubrouteSegmentParams & ssp);
+
+  void AddGatePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
+                            SubrouteParams & sp, SubrouteSegmentParams & ssp);
+
   void CollectTransitDisplayInfo(std::vector<routing::RouteSegment> const & segments,
                                  TransitDisplayInfos & transitDisplayInfos);
   TransitMark * CreateMark(m2::PointD const & pt, FeatureID const & fid);

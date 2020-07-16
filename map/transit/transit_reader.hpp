@@ -4,6 +4,7 @@
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
+#include "transit/experimental/transit_data.hpp"
 #include "transit/transit_display_info.hpp"
 
 #include "indexer/data_source.hpp"
@@ -67,6 +68,8 @@ private:
       }
     }
   };
+
+  void FillLinesAndRoutes(::transit::experimental::TransitData const & transitData);
 
   DataSource & m_dataSource;
   TReadFeaturesFn m_readFeaturesFn;

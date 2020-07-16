@@ -1,19 +1,20 @@
 #include "map/transit/transit_reader.hpp"
 
+#include "metrics/eye.hpp"
+
+#include "drape_frontend/drape_engine.hpp"
+#include "drape_frontend/stylist.hpp"
+#include "drape_frontend/visual_params.hpp"
+
 #include "transit/transit_graph_data.hpp"
+#include "transit/transit_version.hpp"
 
 #include "indexer/data_source.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/feature_algo.hpp"
 
-#include "metrics/eye.hpp"
-
 #include "coding/reader.hpp"
-
-#include "drape_frontend/drape_engine.hpp"
-#include "drape_frontend/stylist.hpp"
-#include "drape_frontend/visual_params.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -31,7 +32,7 @@ size_t CalculateCacheSize(TransitDisplayInfo const & transitInfo)
 {
   size_t const kSegmentSize = 72;
   size_t cacheSize = 0;
-  for (auto const & shape : transitInfo.m_shapes)
+  for (auto const & shape : transitInfo.m_shapesSubway)
     cacheSize += shape.second.GetPolyline().size() * kSegmentSize;
   return cacheSize;
 }
@@ -79,24 +80,52 @@ void ReadTransitTask::Do()
   auto reader = mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG);
   CHECK(reader.GetPtr() != nullptr, ());
 
-  routing::transit::GraphData graphData;
-  graphData.DeserializeForRendering(*reader.GetPtr());
-
-  FillItemsByIdMap(graphData.GetStops(), m_transitInfo->m_stops);
-  for (auto const & stop : m_transitInfo->m_stops)
+  auto const transitHeaderVersion = ::transit::GetVersion(*reader.GetPtr());
+  if (transitHeaderVersion == ::transit::TransitVersion::OnlySubway)
   {
-    if (stop.second.GetFeatureId() != routing::transit::kInvalidFeatureId)
-    {
-      auto const featureId = FeatureID(m_mwmId, stop.second.GetFeatureId());
-      m_transitInfo->m_features[featureId] = {};
-    }
+    routing::transit::GraphData graphData;
+    graphData.DeserializeForRendering(*reader.GetPtr());
 
-    if (m_loadSubset && (stop.second.GetTransferId() != routing::transit::kInvalidTransferId))
-      m_transitInfo->m_transfers[stop.second.GetTransferId()] = {};
+    FillItemsByIdMap(graphData.GetStops(), m_transitInfo->m_stopsSubway);
+    for (auto const & stop : m_transitInfo->m_stopsSubway)
+    {
+      if (stop.second.GetFeatureId() != routing::transit::kInvalidFeatureId)
+      {
+        auto const featureId = FeatureID(m_mwmId, stop.second.GetFeatureId());
+        m_transitInfo->m_features[featureId] = {};
+      }
+
+      if (m_loadSubset && (stop.second.GetTransferId() != routing::transit::kInvalidTransferId))
+        m_transitInfo->m_transfersSubway[stop.second.GetTransferId()] = {};
+    }
+    FillItemsByIdMap(graphData.GetTransfers(), m_transitInfo->m_transfersSubway);
+    FillItemsByIdMap(graphData.GetLines(), m_transitInfo->m_linesSubway);
+    FillItemsByIdMap(graphData.GetShapes(), m_transitInfo->m_shapesSubway);
   }
-  FillItemsByIdMap(graphData.GetTransfers(), m_transitInfo->m_transfers);
-  FillItemsByIdMap(graphData.GetLines(), m_transitInfo->m_lines);
-  FillItemsByIdMap(graphData.GetShapes(), m_transitInfo->m_shapes);
+  else if (transitHeaderVersion == ::transit::TransitVersion::AllPublicTransport)
+  {
+    ::transit::experimental::TransitData transitData;
+    transitData.DeserializeForRendering(*reader.GetPtr());
+
+    FillItemsByIdMap(transitData.GetStops(), m_transitInfo->m_stopsPT);
+    for (auto const & stop : m_transitInfo->m_stopsPT)
+    {
+      if (stop.second.GetFeatureId() != ::transit::experimental::kInvalidFeatureId)
+      {
+        auto const featureId = FeatureID(m_mwmId, stop.second.GetFeatureId());
+        m_transitInfo->m_features[featureId] = {};
+      }
+
+      // TODO(o.khlopkova) Add transfers implementation.
+    }
+    FillItemsByIdMap(transitData.GetTransfers(), m_transitInfo->m_transfersPT);
+    FillItemsByIdMap(transitData.GetShapes(), m_transitInfo->m_shapesPT);
+    FillLinesAndRoutes(transitData);
+  }
+  else
+  {
+    UNREACHABLE();
+  }
 
   vector<FeatureID> features;
   for (auto & id : m_transitInfo->m_features)
@@ -135,6 +164,38 @@ void ReadTransitTask::Reset()
 unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
 {
   return move(m_transitInfo);
+}
+
+void ReadTransitTask::FillLinesAndRoutes(::transit::experimental::TransitData const & transitData)
+{
+  auto const & routes = transitData.GetRoutes();
+
+  for (auto const & line : transitData.GetLines())
+  {
+    transit::TransitId const routeId = line.GetRouteId();
+    auto const itRoute = std::find_if(routes.begin(), routes.end(),
+                                      [routeId](::transit::experimental::Route const & route) {
+                                        return route.GetId() == routeId;
+                                      });
+
+    CHECK(itRoute != routes.end(), ());
+
+    if (m_loadSubset)
+    {
+      auto it = m_transitInfo->m_linesPT.find(line.GetId());
+
+      if (it != m_transitInfo->m_linesPT.end())
+      {
+        it->second = line;
+        m_transitInfo->m_routesPT.emplace(routeId, *itRoute);
+      }
+    }
+    else
+    {
+      m_transitInfo->m_linesPT.emplace(line.GetId(), line);
+      m_transitInfo->m_routesPT.emplace(routeId, *itRoute);
+    }
+  }
 }
 
 TransitReadManager::TransitReadManager(DataSource & dataSource,
@@ -275,7 +336,7 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
     for (auto & transitDataItem : newTransitData)
     {
       auto & transitInfo = transitDataItem.second;
-      if (!transitInfo || transitInfo->m_lines.empty())
+      if (!transitInfo || transitInfo->m_linesSubway.empty())
         continue;
 
       auto it = m_mwmCache.find(transitDataItem.first);
