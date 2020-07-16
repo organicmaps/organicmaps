@@ -1,6 +1,9 @@
 #pragma once
 
+#include "transit/experimental/transit_types_experimental.hpp"
+#include "transit/transit_entities.hpp"
 #include "transit/transit_types.hpp"
+#include "transit/transit_version.hpp"
 
 #include "base/assert.hpp"
 
@@ -20,10 +23,10 @@ public:
     Transfer
   };
 
-  struct Edge
+  struct EdgeSubway
   {
-    Edge() = default;
-    explicit Edge(transit::Edge const & edge)
+    EdgeSubway() = default;
+    explicit EdgeSubway(transit::Edge const & edge)
       : m_lineId(edge.GetLineId())
       , m_stop1Id(edge.GetStop1Id())
       , m_stop2Id(edge.GetStop2Id())
@@ -38,18 +41,46 @@ public:
     std::vector<transit::ShapeId> m_shapeIds;
   };
 
-  struct Gate
+  struct EdgePT
   {
-    Gate() = default;
-    explicit Gate(transit::Gate const & gate) : m_featureId(gate.GetFeatureId()) {}
+    EdgePT() = default;
+    explicit EdgePT(::transit::experimental::Edge const & edge)
+      : m_lineId(edge.GetLineId())
+      , m_stop1Id(edge.GetStop1Id())
+      , m_stop2Id(edge.GetStop2Id())
+      , m_shapeLink(edge.GetShapeLink())
+    {
+      ASSERT(!edge.IsTransfer(), ());
+    }
+
+    ::transit::TransitId m_lineId = ::transit::kInvalidTransitId;
+    ::transit::TransitId m_stop1Id = ::transit::kInvalidTransitId;
+    ::transit::TransitId m_stop2Id = ::transit::kInvalidTransitId;
+    ::transit::ShapeLink m_shapeLink;
+  };
+
+  struct GateSubway
+  {
+    GateSubway() = default;
+    explicit GateSubway(transit::Gate const & gate) : m_featureId(gate.GetFeatureId()) {}
 
     transit::FeatureId m_featureId = transit::kInvalidFeatureId;
   };
 
-  struct Transfer
+  struct GatePT
   {
-    Transfer() = default;
-    explicit Transfer(transit::Edge const & edge)
+    GatePT() = default;
+    explicit GatePT(::transit::experimental::Gate const & gate) : m_featureId(gate.GetFeatureId())
+    {
+    }
+
+    ::transit::experimental::FeatureId m_featureId = ::transit::experimental::kInvalidFeatureId;
+  };
+
+  struct TransferSubway
+  {
+    TransferSubway() = default;
+    explicit TransferSubway(transit::Edge const & edge)
       : m_stop1Id(edge.GetStop1Id()), m_stop2Id(edge.GetStop2Id())
     {
       ASSERT(edge.GetTransfer(), ());
@@ -59,47 +90,110 @@ public:
     transit::StopId m_stop2Id = transit::kInvalidStopId;
   };
 
+  struct TransferPT
+  {
+    TransferPT() = default;
+    explicit TransferPT(::transit::experimental::Edge const & edge)
+      : m_stop1Id(edge.GetStop1Id()), m_stop2Id(edge.GetStop2Id())
+    {
+      ASSERT(edge.IsTransfer(), ());
+    }
+
+    ::transit::TransitId m_stop1Id = ::transit::kInvalidTransitId;
+    ::transit::TransitId m_stop2Id = ::transit::kInvalidTransitId;
+  };
+
   explicit TransitInfo(transit::Gate const & gate)
-    : m_type(Type::Gate), m_edge(), m_gate(gate), m_transfer()
+    : m_transitVersion(::transit::TransitVersion::OnlySubway)
+    , m_type(Type::Gate)
+    , m_edgeSubway()
+    , m_gateSubway(gate)
+    , m_transferSubway()
+  {
+  }
+
+  explicit TransitInfo(::transit::experimental::Gate const & gate)
+    : m_transitVersion(::transit::TransitVersion::AllPublicTransport)
+    , m_type(Type::Gate)
+    , m_gatePT(gate)
   {
   }
 
   explicit TransitInfo(transit::Edge const & edge)
-    : m_type(edge.GetTransfer() ? Type::Transfer : Type::Edge)
-    , m_edge(edge.GetTransfer() ? Edge() : Edge(edge))
-    , m_gate()
-    , m_transfer(edge.GetTransfer() ? Transfer(edge) : Transfer())
+    : m_transitVersion(::transit::TransitVersion::OnlySubway)
+    , m_type(edge.GetTransfer() ? Type::Transfer : Type::Edge)
+    , m_edgeSubway(edge.GetTransfer() ? EdgeSubway() : EdgeSubway(edge))
+    , m_gateSubway()
+    , m_transferSubway(edge.GetTransfer() ? TransferSubway(edge) : TransferSubway())
+  {
+  }
+
+  explicit TransitInfo(::transit::experimental::Edge const & edge)
+    : m_transitVersion(::transit::TransitVersion::AllPublicTransport)
+    , m_type(edge.IsTransfer() ? Type::Transfer : Type::Edge)
+    , m_edgePT(edge.IsTransfer() ? EdgePT() : EdgePT(edge))
+    , m_gatePT()
+    , m_transferPT(edge.IsTransfer() ? TransferPT(edge) : TransferPT())
   {
   }
 
   Type GetType() const { return m_type; }
 
-  Edge const & GetEdge() const
+  ::transit::TransitVersion GetVersion() const { return m_transitVersion; }
+
+  EdgeSubway const & GetEdgeSubway() const
   {
     ASSERT_EQUAL(m_type, Type::Edge, ());
-    return m_edge;
+    CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, ());
+    return m_edgeSubway;
   }
 
-  Gate const & GetGate() const
+  GateSubway const & GetGateSubway() const
   {
     ASSERT_EQUAL(m_type, Type::Gate, ());
-    return m_gate;
+    return m_gateSubway;
   }
 
-  Transfer const & GetTransfer() const
+  TransferSubway const & GetTransferSubway() const
   {
     ASSERT_EQUAL(m_type, Type::Transfer, ());
-    return m_transfer;
+    return m_transferSubway;
+  }
+
+  EdgePT const & GetEdgePT() const
+  {
+    ASSERT_EQUAL(m_type, Type::Edge, ());
+    CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
+    return m_edgePT;
+  }
+
+  GatePT const & GetGatePT() const
+  {
+    CHECK_EQUAL(m_type, Type::Gate, ());
+    CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
+    return m_gatePT;
+  }
+
+  TransferPT const & GetTransferPT() const
+  {
+    ASSERT_EQUAL(m_type, Type::Transfer, ());
+    CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
+    return m_transferPT;
   }
 
 private:
+  ::transit::TransitVersion const m_transitVersion;
   Type const m_type;
   // Valid for m_type == Type::Edge only.
-  Edge const m_edge;
+  EdgeSubway const m_edgeSubway;
   // Valid for m_type == Type::Gate only.
-  Gate const m_gate;
+  GateSubway const m_gateSubway;
   // Valid for m_type == Type::Transfer only.
-  Transfer const m_transfer;
+  TransferSubway const m_transferSubway;
+
+  EdgePT const m_edgePT;
+  GatePT const m_gatePT;
+  TransferPT const m_transferPT;
 };
 
 class TransitInfoWrapper final

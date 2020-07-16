@@ -2,11 +2,11 @@
 
 #include "testing/testing.hpp"
 
-#include "routing/geometry.hpp"
-
 #include "routing/base/routing_result.hpp"
-
+#include "routing/geometry.hpp"
 #include "routing/routing_helpers.hpp"
+
+#include "transit/transit_version.hpp"
 
 #include "base/assert.hpp"
 #include "base/math.hpp"
@@ -453,8 +453,9 @@ unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geo
   auto indexGraph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
   indexGraph->Import(joints);
 
-  auto transitGraph = make_unique<TransitGraph>(kTestNumMwmId, estimator);
-  TransitGraph::GateEndings gateEndings;
+  auto transitGraph =
+      make_unique<TransitGraph>(::transit::TransitVersion::OnlySubway, kTestNumMwmId, estimator);
+  TransitGraph::Endings gateEndings;
   MakeGateEndings(transitData.GetGates(), kTestNumMwmId, *indexGraph, gateEndings);
   transitGraph->Fill(transitData, gateEndings);
 

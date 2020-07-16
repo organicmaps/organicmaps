@@ -3,6 +3,7 @@
 #include "routing/fake_ending.hpp"
 #include "routing/routing_exceptions.hpp"
 
+#include "transit/experimental/transit_data.hpp"
 #include "transit/transit_graph_data.hpp"
 #include "transit/transit_serdes.hpp"
 #include "transit/transit_types.hpp"
@@ -75,31 +76,65 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
   base::Timer timer;
-  auto graph = make_unique<TransitGraph>(numMwmId, m_estimator);
+
   MwmValue const & mwmValue = *handle.GetValue();
+
+  // By default we return empty transit graph with version OnlySubway.
   if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
-    return graph;
+    return make_unique<TransitGraph>(::transit::TransitVersion::OnlySubway, numMwmId, m_estimator);
 
   try
   {
     FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(TRANSIT_FILE_TAG));
-    transit::GraphData transitData;
-    transitData.DeserializeForRouting(*reader.GetPtr());
+    auto const transitHeaderVersion = ::transit::GetVersion(*reader.GetPtr());
 
-    TransitGraph::GateEndings gateEndings;
-    MakeGateEndings(transitData.GetGates(), numMwmId, indexGraph, gateEndings);
+    if (transitHeaderVersion == ::transit::TransitVersion::OnlySubway)
+    {
+      auto graph =
+          make_unique<TransitGraph>(::transit::TransitVersion::OnlySubway, numMwmId, m_estimator);
 
-    graph->Fill(transitData, gateEndings);
+      transit::GraphData transitData;
+      transitData.DeserializeForRouting(*reader.GetPtr());
+
+      TransitGraph::Endings gateEndings;
+      MakeGateEndings(transitData.GetGates(), numMwmId, indexGraph, gateEndings);
+
+      graph->Fill(transitData, gateEndings);
+
+      LOG(LINFO, (TRANSIT_FILE_TAG, "section, version", transitHeaderVersion, "for", file.GetName(),
+                  "loaded in", timer.ElapsedSeconds(), "seconds"));
+
+      return graph;
+    }
+    else if (transitHeaderVersion == ::transit::TransitVersion::AllPublicTransport)
+    {
+      auto graph = make_unique<TransitGraph>(::transit::TransitVersion::AllPublicTransport,
+                                             numMwmId, m_estimator);
+
+      ::transit::experimental::TransitData transitData;
+      transitData.DeserializeForRouting(*reader.GetPtr());
+
+      TransitGraph::Endings gateEndings;
+      MakeGateEndings(transitData.GetGates(), numMwmId, indexGraph, gateEndings);
+
+      TransitGraph::Endings stopEndings;
+      MakeStopEndings(transitData.GetStops(), numMwmId, indexGraph, stopEndings);
+
+      graph->Fill(transitData, stopEndings, gateEndings);
+
+      LOG(LINFO, (TRANSIT_FILE_TAG, "section, version", transitHeaderVersion, "for", file.GetName(),
+                  "loaded in", timer.ElapsedSeconds(), "seconds"));
+
+      return graph;
+    }
+
+    UNREACHABLE();
   }
   catch (Reader::OpenException const & e)
   {
     LOG(LERROR, ("Error while reading", TRANSIT_FILE_TAG, "section.", e.Msg()));
     throw;
   }
-
-  LOG(LINFO, (TRANSIT_FILE_TAG, "section for", file.GetName(), "loaded in",
-              timer.ElapsedSeconds(), "seconds"));
-  return graph;
 }
 
 // static

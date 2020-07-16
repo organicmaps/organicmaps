@@ -336,7 +336,7 @@ void TransitSchemeBuilder::BuildScheme(ref_ptr<dp::GraphicsContext> context,
 void TransitSchemeBuilder::CollectStops(TransitDisplayInfo const & transitDisplayInfo,
                                         MwmSet::MwmId const & mwmId, MwmSchemeData & scheme)
 {
-  for (auto const & stopInfo : transitDisplayInfo.m_stops)
+  for (auto const & stopInfo : transitDisplayInfo.m_stopsSubway)
   {
     routing::transit::Stop const & stop = stopInfo.second;
     if (stop.GetTransferId() != routing::transit::kInvalidTransferId)
@@ -345,19 +345,19 @@ void TransitSchemeBuilder::CollectStops(TransitDisplayInfo const & transitDispla
     FillStopParams(transitDisplayInfo, mwmId, stop, stopNode);
   }
 
-  for (auto const & stopInfo : transitDisplayInfo.m_transfers)
+  for (auto const & stopInfo : transitDisplayInfo.m_transfersSubway)
   {
     routing::transit::Transfer const & transfer = stopInfo.second;
     auto & stopNode = scheme.m_transfers[transfer.GetId()];
 
     for (auto stopId : transfer.GetStopIds())
     {
-      if (transitDisplayInfo.m_stops.find(stopId) == transitDisplayInfo.m_stops.end())
+      if (transitDisplayInfo.m_stopsSubway.find(stopId) == transitDisplayInfo.m_stopsSubway.end())
       {
         LOG(LWARNING, ("Invalid stop", stopId, "in transfer", transfer.GetId()));
         continue;
       }
-      routing::transit::Stop const & stop = transitDisplayInfo.m_stops.at(stopId);
+      routing::transit::Stop const & stop = transitDisplayInfo.m_stopsSubway.at(stopId);
       FillStopParams(transitDisplayInfo, mwmId, stop, stopNode);
     }
     stopNode.m_isTransfer = true;
@@ -368,7 +368,7 @@ void TransitSchemeBuilder::CollectStops(TransitDisplayInfo const & transitDispla
 void TransitSchemeBuilder::CollectLines(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme)
 {
   std::multimap<size_t, routing::transit::LineId> linesLengths;
-  for (auto const & line : transitDisplayInfo.m_lines)
+  for (auto const & line : transitDisplayInfo.m_linesSubway)
   {
     auto const lineId = line.second.GetId();
     size_t stopsCount = 0;
@@ -381,7 +381,7 @@ void TransitSchemeBuilder::CollectLines(TransitDisplayInfo const & transitDispla
   for (auto const & pair : linesLengths)
   {
     auto const lineId = pair.second;
-    scheme.m_lines[lineId] = LineParams(transitDisplayInfo.m_lines.at(lineId).GetColor(), depth);
+    scheme.m_lines[lineId] = LineParams(transitDisplayInfo.m_linesSubway.at(lineId).GetColor(), depth);
     depth += kDepthPerLine;
   }
 }
@@ -389,14 +389,14 @@ void TransitSchemeBuilder::CollectLines(TransitDisplayInfo const & transitDispla
 void TransitSchemeBuilder::CollectShapes(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme)
 {
   std::map<uint32_t, std::vector<routing::transit::LineId>> roads;
-  for (auto const & line : transitDisplayInfo.m_lines)
+  for (auto const & line : transitDisplayInfo.m_linesSubway)
   {
     auto const lineId = line.second.GetId();
     auto const roadId = GetRouteId(lineId);
     roads[roadId].push_back(lineId);
   }
 
-  for (auto const & line : transitDisplayInfo.m_lines)
+  for (auto const & line : transitDisplayInfo.m_linesSubway)
   {
     auto const lineId = line.second.GetId();
     auto const roadId = GetRouteId(lineId);
@@ -422,7 +422,7 @@ void TransitSchemeBuilder::FindShapes(routing::transit::StopId stop1Id, routing:
     if (sameLineId == lineId)
       continue;
 
-    auto const & sameLine = transitDisplayInfo.m_lines.at(sameLineId);
+    auto const & sameLine = transitDisplayInfo.m_linesSubway.at(sameLineId);
     auto const & sameStopsRanges = sameLine.GetStopIds();
     for (auto const & sameStops : sameStopsRanges)
     {
@@ -452,11 +452,11 @@ void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInf
                                     routing::transit::LineId lineId,
                                     MwmSchemeData & scheme)
 {
-  auto const stop1It = transitDisplayInfo.m_stops.find(stop1Id);
-  ASSERT(stop1It != transitDisplayInfo.m_stops.end(), ());
+  auto const stop1It = transitDisplayInfo.m_stopsSubway.find(stop1Id);
+  ASSERT(stop1It != transitDisplayInfo.m_stopsSubway.end(), ());
 
-  auto const stop2It = transitDisplayInfo.m_stops.find(stop2Id);
-  ASSERT(stop2It != transitDisplayInfo.m_stops.end(), ());
+  auto const stop2It = transitDisplayInfo.m_stopsSubway.find(stop2Id);
+  ASSERT(stop2It != transitDisplayInfo.m_stopsSubway.end(), ());
 
   auto const transfer1Id = stop1It->second.GetTransferId();
   auto const transfer2Id = stop2It->second.GetTransferId();
@@ -465,24 +465,24 @@ void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInf
                                                                                                : stop1Id,
                                            transfer2Id != routing::transit::kInvalidTransferId ? transfer2Id
                                                                                                : stop2Id);
-  auto it = transitDisplayInfo.m_shapes.find(shapeId);
+  auto it = transitDisplayInfo.m_shapesSubway.find(shapeId);
   bool isForward = true;
-  if (it == transitDisplayInfo.m_shapes.end())
+  if (it == transitDisplayInfo.m_shapesSubway.end())
   {
     isForward = false;
     shapeId = routing::transit::ShapeId(shapeId.GetStop2Id(), shapeId.GetStop1Id());
-    it = transitDisplayInfo.m_shapes.find(shapeId);
+    it = transitDisplayInfo.m_shapesSubway.find(shapeId);
   }
 
-  if (it == transitDisplayInfo.m_shapes.end())
+  if (it == transitDisplayInfo.m_shapesSubway.end())
     return;
 
-  ASSERT(it != transitDisplayInfo.m_shapes.end(), ());
+  ASSERT(it != transitDisplayInfo.m_shapesSubway.end(), ());
 
   auto const itScheme = scheme.m_shapes.find(shapeId);
   if (itScheme == scheme.m_shapes.end())
   {
-    auto const & polyline = transitDisplayInfo.m_shapes.at(it->first).GetPolyline();
+    auto const & polyline = transitDisplayInfo.m_shapesSubway.at(it->first).GetPolyline();
     if (isForward)
       scheme.m_shapes[shapeId].m_forwardLines.push_back(lineId);
     else

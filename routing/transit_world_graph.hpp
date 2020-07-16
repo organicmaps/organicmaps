@@ -40,6 +40,7 @@ public:
   void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
                    bool useRoutingOptions, bool useAccessConditional,
                    std::vector<SegmentEdge> & edges) override;
+  // Dummy method which shouldn't be called.
   void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
                    Segment const & segment, bool isOutgoing, bool useAccessConditional,
                    std::vector<JointEdge> & edges,

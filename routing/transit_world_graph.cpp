@@ -177,11 +177,26 @@ unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segmen
     return {};
 
   auto & transitGraph = GetTransitGraph(segment.GetMwmId());
-  if (transitGraph.IsGate(segment))
-    return make_unique<TransitInfo>(transitGraph.GetGate(segment));
+  if (transitGraph.GetTransitVersion() == ::transit::TransitVersion::OnlySubway)
+  {
+    if (transitGraph.IsGate(segment))
+      return make_unique<TransitInfo>(transitGraph.GetGate(segment));
 
-  if (transitGraph.IsEdge(segment))
-    return make_unique<TransitInfo>(transitGraph.GetEdge(segment));
+    if (transitGraph.IsEdge(segment))
+      return make_unique<TransitInfo>(transitGraph.GetEdge(segment));
+  }
+  else if (transitGraph.GetTransitVersion() == ::transit::TransitVersion::AllPublicTransport)
+  {
+    if (transitGraph.IsGate(segment))
+      return make_unique<TransitInfo>(transitGraph.GetGatePT(segment));
+
+    if (transitGraph.IsEdge(segment))
+      return make_unique<TransitInfo>(transitGraph.GetEdgePT(segment));
+  }
+  else
+  {
+    UNREACHABLE();
+  }
 
   // Fake segment between pedestrian feature and gate.
   return {};
