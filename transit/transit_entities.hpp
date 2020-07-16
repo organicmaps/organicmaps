@@ -105,6 +105,12 @@ struct ShapeLink
            std::tie(rhs.m_shapeId, rhs.m_startIndex, rhs.m_endIndex);
   }
 
+  bool operator<(ShapeLink const & rhs) const
+  {
+    return std::tie(m_shapeId, m_startIndex, m_endIndex) <
+           std::tie(rhs.m_shapeId, rhs.m_startIndex, rhs.m_endIndex);
+  }
+
   DECLARE_VISITOR_AND_DEBUG_PRINT(ShapeLink, visitor(m_shapeId, "id"),
                                   visitor(m_startIndex, "startIndex"),
                                   visitor(m_endIndex, "endIndex"))
