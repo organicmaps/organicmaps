@@ -100,6 +100,7 @@ private:
   void GetAllSuitablePaths(ScoreEdgeVec const & startLines, LinearSegmentSource source,
                            bool isLastPoint, double bearDistM,
                            FunctionalRoadClass functionalRoadClass, FormOfWay formOfWay,
+                           double distanceToNextPointM,
                            std::vector<std::shared_ptr<Link>> & allPaths);
 
   void GetBestCandidatePaths(std::vector<std::shared_ptr<Link>> const & allPaths,

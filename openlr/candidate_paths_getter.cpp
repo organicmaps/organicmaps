@@ -117,7 +117,8 @@ void CandidatePathsGetter::GetStartLines(vector<m2::PointD> const & points, bool
 void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLines,
                                                bool isLastPoint, double bearDistM,
                                                FunctionalRoadClass functionalRoadClass,
-                                               FormOfWay formOfWay, vector<LinkPtr> & allPaths)
+                                               FormOfWay formOfWay, double distanceToNextPointM,
+                                               vector<LinkPtr> & allPaths)
 {
   queue<LinkPtr> q;
 
@@ -277,7 +278,7 @@ void CandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint cons
 
   vector<LinkPtr> allPaths;
   GetAllSuitablePaths(startLines, isLastPoint, bearDistM, p.m_functionalRoadClass, p.m_formOfWay,
-                      allPaths);
+                      distanceToNextPointM, allPaths);
   GetBestCandidatePaths(allPaths, isLastPoint, p.m_bearing, bearDistM, startPoint, candidates);
   LOG(LDEBUG, (candidates.size(), "candidate paths found for point (LatLon)", p.m_latLon));
 }

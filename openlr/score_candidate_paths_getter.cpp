@@ -5,7 +5,6 @@
 #include "openlr/score_candidate_points_getter.hpp"
 
 #include "routing/road_graph.hpp"
-#include "base/stl_helpers.hpp"
 
 #include "platform/location.hpp"
 
@@ -141,6 +140,7 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
                                                     double bearDistM,
                                                     FunctionalRoadClass functionalRoadClass,
                                                     FormOfWay formOfWay,
+                                                    double distanceToNextPointM,
                                                     vector<shared_ptr<Link>> & allPaths)
 {
   CHECK_NOT_EQUAL(source, LinearSegmentSource::NotValid, ());
@@ -170,6 +170,12 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
 
     auto const & currentEdge = u->m_edge;
     auto const currentEdgeLen = EdgeLength(currentEdge);
+
+    // The path from the start of the segment of to the finish to the segment should be
+    // much shorter then the distance of connection of openlr segment.
+    // This condition should be checked because otherwise in rare case |q| may be overfilled.
+    if (u->m_distanceM > distanceToNextPointM)
+      continue;
 
     if (u->m_distanceM + currentEdgeLen >= bearDistM)
     {
@@ -302,7 +308,7 @@ void ScoreCandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint
 
   vector<shared_ptr<Link>> allPaths;
   GetAllSuitablePaths(startLines, source, isLastPoint, bearDistM, p.m_functionalRoadClass,
-                      p.m_formOfWay, allPaths);
+                      p.m_formOfWay, distanceToNextPointM, allPaths);
 
   GetBestCandidatePaths(allPaths, source, isLastPoint, p.m_bearing, bearDistM, startPoint,
                         candidates);
