@@ -1,12 +1,11 @@
-#import <CoreApi/MWMTypes.h>
 #import <CoreApi/CoreBanner.h>
+#import <CoreApi/MWMTypes.h>
 
 #import "MWMHotelParams.h"
 #import "MWMSearchItemType.h"
 #import "MWMSearchObserver.h"
 
-namespace search
-{
+namespace search {
 class Result;
 struct ProductInfo;
 }  // namespace search
@@ -48,8 +47,7 @@ struct ProductInfo;
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
-__attribute__((unavailable("call +manager instead")));
-+ (instancetype) new __attribute__((unavailable("call +manager instead")));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +manager instead")));
++ (instancetype)new __attribute__((unavailable("call +manager instead")));
 
 @end

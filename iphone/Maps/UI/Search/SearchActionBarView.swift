@@ -36,7 +36,7 @@
     }
   }
 
-  @objc func updateFilterButton(showFilter:Bool, filterCount: Int){
+  @objc func updateFilterButton(showFilter: Bool, filterCount: Int) {
     filterAppliedLabel.text = "\(filterCount)"
     if showFilter {
       hideView(filterButton, isHidden: filterCount > 0, animated: true)
@@ -52,14 +52,14 @@
   private func hideView(_ view: UIView, isHidden: Bool, animated: Bool) {
     view.isHidden = isHidden
     if animated {
-      UIView.animate(withDuration: kDefaultAnimationDuration/2,
+      UIView.animate(withDuration: kDefaultAnimationDuration / 2,
                      delay: 0,
                      options: [.beginFromCurrentState],
                      animations: {
                       self.layoutIfNeeded()
-      }, completion: {complete in
+      }, completion: { complete in
         if complete {
-          UIView.animate(withDuration: kDefaultAnimationDuration/2,
+          UIView.animate(withDuration: kDefaultAnimationDuration / 2,
                          delay: 0, options: [.beginFromCurrentState],
                          animations: {
                           view.alpha = isHidden ? 0 : 1

@@ -1,6 +1,6 @@
 class SearchStyleSheet: IStyleSheet {
   static func register(theme: Theme, colors: IColors, fonts: IFonts) {
-    theme.add(styleName: "SearchInstallButton") { (s) -> (Void) in
+    theme.add(styleName: "SearchInstallButton") { (s) -> Void in
       s.cornerRadius = 10
       s.clip = true
       s.font = fonts.medium12
@@ -8,28 +8,28 @@ class SearchStyleSheet: IStyleSheet {
       s.backgroundColor = colors.searchPromoBackground
     }
 
-    theme.add(styleName: "SearchBanner") { (s) -> (Void) in
+    theme.add(styleName: "SearchBanner") { (s) -> Void in
       s.backgroundColor = colors.searchPromoBackground
     }
 
-    theme.add(styleName: "SearchClosedBackground") { (s) -> (Void) in
+    theme.add(styleName: "SearchClosedBackground") { (s) -> Void in
       s.cornerRadius = 4
       s.backgroundColor = colors.blackHintText
     }
 
-    theme.add(styleName: "SearchPopularView") { (s) -> (Void) in
+    theme.add(styleName: "SearchPopularView") { (s) -> Void in
       s.cornerRadius = 10
       s.backgroundColor = colors.linkBlueHighlighted
     }
 
-    theme.add(styleName: "SearchSideAvaliableMarker") { (s) -> (Void) in
+    theme.add(styleName: "SearchSideAvaliableMarker") { (s) -> Void in
       s.backgroundColor = colors.ratingGreen
     }
 
-    theme.add(styleName: "SearchBarView") { (s) -> (Void) in
+    theme.add(styleName: "SearchBarView") { (s) -> Void in
       s.backgroundColor = colors.primary
       s.shadowRadius = 2
-      s.shadowColor = UIColor(0,0,0, alpha26)
+      s.shadowColor = UIColor(0, 0, 0, alpha26)
       s.shadowOpacity = 1
       s.shadowOffset = CGSize.zero
     }
@@ -38,7 +38,7 @@ class SearchStyleSheet: IStyleSheet {
       s.backgroundColor = colors.linkBlue
       s.cornerRadius = 20
       s.shadowRadius = 1
-      s.shadowColor = UIColor(0, 0, 0, 0.24);
+      s.shadowColor = UIColor(0, 0, 0, 0.24)
       s.shadowOffset = CGSize(width: 0, height: 2)
       s.shadowOpacity = 1
     }
@@ -50,43 +50,43 @@ class SearchStyleSheet: IStyleSheet {
       s.coloring = .whiteText
     }
 
-    theme.add(styleName: "SearchFilterAppliedIndicator") { (s) -> (Void) in
+    theme.add(styleName: "SearchFilterAppliedIndicator") { (s) -> Void in
       s.round = true
       s.clip = true
     }
 
-    theme.add(styleName: "SearchSearchTextField") { (s) -> (Void) in
+    theme.add(styleName: "SearchSearchTextField") { (s) -> Void in
       s.fontColor = colors.blackSecondaryText
       s.backgroundColor = colors.white
       s.tintColor = colors.blackSecondaryText
     }
 
-    theme.add(styleName: "SearchSearchTextFieldIcon") { (s) -> (Void) in
+    theme.add(styleName: "SearchSearchTextFieldIcon") { (s) -> Void in
       s.tintColor = colors.blackSecondaryText
       s.coloring = MWMButtonColoring.black
       s.color = colors.blackSecondaryText
     }
 
-    theme.add(styleName: "SearchDatePickerField")  { (s) -> (Void) in
+    theme.add(styleName: "SearchDatePickerField") { (s) -> Void in
       s.backgroundColor = colors.white
       s.cornerRadius = 4
       s.borderColor = colors.solidDividers
       s.borderWidth = 1
     }
 
-    theme.add(styleName: "FilterRatingButton") { (s) -> (Void) in
+    theme.add(styleName: "FilterRatingButton") { (s) -> Void in
       s.cornerRadius = 4
       s.borderWidth = 1
       s.borderColor = colors.blackDividers
     }
 
-    theme.add(styleName: "SearchFilterTypeCell") { (s) -> (Void) in
+    theme.add(styleName: "SearchFilterTypeCell") { (s) -> Void in
       s.cornerRadius = 16
       s.borderColor = colors.blackDividers
       s.borderWidth = 1
     }
 
-    theme.add(styleName: "FilterCheckButton") { (s) -> (Void) in
+    theme.add(styleName: "FilterCheckButton") { (s) -> Void in
       s.fontColor = colors.blackPrimaryText
       s.fontColorDisabled = colors.blackDividers
       s.backgroundColor = colors.white
@@ -97,11 +97,11 @@ class SearchStyleSheet: IStyleSheet {
       s.textAlignment = .natural
     }
 
-    theme.add(styleName: "SearchCellAds", from: "TableCell") { (s) -> (Void) in
+    theme.add(styleName: "SearchCellAds", from: "TableCell") { (s) -> Void in
       s.backgroundColor = colors.searchPromoBackground
     }
 
-    theme.add(styleName: "SearchCellAvaliable", from: "TableCell") { (s) -> (Void) in
+    theme.add(styleName: "SearchCellAvaliable", from: "TableCell") { (s) -> Void in
       s.backgroundColor = colors.transparentGreen
     }
 

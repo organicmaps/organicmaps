@@ -1,5 +1,5 @@
-#include "map/place_page_info.hpp"
 #include "map/booking_filter_params.hpp"
+#include "map/place_page_info.hpp"
 
 #include "search/hotels_filter.hpp"
 
@@ -16,13 +16,13 @@ enum class Price {
 
 @class PlacePageData;
 
-@interface MWMHotelParams : NSObject 
+@interface MWMHotelParams : NSObject
 
-@property (nonatomic) std::unordered_set<Price> price;
-@property (nonatomic) std::unordered_set<ftypes::IsHotelChecker::Type> types;
-@property (nonatomic) place_page::rating::FilterRating rating;
-@property (nonatomic) NSDate * checkInDate;
-@property (nonatomic) NSDate * checkOutDate;
+@property(nonatomic) std::unordered_set<Price> price;
+@property(nonatomic) std::unordered_set<ftypes::IsHotelChecker::Type> types;
+@property(nonatomic) place_page::rating::FilterRating rating;
+@property(nonatomic) NSDate *checkInDate;
+@property(nonatomic) NSDate *checkOutDate;
 
 - (instancetype)initWithPlacePageData:(PlacePageData *)data;
 - (std::shared_ptr<search::hotels_filter::Rule>)rules;

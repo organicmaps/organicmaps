@@ -9,67 +9,61 @@
 #include "partners_api/ads/ads_engine.hpp"
 #include "platform/network_policy.hpp"
 
-namespace
-{
+namespace {
 using Observer = id<MWMSearchObserver>;
 using Observers = NSHashTable<Observer>;
 
-booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availabilityParams)
-{
+booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabilityParams) {
   booking::filter::Tasks tasks;
-  if (availabilityParams.IsEmpty())
-  {
+  if (availabilityParams.IsEmpty()) {
     if (!platform::GetCurrentNetworkPolicy().CanUse())
       return {};
-    
+
     auto params = GetFramework().GetLastBookingAvailabilityParams();
     if (params.IsEmpty())
       params = booking::AvailabilityParams::MakeDefault();
     params.m_dealsOnly = true;
-    
+
     booking::filter::Params dp(std::make_shared<booking::AvailabilityParams>(params), {});
     tasks.EmplaceBack(booking::filter::Type::Deals, move(dp));
-  }
-  else
-  {
+  } else {
     booking::AvailabilityParams dp;
     dp.Set(*(availabilityParams.m_apiParams));
     dp.m_dealsOnly = true;
     booking::filter::Params dealsParams(std::make_shared<booking::AvailabilityParams>(dp), {});
-    
+
     tasks.EmplaceBack(booking::filter::Type::Availability, std::move(availabilityParams));
     tasks.EmplaceBack(booking::filter::Type::Deals, std::move(dealsParams));
   }
-  
+
   return tasks;
 }
 }  // namespace
 
-@interface MWMSearch ()<MWMFrameworkDrapeObserver>
+@interface MWMSearch () <MWMFrameworkDrapeObserver>
 
 @property(nonatomic) NSUInteger suggestionsCount;
 @property(nonatomic) BOOL searchOnMap;
 
 @property(nonatomic) BOOL textChanged;
 
-@property(nonatomic) Observers * observers;
+@property(nonatomic) Observers *observers;
 
 @property(nonatomic) NSUInteger lastSearchTimestamp;
 
-@property(nonatomic) MWMHotelParams * filter;
+@property(nonatomic) MWMHotelParams *filter;
 
-@property(nonatomic) MWMSearchIndex * itemsIndex;
+@property(nonatomic) MWMSearchIndex *itemsIndex;
 
-@property(nonatomic) MWMSearchBanners * banners;
+@property(nonatomic) MWMSearchBanners *banners;
 
 @property(nonatomic) NSInteger searchCount;
 
-@property(copy, nonatomic) NSString * lastQuery;
+@property(copy, nonatomic) NSString *lastQuery;
 
 @end
 
-@implementation MWMSearch
-{
+@implementation MWMSearch {
   search::EverywhereSearchParams m_everywhereParams;
   search::ViewportSearchParams m_viewportParams;
   search::Results m_everywhereResults;
@@ -80,9 +74,8 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
 
 #pragma mark - Instance
 
-+ (MWMSearch *)manager
-{
-  static MWMSearch * manager;
++ (MWMSearch *)manager {
+  static MWMSearch *manager;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     manager = [[self alloc] initManager];
@@ -90,11 +83,9 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   return manager;
 }
 
-- (instancetype)initManager
-{
+- (instancetype)initManager {
   self = [super init];
-  if (self)
-  {
+  if (self) {
     _observers = [Observers weakObjectsHashTable];
     [MWMFrameworkListener addObserver:self];
   }
@@ -102,21 +93,19 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
 }
 
 - (void)enableCallbackFor:(booking::filter::Type const)filterType {
-  auto & tasks = self->m_everywhereParams.m_bookingFilterTasks;
+  auto &tasks = self->m_everywhereParams.m_bookingFilterTasks;
   auto availabilityTaskIt = tasks.Find(filterType);
-  if (availabilityTaskIt != tasks.end())
-  {
-    availabilityTaskIt->m_filterParams.m_callback =
-    [self, filterType](std::shared_ptr<booking::ParamsBase> const & apiParams,
-                       std::vector<FeatureID> const & sortedFeatures)
-    {
-      auto & t = self->m_everywhereParams.m_bookingFilterTasks;
+  if (availabilityTaskIt != tasks.end()) {
+    availabilityTaskIt->m_filterParams.m_callback = [self, filterType](
+                                                      std::shared_ptr<booking::ParamsBase> const &apiParams,
+                                                      std::vector<FeatureID> const &sortedFeatures) {
+      auto &t = self->m_everywhereParams.m_bookingFilterTasks;
       auto const it = t.Find(filterType);
 
       if (it == t.end())
         return;
 
-      auto const & p = it->m_filterParams.m_apiParams;
+      auto const &p = it->m_filterParams.m_apiParams;
       if (p->IsEmpty() || !p->Equals(*apiParams))
         return;
 
@@ -126,16 +115,12 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   }
 }
 
-- (void)searchEverywhere
-{
+- (void)searchEverywhere {
   self.lastSearchTimestamp += 1;
   NSUInteger const timestamp = self.lastSearchTimestamp;
-  m_everywhereParams.m_onResults = [self, timestamp](
-                                       search::Results const & results,
-                                       std::vector<search::ProductInfo> const & productInfo) {
-
-    if (timestamp == self.lastSearchTimestamp)
-    {
+  m_everywhereParams.m_onResults = [self, timestamp](search::Results const &results,
+                                                     std::vector<search::ProductInfo> const &productInfo) {
+    if (timestamp == self.lastSearchTimestamp) {
       self->m_everywhereResults = results;
       self->m_productInfo = productInfo;
       self.suggestionsCount = results.GetSuggestsCount();
@@ -154,10 +139,9 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   self.searchCount += 1;
 }
 
-- (void)searchInViewport
-{
+- (void)searchInViewport {
   m_viewportParams.m_onStarted = [self] { self.searchCount += 1; };
-  m_viewportParams.m_onCompleted = [self](search::Results const & results) {
+  m_viewportParams.m_onCompleted = [self](search::Results const &results) {
     if (!results.IsEndMarker())
       return;
     self->m_viewportResults = results;
@@ -167,14 +151,12 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   GetFramework().GetSearchAPI().SearchInViewport(m_viewportParams);
 }
 
-- (void)updateFilters
-{
+- (void)updateFilters {
   std::shared_ptr<search::hotels_filter::Rule> const hotelsRules = self.filter ? [self.filter rules] : nullptr;
   m_viewportParams.m_hotelsFilter = hotelsRules;
   m_everywhereParams.m_hotelsFilter = hotelsRules;
-  
-  auto availabilityParams =
-    self.filter ? [self.filter availabilityParams] : booking::filter::Params();
+
+  auto availabilityParams = self.filter ? [self.filter availabilityParams] : booking::filter::Params();
 
   auto const tasks = MakeBookingFilterTasks(std::move(availabilityParams));
 
@@ -182,20 +164,16 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   m_everywhereParams.m_bookingFilterTasks = tasks;
 }
 
-- (void)update
-{
+- (void)update {
   [self reset];
   if (m_everywhereParams.m_query.empty())
     return;
   [self updateFilters];
 
-  if (IPAD)
-  {
+  if (IPAD) {
     [self searchInViewport];
     [self searchEverywhere];
-  }
-  else
-  {
+  } else {
     if (self.searchOnMap)
       [self searchInViewport];
     else
@@ -205,38 +183,33 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
 
 #pragma mark - Add/Remove Observers
 
-+ (void)addObserver:(id<MWMSearchObserver>)observer
-{
++ (void)addObserver:(id<MWMSearchObserver>)observer {
   [[MWMSearch manager].observers addObject:observer];
 }
 
-+ (void)removeObserver:(id<MWMSearchObserver>)observer
-{
++ (void)removeObserver:(id<MWMSearchObserver>)observer {
   [[MWMSearch manager].observers removeObject:observer];
 }
 
 #pragma mark - Methods
 
-+ (void)saveQuery:(NSString *)query forInputLocale:(NSString *)inputLocale
-{
++ (void)saveQuery:(NSString *)query forInputLocale:(NSString *)inputLocale {
   if (!query || query.length == 0)
     return;
 
   std::string const locale = (!inputLocale || inputLocale.length == 0)
-                            ? [MWMSearch manager]->m_everywhereParams.m_inputLocale
-                            : inputLocale.UTF8String;
+                               ? [MWMSearch manager]->m_everywhereParams.m_inputLocale
+                               : inputLocale.UTF8String;
   std::string const text = query.precomposedStringWithCompatibilityMapping.UTF8String;
   GetFramework().GetSearchAPI().SaveSearchQuery(make_pair(locale, text));
 }
 
-+ (void)searchQuery:(NSString *)query forInputLocale:(NSString *)inputLocale
-{
++ (void)searchQuery:(NSString *)query forInputLocale:(NSString *)inputLocale {
   if (!query)
     return;
 
-  MWMSearch * manager = [MWMSearch manager];
-  if (inputLocale.length != 0)
-  {
+  MWMSearch *manager = [MWMSearch manager];
+  if (inputLocale.length != 0) {
     std::string const locale = inputLocale.UTF8String;
     manager->m_everywhereParams.m_inputLocale = locale;
     manager->m_viewportParams.m_inputLocale = locale;
@@ -246,9 +219,9 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   manager->m_everywhereParams.m_query = text;
   manager->m_viewportParams.m_query = text;
   manager.textChanged = YES;
-  auto const & adsEngine = GetFramework().GetAdsEngine();
+  auto const &adsEngine = GetFramework().GetAdsEngine();
   auto const banners = adsEngine.GetSearchBanners();
-  
+
   if (!banners.empty()) {
     auto coreBanners = banner_helpers::MatchPriorityBanners(banners, manager.lastQuery);
     [[MWMBannersCache cache] refreshWithCoreBanners:coreBanners];
@@ -256,61 +229,53 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   [manager update];
 }
 
-+ (void)showResult:(search::Result const &)result { GetFramework().ShowSearchResult(result); }
-+ (search::Result const &)resultWithContainerIndex:(NSUInteger)index
-{
++ (void)showResult:(search::Result const &)result {
+  GetFramework().ShowSearchResult(result);
+}
++ (search::Result const &)resultWithContainerIndex:(NSUInteger)index {
   return [MWMSearch manager]->m_everywhereResults[index];
 }
 
-+ (search::ProductInfo const &)productInfoWithContainerIndex:(NSUInteger)index
-{
++ (search::ProductInfo const &)productInfoWithContainerIndex:(NSUInteger)index {
   return [MWMSearch manager]->m_productInfo[index];
 }
 
-+ (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index
-{
++ (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index {
   return [[MWMSearch manager].banners bannerAtIndex:index];
 }
 
-+ (BOOL)isFeatureAt:(NSUInteger)index in:(std::vector<FeatureID> const &)array
-{
-  auto const & result = [self resultWithContainerIndex:index];
++ (BOOL)isFeatureAt:(NSUInteger)index in:(std::vector<FeatureID> const &)array {
+  auto const &result = [self resultWithContainerIndex:index];
   if (result.GetResultType() != search::Result::Type::Feature)
     return NO;
-  auto const & resultFeatureID = result.GetFeatureID();
+  auto const &resultFeatureID = result.GetFeatureID();
   return std::binary_search(array.begin(), array.end(), resultFeatureID);
 }
 
-+ (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index
-{
++ (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index {
   return [self isFeatureAt:index in:[MWMSearch manager]->m_filterResults[booking::filter::Type::Availability]];
 }
 
-+ (BOOL)isDealAvailableWithContainerIndex:(NSUInteger)index
-{
++ (BOOL)isDealAvailableWithContainerIndex:(NSUInteger)index {
   return [self isFeatureAt:index in:[MWMSearch manager]->m_filterResults[booking::filter::Type::Deals]];
 }
 
-+ (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row
-{
++ (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row {
   auto itemsIndex = [MWMSearch manager].itemsIndex;
   return [itemsIndex resultTypeWithRow:row];
 }
 
-+ (NSUInteger)containerIndexWithRow:(NSUInteger)row
-{
++ (NSUInteger)containerIndexWithRow:(NSUInteger)row {
   auto itemsIndex = [MWMSearch manager].itemsIndex;
   return [itemsIndex resultContainerIndexWithRow:row];
 }
 
-+ (void)updateHotelFilterWithParams:(MWMHotelParams *)params
-{
++ (void)updateHotelFilterWithParams:(MWMHotelParams *)params {
   [MWMSearch manager].filter = params;
   [[MWMSearch manager] update];
 }
 
-- (void)reset
-{
+- (void)reset {
   self.lastSearchTimestamp += 1;
   GetFramework().GetSearchAPI().CancelAllSearches();
 
@@ -324,8 +289,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   [self onSearchResultsUpdated];
 }
 
-+ (void)clear
-{
++ (void)clear {
   auto manager = [MWMSearch manager];
   manager->m_everywhereParams.m_query.clear();
   manager->m_viewportParams.m_query.clear();
@@ -334,11 +298,10 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   [manager reset];
 }
 
-+ (void)setSearchOnMap:(BOOL)searchOnMap
-{
++ (void)setSearchOnMap:(BOOL)searchOnMap {
   if (IPAD)
     return;
-  MWMSearch * manager = [MWMSearch manager];
+  MWMSearch *manager = [MWMSearch manager];
   if (manager.searchOnMap == searchOnMap)
     return;
   manager.searchOnMap = searchOnMap;
@@ -347,14 +310,19 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   [manager update];
 }
 
-+ (NSUInteger)suggestionsCount { return [MWMSearch manager].suggestionsCount; }
-+ (NSUInteger)resultsCount { return [MWMSearch manager].itemsIndex.count; }
-+ (BOOL)isHotelResults { return [[MWMSearch manager] isHotelResults]; }
++ (NSUInteger)suggestionsCount {
+  return [MWMSearch manager].suggestionsCount;
+}
++ (NSUInteger)resultsCount {
+  return [MWMSearch manager].itemsIndex.count;
+}
++ (BOOL)isHotelResults {
+  return [[MWMSearch manager] isHotelResults];
+}
 
 #pragma mark - Filters
 
-+ (BOOL)hasFilter
-{
++ (BOOL)hasFilter {
   auto filter = [MWMSearch manager].filter;
   if (!filter)
     return NO;
@@ -375,27 +343,23 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   return 0;
 }
 
-+ (MWMHotelParams *)getFilter
-{
-  MWMSearch * manager = [MWMSearch manager];
++ (MWMHotelParams *)getFilter {
+  MWMSearch *manager = [MWMSearch manager];
   return manager.filter;
 }
 
-+ (void)clearFilter
-{
-  MWMSearch * manager = [MWMSearch manager];
++ (void)clearFilter {
+  MWMSearch *manager = [MWMSearch manager];
   manager.filter = nil;
   [manager update];
 }
 
-- (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner
-{
+- (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner {
   auto const resultsCount = self->m_everywhereResults.GetCount();
   auto const itemsIndex = [[MWMSearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
                                                               resultsCount:resultsCount];
-  if (resultsCount > 0)
-  {
-    auto const & adsEngine = GetFramework().GetAdsEngine();
+  if (resultsCount > 0) {
+    auto const &adsEngine = GetFramework().GetAdsEngine();
     auto const banners = adsEngine.GetSearchBanners();
 
     if (!banners.empty()) {
@@ -412,9 +376,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
                                          [self.banners add:ad];
                                        }];
     }
-  }
-  else
-  {
+  } else {
     self.banners = nil;
   }
   [itemsIndex build];
@@ -423,30 +385,24 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
 
 #pragma mark - Notifications
 
-- (void)onSearchStarted
-{
-  for (Observer observer in self.observers)
-  {
+- (void)onSearchStarted {
+  for (Observer observer in self.observers) {
     if ([observer respondsToSelector:@selector(onSearchStarted)])
       [observer onSearchStarted];
   }
 }
 
-- (void)onSearchCompleted
-{
+- (void)onSearchCompleted {
   [self updateItemsIndexWithBannerReload:YES];
-  for (Observer observer in self.observers)
-  {
+  for (Observer observer in self.observers) {
     if ([observer respondsToSelector:@selector(onSearchCompleted)])
       [observer onSearchCompleted];
   }
 }
 
-- (void)onSearchResultsUpdated
-{
+- (void)onSearchResultsUpdated {
   [self updateItemsIndexWithBannerReload:NO];
-  for (Observer observer in self.observers)
-  {
+  for (Observer observer in self.observers) {
     if ([observer respondsToSelector:@selector(onSearchResultsUpdated)])
       [observer onSearchResultsUpdated];
   }
@@ -454,8 +410,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
 
 #pragma mark - MWMFrameworkDrapeObserver
 
-- (void)processViewportChangedEvent
-{
+- (void)processViewportChangedEvent {
   if (!GetFramework().GetSearchAPI().IsViewportSearchActive())
     return;
   if (IPAD)
@@ -464,10 +419,8 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
 
 #pragma mark - Properties
 
-- (void)setSearchCount:(NSInteger)searchCount
-{
-  NSAssert((searchCount >= 0) &&
-               ((_searchCount == searchCount - 1) || (_searchCount == searchCount + 1)),
+- (void)setSearchCount:(NSInteger)searchCount {
+  NSAssert((searchCount >= 0) && ((_searchCount == searchCount - 1) || (_searchCount == searchCount + 1)),
            @"Invalid search count update");
   if (_searchCount == 0)
     [self onSearchStarted];
@@ -476,8 +429,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   _searchCount = searchCount;
 }
 
-- (BOOL)isHotelResults
-{
+- (BOOL)isHotelResults {
   return m_everywhereResults.GetType() == search::Results::Type::Hotels ||
          m_viewportResults.GetType() == search::Results::Type::Hotels;
 }

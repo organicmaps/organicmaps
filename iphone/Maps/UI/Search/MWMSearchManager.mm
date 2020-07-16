@@ -4,9 +4,9 @@
 #import "MWMNoMapsViewController.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
-#import "MWMSearchTableViewController.h"
 #import "MWMSearchManager+Filter.h"
 #import "MWMSearchManager+Layout.h"
+#import "MWMSearchTableViewController.h"
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
@@ -41,13 +41,13 @@ using Observers = NSHashTable<Observer>;
 @property(weak, nonatomic, readonly) MWMMapViewControlsManager *controlsManager;
 
 @property(nonatomic) IBOutlet SearchBar *searchBarView;
-@property(weak, nonatomic) IBOutlet SearchActionBarView* actionBarView;
+@property(weak, nonatomic) IBOutlet SearchActionBarView *actionBarView;
 @property(nonatomic) IBOutlet UIView *contentView;
-@property (strong, nonatomic) IBOutlet UIView *tableViewContainer;
+@property(strong, nonatomic) IBOutlet UIView *tableViewContainer;
 
-@property(nonatomic) NSLayoutConstraint * contentViewTopHidden;
-@property(nonatomic) NSLayoutConstraint * actionBarViewBottomKeyboard;
-@property(nonatomic) NSLayoutConstraint * actionBarViewBottomNormal;
+@property(nonatomic) NSLayoutConstraint *contentViewTopHidden;
+@property(nonatomic) NSLayoutConstraint *actionBarViewBottomKeyboard;
+@property(nonatomic) NSLayoutConstraint *actionBarViewBottomNormal;
 
 @property(nonatomic) UINavigationController *navigationController;
 @property(nonatomic) MWMSearchTableViewController *tableViewController;
@@ -117,7 +117,8 @@ using Observers = NSHashTable<Observer>;
     statFrom = kStatSearchMapSearch;
   }
   if (GetFramework().HasPlacePageInfo()) {
-    [Statistics logEvent:kStatBackClick withParameters:@{kStatFrom: statFrom, kStatTo: kStatSearchResults, kStatPlacePage: kStatPreview}];
+    [Statistics logEvent:kStatBackClick
+          withParameters:@{kStatFrom: statFrom, kStatTo: kStatSearchResults, kStatPlacePage: kStatPreview}];
   } else {
     [Statistics logEvent:kStatBackClick withParameters:@{kStatFrom: statFrom, kStatTo: kStatSearchResults}];
   }
@@ -220,13 +221,13 @@ using Observers = NSHashTable<Observer>;
   self.routingTooltipSearch = MWMSearchManagerRoutingTooltipSearchNone;
   [self endSearch];
 
-  MWMMapViewControlsManager* controlsManager = self.controlsManager;
+  MWMMapViewControlsManager *controlsManager = self.controlsManager;
   controlsManager.menuState = controlsManager.menuRestoreState;
   [self viewHidden:YES];
 }
 
 - (void)changeToDefaultState {
-  MWMMapViewControlsManager* controlsManager = self.controlsManager;
+  MWMMapViewControlsManager *controlsManager = self.controlsManager;
 
   [self.navigationController popToRootViewControllerAnimated:NO];
 
@@ -244,7 +245,7 @@ using Observers = NSHashTable<Observer>;
 }
 
 - (void)changeToTableSearchState {
-  MWMMapViewControlsManager* controlsManager = self.controlsManager;
+  MWMMapViewControlsManager *controlsManager = self.controlsManager;
 
   [self.navigationController popToRootViewControllerAnimated:NO];
 
@@ -326,7 +327,7 @@ using Observers = NSHashTable<Observer>;
 
   self.searchBarView.isBookingSearchViewHidden = !([MWMSearch isHotelResults] || [MWMSearch hasAvailability]);
   [self.actionBarView updateFilterButtonWithShowFilter:[MWMSearch isHotelResults] || [MWMSearch hasFilter]
-                                            filterCount:[MWMSearch filterCount]];
+                                           filterCount:[MWMSearch filterCount]];
   if (self.state != MWMSearchManagerStateTableSearch)
     return;
   [self.tableViewController onSearchCompleted];
@@ -337,7 +338,7 @@ using Observers = NSHashTable<Observer>;
   self.searchBarView.state = SearchBarStateSearching;
   self.searchBarView.isBookingSearchViewHidden = !([MWMSearch isHotelResults] || [MWMSearch hasAvailability]);
   [self.actionBarView updateFilterButtonWithShowFilter:[MWMSearch isHotelResults] || [MWMSearch hasFilter]
-                                            filterCount:[MWMSearch filterCount]];
+                                           filterCount:[MWMSearch filterCount]];
   if (self.state != MWMSearchManagerStateTableSearch)
     return;
   self.actionBarState = MWMSearchManagerActionBarStateModeFilter;
@@ -551,7 +552,7 @@ didSelectStartDate:(NSDate *)startDate
   return [MapViewController sharedController].controlsView;
 }
 
--(MWMMapViewControlsManager *)controlsManager {
+- (MWMMapViewControlsManager *)controlsManager {
   return [MWMMapViewControlsManager manager];
 }
 @end
