@@ -103,6 +103,7 @@ public:
     return m_details.m_hotelApproximatePricing;
   }
   bool IsHotel() const { return m_details.m_isHotel; }
+  bool IsRefusedByFilter() const { return m_info.m_refusedByFilter; }
 
   osm::YesNoUnknown IsOpenNow() const { return m_details.m_isOpenNow; }
   int GetStarsCount() const { return m_details.m_stars; }

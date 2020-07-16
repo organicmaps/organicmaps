@@ -363,6 +363,7 @@ class RankerResultMaker
     info.m_exactMatch = preInfo.m_exactMatch;
     info.m_categorialRequest = m_params.IsCategorialRequest();
     info.m_tokenRanges = preInfo.m_tokenRanges;
+    info.m_refusedByFilter = preInfo.m_refusedByFilter;
 
     // We do not compare result name and request for categorial requests but we prefer named
     // features.

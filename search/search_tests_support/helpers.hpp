@@ -47,6 +47,8 @@ public:
 
   size_t GetResultsNumber(std::string const & query, std::string const & locale);
 
+  std::unique_ptr<tests_support::TestSearchRequest> MakeRequest(SearchParams params);
+
   std::unique_ptr<tests_support::TestSearchRequest> MakeRequest(std::string const & query,
                                                                 std::string const & locale = "en");
 

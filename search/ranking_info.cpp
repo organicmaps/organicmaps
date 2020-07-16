@@ -28,6 +28,7 @@ double constexpr kCategoriesDistanceToPivot = -0.6874177;
 double constexpr kCategoriesRank = 1.0000000;
 double constexpr kCategoriesRating = 0.0500000;
 double constexpr kCategoriesFalseCats = -1.0000000;
+double constexpr kCategoriesRefusedByFilter = -1.0000000;
 
 double constexpr kDistanceToPivot = -0.2123693;
 double constexpr kRank = 0.1065355;
@@ -38,6 +39,7 @@ double constexpr kErrorsMade = -0.0391331;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
 double constexpr kExactCountryOrCapital = 0.1247733;
+double constexpr kRefusedByFilter = -1.0000000;
 double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
   0.0085962 /* Zero */,
   -0.0099698 /* Substring */,
@@ -73,6 +75,8 @@ static_assert(kRank >= 0, "");
 static_assert(kPopularity >= 0, "");
 static_assert(kErrorsMade <= 0, "");
 static_assert(kExactCountryOrCapital >= 0, "");
+static_assert(kCategoriesRefusedByFilter < 0, "");
+static_assert(kRefusedByFilter < 0, "");
 
 double TransformDistance(double distance)
 {
@@ -199,6 +203,7 @@ string DebugPrint(RankingInfo const & info)
   os << ", m_exactCountryOrCapital:" << info.m_exactCountryOrCapital;
   os << ", m_categorialRequest:" << info.m_categorialRequest;
   os << ", m_hasName:" << info.m_hasName;
+  os << ", m_refusedByFilter:" << info.m_refusedByFilter;
   os << "]";
   return os.str();
 }
@@ -262,6 +267,7 @@ double RankingInfo::GetLinearModelRank() const
     auto const nameRank = kNameScore[nameScore] + kErrorsMade * GetErrorsMadePerToken() +
                           kMatchedFraction * m_matchedFraction;
     result += (m_isAltOrOldName ? 0.7 : 1.0) * nameRank;
+    result += (m_refusedByFilter ? 1 : 0) * kRefusedByFilter;
   }
   else
   {
@@ -271,6 +277,7 @@ double RankingInfo::GetLinearModelRank() const
     result += kCategoriesRating * rating;
     result += kCategoriesFalseCats * kFalseCats;
     result += m_hasName * kHasName;
+    result += (m_refusedByFilter ? 1 : 0) * kCategoriesRefusedByFilter;
   }
   return result;
 }

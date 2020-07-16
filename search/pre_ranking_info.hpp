@@ -62,6 +62,9 @@ struct PreRankingInfo
   // Popularity rank of the feature.
   uint8_t m_popularity = 0;
 
+  // We may want to show results which did not pass filter.
+  bool m_refusedByFilter = false;
+
   // Confidence and UGC rating.
   // Confidence: 0 - no information
   //             1 - based on few reviews

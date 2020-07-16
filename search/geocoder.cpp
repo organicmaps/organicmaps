@@ -1661,9 +1661,6 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   if (matchedFraction <= 0.1)
     return;
 
-  if (ctx.m_hotelsFilter && !ctx.m_hotelsFilter->Matches(id))
-    return;
-
   if (ctx.m_cuisineFilter && !ctx.m_cuisineFilter->Matches(id))
     return;
 
@@ -1676,6 +1673,10 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   // distant from the pivot when there are enough results close to the
   // pivot.
   PreRankingInfo info(type, tokenRange);
+
+  if (ctx.m_hotelsFilter && !ctx.m_hotelsFilter->Matches(id))
+    info.m_refusedByFilter = true;
+
   for (auto const & layer : ctx.m_layers)
     info.m_tokenRanges[layer.m_type] = layer.m_tokenRange;
 

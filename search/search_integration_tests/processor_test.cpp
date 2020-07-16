@@ -1059,49 +1059,46 @@ UNIT_CLASS_TEST(ProcessorTest, HotelsFiltering)
   params.m_mode = Mode::Everywhere;
   params.m_suggestsEnabled = false;
 
-  {
+  auto const test = [&](vector<TestHotel> const & matchedHotels) {
     Rules rules = {ExactMatch(id, h1), ExactMatch(id, h2), ExactMatch(id, h3), ExactMatch(id, h4)};
-    TEST(ResultsMatch(params, rules), ());
-  }
+
+    auto request = MakeRequest(params);
+    TEST(ResultsMatch(request->Results(), rules), ());
+    for (auto const & result : request->Results())
+    {
+      FeaturesLoaderGuard loader(m_dataSource, id);
+      auto ft = loader.GetFeatureByIndex(result.GetFeatureID().m_index);
+      TEST(ft, ());
+
+      if (base::AnyOf(matchedHotels, [&](auto const & h) { return h.Matches(*ft); }))
+        TEST(!result.IsRefusedByFilter(), (result));
+      else
+        TEST(result.IsRefusedByFilter(), (result));
+    }
+  };
+
+  test({h1, h2, h3, h4});
 
   using namespace hotels_filter;
 
   params.m_hotelsFilter = And(Gt<Rating>(7.0), Le<PriceRate>(2));
-  {
-    Rules rules = {ExactMatch(id, h1), ExactMatch(id, h3)};
-    TEST(ResultsMatch(params, rules), ());
-  }
+  test({h1, h3});
 
   params.m_hotelsFilter = Or(Eq<Rating>(9.0), Le<PriceRate>(4));
-  {
-    Rules rules = {ExactMatch(id, h1), ExactMatch(id, h3), ExactMatch(id, h4)};
-    TEST(ResultsMatch(params, rules), ());
-  }
+  test({h1, h3, h4});
 
   params.m_hotelsFilter = Or(And(Eq<Rating>(7.0), Eq<PriceRate>(5)), Eq<PriceRate>(4));
-  {
-    Rules rules = {ExactMatch(id, h2), ExactMatch(id, h4)};
-    TEST(ResultsMatch(params, rules), ());
-  }
+  test({h2, h4});
 
   params.m_hotelsFilter = Or(Is(TestHotel::Type::GuestHouse), Is(TestHotel::Type::Hostel));
-  {
-    Rules rules = {ExactMatch(id, h2), ExactMatch(id, h3), ExactMatch(id, h4)};
-    TEST(ResultsMatch(params, rules), ());
-  }
+  test({h2, h3, h4});
 
   params.m_hotelsFilter = And(Gt<PriceRate>(3), Is(TestHotel::Type::GuestHouse));
-  {
-    Rules rules = {ExactMatch(id, h4)};
-    TEST(ResultsMatch(params, rules), ());
-  }
+  test({h4});
 
   params.m_hotelsFilter = OneOf((1U << static_cast<unsigned>(TestHotel::Type::Hotel)) |
                                 (1U << static_cast<unsigned>(TestHotel::Type::Hostel)));
-  {
-    Rules rules = {ExactMatch(id, h1), ExactMatch(id, h2)};
-    TEST(ResultsMatch(params, rules), ());
-  }
+  test({h1, h2});
 }
 
 UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)

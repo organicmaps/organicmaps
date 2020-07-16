@@ -78,6 +78,13 @@ size_t SearchTest::GetResultsNumber(string const & query, string const & locale)
   return request.Results().size();
 }
 
+unique_ptr<tests_support::TestSearchRequest> SearchTest::MakeRequest(SearchParams params)
+{
+  auto request = make_unique<tests_support::TestSearchRequest>(m_engine, params);
+  request->Run();
+  return request;
+}
+
 unique_ptr<tests_support::TestSearchRequest> SearchTest::MakeRequest(
     string const & query, string const & locale /* = "en" */)
 {
