@@ -71,7 +71,7 @@ bool ScoreCandidatePathsGetter::Link::IsJunctionInPath(geometry::PointWithAltitu
 {
   for (auto * l = this; l; l = l->m_parent.get())
   {
-    if (l->m_edge.GetEndJunction() == j)
+    if (l->m_edge.GetEndJunction().GetPoint() == j.GetPoint())
     {
       LOG(LDEBUG, ("A loop detected, skipping..."));
       return true;
