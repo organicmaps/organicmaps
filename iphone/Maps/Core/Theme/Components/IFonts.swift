@@ -35,6 +35,7 @@
   var bold14: UIFont { get }
   var bold16: UIFont { get }
   var bold17: UIFont { get }
+  var bold20: UIFont { get }
   var bold22: UIFont { get }
   var bold24: UIFont { get }
   var bold28: UIFont { get }

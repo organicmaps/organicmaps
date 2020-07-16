@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DatePickerViewController" customModule="maps_me" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButton" destination="rSC-r1-3RH" id="oMG-Vv-vM5"/>
+                <outlet property="checkInLabel" destination="k4A-Dw-iVQ" id="yR1-hu-TaL"/>
+                <outlet property="datePickerView" destination="86t-e6-Fkb" id="JNf-sA-ilP"/>
+                <outlet property="doneButton" destination="xQ0-Vb-HyX" id="Rp8-dd-biC"/>
+                <outlet property="endDateLabel" destination="ky5-Oj-Nqo" id="Jji-ph-x5J"/>
+                <outlet property="numberOfDaysLabel" destination="YMA-Ha-iZz" id="dNZ-8e-dzz"/>
+                <outlet property="startDateLabel" destination="ZY7-2x-2JM" id="BRT-vd-AMl"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9pa-9d-4fr">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bX-Ze-PaF">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Check in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4A-Dw-iVQ">
+                                    <rect key="frame" x="16" y="10" width="284" height="24"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                    <color key="textColor" white="0.13233090753424659" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="booking_filters_check_in"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold20:blackPrimaryText"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMA-Ha-iZz">
+                                    <rect key="frame" x="304" y="12.5" width="55" height="19.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <color key="textColor" white="0.56319563356164382" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackSecondaryText"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="POe-Md-XjY">
+                                    <rect key="frame" x="16" y="44" width="167.5" height="40"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZY7-2x-2JM">
+                                            <rect key="frame" x="8" y="0.0" width="151.5" height="40"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackPrimaryText"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstItem="ZY7-2x-2JM" firstAttribute="top" secondItem="POe-Md-XjY" secondAttribute="top" id="DiC-YA-3aD"/>
+                                        <constraint firstItem="ZY7-2x-2JM" firstAttribute="leading" secondItem="POe-Md-XjY" secondAttribute="leading" constant="8" id="hta-6u-EbK"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZY7-2x-2JM" secondAttribute="trailing" constant="8" id="j5B-gM-hor"/>
+                                        <constraint firstAttribute="bottom" secondItem="ZY7-2x-2JM" secondAttribute="bottom" id="kME-jN-i4f"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="BookingDateField"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UoA-xP-MMK">
+                                    <rect key="frame" x="191.5" y="44" width="167.5" height="40"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ky5-Oj-Nqo">
+                                            <rect key="frame" x="8" y="0.0" width="151.5" height="40"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackPrimaryText"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstItem="ky5-Oj-Nqo" firstAttribute="top" secondItem="UoA-xP-MMK" secondAttribute="top" id="3tC-RJ-FPL"/>
+                                        <constraint firstItem="ky5-Oj-Nqo" firstAttribute="leading" secondItem="UoA-xP-MMK" secondAttribute="leading" constant="8" id="XG8-SR-ZxI"/>
+                                        <constraint firstAttribute="bottom" secondItem="ky5-Oj-Nqo" secondAttribute="bottom" id="azL-lo-iy5"/>
+                                        <constraint firstAttribute="trailing" secondItem="ky5-Oj-Nqo" secondAttribute="trailing" constant="8" id="ief-fA-8gi"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="BookingDateField"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="UoA-xP-MMK" secondAttribute="trailing" constant="16" id="1yR-wV-rV6"/>
+                                <constraint firstAttribute="height" constant="100" id="5S6-H8-tbQ"/>
+                                <constraint firstItem="UoA-xP-MMK" firstAttribute="bottom" secondItem="POe-Md-XjY" secondAttribute="bottom" id="80Y-IM-nRq"/>
+                                <constraint firstItem="UoA-xP-MMK" firstAttribute="width" secondItem="POe-Md-XjY" secondAttribute="width" id="C07-pV-G2d"/>
+                                <constraint firstItem="POe-Md-XjY" firstAttribute="top" secondItem="k4A-Dw-iVQ" secondAttribute="bottom" constant="10" id="D5e-K2-uZ2"/>
+                                <constraint firstItem="UoA-xP-MMK" firstAttribute="leading" secondItem="POe-Md-XjY" secondAttribute="trailing" constant="8" id="Gac-7J-Kjg"/>
+                                <constraint firstItem="k4A-Dw-iVQ" firstAttribute="leading" secondItem="5bX-Ze-PaF" secondAttribute="leading" constant="16" id="a4a-LQ-19N"/>
+                                <constraint firstItem="YMA-Ha-iZz" firstAttribute="centerY" secondItem="k4A-Dw-iVQ" secondAttribute="centerY" id="dNN-8Q-xhA"/>
+                                <constraint firstItem="YMA-Ha-iZz" firstAttribute="leading" secondItem="k4A-Dw-iVQ" secondAttribute="trailing" constant="4" id="goo-po-EH4"/>
+                                <constraint firstItem="k4A-Dw-iVQ" firstAttribute="top" secondItem="5bX-Ze-PaF" secondAttribute="top" constant="10" id="hgK-T7-LJR"/>
+                                <constraint firstAttribute="trailing" secondItem="YMA-Ha-iZz" secondAttribute="trailing" constant="16" id="ofL-sF-gBd"/>
+                                <constraint firstAttribute="bottom" secondItem="POe-Md-XjY" secondAttribute="bottom" constant="16" id="qxl-WQ-p6u"/>
+                                <constraint firstItem="POe-Md-XjY" firstAttribute="leading" secondItem="5bX-Ze-PaF" secondAttribute="leading" constant="16" id="tkh-e9-AMP"/>
+                                <constraint firstItem="UoA-xP-MMK" firstAttribute="top" secondItem="POe-Md-XjY" secondAttribute="top" id="y0q-B6-tFj"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zR0-il-V6P">
+                            <rect key="frame" x="0.0" y="100" width="375" height="1"/>
+                            <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="E7n-L8-Ohg"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0yA-Fx-KRW">
+                            <rect key="frame" x="0.0" y="101" width="375" height="405"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86t-e6-Fkb" customClass="DatePickerView" customModule="DatePicker">
+                                    <rect key="frame" x="16" y="8" width="343" height="397"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="86t-e6-Fkb" secondAttribute="bottom" id="5al-X8-kVb"/>
+                                <constraint firstItem="86t-e6-Fkb" firstAttribute="top" secondItem="0yA-Fx-KRW" secondAttribute="top" constant="8" id="CeH-Il-WOh"/>
+                                <constraint firstItem="86t-e6-Fkb" firstAttribute="leading" secondItem="0yA-Fx-KRW" secondAttribute="leading" constant="16" id="DHu-Ui-qNw"/>
+                                <constraint firstAttribute="trailing" secondItem="86t-e6-Fkb" secondAttribute="trailing" constant="16" id="TZ0-jP-TdR"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fbd-fF-LaJ">
+                            <rect key="frame" x="0.0" y="506" width="375" height="44"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSC-r1-3RH">
+                                    <rect key="frame" x="16" y="0.0" width="50" height="44"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <state key="normal" title="Cancel"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cancel"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="BookingDatePickerCancel"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onCancel:" destination="-1" eventType="touchUpInside" id="1pT-3Y-4co"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQ0-Vb-HyX">
+                                    <rect key="frame" x="319" y="0.0" width="40" height="44"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                    <state key="normal" title="Done"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="done"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="BookingDatePickerDone"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onDone:" destination="-1" eventType="touchUpInside" id="BBZ-AC-3Sa"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="rSC-r1-3RH" firstAttribute="top" secondItem="Fbd-fF-LaJ" secondAttribute="top" id="2sA-R9-QHt"/>
+                                <constraint firstAttribute="bottom" secondItem="xQ0-Vb-HyX" secondAttribute="bottom" id="ABP-m8-FAd"/>
+                                <constraint firstAttribute="height" constant="44" id="Ab5-yd-XEl"/>
+                                <constraint firstAttribute="bottom" secondItem="rSC-r1-3RH" secondAttribute="bottom" id="Fak-C2-Goy"/>
+                                <constraint firstItem="xQ0-Vb-HyX" firstAttribute="top" secondItem="Fbd-fF-LaJ" secondAttribute="top" id="MaF-sj-gfM"/>
+                                <constraint firstAttribute="trailing" secondItem="xQ0-Vb-HyX" secondAttribute="trailing" constant="16" id="W1d-tL-5hj"/>
+                                <constraint firstItem="rSC-r1-3RH" firstAttribute="leading" secondItem="Fbd-fF-LaJ" secondAttribute="leading" constant="16" id="pka-5x-Imi"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Border"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9pa-9d-4fr" secondAttribute="bottom" id="EHv-0h-rwy"/>
+                <constraint firstItem="9pa-9d-4fr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="FCg-1s-LIu"/>
+                <constraint firstItem="9pa-9d-4fr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="UwT-LX-lcY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9pa-9d-4fr" secondAttribute="trailing" id="vAj-E3-wH0"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="138.40000000000001" y="136.73163418290855"/>
+        </view>
+    </objects>
+</document>

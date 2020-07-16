@@ -119,5 +119,29 @@ class SearchStyleSheet: IStyleSheet {
     theme.add(styleName: "SearchCellAvaliable", from: "TableCell") { (s) -> (Void) in
       s.backgroundColor = colors.transparentGreen
     }
+
+    theme.add(styleName: "DatePickerView") { (s) -> (Void) in
+      s.backgroundColor = colors.white
+      s.fontColor = colors.blackPrimaryText
+      s.fontColorSelected = colors.whitePrimaryText
+      s.backgroundColorSelected = colors.linkBlue
+      s.backgroundColorHighlighted = colors.linkBlueHighlighted
+      s.fontColorDisabled = colors.blackSecondaryText
+    }
+
+    theme.add(styleName: "BookingDateField")  { (s) -> (Void) in
+      s.backgroundColor = colors.white
+      s.cornerRadius = 4
+      s.borderColor = colors.blackDividers
+      s.borderWidth = 1
+    }
+
+    theme.add(styleName: "BookingDatePickerCancel", from: "FlatNormalTransButton") { (s) -> (Void) in
+      s.font = fonts.regular16
+    }
+
+    theme.add(styleName: "BookingDatePickerDone", from: "FlatNormalTransButton") { (s) -> (Void) in
+      s.font = fonts.semibold16
+    }
   }
 }

@@ -48,7 +48,7 @@ final class SearchBar: SolidTouchView {
 
   private lazy var dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateFormat = "EEE, MMM d"
+    formatter.setLocalizedDateFormatFromTemplate("EEE, MMMd")
     return formatter
   }()
 
@@ -90,6 +90,6 @@ final class SearchBar: SolidTouchView {
   }
 
   @objc func setDates(checkin: Date, checkout: Date) {
-    bookingDatesLabel.text = "\(dateFormatter.string(from: checkin)) – \(dateFormatter.string(from: checkout))"
+    bookingDatesLabel.text = "\(dateFormatter.string(from: checkin)) – \(dateFormatter.string(from: checkout))".capitalized
   }
 }

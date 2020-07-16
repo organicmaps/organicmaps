@@ -32,7 +32,8 @@ using Observers = NSHashTable<Observer>;
                                 MWMSearchTabViewControllerDelegate,
                                 UITextFieldDelegate,
                                 MWMStorageObserver,
-                                MWMSearchObserver>
+                                MWMSearchObserver,
+                                DatePickerViewControllerDelegate>
 
 @property(weak, nonatomic, readonly) UIViewController *ownerController;
 @property(weak, nonatomic, readonly) UIView *searchViewContainer;
@@ -132,7 +133,9 @@ using Observers = NSHashTable<Observer>;
 
 - (IBAction)onBookingDateButtonPressed:(id)sender {
   [self.searchTextField resignFirstResponder];
-  [self.searchBarView setDatesWithCheckin:[[NSDate alloc] init] checkout:[[NSDate alloc] init]];
+  DatePickerViewController *controller = [[DatePickerViewController alloc] init];
+  controller.delegate = self;
+  [[MapViewController sharedController] presentViewController:controller animated:YES completion:nil];
 }
 
 - (IBAction)onBookingGuestsButtonPressed:(id)sender {
@@ -370,6 +373,23 @@ using Observers = NSHashTable<Observer>;
 - (void)onSearchManagerStateChanged {
   for (Observer observer in self.observers)
     [observer onSearchManagerStateChanged];
+}
+
+#pragma mark - DatePickerViewControllerDelegate
+
+- (void)datePicker:(DatePickerViewController *)datePicker
+didSelectStartDate:(NSDate *)startDate
+           endDate:(NSDate *)endDate {
+  [self.searchBarView setDatesWithCheckin:startDate checkout:endDate];
+  MWMHotelParams *filter = [MWMSearch getFilter];
+  filter.checkInDate = startDate;
+  filter.checkOutDate = endDate;
+  [MWMSearch updateHotelFilterWithParams:filter];
+  [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)datePickerDidCancel:(DatePickerViewController *)datePicker {
+  [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Filters

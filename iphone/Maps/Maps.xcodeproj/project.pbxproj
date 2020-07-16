@@ -379,6 +379,12 @@
 		479D306522C664CE00D18278 /* MWMDownloadBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479D306422C664CE00D18278 /* MWMDownloadBannerViewController.m */; };
 		479D306822C66C8F00D18278 /* MWMBookmarksBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 479D306722C66C8F00D18278 /* MWMBookmarksBannerViewController.m */; };
 		479EE94A2292FB03009DEBA6 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479EE9492292FB03009DEBA6 /* ActivityIndicator.swift */; };
+		47A13CA424BE872600027D4F /* DatePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A13CA324BE872600027D4F /* DatePicker.framework */; };
+		47A13CA524BE872600027D4F /* DatePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 47A13CA324BE872600027D4F /* DatePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		47A13CA724BE874D00027D4F /* DatePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A13CA624BE874D00027D4F /* DatePicker.framework */; };
+		47A13CAA24BE881000027D4F /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A13CA824BE881000027D4F /* DatePickerViewController.swift */; };
+		47A13CAB24BE881000027D4F /* DatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A13CA924BE881000027D4F /* DatePickerViewController.xib */; };
+		47A13CAD24BE9AA500027D4F /* DatePickerViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A13CAC24BE9AA500027D4F /* DatePickerViewRenderer.swift */; };
 		47A65CAD2350044800DCD85F /* CoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A65CAC2350044800DCD85F /* CoreApi.framework */; };
 		47A6F3C4235F47B90053FBA4 /* CitySubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A6F3C1235F47B90053FBA4 /* CitySubscriptionViewController.xib */; };
 		47A6F3C5235F47B90053FBA4 /* BookmarksSubscriptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6F3C2235F47B90053FBA4 /* BookmarksSubscriptionButton.swift */; };
@@ -913,6 +919,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4740184423F5BDE900A93C81 /* minizip.framework in Embed Frameworks */,
+				47A13CA524BE872600027D4F /* DatePicker.framework in Embed Frameworks */,
 				47D48BCE242A0F7200FEFB1F /* Chart.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1505,6 +1512,11 @@
 		479D306622C66C8F00D18278 /* MWMBookmarksBannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMBookmarksBannerViewController.h; sourceTree = "<group>"; };
 		479D306722C66C8F00D18278 /* MWMBookmarksBannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMBookmarksBannerViewController.m; sourceTree = "<group>"; };
 		479EE9492292FB03009DEBA6 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityIndicator.swift; path = CustomViews/ActivityIndicator.swift; sourceTree = "<group>"; };
+		47A13CA324BE872600027D4F /* DatePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DatePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47A13CA624BE874D00027D4F /* DatePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DatePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47A13CA824BE881000027D4F /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		47A13CA924BE881000027D4F /* DatePickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DatePickerViewController.xib; sourceTree = "<group>"; };
+		47A13CAC24BE9AA500027D4F /* DatePickerViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewRenderer.swift; sourceTree = "<group>"; };
 		47A65CAC2350044800DCD85F /* CoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47A6F3C1235F47B90053FBA4 /* CitySubscriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySubscriptionViewController.xib; sourceTree = "<group>"; };
 		47A6F3C2235F47B90053FBA4 /* BookmarksSubscriptionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksSubscriptionButton.swift; sourceTree = "<group>"; };
@@ -2181,6 +2193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47A13CA724BE874D00027D4F /* DatePicker.framework in Frameworks */,
 				47D48BD0242A475700FEFB1F /* AuthenticationServices.framework in Frameworks */,
 				39CDE69123E1B6C8007CDA58 /* libge0.a in Frameworks */,
 				47A65CAD2350044800DCD85F /* CoreApi.framework in Frameworks */,
@@ -2233,6 +2246,7 @@
 				6741AACA1BF356BA002C974C /* libjansson.a in Frameworks */,
 				47D48BCD242A0F7200FEFB1F /* Chart.framework in Frameworks */,
 				6741AACC1BF356BA002C974C /* libmap.a in Frameworks */,
+				47A13CA424BE872600027D4F /* DatePicker.framework in Frameworks */,
 				6741AACE1BF356BA002C974C /* libopening_hours.a in Frameworks */,
 				347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */,
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
@@ -2360,6 +2374,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				47A13CA624BE874D00027D4F /* DatePicker.framework */,
+				47A13CA324BE872600027D4F /* DatePicker.framework */,
 				47D48BCF242A475700FEFB1F /* AuthenticationServices.framework */,
 				47375E562420ECA800FFCC49 /* Chart.framework */,
 				39CDE69023E1B6C8007CDA58 /* libge0.a */,
@@ -3730,6 +3746,7 @@
 				993DF0F023F6BDB100AC231A /* UINavigationItemRenderer.swift */,
 				47D48BF42432A7C900FEFB1F /* ChartViewRenderer.swift */,
 				9977E6A22480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift */,
+				47A13CAC24BE9AA500027D4F /* DatePickerViewRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -4728,6 +4745,8 @@
 				349D1ABA1E2D05EF004A2006 /* SearchBar.swift */,
 				34B3806B1F1E46E20087D65B /* MWMSearchManagerState.h */,
 				347AD8081F28B4E6007ACB68 /* MWMSearchManagerObserver.h */,
+				47A13CA824BE881000027D4F /* DatePickerViewController.swift */,
+				47A13CA924BE881000027D4F /* DatePickerViewController.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -5227,6 +5246,7 @@
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
 				346DB82B1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
 				F6E2FE2E1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
+				47A13CAB24BE881000027D4F /* DatePickerViewController.xib in Resources */,
 				3463BA691DE81DB90082417F /* MWMTrafficButtonViewController.xib in Resources */,
 				F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */,
 				47E6CB0C2178BA3600EA102B /* SearchBannerCell.xib in Resources */,
@@ -5728,6 +5748,7 @@
 				348A8DF81F66775A00D83026 /* RatingViewDelegate.swift in Sources */,
 				4716EABA21A325310029B886 /* IPaidRouteStatistics.swift in Sources */,
 				475EC36D244EDE66003BC295 /* GuidesGalleryPresenter.swift in Sources */,
+				47A13CAA24BE881000027D4F /* DatePickerViewController.swift in Sources */,
 				3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */,
 				47F4F21523A6F06F0022FD56 /* AvailableMapsDataSource.swift in Sources */,
 				99012852244732DB00C72B10 /* BottomTabBarBuilder.swift in Sources */,
@@ -5735,6 +5756,7 @@
 				995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */,
 				47B9065221C7FA400079C85E /* MWMWebImage.m in Sources */,
 				99EBF73324B4C91000FE1F1F /* SubscriptionViewProtocol.swift in Sources */,
+				47A13CAD24BE9AA500027D4F /* DatePickerViewRenderer.swift in Sources */,
 				F6E2FE7C1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				340E1EFB1E2F614400CE49BF /* Storyboard.swift in Sources */,
 				34E776331F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,

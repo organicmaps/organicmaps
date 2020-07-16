@@ -34,6 +34,7 @@ class Fonts: IFonts {
   var bold14 = UIFont.boldSystemFont(ofSize: 14)
   var bold16 = UIFont.boldSystemFont(ofSize: 16)
   var bold17 = UIFont.boldSystemFont(ofSize: 17)
+  var bold20 = UIFont.boldSystemFont(ofSize: 20)
   var bold22 = UIFont.boldSystemFont(ofSize: 22)
   var bold24 = UIFont.boldSystemFont(ofSize: 24)
   var bold28 = UIFont.boldSystemFont(ofSize: 28)

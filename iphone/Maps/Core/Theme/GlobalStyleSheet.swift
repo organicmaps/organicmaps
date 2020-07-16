@@ -138,6 +138,10 @@ class GlobalStyleSheet: IStyleSheet {
       s.backgroundColor = colors.clear
     }
 
+    theme.add(styleName: "Border") { (s) -> (Void) in
+      s.backgroundColor = colors.border
+    }
+
     theme.add(styleName: "TabView") { (s) -> (Void) in
       s.backgroundColor = colors.pressBackground
       s.barTintColor = colors.primary
