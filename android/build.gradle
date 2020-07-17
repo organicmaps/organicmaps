@@ -5,7 +5,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:4.0.0'
+    classpath 'com.android.tools.build:gradle:4.0.1'
     classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
     classpath 'com.google.gms:google-services:4.3.3'
   }
@@ -489,7 +489,6 @@ android {
     ignoreAssetsPattern "!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
   }
 
-  // Enables new Java features in KitKat+ but needs Java 1.7 installed
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
