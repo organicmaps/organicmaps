@@ -261,7 +261,7 @@ uk:Готель
 vi:Khách sạn
 zh-Hans:旅店|酒店
 zh-Hant:飯店|酒店
-el:Ξενοδοχείο
+el:Ξενοδοχείο|Διαμονή
 he:מלון
 sk:Hotel
 fa:هتل
@@ -4369,7 +4369,7 @@ ro:Capitală
 es:Capital|ciudad
 sv:Huvudstad|stad
 th:เมือง|เมืองหลวง
-tr:Sermaye
+tr:Başkent
 uk:Столиця|місто|центр
 vi:Thủ đô
 zh-Hans:资本
