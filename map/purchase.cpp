@@ -287,7 +287,7 @@ void Purchase::CheckTrialEligibility(ValidationInfo const & validationInfo)
 
   GetPlatform().RunTask(Platform::Thread::Network, [this, url, validationInfo]()
   {
-    ValidateImpl(url, validationInfo, {}, RequestType::TrialEligibility,
+    ValidateImpl(url, validationInfo, {} /* accessToken */, RequestType::TrialEligibility,
                  0 /* attemptIndex */, kFirstWaitingTimeInSec);
   });
 }
