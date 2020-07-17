@@ -13237,7 +13237,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
@@ -13266,7 +13266,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
@@ -13295,7 +13295,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
@@ -13324,7 +13324,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
@@ -13353,7 +13353,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
@@ -13382,7 +13382,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
@@ -13411,7 +13411,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
@@ -13440,7 +13440,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
@@ -13469,7 +13469,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
@@ -13498,7 +13498,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
@@ -13527,7 +13527,7 @@
     ro = Capitală
     sv = Huvudstad
     th = เมือง
-    tr = Sermaye
+    tr = Başkent
     uk = Столиця
     vi = Thủ đô
     zh-Hans = 资本
