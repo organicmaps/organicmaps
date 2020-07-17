@@ -1052,6 +1052,8 @@ void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & inf
 
 void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const
 {
+  info.SetIsSearchMark(true);
+
   if (smp.GetFeatureID().IsValid())
     FillFeatureInfo(smp.GetFeatureID(), info);
   else
@@ -2423,6 +2425,13 @@ void Framework::ActivateMapSelection(std::optional<place_page::Info> const & inf
   else
     GetBookmarkManager().OnTrackDeselected();
 
+  // TODO(a): to replace dummies with correct values.
+  if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking &&
+      info->IsSearchMark())
+  {
+    m_searchMarks.OnSelected(m_currentPlacePageInfo->GetID(), false /* "Dummy" */, "Dummy reason");
+  }
+
   CHECK_NOT_EQUAL(info->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   if (m_drapeEngine != nullptr)
   {
@@ -2447,11 +2456,18 @@ void Framework::DeactivateMapSelection(bool notifyUI)
   if (notifyUI && m_onPlacePageClose)
     m_onPlacePageClose(!somethingWasAlreadySelected);
 
-  m_currentPlacePageInfo = {};
-
   if (somethingWasAlreadySelected)
   {
+    if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking &&
+        m_currentPlacePageInfo->IsSearchMark())
+    {
+      m_searchMarks.OnDeselected(m_currentPlacePageInfo->GetID());
+    }
+
     GetBookmarkManager().OnTrackDeselected();
+
+    m_currentPlacePageInfo = {};
+
     if (m_drapeEngine != nullptr)
       m_drapeEngine->DeselectObject();
   }
@@ -3907,11 +3923,10 @@ void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
 
         if (found && !filterResult.m_extras.empty())
         {
-          // auto const index = std::distance(features.cbegin(), it);
-          // TODO(a): to implement FormatPrice and SetPrice methods.
-          // auto const price = FormatPrice(filterResult.m_extras[index].m_price,
-          //                                filterResult.m_extras[index].m_currency);
-          // mark.SetPrice(price);
+          auto const index = std::distance(features.cbegin(), it);
+          auto price = booking::FormatPrice(filterResult.m_extras[index].m_price,
+                                            filterResult.m_extras[index].m_currency);
+          mark.SetPrice(std::move(price));
         }
       }
     };

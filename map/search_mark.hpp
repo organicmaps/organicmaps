@@ -14,6 +14,7 @@
 #include <map>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 class BookmarkManager;
@@ -46,17 +47,21 @@ public:
   void SetPreparing(bool isPreparing);
   void SetRating(float rating);
   void SetPricing(int pricing);
-  void SetPrice(std::string const & price);
+  void SetPrice(std::string && price);
   void SetSale(bool hasSale);
+  void SetUsed(bool isUsed);
+  void SetAvailable(bool isAvailable);
+  void SetReason(std::string && reason);
 
 protected:
-  template<typename T> void SetAttributeValue(T & dst, T const & src)
+  template <typename T, typename U>
+  void SetAttributeValue(T & dst, U && src)
   {
     if (dst == src)
       return;
 
     SetDirty();
-    dst = src;
+    dst = std::forward<U>(src);
   }
 
   bool IsBookingSpecialMark() const;
@@ -76,6 +81,9 @@ protected:
   bool m_hasSale = false;
   dp::TitleDecl m_titleDecl;
   dp::TitleDecl m_ugcTitleDecl;
+  bool m_isUsed = false;
+  bool m_isAvailable = true;
+  std::string m_reason;
 };
 
 class SearchMarks
@@ -94,12 +102,17 @@ public:
   // NOTE: Vector of features must be sorted.
   void SetSales(std::vector<FeatureID> const & features, bool hasSale);
 
+  // NOTE: Vector of features must be sorted.
+  void SetPrices(std::vector<FeatureID> const & features, std::vector<std::string> && prices);
+
+  void OnSelected(FeatureID const & featureId, bool isAvailable, std::string && reason);
+  void OnDeselected(FeatureID const & featureId);
+
   static bool HaveSizes() { return !m_searchMarksSizes.empty(); };
   static std::optional<m2::PointD> GetSize(std::string const & symbolName);
 
 private:
-  void FilterAndProcessMarks(std::vector<FeatureID> const & features,
-                             std::function<void(SearchMarkPoint *)> && processor);
+  void ProcessMarks(std::function<void(SearchMarkPoint *)> && processor);
 
   BookmarkManager * m_bmManager;
   df::DrapeEngineSafePtr m_drapeEngine;

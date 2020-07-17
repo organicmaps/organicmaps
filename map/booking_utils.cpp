@@ -16,27 +16,30 @@ namespace booking
 {
 namespace
 {
-void Sort(search::Results && results, std::vector<Extras> && extras,
-          std::vector<FeatureID> & sortedFeatures, std::vector<booking::Extras> & sortedExtras)
+void SortTransform(search::Results && results, std::vector<Extras> && extras,
+                   std::vector<FeatureID> & sortedFeatures, std::vector<std::string> & sortedPrices)
 {
   if (!extras.empty())
   {
     CHECK_EQUAL(results.GetCount(), extras.size(), ());
 
-    std::vector<std::pair<FeatureID, booking::Extras>> featuresWithExtras;
-    featuresWithExtras.reserve(results.GetCount());
+    std::vector<std::pair<FeatureID, std::string>> featuresWithPrices;
+    featuresWithPrices.reserve(results.GetCount());
     for (size_t i = 0; i < results.GetCount(); ++i)
-      featuresWithExtras.emplace_back(std::move(results[i].GetFeatureID()), std::move(extras[i]));
+    {
+      auto pricesFormatted = FormatPrice(extras[i].m_price, extras[i].m_currency);
+      featuresWithPrices.emplace_back(std::move(results[i].GetFeatureID()), std::move(pricesFormatted));
+    }
 
-    std::sort(featuresWithExtras.begin(), featuresWithExtras.end(),
-              base::LessBy(&std::pair<FeatureID, booking::Extras>::first));
+    std::sort(featuresWithPrices.begin(), featuresWithPrices.end(),
+              base::LessBy(&std::pair<FeatureID, std::string>::first));
 
-    sortedFeatures.reserve(featuresWithExtras.size());
-    sortedExtras.reserve(featuresWithExtras.size());
-    for (auto & item : featuresWithExtras)
+    sortedFeatures.reserve(featuresWithPrices.size());
+    sortedPrices.reserve(featuresWithPrices.size());
+    for (auto & item : featuresWithPrices)
     {
       sortedFeatures.emplace_back(std::move(item.first));
-      sortedExtras.emplace_back(std::move(item.second));
+      sortedPrices.emplace_back(std::move(item.second));
     }
   }
   else
@@ -74,16 +77,18 @@ filter::TasksInternal MakeInternalTasks(filter::Tasks const & filterTasks,
           if (results.GetCount() == 0)
             return;
 
+          if (!inViewport)
+            extras.clear();
+
           std::vector<FeatureID> sortedFeatures;
-          std::vector<booking::Extras> sortedExtras;
-          Sort(std::move(results), std::move(extras), sortedFeatures, sortedExtras);
+          std::vector<std::string> sortedPrices;
+
+          SortTransform(std::move(results), std::move(extras), sortedFeatures, sortedPrices);
 
           if (inViewport)
           {
-            // TODO(a): add price formatting for array.
-            // auto const pricesFormatted = FormatPrices(sortedExtras);
-
-            GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedFeatures]()
+            GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedFeatures,
+                                                          sortedPrices = std::move(sortedPrices)]() mutable
             {
               switch (type)
               {
@@ -92,13 +97,10 @@ filter::TasksInternal MakeInternalTasks(filter::Tasks const & filterTasks,
                   break;
                 case Type::Availability:
                   searchMarks.SetPreparingState(sortedFeatures, false /* isPreparing */);
+                  searchMarks.SetPrices(sortedFeatures, std::move(sortedPrices));
                   break;
               }
             });
-
-            // TODO(a): to add SetPrices method into search marks.
-            // if (!pricesFormatted.empty())
-            //   m_searchMarks.SetPrices(sortedFeatures, pricesFormatted)
           }
           cb(apiParams, sortedFeatures);
         }
@@ -134,10 +136,13 @@ filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
           if (sortedFeatures.empty())
             return;
 
-          // TODO(a): add price formatting for array.
-          // auto const pricesFormatted = FormatPrices(extras);
+          std::vector<std::string> sortedPrices;
+          sortedPrices.reserve(extras.size());
+          for (size_t i = 0; i < extras.size(); ++i)
+            sortedPrices.emplace_back(FormatPrice(extras[i].m_price, extras[i].m_currency));
 
-          GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedFeatures]()
+          GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedFeatures,
+                                                        sortedPrices = std::move(sortedPrices)]() mutable
           {
             switch (type)
             {
@@ -146,11 +151,9 @@ filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
                 break;
               case Type::Availability:
                 searchMarks.SetPreparingState(sortedFeatures, false /* isPreparing */);
+                searchMarks.SetPrices(sortedFeatures, std::move(sortedPrices));
                 break;
             }
-            // TODO(a): to add SetPrices method into search marks.
-            // if (!pricesFormatted.empty())
-            //   m_searchMarks.SetPrices(sortedFeatures, pricesFormatted)
           });
           cb(apiParams, sortedFeatures);
         }
@@ -160,5 +163,11 @@ filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
   }
 
   return tasksInternal;
+}
+
+std::string FormatPrice(double price, std::string const & currency)
+{
+  // TODO(a): add price formatting.
+  return std::to_string(static_cast<uint32_t>(price)) + " " + currency;
 }
 }  // namespace booking
