@@ -171,8 +171,8 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
     auto const & currentEdge = u->m_edge;
     auto const currentEdgeLen = EdgeLength(currentEdge);
 
-    // The path from the start of the segment of to the finish to the segment should be
-    // much shorter then the distance of connection of openlr segment.
+    // The path from the start of the openlr segment to the finish to the openlr segment should be
+    // much shorter then the distance of any connection of openlr segment.
     // This condition should be checked because otherwise in rare case |q| may be overfilled.
     if (u->m_distanceM > distanceToNextPointM)
       continue;
