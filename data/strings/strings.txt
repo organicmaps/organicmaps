@@ -32146,7 +32146,7 @@
 
   [opt_out_help_android]
     en = Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization
-    ru = Вы можете отказаться от получения целевой рекламы в настройках устройства.\nAndroid и Google Play Сервисы 4.0 и выше\n\nНастройки телефона → Google → Реклама → Отключить персонализацию рекламы\nили\nНастройки телефона → Google → Аккаунт Google → Конфиденциальность → Настройки реламных предпочтений → Персонализация рекламы
+    ru = Вы можете отказаться от получения целевой рекламы в настройках устройства.\nAndroid и Google Play Сервисы 4.0 и выше\n\nНастройки телефона → Google → Реклама → Отключить персонализацию рекламы\nили\nНастройки телефона → Google → Аккаунт Google → Конфиденциальность → Настройки рекламных предпочтений → Персонализация рекламы
     ar = قد يوفر جهازك الجوّال إعداد ""الحد من تتبع الإعلان"" أو ""إلغاء الاشتراك من الإعلانات التي تستهدف الاهتمامات"". \ n \ n للحصول على الإصدار 4.0 من نظام التشغيل Android و Google Play: \ n الإعدادات → Google ← الإعلانات ← إلغاء الاشتراك في تخصيص الإعلانات \ أو \ n الإعدادات → Google → Google Account → المعلومات الشخصية والخصوصية → إعدادات الإعلانات → تخصيص الإعلانات
     cs = Cílovou reklamu můžete vypnout v nastavení vašeho zařízení.\nAndroid a Google Play Servisy 4.0 a vyšší\n\nNastavení telefonu → Google → Reklama → Vypnout personalizaci reklamy\n nebo\nNastavení telefonu → Google → Účet Google → Důvěrnost → Nastavení reklamních preferencí → Personalizace reklamy
     da = Din mobilenhed kan indeholde en »Begræns reklamesporing« eller »Afmeld Tilpasset annoncering« indstilling.\n\nPå Android og Google Play Services version 4.0 og op:\nIndstillinger → Google → Annoncer→ Afmeld Tilpasset annoncering\nor\nIndstillinger → Google → Google Account → Data og tilpasning → Annoncetilpasning → Annoncetilpasning
@@ -36070,7 +36070,7 @@
     de = Geschwindigkeitskameras
     hu = Sebességmérő kamerák
     id = Kamera cepat
-    it = Atovelox o Tutor
+    it = Autovelox o Tutor
     ja = 自動速度違反取締装置
     ko = 속도 감시 카메라
     nb = Fartskamera
@@ -40687,7 +40687,7 @@
     it = Scegliere un albergo sulla mappa
     ja = マップ上のホテルを選択
     ko = 지도에서 호텔을 고르세요
-    nb = Finne en hotell på kortet
+    nb = Finne et hotell på kartet
     pl = Znajdź hotel na mapie
     pt = Escolher o hotel no mapa
     pt-BR = Escolha um hotel no mapa
