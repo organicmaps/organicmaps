@@ -80,7 +80,6 @@ dependencies {
   implementation('com.mopub:mopub-sdk-native-static:5.10.0@aar') {
     transitive = true;
   }
-  implementation fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
   implementation 'com.cocosw:bottomsheet:1.5.0@aar'
   // LinearLayoutManager allowing wrap_content of RecyclerView-s
