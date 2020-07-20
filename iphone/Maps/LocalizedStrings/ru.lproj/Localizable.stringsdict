@@ -147,5 +147,25 @@
       <string>На основе %d отзывов</string>
     </dict>
   </dict>
+
+<!-- FIXME -->
+  <key>date_picker_amout_of_days</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>%d день</string>
+      <key>few</key>
+      <string>%d дня</string>
+      <key>other</key>
+      <string>%dдней</string>
+    </dict>
+  </dict>
 </dict>
 </plist>

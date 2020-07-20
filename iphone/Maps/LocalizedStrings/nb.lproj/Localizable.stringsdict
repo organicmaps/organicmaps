@@ -117,5 +117,21 @@
       <string>Basert på %d anmeldelser</string>
     </dict>
   </dict>
+
+<!-- FIXME -->
+  <key>date_picker_amout_of_days</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>other</key>
+      <string>%d days</string>
+    </dict>
+  </dict>
 </dict>
 </plist>
