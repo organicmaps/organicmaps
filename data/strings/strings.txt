@@ -47859,3 +47859,51 @@
   [trial_error_dialog]
     comment = FIXME
     en = trial_error_dialog
+
+  [floating_button_filters]
+    comment = FIXME
+    en = Filters
+
+  [date_picker_amout_of_days]
+    comment = FIXME
+    en:one = %d day 
+    en:other = %d days 
+    ru:one = %d день 
+    ru:few = %d дня 
+    ru:other = %dдней
+
+  [date_picker_сhoose_dates_cta]
+    comment = FIXME
+    en = Choose dates
+
+  [guests_picker_rooms]
+    comment = FIXME
+    en = Rooms
+
+  [guests_picker_adults]
+    comment = FIXME
+    en = Adults
+
+  [guests_picker_children_title]
+    comment = FIXME
+    en = Children
+
+  [guests_picker_children_subtitle]
+    comment = FIXME
+    en = 3-16 y.o.
+
+  [guests_picker_infants_title]
+    comment = FIXME
+    en = Infants
+
+  [guests_picker_infants_subtitle]
+    comment = FIXME
+    en = 0-3 y.o.
+
+  [booking_map_component_availability]
+    comment = FIXME
+    en = No rooms
+
+  [booking_map_component_filters]
+    comment = FIXME
+    en = Out of filters  
