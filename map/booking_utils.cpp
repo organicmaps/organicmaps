@@ -16,7 +16,7 @@ namespace booking
 {
 namespace
 {
-void SortTransform(search::Results && results, std::vector<Extras> && extras,
+void SortTransform(search::Results const & results, std::vector<Extras> const & extras,
                    std::vector<FeatureID> & sortedFeatures, std::vector<std::string> & sortedPrices)
 {
   if (!extras.empty())
@@ -27,8 +27,8 @@ void SortTransform(search::Results && results, std::vector<Extras> && extras,
     featuresWithPrices.reserve(results.GetCount());
     for (size_t i = 0; i < results.GetCount(); ++i)
     {
-      auto pricesFormatted = FormatPrice(extras[i].m_price, extras[i].m_currency);
-      featuresWithPrices.emplace_back(std::move(results[i].GetFeatureID()), std::move(pricesFormatted));
+      auto priceFormatted = FormatPrice(extras[i].m_price, extras[i].m_currency);
+      featuresWithPrices.emplace_back(results[i].GetFeatureID(), std::move(priceFormatted));
     }
 
     std::sort(featuresWithPrices.begin(), featuresWithPrices.end(),
