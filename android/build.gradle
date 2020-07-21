@@ -210,7 +210,7 @@ android {
         cFlags '-ffunction-sections', '-fdata-sections',
                '-Wno-extern-c-compat'
         arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
-                  "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag", '-DANDROID_LD=lld'
+                  "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag"
       }
     }
 
@@ -494,6 +494,9 @@ android {
   }
 
   packagingOptions {
+    exclude 'lib/armeabi/libcrashlytics.so'
+    exclude 'lib/mips64/libcrashlytics.so'
+    exclude 'lib/mips/libcrashlytics.so'
     exclude 'lib/armeabi/libVkLayer_core_validation.so'
     exclude 'lib/armeabi/libVkLayer_threading.so'
     exclude 'lib/armeabi/libVkLayer_image.so'

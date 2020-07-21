@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fuse-ld=gold")
 project(mapswithme C CXX)
 
 include_directories(
