@@ -23,6 +23,10 @@ enum class Price {
 @property(nonatomic) place_page::rating::FilterRating rating;
 @property(nonatomic) NSDate *checkInDate;
 @property(nonatomic) NSDate *checkOutDate;
+@property(nonatomic) NSInteger numberOfRooms;
+@property(nonatomic) NSInteger numberOfAdults;
+@property(nonatomic) NSInteger numberOfChildren;
+@property(nonatomic) NSInteger numberOfInfants;
 
 - (instancetype)initWithPlacePageData:(PlacePageData *)data;
 - (std::shared_ptr<search::hotels_filter::Rule>)rules;

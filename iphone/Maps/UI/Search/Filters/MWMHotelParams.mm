@@ -5,14 +5,37 @@
 #include <CoreApi/PlacePageData.h>
 #include <CoreApi/PlacePagePreviewData.h>
 
-static uint8_t kAdultsCount = 2;
-static int8_t kAgeOfChild = 5;
+static int8_t kAgeOfChild = 8;
+static int8_t kAgeOfInfant = 2;
+
+@interface Room: NSObject
+
+@property (nonatomic) NSInteger adults;
+@property (nonatomic) NSInteger children;
+@property (nonatomic) NSInteger infants;
+
+@end
+
+@implementation Room
+
+@end
 
 @implementation MWMHotelParams
 
-- (instancetype)initWithPlacePageData:(PlacePageData *)data {
+- (instancetype)init {
   self = [super init];
   if (self) {
+    _numberOfRooms = 1;
+    _numberOfAdults = 2;
+  }
+  return self;
+}
+
+- (instancetype)initWithPlacePageData:(PlacePageData *)data
+{
+  self = [self init];
+  if (self)
+  {
     _types.insert(ftypes::IsHotelChecker::Type::Hotel);
 
     PlacePagePreviewData *previewData = data.previewData;
@@ -99,8 +122,38 @@ unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const &items)
 - (booking::filter::Params)availabilityParams {
   using Clock = booking::AvailabilityParams::Clock;
   booking::AvailabilityParams params;
-  params.m_rooms = {{kAdultsCount, {kAgeOfChild}}};
-  if (Platform::IsConnected()) {
+  if (Platform::IsConnected())
+  {
+    NSInteger roomsCount = self.numberOfRooms > self.numberOfAdults ? self.numberOfAdults : self.numberOfRooms;
+    NSMutableArray<Room *> *rooms = [NSMutableArray array];
+    NSInteger i = 0;
+    while (i < self.numberOfAdults + self.numberOfChildren + self.numberOfInfants) {
+      Room *room;
+      NSInteger roomIndex = i % roomsCount;
+      if (i <= roomIndex) {
+        room = [[Room alloc] init];
+        [rooms addObject:room];
+      } else {
+        room = rooms[roomIndex];
+      }
+      if (i >= self.numberOfAdults + self.numberOfChildren) {
+        room.infants += 1;
+      } else if (i >= self.numberOfAdults) {
+        room.children += 1;
+      } else {
+        room.adults += 1;
+      }
+      i += 1;
+    }
+
+    std::vector<booking::AvailabilityParams::Room> filterRooms;
+    for (Room *room : rooms) {
+      std::vector<int8_t> agesOfChildren(room.children, kAgeOfChild);
+      agesOfChildren.insert(agesOfChildren.end(), room.infants, kAgeOfInfant);
+      filterRooms.emplace_back(room.adults, agesOfChildren);
+    }
+
+    params.m_rooms = filterRooms;
     params.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
     params.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
   }

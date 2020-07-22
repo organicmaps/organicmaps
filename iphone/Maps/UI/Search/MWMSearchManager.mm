@@ -393,6 +393,9 @@ didSelectStartDate:(NSDate *)startDate
            endDate:(NSDate *)endDate {
   [self.searchBarView setDatesWithCheckin:startDate checkout:endDate];
   MWMHotelParams *filter = [MWMSearch getFilter];
+  if (!filter) {
+    filter = [MWMHotelParams new];
+  }
   filter.checkInDate = startDate;
   filter.checkOutDate = endDate;
   [MWMSearch updateHotelFilterWithParams:filter];
@@ -412,7 +415,13 @@ didSelectStartDate:(NSDate *)startDate
              infants:(NSInteger)infants {
   [self.searchBarView setGuestCount:adults + children + infants];
   MWMHotelParams *filter = [MWMSearch getFilter];
-  // TODO: set number of guests to filter
+  if (!filter) {
+    filter = [MWMHotelParams new];
+  }
+  filter.numberOfRooms = rooms;
+  filter.numberOfAdults = adults;
+  filter.numberOfChildren = children;
+  filter.numberOfInfants = infants;
   [MWMSearch updateHotelFilterWithParams:filter];
   [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
 }
