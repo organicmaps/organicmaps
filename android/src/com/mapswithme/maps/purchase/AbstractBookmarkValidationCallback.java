@@ -20,7 +20,8 @@ abstract class AbstractBookmarkValidationCallback implements ValidationCallback
   }
 
   @Override
-  public final void onValidate(@NonNull String purchaseData, @NonNull ValidationStatus status)
+  public final void onValidate(@NonNull String purchaseData, @NonNull ValidationStatus status,
+                               boolean isTrial)
   {
     LOGGER.i(TAG, "Validation status of 'paid bookmark': " + status);
     if (status == ValidationStatus.VERIFIED)

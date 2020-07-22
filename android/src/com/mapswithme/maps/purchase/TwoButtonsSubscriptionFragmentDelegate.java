@@ -56,6 +56,10 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
       return;
 
     mSelectedPeriod = period;
+    if (mSelectedPeriod == PurchaseUtils.Period.P1Y)
+      getFragment().trackYearlyProductSelected();
+    else if (mSelectedPeriod == PurchaseUtils.Period.P1M)
+      getFragment().trackMonthlyProductSelected();
     getFragment().pingBookmarkCatalog();
   }
 

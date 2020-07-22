@@ -1,9 +1,9 @@
 package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
 import com.android.billingclient.api.Purchase;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.ConnectionState;
@@ -51,7 +51,8 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
   private class ValidationCallbackImpl implements ValidationCallback
   {
     @Override
-    public void onValidate(@NonNull String purchaseData, @NonNull ValidationStatus status)
+    public void onValidate(@NonNull String purchaseData, @NonNull ValidationStatus status,
+                           boolean isTrial)
     {
       LOGGER.i(TAG, "Validation status of '" + mType + "': " + status);
       if (status == ValidationStatus.VERIFIED)
@@ -66,14 +67,15 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
       if (!hasActiveSubscription && shouldActivateSubscription)
       {
         LOGGER.i(TAG, "'" + mType + "' subscription activated");
-        Statistics.INSTANCE.trackPurchaseProductDelivered(mType.getServerId(), mType.getVendor());
+        Statistics.INSTANCE.trackPurchaseProductDelivered(mType.getServerId(), mType.getVendor(),
+                                                          isTrial);
       }
       else if (hasActiveSubscription && !shouldActivateSubscription)
       {
         LOGGER.i(TAG, "'" + mType + "' subscription deactivated");
       }
 
-      Framework.nativeSetActiveSubscription(mType.ordinal(), shouldActivateSubscription);
+      Framework.nativeSetActiveSubscription(mType.ordinal(), shouldActivateSubscription, isTrial);
 
       if (getUiCallback() != null)
         getUiCallback().onValidationFinish(shouldActivateSubscription);
@@ -106,7 +108,7 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
         if (Framework.nativeHasActiveSubscription(mType.ordinal()))
         {
           LOGGER.i(TAG, "'" + mType + "' subscription deactivated");
-          Framework.nativeSetActiveSubscription(mType.ordinal(), false);
+          Framework.nativeSetActiveSubscription(mType.ordinal(), false, false);
         }
         return;
       }

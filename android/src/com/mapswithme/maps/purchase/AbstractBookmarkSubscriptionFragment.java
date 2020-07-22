@@ -2,6 +2,7 @@ package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,10 +72,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     mPurchaseController.initialize(requireActivity());
     mPingCallback.attach(this);
     BookmarkManager.INSTANCE.addCatalogPingListener(mPingCallback);
-    Statistics.INSTANCE.trackPurchasePreviewShow(getSubscriptionType().getServerId(),
-                                                 getSubscriptionType().getVendor(),
-                                                 getSubscriptionType().getYearlyProductId(),
-                                                 getExtraFrom());
     View root = onSubscriptionCreateView(inflater, container, savedInstanceState);
     mDelegate = createFragmentDelegate(this);
     if (root != null)
@@ -282,6 +279,12 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   public void onPriceSelection()
   {
     mDelegate.onPriceSelection();
+    ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y);
+    boolean isTrial = !TextUtils.isEmpty(details.getFreeTrialPeriod());
+    Statistics.INSTANCE.trackPurchasePreviewShow(getSubscriptionType().getServerId(),
+                                                 getSubscriptionType().getVendor(),
+                                                 getSubscriptionType().getYearlyProductId(),
+                                                 getExtraFrom(), isTrial);
   }
 
   @Override
@@ -438,8 +441,11 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
 
   void trackYearlyProductSelected()
   {
+    ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y);
+    boolean isTrial = !TextUtils.isEmpty(details.getFreeTrialPeriod());
     Statistics.INSTANCE.trackPurchasePreviewSelect(getSubscriptionType().getServerId(),
-                                                   getSubscriptionType().getYearlyProductId());
+                                                   getSubscriptionType().getYearlyProductId(),
+                                                   isTrial);
   }
 
   void trackMonthlyProductSelected()

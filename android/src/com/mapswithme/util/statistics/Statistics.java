@@ -148,6 +148,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LO
 import static com.mapswithme.util.statistics.Statistics.EventParam.SERVER_ID;
 import static com.mapswithme.util.statistics.Statistics.EventParam.SERVER_IDS;
 import static com.mapswithme.util.statistics.Statistics.EventParam.STATE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.TRIAL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TURN_ON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
@@ -663,67 +664,68 @@ public enum Statistics
     public static final String DATE = "date";
     public static final String STATUS = "status";
     public static final String SOURCE = "source";
-    static final String ID = "id";
     public static final String GUIDE_CATALOGUE = "guide_catalogue";
     public static final String SUBSCRIPTION = "subscription";
     public static final String EXPORT_BOOKMARKS = "export_bookmarks";
     public static final String BOOKMARKS_BACKUP = "bookmarks_backup";
     public static final String AFTER_SAVE_REVIEW = "after_save_review";
-    static final String TRACKS = "tracks";
-    static final String POINTS = "points";
-    static final String TOLL = "toll";
-    static final String UNPAVED = "unpaved";
-    static final String FERRY = "ferry";
-    static final String MOTORWAY = "motorway";
-    static final String SCENARIO = "scenario";
-    static final String TARGET = "target";
-    static final String CATEGORY = "category";
-    static final String COUNT = "Count";
-    static final String COUNT_LOWERCASE = "count";
-    static final String CHANNEL = "Channel";
+    static final String BANNER = "banner";
+    static final String BATTERY = "battery";
     static final String CALLER_ID = "Caller ID";
-    static final String CONNECTION_TYPE = "Connection name";
+    static final String CATEGORY = "category";
+    static final String CHANNEL = "Channel";
+    static final String CHARGING = "charging";
     static final String CONNECTION_FAST = "Connection fast";
     static final String CONNECTION_METERED = "Connection limit";
-    static final String MY_POSITION = "my position";
-    static final String POINT = "point";
-    static final String IS_AUTHENTICATED = "is_authenticated";
-    static final String IS_ONLINE = "is_online";
+    static final String CONNECTION_TYPE = "Connection name";
+    static final String COUNT = "Count";
+    static final String COUNT_LOWERCASE = "count";
+    static final String DESTINATION = "destination";
+    static final String ERROR_CODE = "error_code";
+    static final String ERROR_MESSAGE = "error_message";
     static final String FEATURE_ID = "feature_id";
-    static final String MWM_NAME = "mwm_name";
-    static final String MWM_VERSION = "mwm_version";
+    static final String FERRY = "ferry";
+    static final String FIRST_LAUNCH = "first_launch";
+    static final String FROM_LAT = "from_lat";
+    static final String FROM_LON = "from_lon";
+    static final String HAS_AUTH = "has_auth";
     static final String HOTEL_LAT = "hotel_lat";
     static final String HOTEL_LON = "hotel_lon";
+    static final String ID = "id";
+    static final String INTERRUPTED = "interrupted";
+    static final String IS_AUTHENTICATED = "is_authenticated";
+    static final String IS_ONLINE = "is_online";
+    static final String ITEM = "item";
+    static final String MAP_DATA_SIZE = "map_data_size:";
+    static final String METHOD = "method";
+    static final String MODE = "mode";
+    static final String MOTORWAY = "motorway";
+    static final String MWM_NAME = "mwm_name";
+    static final String MWM_VERSION = "mwm_version";
+    static final String MY_POSITION = "my position";
+    static final String NETWORK = "network";
+    static final String OBJECT_LAT = "object_lat";
+    static final String OBJECT_LON = "object_lon";
+    static final String PLACEMENT = "placement";
+    static final String POINT = "point";
+    static final String POINTS = "points";
+    static final String PRODUCT = "product";
+    static final String PURCHASE = "purchase";
     static final String RESTAURANT = "restaurant";
     static final String RESTAURANT_LAT = "restaurant_lat";
     static final String RESTAURANT_LON = "restaurant_lon";
-    static final String FROM_LAT = "from_lat";
-    static final String FROM_LON = "from_lon";
-    static final String TO_LAT = "to_lat";
-    static final String TO_LON = "to_lon";
-    static final String BANNER = "banner";
-    static final String STATE = "state";
-    static final String ERROR_CODE = "error_code";
-    static final String ERROR_MESSAGE = "error_message";
-    static final String MAP_DATA_SIZE = "map_data_size:";
-    static final String BATTERY = "battery";
-    static final String CHARGING = "charging";
-    static final String NETWORK = "network";
-    static final String METHOD = "method";
-    static final String MODE = "mode";
-    static final String OBJECT_LAT = "object_lat";
-    static final String OBJECT_LON = "object_lon";
-    static final String ITEM = "item";
-    static final String DESTINATION = "destination";
-    static final String PLACEMENT = "placement";
-    static final String HAS_AUTH = "has_auth";
-    static final String INTERRUPTED = "interrupted";
-    static final String VENDOR = "vendor";
-    static final String PRODUCT = "product";
-    static final String PURCHASE = "purchase";
+    static final String SCENARIO = "scenario";
     static final String SERVER_ID = "server_id";
     static final String SERVER_IDS = "server_ids";
-    static final String FIRST_LAUNCH = "first_launch";
+    static final String STATE = "state";
+    static final String TARGET = "target";
+    static final String TO_LAT = "to_lat";
+    static final String TO_LON = "to_lon";
+    static final String TOLL = "toll";
+    static final String TRACKS = "tracks";
+    static final String TRIAL = "trial";
+    static final String UNPAVED = "unpaved";
+    static final String VENDOR = "vendor";
 
     private EventParam() {}
   }
@@ -1734,13 +1736,17 @@ public enum Statistics
   }
 
   public void trackPurchasePreviewShow(@NonNull String purchaseId, @NonNull String vendor,
-                                       @NonNull String productId, @Nullable String from)
+                                       @NonNull String productId, @Nullable String from,
+                                       @Nullable Boolean isTrial)
   {
     ParameterBuilder params = params().add(VENDOR, vendor)
                                       .add(PRODUCT, productId)
                                       .add(PURCHASE, purchaseId);
     if (!TextUtils.isEmpty(from))
       params.add(FROM, from);
+
+    if (isTrial != null)
+      params.add(TRIAL, isTrial);
 
     trackEvent(INAPP_PURCHASE_PREVIEW_SHOW, params,
                STATISTICS_CHANNEL_REALTIME);
@@ -1749,7 +1755,7 @@ public enum Statistics
   public void trackPurchasePreviewShow(@NonNull String purchaseId, @NonNull String vendor,
                                        @NonNull String productId)
   {
-     trackPurchasePreviewShow(purchaseId, vendor, productId, null);
+     trackPurchasePreviewShow(purchaseId, vendor, productId, null, null);
   }
 
   public void trackPurchaseEvent(@NonNull String event, @NonNull String purchaseId)
@@ -1765,8 +1771,17 @@ public enum Statistics
 
   public void trackPurchasePreviewSelect(@NonNull String purchaseId, @NonNull String productId)
   {
-    trackEvent(INAPP_PURCHASE_PREVIEW_SELECT, params().add(PRODUCT, productId)
-                                                      .add(PURCHASE, purchaseId));
+    trackPurchasePreviewSelect(purchaseId, productId, null);
+  }
+
+  public void trackPurchasePreviewSelect(@NonNull String purchaseId, @NonNull String productId,
+                                         @Nullable Boolean isTrial)
+  {
+    ParameterBuilder params = params();
+    if (isTrial != null)
+      params.add(TRIAL, isTrial);
+    trackEvent(INAPP_PURCHASE_PREVIEW_SELECT, params.add(PRODUCT, productId)
+                                                    .add(PURCHASE, purchaseId));
   }
 
   public void trackPurchaseStoreError(@NonNull String purchaseId,
@@ -1819,8 +1834,17 @@ public enum Statistics
 
   public void trackPurchaseProductDelivered(@NonNull String purchaseId, @NonNull String vendor)
   {
-    trackEvent(INAPP_PURCHASE_PRODUCT_DELIVERED, params().add(VENDOR, vendor)
-                                                         .add(PURCHASE, purchaseId),
+    trackPurchaseProductDelivered(purchaseId, vendor, null);
+  }
+
+  public void trackPurchaseProductDelivered(@NonNull String purchaseId, @NonNull String vendor,
+                                            @Nullable Boolean isTrial)
+  {
+    ParameterBuilder params = params();
+    if (isTrial != null)
+      params.add(TRIAL, isTrial);
+    trackEvent(INAPP_PURCHASE_PRODUCT_DELIVERED, params.add(VENDOR, vendor)
+                                                       .add(PURCHASE, purchaseId),
                STATISTICS_CHANNEL_REALTIME);
   }
 

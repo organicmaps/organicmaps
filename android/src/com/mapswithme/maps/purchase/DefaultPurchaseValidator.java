@@ -78,6 +78,6 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
     mOperationObservable.removeValidationObserver(orderId);
     mValidatedOrderId = null;
     if (mCallback != null)
-      mCallback.onValidate(purchaseData, status);
+      mCallback.onValidate(purchaseData, status, isTrial);
   }
 }
