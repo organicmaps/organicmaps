@@ -357,6 +357,10 @@
 		475EC36D244EDE66003BC295 /* GuidesGalleryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475EC36C244EDE66003BC295 /* GuidesGalleryPresenter.swift */; };
 		475EC36F244EF7A9003BC295 /* GuidesGalleryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475EC36E244EF7A9003BC295 /* GuidesGalleryBuilder.swift */; };
 		475EC373244F0992003BC295 /* PlacePageGalleryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475EC372244F0992003BC295 /* PlacePageGalleryLayout.swift */; };
+		475ED78324C7A5400063ADC7 /* GuestsPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475ED78124C7A5400063ADC7 /* GuestsPickerViewController.swift */; };
+		475ED78424C7A5400063ADC7 /* GuestsPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475ED78224C7A5400063ADC7 /* GuestsPickerViewController.xib */; };
+		475ED78624C7C7300063ADC7 /* ValueStepperViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475ED78524C7C72F0063ADC7 /* ValueStepperViewRenderer.swift */; };
+		475ED78824C7D0F30063ADC7 /* ValueStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475ED78724C7D0F30063ADC7 /* ValueStepperView.swift */; };
 		4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CD9E20AAD48A00BD8166 /* Checkmark.swift */; };
 		4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */; };
 		4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */; };
@@ -1486,6 +1490,10 @@
 		475EC36C244EDE66003BC295 /* GuidesGalleryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryPresenter.swift; sourceTree = "<group>"; };
 		475EC36E244EF7A9003BC295 /* GuidesGalleryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryBuilder.swift; sourceTree = "<group>"; };
 		475EC372244F0992003BC295 /* PlacePageGalleryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageGalleryLayout.swift; sourceTree = "<group>"; };
+		475ED78124C7A5400063ADC7 /* GuestsPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsPickerViewController.swift; sourceTree = "<group>"; };
+		475ED78224C7A5400063ADC7 /* GuestsPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuestsPickerViewController.xib; sourceTree = "<group>"; };
+		475ED78524C7C72F0063ADC7 /* ValueStepperViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStepperViewRenderer.swift; sourceTree = "<group>"; };
+		475ED78724C7D0F30063ADC7 /* ValueStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStepperView.swift; sourceTree = "<group>"; };
 		4767CD9E20AAD48A00BD8166 /* Checkmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkmark.swift; sourceTree = "<group>"; };
 		4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+HTML.swift"; sourceTree = "<group>"; };
 		4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedIconButton.swift; sourceTree = "<group>"; };
@@ -2316,7 +2324,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
 				47AEF83F2231249E00D20538 /* categories_brands.txt */,
@@ -3744,6 +3752,7 @@
 				47D48BF42432A7C900FEFB1F /* ChartViewRenderer.swift */,
 				9977E6A22480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift */,
 				47A13CAC24BE9AA500027D4F /* DatePickerViewRenderer.swift */,
+				475ED78524C7C72F0063ADC7 /* ValueStepperViewRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -4743,6 +4752,9 @@
 				47A13CA824BE881000027D4F /* DatePickerViewController.swift */,
 				990F33B524BC915200D0F426 /* SearchActionBarView.swift */,
 				47A13CA924BE881000027D4F /* DatePickerViewController.xib */,
+				475ED78124C7A5400063ADC7 /* GuestsPickerViewController.swift */,
+				475ED78224C7A5400063ADC7 /* GuestsPickerViewController.xib */,
+				475ED78724C7D0F30063ADC7 /* ValueStepperView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -5067,7 +5079,7 @@
 				"en-GB",
 				el,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -5113,6 +5125,7 @@
 				6741A9451BF340DE002C974C /* classificator.txt in Resources */,
 				676507611C10559B00830BB3 /* colors.txt in Resources */,
 				6741A9711BF340DE002C974C /* copyright.html in Resources */,
+				475ED78424C7A5400063ADC7 /* GuestsPickerViewController.xib in Resources */,
 				4A300ED51C6DCFD400140018 /* countries-strings in Resources */,
 				6741A9491BF340DE002C974C /* countries.txt in Resources */,
 				347752931F7251C7000D46A3 /* UGCAddReviewTextCell.xib in Resources */,
@@ -5649,6 +5662,7 @@
 				6741A9E01BF340DE002C974C /* MWMDownloaderDialogHeader.mm in Sources */,
 				479D306822C66C8F00D18278 /* MWMBookmarksBannerViewController.m in Sources */,
 				CDCA2748223FD24600167D87 /* MWMCarPlaySearchResultObject.mm in Sources */,
+				475ED78824C7D0F30063ADC7 /* ValueStepperView.swift in Sources */,
 				3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.m in Sources */,
 				99AAEA78244DA9810039D110 /* BottomMenuTransitioningManager.swift in Sources */,
 				1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */,
@@ -5740,6 +5754,7 @@
 				3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */,
 				34AB66111FC5AA320078E451 /* NavigationTurnsView.swift in Sources */,
 				348A8DF81F66775A00D83026 /* RatingViewDelegate.swift in Sources */,
+				475ED78624C7C7300063ADC7 /* ValueStepperViewRenderer.swift in Sources */,
 				4716EABA21A325310029B886 /* IPaidRouteStatistics.swift in Sources */,
 				475EC36D244EDE66003BC295 /* GuidesGalleryPresenter.swift in Sources */,
 				47A13CAA24BE881000027D4F /* DatePickerViewController.swift in Sources */,
@@ -5897,6 +5912,7 @@
 				471A7BC02481C82500A0D4C1 /* BookmarkTitleCell.swift in Sources */,
 				34AB661A1FC5AA330078E451 /* MWMTaxiCollectionLayout.m in Sources */,
 				33F8BA4E2199AB9500ECA8EE /* TagsDataSource.swift in Sources */,
+				475ED78324C7A5400063ADC7 /* GuestsPickerViewController.swift in Sources */,
 				993F5507237C622700545511 /* DeepLinkSearchStrategy.swift in Sources */,
 				47F67D1521CAB21B0069754E /* MWMImageCoder.m in Sources */,
 				34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */,

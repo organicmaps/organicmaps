@@ -33,7 +33,8 @@ using Observers = NSHashTable<Observer>;
                                 UITextFieldDelegate,
                                 MWMStorageObserver,
                                 MWMSearchObserver,
-                                DatePickerViewControllerDelegate>
+                                DatePickerViewControllerDelegate,
+                                GuestsPickerViewControllerDelegate>
 
 @property(weak, nonatomic, readonly) UIViewController *ownerController;
 @property(weak, nonatomic, readonly) UIView *searchViewContainer;
@@ -134,7 +135,9 @@ using Observers = NSHashTable<Observer>;
 
 - (IBAction)onBookingGuestsButtonPressed:(id)sender {
   [self.searchTextField resignFirstResponder];
-  [self.searchBarView setGuestCount:1];
+  GuestsPickerViewController *controller = [[GuestsPickerViewController alloc] init];
+  controller.delegate = self;
+  [[MapViewController sharedController] presentViewController:controller animated:YES completion:nil];
 }
 
 #pragma mark - Layout
@@ -397,6 +400,24 @@ didSelectStartDate:(NSDate *)startDate
 }
 
 - (void)datePickerDidCancel:(DatePickerViewController *)datePicker {
+  [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - GuestsPickerViewControllerDelegate
+
+- (void)guestsPicker:(GuestsPickerViewController *)guestsPicker
+      didSelectRooms:(NSInteger)rooms
+              adults:(NSInteger)adults
+            children:(NSInteger)children
+             infants:(NSInteger)infants {
+  [self.searchBarView setGuestCount:adults + children + infants];
+  MWMHotelParams *filter = [MWMSearch getFilter];
+  // TODO: set number of guests to filter
+  [MWMSearch updateHotelFilterWithParams:filter];
+  [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)guestsPickerDidCancel:(GuestsPickerViewController *)guestsPicker {
   [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
 }
 

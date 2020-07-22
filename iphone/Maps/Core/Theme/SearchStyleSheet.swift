@@ -128,5 +128,11 @@ class SearchStyleSheet: IStyleSheet {
     theme.add(styleName: "BookingDatePickerDone", from: "FlatNormalTransButton") { (s) -> (Void) in
       s.font = fonts.semibold16
     }
+
+    theme.add(styleName: "ValueStepperView") { (s) -> (Void) in
+      s.font = fonts.regular16
+      s.fontColor = colors.blackPrimaryText
+      s.coloring = MWMButtonColoring.blue
+    }
   }
 }

@@ -21,7 +21,7 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
 - (void)setColoring:(MWMButtonColoring)coloring
 {
   _coloring = coloring;
-  [self setDefaultTintColor];
+  [self setEnabled:self.enabled];
 }
 
 - (void)changeColoringToOpposite
@@ -80,7 +80,7 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
     if (self.selected)
       [self setSelected:YES];
     else
-      [self setDefaultTintColor];
+      [self setEnabled:self.enabled];
   }
 }
 
@@ -104,7 +104,7 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
   }
   else
   {
-    [self setDefaultTintColor];
+    [self setEnabled:self.enabled];
   }
 }
 
