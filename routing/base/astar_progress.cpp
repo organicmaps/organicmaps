@@ -101,7 +101,10 @@ double AStarProgress::UpdateProgress(ms::LatLon const & current, ms::LatLon cons
   double const newProgress = UpdateProgressImpl(m_subProgresses.begin(), current, end) * 100.0;
   m_lastPercentValue = std::max(m_lastPercentValue, newProgress);
 
-  ASSERT_LESS_OR_EQUAL(m_lastPercentValue, kMaxPercent, ());
+  ASSERT(m_lastPercentValue < kMaxPercent ||
+             base::AlmostEqualAbs(m_lastPercentValue, kMaxPercent, 1e-5 /* eps */),
+         (m_lastPercentValue, kMaxPercent));
+
   m_lastPercentValue = std::min(m_lastPercentValue, kMaxPercent);
   return m_lastPercentValue;
 }
