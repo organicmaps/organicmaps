@@ -1,7 +1,5 @@
 protocol SubscriptionPresenterProtocol: AnyObject {
   var isLoadingHidden: Bool { get set }
-  // TODO: (boriskov) remove stub
-  var debugTrial: Bool { get set }
   func configure()
   func purchase(anchor: UIView, period: SubscriptionPeriod)
   func restore(anchor: UIView)
@@ -34,6 +32,28 @@ class SubscriptionPresenter {
     self.subscriptionManager = subscriptionManager
     self.source = source
     debugTrial = subscriptionManager === InAppPurchase.allPassSubscriptionManager
+  }
+
+  private func configureTrial() {
+    guard let trialSubscriptionItem = self.subscriptionGroup?[.year] else {
+      fatalError()
+    }
+    view?.setModel(SubscriptionViewModel.trial(SubscriptionViewModel.TrialData(price: trialSubscriptionItem.formattedPrice)))
+  }
+
+  private func configureSubscriptions() {
+    var data: [SubscriptionViewModel.SubscriptionData] = []
+    for period in [SubscriptionPeriod.month, SubscriptionPeriod.year] {
+      guard let subscriptionItem = self.subscriptionGroup?[period] else {
+        fatalError()
+      }
+      data.append(SubscriptionViewModel.SubscriptionData(price: subscriptionItem.formattedPrice,
+                                                         title: subscriptionItem.title,
+                                                         period: period,
+                                                         hasDiscount: subscriptionItem.hasDiscount,
+                                                         discount: L("all_pass_screen_best_value")))
+    }
+    view?.setModel(SubscriptionViewModel.subsctiption(data))
   }
 }
 
@@ -69,26 +89,24 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
 
       let group = SubscriptionGroup(subscriptions: subscriptions)
       self?.subscriptionGroup = group
-
-      if self!.debugTrial {
-        guard let trialSubscriptionItem = group[.year] else {
-          return
-        }
-        self?.view?.setModel(SubscriptionViewModel.trial(SubscriptionViewModel.TrialData(price: trialSubscriptionItem.formattedPrice)))
-      } else {
-        var data: [SubscriptionViewModel.SubscriptionData] = []
-        for period in [SubscriptionPeriod.month, SubscriptionPeriod.year] {
-          guard let subscriptionItem = group[period] else {
-            assertionFailure()
-            return
+      
+      if self?.subscriptionManager.hasTrial == true {
+        self?.subscriptionManager.checkTrialEligibility { (result) in
+          switch result {
+          case .eligible:
+            self?.configureTrial()
+          case .notEligible:
+            self?.configureSubscriptions()
+          case .serverError:
+            MWMAlertViewController.activeAlert().presentInfoAlert(L("error_server_title"),
+                                                                  text: L("error_server_message"))
+            self?.onCancel()
+          @unknown default:
+            fatalError()
           }
-          data.append(SubscriptionViewModel.SubscriptionData(price: subscriptionItem.formattedPrice,
-                                                             title: subscriptionItem.title,
-                                                             period: period,
-                                                             hasDiscount: subscriptionItem.hasDiscount,
-                                                             discount: L("all_pass_screen_best_value")))
         }
-        self?.view?.setModel(SubscriptionViewModel.subsctiption(data))
+      } else {
+        self?.configureSubscriptions()
       }
     }
 
@@ -125,10 +143,14 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
 
   func restore(anchor: UIView) {
     interactor.restore(anchor: anchor)
+    Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: subscriptionManager.serverId])
   }
 
   func trial(anchor: UIView) {
-    interactor.trial(anchor: anchor)
+    guard let subscription = subscriptionGroup?[.year]?.subscription else {
+      return
+    }
+    interactor.purchase(anchor: anchor, subscription: subscription)
   }
 
   func onSubscribe() {

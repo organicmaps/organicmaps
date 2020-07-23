@@ -343,7 +343,6 @@
 		472E3F472146BCD30020E412 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F462146BCD30020E412 /* SubscriptionManager.swift */; };
 		472E3F4A2146C4CD0020E412 /* MWMPurchaseManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */; };
 		472E3F4C2147D5700020E412 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F4B2147D5700020E412 /* Subscription.swift */; };
-		473464A7218B0BC000D6AF5B /* MWMPurchaseValidation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 473464A6218B0BC000D6AF5B /* MWMPurchaseValidation.mm */; };
 		4735008A23A83CF700661A95 /* DownloadedMapsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4735008923A83CF700661A95 /* DownloadedMapsDataSource.swift */; };
 		4738A8E7239FC513007C0F43 /* AdBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738A8E6239FC513007C0F43 /* AdBannerView.swift */; };
 		4738A8E9239FC526007C0F43 /* AdBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4738A8E8239FC526007C0F43 /* AdBannerView.xib */; };
@@ -1472,8 +1471,6 @@
 		472E3F482146C4CD0020E412 /* MWMPurchaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPurchaseManager.h; sourceTree = "<group>"; };
 		472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPurchaseManager.mm; sourceTree = "<group>"; };
 		472E3F4B2147D5700020E412 /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
-		473464A5218B0BC000D6AF5B /* MWMPurchaseValidation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPurchaseValidation.h; sourceTree = "<group>"; };
-		473464A6218B0BC000D6AF5B /* MWMPurchaseValidation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPurchaseValidation.mm; sourceTree = "<group>"; };
 		4735008923A83CF700661A95 /* DownloadedMapsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedMapsDataSource.swift; sourceTree = "<group>"; };
 		473500C023A8F81800661A95 /* MWMFrameworkObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkObserver.h; sourceTree = "<group>"; };
 		47375E562420ECA800FFCC49 /* Chart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Chart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1548,7 +1545,6 @@
 		47B9065121C7FA400079C85E /* IMWMImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMWMImageCache.h; sourceTree = "<group>"; };
 		47C7F9722191E15A00C2760C /* InAppBilling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppBilling.swift; sourceTree = "<group>"; };
 		47C7F97421930F5300C2760C /* IInAppBilling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IInAppBilling.swift; sourceTree = "<group>"; };
-		47C7F976219310D800C2760C /* IMWMPurchaseValidation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMWMPurchaseValidation.h; sourceTree = "<group>"; };
 		47C8788E22DF525A00A772DA /* SubscriptionSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionSuccessViewController.swift; sourceTree = "<group>"; };
 		47C8788F22DF525A00A772DA /* SubscriptionSuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubscriptionSuccessViewController.xib; sourceTree = "<group>"; };
 		47C8789722DF622400A772DA /* SubscriptionFailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionFailViewController.swift; sourceTree = "<group>"; };
@@ -3463,7 +3459,6 @@
 				47C7F97421930F5300C2760C /* IInAppBilling.swift */,
 				477D7AC6218F1515007EE2CB /* IPaidRoutePurchase.swift */,
 				4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */,
-				47C7F976219310D800C2760C /* IMWMPurchaseValidation.h */,
 				4716EAB921A325310029B886 /* IPaidRouteStatistics.swift */,
 			);
 			path = InappPurchase;
@@ -3476,8 +3471,6 @@
 				47C7F9722191E15A00C2760C /* InAppBilling.swift */,
 				470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */,
 				47D0026621999DA900F651A2 /* PendingTransactionsHandler.swift */,
-				473464A5218B0BC000D6AF5B /* MWMPurchaseValidation.h */,
-				473464A6218B0BC000D6AF5B /* MWMPurchaseValidation.mm */,
 				4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */,
 			);
 			path = Impl;
@@ -5446,7 +5439,6 @@
 				F63AF50F1EA6215100A1DB98 /* FilterPriceCategoryCell.swift in Sources */,
 				993DF12123F6BDB100AC231A /* UIViewControllerRenderer.swift in Sources */,
 				34D3AFF61E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
-				473464A7218B0BC000D6AF5B /* MWMPurchaseValidation.mm in Sources */,
 				4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */,
 				47B06DFE21B965950094CCAD /* Geo.swift in Sources */,
 				6741A9A91BF340DE002C974C /* MWMDefaultAlert.mm in Sources */,

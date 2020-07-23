@@ -10,7 +10,15 @@ typedef NS_ENUM(NSUInteger, MWMValidationResult)
   MWMValidationResultAuthError
 };
 
+typedef NS_ENUM(NSUInteger, MWMTrialEligibilityResult)
+{
+  MWMTrialEligibilityResultEligible,
+  MWMTrialEligibilityResultNotEligible,
+  MWMTrialEligibilityResultServerError
+};
+
 typedef void (^ValidateReceiptCallback)(NSString * serverId, MWMValidationResult validationResult);
+typedef void (^TrialEligibilityCallback)(NSString * serverId, MWMTrialEligibilityResult result);
 
 typedef void (^StartTransactionCallback)(BOOL success, NSString * serverId);
 
@@ -35,6 +43,9 @@ typedef void (^StartTransactionCallback)(BOOL success, NSString * serverId);
 - (void)validateReceipt:(NSString *)serverId
          refreshReceipt:(BOOL)refresh
                callback:(ValidateReceiptCallback)callback;
+- (void)checkTrialEligibility:(NSString *)serverId
+               refreshReceipt:(BOOL)refresh
+                     callback:(TrialEligibilityCallback)callback;
 - (void)startTransaction:(NSString *)serverId callback:(StartTransactionCallback)callback;
 - (void)refreshReceipt;
 

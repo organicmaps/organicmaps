@@ -37,6 +37,7 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMMapNodeAttributes.h>
 #import <CoreApi/MWMMapSearchResult.h>
 #import <CoreApi/MWMMapUpdateInfo.h>
+#import <CoreApi/MWMPurchaseValidation.h>
 
 #pragma mark - Place Page
 

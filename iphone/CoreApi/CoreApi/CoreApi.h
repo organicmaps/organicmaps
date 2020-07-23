@@ -23,3 +23,5 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMTypes.h>
 #import <CoreApi/MWMUser.h>
 #import <CoreApi/MWMUTM.h>
+#import <CoreApi/MWMTrialEligibility.h>
+#import <CoreApi/MWMPurchaseValidation.h>

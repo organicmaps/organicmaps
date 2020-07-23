@@ -62,7 +62,6 @@
 #import "MWMNoteCell.h"
 #import "MWMPlacePageManagerHelper.h"
 #import "MWMPurchaseManager.h"
-#import "MWMPurchaseValidation.h"
 #import "MWMPushNotifications.h"
 #import "MWMRouteManagerPointType.h"
 #import "MWMRoutePreviewTaxiCellType.h"

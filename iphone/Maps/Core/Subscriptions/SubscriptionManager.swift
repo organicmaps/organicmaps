@@ -1,10 +1,12 @@
 @objc protocol ISubscriptionManager: class{
   typealias SuscriptionsCompletion = ([ISubscription]?, Error?) -> Void
   typealias ValidationCompletion = (MWMValidationResult) -> Void
+  typealias TrialEligibilityCompletion = (MWMTrialEligibilityResult) -> Void
 
   var productIds: [String] { get }
   var serverId: String { get }
   var vendorId: String { get }
+  var hasTrial: Bool { get }
 
   @objc static func canMakePayments() -> Bool
   @objc func getAvailableSubscriptions(_ completion: @escaping SuscriptionsCompletion)
@@ -12,6 +14,7 @@
   @objc func addListener(_ listener: SubscriptionManagerListener)
   @objc func removeListener(_ listener: SubscriptionManagerListener)
   @objc func validate(completion: ValidationCompletion?)
+  @objc func checkTrialEligibility(completion: TrialEligibilityCompletion?)
   @objc func restore(_ callback: @escaping ValidationCompletion)
   @objc func setSubscriptionActive(_ value: Bool)
 }
@@ -36,12 +39,14 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
   let productIds: [String]
   let serverId: String
   let vendorId: String
+  let hasTrial: Bool
   private var purchaseManager: MWMPurchaseManager?
 
   init(productIds: [String], serverId: String, vendorId: String) {
     self.productIds = productIds
     self.serverId = serverId
     self.vendorId = vendorId
+    self.hasTrial = serverId == MWMPurchaseManager.allPassSubscriptionServerId()
     super.init()
     paymentQueue.add(self)
     self.purchaseManager = MWMPurchaseManager(vendorId: vendorId)
@@ -113,6 +118,12 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
       }
       completion?(validationResult)
     }
+  }
+
+  @objc func checkTrialEligibility(completion: TrialEligibilityCompletion?) {
+    purchaseManager?.checkTrialEligibility(serverId, refreshReceipt: true, callback: { (_, result) in
+      completion?(result)
+    })
   }
 
   private func logEvents(_ validationResult: MWMValidationResult) {

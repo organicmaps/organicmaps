@@ -134,6 +134,12 @@
 		9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */; };
 		999D3A64237B097C00C5F7A8 /* DeepLinkSubscriptionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		999D3A65237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */; };
+		99D934A624C9FFE7002E4802 /* IMWMTrialEligibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 99D934A424C9FFE6002E4802 /* IMWMTrialEligibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99D934A724C9FFE7002E4802 /* IMWMPurchaseValidation.h in Headers */ = {isa = PBXBuildFile; fileRef = 99D934A524C9FFE7002E4802 /* IMWMPurchaseValidation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99D934B224CA0052002E4802 /* MWMTrialEligibility.mm in Sources */ = {isa = PBXBuildFile; fileRef = 99D934AE24CA0051002E4802 /* MWMTrialEligibility.mm */; };
+		99D934B324CA0052002E4802 /* MWMTrialEligibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 99D934AF24CA0051002E4802 /* MWMTrialEligibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99D934B424CA0052002E4802 /* MWMPurchaseValidation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 99D934B024CA0052002E4802 /* MWMPurchaseValidation.mm */; };
+		99D934B524CA0052002E4802 /* MWMPurchaseValidation.h in Headers */ = {isa = PBXBuildFile; fileRef = 99D934B124CA0052002E4802 /* MWMPurchaseValidation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99F31EB823D5DD9000CE2CE1 /* PromoAfterBookingData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 99F31EB523D5DD8F00CE2CE1 /* PromoAfterBookingData.mm */; };
 		99F31EB923D5DD9000CE2CE1 /* PromoAfterBookingData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 99F31EB623D5DD8F00CE2CE1 /* PromoAfterBookingData+Core.h */; };
 		99F31EBA23D5DD9000CE2CE1 /* PromoAfterBookingData.h in Headers */ = {isa = PBXBuildFile; fileRef = 99F31EB723D5DD9000CE2CE1 /* PromoAfterBookingData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -276,6 +282,12 @@
 		9974CA2B23DF197B003FE824 /* ElevationProfileData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ElevationProfileData+Core.h"; sourceTree = "<group>"; };
 		999D3A62237B097C00C5F7A8 /* DeepLinkSubscriptionData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkSubscriptionData.h; sourceTree = "<group>"; };
 		999D3A63237B097C00C5F7A8 /* DeepLinkSubscriptionData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkSubscriptionData.mm; sourceTree = "<group>"; };
+		99D934A424C9FFE6002E4802 /* IMWMTrialEligibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMWMTrialEligibility.h; sourceTree = "<group>"; };
+		99D934A524C9FFE7002E4802 /* IMWMPurchaseValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMWMPurchaseValidation.h; sourceTree = "<group>"; };
+		99D934AE24CA0051002E4802 /* MWMTrialEligibility.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTrialEligibility.mm; sourceTree = "<group>"; };
+		99D934AF24CA0051002E4802 /* MWMTrialEligibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTrialEligibility.h; sourceTree = "<group>"; };
+		99D934B024CA0052002E4802 /* MWMPurchaseValidation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPurchaseValidation.mm; sourceTree = "<group>"; };
+		99D934B124CA0052002E4802 /* MWMPurchaseValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPurchaseValidation.h; sourceTree = "<group>"; };
 		99F31EB523D5DD8F00CE2CE1 /* PromoAfterBookingData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoAfterBookingData.mm; sourceTree = "<group>"; };
 		99F31EB623D5DD8F00CE2CE1 /* PromoAfterBookingData+Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PromoAfterBookingData+Core.h"; sourceTree = "<group>"; };
 		99F31EB723D5DD9000CE2CE1 /* PromoAfterBookingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoAfterBookingData.h; sourceTree = "<group>"; };
@@ -325,6 +337,7 @@
 		470015F12342509C00EBF03D /* CoreApi */ = {
 			isa = PBXGroup;
 			children = (
+				99D934A324C9FFCE002E4802 /* InappPurchase */,
 				47EF73F6246E031E00D32AB8 /* GuidesGallery */,
 				47E8163D23B2B97A008FD836 /* User */,
 				47F4F1F623A333280022FD56 /* Storage */,
@@ -677,6 +690,27 @@
 			path = ElevationProfile;
 			sourceTree = "<group>";
 		};
+		99D934A324C9FFCE002E4802 /* InappPurchase */ = {
+			isa = PBXGroup;
+			children = (
+				99D934B624CA0066002E4802 /* Impl */,
+				99D934A524C9FFE7002E4802 /* IMWMPurchaseValidation.h */,
+				99D934A424C9FFE6002E4802 /* IMWMTrialEligibility.h */,
+			);
+			path = InappPurchase;
+			sourceTree = "<group>";
+		};
+		99D934B624CA0066002E4802 /* Impl */ = {
+			isa = PBXGroup;
+			children = (
+				99D934B124CA0052002E4802 /* MWMPurchaseValidation.h */,
+				99D934B024CA0052002E4802 /* MWMPurchaseValidation.mm */,
+				99D934AF24CA0051002E4802 /* MWMTrialEligibility.h */,
+				99D934AE24CA0051002E4802 /* MWMTrialEligibility.mm */,
+			);
+			path = Impl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -693,6 +727,7 @@
 				471AB99123AB931000F56D49 /* MWMMapSearchResult+Core.h in Headers */,
 				4738A8E0239FACE7007C0F43 /* CoreBanner.h in Headers */,
 				47942D6D237CC3E300DEFAE3 /* PlacePagePreviewData.h in Headers */,
+				99D934B324CA0052002E4802 /* MWMTrialEligibility.h in Headers */,
 				9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */,
 				3D40DED523ED9C7F00A0153A /* WebApi.h in Headers */,
 				47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */,
@@ -725,6 +760,7 @@
 				479834F323426CD200724D1E /* MWMTagGroup+Convenience.h in Headers */,
 				47D9019923AC236100D9364C /* MWMMapUpdateInfo+Core.h in Headers */,
 				999D3A64237B097C00C5F7A8 /* DeepLinkSubscriptionData.h in Headers */,
+				99D934A624C9FFE7002E4802 /* IMWMTrialEligibility.h in Headers */,
 				47942D7E237CC43000DEFAE3 /* UgcData+Core.h in Headers */,
 				47942D6E237CC3E800DEFAE3 /* PlacePagePreviewData+Core.h in Headers */,
 				4738A8E4239FB46E007C0F43 /* CoreBanner+Core.h in Headers */,
@@ -737,10 +773,12 @@
 				47E8163723B188D3008FD836 /* MWMStorage.h in Headers */,
 				47EEAFF62350CF48005CF316 /* AppInfo.h in Headers */,
 				47F701F3238C877C00D18E95 /* PlacePageButtonsData+Core.h in Headers */,
+				99D934B524CA0052002E4802 /* MWMPurchaseValidation.h in Headers */,
 				471527392491EDAA00E91BBA /* MWMBookmarkColor.h in Headers */,
 				479F7053234FB7BC00011E2E /* MWMCatalogCommon.h in Headers */,
 				47942D7A237CC41A00DEFAE3 /* HotelRoom.h in Headers */,
 				4700160F2342579000EBF03D /* MWMTag.h in Headers */,
+				99D934A724C9FFE7002E4802 /* IMWMPurchaseValidation.h in Headers */,
 				47F4F1F923A3336C0022FD56 /* MWMMapNodeAttributes.h in Headers */,
 				479F705B234FBB1100011E2E /* MWMUTM.h in Headers */,
 				47942D98237D675400DEFAE3 /* CatalogPromoItem+Core.h in Headers */,
@@ -872,12 +910,14 @@
 				47E8164123B2B98F008FD836 /* MWMUser.mm in Sources */,
 				471AB98E23AB925D00F56D49 /* MWMMapSearchResult.mm in Sources */,
 				479834EA2342697400724D1E /* MWMTag+Convenience.mm in Sources */,
+				99D934B224CA0052002E4802 /* MWMTrialEligibility.mm in Sources */,
 				47C637D62354AEBE00E12DE0 /* MWMMapOverlayManager.mm in Sources */,
 				475784C32344B422008291A4 /* Framework.cpp in Sources */,
 				47942D8D237D634300DEFAE3 /* CatalogPromoData.mm in Sources */,
 				4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */,
 				472602A924092C5B00731135 /* MWMGeoUtil.mm in Sources */,
 				993F54F3237C5D1100545511 /* PromoAfterBookingCampaignAdapter.mm in Sources */,
+				99D934B424CA0052002E4802 /* MWMPurchaseValidation.mm in Sources */,
 				47F701F0238C86F000D18E95 /* PlacePageButtonsData.mm in Sources */,
 				9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */,
 				47EEAFF42350CEDB005CF316 /* AppInfo.mm in Sources */,

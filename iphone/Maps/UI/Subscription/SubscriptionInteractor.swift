@@ -1,7 +1,6 @@
 protocol SubscriptionInteractorProtocol: AnyObject {
   func purchase(anchor: UIView, subscription: ISubscription)
   func restore(anchor: UIView)
-  func trial(anchor: UIView)
 }
 
 class SubscriptionInteractor {
@@ -42,16 +41,10 @@ extension SubscriptionInteractor: SubscriptionInteractorProtocol {
         self?.subscriptionManager.subscribe(to: subscription)
       }
     }
-    Statistics.logEvent(kStatInappSelect, withParameters: [kStatPurchase: subscriptionManager.serverId,
-                                                           kStatProduct: subscription.productId],
-                        with: .realtime)
-    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager.serverId],
-                        with: .realtime)
   }
 
   func restore(anchor: UIView) {
     subscriptionManager.addListener(self)
-    Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: subscriptionManager.serverId])
     viewController?.signup(anchor: anchor, source: .subscription) { [weak self] success in
       guard success else { return }
       self?.presenter.isLoadingHidden = false
@@ -69,20 +62,6 @@ extension SubscriptionInteractor: SubscriptionInteractorProtocol {
           fatalError()
         }
         MWMAlertViewController.activeAlert().presentInfoAlert(L("restore_subscription"), text: alertText)
-      }
-    }
-  }
-
-  func trial(anchor: UIView) {
-    subscriptionManager.addListener(self)
-    viewController?.signup(anchor: anchor, source: .subscription) { [weak self] success in
-      guard success else { return }
-      MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("trial_error_dialog"),
-                                                               message: nil,
-                                                               rightButtonTitle: L("ok"),
-                                                               leftButtonTitle: nil) {
-                                                                self?.presenter.debugTrial = false
-                                                                self?.presenter.configure()
       }
     }
   }
