@@ -4,7 +4,7 @@
 
 #import <StoreKit/StoreKit.h>
 
-@interface MWMPurchaseManager() <SKRequestDelegate>
+@interface MWMPurchaseManager () <SKRequestDelegate>
 
 @property(nonatomic) NSMutableDictionary<NSString *, NSMutableArray<ValidateReceiptCallback> *> *validationCallbacks;
 @property(nonatomic) NSMutableDictionary<NSString *, NSMutableArray<TrialEligibilityCallback> *> *trialCallbacks;
@@ -17,70 +17,55 @@
 
 @implementation MWMPurchaseManager
 
-+ (NSString *)bookmarksSubscriptionServerId
-{
++ (NSString *)bookmarksSubscriptionServerId {
   return @(BOOKMARKS_SUBSCRIPTION_SIGHTS_SERVER_ID);
 }
 
-+ (NSString *)bookmarksSubscriptionVendorId
-{
++ (NSString *)bookmarksSubscriptionVendorId {
   return @(BOOKMARKS_SUBSCRIPTION_VENDOR);
 }
 
-+ (NSArray *)bookmakrsProductIds
-{
-  return @[@(BOOKMARKS_SUBSCRIPTION_SIGHTS_YEARLY_PRODUCT_ID),
-           @(BOOKMARKS_SUBSCRIPTION_SIGHTS_MONTHLY_PRODUCT_ID)];
++ (NSArray *)bookmakrsProductIds {
+  return @[@(BOOKMARKS_SUBSCRIPTION_SIGHTS_YEARLY_PRODUCT_ID), @(BOOKMARKS_SUBSCRIPTION_SIGHTS_MONTHLY_PRODUCT_ID)];
 }
 
-+ (NSString *)allPassSubscriptionServerId
-{
++ (NSString *)allPassSubscriptionServerId {
   return @(BOOKMARKS_SUBSCRIPTION_SERVER_ID);
 }
 
-+ (NSString *)allPassSubscriptionVendorId
-{
++ (NSString *)allPassSubscriptionVendorId {
   return @(BOOKMARKS_SUBSCRIPTION_VENDOR);
 }
 
-+ (NSArray *)allPassProductIds
-{
-  return @[@(BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID),
-           @(BOOKMARKS_SUBSCRIPTION_MONTHLY_PRODUCT_ID)];
++ (NSArray *)allPassProductIds {
+  return @[@(BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID), @(BOOKMARKS_SUBSCRIPTION_MONTHLY_PRODUCT_ID)];
 }
 
-+ (NSString *)adsRemovalServerId
-{
++ (NSString *)adsRemovalServerId {
   return @(ADS_REMOVAL_SERVER_ID);
 }
 
-+ (NSString *)adsRemovalVendorId
-{
++ (NSString *)adsRemovalVendorId {
   return @(ADS_REMOVAL_VENDOR);
 }
 
-+ (NSArray *)productIds
-{
-  return @[@(ADS_REMOVAL_YEARLY_PRODUCT_ID),
-           @(ADS_REMOVAL_MONTHLY_PRODUCT_ID),
-           @(ADS_REMOVAL_WEEKLY_PRODUCT_ID)];
++ (NSArray *)productIds {
+  return @[@(ADS_REMOVAL_YEARLY_PRODUCT_ID), @(ADS_REMOVAL_MONTHLY_PRODUCT_ID), @(ADS_REMOVAL_WEEKLY_PRODUCT_ID)];
 }
 
-+ (NSArray *)legacyProductIds
-{
++ (NSArray *)legacyProductIds {
   auto pidVec = std::vector<std::string>(ADS_REMOVAL_NOT_USED_LIST);
   NSMutableArray *result = [NSMutableArray array];
-  for (auto const & s : pidVec)
+  for (auto const &s : pidVec)
     [result addObject:@(s.c_str())];
-  
+
   return [result copy];
 }
 
-+ (NSArray<NSString *> *)bookmarkInappIds
-{
++ (NSArray<NSString *> *)bookmarkInappIds {
   auto pidVec = std::vector<std::string>(BOOKMARK_INAPP_IDS);
   NSMutableArray *result = [NSMutableArray array];
-  for (auto const & s : pidVec)
+  for (auto const &s : pidVec)
     [result addObject:@(s.c_str())];
 
   return [result copy];
@@ -98,17 +83,13 @@
   return self;
 }
 
-- (void)refreshReceipt
-{
+- (void)refreshReceipt {
   self.receiptRequest = [[SKReceiptRefreshRequest alloc] init];
   self.receiptRequest.delegate = self;
   [self.receiptRequest start];
 }
 
-- (void)validateReceipt:(NSString *)serverId
-         refreshReceipt:(BOOL)refresh
-               callback:(ValidateReceiptCallback)callback
-{
+- (void)validateReceipt:(NSString *)serverId refreshReceipt:(BOOL)refresh callback:(ValidateReceiptCallback)callback {
   NSMutableArray<ValidateReceiptCallback> *callbackArray = self.validationCallbacks[serverId];
   if (callbackArray) {
     [callbackArray addObject:[callback copy]];
@@ -118,33 +99,33 @@
   [self validateReceipt:serverId refreshReceipt:refresh];
 }
 
-- (void)validateReceipt:(NSString *)serverId
-         refreshReceipt:(BOOL)refresh {
+- (void)validateReceipt:(NSString *)serverId refreshReceipt:(BOOL)refresh {
   __weak __typeof(self) ws = self;
-  [self.purchaseValidation validateReceipt:serverId callback:^(MWMPurchaseValidationResult validationResult) {
-    __strong __typeof(self) self = ws;
-    switch (validationResult) {
-      case MWMPurchaseValidationResultValid:
-        [self notifyValidation:serverId result:MWMValidationResultValid];
-        break;
-      case MWMPurchaseValidationResultNotValid:
-        [self notifyValidation:serverId result:MWMValidationResultNotValid];
-        break;
-      case MWMPurchaseValidationResultError:
-        [self notifyValidation:serverId result:MWMValidationResultServerError];
-        break;
-      case MWMPurchaseValidationResultAuthError:
-        [self notifyValidation:serverId result:MWMValidationResultAuthError];
-        break;
-      case MWMPurchaseValidationResultNoReceipt:
-        if (refresh) {
-          [self refreshReceipt];
-        } else {
-          [self notifyValidation:serverId result:MWMValidationResultNotValid];
-        }
-        break;
-    }
-  }];
+  [self.purchaseValidation validateReceipt:serverId
+                                  callback:^(MWMPurchaseValidationResult validationResult) {
+                                    __strong __typeof(self) self = ws;
+                                    switch (validationResult) {
+                                      case MWMPurchaseValidationResultValid:
+                                        [self notifyValidation:serverId result:MWMValidationResultValid];
+                                        break;
+                                      case MWMPurchaseValidationResultNotValid:
+                                        [self notifyValidation:serverId result:MWMValidationResultNotValid];
+                                        break;
+                                      case MWMPurchaseValidationResultError:
+                                        [self notifyValidation:serverId result:MWMValidationResultServerError];
+                                        break;
+                                      case MWMPurchaseValidationResultAuthError:
+                                        [self notifyValidation:serverId result:MWMValidationResultAuthError];
+                                        break;
+                                      case MWMPurchaseValidationResultNoReceipt:
+                                        if (refresh) {
+                                          [self refreshReceipt];
+                                        } else {
+                                          [self notifyValidation:serverId result:MWMValidationResultNotValid];
+                                        }
+                                        break;
+                                    }
+                                  }];
 }
 
 - (void)checkTrialEligibility:(NSString *)serverId
@@ -159,61 +140,60 @@
   [self checkTrialEligibility:serverId refreshReceipt:refresh];
 }
 
-- (void)checkTrialEligibility:(NSString *)serverId
-               refreshReceipt:(BOOL)refresh {
+- (void)checkTrialEligibility:(NSString *)serverId refreshReceipt:(BOOL)refresh {
   __weak __typeof(self) ws = self;
-  [self.trialEligibility checkTrialEligibility:serverId callback:^(MWMCheckTrialEligibilityResult result) {
-    __strong __typeof(self) self = ws;
-    switch (result) {
-      case MWMCheckTrialEligibilityResultEligible:
-        [self notifyTrialEligibility:serverId result:MWMTrialEligibilityResultEligible];
-        break;
-      case MWMCheckTrialEligibilityResultNotEligible:
-        [self notifyTrialEligibility:serverId result:MWMTrialEligibilityResultNotEligible];
-        break;
-      case MWMCheckTrialEligibilityResultServerError:
-        [self notifyTrialEligibility:serverId result:MWMTrialEligibilityResultServerError];
-        break;
-      case MWMCheckTrialEligibilityResultNoReceipt:
-        if (refresh) {
-          [self refreshReceipt];
-        } else {
-          [self notifyTrialEligibility:serverId result:MWMTrialEligibilityResultNotEligible];
-        }
-    }
-  }];
+  [self.trialEligibility
+    checkTrialEligibility:serverId
+                 callback:^(MWMCheckTrialEligibilityResult result) {
+                   __strong __typeof(self) self = ws;
+                   switch (result) {
+                     case MWMCheckTrialEligibilityResultEligible:
+                       [self notifyTrialEligibility:serverId result:MWMTrialEligibilityResultEligible];
+                       break;
+                     case MWMCheckTrialEligibilityResultNotEligible:
+                       [self notifyTrialEligibility:serverId result:MWMTrialEligibilityResultNotEligible];
+                       break;
+                     case MWMCheckTrialEligibilityResultServerError:
+                       [self notifyTrialEligibility:serverId result:MWMTrialEligibilityResultServerError];
+                       break;
+                     case MWMCheckTrialEligibilityResultNoReceipt:
+                       if (refresh) {
+                         [self refreshReceipt];
+                       } else {
+                         [self notifyTrialEligibility:serverId result:MWMTrialEligibilityResultNotEligible];
+                       }
+                   }
+                 }];
 }
 
 - (void)startTransaction:(NSString *)serverId callback:(StartTransactionCallback)callback {
-  GetFramework().GetPurchase()->SetStartTransactionCallback([callback](bool success,
-                                                                       std::string const & serverId,
-                                                                       std::string const & vendorId)
-  {
-    callback(success, @(serverId.c_str()));
-  });
-  GetFramework().GetPurchase()->StartTransaction(serverId.UTF8String,
-                                                 BOOKMARKS_VENDOR,
+  GetFramework().GetPurchase()->SetStartTransactionCallback(
+    [callback](bool success, std::string const &serverId, std::string const &vendorId) {
+      callback(success, @(serverId.c_str()));
+    });
+  GetFramework().GetPurchase()->StartTransaction(serverId.UTF8String, BOOKMARKS_VENDOR,
                                                  GetFramework().GetUser().GetAccessToken());
 }
 
 - (void)notifyValidation:(NSString *)serverId result:(MWMValidationResult)result {
   NSMutableArray<ValidateReceiptCallback> *callbackArray = self.validationCallbacks[serverId];
-  [callbackArray enumerateObjectsUsingBlock:^(ValidateReceiptCallback  _Nonnull callback, NSUInteger idx, BOOL * _Nonnull stop) {
-    callback(serverId, result);
-  }];
+  [callbackArray
+    enumerateObjectsUsingBlock:^(ValidateReceiptCallback _Nonnull callback, NSUInteger idx, BOOL *_Nonnull stop) {
+      callback(serverId, result);
+    }];
   [self.validationCallbacks removeObjectForKey:serverId];
 }
 
--(void)notifyTrialEligibility:(NSString *)serverId result:(MWMTrialEligibilityResult)result {
+- (void)notifyTrialEligibility:(NSString *)serverId result:(MWMTrialEligibilityResult)result {
   NSMutableArray<TrialEligibilityCallback> *callbackArray = self.trialCallbacks[serverId];
-  [callbackArray enumerateObjectsUsingBlock:^(TrialEligibilityCallback  _Nonnull callback, NSUInteger idx, BOOL * _Nonnull stop) {
-    callback(serverId, result);
-  }];
+  [callbackArray
+    enumerateObjectsUsingBlock:^(TrialEligibilityCallback _Nonnull callback, NSUInteger idx, BOOL *_Nonnull stop) {
+      callback(serverId, result);
+    }];
   [self.trialCallbacks removeObjectForKey:serverId];
 }
 
-+ (void)setAdsDisabled:(BOOL)disabled
-{
++ (void)setAdsDisabled:(BOOL)disabled {
   GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::RemoveAds, disabled);
 }
 
@@ -227,24 +207,30 @@
 
 #pragma mark - SKRequestDelegate
 
-- (void)requestDidFinish:(SKRequest *)request
-{
-  [self.validationCallbacks enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSMutableArray<ValidateReceiptCallback> * _Nonnull obj, BOOL * _Nonnull stop) {
-    [self validateReceipt:key refreshReceipt:NO];
-  }];
-  [self.trialCallbacks enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSMutableArray<TrialEligibilityCallback> * _Nonnull obj, BOOL * _Nonnull stop) {
-    [self checkTrialEligibility:key refreshReceipt:NO];
-  }];
+- (void)requestDidFinish:(SKRequest *)request {
+  [self.validationCallbacks
+    enumerateKeysAndObjectsUsingBlock:^(NSString *_Nonnull key, NSMutableArray<ValidateReceiptCallback> *_Nonnull obj,
+                                        BOOL *_Nonnull stop) {
+      [self validateReceipt:key refreshReceipt:NO];
+    }];
+  [self.trialCallbacks
+    enumerateKeysAndObjectsUsingBlock:^(NSString *_Nonnull key, NSMutableArray<TrialEligibilityCallback> *_Nonnull obj,
+                                        BOOL *_Nonnull stop) {
+      [self checkTrialEligibility:key refreshReceipt:NO];
+    }];
 }
 
-- (void)request:(SKRequest *)request didFailWithError:(NSError *)error
-{
-  [self.trialCallbacks enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSMutableArray<TrialEligibilityCallback> * _Nonnull obj, BOOL * _Nonnull stop) {
-    [self notifyValidation:key result:MWMValidationResultServerError];
-  }];
-  [self.trialCallbacks enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSMutableArray<TrialEligibilityCallback> * _Nonnull obj, BOOL * _Nonnull stop) {
-    [self notifyTrialEligibility:key result:MWMTrialEligibilityResultServerError];
-  }];
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+  [self.trialCallbacks
+    enumerateKeysAndObjectsUsingBlock:^(NSString *_Nonnull key, NSMutableArray<TrialEligibilityCallback> *_Nonnull obj,
+                                        BOOL *_Nonnull stop) {
+      [self notifyValidation:key result:MWMValidationResultServerError];
+    }];
+  [self.trialCallbacks
+    enumerateKeysAndObjectsUsingBlock:^(NSString *_Nonnull key, NSMutableArray<TrialEligibilityCallback> *_Nonnull obj,
+                                        BOOL *_Nonnull stop) {
+      [self notifyTrialEligibility:key result:MWMTrialEligibilityResultServerError];
+    }];
 }
 
 @end

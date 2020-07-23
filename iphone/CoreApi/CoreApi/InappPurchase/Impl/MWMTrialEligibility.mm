@@ -2,11 +2,12 @@
 
 #include <CoreApi/Framework.h>
 
-static NSMutableDictionary<NSString *, NSMutableArray<CheckTrialEligibilityCallback> *> *callbacks = [NSMutableDictionary dictionary];
+static NSMutableDictionary<NSString *, NSMutableArray<CheckTrialEligibilityCallback> *> *callbacks =
+  [NSMutableDictionary dictionary];
 
 @interface MWMTrialEligibility ()
 
-@property (nonatomic, copy) NSString *vendorId;
+@property(nonatomic, copy) NSString *vendorId;
 
 @end
 
@@ -17,11 +18,11 @@ static NSMutableDictionary<NSString *, NSMutableArray<CheckTrialEligibilityCallb
   if (self) {
     _vendorId = vendorId;
   }
-  
+
   return self;
 }
 
--(void)checkTrialEligibility:(NSString *)serverId callback:(CheckTrialEligibilityCallback)callback {
+- (void)checkTrialEligibility:(NSString *)serverId callback:(CheckTrialEligibilityCallback)callback {
   NSURL *receiptUrl = [NSBundle mainBundle].appStoreReceiptURL;
   NSData *receiptData = [NSData dataWithContentsOfURL:receiptUrl];
   if (!receiptData) {
@@ -29,8 +30,8 @@ static NSMutableDictionary<NSString *, NSMutableArray<CheckTrialEligibilityCallb
       callback(MWMCheckTrialEligibilityResultNoReceipt);
     return;
   }
-  
-  GetFramework().GetPurchase()->SetTrialEligibilityCallback([serverId](auto trialEligibilityCode){
+
+  GetFramework().GetPurchase()->SetTrialEligibilityCallback([serverId](auto trialEligibilityCode) {
     MWMCheckTrialEligibilityResult result;
     switch (trialEligibilityCode) {
       case Purchase::TrialEligibilityCode::Eligible:
@@ -40,16 +41,16 @@ static NSMutableDictionary<NSString *, NSMutableArray<CheckTrialEligibilityCallb
       case Purchase::TrialEligibilityCode::ServerError:
         result = MWMCheckTrialEligibilityResultServerError;
     }
-    
+
     NSMutableArray<CheckTrialEligibilityCallback> *callbackArray = callbacks[serverId];
-    [callbackArray enumerateObjectsUsingBlock:^(CheckTrialEligibilityCallback  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-      obj(result);
-    }];
-    
+    [callbackArray
+      enumerateObjectsUsingBlock:^(CheckTrialEligibilityCallback _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        obj(result);
+      }];
+
     [callbacks removeObjectForKey:serverId];
   });
-  
-  
+
   NSMutableArray<CheckTrialEligibilityCallback> *callbackArray = callbacks[serverId];
   if (!callbackArray) {
     callbackArray = [NSMutableArray arrayWithObject:[callback copy]];

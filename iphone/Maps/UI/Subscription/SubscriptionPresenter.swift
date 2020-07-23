@@ -35,7 +35,7 @@ class SubscriptionPresenter {
   }
 
   private func configureTrial() {
-    guard let trialSubscriptionItem = self.subscriptionGroup?[.year] else {
+    guard let trialSubscriptionItem = subscriptionGroup?[.year] else {
       fatalError()
     }
     view?.setModel(SubscriptionViewModel.trial(SubscriptionViewModel.TrialData(price: trialSubscriptionItem.formattedPrice)))
@@ -44,7 +44,7 @@ class SubscriptionPresenter {
   private func configureSubscriptions() {
     var data: [SubscriptionViewModel.SubscriptionData] = []
     for period in [SubscriptionPeriod.month, SubscriptionPeriod.year] {
-      guard let subscriptionItem = self.subscriptionGroup?[period] else {
+      guard let subscriptionItem = subscriptionGroup?[period] else {
         fatalError()
       }
       data.append(SubscriptionViewModel.SubscriptionData(price: subscriptionItem.formattedPrice,
@@ -89,9 +89,9 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
 
       let group = SubscriptionGroup(subscriptions: subscriptions)
       self?.subscriptionGroup = group
-      
+
       if self?.subscriptionManager.hasTrial == true {
-        self?.subscriptionManager.checkTrialEligibility { (result) in
+        self?.subscriptionManager.checkTrialEligibility { result in
           switch result {
           case .eligible:
             self?.configureTrial()

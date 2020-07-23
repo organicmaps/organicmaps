@@ -2,11 +2,12 @@
 
 #include <CoreApi/Framework.h>
 
-static NSMutableDictionary<NSString *, NSMutableArray<ValidatePurchaseCallback> *> *callbacks = [NSMutableDictionary dictionary];
+static NSMutableDictionary<NSString *, NSMutableArray<ValidatePurchaseCallback> *> *callbacks =
+  [NSMutableDictionary dictionary];
 
 @interface MWMPurchaseValidation ()
 
-@property (nonatomic, copy) NSString *vendorId;
+@property(nonatomic, copy) NSString *vendorId;
 
 @end
 
@@ -42,17 +43,18 @@ static NSMutableDictionary<NSString *, NSMutableArray<ValidatePurchaseCallback> 
       case Purchase::ValidationCode::ServerError: {
         result = MWMPurchaseValidationResultError;
         break;
-      case Purchase::ValidationCode::AuthError:
-        result = MWMPurchaseValidationResultAuthError;
-        break;
+        case Purchase::ValidationCode::AuthError:
+          result = MWMPurchaseValidationResultAuthError;
+          break;
       }
     }
 
     NSString *serverId = @(validationResponse.m_info.m_serverId.c_str());
     NSMutableArray<ValidatePurchaseCallback> *callbackArray = callbacks[serverId];
-    [callbackArray enumerateObjectsUsingBlock:^(ValidatePurchaseCallback  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-      obj(result);
-    }];
+    [callbackArray
+      enumerateObjectsUsingBlock:^(ValidatePurchaseCallback _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        obj(result);
+      }];
 
     [callbacks removeObjectForKey:serverId];
   });

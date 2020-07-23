@@ -1,4 +1,4 @@
-@objc protocol ISubscriptionManager: class{
+@objc protocol ISubscriptionManager: AnyObject {
   typealias SuscriptionsCompletion = ([ISubscription]?, Error?) -> Void
   typealias ValidationCompletion = (MWMValidationResult) -> Void
   typealias TrialEligibilityCompletion = (MWMTrialEligibilityResult) -> Void
@@ -46,10 +46,10 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
     self.productIds = productIds
     self.serverId = serverId
     self.vendorId = vendorId
-    self.hasTrial = serverId == MWMPurchaseManager.allPassSubscriptionServerId()
+    hasTrial = serverId == MWMPurchaseManager.allPassSubscriptionServerId()
     super.init()
     paymentQueue.add(self)
-    self.purchaseManager = MWMPurchaseManager(vendorId: vendorId)
+    purchaseManager = MWMPurchaseManager(vendorId: vendorId)
   }
 
   deinit {
@@ -105,13 +105,14 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
   }
 
   private func validate(_ refreshReceipt: Bool, completion: ValidationCompletion? = nil) {
-    purchaseManager?.validateReceipt(serverId, refreshReceipt: refreshReceipt) { [weak self] (_, validationResult) in
+    purchaseManager?.validateReceipt(serverId, refreshReceipt: refreshReceipt) { [weak self] _, validationResult in
       self?.logEvents(validationResult)
       if validationResult == .valid || validationResult == .notValid {
         self?.listeners.allObjects.forEach { $0.didValidate(validationResult == .valid) }
         self?.paymentQueue.transactions
           .filter { self?.productIds.contains($0.payment.productIdentifier) ?? false &&
-            ($0.transactionState == .purchased || $0.transactionState == .restored) }
+            ($0.transactionState == .purchased || $0.transactionState == .restored)
+          }
           .forEach { self?.paymentQueue.finishTransaction($0) }
       } else {
         self?.listeners.allObjects.forEach { $0.didFailToValidate() }
@@ -121,7 +122,7 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
   }
 
   @objc func checkTrialEligibility(completion: TrialEligibilityCompletion?) {
-    purchaseManager?.checkTrialEligibility(serverId, refreshReceipt: true, callback: { (_, result) in
+    purchaseManager?.checkTrialEligibility(serverId, refreshReceipt: true, callback: { _, result in
       completion?(result)
     })
   }
@@ -129,15 +130,15 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
   private func logEvents(_ validationResult: MWMValidationResult) {
     switch validationResult {
     case .valid:
-      Statistics.logEvent(kStatInappValidationSuccess, withParameters: [kStatPurchase : serverId])
+      Statistics.logEvent(kStatInappValidationSuccess, withParameters: [kStatPurchase: serverId])
       Statistics.logEvent(kStatInappProductDelivered,
-                          withParameters: [kStatVendor : vendorId, kStatPurchase : serverId], with: .realtime)
+                          withParameters: [kStatVendor: vendorId, kStatPurchase: serverId], with: .realtime)
     case .notValid:
-      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 0, kStatPurchase : serverId])
+      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode: 0, kStatPurchase: serverId])
     case .serverError:
-      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 2, kStatPurchase : serverId])
+      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode: 2, kStatPurchase: serverId])
     case .authError:
-      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 1, kStatPurchase : serverId])
+      Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode: 1, kStatPurchase: serverId])
     }
   }
 }
@@ -145,7 +146,7 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
 extension SubscriptionManager: SKProductsRequestDelegate {
   func request(_ request: SKRequest, didFailWithError error: Error) {
     Statistics.logEvent(kStatInappPaymentError,
-                        withParameters: [kStatError : error.localizedDescription, kStatPurchase : serverId])
+                        withParameters: [kStatError: error.localizedDescription, kStatPurchase: serverId])
     DispatchQueue.main.async { [weak self] in
       self?.subscriptionsComplection?(nil, error)
       self?.subscriptionsComplection = nil
@@ -208,7 +209,7 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
   private func processPurchased(_ transaction: SKPaymentTransaction) {
     paymentQueue.finishTransaction(transaction)
     if let ps = pendingSubscription, transaction.payment.productIdentifier == ps.productId {
-      Statistics.logEvent(kStatInappPaymentSuccess, withParameters: [kStatPurchase : serverId])
+      Statistics.logEvent(kStatInappPaymentSuccess, withParameters: [kStatPurchase: serverId])
       listeners.allObjects.forEach { $0.didSubscribe(ps) }
     }
   }
@@ -225,7 +226,7 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
     if let ps = pendingSubscription, transaction.payment.productIdentifier == ps.productId {
       let errorText = error?.localizedDescription ?? ""
       Statistics.logEvent(kStatInappPaymentError,
-                          withParameters: [kStatPurchase : serverId, kStatError : errorText])
+                          withParameters: [kStatPurchase: serverId, kStatError: errorText])
       listeners.allObjects.forEach { $0.didFailToSubscribe(ps, error: error) }
     }
   }

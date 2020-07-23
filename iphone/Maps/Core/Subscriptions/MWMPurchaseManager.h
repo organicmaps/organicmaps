@@ -2,25 +2,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, MWMValidationResult)
-{
+typedef NS_ENUM(NSUInteger, MWMValidationResult) {
   MWMValidationResultValid,
   MWMValidationResultNotValid,
   MWMValidationResultServerError,
   MWMValidationResultAuthError
 };
 
-typedef NS_ENUM(NSUInteger, MWMTrialEligibilityResult)
-{
+typedef NS_ENUM(NSUInteger, MWMTrialEligibilityResult) {
   MWMTrialEligibilityResultEligible,
   MWMTrialEligibilityResultNotEligible,
   MWMTrialEligibilityResultServerError
 };
 
-typedef void (^ValidateReceiptCallback)(NSString * serverId, MWMValidationResult validationResult);
-typedef void (^TrialEligibilityCallback)(NSString * serverId, MWMTrialEligibilityResult result);
+typedef void (^ValidateReceiptCallback)(NSString *serverId, MWMValidationResult validationResult);
+typedef void (^TrialEligibilityCallback)(NSString *serverId, MWMTrialEligibilityResult result);
 
-typedef void (^StartTransactionCallback)(BOOL success, NSString * serverId);
+typedef void (^StartTransactionCallback)(BOOL success, NSString *serverId);
 
 @interface MWMPurchaseManager : NSObject
 
@@ -40,9 +38,7 @@ typedef void (^StartTransactionCallback)(BOOL success, NSString * serverId);
 + (void)setAllPassSubscriptionActive:(BOOL)active;
 
 - (instancetype)initWithVendorId:(NSString *)vendorId;
-- (void)validateReceipt:(NSString *)serverId
-         refreshReceipt:(BOOL)refresh
-               callback:(ValidateReceiptCallback)callback;
+- (void)validateReceipt:(NSString *)serverId refreshReceipt:(BOOL)refresh callback:(ValidateReceiptCallback)callback;
 - (void)checkTrialEligibility:(NSString *)serverId
                refreshReceipt:(BOOL)refresh
                      callback:(TrialEligibilityCallback)callback;
