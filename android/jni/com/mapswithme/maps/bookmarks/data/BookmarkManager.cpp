@@ -56,7 +56,7 @@ jmethodID g_catalogCustomPropertyConstructor;
 
 jmethodID g_onPingFinishedMethod;
 
-jmethodID g_onCheckInvalidCategoriesMethod;
+jmethodID g_onCheckExpiredCategoriesMethod;
 
 jclass g_sortedBlockClass;
 jmethodID g_sortedBlockConstructor;
@@ -121,8 +121,8 @@ void PrepareClassRefs(JNIEnv * env)
 
   g_onPingFinishedMethod = jni::GetMethodID(env, bookmarkManagerInstance, "onPingFinished", "(Z)V");
 
-  g_onCheckInvalidCategoriesMethod = jni::GetMethodID(env, bookmarkManagerInstance,
-                                                      "onCheckInvalidCategories", "(Z)V");
+  g_onCheckExpiredCategoriesMethod = jni::GetMethodID(env, bookmarkManagerInstance,
+                                                      "onCheckExpiredCategories", "(Z)V");
 
   g_longClass = jni::GetGlobalClassRef(env,"java/lang/Long");
   g_longConstructor = jni::GetConstructorID(env, g_longClass, "(J)V");
@@ -447,14 +447,14 @@ void OnPingFinished(JNIEnv * env, bool isSuccessful)
   jni::HandleJavaException(env);
 }
 
-void OnCheckInvalidCategories(JNIEnv * env, bool hasInvalidCategories)
+void OnCheckExpiredCategories(JNIEnv * env, bool hasExpiredCategories)
 {
   ASSERT(g_bookmarkManagerClass, ());
 
   auto bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                            g_bookmarkManagerInstanceField);
-  env->CallVoidMethod(bookmarkManagerInstance, g_onCheckInvalidCategoriesMethod,
-                      static_cast<jboolean>(hasInvalidCategories));
+  env->CallVoidMethod(bookmarkManagerInstance, g_onCheckExpiredCategoriesMethod,
+                      static_cast<jboolean>(hasExpiredCategories));
   jni::HandleJavaException(env);
 }
 
@@ -1154,27 +1154,27 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativePingBookmarkCatalo
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeCheckInvalidCategories(JNIEnv * env,
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeCheckExpiredCategories(JNIEnv * env,
                                                                                      jobject)
 {
-  frm()->GetBookmarkManager().CheckInvalidCategories([env](bool hasInvalidCategories)
+  frm()->GetBookmarkManager().CheckExpiredCategories([env](bool hasExpiredCategories)
   {
-    OnCheckInvalidCategories(env, hasInvalidCategories);
+    OnCheckExpiredCategories(env, hasExpiredCategories);
   });
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteInvalidCategories(JNIEnv * env,
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteExpiredCategories(JNIEnv * env,
                                                                                       jobject)
 {
-  frm()->GetBookmarkManager().DeleteInvalidCategories();
+  frm()->GetBookmarkManager().DeleteExpiredCategories();
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeResetInvalidCategories(JNIEnv * env,
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeResetExpiredCategories(JNIEnv * env,
                                                                                      jobject)
 {
-  frm()->GetBookmarkManager().ResetInvalidCategories();
+  frm()->GetBookmarkManager().ResetExpiredCategories();
 }
 
 JNIEXPORT jstring JNICALL

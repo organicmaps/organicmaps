@@ -92,7 +92,7 @@ extension SubscriptionInteractor: SubscriptionManagerListener {
 
   func didSubscribe(_ subscription: ISubscription) {
     subscriptionManager.setSubscriptionActive(true)
-    bookmarksManager.resetInvalidCategories()
+    bookmarksManager.resetExpiredCategories()
   }
 
   func didDefer(_ subscription: ISubscription) {}

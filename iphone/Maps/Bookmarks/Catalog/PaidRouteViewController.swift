@@ -305,7 +305,7 @@ extension PaidRouteViewController: SubscriptionManagerListener {
 
   func didSubscribe(_ subscription: ISubscription) {
     subscriptionManager.setSubscriptionActive(true)
-    BookmarksManager.shared().resetInvalidCategories()
+    BookmarksManager.shared().resetExpiredCategories()
   }
 
   func didDefer(_ subscription: ISubscription) {

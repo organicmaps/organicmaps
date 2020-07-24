@@ -23,7 +23,7 @@ extension UIViewController {
       }
       let onDelete = {
         self?.dismiss(animated: true)
-        BookmarksManager.shared().deleteInvalidCategories()
+        BookmarksManager.shared().deleteExpiredCategories()
         completion?(true)
       }
       let subscriptionExpiredDialog = SubscriptionExpiredViewController(onSubscribe: onSubscribe, onDelete: onDelete)

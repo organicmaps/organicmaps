@@ -34,7 +34,7 @@ class InvalidSubscriptionAlertDialogCallback implements AlertDialogCallback
     Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
     String tag = InvalidSubscriptionAlertDialogCallback.class.getSimpleName();
     logger.i(tag, "Delete invalid categories, user didn't continue subscription...");
-    BookmarkManager.INSTANCE.deleteInvalidCategories();
+    BookmarkManager.INSTANCE.deleteExpiredCategories();
   }
 
   @Override

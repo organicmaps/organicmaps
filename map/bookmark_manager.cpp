@@ -3724,45 +3724,45 @@ void BookmarkManager::EnableTestMode(bool enable)
   m_testModeEnabled = enable;
 }
 
-void BookmarkManager::CheckInvalidCategories(CheckInvalidCategoriesHandler && handler)
+void BookmarkManager::CheckExpiredCategories(CheckExpiredCategoriesHandler && handler)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto f = [this, handler = std::move(handler)](std::vector<std::string> const & serverIds)
   {
     CHECK_THREAD_CHECKER(m_threadChecker, ());
-    m_invalidCategories.clear();
+    m_expiredCategories.clear();
     for (auto const & s : serverIds)
     {
       for (auto const & category : m_categories)
       {
         if (category.second->GetServerId() == s)
-          m_invalidCategories.emplace_back(category.first);
+          m_expiredCategories.emplace_back(category.first);
       }
     }
     if (handler)
-      handler(!m_invalidCategories.empty());
+      handler(!m_expiredCategories.empty());
   };
 
   m_bookmarkCatalog.RequestBookmarksToDelete(m_user.GetAccessToken(), m_user.GetUserId(),
                                              GetAllPaidCategoriesIds(), f);
 }
 
-void BookmarkManager::DeleteInvalidCategories()
+void BookmarkManager::DeleteExpiredCategories()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (m_invalidCategories.empty())
+  if (m_expiredCategories.empty())
     return;
 
   auto session = GetEditSession();
-  for (auto const markGroupId : m_invalidCategories)
+  for (auto const markGroupId : m_expiredCategories)
     DeleteBmCategory(markGroupId);
 }
 
-void BookmarkManager::ResetInvalidCategories()
+void BookmarkManager::ResetExpiredCategories()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  m_invalidCategories.clear();
+  m_expiredCategories.clear();
 }
 
 void BookmarkManager::FilterInvalidBookmarks(kml::MarkIdCollection & bookmarks) const

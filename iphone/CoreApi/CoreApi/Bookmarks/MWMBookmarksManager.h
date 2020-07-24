@@ -111,9 +111,9 @@ NS_SWIFT_NAME(BookmarksManager)
                     progress:(_Nullable ProgressBlock)progress
                   completion:(UploadCompletionBlock)completion;
 - (void)ping:(PingCompletionBlock)callback;
-- (void)checkForInvalidCategories:(MWMBoolBlock)completion;
-- (void)deleteInvalidCategories;
-- (void)resetInvalidCategories;
+- (void)checkForExpiredCategories:(MWMBoolBlock)completion;
+- (void)deleteExpiredCategories;
+- (void)resetExpiredCategories;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));

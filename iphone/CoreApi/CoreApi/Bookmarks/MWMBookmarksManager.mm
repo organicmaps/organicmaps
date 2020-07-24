@@ -784,18 +784,18 @@ static kml::PredefinedColor convertBookmarkColor(MWMBookmarkColor bookmarkColor)
   });
 }
 
-- (void)checkForInvalidCategories:(MWMBoolBlock)completion {
-  self.bm.CheckInvalidCategories([completion] (bool hasInvalidCategories) {
-    completion(hasInvalidCategories);
+- (void)checkForExpiredCategories:(MWMBoolBlock)completion {
+  self.bm.CheckExpiredCategories([completion] (bool hasExpiredCategories) {
+    completion(hasExpiredCategories);
   });
 }
 
-- (void)deleteInvalidCategories {
-  self.bm.DeleteInvalidCategories();
+- (void)deleteExpiredCategories {
+  self.bm.DeleteExpiredCategories();
 }
 
-- (void)resetInvalidCategories {
-  self.bm.ResetInvalidCategories();
+- (void)resetExpiredCategories {
+  self.bm.ResetExpiredCategories();
 }
 
 - (BOOL)isGuide:(MWMMarkGroupID)groupId {

@@ -98,7 +98,7 @@ public enum BookmarkManager
   private final List<BookmarksCatalogPingListener> mCatalogPingListeners = new ArrayList<>();
 
   @NonNull
-  private final List<BookmarksInvalidCategoriesListener> mInvalidCategoriesListeners = new ArrayList<>();
+  private final List<BookmarksExpiredCategoriesListener> mExpiredCategoriesListeners = new ArrayList<>();
 
   @Nullable
   private OnElevationCurrentPositionChangedListener mOnElevationCurrentPositionChangedListener;
@@ -209,14 +209,14 @@ public enum BookmarkManager
     mCatalogListeners.remove(listener);
   }
 
-  public void addInvalidCategoriesListener(@NonNull BookmarksInvalidCategoriesListener listener)
+  public void addExpiredCategoriesListener(@NonNull BookmarksExpiredCategoriesListener listener)
   {
-    mInvalidCategoriesListeners.add(listener);
+    mExpiredCategoriesListeners.add(listener);
   }
 
-  public void removeInvalidCategoriesListener(@NonNull BookmarksInvalidCategoriesListener listener)
+  public void removeExpiredCategoriesListener(@NonNull BookmarksExpiredCategoriesListener listener)
   {
-    mInvalidCategoriesListeners.remove(listener);
+    mExpiredCategoriesListeners.remove(listener);
   }
 
   public void addCatalogPingListener(@NonNull BookmarksCatalogPingListener listener)
@@ -438,10 +438,10 @@ public enum BookmarkManager
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
-  public void onCheckInvalidCategories(boolean hasInvalidCategories)
+  public void onCheckExpiredCategories(boolean hasExpiredCategories)
   {
-    for (BookmarksInvalidCategoriesListener listener : mInvalidCategoriesListeners)
-      listener.onCheckInvalidCategories(hasInvalidCategories);
+    for (BookmarksExpiredCategoriesListener listener : mExpiredCategoriesListeners)
+      listener.onCheckExpiredCategories(hasExpiredCategories);
   }
 
   // Called from JNI.
@@ -827,19 +827,19 @@ public enum BookmarkManager
     nativePingBookmarkCatalog();
   }
 
-  public void checkInvalidCategories()
+  public void checkExpiredCategories()
   {
-    nativeCheckInvalidCategories();
+    nativeCheckExpiredCategories();
   }
 
-  public void deleteInvalidCategories()
+  public void deleteExpiredCategories()
   {
-    nativeDeleteInvalidCategories();
+    nativeDeleteExpiredCategories();
   }
 
-  public void resetInvalidCategories()
+  public void resetExpiredCategories()
   {
-    nativeResetInvalidCategories();
+    nativeResetExpiredCategories();
   }
 
   public boolean isCategoryFromCatalog(long catId)
@@ -1145,9 +1145,9 @@ public enum BookmarkManager
 
   private static native void nativePingBookmarkCatalog();
 
-  private static native void nativeCheckInvalidCategories();
-  private static native void nativeDeleteInvalidCategories();
-  private static native void nativeResetInvalidCategories();
+  private static native void nativeCheckExpiredCategories();
+  private static native void nativeDeleteExpiredCategories();
+  private static native void nativeResetExpiredCategories();
 
   private native boolean nativeHasLastSortingType(long catId);
 
@@ -1291,9 +1291,9 @@ public enum BookmarkManager
     void onPingFinished(boolean isServiceAvailable);
   }
 
-  public interface BookmarksInvalidCategoriesListener
+  public interface BookmarksExpiredCategoriesListener
   {
-    void onCheckInvalidCategories(boolean hasInvalidCategories);
+    void onCheckExpiredCategories(boolean hasExpiredCategories);
   }
 
   public interface BookmarksCatalogListener

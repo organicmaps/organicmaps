@@ -42,7 +42,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   private Runnable mAuthCompletionRunnable;
 
   @NonNull
-  private final InvalidCategoriesListener mInvalidCategoriesListener;
+  private final ExpiredCategoriesListener mExpiredCategoriesListener;
   @NonNull
   private final Bundle mBundle;
 
@@ -54,7 +54,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   BookmarksDownloadFragmentDelegate(@NonNull Fragment fragment, @NonNull Bundle bundle)
   {
     mFragment = fragment;
-    mInvalidCategoriesListener = new InvalidCategoriesListener(fragment);
+    mExpiredCategoriesListener = new ExpiredCategoriesListener(fragment);
     mBundle = bundle;
   }
 
@@ -72,13 +72,13 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   {
     mAuthorizer.attach(this);
     mDownloadController.attach(this);
-    mInvalidCategoriesListener.attach(mFragment);
+    mExpiredCategoriesListener.attach(mFragment);
   }
 
   void onResume()
   {
     LOGGER.i(TAG, "Check invalid bookmark categories...");
-    BookmarkManager.INSTANCE.checkInvalidCategories();
+    BookmarkManager.INSTANCE.checkExpiredCategories();
   }
 
   void onPause()
@@ -90,17 +90,17 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   {
     mAuthorizer.detach();
     mDownloadController.detach();
-    mInvalidCategoriesListener.detach();
+    mExpiredCategoriesListener.detach();
   }
 
   void onCreateView(@Nullable Bundle savedInstanceState)
   {
-    BookmarkManager.INSTANCE.addInvalidCategoriesListener(mInvalidCategoriesListener);
+    BookmarkManager.INSTANCE.addExpiredCategoriesListener(mExpiredCategoriesListener);
   }
 
   void onDestroyView()
   {
-    BookmarkManager.INSTANCE.removeInvalidCategoriesListener(mInvalidCategoriesListener);
+    BookmarkManager.INSTANCE.removeExpiredCategoriesListener(mExpiredCategoriesListener);
   }
 
   void onSaveInstanceState(@NonNull Bundle outState)
@@ -116,7 +116,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     switch (requestCode)
     {
       case PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION:
-        BookmarkManager.INSTANCE.resetInvalidCategories();
+        BookmarkManager.INSTANCE.resetExpiredCategories();
         break;
       case PurchaseUtils.REQ_CODE_PAY_BOOKMARK:
         mDownloadController.retryDownloadBookmark();
@@ -216,29 +216,29 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     mAuthorizer.authorize(mBundle);
   }
 
-  private static class InvalidCategoriesListener implements BookmarkManager.BookmarksInvalidCategoriesListener, Detachable<Fragment>
+  private static class ExpiredCategoriesListener implements BookmarkManager.BookmarksExpiredCategoriesListener, Detachable<Fragment>
   {
     @Nullable
     private Fragment mFrag;
     @Nullable
-    private Boolean mPendingInvalidCategoriesResult;
+    private Boolean mPendingExpiredCategoriesResult;
 
-    InvalidCategoriesListener(@NonNull Fragment fragment)
+    ExpiredCategoriesListener(@NonNull Fragment fragment)
     {
       mFrag = fragment;
     }
 
     @Override
-    public void onCheckInvalidCategories(boolean hasInvalidCategories)
+    public void onCheckExpiredCategories(boolean hasExpiredCategories)
     {
-      LOGGER.i(TAG, "Has invalid categories: " + hasInvalidCategories);
+      LOGGER.i(TAG, "Has invalid categories: " + hasExpiredCategories);
       if (mFrag == null)
       {
-        mPendingInvalidCategoriesResult = hasInvalidCategories;
+        mPendingExpiredCategoriesResult = hasExpiredCategories;
         return;
       }
 
-      if (!hasInvalidCategories)
+      if (!hasExpiredCategories)
         return;
 
       showInvalidBookmarksDialog();
@@ -271,10 +271,10 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     public void attach(@NonNull Fragment object)
     {
       mFrag = object;
-      if (Boolean.TRUE.equals(mPendingInvalidCategoriesResult))
+      if (Boolean.TRUE.equals(mPendingExpiredCategoriesResult))
       {
         showInvalidBookmarksDialog();
-        mPendingInvalidCategoriesResult = null;
+        mPendingExpiredCategoriesResult = null;
       }
     }
 
