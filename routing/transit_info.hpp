@@ -106,9 +106,7 @@ public:
   explicit TransitInfo(transit::Gate const & gate)
     : m_transitVersion(::transit::TransitVersion::OnlySubway)
     , m_type(Type::Gate)
-    , m_edgeSubway()
     , m_gateSubway(gate)
-    , m_transferSubway()
   {
   }
 
@@ -123,7 +121,6 @@ public:
     : m_transitVersion(::transit::TransitVersion::OnlySubway)
     , m_type(edge.GetTransfer() ? Type::Transfer : Type::Edge)
     , m_edgeSubway(edge.GetTransfer() ? EdgeSubway() : EdgeSubway(edge))
-    , m_gateSubway()
     , m_transferSubway(edge.GetTransfer() ? TransferSubway(edge) : TransferSubway())
   {
   }
@@ -132,7 +129,6 @@ public:
     : m_transitVersion(::transit::TransitVersion::AllPublicTransport)
     , m_type(edge.IsTransfer() ? Type::Transfer : Type::Edge)
     , m_edgePT(edge.IsTransfer() ? EdgePT() : EdgePT(edge))
-    , m_gatePT()
     , m_transferPT(edge.IsTransfer() ? TransferPT(edge) : TransferPT())
   {
   }

@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <limits>
 #include <string>
+#include <tuple>
 #include <unordered_map>
 #include <vector>
 

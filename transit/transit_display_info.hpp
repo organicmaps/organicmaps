@@ -20,6 +20,10 @@ struct TransitFeatureInfo
 
 using TransitFeaturesInfo = std::map<FeatureID, TransitFeatureInfo>;
 
+// We have two completely different versions of transit section: the actual one with subway-only
+// info and the experimental one with all public transport (PT) info. So we keep the old data
+// with suffix Subway and the new data with suffix PT. In the future we will remove the subway
+// version (after a year or so of PT usage).
 using TransitStopsInfo = std::map<routing::transit::StopId, routing::transit::Stop>;
 using TransitTransfersInfo = std::map<routing::transit::TransferId, routing::transit::Transfer>;
 using TransitShapesInfo = std::map<routing::transit::ShapeId, routing::transit::Shape>;

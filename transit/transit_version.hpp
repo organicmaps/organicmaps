@@ -5,6 +5,7 @@
 #include "base/assert.hpp"
 
 #include <string>
+#include <type_traits>
 
 namespace transit
 {
@@ -26,6 +27,9 @@ inline std::string DebugPrint(TransitVersion version)
   case TransitVersion::AllPublicTransport: return "AllPublicTransport";
   case TransitVersion::Counter: return "Counter";
   }
+
+  LOG(LERROR,
+      ("Unknown version:", static_cast<std::underlying_type<TransitVersion>::type>(version)));
   UNREACHABLE();
 }
 }  // namespace transit

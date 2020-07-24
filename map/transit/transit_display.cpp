@@ -69,6 +69,7 @@ TransitType GetTransitType(string const &type)
   if (type == "water_service")
     return TransitType::WaterService;
 
+  LOG(LERROR, (type));
   UNREACHABLE();
 }
 
@@ -85,22 +86,21 @@ vector<m2::PointF> GetTransitMarkerSizes(float markerScale, float maxRouteWidth)
   markerSizes.reserve(df::kRouteHalfWidthInPixelTransit.size());
   for (auto const halfWidth : df::kRouteHalfWidthInPixelTransit)
   {
-    float const d = 2.0f * std::min(halfWidth * vs, maxRouteWidth * 0.5f) * markerScale;
+    float const d = 2.0f * min(halfWidth * vs, maxRouteWidth * 0.5f) * markerScale;
     markerSizes.push_back(m2::PointF(d, d));
   }
   return markerSizes;
 }
 }  // namespace
 
-TransitStepInfo::TransitStepInfo(TransitType type, double distance, int time,
-                                 std::string const & number, uint32_t color,
-                                 int intermediateIndex)
-    : m_type(type)
-    , m_distanceInMeters(distance)
-    , m_timeInSec(time)
-    , m_number(number)
-    , m_colorARGB(color)
-    , m_intermediateIndex(intermediateIndex)
+TransitStepInfo::TransitStepInfo(TransitType type, double distance, int time, string const & number,
+                                 uint32_t color, int intermediateIndex)
+  : m_type(type)
+  , m_distanceInMeters(distance)
+  , m_timeInSec(time)
+  , m_number(number)
+  , m_colorARGB(color)
+  , m_intermediateIndex(intermediateIndex)
 {}
 
 bool TransitStepInfo::IsEqualType(TransitStepInfo const & ts) const
@@ -166,7 +166,7 @@ void AddTransitPedestrianSegment(m2::PointD const & destPoint, df::Subroute & su
   subroute.AddStyle(style);
 }
 
-void AddTransitShapes(std::vector<routing::transit::ShapeId> const & shapeIds,
+void AddTransitShapes(vector<routing::transit::ShapeId> const & shapeIds,
                       TransitShapesInfo const & shapes, df::ColorConstant const & color,
                       bool isInverted, df::Subroute & subroute)
 {
@@ -196,12 +196,12 @@ void AddTransitShapes(::transit::ShapeLink shapeLink, TransitShapesInfoPT const 
 
   bool const isInverted = shapeLink.m_startIndex > shapeLink.m_endIndex;
   auto const it = shapesInfo.find(shapeLink.m_shapeId);
-  CHECK(it != shapesInfo.end(), ());
+  CHECK(it != shapesInfo.end(), (shapeLink.m_shapeId));
 
   size_t const startIdx = isInverted ? shapeLink.m_endIndex : shapeLink.m_startIndex;
   size_t const endIdx = isInverted ? shapeLink.m_startIndex : shapeLink.m_endIndex;
-  auto const & edgePolyline = std::vector<m2::PointD>(
-      it->second.GetPolyline().begin() + startIdx, it->second.GetPolyline().begin() + endIdx + 1);
+  auto const & edgePolyline = vector<m2::PointD>(it->second.GetPolyline().begin() + startIdx,
+                                                 it->second.GetPolyline().begin() + endIdx + 1);
 
   if (isInverted)
     subroute.m_polyline.Append(edgePolyline.crbegin(), edgePolyline.crend());
@@ -212,9 +212,11 @@ void AddTransitShapes(::transit::ShapeLink shapeLink, TransitShapesInfoPT const 
   subroute.AddStyle(style);
 }
 
-TransitRouteDisplay::TransitRouteDisplay(TransitReadManager & transitReadManager, GetMwmIdFn const & getMwmIdFn,
-                                         GetStringsBundleFn const & getStringsBundleFn, BookmarkManager * bmManager,
-                                         std::map<std::string, m2::PointF> const & transitSymbolSizes)
+TransitRouteDisplay::TransitRouteDisplay(TransitReadManager & transitReadManager,
+                                         GetMwmIdFn const & getMwmIdFn,
+                                         GetStringsBundleFn const & getStringsBundleFn,
+                                         BookmarkManager * bmManager,
+                                         map<string, m2::PointF> const & transitSymbolSizes)
   : m_transitReadManager(transitReadManager)
   , m_getMwmIdFn(getMwmIdFn)
   , m_getStringsBundleFn(getStringsBundleFn)
@@ -293,7 +295,7 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
                      subroute);
   }
 
-  ASSERT_GREATER(subroute.m_polyline.GetSize(), 1, ());
+  CHECK_GREATER(subroute.m_polyline.GetSize(), 1, ());
   auto const & p1 = *(subroute.m_polyline.End() - 2);
   auto const & p2 = *(subroute.m_polyline.End() - 1);
   m2::PointD currentDir = (p2 - p1).Normalize();
@@ -365,7 +367,7 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
                                                SubrouteSegmentParams & ssp)
 {
   CHECK_EQUAL(ssp.m_displayInfo.m_transitVersion, ::transit::TransitVersion::AllPublicTransport,
-              ());
+              (segment.GetSegment()));
 
   auto const & edge = ssp.m_transitInfo.GetEdgePT();
 
@@ -373,7 +375,7 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
   auto const & line = ssp.m_displayInfo.m_linesPT.at(currentLineId);
 
   auto const it = ssp.m_displayInfo.m_routesPT.find(line.GetRouteId());
-  CHECK(it != ssp.m_displayInfo.m_routesPT.end(), ());
+  CHECK(it != ssp.m_displayInfo.m_routesPT.end(), (line.GetRouteId()));
   auto const & route = it->second;
 
   auto const currentColor = df::GetTransitColorName(route.GetColor());
@@ -386,8 +388,6 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
   auto const & stop2 = ssp.m_displayInfo.m_stopsPT.at(edge.m_stop2Id);
 
   // TODO(o.khlopkova) implement transfers case.
-  bool const isTransfer1 = false;
-  bool const isTransfer2 = false;
 
   sp.m_marker.m_distance = sp.m_prevDistance;
   sp.m_marker.m_scale = kStopMarkerScale;
@@ -414,7 +414,7 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
     AddTransitShapes(edge.m_shapeLink, ssp.m_displayInfo.m_shapesPT, currentColor, subroute);
   }
 
-  ASSERT_GREATER(subroute.m_polyline.GetSize(), 1, ());
+  CHECK_GREATER(subroute.m_polyline.GetSize(), 1, ());
   auto const & p1 = *(subroute.m_polyline.End() - 2);
   auto const & p2 = *(subroute.m_polyline.End() - 1);
   m2::PointD currentDir = (p2 - p1).Normalize();
@@ -644,7 +644,7 @@ bool TransitRouteDisplay::ProcessSubroute(vector<routing::RouteSegment> const & 
     }
     else
     {
-      UNREACHABLE();
+      CHECK(false, (ssp.m_transitInfo.GetVersion()));
     }
   }
 
@@ -776,10 +776,12 @@ void TransitRouteDisplay::CreateTransitMarks()
   if (m_transitMarks.empty())
     return;
 
-  std::vector<m2::PointF> const transferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale, m_maxSubrouteWidth);
-  std::vector<m2::PointF> const stopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
+  vector<m2::PointF> const transferMarkerSizes =
+      GetTransitMarkerSizes(kTransferMarkerScale, m_maxSubrouteWidth);
+  vector<m2::PointF> const stopMarkerSizes =
+      GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
 
-  std::vector<m2::PointF> transferArrowOffsets;
+  vector<m2::PointF> transferArrowOffsets;
   for (auto const & size : transferMarkerSizes)
     transferArrowOffsets.emplace_back(0.0f, size.y * 0.5f);
 

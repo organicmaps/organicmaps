@@ -101,9 +101,9 @@ private:
   FakeGraph m_fake;
 
   // Fields for working with OnlySubway version of transit.
-  std::map<Segment, transit::Edge> m_segmentToEdge;
-  std::map<Segment, transit::Gate> m_segmentToGate;
-  std::map<transit::LineId, double> m_transferPenalties;
+  std::map<Segment, transit::Edge> m_segmentToEdgeSubway;
+  std::map<Segment, transit::Gate> m_segmentToGateSubway;
+  std::map<transit::LineId, double> m_transferPenaltiesSubway;
 
   // Fields for working with Public transport version of transit.
   std::map<Segment, ::transit::experimental::Edge> m_segmentToEdgePT;

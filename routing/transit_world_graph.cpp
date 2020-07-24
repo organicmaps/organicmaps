@@ -195,7 +195,7 @@ unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segmen
   }
   else
   {
-    UNREACHABLE();
+    CHECK(false, (transitGraph.GetTransitVersion()));
   }
 
   // Fake segment between pedestrian feature and gate.

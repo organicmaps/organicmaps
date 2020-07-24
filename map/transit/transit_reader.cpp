@@ -124,7 +124,7 @@ void ReadTransitTask::Do()
   }
   else
   {
-    UNREACHABLE();
+    CHECK(false, (transitHeaderVersion));
   }
 
   vector<FeatureID> features;
@@ -178,7 +178,7 @@ void ReadTransitTask::FillLinesAndRoutes(::transit::experimental::TransitData co
                                         return route.GetId() == routeId;
                                       });
 
-    CHECK(itRoute != routes.end(), ());
+    CHECK(itRoute != routes.end(), (line));
 
     if (m_loadSubset)
     {

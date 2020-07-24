@@ -128,13 +128,15 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
       return graph;
     }
 
-    UNREACHABLE();
+    CHECK(false, (transitHeaderVersion));
   }
   catch (Reader::OpenException const & e)
   {
     LOG(LERROR, ("Error while reading", TRANSIT_FILE_TAG, "section.", e.Msg()));
     throw;
   }
+
+  UNREACHABLE();
 }
 
 // static

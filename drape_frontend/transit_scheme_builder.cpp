@@ -381,7 +381,8 @@ void TransitSchemeBuilder::CollectLines(TransitDisplayInfo const & transitDispla
   for (auto const & pair : linesLengths)
   {
     auto const lineId = pair.second;
-    scheme.m_lines[lineId] = LineParams(transitDisplayInfo.m_linesSubway.at(lineId).GetColor(), depth);
+    scheme.m_lines[lineId] =
+        LineParams(transitDisplayInfo.m_linesSubway.at(lineId).GetColor(), depth);
     depth += kDepthPerLine;
   }
 }
@@ -453,10 +454,10 @@ void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInf
                                     MwmSchemeData & scheme)
 {
   auto const stop1It = transitDisplayInfo.m_stopsSubway.find(stop1Id);
-  ASSERT(stop1It != transitDisplayInfo.m_stopsSubway.end(), ());
+  ASSERT(stop1It != transitDisplayInfo.m_stopsSubway.end(), (stop1Id));
 
   auto const stop2It = transitDisplayInfo.m_stopsSubway.find(stop2Id);
-  ASSERT(stop2It != transitDisplayInfo.m_stopsSubway.end(), ());
+  ASSERT(stop2It != transitDisplayInfo.m_stopsSubway.end(), (stop2Id));
 
   auto const transfer1Id = stop1It->second.GetTransferId();
   auto const transfer2Id = stop2It->second.GetTransferId();
@@ -476,8 +477,6 @@ void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInf
 
   if (it == transitDisplayInfo.m_shapesSubway.end())
     return;
-
-  ASSERT(it != transitDisplayInfo.m_shapesSubway.end(), ());
 
   auto const itScheme = scheme.m_shapes.find(shapeId);
   if (itScheme == scheme.m_shapes.end())
