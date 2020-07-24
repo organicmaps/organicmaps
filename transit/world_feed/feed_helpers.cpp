@@ -7,7 +7,6 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include <algorithm>
 #include <cmath>
 
 namespace
@@ -82,7 +81,8 @@ ProjectionData GetProjection(std::vector<m2::PointD> const & polyline, size_t in
 }
 
 void FillProjections(std::vector<m2::PointD> & polyline, size_t startIndex, size_t endIndex,
-                     m2::PointD const & point, std::vector<ProjectionData> & projections)
+                     m2::PointD const & point, double distStopsM,
+                     std::vector<ProjectionData> & projections)
 {
   double distTravelledM = 0.0;
   // Stop can't be further from its projection to line then |maxDistFromStopM|.
@@ -96,20 +96,31 @@ void FillProjections(std::vector<m2::PointD> & polyline, size_t startIndex, size
     auto proj = GetProjection(polyline, i, ProjectStopOnTrack(point, polyline[i], polyline[i + 1]));
     proj.m_distFromStart = distTravelledM + mercator::DistanceOnEarth(polyline[i], proj.m_proj);
 
+    // The distance on the polyline between the projections of stops must not be less than the
+    // shortest possible distance between the stops themselves.
+    if (proj.m_distFromStart < distStopsM)
+      continue;
+
     if (proj.m_distFromPoint < maxDistFromStopM)
       projections.emplace_back(proj);
   }
 }
 
-std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point, size_t startIndex,
+std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point,
+                                                   std::optional<m2::PointD> const & prevPoint,
+                                                   size_t startIndex,
                                                    std::vector<m2::PointD> & polyline)
 {
-  std::vector<ProjectionData> projections;
-  // Reserve space for points on polyline which are relatively close to the polyline.
-  // Approximately 1/4 of all points on shape.
-  projections.reserve(polyline.size() / 4);
+  // We skip 70% of the distance in a straight line between two stops for preventing incorrect
+  // projection of the |point| to the polyline of complex shape.
+  double const distStopsM = prevPoint ? mercator::DistanceOnEarth(point, *prevPoint) * 0.7 : 0.0;
 
-  FillProjections(polyline, startIndex, polyline.size() - 1, point, projections);
+  std::vector<ProjectionData> projections;
+  // Reserve space for points on polyline which are relatively close to the shape.
+  // Approximately 1/4 of all points on shape.
+  projections.reserve((polyline.size() - startIndex) / 4);
+
+  FillProjections(polyline, startIndex, polyline.size() - 1, point, distStopsM, projections);
 
   if (projections.empty())
     return {polyline.size() + 1, false};

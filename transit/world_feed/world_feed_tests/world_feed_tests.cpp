@@ -8,8 +8,10 @@
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 
 #include <algorithm>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -201,7 +203,7 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_Simple)
   // Test that point_A is projected between two existing polyline points and the new point is
   // added in the place of its projection.
   TestPlanFact(1 /* planIndex */, true /* planInsert */,
-               PrepareNearestPointOnTrack(point_A, 0 /* startIndex */, shape));
+               PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* startIndex */, shape));
 
   TEST_EQUAL(shape.size(), 5, ());
   TEST_EQUAL(shape[1 /* expectedIndex */], m2::PointD(point_A.x, y), ());
@@ -210,15 +212,17 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_Simple)
   // Expected point projection index is the same.
   // But this projection is not inserted (it is already present).
   TestPlanFact(1 /* planIndex */, false /* planInsert */,
-               PrepareNearestPointOnTrack(point_A, 0 /* startIndex */, shape));
+               PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* startIndex */, shape));
   // So the shape size remains the same.
   TEST_EQUAL(shape.size(), 5, ());
 
   // Test that point_B insertion leads to addition of the new projection to the shape.
-  TestPlanFact(4, true, PrepareNearestPointOnTrack(point_B, 1 /* startIndex */, shape));
+  TestPlanFact(4, true,
+               PrepareNearestPointOnTrack(point_B, std::nullopt, 1 /* startIndex */, shape));
 
   // Test that point_C insertion does not lead to the addition of the new projection.
-  TestPlanFact(5, false, PrepareNearestPointOnTrack(point_C, 4 /* startIndex */, shape));
+  TestPlanFact(5, false,
+               PrepareNearestPointOnTrack(point_C, std::nullopt, 4 /* startIndex */, shape));
 }
 
 // Stop is on approximately the same distance from the segment (0, 1) and segment (1, 2).
@@ -238,7 +242,8 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_DifferentStartIndexes)
   // Test for |startIndex| = 0.
   {
     auto shape = referenceShape;
-    TestPlanFact(1, true, PrepareNearestPointOnTrack(point_A, 0 /* startIndex */, shape));
+    TestPlanFact(1, true,
+                 PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* startIndex */, shape));
     TEST_EQUAL(shape.size(), 4, ());
     TEST_EQUAL(shape[1 /* expectedIndex */], m2::PointD(0.001, point_A.y), ());
   }
@@ -246,7 +251,8 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_DifferentStartIndexes)
   // Test for |startIndex| = 1.
   {
     auto shape = referenceShape;
-    TestPlanFact(2, true, PrepareNearestPointOnTrack(point_A, 1 /* startIndex */, shape));
+    TestPlanFact(2, true,
+                 PrepareNearestPointOnTrack(point_A, std::nullopt, 1 /* startIndex */, shape));
     TEST_EQUAL(shape.size(), 4, ());
     TEST_EQUAL(shape[2 /* expectedIndex */], m2::PointD(point_A.x, 0.002), ());
   }
@@ -270,7 +276,8 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_MaxDistance)
   std::vector<m2::PointD> shape{{0.002, 0.001},  {0.003, 0.003},  {0.010, 0.003},
                                 {0.010, 0.0031}, {0.005, 0.0031}, {0.001, 0.0031}};
   m2::PointD const point_A{0.0028, 0.0029};
-  TestPlanFact(1, true, PrepareNearestPointOnTrack(point_A, 0 /* startIndex */, shape));
+  TestPlanFact(1, true,
+               PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* startIndex */, shape));
 }
 
 // Complex shape with multiple points on it and multiple stops for projection.
@@ -306,12 +313,18 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_NearCircle)
   m2::PointD const point_D{0.0063, 0.005};
   m2::PointD const point_E{0.008, 0.004};
   m2::PointD const point_F{0.0047, 0.0005};
-  TestPlanFact(2, true, PrepareNearestPointOnTrack(point_A, 0 /* startIndex */, shape));
-  TestPlanFact(3, false, PrepareNearestPointOnTrack(point_B, 2 /* startIndex */, shape));
-  TestPlanFact(10, true, PrepareNearestPointOnTrack(point_C, 3 /* startIndex */, shape));
-  TestPlanFact(12, false, PrepareNearestPointOnTrack(point_D, 10 /* startIndex */, shape));
-  TestPlanFact(14, true, PrepareNearestPointOnTrack(point_E, 12 /* startIndex */, shape));
-  TestPlanFact(20, true, PrepareNearestPointOnTrack(point_F, 14 /* startIndex */, shape));
+  TestPlanFact(2, true,
+               PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* startIndex */, shape));
+  TestPlanFact(3, false,
+               PrepareNearestPointOnTrack(point_B, std::nullopt, 2 /* startIndex */, shape));
+  TestPlanFact(10, true,
+               PrepareNearestPointOnTrack(point_C, std::nullopt, 3 /* startIndex */, shape));
+  TestPlanFact(12, false,
+               PrepareNearestPointOnTrack(point_D, std::nullopt, 10 /* startIndex */, shape));
+  TestPlanFact(14, true,
+               PrepareNearestPointOnTrack(point_E, std::nullopt, 12 /* startIndex */, shape));
+  TestPlanFact(20, true,
+               PrepareNearestPointOnTrack(point_F, std::nullopt, 14 /* startIndex */, shape));
 }
 
 UNIT_TEST(Transit_ColorPicker)
@@ -337,5 +350,12 @@ UNIT_TEST(Transit_BuildHash1Arg)
   TEST_EQUAL(BuildHash(std::string("Title")), "Title", ());
   TEST_EQUAL(BuildHash(std::string("Id1"), std::string("Id2")), "Id1_Id2", ());
   TEST_EQUAL(BuildHash(std::string("A"), std::string("B"), std::string("C")), "A_B_C", ());
+}
+
+UNIT_TEST(Measurement_Utils)
+{
+  double constexpr eps = 1e-5;
+  TEST(base::AlmostEqualAbs(KmphToMps(1.0), 0.27777, eps), ());
+  TEST(base::AlmostEqualAbs(MpsToKmph(1.0), 3.6, eps), ());
 }
 }  // namespace
