@@ -60,9 +60,10 @@ inline bool Equal(Line const & l1, Line const & l2)
 inline bool Equal(Stop const & s1, Stop const & s2)
 {
   return (std::make_tuple(s1.GetId(), s1.GetFeatureId(), s1.GetOsmId(), s1.GetTitle(),
-                          s1.GetTimeTable(), s1.GetBestPedestrianSegments()) ==
+                          s1.GetTimeTable(), s1.GetTransferIds(), s1.GetBestPedestrianSegments()) ==
           std::make_tuple(s2.GetId(), s2.GetFeatureId(), s2.GetOsmId(), s2.GetTitle(),
-                          s2.GetTimeTable(), s2.GetBestPedestrianSegments())) &&
+                          s2.GetTimeTable(), s2.GetTransferIds(),
+                          s2.GetBestPedestrianSegments())) &&
          base::AlmostEqualAbs(s1.GetPoint(), s2.GetPoint(), kPointsEqualEpsilon);
 }
 

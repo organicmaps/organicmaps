@@ -234,7 +234,7 @@ class Stop
 public:
   Stop();
   Stop(TransitId id, FeatureId featureId, OsmId osmId, Translations const & title,
-       TimeTable const & timetable, m2::PointD const & point);
+       TimeTable const & timetable, m2::PointD const & point, IdList const & transferIds);
   explicit Stop(TransitId id);
 
   bool operator<(Stop const & rhs) const;
@@ -251,13 +251,14 @@ public:
   std::string GetTitle() const;
   TimeTable const & GetTimeTable() const;
   m2::PointD const & GetPoint() const;
+  IdList const & GetTransferIds() const;
 
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_ids, "id_bundle"),
                                   visitor(m_bestPedestrianSegments, "best_pedestrian_segments"),
                                   visitor(m_title, "title"), visitor(m_timetable, "timetable"),
-                                  visitor(m_point, "point"))
+                                  visitor(m_point, "point"), visitor(m_transferIds, "transfer_ids"))
   TransitId m_id = kInvalidTransitId;
   IdBundle m_ids;
   // |m_bestPedestrianSegments| are segments which can be used for pedestrian routing to leave and
@@ -267,6 +268,7 @@ private:
   Translations m_title;
   TimeTable m_timetable;
   m2::PointD m_point;
+  IdList m_transferIds;
 };
 
 class Gate

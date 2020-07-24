@@ -178,12 +178,13 @@ osmoh::OpeningHours Line::GetServiceDays() const { return m_serviceDays; }
 Stop::Stop() : m_ids(true /* serializeFeatureIdOnly */) {}
 
 Stop::Stop(TransitId id, FeatureId featureId, OsmId osmId, Translations const & title,
-           TimeTable const & timetable, m2::PointD const & point)
+           TimeTable const & timetable, m2::PointD const & point, IdList const & transferIds)
   : m_id(id)
   , m_ids(featureId, osmId, true /* serializeFeatureIdOnly */)
   , m_title(title)
   , m_timetable(timetable)
   , m_point(point)
+  , m_transferIds(transferIds)
 {
 }
 
@@ -221,6 +222,8 @@ std::string Stop::GetTitle() const { return GetTranslation(m_title); }
 TimeTable const & Stop::GetTimeTable() const { return m_timetable; }
 
 m2::PointD const & Stop::GetPoint() const { return m_point; }
+
+IdList const & Stop::GetTransferIds() const { return m_transferIds; }
 
 void Stop::SetBestPedestrianSegments(std::vector<SingleMwmSegment> const & seg)
 {

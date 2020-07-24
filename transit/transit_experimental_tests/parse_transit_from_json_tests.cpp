@@ -174,6 +174,10 @@ UNIT_TEST(ReadJson_Stop)
                "line_id":4036591562,
                "arrivals":"15:23-15:23 open"
              }
+           ],
+           "transfer_ids":[
+             4036593809,
+             4036595406
            ]
          })"};
 
@@ -182,7 +186,7 @@ UNIT_TEST(ReadJson_Stop)
            Translations{{"default", "Balfour Rd & Foothill Dr"}},
            TimeTable{{4036591493, osmoh::OpeningHours("13:23-13:23 open")},
                      {4036591562, osmoh::OpeningHours("15:23-15:23 open")}},
-           m2::PointD(-121.74124, 41.04276))};
+           m2::PointD(-121.74124, 41.04276), {4036593809, 4036595406} /* transferIds */)};
 
   std::vector<Stop> stopsFact;
 

@@ -152,10 +152,10 @@ TransitData FillTestTransitData()
                                  {4026636458, osmoh::OpeningHours("05:00-05:00 open")},
                                  {4026636458, osmoh::OpeningHours("05:30-05:30 open")},
                                  {4026952369, osmoh::OpeningHours("15:30-15:30 open")}},
-                       m2::PointD(-58.57196, -36.82596)),
+                       m2::PointD(-58.57196, -36.82596), {} /* transferIds */),
                   Stop(4026990854 /* id */, kInvalidFeatureId /* featureId */,
                        kInvalidOsmId /* osmId */, Translations{{"default", "QUIROGA 1901-1999"}},
-                       TimeTable{}, m2::PointD(-58.57196, -36.82967))};
+                       TimeTable{}, m2::PointD(-58.57196, -36.82967), {} /* transferIds */)};
 
   data.SetStopPedestrianSegments(
       0 /* stopIdx */,

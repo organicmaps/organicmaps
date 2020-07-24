@@ -106,9 +106,17 @@ std::vector<TimeFromGateToStop> GetWeightsFromJson(json_t * obj)
   return weights;
 }
 
-IdList GetStopIdsFromJson(json_t * obj)
+IdList GetIdListFromJson(json_t * obj, std::string const & field, bool obligatory = true)
 {
-  json_t * arr = base::GetJSONObligatoryField(obj, "stops_ids");
+  json_t * arr = base::GetJSONOptionalField(obj, field);
+  if (!arr)
+  {
+    if (obligatory)
+      CHECK(false, ("Obligatory field", field, "is absent."));
+
+    return {};
+  }
+
   CHECK(json_is_array(arr), ());
 
   size_t const count = json_array_size(arr);
@@ -303,7 +311,7 @@ void Read(base::Json const & obj, std::vector<Line> & lines)
   ShapeLink const shapeLink = GetShapeLinkFromJson(obj.get());
   Translations const title = GetTranslationsFromJson(obj.get(), "title");
 
-  IdList const stopIds = GetStopIdsFromJson(obj.get());
+  IdList const stopIds = GetIdListFromJson(obj.get(), "stops_ids");
 
   std::vector<LineInterval> const intervals = GetIntervalsFromJson(obj.get());
 
@@ -321,8 +329,9 @@ void Read(base::Json const & obj, std::vector<Stop> & stops, OsmIdToFeatureIdsMa
   Translations const title = GetTranslationsFromJson(obj.get(), "title");
   TimeTable const timetable = GetTimeTableFromJson(obj.get());
   m2::PointD const point = GetPointFromJson(base::GetJSONObligatoryField(obj.get(), "point"));
+  IdList const & transferIds = GetIdListFromJson(obj.get(), "transfer_ids", false /* obligatory */);
 
-  stops.emplace_back(id, featureId, osmId, title, timetable, point);
+  stops.emplace_back(id, featureId, osmId, title, timetable, point, transferIds);
 }
 
 void Read(base::Json const & obj, std::vector<Shape> & shapes)
@@ -364,7 +373,7 @@ void Read(base::Json const & obj, std::vector<Transfer> & transfers)
 {
   TransitId const id = GetIdFromJson(obj.get());
   m2::PointD const point = GetPointFromJson(base::GetJSONObligatoryField(obj.get(), "point"));
-  IdList const stopIds = GetStopIdsFromJson(obj.get());
+  IdList const stopIds = GetIdListFromJson(obj.get(), "stops_ids");
   transfers.emplace_back(id, point, stopIds);
 }
 
