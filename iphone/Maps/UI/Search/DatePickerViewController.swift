@@ -37,7 +37,7 @@ import DatePicker
   }
 
   override var modalPresentationStyle: UIModalPresentationStyle {
-    get { return .custom }
+    get { return alternativeSizeClass(iPhone: .custom, iPad: .popover) }
     set { }
   }
 

@@ -130,6 +130,8 @@ using Observers = NSHashTable<Observer>;
   [self.searchTextField resignFirstResponder];
   DatePickerViewController *controller = [[DatePickerViewController alloc] init];
   controller.delegate = self;
+  controller.popoverPresentationController.sourceView = self.searchBarView;
+  controller.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
   [[MapViewController sharedController] presentViewController:controller animated:YES completion:nil];
 }
 
@@ -137,6 +139,8 @@ using Observers = NSHashTable<Observer>;
   [self.searchTextField resignFirstResponder];
   GuestsPickerViewController *controller = [[GuestsPickerViewController alloc] init];
   controller.delegate = self;
+  controller.popoverPresentationController.sourceView = self.searchBarView;
+  controller.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
   [[MapViewController sharedController] presentViewController:controller animated:YES completion:nil];
 }
 

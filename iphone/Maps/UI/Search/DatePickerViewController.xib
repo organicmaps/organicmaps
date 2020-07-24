@@ -32,7 +32,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Check in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4A-Dw-iVQ">
-                                    <rect key="frame" x="16" y="10" width="284" height="24"/>
+                                    <rect key="frame" x="16" y="10" width="339" height="24"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     <color key="textColor" white="0.13233090753424659" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -41,8 +41,8 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold20:blackPrimaryText"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMA-Ha-iZz">
-                                    <rect key="frame" x="304" y="12.5" width="55" height="19.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMA-Ha-iZz">
+                                    <rect key="frame" x="359" y="22" width="0.0" height="0.0"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" white="0.56319563356164382" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>

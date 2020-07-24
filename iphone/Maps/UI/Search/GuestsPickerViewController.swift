@@ -28,13 +28,20 @@
     infantsStepper.maxValue = 20
   }
 
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    preferredContentSize = view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize,
+                                                        withHorizontalFittingPriority: .required,
+                                                        verticalFittingPriority: .fittingSizeLevel)
+  }
+
   override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
     get { return transitioning }
     set { }
   }
 
   override var modalPresentationStyle: UIModalPresentationStyle {
-    get { return .custom }
+    get { return alternativeSizeClass(iPhone: .custom, iPad: .popover) }
     set { }
   }
 
