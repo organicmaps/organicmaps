@@ -55,6 +55,12 @@ extension DatePickerViewController: DatePickerViewDelegate {
   func datePickerView(_ view: DatePickerView, didSelect date: Date) {
     defer {
       doneButton.isEnabled = view.endDate != nil
+      if let startDate = view.startDate, let endDate = view.endDate {
+        let days = Calendar.current.dateComponents([.day], from: startDate, to: endDate).day!
+        numberOfDaysLabel.text = String(format: L("date_picker_amout_of_days"), days)
+      } else {
+        numberOfDaysLabel.text = nil
+      }
     }
     
     guard let startDate = view.startDate else {
@@ -65,6 +71,10 @@ extension DatePickerViewController: DatePickerViewDelegate {
     }
 
     if date > startDate && view.endDate == nil {
+      guard Calendar.current.dateComponents([.day], from: startDate, to: date).day! <= 30 else {
+        MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: "TODO: can't select more than 30 days", message: nil, rightButtonTitle: L("ok"), leftButtonTitle: nil, rightButtonAction: nil)
+        return
+      }
       view.endDate = date
       endDateLabel.text = dateFormatter.string(from: date).capitalized
       return
