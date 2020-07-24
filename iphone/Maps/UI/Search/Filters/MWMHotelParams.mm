@@ -106,7 +106,9 @@ static int8_t kAgeOfInfant = 2;
     }
   }
 
-  result += self.types.size();
+  if (!self.types.empty()) {
+    result += 1;
+  }
 
   return result;
 }
