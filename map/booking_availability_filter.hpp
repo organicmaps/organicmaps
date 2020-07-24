@@ -26,7 +26,8 @@ public:
                    ParamsRawInternal const & params) override;
 
   void GetFeaturesFromCache(search::Results const & results, std::vector<FeatureID> & sortedResults,
-                            std::vector<Extras> & extras) override;
+                            std::vector<Extras> & extras,
+                            std::vector<FeatureID> & filteredOut) override;
   void UpdateParams(ParamsBase const & apiParams) override;
 
 private:

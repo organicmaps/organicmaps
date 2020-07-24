@@ -49,9 +49,11 @@ void FilterProcessor::GetFeaturesFromCache(Types const & types, search::Results 
     {
       std::vector<FeatureID> featuresSorted;
       std::vector<Extras> extras;
-      m_filters.at(type)->GetFeaturesFromCache(results, featuresSorted, extras);
+      std::vector<FeatureID> filteredOut;
+      m_filters.at(type)->GetFeaturesFromCache(results, featuresSorted, extras, filteredOut);
 
-      cachedResults.emplace_back(type, std::move(featuresSorted), std::move(extras));
+      cachedResults.emplace_back(type, std::move(featuresSorted), std::move(extras),
+                                 std::move(filteredOut));
     }
 
     callback(std::move(cachedResults));
@@ -91,16 +93,19 @@ void FilterProcessor::ApplyConsecutively(Source const & source, TaskInternalType
     auto const & cb = tasks[i - 1].m_filterParams.m_callback;
 
     tasks[i - 1].m_filterParams.m_callback =
-        [ this, cb, nextTask = std::move(tasks[i]) ](auto && filterResults, auto && extras) mutable
+        [ this, cb, nextTask = std::move(tasks[i]) ](auto && result) mutable
     {
-      cb(std::move(filterResults), std::move(extras));
+    
+      auto copy = result;
+      cb(std::move(copy));
       // Run the next filter with obtained results from the previous one.
       // Post different task on the file thread to increase granularity.
       // Note: FilterProcessor works on file thread, so all filters will
       // be applied on the single thread.
       GetPlatform().RunTask(
-          Platform::Thread::File, [this, filterResults, nextTask = std::move(nextTask)]() {
-            m_filters.at(nextTask.m_type)->ApplyFilter(filterResults, nextTask.m_filterParams);
+          Platform::Thread::File, [this, passed = std::move(result.m_passedFilter),
+                                         nextTask = std::move(nextTask)]() {
+            m_filters.at(nextTask.m_type)->ApplyFilter(passed, nextTask.m_filterParams);
           });
       };
   }

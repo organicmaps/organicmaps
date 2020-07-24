@@ -12,7 +12,6 @@
 
 #include <algorithm>
 #include <utility>
-#include <vector>
 
 namespace booking
 {
@@ -54,9 +53,34 @@ void SortTransform(search::Results const & results, std::vector<Extras> const & 
     std::sort(sortedFeatures.begin(), sortedFeatures.end());
   }
 }
+
+void AppendUnavailable(search::Results const & filteredOut, SearchMarks & searchMarks)
+{
+  std::string reason;
+  if (!filteredOut.GetCount())
+    reason = platform::GetLocalizedString("booking_map_component_availability");
+
+  for (auto const & filtered : filteredOut)
+  {
+    searchMarks.AppendUnavailable(filtered.GetFeatureID(), reason);
+  }
+}
+
+void AppendUnavailable(std::vector<FeatureID> const & filteredOut, SearchMarks & searchMarks)
+{
+  std::string reason;
+  if (!filteredOut.empty())
+    reason = platform::GetLocalizedString("booking_map_component_availability");
+
+  for (auto const & filtered : filteredOut)
+  {
+    searchMarks.AppendUnavailable(filtered, reason);
+  }
+}
 }  // namespace
 
-filter::TasksInternal MakeInternalTasks(filter::Tasks const & filterTasks,
+filter::TasksInternal MakeInternalTasks(search::Results const & results,
+                                        filter::Tasks const & filterTasks,
                                         SearchMarks & searchMarks, bool inViewport)
 {
   using namespace booking::filter;
@@ -75,9 +99,15 @@ filter::TasksInternal MakeInternalTasks(filter::Tasks const & filterTasks,
     ParamsInternal paramsInternal
       {
         apiParams,
-        [&searchMarks, type, apiParams, cb, inViewport](auto && results, auto && extras)
+        [results, &searchMarks, type, apiParams, cb, inViewport](ResultInternal<search::Results> && result)
         {
-          if (results.GetCount() == 0)
+          if (type == Type::Availability)
+            AppendUnavailable(result.m_filteredOut, searchMarks);
+
+          auto & filteredResults = result.m_passedFilter;
+          auto & extras = result.m_extras;
+
+          if (filteredResults.GetCount() == 0)
             return;
 
           if (!inViewport)
@@ -86,7 +116,7 @@ filter::TasksInternal MakeInternalTasks(filter::Tasks const & filterTasks,
           std::vector<FeatureID> sortedFeatures;
           std::vector<std::string> sortedPrices;
 
-          SortTransform(std::move(results), std::move(extras), sortedFeatures, sortedPrices);
+          SortTransform(filteredResults, extras, sortedFeatures, sortedPrices);
 
           if (inViewport)
           {
@@ -115,12 +145,15 @@ filter::TasksInternal MakeInternalTasks(filter::Tasks const & filterTasks,
   return tasksInternal;
 }
 
-filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
+filter::TasksRawInternal MakeInternalTasks(std::vector<FeatureID> const & features,
+                                           filter::Tasks const & filterTasks,
                                            SearchMarks & searchMarks)
 {
   using namespace booking::filter;
 
   TasksRawInternal tasksInternal;
+
+  ASSERT(std::is_sorted(features.cbegin(), features.cend()), ());
 
   for (auto const & task : filterTasks)
   {
@@ -134,8 +167,16 @@ filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
     ParamsRawInternal paramsInternal
       {
         apiParams,
-        [&searchMarks, type, apiParams, cb](auto && sortedFeatures, auto && extras)
+        [features, &searchMarks, type, apiParams, cb](ResultInternal<std::vector<FeatureID>> && result)
         {
+          if (type == Type::Availability)
+            AppendUnavailable(result.m_filteredOut, searchMarks);
+
+          auto & sortedFeatures = result.m_passedFilter;
+          auto & extras = result.m_extras;
+
+          ASSERT(std::is_sorted(features.cbegin(), features.cend()), ());
+
           if (sortedFeatures.empty())
             return;
 
@@ -145,21 +186,29 @@ filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
           for (size_t i = 0; i < extras.size(); ++i)
             sortedPrices.emplace_back(formatter.Format(extras[i].m_price, extras[i].m_currency));
 
-          GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedFeatures,
+          std::vector<FeatureID> sortedAvailable;
+          for (auto & id : sortedFeatures)
+          {
+            // Some hotels might be unavailable by offline filter.
+            if (!searchMarks.IsUnavailable(id))
+              sortedAvailable.emplace_back(std::move(id));
+          }
+
+          GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedAvailable,
                                                         sortedPrices = std::move(sortedPrices)]() mutable
           {
             switch (type)
             {
               case Type::Deals:
-                searchMarks.SetSales(sortedFeatures, true /* hasSale */);
+                searchMarks.SetSales(sortedAvailable, true /* hasSale */);
                 break;
               case Type::Availability:
-                searchMarks.SetPreparingState(sortedFeatures, false /* isPreparing */);
-                searchMarks.SetPrices(sortedFeatures, std::move(sortedPrices));
+                searchMarks.SetPreparingState(sortedAvailable, false /* isPreparing */);
+                searchMarks.SetPrices(sortedAvailable, std::move(sortedPrices));
                 break;
             }
           });
-          cb(apiParams, sortedFeatures);
+          cb(apiParams, sortedAvailable);
         }
       };
 

@@ -27,18 +27,16 @@ class Api;
 namespace filter
 {
 
-struct CachedResult
+struct CachedResult : ResultInternal<std::vector<FeatureID>>
 {
-  CachedResult(Type type, std::vector<FeatureID> && featuresSorted, std::vector<Extras> && extras)
-    : m_type(type)
-    , m_featuresSorted(std::move(featuresSorted))
-    , m_extras(std::move(extras))
+  CachedResult(Type type, std::vector<FeatureID> && featuresSorted, std::vector<Extras> && extras,
+               std::vector<FeatureID> && filteredOutSorted)
+    : ResultInternal(std::move(featuresSorted), std::move(extras), std::move(filteredOutSorted))
+    , m_type(type)
   {
   }
 
   Type m_type;
-  std::vector<FeatureID> m_featuresSorted;
-  std::vector<Extras> m_extras;
 };
 
 using CachedResults = std::vector<CachedResult>;

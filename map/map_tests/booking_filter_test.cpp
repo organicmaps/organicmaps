@@ -119,11 +119,9 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
   search::Results filteredResults;
   std::vector<booking::Extras> availabilityExtras;
   filterParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
-  filterParams.m_callback = [&filteredResults, &availabilityExtras](
-                                search::Results && results,
-                                std::vector<booking::Extras> && extras) {
-    filteredResults = results;
-    availabilityExtras = extras;
+  filterParams.m_callback = [&filteredResults, &availabilityExtras](auto && result) {
+    filteredResults = result.m_passedFilter;
+    availabilityExtras = result.m_extras;
     testing::Notify();
   };
 
@@ -211,11 +209,9 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
   search::Results availabilityResults;
   std::vector<booking::Extras> availabilityExtras;
   availabilityParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
-  availabilityParams.m_callback = [&availabilityResults, &availabilityExtras](
-                                      search::Results const & results,
-                                      std::vector<booking::Extras> && extras) {
-    availabilityResults = results;
-    availabilityExtras = extras;
+  availabilityParams.m_callback = [&availabilityResults, &availabilityExtras](auto && result) {
+    availabilityResults = result.m_passedFilter;
+    availabilityExtras = result.m_extras;
   };
 
   tasks.emplace_back(Type::Availability, std::move(availabilityParams));
@@ -226,10 +222,9 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
   booking::AvailabilityParams p;
   p.m_dealsOnly = true;
   dealsParams.m_apiParams = std::make_shared<booking::AvailabilityParams>(p);
-  dealsParams.m_callback = [&dealsResults, &dealsExtras](search::Results const & results,
-                                                         std::vector<booking::Extras> && extras) {
-    dealsResults = results;
-    dealsExtras = extras;
+  dealsParams.m_callback = [&dealsResults, &dealsExtras](auto && result) {
+    dealsResults = result.m_passedFilter;
+    dealsExtras = result.m_extras;
     testing::Notify();
   };
 
@@ -341,11 +336,9 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ApplyFilterOntoWithFeatureIds)
   std::vector<FeatureID> filteredResults;
   std::vector<booking::Extras> availabilityExtras;
   filterParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
-  filterParams.m_callback = [&filteredResults, &availabilityExtras](
-                                std::vector<FeatureID> const & results,
-                                std::vector<booking::Extras> && extras) {
-    filteredResults = results;
-    availabilityExtras = extras;
+  filterParams.m_callback = [&filteredResults, &availabilityExtras](auto && result) {
+    filteredResults = result.m_passedFilter;
+    availabilityExtras = result.m_extras;
     testing::Notify();
   };
 

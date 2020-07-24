@@ -504,9 +504,9 @@ void SearchMarkPoint::SetSale(bool hasSale)
   SetAttributeValue(m_hasSale, hasSale);
 }
 
-void SearchMarkPoint::SetUsed(bool isUsed)
+void SearchMarkPoint::SetVisited(bool isVisited)
 {
-  SetAttributeValue(m_isUsed, isUsed);
+  SetAttributeValue(m_isVisited, isVisited);
 }
 
 void SearchMarkPoint::SetAvailable(bool isAvailable)
@@ -514,9 +514,9 @@ void SearchMarkPoint::SetAvailable(bool isAvailable)
   SetAttributeValue(m_isAvailable, isAvailable);
 }
 
-void SearchMarkPoint::SetReason(std::string && reason)
+void SearchMarkPoint::SetReason(std::string const & reason)
 {
-  SetAttributeValue(m_reason, std::move(reason));
+  SetAttributeValue(m_reason, reason);
 }
 
 bool SearchMarkPoint::IsBookingSpecialMark() const
@@ -654,7 +654,7 @@ void SearchMarks::SetPrices(std::vector<FeatureID> const & features, std::vector
     ASSERT(std::is_sorted(features.begin(), features.end()), ());
     auto const it = std::lower_bound(features.cbegin(), features.cend(), mark->GetFeatureID());
 
-    if (it == features.cend())
+    if (it == features.cend() || *it != mark->GetFeatureID())
       return;
 
     auto const index = std::distance(features.cbegin(), it);
@@ -664,29 +664,70 @@ void SearchMarks::SetPrices(std::vector<FeatureID> const & features, std::vector
   });
 }
 
-void SearchMarks::OnSelected(FeatureID const &featureId, bool isAvailable, std::string && reason)
+void SearchMarks::OnActivate(FeatureID const & featureId)
 {
-  ProcessMarks([&featureId, isAvailable, &reason](SearchMarkPoint * mark)
+  ProcessMarks([this, &featureId](SearchMarkPoint * mark)
   {
     if (featureId != mark->GetFeatureID())
       return;
 
-    mark->SetUsed(true);
-    mark->SetAvailable(isAvailable);
-    mark->SetReason(std::move(reason));
+    auto const unavailableIt = m_unavailable.find(featureId);
+    if (unavailableIt != m_unavailable.cend())
+    {
+      mark->SetAvailable(false);
+      mark->SetReason(unavailableIt->second);
+    }
   });
 }
 
-void SearchMarks::OnDeselected(FeatureID const & featureId)
+void SearchMarks::OnDeactivate(FeatureID const & featureId)
 {
-  ProcessMarks([&featureId](SearchMarkPoint * mark)
+  ProcessMarks([this, &featureId](SearchMarkPoint * mark)
   {
     if (featureId != mark->GetFeatureID())
       return;
+
+    mark->SetVisited(true);
+    m_used.insert(featureId);
 
     mark->SetAvailable(true);
     mark->SetReason({});
   });
+}
+
+bool SearchMarks::IsUsed(FeatureID const & id) const
+{
+  return m_used.find(id) != m_used.cend();
+}
+
+void SearchMarks::ClearUsed()
+{
+  m_used.clear();
+}
+
+void SearchMarks::AppendUnavailable(FeatureID const & id, std::string const & reason)
+{
+  m_unavailable.try_emplace(id, reason);
+}
+
+bool SearchMarks::IsUnavailable(FeatureID const & id) const
+{
+  return m_unavailable.find(id) != m_unavailable.cend();
+}
+
+void SearchMarks::MarkUnavailableIfNeeded(SearchMarkPoint * mark) const
+{
+  auto const unavailableIt = m_unavailable.find(mark->GetFeatureID());
+  if (unavailableIt == m_unavailable.cend())
+    return;
+
+  mark->SetAvailable(false);
+  mark->SetReason(unavailableIt->second);
+}
+
+void SearchMarks::ClearUnavailable()
+{
+  m_unavailable.clear();
 }
 
 void SearchMarks::ProcessMarks(std::function<void(SearchMarkPoint *)> && processor)

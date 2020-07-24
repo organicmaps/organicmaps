@@ -253,6 +253,7 @@ protected:
 
   booking::filter::FilterProcessor m_bookingFilterProcessor;
   booking::AvailabilityParams m_bookingAvailabilityParams;
+  booking::filter::Types m_activeFilters;
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
@@ -388,8 +389,12 @@ public:
   double GetMinDistanceBetweenResults() const override;
 
 private:
+  void ShowViewportSearchResults(search::Results const & results, bool clear, booking::filter::Types types);
+
   void ActivateMapSelection(std::optional<place_page::Info> const & info);
   void InvalidateUserMarks();
+
+  void DeactivateHotelSearchMark();
 
 public:
   void DeactivateMapSelection(bool notifyUI);

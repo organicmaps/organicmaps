@@ -73,6 +73,7 @@
 #include "metrics/eye.hpp"
 
 #include "platform/local_country_file_utils.hpp"
+#include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/mwm_traits.hpp"
 #include "platform/mwm_version.hpp"
@@ -1700,6 +1701,14 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
     return;
   }
 
+  if (result.m_details.m_isHotel && result.HasPoint())
+  {
+    auto copy = result;
+    search::Results results;
+    results.AddResultNoChecks(move(copy));
+    ShowViewportSearchResults(results, true, m_activeFilters);
+  }
+
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
   if (m_currentPlacePageInfo)
   {
@@ -1802,6 +1811,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     editSession.ClearGroup(UserMark::Type::SEARCH);
   editSession.SetIsVisible(UserMark::Type::SEARCH, true);
 
+  optional<string> reason;
   for (auto it = begin; it != end; ++it)
   {
     auto const & r = *it;
@@ -1814,6 +1824,16 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
       mark->SetFoundFeature(r.GetFeatureID());
 
     mark->SetMatchedName(r.GetString());
+
+    if (isFeature && r.IsRefusedByFilter())
+    {
+      mark->SetPreparing(true);
+
+      if (!reason)
+        reason = platform::GetLocalizedString("booking_map_component_filters");
+
+      m_searchMarks.AppendUnavailable(mark->GetFeatureID(), *reason);
+    }
 
     if (r.m_details.m_isSponsoredHotel)
     {
@@ -1829,6 +1849,16 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
       if (product.m_ugcRating != search::ProductInfo::kInvalidRating)
         mark->SetRating(product.m_ugcRating);
     }
+
+    // Case when place page is opened and new portion of results delivered.
+    if (isFeature && m_currentPlacePageInfo && m_currentPlacePageInfo->IsFeature() &&
+        m_currentPlacePageInfo->GetID() == mark->GetFeatureID())
+    {
+      m_searchMarks.MarkUnavailableIfNeeded(mark);
+    }
+
+    if (isFeature && m_searchMarks.IsUsed(mark->GetFeatureID()))
+      mark->SetVisited(true);
 
     if (fn)
       fn(*mark);
@@ -2429,7 +2459,7 @@ void Framework::ActivateMapSelection(std::optional<place_page::Info> const & inf
   if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking &&
       info->IsSearchMark())
   {
-    m_searchMarks.OnSelected(m_currentPlacePageInfo->GetID(), false /* "Dummy" */, "Dummy reason");
+    m_searchMarks.OnActivate(m_currentPlacePageInfo->GetID());
   }
 
   CHECK_NOT_EQUAL(info->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
@@ -2458,12 +2488,7 @@ void Framework::DeactivateMapSelection(bool notifyUI)
 
   if (somethingWasAlreadySelected)
   {
-    if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking &&
-        m_currentPlacePageInfo->IsSearchMark())
-    {
-      m_searchMarks.OnDeselected(m_currentPlacePageInfo->GetID());
-    }
-
+    DeactivateHotelSearchMark();
     GetBookmarkManager().OnTrackDeselected();
 
     m_currentPlacePageInfo = {};
@@ -2480,6 +2505,18 @@ void Framework::InvalidateUserMarks()
   GetBookmarkManager().GetEditSession();
 }
 
+void Framework::DeactivateHotelSearchMark()
+{
+  if (m_currentPlacePageInfo && m_currentPlacePageInfo->GetHotelType() &&
+      m_currentPlacePageInfo->IsSearchMark())
+  {
+    if (GetSearchAPI().IsViewportSearchActive())
+      m_searchMarks.OnDeactivate(m_currentPlacePageInfo->GetID());
+    else
+      GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
+  }
+}
+
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
   using place_page::SponsoredType;
@@ -2491,6 +2528,8 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
     auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId()
                                                     : kml::kInvalidTrackId;
     auto const prevIsGuide = m_currentPlacePageInfo && m_currentPlacePageInfo->IsGuide();
+
+    DeactivateHotelSearchMark();
 
     m_currentPlacePageInfo = placePageInfo;
 
@@ -3892,17 +3931,24 @@ void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
                                           search::Results::ConstIter end, bool clear,
                                           booking::filter::Types types)
 {
+  search::Results results;
+  results.AddResultsNoChecks(begin, end);
+
+  ShowViewportSearchResults(results, clear, types);
+}
+
+void Framework::ShowViewportSearchResults(search::Results const & results, bool clear,
+                                          booking::filter::Types types)
+{
   using booking::filter::Type;
   using booking::filter::CachedResults;
 
   ASSERT(!types.empty(), ());
 
-  search::Results results;
-  results.AddResultsNoChecks(begin, end);
-
   auto const fillCallback = [this, clear, results](CachedResults filtersResults)
   {
-    auto const postProcessing = [filtersResults = move(filtersResults)](SearchMarkPoint & mark)
+    string const reason = platform::GetLocalizedString("booking_map_component_availability");
+    auto const postProcessing = [this, filtersResults = move(filtersResults), &reason](SearchMarkPoint & mark)
     {
       auto const & id = mark.GetFeatureID();
 
@@ -3912,22 +3958,40 @@ void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
       booking::PriceFormatter formatter;
       for (auto const & filterResult : filtersResults)
       {
-        auto const & features = filterResult.m_featuresSorted;
+        auto const & features = filterResult.m_passedFilter;
+        ASSERT(is_sorted(features.cbegin(), features.cend()), ());
+
         auto const it = std::lower_bound(features.cbegin(), features.cend(), id);
 
-        auto const found = it != features.cend();
+        auto const found = it != features.cend() && *it == id;
         switch (filterResult.m_type)
         {
-        case Type::Deals: mark.SetSale(found); break;
-        case Type::Availability: mark.SetPreparing(!found); break;
-        }
+        case Type::Deals:
+          mark.SetSale(found);
+          break;
+        case Type::Availability:
+          mark.SetPreparing(!found);
 
-        if (found && !filterResult.m_extras.empty())
-        {
-          auto const index = std::distance(features.cbegin(), it);
-          auto price = formatter.Format(filterResult.m_extras[index].m_price,
-                                        filterResult.m_extras[index].m_currency);
-          mark.SetPrice(std::move(price));
+          if (found && !filterResult.m_extras.empty())
+          {
+            auto const index = std::distance(features.cbegin(), it);
+            auto price = formatter.Format(filterResult.m_extras[index].m_price,
+                                              filterResult.m_extras[index].m_currency);
+            mark.SetPrice(std::move(price));
+          }
+
+          if (!found)
+          {
+            auto const & filteredOut = filterResult.m_filteredOut;
+            ASSERT(is_sorted(filteredOut.cbegin(), filteredOut.cend()), ());
+
+            auto const isFilteredOut = std::binary_search(filteredOut.cbegin(), filteredOut.cend(), id);
+
+            if (isFilteredOut)
+              m_searchMarks.AppendUnavailable(mark.GetFeatureID(), reason);
+          }
+
+          break;
         }
       }
     };
@@ -3941,6 +4005,8 @@ void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
 
 void Framework::ClearViewportSearchResults()
 {
+  m_searchMarks.ClearUsed();
+  m_searchMarks.ClearUnavailable();
   GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }
 
@@ -4197,25 +4263,27 @@ ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
 void Framework::FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
                                             search::Results const & results, bool inViewport)
 {
-  auto tasksInternal = booking::MakeInternalTasks(filterTasks, m_searchMarks, inViewport);
+  auto tasksInternal = booking::MakeInternalTasks(results, filterTasks, m_searchMarks, inViewport);
   m_bookingFilterProcessor.ApplyFilters(results, move(tasksInternal), filterTasks.GetMode());
 }
 
 void Framework::FilterHotels(booking::filter::Tasks const & filterTasks,
                              vector<FeatureID> && featureIds)
 {
-  auto tasksInternal = booking::MakeInternalTasks(filterTasks, m_searchMarks);
+  auto tasksInternal = booking::MakeInternalTasks(featureIds, filterTasks, m_searchMarks);
   m_bookingFilterProcessor.ApplyFilters(move(featureIds), move(tasksInternal),
                                         filterTasks.GetMode());
 }
 
 void Framework::OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks)
 {
+  m_activeFilters.clear();
   for (auto const & task : filterTasks)
   {
     if (task.m_type == booking::filter::Type::Availability)
       m_bookingAvailabilityParams.Set(*task.m_filterParams.m_apiParams);
 
+    m_activeFilters.push_back(task.m_type);
     m_bookingFilterProcessor.OnParamsUpdated(task.m_type, task.m_filterParams.m_apiParams);
   }
 }

@@ -61,6 +61,12 @@ using HotelToFeatureId = HotelInfo<FeatureID>;
 using HotelToResults = HotelsMapping<search::Result>;
 using HotelToFeatureIds = HotelsMapping<FeatureID>;
 
+bool IsConformToFilter(search::Result const & r)
+{
+ return r.m_details.m_isSponsoredHotel && r.GetResultType() == search::Result::Type::Feature &&
+        !r.IsRefusedByFilter();
+}
+
 template <typename T>
 void UpdateCache(HotelsMapping<T> const & hotelsMapping, booking::HotelsWithExtras const & hotels,
                  availability::Cache & cache)
@@ -81,9 +87,10 @@ void UpdateCache(HotelsMapping<T> const & hotelsMapping, booking::HotelsWithExtr
   }
 }
 
-template <typename T, typename Inserter>
+template <typename T, typename PassedInserter, typename FilteredOutInserter>
 void FillResults(HotelsMapping<T> && hotelsMapping, booking::HotelsWithExtras && hotels,
-                 availability::Cache & cache, Inserter const & inserter)
+                 availability::Cache & cache, PassedInserter const & passedInserter,
+                 FilteredOutInserter const & filteredOutInserter)
 {
   using availability::Cache;
 
@@ -91,10 +98,14 @@ void FillResults(HotelsMapping<T> && hotelsMapping, booking::HotelsWithExtras &&
   {
     switch (hotel.GetStatus())
     {
-    case Cache::HotelStatus::Unavailable: continue;
+    case Cache::HotelStatus::Unavailable:
+    {
+      filteredOutInserter(std::move(hotel.GetMappedValue()));
+      continue;
+    }
     case Cache::HotelStatus::Available:
     {
-      inserter(std::move(hotel.GetMappedValue()), std::move(*hotel.GetExtras()));
+      passedInserter(std::move(hotel.GetMappedValue()), std::move(*hotel.GetExtras()));
       continue;
     }
     case Cache::HotelStatus::NotReady:
@@ -102,7 +113,9 @@ void FillResults(HotelsMapping<T> && hotelsMapping, booking::HotelsWithExtras &&
       auto info = cache.Get(hotel.GetHotelId());
 
       if (info.m_status == Cache::HotelStatus::Available)
-        inserter(std::move(hotel.GetMappedValue()), std::move(*hotel.GetExtras()));
+        passedInserter(std::move(hotel.GetMappedValue()), std::move(*hotel.GetExtras()));
+      else if (info.m_status == Cache::HotelStatus::Unavailable)
+        filteredOutInserter(std::move(hotel.GetMappedValue()));
 
       continue;
     }
@@ -110,7 +123,9 @@ void FillResults(HotelsMapping<T> && hotelsMapping, booking::HotelsWithExtras &&
     {
       auto const it = hotels.find(hotel.GetHotelId());
       if (it != hotels.cend())
-        inserter(std::move(hotel.GetMappedValue()), std::move(it->second));
+        passedInserter(std::move(hotel.GetMappedValue()), std::move(it->second));
+      else
+        filteredOutInserter(std::move(hotel.GetMappedValue()));
 
       continue;
     }
@@ -119,27 +134,37 @@ void FillResults(HotelsMapping<T> && hotelsMapping, booking::HotelsWithExtras &&
 }
 
 void FillResults(HotelToResults && hotelToResults, booking::HotelsWithExtras && hotels,
-                 availability::Cache & cache, search::Results & results, std::vector<booking::Extras> & extras)
+                 availability::Cache & cache, ResultInternal<search::Results> & results)
 {
-  auto const inserter = [&results, &extras](search::Result && result, booking::Extras && extra)
+  auto const passedInserter = [&results](search::Result && passed, booking::Extras && extra)
   {
-    results.AddResult(std::move(result));
-    extras.emplace_back(std::move(extra));
+    results.m_passedFilter.AddResultNoChecks(std::move(passed));
+    results.m_extras.emplace_back(std::move(extra));
   };
 
-  FillResults(std::move(hotelToResults), std::move(hotels), cache, inserter);
+  auto const filteredOutInserter = [&results](search::Result && filteredOut)
+  {
+    results.m_filteredOut.AddResultNoChecks(std::move(filteredOut));
+  };
+
+  FillResults(std::move(hotelToResults), std::move(hotels), cache, passedInserter, filteredOutInserter);
 }
 
 void FillResults(HotelToFeatureIds && hotelToFeatureIds, booking::HotelsWithExtras && hotels,
-                 availability::Cache & cache, std::vector<FeatureID> & results, std::vector<booking::Extras> & extras)
+                 availability::Cache & cache, ResultInternal<std::vector<FeatureID>> & results)
 {
-  auto const inserter = [&results, &extras](FeatureID && result, booking::Extras && extra)
+  auto const passedInserter = [&results](FeatureID && passed, booking::Extras && extra)
   {
-    results.emplace_back(std::move(result));
-    extras.emplace_back(std::move(extra));
+    results.m_passedFilter.emplace_back(std::move(passed));
+    results.m_extras.emplace_back(std::move(extra));
   };
 
-  FillResults(std::move(hotelToFeatureIds), std::move(hotels), cache, inserter);
+  auto const filteredOutInserter = [&results](FeatureID && filteredOut)
+  {
+    results.m_filteredOut.emplace_back(std::move(filteredOut));
+  };
+
+  FillResults(std::move(hotelToFeatureIds), std::move(hotels), cache, passedInserter, filteredOutInserter);
 }
 
 void PrepareData(DataSource const & dataSource, search::Results const & results,
@@ -150,7 +175,7 @@ void PrepareData(DataSource const & dataSource, search::Results const & results,
 
   for (auto const & r : results)
   {
-    if (!r.m_details.m_isSponsoredHotel || r.GetResultType() != search::Result::Type::Feature)
+    if (!IsConformToFilter(r))
       continue;
 
     features.push_back(r.GetFeatureID());
@@ -291,10 +316,9 @@ void AvailabilityFilter::ApplyFilterInternal(Source const & source, Parameters c
 
   if (m_apiParams.m_hotelIds.empty())
   {
-    Source result;
-    std::vector<Extras> extras;
-    FillResults(std::move(hotelsToSourceValue), {} /* hotelIds */, *m_cache, result, extras);
-    cb(std::move(result), std::move(extras));
+    booking::filter::ResultInternal<Source> result;
+    FillResults(std::move(hotelsToSourceValue), {} /* hotelIds */, *m_cache, result);
+    cb(std::move(result));
 
     return;
   }
@@ -308,10 +332,9 @@ void AvailabilityFilter::ApplyFilterInternal(Source const & source, Parameters c
     {
       UpdateCache(hotelToValue, hotels, *cache);
 
-      Source updatedResults;
-      std::vector<Extras> extras;
-      FillResults(std::move(hotelToValue), std::move(hotels), *cache, updatedResults, extras);
-      cb(std::move(updatedResults), std::move(extras));
+      booking::filter::ResultInternal<Source> updatedResult;
+      FillResults(std::move(hotelToValue), std::move(hotels), *cache, updatedResult);
+      cb(std::move(updatedResult));
     });
   };
 
@@ -321,7 +344,8 @@ void AvailabilityFilter::ApplyFilterInternal(Source const & source, Parameters c
 
 void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
                                               std::vector<FeatureID> & sortedResults,
-                                              std::vector<Extras> & extras)
+                                              std::vector<Extras> & extras,
+                                              std::vector<FeatureID> & filteredOut)
 {
   sortedResults.clear();
 
@@ -329,7 +353,7 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
 
   for (auto const & r : results)
   {
-    if (!r.m_details.m_isSponsoredHotel || r.GetResultType() != search::Result::Type::Feature)
+    if (!IsConformToFilter(r))
       continue;
 
     features.push_back(r.GetFeatureID());
@@ -361,6 +385,10 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
     {
       sortedResults.push_back(featureId);
       extras.emplace_back(std::move(*info.m_extras));
+    }
+    else if (info.m_status == availability::Cache::HotelStatus::Unavailable)
+    {
+      filteredOut.push_back(featureId);
     }
   }
 }

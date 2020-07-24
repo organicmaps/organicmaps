@@ -13,6 +13,7 @@
 #include <functional>
 #include <map>
 #include <optional>
+#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -49,9 +50,9 @@ public:
   void SetPricing(int pricing);
   void SetPrice(std::string && price);
   void SetSale(bool hasSale);
-  void SetUsed(bool isUsed);
+  void SetVisited(bool isVisited);
   void SetAvailable(bool isAvailable);
-  void SetReason(std::string && reason);
+  void SetReason(std::string const & reason);
 
 protected:
   template <typename T, typename U>
@@ -81,7 +82,7 @@ protected:
   bool m_hasSale = false;
   dp::TitleDecl m_titleDecl;
   dp::TitleDecl m_ugcTitleDecl;
-  bool m_isUsed = false;
+  bool m_isVisited = false;
   bool m_isAvailable = true;
   std::string m_reason;
 };
@@ -105,8 +106,16 @@ public:
   // NOTE: Vector of features must be sorted.
   void SetPrices(std::vector<FeatureID> const & features, std::vector<std::string> && prices);
 
-  void OnSelected(FeatureID const & featureId, bool isAvailable, std::string && reason);
-  void OnDeselected(FeatureID const & featureId);
+  void OnActivate(FeatureID const & featureId);
+  void OnDeactivate(FeatureID const & featureId);
+
+  bool IsUsed(FeatureID const & id) const;
+  void ClearUsed();
+
+  void AppendUnavailable(FeatureID const & id, std::string const & reason);
+  bool IsUnavailable(FeatureID const & id) const;
+  void MarkUnavailableIfNeeded(SearchMarkPoint * mark) const;
+  void ClearUnavailable();
 
   static bool HaveSizes() { return !m_searchMarksSizes.empty(); };
   static std::optional<m2::PointD> GetSize(std::string const & symbolName);
@@ -118,4 +127,7 @@ private:
   df::DrapeEngineSafePtr m_drapeEngine;
 
   static std::map<std::string, m2::PointF> m_searchMarksSizes;
+
+  std::set<FeatureID> m_used;
+  std::map<FeatureID, std::string> m_unavailable;
 };
