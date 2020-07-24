@@ -123,6 +123,9 @@ struct StopData
   // |m_timetable| can be left empty.
   TimeTable m_timetable;
 
+  // Ids of transfer nodes containing this stop.
+  IdList m_transferIds;
+
   uint64_t m_osmId = 0;
 
   // Field not intended for dumping to json:
@@ -427,4 +430,7 @@ auto BuildHash(Values... values)
 
   return hash;
 }
+
+// Inserts |transferId| into the |stop| m_transferIds if it isn't already present there.
+void LinkTransferIdToStop(StopData & stop, TransitId transferId);
 }  // namespace transit

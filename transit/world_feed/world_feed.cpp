@@ -90,7 +90,7 @@ base::JSONPtr ShapeLinkToJson(transit::ShapeLink const & shapeLink)
   return node;
 }
 
-base::JSONPtr StopIdsToJson(transit::IdList const & stopIds)
+base::JSONPtr IdListToJson(transit::IdList const & stopIds)
 {
   auto idArr = base::NewJSONArray();
 
@@ -1068,14 +1068,23 @@ void WorldFeed::FillTransfers()
 
     TransferData data;
     data.m_stopsIds = {stop1Id, stop2Id};
-    data.m_point = m_stops.m_data.at(stop1Id).m_point;  // TODO maybe change?
 
-    std::tie(std::ignore, inserted) = m_transfers.m_data.emplace(transitId, data);
-    if (inserted)
+    auto & stop1 = m_stops.m_data.at(stop1Id);
+    auto & stop2 = m_stops.m_data.at(stop2Id);
+
+    // Coordinate of the transfer is the midpoint between two stops.
+    data.m_point = stop1.m_point.Mid(stop2.m_point);
+
+    if (m_transfers.m_data.emplace(transitId, data).second)
     {
       EdgeTransferId const transferId(stop1Id, stop2Id);
+
       std::tie(std::ignore, inserted) =
           m_edgesTransfers.m_data.emplace(transferId, transfer.min_transfer_time);
+
+      LinkTransferIdToStop(stop1, transitId);
+      LinkTransferIdToStop(stop2, transitId);
+
       if (!inserted)
         LOG(LWARNING, ("Transfers copy", transfer.from_stop_id, transfer.to_stop_id));
     }
@@ -1431,7 +1440,7 @@ void Lines::Write(std::unordered_map<TransitId, IdList> const & ids, std::ofstre
 
     json_object_set_new(node.get(), "title", TranslationsToJson(line.m_title).release());
     // Save only stop ids inside current region.
-    json_object_set_new(node.get(), "stops_ids", StopIdsToJson(stopIds).release());
+    json_object_set_new(node.get(), "stops_ids", IdListToJson(stopIds).release());
     ToJSONObject(*node, "service_days", ToString(line.m_serviceDays));
 
     auto intervalsArr = base::NewJSONArray();
@@ -1491,7 +1500,11 @@ void Stops::Write(IdSet const & ids, std::ofstream & stream) const
       ToJSONObject(*scheduleItem, "arrivals", ToString(schedule));
       json_array_append_new(timeTableArr.get(), scheduleItem.release());
     }
+
     json_object_set_new(node.get(), "timetable", timeTableArr.release());
+
+    if (!stop.m_transferIds.empty())
+      json_object_set_new(node.get(), "transfer_ids", IdListToJson(stop.m_transferIds).release());
 
     WriteJson(node.get(), stream);
   }
@@ -1540,7 +1553,7 @@ void Transfers::Write(IdSet const & ids, std::ofstream & stream) const
     auto node = base::NewJSONObject();
     ToJSONObject(*node, "id", transferId);
     json_object_set_new(node.get(), "point", PointToJson(transfer.m_point).release());
-    json_object_set_new(node.get(), "stops_ids", StopIdsToJson(transfer.m_stopsIds).release());
+    json_object_set_new(node.get(), "stops_ids", IdListToJson(transfer.m_stopsIds).release());
 
     WriteJson(node.get(), stream);
   }
@@ -1715,5 +1728,16 @@ bool WorldFeed::Save(std::string const & worldFeedDir, bool overwrite)
     SaveRegions(worldFeedDir, regionAndData.first, overwrite);
 
   return true;
+}
+
+void LinkTransferIdToStop(StopData & stop, TransitId transferId)
+{
+  // We use vector instead of unordered set because we assume that transfers count for stop doesn't
+  // exceed 2 or maybe 4.
+  if (std::find(stop.m_transferIds.begin(), stop.m_transferIds.end(), transferId) ==
+      stop.m_transferIds.end())
+  {
+    stop.m_transferIds.push_back(transferId);
+  }
 }
 }  // namespace transit

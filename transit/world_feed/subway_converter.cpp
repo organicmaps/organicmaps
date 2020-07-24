@@ -331,6 +331,10 @@ bool SubwayConverter::ConvertTransfers()
   {
     auto const [transferId, transferData] = MakeTransfer(transferSubway);
     m_feed.m_transfers.m_data.emplace(transferId, transferData);
+
+    // All stops are already present in |m_feed| before the |ConvertTransfers()| call.
+    for (auto stopId : transferData.m_stopsIds)
+      LinkTransferIdToStop(m_feed.m_stops.m_data.at(stopId), transferId);
   }
 
   LOG(LINFO, ("Converted", m_feed.m_transfers.m_data.size(),
