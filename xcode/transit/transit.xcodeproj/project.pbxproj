@@ -13,6 +13,14 @@
 		562DDBDF1FE8EA0A0091F566 /* transit_serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 562DDBDB1FE8EA0A0091F566 /* transit_serdes.hpp */; };
 		56EE14CB1FE7F2900036F20C /* transit_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EE14C91FE7F2900036F20C /* transit_types.cpp */; };
 		56EE14CC1FE7F2900036F20C /* transit_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EE14CA1FE7F2900036F20C /* transit_types.hpp */; };
+		D55B290A24CACF9E000E2EBE /* transit_display_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D55B290524CACF9E000E2EBE /* transit_display_info.hpp */; };
+		D55B290B24CACF9E000E2EBE /* transit_version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D55B290624CACF9E000E2EBE /* transit_version.hpp */; };
+		D55B290C24CACF9E000E2EBE /* transit_version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D55B290724CACF9E000E2EBE /* transit_version.cpp */; };
+		D55B290D24CACF9E000E2EBE /* transit_entities.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D55B290924CACF9E000E2EBE /* transit_entities.hpp */; };
+		D56AD1DB24CB02C00057F2E0 /* transit_types_experimental.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D56AD1D724CB02BF0057F2E0 /* transit_types_experimental.hpp */; };
+		D56AD1DC24CB02C00057F2E0 /* transit_data.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D56AD1D824CB02BF0057F2E0 /* transit_data.hpp */; };
+		D56AD1DD24CB02C00057F2E0 /* transit_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D56AD1D924CB02BF0057F2E0 /* transit_data.cpp */; };
+		D56AD1DE24CB02C00057F2E0 /* transit_types_experimental.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D56AD1DA24CB02BF0057F2E0 /* transit_types_experimental.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +33,14 @@
 		56EE14C81FE7F20A0036F20C /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		56EE14C91FE7F2900036F20C /* transit_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_types.cpp; sourceTree = "<group>"; };
 		56EE14CA1FE7F2900036F20C /* transit_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_types.hpp; sourceTree = "<group>"; };
+		D55B290524CACF9E000E2EBE /* transit_display_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_display_info.hpp; sourceTree = "<group>"; };
+		D55B290624CACF9E000E2EBE /* transit_version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_version.hpp; sourceTree = "<group>"; };
+		D55B290724CACF9E000E2EBE /* transit_version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_version.cpp; sourceTree = "<group>"; };
+		D55B290924CACF9E000E2EBE /* transit_entities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_entities.hpp; sourceTree = "<group>"; };
+		D56AD1D724CB02BF0057F2E0 /* transit_types_experimental.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_types_experimental.hpp; sourceTree = "<group>"; };
+		D56AD1D824CB02BF0057F2E0 /* transit_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_data.hpp; sourceTree = "<group>"; };
+		D56AD1D924CB02BF0057F2E0 /* transit_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_data.cpp; sourceTree = "<group>"; };
+		D56AD1DA24CB02BF0057F2E0 /* transit_types_experimental.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_types_experimental.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +75,11 @@
 		56D7F2F61FE7F0F200D99E62 /* transit */ = {
 			isa = PBXGroup;
 			children = (
+				D56AD1D624CB02BF0057F2E0 /* experimental */,
+				D55B290524CACF9E000E2EBE /* transit_display_info.hpp */,
+				D55B290924CACF9E000E2EBE /* transit_entities.hpp */,
+				D55B290724CACF9E000E2EBE /* transit_version.cpp */,
+				D55B290624CACF9E000E2EBE /* transit_version.hpp */,
 				562DDBD81FE8EA080091F566 /* transit_graph_data.cpp */,
 				562DDBD91FE8EA080091F566 /* transit_graph_data.hpp */,
 				562DDBDB1FE8EA0A0091F566 /* transit_serdes.hpp */,
@@ -70,6 +91,17 @@
 			path = ../../transit;
 			sourceTree = "<group>";
 		};
+		D56AD1D624CB02BF0057F2E0 /* experimental */ = {
+			isa = PBXGroup;
+			children = (
+				D56AD1D724CB02BF0057F2E0 /* transit_types_experimental.hpp */,
+				D56AD1D824CB02BF0057F2E0 /* transit_data.hpp */,
+				D56AD1D924CB02BF0057F2E0 /* transit_data.cpp */,
+				D56AD1DA24CB02BF0057F2E0 /* transit_types_experimental.cpp */,
+			);
+			path = experimental;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -77,8 +109,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D56AD1DC24CB02C00057F2E0 /* transit_data.hpp in Headers */,
+				D55B290D24CACF9E000E2EBE /* transit_entities.hpp in Headers */,
 				56EE14CC1FE7F2900036F20C /* transit_types.hpp in Headers */,
+				D56AD1DB24CB02C00057F2E0 /* transit_types_experimental.hpp in Headers */,
 				562DDBDD1FE8EA0A0091F566 /* transit_graph_data.hpp in Headers */,
+				D55B290A24CACF9E000E2EBE /* transit_display_info.hpp in Headers */,
+				D55B290B24CACF9E000E2EBE /* transit_version.hpp in Headers */,
 				562DDBDF1FE8EA0A0091F566 /* transit_serdes.hpp in Headers */,
 				562DDBDE1FE8EA0A0091F566 /* transit_speed_limits.hpp in Headers */,
 			);
@@ -141,8 +178,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D55B290C24CACF9E000E2EBE /* transit_version.cpp in Sources */,
 				562DDBDC1FE8EA0A0091F566 /* transit_graph_data.cpp in Sources */,
 				56EE14CB1FE7F2900036F20C /* transit_types.cpp in Sources */,
+				D56AD1DD24CB02C00057F2E0 /* transit_data.cpp in Sources */,
+				D56AD1DE24CB02C00057F2E0 /* transit_types_experimental.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
