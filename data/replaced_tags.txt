@@ -39,6 +39,7 @@ office=notary : office=lawyer
 office=administrative : office=government
 
 amenity=monastery : amenity=place_of_worship
+cycleway=opposite_lane : oneway:bicycle=no
 
 power = transformer : power = substation
 
