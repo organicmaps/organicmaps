@@ -6,6 +6,8 @@
 
 #include "indexer/feature_decl.hpp"
 
+#include "platform/localization.hpp"
+
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -25,9 +27,10 @@ void SortTransform(search::Results const & results, std::vector<Extras> const & 
 
     std::vector<std::pair<FeatureID, std::string>> featuresWithPrices;
     featuresWithPrices.reserve(results.GetCount());
+    PriceFormatter formatter;
     for (size_t i = 0; i < results.GetCount(); ++i)
     {
-      auto priceFormatted = FormatPrice(extras[i].m_price, extras[i].m_currency);
+      auto priceFormatted = formatter.Format(extras[i].m_price, extras[i].m_currency);
       featuresWithPrices.emplace_back(results[i].GetFeatureID(), std::move(priceFormatted));
     }
 
@@ -138,8 +141,9 @@ filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
 
           std::vector<std::string> sortedPrices;
           sortedPrices.reserve(extras.size());
+          PriceFormatter formatter;
           for (size_t i = 0; i < extras.size(); ++i)
-            sortedPrices.emplace_back(FormatPrice(extras[i].m_price, extras[i].m_currency));
+            sortedPrices.emplace_back(formatter.Format(extras[i].m_price, extras[i].m_currency));
 
           GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedFeatures,
                                                         sortedPrices = std::move(sortedPrices)]() mutable
@@ -165,9 +169,46 @@ filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
   return tasksInternal;
 }
 
-std::string FormatPrice(double price, std::string const & currency)
+std::string PriceFormatter::Format(double price, std::string const & currency)
 {
-  // TODO(a): add price formatting.
-  return std::to_string(static_cast<uint32_t>(price)) + " " + currency;
+  if (currency != m_currencyCode)
+  {
+    m_currencySymbol = platform::GetCurrencySymbol(currency);
+    m_currencyCode = currency;
+  }
+  auto const priceStr = std::to_string(static_cast<uint64_t>(price));
+
+  auto constexpr kComma = ',';
+  size_t constexpr kCommaStep = 3;
+  auto constexpr kEllipsizeSymbol = u8"\u2026";
+  size_t constexpr kEllipsizeAfter = 7;
+  size_t constexpr kNoEllipsizeLimit = 10;
+
+  size_t const firstComma = priceStr.size() % kCommaStep;
+  size_t commaCount = 0;
+  size_t const fullLength = priceStr.size() + priceStr.size() / kCommaStep;
+  bool const needEllipsize = fullLength > kNoEllipsizeLimit;
+  std::string result;
+  for (size_t i = 0; i < priceStr.size(); ++i)
+  {
+    if (i == firstComma + commaCount * kCommaStep)
+    {
+      if (i != 0)
+        result += kComma;
+      ++commaCount;
+    }
+
+    if (needEllipsize && result.size() > kEllipsizeAfter)
+    {
+      result += kEllipsizeSymbol;
+      break;
+    }
+
+    result += priceStr[i];
+  }
+
+  result += " " + m_currencySymbol;
+
+  return result;
 }
 }  // namespace booking

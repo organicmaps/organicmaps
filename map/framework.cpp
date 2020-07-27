@@ -3909,6 +3909,7 @@ void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
       if (!id.IsValid())
         return;
 
+      booking::PriceFormatter formatter;
       for (auto const & filterResult : filtersResults)
       {
         auto const & features = filterResult.m_featuresSorted;
@@ -3924,8 +3925,8 @@ void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
         if (found && !filterResult.m_extras.empty())
         {
           auto const index = std::distance(features.cbegin(), it);
-          auto price = booking::FormatPrice(filterResult.m_extras[index].m_price,
-                                            filterResult.m_extras[index].m_currency);
+          auto price = formatter.Format(filterResult.m_extras[index].m_price,
+                                        filterResult.m_extras[index].m_currency);
           mark.SetPrice(std::move(price));
         }
       }

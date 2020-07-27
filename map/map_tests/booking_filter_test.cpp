@@ -5,17 +5,20 @@
 
 #include "map/booking_availability_filter.hpp"
 #include "map/booking_filter_processor.hpp"
+#include "map/booking_utils.hpp"
+
+#include "search/result.hpp"
 
 #include "partners_api/booking_api.hpp"
 
-#include "search/result.hpp"
+#include "storage/country_info_getter.hpp"
 
 #include "indexer/data_source.hpp"
 #include "indexer/feature_meta.hpp"
 
-#include "storage/country_info_getter.hpp"
-
 #include "platform/platform.hpp"
+
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -355,5 +358,55 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ApplyFilterOntoWithFeatureIds)
   TEST_EQUAL(filteredResults, expectedFeatureIds, ());
   TEST(!availabilityExtras.empty(), ());
   TEST_EQUAL(availabilityExtras.size(), filteredResults.size(), ());
+}
+
+UNIT_TEST(Booking_PriceFormatter)
+{
+  booking::PriceFormatter formatter;
+
+  {
+    auto const result = formatter.Format(1, "USD");
+    TEST(strings::StartsWith(result, "1 "), ());
+  }
+  {
+    auto const result = formatter.Format(12, "USD");
+    TEST(strings::StartsWith(result, "12 "), ());
+  }
+  {
+    auto const result = formatter.Format(123, "USD");
+    TEST(strings::StartsWith(result, "123 "), ());
+  }
+  {
+    auto const result = formatter.Format(1234, "USD");
+    TEST(strings::StartsWith(result, "1,234 "), (result));
+  }
+  {
+    auto const result = formatter.Format(12345, "USD");
+    TEST(strings::StartsWith(result, "12,345 "), (result));
+  }
+  {
+    auto const result = formatter.Format(123456, "USD");
+    TEST(strings::StartsWith(result, "123,456 "), (result));
+  }
+  {
+    auto const result = formatter.Format(1234567, "USD");
+    TEST(strings::StartsWith(result, "1,234,567 "), (result));
+  }
+  {
+    auto const result = formatter.Format(12345678, "USD");
+    TEST(strings::StartsWith(result, "12,345,678 "), (result));
+  }
+  {
+    auto const result = formatter.Format(123456789, "USD");
+    TEST(strings::StartsWith(result, std::string("123,456,") + u8"\u2026" + " "), (result));
+  }
+  {
+    auto const result = formatter.Format(1234567891, "USD");
+    TEST(strings::StartsWith(result, std::string("1,234,56") + u8"\u2026" + " "), (result));
+  }
+  {
+    auto const result = formatter.Format(12345678911, "USD");
+    TEST(strings::StartsWith(result, std::string("12,345,6") + u8"\u2026" + " "), (result));
+  }
 }
 }  // namespace

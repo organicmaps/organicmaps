@@ -10,5 +10,13 @@ filter::TasksInternal MakeInternalTasks(filter::Tasks const & filterTasks,
                                         SearchMarks & searchMarks, bool inViewport);
 filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
                                            SearchMarks & searchMarks);
-std::string FormatPrice(double price, std::string const & currency);
+class PriceFormatter
+{
+public:
+  std::string Format(double price, std::string const & currency);
+
+private:
+  std::string m_currencyCode;
+  std::string m_currencySymbol;
+};
 }  // namespace booking
