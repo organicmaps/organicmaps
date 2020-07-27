@@ -1,23 +1,17 @@
 package com.mapswithme.maps.search;
 
-import android.app.DatePickerDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
@@ -26,16 +20,10 @@ import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.recycler.TagItemDecoration;
 import com.mapswithme.maps.widget.recycler.TagLayoutManager;
-import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.DateUtils;
-import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import static com.mapswithme.maps.search.FilterUtils.combineFilters;
 import static com.mapswithme.maps.search.FilterUtils.findPriceFilter;
@@ -48,93 +36,23 @@ public class FilterFragment extends BaseMwmToolbarFragment
 {
   static final String ARG_FILTER = "arg_filter";
   static final String ARG_FILTER_PARAMS = "arg_filter_params";
-  private static final int MAX_STAYING_DAYS = 30;
-  private static final int MAX_CHECKIN_WINDOW_IN_DAYS = 360;
-  @NonNull
-  private final DateFormat mDateFormatter = DateUtils.getMediumDateFormatter();
   @Nullable
   private CustomNavigateUpListener mNavigateUpListener;
   @Nullable
   private Listener mListener;
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private RatingFilterView mRating;
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private PriceFilterView mPrice;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mCheckIn;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mCheckOut;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mCheckInTitle;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mCheckOutTitle;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mOfflineWarning;
   @NonNull
   private final Drawable mTagsDecorator
       = ContextCompat.getDrawable(MwmApplication.get(), R.drawable.divider_transparent_half);
-
   @NonNull
   private final Set<HotelsFilter.HotelType> mHotelTypes = new HashSet<>();
   @Nullable
   private HotelsTypeAdapter mTypeAdapter;
-  @NonNull
-  private Calendar mCheckinDate = Calendar.getInstance();
-  @NonNull
-  private Calendar mCheckoutDate = getDayAfter(mCheckinDate);
-  @NonNull
-  private final DatePickerDialog.OnDateSetListener mCheckinListener = (view, year, monthOfYear,
-                                                                       dayOfMonth) ->
-  {
-    Calendar chosenDate = Calendar.getInstance();
-    chosenDate.set(year, monthOfYear, dayOfMonth);
-    mCheckinDate = chosenDate;
-    if (mCheckinDate.after(mCheckoutDate))
-    {
-      mCheckoutDate =  getDayAfter(mCheckinDate);
-      mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
-    }
-    else
-    {
-      long difference = mCheckoutDate.getTimeInMillis() - mCheckinDate.getTimeInMillis();
-      int days = (int) TimeUnit.MILLISECONDS.toDays(difference);
-      if (days > MAX_STAYING_DAYS)
-      {
-        mCheckoutDate = getMaxDateForCheckout(mCheckinDate);
-        mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
-      }
-    }
-    mCheckIn.setText(mDateFormatter.format(chosenDate.getTime()));
-  };
-  @NonNull
-  private final DatePickerDialog.OnDateSetListener mCheckoutListener = (view, year, monthOfYear,
-                                                                        dayOfMonth) ->
-  {
-    Calendar chosenDate = Calendar.getInstance();
-    chosenDate.set(year, monthOfYear, dayOfMonth);
-    mCheckoutDate = chosenDate;
-    mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
-  };
-  @NonNull
-  private final BroadcastReceiver mNetworkStateReceiver = new BroadcastReceiver()
-  {
-    @Override
-    public void onReceive(Context context, Intent intent)
-    {
-      enableDateViewsIfConnected();
-    }
-  };
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private BookingFilterParams.Factory mFilterParamsFactory;
 
   @Override
   public void onAttach(Context context)
@@ -146,8 +64,6 @@ public class FilterFragment extends BaseMwmToolbarFragment
 
     if (context instanceof Listener)
       mListener = (Listener) context;
-
-    mFilterParamsFactory = new BookingFilterParams.Factory();
   }
 
   @Override
@@ -158,26 +74,11 @@ public class FilterFragment extends BaseMwmToolbarFragment
     mListener = null;
   }
 
-  @Override
-  public void onStart()
-  {
-    super.onStart();
-    IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-    getActivity().registerReceiver(mNetworkStateReceiver, filter);
-  }
-
-  @Override
-  public void onStop()
-  {
-    getActivity().unregisterReceiver(mNetworkStateReceiver);
-    super.onStop();
-  }
-
   @NonNull
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
-    return new ToolbarController(root, getActivity())
+    return new ToolbarController(root, requireActivity())
     {
       @Override
       public void onUpClick()
@@ -196,7 +97,6 @@ public class FilterFragment extends BaseMwmToolbarFragment
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_search_filter, container, false);
-    initDateViews(root);
     mRating = root.findViewById(R.id.rating);
     // Explicit casting is needed in this case, otherwise the crash is obtained in runtime,
     // seems like a bug in current compiler (Java 8)
@@ -228,10 +128,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
       return;
 
     HotelsFilter filter = populateFilter();
-    BookingFilterParams params = mFilterParamsFactory.createParams(mCheckinDate.getTimeInMillis(),
-                                                                   mCheckoutDate.getTimeInMillis(),
-                                                                   BookingFilterParams.Room.DEFAULT);
-    mListener.onFilterApply(filter, params);
+    mListener.onFilterApply(filter);
     Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_APPLY,
                                          Statistics.EventParam.HOTEL);
     UserActionsLogger.logBookingFilterUsedEvent();
@@ -243,98 +140,6 @@ public class FilterFragment extends BaseMwmToolbarFragment
     super.onActivityCreated(savedInstanceState);
     Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_OPEN,
                                          Statistics.EventParam.HOTEL);
-  }
-
-  private void initDateViews(View root)
-  {
-    mCheckIn = root.findViewById(R.id.checkIn);
-    mCheckIn.setOnClickListener(v -> onCheckInClicked());
-    mCheckInTitle = root.findViewById(R.id.checkin_title);
-    mCheckOut = root.findViewById(R.id.checkOut);
-    mCheckOut.setOnClickListener(v -> onCheckOutClicked());
-    mCheckOutTitle = root.findViewById(R.id.checkout_title);
-
-
-    mOfflineWarning = root.findViewById(R.id.offlineWarning);
-    enableDateViewsIfConnected();
-  }
-
-  private void onCheckOutClicked()
-  {
-    DatePickerDialog dialog
-        = new DatePickerDialog(getActivity(), mCheckoutListener,
-                               mCheckoutDate.get(Calendar.YEAR),
-                               mCheckoutDate.get(Calendar.MONTH),
-                               mCheckoutDate.get(Calendar.DAY_OF_MONTH));
-
-    dialog.getDatePicker().setMinDate(getDayAfter(mCheckinDate).getTimeInMillis());
-    dialog.getDatePicker().setMaxDate(getMaxDateForCheckout(mCheckinDate).getTimeInMillis());
-    dialog.show();
-    Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                         new Pair<>(Statistics.EventParam.DATE,
-                                                    Statistics.ParamValue.CHECKOUT));
-  }
-
-  private void onCheckInClicked()
-  {
-    DatePickerDialog dialog =
-        new DatePickerDialog(getActivity(), mCheckinListener, mCheckinDate.get(Calendar.YEAR),
-                             mCheckinDate.get(Calendar.MONTH),
-                             mCheckinDate.get(Calendar.DAY_OF_MONTH));
-    dialog.getDatePicker().setMinDate(getMinDateForCheckin().getTimeInMillis());
-    dialog.getDatePicker().setMaxDate(getMaxDateForCheckin().getTimeInMillis());
-    dialog.show();
-    Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                         new Pair<>(Statistics.EventParam.DATE,
-                                                    Statistics.ParamValue.CHECKIN));
-  }
-
-  private void enableDateViewsIfConnected()
-  {
-    boolean connected = ConnectionState.isConnected();
-    UiUtils.showIf(!connected, mOfflineWarning);
-    mCheckIn.setEnabled(connected);
-    mCheckOut.setEnabled(connected);
-    mCheckInTitle.setEnabled(connected);
-    mCheckOutTitle.setEnabled(connected);
-  }
-
-  @NonNull
-  private static Calendar getMinDateForCheckin()
-  {
-    Calendar date = Calendar.getInstance();
-    // This little subtraction is needed to avoid the crash on old androids (e.g. 4.4).
-    date.add(Calendar.SECOND, -1);
-    return date;
-  }
-
-  @NonNull
-  private static Calendar getMaxDateForCheckin()
-  {
-    Calendar date = Calendar.getInstance();
-    date.add(Calendar.DAY_OF_YEAR, MAX_CHECKIN_WINDOW_IN_DAYS);
-    return date;
-  }
-
-  @NonNull
-  private static Calendar getMaxDateForCheckout(@NonNull Calendar checkin)
-  {
-    long difference = checkin.getTimeInMillis() - System.currentTimeMillis();
-    int daysToCheckin = (int) TimeUnit.MILLISECONDS.toDays(difference);
-    int leftDays = MAX_CHECKIN_WINDOW_IN_DAYS - daysToCheckin;
-    Calendar date = Calendar.getInstance();
-    date.setTime(checkin.getTime());
-    date.add(Calendar.DAY_OF_YEAR, leftDays >= MAX_STAYING_DAYS ? MAX_STAYING_DAYS : leftDays);
-    return date;
-  }
-
-  @NonNull
-  private static Calendar getDayAfter(@NonNull Calendar date)
-  {
-    Calendar dayAfter = Calendar.getInstance();
-    dayAfter.setTime(date.getTime());
-    dayAfter.add(Calendar.DAY_OF_YEAR, 1);
-    return dayAfter;
   }
 
   @Override
@@ -371,39 +176,13 @@ public class FilterFragment extends BaseMwmToolbarFragment
       mPrice.update(null);
       if (mTypeAdapter != null)
         updateTypeAdapter(mTypeAdapter, null);
-    }
-    else
-    {
-      mRating.update(findRatingFilter(filter));
-      mPrice.update(findPriceFilter(filter));
-      if (mTypeAdapter != null)
-        updateTypeAdapter(mTypeAdapter, findTypeFilter(filter));
+      return;
     }
 
-    updateDateViews(params);
-  }
-
-  private void updateDateViews(@Nullable BookingFilterParams params)
-  {
-    if (params == null)
-    {
-      mCheckinDate = Calendar.getInstance();
-      mCheckIn.setText(mDateFormatter.format(mCheckinDate.getTime()));
-      mCheckoutDate = getDayAfter(mCheckinDate);
-      mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
-    }
-    else
-    {
-      Calendar checkin = Calendar.getInstance();
-      checkin.setTimeInMillis(params.getCheckinMillisec());
-      mCheckinDate = checkin;
-      mCheckIn.setText(mDateFormatter.format(mCheckinDate.getTime()));
-
-      Calendar checkout = Calendar.getInstance();
-      checkout.setTimeInMillis(params.getCheckoutMillisec());
-      mCheckoutDate = checkout;
-      mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
-    }
+    mRating.update(findRatingFilter(filter));
+    mPrice.update(findPriceFilter(filter));
+    if (mTypeAdapter != null)
+      updateTypeAdapter(mTypeAdapter, findTypeFilter(filter));
   }
 
   private void updateTypeAdapter(@NonNull HotelsTypeAdapter typeAdapter,
@@ -440,6 +219,6 @@ public class FilterFragment extends BaseMwmToolbarFragment
 
   interface Listener
   {
-    void onFilterApply(@Nullable HotelsFilter filter, @Nullable BookingFilterParams params);
+    void onFilterApply(@Nullable HotelsFilter filter);
   }
 }

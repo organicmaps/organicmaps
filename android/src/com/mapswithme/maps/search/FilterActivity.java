@@ -3,10 +3,10 @@ package com.mapswithme.maps.search;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.util.ThemeUtils;
@@ -30,7 +30,7 @@ public class FilterActivity extends BaseMwmFragmentActivity
   public static void startForResult(@NonNull Fragment fragment, @Nullable HotelsFilter filter,
                                     @Nullable BookingFilterParams params, int requestCode)
   {
-    Intent i = buildFilterIntent(fragment.getActivity(), filter, params);
+    Intent i = buildFilterIntent(fragment.requireActivity(), filter, params);
     fragment.startActivityForResult(i, requestCode);
   }
 
@@ -65,17 +65,10 @@ public class FilterActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onFilterApply(@Nullable HotelsFilter filter, @Nullable BookingFilterParams params)
+  public void onFilterApply(@Nullable HotelsFilter filter)
   {
-    setResult(filter, params, ACTION_FILTER_APPLY);
-  }
-
-  private void setResult(@Nullable HotelsFilter filter, @Nullable BookingFilterParams params,
-                         @NonNull String action)
-  {
-    Intent i = new Intent(action);
+    Intent i = new Intent(ACTION_FILTER_APPLY);
     i.putExtra(EXTRA_FILTER, filter);
-    i.putExtra(EXTRA_FILTER_PARAMS, params);
     setResult(Activity.RESULT_OK, i);
     finish();
   }

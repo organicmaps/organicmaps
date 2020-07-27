@@ -40,6 +40,7 @@ import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.AuthBundleFactory;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -136,7 +137,6 @@ import com.mapswithme.maps.widget.menu.MenuController;
 import com.mapswithme.maps.widget.menu.MenuControllerFactory;
 import com.mapswithme.maps.widget.menu.MenuStateObserver;
 import com.mapswithme.maps.widget.menu.MyPositionButton;
-import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
@@ -434,7 +434,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mFilterController == null || data == null)
       return;
 
-    BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
+    // TODO: data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS) is obsolete. Get filter
+    // filter params from toolbar.
+    BookingFilterParams params = null;
     HotelsFilter filter = data.getParcelableExtra(FilterActivity.EXTRA_FILTER);
     mFilterController.setFilterAndParams(filter, params);
 
@@ -450,10 +452,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       final Bundle args = new Bundle();
       args.putString(SearchActivity.EXTRA_QUERY, query);
       if (mFilterController != null)
-      {
         args.putParcelable(FilterActivity.EXTRA_FILTER, mFilterController.getFilter());
-        args.putParcelable(FilterActivity.EXTRA_FILTER_PARAMS, mFilterController.getBookingFilterParams());
-      }
       replaceFragment(SearchFragment.class, args, null);
     }
     else
@@ -1155,7 +1154,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setupSearchQuery(data);
 
-    BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
+    // TODO: data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS) is obsolete. Get filter
+    // filter params from toolbar.
+    BookingFilterParams params = null;
     mFilterController.setFilterAndParams(data.getParcelableExtra(FilterActivity.EXTRA_FILTER),
                                          params);
     mFilterController.updateFilterButtonVisibility(params != null);
