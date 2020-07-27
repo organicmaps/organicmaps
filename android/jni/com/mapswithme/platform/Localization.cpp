@@ -48,4 +48,16 @@ std::string GetLocalizedString(std::string const & key)
   static auto const methodId = GetMethodId("getStringValueByKey");
   return GetLocalizedStringByUtil(methodId, key);
 }
+
+std::string GetCurrencySymbol(std::string const & currencyCode)
+{
+  JNIEnv * env = jni::GetEnv();
+  static auto const methodId = jni::GetStaticMethodID(env, g_utilsClazz, "getCurrencySymbol",
+                                                      "(Ljava/lang/String;)Ljava/lang/String;");
+
+  jni::TScopedLocalRef currencyCodeRef(env, jni::ToJavaString(env, currencyCode));
+  jni::TScopedLocalRef localizedStrRef(
+      env, env->CallStaticObjectMethod(g_utilsClazz, methodId, currencyCodeRef.get()));
+  return jni::ToNativeString(env, static_cast<jstring>(localizedStrRef.get()));
+}
 }  // namespace platform

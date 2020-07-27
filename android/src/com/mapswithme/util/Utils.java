@@ -616,6 +616,21 @@ public class Utils
     return text;
   }
 
+  @NonNull
+  public static String getCurrencySymbol(@NonNull String currencyCode)
+  {
+    try
+    {
+      return Currency.getInstance(currencyCode).getSymbol(Locale.getDefault());
+    }
+    catch (Throwable e)
+    {
+      LOGGER.e(TAG, "Failed to obtain currency symbol by currency code = " + currencyCode, e);
+    }
+    
+    return currencyCode;
+  }
+
   static String makeUrlSafe(@NonNull final String url)
   {
     return url.replaceAll("(token|password|key)=([^&]+)", "***");

@@ -25,4 +25,15 @@ std::string GetLocalizedString(std::string const & key)
 {
   return [NSLocalizedString(@(key.c_str()), @"") UTF8String];
 }
+
+std::string GetCurrencySymbol(std::string const & currencyCode)
+{
+  NSLocale * locale = [NSLocale currentLocale];
+  NSString * symbol = [locale displayNameForKey:NSLocaleCurrencySymbol
+                                          value:@(currencyCode.c_str())];
+  if (!symbol)
+    return currencyCode;
+
+  return [symbol UTF8String];
+}
 }  // namespace platform
