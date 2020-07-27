@@ -194,15 +194,15 @@
 }
 
 + (void)setAdsDisabled:(BOOL)disabled {
-  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::RemoveAds, disabled);
+  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::RemoveAds, disabled, false);
 }
 
 + (void)setBookmarksSubscriptionActive:(BOOL)active {
-  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarksSights, active);
+  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarksSights, active, false);
 }
 
 + (void)setAllPassSubscriptionActive:(BOOL)active {
-  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarksAll, active);
+  GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarksAll, active, false);
 }
 
 #pragma mark - SKRequestDelegate

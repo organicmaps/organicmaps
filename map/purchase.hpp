@@ -73,7 +73,7 @@ public:
   void RegisterSubscription(SubscriptionListener * listener);
   bool IsSubscriptionActive(SubscriptionType type) const;
 
-  void SetSubscriptionEnabled(SubscriptionType type, bool isEnabled);
+  void SetSubscriptionEnabled(SubscriptionType type, bool isEnabled, bool isTrialActive);
 
   void SetValidationCallback(ValidationCallback && callback);
   void Validate(ValidationInfo const & validationInfo, std::string const & accessToken);

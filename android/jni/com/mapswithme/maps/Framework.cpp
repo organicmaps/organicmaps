@@ -2190,9 +2190,9 @@ Java_com_mapswithme_maps_Framework_nativeSetActiveSubscription(JNIEnv *, jclass,
   auto const & purchase = frm()->GetPurchase();
   if (purchase == nullptr)
     return;
-  // TODO: @milchakov pass the 'isTrial' parameter to the purchase please.
-  purchase->SetSubscriptionEnabled(static_cast<SubscriptionType>(type),
-                                   static_cast<bool>(isActive));
+
+  purchase->SetSubscriptionEnabled(static_cast<SubscriptionType>(type), static_cast<bool>(isActive),
+                                   static_cast<bool>(isTrial));
 }
 
 JNIEXPORT jint JNICALL

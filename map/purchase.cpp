@@ -39,11 +39,6 @@ std::array<std::string, static_cast<size_t>(SubscriptionType::Count)> const kSub
   "_BookmarksSights"   // bookmarks city
 };
 
-std::array<std::string, static_cast<size_t>(SubscriptionType::Count)> const kTrialSuffix =
-  {
-    "_BookmarksAllTrial",  // removeAds (empty string for back compatibility)
-  };
-
 uint32_t constexpr kFirstWaitingTimeInSec = 1;
 uint32_t constexpr kWaitingTimeScaleFactor = 2;
 uint8_t constexpr kMaxAttemptIndex = 2;
@@ -186,7 +181,7 @@ bool Purchase::IsSubscriptionActive(SubscriptionType type) const
   return m_subscriptionData[base::Underlying(type)]->m_isActive;
 }
 
-void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled)
+void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled, bool isTrialActive)
 {
   CHECK(type != SubscriptionType::Count, ());
 
@@ -201,6 +196,11 @@ void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled)
     listener->OnSubscriptionChanged(type, isEnabled);
 
   auto const nowStr = GetPlatform().GetMarketingService().GetPushWooshTimestamp();
+  if (isTrialActive)
+  {
+    GetPlatform().GetMarketingService().SendPushWooshTag(
+      marketing::kSubscriptionBookmarksAllTrialEnabled, nowStr);
+  }
   if (type == SubscriptionType::BookmarksSights)
   {
     GetPlatform().GetMarketingService().SendPushWooshTag(isEnabled ?
