@@ -867,7 +867,15 @@ private:
   };
   std::map<std::string, RestoringCache> m_restoringCache;
 
-  std::vector<kml::MarkGroupId> m_expiredCategories;
+  struct ExpiredCategory
+  {
+    ExpiredCategory(kml::MarkGroupId id, std::string const & serverId)
+      : m_id(id), m_serverId(serverId) {}
+
+    kml::MarkGroupId m_id;
+    std::string m_serverId;
+  };
+  std::vector<ExpiredCategory> m_expiredCategories;
 
 
   struct Properties

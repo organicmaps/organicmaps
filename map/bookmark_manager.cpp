@@ -47,6 +47,8 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
+#include "private.h"
+
 using namespace std::placeholders;
 
 namespace
@@ -3737,7 +3739,7 @@ void BookmarkManager::CheckExpiredCategories(CheckExpiredCategoriesHandler && ha
       for (auto const & category : m_categories)
       {
         if (category.second->GetServerId() == s)
-          m_expiredCategories.emplace_back(category.first);
+          m_expiredCategories.emplace_back(category.first, category.second->GetServerId());
       }
     }
     if (handler)
@@ -3755,8 +3757,19 @@ void BookmarkManager::DeleteExpiredCategories()
     return;
 
   auto session = GetEditSession();
-  for (auto const markGroupId : m_expiredCategories)
-    DeleteBmCategory(markGroupId);
+  std::string serverIds;
+  for (auto const & [id, serverId] : m_expiredCategories)
+  {
+    DeleteBmCategory(id);
+
+    serverIds += serverIds.empty() ? "" : "," + serverId;
+  }
+
+  auto const now = GetPlatform().GetMarketingService().GetPushWooshTimestamp();
+  GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kSubscriptionContentDeleted, now);
+
+  alohalytics::Stats::Instance().LogEvent("InAppPurchase_Content_deleted",
+      {{"vendor", BOOKMARKS_SUBSCRIPTION_VENDOR}, {"purchases", serverIds}});
 }
 
 void BookmarkManager::ResetExpiredCategories()

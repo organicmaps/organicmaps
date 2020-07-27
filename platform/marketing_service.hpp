@@ -36,6 +36,7 @@ extern char const * const kSubscriptionBookmarksSightsEnabled;
 extern char const * const kSubscriptionBookmarksSightsDisabled;
 extern char const * const kRemoveAdsSubscriptionEnabled;
 extern char const * const kRemoveAdsSubscriptionDisabled;
+extern char const * const kSubscriptionContentDeleted;
 
 // Events.
 extern char const * const kDownloaderMapActionFinished;
