@@ -110,7 +110,8 @@ import SafariServices
                                       arguments: [VC.formatPrice(weeklyPrice, locale: locale)]), for: .normal)
       Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor : MWMPurchaseManager.adsRemovalVendorId(),
                                                            kStatProduct : subscriptions[2].productId,
-                                                           kStatPurchase : MWMPurchaseManager.adsRemovalServerId()],
+                                                           kStatPurchase : MWMPurchaseManager.adsRemovalServerId(),
+                                                           kStatInappTrial: false],
                           with: .realtime)
     }
   }
@@ -179,8 +180,10 @@ import SafariServices
       return
     }
     Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct : subscription.productId,
-                                                           kStatPurchase : MWMPurchaseManager.adsRemovalServerId()])
-    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase : MWMPurchaseManager.adsRemovalServerId()],
+                                                           kStatPurchase : MWMPurchaseManager.adsRemovalServerId(),
+                                                           kStatInappTrial: false])
+    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase : MWMPurchaseManager.adsRemovalServerId(),
+                                                        kStatInappTrial: false],
                         with: .realtime)
     showPurchaseProgress()
     InAppPurchase.adsRemovalSubscriptionManager.subscribe(to: subscription)

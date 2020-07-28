@@ -15,7 +15,7 @@ typedef NS_ENUM(NSUInteger, MWMTrialEligibilityResult) {
   MWMTrialEligibilityResultServerError
 };
 
-typedef void (^ValidateReceiptCallback)(NSString *serverId, MWMValidationResult validationResult);
+typedef void (^ValidateReceiptCallback)(NSString *serverId, MWMValidationResult validationResult, BOOL isTrial);
 typedef void (^TrialEligibilityCallback)(NSString *serverId, MWMTrialEligibilityResult result);
 
 typedef void (^StartTransactionCallback)(BOOL success, NSString *serverId);
@@ -35,7 +35,7 @@ typedef void (^StartTransactionCallback)(BOOL success, NSString *serverId);
 + (NSArray<NSString *> *)bookmarkInappIds;
 + (void)setAdsDisabled:(BOOL)disabled;
 + (void)setBookmarksSubscriptionActive:(BOOL)active;
-+ (void)setAllPassSubscriptionActive:(BOOL)active;
++ (void)setAllPassSubscriptionActive:(BOOL)active isTrial:(BOOL)isTrial;
 
 - (instancetype)initWithVendorId:(NSString *)vendorId;
 - (void)validateReceipt:(NSString *)serverId refreshReceipt:(BOOL)refresh callback:(ValidateReceiptCallback)callback;

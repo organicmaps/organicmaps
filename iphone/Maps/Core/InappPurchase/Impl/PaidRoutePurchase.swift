@@ -75,7 +75,7 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
   }
 
   private func purchased() {
-    purchaseValidation.validateReceipt(serverId, callback: { [weak self] result in
+    purchaseValidation.validateReceipt(serverId, callback: { [weak self] result, isTrial  in
       switch result {
       case .valid:
         self?.billing.finishTransaction()

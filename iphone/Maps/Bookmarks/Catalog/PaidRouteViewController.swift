@@ -130,7 +130,8 @@ class PaidRouteViewController: MWMViewController {
       Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: self?.subscriptionManager.vendorId ?? "",
                                                            kStatProduct: subscriptionItem.productId,
                                                            kStatPurchase: self?.subscriptionManager.serverId ?? "",
-                                                           kStatTestGroup: self?.paidRoutesSubscriptionCampaign.testGroupStatName ?? ""],
+                                                           kStatTestGroup: self?.paidRoutesSubscriptionCampaign.testGroupStatName ?? "",
+                                                           kStatInappTrial: false],
                           with: .realtime)
     }
 
@@ -238,8 +239,10 @@ class PaidRouteViewController: MWMViewController {
       }
 
       Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct: subscription.productId,
-                                                             kStatPurchase: self?.subscriptionManager.serverId ?? ""])
-      Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: self?.subscriptionManager.serverId ?? ""],
+                                                             kStatPurchase: self?.subscriptionManager.serverId ?? "",
+                                                             kStatInappTrial: false])
+      Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: self?.subscriptionManager.serverId ?? "",
+                                                          kStatInappTrial: false],
                           with: .realtime)
       self?.subscriptionManager.subscribe(to: subscription)
     }
@@ -304,7 +307,7 @@ extension PaidRouteViewController: SubscriptionManagerListener {
   }
 
   func didSubscribe(_ subscription: ISubscription) {
-    subscriptionManager.setSubscriptionActive(true)
+    subscriptionManager.setSubscriptionActive(true, isTrial: false)
     BookmarksManager.shared().resetExpiredCategories()
   }
 

@@ -39,6 +39,12 @@ class SubscriptionPresenter {
       fatalError()
     }
     view?.setModel(SubscriptionViewModel.trial(SubscriptionViewModel.TrialData(price: trialSubscriptionItem.formattedPrice)))
+
+    Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: subscriptionManager.vendorId,
+                                                         kStatPurchase: subscriptionManager.serverId,
+                                                         kStatProduct: subscriptionManager.productIds[0],
+                                                         kStatFrom: source,
+                                                         kStatInappTrial: true], with: .realtime)
   }
 
   private func configureSubscriptions() {
@@ -54,6 +60,12 @@ class SubscriptionPresenter {
                                                          discount: L("all_pass_screen_best_value")))
     }
     view?.setModel(SubscriptionViewModel.subsctiption(data))
+
+    Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: subscriptionManager.vendorId,
+                                                         kStatPurchase: subscriptionManager.serverId,
+                                                         kStatProduct: subscriptionManager.productIds[0],
+                                                         kStatFrom: source,
+                                                         kStatInappTrial: false], with: .realtime)
   }
 }
 
@@ -109,22 +121,19 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
         self?.configureSubscriptions()
       }
     }
-
-    Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: subscriptionManager.vendorId,
-                                                         kStatPurchase: subscriptionManager.serverId,
-                                                         kStatProduct: subscriptionManager.productIds[0],
-                                                         kStatFrom: source], with: .realtime)
   }
 
   func purchase(anchor: UIView, period: SubscriptionPeriod) {
     guard let subscription = subscriptionGroup?[period]?.subscription else {
       return
     }
-    interactor.purchase(anchor: anchor, subscription: subscription)
+    interactor.purchase(anchor: anchor, subscription: subscription, trial: false)
     Statistics.logEvent(kStatInappSelect, withParameters: [kStatPurchase: subscriptionManager.serverId,
-                                                           kStatProduct: subscription.productId],
+                                                           kStatProduct: subscription.productId,
+                                                           kStatInappTrial: false],
                         with: .realtime)
-    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager.serverId],
+    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager.serverId,
+                                                        kStatInappTrial: false],
                         with: .realtime)
   }
 
@@ -150,7 +159,15 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
     guard let subscription = subscriptionGroup?[.year]?.subscription else {
       return
     }
-    interactor.purchase(anchor: anchor, subscription: subscription)
+    interactor.purchase(anchor: anchor, subscription: subscription, trial: true)
+
+    Statistics.logEvent(kStatInappSelect, withParameters: [kStatPurchase: subscriptionManager.serverId,
+                                                           kStatProduct: subscription.productId,
+                                                           kStatInappTrial: true],
+                        with: .realtime)
+    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager.serverId,
+                                                        kStatInappTrial: true],
+                        with: .realtime)
   }
 
   func onSubscribe() {

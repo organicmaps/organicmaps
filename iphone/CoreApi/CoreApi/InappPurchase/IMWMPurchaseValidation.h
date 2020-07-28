@@ -10,7 +10,7 @@ typedef NS_ENUM(NSUInteger, MWMPurchaseValidationResult) {
   MWMPurchaseValidationResultNoReceipt
 };
 
-typedef void (^ValidatePurchaseCallback)(MWMPurchaseValidationResult validationResult);
+typedef void (^ValidatePurchaseCallback)(MWMPurchaseValidationResult validationResult, BOOL isTrial);
 
 @protocol IMWMPurchaseValidation <NSObject>
 

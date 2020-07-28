@@ -1,6 +1,6 @@
 @objc protocol ISubscriptionManager: AnyObject {
   typealias SuscriptionsCompletion = ([ISubscription]?, Error?) -> Void
-  typealias ValidationCompletion = (MWMValidationResult) -> Void
+  typealias ValidationCompletion = (MWMValidationResult, Bool) -> Void
   typealias TrialEligibilityCompletion = (MWMTrialEligibilityResult) -> Void
 
   var productIds: [String] { get }
@@ -16,7 +16,7 @@
   @objc func validate(completion: ValidationCompletion?)
   @objc func checkTrialEligibility(completion: TrialEligibilityCompletion?)
   @objc func restore(_ callback: @escaping ValidationCompletion)
-  @objc func setSubscriptionActive(_ value: Bool)
+  @objc func setSubscriptionActive(_ value: Bool, isTrial: Bool)
 }
 
 @objc protocol SubscriptionManagerListener: AnyObject {
@@ -87,14 +87,14 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
 
   @objc func restore(_ callback: @escaping ValidationCompletion) {
     validate(true) {
-      callback($0)
+      callback($0, $1)
     }
   }
 
-  @objc func setSubscriptionActive(_ value: Bool) {
+  @objc func setSubscriptionActive(_ value: Bool, isTrial: Bool) {
     switch serverId {
     case MWMPurchaseManager.allPassSubscriptionServerId():
-      MWMPurchaseManager.setAllPassSubscriptionActive(value)
+      MWMPurchaseManager.setAllPassSubscriptionActive(value, isTrial: isTrial)
     case MWMPurchaseManager.bookmarksSubscriptionServerId():
       MWMPurchaseManager.setBookmarksSubscriptionActive(value)
     case MWMPurchaseManager.adsRemovalServerId():
@@ -105,7 +105,7 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
   }
 
   private func validate(_ refreshReceipt: Bool, completion: ValidationCompletion? = nil) {
-    purchaseManager?.validateReceipt(serverId, refreshReceipt: refreshReceipt) { [weak self] _, validationResult in
+    purchaseManager?.validateReceipt(serverId, refreshReceipt: refreshReceipt) { [weak self] _, validationResult, isTrial  in
       self?.logEvents(validationResult)
       if validationResult == .valid || validationResult == .notValid {
         self?.listeners.allObjects.forEach { $0.didValidate(validationResult == .valid) }
@@ -117,7 +117,7 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
       } else {
         self?.listeners.allObjects.forEach { $0.didFailToValidate() }
       }
-      completion?(validationResult)
+      completion?(validationResult, isTrial)
     }
   }
 

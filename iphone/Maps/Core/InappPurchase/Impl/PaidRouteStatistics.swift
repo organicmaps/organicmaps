@@ -21,13 +21,14 @@ class PaidRouteStatistics: IPaidRouteStatistics {
     logEvent(kStatInappShow, withParameters: [kStatVendor: vendor,
                                               kStatProduct: productId,
                                               kStatPurchase: serverId,
-                                              kStatTestGroup: testGroup],
+                                              kStatTestGroup: testGroup,
+                                              kStatInappTrial: false],
              withChannel: .realtime)
   }
 
   func logPay() {
-    logEvent(kStatInappSelect, withParameters: [kStatPurchase: serverId, kStatProduct: productId])
-    logEvent(kStatInappPay, withParameters: [kStatPurchase: serverId], withChannel: .realtime)
+    logEvent(kStatInappSelect, withParameters: [kStatPurchase: serverId, kStatProduct: productId, kStatInappTrial: false])
+    logEvent(kStatInappPay, withParameters: [kStatPurchase: serverId, kStatInappTrial: false], withChannel: .realtime)
   }
 
   func logCancel() {

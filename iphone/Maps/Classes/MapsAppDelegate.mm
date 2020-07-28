@@ -221,18 +221,18 @@ using namespace osm_auth_ios;
   [UNUserNotificationCenter currentNotificationCenter].delegate = self.notificationManager;
 
   if ([MWMFrameworkHelper isWiFiConnected]) {
-    [[InAppPurchase bookmarksSubscriptionManager] validateWithCompletion:^(MWMValidationResult result) {
+    [[InAppPurchase bookmarksSubscriptionManager] validateWithCompletion:^(MWMValidationResult result, BOOL isTrial) {
       if (result == MWMValidationResultNotValid) {
-        [MWMPurchaseManager setBookmarksSubscriptionActive:NO];
+        [[InAppPurchase bookmarksSubscriptionManager] setSubscriptionActive:NO isTrial:NO];
       }
     }];
-    [[InAppPurchase allPassSubscriptionManager] validateWithCompletion:^(MWMValidationResult result) {
+    [[InAppPurchase allPassSubscriptionManager] validateWithCompletion:^(MWMValidationResult result, BOOL isTrial) {
       if (result == MWMValidationResultNotValid) {
-        [MWMPurchaseManager setAllPassSubscriptionActive:NO];
+        [[InAppPurchase allPassSubscriptionManager] setSubscriptionActive:NO isTrial: NO];
       }
     }];
-    [[InAppPurchase adsRemovalSubscriptionManager] validateWithCompletion:^(MWMValidationResult result) {
-      [MWMPurchaseManager setAdsDisabled:result != MWMValidationResultNotValid];
+    [[InAppPurchase adsRemovalSubscriptionManager] validateWithCompletion:^(MWMValidationResult result, BOOL isTrial) {
+      [[InAppPurchase adsRemovalSubscriptionManager] setSubscriptionActive:result != MWMValidationResultNotValid isTrial:NO];
     }];
     self.pendingTransactionHandler = [InAppPurchase pendingTransactionsHandler];
     __weak __typeof(self) ws = self;

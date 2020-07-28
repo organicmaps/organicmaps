@@ -27,7 +27,7 @@ static NSMutableDictionary<NSString *, NSMutableArray<ValidatePurchaseCallback> 
   NSData *receiptData = [NSData dataWithContentsOfURL:receiptUrl];
   if (!receiptData) {
     if (callback)
-      callback(MWMPurchaseValidationResultNoReceipt);
+      callback(MWMPurchaseValidationResultNoReceipt, false);
     return;
   }
 
@@ -53,7 +53,7 @@ static NSMutableDictionary<NSString *, NSMutableArray<ValidatePurchaseCallback> 
     NSMutableArray<ValidatePurchaseCallback> *callbackArray = callbacks[serverId];
     [callbackArray
       enumerateObjectsUsingBlock:^(ValidatePurchaseCallback _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        obj(result);
+        obj(result, validationResponse.m_isTrial);
       }];
 
     [callbacks removeObjectForKey:serverId];

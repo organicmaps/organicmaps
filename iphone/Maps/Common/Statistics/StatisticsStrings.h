@@ -256,6 +256,7 @@ static NSString *const kStatInappSelect = @"InAppPurchase_Preview_select";
 static NSString *const kStatInappShow = @"InAppPurchase_Preview_show";
 static NSString *const kStatInappValidationSuccess = @"InAppPurchase_Validation_success";
 static NSString *const kStatInappValidationError = @"InAppPurchase_Validation_error";
+static NSString *const kStatInappTrial = @"trial";
 static NSString *const kStatInvalidCall = @"invalid_call";
 static NSString *const kStatIsAuthenticated = @"is_authenticated";
 static NSString *const kStatIsAuto = @"is_auto";

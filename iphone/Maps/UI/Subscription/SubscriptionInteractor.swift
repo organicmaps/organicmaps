@@ -1,5 +1,5 @@
 protocol SubscriptionInteractorProtocol: AnyObject {
-  func purchase(anchor: UIView, subscription: ISubscription)
+  func purchase(anchor: UIView, subscription: ISubscription, trial: Bool)
   func restore(anchor: UIView)
 }
 
@@ -9,6 +9,7 @@ class SubscriptionInteractor {
   private weak var viewController: UIViewController?
   private let subscriptionManager: ISubscriptionManager
   private let bookmarksManager: BookmarksManager
+  private var trial: Bool = false
 
   init(viewController: UIViewController,
        subscriptionManager: ISubscriptionManager,
@@ -24,7 +25,8 @@ class SubscriptionInteractor {
 }
 
 extension SubscriptionInteractor: SubscriptionInteractorProtocol {
-  func purchase(anchor: UIView, subscription: ISubscription) {
+  func purchase(anchor: UIView, subscription: ISubscription, trial: Bool) {
+    self.trial = trial
     subscriptionManager.addListener(self)
     viewController?.signup(anchor: anchor, source: .subscription) { [weak self] success in
       guard success else { return }
@@ -44,11 +46,12 @@ extension SubscriptionInteractor: SubscriptionInteractorProtocol {
   }
 
   func restore(anchor: UIView) {
+    trial = false
     subscriptionManager.addListener(self)
     viewController?.signup(anchor: anchor, source: .subscription) { [weak self] success in
       guard success else { return }
       self?.presenter.isLoadingHidden = false
-      self?.subscriptionManager.restore { result in
+      self?.subscriptionManager.restore { result, _  in
         self?.presenter.isLoadingHidden = true
         let alertText: String
         switch result {
@@ -91,7 +94,7 @@ extension SubscriptionInteractor: SubscriptionManagerListener {
   }
 
   func didSubscribe(_ subscription: ISubscription) {
-    subscriptionManager.setSubscriptionActive(true)
+    subscriptionManager.setSubscriptionActive(true, isTrial: trial)
     bookmarksManager.resetExpiredCategories()
   }
 

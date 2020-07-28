@@ -435,12 +435,12 @@ using namespace power_management;
   self.restoringSubscription = YES;
 
   __weak auto s = self;
-  [[InAppPurchase adsRemovalSubscriptionManager] restore:^(MWMValidationResult result) {
+  [[InAppPurchase adsRemovalSubscriptionManager] restore:^(MWMValidationResult result, BOOL isTrial) {
     __strong auto self = s;
     self.restoringSubscription = NO;
     [self.restoreSubscriptionCell.progress stopAnimating];
     NSString *alertText;
-    [[InAppPurchase adsRemovalSubscriptionManager] setSubscriptionActive: result == MWMValidationResultValid];
+    [[InAppPurchase adsRemovalSubscriptionManager] setSubscriptionActive: result == MWMValidationResultValid isTrial: isTrial];
     if (result == MWMValidationResultNotValid) {
       alertText = L(@"restore_no_subscription_alert");
     } else if (result == MWMValidationResultValid) {
