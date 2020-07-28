@@ -3961,7 +3961,7 @@ void Framework::ShowViewportSearchResults(search::Results const & results, bool 
         auto const & features = filterResult.m_passedFilter;
         ASSERT(is_sorted(features.cbegin(), features.cend()), ());
 
-        auto const it = std::lower_bound(features.cbegin(), features.cend(), id);
+        auto const it = lower_bound(features.cbegin(), features.cend(), id);
 
         auto const found = it != features.cend() && *it == id;
         switch (filterResult.m_type)
@@ -3974,10 +3974,10 @@ void Framework::ShowViewportSearchResults(search::Results const & results, bool 
 
           if (found && !filterResult.m_extras.empty())
           {
-            auto const index = std::distance(features.cbegin(), it);
+            auto const index = distance(features.cbegin(), it);
             auto price = formatter.Format(filterResult.m_extras[index].m_price,
-                                              filterResult.m_extras[index].m_currency);
-            mark.SetPrice(std::move(price));
+                                          filterResult.m_extras[index].m_currency);
+            mark.SetPrice(move(price));
           }
 
           if (!found)
@@ -3985,7 +3985,7 @@ void Framework::ShowViewportSearchResults(search::Results const & results, bool 
             auto const & filteredOut = filterResult.m_filteredOut;
             ASSERT(is_sorted(filteredOut.cbegin(), filteredOut.cend()), ());
 
-            auto const isFilteredOut = std::binary_search(filteredOut.cbegin(), filteredOut.cend(), id);
+            auto const isFilteredOut = binary_search(filteredOut.cbegin(), filteredOut.cend(), id);
 
             if (isFilteredOut)
               m_searchMarks.AppendUnavailable(mark.GetFeatureID(), reason);

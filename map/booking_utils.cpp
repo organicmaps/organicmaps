@@ -56,10 +56,10 @@ void SortTransform(search::Results const & results, std::vector<Extras> const & 
 
 void AppendUnavailable(search::Results const & filteredOut, SearchMarks & searchMarks)
 {
-  std::string reason;
-  if (!filteredOut.GetCount())
-    reason = platform::GetLocalizedString("booking_map_component_availability");
+  if (filteredOut.GetCount() == 0)
+    return;
 
+  std::string reason = platform::GetLocalizedString("booking_map_component_availability");
   for (auto const & filtered : filteredOut)
   {
     searchMarks.AppendUnavailable(filtered.GetFeatureID(), reason);
@@ -68,10 +68,10 @@ void AppendUnavailable(search::Results const & filteredOut, SearchMarks & search
 
 void AppendUnavailable(std::vector<FeatureID> const & filteredOut, SearchMarks & searchMarks)
 {
-  std::string reason;
-  if (!filteredOut.empty())
-    reason = platform::GetLocalizedString("booking_map_component_availability");
+  if (filteredOut.empty())
+    return;
 
+  std::string reason = platform::GetLocalizedString("booking_map_component_availability");
   for (auto const & filtered : filteredOut)
   {
     searchMarks.AppendUnavailable(filtered, reason);
@@ -180,11 +180,11 @@ filter::TasksRawInternal MakeInternalTasks(std::vector<FeatureID> const & featur
           if (sortedFeatures.empty())
             return;
 
-          std::vector<std::string> sortedPrices;
-          sortedPrices.reserve(extras.size());
+          std::vector<std::string> orderedPrices;
+          orderedPrices.reserve(extras.size());
           PriceFormatter formatter;
           for (size_t i = 0; i < extras.size(); ++i)
-            sortedPrices.emplace_back(formatter.Format(extras[i].m_price, extras[i].m_currency));
+            orderedPrices.emplace_back(formatter.Format(extras[i].m_price, extras[i].m_currency));
 
           std::vector<FeatureID> sortedAvailable;
           for (auto & id : sortedFeatures)
@@ -195,7 +195,7 @@ filter::TasksRawInternal MakeInternalTasks(std::vector<FeatureID> const & featur
           }
 
           GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedAvailable,
-                                                        sortedPrices = std::move(sortedPrices)]() mutable
+                                                        orderedPrices = std::move(orderedPrices)]() mutable
           {
             switch (type)
             {
@@ -204,7 +204,7 @@ filter::TasksRawInternal MakeInternalTasks(std::vector<FeatureID> const & featur
                 break;
               case Type::Availability:
                 searchMarks.SetPreparingState(sortedAvailable, false /* isPreparing */);
-                searchMarks.SetPrices(sortedAvailable, std::move(sortedPrices));
+                searchMarks.SetPrices(sortedAvailable, std::move(orderedPrices));
                 break;
             }
           });
