@@ -16,7 +16,7 @@ namespace routing
 class LeapsGraph : public AStarGraph<Segment, SegmentEdge, RouteWeight>
 {
 public:
-  explicit LeapsGraph(IndexGraphStarter & starter, MwmHierarchyHandler && hierarchyHandler);
+  LeapsGraph(IndexGraphStarter & starter, MwmHierarchyHandler && hierarchyHandler);
 
   // AStarGraph overrides:
   // @{

@@ -23,6 +23,8 @@ std::unordered_set<std::string> kSchengenArea{
     "Norway",  "Poland",        "Portugal",       "Slovakia",   "Slovenia", "Spain",
     "Sweden",  "Switzerland"};
 
+// Returns country name for |mwmName|. The logic of searching for a parent is determined by |fn|.
+// Country name may be empty.
 std::string GetCountryByMwmName(std::string const & mwmName, CountryParentNameGetterFn fn)
 {
   static std::string const CountriesRoot = "Countries";
@@ -49,10 +51,7 @@ std::string GetCountryByMwmId(NumMwmId mwmId, CountryParentNameGetterFn fn,
                               std::shared_ptr<NumMwmIds> const & numMwmIds)
 {
   if (numMwmIds != nullptr && numMwmIds->ContainsFileForMwm(mwmId))
-  {
-    std::string const mwmName = numMwmIds->GetFile(mwmId).GetName();
-    return GetCountryByMwmName(mwmName, fn);
-  }
+    return GetCountryByMwmName(numMwmIds->GetFile(mwmId).GetName(), fn);
   return {};
 }
 
