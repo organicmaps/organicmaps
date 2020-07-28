@@ -66,6 +66,19 @@ void AlignVertical(float halfHeight, dp::Anchor anchor, glsl::vec2 & up, glsl::v
                       dp::Bottom, up, down);
 }
 
+TextLayout MakePrimaryTextLayout(dp::TitleDecl const & titleDecl,
+                                 ref_ptr<dp::TextureManager> textures)
+{
+  dp::FontDecl const & fontDecl = titleDecl.m_primaryTextFont;
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  bool const isSdf = fontDecl.m_outlineColor != dp::Color::Transparent() ||
+                     df::VisualParams::Instance().IsSdfPrefered();
+  TextLayout textLayout;
+  textLayout.Init(strings::MakeUniString(titleDecl.m_primaryText), fontDecl.m_size * vs, isSdf,
+                  textures);
+  return textLayout;
+}
+
 struct UserPointVertex : public gpu::BaseVertex
 {
   using TTexCoord = glsl::vec4;
@@ -135,13 +148,7 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   if (isTextBg)
   {
     auto const & titleDecl = renderInfo.m_titleDecl->at(0);
-    dp::FontDecl const & fontDecl = titleDecl.m_primaryTextFont;
-    auto isSdf = df::VisualParams::Instance().IsSdfPrefered();
-    isSdf = fontDecl.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
-    auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-
-    TextLayout textLayout;
-    textLayout.Init(strings::MakeUniString(titleDecl.m_primaryText), fontDecl.m_size * vs, isSdf, textures);
+    auto textLayout = MakePrimaryTextLayout(titleDecl, textures);
     sizeInc.x = textLayout.GetPixelLength();
     sizeInc.y = textLayout.GetPixelHeight();
 
@@ -222,6 +229,29 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
                             m2::PointF const & symbolOffset, dp::Batcher & batcher)
 {
   PoiSymbolViewParams params(renderInfo.m_featureId);
+  params.m_offset = symbolOffset;
+
+  if (renderInfo.m_badgeInfo->m_badgeTitleIndex)
+  {
+    size_t const badgeTitleIndex = *renderInfo.m_badgeInfo->m_badgeTitleIndex;
+    CHECK_LESS(badgeTitleIndex, renderInfo.m_titleDecl->size(), ());
+
+    dp::TitleDecl const & titleDecl = (*renderInfo.m_titleDecl)[badgeTitleIndex];
+    TextLayout textLayout = MakePrimaryTextLayout(titleDecl, textures);
+    float const textWidth = textLayout.GetPixelLength();
+
+    dp::TextureManager::SymbolRegion region;
+    textures->GetSymbolRegion(symbolName, region);
+    float const pixelHalfWidth = 0.5f * region.GetPixelSize().x;
+
+    float constexpr kBadgeSpecialMarginsAdjustmentMultplier = 4.0f;
+    float const badgeSpecialMarginsAdjustment =
+        kBadgeSpecialMarginsAdjustmentMultplier * titleDecl.m_primaryOffset.x;
+
+    params.m_pixelWidth = 3.0f * pixelHalfWidth + textWidth + badgeSpecialMarginsAdjustment;
+    params.m_offset.x += 0.5f * (pixelHalfWidth + textWidth + badgeSpecialMarginsAdjustment);
+  }
+
   params.m_tileCenter = tileCenter;
   params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
   params.m_depth = renderInfo.m_depth;
@@ -231,7 +261,6 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
   params.m_specialPriority = renderInfo.m_priority;
   params.m_symbolName = symbolName;
   params.m_anchor = renderInfo.m_anchor;
-  params.m_offset = symbolOffset;
 
   bool const hasColoredOverlay = renderInfo.m_coloredSymbols != nullptr && renderInfo.m_coloredSymbols->m_needOverlay;
   params.m_startOverlayRank = hasColoredOverlay ? dp::OverlayRank1 : dp::OverlayRank0;
@@ -482,11 +511,12 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     if (renderInfo.m_titleDecl != nullptr)
       GenerateTextShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize, batcher);
 
-    if (renderInfo.m_badgeNames != nullptr)
+    if (renderInfo.m_badgeInfo != nullptr)
     {
       ASSERT(!renderInfo.m_symbolIsPOI || renderInfo.m_symbolNames == nullptr,
              ("Multiple POI shapes in an usermark are not supported yet"));
-      auto const badgeName = GetSymbolNameForZoomLevel(make_ref(renderInfo.m_badgeNames), tileKey);
+      auto const badgeName =
+          GetSymbolNameForZoomLevel(make_ref(&renderInfo.m_badgeInfo->m_zoomInfo), tileKey);
       if (!badgeName.empty())
       {
         // TODO: Badges use symbol offset. Refactor and create own "offset"-method for badges.

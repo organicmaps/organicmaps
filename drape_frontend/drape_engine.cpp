@@ -935,7 +935,7 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
   renderInfo->m_pixelOffset = mark->GetPixelOffset();
   renderInfo->m_titleDecl = mark->GetTitleDecl();
   renderInfo->m_symbolNames = mark->GetSymbolNames();
-  renderInfo->m_badgeNames = mark->GetBadgeNames();
+  renderInfo->m_badgeInfo = mark->GetBadgeInfo();
   renderInfo->m_coloredSymbols = mark->GetColoredSymbols();
   renderInfo->m_symbolSizes = mark->GetSymbolSizes();
   renderInfo->m_symbolOffsets = mark->GetSymbolOffsets();

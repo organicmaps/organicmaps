@@ -1,4 +1,5 @@
 #include "drape_frontend/poi_symbol_shape.hpp"
+
 #include "drape_frontend/color_constants.hpp"
 
 #include "shaders/programs.hpp"
@@ -9,6 +10,7 @@
 #include "drape/utils/vertex_decl.hpp"
 
 #include <utility>
+#include <vector>
 
 namespace
 {
@@ -53,21 +55,44 @@ void Batch<SV>(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batche
                dp::TextureManager::SymbolRegion const & symbolRegion,
                dp::TextureManager::ColorRegion const & colorRegion)
 {
-  m2::PointF const pixelSize = symbolRegion.GetPixelSize();
-  m2::PointF const halfSize(pixelSize.x * 0.5f, pixelSize.y * 0.5f);
+  m2::PointF const symbolRegionSize = symbolRegion.GetPixelSize();
+  m2::PointF pixelSize = symbolRegionSize;
+  if (pixelSize.x < params.m_pixelWidth)
+    pixelSize.x = params.m_pixelWidth;
+  m2::PointF const halfSize = pixelSize * 0.5f;
   m2::RectF const & texRect = symbolRegion.GetTexRect();
 
-  SV vertexes[] =
+  std::vector<SV> vertexes;
+  vertexes.reserve(params.m_pixelWidth ? 8 : 4);
+  vertexes.emplace_back(position,
+                        ShiftNormal(glsl::vec2(-halfSize.x, halfSize.y), params, pixelSize),
+                        glsl::vec2(texRect.minX(), texRect.maxY()));
+  vertexes.emplace_back(position,
+                        ShiftNormal(glsl::vec2(-halfSize.x, -halfSize.y), params, pixelSize),
+                        glsl::vec2(texRect.minX(), texRect.minY()));
+  if (symbolRegionSize.x < params.m_pixelWidth)
   {
-    SV{ position, ShiftNormal(glsl::vec2(-halfSize.x, halfSize.y), params, pixelSize),
-        glsl::vec2(texRect.minX(), texRect.maxY()) },
-    SV{ position, ShiftNormal(glsl::vec2(-halfSize.x, -halfSize.y), params, pixelSize),
-        glsl::vec2(texRect.minX(), texRect.minY()) },
-    SV{ position, ShiftNormal(glsl::vec2(halfSize.x, halfSize.y), params, pixelSize),
-        glsl::vec2(texRect.maxX(), texRect.maxY()) },
-    SV{ position, ShiftNormal(glsl::vec2(halfSize.x, -halfSize.y), params, pixelSize),
-        glsl::vec2(texRect.maxX(), texRect.minY()) },
-  };
+    float const stretchHalfWidth = (params.m_pixelWidth - symbolRegionSize.x) * 0.5f;
+    float const midTexU = (texRect.minX() + texRect.maxX()) * 0.5f;
+    vertexes.emplace_back(position,
+                          ShiftNormal(glsl::vec2(-stretchHalfWidth, halfSize.y), params, pixelSize),
+                          glsl::vec2(midTexU, texRect.maxY()));
+    vertexes.emplace_back(position,
+                          ShiftNormal(glsl::vec2(-stretchHalfWidth, -halfSize.y), params, pixelSize),
+                          glsl::vec2(midTexU, texRect.minY()));
+    vertexes.emplace_back(position,
+                          ShiftNormal(glsl::vec2(stretchHalfWidth, halfSize.y), params, pixelSize),
+                          glsl::vec2(midTexU, texRect.maxY()));
+    vertexes.emplace_back(position,
+                          ShiftNormal(glsl::vec2(stretchHalfWidth, -halfSize.y), params, pixelSize),
+                          glsl::vec2(midTexU, texRect.minY()));
+  }
+  vertexes.emplace_back(position,
+                        ShiftNormal(glsl::vec2(halfSize.x, halfSize.y), params, pixelSize),
+                        glsl::vec2(texRect.maxX(), texRect.maxY()));
+  vertexes.emplace_back(position,
+                        ShiftNormal(glsl::vec2(halfSize.x, -halfSize.y), params, pixelSize),
+                        glsl::vec2(texRect.maxX(), texRect.minY()));
 
   auto state = df::CreateRenderState(gpu::Program::Texturing, params.m_depthLayer);
   state.SetProgram3d(gpu::Program::TexturingBillboard);
@@ -76,8 +101,8 @@ void Batch<SV>(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batche
   state.SetTextureFilter(dp::TextureFilter::Nearest);
   state.SetTextureIndex(symbolRegion.GetTextureIndex());
 
-  dp::AttributeProvider provider(1 /* streamCount */, ARRAY_SIZE(vertexes));
-  provider.InitStream(0 /* streamIndex */, SV::GetBindingInfo(), make_ref(vertexes));
+  dp::AttributeProvider provider(1 /* streamCount */, vertexes.size());
+  provider.InitStream(0 /* streamIndex */, SV::GetBindingInfo(), make_ref(vertexes.data()));
   batcher->InsertTriangleStrip(context, state, make_ref(&provider), move(handle));
 }
 
@@ -88,22 +113,45 @@ void Batch<MV>(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batche
                dp::TextureManager::SymbolRegion const & symbolRegion,
                dp::TextureManager::ColorRegion const & colorRegion)
 {
-  m2::PointF const pixelSize = symbolRegion.GetPixelSize();
-  m2::PointF const halfSize(pixelSize.x * 0.5f, pixelSize.y * 0.5f);
+  m2::PointF const symbolRegionSize = symbolRegion.GetPixelSize();
+  m2::PointF pixelSize = symbolRegionSize;
+  if (pixelSize.x < params.m_pixelWidth)
+    pixelSize.x = params.m_pixelWidth;
+  m2::PointF const halfSize = pixelSize * 0.5f;
   m2::RectF const & texRect = symbolRegion.GetTexRect();
   glsl::vec2 const maskColorCoords = glsl::ToVec2(colorRegion.GetTexRect().Center());
 
-  MV vertexes[] =
+  std::vector<MV> vertexes;
+  vertexes.reserve(params.m_pixelWidth ? 8 : 4);
+  vertexes.emplace_back(position,
+                        ShiftNormal(glsl::vec2(-halfSize.x, halfSize.y), params, pixelSize),
+                        glsl::vec2(texRect.minX(), texRect.maxY()), maskColorCoords);
+  vertexes.emplace_back(position,
+                        ShiftNormal(glsl::vec2(-halfSize.x, -halfSize.y), params, pixelSize),
+                        glsl::vec2(texRect.minX(), texRect.minY()), maskColorCoords);
+  if (symbolRegionSize.x < params.m_pixelWidth)
   {
-    MV{ position, ShiftNormal(glsl::vec2(-halfSize.x, halfSize.y), params, pixelSize),
-        glsl::vec2(texRect.minX(), texRect.maxY()), maskColorCoords },
-    MV{ position, ShiftNormal(glsl::vec2(-halfSize.x, -halfSize.y), params, pixelSize),
-        glsl::vec2(texRect.minX(), texRect.minY()), maskColorCoords },
-    MV{ position, ShiftNormal(glsl::vec2(halfSize.x, halfSize.y), params, pixelSize),
-        glsl::vec2(texRect.maxX(), texRect.maxY()), maskColorCoords },
-    MV{ position, ShiftNormal(glsl::vec2(halfSize.x, -halfSize.y), params, pixelSize),
-        glsl::vec2(texRect.maxX(), texRect.minY()), maskColorCoords },
-  };
+    float const stretchHalfWidth = (params.m_pixelWidth - symbolRegionSize.x) * 0.5f;
+    float const midTexU = (texRect.minX() + texRect.maxX()) * 0.5f;
+    vertexes.emplace_back(position,
+                          ShiftNormal(glsl::vec2(-stretchHalfWidth, halfSize.y), params, pixelSize),
+                          glsl::vec2(midTexU, texRect.maxY()), maskColorCoords);
+    vertexes.emplace_back(position,
+                          ShiftNormal(glsl::vec2(-stretchHalfWidth, -halfSize.y), params, pixelSize),
+                          glsl::vec2(midTexU, texRect.minY()), maskColorCoords);
+    vertexes.emplace_back(position,
+                          ShiftNormal(glsl::vec2(stretchHalfWidth, halfSize.y), params, pixelSize),
+                          glsl::vec2(midTexU, texRect.maxY()), maskColorCoords);
+    vertexes.emplace_back(position,
+                          ShiftNormal(glsl::vec2(stretchHalfWidth, -halfSize.y), params, pixelSize),
+                          glsl::vec2(midTexU, texRect.minY()), maskColorCoords);
+  }
+  vertexes.emplace_back(position,
+                        ShiftNormal(glsl::vec2(halfSize.x, halfSize.y), params, pixelSize),
+                        glsl::vec2(texRect.maxX(), texRect.maxY()), maskColorCoords);
+  vertexes.emplace_back(position,
+                        ShiftNormal(glsl::vec2(halfSize.x, -halfSize.y), params, pixelSize),
+                        glsl::vec2(texRect.maxX(), texRect.minY()), maskColorCoords);
 
   auto state = df::CreateRenderState(gpu::Program::MaskedTexturing, params.m_depthLayer);
   state.SetProgram3d(gpu::Program::MaskedTexturingBillboard);
@@ -113,8 +161,8 @@ void Batch<MV>(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batche
   state.SetTextureFilter(dp::TextureFilter::Nearest);
   state.SetTextureIndex(symbolRegion.GetTextureIndex());
 
-  dp::AttributeProvider provider(1 /* streamCount */, ARRAY_SIZE(vertexes));
-  provider.InitStream(0 /* streamIndex */, MV::GetBindingInfo(), make_ref(vertexes));
+  dp::AttributeProvider provider(1 /* streamCount */, vertexes.size());
+  provider.InitStream(0 /* streamIndex */, MV::GetBindingInfo(), make_ref(vertexes.data()));
   batcher->InsertTriangleStrip(context, state, make_ref(&provider), move(handle));
 }
 }  // namespace

@@ -30,7 +30,7 @@ public:
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
   int GetMinTitleZoom() const override;
   df::DepthLayer GetDepthLayer() const override;
-  drape_ptr<SymbolNameZoomInfo> GetBadgeNames() const override;
+  drape_ptr<BageInfo> GetBadgeInfo() const override;
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
   bool GetDepthTestEnabled() const override { return false; }
   bool IsMarkAboveText() const override;
@@ -66,7 +66,13 @@ protected:
   }
 
   bool IsBookingSpecialMark() const;
+  bool HasGoodRating() const;
+  bool HasPrice() const;
+  bool HasPricing() const;
+  bool HasRating() const;
   bool IsUGCMark() const;
+  bool IsSelected() const;
+  bool HasSale() const;
   std::string GetSymbolName() const;
   std::string GetBadgeName() const;
 
@@ -81,6 +87,7 @@ protected:
   std::string m_price;
   bool m_hasSale = false;
   dp::TitleDecl m_titleDecl;
+  dp::TitleDecl m_badgeTitleDecl;
   dp::TitleDecl m_ugcTitleDecl;
   bool m_isVisited = false;
   bool m_isAvailable = true;

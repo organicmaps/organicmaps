@@ -7,6 +7,7 @@
 #include "drape/stipple_pen_resource.hpp"
 
 #include "indexer/feature_decl.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include <cstdint>
@@ -58,6 +59,11 @@ struct PoiSymbolViewParams : CommonOverlayViewParams
   bool m_obsoleteInEditor = false;
   dp::Anchor m_anchor = dp::Center;
   m2::PointF m_offset = m2::PointF(0.0f, 0.0f);
+
+  // If greater then actual width of the symbol then symbol splitted at horz center and
+  // extended horizontally using texture coordinates taken at split line.
+  // If less or equal, then ignored.
+  float m_pixelWidth = 0.0f;
 };
 
 struct AreaViewParams : CommonViewParams
