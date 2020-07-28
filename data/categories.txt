@@ -234,8 +234,8 @@ sw:Manunuzi|Duka
 fa:فروشگاه|خرید کردن
 
 @hotel
-en:Hotel
-ru:Гостиница
+en:Hotel|hotels
+ru:Гостиница|гостиницы|отель|отели
 ar:فندق
 cs:Hotel
 da:Hotel
@@ -257,7 +257,7 @@ es:Hotel
 sv:Hotell
 th:โรงแรม
 tr:Otel
-uk:Готель
+uk:Готель|готелі
 vi:Khách sạn
 zh-Hans:旅店|酒店
 zh-Hant:飯店|酒店
