@@ -387,10 +387,11 @@ void SearchAPI::FilterAllHotelsInViewport(m2::RectD const & viewport,
     return base::ControlFlow::Continue;
   });
 
-  ASSERT(std::is_sorted(featureIds.cbegin(), featureIds.cend()), ());
-
   if (featureIds.size() <= kMaxHotelFeatures)
+  {
+    sort(featureIds.begin(), featureIds.end());
     m_delegate.FilterHotels(filterTasks, move(featureIds));
+  }
 }
 
 void SearchAPI::EnableIndexingOfBookmarksDescriptions(bool enable)

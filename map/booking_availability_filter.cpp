@@ -113,7 +113,7 @@ void FillResults(HotelsMapping<T> && hotelsMapping, booking::HotelsWithExtras &&
       auto info = cache.Get(hotel.GetHotelId());
 
       if (info.m_status == Cache::HotelStatus::Available)
-        passedInserter(std::move(hotel.GetMappedValue()), std::move(*hotel.GetExtras()));
+        passedInserter(std::move(hotel.GetMappedValue()), std::move(*info.m_extras));
       else if (info.m_status == Cache::HotelStatus::Unavailable)
         filteredOutInserter(std::move(hotel.GetMappedValue()));
 
