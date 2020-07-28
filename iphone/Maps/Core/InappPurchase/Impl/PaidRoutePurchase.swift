@@ -1,4 +1,4 @@
-fileprivate struct StoreProduct: IStoreProduct {
+private struct StoreProduct: IStoreProduct {
   var localizedName: String
   var formattedPrice: String
 
@@ -31,12 +31,12 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
     self.productId = productId
     self.purchaseValidation = purchaseValidation
     self.billing = billing
-    self.purchaseManager = MWMPurchaseManager(vendorId: vendorId)
+    purchaseManager = MWMPurchaseManager(vendorId: vendorId)
     super.init()
   }
 
   func requestStoreProduct(_ completion: @escaping StoreProductCompletion) {
-    billing.requestProducts([productId]) { [weak self] (products, error) in
+    billing.requestProducts([productId]) { [weak self] products, error in
       guard let product = products?.first else {
         completion(nil, error)
         return
@@ -53,13 +53,13 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
     }
 
     storePaymentCompletion = completion
-    purchaseManager.startTransaction(serverId) { [weak self] (success, serverId) in
+    purchaseManager.startTransaction(serverId) { [weak self] success, serverId in
       if !success {
         self?.storePaymentCompletion?(.error, RoutePurchaseError.paymentError)
         self?.storePaymentCompletion = nil
         return
       }
-      self?.billing.makePayment(product) { (status, error) in
+      self?.billing.makePayment(product) { status, error in
         switch status {
         case .success:
           self?.purchased()
@@ -75,7 +75,7 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
   }
 
   private func purchased() {
-    purchaseValidation.validateReceipt(serverId, callback: { [weak self] result, isTrial  in
+    purchaseValidation.validateReceipt(serverId, callback: { [weak self] result, isTrial in
       switch result {
       case .valid:
         self?.billing.finishTransaction()
@@ -85,7 +85,7 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
       case .error:
         self?.storePaymentCompletion?(.error, RoutePurchaseError.validationError)
       case .authError:
-        break  // TODO(@beloal)
+        break // TODO(@beloal)
       }
       self?.storePaymentCompletion = nil
     })

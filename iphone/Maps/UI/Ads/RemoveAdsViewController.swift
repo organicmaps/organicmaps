@@ -15,6 +15,7 @@ import SafariServices
       loadingIndicator.color = .blackPrimaryText()
     }
   }
+
   @IBOutlet weak var payButton: UIButton!
   @IBOutlet weak var monthButton: UIButton!
   @IBOutlet weak var weekButton: UIButton!
@@ -28,17 +29,20 @@ import SafariServices
       moreOptionsButton.setTitle(L("options_dropdown_title").uppercased(), for: .normal)
     }
   }
+
   @IBOutlet weak var moreOptionsButtonImage: UIImageView!
   @IBOutlet weak var titleLabel: UILabel! {
     didSet {
       titleLabel.text = L("remove_ads_title").uppercased()
     }
   }
+
   @IBOutlet weak var whySupportLabel: UILabel! {
     didSet {
       whySupportLabel.text = L("why_support").uppercased()
     }
   }
+
   @IBOutlet weak var optionsHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var whySupportConstraint: NSLayoutConstraint!
 
@@ -75,7 +79,7 @@ import SafariServices
     super.viewDidLoad()
 
     InAppPurchase.adsRemovalSubscriptionManager.addListener(self)
-    InAppPurchase.adsRemovalSubscriptionManager.getAvailableSubscriptions { (subscriptions, error) in
+    InAppPurchase.adsRemovalSubscriptionManager.getAvailableSubscriptions { subscriptions, error in
       self.subscriptions = subscriptions
       self.productsLoadingIndicator.stopAnimating()
       guard let subscriptions = subscriptions else {
@@ -108,9 +112,9 @@ import SafariServices
                                                    VC.formatPrice(monthlyDiscount, locale: locale)]), for: .normal)
       self.weekButton.setTitle(String(coreFormat: L("options_dropdown_item2"),
                                       arguments: [VC.formatPrice(weeklyPrice, locale: locale)]), for: .normal)
-      Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor : MWMPurchaseManager.adsRemovalVendorId(),
-                                                           kStatProduct : subscriptions[2].productId,
-                                                           kStatPurchase : MWMPurchaseManager.adsRemovalServerId(),
+      Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: MWMPurchaseManager.adsRemovalVendorId(),
+                                                           kStatProduct: subscriptions[2].productId,
+                                                           kStatPurchase: MWMPurchaseManager.adsRemovalServerId(),
                                                            kStatInappTrial: false],
                           with: .realtime)
     }
@@ -125,7 +129,7 @@ import SafariServices
   }
 
   @IBAction func onClose(_ sender: Any) {
-    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase : MWMPurchaseManager.adsRemovalServerId()])
+    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase: MWMPurchaseManager.adsRemovalServerId()])
     delegate?.didCancelSubscribtion(self)
   }
 
@@ -163,26 +167,26 @@ import SafariServices
   @IBAction func onTerms(_ sender: UIButton) {
     guard let url = URL(string: User.termsOfUseLink()) else { return }
     let safari = SFSafariViewController(url: url)
-    self.present(safari, animated: true, completion: nil)
+    present(safari, animated: true, completion: nil)
   }
 
   @IBAction func onPrivacy(_ sender: UIButton) {
     guard let url = URL(string: User.privacyPolicyLink()) else { return }
     let safari = SFSafariViewController(url: url)
-    self.present(safari, animated: true, completion: nil)
+    present(safari, animated: true, completion: nil)
   }
 
   private func subscribe(_ subscription: ISubscription?) {
     guard let subscription = subscription else {
       MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
                                                             text: L("purchase_error_subtitle"))
-      self.delegate?.didCancelSubscribtion(self)
+      delegate?.didCancelSubscribtion(self)
       return
     }
-    Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct : subscription.productId,
-                                                           kStatPurchase : MWMPurchaseManager.adsRemovalServerId(),
+    Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct: subscription.productId,
+                                                           kStatPurchase: MWMPurchaseManager.adsRemovalServerId(),
                                                            kStatInappTrial: false])
-    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase : MWMPurchaseManager.adsRemovalServerId(),
+    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: MWMPurchaseManager.adsRemovalServerId(),
                                                         kStatInappTrial: false],
                         with: .realtime)
     showPurchaseProgress()
@@ -207,23 +211,19 @@ import SafariServices
 
   override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
     get { return transitioning }
-    set { }
+    set {}
   }
 
   override var modalPresentationStyle: UIModalPresentationStyle {
     get { return .custom }
-    set { }
+    set {}
   }
 }
 
 extension RemoveAdsViewController: SubscriptionManagerListener {
-  func didFailToValidate() {
+  func didFailToValidate() {}
 
-  }
-
-  func didValidate(_ isValid: Bool) {
-
-  }
+  func didValidate(_ isValid: Bool) {}
 
   func didSubscribe(_ subscription: ISubscription) {
     MWMPurchaseManager.setAdsDisabled(true)
@@ -241,7 +241,7 @@ extension RemoveAdsViewController: SubscriptionManagerListener {
       MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
                                                             text: L("purchase_error_subtitle"))
     }
-    
+
     hidePurchaseProgress()
   }
 }

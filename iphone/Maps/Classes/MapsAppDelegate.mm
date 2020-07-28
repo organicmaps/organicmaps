@@ -228,11 +228,12 @@ using namespace osm_auth_ios;
     }];
     [[InAppPurchase allPassSubscriptionManager] validateWithCompletion:^(MWMValidationResult result, BOOL isTrial) {
       if (result == MWMValidationResultNotValid) {
-        [[InAppPurchase allPassSubscriptionManager] setSubscriptionActive:NO isTrial: NO];
+        [[InAppPurchase allPassSubscriptionManager] setSubscriptionActive:NO isTrial:NO];
       }
     }];
     [[InAppPurchase adsRemovalSubscriptionManager] validateWithCompletion:^(MWMValidationResult result, BOOL isTrial) {
-      [[InAppPurchase adsRemovalSubscriptionManager] setSubscriptionActive:result != MWMValidationResultNotValid isTrial:NO];
+      [[InAppPurchase adsRemovalSubscriptionManager] setSubscriptionActive:result != MWMValidationResultNotValid
+                                                                   isTrial:NO];
     }];
     self.pendingTransactionHandler = [InAppPurchase pendingTransactionsHandler];
     __weak __typeof(self) ws = self;

@@ -105,7 +105,7 @@ class SubscriptionManager: NSObject, ISubscriptionManager {
   }
 
   private func validate(_ refreshReceipt: Bool, completion: ValidationCompletion? = nil) {
-    purchaseManager?.validateReceipt(serverId, refreshReceipt: refreshReceipt) { [weak self] _, validationResult, isTrial  in
+    purchaseManager?.validateReceipt(serverId, refreshReceipt: refreshReceipt) { [weak self] _, validationResult, isTrial in
       self?.logEvents(validationResult)
       if validationResult == .valid || validationResult == .notValid {
         self?.listeners.allObjects.forEach { $0.didValidate(validationResult == .valid) }

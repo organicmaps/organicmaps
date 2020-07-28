@@ -101,31 +101,32 @@
 
 - (void)validateReceipt:(NSString *)serverId refreshReceipt:(BOOL)refresh {
   __weak __typeof(self) ws = self;
-  [self.purchaseValidation validateReceipt:serverId
-                                  callback:^(MWMPurchaseValidationResult validationResult, BOOL isTrial) {
-                                    __strong __typeof(self) self = ws;
-                                    switch (validationResult) {
-                                      case MWMPurchaseValidationResultValid:
-                                        [self notifyValidation:serverId result:MWMValidationResultValid isTrial: isTrial];
-                                        break;
-                                      case MWMPurchaseValidationResultNotValid:
-                                        [self notifyValidation:serverId result:MWMValidationResultNotValid isTrial: NO];
-                                        break;
-                                      case MWMPurchaseValidationResultError:
-                                        [self notifyValidation:serverId result:MWMValidationResultServerError isTrial: NO];
-                                        break;
-                                      case MWMPurchaseValidationResultAuthError:
-                                        [self notifyValidation:serverId result:MWMValidationResultAuthError isTrial: NO];
-                                        break;
-                                      case MWMPurchaseValidationResultNoReceipt:
-                                        if (refresh) {
-                                          [self refreshReceipt];
-                                        } else {
-                                          [self notifyValidation:serverId result:MWMValidationResultNotValid isTrial: NO];
-                                        }
-                                        break;
-                                    }
-                                  }];
+  [self.purchaseValidation
+    validateReceipt:serverId
+           callback:^(MWMPurchaseValidationResult validationResult, BOOL isTrial) {
+             __strong __typeof(self) self = ws;
+             switch (validationResult) {
+               case MWMPurchaseValidationResultValid:
+                 [self notifyValidation:serverId result:MWMValidationResultValid isTrial:isTrial];
+                 break;
+               case MWMPurchaseValidationResultNotValid:
+                 [self notifyValidation:serverId result:MWMValidationResultNotValid isTrial:NO];
+                 break;
+               case MWMPurchaseValidationResultError:
+                 [self notifyValidation:serverId result:MWMValidationResultServerError isTrial:NO];
+                 break;
+               case MWMPurchaseValidationResultAuthError:
+                 [self notifyValidation:serverId result:MWMValidationResultAuthError isTrial:NO];
+                 break;
+               case MWMPurchaseValidationResultNoReceipt:
+                 if (refresh) {
+                   [self refreshReceipt];
+                 } else {
+                   [self notifyValidation:serverId result:MWMValidationResultNotValid isTrial:NO];
+                 }
+                 break;
+             }
+           }];
 }
 
 - (void)checkTrialEligibility:(NSString *)serverId
@@ -201,7 +202,7 @@
   GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarksSights, active, false);
 }
 
-+ (void)setAllPassSubscriptionActive:(BOOL)active isTrial:(BOOL)isTrial{
++ (void)setAllPassSubscriptionActive:(BOOL)active isTrial:(BOOL)isTrial {
   GetFramework().GetPurchase()->SetSubscriptionEnabled(SubscriptionType::BookmarksAll, active, isTrial);
 }
 
@@ -224,7 +225,7 @@
   [self.trialCallbacks
     enumerateKeysAndObjectsUsingBlock:^(NSString *_Nonnull key, NSMutableArray<TrialEligibilityCallback> *_Nonnull obj,
                                         BOOL *_Nonnull stop) {
-      [self notifyValidation:key result:MWMValidationResultServerError isTrial: NO];
+      [self notifyValidation:key result:MWMValidationResultServerError isTrial:NO];
     }];
   [self.trialCallbacks
     enumerateKeysAndObjectsUsingBlock:^(NSString *_Nonnull key, NSMutableArray<TrialEligibilityCallback> *_Nonnull obj,

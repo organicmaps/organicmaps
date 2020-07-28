@@ -51,7 +51,7 @@ extension SubscriptionInteractor: SubscriptionInteractorProtocol {
     viewController?.signup(anchor: anchor, source: .subscription) { [weak self] success in
       guard success else { return }
       self?.presenter.isLoadingHidden = false
-      self?.subscriptionManager.restore { result, _  in
+      self?.subscriptionManager.restore { result, _ in
         self?.presenter.isLoadingHidden = true
         let alertText: String
         switch result {
