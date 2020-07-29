@@ -1,10 +1,18 @@
 class WhatsNewBuilder {
   static var configs:[WhatsNewPresenter.WhatsNewConfig] {
     return [
-      WhatsNewPresenter.WhatsNewConfig(image: UIImage(named: "img_wnew_newguides"),
-                                       title: "whatsnew_guides_on_map_title",
-                                       text: "whatsnew_guides_on_map_message",
-                                       buttonNextTitle: "done")
+      WhatsNewPresenter.WhatsNewConfig(image: UIImage(named: "img_whatsnew_trial.png"),
+                                       title: "whatsnew_trial_title",
+                                       text: "whatsnew_trial_message",
+                                       buttonNextTitle: "whatsnew_trial_cta",
+                                       action: {
+                                        let subscribeViewController = SubscriptionViewBuilder.build(type: .allPass,
+                                                                                                    parentViewController: MapViewController.shared(),
+                                                                                                    source: kStatOnboardingGuidesSubscription,
+                                                                                                    successDialog: .goToCatalog,
+                                                                                                    completion: nil)
+                                        MapViewController.shared().present(subscribeViewController, animated: true)
+      })
     ]
   }
 
