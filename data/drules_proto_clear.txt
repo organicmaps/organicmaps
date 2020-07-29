@@ -68586,6 +68586,9 @@ colors {
     name: "TrafficUnknown"
   }
   value {
+    name: "HotelPriceText"
+  }
+  value {
     name: "TransitTransferOuterMarker"
   }
   value {
