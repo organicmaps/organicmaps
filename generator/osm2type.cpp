@@ -55,6 +55,12 @@ public:
     if (*token == "int_name" || *token == "old_name" || *token == "alt_name")
     {
       lang = *token;
+
+      // Consider only pure int/alt/old name without :lang. Otherwise feature with several
+      // alt_name:lang will receive random name based on tags enumeration order.
+      if (++token)
+        return false;
+
       return m_savedNames.insert(lang).second;
     }
 
@@ -81,7 +87,6 @@ public:
     string lang;
     if (v.empty() || !GetLangByKey(k, lang))
       return;
-
     m_params.AddName(lang, v);
     k.clear();
     v.clear();

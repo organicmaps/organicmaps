@@ -907,6 +907,21 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
     params.name.GetString(StringUtf8Multilang::GetLangIndex("alt_name"), s);
     TEST_EQUAL(s, "MMOMA", ());
   }
+  {
+    Tags const tags = {
+      {"tourism", "museum"},
+      {"name", "Московский музей современного искусства"},
+      {"alt_name:en", "MMOMA"}
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    std::string s;
+    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
+    TEST_EQUAL(s, "Московский музей современного искусства", ());
+    // We do not support alt_name:lang.
+    TEST(!params.name.GetString(StringUtf8Multilang::GetLangIndex("alt_name"), s), ());
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_MergeTags)
