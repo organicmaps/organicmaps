@@ -122,7 +122,7 @@ unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const &items)
 }
 
 - (booking::filter::Params)availabilityParams {
-  using Clock = booking::AvailabilityParams::Clock;
+  using Clock = booking::OrderingParams::Clock;
   booking::AvailabilityParams params;
   if (Platform::IsConnected())
   {
@@ -148,16 +148,17 @@ unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const &items)
       i += 1;
     }
 
-    std::vector<booking::AvailabilityParams::Room> filterRooms;
+    std::vector<booking::OrderingParams::Room> filterRooms;
     for (Room *room : rooms) {
       std::vector<int8_t> agesOfChildren(room.children, kAgeOfChild);
       agesOfChildren.insert(agesOfChildren.end(), room.infants, kAgeOfInfant);
       filterRooms.emplace_back(room.adults, agesOfChildren);
     }
 
-    params.m_rooms = filterRooms;
-    params.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
-    params.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
+    auto &orderingParams = params.m_orderingParams;
+    orderingParams.m_rooms = filterRooms;
+    orderingParams.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
+    orderingParams.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
   }
   return {std::make_shared<booking::AvailabilityParams>(params), {}};
 }

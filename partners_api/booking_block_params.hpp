@@ -1,5 +1,6 @@
 #pragma once
 
+#include "partners_api/booking_ordering_params.hpp"
 #include "partners_api/booking_params_base.hpp"
 
 #include "coding/url.hpp"
@@ -24,9 +25,8 @@ struct BlockParams : public ParamsBase
   void Set(ParamsBase const & src) override;
 
   std::string m_hotelId;
+  OrderingParams m_orderingParams;
   std::string m_currency;
-  Time m_checkin;
-  Time m_checkout;
   Extras m_extras;
   std::string m_language;
 };

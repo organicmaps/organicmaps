@@ -527,25 +527,27 @@ public:
     if (!m_initialized || bookingFilterParams == nullptr)
       return result;
 
+    auto & orderingParams = result.m_orderingParams;
+
     jlong const jcheckin = env->GetLongField(bookingFilterParams, m_checkinMillisecId) / 1000;
-    result.m_checkin =
-        booking::AvailabilityParams::Clock::from_time_t(static_cast<time_t>(jcheckin));
+    orderingParams.m_checkin =
+        booking::OrderingParams::Clock::from_time_t(static_cast<time_t>(jcheckin));
 
     jlong const jcheckout = env->GetLongField(bookingFilterParams, m_checkoutMillisecId) / 1000;
-    result.m_checkout =
-        booking::AvailabilityParams::Clock::from_time_t(static_cast<time_t>(jcheckout));
+    orderingParams.m_checkout =
+        booking::OrderingParams::Clock::from_time_t(static_cast<time_t>(jcheckout));
 
     jobjectArray const jrooms =
         static_cast<jobjectArray>(env->GetObjectField(bookingFilterParams, m_roomsId));
     ASSERT(jrooms, ("Rooms must be non-null!"));
 
     auto const length = static_cast<size_t>(env->GetArrayLength(jrooms));
-    result.m_rooms.resize(length);
+    orderingParams.m_rooms.resize(length);
     for (size_t i = 0; i < length; ++i)
     {
       jobject jroom = env->GetObjectArrayElement(jrooms, static_cast<jsize>(i));
 
-      booking::AvailabilityParams::Room room;
+      booking::OrderingParams::Room room;
       room.SetAdultsCount(static_cast<uint8_t>(env->GetIntField(jroom, m_roomAdultsCountId)));
 
       auto const childrenObject = env->GetObjectField(jroom, m_roomAgeOfChildrenId);
@@ -564,7 +566,7 @@ public:
         room.SetAgeOfChildren(ageOfChildren);
       }
 
-      result.m_rooms[i] = move(room);
+      orderingParams.m_rooms[i] = move(room);
     }
     return result;
   }

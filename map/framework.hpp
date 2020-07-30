@@ -894,7 +894,7 @@ public:
                     std::vector<FeatureID> && featureIds) override;
   void OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks) override;
 
-  booking::AvailabilityParams GetLastBookingAvailabilityParams() const;
+  booking::AvailabilityParams const & GetLastBookingAvailabilityParams() const;
 
 private:
   // m_discoveryManager must be bellow m_searchApi, m_localsApi

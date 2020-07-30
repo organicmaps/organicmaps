@@ -35,6 +35,8 @@ set(
   booking_availability_params.hpp
   booking_block_params.cpp
   booking_block_params.hpp
+  booking_ordering_params.cpp
+  booking_ordering_params.hpp
   booking_params_base.hpp
   freenow_api.cpp
   freenow_api.hpp

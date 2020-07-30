@@ -74,6 +74,8 @@
 		3DBD7C2124251C1100ED9FE8 /* skyeng_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7C1B24251C1000ED9FE8 /* skyeng_tests.cpp */; };
 		3DBD7C2224251C1100ED9FE8 /* bookmark_catalog_ads_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7C1C24251C1100ED9FE8 /* bookmark_catalog_ads_tests.cpp */; };
 		3DBD7C2324251C1100ED9FE8 /* tinkoff_airlines_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7C1D24251C1100ED9FE8 /* tinkoff_airlines_tests.cpp */; };
+		3DCAC69424D1CFE800518E8B /* booking_ordering_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DCAC69224D1CFE800518E8B /* booking_ordering_params.hpp */; };
+		3DCAC69524D1CFE900518E8B /* booking_ordering_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCAC69324D1CFE800518E8B /* booking_ordering_params.cpp */; };
 		3DCD415320DAB33700143533 /* booking_block_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCD415120DAB33700143533 /* booking_block_params.cpp */; };
 		3DCD415420DAB33700143533 /* booking_block_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DCD415220DAB33700143533 /* booking_block_params.hpp */; };
 		3DF01C2D20652463005DDF8C /* taxi_places.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF01C2A20652462005DDF8C /* taxi_places.cpp */; };
@@ -191,6 +193,8 @@
 		3DBD7C1B24251C1000ED9FE8 /* skyeng_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skyeng_tests.cpp; sourceTree = "<group>"; };
 		3DBD7C1C24251C1100ED9FE8 /* bookmark_catalog_ads_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_catalog_ads_tests.cpp; sourceTree = "<group>"; };
 		3DBD7C1D24251C1100ED9FE8 /* tinkoff_airlines_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinkoff_airlines_tests.cpp; sourceTree = "<group>"; };
+		3DCAC69224D1CFE800518E8B /* booking_ordering_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_ordering_params.hpp; sourceTree = "<group>"; };
+		3DCAC69324D1CFE800518E8B /* booking_ordering_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_ordering_params.cpp; sourceTree = "<group>"; };
 		3DCD415120DAB33700143533 /* booking_block_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_block_params.cpp; sourceTree = "<group>"; };
 		3DCD415220DAB33700143533 /* booking_block_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_block_params.hpp; sourceTree = "<group>"; };
 		3DF01C2A20652462005DDF8C /* taxi_places.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_places.cpp; sourceTree = "<group>"; };
@@ -332,6 +336,8 @@
 		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
 			isa = PBXGroup;
 			children = (
+				3DCAC69324D1CFE800518E8B /* booking_ordering_params.cpp */,
+				3DCAC69224D1CFE800518E8B /* booking_ordering_params.hpp */,
 				3D035CA1245195E600C21B57 /* guides_on_map_api.cpp */,
 				3D035CA0245195E500C21B57 /* guides_on_map_api.hpp */,
 				3DBD7BE524251BF000ED9FE8 /* ads */,
@@ -486,6 +492,7 @@
 				3D035CA2245195E600C21B57 /* guides_on_map_api.hpp in Headers */,
 				3DBD7C0424251BF000ED9FE8 /* mopub_ads.hpp in Headers */,
 				3DBD7C1224251BF000ED9FE8 /* ads_utils.hpp in Headers */,
+				3DCAC69424D1CFE800518E8B /* booking_ordering_params.hpp in Headers */,
 				3DBD7C0624251BF000ED9FE8 /* ads_engine.hpp in Headers */,
 				3DBD7C2024251C1100ED9FE8 /* download_on_map_container_delegate.hpp in Headers */,
 				3DF01C2E20652463005DDF8C /* taxi_places.hpp in Headers */,
@@ -608,6 +615,7 @@
 				3DCD415320DAB33700143533 /* booking_block_params.cpp in Sources */,
 				F6B536421DA520E40067EEA5 /* uber_api.cpp in Sources */,
 				F6539537207FBED70057B97C /* taxi_places_loader.cpp in Sources */,
+				3DCAC69524D1CFE900518E8B /* booking_ordering_params.cpp in Sources */,
 				4566605020D91FEE0085E8C1 /* megafon_countries.cpp in Sources */,
 				3DBD7C1024251BF000ED9FE8 /* ads_engine.cpp in Sources */,
 				3DFEBF9B1EFBFC1500317D5C /* taxi_engine.cpp in Sources */,

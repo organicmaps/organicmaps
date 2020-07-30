@@ -4288,7 +4288,7 @@ void Framework::OnBookingFilterParamsUpdate(booking::filter::Tasks const & filte
   }
 }
 
-booking::AvailabilityParams Framework::GetLastBookingAvailabilityParams() const
+booking::AvailabilityParams const & Framework::GetLastBookingAvailabilityParams() const
 {
   return m_bookingAvailabilityParams;
 }

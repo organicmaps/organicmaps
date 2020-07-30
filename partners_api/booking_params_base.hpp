@@ -1,8 +1,6 @@
 #pragma once
 
-#include "partners_api/utils.hpp"
-
-#include "base/macros.hpp"
+#include "base/assert.hpp"
 
 #include <exception>
 
@@ -13,14 +11,6 @@ struct BlockParams;
 
 struct ParamsBase
 {
-  using Clock = std::chrono::system_clock;
-  using Time = Clock::time_point;
-
-  static std::string FormatTime(Time p)
-  {
-    return partners_api::FormatTime(p, "%Y-%m-%d");
-  }
-
   virtual ~ParamsBase() = default;
 
   virtual bool IsEmpty() const = 0;

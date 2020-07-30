@@ -1,5 +1,6 @@
 #pragma once
 
+#include "partners_api/booking_ordering_params.hpp"
 #include "partners_api/booking_params_base.hpp"
 
 #include "coding/url.hpp"
@@ -15,29 +16,7 @@ namespace booking
 /// [m_hotelIds], [m_checkin], [m_checkout], [m_rooms] are required.
 struct AvailabilityParams : public ParamsBase
 {
-  struct Room
-  {
-    Room() = default;
-    Room(uint8_t adultsCount, std::vector<int8_t> const & ageOfChildren);
-
-    void SetAdultsCount(uint8_t adultsCount);
-    void SetAgeOfChildren(std::vector<int8_t> const & ageOfChildren);
-
-    uint8_t GetAdultsCount() const;
-    std::vector<int8_t> const & GetAgeOfChildren() const;
-
-    std::string ToString() const;
-
-    bool operator!=(Room const & rhs) const;
-    bool operator==(Room const & rhs) const;
-  private:
-    uint8_t m_adultsCount = 0;
-    // No children by default.
-    std::vector<int8_t> m_ageOfChildren;
-  };
-
   using Hotels = std::vector<std::string>;
-  using Rooms = std::vector<Room>;
   using Stars = std::vector<std::string>;
 
   static AvailabilityParams MakeDefault();
@@ -54,15 +33,10 @@ struct AvailabilityParams : public ParamsBase
   /// Limit the result list to the specified hotels where they have availability for the
   /// specified guests and dates.
   Hotels m_hotelIds;
-  /// The arrival date. Must be within 360 days in the future and in the format yyyy-mm-dd.
-  Time m_checkin;
-  /// The departure date. Must be later than [m_checkin]. Must be between 1 and 30 days after
-  /// [m_checkin]. Must be within 360 days in the future and in the format yyyy-mm-dd.
-  Time m_checkout;
-  /// Each room is comma-separated array of guests to stay in this room where "A" represents an
-  /// adult and an integer represents a child. eg room1=A,A,4 would be a room with 2 adults and 1
-  /// four year-old child. Child age numbers are 0..17.
-  Rooms m_rooms;
+
+  // Arrival/deparure dates and rooms.
+  // For detailed description see booking::OrderingParams declaration.
+  OrderingParams m_orderingParams;
   /// Show only hotels with review_score >= that. min_review_score should be in the range 1 to 10.
   /// Values are rounded down: min_review_score 7.8 will result in properties with review scores
   /// of 7 and up.
