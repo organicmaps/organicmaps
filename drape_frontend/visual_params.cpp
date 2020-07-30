@@ -282,7 +282,7 @@ uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)
 
 int GetDrawTileScale(int baseScale, uint32_t tileSize, double visualScale)
 {
-  return std::max(1, baseScale + GetTileScaleIncrement(tileSize, visualScale));
+  return std::clamp(baseScale + GetTileScaleIncrement(tileSize, visualScale), 1, scales::GetUpperStyleScale());
 }
 
 int GetDrawTileScale(ScreenBase const & s, uint32_t tileSize, double visualScale)
