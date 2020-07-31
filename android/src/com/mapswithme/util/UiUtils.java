@@ -413,11 +413,14 @@ public final class UiUtils
 
   public static void extendViewWithStatusBar(@NonNull View view)
   {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-      return;
-
     int statusBarHeight = getStatusBarHeight(view.getContext());
     ViewGroup.LayoutParams lp = view.getLayoutParams();
+    if (lp.height == ViewGroup.LayoutParams.WRAP_CONTENT)
+    {
+      extendViewPaddingTop(view, statusBarHeight);
+      return;
+    }
+
     lp.height += statusBarHeight;
     view.setLayoutParams(lp);
     extendViewPaddingTop(view, statusBarHeight);
@@ -425,9 +428,6 @@ public final class UiUtils
 
   public static void extendViewPaddingWithStatusBar(@NonNull View view)
   {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-      return;
-
     int statusBarHeight = getStatusBarHeight(view.getContext());
     extendViewPaddingTop(view, statusBarHeight);
   }
@@ -440,9 +440,6 @@ public final class UiUtils
 
   public static void extendViewMarginWithStatusBar(@NonNull View view)
   {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-      return;
-
     int statusBarHeight = getStatusBarHeight(view.getContext());
     ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
     int margin = lp.getMarginStart();
@@ -452,9 +449,6 @@ public final class UiUtils
 
   public static void setupStatusBar(@NonNull Activity activity)
   {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-      return;
-
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
     {
       activity.getWindow().getDecorView().setSystemUiVisibility(
@@ -477,9 +471,6 @@ public final class UiUtils
 
   public static void setupColorStatusBar(@NonNull Activity activity, @ColorRes int statusBarColor)
   {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-      return;
-
     Window window = activity.getWindow();
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
     window.setStatusBarColor(ContextCompat.getColor(activity, statusBarColor));

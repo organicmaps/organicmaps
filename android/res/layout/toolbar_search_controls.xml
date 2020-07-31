@@ -4,10 +4,19 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/frame"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
+  android:layout_height="wrap_content"
   android:orientation="horizontal"
   android:baselineAligned="false"
   android:gravity="center_vertical">
+
+  <ImageView
+    android:id="@+id/back"
+    android:layout_width="?attr/actionBarSize"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:src="?homeAsUpIndicator"
+    android:scaleType="center"
+    tools:src="@drawable/ic_down" />
 
   <EditText
     android:id="@+id/query"
@@ -30,7 +39,6 @@
     android:layout_width="@dimen/search_progress_size"
     android:layout_height="@dimen/search_progress_size"
     android:layout_marginEnd="@dimen/margin_half"
-    android:layout_marginRight="@dimen/margin_half"
     android:layout_weight="0"
     android:background="@null"
     android:minHeight="@dimen/search_progress_size"

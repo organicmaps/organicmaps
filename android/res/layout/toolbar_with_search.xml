@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/toolbar"
   style="@style/MwmWidget.ToolbarStyle"
   android:theme="@style/MwmWidget.ToolbarTheme"
+  app:contentInsetLeft="@dimen/dp_0"
+  app:contentInsetStart="@dimen/dp_0"
   android:layout_width="match_parent"
-  android:layout_height="?attr/actionBarSize">
-  <include layout="@layout/toolbar_search_controls"/>
+  android:layout_height="wrap_content">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <include layout="@layout/toolbar_search_controls" />
+    <include layout="@layout/toolbar_filter_controls" />
+  </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

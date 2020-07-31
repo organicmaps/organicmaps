@@ -27,7 +27,7 @@
           android:id="@+id/toolbar"
           layout="@layout/toolbar_with_search_no_elevation"
           android:layout_width="match_parent"
-          android:layout_height="?attr/actionBarSize"/>
+          android:layout_height="wrap_content"/>
       </com.google.android.material.appbar.CollapsingToolbarLayout>
       <include layout="@layout/search_filter_panel"/>
     </com.google.android.material.appbar.AppBarLayout>
