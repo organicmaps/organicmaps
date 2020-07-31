@@ -38,7 +38,7 @@ CGFloat const kDetailShortRightSpace = 16;
 {
   if (self.accessoryIcon.hidden)
     return;
-  [self.delegate cellSelect:self];
+  [self.delegate cellDidPressButton:self];
 }
 
 @end

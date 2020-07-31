@@ -42,5 +42,5 @@
     self.grayArrow.transform = CGAffineTransformMakeScale(-1, 1);
 }
 
-- (IBAction)selectAction { [self.delegate cellSelect:self]; }
+- (IBAction)selectAction { [self.delegate cellDidPressButton:self]; }
 @end
