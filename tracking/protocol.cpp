@@ -23,6 +23,7 @@ vector<uint8_t> CreateDataPacketImpl(Container const & points,
   uint32_t version = tracking::Protocol::Encoder::kLatestVersion;
   switch (type)
   {
+  case tracking::Protocol::PacketType::Error: ASSERT(false, ("Error DATA packet.")); return {};
   case tracking::Protocol::PacketType::DataV0: version = 0; break;
   case tracking::Protocol::PacketType::DataV1: version = 1; break;
   case tracking::Protocol::PacketType::AuthV0: ASSERT(false, ("Not a DATA packet.")); break;
@@ -78,7 +79,11 @@ vector<uint8_t> Protocol::CreateDataPacket(DataElementsVec const & points, Packe
 //  static
 pair<Protocol::PacketType, size_t> Protocol::DecodeHeader(vector<uint8_t> const & data)
 {
-  ASSERT_GREATER_OR_EQUAL(data.size(), sizeof(uint32_t /* header */), ());
+  if (data.size() < sizeof(uint32_t /* header */))
+  {
+    LOG(LWARNING, ("Header size is too small", data.size(), sizeof(uint32_t /* header */)));
+    return make_pair(PacketType::Error, data.size());
+  }
 
   uint32_t size = (*reinterpret_cast<uint32_t const *>(data.data())) & 0xFFFFFF00;
   if (!IsBigEndianMacroBased())
@@ -92,6 +97,7 @@ string Protocol::DecodeAuthPacket(Protocol::PacketType type, vector<uint8_t> con
 {
   switch (type)
   {
+  case Protocol::PacketType::Error: ASSERT(false, ("Error AUTH packet.")); break;
   case Protocol::PacketType::AuthV0: return string(begin(data), end(data));
   case Protocol::PacketType::DataV0:
   case Protocol::PacketType::DataV1: ASSERT(false, ("Not an AUTH packet.")); break;
@@ -109,6 +115,7 @@ Protocol::DataElementsVec Protocol::DecodeDataPacket(PacketType type, vector<uin
   {
     switch (type)
     {
+    case Protocol::PacketType::Error: ASSERT(false, ("Error DATA packet.")); return {};
     case Protocol::PacketType::DataV0:
       Encoder::DeserializeDataPoints(0 /* version */, src, points);
       break;
@@ -145,6 +152,7 @@ string DebugPrint(Protocol::PacketType type)
 {
   switch (type)
   {
+  case Protocol::PacketType::Error: return "Error";
   case Protocol::PacketType::AuthV0: return "AuthV0";
   case Protocol::PacketType::DataV0: return "DataV0";
   case Protocol::PacketType::DataV1: return "DataV1";

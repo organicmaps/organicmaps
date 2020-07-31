@@ -32,6 +32,7 @@ public:
 
   enum class PacketType
   {
+    Error = 0x0,
     AuthV0 = 0x81,
     DataV0 = 0x82,
     DataV1 = 0x92,

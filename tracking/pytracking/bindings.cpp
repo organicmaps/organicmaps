@@ -38,6 +38,7 @@ BOOST_PYTHON_MODULE(pytracking)
       .def_readwrite("traffic", &coding::TrafficGPSEncoder::DataPoint::m_traffic);
 
   enum_<Protocol::PacketType>("PacketType")
+      .value("Error", Protocol::PacketType::Error)
       .value("AuthV0", Protocol::PacketType::AuthV0)
       .value("DataV0", Protocol::PacketType::DataV0)
       .value("DataV1", Protocol::PacketType::DataV1)
