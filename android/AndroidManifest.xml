@@ -260,143 +260,73 @@
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/download_maps"
         android:parentActivityName="com.mapswithme.maps.MwmActivity"
-        android:windowSoftInputMode="adjustResize">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+        android:windowSoftInputMode="adjustResize" />
 
     <activity
         android:name="com.mapswithme.maps.search.SearchActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/search_map"
         android:parentActivityName="com.mapswithme.maps.MwmActivity"
-        android:windowSoftInputMode="stateVisible|adjustResize">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+        android:windowSoftInputMode="stateVisible|adjustResize" />
 
     <activity
         android:name="com.mapswithme.maps.settings.SettingsActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/settings"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
         android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/bookmarks_guides"
         android:parentActivityName="com.mapswithme.maps.MwmActivity"
-        android:windowSoftInputMode="adjustResize">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+        android:windowSoftInputMode="adjustResize" />
 
     <activity
         android:name="com.mapswithme.maps.bookmarks.BookmarkListActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/bookmarks"
         android:parentActivityName="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
-        android:windowSoftInputMode="adjustResize">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"/>
-    </activity>
+        android:windowSoftInputMode="adjustResize" />
 
     <activity
         android:name="com.mapswithme.maps.editor.EditorActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/edit_place"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
         android:name="com.mapswithme.maps.editor.ProfileActivity"
-        android:parentActivityName="com.mapswithme.maps.settings.SettingsActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.settings.SettingsActivity"/>
-    </activity>
+        android:parentActivityName="com.mapswithme.maps.settings.SettingsActivity" />
 
     <activity
         android:name="com.mapswithme.maps.editor.FeatureCategoryActivity"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
         android:name="com.mapswithme.maps.editor.ReportActivity"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
         android:name="com.mapswithme.maps.editor.OsmAuthActivity"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
         android:name="com.mapswithme.maps.gallery.GalleryActivity"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
         android:name="com.mapswithme.maps.gallery.FullScreenGalleryActivity"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
       android:name=".ugc.UGCEditorActivity"
       android:configChanges="keyboardHidden|orientation|screenSize"
-      android:parentActivityName=".MwmActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+      android:parentActivityName=".MwmActivity" />
 
     <activity
       android:name=".discovery.DiscoveryActivity"
-      android:parentActivityName=".MwmActivity">
-      <!-- The meta-data element is needed for versions lower than 4.1 -->
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.mapswithme.maps.MwmActivity"/>
-    </activity>
+      android:parentActivityName=".MwmActivity" />
 
     <activity
       android:name="com.facebook.FacebookActivity"
