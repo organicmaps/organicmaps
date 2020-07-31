@@ -22,6 +22,7 @@ class PaidRouteStatistics: IPaidRouteStatistics {
                                               kStatProduct: productId,
                                               kStatPurchase: serverId,
                                               kStatTestGroup: testGroup,
+                                              kStatFrom: kStatWebView,
                                               kStatInappTrial: false],
              withChannel: .realtime)
   }
