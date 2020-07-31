@@ -229,8 +229,12 @@ using Observers = NSHashTable<Observer>;
   [self endSearch];
 
   MWMMapViewControlsManager *controlsManager = self.controlsManager;
-  controlsManager.menuState = controlsManager.menuRestoreState;
+  auto const navigationManagerState = [MWMNavigationDashboardManager sharedManager].state;
+  if (navigationManagerState == MWMNavigationDashboardStateHidden) {
+    controlsManager.menuState = controlsManager.menuRestoreState;
+  }
   [self viewHidden:YES];
+  self.searchBarView.isBookingSearchViewHidden = YES;
 }
 
 - (void)changeToDefaultState {
@@ -243,7 +247,10 @@ using Observers = NSHashTable<Observer>;
   [self animateConstraints:^{
     self.contentViewTopHidden.priority = UILayoutPriorityDefaultLow;
   }];
-  controlsManager.menuState = controlsManager.menuRestoreState;
+  auto const navigationManagerState = [MWMNavigationDashboardManager sharedManager].state;
+  if (navigationManagerState == MWMNavigationDashboardStateHidden) {
+    controlsManager.menuState = controlsManager.menuRestoreState;
+  }
   [self viewHidden:NO];
   self.searchBarView.isBookingSearchViewHidden = ![MWMSearch isHotelResults];
   self.actionBarState = MWMSearchManagerActionBarStateHidden;
@@ -259,7 +266,10 @@ using Observers = NSHashTable<Observer>;
   self.searchBarView.state = SearchBarStateReady;
   GetFramework().DeactivateMapSelection(true);
   [self updateTableSearchActionBar];
-  controlsManager.menuState = controlsManager.menuRestoreState;
+  auto const navigationManagerState = [MWMNavigationDashboardManager sharedManager].state;
+  if (navigationManagerState == MWMNavigationDashboardStateHidden) {
+    controlsManager.menuState = controlsManager.menuRestoreState;
+  }
   [self viewHidden:NO];
   [MWMSearch setSearchOnMap:NO];
   [self.tableViewController reloadData];
@@ -393,8 +403,8 @@ using Observers = NSHashTable<Observer>;
 #pragma mark - DatePickerViewControllerDelegate
 
 - (void)datePicker:(DatePickerViewController *)datePicker
-didSelectStartDate:(NSDate *)startDate
-           endDate:(NSDate *)endDate {
+  didSelectStartDate:(NSDate *)startDate
+             endDate:(NSDate *)endDate {
   [self.searchBarView setDatesWithCheckin:startDate checkout:endDate];
   MWMHotelParams *filter = [MWMSearch getFilter];
   if (!filter) {

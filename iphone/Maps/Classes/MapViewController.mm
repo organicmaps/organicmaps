@@ -390,7 +390,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 
-  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
+  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
+      [MWMSearchManager manager].state == MWMSearchManagerStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
@@ -483,7 +484,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
-  self.controlsManager.menuRestoreState = self.controlsManager.menuState;
+
+  if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
+      [MWMSearchManager manager].state == MWMSearchManagerStateHidden)
+    self.controlsManager.menuRestoreState = self.controlsManager.menuState;
 }
 
 - (BOOL)prefersStatusBarHidden {
