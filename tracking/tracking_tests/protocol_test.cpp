@@ -27,9 +27,23 @@ UNIT_TEST(Protocol_DecodeHeader)
   TEST_EQUAL(packet.size(), 7, ());
   TEST_EQUAL(Protocol::PacketType(packet[0]), Protocol::PacketType::CurrentAuth, ());
 
-  auto header = Protocol::DecodeHeader(packet);
-  CHECK_EQUAL(header.first, Protocol::PacketType::CurrentAuth, ());
-  CHECK_EQUAL(header.second, id_str.size(), ());
+  {
+    auto header = Protocol::DecodeHeader(packet);
+    TEST_EQUAL(header.first, Protocol::PacketType::CurrentAuth, ());
+    TEST_EQUAL(header.second, id_str.size(), ());
+  }
+
+  {
+    auto header = Protocol::DecodeHeader({});
+    TEST_EQUAL(header.first, Protocol::PacketType::Error, ());
+    TEST_EQUAL(header.second, 0, ());
+  }
+
+  {
+    auto header = Protocol::DecodeHeader({7, 9});
+    TEST_EQUAL(header.first, Protocol::PacketType::Error, ());
+    TEST_EQUAL(header.second, 2, ());
+  }
 }
 
 UNIT_TEST(Protocol_CreateDataPacket)
