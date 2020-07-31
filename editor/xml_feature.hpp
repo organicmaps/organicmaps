@@ -124,6 +124,12 @@ public:
         func(key.substr(kPrefixLen), tag.node().attribute("v").value());
       else if (key == kDefaultName)
         func(kDefaultLang, tag.node().attribute("v").value());
+      else if (key == kIntlName)
+        func(kIntlLang, tag.node().attribute("v").value());
+      else if (key == kAltName)
+        func(kAltLang, tag.node().attribute("v").value());
+      else if (key == kOldName)
+        func(kOldLang, tag.node().attribute("v").value());
     }
   }
 
