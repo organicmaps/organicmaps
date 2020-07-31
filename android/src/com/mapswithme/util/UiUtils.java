@@ -476,6 +476,21 @@ public final class UiUtils
     window.setStatusBarColor(ContextCompat.getColor(activity, statusBarColor));
   }
 
+  public static void setupNavigationUpListener(@NonNull Toolbar toolbar,
+                                               @NonNull View.OnClickListener listener)
+  {
+    View customNavigationButton = toolbar.findViewById(R.id.back);
+    if (customNavigationButton != null)
+    {
+      customNavigationButton.setOnClickListener(listener);
+    }
+    else
+    {
+      UiUtils.showHomeUpButton(toolbar);
+      toolbar.setNavigationOnClickListener(listener);
+    }
+  }
+
   public static int getCompassYOffset(@NonNull Context context)
   {
     return getStatusBarHeight(context);

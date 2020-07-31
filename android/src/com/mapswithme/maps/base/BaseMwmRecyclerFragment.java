@@ -2,18 +2,18 @@ package com.mapswithme.maps.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.CallSuper;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.util.UiUtils;
@@ -23,16 +23,20 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
 {
   private Toolbar mToolbar;
 
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private RecyclerView mRecycler;
 
   @Nullable
   private PlaceholderView mPlaceholder;
 
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private T mAdapter;
+
+  @NonNull
+  private final View.OnClickListener mNavigationClickListener
+      = view -> Utils.navigateToParent(getActivity());
 
   @NonNull
   protected abstract T createAdapter();
@@ -70,10 +74,7 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
 
     mToolbar = view.findViewById(R.id.toolbar);
     if (mToolbar != null)
-    {
-      UiUtils.showHomeUpButton(mToolbar);
-      mToolbar.setNavigationOnClickListener(v -> Utils.navigateToParent(getActivity()));
-    }
+      UiUtils.setupNavigationUpListener(mToolbar, mNavigationClickListener);
 
     mRecycler = view.findViewById(R.id.recycler);
     if (mRecycler == null)
@@ -112,7 +113,7 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
   {
     super.onResume();
     org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName()
-        + ":" + UiUtils.deviceOrientationAsString(getActivity()));
+        + ":" + UiUtils.deviceOrientationAsString(requireActivity()));
   }
 
   @Override
