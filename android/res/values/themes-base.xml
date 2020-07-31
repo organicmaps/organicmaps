@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!-- Default theme -->
-  <style name="MwmTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="MwmTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
 
@@ -187,13 +187,16 @@
     <item name="guidesMenuDisabled">@drawable/guides_layer_default_light</item>
     <item name="guidesIcon">@drawable/bg_guides_light</item>
     <item name="subtitleCityColor">@color/city_color</item>
-    <item name="subtitleOutdoorColor">@color/outdoor_color</item>
+    <item name="subtitleOutdoorColor">@color/extended_green</item>
     <item name="outdoorCheckbox">@drawable/ic_claim</item>
     <item name="cityCheckbox">@drawable/ic_claim_city</item>
+    <item name="chipBackgroundColor">@color/white_secondary</item>
+    <item name="chipIconTintColor">@color/extended_green</item>
+    <item name="chipTextColor">@color/bg_primary</item>
   </style>
 
   <!-- Night theme -->
-  <style name="MwmTheme.Night.Base" parent="Theme.AppCompat.NoActionBar">
+  <style name="MwmTheme.Night.Base" parent="Theme.MaterialComponents.NoActionBar">
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
 
@@ -379,5 +382,8 @@
     <item name="subtitleOutdoorColor">@color/outdoor_color_night</item>
     <item name="outdoorCheckbox">@drawable/ic_claim_night</item>
     <item name="cityCheckbox">@drawable/ic_claim_city_night</item>
+    <item name="chipBackgroundColor">@android:color/black</item>
+    <item name="chipIconTintColor">@color/white_lightest</item>
+    <item name="chipTextColor">@color/white_secondary</item>
   </style>
 </resources>

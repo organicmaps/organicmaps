@@ -144,4 +144,9 @@
     <attr name="fontHeadline5" format="reference" />
     <attr name="fontHeadline6" format="reference" />
   </declare-styleable>
+  <declare-styleable name="ThemeAttrs.Chip">
+    <attr name="chipBackgroundColor" format="color" />
+    <attr name="chipIconTintColor" format="color" />
+    <attr name="chipTextColor" format="color" />
+  </declare-styleable>
 </resources>

@@ -53,6 +53,7 @@
   <color name="warm_gray_night">#FF999691</color>
   <color name="dark_gray">#8B000000</color>
   <color name="light_gray">#F5F5F5</color>
+  <color name="extended_green">#3C8C3C</color>
 
   <color name="icon_tint">#FF757575</color>
   <color name="icon_tint_night">#FFC4C6C7</color>
@@ -232,7 +233,6 @@
   <color name="mts_button">#E30611</color>
   <color name="skyeng_button">#4287DF</color>
   <color name="city_color">#9B24B2</color>
-  <color name="outdoor_color">#3C8C3C</color>
   <color name="city_color_night">#9867FC</color>
   <color name="outdoor_color_night">#93BF39</color>
 </resources>

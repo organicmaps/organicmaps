@@ -369,6 +369,14 @@
     <item name="android:maxLines">2</item>
   </style>
 
+  <style name="MwmWidget.Chip.Action" parent="Widget.MaterialComponents.Chip.Action">
+    <item name="android:textColor">?chipTextColor</item>
+    <item name="chipIconTint">?chipIconTintColor</item>
+    <item name="closeIconTint">?chipIconTintColor</item>
+    <item name="closeIconVisible">true</item>
+    <item name="chipBackgroundColor">?chipBackgroundColor</item>
+  </style>
+
   <style name="TextAppearance" parent="MwmTextAppearance.Body3"/>
 
   <style name="TextAppearance.Small" parent="MwmTextAppearance.Body4"/>

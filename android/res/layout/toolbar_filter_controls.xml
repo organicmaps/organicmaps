@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:orientation="horizontal">
-<!--  Coming soon!-->
+  android:orientation="horizontal"
+  android:paddingStart="@dimen/margin_base_plus_quarter"
+  android:paddingTop="@dimen/margin_quarter_plus"
+  android:paddingEnd="@dimen/margin_base_plus_quarter"
+  android:paddingBottom="@dimen/margin_half_plus"
+  android:visibility="gone">
+  <com.google.android.material.chip.ChipGroup
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:chipSpacing="@dimen/margin_base">
+    <com.google.android.material.chip.Chip
+      style="@style/MwmWidget.Chip.Action"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/date_picker_сhoose_dates_cta"
+      app:chipIcon="@drawable/ic_datepicker"
+      app:closeIcon="@drawable/ic_dropdown" />
+    <com.google.android.material.chip.Chip
+      style="@style/MwmWidget.Chip.Action"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/guests_picker_rooms"
+      app:chipIcon="@drawable/ic_peoplepicker"
+      app:closeIcon="@drawable/ic_dropdown" />
+  </com.google.android.material.chip.ChipGroup>
 </LinearLayout>
