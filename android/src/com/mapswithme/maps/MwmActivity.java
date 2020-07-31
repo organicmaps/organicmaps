@@ -32,7 +32,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
-import com.mapswithme.maps.activity.CustomNavigateUpListener;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.auth.PassportAuthDialogFragment;

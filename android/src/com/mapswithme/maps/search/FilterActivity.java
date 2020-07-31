@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.mapswithme.maps.activity.CustomNavigateUpListener;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.statistics.Statistics;

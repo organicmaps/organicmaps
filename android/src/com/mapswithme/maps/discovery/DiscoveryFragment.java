@@ -20,9 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.activity.CustomNavigateUpListener;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
-import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;

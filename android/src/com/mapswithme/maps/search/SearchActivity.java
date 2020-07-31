@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.core.app.NavUtils;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.activity.CustomNavigateUpListener;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.purchase.PurchaseCallback;

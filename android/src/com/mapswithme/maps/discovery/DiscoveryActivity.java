@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.activity.CustomNavigateUpListener;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;

@@ -1,4 +1,4 @@
-package com.mapswithme.maps.activity;
+package com.mapswithme.maps.base;
 
 /**
  * Interface for activities to implement to perform custom 'up' navigation

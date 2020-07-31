@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.activity.CustomNavigateUpListener;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.ToolbarController;

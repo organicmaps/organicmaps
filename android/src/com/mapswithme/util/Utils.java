@@ -34,7 +34,7 @@ import androidx.fragment.app.Fragment;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.activity.CustomNavigateUpListener;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
