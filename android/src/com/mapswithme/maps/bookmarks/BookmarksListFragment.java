@@ -147,7 +147,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       bar.setTitle(mCategoryDataSource.getData().getName());
 
     ViewGroup toolbar = ((AppCompatActivity) requireActivity()).findViewById(R.id.toolbar);
-    mSearchContainer = toolbar.findViewById(R.id.frame);
+    mSearchContainer = toolbar.findViewById(R.id.search_container);
     mToolbarController = new BookmarksToolbarController(toolbar, requireActivity(), this);
     mToolbarController.setHint(R.string.search_in_the_list);
     configureRecycler();

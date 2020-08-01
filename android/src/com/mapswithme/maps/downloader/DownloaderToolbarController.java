@@ -43,7 +43,7 @@ class DownloaderToolbarController extends SearchToolbarController
     boolean showSearch = mFragment.shouldShowSearch();
     String title = (showSearch ? "" : mFragment.getAdapter().getCurrentRootName());
 
-    showControls(showSearch);
+    showSearchControls(showSearch);
     setTitle(title);
   }
 

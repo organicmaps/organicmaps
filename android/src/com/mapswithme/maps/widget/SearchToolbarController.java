@@ -3,6 +3,9 @@ package com.mapswithme.maps.widget;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -10,7 +13,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.material.chip.Chip;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
@@ -22,14 +27,24 @@ public class SearchToolbarController extends ToolbarController
 {
   private static final int REQUEST_VOICE_RECOGNITION = 0xCA11;
 
-  private final View mContainer;
+  @NonNull
+  private final View mSearchContainer;
+  @NonNull
   private final EditText mQuery;
-  protected final View mProgress;
+  @NonNull
+  private final View mProgress;
+  @NonNull
   private final View mClear;
+  @NonNull
   private final View mVoiceInput;
-
+  @Nullable
+  private final View mFilterContainer;
+  @Nullable
+  private Chip mChooseDates;
+  @Nullable
+  private Chip mRooms;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(getActivity());
-
+  @NonNull
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher()
   {
     @Override
@@ -38,6 +53,11 @@ public class SearchToolbarController extends ToolbarController
       updateButtons(TextUtils.isEmpty(s));
       SearchToolbarController.this.onTextChanged(s.toString());
     }
+  };
+  @NonNull
+  private final View.OnClickListener mChooseDatesClickListener = v -> {
+
+
   };
 
   public interface Container
@@ -49,9 +69,8 @@ public class SearchToolbarController extends ToolbarController
   {
     super(root, activity);
 
-    mContainer = getToolbar().findViewById(R.id.frame);
-
-    mQuery = mContainer.findViewById(R.id.query);
+    mSearchContainer = getToolbar().findViewById(R.id.search_container);
+    mQuery = mSearchContainer.findViewById(R.id.query);
     mQuery.setOnClickListener(this);
     mQuery.addTextChangedListener(mTextWatcher);
     mQuery.setOnEditorActionListener(
@@ -65,14 +84,20 @@ public class SearchToolbarController extends ToolbarController
 
           return (isSearchDown || isSearchAction) && onStartSearchClick();
         });
-
-    mProgress = mContainer.findViewById(R.id.progress);
-
-    mVoiceInput = mContainer.findViewById(R.id.voice_input);
+    mProgress = mSearchContainer.findViewById(R.id.progress);
+    mVoiceInput = mSearchContainer.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
-
-    mClear = mContainer.findViewById(R.id.clear);
+    mClear = mSearchContainer.findViewById(R.id.clear);
     mClear.setOnClickListener(this);
+
+    mFilterContainer = getToolbar().findViewById(R.id.filter_container);
+    if (mFilterContainer != null)
+    {
+      mChooseDates = mFilterContainer.findViewById(R.id.choose_dates);
+      mRooms = mFilterContainer.findViewById(R.id.rooms);
+      mChooseDates.setOnClickListener(mChooseDatesClickListener);
+      mChooseDates.setOnCloseIconClickListener(mChooseDatesClickListener);
+    }
 
     showProgress(false);
     updateButtons(true);
@@ -134,7 +159,7 @@ public class SearchToolbarController extends ToolbarController
 
   public String getQuery()
   {
-    return (UiUtils.isVisible(mContainer) ? mQuery.getText().toString() : "");
+    return (UiUtils.isVisible(mSearchContainer) ? mQuery.getText().toString() : "");
   }
 
   public void setQuery(CharSequence query)
@@ -190,9 +215,14 @@ public class SearchToolbarController extends ToolbarController
     }
   }
 
-  public void showControls(boolean show)
+  public void showSearchControls(boolean show)
   {
-    UiUtils.showIf(show, mContainer);
+    UiUtils.showIf(show, mSearchContainer);
+  }
+
+  public void showFilterControls(boolean show)
+  {
+    UiUtils.showIf(show, mFilterContainer);
   }
 
   public void onActivityResult(int requestCode, int resultCode, Intent data)

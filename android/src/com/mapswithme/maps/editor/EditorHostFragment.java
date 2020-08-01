@@ -193,7 +193,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   protected void editMapObject(boolean focusToLastName)
   {
     mMode = Mode.MAP_OBJECT;
-    ((SearchToolbarController) getToolbarController()).showControls(false);
+    ((SearchToolbarController) getToolbarController()).showSearchControls(false);
     getToolbarController().setTitle(getTitle());
     UiUtils.show(getToolbarController().getToolbar().findViewById(R.id.save));
     Bundle args = new Bundle();
@@ -239,7 +239,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
     mMode = newMode;
     getToolbarController().setTitle(toolbarTitle);
-    ((SearchToolbarController) getToolbarController()).showControls(showSearch);
+    ((SearchToolbarController) getToolbarController()).showSearchControls(showSearch);
     final Fragment fragment = Fragment.instantiate(getActivity(), fragmentClass.getName(), args);
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, fragment, fragmentClass.getName())

@@ -2,6 +2,7 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/filter_container"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="horizontal"
@@ -9,12 +10,13 @@
   android:paddingTop="@dimen/margin_quarter_plus"
   android:paddingEnd="@dimen/margin_base_plus_quarter"
   android:paddingBottom="@dimen/margin_half_plus"
-  android:visibility="gone">
+  android:visibility="visible">
   <com.google.android.material.chip.ChipGroup
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:chipSpacing="@dimen/margin_base">
     <com.google.android.material.chip.Chip
+      android:id="@+id/choose_dates"
       style="@style/MwmWidget.Chip.Action"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -22,6 +24,7 @@
       app:chipIcon="@drawable/ic_datepicker"
       app:closeIcon="@drawable/ic_dropdown" />
     <com.google.android.material.chip.Chip
+      android:id="@+id/rooms"
       style="@style/MwmWidget.Chip.Action"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
