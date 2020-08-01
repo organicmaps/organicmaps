@@ -790,7 +790,7 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
     string readableName;
     f.GetReadableName(readableName);
     // Do nothing if alt/old name is the only name we have.
-    if (readableName != name)
+    if (readableName != name && !readableName.empty())
       name = readableName + " (" + name + ")";
   }
 }
