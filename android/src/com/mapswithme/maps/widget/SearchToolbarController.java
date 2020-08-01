@@ -15,7 +15,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
@@ -56,8 +61,18 @@ public class SearchToolbarController extends ToolbarController
   };
   @NonNull
   private final View.OnClickListener mChooseDatesClickListener = v -> {
-
-
+    MaterialDatePicker.Builder<Pair<Long, Long>> builder
+        = MaterialDatePicker.Builder.dateRangePicker();
+    final MaterialDatePicker<?> picker = builder.build();
+    picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Object>()
+    {
+      @Override
+      public void onPositiveButtonClick(Object selection)
+      {
+        mChooseDates.setText(picker.getHeaderText());
+      }
+    });
+    picker.show(((AppCompatActivity) getActivity()).getSupportFragmentManager(), picker.toString());
   };
 
   public interface Container
