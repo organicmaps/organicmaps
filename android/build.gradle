@@ -39,18 +39,7 @@ apply from: 'secure.properties'
 
 dependencies {
 
-  implementation 'com.android.support:multidex:' + propMultiDexVersion
-
-  implementation 'com.android.support:support-v4:' + propSupportLibraryVersion
-  implementation 'com.android.support:appcompat-v7:' + propSupportLibraryVersion
-  implementation 'com.android.support:recyclerview-v7:'+ propSupportLibraryVersion
-  implementation 'com.android.support:design:'+ propSupportLibraryVersion
-  implementation 'com.android.support:cardview-v7:'+ propSupportLibraryVersion
-  implementation 'com.android.support:preference-v7:'+ propSupportLibraryVersion
-  implementation 'com.android.support:preference-v14:'+ propSupportLibraryVersion
-  implementation 'com.android.support:customtabs:'+ propSupportLibraryVersion
-  implementation 'com.android.support:support-annotations:'+ propSupportLibraryVersion
-  implementation 'com.android.support:support-compat:27.1.1'+ propSupportLibraryVersion
+  implementation 'androidx.multidex:multidex:' + propMultiDexVersion
 
   implementation 'com.google.android.gms:play-services-location:17.0.0'
   implementation 'com.google.android.gms:play-services-analytics:17.0.0'
@@ -101,6 +90,11 @@ dependencies {
   implementation 'com.trafi:anchor-bottom-sheet-behavior:0.13-alpha'
   implementation 'com.google.firebase:firebase-messaging:17.0.0'
   implementation 'com.github.yoksnod:MPAndroidChart:3.2.0-alpha'
+  implementation 'com.google.android.material:material:1.1.0'
+  implementation 'androidx.appcompat:appcompat:1.1.0'
+  implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
+  implementation 'androidx.preference:preference:1.1.0'
+  implementation 'androidx.fragment:fragment:1.1.0'
 }
 
 def getDate() {
@@ -121,19 +115,6 @@ configurations.all {
   resolutionStrategy {
     force 'com.android.support:multidex:' + propMultiDexVersion
 
-    force 'com.android.support:support-v4:' + propSupportLibraryVersion
-    force 'com.android.support:appcompat-v7:' + propSupportLibraryVersion
-    force 'com.android.support:recyclerview-v7:' + propSupportLibraryVersion
-    force 'com.android.support:design:' + propSupportLibraryVersion
-    force 'com.android.support:cardview-v7:' + propSupportLibraryVersion
-    force 'com.android.support:preference-v7:' + propSupportLibraryVersion
-    force 'com.android.support:preference-v14:' + propSupportLibraryVersion
-    force 'com.android.support:customtabs:' + propSupportLibraryVersion
-    force 'com.android.support:support-core-utils:' + propSupportLibraryVersion
-    force 'com.android.support:support-annotations:' + propSupportLibraryVersion
-    force 'com.android.support:support-compat:' + propSupportLibraryVersion
-    force 'com.android.support:support-fragment:' + propSupportLibraryVersion
-
     force 'com.google.android.gms:play-services-location:17.0.0'
     force 'com.google.android.gms:play-services-analytics:17.0.0'
     force 'com.google.android.gms:play-services-plus:17.0.0'
@@ -148,11 +129,13 @@ configurations.all {
     force 'android.arch.core:common:1.1.1'
     force 'androidx.legacy:legacy-support-core-utils:1.0.0-rc01'
     force 'androidx.loader:loader:1.0.0-rc01'
-    force 'androidx.lifecycle:lifecycle-viewmodel:2.0.0-rc01'
-    force 'androidx.lifecycle:lifecycle-common:2.0.0-rc01'
+    force 'androidx.lifecycle:lifecycle-viewmodel:2.1.0'
+    force 'androidx.lifecycle:lifecycle-common:2.1.0'
     force 'androidx.arch.core:core-common:2.0.0-rc01'
     force 'androidx.arch.core:core-runtime:2.0.0-rc01'
-    force 'androidx.lifecycle:lifecycle-livedata-core:2.0.0-rc01'
+    force 'androidx.lifecycle:lifecycle-runtime:2.1.0'
+    force 'androidx.lifecycle:lifecycle-livedata-core:2.1.0'
+    force 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     force "org.jetbrains.kotlin:kotlin-stdlib:1.3.31"
     force "com.google.code.gson:gson:2.8.5"
     force "com.google.guava:guava:27.0.1-jre"
@@ -161,6 +144,18 @@ configurations.all {
     force "com.google.firebase:firebase-measurement-connector:18.0.0"
     force "com.google.firebase:firebase-iid-interop:17.0.0"
     force "com.google.firebase:firebase-common:19.3.0"
+    force "com.google.android.material:material:1.1.0"
+    force "androidx.constraintlayout:constraintlayout:1.1.3"
+    force "androidx.vectordrawable:vectordrawable:1.1.0"
+    force "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
+    force "androidx.collection:collection:1.1.0"
+    force "androidx.fragment:fragment:1.1.0"
+    force "androidx.preference:preference:1.1.0"
+    force "androidx.appcompat:appcompat:1.1.0"
+    force "androidx.annotation:annotation:1.1.0"
+    force "androidx.core:core:1.1.0"
+    force "androidx.versionedparcelable:versionedparcelable:1.1.0"
+    force "androidx.recyclerview:recyclerview:1.1.0"
 
     failOnVersionConflict();
   }

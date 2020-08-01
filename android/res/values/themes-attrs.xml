@@ -13,7 +13,6 @@
     <attr name="iconTint" format="color" />
     <attr name="iconTintDisabled" format="color" />
     <attr name="iconTintLight" format="color" />
-    <attr name="counterTextColor" format="color" />
     <attr name="zoomPlus" format="reference" />
     <attr name="zoomMinus" format="reference" />
     <attr name="ppBackground" format="color" />
