@@ -27,7 +27,7 @@ vector<uint8_t> CreateDataPacketImpl(Container const & points,
   case tracking::Protocol::PacketType::DataV1: version = 1; break;
   case tracking::Protocol::PacketType::Error:
   case tracking::Protocol::PacketType::AuthV0:
-    LOG(LERROR, ("Error creating DATA packet. PacketType =", type));
+    LOG(LERROR, ("Can't create a non-DATA packet as a DATA packet. PacketType =", type));
     return {};
   }
 
