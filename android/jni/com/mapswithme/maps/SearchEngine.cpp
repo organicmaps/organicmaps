@@ -547,7 +547,7 @@ public:
     {
       jobject jroom = env->GetObjectArrayElement(jrooms, static_cast<jsize>(i));
 
-      booking::OrderingParams::Room room;
+      auto & room = orderingParams.m_rooms[i];
       room.SetAdultsCount(static_cast<uint8_t>(env->GetIntField(jroom, m_roomAdultsCountId)));
 
       auto const childrenObject = env->GetObjectField(jroom, m_roomAgeOfChildrenId);
@@ -565,8 +565,6 @@ public:
         }
         room.SetAgeOfChildren(ageOfChildren);
       }
-
-      orderingParams.m_rooms[i] = move(room);
     }
     return result;
   }

@@ -379,10 +379,12 @@ string ApplyAvailabilityParamsDeep(string const & url, AvailabilityParams const 
 {
   auto p = params.Get(kAvailabilityParamsForDeepLink);
 
-  auto & orderingParams = params.m_orderingParams;
-  auto const sum = std::accumulate(
-      orderingParams.m_rooms.cbegin(), orderingParams.m_rooms.cend(), 0 /* sum start value */,
-      [](auto const s, auto const & room) { return s + room.GetAdultsCount(); });
+  auto & rooms = params.m_orderingParams.m_rooms;
+  uint32_t sum = 0;
+  for (auto const & room : rooms)
+  {
+    sum += room.GetAdultsCount();
+  }
 
   p.emplace_back("numberOfGuests", std::to_string(sum));
 

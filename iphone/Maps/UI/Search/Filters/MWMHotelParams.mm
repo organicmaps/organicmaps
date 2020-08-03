@@ -149,6 +149,7 @@ unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const &items)
     }
 
     std::vector<booking::OrderingParams::Room> filterRooms;
+    filterRooms.reserve(rooms.count);
     for (Room *room : rooms) {
       std::vector<int8_t> agesOfChildren(room.children, kAgeOfChild);
       agesOfChildren.insert(agesOfChildren.end(), room.infants, kAgeOfInfant);

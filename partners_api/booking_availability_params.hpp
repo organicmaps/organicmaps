@@ -34,7 +34,7 @@ struct AvailabilityParams : public ParamsBase
   /// specified guests and dates.
   Hotels m_hotelIds;
 
-  // Arrival/deparure dates and rooms.
+  // Check-in/check-out dates and rooms.
   // For detailed description see booking::OrderingParams declaration.
   OrderingParams m_orderingParams;
   /// Show only hotels with review_score >= that. min_review_score should be in the range 1 to 10.
