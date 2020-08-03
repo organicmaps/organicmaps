@@ -212,8 +212,10 @@ UNIT_TEST(XMLFeature_ForEachName)
       [&names](std::string const & lang, std::string const & name) { names.emplace(lang, name); });
 
   TEST_EQUAL(names,
-             (std::map<std::string, std::string>{
-                 {"default", "Gorki Park"}, {"en", "Gorki Park"}, {"ru", "Парк Горького"}}),
+             (std::map<std::string, std::string>{{"default", "Gorki Park"},
+                                                 {"en", "Gorki Park"},
+                                                 {"ru", "Парк Горького"},
+                                                 {"int_name", "Gorky Park"}}),
              ());
 }
 
