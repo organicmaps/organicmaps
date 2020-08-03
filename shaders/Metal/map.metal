@@ -756,16 +756,16 @@ fragment float4 fsMaskedTexturing(const MaskedTexturingFragment_T in [[stage_in]
 typedef struct
 {
   float3 a_position [[attribute(0)]];
-  float2 a_normal [[attribute(1)]];
+  float3 a_normalAndAnimateOrZ [[attribute(1)]];
   float4 a_texCoords [[attribute(2)]];
-  float4 a_colorAndAnimateOrZ [[attribute(3)]];
+  float4 a_color [[attribute(3)]];
 } UserMarkVertex_T;
 
 typedef struct
 {
   float4 position [[position]];
   float4 texCoords;
-  float3 maskColor;
+  float4 maskColor;
 } UserMarkFragment_T;
 
 typedef struct
@@ -779,8 +779,8 @@ vertex UserMarkFragment_T vsUserMark(const UserMarkVertex_T in [[stage_in]],
 {
   UserMarkFragment_T out;
   
-  float2 normal = in.a_normal;
-  if (in.a_colorAndAnimateOrZ.w > 0.0)
+  float2 normal = in.a_normalAndAnimateOrZ.xy;
+  if (in.a_normalAndAnimateOrZ.z > 0.0)
     normal = uniforms.u_interpolation * normal;
   
   float4 p = float4(in.a_position, 1.0) * uniforms.u_modelView;
@@ -788,10 +788,10 @@ vertex UserMarkFragment_T vsUserMark(const UserMarkVertex_T in [[stage_in]],
   float4 projectedPivot = p * uniforms.u_projection;
   out.position = ApplyPivotTransform(pos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
   float newZ = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
-  out.position.z = abs(in.a_colorAndAnimateOrZ.w) * newZ  + (1.0 - abs(in.a_colorAndAnimateOrZ.w)) * out.position.z;
+  out.position.z = abs(in.a_normalAndAnimateOrZ.z) * newZ  + (1.0 - abs(in.a_normalAndAnimateOrZ.z)) * out.position.z;
 
   out.texCoords = in.a_texCoords;
-  out.maskColor = in.a_colorAndAnimateOrZ.rgb;
+  out.maskColor = in.a_color;
   
   return out;
 }
@@ -801,8 +801,8 @@ vertex UserMarkFragment_T vsUserMarkBillboard(const UserMarkVertex_T in [[stage_
 {
   UserMarkFragment_T out;
   
-  float2 normal = in.a_normal;
-  if (in.a_colorAndAnimateOrZ.w > 0.0)
+  float2 normal = in.a_normalAndAnimateOrZ.xy;
+  if (in.a_normalAndAnimateOrZ.z > 0.0)
     normal = uniforms.u_interpolation * normal;
   
   float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
@@ -810,10 +810,10 @@ vertex UserMarkFragment_T vsUserMarkBillboard(const UserMarkVertex_T in [[stage_
   float4 projectedPivot = pivot * uniforms.u_projection;
   out.position = ApplyBillboardPivotTransform(projectedPivot, uniforms.u_pivotTransform, 0.0, offset.xy);
   float newZ = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
-  out.position.z = abs(in.a_colorAndAnimateOrZ.w) * newZ  + (1.0 - abs(in.a_colorAndAnimateOrZ.w)) * out.position.z;
+  out.position.z = abs(in.a_normalAndAnimateOrZ.z) * newZ  + (1.0 - abs(in.a_normalAndAnimateOrZ.z)) * out.position.z;
 
   out.texCoords = in.a_texCoords;
-  out.maskColor = in.a_colorAndAnimateOrZ.rgb;
+  out.maskColor = in.a_color;
   return out;
 }
 
@@ -825,9 +825,9 @@ fragment UserMarkOut_T fsUserMark(const UserMarkFragment_T in [[stage_in]],
   UserMarkOut_T out;
   
   float4 color = u_colorTex.sample(u_colorTexSampler, in.texCoords.xy);
-  float4 bgColor = u_colorTex.sample(u_colorTexSampler, in.texCoords.zw) * float4(in.maskColor, 1.0);
+  float4 bgColor = u_colorTex.sample(u_colorTexSampler, in.texCoords.zw) * float4(in.maskColor.xyz, 1.0);
   float4 finalColor = mix(color, mix(bgColor, color, color.a), bgColor.a);
-  finalColor.a = clamp(color.a + bgColor.a, 0.0, 1.0) * uniforms.u_opacity;
+  finalColor.a = clamp(color.a + bgColor.a, 0.0, 1.0) * uniforms.u_opacity * in.maskColor.w;
   if (finalColor.a < 0.001)
     out.depth = 1.0;
   else
