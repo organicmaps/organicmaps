@@ -88,7 +88,7 @@ def get_mwm_check_sets_and_filters(
     old_path: str, new_path: str, checks: Set[MwmsChecks] = None, **kwargs
 ) -> Mapping[check.Check, Callable]:
     def need_add(t: MwmsChecks):
-        return checks is not None and t in checks
+        return checks is None or t in checks
 
     m = {get_sections_existence_check_set(old_path, new_path): None}
 
@@ -104,7 +104,7 @@ def get_mwm_check_sets_and_filters(
         thresholds = make_tmap(low=(2 * mb, 10), medium=(mb, 5), hard=(0.5 * mb, 2))
         m[c] = make_default_filter(thresholds)
 
-    if need_add(MwmsChecks.type):
+    if need_add(MwmsChecks.types):
         c = get_mwm_types_check_set(old_path, new_path)
         thresholds = make_tmap(low=(500, 30), medium=(100, 20), hard=(100, 10))
         m[c] = make_default_filter(thresholds)

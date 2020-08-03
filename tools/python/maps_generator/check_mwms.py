@@ -50,7 +50,7 @@ def get_args():
 def main():
     args = get_args()
 
-    checks = {MwmsChecks[c] for c in args.checks} if args.checks is not None else None
+    checks = {MwmsChecks[c] for c in args.checks} if args.checks else None
     s = get_mwm_check_sets_and_filters(
         args.old, args.new, checks, categories_path=args.categories
     )
