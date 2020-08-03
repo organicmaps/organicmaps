@@ -53,6 +53,7 @@ public:
   {
     SymbolNameZoomInfo m_zoomInfo;
     std::optional<size_t> m_badgeTitleIndex;
+    std::string m_maskColor;
   };
 
   static float constexpr kInvalidDepth = dp::kMinDepth - 1.0;
@@ -90,6 +91,7 @@ public:
   virtual bool HasCreationAnimation() const = 0;
   virtual df::ColorConstant GetColorConstant() const = 0;
   virtual bool IsMarkAboveText() const = 0;
+  virtual float GetSymbolOpacity() const = 0;
 
 private:
   kml::MarkId m_id;

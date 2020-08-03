@@ -14,8 +14,6 @@
 
 namespace
 {
-df::ColorConstant const kPoiDeletedMaskColor = "PoiDeletedMask";
-
 using SV = gpu::SolidTexturingVertex;
 using MV = gpu::MaskedTexturingVertex;
 
@@ -187,17 +185,17 @@ void PoiSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batc
   glsl::vec4 const position = glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ);
   m2::PointF const pixelSize = region.GetPixelSize();
 
-  if (m_params.m_obsoleteInEditor)
+  if (m_params.m_maskColor.empty())
   {
-    dp::TextureManager::ColorRegion maskColorRegion;
-    textures->GetColorRegion(df::GetColorConstant(kPoiDeletedMaskColor), maskColorRegion);
-    Batch<MV>(context, batcher, CreateOverlayHandle(pixelSize), position, m_params,
-              region, maskColorRegion);
+    Batch<SV>(context, batcher, CreateOverlayHandle(pixelSize), position, m_params, region,
+              dp::TextureManager::ColorRegion());
   }
   else
   {
-    Batch<SV>(context, batcher, CreateOverlayHandle(pixelSize), position, m_params,
-              region, dp::TextureManager::ColorRegion());
+    dp::TextureManager::ColorRegion maskColorRegion;
+    textures->GetColorRegion(df::GetColorConstant(m_params.m_maskColor), maskColorRegion);
+    Batch<MV>(context, batcher, CreateOverlayHandle(pixelSize), position, m_params, region,
+              maskColorRegion);
   }
 }
 

@@ -52,6 +52,7 @@ double const kMinVisibleFontSize = 8.0;
 std::string const kStarSymbol = "★";
 std::string const kPriceSymbol = "$";
 
+df::ColorConstant const kPoiDeletedMaskColor = "PoiDeletedMask";
 df::ColorConstant const kPoiHotelTextOutlineColor = "PoiHotelTextOutline";
 df::ColorConstant const kRoadShieldBlackTextColor = "RoadShieldBlackText";
 df::ColorConstant const kRoadShieldWhiteTextColor = "RoadShieldWhiteText";
@@ -592,7 +593,8 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
     params.m_prioritized = m_createdByEditor;
-    params.m_obsoleteInEditor = m_obsoleteInEditor;
+    if (m_obsoleteInEditor)
+      params.m_maskColor = kPoiDeletedMaskColor;
     params.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
                                                            : SpecialDisplacement::None;
     params.m_specialPriority = specialModePriority;
@@ -1123,7 +1125,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     poiParams.m_posZ = 0.0f;
     poiParams.m_hasArea = false;
     poiParams.m_prioritized = false;
-    poiParams.m_obsoleteInEditor = false;
+    poiParams.m_maskColor.clear();
     poiParams.m_anchor = anchor;
     poiParams.m_offset = GetShieldOffset(anchor, 0.5, 0.5);
 

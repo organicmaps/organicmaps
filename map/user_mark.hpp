@@ -92,6 +92,7 @@ public:
   bool HasCreationAnimation() const override { return false; }
   df::ColorConstant GetColorConstant() const override { return {}; }
   bool IsMarkAboveText() const override { return false; }
+  float GetSymbolOpacity() const override { return 1.0f; }
 
   ms::LatLon GetLatLon() const;
 

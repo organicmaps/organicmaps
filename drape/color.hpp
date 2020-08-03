@@ -35,6 +35,8 @@ struct Color
                  static_cast<uint8_t>(base::Clamp(GetBlueF() * s, 0.0f, 1.0f) * 255.0f), GetAlpha());
   }
 
+  void PremultiplyAlpha(float opacity);
+
   static Color Black() { return Color(0, 0, 0, 255); }
   static Color White() { return Color(255, 255, 255, 255); }
   static Color Red() { return Color(255, 0, 0, 255); }

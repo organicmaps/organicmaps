@@ -81,13 +81,18 @@ TextLayout MakePrimaryTextLayout(dp::TitleDecl const & titleDecl,
 
 struct UserPointVertex : public gpu::BaseVertex
 {
+  using TNormalAndAnimateOrZ = glsl::vec3;
   using TTexCoord = glsl::vec4;
-  using TColorAndAnimate = glsl::vec4;
+  using TColor = glsl::vec4;
+  using TAnimateOrZ = float;
 
   UserPointVertex() = default;
-  UserPointVertex(TPosition const & pos, TNormal const & normal, TTexCoord const & texCoord,
-                  TColorAndAnimate const & colorAndAnimate)
-    : m_position(pos), m_normal(normal), m_texCoord(texCoord), m_colorAndAnimate(colorAndAnimate)
+  UserPointVertex(TPosition const & pos, TNormalAndAnimateOrZ const & normalAndAnimateOrZ,
+                  TTexCoord const & texCoord, TColor const & color)
+    : m_position(pos)
+    , m_normalAndAnimateOrZ(normalAndAnimateOrZ)
+    , m_texCoord(texCoord)
+    , m_color(color)
   {}
 
   static dp::BindingInfo GetBinding()
@@ -95,18 +100,18 @@ struct UserPointVertex : public gpu::BaseVertex
     dp::BindingInfo info(4);
     uint8_t offset = 0;
     offset += dp::FillDecl<TPosition, UserPointVertex>(0, "a_position", info, offset);
-    offset += dp::FillDecl<TNormal, UserPointVertex>(1, "a_normal", info, offset);
+    offset += dp::FillDecl<TNormalAndAnimateOrZ, UserPointVertex>(1, "a_normalAndAnimateOrZ", info,
+                                                                  offset);
     offset += dp::FillDecl<TTexCoord, UserPointVertex>(2, "a_texCoords", info, offset);
-    offset += dp::FillDecl<TColorAndAnimate, UserPointVertex>(3, "a_colorAndAnimateOrZ", info,
-                                                              offset);
+    offset += dp::FillDecl<TColor, UserPointVertex>(3, "a_color", info, offset);
 
     return info;
   }
 
   TPosition m_position;
-  TNormal m_normal;
+  TNormalAndAnimateOrZ m_normalAndAnimateOrZ;
   TTexCoord m_texCoord;
-  TColorAndAnimate m_colorAndAnimate;
+  TColor m_color;
 };
 
 std::string GetSymbolNameForZoomLevel(ref_ptr<UserPointMark::SymbolNameZoomInfo> symbolNames, TileKey const & tileKey)
@@ -229,29 +234,6 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
                             m2::PointF const & symbolOffset, dp::Batcher & batcher)
 {
   PoiSymbolViewParams params(renderInfo.m_featureId);
-  params.m_offset = symbolOffset;
-
-  if (renderInfo.m_badgeInfo != nullptr && renderInfo.m_badgeInfo->m_badgeTitleIndex)
-  {
-    size_t const badgeTitleIndex = *renderInfo.m_badgeInfo->m_badgeTitleIndex;
-    CHECK_LESS(badgeTitleIndex, renderInfo.m_titleDecl->size(), ());
-
-    dp::TitleDecl const & titleDecl = (*renderInfo.m_titleDecl)[badgeTitleIndex];
-    TextLayout textLayout = MakePrimaryTextLayout(titleDecl, textures);
-    float const textWidth = textLayout.GetPixelLength();
-
-    dp::TextureManager::SymbolRegion region;
-    textures->GetSymbolRegion(symbolName, region);
-    float const pixelHalfWidth = 0.5f * region.GetPixelSize().x;
-
-    float constexpr kBadgeSpecialMarginsAdjustmentMultplier = 4.0f;
-    float const badgeSpecialMarginsAdjustment =
-        kBadgeSpecialMarginsAdjustmentMultplier * titleDecl.m_primaryOffset.x;
-
-    params.m_pixelWidth = 3.0f * pixelHalfWidth + textWidth + badgeSpecialMarginsAdjustment;
-    params.m_offset.x += 0.5f * (pixelHalfWidth + textWidth + badgeSpecialMarginsAdjustment);
-  }
-
   params.m_tileCenter = tileCenter;
   params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
   params.m_depth = renderInfo.m_depth;
@@ -261,6 +243,32 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
   params.m_specialPriority = renderInfo.m_priority;
   params.m_symbolName = symbolName;
   params.m_anchor = renderInfo.m_anchor;
+  params.m_offset = symbolOffset;
+
+  if (renderInfo.m_badgeInfo)
+  {
+    params.m_maskColor = renderInfo.m_badgeInfo->m_maskColor;
+    if (renderInfo.m_badgeInfo->m_badgeTitleIndex)
+    {
+      size_t const badgeTitleIndex = *renderInfo.m_badgeInfo->m_badgeTitleIndex;
+      CHECK_LESS(badgeTitleIndex, renderInfo.m_titleDecl->size(), ());
+
+      dp::TitleDecl const & titleDecl = (*renderInfo.m_titleDecl)[badgeTitleIndex];
+      TextLayout textLayout = MakePrimaryTextLayout(titleDecl, textures);
+      float const textWidth = textLayout.GetPixelLength();
+
+      dp::TextureManager::SymbolRegion region;
+      textures->GetSymbolRegion(symbolName, region);
+      float const pixelHalfWidth = 0.5f * region.GetPixelSize().x;
+
+      float constexpr kBadgeSpecialMarginsAdjustmentMultplier = 4.0f;
+      float const badgeSpecialMarginsAdjustment =
+          kBadgeSpecialMarginsAdjustmentMultplier * titleDecl.m_primaryOffset.x;
+
+      params.m_pixelWidth = 3.0f * pixelHalfWidth + textWidth + badgeSpecialMarginsAdjustment;
+      params.m_offset.x += 0.5f * (pixelHalfWidth + textWidth + badgeSpecialMarginsAdjustment);
+    }
+  }
 
   bool const hasColoredOverlay = renderInfo.m_coloredSymbols != nullptr && renderInfo.m_coloredSymbols->m_needOverlay;
   params.m_startOverlayRank = hasColoredOverlay ? dp::OverlayRank1 : dp::OverlayRank0;
@@ -298,9 +306,9 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Textur
     params.m_titleDecl.m_secondaryOffset *= vs;
     bool const isSdf = df::VisualParams::Instance().IsSdfPrefered();
     params.m_titleDecl.m_primaryTextFont.m_isSdf =
-      params.m_titleDecl.m_primaryTextFont.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
+        params.m_titleDecl.m_primaryTextFont.m_outlineColor != dp::Color::Transparent() || isSdf;
     params.m_titleDecl.m_secondaryTextFont.m_isSdf =
-      params.m_titleDecl.m_secondaryTextFont.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
+        params.m_titleDecl.m_secondaryTextFont.m_outlineColor != dp::Color::Transparent() || isSdf;
 
     params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
     params.m_depth = renderInfo.m_depth;
@@ -456,27 +464,28 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         if (!renderInfo.m_color.empty())
           color = df::GetColorConstant(renderInfo.m_color);
 
-        glsl::vec4 colorAndAnimate(color.GetRedF(), color.GetGreenF(), color.GetBlueF(),
-                                   runAnim ? 1.0f : -1.0f);
-        if (renderInfo.m_customDepth)
-          colorAndAnimate.w = 0.0f;
+        glsl::vec4 maskColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(),
+                             renderInfo.m_symbolOpacity);
+        float animateOrZ = 0.0f;
+        if (!renderInfo.m_customDepth)
+          animateOrZ = runAnim ? 1.0f : -1.0f;
 
-        buffer.emplace_back(pos, left + down + offset,
-                            glsl::ToVec4(m2::PointD(texRect.LeftTop()),
-                                         m2::PointD(bgTexRect.LeftTop())),
-                            colorAndAnimate);
-        buffer.emplace_back(pos, left + up + offset,
-                            glsl::ToVec4(m2::PointD(texRect.LeftBottom()),
-                                         m2::PointD(bgTexRect.LeftBottom())),
-                            colorAndAnimate);
-        buffer.emplace_back(pos, right + down + offset,
-                            glsl::ToVec4(m2::PointD(texRect.RightTop()),
-                                         m2::PointD(bgTexRect.RightTop())),
-                            colorAndAnimate);
-        buffer.emplace_back(pos, right + up + offset,
-                            glsl::ToVec4(m2::PointD(texRect.RightBottom()),
-                                         m2::PointD(bgTexRect.RightBottom())),
-                            colorAndAnimate);
+        buffer.emplace_back(
+            pos, glsl::vec3(left + down + offset, animateOrZ),
+            glsl::ToVec4(m2::PointD(texRect.LeftTop()), m2::PointD(bgTexRect.LeftTop())),
+            maskColor);
+        buffer.emplace_back(
+            pos, glsl::vec3(left + up + offset, animateOrZ),
+            glsl::ToVec4(m2::PointD(texRect.LeftBottom()), m2::PointD(bgTexRect.LeftBottom())),
+            maskColor);
+        buffer.emplace_back(
+            pos, glsl::vec3(right + down + offset, animateOrZ),
+            glsl::ToVec4(m2::PointD(texRect.RightTop()), m2::PointD(bgTexRect.RightTop())),
+            maskColor);
+        buffer.emplace_back(
+            pos, glsl::vec3(right + up + offset, animateOrZ),
+            glsl::ToVec4(m2::PointD(texRect.RightBottom()), m2::PointD(bgTexRect.RightBottom())),
+            maskColor);
 
         gpu::Program program;
         gpu::Program program3d;

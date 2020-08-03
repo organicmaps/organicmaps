@@ -62,6 +62,10 @@ enum class SearchMarkType
 static_assert(static_cast<uint32_t>(SearchMarkType::Count) <= std::numeric_limits<uint8_t>::max(),
               "Change SearchMarkPoint::m_type type.");
 
+df::ColorConstant const kPoiVisitedMaskColor = "PoiVisitedMask";
+
+float const kVisitedSymbolOpacity = 0.7f;
+
 SearchMarkType SMT(uint8_t type)
 {
   return static_cast<SearchMarkType>(type);
@@ -320,6 +324,8 @@ drape_ptr<df::UserPointMark::BageInfo> SearchMarkPoint::GetBadgeInfo() const
   if (IsBookingSpecialMark() && (HasPrice() || HasPricing()))
   {
     auto badgeInfo = make_unique_dp<BageInfo>();
+    if (m_isVisited)
+      badgeInfo->m_maskColor = kPoiVisitedMaskColor;
     badgeInfo->m_badgeTitleIndex = 1;
     if (HasGoodRating())
       badgeInfo->m_zoomInfo.emplace(GetGoodRatingZoomLevel(), badgeName);
@@ -366,6 +372,11 @@ drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() 
 bool SearchMarkPoint::IsMarkAboveText() const
 {
   return !IsBookingSpecialMark();
+}
+
+float SearchMarkPoint::GetSymbolOpacity() const
+{
+  return m_isVisited ? kVisitedSymbolOpacity : 1.0f;
 }
 
 df::ColorConstant SearchMarkPoint::GetColorConstant() const
@@ -418,15 +429,15 @@ drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
     {
       if (HasPrice())
       {
-        dp::TitleDecl badgeTitleDecl = m_badgeTitleDecl;
+        dp::TitleDecl & badgeTitleDecl = titles->emplace_back(m_badgeTitleDecl);
         badgeTitleDecl.m_primaryText = m_price;
-        titles->push_back(badgeTitleDecl);
+        badgeTitleDecl.m_primaryTextFont.m_color.PremultiplyAlpha(GetSymbolOpacity());
       }
       else if (HasPricing())
       {
-        dp::TitleDecl badgeTitleDecl = m_badgeTitleDecl;
+        dp::TitleDecl & badgeTitleDecl = titles->emplace_back(m_badgeTitleDecl);
         badgeTitleDecl.m_primaryText.assign(static_cast<size_t>(m_pricing), '$');
-        titles->push_back(badgeTitleDecl);
+        badgeTitleDecl.m_primaryTextFont.m_color.PremultiplyAlpha(GetSymbolOpacity());
       }
     }
   }

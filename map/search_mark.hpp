@@ -34,6 +34,7 @@ public:
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
   bool GetDepthTestEnabled() const override { return false; }
   bool IsMarkAboveText() const override;
+  float GetSymbolOpacity() const override;
 
   FeatureID GetFeatureID() const override { return m_featureID; }
   void SetFoundFeature(FeatureID const & feature);

@@ -1,5 +1,7 @@
 #include "drape/color.hpp"
 
+#include <algorithm>
+
 namespace dp
 {
 
@@ -64,6 +66,13 @@ float Color::GetBlueF() const
 float Color::GetAlphaF() const
 {
   return CHANNEL_TO_FLOAT(GetAlpha());
+}
+
+void Color::PremultiplyAlpha(float opacity)
+{
+  float const newAlpha =
+      std::clamp<float>(GetAlpha() * opacity, 0.0f, static_cast<float>(MaxChannelValue));
+  m_rgba = GetRed() << 24 | GetGreen() << 16 | GetBlue() << 8 | static_cast<uint8_t>(newAlpha);
 }
 
 uint8_t ExtractRed(uint32_t argb)
