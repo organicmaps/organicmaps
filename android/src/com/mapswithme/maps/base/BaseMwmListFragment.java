@@ -30,7 +30,7 @@ public abstract class BaseMwmListFragment extends ListFragment
     mToolbar = view.findViewById(R.id.toolbar);
     if (mToolbar != null)
     {
-      UiUtils.setupNavigationUpListener(mToolbar, v -> Utils.navigateToParent(getActivity()));
+      UiUtils.setupNavigationIcon(mToolbar, v -> Utils.navigateToParent(getActivity()));
     }
   }
 

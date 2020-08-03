@@ -476,8 +476,8 @@ public final class UiUtils
     window.setStatusBarColor(ContextCompat.getColor(activity, statusBarColor));
   }
 
-  public static void setupNavigationUpListener(@NonNull Toolbar toolbar,
-                                               @NonNull View.OnClickListener listener)
+  public static void setupNavigationIcon(@NonNull Toolbar toolbar,
+                                         @NonNull View.OnClickListener listener)
   {
     View customNavigationButton = toolbar.findViewById(R.id.back);
     if (customNavigationButton != null)

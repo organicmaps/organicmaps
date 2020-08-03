@@ -29,7 +29,7 @@ public class ToolbarController
 
     if (useExtendedToolbar())
       UiUtils.extendViewWithStatusBar(getToolbar());
-    UiUtils.setupNavigationUpListener(mToolbar, mNavigationClickListener);
+    UiUtils.setupNavigationIcon(mToolbar, mNavigationClickListener);
     setSupportActionBar();
   }
 

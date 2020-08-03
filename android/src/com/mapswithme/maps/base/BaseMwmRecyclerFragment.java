@@ -74,7 +74,7 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
 
     mToolbar = view.findViewById(R.id.toolbar);
     if (mToolbar != null)
-      UiUtils.setupNavigationUpListener(mToolbar, mNavigationClickListener);
+      UiUtils.setupNavigationIcon(mToolbar, mNavigationClickListener);
 
     mRecycler = view.findViewById(R.id.recycler);
     if (mRecycler == null)
