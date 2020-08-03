@@ -41979,6 +41979,10 @@ colors {
     color: 11053224
   }
   value {
+    name: "PoiVisitedMask"
+    color: 1308622847
+  }
+  value {
     name: "RouteArrowsMaskBicycle"
     color: 3432785840
   }
