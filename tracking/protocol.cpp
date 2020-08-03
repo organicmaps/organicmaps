@@ -23,10 +23,12 @@ vector<uint8_t> CreateDataPacketImpl(Container const & points,
   uint32_t version = tracking::Protocol::Encoder::kLatestVersion;
   switch (type)
   {
-  case tracking::Protocol::PacketType::Error: ASSERT(false, ("Error DATA packet.")); return {};
   case tracking::Protocol::PacketType::DataV0: version = 0; break;
   case tracking::Protocol::PacketType::DataV1: version = 1; break;
-  case tracking::Protocol::PacketType::AuthV0: ASSERT(false, ("Not a DATA packet.")); break;
+  case tracking::Protocol::PacketType::Error:
+  case tracking::Protocol::PacketType::AuthV0:
+    LOG(LERROR, ("Error creating DATA packet. PacketType =", type));
+    return {};
   }
 
   tracking::Protocol::Encoder::SerializeDataPoints(version, writer, points);
@@ -97,10 +99,12 @@ string Protocol::DecodeAuthPacket(Protocol::PacketType type, vector<uint8_t> con
 {
   switch (type)
   {
-  case Protocol::PacketType::Error: ASSERT(false, ("Error AUTH packet.")); break;
   case Protocol::PacketType::AuthV0: return string(begin(data), end(data));
+  case Protocol::PacketType::Error:
   case Protocol::PacketType::DataV0:
-  case Protocol::PacketType::DataV1: ASSERT(false, ("Not an AUTH packet.")); break;
+  case Protocol::PacketType::DataV1:
+    LOG(LERROR, ("Error decoding AUTH packet. PacketType =", type));
+    break;
   }
   return string();
 }
@@ -115,14 +119,16 @@ Protocol::DataElementsVec Protocol::DecodeDataPacket(PacketType type, vector<uin
   {
     switch (type)
     {
-    case Protocol::PacketType::Error: ASSERT(false, ("Error DATA packet.")); return {};
     case Protocol::PacketType::DataV0:
       Encoder::DeserializeDataPoints(0 /* version */, src, points);
       break;
     case Protocol::PacketType::DataV1:
       Encoder::DeserializeDataPoints(1 /* version */, src, points);
       break;
-    case Protocol::PacketType::AuthV0: ASSERT(false, ("Not a DATA packet.")); break;
+    case Protocol::PacketType::Error:
+    case Protocol::PacketType::AuthV0:
+      LOG(LERROR, ("Error decoding DATA packet. PacketType =", type));
+      return {};
     }
     return points;
   }
