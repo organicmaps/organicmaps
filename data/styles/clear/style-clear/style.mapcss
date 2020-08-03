@@ -83,6 +83,8 @@ colors
   PoiHotelTextOutline-opacity: 0.6;
   PoiDeletedMask-color: #FFFFFF;
   PoiDeletedMask-opacity: 0.3;
+  PoiVisitedMask-color: #FFFFFF;
+  PoiVisitedMask-opacity: 0.7;
   DefaultTrackColor-color: #1E96F0;
   RouteMarkPrimaryText-color: #000000;
   RouteMarkPrimaryTextOutline-color: #FFFFFF;
