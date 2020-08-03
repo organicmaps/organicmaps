@@ -52,6 +52,7 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
       testSocket.WriteServer(tracking::Protocol::kOk);
       break;
     }
+    case Packet::Error:
     case Packet::DataV0:
     case Packet::DataV1:
     {
