@@ -231,7 +231,7 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
   PoiSymbolViewParams params(renderInfo.m_featureId);
   params.m_offset = symbolOffset;
 
-  if (renderInfo.m_badgeInfo->m_badgeTitleIndex)
+  if (renderInfo.m_badgeInfo != nullptr && renderInfo.m_badgeInfo->m_badgeTitleIndex)
   {
     size_t const badgeTitleIndex = *renderInfo.m_badgeInfo->m_badgeTitleIndex;
     CHECK_LESS(badgeTitleIndex, renderInfo.m_titleDecl->size(), ());
