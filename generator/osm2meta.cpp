@@ -97,8 +97,10 @@ string MetadataTagProcessorImpl::ValidateAndFormat_operator(string const & v) co
 {
   auto const & isATM = ftypes::IsATMChecker::Instance();
   auto const & isFuelStation = ftypes::IsFuelStationChecker::Instance();
+  auto const & isRecyclingCentre = ftypes::IsRecyclingCentreChecker::Instance();
 
-  if (!(isATM(m_params.m_types) || isFuelStation(m_params.m_types)))
+  auto const & t = m_params.m_types;
+  if (!isATM(t) && !isFuelStation(t) && !isRecyclingCentre(t))
     return string();
 
   return v;
