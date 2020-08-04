@@ -1,7 +1,7 @@
 @class MWMAlertViewController;
 @interface MWMAlert : UIView
 
-@property(weak, nonatomic) MWMAlertViewController * alertController;
+@property(weak, nonatomic) MWMAlertViewController *alertController;
 
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)locationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock;
@@ -19,11 +19,9 @@
 + (MWMAlert *)invalidUserNameOrPasswordAlert;
 + (MWMAlert *)point2PointAlertWithOkBlock:(MWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
 + (MWMAlert *)disableAutoDownloadAlertWithOkBlock:(MWMVoidBlock)okBlock;
-+ (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(MWMVoidBlock)okBlock
-                                         cancelBlock:(MWMVoidBlock)cancelBlock;
++ (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock;
 + (MWMAlert *)downloaderNotEnoughSpaceAlert;
-+ (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(MWMVoidBlock)okBlock
-                                          cancelBlock:(MWMVoidBlock)cancelBlock;
++ (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock;
 + (MWMAlert *)downloaderNeedUpdateAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (MWMAlert *)placeDoesntExistAlertWithBlock:(MWMStringBlock)block;
 + (MWMAlert *)resetChangesAlertWithBlock:(MWMVoidBlock)block;

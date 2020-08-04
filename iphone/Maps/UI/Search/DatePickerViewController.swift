@@ -1,8 +1,8 @@
-import UIKit
 import DatePicker
+import UIKit
 
 @objc protocol DatePickerViewControllerDelegate: AnyObject {
-  func datePicker(_ datePicker: DatePickerViewController, didSelectStartDate startDate:Date, endDate:Date)
+  func datePicker(_ datePicker: DatePickerViewController, didSelectStartDate startDate: Date, endDate: Date)
   func datePickerDidClick(_ datePicker: DatePickerViewController, didSelectStartDate startDate: Date?, endDate: Date?)
   func datePickerDidCancel(_ datePicker: DatePickerViewController)
 }
@@ -34,12 +34,12 @@ import DatePicker
 
   override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
     get { return transitioning }
-    set { }
+    set {}
   }
 
   override var modalPresentationStyle: UIModalPresentationStyle {
     get { return alternativeSizeClass(iPhone: .custom, iPad: .popover) }
-    set { }
+    set {}
   }
 
   @IBAction func onDone(_ sender: UIButton) {
@@ -64,7 +64,7 @@ extension DatePickerViewController: DatePickerViewDelegate {
       }
       delegate?.datePickerDidClick(self, didSelectStartDate: view.startDate, endDate: view.endDate)
     }
-    
+
     guard let startDate = view.startDate else {
       view.startDate = date
       startDateLabel.text = dateFormatter.string(from: date).capitalized

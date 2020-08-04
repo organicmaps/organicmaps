@@ -274,10 +274,10 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   [MWMSearch manager].filter = params;
   [[MWMSearch manager] update];
 
-  std::string priceCategory = strings::JoinAny(params.price, ',', [](auto const & item) {
+  std::string priceCategory = strings::JoinAny(params.price, ',', [](auto const &item) {
     return std::to_string(static_cast<int>(item));
   });
-  std::string types = strings::JoinAny(params.types, ',', [](auto const & item) {
+  std::string types = strings::JoinAny(params.types, ',', [](auto const &item) {
     return std::to_string(static_cast<int>(item));
   });
 

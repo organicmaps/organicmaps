@@ -42,12 +42,12 @@
 
   override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
     get { return transitioning }
-    set { }
+    set {}
   }
 
   override var modalPresentationStyle: UIModalPresentationStyle {
     get { return alternativeSizeClass(iPhone: .custom, iPad: .popover) }
-    set { }
+    set {}
   }
 
   @IBAction func onDone(_ sender: UIButton) {

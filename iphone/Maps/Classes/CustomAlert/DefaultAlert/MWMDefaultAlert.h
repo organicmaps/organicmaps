@@ -25,11 +25,9 @@
 + (instancetype)locationServiceNotSupportedAlert;
 + (instancetype)point2PointAlertWithOkBlock:(MWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
 + (instancetype)disableAutoDownloadAlertWithOkBlock:(MWMVoidBlock)okBlock;
-+ (instancetype)downloaderNoConnectionAlertWithOkBlock:(MWMVoidBlock)okBlock
-                                           cancelBlock:(MWMVoidBlock)cancelBlock;
++ (instancetype)downloaderNoConnectionAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock;
 + (instancetype)downloaderNotEnoughSpaceAlert;
-+ (instancetype)downloaderInternalErrorAlertWithOkBlock:(MWMVoidBlock)okBlock
-                                            cancelBlock:(MWMVoidBlock)cancelBlock;
++ (instancetype)downloaderInternalErrorAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock;
 + (instancetype)downloaderNeedUpdateAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (instancetype)resetChangesAlertWithBlock:(MWMVoidBlock)block;
 + (instancetype)deleteFeatureAlertWithBlock:(MWMVoidBlock)block;

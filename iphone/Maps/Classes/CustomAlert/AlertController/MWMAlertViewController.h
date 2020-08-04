@@ -1,17 +1,16 @@
 #import "MWMAlert.h"
-#import "MWMViewController.h"
 #import "MWMMobileInternetAlert.h"
+#import "MWMViewController.h"
 
 @interface MWMAlertViewController : MWMViewController
 
 + (nonnull MWMAlertViewController *)activeAlertController;
 
-@property(weak, nonatomic, readonly) UIViewController * _Null_unspecified ownerViewController;
+@property(weak, nonatomic, readonly) UIViewController *_Null_unspecified ownerViewController;
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
 - (void)presentRateAlert;
-- (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
-                             needToRebuild:(BOOL)needToRebuild;
+- (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
 - (void)presentRoutingDisclaimerAlertWithOkBlock:(nonnull nonnull MWMVoidBlock)block;
 - (void)presentDisabledLocationAlert;
 - (void)presentLocationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock;
@@ -65,14 +64,13 @@
                      leftButtonTitle:(nullable NSString *)leftButtonTitle
                    rightButtonAction:(nullable MWMVoidBlock)action;
 
-
 - (void)closeAlert:(nullable MWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));
-+ (nonnull instancetype) new __attribute__((unavailable("call -initWithViewController: instead!")));
++ (nonnull instancetype)new __attribute__((unavailable("call -initWithViewController: instead!")));
 - (nonnull instancetype)initWithCoder:(nonnull NSCoder *)aDecoder
-    __attribute__((unavailable("call -initWithViewController: instead!")));
+  __attribute__((unavailable("call -initWithViewController: instead!")));
 - (nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil
                                  bundle:(nullable NSBundle *)nibBundleOrNil
-    __attribute__((unavailable("call -initWithViewController: instead!")));
+  __attribute__((unavailable("call -initWithViewController: instead!")));
 @end

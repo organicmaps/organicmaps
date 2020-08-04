@@ -475,8 +475,7 @@ using Observers = NSHashTable<Observer>;
                                                                     kStatSearchRooms: @(rooms),
                                                                     kStatSearchAdults: @(adults),
                                                                     kStatSearchChildren: @(children),
-                                                                    kStatSearchInfants: @(infants)
-  }];
+                                                                    kStatSearchInfants: @(infants)}];
 }
 
 - (void)guestsPickerDidCancel:(GuestsPickerViewController *)guestsPicker {
