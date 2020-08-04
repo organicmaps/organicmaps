@@ -2167,8 +2167,8 @@
   el = Βολιβία – Βορράς
   sk = Bolívia – Sever
   sw = Bolivia – Kaskazini
-  zh-Hans = 保加利亚 - 东
-  zh-Hant = 保加利亞 - 東
+  zh-Hans = 玻利维亚 - 北
+  zh-Hant = 玻利維亞 - 北
   fa = شمال بولیوی
 
 [Bolivia_South]
@@ -2201,8 +2201,8 @@
   el = Βολιβία – Νότος
   sk = Bolívia – Juh
   sw = Bolivia – Kusini
-  zh-Hans = 保加利亚 - 西
-  zh-Hant = 保加利亞 - 西
+  zh-Hans = 玻利维亚 - 南
+  zh-Hant = 玻利維亞 - 南
   fa = جنوب بولیوی
 
 [Bosnia and Herzegovina]
