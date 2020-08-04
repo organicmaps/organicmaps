@@ -84,6 +84,26 @@ public:
   DECLARE_CHECKER_INSTANCE(IsFuelStationChecker);
 };
 
+class IsRecyclingCentreChecker : public BaseChecker
+{
+  IsRecyclingCentreChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsRecyclingCentreChecker);
+
+  uint32_t GetType() const;
+};
+
+class IsRecyclingContainerChecker : public BaseChecker
+{
+  IsRecyclingContainerChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsRecyclingContainerChecker);
+
+  uint32_t GetType() const;
+};
+
 class IsRailwayStationChecker : public BaseChecker
 {
   IsRailwayStationChecker();

@@ -487,6 +487,22 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
       if (ftypes::IsCuisineChecker::Instance()(type))
         continue;
 
+      if (ftypes::IsRecyclingTypeChecker::Instance()(type))
+        continue;
+
+      if (ftypes::IsRecyclingCentreChecker::Instance()(type))
+      {
+        toFeature.SetTagValue("amenity", "recycling");
+        toFeature.SetTagValue("recycling_type", "centre");
+        continue;
+      }
+      if (ftypes::IsRecyclingContainerChecker::Instance()(type))
+      {
+        toFeature.SetTagValue("amenity", "recycling");
+        toFeature.SetTagValue("recycling_type", "container");
+        continue;
+      }
+
       string const strType = classif().GetReadableObjectName(type);
       strings::SimpleTokenizer iter(strType, "-");
       string const k = *iter;
@@ -543,18 +559,31 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
   }
 
   feature::TypesHolder types = object.GetTypes();
-  xml.ForEachTag([&object, &types](string const & k, string const & v) {
+
+  Classificator const & cl = classif();
+  xml.ForEachTag([&](string const & k, string const & v) {
     if (object.UpdateMetadataValue(k, v))
       return;
 
     if (k == "cuisine")
       return;
 
-    // Simple heuristics. It works if all our supported types for
-    // new features at data/editor.config
-    // are of one or two levels nesting (currently it's true).
-    Classificator & cl = classif();
-    uint32_t type = cl.GetTypeByPathSafe({k, v});
+    if (k == "recycling" || k == "recycling_type")
+      return;
+
+    uint32_t type = 0;
+    if (k == "amenity" && v == "recycling")
+    {
+      if (xml.HasTag("recycling_type") && xml.GetTagValue("recycling_type") == "centre")
+        type = ftypes::IsRecyclingCentreChecker::Instance().GetType();
+      else
+        type = ftypes::IsRecyclingContainerChecker::Instance().GetType();
+    }
+
+    // Simple heuristics. It works for types converted from osm with short mapcss rules
+    // where k=v from osm is converted to our k-v type (amenity=restaurant, shop=convenience etc.).
+    if (type == 0)
+      type = cl.GetTypeByPathSafe({k, v});
     if (type == 0)
       type = cl.GetTypeByPathSafe({k});  // building etc.
     if (type == 0)

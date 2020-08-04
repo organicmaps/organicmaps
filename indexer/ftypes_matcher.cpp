@@ -208,6 +208,22 @@ IsFuelStationChecker::IsFuelStationChecker()
   m_types.push_back(c.GetTypeByPath({"amenity", "fuel"}));
 }
 
+IsRecyclingCentreChecker::IsRecyclingCentreChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "recycling"}));
+}
+
+uint32_t IsRecyclingCentreChecker::GetType() const { return m_types[0]; }
+
+IsRecyclingContainerChecker::IsRecyclingContainerChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "recycling_container"}));
+}
+
+uint32_t IsRecyclingContainerChecker::GetType() const { return m_types[0]; }
+
 IsRailwayStationChecker::IsRailwayStationChecker()
 {
   Classificator const & c = classif();

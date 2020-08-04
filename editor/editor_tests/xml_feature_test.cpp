@@ -387,3 +387,80 @@ UNIT_TEST(XMLFeature_FromXMLAndBackToXML)
   fromFtWithoutType.SetAttribute("timestamp", kTimestamp);
   TEST_EQUAL(fromFtWithoutType, xmlNoType, ());
 }
+
+UNIT_TEST(XMLFeature_AmenityRecyclingFromAndToXml)
+{
+  classificator::Load();
+  {
+    std::string const recyclingCentreStr = R"(<?xml version="1.0"?>
+    <node lat="55.8047445" lon="37.5865532" timestamp="2018-07-11T13:24:41Z">
+    <tag k="amenity" v="recycling" />
+    <tag k="recycling_type" v="centre" />
+    </node>
+    )";
+
+    char const kTimestamp[] = "2018-07-11T13:24:41Z";
+
+    editor::XMLFeature xmlFeature(recyclingCentreStr);
+
+    osm::EditableMapObject emo;
+    editor::FromXML(xmlFeature, emo);
+
+    auto const th = emo.GetTypes();
+    TEST_EQUAL(th.Size(), 1, ());
+    TEST_EQUAL(*th.begin(), classif().GetTypeByPath({"amenity", "recycling"}), ());
+
+    auto convertedFt = editor::ToXML(emo, true);
+    convertedFt.SetAttribute("timestamp", kTimestamp);
+    TEST_EQUAL(xmlFeature, convertedFt, ());
+  }
+  {
+    std::string const recyclingContainerStr = R"(<?xml version="1.0"?>
+    <node lat="55.8047445" lon="37.5865532" timestamp="2018-07-11T13:24:41Z">
+    <tag k="amenity" v="recycling" />
+    <tag k="recycling_type" v="container" />
+    </node>
+    )";
+
+    char const kTimestamp[] = "2018-07-11T13:24:41Z";
+
+    editor::XMLFeature xmlFeature(recyclingContainerStr);
+
+    osm::EditableMapObject emo;
+    editor::FromXML(xmlFeature, emo);
+
+    auto const th = emo.GetTypes();
+    TEST_EQUAL(th.Size(), 1, ());
+    TEST_EQUAL(*th.begin(), classif().GetTypeByPath({"amenity", "recycling_container"}), ());
+
+    auto convertedFt = editor::ToXML(emo, true);
+    convertedFt.SetAttribute("timestamp", kTimestamp);
+    TEST_EQUAL(xmlFeature, convertedFt, ());
+  }
+  {
+    std::string const recyclingStr = R"(<?xml version="1.0"?>
+    <node lat="55.8047445" lon="37.5865532" timestamp="2018-07-11T13:24:41Z">
+    <tag k="amenity" v="recycling" />
+    </node>
+    )";
+
+    editor::XMLFeature xmlFeature(recyclingStr);
+
+    osm::EditableMapObject emo;
+    editor::FromXML(xmlFeature, emo);
+
+    auto const th = emo.GetTypes();
+    TEST_EQUAL(th.Size(), 1, ());
+    // We construct recycling container by default if no recycling type is specified.
+    TEST_EQUAL(*th.begin(), classif().GetTypeByPath({"amenity", "recycling_container"}), ());
+
+    auto convertedFt = editor::ToXML(emo, true);
+
+    // We save recycling container with "recycling_type"="container" tag.
+    TEST(convertedFt.HasTag("recycling_type"), ());
+    TEST_EQUAL(convertedFt.GetTagValue("recycling_type"), "container", ());
+
+    TEST(convertedFt.HasTag("amenity"), ());
+    TEST_EQUAL(convertedFt.GetTagValue("amenity"), "recycling", ());
+  }
+}
