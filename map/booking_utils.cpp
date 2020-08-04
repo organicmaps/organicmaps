@@ -25,10 +25,12 @@ void SortTransform(search::Results const & results, std::vector<Extras> const & 
     CHECK_EQUAL(results.GetCount(), extras.size(), ());
 
     std::vector<std::pair<FeatureID, std::string>> featuresWithPrices;
-    featuresWithPrices.reserve(results.GetCount());
     PriceFormatter formatter;
     for (size_t i = 0; i < results.GetCount(); ++i)
     {
+      if (results[i].IsRefusedByFilter())
+        continue;
+
       auto priceFormatted = formatter.Format(extras[i].m_price, extras[i].m_currency);
       featuresWithPrices.emplace_back(results[i].GetFeatureID(), std::move(priceFormatted));
     }
@@ -180,18 +182,19 @@ filter::TasksRawInternal MakeInternalTasks(std::vector<FeatureID> const & featur
           if (sortedFeatures.empty())
             return;
 
-          std::vector<std::string> orderedPrices;
-          orderedPrices.reserve(extras.size());
-          PriceFormatter formatter;
-          for (size_t i = 0; i < extras.size(); ++i)
-            orderedPrices.emplace_back(formatter.Format(extras[i].m_price, extras[i].m_currency));
+          CHECK_EQUAL(sortedFeatures.size(), extras.size(), ());
 
+          PriceFormatter formatter;
           std::vector<FeatureID> sortedAvailable;
-          for (auto & id : sortedFeatures)
+          std::vector<std::string> orderedPrices;
+          for (size_t i = 0; i < sortedFeatures.size(); ++i)
           {
             // Some hotels might be unavailable by offline filter.
-            if (!searchMarks.IsUnavailable(id))
-              sortedAvailable.emplace_back(std::move(id));
+            if (searchMarks.IsUnavailable(sortedFeatures[i]))
+              continue;
+
+            sortedAvailable.emplace_back(std::move(sortedFeatures[i]));
+            orderedPrices.emplace_back(formatter.Format(extras[i].m_price, extras[i].m_currency));
           }
 
           GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedAvailable,

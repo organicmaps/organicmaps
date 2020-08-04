@@ -3970,9 +3970,12 @@ void Framework::ShowViewportSearchResults(search::Results const & results, bool 
           mark.SetSale(found);
           break;
         case Type::Availability:
-          mark.SetPreparing(!found);
+          // Some hotels might be unavailable by offline filters.
+          auto const isAvailable = found && !m_searchMarks.IsUnavailable(id);
 
-          if (found && !filterResult.m_extras.empty())
+          mark.SetPreparing(!isAvailable);
+
+          if (isAvailable && !filterResult.m_extras.empty())
           {
             auto const index = distance(features.cbegin(), it);
             auto price = formatter.Format(filterResult.m_extras[index].m_price,

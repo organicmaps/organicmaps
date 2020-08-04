@@ -63,8 +63,7 @@ using HotelToFeatureIds = HotelsMapping<FeatureID>;
 
 bool IsConformToFilter(search::Result const & r)
 {
- return r.m_details.m_isSponsoredHotel && r.GetResultType() == search::Result::Type::Feature &&
-        !r.IsRefusedByFilter();
+  return r.m_details.m_isSponsoredHotel && r.GetResultType() == search::Result::Type::Feature;
 }
 
 template <typename T>
