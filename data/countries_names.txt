@@ -2141,7 +2141,7 @@
   en = Bolivia – North
   ru = Боливия – Север
   ar = بوليفيا – الشمال
-  cs = Bolívie – sever
+  cs = Bolívie – Sever
   da = Bolivia – Nord
   nl = Bolivia – Noord
   fi = Bolivia – Maan pohjoisosa
@@ -2157,9 +2157,9 @@
   pt = Bolívia – Norte
   pt-BR = Bolívia – Norte
   ro = Bolivia – Nord
-  es = Bolivia – norte
-  es-MX = Bolivia – norte
-  sv = Bolivia – nord
+  es = Bolivia – Norte
+  es-MX = Bolivia – Norte
+  sv = Bolivia – Nord
   th = โบลิเวีย – ตอนเหนือ
   tr = Bolivya – Kuzey
   uk = Болівія – Північ
@@ -2175,7 +2175,7 @@
   en = Bolivia – South
   ru = Боливия – Юг
   ar = بوليفيا – الجنوب
-  cs = Bolívie – jih
+  cs = Bolívie – Jih
   da = Bolivia – Syd
   nl = Bolivia – Zuid
   fi = Bolivia – Maan eteläosa
@@ -2191,9 +2191,9 @@
   pt = Bolívia – Sul
   pt-BR = Bolívia – Sul
   ro = Bolivia – Sud
-  es = Bolivia – sur
-  es-MX = Bolivia – sur
-  sv = Bolivia – söder
+  es = Bolivia – Sur
+  es-MX = Bolivia – Sur
+  sv = Bolivia – Söder
   th = โบลิเวีย – ตอนใต้
   tr = Bolivya – Güney
   uk = Болівія – Південь
