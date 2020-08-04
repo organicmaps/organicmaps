@@ -2137,6 +2137,74 @@
   he = בוליביה
   sk = Bolívia
 
+[Bolivia_North]
+  en = Bolivia – North
+  ru = Боливия – Север
+  ar = بوليفيا – الشمال
+  cs = Bolívie – Sever
+  da = Bolivia – Nord
+  nl = Bolivia – Noord
+  fi = Bolivia – Maan pohjoisosa
+  fr = La Bolivie du Nord
+  de = Bolivien – Norden
+  hu = Bolívia – Észak
+  id = Bolivia – Utara
+  it = Nord della Bolivia
+  ja = ボリビア－北
+  ko = 볼리비아 – 북
+  nb = Bolivia – Nord
+  pl = Boliwia – Północ
+  pt = Bolívia – Norte
+  pt-BR = Bolívia – Norte
+  ro = Bolivia – Nord
+  es = Bolivia – Norte
+  es-MX = Bolivia – Norte
+  sv = Bolivia – Nord
+  th = โบลิเวีย – ตอนเหนือ
+  tr = Bolivya – Kuzey
+  uk = Болівія – Північ
+  vi = Bolivia – Phương Bắc
+  el = Βολιβία – Βορράς
+  sk = Bolívia – Sever
+  sw = Bolivia – Kaskazini
+  zh-Hans = 玻利维亚 - 北
+  zh-Hant = 玻利維亞 - 北
+  fa = شمال بولیوی
+
+[Bolivia_South]
+  en = Bolivia – South
+  ru = Боливия – Юг
+  ar = بوليفيا – الجنوب
+  cs = Bolívie – Jih
+  da = Bolivia – Syd
+  nl = Bolivia – Zuid
+  fi = Bolivia – Maan eteläosa
+  fr = La Bolivie du Sud
+  de = Bolivien – Süden
+  hu = Bolívia – Dél
+  id = Bolivia – Selatan
+  it = Sud della Bolivia
+  ja = ボリビア－南
+  ko = 볼리비아 – 남
+  nb = Bolivia – Sør
+  pl = Boliwia – Południe
+  pt = Bolívia – Sul
+  pt-BR = Bolívia – Sul
+  ro = Bolivia – Sud
+  es = Bolivia – Sur
+  es-MX = Bolivia – Sur
+  sv = Bolivia – Söder
+  th = โบลิเวีย – ตอนใต้
+  tr = Bolivya – Güney
+  uk = Болівія – Південь
+  vi = Bolivia – Phương Nam
+  el = Βολιβία – Νότος
+  sk = Bolívia – Juh
+  sw = Bolivia – Kusini
+  zh-Hans = 玻利维亚 - 南
+  zh-Hant = 玻利維亞 - 南
+  fa = جنوب بولیوی
+
 [Bosnia and Herzegovina]
   en = Bosnia and Herzegovina
   ru = Босния и Герцеговина
