@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <utility>
+#include <vector>
 
 namespace booking
 {
@@ -81,8 +82,7 @@ void SetUnavailable(std::vector<FeatureID> const & filteredOut, SearchMarks & se
 }
 }  // namespace
 
-filter::TasksInternal MakeInternalTasks(search::Results const & results,
-                                        filter::Tasks const & filterTasks,
+filter::TasksInternal MakeInternalTasks(filter::Tasks const & filterTasks,
                                         SearchMarks & searchMarks, bool inViewport)
 {
   using namespace booking::filter;
@@ -101,7 +101,7 @@ filter::TasksInternal MakeInternalTasks(search::Results const & results,
     ParamsInternal paramsInternal
       {
         apiParams,
-        [results, &searchMarks, type, apiParams, cb, inViewport](ResultInternal<search::Results> && result)
+        [&searchMarks, type, apiParams, cb, inViewport](ResultInternal<search::Results> && result)
         {
           if (type == Type::Availability)
             SetUnavailable(result.m_filteredOut, searchMarks);
@@ -147,15 +147,12 @@ filter::TasksInternal MakeInternalTasks(search::Results const & results,
   return tasksInternal;
 }
 
-filter::TasksRawInternal MakeInternalTasks(std::vector<FeatureID> const & features,
-                                           filter::Tasks const & filterTasks,
+filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
                                            SearchMarks & searchMarks)
 {
   using namespace booking::filter;
 
   TasksRawInternal tasksInternal;
-
-  ASSERT(std::is_sorted(features.cbegin(), features.cend()), ());
 
   for (auto const & task : filterTasks)
   {
@@ -169,15 +166,13 @@ filter::TasksRawInternal MakeInternalTasks(std::vector<FeatureID> const & featur
     ParamsRawInternal paramsInternal
       {
         apiParams,
-        [features, &searchMarks, type, apiParams, cb](ResultInternal<std::vector<FeatureID>> && result)
+        [&searchMarks, type, apiParams, cb](ResultInternal<std::vector<FeatureID>> && result)
         {
           if (type == Type::Availability)
             SetUnavailable(result.m_filteredOut, searchMarks);
 
           auto & sortedFeatures = result.m_passedFilter;
           auto & extras = result.m_extras;
-
-          ASSERT(std::is_sorted(features.cbegin(), features.cend()), ());
 
           if (sortedFeatures.empty())
             return;

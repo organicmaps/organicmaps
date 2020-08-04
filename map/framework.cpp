@@ -4266,14 +4266,14 @@ ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
 void Framework::FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
                                             search::Results const & results, bool inViewport)
 {
-  auto tasksInternal = booking::MakeInternalTasks(results, filterTasks, m_searchMarks, inViewport);
+  auto tasksInternal = booking::MakeInternalTasks(filterTasks, m_searchMarks, inViewport);
   m_bookingFilterProcessor.ApplyFilters(results, move(tasksInternal), filterTasks.GetMode());
 }
 
 void Framework::FilterHotels(booking::filter::Tasks const & filterTasks,
                              vector<FeatureID> && featureIds)
 {
-  auto tasksInternal = booking::MakeInternalTasks(featureIds, filterTasks, m_searchMarks);
+  auto tasksInternal = booking::MakeInternalTasks(filterTasks, m_searchMarks);
   m_bookingFilterProcessor.ApplyFilters(move(featureIds), move(tasksInternal),
                                         filterTasks.GetMode());
 }
