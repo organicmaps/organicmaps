@@ -68,6 +68,7 @@ endif()
 
 option(USE_ASAN "Enable Address Sanitizer" OFF)
 option(USE_TSAN "Enable Thread Sanitizer" OFF)
+option(USE_LIBFUZZER "Enable LibFuzzer" OFF)
 option(PYBINDINGS "Create makefiles for building python bindings" OFF)
 option(SKIP_DESKTOP "Skip building of desktop application" OFF)
 option(BUILD_MAPSHOT "Build mapshot tool" OFF)
@@ -101,6 +102,10 @@ endif()
 
 if (USE_ASAN AND USE_TSAN)
   message(FATAL_ERROR "Can't use two different sanitizers together")
+endif()
+
+if (USE_LIBFUZZER)
+  message("LibFuzzer is enabled")
 endif()
 
 if (USE_PPROF)
@@ -230,6 +235,12 @@ if (USE_TSAN)
   add_compile_options(
     "-fsanitize=thread"
     "-fno-omit-frame-pointer"
+  )
+endif()
+
+if (USE_LIBFUZZER)
+  add_compile_options(
+    "-fsanitize=fuzzer"
   )
 endif()
 

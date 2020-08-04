@@ -90,7 +90,6 @@ pair<Protocol::PacketType, size_t> Protocol::DecodeHeader(vector<uint8_t> const 
   uint32_t size = (*reinterpret_cast<uint32_t const *>(data.data())) & 0xFFFFFF00;
   if (!IsBigEndianMacroBased())
     size = ReverseByteOrder(size);
-
   return make_pair(PacketType(static_cast<uint8_t>(data[0])), size);
 }
 

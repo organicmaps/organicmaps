@@ -44,6 +44,12 @@ function(omim_add_executable executable)
       "-fno-omit-frame-pointer"
     )
   endif()
+  if (USE_LIBFUZZER)
+    target_link_libraries(
+      ${executable}
+      "-fsanitize=fuzzer"
+    )
+  endif()
   if (USE_PPROF)
     if (PLATFORM_MAC)
       find_library(PPROF_LIBRARY libprofiler.dylib)
