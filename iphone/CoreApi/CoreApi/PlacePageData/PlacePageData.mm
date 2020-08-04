@@ -285,7 +285,11 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
     return;
   }
 
-  std::string const currency = "RUB";
+  NSString * currencyCode = [NSLocale.currentLocale currencyCode];
+  if (currencyCode == nil || currencyCode.length == 0) {
+    currencyCode = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] currencyCode];
+  }
+  std::string currency = [currencyCode UTF8String];
 
   auto params = booking::BlockParams::MakeDefault();
   params.m_hotelId = m_hotelId;
