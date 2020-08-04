@@ -163,6 +163,7 @@
                        } else {
                          [self notifyTrialEligibility:serverId result:MWMTrialEligibilityResultNotEligible];
                        }
+                       break;
                    }
                  }];
 }

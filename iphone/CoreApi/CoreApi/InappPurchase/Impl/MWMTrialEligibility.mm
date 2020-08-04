@@ -36,10 +36,13 @@ static NSMutableDictionary<NSString *, NSMutableArray<CheckTrialEligibilityCallb
     switch (trialEligibilityCode) {
       case Purchase::TrialEligibilityCode::Eligible:
         result = MWMCheckTrialEligibilityResultEligible;
+        break;
       case Purchase::TrialEligibilityCode::NotEligible:
         result = MWMCheckTrialEligibilityResultNotEligible;
+        break;
       case Purchase::TrialEligibilityCode::ServerError:
         result = MWMCheckTrialEligibilityResultServerError;
+        break;
     }
 
     NSMutableArray<CheckTrialEligibilityCallback> *callbackArray = callbacks[serverId];
