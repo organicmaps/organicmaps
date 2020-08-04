@@ -19,6 +19,8 @@
 #include <array>
 #include <limits>
 
+#include "3party/Alohalytics/src/alohalytics.h"
+
 namespace
 {
 enum class SearchMarkType
@@ -715,7 +717,14 @@ void SearchMarks::OnActivate(FeatureID const & featureId)
     if (unavailableIt != m_unavailable.cend())
     {
       mark->SetAvailable(false);
-      mark->SetReason(platform::GetLocalizedString(unavailableIt->second));
+
+      auto const & reasonKey = unavailableIt->second;
+
+      if (!reasonKey.empty())
+      {
+        mark->SetReason(platform::GetLocalizedString(reasonKey));
+        alohalytics::Stats::Instance().LogEvent("Search_Map_Notification",  {{"message", reasonKey}});
+      }
     }
   });
 }
