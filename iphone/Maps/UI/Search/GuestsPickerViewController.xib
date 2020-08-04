@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -101,6 +101,9 @@
                                         <constraint firstAttribute="height" constant="38" id="AKR-Yw-d97"/>
                                         <constraint firstAttribute="width" constant="100" id="KqJ-Cs-Aug"/>
                                     </constraints>
+                                    <connections>
+                                        <action selector="onStepperValueChanged:" destination="-1" eventType="valueChanged" id="v6h-4b-t3o"/>
+                                    </connections>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -159,6 +162,9 @@
                                         <constraint firstAttribute="width" constant="100" id="H6l-kr-84N"/>
                                         <constraint firstAttribute="height" constant="38" id="sap-u6-Aam"/>
                                     </constraints>
+                                    <connections>
+                                        <action selector="onStepperValueChanged:" destination="-1" eventType="valueChanged" id="t6F-CW-gcf"/>
+                                    </connections>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -217,6 +223,9 @@
                                         <constraint firstAttribute="height" constant="38" id="84Q-Ml-uR6"/>
                                         <constraint firstAttribute="width" constant="100" id="QLu-c2-LGX"/>
                                     </constraints>
+                                    <connections>
+                                        <action selector="onStepperValueChanged:" destination="-1" eventType="valueChanged" id="8WU-RP-hOq"/>
+                                    </connections>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="3 - 16 years old" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sc-U2-ZDP">
                                     <rect key="frame" x="56" y="33.5" width="234" height="19.5"/>
@@ -278,6 +287,9 @@
                                         <constraint firstAttribute="width" constant="100" id="1IX-Nt-R6h"/>
                                         <constraint firstAttribute="height" constant="38" id="ycS-ih-Kec"/>
                                     </constraints>
+                                    <connections>
+                                        <action selector="onStepperValueChanged:" destination="-1" eventType="valueChanged" id="1lY-4P-4fL"/>
+                                    </connections>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="0 - 3 years old" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s1L-9S-yeM">
                                     <rect key="frame" x="56" y="33.5" width="234" height="19.5"/>

@@ -128,6 +128,15 @@ using Observers = NSHashTable<Observer>;
 
 - (IBAction)onBookingDateButtonPressed:(id)sender {
   [self.searchTextField resignFirstResponder];
+
+  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE) {
+    [MWMAlertViewController.activeAlertController presentSearchQuickFilterNoConnectionAlert];
+    [Statistics logEvent:kStatSearchQuickFilterError withParameters:@{kStatCategory: kStatHotel,
+                                                                      kStatError: @"no internet",
+                                                                      kStatFilter: kStatDate}];
+    return;
+  }
+
   DatePickerViewController *controller = [[DatePickerViewController alloc] init];
   controller.delegate = self;
   controller.popoverPresentationController.sourceView = self.searchBarView;
@@ -137,6 +146,15 @@ using Observers = NSHashTable<Observer>;
 
 - (IBAction)onBookingGuestsButtonPressed:(id)sender {
   [self.searchTextField resignFirstResponder];
+
+  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE) {
+    [MWMAlertViewController.activeAlertController presentSearchQuickFilterNoConnectionAlert];
+    [Statistics logEvent:kStatSearchQuickFilterError withParameters:@{kStatCategory: kStatHotel,
+                                                                      kStatError: @"no internet",
+                                                                      kStatFilter: kStatSearchRooms}];
+    return;
+  }
+
   GuestsPickerViewController *controller = [[GuestsPickerViewController alloc] init];
   controller.delegate = self;
   controller.popoverPresentationController.sourceView = self.searchBarView;
@@ -420,6 +438,14 @@ using Observers = NSHashTable<Observer>;
   [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)datePickerDidClick:(DatePickerViewController *)datePicker
+        didSelectStartDate:(NSDate *)startDate
+                   endDate:(NSDate *)endDate {
+  [Statistics logEvent:kStatSearchQuickFilterClick withParameters:@{ kStatCategory: kStatHotel,
+                                                                     kStatDate: @[startDate ? startDate : kStatNone,
+                                                                                  endDate ? endDate : kStatNone]}];
+}
+
 #pragma mark - GuestsPickerViewControllerDelegate
 
 - (void)guestsPicker:(GuestsPickerViewController *)guestsPicker
@@ -440,6 +466,19 @@ using Observers = NSHashTable<Observer>;
   [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)guestPickerDidClick:(GuestsPickerViewController *)guestsPicker
+             didSelectRooms:(NSInteger)rooms
+                     adults:(NSInteger)adults
+                   children:(NSInteger)children
+                    infants:(NSInteger)infants {
+  [Statistics logEvent:kStatSearchQuickFilterClick withParameters:@{kStatCategory: kStatHotel,
+                                                                    kStatSearchRooms: @(rooms),
+                                                                    kStatSearchAdults: @(adults),
+                                                                    kStatSearchChildren: @(children),
+                                                                    kStatSearchInfants: @(infants)
+  }];
+}
+
 - (void)guestsPickerDidCancel:(GuestsPickerViewController *)guestsPicker {
   [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
 }
@@ -450,9 +489,11 @@ using Observers = NSHashTable<Observer>;
   switch (self.state) {
     case MWMSearchManagerStateTableSearch:
       self.state = MWMSearchManagerStateMapSearch;
+      [Statistics logEvent:kStatSearchContextAreaClick withParameters:@{kStatValue: kStatMap}];
       break;
     case MWMSearchManagerStateMapSearch:
       self.state = MWMSearchManagerStateTableSearch;
+      [Statistics logEvent:kStatSearchContextAreaClick withParameters:@{kStatValue: kStatList}];
       break;
     default:
       break;

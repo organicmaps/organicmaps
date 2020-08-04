@@ -3,6 +3,7 @@ import DatePicker
 
 @objc protocol DatePickerViewControllerDelegate: AnyObject {
   func datePicker(_ datePicker: DatePickerViewController, didSelectStartDate startDate:Date, endDate:Date)
+  func datePickerDidClick(_ datePicker: DatePickerViewController, didSelectStartDate startDate: Date?, endDate: Date?)
   func datePickerDidCancel(_ datePicker: DatePickerViewController)
 }
 
@@ -17,7 +18,7 @@ import DatePicker
   @IBOutlet var cancelButton: UIButton!
   @IBOutlet var datePickerView: DatePickerView!
 
-  @objc var delegate: DatePickerViewControllerDelegate?
+  @objc weak var delegate: DatePickerViewControllerDelegate?
 
   lazy var dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -61,6 +62,7 @@ extension DatePickerViewController: DatePickerViewDelegate {
       } else {
         numberOfDaysLabel.text = nil
       }
+      delegate?.datePickerDidClick(self, didSelectStartDate: view.startDate, endDate: view.endDate)
     }
     
     guard let startDate = view.startDate else {
@@ -72,7 +74,10 @@ extension DatePickerViewController: DatePickerViewDelegate {
 
     if date > startDate && view.endDate == nil {
       guard Calendar.current.dateComponents([.day], from: startDate, to: date).day! <= 30 else {
-        MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: "TODO: can't select more than 30 days", message: nil, rightButtonTitle: L("ok"), leftButtonTitle: nil, rightButtonAction: nil)
+        MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("30_days_limit_dialog"),
+                                                                 message: nil, rightButtonTitle: L("ok"),
+                                                                 leftButtonTitle: nil,
+                                                                 rightButtonAction: nil)
         return
       }
       view.endDate = date

@@ -35,6 +35,13 @@
 }
 
 + (MWMAlert *)noConnectionAlert { return [MWMDefaultAlert noConnectionAlert]; }
++ (MWMAlert *)searchQuickFilterNoConnectionAlert {
+  return [MWMDefaultAlert searchQuickFilterNoConnectionAlertWithOkBlock:^{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]
+                                       options:@{}
+                             completionHandler:NULL];
+  }];
+}
 + (MWMAlert *)deleteMapProhibitedAlert { return [MWMDefaultAlert deleteMapProhibitedAlert]; }
 + (MWMAlert *)unsavedEditsAlertWithOkBlock:(MWMVoidBlock)okBlock
 {

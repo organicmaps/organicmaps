@@ -9,6 +9,7 @@
 + (MWMAlert *)disabledLocationAlert;
 + (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock;
 + (MWMAlert *)noConnectionAlert;
++ (MWMAlert *)searchQuickFilterNoConnectionAlert;
 + (MWMAlert *)deleteMapProhibitedAlert;
 + (MWMAlert *)unsavedEditsAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (MWMAlert *)locationServiceNotSupportedAlert;

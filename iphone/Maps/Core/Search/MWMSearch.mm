@@ -273,6 +273,26 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
 + (void)updateHotelFilterWithParams:(MWMHotelParams *)params {
   [MWMSearch manager].filter = params;
   [[MWMSearch manager] update];
+
+  std::string priceCategory = strings::JoinAny(params.price, ',', [](auto const & item) {
+    return std::to_string(static_cast<int>(item));
+  });
+  std::string types = strings::JoinAny(params.types, ',', [](auto const & item) {
+    return std::to_string(static_cast<int>(item));
+  });
+
+  [Statistics logEvent:kStatSearchFilterApply withParameters:@{kStatCategory: kStatHotel,
+                                                               kStatSearchRooms: @(params.numberOfRooms),
+                                                               kStatSearchAdults: @(params.numberOfAdults),
+                                                               kStatSearchChildren: @(params.numberOfChildren),
+                                                               kStatSearchInfants: @(params.numberOfInfants),
+                                                               kStatDate:
+                                                                 @[params.checkInDate ? params.checkInDate : kStatNone,
+                                                                   params.checkOutDate ? params.checkOutDate : kStatNone],
+                                                               kStatRating: @(static_cast<int>(params.rating)),
+                                                               kStatPriceCategory: @(priceCategory.c_str()),
+                                                               kStatTypes: @(types.c_str())
+  }];
 }
 
 - (void)reset {

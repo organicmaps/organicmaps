@@ -18,6 +18,7 @@
 - (void)presentLocationServiceNotSupportedAlert;
 - (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentNoConnectionAlert;
+- (void)presentSearchQuickFilterNoConnectionAlert;
 - (void)presentDeleteMapProhibitedAlert;
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentNoWiFiAlertWithOkBlock:(nullable MWMVoidBlock)okBlock andCancelBlock:(nullable MWMVoidBlock)cancelBlock;

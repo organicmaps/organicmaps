@@ -19,6 +19,7 @@
 + (instancetype)disabledLocationAlert;
 + (instancetype)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock;
 + (instancetype)noConnectionAlert;
++ (instancetype)searchQuickFilterNoConnectionAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (instancetype)deleteMapProhibitedAlert;
 + (instancetype)unsavedEditsAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (instancetype)locationServiceNotSupportedAlert;

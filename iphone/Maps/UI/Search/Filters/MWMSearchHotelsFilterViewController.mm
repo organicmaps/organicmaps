@@ -157,7 +157,8 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  [Statistics logEvent:kStatSearchFilterOpen withParameters:@{kStatCategory: kStatHotel}];
+  [Statistics logEvent:kStatSearchFilterOpen withParameters:@{kStatCategory: kStatHotel,
+                                                              kStatNetwork: [Statistics connectionTypeString]}];
   [self.tableView reloadData];
   [self refreshAppearance];
   [self setNeedsStatusBarAppearanceUpdate];
@@ -200,7 +201,6 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 
 - (IBAction)applyAction
 {
-  [Statistics logEvent:kStatSearchFilterApply withParameters:@{kStatCategory: kStatHotel}];
   [MWMEye bookingFilterUsed];
   [self.delegate hotelsFilterViewController:self didSelectParams:[self getSelectedHotelParams]];
 }
@@ -388,8 +388,8 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   case ftypes::IsHotelChecker::Type::Resort: typeString = kStatResort; break;
   case ftypes::IsHotelChecker::Type::Count: break;
   }
-  [Statistics logEvent:kStatSearchFilterClick
-        withParameters:@{kStatCategory: kStatHotel, kStatType: typeString}];
+  [Statistics logEvent:kStatSearchFilterClick withParameters:@{kStatCategory: kStatHotel,
+                                                               kStatType: typeString}];
   m_selectedTypes.emplace(type);
 }
 

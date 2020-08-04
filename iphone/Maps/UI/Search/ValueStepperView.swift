@@ -1,4 +1,4 @@
-final class ValueStepperView: UIView {
+final class ValueStepperView: UIControl {
   var minValue = 0 {
     didSet {
       guard minValue <= maxValue else { fatalError() }
@@ -74,9 +74,11 @@ final class ValueStepperView: UIView {
 
   @objc func onMinus(_ sender: UIButton) {
     value -= 1
+    sendActions(for: .valueChanged)
   }
 
   @objc func onPlus(_ sender: UIButton) {
     value += 1
+    sendActions(for: .valueChanged)
   }
 }

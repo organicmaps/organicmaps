@@ -88,6 +88,17 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
++ (instancetype)searchQuickFilterNoConnectionAlertWithOkBlock:(MWMVoidBlock)okBlock {
+  MWMDefaultAlert *alert = [self defaultAlertWithTitle:L(@"choose_dates_online_only_dialog_message")
+                                               message:nil
+                                      rightButtonTitle:L(@"choose_dates_online_only_dialog_cta")
+                                       leftButtonTitle:L(@"cancel")
+                                     rightButtonAction:okBlock
+                                       statisticsEvent:@"No Connection Alert"];
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
+}
+
 + (instancetype)deleteMapProhibitedAlert
 {
   MWMDefaultAlert * alert =

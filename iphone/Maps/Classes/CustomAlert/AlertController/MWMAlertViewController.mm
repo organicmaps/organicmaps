@@ -71,6 +71,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 }
 
 - (void)presentNoConnectionAlert { [self displayAlert:[MWMAlert noConnectionAlert]]; }
+- (void)presentSearchQuickFilterNoConnectionAlert {
+  [self displayAlert:[MWMAlert searchQuickFilterNoConnectionAlert]];
+}
 - (void)presentDeleteMapProhibitedAlert { [self displayAlert:[MWMAlert deleteMapProhibitedAlert]]; }
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
 {
@@ -273,7 +276,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   if (!isOwnerLoaded) {
     return;
   }
-  
+
   // TODO(igrechuhin): Remove this check on location manager refactoring.
   // Workaround for current location manager duplicate error alerts.
   if ([alert isKindOfClass:[MWMLocationAlert class]])

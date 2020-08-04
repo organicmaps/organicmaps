@@ -4,6 +4,11 @@
                     adults: Int,
                     children: Int,
                     infants: Int)
+  func guestPickerDidClick(_ guestsPicker: GuestsPickerViewController,
+                           didSelectRooms rooms: Int,
+                           adults: Int,
+                           children: Int,
+                           infants: Int)
   func guestsPickerDidCancel(_ guestsPicker: GuestsPickerViewController)
 }
 
@@ -55,5 +60,13 @@
 
   @IBAction func onCancel(_ sender: UIButton) {
     delegate?.guestsPickerDidCancel(self)
+  }
+
+  @IBAction func onStepperValueChanged(_ sender: Any) {
+    delegate?.guestPickerDidClick(self,
+                                  didSelectRooms: roomsStepper.value,
+                                  adults: adultsStepper.value,
+                                  children: childrenStepper.value,
+                                  infants: infantsStepper.value)
   }
 }

@@ -1,6 +1,7 @@
 #import "MWMSearch.h"
 #import "MWMSearchManager+Filter.h"
 #import <objc/runtime.h>
+#import "Statistics.h"
 
 @interface MWMSearchManager ()
 
@@ -43,6 +44,7 @@
 - (IBAction)updateTap
 {
   [self showHotelFilterWithParams:[MWMSearch getFilter] onFinishCallback:nil];
+  [Statistics logEvent:kStatSearchContextAreaClick withParameters:@{kStatValue: kStatFilter}];
 }
 
 - (IBAction)clearFilter
