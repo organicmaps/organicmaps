@@ -1,18 +1,19 @@
 package com.mapswithme.maps.search;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.UiUtils;
 
-public class SearchFilterController
+public class SearchFilterController implements SearchToolbarController.FilterParamsChangedListener
 {
   private static final String STATE_HOTEL_FILTER = "state_hotel_filter";
   private static final String STATE_FILTER_PARAMS = "state_filter_params";
@@ -36,6 +37,8 @@ public class SearchFilterController
   @Nullable
   private BookingFilterParams mBookingFilterParams;
   private boolean mHotelMode;
+  @NonNull
+  private final SearchToolbarController mToolbarController;
 
   @NonNull
   private final View.OnClickListener mClearListener = new View.OnClickListener()
@@ -44,6 +47,7 @@ public class SearchFilterController
     public void onClick(View v)
     {
       setFilterAndParams(null, null);
+      mToolbarController.setFilterParams(null);
       if (mFilterListener != null)
         mFilterListener.onFilterClear();
     }
@@ -52,23 +56,41 @@ public class SearchFilterController
   @Nullable
   private final FilterListener mFilterListener;
 
+  @Override
+  public void onBookingParamsChanged()
+  {
+    mBookingFilterParams = mToolbarController.getFilterParams();
+    if (mFilterListener != null)
+      mFilterListener.onFilterParamsChanged();
+  }
+
+  public boolean isSatisfiedForSearch()
+  {
+    return mFilter != null || mBookingFilterParams != null;
+  }
+
   interface FilterListener
   {
     void onShowOnMapClick();
     void onFilterClick();
     void onFilterClear();
+    void onFilterParamsChanged();
   }
 
-  SearchFilterController(@NonNull View frame, @Nullable FilterListener listener)
+  SearchFilterController(@NonNull View frame, @Nullable FilterListener listener,
+                         @NonNull SearchToolbarController toolbarController)
   {
-    this(frame, listener, R.string.search_show_on_map);
+    this(frame, listener, R.string.search_show_on_map, toolbarController);
   }
 
-  public SearchFilterController(@NonNull View frame,
-                                @Nullable FilterListener listener, @StringRes int populateButtonText)
+  public SearchFilterController(@NonNull View frame, @Nullable FilterListener listener,
+                                @StringRes int populateButtonText,
+                                @NonNull SearchToolbarController toolbarController)
   {
     mFrame = frame;
     mFilterListener = listener;
+    mToolbarController = toolbarController;
+    mToolbarController.addBookingParamsChangedListener(this);
     mShowOnMap = mFrame.findViewById(R.id.show_on_map);
     mShowOnMap.setText(populateButtonText);
     mFilterButton = mFrame.findViewById(R.id.filter_button);
@@ -95,10 +117,11 @@ public class SearchFilterController
     UiUtils.showIf(show, mDivider);
   }
 
-  public void updateFilterButtonVisibility(boolean isHotel)
+  public void updateFilterButtonsVisibility(boolean isHotel)
   {
     mHotelMode = isHotel;
     UiUtils.showIf(isHotel, mFilterButton);
+    mToolbarController.showFilterControls(isHotel);
   }
 
   private void initListeners()
@@ -124,8 +147,9 @@ public class SearchFilterController
   public void setFilterAndParams(@Nullable HotelsFilter filter, @Nullable BookingFilterParams params)
   {
     mFilter = filter;
-    mBookingFilterParams = params;
-    if (mFilter != null || mBookingFilterParams != null)
+    if (params != null)
+      mToolbarController.setFilterParams(params);
+    if (mFilter != null)
     {
       mFilterIcon.setOnClickListener(mClearListener);
       mFilterIcon.setImageResource(R.drawable.ic_cancel);
@@ -150,7 +174,8 @@ public class SearchFilterController
   public void resetFilter()
   {
     setFilterAndParams(null, null);
-    updateFilterButtonVisibility(false);
+    mToolbarController.setFilterParams(null);
+    updateFilterButtonsVisibility(false);
   }
 
   @Nullable
@@ -170,7 +195,7 @@ public class SearchFilterController
   public void onRestoreState(@NonNull Bundle state)
   {
     setFilterAndParams(state.getParcelable(STATE_HOTEL_FILTER), state.getParcelable(STATE_FILTER_PARAMS));
-    updateFilterButtonVisibility(state.getBoolean(STATE_HOTEL_FILTER_VISIBILITY, false));
+    updateFilterButtonsVisibility(state.getBoolean(STATE_HOTEL_FILTER_VISIBILITY, false));
   }
 
   public static class DefaultFilterListener implements FilterListener
@@ -187,6 +212,12 @@ public class SearchFilterController
 
     @Override
     public void onFilterClear()
+    {
+
+    }
+
+    @Override
+    public void onFilterParamsChanged()
     {
 
     }

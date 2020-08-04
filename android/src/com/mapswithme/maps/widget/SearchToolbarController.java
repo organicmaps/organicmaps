@@ -3,34 +3,39 @@ package com.mapswithme.maps.widget;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.search.BookingFilterParams;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 public class SearchToolbarController extends ToolbarController
                                   implements View.OnClickListener
 {
   private static final int REQUEST_VOICE_RECOGNITION = 0xCA11;
+  public static final String DAY_OF_MONTH_PATTERN = "MMM d";
 
   @NonNull
   private final View mSearchContainer;
@@ -45,7 +50,7 @@ public class SearchToolbarController extends ToolbarController
   @Nullable
   private final View mFilterContainer;
   @Nullable
-  private Chip mChooseDates;
+  private Chip mChooseDatesChip;
   @Nullable
   private Chip mRooms;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(getActivity());
@@ -59,21 +64,31 @@ public class SearchToolbarController extends ToolbarController
       SearchToolbarController.this.onTextChanged(s.toString());
     }
   };
+  @Nullable
+  private Pair<Long, Long> mChosenDates;
   @NonNull
   private final View.OnClickListener mChooseDatesClickListener = v -> {
     MaterialDatePicker.Builder<Pair<Long, Long>> builder
         = MaterialDatePicker.Builder.dateRangePicker();
+    if (mChosenDates != null)
+      builder.setSelection(mChosenDates);
     final MaterialDatePicker<?> picker = builder.build();
     picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Object>()
     {
       @Override
       public void onPositiveButtonClick(Object selection)
       {
-        mChooseDates.setText(picker.getHeaderText());
+        //noinspection unchecked
+        mChosenDates = (Pair<Long, Long>) selection;
+        mChooseDatesChip.setText(picker.getHeaderText());
+        for (FilterParamsChangedListener listener : mFilterParamsChangedListeners)
+          listener.onBookingParamsChanged();
       }
     });
     picker.show(((AppCompatActivity) getActivity()).getSupportFragmentManager(), picker.toString());
   };
+  @NonNull
+  private List<FilterParamsChangedListener> mFilterParamsChangedListeners = new ArrayList<>();
 
   public interface Container
   {
@@ -83,7 +98,6 @@ public class SearchToolbarController extends ToolbarController
   public SearchToolbarController(View root, Activity activity)
   {
     super(root, activity);
-
     mSearchContainer = getToolbar().findViewById(R.id.search_container);
     mQuery = mSearchContainer.findViewById(R.id.query);
     mQuery.setOnClickListener(this);
@@ -104,18 +118,41 @@ public class SearchToolbarController extends ToolbarController
     mVoiceInput.setOnClickListener(this);
     mClear = mSearchContainer.findViewById(R.id.clear);
     mClear.setOnClickListener(this);
-
     mFilterContainer = getToolbar().findViewById(R.id.filter_container);
     if (mFilterContainer != null)
     {
-      mChooseDates = mFilterContainer.findViewById(R.id.choose_dates);
+      mChooseDatesChip = mFilterContainer.findViewById(R.id.choose_dates);
       mRooms = mFilterContainer.findViewById(R.id.rooms);
-      mChooseDates.setOnClickListener(mChooseDatesClickListener);
-      mChooseDates.setOnCloseIconClickListener(mChooseDatesClickListener);
+      //noinspection ConstantConditions
+      mChooseDatesChip.setOnClickListener(mChooseDatesClickListener);
+      mChooseDatesChip.setOnCloseIconClickListener(mChooseDatesClickListener);
     }
 
     showProgress(false);
     updateButtons(true);
+  }
+
+  public void setFilterParams(@Nullable BookingFilterParams params)
+  {
+    if (mChooseDatesChip == null)
+      return;
+
+    if (params == null)
+    {
+      mChooseDatesChip.setText(R.string.date_picker_сhoose_dates_cta);
+      mChosenDates = null;
+      return;
+    }
+
+    mChosenDates = new Pair<>(params.getCheckinMillisec(), params.getCheckoutMillisec());
+    SimpleDateFormat dateFormater = new SimpleDateFormat(DAY_OF_MONTH_PATTERN,
+                                                         Locale.getDefault());
+    @SuppressWarnings("ConstantConditions")
+    String start = dateFormater.format(new Date(mChosenDates.first));
+    @SuppressWarnings("ConstantConditions")
+    String end = dateFormater.format(new Date(mChosenDates.second));
+    mChooseDatesChip.setText(getActivity().getString(R.string.booking_filter_date_range,
+                                                     start, end));
   }
 
   private void updateButtons(boolean queryEmpty)
@@ -237,6 +274,9 @@ public class SearchToolbarController extends ToolbarController
 
   public void showFilterControls(boolean show)
   {
+    if (mFilterContainer == null)
+      return;
+
     UiUtils.showIf(show, mFilterContainer);
   }
 
@@ -253,5 +293,29 @@ public class SearchToolbarController extends ToolbarController
   public void setHint(@StringRes int hint)
   {
     mQuery.setHint(hint);
+  }
+
+  public void addBookingParamsChangedListener(@NonNull FilterParamsChangedListener listener)
+  {
+    mFilterParamsChangedListeners.add(listener);
+  }
+
+  public void removeBookingParamsChangedListener(@NonNull FilterParamsChangedListener listener)
+  {
+    mFilterParamsChangedListeners.remove(listener);
+  }
+
+  @Nullable
+  public BookingFilterParams getFilterParams()
+  {
+    if (mChosenDates == null)
+      return null;
+
+    return BookingFilterParams.createParams(mChosenDates.first, mChosenDates.second);
+  }
+
+  public interface FilterParamsChangedListener
+  {
+    void onBookingParamsChanged();
   }
 }

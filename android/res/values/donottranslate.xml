@@ -98,5 +98,5 @@
   <string name="auto_enum_value" translatable="false">AUTO</string>
   <string name="placepage_toolbar_behavior" translatable="false">com.mapswithme.maps.widget.placepage.ToolbarBehavior</string>
   <string name="placepage_behavior" translatable="false">com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior</string>
-
+  <string name="booking_filter_date_range" translatable="false">%s - %s</string>
 </resources>

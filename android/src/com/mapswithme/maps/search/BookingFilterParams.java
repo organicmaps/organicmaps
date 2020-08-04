@@ -121,14 +121,9 @@ public class BookingFilterParams implements Parcelable
     return mRooms;
   }
 
-
-  public static class Factory
+  public static BookingFilterParams createParams(long checkIn, long checkOut)
   {
-    @Nullable
-    public BookingFilterParams createParams(long checkIn, long checkOut, @NonNull Room... rooms)
-    {
-      return ConnectionState.isConnected() ? new BookingFilterParams(checkIn, checkOut, rooms)
-                                           : null;
-    }
+    return ConnectionState.isConnected() ? new BookingFilterParams(checkIn, checkOut, Room.DEFAULT)
+                                         : null;
   }
 }

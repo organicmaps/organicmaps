@@ -355,12 +355,18 @@ public class SearchFragment extends BaseMwmFragment
       {
         runSearch();
       }
-    });
+
+      @Override
+      public void onFilterParamsChanged()
+      {
+        runSearch();
+      }
+    }, mToolbarController);
     if (savedInstanceState != null)
       mFilterController.onRestoreState(savedInstanceState);
     if (mInitialHotelsFilter != null || mInitialFilterParams != null)
       mFilterController.setFilterAndParams(mInitialHotelsFilter, mInitialFilterParams);
-    mFilterController.updateFilterButtonVisibility(mInitialFilterParams != null);
+    mFilterController.updateFilterButtonsVisibility(mFilterController.isSatisfiedForSearch());
 
     mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
     {
@@ -665,9 +671,12 @@ public class SearchFragment extends BaseMwmFragment
   {
     if (mFilterController != null)
     {
-      mFilterController.updateFilterButtonVisibility(isHotel);
+      mFilterController.updateFilterButtonsVisibility(isHotel);
       if (!isHotel)
+      {
         mFilterController.setFilterAndParams(null, null);
+        mToolbarController.setFilterParams(null);
+      }
     }
   }
 

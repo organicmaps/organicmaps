@@ -32,7 +32,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
-import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.auth.PassportAuthDialogFragment;
@@ -40,6 +39,7 @@ import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.AuthBundleFactory;
@@ -434,9 +434,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mFilterController == null || data == null)
       return;
 
-    // TODO: data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS) is obsolete. Get filter
-    // filter params from toolbar.
-    BookingFilterParams params = null;
+    BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
     HotelsFilter filter = data.getParcelableExtra(FilterActivity.EXTRA_FILTER);
     mFilterController.setFilterAndParams(filter, params);
 
@@ -558,14 +556,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                                          this);
     mMainMenuController.initialize(findViewById(R.id.coordinator));
 
+    mSearchController = new FloatingSearchToolbarController(this, this);
+    mSearchController.getToolbar().getViewTreeObserver().addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
+    mSearchController.setVisibilityListener(this);
+
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
 
     Statistics.INSTANCE.trackConnectionState();
 
-    mSearchController = new FloatingSearchToolbarController(this, this);
-    mSearchController.getToolbar().getViewTreeObserver().addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
-    mSearchController.setVisibilityListener(this);
     SearchEngine.INSTANCE.addListener(this);
 
     SharingHelper.INSTANCE.initialize(null);
@@ -677,7 +676,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
         {
           runSearch();
         }
-      }, R.string.search_in_table);
+
+        @Override
+        public void onFilterParamsChanged()
+        {
+          runSearch();
+        }
+      }, R.string.search_in_table, mSearchController);
     }
   }
 
@@ -1154,12 +1159,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setupSearchQuery(data);
 
-    // TODO: data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS) is obsolete. Get filter
-    // filter params from toolbar.
-    BookingFilterParams params = null;
+    BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
     mFilterController.setFilterAndParams(data.getParcelableExtra(FilterActivity.EXTRA_FILTER),
                                          params);
-    mFilterController.updateFilterButtonVisibility(params != null);
+    mFilterController.updateFilterButtonsVisibility(mFilterController.isSatisfiedForSearch());
     runSearch();
   }
 
@@ -1181,7 +1184,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     runSearch();
 
     mSearchController.refreshToolbar();
-    mFilterController.updateFilterButtonVisibility(true);
+    mFilterController.updateFilterButtonsVisibility(true);
     mFilterController.show(true, true);
   }
 
@@ -1366,7 +1369,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookingFilterParams params = intent.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
     if (mFilterController != null && (filter != null || params != null))
     {
-      mFilterController.updateFilterButtonVisibility(true);
+      mFilterController.updateFilterButtonsVisibility(true);
       mFilterController.show(!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()), true);
       mFilterController.setFilterAndParams(filter, params);
       return true;
@@ -2156,7 +2159,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onResultsUpdate(SearchResult[] results, long timestamp, boolean isHotel)
   {
     if (mFilterController != null)
-      mFilterController.updateFilterButtonVisibility(isHotel);
+      mFilterController.updateFilterButtonsVisibility(isHotel);
   }
 
   @Override

@@ -10,7 +10,7 @@
   android:paddingTop="@dimen/margin_quarter_plus"
   android:paddingEnd="@dimen/margin_base_plus_quarter"
   android:paddingBottom="@dimen/margin_half_plus"
-  android:visibility="visible">
+  android:visibility="gone">
   <com.google.android.material.chip.ChipGroup
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
