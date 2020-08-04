@@ -640,7 +640,7 @@ hu:3Kávézó|3étterem|3élelmiszer
 id:3Kafe|3restoran
 it:3Caffè|3ristorante|pasto|mangiare
 ja:1カフェ|喫茶|食べ物|コーヒー|珈琲|お茶|茶|紅茶|食事|軽食
-ko:1카페|레스토랑
+ko:1카페|레스토랑|커피
 nb:2Kafé
 pl:3Kawiarnia|4restauracja|kawa
 pt:3Café|3restaurante
