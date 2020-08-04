@@ -1857,7 +1857,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
       m_searchMarks.MarkUnavailableIfNeeded(mark);
     }
 
-    if (isFeature && m_searchMarks.IsUsed(mark->GetFeatureID()))
+    if (isFeature && m_searchMarks.IsVisited(mark->GetFeatureID()))
       mark->SetVisited(true);
 
     if (fn)
@@ -4008,7 +4008,7 @@ void Framework::ShowViewportSearchResults(search::Results const & results, bool 
 
 void Framework::ClearViewportSearchResults()
 {
-  m_searchMarks.ClearUsed();
+  m_searchMarks.ClearVisited();
   m_searchMarks.ClearUnavailable();
   GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }

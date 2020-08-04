@@ -117,8 +117,8 @@ public:
   void OnActivate(FeatureID const & featureId);
   void OnDeactivate(FeatureID const & featureId);
 
-  bool IsUsed(FeatureID const & id) const;
-  void ClearUsed();
+  bool IsVisited(FeatureID const & id) const;
+  void ClearVisited();
 
   void SetUnavailable(FeatureID const & id, std::string const & reason);
   bool IsUnavailable(FeatureID const & id) const;
@@ -136,6 +136,6 @@ private:
 
   static std::map<std::string, m2::PointF> m_searchMarksSizes;
 
-  std::set<FeatureID> m_used;
+  std::set<FeatureID> m_visited;
   std::map<FeatureID, std::string> m_unavailable;
 };

@@ -727,21 +727,21 @@ void SearchMarks::OnDeactivate(FeatureID const & featureId)
       return;
 
     mark->SetVisited(true);
-    m_used.insert(featureId);
+    m_visited.insert(featureId);
 
     mark->SetAvailable(true);
     mark->SetReason({});
   });
 }
 
-bool SearchMarks::IsUsed(FeatureID const & id) const
+bool SearchMarks::IsVisited(FeatureID const & id) const
 {
-  return m_used.find(id) != m_used.cend();
+  return m_visited.find(id) != m_visited.cend();
 }
 
-void SearchMarks::ClearUsed()
+void SearchMarks::ClearVisited()
 {
-  m_used.clear();
+  m_visited.clear();
 }
 
 void SearchMarks::SetUnavailable(FeatureID const & id, std::string const & reason)
