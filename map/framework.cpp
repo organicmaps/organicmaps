@@ -1811,7 +1811,6 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     editSession.ClearGroup(UserMark::Type::SEARCH);
   editSession.SetIsVisible(UserMark::Type::SEARCH, true);
 
-  optional<string> reason;
   for (auto it = begin; it != end; ++it)
   {
     auto const & r = *it;
@@ -1829,10 +1828,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     {
       mark->SetPreparing(true);
 
-      if (!reason)
-        reason = platform::GetLocalizedString("booking_map_component_filters");
-
-      m_searchMarks.SetUnavailable(mark->GetFeatureID(), *reason);
+      m_searchMarks.SetUnavailable(mark->GetFeatureID(), "booking_map_component_filters");
     }
 
     if (r.m_details.m_isSponsoredHotel)
@@ -3947,8 +3943,7 @@ void Framework::ShowViewportSearchResults(search::Results const & results, bool 
 
   auto const fillCallback = [this, clear, results](CachedResults filtersResults)
   {
-    string const reason = platform::GetLocalizedString("booking_map_component_availability");
-    auto const postProcessing = [this, filtersResults = move(filtersResults), &reason](SearchMarkPoint & mark)
+    auto const postProcessing = [this, filtersResults = move(filtersResults)](SearchMarkPoint & mark)
     {
       auto const & id = mark.GetFeatureID();
 
@@ -3991,7 +3986,7 @@ void Framework::ShowViewportSearchResults(search::Results const & results, bool 
             auto const isFilteredOut = binary_search(filteredOut.cbegin(), filteredOut.cend(), id);
 
             if (isFilteredOut)
-              m_searchMarks.SetUnavailable(mark.GetFeatureID(), reason);
+              m_searchMarks.SetUnavailable(mark.GetFeatureID(), "booking_map_component_availability");
           }
 
           break;

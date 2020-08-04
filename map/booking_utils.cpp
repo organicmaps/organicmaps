@@ -62,10 +62,9 @@ void SetUnavailable(search::Results const & filteredOut, SearchMarks & searchMar
   if (filteredOut.GetCount() == 0)
     return;
 
-  std::string reason = platform::GetLocalizedString("booking_map_component_availability");
   for (auto const & filtered : filteredOut)
   {
-    searchMarks.SetUnavailable(filtered.GetFeatureID(), reason);
+    searchMarks.SetUnavailable(filtered.GetFeatureID(), "booking_map_component_availability");
   }
 }
 
@@ -74,10 +73,9 @@ void SetUnavailable(std::vector<FeatureID> const & filteredOut, SearchMarks & se
   if (filteredOut.empty())
     return;
 
-  std::string reason = platform::GetLocalizedString("booking_map_component_availability");
   for (auto const & filtered : filteredOut)
   {
-    searchMarks.SetUnavailable(filtered, reason);
+    searchMarks.SetUnavailable(filtered, "booking_map_component_availability");
   }
 }
 }  // namespace
