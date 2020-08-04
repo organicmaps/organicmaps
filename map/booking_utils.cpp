@@ -54,7 +54,7 @@ void SortTransform(search::Results const & results, std::vector<Extras> const & 
   }
 }
 
-void AppendUnavailable(search::Results const & filteredOut, SearchMarks & searchMarks)
+void SetUnavailable(search::Results const & filteredOut, SearchMarks & searchMarks)
 {
   if (filteredOut.GetCount() == 0)
     return;
@@ -62,11 +62,11 @@ void AppendUnavailable(search::Results const & filteredOut, SearchMarks & search
   std::string reason = platform::GetLocalizedString("booking_map_component_availability");
   for (auto const & filtered : filteredOut)
   {
-    searchMarks.AppendUnavailable(filtered.GetFeatureID(), reason);
+    searchMarks.SetUnavailable(filtered.GetFeatureID(), reason);
   }
 }
 
-void AppendUnavailable(std::vector<FeatureID> const & filteredOut, SearchMarks & searchMarks)
+void SetUnavailable(std::vector<FeatureID> const & filteredOut, SearchMarks & searchMarks)
 {
   if (filteredOut.empty())
     return;
@@ -74,7 +74,7 @@ void AppendUnavailable(std::vector<FeatureID> const & filteredOut, SearchMarks &
   std::string reason = platform::GetLocalizedString("booking_map_component_availability");
   for (auto const & filtered : filteredOut)
   {
-    searchMarks.AppendUnavailable(filtered, reason);
+    searchMarks.SetUnavailable(filtered, reason);
   }
 }
 }  // namespace
@@ -102,7 +102,7 @@ filter::TasksInternal MakeInternalTasks(search::Results const & results,
         [results, &searchMarks, type, apiParams, cb, inViewport](ResultInternal<search::Results> && result)
         {
           if (type == Type::Availability)
-            AppendUnavailable(result.m_filteredOut, searchMarks);
+            SetUnavailable(result.m_filteredOut, searchMarks);
 
           auto & filteredResults = result.m_passedFilter;
           auto & extras = result.m_extras;
@@ -170,7 +170,7 @@ filter::TasksRawInternal MakeInternalTasks(std::vector<FeatureID> const & featur
         [features, &searchMarks, type, apiParams, cb](ResultInternal<std::vector<FeatureID>> && result)
         {
           if (type == Type::Availability)
-            AppendUnavailable(result.m_filteredOut, searchMarks);
+            SetUnavailable(result.m_filteredOut, searchMarks);
 
           auto & sortedFeatures = result.m_passedFilter;
           auto & extras = result.m_extras;

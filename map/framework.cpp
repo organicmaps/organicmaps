@@ -1832,7 +1832,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
       if (!reason)
         reason = platform::GetLocalizedString("booking_map_component_filters");
 
-      m_searchMarks.AppendUnavailable(mark->GetFeatureID(), *reason);
+      m_searchMarks.SetUnavailable(mark->GetFeatureID(), *reason);
     }
 
     if (r.m_details.m_isSponsoredHotel)
@@ -3988,7 +3988,7 @@ void Framework::ShowViewportSearchResults(search::Results const & results, bool 
             auto const isFilteredOut = binary_search(filteredOut.cbegin(), filteredOut.cend(), id);
 
             if (isFilteredOut)
-              m_searchMarks.AppendUnavailable(mark.GetFeatureID(), reason);
+              m_searchMarks.SetUnavailable(mark.GetFeatureID(), reason);
           }
 
           break;

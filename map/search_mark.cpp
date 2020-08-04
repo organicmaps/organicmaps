@@ -744,9 +744,9 @@ void SearchMarks::ClearUsed()
   m_used.clear();
 }
 
-void SearchMarks::AppendUnavailable(FeatureID const & id, std::string const & reason)
+void SearchMarks::SetUnavailable(FeatureID const & id, std::string const & reason)
 {
-  m_unavailable.try_emplace(id, reason);
+  m_unavailable[id] = reason;
 }
 
 bool SearchMarks::IsUnavailable(FeatureID const & id) const

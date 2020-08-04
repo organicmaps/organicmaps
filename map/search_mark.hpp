@@ -120,7 +120,7 @@ public:
   bool IsUsed(FeatureID const & id) const;
   void ClearUsed();
 
-  void AppendUnavailable(FeatureID const & id, std::string const & reason);
+  void SetUnavailable(FeatureID const & id, std::string const & reason);
   bool IsUnavailable(FeatureID const & id) const;
   void MarkUnavailableIfNeeded(SearchMarkPoint * mark) const;
   void ClearUnavailable();
