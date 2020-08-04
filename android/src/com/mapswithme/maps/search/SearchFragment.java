@@ -12,13 +12,13 @@ import android.view.ViewGroup;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
@@ -155,7 +155,6 @@ public class SearchFragment extends BaseMwmFragment
   private PlaceholderView mResultsPlaceholder;
   private RecyclerView mResults;
   private AppBarLayout mAppBarLayout;
-  private CollapsingToolbarLayout mToolbarLayout;
   @Nullable
   private SearchFilterController mFilterController;
 
@@ -269,10 +268,11 @@ public class SearchFragment extends BaseMwmFragment
   {
     final boolean hasQuery = mToolbarController.hasQuery();
     UiUtils.showIf(hasQuery, mResultsFrame);
-    AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) mToolbarLayout.getLayoutParams();
+    Toolbar toolbar = mToolbarController.getToolbar();
+    AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
     lp.setScrollFlags(hasQuery ? AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                        | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
-    mToolbarLayout.setLayoutParams(lp);
+                                 | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
+    toolbar.setLayoutParams(lp);
     if (mFilterController != null)
       mFilterController.show(hasQuery, !RoutingController.get().isWaitingPoiPick());
 
@@ -312,7 +312,6 @@ public class SearchFragment extends BaseMwmFragment
 
     ViewGroup root = (ViewGroup) view;
     mAppBarLayout = root.findViewById(R.id.app_bar);
-    mToolbarLayout = mAppBarLayout.findViewById(R.id.collapsing_toolbar);
     mTabFrame = root.findViewById(R.id.tab_frame);
     ViewPager pager = mTabFrame.findViewById(R.id.pages);
 
