@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Otevřete katalog";
 
-"new_onboarding_step5.2_message" = "Předplatné katalogu průvodců MAPS.ME má velkou hodnotu. Získejte plný přístup k průvodcům městem a venkovem po celém světě!";
+"new_onboarding_step5.2_message" = "Vaše předplatné do katalogu průvodců MAPS.ME má mimořádnou hodnotu. Získejte plný přístup k městským a outdoorovým průvodcům po celém světě!";
 
 "new_onboarding_step5.2_button" = "Zkontrolujte termíny";
 
@@ -3290,7 +3290,7 @@
 
 "whatsnew_catalog_new_title" = "Nový katalog průvodců a tisíce nápadů na cestování";
 
-"whatsnew_catalog_new_message" = "Aktualizovali jsme katalog průvodců a přidali jsme překlady ve všech jazycích. Začněte plánovat dopředu!";
+"whatsnew_catalog_new_message" = "Aktualizovali jsme katalog průvodců a přidali překlady do populárních jazyků. Začněte dopředu s plánováním vašich cest!";
 
 "whatsnew_elevation_profile_title" = "Výškový profil v cestovních průvodcích";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Doporučená místa";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Začněte svou bezplatnou 7denní zkušební verzi";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Poté, %s ročně. Kdykoliv lze zrušit";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Bohužel, zkušební verzi jste již využili";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filtry";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Zvolit datum";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Pokoje a hosté";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Pokoje";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Dospělí";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Děti";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 let";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Nemluvňata";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 měsíců";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Žádné volné pokoje";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Mimo filtry";
+
+"choose_dates_online_only_dialog_title" = "Žádné připojení k síti";
+
+"choose_dates_online_only_dialog_message" = "Datum a počet hostů je možné vybrat pouze v režimu online. Zkontrolujte prosím nastavení a ujistěte se, že jste připojeni k internetu.";
+
+"choose_dates_online_only_dialog_cta" = "Nastavení";
+
+"30_days_limit_dialog" = "Rezervaci můžete provést maximálně na 30 nocí";
+
+"whatsnew_trial_title" = "Bezplatný přístup do katalogu průvodců";
+
+"whatsnew_trial_message" = "Nyní nabízíme 7denní zkušební verzi. Získejte přístup k tisícům cestovních průvodců po celém světě a interaktivnímu výškovému profilu pro outdoorové průvodce.";
+
+"whatsnew_trial_cta" = "Vyzkoušejte nyní";
+
+"subscription_terms_guides_outdoor" = "Po potvrzení nákupu bude platba naúčtována na váš účet v iTunes. Předplatné se automaticky obnoví, pokud není automatické obnovení vypnuto nejméně 24 hodin před koncem aktuálního období předplatného. V souladu s plánem obnovy bude na váš účet naúčtována částka za obnovení během 24 hodin před koncem aktuálního období předplatného. Automatické obnovení můžete spravovat nebo zakázat kdykoli po zakoupení v nastavení vašeho účtu Apple ID. Průvodce stažené během období předplatného můžete používat pouze do doby vypršení platnosti předplatného. 30 dnů po vypršení platnosti předplatného dojde k automatickému smazání průvodců a záložek.\n* Předplatné s bezplatným zkušebním obdobím se automaticky obnoví na placené předplatné. Automatické obnovení vaší bezplatné zkušební verze můžete rušit nebo spravovat v nastavení vašeho účtu. Zrušení nabude účinku 24 hodin po posledním dni aktuálního období předplatného. Poté budete přeřazeni na bezplatnou variantu. Upozornění: Jakákoli nevyužitá část bezplatné zkušební verze propadne, pokud si během tohoto zkušebního období zakoupíte prémiové předplatné.";
+
+"subscription_terms_android_outdoor" = "Po potvrzení nákupu bude platba naúčtována na váš účet Google Play. Předplatné se automaticky obnoví, pokud není automatické obnovení vypnuto nejméně 24 hodin před koncem aktuálního období předplatného. V souladu s plánem obnovy bude na váš účet naúčtována částka za obnovení během 24 hodin před koncem aktuálního období předplatného. Automatické obnovení můžete spravovat nebo zakázat kdykoli po zakoupení v nastavení účtu. Průvodce stažené během období předplatného můžete používat pouze do doby vypršení platnosti předplatného. 30 dnů po vypršení platnosti předplatného dojde k automatickému smazání průvodců.\n* Předplatné s bezplatným zkušebním obdobím se automaticky obnoví na placené předplatné. Automatické obnovení vaší bezplatné zkušební verze můžete rušit nebo spravovat v nastavení vašeho účtu. Zrušení nabude účinku 24 hodin po posledním dni aktuálního období předplatného. Poté budete přeřazeni na bezplatnou variantu. Upozornění: Jakákoli nevyužitá část bezplatné zkušební verze propadne, pokud si během tohoto zkušebního období zakoupíte prémiové předplatné.";
 
 
 /**********  Partners  **********/

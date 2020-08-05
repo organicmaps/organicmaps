@@ -1699,7 +1699,7 @@
 	<string name="new_onboarding_step5.1_header">Antes de iniciar…</string>
 	<string name="new_onboarding_step5.1_message">¡No olvides visitar nuestro nuevo catálogo de guías para encontrar una guía fuera de línea para tu próximo viaje!</string>
 	<string name="new_onboarding_step5.1_button">Abrir catálogo</string>
-	<string name="new_onboarding_step5.2_message">Suscribirse al directorio de guías en MAPS.ME es rentable. ¡Obtén acceso completo a guías de paseos por la ciudad y a actividades al aire libre!</string>
+	<string name="new_onboarding_step5.2_message">Suscribirse al directorio de guías en MAPS.ME es rentable. ¡Obtén acceso completo a las rutas para paseos urbanos y actividades al aire libre!</string>
 	<string name="new_onboarding_step5.2_button">Mira los términos</string>
 	<string name="new_onboarding_step5.3_message">¡Descarga y califica las rutas para paseos por la ciudad y actividades al aire libre con una selección gratuita de MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Descarga gratis</string>
@@ -1784,8 +1784,8 @@
 	<string name="routes_card_show">Mostrar en el mapa</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Ocultar en el mapa</string>
-	<string name="whatsnew_catalog_new_title">Nuevo catálogo de guías y miles de ideas para descansar</string>
-	<string name="whatsnew_catalog_new_message">Hemos actualizado el catálogo de guías y agregado traducciones a todos los idiomas. ¡Comienza a planificar con anticipación!</string>
+	<string name="whatsnew_catalog_new_title">Nuevo catálogo y miles de ideas de vacaciones</string>
+	<string name="whatsnew_catalog_new_message">Hemos actualizado el catálogo de guías y agregado traducciones a los idiomas más populares. ¡Comienza a planificar con anticipación!</string>
 	<string name="whatsnew_elevation_profile_title">Perfil de altura en las guías</string>
 	<string name="whatsnew_elevation_profile_message">Evalúa la dificultad de los inminentes ascensos y descensos sin conexión, haciendo uso del cursor en el perfil de la ruta adquirida.</string>
 	<string name="whatsnew_guides_on_map_title">Nueva capa para encontrar guías con facilidad</string>
@@ -1796,6 +1796,40 @@
 	<string name="routes_card_number_of_points">%s lugares</string>
 	<string name="routes_card_routes_tag">Itinerario</string>
 	<string name="routes_card_set_tag">Lugares destacados</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Probar 7 días gratis</string>
+	<string name="guides_trial_message">En adelante %s por año. Cancelación en cualquier momento</string>
+	<string name="trial_error_dialog">Lo sentimos, ya has usado el período de prueba</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Filtros</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d día</item>
+	  <item quantity="few">%d días</item>
+	  <item quantity="other">%d días</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Elegir fecha</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Habitaciones, invitados</string>
+	<string name="guests_picker_rooms">Habitaciones</string>
+	<string name="guests_picker_adults">Adultos</string>
+	<string name="guests_picker_children_title">Niños</string>
+	<string name="guests_picker_children_subtitle">de 1-16 años</string>
+	<string name="guests_picker_infants_title">Infantes</string>
+	<string name="guests_picker_infants_subtitle">de 0-12 meses</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">No hay vacantes</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">No ajustan al filtro</string>
+	<string name="choose_dates_online_only_dialog_title">No hay conexión</string>
+	<string name="choose_dates_online_only_dialog_message">Las fechas y el número de invitados sólo se pueden seleccionar estando en línea. Verifica tu configuración y asegúrate de estar conectado a Internet.</string>
+	<string name="choose_dates_online_only_dialog_cta">Configuración</string>
+	<string name="30_days_limit_dialog">Puedes reservar por un máximo de 30 noches</string>
+	<string name="whatsnew_trial_title">Acceso gratuito a las guías de viaje</string>
+	<string name="whatsnew_trial_message">Hemos lanzado un período de suscripción de prueba de 7 días. Miles de rutas en todo el mundo, además de un perfil interactivo de alturas en las guías para actividades al aire libre.</string>
+	<string name="whatsnew_trial_cta">Pruébalo ahora</string>
+	<string name="subscription_terms_guides_outdoor">Cuando confirmes la compra, el pago se cargará a tu cuenta de iTunes. La suscripción se renovará automáticamente a menos que la función de renovación automática esté desactivada al menos 24 horas antes del final del período de suscripción actual. Tu cuenta se cargará de acuerdo con tu plan de renovación dentro de las 24 horas antes de que finalice el período de suscripción actual. Puedes administrar o deshabilitar la renovación automática en la configuración de tu cuenta de ID de Apple en cualquier momento después de la compra. Solo podrás usar las guías descargadas de tu suscripción durante su período de vigencia. Las guías y todos los marcadores se eliminarán automáticamente 30 días después de que caduque la suscripción.\n* La suscripción con un período de prueba gratuito se renovará automáticamente a una suscripción paga. Puedes cancelar o administrar la renovación automática de tu prueba gratuita en la configuración de tu cuenta después de la compra. La cancelación surtirá efecto 24 horas después del último día del período de suscripción actual, después de eso, serás trasferido al servicio gratuito. Ten en cuenta que cualquier parte no utilizada de la prueba gratuita se perderá cuando compres una suscripción premium durante la prueba gratuita.</string>
+	<string name="subscription_terms_android_outdoor">El pago se cargará a tu cuenta de Google Play en la confirmación de la compra. La suscripción se renovará automáticamente a menos que la función de renovación automática esté desactivada al menos 24 horas antes del final del período de suscripción actual. Tu cuenta se cargará de acuerdo con tu plan de renovación dentro de las 24 horas antes de que finalice el período de suscripción actual. Puedes administrar o deshabilitar la renovación automática yendo a la configuración de tu cuenta después de la compra. Solo podrás usar las guías descargadas de tu suscripción durante su período de vigencia. Después de 30 días después del final de la suscripción, las guías se eliminarán automáticamente.\n* La suscripción con un período de prueba gratuito se renovará automáticamente a una suscripción paga. Puedes cancelar o administrar la renovación automática de tu prueba gratuita en la configuración de tu cuenta después de la compra. La cancelación surtirá efecto 24 horas después del último día del período de suscripción actual, después de eso, serás trasferido al servicio gratuito. Ten en cuenta que cualquier parte no utilizada de la prueba gratuita se perderá cuando compres una suscripción premium durante la prueba gratuita.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

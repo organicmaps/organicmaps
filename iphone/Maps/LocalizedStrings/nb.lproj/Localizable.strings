@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Åpne katalogen";
 
-"new_onboarding_step5.2_message" = "Det er rimelig å abonnere på guidekatalogen på MAPS.ME. Få deg full tilgang til byturguider og friluftslivsguider!";
+"new_onboarding_step5.2_message" = "Abonnementet ditt på MAPS.ME guide katalogen har stor verdi. Få full tilgang til by- og friluftsguider rundt om i verden!";
 
 "new_onboarding_step5.2_button" = "Sjekke vilkår";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Skjule fra kartet";
 
-"whatsnew_catalog_new_title" = "Ny katalog med tusenvis av ferieideer";
+"whatsnew_catalog_new_title" = "Ny katalog med nye guider og tusenvis av reiseideer";
 
-"whatsnew_catalog_new_message" = "Vi har oppdatert guidekatalogen vår og lagt til oversettelser til alle språk. Begynn å planlegge på forhånd!";
+"whatsnew_catalog_new_message" = "Vi har oppdatert guide-katalogen og lagt til oversettelser på populære språk. Begynn å planlegge turen i forkant!";
 
 "whatsnew_elevation_profile_title" = "Høydeprofil i guidene";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Kompilasjon av steder";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Start din 7-dagers gratis prøveperiode";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Etter det, %s per år. Avbryt når som helst";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Beklager, du har allerede brukt opp prøveperioden";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filter";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Valgte datoer";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Rom og gjester";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Rom";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Voksen";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Barn";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 år";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Spedbarn";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 mnd.";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Ingen ledige rom";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Tom for filtere";
+
+"choose_dates_online_only_dialog_title" = "Ingen nettverksforbindelse";
+
+"choose_dates_online_only_dialog_message" = "Datoer og antall gjester kan bare velges når de er online. Kontroller innstillingene dine og sørg for at du er koblet til internett.";
+
+"choose_dates_online_only_dialog_cta" = "Instillinger";
+
+"30_days_limit_dialog" = "Du kan bestille maksimalt 30 netter";
+
+"whatsnew_trial_title" = "Gratis tilgang til guide-katalogen";
+
+"whatsnew_trial_message" = "Vi tilbyr nå en gratis 7-dagers prøveperiode. Få tilgang til tusenvis av reiseguider rundt om i verden og en interaktiv høydeprofil for utendørsguider.";
+
+"whatsnew_trial_cta" = "Prøv nå";
+
+"subscription_terms_guides_outdoor" = "Når du bekrefter kjøpet, belastes betalingen på iTunes-kontoen din. Abonnementet fornyes automatisk med mindre funksjonen for automatisk fornyelse er deaktivert minst 24 timer før utløpet av gjeldende abonnementsperiode. Kontoen din blir belastet i henhold til fornyelsesplanen din innen 24 timer før gjeldende abonnementsperiode er utløpt. Du kan administrere eller deaktivere automatisk fornyelse i Apple ID-kontoinnstillingene når som helst etter kjøpet. Du kan bare bruke guider som er lastet ned under abonnementet ditt til abonnementet utløper. Guider og alle bokmerker blir automatisk slettet 30 dager etter at abonnementet utløper.\n* Abonnementet med en gratis prøveperiode fornyes automatisk til et betalt abonnement. Du kan avbryte eller administrere den automatiske fornyelsen av gratis prøveperiode i kontoinnstillingene dine etter kjøpet. Avbestillingen trer i kraft 24 timer etter den siste dagen i gjeldende abonnementsperiode. Etter det blir du nedgradert til gratistjenesten. Merk: Enhver ubrukt del av gratis prøveperiode blir tapt når du kjøper et premiumabonnement under gratis prøveperioden.";
+
+"subscription_terms_android_outdoor" = "Når du bekrefter kjøpet, belastes betalingen på Google Play-kontoen din. Abonnementet fornyes automatisk med mindre funksjonen for automatisk fornyelse er deaktivert minst 24 timer før utløpet av gjeldende abonnementsperiode. Kontoen din blir belastet i henhold til fornyelsesplanen din innen 24 timer før gjeldende abonnementsperiode er utløpt. Du kan administrere eller deaktivere automatisk fornyelse i kontoinnstillingene når som helst etter kjøpet. Du kan bare bruke guider som er lastet ned under abonnementet ditt til abonnementet utløper. Guider blir automatisk slettet 30 dager etter at abonnementet utløper.\n* Abonnementet med en gratis prøveperiode fornyes automatisk til et betalt abonnement. Du kan avbryte eller administrere den automatiske fornyelsen av gratis prøveperiode i kontoinnstillingene dine etter kjøpet. Avbestillingen trer i kraft 24 timer etter den siste dagen i gjeldende abonnementsperiode. Etter det blir du nedgradert til gratistjenesten. Merk: Enhver ubrukt del av gratis prøveperiode blir tapt når du kjøper et premiumabonnement under gratis prøveperioden.";
 
 
 /**********  Partners  **********/

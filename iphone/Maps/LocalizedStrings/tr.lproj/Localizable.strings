@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Kataloğu aç";
 
-"new_onboarding_step5.2_message" = "MAPS.ME rehber kataloğuna abone olmak çok karlıdır. Dünyanın her yerindeki şehir ve açık hava rehberlerine tam erişim elde edin!";
+"new_onboarding_step5.2_message" = "MAPS.ME rehber kataloğu aboneliğiniz çok değerlidir. Tüm dünyadan hem şehir içi hem de doğa rehberlerine tam erişim elde edin!";
 
 "new_onboarding_step5.2_button" = "Şartlara göz at";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Haritadan gizle";
 
-"whatsnew_catalog_new_title" = "Yeni bir katalog ve binlerce tatil fikri";
+"whatsnew_catalog_new_title" = "Yeni rehber kataloğu ve yüzlerce seyahat fikri";
 
-"whatsnew_catalog_new_message" = "Rehberlerin kataloğunu güncelledik ve tüm dillere çeviriler ekledik. Planlamanızı önceden yapmaya başlayın!";
+"whatsnew_catalog_new_message" = "Rehber kataloğumuzu güncelledik ve popüler dillerde çeviriler ekledik. Gezinizi önceden planlamaya başlayın!";
 
 "whatsnew_elevation_profile_title" = "Rehberlerde yükseklik profili";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Öne çıkan yerler";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "7 günlük ücretsiz denemeyi başlatın";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Sonra yılda %s ödeyin. Dilediğinizde iptal edin";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Üzgünüz, deneme süresini zaten kullandınız";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filtreler";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Tarihleri seçin";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Odalar ve konuk sayısı";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Odalar";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Yetişkin";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Çocuk";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 yaş";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Bebek";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 ay";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Oda mevcut değil";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Filtre kalmadı";
+
+"choose_dates_online_only_dialog_title" = "Ağ bağlantısı yok";
+
+"choose_dates_online_only_dialog_message" = "Tarihler ve konuk sayısı sadece çevrimiçi iken seçilebilir. Lütfen ayarlarını kontrol edin ve internete bağlı olduğunuzdan emin olun.";
+
+"choose_dates_online_only_dialog_cta" = "Ayarlar";
+
+"30_days_limit_dialog" = "Maksimum 30 gecelik rezervasyon yapabilirsiniz";
+
+"whatsnew_trial_title" = "Rehber kataloğuna ücretsiz erişim";
+
+"whatsnew_trial_message" = "Artık kullanıcılarımıza 7 günlük deneme süresi sunuyoruz. Tüm dünyadan seyahat rehberlerine ve doğa gezilerini seven kullanıcılar için interaktif dağ profillerine erişim.";
+
+"whatsnew_trial_cta" = "Hemen deneyin";
+
+"subscription_terms_guides_outdoor" = "Satın alma işlemini onayladığınızda, ödeme iTunes hesabınızdan gerçekleştirilecektir. Otomatik yenileme özelliği mevcut abonelik döneminin sona ermesinden en az 24 saat önce devre dışı bırakılmadığı sürece abonelik otomatik olarak yenilenir. Yenileme planı çerçevesinde, mevcut abonelik döneminizin sona ermesinden önceki 24 saat içinde hesabınızdan para çekilecektir. Satın alma işleminden sonra dilediğiniz zaman Apple Kimliği hesap ayarlarından otomatik yenilemeyi yönetebilir veya devre dışı bırakabilirsiniz. Aboneliğiniz süresinde indirdiğiniz rehberleri sadece aboneliğiniz geçerli olduğu sürece kullanabilirsiniz. Rehberler ve tüm yer işaretleri, aboneliğin sona ermesinden 30 gün sonra otomatik olarak silinecektir.\n* Ücretsiz deneme süresinde sahip abonelikler, otomatik olarak ücretli abonelik şeklinde yenilenir. Satın alma işleminden sonra hesap ayarlarından ücretsiz deneme süresi sonunda otomatik yenilemeyi iptal edebilir veya yönetebilirsiniz. İptal işlemi, mevcut abonelik döneminin son gününden 24 saat sonra geçerli olacaktır. Bu aşamadan sonra ücretsiz hizmete geçersiniz. Lütfen unutmayın: Ücretsiz deneme süresinde premium abonelik satın almanız durumunda, ücretsiz deneme süresinde henüz kullanmadığınız günlerden feragat etmiş sayılırsınız.";
+
+"subscription_terms_android_outdoor" = "Satın alma işlemini onayladığınızda, ödeme Google Play hesabınızdan gerçekleştirilecektir. Otomatik yenileme özelliği mevcut abonelik döneminin sona ermesinden en az 24 saat önce devre dışı bırakılmadığı sürece abonelik otomatik olarak yenilenir. Yenileme planı çerçevesinde, mevcut abonelik döneminizin sona ermesinden önceki 24 saat içinde hesabınızdan para çekilecektir. Satın alma işleminden sonra dilediğiniz zaman hesap ayarlarından otomatik yenilemeyi yönetebilir veya devre dışı bırakabilirsiniz. Aboneliğiniz süresinde indirdiğiniz rehberleri sadece aboneliğiniz geçerli olduğu sürece kullanabilirsiniz. Rehberler, aboneliğin sona ermesinden 30 gün sonra otomatik olarak silinecektir.\n* Ücretsiz deneme süresinde sahip abonelikler, otomatik olarak ücretli abonelik şeklinde yenilenir. Satın alma işleminden sonra hesap ayarlarından ücretsiz deneme süresi sonunda otomatik yenilemeyi iptal edebilir veya yönetebilirsiniz. İptal işlemi, mevcut abonelik döneminin son gününden 24 saat sonra geçerli olacaktır. Bu aşamadan sonra ücretsiz hizmete geçersiniz. Lütfen unutmayın: Ücretsiz deneme süresinde premium abonelik satın almanız durumunda, ücretsiz deneme süresinde henüz kullanmadığınız günlerden feragat etmiş sayılırsınız.";
 
 
 /**********  Partners  **********/

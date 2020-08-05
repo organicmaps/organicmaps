@@ -1467,7 +1467,7 @@
 	<string name="new_onboarding_step5.1_header">Προτού ξεκινήσετε…</string>
 	<string name="new_onboarding_step5.1_message">Μην ξεχάσετε να επισκεφθείτε τον καινούριο μας κατάλογο διαδρομών για να βρείτε τον οδηγό εκτός σύνδεσης για το επόμενο ταξίδι σας!</string>
 	<string name="new_onboarding_step5.1_button">Άνοιγμα καταλόγου</string>
-	<string name="new_onboarding_step5.2_message">Η συνδρομή στον κατάλογο οδηγών στο MAPS.ME συνφέρει. Αποκτήστε πλήρη πρόσβαση σε οδηγούς για περιπάτους στην πόλη και υπαίθριες δραστηριότητες!</string>
+	<string name="new_onboarding_step5.2_message">Η εγγραφή στον κατάλογο οδηγών στο MAPS.ME συμφέρει. Αποκτήστε πλήρη πρόσβαση σε διαδρομές για περιπάτους στην πόλη και υπαίθριες δραστηριότητες!</string>
 	<string name="new_onboarding_step5.2_button">Προβολή όρων</string>
 	<string name="new_onboarding_step5.3_message">Κάντε λήψη και αξιολογήστε διαδρομές για περιπάτους στην πόλη και υπαίθριες δραστηριότητες με δωρεάν συλλογή του MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Δωρεάν λήψη</string>
@@ -1552,8 +1552,8 @@
 	<string name="routes_card_show">Εμφάνιση στον χάρτη</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Απόκρυψη από τον χάρτη</string>
-	<string name="whatsnew_catalog_new_title">Νέος κατάλογος οδηγών και χιλιάδες ιδέες για ταξίδια</string>
-	<string name="whatsnew_catalog_new_message">Έχουμε ενημερώσει τον κατάλογο οδηγών και προσθέσαμε μεταφράσεις σε όλες τις γλώσσες. Ξεκινήστε να κάνετε τα σχέδια σας εκ των προτέρων!</string>
+	<string name="whatsnew_catalog_new_title">Νέος κατάλογος οδηγών και χιλιάδες ιδέες για διακοπές</string>
+	<string name="whatsnew_catalog_new_message">Έχουμε ενημερώσει τον κατάλογο οδηγών και έχουμε προσθέσει μεταφράσεις σε δημοφιλείς γλώσσες. Ξεκινήστε να σχεδιάζετε από νωρίς!</string>
 	<string name="whatsnew_elevation_profile_title">Προφίλ υψόμετρου στους οδηγούς</string>
 	<string name="whatsnew_elevation_profile_message">Αξιολογήστε τη δυσκολία των επερχόμενων αναβάσεων και καταβάσεων εκτός σύνδεσης με τη βοήθεια του δρομέα στο προφίλ της διαδρομής που αποκτήσατε.</string>
 	<string name="whatsnew_guides_on_map_title">Νέο στρώμα για να βρίσκετε τους οδηγούς πιο εύκολα!</string>
@@ -1564,6 +1564,40 @@
 	<string name="routes_card_number_of_points">%s τοποθεσιών</string>
 	<string name="routes_card_routes_tag">Διαδρομή</string>
 	<string name="routes_card_set_tag">Προτεινόμενα μέρη</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Δοκιμή για 7 ημέρες δωρεάν</string>
+	<string name="guides_trial_message">Μετά %s ανά έτος. Ακύρωση ανά πάσα στιγμή</string>
+	<string name="trial_error_dialog">Έχετε ήδη χρησιμοποιήσει τη δοκιμαστική περίοδο</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Φίλτρα</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d ημέρα</item>
+	  <item quantity="few">%d ημέρες</item>
+	  <item quantity="other">%d ημέρες</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Επιλέξτε ημερομηνίες</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Δωμάτια και άτομα</string>
+	<string name="guests_picker_rooms">Δωμάτια</string>
+	<string name="guests_picker_adults">Ενήλικες</string>
+	<string name="guests_picker_children_title">Παιδιά</string>
+	<string name="guests_picker_children_subtitle">1-16 ετών</string>
+	<string name="guests_picker_infants_title">Βρέφη</string>
+	<string name="guests_picker_infants_subtitle">0-12 μηνών</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Είμαστε πλήρεις</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Εκτός ρυθμίσεων</string>
+	<string name="choose_dates_online_only_dialog_title">Δεν υπάρχει σύνδεση</string>
+	<string name="choose_dates_online_only_dialog_message">Η επιλογή ημερομηνιών και αριθμού επισκεπτών είναι διαθέσιμη μόνο σε απευθείας σύνδεση. Ελέγξτε τις ρυθμίσεις σας και βεβαιωθείτε ότι είστε συνδεδεμένοι στο Διαδίκτυο.</string>
+	<string name="choose_dates_online_only_dialog_cta">Ρυθμίσεις</string>
+	<string name="30_days_limit_dialog">Μπορείτε να κάνετε κράτηση έως και για 30 διανυκτερεύσεις</string>
+	<string name="whatsnew_trial_title">Δωρεάν πρόσβαση στους ταξιδιωτικούς οδηγούς</string>
+	<string name="whatsnew_trial_message">Έχουμε εισαγάγει μια δοκιμαστική περίοδο 7 ημερών. Έχουμε ενημερώσει τον κατάλογο οδηγών και έχουμε προσθέσει μεταφράσεις σε δημοφιλείς γλώσσες.</string>
+	<string name="whatsnew_trial_cta">Δοκιμή</string>
+	<string name="subscription_terms_guides_outdoor">Η πληρωμή θα χρεωθεί στον λογαριασμό σας iTunes κατά την επιβεβαίωση της αγοράς. Η συνδρομή σας θα ανανεωθεί αυτόματα εκτός εάν η αυτόματη ανανέωση απενεργοποιηθεί τουλάχιστον 24 ώρες πριν από το τέλος της τρέχουσας περιόδου. Ο λογαριασμός σας θα χρεωθεί με βάση το πρόγραμμα ανανέωσής σας εντός 24 ωρών πριν από το τέλος της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε ή να απενεργοποιήσετε την αυτόματη ανανέωση μεταβαίνοντας στις ρυθμίσεις του λογαριασμού σας Apple ID οποιαδήποτε στιγμή μετά την αγορά. Θα μπορείτε να χρησιμοποιήσετε τους ταξιδιωτικούς οδηγούς που έχετε κατεβάσει με συνδρομή μόνο κατά τη διάρκεια ισχύος της. 30 ημέρες μετά το τέλος της συνδρομής οι οδηγοί με όλους τους σελιδοδείκτες θα διαγραφούν αυτόματα.\n* Η συνδρομή με δωρεάν δοκιμαστική περίοδο μετατρέπεται αυτόματα σε συνδρομή επί πληρωμή. Μπορείτε να ακυρώσετε ή να διαχειριστείτε την αυτόματη ανανέωση της δωρεάν δοκιμής μεταβαίνοντας στις ρυθμίσεις του λογαριασμού σας μετά την αγορά. Η ακύρωση θα τεθεί σε ισχύ 24 ώρες μετά την τελευταία ημέρα της τρέχουσας περιόδου συνδρομής και θα μεταφερθείτε σε μια δωρεάν συνδρομή. Λάβετε υπόψη ότι οποιοδήποτε αχρησιμοποίητο τμήμα της δωρεάν δοκιμαστικής περιόδου θα χαθεί με την αγορά συνδρομής επί πληρωμή κατά τη διάρκεια αυτής της περιόδου.</string>
+	<string name="subscription_terms_android_outdoor">Η πληρωμή θα χρεωθεί στον λογαριασμό σας Google Play κατά την επιβεβαίωση της αγοράς. Η συνδρομή σας θα ανανεωθεί αυτόματα εκτός εάν η αυτόματη ανανέωση απενεργοποιηθεί τουλάχιστον 24 ώρες πριν από το τέλος της τρέχουσας περιόδου. Ο λογαριασμός σας θα χρεωθεί με βάση το πρόγραμμα ανανέωσής σας εντός 24 ωρών πριν από το τέλος της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε ή να απενεργοποιήσετε την αυτόματη ανανέωση μεταβαίνοντας στις ρυθμίσεις του λογαριασμού σας μετά την αγορά. Θα μπορείτε να χρησιμοποιήσετε τους ταξιδιωτικούς οδηγούς που έχετε κατεβάσει με συνδρομή μόνο κατά τη διάρκεια ισχύος της. 30 ημέρες μετά το τέλος της συνδρομής οι οδηγοί θα διαγραφούν αυτόματα.\n* Η συνδρομή με δωρεάν δοκιμαστική περίοδο μετατρέπεται αυτόματα σε συνδρομή επί πληρωμή. Μπορείτε να ακυρώσετε ή να διαχειριστείτε την αυτόματη ανανέωση της δωρεάν δοκιμής μεταβαίνοντας στις ρυθμίσεις του λογαριασμού σας μετά την αγορά. Η ακύρωση θα τεθεί σε ισχύ 24 ώρες μετά την τελευταία ημέρα της τρέχουσας περιόδου συνδρομής και θα μεταφερθείτε σε μια δωρεάν συνδρομή. Λάβετε υπόψη ότι οποιοδήποτε αχρησιμοποίητο τμήμα της δωρεάν δοκιμαστικής περιόδου θα χαθεί με την αγορά συνδρομής επί πληρωμή κατά τη διάρκεια αυτής της περιόδου.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "打開目錄";
 
-"new_onboarding_step5.2_message" = "在MAPS.ME 中訂閱指南目錄非常劃算。可訪問所有市內徒步旅行與休閑運動指南！";
+"new_onboarding_step5.2_message" = "订阅MAPS.ME中的旅行指南会让您受益匪浅。全面访问城市散步路线和户外活动路线！";
 
 "new_onboarding_step5.2_button" = "查看條件";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "在地圖上隱藏";
 
-"whatsnew_catalog_new_title" = "新目錄和數千個理想度假勝地";
+"whatsnew_catalog_new_title" = "新指南和数千个度假地";
 
-"whatsnew_catalog_new_message" = "我們更新了指南目錄，並添加了所有語言的翻譯。開始提前計劃！";
+"whatsnew_catalog_new_message" = "我们更新了指南目录，并添加了常用的语言版本。开始提前计划！";
 
 "whatsnew_elevation_profile_title" = "指南中的高度剖面圖";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "特色景點";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "免费试用7天";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "之后每年%s。随时取消";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "您已经使用了试用期";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "筛选";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "选择日期";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "客房和客人";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "客房";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "成人";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "儿童";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16岁";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "婴儿";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12个月";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "沒有可用的房間";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "未筛选到";
+
+"choose_dates_online_only_dialog_title" = "没有网络连接";
+
+"choose_dates_online_only_dialog_message" = "日期和入住人数仅可在线选择。检查您的设置，并确保您已连网。";
+
+"choose_dates_online_only_dialog_cta" = "设置";
+
+"30_days_limit_dialog" = "最多可预订30晚";
+
+"whatsnew_trial_title" = "免费访问旅行指南";
+
+"whatsnew_trial_message" = "我们已经推出了7天的试用期。世界各地的数千条路线，以及户外旅行指南中的交互式海拔剖面图。";
+
+"whatsnew_trial_cta" = "试用";
+
+"subscription_terms_guides_outdoor" = "确认购买后，付款将从您的iTunes帐户中扣除。订阅将自动续订，除非在到期前至少24小时关闭自动续订。在到期前的24小时内，将根据您的续订计划从您的帐户扣费。购买成功后，您可以随时进入Apple ID帐户设置来管理或关闭自动更新。您只能在有效期内使用通过订阅下载的指南。订阅结束后30天，带有所有标签的指南将被自动删除。\n*免费试用期的订阅会自动转换为付费订阅。购买后，您可以转到“帐户设置”来取消或管理免费试用版的自动续订。取消将在当前订阅期最后一天的24小时后生效，您将被转为免费订阅。请注意，免费试用期内未使用的部分在该期间购买付费订阅时将被收回。";
+
+"subscription_terms_android_outdoor" = "确认购买后，付款将从您的Google Play帐户中扣除。订阅将自动续订，除非在到期前至少24小时关闭自动续订。在到期前的24小时内，将根据您的续订计划从您的帐户扣费。购买后，您可以转到“帐户设置”来管理或关闭自动续订。您只能在有效期内使用通过订阅下载的指南。订阅结束后30天后，指南将自动删除。\n*免费试用期的订阅会自动转换为付费订阅。购买后，您可以转到“帐户设置”来取消或管理免费试用版的自动续订。取消将在当前订阅期最后一天的24小时后生效，您将被转为免费订阅。请注意，免费试用期内未使用的部分在该期间购买付费订阅时将被收回。";
 
 
 /**********  Partners  **********/

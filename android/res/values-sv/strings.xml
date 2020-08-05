@@ -1705,7 +1705,7 @@
 	<string name="new_onboarding_step5.1_header">Innan du börjar…</string>
 	<string name="new_onboarding_step5.1_message">Glöm inte att se vår nya guider katalog för att hitta en offline guide för din kommande resa!</string>
 	<string name="new_onboarding_step5.1_button">Öppna katalog</string>
-	<string name="new_onboarding_step5.2_message">Prenumeration på katalogen över guider i MAPS.ME är lönsamt. Få full tillgång till guider för stadspromenader och utomhusaktiviteter!</string>
+	<string name="new_onboarding_step5.2_message">Prenumerationen på guidebok katalogen i MAPS.ME är lönsam. Få full tillgång till rutter för stadspromenader och utomhusaktiviteter!</string>
 	<string name="new_onboarding_step5.2_button">Kolla villkoren</string>
 	<string name="new_onboarding_step5.3_message">Ladda ner och betygsätt rutter för stadspromenader och utomhusaktiviteter med ett gratis urval av MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Ladda ner gratis</string>
@@ -1790,8 +1790,8 @@
 	<string name="routes_card_show">Visa på kartan</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Dölja på kartan</string>
-	<string name="whatsnew_catalog_new_title">En ny katalog och tusentals idéer för vila</string>
-	<string name="whatsnew_catalog_new_message">Vi har uppdaterat guidebok katalogen och lagt till översättningar till alla språk. Börja planera i förväg!</string>
+	<string name="whatsnew_catalog_new_title">En ny katalog och tusentals idéer för rekreation</string>
+	<string name="whatsnew_catalog_new_message">Vi har uppdaterat guidebok katalogen och lagt till översättningar till populära språk. Börja planera i förväg!</string>
 	<string name="whatsnew_elevation_profile_title">Terräng profil i guiderna</string>
 	<string name="whatsnew_elevation_profile_message">Utvärdera komplexitet för kommande stigningar och backar offline med hjälp av markören i profilen för den förvärvade rutten.</string>
 	<string name="whatsnew_guides_on_map_title">Nytt lager för att hitta guider enkelt!</string>
@@ -1802,6 +1802,40 @@
 	<string name="routes_card_number_of_points">%s platser</string>
 	<string name="routes_card_routes_tag">Resväg</string>
 	<string name="routes_card_set_tag">Utvalda platser</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Prova 7 dagar gratis</string>
+	<string name="guides_trial_message">Vidare %s om år. Avbrytning när som helst</string>
+	<string name="trial_error_dialog">Du har redan utnyttjat provperioden</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Filter</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d dag</item>
+	  <item quantity="few">%d dagar</item>
+	  <item quantity="other">%d dagar</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Välj data</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Rum och gäster</string>
+	<string name="guests_picker_rooms">Rum</string>
+	<string name="guests_picker_adults">Vuxna</string>
+	<string name="guests_picker_children_title">Barn</string>
+	<string name="guests_picker_children_subtitle">1-16 år</string>
+	<string name="guests_picker_infants_title">Spädbarn</string>
+	<string name="guests_picker_infants_subtitle">0-12 mån.</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Inga platser</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Utom filtervärden</string>
+	<string name="choose_dates_online_only_dialog_title">Ingen anslutning</string>
+	<string name="choose_dates_online_only_dialog_message">Valet av datum och antal gäster är endast tillgängligt online. Kontrollera dina inställningar och se till att du är ansluten till Internet.</string>
+	<string name="choose_dates_online_only_dialog_cta">Inställningar</string>
+	<string name="30_days_limit_dialog">Kan bokas för högst 30 nätter</string>
+	<string name="whatsnew_trial_title">Gratis tillgång till guider</string>
+	<string name="whatsnew_trial_message">Vi har lanserat en 7-dagars period för provprenumeration. Tusentals rutter runt om i världen, samt en interaktiv terräng profil i guider för utomhusaktiviteter.</string>
+	<string name="whatsnew_trial_cta">Prova</string>
+	<string name="subscription_terms_guides_outdoor">Betalning ska genomföras från ditt iTunes-konto vid bekräftelse av köpet. Prenumerationen ska förnyas automatiskt om automatisk förnyelse inte stängs av minst 24 timmar före utgången av den aktuella perioden. Penningmedel ska debiteras från ditt konto enligt din förnyelsetariff inom 24 timmar före utgången av den aktuella perioden. Du kan styra eller stänga av automatisk förnyelse i dina Apple ID-kontoinställningar när som helst efter köpet. Du kommer att kunna använda de guider som laddats ner genom prenumeration endast under dess giltighetsperiod. 30 dagar efter prenumerationens slut ska guiderna med alla bokmärken raderas automatiskt.\n* Prenumeration med en gratis provperiod blir automatiskt en betald prenumeration. Du kan avbryta eller styra den automatiska förnyelsen av gratis provversionen i dina kontoinställningar efter köpet. Avbrytningen ska träda i kraft 24 timmar efter den sista dagen av den aktuella prenumerationsperioden och du kommer att överföras till en gratis prenumeration. Observera: alla oanvända delar av den gratis prövningsperioden ska annulleras vid köp av en betald prenumeration under denna period.</string>
+	<string name="subscription_terms_android_outdoor">Betalning ska genomföras från ditt Google Play-konto vid bekräftelse av köpet. Prenumerationen ska förnyas automatiskt om automatisk förnyelse inte stängs av minst 24 timmar före utgången av den aktuella perioden. Penningmedel ska debiteras från ditt konto enligt din förnyelsetariff inom 24 timmar före utgången av den aktuella perioden. Du kan styra eller stänga av automatisk förnyelse i dina kontoinställningar efter köpet. Du kommer att kunna använda de guider som laddats ner genom prenumeration endast under dess giltighetsperiod. 30 dagar efter prenumerationens slut ska guiderna raderas automatiskt.\n* Prenumeration med en gratis provperiod blir automatiskt en betald prenumeration. Du kan avbryta eller styra den automatiska förnyelsen av gratis provversionen i dina kontoinställningar efter köpet. Avbrytningen ska träda i kraft 24 timmar efter den sista dagen av den aktuella prenumerationsperioden och du kommer att överföras till en gratis prenumeration. Observera: alla oanvända delar av den gratis prövningsperioden ska annulleras vid köp av en betald prenumeration under denna period.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

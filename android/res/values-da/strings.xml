@@ -1709,7 +1709,7 @@
 	<string name="new_onboarding_step5.1_header">En ting mere før du starter…</string>
 	<string name="new_onboarding_step5.1_message">Glem ikke at besøge vores helt nye guidekatalog for at en finde en offline guide til din kommende rejse!</string>
 	<string name="new_onboarding_step5.1_button">Åbent katalog</string>
-	<string name="new_onboarding_step5.2_message">Abonnement til MAPS.ME guidekataloget har stor værdi. Få fuld adgang til byen og udendørs guides rundt om i verden!</string>
+	<string name="new_onboarding_step5.2_message">Dit abonnement til MAPS.ME guidekatalog er af stor værdi. Få fuld adgang til byen og udendørsguider i hele verden!</string>
 	<string name="new_onboarding_step5.2_button">Check betingelserne ud</string>
 	<string name="new_onboarding_step5.3_message">Check de gratis prøver på færdige by- og udendørsruter med et gratis udvalg af MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Gratis download</string>
@@ -1794,8 +1794,8 @@
 	<string name="routes_card_show">Vis på kort</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Skjul fra kort</string>
-	<string name="whatsnew_catalog_new_title">Nyt guide katalog og rejseidéer</string>
-	<string name="whatsnew_catalog_new_message">Vi har opdateret guide kataloget og tilføjet oversættelser på alle sprog. Påbegynd planlægning på forhånd!</string>
+	<string name="whatsnew_catalog_new_title">Nye guidekataloger og tusindvis af rejseideer</string>
+	<string name="whatsnew_catalog_new_message">Vi har opdateret guidekataloget og tilføjet oversættelser til populære sprog. Begynd at planlægge din tur i forvejen!</string>
 	<string name="whatsnew_elevation_profile_title">Højdeprofil i rejseguides</string>
 	<string name="whatsnew_elevation_profile_message">Vurder kompleksiteten af kommende offline stigninger og nedstigninger med markøren i profilen af den købte rute.</string>
 	<string name="whatsnew_guides_on_map_title">Nyt lag til at finde guider let</string>
@@ -1806,6 +1806,40 @@
 	<string name="routes_card_number_of_points">%s steder</string>
 	<string name="routes_card_routes_tag">Rejseplan</string>
 	<string name="routes_card_set_tag">Fremhævede steder</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Start din 7 dages gratis prøveperiode</string>
+	<string name="guides_trial_message">Derefter, %s per år. Annuller når som helst</string>
+	<string name="trial_error_dialog">Beklager, du har allerede brugt prøveperioden</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Filtre</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d dag</item>
+	  <item quantity="few">%d dage</item>
+	  <item quantity="other">%d dage</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Vælg datoer</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Værelser og gæster</string>
+	<string name="guests_picker_rooms">Værelser</string>
+	<string name="guests_picker_adults">Voksne</string>
+	<string name="guests_picker_children_title">Børn</string>
+	<string name="guests_picker_children_subtitle">1-16 år</string>
+	<string name="guests_picker_infants_title">Spædbørn</string>
+	<string name="guests_picker_infants_subtitle">0-12 mdr.</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Ingen værelser</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Ikke flere filtre</string>
+	<string name="choose_dates_online_only_dialog_title">Ingen netværksforbindelse</string>
+	<string name="choose_dates_online_only_dialog_message">Datoer og antal gæster kan kun vælges, når du er online. Kontroller venligst dine indstillinger og sørg for, du er forbundet til internettet.</string>
+	<string name="choose_dates_online_only_dialog_cta">Indstillinger</string>
+	<string name="30_days_limit_dialog">Du kan booke maksimalt 30 nætter</string>
+	<string name="whatsnew_trial_title">Gratis afgang til guidekataloget</string>
+	<string name="whatsnew_trial_message">Vi tilbyder nu en gratis 7 dages prøveperiode. Få adgang til tusindvis af rejseguider i hele verden og en interaktiv elevationsprofil til udendørsguider.</string>
+	<string name="whatsnew_trial_cta">Prøv det nu</string>
+	<string name="subscription_terms_guides_outdoor">Når du bekræfter købet, vil betalingen blive debiteret på din iTunes-konto. Abonnementet vil automatisk blive fornyet, med mindre automatisk fornyelse slås fra mindst 24 timer før slutningen af den nuværende abonnementsperiode. Din konto vil blive debiteret ifølge din fornyelsesplan inden for 24 timer før den nuværende abonnementsperiode slutter. Du kan administrere eller slå automatisk fornyelse fra i dine Apple ID-kontoindstillinger når som helst efter købet. Du kan kun bruge de downloadede guider i løbet af dit abonnement, indtil abonnementet udløber. Guider og bogmærker vil automatisk blive slettet 30 dage efter abonnementet udløber.\n* Abonnementet med gratis prøveperiode vil automatisk blive fornyet til et betalt abonnement. Du kan annullere eller administrere automatisk fornyelse af din gratis prøveperiode i dine kontoindstillinger efter købet. Annulleringen træder i kraft 24 timer efter den sidste dag af den nuværende abonnementsperiode. Derefter vil du blive nedgraderet til den gratis tjeneste. Bemærk venligst: Enhver ubrugt del af den gratis prøveperiode går tabt, når du køber et premium-abonnement i løbet af den gratis prøveperiode.</string>
+	<string name="subscription_terms_android_outdoor">Når du bekræfter købet, vil betalingen blive debiteret på din Google Play-konto. Abonnementet vil automatisk blive fornyet, med mindre automatisk fornyelse slås fra mindst 24 timer før slutningen af den nuværende abonnementsperiode. Din konto vil blive debiteret ifølge din fornyelsesplan inden for 24 timer før den nuværende abonnementsperiode slutter. Du kan administrere eller slå automatisk fornyelse fra i dine kontoindstillinger når som helst efter købet. Du kan kun bruge de downloadede guider i løbet af dit abonnement, indtil abonnementet udløber. Guider vil automatisk blive slettet 30 dage efter abonnementet udløber.\n* Abonnementet med gratis prøveperiode vil automatisk blive fornyet til et betalt abonnement. Du kan annullere eller administrere automatisk fornyelse af din gratis prøveperiode i dine kontoindstillinger efter købet. Annulleringen træder i kraft 24 timer efter den sidste dag af den nuværende abonnementsperiode. Derefter vil du blive nedgraderet til den gratis tjeneste. Bemærk venligst: Enhver ubrugt del af den gratis prøveperiode går tabt, når du køber et premium-abonnement i løbet af den gratis prøveperiode.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

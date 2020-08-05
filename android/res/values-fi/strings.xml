@@ -1699,7 +1699,7 @@
 	<string name="new_onboarding_step5.1_header">Ennen aloittamista…</string>
 	<string name="new_onboarding_step5.1_message">Muista vierailla meidän uuden reittiluettelossamme löytääksesi offline-oppaan seuraavaa matkaa varten!</string>
 	<string name="new_onboarding_step5.1_button">Avaa luettelo</string>
-	<string name="new_onboarding_step5.2_message">MAPS.ME:ssä matkaopasluettelon tilaaminen on kannattavaa. Saat täyden pääsyn matkaoppaisiin kaupungin kävelyretkiä ja ulkoilua varten!</string>
+	<string name="new_onboarding_step5.2_message">MAPS.ME -matkaoppaiden tilaus on löytöostos. Käytä vapaasti matkaoppaiden kaikkia mahdollisuuksia!</string>
 	<string name="new_onboarding_step5.2_button">Näytä ehdot</string>
 	<string name="new_onboarding_step5.3_message">Lataa ja arvioi kaupunkikierroksia ja ulkoiluaktiviteetteja ilmaisella MAPS.ME-valinnalla!</string>
 	<string name="new_onboarding_step5.3_button">Lataa ilmaiseksi</string>
@@ -1784,8 +1784,8 @@
 	<string name="routes_card_show">Näytä kartalla</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Piilota kartalta</string>
-	<string name="whatsnew_catalog_new_title">Uusi luettelo ja tuhansia lomasi viettoon liittyviä ideoita</string>
-	<string name="whatsnew_catalog_new_message">Olemme päivittäneet matkaopasluettelon ja lisänneet käännöksiä kaikille kielille. Aloita suunnittelu etukäteen!</string>
+	<string name="whatsnew_catalog_new_title">Uudet matkaoppaat sekä tuhansia ideoita vapaa-ajan viettoon</string>
+	<string name="whatsnew_catalog_new_message">Olemme uusineet matkaoppaamme ja lisänneet näihin käännöksiä käytetyimmille kielille. Aloita matkan suunnittelu etukäteen!</string>
 	<string name="whatsnew_elevation_profile_title">Korkeuslinjat matkaoppaissa</string>
 	<string name="whatsnew_elevation_profile_message">Arvioi tulevien ylä- ja alamäkien vaikeus offline-tilassa hankitun reitin profiilissa kursorin avulla.</string>
 	<string name="whatsnew_guides_on_map_title">Uusi taso — matkaoppaat kartalla!</string>
@@ -1796,6 +1796,40 @@
 	<string name="routes_card_number_of_points">%s paikoista</string>
 	<string name="routes_card_routes_tag">Reitti</string>
 	<string name="routes_card_set_tag">Esitellyt paikat</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Kokeile 7 päivää ilmaiseksi</string>
+	<string name="guides_trial_message">Sen jälkeen %s vuodessa. Peruutettavissa milloin hyvänsä</string>
+	<string name="trial_error_dialog">Olet jo käyttänyt maksutonta koekeilujaksoa</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Suodattimet</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d päivää</item>
+	  <item quantity="few">%d päivää</item>
+	  <item quantity="other">%d päivää</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Valitse ajankohta</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Hotellihuoneet ja matkustajat</string>
+	<string name="guests_picker_rooms">Hotellihuoneet</string>
+	<string name="guests_picker_adults">Aikuiset</string>
+	<string name="guests_picker_children_title">Lapset</string>
+	<string name="guests_picker_children_subtitle">1-16 v.</string>
+	<string name="guests_picker_infants_title">Vauvat</string>
+	<string name="guests_picker_infants_subtitle">0-12 kk</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Loppuunvarattu</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Ei osu suodatusaset.</string>
+	<string name="choose_dates_online_only_dialog_title">Verkkoyhteys poikki</string>
+	<string name="choose_dates_online_only_dialog_message">Ajankohdat ja matkustajien lukumäärä on mahdollista valita ainoastaan verkossa. Tarkista verkkoasetukset ja varmista, että laitteesi saa yhteyttä verkkoon.</string>
+	<string name="choose_dates_online_only_dialog_cta">Asetukset</string>
+	<string name="30_days_limit_dialog">Varauksen voi tehdä enintään 30:ksi yöksi</string>
+	<string name="whatsnew_trial_title">Matkaoppaiden vapaa käyttöoikeus</string>
+	<string name="whatsnew_trial_message">Sovellus antaa 7 päivää kokeilla matkaoppaita ilmaiseksi. Tuhansia reittejä kaikkialla maailmassa sekä interaktiivinen korkeusprofiili matkaoppaissa ulkoiluun ja liikuntaan.</string>
+	<string name="whatsnew_trial_cta">Kokeile</string>
+	<string name="subscription_terms_guides_outdoor">Summa veloitetaan iTunes -tililtäsi ostosta vahvistettaessa. Tilaus jatkuu automaattisesti ellei sitä peruuteta vähintään 24 tuntia ennen kuluvan tilauskauden päättymistä. Raha kirjataan pois käyttäjätililtäsi jatkoliittymäehtojen mukaan 24 tunnin kuluessa ennen kuluvan jakson päättymistä. Voit hallita automaatista jatkoa tai ottaa sen pois päältä Apple ID -käyttäjätilisi asetuksissa milloin hyvänsä ostoksen jälkeen. Tilauksen puitteissa ladattuja matkaoppaita voit käyttää ainoastaan tilauksen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat on poistettu automaattisesti.\n* Ilmainen kokeilujaksotilaus automaattisesti muuttuu maksulliseksi tilaukseksi. Voit hallita ilmaisen kokeilujaksotilauksen automaatista jatkoa tai peruuttaa sen käyttäjätilisi asetuksissa milloin tahansa ostoksen jälkeen. Peruutus astuu voimaan 24 tunnin päästä kuluvan tilausjakson viimeisestä päivästä. Sen jälkeen tilaus siirtyy toimimaan maksuttomam tilauksen ehdoilla. Huom. Ilmaisen kokeilujakson kaikki käyttämättömät osat on lopetettu, jos teet maksullisen tilauksen kokeilujakson aikana.</string>
+	<string name="subscription_terms_android_outdoor">Summa veloitetaan Google Play -tililtäsi oston vahvistamisen yhteydessä. Tilaus jatkuu automaattisesti ellei sitä peruuteta vähintään 24 tuntia ennen kuluvan tilauskauden päättymistä. Raha kirjataan pois käyttäjätililtäsi jatkoliittymäehtojen mukaan 24 tunnin kuluessa ennen kuluvan jakson päättymistä. Voit hallita automaatista jatkoa tai ottaa sen pois päältä käyttäjätilisi asetuksissa ostoksen jälkeen. Tilauksen puitteissa ladattuja matkaoppaita voit käyttää ainoastaan tilauksen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat on poistettu automaattisesti.\n* Ilmainen kokeilujaksotilaus automaattisesti muuttuu maksulliseksi tilaukseksi. Voit hallita ilmaisen kokeilujaksotilauksen automaatista jatkoa tai peruuttaa sen käyttäjätilisi asetuksissa milloin tahansa ostoksen jälkeen. Peruutus astuu voimaan 24 tunnin päästä kuluvan tilausjakson viimeisestä päivästä. Sen jälkeen tilaus siirtyy toimimaan maksuttomam tilauksen ehdoilla. Huom. Ilmaisen kokeilujakson kaikki käyttämättömät osat on lopetettu, jos teet maksullisen tilauksen kokeilujakson aikana.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

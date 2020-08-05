@@ -1751,7 +1751,7 @@
 	<string name="new_onboarding_step5.1_header">Перед тем как начать…</string>
 	<string name="new_onboarding_step5.1_message">Не забудьте посетить наш новый каталог путеводителей, чтобы найти офлайн гид к ближайшей поездке!</string>
 	<string name="new_onboarding_step5.1_button">Открыть каталог</string>
-	<string name="new_onboarding_step5.2_message">Подписка на каталог путеводителей в MAPS.ME – это выгодно. Получите полный доступ к путеводителям для городских прогулок и активного отдыха!</string>
+	<string name="new_onboarding_step5.2_message">Подписка на каталог путеводителей в MAPS.ME – это выгодно. Получите полный доступ к маршрутам для городских прогулок и активного отдыха!</string>
 	<string name="new_onboarding_step5.2_button">Посмотреть условия</string>
 	<string name="new_onboarding_step5.3_message">Скачайте и оцените маршруты для городских прогулок и активного отдыха с бесплатной подборкой MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Скачать бесплатно</string>
@@ -1837,7 +1837,7 @@
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Скрыть с карты</string>
 	<string name="whatsnew_catalog_new_title">Новый каталог и тысячи идей для отдыха</string>
-	<string name="whatsnew_catalog_new_message">Мы обновили каталог путеводителей и добавили переводы на все языки. Начните планировать заранее!</string>
+	<string name="whatsnew_catalog_new_message">Мы обновили каталог путеводителей и добавили переводы на популярные языки. Начните планировать заранее!</string>
 	<string name="whatsnew_elevation_profile_title">Профиль высот в путеводителях</string>
 	<string name="whatsnew_elevation_profile_message">Оценивайте сложность предстоящих подъемов и спусков офлайн с помощью курсора в профиле приобретенного маршрута.</string>
 	<string name="whatsnew_guides_on_map_title">Новый слой — путеводители на карте!</string>
@@ -1848,12 +1848,40 @@
 	<string name="routes_card_number_of_points">%s мест</string>
 	<string name="routes_card_routes_tag">Маршрут</string>
 	<string name="routes_card_set_tag">Подборка мест</string>
-	<!-- FIXME -->
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Попробовать 7 дней бесплатно</string>
+	<string name="guides_trial_message">Далее %s в год. Отмена в любое время</string>
+	<string name="trial_error_dialog">Вы уже воспользовались пробным периодом</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Фильтры</string>
 	<plurals name="date_picker_amout_of_days">
 	  <item quantity="one">%d день</item>
 	  <item quantity="few">%d дня</item>
-	  <item quantity="other">%dдней</item>
+	  <item quantity="other">%d дней</item>
 	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Выбрать даты</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Номера и гости</string>
+	<string name="guests_picker_rooms">Номера</string>
+	<string name="guests_picker_adults">Взрослые</string>
+	<string name="guests_picker_children_title">Дети</string>
+	<string name="guests_picker_children_subtitle">1-16 лет</string>
+	<string name="guests_picker_infants_title">Младенцы</string>
+	<string name="guests_picker_infants_subtitle">0-12 мес.</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Нет мест</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Вне настроек фильтра</string>
+	<string name="choose_dates_online_only_dialog_title">Нет соединения</string>
+	<string name="choose_dates_online_only_dialog_message">Выбор дат и количества гостей доступен только онлайн. Проверьте настройки и убедитесь, что вы подключены к Интернету.</string>
+	<string name="choose_dates_online_only_dialog_cta">Настройки</string>
+	<string name="30_days_limit_dialog">Забронировать можно максимум на 30 ночей</string>
+	<string name="whatsnew_trial_title">Бесплатный доступ к путеводителям</string>
+	<string name="whatsnew_trial_message">Мы запустили 7-дневный пробный период подписки. Тысячи маршрутов по всему миру, а также интерактивный профиль высот в путеводителях для активного отдыха.</string>
+	<string name="whatsnew_trial_cta">Попробовать</string>
+	<string name="subscription_terms_guides_outdoor">Оплата будет произведена с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи Apple ID в любое время после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 30 дней после окончания подписки путеводители со всеми закладками будут автоматически удалены.\n* Подписка с бесплатным пробным периодом автоматически преобразуется в платную подписку. Вы можете отменить или управлять автоматическим продлением бесплатной пробной версии в настройках своего аккаунта после покупки. Отмена вступит в силу через 24 часа после последнего дня текущего периода подписки, и вы будете переведены на бесплатную подписку. Обратите внимание: любая неиспользованная часть бесплатного пробного периода будет аннулирована при покупке платной подписки в течение этого периода.</string>
+	<string name="subscription_terms_android_outdoor">Оплата будет произведена с вашего счета Google Play при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 30 дней после окончания подписки путеводители будут автоматически удалены.\n* Подписка с бесплатным пробным периодом автоматически преобразуется в платную подписку. Вы можете отменить или управлять автоматическим продлением бесплатной пробной версии в настройках своего аккаунта после покупки. Отмена вступит в силу через 24 часа после последнего дня текущего периода подписки, и вы будете переведены на бесплатную подписку. Обратите внимание: любая неиспользованная часть бесплатного пробного периода будет аннулирована при покупке платной подписки в течение этого периода.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

@@ -116,7 +116,6 @@
     </dict>
   </dict>
 
-<!-- FIXME -->
   <key>date_picker_amout_of_days</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>
@@ -127,8 +126,12 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d日</string>
+      <key>few</key>
+      <string>%d日</string>
       <key>other</key>
-      <string>%d days</string>
+      <string>%d日</string>
     </dict>
   </dict>
 </dict>

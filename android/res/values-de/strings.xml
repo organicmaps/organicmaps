@@ -1713,7 +1713,7 @@
 	<string name="new_onboarding_step5.1_header">Vor dem Start…</string>
 	<string name="new_onboarding_step5.1_message">Vergessen Sie nicht in den neuen Routenkatalog hineinzuschauen, um den Offline-Guide für die nächste Reise zu finden!</string>
 	<string name="new_onboarding_step5.1_button">Katalog öffnen</string>
-	<string name="new_onboarding_step5.2_message">Reiseführer-Katalog-Subskription in MAPS.ME: das ist günstig. Sie bekommen einen uneingeschränkten Zugriff auf alle Reiseführer für Spaziergänge durch die Stadt und aktive Erholung!</string>
+	<string name="new_onboarding_step5.2_message">Es ist günstig den Reiseführerkatalog in MAPS.ME zu abonnieren. Sie bekommen einen uneingeschränkten Zugriff auf die Routen für Stadtspaziergänge und Aktivurlaub!</string>
 	<string name="new_onboarding_step5.2_button">Bedingungen ansehen</string>
 	<string name="new_onboarding_step5.3_message">Lade herunter und bewerte Routen für Spaziergänge durch die Stadt und aktive Erholung mit der gratis Sammlung von MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Download Gratis</string>
@@ -1798,8 +1798,8 @@
 	<string name="routes_card_show">Auf der Karte einblenden</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Auf der Karte ausblenden</string>
-	<string name="whatsnew_catalog_new_title">Neuer Katalog und tausende Erholungsideen</string>
-	<string name="whatsnew_catalog_new_message">Wir haben das Reiseführerkatalog upgedatet und Übersetzungen in alle Sprachen hinzugefügt. Beginnen Sie im Voraus zu planen!</string>
+	<string name="whatsnew_catalog_new_title">Neuer Katalog und tausende Urlaubsideen</string>
+	<string name="whatsnew_catalog_new_message">Wir haben den Reiseführerkatalog aktualisiert und Übersetzungen in die beliebtesten Sprachen hinzugefügt. Planen Sie frühzeitig!</string>
 	<string name="whatsnew_elevation_profile_title">Höhenprofil in den Reiseführern</string>
 	<string name="whatsnew_elevation_profile_message">Bewerten Sie den Schwierigkeitsgrad des bevorstehenden Bergaufs und Bergabs offline per Kursor im Profil der erworbenen Route.</string>
 	<string name="whatsnew_guides_on_map_title">Eine neue Schicht sind die Reiseführer auf der Karte!</string>
@@ -1810,6 +1810,40 @@
 	<string name="routes_card_number_of_points">%s Orte</string>
 	<string name="routes_card_routes_tag">Route</string>
 	<string name="routes_card_set_tag">Selektion der Plätze</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">7 Tage Gratis testen</string>
+	<string name="guides_trial_message">Danach %s pro Jahr. Ihr Abo ist jederzeit kündbar</string>
+	<string name="trial_error_dialog">Ihre Probezeit ist abgelaufen</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Filter</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d Tag</item>
+	  <item quantity="few">%d Tage</item>
+	  <item quantity="other">%d Tage</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Datum auswählen</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Zimmer und Gäste</string>
+	<string name="guests_picker_rooms">Zimmer</string>
+	<string name="guests_picker_adults">Erwachsene</string>
+	<string name="guests_picker_children_title">Kinder</string>
+	<string name="guests_picker_children_subtitle">1-16 Jahre</string>
+	<string name="guests_picker_infants_title">Babys</string>
+	<string name="guests_picker_infants_subtitle">0-12 Monate</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Keine Plätze</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Außerhalb Filter</string>
+	<string name="choose_dates_online_only_dialog_title">Keine Internetverbindung</string>
+	<string name="choose_dates_online_only_dialog_message">Die Auswahl des Datums und der Anzahl der Gäste ist nur online möglich. Überprüfen sie Ihre Einstellungen und Ihre Internetverbindung.</string>
+	<string name="choose_dates_online_only_dialog_cta">Einstellungen</string>
+	<string name="30_days_limit_dialog">Sie können höchstens 30 Nächte buchen</string>
+	<string name="whatsnew_trial_title">Gratis-Zugriff auf die Reiseführer</string>
+	<string name="whatsnew_trial_message">Wir haben den 7-tägigen Gratis-Probeabozeitraum gestartet. Tausende Routen weltweit, interaktives Höhenprofil in den Reiseführern für Aktivurlaub.</string>
+	<string name="whatsnew_trial_cta">Ausprobieren</string>
+	<string name="subscription_terms_guides_outdoor">Die Bezahlung erfolgt über Ihr iTunes-Konto bei der Kaufbestätigung. Ihr Abo wird automatisch erneuert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf der Probezeit nicht deaktiviert wird. Der Betrag wird von Ihrem Konto gemäß unserem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ende der laufenden Periode abgebucht. Sie können die automatische Verlängerung jederzeit nach dem Kauf in den Kontoeinstellungen Apple ID deaktivieren. Die heruntergeladenen Abo-Reiseführer stehen Ihnen nur für den Abozeitraum zur Verfügung. 30 Tage nach Ablauf des Abozeitraums werden die Reiseführer samt Lesezeichen automatisch gelöscht.\n* Das Gratis-Probeabo wird automatisch kostenpflichtig. Sie können nach dem Kauf die automatische Verlängerung des Probeabos in Ihren Kontoeinstellungen deaktivieren. Die Deaktivierung tritt 24 Stunden nach dem letzten Tag des laufenden Abozeitraums in Kraft und Sie erhalten das Gratis-Abo. Achten Sie bitte darauf, dass jeder ungenutzter Gratis-Probeabozeitraum beim Kauf des kostenpflichtigen Abos für diesen Zeitraum annulliert wird.</string>
+	<string name="subscription_terms_android_outdoor">Die Bezahlung erfolgt über Ihr Google Play-Konto bei der Kaufbestätigung. Ihr Abo wird automatisch erneuert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf der Probezeit nicht deaktiviert wird. Der Betrag wird von Ihrem Konto gemäß unserem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ende der laufenden Periode abgebucht. Sie können die automatische Verlängerung jederzeit nach dem Kauf in den Kontoeinstellungen aktivieren oder deaktivieren. Die heruntergeladenen Abo-Reiseführer stehen Ihnen nur für den Abozeitraum zur Verfügung. 30 Tage nach Ablauf des Abozeitraums werden die Reiseführer automatisch gelöscht.\n* Das Gratis-Probeabo wird automatisch kostenpflichtig. Sie können nach dem Kauf die automatische Verlängerung des Probeabos in Ihren Kontoeinstellungen deaktivieren. Die Deaktivierung tritt 24 Stunden nach dem letzten Tag des laufenden Abozeitraums in Kraft und Sie erhalten das Gratis-Abo. Achten Sie bitte darauf, dass jeder ungenutzter Gratis-Probeabozeitraum beim Kauf des kostenpflichtigen Abos für diesen Zeitraum annulliert wird.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

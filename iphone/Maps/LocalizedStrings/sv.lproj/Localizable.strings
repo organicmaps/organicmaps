@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Öppna katalog";
 
-"new_onboarding_step5.2_message" = "Prenumeration på katalogen över guider i MAPS.ME är lönsamt. Få full tillgång till guider för stadspromenader och utomhusaktiviteter!";
+"new_onboarding_step5.2_message" = "Prenumerationen på guidebok katalogen i MAPS.ME är lönsam. Få full tillgång till rutter för stadspromenader och utomhusaktiviteter!";
 
 "new_onboarding_step5.2_button" = "Kolla villkoren";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Dölja på kartan";
 
-"whatsnew_catalog_new_title" = "En ny katalog och tusentals idéer för vila";
+"whatsnew_catalog_new_title" = "En ny katalog och tusentals idéer för rekreation";
 
-"whatsnew_catalog_new_message" = "Vi har uppdaterat guidebok katalogen och lagt till översättningar till alla språk. Börja planera i förväg!";
+"whatsnew_catalog_new_message" = "Vi har uppdaterat guidebok katalogen och lagt till översättningar till populära språk. Börja planera i förväg!";
 
 "whatsnew_elevation_profile_title" = "Terräng profil i guiderna";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Utvalda platser";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Prova 7 dagar gratis";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Vidare %s om år. Avbrytning när som helst";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Du har redan utnyttjat provperioden";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filter";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Välj data";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Rum och gäster";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Rum";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Vuxna";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Barn";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 år";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Spädbarn";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 mån.";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Inga platser";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Utom filtervärden";
+
+"choose_dates_online_only_dialog_title" = "Ingen anslutning";
+
+"choose_dates_online_only_dialog_message" = "Valet av datum och antal gäster är endast tillgängligt online. Kontrollera dina inställningar och se till att du är ansluten till Internet.";
+
+"choose_dates_online_only_dialog_cta" = "Inställningar";
+
+"30_days_limit_dialog" = "Kan bokas för högst 30 nätter";
+
+"whatsnew_trial_title" = "Gratis tillgång till guider";
+
+"whatsnew_trial_message" = "Vi har lanserat en 7-dagars period för provprenumeration. Tusentals rutter runt om i världen, samt en interaktiv terräng profil i guider för utomhusaktiviteter.";
+
+"whatsnew_trial_cta" = "Prova";
+
+"subscription_terms_guides_outdoor" = "Betalning ska genomföras från ditt iTunes-konto vid bekräftelse av köpet. Prenumerationen ska förnyas automatiskt om automatisk förnyelse inte stängs av minst 24 timmar före utgången av den aktuella perioden. Penningmedel ska debiteras från ditt konto enligt din förnyelsetariff inom 24 timmar före utgången av den aktuella perioden. Du kan styra eller stänga av automatisk förnyelse i dina Apple ID-kontoinställningar när som helst efter köpet. Du kommer att kunna använda de guider som laddats ner genom prenumeration endast under dess giltighetsperiod. 30 dagar efter prenumerationens slut ska guiderna med alla bokmärken raderas automatiskt.\n* Prenumeration med en gratis provperiod blir automatiskt en betald prenumeration. Du kan avbryta eller styra den automatiska förnyelsen av gratis provversionen i dina kontoinställningar efter köpet. Avbrytningen ska träda i kraft 24 timmar efter den sista dagen av den aktuella prenumerationsperioden och du kommer att överföras till en gratis prenumeration. Observera: alla oanvända delar av den gratis prövningsperioden ska annulleras vid köp av en betald prenumeration under denna period.";
+
+"subscription_terms_android_outdoor" = "Betalning ska genomföras från ditt Google Play-konto vid bekräftelse av köpet. Prenumerationen ska förnyas automatiskt om automatisk förnyelse inte stängs av minst 24 timmar före utgången av den aktuella perioden. Penningmedel ska debiteras från ditt konto enligt din förnyelsetariff inom 24 timmar före utgången av den aktuella perioden. Du kan styra eller stänga av automatisk förnyelse i dina kontoinställningar efter köpet. Du kommer att kunna använda de guider som laddats ner genom prenumeration endast under dess giltighetsperiod. 30 dagar efter prenumerationens slut ska guiderna raderas automatiskt.\n* Prenumeration med en gratis provperiod blir automatiskt en betald prenumeration. Du kan avbryta eller styra den automatiska förnyelsen av gratis provversionen i dina kontoinställningar efter köpet. Avbrytningen ska träda i kraft 24 timmar efter den sista dagen av den aktuella prenumerationsperioden och du kommer att överföras till en gratis prenumeration. Observera: alla oanvända delar av den gratis prövningsperioden ska annulleras vid köp av en betald prenumeration under denna period.";
 
 
 /**********  Partners  **********/

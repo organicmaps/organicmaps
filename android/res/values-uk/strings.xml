@@ -1711,7 +1711,7 @@
 	<string name="new_onboarding_step5.1_header">Перш ніж почати…</string>
 	<string name="new_onboarding_step5.1_message">Не забудьте відвідати наш новий каталог путівників, щоб знайти офлайновий гід до найближчої поїздки!</string>
 	<string name="new_onboarding_step5.1_button">Відкрити каталог</string>
-	<string name="new_onboarding_step5.2_message">Передплата каталогу путівників у MAPS.ME – це вигідно. Отримайте повний доступ до путівників для прогулянок містом і активного відпочинку!</string>
+	<string name="new_onboarding_step5.2_message">Передплата каталогу путівників у MAPS.ME – це вигідно. Отримай повний доступ до маршрутів для міських прогулянок і активного відпочинку!</string>
 	<string name="new_onboarding_step5.2_button">Переглянути умови</string>
 	<string name="new_onboarding_step5.3_message">Завантажте й оцініть маршрути для прогулянок містом і активного відпочинку з безкоштовною підбіркою MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Завантажити безкоштовно</string>
@@ -1797,7 +1797,7 @@
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Приховати з карти</string>
 	<string name="whatsnew_catalog_new_title">Новий каталог і тисячі ідей для відпочинку</string>
-	<string name="whatsnew_catalog_new_message">Ми оновили каталог путівників і додали переклади на всі мови. Почніть планувати заздалегідь!</string>
+	<string name="whatsnew_catalog_new_message">Ми оновили каталог путівників і додали переклади на популярні мови. Почніть планувати заздалегідь!</string>
 	<string name="whatsnew_elevation_profile_title">Профіль висот у путівниках</string>
 	<string name="whatsnew_elevation_profile_message">Оцінюйте складність майбутніх підйомів і спусків офлайн за допомогою курсору в профілі придбаного маршруту.</string>
 	<string name="whatsnew_guides_on_map_title">Новий шар — путівники на карті!</string>
@@ -1808,6 +1808,40 @@
 	<string name="routes_card_number_of_points">%s місць</string>
 	<string name="routes_card_routes_tag">Маршрут</string>
 	<string name="routes_card_set_tag">Добірка місць</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Спробувати 7 днів безкоштовно</string>
+	<string name="guides_trial_message">Надалі %s на рік. Скасування в будь-який час</string>
+	<string name="trial_error_dialog">Ви вже скористалися пробним періодом</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Фільтри</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d день</item>
+	  <item quantity="few">%d дні</item>
+	  <item quantity="other">%d днів</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Вибрати дати</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Номери та гості</string>
+	<string name="guests_picker_rooms">Номери</string>
+	<string name="guests_picker_adults">Дорослі</string>
+	<string name="guests_picker_children_title">Діти</string>
+	<string name="guests_picker_children_subtitle">1-16 років</string>
+	<string name="guests_picker_infants_title">Немовлята</string>
+	<string name="guests_picker_infants_subtitle">0-12 міс.</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Немає місць</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Поза фільтром</string>
+	<string name="choose_dates_online_only_dialog_title">Немає з’єднання</string>
+	<string name="choose_dates_online_only_dialog_message">Вибір дат і кількості гостей доступний тільки онлайн. Перевірте налаштування та переконайтеся, що ви підключені до Інтернету.</string>
+	<string name="choose_dates_online_only_dialog_cta">Налаштування</string>
+	<string name="30_days_limit_dialog">Забронювати можна щонайбільше на 30 ночей</string>
+	<string name="whatsnew_trial_title">Безкоштовний доступ до путівників</string>
+	<string name="whatsnew_trial_message">Ми запустили 7-денний пробний період передплати. Тисячі маршрутів у всьому світі, а також інтерактивний профіль висот у путівниках для активного відпочинку.</string>
+	<string name="whatsnew_trial_cta">Спробувати</string>
+	<string name="subscription_terms_guides_outdoor">Оплату спишуть із вашого рахунку iTunes після підтвердження купівлі. Передплата автоматично поновиться, якщо автоматичне продовження не вимкнути принаймні за 24 години до закінчення поточного періоду. Грошові кошти списуватимуть із вашого акаунта відповідно до вашого тарифного плану продовження протягом 24 годин до закінчення поточного періоду. Ви можете керувати автоматичним продовженням або вимикати його в налаштуваннях акаунта Apple ID у будь-який час після купівлі. Ви зможете використовувати путівники, завантажені за передплатою, тільки протягом її терміну дії. Через 30 днів після закінчення передплати путівники з усіма закладками будуть автоматично видалені.\n* Передплата з безкоштовним пробним періодом автоматично перетвориться на платну передплату. Ви можете скасувати або керувати автоматичним продовженням безкоштовної пробної версії в налаштуваннях свого акаунта після купівлі. Скасування набуде чинності через 24 години після останнього дня поточного періоду передплати, та вас переведуть на безкоштовну передплату. Зверніть увагу: будь-яку невикористану частину безкоштовного пробного періоду анулюють після купівлі платної передплати протягом цього періоду.</string>
+	<string name="subscription_terms_android_outdoor">Оплату спишуть із вашого рахунку Google Play після підтвердження купівлі. Передплата автоматично поновиться, якщо автоматичне продовження не вимкнути принаймні за 24 години до закінчення поточного періоду. Грошові кошти списуватимуть із вашого акаунта відповідно до вашого тарифного плану продовження протягом 24 годин до закінчення поточного періоду. Ви можете керувати автоматичним продовженням або вимикати його в налаштуваннях акаунта після купівлі. Ви зможете використовувати путівники, завантажені за передплатою, тільки протягом її терміну дії. Через 30 днів після закінчення передплати путівники будуть автоматично видалені.\n* Передплата з безкоштовним пробним періодом автоматично перетвориться на платну передплату. Ви можете скасувати або керувати автоматичним продовженням безкоштовної пробної версії в налаштуваннях свого акаунта після купівлі. Скасування набуде чинності через 24 години після останнього дня поточного періоду передплати, та вас переведуть на безкоштовну передплату. Зверніть увагу: будь-яку невикористану частину безкоштовного пробного періоду анулюють після купівлі платної передплати протягом цього періоду.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

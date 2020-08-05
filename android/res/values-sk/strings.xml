@@ -1704,7 +1704,7 @@
 	<string name="new_onboarding_step5.1_header">Ešte jedna vec, než začnete…</string>
 	<string name="new_onboarding_step5.1_message">Nezabudnite navštíviť náš úplne nový katalóg sprievodcov a nájsť offline sprievodcu pre svoju nadchádzajúcu cestu!</string>
 	<string name="new_onboarding_step5.1_button">Otvoriť katalóg</string>
-	<string name="new_onboarding_step5.2_message">Predplatné katalógu sprievodcov MAPS.ME má veľkú hodnotu. Získajte plný prístup k mestským a vonkajším sprievodcom po celom svete!</string>
+	<string name="new_onboarding_step5.2_message">Vaše predplatné katalógu sprievodcov MAPS.ME má skvelú hodnotu. Získajte plný prístup k mestským a outdoorovým sprievodcom po celom svete!</string>
 	<string name="new_onboarding_step5.2_button">Skontrolovať podmienky</string>
 	<string name="new_onboarding_step5.3_message">Vyskúšajte bezplatné ukážky hotových mestských a vonkajších trás s bezplatným výberom MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Bezplatné stiahnutie</string>
@@ -1790,7 +1790,7 @@
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Skryť z mapy</string>
 	<string name="whatsnew_catalog_new_title">Nový katalóg sprievodcov a tisíce nápadov na cestovanie</string>
-	<string name="whatsnew_catalog_new_message">Aktualizovali sme katalóg sprievodcov a pridali preklady do všetkých jazykov. Začnite plánovať vopred!</string>
+	<string name="whatsnew_catalog_new_message">Aktualizovali sme katalóg sprievodcov a pridali sme preklady do populárnych jazykov. Začnite plánovať svoj výlet v predstihu!</string>
 	<string name="whatsnew_elevation_profile_title">Výškový profil v cestovných sprievodcoch</string>
 	<string name="whatsnew_elevation_profile_message">Vyhodnoťte zložitosť prichádzajúcich výstupov a zostupov offline pomocou kurzora v profile zakúpenej trasy.</string>
 	<string name="whatsnew_guides_on_map_title">Nová vrstva na jednoduché vyhľadanie sprievodcov</string>
@@ -1801,6 +1801,40 @@
 	<string name="routes_card_number_of_points">%s miest</string>
 	<string name="routes_card_routes_tag">Itinerár</string>
 	<string name="routes_card_set_tag">Odporúčané miesta</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Spustite si 7-dňovú bezplatnú skúšobnú verziu</string>
+	<string name="guides_trial_message">Potom %s ročne. Zrušte kedykoľvek</string>
+	<string name="trial_error_dialog">Ľutujeme, skúšobnú verziu ste už využili</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Filtre</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d deň</item>
+	  <item quantity="few">%d dní</item>
+	  <item quantity="other">%d dní</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Zvolené dátumy</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Izby a hostia</string>
+	<string name="guests_picker_rooms">Izby</string>
+	<string name="guests_picker_adults">Dospelí</string>
+	<string name="guests_picker_children_title">Deti</string>
+	<string name="guests_picker_children_subtitle">1-16 rokov</string>
+	<string name="guests_picker_infants_title">Batoľatá</string>
+	<string name="guests_picker_infants_subtitle">0-12 mesiacov</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Žiadne voľné izby</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Mimo filtrov</string>
+	<string name="choose_dates_online_only_dialog_title">Žiadne sieťové pripojenie</string>
+	<string name="choose_dates_online_only_dialog_message">Dátumy a počet hostí je možné zvoliť iba v režime online. Skontrolujte svoje nastavenia a uistite sa, že ste pripojení k internetu.</string>
+	<string name="choose_dates_online_only_dialog_cta">Nastavenia</string>
+	<string name="30_days_limit_dialog">Môžete si rezervovať maximálne 30 nocí</string>
+	<string name="whatsnew_trial_title">Bezplatný prístup do katalógu sprievodcov</string>
+	<string name="whatsnew_trial_message">Teraz ponúkame bezplatnú 7-dňovú skúšobnú verziu. Získajte prístup k tisícom cestovných sprievodcov po celom svete a k interaktívnemu výškovému profilu pre outdoorových sprievodcov.</string>
+	<string name="whatsnew_trial_cta">Vyskúšajte to teraz</string>
+	<string name="subscription_terms_guides_outdoor">Po potvrdení nákupu sa platba naúčtuje na váš iTunes účet. Predplatné sa automaticky obnoví, pokiaľ nie je funkcia automatického obnovenia vypnutá najmenej 24 hodín pred koncom aktuálneho obdobia predplatného. Váš účet bude zaúčtovaný podľa plánu obnovenia do 24 hodín pred koncom súčasného obdobia predplatného. Automatické obnovenie môžete spravovať alebo deaktivovať v nastaveniach účtu Apple ID kedykoľvek po zakúpení. Sprievodcov, ktorých ste si stiahli počas predplatného, môžete používať iba do vypršania platnosti predplatného. Sprievodcovia a všetky záložky sa automaticky odstránia 30 dní po uplynutí platnosti predplatného.\n* Predplatné s bezplatnou skúšobnou dobou sa automaticky obnoví na platené predplatné. Po zakúpení môžete automatické obnovenie bezplatnej skúšobnej verzie zrušiť alebo spravovať v nastaveniach svojho účtu. Zrušenie nadobudne účinnosť 24 hodín po poslednom dni aktuálneho obdobia predplatného. Potom budete zaradení do bezplatnej služby. Upozornenie: Akákoľvek nevyužitá časť bezplatnej skúšobnej verzie prepadne, keď si počas nej zakúpite prémiové predplatné.</string>
+	<string name="subscription_terms_android_outdoor">Po potvrdení nákupu sa platba naúčtuje na váš Google Play účet. Predplatné sa automaticky obnoví, pokiaľ nie je funkcia automatického obnovenia vypnutá najmenej 24 hodín pred koncom aktuálneho obdobia predplatného. Váš účet bude zaúčtovaný podľa plánu obnovenia do 24 hodín pred koncom súčasného obdobia predplatného. Automatické obnovenie môžete spravovať alebo deaktivovať v nastaveniach účtu kedykoľvek po zakúpení. Sprievodcov, ktorých ste si stiahli počas predplatného, môžete používať iba do vypršania platnosti predplatného. Sprievodcovia sa automaticky odstránia 30 dní po uplynutí platnosti predplatného.\n* Predplatné s bezplatnou skúšobnou dobou sa automaticky obnoví na platené predplatné. Po zakúpení môžete automatické obnovenie bezplatnej skúšobnej verzie zrušiť alebo spravovať v nastaveniach svojho účtu. Zrušenie nadobudne účinnosť 24 hodín po poslednom dni aktuálneho obdobia predplatného. Potom budete zaradení do bezplatnej služby. Upozornenie: Akákoľvek nevyužitá časť bezplatnej skúšobnej verzie prepadne, keď si počas nej zakúpite prémiové predplatné.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Ouvrir le catalogue";
 
-"new_onboarding_step5.2_message" = "L'abonnement au catalogue des guides dans MAPS.ME est avantageux. Obtenez un accès complet aux guides pour les promenades en ville et les activités de plein air !";
+"new_onboarding_step5.2_message" = "L’abonnement au catalogue des guides MAPS.ME est avantageux. Un accès complet à tous les itinéraires pour des promenades en ville et des activités en plein air !";
 
 "new_onboarding_step5.2_button" = "Voir les conditions";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Masquer";
 
-"whatsnew_catalog_new_title" = "Nouveau catalogue et des miliers d'idées de voyages";
+"whatsnew_catalog_new_title" = "Un nouveau catalogue des guides et des milliers d'idées pour vos vacances";
 
-"whatsnew_catalog_new_message" = "Nous avons mis à jour le catalogue des guides et avons ajouté les traductions dans toutes les langues. Planifiez vos voyages à l'avance !";
+"whatsnew_catalog_new_message" = "Nous avons mis à jour le catalogue des guides et avons ajouté des traductions vers les langues les plus populaires. Planifiez dès maintenant !";
 
 "whatsnew_elevation_profile_title" = "Profil altimétrique intégré dans les guides";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Sélection de sièges";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Essayer pendant 7 jours (gratuit)";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Au-delà, %s par an. Vous pouvez vous désabonner à tout moment";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Vous avez déjà utilisé votre période d'essai gratuite";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filtres";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Choisir les dates";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Chambres et clients";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Chambres";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Adultes";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Enfants";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "de 1 à 16 ans";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Bébés";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "de 0 à 12 mois";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Indisponible";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Hors vos critères";
+
+"choose_dates_online_only_dialog_title" = "Aucune connexion";
+
+"choose_dates_online_only_dialog_message" = "Le choix des dates et du nombre de personnes est disponible uniquement si vous êtes connectés à l'Internet. Veuillez vérifier les paramètres et vous assurer que vous avez la connexion à Internet.";
+
+"choose_dates_online_only_dialog_cta" = "Paramètres";
+
+"30_days_limit_dialog" = "Il est possible d’effectuer une réservation pour 30 jours maximum";
+
+"whatsnew_trial_title" = "Un accès gratuit aux guides";
+
+"whatsnew_trial_message" = "Nous avons activé la période d’essai gratuite. Des milliers d'itinéraires dans le monde entier, ainsi qu'un altimètre disponible dans les guides d'activités en plain air.";
+
+"whatsnew_trial_cta" = "Essayer";
+
+"subscription_terms_guides_outdoor" = "Le paiement est effectué depuis votre compte iTunes au moment de validation de votre achat. L'abonnement est renouvelé automatiquement si sauf si cette option est désactivée au moins 24h avant la fin d'abonnement en cours. Votre compte sera débité selon votre plan tarifaire de renouvellement 24h avant la fin de l'abonnement en cours. Vous pouvez gérer le renouvellement automatique ou de le désactiver dans les paramètres de votre compte Apple ID à tout moment après l'achat. Vous pouvez utiliser les guides que vous téléchargez dans le cadre de votre abonnement uniquement pendant la période de votre abonnement. A l'issu de 30 jours après la fin de votre abonnement tous les guides avec tous les signets seront automatiquement supprimés.\n* L'abonnement avec une période d'essai gratuit, à la fin de celui-ci, sera automatiquement converti en abonement payant. Vous pouvez désactiver ou gérer le renouvellement automatique de l'abonnement d'essai gratuit dans les paramètres de votre compte Apple ID à tout moment après l'achat. La désactivation prendra effet 24h après le dernier jour de l'abonnement en cours et vous pourrez utiliser la version gratuite. Notez que la partie non-utilisée de la période d'essai gratuit de l'abonnement sera annulée dès l'achat de la version d'abonnement payant lorsque la première n'est pas terminée.";
+
+"subscription_terms_android_outdoor" = "Le paiement est effectué depuis votre compte Google Play au moment de validation de votre achat. L'abonnement est renouvelé automatiquement si sauf si cette option est désactivée au moins 24h avant la fin d'abonnement en cours. Votre compte sera débité selon votre plan tarifaire de renouvellement 24h avant la fin de l'abonnement en cours. Vous pouvez gérer le renouvellement automatique ou le désactiver dans les paramètres de votre compte Apple ID à tout moment après l'achat. Vous pouvez utiliser les guides que vous téléchargez dans le cadre de votre abonnement uniquement pendant la période de votre abonnement. A l'issu de 30 jours après la fin de votre abonnement tous les guides seront automatiquement supprimés.\n* L'abonnement avec une période d'essai gratuit, à la fin de celui-ci, sera automatiquement converti en abonement payant. Vous pouvez désactiver ou gérer le renouvellement automatique de l'abonnement d'essai gratuit dans les paramètres de votre compte Apple ID à tout moment après l'achat. La désactivation prendra effet 24h après le dernier jour de l'abonnement en cours et vous pourrez utiliser la version gratuite. Notez que la partie non-utilisée de la période d'essai gratuit de l'abonnement sera annulée dès l'achat de la version d'abonnement payant lorsque la première n'est pas terminée.";
 
 
 /**********  Partners  **********/

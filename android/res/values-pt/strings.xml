@@ -1709,7 +1709,7 @@
 	<string name="new_onboarding_step5.1_header">Antes de começar…</string>
 	<string name="new_onboarding_step5.1_message">Não se esqueça de visitar nosso novo catálogo de percursos para encontrar um guia offline para sua próxima viagem!</string>
 	<string name="new_onboarding_step5.1_button">Abrir o catálogo</string>
-	<string name="new_onboarding_step5.2_message">Subscrição para catálogo de guias no MAPS.ME é vantajoso. Obtenha acesso ilimitado a guias para passeios pela cidade e recreação!</string>
+	<string name="new_onboarding_step5.2_message">A subscrição para catálogo de guias no MAPS.ME tem vantagens. Obtenha o acesso total aos percursos para passeios urbanos e férias ativas!</string>
 	<string name="new_onboarding_step5.2_button">Ver os termos</string>
 	<string name="new_onboarding_step5.3_message">Faça o download e avalie percursos para passeios pela cidade e recreação com uma seleção gratuita do MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Download grátis</string>
@@ -1795,7 +1795,7 @@
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Ocultar do mapa</string>
 	<string name="whatsnew_catalog_new_title">Catálogo novo e milhares de ideias para as férias</string>
-	<string name="whatsnew_catalog_new_message">Atualizamos o catálogo de guias e adicionamos traduções para todos os idiomas. Comece a planejar com antecedência!</string>
+	<string name="whatsnew_catalog_new_message">Atualizamos o catálogo de guias e adicionamos as traduções para as línguas mais populares. Começa planejar com antecedência!</string>
 	<string name="whatsnew_elevation_profile_title">Perfil de alturas nas guias</string>
 	<string name="whatsnew_elevation_profile_message">Avalie a complexidade de futuras subidas e descidas offline com ajuda de um cursor especial no perfil do percurso adquirido.</string>
 	<string name="whatsnew_guides_on_map_title">Uma nova camada- guias no mapa!</string>
@@ -1806,6 +1806,40 @@
 	<string name="routes_card_number_of_points">%s locais</string>
 	<string name="routes_card_routes_tag">Percurso</string>
 	<string name="routes_card_set_tag">Lugares em destaque</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Experimentar 7 dias grátis</string>
+	<string name="guides_trial_message">Depois %s por ano. Pode cancelar a qualquer momento</string>
+	<string name="trial_error_dialog">Já usou o período gratuito</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Filtros</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d dia</item>
+	  <item quantity="few">%d dias</item>
+	  <item quantity="other">%d dias</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Escolher datas</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Quartos e hóspedes</string>
+	<string name="guests_picker_rooms">Quartos</string>
+	<string name="guests_picker_adults">Adultos</string>
+	<string name="guests_picker_children_title">Crianças</string>
+	<string name="guests_picker_children_subtitle">1-16 anos</string>
+	<string name="guests_picker_infants_title">Bebês</string>
+	<string name="guests_picker_infants_subtitle">0-12 meses</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Lotado</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Fora das conf.filtro</string>
+	<string name="choose_dates_online_only_dialog_title">Falha de conexão</string>
+	<string name="choose_dates_online_only_dialog_message">Escolher datas e número de hóspedes é possível apenas no modo on-line. Verifique as configurações e certifique-se que tem ligação com a Internet.</string>
+	<string name="choose_dates_online_only_dialog_cta">Configurações</string>
+	<string name="30_days_limit_dialog">Pode ser reservado para 30 noites no máximo</string>
+	<string name="whatsnew_trial_title">Acesso gratuito às guias</string>
+	<string name="whatsnew_trial_message">Lançamos o período de teste gratuito da subscrição de 7 dias. Milhares de percursos pelo mundo inteiro, bem como o perfil interativo das alturas nas guias para férias ativas.</string>
+	<string name="whatsnew_trial_cta">Experimentar</string>
+	<string name="subscription_terms_guides_outdoor">O pagamento será efetuado da sua conta iTunes após a confirmação da compra. A subscrição será renovada automaticamente se a renovação automatica não será cancelada pelo menos 24 horas antes do final do período atual. O valor será descontado da sua conta pessoal de acordo com o seu tarifário de renovação durante 24 horas antes do final do período atual. Pode controlar a renovação automática ou desativá-la nas configurações da sua conta Apple ID a qualquer momento após a compra. Pode usar as guias descarregadas pela subscrição apenas durante o período da sua validade. 30 dias após o final do período da subscrição, todas as guias com todas as marcas serão excluídos automaticamente.\n* A subscrição com período de teste gratuito automaticamente se transforma em uma subscrição paga. Pode cancelar ou controlar a renovação automática da versão de teste gratuita nas configurações da sua conta pessoal após a compra. O cancelamento entrará em vigor 24 horas após o último dia do período da subscrição atual e você será transferido para uma assinatura gratuita. Atenção: qualquer parte não usada do período de teste gratuito será cancelada na compra da subscrição paga durante esse período.</string>
+	<string name="subscription_terms_android_outdoor">O pagamento será efetuado da sua conta Google Play após a confirmação da compra. A subscrição será renovada automaticamente se a renovação automatica não será cancelada pelo menos 24 horas antes do final do período atual. O valor será descontado da sua conta pessoal de acordo com o seu tarifário de renovação durante 24 horas antes do final do período atual. Pode controlar a renovação automática ou desativá-la nas configurações da sua conta a qualquer momento após a compra. Pode usar as guias descarregadas pela subscrição apenas durante o período da sua validade. 30 dias após o final do período da subscrição, todas as guias serão excluídos automaticamente.\n* A subscrição com período de teste gratuito automaticamente se transforma em uma subscrição paga. Pode cancelar ou controlar a renovação automática da versão de teste gratuita nas configurações da sua conta pessoal após a compra. O cancelamento entrará em vigor 24 horas após o último dia do período da subscrição atual e você será transferido para uma assinatura gratuita. Atenção: qualquer parte não usada do período de teste gratuito será cancelada na compra da subscrição paga durante esse período.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

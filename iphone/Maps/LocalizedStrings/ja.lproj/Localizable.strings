@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "カタログを開く";
 
-"new_onboarding_step5.2_message" = "MAPS.MEのガイドのカタログにサブスクライブすれば多くの利点があります。世界中の都市や戸外のガイドの全てにアクセスする事ができます！";
+"new_onboarding_step5.2_message" = "MAPS.MEのガイドのカタログのサブスクリプションは大変お得です。世界中の都市とアウトドアのガイドへのフルアクセスをゲットしましょう！";
 
 "new_onboarding_step5.2_button" = "規約をご確認ください";
 
@@ -3290,7 +3290,7 @@
 
 "whatsnew_catalog_new_title" = "新しいガイドのカタログと数千の旅行アイディア";
 
-"whatsnew_catalog_new_message" = "ガイドのカタログが更新され、全ての言語に翻訳が追加されました。事前に計画を立てましょう！";
+"whatsnew_catalog_new_message" = "ガイドのカタログを更新し、人気の言語の翻訳を追加しました。事前に旅行の計画を立てましょう！";
 
 "whatsnew_elevation_profile_title" = "旅行ガイドの標高情報";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "主要な場所";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "7日無料トライアルを開始";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "その後は年間%sです。いつでもキャンセルできます";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "申し訳ございません。あなたは既にトライアルを利用しています";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "フィルター";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "日付を選択";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "部屋と人数";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "部屋";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "大人";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "子供";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1歳～16歳";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "幼児";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0ヶ月～12か月";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "利用できる部屋がありません";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "フィルター設定にマッチしません";
+
+"choose_dates_online_only_dialog_title" = "ネットワーク接続がありません";
+
+"choose_dates_online_only_dialog_message" = "日付と人数はオンライン時に選択できます。設定を確認し、インターネットに接続している事を確かめてください。";
+
+"choose_dates_online_only_dialog_cta" = "設定";
+
+"30_days_limit_dialog" = "最大で30泊まで予約する事ができます";
+
+"whatsnew_trial_title" = "ガイドのカタログへの無料アクセス";
+
+"whatsnew_trial_message" = "無料で7日間のトライアルを提供しています。世界中の数千の旅行ガイドとアウトドアガイドのためのインタラクティブな標高情報へのアクセス。";
+
+"whatsnew_trial_cta" = "今すぐ試してみましょう";
+
+"subscription_terms_guides_outdoor" = "購入を確認すると、iTunesのアカウントに請求がなされます。このサブスクリプションは、現在のサブスクリプション期間が終了する24時間前までに自動更新機能を無効化しない限り、自動的に更新されます。あなたのアカウントには、あなたの更新プランに従って、現在のサブスクリプション期間が終了する24時間以内に請求がなされます。自動更新は、購入後にいつでもApple IDの設定から管理または無効化する事ができます。ガイドは、サブスクリプションが失効するまでの期間内にダウンロードしたものしか利用できません。ガイドと全てのブックマークは、サブスクリプションの失効後30日で自動的に削除されます。\n*無料トライアル期間を持つサブスクリプションは、有料サブスクリプションに自動的に更新されます。無料トライアルの自動更新は、購入後にアカウント設定からキャンセルまたは管理をする事ができます。このキャンセルは、現在のサブスクリプション期間の最終日の24時間後から発効します。その後は無料サービスにダウングレードされます。注意：無料トライアル期間中に有料サブスクリプションを購入すると、無料トライアルの未使用の期間は喪失します。";
+
+"subscription_terms_android_outdoor" = "購入を確認すると、支払はGoogle Playのアカウントに請求されます。このサブスクリプションは、現在のサブスクリプション期間が終了する24時間前までに自動更新機能を無効化しない限り、自動的に更新されます。あなたのアカウントには、あなたの更新プランに従って、現在のサブスクリプション期間が終了する24時間以内に請求がなされます。自動更新は、購入後にいつでもアカウント設定から管理または無効化する事ができます。ガイドは、サブスクリプションが失効するまでの期間内にダウンロードしたものしか利用できません。ガイドは、サブスクリプションの失効後30日で自動的に削除されます。\n*無料トライアル期間を持つサブスクリプションは、有料サブスクリプションに自動的に更新されます。無料トライアルの自動更新は、購入後にアカウント設定からキャンセルまたは管理をする事ができます。このキャンセルは、現在のサブスクリプション期間の最終日の24時間後から発効します。その後は無料サービスにダウングレードされます。注意：無料トライアル期間中に有料サブスクリプションを購入すると、無料トライアルの未使用の期間は喪失します。";
 
 
 /**********  Partners  **********/

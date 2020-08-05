@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Otwórz katalog";
 
-"new_onboarding_step5.2_message" = "Subskrypcja katalogu przewodników w MAPS.ME – to opłacalne. Uzyskaj pełny dostęp do przewodników do zwiedzania i aktywnego wypoczynku poza miastem!";
+"new_onboarding_step5.2_message" = "Subskrypcja katalogu przewodników turystycznych MAPS.ME jest opłacalna. Uzyskaj pełny dostęp do tras spacerowych po mieście i wypoczynku aktywnego!";
 
 "new_onboarding_step5.2_button" = "Sprawdź warunki";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Ukryć na mapie";
 
-"whatsnew_catalog_new_title" = "Nowy katalog przewodników i tysiące pomysłów na podróż";
+"whatsnew_catalog_new_title" = "Nowy katalog i tysiące pomysłów na wakacje";
 
-"whatsnew_catalog_new_message" = "Zaktualizowaliśmy katalog przewodników i dodaliśmy tłumaczenia we wszystkich językach. Zacznij planować z wyprzedzeniem!";
+"whatsnew_catalog_new_message" = "Zaktualizowaliśmy katalog przewodników turystycznych i dodaliśmy tłumaczenia na popularne języki. Zacznij planować z wyprzedzeniem!";
 
 "whatsnew_elevation_profile_title" = "Profil wysokości w przewodnikach";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Polecane miejsca";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Wypróbuj bezpłatnie przez 7 dni";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Dalej %s rocznie. Anuluj w dowolnym momencie";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Skorzystałeś już z okresu próbnego";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filtruj";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Wybierz daty";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Pokoje i gości";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "pokoje";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Dorośli";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Dzieci";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 lat";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Niemowlęta";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 mies.";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Brak miejsc";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Poza filtrem";
+
+"choose_dates_online_only_dialog_title" = "Brak połączenia";
+
+"choose_dates_online_only_dialog_message" = "Wybór dat i liczby gości jest dostępny tylko online. Sprawdź swoje ustawienia i upewnij się, że masz połączenie z Internetem.";
+
+"choose_dates_online_only_dialog_cta" = "Ustawienia";
+
+"30_days_limit_dialog" = "Możliwość rezerwacji na maksymalnie 30 nocy";
+
+"whatsnew_trial_title" = "Bezpłatny dostęp do przewodników";
+
+"whatsnew_trial_message" = "Uruchomiliśmy 7-dniowy okres próbny subskrypcji. Tysiące tras na całym świecie oraz interaktywny profil wysokości w zewnętrznych przewodnikach turystycznych.";
+
+"whatsnew_trial_cta" = "Spróbuj";
+
+"subscription_terms_guides_outdoor" = "Płatność zostanie pobrana z Twojego konta iTunes po potwierdzeniu zakupu. Subskrypcja zostanie automatycznie wznowiona, chyba że automatyczne wznowienie zostanie wyłączone co najmniej 24 godziny przed końcem okresu bieżącego. Środki zostaną pobrane z Twojego konta zgodnie z Twoim planem wznowienia w ciągu 24 godzin przed końcem bieżącego okresu. Możesz zarządzać automatycznym wznowieniem lub wyłączyć go w ustawieniach konta Apple ID w dowolnym momencie po zakupie. Możesz korzystać z przewodników, pobranych w ramach subskrypcji, tylko w okresie ich obowiązywania. Po upływie 30 dni od zakończenia subskrypcji przewodniki ze wszystkimi zakładkami zostaną automatycznie usunięte.\n* Subskrypcja z darmowym okresem próbnym jest automatycznie konwertowana na subskrypcję płatną. Możesz anulować lub zarządzać automatycznym przedłużeniem darmowego okresu próbnego w ustawieniach konta po dokonaniu zakupu. Anulowanie zacznie obowiązywać 24 godziny po ostatnim dniu bieżącego okresu subskrypcji, a zostaniesz przeniesiony do subskrypcji darmowej. Uwaga: Każda niewykorzystana część darmowego okresu próbnego zostanie anulowana przy zakupie płatnej subskrypcji w tym okresie.";
+
+"subscription_terms_android_outdoor" = "Płatność zostanie pobrana z Twojego konta Google Play po potwierdzeniu zakupu. Subskrypcja zostanie automatycznie wznowiona, chyba że automatyczne wznowienie zostanie wyłączone co najmniej 24 godziny przed końcem okresu bieżącego. Środki zostaną pobrane z Twojego konta zgodnie z Twoim planem wznowienia w ciągu 24 godzin przed końcem bieżącego okresu. Możesz zarządzać automatycznym odnowieniem lub wyłączyć go w ustawieniach konta po zakupie. Możesz korzystać z przewodników, pobranych w ramach subskrypcji, tylko w okresie ich obowiązywania. Po upływie 30 dni od zakończenia subskrypcji przewodniki zostaną automatycznie usunięte.\n* Subskrypcja z darmowym okresem próbnym jest automatycznie konwertowana na subskrypcję płatną. Możesz anulować lub zarządzać automatycznym przedłużeniem darmowego okresu próbnego w ustawieniach konta po dokonaniu zakupu. Anulowanie zacznie obowiązywać 24 godziny po ostatnim dniu bieżącego okresu subskrypcji, a zostaniesz przeniesiony do subskrypcji darmowej. Uwaga: Każda niewykorzystana część darmowego okresu próbnego zostanie anulowana przy zakupie płatnej subskrypcji w tym okresie.";
 
 
 /**********  Partners  **********/

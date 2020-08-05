@@ -1706,7 +1706,7 @@
 	<string name="new_onboarding_step5.1_header">Még egy dolog kezdés előtt…</string>
 	<string name="new_onboarding_step5.1_message">Ne felejtsd el megnézni az új útmutató katalógusunkat és találd meg a következő utazásodhoz az offline útmutatókat!</string>
 	<string name="new_onboarding_step5.1_button">Katalógus megnyitása</string>
-	<string name="new_onboarding_step5.2_message">Az útmutató katalógusra MAPS.ME való előfizetés kiváló választás. Szerezz hozzáférést a városi és szabadtéri útmutatókhoz világszerte!</string>
+	<string name="new_onboarding_step5.2_message">A MAPS.ME útmutató katalógusra való feliratkozás nagyon értékes. Legyen teljes hozzáférés a városi és szabadtéri útmutatókhoz az egész világon!</string>
 	<string name="new_onboarding_step5.2_button">Nézd meg a feltételeinket</string>
 	<string name="new_onboarding_step5.3_message">Nézd meg a szabadon válaztható városi és szabadtéri túrák ingyenes példáit a MAPS.ME-ről!</string>
 	<string name="new_onboarding_step5.3_button">Ingyenes letöltés</string>
@@ -1791,8 +1791,8 @@
 	<string name="routes_card_show">Térképen megjelenítés</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Térképről elrejtés</string>
-	<string name="whatsnew_catalog_new_title">Új útmutatók katalógusa és több ezer utazási ötlet</string>
-	<string name="whatsnew_catalog_new_message">Frissítettük az útmutatók katalógusát és minden nyelven hozzáadtuk a fordításokat. Tervezze meg előre utazását!</string>
+	<string name="whatsnew_catalog_new_title">Új útmutatók katalógus és ezer utazási ötlet</string>
+	<string name="whatsnew_catalog_new_message">Frissítettük az útmutató katalógust és fordítást adtunk hozzá a népszerű nyelveken. Kezdje el az utazás tervezését időben!</string>
 	<string name="whatsnew_elevation_profile_title">Emelkedési profil az utazási útmutatókban</string>
 	<string name="whatsnew_elevation_profile_message">A kurzorral becsülje meg a közelgő offline felemelkedések és leereszkedések nehézségét a megvásárolt útvonal profiljában.</string>
 	<string name="whatsnew_guides_on_map_title">Új réteg az útmutatók egyszerű megtalálásához</string>
@@ -1803,6 +1803,40 @@
 	<string name="routes_card_number_of_points">%s hely</string>
 	<string name="routes_card_routes_tag">Útiterv</string>
 	<string name="routes_card_set_tag">Kiemelt helyek</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">7 napos ingyenes próbaverzió elindítása</string>
+	<string name="guides_trial_message">Ezt követően évente %s. Bármikor törölheti</string>
+	<string name="trial_error_dialog">Sajnáljuk, már használta a próbaverziót</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Szűrők</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d nap</item>
+	  <item quantity="few">%d napok</item>
+	  <item quantity="other">%d napok</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Dátumok kiválasztása</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Szobák és vendégek</string>
+	<string name="guests_picker_rooms">Szobák</string>
+	<string name="guests_picker_adults">Felnőttek</string>
+	<string name="guests_picker_children_title">Gyerekek</string>
+	<string name="guests_picker_children_subtitle">1-16 éves</string>
+	<string name="guests_picker_infants_title">Csecsemők</string>
+	<string name="guests_picker_infants_subtitle">0-12 hónapos</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Nincs elérhető szoba</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Szűrőn kívül esik</string>
+	<string name="choose_dates_online_only_dialog_title">Nincs internetkapcsolat</string>
+	<string name="choose_dates_online_only_dialog_message">A dátumok és a vendégek száma csak online választható ki. Kérjük, ellenőrizze a beállításait, és bizonyosodjon meg arról, hogy csatlakozva van az internethez.</string>
+	<string name="choose_dates_online_only_dialog_cta">Beállítások</string>
+	<string name="30_days_limit_dialog">Maximum 30 éjszakára foglalhat</string>
+	<string name="whatsnew_trial_title">Ingyenes hozzáférés az útmutatók katalógushoz</string>
+	<string name="whatsnew_trial_message">Most 7 napos ingyenes próbaverziót kínálunk. Hozzáférés ezer útmutatóhoz a világ minden tájáról, és egy interaktív emelkedési profil a szabadtéri útmutatókhoz.</string>
+	<string name="whatsnew_trial_cta">Próbálja ki most</string>
+	<string name="subscription_terms_guides_outdoor">Amikor megerősíti a vásárlást, a fizetést az iTunes számlájára terheljük. Az előfizetés automatikusan megújul, kivéve, ha az automatikus megújítás funkció legalább 24 órával a jelenlegi előfizetési időszak vége előtt letiltásra kerül. Fiókját a megújítási terv szerint 24 órán belül terheljük a jelenlegi előfizetési időszak lejárta előtt. Az automatikus megújítást az Apple ID-fiók beállításaiban a vásárlás után bármikor ellenőrizheti és letilthatja. Az előfizetés alatt letöltött útmutatásokat csak az előfizetés lejártáig használhatja. Az útmutatók és az összes könyvjelző automatikusan törlésre kerül az előfizetés lejárta után 30 nappal.\n* Az ingyenes próbaidőszakra szóló feliratkozás automatikusan fizetett előfizetésként kerül megújításra. Az ingyenes próbaverzió automatikus megújítását a vásárlás után a fiókbeállításaiban törölheti vagy ellenőrizheti. A lemondás a jelenlegi előfizetési időszak utolsó napját követő 24 órában lép életbe. Ezt követően az ingyenes szolgáltatásra kerül át. Megjegyzés: Az ingyenes próbaverzió fel nem használt része elvész, ha prémium előfizetést vásárol az ingyenes próbaverzió alatt.</string>
+	<string name="subscription_terms_android_outdoor">Amikor megerősíti a vásárlást, a fizetést a Google Play számlájára terheljük. Az előfizetés automatikusan megújul, kivéve, ha az automatikus megújítás funkció legalább 24 órával a jelenlegi előfizetési időszak vége előtt letiltásra kerül. Fiókját a megújítási terv szerint 24 órán belül terheljük a jelenlegi előfizetési időszak lejárta előtt. Vásárlás után bármikor ellenőrizheti vagy törölheti az automatikus megújítást a fiókbeállításokban. Az előfizetés alatt letöltött útmutatásokat csak az előfizetés lejártáig használhatja. Az útmutatók automatikusan törlésre kerülnek az előfizetés lejárta után 30 nappal.\n* Az ingyenes próbaidőszakra szóló feliratkozás automatikusan fizetett előfizetésként kerül megújításra. Az ingyenes próbaverzió automatikus megújítását a vásárlás után a fiókbeállításaiban törölheti vagy ellenőrizheti. A lemondás a jelenlegi előfizetési időszak utolsó napját követő 24 órában lép életbe. Ezt követően az ingyenes szolgáltatásra kerül át. Megjegyzés: Az ingyenes próbaverzió fel nem használt része elvész, ha prémium előfizetést vásárol az ingyenes próbaverzió alatt.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

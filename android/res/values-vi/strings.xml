@@ -1695,7 +1695,7 @@
 	<string name="new_onboarding_step5.1_header">Trước khi bắt đầu…</string>
 	<string name="new_onboarding_step5.1_message">Đừng quên truy cập danh mục tuyến đường mới của chúng tôi để tìm hướng dẫn ngoại tuyến cho chuyến đi tiếp theo của bạn!</string>
 	<string name="new_onboarding_step5.1_button">Mở danh sách</string>
-	<string name="new_onboarding_step5.2_message">Việc đăng ký vào thư mục hướng dẫn trong MAPS.ME là một điều có lợi. Người đăng ký nhận được quyền truy cập đầy đủ tới những hướng dẫn cho các chuyến đi ở các thành phố và các hoạt động ngoài trời!</string>
+	<string name="new_onboarding_step5.2_message">Đăng ký danh mục hướng dẫn trong MAPS.ME – đó là một điều hoàn toàn có lợi. Nhận được quyền truy cập toàn bộ vào các tuyến cho những chuyến dạo chơi quanh thành phố hay hoạt động ngoài trời!</string>
 	<string name="new_onboarding_step5.2_button">Xem các điều khoản</string>
 	<string name="new_onboarding_step5.3_message">Tải xuống và đánh giá các tuyến đường cho các chuyến đi trong thành phố và các hoạt động ngoài trời với lựa chọn MAPS.ME miễn phí!</string>
 	<string name="new_onboarding_step5.3_button">Tải miễn phí</string>
@@ -1780,8 +1780,8 @@
 	<string name="routes_card_show">Chỉ trên bản đồ</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Ẩn khỏi bản đồ</string>
-	<string name="whatsnew_catalog_new_title">Danh mục mới và hàng nghìn ý tưởng cho kỳ nghỉ</string>
-	<string name="whatsnew_catalog_new_message">Chúng tôi đã cập nhật danh mục hướng dẫn và bổ sung phần dịch sang tất cả các ngôn ngữ. Hãy lên kế hoạch sớm nào!</string>
+	<string name="whatsnew_catalog_new_title">Danh mục hướng dẫn mới và hàng ngàn ý tưởng cho kỳ nghỉ</string>
+	<string name="whatsnew_catalog_new_message">Chúng tôi đã cập nhận danh mục hướng dẫn và bổ sung các phần dịch với những thứ tiếng phổ biến. Hãy sớm lên kế hoạch đi thôi!</string>
 	<string name="whatsnew_elevation_profile_title">Hồ sơ độ cao trong các hướng dẫn</string>
 	<string name="whatsnew_elevation_profile_message">Hãy đánh giá độ khó khi sắp tới điểm đi lên và đi xuống ngoại tuyến bằng cách sử dụng con trỏ trong hồ sơ của tuyến đường đã mua.</string>
 	<string name="whatsnew_guides_on_map_title">Lớp bản đồ mới giúp tìm hướng dẫn dễ dàng!</string>
@@ -1792,6 +1792,40 @@
 	<string name="routes_card_number_of_points">%s địa điểm</string>
 	<string name="routes_card_routes_tag">Tuyến</string>
 	<string name="routes_card_set_tag">Địa điểm nổi bật</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Dùng thử 7 ngày miễn phí</string>
+	<string name="guides_trial_message">Tiếp theo là %s trong một năm. Hủy bất cứ lúc nào</string>
+	<string name="trial_error_dialog">Bạn đã sử dụng giai đoạn dùng thử</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Lọc</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d ngày</item>
+	  <item quantity="few">%d ngày</item>
+	  <item quantity="other">%d ngày</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Chọn ngày</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Số phòng và khách</string>
+	<string name="guests_picker_rooms">Phòng</string>
+	<string name="guests_picker_adults">Người lớn</string>
+	<string name="guests_picker_children_title">Trẻ em</string>
+	<string name="guests_picker_children_subtitle">1-16 tuổi</string>
+	<string name="guests_picker_infants_title">Em bé</string>
+	<string name="guests_picker_infants_subtitle">0-12 tháng</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Không có chỗ</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Cài đặt ngoài bộ lọc</string>
+	<string name="choose_dates_online_only_dialog_title">Không có kết nối</string>
+	<string name="choose_dates_online_only_dialog_message">Chọn ngày và số lượng khách chỉ có ở chế độ trực tuyến. Hãy kiểm tra cài đặt để có kết nối internet.</string>
+	<string name="choose_dates_online_only_dialog_cta">Cài đặt</string>
+	<string name="30_days_limit_dialog">Đặt phòng tối đa cho 30 đêm</string>
+	<string name="whatsnew_trial_title">Truy cập miễn phí vào các hướng dẫn</string>
+	<string name="whatsnew_trial_message">Chúng tôi đã đưa ra giai đoạn đăng ký dùng thử 7 ngày. Hàng ngàn tuyến di chuyển trên khắp thế giới cũng như hồ sơ độ cao cho các hướng dẫn du lịch ngoài trời.</string>
+	<string name="whatsnew_trial_cta">Dùng thử</string>
+	<string name="subscription_terms_guides_outdoor">Việc thanh toán sẽ được thực hiện từ tài khoản iTunes khi xác nhận mua. Việc đăng ký sẽ được tự động gia hạn nếu tự động gia hạn không được tắt ít nhất 24h đồng hồ trước thời điểm kết thúc giai đoạn hiện tại. Tài khoản của bạn sẽ được tính phí dựa trên gói gia hạn của bạn trong vòng 24 giờ trước khi kết thúc giai đoạn hiện tại. Bạn có thể quản lý để tự động gia hạn hoặc tắt nó đi ở phần cài đặt tài khoản Apple ID vào bất cứ lúc nào sau khi mua. Bạn chỉ có thể sử dụng các hướng dẫn đã tải theo gói đăng ký trong thời gian gói đăng ký còn hiệu lực. 30 ngày sau khi kết thúc đăng ký, các hướng dẫn bao gồm tất cả dấu trang sẽ tự động bị xóa.\n* Đăng ký với giai đoạn dùng thử miễn phí sẽ được tự động chuyển sang đăng ký trả phí. Bạn có thể hủy hoặc quản lý việc tự động gia hạn phiên bản dùng thử miễn phí trong cài đặt tài khoản của mình sau khi mua. Việc hủy sẽ có hiệu lực sau 24h sau ngày cuối cùng của giai đoạn đã đăng ký hiện tại, và bạn sẽ được chuyển sang đăng ký miễn phí. Chú ý: bất kỳ phần chưa sử dụng nào trong thời gian dùng thử miễn phí đều sẽ bị mất đi khi bạn mua đăng ký trả phí trong khoảng thời gian đó.</string>
+	<string name="subscription_terms_android_outdoor">Việc thanh toán sẽ được thực hiện từ tài khoản Google Play của bạn khi xác nhận mua. Việc đăng ký sẽ được tự động gia hạn nếu tự động gia hạn không được tắt ít nhất 24h đồng hồ trước thời điểm kết thúc giai đoạn hiện tại. Tài khoản của bạn sẽ được tính phí dựa trên gói gia hạn của bạn trong vòng 24 giờ trước khi kết thúc giai đoạn hiện tại. Bạn có thể quản lý để tự động gia hạn hoặc tắt nó ở phần cài đặt tài khoản sau khi mua. Bạn chỉ có thể sử dụng các hướng dẫn đã tải theo gói đăng ký trong thời gian gói đăng ký còn hiệu lực. 30 ngày sau khi kết thúc đăng ký, các hướng dẫn sẽ tự động bị xóa đi.\n* Đăng ký với giai đoạn dùng thử miễn phí sẽ được tự động chuyển sang đăng ký trả phí. Bạn có thể hủy hoặc quản lý việc tự động gia hạn phiên bản dùng thử miễn phí trong cài đặt tài khoản của mình sau khi mua. Việc hủy sẽ có hiệu lực sau 24h sau ngày cuối cùng của giai đoạn đã đăng ký hiện tại, và bạn sẽ được chuyển sang đăng ký miễn phí. Chú ý: bất kỳ phần chưa sử dụng nào trong thời gian dùng thử miễn phí đều sẽ bị mất đi khi bạn mua đăng ký trả phí trong khoảng thời gian đó.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

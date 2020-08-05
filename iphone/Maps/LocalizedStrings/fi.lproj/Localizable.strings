@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Avaa luettelo";
 
-"new_onboarding_step5.2_message" = "MAPS.ME:ssä matkaopasluettelon tilaaminen on kannattavaa. Saat täyden pääsyn matkaoppaisiin kaupungin kävelyretkiä ja ulkoilua varten!";
+"new_onboarding_step5.2_message" = "MAPS.ME -matkaoppaiden tilaus on löytöostos. Käytä vapaasti matkaoppaiden kaikkia mahdollisuuksia!";
 
 "new_onboarding_step5.2_button" = "Näytä ehdot";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Piilota kartalta";
 
-"whatsnew_catalog_new_title" = "Uusi luettelo ja tuhansia lomasi viettoon liittyviä ideoita";
+"whatsnew_catalog_new_title" = "Uudet matkaoppaat sekä tuhansia ideoita vapaa-ajan viettoon";
 
-"whatsnew_catalog_new_message" = "Olemme päivittäneet matkaopasluettelon ja lisänneet käännöksiä kaikille kielille. Aloita suunnittelu etukäteen!";
+"whatsnew_catalog_new_message" = "Olemme uusineet matkaoppaamme ja lisänneet näihin käännöksiä käytetyimmille kielille. Aloita matkan suunnittelu etukäteen!";
 
 "whatsnew_elevation_profile_title" = "Korkeuslinjat matkaoppaissa";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Esitellyt paikat";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Kokeile 7 päivää ilmaiseksi";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Sen jälkeen %s vuodessa. Peruutettavissa milloin hyvänsä";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Olet jo käyttänyt maksutonta koekeilujaksoa";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Suodattimet";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Valitse ajankohta";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Hotellihuoneet ja matkustajat";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Hotellihuoneet";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Aikuiset";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Lapset";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 v.";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Vauvat";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 kk";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Loppuunvarattu";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Ei osu suodatusaset.";
+
+"choose_dates_online_only_dialog_title" = "Verkkoyhteys poikki";
+
+"choose_dates_online_only_dialog_message" = "Ajankohdat ja matkustajien lukumäärä on mahdollista valita ainoastaan verkossa. Tarkista verkkoasetukset ja varmista, että laitteesi saa yhteyttä verkkoon.";
+
+"choose_dates_online_only_dialog_cta" = "Asetukset";
+
+"30_days_limit_dialog" = "Varauksen voi tehdä enintään 30:ksi yöksi";
+
+"whatsnew_trial_title" = "Matkaoppaiden vapaa käyttöoikeus";
+
+"whatsnew_trial_message" = "Sovellus antaa 7 päivää kokeilla matkaoppaita ilmaiseksi. Tuhansia reittejä kaikkialla maailmassa sekä interaktiivinen korkeusprofiili matkaoppaissa ulkoiluun ja liikuntaan.";
+
+"whatsnew_trial_cta" = "Kokeile";
+
+"subscription_terms_guides_outdoor" = "Summa veloitetaan iTunes -tililtäsi ostosta vahvistettaessa. Tilaus jatkuu automaattisesti ellei sitä peruuteta vähintään 24 tuntia ennen kuluvan tilauskauden päättymistä. Raha kirjataan pois käyttäjätililtäsi jatkoliittymäehtojen mukaan 24 tunnin kuluessa ennen kuluvan jakson päättymistä. Voit hallita automaatista jatkoa tai ottaa sen pois päältä Apple ID -käyttäjätilisi asetuksissa milloin hyvänsä ostoksen jälkeen. Tilauksen puitteissa ladattuja matkaoppaita voit käyttää ainoastaan tilauksen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat on poistettu automaattisesti.\n* Ilmainen kokeilujaksotilaus automaattisesti muuttuu maksulliseksi tilaukseksi. Voit hallita ilmaisen kokeilujaksotilauksen automaatista jatkoa tai peruuttaa sen käyttäjätilisi asetuksissa milloin tahansa ostoksen jälkeen. Peruutus astuu voimaan 24 tunnin päästä kuluvan tilausjakson viimeisestä päivästä. Sen jälkeen tilaus siirtyy toimimaan maksuttomam tilauksen ehdoilla. Huom. Ilmaisen kokeilujakson kaikki käyttämättömät osat on lopetettu, jos teet maksullisen tilauksen kokeilujakson aikana.";
+
+"subscription_terms_android_outdoor" = "Summa veloitetaan Google Play -tililtäsi oston vahvistamisen yhteydessä. Tilaus jatkuu automaattisesti ellei sitä peruuteta vähintään 24 tuntia ennen kuluvan tilauskauden päättymistä. Raha kirjataan pois käyttäjätililtäsi jatkoliittymäehtojen mukaan 24 tunnin kuluessa ennen kuluvan jakson päättymistä. Voit hallita automaatista jatkoa tai ottaa sen pois päältä käyttäjätilisi asetuksissa ostoksen jälkeen. Tilauksen puitteissa ladattuja matkaoppaita voit käyttää ainoastaan tilauksen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat on poistettu automaattisesti.\n* Ilmainen kokeilujaksotilaus automaattisesti muuttuu maksulliseksi tilaukseksi. Voit hallita ilmaisen kokeilujaksotilauksen automaatista jatkoa tai peruuttaa sen käyttäjätilisi asetuksissa milloin tahansa ostoksen jälkeen. Peruutus astuu voimaan 24 tunnin päästä kuluvan tilausjakson viimeisestä päivästä. Sen jälkeen tilaus siirtyy toimimaan maksuttomam tilauksen ehdoilla. Huom. Ilmaisen kokeilujakson kaikki käyttämättömät osat on lopetettu, jos teet maksullisen tilauksen kokeilujakson aikana.";
 
 
 /**********  Partners  **********/

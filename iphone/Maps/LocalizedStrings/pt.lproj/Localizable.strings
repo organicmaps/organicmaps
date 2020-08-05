@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Abrir o catálogo";
 
-"new_onboarding_step5.2_message" = "Subscrição para catálogo de guias no MAPS.ME é vantajoso. Obtenha acesso ilimitado a guias para passeios pela cidade e recreação!";
+"new_onboarding_step5.2_message" = "A subscrição para catálogo de guias no MAPS.ME tem vantagens. Obtenha o acesso total aos percursos para passeios urbanos e férias ativas!";
 
 "new_onboarding_step5.2_button" = "Ver os termos";
 
@@ -3290,7 +3290,7 @@
 
 "whatsnew_catalog_new_title" = "Catálogo novo e milhares de ideias para as férias";
 
-"whatsnew_catalog_new_message" = "Atualizamos o catálogo de guias e adicionamos traduções para todos os idiomas. Comece a planejar com antecedência!";
+"whatsnew_catalog_new_message" = "Atualizamos o catálogo de guias e adicionamos as traduções para as línguas mais populares. Começa planejar com antecedência!";
 
 "whatsnew_elevation_profile_title" = "Perfil de alturas nas guias";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Lugares em destaque";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Experimentar 7 dias grátis";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Depois %s por ano. Pode cancelar a qualquer momento";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Já usou o período gratuito";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filtros";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Escolher datas";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Quartos e hóspedes";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Quartos";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Adultos";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Crianças";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 anos";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Bebês";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 meses";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Lotado";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Fora das conf.filtro";
+
+"choose_dates_online_only_dialog_title" = "Falha de conexão";
+
+"choose_dates_online_only_dialog_message" = "Escolher datas e número de hóspedes é possível apenas no modo on-line. Verifique as configurações e certifique-se que tem ligação com a Internet.";
+
+"choose_dates_online_only_dialog_cta" = "Configurações";
+
+"30_days_limit_dialog" = "Pode ser reservado para 30 noites no máximo";
+
+"whatsnew_trial_title" = "Acesso gratuito às guias";
+
+"whatsnew_trial_message" = "Lançamos o período de teste gratuito da subscrição de 7 dias. Milhares de percursos pelo mundo inteiro, bem como o perfil interativo das alturas nas guias para férias ativas.";
+
+"whatsnew_trial_cta" = "Experimentar";
+
+"subscription_terms_guides_outdoor" = "O pagamento será efetuado da sua conta iTunes após a confirmação da compra. A subscrição será renovada automaticamente se a renovação automatica não será cancelada pelo menos 24 horas antes do final do período atual. O valor será descontado da sua conta pessoal de acordo com o seu tarifário de renovação durante 24 horas antes do final do período atual. Pode controlar a renovação automática ou desativá-la nas configurações da sua conta Apple ID a qualquer momento após a compra. Pode usar as guias descarregadas pela subscrição apenas durante o período da sua validade. 30 dias após o final do período da subscrição, todas as guias com todas as marcas serão excluídos automaticamente.\n* A subscrição com período de teste gratuito automaticamente se transforma em uma subscrição paga. Pode cancelar ou controlar a renovação automática da versão de teste gratuita nas configurações da sua conta pessoal após a compra. O cancelamento entrará em vigor 24 horas após o último dia do período da subscrição atual e você será transferido para uma assinatura gratuita. Atenção: qualquer parte não usada do período de teste gratuito será cancelada na compra da subscrição paga durante esse período.";
+
+"subscription_terms_android_outdoor" = "O pagamento será efetuado da sua conta Google Play após a confirmação da compra. A subscrição será renovada automaticamente se a renovação automatica não será cancelada pelo menos 24 horas antes do final do período atual. O valor será descontado da sua conta pessoal de acordo com o seu tarifário de renovação durante 24 horas antes do final do período atual. Pode controlar a renovação automática ou desativá-la nas configurações da sua conta a qualquer momento após a compra. Pode usar as guias descarregadas pela subscrição apenas durante o período da sua validade. 30 dias após o final do período da subscrição, todas as guias serão excluídos automaticamente.\n* A subscrição com período de teste gratuito automaticamente se transforma em uma subscrição paga. Pode cancelar ou controlar a renovação automática da versão de teste gratuita nas configurações da sua conta pessoal após a compra. O cancelamento entrará em vigor 24 horas após o último dia do período da subscrição atual e você será transferido para uma assinatura gratuita. Atenção: qualquer parte não usada do período de teste gratuito será cancelada na compra da subscrição paga durante esse período.";
 
 
 /**********  Partners  **********/

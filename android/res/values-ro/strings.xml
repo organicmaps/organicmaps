@@ -1695,7 +1695,7 @@
 	<string name="new_onboarding_step5.1_header">Înainte de a începe…</string>
 	<string name="new_onboarding_step5.1_message">Nu uita să vizitezi noul nostru director de rute pentru a găsi un ghid offline pentru următoarea călătorie!</string>
 	<string name="new_onboarding_step5.1_button">Deschide directorul</string>
-	<string name="new_onboarding_step5.2_message">Abonarea la directorul ghidurilor din MAPS.ME este profitabilă. Obțineți acces complet la ghiduri pentru plimbări prin oraș și alte activități!</string>
+	<string name="new_onboarding_step5.2_message">Abonamentul la catalogul ghidurilor de călătorie din MAPS.ME – este profitabil. Obțineți acces complet la rute pentru plimbări prin oraș și activități în aer liber!</string>
 	<string name="new_onboarding_step5.2_button">Vezi termenii</string>
 	<string name="new_onboarding_step5.3_message">Descărcați și evaluați rutele pentru plimbări prin oraș și activități în aer liber, cu o selecție gratuită din MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Descarcă gratuit</string>
@@ -1780,8 +1780,8 @@
 	<string name="routes_card_show">Arată pe hartă</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Ascunde de pe hartă</string>
-	<string name="whatsnew_catalog_new_title">Un nou catalog și mii de idei de vacanță</string>
-	<string name="whatsnew_catalog_new_message">Am actualizat catalogul de ghiduri și am adăugat traduceri în toate limbile. Începeți planificarea înainte!</string>
+	<string name="whatsnew_catalog_new_title">Catalog nou și mii de idei pentru vacanță</string>
+	<string name="whatsnew_catalog_new_message">Am actualizat catalogul ghidurilor de călătorie și am adăugat traduceri în limbi populare. Începeți planificarea înainte!</string>
 	<string name="whatsnew_elevation_profile_title">Profilul înălțimilor în ghiduri</string>
 	<string name="whatsnew_elevation_profile_message">Evaluați complexitatea urcărilor și coborârilor viitoare offline cu cursorul în profilul traseului achiziționat.</string>
 	<string name="whatsnew_guides_on_map_title">Strat nou - ghiduri pe hartă!</string>
@@ -1792,6 +1792,40 @@
 	<string name="routes_card_number_of_points">%s locuri</string>
 	<string name="routes_card_routes_tag">Traseu</string>
 	<string name="routes_card_set_tag">Locuri atractive</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Încercați 7 zile gratuit</string>
+	<string name="guides_trial_message">Mai departe %s pe an. Anulați oricând</string>
+	<string name="trial_error_dialog">Ați profitat deja de perioada de încercare</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Filtre</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d zi</item>
+	  <item quantity="few">%d zile</item>
+	  <item quantity="other">%d zile</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Selectați datele</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Camere și oaspeți</string>
+	<string name="guests_picker_rooms">Camere</string>
+	<string name="guests_picker_adults">Adulți</string>
+	<string name="guests_picker_children_title">Copii</string>
+	<string name="guests_picker_children_subtitle">1-16 ani</string>
+	<string name="guests_picker_infants_title">Bebeluşi</string>
+	<string name="guests_picker_infants_subtitle">0-12 luni.</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Nu există locuri</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Fără filtrare</string>
+	<string name="choose_dates_online_only_dialog_title">Nu există conexiune</string>
+	<string name="choose_dates_online_only_dialog_message">Alegerea datelor și a numărului de oaspeți este disponibilă doar online. Verificați-vă setările și asigurați-vă că sunteți conectat la Internet.</string>
+	<string name="choose_dates_online_only_dialog_cta">Setări</string>
+	<string name="30_days_limit_dialog">Rezervabil pentru maxim 30 de nopți</string>
+	<string name="whatsnew_trial_title">Acces gratuit la ghiduri</string>
+	<string name="whatsnew_trial_message">Am lansat o perioadă de abonament de încercare de 7 zile. Mii de rute din întreaga lume, precum și un profil interactiv de înălțimi în ghidurile de activități în aer liber.</string>
+	<string name="whatsnew_trial_cta">Încercați</string>
+	<string name="subscription_terms_guides_outdoor">Plata va fi percepută pe contul dvs. iTunes la confirmarea achiziției. Abonamentul se va reînnoi automat, cu excepția cazului în care reînnoirea automată este dezactivată cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Numerarul va fi debitat din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore înainte de sfârșitul perioadei curente. Puteți gestiona sau dezactiva reînnoirea automată accesând setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 30 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.\n* Abonamentul cu o perioadă de încercare gratuită se transformă automat într-un abonament plătit. Puteți anula sau gestiona reînnoirea automată a procesului gratuit accesând Setările contului dvs. după cumpărare. Anularea va intra în vigoare la 24 de ore de la ultima zi a perioadei curente de abonare și veți fi transferat la un abonament gratuit. Vă rugăm să rețineți: orice parte neutilizată a perioadei de încercare gratuită va fi anulată atunci când achiziționați un abonament plătit în această perioadă.</string>
+	<string name="subscription_terms_android_outdoor">Plata va fi percepută în contul dvs. Google Play la confirmarea achiziției. Abonamentul se va reînnoi automat, cu excepția cazului în care reînnoirea automată este dezactivată cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Numerarul va fi debitat din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore înainte de sfârșitul perioadei curente. Puteți gestiona sau dezactiva reînnoirea automată accesând Setările contului dvs. după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 30 de zile de la încheierea abonamentului, ghidurile vor fi șterse automat.\n* Abonamentul cu o perioadă de încercare gratuită se transformă automat într-un abonament plătit. Puteți anula sau gestiona reînnoirea automată a procesului gratuit accesând Setările contului dvs. după cumpărare. Anularea va intra în vigoare la 24 de ore de la ultima zi a perioadei curente de abonare și veți fi transferat la un abonament gratuit. Vă rugăm să rețineți: orice parte neutilizată a perioadei de încercare gratuită va fi anulată atunci când achiziționați un abonament plătit în această perioadă.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

@@ -1716,7 +1716,7 @@
 	<string name="new_onboarding_step5.1_header">Zanim zaczniesz…</string>
 	<string name="new_onboarding_step5.1_message">Nie zapomnij sprawdzić nasz nowy katalog tras, aby znaleźć przewodnik offline do najbliższej podróży!</string>
 	<string name="new_onboarding_step5.1_button">Otwórz katalog</string>
-	<string name="new_onboarding_step5.2_message">Subskrypcja katalogu przewodników w MAPS.ME – to opłacalne. Uzyskaj pełny dostęp do przewodników do zwiedzania i aktywnego wypoczynku poza miastem!</string>
+	<string name="new_onboarding_step5.2_message">Subskrypcja katalogu przewodników turystycznych MAPS.ME jest opłacalna. Uzyskaj pełny dostęp do tras spacerowych po mieście i wypoczynku aktywnego!</string>
 	<string name="new_onboarding_step5.2_button">Sprawdź warunki</string>
 	<string name="new_onboarding_step5.3_message">Pobierz i oceń trasy do zwiedzania i aktywnego wypoczynku poza miastem z bezpłatnym doborem MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Darmowe pobieranie</string>
@@ -1801,8 +1801,8 @@
 	<string name="routes_card_show">Pokazać na mapie</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Ukryć na mapie</string>
-	<string name="whatsnew_catalog_new_title">Nowy katalog przewodników i tysiące pomysłów na podróż</string>
-	<string name="whatsnew_catalog_new_message">Zaktualizowaliśmy katalog przewodników i dodaliśmy tłumaczenia we wszystkich językach. Zacznij planować z wyprzedzeniem!</string>
+	<string name="whatsnew_catalog_new_title">Nowy katalog i tysiące pomysłów na wakacje</string>
+	<string name="whatsnew_catalog_new_message">Zaktualizowaliśmy katalog przewodników turystycznych i dodaliśmy tłumaczenia na popularne języki. Zacznij planować z wyprzedzeniem!</string>
 	<string name="whatsnew_elevation_profile_title">Profil wysokości w przewodnikach</string>
 	<string name="whatsnew_elevation_profile_message">Oceń złożoność nadchodzących zjazdów i zejść offline za pomocą kursora w profilu zakupionej trasy.</string>
 	<string name="whatsnew_guides_on_map_title">Nowa warstwa — przewodniki na mapie!</string>
@@ -1813,6 +1813,40 @@
 	<string name="routes_card_number_of_points">%s miejsc</string>
 	<string name="routes_card_routes_tag">Trasa</string>
 	<string name="routes_card_set_tag">Polecane miejsca</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Wypróbuj bezpłatnie przez 7 dni</string>
+	<string name="guides_trial_message">Dalej %s rocznie. Anuluj w dowolnym momencie</string>
+	<string name="trial_error_dialog">Skorzystałeś już z okresu próbnego</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Filtruj</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d dzień</item>
+	  <item quantity="few">%d dni</item>
+	  <item quantity="other">%d dni</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Wybierz daty</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Pokoje i gości</string>
+	<string name="guests_picker_rooms">pokoje</string>
+	<string name="guests_picker_adults">Dorośli</string>
+	<string name="guests_picker_children_title">Dzieci</string>
+	<string name="guests_picker_children_subtitle">1-16 lat</string>
+	<string name="guests_picker_infants_title">Niemowlęta</string>
+	<string name="guests_picker_infants_subtitle">0-12 mies.</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Brak miejsc</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Poza filtrem</string>
+	<string name="choose_dates_online_only_dialog_title">Brak połączenia</string>
+	<string name="choose_dates_online_only_dialog_message">Wybór dat i liczby gości jest dostępny tylko online. Sprawdź swoje ustawienia i upewnij się, że masz połączenie z Internetem.</string>
+	<string name="choose_dates_online_only_dialog_cta">Ustawienia</string>
+	<string name="30_days_limit_dialog">Możliwość rezerwacji na maksymalnie 30 nocy</string>
+	<string name="whatsnew_trial_title">Bezpłatny dostęp do przewodników</string>
+	<string name="whatsnew_trial_message">Uruchomiliśmy 7-dniowy okres próbny subskrypcji. Tysiące tras na całym świecie oraz interaktywny profil wysokości w zewnętrznych przewodnikach turystycznych.</string>
+	<string name="whatsnew_trial_cta">Spróbuj</string>
+	<string name="subscription_terms_guides_outdoor">Płatność zostanie pobrana z Twojego konta iTunes po potwierdzeniu zakupu. Subskrypcja zostanie automatycznie wznowiona, chyba że automatyczne wznowienie zostanie wyłączone co najmniej 24 godziny przed końcem okresu bieżącego. Środki zostaną pobrane z Twojego konta zgodnie z Twoim planem wznowienia w ciągu 24 godzin przed końcem bieżącego okresu. Możesz zarządzać automatycznym wznowieniem lub wyłączyć go w ustawieniach konta Apple ID w dowolnym momencie po zakupie. Możesz korzystać z przewodników, pobranych w ramach subskrypcji, tylko w okresie ich obowiązywania. Po upływie 30 dni od zakończenia subskrypcji przewodniki ze wszystkimi zakładkami zostaną automatycznie usunięte.\n* Subskrypcja z darmowym okresem próbnym jest automatycznie konwertowana na subskrypcję płatną. Możesz anulować lub zarządzać automatycznym przedłużeniem darmowego okresu próbnego w ustawieniach konta po dokonaniu zakupu. Anulowanie zacznie obowiązywać 24 godziny po ostatnim dniu bieżącego okresu subskrypcji, a zostaniesz przeniesiony do subskrypcji darmowej. Uwaga: Każda niewykorzystana część darmowego okresu próbnego zostanie anulowana przy zakupie płatnej subskrypcji w tym okresie.</string>
+	<string name="subscription_terms_android_outdoor">Płatność zostanie pobrana z Twojego konta Google Play po potwierdzeniu zakupu. Subskrypcja zostanie automatycznie wznowiona, chyba że automatyczne wznowienie zostanie wyłączone co najmniej 24 godziny przed końcem okresu bieżącego. Środki zostaną pobrane z Twojego konta zgodnie z Twoim planem wznowienia w ciągu 24 godzin przed końcem bieżącego okresu. Możesz zarządzać automatycznym odnowieniem lub wyłączyć go w ustawieniach konta po zakupie. Możesz korzystać z przewodników, pobranych w ramach subskrypcji, tylko w okresie ich obowiązywania. Po upływie 30 dni od zakończenia subskrypcji przewodniki zostaną automatycznie usunięte.\n* Subskrypcja z darmowym okresem próbnym jest automatycznie konwertowana na subskrypcję płatną. Możesz anulować lub zarządzać automatycznym przedłużeniem darmowego okresu próbnego w ustawieniach konta po dokonaniu zakupu. Anulowanie zacznie obowiązywać 24 godziny po ostatnim dniu bieżącego okresu subskrypcji, a zostaniesz przeniesiony do subskrypcji darmowej. Uwaga: Każda niewykorzystana część darmowego okresu próbnego zostanie anulowana przy zakupie płatnej subskrypcji w tym okresie.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

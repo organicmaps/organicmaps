@@ -1705,7 +1705,7 @@
 	<string name="new_onboarding_step5.1_header">Prima di iniziare…</string>
 	<string name="new_onboarding_step5.1_message">Non scordarti di dare un\'occhiata al nostro nuovo catalogo per trovare la guida offline per il tuo prossimo viaggio!</string>
 	<string name="new_onboarding_step5.1_button">Apri il catalogo</string>
-	<string name="new_onboarding_step5.2_message">Abbonarsi al catalogo guide di MAPS.ME è vantaggioso. Ottieni accesso completo alle guide ai percorsi cittadini e alle attività all\'aria aperta!</string>
+	<string name="new_onboarding_step5.2_message">Abbonarsi al catalogo guide di MAPS.ME è conveniente. Ottieni l\'accesso completo a tutti i percorsi cittadini e nella natura!</string>
 	<string name="new_onboarding_step5.2_button">Vedi i termini di utilizzo</string>
 	<string name="new_onboarding_step5.3_message">Scarica gratuitamente una selezione di percorsi cittadini e di attività all\'aria aperta realizzata da MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Scarica gratis</string>
@@ -1790,8 +1790,8 @@
 	<string name="routes_card_show">Mostra sulla mappa</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Nascondi dalla mappa</string>
-	<string name="whatsnew_catalog_new_title">Nuovo catalogo guide e migliaia di idee per divertirsi</string>
-	<string name="whatsnew_catalog_new_message">Abbiamo aggiornato il nostro catalogo guide e abbiamo aggiunto traduzioni in tutte le lingue. Programma subito i tuoi viaggi!</string>
+	<string name="whatsnew_catalog_new_title">Nuovo catalogo guide e migliaia di idee di viaggio</string>
+	<string name="whatsnew_catalog_new_message">Abbiamo aggiornato il catalogo guide e aggiunto traduzioni nelle lingue più diffuse. Programma i tuoi viaggi in anticipo!</string>
 	<string name="whatsnew_elevation_profile_title">Profilo altimetrico e guide</string>
 	<string name="whatsnew_elevation_profile_message">Valuta offline la difficoltà di ascesa e discesa grazie al cursore del profilo altimetrico del percorso acquistato.</string>
 	<string name="whatsnew_guides_on_map_title">Nuova modalità: guide sulla mappa!</string>
@@ -1802,6 +1802,40 @@
 	<string name="routes_card_number_of_points">%s posti</string>
 	<string name="routes_card_routes_tag">Percorso</string>
 	<string name="routes_card_set_tag">Selezione dei luoghi</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Prova gratis per 7 giorni</string>
+	<string name="guides_trial_message">Dopo il periodo di prova, %s l\'anno. Puoi disdire l\'abbonamento in qualsiasi momento</string>
+	<string name="trial_error_dialog">Hai già usufruito del periodo di prova</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Filtri</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d giorno</item>
+	  <item quantity="few">%d giorni</item>
+	  <item quantity="other">%d giorni</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Seleziona date</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Camere e ospiti</string>
+	<string name="guests_picker_rooms">Camere</string>
+	<string name="guests_picker_adults">Adulti</string>
+	<string name="guests_picker_children_title">Bambini</string>
+	<string name="guests_picker_children_subtitle">1-16 anni</string>
+	<string name="guests_picker_infants_title">Neonati</string>
+	<string name="guests_picker_infants_subtitle">0-12 mesi</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Nessuna camera disp.</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Nessun risultato</string>
+	<string name="choose_dates_online_only_dialog_title">Connessione internet assente</string>
+	<string name="choose_dates_online_only_dialog_message">Le date e il numero degli ospiti sono selezionabili solamente online. Controlla le impostazioni e assicurati di essere connesso a internet.</string>
+	<string name="choose_dates_online_only_dialog_cta">Impostazioni</string>
+	<string name="30_days_limit_dialog">È possibile prenotare una struttura al massimo per 30 notti</string>
+	<string name="whatsnew_trial_title">Accesso gratuito al catalogo guide</string>
+	<string name="whatsnew_trial_message">Abbiamo aggiunto un periodo di prova gratuito dell\'abbonamento. Migliaia di percorsi in tutto il mondo e addirittura un profilo altimetrico interattivo per le guide all\'aria aperta.</string>
+	<string name="whatsnew_trial_cta">Provalo</string>
+	<string name="subscription_terms_guides_outdoor">Una volta confermato l\'acquisto, il pagamento verrà addebitato sul tuo account iTunes. L\'abbonamento si rinnova automaticamente, a meno che il rinnovo automatico non venga disattivato almeno 24 ore prima della fine del periodo in corso. L\'importo verrà addebitato sul tuo account secondo il tuo piano di rinnovo massimo 24 ore prima della fine del periodo in corso. Dopo l\'acquisto è possibile gestire o disattivare in qualsiasi momento il rinnovo automatico dell\'abbonamento nelle impostazioni dell\'account ID Apple. È possibile utilizzare le guide scaricate tramite l\'abbonamento solamente se questo è attivo. Guide e segnalibri verranno automaticamente eliminati 30 giorni dopo il termine dell\'abbonamento.\n* L\'abbonamento di prova gratuito si rinnova automaticamente passando alla a pagamento. Dopo l\'acquisto è possibile disabilitare o gestire il rinnovo automatico dell\'abbonamento di prova gratuito nelle impostazioni dell\'account. La disdetta avverrà 24 ore dopo l\'ultimo giorno del periodo di abbonamento in corso. Dopo la disdetta, l\'account passerà automaticamente all\'abbonamento gratuito. Nota: al momento dell\'acquisto dell\'abbonamento durante il periodo di prova gratuito, i giorni inutilizzati di tale periodo andranno persi.</string>
+	<string name="subscription_terms_android_outdoor">Una volta confermato l\'acquisto, il pagamento verrà addebitato sul tuo account Google Play. L\'abbonamento si rinnova automaticamente, a meno che il rinnovo automatico non venga disattivato almeno 24 ore prima della fine del periodo in corso. L\'importo verrà addebitato sul tuo account secondo il tuo piano di rinnovo massimo 24 ore prima della fine del periodo in corso. Dopo l\'acquisto è possibile gestire o disattivare in qualsiasi momento il rinnovo automatico dell\'abbonamento nelle impostazioni dell\'account. È possibile utilizzare le guide scaricate tramite l\'abbonamento solamente se questo è attivo. Le guide verranno automaticamente eliminate 30 giorni dopo il termine dell\'abbonamento.\n* L\'abbonamento di prova gratuito si rinnova automaticamente passando alla a pagamento. Dopo l\'acquisto è possibile disabilitare o gestire il rinnovo automatico dell\'abbonamento di prova gratuito nelle impostazioni dell\'account. La disdetta avverrà 24 ore dopo l\'ultimo giorno del periodo di abbonamento in corso. Dopo la disdetta, l\'account passerà automaticamente all\'abbonamento gratuito. Nota: al momento dell\'acquisto dell\'abbonamento durante il periodo di prova gratuito, i giorni inutilizzati di tale periodo andranno persi.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

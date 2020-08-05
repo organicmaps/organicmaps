@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Abrir catálogo";
 
-"new_onboarding_step5.2_message" = "Suscribirse al directorio de guías en MAPS.ME es rentable. ¡Obtén acceso completo a guías de paseos por la ciudad y a actividades al aire libre!";
+"new_onboarding_step5.2_message" = "Suscribirse al directorio de guías en MAPS.ME es rentable. ¡Obtén acceso completo a las rutas para paseos urbanos y actividades al aire libre!";
 
 "new_onboarding_step5.2_button" = "Mira los términos";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Ocultar en el mapa";
 
-"whatsnew_catalog_new_title" = "Nuevo catálogo de guías y miles de ideas para descansar";
+"whatsnew_catalog_new_title" = "Nuevo catálogo y miles de ideas de vacaciones";
 
-"whatsnew_catalog_new_message" = "Hemos actualizado el catálogo de guías y agregado traducciones a todos los idiomas. ¡Comienza a planificar con anticipación!";
+"whatsnew_catalog_new_message" = "Hemos actualizado el catálogo de guías y agregado traducciones a los idiomas más populares. ¡Comienza a planificar con anticipación!";
 
 "whatsnew_elevation_profile_title" = "Perfil de altura en las guías";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Lugares destacados";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Probar 7 días gratis";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "En adelante %s por año. Cancelación en cualquier momento";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Lo sentimos, ya has usado el período de prueba";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filtros";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Elegir fecha";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Habitaciones, invitados";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Habitaciones";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Adultos";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Niños";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "de 1-16 años";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Infantes";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "de 0-12 meses";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "No hay vacantes";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "No ajustan al filtro";
+
+"choose_dates_online_only_dialog_title" = "No hay conexión";
+
+"choose_dates_online_only_dialog_message" = "Las fechas y el número de invitados sólo se pueden seleccionar estando en línea. Verifica tu configuración y asegúrate de estar conectado a Internet.";
+
+"choose_dates_online_only_dialog_cta" = "Configuración";
+
+"30_days_limit_dialog" = "Puedes reservar por un máximo de 30 noches";
+
+"whatsnew_trial_title" = "Acceso gratuito a las guías de viaje";
+
+"whatsnew_trial_message" = "Hemos lanzado un período de suscripción de prueba de 7 días. Miles de rutas en todo el mundo, además de un perfil interactivo de alturas en las guías para actividades al aire libre.";
+
+"whatsnew_trial_cta" = "Pruébalo ahora";
+
+"subscription_terms_guides_outdoor" = "Cuando confirmes la compra, el pago se cargará a tu cuenta de iTunes. La suscripción se renovará automáticamente a menos que la función de renovación automática esté desactivada al menos 24 horas antes del final del período de suscripción actual. Tu cuenta se cargará de acuerdo con tu plan de renovación dentro de las 24 horas antes de que finalice el período de suscripción actual. Puedes administrar o deshabilitar la renovación automática en la configuración de tu cuenta de ID de Apple en cualquier momento después de la compra. Solo podrás usar las guías descargadas de tu suscripción durante su período de vigencia. Las guías y todos los marcadores se eliminarán automáticamente 30 días después de que caduque la suscripción.\n* La suscripción con un período de prueba gratuito se renovará automáticamente a una suscripción paga. Puedes cancelar o administrar la renovación automática de tu prueba gratuita en la configuración de tu cuenta después de la compra. La cancelación surtirá efecto 24 horas después del último día del período de suscripción actual, después de eso, serás trasferido al servicio gratuito. Ten en cuenta que cualquier parte no utilizada de la prueba gratuita se perderá cuando compres una suscripción premium durante la prueba gratuita.";
+
+"subscription_terms_android_outdoor" = "El pago se cargará a tu cuenta de Google Play en la confirmación de la compra. La suscripción se renovará automáticamente a menos que la función de renovación automática esté desactivada al menos 24 horas antes del final del período de suscripción actual. Tu cuenta se cargará de acuerdo con tu plan de renovación dentro de las 24 horas antes de que finalice el período de suscripción actual. Puedes administrar o deshabilitar la renovación automática yendo a la configuración de tu cuenta después de la compra. Solo podrás usar las guías descargadas de tu suscripción durante su período de vigencia. Después de 30 días después del final de la suscripción, las guías se eliminarán automáticamente.\n* La suscripción con un período de prueba gratuito se renovará automáticamente a una suscripción paga. Puedes cancelar o administrar la renovación automática de tu prueba gratuita en la configuración de tu cuenta después de la compra. La cancelación surtirá efecto 24 horas después del último día del período de suscripción actual, después de eso, serás trasferido al servicio gratuito. Ten en cuenta que cualquier parte no utilizada de la prueba gratuita se perderá cuando compres una suscripción premium durante la prueba gratuita.";
 
 
 /**********  Partners  **********/

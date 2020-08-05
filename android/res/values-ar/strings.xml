@@ -1710,7 +1710,7 @@
 	<string name="new_onboarding_step5.1_header">شيء آخر قبل أن تبدأ…</string>
 	<string name="new_onboarding_step5.1_message">لا تنس زيارة قائمة الدلائل الجديد الخاصة بنا لتجد دليل رحلتك القادمة بدون اتصال!</string>
 	<string name="new_onboarding_step5.1_button">افتح القائمة</string>
-	<string name="new_onboarding_step5.2_message">الاشتراك في قائمة دلائل MAPS.ME ذو قيمة كبيرة. احصل على الوصول الكامل إلى دلائل المدينة والمناطق الخارجية في جميع أنحاء العالم!</string>
+	<string name="new_onboarding_step5.2_message">اشتراكك في قائمة دلائل MAPS.ME له قيمة كبيرة. يمكنك الوصول الكامل إلى أدلة المدينة والأنشطة الخارجية في جميع أنحاء العالم!</string>
 	<string name="new_onboarding_step5.2_button">تحقق من الشروط</string>
 	<string name="new_onboarding_step5.3_message">تحقق من عينات مجانية لمسارات جاهزة للمدن والمناطق الخارجية مع مجموعة مختارة مجانية من MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">تحميل مجاني</string>
@@ -1795,8 +1795,8 @@
 	<string name="routes_card_show">أظهر على الخريطة</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">إخفاء من الخريطة</string>
-	<string name="whatsnew_catalog_new_title">قائمة أدلة جديدة والآلاف من أفكار السفر</string>
-	<string name="whatsnew_catalog_new_message">لقد قمنا بتحديث قائمة الأدلة وإضافة ترجمات بكل اللغات. ابدأ بتخطيط سفرك مسبقًا!</string>
+	<string name="whatsnew_catalog_new_title">قائمة دلائل جديدة والآلاف من أفكار السفر</string>
+	<string name="whatsnew_catalog_new_message">لقد قمنا بتحديث قائمة الدلائل وإضافة ترجمات باللغات المشهورة. ابدأ بتخطيط رحلتك مسبقًا!</string>
 	<string name="whatsnew_elevation_profile_title">ملف تحديد الارتفاع في أدلة السفر</string>
 	<string name="whatsnew_elevation_profile_message">قم بتقييم درجة صعوبة الصعود والهبوط التاليين دون اتصال باستخدام المؤشر في الملف الخاص بالمسار الذي تم شراؤه.</string>
 	<string name="whatsnew_guides_on_map_title">طبقة جديدة للعثور على الأدلة بسهولة</string>
@@ -1807,6 +1807,40 @@
 	<string name="routes_card_number_of_points">%s مكان</string>
 	<string name="routes_card_routes_tag">برنامج الرحلة</string>
 	<string name="routes_card_set_tag">أماكن مميزة</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">ابدأ التجربة المجانية لمدة 7 أيام</string>
+	<string name="guides_trial_message">بعد ذلك،%s في السنة. يمكنك الإلغاء في أي وقت</string>
+	<string name="trial_error_dialog">عذرًا، لقد استخدمت فترة التجربة المجانية بالفعل</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">الفلاتر</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d يوم</item>
+	  <item quantity="few">%d أيام</item>
+	  <item quantity="other">%d أيام</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">اختر التواريخ</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">الغرف والضيوف</string>
+	<string name="guests_picker_rooms">الغرف</string>
+	<string name="guests_picker_adults">بالغين</string>
+	<string name="guests_picker_children_title">أطفال</string>
+	<string name="guests_picker_children_subtitle">1-16 عام</string>
+	<string name="guests_picker_infants_title">رضع</string>
+	<string name="guests_picker_infants_subtitle">0-12 شهر</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">لا يوجد غرف متاحة</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">غير مطابق للفلاتر</string>
+	<string name="choose_dates_online_only_dialog_title">لا يوجد اتصال</string>
+	<string name="choose_dates_online_only_dialog_message">لا يمكن اختيار التواريخ وعدد الضيوف إلا عند الاتصال بالإنترنت. يرجى التحقق من إعداداتك والتأكد أنك متصل بالإنترنت.</string>
+	<string name="choose_dates_online_only_dialog_cta">الإعدادات</string>
+	<string name="30_days_limit_dialog">يمكنك الحجز لـ 30 ليلة كحد أقصى</string>
+	<string name="whatsnew_trial_title">وصول مجاني إلى قائمة الدلائل</string>
+	<string name="whatsnew_trial_message">نقدم الآن تجربة مجانية لمدة 7 أيام. يمكنك الوصول إلى الآلاف من أدلة السفر حول العالم وملف تحديد الارتفاع التفاعلي لأدلة الأنشطة الخارجية.</string>
+	<string name="whatsnew_trial_cta">جربه الآن</string>
+	<string name="subscription_terms_guides_outdoor">عندما تأكيد عملية الشراء، سيتم خصم المبلغ من حساب iTunes الخاص بك. سيتم تجديد الاشتراك تلقائيًا ما لم تقم بإلغاء خاصية التجديد التلقائي قبل 24 ساعة على الأقل من نهاية فترة الاشتراك الحالية. سيتم تحصيل مبلغ الاشتراك من حسابك وفقًا لخطة التجديد خلال 24 ساعة قبل انتهاء فترة الاشتراك الحالية. يمكنك إدارة أو إلغاء التجديد التلقائي من إعدادات حساب Apple ID الخاص بك في أي وقت بعد الشراء. يمكنك استخدام الأدلة التي تم تحميلها أثناء اشتراكك فقط حتى انتهاء فترة صلاحية الاشتراك. سيتم حذف الأدلة وجميع الإشارات المرجعية تلقائيًا بعد 30 يومًا من انتهاء فترة صلاحية الاشتراك.\n* سيتم تجديد الاشتراك للفترة التجريبية المجانية تلقائيًا إلى اشتراك مدفوع. يمكنك إلغاء أو إدارة التجديد التلقائي للفترة التجريبية المجانية من إعدادات حسابك بعد الشراء. سيتم الإلغاء بعد 24 ساعة من اليوم الأخير من فترة الاشتراك الحالية. بعد ذلك، سيتم إرجاعك إلى الخدمة المجانية. يرجى الملاحظة: سيتم فقدان أي خاصية غير مستخدمة من الإصدار التجريبي المجاني عند شراء اشتراك مدفوع أثناء الفترة التجريبية المجانية.</string>
+	<string name="subscription_terms_android_outdoor">عندما تأكيد عملية الشراء، سيتم خصم المبلغ من حساب Google Play الخاص بك سيتم تجديد الاشتراك تلقائيًا ما لم تقم بإلغاء خاصية التجديد التلقائي قبل 24 ساعة على الأقل من نهاية فترة الاشتراك الحالية. سيتم تحصيل مبلغ الاشتراك من حسابك وفقًا لخطة التجديد خلال 24 ساعة قبل انتهاء فترة الاشتراك الحالية. يمنكن إدارة أو إلغاء التجديد التلقائي من إعدادات الحساب في أي وقت بعد الشراء. يمكنك استخدام الأدلة التي تم تحميلها أثناء اشتراكك فقط حتى انتهاء فترة صلاحية الاشتراك. سيتم حذف الأدلة تلقائيًا بعد 30 يومًا من انتهاء فترة صلاحية الاشتراك.\n* سيتم تجديد الاشتراك للفترة التجريبية المجانية تلقائيًا إلى اشتراك مدفوع. يمكنك إلغاء أو إدارة التجديد التلقائي للفترة التجريبية المجانية من إعدادات حسابك بعد الشراء. سيتم الإلغاء بعد 24 ساعة من اليوم الأخير من فترة الاشتراك الحالية. بعد ذلك، سيتم إرجاعك إلى الخدمة المجانية. يرجى الملاحظة: سيتم فقدان أي خاصية غير مستخدمة من الإصدار التجريبي المجاني عند شراء اشتراك مدفوع أثناء الفترة التجريبية المجانية.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

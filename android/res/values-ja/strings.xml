@@ -1698,7 +1698,7 @@
 	<string name="new_onboarding_step5.1_header">始める前にもう1点…</string>
 	<string name="new_onboarding_step5.1_message">今後の旅のオフラインのガイドを見つけるために新しいガイドのカタログを見る事をお忘れなく！</string>
 	<string name="new_onboarding_step5.1_button">カタログを開く</string>
-	<string name="new_onboarding_step5.2_message">MAPS.MEのガイドのカタログにサブスクライブすれば多くの利点があります。世界中の都市や戸外のガイドの全てにアクセスする事ができます！</string>
+	<string name="new_onboarding_step5.2_message">MAPS.MEのガイドのカタログのサブスクリプションは大変お得です。世界中の都市とアウトドアのガイドへのフルアクセスをゲットしましょう！</string>
 	<string name="new_onboarding_step5.2_button">規約をご確認ください</string>
 	<string name="new_onboarding_step5.3_message">MAPS.MEの無料セレクションでレディメイドな都市と戸外のルートのサンプルをご覧ください！</string>
 	<string name="new_onboarding_step5.3_button">無料ダウンロード</string>
@@ -1784,7 +1784,7 @@
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">マップから非表示</string>
 	<string name="whatsnew_catalog_new_title">新しいガイドのカタログと数千の旅行アイディア</string>
-	<string name="whatsnew_catalog_new_message">ガイドのカタログが更新され、全ての言語に翻訳が追加されました。事前に計画を立てましょう！</string>
+	<string name="whatsnew_catalog_new_message">ガイドのカタログを更新し、人気の言語の翻訳を追加しました。事前に旅行の計画を立てましょう！</string>
 	<string name="whatsnew_elevation_profile_title">旅行ガイドの標高情報</string>
 	<string name="whatsnew_elevation_profile_message">購入したルートのプロフィールでカーソルを使って今後のオフラインの上昇と下降の難易度を調べましょう。</string>
 	<string name="whatsnew_guides_on_map_title">簡単にガイドをみつけるための新しいレイヤー</string>
@@ -1795,6 +1795,40 @@
 	<string name="routes_card_number_of_points">%s個の場所</string>
 	<string name="routes_card_routes_tag">経路</string>
 	<string name="routes_card_set_tag">主要な場所</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">7日無料トライアルを開始</string>
+	<string name="guides_trial_message">その後は年間%sです。いつでもキャンセルできます</string>
+	<string name="trial_error_dialog">申し訳ございません。あなたは既にトライアルを利用しています</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">フィルター</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d日</item>
+	  <item quantity="few">%d日</item>
+	  <item quantity="other">%d日</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">日付を選択</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">部屋と人数</string>
+	<string name="guests_picker_rooms">部屋</string>
+	<string name="guests_picker_adults">大人</string>
+	<string name="guests_picker_children_title">子供</string>
+	<string name="guests_picker_children_subtitle">1歳～16歳</string>
+	<string name="guests_picker_infants_title">幼児</string>
+	<string name="guests_picker_infants_subtitle">0ヶ月～12か月</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">利用できる部屋がありません</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">フィルター設定にマッチしません</string>
+	<string name="choose_dates_online_only_dialog_title">ネットワーク接続がありません</string>
+	<string name="choose_dates_online_only_dialog_message">日付と人数はオンライン時に選択できます。設定を確認し、インターネットに接続している事を確かめてください。</string>
+	<string name="choose_dates_online_only_dialog_cta">設定</string>
+	<string name="30_days_limit_dialog">最大で30泊まで予約する事ができます</string>
+	<string name="whatsnew_trial_title">ガイドのカタログへの無料アクセス</string>
+	<string name="whatsnew_trial_message">無料で7日間のトライアルを提供しています。世界中の数千の旅行ガイドとアウトドアガイドのためのインタラクティブな標高情報へのアクセス。</string>
+	<string name="whatsnew_trial_cta">今すぐ試してみましょう</string>
+	<string name="subscription_terms_guides_outdoor">購入を確認すると、iTunesのアカウントに請求がなされます。このサブスクリプションは、現在のサブスクリプション期間が終了する24時間前までに自動更新機能を無効化しない限り、自動的に更新されます。あなたのアカウントには、あなたの更新プランに従って、現在のサブスクリプション期間が終了する24時間以内に請求がなされます。自動更新は、購入後にいつでもApple IDの設定から管理または無効化する事ができます。ガイドは、サブスクリプションが失効するまでの期間内にダウンロードしたものしか利用できません。ガイドと全てのブックマークは、サブスクリプションの失効後30日で自動的に削除されます。\n*無料トライアル期間を持つサブスクリプションは、有料サブスクリプションに自動的に更新されます。無料トライアルの自動更新は、購入後にアカウント設定からキャンセルまたは管理をする事ができます。このキャンセルは、現在のサブスクリプション期間の最終日の24時間後から発効します。その後は無料サービスにダウングレードされます。注意：無料トライアル期間中に有料サブスクリプションを購入すると、無料トライアルの未使用の期間は喪失します。</string>
+	<string name="subscription_terms_android_outdoor">購入を確認すると、支払はGoogle Playのアカウントに請求されます。このサブスクリプションは、現在のサブスクリプション期間が終了する24時間前までに自動更新機能を無効化しない限り、自動的に更新されます。あなたのアカウントには、あなたの更新プランに従って、現在のサブスクリプション期間が終了する24時間以内に請求がなされます。自動更新は、購入後にいつでもアカウント設定から管理または無効化する事ができます。ガイドは、サブスクリプションが失効するまでの期間内にダウンロードしたものしか利用できません。ガイドは、サブスクリプションの失効後30日で自動的に削除されます。\n*無料トライアル期間を持つサブスクリプションは、有料サブスクリプションに自動的に更新されます。無料トライアルの自動更新は、購入後にアカウント設定からキャンセルまたは管理をする事ができます。このキャンセルは、現在のサブスクリプション期間の最終日の24時間後から発効します。その後は無料サービスにダウングレードされます。注意：無料トライアル期間中に有料サブスクリプションを購入すると、無料トライアルの未使用の期間は喪失します。</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

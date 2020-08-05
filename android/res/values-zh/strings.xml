@@ -1703,7 +1703,7 @@
 	<string name="new_onboarding_step5.1_header">在开始前……</string>
 	<string name="new_onboarding_step5.1_message">不要忘记访问我们新的线路，为即将的出行找到离线导航！</string>
 	<string name="new_onboarding_step5.1_button">打开目录</string>
-	<string name="new_onboarding_step5.2_message">在MAPS.ME 中订阅指南目录非常划算。可访问所有市内徒步旅行与休闲运动指南！</string>
+	<string name="new_onboarding_step5.2_message">訂閱MAPS.ME中的旅行指南會讓您受益匪淺。全面訪問城市散步路線和戶外活動路線！</string>
 	<string name="new_onboarding_step5.2_button">查看条件</string>
 	<string name="new_onboarding_step5.3_message">下载或评论带有 MAPS.ME免费编录的市内旅行和休闲运动的线路！</string>
 	<string name="new_onboarding_step5.3_button">免费下载</string>
@@ -1788,8 +1788,8 @@
 	<string name="routes_card_show">在地图上显示</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">在地图上隐藏</string>
-	<string name="whatsnew_catalog_new_title">新目录和数千个理想度假胜地</string>
-	<string name="whatsnew_catalog_new_message">我们更新了指南目录，并添加了所有语言的翻译。开始提前计划！</string>
+	<string name="whatsnew_catalog_new_title">新指南和數千個度假地</string>
+	<string name="whatsnew_catalog_new_message">我們更新了指南目錄，並添加了常用的語言版本。開始提前計劃！</string>
 	<string name="whatsnew_elevation_profile_title">指导中的高度剖面图</string>
 	<string name="whatsnew_elevation_profile_message">使用所获取路线中的光标离线评估即将遇到的上坡和下坡的难度。</string>
 	<string name="whatsnew_guides_on_map_title">新图层—地图上的指南！</string>
@@ -1800,6 +1800,40 @@
 	<string name="routes_card_number_of_points">%s位置</string>
 	<string name="routes_card_routes_tag">路线</string>
 	<string name="routes_card_set_tag">特色景点</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">免費試用7天</string>
+	<string name="guides_trial_message">之後每年%s。隨時取消</string>
+	<string name="trial_error_dialog">您已經使用了試用期</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">篩選</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d天</item>
+	  <item quantity="few">%d天</item>
+	  <item quantity="other">%d天</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">選擇日期</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">客房和客人</string>
+	<string name="guests_picker_rooms">客房</string>
+	<string name="guests_picker_adults">成人</string>
+	<string name="guests_picker_children_title">兒童</string>
+	<string name="guests_picker_children_subtitle">1-16歲</string>
+	<string name="guests_picker_infants_title">嬰兒</string>
+	<string name="guests_picker_infants_subtitle">0-12個月</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">没有可用的房间</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">未篩選到</string>
+	<string name="choose_dates_online_only_dialog_title">沒有網絡連接</string>
+	<string name="choose_dates_online_only_dialog_message">日期和入住人數僅可在線選擇。檢查您的設置，並確保您已連網。</string>
+	<string name="choose_dates_online_only_dialog_cta">設置</string>
+	<string name="30_days_limit_dialog">最多可預訂30晚</string>
+	<string name="whatsnew_trial_title">免費訪問旅行指南</string>
+	<string name="whatsnew_trial_message">我們已經推出了7天的試用期。世界各地的數千條路線，以及戶外旅行指南中的交互式海拔剖面圖。</string>
+	<string name="whatsnew_trial_cta">試用</string>
+	<string name="subscription_terms_guides_outdoor">確認購買後，付款將從您的iTunes帳戶中扣除。訂閱將自動續訂，除非在到期前至少24小時關閉自動續訂。在到期前的24小時內，將根據您的續訂計劃從您的帳戶扣費。購買成功後，您可以隨時進入Apple ID帳戶設置來管理或關閉自動更新。您只能在有效期內使用通過訂閱下載的指南。訂閱結束後30天，帶有所有標籤的指南將被自動刪除。\n*免費試用期的訂閱會自動轉換為付費訂閱。購買後，您可以轉到“帳戶設置”來取消或管理免費試用版的自動續訂。取消將在當前訂閱期最後一天的24小時後生效，您將被轉為免費訂閱。請注意，免費試用期內未使用的部分在該期間購買付費訂閱時將被收回。</string>
+	<string name="subscription_terms_android_outdoor">確認購買後，付款將從您的Google Play帳戶中扣除。訂閱將自動續訂，除非在到期前至少24小時關閉自動續訂。在到期前的24小時內，將根據您的續訂計劃從您的帳戶扣費。購買後，您可以轉到“帳戶設置”來管理或關閉自動續訂。您只能在有效期內使用通過訂閱下載的指南。訂閱結束後30天后，指南將自動刪除。\n*免費試用期的訂閱會自動轉換為付費訂閱。購買後，您可以轉到“帳戶設置”來取消或管理免費試用版的自動續訂。取消將在當前訂閱期最後一天的24小時後生效，您將被轉為免費訂閱。請注意，免費試用期內未使用的部分在該期間購買付費訂閱時將被收回。</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

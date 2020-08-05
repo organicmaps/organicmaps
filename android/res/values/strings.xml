@@ -1764,7 +1764,7 @@
 	<string name="new_onboarding_step5.1_header">One more thing before you start…</string>
 	<string name="new_onboarding_step5.1_message">Don\'t forget to visit our brand new guides catalog to find an offline guide for your upcoming journey!</string>
 	<string name="new_onboarding_step5.1_button">Open catalog</string>
-	<string name="new_onboarding_step5.2_message">Subscription to MAPS.ME guides catalog is a bargain. Get full access to city and outdoor guides around the world!</string>
+	<string name="new_onboarding_step5.2_message">Your subscription to the MAPS.ME guides catalog is a bargain. Get full access to city and outdoor guides around the world!</string>
 	<string name="new_onboarding_step5.2_button">Check out the terms</string>
 	<string name="new_onboarding_step5.3_message">Check out free samples of ready-made city and outdoor routes with a free selection of MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Free download</string>
@@ -1863,7 +1863,7 @@
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Hide from map</string>
 	<string name="whatsnew_catalog_new_title">New guides catalog and thousands of travel ideas</string>
-	<string name="whatsnew_catalog_new_message">We have updated the guides catalog and added translations in all languages. Start planning in advance!</string>
+	<string name="whatsnew_catalog_new_message">We\'ve updated the guides catalog and added translations in popular languages. Start planning your trip ahead of time!</string>
 	<string name="whatsnew_elevation_profile_title">Elevation profile in travel guides</string>
 	<string name="whatsnew_elevation_profile_message">Evaluate the difficulty of upcoming offline ascents and descents with the cursor in the profile of the purchased route.</string>
 	<string name="whatsnew_guides_on_map_title">New layer to find guides easily</string>
@@ -1876,37 +1876,40 @@
 	<string name="routes_card_number_of_points">%s places</string>
 	<string name="routes_card_routes_tag">Itinerary</string>
 	<string name="routes_card_set_tag">Featured places</string>
-	<!-- FIXME -->
-	<string name="guides_trial_cta_button">guides_trial_cta_button</string>
-	<!-- FIXME -->
-	<string name="guides_trial_message">guides_trial_message%s</string>
-	<!-- FIXME -->
-	<string name="trial_error_dialog">trial_error_dialog</string>
-	<!-- FIXME -->
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Start your 7-day free trial</string>
+	<string name="guides_trial_message">After that, %s per year. Cancel anytime</string>
+	<string name="trial_error_dialog">Sorry, you\'ve already used the trial</string>
+	<!-- as few symbols as possible -->
 	<string name="floating_button_filters">Filters</string>
-	<!-- FIXME -->
 	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d day</item>
-	  <item quantity="other">%d days</item>
+	  <item quantity="one">%d dag</item>
+	  <item quantity="few">%d dagen</item>
+	  <item quantity="other">%d dagen</item>
 	</plurals>
-	<!-- FIXME -->
-	<string name="date_picker_сhoose_dates_cta">Choose dates</string>
-	<!-- FIXME -->
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Select dates</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Rooms and guests</string>
 	<string name="guests_picker_rooms">Rooms</string>
-	<!-- FIXME -->
 	<string name="guests_picker_adults">Adults</string>
-	<!-- FIXME -->
 	<string name="guests_picker_children_title">Children</string>
-	<!-- FIXME -->
-	<string name="guests_picker_children_subtitle">3-16 y.o.</string>
-	<!-- FIXME -->
+	<string name="guests_picker_children_subtitle">1-16 y.o.</string>
 	<string name="guests_picker_infants_title">Infants</string>
-	<!-- FIXME -->
-	<string name="guests_picker_infants_subtitle">0-3 y.o.</string>
-	<!-- FIXME -->
-	<string name="booking_map_component_availability">No rooms</string>
-	<!-- FIXME -->
-	<string name="booking_map_component_filters">Out of filters</string>
+	<string name="guests_picker_infants_subtitle">0-12 mon.</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">No rooms available</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Doesn\'t match filters</string>
+	<string name="choose_dates_online_only_dialog_title">No network connection</string>
+	<string name="choose_dates_online_only_dialog_message">Dates and the number of guests can only be selected when online. Please check your settings and make sure you\'re connected to the internet.</string>
+	<string name="choose_dates_online_only_dialog_cta">Settings</string>
+	<string name="30_days_limit_dialog">You can book for a maximum of 30 nights</string>
+	<string name="whatsnew_trial_title">Free access to the guides catalog</string>
+	<string name="whatsnew_trial_message">We now offer a free 7-day trial. Access thousands of travel guides around the world and an interactive elevation profile for outdoor guides.</string>
+	<string name="whatsnew_trial_cta">Try it now</string>
+	<string name="subscription_terms_guides_outdoor">When you confirm the purchase, the payment will be charged to your iTunes account. The subscription will automatically renew unless the auto-renew feature is disabled at least 24 hours before the end of the current subscription period. Your account will be charged according to your renewal plan within 24 hours before the current subscription period ends. You can manage or disable auto-renewal in your Apple ID account settings any time after purchase. You can only use guides downloaded during your subscription until the subscription expires. Guides and all bookmarks will be automatically deleted 30 days after the subscription expires.\n* The subscription with a free trial period will automatically renew to a paid subscription. You can cancel or manage your free trial\'s auto-renewal in your account settings after purchase. The cancellation will take effect 24 hours after the last day of the current subscription period. After that, you will be downgraded to the free service. Please note: Any unused portion of the free trial will be forfeited when you purchase a premium subscription during the free trial.</string>
+	<string name="subscription_terms_android_outdoor">When you confirm the purchase, the payment will be charged to your Google Play account. The subscription will automatically renew unless the auto-renew feature is disabled at least 24 hours before the end of the current subscription period. Your account will be charged according to your renewal plan within 24 hours before the current subscription period ends. You can manage or disable auto-renewal in account settings any time after purchase. You can only use guides downloaded during your subscription until the subscription expires. Guides will be automatically deleted 30 days after the subscription expires.\n* The subscription with a free trial period will automatically renew to a paid subscription. You can cancel or manage your free trial\'s auto-renewal in your account settings after purchase. The cancellation will take effect 24 hours after the last day of the current subscription period. After that, you will be downgraded to the free service. Please note: Any unused portion of the free trial will be forfeited when you purchase a premium subscription during the free trial.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

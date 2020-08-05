@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Deschide directorul";
 
-"new_onboarding_step5.2_message" = "Abonarea la directorul ghidurilor din MAPS.ME este profitabilă. Obțineți acces complet la ghiduri pentru plimbări prin oraș și alte activități!";
+"new_onboarding_step5.2_message" = "Abonamentul la catalogul ghidurilor de călătorie din MAPS.ME – este profitabil. Obțineți acces complet la rute pentru plimbări prin oraș și activități în aer liber!";
 
 "new_onboarding_step5.2_button" = "Vezi termenii";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Ascunde de pe hartă";
 
-"whatsnew_catalog_new_title" = "Un nou catalog și mii de idei de vacanță";
+"whatsnew_catalog_new_title" = "Catalog nou și mii de idei pentru vacanță";
 
-"whatsnew_catalog_new_message" = "Am actualizat catalogul de ghiduri și am adăugat traduceri în toate limbile. Începeți planificarea înainte!";
+"whatsnew_catalog_new_message" = "Am actualizat catalogul ghidurilor de călătorie și am adăugat traduceri în limbi populare. Începeți planificarea înainte!";
 
 "whatsnew_elevation_profile_title" = "Profilul înălțimilor în ghiduri";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Locuri atractive";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Încercați 7 zile gratuit";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Mai departe %s pe an. Anulați oricând";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Ați profitat deja de perioada de încercare";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filtre";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Selectați datele";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Camere și oaspeți";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Camere";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Adulți";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Copii";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 ani";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Bebeluşi";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 luni.";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Nu există locuri";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Fără filtrare";
+
+"choose_dates_online_only_dialog_title" = "Nu există conexiune";
+
+"choose_dates_online_only_dialog_message" = "Alegerea datelor și a numărului de oaspeți este disponibilă doar online. Verificați-vă setările și asigurați-vă că sunteți conectat la Internet.";
+
+"choose_dates_online_only_dialog_cta" = "Setări";
+
+"30_days_limit_dialog" = "Rezervabil pentru maxim 30 de nopți";
+
+"whatsnew_trial_title" = "Acces gratuit la ghiduri";
+
+"whatsnew_trial_message" = "Am lansat o perioadă de abonament de încercare de 7 zile. Mii de rute din întreaga lume, precum și un profil interactiv de înălțimi în ghidurile de activități în aer liber.";
+
+"whatsnew_trial_cta" = "Încercați";
+
+"subscription_terms_guides_outdoor" = "Plata va fi percepută pe contul dvs. iTunes la confirmarea achiziției. Abonamentul se va reînnoi automat, cu excepția cazului în care reînnoirea automată este dezactivată cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Numerarul va fi debitat din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore înainte de sfârșitul perioadei curente. Puteți gestiona sau dezactiva reînnoirea automată accesând setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 30 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.\n* Abonamentul cu o perioadă de încercare gratuită se transformă automat într-un abonament plătit. Puteți anula sau gestiona reînnoirea automată a procesului gratuit accesând Setările contului dvs. după cumpărare. Anularea va intra în vigoare la 24 de ore de la ultima zi a perioadei curente de abonare și veți fi transferat la un abonament gratuit. Vă rugăm să rețineți: orice parte neutilizată a perioadei de încercare gratuită va fi anulată atunci când achiziționați un abonament plătit în această perioadă.";
+
+"subscription_terms_android_outdoor" = "Plata va fi percepută în contul dvs. Google Play la confirmarea achiziției. Abonamentul se va reînnoi automat, cu excepția cazului în care reînnoirea automată este dezactivată cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Numerarul va fi debitat din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore înainte de sfârșitul perioadei curente. Puteți gestiona sau dezactiva reînnoirea automată accesând Setările contului dvs. după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 30 de zile de la încheierea abonamentului, ghidurile vor fi șterse automat.\n* Abonamentul cu o perioadă de încercare gratuită se transformă automat într-un abonament plătit. Puteți anula sau gestiona reînnoirea automată a procesului gratuit accesând Setările contului dvs. după cumpărare. Anularea va intra în vigoare la 24 de ore de la ultima zi a perioadei curente de abonare și veți fi transferat la un abonament gratuit. Vă rugăm să rețineți: orice parte neutilizată a perioadei de încercare gratuită va fi anulată atunci când achiziționați un abonament plătit în această perioadă.";
 
 
 /**********  Partners  **********/

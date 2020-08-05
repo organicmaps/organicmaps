@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Catalogus openen";
 
-"new_onboarding_step5.2_message" = "Een abonnement op MAPS.ME's catalogus van handleidingen is gunstig. Krijg volledige toegang tot de handleidingen voor stadswandelingen en buitenactiviteiten!";
+"new_onboarding_step5.2_message" = "Uw abonnement op de MAPS.ME-reisgidsencatalogus is van grote waarde. Krijg volledige toegang tot stads- en buitengidsen over de hele wereld!";
 
 "new_onboarding_step5.2_button" = "Bekijk de voorwaarden";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Verbergen op kaart";
 
-"whatsnew_catalog_new_title" = "Nieuwe reisgidscatalogus en duizenden reisideeën";
+"whatsnew_catalog_new_title" = "Nieuwe reisgidsencatalogus en duizenden reisideeën";
 
-"whatsnew_catalog_new_message" = "We hebben de reisgidscatalogus bijgewerkt en vertalingen in alle talen toegevoegd. Begin vooruit te plannen!";
+"whatsnew_catalog_new_message" = "We hebben de reisgidsencatalogus bijgewerkt en vertalingen in populaire talen toegevoegd. Plan uw reis van tevoren!";
 
 "whatsnew_elevation_profile_title" = "Hoogteprofiel in reisgidsen";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Aanbevolen plaatsen";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Start uw gratis proefperiode van 7 dagen";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Daarna %s per jaar. U kunt op elk moment annuleren";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Sorry, u heeft reeds gebruikgemaakt van de proefperiode";
 
-/* FIXME */
+/* as few symbols as possible */
 "floating_button_filters" = "Filters";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Selecteer datums";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Kamers en gasten";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Kamers";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Volwassenen";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Kinderen";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 jaar";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Zuigelingen";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 mnd.";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Geen vrije kamers";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Geen filters meer";
+
+"choose_dates_online_only_dialog_title" = "Geen netwerkverbinding";
+
+"choose_dates_online_only_dialog_message" = "Datums en het aantal gasten kunnen alleen online worden geselecteerd. Controleer uw instellingen en zorg ervoor dat u internetverbinding heeft.";
+
+"choose_dates_online_only_dialog_cta" = "Instellingen";
+
+"30_days_limit_dialog" = "U kunt maximaal 30 nachten boeken";
+
+"whatsnew_trial_title" = "Gratis toegang tot de reisgidsencatalogus";
+
+"whatsnew_trial_message" = "We bieden nu een gratis proefperiode van 7 dagen aan. Heb toegang tot duizenden reisgidsen over de hele wereld en een interactief hoogteprofiel voor outdoor-reisgidsen.";
+
+"whatsnew_trial_cta" = "Probeer het nu";
+
+"subscription_terms_guides_outdoor" = "Wanneer u de aankoop bevestigt, wordt de betaling in rekening gebracht op uw iTunes-account. Het abonnement wordt automatisch verlengd, tenzij de functie voor automatisch verlengen ten minste 24 uur voor het einde van de huidige abonnementsperiode is uitgeschakeld. Uw account wordt binnen 24 uur voordat de huidige abonnementsperiode eindigt, volgens uw verlengingsplan in rekening gebracht. U kunt automatische verlenging op elk gewenst moment na aankoop beheren of uitschakelen in uw Apple ID-accountinstellingen. U kunt alleen reisgidsen gebruiken die tijdens uw abonnement zijn gedownload totdat het abonnement verloopt. Reisgidsen en alle bladwijzers worden automatisch 30 dagen na het verlopen van het abonnement verwijderd.\n* Het abonnement met een gratis proefperiode wordt automatisch verlengd tot een betaald abonnement. U kunt de automatische verlenging van uw gratis proefperiode na aankoop annuleren of beheren in uw accountinstellingen. De opzegging wordt van kracht 24 uur na de laatste dag van de huidige abonnementsperiode. Daarna wordt u gedowngraded naar de gratis service. Let op: elk ongebruikt deel van de gratis proefperiode vervalt wanneer u tijdens de gratis proefperiode een premium abonnement koopt.";
+
+"subscription_terms_android_outdoor" = "Wanneer u de aankoop bevestigt, wordt de betaling in rekening gebracht op uw Google Play-account. Het abonnement wordt automatisch verlengd, tenzij de functie voor automatisch verlengen ten minste 24 uur voor het einde van de huidige abonnementsperiode is uitgeschakeld. Uw account wordt binnen 24 uur voordat de huidige abonnementsperiode eindigt, volgens uw verlengingsplan in rekening gebracht. U kunt automatische verlenging op elk gewenst moment na aankoop beheren of uitschakelen in accountinstellingen. U kunt alleen reisgidsen gebruiken die tijdens uw abonnement zijn gedownload totdat het abonnement verloopt. Reisgidsen worden automatisch verwijderd 30 dagen nadat het abonnement is verlopen.\n* Het abonnement met een gratis proefperiode wordt automatisch verlengd tot een betaald abonnement. U kunt de automatische verlenging van uw gratis proefperiode na aankoop annuleren of beheren in uw accountinstellingen. De opzegging wordt van kracht 24 uur na de laatste dag van de huidige abonnementsperiode. Daarna wordt u gedowngraded naar de gratis service. Let op: elk ongebruikt deel van de gratis proefperiode vervalt wanneer u tijdens de gratis proefperiode een premium abonnement koopt.";
 
 
 /**********  Partners  **********/

@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Buka katalog";
 
-"new_onboarding_step5.2_message" = "Berlangganan katalog panduan MAPS.ME sangatlah menguntungkan. Dapatkan akses lengkap ke berbagai kota dan panduan perjalanan di seluruh dunia!";
+"new_onboarding_step5.2_message" = "Berlangganan Anda ke katalog panduan MAPS.ME adalah nilai yang bagus. Dapatkan akses penuh ke panduan kota dan luar ruangan di seluruh dunia!";
 
 "new_onboarding_step5.2_button" = "Lihat ketentuannya";
 
@@ -3290,7 +3290,7 @@
 
 "whatsnew_catalog_new_title" = "Katalog panduan baru dan ribuan ide perjalanan";
 
-"whatsnew_catalog_new_message" = "Kami telah memperbarui katalog panduan dan menambahkan terjemahan dalam semua bahasa. Mulai perencanaan terlebih dahulu!";
+"whatsnew_catalog_new_message" = "Kami telah memperbarui katalog panduan dan menambahkan terjemahan dalam bahasa populer. Mulailah merencanakan perjalanan Anda di awal!";
 
 "whatsnew_elevation_profile_title" = "Profil elevasi dalam panduan perjalanan";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Tempat pilihan";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Mulai uji coba gratis 7 hari Anda";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Setelah itu, %s per tahun. Batalkan kapan saja";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Maaf, Anda sudah menggunakan uji cobanya";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filter";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Pilih tanggal";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Kamar dan tamu";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Kamar";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Orang dewasa";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Anak-anak";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 thn.";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Bayi";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 bln.";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Kamar tidak tersedia";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Di luar filter";
+
+"choose_dates_online_only_dialog_title" = "Tidak ada koneksi jaringan";
+
+"choose_dates_online_only_dialog_message" = "Tanggal dan jumlah tamu hanya dapat dipilih saat online. Silakan periksa pengaturan Anda dan pastikan Anda terhubung ke internet.";
+
+"choose_dates_online_only_dialog_cta" = "Pengaturan";
+
+"30_days_limit_dialog" = "Anda dapat memesan untuk maksimum 30 malam";
+
+"whatsnew_trial_title" = "Akses gratis ke katalog panduan";
+
+"whatsnew_trial_message" = "Kami sekarang menawarkan uji coba 7 hari gratis. Akses ribuan panduan perjalanan di seluruh dunia dan profil ketinggian interaktif untuk panduan luar ruangan.";
+
+"whatsnew_trial_cta" = "Cobalah sekarang";
+
+"subscription_terms_guides_outdoor" = "Saat Anda mengkonfirmasi pembelian, pembayaran akan dibebankan ke akun iTunes Anda. Langganan akan diperpanjang secara otomatis kecuali fitur perpanjangan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berlangganan saat ini. Akun Anda akan dikenai biaya sesuai dengan rencana perpanjangan Anda dalam waktu 24 jam sebelum periode berlangganan saat ini berakhir. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis di pengaturan akun ID Apple Anda kapan saja setelah pembelian. Anda hanya dapat menggunakan panduan yang diunduh selama berlangganan hingga berlangganan berakhir. Panduan dan semua bookmark akan dihapus secara otomatis 30 hari setelah berlangganan berakhir.\n* Langganan dengan masa uji coba gratis akan secara otomatis diperbarui ke langganan berbayar. Anda dapat membatalkan atau mengelola pembaruan otomatis percobaan gratis di pengaturan akun setelah pembelian. Pembatalan akan berlaku 24 jam setelah hari terakhir periode berlangganan saat ini. Setelah itu, Anda akan diturunkan ke layanan gratis. Harap diperhatikan: Setiap bagian dari uji coba gratis yang tidak digunakan akan hangus ketika Anda membeli langganan premium selama uji coba gratis.";
+
+"subscription_terms_android_outdoor" = "Saat Anda mengkonfirmasi pembelian, pembayaran akan dibebankan ke akun Google Play Anda. Langganan akan diperpanjang secara otomatis kecuali fitur perpanjangan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berlangganan saat ini. Akun Anda akan dikenai biaya sesuai dengan rencana perpanjangan Anda dalam waktu 24 jam sebelum periode berlangganan saat ini berakhir. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis di pengaturan akun Anda kapan saja setelah pembelian. Anda hanya dapat menggunakan panduan yang diunduh selama berlangganan hingga berlangganan berakhir. Panduan akan dihapus secara otomatis 30 hari setelah berlangganan berakhir.\n* Langganan dengan masa uji coba gratis akan secara otomatis diperbarui ke langganan berbayar. Anda dapat membatalkan atau mengelola pembaruan otomatis percobaan gratis di pengaturan akun setelah pembelian. Pembatalan akan berlaku 24 jam setelah hari terakhir periode berlangganan saat ini. Setelah itu, Anda akan diturunkan ke layanan gratis. Harap diperhatikan: Setiap bagian dari uji coba gratis yang tidak digunakan akan hangus ketika Anda membeli langganan premium selama uji coba gratis.";
 
 
 /**********  Partners  **********/

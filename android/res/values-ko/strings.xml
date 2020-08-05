@@ -1700,7 +1700,7 @@
 	<string name="new_onboarding_step5.1_header">시작하기 전에 한 가지 더…</string>
 	<string name="new_onboarding_step5.1_message">우리의 새로운 가이드 카탈로그를 살펴보는 것을 잊지마세요. 다가오는 여행을 위한 오프라인 가이드를 찾아볼 수 있습니다!</string>
 	<string name="new_onboarding_step5.1_button">카탈로그 열기</string>
-	<string name="new_onboarding_step5.2_message">MAPS.ME 가이드 카탈로그 구독은 정말 가치가 있습니다. 전 세계의 도시와 야외의 가이드들을 완벽하게 접해보세요!</string>
+	<string name="new_onboarding_step5.2_message">MAPS.ME 카탈로그를 구독하신다면 만족하실 겁니다. 전세계의 도시 및 아웃도어 가이드에 완전한 액세스를 하실 수 있습니다!</string>
 	<string name="new_onboarding_step5.2_button">약관 확인하기</string>
 	<string name="new_onboarding_step5.3_message">MAPS.ME의 무료 모음집에서 미리 준비된 도시 및 야외 경로의 무료 샘플을 확인하세요!</string>
 	<string name="new_onboarding_step5.3_button">무료 다운로드</string>
@@ -1785,8 +1785,8 @@
 	<string name="routes_card_show">지도에서 보이기</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">지도에서 숨기기</string>
-	<string name="whatsnew_catalog_new_title">새로운 가이드 카탈로그와 수 많은 여행 아이디어</string>
-	<string name="whatsnew_catalog_new_message">가이드 카탈로그를 업데이트했고 모든 언어로 된 번역본을 추가했습니다. 미리 여행 계획을 짜보세요!</string>
+	<string name="whatsnew_catalog_new_title">새로운 가이드 카탈로그 및 수천 개의 여행 아이디어</string>
+	<string name="whatsnew_catalog_new_message">가이드 카탈로그를 업데이트하고 통역을 인기 있는 언어로 추가했습니다. 미래의 여행을 계획해보세요!</string>
 	<string name="whatsnew_elevation_profile_title">여행 가이드의 고도 단면도</string>
 	<string name="whatsnew_elevation_profile_message">구매한 경로의 프로필에 커서를 두고 곧 있을 오프라인 올라가기 및 내려가기의 어려움을 평가합니다.</string>
 	<string name="whatsnew_guides_on_map_title">가이드를 쉽게 찾을 수 있는 새로운 레이어</string>
@@ -1797,6 +1797,40 @@
 	<string name="routes_card_number_of_points">%s 장소</string>
 	<string name="routes_card_routes_tag">일정표</string>
 	<string name="routes_card_set_tag">주요 장소</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">7일 무료 체험 시작하기</string>
+	<string name="guides_trial_message">그 후에는 1년에 %s 입니다. 언제든지 취소하실 수 있습니다</string>
+	<string name="trial_error_dialog">죄송합니다. 이미 체험판을 사용하셨습니다</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">필터</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d 일</item>
+	  <item quantity="few">%d 일</item>
+	  <item quantity="other">%d 일</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">날짜 선택</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">방 및 고객 수</string>
+	<string name="guests_picker_rooms">방</string>
+	<string name="guests_picker_adults">성인</string>
+	<string name="guests_picker_children_title">아이</string>
+	<string name="guests_picker_children_subtitle">1-16세</string>
+	<string name="guests_picker_infants_title">유아</string>
+	<string name="guests_picker_infants_subtitle">0-12개월</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">가능한 방이 없습니다</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">필터 설정과 일치하지 않습니다</string>
+	<string name="choose_dates_online_only_dialog_title">인터넷 연결이 없음</string>
+	<string name="choose_dates_online_only_dialog_message">날짜 및 고객 수는 온라인 상태일 때만 선택이 가능합니다. 설정을 확인하시고 인터넷에 연결되어 있는지 확인하십시오.</string>
+	<string name="choose_dates_online_only_dialog_cta">설정</string>
+	<string name="30_days_limit_dialog">최대 30일 숙박을 예약하실 수 있습니다</string>
+	<string name="whatsnew_trial_title">가이드 카탈로그에 무료 액세스</string>
+	<string name="whatsnew_trial_message">7일 무료 체험을 제공하고 있습니다. 전 세계 수천 개의 여행 가이드와 아웃도어 활동용 상호작용식 산행 가이드에 액세스하실 수 있습니다.</string>
+	<string name="whatsnew_trial_cta">지금 체험해보세요</string>
+	<string name="subscription_terms_guides_outdoor">구매 완료 후, 비용이 귀하의 iTunes 계정에 청구됩니다. 현재 가입 기간이 종료되기 최소 24시간 전에 자동 갱신 기능이 비활성화되지 않으면 가입이 자동으로 갱신됩니다. 귀하의 계정에서 현재 가입 기간이 종료되기 24시간 이내에 갱신 플랜에 따라 청구됩니다. 구매 후 언제든지 Apple ID 계정 설정에서 자동 갱신을 관리하시거나 비활성화하실 수 있습니다. 구독이 만료될 때까지 구독 기간 동안 다운로드한 가이드만 사용하십시오. 가이드와 모든 책갈피는 가입이 만료된 후 30일 후에 자동으로 삭제됩니다.\n* 무료 평가판 사용 기간이 있는 가입은 유료 가입으로 자동 갱신됩니다. 구매 후 계정 설정에서 무료 평가판의 자동 갱신을 취소하거나 관리하실 수 있습니다. 취소는 현행 가입기간 마지막 날로부터 24시간 이후부터 효력이 발생합니다. 그 후에 귀하의 서비스는 무료 서비스로 바뀝니다. 참고: 무료 평가판 중 프리미엄 서비스를 구입할 경우 무료 평가판의 사용하지 않은 부분은 사라집니다.</string>
+	<string name="subscription_terms_android_outdoor">구매를 확인하면 귀하의 Google Play 계정에 대금이 청구됩니다. 현재 가입 기간이 종료되기 최소 24시간 전에 자동 갱신 기능이 비활성화되지 않으면 가입이 자동으로 갱신됩니다. 귀하의 계정에서 현재 가입 기간이 종료되기 24시간 이내에 갱신 플랜에 따라 청구됩니다. 구매 후 언제든지 계정 설정에서 자동 갱신을 관리하거나 비활성화할 수 있습니다. 구독이 만료될 때까지 구독 기간 동안 다운로드한 가이드만 사용하십시오. 가이드는 가입 만료 30일 후 자동으로 삭제됩니다.\n* 무료 평가판 사용 기간이 있는 가입은 유료 가입으로 자동 갱신됩니다. 구매 후 계정 설정에서 무료 평가판의 자동 갱신을 취소하거나 관리하실 수 있습니다. 취소는 현행 가입기간 마지막 날로부터 24시간 이후부터 효력이 발생합니다. 그 후에 귀하의 서비스는 무료 서비스로 바뀝니다. 참고: 무료 평가판 중 프리미엄 서비스를 구입할 경우 무료 평가판의 사용하지 않은 부분은 사라집니다.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Katalog öffnen";
 
-"new_onboarding_step5.2_message" = "Reiseführer-Katalog-Subskription in MAPS.ME: das ist günstig. Sie bekommen einen uneingeschränkten Zugriff auf alle Reiseführer für Spaziergänge durch die Stadt und aktive Erholung!";
+"new_onboarding_step5.2_message" = "Es ist günstig den Reiseführerkatalog in MAPS.ME zu abonnieren. Sie bekommen einen uneingeschränkten Zugriff auf die Routen für Stadtspaziergänge und Aktivurlaub!";
 
 "new_onboarding_step5.2_button" = "Bedingungen ansehen";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Auf der Karte ausblenden";
 
-"whatsnew_catalog_new_title" = "Neuer Katalog und tausende Erholungsideen";
+"whatsnew_catalog_new_title" = "Neuer Katalog und tausende Urlaubsideen";
 
-"whatsnew_catalog_new_message" = "Wir haben das Reiseführerkatalog upgedatet und Übersetzungen in alle Sprachen hinzugefügt. Beginnen Sie im Voraus zu planen!";
+"whatsnew_catalog_new_message" = "Wir haben den Reiseführerkatalog aktualisiert und Übersetzungen in die beliebtesten Sprachen hinzugefügt. Planen Sie frühzeitig!";
 
 "whatsnew_elevation_profile_title" = "Höhenprofil in den Reiseführern";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Selektion der Plätze";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "7 Tage Gratis testen";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Danach %s pro Jahr. Ihr Abo ist jederzeit kündbar";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Ihre Probezeit ist abgelaufen";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filter";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Datum auswählen";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Zimmer und Gäste";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Zimmer";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Erwachsene";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Kinder";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 Jahre";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Babys";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 Monate";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Keine Plätze";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Außerhalb Filter";
+
+"choose_dates_online_only_dialog_title" = "Keine Internetverbindung";
+
+"choose_dates_online_only_dialog_message" = "Die Auswahl des Datums und der Anzahl der Gäste ist nur online möglich. Überprüfen sie Ihre Einstellungen und Ihre Internetverbindung.";
+
+"choose_dates_online_only_dialog_cta" = "Einstellungen";
+
+"30_days_limit_dialog" = "Sie können höchstens 30 Nächte buchen";
+
+"whatsnew_trial_title" = "Gratis-Zugriff auf die Reiseführer";
+
+"whatsnew_trial_message" = "Wir haben den 7-tägigen Gratis-Probeabozeitraum gestartet. Tausende Routen weltweit, interaktives Höhenprofil in den Reiseführern für Aktivurlaub.";
+
+"whatsnew_trial_cta" = "Ausprobieren";
+
+"subscription_terms_guides_outdoor" = "Die Bezahlung erfolgt über Ihr iTunes-Konto bei der Kaufbestätigung. Ihr Abo wird automatisch erneuert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf der Probezeit nicht deaktiviert wird. Der Betrag wird von Ihrem Konto gemäß unserem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ende der laufenden Periode abgebucht. Sie können die automatische Verlängerung jederzeit nach dem Kauf in den Kontoeinstellungen Apple ID deaktivieren. Die heruntergeladenen Abo-Reiseführer stehen Ihnen nur für den Abozeitraum zur Verfügung. 30 Tage nach Ablauf des Abozeitraums werden die Reiseführer samt Lesezeichen automatisch gelöscht.\n* Das Gratis-Probeabo wird automatisch kostenpflichtig. Sie können nach dem Kauf die automatische Verlängerung des Probeabos in Ihren Kontoeinstellungen deaktivieren. Die Deaktivierung tritt 24 Stunden nach dem letzten Tag des laufenden Abozeitraums in Kraft und Sie erhalten das Gratis-Abo. Achten Sie bitte darauf, dass jeder ungenutzter Gratis-Probeabozeitraum beim Kauf des kostenpflichtigen Abos für diesen Zeitraum annulliert wird.";
+
+"subscription_terms_android_outdoor" = "Die Bezahlung erfolgt über Ihr Google Play-Konto bei der Kaufbestätigung. Ihr Abo wird automatisch erneuert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf der Probezeit nicht deaktiviert wird. Der Betrag wird von Ihrem Konto gemäß unserem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ende der laufenden Periode abgebucht. Sie können die automatische Verlängerung jederzeit nach dem Kauf in den Kontoeinstellungen aktivieren oder deaktivieren. Die heruntergeladenen Abo-Reiseführer stehen Ihnen nur für den Abozeitraum zur Verfügung. 30 Tage nach Ablauf des Abozeitraums werden die Reiseführer automatisch gelöscht.\n* Das Gratis-Probeabo wird automatisch kostenpflichtig. Sie können nach dem Kauf die automatische Verlängerung des Probeabos in Ihren Kontoeinstellungen deaktivieren. Die Deaktivierung tritt 24 Stunden nach dem letzten Tag des laufenden Abozeitraums in Kraft und Sie erhalten das Gratis-Abo. Achten Sie bitte darauf, dass jeder ungenutzter Gratis-Probeabozeitraum beim Kauf des kostenpflichtigen Abos für diesen Zeitraum annulliert wird.";
 
 
 /**********  Partners  **********/

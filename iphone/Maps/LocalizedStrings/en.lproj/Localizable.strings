@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Open catalog";
 
-"new_onboarding_step5.2_message" = "Subscription to MAPS.ME guides catalog is a bargain. Get full access to city and outdoor guides around the world!";
+"new_onboarding_step5.2_message" = "Your subscription to the MAPS.ME guides catalog is a bargain. Get full access to city and outdoor guides around the world!";
 
 "new_onboarding_step5.2_button" = "Check out the terms";
 
@@ -3290,7 +3290,7 @@
 
 "whatsnew_catalog_new_title" = "New guides catalog and thousands of travel ideas";
 
-"whatsnew_catalog_new_message" = "We have updated the guides catalog and added translations in all languages. Start planning in advance!";
+"whatsnew_catalog_new_message" = "We've updated the guides catalog and added translations in popular languages. Start planning your trip ahead of time!";
 
 "whatsnew_elevation_profile_title" = "Elevation profile in travel guides";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Featured places";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Start your 7-day free trial";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "After that, %s per year. Cancel anytime";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Sorry, you've already used the trial";
 
-/* FIXME */
+/* as few symbols as possible */
 "floating_button_filters" = "Filters";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Select dates";
 
-/* FIXME */
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Rooms and guests";
+
 "guests_picker_rooms" = "Rooms";
 
-/* FIXME */
 "guests_picker_adults" = "Adults";
 
-/* FIXME */
 "guests_picker_children_title" = "Children";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_subtitle" = "1-16 y.o.";
 
-/* FIXME */
 "guests_picker_infants_title" = "Infants";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_subtitle" = "0-12 mon.";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+/* as less symbols as possible */
+"booking_map_component_availability" = "No rooms available";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as few symbols as possible */
+"booking_map_component_filters" = "Doesn't match filters";
+
+"choose_dates_online_only_dialog_title" = "No network connection";
+
+"choose_dates_online_only_dialog_message" = "Dates and the number of guests can only be selected when online. Please check your settings and make sure you're connected to the internet.";
+
+"choose_dates_online_only_dialog_cta" = "Settings";
+
+"30_days_limit_dialog" = "You can book for a maximum of 30 nights";
+
+"whatsnew_trial_title" = "Free access to the guides catalog";
+
+"whatsnew_trial_message" = "We now offer a free 7-day trial. Access thousands of travel guides around the world and an interactive elevation profile for outdoor guides.";
+
+"whatsnew_trial_cta" = "Try it now";
+
+"subscription_terms_guides_outdoor" = "When you confirm the purchase, the payment will be charged to your iTunes account. The subscription will automatically renew unless the auto-renew feature is disabled at least 24 hours before the end of the current subscription period. Your account will be charged according to your renewal plan within 24 hours before the current subscription period ends. You can manage or disable auto-renewal in your Apple ID account settings any time after purchase. You can only use guides downloaded during your subscription until the subscription expires. Guides and all bookmarks will be automatically deleted 30 days after the subscription expires.\n* The subscription with a free trial period will automatically renew to a paid subscription. You can cancel or manage your free trial's auto-renewal in your account settings after purchase. The cancellation will take effect 24 hours after the last day of the current subscription period. After that, you will be downgraded to the free service. Please note: Any unused portion of the free trial will be forfeited when you purchase a premium subscription during the free trial.";
+
+"subscription_terms_android_outdoor" = "When you confirm the purchase, the payment will be charged to your Google Play account. The subscription will automatically renew unless the auto-renew feature is disabled at least 24 hours before the end of the current subscription period. Your account will be charged according to your renewal plan within 24 hours before the current subscription period ends. You can manage or disable auto-renewal in account settings any time after purchase. You can only use guides downloaded during your subscription until the subscription expires. Guides will be automatically deleted 30 days after the subscription expires.\n* The subscription with a free trial period will automatically renew to a paid subscription. You can cancel or manage your free trial's auto-renewal in your account settings after purchase. The cancellation will take effect 24 hours after the last day of the current subscription period. After that, you will be downgraded to the free service. Please note: Any unused portion of the free trial will be forfeited when you purchase a premium subscription during the free trial.";
 
 
 /**********  Partners  **********/

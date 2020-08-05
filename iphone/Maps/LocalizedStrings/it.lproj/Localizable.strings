@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "Apri il catalogo";
 
-"new_onboarding_step5.2_message" = "Abbonarsi al catalogo guide di MAPS.ME è vantaggioso. Ottieni accesso completo alle guide ai percorsi cittadini e alle attività all'aria aperta!";
+"new_onboarding_step5.2_message" = "Abbonarsi al catalogo guide di MAPS.ME è conveniente. Ottieni l'accesso completo a tutti i percorsi cittadini e nella natura!";
 
 "new_onboarding_step5.2_button" = "Vedi i termini di utilizzo";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Nascondi dalla mappa";
 
-"whatsnew_catalog_new_title" = "Nuovo catalogo guide e migliaia di idee per divertirsi";
+"whatsnew_catalog_new_title" = "Nuovo catalogo guide e migliaia di idee di viaggio";
 
-"whatsnew_catalog_new_message" = "Abbiamo aggiornato il nostro catalogo guide e abbiamo aggiunto traduzioni in tutte le lingue. Programma subito i tuoi viaggi!";
+"whatsnew_catalog_new_message" = "Abbiamo aggiornato il catalogo guide e aggiunto traduzioni nelle lingue più diffuse. Programma i tuoi viaggi in anticipo!";
 
 "whatsnew_elevation_profile_title" = "Profilo altimetrico e guide";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "Selezione dei luoghi";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "Prova gratis per 7 giorni";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "Dopo il periodo di prova, %s l'anno. Puoi disdire l'abbonamento in qualsiasi momento";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "Hai già usufruito del periodo di prova";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "Filtri";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "Seleziona date";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "Camere e ospiti";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "Camere";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "Adulti";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "Bambini";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16 anni";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "Neonati";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12 mesi";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "Nessuna camera disp.";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "Nessun risultato";
+
+"choose_dates_online_only_dialog_title" = "Connessione internet assente";
+
+"choose_dates_online_only_dialog_message" = "Le date e il numero degli ospiti sono selezionabili solamente online. Controlla le impostazioni e assicurati di essere connesso a internet.";
+
+"choose_dates_online_only_dialog_cta" = "Impostazioni";
+
+"30_days_limit_dialog" = "È possibile prenotare una struttura al massimo per 30 notti";
+
+"whatsnew_trial_title" = "Accesso gratuito al catalogo guide";
+
+"whatsnew_trial_message" = "Abbiamo aggiunto un periodo di prova gratuito dell'abbonamento. Migliaia di percorsi in tutto il mondo e addirittura un profilo altimetrico interattivo per le guide all'aria aperta.";
+
+"whatsnew_trial_cta" = "Provalo";
+
+"subscription_terms_guides_outdoor" = "Una volta confermato l'acquisto, il pagamento verrà addebitato sul tuo account iTunes. L'abbonamento si rinnova automaticamente, a meno che il rinnovo automatico non venga disattivato almeno 24 ore prima della fine del periodo in corso. L'importo verrà addebitato sul tuo account secondo il tuo piano di rinnovo massimo 24 ore prima della fine del periodo in corso. Dopo l'acquisto è possibile gestire o disattivare in qualsiasi momento il rinnovo automatico dell'abbonamento nelle impostazioni dell'account ID Apple. È possibile utilizzare le guide scaricate tramite l'abbonamento solamente se questo è attivo. Guide e segnalibri verranno automaticamente eliminati 30 giorni dopo il termine dell'abbonamento.\n* L'abbonamento di prova gratuito si rinnova automaticamente passando alla a pagamento. Dopo l'acquisto è possibile disabilitare o gestire il rinnovo automatico dell'abbonamento di prova gratuito nelle impostazioni dell'account. La disdetta avverrà 24 ore dopo l'ultimo giorno del periodo di abbonamento in corso. Dopo la disdetta, l'account passerà automaticamente all'abbonamento gratuito. Nota: al momento dell'acquisto dell'abbonamento durante il periodo di prova gratuito, i giorni inutilizzati di tale periodo andranno persi.";
+
+"subscription_terms_android_outdoor" = "Una volta confermato l'acquisto, il pagamento verrà addebitato sul tuo account Google Play. L'abbonamento si rinnova automaticamente, a meno che il rinnovo automatico non venga disattivato almeno 24 ore prima della fine del periodo in corso. L'importo verrà addebitato sul tuo account secondo il tuo piano di rinnovo massimo 24 ore prima della fine del periodo in corso. Dopo l'acquisto è possibile gestire o disattivare in qualsiasi momento il rinnovo automatico dell'abbonamento nelle impostazioni dell'account. È possibile utilizzare le guide scaricate tramite l'abbonamento solamente se questo è attivo. Le guide verranno automaticamente eliminate 30 giorni dopo il termine dell'abbonamento.\n* L'abbonamento di prova gratuito si rinnova automaticamente passando alla a pagamento. Dopo l'acquisto è possibile disabilitare o gestire il rinnovo automatico dell'abbonamento di prova gratuito nelle impostazioni dell'account. La disdetta avverrà 24 ore dopo l'ultimo giorno del periodo di abbonamento in corso. Dopo la disdetta, l'account passerà automaticamente all'abbonamento gratuito. Nota: al momento dell'acquisto dell'abbonamento durante il periodo di prova gratuito, i giorni inutilizzati di tale periodo andranno persi.";
 
 
 /**********  Partners  **********/

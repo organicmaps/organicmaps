@@ -1723,7 +1723,7 @@
 	<string name="new_onboarding_step5.1_header">Avant de commencer…</string>
 	<string name="new_onboarding_step5.1_message">N\'oubliez pas de consulter notre nouveau répertoire d\'itinéraires pour trouver un guide pour votre prochain voyage disponible hors ligne !</string>
 	<string name="new_onboarding_step5.1_button">Ouvrir le catalogue</string>
-	<string name="new_onboarding_step5.2_message">L\'abonnement au catalogue des guides dans MAPS.ME est avantageux. Obtenez un accès complet aux guides pour les promenades en ville et les activités de plein air !</string>
+	<string name="new_onboarding_step5.2_message">L’abonnement au catalogue des guides MAPS.ME est avantageux. Un accès complet à tous les itinéraires pour des promenades en ville et des activités en plein air !</string>
 	<string name="new_onboarding_step5.2_button">Voir les conditions</string>
 	<string name="new_onboarding_step5.3_message">Téléchargez et notez les itinéraires de promenades en ville et les activités de plein air grâce à une sélection gratuite de MAPS.ME !</string>
 	<string name="new_onboarding_step5.3_button">Télécharger gratuitement</string>
@@ -1808,8 +1808,8 @@
 	<string name="routes_card_show">Voir sur la carte</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Masquer</string>
-	<string name="whatsnew_catalog_new_title">Nouveau catalogue et des miliers d\'idées de voyages</string>
-	<string name="whatsnew_catalog_new_message">Nous avons mis à jour le catalogue des guides et avons ajouté les traductions dans toutes les langues. Planifiez vos voyages à l\'avance !</string>
+	<string name="whatsnew_catalog_new_title">Un nouveau catalogue des guides et des milliers d\'idées pour vos vacances</string>
+	<string name="whatsnew_catalog_new_message">Nous avons mis à jour le catalogue des guides et avons ajouté des traductions vers les langues les plus populaires. Planifiez dès maintenant !</string>
 	<string name="whatsnew_elevation_profile_title">Profil altimétrique intégré dans les guides</string>
 	<string name="whatsnew_elevation_profile_message">Vous pouvez estimer la difficulté de vos futures montées et descentes hors connexion à l\'aide d\'un curseur disponible dans le profil de l\'itinéraire acheté.</string>
 	<string name="whatsnew_guides_on_map_title">Nouveau calque - les guides sur la carte !</string>
@@ -1820,6 +1820,40 @@
 	<string name="routes_card_number_of_points">%s places</string>
 	<string name="routes_card_routes_tag">Itinéraire</string>
 	<string name="routes_card_set_tag">Sélection de sièges</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">Essayer pendant 7 jours (gratuit)</string>
+	<string name="guides_trial_message">Au-delà, %s par an. Vous pouvez vous désabonner à tout moment</string>
+	<string name="trial_error_dialog">Vous avez déjà utilisé votre période d\'essai gratuite</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">Filtres</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d jour</item>
+	  <item quantity="few">%d jours</item>
+	  <item quantity="other">%d jours</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">Choisir les dates</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">Chambres et clients</string>
+	<string name="guests_picker_rooms">Chambres</string>
+	<string name="guests_picker_adults">Adultes</string>
+	<string name="guests_picker_children_title">Enfants</string>
+	<string name="guests_picker_children_subtitle">de 1 à 16 ans</string>
+	<string name="guests_picker_infants_title">Bébés</string>
+	<string name="guests_picker_infants_subtitle">de 0 à 12 mois</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">Indisponible</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">Hors vos critères</string>
+	<string name="choose_dates_online_only_dialog_title">Aucune connexion</string>
+	<string name="choose_dates_online_only_dialog_message">Le choix des dates et du nombre de personnes est disponible uniquement si vous êtes connectés à l\'Internet. Veuillez vérifier les paramètres et vous assurer que vous avez la connexion à Internet.</string>
+	<string name="choose_dates_online_only_dialog_cta">Paramètres</string>
+	<string name="30_days_limit_dialog">Il est possible d’effectuer une réservation pour 30 jours maximum</string>
+	<string name="whatsnew_trial_title">Un accès gratuit aux guides</string>
+	<string name="whatsnew_trial_message">Nous avons activé la période d’essai gratuite. Des milliers d\'itinéraires dans le monde entier, ainsi qu\'un altimètre disponible dans les guides d\'activités en plain air.</string>
+	<string name="whatsnew_trial_cta">Essayer</string>
+	<string name="subscription_terms_guides_outdoor">Le paiement est effectué depuis votre compte iTunes au moment de validation de votre achat. L\'abonnement est renouvelé automatiquement si sauf si cette option est désactivée au moins 24h avant la fin d\'abonnement en cours. Votre compte sera débité selon votre plan tarifaire de renouvellement 24h avant la fin de l\'abonnement en cours. Vous pouvez gérer le renouvellement automatique ou de le désactiver dans les paramètres de votre compte Apple ID à tout moment après l\'achat. Vous pouvez utiliser les guides que vous téléchargez dans le cadre de votre abonnement uniquement pendant la période de votre abonnement. A l\'issu de 30 jours après la fin de votre abonnement tous les guides avec tous les signets seront automatiquement supprimés.\n* L\'abonnement avec une période d\'essai gratuit, à la fin de celui-ci, sera automatiquement converti en abonement payant. Vous pouvez désactiver ou gérer le renouvellement automatique de l\'abonnement d\'essai gratuit dans les paramètres de votre compte Apple ID à tout moment après l\'achat. La désactivation prendra effet 24h après le dernier jour de l\'abonnement en cours et vous pourrez utiliser la version gratuite. Notez que la partie non-utilisée de la période d\'essai gratuit de l\'abonnement sera annulée dès l\'achat de la version d\'abonnement payant lorsque la première n\'est pas terminée.</string>
+	<string name="subscription_terms_android_outdoor">Le paiement est effectué depuis votre compte Google Play au moment de validation de votre achat. L\'abonnement est renouvelé automatiquement si sauf si cette option est désactivée au moins 24h avant la fin d\'abonnement en cours. Votre compte sera débité selon votre plan tarifaire de renouvellement 24h avant la fin de l\'abonnement en cours. Vous pouvez gérer le renouvellement automatique ou le désactiver dans les paramètres de votre compte Apple ID à tout moment après l\'achat. Vous pouvez utiliser les guides que vous téléchargez dans le cadre de votre abonnement uniquement pendant la période de votre abonnement. A l\'issu de 30 jours après la fin de votre abonnement tous les guides seront automatiquement supprimés.\n* L\'abonnement avec une période d\'essai gratuit, à la fin de celui-ci, sera automatiquement converti en abonement payant. Vous pouvez désactiver ou gérer le renouvellement automatique de l\'abonnement d\'essai gratuit dans les paramètres de votre compte Apple ID à tout moment après l\'achat. La désactivation prendra effet 24h après le dernier jour de l\'abonnement en cours et vous pourrez utiliser la version gratuite. Notez que la partie non-utilisée de la période d\'essai gratuit de l\'abonnement sera annulée dès l\'achat de la version d\'abonnement payant lorsque la première n\'est pas terminée.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

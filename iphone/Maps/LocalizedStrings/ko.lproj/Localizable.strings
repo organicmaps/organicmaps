@@ -3105,7 +3105,7 @@
 
 "new_onboarding_step5.1_button" = "카탈로그 열기";
 
-"new_onboarding_step5.2_message" = "MAPS.ME 가이드 카탈로그 구독은 정말 가치가 있습니다. 전 세계의 도시와 야외의 가이드들을 완벽하게 접해보세요!";
+"new_onboarding_step5.2_message" = "MAPS.ME 카탈로그를 구독하신다면 만족하실 겁니다. 전세계의 도시 및 아웃도어 가이드에 완전한 액세스를 하실 수 있습니다!";
 
 "new_onboarding_step5.2_button" = "약관 확인하기";
 
@@ -3288,9 +3288,9 @@
 /* as few symbols as possible */
 "routes_card_hide" = "지도에서 숨기기";
 
-"whatsnew_catalog_new_title" = "새로운 가이드 카탈로그와 수 많은 여행 아이디어";
+"whatsnew_catalog_new_title" = "새로운 가이드 카탈로그 및 수천 개의 여행 아이디어";
 
-"whatsnew_catalog_new_message" = "가이드 카탈로그를 업데이트했고 모든 언어로 된 번역본을 추가했습니다. 미리 여행 계획을 짜보세요!";
+"whatsnew_catalog_new_message" = "가이드 카탈로그를 업데이트하고 통역을 인기 있는 언어로 추가했습니다. 미래의 여행을 계획해보세요!";
 
 "whatsnew_elevation_profile_title" = "여행 가이드의 고도 단면도";
 
@@ -3316,44 +3316,57 @@
 
 "routes_card_set_tag" = "주요 장소";
 
-/* FIXME */
-"guides_trial_cta_button" = "guides_trial_cta_button";
+/* as few symbols as possible */
+"guides_trial_cta_button" = "7일 무료 체험 시작하기";
 
-/* FIXME */
-"guides_trial_message" = "guides_trial_message%s";
+"guides_trial_message" = "그 후에는 1년에 %s 입니다. 언제든지 취소하실 수 있습니다";
 
-/* FIXME */
-"trial_error_dialog" = "trial_error_dialog";
+"trial_error_dialog" = "죄송합니다. 이미 체험판을 사용하셨습니다";
 
-/* FIXME */
-"floating_button_filters" = "Filters";
+/* as few symbols as possible */
+"floating_button_filters" = "필터";
 
-/* FIXME */
-"date_picker_сhoose_dates_cta" = "Choose dates";
+/* as few symbols as possible */
+"date_picker_сhoose_dates_cta" = "날짜 선택";
 
-/* FIXME */
-"guests_picker_rooms" = "Rooms";
+/* as few symbols as possible */
+"guests_picker_rooms_title" = "방 및 고객 수";
 
-/* FIXME */
-"guests_picker_adults" = "Adults";
+"guests_picker_rooms" = "방";
 
-/* FIXME */
-"guests_picker_children_title" = "Children";
+"guests_picker_adults" = "성인";
 
-/* FIXME */
-"guests_picker_children_subtitle" = "3-16 y.o.";
+"guests_picker_children_title" = "아이";
 
-/* FIXME */
-"guests_picker_infants_title" = "Infants";
+"guests_picker_children_subtitle" = "1-16세";
 
-/* FIXME */
-"guests_picker_infants_subtitle" = "0-3 y.o.";
+"guests_picker_infants_title" = "유아";
 
-/* FIXME */
-"booking_map_component_availability" = "No rooms";
+"guests_picker_infants_subtitle" = "0-12개월";
 
-/* FIXME */
-"booking_map_component_filters" = "Out of filters";
+/* as less symbols as possible */
+"booking_map_component_availability" = "가능한 방이 없습니다";
+
+/* as few symbols as possible */
+"booking_map_component_filters" = "필터 설정과 일치하지 않습니다";
+
+"choose_dates_online_only_dialog_title" = "인터넷 연결이 없음";
+
+"choose_dates_online_only_dialog_message" = "날짜 및 고객 수는 온라인 상태일 때만 선택이 가능합니다. 설정을 확인하시고 인터넷에 연결되어 있는지 확인하십시오.";
+
+"choose_dates_online_only_dialog_cta" = "설정";
+
+"30_days_limit_dialog" = "최대 30일 숙박을 예약하실 수 있습니다";
+
+"whatsnew_trial_title" = "가이드 카탈로그에 무료 액세스";
+
+"whatsnew_trial_message" = "7일 무료 체험을 제공하고 있습니다. 전 세계 수천 개의 여행 가이드와 아웃도어 활동용 상호작용식 산행 가이드에 액세스하실 수 있습니다.";
+
+"whatsnew_trial_cta" = "지금 체험해보세요";
+
+"subscription_terms_guides_outdoor" = "구매 완료 후, 비용이 귀하의 iTunes 계정에 청구됩니다. 현재 가입 기간이 종료되기 최소 24시간 전에 자동 갱신 기능이 비활성화되지 않으면 가입이 자동으로 갱신됩니다. 귀하의 계정에서 현재 가입 기간이 종료되기 24시간 이내에 갱신 플랜에 따라 청구됩니다. 구매 후 언제든지 Apple ID 계정 설정에서 자동 갱신을 관리하시거나 비활성화하실 수 있습니다. 구독이 만료될 때까지 구독 기간 동안 다운로드한 가이드만 사용하십시오. 가이드와 모든 책갈피는 가입이 만료된 후 30일 후에 자동으로 삭제됩니다.\n* 무료 평가판 사용 기간이 있는 가입은 유료 가입으로 자동 갱신됩니다. 구매 후 계정 설정에서 무료 평가판의 자동 갱신을 취소하거나 관리하실 수 있습니다. 취소는 현행 가입기간 마지막 날로부터 24시간 이후부터 효력이 발생합니다. 그 후에 귀하의 서비스는 무료 서비스로 바뀝니다. 참고: 무료 평가판 중 프리미엄 서비스를 구입할 경우 무료 평가판의 사용하지 않은 부분은 사라집니다.";
+
+"subscription_terms_android_outdoor" = "구매를 확인하면 귀하의 Google Play 계정에 대금이 청구됩니다. 현재 가입 기간이 종료되기 최소 24시간 전에 자동 갱신 기능이 비활성화되지 않으면 가입이 자동으로 갱신됩니다. 귀하의 계정에서 현재 가입 기간이 종료되기 24시간 이내에 갱신 플랜에 따라 청구됩니다. 구매 후 언제든지 계정 설정에서 자동 갱신을 관리하거나 비활성화할 수 있습니다. 구독이 만료될 때까지 구독 기간 동안 다운로드한 가이드만 사용하십시오. 가이드는 가입 만료 30일 후 자동으로 삭제됩니다.\n* 무료 평가판 사용 기간이 있는 가입은 유료 가입으로 자동 갱신됩니다. 구매 후 계정 설정에서 무료 평가판의 자동 갱신을 취소하거나 관리하실 수 있습니다. 취소는 현행 가입기간 마지막 날로부터 24시간 이후부터 효력이 발생합니다. 그 후에 귀하의 서비스는 무료 서비스로 바뀝니다. 참고: 무료 평가판 중 프리미엄 서비스를 구입할 경우 무료 평가판의 사용하지 않은 부분은 사라집니다.";
 
 
 /**********  Partners  **********/

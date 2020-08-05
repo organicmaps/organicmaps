@@ -1645,7 +1645,7 @@
 	<string name="new_onboarding_step5.1_header">نکتهای دیگر قبل از شروع…</string>
 	<string name="new_onboarding_step5.1_message">فراموش نکنید کاتالوگ راهنمای جدید و برند ما را ملاحظه کنید تا برای سفر آتی خود راهنمای آفلاین پیدا کنید!</string>
 	<string name="new_onboarding_step5.1_button">کاتالوگ را باز کنید</string>
-	<string name="new_onboarding_step5.2_message">اشتراک در کاتالوگ راهنمای MAPS.ME بسیار با ارزش است. به راهنمای شهرها و فضای باز سراسر جهان دسترسی مییابید!</string>
+	<string name="new_onboarding_step5.2_message">عضویت شما در کاتالوگ راهنمای MAPS.ME بسیار ارزشمند است. به راهنماهای درون و برون شهری در سراسر جهان دسترسی کامل بیابید!</string>
 	<string name="new_onboarding_step5.2_button">شرایط را چک کنید</string>
 	<string name="new_onboarding_step5.3_message">با گزینش رایگان MAPS.ME نمونههای رایگان مسیرهای آماده شهرها و فضاهای باز را چک کنید!</string>
 	<string name="new_onboarding_step5.3_button">دانلود رایگان</string>
@@ -1730,8 +1730,8 @@
 	<string name="routes_card_show">نمایش روی نقشه</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">مخفی کردن از نقشه</string>
-	<string name="whatsnew_catalog_new_title">کاتالوگ راهنما های جدید و هزاران ایده سفر</string>
-	<string name="whatsnew_catalog_new_message">ما کاتالوگ راهنما را به روزرسانی کرده ایم و ترجمه تمامی زبان ها را افزوده ایم. از پیش برنامه ریزی کنید!</string>
+	<string name="whatsnew_catalog_new_title">کاتالوگ راهنمای جدید با هزاران ایدۀ سفر</string>
+	<string name="whatsnew_catalog_new_message">ما کاتالوگ راهنما را به روزرسانی و ترجمه هایی به زبان های پرطرفدار دنیا را به آن اضافه کرده ایم. از همین الان برای سفرهای خود برنامه ریزی کنید!</string>
 	<string name="whatsnew_elevation_profile_title">پروفایل ارتفاع در راهنمای سفر</string>
 	<string name="whatsnew_elevation_profile_message">پیچیدگی بالا رفتن ها و پایین آمدن های آفلاین بعدی را در پروفایل مسیرهای خریداری شده به وسیله مکان نما ارزیابی کنید.</string>
 	<string name="whatsnew_guides_on_map_title">لایه جدید برای یافتن آسان راهنما</string>
@@ -1742,6 +1742,40 @@
 	<string name="routes_card_number_of_points">%s مکان ها</string>
 	<string name="routes_card_routes_tag">مسیر سفر</string>
 	<string name="routes_card_set_tag">مکان های ویژه</string>
+	<!-- as few symbols as possible -->
+	<string name="guides_trial_cta_button">اکانت آزمایشی 7 روزه خود را شروع کنید</string>
+	<string name="guides_trial_message">بعد از آن، سالانه %s می پردازید و هروقت بخواهید عضویت خود را لغو می کنید</string>
+	<string name="trial_error_dialog">متاسفیم، شما قبلاً از اکانت آزمایشی استفاده کرده اید</string>
+	<!-- as few symbols as possible -->
+	<string name="floating_button_filters">فیلترها</string>
+	<plurals name="date_picker_amout_of_days">
+	  <item quantity="one">%d روز</item>
+	  <item quantity="few">%d روز</item>
+	  <item quantity="other">%d روز</item>
+	</plurals>
+	<!-- as few symbols as possible -->
+	<string name="date_picker_сhoose_dates_cta">انتخاب روزها</string>
+	<!-- as few symbols as possible -->
+	<string name="guests_picker_rooms_title">اتاقها و مهمانان</string>
+	<string name="guests_picker_rooms">اتاقها</string>
+	<string name="guests_picker_adults">بزرگسالان</string>
+	<string name="guests_picker_children_title">کودکان</string>
+	<string name="guests_picker_children_subtitle">1 تا 16 ساله</string>
+	<string name="guests_picker_infants_title">نوزادان</string>
+	<string name="guests_picker_infants_subtitle">0 تا 12 ماهه</string>
+	<!-- as less symbols as possible -->
+	<string name="booking_map_component_availability">فاقد اتاق خالی</string>
+	<!-- as few symbols as possible -->
+	<string name="booking_map_component_filters">فیلتری باقی نمانده</string>
+	<string name="choose_dates_online_only_dialog_title">به اینترنت متصل نیستید</string>
+	<string name="choose_dates_online_only_dialog_message">روزها و تعداد مهمانان را فقط هنگام اتصال به اینترنت میتوانید انتخاب کنید. لطفاً تنظیمات خود را بررسی کرده و از اتصال خود به اینترنت مطمئن شوید.</string>
+	<string name="choose_dates_online_only_dialog_cta">تنظیمات</string>
+	<string name="30_days_limit_dialog">شما می توانید حداکثر 30 شب رزرو کنید</string>
+	<string name="whatsnew_trial_title">دسترسی رایگان به کاتالوگ راهنما</string>
+	<string name="whatsnew_trial_message">پیشنهاد میکنیم از دورۀ آزمایشی و رایگان 7 روزه استفاده کنید. به هزاران راهنمای سفر در سراسر جهان و یک نقشۀ ارتفاعنمای مناسب سفرهای برون شهری دسترسی پیدا کنید.</string>
+	<string name="whatsnew_trial_cta">همین الان امتحان کنید</string>
+	<string name="subscription_terms_guides_outdoor">بعد از اینکه خرید را تایید کنید، مبلغ از حساب آی تونز شما کسر خواهد شد. عضویت شما بصورت خودکار تمدید خواهد شد مگر اینکه حداقل 24 ساعت قبل از پایان دوره عضویت فعلی، گزینه \"تمدید خودکار\" را غیرفعال کنید. مبلغ عضویت دوره بعدی بطور خودکار و 24 ساعت قبل از پایان دوره عضویت فعلی، از حساب شما کسر خواهد شد. شما می توانید بعد از خرید، هر زمان که مایل باشید گزینه تمدید خودکار را از قسمت تنظیمات حساب اپل آی دی خود تغییر داده یا غیرفعال کنید. از راهنماهای دانلود شده در دوره عضویت تنها تا پایان دوره عضویت می توانید استفاده کنید. راهنماها و علاقه مندی های شما 30 روز پس از پایان دوره عضویت، بصورت خودکار حذف خواهد شد.\n* عضویت در دوره آزمایشی رایگان، پس از پایان بصورت خودکار تبدیل به عضویت پولی خواهد شد. پس از فعالسازی دوره آزمایشی می توانید از قسمت تنظیمات حساب کاربری خود، گزینه تمدید خودکار دوره آزمایشی را غیرفعال کنید. لغو عضویت، 24 ساعت پس از آخرین روز دوره عضویت فعلی انجام خواهد شد. پس از لغو عضویت، شما تنها به خدمات رایگان ما دسترسی خواهید داشت. لطفا توجه داشته باشید که: پس از خرید و فعالسازی اکانت پولی، بخشهای بلااستفادۀ خود در اکانت رایگان را از دست خواهید داد.</string>
+	<string name="subscription_terms_android_outdoor">پس از تایید خرید، مبلغ از حساب گوگل پلی شما کسر خواهد شد. عضویت شما بصورت خودکار تمدید خواهد شد مگر اینکه حداقل 24 ساعت قبل از پایان دوره عضویت فعلی، گزینه \"تمدید خودکار\" را غیرفعال کنید. مبلغ عضویت دوره بعدی بطور خودکار و 24 ساعت قبل از پایان دوره عضویت فعلی، از حساب شما کسر خواهد شد. شما می توانید بعد از خرید، هر زمان که مایل باشید گزینه تمدید خودکار را از قسمت تنظیمات حساب خود تغییر داده یا غیرفعال کنید. از راهنماهای دانلود شده در دوره عضویت تنها تا پایان دوره عضویت می توانید استفاده کنید. راهنماهای شما 30 روز پس از پایان دوره عضویت، بصورت خودکار حذف خواهد شد.\n* عضویت در دوره آزمایشی رایگان، پس از پایان بصورت خودکار تبدیل به عضویت پولی خواهد شد. پس از فعالسازی دوره آزمایشی می توانید از قسمت تنظیمات حساب کاربری خود، گزینه تمدید خودکار دوره آزمایشی را غیرفعال کنید. لغو عضویت، 24 ساعت پس از آخرین روز دوره عضویت فعلی انجام خواهد شد. پس از لغو عضویت، شما تنها به خدمات رایگان ما دسترسی خواهید داشت. لطفا توجه داشته باشید که: پس از خرید و فعالسازی اکانت پولی، بخشهای بلااستفادۀ خود در اکانت رایگان را از دست خواهید داد.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>
