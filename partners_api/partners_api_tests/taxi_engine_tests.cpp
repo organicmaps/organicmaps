@@ -544,7 +544,7 @@ UNIT_TEST(TaxiEngine_GetProvidersAtPos)
   engine.SetDelegate(std::make_unique<RussiaSochiDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
   TEST_EQUAL(providers.size(), 1, ());
-  TEST_EQUAL(providers[0], taxi::Provider::Type::Rutaxi, ());
+  TEST_EQUAL(providers[0], taxi::Provider::Type::Yandex, ());
 
   engine.SetDelegate(std::make_unique<RussiaKonetsDelegate>());
   providers = engine.GetProvidersAtPos(latlon);

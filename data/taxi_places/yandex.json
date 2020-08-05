@@ -50,6 +50,16 @@
       }, 
       {
         "cities": [
+          "Gyumri", 
+          "Goris", 
+          "Kapan", 
+          "Vanadzor", 
+          "Yerevan"
+        ], 
+        "id": "Armenia"
+      }, 
+      {
+        "cities": [
           "Tartu", 
           "Narva", 
           "Tallinn"
@@ -71,14 +81,7 @@
       }, 
       {
         "cities": [
-          "Riga", 
-          "Daugavpils"
-        ], 
-        "id": "Latvia"
-      }, 
-      {
-        "cities": [
-          "Chi\u0219in\u0103u"
+          "Chi\u0219inau"
         ], 
         "id": "Moldova"
       }, 
@@ -91,21 +94,18 @@
       }, 
       {
         "cities": [
+          "Riga", 
+          "Daugavpils"
+        ], 
+        "id": "Latvia"
+      }, 
+      {
+        "cities": [
           "Tbilisi", 
           "Rustavi", 
           "Batumi"
         ], 
-        "id": "Georgia"
-      }, 
-      {
-        "cities": [
-          "Gyumri", 
-          "Goris", 
-          "Kapan", 
-          "Vanadzor", 
-          "Yerevan"
-        ], 
-        "id": "Armenia"
+        "id": "Georgia Region"
       }, 
       {
         "cities": [
@@ -717,7 +717,121 @@
           "Elista", 
           "Yugorsk", 
           "Yurga", 
-          "Yakutsk"
+          "Yakutsk", 
+          "Abakan", 
+          "Aleksin", 
+          "Angarsk", 
+          "Astrakhan", 
+          "Barnaul", 
+          "Berezniki", 
+          "Blagoveshchensk", 
+          "Bryansk", 
+          "Veliky Novgorod", 
+          "Vladivostok", 
+          "Vladimir", 
+          "Volgograd", 
+          "Vologda", 
+          "Voronezh", 
+          "Votkinsk", 
+          "Gatchina", 
+          "Dzerzhinsk", 
+          "Dimitrovgrad", 
+          "Donskoj", 
+          "Yekaterinburg", 
+          "Zlatoust", 
+          "Ivanovo", 
+          "Izhevsk", 
+          "Irkutsk", 
+          "Yoshkar-Ola", 
+          "Kazan", 
+          "Kaliningrad", 
+          "Kaluga", 
+          "Kemerovo", 
+          "Kirov", 
+          "Kirov", 
+          "Kondrovo", 
+          "Kostroma", 
+          "Krasnodar", 
+          "Krasnoyarsk", 
+          "Kungur", 
+          "Kyzyl", 
+          "Lipetsk", 
+          "Lysva", 
+          "Lyudinovo", 
+          "Magnitogorsk", 
+          "Miass", 
+          "Minusinsk", 
+          "Moscow", 
+          "Murmansk", 
+          "Naberezhnye Chelny", 
+          "Nizhny Novgorod", 
+          "Nizhny Tagil", 
+          "Novoaltaysk", 
+          "Novokuznetsk", 
+          "Novokuybyshevsk", 
+          "Novomoskovsk", 
+          "Novorossiysk", 
+          "Novosibirsk", 
+          "Novocherkassk", 
+          "Obninsk", 
+          "Oktyabrskiy", 
+          "Omsk", 
+          "Orenburg", 
+          "Orsk", 
+          "Penza", 
+          "Pervouralsk", 
+          "Perm", 
+          "Petrozavodsk", 
+          "Pskov", 
+          "Rostov-on-Don", 
+          "Ryazan", 
+          "Salavat", 
+          "Samara", 
+          "Saint Petersburg", 
+          "Saransk", 
+          "Saratov", 
+          "Sayanogorsk", 
+          "Serpukhov", 
+          "Smolensk", 
+          "Solikamsk", 
+          "Sochi", 
+          "Sterlitamak", 
+          "Syzran", 
+          "Syktyvkar", 
+          "Taganrog", 
+          "Tambov", 
+          "Tver", 
+          "Tolyatti", 
+          "Tomsk", 
+          "Tyumen", 
+          "Ulan-Ude", 
+          "Ulyanovsk", 
+          "Ufa", 
+          "Khabarovsk", 
+          "Chaikovsky", 
+          "Chapaevsk", 
+          "Cheboksary", 
+          "Chelyabinsk", 
+          "Cherepovets", 
+          "Chernogorsk", 
+          "Chita", 
+          "Chusovoy", 
+          "Shakhty", 
+          "Engels", 
+          "Yaroslavl", 
+          "Mytishchi", 
+          "Reutov", 
+          "Kotelniki", 
+          "Dzerzhinsky", 
+          "Vidnoye", 
+          "Odintsovo", 
+          "Krasnogorsk", 
+          "Dolgoprudny", 
+          "Khimki", 
+          "Sestroretsk", 
+          "Murino", 
+          "Shushary", 
+          "Kolpino"
         ], 
         "id": "Russian Federation"
       }, 
@@ -739,7 +853,10 @@
           "Taraz", 
           "Oral", 
           "Oskemen", 
-          "Ekibastuz"
+          "Ekibastuz", 
+          "Almaty", 
+          "Astana", 
+          "Karaganda"
         ], 
         "id": "Kazakhstan"
       }
