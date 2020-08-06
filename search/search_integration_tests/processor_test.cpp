@@ -3095,5 +3095,34 @@ UNIT_CLASS_TEST(ProcessorTest, JaKanaNormalizationTest)
     TEST(ResultsMatch("トウキョウト", rules), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_MultipleOldNames)
+{
+  string const countryName = "Wonderland";
+
+  StringUtf8Multilang cityName;
+  cityName.AddString("default", "Санкт-Петербург");
+  cityName.AddString("old_name", "Ленинград;Петроград");
+  TestCity city(m2::PointD(0.0, 0.0), cityName, 100 /* rank */);
+
+  auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(city); });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+
+  auto checkResult = [&](string const & query, string const & expectedName) {
+    auto request = MakeRequest(query, "ru");
+    auto const & results = request->Results();
+
+    Rules rules{ExactMatch(worldId, city)};
+    TEST_EQUAL(results.size(), 1, ());
+    TEST(ResultsMatch(results, rules), ());
+    TEST_EQUAL(results[0].GetRankingInfo().m_nameScore, NAME_SCORE_FULL_MATCH, (query, results));
+    TEST_EQUAL(results[0].GetString(), expectedName, (query, results));
+  };
+
+  checkResult("Санкт-Петербург", "Санкт-Петербург");
+  checkResult("Ленинград", "Санкт-Петербург (Ленинград)");
+  checkResult("Петроград", "Санкт-Петербург (Петроград)");
+}
 }  // namespace
 }  // namespace search

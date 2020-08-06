@@ -38,7 +38,16 @@ template <typename Slice>
 void UpdateNameScores(string const & name, uint8_t lang, Slice const & slice,
                       NameScores & bestScores)
 {
-  bestScores.UpdateIfBetter(GetNameScores(name, lang, slice));
+  if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
+  {
+    auto const names = strings::Tokenize(name, ";");
+    for (auto const & n : names)
+      bestScores.UpdateIfBetter(GetNameScores(n, lang, slice));
+  }
+  else
+  {
+    bestScores.UpdateIfBetter(GetNameScores(name, lang, slice));
+  }
 }
 
 template <typename Slice>
@@ -107,19 +116,32 @@ pair<NameScores, size_t> GetNameScores(FeatureType & ft, Geocoder::Params const 
     string name;
     if (!ft.GetName(lang, name))
       continue;
-    vector<strings::UniString> tokens;
-    PrepareStringForMatching(name, tokens);
-
-    UpdateNameScores(tokens, lang, slice, bestScores);
-    UpdateNameScores(tokens, lang, sliceNoCategories, bestScores);
-
-    if (type == Model::TYPE_STREET)
+    vector<vector<strings::UniString>> tokens(1);
+    if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
     {
-      auto const variants = ModifyStrasse(tokens);
-      for (auto const & variant : variants)
+      auto const names = strings::Tokenize(name, ";");
+      tokens.resize(names.size());
+      for (size_t i = 0; i < names.size(); ++i)
+        PrepareStringForMatching(names[i], tokens[i]);
+    }
+    else
+    {
+      PrepareStringForMatching(name, tokens[0]);
+    }
+
+    for (auto const & t : tokens)
+    {
+      UpdateNameScores(t, lang, slice, bestScores);
+      UpdateNameScores(t, lang, sliceNoCategories, bestScores);
+
+      if (type == Model::TYPE_STREET)
       {
-        UpdateNameScores(variant, lang, slice, bestScores);
-        UpdateNameScores(variant, lang, sliceNoCategories, bestScores);
+        auto const variants = ModifyStrasse(t);
+        for (auto const & variant : variants)
+        {
+          UpdateNameScores(variant, lang, slice, bestScores);
+          UpdateNameScores(variant, lang, sliceNoCategories, bestScores);
+        }
       }
     }
   }
@@ -772,7 +794,17 @@ void Ranker::GetBestMatchName(FeatureType & f, string & name) const
   };
 
   auto bestNameFinder = [&](int8_t lang, string const & s) {
-    updateScore(lang, s, true /* force */);
+    if (lang == StringUtf8Multilang::kAltNameCode || lang == StringUtf8Multilang::kOldNameCode)
+    {
+      auto const names = strings::Tokenize(s, ";");
+      for (auto const & n : names)
+        updateScore(lang, n, true /* force */);
+    }
+    else
+    {
+      updateScore(lang, s, true /* force */);
+    }
+
     // Default name should be written in the regional language.
     if (lang == StringUtf8Multilang::kDefaultCode)
     {
