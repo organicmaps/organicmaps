@@ -182,7 +182,8 @@ public:
   void SetUserPositionPendingTimeoutListener(UserPositionPendingTimeoutHandler && fn);
 
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
-                    FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed);
+                    FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed,
+                    bool isSelectionShapeVisible);
   void DeselectObject();
   
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);

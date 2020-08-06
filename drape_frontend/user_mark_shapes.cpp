@@ -152,6 +152,7 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
 
   if (isTextBg)
   {
+    CHECK(renderInfo.m_titleDecl, ());
     auto const & titleDecl = renderInfo.m_titleDecl->at(0);
     auto textLayout = MakePrimaryTextLayout(titleDecl, textures);
     sizeInc.x = textLayout.GetPixelLength();
@@ -248,25 +249,27 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
   if (renderInfo.m_badgeInfo)
   {
     params.m_maskColor = renderInfo.m_badgeInfo->m_maskColor;
-    if (renderInfo.m_badgeInfo->m_badgeTitleIndex)
+    if (renderInfo.m_titleDecl != nullptr && renderInfo.m_badgeInfo->m_badgeTitleIndex &&
+        renderInfo.m_minTitleZoom <= tileKey.m_zoomLevel)
     {
       size_t const badgeTitleIndex = *renderInfo.m_badgeInfo->m_badgeTitleIndex;
-      CHECK_LESS(badgeTitleIndex, renderInfo.m_titleDecl->size(), ());
+      if (badgeTitleIndex < renderInfo.m_titleDecl->size())
+      {
+        dp::TitleDecl const & titleDecl = (*renderInfo.m_titleDecl)[badgeTitleIndex];
+        TextLayout textLayout = MakePrimaryTextLayout(titleDecl, textures);
+        float const textWidth = textLayout.GetPixelLength();
 
-      dp::TitleDecl const & titleDecl = (*renderInfo.m_titleDecl)[badgeTitleIndex];
-      TextLayout textLayout = MakePrimaryTextLayout(titleDecl, textures);
-      float const textWidth = textLayout.GetPixelLength();
+        dp::TextureManager::SymbolRegion region;
+        textures->GetSymbolRegion(symbolName, region);
+        float const pixelHalfWidth = 0.5f * region.GetPixelSize().x;
 
-      dp::TextureManager::SymbolRegion region;
-      textures->GetSymbolRegion(symbolName, region);
-      float const pixelHalfWidth = 0.5f * region.GetPixelSize().x;
+        float constexpr kBadgeMarginsAdjustmentFactor = 4.0f;
+        float const badgeMarginsAdjustment =
+            kBadgeMarginsAdjustmentFactor * titleDecl.m_primaryOffset.x;
 
-      float constexpr kBadgeSpecialMarginsAdjustmentMultplier = 4.0f;
-      float const badgeSpecialMarginsAdjustment =
-          kBadgeSpecialMarginsAdjustmentMultplier * titleDecl.m_primaryOffset.x;
-
-      params.m_pixelWidth = 3.0f * pixelHalfWidth + textWidth + badgeSpecialMarginsAdjustment;
-      params.m_offset.x += 0.5f * (pixelHalfWidth + textWidth + badgeSpecialMarginsAdjustment);
+        params.m_pixelWidth = 3.0f * pixelHalfWidth + textWidth + badgeMarginsAdjustment;
+        params.m_offset.x += 0.5f * (pixelHalfWidth + textWidth + badgeMarginsAdjustment);
+      }
     }
   }
 

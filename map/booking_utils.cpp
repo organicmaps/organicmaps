@@ -18,66 +18,42 @@ namespace booking
 {
 namespace
 {
-void SortTransform(search::Results const & results, std::vector<Extras> const & extras,
-                   std::vector<FeatureID> & sortedFeatures, std::vector<std::string> & sortedPrices)
+void SortTransform(search::Results const & results, bool inViewport,
+                   std::vector<Extras> const & extras, std::vector<FeatureID> & filteredOut,
+                   std::vector<FeatureID> & available, std::vector<std::string> & prices)
 {
-  if (!extras.empty())
-  {
-    CHECK_EQUAL(results.GetCount(), extras.size(), ());
+  CHECK(extras.empty() || (results.GetCount() == extras.size()), ());
 
-    std::vector<std::pair<FeatureID, std::string>> featuresWithPrices;
-    PriceFormatter formatter;
-    for (size_t i = 0; i < results.GetCount(); ++i)
+  std::vector<size_t> order(results.GetCount());
+  std::iota(order.begin(), order.end(), 0);
+
+  std::sort(order.begin(), order.end(),
+      [&results](size_t lhs, size_t rhs) -> bool
+      {
+        return results[lhs].GetFeatureID() < results[rhs].GetFeatureID();
+      });
+
+  PriceFormatter formatter;
+  for (size_t i : order)
+  {
+    if (results[i].IsRefusedByFilter())
     {
-      if (results[i].IsRefusedByFilter())
-        continue;
-
-      auto priceFormatted = formatter.Format(extras[i].m_price, extras[i].m_currency);
-      featuresWithPrices.emplace_back(results[i].GetFeatureID(), std::move(priceFormatted));
+      if (inViewport)
+        filteredOut.push_back(results[i].GetFeatureID());
     }
-
-    std::sort(featuresWithPrices.begin(), featuresWithPrices.end(),
-              base::LessBy(&std::pair<FeatureID, std::string>::first));
-
-    sortedFeatures.reserve(featuresWithPrices.size());
-    sortedPrices.reserve(featuresWithPrices.size());
-    for (auto & item : featuresWithPrices)
+    else
     {
-      sortedFeatures.emplace_back(std::move(item.first));
-      sortedPrices.emplace_back(std::move(item.second));
+      available.emplace_back(results[i].GetFeatureID());
+
+      if (inViewport)
+      {
+        auto priceFormatted = formatter.Format(extras[i].m_price, extras[i].m_currency);
+        prices.push_back(std::move(priceFormatted));
+      }
     }
   }
-  else
-  {
-    sortedFeatures.reserve(results.GetCount());
-    for (auto const & r : results)
-      sortedFeatures.push_back(r.GetFeatureID());
-
-    std::sort(sortedFeatures.begin(), sortedFeatures.end());
-  }
 }
 
-void SetUnavailable(search::Results const & filteredOut, SearchMarks & searchMarks)
-{
-  if (filteredOut.GetCount() == 0)
-    return;
-
-  for (auto const & filtered : filteredOut)
-  {
-    searchMarks.SetUnavailable(filtered.GetFeatureID(), "booking_map_component_availability");
-  }
-}
-
-void SetUnavailable(std::vector<FeatureID> const & filteredOut, SearchMarks & searchMarks)
-{
-  if (filteredOut.empty())
-    return;
-
-  for (auto const & filtered : filteredOut)
-  {
-    searchMarks.SetUnavailable(filtered, "booking_map_component_availability");
-  }
-}
 }  // namespace
 
 filter::TasksInternal MakeInternalTasks(filter::Tasks const & filterTasks,
@@ -96,50 +72,54 @@ filter::TasksInternal MakeInternalTasks(filter::Tasks const & filterTasks,
     if (apiParams->IsEmpty())
       continue;
 
-    ParamsInternal paramsInternal
-      {
+    ParamsInternal paramsInternal{
         apiParams,
         [&searchMarks, type, apiParams, cb, inViewport](ResultInternal<search::Results> && result)
         {
-          if (type == Type::Availability)
-            SetUnavailable(result.m_filteredOut, searchMarks);
-
-          auto & filteredResults = result.m_passedFilter;
-          auto & extras = result.m_extras;
-
-          if (filteredResults.GetCount() == 0)
-            return;
-
-          if (!inViewport)
-            extras.clear();
-
-          std::vector<FeatureID> sortedFeatures;
-          std::vector<std::string> sortedPrices;
-
-          SortTransform(filteredResults, extras, sortedFeatures, sortedPrices);
+          std::vector<FeatureID> filteredOut;
+          std::vector<FeatureID> available;
+          std::vector<std::string> prices;
+          SortTransform(result.m_passedFilter, inViewport, result.m_extras, filteredOut, available,
+                        prices);
 
           if (inViewport)
           {
-            GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedFeatures,
-                                                          sortedPrices = std::move(sortedPrices)]() mutable
+            std::vector<FeatureID> unavailable;  // filtered out by online filters
+            if (type == Type::Availability)
             {
-              switch (type)
-              {
-                case Type::Deals:
-                  searchMarks.SetSales(sortedFeatures, true /* hasSale */);
-                  break;
-                case Type::Availability:
-                  searchMarks.SetPreparingState(sortedFeatures, false /* isPreparing */);
-                  searchMarks.SetPrices(sortedFeatures, std::move(sortedPrices));
-                  break;
-              }
-            });
-          }
-          cb(apiParams, sortedFeatures);
-        }
-      };
+              unavailable.reserve(result.m_filteredOut.GetCount());
+              for (auto const & filtered : result.m_filteredOut)
+                unavailable.push_back(filtered.GetFeatureID());
+              std::sort(unavailable.begin(), unavailable.end());
+            }
 
-    tasksInternal.emplace_back(type, move(paramsInternal));
+            GetPlatform().RunTask(
+                Platform::Thread::Gui,
+                [&searchMarks, type, filteredOut = std::move(filteredOut), available,
+                 prices = std::move(prices), unavailable = std::move(unavailable)]() mutable
+                {
+                  switch (type)
+                  {
+                  case Type::Deals:
+                    searchMarks.SetSales(available, true /* hasSale */);
+                    break;
+                  case Type::Availability:
+                    searchMarks.SetPreparingState(filteredOut, false /* isPreparing */);
+                    searchMarks.SetUnavailable(filteredOut, "booking_map_component_filters");
+
+                    searchMarks.SetPreparingState(available, false /* isPreparing */);
+                    searchMarks.SetPrices(available, std::move(prices));
+
+                    searchMarks.SetPreparingState(unavailable, false /* isPreparing */);
+                    searchMarks.SetUnavailable(unavailable, "booking_map_component_availability");
+                    break;
+                  }
+                });
+          }
+          cb(apiParams, available);
+        }};
+
+    tasksInternal.emplace_back(type, std::move(paramsInternal));
   }
 
   return tasksInternal;
@@ -166,49 +146,57 @@ filter::TasksRawInternal MakeInternalTasks(filter::Tasks const & filterTasks,
         apiParams,
         [&searchMarks, type, apiParams, cb](ResultInternal<std::vector<FeatureID>> && result)
         {
-          if (type == Type::Availability)
-            SetUnavailable(result.m_filteredOut, searchMarks);
-
           auto & sortedFeatures = result.m_passedFilter;
           auto & extras = result.m_extras;
 
-          if (sortedFeatures.empty())
-            return;
-
           CHECK_EQUAL(sortedFeatures.size(), extras.size(), ());
 
+          std::vector<FeatureID> filteredOut;  // filtered out by offline filters
+          std::vector<FeatureID> available;
+          std::vector<std::string> prices;
           PriceFormatter formatter;
-          std::vector<FeatureID> sortedAvailable;
-          std::vector<std::string> orderedPrices;
           for (size_t i = 0; i < sortedFeatures.size(); ++i)
           {
-            // Some hotels might be unavailable by offline filter.
             if (searchMarks.IsUnavailable(sortedFeatures[i]))
-              continue;
-
-            sortedAvailable.emplace_back(std::move(sortedFeatures[i]));
-            orderedPrices.emplace_back(formatter.Format(extras[i].m_price, extras[i].m_currency));
+            {
+              filteredOut.push_back(std::move(sortedFeatures[i]));
+            }
+            else
+            {
+              available.emplace_back(std::move(sortedFeatures[i]));
+              prices.emplace_back(formatter.Format(extras[i].m_price, extras[i].m_currency));
+            }
           }
 
-          GetPlatform().RunTask(Platform::Thread::Gui, [&searchMarks, type, sortedAvailable,
-                                                        orderedPrices = std::move(orderedPrices)]() mutable
-          {
-            switch (type)
-            {
-              case Type::Deals:
-                searchMarks.SetSales(sortedAvailable, true /* hasSale */);
-                break;
-              case Type::Availability:
-                searchMarks.SetPreparingState(sortedAvailable, false /* isPreparing */);
-                searchMarks.SetPrices(sortedAvailable, std::move(orderedPrices));
-                break;
-            }
-          });
-          cb(apiParams, sortedAvailable);
+          auto & unavailable = result.m_filteredOut;
+
+          GetPlatform().RunTask(
+              Platform::Thread::Gui,
+              [&searchMarks, type, filteredOut = std::move(filteredOut), available,
+               prices = std::move(prices), unavailable = std::move(unavailable)]() mutable
+              {
+                switch (type)
+                {
+                case Type::Deals:
+                  searchMarks.SetSales(available, true /* hasSale */);
+                  break;
+                case Type::Availability:
+                  searchMarks.SetPreparingState(filteredOut, false /* isPreparing */);
+                  // do not change unavailability reason
+
+                  searchMarks.SetPreparingState(available, false /* isPreparing */);
+                  searchMarks.SetPrices(available, std::move(prices));
+
+                  searchMarks.SetPreparingState(unavailable, false /* isPreparing */);
+                  searchMarks.SetUnavailable(unavailable, "booking_map_component_availability");
+                  break;
+                }
+              });
+          cb(apiParams, available);
         }
       };
 
-    tasksInternal.emplace_back(type, move(paramsInternal));
+    tasksInternal.emplace_back(type, std::move(paramsInternal));
   }
 
   return tasksInternal;

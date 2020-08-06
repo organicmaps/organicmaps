@@ -531,17 +531,20 @@ public:
     , m_glbPoint(m2::PointD::Zero())
     , m_isAnim(false)
     , m_isDismiss(true)
+    , m_isGeometrySelectionAllowed(false)
+    , m_isSelectionShapeVisible(false)
   {}
 
-  SelectObjectMessage(SelectionShape::ESelectedObject selectedObject,
-                      m2::PointD const & glbPoint, FeatureID const & featureID,
-                      bool isAnim, bool isGeometrySelectionAllowed)
+  SelectObjectMessage(SelectionShape::ESelectedObject selectedObject, m2::PointD const & glbPoint,
+                      FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed,
+                      bool isSelectionShapeVisible)
     : m_selected(selectedObject)
     , m_glbPoint(glbPoint)
     , m_featureID(featureID)
     , m_isAnim(isAnim)
     , m_isDismiss(false)
     , m_isGeometrySelectionAllowed(isGeometrySelectionAllowed)
+    , m_isSelectionShapeVisible(isSelectionShapeVisible)
   {}
 
   Type GetType() const override { return Type::SelectObject; }
@@ -553,6 +556,7 @@ public:
   bool IsAnim() const { return m_isAnim; }
   bool IsDismiss() const { return m_isDismiss; }
   bool IsGeometrySelectionAllowed() const { return m_isGeometrySelectionAllowed; }
+  bool IsSelectionShapeVisible() const { return m_isSelectionShapeVisible; }
 
 private:
   SelectionShape::ESelectedObject m_selected;
@@ -561,6 +565,7 @@ private:
   bool m_isAnim;
   bool m_isDismiss;
   bool m_isGeometrySelectionAllowed;
+  bool m_isSelectionShapeVisible;
 };
 
 class CheckSelectionGeometryMessage : public Message

@@ -1825,11 +1825,7 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     mark->SetMatchedName(r.GetString());
 
     if (isFeature && r.IsRefusedByFilter())
-    {
-      mark->SetPreparing(true);
-
-      m_searchMarks.SetUnavailable(mark->GetFeatureID(), "booking_map_component_filters");
-    }
+      m_searchMarks.SetUnavailable(*mark, "booking_map_component_filters");
 
     if (r.m_details.m_isSponsoredHotel)
     {
@@ -1846,15 +1842,11 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
         mark->SetRating(product.m_ugcRating);
     }
 
-    // Case when place page is opened and new portion of results delivered.
-    if (isFeature && m_currentPlacePageInfo && m_currentPlacePageInfo->IsFeature() &&
-        m_currentPlacePageInfo->GetID() == mark->GetFeatureID())
+    if (isFeature)
     {
-      m_searchMarks.MarkUnavailableIfNeeded(mark);
+      mark->SetVisited(m_searchMarks.IsVisited(mark->GetFeatureID()));
+      mark->SetSelected(m_searchMarks.IsSelected(mark->GetFeatureID()));
     }
-
-    if (isFeature && m_searchMarks.IsVisited(mark->GetFeatureID()))
-      mark->SetVisited(true);
 
     if (fn)
       fn(*mark);
@@ -2451,11 +2443,13 @@ void Framework::ActivateMapSelection(std::optional<place_page::Info> const & inf
   else
     GetBookmarkManager().OnTrackDeselected();
 
+  bool isSelectionShapeVisible = true;
   // TODO(a): to replace dummies with correct values.
   if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking &&
       info->IsSearchMark())
   {
     m_searchMarks.OnActivate(m_currentPlacePageInfo->GetID());
+    isSelectionShapeVisible = false;
   }
 
   CHECK_NOT_EQUAL(info->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
@@ -2463,7 +2457,8 @@ void Framework::ActivateMapSelection(std::optional<place_page::Info> const & inf
   {
     m_drapeEngine->SelectObject(info->GetSelectedObject(), info->GetMercator(), info->GetID(),
                                 info->GetBuildInfo().m_needAnimationOnSelection,
-                                info->GetBuildInfo().m_isGeometrySelectionAllowed);
+                                info->GetBuildInfo().m_isGeometrySelectionAllowed,
+                                isSelectionShapeVisible);
   }
 
   SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION,
@@ -2602,7 +2597,8 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
         {
           m_drapeEngine->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK,
                                       m_currentPlacePageInfo->GetMercator(), FeatureID(),
-                                      false /* isAnim */, false /* isGeometrySelectionAllowed */);
+                                      false /* isAnim */, false /* isGeometrySelectionAllowed */,
+                                      true /* isSelectionShapeVisible */);
         }
         return;
       }
@@ -3986,7 +3982,7 @@ void Framework::ShowViewportSearchResults(search::Results const & results, bool 
             auto const isFilteredOut = binary_search(filteredOut.cbegin(), filteredOut.cend(), id);
 
             if (isFilteredOut)
-              m_searchMarks.SetUnavailable(mark.GetFeatureID(), "booking_map_component_availability");
+              m_searchMarks.SetUnavailable(mark, "booking_map_component_availability");
           }
 
           break;
@@ -4003,8 +3999,7 @@ void Framework::ShowViewportSearchResults(search::Results const & results, bool 
 
 void Framework::ClearViewportSearchResults()
 {
-  m_searchMarks.ClearVisited();
-  m_searchMarks.ClearUnavailable();
+  m_searchMarks.ClearTrackedProperties();
   GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
 }
 

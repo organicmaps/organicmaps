@@ -347,11 +347,12 @@ strings::UniString const & TextLayout::GetText() const
 }
 
 StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fontSize, bool isSdf,
-                                       ref_ptr<dp::TextureManager> textures, dp::Anchor anchor)
+                                       ref_ptr<dp::TextureManager> textures, dp::Anchor anchor,
+                                       bool forceNoWrap)
 {
   strings::UniString visibleText = bidi::log2vis(text);
   buffer_vector<size_t, 2> delimIndexes;
-  if (visibleText == text)
+  if (visibleText == text && !forceNoWrap)
     SplitText(visibleText, delimIndexes);
   else
     delimIndexes.push_back(visibleText.size());

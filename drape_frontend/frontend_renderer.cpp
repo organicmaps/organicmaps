@@ -505,9 +505,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_overlayTree->SetSelectedFeature(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
       if (m_selectionShape == nullptr)
       {
-        m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(msg->GetSelectedObject(), msg->GetPosition(),
-                                                                    msg->GetFeatureID(), msg->IsAnim(),
-                                                                    msg->IsGeometrySelectionAllowed());
+        m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(
+            msg->GetSelectedObject(), msg->GetPosition(), msg->GetFeatureID(), msg->IsAnim(),
+            msg->IsGeometrySelectionAllowed(), true /* isSelectionShapeVisible */);
         break;
       }
       ProcessSelection(msg);
@@ -1352,16 +1352,21 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       for (ref_ptr<dp::OverlayHandle> handle : selectResult)
         offsetZ = std::max(offsetZ, handle->GetPivotZ());
     }
-    m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
+    if (msg->IsSelectionShapeVisible())
+      m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
+    else
+      m_selectionShape->Hide();
     if (!m_myPositionController->IsModeChangeViewport())
     {
-      m2::PointD startPosition;
-      m_selectionShape->IsVisible(modelView, startPosition);
-      
       if (msg->GetSelectedObject() == SelectionShape::ESelectedObject::OBJECT_GUIDE)
+      {
         m_selectionTrackInfo.reset();
+      }
       else
-        m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
+      {
+        if (m2::PointD startPosition; m_selectionShape->IsVisible(modelView, startPosition))
+          m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
+      }
     }
 
     if (msg->IsGeometrySelectionAllowed())

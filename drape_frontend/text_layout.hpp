@@ -53,10 +53,8 @@ class StraightTextLayout : public TextLayout
 {
   using TBase = TextLayout;
 public:
-  StraightTextLayout(strings::UniString const & text,
-                     float fontSize, bool isSdf,
-                     ref_ptr<dp::TextureManager> textures,
-                     dp::Anchor anchor);
+  StraightTextLayout(strings::UniString const & text, float fontSize, bool isSdf,
+                     ref_ptr<dp::TextureManager> textures, dp::Anchor anchor, bool forceNoWrap);
 
   void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
                            gpu::TTextStaticVertexBuffer & staticBuffer) const;

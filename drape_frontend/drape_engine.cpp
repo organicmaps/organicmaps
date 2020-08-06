@@ -561,12 +561,14 @@ void DrapeEngine::SetUserPositionPendingTimeoutListener(UserPositionPendingTimeo
 }
 
 void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
-                               FeatureID const & featureId, bool isAnim, bool isGeometrySelectionAllowed)
+                               FeatureID const & featureId, bool isAnim,
+                               bool isGeometrySelectionAllowed, bool isSelectionShapeVisible)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<SelectObjectMessage>(obj, pt, featureId,
-                                    isAnim, isGeometrySelectionAllowed),
-                                  MessagePriority::Normal);
+  m_threadCommutator->PostMessage(
+      ThreadsCommutator::RenderThread,
+      make_unique_dp<SelectObjectMessage>(obj, pt, featureId, isAnim, isGeometrySelectionAllowed,
+                                          isSelectionShapeVisible),
+      MessagePriority::Normal);
 }
 
 void DrapeEngine::DeselectObject()

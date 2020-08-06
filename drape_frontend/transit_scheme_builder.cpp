@@ -172,7 +172,7 @@ std::vector<TitleInfo> PlaceTitles(StopNodeParams const & stopParams, float text
     for (auto & name : titles)
     {
       df::StraightTextLayout layout(strings::MakeUniString(name.m_text), textSize,
-                                    false /* isSdf */, textures, dp::Left);
+                                    false /* isSdf */, textures, dp::Left, false /* forceNoWrap */);
       name.m_pixelSize = layout.GetPixelSize() + m2::PointF(4.0f * vs, 4.0f * vs);
       name.m_rowsCount = layout.GetRowsCount();
       summaryRowsCount += layout.GetRowsCount();

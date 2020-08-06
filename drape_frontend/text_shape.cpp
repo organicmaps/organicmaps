@@ -237,27 +237,25 @@ void TextShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
 {
   auto const & titleDecl = m_params.m_titleDecl;
   ASSERT(!titleDecl.m_primaryText.empty(), ());
-  StraightTextLayout primaryLayout(strings::MakeUniString(titleDecl.m_primaryText),
-                                   titleDecl.m_primaryTextFont.m_size,
-                                   titleDecl.m_primaryTextFont.m_isSdf,
-                                   textures,
-                                   titleDecl.m_anchor);
+  StraightTextLayout primaryLayout(
+      strings::MakeUniString(titleDecl.m_primaryText), titleDecl.m_primaryTextFont.m_size,
+      titleDecl.m_primaryTextFont.m_isSdf, textures, titleDecl.m_anchor, titleDecl.m_forceNoWrap);
 
   if (m_params.m_limitedText && primaryLayout.GetPixelSize().y >= m_params.m_limits.y)
   {
     float const newFontSize = titleDecl.m_primaryTextFont.m_size * m_params.m_limits.y / primaryLayout.GetPixelSize().y;
     primaryLayout = StraightTextLayout(strings::MakeUniString(titleDecl.m_primaryText), newFontSize,
-                                       titleDecl.m_primaryTextFont.m_isSdf, textures, titleDecl.m_anchor);
+                                       titleDecl.m_primaryTextFont.m_isSdf, textures,
+                                       titleDecl.m_anchor, titleDecl.m_forceNoWrap);
   }
 
   drape_ptr<StraightTextLayout> secondaryLayout;
   if (!titleDecl.m_secondaryText.empty())
   {
-    secondaryLayout = make_unique_dp<StraightTextLayout>(strings::MakeUniString(titleDecl.m_secondaryText),
-                                                         titleDecl.m_secondaryTextFont.m_size,
-                                                         titleDecl.m_secondaryTextFont.m_isSdf,
-                                                         textures,
-                                                         titleDecl.m_anchor);
+    secondaryLayout = make_unique_dp<StraightTextLayout>(
+        strings::MakeUniString(titleDecl.m_secondaryText), titleDecl.m_secondaryTextFont.m_size,
+        titleDecl.m_secondaryTextFont.m_isSdf, textures, titleDecl.m_anchor,
+        titleDecl.m_forceNoWrap);
   }
 
   glsl::vec2 primaryOffset;

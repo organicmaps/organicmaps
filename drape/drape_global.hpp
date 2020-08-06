@@ -75,6 +75,7 @@ struct TitleDecl
   dp::FontDecl m_secondaryTextFont;
   std::string m_secondaryText;
   dp::Anchor m_anchor = dp::Anchor::Center;
+  bool m_forceNoWrap = false;
   m2::PointF m_primaryOffset = m2::PointF(0.0f, 0.0f);
   m2::PointF m_secondaryOffset = m2::PointF(0.0f, 0.0f);
   bool m_primaryOptional = false;
