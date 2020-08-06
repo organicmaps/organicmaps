@@ -1831,7 +1831,7 @@
 	<string name="choose_dates_online_only_dialog_title">Nincs internetkapcsolat</string>
 	<string name="choose_dates_online_only_dialog_message">A dátumok és a vendégek száma csak online választható ki. Kérjük, ellenőrizze a beállításait, és bizonyosodjon meg arról, hogy csatlakozva van az internethez.</string>
 	<string name="choose_dates_online_only_dialog_cta">Beállítások</string>
-	<string name="30_days_limit_dialog">Maximum 30 éjszakára foglalhat</string>
+	<string name="thirty_days_limit_dialog">Maximum 30 éjszakára foglalhat</string>
 	<string name="whatsnew_trial_title">Ingyenes hozzáférés az útmutatók katalógushoz</string>
 	<string name="whatsnew_trial_message">Most 7 napos ingyenes próbaverziót kínálunk. Hozzáférés ezer útmutatóhoz a világ minden tájáról, és egy interaktív emelkedési profil a szabadtéri útmutatókhoz.</string>
 	<string name="whatsnew_trial_cta">Próbálja ki most</string>

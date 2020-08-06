@@ -1830,7 +1830,7 @@
 	<string name="choose_dates_online_only_dialog_title">Ingen anslutning</string>
 	<string name="choose_dates_online_only_dialog_message">Valet av datum och antal gäster är endast tillgängligt online. Kontrollera dina inställningar och se till att du är ansluten till Internet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Inställningar</string>
-	<string name="30_days_limit_dialog">Kan bokas för högst 30 nätter</string>
+	<string name="thirty_days_limit_dialog">Kan bokas för högst 30 nätter</string>
 	<string name="whatsnew_trial_title">Gratis tillgång till guider</string>
 	<string name="whatsnew_trial_message">Vi har lanserat en 7-dagars period för provprenumeration. Tusentals rutter runt om i världen, samt en interaktiv terräng profil i guider för utomhusaktiviteter.</string>
 	<string name="whatsnew_trial_cta">Prova</string>

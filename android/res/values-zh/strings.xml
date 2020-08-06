@@ -1828,7 +1828,7 @@
 	<string name="choose_dates_online_only_dialog_title">沒有網絡連接</string>
 	<string name="choose_dates_online_only_dialog_message">日期和入住人數僅可在線選擇。檢查您的設置，並確保您已連網。</string>
 	<string name="choose_dates_online_only_dialog_cta">設置</string>
-	<string name="30_days_limit_dialog">最多可預訂30晚</string>
+	<string name="thirty_days_limit_dialog">最多可預訂30晚</string>
 	<string name="whatsnew_trial_title">免費訪問旅行指南</string>
 	<string name="whatsnew_trial_message">我們已經推出了7天的試用期。世界各地的數千條路線，以及戶外旅行指南中的交互式海拔剖面圖。</string>
 	<string name="whatsnew_trial_cta">試用</string>

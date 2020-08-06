@@ -1829,7 +1829,7 @@
 	<string name="choose_dates_online_only_dialog_title">Žiadne sieťové pripojenie</string>
 	<string name="choose_dates_online_only_dialog_message">Dátumy a počet hostí je možné zvoliť iba v režime online. Skontrolujte svoje nastavenia a uistite sa, že ste pripojení k internetu.</string>
 	<string name="choose_dates_online_only_dialog_cta">Nastavenia</string>
-	<string name="30_days_limit_dialog">Môžete si rezervovať maximálne 30 nocí</string>
+	<string name="thirty_days_limit_dialog">Môžete si rezervovať maximálne 30 nocí</string>
 	<string name="whatsnew_trial_title">Bezplatný prístup do katalógu sprievodcov</string>
 	<string name="whatsnew_trial_message">Teraz ponúkame bezplatnú 7-dňovú skúšobnú verziu. Získajte prístup k tisícom cestovných sprievodcov po celom svete a k interaktívnemu výškovému profilu pre outdoorových sprievodcov.</string>
 	<string name="whatsnew_trial_cta">Vyskúšajte to teraz</string>

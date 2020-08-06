@@ -1824,7 +1824,7 @@
 	<string name="choose_dates_online_only_dialog_title">Verkkoyhteys poikki</string>
 	<string name="choose_dates_online_only_dialog_message">Ajankohdat ja matkustajien lukumäärä on mahdollista valita ainoastaan verkossa. Tarkista verkkoasetukset ja varmista, että laitteesi saa yhteyttä verkkoon.</string>
 	<string name="choose_dates_online_only_dialog_cta">Asetukset</string>
-	<string name="30_days_limit_dialog">Varauksen voi tehdä enintään 30:ksi yöksi</string>
+	<string name="thirty_days_limit_dialog">Varauksen voi tehdä enintään 30:ksi yöksi</string>
 	<string name="whatsnew_trial_title">Matkaoppaiden vapaa käyttöoikeus</string>
 	<string name="whatsnew_trial_message">Sovellus antaa 7 päivää kokeilla matkaoppaita ilmaiseksi. Tuhansia reittejä kaikkialla maailmassa sekä interaktiivinen korkeusprofiili matkaoppaissa ulkoiluun ja liikuntaan.</string>
 	<string name="whatsnew_trial_cta">Kokeile</string>

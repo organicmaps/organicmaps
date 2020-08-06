@@ -1826,7 +1826,7 @@
 	<string name="choose_dates_online_only_dialog_title">Geen netwerkverbinding</string>
 	<string name="choose_dates_online_only_dialog_message">Datums en het aantal gasten kunnen alleen online worden geselecteerd. Controleer uw instellingen en zorg ervoor dat u internetverbinding heeft.</string>
 	<string name="choose_dates_online_only_dialog_cta">Instellingen</string>
-	<string name="30_days_limit_dialog">U kunt maximaal 30 nachten boeken</string>
+	<string name="thirty_days_limit_dialog">U kunt maximaal 30 nachten boeken</string>
 	<string name="whatsnew_trial_title">Gratis toegang tot de reisgidsencatalogus</string>
 	<string name="whatsnew_trial_message">We bieden nu een gratis proefperiode van 7 dagen aan. Heb toegang tot duizenden reisgidsen over de hele wereld en een interactief hoogteprofiel voor outdoor-reisgidsen.</string>
 	<string name="whatsnew_trial_cta">Probeer het nu</string>

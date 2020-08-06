@@ -1723,7 +1723,7 @@
 	<string name="choose_dates_online_only_dialog_title">Ingen nettverksforbindelse</string>
 	<string name="choose_dates_online_only_dialog_message">Datoer og antall gjester kan bare velges når de er online. Kontroller innstillingene dine og sørg for at du er koblet til internett.</string>
 	<string name="choose_dates_online_only_dialog_cta">Instillinger</string>
-	<string name="30_days_limit_dialog">Du kan bestille maksimalt 30 netter</string>
+	<string name="thirty_days_limit_dialog">Du kan bestille maksimalt 30 netter</string>
 	<string name="whatsnew_trial_title">Gratis tilgang til guide-katalogen</string>
 	<string name="whatsnew_trial_message">Vi tilbyr nå en gratis 7-dagers prøveperiode. Få tilgang til tusenvis av reiseguider rundt om i verden og en interaktiv høydeprofil for utendørsguider.</string>
 	<string name="whatsnew_trial_cta">Prøv nå</string>

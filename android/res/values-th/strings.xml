@@ -1835,7 +1835,7 @@
 	<string name="choose_dates_online_only_dialog_title">ไม่พบสัญญาณอินเทอร์เน็ต</string>
 	<string name="choose_dates_online_only_dialog_message">เลือกวันที่และจำนวนของแขกได้ตอนแอปออนไลน์อยู่เท่านั้น โปรดตรวจสอบการตั้งค่าให้มั่นใจว่าอุปกรณ์เชื่อมต่อกับอินเทอร์เน็ต</string>
 	<string name="choose_dates_online_only_dialog_cta">ตั้งค่า</string>
-	<string name="30_days_limit_dialog">คุณจองห้องพักได้นานที่สุด 30 คืน</string>
+	<string name="thirty_days_limit_dialog">คุณจองห้องพักได้นานที่สุด 30 คืน</string>
 	<string name="whatsnew_trial_title">เขาถึงไกด์แคตตาล็อกได้ฟรี</string>
 	<string name="whatsnew_trial_message">ตอนนี้เราเสนอการทดลองใช้งานฟรี 7 วัน เข้าถึงคู่มือใช้งานเพื่อการท่องเที่ยวนับพันฉบับของทั่วโลก และข้อมูลความสูงของพื้นที่แบบอินเตอร์แอคทีฟเพื่อกิจกรรมกลางแจ้ง</string>
 	<string name="whatsnew_trial_cta">ลองใช้เลยตอนนี้</string>

@@ -1834,7 +1834,7 @@
 	<string name="choose_dates_online_only_dialog_title">Falha de conexão</string>
 	<string name="choose_dates_online_only_dialog_message">Escolher datas e número de hóspedes é possível apenas no modo on-line. Verifique as configurações e certifique-se que tem ligação com a Internet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Configurações</string>
-	<string name="30_days_limit_dialog">Pode ser reservado para 30 noites no máximo</string>
+	<string name="thirty_days_limit_dialog">Pode ser reservado para 30 noites no máximo</string>
 	<string name="whatsnew_trial_title">Acesso gratuito às guias</string>
 	<string name="whatsnew_trial_message">Lançamos o período de teste gratuito da subscrição de 7 dias. Milhares de percursos pelo mundo inteiro, bem como o perfil interativo das alturas nas guias para férias ativas.</string>
 	<string name="whatsnew_trial_cta">Experimentar</string>

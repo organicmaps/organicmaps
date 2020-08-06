@@ -1823,7 +1823,7 @@
 	<string name="choose_dates_online_only_dialog_title">Tidak ada koneksi jaringan</string>
 	<string name="choose_dates_online_only_dialog_message">Tanggal dan jumlah tamu hanya dapat dipilih saat online. Silakan periksa pengaturan Anda dan pastikan Anda terhubung ke internet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Pengaturan</string>
-	<string name="30_days_limit_dialog">Anda dapat memesan untuk maksimum 30 malam</string>
+	<string name="thirty_days_limit_dialog">Anda dapat memesan untuk maksimum 30 malam</string>
 	<string name="whatsnew_trial_title">Akses gratis ke katalog panduan</string>
 	<string name="whatsnew_trial_message">Kami sekarang menawarkan uji coba 7 hari gratis. Akses ribuan panduan perjalanan di seluruh dunia dan profil ketinggian interaktif untuk panduan luar ruangan.</string>
 	<string name="whatsnew_trial_cta">Cobalah sekarang</string>

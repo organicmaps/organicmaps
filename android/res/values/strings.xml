@@ -1904,7 +1904,7 @@
 	<string name="choose_dates_online_only_dialog_title">No network connection</string>
 	<string name="choose_dates_online_only_dialog_message">Dates and the number of guests can only be selected when online. Please check your settings and make sure you\'re connected to the internet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Settings</string>
-	<string name="30_days_limit_dialog">You can book for a maximum of 30 nights</string>
+	<string name="thirty_days_limit_dialog">You can book for a maximum of 30 nights</string>
 	<string name="whatsnew_trial_title">Free access to the guides catalog</string>
 	<string name="whatsnew_trial_message">We now offer a free 7-day trial. Access thousands of travel guides around the world and an interactive elevation profile for outdoor guides.</string>
 	<string name="whatsnew_trial_cta">Try it now</string>

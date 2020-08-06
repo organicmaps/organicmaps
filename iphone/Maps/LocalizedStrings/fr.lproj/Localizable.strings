@@ -3356,7 +3356,7 @@
 
 "choose_dates_online_only_dialog_cta" = "Paramètres";
 
-"30_days_limit_dialog" = "Il est possible d’effectuer une réservation pour 30 jours maximum";
+"thirty_days_limit_dialog" = "Il est possible d’effectuer une réservation pour 30 jours maximum";
 
 "whatsnew_trial_title" = "Un accès gratuit aux guides";
 

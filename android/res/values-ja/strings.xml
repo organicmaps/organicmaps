@@ -1823,7 +1823,7 @@
 	<string name="choose_dates_online_only_dialog_title">ネットワーク接続がありません</string>
 	<string name="choose_dates_online_only_dialog_message">日付と人数はオンライン時に選択できます。設定を確認し、インターネットに接続している事を確かめてください。</string>
 	<string name="choose_dates_online_only_dialog_cta">設定</string>
-	<string name="30_days_limit_dialog">最大で30泊まで予約する事ができます</string>
+	<string name="thirty_days_limit_dialog">最大で30泊まで予約する事ができます</string>
 	<string name="whatsnew_trial_title">ガイドのカタログへの無料アクセス</string>
 	<string name="whatsnew_trial_message">無料で7日間のトライアルを提供しています。世界中の数千の旅行ガイドとアウトドアガイドのためのインタラクティブな標高情報へのアクセス。</string>
 	<string name="whatsnew_trial_cta">今すぐ試してみましょう</string>

@@ -1833,7 +1833,7 @@
 	<string name="choose_dates_online_only_dialog_title">Žádné připojení k síti</string>
 	<string name="choose_dates_online_only_dialog_message">Datum a počet hostů je možné vybrat pouze v režimu online. Zkontrolujte prosím nastavení a ujistěte se, že jste připojeni k internetu.</string>
 	<string name="choose_dates_online_only_dialog_cta">Nastavení</string>
-	<string name="30_days_limit_dialog">Rezervaci můžete provést maximálně na 30 nocí</string>
+	<string name="thirty_days_limit_dialog">Rezervaci můžete provést maximálně na 30 nocí</string>
 	<string name="whatsnew_trial_title">Bezplatný přístup do katalogu průvodců</string>
 	<string name="whatsnew_trial_message">Nyní nabízíme 7denní zkušební verzi. Získejte přístup k tisícům cestovních průvodců po celém světě a interaktivnímu výškovému profilu pro outdoorové průvodce.</string>
 	<string name="whatsnew_trial_cta">Vyzkoušejte nyní</string>

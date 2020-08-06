@@ -1820,7 +1820,7 @@
 	<string name="choose_dates_online_only_dialog_title">Không có kết nối</string>
 	<string name="choose_dates_online_only_dialog_message">Chọn ngày và số lượng khách chỉ có ở chế độ trực tuyến. Hãy kiểm tra cài đặt để có kết nối internet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Cài đặt</string>
-	<string name="30_days_limit_dialog">Đặt phòng tối đa cho 30 đêm</string>
+	<string name="thirty_days_limit_dialog">Đặt phòng tối đa cho 30 đêm</string>
 	<string name="whatsnew_trial_title">Truy cập miễn phí vào các hướng dẫn</string>
 	<string name="whatsnew_trial_message">Chúng tôi đã đưa ra giai đoạn đăng ký dùng thử 7 ngày. Hàng ngàn tuyến di chuyển trên khắp thế giới cũng như hồ sơ độ cao cho các hướng dẫn du lịch ngoài trời.</string>
 	<string name="whatsnew_trial_cta">Dùng thử</string>

@@ -1820,7 +1820,7 @@
 	<string name="choose_dates_online_only_dialog_title">Nu există conexiune</string>
 	<string name="choose_dates_online_only_dialog_message">Alegerea datelor și a numărului de oaspeți este disponibilă doar online. Verificați-vă setările și asigurați-vă că sunteți conectat la Internet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Setări</string>
-	<string name="30_days_limit_dialog">Rezervabil pentru maxim 30 de nopți</string>
+	<string name="thirty_days_limit_dialog">Rezervabil pentru maxim 30 de nopți</string>
 	<string name="whatsnew_trial_title">Acces gratuit la ghiduri</string>
 	<string name="whatsnew_trial_message">Am lansat o perioadă de abonament de încercare de 7 zile. Mii de rute din întreaga lume, precum și un profil interactiv de înălțimi în ghidurile de activități în aer liber.</string>
 	<string name="whatsnew_trial_cta">Încercați</string>

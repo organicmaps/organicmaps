@@ -1832,7 +1832,7 @@
 	<string name="choose_dates_online_only_dialog_title">没有网络连接</string>
 	<string name="choose_dates_online_only_dialog_message">日期和入住人数仅可在线选择。检查您的设置，并确保您已连网。</string>
 	<string name="choose_dates_online_only_dialog_cta">设置</string>
-	<string name="30_days_limit_dialog">最多可预订30晚</string>
+	<string name="thirty_days_limit_dialog">最多可预订30晚</string>
 	<string name="whatsnew_trial_title">免费访问旅行指南</string>
 	<string name="whatsnew_trial_message">我们已经推出了7天的试用期。世界各地的数千条路线，以及户外旅行指南中的交互式海拔剖面图。</string>
 	<string name="whatsnew_trial_cta">试用</string>

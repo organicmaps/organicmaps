@@ -1825,7 +1825,7 @@
 	<string name="choose_dates_online_only_dialog_title">인터넷 연결이 없음</string>
 	<string name="choose_dates_online_only_dialog_message">날짜 및 고객 수는 온라인 상태일 때만 선택이 가능합니다. 설정을 확인하시고 인터넷에 연결되어 있는지 확인하십시오.</string>
 	<string name="choose_dates_online_only_dialog_cta">설정</string>
-	<string name="30_days_limit_dialog">최대 30일 숙박을 예약하실 수 있습니다</string>
+	<string name="thirty_days_limit_dialog">최대 30일 숙박을 예약하실 수 있습니다</string>
 	<string name="whatsnew_trial_title">가이드 카탈로그에 무료 액세스</string>
 	<string name="whatsnew_trial_message">7일 무료 체험을 제공하고 있습니다. 전 세계 수천 개의 여행 가이드와 아웃도어 활동용 상호작용식 산행 가이드에 액세스하실 수 있습니다.</string>
 	<string name="whatsnew_trial_cta">지금 체험해보세요</string>

@@ -1835,7 +1835,7 @@
 	<string name="choose_dates_online_only_dialog_title">Ağ bağlantısı yok</string>
 	<string name="choose_dates_online_only_dialog_message">Tarihler ve konuk sayısı sadece çevrimiçi iken seçilebilir. Lütfen ayarlarını kontrol edin ve internete bağlı olduğunuzdan emin olun.</string>
 	<string name="choose_dates_online_only_dialog_cta">Ayarlar</string>
-	<string name="30_days_limit_dialog">Maksimum 30 gecelik rezervasyon yapabilirsiniz</string>
+	<string name="thirty_days_limit_dialog">Maksimum 30 gecelik rezervasyon yapabilirsiniz</string>
 	<string name="whatsnew_trial_title">Rehber kataloğuna ücretsiz erişim</string>
 	<string name="whatsnew_trial_message">Artık kullanıcılarımıza 7 günlük deneme süresi sunuyoruz. Tüm dünyadan seyahat rehberlerine ve doğa gezilerini seven kullanıcılar için interaktif dağ profillerine erişim.</string>
 	<string name="whatsnew_trial_cta">Hemen deneyin</string>

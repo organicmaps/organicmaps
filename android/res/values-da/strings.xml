@@ -1834,7 +1834,7 @@
 	<string name="choose_dates_online_only_dialog_title">Ingen netværksforbindelse</string>
 	<string name="choose_dates_online_only_dialog_message">Datoer og antal gæster kan kun vælges, når du er online. Kontroller venligst dine indstillinger og sørg for, du er forbundet til internettet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Indstillinger</string>
-	<string name="30_days_limit_dialog">Du kan booke maksimalt 30 nætter</string>
+	<string name="thirty_days_limit_dialog">Du kan booke maksimalt 30 nætter</string>
 	<string name="whatsnew_trial_title">Gratis afgang til guidekataloget</string>
 	<string name="whatsnew_trial_message">Vi tilbyder nu en gratis 7 dages prøveperiode. Få adgang til tusindvis af rejseguider i hele verden og en interaktiv elevationsprofil til udendørsguider.</string>
 	<string name="whatsnew_trial_cta">Prøv det nu</string>

@@ -1830,7 +1830,7 @@
 	<string name="choose_dates_online_only_dialog_title">Connessione internet assente</string>
 	<string name="choose_dates_online_only_dialog_message">Le date e il numero degli ospiti sono selezionabili solamente online. Controlla le impostazioni e assicurati di essere connesso a internet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Impostazioni</string>
-	<string name="30_days_limit_dialog">È possibile prenotare una struttura al massimo per 30 notti</string>
+	<string name="thirty_days_limit_dialog">È possibile prenotare una struttura al massimo per 30 notti</string>
 	<string name="whatsnew_trial_title">Accesso gratuito al catalogo guide</string>
 	<string name="whatsnew_trial_message">Abbiamo aggiunto un periodo di prova gratuito dell\'abbonamento. Migliaia di percorsi in tutto il mondo e addirittura un profilo altimetrico interattivo per le guide all\'aria aperta.</string>
 	<string name="whatsnew_trial_cta">Provalo</string>

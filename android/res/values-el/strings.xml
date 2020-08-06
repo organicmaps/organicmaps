@@ -1592,7 +1592,7 @@
 	<string name="choose_dates_online_only_dialog_title">Δεν υπάρχει σύνδεση</string>
 	<string name="choose_dates_online_only_dialog_message">Η επιλογή ημερομηνιών και αριθμού επισκεπτών είναι διαθέσιμη μόνο σε απευθείας σύνδεση. Ελέγξτε τις ρυθμίσεις σας και βεβαιωθείτε ότι είστε συνδεδεμένοι στο Διαδίκτυο.</string>
 	<string name="choose_dates_online_only_dialog_cta">Ρυθμίσεις</string>
-	<string name="30_days_limit_dialog">Μπορείτε να κάνετε κράτηση έως και για 30 διανυκτερεύσεις</string>
+	<string name="thirty_days_limit_dialog">Μπορείτε να κάνετε κράτηση έως και για 30 διανυκτερεύσεις</string>
 	<string name="whatsnew_trial_title">Δωρεάν πρόσβαση στους ταξιδιωτικούς οδηγούς</string>
 	<string name="whatsnew_trial_message">Έχουμε εισαγάγει μια δοκιμαστική περίοδο 7 ημερών. Έχουμε ενημερώσει τον κατάλογο οδηγών και έχουμε προσθέσει μεταφράσεις σε δημοφιλείς γλώσσες.</string>
 	<string name="whatsnew_trial_cta">Δοκιμή</string>

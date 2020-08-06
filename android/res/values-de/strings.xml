@@ -1838,7 +1838,7 @@
 	<string name="choose_dates_online_only_dialog_title">Keine Internetverbindung</string>
 	<string name="choose_dates_online_only_dialog_message">Die Auswahl des Datums und der Anzahl der Gäste ist nur online möglich. Überprüfen sie Ihre Einstellungen und Ihre Internetverbindung.</string>
 	<string name="choose_dates_online_only_dialog_cta">Einstellungen</string>
-	<string name="30_days_limit_dialog">Sie können höchstens 30 Nächte buchen</string>
+	<string name="thirty_days_limit_dialog">Sie können höchstens 30 Nächte buchen</string>
 	<string name="whatsnew_trial_title">Gratis-Zugriff auf die Reiseführer</string>
 	<string name="whatsnew_trial_message">Wir haben den 7-tägigen Gratis-Probeabozeitraum gestartet. Tausende Routen weltweit, interaktives Höhenprofil in den Reiseführern für Aktivurlaub.</string>
 	<string name="whatsnew_trial_cta">Ausprobieren</string>

@@ -1770,7 +1770,7 @@
 	<string name="choose_dates_online_only_dialog_title">به اینترنت متصل نیستید</string>
 	<string name="choose_dates_online_only_dialog_message">روزها و تعداد مهمانان را فقط هنگام اتصال به اینترنت میتوانید انتخاب کنید. لطفاً تنظیمات خود را بررسی کرده و از اتصال خود به اینترنت مطمئن شوید.</string>
 	<string name="choose_dates_online_only_dialog_cta">تنظیمات</string>
-	<string name="30_days_limit_dialog">شما می توانید حداکثر 30 شب رزرو کنید</string>
+	<string name="thirty_days_limit_dialog">شما می توانید حداکثر 30 شب رزرو کنید</string>
 	<string name="whatsnew_trial_title">دسترسی رایگان به کاتالوگ راهنما</string>
 	<string name="whatsnew_trial_message">پیشنهاد میکنیم از دورۀ آزمایشی و رایگان 7 روزه استفاده کنید. به هزاران راهنمای سفر در سراسر جهان و یک نقشۀ ارتفاعنمای مناسب سفرهای برون شهری دسترسی پیدا کنید.</string>
 	<string name="whatsnew_trial_cta">همین الان امتحان کنید</string>

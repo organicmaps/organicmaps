@@ -1841,7 +1841,7 @@
 	<string name="choose_dates_online_only_dialog_title">Brak połączenia</string>
 	<string name="choose_dates_online_only_dialog_message">Wybór dat i liczby gości jest dostępny tylko online. Sprawdź swoje ustawienia i upewnij się, że masz połączenie z Internetem.</string>
 	<string name="choose_dates_online_only_dialog_cta">Ustawienia</string>
-	<string name="30_days_limit_dialog">Możliwość rezerwacji na maksymalnie 30 nocy</string>
+	<string name="thirty_days_limit_dialog">Możliwość rezerwacji na maksymalnie 30 nocy</string>
 	<string name="whatsnew_trial_title">Bezpłatny dostęp do przewodników</string>
 	<string name="whatsnew_trial_message">Uruchomiliśmy 7-dniowy okres próbny subskrypcji. Tysiące tras na całym świecie oraz interaktywny profil wysokości w zewnętrznych przewodnikach turystycznych.</string>
 	<string name="whatsnew_trial_cta">Spróbuj</string>

@@ -1836,7 +1836,7 @@
 	<string name="choose_dates_online_only_dialog_title">Немає з’єднання</string>
 	<string name="choose_dates_online_only_dialog_message">Вибір дат і кількості гостей доступний тільки онлайн. Перевірте налаштування та переконайтеся, що ви підключені до Інтернету.</string>
 	<string name="choose_dates_online_only_dialog_cta">Налаштування</string>
-	<string name="30_days_limit_dialog">Забронювати можна щонайбільше на 30 ночей</string>
+	<string name="thirty_days_limit_dialog">Забронювати можна щонайбільше на 30 ночей</string>
 	<string name="whatsnew_trial_title">Безкоштовний доступ до путівників</string>
 	<string name="whatsnew_trial_message">Ми запустили 7-денний пробний період передплати. Тисячі маршрутів у всьому світі, а також інтерактивний профіль висот у путівниках для активного відпочинку.</string>
 	<string name="whatsnew_trial_cta">Спробувати</string>

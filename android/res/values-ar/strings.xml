@@ -1835,7 +1835,7 @@
 	<string name="choose_dates_online_only_dialog_title">لا يوجد اتصال</string>
 	<string name="choose_dates_online_only_dialog_message">لا يمكن اختيار التواريخ وعدد الضيوف إلا عند الاتصال بالإنترنت. يرجى التحقق من إعداداتك والتأكد أنك متصل بالإنترنت.</string>
 	<string name="choose_dates_online_only_dialog_cta">الإعدادات</string>
-	<string name="30_days_limit_dialog">يمكنك الحجز لـ 30 ليلة كحد أقصى</string>
+	<string name="thirty_days_limit_dialog">يمكنك الحجز لـ 30 ليلة كحد أقصى</string>
 	<string name="whatsnew_trial_title">وصول مجاني إلى قائمة الدلائل</string>
 	<string name="whatsnew_trial_message">نقدم الآن تجربة مجانية لمدة 7 أيام. يمكنك الوصول إلى الآلاف من أدلة السفر حول العالم وملف تحديد الارتفاع التفاعلي لأدلة الأنشطة الخارجية.</string>
 	<string name="whatsnew_trial_cta">جربه الآن</string>
