@@ -3368,6 +3368,10 @@
 
 "subscription_terms_android_outdoor" = "El pago se cargará a tu cuenta de Google Play en la confirmación de la compra. La suscripción se renovará automáticamente a menos que la función de renovación automática esté desactivada al menos 24 horas antes del final del período de suscripción actual. Tu cuenta se cargará de acuerdo con tu plan de renovación dentro de las 24 horas antes de que finalice el período de suscripción actual. Puedes administrar o deshabilitar la renovación automática yendo a la configuración de tu cuenta después de la compra. Solo podrás usar las guías descargadas de tu suscripción durante su período de vigencia. Después de 30 días después del final de la suscripción, las guías se eliminarán automáticamente.\n* La suscripción con un período de prueba gratuito se renovará automáticamente a una suscripción paga. Puedes cancelar o administrar la renovación automática de tu prueba gratuita en la configuración de tu cuenta después de la compra. La cancelación surtirá efecto 24 horas después del último día del período de suscripción actual, después de eso, serás trasferido al servicio gratuito. Ten en cuenta que cualquier parte no utilizada de la prueba gratuita se perderá cuando compres una suscripción premium durante la prueba gratuita.";
 
+"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
+
+"sberbank_map_downloader_cta_button" = "Узнать больше";
+
 
 /**********  Partners  **********/
 

@@ -3368,6 +3368,10 @@
 
 "subscription_terms_android_outdoor" = "Po potvrdení nákupu sa platba naúčtuje na váš Google Play účet. Predplatné sa automaticky obnoví, pokiaľ nie je funkcia automatického obnovenia vypnutá najmenej 24 hodín pred koncom aktuálneho obdobia predplatného. Váš účet bude zaúčtovaný podľa plánu obnovenia do 24 hodín pred koncom súčasného obdobia predplatného. Automatické obnovenie môžete spravovať alebo deaktivovať v nastaveniach účtu kedykoľvek po zakúpení. Sprievodcov, ktorých ste si stiahli počas predplatného, môžete používať iba do vypršania platnosti predplatného. Sprievodcovia sa automaticky odstránia 30 dní po uplynutí platnosti predplatného.\n* Predplatné s bezplatnou skúšobnou dobou sa automaticky obnoví na platené predplatné. Po zakúpení môžete automatické obnovenie bezplatnej skúšobnej verzie zrušiť alebo spravovať v nastaveniach svojho účtu. Zrušenie nadobudne účinnosť 24 hodín po poslednom dni aktuálneho obdobia predplatného. Potom budete zaradení do bezplatnej služby. Upozornenie: Akákoľvek nevyužitá časť bezplatnej skúšobnej verzie prepadne, keď si počas nej zakúpite prémiové predplatné.";
 
+"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
+
+"sberbank_map_downloader_cta_button" = "Узнать больше";
+
 
 /**********  Partners  **********/
 
