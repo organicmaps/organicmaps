@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import android.widget.Toast;
-
 import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
@@ -21,9 +22,13 @@ import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
 import com.mapswithme.maps.purchase.BookmarkPaymentActivity;
+import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
+import com.mapswithme.maps.purchase.BookmarksSightsSubscriptionActivity;
 import com.mapswithme.maps.purchase.PurchaseUtils;
+import com.mapswithme.maps.purchase.SubscriptionType;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Statistics;
 
 class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, BookmarkDownloadCallback,
                                                    TargetFragmentCallback
@@ -118,6 +123,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
       case PurchaseUtils.REQ_CODE_PAY_CONTINUE_SUBSCRIPTION:
         BookmarkManager.INSTANCE.resetExpiredCategories();
         break;
+      case PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION:
       case PurchaseUtils.REQ_CODE_PAY_BOOKMARK:
         mDownloadController.retryDownloadBookmark();
         break;
@@ -185,6 +191,22 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   @Override
   public void onPaymentRequired(@NonNull PaymentData data)
   {
+    if (TextUtils.isEmpty(data.getProductId()))
+    {
+      SubscriptionType type = SubscriptionType.getTypeByBookmarksGroup(data.getGroup());
+
+      if (type.equals(SubscriptionType.BOOKMARKS_SIGHTS))
+      {
+        BookmarksSightsSubscriptionActivity.startForResult
+            (mFragment, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.WEBVIEW);
+        return;
+      }
+
+      BookmarksAllSubscriptionActivity.startForResult
+          (mFragment, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.WEBVIEW);
+      return;
+    }
+
     BookmarkPaymentActivity.startForResult(mFragment, data, PurchaseUtils.REQ_CODE_PAY_BOOKMARK);
   }
 
