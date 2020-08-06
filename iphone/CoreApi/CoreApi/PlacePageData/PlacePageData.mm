@@ -286,7 +286,7 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   }
 
   NSString * currencyCode = [NSLocale.currentLocale currencyCode];
-  if (currencyCode == nil || currencyCode.length == 0) {
+  if (currencyCode == nil || currencyCode.length == 0 || [currencyCode isEqualToString:@"XXX"]) {
     currencyCode = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] currencyCode];
   }
   std::string currency = [currencyCode UTF8String];
