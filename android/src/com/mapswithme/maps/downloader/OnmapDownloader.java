@@ -45,6 +45,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   @NonNull
   private final View mBannerContainer;
   @NonNull
+  private final View mBannerContainerBigLogo;
+  @NonNull
   private final View mPromoContentDivider;
 
   private int mStorageSubscriptionSlot;
@@ -294,6 +296,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     downloadGuidesBtn.setOnClickListener(new CatalogCallToActionListener());
     mPromoContentDivider = mFrame.findViewById(R.id.onmap_downloader_divider);
     mBannerContainer = mFrame.findViewById(R.id.banner);
+    // Dummy will be changed with correct view id.
+    mBannerContainerBigLogo = mFrame.findViewById(R.id.banner);
   }
 
   private void updateBannerVisibility()
@@ -306,18 +310,21 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
     if (!isMapDownloading(mCurrentCountry) || !isPromoFound)
     {
-      UiUtils.hide(mPromoContentDivider, mBannerContainer, mCatalogCallToActionContainer);
+      UiUtils.hide(mPromoContentDivider, mBannerContainer, mBannerContainerBigLogo,
+                   mCatalogCallToActionContainer);
       return;
     }
     UiUtils.show(mPromoContentDivider);
 
     boolean hasCatalogPromo = mPromoBanner.getType() == DownloaderBannerType.BOOKMARK_CATALOG;
+    boolean hasBigLogo = mPromoBanner.getType() == DownloaderBannerType.MASTERCARD_SBERBANK;
 
-    View bannerView = hasCatalogPromo ? mCatalogCallToActionContainer : mBannerContainer;
+    View bannerView = hasCatalogPromo ? mCatalogCallToActionContainer
+                                      : hasBigLogo ? mBannerContainerBigLogo : mBannerContainer;
     mPromoBanner.getType().getViewConfigStrategy().configureView(bannerView, R.id.icon, R.id.text,
                                                                  R.id.banner_button);
-    UiUtils.showIf(!hasCatalogPromo, mBannerContainer);
-    UiUtils.showIf(hasCatalogPromo, mCatalogCallToActionContainer);
+    UiUtils.hide(mCatalogCallToActionContainer, mBannerContainerBigLogo, mBannerContainer);
+    UiUtils.show(bannerView);
   }
 
   @Override

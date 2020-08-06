@@ -783,6 +783,7 @@ public enum Statistics
     public static final String TINKOFF_ALL_AIRLINES = "Tinkoff_AllAirlines";
     public static final String SKYENG = "Skyeng";
     public static final String MTS = "MTS";
+    public static final String MASTERCARD_SBERBANK = "MastercardSberbank";
     public static final String WIKIPEDIA = "wikipedia";
     public static final String PREVIEW = "preview";
     public static final String FULL = "full";

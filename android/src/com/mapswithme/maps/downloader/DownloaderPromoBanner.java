@@ -34,6 +34,7 @@ public final class DownloaderPromoBanner
       case 6: return DownloaderBannerType.MTS;
       case 7: return DownloaderBannerType.SKYENG;
       case 8: return DownloaderBannerType.BOOKMARK_CATALOG;
+      case 9: return DownloaderBannerType.MASTERCARD_SBERBANK;
       default: throw new AssertionError("Incorrect core banner type: " + coreValue);
     }
   }

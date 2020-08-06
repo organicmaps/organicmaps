@@ -69,6 +69,20 @@ enum DownloaderBannerType implements StatisticValueConverter<String>
     {
       return Statistics.ParamValue.MAPSME_GUIDES;
     }
+  },
+  // Dummy resources, will be changed when layout will be done
+  MASTERCARD_SBERBANK(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_skyeng,
+                                                                R.string.skyeng_map_downloader_title,
+                                                                R.string.skyeng_map_downloader_cta_button,
+                                                                R.color.white_primary,
+                                                                R.color.skyeng_button))
+  {
+      @NonNull
+      @Override
+      public String toStatisticValue()
+      {
+        return Statistics.ParamValue.MASTERCARD_SBERBANK;
+      }
   };
 
   @NonNull
