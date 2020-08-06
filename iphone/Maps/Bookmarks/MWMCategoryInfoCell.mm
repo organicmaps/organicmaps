@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * infoHeightConstraint;
 
 @property(copy, nonatomic) NSAttributedString *info;
-@property(copy, nonatomic) NSString *shortInfo;
+@property(copy, nonatomic) NSAttributedString *shortInfo;
 @property (weak, nonatomic) id<MWMCategoryInfoCellDelegate> delegate;
 
 @end
@@ -39,7 +39,7 @@
     if (expanded)
       self.infoTextView.attributedText = self.info;
     else
-      self.infoTextView.text = self.shortInfo;
+      self.infoTextView.attributedText = self.shortInfo;
   }
 
   self.infoToBottomConstraint.active = expanded;
@@ -54,27 +54,37 @@
   self.titleLabel.text = @(GetPreferredBookmarkStr(data.m_name).c_str());
   self.authorLabel.text = [NSString stringWithCoreFormat:L(@"author_name_by_prefix")
                                                arguments:@[@(data.m_authorName.c_str())]];
-  auto infoHtml = @(GetPreferredBookmarkStr(data.m_description).c_str());
+
+  auto infoHtml = @((GetPreferredBookmarkStr(data.m_description)).c_str());
   auto info = [[NSMutableAttributedString alloc] initWithHtmlString:infoHtml
                                                            baseFont:[UIFont regular14]
                                                      estimatedWidth:[UIScreen mainScreen].bounds.size.width - 32.0f];
   [info addAttribute: NSForegroundColorAttributeName
                value:[UIColor blackPrimaryText]
                range:NSMakeRange(0, [info length])];
-  auto shortInfo = @(GetPreferredBookmarkStr(data.m_annotation).c_str());
-  if (info.length > 0 && shortInfo.length > 0)
+
+  auto shortInfoHtml = @(GetPreferredBookmarkStr(data.m_annotation).c_str());
+  auto shortInfo = [[NSMutableAttributedString alloc] initWithHtmlString:[NSString stringWithFormat:@"<b>%@</b>", shortInfoHtml]
+                                                           baseFont:[UIFont bold14]
+                                                     estimatedWidth:[UIScreen mainScreen].bounds.size.width - 32.0f];
+  [shortInfo addAttribute: NSForegroundColorAttributeName
+               value:[UIColor blackPrimaryText]
+               range:NSMakeRange(0, [shortInfo length])];
+
+  if (infoHtml.length > 0 && shortInfoHtml.length > 0)
   {
+   [info insertAttributedString:shortInfo atIndex:0];
     self.info = info;
     self.shortInfo = shortInfo;
-    self.infoTextView.text = shortInfo;
+    self.infoTextView.attributedText = shortInfo;
   }
-  else if (info.length > 0)
+  else if (infoHtml.length > 0)
   {
     self.infoTextView.attributedText = info;
   }
   else
   {
-    self.infoTextView.text = shortInfo;
+    self.infoTextView.attributedText = shortInfo;
     self.expanded = YES;
   }
 }
