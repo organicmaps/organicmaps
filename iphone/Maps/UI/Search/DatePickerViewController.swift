@@ -74,7 +74,7 @@ extension DatePickerViewController: DatePickerViewDelegate {
 
     if date > startDate && view.endDate == nil {
       guard Calendar.current.dateComponents([.day], from: startDate, to: date).day! <= 30 else {
-        MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("30_days_limit_dialog"),
+        MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("thirty_days_limit_dialog"),
                                                                  message: nil, rightButtonTitle: L("ok"),
                                                                  leftButtonTitle: nil,
                                                                  rightButtonAction: nil)

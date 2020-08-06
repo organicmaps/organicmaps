@@ -48531,7 +48531,7 @@
     zh-Hant = 设置
     fa = تنظیمات
 
-  [30_days_limit_dialog]
+  [thirty_days_limit_dialog]
     en = You can book for a maximum of 30 nights
     ru = Забронировать можно максимум на 30 ночей
     ar = يمكنك الحجز لـ 30 ليلة كحد أقصى
