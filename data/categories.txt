@@ -2062,7 +2062,7 @@ hu:3Városháza|Községháza|Önkormányzat
 id:3Balai kota
 it:3Municipio
 ja:1役場|1公会堂|1町役場
-ko:1시청사
+ko:1시청사|시청
 nb:3Rådhus
 pl:3Ratusz
 pt:3Prefeitura
