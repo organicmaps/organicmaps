@@ -354,7 +354,7 @@
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionTerms"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription_terms_guides"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription_terms_guides_outdoor"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2O1-n3-hBU" userLabel="TermsOfUse">
