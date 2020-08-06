@@ -145,7 +145,7 @@ extension AllPassSubscriptionViewController: SubscriptionViewProtocol {
       trialSubscriptionButton.isHidden = false
       trialSubscriptionLabel.isHidden = false
       stackTopOffset.constant = stackTopOffsetTrial
-      trialSubscriptionLabel.text = String(format: L("guides_trial_message"), trialData.price)
+      trialSubscriptionLabel.text = String(coreFormat: L("guides_trial_message"), arguments: [trialData.price])
     }
   }
 }
