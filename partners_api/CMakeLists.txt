@@ -23,6 +23,8 @@ set(
   ads/mts_ads.hpp
   ads/rb_ads.cpp
   ads/rb_ads.hpp
+  ads/mastercard_sber_ads.cpp
+  ads/mastercard_sber_ads.hpp
   ads/skyeng_ads.cpp
   ads/skyeng_ads.hpp
   ads/tinkoff_allairlines_ads.cpp

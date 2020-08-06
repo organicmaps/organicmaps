@@ -26,6 +26,7 @@ struct Banner
     Mts = 6,
     Skyeng = 7,
     BookmarkCatalog = 8,
+    MastercardSberbank = 9,
   };
 
   Banner() = default;
@@ -48,6 +49,7 @@ inline std::string DebugPrint(Banner::Type type)
   case Banner::Type::Mts: return "Mts";
   case Banner::Type::Skyeng: return "Skyeng";
   case Banner::Type::BookmarkCatalog: return "BookmarkCatalog";
+  case Banner::Type::MastercardSberbank: return "MastercardSberbank";
   }
   UNREACHABLE();
 }

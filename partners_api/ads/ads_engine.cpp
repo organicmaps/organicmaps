@@ -2,13 +2,9 @@
 
 #include "partners_api/ads/bookmark_catalog_ads.hpp"
 #include "partners_api/ads/facebook_ads.hpp"
-#include "partners_api/ads/google_ads.hpp"
+#include "partners_api/ads/mastercard_sber_ads.hpp"
 #include "partners_api/ads/mopub_ads.hpp"
-#include "partners_api/ads/mts_ads.hpp"
 #include "partners_api/ads/rb_ads.hpp"
-#include "partners_api/ads/skyeng_ads.hpp"
-#include "partners_api/ads/tinkoff_allairlines_ads.hpp"
-#include "partners_api/ads/tinkoff_insurance_ads.hpp"
 
 #include "indexer/feature_data.hpp"
 
@@ -53,11 +49,8 @@ Engine::Engine(std::unique_ptr<Delegate> delegate)
 
   m_searchBanners.emplace_back(Banner::Type::Facebook, std::make_unique<FacebookSearch>());
 
-  m_downloadOnMapBanners.emplace_back(Banner::Type::TinkoffAllAirlines,
-                                      std::make_unique<TinkoffAllAirlines>(*m_delegate));
-  m_downloadOnMapBanners.emplace_back(Banner::Type::TinkoffInsurance,
-                                      std::make_unique<TinkoffInsurance>(*m_delegate));
-  m_downloadOnMapBanners.emplace_back(Banner::Type::Skyeng, std::make_unique<Skyeng>(*m_delegate));
+  m_downloadOnMapBanners.emplace_back(Banner::Type::MastercardSberbank,
+                                      std::make_unique<MastercardSberbank>(*m_delegate));
   m_downloadOnMapPromo.emplace_back(Banner::Type::BookmarkCatalog,
                                     std::make_unique<BookmarkCatalog>(*m_delegate));
 }
