@@ -23,20 +23,24 @@ T PopType(std::vector<uint8_t> & data)
   if (data.empty())
     return t;
 
-  t = *reinterpret_cast<T*>(data.data());
-  if (data.size() <= sizeof(T))
+  if (data.size() < sizeof(T))
+  {
     data.clear();
-  else
-    data.erase(data.begin(), std::next(data.begin(), sizeof(T)));
+    return t;
+  }
 
+  t = *reinterpret_cast<T *>(data.data());
+  data.erase(data.begin(), std::next(data.begin(), sizeof(T)));
   return t;
 }
 
 TrafficGPSEncoder::DataPoint PopDataPoint(std::vector<uint8_t> & data)
 {
-  return TrafficGPSEncoder::DataPoint(PopType<uint64_t>(data) /* timestamp */,
-                                      ms::LatLon(PopType<double>(data), PopType<double>(data)),
-                                      PopType<uint8_t>(data) /* traffic */);
+  auto const timestamp = PopType<uint64_t>(data);
+  auto const lat = PopType<double>(data);
+  auto const lon = PopType<double>(data);
+  auto const traffic = PopType<uint8_t>(data);
+  return TrafficGPSEncoder::DataPoint(timestamp, ms::LatLon(lat, lon), traffic);
 }
 }  // namespace
 
