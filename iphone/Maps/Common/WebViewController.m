@@ -181,7 +181,13 @@
     return;
   }
 
-  decisionHandler(WKNavigationActionPolicyAllow);
+  if ([inRequest.URL isEqual: _m_url]) {
+    decisionHandler(WKNavigationActionPolicyAllow);
+  } else {
+    _m_url = inRequest.URL;
+    [self performURLRequest];
+    decisionHandler(WKNavigationActionPolicyCancel);
+  }
 }
 
 - (void)forward
