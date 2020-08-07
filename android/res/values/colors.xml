@@ -232,6 +232,7 @@
   <color name="tinkoff_button">#FFDD2D</color>
   <color name="mts_button">#E30611</color>
   <color name="skyeng_button">#4287DF</color>
+  <color name="mastercard_sberbank_button">#009A37</color>
   <color name="city_color">#9B24B2</color>
   <color name="city_color_night">#9867FC</color>
   <color name="outdoor_color_night">#93BF39</color>

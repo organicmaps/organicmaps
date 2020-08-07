@@ -97,46 +97,20 @@
       android:layout_height="match_parent"
       android:orientation="vertical"
       android:gravity="center">
-      <LinearLayout
-        android:id="@+id/banner"
-        android:layout_marginTop="@dimen/margin_half"
+      <include
         android:layout_width="@dimen/square_block_size"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:gravity="center"
         android:layout_height="wrap_content"
-        tools:visibility="gone">
-        <ImageView
-          android:id="@+id/icon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
-        <TextView
-          android:id="@id/text"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_half"
-          android:gravity="center"
-          android:textAppearance="@style/MwmTextAppearance.Body4"
-          android:textColor="?android:textColorPrimary"/>
-        <Button
-          android:id="@+id/banner_button"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingLeft="@dimen/margin_half"
-          android:paddingStart="@dimen/margin_half"
-          android:paddingRight="@dimen/margin_half"
-          android:paddingEnd="@dimen/margin_half"
-          android:paddingTop="@dimen/margin_quarter_plus"
-          android:paddingBottom="@dimen/margin_quarter_plus"
-          android:layout_marginTop="@dimen/margin_base"
-          android:fontFamily="@string/robotoMedium"
-          android:textAllCaps="false"
-          android:textSize="@dimen/text_size_body_3"
-          style="?android:attr/borderlessButtonStyle"
-          android:textColor="@color/white_primary"
-          android:lines="1"
-          tools:targetApi="jelly_bean"/>
-      </LinearLayout>
+        android:layout_marginTop="@dimen/margin_half"
+        layout="@layout/onmap_downloader_banner"
+        android:visibility="gone">
+      </include>
+      <include
+        android:layout_width="@dimen/square_block_size"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_quarter"
+        layout="@layout/onmap_downloader_banner_big_logo"
+        android:visibility="gone">
+      </include>
       <LinearLayout
         android:id="@+id/catalog_call_to_action_container"
         android:orientation="vertical"

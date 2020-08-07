@@ -295,9 +295,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     mCatalogCallToActionContainer = mFrame.findViewById(R.id.catalog_call_to_action_container);
     downloadGuidesBtn.setOnClickListener(new CatalogCallToActionListener());
     mPromoContentDivider = mFrame.findViewById(R.id.onmap_downloader_divider);
-    mBannerContainer = mFrame.findViewById(R.id.banner);
-    // Dummy will be changed with correct view id.
-    mBannerContainerBigLogo = mFrame.findViewById(R.id.banner);
+    mBannerContainer = mFrame.findViewById(R.id.onmap_downloader_banner);
+    mBannerContainerBigLogo = mFrame.findViewById(R.id.onmap_downloader_banner_big_logo);
   }
 
   private void updateBannerVisibility()
