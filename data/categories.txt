@@ -575,7 +575,7 @@ hu:3Pénzváltó|pénz
 id:3Pertukaran valuta|pertukaran
 it:3Cambio valute|valuta|soldi
 ja:1為替|マネー|お金|通貨|金|両替
-ko:1환전|돈|교환을
+ko:1환전|돈|교환을|환전소
 nb:4Valutaveksling
 pl:4Kantor|5wymiana|pieniądze
 pt:3Câmbio|3troca|dinheiro
@@ -998,7 +998,7 @@ hu:Hentes|Mészáros
 id:Tukang daging
 it:Macellaio
 ja:肉屋|お買い物|ショップ|商店|雑貨
-ko:정육점의|가게
+ko:정육점의|푸줏간|정육져|정육ㅈ|정육조|정육좀|정육조멈|정육조머|정육점
 nb:Slakter
 pl:Rzeźnik|towary|Sklep mięsny
 pt:Açougueiro|2loja
@@ -1286,7 +1286,7 @@ hu:Ajándékbolt|Souvenir|Szuvenír
 id:Toko hadiah
 it:Negozio di regali
 ja:ギフトショップ|お買い物|ショップ|商店|雑貨
-ko:선물 가게|가게
+ko:선물 가게|가게|기념품|선물
 nb:Gavebutikk
 pl:Sklep pamiątkarski|towary
 pt:Loja de presentes|2loja
