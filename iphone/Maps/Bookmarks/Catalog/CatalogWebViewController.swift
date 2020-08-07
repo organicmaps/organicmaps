@@ -6,6 +6,10 @@ struct CatalogCategoryInfo {
   var imageUrl: String?
   var subscriptionType: SubscriptionGroupType
 
+  var hasSinglePurchase: Bool {
+    return productId != nil
+  }
+
   init?(_ components: [String: String], type: SubscriptionGroupType) {
     guard let id = components["id"],
       let name = components["name"] else { return nil }
@@ -177,7 +181,7 @@ final class CatalogWebViewController: WebViewController {
     }
 
     if url.path.contains(subscribePath) {
-      showSubscribe(type: SubscriptionGroupType(catalogURL: url))
+      showSubscriptionBannerScreen(SubscriptionGroupType(catalogURL: url))
       return
     }
 
@@ -211,18 +215,6 @@ final class CatalogWebViewController: WebViewController {
     loadingIndicator.stopAnimating()
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError: kStatUnknown])
-  }
-
-  private func showSubscribe(type: SubscriptionGroupType) {
-    let subscribeViewController = SubscriptionViewBuilder.build(type: type,
-                                                                parentViewController: self,
-                                                                source: kStatWebView,
-                                                                successDialog: .success) { [weak self] success in
-                                                                  if success {
-                                                                    self?.webView.reloadFromOrigin()
-                                                                  }
-    }
-    present(subscribeViewController, animated: true)
   }
 
   private func showOnMap(_ serverId: String) {
@@ -339,7 +331,11 @@ final class CatalogWebViewController: WebViewController {
               }
             }
           case .needPayment:
-            self?.showPaymentScreen(categoryInfo)
+            if categoryInfo.hasSinglePurchase {
+              self?.showPaymentScreen(categoryInfo)
+            } else {
+              self?.showSubscriptionScreen(categoryInfo)
+            }
           case .notFound:
             self?.showServerError()
           case .networkError:
@@ -387,6 +383,31 @@ final class CatalogWebViewController: WebViewController {
     paymentVC.modalTransitionStyle = .coverVertical
     paymentVC.modalPresentationStyle = .fullScreen
     navigationController?.present(paymentVC, animated: true)
+  }
+
+  private func showSubscriptionScreen(_ productInfo: CatalogCategoryInfo) {
+    let subscribeViewController = SubscriptionViewBuilder.build(type: productInfo.subscriptionType,
+                                                                parentViewController: self,
+                                                                source: kStatWebView,
+                                                                successDialog: .none) { [weak self] success in
+                                                                  if success {
+                                                                    self?.webView.reloadFromOrigin()
+                                                                    self?.download()
+                                                                  }
+    }
+    present(subscribeViewController, animated: true)
+  }
+
+  private func showSubscriptionBannerScreen(_ type: SubscriptionGroupType) {
+    let subscribeViewController = SubscriptionViewBuilder.build(type: type,
+                                                                parentViewController: self,
+                                                                source: kStatWebView,
+                                                                successDialog: .success) { [weak self] success in
+                                                                  if success {
+                                                                    self?.webView.reloadFromOrigin()
+                                                                  }
+    }
+    present(subscribeViewController, animated: true)
   }
 
   private func showDiskError() {
