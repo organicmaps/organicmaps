@@ -300,6 +300,7 @@ static NSString *const kStatTinkoffInsurance = @"Tinkoff_Insurance";
 static NSString *const kStatTurnOn = @"turn_on";
 static NSString *const kStatMts = @"MTS";
 static NSString *const kStatSkyeng = @"Skyeng";
+static NSString *const kStatMastercardSberbank = @"MastercardSberbank";
 static NSString *const kStatSubway = @"subway";
 static NSString *const kStatMenu = @"menu";
 static NSString *const kStatMethod = @"method";

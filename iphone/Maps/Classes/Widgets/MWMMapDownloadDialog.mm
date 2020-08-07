@@ -281,6 +281,8 @@ using namespace storage;
   case MWMBannerTypeMts: return kStatMts;
   case MWMBannerTypeSkyeng: return kStatSkyeng;
   case MWMBannerTypeBookmarkCatalog: return kStatMapsmeGuides;
+  case MWMBannerTypeMastercardSberbank:
+    return kStatMastercardSberbank;
   default: return @("");
   }
 }
@@ -295,9 +297,10 @@ using namespace storage;
       case MWMBannerTypeTinkoffAllAirlines:
       case MWMBannerTypeTinkoffInsurance:
       case MWMBannerTypeMts:
-      case MWMBannerTypeSkyeng: {
+      case MWMBannerTypeSkyeng:
+      case MWMBannerTypeMastercardSberbank: {
         __weak __typeof(self) ws = self;
-        PartnerBannerViewController *controller = [[PartnerBannerViewController alloc] initWithTapHandler:^{
+        MWMVoidBlock onClick = ^{
           [ws bannerAction];
           [Statistics logEvent:kStatDownloaderBannerClick
                 withParameters:@{
@@ -305,13 +308,15 @@ using namespace storage;
                   kStatProvider: statProvider,
                   kStatMWMName: @(self->m_countryId.c_str())
                 }];
-        }];
-        [Statistics logEvent:kStatDownloaderBannerShow
-              withParameters:@{
-                kStatFrom: kStatMap,
-                kStatProvider: statProvider,
-                kStatMWMName: @(self->m_countryId.c_str())
-              }];
+        };
+
+        // TODO: instantiate correct controller.
+        if (bannerType == MWMBannerTypeMastercardSberbank) {
+          self.bannerViewController = nil;
+          break;
+        }
+
+        PartnerBannerViewController *controller = [[PartnerBannerViewController alloc] initWithTapHandler:onClick];
         [controller configWithType:bannerType];
         self.bannerViewController = controller;
         break;
@@ -332,11 +337,6 @@ using namespace storage;
                                  kStatProvider: statProvider
                                  }];
         }];
-        [Statistics logEvent:kStatDownloaderBannerShow
-              withParameters:@{
-                               kStatFrom: kStatMap,
-                               kStatProvider: statProvider
-                               }];
         break;
       }
       default:
@@ -363,6 +363,9 @@ using namespace storage;
                          self.bannerView.alpha = 1;
                          [self layoutIfNeeded];
                        }];
+      [Statistics
+              logEvent:kStatDownloaderBannerShow
+        withParameters:@{kStatFrom: kStatMap, kStatProvider: statProvider, kStatMWMName: @(self->m_countryId.c_str())}];
     }
   }
 }

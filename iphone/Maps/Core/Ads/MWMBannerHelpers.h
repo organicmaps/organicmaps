@@ -19,6 +19,8 @@ static inline MWMBannerType MatchBannerType(ads::Banner::Type coreType)
   case ads::Banner::Type::Mts: return MWMBannerTypeMts;
   case ads::Banner::Type::Skyeng: return MWMBannerTypeSkyeng;
   case ads::Banner::Type::BookmarkCatalog: return MWMBannerTypeBookmarkCatalog;
+  case ads::Banner::Type::MastercardSberbank:
+    return MWMBannerTypeMastercardSberbank;
   }
 }
 
