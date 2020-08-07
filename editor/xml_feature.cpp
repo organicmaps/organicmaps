@@ -565,9 +565,14 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
     if (object.UpdateMetadataValue(k, v))
       return;
 
+    // We support multiple semicolon separated cuisines. Cuisines are already processed before this
+    // loop.
     if (k == "cuisine")
       return;
 
+    // We process recycling_type tag together with "amenity"="recycling" later.
+    // We currently ignore recycling tag because it's our custom tag and we cannot
+    // import it to osm directly.
     if (k == "recycling" || k == "recycling_type")
       return;
 
