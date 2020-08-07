@@ -90,7 +90,7 @@ dependencies {
   implementation 'com.trafi:anchor-bottom-sheet-behavior:0.13-alpha'
   implementation 'com.google.firebase:firebase-messaging:17.0.0'
   implementation 'com.github.yoksnod:MPAndroidChart:3.2.0-alpha'
-  implementation 'com.google.android.material:material:1.1.0'
+  implementation 'com.google.android.material:material:1.2.0'
   implementation 'androidx.appcompat:appcompat:1.1.0'
   implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
   implementation 'androidx.preference:preference:1.1.0'
