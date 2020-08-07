@@ -2,22 +2,20 @@
 #import <CoreApi/MWMFrameworkHelper.h>
 #import "SwiftBridge.h"
 
-@interface WebViewController()
+@interface WebViewController ()
 
 @property(copy, nonatomic) MWMVoidBlock onFailure;
 @property(copy, nonatomic) MWMStringBlock onSuccess;
 @property(nonatomic) BOOL authorized;
-@property(nonatomic) WKWebView * webView;
+@property(nonatomic) WKWebView *webView;
 
 @end
 
 @implementation WebViewController
 
-- (id)initWithUrl:(NSURL *)url title:(NSString *)title
-{
+- (id)initWithUrl:(NSURL *)url title:(NSString *)title {
   self = [super initWithNibName:nil bundle:nil];
-  if (self)
-  {
+  if (self) {
     _m_url = url;
     if (title)
       self.navigationItem.title = title;
@@ -25,11 +23,9 @@
   return self;
 }
 
-- (id)initWithHtml:(NSString *)htmlText baseUrl:(NSURL *)url title:(NSString *)title
-{
+- (id)initWithHtml:(NSString *)htmlText baseUrl:(NSURL *)url title:(NSString *)title {
   self = [super initWithNibName:nil bundle:nil];
-  if (self)
-  {
+  if (self) {
     _m_htmlText = [self configuredHtmlWithText:htmlText];
     _m_url = url;
     if (title)
@@ -38,20 +34,16 @@
   return self;
 }
 
-- (NSString *)configuredHtmlWithText:(NSString *)htmlText
-{
+- (NSString *)configuredHtmlWithText:(NSString *)htmlText {
   NSString *html = [htmlText stringByReplacingOccurrencesOfString:@"<body>"
-                                                  withString:@"<body><font face=\"helvetica\" size=\"14pt\">"];
+                                                       withString:@"<body><font face=\"helvetica\" size=\"14pt\">"];
   html = [htmlText stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
   return html;
 }
 
-- (instancetype)initWithAuthURL:(NSURL *)url onSuccessAuth:(MWMStringBlock)success
-                      onFailure:(MWMVoidBlock)failure
-{
+- (instancetype)initWithAuthURL:(NSURL *)url onSuccessAuth:(MWMStringBlock)success onFailure:(MWMVoidBlock)failure {
   self = [super initWithNibName:nil bundle:nil];
-  if (self)
-  {
+  if (self) {
     _m_url = url;
     _onFailure = failure;
     _onSuccess = success;
@@ -59,14 +51,12 @@
   return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
   [super viewDidLoad];
-  UIView * view = self.view;
+  UIView *view = self.view;
   view.styleName = @"Background";
 
   self.webView = [[WKWebView alloc] initWithFrame:CGRectZero];
-//  [self.webView.scrollView setStyleAndApply:@"Background"];
   self.webView.backgroundColor = UIColor.clearColor;
   self.webView.opaque = false;
   self.webView.navigationDelegate = self;
@@ -74,13 +64,12 @@
 
   self.webView.translatesAutoresizingMaskIntoConstraints = NO;
   self.webView.autoresizesSubviews = YES;
-  NSLayoutYAxisAnchor * topAnchor = view.topAnchor;
-  NSLayoutYAxisAnchor * bottomAnchor = view.bottomAnchor;
-  NSLayoutXAxisAnchor * leadingAnchor = view.leadingAnchor;
-  NSLayoutXAxisAnchor * trailingAnchor = view.trailingAnchor;
-  if (@available(iOS 11.0, *))
-  {
-    UILayoutGuide * safeAreaLayoutGuide = view.safeAreaLayoutGuide;
+  NSLayoutYAxisAnchor *topAnchor = view.topAnchor;
+  NSLayoutYAxisAnchor *bottomAnchor = view.bottomAnchor;
+  NSLayoutXAxisAnchor *leadingAnchor = view.leadingAnchor;
+  NSLayoutXAxisAnchor *trailingAnchor = view.trailingAnchor;
+  if (@available(iOS 11.0, *)) {
+    UILayoutGuide *safeAreaLayoutGuide = view.safeAreaLayoutGuide;
     topAnchor = safeAreaLayoutGuide.topAnchor;
     bottomAnchor = safeAreaLayoutGuide.bottomAnchor;
     leadingAnchor = safeAreaLayoutGuide.leadingAnchor;
@@ -103,24 +92,19 @@
   [self willLoadUrl:^(BOOL load, NSDictionary<NSString *, NSString *> *headers) {
     __typeof(self) self = ws;
     if (load) {
-      if (self.m_htmlText)
-      {
+      if (self.m_htmlText) {
         [self.webView loadHTMLString:self.m_htmlText baseURL:self.m_url];
-      }
-      else
-      {
+      } else {
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.m_url];
         for (NSString *header in headers.allKeys) {
           [request setValue:headers[header] forHTTPHeaderField:header];
         }
-        
-        if (self.shouldAddAccessToken)
-        {
+
+        if (self.shouldAddAccessToken) {
           NSString *authHeader = [NSString stringWithFormat:@"Bearer %@", [MWMFrameworkHelper userAccessToken]];
           [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
         }
-        if ([UIColor isNightMode])
-        {
+        if ([UIColor isNightMode]) {
           [request setValue:@"dark" forHTTPHeaderField:@"x-mapsme-theme"];
         }
         [self.webView loadRequest:request];
@@ -129,36 +113,32 @@
   }];
 }
 
-- (void)willLoadUrl:(WebViewControllerWillLoadBlock)decisionHandler
-{
+- (void)willLoadUrl:(WebViewControllerWillLoadBlock)decisionHandler {
   decisionHandler(YES, nil);
 }
 
-- (BOOL)shouldAddAccessToken
-{
+- (BOOL)shouldAddAccessToken {
   return NO;
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
   [super viewDidDisappear:animated];
   if (self.isMovingFromParentViewController && !self.authorized && self.onFailure)
     self.onFailure();
 }
 
-- (void)pop
-{
+- (void)pop {
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-  NSURLRequest * inRequest = navigationAction.request;
-  if ([inRequest.URL.host isEqualToString:@"localhost"])
-  {
+- (void)webView:(WKWebView *)webView
+  decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                  decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+  NSURLRequest *inRequest = navigationAction.request;
+  if ([inRequest.URL.host isEqualToString:@"localhost"]) {
     NSString *query = inRequest.URL.query;
-    NSArray<NSString *> * components = [query componentsSeparatedByString:@"="];
-    if (components.count != 2)
-    {
+    NSArray<NSString *> *components = [query componentsSeparatedByString:@"="];
+    if (components.count != 2) {
       NSAssert(false, @"Incorrect query:", query);
       [self pop];
       decisionHandler(WKNavigationActionPolicyCancel);
@@ -172,16 +152,16 @@
     return;
   }
 
-  if (self.openInSafari && navigationAction.navigationType == WKNavigationTypeLinkActivated
-      && ![inRequest.URL.scheme isEqualToString:@"applewebdata"]) // do not try to open local links in Safari
+  if (self.openInSafari && navigationAction.navigationType == WKNavigationTypeLinkActivated &&
+      ![inRequest.URL.scheme isEqualToString:@"applewebdata"])  // do not try to open local links in Safari
   {
-    NSURL * url = [inRequest URL];
+    NSURL *url = [inRequest URL];
     [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
     decisionHandler(WKNavigationActionPolicyCancel);
     return;
   }
 
-  if ([inRequest.URL isEqual: _m_url]) {
+  if ([inRequest.URL isEqual:_m_url]) {
     decisionHandler(WKNavigationActionPolicyAllow);
   } else {
     _m_url = inRequest.URL;
@@ -190,22 +170,20 @@
   }
 }
 
-- (void)forward
-{
+- (void)forward {
   [self.webView goForward];
 }
 
-- (void)back
-{
+- (void)back {
   [self.webView goBack];
 }
 
 #if DEBUG
 - (void)webView:(WKWebView *)webView
-didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition,
-                            NSURLCredential * _Nullable credential))completionHandler {
-  NSURLCredential * credential = [[NSURLCredential alloc] initWithTrust:[challenge protectionSpace].serverTrust];
+  didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+                  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition,
+                                              NSURLCredential *_Nullable credential))completionHandler {
+  NSURLCredential *credential = [[NSURLCredential alloc] initWithTrust:[challenge protectionSpace].serverTrust];
   completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
 }
 #endif
