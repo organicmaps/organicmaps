@@ -2604,7 +2604,7 @@ fa:سایت باستان شناسی
 
 historic-castle|@tourism
 en:Castle|Palace|Fortress|U+1F3EF|U+1F3F0|U+1F451|U+1F478
-ru:Замок|Дворец|Крепость|Кремль
+ru:Замок|Дворец|Крепость
 ar:قلعة|سياحة|أماكن جذابة|مناظر
 cs:Zámek|zajímavost
 da:Slot|borg
