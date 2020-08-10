@@ -2,7 +2,6 @@
 #import <SafariServices/SafariServices.h>
 #import "CLLocation+Mercator.h"
 #import "MWMBannerHelpers.h"
-#import "MWMBookmarksBannerViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMStorage+UI.h"
 #import "MapViewController.h"
@@ -70,7 +69,7 @@ using namespace storage;
 @property(nonatomic) MWMCircularProgress *progress;
 @property(nonatomic) NSMutableArray<NSDate *> *skipDownloadTimes;
 @property(nonatomic) BOOL isAutoDownloadCancelled;
-@property(strong, nonatomic) MWMDownloadBannerViewController *bannerViewController;
+@property(strong, nonatomic) UIViewController *bannerViewController;
 
 @end
 
@@ -310,20 +309,13 @@ using namespace storage;
                 }];
         };
 
-        // TODO: instantiate correct controller.
-        if (bannerType == MWMBannerTypeMastercardSberbank) {
-          self.bannerViewController = nil;
-          break;
-        }
-
-        PartnerBannerViewController *controller = [[PartnerBannerViewController alloc] initWithTapHandler:onClick];
-        [controller configWithType:bannerType];
+        UIViewController *controller = [PartnerBannerBuilder buildWithType:bannerType tapHandler:onClick];
         self.bannerViewController = controller;
         break;
       }
       case MWMBannerTypeBookmarkCatalog: {
         __weak __typeof(self) ws = self;
-        self.bannerViewController = [[MWMBookmarksBannerViewController alloc] initWithTapHandler:^{
+        self.bannerViewController = [[BookmarksBannerViewController alloc] initWithTapHandler:^{
           __strong __typeof(self) self = ws;
           NSString *urlString = @(self->m_promoBanner.m_value.c_str());
           if (urlString.length == 0) {

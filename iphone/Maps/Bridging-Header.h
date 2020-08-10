@@ -39,7 +39,6 @@
 #import "MWMConsts.h"
 #import "MWMController.h"
 #import "MWMDiscoveryController.h"
-#import "MWMDownloadBannerViewController.h"
 #import "MWMEditorHelper.h"
 #import "MWMFrameworkListener.h"
 #import "MWMGeoTrackerCore.h"
