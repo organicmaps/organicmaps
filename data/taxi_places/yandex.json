@@ -34,7 +34,6 @@
           "Smarhon", 
           "Barysaw", 
           "Mahilyow", 
-          "Baranovichi", 
           "Zhodzina", 
           "Minsk", 
           "Mazyr", 
@@ -50,13 +49,11 @@
       }, 
       {
         "cities": [
-          "Gyumri", 
-          "Goris", 
-          "Kapan", 
-          "Vanadzor", 
-          "Yerevan"
+          "Tbilisi", 
+          "Rustavi", 
+          "Batumi"
         ], 
-        "id": "Armenia"
+        "id": "Georgia Region"
       }, 
       {
         "cities": [
@@ -81,12 +78,6 @@
       }, 
       {
         "cities": [
-          "Chi\u0219inau"
-        ], 
-        "id": "Moldova"
-      }, 
-      {
-        "cities": [
           "Fergana", 
           "Tashkent"
         ], 
@@ -101,11 +92,13 @@
       }, 
       {
         "cities": [
-          "Tbilisi", 
-          "Rustavi", 
-          "Batumi"
+          "Gyumri", 
+          "Goris", 
+          "Kapan", 
+          "Vanadzor", 
+          "Yerevan"
         ], 
-        "id": "Georgia Region"
+        "id": "Armenia"
       }, 
       {
         "cities": [
@@ -361,7 +354,6 @@
           "Bugulma", 
           "Buynaksk", 
           "Velikiye Luki", 
-          "\u0412\u0435\u043b\u044c\u0441\u043a", 
           "Vorkuta", 
           "Voskresensk", 
           "Vsevolozhsk", 
@@ -373,7 +365,6 @@
           "Dagestanskiye Ogni", 
           "Derbent", 
           "Dzhubga", 
-          "\u0414\u0438\u0432\u043d\u043e\u0433\u043e\u0440\u0441\u043a", 
           "Dinskaya", 
           "Dyatkovo", 
           "Yefremov", 
@@ -540,7 +531,6 @@
           "Magadan", 
           "Mariinsk", 
           "Meleuz", 
-          "\u041c\u0438\u0445\u0430\u0439\u043b\u043e\u0432\u043a\u0430", 
           "Mozhaisk", 
           "Mozhga", 
           "Mozdok", 
@@ -561,7 +551,6 @@
           "Otradnaya", 
           "Otradnoe", 
           "Pavlovsk", 
-          "\u041f\u0430\u0432\u043b\u043e\u0432\u0441\u043a\u0430\u044f", 
           "Petropavlovsk-Kamchatsky", 
           "Povorino", 
           "Pokhvistnevo", 
@@ -855,7 +844,7 @@
           "Oskemen", 
           "Ekibastuz", 
           "Almaty", 
-          "Astana", 
+          "\u041d\u0443\u0440-\u0421\u0443\u043b\u0442\u0430\u043d", 
           "Karaganda"
         ], 
         "id": "Kazakhstan"
