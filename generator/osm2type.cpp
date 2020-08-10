@@ -22,6 +22,7 @@
 #include "defines.hpp"
 
 #include <algorithm>
+#include <cctype>
 #include <initializer_list>
 #include <set>
 #include <string>
@@ -43,13 +44,20 @@ void ForEachTag(OsmElement * p, ToDo && toDo)
 class NamesExtractor
 {
 public:
+  enum class LangAction
+  {
+    Forbid,
+    Accept,
+    Append
+  };
+
   explicit NamesExtractor(FeatureBuilderParams & params) : m_params(params) {}
 
-  bool GetLangByKey(string const & k, string & lang)
+  LangAction GetLangByKey(string const & k, string & lang)
   {
     strings::SimpleTokenizer token(k, "\t :");
     if (!token)
-      return false;
+      return LangAction::Forbid;
 
     // Is this an international (latin) / old / alternative name.
     if (*token == "int_name" || *token == "old_name" || *token == "alt_name")
@@ -58,42 +66,68 @@ public:
 
       // Consider only pure int/alt/old name without :lang. Otherwise feature with several
       // alt_name:lang will receive random name based on tags enumeration order.
+      // For old_name we support old_name:date.
       if (++token)
-        return false;
+      {
+        if (lang != "old_name")
+          return LangAction::Forbid;
 
-      return m_savedNames.insert(lang).second;
+        if (base::AllOf(*token, [](auto const c) { return isdigit(c) || c == '-'; }))
+          return LangAction::Append;
+
+        return LangAction::Forbid;
+      }
+
+      return lang == "old_name" ? LangAction::Append : LangAction::Accept;
     }
 
     if (*token != "name")
-      return false;
+      return LangAction::Forbid;
 
     ++token;
     lang = (token ? *token : "default");
 
     // Do not consider languages with suffixes, like "en:pronunciation".
     if (++token)
-      return false;
+      return LangAction::Forbid;
 
     // Replace dummy arabian tag with correct tag.
     if (lang == "ar1")
       lang = "ar";
 
-    // Avoid duplicating names.
-    return m_savedNames.insert(lang).second;
+    return LangAction::Accept;
   }
 
   void operator()(string & k, string & v)
   {
-    string lang;
-    if (v.empty() || !GetLangByKey(k, lang))
+    if (v.empty())
       return;
-    m_params.AddName(lang, v);
+
+    string lang;
+    switch (GetLangByKey(k, lang))
+    {
+    case LangAction::Forbid: return;
+    case LangAction::Accept: m_names.emplace(lang, v); break;
+    case LangAction::Append:
+      auto & name = m_names[lang];
+      if (name.empty())
+        name = v;
+      else
+        name = name + ";" + v;
+      break;
+    }
     k.clear();
     v.clear();
   }
 
+  void Finish()
+  {
+    for (auto const & kv : m_names)
+      m_params.AddName(kv.first, kv.second);
+  }
+
 private:
-  set<string> m_savedNames;
+  map<string, string> m_names;
   FeatureBuilderParams & m_params;
 };
 
@@ -790,7 +824,11 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   PreprocessElement(p);
 
   // Stage2: Process feature name on all languages.
-  ForEachTag(p, NamesExtractor(params));
+  {
+    NamesExtractor namesExtractor(params);
+    ForEachTag(p, namesExtractor);
+    namesExtractor.Finish();
+  }
 
   // Stage3: Process base feature tags.
   TagProcessor(p).ApplyRules<void(string &, string &)>({

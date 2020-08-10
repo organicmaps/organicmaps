@@ -888,6 +888,24 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_OldName)
     params.name.GetString(StringUtf8Multilang::GetLangIndex("old_name"), s);
     TEST_EQUAL(s, "Царская Ветка", ());
   }
+  {
+    Tags const tags = {{"place", "city"},
+                       {"name", "Санкт-Петербург"},
+                       {"old_name:1914-08-31--1924-01-26", "Петроград"},
+                       {"old_name:1924-01-26--1991-09-06", "Ленинград"},
+                       {"old_name:en:1914-08-31--1924-01-26", "Petrograd"},
+                       {"old_name:en:1924-01-26--1991-09-06", "Leningrad"},
+                       {"old_name:fr", "Pétrograd;Léningrad"}};
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    std::string s;
+    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
+    TEST_EQUAL(s, "Санкт-Петербург", ());
+    params.name.GetString(StringUtf8Multilang::GetLangIndex("old_name"), s);
+    // We ignore old_name:lang and old_name:lang:dates but support old_name:dates.
+    TEST_EQUAL(s, "Петроград;Ленинград", ());
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
