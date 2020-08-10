@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/onmap_downloader_banner"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:gravity="center"
   android:orientation="vertical">
-
   <ImageView
     android:id="@+id/icon"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
-
   <TextView
     android:id="@id/text"
     android:layout_width="wrap_content"
@@ -19,7 +18,6 @@
     android:gravity="center"
     android:textAppearance="@style/MwmTextAppearance.Body4"
     android:textColor="?android:textColorPrimary" />
-
   <Button
     android:id="@+id/banner_button"
     style="?android:attr/borderlessButtonStyle"

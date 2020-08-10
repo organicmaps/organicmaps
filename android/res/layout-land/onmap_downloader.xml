@@ -98,19 +98,17 @@
       android:orientation="vertical"
       android:gravity="center">
       <include
+        layout="@layout/onmap_downloader_banner"
         android:layout_width="@dimen/square_block_size"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
-        layout="@layout/onmap_downloader_banner"
-        android:visibility="gone">
-      </include>
+        android:visibility="gone" />
       <include
+        layout="@layout/onmap_downloader_banner_big_logo"
         android:layout_width="@dimen/square_block_size"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_quarter"
-        layout="@layout/onmap_downloader_banner_big_logo"
-        android:visibility="gone">
-      </include>
+        android:visibility="gone" />
       <LinearLayout
         android:id="@+id/catalog_call_to_action_container"
         android:orientation="vertical"

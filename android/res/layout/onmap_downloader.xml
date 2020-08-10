@@ -73,19 +73,17 @@
       android:layout_height="@dimen/divider_height"
       android:background="?android:listDivider"/>
     <include
+      layout="@layout/onmap_downloader_banner"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_half"
-      layout="@layout/onmap_downloader_banner"
-      android:visibility="gone">
-    </include>
+      android:visibility="gone" />
     <include
+      layout="@layout/onmap_downloader_banner_big_logo"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base"
-      layout="@layout/onmap_downloader_banner_big_logo"
-      android:visibility="gone">
-    </include>
+      android:visibility="gone" />
     <LinearLayout
       android:id="@+id/catalog_call_to_action_container"
       android:layout_marginTop="@dimen/margin_base_plus_quarter"
