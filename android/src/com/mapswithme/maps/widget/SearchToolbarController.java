@@ -132,17 +132,10 @@ public class SearchToolbarController extends ToolbarController
     updateButtons(true);
   }
 
-  public void setFilterParams(@Nullable BookingFilterParams params)
+  public void setFilterParams(@NonNull BookingFilterParams params)
   {
     if (mChooseDatesChip == null)
       return;
-
-    if (params == null)
-    {
-      mChooseDatesChip.setText(R.string.date_picker_сhoose_dates_cta);
-      mChosenDates = null;
-      return;
-    }
 
     mChosenDates = new Pair<>(params.getCheckinMillisec(), params.getCheckoutMillisec());
     SimpleDateFormat dateFormater = new SimpleDateFormat(DAY_OF_MONTH_PATTERN,
@@ -153,6 +146,15 @@ public class SearchToolbarController extends ToolbarController
     String end = dateFormater.format(new Date(mChosenDates.second));
     mChooseDatesChip.setText(getActivity().getString(R.string.booking_filter_date_range,
                                                      start, end));
+  }
+
+  public void resetFilterParams()
+  {
+    if (mChooseDatesChip == null)
+      return;
+
+    mChooseDatesChip.setText(R.string.date_picker_сhoose_dates_cta);
+    mChosenDates = null;
   }
 
   private void updateButtons(boolean queryEmpty)

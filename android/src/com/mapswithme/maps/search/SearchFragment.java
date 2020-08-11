@@ -146,7 +146,7 @@ public class SearchFragment extends BaseMwmFragment
     {
       super.clear();
       if (mFilterController != null)
-        mFilterController.resetFilter();
+        mFilterController.resetFilterAndParams();
     }
   }
 
@@ -363,8 +363,8 @@ public class SearchFragment extends BaseMwmFragment
     }, mToolbarController);
     if (savedInstanceState != null)
       mFilterController.onRestoreState(savedInstanceState);
-    if (mInitialHotelsFilter != null || mInitialFilterParams != null)
-      mFilterController.setFilterAndParams(mInitialHotelsFilter, mInitialFilterParams);
+    mFilterController.setFilter(mInitialHotelsFilter);
+    mFilterController.setFilterParams(mInitialFilterParams);
     mFilterController.updateFilterButtonsVisibility(mFilterController.isSatisfiedForSearch());
 
     mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
@@ -502,7 +502,7 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     if (mFilterController != null)
-      mFilterController.resetFilter();
+      mFilterController.resetFilterAndParams();
 
     mToolbarController.deactivate();
 
@@ -672,10 +672,7 @@ public class SearchFragment extends BaseMwmFragment
     {
       mFilterController.updateFilterButtonsVisibility(isHotel);
       if (!isHotel)
-      {
-        mFilterController.setFilterAndParams(null, null);
-        mToolbarController.setFilterParams(null);
-      }
+        mFilterController.resetFilterAndParams();
     }
   }
 
@@ -697,8 +694,8 @@ public class SearchFragment extends BaseMwmFragment
         if (mFilterController == null)
           return;
 
-        mFilterController.setFilterAndParams(data.getParcelableExtra(FilterActivity.EXTRA_FILTER),
-                                             data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS));
+        mFilterController.setFilter(data.getParcelableExtra(FilterActivity.EXTRA_FILTER));
+        mFilterController.setFilterParams(data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS));
         runSearch();
         break;
     }
