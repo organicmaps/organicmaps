@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Obchod";
 
+"type.shop.video_games" = "Obchod s videohrami";
+
 "type.shop.wine" = "Vinařství";
 
 "type.sponsored" = "sponsored";

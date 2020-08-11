@@ -2261,6 +2261,7 @@
 	<string name="type.shop.tyres">Dekkforretning</string>
 	<string name="type.shop.variety_store">Billigbutikk</string>
 	<string name="type.shop.video">Butikk</string>
+	<string name="type.shop.video_games">Videospillbutikken</string>
 	<string name="type.shop.wine">Alkoholutsalg</string>
 	<string name="type.sport.athletics">Friidrett</string>
 	<string name="type.sport.basketball">Basketball</string>

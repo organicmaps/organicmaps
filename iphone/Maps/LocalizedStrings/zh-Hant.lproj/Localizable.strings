@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "購物";
 
+"type.shop.video_games" = "電子遊戲商城";
+
 "type.shop.wine" = "販酒處";
 
 "type.sponsored" = "sponsored";

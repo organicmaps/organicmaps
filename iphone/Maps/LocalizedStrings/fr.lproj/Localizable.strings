@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Magasin";
 
+"type.shop.video_games" = "Boutique de jeux vidéo";
+
 "type.shop.wine" = "Hors licence";
 
 "type.sponsored" = "sponsored";

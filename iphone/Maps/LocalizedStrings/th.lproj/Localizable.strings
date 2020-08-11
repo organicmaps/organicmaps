@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "ร้านค้า";
 
+"type.shop.video_games" = "ร้านขายวิดีโอเกม";
+
 "type.shop.wine" = "ร้านขายไวน์";
 
 "type.sponsored" = "sponsored";

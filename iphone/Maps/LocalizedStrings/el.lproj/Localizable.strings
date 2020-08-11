@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Κατάστημα";
 
+"type.shop.video_games" = "Κατάστημα βιντεοπαιχνιδιών";
+
 "type.shop.wine" = "Οινοπωλείο";
 
 "type.sponsored" = "sponsored";

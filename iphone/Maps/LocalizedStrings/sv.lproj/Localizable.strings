@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Butik";
 
+"type.shop.video_games" = "Videospel butik";
+
 "type.shop.wine" = "Vinhandel";
 
 "type.sponsored" = "sponsored";

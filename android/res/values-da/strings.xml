@@ -2365,6 +2365,7 @@
 	<string name="type.shop.tyres">Dækforretning</string>
 	<string name="type.shop.variety_store">Småtingsbutik</string>
 	<string name="type.shop.video">Butik</string>
+	<string name="type.shop.video_games">Computerspilbutik</string>
 	<string name="type.shop.wine">Vinhandel</string>
 	<string name="type.sport.athletics">Atletik</string>
 	<string name="type.sport.basketball">Basketball</string>

@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Toko";
 
+"type.shop.video_games" = "Toko permainan video";
+
 "type.shop.wine" = "Toko anggur";
 
 "type.sponsored" = "sponsored";

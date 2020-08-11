@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Cửa hàng";
 
+"type.shop.video_games" = "Cửa hàng bán trò chơi điện tử";
+
 "type.shop.wine" = "Rượu";
 
 "type.sponsored" = "sponsored";

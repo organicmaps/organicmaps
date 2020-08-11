@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "쇼핑";
 
+"type.shop.video_games" = "비디오 게임 가게";
+
 "type.shop.wine" = "와인 샵";
 
 "type.sponsored" = "sponsored";

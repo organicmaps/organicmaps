@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Winkel";
 
+"type.shop.video_games" = "Winkel voor videogames";
+
 "type.shop.wine" = "Wijn";
 
 "type.sponsored" = "sponsored";

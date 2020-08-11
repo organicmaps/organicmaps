@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Крамниця";
 
+"type.shop.video_games" = "Магазин відеоігор";
+
 "type.shop.wine" = "Винна крамниця";
 
 "type.sponsored" = "sponsored";

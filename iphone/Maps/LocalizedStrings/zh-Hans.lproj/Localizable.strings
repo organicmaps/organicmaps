@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "商店";
 
+"type.shop.video_games" = "电子游戏商城";
+
 "type.shop.wine" = "贩酒处";
 
 "type.sponsored" = "sponsored";

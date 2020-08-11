@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Bolt";
 
+"type.shop.video_games" = "Videojáték bolt";
+
 "type.shop.wine" = "Szeszesital-üzlet";
 
 "type.sponsored" = "sponsored";

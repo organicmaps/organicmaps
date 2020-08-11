@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Магазин";
 
+"type.shop.video_games" = "Магазин видеоигр";
+
 "type.shop.wine" = "Винный магазин";
 
 "type.sponsored" = "sponsored";

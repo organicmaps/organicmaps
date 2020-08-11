@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "Magazin";
 
+"type.shop.video_games" = "Magazin de jocuri video";
+
 "type.shop.wine" = "Magazin de băuturi alcolice";
 
 "type.sponsored" = "sponsored";

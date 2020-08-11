@@ -4944,6 +4944,8 @@
 
 "type.shop.video" = "متجر";
 
+"type.shop.video_games" = "متجر ألعاب فيديو";
+
 "type.shop.wine" = "متجر مشروبات روحية";
 
 "type.sponsored" = "sponsored";

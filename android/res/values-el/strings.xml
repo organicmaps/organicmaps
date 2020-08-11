@@ -2140,6 +2140,7 @@
 	<string name="type.shop.tyres">Βουλκανιζατέρ</string>
 	<string name="type.shop.variety_store">Παντοπωλείο</string>
 	<string name="type.shop.video">Κατάστημα</string>
+	<string name="type.shop.video_games">Κατάστημα βιντεοπαιχνιδιών</string>
 	<string name="type.shop.wine">Οινοπωλείο</string>
 	<string name="type.sponsored.holiday">Χριστούγεννα ή Ρεβεγιόν πρωτοχρονιάς</string>
 	<string name="type.sport.athletics">Στίβος</string>
