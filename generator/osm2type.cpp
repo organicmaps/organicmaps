@@ -24,7 +24,7 @@
 #include <algorithm>
 #include <cctype>
 #include <initializer_list>
-#include <set>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -38,7 +38,7 @@ template <typename ToDo>
 void ForEachTag(OsmElement * p, ToDo && toDo)
 {
   for (auto & e : p->m_tags)
-    toDo(e.m_key, e.m_value);
+    toDo(move(e.m_key), move(e.m_value));
 }
 
 class NamesExtractor
@@ -98,7 +98,7 @@ public:
     return LangAction::Accept;
   }
 
-  void operator()(string & k, string & v)
+  void operator()(string && k, string && v)
   {
     if (v.empty())
       return;
@@ -107,11 +107,11 @@ public:
     switch (GetLangByKey(k, lang))
     {
     case LangAction::Forbid: return;
-    case LangAction::Accept: m_names.emplace(lang, v); break;
+    case LangAction::Accept: m_names.emplace(move(lang), move(v)); break;
     case LangAction::Append:
       auto & name = m_names[lang];
       if (name.empty())
-        name = v;
+        swap(name, v);
       else
         name = name + ";" + v;
       break;
@@ -124,6 +124,7 @@ public:
   {
     for (auto const & kv : m_names)
       m_params.AddName(kv.first, kv.second);
+    m_names.clear();
   }
 
 private:
@@ -824,11 +825,9 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   PreprocessElement(p);
 
   // Stage2: Process feature name on all languages.
-  {
-    NamesExtractor namesExtractor(params);
-    ForEachTag(p, namesExtractor);
-    namesExtractor.Finish();
-  }
+  NamesExtractor namesExtractor(params);
+  ForEachTag(p, namesExtractor);
+  namesExtractor.Finish();
 
   // Stage3: Process base feature tags.
   TagProcessor(p).ApplyRules<void(string &, string &)>({
