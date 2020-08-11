@@ -9,40 +9,40 @@
   <symbol minX="383" maxX="459" minY="0" maxY="100" name="wwf_polar_bear"/>
   <symbol minX="459" maxX="535" minY="0" maxY="100" name="wwf_leopard"/>
   <symbol minX="535" maxX="614" minY="0" maxY="100" name="wwf_bison"/>
-  <symbol minX="614" maxX="708" minY="0" maxY="92" name="local_ads-coloredmark-bg-l"/>
-  <symbol minX="708" maxX="802" minY="0" maxY="92" name="local_ads-coloredmark-default-l"/>
-  <symbol minX="802" maxX="894" minY="0" maxY="88" name="local_ads-search-result-zoo"/>
-  <symbol minX="894" maxX="986" minY="0" maxY="88" name="local_ads-rated-default-search-result"/>
-  <symbol minX="0" maxX="92" minY="100" maxY="188" name="local_ads-search-result-bakery"/>
-  <symbol minX="92" maxX="184" minY="100" maxY="188" name="local_ads-search-result-bar"/>
-  <symbol minX="184" maxX="276" minY="100" maxY="188" name="local_ads-search-result-cafe"/>
-  <symbol minX="276" maxX="368" minY="100" maxY="188" name="local_ads-search-result-casino"/>
-  <symbol minX="368" maxX="460" minY="100" maxY="188" name="local_ads-search-result-cinema"/>
-  <symbol minX="460" maxX="552" minY="100" maxY="188" name="local_ads-search-result-fastfood"/>
-  <symbol minX="552" maxX="644" minY="100" maxY="188" name="local_ads-search-result-marketplace"/>
-  <symbol minX="644" maxX="736" minY="100" maxY="188" name="local_ads-search-result-nightclub"/>
-  <symbol minX="736" maxX="828" minY="100" maxY="188" name="local_ads-search-result-playground"/>
-  <symbol minX="828" maxX="920" minY="100" maxY="188" name="local_ads-search-result-pub"/>
-  <symbol minX="920" maxX="1012" minY="100" maxY="188" name="local_ads-search-result-restaurant"/>
-  <symbol minX="0" maxX="92" minY="188" maxY="276" name="local_ads-search-result-shop-alcohol"/>
-  <symbol minX="92" maxX="184" minY="188" maxY="276" name="local_ads-search-result-shop-butcher"/>
-  <symbol minX="184" maxX="276" minY="188" maxY="276" name="local_ads-search-result-shop-clothes"/>
-  <symbol minX="276" maxX="368" minY="188" maxY="276" name="local_ads-search-result-shop-convenience"/>
-  <symbol minX="368" maxX="460" minY="188" maxY="276" name="local_ads-search-result-shop-confectionery"/>
-  <symbol minX="460" maxX="552" minY="188" maxY="276" name="local_ads-search-result-water-park"/>
-  <symbol minX="552" maxX="644" minY="188" maxY="276" name="local_ads-search-result-theme-park"/>
-  <symbol minX="644" maxX="736" minY="188" maxY="276" name="local_ads-search-result-shop-toys"/>
-  <symbol minX="736" maxX="828" minY="188" maxY="276" name="local_ads-search-result-shop-supermarket"/>
-  <symbol minX="828" maxX="920" minY="188" maxY="276" name="local_ads-search-result-shop-sports"/>
-  <symbol minX="920" maxX="1012" minY="188" maxY="276" name="local_ads-search-result-shop-shoes"/>
-  <symbol minX="0" maxX="92" minY="276" maxY="364" name="local_ads-search-result-shop-mall"/>
-  <symbol minX="92" maxX="184" minY="276" maxY="364" name="local_ads-search-result-shop-jewelry"/>
-  <symbol minX="184" maxX="276" minY="276" maxY="364" name="local_ads-search-result-shop-greengrocer"/>
-  <symbol minX="276" maxX="368" minY="276" maxY="364" name="local_ads-search-result-shop-gift"/>
-  <symbol minX="368" maxX="460" minY="276" maxY="364" name="local_ads-search-result-shop-department_store"/>
-  <symbol minX="460" maxX="552" minY="276" maxY="364" name="local_ads-search-result-shop-cosmetics"/>
-  <symbol minX="552" maxX="644" minY="276" maxY="364" name="local_ads-search-result-shop-seafood"/>
-  <symbol minX="644" maxX="712" minY="276" maxY="352" name="local_ads-search-result"/>
+  <symbol minX="614" maxX="696" minY="0" maxY="94" name="local_ads_coloredmark-bg-l"/>
+  <symbol minX="696" maxX="778" minY="0" maxY="94" name="local_ads_coloredmark-default-l"/>
+  <symbol minX="778" maxX="870" minY="0" maxY="88" name="local_ads_search-result-zoo"/>
+  <symbol minX="870" maxX="962" minY="0" maxY="88" name="local_ads_rated-default-search-result"/>
+  <symbol minX="0" maxX="92" minY="100" maxY="188" name="local_ads_search-result-bakery"/>
+  <symbol minX="92" maxX="184" minY="100" maxY="188" name="local_ads_search-result-bar"/>
+  <symbol minX="184" maxX="276" minY="100" maxY="188" name="local_ads_search-result-cafe"/>
+  <symbol minX="276" maxX="368" minY="100" maxY="188" name="local_ads_search-result-casino"/>
+  <symbol minX="368" maxX="460" minY="100" maxY="188" name="local_ads_search-result-cinema"/>
+  <symbol minX="460" maxX="552" minY="100" maxY="188" name="local_ads_search-result-fastfood"/>
+  <symbol minX="552" maxX="644" minY="100" maxY="188" name="local_ads_search-result-marketplace"/>
+  <symbol minX="644" maxX="736" minY="100" maxY="188" name="local_ads_search-result-nightclub"/>
+  <symbol minX="736" maxX="828" minY="100" maxY="188" name="local_ads_search-result-playground"/>
+  <symbol minX="828" maxX="920" minY="100" maxY="188" name="local_ads_search-result-pub"/>
+  <symbol minX="920" maxX="1012" minY="100" maxY="188" name="local_ads_search-result-restaurant"/>
+  <symbol minX="0" maxX="92" minY="188" maxY="276" name="local_ads_search-result-shop-alcohol"/>
+  <symbol minX="92" maxX="184" minY="188" maxY="276" name="local_ads_search-result-shop-butcher"/>
+  <symbol minX="184" maxX="276" minY="188" maxY="276" name="local_ads_search-result-shop-clothes"/>
+  <symbol minX="276" maxX="368" minY="188" maxY="276" name="local_ads_search-result-shop-convenience"/>
+  <symbol minX="368" maxX="460" minY="188" maxY="276" name="local_ads_search-result-shop-confectionery"/>
+  <symbol minX="460" maxX="552" minY="188" maxY="276" name="local_ads_search-result-water-park"/>
+  <symbol minX="552" maxX="644" minY="188" maxY="276" name="local_ads_search-result-theme-park"/>
+  <symbol minX="644" maxX="736" minY="188" maxY="276" name="local_ads_search-result-shop-toys"/>
+  <symbol minX="736" maxX="828" minY="188" maxY="276" name="local_ads_search-result-shop-supermarket"/>
+  <symbol minX="828" maxX="920" minY="188" maxY="276" name="local_ads_search-result-shop-sports"/>
+  <symbol minX="920" maxX="1012" minY="188" maxY="276" name="local_ads_search-result-shop-shoes"/>
+  <symbol minX="0" maxX="92" minY="276" maxY="364" name="local_ads_search-result-shop-mall"/>
+  <symbol minX="92" maxX="184" minY="276" maxY="364" name="local_ads_search-result-shop-jewelry"/>
+  <symbol minX="184" maxX="276" minY="276" maxY="364" name="local_ads_search-result-shop-greengrocer"/>
+  <symbol minX="276" maxX="368" minY="276" maxY="364" name="local_ads_search-result-shop-gift"/>
+  <symbol minX="368" maxX="460" minY="276" maxY="364" name="local_ads_search-result-shop-department_store"/>
+  <symbol minX="460" maxX="552" minY="276" maxY="364" name="local_ads_search-result-shop-cosmetics"/>
+  <symbol minX="552" maxX="644" minY="276" maxY="364" name="local_ads_search-result-shop-seafood"/>
+  <symbol minX="644" maxX="712" minY="276" maxY="352" name="local_ads_search-result"/>
   <symbol minX="712" maxX="752" minY="276" maxY="328" name="wwf_small"/>
   <symbol minX="752" maxX="800" minY="276" maxY="324" name="10005_mail-l"/>
   <symbol minX="800" maxX="848" minY="276" maxY="324" name="10004_library-l"/>
