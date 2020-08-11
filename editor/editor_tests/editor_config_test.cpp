@@ -54,7 +54,6 @@ UNIT_TEST(EditorConfig_TypeDescription)
     TEST(desc.IsNameEditable(), ());
     TEST(desc.IsAddressEditable(), ());
     auto fields = poi;
-    fields.push_back(EType::FMD_OPERATOR);
     base::SortUnique(fields);
     TEST_EQUAL(desc.GetEditableFields(), fields, ());
   }
