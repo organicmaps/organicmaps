@@ -4040,7 +4040,7 @@ search::ProductInfo Framework::GetProductInfo(search::Result const & result) con
   return productInfo;
 }
 
-double Framework::GetMinDistanceBetweenResults() const
+m2::PointD Framework::GetMinDistanceBetweenResults() const
 {
   return m_searchMarks.GetMaxDimension(m_currentModelView);
 }

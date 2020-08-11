@@ -224,7 +224,7 @@ private:
     for (auto const & p : table)
       m_searchMarkTypes.push_back({c.GetTypeByPath(p.first), p.second});
 
-    std::sort(m_searchMarkTypes.begin(), m_searchMarkTypes.end(), base::LessBy(&Type::first));
+    std::sort(m_searchMarkTypes.begin(), m_searchMarkTypes.end());
   }
 
   std::vector<Type> m_searchMarkTypes;
@@ -683,7 +683,7 @@ std::string SearchMarkPoint::GetBadgeName() const
 }
 
 // static
-std::map<std::string, m2::PointF> SearchMarks::m_searchMarksSizes;
+std::map<std::string, m2::PointF> SearchMarks::m_searchMarkSizes;
 
 SearchMarks::SearchMarks()
   : m_bmManager(nullptr)
@@ -729,11 +729,12 @@ void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   base::SortUnique(symbols);
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
-                         [](std::map<std::string, m2::PointF> && sizes)
+                         [this](std::map<std::string, m2::PointF> && sizes)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [sizes = std::move(sizes)]() mutable
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, sizes = std::move(sizes)]() mutable
     {
-      m_searchMarksSizes = std::move(sizes);
+      m_searchMarkSizes = std::move(sizes);
+      UpdateMaxDimension();
     });
   });
 }
@@ -743,50 +744,17 @@ void SearchMarks::SetBookmarkManager(BookmarkManager * bmManager)
   m_bmManager = bmManager;
 }
 
-double SearchMarks::GetMaxDimension(ScreenBase const & modelView) const
+m2::PointD SearchMarks::GetMaxDimension(ScreenBase const & modelView) const
 {
-  if (!HaveSizes())
-    return 0.0;
-
   double const pixelToMercator = modelView.GetScale();
-
-  m2::PointD markSize;
-  auto const updateMarkSize = [&markSize, &pixelToMercator](std::optional<m2::PointD> pixelSize)
-  {
-    if (!pixelSize)
-      return;
-
-    *pixelSize *= pixelToMercator;
-    if (markSize.x < pixelSize->x)
-      markSize.x = pixelSize->x;
-    if (markSize.y < pixelSize->y)
-      markSize.y = pixelSize->y;
-  };
-  auto const searchMarkTypesCount = static_cast<uint32_t>(SearchMarkType::Count);
-  for (uint32_t t = 0; t < searchMarkTypesCount; ++t)
-  {
-    auto const searchMarkType = static_cast<SearchMarkType>(t);
-    updateMarkSize(
-        GetSize(GetSymbol(searchMarkType, false /* hasLocalAds */, false /* isRated */)));
-    updateMarkSize(
-        GetSize(GetSymbol(searchMarkType, false /* hasLocalAds */, true /* isRated */)));
-    if (HasLocalAdsVariant(searchMarkType))
-    {
-      updateMarkSize(
-          GetSize(GetSymbol(searchMarkType, true /* hasLocalAds */, false /* isRated */)));
-      updateMarkSize(
-          GetSize(GetSymbol(searchMarkType, true /* hasLocalAds */, true /* isRated */)));
-    }
-  }
-
-  return std::max(markSize.x, markSize.y);
+  return m_maxDimension * pixelToMercator;
 }
 
 // static
 std::optional<m2::PointD> SearchMarks::GetSize(std::string const & symbolName)
 {
-  auto const it = m_searchMarksSizes.find(symbolName);
-  if (it == m_searchMarksSizes.end())
+  auto const it = m_searchMarkSizes.find(symbolName);
+  if (it == m_searchMarkSizes.end())
     return {};
   return m2::PointD(it->second);
 }
@@ -945,4 +913,20 @@ void SearchMarks::ProcessMarks(
     if (processor(mark) == base::ControlFlow::Break)
       break;
   }
+}
+
+void SearchMarks::UpdateMaxDimension()
+{
+  for (auto const & [symbolName, symbolSize] : m_searchMarkSizes)
+  {
+    UNUSED_VALUE(symbolName);
+    if (m_maxDimension.x < symbolSize.x)
+      m_maxDimension.x = symbolSize.x;
+    if (m_maxDimension.y < symbolSize.y)
+      m_maxDimension.y = symbolSize.y;
+  }
+
+  // factor to roughly account for the width addition of price/pricing text
+  double constexpr kBadgeTextFactor = 2.5;
+  m_maxDimension.x *= kBadgeTextFactor;
 }

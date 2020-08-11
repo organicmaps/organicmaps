@@ -111,7 +111,7 @@ public:
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
   void SetBookmarkManager(BookmarkManager * bmManager);
 
-  double GetMaxDimension(ScreenBase const & modelView) const;
+  m2::PointD GetMaxDimension(ScreenBase const & modelView) const;
 
   // NOTE: Vector of features must be sorted.
   void SetPreparingState(std::vector<FeatureID> const & features, bool isPreparing);
@@ -134,16 +134,19 @@ public:
 
   void ClearTrackedProperties();
 
-  static bool HaveSizes() { return !m_searchMarksSizes.empty(); };
+  static bool HaveSizes() { return !m_searchMarkSizes.empty(); };
   static std::optional<m2::PointD> GetSize(std::string const & symbolName);
 
 private:
   void ProcessMarks(std::function<base::ControlFlow(SearchMarkPoint *)> && processor) const;
+  void UpdateMaxDimension();
 
   BookmarkManager * m_bmManager;
   df::DrapeEngineSafePtr m_drapeEngine;
 
-  static std::map<std::string, m2::PointF> m_searchMarksSizes;
+  static std::map<std::string, m2::PointF> m_searchMarkSizes;
+
+  m2::PointD m_maxDimension;
 
   mutable std::mutex m_lock;
   std::set<FeatureID> m_visited;

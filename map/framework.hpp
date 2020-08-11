@@ -386,7 +386,7 @@ public:
   std::optional<m2::PointD> GetCurrentPosition() const override;
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
-  double GetMinDistanceBetweenResults() const override;
+  m2::PointD GetMinDistanceBetweenResults() const override;
 
 private:
   void ShowViewportSearchResults(search::Results const & results, bool clear, booking::filter::Types types);

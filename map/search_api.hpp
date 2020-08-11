@@ -78,7 +78,7 @@ public:
       return false;
     };
 
-    virtual double GetMinDistanceBetweenResults() const { return 0.0; };
+    virtual m2::PointD GetMinDistanceBetweenResults() const { return {}; };
 
     virtual void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
                                              search::Results const & results, bool inViewport)
