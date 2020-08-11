@@ -233,10 +233,15 @@ vector<m2::PointD> XMLFeature::GetGeometry() const
 
 string XMLFeature::GetName(string const & lang) const
 {
-  ASSERT_EQUAL(kDefaultLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode), ());
-  ASSERT_EQUAL(kIntlLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kInternationalCode), ());
-  ASSERT_EQUAL(kAltLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kAltNameCode), ());
-  ASSERT_EQUAL(kOldLang, StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kOldNameCode), ());
+  ASSERT_EQUAL(string(kDefaultLang),
+               string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode)), ());
+  ASSERT_EQUAL(string(kIntlLang),
+               string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kInternationalCode)),
+               ());
+  ASSERT_EQUAL(string(kAltLang),
+               string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kAltNameCode)), ());
+  ASSERT_EQUAL(string(kOldLang),
+               string(StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kOldNameCode)), ());
   if (lang == kIntlLang)
     return GetTagValue(kIntlName);
   if (lang == kAltLang)
