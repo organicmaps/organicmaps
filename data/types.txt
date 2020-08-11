@@ -1345,3 +1345,4 @@ mapswithme
 *recycling|small_appliances
 *amenity|recycling_container
 *hwtag|onedir_bicycle
+*shop|video_games

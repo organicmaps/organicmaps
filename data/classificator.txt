@@ -917,6 +917,7 @@ world  +
         tyres  -
         variety_store  -
         video  -
+        video_games  -
         wine  -
         {}
     sponsored  +
