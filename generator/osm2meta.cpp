@@ -95,15 +95,21 @@ string MetadataTagProcessorImpl::ValidateAndFormat_stars(string const & v) const
 
 string MetadataTagProcessorImpl::ValidateAndFormat_operator(string const & v) const
 {
-  auto const & isATM = ftypes::IsATMChecker::Instance();
-  auto const & isFuelStation = ftypes::IsFuelStationChecker::Instance();
-  auto const & isRecyclingCentre = ftypes::IsRecyclingCentreChecker::Instance();
-
   auto const & t = m_params.m_types;
-  if (!isATM(t) && !isFuelStation(t) && !isRecyclingCentre(t))
-    return string();
+  if (ftypes::IsATMChecker::Instance()(t) ||
+      ftypes::IsPaymentTerminalChecker::Instance()(t) ||
+      ftypes::IsMoneyExchangeChecker::Instance()(t) ||
+      ftypes::IsFuelStationChecker::Instance()(t) ||
+      ftypes::IsRecyclingCentreChecker::Instance()(t) ||
+      ftypes::IsPostOfficeChecker::Instance()(t) ||
+      ftypes::IsCarSharingChecker::Instance()(t) ||
+      ftypes::IsCarRentalChecker::Instance()(t) ||
+      ftypes::IsBicycleRentalChecker::Instance()(t))
+  {
+    return v;
+  }
 
-  return v;
+  return {};
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_url(string const & v) const

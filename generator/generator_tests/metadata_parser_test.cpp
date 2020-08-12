@@ -75,8 +75,10 @@ UNIT_TEST(Metadata_ValidateAndFormat_stars)
 
 UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_operator)
 {
-  uint32_t const type_atm = classif().GetTypeByPath({ "amenity", "atm" });
-  uint32_t const type_fuel = classif().GetTypeByPath({ "amenity", "fuel" });
+  uint32_t const typeAtm = classif().GetTypeByPath({"amenity", "atm"});
+  uint32_t const typeFuel = classif().GetTypeByPath({"amenity", "fuel"});
+  uint32_t const typeCarSharing = classif().GetTypeByPath({"amenity", "car_sharing"});
+  uint32_t const typeCarRental = classif().GetTypeByPath({"amenity", "car_rantal"});
 
   FeatureBuilderParams params;
   MetadataTagProcessor p(params);
@@ -86,18 +88,18 @@ UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_operator)
   p("operator", "Some");
   TEST(md.Empty(), ());
 
-  params.SetType(type_atm);
+  params.SetType(typeAtm);
   p("operator", "Some");
   TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some", ());
   md.Drop(Metadata::FMD_OPERATOR);
 
-  params.SetType(type_fuel);
+  params.SetType(typeFuel);
   p("operator", "Some");
   TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some", ());
   md.Drop(Metadata::FMD_OPERATOR);
 
-  params.SetType(type_atm);
-  params.AddType(type_fuel);
+  params.SetType(typeCarSharing);
+  params.AddType(typeCarRental);
   p("operator", "Some");
   TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some", ());
   md.Drop(Metadata::FMD_OPERATOR);
