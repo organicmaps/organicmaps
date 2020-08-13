@@ -78,6 +78,7 @@ protected:
 
   bool IsUGCMark() const;
   bool IsBookingSpecialMark() const;
+
   bool HasRating() const;
   bool HasGoodRating() const;
   bool HasPrice() const;

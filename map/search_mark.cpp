@@ -271,11 +271,10 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
         symbolZoomInfo->emplace(kBadRatingZoomLevel, symbolName);
       }
     }
+    return symbolZoomInfo;
   }
-  else
-  {
-    symbolZoomInfo->emplace(kWorldZoomLevel, symbolName);
-  }
+
+  symbolZoomInfo->emplace(kWorldZoomLevel, symbolName);
   return symbolZoomInfo;
 }
 
@@ -294,12 +293,8 @@ drape_ptr<df::UserPointMark::BageInfo> SearchMarkPoint::GetBadgeInfo() const
       if (HasReason() && m_isSelected)
       {
         auto badgeInfo = make_unique_dp<BageInfo>();
-
         badgeInfo->m_maskColor = badgeMaskColor;
-
-        if (HasReason())
-          badgeInfo->m_badgeTitleIndex = 0;
-
+        badgeInfo->m_badgeTitleIndex = 0;
         badgeInfo->m_zoomInfo.emplace(kWorldZoomLevel, badgeName);
         return badgeInfo;
       }
@@ -336,20 +331,19 @@ drape_ptr<df::UserPointMark::BageInfo> SearchMarkPoint::GetBadgeInfo() const
 
       return badgeInfo;
     }
+    return nullptr;
   }
-  else if (IsUGCMark())
+
+  if (HasRating())
   {
-    if (HasRating())
-    {
-      auto badgeInfo = make_unique_dp<BageInfo>();
+    auto badgeInfo = make_unique_dp<BageInfo>();
 
-      badgeInfo->m_maskColor = badgeMaskColor;
+    badgeInfo->m_maskColor = badgeMaskColor;
 
-      badgeInfo->m_badgeTitleIndex = 0;
+    badgeInfo->m_badgeTitleIndex = 0;
 
-      badgeInfo->m_zoomInfo.emplace(kUGCBadgeMinZoomLevel, badgeName);
-      return badgeInfo;
-    }
+    badgeInfo->m_zoomInfo.emplace(kUGCBadgeMinZoomLevel, badgeName);
+    return badgeInfo;
   }
   
   return nullptr;
@@ -397,11 +391,8 @@ df::ColorConstant SearchMarkPoint::GetColorConstant() const
       return "RatingBad";
     return "RatingGood";
   }
-  else if (IsUGCMark())
-  {
-    return "RatingUGC";
-  }
-  return {};
+
+  return "RatingUGC";
 }
 
 drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
@@ -466,24 +457,22 @@ drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
         }
       }
     }
+    return titles;
   }
-  else if (IsUGCMark())
+
+  if (HasRating())
   {
-    if (HasRating())
-    {
-      titles = make_unique_dp<TitlesInfo>();
+    titles = make_unique_dp<TitlesInfo>();
 
-      dp::TitleDecl & ugcRatingTitleDecl = titles->emplace_back();
-      ugcRatingTitleDecl.m_anchor = dp::Left;
-      ugcRatingTitleDecl.m_forceNoWrap = true;
-      ugcRatingTitleDecl.m_primaryTextFont.m_color = df::GetColorConstant("UGCRatingText");
-      ugcRatingTitleDecl.m_primaryTextFont.m_color.PremultiplyAlpha(GetSymbolOpacity());
-      ugcRatingTitleDecl.m_primaryTextFont.m_size = fontSize;
+    dp::TitleDecl & ugcRatingTitleDecl = titles->emplace_back();
+    ugcRatingTitleDecl.m_anchor = dp::Left;
+    ugcRatingTitleDecl.m_forceNoWrap = true;
+    ugcRatingTitleDecl.m_primaryTextFont.m_color = df::GetColorConstant("UGCRatingText");
+    ugcRatingTitleDecl.m_primaryTextFont.m_color.PremultiplyAlpha(GetSymbolOpacity());
+    ugcRatingTitleDecl.m_primaryTextFont.m_size = fontSize;
 
-      ugcRatingTitleDecl.m_primaryText = place_page::rating::GetRatingFormatted(m_rating);
-    }
+    ugcRatingTitleDecl.m_primaryText = place_page::rating::GetRatingFormatted(m_rating);
   }
-
   return titles;
 }
 
@@ -507,12 +496,10 @@ int SearchMarkPoint::GetMinTitleZoom() const
       else
         return kBadRatingZoomLevel;
     }
+    return kWorldZoomLevel;
   }
-  else if (IsUGCMark())
-  {
-    return kUGCBadgeMinZoomLevel;
-  }
-  return kWorldZoomLevel;
+
+  return kUGCBadgeMinZoomLevel;
 }
 
 df::DepthLayer SearchMarkPoint::GetDepthLayer() const
@@ -632,7 +619,7 @@ std::string SearchMarkPoint::GetSymbolName() const
       else
         symbolName = GetSymbol(m_type, m_hasLocalAds, HasRating());
     }
-    else if (IsUGCMark())
+    else
     {
       symbolName = GetSymbol(m_type, m_hasLocalAds, HasRating());
     }
@@ -670,7 +657,7 @@ std::string SearchMarkPoint::GetBadgeName() const
         badgeName = m_hasSale ? kPriceChipDiscount : kPriceChip;
     }
   }
-  else if (IsUGCMark())
+  else
   {
     if (HasRating())
       badgeName = kPriceChip;
