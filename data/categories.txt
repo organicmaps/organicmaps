@@ -9031,6 +9031,40 @@ zh-Hans:杂货店
 zh-Hant:雜貨店
 fa:خرازی
 
+shop-video_games
+en:Video games shop|videogames shop|video games|videogames
+ru:Магазин видеоигр|видеоигры
+ar:متجر ألعاب فيديو
+cs:Obchod s videohrami
+da:Computerspilbutik
+nl:Winkel voor videogames
+fi:Videopelikauppa
+fr:Boutique de jeux vidéo
+de:Gameshop
+hu:Videojáték bolt
+id:Toko permainan video
+it:Negozio di videogiochi
+ja:ゲームショップ
+ko:비디오 게임 가게
+nb:Videospillbutikken
+pl:Sklep z grami wideo
+pt:Loja de jogos de vídeo
+pt-BR:Loja de jogos eletrônicos
+ro:Magazin de jocuri video
+es:Tienda de videojuegos
+es-MX:Tienda de videojuegos
+sv:Videospel butik
+th:ร้านขายวิดีโอเกม
+tr:Video oyunları mağazası
+uk:Магазин відеоігор
+vi:Cửa hàng bán trò chơi điện tử
+el:Κατάστημα βιντεοπαιχνιδιών
+sk:Predajňa s videohrami
+sw:Duka la Video za Michezo
+zh-Hans:电子游戏商城
+zh-Hant:電子遊戲商城
+fa:فروشگاه بازی‌های رایانه‌ای
+
 tourism-wilderness_hut|@hotel
 en:Wilderness Hut
 ru:Хижина в лесу
@@ -9281,37 +9315,3 @@ sk:Brod
 zh-Hans:浅滩
 zh-Hant:淺灘
 fa:گدار
-
-shop-video_games
-en:Video games shop
-ru:Магазин видеоигр
-ar:متجر ألعاب فيديو
-cs:Obchod s videohrami
-da:Computerspilbutik
-nl:Winkel voor videogames
-fi:Videopelikauppa
-fr:Boutique de jeux vidéo
-de:Gameshop
-hu:Videojáték bolt
-id:Toko permainan video
-it:Negozio di videogiochi
-ja:ゲームショップ
-ko:비디오 게임 가게
-nb:Videospillbutikken
-pl:Sklep z grami wideo
-pt:Loja de jogos de vídeo
-pt-BR:Loja de jogos eletrônicos
-ro:Magazin de jocuri video
-es:Tienda de videojuegos
-es-MX:Tienda de videojuegos
-sv:Videospel butik
-th:ร้านขายวิดีโอเกม
-tr:Video oyunları mağazası
-uk:Магазин відеоігор
-vi:Cửa hàng bán trò chơi điện tử
-el:Κατάστημα βιντεοπαιχνιδιών
-sk:Predajňa s videohrami
-sw:Duka la Video za Michezo
-zh-Hans:电子游戏商城
-zh-Hant:電子遊戲商城
-fa:فروشگاه بازی‌های رایانه‌ای
