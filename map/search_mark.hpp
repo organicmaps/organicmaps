@@ -19,6 +19,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <mutex>
 
 class BookmarkManager;
 
@@ -124,13 +125,12 @@ public:
   void OnActivate(FeatureID const & featureId);
   void OnDeactivate(FeatureID const & featureId);
 
-  bool IsVisited(FeatureID const & id) const;
-
   void SetUnavailable(SearchMarkPoint & mark, std::string const & reasonKey);
   void SetUnavailable(std::vector<FeatureID> const & features, std::string const & reasonKey);
-  bool IsUnavailable(FeatureID const & id) const;
 
-  bool IsSelected(FeatureID const & id);
+  bool IsVisited(FeatureID const & id) const;
+  bool IsUnavailable(FeatureID const & id) const;
+  bool IsSelected(FeatureID const & id) const;
 
   void ClearTrackedProperties();
 
@@ -140,17 +140,13 @@ public:
 private:
   void ProcessMarks(std::function<base::ControlFlow(SearchMarkPoint *)> && processor) const;
 
-  void ClearVisited();
-  void ClearUnavailable();
-  void ClearSelected();
-
   BookmarkManager * m_bmManager;
   df::DrapeEngineSafePtr m_drapeEngine;
 
   static std::map<std::string, m2::PointF> m_searchMarksSizes;
 
+  mutable std::mutex m_lock;
   std::set<FeatureID> m_visited;
-  // The value is localized string key for unavailability reason.
-  std::map<FeatureID, std::string> m_unavailable;
+  std::map<FeatureID, std::string /* SearchMarkPoint::m_reason */> m_unavailable;
   FeatureID m_selected;
 };
