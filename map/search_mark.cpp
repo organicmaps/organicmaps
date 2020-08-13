@@ -251,11 +251,11 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
   auto symbolZoomInfo = make_unique_dp<SymbolNameZoomInfo>();
   if (IsBookingSpecialMark())
   {
-    if (m_isPreparing)
+    if (!m_isAvailable)
     {
       symbolZoomInfo->emplace(kWorldZoomLevel, symbolName);
     }
-    else if (!m_isAvailable)
+    else if (m_isPreparing)
     {
       symbolZoomInfo->emplace(kWorldZoomLevel, symbolName);
     }
@@ -289,17 +289,7 @@ drape_ptr<df::UserPointMark::BageInfo> SearchMarkPoint::GetBadgeInfo() const
 
   if (IsBookingSpecialMark())
   {
-    if (m_isPreparing)
-    {
-      if (m_isSelected)
-      {
-        auto badgeInfo = make_unique_dp<BageInfo>();
-        badgeInfo->m_maskColor = badgeMaskColor;
-        badgeInfo->m_zoomInfo.emplace(kWorldZoomLevel, badgeName);
-        return badgeInfo;
-      }
-    }
-    else if (!m_isAvailable)
+    if (!m_isAvailable)
     {
       if (HasReason() && m_isSelected)
       {
@@ -310,6 +300,16 @@ drape_ptr<df::UserPointMark::BageInfo> SearchMarkPoint::GetBadgeInfo() const
         if (HasReason())
           badgeInfo->m_badgeTitleIndex = 0;
 
+        badgeInfo->m_zoomInfo.emplace(kWorldZoomLevel, badgeName);
+        return badgeInfo;
+      }
+    }
+    else if (m_isPreparing)
+    {
+      if (m_isSelected)
+      {
+        auto badgeInfo = make_unique_dp<BageInfo>();
+        badgeInfo->m_maskColor = badgeMaskColor;
         badgeInfo->m_zoomInfo.emplace(kWorldZoomLevel, badgeName);
         return badgeInfo;
       }
@@ -385,10 +385,10 @@ df::ColorConstant SearchMarkPoint::GetColorConstant() const
 {
   if (IsBookingSpecialMark())
   {
-    if (m_isPreparing)
-      return "SearchmarkPreparing";
     if (!m_isAvailable)
       return m_isSelected ? "SearchmarkSelectedNotAvailable" : "SearchmarkNotAvailable";
+    if (m_isPreparing)
+      return "SearchmarkPreparing";
     if (m_hasLocalAds)
       return "RatingGood";
     if (!HasRating())
@@ -412,11 +412,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
   float const fontSize = static_cast<float>(kFontSize / fs);
   if (IsBookingSpecialMark())
   {
-    if (m_isPreparing)
-    {
-      /* do nothing */;
-    }
-    else if (!m_isAvailable)
+    if (!m_isAvailable)
     {
       if (HasReason() && m_isSelected)
       {
@@ -432,6 +428,10 @@ drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
 
         reasonTitleDecl.m_primaryText = m_reason;
       }
+    }
+    else if (m_isPreparing)
+    {
+      /* do nothing */;
     }
     else
     {
@@ -491,14 +491,14 @@ int SearchMarkPoint::GetMinTitleZoom() const
 {
   if (IsBookingSpecialMark())
   {
-    if (m_isPreparing)
-    {
-      return kWorldZoomLevel;
-    }
-    else if (!m_isAvailable)
+    if (!m_isAvailable)
     {
       if (HasReason() && m_isSelected)
         return kWorldZoomLevel;
+    }
+    else if (m_isPreparing)
+    {
+      return kWorldZoomLevel;
     }
     else
     {
@@ -625,9 +625,9 @@ std::string SearchMarkPoint::GetSymbolName() const
   {
     if (IsBookingSpecialMark())
     {
-      if (m_isPreparing)
+      if (!m_isAvailable)
         symbolName = kColoredmarkSmall;
-      else if (!m_isAvailable)
+      else if (m_isPreparing)
         symbolName = kColoredmarkSmall;
       else
         symbolName = GetSymbol(m_type, m_hasLocalAds, HasRating());
@@ -652,15 +652,15 @@ std::string SearchMarkPoint::GetBadgeName() const
 
   if (IsBookingSpecialMark())
   {
-    if (m_isPreparing)
-    {
-      if (m_isSelected)
-        badgeName = kSelectionChipSmall;
-    }
-    else if (!m_isAvailable)
+    if (!m_isAvailable)
     {
       if (HasReason() && m_isSelected)
         badgeName = kSmallSelectedChip;
+    }
+    else if (m_isPreparing)
+    {
+      if (m_isSelected)
+        badgeName = kSelectionChipSmall;
     }
     else
     {
