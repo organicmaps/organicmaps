@@ -305,13 +305,36 @@ private:
 
 class RankerResultMaker
 {
-  Ranker & m_ranker;
-  DataSource const & m_dataSource;
-  Geocoder::Params const & m_params;
-  storage::CountryInfoGetter const & m_infoGetter;
+public:
+  RankerResultMaker(Ranker & ranker, DataSource const & dataSource,
+                    storage::CountryInfoGetter const & infoGetter, Geocoder::Params const & params)
+    : m_ranker(ranker), m_dataSource(dataSource), m_infoGetter(infoGetter), m_params(params)
+  {
+  }
 
-  unique_ptr<FeaturesLoaderGuard> m_loader;
+  optional<RankerResult> operator()(PreRankerResult const & preRankerResult)
+  {
+    m2::PointD center;
+    string name;
+    string country;
 
+    auto ft = LoadFeature(preRankerResult.GetId(), center, name, country);
+    if (!ft)
+      return {};
+
+    RankerResult r(*ft, center, m_ranker.m_params.m_pivot, name, country);
+
+    search::RankingInfo info;
+    InitRankingInfo(*ft, center, preRankerResult, info);
+    info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
+                                ftypes::IsCapitalChecker::Instance()(*ft), !info.m_allTokensUsed);
+    r.SetRankingInfo(move(info));
+    r.m_provenance = move(preRankerResult.GetProvenance());
+
+    return r;
+  }
+
+private:
   unique_ptr<FeatureType> LoadFeature(FeatureID const & id)
   {
     if (!m_loader || m_loader->GetId() != id.m_mwmId)
@@ -512,34 +535,12 @@ class RankerResultMaker
     }
   }
 
-public:
-  RankerResultMaker(Ranker & ranker, DataSource const & dataSource,
-                    storage::CountryInfoGetter const & infoGetter, Geocoder::Params const & params)
-    : m_ranker(ranker), m_dataSource(dataSource), m_params(params), m_infoGetter(infoGetter)
-  {
-  }
+  Ranker & m_ranker;
+  DataSource const & m_dataSource;
+  storage::CountryInfoGetter const & m_infoGetter;
+  Geocoder::Params const & m_params;
 
-  optional<RankerResult> operator()(PreRankerResult const & preRankerResult)
-  {
-    m2::PointD center;
-    string name;
-    string country;
-
-    auto ft = LoadFeature(preRankerResult.GetId(), center, name, country);
-    if (!ft)
-      return {};
-
-    RankerResult r(*ft, center, m_ranker.m_params.m_pivot, name, country);
-
-    search::RankingInfo info;
-    InitRankingInfo(*ft, center, preRankerResult, info);
-    info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country,
-                                ftypes::IsCapitalChecker::Instance()(*ft), !info.m_allTokensUsed);
-    r.SetRankingInfo(move(info));
-    r.m_provenance = move(preRankerResult.GetProvenance());
-
-    return r;
-  }
+  unique_ptr<FeaturesLoaderGuard> m_loader;
 };
 
 Ranker::Ranker(DataSource const & dataSource, CitiesBoundariesTable const & boundariesTable,
