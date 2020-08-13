@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,27 +17,25 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.search.BookingFilterParams;
+import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 
 public class SearchToolbarController extends ToolbarController
                                   implements View.OnClickListener
 {
   private static final int REQUEST_VOICE_RECOGNITION = 0xCA11;
-  public static final String DAY_OF_MONTH_PATTERN = "MMM d";
-
   @NonNull
   private final View mSearchContainer;
   @NonNull
@@ -66,27 +65,20 @@ public class SearchToolbarController extends ToolbarController
   };
   @Nullable
   private Pair<Long, Long> mChosenDates;
+
   @NonNull
   private final View.OnClickListener mChooseDatesClickListener = v -> {
     MaterialDatePicker.Builder<Pair<Long, Long>> builder
         = MaterialDatePicker.Builder.dateRangePicker();
+    CalendarConstraints.Builder constraintsBuilder = FilterUtils.createDateConstraintsBuilder();
+    builder.setCalendarConstraints(constraintsBuilder.build());
     if (mChosenDates != null)
       builder.setSelection(mChosenDates);
-    final MaterialDatePicker<?> picker = builder.build();
-    picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Object>()
-    {
-      @Override
-      public void onPositiveButtonClick(Object selection)
-      {
-        //noinspection unchecked
-        mChosenDates = (Pair<Long, Long>) selection;
-        mChooseDatesChip.setText(picker.getHeaderText());
-        for (FilterParamsChangedListener listener : mFilterParamsChangedListeners)
-          listener.onBookingParamsChanged();
-      }
-    });
+    final MaterialDatePicker<Pair<Long, Long>> picker = builder.build();
+    picker.addOnPositiveButtonClickListener(new DatePickerPositiveClickListener(picker));
     picker.show(((AppCompatActivity) getActivity()).getSupportFragmentManager(), picker.toString());
   };
+
   @NonNull
   private List<FilterParamsChangedListener> mFilterParamsChangedListeners = new ArrayList<>();
 
@@ -134,18 +126,17 @@ public class SearchToolbarController extends ToolbarController
 
   public void setFilterParams(@NonNull BookingFilterParams params)
   {
+    formatAndSetChosenDates(params.getCheckinMillisec(), params.getCheckoutMillisec());
+  }
+
+  private void formatAndSetChosenDates(long checkinMillis, long checkoutMillis)
+  {
     if (mChooseDatesChip == null)
       return;
 
-    mChosenDates = new Pair<>(params.getCheckinMillisec(), params.getCheckoutMillisec());
-    SimpleDateFormat dateFormater = new SimpleDateFormat(DAY_OF_MONTH_PATTERN,
-                                                         Locale.getDefault());
-    @SuppressWarnings("ConstantConditions")
-    String start = dateFormater.format(new Date(mChosenDates.first));
-    @SuppressWarnings("ConstantConditions")
-    String end = dateFormater.format(new Date(mChosenDates.second));
-    mChooseDatesChip.setText(getActivity().getString(R.string.booking_filter_date_range,
-                                                     start, end));
+    mChooseDatesChip.setText(FilterUtils.makeDateRangeHeader(getActivity(), checkinMillis,
+                                                             checkoutMillis));
+    mChosenDates = new Pair<>(checkinMillis, checkoutMillis);
   }
 
   public void resetFilterParams()
@@ -319,5 +310,51 @@ public class SearchToolbarController extends ToolbarController
   public interface FilterParamsChangedListener
   {
     void onBookingParamsChanged();
+  }
+
+  private class DatePickerPositiveClickListener
+      implements MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>
+  {
+    @NonNull
+    private final MaterialDatePicker<Pair<Long, Long>> mPicker;
+
+    private DatePickerPositiveClickListener(@NonNull MaterialDatePicker<Pair<Long, Long>> picker)
+    {
+      mPicker = picker;
+    }
+
+    @Override
+    public void onPositiveButtonClick(Pair<Long, Long> selection)
+    {
+      if (selection == null)
+        return;
+
+      mChosenDates = selection;
+      if (mChosenDates.first == null || mChosenDates.second == null)
+        return;
+
+      validateAndSetupDates(mChosenDates.first, mChosenDates.second);
+
+      for (FilterParamsChangedListener listener : mFilterParamsChangedListeners)
+        listener.onBookingParamsChanged();
+    }
+
+    private void validateAndSetupDates(long checkinMillis, long checkoutMillis)
+    {
+      if (checkoutMillis <= checkinMillis)
+      {
+        formatAndSetChosenDates(checkinMillis, FilterUtils.getDayAfter(checkinMillis));
+      }
+      else if (!FilterUtils.isWithinMaxStayingDays(checkinMillis, checkoutMillis))
+      {
+        Toast.makeText(getActivity(), R.string.thirty_days_limit_dialog, Toast.LENGTH_LONG).show();
+        formatAndSetChosenDates(checkinMillis, FilterUtils.getMaxCheckoutInMillis(checkinMillis));
+      }
+      else
+      {
+        Objects.requireNonNull(mChooseDatesChip);
+        mChooseDatesChip.setText(mPicker.getHeaderText());
+      }
+    }
   }
 }

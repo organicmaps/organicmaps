@@ -1,18 +1,36 @@
 package com.mapswithme.maps.search;
 
+import android.content.Context;
+
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.CompositeDateValidator;
+import com.google.android.material.datepicker.DateValidatorPointBackward;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.mapswithme.maps.R;
+import com.mapswithme.util.Utils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class FilterUtils
 {
+  private static final int MAX_STAYING_DAYS = 30;
+  private static final int MAX_CHECKIN_WINDOW_IN_DAYS = 365;
+  private static final String DAY_OF_MONTH_PATTERN = "MMM d";
+
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ RATING_ANY, RATING_GOOD, RATING_VERYGOOD, RATING_EXCELLENT })
   public @interface RatingDef
@@ -179,5 +197,67 @@ public class FilterUtils
 
     List<HotelsFilter.HotelType> hotelTypes = new ArrayList<>(Arrays.asList(types));
     return makeOneOf(hotelTypes.iterator());
+  }
+
+  public static long getMaxCheckoutInMillis(long checkinMillis)
+  {
+    long difference = checkinMillis - MaterialDatePicker.todayInUtcMilliseconds();
+    int daysToCheckin = (int) TimeUnit.MILLISECONDS.toDays(difference);
+    int leftDays = MAX_CHECKIN_WINDOW_IN_DAYS - daysToCheckin;
+    if (leftDays <= 0)
+      throw new AssertionError("No available dates for checkout!");
+    Calendar date = Utils.getCalendarInstance();
+    date.setTimeInMillis(checkinMillis);
+    date.add(Calendar.DAY_OF_YEAR, Math.min(leftDays, MAX_STAYING_DAYS));
+    return date.getTimeInMillis();
+  }
+
+  private static long getMaxCheckinInMillis()
+  {
+    final long today = MaterialDatePicker.todayInUtcMilliseconds();
+    Calendar calendar = Utils.getCalendarInstance();
+    calendar.setTimeInMillis(today);
+    calendar.add(Calendar.DAY_OF_YEAR, MAX_CHECKIN_WINDOW_IN_DAYS);
+    return calendar.getTimeInMillis();
+  }
+
+  @NonNull
+  public static CalendarConstraints.Builder createDateConstraintsBuilder()
+  {
+    final long today = MaterialDatePicker.todayInUtcMilliseconds();
+    CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+    constraintsBuilder.setStart(today);
+    constraintsBuilder.setEnd(getMaxCheckinInMillis());
+    List<CalendarConstraints.DateValidator> validators = new ArrayList<>();
+    validators.add(DateValidatorPointForward.now());
+    validators.add(DateValidatorPointBackward.before(getMaxCheckinInMillis()));
+    constraintsBuilder.setValidator(CompositeDateValidator.allOf(validators));
+    return constraintsBuilder;
+  }
+
+  @NonNull
+  public static String makeDateRangeHeader(@NonNull Context context, long checkinMillis,
+                                           long checkoutMillis)
+  {
+    final SimpleDateFormat dateFormater = new SimpleDateFormat(DAY_OF_MONTH_PATTERN,
+                                                               Locale.getDefault());
+    String checkin = dateFormater.format(new Date(checkinMillis));
+    String checkout = dateFormater.format(new Date(checkoutMillis));
+    return context.getString(R.string.booking_filter_date_range, checkin, checkout);
+  }
+
+  public static boolean isWithinMaxStayingDays(long checkinMillis, long checkoutMillis)
+  {
+    long difference = checkoutMillis - checkinMillis;
+    int days = (int) TimeUnit.MILLISECONDS.toDays(difference);
+    return days <= MAX_STAYING_DAYS;
+  }
+
+  public static long getDayAfter(long date)
+  {
+    Calendar dayAfter = Utils.getCalendarInstance();
+    dayAfter.setTimeInMillis(date);
+    dayAfter.add(Calendar.DAY_OF_YEAR, 1);
+    return dayAfter.getTimeInMillis();
   }
 }

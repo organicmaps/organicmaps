@@ -34,8 +34,8 @@ import androidx.fragment.app.Fragment;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -48,11 +48,13 @@ import java.net.NetworkInterface;
 import java.security.MessageDigest;
 import java.text.NumberFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class Utils
 {
@@ -793,6 +795,12 @@ public class Utils
 
     String key = "brand." + brand;
     return getLocalizedFeatureByKey(context, key);
+  }
+
+  @NonNull
+  public static Calendar getCalendarInstance()
+  {
+    return Calendar.getInstance(TimeZone.getTimeZone("UTC"));
   }
 
   private static class SupportInfoWithLogsCallback implements LoggerFactory.OnZipCompletedListener
