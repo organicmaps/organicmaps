@@ -1,4 +1,4 @@
-@objc class PaidRoutesSubscriptionCampaign: NSObject, IPromoCampaign {
+@objc class PaidRoutesSubscriptionCampaign: NSObject, IABTest {
   enum SubscribeActionType: Int {
     case instant = 0
     case window

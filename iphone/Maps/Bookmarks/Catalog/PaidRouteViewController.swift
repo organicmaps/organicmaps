@@ -30,7 +30,7 @@ class PaidRouteViewController: MWMViewController {
   private var subscription: ISubscription?
   private let subscriptionManager: ISubscriptionManager
   private let subscriptionType: SubscriptionGroupType
-  private let paidRoutesSubscriptionCampaign = PromoCampaignManager.manager().paidRoutesSubscriptionCampaign
+  private let paidRoutesSubscriptionCampaign = ABTestManager.manager().paidRoutesSubscriptionCampaign
 
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask { return [.portrait] }
 
@@ -212,7 +212,7 @@ class PaidRouteViewController: MWMViewController {
   }
 
   @IBAction func onSubscribe(_ sender: UIButton) {
-    let type = PromoCampaignManager.manager().paidRoutesSubscriptionCampaign.actionType
+    let type = ABTestManager.manager().paidRoutesSubscriptionCampaign.actionType
     switch type {
     case .instant:
       onInstantSubscribe()

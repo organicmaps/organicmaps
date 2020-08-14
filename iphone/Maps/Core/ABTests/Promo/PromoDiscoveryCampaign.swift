@@ -1,4 +1,4 @@
-@objc class PromoDiscoveryCampaign: NSObject, IPromoCampaign {
+@objc class PromoDiscoveryCampaign: NSObject, IABTest {
   enum Group: Int {
     case discoverCatalog = 0
     case downloadSamples

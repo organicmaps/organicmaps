@@ -97,6 +97,10 @@ class MapStyleSheet: IStyleSheet {
       s.mwmImage = "btn_back"
     }
 
+    theme.add(styleName: "ButtonBookmarksBackOpaque") { (s) -> (Void) in
+      s.mwmImage = "btn_back_opaque"
+    }
+
     theme.add(styleName: "FirstTurnView") { (s) -> (Void) in
       s.backgroundColor = colors.linkBlue
       s.cornerRadius = 4

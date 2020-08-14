@@ -372,7 +372,7 @@ final class CatalogWebViewController: WebViewController {
 
     let purchase = InAppPurchase.paidRoutePurchase(serverId: productInfo.id,
                                                    productId: productId)
-    let testGroup = PromoCampaignManager.manager().paidRoutesSubscriptionCampaign.testGroupStatName
+    let testGroup = ABTestManager.manager().paidRoutesSubscriptionCampaign.testGroupStatName
     let stats = InAppPurchase.paidRouteStatistics(serverId: productInfo.id,
                                                   productId: productId,
                                                   testGroup: testGroup,

@@ -553,8 +553,8 @@
 		990F33B624BC915200D0F426 /* SearchActionBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990F33B524BC915200D0F426 /* SearchActionBarView.swift */; };
 		9917D17D2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */; };
 		9917D17F2397B1D600A7E06E /* IPadModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917D17E2397B1D600A7E06E /* IPadModalPresentationController.swift */; };
-		991CE2BF2371D349009EB02A /* PromoCampaignManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BA2371D349009EB02A /* PromoCampaignManager.swift */; };
-		991CE2C02371D349009EB02A /* PromoCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BB2371D349009EB02A /* PromoCampaign.swift */; };
+		991CE2BF2371D349009EB02A /* ABTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BA2371D349009EB02A /* ABTestManager.swift */; };
+		991CE2C02371D349009EB02A /* IABTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BB2371D349009EB02A /* IABTest.swift */; };
 		991CE2C22371D349009EB02A /* PromoDiscoveryCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */; };
 		991CE2DD2373145C009EB02A /* PromoAfterBookingCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2DC2373145C009EB02A /* PromoAfterBookingCampaign.swift */; };
 		991FCA2023B0FF33009AD684 /* AdsStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991FCA1F23B0FF33009AD684 /* AdsStyleSheet.swift */; };
@@ -622,6 +622,7 @@
 		993F5512237C622700545511 /* DeepLinkFileStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5504237C622700545511 /* DeepLinkFileStrategy.swift */; };
 		993F5513237C622700545511 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5505237C622700545511 /* DeepLinkHandler.swift */; };
 		993F5514237C622700545511 /* DeepLinkStrategyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5506237C622700545511 /* DeepLinkStrategyFactory.swift */; };
+		9941DFB724E6A52700CDE458 /* ABTestBookingBackButtonColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9941DFB624E6A52700CDE458 /* ABTestBookingBackButtonColor.swift */; };
 		99425AF4236855BB00D005C0 /* PromoDiscoveryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99425AF3236855BB00D005C0 /* PromoDiscoveryRouter.swift */; };
 		99425AFC23685F1E00D005C0 /* PromoDiscoveryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99425AFB23685F1E00D005C0 /* PromoDiscoveryPresenter.swift */; };
 		9948ADB424E14517003A826A /* PartnerBannerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9948ADB324E14517003A826A /* PartnerBannerBuilder.swift */; };
@@ -1653,8 +1654,8 @@
 		990F33B524BC915200D0F426 /* SearchActionBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchActionBarView.swift; sourceTree = "<group>"; };
 		9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRoutesSubscriptionCampaign.swift; sourceTree = "<group>"; };
 		9917D17E2397B1D600A7E06E /* IPadModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPadModalPresentationController.swift; sourceTree = "<group>"; };
-		991CE2BA2371D349009EB02A /* PromoCampaignManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoCampaignManager.swift; sourceTree = "<group>"; };
-		991CE2BB2371D349009EB02A /* PromoCampaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoCampaign.swift; sourceTree = "<group>"; };
+		991CE2BA2371D349009EB02A /* ABTestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABTestManager.swift; sourceTree = "<group>"; };
+		991CE2BB2371D349009EB02A /* IABTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IABTest.swift; sourceTree = "<group>"; };
 		991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryCampaign.swift; sourceTree = "<group>"; };
 		991CE2DC2373145C009EB02A /* PromoAfterBookingCampaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoAfterBookingCampaign.swift; sourceTree = "<group>"; };
 		991FCA1F23B0FF33009AD684 /* AdsStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsStyleSheet.swift; sourceTree = "<group>"; };
@@ -1724,6 +1725,7 @@
 		993F5504237C622700545511 /* DeepLinkFileStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkFileStrategy.swift; sourceTree = "<group>"; };
 		993F5505237C622700545511 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
 		993F5506237C622700545511 /* DeepLinkStrategyFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkStrategyFactory.swift; sourceTree = "<group>"; };
+		9941DFB624E6A52700CDE458 /* ABTestBookingBackButtonColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABTestBookingBackButtonColor.swift; sourceTree = "<group>"; };
 		99425AF3236855BB00D005C0 /* PromoDiscoveryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryRouter.swift; sourceTree = "<group>"; };
 		99425AFB23685F1E00D005C0 /* PromoDiscoveryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryPresenter.swift; sourceTree = "<group>"; };
 		9948ADB324E14517003A826A /* PartnerBannerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerBannerBuilder.swift; sourceTree = "<group>"; };
@@ -2565,9 +2567,10 @@
 		340475281E081A4600C92850 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				9941DFB024E6A45300CDE458 /* ABTests */,
 				994AEBE323AB763C0079B81F /* Theme */,
 				993F54F6237C622700545511 /* DeepLink */,
-				991CE2B92371D349009EB02A /* PromoCampaign */,
+				991CE2B92371D349009EB02A /* ABTests */,
 				CDCA27822245090900167D87 /* EventListening */,
 				47B9064821C7FA100079C85E /* WebImage */,
 				470F5A7B2189BA7200754295 /* InappPurchase */,
@@ -3650,40 +3653,15 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
-		9917D17B2396790D00A7E06E /* PaidRoutesSubscriptionCampaign */ = {
+		991CE2B92371D349009EB02A /* ABTests */ = {
 			isa = PBXGroup;
 			children = (
-				9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */,
+				9941DFBB24E6C75600CDE458 /* Tests */,
+				9941DFBA24E6C74000CDE458 /* Promo */,
+				991CE2BA2371D349009EB02A /* ABTestManager.swift */,
+				991CE2BB2371D349009EB02A /* IABTest.swift */,
 			);
-			path = PaidRoutesSubscriptionCampaign;
-			sourceTree = "<group>";
-		};
-		991CE2B92371D349009EB02A /* PromoCampaign */ = {
-			isa = PBXGroup;
-			children = (
-				9917D17B2396790D00A7E06E /* PaidRoutesSubscriptionCampaign */,
-				991CE2DB23731440009EB02A /* PromoAfterBookingCampaign */,
-				991CE2BD2371D349009EB02A /* PromoDiscoveryCampaign */,
-				991CE2BA2371D349009EB02A /* PromoCampaignManager.swift */,
-				991CE2BB2371D349009EB02A /* PromoCampaign.swift */,
-			);
-			path = PromoCampaign;
-			sourceTree = "<group>";
-		};
-		991CE2BD2371D349009EB02A /* PromoDiscoveryCampaign */ = {
-			isa = PBXGroup;
-			children = (
-				991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */,
-			);
-			path = PromoDiscoveryCampaign;
-			sourceTree = "<group>";
-		};
-		991CE2DB23731440009EB02A /* PromoAfterBookingCampaign */ = {
-			isa = PBXGroup;
-			children = (
-				991CE2DC2373145C009EB02A /* PromoAfterBookingCampaign.swift */,
-			);
-			path = PromoAfterBookingCampaign;
+			path = ABTests;
 			sourceTree = "<group>";
 		};
 		993DF0C223F6BD0600AC231A /* ElevationDetails */ = {
@@ -3815,6 +3793,39 @@
 				993F5504237C622700545511 /* DeepLinkFileStrategy.swift */,
 			);
 			path = Strategies;
+			sourceTree = "<group>";
+		};
+		9941DFB024E6A45300CDE458 /* ABTests */ = {
+			isa = PBXGroup;
+			children = (
+				9941DFB524E6A50E00CDE458 /* Tests */,
+			);
+			path = ABTests;
+			sourceTree = "<group>";
+		};
+		9941DFB524E6A50E00CDE458 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		9941DFBA24E6C74000CDE458 /* Promo */ = {
+			isa = PBXGroup;
+			children = (
+				9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */,
+				991CE2DC2373145C009EB02A /* PromoAfterBookingCampaign.swift */,
+				991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */,
+			);
+			path = Promo;
+			sourceTree = "<group>";
+		};
+		9941DFBB24E6C75600CDE458 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				9941DFB624E6A52700CDE458 /* ABTestBookingBackButtonColor.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		994AEBE323AB763C0079B81F /* Theme */ = {
@@ -5662,7 +5673,7 @@
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.m in Sources */,
 				CDB92CF822A5350500EC757C /* MWMDiscoveryHotelViewModel.m in Sources */,
-				991CE2C02371D349009EB02A /* PromoCampaign.swift in Sources */,
+				991CE2C02371D349009EB02A /* IABTest.swift in Sources */,
 				F6E2FE311E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */,
 				99CB34B32369DF2E001D28AD /* WhatsNewBuilder.swift in Sources */,
 				F6E2FE281E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
@@ -5702,7 +5713,7 @@
 				477D7AC7218F1515007EE2CB /* IPaidRoutePurchase.swift in Sources */,
 				34E776141F14B17F003040B3 /* AvailableArea.swift in Sources */,
 				34AB66081FC5AA320078E451 /* MWMNavigationDashboardManager.mm in Sources */,
-				991CE2BF2371D349009EB02A /* PromoCampaignManager.swift in Sources */,
+				991CE2BF2371D349009EB02A /* ABTestManager.swift in Sources */,
 				470F5A5B2181DE7500754295 /* PaidRouteViewController.swift in Sources */,
 				3486B50D1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
 				3404F490202898CC0090E401 /* BMCModels.swift in Sources */,
@@ -5980,6 +5991,7 @@
 				991FCA2423B11E61009AD684 /* BookmarksStyleSheet.swift in Sources */,
 				993DF12823F6BDB100AC231A /* IStyleSheet.swift in Sources */,
 				99A906E423F6F7030005872B /* CatalogSingleItemViewController.swift in Sources */,
+				9941DFB724E6A52700CDE458 /* ABTestBookingBackButtonColor.swift in Sources */,
 				6741AA1C1BF340DE002C974C /* MWMRoutingDisclaimerAlert.m in Sources */,
 				34D3B0481E389D05004100F9 /* MWMNoteCell.m in Sources */,
 				CD9AD967228067F500EC174A /* MapInfo.swift in Sources */,

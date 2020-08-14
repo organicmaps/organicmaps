@@ -4,12 +4,15 @@ class BookmarksBackButtonViewController: UIViewController {
   private var leftOffset: NSLayoutConstraint?
   private var availableArea = CGRect.zero
   private var mapViewController = MapViewController.shared()
+  private var abTestBookingBackButtonColor = ABTestManager.manager().abTestBookingBackButtonColor
 
   @objc var hidden: Bool = true {
     didSet {
       refreshLayout()
     }
   }
+
+  @IBOutlet var button: MWMButton!
 
   static var controller: BookmarksBackButtonViewController = {
     guard let bookmarksBackButton = MWMMapViewControlsManager.manager()?.bookmarksBackButton else {
@@ -20,6 +23,12 @@ class BookmarksBackButtonViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    switch abTestBookingBackButtonColor.type {
+    case .opaque:
+      button.setStyleAndApply("ButtonBookmarksBackOpaque")
+    default:
+      button.setStyleAndApply("ButtonBookmarksBack")
+    }
     refreshLayout(false)
   }
 
@@ -62,5 +71,7 @@ class BookmarksBackButtonViewController: UIViewController {
 
   @IBAction func buttonTouchUpInside(_ sender: Any) {
     MapViewController.shared()?.bookmarksCoordinator.state = .opened
+    Statistics.logEvent(kStatBackClick, withParameters: [kStatFrom: kStatMap,
+                                                         kStatTo: kStatBookmarks])
   }
 }

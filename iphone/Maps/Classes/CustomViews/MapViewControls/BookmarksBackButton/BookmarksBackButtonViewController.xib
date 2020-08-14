@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksBackButtonViewController" customModule="maps_me" customModuleProvider="target">
             <connections>
+                <outlet property="button" destination="cCO-58-yy1" id="3ZH-dK-IBJ"/>
                 <outlet property="view" destination="cCO-58-yy1" id="67p-Rk-DQH"/>
             </connections>
         </placeholder>

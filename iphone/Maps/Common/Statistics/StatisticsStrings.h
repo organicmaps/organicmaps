@@ -11,6 +11,7 @@ static NSString *const kStat8 = @"8";
 static NSString *const kStat9 = @"9";
 static NSString *const kStatAPI = @"API";
 static NSString *const kStatAbout = @"About";
+static NSString *const ABTestInitialized = @"ABTest_init";
 static NSString *const kStatAction = @"action";
 static NSString *const kStatActionSheet = @"Action sheet";
 static NSString *const kStatAd = @"Ad";

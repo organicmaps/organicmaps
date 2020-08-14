@@ -50,7 +50,7 @@
 
   @objc private func onButtonPress(sender: UIButton) {
     coordinator.onPromoButtonPress(completion: { [weak self] in
-      PromoCampaignManager.manager().promoDiscoveryCampaign.onActivate();
+      ABTestManager.manager().promoDiscoveryCampaign.onActivate();
       self?.isHidden = true;
     })
   }

@@ -1,4 +1,4 @@
-@objc class PromoAfterBookingCampaign: NSObject, IPromoCampaign {
+@objc class PromoAfterBookingCampaign: NSObject, IABTest {
   @objc var afterBookingData: PromoAfterBookingData {
     return PromoAfterBookingCampaignAdapter.afterBookingData()
   }

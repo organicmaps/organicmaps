@@ -65,7 +65,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.isDirectionViewHidden = YES;
   self.bookmarksBackButtonHidden = YES;
   self.menuRestoreState = MWMBottomMenuStateInactive;
-  self.promoDiscoveryCampaign = [PromoCampaignManager manager].promoDiscoveryCampaign;
+  self.promoDiscoveryCampaign = [ABTestManager manager].promoDiscoveryCampaign;
   if (_promoDiscoveryCampaign.enabled) {
     [controller.controlsView addSubview:self.promoButton];
     self.promoButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -280,8 +280,8 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (BookmarksBackButtonViewController *)bookmarksBackButton {
   if (!_bookmarksBackButton) {
     _bookmarksBackButton = [[BookmarksBackButtonViewController alloc] init];
-    [self.ownerController addChildViewController: _bookmarksBackButton];
-    [self.ownerController.controlsView addSubview: _bookmarksBackButton.view];
+    [self.ownerController addChildViewController:_bookmarksBackButton];
+    [self.ownerController.controlsView addSubview:_bookmarksBackButton.view];
     [_bookmarksBackButton configLayout];
   }
   return _bookmarksBackButton;
@@ -451,7 +451,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (BOOL)showPromoBookingIfNeeded {
-  PromoAfterBookingCampaign *afterBookingCampaign = [PromoCampaignManager manager].promoAfterBookingCampaign;
+  PromoAfterBookingCampaign *afterBookingCampaign = [ABTestManager manager].promoAfterBookingCampaign;
   PromoAfterBookingData *afterBookingData = afterBookingCampaign.afterBookingData;
   if (!afterBookingData.enabled)
     return NO;
