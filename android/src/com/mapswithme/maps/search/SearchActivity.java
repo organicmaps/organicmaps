@@ -152,7 +152,7 @@ public class SearchActivity extends BaseMwmFragmentActivity
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
     if (requestCode == FilterUtils.REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
-      Utils.showSystemSettings(this);
+      Utils.showSystemConnectionSettings(this);
   }
 
   @Override

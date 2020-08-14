@@ -534,15 +534,23 @@ public class Utils
     }
   }
 
-  public static void showSystemSettings(@NonNull Context context)
+  public static void showSystemConnectionSettings(@NonNull Context context)
   {
     try
     {
-      context.startActivity(new Intent(Settings.ACTION_SETTINGS));
+      context.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
     }
     catch (ActivityNotFoundException e)
     {
-      LOGGER.e(TAG, "Failed to open system settings", e);
+      LOGGER.e(TAG, "Failed to open system connection settings", e);
+      try
+      {
+        context.startActivity(new Intent(Settings.ACTION_SETTINGS));
+      }
+      catch (ActivityNotFoundException ex)
+      {
+        LOGGER.e(TAG, "Failed to open system settings", ex);
+      }
     }
   }
 

@@ -38,7 +38,7 @@ public class ErrorCatalogPromoListener<T extends Items.Item> implements com.maps
     if (ConnectionState.isConnected())
       NetworkPolicy.checkNetworkPolicy(mActivity.getSupportFragmentManager(),  mListener, true);
     else
-      Utils.showSystemSettings(getActivity());
+      Utils.showSystemConnectionSettings(getActivity());
   }
 
   @NonNull

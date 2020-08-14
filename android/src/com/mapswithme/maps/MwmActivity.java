@@ -2584,7 +2584,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else if (requestCode == REQ_CODE_ISOLINES_ERROR)
       startActivity(new Intent(this, DownloaderActivity.class));
     else if (requestCode == FilterUtils.REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
-      Utils.showSystemSettings(this);
+      Utils.showSystemConnectionSettings(this);
   }
 
   @Override

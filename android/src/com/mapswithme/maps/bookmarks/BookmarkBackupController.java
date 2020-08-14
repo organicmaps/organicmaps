@@ -104,7 +104,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
     if (!ConnectionState.isConnected())
     {
       DialogInterface.OnClickListener clickListener
-          = (dialog, which) -> Utils.showSystemSettings(mContext);
+          = (dialog, which) -> Utils.showSystemConnectionSettings(mContext);
       DialogUtils.showAlertDialog(mContext, R.string.common_check_internet_connection_dialog_title,
                                   R.string.common_check_internet_connection_dialog,
                                   R.string.settings, clickListener, R.string.ok);

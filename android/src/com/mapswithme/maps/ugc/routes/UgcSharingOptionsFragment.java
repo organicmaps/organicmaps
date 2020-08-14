@@ -589,7 +589,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
     if (requestCode == REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
-      Utils.showSystemSettings(requireContext());
+      Utils.showSystemConnectionSettings(requireContext());
     else if (requestCode == REQ_CODE_UPLOAD_CONFIRMATION_DIALOG
              || requestCode == REQ_CODE_UPDATE_CONFIRMATION_DIALOG)
       requestUpload();
