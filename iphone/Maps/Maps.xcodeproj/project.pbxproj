@@ -606,6 +606,8 @@
 		993DF12B23F6BDB100AC231A /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0FF23F6BDB100AC231A /* StyleManager.swift */; };
 		993DF12C23F6BDB100AC231A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF10023F6BDB100AC231A /* Theme.swift */; };
 		993DF12D23F6BDB100AC231A /* GlobalStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF10123F6BDB100AC231A /* GlobalStyleSheet.swift */; };
+		993ECBB324E40CEC00EA5DEF /* BookmarksBackButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993ECBB124E40CEC00EA5DEF /* BookmarksBackButtonViewController.swift */; };
+		993ECBB424E40CEC00EA5DEF /* BookmarksBackButtonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 993ECBB224E40CEC00EA5DEF /* BookmarksBackButtonViewController.xib */; };
 		993F5507237C622700545511 /* DeepLinkSearchStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */; };
 		993F5508237C622700545511 /* DeepLinkRouteStrategyAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */; };
 		993F5509237C622700545511 /* DeepLinkHandlerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FA237C622700545511 /* DeepLinkHandlerStrategy.swift */; };
@@ -637,6 +639,7 @@
 		995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995F1611244F0AA40060631D /* BottomMenuLayersCell.swift */; };
 		995F1614244F0AA50060631D /* BottomMenuLayersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 995F1612244F0AA40060631D /* BottomMenuLayersCell.xib */; };
 		9977E69C247BFB510073780C /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977E69B247BFB510073780C /* SearchTextField.swift */; };
+		996D108A24E3DBF2002DD0E2 /* BookmarksCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996D108924E3DBF2002DD0E2 /* BookmarksCoordinator.swift */; };
 		996D108124E14AEB002DD0E2 /* MultiPartnerBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996D107F24E14AEB002DD0E2 /* MultiPartnerBannerViewController.swift */; };
 		996D108224E14AEB002DD0E2 /* MultiPartnerBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 996D108024E14AEB002DD0E2 /* MultiPartnerBannerViewController.xib */; };
 		996D108624E15FBE002DD0E2 /* DownloadBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996D108524E15FBE002DD0E2 /* DownloadBannerViewController.swift */; };
@@ -1704,6 +1707,8 @@
 		993DF0FF23F6BDB100AC231A /* StyleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
 		993DF10023F6BDB100AC231A /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		993DF10123F6BDB100AC231A /* GlobalStyleSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalStyleSheet.swift; sourceTree = "<group>"; };
+		993ECBB124E40CEC00EA5DEF /* BookmarksBackButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksBackButtonViewController.swift; sourceTree = "<group>"; };
+		993ECBB224E40CEC00EA5DEF /* BookmarksBackButtonViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksBackButtonViewController.xib; sourceTree = "<group>"; };
 		993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkSearchStrategy.swift; sourceTree = "<group>"; };
 		993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkRouteStrategyAdapter.mm; sourceTree = "<group>"; };
 		993F54FA237C622700545511 /* DeepLinkHandlerStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkHandlerStrategy.swift; sourceTree = "<group>"; };
@@ -1738,6 +1743,7 @@
 		995F1611244F0AA40060631D /* BottomMenuLayersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLayersCell.swift; sourceTree = "<group>"; };
 		995F1612244F0AA40060631D /* BottomMenuLayersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomMenuLayersCell.xib; sourceTree = "<group>"; };
 		996D107F24E14AEB002DD0E2 /* MultiPartnerBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPartnerBannerViewController.swift; sourceTree = "<group>"; };
+		996D108924E3DBF2002DD0E2 /* BookmarksCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksCoordinator.swift; sourceTree = "<group>"; };
 		9977E69B247BFB510073780C /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		996D108024E14AEB002DD0E2 /* MultiPartnerBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiPartnerBannerViewController.xib; sourceTree = "<group>"; };
 		996D108524E15FBE002DD0E2 /* DownloadBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadBannerViewController.swift; sourceTree = "<group>"; };
@@ -3288,6 +3294,7 @@
 		34BC72091B0DECAE0012A34B /* MapViewControls */ = {
 			isa = PBXGroup;
 			children = (
+				993ECBB024E40C6700EA5DEF /* BookmarksBackButton */,
 				99B6A74A2362F579002C94CB /* PromoButton */,
 				340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */,
 				34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */,
@@ -3769,6 +3776,15 @@
 				993DF10023F6BDB100AC231A /* Theme.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		993ECBB024E40C6700EA5DEF /* BookmarksBackButton */ = {
+			isa = PBXGroup;
+			children = (
+				993ECBB124E40CEC00EA5DEF /* BookmarksBackButtonViewController.swift */,
+				993ECBB224E40CEC00EA5DEF /* BookmarksBackButtonViewController.xib */,
+			);
+			path = BookmarksBackButton;
 			sourceTree = "<group>";
 		};
 		993F54F6237C622700545511 /* DeepLink */ = {
@@ -4990,6 +5006,7 @@
 				BB87BF8922FAF1CA008A8A72 /* TracksSection.mm */,
 				BB87BF8B22FAF3B8008A8A72 /* InfoSection.h */,
 				BB87BF8C22FAF435008A8A72 /* InfoSection.mm */,
+				996D108924E3DBF2002DD0E2 /* BookmarksCoordinator.swift */,
 			);
 			path = Bookmarks;
 			sourceTree = "<group>";
@@ -5267,6 +5284,7 @@
 				47A13CAB24BE881000027D4F /* DatePickerViewController.xib in Resources */,
 				3463BA691DE81DB90082417F /* MWMTrafficButtonViewController.xib in Resources */,
 				F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */,
+				993ECBB424E40CEC00EA5DEF /* BookmarksBackButtonViewController.xib in Resources */,
 				47E6CB0C2178BA3600EA102B /* SearchBannerCell.xib in Resources */,
 				6741A9761BF340DE002C974C /* packed_polygons.bin in Resources */,
 				470A8A012136097000D72FBF /* SubwayTutorialBlur.xib in Resources */,
@@ -5585,6 +5603,7 @@
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.m in Sources */,
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
 				34AC8FD11EFC02C000E7F910 /* MWMRoutePoint.mm in Sources */,
+				993ECBB324E40CEC00EA5DEF /* BookmarksBackButtonViewController.swift in Sources */,
 				CDB4D5012231412900104869 /* ListTemplateBuilder.swift in Sources */,
 				99A906F323FA95AB0005872B /* PlacePageStyleSheet.swift in Sources */,
 				6741A9CF1BF340DE002C974C /* MWMLocationAlert.m in Sources */,
@@ -5798,6 +5817,7 @@
 				344532381F6FFE6A0059FBCC /* UGCRating.swift in Sources */,
 				47A6F3C5235F47B90053FBA4 /* BookmarksSubscriptionButton.swift in Sources */,
 				34AB66411FC5AA330078E451 /* RouteManagerTransitioningManager.swift in Sources */,
+				996D108A24E3DBF2002DD0E2 /* BookmarksCoordinator.swift in Sources */,
 				3454D7CE1E07F045004AF2AD /* UIFont+MapsMeFonts.m in Sources */,
 				99A906E123F6F7030005872B /* PlacePageButtonsViewController.swift in Sources */,
 				CD4A1F1A230EADC100F2A6B6 /* CatalogConnectionErrorView.swift in Sources */,

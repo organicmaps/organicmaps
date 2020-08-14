@@ -22,6 +22,16 @@ class DownloadedBookmarksViewController: MWMViewController {
   }
 
   let dataSource = DownloadedBookmarksDataSource()
+  private weak var coordinator: BookmarksCoordinator?
+
+  init(coordinator: BookmarksCoordinator?) {
+    super.init(nibName: nil, bundle: nil)
+    self.coordinator = coordinator
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -90,6 +100,13 @@ class DownloadedBookmarksViewController: MWMViewController {
       tableView.reloadData()
     }
   }
+
+  private func openCategory(category: BookmarkGroup) {
+    let bmViewController = BookmarksVC(category: category.categoryId)
+    bmViewController.delegate = self
+    MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
+                                                                                   animated: true)
+  }
 }
 
 extension DownloadedBookmarksViewController: UITableViewDataSource {
@@ -127,9 +144,7 @@ extension DownloadedBookmarksViewController: UITableViewDelegate {
     }
     
     let category = dataSource.category(at: indexPath.row)
-    let bmViewController = BookmarksVC(category: category.categoryId)
-    MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
-                                                                                   animated: true)
+    openCategory(category: category)
   }
 }
 
@@ -172,5 +187,20 @@ extension DownloadedBookmarksViewController: BMCCategoriesHeaderDelegate {
   func visibilityAction(_ categoriesHeader: BMCCategoriesHeader) {
     dataSource.allCategoriesHidden = !dataSource.allCategoriesHidden
     tableView.reloadData()
+  }
+}
+
+extension DownloadedBookmarksViewController: BookmarksVCDelegate {
+  func bookmarksVCdidUpdateCategory(_ viewController: BookmarksVC) { }
+
+  func bookmarksVCdidDeleteCategory(_ viewController: BookmarksVC) { }
+
+  func bookmarksVCdidView(onMap viewController: BookmarksVC, type: BookmarksVCSelectedType) {
+    switch type {
+    case .bookmark:
+      coordinator?.state = .hidden
+    default:
+      coordinator?.state = .closed
+    }
   }
 }

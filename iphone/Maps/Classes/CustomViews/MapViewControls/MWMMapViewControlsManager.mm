@@ -63,6 +63,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.sideButtonsHidden = NO;
   self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
+  self.bookmarksBackButtonHidden = YES;
   self.menuRestoreState = MWMBottomMenuStateInactive;
   self.promoDiscoveryCampaign = [PromoCampaignManager manager].promoDiscoveryCampaign;
   if (_promoDiscoveryCampaign.enabled) {
@@ -103,6 +104,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
   [self.trafficButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.tabBarController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  [self.bookmarksBackButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.searchManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
@@ -275,6 +277,16 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   return _tabBarController;
 }
 
+- (BookmarksBackButtonViewController *)bookmarksBackButton {
+  if (!_bookmarksBackButton) {
+    _bookmarksBackButton = [[BookmarksBackButtonViewController alloc] init];
+    [self.ownerController addChildViewController: _bookmarksBackButton];
+    [self.ownerController.controlsView addSubview: _bookmarksBackButton.view];
+    [_bookmarksBackButton configLayout];
+  }
+  return _bookmarksBackButton;
+}
+
 - (id<MWMPlacePageProtocol>)placePageManager {
   if (!_placePageManager)
     _placePageManager = [[MWMPlacePageManager alloc] init];
@@ -320,6 +332,16 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   BOOL const isNavigation = self.navigationManager.state == MWMNavigationDashboardStateNavigation;
   _trafficButtonHidden = isNavigation || trafficButtonHidden;
   self.trafficButton.hidden = self.hidden || _trafficButtonHidden;
+}
+
+- (void)setBookmarksBackButtonHidden:(BOOL)bookmarksBackButtonHidden {
+  _bookmarksBackButtonHidden = bookmarksBackButtonHidden;
+  self.bookmarksBackButton.hidden = _bookmarksBackButtonHidden;
+  if (_bookmarksBackButtonHidden) {
+    self.trafficButton.hidden = self.hidden || _trafficButtonHidden;
+  } else {
+    self.trafficButton.hidden = YES;
+  }
 }
 
 - (void)setMenuState:(MWMBottomMenuState)menuState {

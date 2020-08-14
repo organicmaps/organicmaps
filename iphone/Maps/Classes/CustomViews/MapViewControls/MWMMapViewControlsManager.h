@@ -5,6 +5,7 @@
 
 @class MapViewController;
 @class BottomTabBarViewController;
+@class BookmarksBackButtonViewController;
 @protocol MWMFeatureHolder;
 
 @interface MWMMapViewControlsManager : NSObject
@@ -15,10 +16,12 @@
 @property(nonatomic) BOOL zoomHidden;
 @property(nonatomic) BOOL sideButtonsHidden;
 @property(nonatomic) BOOL trafficButtonHidden;
+@property(nonatomic) BOOL bookmarksBackButtonHidden;
 @property(nonatomic) MWMBottomMenuState menuState;
 @property(nonatomic) MWMBottomMenuState menuRestoreState;
 @property(nonatomic) BOOL isDirectionViewHidden;
 @property(nonatomic) BottomTabBarViewController *tabBarController;
+@property(nonatomic) BookmarksBackButtonViewController *bookmarksBackButton;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;

@@ -54,7 +54,7 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
   }
   
   func openBookmarks() {
-    MapViewController.shared()?.openBookmarks()
+    mapViewController?.bookmarksCoordinator.state = .opened
   }
   
   func openMenu() {

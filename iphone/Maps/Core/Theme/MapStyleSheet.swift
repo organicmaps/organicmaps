@@ -93,6 +93,10 @@ class MapStyleSheet: IStyleSheet {
       s.mwmImage = "promo_discovery_button"
     }
 
+    theme.add(styleName: "ButtonBookmarksBack") { (s) -> (Void) in
+      s.mwmImage = "btn_back"
+    }
+
     theme.add(styleName: "FirstTurnView") { (s) -> (Void) in
       s.backgroundColor = colors.linkBlue
       s.cornerRadius = 4

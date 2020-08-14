@@ -92,3 +92,4 @@
 #import "UIImageView+WebImage.h"
 #import "UIViewController+Navigation.h"
 #import "WebViewController.h"
+#import "MWMMapViewControlsCommon.h"

@@ -14,11 +14,22 @@ final class BookmarksTabViewController: TabViewController {
     }
   }
 
+  private weak var coordinator: BookmarksCoordinator?
+
+  init(coordinator: BookmarksCoordinator?) {
+    super.init(nibName: nil, bundle: nil)
+    self.coordinator = coordinator
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    let bookmarks = BMCViewController()
-    let catalog = DownloadedBookmarksViewController()
+    let bookmarks = BMCViewController(coordinator: coordinator)
+    let catalog = DownloadedBookmarksViewController(coordinator: coordinator)
     bookmarks.title = L("bookmarks")
     catalog.title = L("guides")
     viewControllers = [bookmarks, catalog]

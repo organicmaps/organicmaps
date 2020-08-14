@@ -8,6 +8,7 @@
 @class MWMMapViewControlsManager;
 @class EAGLView;
 @class MWMMapDownloadDialog;
+@class BookmarksCoordinator;
 @protocol MWMLocationModeListener;
 
 @interface MapViewController : MWMViewController
@@ -24,7 +25,6 @@
 
 - (void)performAction:(NSString *)action;
 
-- (void)openBookmarks;
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode;
 - (void)openEditor;
 - (void)openBookmarkEditor;
@@ -51,7 +51,7 @@
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property(nonatomic) MWMWelcomePageController * welcomePageController;
 @property(nonatomic, readonly) MWMMapDownloadDialog * downloadDialog;
-
+@property(nonatomic, readonly) BookmarksCoordinator * bookmarksCoordinator;
 
 @property(nonatomic) MWMMyPositionMode currentPositionMode;
 @property(strong, nonatomic) IBOutlet EAGLView * _Nonnull mapView;

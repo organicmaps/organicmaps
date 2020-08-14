@@ -85,6 +85,7 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
     [self.view.superview animateConstraintsWithAnimations:^{
       self.topOffset.constant = availableArea.origin.y + kTopOffset;
       self.leftOffset.constant = leftOffset;
+      self.view.alpha = self.hidden ? 0 : 1;
     }];
   });
 }

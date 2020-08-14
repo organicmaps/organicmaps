@@ -94,6 +94,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *guidesVisibleConstraint;;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *guidesHiddenConstraint;
 @property(strong, nonatomic) IBOutlet UIImageView *carplayPlaceholderLogo;
+@property(strong, nonatomic) BookmarksCoordinator * bookmarksCoordinator;
 
 @property(strong, nonatomic) NSHashTable<id<MWMLocationModeListener>> *listeners;
 
@@ -222,6 +223,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
       [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
     }
   }
+
+  BOOL const isBookmarksViewHidden = self.bookmarksCoordinator.state == BookmarksStateHidden;
+  if (isBookmarksViewHidden)
+    self.bookmarksCoordinator.state = BookmarksStateClosed;
 
   if (!switchFullScreenMode)
     return;
@@ -550,10 +555,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 #pragma mark - Open controllers
 
-- (void)openBookmarks {
-  [self.navigationController pushViewController:[[MWMBookmarksTabViewController alloc] init] animated:YES];
-}
-
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode {
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
   [self performSegueWithIdentifier:kDownloaderSegue sender:@(mode)];
@@ -796,7 +797,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     auto searchState = MWMSearchManagerStateHidden;
     [MWMRouter stopRouting];
     if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
-      [self openBookmarks];
+      self.bookmarksCoordinator.state = BookmarksStateOpened;
     else if ([action isEqualToString:@"me.maps.3daction.search"])
       searchState = MWMSearchManagerStateDefault;
     else if ([action isEqualToString:@"me.maps.3daction.route"])
@@ -890,6 +891,13 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
   auto const center = mercator::FromLatLon(lat, lon);
   f.SetViewportCenter(center, zoomLevel, false);
+}
+
+- (BookmarksCoordinator *)bookmarksCoordinator {
+  if (!_bookmarksCoordinator)
+    _bookmarksCoordinator = [[BookmarksCoordinator alloc] initWithNavigationController:self.navigationController
+                                                                       controlsManager:self.controlsManager];
+  return _bookmarksCoordinator;
 }
 
 #pragma mark - CarPlay map append/remove

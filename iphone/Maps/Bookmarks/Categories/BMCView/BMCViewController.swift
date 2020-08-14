@@ -6,6 +6,8 @@ final class BMCViewController: MWMViewController {
     }
   }
 
+  private weak var coordinator: BookmarksCoordinator?
+
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       let cells = [
@@ -28,6 +30,15 @@ final class BMCViewController: MWMViewController {
 
   @IBOutlet private var actionsHeader: UIView!
   @IBOutlet private var notificationsHeader: BMCNotificationsHeader!
+
+  init(coordinator: BookmarksCoordinator?) {
+    super.init(nibName: nil, bundle: nil)
+    self.coordinator = coordinator
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -379,5 +390,14 @@ extension BMCViewController: BookmarksVCDelegate {
   func bookmarksVCdidDeleteCategory(_ viewController: BookmarksVC) {
     guard let parentVC = parent else { return }
     navigationController?.popToViewController(parentVC, animated: true)
+  }
+
+  func bookmarksVCdidView(onMap viewController: BookmarksVC, type: BookmarksVCSelectedType) {
+    switch type {
+    case .bookmark:
+      coordinator?.state = .hidden
+    default:
+      coordinator?.state = .closed
+    }
   }
 }

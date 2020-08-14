@@ -8,6 +8,7 @@
 #import "MWMLocationObserver.h"
 #import "MWMSearchNoResults.h"
 #import "TracksSection.h"
+#import "MapViewController.h"
 
 #import <CoreApi/CoreApi.h>
 
@@ -67,7 +68,6 @@ using namespace std;
 @property(weak, nonatomic) IBOutlet UIBarButtonItem *sortDownloadedSpinnerItem;
 
 @property(weak, nonatomic) IBOutlet UIBarButtonItem * moreItem;
-
 @end
 
 @implementation BookmarksVC
@@ -377,8 +377,8 @@ using namespace std;
 }
 
 - (void)viewOnMap {
-  [self.navigationController popToRootViewControllerAnimated:YES];
   GetFramework().ShowBookmarkCategory(self.categoryId);
+  [self.delegate bookmarksVCdidViewOnMap:self type:BookmarksVCSelectedTypeNone];
 }
 
 - (IBAction)onSort:(UIBarButtonItem *)sender {
@@ -689,11 +689,19 @@ using namespace std;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   // Remove cell selection
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-  [[self currentSections][indexPath.section] didSelectRow:indexPath.row];
+  id<TableSectionDataSource> currentSection = [self currentSections][indexPath.section];
+  [currentSection didSelectRow:indexPath.row];
   if (self.searchSections != nil)
     [Statistics logEvent:kStatBookmarksSearchResultSelected withParameters:@{kStatFrom : kStatBookmarksList}];
   [self.searchBar resignFirstResponder];
-  [self.navigationController popToRootViewControllerAnimated:NO];
+
+  BookmarksVCSelectedType selectedType = BookmarksVCSelectedTypeNone;
+  if ([currentSection isKindOfClass:[BookmarksSection class]]) {
+    selectedType = BookmarksVCSelectedTypeBookmark;
+  } else if ([currentSection isKindOfClass:[TracksSection class]]) {
+    selectedType = BookmarksVCSelectedTypeTrack;
+  }
+  [self.delegate bookmarksVCdidViewOnMap:self type:selectedType];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
