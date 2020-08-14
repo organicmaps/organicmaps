@@ -9031,6 +9031,40 @@ zh-Hans:杂货店
 zh-Hant:雜貨店
 fa:خرازی
 
+shop-video
+en:Video shop
+ru:Магазин видео
+ar:متجر فيديو
+cs:Videopůjčovna
+da:Videobutik
+nl:Videowinkel
+fi:Videokauppa
+fr:Boutique de vidéos
+de:Videoshop
+hu:Videotéka
+id:Toko video
+it:Videoteca
+ja:ビデオショップ
+ko:비디오 가게
+nb:Videobutikken
+pl:Wypożyczalnia wideo
+pt:Loja de vídeo
+pt-BR:Video Locadora
+ro:Magazin video
+es:Tienda de vídeo
+es-MX:Tienda de vídeo
+sv:Video butik
+th:ร้านขายดีวีดี
+tr:Video mağazası
+uk:Магазин відео
+vi:Cửa hàng bán/cho thuê bằng đĩa
+el:Βίντεο Κλαμπ
+sk:Predajňa s videami
+sw:Duka la Video
+zh-Hans:视频商城
+zh-Hant:視頻商城
+fa:فروشگاه رسانه‌های تصویری
+
 shop-video_games
 en:Video games shop|videogames shop|video games|videogames
 ru:Магазин видеоигр|видеоигры
