@@ -23,6 +23,7 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.search.BookingFilterParams;
 import com.mapswithme.maps.search.FilterUtils;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
@@ -68,6 +69,12 @@ public class SearchToolbarController extends ToolbarController
 
   @NonNull
   private final View.OnClickListener mChooseDatesClickListener = v -> {
+    if (!ConnectionState.isConnected())
+    {
+      FilterUtils.showNoNetworkConnectionDialog((AppCompatActivity) getActivity());
+      return;
+    }
+
     MaterialDatePicker.Builder<Pair<Long, Long>> builder
         = MaterialDatePicker.Builder.dateRangePicker();
     CalendarConstraints.Builder constraintsBuilder = FilterUtils.createDateConstraintsBuilder();

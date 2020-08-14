@@ -111,6 +111,7 @@ import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
 import com.mapswithme.maps.search.BookingFilterParams;
 import com.mapswithme.maps.search.FilterActivity;
+import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
 import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.NativeSearchListener;
@@ -2582,6 +2583,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                               BookmarkManager.INSTANCE.getCatalogFrontendUrl(UTM.UTM_NONE));
     else if (requestCode == REQ_CODE_ISOLINES_ERROR)
       startActivity(new Intent(this, DownloaderActivity.class));
+    else if (requestCode == FilterUtils.REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
+      Utils.showSystemSettings(this);
   }
 
   @Override

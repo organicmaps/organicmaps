@@ -3,26 +3,29 @@ package com.mapswithme.maps.search;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
+import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.core.app.NavUtils;
-
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.purchase.PurchaseCallback;
+import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
+import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.Utils;
 
 public class SearchActivity extends BaseMwmFragmentActivity
-    implements CustomNavigateUpListener, AdsRemovalPurchaseControllerProvider
+    implements CustomNavigateUpListener, AdsRemovalPurchaseControllerProvider,
+               AlertDialogCallback
 {
   public static final String EXTRA_QUERY = "search_query";
   public static final String EXTRA_LOCALE = "locale";
@@ -143,5 +146,24 @@ public class SearchActivity extends BaseMwmFragmentActivity
   public PurchaseController<PurchaseCallback> getAdsRemovalPurchaseController()
   {
     return mAdsRemovalPurchaseController;
+  }
+
+  @Override
+  public void onAlertDialogPositiveClick(int requestCode, int which)
+  {
+    if (requestCode == FilterUtils.REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
+      Utils.showSystemSettings(this);
+  }
+
+  @Override
+  public void onAlertDialogNegativeClick(int requestCode, int which)
+  {
+    // No op.
+  }
+
+  @Override
+  public void onAlertDialogCancel(int requestCode)
+  {
+    // No op.
   }
 }

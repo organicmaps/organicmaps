@@ -5,12 +5,15 @@ import android.content.Context;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.CompositeDateValidator;
 import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.util.Utils;
 
 import java.lang.annotation.Retention;
@@ -27,9 +30,11 @@ import java.util.concurrent.TimeUnit;
 
 public class FilterUtils
 {
+  public static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 301;
   private static final int MAX_STAYING_DAYS = 30;
   private static final int MAX_CHECKIN_WINDOW_IN_DAYS = 365;
   private static final String DAY_OF_MONTH_PATTERN = "MMM d";
+  private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ RATING_ANY, RATING_GOOD, RATING_VERYGOOD, RATING_EXCELLENT })
@@ -259,5 +264,23 @@ public class FilterUtils
     dayAfter.setTimeInMillis(date);
     dayAfter.add(Calendar.DAY_OF_YEAR, 1);
     return dayAfter.getTimeInMillis();
+  }
+
+  public static void showNoNetworkConnectionDialog(@NonNull AppCompatActivity activity)
+  {
+    Fragment fragment = activity.getSupportFragmentManager()
+                                .findFragmentByTag(NO_NETWORK_CONNECTION_DIALOG_TAG);
+    if (fragment != null)
+      return;
+
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(R.string.choose_dates_online_only_dialog_title)
+        .setMessageId(R.string.choose_dates_online_only_dialog_message)
+        .setPositiveBtnId(R.string.choose_dates_online_only_dialog_cta)
+        .setNegativeBtnId(R.string.cancel)
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .setReqCode(REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
+        .build();
+    dialog.show(activity, NO_NETWORK_CONNECTION_DIALOG_TAG);
   }
 }
