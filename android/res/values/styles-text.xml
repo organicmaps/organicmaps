@@ -235,22 +235,94 @@
     <item name="android:background">?filterPropertyBackground</item>
   </style>
 
-  <style name="Headline.H6" parent="TextAppearance.AppCompat.Title">
-    <item name="android:textSize">@dimen/text_size_h6_headline</item>
+  <style name="TextAppearance.MdcTypographyStyles.Headline1"
+    parent="TextAppearance.MaterialComponents.Headline1">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">96sp</item>
   </style>
-  <style name="Headline.H5" parent="TextAppearance.AppCompat.Headline">
-    <item name="android:textSize">@dimen/text_size_h5_headline</item>
+
+  <style name="TextAppearance.MdcTypographyStyles.Headline2"
+    parent="TextAppearance.MaterialComponents.Headline2">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">60sp</item>
   </style>
-  <style name="Headline.H4" parent="TextAppearance.AppCompat.Display1">
-    <item name="android:textSize">@dimen/text_size_h4_headline</item>
+
+  <style name="TextAppearance.MdcTypographyStyles.Headline3"
+    parent="TextAppearance.MaterialComponents.Headline3">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">48sp</item>
   </style>
-  <style name="Headline.H3" parent="TextAppearance.AppCompat.Display2">
-    <item name="android:textSize">@dimen/text_size_h3_headline</item>
+
+  <style name="TextAppearance.MdcTypographyStyles.Headline4"
+    parent="TextAppearance.MaterialComponents.Headline4">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">34sp</item>
   </style>
-  <style name="Headline.H2" parent="TextAppearance.AppCompat.Display3">
-    <item name="android:textSize">@dimen/text_size_h2_headline</item>
+
+  <style name="TextAppearance.MdcTypographyStyles.Headline5"
+    parent="TextAppearance.MaterialComponents.Headline5">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">24sp</item>
   </style>
-  <style name="Headline.H1" parent="TextAppearance.AppCompat.Display4">
-    <item name="android:textSize">@dimen/test_size_h1_headline</item>
+
+  <style name="TextAppearance.MdcTypographyStyles.Headline6"
+    parent="TextAppearance.MaterialComponents.Headline6">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">20sp</item>
+  </style>
+
+  <style name="TextAppearance.MdcTypographyStyles.Subtitle1"
+    parent="TextAppearance.MaterialComponents.Subtitle1">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+
+  <style name="TextAppearance.MdcTypographyStyles.Subtitle2"
+    parent="TextAppearance.MaterialComponents.Subtitle2">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+
+  <style name="TextAppearance.MdcTypographyStyles.Body1"
+    parent="TextAppearance.MaterialComponents.Body1">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+
+  <style name="TextAppearance.MdcTypographyStyles.Body2"
+    parent="TextAppearance.MaterialComponents.Body2">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+
+  <style name="TextAppearance.MdcTypographyStyles.Button"
+    parent="TextAppearance.MaterialComponents.Button">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+
+  <style name="TextAppearance.MdcTypographyStyles.Caption"
+    parent="TextAppearance.MaterialComponents.Caption">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="TextAppearance.MdcTypographyStyles.Overline"
+    parent="TextAppearance.MaterialComponents.Overline">
+    <item name="fontFamily">@font/roboto</item>
+    <item name="android:fontFamily">@font/roboto</item>
+    <item name="android:textSize">10sp</item>
   </style>
 </resources>
