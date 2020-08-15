@@ -33600,36 +33600,36 @@
 
   [why_support_item3]
     en = You help us improve open maps OpenStreetMap.org
-    ru = Вы помогаете нам улучшать карты OpenStreetMaps.org
+    ru = Вы помогаете нам улучшать карты OpenStreetMap.org
     ar = يمكنك مساعدتنا في تحسين خرائط مفتوحة OpenStreetMap.org
-    cs = Pomáháte nám zlepšovat mapy OpenStreetMaps.org
+    cs = Pomáháte nám zlepšovat mapy OpenStreetMap.org
     da = Du hjælper os med at forbedre de åbne kort på OpenStreetMap.org
-    nl = U helpt ons de kaarten van OpenStreetMaps.org te verbeteren
+    nl = U helpt ons de kaarten van OpenStreetMap.org te verbeteren
     fi = Auta meitä parantamaan avoimia karttoja OpenStreetMap.org
     fr = Vous nous aidez à améliorer les cartes ouvertes OpenStreetMap.org
-    de = Sie helfen uns die Karten OpenStreetMaps.org zu verbessern
+    de = Sie helfen uns die Karten OpenStreetMap.org zu verbessern
     hu = Segítsen a térkép fejlesztésében az OpenStreetMap.org-on
     id = Anda membantu kami meningkatkan peta terbuka OpenStreetMap.org
-    it = Ci aiutate a migliorare le mappe OpenStreetMaps.org
+    it = Ci aiutate a migliorare le mappe OpenStreetMap.org
     ja = オープンマップOpenStreetMap.orgの改善にご協力いただいております
     ko = 오픈 지도들 OpenStreetMap.org를 개선하는데 도와주세요
-    no = Du hjelper oss å forbedre kart på OpenStreetMaps.org
-    pl = Pomagasz nam udoskonalać mapy OpenStreetMaps.org
+    no = Du hjelper oss å forbedre kart på OpenStreetMap.org
+    pl = Pomagasz nam udoskonalać mapy OpenStreetMap.org
     pt = Ajude-nos a melhorar mapas livres em OpenStreeMap.org
     pt-BR = Você nos ajuda a melhorar mapas livres em OpenStreeMap.org
-    ro = Voi ne ajutați să îmbunătățim hărțile OpenStreetMaps.org
-    es = Nos está ayudando a mejorar los mapas de OpenStreetMaps.org
+    ro = Voi ne ajutați să îmbunătățim hărțile OpenStreetMap.org
+    es = Nos está ayudando a mejorar los mapas de OpenStreetMap.org
     es_MX = Usted nos ayuda a mejorar los mapas abiertos en OpenStreetMap.org
     sv = Du hjälper oss att förbättra de offentliga kartorna OpenStreetMap.org
     th = คุณช่วยเราพัฒนาแผนที่ที่เปิดให้คนทั่วไปเข้าใช้งานของ OpenStreetMap.org
     tr = OpenStreetMap.org'daki açık haritaları geliştirmemize yardımcı oldunuz
-    uk = Ви допомагаєте нам покращувати карти OpenStreetMaps.org
+    uk = Ви допомагаєте нам покращувати карти OpenStreetMap.org
     vi = Bạn giúp chúng tôi cải thiện bản đồ mở OpenStreetMap.org
     el = Μας βοηθάτε να βελτιώσουμε ανοιχτούς χάρτες στο OpenStreetMap.org
     sk = Pomôžete nám vylepšiť otvorené mapy OpenStreetMap.org
     sw = Tusaidie kuboresha ramani huria OpenStreetMap.org
-    zh-Hans = 您帮助我们改进OpenStreetMaps.org地图
-    zh-Hant = 您幫助我們改進OpenStreetMaps.org地圖
+    zh-Hans = 您帮助我们改进OpenStreetMap.org地图
+    zh-Hant = 您幫助我們改進OpenStreetMap.org地圖
     fa = شما به ما در بهبود نقشه OpenStreetMap.org کمک میکنید.
 
   [purchase_processing]
