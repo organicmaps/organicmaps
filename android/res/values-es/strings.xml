@@ -1356,7 +1356,7 @@
 	<string name="options_dropdown_item2">%s/por semana (sin ahorro)</string>
 	<string name="why_support_item1">Desactivaremos todos los anuncios para usted</string>
 	<string name="why_support_item2">Usted nos ayuda a mejorar a MAPS.ME</string>
-	<string name="why_support_item3">Nos está ayudando a mejorar los mapas de OpenStreetMaps.org</string>
+	<string name="why_support_item3">Nos está ayudando a mejorar los mapas de OpenStreetMap.org</string>
 	<string name="purchase_processing">Tu compra se está procesando…</string>
 	<string name="tips_bookmarks_catalog_title">Guías turísticas offline para todo tipo de viajes</string>
 	<string name="tips_bookmarks_catalog_message">Descargue y organice rutas turísticas por lugares interesantes en diferentes ciudades del mundo.</string>
