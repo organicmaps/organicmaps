@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/guests_and_rooms_menu_sheet"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?windowBackgroundForced"
+  android:clickable="true"
+  android:fillViewport="true"
+  android:focusable="true"
+  app:behavior_defaultState="hidden"
+  app:behavior_hideable="true"
+  app:behavior_peekHeight="0dp"
+  app:behavior_skipAnchored="true"
+  app:behavior_skipCollapsed="true"
+  app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?cardBackground"
+    android:orientation="vertical">
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingStart="@dimen/margin_base"
+      android:paddingTop="@dimen/margin_half_plus"
+      android:paddingEnd="@dimen/margin_base"
+      android:paddingBottom="@dimen/margin_half_plus"
+      android:text="@string/guests_picker_rooms_title"
+      android:textAppearance="?fontSubtitle2" />
+    <com.mapswithme.maps.widget.InteractiveCounterView
+      android:id="@+id/rooms"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:src="@android:drawable/star_on"
+      app:maxValue="30"
+      app:minValue="1"
+      app:title="@string/guests_picker_rooms" />
+    <com.mapswithme.maps.widget.InteractiveCounterView
+      android:id="@+id/adults"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:src="@android:drawable/star_on"
+      app:maxValue="30"
+      app:minValue="1"
+      app:title="@string/guests_picker_adults" />
+    <com.mapswithme.maps.widget.InteractiveCounterView
+      android:id="@+id/children"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:src="@android:drawable/star_on"
+      app:maxValue="10"
+      app:minValue="0"
+      app:subtitle="@string/guests_picker_children_subtitle"
+      app:title="@string/guests_picker_children_title" />
+    <com.mapswithme.maps.widget.InteractiveCounterView
+      android:id="@+id/infants"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:src="@android:drawable/star_on"
+      app:maxValue="10"
+      app:minValue="0"
+      app:subtitle="@string/guests_picker_infants_subtitle"
+      app:title="@string/guests_picker_infants_title" />
+  </LinearLayout>
+</androidx.core.widget.NestedScrollView>

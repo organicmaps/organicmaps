@@ -23,6 +23,8 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.search.BookingFilterParams;
 import com.mapswithme.maps.search.FilterUtils;
+import com.mapswithme.maps.widget.menu.MenuController;
+import com.mapswithme.maps.widget.menu.MenuControllerFactory;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
@@ -66,7 +68,6 @@ public class SearchToolbarController extends ToolbarController
   };
   @Nullable
   private Pair<Long, Long> mChosenDates;
-
   @NonNull
   private final View.OnClickListener mChooseDatesClickListener = v -> {
     if (!ConnectionState.isConnected())
@@ -85,14 +86,29 @@ public class SearchToolbarController extends ToolbarController
     picker.addOnPositiveButtonClickListener(new DatePickerPositiveClickListener(picker));
     picker.show(((AppCompatActivity) getActivity()).getSupportFragmentManager(), picker.toString());
   };
-
   @NonNull
   private List<FilterParamsChangedListener> mFilterParamsChangedListeners = new ArrayList<>();
+  @NonNull
+  private MenuController mGuiestsRoomsMenuController;
+  @NonNull
+  private final View.OnClickListener mRoomsClickListener = v -> {
+    if (!ConnectionState.isConnected())
+    {
+      FilterUtils.showNoNetworkConnectionDialog((AppCompatActivity) getActivity());
+      return;
+    }
+
+    if (!mGuiestsRoomsMenuController.isClosed())
+      return;
+
+    mGuiestsRoomsMenuController.open();
+  };
 
   public interface Container
   {
     SearchToolbarController getController();
   }
+
 
   public SearchToolbarController(View root, Activity activity)
   {
@@ -125,10 +141,14 @@ public class SearchToolbarController extends ToolbarController
       //noinspection ConstantConditions
       mChooseDatesChip.setOnClickListener(mChooseDatesClickListener);
       mChooseDatesChip.setOnCloseIconClickListener(mChooseDatesClickListener);
+      mRooms.setOnClickListener(mRoomsClickListener);
+      mRooms.setOnCloseIconClickListener(mRoomsClickListener);
     }
 
     showProgress(false);
     updateButtons(true);
+    mGuiestsRoomsMenuController = MenuControllerFactory.createGuestsRoomsMenuController();
+    mGuiestsRoomsMenuController.initialize(getActivity().findViewById(R.id.coordinator));
   }
 
   public void setFilterParams(@NonNull BookingFilterParams params)

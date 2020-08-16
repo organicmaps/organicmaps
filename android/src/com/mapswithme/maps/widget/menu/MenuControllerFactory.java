@@ -16,4 +16,11 @@ public class MenuControllerFactory
                                                                                     noConnectionListener),
                                          stateObserver);
   }
+
+  @NonNull
+  public static MenuController createGuestsRoomsMenuController()
+  {
+    return new BottomSheetMenuController(R.id.guests_and_rooms_menu_sheet,
+                                         new GuestsRoomsMenuRenderer(), null);
+  }
 }

@@ -7,6 +7,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
   <androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -85,6 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     </FrameLayout>
+    <include layout="@layout/guests_and_rooms_menu_bottom_sheet" />
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>
 
