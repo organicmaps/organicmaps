@@ -107,4 +107,11 @@
     <attr name="showSale" format="boolean" />
     <attr name="progressColor" />
   </declare-styleable>
+  <declare-styleable name="InteractiveCounterView">
+    <attr name="android:src" />
+    <attr name="minValue" format="integer" />
+    <attr name="maxValue" format="integer" />
+    <attr name="title" format="string" />
+    <attr name="subtitle" format="string" />
+  </declare-styleable>
 </resources>
