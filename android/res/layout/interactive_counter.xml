@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_counter_minus"
-        android:tint="?iconTint" />
+        android:tint="@color/icon_tint_selector" />
       <TextView
         android:id="@+id/counter"
         android:layout_width="0dp"
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_counter_plus"
-        android:tint="?iconTint" />
+        android:tint="@color/icon_tint_selector" />
     </LinearLayout>
   </LinearLayout>
 </RelativeLayout>

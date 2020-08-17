@@ -159,7 +159,7 @@
 
   <!-- What's new -->
   <color name="news_marker_active">#8A000000</color>
-  <color name="news_marker_active_night">#B3FFFFFF</color>
+  <color name="news_marker_active_night">@color/white_secondary</color>
   <color name="news_marker_inactive">#1F000000</color>
   <color name="news_marker_inactive_night">#4CFFFFFF</color>
 
@@ -207,7 +207,7 @@
   <color name="tips_and_triks_bg">#B8FFFFFF</color>
   <color name="tips_and_triks_primary_text">#FFFFFF</color>
   <color name="tips_and_triks_primary_text_night">#000000</color>
-  <color name="tips_and_triks_secondary_text">#B3FFFFFF</color>
+  <color name="tips_and_triks_secondary_text">@color/white_secondary</color>
   <color name="tips_and_triks_secondary_text_night">@color/dark_gray</color>
 
   <color name="turquoise">#D0F6FF</color>
