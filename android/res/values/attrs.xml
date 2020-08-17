@@ -108,6 +108,7 @@
     <attr name="progressColor" />
   </declare-styleable>
   <declare-styleable name="InteractiveCounterView">
+    <attr name="android:defaultValue" />
     <attr name="android:src" />
     <attr name="minValue" format="integer" />
     <attr name="maxValue" format="integer" />

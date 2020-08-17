@@ -42,6 +42,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:src="@drawable/ic_people"
+      android:defaultValue="2"
       app:maxValue="30"
       app:minValue="1"
       app:title="@string/guests_picker_adults" />
