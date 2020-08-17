@@ -125,7 +125,7 @@ public:
   // NOTE: Vector of features must be sorted.
   void SetPrices(std::vector<FeatureID> const & features, std::vector<std::string> && prices);
 
-  void OnActivate(FeatureID const & featureId);
+  void OnActivate(FeatureID const & featureId, bool & isMarkExists);
   void OnDeactivate(FeatureID const & featureId);
 
   void SetUnavailable(SearchMarkPoint & mark, std::string const & reasonKey);

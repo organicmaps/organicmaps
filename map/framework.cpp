@@ -2449,11 +2449,11 @@ void Framework::ActivateMapSelection(std::optional<place_page::Info> const & inf
 
   bool isSelectionShapeVisible = true;
   // TODO(a): to replace dummies with correct values.
-  if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking &&
-      info->IsSearchMark())
+  if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking)
   {
-    m_searchMarks.OnActivate(m_currentPlacePageInfo->GetID());
-    isSelectionShapeVisible = false;
+    bool isMarkExists = false;
+    m_searchMarks.OnActivate(m_currentPlacePageInfo->GetID(), isMarkExists);
+    isSelectionShapeVisible = !isMarkExists;
   }
 
   CHECK_NOT_EQUAL(info->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
@@ -2502,8 +2502,7 @@ void Framework::InvalidateUserMarks()
 
 void Framework::DeactivateHotelSearchMark()
 {
-  if (m_currentPlacePageInfo && m_currentPlacePageInfo->GetHotelType() &&
-      m_currentPlacePageInfo->IsSearchMark())
+  if (m_currentPlacePageInfo && m_currentPlacePageInfo->GetHotelType())
   {
     if (GetSearchAPI().IsViewportSearchActive())
       m_searchMarks.OnDeactivate(m_currentPlacePageInfo->GetID());

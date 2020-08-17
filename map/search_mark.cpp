@@ -808,16 +808,19 @@ void SearchMarks::SetPrices(std::vector<FeatureID> const & features, std::vector
   });
 }
 
-void SearchMarks::OnActivate(FeatureID const & featureId)
+void SearchMarks::OnActivate(FeatureID const & featureId, bool & isMarkExists)
 {
   {
     std::scoped_lock<std::mutex> lock(m_lock);
     m_selected = featureId;
   }
-  ProcessMarks([&featureId](SearchMarkPoint * mark) -> base::ControlFlow
+  isMarkExists = false;
+  ProcessMarks([&featureId, &isMarkExists](SearchMarkPoint * mark) -> base::ControlFlow
   {
     if (featureId != mark->GetFeatureID())
       return base::ControlFlow::Continue;
+
+    isMarkExists = true;
 
     mark->SetSelected(true);
 
