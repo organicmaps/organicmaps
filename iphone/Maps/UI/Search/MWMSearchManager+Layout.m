@@ -13,6 +13,7 @@ static CGFloat const changeModeViewOffsetKeyboard = -12;
 @property(nonatomic) IBOutlet UIView *contentView;
 
 @property(nonatomic) NSLayoutConstraint *contentViewTopHidden;
+@property(nonatomic) NSLayoutConstraint *contentViewBottomHidden;
 @property(nonatomic) NSLayoutConstraint *actionBarViewBottomKeyboard;
 @property(nonatomic) NSLayoutConstraint *actionBarViewBottomNormal;
 
@@ -66,6 +67,10 @@ static CGFloat const changeModeViewOffsetKeyboard = -12;
   self.contentViewTopHidden = [contentView.topAnchor constraintEqualToAnchor:parentView.bottomAnchor];
   self.contentViewTopHidden.priority = UILayoutPriorityDefaultLow;
   self.contentViewTopHidden.active = YES;
+
+  self.contentViewBottomHidden = [contentView.heightAnchor constraintEqualToAnchor:parentView.heightAnchor];
+  self.contentViewBottomHidden.priority = UILayoutPriorityDefaultLow;
+  self.contentViewBottomHidden.active = YES;
 
   [contentView.leadingAnchor constraintEqualToAnchor:searchBarView.leadingAnchor].active = YES;
   [contentView.trailingAnchor constraintEqualToAnchor:searchBarView.trailingAnchor].active = YES;

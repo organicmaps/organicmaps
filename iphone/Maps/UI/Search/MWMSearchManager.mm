@@ -47,6 +47,7 @@ using Observers = NSHashTable<Observer>;
 @property(strong, nonatomic) IBOutlet UIView *tableViewContainer;
 
 @property(nonatomic) NSLayoutConstraint *contentViewTopHidden;
+@property(nonatomic) NSLayoutConstraint *contentViewBottomHidden;
 @property(nonatomic) NSLayoutConstraint *actionBarViewBottomKeyboard;
 @property(nonatomic) NSLayoutConstraint *actionBarViewBottomNormal;
 
@@ -264,13 +265,14 @@ using Observers = NSHashTable<Observer>;
   GetFramework().DeactivateMapSelection(true);
   [self animateConstraints:^{
     self.contentViewTopHidden.priority = UILayoutPriorityDefaultLow;
+    self.contentViewBottomHidden.priority = UILayoutPriorityDefaultLow;
   }];
   auto const navigationManagerState = [MWMNavigationDashboardManager sharedManager].state;
   if (navigationManagerState == MWMNavigationDashboardStateHidden) {
     controlsManager.menuState = controlsManager.menuRestoreState;
   }
   [self viewHidden:NO];
-  self.searchBarView.isBookingSearchViewHidden = ![MWMSearch isHotelResults];
+  self.searchBarView.isBookingSearchViewHidden = YES;
   self.actionBarState = MWMSearchManagerActionBarStateHidden;
   [self.searchTextField becomeFirstResponder];
   [self.searchBarView applyTheme];
@@ -304,6 +306,7 @@ using Observers = NSHashTable<Observer>;
   if (!IPAD) {
     [self animateConstraints:^{
       self.contentViewTopHidden.priority = UILayoutPriorityDefaultHigh;
+      self.contentViewBottomHidden.priority = UILayoutPriorityDefaultHigh;
     }];
   }
   auto const navigationManagerState = [MWMNavigationDashboardManager sharedManager].state;
@@ -328,6 +331,8 @@ using Observers = NSHashTable<Observer>;
   if (!IPAD) {
     [self animateConstraints:^{
       self.contentViewTopHidden.priority = UILayoutPriorityDefaultHigh;
+      self.contentViewBottomHidden.priority = UILayoutPriorityDefaultHigh;
+
     }];
   }
   auto const navigationManagerState = [MWMNavigationDashboardManager sharedManager].state;
@@ -398,6 +403,7 @@ using Observers = NSHashTable<Observer>;
       hideActionBar ? MWMSearchManagerActionBarStateHidden : MWMSearchManagerActionBarStateModeFilter;
 
     self.contentViewTopHidden.priority = UILayoutPriorityDefaultLow;
+    self.contentViewBottomHidden.priority = UILayoutPriorityDefaultLow;
   }];
 }
 
