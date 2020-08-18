@@ -32,6 +32,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.SharedPropertiesUtils;
@@ -316,7 +317,8 @@ public class SearchFragment extends BaseMwmFragment
     ViewPager pager = mTabFrame.findViewById(R.id.pages);
 
     mToolbarController = new ToolbarController(view);
-
+    FadeView fadeView = root.findViewById(R.id.fade_view);
+    fadeView.setListener(this::onFadeViewTouch);
     TabLayout tabLayout = root.findViewById(R.id.tabs);
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
@@ -401,6 +403,11 @@ public class SearchFragment extends BaseMwmFragment
 
     if (mInitialSearchOnMap)
       showAllResultsOnMap();
+  }
+
+  private boolean onFadeViewTouch()
+  {
+    return mToolbarController.closeBottomMenu();
   }
 
   @Override

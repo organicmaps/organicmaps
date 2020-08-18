@@ -20,10 +20,11 @@ public class MenuControllerFactory
 
   @NonNull
   public static MenuController createGuestsRoomsMenuController(
-      @NonNull MenuRoomsGuestsListener listener,
+      @NonNull MenuRoomsGuestsListener listener, @NonNull MenuStateObserver stateObserver,
       @NonNull FilterUtils.RoomsGuestsCountProvider provider)
   {
     return new BottomSheetMenuController(R.id.guests_and_rooms_menu_sheet,
-                                         new GuestsRoomsMenuRenderer(listener, provider), null);
+                                         new GuestsRoomsMenuRenderer(listener, provider),
+                                         stateObserver);
   }
 }

@@ -743,17 +743,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void initMap(boolean isLaunchByDeepLink)
   {
     mFadeView = findViewById(R.id.fade_view);
-    mFadeView.setListener(new FadeView.Listener()
-    {
-      @Override
-      public boolean onTouch()
-      {
-        if (!getMainMenuController().isClosed())
-          getMainMenuController().close();
-
-        return getCurrentMenu().close(true);
-      }
-    });
+    mFadeView.setListener(this::onFadeViewTouch);
 
     mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.class.getName());
     if (mMapFragment == null)
@@ -772,6 +762,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       container.setOnTouchListener(this);
     }
+  }
+
+  private boolean onFadeViewTouch()
+  {
+    if (!getMainMenuController().isClosed())
+      getMainMenuController().close();
+    mSearchController.closeBottomMenu();
+    return getCurrentMenu().close(true);
   }
 
   public boolean isMapAttached()

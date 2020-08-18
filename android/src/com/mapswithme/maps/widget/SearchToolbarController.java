@@ -26,6 +26,7 @@ import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.widget.menu.MenuController;
 import com.mapswithme.maps.widget.menu.MenuControllerFactory;
 import com.mapswithme.maps.widget.menu.MenuRoomsGuestsListener;
+import com.mapswithme.maps.widget.menu.MenuStateObserver;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
@@ -179,8 +180,9 @@ public class SearchToolbarController extends ToolbarController
 
     showProgress(false);
     updateButtons(true);
+    MenuStateObserver stateObserver = new RoomsGuestsMenuStateObserver(getActivity());
     mGuiestsRoomsMenuController
-        = MenuControllerFactory.createGuestsRoomsMenuController(this, this);
+        = MenuControllerFactory.createGuestsRoomsMenuController(this, stateObserver, this);
     mGuiestsRoomsMenuController.initialize(getActivity().findViewById(R.id.coordinator));
   }
 
@@ -381,6 +383,17 @@ public class SearchToolbarController extends ToolbarController
                                             mRoomGuestCounts);
   }
 
+  public boolean closeBottomMenu()
+  {
+    if (!mGuiestsRoomsMenuController.isClosed())
+    {
+      mGuiestsRoomsMenuController.close();
+      return true;
+    }
+
+    return false;
+  }
+
   public interface FilterParamsChangedListener
   {
     void onBookingParamsChanged();
@@ -431,6 +444,37 @@ public class SearchToolbarController extends ToolbarController
         Objects.requireNonNull(mChooseDatesChip);
         mChooseDatesChip.setText(mPicker.getHeaderText());
       }
+    }
+  }
+
+  private static class RoomsGuestsMenuStateObserver implements MenuStateObserver
+  {
+    @NonNull
+    private final Activity mActivity;
+
+    private RoomsGuestsMenuStateObserver(@NonNull Activity activity)
+    {
+      mActivity = activity;
+    }
+
+    @Override
+    public void onMenuOpen()
+    {
+      FadeView fadeView = mActivity.findViewById(R.id.fade_view);
+      if (fadeView == null)
+        return;
+
+      fadeView.fadeIn();
+    }
+
+    @Override
+    public void onMenuClosed()
+    {
+      FadeView fadeView = mActivity.findViewById(R.id.fade_view);
+      if (fadeView == null)
+        return;
+
+      fadeView.fadeOut();
     }
   }
 }
