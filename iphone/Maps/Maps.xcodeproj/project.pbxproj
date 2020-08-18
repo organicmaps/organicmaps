@@ -636,12 +636,12 @@
 		9959C75C24599CCD008FD4FD /* DirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9959C75B24599CCC008FD4FD /* DirectionView.swift */; };
 		995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995F1611244F0AA40060631D /* BottomMenuLayersCell.swift */; };
 		995F1614244F0AA50060631D /* BottomMenuLayersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 995F1612244F0AA40060631D /* BottomMenuLayersCell.xib */; };
+		9977E69C247BFB510073780C /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977E69B247BFB510073780C /* SearchTextField.swift */; };
 		996D108124E14AEB002DD0E2 /* MultiPartnerBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996D107F24E14AEB002DD0E2 /* MultiPartnerBannerViewController.swift */; };
 		996D108224E14AEB002DD0E2 /* MultiPartnerBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 996D108024E14AEB002DD0E2 /* MultiPartnerBannerViewController.xib */; };
 		996D108624E15FBE002DD0E2 /* DownloadBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996D108524E15FBE002DD0E2 /* DownloadBannerViewController.swift */; };
 		996D108824E16E6F002DD0E2 /* BookmarksBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996D108724E16E6F002DD0E2 /* BookmarksBannerViewController.swift */; };
 		996F8C9F24E1420800498993 /* PartnerBannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F8C9E24E1420800498993 /* PartnerBannerViewModel.swift */; };
-		9977E69C247BFB510073780C /* MWMSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977E69B247BFB510073780C /* MWMSearchTextField.swift */; };
 		9977E6A12480E1EE0073780C /* BottomMenuLayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977E6A02480E1EE0073780C /* BottomMenuLayerButton.swift */; };
 		9977E6A32480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977E6A22480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift */; };
 		998927302449DE1500260CE2 /* TabBarArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9989272F2449DE1500260CE2 /* TabBarArea.swift */; };
@@ -1738,11 +1738,11 @@
 		995F1611244F0AA40060631D /* BottomMenuLayersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLayersCell.swift; sourceTree = "<group>"; };
 		995F1612244F0AA40060631D /* BottomMenuLayersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomMenuLayersCell.xib; sourceTree = "<group>"; };
 		996D107F24E14AEB002DD0E2 /* MultiPartnerBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPartnerBannerViewController.swift; sourceTree = "<group>"; };
+		9977E69B247BFB510073780C /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		996D108024E14AEB002DD0E2 /* MultiPartnerBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiPartnerBannerViewController.xib; sourceTree = "<group>"; };
 		996D108524E15FBE002DD0E2 /* DownloadBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadBannerViewController.swift; sourceTree = "<group>"; };
 		996D108724E16E6F002DD0E2 /* BookmarksBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksBannerViewController.swift; sourceTree = "<group>"; };
 		996F8C9E24E1420800498993 /* PartnerBannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerBannerViewModel.swift; sourceTree = "<group>"; };
-		9977E69B247BFB510073780C /* MWMSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMSearchTextField.swift; sourceTree = "<group>"; };
 		9977E6A02480E1EE0073780C /* BottomMenuLayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLayerButton.swift; sourceTree = "<group>"; };
 		9977E6A22480F9BF0073780C /* BottomMenuLayerButtonRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuLayerButtonRenderer.swift; sourceTree = "<group>"; };
 		9989272F2449DE1500260CE2 /* TabBarArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarArea.swift; sourceTree = "<group>"; };
@@ -4750,7 +4750,7 @@
 				F6E2FCFC1E097B9F0083EBEC /* MWMSearchNoResults.h */,
 				F6E2FCFD1E097B9F0083EBEC /* MWMSearchNoResults.m */,
 				F6E2FCFE1E097B9F0083EBEC /* MWMSearchNoResults.xib */,
-				9977E69B247BFB510073780C /* MWMSearchTextField.swift */,
+				9977E69B247BFB510073780C /* SearchTextField.swift */,
 				F6E2FD011E097B9F0083EBEC /* MWMSearchView.xib */,
 				F6E2FD021E097B9F0083EBEC /* Tabs */,
 				F6E2FD281E097BA00083EBEC /* TableView */,
@@ -5938,7 +5938,7 @@
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.m in Sources */,
 				33C558E3217F6CF100299E70 /* UploadActionCell.swift in Sources */,
 				993DF10523F6BDB100AC231A /* UINavigationItem+styleName.swift in Sources */,
-				9977E69C247BFB510073780C /* MWMSearchTextField.swift in Sources */,
+				9977E69C247BFB510073780C /* SearchTextField.swift in Sources */,
 				4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */,
 				99CB34CF236B054B001D28AD /* DeepLinkInfoBuilder.swift in Sources */,
 				347E039A1FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */,

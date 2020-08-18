@@ -7,7 +7,7 @@ typedef NS_ENUM(NSInteger, MWMSearchManagerRoutingTooltipSearch) {
   MWMSearchManagerRoutingTooltipSearchStart,
   MWMSearchManagerRoutingTooltipSearchFinish
 };
-@class MWMSearchTextField;
+@class SearchTextField;
 
 @interface MWMSearchManager : NSObject
 
@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, MWMSearchManagerRoutingTooltipSearch) {
 + (void)addObserver:(nonnull id<MWMSearchManagerObserver>)observer;
 + (void)removeObserver:(nonnull id<MWMSearchManagerObserver>)observer;
 
-@property(nullable, weak, nonatomic) IBOutlet MWMSearchTextField *searchTextField;
+@property(nullable, weak, nonatomic) IBOutlet SearchTextField *searchTextField;
 
 @property(nonatomic) MWMSearchManagerState state;
 @property(nonatomic) MWMSearchManagerRoutingTooltipSearch routingTooltipSearch;

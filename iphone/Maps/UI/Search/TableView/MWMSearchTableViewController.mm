@@ -134,7 +134,7 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
   auto const containerIndex = [MWMSearch containerIndexWithRow:row];
   switch ([MWMSearch resultTypeWithRow:row]) {
     case MWMSearchItemTypeRegular: {
-      MWMSearchTextField *textField = delegate.searchTextField;
+      SearchTextField *textField = delegate.searchTextField;
       [MWMSearch saveQuery:textField.text forInputLocale:textField.textInputMode.primaryLanguage];
       auto const &result = [MWMSearch resultWithContainerIndex:containerIndex];
       [delegate processSearchWithResult:result];

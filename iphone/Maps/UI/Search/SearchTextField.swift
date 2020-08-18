@@ -1,4 +1,3 @@
-@objc(MWMSearchTextField)
 class SearchTextField: UITextField {
   override func drawPlaceholder(in rect: CGRect) {
     guard let font = font, let tint = tintColor else {

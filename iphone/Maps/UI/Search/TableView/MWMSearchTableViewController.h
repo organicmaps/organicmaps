@@ -5,7 +5,7 @@
 
 #include <CoreApi/Framework.h>
 
-@class MWMSearchTextField;
+@class SearchTextField;
 namespace search
 {
 class Result;
@@ -13,7 +13,7 @@ class Result;
 
 @protocol MWMSearchTableViewProtocol<MWMSearchTabbedViewProtocol>
 
-@property(nullable, weak, nonatomic) MWMSearchTextField * searchTextField;
+@property(nullable, weak, nonatomic) SearchTextField * searchTextField;
 
 @property(nonatomic) MWMSearchManagerState state;
 
