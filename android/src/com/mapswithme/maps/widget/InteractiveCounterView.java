@@ -18,7 +18,6 @@ import com.mapswithme.util.UiUtils;
 
 public class InteractiveCounterView extends RelativeLayout
 {
-  private static final int NO_DEFAULT_VALUE = -1;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private View mMinusView;
@@ -91,7 +90,7 @@ public class InteractiveCounterView extends RelativeLayout
     {
       mMinValue = a.getInt(R.styleable.InteractiveCounterView_minValue, 0);
       mMaxValue = a.getInt(R.styleable.InteractiveCounterView_maxValue, Integer.MAX_VALUE);
-      mDefaultValue = a.getInt(R.styleable.InteractiveCounterView_android_defaultValue, NO_DEFAULT_VALUE);
+      mDefaultValue = a.getInt(R.styleable.InteractiveCounterView_android_defaultValue, mMinValue);
       mIconRes = a.getResourceId(R.styleable.InteractiveCounterView_android_src, UiUtils.NO_ID);
       mTitle = a.getString(R.styleable.InteractiveCounterView_title);
       mSubtitle = a.getString(R.styleable.InteractiveCounterView_subtitle);
@@ -120,8 +119,7 @@ public class InteractiveCounterView extends RelativeLayout
     mPlusView = findViewById(R.id.plus);
     mPlusView.setOnClickListener(mPlusClickListener);
     mCounterView = findViewById(R.id.counter);
-    if (mDefaultValue != NO_DEFAULT_VALUE && mDefaultValue >= mMinValue
-        && mDefaultValue <= mMaxValue)
+    if (mDefaultValue >= mMinValue && mDefaultValue <= mMaxValue)
       mCounterView.setText(String.valueOf(mDefaultValue));
     else
       mCounterView.setText(String.valueOf(mMinValue));
