@@ -158,8 +158,9 @@ unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const &items)
 
     auto &orderingParams = params.m_orderingParams;
     orderingParams.m_rooms = filterRooms;
-    orderingParams.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
-    orderingParams.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
+    NSInteger secondsFromGMT = NSTimeZone.systemTimeZone.secondsFromGMT;
+    orderingParams.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970 - secondsFromGMT);
+    orderingParams.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970 - secondsFromGMT);
   }
   return {std::make_shared<booking::AvailabilityParams>(params), {}};
 }
