@@ -8438,7 +8438,7 @@ fa:پارکینگ موتورسیکلت
 
 amenity-nursing_home
 en:Nursing Home
-ru:Ясли
+ru:Дом престарелых
 ar:دار تمريض
 cs:Dům s pečovatelskou službou
 da:Plejehjem
