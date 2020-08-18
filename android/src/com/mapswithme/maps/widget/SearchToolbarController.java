@@ -409,6 +409,8 @@ public class SearchToolbarController extends ToolbarController
         return;
 
       validateAndSetupDates(mChosenDates.first, mChosenDates.second);
+      if (mRoomGuestCounts == null)
+        formatAndSetRoomGuestsCounts(FilterUtils.toCounts(BookingFilterParams.Room.DEFAULT));
 
       for (FilterParamsChangedListener listener : mFilterParamsChangedListeners)
         listener.onBookingParamsChanged();

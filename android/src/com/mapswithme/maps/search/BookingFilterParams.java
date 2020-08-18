@@ -45,9 +45,9 @@ public class BookingFilterParams implements Parcelable
     dest.writeTypedArray(mRooms, flags);
   }
 
-  static class Room implements Parcelable
+  public static class Room implements Parcelable
   {
-    static final Room DEFAULT = new Room(2, null);
+    public static final Room DEFAULT = new Room(2, null);
     private int mAdultsCount;
     @Nullable
     private int[] mAgeOfChildren;
