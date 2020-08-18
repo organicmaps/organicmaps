@@ -959,7 +959,7 @@ deprecated|deprecated;958;x
 railway|proposed;959;
 amenity|casino;960;
 amenity|brothel;961;
-place|neighbourhood;962;
+place|neighbourhood;[place=neighbourhood],[place=quarter];;name;int_name;962;
 place|isolated_dwelling;963;
 historic|wayside_cross;964;
 historic|wayside_shrine;965;
