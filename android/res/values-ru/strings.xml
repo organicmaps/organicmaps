@@ -1942,7 +1942,7 @@
 	<string name="type.amenity.marketplace">Рынок</string>
 	<string name="type.amenity.motorcycle_parking">Мотопарковка</string>
 	<string name="type.amenity.nightclub">Ночной клуб</string>
-	<string name="type.amenity.nursing_home">Ясли</string>
+	<string name="type.amenity.nursing_home">Дом престарелых</string>
 	<string name="type.amenity.parking">Парковка</string>
 	<string name="type.amenity.parking.fee">Парковка</string>
 	<string name="type.amenity.parking.multi.storey">Парковка</string>
