@@ -84,6 +84,8 @@ using Observers = NSHashTable<Observer>;
   if (self.state != MWMSearchManagerStateHidden)
     self.state = MWMSearchManagerStateDefault;
   self.searchTextField.text = @"";
+  [self.searchBarView resetDates];
+  [self.searchBarView resetGuestCount];
   [MWMSearch clear];
 }
 
@@ -140,6 +142,11 @@ using Observers = NSHashTable<Observer>;
 
   DatePickerViewController *controller = [[DatePickerViewController alloc] init];
   controller.delegate = self;
+  MWMHotelParams *filter = [MWMSearch getFilter];
+  if (filter != nil && filter.checkInDate != nil && filter.checkOutDate != nil) {
+    controller.initialCheckInDate = filter.checkInDate;
+    controller.initialCheckOutDate = filter.checkOutDate;
+  }
   controller.popoverPresentationController.sourceView = self.searchBarView;
   controller.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
   [[MapViewController sharedController] presentViewController:controller animated:YES completion:nil];
@@ -158,6 +165,13 @@ using Observers = NSHashTable<Observer>;
 
   GuestsPickerViewController *controller = [[GuestsPickerViewController alloc] init];
   controller.delegate = self;
+  MWMHotelParams *filter = [MWMSearch getFilter];
+  if (filter != nil) {
+    controller.roomsInitialCount = filter.numberOfRooms;
+    controller.adultsInitialCount = filter.numberOfAdults;
+    controller.childrenInitialCount = filter.numberOfChildren;
+    controller.infantsInitialCount = filter.numberOfInfants;
+  }
   controller.popoverPresentationController.sourceView = self.searchBarView;
   controller.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
   [[MapViewController sharedController] presentViewController:controller animated:YES completion:nil];

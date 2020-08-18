@@ -20,17 +20,25 @@
   @IBOutlet var childrenStepper: ValueStepperView!
   @IBOutlet var infantsStepper: ValueStepperView!
 
+  @objc var roomsInitialCount = 1
+  @objc var adultsInitialCount = 2
+  @objc var childrenInitialCount = 0
+  @objc var infantsInitialCount = 0
+
   @objc weak var delegate: GuestsPickerViewControllerDelegate?
 
   override func viewDidLoad() {
     super.viewDidLoad()
     roomsStepper.minValue = 1
-    roomsStepper.maxValue = 10
+    roomsStepper.maxValue = 30
+    roomsStepper.value = roomsInitialCount
     adultsStepper.minValue = 1
-    adultsStepper.maxValue = 20
-    adultsStepper.value = 2
-    childrenStepper.maxValue = 20
-    infantsStepper.maxValue = 20
+    adultsStepper.maxValue = 30
+    adultsStepper.value = adultsInitialCount
+    childrenStepper.maxValue = 10
+    childrenStepper.value = childrenInitialCount
+    infantsStepper.maxValue = 10
+    infantsStepper.value = infantsInitialCount
   }
 
   override func viewDidLayoutSubviews() {

@@ -18,6 +18,9 @@ import UIKit
   @IBOutlet var cancelButton: UIButton!
   @IBOutlet var datePickerView: DatePickerView!
 
+  @objc var initialCheckInDate: Date?
+  @objc var initialCheckOutDate: Date?
+
   @objc weak var delegate: DatePickerViewControllerDelegate?
 
   lazy var dateFormatter: DateFormatter = {
@@ -29,7 +32,13 @@ import UIKit
   override func viewDidLoad() {
     super.viewDidLoad()
     datePickerView.delegate = self
-    doneButton.isEnabled = false
+    if let checkInDate = initialCheckInDate, let checkOutDate = initialCheckOutDate, checkOutDate > checkInDate {
+      datePickerView.startDate = checkInDate
+      datePickerView.endDate = checkOutDate
+      doneButton.isEnabled = true
+    } else {
+      doneButton.isEnabled = false
+    }
   }
 
   override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
