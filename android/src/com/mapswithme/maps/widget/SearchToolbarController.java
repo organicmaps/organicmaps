@@ -212,13 +212,12 @@ public class SearchToolbarController extends ToolbarController
 
   public void resetFilterParams()
   {
-    if (mChooseDatesChip == null || mRoomsChip == null)
-      return;
-
-    mChooseDatesChip.setText(R.string.date_picker_сhoose_dates_cta);
+    if (mChooseDatesChip != null)
+      mChooseDatesChip.setText(R.string.date_picker_сhoose_dates_cta);
     mChosenDates = null;
 
-    mRoomsChip.setText(R.string.guests_picker_rooms);
+    if (mRoomsChip != null)
+      mRoomsChip.setText(R.string.guests_picker_rooms);
     mRoomGuestCounts = null;
   }
 
