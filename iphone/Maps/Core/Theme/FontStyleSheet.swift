@@ -105,6 +105,9 @@ class FontStyleSheet: IStyleSheet {
     theme.add(styleName: "bold17") { (s) -> (Void) in
       s.font = fonts.bold17
     }
+    theme.add(styleName: "bold18") { (s) -> (Void) in
+      s.font = fonts.bold18
+    }
     theme.add(styleName: "bold20") { (s) -> (Void) in
       s.font = fonts.bold20
     }
