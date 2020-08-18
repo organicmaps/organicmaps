@@ -121,9 +121,12 @@ public class BookingFilterParams implements Parcelable
     return mRooms;
   }
 
-  public static BookingFilterParams createParams(long checkIn, long checkOut)
+  public static BookingFilterParams createParams(
+      long checkIn, long checkOut, @Nullable FilterUtils.RoomGuestCounts roomGuestCounts)
   {
-    return ConnectionState.isConnected() ? new BookingFilterParams(checkIn, checkOut, Room.DEFAULT)
-                                         : null;
+    if (!ConnectionState.isConnected())
+      return null;
+
+    return new BookingFilterParams(checkIn, checkOut, FilterUtils.toRooms(roomGuestCounts));
   }
 }

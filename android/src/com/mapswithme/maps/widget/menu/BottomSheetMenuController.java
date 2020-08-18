@@ -36,17 +36,16 @@ public class BottomSheetMenuController implements MenuController
       if (BottomSheetMenuUtils.isSettlingState(state) || BottomSheetMenuUtils.isDraggingState(state))
         return;
 
-      if (mStateObserver == null)
-        return;
-
       if (BottomSheetMenuUtils.isHiddenState(state))
       {
         mMenuRenderer.onHide();
-        mStateObserver.onMenuClosed();
+        if (mStateObserver != null)
+          mStateObserver.onMenuClosed();
         return;
       }
 
-      mStateObserver.onMenuOpen();
+      if (mStateObserver != null)
+        mStateObserver.onMenuOpen();
     }
 
     @Override

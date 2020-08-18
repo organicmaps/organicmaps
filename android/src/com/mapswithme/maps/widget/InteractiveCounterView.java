@@ -133,6 +133,11 @@ public class InteractiveCounterView extends RelativeLayout
     return Integer.parseInt(mCounterView.getText().toString());
   }
 
+  public void setCurrentValue(int value)
+  {
+    mCounterView.setText(String.valueOf(value));
+  }
+
   private void updateConstraints()
   {
     int value = getCurrentValue();

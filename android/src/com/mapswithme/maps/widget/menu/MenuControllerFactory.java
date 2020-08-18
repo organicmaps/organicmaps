@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.NoConnectionListener;
+import com.mapswithme.maps.search.FilterUtils;
 
 public class MenuControllerFactory
 {
@@ -18,9 +19,11 @@ public class MenuControllerFactory
   }
 
   @NonNull
-  public static MenuController createGuestsRoomsMenuController()
+  public static MenuController createGuestsRoomsMenuController(
+      @NonNull MenuRoomsGuestsListener listener,
+      @NonNull FilterUtils.RoomsGuestsCountProvider provider)
   {
     return new BottomSheetMenuController(R.id.guests_and_rooms_menu_sheet,
-                                         new GuestsRoomsMenuRenderer(), null);
+                                         new GuestsRoomsMenuRenderer(listener, provider), null);
   }
 }

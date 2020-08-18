@@ -25,6 +25,7 @@ import com.mapswithme.maps.search.BookingFilterParams;
 import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.widget.menu.MenuController;
 import com.mapswithme.maps.widget.menu.MenuControllerFactory;
+import com.mapswithme.maps.widget.menu.MenuRoomsGuestsListener;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
@@ -36,7 +37,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class SearchToolbarController extends ToolbarController
-                                  implements View.OnClickListener
+                                  implements View.OnClickListener, MenuRoomsGuestsListener,
+                                             FilterUtils.RoomsGuestsCountProvider
 {
   private static final int REQUEST_VOICE_RECOGNITION = 0xCA11;
   @NonNull
@@ -54,7 +56,7 @@ public class SearchToolbarController extends ToolbarController
   @Nullable
   private Chip mChooseDatesChip;
   @Nullable
-  private Chip mRooms;
+  private Chip mRoomsChip;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(getActivity());
   @NonNull
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher()
@@ -68,6 +70,8 @@ public class SearchToolbarController extends ToolbarController
   };
   @Nullable
   private Pair<Long, Long> mChosenDates;
+  @Nullable
+  private FilterUtils.RoomGuestCounts mRoomGuestCounts;
   @NonNull
   private final View.OnClickListener mChooseDatesClickListener = v -> {
     if (!ConnectionState.isConnected())
@@ -104,6 +108,33 @@ public class SearchToolbarController extends ToolbarController
     mGuiestsRoomsMenuController.open();
   };
 
+  @Override
+  public void onRoomsGuestsApplied(@NonNull FilterUtils.RoomGuestCounts counts)
+  {
+    if (mRoomsChip == null)
+      return;
+
+    if (counts.equals(mRoomGuestCounts))
+      return;
+
+    formatAndSetRoomGuestsCounts(counts);
+    if (mChosenDates == null)
+    {
+      long checkinMillis = MaterialDatePicker.todayInUtcMilliseconds();
+      long checkoutMillis = FilterUtils.getDayAfter(checkinMillis);
+      formatAndSetChosenDates(checkinMillis, checkoutMillis);
+    }
+    for (FilterParamsChangedListener listener : mFilterParamsChangedListeners)
+      listener.onBookingParamsChanged();
+  }
+
+  @Nullable
+  @Override
+  public FilterUtils.RoomGuestCounts getRoomGuestCount()
+  {
+    return mRoomGuestCounts;
+  }
+
   public interface Container
   {
     SearchToolbarController getController();
@@ -137,23 +168,26 @@ public class SearchToolbarController extends ToolbarController
     if (mFilterContainer != null)
     {
       mChooseDatesChip = mFilterContainer.findViewById(R.id.choose_dates);
-      mRooms = mFilterContainer.findViewById(R.id.rooms);
+      mRoomsChip = mFilterContainer.findViewById(R.id.rooms);
       //noinspection ConstantConditions
       mChooseDatesChip.setOnClickListener(mChooseDatesClickListener);
       mChooseDatesChip.setOnCloseIconClickListener(mChooseDatesClickListener);
-      mRooms.setOnClickListener(mRoomsClickListener);
-      mRooms.setOnCloseIconClickListener(mRoomsClickListener);
+      //noinspection ConstantConditions
+      mRoomsChip.setOnClickListener(mRoomsClickListener);
+      mRoomsChip.setOnCloseIconClickListener(mRoomsClickListener);
     }
 
     showProgress(false);
     updateButtons(true);
-    mGuiestsRoomsMenuController = MenuControllerFactory.createGuestsRoomsMenuController();
+    mGuiestsRoomsMenuController
+        = MenuControllerFactory.createGuestsRoomsMenuController(this, this);
     mGuiestsRoomsMenuController.initialize(getActivity().findViewById(R.id.coordinator));
   }
 
   public void setFilterParams(@NonNull BookingFilterParams params)
   {
     formatAndSetChosenDates(params.getCheckinMillisec(), params.getCheckoutMillisec());
+    formatAndSetRoomGuestsCounts(FilterUtils.toCounts(params.getRooms()));
   }
 
   private void formatAndSetChosenDates(long checkinMillis, long checkoutMillis)
@@ -166,13 +200,26 @@ public class SearchToolbarController extends ToolbarController
     mChosenDates = new Pair<>(checkinMillis, checkoutMillis);
   }
 
+  private void formatAndSetRoomGuestsCounts(@NonNull FilterUtils.RoomGuestCounts counts)
+  {
+    if (mRoomsChip == null)
+      return;
+
+    int people = counts.getAdults() + counts.getChildren() + counts.getInfants();
+    mRoomsChip.setText(String.valueOf(people));
+    mRoomGuestCounts = counts;
+  }
+
   public void resetFilterParams()
   {
-    if (mChooseDatesChip == null)
+    if (mChooseDatesChip == null || mRoomsChip == null)
       return;
 
     mChooseDatesChip.setText(R.string.date_picker_сhoose_dates_cta);
     mChosenDates = null;
+
+    mRoomsChip.setText(R.string.guests_picker_rooms);
+    mRoomGuestCounts = null;
   }
 
   private void updateButtons(boolean queryEmpty)
@@ -331,7 +378,8 @@ public class SearchToolbarController extends ToolbarController
     if (mChosenDates == null)
       return null;
 
-    return BookingFilterParams.createParams(mChosenDates.first, mChosenDates.second);
+    return BookingFilterParams.createParams(mChosenDates.first, mChosenDates.second,
+                                            mRoomGuestCounts);
   }
 
   public interface FilterParamsChangedListener

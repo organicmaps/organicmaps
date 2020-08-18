@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class FilterUtils
@@ -282,5 +283,81 @@ public class FilterUtils
         .setReqCode(REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
         .build();
     dialog.show(activity, NO_NETWORK_CONNECTION_DIALOG_TAG);
+  }
+
+  @NonNull
+  public static BookingFilterParams.Room[] toRooms(@Nullable RoomGuestCounts counts)
+  {
+    // TODO: coming soon.
+    BookingFilterParams.Room[] rooms = new BookingFilterParams.Room[1];
+    rooms[0] = BookingFilterParams.Room.DEFAULT;
+    return rooms;
+  }
+
+  @NonNull
+  public static RoomGuestCounts toCounts(@NonNull BookingFilterParams.Room... roms)
+  {
+    // TODO: coming soon.
+    return new RoomGuestCounts(5, 5, 5,5);
+  }
+
+  public static class RoomGuestCounts
+  {
+    private final int mRooms;
+    private final int mAdults;
+    private final int mChildren;
+    private final int mInfants;
+
+    public RoomGuestCounts(int rooms, int adults, int children, int infants)
+    {
+      mRooms = rooms;
+      mAdults = adults;
+      mChildren = children;
+      mInfants = infants;
+    }
+
+    public int getRooms()
+    {
+      return mRooms;
+    }
+
+    public int getAdults()
+    {
+      return mAdults;
+    }
+
+    public int getChildren()
+    {
+      return mChildren;
+    }
+
+    public int getInfants()
+    {
+      return mInfants;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      RoomGuestCounts that = (RoomGuestCounts) o;
+      return getRooms() == that.getRooms() &&
+             getAdults() == that.getAdults() &&
+             getChildren() == that.getChildren() &&
+             getInfants() == that.getInfants();
+    }
+
+    @Override
+    public int hashCode()
+    {
+      return Objects.hash(getRooms(), getAdults(), getChildren(), getInfants());
+    }
+  }
+
+  public interface RoomsGuestsCountProvider
+  {
+    @Nullable
+    RoomGuestCounts getRoomGuestCount();
   }
 }
