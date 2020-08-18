@@ -225,9 +225,9 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
         {
           Resources rs = itemView.getResources();
           String s = itemView.getResources().getString(R.string.hotel_available);
-          if (tail.length() > 0)
-            tail.append(" • ");
-          tail.append(colorizeString(s, rs.getColor(R.color.base_green)));
+          tail
+            .append(" • ")
+            .append(colorizeString(s, rs.getColor(R.color.base_green)));
         }
       }
       else if (!TextUtils.isEmpty(result.description.airportIata))
