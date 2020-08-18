@@ -103,6 +103,8 @@ public class SearchToolbarController extends ToolbarController
       return;
     }
 
+    InputUtils.hideKeyboard(v);
+
     if (!mGuiestsRoomsMenuController.isClosed())
       return;
 
