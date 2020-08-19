@@ -711,6 +711,9 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public boolean onBackPressed()
   {
+    if (mToolbarController.closeBottomMenu())
+      return true;
+
     if (mToolbarController.hasQuery())
     {
       mToolbarController.clear();

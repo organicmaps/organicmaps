@@ -1588,13 +1588,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (mSearchController != null && mSearchController.hide())
+    if (mSearchController != null)
     {
-      SearchEngine.INSTANCE.cancelInteractiveSearch();
-      if (mFilterController != null)
-        mFilterController.resetFilterAndParams();
-      mSearchController.clear();
-      return;
+      if (mSearchController.closeBottomMenu())
+        return;
+
+      if (mSearchController.hide())
+      {
+        SearchEngine.INSTANCE.cancelInteractiveSearch();
+        if (mFilterController != null)
+          mFilterController.resetFilterAndParams();
+        mSearchController.clear();
+        return;
+      }
     }
 
     boolean isRoutingCancelled = RoutingController.get().cancel();
