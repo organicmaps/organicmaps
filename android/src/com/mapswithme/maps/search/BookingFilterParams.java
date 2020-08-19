@@ -2,10 +2,13 @@ package com.mapswithme.maps.search;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.mapswithme.util.ConnectionState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookingFilterParams implements Parcelable
 {
@@ -51,6 +54,41 @@ public class BookingFilterParams implements Parcelable
     private int mAdultsCount;
     @Nullable
     private int[] mAgeOfChildren;
+    @NonNull
+    private final List<Integer> mAgeOfChildrenList = new ArrayList<>();
+
+    Room()
+    {
+      // No op.
+    }
+
+    @Nullable
+    public int[] getAgeOfChildren()
+    {
+      if (!mAgeOfChildrenList.isEmpty())
+      {
+        mAgeOfChildren = new int[mAgeOfChildrenList.size()];
+        for (int i = 0; i < mAgeOfChildren.length; i++)
+          mAgeOfChildren[i] = mAgeOfChildrenList.get(i);
+      }
+
+      return mAgeOfChildren;
+    }
+
+    public int getAdultsCount()
+    {
+      return mAdultsCount;
+    }
+
+    void incrementAdultsCount()
+    {
+      mAdultsCount++;
+    }
+
+    public void addAge(int age)
+    {
+      mAgeOfChildrenList.add(age);
+    }
 
     Room(int adultsCount, @Nullable int[] ageOfChildren)
     {
@@ -62,6 +100,7 @@ public class BookingFilterParams implements Parcelable
     {
       mAdultsCount = in.readInt();
       mAgeOfChildren = in.createIntArray();
+      in.readList(mAgeOfChildrenList, Integer.class.getClassLoader());
     }
 
     public static final Creator<Room> CREATOR = new Creator<Room>()
@@ -90,6 +129,7 @@ public class BookingFilterParams implements Parcelable
     {
       dest.writeInt(mAdultsCount);
       dest.writeIntArray(mAgeOfChildren);
+      dest.writeList(mAgeOfChildrenList);
     }
   }
 

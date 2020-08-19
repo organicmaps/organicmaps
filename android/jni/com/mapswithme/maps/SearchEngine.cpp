@@ -515,7 +515,7 @@ public:
     m_roomsId = env->GetFieldID(m_bookingFilterParamsClass, "mRooms",
                                 "[Lcom/mapswithme/maps/search/BookingFilterParams$Room;");
     m_roomAdultsCountId = env->GetFieldID(m_roomClass, "mAdultsCount", "I");
-    m_roomAgeOfChildrenId = env->GetFieldID(m_roomClass, "mAgeOfChildren", "[I");
+    m_roomAgeOfChildrenId = env->GetMethodID(m_roomClass, "getAgeOfChildren", "()[I");
 
     m_initialized = true;
   }
@@ -550,7 +550,7 @@ public:
       auto & room = orderingParams.m_rooms[i];
       room.SetAdultsCount(static_cast<uint8_t>(env->GetIntField(jroom, m_roomAdultsCountId)));
 
-      auto const childrenObject = env->GetObjectField(jroom, m_roomAgeOfChildrenId);
+      auto const childrenObject = env->CallObjectMethod(jroom, m_roomAgeOfChildrenId);
       if (childrenObject != nullptr)
       {
         auto const children = static_cast<jintArray>(childrenObject);
@@ -626,7 +626,7 @@ private:
   jfieldID m_checkoutMillisecId = nullptr;
   jfieldID m_roomsId = nullptr;
   jfieldID m_roomAdultsCountId = nullptr;
-  jfieldID m_roomAgeOfChildrenId = nullptr;
+  jmethodID m_roomAgeOfChildrenId = nullptr;
 
   bool m_initialized = false;
 } g_bookingBuilder;
