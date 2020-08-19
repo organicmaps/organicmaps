@@ -36,7 +36,7 @@
     de = Seilbahn
     hu = Felvonóállomás
     id = Stasiun kereta gantung
-    it = Stazione di rifornimento per auto elettriche
+    it = Funivia
     ja = ケーブルカー駅
     ko = 케이블카 역
     nb = Kabelbanestasjon
