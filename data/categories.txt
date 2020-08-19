@@ -7643,7 +7643,7 @@ fr:Remontées mécaniques
 de:Seilbahn
 hu:Felvonóállomás
 id:Stasiun kereta gantung
-it:Impianto di risalita
+it:Impianto di risalita|funivia|stazione della funivia
 ja:ケーブルカー駅
 ko:케이블카 역
 nb:Kabelbanestasjon
