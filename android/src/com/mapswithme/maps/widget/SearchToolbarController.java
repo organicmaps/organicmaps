@@ -94,7 +94,7 @@ public class SearchToolbarController extends ToolbarController
   @NonNull
   private List<FilterParamsChangedListener> mFilterParamsChangedListeners = new ArrayList<>();
   @NonNull
-  private MenuController mGuiestsRoomsMenuController;
+  private MenuController mGuestsRoomsMenuController;
   @NonNull
   private final View.OnClickListener mRoomsClickListener = v -> {
     if (!ConnectionState.isConnected())
@@ -105,10 +105,10 @@ public class SearchToolbarController extends ToolbarController
 
     InputUtils.hideKeyboard(v);
 
-    if (!mGuiestsRoomsMenuController.isClosed())
+    if (!mGuestsRoomsMenuController.isClosed())
       return;
 
-    mGuiestsRoomsMenuController.open();
+    mGuestsRoomsMenuController.open();
   };
 
   @Override
@@ -183,9 +183,9 @@ public class SearchToolbarController extends ToolbarController
     showProgress(false);
     updateButtons(true);
     MenuStateObserver stateObserver = new RoomsGuestsMenuStateObserver(getActivity());
-    mGuiestsRoomsMenuController
+    mGuestsRoomsMenuController
         = MenuControllerFactory.createGuestsRoomsMenuController(this, stateObserver, this);
-    mGuiestsRoomsMenuController.initialize(getActivity().findViewById(R.id.coordinator));
+    mGuestsRoomsMenuController.initialize(getActivity().findViewById(R.id.coordinator));
   }
 
   public void setFilterParams(@NonNull BookingFilterParams params)
@@ -387,9 +387,9 @@ public class SearchToolbarController extends ToolbarController
 
   public boolean closeBottomMenu()
   {
-    if (!mGuiestsRoomsMenuController.isClosed())
+    if (!mGuestsRoomsMenuController.isClosed())
     {
-      mGuiestsRoomsMenuController.close();
+      mGuestsRoomsMenuController.close();
       return true;
     }
 
