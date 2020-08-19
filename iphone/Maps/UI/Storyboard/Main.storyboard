@@ -122,10 +122,10 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="500" translatesAutoresizingMaskIntoConstraints="NO" id="jio-3T-E6G" customClass="TouchTransparentView" customModule="maps_me" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="1366"/>
+                                <rect key="frame" x="0.0" y="0.0" width="350" height="1366"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="Dd0-x6-7gc"/>
+                                    <constraint firstAttribute="width" constant="350" id="Dd0-x6-7gc"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
