@@ -18,18 +18,19 @@ static inline NSString * formattedDistance(double const & meters) {
   settings::TryGet(settings::kMeasurementUnits, units);
   
   std::string distance;
-  switch (units)
-  {
-  case measurement_utils::Units::Imperial:
-    measurement_utils::FormatDistanceWithLocalization(meters,
-                                                      distance,
-                                                      [[@" " stringByAppendingString:L(@"mile")] UTF8String],
-                                                      [[@" " stringByAppendingString:L(@"foot")] UTF8String]);
-  case measurement_utils::Units::Metric:
-    measurement_utils::FormatDistanceWithLocalization(meters,
-                                                      distance,
-                                                      [[@" " stringByAppendingString:L(@"kilometer")] UTF8String],
-                                                      [[@" " stringByAppendingString:L(@"meter")] UTF8String]);
+  switch (units) {
+    case measurement_utils::Units::Imperial:
+      measurement_utils::FormatDistanceWithLocalization(meters,
+                                                        distance,
+                                                        [[@" " stringByAppendingString:L(@"mile")] UTF8String],
+                                                        [[@" " stringByAppendingString:L(@"foot")] UTF8String]);
+      break;
+    case measurement_utils::Units::Metric:
+      measurement_utils::FormatDistanceWithLocalization(meters,
+                                                        distance,
+                                                        [[@" " stringByAppendingString:L(@"kilometer")] UTF8String],
+                                                        [[@" " stringByAppendingString:L(@"meter")] UTF8String]);
+      break;
   }
   return @(distance.c_str());
 }
