@@ -1838,7 +1838,7 @@
 	<string name="subscription_terms_android_outdoor">Una volta confermato l\'acquisto, il pagamento verrà addebitato sul tuo account Google Play. L\'abbonamento si rinnova automaticamente, a meno che il rinnovo automatico non venga disattivato almeno 24 ore prima della fine del periodo in corso. L\'importo verrà addebitato sul tuo account secondo il tuo piano di rinnovo massimo 24 ore prima della fine del periodo in corso. Dopo l\'acquisto è possibile gestire o disattivare in qualsiasi momento il rinnovo automatico dell\'abbonamento nelle impostazioni dell\'account. È possibile utilizzare le guide scaricate tramite l\'abbonamento solamente se questo è attivo. Le guide verranno automaticamente eliminate 30 giorni dopo il termine dell\'abbonamento.\n* L\'abbonamento di prova gratuito si rinnova automaticamente passando alla a pagamento. Dopo l\'acquisto è possibile disabilitare o gestire il rinnovo automatico dell\'abbonamento di prova gratuito nelle impostazioni dell\'account. La disdetta avverrà 24 ore dopo l\'ultimo giorno del periodo di abbonamento in corso. Dopo la disdetta, l\'account passerà automaticamente all\'abbonamento gratuito. Nota: al momento dell\'acquisto dell\'abbonamento durante il periodo di prova gratuito, i giorni inutilizzati di tale periodo andranno persi.</string>
 
 	<!-- SECTION: Types -->
-	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>
+	<string name="type.aerialway.station">Funivia</string>
 	<string name="type.aeroway.aerodrome">Aeroporto</string>
 	<string name="type.aeroway.aerodrome.international">Aeroporto</string>
 	<string name="type.aeroway.helipad">Piattaforma per elicotteri</string>

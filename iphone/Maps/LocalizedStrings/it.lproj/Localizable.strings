@@ -3402,7 +3402,7 @@
 
 "type.aerialway.mixed_lift" = "aerialway-mixed_lift";
 
-"type.aerialway.station" = "Stazione di rifornimento per auto elettriche";
+"type.aerialway.station" = "Funivia";
 
 "type.aeroway" = "aeroway";
 
