@@ -189,6 +189,10 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
   [self displayAlert:[MWMAlert infoAlert:title text:text]];
 }
 
+- (void)presentInfoAlert:(nonnull NSString *)title {
+  [self displayAlert:[MWMAlert infoAlert:title text:nil]];
+}
+
 - (void)presentEditorViralAlert {
   [self displayAlert:[MWMAlert editorViralAlert]];
 }
