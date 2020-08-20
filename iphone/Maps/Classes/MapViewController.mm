@@ -395,6 +395,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
+  GetFramework().SetRenderingEnabled();
   GetFramework().InvalidateRendering();
   [self showViralAlertIfNeeded];
   [self checkAuthorization];
@@ -488,6 +489,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
       [MWMSearchManager manager].state == MWMSearchManagerStateHidden)
     self.controlsManager.menuRestoreState = self.controlsManager.menuState;
+  GetFramework().SetRenderingDisabled(false);
 }
 
 - (BOOL)prefersStatusBarHidden {

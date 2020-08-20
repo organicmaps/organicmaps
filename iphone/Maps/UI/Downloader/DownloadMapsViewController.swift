@@ -76,7 +76,6 @@ class DownloadMapsViewController: MWMViewController {
       let addMapsButton = button(with: UIImage(named: "ic_nav_bar_add"), action: #selector(onAddMaps))
       navigationItem.rightBarButtonItem = addMapsButton
     }
-    Storage.shared().add(self)
     noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
     if !dataSource.isRoot {
       searchBarTopOffset.constant = -searchBar.frame.height
@@ -88,7 +87,15 @@ class DownloadMapsViewController: MWMViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    configButtons()
+    dataSource.reload {
+      reloadData()
+    }
+    Storage.shared().add(self)
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    Storage.shared().remove(self)
   }
 
   fileprivate func showChildren(_ nodeAttrs: MapNodeAttributes) {
