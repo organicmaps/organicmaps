@@ -143,13 +143,6 @@ void IsolinesManager::UpdateState()
       mwmVersions.insert(mwmId.GetInfo()->GetVersion());
   }
 
-  if (expired)
-    ChangeState(IsolinesState::ExpiredData);
-  else if (!available && noData)
-    ChangeState(IsolinesState::NoData);
-  else
-    ChangeState(IsolinesState::Enabled);
-
   if (m_trackFirstSchemeData)
   {
     if (available)
@@ -163,6 +156,13 @@ void IsolinesManager::UpdateState()
       m_statistics.LogActivate(LayersStatistics::Status::Unavailable, mwmVersions);
     }
   }
+
+  if (expired)
+    ChangeState(IsolinesState::ExpiredData);
+  else if (!available && noData)
+    ChangeState(IsolinesState::NoData);
+  else
+    ChangeState(IsolinesState::Enabled);
 }
 
 void IsolinesManager::Invalidate()
