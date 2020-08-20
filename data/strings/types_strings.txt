@@ -310,7 +310,7 @@
     fi = Baari
     hu = Bár
     ja = 居酒屋
-    ko = 주점
+    ko = 바
     pt = Drinqueria
     pt-BR = Drinqueria
     th = บาร์
@@ -399,7 +399,7 @@
     id = Parkir Sepeda
     it = Parcheggio biciclette
     ja = 駐輪場
-    ko = 자전거보관소
+    ko = 자전거 주차장
     nb = Sykkelparkering
     pl = Parking dla rowerów
     pt = Bicicletário
@@ -484,7 +484,7 @@
     id = Hiburan
     it = Bordello
     ja = 売春宿
-    ko = 유곽
+    ko = 사창가
     nb = Bordell
     pl = Burdel
     pt = Bordel
@@ -548,7 +548,7 @@
     id = Stasiun bus
     it = Autostazione
     ja = バスステーション
-    ko = 버스 정류장
+    ko = 버스 터미널
     nb = Busstasjon
     pl = Dworzec autobusowy
     pt = Rodoviária
@@ -612,7 +612,7 @@
     id = Rental mobil
     it = Noleggio di automobili
     ja = レンタカー
-    ko = 자동차 공유
+    ko = 카 렌탈
     nb = Bilutleie
     pl = Wynajem samochodów
     pt = Aluguel de automóveis
@@ -642,7 +642,7 @@
     hu = Gépjármű megosztása
     id = Berbagi mobil
     ja = カーシェアリング
-    ko = 카셰어링
+    ko = 카 셰어링
     nb = Kjøre sammen
     pl = Współdzielenie samochodów
     pt = Compartilhamento de carro
@@ -793,7 +793,7 @@
     hu = Mozi
     id = Bioskop
     ja = 映画館
-    ko = 영화
+    ko = 영화관
     nb = Kino
     pl = Kino
     es = Cine
@@ -1011,7 +1011,7 @@
     id = Air minum
     it = Acqua potabile
     ja = 水飲み場
-    ko = 식수
+    ko = 음수대
     nb = Drikkevann
     pl = Woda pitna
     pt = Água potável
@@ -1139,7 +1139,7 @@
     id = Terminal
     it = Traghetto
     ja = フェリー
-    ko = 나룻배
+    ko = 페리
     nb = Ferje
     pl = Terminal promowy
     pt = Estação de barcas
@@ -1241,7 +1241,7 @@
     id = Pompa bensin
     it = Stazione di rifornimento
     ja = ガソリンスタンド
-    ko = 가스가 역
+    ko = 주유소
     nb = Bensinstasjon
     pl = Stacja benzynowa
     pt = Posto de combustível
@@ -2135,7 +2135,7 @@
     id = Kuil
     it = Tempio
     ja = 寺院
-    ko = 절
+    ko = 불교 사원
     nb = Tempel
     pl = Świątynia buddyjska
     pt = Templo budista
@@ -2198,7 +2198,7 @@
     id = Kuil
     it = Tempio
     ja = ヒンドゥー教寺院
-    ko = 절
+    ko = 힌두교 사원
     nb = Tempel
     pl = Świątynia hinduistyczna
     pt = Templo hindu
@@ -2293,7 +2293,7 @@
     id = Kuil
     it = Santuario
     ja = 神社
-    ko = 성지
+    ko = 사당
     nb = Alter
     pl = Kapliczka szintoistyczna
     pt = Templo shintoísta
@@ -2324,7 +2324,7 @@
     id = Kuil
     it = Tempio
     ja = 道教寺院
-    ko = 절
+    ko = 도교 사원
     nb = Tempel
     pl = Świątynia taoistyczna
     pt = Templo taoísta
@@ -2355,7 +2355,7 @@
     id = Polisi
     it = Polizia
     ja = 警察
-    ko = 치안대
+    ko = 경찰
     nb = Politi
     pl = Policja
     pt = Polícia
@@ -2387,7 +2387,7 @@
     id = Kotak pos
     it = Casella
     ja = 郵便ポスト
-    ko = 포스트 박스
+    ko = 우편함
     nb = Postboks
     pl = Skrzynka pocztowa
     pt = Caixa de correio
@@ -2482,7 +2482,7 @@
     id = Rak Buku
     it = Libreria
     ja = 街角文庫
-    ko = 책장, 도서 교환
+    ko = 도서 교환
     nb = Bokhylle
     pl = Wymiana książek
     pt = Biblioteca livre
@@ -2898,7 +2898,7 @@
     id = Tempat penampungan
     it = Riparo
     ja = 避難所
-    ko = 피난처
+    ko = 대피소
     nb = Tilfluktsrom
     pl = Wiata
     pt = Abrigo
@@ -2930,7 +2930,7 @@
     id = Pancuran
     it = Doccia
     ja = シャワー
-    ko = 샤워기
+    ko = 샤워시설
     nb = Dusj
     pl = Prysznic
     pt = Chuveiro
@@ -2959,7 +2959,7 @@
     fi = Taksi
     id = Taksi
     ja = タクシー
-    ko = 택시로 가다
+    ko = 택시
     nb = Drosje
     pl = Taksówka
     pt = Táxi
@@ -3079,7 +3079,7 @@
     id = Balai kota
     it = Municipio
     ja = 役場
-    ko = 시청사
+    ko = 시청
     nb = Rådhus
     pl = Ratusz
     pt = Prefeitura
@@ -3279,7 +3279,7 @@
     id = Dokter Hewan
     it = Veterinario
     ja = 獣医
-    ko = 수의학 박사
+    ko = 동물병원
     nb = Veterinær
     pl = Weterynarz
     pt = Veterinário
@@ -3343,7 +3343,7 @@
     id = Sampah
     it = Spazzatura
     ja = ゴミ
-    ko = 쓰레기
+    ko = 휴지통
     nb = Søppel
     pl = Wysypisko śmieci
     pt = Depósito de lixo
@@ -3872,7 +3872,7 @@
     hu = Garázs
     id = Garasi
     ja = 車庫
-    ko = 정비소
+    ko = 차고
     nb = Verksted
     pl = Garaż
     pt = Garagem
@@ -7109,7 +7109,7 @@
     id = Halte bus
     it = Fermata
     ja = バス停
-    ko = 운송선
+    ko = 버스 정류장
     nb = Busstopp
     pl = Przystanek autobusowy
     pt = Ponto de ônibus
@@ -7195,7 +7195,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Chodnik
     pt = Caminho
@@ -7227,7 +7227,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka wspinaczkowa
     pt = Caminho
@@ -7259,7 +7259,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Obszar chodnika
     pt = Caminho
@@ -7291,7 +7291,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Most dla pieszych
     pt = Caminho
@@ -7323,7 +7323,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -7355,7 +7355,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -7387,7 +7387,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -7419,7 +7419,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -7451,7 +7451,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -7483,7 +7483,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Chodnik
     pt = Caminho
@@ -7515,7 +7515,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Tunel dla pieszych
     pt = Caminho
@@ -7898,7 +7898,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -7930,7 +7930,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka wspinaczkowa
     pt = Caminho
@@ -7962,7 +7962,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka dla rowerów
     pt = Caminho
@@ -7994,7 +7994,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -8026,7 +8026,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -8058,7 +8058,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -8090,7 +8090,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -8122,7 +8122,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -8154,7 +8154,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -8186,7 +8186,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -8218,7 +8218,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -8250,7 +8250,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Ścieżka
     pt = Caminho
@@ -9310,7 +9310,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Schody
     pt = Caminho
@@ -9342,7 +9342,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Schody
     pt = Caminho
@@ -9374,7 +9374,7 @@
     id = Jalur
     it = Sentiero
     ja = 歩道
-    ko = 경로
+    ko = 길
     nb = Sti
     pl = Schody
     pt = Caminho
@@ -10356,7 +10356,7 @@
     id = Kastel
     it = Castello
     ja = 城
-    ko = 대저택
+    ko = 성
     nb = Slott
     pl = Zamek
     pt = Castelo
@@ -10388,7 +10388,7 @@
     id = Kastel
     it = Castello
     ja = 城
-    ko = 대저택
+    ko = 성
     nb = Slott
     pl = Zamek obronny
     pt = Castelo
@@ -10420,7 +10420,7 @@
     id = Kastel
     it = Castello
     ja = 城
-    ko = 대저택
+    ko = 성
     nb = Slott
     pl = Zamek
     pt = Castelo
@@ -10639,7 +10639,7 @@
     id = Pemandangan
     it = Turistico
     ja = 退役船
-    ko = 관광
+    ko = 배
     nb = Severdigheter
     pl = Okręt
     pt = Turismo
@@ -10671,7 +10671,7 @@
     id = Pemandangan
     it = Turistico
     ja = 墓
-    ko = 관광
+    ko = 무덤
     nb = Severdigheter
     pl = Grobowiec
     pt = Turismo
@@ -10798,7 +10798,7 @@
     id = Air
     it = Bacino
     ja = 遊水地
-    ko = 연못
+    ko = 저수지
     nb = Vann
     pl = Woda
     pt = Água
@@ -10900,7 +10900,7 @@
     id = Halaman gereja
     it = Sagrato della chiesa
     ja = キリスト教教会付属地
-    ko = 교회
+    ko = 교회 마당
     nb = Kirkegård
     pl = Teren kościelny
     pt = Adro
@@ -11273,7 +11273,7 @@
     id = Air
     it = Bacino
     ja = 貯水池
-    ko = 연못
+    ko = 저수지
     nb = Vann
     pl = Woda
     pt = Água
@@ -11405,7 +11405,7 @@
     id = Stasiun Kebugaran
     it = Centro fitness
     ja = フィットネスステーション
-    ko = 피트니스 센터
+    ko = 피트니스 스테이션
     nb = Treningssenter
     pl = Stacja fitness
     pt = Estação de fitness
@@ -11684,7 +11684,7 @@
     id = Lapangan olahraga
     it = Campo sportivo
     ja = 運動場
-    ko = 경기장
+    ko = 운동장
     nb = Sportssenter
     pl = Boisko sportowe
     pt = Campo de esportes
@@ -11716,7 +11716,7 @@
     id = Taman bermain
     it = Campo giochi
     ja = 児童公園
-    ko = 운동장
+    ko = 놀이터
     nb = Lekeplass
     pl = Plac zabaw
     pt = Parquinho
@@ -12525,7 +12525,7 @@
     id = Geiser
     it = Geyser
     ja = 間欠泉
-    ko = 온천
+    ko = 간헐천
     nb = Gaysir
     pl = Gejzer
     pt = Geiser
@@ -12684,7 +12684,7 @@
     id = Puncak
     it = Monte
     ja = 山頂
-    ko = 피크
+    ko = 산
     nb = Høydepunkt
     pl = Szczyt
     pt = Pico
@@ -12931,7 +12931,7 @@
     id = Air
     it = Bacino
     ja = 水地
-    ko = 연못
+    ko = 저수지
     nb = Vann
     pl = Woda
     pt = Água
@@ -13081,7 +13081,7 @@
     id = Agen ril estat
     it = Agenzia immobiliare
     ja = 不動産業者
-    ko = 부동산중개소
+    ko = 부동산중개사
     nb = Eiendomsmegler
     pl = Pośrednik handlu nieruchomościami
     pt = Corretor imobiliário
@@ -13748,7 +13748,7 @@
     id = Kabupaten
     it = Contea
     ja = 郡
-    ko = 군
+    ko = 카운티
     nb = Fylke
     pl = Wieś
     pt = Município
@@ -13812,7 +13812,7 @@
     id = Dusun
     it = Piccolo villaggio
     ja = 村
-    ko = 햄릿
+    ko = 작은 마을
     nb = Landsby
     pl = Przysiółek
     pt = Lugarejo
@@ -13975,7 +13975,7 @@
     id = Wilayah
     it = Regione
     ja = 地方
-    ko = 지방
+    ko = 지역
     pt = Região
     pt-BR = Região
     ro = Regiune
@@ -14041,7 +14041,7 @@
     id = Negara bagian
     it = Provincia
     ja = 州
-    ko = 상태
+    ko = 주
     nb = Stat
     pl = Stan
     pt = Estado
@@ -14073,7 +14073,7 @@
     id = Negara bagian
     it = Provincia
     ja = 州
-    ko = 상태
+    ko = 주
     nb = Stat
     pl = Stan
     pt = Estado
@@ -15961,7 +15961,7 @@
     id = Perhentian trem
     it = Fermata
     ja = トラム
-    ko = 트램
+    ko = 트램 정류장
     nb = Trikkestopp
     pl = Przystanek tramwajowy
     pt = Parada de bonde
@@ -16024,7 +16024,7 @@
     id = Toko
     it = Negozio
     ja = 買い物
-    ko = 쇼핑
+    ko = 가게
     nb = Butikk
     pl = Sklep
     pt = Loja
@@ -16274,7 +16274,7 @@
     id = Tukang daging
     it = Macellaio
     ja = 肉屋
-    ko = 정육점의
+    ko = 정육점
     nb = Slakter
     pl = Rzeźnik
     pt = Açougue
@@ -16306,7 +16306,7 @@
     id = Toko mobil
     it = Concessionaria
     ja = カーディーラー
-    ko = 자동차 가게
+    ko = 자동차 대리점
     nb = Bil butikk
     pl = Salon samochodowy
     pt = Loja de carros
@@ -16338,7 +16338,7 @@
     id = Bagian mobil
     it = Ricambi auto
     ja = 車両部品
-    ko = 자동차 부품
+    ko = 차 부품 가게
     nb = Bildeler
     pl = Części samochodowe
     pt = Peças de carro
@@ -16434,7 +16434,7 @@
     id = Toko Bahan Kimia
     it = Negozio di detersivi
     ja = 化学薬品店
-    ko = 드럭 스토어
+    ko = 화학물질 가게
     nb = Husholdningsartikler
     pl = Drogeria
     pt = Drogaria
@@ -16466,7 +16466,7 @@
     id = Toko
     it = Negozio
     ja = チョコレート屋
-    ko = 쇼핑
+    ko = 가게
     nb = Butikk
     pl = Sklep z czekoladą
     pt = Loja
@@ -16530,7 +16530,7 @@
     id = Toko
     it = Negozio
     ja = コーヒー屋
-    ko = 쇼핑
+    ko = 가게
     nb = Butikk
     pl = Sklep z kawą
     pt = Loja
@@ -16657,7 +16657,7 @@
     id = Fotokopi
     it = Copisteria
     ja = コピーショップ
-    ko = 복사 상점
+    ko = 복사가게
     nb = Kopieringsbutikk
     pl = Punkt ksero
     pt = Copiadora
@@ -16817,7 +16817,7 @@
     id = Elektronik
     it = Negozio di elettronica
     ja = 電気店
-    ko = 전자
+    ko = 전자제품
     nb = Elektronikk forhandler
     pl = Sklep ze sprzętem elektronicznym
     pt = Loja de eletrônicos
@@ -16881,7 +16881,7 @@
     id = Toko
     it = Negozio
     ja = 生地屋
-    ko = 쇼핑
+    ko = 가게
     nb = Butikk
     pl = Sklep
     pt = Loja
@@ -16913,7 +16913,7 @@
     id = Tukang bunga
     it = Fiorista
     ja = フローリスト/花屋
-    ko = 플로리스트의꽃가게
+    ko = 꽃가게
     nb = Blomsterhandler
     pl = Kwiaciarnia
     pt = Floricultura
@@ -17009,7 +17009,7 @@
     id = Penitipan anak
     it = Vivaio
     ja = ガーデンセンター
-    ko = 종묘점
+    ko = 식물 상점
     nb = Planteskole
     pl = Sklep ogrodniczy
     pt = Loja de plantas
@@ -17073,7 +17073,7 @@
     id = Penjual sayuran
     it = Fruttivendolo
     ja = 八百屋
-    ko = 청과물 상인의
+    ko = 청과상
     nb = Frukt- og grønnsakshandler
     pl = Warzywniak
     pt = Quitanda
@@ -17289,7 +17289,7 @@
     id = Tempat Pijat
     it = Centro massaggi
     ja = マッサージ店
-    ko = 안마 시술소
+    ko = 마사지샵
     nb = Massasjesalong
     pl = Salon masażu
     pt = Massagista
@@ -17353,7 +17353,7 @@
     id = Toko
     it = Negozio
     ja = 消費者金融
-    ko = 쇼핑
+    ko = 가게
     nb = Butikk
     pl = Pożyczkodawca
     pt = Loja
@@ -17417,7 +17417,7 @@
     id = Toko
     it = Negozio
     ja = CDショップ
-    ko = 쇼핑
+    ko = 가게
     nb = Butikk
     pl = Sklep muzyczny
     pt = Loja
@@ -17449,7 +17449,7 @@
     id = Toko
     it = Negozio
     ja = 楽器店
-    ko = 쇼핑
+    ko = 가게
     nb = Butikk
     pl = Sklep z instrumentami muzycznymi
     pt = Loja
@@ -17545,7 +17545,7 @@
     id = Peralatan Outdoor
     it = Attrezzatura sportiva
     ja = アウトドア用品店
-    ko = 야외 장비
+    ko = 아웃도어 장비
     nb = Fritidsutstyr
     pl = Sprzęt turystyczny
     pt = Equipamentos esportivos
@@ -17609,7 +17609,7 @@
     id = Toko hewan
     it = Negozio di animali
     ja = ペットショップ
-    ko = 애완동물점
+    ko = 펫샵
     nb = Dyrebutikk
     pl = Sklep zoologiczny
     pt = Pet-shop
@@ -17641,7 +17641,7 @@
     id = Studio Foto
     it = Negozio di fotografia
     ja = 写真屋
-    ko = 사진 상점
+    ko = 사진 가게
     nb = Fotobutikk
     pl = Fotograf
     pt = Artigos para fotografia
@@ -17828,7 +17828,7 @@
     id = Tempat Tato
     it = Studio tatuaggi
     ja = タトゥースタジオ
-    ko = 문신 시술소
+    ko = 타투 가게
     nb = Tatovør
     pl = Salon tatuażu
     pt = Estúdio de tatuagens
@@ -17860,7 +17860,7 @@
     id = Toko
     it = Negozio
     ja = 茶販売店
-    ko = 쇼핑
+    ko = 가게
     nb = Butikk
     pl = Sklep z herbatą
     pt = Loja
@@ -18801,7 +18801,7 @@
     id = Lokasi perkemahan
     it = Area per campeggiatori
     ja = オートキャンプ場
-    ko = 대상 사이트
+    ko = 카라반 사용가능 캠핑장
     nb = Camping
     pl = Pole namiotowe
     pt = Área de trailers
@@ -18857,7 +18857,7 @@
     id = Pemandangan
     it = Turistico
     ja = 美術館
-    ko = 관광
+    ko = 갤러리
     nb = Severdigheter
     pl = Galeria
     pt = Turismo
@@ -18889,7 +18889,7 @@
     id = Wisma tamu
     it = Guest house
     ja = ゲストハウス
-    ko = 영빈관
+    ko = 게스트하우스
     nb = Gjestehus
     pl = Pensjonat
     pt = Pousada
@@ -18996,7 +18996,7 @@
     id = Papan informasi
     it = Tabellone informativo
     ja = 案内板
-    ko = 안내소
+    ko = 정보 게시판
     nb = Informasjonstavle
     pl = Tablica informacyjna
     pt = Painel de informações
@@ -19167,7 +19167,7 @@
     id = Lokasi piknik
     it = Picnic
     ja = ピクニック場
-    ko = 소풍 사이트
+    ko = 피크닉 장소
     nb = Rasteplasser
     pl = Pole piknikowe
     pt = Local de piquenique
@@ -19225,7 +19225,7 @@
     id = Pemandangan
     it = Turistico
     ja = テーマパーク
-    ko = 관광
+    ko = 테마 파크
     nb = Severdigheter
     pl = Park tematyczny
     pt = Parque de diversão
