@@ -118,9 +118,9 @@ struct TransitHeader
       TransitHeader, visitor(m_version, "version"), visitor(m_reserve, "reserve"),
       visitor(m_stopsOffset, "stops"), visitor(m_gatesOffset, "gatesOffset"),
       visitor(m_edgesOffset, "edgesOffset"), visitor(m_transfersOffset, "transfersOffset"),
-      visitor(m_linesOffset, "linesOffset"), visitor(m_shapesOffset, "shapesOffset"),
-      visitor(m_routesOffset, "routesOffset"), visitor(m_networksOffset, "networksOffset"),
-      visitor(m_endOffset, "endOffset"))
+      visitor(m_linesOffset, "linesOffset"), visitor(m_linesMetadataOffset, "linesMetadataOffset"),
+      visitor(m_shapesOffset, "shapesOffset"), visitor(m_routesOffset, "routesOffset"),
+      visitor(m_networksOffset, "networksOffset"), visitor(m_endOffset, "endOffset"))
 
   uint16_t m_version = 0;
   uint16_t m_reserve = 0;
@@ -129,13 +129,14 @@ struct TransitHeader
   uint32_t m_edgesOffset = 0;
   uint32_t m_transfersOffset = 0;
   uint32_t m_linesOffset = 0;
+  uint32_t m_linesMetadataOffset = 0;
   uint32_t m_shapesOffset = 0;
   uint32_t m_routesOffset = 0;
   uint32_t m_networksOffset = 0;
   uint32_t m_endOffset = 0;
 };
 
-static_assert(sizeof(TransitHeader) == 40, "Wrong header size of transit section.");
+static_assert(sizeof(TransitHeader) == 44, "Wrong header size of transit section.");
 
 class Network
 {
@@ -227,6 +228,28 @@ private:
   IdList m_stopIds;
   std::vector<LineInterval> m_intervals;
   osmoh::OpeningHours m_serviceDays;
+};
+
+class LineMetadata
+{
+public:
+  LineMetadata() = default;
+  LineMetadata(TransitId id, LineSegmentsOrder const & segmentsOrder);
+
+  bool operator<(LineMetadata const & rhs) const;
+  bool operator==(LineMetadata const & rhs) const;
+
+  bool IsValid() const;
+
+  TransitId GetId() const;
+  LineSegmentsOrder const & GetLineSegmentsOrder() const;
+
+private:
+  DECLARE_TRANSIT_TYPES_FRIENDS
+  DECLARE_VISITOR_AND_DEBUG_PRINT(LineMetadata, visitor(m_id, "id"),
+                                  visitor(m_segmentsOrder, "segments_order"))
+  TransitId m_id = kInvalidTransitId;
+  LineSegmentsOrder m_segmentsOrder;
 };
 
 class Stop

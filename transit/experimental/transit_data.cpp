@@ -254,14 +254,15 @@ std::tuple<OsmId, FeatureId, TransitId> CalculateIds(base::Json const & obj,
 
   // Osm id is present in subway items and is absent in all other public transport items.
   FromJSONObjectOptionalField(obj.get(), "osm_id", osmId);
+  FromJSONObjectOptionalField(obj.get(), "id", id);
+
   if (osmId == 0)
   {
-    id = GetIdFromJson(obj.get());
     osmId = kInvalidOsmId;
   }
   else
   {
-    featureId = GetIdFromJson(obj.get());
+    FromJSONObjectOptionalField(obj.get(), "feature_id", featureId);
     base::GeoObjectId const geoId(osmId);
     auto const it = mapping.find(geoId);
     if (it != mapping.cend())
@@ -322,6 +323,32 @@ void Read(base::Json const & obj, std::vector<Line> & lines)
   lines.emplace_back(id, routeId, shapeLink, title, stopIds, intervals, serviceDays);
 }
 
+void Read(base::Json const & obj, std::vector<LineMetadata> & linesMetadata)
+{
+  TransitId const id = GetIdFromJson(obj.get());
+
+  json_t * arr = base::GetJSONObligatoryField(obj.get(), "shape_segments");
+
+  CHECK(json_is_array(arr), ());
+
+  size_t const count = json_array_size(arr);
+  LineSegmentsOrder segmentsOrder;
+  segmentsOrder.reserve(count);
+
+  for (size_t i = 0; i < count; ++i)
+  {
+    json_t * item = json_array_get(arr, i);
+
+    LineSegmentOrder lineSegmentOrder;
+    FromJSONObject(item, "order", lineSegmentOrder.m_order);
+    FromJSONObject(item, "start_index", lineSegmentOrder.m_segment.m_startIdx);
+    FromJSONObject(item, "end_index", lineSegmentOrder.m_segment.m_endIdx);
+    segmentsOrder.emplace_back(lineSegmentOrder);
+  }
+
+  linesMetadata.emplace_back(id, segmentsOrder);
+}
+
 void Read(base::Json const & obj, std::vector<Stop> & stops, OsmIdToFeatureIdsMap const & mapping)
 {
   auto const & [osmId, featureId, id] = CalculateIds(obj, mapping);
@@ -379,7 +406,6 @@ void Read(base::Json const & obj, std::vector<Transfer> & transfers)
 
 void Read(base::Json const & obj, std::vector<Gate> & gates, OsmIdToFeatureIdsMap const & mapping)
 {
-  // TODO(o.khlopkova) Inject subways to public transport jsons.
   auto const & [osmId, featureId, id] = CalculateIds(obj, mapping);
 
   std::vector<TimeFromGateToStop> const weights = GetWeightsFromJson(obj.get());
@@ -432,6 +458,7 @@ void TransitData::DeserializeFromJson(std::string const & dirWithJsons,
   ReadData(base::JoinPath(dirWithJsons, kNetworksFile), m_networks);
   ReadData(base::JoinPath(dirWithJsons, kRoutesFile), m_routes);
   ReadData(base::JoinPath(dirWithJsons, kLinesFile), m_lines);
+  ReadData(base::JoinPath(dirWithJsons, kLinesMetadataFile), m_linesMetadata);
   ReadData(base::JoinPath(dirWithJsons, kStopsFile), m_stops, mapping);
   ReadData(base::JoinPath(dirWithJsons, kShapesFile), m_shapes);
   ReadData(base::JoinPath(dirWithJsons, kEdgesFile), m_edges);
@@ -465,6 +492,9 @@ void TransitData::Serialize(Writer & writer)
   m_header.m_linesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
   serializer(m_lines);
 
+  m_header.m_linesMetadataOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
+  serializer(m_linesMetadata);
+
   m_header.m_shapesOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
   serializer(m_shapes);
 
@@ -494,6 +524,7 @@ void TransitData::Deserialize(Reader & reader)
     ReadEdges(src);
     ReadTransfers(src);
     ReadLines(src);
+    ReadLinesMetadata(src);
     ReadShapes(src);
     ReadRoutes(src);
     ReadNetworks(src);
@@ -515,9 +546,12 @@ void TransitData::DeserializeForRendering(Reader & reader)
 {
   DeserializeWith(reader, [this](NonOwningReaderSource & src) {
     ReadStops(src);
+    src.Skip(m_header.m_edgesOffset - src.Pos());
+    ReadEdges(src);
     src.Skip(m_header.m_transfersOffset - src.Pos());
     ReadTransfers(src);
     ReadLines(src);
+    ReadLinesMetadata(src);
     ReadShapes(src);
     ReadRoutes(src);
   });
@@ -613,7 +647,13 @@ void TransitData::ReadTransfers(NonOwningReaderSource & src)
 
 void TransitData::ReadLines(NonOwningReaderSource & src)
 {
-  ReadItems(m_header.m_linesOffset, m_header.m_shapesOffset, "lines", src, m_lines);
+  ReadItems(m_header.m_linesOffset, m_header.m_linesMetadataOffset, "lines", src, m_lines);
+}
+
+void TransitData::ReadLinesMetadata(NonOwningReaderSource & src)
+{
+  ReadItems(m_header.m_linesMetadataOffset, m_header.m_shapesOffset, "linesMetadata", src,
+            m_linesMetadata);
 }
 
 void TransitData::ReadShapes(NonOwningReaderSource & src)

@@ -31,6 +31,7 @@ using OsmIdToFeatureIdsMap = std::map<base::GeoObjectId, std::vector<FeatureId>>
 void Read(base::Json const & obj, std::vector<Network> & networks);
 void Read(base::Json const & obj, std::vector<Route> & routes);
 void Read(base::Json const & obj, std::vector<Line> & lines);
+void Read(base::Json const & obj, std::vector<LineMetadata> & linesMetadata);
 void Read(base::Json const & obj, std::vector<Stop> & stops, OsmIdToFeatureIdsMap const & mapping);
 void Read(base::Json const & obj, std::vector<Shape> & shapes);
 void Read(base::Json const & obj, std::vector<Edge> & edges);
@@ -63,6 +64,7 @@ public:
   std::vector<Edge> const & GetEdges() const { return m_edges; }
   std::vector<Transfer> const & GetTransfers() const { return m_transfers; }
   std::vector<Line> const & GetLines() const { return m_lines; }
+  std::vector<LineMetadata> const & GetLinesMetadata() const { return m_linesMetadata; }
   std::vector<Shape> const & GetShapes() const { return m_shapes; }
   std::vector<Route> const & GetRoutes() const { return m_routes; }
   std::vector<Network> const & GetNetworks() const { return m_networks; }
@@ -81,6 +83,7 @@ private:
   void ReadEdges(NonOwningReaderSource & src);
   void ReadTransfers(NonOwningReaderSource & src);
   void ReadLines(NonOwningReaderSource & src);
+  void ReadLinesMetadata(NonOwningReaderSource & src);
   void ReadShapes(NonOwningReaderSource & src);
   void ReadRoutes(NonOwningReaderSource & src);
   void ReadNetworks(NonOwningReaderSource & src);
@@ -101,6 +104,7 @@ private:
   std::vector<Edge> m_edges;
   std::vector<Transfer> m_transfers;
   std::vector<Line> m_lines;
+  std::vector<LineMetadata> m_linesMetadata;
   std::vector<Shape> m_shapes;
 };
 }  // namespace experimental

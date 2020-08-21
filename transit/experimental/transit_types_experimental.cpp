@@ -27,9 +27,9 @@ std::string GetTranslation(Translations const & titles)
 bool TransitHeader::IsValid() const
 {
   return m_stopsOffset <= m_gatesOffset && m_gatesOffset <= m_transfersOffset &&
-         m_transfersOffset <= m_linesOffset && m_linesOffset <= m_shapesOffset &&
-         m_shapesOffset <= m_routesOffset && m_routesOffset <= m_networksOffset &&
-         m_networksOffset <= m_endOffset;
+         m_transfersOffset <= m_linesOffset && m_linesOffset <= m_linesMetadataOffset &&
+         m_linesMetadataOffset <= m_shapesOffset && m_shapesOffset <= m_routesOffset &&
+         m_routesOffset <= m_networksOffset && m_networksOffset <= m_endOffset;
 }
 
 // SingleMwmSegment --------------------------------------------------------------------------------
@@ -174,6 +174,20 @@ std::vector<LineInterval> Line::GetIntervals() const { return m_intervals; }
 
 osmoh::OpeningHours Line::GetServiceDays() const { return m_serviceDays; }
 
+// LineMetadata ------------------------------------------------------------------------------------
+LineMetadata::LineMetadata(TransitId id, LineSegmentsOrder const & segmentsOrder)
+  : m_id(id), m_segmentsOrder(segmentsOrder)
+{
+}
+
+bool LineMetadata::operator<(LineMetadata const & rhs) const { return m_id < rhs.GetId(); }
+bool LineMetadata::operator==(LineMetadata const & rhs) const { return m_id == rhs.GetId(); }
+
+bool LineMetadata::IsValid() const { return m_id != kInvalidTransitId; }
+
+TransitId LineMetadata::GetId() const { return m_id; }
+LineSegmentsOrder const & LineMetadata::GetLineSegmentsOrder() const { return m_segmentsOrder; }
+
 // Stop --------------------------------------------------------------------------------------------
 Stop::Stop() : m_ids(true /* serializeFeatureIdOnly */) {}
 
@@ -203,12 +217,14 @@ bool Stop::operator==(Stop const & rhs) const
   if (m_id != kInvalidTransitId || rhs.m_id != kInvalidTransitId)
     return m_id == rhs.m_id;
 
-  return m_ids.GetFeatureId() == rhs.m_ids.GetFeatureId();
+  return m_ids.GetFeatureId() == rhs.m_ids.GetFeatureId() &&
+         m_ids.GetOsmId() == rhs.m_ids.GetOsmId();
 }
 
 bool Stop::IsValid() const
 {
-  return ((m_id != kInvalidTransitId) || (m_ids.GetOsmId() != kInvalidOsmId)) && !m_title.empty();
+  return ((m_id != kInvalidTransitId) || (m_ids.GetOsmId() != kInvalidOsmId) ||
+          (m_ids.GetFeatureId() != kInvalidFeatureId));
 }
 
 FeatureId Stop::GetId() const { return m_id; }
