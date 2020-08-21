@@ -1,6 +1,7 @@
 #pragma once
 
 #include "transit/experimental/transit_types_experimental.hpp"
+#include "transit/transit_entities.hpp"
 #include "transit/transit_types.hpp"
 #include "transit/transit_version.hpp"
 
@@ -34,9 +35,12 @@ using TransitStopsInfoPT = std::map<::transit::TransitId, ::transit::experimenta
 using TransitTransfersInfoPT = std::map<::transit::TransitId, ::transit::experimental::Transfer>;
 using TransitShapesInfoPT = std::map<::transit::TransitId, ::transit::experimental::Shape>;
 using TransitLinesInfoPT = std::map<::transit::TransitId, ::transit::experimental::Line>;
+using TransitLinesMetadataInfoPT =
+    std::map<::transit::TransitId, ::transit::experimental::LineMetadata>;
 using TransitRoutesInfoPT = std::map<::transit::TransitId, ::transit::experimental::Route>;
 using TransitNetworksInfoPT = std::map<::transit::TransitId, ::transit::experimental::Network>;
-
+using TransitEdgesInfoPT =
+    std::unordered_map<::transit::EdgeId, ::transit::EdgeData, ::transit::EdgeIdHasher>;
 struct TransitDisplayInfo
 {
   ::transit::TransitVersion m_transitVersion;
@@ -51,10 +55,12 @@ struct TransitDisplayInfo
 
   TransitNetworksInfoPT m_networksPT;
   TransitLinesInfoPT m_linesPT;
+  TransitLinesMetadataInfoPT m_linesMetadataPT;
   TransitRoutesInfoPT m_routesPT;
   TransitStopsInfoPT m_stopsPT;
   TransitTransfersInfoPT m_transfersPT;
   TransitShapesInfoPT m_shapesPT;
+  TransitEdgesInfoPT m_edgesPT;
 };
 
 using TransitDisplayInfos = std::map<MwmSet::MwmId, std::unique_ptr<TransitDisplayInfo>>;
