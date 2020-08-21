@@ -358,4 +358,124 @@ UNIT_TEST(Measurement_Utils)
   TEST(base::AlmostEqualAbs(KmphToMps(1.0), 0.27777, eps), ());
   TEST(base::AlmostEqualAbs(MpsToKmph(1.0), 3.6, eps), ());
 }
+
+UNIT_TEST(IntersectionSimple)
+{
+  auto const & factRes =
+      FindIntersections({{1.0, 1.0}, {2.0, 2.0}, {3.0, 3.0}},
+                        {{4.0, 4.0}, {1.0, 1.0}, {2.0, 2.0}, {3.0, 3.0}, {4.0, 4.0}});
+
+  std::pair<LineSegments, LineSegments> planRes{{LineSegment(0, 2)}, {LineSegment(1, 3)}};
+  TEST(factRes == planRes, ());
+}
+
+std::vector<m2::PointD> Get2DVector(std::vector<size_t> const & v)
+{
+  std::vector<m2::PointD> res;
+  res.reserve(v.size());
+
+  for (size_t val : v)
+    res.emplace_back(static_cast<double>(val), 1.0);
+
+  return res;
+}
+
+std::pair<LineSegments, LineSegments> GetIntersections(std::vector<size_t> const & line1,
+                                                       std::vector<size_t> const & line2)
+{
+  return FindIntersections(Get2DVector(line1), Get2DVector(line2));
+}
+
+UNIT_TEST(IntersectionShortest)
+{
+  auto const & factRes = GetIntersections({10, 15}, {10, 15});
+  std::pair<LineSegments, LineSegments> planRes{{LineSegment(0, 1)}, {LineSegment(0, 1)}};
+  TEST(factRes == planRes, ());
+}
+
+UNIT_TEST(IntersectionNone)
+{
+  auto const & factRes = GetIntersections({100, 105}, {101, 110});
+  std::pair<LineSegments, LineSegments> planRes{{}, {}};
+  TEST(factRes == planRes, ());
+}
+
+UNIT_TEST(IntersectionDouble)
+{
+  auto const & factRes = GetIntersections({1, 2, 3, 4, 5, 6, 7, 8}, {3, 4, 5, 100, 7, 8});
+
+  std::pair<LineSegments, LineSegments> planRes{{LineSegment(2, 4), LineSegment(6, 7)},
+                                                {LineSegment(0, 2), LineSegment(4, 5)}};
+  TEST(factRes == planRes, ());
+}
+
+UNIT_TEST(IntersectionTriple)
+{
+  auto const & factRes = GetIntersections({1, 2, 3, 6, 6, 6, 7, 8, 6, 6, 9, 10},
+                                          {0, 0, 1, 2, 3, 0, 7, 8, 0, 9, 10, 0});
+
+  std::pair<LineSegments, LineSegments> planRes{
+      {LineSegment(0, 2), LineSegment(6, 7), LineSegment(10, 11)},
+      {LineSegment(2, 4), LineSegment(6, 7), LineSegment(9, 10)}};
+  TEST(factRes == planRes, ());
+}
+
+UNIT_TEST(GetIntersectionInner)
+{
+  auto inter = GetIntersection(0, 5, 2, 4);
+  TEST(inter, ());
+  TEST_EQUAL(inter->m_startIdx, 2, ());
+  TEST_EQUAL(inter->m_endIdx, 4, ());
+}
+
+UNIT_TEST(GetIntersectionNone)
+{
+  auto inter = GetIntersection(1, 10, 20, 40);
+  TEST(!inter, ());
+}
+
+UNIT_TEST(GetIntersectionLeft)
+{
+  auto inter = GetIntersection(10, 100, 5, 15);
+  TEST(inter, ());
+  TEST_EQUAL(inter->m_startIdx, 10, ());
+  TEST_EQUAL(inter->m_endIdx, 15, ());
+}
+
+UNIT_TEST(GetIntersectionRight)
+{
+  auto inter = GetIntersection(0, 8, 5, 10);
+  TEST(inter, ());
+  TEST_EQUAL(inter->m_startIdx, 5, ());
+  TEST_EQUAL(inter->m_endIdx, 8, ());
+}
+
+UNIT_TEST(GetIntersectionSingle)
+{
+  auto inter = GetIntersection(0, 8, 8, 10);
+  TEST(!inter, ());
+}
+
+UNIT_TEST(CalcSegmentOrder)
+{
+  TEST_EQUAL(CalcSegmentOrder(0 /* segIndex */, 1 /* totalSegCount */), 0, ());
+
+  TEST_EQUAL(CalcSegmentOrder(0 /* segIndex */, 2 /* totalSegCount */), -1, ());
+  TEST_EQUAL(CalcSegmentOrder(1 /* segIndex */, 2 /* totalSegCount */), 1, ());
+
+  TEST_EQUAL(CalcSegmentOrder(0 /* segIndex */, 3 /* totalSegCount */), -2, ());
+  TEST_EQUAL(CalcSegmentOrder(1 /* segIndex */, 3 /* totalSegCount */), 0, ());
+  TEST_EQUAL(CalcSegmentOrder(2 /* segIndex */, 3 /* totalSegCount */), 2, ());
+
+  TEST_EQUAL(CalcSegmentOrder(0 /* segIndex */, 4 /* totalSegCount */), -3, ());
+  TEST_EQUAL(CalcSegmentOrder(1 /* segIndex */, 4 /* totalSegCount */), -1, ());
+  TEST_EQUAL(CalcSegmentOrder(2 /* segIndex */, 4 /* totalSegCount */), 1, ());
+  TEST_EQUAL(CalcSegmentOrder(3 /* segIndex */, 4 /* totalSegCount */), 3, ());
+
+  TEST_EQUAL(CalcSegmentOrder(0 /* segIndex */, 5 /* totalSegCount */), -4, ());
+  TEST_EQUAL(CalcSegmentOrder(1 /* segIndex */, 5 /* totalSegCount */), -2, ());
+  TEST_EQUAL(CalcSegmentOrder(2 /* segIndex */, 5 /* totalSegCount */), 0, ());
+  TEST_EQUAL(CalcSegmentOrder(3 /* segIndex */, 5 /* totalSegCount */), 2, ());
+  TEST_EQUAL(CalcSegmentOrder(4 /* segIndex */, 5 /* totalSegCount */), 4, ());
+}
 }  // namespace
