@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geometry/point2d.hpp"
+
 #include "base/macros.hpp"
 #include "base/newtype.hpp"
 #include "base/visitor.hpp"
@@ -11,7 +13,10 @@
 #include <string>
 #include <tuple>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
+
+#include "3party/boost/boost/container_hash/hash.hpp"
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -27,6 +32,7 @@ inline std::string const kTransitFileExtension = std::string(TRANSIT_FILE_EXTENS
 inline std::string const kNetworksFile = "networks" + kTransitFileExtension;
 inline std::string const kRoutesFile = "routes" + kTransitFileExtension;
 inline std::string const kLinesFile = "lines" + kTransitFileExtension;
+inline std::string const kLinesMetadataFile = "lines_metadata" + kTransitFileExtension;
 inline std::string const kShapesFile = "shapes" + kTransitFileExtension;
 inline std::string const kStopsFile = "stops" + kTransitFileExtension;
 inline std::string const kEdgesFile = "edges" + kTransitFileExtension;
@@ -88,6 +94,7 @@ struct LineInterval
 
 using LineIntervals = std::vector<LineInterval>;
 using IdList = std::vector<TransitId>;
+using IdSet = std::unordered_set<TransitId>;
 using TimeTable = std::unordered_map<TransitId, osmoh::OpeningHours>;
 using EdgeWeight = uint32_t;
 
@@ -120,4 +127,111 @@ struct ShapeLink
   size_t m_startIndex = 0;
   size_t m_endIndex = 0;
 };
+
+struct EdgeId
+{
+  EdgeId() = default;
+  EdgeId(TransitId fromStopId, TransitId toStopId, TransitId lineId)
+    : m_fromStopId(fromStopId), m_toStopId(toStopId), m_lineId(lineId)
+  {
+  }
+
+  bool operator==(EdgeId const & other) const
+  {
+    return std::tie(m_fromStopId, m_toStopId, m_lineId) ==
+           std::tie(other.m_fromStopId, other.m_toStopId, other.m_lineId);
+  }
+
+  TransitId m_fromStopId = 0;
+  TransitId m_toStopId = 0;
+  TransitId m_lineId = 0;
+};
+
+struct EdgeIdHasher
+{
+  size_t operator()(EdgeId const & key) const
+  {
+    size_t seed = 0;
+    boost::hash_combine(seed, key.m_fromStopId);
+    boost::hash_combine(seed, key.m_toStopId);
+    boost::hash_combine(seed, key.m_lineId);
+    return seed;
+  }
+};
+
+using IdEdgeSet = std::unordered_set<EdgeId, EdgeIdHasher>;
+
+struct EdgeData
+{
+  EdgeData() = default;
+  EdgeData(ShapeLink const & shapeLink, EdgeWeight const & weight)
+    : m_shapeLink(shapeLink), m_weight(weight)
+  {
+  }
+  ShapeLink m_shapeLink;
+  EdgeWeight m_weight = 0;
+};
+
+struct LineSegment
+{
+  LineSegment() = default;
+  explicit LineSegment(size_t startIdx) : m_startIdx(startIdx) {}
+  LineSegment(size_t startIdx, size_t endIdx) : m_startIdx(startIdx), m_endIdx(endIdx) {}
+
+  bool operator==(LineSegment const & rhs) const
+  {
+    return m_startIdx == rhs.m_startIdx && m_endIdx == rhs.m_endIdx;
+  }
+
+  DECLARE_VISITOR_AND_DEBUG_PRINT(LineSegment, visitor(m_startIdx, "startIdx"),
+                                  visitor(m_endIdx, "endIdx"))
+
+  size_t m_startIdx = 0;
+  size_t m_endIdx = 0;
+};
+
+using LineSegments = std::vector<LineSegment>;
+
+struct LineSegmentOrder
+{
+  LineSegmentOrder() = default;
+  LineSegmentOrder(LineSegment const & lineSegment, int order)
+    : m_segment(lineSegment), m_order(order)
+  {
+  }
+
+  bool operator==(LineSegmentOrder const & rhs) const
+  {
+    return m_order == rhs.m_order && m_segment == rhs.m_segment;
+  }
+
+  DECLARE_VISITOR_AND_DEBUG_PRINT(LineSegmentOrder, visitor(m_segment, "segment"),
+                                  visitor(m_order, "order"))
+
+  LineSegment m_segment;
+  int m_order = 0;
+};
+
+using LineSegmentsOrder = std::vector<LineSegmentOrder>;
+
+template <class T, class I>
+typename std::vector<T>::const_iterator FindById(std::vector<T> const & container, I const & id,
+                                                 bool exists = true)
+{
+  auto const it = std::find_if(container.begin(), container.end(),
+                               [id](T const & obj) { return obj.GetId() == id; });
+
+  if (exists)
+    CHECK(it != container.end(), (id));
+  return it;
+}
+
+inline std::vector<m2::PointD> GetPolylinePart(std::vector<m2::PointD> const & polyline,
+                                               size_t startIdx, size_t endIdx)
+{
+  CHECK_GREATER(endIdx, startIdx, ());
+  CHECK_GREATER(polyline.size(), endIdx, ());
+
+  return std::vector<m2::PointD>(polyline.begin() + startIdx, polyline.begin() + endIdx + 1);
+}
 }  // namespace transit

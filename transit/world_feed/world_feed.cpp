@@ -202,17 +202,6 @@ namespace transit
 // Static fields.
 std::unordered_set<std::string> WorldFeed::m_agencyHashes;
 
-EdgeId::EdgeId(TransitId fromStopId, TransitId toStopId, TransitId lineId)
-  : m_fromStopId(fromStopId), m_toStopId(toStopId), m_lineId(lineId)
-{
-}
-
-bool EdgeId::operator==(EdgeId const & other) const
-{
-  return std::tie(m_fromStopId, m_toStopId, m_lineId) ==
-         std::tie(other.m_fromStopId, other.m_toStopId, other.m_lineId);
-}
-
 EdgeTransferId::EdgeTransferId(TransitId fromStopId, TransitId toStopId)
   : m_fromStopId(fromStopId), m_toStopId(toStopId)
 {
@@ -221,14 +210,6 @@ EdgeTransferId::EdgeTransferId(TransitId fromStopId, TransitId toStopId)
 bool EdgeTransferId::operator==(EdgeTransferId const & other) const
 {
   return std::tie(m_fromStopId, m_toStopId) == std::tie(other.m_fromStopId, other.m_toStopId);
-}
-size_t EdgeIdHasher::operator()(EdgeId const & key) const
-{
-  size_t seed = 0;
-  boost::hash_combine(seed, key.m_fromStopId);
-  boost::hash_combine(seed, key.m_toStopId);
-  boost::hash_combine(seed, key.m_lineId);
-  return seed;
 }
 
 size_t EdgeTransferIdHasher::operator()(EdgeTransferId const & key) const

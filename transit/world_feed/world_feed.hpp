@@ -42,8 +42,6 @@ private:
 // Here are MAPS.ME representations for GTFS entities, e.g. networks for GTFS agencies.
 // https://developers.google.com/transit/gtfs/reference
 
-using IdSet = std::unordered_set<TransitId>;
-
 struct Networks
 {
   void Write(IdSet const & ids, std::ofstream & stream) const;
@@ -94,6 +92,14 @@ struct Lines
   std::unordered_map<TransitId, LineData> m_data;
 };
 
+struct LinesMetadata
+{
+  void Write(std::unordered_map<TransitId, IdList> const & ids, std::ofstream & stream) const;
+
+  // Line id to line additional data (e.g. for rendering).
+  std::unordered_map<TransitId, LineSegmentsOrder> m_data;
+};
+
 struct ShapeData
 {
   ShapeData() = default;
@@ -127,6 +133,7 @@ struct StopData
   IdList m_transferIds;
 
   uint64_t m_osmId = 0;
+  uint32_t m_featureId = 0;
 
   // Field not intended for dumping to json:
   std::string m_gtfsParentId;
@@ -137,31 +144,6 @@ struct Stops
   void Write(IdSet const & ids, std::ofstream & stream) const;
 
   std::unordered_map<TransitId, StopData> m_data;
-};
-
-struct EdgeId
-{
-  EdgeId() = default;
-  EdgeId(TransitId fromStopId, TransitId toStopId, TransitId lineId);
-
-  bool operator==(EdgeId const & other) const;
-
-  TransitId m_fromStopId = 0;
-  TransitId m_toStopId = 0;
-  TransitId m_lineId = 0;
-};
-
-struct EdgeIdHasher
-{
-  size_t operator()(EdgeId const & key) const;
-};
-
-using IdEdgeSet = std::unordered_set<EdgeId, EdgeIdHasher>;
-
-struct EdgeData
-{
-  ShapeLink m_shapeLink;
-  EdgeWeight m_weight = 0;
 };
 
 struct Edges
@@ -378,6 +360,7 @@ private:
   Networks m_networks;
   Routes m_routes;
   Lines m_lines;
+  LinesMetadata m_linesMetadata;
   Shapes m_shapes;
   Stops m_stops;
   Edges m_edges;
@@ -411,6 +394,8 @@ private:
 
   // If the feed explicitly specifies its language, we use its value. Otherwise set to default.
   std::string m_feedLanguage;
+
+  bool m_feedIsSplitIntoRegions = false;
 };
 
 // Creates concatenation of |values| separated by delimiter.
