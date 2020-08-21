@@ -57,6 +57,12 @@ inline bool Equal(Line const & l1, Line const & l2)
                          l2.GetIntervals(), l2.GetServiceDays(), l2.GetShapeLink());
 }
 
+inline bool Equal(LineMetadata const & lm1, LineMetadata const & lm2)
+{
+  return std::make_tuple(lm1.GetId(), lm1.GetLineSegmentsOrder()) ==
+         std::make_tuple(lm2.GetId(), lm2.GetLineSegmentsOrder());
+}
+
 inline bool Equal(Stop const & s1, Stop const & s2)
 {
   return (std::make_tuple(s1.GetId(), s1.GetFeatureId(), s1.GetOsmId(), s1.GetTitle(),

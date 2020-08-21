@@ -33,6 +33,7 @@ void TestEqual(TransitData const & actualTransit, TransitData const & expectedTr
     TestEqual(actualTransit.GetEdges(), expectedTransit.GetEdges());
     TestEqual(actualTransit.GetTransfers(), expectedTransit.GetTransfers());
     TestEqual(actualTransit.GetLines(), expectedTransit.GetLines());
+    TestEqual(actualTransit.GetLinesMetadata(), expectedTransit.GetLinesMetadata());
     TestEqual(actualTransit.GetShapes(), expectedTransit.GetShapes());
     TestEqual(actualTransit.GetRoutes(), expectedTransit.GetRoutes());
     TestEqual(actualTransit.GetNetworks(), expectedTransit.GetNetworks());
@@ -52,9 +53,10 @@ void TestEqual(TransitData const & actualTransit, TransitData const & expectedTr
   case TransitUseCase::Rendering:
     TestEqual(actualTransit.GetStops(), expectedTransit.GetStops());
     TEST(actualTransit.GetGates().empty(), ());
-    TEST(actualTransit.GetEdges().empty(), ());
+    TestEqual(actualTransit.GetEdges(), expectedTransit.GetEdges());
     TestEqual(actualTransit.GetTransfers(), expectedTransit.GetTransfers());
     TestEqual(actualTransit.GetLines(), expectedTransit.GetLines());
+    TestEqual(actualTransit.GetLinesMetadata(), expectedTransit.GetLinesMetadata());
     TestEqual(actualTransit.GetShapes(), expectedTransit.GetShapes());
     TestEqual(actualTransit.GetRoutes(), expectedTransit.GetRoutes());
     TEST(actualTransit.GetNetworks().empty(), ());
@@ -145,6 +147,11 @@ TransitData FillTestTransitData()
               "2020 Aug 31-2020 Sep 04, 2020 Sep 07-2020 Sep 11, 2020 Sep 14-2020 Sep 18, 2020 Sep "
               "21-2020 Sep 25, 2020 Sep 28-2020 Oct 02, 2020 Oct 05-2020 Oct 09, 2020 Oct 13-2020 "
               "Oct 16, 2020 Oct 19-2020 Oct 20") /* serviceDays */)};
+
+  data.m_linesMetadata = {
+      LineMetadata(4036598626 /* id */, LineSegmentsOrder{LineSegmentOrder({0, 100}, 0),
+                                                          LineSegmentOrder({100, 205}, 2)}),
+      LineMetadata(4036598627 /* id */, LineSegmentsOrder{})};
 
   data.m_stops = {Stop(4026990853 /* id */, kInvalidFeatureId /* featureId */,
                        kInvalidOsmId /* osmId */, Translations{{"en", "CARLOS DIHEL 2500-2598"}},

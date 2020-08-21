@@ -150,6 +150,35 @@ UNIT_TEST(ReadJson_Line)
   TestEqual(linesFact, linesPlan);
 }
 
+UNIT_TEST(ReadJson_LineMetadata)
+{
+  std::vector<std::string> const lineByLineJson{
+      R"({
+           "id":56,
+           "shape_segments":[
+              {
+                 "order":-1,
+                 "start_index":34,
+                 "end_index":99
+              },
+              {
+                 "order":-3,
+                 "start_index":99,
+                 "end_index":1069
+              }
+           ]
+         })"};
+
+  std::vector<LineMetadata> const linesMetadataPlan = {LineMetadata(
+      56 /* id */,
+      LineSegmentsOrder{LineSegmentOrder({34, 99}, -1), LineSegmentOrder({99, 1069}, -3)})};
+
+  std::vector<LineMetadata> linesMetadataFact;
+
+  FillContainer(lineByLineJson, linesMetadataFact);
+  TestEqual(linesMetadataFact, linesMetadataPlan);
+}
+
 UNIT_TEST(ReadJson_Stop)
 {
   std::vector<std::string> const lineByLineJson{
