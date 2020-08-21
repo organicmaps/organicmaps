@@ -136,6 +136,7 @@ class Geometry final
 public:
   Geometry() = default;
   explicit Geometry(std::unique_ptr<GeometryLoader> loader);
+  Geometry(std::unique_ptr<GeometryLoader> loader, size_t roadsCacheSize);
 
   /// \note The reference returned by the method is valid until the next call of GetRoad()
   /// of GetPoint() methods.

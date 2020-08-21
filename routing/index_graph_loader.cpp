@@ -273,4 +273,12 @@ void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, I
   if (ReadRoadAccessFromMwm(mwmValue, vehicleType, roadAccess))
     graph.SetRoadAccess(move(roadAccess));
 }
+
+uint32_t DeserializeIndexGraphNumRoads(MwmValue const & mwmValue, VehicleType vehicleType)
+{
+  FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(ROUTING_FILE_TAG));
+  ReaderSource<FilesContainerR::TReader> src(reader);
+  return IndexGraphSerializer::DeserializeNumRoads(src, GetVehicleMask(vehicleType));
+}
+
 }  // namespace routing

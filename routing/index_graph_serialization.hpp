@@ -123,6 +123,27 @@ public:
     graph.Build(jointsFilter.GetCount());
   }
 
+  template <class Source>
+  static uint32_t DeserializeNumRoads(Source & src, VehicleMask requiredMask) {
+    Header header;
+    header.Deserialize(src);
+
+    uint32_t numRoads = 0;
+    for (uint32_t i = 0; i < header.GetNumSections(); ++i)
+    {
+      Section const & section = header.GetSection(i);
+      VehicleMask const mask = section.GetMask();
+
+      if ((mask & requiredMask))
+      {
+        numRoads += section.GetNumRoads();
+      }
+      src.Skip(section.GetSize());
+    }
+
+    return numRoads;
+  }
+
 private:
   static uint8_t constexpr kLastVersion = 0;
   static uint8_t constexpr kNewJointIdBit = 0;
