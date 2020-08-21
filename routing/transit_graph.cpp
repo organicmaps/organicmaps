@@ -103,6 +103,7 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
   else
   {
     CHECK(false, (m_transitVersion));
+    UNREACHABLE();
   }
 
   return RouteWeight(
