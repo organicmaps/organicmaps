@@ -8,6 +8,7 @@
 @property(copy, nonatomic) MWMStringBlock onSuccess;
 @property(nonatomic) BOOL authorized;
 @property(nonatomic) WKWebView *webView;
+@property(nonatomic) BOOL shouldResendHeaders;
 
 @end
 
@@ -161,12 +162,13 @@
     return;
   }
 
-  if ([inRequest.URL isEqual:_m_url]) {
+  if (!self.shouldResendHeaders) {
     decisionHandler(WKNavigationActionPolicyAllow);
   } else {
     _m_url = inRequest.URL;
-    [self performURLRequest];
+    self.shouldResendHeaders = NO;
     decisionHandler(WKNavigationActionPolicyCancel);
+    [self performURLRequest];
   }
 }
 
@@ -176,6 +178,11 @@
 
 - (void)back {
   [self.webView goBack];
+}
+
+- (void)reloadFromOrigin {
+  self.shouldResendHeaders = YES;
+  [self.webView reloadFromOrigin];
 }
 
 #if DEBUG

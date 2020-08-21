@@ -265,6 +265,7 @@ final class CatalogWebViewController: WebViewController {
         if let s = self, let navBar = s.navigationController?.navigationBar {
           s.signup(anchor: navBar, source: .guideCatalogue, onComplete: {
             if $0 {
+              s.reloadFromOrigin()
               s.handlePendingTransactions(completion: completion)
             } else {
               MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
@@ -327,7 +328,10 @@ final class CatalogWebViewController: WebViewController {
           case .needAuth:
             if let s = self, let navBar = s.navigationController?.navigationBar {
               s.signup(anchor: navBar, source: .guideCatalogue) {
-                if $0 { s.download() }
+                if $0 {
+                  s.reloadFromOrigin()
+                  s.download()
+                }
               }
             }
           case .needPayment:
@@ -391,7 +395,7 @@ final class CatalogWebViewController: WebViewController {
                                                                 source: kStatWebView,
                                                                 successDialog: .none) { [weak self] success in
                                                                   if success {
-                                                                    self?.webView.reloadFromOrigin()
+                                                                    self?.reloadFromOrigin()
                                                                     self?.download()
                                                                   }
     }
@@ -404,7 +408,7 @@ final class CatalogWebViewController: WebViewController {
                                                                 source: kStatWebView,
                                                                 successDialog: .success) { [weak self] success in
                                                                   if success {
-                                                                    self?.webView.reloadFromOrigin()
+                                                                    self?.reloadFromOrigin()
                                                                   }
     }
     present(subscribeViewController, animated: true)
@@ -475,7 +479,7 @@ extension CatalogWebViewController: PaidRouteViewControllerDelegate {
   func didCompleteSubscription(_ viewController: PaidRouteViewController) {
     dismiss(animated: true)
     download()
-    webView.reloadFromOrigin()
+    reloadFromOrigin()
   }
 
   func didCompletePurchase(_ viewController: PaidRouteViewController) {
