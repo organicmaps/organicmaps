@@ -7,7 +7,6 @@
 
 #include "drape/graphics_context.hpp"
 #include "drape/overlay_tree.hpp"
-#include "drape/vertex_array_buffer.hpp"
 
 #include <algorithm>
 
