@@ -170,7 +170,7 @@
             android:justificationMode="inter_word"
             android:letterSpacing="-0.01"
             android:lineSpacingExtra="@dimen/terms_of_use_line_spacing"
-            android:text="@string/subscription_terms_android"
+            android:text="@string/subscription_terms_android_outdoor"
             android:textAppearance="?android:textAppearance"
             android:textColor="@color/routing_button_pressed_tint"
             android:textSize="@dimen/text_size_icon_title"
