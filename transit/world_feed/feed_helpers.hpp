@@ -1,8 +1,10 @@
 #pragma once
+#include "transit/transit_entities.hpp"
 
 #include "geometry/point2d.hpp"
 
 #include <algorithm>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -71,4 +73,53 @@ void DeleteAllEntriesByIds(C & container, S const & keysForDel)
 
 inline double KmphToMps(double kmph) { return kmph * 1'000.0 / (60.0 * 60.0); }
 inline double MpsToKmph(double mps) { return mps / 1'000.0 * 60.0 * 60.0; }
+
+// We have routes with multiple lines. Each line corresponds to the geometric polyline. Lines may
+// be parallel in some segments. |LinePart| represents these operlapping segments for each line.
+struct LinePart
+{
+  // Start and end indexes on polyline.
+  LineSegment m_segment;
+  // Parallel line ids to its start points on the segment.
+  std::map<TransitId, m2::PointD> m_commonLines;
+  // First coordinate of current line on the segment. It is used for determining if the line is
+  // co-directional or reversed regarding the main line on the segment.
+  m2::PointD m_firstPoint;
+};
+
+using LineParts = std::vector<LinePart>;
+
+// Returns iterator to the line part with equivalent segment.
+LineParts::iterator FindLinePart(LineParts & lineParts, LineSegment const & segment);
+
+// Data required for finding parallel polyline segments and calculating offsets for each line on the
+// segment.
+struct LineSchemeData
+{
+  TransitId m_lineId = 0;
+  TransitId m_routeId = 0;
+  ShapeLink m_shapeLink;
+
+  LineParts m_lineParts;
+};
+
+// Returns overlapping segments between two polylines.
+std::pair<LineSegments, LineSegments> FindIntersections(std::vector<m2::PointD> const & line1,
+                                                        std::vector<m2::PointD> const & line2);
+
+// Finds item in |lineParts| equal to |segment| and updates it. If it doesn't exist it is added to
+// the |lineParts|.
+void UpdateLinePart(LineParts & lineParts, LineSegment const & segment,
+                    m2::PointD const & startPoint, TransitId commonLineId,
+                    m2::PointD const & startPointParallel);
+
+// Calculates start and end indexes of intersection of two segments: [start1, finish1] and [start2,
+// finish2].
+std::optional<LineSegment> GetIntersection(size_t start1, size_t finish1, size_t start2,
+                                           size_t finish2);
+
+// Calculates line order on segment based on two parameters: line index between all parallel lines,
+// total parallel lines count. Line order must be symmetrical with respect to the сentral axis of
+// the polyline.
+int CalcSegmentOrder(size_t segIndex, size_t totalSegCount);
 }  // namespace transit

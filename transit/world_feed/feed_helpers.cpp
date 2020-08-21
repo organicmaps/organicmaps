@@ -283,4 +283,104 @@ gtfs::StopTimes GetStopTimesForTrip(gtfs::StopTimes const & allStopTimes,
   });
   return res;
 }
+
+void UpdateLinePart(LineParts & lineParts, LineSegment const & segment,
+                    m2::PointD const & startPoint, TransitId commonLineId,
+                    m2::PointD const & startPointParallel)
+{
+  if (auto it = FindLinePart(lineParts, segment); it == lineParts.end())
+  {
+    LinePart lp;
+    lp.m_segment = segment;
+    lp.m_commonLines[commonLineId] = startPointParallel;
+    lp.m_firstPoint = startPoint;
+    lineParts.push_back(lp);
+  }
+  else
+  {
+    it->m_commonLines[commonLineId] = startPointParallel;
+  }
+}
+
+std::pair<LineSegments, LineSegments> FindIntersections(std::vector<m2::PointD> const & line1,
+                                                        std::vector<m2::PointD> const & line2)
+{
+  double const eps = 1e-5;
+  size_t constexpr minIntersection = 2;
+
+  CHECK_GREATER_OR_EQUAL(line1.size(), minIntersection, ());
+  CHECK_GREATER_OR_EQUAL(line2.size(), minIntersection, ());
+
+  std::pair<LineSegments, LineSegments> intersections;
+
+  // Find start indexes of line1 and line2 intersections.
+  size_t i = 0;
+
+  while (i < line1.size() - minIntersection + 1)
+  {
+    size_t j = 0;
+    size_t delta = 1;
+
+    while (j < line2.size() - minIntersection + 1)
+    {
+      size_t intersection = 0;
+      size_t const len = std::min(line1.size() - i, line2.size() - j);
+
+      for (size_t k = 0; k < len; ++k)
+      {
+        if (!base::AlmostEqualAbs(line1[i + k], line2[j + k], eps))
+          break;
+        ++intersection;
+      }
+
+      if (intersection >= minIntersection)
+      {
+        intersections.first.emplace_back(i, i + intersection - 1);
+        intersections.second.emplace_back(j, j + intersection - 1);
+        delta = intersection;
+        break;
+      }
+
+      ++j;
+    }
+
+    i += delta;
+  }
+
+  CHECK_EQUAL(intersections.first.size(), intersections.second.size(), ());
+
+  return intersections;
+}
+
+LineParts::iterator FindLinePart(LineParts & lineParts, LineSegment const & segment)
+{
+  return std::find_if(lineParts.begin(), lineParts.end(), [&segment](LinePart const & linePart) {
+    return linePart.m_segment == segment;
+  });
+}
+
+std::optional<LineSegment> GetIntersection(size_t start1, size_t finish1, size_t start2,
+                                           size_t finish2)
+{
+  int const maxStart = static_cast<int>(std::max(start1, start2));
+  int const minFinish = static_cast<int>(std::min(finish1, finish2));
+
+  size_t const intersectionLen = std::max(minFinish - maxStart, 0);
+
+  if (intersectionLen == 0)
+    return std::nullopt;
+
+  return LineSegment(maxStart, maxStart + intersectionLen);
+}
+
+int CalcSegmentOrder(size_t segIndex, size_t totalSegCount)
+{
+  int constexpr shapeOffsetIncrement = 2;
+
+  int const shapeOffset =
+      -static_cast<int>(totalSegCount / 2) * 2 - static_cast<int>(totalSegCount % 2) + 1;
+  int const curSegOffset = shapeOffset + shapeOffsetIncrement * static_cast<int>(segIndex);
+
+  return curSegOffset;
+}
 }  // namespace transit
