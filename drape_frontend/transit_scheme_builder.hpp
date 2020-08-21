@@ -6,6 +6,7 @@
 #include "drape/texture_manager.hpp"
 
 #include "transit/transit_display_info.hpp"
+#include "transit/transit_version.hpp"
 
 #include <functional>
 #include <map>
@@ -56,7 +57,8 @@ struct LineParams
     : m_color(color), m_depth(depth)
   {}
   std::string m_color;
-  float m_depth;
+  float m_depth = 0.0;
+  std::vector<::transit::TransitId> m_stopIds;
 };
 
 struct ShapeParams
@@ -66,10 +68,23 @@ struct ShapeParams
   std::vector<m2::PointD> m_polyline;
 };
 
-struct ShapeInfo
+struct ShapeInfoSubway
 {
   m2::PointD m_direction;
   size_t m_linesCount;
+};
+
+struct ShapeInfoPT
+{
+  ShapeInfoPT() = default;
+
+  ShapeInfoPT(m2::PointD const & dir, std::set<std::string> const & colors)
+    : m_direction(dir), m_colors(colors)
+  {
+  }
+
+  m2::PointD m_direction;
+  std::set<std::string> m_colors;
 };
 
 struct StopInfo
@@ -85,12 +100,45 @@ struct StopInfo
   std::set<routing::transit::LineId> m_lines;
 };
 
-struct StopNodeParams
+struct StopNodeParamsSubway
 {
   bool m_isTransfer = false;
   m2::PointD m_pivot;
-  std::map<routing::transit::ShapeId, ShapeInfo> m_shapesInfo;
+  std::map<routing::transit::ShapeId, ShapeInfoSubway> m_shapesInfo;
   std::map<uint32_t, StopInfo> m_stopsInfo;
+};
+
+struct StopNodeParamsPT
+{
+  bool m_isTransfer = false;
+  bool m_isTerminalStop = false;
+  m2::PointD m_pivot;
+  // Two types of line shapes going through the stop: inbound and outbound.
+  std::vector<ShapeInfoPT> m_shapeInfoIn;
+  std::vector<ShapeInfoPT> m_shapeInfoOut;
+  // Route id to StopInfo mapping.
+  std::map<::transit::TransitId, StopInfo> m_stopsInfo;
+};
+
+using IdToIdSet = std::unordered_map<::transit::TransitId, ::transit::IdSet>;
+
+struct RouteSegment
+{
+  int m_order = 0;
+  std::vector<m2::PointD> m_polyline;
+};
+
+struct RouteData
+{
+  std::string m_color;
+  float m_depth = 0;
+  std::vector<RouteSegment> m_routeShapes;
+};
+
+struct LinesDataPT
+{
+  IdToIdSet m_stopToLineIds;
+  std::set<::transit::TransitId> m_terminalStops;
 };
 
 class TransitSchemeBuilder
@@ -127,21 +175,45 @@ private:
   {
     m2::PointD m_pivot;
 
-    std::map<routing::transit::LineId, LineParams> m_lines;
-    std::map<routing::transit::ShapeId, ShapeParams> m_shapes;
-    std::map<routing::transit::StopId, StopNodeParams> m_stops;
-    std::map<routing::transit::TransferId, StopNodeParams> m_transfers;
+    ::transit::TransitVersion m_transitVersion;
+
+    std::map<routing::transit::LineId, LineParams> m_linesSubway;
+    std::map<routing::transit::ShapeId, ShapeParams> m_shapesSubway;
+    std::map<routing::transit::StopId, StopNodeParamsSubway> m_stopsSubway;
+    std::map<routing::transit::TransferId, StopNodeParamsSubway> m_transfersSubway;
+
+    std::map<::transit::TransitId, LineParams> m_linesPT;
+    std::vector<RouteData> m_routeSegmentsPT;
+    std::map<::transit::TransitId, StopNodeParamsPT> m_stopsPT;
+    std::map<::transit::TransitId, StopNodeParamsPT> m_transfersPT;
   };
 
   void BuildScheme(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId,
                    ref_ptr<dp::TextureManager> textures);
 
-  void CollectStops(TransitDisplayInfo const & transitDisplayInfo,
-                    MwmSet::MwmId const & mwmId, MwmSchemeData & scheme);
+  void GenerateLinesSubway(MwmSchemeData const & scheme, dp::Batcher & batcher,
+                           ref_ptr<dp::GraphicsContext> context);
 
-  void CollectLines(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme);
+  void GenerateLinesPT(MwmSchemeData const & scheme, dp::Batcher & batcher,
+                       ref_ptr<dp::GraphicsContext> context);
 
-  void CollectShapes(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme);
+  template <class F, class S, class T, class L>
+  void GenerateLocationsWithTitles(ref_ptr<dp::GraphicsContext> context,
+                                   ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher,
+                                   F && flusher, MwmSchemeData const & scheme, S const & stops,
+                                   T const & transfers, L const & lines);
+
+  void CollectStopsSubway(TransitDisplayInfo const & transitDisplayInfo,
+                          MwmSet::MwmId const & mwmId, MwmSchemeData & scheme);
+  void CollectStopsPT(TransitDisplayInfo const & transitDisplayInfo, LinesDataPT const & linesData,
+                      MwmSet::MwmId const & mwmId, MwmSchemeData & scheme);
+
+  void CollectLinesSubway(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme);
+  LinesDataPT CollectLinesPT(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme);
+
+  void CollectShapesSubway(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme);
+  void CollectShapesPT(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme);
+
   void FindShapes(routing::transit::StopId stop1Id, routing::transit::StopId stop2Id,
                   routing::transit::LineId lineId,
                   std::vector<routing::transit::LineId> const & sameLines,
@@ -149,7 +221,9 @@ private:
   void AddShape(TransitDisplayInfo const & transitDisplayInfo, routing::transit::StopId stop1Id,
                 routing::transit::StopId stop2Id, routing::transit::LineId lineId, MwmSchemeData & scheme);
 
-  void PrepareScheme(MwmSchemeData & scheme);
+  void PrepareSchemeSubway(MwmSchemeData & scheme);
+  void PrepareSchemePT(TransitDisplayInfo const & transitDisplayInfo, LinesDataPT const & lineData,
+                       MwmSchemeData & scheme);
 
   void GenerateShapes(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId);
 
@@ -161,15 +235,28 @@ private:
                       float scaleWidth, float scaleHeight, float depth, dp::Color const & color,
                       dp::Batcher & batcher);
 
-  void GenerateTransfer(ref_ptr<dp::GraphicsContext> context, StopNodeParams const & params,
+  void GenerateTransfer(ref_ptr<dp::GraphicsContext> context,
+                        StopNodeParamsSubway const & stopParams, m2::PointD const & pivot,
+                        dp::Batcher & batcher);
+
+  void GenerateTransfer(ref_ptr<dp::GraphicsContext> context, StopNodeParamsPT const & stopParams,
                         m2::PointD const & pivot, dp::Batcher & batcher);
 
-  void GenerateStop(ref_ptr<dp::GraphicsContext> context, StopNodeParams const & params,
+  void GenerateStop(ref_ptr<dp::GraphicsContext> context, StopNodeParamsSubway const & stopParams,
                     m2::PointD const & pivot,
                     std::map<routing::transit::LineId, LineParams> const & lines,
                     dp::Batcher & batcher);
 
-  void GenerateTitles(ref_ptr<dp::GraphicsContext> context, StopNodeParams const & params,
+  void GenerateStop(ref_ptr<dp::GraphicsContext> context, StopNodeParamsPT const & stopParams,
+                    m2::PointD const & pivot,
+                    std::map<routing::transit::LineId, LineParams> const & lines,
+                    dp::Batcher & batcher);
+
+  void GenerateTitles(ref_ptr<dp::GraphicsContext> context, StopNodeParamsSubway const & stopParams,
+                      m2::PointD const & pivot, std::vector<m2::PointF> const & markerSizes,
+                      ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher);
+
+  void GenerateTitles(ref_ptr<dp::GraphicsContext> context, StopNodeParamsPT const & stopParams,
                       m2::PointD const & pivot, std::vector<m2::PointF> const & markerSizes,
                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher);
 
