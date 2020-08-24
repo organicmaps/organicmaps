@@ -156,7 +156,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
-    return new SearchToolbarController(root, getActivity())
+    return new SearchToolbarController(root, requireActivity())
     {
       @Override
       protected void onTextChanged(String query)

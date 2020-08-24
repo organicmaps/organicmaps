@@ -77,7 +77,7 @@ public class SearchToolbarController extends ToolbarController
   private final View.OnClickListener mChooseDatesClickListener = v -> {
     if (!ConnectionState.isConnected())
     {
-      FilterUtils.showNoNetworkConnectionDialog((AppCompatActivity) getActivity());
+      FilterUtils.showNoNetworkConnectionDialog((AppCompatActivity) requireActivity());
       return;
     }
 
@@ -89,7 +89,7 @@ public class SearchToolbarController extends ToolbarController
       builder.setSelection(mChosenDates);
     final MaterialDatePicker<Pair<Long, Long>> picker = builder.build();
     picker.addOnPositiveButtonClickListener(new DatePickerPositiveClickListener(picker));
-    picker.show(((AppCompatActivity) getActivity()).getSupportFragmentManager(), picker.toString());
+    picker.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), picker.toString());
   };
   @NonNull
   private List<FilterParamsChangedListener> mFilterParamsChangedListeners = new ArrayList<>();
@@ -99,7 +99,7 @@ public class SearchToolbarController extends ToolbarController
   private final View.OnClickListener mRoomsClickListener = v -> {
     if (!ConnectionState.isConnected())
     {
-      FilterUtils.showNoNetworkConnectionDialog((AppCompatActivity) getActivity());
+      FilterUtils.showNoNetworkConnectionDialog((AppCompatActivity) requireActivity());
       return;
     }
 
@@ -182,10 +182,10 @@ public class SearchToolbarController extends ToolbarController
 
     showProgress(false);
     updateButtons(true);
-    MenuStateObserver stateObserver = new RoomsGuestsMenuStateObserver(getActivity());
+    MenuStateObserver stateObserver = new RoomsGuestsMenuStateObserver(requireActivity());
     mGuestsRoomsMenuController
         = MenuControllerFactory.createGuestsRoomsMenuController(this, stateObserver, this);
-    mGuestsRoomsMenuController.initialize(getActivity().findViewById(R.id.coordinator));
+    mGuestsRoomsMenuController.initialize(requireActivity().findViewById(R.id.coordinator));
   }
 
   public void setFilterParams(@NonNull BookingFilterParams params)
@@ -199,7 +199,7 @@ public class SearchToolbarController extends ToolbarController
     if (mChooseDatesChip == null)
       return;
 
-    mChooseDatesChip.setText(FilterUtils.makeDateRangeHeader(getActivity(), checkinMillis,
+    mChooseDatesChip.setText(FilterUtils.makeDateRangeHeader(requireActivity(), checkinMillis,
                                                              checkoutMillis));
     mChosenDates = new Pair<>(checkinMillis, checkoutMillis);
   }
@@ -267,8 +267,10 @@ public class SearchToolbarController extends ToolbarController
   {
     try
     {
-      startVoiceRecognition(InputUtils.createIntentForVoiceRecognition(getActivity().getString(getVoiceInputPrompt())), REQUEST_VOICE_RECOGNITION);
-    } catch (ActivityNotFoundException e)
+      startVoiceRecognition(InputUtils.createIntentForVoiceRecognition(
+          requireActivity().getString(getVoiceInputPrompt())), REQUEST_VOICE_RECOGNITION);
+    }
+    catch (ActivityNotFoundException e)
     {
       AlohaHelper.logException(e);
     }
@@ -438,7 +440,7 @@ public class SearchToolbarController extends ToolbarController
       }
       else if (!FilterUtils.isWithinMaxStayingDays(checkinMillis, checkoutMillis))
       {
-        Toast.makeText(getActivity(), R.string.thirty_days_limit_dialog, Toast.LENGTH_LONG).show();
+        Toast.makeText(requireActivity(), R.string.thirty_days_limit_dialog, Toast.LENGTH_LONG).show();
         formatAndSetChosenDates(checkinMillis, FilterUtils.getMaxCheckoutInMillis(checkinMillis));
       }
       else

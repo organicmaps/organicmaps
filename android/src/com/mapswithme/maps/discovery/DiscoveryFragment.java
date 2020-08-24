@@ -406,7 +406,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
-    return new ToolbarController(getRootView(), getActivity())
+    return new ToolbarController(getRootView(), requireActivity())
     {
       @Override
       public void onUpClick()

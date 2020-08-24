@@ -42,7 +42,7 @@ public class AuthFragment extends BaseMwmToolbarFragment
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
-    return new ToolbarController(root, getActivity())
+    return new ToolbarController(root, requireActivity())
     {
       @Override
       public void onUpClick()

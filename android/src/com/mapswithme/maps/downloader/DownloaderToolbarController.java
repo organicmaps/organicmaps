@@ -23,7 +23,7 @@ class DownloaderToolbarController extends SearchToolbarController
   @Override
   public void onUpClick()
   {
-    getActivity().onBackPressed();
+    requireActivity().onBackPressed();
   }
 
   @Override

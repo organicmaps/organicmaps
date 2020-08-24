@@ -5,18 +5,20 @@ import android.view.View;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-public class ToolbarController
+public class ToolbarController implements Detachable<Activity>
 {
-  @NonNull
-  private final Activity mActivity;
+  @Nullable
+  private  Activity mActivity;
   @NonNull
   private final Toolbar mToolbar;
   @NonNull
@@ -30,13 +32,13 @@ public class ToolbarController
     if (useExtendedToolbar())
       UiUtils.extendViewWithStatusBar(getToolbar());
     UiUtils.setupNavigationIcon(mToolbar, mNavigationClickListener);
-    setSupportActionBar();
+    setSupportActionBar(activity, mToolbar);
   }
 
-  private void setSupportActionBar()
+  private void setSupportActionBar(@NonNull Activity activity, @NonNull Toolbar toolbar)
   {
-    AppCompatActivity appCompatActivity = (AppCompatActivity) mActivity;
-    appCompatActivity.setSupportActionBar(mToolbar);
+    AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
+    appCompatActivity.setSupportActionBar(toolbar);
   }
 
   protected boolean useExtendedToolbar()
@@ -52,7 +54,7 @@ public class ToolbarController
 
   public void onUpClick()
   {
-    Utils.navigateToParent(getActivity());
+    Utils.navigateToParent(requireActivity());
   }
 
   public ToolbarController setTitle(CharSequence title)
@@ -75,9 +77,18 @@ public class ToolbarController
     return appCompatActivity.getSupportActionBar();
   }
 
-  @NonNull
+  @Nullable
   public Activity getActivity()
   {
+    return mActivity;
+  }
+
+  @NonNull
+  public Activity requireActivity()
+  {
+    if (mActivity == null)
+      throw new AssertionError("Activity must be non-null!");
+
     return mActivity;
   }
 
@@ -85,5 +96,17 @@ public class ToolbarController
   public Toolbar getToolbar()
   {
     return mToolbar;
+  }
+
+  @Override
+  public void attach(@NonNull Activity activity)
+  {
+    mActivity = activity;
+  }
+
+  @Override
+  public void detach()
+  {
+    mActivity = null;
   }
 }

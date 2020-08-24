@@ -102,13 +102,13 @@ public class RoutingPlanController extends ToolbarController
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
     mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
-    mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(getActivity(), mFrame, listener);
+    mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(requireActivity(), mFrame, listener);
 
     mDrivingOptionsBtnContainer = mFrame.findViewById(R.id.driving_options_btn_container);
     View btn = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn);
     mDrivingOptionsImage = mFrame.findViewById(R.id.driving_options_btn_img);
 
-    btn.setOnClickListener(v -> DrivingOptionsActivity.start(getActivity()));
+    btn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity()));
     mDriverOptionsLayoutListener = new SelfTerminatedDrivingOptionsLayoutListener();
   }
 

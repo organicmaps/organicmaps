@@ -16,6 +16,6 @@ public class FinishActivityToolbarController extends ToolbarController
   @Override
   public void onUpClick()
   {
-    getActivity().finish();
+    requireActivity().finish();
   }
 }
