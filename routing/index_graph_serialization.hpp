@@ -124,7 +124,8 @@ public:
   }
 
   template <class Source>
-  static uint32_t DeserializeNumRoads(Source & src, VehicleMask requiredMask) {
+  static uint32_t DeserializeNumRoads(Source & src, VehicleMask requiredMask)
+  {
     Header header;
     header.Deserialize(src);
 
@@ -134,10 +135,9 @@ public:
       Section const & section = header.GetSection(i);
       VehicleMask const mask = section.GetMask();
 
-      if ((mask & requiredMask))
-      {
+      if (mask & requiredMask)
         numRoads += section.GetNumRoads();
-      }
+
       src.Skip(section.GetSize());
     }
 

@@ -262,7 +262,7 @@ Geometry::Geometry(unique_ptr<GeometryLoader> loader)
   CHECK(m_loader, ());
 }
 
-Geometry::Geometry(std::unique_ptr<GeometryLoader> loader, size_t roadsCacheSize)
+Geometry::Geometry(unique_ptr<GeometryLoader> loader, size_t roadsCacheSize)
     : m_loader(move(loader))
     , m_featureIdToRoad(make_unique<RoutingFifoCache>(
         roadsCacheSize,
