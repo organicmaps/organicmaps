@@ -8,10 +8,6 @@
 
 #include "drape/drape_diagnostics.hpp"
 
-#include "indexer/categories_holder.hpp"
-#include "indexer/classificator.hpp"
-#include "search/utils.hpp"
-
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
@@ -174,23 +170,6 @@ bool UsePreciseFeatureCenter(FeatureType & f)
   UNUSED_VALUE(f);
   return false;
 }
-
-bool IsGuidesLayerFeature(FeatureType & f)
-{
-  static auto const sightsTypes = search::GetCategoryTypes("Sights", "en", GetDefaultCategories());
-  auto const fTypes = feature::TypesHolder(f);
-  for (auto type : fTypes)
-  {
-    ftype::TruncValue(type, 2);
-    if (find(sightsTypes.begin(), sightsTypes.end(), type) != sightsTypes.end())
-      return true;
-  }
-
-  return ftypes::IsHotelChecker::Instance()(fTypes) ||
-      ftypes::IsTransportChecker::Instance()(fTypes) ||
-      ftypes::IsOutdoorChecker::Instance()(fTypes) ||
-      ftypes::IsParkingChecker::Instance()(fTypes);
-}
 }  // namespace
 
 namespace df
@@ -281,15 +260,6 @@ bool RuleDrawer::CheckCoastlines(FeatureType & f, Stylist const & s)
   return true;
 }
 
-bool RuleDrawer::CheckPointStyle(FeatureType & f)
-{
-  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
-  if (!m_context->GuidesEnabled() || zoomLevel < scales::GetUpperCountryScale())
-    return true;
-
-  return IsGuidesLayerFeature(f);
-}
-
 void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
                                   TInsertShapeFn const & insertShape, int & minVisibleScale)
 {
@@ -346,9 +316,6 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
     applyPointStyle = m_globalRect.IsPointInside(featureCenter);
   }
 
-  if (!CheckPointStyle(f))
-    applyPointStyle = false;
-
   if (applyPointStyle || is3dBuilding)
     minVisibleScale = feature::GetMinDrawableScale(f);
 
@@ -359,7 +326,6 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
                          s.GetCaptionDescription(), hatchingArea);
   f.ForEachTriangle(apply, zoomLevel);
   apply.SetHotelData(ExtractHotelData(f));
-
   if (applyPointStyle)
   {
     if (UsePreciseFeatureCenter(f))
@@ -473,9 +439,6 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
                                    TInsertShapeFn const & insertShape, int & minVisibleScale)
 {
   if (m_customFeaturesContext && m_customFeaturesContext->NeedDiscardGeometry(f.GetID()))
-    return;
-
-  if (!CheckPointStyle(f))
     return;
 
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;

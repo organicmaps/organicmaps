@@ -267,64 +267,6 @@ IsRailwayStationChecker::IsRailwayStationChecker()
   m_types.push_back(c.GetTypeByPath({"building", "train_station"}));
 }
 
-IsOutdoorChecker::IsOutdoorChecker()
-{
-  Classificator const & c = classif();
-  char const * arr[][2] = {{"natural", "bare_rock"},
-                           {"natural", "cave_entrance"},
-                           {"natural", "cliff"},
-                           {"natural", "peak"},
-                           {"natural", "rock"},
-                           {"natural", "volcano"},
-
-                           {"natural", "geyser"},
-                           {"natural", "hot_spring"},
-                           {"natural", "lake"},
-                           {"natural", "pond"},
-                           {"natural", "salt_pond"},
-                           {"natural", "spring"},
-                           {"natural", "water"},
-                           {"natural", "wetland"},
-                           {"waterway", "waterfall"},
-
-                           {"natural", "beach"},
-                           {"natural", "cape"},
-                           {"natural", "glacier"},
-                           {"highway", "ford"}};
-  for (auto const & p : arr)
-    m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
-}
-
-IsTransportChecker::IsTransportChecker()
-{
-  Classificator const & c = classif();
-  char const * arr[][2] = {{"aeroway", "aerodrome"},
-                           {"amenity", "bus_station"},
-                           {"amenity", "car_sharing"},
-                           {"amenity", "ferry_terminal"},
-                           {"amenity", "taxi"},
-                           {"building", "train_station"},
-                           {"highway", "bus_stop"},
-                           {"public_transport", "platform"},
-                           {"railway", "halt"},
-                           {"railway", "station"},
-                           {"railway", "tram_stop"}};
-  for (auto const & p : arr)
-    m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
-}
-
-IsParkingChecker::IsParkingChecker()
-{
-  Classificator const & c = classif();
-  char const * arr[][2] = {{"amenity", "bicycle_parking"},
-                           {"amenity", "motorcycle_parking"},
-                           {"amenity", "parking"},
-                           {"highway", "services"},
-                           {"tourism", "caravan_site"}};
-  for (auto const & p : arr)
-    m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
-}
-
 IsSubwayStationChecker::IsSubwayStationChecker() : BaseChecker(3 /* level */)
 {
   Classificator const & c = classif();

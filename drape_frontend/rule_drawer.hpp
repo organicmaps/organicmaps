@@ -60,8 +60,6 @@ private:
 
   bool CheckCancelled();
 
-  bool CheckPointStyle(FeatureType & f);
-
   TDrawerCallback m_callback;
   TCheckCancelledCallback m_checkCancelled;
   TIsCountryLoadedByNameFn m_isLoadedFn;
