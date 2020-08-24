@@ -417,6 +417,13 @@ public class SearchFragment extends BaseMwmFragment
       mFilterController.onSaveState(outState);
   }
 
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+    mToolbarController.attach(requireActivity());
+  }
+
   public void onResume()
   {
     super.onResume();
@@ -432,6 +439,13 @@ public class SearchFragment extends BaseMwmFragment
     SearchEngine.INSTANCE.removeHotelListener(this);
     super.onPause();
     mAppBarLayout.removeOnOffsetChangedListener(mOffsetListener);
+  }
+
+  @Override
+  public void onStop()
+  {
+    super.onStop();
+    mToolbarController.detach();
   }
 
   @Override

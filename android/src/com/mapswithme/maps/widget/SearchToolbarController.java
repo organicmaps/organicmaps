@@ -32,6 +32,7 @@ import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,8 +200,8 @@ public class SearchToolbarController extends ToolbarController
     if (mChooseDatesChip == null)
       return;
 
-    mChooseDatesChip.setText(FilterUtils.makeDateRangeHeader(requireActivity(), checkinMillis,
-                                                             checkoutMillis));
+    mChooseDatesChip.setText(FilterUtils.makeDateRangeHeader(mChooseDatesChip.getContext(),
+                                                             checkinMillis, checkoutMillis));
     mChosenDates = new Pair<>(checkinMillis, checkoutMillis);
   }
 
@@ -348,6 +349,9 @@ public class SearchToolbarController extends ToolbarController
   {
     if (mFilterContainer == null)
       return;
+
+    if (getActivity() != null && UiUtils.isHidden(mFilterContainer) && show)
+      Statistics.INSTANCE.trackQuickFilterOpen(Statistics.EventParam.HOTEL);
 
     UiUtils.showIf(show, mFilterContainer);
   }

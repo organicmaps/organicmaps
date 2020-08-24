@@ -1484,6 +1484,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
     mPlacePageController.onActivityStarted(this);
+    mSearchController.attach(this);
     MwmApplication.backgroundTracker(getActivity()).addListener(this);
   }
 
@@ -1500,6 +1501,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     MwmApplication.backgroundTracker(getActivity()).removeListener(this);
     IsolinesManager.from(getApplicationContext()).detach();
     GuidesManager.from(getApplicationContext()).detach();
+    mSearchController.detach();
   }
 
   private void onGuidesStateChanged(@NonNull GuidesState state)
