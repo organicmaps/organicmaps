@@ -1894,7 +1894,7 @@
 	<string name="guests_picker_rooms">Rooms</string>
 	<string name="guests_picker_adults">Adults</string>
 	<string name="guests_picker_children_title">Children</string>
-	<string name="guests_picker_children_subtitle">1-16 y.o.</string>
+	<string name="guests_picker_children_subtitle">1-17 y.o.</string>
 	<string name="guests_picker_infants_title">Infants</string>
 	<string name="guests_picker_infants_subtitle">0-12 mon.</string>
 	<!-- as less symbols as possible -->

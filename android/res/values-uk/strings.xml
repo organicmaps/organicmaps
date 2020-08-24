@@ -1826,7 +1826,7 @@
 	<string name="guests_picker_rooms">Номери</string>
 	<string name="guests_picker_adults">Дорослі</string>
 	<string name="guests_picker_children_title">Діти</string>
-	<string name="guests_picker_children_subtitle">1-16 років</string>
+	<string name="guests_picker_children_subtitle">1-17 років</string>
 	<string name="guests_picker_infants_title">Немовлята</string>
 	<string name="guests_picker_infants_subtitle">0-12 міс.</string>
 	<!-- as less symbols as possible -->

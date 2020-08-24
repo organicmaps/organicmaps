@@ -1815,7 +1815,7 @@
 	<string name="guests_picker_rooms">방</string>
 	<string name="guests_picker_adults">성인</string>
 	<string name="guests_picker_children_title">아이</string>
-	<string name="guests_picker_children_subtitle">1-16세</string>
+	<string name="guests_picker_children_subtitle">1-17세</string>
 	<string name="guests_picker_infants_title">유아</string>
 	<string name="guests_picker_infants_subtitle">0-12개월</string>
 	<!-- as less symbols as possible -->

@@ -1828,7 +1828,7 @@
 	<string name="guests_picker_rooms">Zimmer</string>
 	<string name="guests_picker_adults">Erwachsene</string>
 	<string name="guests_picker_children_title">Kinder</string>
-	<string name="guests_picker_children_subtitle">1-16 Jahre</string>
+	<string name="guests_picker_children_subtitle">1-17 Jahre</string>
 	<string name="guests_picker_infants_title">Babys</string>
 	<string name="guests_picker_infants_subtitle">0-12 Monate</string>
 	<!-- as less symbols as possible -->

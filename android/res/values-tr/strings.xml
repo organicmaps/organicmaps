@@ -1825,7 +1825,7 @@
 	<string name="guests_picker_rooms">Odalar</string>
 	<string name="guests_picker_adults">Yetişkin</string>
 	<string name="guests_picker_children_title">Çocuk</string>
-	<string name="guests_picker_children_subtitle">1-16 yaş</string>
+	<string name="guests_picker_children_subtitle">1-17 yaş</string>
 	<string name="guests_picker_infants_title">Bebek</string>
 	<string name="guests_picker_infants_subtitle">0-12 ay</string>
 	<!-- as less symbols as possible -->

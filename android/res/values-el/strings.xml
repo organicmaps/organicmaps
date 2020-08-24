@@ -1582,7 +1582,7 @@
 	<string name="guests_picker_rooms">Δωμάτια</string>
 	<string name="guests_picker_adults">Ενήλικες</string>
 	<string name="guests_picker_children_title">Παιδιά</string>
-	<string name="guests_picker_children_subtitle">1-16 ετών</string>
+	<string name="guests_picker_children_subtitle">1-17 ετών</string>
 	<string name="guests_picker_infants_title">Βρέφη</string>
 	<string name="guests_picker_infants_subtitle">0-12 μηνών</string>
 	<!-- as less symbols as possible -->

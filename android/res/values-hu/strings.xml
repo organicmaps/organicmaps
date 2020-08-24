@@ -1821,7 +1821,7 @@
 	<string name="guests_picker_rooms">Szobák</string>
 	<string name="guests_picker_adults">Felnőttek</string>
 	<string name="guests_picker_children_title">Gyerekek</string>
-	<string name="guests_picker_children_subtitle">1-16 éves</string>
+	<string name="guests_picker_children_subtitle">1-17 éves</string>
 	<string name="guests_picker_infants_title">Csecsemők</string>
 	<string name="guests_picker_infants_subtitle">0-12 hónapos</string>
 	<!-- as less symbols as possible -->

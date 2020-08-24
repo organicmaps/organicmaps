@@ -1831,7 +1831,7 @@
 	<string name="guests_picker_rooms">pokoje</string>
 	<string name="guests_picker_adults">Dorośli</string>
 	<string name="guests_picker_children_title">Dzieci</string>
-	<string name="guests_picker_children_subtitle">1-16 lat</string>
+	<string name="guests_picker_children_subtitle">1-17 lat</string>
 	<string name="guests_picker_infants_title">Niemowlęta</string>
 	<string name="guests_picker_infants_subtitle">0-12 mies.</string>
 	<!-- as less symbols as possible -->

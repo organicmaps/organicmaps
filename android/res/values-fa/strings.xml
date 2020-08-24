@@ -1761,7 +1761,7 @@
 	<string name="guests_picker_rooms">اتاقها</string>
 	<string name="guests_picker_adults">بزرگسالان</string>
 	<string name="guests_picker_children_title">کودکان</string>
-	<string name="guests_picker_children_subtitle">1 تا 16 ساله</string>
+	<string name="guests_picker_children_subtitle">1 تا 17 ساله</string>
 	<string name="guests_picker_infants_title">نوزادان</string>
 	<string name="guests_picker_infants_subtitle">0 تا 12 ماهه</string>
 	<!-- as less symbols as possible -->

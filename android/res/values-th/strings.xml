@@ -1825,7 +1825,7 @@
 	<string name="guests_picker_rooms">ห้อง</string>
 	<string name="guests_picker_adults">ผู้ใหญ่</string>
 	<string name="guests_picker_children_title">เด็ก</string>
-	<string name="guests_picker_children_subtitle">อายุ 1-16 ปี</string>
+	<string name="guests_picker_children_subtitle">อายุ 1-17 ปี</string>
 	<string name="guests_picker_infants_title">ทารก</string>
 	<string name="guests_picker_infants_subtitle">อายุ 0-12 เดือน</string>
 	<!-- as less symbols as possible -->

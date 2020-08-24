@@ -1824,7 +1824,7 @@
 	<string name="guests_picker_rooms">Værelser</string>
 	<string name="guests_picker_adults">Voksne</string>
 	<string name="guests_picker_children_title">Børn</string>
-	<string name="guests_picker_children_subtitle">1-16 år</string>
+	<string name="guests_picker_children_subtitle">1-17 år</string>
 	<string name="guests_picker_infants_title">Spædbørn</string>
 	<string name="guests_picker_infants_subtitle">0-12 mdr.</string>
 	<!-- as less symbols as possible -->

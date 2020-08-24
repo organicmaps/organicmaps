@@ -1813,7 +1813,7 @@
 	<string name="guests_picker_rooms">部屋</string>
 	<string name="guests_picker_adults">大人</string>
 	<string name="guests_picker_children_title">子供</string>
-	<string name="guests_picker_children_subtitle">1歳～16歳</string>
+	<string name="guests_picker_children_subtitle">1歳～17歳</string>
 	<string name="guests_picker_infants_title">幼児</string>
 	<string name="guests_picker_infants_subtitle">0ヶ月～12か月</string>
 	<!-- as less symbols as possible -->

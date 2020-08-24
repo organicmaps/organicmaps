@@ -1820,7 +1820,7 @@
 	<string name="guests_picker_rooms">Rum</string>
 	<string name="guests_picker_adults">Vuxna</string>
 	<string name="guests_picker_children_title">Barn</string>
-	<string name="guests_picker_children_subtitle">1-16 år</string>
+	<string name="guests_picker_children_subtitle">1-17 år</string>
 	<string name="guests_picker_infants_title">Spädbarn</string>
 	<string name="guests_picker_infants_subtitle">0-12 mån.</string>
 	<!-- as less symbols as possible -->

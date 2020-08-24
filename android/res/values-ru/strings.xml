@@ -1866,7 +1866,7 @@
 	<string name="guests_picker_rooms">Номера</string>
 	<string name="guests_picker_adults">Взрослые</string>
 	<string name="guests_picker_children_title">Дети</string>
-	<string name="guests_picker_children_subtitle">1-16 лет</string>
+	<string name="guests_picker_children_subtitle">1-17 лет</string>
 	<string name="guests_picker_infants_title">Младенцы</string>
 	<string name="guests_picker_infants_subtitle">0-12 мес.</string>
 	<!-- as less symbols as possible -->

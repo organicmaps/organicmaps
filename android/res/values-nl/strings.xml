@@ -1816,7 +1816,7 @@
 	<string name="guests_picker_rooms">Kamers</string>
 	<string name="guests_picker_adults">Volwassenen</string>
 	<string name="guests_picker_children_title">Kinderen</string>
-	<string name="guests_picker_children_subtitle">1-16 jaar</string>
+	<string name="guests_picker_children_subtitle">1-17 jaar</string>
 	<string name="guests_picker_infants_title">Zuigelingen</string>
 	<string name="guests_picker_infants_subtitle">0-12 mnd.</string>
 	<!-- as less symbols as possible -->

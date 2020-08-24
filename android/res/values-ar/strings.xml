@@ -1825,7 +1825,7 @@
 	<string name="guests_picker_rooms">الغرف</string>
 	<string name="guests_picker_adults">بالغين</string>
 	<string name="guests_picker_children_title">أطفال</string>
-	<string name="guests_picker_children_subtitle">1-16 عام</string>
+	<string name="guests_picker_children_subtitle">1-17 عام</string>
 	<string name="guests_picker_infants_title">رضع</string>
 	<string name="guests_picker_infants_subtitle">0-12 شهر</string>
 	<!-- as less symbols as possible -->

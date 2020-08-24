@@ -1823,7 +1823,7 @@
 	<string name="guests_picker_rooms">Pokoje</string>
 	<string name="guests_picker_adults">Dospělí</string>
 	<string name="guests_picker_children_title">Děti</string>
-	<string name="guests_picker_children_subtitle">1-16 let</string>
+	<string name="guests_picker_children_subtitle">1-17 let</string>
 	<string name="guests_picker_infants_title">Nemluvňata</string>
 	<string name="guests_picker_infants_subtitle">0-12 měsíců</string>
 	<!-- as less symbols as possible -->

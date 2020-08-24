@@ -1813,7 +1813,7 @@
 	<string name="guests_picker_rooms">Kamar</string>
 	<string name="guests_picker_adults">Orang dewasa</string>
 	<string name="guests_picker_children_title">Anak-anak</string>
-	<string name="guests_picker_children_subtitle">1-16 thn.</string>
+	<string name="guests_picker_children_subtitle">1-17 thn.</string>
 	<string name="guests_picker_infants_title">Bayi</string>
 	<string name="guests_picker_infants_subtitle">0-12 bln.</string>
 	<!-- as less symbols as possible -->

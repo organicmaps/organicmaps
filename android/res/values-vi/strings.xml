@@ -1810,7 +1810,7 @@
 	<string name="guests_picker_rooms">Phòng</string>
 	<string name="guests_picker_adults">Người lớn</string>
 	<string name="guests_picker_children_title">Trẻ em</string>
-	<string name="guests_picker_children_subtitle">1-16 tuổi</string>
+	<string name="guests_picker_children_subtitle">1-17 tuổi</string>
 	<string name="guests_picker_infants_title">Em bé</string>
 	<string name="guests_picker_infants_subtitle">0-12 tháng</string>
 	<!-- as less symbols as possible -->

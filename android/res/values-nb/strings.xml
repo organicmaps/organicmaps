@@ -1713,7 +1713,7 @@
 	<string name="guests_picker_rooms">Rom</string>
 	<string name="guests_picker_adults">Voksen</string>
 	<string name="guests_picker_children_title">Barn</string>
-	<string name="guests_picker_children_subtitle">1-16 år</string>
+	<string name="guests_picker_children_subtitle">1-17 år</string>
 	<string name="guests_picker_infants_title">Spedbarn</string>
 	<string name="guests_picker_infants_subtitle">0-12 mnd.</string>
 	<!-- as less symbols as possible -->

@@ -1819,7 +1819,7 @@
 	<string name="guests_picker_rooms">Izby</string>
 	<string name="guests_picker_adults">Dospelí</string>
 	<string name="guests_picker_children_title">Deti</string>
-	<string name="guests_picker_children_subtitle">1-16 rokov</string>
+	<string name="guests_picker_children_subtitle">1-17 rokov</string>
 	<string name="guests_picker_infants_title">Batoľatá</string>
 	<string name="guests_picker_infants_subtitle">0-12 mesiacov</string>
 	<!-- as less symbols as possible -->

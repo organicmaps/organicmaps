@@ -1814,7 +1814,7 @@
 	<string name="guests_picker_rooms">Hotellihuoneet</string>
 	<string name="guests_picker_adults">Aikuiset</string>
 	<string name="guests_picker_children_title">Lapset</string>
-	<string name="guests_picker_children_subtitle">1-16 v.</string>
+	<string name="guests_picker_children_subtitle">1-17 v.</string>
 	<string name="guests_picker_infants_title">Vauvat</string>
 	<string name="guests_picker_infants_subtitle">0-12 kk</string>
 	<!-- as less symbols as possible -->

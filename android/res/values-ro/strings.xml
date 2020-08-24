@@ -1810,7 +1810,7 @@
 	<string name="guests_picker_rooms">Camere</string>
 	<string name="guests_picker_adults">Adulți</string>
 	<string name="guests_picker_children_title">Copii</string>
-	<string name="guests_picker_children_subtitle">1-16 ani</string>
+	<string name="guests_picker_children_subtitle">1-17 ani</string>
 	<string name="guests_picker_infants_title">Bebeluşi</string>
 	<string name="guests_picker_infants_subtitle">0-12 luni.</string>
 	<!-- as less symbols as possible -->

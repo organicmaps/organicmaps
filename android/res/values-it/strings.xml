@@ -1820,7 +1820,7 @@
 	<string name="guests_picker_rooms">Camere</string>
 	<string name="guests_picker_adults">Adulti</string>
 	<string name="guests_picker_children_title">Bambini</string>
-	<string name="guests_picker_children_subtitle">1-16 anni</string>
+	<string name="guests_picker_children_subtitle">1-17 anni</string>
 	<string name="guests_picker_infants_title">Neonati</string>
 	<string name="guests_picker_infants_subtitle">0-12 mesi</string>
 	<!-- as less symbols as possible -->
