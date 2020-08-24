@@ -9,7 +9,7 @@ class WhatsNewBuilder {
                                        action: {
                                         let subscribeViewController = SubscriptionViewBuilder.build(type: .allPass,
                                                                                                     parentViewController: MapViewController.shared(),
-                                                                                                    source: kStatOnboardingGuidesSubscription,
+                                                                                                    source: kStatWhatsNew,
                                                                                                     successDialog: .goToCatalog,
                                                                                                     completion: nil)
                                         MapViewController.shared().present(subscribeViewController, animated: true)

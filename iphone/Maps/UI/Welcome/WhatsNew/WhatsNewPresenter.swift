@@ -30,8 +30,8 @@ extension WhatsNewPresenter: IWhatsNewPresenter {
   }
 
   func onAppear() {
-    Statistics.logEvent(kStatWhatsNew, withParameters: [kStatAction: kStatOpen,
-                                                        kStatVersion: appVersion])
+    Statistics.logEvent(kStatWhatsNewAction, withParameters: [kStatAction: kStatOpen,
+                                                              kStatVersion: appVersion])
   }
 
   func onNext() {
@@ -39,13 +39,13 @@ extension WhatsNewPresenter: IWhatsNewPresenter {
       action()
     }
     router.onNext()
-    Statistics.logEvent(kStatWhatsNew, withParameters: [kStatAction: kStatNext,
-                                                        kStatVersion: appVersion])
+    Statistics.logEvent(kStatWhatsNewAction, withParameters: [kStatAction: kStatNext,
+                                                              kStatVersion: appVersion])
   }
 
   func onClose() {
     router.onClose()
-    Statistics.logEvent(kStatWhatsNew, withParameters: [kStatAction: kStatClose,
-                                                        kStatVersion: appVersion])
+    Statistics.logEvent(kStatWhatsNewAction, withParameters: [kStatAction: kStatClose,
+                                                              kStatVersion: appVersion])
   }
 }
