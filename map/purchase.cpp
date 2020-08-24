@@ -319,8 +319,7 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
     if (resultCode >= 200 && resultCode < 300)
     {
       result = DeserializeResponse(request.ServerResponse(), resultCode);
-      if (result.m_isValid)
-        code = ValidationCode::Verified;
+      code = ValidationCode::Verified;
     }
     else if (resultCode == 403)
     {
