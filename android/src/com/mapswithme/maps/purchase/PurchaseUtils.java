@@ -10,6 +10,7 @@ import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.dialog.AlertDialog;
+import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -210,6 +211,22 @@ public class PurchaseUtils
     }
 
     return SubscriptionType.BOOKMARKS_ALL.getServerId();
+  }
+
+  public static void showSubscriptionSuccessDialog(@NonNull Fragment targetFragment,
+                                                   @NonNull String tag, int reqCode)
+  {
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(R.string.subscription_success_dialog_title)
+        .setMessageId(R.string.subscription_success_dialog_message)
+        .setPositiveBtnId(R.string.subscription_error_button)
+        .setReqCode(reqCode)
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .setDialogViewStrategyType(AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
+        .setDialogFactory(new ConfirmationDialogFactory())
+        .build();
+    dialog.setTargetFragment(targetFragment, reqCode);
+    dialog.show(targetFragment, tag);
   }
 
   enum Period

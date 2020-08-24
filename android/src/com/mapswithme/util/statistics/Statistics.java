@@ -751,6 +751,7 @@ public enum Statistics
     public static final String SPONSORED_BUTTON = "sponsored_button";
     public static final String POPUP = "popup";
     public static final String WEBVIEW = "webview";
+    public static final String WHATSNEW = "whatsnew";
     public static final String ONBOARDING_GUIDES_SUBSCRIPTION = "onboarding_guides_subscription";
     public static final String PLUS = "plus";
     public static final String DOWNLOAD = "download";

@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
@@ -35,7 +36,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
-import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.purchase.AbstractProductDetailsLoadingCallback;
 import com.mapswithme.maps.purchase.BillingManager;
@@ -244,7 +244,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     if (requestCode == PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION)
     {
       mWebView.reload();
-      showSubscriptionSuccessDialog();
+      showSubscriptionSuccessDialog(this);
       return;
     }
 
@@ -252,19 +252,11 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       mWebView.reload();
   }
 
-  private void showSubscriptionSuccessDialog()
+  private static void showSubscriptionSuccessDialog(@NonNull Fragment fragment)
   {
-    AlertDialog dialog = new AlertDialog.Builder()
-        .setTitleId(R.string.subscription_success_dialog_title)
-        .setMessageId(R.string.subscription_success_dialog_message)
-        .setPositiveBtnId(R.string.subscription_error_button)
-        .setReqCode(PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG)
-        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
-        .setDialogViewStrategyType(AlertDialog.DialogViewStrategyType.CONFIRMATION_DIALOG)
-        .setDialogFactory(new ConfirmationDialogFactory())
-        .build();
-    dialog.setTargetFragment(this, PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG);
-    dialog.show(this, PurchaseUtils.DIALOG_TAG_BMK_SUBSCRIPTION_SUCCESS);
+    PurchaseUtils.showSubscriptionSuccessDialog(fragment,
+                                                PurchaseUtils.DIALOG_TAG_BMK_SUBSCRIPTION_SUCCESS,
+                                                PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG);
   }
 
   @Override

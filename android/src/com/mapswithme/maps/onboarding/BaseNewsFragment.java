@@ -29,8 +29,6 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -207,7 +205,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
     private void processButton(int position, @NonNull View res)
     {
-      TextView button = res.findViewById(R.id.button);
+      final TextView button = res.findViewById(R.id.button);
       PromoButton promo = mPromoButtons.get(position);
       if (promo == null || TextUtils.isEmpty(promo.getLabel()))
       {
@@ -216,12 +214,10 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
       }
 
       button.setText(promo.getLabel());
-      button.setOnClickListener(v -> {
-        BookmarksCatalogActivity.startForResult(
-            BaseNewsFragment.this,
-            BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY, promo.getLink());
-      });
+      button.setOnClickListener(v -> onPromoButtonClicked(button));
     }
+
+    abstract void onPromoButtonClicked(@NonNull View view);
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object)

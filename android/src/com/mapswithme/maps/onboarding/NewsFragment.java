@@ -1,6 +1,9 @@
 package com.mapswithme.maps.onboarding;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,14 +11,24 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
+import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
+import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
+import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.SharedPropertiesUtils;
+import com.mapswithme.util.UTM;
+import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
-public class NewsFragment extends BaseNewsFragment
+public class NewsFragment extends BaseNewsFragment implements AlertDialogCallback
 {
-
   private class Adapter extends BaseNewsFragment.Adapter
   {
     @Override
@@ -64,6 +77,15 @@ public class NewsFragment extends BaseNewsFragment
     int getImages()
     {
       return R.array.news_images;
+    }
+
+    @Override
+    void onPromoButtonClicked(@NonNull View view)
+    {
+      UiUtils.hide(view);
+      BookmarksAllSubscriptionActivity.startForResult(NewsFragment.this,
+                                                      PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
+                                                      Statistics.ParamValue.WHATSNEW);
     }
   }
 
@@ -131,5 +153,54 @@ public class NewsFragment extends BaseNewsFragment
       sb.append(key);
 
     return sb.toString().trim();
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (resultCode != Activity.RESULT_OK)
+      return;
+
+    switch (requestCode)
+    {
+      case PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION:
+        PurchaseUtils.showSubscriptionSuccessDialog(this,
+                                                    PurchaseUtils.DIALOG_TAG_BMK_SUBSCRIPTION_SUCCESS,
+                                                    PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG);
+        break;
+      case BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY:
+        if (data == null)
+          break;
+
+        BookmarkCategory category
+            = data.getParcelableExtra(BookmarksCatalogActivity.EXTRA_DOWNLOADED_CATEGORY);
+
+        if (category == null)
+          throw new IllegalArgumentException("Category not found in bundle");
+        Framework.nativeShowBookmarkCategory(category.getId());
+        break;
+    }
+  }
+
+  @Override
+  public void onAlertDialogPositiveClick(int requestCode, int which)
+  {
+    if (requestCode == PurchaseUtils.REQ_CODE_BMK_SUBS_SUCCESS_DIALOG)
+      BookmarksCatalogActivity.startForResult(this,
+                                              BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
+                                              BookmarkManager.INSTANCE.getCatalogFrontendUrl(UTM.UTM_NONE));
+  }
+
+  @Override
+  public void onAlertDialogNegativeClick(int requestCode, int which)
+  {
+    // No op.
+  }
+
+  @Override
+  public void onAlertDialogCancel(int requestCode)
+  {
+    // No op.
   }
 }
