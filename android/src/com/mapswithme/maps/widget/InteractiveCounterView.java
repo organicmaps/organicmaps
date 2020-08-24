@@ -36,6 +36,8 @@ public class InteractiveCounterView extends RelativeLayout
   private int mDefaultValue;
   @DrawableRes
   private int mIconRes;
+  @Nullable
+  private CounterChangeListener mChangeListener;
   @NonNull
   private final OnClickListener mPlusClickListener = new OnClickListener()
   {
@@ -45,6 +47,8 @@ public class InteractiveCounterView extends RelativeLayout
       int value = getCurrentValue();
       mCounterView.setText(String.valueOf(++value));
       updateConstraints();
+      if (mChangeListener != null)
+        mChangeListener.onChange();
     }
   };
 
@@ -57,6 +61,8 @@ public class InteractiveCounterView extends RelativeLayout
       int value = getCurrentValue();
       mCounterView.setText(String.valueOf(--value));
       updateConstraints();
+      if (mChangeListener != null)
+        mChangeListener.onChange();
     }
   };
 
@@ -141,5 +147,15 @@ public class InteractiveCounterView extends RelativeLayout
     int value = getCurrentValue();
     mMinusView.setEnabled(value != mMinValue);
     mPlusView.setEnabled(value != mMaxValue);
+  }
+
+  public void setChangeListener(@Nullable CounterChangeListener listener)
+  {
+    mChangeListener = listener;
+  }
+
+  public interface CounterChangeListener
+  {
+    void onChange();
   }
 }

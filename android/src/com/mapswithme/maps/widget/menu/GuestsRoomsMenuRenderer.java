@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.widget.InteractiveCounterView;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Objects;
 
@@ -65,14 +66,30 @@ public class GuestsRoomsMenuRenderer implements MenuRenderer
   {
     Objects.requireNonNull(view);
     mRoomsView = view.findViewById(R.id.rooms);
+    mRoomsView.setChangeListener(() -> onChangeCounterValue(Statistics.EventParam.ROOMS,
+                                                            mRoomsView.getCurrentValue()));
     mAdultsView = view.findViewById(R.id.adults);
+    mAdultsView.setChangeListener(() -> onChangeCounterValue(Statistics.EventParam.ADULTS,
+                                                             mAdultsView.getCurrentValue()));
     mChildrenView = view.findViewById(R.id.children);
+    mChildrenView.setChangeListener(() -> onChangeCounterValue(Statistics.EventParam.CHILDREN,
+                                                               mChildrenView.getCurrentValue()));
     mInfantsView = view.findViewById(R.id.infants);
+    mInfantsView.setChangeListener(() -> onChangeCounterValue(Statistics.EventParam.INFANTS,
+                                                              mInfantsView.getCurrentValue()));
   }
 
   @Override
   public void destroy()
   {
-    // No op.
+    mRoomsView.setChangeListener(null);
+    mAdultsView.setChangeListener(null);
+    mChildrenView.setChangeListener(null);
+    mInfantsView.setChangeListener(null);
+  }
+
+  private void onChangeCounterValue(@NonNull String name, int count)
+  {
+    Statistics.INSTANCE.trackQuickFilterClick(Statistics.EventParam.HOTEL, name, count);
   }
 }

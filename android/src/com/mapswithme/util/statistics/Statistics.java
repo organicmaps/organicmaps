@@ -101,6 +101,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_T
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_ROUTE_FINISH;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_ROUTE_START;
 import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_FILTER_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_QUICKFILTER_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_QUICKFILTER_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.TIPS_TRICKS_CLOSE;
 import static com.mapswithme.util.statistics.Statistics.EventName.TOOLBAR_CLICK;
@@ -450,7 +451,8 @@ public enum Statistics
     public static final String SEARCH_FILTER_CANCEL = "Search_Filter_Cancel";
     public static final String SEARCH_FILTER_RESET = "Search_Filter_Reset";
     public static final String SEARCH_FILTER_APPLY = "Search_Filter_Apply";
-    public static final String SEARCH_QUICKFILTER_OPEN = "Search_QuickFilter_Open";
+    static final String SEARCH_QUICKFILTER_OPEN = "Search_QuickFilter_Open";
+    static final String SEARCH_QUICKFILTER_CLICK = "Search_QuickFilter_Click";
     static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
     static final String SEARCH_TAB_SELECTED = "Search_Tab_selected";
     static final String SEARCH_FILTER_CLICK = "Search_Filter_Click";
@@ -671,6 +673,10 @@ public enum Statistics
     public static final String EXPORT_BOOKMARKS = "export_bookmarks";
     public static final String BOOKMARKS_BACKUP = "bookmarks_backup";
     public static final String AFTER_SAVE_REVIEW = "after_save_review";
+    public static final String ROOMS = "rooms";
+    public static final String ADULTS = "adults";
+    public static final String CHILDREN = "children";
+    public static final String INFANTS = "infants";
     static final String BANNER = "banner";
     static final String BATTERY = "battery";
     static final String CALLER_ID = "Caller ID";
@@ -1602,6 +1608,11 @@ public enum Statistics
   {
     trackEvent(SEARCH_QUICKFILTER_OPEN, params().add(CATEGORY, category)
                                                 .add(NETWORK, getConnectionState()).get());
+  }
+
+  public void trackQuickFilterClick(@NonNull String category, @NonNull String name, int count)
+  {
+    trackEvent(SEARCH_QUICKFILTER_CLICK, params().add(CATEGORY, category).add(name, count).get());
   }
 
   public void trackFilterEvent(@NonNull String event, @NonNull String category)
