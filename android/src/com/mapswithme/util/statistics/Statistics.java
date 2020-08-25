@@ -122,6 +122,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
+import static com.mapswithme.util.statistics.Statistics.EventParam.FILTER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FIRST_LAUNCH;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FROM;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HAS_AUTH;
@@ -455,6 +456,7 @@ public enum Statistics
     static final String SEARCH_QUICKFILTER_OPEN = "Search_QuickFilter_Open";
     static final String SEARCH_QUICKFILTER_CLICK = "Search_QuickFilter_Click";
     static final String SEARCH_QUICKFILTER_APPLY = "Search_QuickFilter_Apply";
+    static final String SEARCH_QUICKFILTER_CLICK_ERROR = "Search_QuickFilter_Click_error";
     static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
     static final String SEARCH_TAB_SELECTED = "Search_Tab_selected";
     static final String SEARCH_FILTER_CLICK = "Search_Filter_Click";
@@ -695,6 +697,7 @@ public enum Statistics
     static final String ERROR_MESSAGE = "error_message";
     static final String FEATURE_ID = "feature_id";
     static final String FERRY = "ferry";
+    static final String FILTER = "filter";
     static final String FIRST_LAUNCH = "first_launch";
     static final String FROM_LAT = "from_lat";
     static final String FROM_LON = "from_lon";
@@ -804,6 +807,8 @@ public enum Statistics
     public static final String HIDE = "hide";
     public static final String NEW_OBJECT = "new_object";
     public static final String EDIT_OBJECT = "edit_object";
+    public static final String DATE = "date";
+    public static final String ROOMS = "rooms";
     static final String CRASH_REPORTS = "crash_reports";
     static final String PERSONAL_ADS = "personal_ads";
     public static final String MAP = "map";
@@ -1624,6 +1629,14 @@ public enum Statistics
     if (!TextUtils.isEmpty(appliedFilters))
       builder.add("filters", appliedFilters);
     trackEvent(SEARCH_QUICKFILTER_APPLY, builder.get());
+  }
+
+  public void trackQuickFilterClickError(@NonNull String category, @NonNull String filter,
+                                         @NonNull String error)
+  {
+    trackEvent(EventName.SEARCH_QUICKFILTER_CLICK_ERROR, params().add(CATEGORY, category)
+                                                                 .add(FILTER, filter)
+                                                                 .add(ERROR, error));
   }
 
   public void trackFilterEvent(@NonNull String event, @NonNull String category)

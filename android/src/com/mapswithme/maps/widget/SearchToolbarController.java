@@ -78,6 +78,9 @@ public class SearchToolbarController extends ToolbarController
   private final View.OnClickListener mChooseDatesClickListener = v -> {
     if (!ConnectionState.isConnected())
     {
+      Statistics.INSTANCE.trackQuickFilterClickError(Statistics.EventParam.HOTEL,
+                                                     Statistics.ParamValue.DATE,
+                                                     Statistics.ParamValue.NO_INTERNET);
       FilterUtils.showNoNetworkConnectionDialog((AppCompatActivity) requireActivity());
       return;
     }
@@ -100,6 +103,9 @@ public class SearchToolbarController extends ToolbarController
   private final View.OnClickListener mRoomsClickListener = v -> {
     if (!ConnectionState.isConnected())
     {
+      Statistics.INSTANCE.trackQuickFilterClickError(Statistics.EventParam.HOTEL,
+                                                     Statistics.ParamValue.ROOMS,
+                                                     Statistics.ParamValue.NO_INTERNET);
       FilterUtils.showNoNetworkConnectionDialog((AppCompatActivity) requireActivity());
       return;
     }
