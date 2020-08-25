@@ -133,10 +133,6 @@ int constexpr kUGCBadgeMinZoomLevel = scales::GetUpperCountryScale();
 int constexpr kGoodRatingZoomLevel = kWorldZoomLevel;
 int constexpr kBadRatingZoomLevel = scales::GetUpperComfortScale();
 
-// Offset for price text relative to symbol and adjustment of price chip size
-// for better margins of price text into the chip
-float constexpr kBadgeTextSpecialOffset = -4.0f;
-
 std::string GetSymbol(SearchMarkType searchMarkType, bool hasLocalAds, bool hasRating)
 {
   if (searchMarkType == SearchMarkType::Default && hasRating)
@@ -415,7 +411,6 @@ drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
         reasonTitleDecl.m_primaryTextFont.m_color = df::GetColorConstant("HotelPriceText");
         reasonTitleDecl.m_primaryTextFont.m_color.PremultiplyAlpha(kOutOfFiltersTextOpacity);
         reasonTitleDecl.m_primaryTextFont.m_size = fontSize;
-        reasonTitleDecl.m_primaryOffset.x = kBadgeTextSpecialOffset;
 
         reasonTitleDecl.m_primaryText = m_reason;
       }
@@ -445,7 +440,6 @@ drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
         badgeTitleDecl.m_primaryTextFont.m_color = df::GetColorConstant("HotelPriceText");
         badgeTitleDecl.m_primaryTextFont.m_color.PremultiplyAlpha(GetSymbolOpacity());
         badgeTitleDecl.m_primaryTextFont.m_size = fontSize;
-        badgeTitleDecl.m_primaryOffset.x = kBadgeTextSpecialOffset;
 
         if (HasPrice())
         {

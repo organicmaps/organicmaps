@@ -263,9 +263,10 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
         textures->GetSymbolRegion(symbolName, region);
         float const pixelHalfWidth = 0.5f * region.GetPixelSize().x;
 
+        auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
         float constexpr kBadgeMarginsAdjustmentFactor = 4.0f;
         float const badgeMarginsAdjustment =
-            kBadgeMarginsAdjustmentFactor * titleDecl.m_primaryOffset.x;
+            kBadgeMarginsAdjustmentFactor * titleDecl.m_primaryOffset.x * vs;
 
         params.m_pixelWidth = 3.0f * pixelHalfWidth + textWidth + badgeMarginsAdjustment;
         params.m_offset.x += 0.5f * (pixelHalfWidth + textWidth + badgeMarginsAdjustment);
