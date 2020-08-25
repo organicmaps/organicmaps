@@ -101,6 +101,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_T
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_ROUTE_FINISH;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_ROUTE_START;
 import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_FILTER_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_QUICKFILTER_APPLY;
 import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_QUICKFILTER_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_QUICKFILTER_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.TIPS_TRICKS_CLOSE;
@@ -453,6 +454,7 @@ public enum Statistics
     public static final String SEARCH_FILTER_APPLY = "Search_Filter_Apply";
     static final String SEARCH_QUICKFILTER_OPEN = "Search_QuickFilter_Open";
     static final String SEARCH_QUICKFILTER_CLICK = "Search_QuickFilter_Click";
+    static final String SEARCH_QUICKFILTER_APPLY = "Search_QuickFilter_Apply";
     static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
     static final String SEARCH_TAB_SELECTED = "Search_Tab_selected";
     static final String SEARCH_FILTER_CLICK = "Search_Filter_Click";
@@ -1613,6 +1615,15 @@ public enum Statistics
   public void trackQuickFilterClick(@NonNull String category, @NonNull String name, int count)
   {
     trackEvent(SEARCH_QUICKFILTER_CLICK, params().add(CATEGORY, category).add(name, count).get());
+  }
+
+  public void trackQuickFilterApply(@NonNull String category, @Nullable String appliedFilters)
+  {
+    ParameterBuilder builder = params();
+    builder.add(CATEGORY, category);
+    if (!TextUtils.isEmpty(appliedFilters))
+      builder.add("filters", appliedFilters);
+    trackEvent(SEARCH_QUICKFILTER_APPLY, builder.get());
   }
 
   public void trackFilterEvent(@NonNull String event, @NonNull String category)

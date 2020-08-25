@@ -682,6 +682,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         @Override
         public void onFilterParamsChanged()
         {
+          FilterUtils.trackFiltersApplying(mFilterController);
           runSearch();
         }
       }, R.string.search_in_table, mSearchController);

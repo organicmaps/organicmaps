@@ -360,6 +360,7 @@ public class SearchFragment extends BaseMwmFragment
       @Override
       public void onFilterParamsChanged()
       {
+        FilterUtils.trackFiltersApplying(mFilterController);
         runSearch();
       }
     }, mToolbarController);
