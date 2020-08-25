@@ -9,6 +9,8 @@
 %define source_dir_name %{project}-%{version}
 %define project_src %{project_root}/%{source_dir_name}
 
+%define _empty_manifest_terminate_build 0
+
 Name:      %{project_tool_name}
 Summary:   %{project_tool_name} - a utility from %{project} (maps.me project)
 Version:   %{version}
@@ -18,7 +20,12 @@ Url:       http://github.com/mapsme/%{project}
 Buildroot: %{_tmppath}/%{project_tool_name}-%{version}-%(%{__id_u} -n)
 Source:    %{source_dir_name}.tar.gz
 BuildRequires: cmake3
+%if %{rhel} == 7
 BuildRequires: devtoolset-7-gcc-c++
+%endif
+%if %{rhel} == 8
+BuildRequires: gcc-c++ 
+%endif
 BuildRequires: git
 BuildRequires: qt5-qtbase-devel
 BuildRequires: sqlite-devel
@@ -37,8 +44,10 @@ cd %{project_src}/..
 %setup -T -D
 
 %build
+%if %{rhel} == 7
 source /opt/rh/devtoolset-7/enable
-echo | %{project_root}/configure.sh
+%endif
+echo | %{project_src}/configure.sh
 mkdir -p %{project_root}/build
 cd %{project_root}/build
 cmake3 %{project_src} -DSKIP_DESKTOP=ON
@@ -49,7 +58,7 @@ make %{?_smp_mflags} %{tool_name}
 mkdir -p %{buildroot}/%{_bindir}
 mkdir -p %{buildroot}/%{_datadir}/%{project_tool_name}
 cp -Rp %{project_root}/build/%{tool_name} %{buildroot}/%{_bindir}/%{project_tool_name}
-cp -Rp %{project_root}/data %{buildroot}/%{_datadir}/%{project_tool_name}
+cp -Rp %{project_src}/data %{buildroot}/%{_datadir}/%{project_tool_name}
 
 %files
 %defattr(-,root,root,-)
