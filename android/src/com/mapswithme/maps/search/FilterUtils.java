@@ -395,7 +395,7 @@ public class FilterUtils
   }
 
   @Nullable
-  private static String toAppliedFiltersString(@Nullable HotelsFilter filter,
+  public static String toAppliedFiltersString(@Nullable HotelsFilter filter,
                                               @Nullable BookingFilterParams params)
   {
     final Map<String, String> map = new HashMap<>();

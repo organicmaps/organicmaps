@@ -14,8 +14,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
+import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.recycler.TagItemDecoration;
@@ -129,8 +129,10 @@ public class FilterFragment extends BaseMwmToolbarFragment
 
     HotelsFilter filter = populateFilter();
     mListener.onFilterApply(filter);
-    Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_APPLY,
-                                         Statistics.EventParam.HOTEL);
+    BookingFilterParams params = null;
+    if (getArguments() != null)
+      params = getArguments().getParcelable(ARG_FILTER_PARAMS);
+    Statistics.INSTANCE.trackFilterApplyEvent(FilterUtils.toAppliedFiltersString(filter, params));
     UserActionsLogger.logBookingFilterUsedEvent();
   }
 
@@ -138,8 +140,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
   public void onActivityCreated(@Nullable Bundle savedInstanceState)
   {
     super.onActivityCreated(savedInstanceState);
-    Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_OPEN,
-                                         Statistics.EventParam.HOTEL);
+    Statistics.INSTANCE.trackFilterOpenEvent();
   }
 
   @Override

@@ -123,6 +123,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_CODE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ERROR_MESSAGE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FEATURE_ID;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FILTER;
+import static com.mapswithme.util.statistics.Statistics.EventParam.FILTERS;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FIRST_LAUNCH;
 import static com.mapswithme.util.statistics.Statistics.EventParam.FROM;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HAS_AUTH;
@@ -449,7 +450,7 @@ public enum Statistics
     public static final String SEARCH_ON_MAP_CLICKED = "Search. View on map clicked.";
     public static final String SEARCH_SPONSOR_CATEGORY_SHOWN = "Search_SponsoredCategory_shown";
     public static final String SEARCH_SPONSOR_CATEGORY_SELECTED = "Search_SponsoredCategory_selected";
-    public static final String SEARCH_FILTER_OPEN = "Search_Filter_Open";
+    static final String SEARCH_FILTER_OPEN = "Search_Filter_Open";
     public static final String SEARCH_FILTER_CANCEL = "Search_Filter_Cancel";
     public static final String SEARCH_FILTER_RESET = "Search_Filter_Reset";
     public static final String SEARCH_FILTER_APPLY = "Search_Filter_Apply";
@@ -698,6 +699,7 @@ public enum Statistics
     static final String FEATURE_ID = "feature_id";
     static final String FERRY = "ferry";
     static final String FILTER = "filter";
+    static final String FILTERS = "filters";
     static final String FIRST_LAUNCH = "first_launch";
     static final String FROM_LAT = "from_lat";
     static final String FROM_LON = "from_lon";
@@ -1627,7 +1629,7 @@ public enum Statistics
     ParameterBuilder builder = params();
     builder.add(CATEGORY, category);
     if (!TextUtils.isEmpty(appliedFilters))
-      builder.add("filters", appliedFilters);
+      builder.add(FILTERS, appliedFilters);
     trackEvent(SEARCH_QUICKFILTER_APPLY, builder.get());
   }
 
@@ -1644,6 +1646,22 @@ public enum Statistics
     trackEvent(event, params()
               .add(EventParam.CATEGORY, category)
               .get());
+  }
+
+  public void trackFilterOpenEvent()
+  {
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_FILTER_OPEN,
+                                   params().add(CATEGORY, HOTEL)
+                                           .add(NETWORK, getConnectionState()).get());
+  }
+
+  public void trackFilterApplyEvent(@Nullable String appliedFilters)
+  {
+    ParameterBuilder builder = params();
+    if (!TextUtils.isEmpty(appliedFilters))
+      builder.add(FILTERS, appliedFilters);
+    builder.add(CATEGORY, HOTEL);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_FILTER_APPLY, builder.get());
   }
 
   public void trackFilterClick(@NonNull String category, @NonNull Pair<String, String> params)
