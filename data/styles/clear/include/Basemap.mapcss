@@ -119,6 +119,7 @@ line[waterway=river],
 line[waterway=riverbank],
 line[waterway=stream],
 line[waterway=canal],
+line[natural=strait],
 line[waterway=lock],
 line[waterway=ditch],
 line[waterway=drain],
@@ -356,6 +357,7 @@ line|z10-[waterway=riverbank],
 line|z13-[waterway=stream],
 line|z13-[waterway=stream][intermittent=yes],
 line|z13-[waterway=canal],
+line|z13-[natural=strait],
 line|z16-[waterway=lock],
 {opacity: 1;color: @river;-x-me-line-priority: -15600;}
 
@@ -392,6 +394,7 @@ line|z13[waterway=riverbank],
 {width: 1.6;}
 line|z13[waterway=stream],
 line|z13[waterway=canal],
+line|z13[natural=strait],
 {width: 0.7;}
 line|z13[waterway=stream][intermittent=yes]
 {width: 0.7;dashes: 2.7,2.7;}
@@ -401,6 +404,7 @@ line|z14[waterway=riverbank],
 {width: 1.8;}
 line|z14[waterway=stream],
 line|z14[waterway=canal],
+line|z14[natural=strait],
 {width: 1;}
 line|z14[waterway=stream][intermittent=yes]
 {width: 1;dashes: 2.7,2.7;}
@@ -410,6 +414,7 @@ line|z15-[waterway=riverbank],
 {width: 2.2;}
 line|z15-[waterway=stream],
 line|z15-[waterway=canal],
+line|z15-[natural=strait],
 {width: 1.6;}
 line|z15-[waterway=stream][intermittent=yes]
 {width: 1.4;dashes: 4.95,4.95;}

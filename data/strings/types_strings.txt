@@ -12720,6 +12720,10 @@
     sk = Prameň
     fa = چشمه
 
+  [type.natural.strait]
+    en = Strait
+    ru = Пролив
+
   [type.natural.tree]
     en = Tree
     ru = Дерево

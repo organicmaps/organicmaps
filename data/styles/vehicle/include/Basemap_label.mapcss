@@ -101,6 +101,7 @@ area[natural=water],
 line[waterway=river],
 line[waterway=riverbank],
 line[waterway=canal],
+line[natural=strait],
 line[waterway],
 {z-index: 4500;}
 
@@ -476,8 +477,10 @@ area|z10-[natural=water][bbox_area>=80000000],
 line|z11-[waterway=river],
 line|z11-[waterway=riverbank],
 line|z13-[waterway=canal],
+line|z13-[natural=strait],
 node|z14-[natural=water][bbox_area>=1000000],
 node|z14-[natural=bay],
+node|z14-[natural=strait],
 area|z14-[natural=water][bbox_area>=1000000],
 node|z16-[natural=wetland],
 area|z16-[natural=wetland],
@@ -501,10 +504,12 @@ node|z4-[place=sea]
 
 node|z14-15[natural=water],
 node|z14-15[natural=bay],
+node|z14-15[natural=strait],
 area|z14-15[natural=water]
 {font-size: 9.5;}
 node|z16-[natural=water],
 node|z16-[natural=bay],
+node|z16-[natural=strait],
 node|z16-[natural=wetland],
 area|z16-[natural=water],
 area|z16-[natural=wetland],
@@ -529,12 +534,15 @@ line[waterway][tunnel]
 line|z11-14[waterway=river],
 line|z11-14[waterway=riverbank],
 line|z13-14[waterway=canal]
+line|z13-14[natural=strait]
 {font-size: 9.5;text:name;text-color: @water_label;}
 line|z15-17[waterway=canal],
+line|z15-17[natural=strait],
 {font-size: 10;text:name;text-color: @water_label;}
 line|z15-[waterway=river],
 line|z15-[waterway=riverbank],
 line|z18-[waterway=canal],
+line|z18-[natural=strait],
 {font-size: 11;text:name;text-color: @water_label;}
 
 /* 7. LANDUSE*/
