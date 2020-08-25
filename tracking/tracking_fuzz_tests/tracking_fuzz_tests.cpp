@@ -48,7 +48,7 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const * data, size_t size)
 {
   base::ScopedLogLevelChanger scopedLogLevelChanger(base::LCRITICAL);
 
-  std::vector const dataVec(data, data + size);
+  std::vector<uint8_t> const dataVec(data, data + size);
 
   auto dataVecToConv = dataVec;
   Protocol::DataElementsVec dataElementsVec;
