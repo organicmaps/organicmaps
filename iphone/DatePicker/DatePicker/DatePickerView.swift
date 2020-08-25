@@ -12,7 +12,7 @@ public final class DatePickerView: UIView {
     }
   }
 
-  var calendar = Locale.current.calendar
+  var calendar = Calendar.autoupdatingCurrent
   let collectionView = UICollectionView(frame: .zero, collectionViewLayout: CalendarLayout())
   let cellStrategy: CellStrategy
   var year: Int
@@ -132,7 +132,9 @@ public final class DatePickerView: UIView {
   }
 
   private func isActiveDate(_ date: Date) -> Bool {
-    return date >= minimumDate && date <= maximumDate
+    return calendar.isDate(date, inSameDayAs: minimumDate) ||
+      calendar.isDate(date, inSameDayAs: maximumDate) ||
+      (date >= minimumDate && date <= maximumDate)
   }
 
   private func positionInRange(_ indexPath: IndexPath) -> PositionInRange {
@@ -142,7 +144,7 @@ public final class DatePickerView: UIView {
     var state: PositionInRange = .outside
     guard let startDate = startDate else { return state }
 
-    if calendar.isDate(date, equalTo: startDate, toGranularity: .day) {
+    if calendar.isDate(date, inSameDayAs: startDate) {
       state = .first
     }
 
@@ -150,7 +152,7 @@ public final class DatePickerView: UIView {
       return state == .first ? .single : state
     }
 
-    if calendar.isDate(date, equalTo: endDate, toGranularity: .day) {
+    if calendar.isDate(date, inSameDayAs: endDate) {
       state = .last
     } else if date > startDate && date < endDate {
       state = .middle
