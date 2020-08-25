@@ -4,9 +4,9 @@ from typing import Union
 
 from maps_generator.checks import check
 from mwm import Mwm
-from mwm.types import NAME_TO_INDEX_TYPE_MAPPING
-from mwm.types import readable_type
-from mwm.types import type_index
+from mwm import NAME_TO_INDEX_TYPE_MAPPING
+from mwm import readable_type
+from mwm import type_index
 
 
 @lru_cache(maxsize=None)

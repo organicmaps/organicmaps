@@ -7,7 +7,7 @@ from typing import Iterable
 from typing import List
 from typing import Union
 
-from mwm.types import readable_type
+from mwm.feature_types import readable_type
 
 # See coding/string_utf8_multilang.cpp to synchronize languages.
 LANGS = (

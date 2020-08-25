@@ -1,8 +1,8 @@
 from collections import defaultdict
 
 from maps_generator.checks import check
-from mwm.types import NAME_TO_INDEX_TYPE_MAPPING
 from maps_generator.checks.check_mwm_types import count_all_types
+from mwm import NAME_TO_INDEX_TYPE_MAPPING
 
 
 def parse_groups(path):
