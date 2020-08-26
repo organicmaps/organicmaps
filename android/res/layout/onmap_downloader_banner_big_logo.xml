@@ -22,13 +22,14 @@
     android:textAppearance="@style/MwmTextAppearance.Body4"
     android:textColor="?android:textColorPrimary"
     tools:text="Some dummy text, Some dummy text" />
-  <Button
+  <TextView
     android:id="@+id/banner_button"
-    style="?android:attr/borderlessButtonStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
     android:fontFamily="@string/robotoMedium"
+    android:foreground="?android:selectableItemBackground"
+    android:gravity="center"
     android:paddingStart="@dimen/margin_half"
     android:paddingLeft="@dimen/margin_half"
     android:paddingTop="@dimen/margin_quarter_plus"
