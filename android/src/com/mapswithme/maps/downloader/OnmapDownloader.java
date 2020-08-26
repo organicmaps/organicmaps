@@ -2,6 +2,7 @@ package com.mapswithme.maps.downloader;
 
 import android.location.Location;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -41,13 +42,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private final Button mButton;
 
   @NonNull
-  private final View mCatalogCallToActionContainer;
-  @NonNull
-  private final View mBannerContainer;
-  @NonNull
-  private final View mBannerContainerBigLogo;
-  @NonNull
   private final View mPromoContentDivider;
+  @NonNull
+  private final ViewGroup mBannerFrame;
 
   private int mStorageSubscriptionSlot;
 
@@ -112,8 +109,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       return;
 
     Statistics.ParameterBuilder builder =
-            Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
-                    mCurrentCountry.id);
+        Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
+                                                    mCurrentCountry.id);
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_SHOW, builder);
   }
@@ -276,27 +273,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       }
      });
 
-    mFrame.findViewById(R.id.banner_button).setOnClickListener(v -> {
-      if (mPromoBanner == null)
-        return;
-
-      Utils.openUrl(mActivity, mPromoBanner.getUrl());
-
-      if (mCurrentCountry == null)
-        return;
-
-      Statistics.ParameterBuilder builder =
-          Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
-                                                      mCurrentCountry.id);
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_CLICK, builder);
-    });
-
-    View downloadGuidesBtn = mFrame.findViewById(R.id.catalog_call_to_action_btn);
-    mCatalogCallToActionContainer = mFrame.findViewById(R.id.catalog_call_to_action_container);
-    downloadGuidesBtn.setOnClickListener(new CatalogCallToActionListener());
     mPromoContentDivider = mFrame.findViewById(R.id.onmap_downloader_divider);
-    mBannerContainer = mFrame.findViewById(R.id.onmap_downloader_banner);
-    mBannerContainerBigLogo = mFrame.findViewById(R.id.onmap_downloader_banner_big_logo);
+    mBannerFrame = mFrame.findViewById(R.id.banner_frame);
   }
 
   private void updateBannerVisibility()
@@ -304,26 +282,30 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     if (mCurrentCountry == null || TextUtils.isEmpty(mCurrentCountry.id))
       return;
 
-    mPromoBanner = Framework.nativeGetDownloaderPromoBanner(mCurrentCountry.id);
-    boolean isPromoFound = mPromoBanner != null;
+    DownloaderPromoBanner promoBanner = Framework.nativeGetDownloaderPromoBanner(mCurrentCountry.id);
 
-    if (!isMapDownloading(mCurrentCountry) || !isPromoFound)
+    if (!isMapDownloading(mCurrentCountry) || promoBanner == null)
     {
-      UiUtils.hide(mPromoContentDivider, mBannerContainer, mBannerContainerBigLogo,
-                   mCatalogCallToActionContainer);
+      mPromoBanner = null;
+      UiUtils.hide(mPromoContentDivider, mBannerFrame);
       return;
     }
-    UiUtils.show(mPromoContentDivider);
 
-    boolean hasCatalogPromo = mPromoBanner.getType() == DownloaderBannerType.BOOKMARK_CATALOG;
-    boolean hasBigLogo = mPromoBanner.getType() == DownloaderBannerType.MASTERCARD_SBERBANK;
+    // No need to do anything when banners are equal.
+    if (mPromoBanner != null && mPromoBanner.getType() == promoBanner.getType())
+      return;
 
-    View bannerView = hasCatalogPromo ? mCatalogCallToActionContainer
-                                      : hasBigLogo ? mBannerContainerBigLogo : mBannerContainer;
-    mPromoBanner.getType().getViewConfigStrategy().configureView(bannerView, R.id.icon, R.id.text,
+    mPromoBanner = promoBanner;
+
+    LayoutInflater inflater = LayoutInflater.from(mActivity);
+    View root = inflater.inflate(mPromoBanner.getType().getLayoutId(), mBannerFrame, true);
+    View button = root.findViewById(R.id.banner_button);
+
+    mPromoBanner.getType().getViewConfigStrategy().configureView(root, R.id.icon, R.id.text,
                                                                  R.id.banner_button);
-    UiUtils.hide(mCatalogCallToActionContainer, mBannerContainerBigLogo, mBannerContainer);
-    UiUtils.show(bannerView);
+    button.setOnClickListener(new BannerCallToActionListener());
+
+    UiUtils.show(mPromoContentDivider, mBannerFrame);
   }
 
   @Override
@@ -364,7 +346,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     sAutodownloadLocked = locked;
   }
 
-  private class CatalogCallToActionListener implements View.OnClickListener
+  private class BannerCallToActionListener implements View.OnClickListener
   {
     @Override
     public void onClick(View v)
@@ -372,8 +354,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       if (mPromoBanner == null)
         return;
 
-      BookmarksCatalogActivity.startForResult(mActivity, BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
-                                              mPromoBanner.getUrl());
+      mPromoBanner.getType().onAction(mActivity, mPromoBanner.getUrl());
 
       if (mCurrentCountry == null)
         return;

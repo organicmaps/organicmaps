@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/catalog_call_to_action_container"
+  android:layout_width="@dimen/square_block_size"
+  android:layout_height="wrap_content"
+  android:gravity="center"
+  android:orientation="vertical">
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
+    android:fontFamily="@string/robotoMedium"
+    android:gravity="center"
+    android:text="@string/popup_mwm_download_guides_title"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:textStyle="normal"
+    tools:ignore="UnusedAttribute"
+    tools:text="very very very loooooooooooooooooong text" />
+  <Button
+    android:id="@+id/banner_button"
+    style="@style/MwmWidget.Button.Primary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base"
+    android:fontFamily="@string/robotoMedium"
+    android:paddingStart="@dimen/margin_half"
+    android:paddingLeft="@dimen/margin_half"
+    android:paddingTop="@dimen/margin_half_plus_eight"
+    android:paddingEnd="@dimen/margin_half"
+    android:paddingRight="@dimen/margin_half"
+    android:paddingBottom="@dimen/margin_half_plus_eight"
+    android:text="@string/popup_mwm_download_guides_cta"
+    android:textAllCaps="false"
+    android:textColor="@color/white_primary"
+    android:textSize="@dimen/text_size_body_3"
+    android:textStyle="normal"
+    tools:targetApi="jelly_bean"
+    tools:text="DOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDES" />
+</LinearLayout>

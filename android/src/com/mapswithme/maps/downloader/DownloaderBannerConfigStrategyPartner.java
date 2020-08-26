@@ -49,7 +49,7 @@ class DownloaderBannerConfigStrategyPartner implements DownloaderBannerConfigStr
     button.setTextColor(button.getResources().getColor(mButtonTextColor));
     GradientDrawable background = new GradientDrawable();
     background.setColor(button.getResources().getColor(mButtonColor));
-    background.setCornerRadius(R.dimen.downloader_partner_button_min_height);
+    background.setCornerRadius(R.dimen.downloader_partner_button_corner_radius);
     button.setBackground(background);
   }
 }

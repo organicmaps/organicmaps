@@ -72,57 +72,9 @@
       android:layout_marginTop="@dimen/margin_half_plus"
       android:layout_height="@dimen/divider_height"
       android:background="?android:listDivider"/>
-    <include
-      layout="@layout/onmap_downloader_banner"
+    <FrameLayout
+      android:id="@+id/banner_frame"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_half"
-      android:visibility="gone" />
-    <include
-      layout="@layout/onmap_downloader_banner_big_logo"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_base"
-      android:visibility="gone" />
-    <LinearLayout
-      android:id="@+id/catalog_call_to_action_container"
-      android:layout_marginTop="@dimen/margin_base_plus_quarter"
-      android:orientation="vertical"
-      android:gravity="center"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      tools:visibility="visible">
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:fontFamily="@string/robotoMedium"
-        android:textStyle="normal"
-        android:text="@string/popup_mwm_download_guides_title"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="Some title"
-        tools:ignore="UnusedAttribute"/>
-      <Button
-        android:id="@+id/catalog_call_to_action_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/MwmWidget.Button.Primary"
-        android:layout_marginTop="@dimen/margin_base"
-        android:fontFamily="@string/robotoMedium"
-        android:textStyle="normal"
-        android:textAllCaps="false"
-        android:paddingTop="@dimen/margin_half_plus_eight"
-        android:paddingBottom="@dimen/margin_half_plus_eight"
-        android:paddingRight="@dimen/margin_half"
-        android:paddingEnd="@dimen/margin_half"
-        android:paddingLeft="@dimen/margin_half"
-        android:paddingStart="@dimen/margin_half"
-        android:textSize="@dimen/text_size_body_3"
-        android:text="@string/popup_mwm_download_guides_cta"
-        tools:text="DOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDES"
-        android:textColor="@color/white_primary"
-        tools:targetApi="jelly_bean"/>
-    </LinearLayout>
+      android:layout_height="wrap_content" />
   </LinearLayout>
 </ScrollView>

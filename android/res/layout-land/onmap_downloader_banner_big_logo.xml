@@ -3,8 +3,9 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/onmap_downloader_banner_big_logo"
-  android:layout_width="match_parent"
+  android:layout_width="@dimen/square_block_size"
   android:layout_height="wrap_content"
+  android:layout_marginTop="@dimen/margin_quarter"
   android:gravity="center"
   android:orientation="vertical">
   <ImageView

@@ -2,8 +2,9 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/onmap_downloader_banner"
-  android:layout_width="match_parent"
+  android:layout_width="@dimen/square_block_size"
   android:layout_height="wrap_content"
+  android:layout_marginTop="@dimen/margin_half"
   android:gravity="center"
   android:orientation="vertical">
   <ImageView

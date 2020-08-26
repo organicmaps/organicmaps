@@ -97,58 +97,10 @@
       android:layout_height="match_parent"
       android:orientation="vertical"
       android:gravity="center">
-      <include
-        layout="@layout/onmap_downloader_banner"
-        android:layout_width="@dimen/square_block_size"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half"
-        android:visibility="gone" />
-      <include
-        layout="@layout/onmap_downloader_banner_big_logo"
-        android:layout_width="@dimen/square_block_size"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_quarter"
-        android:visibility="gone" />
-      <LinearLayout
-        android:id="@+id/catalog_call_to_action_container"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_width="@dimen/square_block_size"
-        android:visibility="gone"
-        android:layout_height="wrap_content"
-        tools:visibility="visible">
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_half"
-          android:text="@string/popup_mwm_download_guides_title"
-          android:gravity="center"
-          android:fontFamily="@string/robotoMedium"
-          android:textStyle="normal"
-          android:textAppearance="?android:attr/textAppearanceLarge"
-          tools:text="very very very loooooooooooooooooong text"
-          tools:ignore="UnusedAttribute"/>
-        <Button
-          android:id="@+id/catalog_call_to_action_btn"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          style="@style/MwmWidget.Button.Primary"
-          android:layout_marginTop="@dimen/margin_base"
-          android:fontFamily="@string/robotoMedium"
-          android:textStyle="normal"
-          android:textAllCaps="false"
-          android:paddingTop="@dimen/margin_half_plus_eight"
-          android:paddingBottom="@dimen/margin_half_plus_eight"
-          android:paddingRight="@dimen/margin_half"
-          android:paddingEnd="@dimen/margin_half"
-          android:paddingLeft="@dimen/margin_half"
-          android:paddingStart="@dimen/margin_half"
-          android:textSize="@dimen/text_size_body_3"
-          android:text="@string/popup_mwm_download_guides_cta"
-          tools:text="DOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDESDOWNLOADGUIDESGUIDESGUIDESGUIDESGUIDES"
-          android:textColor="@color/white_primary"
-          tools:targetApi="jelly_bean"/>
-      </LinearLayout>
+      <FrameLayout
+        android:id="@+id/banner_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     </LinearLayout>
   </LinearLayout>
 </ScrollView>
