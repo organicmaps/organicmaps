@@ -240,6 +240,7 @@ extension BMCDefaultViewModel {
 
   func applyRestoring() {
     manager.applyRestoring()
+    Statistics.logEvent(kStatBookmarksRestoreProposalSuccess)
   }
 
   func cancelRestoring() {
@@ -249,6 +250,16 @@ extension BMCDefaultViewModel {
 
     manager.cancelRestoring()
     Statistics.logEvent(kStatBookmarksRestoreProposalCancel)
+  }
+
+  func showSyncErrorMessage() {
+    MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_server_title"),
+                                                             message: L("error_server_message"),
+                                                             rightButtonTitle: L("try_again"),
+                                                             leftButtonTitle: L("cancel")) {
+                                                              [weak self] in
+                                                              self?.requestRestoring()
+    }
   }
 }
 
@@ -269,25 +280,27 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
 
   func onSynchronizationFinished(_ result: MWMSynchronizationResult) {
     MWMAlertViewController.activeAlert().closeAlert() { [weak self] in
+      guard let s = self else { return }
       switch result {
-        case .invalidCall: fallthrough
-        case .networkError: fallthrough
+        case .invalidCall:
+          s.showSyncErrorMessage()
+          Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatInvalidCall])
+        case .networkError:
+          s.showSyncErrorMessage()
+          Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatNetwork])
         case .authError:
-          MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_server_title"),
-                                                                   message: L("error_server_message"),
-                                                                   rightButtonTitle: L("try_again"),
-                                                                   leftButtonTitle: L("cancel")) {
-            [weak self] in
-            self?.requestRestoring()
-        }
-
+          s.showSyncErrorMessage()
+          Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatAuth])
         case .diskError:
           MWMAlertViewController.activeAlert().presentInternalErrorAlert()
-
-        case .userInterrupted: break
+          Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatDisk])
+        case .userInterrupted:
+          Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatUserInterrupted])
         case .success:
-          guard let s = self else { return }
           s.reloadData()
+          Statistics.logEvent(kStatBookmarksSyncSuccess)
+      @unknown default:
+        fatalError()
       }
     }
   }
