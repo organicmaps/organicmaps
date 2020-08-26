@@ -601,6 +601,7 @@ world  +
         salt_pond  -
         scrub  -
         spring  -
+        strait  -
         tree  -
         tree_row  -
         vineyard  -

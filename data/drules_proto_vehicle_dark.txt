@@ -24283,6 +24283,79 @@ cont {
   }
 }
 cont {
+  name: "natural-strait"
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 9
+        color: 19033
+      }
+      priority: 15929
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 9
+        color: 19033
+      }
+      priority: 15929
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 9
+        color: 19033
+      }
+      priority: 15929
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15929
+    }
+  }
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15929
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15929
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15929
+    }
+  }
+}
+cont {
   name: "natural-water"
   element {
     area {

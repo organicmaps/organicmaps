@@ -39327,6 +39327,117 @@ cont {
   }
 }
 cont {
+  name: "natural-strait"
+  element {
+    scale: 13
+    lines {
+      width: 0.7
+      color: 401446
+      priority: -15600
+      cap: BUTTCAP
+    }
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15977
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 401446
+      priority: -15600
+      cap: BUTTCAP
+    }
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15977
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 401446
+      priority: -15600
+      cap: BUTTCAP
+    }
+    caption {
+      primary {
+        height: 10
+        color: 19033
+      }
+      priority: 15977
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.6
+      color: 401446
+      priority: -15600
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15977
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.6
+      color: 401446
+      priority: -15600
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15977
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.6
+      color: 401446
+      priority: -15600
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15977
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.6
+      color: 401446
+      priority: -15600
+    }
+    caption {
+      primary {
+        height: 11
+        color: 19033
+      }
+      priority: 15977
+    }
+  }
+}
+cont {
   name: "natural-volcano"
   element {
     scale: 10

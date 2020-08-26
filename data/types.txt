@@ -1346,3 +1346,4 @@ mapswithme
 *amenity|recycling_container
 *hwtag|onedir_bicycle
 *shop|video_games
+*natural|strait
