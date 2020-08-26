@@ -23,7 +23,7 @@ final class BMCDefaultViewModel: NSObject {
 
   private(set) var isPendingPermission = false
   private var isAuthenticated = false
-  private var filesPrepared = false;
+  private var filesPrepared = false
 
   typealias OnPreparedToShareHandler = (BMCShareCategoryStatus) -> Void
   private var onPreparedToShareCategory: OnPreparedToShareHandler?
@@ -62,7 +62,7 @@ final class BMCDefaultViewModel: NSObject {
   private func setNotifications() {
     notifications = [.load]
   }
-  
+
   func reloadData() {
     sections = []
 
@@ -126,7 +126,7 @@ extension BMCDefaultViewModel {
   }
 
   func areAllCategoriesHidden() -> Bool {
-    var result = true;
+    var result = true
     categories.forEach { if $0.isVisible { result = false } }
     return result
   }
@@ -140,7 +140,7 @@ extension BMCDefaultViewModel {
       assertionFailure()
       return
     }
-    
+
     categories.append(manager.category(withId: manager.createCategory(withName: name)))
     view?.insert(at: [IndexPath(row: categories.count - 1, section: section)])
   }
@@ -187,8 +187,8 @@ extension BMCDefaultViewModel {
         Statistics.logEvent(kStatBookmarksSyncProposalApproved,
                             withParameters: [
                               kStatNetwork: Statistics.connectionTypeString(),
-                              kStatHasAuthorization: isAuthenticated ? 1 : 0,
-        ])
+                              kStatHasAuthorization: isAuthenticated ? 1 : 0
+                            ])
         manager.setCloudEnabled(true)
       case .restore:
         assertionFailure("Not implemented")
@@ -215,17 +215,17 @@ extension BMCDefaultViewModel {
   func removeFromObserverList() {
     manager.remove(self)
   }
-  
+
   func setNotificationsEnabled(_ enabled: Bool) {
     manager.setNotificationsEnabled(enabled)
   }
-  
+
   func areNotificationsEnabled() -> Bool {
     return manager.areNotificationsEnabled()
   }
 
   func requestRestoring() {
-    let statusStr: String;
+    let statusStr: String
     switch NetworkPolicy.shared().connectionType {
     case .none:
       statusStr = kStatOffline
@@ -234,7 +234,7 @@ extension BMCDefaultViewModel {
     case .cellular:
       statusStr = kStatMobile
     }
-    Statistics.logEvent(kStatBookmarksRestoreProposalClick, withParameters: [kStatNetwork : statusStr])
+    Statistics.logEvent(kStatBookmarksRestoreProposalClick, withParameters: [kStatNetwork: statusStr])
     manager.requestRestoring()
   }
 
@@ -270,8 +270,7 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
 
   func onRestoringStarted() {
     filesPrepared = false
-    MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("bookmarks_restore_process"))
-    { [weak self] in self?.cancelRestoring() }
+    MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("bookmarks_restore_process")) { [weak self] in self?.cancelRestoring() }
   }
 
   func onRestoringFilesPrepared() {
@@ -279,26 +278,26 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
   }
 
   func onSynchronizationFinished(_ result: MWMSynchronizationResult) {
-    MWMAlertViewController.activeAlert().closeAlert() { [weak self] in
+    MWMAlertViewController.activeAlert().closeAlert { [weak self] in
       guard let s = self else { return }
       switch result {
-        case .invalidCall:
-          s.showSyncErrorMessage()
-          Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatInvalidCall])
-        case .networkError:
-          s.showSyncErrorMessage()
-          Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatNetwork])
-        case .authError:
-          s.showSyncErrorMessage()
-          Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatAuth])
-        case .diskError:
-          MWMAlertViewController.activeAlert().presentInternalErrorAlert()
-          Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatDisk])
-        case .userInterrupted:
-          Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatUserInterrupted])
-        case .success:
-          s.reloadData()
-          Statistics.logEvent(kStatBookmarksSyncSuccess)
+      case .invalidCall:
+        s.showSyncErrorMessage()
+        Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatInvalidCall])
+      case .networkError:
+        s.showSyncErrorMessage()
+        Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatNetwork])
+      case .authError:
+        s.showSyncErrorMessage()
+        Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatAuth])
+      case .diskError:
+        MWMAlertViewController.activeAlert().presentInternalErrorAlert()
+        Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatDisk])
+      case .userInterrupted:
+        Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatUserInterrupted])
+      case .success:
+        s.reloadData()
+        Statistics.logEvent(kStatBookmarksSyncSuccess)
       @unknown default:
         fatalError()
       }
@@ -306,46 +305,46 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
   }
 
   func onRestoringRequest(_ result: MWMRestoringRequestResult, deviceName name: String?, backupDate date: Date?) {
-    MWMAlertViewController.activeAlert().closeAlert() {
+    MWMAlertViewController.activeAlert().closeAlert {
       switch result {
-        case .noInternet: MWMAlertViewController.activeAlert().presentNoConnectionAlert()
+      case .noInternet: MWMAlertViewController.activeAlert().presentNoConnectionAlert()
 
-        case .backupExists:
-          guard let date = date else {
-            assertionFailure()
-            return
-          }
+      case .backupExists:
+        guard let date = date else {
+          assertionFailure()
+          return
+        }
 
-          let formatter = DateFormatter()
-          formatter.dateStyle = .short
-          formatter.timeStyle = .none
-          let deviceName = name ?? ""
-          let message = String(coreFormat: L("bookmarks_restore_message"),
-                              arguments: [formatter.string(from: date), deviceName])
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        let deviceName = name ?? ""
+        let message = String(coreFormat: L("bookmarks_restore_message"),
+                             arguments: [formatter.string(from: date), deviceName])
 
-          let cancelAction = { [weak self] in self?.cancelRestoring() } as MWMVoidBlock
-          MWMAlertViewController.activeAlert().presentRestoreBookmarkAlert(withMessage: message,
-                                                                           rightButtonAction: { [weak self] in
-              MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("bookmarks_restore_process"),
-                                                                       cancel: cancelAction)
-              self?.applyRestoring()
+        let cancelAction = { [weak self] in self?.cancelRestoring() } as MWMVoidBlock
+        MWMAlertViewController.activeAlert().presentRestoreBookmarkAlert(withMessage: message,
+                                                                         rightButtonAction: { [weak self] in
+                                                                          MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("bookmarks_restore_process"),
+                                                                                                                                   cancel: cancelAction)
+                                                                          self?.applyRestoring()
           }, leftButtonAction: cancelAction)
 
-        case .noBackup:
-          Statistics.logEvent(kStatBookmarksRestoreProposalError,
-                              withParameters: [kStatType: kStatNoBackup, kStatError: ""])
-          MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("bookmarks_restore_empty_title"),
-                                                                   message: L("bookmarks_restore_empty_message"),
-                                                                   rightButtonTitle: L("ok"),
-                                                                   leftButtonTitle: nil,
-                                                                   rightButtonAction: nil)
+      case .noBackup:
+        Statistics.logEvent(kStatBookmarksRestoreProposalError,
+                            withParameters: [kStatType: kStatNoBackup, kStatError: ""])
+        MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("bookmarks_restore_empty_title"),
+                                                                 message: L("bookmarks_restore_empty_message"),
+                                                                 rightButtonTitle: L("ok"),
+                                                                 leftButtonTitle: nil,
+                                                                 rightButtonAction: nil)
 
-        case .notEnoughDiskSpace:
-          Statistics.logEvent(kStatBookmarksRestoreProposalError,
-                              withParameters: [kStatType: kStatDisk, kStatError: "Not enough disk space"])
-          MWMAlertViewController.activeAlert().presentNotEnoughSpaceAlert()
-        case .requestError:
-          assertionFailure()
+      case .notEnoughDiskSpace:
+        Statistics.logEvent(kStatBookmarksRestoreProposalError,
+                            withParameters: [kStatType: kStatDisk, kStatError: "Not enough disk space"])
+        MWMAlertViewController.activeAlert().presentNotEnoughSpaceAlert()
+      case .requestError:
+        assertionFailure()
       }
     }
   }
@@ -358,7 +357,7 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
   func onBookmarkDeleted(_: MWMMarkID) {
     reloadData()
   }
-  
+
   func onBookmarksCategoryFilePrepared(_ status: BookmarksShareStatus) {
     switch status {
     case .success:
