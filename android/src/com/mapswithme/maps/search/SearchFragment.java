@@ -335,6 +335,7 @@ public class SearchFragment extends BaseMwmFragment
       public void onShowOnMapClick()
       {
         showAllResultsOnMap();
+        Statistics.INSTANCE.trackSearchContextAreaClick(Statistics.ParamValue.MAP);
       }
 
       @Override
@@ -349,6 +350,7 @@ public class SearchFragment extends BaseMwmFragment
         }
         FilterActivity.startForResult(SearchFragment.this, filter, params,
                                       FilterActivity.REQ_CODE_FILTER);
+        Statistics.INSTANCE.trackSearchContextAreaClick(Statistics.EventParam.FILTER);
       }
 
       @Override

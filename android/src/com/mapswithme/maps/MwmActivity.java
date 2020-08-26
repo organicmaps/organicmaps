@@ -657,6 +657,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         public void onShowOnMapClick()
         {
           showSearch(mSearchController.getQuery());
+          Statistics.INSTANCE.trackSearchContextAreaClick(Statistics.ParamValue.LIST);
         }
 
         @Override
@@ -671,6 +672,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           }
           FilterActivity.startForResult(MwmActivity.this, filter, params,
                                         FilterActivity.REQ_CODE_FILTER);
+          Statistics.INSTANCE.trackSearchContextAreaClick(Statistics.EventParam.FILTER);
         }
 
         @Override

@@ -458,6 +458,7 @@ public enum Statistics
     static final String SEARCH_QUICKFILTER_CLICK = "Search_QuickFilter_Click";
     static final String SEARCH_QUICKFILTER_APPLY = "Search_QuickFilter_Apply";
     static final String SEARCH_QUICKFILTER_CLICK_ERROR = "Search_QuickFilter_Click_error";
+    static final String SEARCH_CONTEXTAREA_CLICK = "Search_ContextArea_Click";
     static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
     static final String SEARCH_TAB_SELECTED = "Search_Tab_selected";
     static final String SEARCH_FILTER_CLICK = "Search_Filter_Click";
@@ -698,7 +699,7 @@ public enum Statistics
     static final String ERROR_MESSAGE = "error_message";
     static final String FEATURE_ID = "feature_id";
     static final String FERRY = "ferry";
-    static final String FILTER = "filter";
+    public static final String FILTER = "filter";
     static final String FILTERS = "filters";
     static final String FIRST_LAUNCH = "first_launch";
     static final String FROM_LAT = "from_lat";
@@ -814,6 +815,7 @@ public enum Statistics
     static final String CRASH_REPORTS = "crash_reports";
     static final String PERSONAL_ADS = "personal_ads";
     public static final String MAP = "map";
+    public static final String LIST = "list";
     public static final String MENU = "menu";
     public static final String ISOLINES = "isolines";
     static final String GOOGLE = "google";
@@ -1639,6 +1641,11 @@ public enum Statistics
     trackEvent(EventName.SEARCH_QUICKFILTER_CLICK_ERROR, params().add(CATEGORY, category)
                                                                  .add(FILTER, filter)
                                                                  .add(ERROR, error));
+  }
+
+  public void trackSearchContextAreaClick(@NonNull String value)
+  {
+    trackEvent(EventName.SEARCH_CONTEXTAREA_CLICK, params().add(VALUE, value));
   }
 
   public void trackFilterEvent(@NonNull String event, @NonNull String category)
