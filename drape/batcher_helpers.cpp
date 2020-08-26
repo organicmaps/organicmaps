@@ -360,7 +360,7 @@ void LineRawBatch::BatchData(ref_ptr<GraphicsContext> context, ref_ptr<Attribute
     uint32_t avVertex = GetAvailableVertexCount();
     uint32_t avIndex = GetAvailableIndexCount();
     uint32_t vertexCount = streams->GetVertexCount();
-    ASSERT_GREATER_OR_EQUAL(vertexCount, 2, ());
+    CHECK_GREATER_OR_EQUAL(vertexCount, 2, ());
     auto const indexCount = static_cast<uint32_t>(m_indices.size());
 
     if (!IsEnoughMemory(avVertex, vertexCount, avIndex, indexCount))
@@ -368,7 +368,7 @@ void LineRawBatch::BatchData(ref_ptr<GraphicsContext> context, ref_ptr<Attribute
       ChangeBuffer(context);
       avVertex = GetAvailableVertexCount();
       avIndex = GetAvailableIndexCount();
-      ASSERT(IsEnoughMemory(avVertex, vertexCount, avIndex, indexCount), ());
+      CHECK(IsEnoughMemory(avVertex, vertexCount, avIndex, indexCount), ());
     }
 
     uint32_t startIndex = 0;

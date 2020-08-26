@@ -134,8 +134,8 @@ void AreaShape::DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
                            m2::PointD const & colorUv, m2::PointD const & outlineUv,
                            ref_ptr<dp::Texture> texture) const
 {
-  ASSERT(!m_buildingOutline.m_indices.empty(), ());
-  ASSERT(!m_buildingOutline.m_normals.empty(), ());
+  CHECK(!m_buildingOutline.m_indices.empty(), ());
+  CHECK_EQUAL(m_buildingOutline.m_normals.size() * 2, m_buildingOutline.m_indices.size(), ());
 
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 

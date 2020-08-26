@@ -354,7 +354,7 @@ uint32_t VertexArrayBuffer::GetIndexCount() const { return GetIndexBuffer()->Get
 void VertexArrayBuffer::UploadIndices(ref_ptr<GraphicsContext> context, void const * data,
                                       uint32_t count)
 {
-  ASSERT_LESS_OR_EQUAL(count, GetIndexBuffer()->GetAvailableSize(), ());
+  CHECK_LESS_OR_EQUAL(count, GetIndexBuffer()->GetAvailableSize(), ());
   GetIndexBuffer()->UploadData(context, data, count);
 }
 

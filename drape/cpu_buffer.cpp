@@ -24,6 +24,7 @@ CPUBuffer::~CPUBuffer()
 
 void CPUBuffer::UploadData(void const * data, uint32_t elementCount)
 {
+  CHECK(elementCount == 0 || data != nullptr, (elementCount));
   uint32_t byteCountToCopy = GetElementSize() * elementCount;
 #ifdef DEBUG
   // Memory check
