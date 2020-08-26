@@ -26,31 +26,16 @@ UNIT_TEST(ReadJson_Network)
   std::vector<std::string> const lineByLineJson{
       R"({
            "id":4032061478,
-           "title":[
-             {
-               "lang":"en",
-               "text":"Golden Gate Transit"
-             },
-             {
-               "lang":"sp",
-               "text":"Tránsito Golden Gate"
-             }
-           ]
+           "title":"Tránsito Golden Gate"
          })",
       R"({
             "id":4035419389,
-            "title":[
-              {
-                "lang":"default",
-                "text":"Caltrain"
-              }
-            ]
+            "title":"Caltrain"
           })"};
 
   std::vector<Network> const networksPlan = {
-      Network(4032061478 /* transitId */, Translations{{"en", "Golden Gate Transit"},
-                                                       {"sp", "Tránsito Golden Gate"}} /* title */),
-      Network(4035419389 /* transitId */, Translations{{"default", "Caltrain"}} /* title */)};
+      Network(4032061478 /* transitId */, "Tránsito Golden Gate" /* title */),
+      Network(4035419389 /* transitId */, "Caltrain" /* title */)};
 
   std::vector<Network> networksFact;
 
@@ -66,36 +51,21 @@ UNIT_TEST(ReadJson_Route)
             "network_id":4036206862,
             "color":"pink_dark",
             "type":"rail",
-            "title":[
-              {
-                "lang":"en",
-                "text":"Main Line"
-              },
-              {
-                "lang":"sp",
-                "text":"Línea principal"
-              }
-            ]
+            "title":"Línea principal"
           })",
       R"({
            "id":4027700598,
            "network_id":4027700597,
            "color":"blue",
            "type":"bus",
-           "title":[
-             {
-               "lang":"default",
-               "text":"East Route"
-             }
-           ]
+           "title":"East Route"
          })"};
 
   std::vector<Route> const routesPlan = {
       Route(4036206863 /* id */, 4036206862 /* networkId */, "rail" /* routeType */,
-            Translations{{"en", "Main Line"}, {"sp", "Línea principal"}} /* title */,
-            "pink_dark" /* color */),
+            "Línea principal" /* title */, "pink_dark" /* color */),
       Route(4027700598 /* id */, 4027700597 /* networkId */, "bus" /* routeType */,
-            Translations{{"default", "East Route"}} /* title */, "blue" /* color */)};
+            "East Route" /* title */, "blue" /* color */)};
 
   std::vector<Route> routesFact;
 
@@ -114,12 +84,7 @@ UNIT_TEST(ReadJson_Line)
              "start_index":415,
              "end_index":1691
            },
-           "title":[
-             {
-               "lang":"en",
-               "text":"Downtown"
-             }
-           ],
+           "title":"Downtown",
            "stops_ids":[
              4036592571,
              4036592572,
@@ -137,7 +102,7 @@ UNIT_TEST(ReadJson_Line)
   std::vector<Line> const linesPlan = {
       Line(4036591532 /* id */, 4036591423 /* routeId */,
            ShapeLink(4036591460 /* id */, 415 /* startIndex */, 1691 /* endIndex */),
-           Translations{{"en", "Downtown"}} /* title */, IdList{4036592571, 4036592572, 4036592573},
+           "Downtown" /* title */, IdList{4036592571, 4036592572, 4036592573},
            std::vector<LineInterval>{LineInterval(
                3600 /* headwayS */,
                osmoh::OpeningHours("06:40-18:40 open") /* timeIntervals */)} /* intervals */,
@@ -188,12 +153,7 @@ UNIT_TEST(ReadJson_Stop)
              "x":-121.74124399999999,
              "y":41.042765953900343
            },
-           "title":[
-             {
-               "lang":"default",
-               "text":"Balfour Rd & Foothill Dr"
-             }
-           ],
+           "title":"Balfour Rd & Foothill Dr",
            "timetable":[
              {
                "line_id":4036591493,
@@ -212,7 +172,7 @@ UNIT_TEST(ReadJson_Stop)
 
   std::vector<Stop> const stopsPlan = {
       Stop(4036592706 /* id */, kInvalidFeatureId /* featureId */, kInvalidOsmId /* osmId */,
-           Translations{{"default", "Balfour Rd & Foothill Dr"}},
+           "Balfour Rd & Foothill Dr",
            TimeTable{{4036591493, osmoh::OpeningHours("13:23-13:23 open")},
                      {4036591562, osmoh::OpeningHours("15:23-15:23 open")}},
            m2::PointD(-121.74124, 41.04276), {4036593809, 4036595406} /* transferIds */)};

@@ -285,7 +285,9 @@ std::tuple<OsmId, FeatureId, TransitId> CalculateIds(base::Json const & obj,
 
 void Read(base::Json const & obj, std::vector<Network> & networks)
 {
-  networks.emplace_back(GetIdFromJson(obj.get()), GetTranslationsFromJson(obj.get(), "title"));
+  std::string title;
+  FromJSONObject(obj.get(), "title", title);
+  networks.emplace_back(GetIdFromJson(obj.get()), title);
 }
 
 void Read(base::Json const & obj, std::vector<Route> & routes)
@@ -294,12 +296,12 @@ void Read(base::Json const & obj, std::vector<Route> & routes)
   TransitId networkId;
   std::string routeType;
   std::string color;
-  Translations title;
+  std::string title;
 
   FromJSONObject(obj.get(), "network_id", networkId);
   FromJSONObject(obj.get(), "color", color);
   FromJSONObject(obj.get(), "type", routeType);
-  title = GetTranslationsFromJson(obj.get(), "title");
+  FromJSONObject(obj.get(), "title", title);
 
   routes.emplace_back(id, networkId, routeType, title, color);
 }
@@ -310,7 +312,8 @@ void Read(base::Json const & obj, std::vector<Line> & lines)
   TransitId routeId;
   FromJSONObject(obj.get(), "route_id", routeId);
   ShapeLink const shapeLink = GetShapeLinkFromJson(obj.get());
-  Translations const title = GetTranslationsFromJson(obj.get(), "title");
+  std::string title;
+  FromJSONObject(obj.get(), "title", title);
 
   IdList const stopIds = GetIdListFromJson(obj.get(), "stops_ids");
 
@@ -353,7 +356,8 @@ void Read(base::Json const & obj, std::vector<Stop> & stops, OsmIdToFeatureIdsMa
 {
   auto const & [osmId, featureId, id] = CalculateIds(obj, mapping);
 
-  Translations const title = GetTranslationsFromJson(obj.get(), "title");
+  std::string title;
+  FromJSONObject(obj.get(), "title", title);
   TimeTable const timetable = GetTimeTableFromJson(obj.get());
   m2::PointD const point = GetPointFromJson(base::GetJSONObligatoryField(obj.get(), "point"));
   IdList const & transferIds = GetIdListFromJson(obj.get(), "transfer_ids", false /* obligatory */);

@@ -96,8 +96,7 @@ bool SubwayConverter::ConvertNetworks()
     TransitId const networkId = networkSubway.GetId();
     CHECK(!routing::FakeFeatureIds::IsTransitFeature(networkId), (networkId));
 
-    Translations const title{{kDefaultLang, networkSubway.GetTitle()}};
-    m_feed.m_networks.m_data.emplace(networkId, title);
+    m_feed.m_networks.m_data.emplace(networkId, networkSubway.GetTitle());
   }
 
   LOG(LINFO,
@@ -128,7 +127,7 @@ std::pair<TransitId, RouteData> SubwayConverter::MakeRoute(
   TransitId const routeId = m_feed.m_idGenerator.MakeId(routeHash);
 
   RouteData routeData;
-  routeData.m_title = {{kDefaultLang, routeTitle}};
+  routeData.m_title = routeTitle;
   routeData.m_routeType = kSubwayRouteType;
   routeData.m_networkId = lineSubway.GetNetworkId();
   routeData.m_color = lineSubway.GetColor();
@@ -180,7 +179,7 @@ std::pair<TransitId, LineData> SubwayConverter::MakeLine(routing::transit::Line 
 
   LineData lineData;
   lineData.m_routeId = routeId;
-  lineData.m_title = {{kDefaultLang, lineSubway.GetTitle()}};
+  lineData.m_title = lineSubway.GetTitle();
   lineData.m_intervals = {LineInterval(lineSubway.GetInterval() /* headwayS */,
                                        osmoh::OpeningHours(kDefaultHours) /* timeIntervals */)};
   lineData.m_serviceDays = osmoh::OpeningHours(kDefaultHours);

@@ -90,7 +90,7 @@ FeatureId IdBundle::GetFeatureId() const { return m_featureId; }
 bool IdBundle::SerializeFeatureIdOnly() const { return m_serializeFeatureIdOnly; }
 
 // Network -----------------------------------------------------------------------------------------
-Network::Network(TransitId id, Translations const & title) : m_id(id), m_title(title) {}
+Network::Network(TransitId id, std::string const & title) : m_id(id), m_title(title) {}
 
 Network::Network(TransitId id) : m_id(id), m_title{} {}
 
@@ -102,13 +102,11 @@ bool Network::IsValid() const { return m_id != kInvalidTransitId; }
 
 TransitId Network::GetId() const { return m_id; }
 
-std::string const Network::GetTitle() const { return GetTranslation(m_title); }
-
-Translations const & Network::GetTitles() const { return m_title; }
+std::string const & Network::GetTitle() const { return m_title; }
 
 // Route -------------------------------------------------------------------------------------------
 Route::Route(TransitId id, TransitId networkId, std::string const & routeType,
-             Translations const & title, std::string const & color)
+             std::string const & title, std::string const & color)
   : m_id(id), m_networkId(networkId), m_routeType(routeType), m_title(title), m_color(color)
 {
 }
@@ -124,9 +122,7 @@ bool Route::IsValid() const
 
 TransitId Route::GetId() const { return m_id; }
 
-std::string const Route::GetTitle() const { return GetTranslation(m_title); }
-
-Translations const & Route::GetTitles() const { return m_title; }
+std::string const & Route::GetTitle() const { return m_title; }
 
 std::string const & Route::GetType() const { return m_routeType; }
 
@@ -135,7 +131,7 @@ std::string const & Route::GetColor() const { return m_color; }
 TransitId Route::GetNetworkId() const { return m_networkId; }
 
 // Line --------------------------------------------------------------------------------------------
-Line::Line(TransitId id, TransitId routeId, ShapeLink shapeLink, Translations const & title,
+Line::Line(TransitId id, TransitId routeId, ShapeLink shapeLink, std::string const & title,
            IdList stopIds, std::vector<LineInterval> const & intervals,
            osmoh::OpeningHours const & serviceDays)
   : m_id(id)
@@ -160,9 +156,7 @@ bool Line::IsValid() const
 
 TransitId Line::GetId() const { return m_id; }
 
-std::string Line::GetTitle() const { return GetTranslation(m_title); }
-
-Translations const & Line::GetTitles() const { return m_title; }
+std::string const & Line::GetTitle() const { return m_title; }
 
 TransitId Line::GetRouteId() const { return m_routeId; }
 
@@ -191,7 +185,7 @@ LineSegmentsOrder const & LineMetadata::GetLineSegmentsOrder() const { return m_
 // Stop --------------------------------------------------------------------------------------------
 Stop::Stop() : m_ids(true /* serializeFeatureIdOnly */) {}
 
-Stop::Stop(TransitId id, FeatureId featureId, OsmId osmId, Translations const & title,
+Stop::Stop(TransitId id, FeatureId featureId, OsmId osmId, std::string const & title,
            TimeTable const & timetable, m2::PointD const & point, IdList const & transferIds)
   : m_id(id)
   , m_ids(featureId, osmId, true /* serializeFeatureIdOnly */)
@@ -233,7 +227,7 @@ FeatureId Stop::GetFeatureId() const { return m_ids.GetFeatureId(); }
 
 OsmId Stop::GetOsmId() const { return m_ids.GetOsmId(); }
 
-std::string Stop::GetTitle() const { return GetTranslation(m_title); }
+std::string const & Stop::GetTitle() const { return m_title; }
 
 TimeTable const & Stop::GetTimeTable() const { return m_timetable; }
 

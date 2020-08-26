@@ -47,14 +47,14 @@ struct Networks
   void Write(IdSet const & ids, std::ofstream & stream) const;
 
   // Id to agency name mapping.
-  std::unordered_map<TransitId, Translations> m_data;
+  std::unordered_map<TransitId, std::string> m_data;
 };
 
 struct RouteData
 {
   TransitId m_networkId = 0;
   std::string m_routeType;
-  Translations m_title;
+  std::string m_title;
   std::string m_color;
 };
 
@@ -69,7 +69,7 @@ struct LineData
 {
   TransitId m_routeId = 0;
   ShapeLink m_shapeLink;
-  Translations m_title;
+  std::string m_title;
   // Sequence of stops along the line from first to last.
   IdList m_stopIds;
 
@@ -124,7 +124,7 @@ struct StopData
   void UpdateTimetable(TransitId lineId, gtfs::StopTime const & stopTime);
 
   m2::PointD m_point;
-  Translations m_title;
+  std::string m_title;
   // If arrival time at a specific stop for a specific trip on a route is not available,
   // |m_timetable| can be left empty.
   TimeTable m_timetable;

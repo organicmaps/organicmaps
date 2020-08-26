@@ -377,11 +377,8 @@ bool WorldFeed::FillNetworks()
       m_agencySkipList.insert(agencyHash);
     }
 
-    Translations translation;
-    translation[m_feedLanguage] = agency.agency_name;
-
     std::tie(std::ignore, inserted) =
-        m_networks.m_data.emplace(m_idGenerator.MakeId(agencyHash), translation);
+        m_networks.m_data.emplace(m_idGenerator.MakeId(agencyHash), agency.agency_name);
     CHECK(inserted, ());
   }
 
@@ -422,8 +419,7 @@ bool WorldFeed::FillRoutes()
     data.m_networkId = m_idGenerator.MakeId(agencyHash);
     data.m_color = m_colorPicker.GetNearestColor(route.route_color);
     data.m_routeType = routeType;
-    data.m_title[m_feedLanguage] =
-        route.route_long_name.empty() ? route.route_short_name : route.route_long_name;
+    data.m_title = route.route_long_name.empty() ? route.route_short_name : route.route_long_name;
 
     std::tie(std::ignore, inserted) =
         m_routes.m_data.emplace(m_idGenerator.MakeId(routeHash), data);
@@ -514,7 +510,7 @@ bool WorldFeed::UpdateStop(TransitId stopId, gtfs::StopTime const & stopTime,
 
   StopData data;
   data.m_point = mercator::FromLatLon(stop->stop_lat, stop->stop_lon);
-  data.m_title[m_feedLanguage] = stop->stop_name;
+  data.m_title = stop->stop_name;
   data.m_gtfsParentId = stop->parent_station;
   data.UpdateTimetable(lineId, stopTime);
   it->second = data;
@@ -651,7 +647,7 @@ bool WorldFeed::FillLinesAndShapes()
     TransitId const shapeId = m_idGenerator.MakeId(itShape->second);
 
     LineData data;
-    data.m_title[m_feedLanguage] = trip.trip_short_name;
+    data.m_title = trip.trip_short_name;
     data.m_routeId = m_idGenerator.MakeId(routeHash);
     data.m_shapeId = shapeId;
     data.m_gtfsTripId = trip.trip_id;
@@ -1314,7 +1310,9 @@ bool WorldFeed::SetFeed(gtfs::Feed && feed)
   // The order of the calls is important. First we set default feed language. Then fill networks.
   // Then, based on network ids, we generate routes and so on.
 
-  SetFeedLanguage();
+  // Code for setting default feed language is commented until we need to extract language name
+  // and save feed translations.
+  // SetFeedLanguage();
 
   if (!FillNetworks())
   {
@@ -1387,7 +1385,7 @@ void Networks::Write(IdSet const & ids, std::ofstream & stream) const
 
     auto node = base::NewJSONObject();
     ToJSONObject(*node, "id", networkId);
-    json_object_set_new(node.get(), "title", TranslationsToJson(networkTitle).release());
+    ToJSONObject(*node, "title", networkTitle);
 
     WriteJson(node.get(), stream);
   }
@@ -1403,7 +1401,7 @@ void Routes::Write(IdSet const & ids, std::ofstream & stream) const
     ToJSONObject(*node, "network_id", route.m_networkId);
     ToJSONObject(*node, "color", route.m_color);
     ToJSONObject(*node, "type", route.m_routeType);
-    json_object_set_new(node.get(), "title", TranslationsToJson(route.m_title).release());
+    ToJSONObject(*node, "title", route.m_title);
 
     WriteJson(node.get(), stream);
   }
@@ -1418,8 +1416,8 @@ void Lines::Write(std::unordered_map<TransitId, IdList> const & ids, std::ofstre
     ToJSONObject(*node, "id", lineId);
     ToJSONObject(*node, "route_id", line.m_routeId);
     json_object_set_new(node.get(), "shape", ShapeLinkToJson(line.m_shapeLink).release());
+    ToJSONObject(*node, "title", line.m_title);
 
-    json_object_set_new(node.get(), "title", TranslationsToJson(line.m_title).release());
     // Save only stop ids inside current region.
     json_object_set_new(node.get(), "stops_ids", IdListToJson(stopIds).release());
     ToJSONObject(*node, "service_days", ToString(line.m_serviceDays));
@@ -1470,7 +1468,7 @@ void Stops::Write(IdSet const & ids, std::ofstream & stream) const
       ToJSONObject(*node, "osm_id", stop.m_osmId);
 
     json_object_set_new(node.get(), "point", PointToJson(stop.m_point).release());
-    json_object_set_new(node.get(), "title", TranslationsToJson(stop.m_title).release());
+    ToJSONObject(*node, "title", stop.m_title);
 
     auto timeTableArr = base::NewJSONArray();
 

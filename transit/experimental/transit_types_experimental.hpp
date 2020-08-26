@@ -142,7 +142,7 @@ class Network
 {
 public:
   Network() = default;
-  Network(TransitId id, Translations const & title);
+  Network(TransitId id, std::string const & title);
   explicit Network(TransitId id);
 
   bool operator<(Network const & rhs) const;
@@ -151,23 +151,22 @@ public:
   bool IsValid() const;
 
   TransitId GetId() const;
-  std::string const GetTitle() const;
-  Translations const & GetTitles() const;
+  std::string const & GetTitle() const;
 
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Network, visitor(m_id, "id"), visitor(m_title, "title"))
 
   TransitId m_id = kInvalidTransitId;
-  Translations m_title;
+  std::string m_title;
 };
 
 class Route
 {
 public:
   Route() = default;
-  Route(TransitId id, TransitId networkId, std::string const & routeType,
-        Translations const & title, std::string const & color);
+  Route(TransitId id, TransitId networkId, std::string const & routeType, std::string const & title,
+        std::string const & color);
 
   bool operator<(Route const & rhs) const;
   bool operator==(Route const & rhs) const;
@@ -175,8 +174,7 @@ public:
   bool IsValid() const;
 
   TransitId GetId() const;
-  std::string const GetTitle() const;
-  Translations const & GetTitles() const;
+  std::string const & GetTitle() const;
   std::string const & GetType() const;
   std::string const & GetColor() const;
   TransitId GetNetworkId() const;
@@ -189,7 +187,7 @@ private:
   TransitId m_id = kInvalidTransitId;
   TransitId m_networkId = kInvalidTransitId;
   std::string m_routeType;
-  Translations m_title;
+  std::string m_title;
   std::string m_color;
 };
 
@@ -197,7 +195,7 @@ class Line
 {
 public:
   Line() = default;
-  Line(TransitId id, TransitId routeId, ShapeLink shapeLink, Translations const & title,
+  Line(TransitId id, TransitId routeId, ShapeLink shapeLink, std::string const & title,
        IdList stopIds, std::vector<LineInterval> const & intervals,
        osmoh::OpeningHours const & serviceDays);
 
@@ -207,8 +205,7 @@ public:
   bool IsValid() const;
 
   TransitId GetId() const;
-  std::string GetTitle() const;
-  Translations const & GetTitles() const;
+  std::string const & GetTitle() const;
   TransitId GetRouteId() const;
   ShapeLink const & GetShapeLink() const;
   IdList const & GetStopIds() const;
@@ -224,7 +221,7 @@ private:
   TransitId m_id = kInvalidTransitId;
   TransitId m_routeId = kInvalidTransitId;
   ShapeLink m_shapeLink;
-  Translations m_title;
+  std::string m_title;
   IdList m_stopIds;
   std::vector<LineInterval> m_intervals;
   osmoh::OpeningHours m_serviceDays;
@@ -256,7 +253,7 @@ class Stop
 {
 public:
   Stop();
-  Stop(TransitId id, FeatureId featureId, OsmId osmId, Translations const & title,
+  Stop(TransitId id, FeatureId featureId, OsmId osmId, std::string const & title,
        TimeTable const & timetable, m2::PointD const & point, IdList const & transferIds);
   explicit Stop(TransitId id);
 
@@ -271,7 +268,7 @@ public:
   FeatureId GetId() const;
   FeatureId GetFeatureId() const;
   OsmId GetOsmId() const;
-  std::string GetTitle() const;
+  std::string const & GetTitle() const;
   TimeTable const & GetTimeTable() const;
   m2::PointD const & GetPoint() const;
   IdList const & GetTransferIds() const;
@@ -288,7 +285,7 @@ private:
   // enter the gate. The segments may be invalid because of map date. If so there's no pedestrian
   // segment which can be used to reach the stop.
   std::vector<SingleMwmSegment> m_bestPedestrianSegments;
-  Translations m_title;
+  std::string m_title;
   TimeTable m_timetable;
   m2::PointD m_point;
   IdList m_transferIds;

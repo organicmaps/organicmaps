@@ -38,22 +38,21 @@ inline bool Equal(SingleMwmSegment const & s1, SingleMwmSegment const & s2)
 
 inline bool Equal(Network const & n1, Network const & n2)
 {
-  return std::make_tuple(n1.GetId(), n1.GetTitles()) == std::make_tuple(n2.GetId(), n2.GetTitles());
+  return std::make_tuple(n1.GetId(), n1.GetTitle()) == std::make_tuple(n2.GetId(), n2.GetTitle());
 }
 
 inline bool Equal(Route const & r1, Route const & r2)
 {
-  return std::make_tuple(r1.GetId(), r1.GetNetworkId(), r1.GetType(), r1.GetTitles(),
-                         r1.GetColor()) == std::make_tuple(r2.GetId(), r2.GetNetworkId(),
-                                                           r2.GetType(), r2.GetTitles(),
-                                                           r2.GetColor());
+  return std::make_tuple(r1.GetId(), r1.GetNetworkId(), r1.GetType(), r1.GetTitle(),
+                         r1.GetColor()) ==
+         std::make_tuple(r2.GetId(), r2.GetNetworkId(), r2.GetType(), r2.GetTitle(), r2.GetColor());
 }
 
 inline bool Equal(Line const & l1, Line const & l2)
 {
-  return std::make_tuple(l1.GetId(), l1.GetRouteId(), l1.GetTitles(), l1.GetStopIds(),
+  return std::make_tuple(l1.GetId(), l1.GetRouteId(), l1.GetTitle(), l1.GetStopIds(),
                          l1.GetIntervals(), l1.GetServiceDays(), l1.GetShapeLink()) ==
-         std::make_tuple(l2.GetId(), l2.GetRouteId(), l2.GetTitles(), l2.GetStopIds(),
+         std::make_tuple(l2.GetId(), l2.GetRouteId(), l2.GetTitle(), l2.GetStopIds(),
                          l2.GetIntervals(), l2.GetServiceDays(), l2.GetShapeLink());
 }
 
