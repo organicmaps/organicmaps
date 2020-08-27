@@ -82,10 +82,9 @@ BOOL keepRunningInBackground()
   if (needGPSForTrackRecorder)
     return YES;
 
-  auto const isRouteBuilt = [MWMRouter isRouteBuilt];
+  auto const isOnRoute = [MWMRouter isOnRoute];
   auto const isRouteFinished = [MWMRouter isRouteFinished];
-  auto const isRouteRebuildingOnly = [MWMRouter isRouteRebuildingOnly];
-  auto const needGPSForRouting = ((isRouteBuilt || isRouteRebuildingOnly) && !isRouteFinished);
+  auto const needGPSForRouting = (isOnRoute && !isRouteFinished);
   if (needGPSForRouting)
     return YES;
 
