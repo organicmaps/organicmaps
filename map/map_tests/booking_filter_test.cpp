@@ -118,7 +118,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
   ParamsInternal filterParams;
   search::Results filteredResults;
   std::vector<booking::Extras> availabilityExtras;
-  filterParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
+  filterParams.m_apiParams = std::make_shared<booking::AvailabilityParams>(booking::AvailabilityParams::MakeDefault());
   filterParams.m_callback = [&filteredResults, &availabilityExtras](auto && result) {
     filteredResults = result.m_passedFilter;
     availabilityExtras = result.m_extras;
@@ -208,7 +208,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
   ParamsInternal availabilityParams;
   search::Results availabilityResults;
   std::vector<booking::Extras> availabilityExtras;
-  availabilityParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
+  availabilityParams.m_apiParams = std::make_shared<booking::AvailabilityParams>(booking::AvailabilityParams::MakeDefault());
   availabilityParams.m_callback = [&availabilityResults, &availabilityExtras](auto && result) {
     availabilityResults = result.m_passedFilter;
     availabilityExtras = result.m_extras;
@@ -219,7 +219,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
   ParamsInternal dealsParams;
   search::Results dealsResults;
   std::vector<booking::Extras> dealsExtras;
-  booking::AvailabilityParams p;
+  booking::AvailabilityParams p = booking::AvailabilityParams::MakeDefault();
   p.m_dealsOnly = true;
   dealsParams.m_apiParams = std::make_shared<booking::AvailabilityParams>(p);
   dealsParams.m_callback = [&dealsResults, &dealsExtras](auto && result) {
@@ -335,7 +335,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ApplyFilterOntoWithFeatureIds)
   ParamsRawInternal filterParams;
   std::vector<FeatureID> filteredResults;
   std::vector<booking::Extras> availabilityExtras;
-  filterParams.m_apiParams = std::make_shared<booking::AvailabilityParams>();
+  filterParams.m_apiParams = std::make_shared<booking::AvailabilityParams>(booking::AvailabilityParams::MakeDefault());
   filterParams.m_callback = [&filteredResults, &availabilityExtras](auto && result) {
     filteredResults = result.m_passedFilter;
     availabilityExtras = result.m_extras;
