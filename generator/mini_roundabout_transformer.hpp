@@ -56,6 +56,8 @@ public:
   /// These features are obtained from points with highway=mini_roundabout.
   std::vector<feature::FeatureBuilder> ProcessRoundabouts();
 
+  void SetLeftHandTraffic(bool isLeftHand) { m_leftHandTraffic = isLeftHand; }
+
 private:
   /// \brief Sets |road_type| to |found_type| if it is a more important road type.
   void UpdateRoadType(FeatureParams::Types const & foundTypes, uint32_t & roadType);
@@ -78,6 +80,7 @@ private:
   double const m_radiusMercator = 0.0;
   feature::AffiliationInterface const * m_affiliation = nullptr;
   std::vector<feature::FeatureBuilder> m_roads;
+  bool m_leftHandTraffic = false;
 };
 
 /// \brief Calculates Euclidean distance between 2 points on plane.

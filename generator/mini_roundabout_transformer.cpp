@@ -137,18 +137,32 @@ void MiniRoundaboutTransformer::UpdateRoadType(FeatureParams::Types const & foun
 }
 
 feature::FeatureBuilder CreateFb(std::vector<m2::PointD> const & way, uint64_t id,
-                                 uint32_t roadType, bool isRoundabout = true)
+                                 uint32_t roadType, bool isRoundabout = true,
+                                 bool isLeftHandTraffic = false)
 {
   feature::FeatureBuilder fb;
   fb.SetOsmId(base::MakeOsmWay(id));
   fb.SetLinear();
 
-  UpdateFeatureGeometry(way, fb);
-
   if (!isRoundabout)
+  {
+    UpdateFeatureGeometry(way, fb);
     return fb;
+  }
 
-  fb.AddPoint(way[0]);
+  if (isLeftHandTraffic)
+  {
+    std::vector<m2::PointD> wayRev = way;
+    std::reverse(wayRev.begin(), wayRev.end());
+
+    UpdateFeatureGeometry(wayRev, fb);
+    fb.AddPoint(wayRev[0]);
+  }
+  else
+  {
+    UpdateFeatureGeometry(way, fb);
+    fb.AddPoint(way[0]);
+  }
 
   static uint32_t const roundaboutType = classif().GetTypeByPath({"junction", "roundabout"});
   fb.AddType(roundaboutType);
@@ -313,7 +327,8 @@ std::vector<feature::FeatureBuilder> MiniRoundaboutTransformer::ProcessRoundabou
     if (!allRoadsInOneMwm || !foundRoad)
       continue;
 
-    fbsRoundabouts.push_back(CreateFb(circlePlain, rb.m_id, roadType));
+    fbsRoundabouts.push_back(
+        CreateFb(circlePlain, rb.m_id, roadType, true /* isRoundabout */, m_leftHandTraffic));
   }
 
   LOG(LINFO, ("Transformed", fbsRoundabouts.size(), "mini_roundabouts to roundabouts.", "Added",

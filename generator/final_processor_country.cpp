@@ -9,18 +9,17 @@
 #include "generator/node_mixer.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/promo_catalog_cities.hpp"
+#include "generator/region_meta.hpp"
 #include "generator/routing_city_boundaries_processor.hpp"
 
 #include "routing/routing_helpers.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature_algo.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/thread_pool_computational.hpp"
 
-#include <mutex>
 #include <utility>
 #include <vector>
 
@@ -149,6 +148,11 @@ void CountryFinalProcessor::ProcessRoundabouts()
       return;
 
     MiniRoundaboutTransformer transformer(roundabouts.GetData(), *m_affiliations);
+
+    RegionData data;
+
+    if (ReadRegionData(name, data))
+      transformer.SetLeftHandTraffic(data.Get(RegionData::Type::RD_DRIVING) == "l");
 
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
     ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto && fb, auto /* pos */) {
