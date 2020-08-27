@@ -96,8 +96,8 @@ public class SearchToolbarController extends ToolbarController
     picker.show(((AppCompatActivity) requireActivity()).getSupportFragmentManager(), picker.toString());
   };
   @NonNull
-  private List<FilterParamsChangedListener> mFilterParamsChangedListeners = new ArrayList<>();
-  @NonNull
+  private final List<FilterParamsChangedListener> mFilterParamsChangedListeners = new ArrayList<>();
+  @Nullable
   private MenuController mGuestsRoomsMenuController;
   @NonNull
   private final View.OnClickListener mRoomsClickListener = v -> {
@@ -189,10 +189,15 @@ public class SearchToolbarController extends ToolbarController
 
     showProgress(false);
     updateButtons(true);
-    MenuStateObserver stateObserver = new RoomsGuestsMenuStateObserver(requireActivity());
-    mGuestsRoomsMenuController
-        = MenuControllerFactory.createGuestsRoomsMenuController(this, stateObserver, this);
-    mGuestsRoomsMenuController.initialize(requireActivity().findViewById(R.id.coordinator));
+    View coordinatorLayout = requireActivity().findViewById(R.id.coordinator);
+    if (coordinatorLayout != null
+        && coordinatorLayout.findViewById(R.id.guests_and_rooms_menu_sheet) != null)
+    {
+      MenuStateObserver stateObserver = new RoomsGuestsMenuStateObserver(requireActivity());
+      mGuestsRoomsMenuController
+          = MenuControllerFactory.createGuestsRoomsMenuController(this, stateObserver, this);
+      mGuestsRoomsMenuController.initialize(requireActivity().findViewById(R.id.coordinator));
+    }
   }
 
   public void setFilterParams(@NonNull BookingFilterParams params)
@@ -390,7 +395,7 @@ public class SearchToolbarController extends ToolbarController
   @Nullable
   public BookingFilterParams getFilterParams()
   {
-    if (mChosenDates == null)
+    if (mChosenDates == null || mChosenDates.first == null || mChosenDates.second == null)
       return null;
 
     return BookingFilterParams.createParams(mChosenDates.first, mChosenDates.second,
@@ -399,6 +404,7 @@ public class SearchToolbarController extends ToolbarController
 
   public boolean closeBottomMenu()
   {
+    Objects.requireNonNull(mGuestsRoomsMenuController);
     if (!mGuestsRoomsMenuController.isClosed())
     {
       mGuestsRoomsMenuController.close();
