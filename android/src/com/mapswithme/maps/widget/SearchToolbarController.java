@@ -177,8 +177,8 @@ public class SearchToolbarController extends ToolbarController
     mFilterContainer = getToolbar().findViewById(R.id.filter_container);
     if (mFilterContainer != null)
     {
-      mChooseDatesChip = mFilterContainer.findViewById(R.id.choose_dates);
-      mRoomsChip = mFilterContainer.findViewById(R.id.rooms);
+      mChooseDatesChip = mFilterContainer.findViewById(R.id.chip_choose_dates);
+      mRoomsChip = mFilterContainer.findViewById(R.id.chip_rooms);
       //noinspection ConstantConditions
       mChooseDatesChip.setOnClickListener(mChooseDatesClickListener);
       mChooseDatesChip.setOnCloseIconClickListener(mChooseDatesClickListener);

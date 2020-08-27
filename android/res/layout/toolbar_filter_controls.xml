@@ -16,7 +16,7 @@
     android:layout_height="wrap_content"
     app:chipSpacing="@dimen/margin_base">
     <com.google.android.material.chip.Chip
-      android:id="@+id/choose_dates"
+      android:id="@+id/chip_choose_dates"
       style="@style/MwmWidget.Chip.Action"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
       app:chipIcon="@drawable/ic_datepicker"
       app:closeIcon="@drawable/ic_dropdown" />
     <com.google.android.material.chip.Chip
-      android:id="@+id/rooms"
+      android:id="@+id/chip_rooms"
       style="@style/MwmWidget.Chip.Action"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
