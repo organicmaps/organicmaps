@@ -89,6 +89,7 @@ class DownloadMapsViewController: MWMViewController {
     super.viewWillAppear(animated)
     dataSource.reload {
       reloadData()
+      noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
     }
     Storage.shared().add(self)
   }
