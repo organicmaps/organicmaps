@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.SubscriptionButton;
 import com.mapswithme.util.UiUtils;
@@ -23,11 +24,9 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
   private SubscriptionButton mMonthlyButton;
   @NonNull
   private PurchaseUtils.Period mSelectedPeriod = PurchaseUtils.Period.P1Y;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
+  @Nullable
   private View mFreeTrialButton;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
+  @Nullable
   private TextView mFreeTrialMessage;
 
   TwoButtonsSubscriptionFragmentDelegate(@NonNull AbstractBookmarkSubscriptionFragment fragment)
@@ -45,7 +44,8 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
     mMonthlyButton = root.findViewById(R.id.monthly_button);
     mMonthlyButton.setOnClickListener(v -> onSubscriptionButtonClicked(PurchaseUtils.Period.P1M));
     mFreeTrialButton = root.findViewById(R.id.free_trial_button);
-    mFreeTrialButton.setOnClickListener(v -> onSubscriptionButtonClicked(PurchaseUtils.Period.P1Y));
+    if (mFreeTrialButton != null)
+      mFreeTrialButton.setOnClickListener(v -> onSubscriptionButtonClicked(PurchaseUtils.Period.P1Y));
     mFreeTrialMessage = root.findViewById(R.id.free_trial_mesage);
   }
 
@@ -91,9 +91,12 @@ class TwoButtonsSubscriptionFragmentDelegate extends SubscriptionFragmentDelegat
     if (!TextUtils.isEmpty(details.getFreeTrialPeriod()))
     {
       UiUtils.hide(mYearlyButton, mMonthlyButton);
-      UiUtils.show(mFreeTrialButton, mFreeTrialMessage);
-      String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
-      mFreeTrialMessage.setText(getFragment().getString(R.string.guides_trial_message, price));
+      if (mFreeTrialButton != null && mFreeTrialMessage != null)
+      {
+        UiUtils.show(mFreeTrialButton, mFreeTrialMessage);
+        String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
+        mFreeTrialMessage.setText(getFragment().getString(R.string.guides_trial_message, price));
+      }
       return;
     }
     updateYearlyButton();
