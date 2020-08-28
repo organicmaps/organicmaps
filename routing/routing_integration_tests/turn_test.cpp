@@ -177,8 +177,8 @@ UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0)
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 1)
       .TestValid()
       .TestPoint({37.68276, 67.14062})
       .TestDirection(CarDirection::ExitHighwayToRight);

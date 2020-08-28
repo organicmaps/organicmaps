@@ -59,7 +59,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents(VehicleType::Car),
         mercator::FromLatLon(55.97310, 37.41460), {0.0, 0.0},
-        mercator::FromLatLon(55.75100, 37.61790), 33763.7);
+        mercator::FromLatLon(55.75100, 37.61790), 42732.6);
   }
 
   // Restrictions tests. Check restrictions generation, if there are any errors.
@@ -520,7 +520,7 @@ namespace
 
     integration::CalculateRouteAndTestRouteLength(
         vehicleComponents, mercator::FromLatLon(55.93934, 37.406), {0.0, 0.0},
-        mercator::FromLatLon(55.93952, 37.45089), 8987.7);
+        mercator::FromLatLon(55.93952, 37.45089), 10713.9);
   }
 
   // Test on necessity calling RectCoversPolyline() after DataSource::ForEachInRect()
@@ -532,7 +532,7 @@ namespace
 
     integration::CalculateRouteAndTestRouteLength(
         vehicleComponents, mercator::FromLatLon(55.93885, 37.40588), {0.0, 0.0},
-        mercator::FromLatLon(55.93706, 37.45339), 9168.15);
+        mercator::FromLatLon(55.93706, 37.45339), 10894.3);
   }
 
   UNIT_TEST(NoCrash_RioGrandeCosmopolis)

@@ -173,7 +173,7 @@ UNIT_TEST(BelarusMinksBarURatushiToMoscowBusStation)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(53.9045, 27.5569), {0., 0.},
-      mercator::FromLatLon(53.889, 27.5466), 2677.57);
+      mercator::FromLatLon(53.889, 27.5466), 2395.3);
 }
 
 UNIT_TEST(BelarusBobruisk50LetVlksmToSanatoryShinnik)
@@ -515,7 +515,7 @@ UNIT_TEST(RussiaPriut11Elbrus)
   integration::CalculateRouteAndTestRouteTime(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(43.31475, 42.46035), {0., 0.},
-      mercator::FromLatLon(43.35254, 42.43788), 32588.6 /* expectedTimeSeconds */);
+      mercator::FromLatLon(43.35254, 42.43788), 37753.4 /* expectedTimeSeconds */);
 }
 
 // Test on going down from Elbrus mountain to Priut11.
@@ -524,7 +524,7 @@ UNIT_TEST(RussiaElbrusPriut11)
   integration::CalculateRouteAndTestRouteTime(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(43.35254, 42.43788), {0., 0.},
-      mercator::FromLatLon(43.31475, 42.46035), 13708.4 /* expectedTimeSeconds */);
+      mercator::FromLatLon(43.31475, 42.46035), 15878.9 /* expectedTimeSeconds */);
 }
 
 // Test on going straight forward on primary road.
