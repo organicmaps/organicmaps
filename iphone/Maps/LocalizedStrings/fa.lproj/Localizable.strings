@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "مکان ناشناس";
 
-"editor_other_info" = "Send a note to OSM moderators";
+"editor_other_info" = "ارسال یادداشت به ویرایشکنندگان OSM";
 
 "editor_detailed_description_hint" = "اظهارنظر بیشتر";
 

@@ -791,6 +791,7 @@
 	<string name="error_enter_correct_zip_code">یک کد پستی معتبر وارد کنید</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">مکان ناشناس</string>
+	<string name="editor_other_info">ارسال یادداشت به ویرایشکنندگان OSM</string>
 	<string name="editor_detailed_description_hint">اظهارنظر بیشتر</string>
 	<string name="editor_detailed_description">شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در MAPS.ME ویرایش کنید را برایشان بنویسید.</string>
 	<string name="editor_more_about_osm">در مورد OpenStreetMap بیشتر بدانید</string>

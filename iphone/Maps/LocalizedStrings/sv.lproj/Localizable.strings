@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Okänd plats";
 
-"editor_other_info" = "Poznámka odoslaná regulátorovi OSM";
+"editor_other_info" = "Skicka en not till OSM-redaktörer";
 
 "editor_detailed_description_hint" = "Detaljerad kommentar";
 

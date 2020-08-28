@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Άγνωστο μέρος";
 
-"editor_other_info" = "Στείλτε μια σημείωση στο συντονιστή του OSM";
+"editor_other_info" = "Σημείωμα στους συντάκτες του OSM";
 
 "editor_detailed_description_hint" = "Αναλυτικό σχόλιο";
 

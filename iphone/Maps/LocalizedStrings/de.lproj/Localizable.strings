@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Unbekannter Ort";
 
-"editor_other_info" = "Senden Sie eine Notiz an den OSM-Moderator";
+"editor_other_info" = "Notiz an OSM-Redakteure senden";
 
 "editor_detailed_description_hint" = "Ausführlicher Kommentar";
 

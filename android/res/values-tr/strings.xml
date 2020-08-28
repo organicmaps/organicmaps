@@ -828,7 +828,7 @@
 	<string name="error_enter_correct_zip_code">Doğru Posta Kodunu girin</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Bilinmeyen Yer</string>
-	<string name="editor_other_info">OSM moderatörüne bir not gönder</string>
+	<string name="editor_other_info">OSM editörlerine bir not gönderin</string>
 	<string name="editor_detailed_description_hint">Ayrıntılı yorum</string>
 	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. MAPS.ME’de düzenlenemeyen ayrıntıları açıklayın.</string>
 	<string name="editor_more_about_osm">OpenStreetMap hakkında ek bilgi</string>

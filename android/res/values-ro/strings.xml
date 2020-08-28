@@ -813,7 +813,7 @@
 	<string name="error_enter_correct_zip_code">Introduceți codul poștal corect</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Loc necunoscut</string>
-	<string name="editor_other_info">Trimiteți un resturi moderatorului OSM</string>
+	<string name="editor_other_info">Trimite o notă editorilor OSM</string>
 	<string name="editor_detailed_description_hint">Comentariu detaliat</string>
 	<string name="editor_detailed_description">Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in MAPS.ME.</string>
 	<string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>

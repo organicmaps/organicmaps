@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "未知位置";
 
-"editor_other_info" = "发送笔记到OSM调节器";
+"editor_other_info" = "给OSM编辑器发送标记";
 
 "editor_detailed_description_hint" = "详细备注";
 

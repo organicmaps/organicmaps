@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Bilinmeyen Yer";
 
-"editor_other_info" = "OSM moderatörüne bir not gönder";
+"editor_other_info" = "OSM editörlerine bir not gönderin";
 
 "editor_detailed_description_hint" = "Ayrıntılı yorum";
 

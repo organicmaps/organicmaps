@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Place inconnue";
 
-"editor_other_info" = "Envoyer un message au modérateur d'OSM";
+"editor_other_info" = "Informer les rédacteurs OSM";
 
 "editor_detailed_description_hint" = "Commentaire détaillé";
 

@@ -834,7 +834,7 @@
 	<string name="error_enter_correct_zip_code">Entrer le code postal correct</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Place inconnue</string>
-	<string name="editor_other_info">Envoyer un message au modérateur d\'OSM</string>
+	<string name="editor_other_info">Informer les rédacteurs OSM</string>
 	<string name="editor_detailed_description_hint">Commentaire détaillé</string>
 	<string name="editor_detailed_description">Vos modifications suggérées ont été envoyées à la communauté OpenStreetMap. Décrivez les détails qui ne peuvent pas être modifiés dans MAPS.ME.</string>
 	<string name="editor_more_about_osm">En savoir plus sur OpenStreetMap</string>

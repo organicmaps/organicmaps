@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Tempat Tidak Dikenal";
 
-"editor_other_info" = "Mengirim catatan ke moderator OSM";
+"editor_other_info" = "Kirim catatan ke editor OSM";
 
 "editor_detailed_description_hint" = "Komentar mendetail";
 

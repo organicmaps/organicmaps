@@ -820,7 +820,7 @@
 	<string name="error_enter_correct_zip_code">Zadajte správne PSČ</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Neznáme miesto</string>
-	<string name="editor_other_info">Poznámka odoslaná regulátorovi OSM</string>
+	<string name="editor_other_info">Odoslať poznámku OSM editorom</string>
 	<string name="editor_detailed_description_hint">Zmazaná poznámka</string>
 	<string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.</string>
 	<string name="editor_more_about_osm">Viac o OpenStreetMap</string>

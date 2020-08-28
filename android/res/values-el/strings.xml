@@ -639,7 +639,7 @@
 	<string name="error_enter_correct_zip_code">Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Άγνωστο μέρος</string>
-	<string name="editor_other_info">Στείλτε μια σημείωση στο συντονιστή του OSM</string>
+	<string name="editor_other_info">Σημείωμα στους συντάκτες του OSM</string>
 	<string name="editor_detailed_description_hint">Αναλυτικό σχόλιο</string>
 	<string name="editor_detailed_description">Οι προτεινόμενες αλλαγές χάρτη θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο MAPS.ME.</string>
 	<string name="editor_more_about_osm">Περισσότερα σχετικά με το OpenStreetMap</string>

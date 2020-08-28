@@ -816,7 +816,7 @@
 	<string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Tuntematon paikka</string>
-	<string name="editor_other_info">Lähetä muistiinpano OSM-moderaattorille</string>
+	<string name="editor_other_info">Lähetä muistilapun OSM-toimittajille</string>
 	<string name="editor_detailed_description_hint">Yksityiskohtainen kommentti</string>
 	<string name="editor_detailed_description">Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata MAPS.ME:ssä.</string>
 	<string name="editor_more_about_osm">Lisätietoja OpenStreetMap:ista</string>

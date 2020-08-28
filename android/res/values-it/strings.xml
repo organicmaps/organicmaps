@@ -822,7 +822,7 @@
 	<string name="error_enter_correct_zip_code">Inserire il codice postale corretto</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Luogo sconosciuto</string>
-	<string name="editor_other_info">Invia una nota al moderatore OSM</string>
+	<string name="editor_other_info">Invia una nota agli editor di OSM</string>
 	<string name="editor_detailed_description_hint">Commento dettagliato</string>
 	<string name="editor_detailed_description">Le modifiche suggerite saranno inviate alla community OpenStreetMap. Descrivere i dettagli che non è possibile modificare in MAPS.ME.</string>
 	<string name="editor_more_about_osm">Ulteriori informazioni su OpenStreetMap</string>

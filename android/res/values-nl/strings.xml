@@ -823,7 +823,7 @@
 	<string name="error_enter_correct_zip_code">Voer de juiste postcode in</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Onbekende locatie</string>
-	<string name="editor_other_info">Een boodschap naar OSM-moderator sturen</string>
+	<string name="editor_other_info">Notitie sturen naar de OSM-editors</string>
 	<string name="editor_detailed_description_hint">Gedetailleerde reactie</string>
 	<string name="editor_detailed_description">Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-community. Beschrijf de details die niet kunnen worden bewerkt in MAPS.ME.</string>
 	<string name="editor_more_about_osm">Meer over OpenStreetMap</string>

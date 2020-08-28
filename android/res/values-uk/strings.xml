@@ -827,7 +827,7 @@
 	<string name="error_enter_correct_zip_code">Введіть коректний поштовий індекс</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Невідоме місце</string>
-	<string name="editor_other_info">Відправити повідомлення модератору OSM</string>
+	<string name="editor_other_info">Надіслати нотатку редакторам OSM</string>
 	<string name="editor_detailed_description_hint">Докладний коментар</string>
 	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у MAPS.ME.</string>
 	<string name="editor_more_about_osm">Більше про OpenStreetMap</string>

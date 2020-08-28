@@ -824,7 +824,7 @@
 	<string name="error_enter_correct_zip_code">Írja be a helyes irányítószámot</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Ismeretlen hely</string>
-	<string name="editor_other_info">Megjegyzést küldött az OSM-moderátornak</string>
+	<string name="editor_other_info">Küldjön jegyzetet az OSM editornak</string>
 	<string name="editor_detailed_description_hint">Részletes megjegyzés</string>
 	<string name="editor_detailed_description">Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a MAPS.ME-ben.</string>
 	<string name="editor_more_about_osm">További részletek az OpenStreetMap-ról</string>

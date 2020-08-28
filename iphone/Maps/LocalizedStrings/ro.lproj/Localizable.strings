@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Loc necunoscut";
 
-"editor_other_info" = "Trimiteți un resturi moderatorului OSM";
+"editor_other_info" = "Trimite o notă editorilor OSM";
 
 "editor_detailed_description_hint" = "Comentariu detaliat";
 

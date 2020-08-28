@@ -816,7 +816,7 @@
 	<string name="error_enter_correct_zip_code">正しい郵便番号を入力してください</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">不明な場所</string>
-	<string name="editor_other_info">OSM モデレーターにメモを送信</string>
+	<string name="editor_other_info">OSMエディタにメモを送信</string>
 	<string name="editor_detailed_description_hint">詳細なコメント</string>
 	<string name="editor_detailed_description">あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。MAPS.MEで編集できない詳細を説明してください。</string>
 	<string name="editor_more_about_osm">OpenStreetMapについての詳細</string>

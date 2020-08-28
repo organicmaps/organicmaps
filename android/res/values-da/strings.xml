@@ -826,7 +826,7 @@
 	<string name="error_enter_correct_zip_code">Indtast det korrekte postnummer</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Ukendt sted</string>
-	<string name="editor_other_info">Send en besked til OSM-moderator</string>
+	<string name="editor_other_info">Send en besked til OSM-redaktører</string>
 	<string name="editor_detailed_description_hint">Detaljerede bemærkninger</string>
 	<string name="editor_detailed_description">Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i MAPS.ME.</string>
 	<string name="editor_more_about_osm">Mere om OpenStreetMap</string>

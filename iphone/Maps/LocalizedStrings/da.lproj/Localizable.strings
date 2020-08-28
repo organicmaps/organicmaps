@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Ukendt sted";
 
-"editor_other_info" = "Send en besked til OSM-moderator";
+"editor_other_info" = "Send en besked til OSM-redaktører";
 
 "editor_detailed_description_hint" = "Detaljerede bemærkninger";
 

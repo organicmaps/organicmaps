@@ -828,7 +828,7 @@
 	<string name="error_enter_correct_zip_code">กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">ไม่ทราบชื่อสถานที่</string>
-	<string name="editor_other_info">ส่งหมายเหตุไปยังผู้ดำเนินการ OSM</string>
+	<string name="editor_other_info">ส่งข้อความไปยังตัวปรับแต่ง OSM</string>
 	<string name="editor_detailed_description_hint">ข้อคิดเห็นอย่างละเอียด</string>
 	<string name="editor_detailed_description">คำแนะนำการเปลี่ยนแปลงของคุณจะถูกส่งไปยังกลุ่ม OpenStreetMap โปรดอธิบายรายละเอียดที่ MAPS.ME ไม่สามารถแก้ไขได้</string>
 	<string name="editor_more_about_osm">ข้อมูลเพิ่มเติมเกี่ยวกับ OpenStreetMap</string>

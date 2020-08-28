@@ -822,7 +822,7 @@
 	<string name="error_enter_correct_zip_code">Ange korrekt postnr</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Okänd plats</string>
-	<string name="editor_other_info">Poznámka odoslaná regulátorovi OSM</string>
+	<string name="editor_other_info">Skicka en not till OSM-redaktörer</string>
 	<string name="editor_detailed_description_hint">Detaljerad kommentar</string>
 	<string name="editor_detailed_description">Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i MAPS.ME.</string>
 	<string name="editor_more_about_osm">Mer om OpenStreetMap</string>

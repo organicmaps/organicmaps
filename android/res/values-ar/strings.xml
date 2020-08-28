@@ -828,7 +828,7 @@
 	<string name="error_enter_correct_zip_code">أدخل الرمز البريدي الصحيح</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">مكان غير معروف</string>
-	<string name="editor_other_info">أُرْسِلْتِ ملحوظة إلى وَسِيط OSM</string>
+	<string name="editor_other_info">ارسل ملاحظة إلى محرري OSM</string>
 	<string name="editor_detailed_description_hint">تعليق مفصل</string>
 	<string name="editor_detailed_description">سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في MAPS.ME</string>
 	<string name="editor_more_about_osm">المزيد عن OpenStreetMap</string>

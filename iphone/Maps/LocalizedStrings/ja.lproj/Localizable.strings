@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "不明な場所";
 
-"editor_other_info" = "OSM モデレーターにメモを送信";
+"editor_other_info" = "OSMエディタにメモを送信";
 
 "editor_detailed_description_hint" = "詳細なコメント";
 

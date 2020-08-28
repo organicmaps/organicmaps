@@ -1386,7 +1386,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "مكان غير معروف";
 
-"editor_other_info" = "أُرْسِلْتِ ملحوظة إلى وَسِيط OSM";
+"editor_other_info" = "ارسل ملاحظة إلى محرري OSM";
 
 "editor_detailed_description_hint" = "تعليق مفصل";
 

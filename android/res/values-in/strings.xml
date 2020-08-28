@@ -815,7 +815,7 @@
 	<string name="error_enter_correct_zip_code">Masukkan Kode Pos yang benar</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Tempat Tidak Dikenal</string>
-	<string name="editor_other_info">Mengirim catatan ke moderator OSM</string>
+	<string name="editor_other_info">Kirim catatan ke editor OSM</string>
 	<string name="editor_detailed_description_hint">Komentar mendetail</string>
 	<string name="editor_detailed_description">Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di MAPS.ME.</string>
 	<string name="editor_more_about_osm">Selengkapnya tentang OpenStreetMap</string>
