@@ -128,7 +128,7 @@ CountryFeaturesCounters constexpr kWorldCounters(945 /* fbs */, 364406 /* geomet
                                                  0 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kNorthAucklandCounters(
-    1812333 /* fbs */, 12196970 /* geometryPoints */, 1007583 /* point */, 205634 /* line */,
+    1812334 /* fbs */, 12196971 /* geometryPoints */, 1007584 /* point */, 205634 /* line */,
     599116 /* area */, 212615 /* poi */, 521 /* cityTownOrVillage */, 3557 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kNorthWellingtonCounters(
