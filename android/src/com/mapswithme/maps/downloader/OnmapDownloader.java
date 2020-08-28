@@ -297,6 +297,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
     mPromoBanner = promoBanner;
 
+    mBannerFrame.removeAllViewsInLayout();
+
     LayoutInflater inflater = LayoutInflater.from(mActivity);
     View root = inflater.inflate(mPromoBanner.getType().getLayoutId(), mBannerFrame, true);
     View button = root.findViewById(R.id.banner_button);
