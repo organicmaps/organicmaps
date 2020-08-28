@@ -19,6 +19,10 @@ UNIT_TEST(Skyeng_GetBanner)
     TEST(!banner.empty(), ());
   }
   {
+    auto const banner = skyeng.GetBanner("US_North Carolina_Raleigh", {}, "ru");
+    TEST(!banner.empty(), ());
+  }
+  {
     auto const banner = skyeng.GetBanner("Russia_Tambov Oblast", point, "en");
     TEST(banner.empty(), ());
   }

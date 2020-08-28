@@ -25,6 +25,12 @@ UNIT_TEST(TinkoffAirlines_GetBanner)
   {
     delegate.SetTopmostParent("Germany");
     delegate.SetCountryId("Russian Federation");
+    auto const banner = tinkoffAirlines.GetBanner("", {}, "ru");
+    TEST(banner.empty(), ());
+  }
+  {
+    delegate.SetTopmostParent("Germany");
+    delegate.SetCountryId("Russian Federation");
     auto const banner = tinkoffAirlines.GetBanner("", point, "en");
     TEST(banner.empty(), ());
   }

@@ -108,8 +108,8 @@ protected:
   Delegate & m_delegate;
 
 private:
-  virtual bool HasBanner(storage::CountryId const & countryId, m2::PointD const & userPos,
-                         std::string const & userLanguage) const;
+  bool HasBanner(storage::CountryId const & countryId, std::optional<m2::PointD> const & userPos,
+                 std::string const & userLanguage) const;
   virtual std::string GetBannerInternal() const;
 
   DISALLOW_COPY(DownloadOnMapContainer);

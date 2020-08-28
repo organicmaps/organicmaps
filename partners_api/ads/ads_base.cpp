@@ -90,20 +90,30 @@ std::string DownloadOnMapContainer::GetBanner(storage::CountryId const & country
                                               std::optional<m2::PointD> const & userPos,
                                               std::string const & userLanguage) const
 {
-  if (!userPos || !HasBanner(countryId, *userPos, userLanguage))
+  if (!HasBanner(countryId, userPos, userLanguage))
     return {};
 
   return GetBannerInternal();
 }
 
 bool DownloadOnMapContainer::HasBanner(storage::CountryId const & countryId,
-                                       m2::PointD const & userPos,
+                                       std::optional<m2::PointD> const & userPos,
                                        std::string const & userLanguage) const
 {
   storage::CountriesVec userPosCountries;
-  auto const userPosCountryId = m_delegate.GetCountryId(userPos);
-  userPosCountries.emplace_back(userPosCountryId);
-  userPosCountries.emplace_back(m_delegate.GetTopmostParentFor(userPosCountryId));
+  if (userPos)
+  {
+    auto const userPosCountryId = m_delegate.GetCountryId(*userPos);
+    userPosCountries.emplace_back(userPosCountryId);
+    userPosCountries.emplace_back(m_delegate.GetTopmostParentFor(userPosCountryId));
+  }
+
+  bool isUserPosSupported =
+      (userPosCountries.empty() && IsUserPosCountrySupported("")) ||
+      std::any_of(userPosCountries.begin(), userPosCountries.end(),
+                  [this](auto const & id) { return IsUserPosCountrySupported(id); });
+  if (!isUserPosSupported)
+    return false;
 
   storage::CountriesVec downloadMwmCountries;
   downloadMwmCountries.emplace_back(countryId);
@@ -113,8 +123,6 @@ bool DownloadOnMapContainer::HasBanner(storage::CountryId const & countryId,
                       [this](auto const & id) { return IsUserPosCountryExcluded(id); }) &&
          !std::any_of(downloadMwmCountries.begin(), downloadMwmCountries.end(),
                       [this](auto const & id) { return IsCountryExcluded(id); }) &&
-         std::any_of(userPosCountries.begin(), userPosCountries.end(),
-                     [this](auto const & id) { return IsUserPosCountrySupported(id); }) &&
          std::any_of(downloadMwmCountries.begin(), downloadMwmCountries.end(),
                      [this](auto const & id) { return IsCountrySupported(id); }) &&
          IsLanguageSupported(userLanguage);

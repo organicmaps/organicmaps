@@ -24,6 +24,12 @@ UNIT_TEST(TinkoffInsurance_GetBanner)
   {
     delegate.SetTopmostParent("France");
     delegate.SetCountryId("Russian Federation");
+    auto const banner = tinkoffInsurance.GetBanner("", {}, "ru");
+    TEST(banner.empty(), ());
+  }
+  {
+    delegate.SetTopmostParent("France");
+    delegate.SetCountryId("Russian Federation");
     auto const banner = tinkoffInsurance.GetBanner("", point, "en");
     TEST(banner.empty(), ());
   }

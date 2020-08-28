@@ -16,6 +16,11 @@ UNIT_TEST(MastercardSberbank_GetBanner)
     TEST(!banner.empty(), ());
   }
   {
+    delegate.SetTopmostParent("Russian Federation");
+    auto const banner = masterSber.GetBanner("Russia_Tambov Oblast", {}, "ru");
+    TEST(!banner.empty(), ());
+  }
+  {
     delegate.SetTopmostParent("United States of America");
     auto const banner = masterSber.GetBanner("US_North Carolina_Raleigh", point, "ru");
     TEST(!banner.empty(), ());
