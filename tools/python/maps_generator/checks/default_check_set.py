@@ -131,7 +131,7 @@ def get_logs_check_sets_and_filters(
     old_path: str, new_path: str, checks: Set[LogsChecks] = None
 ) -> Mapping[check.Check, Callable]:
     def need_add(t: LogsChecks):
-        return checks is not None and t in checks
+        return checks is None or t in checks
 
     m = {get_log_levels_check_set(old_path, new_path): None}
 
