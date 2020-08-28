@@ -9,6 +9,7 @@ import UIKit
 
   private weak var navigationController: UINavigationController?
   private weak var controlsManager: MWMMapViewControlsManager?
+  private weak var navigationManager: MWMNavigationDashboardManager?
   private var bookmarksControllers: [UIViewController]?
   @objc var state: BookmarksState = .closed {
     didSet {
@@ -17,9 +18,11 @@ import UIKit
   }
 
   @objc init(navigationController: UINavigationController,
-             controlsManager: MWMMapViewControlsManager) {
+             controlsManager: MWMMapViewControlsManager,
+             navigationManager: MWMNavigationDashboardManager) {
     self.navigationController = navigationController
     self.controlsManager = controlsManager
+    self.navigationManager = navigationManager
   }
 
   private func updateForState(newState: BookmarksState) {
@@ -56,7 +59,8 @@ import UIKit
                         animations: {
                           self.bookmarksControllers = navigationController.popToRootViewController(animated: false)
       }, completion: nil)
-      controlsManager?.bookmarksBackButtonHidden = false
+      let isNavigation = navigationManager?.state != .hidden
+      controlsManager?.bookmarksBackButtonHidden = false || isNavigation
     }
   }
 }

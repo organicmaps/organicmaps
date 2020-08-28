@@ -896,7 +896,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (BookmarksCoordinator *)bookmarksCoordinator {
   if (!_bookmarksCoordinator)
     _bookmarksCoordinator = [[BookmarksCoordinator alloc] initWithNavigationController:self.navigationController
-                                                                       controlsManager:self.controlsManager];
+                                                                       controlsManager:self.controlsManager
+                                                                     navigationManager:[MWMNavigationDashboardManager sharedManager]];
   return _bookmarksCoordinator;
 }
 
