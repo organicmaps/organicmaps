@@ -315,6 +315,9 @@ void Processor::SetQuery(string const & query)
   if (!m_isCategorialRequest)
     ForEachCategoryType(tokenSlice, [&](size_t, uint32_t t) { m_preferredTypes.push_back(t); });
 
+  if (m_isCategorialRequest)
+    m_emitter.PrecheckHotelQuery(m_preferredTypes);
+
   base::SortUnique(m_preferredTypes);
 }
 

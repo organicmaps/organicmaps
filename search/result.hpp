@@ -218,6 +218,8 @@ public:
 
   void AddBookmarkResult(bookmarks::Result const & result);
 
+  void PrecheckHotelQuery(std::vector<uint32_t> const & types) { m_hotelsClassif.PrecheckHotelQuery(types); }
+
   void Clear();
 
   Iter begin() { return m_results.begin(); }

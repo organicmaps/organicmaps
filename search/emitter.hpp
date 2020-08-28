@@ -6,7 +6,8 @@
 #include "base/logging.hpp"
 #include "base/timer.hpp"
 
-#include <utility>
+#include <string>
+#include <vector>
 
 namespace search
 {
@@ -30,6 +31,8 @@ public:
   void AddResultNoChecks(Result && res) { m_results.AddResultNoChecks(std::move(res)); }
 
   void AddBookmarkResult(bookmarks::Result const & result) { m_results.AddBookmarkResult(result); }
+
+  void PrecheckHotelQuery(std::vector<uint32_t> const & types) { m_results.PrecheckHotelQuery(types); }
 
   void Emit(bool force = false)
   {
