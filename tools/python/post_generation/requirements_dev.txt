@@ -1,1 +1,1 @@
--r ../mwm/requirements.txt
+-r ../mwm/requirements_dev.txt

@@ -26,4 +26,4 @@ RUN pip install --upgrade pip
 
 RUN pip install werkzeug==0.16.0 \
     SQLAlchemy==1.3.15 \
-    -r ./tools/python/airmaps/requirements.txt
+    -r ./tools/python/airmaps/requirements_dev.txt

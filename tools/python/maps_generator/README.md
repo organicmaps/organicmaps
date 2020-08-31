@@ -27,7 +27,7 @@ $ cd omim/tools/python/maps_generator
 ```
 3. Install dependencies:
 ```sh
-maps_generator$ pip3 install -r requirements.txt
+maps_generator$ pip3 install -r requirements_dev.txt
 ```
 
 4. Make ini file:
