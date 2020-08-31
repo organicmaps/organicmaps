@@ -187,8 +187,6 @@ public class SearchToolbarController extends ToolbarController
       mRoomsChip.setOnCloseIconClickListener(mRoomsClickListener);
     }
 
-    showProgress(false);
-    updateButtons(true);
     View coordinatorLayout = requireActivity().findViewById(R.id.coordinator);
     if (coordinatorLayout != null
         && coordinatorLayout.findViewById(R.id.guests_and_rooms_menu_sheet) != null)
@@ -198,6 +196,9 @@ public class SearchToolbarController extends ToolbarController
           = MenuControllerFactory.createGuestsRoomsMenuController(this, stateObserver, this);
       mGuestsRoomsMenuController.initialize(requireActivity().findViewById(R.id.coordinator));
     }
+
+    showProgress(false);
+    updateButtons(true);
   }
 
   public void setFilterParams(@NonNull BookingFilterParams params)
@@ -241,6 +242,8 @@ public class SearchToolbarController extends ToolbarController
   {
     UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
     UiUtils.showIf(alwaysShowClearButton() || !queryEmpty, mClear);
+    if (mFilterContainer != null && UiUtils.isVisible(mFilterContainer) && queryEmpty)
+      UiUtils.hide(mFilterContainer);
   }
 
   protected void onQueryClick(String query) {}
