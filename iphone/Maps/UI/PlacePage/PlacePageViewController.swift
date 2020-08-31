@@ -1,4 +1,4 @@
-protocol PlacePageViewProtocol: class {
+protocol PlacePageViewProtocol: AnyObject {
   var presenter: PlacePagePresenterProtocol! { get set }
   func setLayout(_ layout: IPlacePageLayout)
   func layoutIfNeeded()
@@ -26,9 +26,10 @@ final class PlacePageScrollView: UIScrollView {
   var rootViewController: MapViewController {
     MapViewController.shared()
   }
+
   private var previousTraitCollection: UITraitCollection?
   private var layout: IPlacePageLayout!
-  private var scrollSteps:[PlacePageState] = []
+  private var scrollSteps: [PlacePageState] = []
   var isPreviewPlus: Bool = false
   private var isNavigationBarVisible = false
 
@@ -68,7 +69,7 @@ final class PlacePageScrollView: UIScrollView {
       updateSteps()
     }
     panGesture.isEnabled = alternativeSizeClass(iPhone: false, iPad: true)
-    self.previousTraitCollection = self.traitCollection
+    previousTraitCollection = traitCollection
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -97,7 +98,7 @@ final class PlacePageScrollView: UIScrollView {
 
   func updatePreviewOffset() {
     updateSteps()
-    if !beginDragging  {
+    if !beginDragging {
       let state = isPreviewPlus ? scrollSteps[2] : scrollSteps[1]
       scrollTo(CGPoint(x: 0, y: state.offset))
     }
@@ -146,31 +147,31 @@ final class PlacePageScrollView: UIScrollView {
     }
   }
 
-  @IBAction func onPan(gesture: UIPanGestureRecognizer){
+  @IBAction func onPan(gesture: UIPanGestureRecognizer) {
     let xOffset = gesture.translation(in: view.superview).x
     gesture.setTranslation(CGPoint.zero, in: view.superview)
     view.minX += xOffset
     view.minX = min(view.minX, 0)
     let alpha = view.maxX / view.width
-    self.view.alpha = alpha
+    view.alpha = alpha
 
     let state = gesture.state
     if state == .ended || state == .cancelled {
       if alpha < 0.8 {
-        self.closeAnimated()
+        closeAnimated()
       } else {
         UIView.animate(withDuration: kDefaultAnimationDuration) {
-          self.view.minX = 0;
-          self.view.alpha = 1;
+          self.view.minX = 0
+          self.view.alpha = 1
         }
       }
     }
   }
 
-  func updateTopBound(_ bound: CGFloat, duration:TimeInterval) {
+  func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
     alternativeSizeClass(iPhone: {
       let isLandscape = UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight
-      presenter.updateTopBound(isLandscape ? 0 : bound , duration: duration)
+      presenter.updateTopBound(isLandscape ? 0 : bound, duration: duration)
     }, iPad: {})
   }
 }
@@ -219,25 +220,25 @@ extension PlacePageViewController: PlacePageViewProtocol {
     NSLayoutConstraint.activate([
       header.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       header.view.topAnchor.constraint(equalTo: view.topAnchor),
-      header.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      header.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
     ])
   }
 
-  func scrollTo(_ point: CGPoint, animated: Bool = true, forced: Bool = false, completion: (()->())? = nil) {
+  func scrollTo(_ point: CGPoint, animated: Bool = true, forced: Bool = false, completion: (() -> Void)? = nil) {
     if alternativeSizeClass(iPhone: beginDragging, iPad: true) && !forced {
       return
     }
     if forced {
       beginDragging = true
     }
-    let scrollPosition = CGPoint(x: point.x, y: min((scrollView.contentSize.height - scrollView.height), point.y))
-    let bound = self.view.height + scrollPosition.y
+    let scrollPosition = CGPoint(x: point.x, y: min(scrollView.contentSize.height - scrollView.height, point.y))
+    let bound = view.height + scrollPosition.y
     if animated {
       updateTopBound(bound, duration: kDefaultAnimationDuration)
       UIView.animate(withDuration: kDefaultAnimationDuration, animations: { [weak scrollView] in
         scrollView?.contentOffset = scrollPosition
         self.layoutIfNeeded()
-      }) { (complete) in
+      }) { complete in
         if complete {
           completion?()
         }
@@ -261,8 +262,8 @@ extension PlacePageViewController: PlacePageViewProtocol {
   func closeAnimated() {
     alternativeSizeClass(iPhone: {
       self.scrollTo(CGPoint(x: 0, y: -self.scrollView.height + 1),
-               animated: true,
-               forced: true) {
+                    animated: true,
+                    forced: true) {
                 self.rootViewController.dismissPlacePage()
       }
     }, iPad: {
@@ -271,7 +272,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
                       let frame = self.view.frame
                       self.view.minX = frame.minX - frame.width
                       self.view.alpha = 0
-      }) { (complete) in
+      }) { complete in
         self.rootViewController.dismissPlacePage()
       }
     })
@@ -287,7 +288,7 @@ extension PlacePageViewController: UIScrollViewDelegate {
     }
     onOffsetChanged(scrollView.contentOffset.y)
 
-    let bound = self.view.height + scrollView.contentOffset.y
+    let bound = view.height + scrollView.contentOffset.y
     updateTopBound(bound, duration: 0)
   }
 
@@ -310,15 +311,15 @@ extension PlacePageViewController: UIScrollViewDelegate {
       return
     }
     switch targetState {
-    case .closed(_):
+    case .closed:
       fallthrough
-    case .preview(_):
+    case .preview:
       layout.adState = .compact
-    case .previewPlus(_):
+    case .previewPlus:
       fallthrough
-    case .expanded(_):
+    case .expanded:
       fallthrough
-    case .full(_):
+    case .full:
       layout.adState = .detailed
     }
     updateSteps()
@@ -327,7 +328,7 @@ extension PlacePageViewController: UIScrollViewDelegate {
   }
 
   func onOffsetChanged(_ offset: CGFloat) {
-    if offset > 0 && !isNavigationBarVisible{
+    if offset > 0 && !isNavigationBarVisible {
       setNavigationBarVisible(true)
     } else if offset <= 0 && isNavigationBarVisible {
       setNavigationBarVisible(false)
