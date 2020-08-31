@@ -43,8 +43,8 @@ AltitudeLoader::AltitudeLoader(DataSource const & dataSource, MwmSet::MwmId cons
 
   m_countryFileName = mwmValue.GetCountryFileName();
 
-  if (mwmValue.GetHeader().GetFormat() < version::Format::v8)
-    return;
+  CHECK_GREATER_OR_EQUAL(mwmValue.GetHeader().GetFormat(), version::Format::v8,
+                         ("Unsupported mwm format"));
 
   if (!mwmValue.m_cont.IsExist(ALTITUDES_FILE_TAG))
     return;
@@ -75,7 +75,7 @@ geometry::Altitudes const & AltitudeLoader::GetAltitudes(uint32_t featureId, siz
 {
   if (!HasAltitudes())
   {
-    // The version of mwm is less than version::Format::v8 or there's no altitude section in mwm.
+    // There's no altitude section in mwm.
     return m_cache
         .insert(
             make_pair(featureId, geometry::Altitudes(pointCount, geometry::kDefaultAltitudeMeters)))

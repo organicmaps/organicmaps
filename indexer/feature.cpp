@@ -550,10 +550,9 @@ void FeatureType::ParseMetadata()
       {
         ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetMetadataReader());
         src.Skip(it->value);
-        if (m_loadInfo->GetMWMFormat() >= version::Format::v8)
-          m_metadata.Deserialize(src);
-        else
-          m_metadata.DeserializeFromMWMv7OrLower(src);
+        CHECK_GREATER_OR_EQUAL(m_loadInfo->GetMWMFormat(), version::Format::v8,
+                               ("Unsupported mwm format"));
+        m_metadata.Deserialize(src);
       }
     }
   }

@@ -161,39 +161,6 @@ public:
   void Set(EType type, std::string const & value) { MetadataBase::Set(static_cast<uint8_t>(type), value); }
   void Drop(EType type) { Set(type, std::string()); }
   std::string GetWikiURL() const;
-
-  // TODO: Commented code below is now longer neded, but I leave it here
-  // as a hint to what is going on in DeserializeFromMWMv7OrLower.
-  // Please, remove it when DeserializeFromMWMv7OrLower is no longer neded.
-  // template <class TWriter>
-  // void SerializeToMWM(TWriter & writer) const
-  // {
-  //   for (auto const & e : m_metadata)
-  //   {
-  //     // Set high bit if it's the last element.
-  //     uint8_t const mark = (&e == &(*m_metadata.crbegin()) ? 0x80 : 0);
-  //     uint8_t elem[2] = {static_cast<uint8_t>(e.first | mark),
-  //                        static_cast<uint8_t>(min(e.second.size(), (size_t)kMaxStringLength))};
-  //     writer.Write(elem, sizeof(elem));
-  //     writer.Write(e.second.data(), elem[1]);
-  //   }
-  // }
-
-  template <class TSource>
-  void DeserializeFromMWMv7OrLower(TSource & src)
-  {
-    uint8_t header[2] = {0};
-    char buffer[kMaxStringLength] = {0};
-    do
-    {
-      src.Read(header, sizeof(header));
-      src.Read(buffer, header[1]);
-      m_metadata[header[0] & 0x7F].assign(buffer, header[1]);
-    } while (!(header[0] & 0x80));
-  }
-
-private:
-  enum { kMaxStringLength = 255 };
 };
 
 class AddressData : public MetadataBase
