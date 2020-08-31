@@ -477,7 +477,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 
 void VulkanBaseContext::Present()
 {
-  if (m_needPresent && m_presentAvailable)
+  if (m_needPresent)
   {
     VkPresentInfoKHR presentInfo = {};
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
