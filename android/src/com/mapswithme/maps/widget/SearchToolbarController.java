@@ -66,7 +66,7 @@ public class SearchToolbarController extends ToolbarController
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
     {
-      updateButtons(TextUtils.isEmpty(s));
+      updateViewsVisibility(TextUtils.isEmpty(s));
       SearchToolbarController.this.onTextChanged(s.toString());
     }
   };
@@ -198,7 +198,7 @@ public class SearchToolbarController extends ToolbarController
     }
 
     showProgress(false);
-    updateButtons(true);
+    updateViewsVisibility(true);
   }
 
   public void setFilterParams(@NonNull BookingFilterParams params)
@@ -238,7 +238,7 @@ public class SearchToolbarController extends ToolbarController
     mRoomGuestCounts = null;
   }
 
-  private void updateButtons(boolean queryEmpty)
+  private void updateViewsVisibility(boolean queryEmpty)
   {
     UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
     UiUtils.showIf(alwaysShowClearButton() || !queryEmpty, mClear);
