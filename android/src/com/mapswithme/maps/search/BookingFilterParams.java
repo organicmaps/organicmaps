@@ -161,6 +161,7 @@ public class BookingFilterParams implements Parcelable
     return mRooms;
   }
 
+  @Nullable
   public static BookingFilterParams createParams(
       long checkIn, long checkOut, @Nullable FilterUtils.RoomGuestCounts roomGuestCounts)
   {

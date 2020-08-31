@@ -1163,7 +1163,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setupSearchQuery(data);
 
     mFilterController.setFilter(data.getParcelableExtra(FilterActivity.EXTRA_FILTER));
-    BookingFilterParams params = data.getParcelableExtra(FilterUtils.EXTRA_FILTER_PARAMS);
+    BookingFilterParams params = mSearchController.getFilterParams() == null
+                                 ? FilterUtils.createDefaultParams()
+                                 : mSearchController.getFilterParams();
     mFilterController.setFilterParams(params);
     mFilterController.updateFilterButtonsVisibility(mFilterController.isSatisfiedForSearch());
     runSearch();

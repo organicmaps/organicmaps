@@ -418,6 +418,14 @@ public class FilterUtils
     return map.isEmpty() ? null : map.toString();
   }
 
+  @Nullable
+  public static BookingFilterParams createDefaultParams()
+  {
+    long checkinMillis = MaterialDatePicker.todayInUtcMilliseconds();
+    long checkoutMillis = getDayAfter(checkinMillis);
+    return BookingFilterParams.createParams(checkinMillis, checkoutMillis, toCounts(Room.DEFAULT));
+  }
+
   public static class RoomGuestCounts
   {
     private final int mRooms;
