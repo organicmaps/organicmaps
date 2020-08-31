@@ -37,6 +37,7 @@ import static com.mapswithme.maps.search.BookingFilterParams.Room;
 public class FilterUtils
 {
   public static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 301;
+  public static final String EXTRA_FILTER_PARAMS = "extra_filter_params";
   private static final int MAX_STAYING_DAYS = 30;
   private static final int MAX_CHECKIN_WINDOW_IN_DAYS = 365;
   private static final String DAY_OF_MONTH_PATTERN = "MMM d";

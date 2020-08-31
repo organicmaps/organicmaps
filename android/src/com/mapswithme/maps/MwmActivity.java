@@ -437,7 +437,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     HotelsFilter filter = data.getParcelableExtra(FilterActivity.EXTRA_FILTER);
     mFilterController.setFilter(filter);
-    BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
+    BookingFilterParams params = data.getParcelableExtra(FilterUtils.EXTRA_FILTER_PARAMS);
     mFilterController.setFilterParams(params);
 
     showSearch(query);
@@ -1163,7 +1163,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setupSearchQuery(data);
 
     mFilterController.setFilter(data.getParcelableExtra(FilterActivity.EXTRA_FILTER));
-    BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
+    BookingFilterParams params = data.getParcelableExtra(FilterUtils.EXTRA_FILTER_PARAMS);
     mFilterController.setFilterParams(params);
     mFilterController.updateFilterButtonsVisibility(mFilterController.isSatisfiedForSearch());
     runSearch();
@@ -1369,7 +1369,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     HotelsFilter filter = intent.getParcelableExtra(FilterActivity.EXTRA_FILTER);
-    BookingFilterParams params = intent.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
+    BookingFilterParams params = intent.getParcelableExtra(FilterUtils.EXTRA_FILTER_PARAMS);
     if (mFilterController != null && (filter != null || params != null))
     {
       mFilterController.updateFilterButtonsVisibility(true);

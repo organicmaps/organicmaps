@@ -17,7 +17,6 @@ public class FilterActivity extends BaseMwmFragmentActivity
 {
   public static final int REQ_CODE_FILTER = 101;
   public static final String EXTRA_FILTER = "extra_filter";
-  public static final String EXTRA_FILTER_PARAMS = "extra_filter_params";
   public static final String ACTION_FILTER_APPLY = "action_filter_apply";
 
   public static void startForResult(@NonNull Activity activity, @Nullable HotelsFilter filter,

@@ -51,7 +51,7 @@ public class SearchActivity extends BaseMwmFragmentActivity
     args.putString(EXTRA_LOCALE, locale);
     args.putBoolean(EXTRA_SEARCH_ON_MAP, isSearchOnMap);
     args.putParcelable(FilterActivity.EXTRA_FILTER, filter);
-    args.putParcelable(FilterActivity.EXTRA_FILTER_PARAMS, params);
+    args.putParcelable(FilterUtils.EXTRA_FILTER_PARAMS, params);
     i.putExtras(args);
     activity.startActivity(i);
     activity.overridePendingTransition(R.anim.search_fade_in, R.anim.search_fade_out);
@@ -116,7 +116,7 @@ public class SearchActivity extends BaseMwmFragmentActivity
           {
             Intent intent = NavUtils.getParentActivityIntent(this);
             intent.putExtra(FilterActivity.EXTRA_FILTER, filter);
-            intent.putExtra(FilterActivity.EXTRA_FILTER_PARAMS, params);
+            intent.putExtra(FilterUtils.EXTRA_FILTER_PARAMS, params);
             NavUtils.navigateUpTo(this, intent);
             return;
           }
