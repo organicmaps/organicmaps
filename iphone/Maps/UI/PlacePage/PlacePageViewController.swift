@@ -200,8 +200,10 @@ extension PlacePageViewController: PlacePageViewProtocol {
   }
 
   func addActionBar(_ actionBarViewController: UIViewController) {
+    addChild(actionBarViewController)
     actionBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
     actionBarContainerView.addSubview(actionBarViewController.view)
+    actionBarViewController.didMove(toParent: self)
     NSLayoutConstraint.activate([
       actionBarViewController.view.leadingAnchor.constraint(equalTo: actionBarContainerView.leadingAnchor),
       actionBarViewController.view.topAnchor.constraint(equalTo: actionBarContainerView.topAnchor),
