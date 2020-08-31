@@ -32,19 +32,21 @@ UNIT_TEST(ConfigLoader_Base)
   TEST(!config.Get()->GetTypesThatCanBeAdded().empty(), ());
 }
 
-UNIT_TEST(ConfigLoader_GetRemoteHash)
-{
-  auto const hashStr = ConfigLoader::GetRemoteHash();
-  TEST_NOT_EQUAL(hashStr, "", ());
-  TEST_EQUAL(hashStr, ConfigLoader::GetRemoteHash(), ());
-}
-
-UNIT_TEST(ConfigLoader_GetRemoteConfig)
-{
-  pugi::xml_document doc;
-  ConfigLoader::GetRemoteConfig(doc);
-  CheckGeneralTags(doc);
-}
+// This functionality is not used and corresponding server is not working.
+// Uncomment it when server will be up.
+//UNIT_TEST(ConfigLoader_GetRemoteHash)
+//{
+//  auto const hashStr = ConfigLoader::GetRemoteHash();
+//  TEST_NOT_EQUAL(hashStr, "", ());
+//  TEST_EQUAL(hashStr, ConfigLoader::GetRemoteHash(), ());
+//}
+//
+//UNIT_TEST(ConfigLoader_GetRemoteConfig)
+//{
+//  pugi::xml_document doc;
+//  ConfigLoader::GetRemoteConfig(doc);
+//  CheckGeneralTags(doc);
+//}
 
 UNIT_TEST(ConfigLoader_SaveLoadHash)
 {
