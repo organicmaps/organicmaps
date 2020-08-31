@@ -37211,68 +37211,6 @@
   he = אוסטריה עילית — ולס
   sk = Horné Rakúsko — Wels
 
-[Bolivia_North]
-  en = Bolivia — North
-  ru = Боливия — Север
-  ar = بوليفيا — شمال
-  cs = Bolívie — Sever
-  da = Bolivia — Nord
-  nl = Bolivia — Noord
-  fi = Bolivia — Pohjoinen
-  fr = Bolivie — Nord
-  de = Bolivien — Norden
-  hu = Bolívia — Észak
-  id = Bolivia — Utara
-  it = Bolivia — Nord
-  ja = ボリビア・北部
-  ko = 볼리비아 — 북
-  nb = Bolivia — Nord
-  pl = Boliwia — Północ
-  pt = Bolívia — Norte
-  ro = Bolivia — Nord
-  es = Bolivia — Norte
-  sv = Bolivia — Nord
-  th = ประเทศโบลิเวีย — เหนือ
-  tr = Bolivya — Kuzey
-  uk = Болівія — Північ
-  vi = Bolivia — Bắc
-  zh-Hans = 保加利亚 - 东
-  zh-Hant = 保加利亞 - 東
-  el = Βολιβία - Βόρεια
-  he = בוליביה — צָפוֹן
-  sk = Bolívia — Sever
-
-[Bolivia_South]
-  en = Bolivia — South
-  ru = Боливия — Юг
-  ar = بوليفيا — جنوب
-  cs = Bolívie — Jih
-  da = Bolivia — Syd
-  nl = Bolivia — Zuid
-  fi = Bolivia — Etelä
-  fr = Bolivie — Sud
-  de = Bolivien — Süden
-  hu = Bolívia — Dél
-  id = Bolivia — Selatan
-  it = Bolivia — Sud
-  ja = ボリビア・南部
-  ko = 볼리비아 — 남
-  nb = Bolivia — Sør
-  pl = Boliwia — Południe
-  pt = Bolívia — Sul
-  ro = Bolivia — Sud
-  es = Bolivia — Sur
-  sv = Bolivia — Syd
-  th = ประเทศโบลิเวีย — ใต้
-  tr = Bolivya — Güney
-  uk = Болівія — Південь
-  vi = Bolivia — Nam
-  zh-Hans = 保加利亚 - 西
-  zh-Hant = 保加利亞 - 西
-  el = Βολιβία - Νότια
-  he = בוליביה — דָרוֹם
-  sk = Bolívia — Juh
-
 [Brazil_Goias_Brasilia]
   en = Goiás — Brasília
   ru = Гояс — Бразилиа
