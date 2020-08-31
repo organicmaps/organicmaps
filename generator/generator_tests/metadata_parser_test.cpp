@@ -78,7 +78,7 @@ UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_operator)
   uint32_t const typeAtm = classif().GetTypeByPath({"amenity", "atm"});
   uint32_t const typeFuel = classif().GetTypeByPath({"amenity", "fuel"});
   uint32_t const typeCarSharing = classif().GetTypeByPath({"amenity", "car_sharing"});
-  uint32_t const typeCarRental = classif().GetTypeByPath({"amenity", "car_rantal"});
+  uint32_t const typeCarRental = classif().GetTypeByPath({"amenity", "car_rental"});
 
   FeatureBuilderParams params;
   MetadataTagProcessor p(params);
