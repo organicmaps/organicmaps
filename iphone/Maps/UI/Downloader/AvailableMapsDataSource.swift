@@ -137,6 +137,7 @@ extension AvailableMapsDataSource: IDownloaderDataSource {
       searchDataSource.reload(completion)
     }
     // do nothing.
+    completion()
   }
 
   func search(_ query: String, locale: String, update: @escaping (Bool) -> Void) {

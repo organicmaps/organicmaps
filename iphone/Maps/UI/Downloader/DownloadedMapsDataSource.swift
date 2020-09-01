@@ -117,8 +117,12 @@ extension DownloadedMapsDataSource: IDownloaderDataSource {
       update(true)
       return
     }
-    searching = true
-    searchDataSource.search(query, locale: locale, update: update)
+    searchDataSource.search(query, locale: locale) { [weak self] (finished) in
+      if finished {
+        self?.searching = true
+        update(finished)
+      }
+    }
   }
 
   func cancelSearch() {

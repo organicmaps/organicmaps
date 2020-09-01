@@ -101,7 +101,7 @@ class DownloadMapsViewController: MWMViewController {
 
   fileprivate func showChildren(_ nodeAttrs: MapNodeAttributes) {
     let vc = storyboard!.instantiateViewController(ofType: DownloadMapsViewController.self)
-    vc.mode = mode
+    vc.mode = dataSource.isSearching ? .available : mode
     vc.dataSource = dataSource.dataSourceFor(nodeAttrs.countryId)
     navigationController?.pushViewController(vc, animated: true)
   }
