@@ -9,7 +9,7 @@ std::unique_ptr<FeatureType> FeaturesVector::GetByIndex(uint32_t index) const
 {
   auto const ftOffset = m_table ? m_table->GetFeatureOffset(index) : index;
   return std::make_unique<FeatureType>(&m_loadInfo, m_recordReader->ReadRecord(ftOffset),
-                                       m_metaidx.get());
+                                       m_metaidx.get(), m_metaDeserializer.get());
 }
 
 size_t FeaturesVector::GetNumFeatures() const

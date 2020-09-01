@@ -102,6 +102,8 @@ set(
   map_style_reader.hpp
   meta_idx.cpp
   meta_idx.hpp
+  metadata_serdes.cpp
+  metadata_serdes.hpp
   mwm_set.cpp
   mwm_set.hpp
   postcodes.cpp

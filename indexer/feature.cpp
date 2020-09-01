@@ -186,11 +186,18 @@ uint8_t ReadByte(TSource & src)
 }  // namespace
 
 FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer,
-                         MetadataIndex const * metadataIndex)
-  : m_loadInfo(loadInfo), m_data(buffer), m_metadataIndex(metadataIndex)
+                         MetadataIndex const * metadataIndex,
+                         indexer::MetadataDeserializer * metadataDeserializer)
+  : m_loadInfo(loadInfo)
+  , m_data(buffer)
+  , m_metadataIndex(metadataIndex)
+  , m_metadataDeserializer(metadataDeserializer)
 {
   CHECK(loadInfo, ());
-  ASSERT(m_loadInfo->GetMWMFormat() < version::Format::v10 || m_metadataIndex,
+
+  ASSERT(m_loadInfo->GetMWMFormat() < version::Format::v10 ||
+             m_loadInfo->GetMWMFormat() == version::Format::v10 && m_metadataIndex ||
+             m_loadInfo->GetMWMFormat() > version::Format::v10 && m_metadataDeserializer,
          (m_loadInfo->GetMWMFormat()));
 
   m_header = Header(m_data);
@@ -522,7 +529,11 @@ void FeatureType::ParseMetadata()
   try
   {
     auto const format = m_loadInfo->GetMWMFormat();
-    if (format >= version::Format::v10)
+    if (format >= version::Format::v11)
+    {
+      UNUSED_VALUE(m_metadataDeserializer->Get(m_id.m_index, m_metadata));
+    }
+    else if (format == version::Format::v10)
     {
       uint32_t offset;
       CHECK(m_metadataIndex, ("metadata index should be set for mwm format >= v10"));
@@ -530,7 +541,8 @@ void FeatureType::ParseMetadata()
       {
         ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetMetadataReader());
         src.Skip(offset);
-        m_metadata.Deserialize(src);
+        // Before v11 we used the same metadata serialization for mwm and mwm.tmp
+        m_metadata.DeserializeFromMwmTmp(src);
       }
     }
     else
@@ -552,7 +564,8 @@ void FeatureType::ParseMetadata()
         src.Skip(it->value);
         CHECK_GREATER_OR_EQUAL(m_loadInfo->GetMWMFormat(), version::Format::v8,
                                ("Unsupported mwm format"));
-        m_metadata.Deserialize(src);
+        // Before v11 we used the same metadata serialization for mwm and mwm.tmp
+        m_metadata.DeserializeFromMwmTmp(src);
       }
     }
   }

@@ -12,6 +12,7 @@ class Writer;
 
 namespace feature
 {
+// Used for backward compatibility with mwm v10 only.
 class MetadataIndex
 {
 public:
@@ -55,16 +56,6 @@ private:
 
   std::unique_ptr<Map> m_map;
   std::unique_ptr<Reader> m_indexSubreader;
-};
-
-class MetadataIndexBuilder
-{
-public:
-  void Put(uint32_t featureId, uint32_t offset);
-  void Freeze(Writer & writer) const;
-
-private:
-  MapUint32ToValueBuilder<uint32_t> m_builder;
 };
 
 std::string DebugPrint(MetadataIndex::Version v);

@@ -323,16 +323,16 @@ public:
   void Write(Sink & sink) const
   {
     FeatureParams::Write(sink);
-    m_metadata.Serialize(sink);
-    m_addrTags.Serialize(sink);
+    m_metadata.SerializeForMwmTmp(sink);
+    m_addrTags.SerializeForMwmTmp(sink);
   }
 
   template <class Source>
   void Read(Source & src)
   {
     FeatureParams::Read(src);
-    m_metadata.Deserialize(src);
-    m_addrTags.Deserialize(src);
+    m_metadata.DeserializeFromMwmTmp(src);
+    m_addrTags.DeserializeFromMwmTmp(src);
   }
 
   bool GetReversedGeometry() const { return m_reversedGeometry; }

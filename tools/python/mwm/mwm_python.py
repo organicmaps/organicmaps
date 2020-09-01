@@ -86,8 +86,8 @@ class MwmPython(mi.Mwm):
         return tags
 
     def _read_metadata_offsets(self) -> Dict[int, int]:
-        if self.version_.format < 10 :
-          logger.warn("Method population() does not have an implementation.")
+        if self.version_.format >= 10 :
+          logger.warn("Method _read_metadata_offsets() does not have an implementation.")
           return None
 
         self.seek_tag("metaidx")

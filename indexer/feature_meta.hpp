@@ -1,5 +1,7 @@
 #pragma once
 
+#include "indexer/metadata_serdes.hpp"
+
 #include "coding/reader.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
@@ -47,8 +49,8 @@ public:
   inline bool Empty() const { return m_metadata.empty(); }
   inline size_t Size() const { return m_metadata.size(); }
 
-  template <class TSink>
-  void Serialize(TSink & sink) const
+  template <class Sink>
+  void SerializeForMwmTmp(Sink & sink) const
   {
     auto const sz = static_cast<uint32_t>(m_metadata.size());
     WriteVarUint(sink, sz);
@@ -59,8 +61,8 @@ public:
     }
   }
 
-  template <class TSource>
-  void Deserialize(TSource & src)
+  template <class Source>
+  void DeserializeFromMwmTmp(Source & src)
   {
     auto const sz = ReadVarUint<uint32_t>(src);
     for (size_t i = 0; i < sz; ++i)
@@ -76,6 +78,8 @@ public:
   }
 
 protected:
+  friend bool indexer::MetadataDeserializer::Get(uint32_t id, MetadataBase & meta);
+
   // TODO: Change uint8_t to appropriate type when FMD_COUNT reaches 256.
   void Set(uint8_t type, std::string const & value)
   {
@@ -204,6 +208,18 @@ public:
     PH_VICTORIA_DAY = 22,
     PH_CANADA_DAY = 23
   };
+
+  template <class Sink>
+  void Serialize(Sink & sink) const
+  {
+    MetadataBase::SerializeForMwmTmp(sink);
+  }
+
+  template <class Source>
+  void Deserialize(Source & src)
+  {
+    MetadataBase::DeserializeFromMwmTmp(src);
+  }
 
   void Set(Type type, std::string const & s)
   {

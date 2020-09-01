@@ -68,7 +68,7 @@ UNIT_TEST(Feature_Metadata_PresentTypes)
     TEST_EQUAL(m.Get(type), kKeyValues.find(static_cast<Metadata::EType>(type))->second, ());
 }
 
-UNIT_TEST(Feature_Serialization)
+UNIT_TEST(Feature_MwmTmpSerialization)
 {
   Metadata original;
   for (auto const & value : kKeyValues)
@@ -79,11 +79,11 @@ UNIT_TEST(Feature_Serialization)
     Metadata serialized;
     vector<char> buffer;
     MemWriter<decltype(buffer)> writer(buffer);
-    original.Serialize(writer);
+    original.SerializeForMwmTmp(writer);
 
     MemReader reader(buffer.data(), buffer.size());
     ReaderSource<MemReader> src(reader);
-    serialized.Deserialize(src);
+    serialized.DeserializeFromMwmTmp(src);
 
     for (auto const & value : kKeyValues)
       TEST_EQUAL(serialized.Get(value.first), value.second, ());

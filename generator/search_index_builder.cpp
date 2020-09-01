@@ -392,7 +392,7 @@ void ReadAddressData(string const & filename, vector<feature::AddressData> & add
   while (src.Size() > 0)
   {
     addrs.push_back({});
-    addrs.back().Deserialize(src);
+    addrs.back().DeserializeFromMwmTmp(src);
   }
 }
 

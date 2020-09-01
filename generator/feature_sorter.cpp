@@ -69,7 +69,6 @@ public:
       m_trgFile.push_back(make_unique<TmpFile>(filename + TRIANGLE_FILE_TAG + postfix));
     }
 
-    m_metadataFile = make_unique<TmpFile>(filename + METADATA_FILE_TAG);
     m_addrFile = make_unique<FileWriter>(filename + TEMP_ADDR_FILENAME);
   }
 
@@ -138,17 +137,10 @@ public:
       finalizeFn(move(m_trgFile[i]), GetTagForIndex(TRIANGLE_FILE_TAG, i));
     }
 
-    finalizeFn(move(m_metadataFile), METADATA_FILE_TAG);
-
     {
       FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
-      auto w = writer.GetWriter(METADATA_INDEX_FILE_TAG);
-
-      MetadataIndexBuilder metaIdxBuilder;
-      for (auto const & v : m_metadataOffset)
-        metaIdxBuilder.Put(v.first, v.second);
-
-      metaIdxBuilder.Freeze(*w);
+      auto w = writer.GetWriter(METADATA_FILE_TAG);
+      m_metadataBuilder.Freeze(*w);
     }
 
     if (m_header.GetType() == DataHeader::MapType::Country ||
@@ -246,16 +238,10 @@ public:
 
       featureId = WriteFeatureBase(buffer.m_buffer, fb);
 
-      fb.GetAddressData().Serialize(*m_addrFile);
+      fb.GetAddressData().SerializeForMwmTmp(*m_addrFile);
 
       if (!fb.GetMetadata().Empty())
-      {
-        uint64_t const offset = m_metadataFile->Pos();
-        ASSERT_LESS_OR_EQUAL(offset, numeric_limits<uint32_t>::max(), ());
-
-        m_metadataOffset.emplace_back(featureId, static_cast<uint32_t>(offset));
-        fb.GetMetadata().Serialize(*m_metadataFile);
-      }
+        m_metadataBuilder.Put(featureId, fb.GetMetadata());
 
       if (fb.HasOsmIds())
         m_osm2ft.AddIds(generator::MakeCompositeId(fb), featureId);
@@ -311,11 +297,9 @@ private:
   unique_ptr<FileWriter> m_addrFile;
 
   // Temporary files for sections.
-  unique_ptr<TmpFile> m_metadataFile;
   TmpFiles m_geoFile, m_trgFile;
 
-  // Mapping from feature id to offset in file section with the correspondent metadata.
-  vector<pair<uint32_t, uint32_t>> m_metadataOffset;
+  indexer::MetadataBuilder m_metadataBuilder;
 
   DataHeader m_header;
   RegionData m_regionData;
