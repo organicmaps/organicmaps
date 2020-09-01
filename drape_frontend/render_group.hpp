@@ -77,6 +77,17 @@ public:
   bool IsOverlay() const;
   bool IsUserMark() const;
 
+  // Warning! Has linear complexity on number of OverlayHandles in the render group.
+  template <typename ToDo>
+  void ForEachOverlay(ToDo const & todo)
+  {
+    if (CanBeDeleted())
+      return;
+
+    for (auto & renderBucket : m_renderBuckets)
+      renderBucket->ForEachOverlay(todo);
+  }
+
 private:
   std::vector<drape_ptr<dp::RenderBucket>> m_renderBuckets;
   mutable bool m_pendingOnDelete;

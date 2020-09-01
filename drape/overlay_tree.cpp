@@ -214,7 +214,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
   ASSERT(IsNeedUpdate(), ());
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
-  string str = handle->GetOverlayDebugInfo();
+  std::string str = handle->GetOverlayDebugInfo();
   if (!str.empty())
     LOG(LINFO, (str));
 #endif

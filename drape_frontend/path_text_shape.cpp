@@ -155,8 +155,8 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::GraphicsContext> context,
 drape_ptr<dp::OverlayHandle> PathTextShape::CreateOverlayHandle(uint32_t textIndex,
                                                                 ref_ptr<dp::TextureManager> textures) const
 {
-  dp::OverlayID const overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords,
-                                                m_baseTextIndex + textIndex);
+  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId,
+                          m_tileCoords, m_baseTextIndex + textIndex);
   auto const layout = m_context->GetLayout();
   auto const priority = GetOverlayPriority(textIndex, layout->GetText().size());
   return make_unique_dp<PathTextHandle>(overlayId, m_context, m_params.m_depth,

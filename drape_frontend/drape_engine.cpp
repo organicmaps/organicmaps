@@ -922,6 +922,7 @@ void DrapeEngine::EnableDebugRectRendering(bool enabled)
 drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMark const * mark)
 {
   auto renderInfo = make_unique_dp<UserMarkRenderParams>();
+  renderInfo->m_markId = mark->GetId();
   renderInfo->m_anchor = mark->GetAnchor();
   renderInfo->m_depthTestEnabled = mark->GetDepthTestEnabled();
   if (mark->GetDepth() != UserPointMark::kInvalidDepth)

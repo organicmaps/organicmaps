@@ -330,7 +330,7 @@ void TextShape::DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context,
 
   m2::PointF const & pixelSize = layout.GetPixelSize();
 
-  auto overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords, m_textIndex);
+  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
   drape_ptr<StraightTextHandle> handle = make_unique_dp<StraightTextHandle>(overlayId,
                                                                             layout.GetText(),
                                                                             m_params.m_titleDecl.m_anchor,
@@ -393,7 +393,7 @@ void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
 
   m2::PointF const & pixelSize = layout.GetPixelSize();
 
-  auto overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords, m_textIndex);
+  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
   drape_ptr<StraightTextHandle> handle = make_unique_dp<StraightTextHandle>(overlayId,
                                                                             layout.GetText(),
                                                                             m_params.m_titleDecl.m_anchor,

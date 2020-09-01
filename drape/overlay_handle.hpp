@@ -1,17 +1,19 @@
 #pragma once
 
+#include "drape/attribute_buffer_mutator.hpp"
+#include "drape/binding_info.hpp"
 #include "drape/drape_diagnostics.hpp"
 #include "drape/drape_global.hpp"
-#include "drape/binding_info.hpp"
 #include "drape/index_buffer_mutator.hpp"
 #include "drape/index_storage.hpp"
-#include "drape/attribute_buffer_mutator.hpp"
+
+#include "kml/type_utils.hpp"
 
 #include "indexer/feature_decl.hpp"
 
-#include "geometry/screenbase.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
+#include "geometry/screenbase.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -19,6 +21,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <tuple>
 
 namespace dp
 {
@@ -40,20 +43,32 @@ uint64_t constexpr kPriorityMaskAll = kPriorityMaskZoomLevel |
 struct OverlayID
 {
   FeatureID m_featureId;
-  m2::PointI m_tileCoords;
-  uint32_t m_index;
+  kml::MarkId m_markId = kml::kInvalidMarkId;
+  m2::PointI m_tileCoords{-1, -1};
+  uint32_t m_index = 0;
 
-  OverlayID(FeatureID const & featureId)
-    : m_featureId(featureId), m_tileCoords(-1, -1), m_index(0)
+  OverlayID() = default;
+
+  explicit OverlayID(FeatureID const & featureId)
+    : m_featureId(featureId)
   {}
-  OverlayID(FeatureID const & featureId, m2::PointI const & tileCoords, uint32_t index)
-    : m_featureId(featureId), m_tileCoords(tileCoords), m_index(index)
+
+  OverlayID(FeatureID const & featureId, kml::MarkId markId, m2::PointI const & tileCoords,
+            uint32_t index)
+    : m_featureId(featureId)
+    , m_markId(markId)
+    , m_tileCoords(tileCoords)
+    , m_index(index)
   {}
+
+  auto AsTupleRef() const
+  {
+    return std::tie(m_featureId, m_markId, m_tileCoords, m_index);
+  }
 
   bool operator==(OverlayID const & overlayId) const
   {
-    return m_featureId == overlayId.m_featureId && m_tileCoords == overlayId.m_tileCoords &&
-           m_index == overlayId.m_index;
+    return AsTupleRef() == overlayId.AsTupleRef();
   }
 
   bool operator!=(OverlayID const & overlayId) const
@@ -63,26 +78,12 @@ struct OverlayID
 
   bool operator<(OverlayID const & overlayId) const
   {
-    if (m_featureId == overlayId.m_featureId)
-    {
-      if (m_tileCoords == overlayId.m_tileCoords)
-        return m_index < overlayId.m_index;
-
-      return m_tileCoords < overlayId.m_tileCoords;
-    }
-    return m_featureId < overlayId.m_featureId;
+    return AsTupleRef() < overlayId.AsTupleRef();
   }
 
   bool operator>(OverlayID const & overlayId) const
   {
-    if (m_featureId == overlayId.m_featureId)
-    {
-      if (m_tileCoords == overlayId.m_tileCoords)
-        return m_index > overlayId.m_index;
-
-      return !(m_tileCoords < overlayId.m_tileCoords);
-    }
-    return !(m_featureId < overlayId.m_featureId);
+    return overlayId < *this;
   }
 };
 

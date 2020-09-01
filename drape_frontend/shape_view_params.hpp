@@ -6,6 +6,8 @@
 #include "drape/drape_global.hpp"
 #include "drape/stipple_pen_resource.hpp"
 
+#include "kml/type_utils.hpp"
+
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
@@ -28,6 +30,9 @@ struct CommonViewParams
   int m_minVisibleScale = 0;
   uint8_t m_rank = 0;
   m2::PointD m_tileCenter;
+
+  FeatureID m_featureId;
+  kml::MarkId m_markId = kml::kInvalidMarkId;
 };
 
 enum class SpecialDisplacement : uint8_t
@@ -48,9 +53,6 @@ struct CommonOverlayViewParams : public CommonViewParams
 
 struct PoiSymbolViewParams : CommonOverlayViewParams
 {
-  PoiSymbolViewParams(FeatureID const & id) : m_id(id) {}
-
-  FeatureID m_id;
   std::string m_symbolName;
   uint32_t m_extendingSize = 0;
   float m_posZ = 0.0f;
@@ -90,9 +92,6 @@ struct LineViewParams : CommonViewParams
 
 struct TextViewParams : CommonOverlayViewParams
 {
-  TextViewParams() {}
-
-  FeatureID m_featureID;
   dp::TitleDecl m_titleDecl;
   bool m_hasArea = false;
   bool m_createdByEditor = false;
@@ -104,7 +103,6 @@ struct TextViewParams : CommonOverlayViewParams
 
 struct PathTextViewParams : CommonOverlayViewParams
 {
-  FeatureID m_featureID;
   dp::FontDecl m_textFont;
   std::string m_mainText;
   std::string m_auxText;
@@ -113,7 +111,6 @@ struct PathTextViewParams : CommonOverlayViewParams
 
 struct PathSymbolViewParams : CommonViewParams
 {
-  FeatureID m_featureID;
   std::string m_symbolName;
   float m_offset = 0.0f;
   float m_step = 0.0f;
@@ -127,7 +124,6 @@ struct ColoredSymbolViewParams : CommonOverlayViewParams
     Rectangle, Circle, RoundedRectangle
   };
 
-  FeatureID m_featureID;
   Shape m_shape = Shape::Circle;
   dp::Anchor m_anchor = dp::Center;
   dp::Color m_color;

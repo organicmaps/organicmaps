@@ -1273,7 +1273,7 @@ void FrontendRenderer::OnCompassTapped()
   m_selectionTrackInfo.reset();
 }
 
-FeatureID FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint)
+std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint)
 {
   double halfSize = VisualParams::Instance().GetTouchRectRadius();
   m2::PointD sizePoint(halfSize, halfSize);
@@ -1281,28 +1281,41 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint)
   return GetVisiblePOI(selectRect);
 }
 
-FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
+std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
 {
   m2::PointD pt = pixelRect.Center();
-  dp::TOverlayContainer selectResult;
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   if (m_overlayTree->IsNeedUpdate())
     BuildOverlayTree(screen);
-  m_overlayTree->Select(pixelRect, selectResult);
 
-  double dist = std::numeric_limits<double>::max();
-  FeatureID featureID;
+  dp::TOverlayContainer selectResult;
+
+  auto selectionRect = pixelRect;
+  constexpr double kTapRectFactor = 0.25;  // make tap rect size smaller for extended objects
+  selectionRect.Scale(kTapRectFactor);
+  SearchInNonDisplacedUserMarksLayer(screen, DepthLayer::SearchMarkLayer, selectionRect, selectResult);
+
+  if (selectResult.empty())
+    m_overlayTree->Select(pixelRect, selectResult);
+
+  if (selectResult.empty())
+    return {};
+
+  double minSquaredDist = std::numeric_limits<double>::infinity();
+  ref_ptr<dp::OverlayHandle> closestOverlayHandle;
   for (ref_ptr<dp::OverlayHandle> handle : selectResult)
   {
-    double const curDist = pt.SquaredLength(handle->GetPivot(screen, screen.isPerspective()));
-    if (curDist < dist)
+    double const curSquaredDist = pt.SquaredLength(handle->GetPivot(screen, screen.isPerspective()));
+    if (curSquaredDist < minSquaredDist)
     {
-      dist = curDist;
-      featureID = handle->GetOverlayID().m_featureId;
+      minSquaredDist = curSquaredDist;
+      closestOverlayHandle = handle;
     }
   }
+  CHECK(closestOverlayHandle, ());
 
-  return featureID;
+  auto const & overlayId = closestOverlayHandle->GetOverlayID();
+  return {overlayId.m_featureId, overlayId.m_markId};
 }
 
 void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
@@ -2019,7 +2032,8 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
   }
 
   ASSERT(m_tapEventInfoHandler != nullptr, ());
-  m_tapEventInfoHandler({mercator, isLongTap, isMyPosition, GetVisiblePOI(selectRect)});
+  auto [featureId, markId] = GetVisiblePOI(selectRect);
+  m_tapEventInfoHandler({mercator, isLongTap, isMyPosition, featureId, markId});
 }
 
 void FrontendRenderer::OnForceTap(m2::PointD const & pt)
@@ -2659,6 +2673,37 @@ void FrontendRenderer::ScheduleOverlayCollecting()
     if (m_overlaysTracker->IsValid())
       CollectShowOverlaysEvents();
   });
+}
+
+void FrontendRenderer::SearchInNonDisplacedUserMarksLayer(ScreenBase const & modelView,
+                                                          DepthLayer layerId,
+                                                          m2::RectD const & selectionRect,
+                                                          dp::TOverlayContainer & result)
+{
+  auto & layer = m_layers[static_cast<size_t>(layerId)];
+  layer.Sort(nullptr);
+  for (drape_ptr<RenderGroup> & group : layer.m_renderGroups)
+  {
+    group->SetOverlayVisibility(true);
+    group->Update(modelView);
+    group->ForEachOverlay(
+      [&modelView, &result, selectionRect = m2::RectF(selectionRect)](ref_ptr<dp::OverlayHandle> const & h)
+      {
+        if (h->GetOverlayID().m_featureId.IsValid())
+        {
+          dp::OverlayHandle::Rects shapes;
+          h->GetPixelShape(modelView, modelView.isPerspective(), shapes);
+          for (m2::RectF const & shape : shapes)
+          {
+            if (selectionRect.IsIntersect(shape))
+            {
+              result.push_back(h);
+              break;
+            }
+          }
+        }
+      });
+  }
 }
 
 void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)

@@ -169,6 +169,8 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   }
 
   ColoredSymbolViewParams params;
+  params.m_featureId = renderInfo.m_featureId;
+  params.m_markId = renderInfo.m_markId;
 
   if (renderInfo.m_coloredSymbols->m_isSymbolStub)
   {
@@ -205,7 +207,6 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   if (!isTextBg)
     symbolSize = m2::PointF(std::max(coloredSize.x, symbolSize.x), std::max(coloredSize.y, symbolSize.y));
 
-  params.m_featureID = renderInfo.m_featureId;
   params.m_tileCenter = tileCenter;
   params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
   params.m_depth = renderInfo.m_depth;
@@ -234,7 +235,9 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
                             m2::PointD const & tileCenter, std::string const & symbolName,
                             m2::PointF const & symbolOffset, dp::Batcher & batcher)
 {
-  PoiSymbolViewParams params(renderInfo.m_featureId);
+  PoiSymbolViewParams params;
+  params.m_featureId = renderInfo.m_featureId;
+  params.m_markId = renderInfo.m_markId;
   params.m_tileCenter = tileCenter;
   params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
   params.m_depth = renderInfo.m_depth;
@@ -298,7 +301,8 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Textur
       continue;
 
     TextViewParams params;
-    params.m_featureID = renderInfo.m_featureId;
+    params.m_featureId = renderInfo.m_featureId;
+    params.m_markId = renderInfo.m_markId;
     params.m_tileCenter = tileCenter;
     params.m_titleDecl = titleDecl;
 
@@ -389,6 +393,42 @@ std::string GetBackgroundForSymbol(std::string const & symbolName,
   return textures->HasSymbolRegion(backgroundSymbol) ? backgroundSymbol : "";
 }
 }  // namespace
+
+uint64_t GetOverlayPriority(UserMarkRenderParams const & renderInfo)
+{
+  // Special displacement mode.
+  if (renderInfo.m_displacement == SpecialDisplacement::SpecialMode)
+    return dp::CalculateSpecialModePriority(renderInfo.m_priority);
+
+  if (renderInfo.m_displacement == SpecialDisplacement::SpecialModeUserMark)
+    return dp::CalculateSpecialModeUserMarkPriority(renderInfo.m_priority);
+
+  if (renderInfo.m_displacement == SpecialDisplacement::UserMark)
+    return dp::CalculateUserMarkPriority(renderInfo.m_minZoom, renderInfo.m_priority);
+
+  return dp::CalculateOverlayPriority(renderInfo.m_minZoom, 0, renderInfo.m_depth);
+}
+
+drape_ptr<dp::OverlayHandle> CreateOverlayHandle(UserMarkRenderParams const & renderInfo,
+                                                 TileKey const & tileKey,
+                                                 m2::PointF const & symbolOffset,
+                                                 m2::RectD const & pixelRect)
+{
+  dp::OverlayID overlayId(renderInfo.m_featureId, renderInfo.m_markId, tileKey.GetTileCoords(),
+                          kStartUserMarkOverlayIndex + renderInfo.m_index);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(
+      overlayId, renderInfo.m_anchor, renderInfo.m_pivot,
+      pixelRect.RightTop() - pixelRect.LeftBottom(), m2::PointD(symbolOffset),
+      GetOverlayPriority(renderInfo), true /* isBound */, "MainSymbol", renderInfo.m_minZoom,
+      true /* isBillboard */);
+  if (renderInfo.m_displacement == SpecialDisplacement::UserMark ||
+      renderInfo.m_displacement == SpecialDisplacement::SpecialModeUserMark)
+  {
+    handle->SetSpecialLayerOverlay(true);
+  }
+  handle->SetOverlayRank(dp::OverlayRank0);
+  return handle;
+}
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                     ref_ptr<dp::TextureManager> textures, kml::MarkIdCollection const & marksId,
@@ -491,6 +531,12 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
             glsl::ToVec4(m2::PointD(texRect.RightBottom()), m2::PointD(bgTexRect.RightBottom())),
             maskColor);
 
+        m2::RectD rect;
+        for (auto const & vertex : buffer)
+          rect.Add(glsl::FromVec2(vertex.m_normalAndAnimateOrZ.xy()));
+
+        auto overlayHandle = CreateOverlayHandle(renderInfo, tileKey, symbolOffset, rect);
+
         gpu::Program program;
         gpu::Program program3d;
         if (renderInfo.m_isMarkAboveText)
@@ -517,7 +563,8 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
         attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
 
-        batcher.InsertListOfStrip(context, state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
+        batcher.InsertListOfStrip(context, state, make_ref(&attribProvider),
+                                  std::move(overlayHandle), dp::Batcher::VertexPerQuad);
       }
     }
 

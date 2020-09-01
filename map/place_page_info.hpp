@@ -102,6 +102,7 @@ struct BuildInfo
     , m_isLongTap(info.m_isLong)
     , m_isMyPosition(info.m_isMyPositionTapped)
     , m_featureId(info.m_featureTapped)
+    , m_userMarkId(info.m_markId)
   {}
 
   bool IsFeatureMatchingEnabled() const

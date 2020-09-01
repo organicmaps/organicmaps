@@ -24,7 +24,7 @@ public:
 
 private:
   uint64_t GetOverlayPriority() const;
-  drape_ptr<dp::OverlayHandle> CreateOverlayHandle(m2::PointF const & pixelSize) const;
+  drape_ptr<dp::OverlayHandle> CreateOverlayHandle(m2::RectD const & pixelRect) const;
 
   m2::PointD const m_pt;
   PoiSymbolViewParams const m_params;

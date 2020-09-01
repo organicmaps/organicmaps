@@ -438,7 +438,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   CaptionDefProtoToFontDecl(primaryProto, decl);
 
   params.m_depth = depth;
-  params.m_featureID = m_id;
+  params.m_featureId = m_id;
 
   auto & titleDecl = params.m_titleDecl;
   titleDecl.m_anchor = GetAnchor(primaryProto);
@@ -580,7 +580,8 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
   double const mainScale = df::VisualParams::Instance().GetVisualScale();
   if (hasPOI)
   {
-    PoiSymbolViewParams params(m_id);
+    PoiSymbolViewParams params;
+    params.m_featureId = m_id;
     params.m_tileCenter = m_tileRect.Center();
     params.m_depthTestEnabled = m_depthLayer != DepthLayer::NavigationLayer &&
       m_depthLayer != DepthLayer::OverlayLayer;
@@ -630,7 +631,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
   if (m_isUGC)
   {
     df::ColoredSymbolViewParams params;
-    params.m_featureID = m_id;
+    params.m_featureId = m_id;
     params.m_tileCenter = m_tileRect.Center();
     params.m_color = dp::Color::Yellow();
     params.m_radiusInPixels = hasPOI ? static_cast<float>(symbolSize.x / 2.0 + mainScale * 3)
@@ -1061,7 +1062,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_depthLayer = DepthLayer::OverlayLayer;
   textParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
   textParams.m_rank = m_rank;
-  textParams.m_featureID = m_id;
+  textParams.m_featureId = m_id;
   textParams.m_titleDecl.m_anchor = anchor;
   textParams.m_titleDecl.m_primaryText = roadNumber;
   textParams.m_titleDecl.m_primaryTextFont = font;
@@ -1085,7 +1086,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   if (IsColoredRoadShield(shield))
   {
     // Generated symbol properties.
-    symbolParams.m_featureID = m_id;
+    symbolParams.m_featureId = m_id;
     symbolParams.m_tileCenter = m_tileRect.Center();
     symbolParams.m_depthTestEnabled = true;
     symbolParams.m_depth = m_depth;
@@ -1199,7 +1200,7 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
     CaptionDefProtoToFontDecl(m_captionRule, fontDecl);
     PathTextViewParams params;
     params.m_tileCenter = m_tileRect.Center();
-    params.m_featureID = m_id;
+    params.m_featureId = m_id;
     params.m_depth = m_depth;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
@@ -1259,7 +1260,8 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
   {
     TextViewParams textParams;
     ColoredSymbolViewParams symbolParams;
-    PoiSymbolViewParams poiParams(m_id);
+    PoiSymbolViewParams poiParams;
+    poiParams.m_featureId = m_id;
     m2::PointD shieldPixelSize;
     GetRoadShieldsViewParams(texMng, shield, shieldIndex, static_cast<uint8_t>(roadShields.size()),
                              textParams, symbolParams, poiParams, shieldPixelSize);

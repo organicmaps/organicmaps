@@ -272,9 +272,9 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
   if (buffer.empty())
     return;
 
-  auto const overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords, m_textIndex);
-  std::string const debugName = strings::to_string(m_params.m_featureID.m_index) + "-" +
-                                strings::to_string(m_textIndex);
+  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
+  std::string const debugName =
+      strings::to_string(m_params.m_featureId.m_index) + "-" + strings::to_string(m_textIndex);
 
   drape_ptr<dp::OverlayHandle> handle;
   if (m_needOverlay)

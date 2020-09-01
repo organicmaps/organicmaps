@@ -741,7 +741,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
   for (auto const & title : titles)
   {
     TextViewParams textParams;
-    textParams.m_featureID = featureId;
+    textParams.m_featureId = featureId;
     textParams.m_tileCenter = pivot;
     textParams.m_titleDecl = titleDecl;
     textParams.m_titleDecl.m_primaryText = title.m_text;
@@ -760,7 +760,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
   df::ColoredSymbolViewParams colorParams;
   colorParams.m_radiusInPixels = markerSizes.front().x * 0.5f;
   colorParams.m_color = dp::Color::Transparent();
-  colorParams.m_featureID = featureId;
+  colorParams.m_featureId = featureId;
   colorParams.m_tileCenter = pivot;
   colorParams.m_depthTestEnabled = false;
   colorParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
