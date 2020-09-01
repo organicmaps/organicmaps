@@ -640,7 +640,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)openCatalogInternal:(MWMCatalogWebViewController *)catalog animated:(BOOL)animated utm:(MWMUTM)utm {
   [self.navigationController popToRootViewControllerAnimated:NO];
-  auto bookmarks = [[MWMBookmarksTabViewController alloc] init];
+  auto bookmarks = [[MWMBookmarksTabViewController alloc] initWithCoordinator:self.bookmarksCoordinator];
   bookmarks.activeTab = ActiveTabCatalog;
   NSMutableArray<UIViewController *> *controllers = [self.navigationController.viewControllers mutableCopy];
   [controllers addObjectsFromArray:@[bookmarks, catalog]];

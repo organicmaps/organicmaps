@@ -16,7 +16,7 @@ final class BookmarksTabViewController: TabViewController {
 
   private weak var coordinator: BookmarksCoordinator?
 
-  init(coordinator: BookmarksCoordinator?) {
+  @objc init(coordinator: BookmarksCoordinator?) {
     super.init(nibName: nil, bundle: nil)
     self.coordinator = coordinator
   }
