@@ -22,15 +22,6 @@ static int8_t kAgeOfInfant = 2;
 
 @implementation MWMHotelParams
 
-- (instancetype)init {
-  self = [super init];
-  if (self) {
-    _numberOfRooms = 1;
-    _numberOfAdults = 2;
-  }
-  return self;
-}
-
 - (instancetype)initWithPlacePageData:(PlacePageData *)data
 {
   self = [self init];

@@ -167,8 +167,12 @@ using Observers = NSHashTable<Observer>;
   controller.delegate = self;
   MWMHotelParams *filter = [MWMSearch getFilter];
   if (filter != nil) {
-    controller.roomsInitialCount = filter.numberOfRooms;
-    controller.adultsInitialCount = filter.numberOfAdults;
+    if (filter.numberOfRooms > 0) {
+      controller.roomsInitialCount = filter.numberOfRooms;
+    }
+    if (filter.numberOfAdults > 0) {
+      controller.adultsInitialCount = filter.numberOfAdults;
+    }
     controller.childrenInitialCount = filter.numberOfChildren;
     controller.infantsInitialCount = filter.numberOfInfants;
   }
