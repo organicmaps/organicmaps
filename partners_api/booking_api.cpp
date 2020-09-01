@@ -365,6 +365,11 @@ string ApplyAvailabilityParamsUniversal(string const & url, AvailabilityParams c
 {
   auto p = params.Get(kAvailabilityParamsForUniversalLink);
 
+// Booking web-site for android browsers works incorrect without |no_rooms| parameter.
+#ifdef OMIM_OS_ANDROID
+  p.emplace_back("no_rooms", std::to_string(params.m_orderingParams.m_rooms.size()));
+#endif
+
   auto const pos = url.find('#');
 
   if (pos == string::npos)
