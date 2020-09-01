@@ -46,7 +46,7 @@ public class SearchFilterController implements SearchToolbarController.FilterPar
     @Override
     public void onClick(View v)
     {
-      resetFilterAndParams();
+      setFilter(null);
       if (mFilterListener != null)
         mFilterListener.onFilterClear();
     }
