@@ -272,6 +272,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mIsFullscreenAnimating;
   private boolean mIsAppearMenuLater;
 
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
   private FloatingSearchToolbarController mSearchController;
 
   private boolean mLocationErrorDialogAnnoying = false;
@@ -1173,24 +1175,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void setupSearchQuery(@NonNull Intent data)
   {
-    if (mSearchController == null)
-      return;
-
     String query = data.getStringExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY);
     mSearchController.setQuery(TextUtils.isEmpty(query) ? getString(R.string.hotel) + " " : query);
-  }
-
-  private void runHotelCategorySearchOnMap()
-  {
-    if (mSearchController == null || mFilterController == null)
-      return;
-
-    mSearchController.setQuery(getActivity().getString(R.string.hotel) + " ");
-    runSearch();
-
-    mSearchController.refreshToolbar();
-    mFilterController.updateFilterButtonsVisibility(true);
-    mFilterController.show(true, true);
   }
 
   @Override
@@ -1595,19 +1581,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (mSearchController != null)
-    {
-      if (mSearchController.closeBottomMenu())
-        return;
+    if (mSearchController.closeBottomMenu())
+      return;
 
-      if (mSearchController.hide())
-      {
-        SearchEngine.INSTANCE.cancelInteractiveSearch();
-        if (mFilterController != null)
-          mFilterController.resetFilterAndParams();
-        mSearchController.clear();
-        return;
-      }
+    if (mSearchController.hide())
+    {
+      SearchEngine.INSTANCE.cancelInteractiveSearch();
+      if (mFilterController != null)
+        mFilterController.resetFilterAndParams();
+      mSearchController.clear();
+      return;
     }
 
     boolean isRoutingCancelled = RoutingController.get().cancel();
