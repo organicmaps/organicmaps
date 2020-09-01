@@ -256,7 +256,7 @@ endif()
 # Include subdirectories
 add_subdirectory(3party/agg)
 add_subdirectory(3party/bsdiff-courgette)
-add_subdirectory(3party/expat)
+add_subdirectory(3party/expat/expat)
 add_subdirectory(3party/freetype)
 add_subdirectory(3party/gflags)
 add_subdirectory(3party/icu)

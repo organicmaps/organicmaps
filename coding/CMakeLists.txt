@@ -4,14 +4,13 @@ add_definitions(-DU_DISABLE_RENAMING)
 
 include_directories(
   ${OMIM_ROOT}/coding
-  ${OMIM_ROOT}/3party/expat
+  ${OMIM_ROOT}/3party/expat/expat
   ${OMIM_ROOT}/3party/icu/common
   ${OMIM_ROOT}/3party/icu/i18n
 )
 
 set(
   SRC
-  ${OMIM_ROOT}/3party/expat/expat_impl.h
   base64.cpp
   base64.hpp
   bit_streams.hpp

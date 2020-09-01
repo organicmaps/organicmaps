@@ -28,3 +28,7 @@
   path = 3party/just_gtfs
   url = https://github.com/mapsme/just_gtfs.git
   branch = for-usage-as-submodule
+[submodule "3party/expat"]
+  path = 3party/expat
+  url = git://github.com/libexpat/libexpat.git
+  branch = R_2_2_9

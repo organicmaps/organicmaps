@@ -21,7 +21,6 @@ public:
     , m_source(source)
     , m_parser(dispatcher, useCharData)
   {
-    CHECK(m_parser.Create(), ());
   }
 
   bool Read()
@@ -33,7 +32,7 @@ public:
     if (m_numRead == 0)
       return false;
 
-    if (!m_parser.ParseBuffer(static_cast<uint32_t>(m_numRead), false))
+    if (m_parser.ParseBuffer(static_cast<uint32_t>(m_numRead), false) == XML_STATUS_ERROR)
       MYTHROW(XmlParseError, (m_parser.GetErrorMessage()));
 
     m_res += m_numRead;
