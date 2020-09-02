@@ -236,4 +236,6 @@
   <color name="city_color">#9B24B2</color>
   <color name="city_color_night">#9867FC</color>
   <color name="outdoor_color_night">#93BF39</color>
+
+  <color name="material_calendar_surface_dark">#929292</color>
 </resources>

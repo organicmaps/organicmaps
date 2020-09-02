@@ -377,6 +377,16 @@
     <item name="chipBackgroundColor">?chipBackgroundColor</item>
   </style>
 
+  <style name="MwmWidget.MaterialCalendar.Theme.FullScreen.Dark"
+    parent="ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen">
+    <item name="colorSurface">@color/material_calendar_surface_dark</item>
+  </style>
+
+  <style name="MwmWidget.MaterialCalendar.Theme.Dark"
+    parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+    <item name="colorSurface">@color/material_calendar_surface_dark</item>
+  </style>
+
   <style name="TextAppearance" parent="MwmTextAppearance.Body3"/>
 
   <style name="TextAppearance.Small" parent="MwmTextAppearance.Body4"/>

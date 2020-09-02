@@ -207,8 +207,8 @@
   <!-- Night theme -->
   <style name="MwmTheme.Night.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
     <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
-    <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
-    <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+    <item name="materialCalendarFullscreenTheme">@style/MwmWidget.MaterialCalendar.Theme.FullScreen.Dark</item>
+    <item name="materialCalendarTheme">@style/MwmWidget.MaterialCalendar.Theme.Dark</item>
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
 
