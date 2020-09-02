@@ -83,6 +83,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     let vc = storyboard.instantiateViewController(ofType: TaxiViewController.self)
     vc.taxiProvider = placePageData.taxiProvider
     vc.delegate = interactor
+    vc.view.isHidden = true
     return vc
   } ()
   
@@ -237,6 +238,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     }
     if let lastHeading = MWMLocationManager.lastHeading() {
       onHeadingUpdate(lastHeading)
+    }
+
+    if !MWMLocationManager.isLocationProhibited() && FrameworkHelper.isNetworkConnected() {
+      taxiViewController.view.isHidden = false
     }
 
     placePageData.onMapNodeStatusUpdate = { [weak self] in
