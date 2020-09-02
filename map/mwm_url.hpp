@@ -69,7 +69,7 @@ struct CampaignDescription;
 class ParsedMapApi
 {
 public:
-  enum class ParsingResult
+  enum class UrlType
   {
     Incorrect,
     Map,
@@ -79,6 +79,12 @@ public:
     Catalogue,
     CataloguePath,
     Subscription
+  };
+  
+  struct ParsingResult
+  {
+    UrlType m_type;
+    bool m_isSuccess;
   };
 
   ParsedMapApi() = default;
@@ -103,8 +109,9 @@ public:
   CatalogPath const & GetCatalogPath() const { return m_catalogPath; }
   Subscription const & GetSubscription() const { return m_subscription; }
   std::string const & GetAffiliateId() const { return m_affiliateId; }
+
 private:
-  ParsingResult Parse(url::Url const & url);
+  bool Parse(url::Url const & url, UrlType type);
   void ParseAdditional(url::Url const & url);
   void ParseMapParam(url::Param const & param, std::vector<ApiPoint> & points, bool & correctOrder);
   void ParseRouteParam(url::Param const & param, std::vector<std::string> & pattern);

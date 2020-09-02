@@ -47,7 +47,7 @@ public:
     m_api.SetBookmarkManager(m_m);
 
     auto const res = m_api.SetUrlAndParse(urlString);
-    if (res != ParsedMapApi::ParsingResult::Incorrect)
+    if (res.m_isSuccess)
     {
       if (!m_api.GetViewportRect(m_viewportRect))
         m_viewportRect = df::GetWorldRect();
