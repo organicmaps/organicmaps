@@ -131,7 +131,7 @@
 		993F54F5237C5D1100545511 /* PromoAfterBookingCampaignAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 993F54F1237C5D1000545511 /* PromoAfterBookingCampaignAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 9940621E23EAC57900493D1A /* ElevationHeightPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9940621F23EAC57900493D1A /* ElevationHeightPoint.m */; };
-		99447849238559F2004DAEE5 /* DeeplinkParsingResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 99447847238559F2004DAEE5 /* DeeplinkParsingResult.h */; };
+		99447849238559F2004DAEE5 /* DeeplinkUrlType.h in Headers */ = {isa = PBXBuildFile; fileRef = 99447847238559F2004DAEE5 /* DeeplinkUrlType.h */; };
 		9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FACC237AB01400855F48 /* DeepLinkParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9957FACF237AB01400855F48 /* DeepLinkParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FACD237AB01400855F48 /* DeepLinkParser.mm */; };
 		9957FADB237ACB1100855F48 /* DeepLinkSearchData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -288,7 +288,7 @@
 		993F54F1237C5D1000545511 /* PromoAfterBookingCampaignAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoAfterBookingCampaignAdapter.h; sourceTree = "<group>"; };
 		9940621E23EAC57900493D1A /* ElevationHeightPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevationHeightPoint.h; sourceTree = "<group>"; };
 		9940621F23EAC57900493D1A /* ElevationHeightPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElevationHeightPoint.m; sourceTree = "<group>"; };
-		99447847238559F2004DAEE5 /* DeeplinkParsingResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeeplinkParsingResult.h; sourceTree = "<group>"; };
+		99447847238559F2004DAEE5 /* DeeplinkUrlType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeeplinkUrlType.h; sourceTree = "<group>"; };
 		994C4E0E246C22CA0018EB1E /* MWMUTM+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMUTM+Core.h"; sourceTree = "<group>"; };
 		9957FACC237AB01400855F48 /* DeepLinkParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkParser.h; sourceTree = "<group>"; };
 		9957FACD237AB01400855F48 /* DeepLinkParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkParser.mm; sourceTree = "<group>"; };
@@ -658,7 +658,7 @@
 				9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */,
 				99103841237EDFA200893C9F /* DeepLinkData.h */,
 				99103842237EDFA200893C9F /* DeepLinkData.m */,
-				99447847238559F2004DAEE5 /* DeeplinkParsingResult.h */,
+				99447847238559F2004DAEE5 /* DeeplinkUrlType.h */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -820,7 +820,7 @@
 				47C637D72354AEBE00E12DE0 /* MWMMapOverlayManager.h in Headers */,
 				99F31EB923D5DD9000CE2CE1 /* PromoAfterBookingData+Core.h in Headers */,
 				993F54F2237C5D1100545511 /* PromoDiscoveryCampaignAdapter.h in Headers */,
-				99447849238559F2004DAEE5 /* DeeplinkParsingResult.h in Headers */,
+				99447849238559F2004DAEE5 /* DeeplinkUrlType.h in Headers */,
 				47942D9C237D927800DEFAE3 /* PlacePageBookmarkData.h in Headers */,
 				47942D75237CC41A00DEFAE3 /* HotelBookingData+Core.h in Headers */,
 				47938905239A932D006ECACC /* UgcSummaryRatingType.h in Headers */,

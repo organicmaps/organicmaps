@@ -4,7 +4,7 @@
 #include "geometry/mercator.hpp"
 
 @implementation DeepLinkSearchData
-- (instancetype)init:(DeeplinkParsingResult)result {
+- (instancetype)init:(DeeplinkUrlType)result {
   self = [super init];
   if (self) {
     _result = result;

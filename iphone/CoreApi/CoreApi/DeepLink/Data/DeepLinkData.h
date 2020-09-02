@@ -2,28 +2,28 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, DeeplinkParsingResult) {
-  DeeplinkParsingResultIncorrect = 0,
-  DeeplinkParsingResultMap,
-  DeeplinkParsingResultRoute,
-  DeeplinkParsingResultSearch,
-  DeeplinkParsingResultLead,
-  DeeplinkParsingResultCatalogue,
-  DeeplinkParsingResultCataloguePath,
-  DeeplinkParsingResultSubscription
+typedef NS_ENUM(NSUInteger, DeeplinkUrlType) {
+  DeeplinkUrlTypeIncorrect = 0,
+  DeeplinkUrlTypeMap,
+  DeeplinkUrlTypeRoute,
+  DeeplinkUrlTypeSearch,
+  DeeplinkUrlTypeLead,
+  DeeplinkUrlTypeCatalogue,
+  DeeplinkUrlTypeCataloguePath,
+  DeeplinkUrlTypeSubscription
 };
 
 @protocol IDeepLinkData <NSObject>
 
-@property (nonatomic, readonly) DeeplinkParsingResult result;
+@property (nonatomic, readonly) DeeplinkUrlType urlType;
 
 @end
 
 @interface DeepLinkData : NSObject <IDeepLinkData>
 
-@property (nonatomic, readonly) DeeplinkParsingResult result;
+@property (nonatomic, readonly) DeeplinkUrlType urlType;
 
-- (instancetype)init:(DeeplinkParsingResult)result;
+- (instancetype)init:(DeeplinkUrlType)urlType;
 
 @end
 
