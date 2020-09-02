@@ -6,7 +6,6 @@
 #import "MWMRouter.h"
 #import "MWMTaxiPreviewDataSource.h"
 #import "Statistics.h"
-#import "SwiftBridge.h"
 #import "UIButton+Orientation.h"
 #import "UIImageView+Coloring.h"
 

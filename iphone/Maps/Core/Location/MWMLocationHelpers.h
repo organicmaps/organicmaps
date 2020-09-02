@@ -1,5 +1,4 @@
-#import "MWMLocationManager.h"
-#import "SwiftBridge.h"
+#import "MWMMyPositionMode.h"
 
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"

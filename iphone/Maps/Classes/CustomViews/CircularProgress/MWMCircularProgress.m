@@ -1,6 +1,5 @@
 #import "MWMCircularProgress.h"
 #import "MWMCircularProgressView.h"
-#import "SwiftBridge.h"
 
 @interface MWMCircularProgressView ()
 
@@ -46,7 +45,7 @@
   self = [super init];
   if (self)
   {
-    [[[UINib alloc] init:[self class] bundle:nil] instantiateWithOwner:self options:nil];
+    [[UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil] instantiateWithOwner:self options:nil];
     [parentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [parentView addSubview:self.rootView];
     self.rootView.translatesAutoresizingMaskIntoConstraints = NO;

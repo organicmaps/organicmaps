@@ -1,7 +1,9 @@
 #import "BookmarksSection.h"
 #import "legacy_bookmark_colors.h"
 #import "MWMLocationHelpers.h"
+#import "MWMLocationManager.h"
 #import "MWMSearchManager.h"
+#import "Statistics.h"
 
 #import <CoreApi/CoreApi.h>
 

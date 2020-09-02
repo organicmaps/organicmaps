@@ -1,6 +1,5 @@
 #import "InfoSection.h"
 #import "MWMCategoryInfoCell.h"
-//#import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
 
