@@ -103,7 +103,7 @@ final class EditBookmarkViewController: MWMTableViewController {
       }
     case .delete:
       let cell = tableView.dequeueReusableCell(cell: MWMButtonCell.self, indexPath: indexPath)
-      cell.configure(with: self, title: L("placepage_delete_bookmark_button"))
+      cell.configure(with: self, title: L("placepage_delete_bookmark_button"), enabled: true)
       return cell
     default:
       fatalError()

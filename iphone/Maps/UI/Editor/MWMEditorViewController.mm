@@ -668,7 +668,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
       }
     };
 
-    [tCell configureWithDelegate:self title:title(self.featureStatus, self.isFeatureUploaded)];
+    [tCell configureWithDelegate:self title:title(self.featureStatus, self.isFeatureUploaded) enabled: YES];
     break;
   }
   default: NSAssert(false, @"Invalid field for editor"); break;

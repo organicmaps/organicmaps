@@ -98,7 +98,9 @@ final class CategorySettingsViewController: MWMTableViewController {
       }
     case .delete:
       let cell = tableView.dequeueReusableCell(cell: MWMButtonCell.self, indexPath: indexPath)
-      cell.configure(with: self, title: L("delete_list"))
+      cell.configure(with: self,
+                     title: L("delete_list"),
+                     enabled: BookmarksManager.shared().userCategories().count > 1)
       return cell
     default:
       fatalError()

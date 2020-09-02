@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWMButtonCell : MWMTableViewCell
 
-- (void)configureWithDelegate:(id<MWMButtonCellDelegate>)delegate title:(NSString *)title;
+- (void)configureWithDelegate:(id<MWMButtonCellDelegate>)delegate title:(NSString *)title enabled:(BOOL)enabled;
 
 @end
 
