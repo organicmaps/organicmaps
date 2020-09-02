@@ -12,7 +12,12 @@ protocol PlacePagePreviewViewControllerDelegate: AnyObject {
 final class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var stackView: UIStackView!
   @IBOutlet var popularView: UIView!
-  @IBOutlet var subtitleLabel: UILabel!
+  @IBOutlet var subtitleLabel: UILabel! {
+    didSet {
+      subtitleLabel.textColor = UIColor.blackSecondaryText()
+      subtitleLabel.font = UIFont.regular14()
+    }
+  }
   @IBOutlet var subtitleContainerView: UIStackView!
   @IBOutlet var scheduleLabel: UILabel!
   @IBOutlet var ratingSummaryView: RatingSummaryView!
@@ -60,6 +65,8 @@ final class PlacePagePreviewViewController: UIViewController {
   private var heading: CGFloat? = nil
 
   override func viewDidLoad() {
+    super.viewDidLoad()
+
     updateViews()
 
     if let distance = distance {
@@ -77,7 +84,6 @@ final class PlacePagePreviewViewController: UIViewController {
   }
 
   private func updateViews() {
-    super.viewDidLoad()
     if placePagePreviewData.isMyPosition {
       if let speedAndAltitude = speedAndAltitude {
         subtitleLabel.text = speedAndAltitude

@@ -172,9 +172,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
-                                                </userDefinedRuntimeAttributes>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jaa-Yj-XQR" customClass="PlacePageDirectionView" customModule="maps_me" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
