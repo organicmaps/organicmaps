@@ -15,6 +15,7 @@ class GuideNameViewController: MWMTableViewController {
     nameTextField.placeholder = L("name_placeholder")
     nameTextField.text = guideName
     nameTextField.becomeFirstResponder()
+    nextBarButton.title = L("whats_new_next_button")
     nextBarButton.isEnabled = (nameTextField.text?.count ?? 0) > 0
   }
 
