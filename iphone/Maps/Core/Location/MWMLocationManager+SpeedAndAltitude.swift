@@ -1,4 +1,4 @@
-extension MWMLocationManager {
+extension LocationManager {
   @objc static func speedSymbolFor(_ speed: Double) -> String {
     switch max(speed, 0) {
     case 0 ..< 1: return "🐢"

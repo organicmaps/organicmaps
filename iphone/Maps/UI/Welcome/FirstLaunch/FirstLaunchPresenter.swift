@@ -39,7 +39,7 @@ extension FirstLaunchPresenter: IFirstLaunchPresenter {
   func onAppear() {
     switch config.requestPermission {
     case .location:
-      MWMLocationManager.start()
+      LocationManager.start()
     case .notifications:
       MWMPushNotifications.setup()
     case .nothing:

@@ -231,16 +231,16 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       self?.onLoadUgc()
     }
 
-    MWMLocationManager.add(observer: self)
-    if let lastLocation = MWMLocationManager.lastLocation() {
+    LocationManager.add(observer: self)
+    if let lastLocation = LocationManager.lastLocation() {
       onLocationUpdate(lastLocation)
       self.lastLocation = lastLocation
     }
-    if let lastHeading = MWMLocationManager.lastHeading() {
+    if let lastHeading = LocationManager.lastHeading() {
       onHeadingUpdate(lastHeading)
     }
 
-    if !MWMLocationManager.isLocationProhibited() && FrameworkHelper.isNetworkConnected() {
+    if !LocationManager.isLocationProhibited() && FrameworkHelper.isNetworkConnected() {
       taxiViewController.view.isHidden = false
     }
 
@@ -429,7 +429,7 @@ extension PlacePageCommonLayout: MWMLocationObserver {
       if location.speed > 0 && location.timestamp.timeIntervalSinceNow >= -2 {
         let speed = imperial ? location.speed * 2.237 : location.speed * 3.6
         let speedMeasurement = Measurement(value: speed.rounded(), unit: imperial ? UnitSpeed.milesPerHour: UnitSpeed.kilometersPerHour)
-        let speedString = "\(MWMLocationManager.speedSymbolFor(location.speed))\(unitsFormatter.string(from: speedMeasurement))"
+        let speedString = "\(LocationManager.speedSymbolFor(location.speed))\(unitsFormatter.string(from: speedMeasurement))"
         previewViewController.updateSpeedAndAltitude("\(altString)  \(speedString)")
       } else {
         previewViewController.updateSpeedAndAltitude(altString)

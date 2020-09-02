@@ -30,7 +30,7 @@ final class ThemeManager: NSObject {
           return isDarkModeEnabled ? .vehicleNight : .vehicleDay
         } else {
           guard isVehicleRouting else { return .day }
-          switch FrameworkHelper.daytime(at: MWMLocationManager.lastLocation()) {
+          switch FrameworkHelper.daytime(at: LocationManager.lastLocation()) {
           case .day: return .vehicleDay
           case .night: return .vehicleNight
           @unknown default:

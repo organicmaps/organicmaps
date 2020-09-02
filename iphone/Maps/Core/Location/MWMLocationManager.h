@@ -1,6 +1,9 @@
 #import "MWMMyPositionMode.h"
 #import "MWMLocationObserver.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
+NS_SWIFT_NAME(LocationManager)
 @interface MWMLocationManager : NSObject
 
 + (void)start;
@@ -12,9 +15,9 @@
 
 + (void)setMyPositionMode:(MWMMyPositionMode)mode;
 
-+ (CLLocation *)lastLocation;
++ (nullable CLLocation *)lastLocation;
 + (BOOL)isLocationProhibited;
-+ (CLHeading *)lastHeading;
++ (nullable CLHeading *)lastHeading;
 
 + (void)applicationDidBecomeActive;
 + (void)applicationWillResignActive;
@@ -29,3 +32,5 @@
 + (instancetype) new __attribute__((unavailable("call +manager instead")));
 
 @end
+
+NS_ASSUME_NONNULL_END

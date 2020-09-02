@@ -152,9 +152,9 @@ final class MopubBanner: NSObject, Banner {
     let fbConfig = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
     request = MPNativeAdRequest(adUnitIdentifier: placementID, rendererConfigurations: [config, fbConfig])
     let targeting = MPNativeAdRequestTargeting()
-    targeting?.keywords = "user_lang:\(AppInfo.shared().twoLetterLanguageId ?? "")"
+    targeting?.keywords = "user_lang:\(AppInfo.shared().twoLetterLanguageId)"
     targeting?.desiredAssets = [kAdTitleKey, kAdTextKey, kAdIconImageKey, kAdCTATextKey]
-    if let location = MWMLocationManager.lastLocation() {
+    if let location = LocationManager.lastLocation() {
       targeting?.location = location
     }
     request.targeting = targeting

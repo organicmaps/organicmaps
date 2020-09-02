@@ -61,7 +61,7 @@ class DownloadMapsViewController: MWMViewController {
       case .downloaded:
         dataSource = DownloadedMapsDataSource()
       case .available:
-        dataSource = AvailableMapsDataSource(location: MWMLocationManager.lastLocation()?.coordinate)
+        dataSource = AvailableMapsDataSource(location: LocationManager.lastLocation()?.coordinate)
       @unknown default:
         fatalError()
       }

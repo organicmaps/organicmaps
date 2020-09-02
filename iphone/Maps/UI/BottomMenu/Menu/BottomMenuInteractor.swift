@@ -61,7 +61,7 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
 
   func shareLocation(cell: BottomMenuItemCell) {
     Statistics.logEvent(kStatToolbarClick, withParameters: [kStatItem : kStatShareMyLocation])
-    let lastLocation = MWMLocationManager.lastLocation()
+    let lastLocation = LocationManager.lastLocation()
     guard let coordinates = lastLocation?.coordinate else {
       UIAlertView(title: L("unknown_current_position"),
                   message: nil,
