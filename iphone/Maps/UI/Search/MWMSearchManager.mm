@@ -415,8 +415,6 @@ using Observers = NSHashTable<Observer>;
       hideActionBar = YES;
     else if (IPAD)
       hideActionBar = !([MWMSearch isHotelResults] || [MWMSearch hasFilter]);
-    else
-      hideActionBar = ([MWMSearch suggestionsCount] != 0);
     self.actionBarState =
       hideActionBar ? MWMSearchManagerActionBarStateHidden : MWMSearchManagerActionBarStateModeFilter;
 
