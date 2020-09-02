@@ -15,6 +15,7 @@ import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
+import com.mapswithme.maps.api.ParsingResult;
 import com.mapswithme.maps.auth.AuthorizationListener;
 import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -305,8 +306,9 @@ public class Framework
   public static native long nativeGetDataVersion();
 
   public static native void nativeClearApiPoints();
-  @ParsedUrlMwmRequest.ParsingResult
-  public static native int nativeParseAndSetApiUrl(String url);
+
+  @NonNull
+  public static native ParsingResult nativeParseAndSetApiUrl(String url);
   public static native ParsedRoutingData nativeGetParsedRoutingData();
   public static native ParsedSearchRequest nativeGetParsedSearchRequest();
 

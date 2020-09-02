@@ -34,6 +34,7 @@ extern jclass g_httpUploaderResultClazz;
 extern jclass g_networkPolicyClazz;
 extern jclass g_storageUtilsClazz;
 extern jclass g_elevationInfoClazz;
+extern jclass g_parsingResultClazz;
 
 namespace jni
 {

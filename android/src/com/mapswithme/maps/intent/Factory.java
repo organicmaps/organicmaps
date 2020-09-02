@@ -24,6 +24,7 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
+import com.mapswithme.maps.api.ParsingResult;
 import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -963,17 +964,27 @@ public class Factory
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      final @ParsedUrlMwmRequest.ParsingResult int result = Framework.nativeParseAndSetApiUrl(getUrl());
-      switch (result)
+      final ParsingResult result = Framework.nativeParseAndSetApiUrl(getUrl());
+
+      // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
+      if (result.getUrlType() == ParsingResult.TYPE_INCORRECT)
+        return MapFragment.nativeShowMapForUrl(getUrl());
+
+      if (!result.isSuccess())
+        return false;
+
+      switch (result.getUrlType())
       {
-        case ParsedUrlMwmRequest.RESULT_INCORRECT:
-          // TODO: Kernel recognizes "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
+        case ParsingResult.TYPE_INCORRECT:
+        case ParsingResult.TYPE_CATALOGUE:
+        case ParsingResult.TYPE_CATALOGUE_PATH:
+        case ParsingResult.TYPE_SUBSCRIPTION:
+          return false;
+
+        case ParsingResult.TYPE_MAP:
           return MapFragment.nativeShowMapForUrl(getUrl());
 
-        case ParsedUrlMwmRequest.RESULT_MAP:
-          return MapFragment.nativeShowMapForUrl(getUrl());
-
-        case ParsedUrlMwmRequest.RESULT_ROUTE:
+        case ParsingResult.TYPE_ROUTE:
           final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
           RoutingController.get().setRouterType(data.mRouterType);
           final RoutePoint from = data.mPoints[0];
@@ -983,7 +994,7 @@ public class Factory
                                           MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
                                                                     to.mName, "", to.mLat, to.mLon), true);
           return true;
-        case ParsedUrlMwmRequest.RESULT_SEARCH:
+        case ParsingResult.TYPE_SEARCH:
           final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
           if (request.mLat != 0.0 || request.mLon != 0.0)
           {
@@ -998,7 +1009,7 @@ public class Factory
           SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap,
                                null, null);
           return true;
-        case ParsedUrlMwmRequest.RESULT_LEAD:
+        case ParsingResult.TYPE_LEAD:
           return true;
       }
 

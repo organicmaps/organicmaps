@@ -1,5 +1,6 @@
 com/google/firebase/iid/Registrar.class
 com/mapswithme/maps/ads/Banner.class
+com/mapswithme/maps/api/ParsingResult.class
 com/mapswithme/maps/bookmarks/data/Bookmark.class
 com/mapswithme/maps/bookmarks/data/ElevationInfo.class
 com/mapswithme/maps/bookmarks/data/FeatureId.class

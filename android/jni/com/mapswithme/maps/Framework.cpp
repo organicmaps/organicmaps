@@ -984,10 +984,13 @@ Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass cla
   frm()->GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::API);
 }
 
-JNIEXPORT jint JNICALL
+JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeParseAndSetApiUrl(JNIEnv * env, jclass clazz, jstring url)
 {
-  return static_cast<jint>(frm()->ParseAndSetApiURL(jni::ToNativeString(env, url)));
+  static jmethodID const resultConstructor = jni::GetConstructorID(env, g_parsingResultClazz, "(IZ)V");
+  auto const result = frm()->ParseAndSetApiURL(jni::ToNativeString(env, url));
+  return env->NewObject(g_parsingResultClazz, resultConstructor, static_cast<jint>(result.m_type),
+                        static_cast<jboolean>(result.m_isSuccess));
 }
 
 JNIEXPORT jobject JNICALL
