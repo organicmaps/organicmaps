@@ -114,6 +114,7 @@ using namespace std;
   else
     [self.defaultSections removeAllObjects];
 
+  self.infoSection = nil;
   if ([self hasInfo])
     [self.defaultSections addObject:[self cachedInfoSection]];
 
@@ -168,9 +169,6 @@ using namespace std;
 }
 
 - (void)refreshDefaultSections {
-  if (self.defaultSections != nil)
-    return;
-
   [self setCategorySections];
   [self updateControlsVisibility];
 
@@ -239,8 +237,6 @@ using namespace std;
 
   self.myCategoryToolbar.barTintColor = [UIColor white];
   self.downloadedCategoryToolbar.barTintColor = [UIColor white];
-
-  [self refreshDefaultSections];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -263,6 +259,9 @@ using namespace std;
 
   auto const &bm = GetFramework().GetBookmarkManager();
   self.title = @(bm.GetCategoryName(self.categoryId).c_str());
+
+  [self refreshDefaultSections];
+  [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -807,8 +806,6 @@ using namespace std;
                      didEndEditing:(MWMMarkGroupID)categoryId {
   [self.navigationController popViewControllerAnimated:YES];
   [self.delegate bookmarksVCdidUpdateCategory:self];
-  self.infoSection = nil;
-  self.defaultSections = nil;
   [self refreshDefaultSections];
   [self.tableView reloadData];
 }
