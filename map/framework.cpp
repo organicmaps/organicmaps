@@ -1701,17 +1701,18 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
     return;
   }
 
-  if (result.m_details.m_isHotel && result.HasPoint())
-  {
-    auto copy = result;
-    search::Results results;
-    results.AddResultNoChecks(move(copy));
-    ShowViewportSearchResults(results, true, m_activeFilters);
-  }
-
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
   if (m_currentPlacePageInfo)
   {
+    if (result.m_details.m_isHotel && result.HasPoint() && !m_activeFilters.empty())
+    {
+      auto copy = result;
+      search::Results results;
+      results.AddResultNoChecks(move(copy));
+      ShowViewportSearchResults(results, true, m_activeFilters);
+      m_currentPlacePageInfo->SetIsSearchMark(true);
+    }
+  
     if (scale < 0)
       scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
 
