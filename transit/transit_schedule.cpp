@@ -147,13 +147,13 @@ std::tuple<Date, Date, WeekSchedule> DatesInterval::Extract() const
   date2.m_month = (m_data >> 12) & kMask4bits;
   date2.m_day = (m_data >> 7) & kMask5bits;
 
-  week[0] = m_data & 0x40;
-  week[1] = m_data & 0x20;
-  week[2] = m_data & 0x10;
-  week[3] = m_data & 0x8;
-  week[4] = m_data & 0x4;
-  week[5] = m_data & 0x2;
-  week[6] = m_data & 0x1;
+  week[WeekDays::Sunday] = m_data & 0x40;
+  week[WeekDays::Monday] = m_data & 0x20;
+  week[WeekDays::Tuesday] = m_data & 0x10;
+  week[WeekDays::Wednesday] = m_data & 0x8;
+  week[WeekDays::Thursday] = m_data & 0x4;
+  week[WeekDays::Friday] = m_data & 0x2;
+  week[WeekDays::Saturday] = m_data & 0x1;
 
   return {date1, date2, week};
 }

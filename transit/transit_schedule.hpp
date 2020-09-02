@@ -87,6 +87,17 @@ struct Time
 };
 
 using WeekSchedule = std::array<bool, 7>;
+
+enum WeekDays
+{
+  Sunday = 0,
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday
+};
 // Service dates specified using a weekly schedule with start and end dates. Dates range is
 // specified by the start_date and end_date fields in the GTFS calendar.txt.
 // Dates interval and open/closed states for week days are stored |m_data|.
