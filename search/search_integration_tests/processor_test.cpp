@@ -990,6 +990,7 @@ UNIT_CLASS_TEST(ProcessorTest, SearchDebug)
     builder.Add(hotel);
     builder.Add(cafe);
   });
+  RegisterCountry(countryName, m2::RectD(m2::PointD(-100.0, -100.0), m2::PointD(100.0, 100.0)));
 
   auto const ruleCity = ExactMatch(testWorldId, debugville);
   auto const ruleCafe = ExactMatch(wonderlandId, cafe);

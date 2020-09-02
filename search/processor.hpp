@@ -28,6 +28,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <optional>
 #include <string>
 #include <utility>
@@ -36,6 +37,7 @@
 class FeatureType;
 class CategoriesHolder;
 class DataSource;
+class MwmInfo;
 
 namespace coding
 {
@@ -138,10 +140,18 @@ protected:
 
   m2::RectD const & GetViewport() const;
 
+  void EmitFeatureIfExists(std::vector<std::shared_ptr<MwmInfo>> const & infos,
+                           storage::CountryId const & mwmName, std::optional<uint32_t> version,
+                           uint32_t fid);
+  // The results are sorted by distance (to a point from |m_viewport| or |m_position|)
+  // before being emitted.
+  void EmitFeaturesByIndexFromAllMwms(std::vector<std::shared_ptr<MwmInfo>> const & infos,
+                                      uint32_t fid);
+
   CategoriesHolder const & m_categories;
   storage::CountryInfoGetter const & m_infoGetter;
   using CountriesTrie = base::MemTrie<storage::CountryId, base::VectorValues<bool>>;
-  std::unique_ptr<CountriesTrie> m_countriesTrie;
+  CountriesTrie m_countriesTrie;
 
   std::string m_region;
   std::string m_query;

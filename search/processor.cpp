@@ -32,6 +32,7 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/mwm_set.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_delimiters.hpp"
@@ -158,6 +159,77 @@ void RemoveStopWordsIfNeeded(QueryTokens & tokens, strings::UniString & prefix)
 
   tokens.erase_if(&IsStopWord);
 }
+
+void TrimLeadingSpaces(string & s)
+{
+  while (!s.empty() && isspace(s.front()))
+    s = s.substr(1);
+}
+
+bool EatFid(string & s, uint32_t & fid)
+{
+  TrimLeadingSpaces(s);
+
+  if (s.empty())
+    return false;
+
+  size_t i = 0;
+  while (i < s.size() && isdigit(s[i]))
+    ++i;
+
+  auto const prefix = s.substr(0, i);
+  if (strings::to_uint32(prefix, fid))
+  {
+    s = s.substr(prefix.size());
+    return true;
+  }
+  return false;
+}
+
+bool EatMwmName(base::MemTrie<storage::CountryId, base::VectorValues<bool>> const & countriesTrie,
+                string & s, storage::CountryId & mwmName)
+{
+  TrimLeadingSpaces(s);
+
+  // Greedily eat as much as possible because some country names are prefixes of others.
+  optional<size_t> lastPos;
+  for (size_t i = 0; i < s.size(); ++i)
+  {
+    // todo(@m) This must be much faster but MemTrie's iterators do not expose nodes.
+    if (countriesTrie.HasKey(s.substr(0, i)))
+      lastPos = i;
+  }
+  if (!lastPos)
+    return false;
+
+  mwmName = s.substr(0, *lastPos);
+  s = s.substr(*lastPos);
+  strings::EatPrefix(s, ".mwm");
+  return true;
+}
+
+bool EatVersion(string & s, uint32_t & version)
+{
+  TrimLeadingSpaces(s);
+
+  if (!s.empty() && s.front() == '0' && (s.size() == 1 || !isdigit(s[1])))
+  {
+    version = 0;
+    s = s.substr(1);
+    return true;
+  }
+
+  size_t const kVersionLength = 6;
+  if (s.size() >= kVersionLength && all_of(s.begin(), s.begin() + kVersionLength, ::isdigit) &&
+      (s.size() == kVersionLength || !isdigit(s[kVersionLength + 1])))
+  {
+    VERIFY(strings::to_uint32(s.substr(0, kVersionLength), version), ());
+    s = s.substr(kVersionLength);
+    return true;
+  }
+
+  return false;
+}
 }  // namespace
 
 Processor::Processor(DataSource const & dataSource, CategoriesHolder const & categories,
@@ -187,6 +259,9 @@ Processor::Processor(DataSource const & dataSource, CategoriesHolder const & cat
       {StringUtf8Multilang::kAltNameCode, StringUtf8Multilang::kOldNameCode});
 
   SetPreferredLocale("en");
+
+  for (auto const & country : m_infoGetter.GetCountries())
+    m_countriesTrie.Add(country.m_countryId, true);
 }
 
 void Processor::SetViewport(m2::RectD const & viewport)
@@ -442,80 +517,6 @@ void Processor::SearchByFeatureId()
   if (m_query.size() > kMaxFeatureIdStringSize)
     return;
 
-  if (m_countriesTrie == nullptr)
-  {
-    m_countriesTrie = make_unique<CountriesTrie>();
-    for (auto const & country : m_infoGetter.GetCountries())
-      m_countriesTrie->Add(country.m_countryId, true);
-  }
-
-  auto trimLeadingSpaces = [](string & s) {
-    while (!s.empty() && s.front() == ' ')
-      s = s.substr(1);
-  };
-
-  auto const eatFid = [&trimLeadingSpaces](string & s, uint32_t & fid) -> bool {
-    trimLeadingSpaces(s);
-
-    if (s.empty())
-      return false;
-
-    size_t i = 0;
-    while (i < s.size() && isdigit(s[i]))
-      ++i;
-
-    auto const prefix = s.substr(0, i);
-    if (strings::to_uint32(prefix, fid))
-    {
-      s = s.substr(prefix.size());
-      return true;
-    }
-    return false;
-  };
-
-  auto const eatMwmName = [this, &trimLeadingSpaces](string & s,
-                                                     storage::CountryId & mwmName) -> bool {
-    trimLeadingSpaces(s);
-
-    // Greedily eat as much as possible because some country names are prefixes of others.
-    optional<size_t> lastPos;
-    for (size_t i = 0; i < s.size(); ++i)
-    {
-      // todo(@m) This must be much faster but MemTrie's iterators do not expose nodes.
-      if (m_countriesTrie->HasKey(s.substr(0, i)))
-        lastPos = i;
-    }
-    if (!lastPos)
-      return false;
-
-    mwmName = s.substr(0, *lastPos);
-    s = s.substr(*lastPos);
-    strings::EatPrefix(s, ".mwm");
-    return true;
-  };
-
-  auto const eatVersion = [&trimLeadingSpaces](string & s, uint32_t & version) -> bool {
-    trimLeadingSpaces(s);
-
-    if (!s.empty() && s.front() == '0' && (s.size() == 1 || !isdigit(s[1])))
-    {
-      version = 0;
-      s = s.substr(1);
-      return true;
-    }
-
-    size_t const kVersionLength = 6;
-    if (s.size() >= kVersionLength && all_of(s.begin(), s.begin() + kVersionLength, ::isdigit) &&
-        (s.size() == kVersionLength || !isdigit(s[kVersionLength + 1])))
-    {
-      VERIFY(strings::to_uint32(s.substr(0, kVersionLength), version), ());
-      s = s.substr(kVersionLength);
-      return true;
-    }
-
-    return false;
-  };
-
   // Create a copy of the query to trim it in-place.
   string query(m_query);
   strings::Trim(query);
@@ -523,11 +524,11 @@ void Processor::SearchByFeatureId()
   strings::EatPrefix(query, "?");
 
   string const kFidPrefix = "fid";
-  bool hasPrefix = false;
+  bool hasFidPrefix = false;
 
   if (strings::EatPrefix(query, kFidPrefix))
   {
-    hasPrefix = true;
+    hasFidPrefix = true;
 
     strings::Trim(query);
     if (strings::EatPrefix(query, "="))
@@ -538,92 +539,30 @@ void Processor::SearchByFeatureId()
   m_dataSource.GetMwmsInfo(infos);
 
   // Case 0.
-  if (hasPrefix)
+  if (hasFidPrefix)
   {
     string s = query;
     uint32_t fid;
-    if (eatFid(s, fid))
-    {
-      // Loop over mwms, sort by distance.
-
-      vector<tuple<double, m2::PointD, std::string, std::unique_ptr<FeatureType>>> results;
-      vector<unique_ptr<FeaturesLoaderGuard>> guards;
-      for (auto const & info : infos)
-      {
-        auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
-        if (fid >= guard->GetNumFeatures())
-          continue;
-        auto ft = guard->GetFeatureByIndex(fid);
-        if (!ft)
-          continue;
-        auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-        double dist = center.SquaredLength(m_viewport.Center());
-        auto pivot = m_viewport.Center();
-        if (m_position)
-        {
-          auto const distPos = center.SquaredLength(*m_position);
-          if (dist > distPos)
-          {
-            dist = distPos;
-            pivot = *m_position;
-          }
-        }
-        results.emplace_back(dist, pivot, guard->GetCountryFileName(), move(ft));
-        guards.push_back(move(guard));
-      }
-      sort(results.begin(), results.end());
-      for (auto const & [dist, pivot, country, ft] : results)
-      {
-        auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-        string name;
-        ft->GetReadableName(name);
-        m_emitter.AddResultNoChecks(
-            m_ranker.MakeResult(RankerResult(*ft, center, pivot, name, country),
-                                true /* needAddress */, true /* needHighlighting */));
-        m_emitter.Emit();
-      }
-    }
+    if (EatFid(s, fid))
+      EmitFeaturesByIndexFromAllMwms(infos, fid);
   }
 
-  auto const tryEmitting = [this, &infos](storage::CountryId const & mwmName,
-                                          optional<uint32_t> version, uint32_t fid) {
-    for (auto const & info : infos)
-    {
-      if (info->GetCountryName() != mwmName)
-        continue;
-
-      if (version && version != info->GetVersion())
-        continue;
-
-      auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
-      if (fid >= guard->GetNumFeatures())
-        continue;
-      auto ft = guard->GetFeatureByIndex(fid);
-      if (!ft)
-        continue;
-      auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-      string name;
-      ft->GetReadableName(name);
-      m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-          RankerResult(*ft, center, m2::PointD() /* pivot */, name, guard->GetCountryFileName()),
-          true /* needAddress */, true /* needHighlighting */));
-      m_emitter.Emit();
-    }
-  };
-
   // Case 1.
-  if (hasPrefix)
+  if (hasFidPrefix)
   {
     string s = query;
-    bool const parenPref = strings::EatPrefix(s, "(");
-    bool const parenSuff = strings::EatSuffix(s, ")");
     storage::CountryId mwmName;
     uint32_t fid;
-    if (parenPref == parenSuff && eatMwmName(s, mwmName) && strings::EatPrefix(s, ",") &&
-        eatFid(s, fid))
-    {
-      tryEmitting(mwmName, {} /* version */, fid);
-    }
+
+    bool ok = true;
+    bool const parenPref = strings::EatPrefix(s, "(");
+    bool const parenSuff = strings::EatSuffix(s, ")");
+    ok = ok && parenPref == parenSuff;
+    ok = ok && EatMwmName(m_countriesTrie, s, mwmName);
+    ok = ok && strings::EatPrefix(s, ",");
+    ok = ok && EatFid(s, fid);
+    if (ok)
+      EmitFeatureIfExists(infos, mwmName, {} /* version */, fid);
   }
 
   // Case 2.
@@ -635,14 +574,14 @@ void Processor::SearchByFeatureId()
 
     bool ok = true;
     ok = ok && strings::EatPrefix(s, "{ MwmId [");
-    ok = ok && eatMwmName(s, mwmName);
+    ok = ok && EatMwmName(m_countriesTrie, s, mwmName);
     ok = ok && strings::EatPrefix(s, ", ");
-    ok = ok && eatVersion(s, version);
+    ok = ok && EatVersion(s, version);
     ok = ok && strings::EatPrefix(s, "], ");
-    ok = ok && eatFid(s, fid);
+    ok = ok && EatFid(s, fid);
     ok = ok && strings::EatPrefix(s, " }");
     if (ok)
-      tryEmitting(mwmName, version, fid);
+      EmitFeatureIfExists(infos, mwmName, version, fid);
   }
 }
 
@@ -1030,5 +969,74 @@ void Processor::ClearCaches()
   m_preRanker.ClearCaches();
   m_ranker.ClearCaches();
   m_viewport.MakeEmpty();
+}
+
+void Processor::EmitFeatureIfExists(vector<shared_ptr<MwmInfo>> const & infos,
+                                    storage::CountryId const & mwmName, optional<uint32_t> version,
+                                    uint32_t fid)
+{
+  for (auto const & info : infos)
+  {
+    if (info->GetCountryName() != mwmName)
+      continue;
+
+    if (version && version != info->GetVersion())
+      continue;
+
+    auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
+    if (fid >= guard->GetNumFeatures())
+      continue;
+    auto ft = guard->GetFeatureByIndex(fid);
+    if (!ft)
+      continue;
+    auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
+    string name;
+    ft->GetReadableName(name);
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(
+        RankerResult(*ft, center, m2::PointD() /* pivot */, name, guard->GetCountryFileName()),
+        true /* needAddress */, true /* needHighlighting */));
+    m_emitter.Emit();
+  }
+}
+
+void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const & infos,
+                                               uint32_t fid)
+{
+  vector<tuple<double, m2::PointD, std::string, std::unique_ptr<FeatureType>>> results;
+  vector<unique_ptr<FeaturesLoaderGuard>> guards;
+  for (auto const & info : infos)
+  {
+    auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
+    if (fid >= guard->GetNumFeatures())
+      continue;
+    auto ft = guard->GetFeatureByIndex(fid);
+    if (!ft)
+      continue;
+    auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
+    double dist = center.SquaredLength(m_viewport.Center());
+    auto pivot = m_viewport.Center();
+    if (m_position)
+    {
+      auto const distPos = center.SquaredLength(*m_position);
+      if (dist > distPos)
+      {
+        dist = distPos;
+        pivot = *m_position;
+      }
+    }
+    results.emplace_back(dist, pivot, guard->GetCountryFileName(), move(ft));
+    guards.push_back(move(guard));
+  }
+  sort(results.begin(), results.end());
+  for (auto const & [dist, pivot, country, ft] : results)
+  {
+    auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
+    string name;
+    ft->GetReadableName(name);
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, center, pivot, name, country),
+                                                    true /* needAddress */,
+                                                    true /* needHighlighting */));
+    m_emitter.Emit();
+  }
 }
 }  // namespace search
