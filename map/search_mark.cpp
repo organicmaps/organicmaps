@@ -25,6 +25,7 @@ enum class SearchMarkPoint::SearchMarkType : uint32_t
 {
   Default = 0,
   Booking,
+  Hotel,
   Cafe,
   Bakery,
   Bar,
@@ -70,9 +71,28 @@ float const kVisitedSymbolOpacity = 0.7f;
 float const kOutOfFiltersSymbolOpacity = 0.4f;
 float const kOutOfFiltersTextOpacity = 0.54f;
 
+std::string const kColoredmarkSmall = "coloredmark-default-s";
+
+std::string const kSmallChip = "chips-s";
+std::string const kSmallSelectedChip = "chips-selected-s";
+
+std::string const kPriceChip = "price-chips";
+std::string const kPriceChipSelected = "price-chips-selected";
+std::string const kPriceChipDiscount = "price-chips-discount";
+std::string const kPriceChipSelectedDiscount = "price-chips-selected-discount";
+
+std::string const kRatedDefaultSearchIcon = "rated-default-search-result";
+std::string const kRatedDefaultSearchIconAds = "local_ads_rated-default-search-result";
+
+std::string const kBookingNoRatingSearchIcon = "norating-default-l";
+std::string const & kOsmHotelSearchIcon = kBookingNoRatingSearchIcon;
+
+std::string const kSelectionChipSmall = "selection-chips-s";
+
 std::array<std::string, static_cast<size_t>(SearchMarkType::Count)> const kSymbols = {
     "search-result",                        // Default.
     "coloredmark-default-l",                // Booking.
+    kOsmHotelSearchIcon,                    // Hotel
     "search-result-cafe",                   // Cafe.
     "search-result-bakery",                 // Bakery.
     "search-result-bar",                    // Bar.
@@ -109,23 +129,6 @@ std::array<std::string, static_cast<size_t>(SearchMarkType::Count)> const kSymbo
 
 float constexpr kFontSize = 10.0f;
 
-std::string const kColoredmarkSmall = "coloredmark-default-s";
-
-std::string const kSmallChip = "chips-s";
-std::string const kSmallSelectedChip = "chips-selected-s";
-
-std::string const kPriceChip = "price-chips";
-std::string const kPriceChipSelected = "price-chips-selected";
-std::string const kPriceChipDiscount = "price-chips-discount";
-std::string const kPriceChipSelectedDiscount = "price-chips-selected-discount";
-
-std::string const kRatedDefaultSearchIcon = "rated-default-search-result";
-std::string const kRatedDefaultSearchIconAds = "local_ads_rated-default-search-result";
-
-std::string const kNoRatingSearchIcon = "norating-default-l";
-
-std::string const kSelectionChipSmall = "selection-chips-s";
-
 float const kRatingThreshold = 6.0f;
 
 int constexpr kWorldZoomLevel = 1;
@@ -139,7 +142,7 @@ std::string GetSymbol(SearchMarkType searchMarkType, bool hasLocalAds, bool hasR
     return hasLocalAds ? kRatedDefaultSearchIconAds : kRatedDefaultSearchIcon;
 
   if (searchMarkType == SearchMarkType::Booking && !hasRating)
-    return kNoRatingSearchIcon;
+    return kBookingNoRatingSearchIcon;
 
   auto const index = static_cast<size_t>(searchMarkType);
   ASSERT_LESS(index, kSymbols.size(), ());
@@ -523,6 +526,12 @@ void SearchMarkPoint::SetBookingType(bool hasLocalAds)
   SetAttributeValue(m_type, SearchMarkType::Booking);
 }
 
+void SearchMarkPoint::SetHotelType(bool hasLocalAds)
+{
+  SetAttributeValue(m_hasLocalAds, hasLocalAds);
+  SetAttributeValue(m_type, SearchMarkType::Hotel);
+}
+
 void SearchMarkPoint::SetNotFoundType()
 {
   SetAttributeValue(m_hasLocalAds, false);
@@ -703,7 +712,7 @@ void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   symbols.push_back(kRatedDefaultSearchIcon);
   symbols.push_back(kRatedDefaultSearchIconAds);
 
-  symbols.push_back(kNoRatingSearchIcon);
+  symbols.push_back(kBookingNoRatingSearchIcon);
 
   symbols.push_back(kSelectionChipSmall);
 

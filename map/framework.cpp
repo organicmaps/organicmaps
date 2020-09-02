@@ -1835,9 +1835,12 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     }
     else if (isFeature)
     {
+      bool const hasLocalAds = m_localAdsManager.HasVisualization(r.GetFeatureID());
+      if (r.m_details.m_isHotel)
+        mark->SetHotelType(hasLocalAds);
+      else
+        mark->SetFromType(r.GetFeatureType(), hasLocalAds);
       auto product = GetProductInfo(r);
-      auto const type = r.GetFeatureType();
-      mark->SetFromType(type, m_localAdsManager.HasVisualization(r.GetFeatureID()));
       if (product.m_ugcRating != search::ProductInfo::kInvalidRating)
         mark->SetRating(product.m_ugcRating);
     }

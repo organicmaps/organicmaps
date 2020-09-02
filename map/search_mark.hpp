@@ -49,6 +49,7 @@ public:
 
   void SetFromType(uint32_t type, bool hasLocalAds);
   void SetBookingType(bool hasLocalAds);
+  void SetHotelType(bool hasLocalAds);
   void SetNotFoundType();
 
   void SetPreparing(bool isPreparing);
