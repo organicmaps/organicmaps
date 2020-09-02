@@ -58,8 +58,10 @@ final class SearchBar: SolidTouchView {
                             } else {
                               self.bookingSearchView.alpha = 1
                             }
-                            self.bookingSearchView.alpha = self.isBookingSearchViewHidden ? 0 : 1
             }, completion: nil)
+          } else {
+            self.bookingSearchView.isHidden = self.isBookingSearchViewHidden
+            self.bookingSearchView.alpha = self.isBookingSearchViewHidden ? 0 : 1
           }
         })
       }
