@@ -3,6 +3,7 @@
 #include "generator/affiliation.hpp"
 
 #include "transit/transit_entities.hpp"
+#include "transit/transit_schedule.hpp"
 #include "transit/world_feed/color_picker.hpp"
 
 #include "geometry/mercator.hpp"
@@ -19,10 +20,10 @@
 #include <vector>
 
 #include "3party/just_gtfs/just_gtfs.h"
-#include "3party/opening_hours/opening_hours.hpp"
 
 namespace transit
 {
+static std::string const kDelimiter = "_";
 // Generates globally unique TransitIds mapped to the GTFS entities hashes.
 class IdGenerator
 {
@@ -73,16 +74,15 @@ struct LineData
   // Sequence of stops along the line from first to last.
   IdList m_stopIds;
 
-  // Transport intervals depending on the day timespans.
-  std::vector<LineInterval> m_intervals;
   // Monthdays and weekdays ranges on which the line is at service.
   // Exceptions in service schedule. Explicitly activates or disables service by dates.
-  osmoh::OpeningHours m_serviceDays;
+  // Transport intervals depending on the day timespans.
+  Schedule m_schedule;
 
   // Fields not intended to be exported to json.
   TransitId m_shapeId = 0;
   std::string m_gtfsTripId;
-  std::string m_gtfsServiceId;
+  std::unordered_set<std::string> m_gtfsServiceIds;
 };
 
 struct Lines
@@ -223,7 +223,6 @@ enum FieldIdx
 };
 
 using GtfsIdToHash = std::unordered_map<std::string, std::string>;
-using CalendarCache = std::unordered_map<std::string, osmoh::TRuleSequences>;
 
 struct StopsOnLines
 {
@@ -289,7 +288,7 @@ private:
   // Deletes shapes which are sub-shapes and refreshes corresponding links in lines.
   void ModifyLinesAndShapes();
   // Gets service monthday open/closed ranges, weekdays and exceptions in schedule.
-  bool FillLinesSchedule();
+  void FillLinesSchedule();
   // Gets frequencies of trips from GTFS.
 
   // Adds shape with mercator points instead of WGS84 lat/lon.
@@ -318,16 +317,6 @@ private:
 
   bool ProjectStopsToShape(ShapesIter & itShape, StopsOnLines const & stopsOnLines,
                            std::unordered_map<TransitId, std::vector<size_t>> & stopsToIndexes);
-
-  // Extracts data from GTFS calendar for lines.
-  void GetCalendarDates(osmoh::TRuleSequences & rules, CalendarCache & cache,
-                        std::string const & serviceId);
-  // Extracts data from GTFS calendar dates for lines.
-  void GetCalendarDatesExceptions(osmoh::TRuleSequences & rules, CalendarCache & cache,
-                                  std::string const & serviceId);
-
-  LineIntervals GetFrequencies(std::unordered_map<std::string, LineIntervals> & cache,
-                               std::string const & tripId);
 
   // Splits data into regions.
   void SplitFeedIntoRegions();
@@ -402,15 +391,13 @@ private:
 template <typename... Values>
 auto BuildHash(Values... values)
 {
-  static std::string const delimiter = "_";
-
   size_t constexpr paramsCount = sizeof...(Values);
-  size_t const delimitersSize = (paramsCount - 1) * delimiter.size();
+  size_t const delimitersSize = (paramsCount - 1) * kDelimiter.size();
   size_t const totalSize = (delimitersSize + ... + values.size());
 
   std::string hash;
   hash.reserve(totalSize);
-  (hash.append(values + delimiter), ...);
+  (hash.append(values + kDelimiter), ...);
   hash.pop_back();
 
   return hash;

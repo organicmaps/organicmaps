@@ -12,6 +12,7 @@
 #include "transit/experimental/transit_data.hpp"
 #include "transit/experimental/transit_types_experimental.hpp"
 #include "transit/transit_graph_data.hpp"
+#include "transit/transit_schedule.hpp"
 #include "transit/transit_types.hpp"
 #include "transit/transit_version.hpp"
 
@@ -109,7 +110,7 @@ private:
   std::map<Segment, ::transit::experimental::Edge> m_segmentToEdgePT;
   std::map<Segment, ::transit::experimental::Gate> m_segmentToGatePT;
   std::map<Segment, ::transit::experimental::Stop> m_segmentToStopPT;
-  std::map<::transit::TransitId, std::vector<::transit::LineInterval>> m_transferPenaltiesPT;
+  std::map<::transit::TransitId, ::transit::Schedule> m_transferPenaltiesPT;
 };
 
 void MakeGateEndings(std::vector<transit::Gate> const & gates, NumMwmId mwmId,

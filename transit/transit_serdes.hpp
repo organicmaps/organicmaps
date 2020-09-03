@@ -20,6 +20,7 @@
 #include <cmath>
 #include <cstdint>
 #include <limits>
+#include <map>
 #include <sstream>
 #include <string>
 #include <type_traits>
@@ -170,8 +171,20 @@ public:
       (*this)(v);
   }
 
-  template <class K, class V>
-  void operator()(std::unordered_map<K, V> const & container, char const * /* name */ = nullptr)
+  template <class K, class V, class H>
+  void operator()(std::unordered_map<K, V, H> const & container, char const * /* name */ = nullptr)
+  {
+    CHECK_LESS_OR_EQUAL(container.size(), std::numeric_limits<uint64_t>::max(), ());
+    WriteVarUint(m_sink, static_cast<uint64_t>(container.size()));
+    for (auto const & [key, val] : container)
+    {
+      (*this)(key);
+      (*this)(val);
+    }
+  }
+
+  template <class K, class V, class H>
+  void operator()(std::map<K, V, H> const & container, char const * /* name */ = nullptr)
   {
     CHECK_LESS_OR_EQUAL(container.size(), std::numeric_limits<uint64_t>::max(), ());
     WriteVarUint(m_sink, static_cast<uint64_t>(container.size()));
@@ -347,8 +360,24 @@ public:
       (*this)(v);
   }
 
-  template <class K, class V>
-  void operator()(std::unordered_map<K, V> & container, char const * /* name */ = nullptr)
+  template <class K, class V, class H>
+  void operator()(std::unordered_map<K, V, H> & container, char const * /* name */ = nullptr)
+  {
+    auto const size = static_cast<size_t>(ReadVarUint<uint64_t, Source>(m_source));
+    for (size_t i = 0; i < size; ++i)
+    {
+      K key;
+      V val;
+
+      (*this)(key);
+      (*this)(val);
+
+      container.emplace(key, val);
+    }
+  }
+
+  template <class K, class V, class H>
+  void operator()(std::map<K, V, H> & container, char const * /* name */ = nullptr)
   {
     auto const size = static_cast<size_t>(ReadVarUint<uint64_t, Source>(m_source));
     for (size_t i = 0; i < size; ++i)

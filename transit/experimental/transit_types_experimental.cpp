@@ -131,16 +131,14 @@ std::string const & Route::GetColor() const { return m_color; }
 TransitId Route::GetNetworkId() const { return m_networkId; }
 
 // Line --------------------------------------------------------------------------------------------
-Line::Line(TransitId id, TransitId routeId, ShapeLink shapeLink, std::string const & title,
-           IdList stopIds, std::vector<LineInterval> const & intervals,
-           osmoh::OpeningHours const & serviceDays)
+Line::Line(TransitId id, TransitId routeId, ShapeLink const & shapeLink, std::string const & title,
+           IdList const & stopIds, Schedule const & schedule)
   : m_id(id)
   , m_routeId(routeId)
   , m_shapeLink(shapeLink)
   , m_title(title)
   , m_stopIds(stopIds)
-  , m_intervals(intervals)
-  , m_serviceDays(serviceDays)
+  , m_schedule(schedule)
 {
 }
 
@@ -164,9 +162,7 @@ ShapeLink const & Line::GetShapeLink() const { return m_shapeLink; }
 
 IdList const & Line::GetStopIds() const { return m_stopIds; }
 
-std::vector<LineInterval> Line::GetIntervals() const { return m_intervals; }
-
-osmoh::OpeningHours Line::GetServiceDays() const { return m_serviceDays; }
+Schedule const & Line::GetSchedule() const { return m_schedule; }
 
 // LineMetadata ------------------------------------------------------------------------------------
 LineMetadata::LineMetadata(TransitId id, LineSegmentsOrder const & segmentsOrder)

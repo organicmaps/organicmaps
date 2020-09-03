@@ -90,24 +90,34 @@ UNIT_TEST(ReadJson_Line)
              4036592572,
              4036592573
            ],
-           "service_days":"2021 Nov 25-2021 Nov 26, 2021 Dec 24-2021 Dec 25 closed",
-           "intervals":[
-                         {
-                           "interval_s":3600,
-                           "service_hours":"06:40-18:40 open"
-                         }
-                       ]
+           "schedule":{
+             "def_frequency":4060,
+             "intervals":[
+               {
+                "dates_interval":75007489,
+                "time_intervals":[{"time_interval":6530334760, "frequency":3000}]
+               }],
+               "exceptions":[
+                {"exception":519, "time_intervals": []},
+                {"exception":357, "time_intervals": []}
+               ]
+             }
          })"};
+
+  FrequencyIntervals frequencies;
+  frequencies.AddInterval(TimeInterval(6530334760), 3000);
+
+  Schedule schedule;
+  schedule.SetDefaultFrequency(4060);
+
+  schedule.AddDatesInterval(DatesInterval(75007489), frequencies);
+  schedule.AddDateException(DateException(519), {});
+  schedule.AddDateException(DateException(357), {});
 
   std::vector<Line> const linesPlan = {
       Line(4036591532 /* id */, 4036591423 /* routeId */,
            ShapeLink(4036591460 /* id */, 415 /* startIndex */, 1691 /* endIndex */),
-           "Downtown" /* title */, IdList{4036592571, 4036592572, 4036592573},
-           std::vector<LineInterval>{LineInterval(
-               3600 /* headwayS */,
-               osmoh::OpeningHours("06:40-18:40 open") /* timeIntervals */)} /* intervals */,
-           osmoh::OpeningHours(
-               "2021 Nov 25-2021 Nov 26, 2021 Dec 24-2021 Dec 25 closed") /* serviceDays */)};
+           "Downtown" /* title */, IdList{4036592571, 4036592572, 4036592573}, schedule)};
 
   std::vector<Line> linesFact;
 
@@ -154,16 +164,7 @@ UNIT_TEST(ReadJson_Stop)
              "y":41.042765953900343
            },
            "title":"Balfour Rd & Foothill Dr",
-           "timetable":[
-             {
-               "line_id":4036591493,
-               "arrivals":"13:23-13:23 open"
-             },
-             {
-               "line_id":4036591562,
-               "arrivals":"15:23-15:23 open"
-             }
-           ],
+           "timetable":[{"line_id":204,"intervals":[11400205248]}],
            "transfer_ids":[
              4036593809,
              4036595406
@@ -173,8 +174,7 @@ UNIT_TEST(ReadJson_Stop)
   std::vector<Stop> const stopsPlan = {
       Stop(4036592706 /* id */, kInvalidFeatureId /* featureId */, kInvalidOsmId /* osmId */,
            "Balfour Rd & Foothill Dr",
-           TimeTable{{4036591493, osmoh::OpeningHours("13:23-13:23 open")},
-                     {4036591562, osmoh::OpeningHours("15:23-15:23 open")}},
+           TimeTable{{204, std::vector<TimeInterval>{TimeInterval(11400205248)}}},
            m2::PointD(-121.74124, 41.04276), {4036593809, 4036595406} /* transferIds */)};
 
   std::vector<Stop> stopsFact;

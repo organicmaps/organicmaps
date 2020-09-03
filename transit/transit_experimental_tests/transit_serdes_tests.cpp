@@ -111,17 +111,20 @@ TransitData FillTestTransitData()
                    Route(4027700599 /* id */, 4032061671 /* networkId */, "ferry" /* routeType */,
                          "Киевский вокзал - парк Зарядье" /* title */, "purple" /* color */)};
 
+  FrequencyIntervals frequencies;
+  frequencies.AddInterval(TimeInterval(6530334760), 3000);
+
+  Schedule schedule;
+  schedule.SetDefaultFrequency(4060);
+
+  schedule.AddDatesInterval(DatesInterval(75007489), frequencies);
+
   data.m_lines = {
       Line(4036598626 /* id */, 4036206872 /* routeId */,
            ShapeLink(4036591460 /* id */, 0 /* startIndex */, 2690 /* endIndex */),
            "740G" /* title */,
            IdList{4036592571, 4036592572, 4036592573, 4036592574, 4036592575, 4036592576},
-           std::vector<LineInterval>{LineInterval(
-               10060 /* headwayS */,
-               osmoh::OpeningHours("08:30-19:00 open") /* timeIntervals */)} /* intervals */,
-           osmoh::OpeningHours("2020 May 01-2020 May 01, 2020 May 25-2020 May 25, 2020 Jun 15-2020 "
-                               "Jun 15, 2020 Jun 20-2020 Jun 20, 2020 Jul 09-2020 Jul 09, 2020 Aug "
-                               "17-2020 Aug 17, 2020 Oct 12-2020 Oct 12") /* serviceDays */),
+           schedule),
       Line(
           4036598627 /* id */, 4036206872 /* routeId */,
           ShapeLink(4036591461 /* id */, 356 /* startIndex */, 40690 /* endIndex */),
@@ -129,17 +132,7 @@ TransitData FillTestTransitData()
           IdList{4027013783, 4027013784, 4027013785, 4027013786, 4027013787, 4027013788, 4027013789,
                  4027013790, 4027013791, 4027013792, 4027013793, 4027013794, 4027013795, 4027013796,
                  4027013797, 4027013798, 4027013799, 4027013800, 4027013801},
-          std::vector<LineInterval>{} /* intervals */,
-          osmoh::OpeningHours(
-              "2020 Apr 20-2020 Apr 24, 2020 Apr 27-2020 Apr 30, 2020 May 04-2020 May 08, 2020 May "
-              "11-2020 May 15, 2020 May 18-2020 May 22, 2020 May 26-2020 May 29, 2020 Jun 01-2020 "
-              "Jun 05, 2020 Jun 08-2020 Jun 12, 2020 Jun 16-2020 Jun 19, 2020 Jun 22-2020 Jun 26, "
-              "2020 Jun 29-2020 Jul 03, 2020 Jul 06-2020 Jul 08, 2020 Jul 10-2020 Jul 10, 2020 Jul "
-              "13-2020 Jul 17, 2020 Jul 20-2020 Jul 24, 2020 Jul 27-2020 Jul 31, 2020 Aug 03-2020 "
-              "Aug 07, 2020 Aug 10-2020 Aug 14, 2020 Aug 18-2020 Aug 21, 2020 Aug 24-2020 Aug 28, "
-              "2020 Aug 31-2020 Sep 04, 2020 Sep 07-2020 Sep 11, 2020 Sep 14-2020 Sep 18, 2020 Sep "
-              "21-2020 Sep 25, 2020 Sep 28-2020 Oct 02, 2020 Oct 05-2020 Oct 09, 2020 Oct 13-2020 "
-              "Oct 16, 2020 Oct 19-2020 Oct 20") /* serviceDays */)};
+          schedule)};
 
   data.m_linesMetadata = {
       LineMetadata(4036598626 /* id */, LineSegmentsOrder{LineSegmentOrder({0, 100}, 0),
@@ -148,10 +141,7 @@ TransitData FillTestTransitData()
 
   data.m_stops = {Stop(4026990853 /* id */, kInvalidFeatureId /* featureId */,
                        kInvalidOsmId /* osmId */, "CARLOS DIHEL 2500-2598" /* title */,
-                       TimeTable{{4026763635, osmoh::OpeningHours("06:00-06:00 open")},
-                                 {4026636458, osmoh::OpeningHours("05:00-05:00 open")},
-                                 {4026636458, osmoh::OpeningHours("05:30-05:30 open")},
-                                 {4026952369, osmoh::OpeningHours("15:30-15:30 open")}},
+                       TimeTable{{204, std::vector<TimeInterval>{TimeInterval(11400205248)}}},
                        m2::PointD(-58.57196, -36.82596), {} /* transferIds */),
                   Stop(4026990854 /* id */, kInvalidFeatureId /* featureId */,
                        kInvalidOsmId /* osmId */, "QUIROGA 1901-1999" /* title */, TimeTable{},

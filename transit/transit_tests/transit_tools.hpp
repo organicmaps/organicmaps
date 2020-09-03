@@ -51,9 +51,9 @@ inline bool Equal(Route const & r1, Route const & r2)
 inline bool Equal(Line const & l1, Line const & l2)
 {
   return std::make_tuple(l1.GetId(), l1.GetRouteId(), l1.GetTitle(), l1.GetStopIds(),
-                         l1.GetIntervals(), l1.GetServiceDays(), l1.GetShapeLink()) ==
+                         l1.GetSchedule(), l1.GetShapeLink()) ==
          std::make_tuple(l2.GetId(), l2.GetRouteId(), l2.GetTitle(), l2.GetStopIds(),
-                         l2.GetIntervals(), l2.GetServiceDays(), l2.GetShapeLink());
+                         l2.GetSchedule(), l2.GetShapeLink());
 }
 
 inline bool Equal(LineMetadata const & lm1, LineMetadata const & lm2)

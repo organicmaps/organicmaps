@@ -1,5 +1,7 @@
 #pragma once
 
+#include "transit/transit_schedule.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/macros.hpp"
@@ -69,33 +71,9 @@ struct TimeFromGateToStop
   size_t m_timeSeconds = 0;
 };
 
-struct LineInterval
-{
-  LineInterval() = default;
-  LineInterval(size_t headwayS, osmoh::OpeningHours const & timeIntervals)
-    : m_headwayS(headwayS), m_timeIntervals(timeIntervals)
-  {
-  }
-
-  bool operator==(LineInterval const & rhs) const
-  {
-    return std::tie(m_headwayS, m_timeIntervals) == std::tie(rhs.m_headwayS, rhs.m_timeIntervals);
-  }
-
-  DECLARE_VISITOR_AND_DEBUG_PRINT(LineInterval, visitor(m_headwayS, "headwayS"),
-                                  visitor(m_timeIntervals, "timeIntervals"))
-  // Service interval in seconds between departures from the same stop (headway) for the line,
-  // during the time interval specified by |m_timeIntervals|.
-  size_t m_headwayS = 0;
-  // Time interval for the |m_headwayS|. Multiple headways for the same trip are allowed, but may
-  // not overlap in time.
-  osmoh::OpeningHours m_timeIntervals;
-};
-
-using LineIntervals = std::vector<LineInterval>;
 using IdList = std::vector<TransitId>;
 using IdSet = std::unordered_set<TransitId>;
-using TimeTable = std::unordered_map<TransitId, osmoh::OpeningHours>;
+using TimeTable = std::unordered_map<TransitId, std::vector<TimeInterval>>;
 using EdgeWeight = uint32_t;
 
 // Link to the shape: shape id and indexes in the corresponding polyline.

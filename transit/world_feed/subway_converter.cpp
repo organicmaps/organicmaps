@@ -180,9 +180,7 @@ std::pair<TransitId, LineData> SubwayConverter::MakeLine(routing::transit::Line 
   LineData lineData;
   lineData.m_routeId = routeId;
   lineData.m_title = lineSubway.GetTitle();
-  lineData.m_intervals = {LineInterval(lineSubway.GetInterval() /* headwayS */,
-                                       osmoh::OpeningHours(kDefaultHours) /* timeIntervals */)};
-  lineData.m_serviceDays = osmoh::OpeningHours(kDefaultHours);
+  lineData.m_schedule.SetDefaultFrequency(lineSubway.GetInterval());
 
   return {lineId, lineData};
 }

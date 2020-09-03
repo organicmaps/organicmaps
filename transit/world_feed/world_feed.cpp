@@ -90,20 +90,79 @@ base::JSONPtr ShapeLinkToJson(transit::ShapeLink const & shapeLink)
   return node;
 }
 
-base::JSONPtr IdListToJson(transit::IdList const & stopIds)
+base::JSONPtr FrequenciesToJson(
+    std::map<::transit::TimeInterval, ::transit::Frequency> const & frequencyIntervals)
 {
-  auto idArr = base::NewJSONArray();
+  auto timeIntervalsArr = base::NewJSONArray();
 
-  for (auto const & stopId : stopIds)
+  for (auto const & [timeInterval, frequency] : frequencyIntervals)
   {
-    auto nodeId = base::NewJSONInt(stopId);
-    json_array_append_new(idArr.get(), nodeId.release());
+    auto tiNode = base::NewJSONObject();
+    ToJSONObject(*tiNode, "time_interval", timeInterval.GetRaw());
+    ToJSONObject(*tiNode, "frequency", frequency);
+    json_array_append_new(timeIntervalsArr.get(), tiNode.release());
   }
 
-  return idArr;
+  return timeIntervalsArr;
 }
 
-base::JSONPtr TranslationsToJson(transit::Translations const & translations)
+base::JSONPtr ScheduleToJson(transit::Schedule const & schedule)
+{
+  auto scheduleNode = base::NewJSONObject();
+  ToJSONObject(*scheduleNode, "def_frequency", schedule.GetFrequency());
+
+  if (auto const & intervals = schedule.GetServiceIntervals(); !intervals.empty())
+  {
+    auto dateIntervalsArr = base::NewJSONArray();
+
+    for (auto const & [datesInterval, frequencyIntervals] : intervals)
+    {
+      auto diNode = base::NewJSONObject();
+      ToJSONObject(*diNode, "dates_interval", datesInterval.GetRaw());
+
+      json_object_set_new(diNode.get(), "time_intervals",
+                          FrequenciesToJson(frequencyIntervals.GetFrequencies()).release());
+      json_array_append_new(dateIntervalsArr.get(), diNode.release());
+    }
+
+    json_object_set_new(scheduleNode.get(), "intervals", dateIntervalsArr.release());
+  }
+
+  if (auto const & exceptions = schedule.GetServiceExceptions(); !exceptions.empty())
+  {
+    auto exceptionsArr = base::NewJSONArray();
+
+    for (auto const & [exception, frequencyIntervals] : exceptions)
+    {
+      auto exNode = base::NewJSONObject();
+      ToJSONObject(*exNode, "exception", exception.GetRaw());
+
+      json_object_set_new(exNode.get(), "time_intervals",
+                          FrequenciesToJson(frequencyIntervals.GetFrequencies()).release());
+      json_array_append_new(exceptionsArr.get(), exNode.release());
+    }
+
+    json_object_set_new(scheduleNode.get(), "exceptions", exceptionsArr.release());
+  }
+
+  return scheduleNode;
+}
+
+template <class T>
+base::JSONPtr VectorToJson(std::vector<T> const & items)
+{
+  auto arr = base::NewJSONArray();
+
+  for (auto const & item : items)
+  {
+    auto node = base::NewJSONInt(item);
+    json_array_append_new(arr.get(), node.release());
+  }
+
+  return arr;
+}
+
+[[maybe_unused]] base::JSONPtr TranslationsToJson(transit::Translations const & translations)
 {
   auto translationsArr = base::NewJSONArray();
 
@@ -325,17 +384,11 @@ void StopData::UpdateTimetable(TransitId lineId, gtfs::StopTime const & stopTime
   arrival.limit_hours_to_24max();
   departure.limit_hours_to_24max();
 
-  auto const newRuleSeq = GetRuleSequenceOsmoh(arrival, departure);
-  auto [it, inserted] = m_timetable.emplace(lineId, osmoh::OpeningHours());
-  if (inserted)
-  {
-    it->second = osmoh::OpeningHours({newRuleSeq});
-    return;
-  }
+  TimeInterval const timeInterval(arrival, departure);
 
-  auto ruleSeq = it->second.GetRule();
-  ruleSeq.push_back(newRuleSeq);
-  it->second = osmoh::OpeningHours({ruleSeq});
+  auto [it, inserted] = m_timetable.emplace(lineId, std::vector<TimeInterval>{timeInterval});
+  if (!inserted)
+    it->second.push_back(timeInterval);
 }
 
 WorldFeed::WorldFeed(IdGenerator & generator, ColorPicker & colorPicker,
@@ -621,7 +674,13 @@ bool WorldFeed::FillLinesAndShapes()
       continue;
 
     std::string const & routeHash = itRoute->second;
-    std::string const lineHash = BuildHash(routeHash, trip.trip_id);
+
+    std::string stopIds;
+
+    for (auto const & stopTime : m_feed.get_stop_times_for_trip(trip.trip_id))
+      stopIds += stopTime.stop_id + kDelimiter;
+
+    std::string const & lineHash = BuildHash(routeHash, trip.shape_id, stopIds);
     auto const lineId = m_idGenerator.MakeId(lineHash);
 
     auto [itShape, insertedShape] = m_gtfsIdToHash[ShapesIdx].emplace(trip.shape_id, "");
@@ -640,8 +699,8 @@ bool WorldFeed::FillLinesAndShapes()
     auto [it, inserted] = m_lines.m_data.emplace(lineId, LineData());
     if (!inserted)
     {
-      LOG(LINFO, ("Duplicate trip_id:", trip.trip_id, m_gtfsHash));
-      return false;
+      it->second.m_gtfsServiceIds.emplace(trip.service_id);
+      continue;
     }
 
     TransitId const shapeId = m_idGenerator.MakeId(itShape->second);
@@ -651,7 +710,7 @@ bool WorldFeed::FillLinesAndShapes()
     data.m_routeId = m_idGenerator.MakeId(routeHash);
     data.m_shapeId = shapeId;
     data.m_gtfsTripId = trip.trip_id;
-    data.m_gtfsServiceId = trip.service_id;
+    data.m_gtfsServiceIds.emplace(trip.service_id);
     // |m_stopIds|, |m_intervals| and |m_serviceDays| will be filled on the next steps.
     it->second = data;
 
@@ -755,92 +814,24 @@ void WorldFeed::ModifyLinesAndShapes()
   LOG(LINFO, ("Deleted", subShapesCount, "sub-shapes.", m_shapes.m_data.size(), "left."));
 }
 
-void WorldFeed::GetCalendarDates(osmoh::TRuleSequences & rules, CalendarCache & cache,
-                                 std::string const & serviceId)
+void WorldFeed::FillLinesSchedule()
 {
-  auto [it, inserted] = cache.emplace(serviceId, osmoh::TRuleSequences());
-  if (inserted)
-  {
-    if (auto serviceDays = m_feed.get_calendar(serviceId); serviceDays)
-    {
-      GetServiceDaysOsmoh(serviceDays.value(), it->second);
-      MergeRules(rules, it->second);
-    }
-  }
-  else
-  {
-    MergeRules(rules, it->second);
-  }
-}
-
-void WorldFeed::GetCalendarDatesExceptions(osmoh::TRuleSequences & rules, CalendarCache & cache,
-                                           std::string const & serviceId)
-{
-  auto [it, inserted] = cache.emplace(serviceId, osmoh::TRuleSequences());
-  if (inserted)
-  {
-    auto exceptionDates = m_feed.get_calendar_dates(serviceId);
-    GetServiceDaysExceptionsOsmoh(exceptionDates, it->second);
-  }
-
-  MergeRules(rules, it->second);
-}
-
-LineIntervals WorldFeed::GetFrequencies(std::unordered_map<std::string, LineIntervals> & cache,
-                                        std::string const & tripId)
-{
-  auto [it, inserted] = cache.emplace(tripId, LineIntervals{});
-  if (!inserted)
-  {
-    return it->second;
-  }
-
-  auto const & frequencies = m_feed.get_frequencies(tripId);
-  if (frequencies.empty())
-    return it->second;
-
-  std::unordered_map<size_t, osmoh::TRuleSequences> intervals;
-  for (auto const & freq : frequencies)
-  {
-    osmoh::RuleSequence const seq = GetRuleSequenceOsmoh(freq.start_time, freq.end_time);
-    intervals[freq.headway_secs].push_back(seq);
-  }
-
-  for (auto const & [headwayS, rules] : intervals)
-  {
-    LineInterval interval;
-    interval.m_headwayS = headwayS;
-    interval.m_timeIntervals = osmoh::OpeningHours(rules);
-    it->second.push_back(interval);
-  }
-  return it->second;
-}
-
-bool WorldFeed::FillLinesSchedule()
-{
-  // Service id - to - rules mapping based on GTFS calendar.
-  CalendarCache cachedCalendar;
-  // Service id - to - rules mapping based on GTFS calendar dates.
-  CalendarCache cachedCalendarDates;
-
-  // Trip id - to - headways for trips.
-  std::unordered_map<std::string, LineIntervals> cachedFrequencies;
-
   for (auto & [lineId, lineData] : m_lines.m_data)
   {
-    osmoh::TRuleSequences rulesDates;
-    auto const & serviceId = lineData.m_gtfsServiceId;
-
-    GetCalendarDates(rulesDates, cachedCalendar, serviceId);
-    GetCalendarDatesExceptions(rulesDates, cachedCalendarDates, serviceId);
-
-    lineData.m_serviceDays = osmoh::OpeningHours(rulesDates);
-
     auto const & tripId = lineData.m_gtfsTripId;
-    lineData.m_intervals = GetFrequencies(cachedFrequencies, tripId);
-  }
+    auto const & frequencies = m_feed.get_frequencies(tripId);
 
-  return !cachedCalendar.empty() || !cachedCalendarDates.empty();
+    for (auto const & serviceId : lineData.m_gtfsServiceIds)
+    {
+      for (auto const & dateException : m_feed.get_calendar_dates(serviceId))
+        lineData.m_schedule.AddDateException(dateException.date, dateException.exception_type,
+                                             frequencies);
+
+      std::optional<gtfs::CalendarItem> calendar = m_feed.get_calendar(serviceId);
+      if (calendar)
+        lineData.m_schedule.AddDatesInterval(calendar.value(), frequencies);
+    }
+  }
 }
 
 bool WorldFeed::ProjectStopsToShape(
@@ -1338,11 +1329,8 @@ bool WorldFeed::SetFeed(gtfs::Feed && feed)
   ModifyLinesAndShapes();
   LOG(LINFO, ("Modified lines and shapes."));
 
-  if (!FillLinesSchedule())
-  {
-    LOG(LWARNING, ("Could not fill schedule for lines."));
-    return false;
-  }
+  FillLinesSchedule();
+
   LOG(LINFO, ("Filled schedule for lines."));
 
   if (!FillStopsEdges())
@@ -1419,20 +1407,8 @@ void Lines::Write(std::unordered_map<TransitId, IdList> const & ids, std::ofstre
     ToJSONObject(*node, "title", line.m_title);
 
     // Save only stop ids inside current region.
-    json_object_set_new(node.get(), "stops_ids", IdListToJson(stopIds).release());
-    ToJSONObject(*node, "service_days", ToString(line.m_serviceDays));
-
-    auto intervalsArr = base::NewJSONArray();
-
-    for (auto const & [intervalS, openingHours] : line.m_intervals)
-    {
-      auto scheduleItem = base::NewJSONObject();
-      ToJSONObject(*scheduleItem, "interval_s", intervalS);
-      ToJSONObject(*scheduleItem, "service_hours", ToString(openingHours));
-      json_array_append_new(intervalsArr.get(), scheduleItem.release());
-    }
-
-    json_object_set_new(node.get(), "intervals", intervalsArr.release());
+    json_object_set_new(node.get(), "stops_ids", VectorToJson(stopIds).release());
+    json_object_set_new(node.get(), "schedule", ScheduleToJson(line.m_schedule).release());
 
     WriteJson(node.get(), stream);
   }
@@ -1468,22 +1444,35 @@ void Stops::Write(IdSet const & ids, std::ofstream & stream) const
       ToJSONObject(*node, "osm_id", stop.m_osmId);
 
     json_object_set_new(node.get(), "point", PointToJson(stop.m_point).release());
-    ToJSONObject(*node, "title", stop.m_title);
 
-    auto timeTableArr = base::NewJSONArray();
+    if (stop.m_title.empty())
+      ToJSONObject(*node, "title", stop.m_title);
 
-    for (auto const & [lineId, schedule] : stop.m_timetable)
+    if (!stop.m_timetable.empty())
     {
-      auto scheduleItem = base::NewJSONObject();
-      ToJSONObject(*scheduleItem, "line_id", lineId);
-      ToJSONObject(*scheduleItem, "arrivals", ToString(schedule));
-      json_array_append_new(timeTableArr.get(), scheduleItem.release());
+      auto timeTableArr = base::NewJSONArray();
+
+      for (auto const & [lineId, timeIntervals] : stop.m_timetable)
+      {
+        auto lineTimetableItem = base::NewJSONObject();
+        ToJSONObject(*lineTimetableItem, "line_id", lineId);
+
+        std::vector<size_t> rawValues;
+        rawValues.reserve(timeIntervals.size());
+
+        for (auto const & timeInterval : timeIntervals)
+          rawValues.push_back(timeInterval.GetRaw());
+
+        json_object_set_new(lineTimetableItem.get(), "intervals",
+                            VectorToJson(rawValues).release());
+        json_array_append_new(timeTableArr.get(), lineTimetableItem.release());
+      }
+
+      json_object_set_new(node.get(), "timetable", timeTableArr.release());
     }
 
-    json_object_set_new(node.get(), "timetable", timeTableArr.release());
-
     if (!stop.m_transferIds.empty())
-      json_object_set_new(node.get(), "transfer_ids", IdListToJson(stop.m_transferIds).release());
+      json_object_set_new(node.get(), "transfer_ids", VectorToJson(stop.m_transferIds).release());
 
     WriteJson(node.get(), stream);
   }
@@ -1532,7 +1521,7 @@ void Transfers::Write(IdSet const & ids, std::ofstream & stream) const
     auto node = base::NewJSONObject();
     ToJSONObject(*node, "id", transferId);
     json_object_set_new(node.get(), "point", PointToJson(transfer.m_point).release());
-    json_object_set_new(node.get(), "stops_ids", IdListToJson(transfer.m_stopsIds).release());
+    json_object_set_new(node.get(), "stops_ids", VectorToJson(transfer.m_stopsIds).release());
 
     WriteJson(node.get(), stream);
   }

@@ -166,8 +166,9 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
     // 3. |from| is edge, |to| is edge from another line directly connected to |from|.
     auto const it = m_transferPenaltiesPT.find(lineIdTo);
     CHECK(it != m_transferPenaltiesPT.end(), ("Segment", to, "belongs to unknown line:", lineIdTo));
-    CHECK(!it->second.empty(), (lineIdTo));
-    size_t const headwayS = it->second.front().m_headwayS;
+    // TODO(o.khlopkova) If we know exact start time for trip we can extract more precise headway.
+    // We need to call GetFrequency(time).
+    size_t const headwayS = it->second.GetFrequency() / 2;
 
     return RouteWeight(static_cast<double>(headwayS) /* weight */, 0 /* nonPassThroughCross */,
                        0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */,
@@ -207,22 +208,7 @@ void TransitGraph::Fill(::transit::experimental::TransitData const & transitData
   CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
 
   for (auto const & line : transitData.GetLines())
-  {
-    m_transferPenaltiesPT[line.GetId()].reserve(line.GetIntervals().size());
-
-    for (auto const & interval : line.GetIntervals())
-    {
-      m_transferPenaltiesPT[line.GetId()].emplace_back(interval.m_headwayS / 2,
-                                                       interval.m_timeIntervals);
-    }
-
-    // TODO(o.khlopkova) Decide what to do with lines with empty intervals.
-    if (m_transferPenaltiesPT[line.GetId()].empty())
-    {
-      m_transferPenaltiesPT[line.GetId()].emplace_back(kDefaultIntervalS / 2,
-                                                       osmoh::OpeningHours("24/7"));
-    }
-  }
+    m_transferPenaltiesPT[line.GetId()] = line.GetSchedule();
 
   map<transit::StopId, LatLonWithAltitude> stopCoords;
 

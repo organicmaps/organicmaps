@@ -98,6 +98,7 @@ enum WeekDays
   Friday,
   Saturday
 };
+
 // Service dates specified using a weekly schedule with start and end dates. Dates range is
 // specified by the start_date and end_date fields in the GTFS calendar.txt.
 // Dates interval and open/closed states for week days are stored |m_data|.
@@ -106,6 +107,7 @@ class DatesInterval
 public:
   DatesInterval() = default;
   explicit DatesInterval(gtfs::CalendarItem const & calendarItem);
+  explicit DatesInterval(uint32_t data);
 
   bool operator==(DatesInterval const & rhs) const;
 
@@ -134,7 +136,8 @@ class DateException
 {
 public:
   DateException() = default;
-  DateException(gtfs::Date const & date, gtfs::CalendarDateException const & exception);
+  DateException(gtfs::Date const & date, gtfs::CalendarDateException const & dateException);
+  explicit DateException(uint16_t data);
 
   bool operator==(DateException const & rhs) const;
 
@@ -163,8 +166,10 @@ class TimeInterval
 public:
   TimeInterval() = default;
   TimeInterval(gtfs::Time const & startTime, gtfs::Time const & endTime);
+  explicit TimeInterval(uint64_t data);
 
   bool operator<(TimeInterval const & rhs) const;
+  bool operator==(TimeInterval const & rhs) const;
 
   std::pair<Time, Time> Extract() const;
   uint64_t GetRaw() const { return m_data; }
@@ -191,11 +196,22 @@ public:
   FrequencyIntervals() = default;
   FrequencyIntervals(gtfs::Frequencies const & frequencies);
 
+  bool operator==(FrequencyIntervals const & rhs) const;
+
+  void AddInterval(TimeInterval const & timeInterval, Frequency frequency);
+
   Frequency GetFrequency(Time const & time) const;
+  std::map<TimeInterval, Frequency> const & GetFrequencies() const;
 
 private:
+  DECLARE_SCHEDULE_TYPES_FRIENDS
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FrequencyIntervals, visitor(m_intervals, "m_intervals"))
+
   std::map<TimeInterval, Frequency> m_intervals;
 };
+
+using DatesIntervals = std::unordered_map<DatesInterval, FrequencyIntervals, DatesIntervalHasher>;
+using DatesExceptions = std::unordered_map<DateException, FrequencyIntervals, DateExceptionHasher>;
 
 // Line schedule with line service days (as DatesInterval ranges) and exceptions in service days
 // (as DateException items). For each date there are frequency intervals (time ranges with headway
@@ -204,14 +220,23 @@ private:
 class Schedule
 {
 public:
+  bool operator==(Schedule const & rhs) const;
+
   void AddDatesInterval(gtfs::CalendarItem const & calendarItem,
                         gtfs::Frequencies const & frequencies);
-  void AddDateException(gtfs::Date const & date, gtfs::CalendarDateException const & exception,
+  void AddDateException(gtfs::Date const & date, gtfs::CalendarDateException const & dateException,
                         gtfs::Frequencies const & frequencies);
 
   Status GetStatus(time_t const & time) const;
   Frequency GetFrequency(time_t const & time) const;
   Frequency GetFrequency() const { return m_defaultFrequency; }
+
+  DatesIntervals const & GetServiceIntervals() const;
+  DatesExceptions const & GetServiceExceptions() const;
+
+  void AddDatesInterval(DatesInterval const & interval, FrequencyIntervals const & frequencies);
+  void AddDateException(DateException const & dateException,
+                        FrequencyIntervals const & frequencies);
 
   void SetDefaultFrequency(Frequency const & frequency) { m_defaultFrequency = frequency; }
 
@@ -219,8 +244,13 @@ private:
   std::pair<Date, uint8_t> GetDateAndWeekIndex(time_t const & time) const;
   std::tuple<Date, Time, uint8_t> GetDateTimeAndWeekIndex(time_t const & time) const;
 
-  std::unordered_map<DatesInterval, FrequencyIntervals, DatesIntervalHasher> m_serviceIntervals;
-  std::unordered_map<DateException, FrequencyIntervals, DateExceptionHasher> m_serviceExceptions;
+  DECLARE_SCHEDULE_TYPES_FRIENDS
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Schedule, visitor(m_serviceIntervals, "m_serviceIntervals"),
+                                  visitor(m_serviceExceptions, "m_serviceExceptions"),
+                                  visitor(m_defaultFrequency, "m_defaultFrequency"))
+
+  DatesIntervals m_serviceIntervals;
+  DatesExceptions m_serviceExceptions;
 
   Frequency m_defaultFrequency = kDefaultFrequency;
 };
