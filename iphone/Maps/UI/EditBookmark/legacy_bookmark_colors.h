@@ -30,7 +30,7 @@ inline UIColor * UIColorForBookmarkColor(kml::PredefinedColor color)
     case kml::PredefinedColor::Gray: return UIColorForRGB(115, 115, 115);
     case kml::PredefinedColor::BlueGray: return UIColorForRGB(89, 115, 128);
     case kml::PredefinedColor::None:
-    case kml::PredefinedColor::Count: UNREACHABLE(); return nil;
+    case kml::PredefinedColor::Count: return UIColorForBookmarkColor(kml::PredefinedColor::Red);
   }
 }
 
