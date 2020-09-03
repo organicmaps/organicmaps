@@ -36,7 +36,6 @@ public:
   int GetMinTitleZoom() const override;
   df::DepthLayer GetDepthLayer() const override;
   drape_ptr<BageInfo> GetBadgeInfo() const override;
-  drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
   bool GetDepthTestEnabled() const override { return false; }
   bool IsMarkAboveText() const override;
   float GetSymbolOpacity() const override;
@@ -77,8 +76,8 @@ protected:
     dst = std::forward<U>(src);
   }
 
-  bool IsUGCMark() const;
   bool IsBookingSpecialMark() const;
+  bool IsHotel() const;
 
   bool HasRating() const;
   bool HasGoodRating() const;

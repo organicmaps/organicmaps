@@ -273,7 +273,15 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
     return symbolZoomInfo;
   }
 
-  symbolZoomInfo->emplace(kWorldZoomLevel, symbolName);
+  if (IsHotel() && !HasRating())
+  {
+    symbolZoomInfo->emplace(kWorldZoomLevel, kColoredmarkSmall);
+    symbolZoomInfo->emplace(kBadRatingZoomLevel, symbolName);
+  }
+  else
+  {
+    symbolZoomInfo->emplace(kWorldZoomLevel, symbolName);
+  }
   return symbolZoomInfo;
 }
 
@@ -348,20 +356,6 @@ drape_ptr<df::UserPointMark::BageInfo> SearchMarkPoint::GetBadgeInfo() const
   return nullptr;
 }
 
-drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() const
-{
-  m2::PointF offset;
-
-  if (IsUGCMark())
-  {
-    // UGC mark is not vertically centered into enclosing texture region
-    float constexpr kShadowOffset = -2.0f;
-    offset.y = kShadowOffset;
-  }
-
-  return make_unique_dp<SymbolOffsets>(static_cast<size_t>(scales::UPPER_STYLE_SCALE), offset);
-}
-
 bool SearchMarkPoint::IsMarkAboveText() const
 {
   return !IsBookingSpecialMark();
@@ -391,7 +385,7 @@ df::ColorConstant SearchMarkPoint::GetColorConstant() const
     return "RatingGood";
   }
 
-  return "RatingUGC";
+  return "SearchmarkDefault";
 }
 
 drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
@@ -586,9 +580,9 @@ bool SearchMarkPoint::IsAvailable() const { return m_isAvailable; }
 
 std::string const & SearchMarkPoint::GetReason() const { return m_reason; }
 
-bool SearchMarkPoint::IsUGCMark() const { return m_type != SearchMarkType::Booking; }
-
 bool SearchMarkPoint::IsBookingSpecialMark() const { return m_type == SearchMarkType::Booking; }
+
+bool SearchMarkPoint::IsHotel() const { return m_type == SearchMarkType::Hotel; }
 
 bool SearchMarkPoint::HasRating() const { return m_rating > kInvalidRatingValue; }
 
