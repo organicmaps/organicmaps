@@ -317,6 +317,9 @@ extension BMCViewController: BMCPermissionsCellDelegate {
       viewModel.pendingPermission(isPending: true)
       signup(anchor: anchor, source: .bookmarksBackup, onComplete: { [viewModel] success in
         viewModel!.grant(permission: success ? .backup : nil)
+        if !success {
+          Statistics.logEvent(kStatBookmarksAuthRequestError)
+        }
       })
     case .backup:
       viewModel.grant(permission: permission)
