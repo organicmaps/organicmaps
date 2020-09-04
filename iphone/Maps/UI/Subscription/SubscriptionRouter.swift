@@ -26,7 +26,7 @@ class SubscriptionRouter {
        subscriptionGroupType: SubscriptionGroupType,
        completion: ((Bool) -> Void)?) {
     self.viewController = viewController
-    self.parentViewController = viewController
+    self.parentViewController = parentViewController
     self.successDialog = successDialog
     self.completion = completion
     self.subscriptionGroupType = subscriptionGroupType
@@ -52,17 +52,17 @@ extension SubscriptionRouter: SubscriptionRouterProtocol {
     }
     switch successDialog {
     case .goToCatalog:
-      let successDialog = SubscriptionGoToCatalogViewController(subscriptionGroupType, onOk: { [weak self] in
-        self?.parentViewController?.dismiss(animated: true)
+      let successDialog = SubscriptionGoToCatalogViewController(subscriptionGroupType, onOk: { [parentViewController] in
+        parentViewController?.dismiss(animated: true)
         let webViewController = CatalogWebViewController.catalogFromAbsoluteUrl(nil, utm: .none)
-        self?.parentViewController?.navigationController?.pushViewController(webViewController, animated: true)
-      }) {
-        self.parentViewController?.dismiss(animated: true)
+        parentViewController?.navigationController?.pushViewController(webViewController, animated: true)
+      }) { [parentViewController] in
+        parentViewController?.dismiss(animated: true)
       }
       parentViewController?.present(successDialog, animated: true)
     case .success:
-      let successDialog = SubscriptionSuccessViewController(subscriptionGroupType) { [weak self] in
-        self?.parentViewController?.dismiss(animated: true)
+      let successDialog = SubscriptionSuccessViewController(subscriptionGroupType) { [parentViewController] in
+        parentViewController?.dismiss(animated: true)
       }
       parentViewController?.present(successDialog, animated: true)
     case .none:
