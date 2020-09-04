@@ -485,6 +485,7 @@ extension CatalogWebViewController: PaidRouteViewControllerDelegate {
   func didCompletePurchase(_ viewController: PaidRouteViewController) {
     dismiss(animated: true)
     download()
+    reloadFromOrigin()
   }
 
   func didCancelPurchase(_ viewController: PaidRouteViewController) {
