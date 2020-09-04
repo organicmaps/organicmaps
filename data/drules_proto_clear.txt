@@ -68796,10 +68796,6 @@ colors {
     color: 4666933
   }
   value {
-    name: "RatingUGC"
-    color: 2399474
-  }
-  value {
     name: "RouteArrowsMaskBicycle"
     color: 3432785840
   }
@@ -68933,6 +68929,10 @@ colors {
   value {
     name: "SearchmarkSelectedNotAvailable"
     color: 15754290
+  }
+  value {
+    name: "SearchmarkDefault"
+    color: 2399474
   }
   value {
     name: "RatingBad"
