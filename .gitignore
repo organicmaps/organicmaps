@@ -189,6 +189,14 @@ designer_version.h
 # Build version
 build_version.hpp
 
+#python modules building
+tools/python/*/build
+tools/python/*/dist
+tools/python/*/*.egg-info
+tools/python/data/*/build
+tools/python/data/*/dist
+tools/python/data/*/*.egg-info
+
 # Configs
 tools/python/maps_generator/var/etc/map_generator.ini
 tools/python/routing/etc/*.ini
