@@ -172,6 +172,36 @@ UNIT_TEST(ProcessURL_GoogleMaps)
   TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
 }
 
+UNIT_TEST(ProcessURL_CaseInsensitive)
+{
+  GeoURLInfo info("geo:52.23405,21.01547?Z=10");
+  TEST(info.IsValid(), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 10.0, kEps, ());
+}
+
+UNIT_TEST(ProcessURL_BadZoom)
+{
+  GeoURLInfo info("geo:52.23405,21.01547?Z=19");
+  TEST(info.IsValid(), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 17.0, kEps, ());
+
+  info = GeoURLInfo("geo:52.23405,21.01547?Z=nineteen");
+  TEST(info.IsValid(), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 17.0, kEps, ());
+
+  info = GeoURLInfo("geo:52.23405,21.01547?Z=-1");
+  TEST(info.IsValid(), ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 0.0, kEps, ());
+}
+
 UNIT_TEST(UrlValidScheme)
 {
   Url url("mapswithme://map?ll=10.3,12.3223&n=Hello%20World");

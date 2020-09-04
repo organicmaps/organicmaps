@@ -47,7 +47,9 @@ public:
 
   void operator()(url::Param const & param)
   {
-    if (param.m_name == "z" || param.m_name == "zoom")
+    auto name = param.m_name;
+    strings::AsciiToLower(name);
+    if (name == "z" || name == "zoom")
     {
       double x;
       if (strings::to_double(param.m_value, x))
@@ -55,7 +57,7 @@ public:
       return;
     }
 
-    int const priority = GetCoordinatesPriority(param.m_name);
+    int const priority = GetCoordinatesPriority(name);
     if (priority == -1 || priority < m_latPriority || priority < m_lonPriority)
       return;
 
@@ -68,7 +70,7 @@ public:
     double x;
     if (strings::to_double(param.m_value, x))
     {
-      if (param.m_name == "lat" || param.m_name == "y")
+      if (name == "lat" || name == "y")
       {
         if (!m_info.SetLat(x))
           return;
@@ -76,7 +78,7 @@ public:
       }
       else
       {
-        ASSERT(param.m_name == "lon" || param.m_name == "x", (param.m_name));
+        ASSERT(name == "lon" || name == "x", (param.m_name, name));
         if (!m_info.SetLon(x))
           return;
         m_lonPriority = priority;
@@ -345,12 +347,11 @@ string UrlDecode(string const & encodedUrl)
 
 GeoURLInfo::GeoURLInfo(string const & s)
 {
+  Reset();
+
   Url url(s);
   if (!url.IsValid())
-  {
-    Reset();
     return;
-  }
 
   LatLonParser parser(url, *this);
   parser(url::Param(string(), url.GetPath()));
@@ -377,8 +378,7 @@ void GeoURLInfo::Reset()
 
 void GeoURLInfo::SetZoom(double x)
 {
-  if (x >= 0.0 && x <= kMaxZoom)
-    m_zoom = x;
+  m_zoom = clamp(x, 0.0, kMaxZoom);
 }
 
 bool GeoURLInfo::SetLat(double x)
