@@ -30,9 +30,6 @@ struct CommonViewParams
   int m_minVisibleScale = 0;
   uint8_t m_rank = 0;
   m2::PointD m_tileCenter;
-
-  FeatureID m_featureId;
-  kml::MarkId m_markId = kml::kInvalidMarkId;
 };
 
 enum class SpecialDisplacement : uint8_t
@@ -49,6 +46,9 @@ struct CommonOverlayViewParams : public CommonViewParams
   SpecialDisplacement m_specialDisplacement = SpecialDisplacement::None;
   uint16_t m_specialPriority = std::numeric_limits<uint16_t>::max();
   int m_startOverlayRank = 0;
+
+  FeatureID m_featureId;
+  kml::MarkId m_markId = kml::kInvalidMarkId;
 };
 
 struct PoiSymbolViewParams : CommonOverlayViewParams
@@ -111,6 +111,7 @@ struct PathTextViewParams : CommonOverlayViewParams
 
 struct PathSymbolViewParams : CommonViewParams
 {
+  FeatureID m_featureID;
   std::string m_symbolName;
   float m_offset = 0.0f;
   float m_step = 0.0f;

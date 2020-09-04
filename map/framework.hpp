@@ -391,7 +391,7 @@ public:
 private:
   void ShowViewportSearchResults(search::Results const & results, bool clear, booking::filter::Types types);
 
-  void ActivateMapSelection(std::optional<place_page::Info> const & info);
+  void ActivateMapSelection();
   void InvalidateUserMarks();
 
   void DeactivateHotelSearchMark();

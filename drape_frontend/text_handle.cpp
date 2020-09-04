@@ -87,8 +87,7 @@ std::string TextHandle::GetOverlayDebugInfo()
 {
   std::ostringstream out;
   out << "Text Priority(" << std::hex << GetPriority() << ") " << std::dec
-      << GetOverlayID().m_featureId.m_index << "-" << GetOverlayID().m_index << " "
-      << strings::ToUtf8(m_text);
+      << DebugPrint(GetOverlayID()) << " " << strings::ToUtf8(m_text);
   return out.str();
 }
 #endif

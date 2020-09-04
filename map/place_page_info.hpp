@@ -102,7 +102,7 @@ struct BuildInfo
     , m_isLongTap(info.m_isLong)
     , m_isMyPosition(info.m_isMyPositionTapped)
     , m_featureId(info.m_featureTapped)
-    , m_userMarkId(info.m_markId)
+    , m_userMarkId(info.m_markTapped)
   {}
 
   bool IsFeatureMatchingEnabled() const
@@ -146,8 +146,7 @@ public:
 
   /// Place traits
   bool IsFeature() const { return m_featureID.IsValid(); }
-  bool IsBookmark() const { return m_markGroupId != kml::kInvalidMarkGroupId && m_markId != kml::kInvalidMarkId; }
-  bool IsSearchMark() const { return m_isSearchMark; }
+  bool IsBookmark() const;
   bool IsTrack() const { return m_trackId != kml::kInvalidTrackId; }
   bool IsMyPosition() const { return m_selectedObject == df::SelectionShape::ESelectedObject::OBJECT_MY_POSITION; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
@@ -199,8 +198,8 @@ public:
   void SetLocalizedWifiString(std::string const & str) { m_localizedWifiString = str; }
 
   /// Bookmark
-  void SetBookmarkId(kml::MarkId markId);
-  kml::MarkId GetBookmarkId() const { return m_markId; }
+  void SetBookmarkId(kml::MarkId bookmarkId);
+  kml::MarkId GetBookmarkId() const { return m_bookmarkId; }
   void SetBookmarkCategoryId(kml::MarkGroupId markGroupId) { m_markGroupId = markGroupId; }
   kml::MarkGroupId GetBookmarkCategoryId() const { return m_markGroupId; }
   std::string const & GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
@@ -211,9 +210,6 @@ public:
   /// Track
   void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; };
   kml::TrackId GetTrackId() const { return m_trackId; };
-
-  /// SearchMark
-  void SetIsSearchMark(bool isSearchMark) { m_isSearchMark = isSearchMark; };
 
   /// Guide
   void SetIsGuide(bool isGuide) { m_isGuide = isGuide; }
@@ -357,15 +353,12 @@ private:
   /// Bookmark or track
   kml::MarkGroupId m_markGroupId = kml::kInvalidMarkGroupId;
   /// If not invalid, bookmark is bound to this place page.
-  kml::MarkId m_markId = kml::kInvalidMarkId;
+  kml::MarkId m_bookmarkId = kml::kInvalidMarkId;
   /// Bookmark category name. Empty, if it's not bookmark;
   std::string m_bookmarkCategoryName;
   kml::BookmarkData m_bookmarkData;
   /// If not invalid, track is bound to this place page.
   kml::TrackId m_trackId = kml::kInvalidTrackId;
-
-  /// SearchMark
-  kml::MarkId m_isSearchMark = false;
 
   /// Guide
   bool m_isGuide = false;

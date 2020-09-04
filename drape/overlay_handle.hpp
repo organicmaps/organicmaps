@@ -61,14 +61,14 @@ struct OverlayID
     , m_index(index)
   {}
 
-  auto AsTupleRef() const
+  auto AsTupleOfRefs() const
   {
     return std::tie(m_featureId, m_markId, m_tileCoords, m_index);
   }
 
   bool operator==(OverlayID const & overlayId) const
   {
-    return AsTupleRef() == overlayId.AsTupleRef();
+    return AsTupleOfRefs() == overlayId.AsTupleOfRefs();
   }
 
   bool operator!=(OverlayID const & overlayId) const
@@ -78,12 +78,18 @@ struct OverlayID
 
   bool operator<(OverlayID const & overlayId) const
   {
-    return AsTupleRef() < overlayId.AsTupleRef();
+    return AsTupleOfRefs() < overlayId.AsTupleOfRefs();
   }
 
   bool operator>(OverlayID const & overlayId) const
   {
     return overlayId < *this;
+  }
+
+  friend std::string DebugPrint(OverlayID const & overlayId)
+  {
+    return strings::to_string(overlayId.m_featureId.m_index) + "-" +
+           strings::to_string(overlayId.m_markId) + "-" + strings::to_string(overlayId.m_index);
   }
 };
 
@@ -207,9 +213,8 @@ class SquareHandle : public OverlayHandle
 
 public:
   SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
-               m2::PointD const & pxSize, m2::PointD const & pxOffset,
-               uint64_t priority, bool isBound, std::string const & debugStr,
-               int minVisibleScale, bool isBillboard);
+               m2::PointD const & pxSize, m2::PointD const & pxOffset, uint64_t priority,
+               bool isBound, int minVisibleScale, bool isBillboard);
 
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
   void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
@@ -226,10 +231,6 @@ private:
   m2::PointD m_gbPivot;
   m2::PointD m_pxOffset;
   bool m_isBound;
-
-#ifdef DEBUG_OVERLAYS_OUTPUT
-  std::string m_debugStr;
-#endif
 };
 
 uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth);

@@ -92,6 +92,8 @@ public:
   virtual df::ColorConstant GetColorConstant() const = 0;
   virtual bool IsMarkAboveText() const = 0;
   virtual float GetSymbolOpacity() const = 0;
+  virtual bool IsSymbolSelectable() const = 0;
+  virtual bool IsNonDisplaceable() const = 0;
 
 private:
   kml::MarkId m_id;

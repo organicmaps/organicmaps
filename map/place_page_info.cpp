@@ -39,6 +39,11 @@ char const * const Info::kMountainSymbol = "▲";
 char const * const Info::kPricingSymbol = "$";
 char const * const kWheelchairSymbol = u8"\u267F";
 
+bool Info::IsBookmark() const
+{
+  return BookmarkManager::IsBookmarkCategory(m_markGroupId) && BookmarkManager::IsBookmark(m_bookmarkId);
+}
+
 bool Info::ShouldShowAddPlace() const
 {
   auto const isPointOrBuilding = IsPointType() || IsBuilding();
@@ -219,9 +224,9 @@ void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string
   m_customName = name;
 }
 
-void Info::SetBookmarkId(kml::MarkId markId)
+void Info::SetBookmarkId(kml::MarkId bookmarkId)
 {
-  m_markId = markId;
+  m_bookmarkId = bookmarkId;
   m_uiSubtitle = FormatSubtitle(IsFeature() /* withType */);
 }
 

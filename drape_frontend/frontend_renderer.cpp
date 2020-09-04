@@ -1293,13 +1293,14 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
   auto selectionRect = pixelRect;
   constexpr double kTapRectFactor = 0.25;  // make tap rect size smaller for extended objects
   selectionRect.Scale(kTapRectFactor);
-  SearchInNonDisplacedUserMarksLayer(screen, DepthLayer::SearchMarkLayer, selectionRect, selectResult);
+  SearchInNonDisplaceableUserMarksLayer(screen, DepthLayer::SearchMarkLayer, selectionRect,
+                                        selectResult);
 
   if (selectResult.empty())
     m_overlayTree->Select(pixelRect, selectResult);
 
   if (selectResult.empty())
-    return {};
+    return {FeatureID(), kml::kInvalidMarkId};
 
   double minSquaredDist = std::numeric_limits<double>::infinity();
   ref_ptr<dp::OverlayHandle> closestOverlayHandle;
@@ -1518,8 +1519,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderUserMarksLayer(modelView, DepthLayer::RoutingBottomMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::GuidesBottomMarkLayer);
-      RenderNonDisplacedUserMarksLayer(modelView, DepthLayer::GuidesMarkLayer);
-      RenderNonDisplacedUserMarksLayer(modelView, DepthLayer::SearchMarkLayer);
+      RenderNonDisplaceableUserMarksLayer(modelView, DepthLayer::GuidesMarkLayer);
+      RenderNonDisplaceableUserMarksLayer(modelView, DepthLayer::SearchMarkLayer);
     }
 
     if (!HasRouteData())
@@ -1714,8 +1715,8 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
     RenderSingleGroup(m_context, modelView, make_ref(group));
 }
 
-void FrontendRenderer::RenderNonDisplacedUserMarksLayer(ScreenBase const & modelView,
-                                                        DepthLayer layerId)
+void FrontendRenderer::RenderNonDisplaceableUserMarksLayer(ScreenBase const & modelView,
+                                                           DepthLayer layerId)
 {
   auto & layer = m_layers[static_cast<size_t>(layerId)];
   layer.Sort(nullptr);
@@ -2675,10 +2676,10 @@ void FrontendRenderer::ScheduleOverlayCollecting()
   });
 }
 
-void FrontendRenderer::SearchInNonDisplacedUserMarksLayer(ScreenBase const & modelView,
-                                                          DepthLayer layerId,
-                                                          m2::RectD const & selectionRect,
-                                                          dp::TOverlayContainer & result)
+void FrontendRenderer::SearchInNonDisplaceableUserMarksLayer(ScreenBase const & modelView,
+                                                             DepthLayer layerId,
+                                                             m2::RectD const & selectionRect,
+                                                             dp::TOverlayContainer & result)
 {
   auto & layer = m_layers[static_cast<size_t>(layerId)];
   layer.Sort(nullptr);
@@ -2689,17 +2690,14 @@ void FrontendRenderer::SearchInNonDisplacedUserMarksLayer(ScreenBase const & mod
     group->ForEachOverlay(
       [&modelView, &result, selectionRect = m2::RectF(selectionRect)](ref_ptr<dp::OverlayHandle> const & h)
       {
-        if (h->GetOverlayID().m_featureId.IsValid())
+        dp::OverlayHandle::Rects shapes;
+        h->GetPixelShape(modelView, modelView.isPerspective(), shapes);
+        for (m2::RectF const & shape : shapes)
         {
-          dp::OverlayHandle::Rects shapes;
-          h->GetPixelShape(modelView, modelView.isPerspective(), shapes);
-          for (m2::RectF const & shape : shapes)
+          if (selectionRect.IsIntersect(shape))
           {
-            if (selectionRect.IsIntersect(shape))
-            {
-              result.push_back(h);
-              break;
-            }
+            result.push_back(h);
+            break;
           }
         }
       });

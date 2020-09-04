@@ -196,8 +196,14 @@ public:
   void UpdateViewport(ScreenBase const & screen);
   void Teardown();
 
-  static bool IsBookmarkCategory(kml::MarkGroupId groupId) { return groupId >= UserMark::USER_MARK_TYPES_COUNT_MAX; }
-  static bool IsBookmark(kml::MarkId markId) { return UserMark::GetMarkType(markId) == UserMark::BOOKMARK; }
+  static bool IsBookmarkCategory(kml::MarkGroupId groupId)
+  {
+    return groupId != kml::kInvalidMarkGroupId && groupId >= UserMark::USER_MARK_TYPES_COUNT_MAX;
+  }
+  static bool IsBookmark(kml::MarkId markId)
+  {
+    return markId != kml::kInvalidMarkId && UserMark::GetMarkType(markId) == UserMark::BOOKMARK;
+  }
   static UserMark::Type GetGroupType(kml::MarkGroupId groupId)
   {
     return IsBookmarkCategory(groupId) ? UserMark::BOOKMARK : static_cast<UserMark::Type>(groupId);

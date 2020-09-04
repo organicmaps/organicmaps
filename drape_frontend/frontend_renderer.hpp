@@ -65,7 +65,7 @@ struct TapInfo
   bool const m_isLong;
   bool const m_isMyPositionTapped;
   FeatureID const m_featureTapped;
-  kml::MarkId const m_markId;
+  kml::MarkId const m_markTapped;
 
   static m2::AnyRectD GetDefaultTapRect(m2::PointD const & mercator, ScreenBase const & screen);
   static m2::AnyRectD GetBookmarkTapRect(m2::PointD const & mercator, ScreenBase const & screen);
@@ -187,7 +187,7 @@ private:
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderNavigationOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
-  void RenderNonDisplacedUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
+  void RenderNonDisplaceableUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderTransitSchemeLayer(ScreenBase const & modelView);
   void RenderTrafficLayer(ScreenBase const & modelView);
   void RenderRouteLayer(ScreenBase const & modelView);
@@ -285,9 +285,9 @@ private:
 
   void ScheduleOverlayCollecting();
 
-  void SearchInNonDisplacedUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId,
-                                          m2::RectD const & selectionRect,
-                                          dp::TOverlayContainer & result);
+  void SearchInNonDisplaceableUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId,
+                                             m2::RectD const & selectionRect,
+                                             dp::TOverlayContainer & result);
 
   drape_ptr<gpu::ProgramManager> m_gpuProgramManager;
 

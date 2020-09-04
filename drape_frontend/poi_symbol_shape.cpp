@@ -201,7 +201,7 @@ drape_ptr<dp::OverlayHandle> PoiSymbolShape::CreateOverlayHandle(m2::RectD const
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(
       overlayId, m_params.m_anchor, m_pt, pixelRect.RightTop() - pixelRect.LeftBottom(),
       m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
-      m_params.m_symbolName, m_params.m_minVisibleScale, true /* isBillboard */);
+      m_params.m_minVisibleScale, true /* isBillboard */);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||

@@ -952,6 +952,8 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
   renderInfo->m_hasCreationAnimation = mark->HasCreationAnimation();
   renderInfo->m_isMarkAboveText = mark->IsMarkAboveText();
   renderInfo->m_symbolOpacity = mark->GetSymbolOpacity();
+  renderInfo->m_isSymbolSelectable = mark->IsSymbolSelectable();
+  renderInfo->m_isNonDisplaceable = mark->IsNonDisplaceable();
   return renderInfo;
 }
 

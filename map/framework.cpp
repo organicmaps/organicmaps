@@ -1053,8 +1053,6 @@ void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & inf
 
 void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const
 {
-  info.SetIsSearchMark(true);
-
   if (smp.GetFeatureID().IsValid())
     FillFeatureInfo(smp.GetFeatureID(), info);
   else
@@ -1145,7 +1143,7 @@ void Framework::ShowBookmark(Bookmark const * mark)
                                       true /* trackVisibleViewport */);
   }
 
-  ActivateMapSelection(m_currentPlacePageInfo);
+  ActivateMapSelection();
 }
 
 void Framework::ShowTrack(kml::TrackId trackId)
@@ -1208,7 +1206,7 @@ void Framework::ShowFeature(FeatureID const & featureId)
     auto const scale = scales::GetUpperComfortScale();
     m_drapeEngine->SetModelViewCenter(pt, scale, true /* isAnim */, true /* trackVisibleViewport */);
   }
-  ActivateMapSelection(m_currentPlacePageInfo);
+  ActivateMapSelection();
 }
 
 void Framework::AddBookmarksFile(string const & filePath, bool isTemporaryFile)
@@ -1710,7 +1708,6 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
       search::Results results;
       results.AddResultNoChecks(move(copy));
       ShowViewportSearchResults(results, true, m_activeFilters);
-      m_currentPlacePageInfo->SetIsSearchMark(true);
     }
   
     if (scale < 0)
@@ -1720,7 +1717,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
     if (m_drapeEngine != nullptr)
       m_drapeEngine->SetModelViewCenter(center, scale, animation, true /* trackVisibleViewport */);
 
-    ActivateMapSelection(m_currentPlacePageInfo);
+    ActivateMapSelection();
   }
 }
 
@@ -2292,7 +2289,7 @@ bool Framework::ShowMapForURL(string const & url)
       }
 
       m_currentPlacePageInfo = BuildPlacePageInfo(info);
-      ActivateMapSelection(m_currentPlacePageInfo);
+      ActivateMapSelection();
     }
 
     return true;
@@ -2434,39 +2431,44 @@ place_page::Info & Framework::GetCurrentPlacePageInfo()
   return *m_currentPlacePageInfo;
 }
 
-void Framework::ActivateMapSelection(std::optional<place_page::Info> const & info)
+void Framework::ActivateMapSelection()
 {
-  if (!info)
+  if (!m_currentPlacePageInfo)
     return;
 
-  if (info->GetSelectedObject() == df::SelectionShape::OBJECT_GUIDE)
+  if (m_currentPlacePageInfo->GetSelectedObject() == df::SelectionShape::OBJECT_GUIDE)
     StopLocationFollow();
 
-  if (info->GetSelectedObject() == df::SelectionShape::OBJECT_TRACK)
-    GetBookmarkManager().OnTrackSelected(info->GetTrackId());
+  auto & bm = GetBookmarkManager();
+
+  if (m_currentPlacePageInfo->GetSelectedObject() == df::SelectionShape::OBJECT_TRACK)
+    bm.OnTrackSelected(m_currentPlacePageInfo->GetTrackId());
   else
-    GetBookmarkManager().OnTrackDeselected();
+    bm.OnTrackDeselected();
+
+  auto const & featureId = m_currentPlacePageInfo->GetID();
+  bool const isHotel = m_currentPlacePageInfo->GetHotelType().has_value();
 
   bool isSelectionShapeVisible = true;
-  // TODO(a): to replace dummies with correct values.
-  if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking)
+  if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking &&
+      m_searchMarks.IsThereSearchMarkForFeature(featureId))
   {
-    bool isMarkExists = false;
-    m_searchMarks.OnActivate(m_currentPlacePageInfo->GetID(), isMarkExists);
-    isSelectionShapeVisible = !isMarkExists;
+    m_searchMarks.OnActivate(featureId);
+    isSelectionShapeVisible = false;
   }
 
-  CHECK_NOT_EQUAL(info->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
+  CHECK_NOT_EQUAL(m_currentPlacePageInfo->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   if (m_drapeEngine != nullptr)
   {
-    m_drapeEngine->SelectObject(info->GetSelectedObject(), info->GetMercator(), info->GetID(),
-                                info->GetBuildInfo().m_needAnimationOnSelection,
-                                info->GetBuildInfo().m_isGeometrySelectionAllowed,
+    m_drapeEngine->SelectObject(m_currentPlacePageInfo->GetSelectedObject(), m_currentPlacePageInfo->GetMercator(),
+                                featureId,
+                                m_currentPlacePageInfo->GetBuildInfo().m_needAnimationOnSelection,
+                                m_currentPlacePageInfo->GetBuildInfo().m_isGeometrySelectionAllowed,
                                 isSelectionShapeVisible);
   }
 
   SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION,
-                      ftypes::IsHotelChecker::Instance()(info->GetTypes()) /* show */);
+                      isHotel /* show */);
 
   if (m_onPlacePageOpen)
     m_onPlacePageOpen();
@@ -2502,12 +2504,20 @@ void Framework::InvalidateUserMarks()
 
 void Framework::DeactivateHotelSearchMark()
 {
-  if (m_currentPlacePageInfo && m_currentPlacePageInfo->GetHotelType())
+  if (!m_currentPlacePageInfo)
+    return;
+  if (m_currentPlacePageInfo->GetHotelType().has_value())
   {
     if (GetSearchAPI().IsViewportSearchActive())
-      m_searchMarks.OnDeactivate(m_currentPlacePageInfo->GetID());
+    {
+      auto const & featureId = m_currentPlacePageInfo->GetID();
+      if (m_searchMarks.IsThereSearchMarkForFeature(featureId))
+        m_searchMarks.OnDeactivate(featureId);
+    }
     else
+    {
       GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
+    }
   }
 }
 
@@ -2618,7 +2628,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
       }
     }
 
-    ActivateMapSelection(m_currentPlacePageInfo);
+    ActivateMapSelection();
   }
   else
   {
@@ -2854,16 +2864,16 @@ BookmarkManager::TrackSelectionInfo Framework::FindTrackInTapPosition(
 
 UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const
 {
+  auto const & bm = GetBookmarkManager();
   if (buildInfo.m_userMarkId != kml::kInvalidMarkId)
   {
-    auto const & bm = GetBookmarkManager();
     auto mark = bm.IsBookmark(buildInfo.m_userMarkId) ? bm.GetBookmark(buildInfo.m_userMarkId)
                                                       : bm.GetUserMark(buildInfo.m_userMarkId);
     if (mark != nullptr)
       return mark;
   }
 
-  UserMark const * mark = GetBookmarkManager().FindNearestUserMark(
+  UserMark const * mark = bm.FindNearestUserMark(
     [this, &buildInfo](UserMark::Type type)
     {
       double constexpr kEps = 1e-7;
@@ -3707,7 +3717,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     info.m_mercator = emo.GetMercator();
     info.m_featureId = emo.GetID();
     m_currentPlacePageInfo = BuildPlacePageInfo(info);
-    ActivateMapSelection(m_currentPlacePageInfo);
+    ActivateMapSelection();
   }
 
   return result;
@@ -4336,7 +4346,7 @@ bool Framework::MakePlacePageForNotification(NotificationCandidate const & notif
           m_currentPlacePageInfo = BuildPlacePageInfo(buildInfo);
           if (m_currentPlacePageInfo)
           {
-            ActivateMapSelection(m_currentPlacePageInfo);
+            ActivateMapSelection();
             found = true;
           }
         }

@@ -41,6 +41,8 @@ public:
   bool GetDepthTestEnabled() const override { return false; }
   bool IsMarkAboveText() const override;
   float GetSymbolOpacity() const override;
+  bool IsSymbolSelectable() const override { return true; }
+  bool IsNonDisplaceable() const override { return true; }
 
   FeatureID GetFeatureID() const override { return m_featureID; }
   void SetFoundFeature(FeatureID const & feature);
@@ -125,14 +127,16 @@ public:
   // NOTE: Vector of features must be sorted.
   void SetPrices(std::vector<FeatureID> const & features, std::vector<std::string> && prices);
 
-  void OnActivate(FeatureID const & featureId, bool & isMarkExists);
+  bool IsThereSearchMarkForFeature(FeatureID const & featureId) const;
+  void OnActivate(FeatureID const & featureId);
   void OnDeactivate(FeatureID const & featureId);
 
   void SetUnavailable(SearchMarkPoint & mark, std::string const & reasonKey);
   void SetUnavailable(std::vector<FeatureID> const & features, std::string const & reasonKey);
+  bool IsUnavailable(FeatureID const & id) const;
 
   bool IsVisited(FeatureID const & id) const;
-  bool IsUnavailable(FeatureID const & id) const;
+
   bool IsSelected(FeatureID const & id) const;
 
   void ClearTrackedProperties();
@@ -151,8 +155,9 @@ private:
 
   m2::PointD m_maxDimension;
 
+  std::set<FeatureID> m_visitedSearchMarks;
+  FeatureID m_selectedFeature;
+
   mutable std::mutex m_lock;
-  std::set<FeatureID> m_visited;
   std::map<FeatureID, std::string /* SearchMarkPoint::m_reason */> m_unavailable;
-  FeatureID m_selected;
 };

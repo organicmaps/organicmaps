@@ -93,6 +93,8 @@ public:
   df::ColorConstant GetColorConstant() const override { return {}; }
   bool IsMarkAboveText() const override { return false; }
   float GetSymbolOpacity() const override { return 1.0f; }
+  bool IsSymbolSelectable() const override { return false; }
+  bool IsNonDisplaceable() const override { return false; }
 
   ms::LatLon GetLatLon() const;
 

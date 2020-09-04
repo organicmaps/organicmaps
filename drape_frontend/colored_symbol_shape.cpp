@@ -47,9 +47,8 @@ class DynamicSquareHandle : public dp::SquareHandle
 public:
   DynamicSquareHandle(dp::OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
                       std::vector<m2::PointF> const & pxSizes, m2::PointD const & pxOffset,
-                      uint64_t priority, bool isBound, std::string const & debugStr,
-                      int minVisibleScale, bool isBillboard)
-    : TBase(id, anchor, gbPivot, m2::PointD::Zero(), pxOffset, priority, isBound, debugStr, minVisibleScale,
+                      uint64_t priority, bool isBound, int minVisibleScale, bool isBillboard)
+    : TBase(id, anchor, gbPivot, m2::PointD::Zero(), pxOffset, priority, isBound, minVisibleScale,
             isBillboard)
     , m_pxSizes(pxSizes)
   {
@@ -273,23 +272,23 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
     return;
 
   dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
-  std::string const debugName =
-      strings::to_string(m_params.m_featureId.m_index) + "-" + strings::to_string(m_textIndex);
 
   drape_ptr<dp::OverlayHandle> handle;
   if (m_needOverlay)
   {
     if (!m_overlaySizes.empty())
     {
-      handle = make_unique_dp<DynamicSquareHandle>(overlayId, m_params.m_anchor, m_point, m_overlaySizes,
-                                                   m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
-                                                   debugName, m_params.m_minVisibleScale, true /* isBillboard */);
+      handle = make_unique_dp<DynamicSquareHandle>(
+          overlayId, m_params.m_anchor, m_point, m_overlaySizes, m2::PointD(m_params.m_offset),
+          GetOverlayPriority(), true /* isBound */, m_params.m_minVisibleScale,
+          true /* isBillboard */);
     }
     else
     {
-      handle = make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor, m_point, m2::PointD(pixelSize),
-                                                m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
-                                                debugName, m_params.m_minVisibleScale, true /* isBillboard */);
+      handle = make_unique_dp<dp::SquareHandle>(
+          overlayId, m_params.m_anchor, m_point, m2::PointD(pixelSize),
+          m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
+          m_params.m_minVisibleScale, true /* isBillboard */);
     }
 
     if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||

@@ -392,43 +392,24 @@ std::string GetBackgroundForSymbol(std::string const & symbolName,
     backgroundSymbol = tokens[0] + kDelimiter + kBackgroundName + kDelimiter + tokens[2];
   return textures->HasSymbolRegion(backgroundSymbol) ? backgroundSymbol : "";
 }
-}  // namespace
 
-uint64_t GetOverlayPriority(UserMarkRenderParams const & renderInfo)
+drape_ptr<dp::OverlayHandle> CreateSymbolOverlayHandle(UserMarkRenderParams const & renderInfo,
+                                                       TileKey const & tileKey,
+                                                       m2::PointF const & symbolOffset,
+                                                       m2::RectD const & pixelRect)
 {
-  // Special displacement mode.
-  if (renderInfo.m_displacement == SpecialDisplacement::SpecialMode)
-    return dp::CalculateSpecialModePriority(renderInfo.m_priority);
+  if (!renderInfo.m_isSymbolSelectable || !renderInfo.m_isNonDisplaceable)
+    return nullptr;
 
-  if (renderInfo.m_displacement == SpecialDisplacement::SpecialModeUserMark)
-    return dp::CalculateSpecialModeUserMarkPriority(renderInfo.m_priority);
-
-  if (renderInfo.m_displacement == SpecialDisplacement::UserMark)
-    return dp::CalculateUserMarkPriority(renderInfo.m_minZoom, renderInfo.m_priority);
-
-  return dp::CalculateOverlayPriority(renderInfo.m_minZoom, 0, renderInfo.m_depth);
-}
-
-drape_ptr<dp::OverlayHandle> CreateOverlayHandle(UserMarkRenderParams const & renderInfo,
-                                                 TileKey const & tileKey,
-                                                 m2::PointF const & symbolOffset,
-                                                 m2::RectD const & pixelRect)
-{
   dp::OverlayID overlayId(renderInfo.m_featureId, renderInfo.m_markId, tileKey.GetTileCoords(),
                           kStartUserMarkOverlayIndex + renderInfo.m_index);
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(
       overlayId, renderInfo.m_anchor, renderInfo.m_pivot,
-      pixelRect.RightTop() - pixelRect.LeftBottom(), m2::PointD(symbolOffset),
-      GetOverlayPriority(renderInfo), true /* isBound */, "MainSymbol", renderInfo.m_minZoom,
-      true /* isBillboard */);
-  if (renderInfo.m_displacement == SpecialDisplacement::UserMark ||
-      renderInfo.m_displacement == SpecialDisplacement::SpecialModeUserMark)
-  {
-    handle->SetSpecialLayerOverlay(true);
-  }
-  handle->SetOverlayRank(dp::OverlayRank0);
+      pixelRect.RightTop() - pixelRect.LeftBottom(), m2::PointD(symbolOffset), 0 /*priority*/,
+      true /* isBound */, renderInfo.m_minZoom, true /* isBillboard */);
   return handle;
 }
+}  // namespace
 
 void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                     ref_ptr<dp::TextureManager> textures, kml::MarkIdCollection const & marksId,
@@ -535,7 +516,8 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         for (auto const & vertex : buffer)
           rect.Add(glsl::FromVec2(vertex.m_normalAndAnimateOrZ.xy()));
 
-        auto overlayHandle = CreateOverlayHandle(renderInfo, tileKey, symbolOffset, rect);
+        drape_ptr<dp::OverlayHandle> overlayHandle =
+            CreateSymbolOverlayHandle(renderInfo, tileKey, symbolOffset, rect);
 
         gpu::Program program;
         gpu::Program program3d;

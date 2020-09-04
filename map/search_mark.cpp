@@ -808,22 +808,24 @@ void SearchMarks::SetPrices(std::vector<FeatureID> const & features, std::vector
   });
 }
 
-void SearchMarks::OnActivate(FeatureID const & featureId, bool & isMarkExists)
+bool SearchMarks::IsThereSearchMarkForFeature(FeatureID const & featureId) const
 {
+  for (auto const markId : m_bmManager->GetUserMarkIds(UserMark::Type::SEARCH))
   {
-    std::scoped_lock<std::mutex> lock(m_lock);
-    m_selected = featureId;
+    if (m_bmManager->GetUserMark(markId)->GetFeatureID() == featureId)
+      return true;
   }
-  isMarkExists = false;
-  ProcessMarks([&featureId, &isMarkExists](SearchMarkPoint * mark) -> base::ControlFlow
+  return false;
+}
+
+void SearchMarks::OnActivate(FeatureID const & featureId)
+{
+  m_selectedFeature = featureId;
+  ProcessMarks([&featureId](SearchMarkPoint * mark) -> base::ControlFlow
   {
     if (featureId != mark->GetFeatureID())
       return base::ControlFlow::Continue;
-
-    isMarkExists = true;
-
     mark->SetSelected(true);
-
     if (!mark->IsAvailable())
     {
       if (auto const & reasonKey = mark->GetReason(); !reasonKey.empty())
@@ -838,16 +840,12 @@ void SearchMarks::OnActivate(FeatureID const & featureId, bool & isMarkExists)
 
 void SearchMarks::OnDeactivate(FeatureID const & featureId)
 {
-  {
-    std::scoped_lock<std::mutex> lock(m_lock);
-    m_visited.insert(featureId);
-    m_selected = {};
-  }
+  m_visitedSearchMarks.insert(featureId);
+  m_selectedFeature = {};
   ProcessMarks([&featureId](SearchMarkPoint * mark) -> base::ControlFlow
   {
     if (featureId != mark->GetFeatureID())
       return base::ControlFlow::Continue;
-
     mark->SetVisited(true);
     mark->SetSelected(false);
     return base::ControlFlow::Break;
@@ -879,30 +877,30 @@ void SearchMarks::SetUnavailable(std::vector<FeatureID> const & features,
   });
 }
 
-bool SearchMarks::IsVisited(FeatureID const & id) const
-{
-  std::scoped_lock<std::mutex> lock(m_lock);
-  return m_visited.find(id) != m_visited.cend();
-}
-
 bool SearchMarks::IsUnavailable(FeatureID const & id) const
 {
   std::scoped_lock<std::mutex> lock(m_lock);
   return m_unavailable.find(id) != m_unavailable.cend();
 }
 
+bool SearchMarks::IsVisited(FeatureID const & id) const
+{
+  return m_visitedSearchMarks.find(id) != m_visitedSearchMarks.cend();
+}
+
 bool SearchMarks::IsSelected(FeatureID const & id) const
 {
-  std::scoped_lock<std::mutex> lock(m_lock);
-  return id == m_selected;
+  return id == m_selectedFeature;
 }
 
 void SearchMarks::ClearTrackedProperties()
 {
-  std::scoped_lock<std::mutex> lock(m_lock);
-  m_visited.clear();
-  m_unavailable.clear();
-  m_selected = {};
+  {
+    std::scoped_lock<std::mutex> lock(m_lock);
+    m_unavailable.clear();
+  }
+  m_visitedSearchMarks.clear();
+  m_selectedFeature = {};
 }
 
 void SearchMarks::ProcessMarks(

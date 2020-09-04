@@ -209,16 +209,12 @@ m2::RectD OverlayHandle::GetPixelRectPerspective(ScreenBase const & screen) cons
 
 SquareHandle::SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
                            m2::PointD const & pxSize, m2::PointD const & pxOffset,
-                           uint64_t priority, bool isBound, std::string const & debugStr,
-                           int minVisibleScale, bool isBillboard)
+                           uint64_t priority, bool isBound, int minVisibleScale, bool isBillboard)
   : TBase(id, anchor, priority, minVisibleScale, isBillboard)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
   , m_gbPivot(gbPivot)
   , m_pxOffset(pxOffset)
   , m_isBound(isBound)
-#ifdef DEBUG_OVERLAYS_OUTPUT
-  , m_debugStr(debugStr)
-#endif
 {}
 
 m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen, bool perspective) const
@@ -256,8 +252,7 @@ std::string SquareHandle::GetOverlayDebugInfo()
 {
   std::ostringstream out;
   out << "POI Priority(" << std::hex << GetPriority() << ") " << std::dec
-      << GetOverlayID().m_featureId.m_index << "-" << GetOverlayID().m_index << " "
-      << m_debugStr;
+      << DebugPrint(GetOverlayID());
   return out.str();
 }
 #endif

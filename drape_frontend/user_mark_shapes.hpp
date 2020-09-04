@@ -44,6 +44,8 @@ struct UserMarkRenderParams
   FeatureID m_featureId;
   bool m_isMarkAboveText = false;
   float m_symbolOpacity = 1.0f;
+  bool m_isSymbolSelectable = true;
+  bool m_isNonDisplaceable = false;
 };
 
 struct LineLayer
