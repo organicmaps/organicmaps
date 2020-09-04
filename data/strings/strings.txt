@@ -48741,3 +48741,6 @@
 
   [sberbank_map_downloader_cta_button]
     en = Узнать больше
+
+  [yango_taxi_title] 
+    en = Yango
