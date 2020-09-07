@@ -32,12 +32,8 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
 
     let priceString = { () -> String in
       switch type {
-      case .taxi: fallthrough
-      case .uber: return price
-      case .yandex: fallthrough
-      case .maxim: fallthrough
-      case .vezet: fallthrough
-      case .yango:
+      case .taxi, .uber, .freenow: return price
+      case .yandex, .maxim, .vezet, .yango:
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencyCode = currency
@@ -47,7 +43,6 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
         } else {
           return "\(currency) \(price)"
         }
-      case .freenow: return price
       }
     }
 
