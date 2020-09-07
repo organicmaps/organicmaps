@@ -1,0 +1,44 @@
+{
+  "disabled": {
+    "countries": [], 
+    "mwms": []
+  }, 
+  "enabled": {
+    "countries": [
+      {
+        "cities": [
+          "Accra"
+        ], 
+        "id": "Ghana"
+      }, 
+      {
+        "cities": [
+          "Abidjan"
+        ], 
+        "id": "Cote dIvoire"
+      }, 
+      {
+        "cities": [
+          "Bucharest"
+        ], 
+        "id": "Romania"
+      }, 
+      {
+        "cities": [
+          "Helsinki"
+        ], 
+        "id": "Finland"
+      }, 
+      {
+        "cities": [
+          "Haifa", 
+          "Ashkelon", 
+          "Be'er Sheva", 
+          "Tel Aviv-Yafo"
+        ], 
+        "id": "Israel Region"
+      }
+    ], 
+    "mwms": []
+  }
+}

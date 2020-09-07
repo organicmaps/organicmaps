@@ -77,6 +77,8 @@ set(
   utm.hpp
   yandex_api.cpp
   yandex_api.hpp
+  yango_api.cpp
+  yango_api.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})

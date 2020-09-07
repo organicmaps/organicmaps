@@ -6,6 +6,7 @@
 #include "partners_api/taxi_places_loader.hpp"
 #include "partners_api/uber_api.hpp"
 #include "partners_api/yandex_api.hpp"
+#include "partners_api/yango_api.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
@@ -120,6 +121,7 @@ Engine::Engine(std::vector<ProviderUrl> urls /* = {} */)
 {
   AddApi<yandex::Api>(urls, Provider::Type::Yandex);
   AddApi<freenow::Api>(urls, Provider::Type::Freenow);
+  AddApi<yango::Api>(urls, Provider::Type::Yango);
 }
 
 void Engine::SetDelegate(std::unique_ptr<Delegate> delegate)
