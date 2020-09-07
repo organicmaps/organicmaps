@@ -39,6 +39,8 @@
 		3D4E997C1FB439260025B48C /* booking_availability_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E997A1FB439260025B48C /* booking_availability_params.hpp */; };
 		3D4E997D1FB439260025B48C /* booking_availability_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E997B1FB439260025B48C /* booking_availability_params.cpp */; };
 		3D4E997F1FB439300025B48C /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E997E1FB439300025B48C /* utils.cpp */; };
+		3D8DAE7525026B550000513A /* yango_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D8DAE7325026B540000513A /* yango_api.hpp */; };
+		3D8DAE7625026B550000513A /* yango_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8DAE7425026B550000513A /* yango_api.cpp */; };
 		3DA5713420B57358007BDE27 /* booking_params_base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5713320B57358007BDE27 /* booking_params_base.hpp */; };
 		3DBD7B9824112DE100ED9FE8 /* freenow_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B9624112DE000ED9FE8 /* freenow_api.cpp */; };
 		3DBD7B9924112DE100ED9FE8 /* freenow_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7B9724112DE100ED9FE8 /* freenow_api.hpp */; };
@@ -160,6 +162,8 @@
 		3D4E997A1FB439260025B48C /* booking_availability_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_availability_params.hpp; sourceTree = "<group>"; };
 		3D4E997B1FB439260025B48C /* booking_availability_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_availability_params.cpp; sourceTree = "<group>"; };
 		3D4E997E1FB439300025B48C /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		3D8DAE7325026B540000513A /* yango_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = yango_api.hpp; sourceTree = "<group>"; };
+		3D8DAE7425026B550000513A /* yango_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = yango_api.cpp; sourceTree = "<group>"; };
 		3DA5713320B57358007BDE27 /* booking_params_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_params_base.hpp; sourceTree = "<group>"; };
 		3DBC1C501E4B14810016897F /* facebook_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = facebook_tests.cpp; sourceTree = "<group>"; };
 		3DBD7B9624112DE000ED9FE8 /* freenow_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = freenow_api.cpp; sourceTree = "<group>"; };
@@ -344,6 +348,8 @@
 		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
 			isa = PBXGroup;
 			children = (
+				3D8DAE7425026B550000513A /* yango_api.cpp */,
+				3D8DAE7325026B540000513A /* yango_api.hpp */,
 				3DCAC69324D1CFE800518E8B /* booking_ordering_params.cpp */,
 				3DCAC69224D1CFE800518E8B /* booking_ordering_params.hpp */,
 				3D035CA1245195E600C21B57 /* guides_on_map_api.cpp */,
@@ -487,6 +493,7 @@
 				3D15ACE7214AA1B000F725D5 /* rutaxi_api.hpp in Headers */,
 				45C380782094C5B400C18D81 /* partners.hpp in Headers */,
 				3DBD7B9924112DE100ED9FE8 /* freenow_api.hpp in Headers */,
+				3D8DAE7525026B550000513A /* yango_api.hpp in Headers */,
 				3D15ACE6214AA1B000F725D5 /* taxi_delegate.hpp in Headers */,
 				3DFEBF9A1EFBFC1500317D5C /* taxi_base.hpp in Headers */,
 				3DFEBF9F1EFBFC1500317D5C /* yandex_api.hpp in Headers */,
@@ -615,6 +622,7 @@
 				3D035CA5245195EF00C21B57 /* guides_on_map_tests.cpp in Sources */,
 				3DBD7C0824251BF000ED9FE8 /* skyeng_ads.cpp in Sources */,
 				3DBD7BFF24251BF000ED9FE8 /* bookmark_catalog_ads.cpp in Sources */,
+				3D8DAE7625026B550000513A /* yango_api.cpp in Sources */,
 				3D4E997F1FB439300025B48C /* utils.cpp in Sources */,
 				3D15ACE8214AA1B000F725D5 /* rutaxi_api.cpp in Sources */,
 				3DBD7B9824112DE100ED9FE8 /* freenow_api.cpp in Sources */,

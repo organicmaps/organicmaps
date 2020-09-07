@@ -49,6 +49,8 @@ static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerTy
       return PlacePageTaxiProviderRutaxi;
     case taxi::Provider::Freenow:
       return PlacePageTaxiProviderFreenow;
+    case taxi::Provider::Yango:
+      return PlacePageTaxiProviderYango;
     case taxi::Provider::Count:
       return PlacePageTaxiProviderNone;
   }

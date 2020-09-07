@@ -5,4 +5,5 @@ typedef NS_ENUM(NSInteger, MWMRoutePreviewTaxiCellType) {
   MWMRoutePreviewTaxiCellTypeMaxim,
   MWMRoutePreviewTaxiCellTypeVezet,
   MWMRoutePreviewTaxiCellTypeFreenow,
+  MWMRoutePreviewTaxiCellTypeYango,
 };

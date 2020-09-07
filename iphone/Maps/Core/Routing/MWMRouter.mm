@@ -125,6 +125,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     case MWMRoutePreviewTaxiCellTypeMaxim: provider = kStatMaxim; break;
     case MWMRoutePreviewTaxiCellTypeVezet: provider = kStatVezet; break;
     case MWMRoutePreviewTaxiCellTypeFreenow: provider = kStatFreenow; break;
+    case MWMRoutePreviewTaxiCellTypeYango: provider = kStatYango; break;
     }
 
     [Statistics logEvent:eventName
