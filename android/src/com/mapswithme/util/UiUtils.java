@@ -486,9 +486,21 @@ public final class UiUtils
     }
     else
     {
-      UiUtils.showHomeUpButton(toolbar);
-      toolbar.setNavigationOnClickListener(listener);
+      setupHomeUpButtonAsNavigationIcon(toolbar, listener);
     }
+  }
+
+  public static void setupHomeUpButtonAsNavigationIcon(@NonNull Toolbar toolbar,
+                                                       @NonNull View.OnClickListener listener)
+  {
+    UiUtils.showHomeUpButton(toolbar);
+    toolbar.setNavigationOnClickListener(listener);
+  }
+
+  public static void clearHomeUpButton(@NonNull Toolbar toolbar)
+  {
+    toolbar.setNavigationIcon(null);
+    toolbar.setNavigationOnClickListener(null);
   }
 
   public static int getCompassYOffset(@NonNull Context context)

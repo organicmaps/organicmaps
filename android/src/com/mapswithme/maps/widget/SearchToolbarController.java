@@ -43,6 +43,8 @@ public class SearchToolbarController extends ToolbarController
                                              FilterUtils.RoomsGuestsCountProvider
 {
   private static final int REQUEST_VOICE_RECOGNITION = 0xCA11;
+  @Nullable
+  private final View mToolbarContainer;
   @NonNull
   private final View mSearchContainer;
   @NonNull
@@ -154,6 +156,7 @@ public class SearchToolbarController extends ToolbarController
   public SearchToolbarController(View root, Activity activity)
   {
     super(root, activity);
+    mToolbarContainer = getToolbar().findViewById(R.id.toolbar_container);
     mSearchContainer = getToolbar().findViewById(R.id.search_container);
     mQuery = mSearchContainer.findViewById(R.id.query);
     mQuery.setOnClickListener(this);
@@ -356,6 +359,8 @@ public class SearchToolbarController extends ToolbarController
 
   public void showSearchControls(boolean show)
   {
+    if (mToolbarContainer != null)
+      UiUtils.showIf(show, mToolbarContainer);
     UiUtils.showIf(show, mSearchContainer);
   }
 

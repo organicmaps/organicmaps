@@ -22,7 +22,7 @@ public class ToolbarController implements Detachable<Activity>
   @NonNull
   private final Toolbar mToolbar;
   @NonNull
-  private final View.OnClickListener mNavigationClickListener = view -> onUpClick();
+  protected final View.OnClickListener mNavigationClickListener = view -> onUpClick();
 
   public ToolbarController(@NonNull View root, @NonNull Activity activity)
   {

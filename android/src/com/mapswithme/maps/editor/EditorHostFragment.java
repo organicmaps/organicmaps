@@ -4,17 +4,17 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -130,14 +130,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     super.onViewCreated(view, savedInstanceState);
 
     getToolbarController().getToolbar().findViewById(R.id.save).setOnClickListener(this);
-    getToolbarController().getToolbar().setNavigationOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        onBackPressed();
-      }
-    });
+    UiUtils.setupHomeUpButtonAsNavigationIcon(getToolbarController().getToolbar(),
+                                              v -> onBackPressed());
 
     if (getArguments() != null)
       mIsNewObject = getArguments().getBoolean(EditorActivity.EXTRA_NEW_OBJECT, false);

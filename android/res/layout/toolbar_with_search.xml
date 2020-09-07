@@ -10,6 +10,7 @@
   app:contentInsetLeft="@dimen/dp_0"
   app:contentInsetStart="@dimen/dp_0">
   <LinearLayout
+    android:id="@+id/toolbar_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">

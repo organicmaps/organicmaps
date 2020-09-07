@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.SearchToolbarController;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 class DownloaderToolbarController extends SearchToolbarController
@@ -44,6 +45,10 @@ class DownloaderToolbarController extends SearchToolbarController
     String title = (showSearch ? "" : mFragment.getAdapter().getCurrentRootName());
 
     showSearchControls(showSearch);
+    if (!showSearch)
+      UiUtils.setupHomeUpButtonAsNavigationIcon(getToolbar(), mNavigationClickListener);
+    else
+      UiUtils.clearHomeUpButton(getToolbar());
     setTitle(title);
   }
 
