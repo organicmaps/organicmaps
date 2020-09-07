@@ -168,6 +168,38 @@ public enum TaxiType
         {
           return "Freenow";
         }
+      },
+  YANGO(new LocaleDependentFormatPriceStrategy(), true)
+      {
+        @NonNull
+        public String getPackageName()
+        {
+          return "com.yandex.yango";
+        }
+
+        @NonNull
+        public Utils.PartnerAppOpenMode getOpenMode()
+        {
+          return Utils.PartnerAppOpenMode.Indirect;
+        }
+
+        @DrawableRes
+        public int getIcon()
+        {
+          return R.drawable.ic_logo_yango;
+        }
+
+        @StringRes
+        public int getTitle()
+        {
+          return R.string.yango_taxi_title;
+        }
+
+        @NonNull
+        public String getProviderName()
+        {
+          return "Yango";
+        }
       };
 
   @StringRes
