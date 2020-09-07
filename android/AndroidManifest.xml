@@ -83,9 +83,7 @@
     <meta-data
         android:name="${PW_PROJECT_ID_KEY}"
         android:value="@string/pw_project_id"/>
-    <meta-data
-      android:name="preloaded_fonts"
-      android:resource="@array/preloaded_fonts" />
+
     <!--meta-data
         android:name="PW_LOG_LEVEL"
         android:value="ERROR" /-->
