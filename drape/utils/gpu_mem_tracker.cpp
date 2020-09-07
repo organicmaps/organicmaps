@@ -42,15 +42,15 @@ GPUMemTracker::GPUMemorySnapshot GPUMemTracker::GetMemorySnapshot()
 
   {
     std::lock_guard<std::mutex> g(m_mutex);
-    for (auto const it : m_memTracker)
+    for (auto const & kv : m_memTracker)
     {
-      TagMemorySnapshot & tagStat = memStat.m_tagStats[it.first.first];
+      TagMemorySnapshot & tagStat = memStat.m_tagStats[kv.first.first];
       tagStat.m_objectsCount++;
-      tagStat.m_alocatedInMb += it.second.first;
-      tagStat.m_usedInMb += it.second.second;
+      tagStat.m_alocatedInMb += kv.second.first;
+      tagStat.m_usedInMb += kv.second.second;
 
-      memStat.m_summaryAllocatedInMb += it.second.first;
-      memStat.m_summaryUsedInMb += it.second.second;
+      memStat.m_summaryAllocatedInMb += kv.second.first;
+      memStat.m_summaryUsedInMb += kv.second.second;
     }
     memStat.m_averageAllocations = m_averageAllocations;
   }
