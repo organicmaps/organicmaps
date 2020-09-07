@@ -27,7 +27,6 @@ constexpr char const * kUploadTimestamp = "upload_timestamp";
 constexpr char const * kUploadStatus = "upload_status";
 constexpr char const * kUploadError = "upload_error";
 constexpr char const * kHouseNumber = "addr:housenumber";
-constexpr char const * kPostcode = "addr:postcode";
 constexpr char const * kCuisine = "cuisine";
 
 constexpr char const * kUnknownType = "unknown";
@@ -289,10 +288,6 @@ string XMLFeature::GetHouse() const { return GetTagValue(kHouseNumber); }
 
 void XMLFeature::SetHouse(string const & house) { SetTagValue(kHouseNumber, house); }
 
-string XMLFeature::GetPostcode() const { return GetTagValue(kPostcode); }
-
-void XMLFeature::SetPostcode(string const & postcode) { SetTagValue(kPostcode, postcode); }
-
 string XMLFeature::GetCuisine() const { return GetTagValue(kCuisine); }
 
 void XMLFeature::SetCuisine(string const & cuisine) { SetTagValue(kCuisine, cuisine); }
@@ -430,10 +425,6 @@ void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object)
   if (!house.empty())
     object.SetHouseNumber(house);
 
-  auto const postcode = xml.GetPostcode();
-  if (!postcode.empty())
-    object.SetPostcode(postcode);
-
   auto const cuisineStr = xml.GetCuisine();
   if (!cuisineStr.empty())
   {
@@ -468,10 +459,6 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
   string const house = object.GetHouseNumber();
   if (!house.empty())
     toFeature.SetHouse(house);
-
-  auto const postcode = object.GetPostcode();
-  if (!postcode.empty())
-    toFeature.SetPostcode(postcode);
 
   auto const cuisines = object.GetCuisines();
   if (!cuisines.empty())
@@ -551,10 +538,6 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
   string const house = xml.GetHouse();
   if (!house.empty())
     object.SetHouseNumber(house);
-
-  auto const postcode = xml.GetPostcode();
-  if (!postcode.empty())
-    object.SetPostcode(postcode);
 
   auto const cuisineStr = xml.GetCuisine();
   if (!cuisineStr.empty())

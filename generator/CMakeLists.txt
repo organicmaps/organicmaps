@@ -17,6 +17,8 @@ set(
   boost_helpers.hpp
   borders.cpp
   borders.hpp
+  boundary_postcodes_enricher.cpp
+  boundary_postcodes_enricher.hpp
   brands_loader.cpp
   brands_loader.hpp
   camera_info_collector.cpp
@@ -163,8 +165,6 @@ set(
   popular_places_section_builder.hpp
   postcode_points_builder.cpp
   postcode_points_builder.hpp
-  postcodes_section_builder.cpp
-  postcodes_section_builder.hpp
   processor_booking.hpp
   processor_coastline.cpp
   processor_coastline.hpp

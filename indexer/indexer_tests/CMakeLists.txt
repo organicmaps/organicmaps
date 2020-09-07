@@ -25,7 +25,6 @@ set(
   interval_index_test.cpp
   mwm_set_test.cpp
   postcodes_matcher_tests.cpp
-  postcodes_tests.cpp
   rank_table_test.cpp
   read_features_tests.cpp
   scale_index_reading_tests.cpp

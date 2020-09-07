@@ -125,7 +125,7 @@ public:
     FMD_TURN_LANES_FORWARD = 12,
     FMD_TURN_LANES_BACKWARD = 13,
     FMD_EMAIL = 14,
-    FMD_POSTCODE = 15,  // Used for old data compatibility only. Should be empty for new mwms.
+    FMD_POSTCODE = 15,
     FMD_WIKIPEDIA = 16,
     // FMD_MAXSPEED used to be 17 but now it is stored in a section of its own.
     FMD_FLATS = 18,

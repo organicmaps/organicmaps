@@ -19,7 +19,6 @@
 #include "generator/platform_helpers.hpp"
 #include "generator/popular_places_section_builder.hpp"
 #include "generator/postcode_points_builder.hpp"
-#include "generator/postcodes_section_builder.hpp"
 #include "generator/processor_factory.hpp"
 #include "generator/ratings_section_builder.hpp"
 #include "generator/raw_generator.hpp"
@@ -367,11 +366,6 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       LOG(LINFO, ("Generating offsets table for", dataFile));
       if (!feature::BuildOffsetsTable(dataFile))
         continue;
-
-      auto const boundaryPostcodesFilename =
-          genInfo.GetIntermediateFileName(BOUNDARY_POSTCODE_TMP_FILENAME);
-      if (!BuildPostcodesSection(path, country, boundaryPostcodesFilename))
-        LOG(LCRITICAL, ("Error generating postcodes section."));
 
       if (mapType == MapType::Country)
       {

@@ -247,7 +247,7 @@ bool InsertPostcodes(FeatureType & f, function<void(strings::UniString const &)>
   using namespace search;
 
   auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
-  string const postcode = f.GetPostcode();
+  string const postcode = f.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
   vector<string> postcodes;
   if (!postcode.empty())
     postcodes.push_back(postcode);

@@ -83,6 +83,8 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
     outType = Metadata::FMD_TURN_LANES_BACKWARD;
   else if (k == "email" || k == "contact:email")
     outType = Metadata::FMD_EMAIL;
+  else if (k == "addr:postcode")
+    outType = Metadata::FMD_POSTCODE;
   else if (k == "wikipedia")
     outType = Metadata::FMD_WIKIPEDIA;
   else if (k == "addr:flats")

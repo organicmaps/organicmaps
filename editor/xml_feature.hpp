@@ -140,9 +140,6 @@ public:
   std::string GetHouse() const;
   void SetHouse(std::string const & house);
 
-  std::string GetPostcode() const;
-  void SetPostcode(std::string const & postcode);
-
   std::string GetCuisine() const;
   void SetCuisine(std::string const & cuisine);
 

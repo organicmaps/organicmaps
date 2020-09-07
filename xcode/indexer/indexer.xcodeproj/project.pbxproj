@@ -78,7 +78,6 @@
 		4099F64A1FC7142A002A7B05 /* fake_feature_ids.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4099F6481FC7142A002A7B05 /* fake_feature_ids.hpp */; };
 		409EE3E3237E9AA700EA31A4 /* postcodes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 409EE3E1237E9AA700EA31A4 /* postcodes.hpp */; };
 		409EE3E4237E9AA700EA31A4 /* postcodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 409EE3E2237E9AA700EA31A4 /* postcodes.cpp */; };
-		40BC58CA237EACDF006B2C4E /* postcodes_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40BC58C9237EACDF006B2C4E /* postcodes_tests.cpp */; };
 		40C3C091205BF9F400CED188 /* bounds.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C3C090205BF9F400CED188 /* bounds.hpp */; };
 		40D62CEF23F2E8BE009A20F5 /* dat_section_header.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40D62CEE23F2E8BE009A20F5 /* dat_section_header.hpp */; };
 		40DB152D23F2AC9400E49602 /* meta_idx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40DB152B23F2AC9400E49602 /* meta_idx.cpp */; };
@@ -312,7 +311,6 @@
 		4099F6481FC7142A002A7B05 /* fake_feature_ids.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_feature_ids.hpp; sourceTree = "<group>"; };
 		409EE3E1237E9AA700EA31A4 /* postcodes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = postcodes.hpp; sourceTree = "<group>"; };
 		409EE3E2237E9AA700EA31A4 /* postcodes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postcodes.cpp; sourceTree = "<group>"; };
-		40BC58C9237EACDF006B2C4E /* postcodes_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postcodes_tests.cpp; sourceTree = "<group>"; };
 		40C3C090205BF9F400CED188 /* bounds.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bounds.hpp; sourceTree = "<group>"; };
 		40D62CEE23F2E8BE009A20F5 /* dat_section_header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dat_section_header.hpp; sourceTree = "<group>"; };
 		40DB152B23F2AC9400E49602 /* meta_idx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meta_idx.cpp; sourceTree = "<group>"; };
@@ -586,7 +584,6 @@
 			isa = PBXGroup;
 			children = (
 				4067554B242BB04800EB8F8B /* read_features_tests.cpp */,
-				40BC58C9237EACDF006B2C4E /* postcodes_tests.cpp */,
 				391C0C8522BD255E003DC252 /* feature_to_osm_tests.cpp */,
 				406970A121AEF2F10024DDB2 /* brands_tests.cpp */,
 				40C3C090205BF9F400CED188 /* bounds.hpp */,
@@ -1046,7 +1043,6 @@
 				6753410D1A3F540F00A0A8C3 /* drawing_rules.cpp in Sources */,
 				675341301A3F540F00A0A8C3 /* data_source.cpp in Sources */,
 				34664CF61D49FEC1003D7096 /* centers_table.cpp in Sources */,
-				40BC58CA237EACDF006B2C4E /* postcodes_tests.cpp in Sources */,
 				3D12E3D72111B4BE0015A9A9 /* caching_rank_table_loader.cpp in Sources */,
 				6753414D1A3F540F00A0A8C3 /* types_mapping.cpp in Sources */,
 				34583BC71C88552100F94664 /* cuisines.cpp in Sources */,

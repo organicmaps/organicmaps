@@ -1,6 +1,7 @@
 #include "generator/feature_sorter.hpp"
 
 #include "generator/borders.hpp"
+#include "generator/boundary_postcodes_enricher.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/gen_mwm_info.hpp"
@@ -54,10 +55,11 @@ class FeaturesCollector2 : public FeaturesCollector
 public:
   static uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();
 
-  FeaturesCollector2(string const & filename, DataHeader const & header,
-                     RegionData const & regionData, uint32_t versionDate)
+  FeaturesCollector2(string const & filename, string const & boundaryPostcodesFilename,
+                     DataHeader const & header, RegionData const & regionData, uint32_t versionDate)
     : FeaturesCollector(filename + FEATURES_FILE_TAG)
     , m_filename(filename)
+    , m_boundaryPostcodesEnricher(boundaryPostcodesFilename)
     , m_header(header)
     , m_regionData(regionData)
     , m_versionDate(versionDate)
@@ -241,7 +243,10 @@ public:
       fb.GetAddressData().SerializeForMwmTmp(*m_addrFile);
 
       if (!fb.GetMetadata().Empty())
+      {
+        m_boundaryPostcodesEnricher.Enrich(fb);
         m_metadataBuilder.Put(featureId, fb.GetMetadata());
+      }
 
       if (fb.HasOsmIds())
         m_osm2ft.AddIds(generator::MakeCompositeId(fb), featureId);
@@ -299,6 +304,7 @@ private:
   // Temporary files for sections.
   TmpFiles m_geoFile, m_trgFile;
 
+  generator::BoundaryPostcodesEnricher m_boundaryPostcodesEnricher;
   indexer::MetadataBuilder m_metadataBuilder;
 
   DataHeader m_header;
@@ -353,7 +359,10 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
       // FeaturesCollector2 will create temporary file `dataFilePath + FEATURES_FILE_TAG`.
       // We cannot remove it in ~FeaturesCollector2(), we need to remove it in SCOPE_GUARD.
       SCOPE_GUARD(_, [&]() { Platform::RemoveFileIfExists(dataFilePath + FEATURES_FILE_TAG); });
-      FeaturesCollector2 collector(dataFilePath, header, regionData, info.m_versionDate);
+      auto const boundaryPostcodesFilename =
+          info.GetIntermediateFileName(BOUNDARY_POSTCODE_TMP_FILENAME);
+      FeaturesCollector2 collector(dataFilePath, boundaryPostcodesFilename, header, regionData,
+                                   info.m_versionDate);
 
       for (auto const & point : midPoints.GetVector())
       {

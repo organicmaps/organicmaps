@@ -130,9 +130,6 @@ bool AreObjectsEqualButStreet(osm::EditableMapObject const & lhs,
   if (lhs.GetHouseNumber() != rhs.GetHouseNumber())
     return false;
 
-  if (lhs.GetPostcode() != rhs.GetPostcode())
-    return false;
-
   if (lhs.GetCuisines() != rhs.GetCuisines())
     return false;
 

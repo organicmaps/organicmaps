@@ -138,7 +138,10 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
   });
 
   if (!m_postcode.empty())
+  {
     fb.GetParams().AddPostcode(m_postcode);
+    fb.GetMetadata().Set(Metadata::FMD_POSTCODE, m_postcode);
+  }
 }
 
 // TestCountry -------------------------------------------------------------------------------------

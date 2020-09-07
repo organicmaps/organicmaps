@@ -69,7 +69,6 @@ public:
   StringUtf8Multilang const & GetNameMultilang() const;
 
   std::string const & GetHouseNumber() const;
-  std::string const & GetPostcode() const;
 
   /// @name Metadata fields.
   //@{
@@ -127,7 +126,6 @@ protected:
   StringUtf8Multilang m_name;
   std::string m_houseNumber;
   std::string m_roadNumber;
-  std::string m_postcode;
   feature::TypesHolder m_types;
   feature::Metadata m_metadata;
 

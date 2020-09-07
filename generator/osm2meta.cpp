@@ -155,6 +155,8 @@ string MetadataTagProcessorImpl::ValidateAndFormat_email(string const & v) const
   return v;
 }
 
+string MetadataTagProcessorImpl::ValidateAndFormat_postcode(string const & v) const { return v; }
+
 string MetadataTagProcessorImpl::ValidateAndFormat_flats(string const & v) const
 {
   return v;

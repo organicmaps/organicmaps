@@ -852,8 +852,6 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
       {"addr:postcode", "*",
        [&params](string & k, string & v) {
          params.AddPostcode(v);
-         k.clear();
-         v.clear();
       }},
       {"population", "*",
        [&params](string & k, string & v) {

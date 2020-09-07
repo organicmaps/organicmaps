@@ -27,6 +27,7 @@ static unordered_map<string, EType> const kNamesToFMD = {
     // {"", feature::Metadata::FMD_TURN_LANES_FORWARD},
     // {"", feature::Metadata::FMD_TURN_LANES_BACKWARD},
     {"email", feature::Metadata::FMD_EMAIL},
+    {"postcode", feature::Metadata::FMD_POSTCODE},
     {"wikipedia", feature::Metadata::FMD_WIKIPEDIA},
     // {"", feature::Metadata::FMD_MAXSPEED},
     {"flats", feature::Metadata::FMD_FLATS},
@@ -133,6 +134,7 @@ bool EditorConfig::GetTypeDescription(vector<string> classificatorTypes,
     {
       outDesc.m_address = isBuilding = true;
       outDesc.m_editableFields.push_back(feature::Metadata::FMD_BUILDING_LEVELS);
+      outDesc.m_editableFields.push_back(feature::Metadata::FMD_POSTCODE);
       classificatorTypes.erase(it);
       break;
     }

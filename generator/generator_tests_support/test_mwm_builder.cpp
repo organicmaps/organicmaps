@@ -7,7 +7,6 @@
 #include "generator/feature_sorter.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/postcode_points_builder.hpp"
-#include "generator/postcodes_section_builder.hpp"
 #include "generator/search_index_builder.hpp"
 
 #include "indexer/city_boundary.hpp"
@@ -149,11 +148,6 @@ void TestMwmBuilder::Finish()
   CHECK(BuildOffsetsTable(path), ("Can't build feature offsets table."));
 
   CHECK(indexer::BuildIndexFromDataFile(path, path), ("Can't build geometry index."));
-
-  // We do not have boundaryPostcodesFilename because we do not have osm elements stage.
-  CHECK(BuildPostcodesSection(m_file.GetDirectory(), m_file.GetCountryName(),
-                              "" /* boundaryPostcodesFilename */),
-        ("Can't build postcodes section."));
 
   CHECK(indexer::BuildSearchIndexFromDataFile(m_file.GetDirectory(), m_file.GetCountryName(),
                                               true /* forceRebuild */, 1 /* threadsCount */),
