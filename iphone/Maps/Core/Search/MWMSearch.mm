@@ -144,7 +144,8 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   m_viewportParams.m_onCompleted = [self](search::Results const &results) {
     if (!results.IsEndMarker())
       return;
-    self->m_viewportResults = results;
+    if (!results.IsEndedCancelled())
+      self->m_viewportResults = results;
     self.searchCount -= 1;
   };
 
