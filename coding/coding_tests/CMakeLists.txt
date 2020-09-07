@@ -43,6 +43,7 @@ set(
   var_serial_vector_test.cpp
   varint_test.cpp
   writer_test.cpp
+  xml_parser_tests.cpp
   zip_creator_test.cpp
   zip_reader_test.cpp
   zlib_test.cpp
@@ -57,6 +58,7 @@ omim_link_libraries(
   coding
   base
   geometry
+  expat
   jansson
   minizip
   succinct
