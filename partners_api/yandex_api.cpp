@@ -120,12 +120,12 @@ RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::Lat
 #if defined(OMIM_OS_IPHONE)
   deepLink << "https://3.redirect.appmetrica.yandex.com/route?start-lat=" << from.m_lat
            << "&start-lon=" << from.m_lon << "&end-lat=" << to.m_lat << "&end-lon=" << to.m_lon
-           << "&utm_source=mapsme&appmetrica_tracking_id=" << YANDEX_TRACKING_ID
-           << "&ref=8d20bf0f9e4749c48822358cdaf6a6c7";
+           << "&utm_source=mapsme&appmetrica_tracking_id=1178268795219780156"
+           << "&ref=8d20bf0f9e4749c48822358cdaf6a6c7&level=" << productId;
 #elif defined(OMIM_OS_ANDROID)
   deepLink << "https://redirect.appmetrica.yandex.com/serve/" << YANDEX_TRACKING_ID << "?startlat="
            << from.m_lat << "&startlon=" << from.m_lon << "&endlat=" << to.m_lat << "&endlon=" << to.m_lon
-           << "&ref=8d20bf0f9e4749c48822358cdaf6a6c7";
+           << "&ref=8d20bf0f9e4749c48822358cdaf6a6c7&level=" << productId;
 #endif
 
   return {deepLink.str(), deepLink.str()};
@@ -149,6 +149,7 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
     taxi::Product product;
     double time = 0.0;
     double price = 0.0;
+    int level = 0;
     auto const item = json_array_get(productsArray, i);
 
     FromJSONObjectOptionalField(item, "waiting_time", time);
@@ -157,8 +158,10 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
       continue;
 
     FromJSONObject(item, "class_name", product.m_name);
+    FromJSONObject(item, "class_level", level);
     FromJSONObject(item, "price", price);
 
+    product.m_productId = strings::to_string(level);
     product.m_price = strings::to_string(price);
     product.m_time = strings::to_string(static_cast<int64_t>(time));
     product.m_currency = currency;
