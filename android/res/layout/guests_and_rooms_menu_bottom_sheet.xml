@@ -28,7 +28,7 @@
       android:paddingEnd="@dimen/margin_base"
       android:paddingBottom="@dimen/margin_half_plus"
       android:text="@string/guests_picker_rooms_title"
-      android:textAppearance="?fontSubtitle2" />
+      android:textAppearance="?fontBody2" />
     <com.mapswithme.maps.widget.InteractiveCounterView
       android:id="@+id/rooms"
       android:layout_width="match_parent"

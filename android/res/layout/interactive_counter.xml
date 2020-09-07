@@ -32,7 +32,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?fontBody1"
+        android:textAppearance="?fontSubtitle1"
         tools:text="Title" />
       <TextView
         android:id="@+id/subtitle"
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:textAppearance="?fontBody1"
+        android:textAppearance="?fontSubtitle1"
         tools:text="1" />
       <ImageButton
         android:id="@+id/plus"
