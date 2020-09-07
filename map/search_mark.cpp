@@ -241,6 +241,13 @@ SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg)
 {
 }
 
+m2::PointD SearchMarkPoint::GetPixelOffset() const
+{
+  if (!IsBookingSpecialMark() && !IsHotel())
+    return {0.0, 4.0};
+  return {};
+}
+
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
 {
   auto const symbolName = GetSymbolName();
@@ -354,6 +361,14 @@ drape_ptr<df::UserPointMark::BageInfo> SearchMarkPoint::GetBadgeInfo() const
   }
   
   return nullptr;
+}
+
+drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() const
+{
+  m2::PointF offset;
+  if (!IsBookingSpecialMark() && !IsHotel())
+    offset = m2::PointF{0.0, 1.0};
+  return make_unique_dp<SymbolOffsets>(static_cast<size_t>(scales::UPPER_STYLE_SCALE), offset);
 }
 
 bool SearchMarkPoint::IsMarkAboveText() const
