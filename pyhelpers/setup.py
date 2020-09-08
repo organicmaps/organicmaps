@@ -400,6 +400,7 @@ class BuildOmimBindingCommand(build_ext, object):
                     cmake,
                     '-DSKIP_DESKTOP=1',
                     '-DPYBINDINGS=ON',
+                    '-DPYBINDINGS_VERSION={}'.format(get_version()),
                     '-DPYTHON_VERSION={}'.format(get_python_version()),
                     '-DPYTHON_EXECUTABLE={}'.format(sys.executable),
                     '-DPYTHON_INCLUDE_DIR={}'.format(get_python_inc()),
@@ -503,7 +504,13 @@ def get_version():
                 if match:
                     versions.append(LooseVersion(match.group('version')))
                     break
-    return max(versions)
+    code_version = max(versions)
+
+    env_version_addendum = os.environ.get('OMIM_SCM_VERSION')
+
+    if env_version_addendum:
+        return "{}_{}".format(code_version, env_version_addendum)
+    return code_version
 
 
 def get_requirements(path="", omim_package_version=get_version()):
@@ -523,7 +530,8 @@ def get_requirements(path="", omim_package_version=get_version()):
                     break
 
             req_without_version = req_with_version[0: index + 1]
-            req_with_version = "{}=={}".format(req_with_version, omim_package_version)
+            req_with_version = "{}=={}".format(
+                req_without_version, omim_package_version)
         requirements.append(req_with_version)
     return requirements
 
