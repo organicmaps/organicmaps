@@ -12723,6 +12723,36 @@
   [type.natural.strait]
     en = Strait
     ru = Пролив
+    ar = مضيق
+    cs = Průliv
+    da = Stræde
+    nl = Zeestraat
+    fi = Salmi
+    fr = Détroit
+    de = Meerenge
+    hu = Szoros
+    id = Selat
+    it = Stretto
+    ja = 海峡
+    ko = 해협
+    nb = Sund
+    pl = Cieśnina
+    pt = Estreito
+    pt-BR = Estreito
+    ro = Strâmtoare
+    es = Estrecho
+    es-MX = Estrecho
+    sv = Sund
+    th = ช่องแคบ
+    tr = Boğaz
+    uk = Протока
+    vi = Eo biển
+    el = Πορθμός
+    sk = Prieliv
+    sw = Mlango Bahari
+    zh-Hans = 海峡
+    zh-Hant = 海峽
+    fa = تنگه
 
   [type.natural.tree]
     en = Tree
