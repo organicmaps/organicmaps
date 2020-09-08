@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Lähde";
 
+"type.natural.strait" = "Salmi";
+
 "type.natural.tree" = "Puu";
 
 "type.natural.tree_row" = "Tree row";

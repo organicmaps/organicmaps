@@ -2303,6 +2303,7 @@
 	<string name="type.natural.pond">Пруд</string>
 	<string name="type.natural.scrub">Заросли</string>
 	<string name="type.natural.spring">Родник</string>
+	<string name="type.natural.strait">Пролив</string>
 	<string name="type.natural.tree">Дерево</string>
 	<string name="type.natural.volcano">Вулкан</string>
 	<string name="type.natural.water">Водоём</string>

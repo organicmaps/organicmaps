@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Kilde";
 
+"type.natural.strait" = "Stræde";
+
 "type.natural.tree" = "Træ";
 
 "type.natural.tree_row" = "Tree row";

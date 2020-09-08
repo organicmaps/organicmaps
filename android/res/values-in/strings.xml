@@ -2209,6 +2209,7 @@
 	<string name="type.natural.pond">Kolam</string>
 	<string name="type.natural.scrub">Semak</string>
 	<string name="type.natural.spring">Mata air</string>
+	<string name="type.natural.strait">Selat</string>
 	<string name="type.natural.tree">Pohon</string>
 	<string name="type.natural.volcano">Gunung berapi</string>
 	<string name="type.natural.water">Air</string>

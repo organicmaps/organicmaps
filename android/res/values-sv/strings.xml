@@ -2217,6 +2217,7 @@
 	<string name="type.natural.pond">Damm</string>
 	<string name="type.natural.scrub">Ruggen</string>
 	<string name="type.natural.spring">Vattenkälla</string>
+	<string name="type.natural.strait">Sund</string>
 	<string name="type.natural.tree">Träd</string>
 	<string name="type.natural.volcano">Vulkan</string>
 	<string name="type.natural.water">Vatten</string>

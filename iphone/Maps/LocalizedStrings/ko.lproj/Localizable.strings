@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "샘";
 
+"type.natural.strait" = "해협";
+
 "type.natural.tree" = "나무";
 
 "type.natural.tree_row" = "Tree row";

@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "泉水";
 
+"type.natural.strait" = "海峽";
+
 "type.natural.tree" = "樹";
 
 "type.natural.tree_row" = "Tree row";

@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Джерело";
 
+"type.natural.strait" = "Протока";
+
 "type.natural.tree" = "Дерево";
 
 "type.natural.tree_row" = "Tree row";

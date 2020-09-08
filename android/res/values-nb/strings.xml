@@ -2110,6 +2110,7 @@
 	<string name="type.natural.pond">Dam</string>
 	<string name="type.natural.scrub">Myr</string>
 	<string name="type.natural.spring">Vår</string>
+	<string name="type.natural.strait">Sund</string>
 	<string name="type.natural.tree">Tre</string>
 	<string name="type.natural.volcano">Vulkan</string>
 	<string name="type.natural.water">Vann</string>

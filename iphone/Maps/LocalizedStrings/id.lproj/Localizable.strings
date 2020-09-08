@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Mata air";
 
+"type.natural.strait" = "Selat";
+
 "type.natural.tree" = "Pohon";
 
 "type.natural.tree_row" = "Tree row";

@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Πηγή νερού";
 
+"type.natural.strait" = "Πορθμός";
+
 "type.natural.tree" = "Δέντρο";
 
 "type.natural.tree_row" = "Tree row";

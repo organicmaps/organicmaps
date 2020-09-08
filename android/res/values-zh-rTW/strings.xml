@@ -2228,6 +2228,7 @@
 	<string name="type.natural.pond">潭</string>
 	<string name="type.natural.scrub">叢林</string>
 	<string name="type.natural.spring">泉水</string>
+	<string name="type.natural.strait">海峽</string>
 	<string name="type.natural.tree">樹</string>
 	<string name="type.natural.volcano">火山</string>
 	<string name="type.natural.water">水庫</string>

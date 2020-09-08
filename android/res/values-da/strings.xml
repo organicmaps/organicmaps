@@ -2216,6 +2216,7 @@
 	<string name="type.natural.pond">Dam</string>
 	<string name="type.natural.scrub">Kratbevokset område</string>
 	<string name="type.natural.spring">Kilde</string>
+	<string name="type.natural.strait">Stræde</string>
 	<string name="type.natural.tree">Træ</string>
 	<string name="type.natural.volcano">Vulkan</string>
 	<string name="type.natural.water">Vand</string>

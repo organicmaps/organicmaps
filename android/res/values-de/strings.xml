@@ -2222,6 +2222,7 @@
 	<string name="type.natural.pond">Teich</string>
 	<string name="type.natural.scrub">Dickicht</string>
 	<string name="type.natural.spring">Quelle</string>
+	<string name="type.natural.strait">Meerenge</string>
 	<string name="type.natural.tree">Baum</string>
 	<string name="type.natural.volcano">Vulkan</string>
 	<string name="type.natural.water">Wasserfläche</string>

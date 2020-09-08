@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Nascente";
 
+"type.natural.strait" = "Estreito";
+
 "type.natural.tree" = "Árvore";
 
 "type.natural.tree_row" = "Tree row";

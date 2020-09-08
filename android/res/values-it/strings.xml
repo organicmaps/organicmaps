@@ -2214,6 +2214,7 @@
 	<string name="type.natural.pond">Stagno</string>
 	<string name="type.natural.scrub">Boscaglia</string>
 	<string name="type.natural.spring">Sorgente</string>
+	<string name="type.natural.strait">Stretto</string>
 	<string name="type.natural.tree">Albero</string>
 	<string name="type.natural.volcano">Vulcano</string>
 	<string name="type.natural.water">Bacino</string>

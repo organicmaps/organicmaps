@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Manantial";
 
+"type.natural.strait" = "Estrecho";
+
 "type.natural.tree" = "Árbol";
 
 "type.natural.tree_row" = "Tree row";

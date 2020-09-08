@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Bron";
 
+"type.natural.strait" = "Zeestraat";
+
 "type.natural.tree" = "Boom";
 
 "type.natural.tree_row" = "Tree row";

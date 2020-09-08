@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Sorgente";
 
+"type.natural.strait" = "Stretto";
+
 "type.natural.tree" = "Albero";
 
 "type.natural.tree_row" = "Tree row";

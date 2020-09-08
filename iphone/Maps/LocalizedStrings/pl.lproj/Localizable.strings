@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Źródło";
 
+"type.natural.strait" = "Cieśnina";
+
 "type.natural.tree" = "Drzewo";
 
 "type.natural.tree_row" = "Rząd drzew";

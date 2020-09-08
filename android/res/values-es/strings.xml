@@ -2208,6 +2208,7 @@
 	<string name="type.natural.pond">Estanque</string>
 	<string name="type.natural.scrub">Matorrales</string>
 	<string name="type.natural.spring">Manantial</string>
+	<string name="type.natural.strait">Estrecho</string>
 	<string name="type.natural.tree">Árbol</string>
 	<string name="type.natural.volcano">Volcán</string>
 	<string name="type.natural.water">Cuenca</string>

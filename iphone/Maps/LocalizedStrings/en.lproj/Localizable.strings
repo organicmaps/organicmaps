@@ -4438,6 +4438,8 @@
 
 "type.natural.spring" = "Spring";
 
+"type.natural.strait" = "Strait";
+
 "type.natural.tree" = "Tree";
 
 "type.natural.tree_row" = "Tree row";
