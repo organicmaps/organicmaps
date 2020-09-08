@@ -441,16 +441,12 @@ PYBINDINGS = {
     'pygen': {
         'path': 'generator/pygen',
         'py_modules': ['example',],
-        'data_files': [
-            ('data', ['../../data/classificator.txt', '../../data/types.txt'])
-        ],
+        'install_requires': ['omim-data-basic'],
         'description': 'Binding for working with generation data',
     },
     'pykmlib': {
         'path': 'kml/pykmlib',
-        'data_files': [
-            ('data', ['../../data/classificator.txt', '../../data/types.txt'])
-        ],
+        'install_requires': ['omim-data-basic'],
         'description': 'Binding for working with maps.me KML files',
     },
     'pylocal_ads': {
@@ -464,18 +460,7 @@ PYBINDINGS = {
     'pysearch': {
         'path': 'search/pysearch',
         'description': 'Binding to access maps.me search engine',
-        'data_files': [
-            (
-                'data',
-                [
-                    '../../data/categories_brands.txt',
-                    '../../data/categories_cuisines.txt',
-                    '../../data/categories.txt',
-                    '../../data/classificator.txt',
-                    '../../data/types.txt',
-                ],
-            )
-        ],
+        'install_requires': ['omim-data-basic'],
     },
     'pytracking': {
         'path': 'tracking/pytracking',
@@ -483,11 +468,10 @@ PYBINDINGS = {
     },
     'pytraffic': {
         'path': 'traffic/pytraffic',
-        'description': 'Binding for generationg traffic '
-        'data for maps.me application',
-        'data_files': [
-            ('data', ['../../data/classificator.txt', '../../data/types.txt'])
-        ],
+        'description': (
+            'Binding for generation traffic data for maps.me application'
+        ),
+        'install_requires': ['omim-data-basic'],
     },
 }
 
@@ -513,6 +497,21 @@ def get_version():
     return code_version
 
 
+def transform_omim_requirement(requirement, omim_package_version):
+    if requirement.startswith("omim"):
+        index = len(requirement) - 1
+        for i, ch in enumerate(requirement):
+            if not (ch.isalnum() or ch in "-_"):
+                index = i
+                break
+
+        requirement_without_version = requirement[0: index + 1]
+        requirement = "{}=={}".format(
+            requirement_without_version, omim_package_version
+        )
+    return requirement
+
+
 def get_requirements(path="", omim_package_version=get_version()):
     requirements = []
     fpath = os.path.join(path, "requirements.txt")
@@ -522,17 +521,9 @@ def get_requirements(path="", omim_package_version=get_version()):
         except AttributeError:
             req_with_version = str(d.req)
 
-        if req_with_version.startswith("omim"):
-            index = len(req_with_version) - 1
-            for i, ch in enumerate(req_with_version):
-                if not (ch.isalnum() or ch in "-_"):
-                    index = i
-                    break
-
-            req_without_version = req_with_version[0: index + 1]
-            req_with_version = "{}=={}".format(
-                req_without_version, omim_package_version)
-        requirements.append(req_with_version)
+        requirements.append(
+            transform_omim_requirement(req_with_version, omim_package_version)
+        )
     return requirements
 
 
@@ -546,11 +537,16 @@ def setup_omim_pybinding(
     supported_pythons=('2', '2.7', '3', '3.5', '3.6', '3.7'),
 ):
     if version is None:
-        version = get_version()
+        version = str(get_version())
+
+    install_requires = [
+        transform_omim_requirement(req, version)
+        for req in PYBINDINGS[name].get('install_requires', [])
+    ]
 
     setup(
         name='omim-{}'.format(name),
-        version=str(version),
+        version=version,
         description=PYBINDINGS[name]['description'],
         author=author,
         author_email=author_email,
@@ -560,7 +556,7 @@ def setup_omim_pybinding(
         package_dir=PYBINDINGS[name].get('package_dir', {}),
         py_modules=PYBINDINGS[name].get('py_modules', []),
         package_data=PYBINDINGS[name].get('package_data', {}),
-        data_files=PYBINDINGS[name].get('data_files', []),
+        install_requires=install_requires,
         ext_modules=[Extension(name, [])],
         cmdclass={
             'bdist': BdistCommand,
