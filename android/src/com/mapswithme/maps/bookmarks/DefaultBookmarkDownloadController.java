@@ -122,7 +122,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   {
     LOGGER.i(TAG, "Payment required for bookmark purchase");
     if (TextUtils.isEmpty(mDownloadUrl))
-      throw new IllegalStateException("Download url must be non-null if payment required!");
+      return;
 
     if (mCallback != null)
     {
