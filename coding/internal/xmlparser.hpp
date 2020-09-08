@@ -35,26 +35,26 @@ public:
     OnPostCreate();
   }
 
-  static void StartElementHandler(void * pUserData, const XML_Char * pszName,
-                                  const XML_Char ** papszAttrs)
+  static void StartElementHandler(void * userData, XML_Char const * name,
+                                  XML_Char const ** attrs)
   {
-    CHECK(pUserData, (pszName));
-    auto * pThis = static_cast<XmlParser *>(pUserData);
-    pThis->OnStartElement(pszName, papszAttrs);
+    CHECK(userData, (name));
+    auto * xmlParser = static_cast<XmlParser *>(userData);
+    xmlParser->OnStartElement(name, attrs);
   }
 
-  static void EndElementHandler(void * pUserData, const XML_Char * pszName)
+  static void EndElementHandler(void * userData, XML_Char const * name)
   {
-    CHECK(pUserData, (pszName));
-    auto * pThis = static_cast<XmlParser *>(pUserData);
-    pThis->OnEndElement(pszName);
+    CHECK(userData, (name));
+    auto * xmlParser = static_cast<XmlParser *>(userData);
+    xmlParser->OnEndElement(name);
   }
 
-  static void CharacterDataHandler(void * pUserData, const XML_Char * pszData, int nLength)
+  static void CharacterDataHandler(void * userData, XML_Char const * data, int length)
   {
-    CHECK(pUserData, (pszData));
-    auto * pThis = static_cast<XmlParser *>(pUserData);
-    pThis->OnCharacterData(pszData, nLength);
+    CHECK(userData, (data));
+    auto * xmlParser = static_cast<XmlParser *>(userData);
+    xmlParser->OnCharacterData(data, length);
   }
 
   void * GetBuffer(int len)
@@ -69,7 +69,6 @@ public:
     return XML_ParseBuffer(m_parser.get(), len, isFinal);
   }
 
-  // Invoked by CExpatImpl after the parser is created
   void OnPostCreate()
   {
     CHECK(m_parser, ());
