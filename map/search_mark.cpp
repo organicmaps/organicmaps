@@ -92,7 +92,7 @@ std::string const kSelectionChipSmall = "selection-chips-s";
 std::array<std::string, static_cast<size_t>(SearchMarkType::Count)> const kSymbols = {
     "search-result",                        // Default.
     "coloredmark-default-l",                // Booking.
-    kOsmHotelSearchIcon,                    // Hotel
+    "coloredmark-default-l",                // Hotel
     "search-result-cafe",                   // Cafe.
     "search-result-bakery",                 // Bakery.
     "search-result-bar",                    // Bar.
@@ -143,6 +143,9 @@ std::string GetSymbol(SearchMarkType searchMarkType, bool hasLocalAds, bool hasR
 
   if (searchMarkType == SearchMarkType::Booking && !hasRating)
     return kBookingNoRatingSearchIcon;
+
+  if (searchMarkType == SearchMarkType::Hotel && !hasLocalAds)
+    return kOsmHotelSearchIcon;
 
   auto const index = static_cast<size_t>(searchMarkType);
   ASSERT_LESS(index, kSymbols.size(), ());
