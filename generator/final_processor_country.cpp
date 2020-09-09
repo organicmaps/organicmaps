@@ -30,11 +30,14 @@ namespace generator
 {
 CountryFinalProcessor::CountryFinalProcessor(std::string const & borderPath,
                                              std::string const & temporaryMwmPath,
+                                             std::string const & intermediateDir,
                                              bool haveBordersForWholeWorld, size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::CountriesOrWorld)
   , m_borderPath(borderPath)
   , m_temporaryMwmPath(temporaryMwmPath)
-  , m_affiliations(std::make_unique<CountriesFilesIndexAffiliation>(m_borderPath, haveBordersForWholeWorld))
+  , m_intermediateDir(intermediateDir)
+  , m_affiliations(
+        std::make_unique<CountriesFilesIndexAffiliation>(m_borderPath, haveBordersForWholeWorld))
   , m_threadsCount(threadsCount)
 {
 }
@@ -114,12 +117,20 @@ void CountryFinalProcessor::Process()
 void CountryFinalProcessor::ProcessBooking()
 {
   BookingDataset dataset(m_hotelsFilename);
+
+  std::ofstream matchingLogStream;
+  matchingLogStream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  matchingLogStream.open(base::JoinPath(m_intermediateDir, "booking_matching_status.csv"));
+
+  std::mutex m;
   ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path) {
     if (!IsCountry(name))
       return;
 
+    std::stringstream sstream;
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto & fb, auto /* pos */) {
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto & fb,
+                                                                         auto /* pos */) {
       auto const id = dataset.FindMatchingObjectId(fb);
       if (id == BookingHotel::InvalidObjectId())
       {
@@ -132,7 +143,22 @@ void CountryFinalProcessor::ProcessBooking()
             writer.Write(newFeature);
         });
       }
+
+      auto const & isHotelChecker = ftypes::IsHotelChecker::Instance();
+      if (isHotelChecker(fb.GetTypes()))
+      {
+        if (id != BookingHotel::InvalidObjectId())
+          sstream << id;
+
+        auto const latLon = mercator::ToLatLon(fb.GetKeyPoint());
+        sstream << ',' << fb.GetMostGenericOsmId().GetEncodedId() << ','
+                << strings::to_string_dac(latLon.m_lat, 7) << ','
+                << strings::to_string_dac(latLon.m_lon, 7) << ',' << name << '\n';
+      }
     });
+
+    std::lock_guard _(m);
+    matchingLogStream << sstream.str();
   }, m_threadsCount);
 
   std::vector<FeatureBuilder> fbs;

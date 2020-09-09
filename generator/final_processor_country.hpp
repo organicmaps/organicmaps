@@ -19,7 +19,8 @@ class CountryFinalProcessor : public FinalProcessorIntermediateMwmInterface
 {
 public:
   CountryFinalProcessor(std::string const & borderPath, std::string const & temporaryMwmPath,
-                        bool haveBordersForWholeWorld, size_t threadsCount);
+                        std::string const & intermediateDir, bool haveBordersForWholeWorld,
+                        size_t threadsCount);
 
   void SetBooking(std::string const & filename);
   void SetCitiesAreas(std::string const & filename);
@@ -52,6 +53,7 @@ private:
 
   std::string m_borderPath;
   std::string m_temporaryMwmPath;
+  std::string m_intermediateDir;
   std::string m_isolinesPath;
   std::string m_citiesAreasTmpFilename;
   std::string m_citiesBoundariesFilename;
