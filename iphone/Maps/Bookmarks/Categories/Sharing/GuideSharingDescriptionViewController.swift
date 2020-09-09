@@ -23,6 +23,7 @@ class GuideSharingDescriptionViewController: MWMTableViewController {
     descriptionTextView.placeholder = L("description_placeholder")
     descriptionTextView.text = guideDescription
     descriptionTextView.becomeFirstResponder()
+    nextBarButton.title = L("whats_new_next_button")
     nextBarButton.isEnabled = descriptionTextView.text.count > 0
   }
 
