@@ -16,8 +16,8 @@ from pyhelpers.setup import get_version
 _V = get_version()
 
 _D = [
-    "omim-data-basic",
     "omim-data-borders",
+    "omim-data-essential",
     "omim-data-fonts",
     "omim-data-styles",
 ]

@@ -1,2 +1,2 @@
-omim-data-basic
+omim-data-essential
 omim-pygen

@@ -441,12 +441,12 @@ PYBINDINGS = {
     'pygen': {
         'path': 'generator/pygen',
         'py_modules': ['example',],
-        'install_requires': ['omim-data-basic'],
+        'install_requires': ['omim-data-essential'],
         'description': 'Binding for working with generation data',
     },
     'pykmlib': {
         'path': 'kml/pykmlib',
-        'install_requires': ['omim-data-basic'],
+        'install_requires': ['omim-data-essential'],
         'description': 'Binding for working with maps.me KML files',
     },
     'pylocal_ads': {
@@ -460,7 +460,7 @@ PYBINDINGS = {
     'pysearch': {
         'path': 'search/pysearch',
         'description': 'Binding to access maps.me search engine',
-        'install_requires': ['omim-data-basic'],
+        'install_requires': ['omim-data-essential'],
     },
     'pytracking': {
         'path': 'tracking/pytracking',
@@ -471,7 +471,7 @@ PYBINDINGS = {
         'description': (
             'Binding for generation traffic data for maps.me application'
         ),
-        'install_requires': ['omim-data-basic'],
+        'install_requires': ['omim-data-essential'],
     },
 }
 

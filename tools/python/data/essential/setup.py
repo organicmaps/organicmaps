@@ -9,7 +9,7 @@ from data.base import setup
 
 setup(
     __file__,
-    "basic",
+    "essential",
     [
         "booking_excluded.txt",
         "borders_vs_osm.csv",
