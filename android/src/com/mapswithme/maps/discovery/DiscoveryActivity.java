@@ -12,6 +12,7 @@ import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.search.FilterActivity;
+import com.mapswithme.maps.search.FilterUtils;
 
 public class DiscoveryActivity extends BaseMwmFragmentActivity
     implements CustomNavigateUpListener, DiscoveryFragment.DiscoveryListener
@@ -86,7 +87,7 @@ public class DiscoveryActivity extends BaseMwmFragmentActivity
           return;
 
         data.setAction(ACTION_SHOW_FILTER_RESULTS);
-        data.putExtra(EXTRA_FILTER_SEARCH_QUERY, getString(R.string.hotel));
+        data.putExtra(EXTRA_FILTER_SEARCH_QUERY, FilterUtils.getHotelCategoryString(this));
         setResult(Activity.RESULT_OK, data);
         finish();
         break;

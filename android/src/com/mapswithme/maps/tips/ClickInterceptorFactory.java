@@ -7,6 +7,7 @@ import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.maplayer.Mode;
+import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.util.UTM;
 
 class ClickInterceptorFactory
@@ -99,7 +100,7 @@ class ClickInterceptorFactory
     @Override
     public void onInterceptClickInternal(@NonNull MwmActivity activity)
     {
-      activity.showSearch(activity.getString(R.string.hotel));
+      activity.showSearch(FilterUtils.getHotelCategoryString(activity));
     }
   }
 

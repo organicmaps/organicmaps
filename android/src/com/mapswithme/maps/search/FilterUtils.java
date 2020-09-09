@@ -426,6 +426,12 @@ public class FilterUtils
     return BookingFilterParams.createParams(checkinMillis, checkoutMillis, toCounts(Room.DEFAULT));
   }
 
+  @NonNull
+  public static String getHotelCategoryString(@NonNull Context context)
+  {
+    return context.getString(R.string.hotel);
+  }
+
   public static class RoomGuestCounts
   {
     private final int mRooms;

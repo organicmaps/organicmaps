@@ -1035,7 +1035,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       case REQ_CODE_SHOW_SIMILAR_HOTELS:
         if (mIsTabletLayout)
         {
-          showTabletSearch(data, getString(R.string.hotel));
+          showTabletSearch(data, FilterUtils.getHotelCategoryString(this));
           return;
         }
         handleFilterResult(data);
@@ -1162,21 +1162,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (data == null || mFilterController == null)
       return;
 
-    setupSearchQuery(data);
-
+    String query;
+    if (data.hasExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY))
+      query = data.getStringExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY);
+    else
+      query = FilterUtils.getHotelCategoryString(this) + " ";
+    mSearchController.setQuery(query);
     mFilterController.setFilter(data.getParcelableExtra(FilterActivity.EXTRA_FILTER));
-    BookingFilterParams params = mSearchController.getFilterParams() == null
-                                 ? FilterUtils.createDefaultParams()
-                                 : mSearchController.getFilterParams();
-    mFilterController.setFilterParams(params);
+    if (query.trim().equals(FilterUtils.getHotelCategoryString(this)))
+    {
+      BookingFilterParams params = mSearchController.getFilterParams() == null
+                                   ? FilterUtils.createDefaultParams()
+                                   : mSearchController.getFilterParams();
+      mFilterController.setFilterParams(params);
+    }
     mFilterController.updateFilterButtonsVisibility(mFilterController.isSatisfiedForSearch());
     runSearch();
-  }
-
-  private void setupSearchQuery(@NonNull Intent data)
-  {
-    String query = data.getStringExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY);
-    mSearchController.setQuery(TextUtils.isEmpty(query) ? getString(R.string.hotel) + " " : query);
   }
 
   @Override
