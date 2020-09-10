@@ -43,7 +43,6 @@ omim_link_libraries(
   opening_hours
   succinct
   icu
-  ${PYTHON_LIBRARIES}
   ${Boost_LIBRARIES}
   ${LIBZ}
 )

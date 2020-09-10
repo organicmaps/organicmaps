@@ -57,7 +57,6 @@ function(setup_bundled_boost_with_python)
 
   include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
-  set(PYTHON_LIBRARIES ${PYTHON_LIBRARIES} PARENT_SCOPE)
   set(Boost_LIBRARIES ${Boost_LIBRARIES} PARENT_SCOPE)
 
   add_subdirectory(pyhelpers)

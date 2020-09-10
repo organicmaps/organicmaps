@@ -44,7 +44,6 @@ omim_link_libraries(
   sqlite3
   ${CMAKE_DL_LIBS}
   ${LIBZ}
-  ${PYTHON_LIBRARIES}
   ${Boost_LIBRARIES}
 )
 

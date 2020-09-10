@@ -32,7 +32,6 @@ omim_link_libraries(
   pugixml
   stats_client
   succinct
-  ${PYTHON_LIBRARIES}
   ${Boost_LIBRARIES}
   ${LIBZ}
 )
