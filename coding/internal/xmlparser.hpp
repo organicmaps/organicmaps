@@ -82,7 +82,7 @@ public:
   }
 
   // Start element handler
-  void OnStartElement(XML_Char const * pszName, XML_Char const ** papszAttrs)
+  void OnStartElement(XML_Char const * name, XML_Char const ** attrs)
   {
     CheckCharData();
 
@@ -90,18 +90,18 @@ public:
     if (m_depth >= m_restrictDepth)
       return;
 
-    if (!m_dispatcher.Push(pszName))
+    if (!m_dispatcher.Push(name))
     {
       m_restrictDepth = m_depth;
       return;
     }
 
-    for (size_t i = 0; papszAttrs[2 * i]; ++i)
-      m_dispatcher.AddAttr(papszAttrs[2 * i], papszAttrs[2 * i + 1]);
+    for (size_t i = 0; attrs[2 * i]; ++i)
+      m_dispatcher.AddAttr(attrs[2 * i], attrs[2 * i + 1]);
   }
 
   // End element handler
-  void OnEndElement(XML_Char const * pszName)
+  void OnEndElement(XML_Char const * name)
   {
     CheckCharData();
 
@@ -112,14 +112,14 @@ public:
     if (m_restrictDepth != size_t(-1))
       m_restrictDepth = static_cast<size_t>(-1);
     else
-      m_dispatcher.Pop(std::string(pszName));
+      m_dispatcher.Pop(std::string(name));
   }
 
-  void OnCharacterData(XML_Char const * pszData, int nLength)
+  void OnCharacterData(XML_Char const * data, int length)
   {
     // Accumulate character data - it can be passed by parts
     // (when reading from fixed length buffer).
-    m_charData.append(pszData, nLength);
+    m_charData.append(data, length);
   }
 
   std::string GetErrorMessage()
