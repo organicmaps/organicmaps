@@ -28,9 +28,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -725,13 +725,14 @@ public class Utils
   public static void detachFragmentIfCoreNotInitialized(@NonNull Context context,
                                                         @NonNull Fragment fragment)
   {
-    if (context instanceof AppCompatActivity && !MwmApplication.get().arePlatformAndCoreInitialized())
-    {
-      ((AppCompatActivity)context).getSupportFragmentManager()
-                                  .beginTransaction()
-                                  .detach(fragment)
-                                  .commit();
-    }
+    if (MwmApplication.from(context).arePlatformAndCoreInitialized())
+      return;
+
+    FragmentManager manager = fragment.getFragmentManager();
+    if (manager == null)
+      return;
+
+    manager.beginTransaction().detach(fragment).commit();
   }
 
   public static String capitalize(@Nullable String src)
