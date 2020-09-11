@@ -28,6 +28,7 @@ class CitySubscriptionViewController: MWMViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     presenter?.configure()
+    preferredContentSize = CGSize(width: 414, height: contentView.frame.height)
   }
 
   @IBAction func onAnnualButtonTap(_ sender: UIButton) {
