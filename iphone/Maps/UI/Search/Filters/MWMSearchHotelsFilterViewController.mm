@@ -68,6 +68,7 @@ void configButton(UIButton *button, NSString *primaryText, NSString *secondaryTe
 @property(nonatomic) MWMFilterRatingCell *rating;
 @property(nonatomic) MWMFilterPriceCategoryCell *price;
 @property(nonatomic) MWMFilterCollectionHolderCell *type;
+@property(nonatomic) MWMHotelParams *filter;
 @property(weak, nonatomic) IBOutlet UITableView *tableView;
 @property(weak, nonatomic) IBOutlet UIButton *doneButton;
 
@@ -81,6 +82,7 @@ void configButton(UIButton *button, NSString *primaryText, NSString *secondaryTe
 }
 
 - (void)applyParams:(MWMHotelParams *)params {
+  self.filter = params;
   m_selectedTypes = params.types;
   [self.type.collectionView reloadData];
 
@@ -171,7 +173,7 @@ void configButton(UIButton *button, NSString *primaryText, NSString *secondaryTe
 }
 
 - (MWMHotelParams *)getSelectedHotelParams {
-  MWMHotelParams *params = [MWMHotelParams new];
+  MWMHotelParams *params = self.filter != nil ? self.filter : [MWMHotelParams new];
   params.types = m_selectedTypes;
 
   using namespace place_page::rating;
