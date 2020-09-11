@@ -1,7 +1,7 @@
 //
 //  MPHTMLInterstitialViewController.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -93,16 +93,6 @@
 }
 
 #pragma mark - MPAdWebViewAgentDelegate
-
-- (CLLocation *)location
-{
-    return [self.delegate location];
-}
-
-- (NSString *)adUnitId
-{
-    return [self.delegate adUnitId];
-}
 
 - (UIViewController *)viewControllerForPresentingModalView
 {

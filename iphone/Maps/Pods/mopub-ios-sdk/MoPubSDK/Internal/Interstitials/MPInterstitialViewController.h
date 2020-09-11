@@ -1,7 +1,7 @@
 //
 //  MPInterstitialViewController.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -54,14 +54,13 @@
 
 @protocol MPInterstitialViewControllerDelegate <MPInterstitialViewControllerAppearanceDelegate>
 
-- (NSString *)adUnitId;
 - (void)interstitialDidLoadAd:(id<MPInterstitialViewController>)interstitial;
 - (void)interstitialDidFailToLoadAd:(id<MPInterstitialViewController>)interstitial;
 - (void)interstitialDidReceiveTapEvent:(id<MPInterstitialViewController>)interstitial;
 - (void)interstitialWillLeaveApplication:(id<MPInterstitialViewController>)interstitial;
 
 @optional
-- (CLLocation *)location;
+
 - (void)interstitialRewardedVideoEnded;
 
 @end

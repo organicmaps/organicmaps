@@ -1,7 +1,7 @@
 //
 //  MPGeolocationProvider.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -9,7 +9,6 @@
 #import "MPGeolocationProvider.h"
 
 #import "MPCoreInstanceProvider.h"
-#import "MPIdentityProvider.h"
 #import "MPLogging.h"
 #import "MPTimer.h"
 #import "MPConsentManager.h"
@@ -63,7 +62,7 @@ const NSTimeInterval kMPLocationUpdateInterval = 10.0 * 60.0;
     if (self) {
         _rawLocationUpdatesEnabled = YES;
 
-        _locationManager = [[MPCoreInstanceProvider sharedProvider] buildCLLocationManager];
+        _locationManager = CLLocationManager.new;
         _locationManager.delegate = self;
         _locationManager.distanceFilter = kMPCityBlockDistanceFilter;
 

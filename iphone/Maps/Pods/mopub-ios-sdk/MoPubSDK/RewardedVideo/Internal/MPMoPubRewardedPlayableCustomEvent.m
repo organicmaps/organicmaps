@@ -1,7 +1,7 @@
 //
 //  MPMoPubRewardedPlayableCustomEvent.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -31,6 +31,10 @@ const NSTimeInterval kDefaultCountdownTimerIntervalInSeconds = 30;
 @end
 
 @implementation MPMoPubRewardedPlayableCustomEvent
+
+- (NSString *)adUnitId {
+    return [self.delegate adUnitId];
+}
 
 - (void)dealloc {
     [_timerView stopAndSignalCompletion:NO];
@@ -156,10 +160,6 @@ const NSTimeInterval kDefaultCountdownTimerIntervalInSeconds = 30;
 #pragma mark - MPInterstitialViewControllerDelegate
 
 @implementation MPMoPubRewardedPlayableCustomEvent (MPInterstitialViewControllerDelegate)
-
-- (NSString *)adUnitId {
-    return [self.delegate adUnitId];
-}
 
 - (void)interstitialDidLoadAd:(id<MPInterstitialViewController>)interstitial {
     MPLogAdEvent([MPLogEvent adLoadSuccessForAdapter:NSStringFromClass(self.class)], self.adUnitId);

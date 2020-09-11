@@ -1,7 +1,7 @@
 //
 //  MPCountdownTimerView.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -88,6 +88,7 @@ static NSString * const kAnimationKey = @"Timer";
         [self addSubview:_countdownLabel];
 
         self.userInteractionEnabled = NO;
+        self.accessibilityLabel = @"Countdown Timer";
     }
 
     return self;

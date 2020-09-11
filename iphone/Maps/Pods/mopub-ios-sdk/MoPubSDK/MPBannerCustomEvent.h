@@ -1,7 +1,7 @@
 //
 //  MPBannerCustomEvent.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -25,24 +25,6 @@
 @interface MPBannerCustomEvent : NSObject
 
 /** @name Requesting a Banner Ad */
-
-/**
- * @deprecated Use @c requestAdWithSize:customEventInfo:adMarkup: instead
- *
- * Called when the MoPub SDK requires a new banner ad.
- *
- * When the MoPub SDK receives a response indicating it should load a custom event, it will send
- * this message to your custom event class. Your implementation of this method can either load a
- * banner ad from a third-party ad network, or execute any application code. It must also notify the
- * `MPBannerCustomEventDelegate` of certain lifecycle events.
- *
- * @param size The current size of the parent `MPAdView`.  You should use this information to create
- * and request a banner of the appropriate size.
- *
- * @param info A dictionary containing additional custom data associated with a given custom event
- * request. This data is configurable on the MoPub website, and may be used to pass dynamic information, such as publisher IDs.
- */
-- (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info __attribute((deprecated("Use requestAdWithSize:customEventInfo:adMarkup: instead.")));
 
 /**
  * Called when the MoPub SDK requires a new banner ad.

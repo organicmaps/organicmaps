@@ -1,7 +1,7 @@
 //
 //  MPAdDestinationDisplayAgent.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -39,6 +39,8 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @implementation MPAdDestinationDisplayAgent
+
+@synthesize delegate;
 
 + (MPAdDestinationDisplayAgent *)agentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate
 {

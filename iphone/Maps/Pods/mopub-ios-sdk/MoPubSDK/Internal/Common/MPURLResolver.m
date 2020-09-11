@@ -1,7 +1,7 @@
 //
 //  MPURLResolver.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -13,7 +13,7 @@
 #import "NSURL+MPAdditions.h"
 #import "NSHTTPURLResponse+MPAdditions.h"
 #import "MPLogging.h"
-#import "MPCoreInstanceProvider.h"
+#import "MPDeviceInformation.h"
 #import "MOPUBExperimentProvider.h"
 #import "NSURL+MPAdditions.h"
 #import "MPURLRequest.h"
@@ -175,7 +175,7 @@ static NSString * const kRedirectURLQueryStringKey = @"r";
         // is running iOS 8, this method will always return `MPATSSettingAllowsArbitraryLoads`. If the device is running
         // iOS 9, this method will never give us `MPATSSettingAllowsArbitraryLoadsInWebContent`. As a result, we don't
         // have to do OS checks here; we can just trust these settings.
-        MPATSSetting settings = [[MPCoreInstanceProvider sharedProvider] appTransportSecuritySettings];
+        MPATSSetting settings = MPDeviceInformation.appTransportSecuritySettings;
 
         if ((settings & MPATSSettingAllowsArbitraryLoads) != 0) { // opens as normal if ATS is disabled
             // don't do anything

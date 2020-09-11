@@ -1,7 +1,7 @@
 //
 //  MPBannerCustomEvent.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -9,12 +9,6 @@
 #import "MPBannerCustomEvent.h"
 
 @implementation MPBannerCustomEvent
-
-- (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info
-{
-    // This deprecated method will forward the request to with no ad markup.
-    [self requestAdWithSize:size customEventInfo:info adMarkup:nil];
-}
 
 - (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info adMarkup:(NSString *)adMarkup
 {

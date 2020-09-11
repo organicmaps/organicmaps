@@ -1,7 +1,7 @@
 //
 //  MPImpressionData.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -37,6 +37,7 @@ typedef NS_ENUM(NSInteger, MPImpressionDataPrecision) {
 @property (nonatomic, assign, readonly) MPImpressionDataPrecision precision;
 @property (nonatomic, copy, readonly) NSString * _Nullable networkName;
 @property (nonatomic, copy, readonly) NSString * _Nullable networkPlacementID;
+@property (nonatomic, copy, readonly) NSString * _Nullable appVersion;
 
 @property (nonatomic, copy, readonly) NSData * _Nullable jsonRepresentation;
 

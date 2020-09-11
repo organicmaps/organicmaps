@@ -1,7 +1,7 @@
 //
 //  MRController.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -25,8 +25,6 @@
  */
 @interface MRController : NSObject
 
-@property (nonatomic, readonly) MPWebView *mraidWebView;
-@property (nonatomic, readonly) MPViewabilityTracker *viewabilityTracker;
 @property (nonatomic, weak) id<MRControllerDelegate> delegate;
 
 - (instancetype)initWithAdViewFrame:(CGRect)adViewFrame
@@ -34,11 +32,35 @@
                     adPlacementType:(MRAdViewPlacementType)placementType
                            delegate:(id<MRControllerDelegate>)delegate;
 
+/**
+ Use this to load a regular MRAID ad.
+ */
 - (void)loadAdWithConfiguration:(MPAdConfiguration *)configuration;
+
+/**
+ Use this to load a VAST video companion MRAID ad.
+ */
+- (void)loadVASTCompanionAd:(NSString *)companionAdHTML;
+- (void)loadVASTCompanionAdUrl:(NSURL *)companionAdUrl;
+
 - (void)handleMRAIDInterstitialWillPresentWithViewController:(MPMRAIDInterstitialViewController *)viewController;
 - (void)handleMRAIDInterstitialDidPresentWithViewController:(MPMRAIDInterstitialViewController *)viewController;
 - (void)enableRequestHandling;
 - (void)disableRequestHandling;
+
+- (void)startViewabilityTracking;
+
+/**
+ When a click-through happens, do not open a web browser.
+ Note: `MRControllerDelegate.adDidReceiveClickthrough:` is still triggered. It's the delegate's
+ responsibility to open a web browser when click-through happens.
+ */
+- (void)disableClickthroughWebBrowser;
+
+/**
+ Evaluate the Javascript code "webviewDidAppear();" in the MRAID web view.
+ */
+- (void)triggerWebviewDidAppear;
 
 @end
 
@@ -51,10 +73,6 @@
 @protocol MRControllerDelegate <NSObject>
 
 @required
-
-- (NSString *)adUnitId;
-- (MPAdConfiguration *)adConfiguration;
-- (CLLocation *)location;
 
 // Retrieves the view controller from which modal views should be presented.
 - (UIViewController *)viewControllerForPresentingModalView;
@@ -78,6 +96,9 @@
 
 // Called just after the ad has closed.
 - (void)adDidClose:(UIView *)adView;
+
+// Called when click-throught happens.
+- (void)adDidReceiveClickthrough:(NSURL *)url;
 
 // Called after the rewarded video finishes playing
 - (void)rewardedVideoEnded;

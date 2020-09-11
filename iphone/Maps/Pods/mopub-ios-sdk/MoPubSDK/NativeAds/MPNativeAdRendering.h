@@ -1,7 +1,7 @@
 //
 //  MPNativeAdRendering.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -53,12 +53,37 @@
 - (UIImageView *)nativeMainImageView;
 
 /**
+ * Return the @c UILabel that your view is using for text indicating the
+ * sponsor that sponsored the ad.
+ *
+ * Sometimes sponsor information is not included with the advertisement; in that
+ * case, MoPub will set the label's @c text to empty string and the label's @c hidden
+ * property to @c YES. Please configure your view to be ready for this possibility.
+ *
+ * @return a @c UILabel to be used for "Sponsored by Example" text
+ */
+- (UILabel *)nativeSponsoredByCompanyTextLabel;
+
+/**
+ * Specifies custom text for @c nativeSponsoredByCompanyTextLabel, primarily to be used
+ * for localization, but also can be used for custom copy, e.g., "Brought to you by Example"
+ * rather than the default "Sponsored by Example".
+ *
+ * If this method is not implemented, or is implemented to return @c nil or empty string, we
+ * will use the default "Sponsored by Example"
+ *
+ * @param sponsorName The name of the sponsor who sponored the native ad
+ * @return an assembled string containing @c sponsorName indicating something to the effect
+ * of "Sponsored by <sponsorName>"
+ */
++ (NSString *)localizedSponsoredByTextWithSponsorName:(NSString *)sponsorName;
+
+/**
  * Return the UIView that your view is using for the video.
  * You only need to implement this when you are serving video ads.
  *
  * @return a UIView that is used to hold the video.
  */
-
 - (UIView *)nativeVideoView;
 
 /**

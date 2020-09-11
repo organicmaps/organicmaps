@@ -1,6 +1,6 @@
 PODS:
   - AppsFlyerFramework (4.9.0)
-  - FBAudienceNetwork (5.6.0):
+  - FBAudienceNetwork (5.9.0):
     - FBSDKCoreKit/Basics (>= 5.6.0)
   - FBSDKCoreKit (5.15.1):
     - FBSDKCoreKit/Basics (= 5.15.1)
@@ -86,25 +86,30 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.7.1):
     - GoogleUtilities/Logger
-  - MoPub-FacebookAudienceNetwork-Adapters (5.6.0.0):
-    - MoPub-FacebookAudienceNetwork-Adapters/MoPub (= 5.6.0.0)
-    - MoPub-FacebookAudienceNetwork-Adapters/Network (= 5.6.0.0)
-  - MoPub-FacebookAudienceNetwork-Adapters/MoPub (5.6.0.0):
+  - MoPub-FacebookAudienceNetwork-Adapters (5.9.0.0):
+    - MoPub-FacebookAudienceNetwork-Adapters/MoPub (= 5.9.0.0)
+    - MoPub-FacebookAudienceNetwork-Adapters/Network (= 5.9.0.0)
+  - MoPub-FacebookAudienceNetwork-Adapters/MoPub (5.9.0.0):
     - mopub-ios-sdk/Core (~> 5.6)
-  - MoPub-FacebookAudienceNetwork-Adapters/Network (5.6.0.0):
-    - FBAudienceNetwork (= 5.6.0)
+    - mopub-ios-sdk/NativeAds (~> 5.6)
+  - MoPub-FacebookAudienceNetwork-Adapters/Network (5.9.0.0):
+    - FBAudienceNetwork (= 5.9.0)
     - mopub-ios-sdk/Core (~> 5.6)
-  - mopub-ios-sdk (5.10.0):
-    - mopub-ios-sdk/MoPubSDK (= 5.10.0)
-  - mopub-ios-sdk/Avid (5.10.0):
+    - mopub-ios-sdk/NativeAds (~> 5.6)
+  - mopub-ios-sdk (5.12.0):
+    - mopub-ios-sdk/MoPubSDK (= 5.12.0)
+  - mopub-ios-sdk/Avid (5.12.0):
     - mopub-ios-sdk/Core
-  - mopub-ios-sdk/Core (5.10.0)
-  - mopub-ios-sdk/Moat (5.10.0):
+  - mopub-ios-sdk/Core (5.12.0)
+  - mopub-ios-sdk/Moat (5.12.0):
     - mopub-ios-sdk/Core
-  - mopub-ios-sdk/MoPubSDK (5.10.0):
+  - mopub-ios-sdk/MoPubSDK (5.12.0):
     - mopub-ios-sdk/Avid
     - mopub-ios-sdk/Core
     - mopub-ios-sdk/Moat
+    - mopub-ios-sdk/NativeAds
+  - mopub-ios-sdk/NativeAds (5.12.0):
+    - mopub-ios-sdk/Core
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
     - nanopb/encode (= 1.30905.0)
@@ -122,8 +127,8 @@ DEPENDENCIES:
   - Firebase/Analytics (= 6.26.0)
   - Firebase/Crashlytics (= 6.26.0)
   - Flurry-iOS-SDK/FlurrySDK (= 10.1)
-  - MoPub-FacebookAudienceNetwork-Adapters (= 5.6.0.0)
-  - mopub-ios-sdk (= 5.10)
+  - MoPub-FacebookAudienceNetwork-Adapters (= 5.9.0)
+  - mopub-ios-sdk (= 5.12)
   - Pushwoosh (= 5.16.0)
 
 SPEC REPOS:
@@ -153,7 +158,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AppsFlyerFramework: f57e5d590ad3124d3e594a76032a181bc91ec6cd
-  FBAudienceNetwork: 1ea63543665445a3a5b4a059e8210a343b6ab3c1
+  FBAudienceNetwork: 648648b13d8ea3d39676542dece2b04dbe867497
   FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
   FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
@@ -169,12 +174,12 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
   GoogleUtilities: e121a3867449ce16b0e35ddf1797ea7a389ffdf2
-  MoPub-FacebookAudienceNetwork-Adapters: 3cec249235d12e3fec9a01bf559d608fa3ec05e1
-  mopub-ios-sdk: 3d65133b95b6498aa871a66818a11a5ba307e565
+  MoPub-FacebookAudienceNetwork-Adapters: c9cbf2549ab2e108086594ab18f1709cc5897300
+  mopub-ios-sdk: bb61d5741ba16c6a78e5a54e37bc60ef8c9a80a8
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Pushwoosh: 6cba171e52f3f7b8ccd280f492a5831deac2f594
 
-PODFILE CHECKSUM: c3f8758a04bfcf497d7cf4a86726c990ae127e6a
+PODFILE CHECKSUM: 8a9705a6477e83ec21530a12f6522770e57f6ca4
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.8.3

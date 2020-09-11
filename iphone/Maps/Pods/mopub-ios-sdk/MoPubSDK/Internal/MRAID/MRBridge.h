@@ -1,7 +1,7 @@
 //
 //  MRBridge.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -28,6 +28,7 @@
 - (instancetype)initWithWebView:(MPWebView *)webView delegate:(id<MRBridgeDelegate>)delegate;
 
 - (void)loadHTMLString:(NSString *)HTML baseURL:(NSURL *)baseURL;
+- (void)loadHTMLUrl:(NSURL *)url;
 
 - (void)fireReadyEvent;
 - (void)fireChangeEventForProperty:(MRProperty *)property;

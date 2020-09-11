@@ -1,7 +1,7 @@
 //
 //  MPConsentManager.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -232,6 +232,7 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     }
 
     // Reset the reacquire consent flag since the user has taken action.
+    BOOL statusWasReacquired = self.shouldReacquireConsent;
     self.shouldReacquireConsent = NO;
 
     MPConsentStatus grantStatus = self.isWhitelisted ? MPConsentStatusConsented : MPConsentStatusPotentialWhitelist;
@@ -239,7 +240,7 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
 
     // Grant consent and if the state has transitioned, immediately synchronize
     // with the server as this is an externally induced state change.
-    if ([self setCurrentStatus:grantStatus reason:grantReason shouldBroadcast:YES]) {
+    if ([self setCurrentStatus:grantStatus reason:grantReason statusWasReacquired:statusWasReacquired shouldBroadcast:YES]) {
         MPLogDebug(@"Consent synchronization triggered by publisher granting consent");
         [self synchronizeConsentWithCompletion:^(NSError * _Nullable error) {
             // Consent synchronization success/fail logging is already handled
@@ -250,11 +251,12 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
 
 - (void)revokeConsent {
     // Reset the reacquire consent flag since the user has taken action.
+    BOOL statusWasReacquired = self.shouldReacquireConsent;
     self.shouldReacquireConsent = NO;
 
     // Revoke consent and if the state has transitioned, immediately synchronize
     // with the server as this is an externally induced state change.
-    if ([self setCurrentStatus:MPConsentStatusDenied reason:kConsentedChangedReasonPublisherDenied shouldBroadcast:YES]) {
+    if ([self setCurrentStatus:MPConsentStatusDenied reason:kConsentedChangedReasonPublisherDenied statusWasReacquired:statusWasReacquired shouldBroadcast:YES]) {
         MPLogDebug(@"Consent synchronization triggered by publisher revoking consent");
         [self synchronizeConsentWithCompletion:^(NSError * _Nullable error) {
             // Consent synchronization success/fail logging is already handled
@@ -386,12 +388,13 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
 - (void)consentDialogViewControllerDidReceiveConsentResponse:(BOOL)response
                                  consentDialogViewController:(MPConsentDialogViewController *)consentDialogViewController {
     // Reset the reacquire consent flag since the user has taken action.
+    BOOL statusWasReacquired = self.shouldReacquireConsent;
     self.shouldReacquireConsent = NO;
 
     // Set consent status
     MPConsentStatus status = (response ? MPConsentStatusConsented : MPConsentStatusDenied);
     NSString * changeReason = (response ? kConsentedChangedReasonGranted : kConsentedChangedReasonDenied);
-    BOOL didTransition = [self setCurrentStatus:status reason:changeReason shouldBroadcast:YES];
+    BOOL didTransition = [self setCurrentStatus:status reason:changeReason statusWasReacquired:statusWasReacquired shouldBroadcast:YES];
 
     // Synchronize only if there was a successful state transition.
     // It is possible that the user responded to the consent dialog while
@@ -656,14 +659,14 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     BOOL trackingAllowed = ASIdentifierManager.sharedManager.advertisingTrackingEnabled;
     MPConsentStatus status = self.currentStatus;
     if (status != MPConsentStatusDoNotTrack && !trackingAllowed) {
-        didTransition = [self setCurrentStatus:MPConsentStatusDoNotTrack reason:kConsentedChangedReasonDoNotTrackEnabled shouldBroadcast:YES];
+        didTransition = [self setCurrentStatus:MPConsentStatusDoNotTrack reason:kConsentedChangedReasonDoNotTrackEnabled statusWasReacquired:NO shouldBroadcast:YES];
     }
     // Transitioned from a "do not track" state to an "allowed to track" state.
     // If the previously cached state was "deny consent"
     else if (status == MPConsentStatusDoNotTrack && trackingAllowed) {
         MPConsentStatus transitionToState = (self.rawConsentStatus == MPConsentStatusDenied ? MPConsentStatusDenied : MPConsentStatusUnknown);
         NSString * transitionReason = (transitionToState == MPConsentStatusDenied ? kConsentedChangedReasonDoNotTrackDisabled : kConsentedChangedReasonDoNotTrackDisabledNeedConsent);
-        didTransition = [self setCurrentStatus:transitionToState reason:transitionReason shouldBroadcast:YES];
+        didTransition = [self setCurrentStatus:transitionToState reason:transitionReason statusWasReacquired:NO shouldBroadcast:YES];
     }
 
     return didTransition;
@@ -685,7 +688,7 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
 
     BOOL didTransition = NO;
     if (self.isWhitelisted) {
-        didTransition = [self setCurrentStatus:MPConsentStatusConsented reason:kConsentedChangedReasonWhitelistGranted shouldBroadcast:NO];
+        didTransition = [self setCurrentStatus:MPConsentStatusConsented reason:kConsentedChangedReasonWhitelistGranted statusWasReacquired:NO shouldBroadcast:NO];
     }
 
     return didTransition;
@@ -695,18 +698,33 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
  Updates the local consent status.
  @param currentStatus The updated status.
  @param reasonForChange Reason for the change in status. This should map to an entry in @c MPConsentChangedReason.h
+ @param statusWasReacquired Was the status forcibly reacquired due to the @c reacquire_consent flag sent by the Ad Server
  @param shouldBroadcast Flag indicating if the change in status broadcasted.
  @return @c YES if the consent status was successfully changed; @c NO otherwise.
  */
 - (BOOL)setCurrentStatus:(MPConsentStatus)currentStatus
                   reason:(NSString * _Nonnull)reasonForChange
+     statusWasReacquired:(BOOL)statusWasReacquired
          shouldBroadcast:(BOOL)shouldBroadcast {
     // Compare the current consent status with the proposed status.
-    // Nothing needs to be done if we're not changing state.
+    // Nothing needs to be done if we're not changing state and the current
+    // status was not forcibly reacquired. Forced reacquisition of status,
+    // even if it results in the same status, is a cause for an update.
     MPConsentStatus oldStatus = self.currentStatus;
-    if (oldStatus == currentStatus) {
+    if (oldStatus == currentStatus && !statusWasReacquired) {
         MPLogInfo(@"Attempted to set consent status to same value");
         return NO;
+    }
+
+    // Capture old `isConsentNeeded` value
+    BOOL oldIsConsentNeeded = self.isConsentNeeded;
+
+    // Clear the `shouldReacquireConsent` latch when transitioning to DNT or Unknown
+    // since it no longer makes sense to force a reacquisition.
+    // This state must be set after capturing `oldIsConsentNeeded` since this
+    // will affect `self.isConsentNeeded`.
+    if (currentStatus == MPConsentStatusDoNotTrack || currentStatus == MPConsentStatusUnknown) {
+        self.shouldReacquireConsent = NO;
     }
 
     // Disallow setting consent status if we are currently in a "do not track" state
@@ -716,9 +734,6 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
         MPLogInfo(@"Attempted to set consent status while in a do not track state");
         return NO;
     }
-
-    // Capture old `isConsentNeeded` value
-    BOOL oldIsConsentNeeded = self.isConsentNeeded;
 
     // Save IFA for this particular case so it can be used to remove personal data later.
     if (oldStatus != MPConsentStatusConsented && currentStatus == MPConsentStatusConsented) {
@@ -744,16 +759,18 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     // Copy the current privacy policy version, vendor list version, and IAB vendor list
     // to the equivalent consented fields under the following conditions:
     // 1. Consent has been updated to "potential whitelist", or
-    // 2. Consent has been updated to "consented" from a previously not "potential whitelist" state
+    // 2. Consent has been updated to "consented" from a previously not "potential whitelist" state, or
+    // 3. Consent has been updated to "denied"
     if (currentStatus == MPConsentStatusPotentialWhitelist ||
-        (currentStatus == MPConsentStatusConsented && oldStatus != MPConsentStatusPotentialWhitelist)) {
+        (currentStatus == MPConsentStatusConsented && oldStatus != MPConsentStatusPotentialWhitelist) ||
+        currentStatus == MPConsentStatusDenied) {
         [defaults setObject:self.iabVendorList forKey:kConsentedIabVendorListStorageKey];
         [defaults setObject:self.privacyPolicyVersion forKey:kConsentedPrivacyPolicyVersionStorageKey];
         [defaults setObject:self.vendorListVersion forKey:kConsentedVendorListVersionStorageKey];
     }
-    // If the state has transitioned out of the "consented" state, remove any previously
-    // consented versions as they no longer apply.
-    else if (oldStatus == MPConsentStatusConsented) {
+    // The state has transitioned out of a state where "consented" versions no longer apply.
+    else if (currentStatus == MPConsentStatusUnknown ||
+             currentStatus == MPConsentStatusDoNotTrack) {
         [defaults setObject:nil forKey:kConsentedIabVendorListStorageKey];
         [defaults setObject:nil forKey:kConsentedPrivacyPolicyVersionStorageKey];
         [defaults setObject:nil forKey:kConsentedVendorListVersionStorageKey];
@@ -889,11 +906,11 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
                          shouldBroadcast:(BOOL)shouldBroadcast {
     if (shouldForceExplicitNo) {
         self.shouldReacquireConsent = NO;
-        [self setCurrentStatus:MPConsentStatusDenied reason:consentChangeReason shouldBroadcast:shouldBroadcast];
+        [self setCurrentStatus:MPConsentStatusDenied reason:consentChangeReason statusWasReacquired:NO shouldBroadcast:shouldBroadcast];
     }
     else if (shouldInvalidateConsent) {
         self.shouldReacquireConsent = NO;
-        [self setCurrentStatus:MPConsentStatusUnknown reason:consentChangeReason shouldBroadcast:shouldBroadcast];
+        [self setCurrentStatus:MPConsentStatusUnknown reason:consentChangeReason statusWasReacquired:NO shouldBroadcast:shouldBroadcast];
     }
     else if (shouldReacquireConsent) {
         self.shouldReacquireConsent = YES;
@@ -1160,7 +1177,7 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     if (self.currentStatus == MPConsentStatusConsented && ![oldIfa isEqualToString:newIfa] && newIfa != nil) {
         [NSUserDefaults.standardUserDefaults removeObjectForKey:kLastSynchronizedConsentStatusStorageKey];
         [NSUserDefaults.standardUserDefaults removeObjectForKey:kIfaForConsentStorageKey];
-        [self setCurrentStatus:MPConsentStatusUnknown reason:kConsentedChangedReasonIfaChanged shouldBroadcast:YES];
+        [self setCurrentStatus:MPConsentStatusUnknown reason:kConsentedChangedReasonIfaChanged statusWasReacquired:NO shouldBroadcast:YES];
     }
 }
 

@@ -1,7 +1,7 @@
 //
 //  MPInterstitialCustomEventAdapter.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -18,6 +18,7 @@
 #import "MPInterstitialCustomEvent.h"
 #import "MPInterstitialAdController.h"
 #import "MPMRAIDInterstitialCustomEvent.h"
+#import "MPVASTInterstitialCustomEvent.h"
 #import "MPRealTimeTimer.h"
 
 @interface MPInterstitialCustomEventAdapter ()
@@ -94,8 +95,10 @@
     [self.delegate adapterDidFinishLoadingAd:self];
 
     // Check for MoPub-specific custom events before setting the timer
+    // Custom events for 3rd party SDK have their own timeout and expiration handling
     if ([customEvent isKindOfClass:[MPHTMLInterstitialCustomEvent class]]
-        || [customEvent isKindOfClass:[MPMRAIDInterstitialCustomEvent class]]) {
+        || [customEvent isKindOfClass:[MPMRAIDInterstitialCustomEvent class]]
+        || [customEvent isKindOfClass:[MPVASTInterstitialCustomEvent class]]) {
         // Set up timer for expiration
         __weak __typeof__(self) weakSelf = self;
         self.expirationTimer = [[MPRealTimeTimer alloc] initWithInterval:[MPConstants adsExpirationInterval] block:^(MPRealTimeTimer *timer){

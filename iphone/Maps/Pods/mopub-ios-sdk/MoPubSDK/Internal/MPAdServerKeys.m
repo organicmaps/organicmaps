@@ -1,7 +1,7 @@
 //
 //  MPAdServerKeys.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -120,5 +120,6 @@ NSString * const kImpressionDataCurrencyKey           = @"currency";
 NSString * const kImpressionDataCountryKey            = @"country";
 NSString * const kImpressionDataNetworkNameKey        = @"network_name";
 NSString * const kImpressionDataNetworkPlacementIDKey = @"network_placement_id";
+NSString * const kImpressionDataAppVersionKey         = @"app_version";
 NSString * const kImpressionDataPublisherRevenueKey   = @"publisher_revenue";
 NSString * const kImpressionDataPrecisionKey          = @"precision";

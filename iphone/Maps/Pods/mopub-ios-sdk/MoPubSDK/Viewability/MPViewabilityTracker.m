@@ -1,7 +1,7 @@
 //
 //  MPViewabilityTracker.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -58,9 +58,9 @@ NSString *const kDisabledViewabilityTrackers = @"disableViewabilityTrackers";
     }
 }
 
-- (instancetype)initWithAdView:(MPWebView *)webView
-                       isVideo:(BOOL)isVideo
-      startTrackingImmediately:(BOOL)startTracking {
+- (instancetype)initWithWebView:(MPWebView *)webView
+                        isVideo:(BOOL)isVideo
+       startTrackingImmediately:(BOOL)startTracking {
     if (self = [super init]) {
         // While the viewability SDKs have features that allow the developer to pass in a container view, WKWebView is
         // not always in MPWebView's view hierarchy. Pass in the contained web view to be safe, as we don't know for
@@ -80,7 +80,11 @@ NSString *const kDisabledViewabilityTrackers = @"disableViewabilityTrackers";
         NSMutableDictionary<NSNumber *, id<MPViewabilityAdapter>> * trackers = [NSMutableDictionary dictionary];
         for (NSInteger index = 1; index < MPViewabilityOptionAll; index = index << 1) {
             NSString * className = sSupportedAdapters[@(index)];
-            id<MPViewabilityAdapter> tracker = [self initializeTrackerWithClassName:className forViewabilityOption:index withAdView:view isVideo:isVideo startTrackingImmediately:startTracking];
+            id<MPViewabilityAdapter> tracker = [self initializeTrackerWithClassName:className
+                                                               forViewabilityOption:index
+                                                                         withAdView:view
+                                                                            isVideo:isVideo
+                                                           startTrackingImmediately:startTracking];
             if (tracker != nil) {
                 trackers[@(index)] = tracker;
             }
@@ -105,8 +109,69 @@ NSString *const kDisabledViewabilityTrackers = @"disableViewabilityTrackers";
     // Check if the tracker class exists in the runtime and if it is enabled before
     // attempting to initialize it.
     Class adapterClass = NSClassFromString(className);
-    if (adapterClass && OptionsHasValue(sEnabledViewabilityVendors, option)) {
-        id<MPViewabilityAdapter> tracker = [[adapterClass alloc] initWithAdView:webView isVideo:isVideo startTrackingImmediately:startTracking];
+    if (adapterClass
+        && [adapterClass conformsToProtocol:@protocol(MPViewabilityAdapterForWebView)]
+        && OptionsHasValue(sEnabledViewabilityVendors, option)) {
+        id<MPViewabilityAdapter> tracker = [[adapterClass alloc]
+                                            initWithWebView:webView
+                                            isVideo:isVideo
+                                            startTrackingImmediately:startTracking];
+        return tracker;
+    }
+
+    return nil;
+}
+
+- (instancetype)initWithNativeVideoView:(UIView *)nativeVideoView
+               startTrackingImmediately:(BOOL)startTracking {
+    if (self = [super init]) {
+        if (nativeVideoView == nil) {
+            MPLogInfo(@"nil ad view passed into %s", __PRETTY_FUNCTION__);
+            return nil;
+        }
+
+        // Register handler for disabling of viewability tracking.
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onDisableViewabilityTrackingForNotification:)
+                                                     name:kDisableViewabilityTrackerNotification
+                                                   object:nil];
+
+        // Initialize all known and enabled viewability trackers.
+        NSMutableDictionary<NSNumber *, id<MPViewabilityAdapter>> * trackers = [NSMutableDictionary dictionary];
+        for (NSInteger index = 1; index < MPViewabilityOptionAll; index = index << 1) {
+            NSString *className = sSupportedAdapters[@(index)];
+            id<MPViewabilityAdapter> tracker = [self initializeTrackerWithClassName:className
+                                                               forViewabilityOption:index
+                                                                withNativeVideoView:nativeVideoView
+                                                           startTrackingImmediately:startTracking];
+            if (tracker != nil) {
+                trackers[@(index)] = tracker;
+            }
+        }
+
+        _trackers = trackers;
+    }
+
+    return self;
+}
+
+- (id<MPViewabilityAdapter>)initializeTrackerWithClassName:(NSString *)className
+                                      forViewabilityOption:(MPViewabilityOption)option
+                                       withNativeVideoView:(UIView *)nativeVideoView
+                                  startTrackingImmediately:(BOOL)startTracking {
+    // Ignore invalid options and empty class name
+    if (option == MPViewabilityOptionNone || option == MPViewabilityOptionAll || className.length == 0) {
+        return nil;
+    }
+
+    // Check if the tracker class exists in the runtime and if it is enabled before init attempt
+    Class adapterClass = NSClassFromString(className);
+    if (adapterClass
+        && [adapterClass conformsToProtocol:@protocol(MPViewabilityAdapterForNativeVideoView)]
+        && OptionsHasValue(sEnabledViewabilityVendors, option)) {
+        id<MPViewabilityAdapter> tracker = [[adapterClass alloc]
+                                            initWithNativeVideoView:nativeVideoView
+                                            startTrackingImmediately:startTracking];
         return tracker;
     }
 
@@ -137,6 +202,15 @@ NSString *const kDisabledViewabilityTrackers = @"disableViewabilityTrackers";
 
 - (void)registerFriendlyObstructionView:(UIView *)view {
     [self.trackers.allValues makeObjectsPerformSelector:@selector(registerFriendlyObstructionView:) withObject:view];
+}
+
+- (void)trackNativeVideoEvent:(MPVideoEvent)event eventInfo:(NSDictionary<NSString *, id> *)eventInfo {
+    for (id<MPViewabilityAdapter> tracker in self.trackers.allValues) {
+        if ([tracker conformsToProtocol:@protocol(MPViewabilityAdapterForNativeVideoView)]) {
+            [((id<MPViewabilityAdapterForNativeVideoView>)tracker) trackNativeVideoEvent:event
+                                                                               eventInfo:eventInfo];
+        }
+    }
 }
 
 + (MPViewabilityOption)enabledViewabilityVendors {

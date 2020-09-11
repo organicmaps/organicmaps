@@ -1,7 +1,7 @@
 //
 //  MPVASTError.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSUInteger, MPVASTError) {
     //MPVASTErrorCannotFindNonLinearResourceWithSupportedTypes = 503,
 
     /// General CompanionAds error.
-    //MPVASTErrorGeneralCompanionAdsError = 600,
+    MPVASTErrorGeneralCompanionAdsError = 600,
 
     /// Unable to display Companion because creative dimensions do not fit within Companion display
     /// area (i.e., no available space).

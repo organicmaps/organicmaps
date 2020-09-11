@@ -1,7 +1,7 @@
 //
 //  MPTimer.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -13,7 +13,7 @@
 @interface MPTimer ()
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) NSTimer *timer; // lazily created in `scheduleNow`
 @property (nonatomic, assign) BOOL isRepeatingTimer;
 @property (nonatomic, assign) BOOL isCountdownActive;
 
@@ -37,21 +37,26 @@
     timer.isRepeatingTimer = repeats;
     timer.timeInterval = seconds;
 
-    // Use the main thread run loop to keep the timer alive.
-    // Note: `NSRunLoop` is not thread safe, so we have to access it from main thread only.
+    // Initialize the internal `NSTimer`, but set its fire date in the far future.
+    // `scheduleNow` will handle the firing of the timer.
+    timer.timer = [NSTimer timerWithTimeInterval:seconds
+                                          target:timer
+                                        selector:@selector(timerDidFire)
+                                        userInfo:nil
+                                         repeats:repeats];
+    [timer.timer setFireDate:NSDate.distantFuture];
+
+    // Runloop scheduling must be performed on the main thread. To prevent
+    // a potential deadlock, scheduling to the main thread will be asynchronous
+    // on the next main thread run loop.
     void (^mainThreadOperation)(void) = ^void(void) {
-        timer.timer = [NSTimer timerWithTimeInterval:seconds
-                                              target:timer
-                                            selector:@selector(timerDidFire)
-                                            userInfo:nil
-                                             repeats:repeats];
-        [timer.timer setFireDate:[NSDate distantFuture]]; // do not fire until `scheduleNow` is called
-        [[NSRunLoop mainRunLoop] addTimer:timer.timer forMode:runLoopMode];
+        [NSRunLoop.mainRunLoop addTimer:timer.timer forMode:runLoopMode];
     };
+
     if ([NSThread isMainThread]) {
         mainThreadOperation();
     } else {
-        dispatch_sync(dispatch_get_main_queue(), mainThreadOperation);
+        dispatch_async(dispatch_get_main_queue(), mainThreadOperation);
     }
 
     return timer;
@@ -71,25 +76,6 @@
 - (void)dealloc
 {
     [self.timer invalidate];
-}
-
-- (void)timerDidFire
-{
-    @synchronized (self) {
-        if (!self.isRepeatingTimer) {
-            self.isCountdownActive = NO; // this is the last firing
-        }
-
-        if (self.selector == nil) {
-            MPLogDebug(@"%s `selector` is unexpectedly nil. Return early to avoid crash.", __FUNCTION__);
-            return;
-        }
-
-        // use `objc_msgSend` to avoid the potential memory leak issue of `performSelector:`
-        typedef void (*Message)(id, SEL, id);
-        Message func = (Message)objc_msgSend;
-        func(self.target, self.selector, self);
-    }
 }
 
 - (BOOL)isValid
@@ -120,12 +106,12 @@
      */
     @synchronized (self) {
         if (![self.timer isValid]) {
-//            MPLogDebug(@"Could not schedule invalidated MPTimer (%p).", self);
+//                MPLogDebug(@"Could not schedule invalidated MPTimer (%p).", self);
             return;
         }
 
         if (self.isCountdownActive) {
-//            MPLogDebug(@"Tried to schedule an MPTimer (%p) that is already ticking.",self);
+//                MPLogDebug(@"Tried to schedule an MPTimer (%p) that is already ticking.",self);
             return;
         }
 
@@ -166,6 +152,27 @@
 - (void)resume
 {
     [self scheduleNow];
+}
+
+#pragma mark - Private
+
+- (void)timerDidFire
+{
+    @synchronized (self) {
+        if (!self.isRepeatingTimer) {
+            self.isCountdownActive = NO; // this is the last firing
+        }
+
+        if (self.selector == nil) {
+            MPLogDebug(@"%s `selector` is unexpectedly nil. Return early to avoid crash.", __FUNCTION__);
+            return;
+        }
+
+        // use `objc_msgSend` to avoid the potential memory leak issue of `performSelector:`
+        typedef void (*Message)(id, SEL, id);
+        Message func = (Message)objc_msgSend;
+        func(self.target, self.selector, self);
+    }
 }
 
 @end

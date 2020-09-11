@@ -1,7 +1,7 @@
 //
 //  MPCollectionViewAdPlacer.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -145,7 +145,7 @@ static NSString * const kCollectionViewAdPlacerReuseIdentifier = @"MPCollectionV
     [UIView setAnimationsEnabled:NO];
 
     [self.collectionView performBatchUpdates:^{
-        [self.collectionView deleteItemsAtIndexPaths:indexPaths];
+        [self.collectionView deleteItemsAtIndexPaths:validIndexPaths];
     } completion:^(BOOL finished) {
         [UIView setAnimationsEnabled:animationsWereEnabled];
     }];

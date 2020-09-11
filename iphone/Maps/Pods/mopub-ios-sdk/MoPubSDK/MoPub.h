@@ -1,7 +1,7 @@
 //
 //  MoPub.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -26,7 +26,6 @@
 #import "MPEngineInfo.h"
 #import "MPError.h"
 #import "MPGlobal.h"
-#import "MPIdentityProvider.h"
 #import "MPImpressionData.h"
 #import "MPImpressionTrackedNotification.h"
 #import "MPInterstitialAdController.h"
@@ -47,36 +46,8 @@
 #import "MPViewabilityAdapter.h"
 #import "MPViewabilityOption.h"
 
-#if MP_HAS_NATIVE_PACKAGE
-#import "MPNativeAd.h"
-#import "MPNativeAdAdapter.h"
-#import "MPNativeAdConstants.h"
-#import "MPNativeCustomEvent.h"
-#import "MPNativeCustomEventDelegate.h"
-#import "MPNativeAdError.h"
-#import "MPNativeAdRendering.h"
-#import "MPNativeAdRequest.h"
-#import "MPNativeAdRequestTargeting.h"
-#import "MPNativeView.h"
-#import "MPNativeAdUtils.h"
-#import "MPCollectionViewAdPlacer.h"
-#import "MPCollectionViewAdPlacerDelegate.h"
-#import "MPTableViewAdPlacer.h"
-#import "MPTableViewAdPlacerDelegate.h"
-#import "MPClientAdPositioning.h"
-#import "MPServerAdPositioning.h"
-#import "MPNativeAdDelegate.h"
-#import "MPStaticNativeAdRendererSettings.h"
-#import "MPNativeAdRendererConfiguration.h"
-#import "MPNativeAdRendererSettings.h"
-#import "MPNativeAdRenderer.h"
-#import "MPStaticNativeAdRenderer.h"
-#import "MPNativeAdRendererImageHandler.h"
-#import "MOPUBNativeVideoAdRendererSettings.h"
-#import "MOPUBNativeVideoAdRenderer.h"
-#import "MPNativeAdRenderingImageLoader.h"
-#import "MPStreamAdPlacer.h"
-#import "MPStreamAdPlacerDelegate.h"
+#if __has_include("MPNativeAds.h")
+    #import "MPNativeAds.h"
 #endif
 
 // Import these frameworks for module support.

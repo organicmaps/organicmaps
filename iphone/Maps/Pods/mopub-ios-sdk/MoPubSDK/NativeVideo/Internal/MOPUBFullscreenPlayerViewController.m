@@ -1,7 +1,7 @@
 //
 //  MOPUBFullscreenPlayerViewController.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -63,7 +63,7 @@ static CGFloat const kStallSpinnerSize = 35.0f;
 
 @property (nonatomic) MOPUBPlayerViewController *playerController;
 @property (nonatomic) UIView *originalParentView;
-@property (nonatomic) MPAdDestinationDisplayAgent *displayAgent;
+@property (nonatomic) id<MPAdDestinationDisplayAgent> displayAgent;
 @property (nonatomic, copy) MOPUBFullScreenPlayerViewControllerDismissBlock dismissBlock;
 
 // Overrides

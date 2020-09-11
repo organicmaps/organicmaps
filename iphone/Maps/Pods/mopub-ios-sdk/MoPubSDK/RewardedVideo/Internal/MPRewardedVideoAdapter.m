@@ -1,7 +1,7 @@
 //
 //  MPRewardedVideoAdapter.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -24,13 +24,14 @@
 #import "MPMoPubRewardedVideoCustomEvent.h"
 #import "MPMoPubRewardedPlayableCustomEvent.h"
 #import "MPRealTimeTimer.h"
+#import "MPVASTInterstitialCustomEvent.h"
 #import "NSString+MPAdditions.h"
 
 static const NSUInteger kExcessiveCustomDataLength = 8196;
 
 @interface MPRewardedVideoAdapter () <MPRewardedVideoCustomEventDelegate>
 
-@property (nonatomic, strong) MPRewardedVideoCustomEvent *rewardedVideoCustomEvent;
+@property (nonatomic, strong) id<MPRewardedVideoCustomEvent> rewardedVideoCustomEvent;
 @property (nonatomic, strong) MPAdConfiguration *configuration;
 @property (nonatomic, strong) MPTimer *timeoutTimer;
 @property (nonatomic, assign) BOOL hasTrackedImpression;
@@ -73,8 +74,8 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     MPLogInfo(@"Looking for custom event class named %@.", configuration.customEventClass);
 
     self.configuration = configuration;
-    MPRewardedVideoCustomEvent *customEvent = [[configuration.customEventClass alloc] init];
-    if (![customEvent isKindOfClass:[MPRewardedVideoCustomEvent class]]) {
+    id<MPRewardedVideoCustomEvent> customEvent = [[configuration.customEventClass alloc] init];
+    if (![customEvent conformsToProtocol:@protocol(MPRewardedVideoCustomEvent)]) {
         NSError * error = [NSError customEventClass:configuration.customEventClass doesNotInheritFrom:MPRewardedVideoCustomEvent.class];
         MPLogEvent([MPLogEvent error:error message:nil]);
         [self.delegate rewardedVideoDidFailToLoadForAdapter:nil error:error];
@@ -181,7 +182,7 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     return [self.delegate instanceMediationSettingsForClass:aClass];
 }
 
-- (void)rewardedVideoDidLoadAdForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent
+- (void)rewardedVideoDidLoadAdForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent
 {
     // Don't report multiple successful loads. Backing ad networks may replenish their caches triggering multiple successful load
     // callbacks.
@@ -194,7 +195,9 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     [self.delegate rewardedVideoDidLoadForAdapter:self];
 
     // Check for MoPub-specific custom events before setting the timer
-    if ([customEvent isKindOfClass:[MPMoPubRewardedVideoCustomEvent class]]
+    // Custom events for 3rd party SDK have their own timeout and expiration handling
+    if ([customEvent isKindOfClass:[MPVASTInterstitialCustomEvent class]]
+        || [customEvent isKindOfClass:[MPMoPubRewardedVideoCustomEvent class]]
         || [customEvent isKindOfClass:[MPMoPubRewardedPlayableCustomEvent class]]) {
         // Set up timer for expiration
         __weak __typeof__(self) weakSelf = self;
@@ -209,7 +212,7 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     }
 }
 
-- (void)rewardedVideoDidFailToLoadAdForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent error:(NSError *)error
+- (void)rewardedVideoDidFailToLoadAdForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent error:(NSError *)error
 {
     // Detach the custom event from the adapter. An ad *may* end up, after some time, loading successfully
     // from the underlying network, but we don't want to bubble up the event to the application since we
@@ -221,7 +224,7 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     [self.delegate rewardedVideoDidFailToLoadForAdapter:self error:error];
 }
 
-- (void)rewardedVideoDidExpireForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent
+- (void)rewardedVideoDidExpireForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent
 {
     // Only allow one expire per custom event to match up with one successful load callback per custom event.
     if (self.hasExpired) {
@@ -232,17 +235,17 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     [self.delegate rewardedVideoDidExpireForAdapter:self];
 }
 
-- (void)rewardedVideoDidFailToPlayForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent error:(NSError *)error
+- (void)rewardedVideoDidFailToPlayForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent error:(NSError *)error
 {
     [self.delegate rewardedVideoDidFailToPlayForAdapter:self error:error];
 }
 
-- (void)rewardedVideoWillAppearForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent
+- (void)rewardedVideoWillAppearForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent
 {
     [self.delegate rewardedVideoWillAppearForAdapter:self];
 }
 
-- (void)rewardedVideoDidAppearForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent
+- (void)rewardedVideoDidAppearForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent
 {
     if ([self.rewardedVideoCustomEvent enableAutomaticImpressionAndClickTracking] && !self.hasTrackedImpression) {
         [self trackImpression];
@@ -251,22 +254,22 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     [self.delegate rewardedVideoDidAppearForAdapter:self];
 }
 
-- (void)rewardedVideoWillDisappearForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent
+- (void)rewardedVideoWillDisappearForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent
 {
     [self.delegate rewardedVideoWillDisappearForAdapter:self];
 }
 
-- (void)rewardedVideoDidDisappearForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent
+- (void)rewardedVideoDidDisappearForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent
 {
     [self.delegate rewardedVideoDidDisappearForAdapter:self];
 }
 
-- (void)rewardedVideoWillLeaveApplicationForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent
+- (void)rewardedVideoWillLeaveApplicationForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent
 {
     [self.delegate rewardedVideoWillLeaveApplicationForAdapter:self];
 }
 
-- (void)rewardedVideoDidReceiveTapEventForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent
+- (void)rewardedVideoDidReceiveTapEventForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent
 {
     if ([self.rewardedVideoCustomEvent enableAutomaticImpressionAndClickTracking] && !self.hasTrackedClick) {
         self.hasTrackedClick = YES;
@@ -276,7 +279,7 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     [self.delegate rewardedVideoDidReceiveTapEventForAdapter:self];
 }
 
-- (void)rewardedVideoShouldRewardUserForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent reward:(MPRewardedVideoReward *)reward
+- (void)rewardedVideoShouldRewardUserForCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent reward:(MPRewardedVideoReward *)reward
 {
     if (self.configuration) {
         // Send server to server callback if available
@@ -299,7 +302,7 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     }
 }
 
-- (NSString *)customerIdForRewardedVideoCustomEvent:(MPRewardedVideoCustomEvent *)customEvent
+- (NSString *)customerIdForRewardedVideoCustomEvent:(id<MPRewardedVideoCustomEvent>)customEvent
 {
     if ([self.delegate respondsToSelector:@selector(rewardedVideoCustomerId)]) {
         return [self.delegate rewardedVideoCustomerId];

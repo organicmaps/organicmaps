@@ -1,7 +1,7 @@
 //
 //  MOPUBPlayerViewController.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -58,7 +58,7 @@ static const double kVideoFinishedBufferingAllowedError = 0.1;
 @property (nonatomic, strong) MPVideoConfig *videoConfig;
 @property (nonatomic) MPExtendedHitBoxButton *muteButton;
 @property (nonatomic) UIActivityIndicatorView *loadingIndicator;
-@property (nonatomic) MPAdDestinationDisplayAgent *displayAgent;
+@property (nonatomic) id<MPAdDestinationDisplayAgent> displayAgent;
 
 // KVO might be triggerd multipe times. This property is used to make sure the view will only be created once.
 @property (nonatomic) BOOL alreadyInitialized;
@@ -271,7 +271,7 @@ static const double kVideoFinishedBufferingAllowedError = 0.1;
 
 #pragma mark - displayAgent
 
-- (MPAdDestinationDisplayAgent *)displayAgent
+- (id<MPAdDestinationDisplayAgent> )displayAgent
 {
     if (!_displayAgent) {
         _displayAgent = [MPAdDestinationDisplayAgent agentWithDelegate:self];

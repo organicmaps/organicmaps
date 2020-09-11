@@ -1,7 +1,7 @@
 //
 //  MPConstants.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -14,7 +14,7 @@
 #define MP_SERVER_VERSION           @"8"
 #define MP_REWARDED_API_VERSION     @"1"
 #define MP_BUNDLE_IDENTIFIER        @"com.mopub.mopub"
-#define MP_SDK_VERSION              @"5.10.0"
+#define MP_SDK_VERSION              @"5.12.0"
 
 // Sizing constants.
 extern CGSize const MOPUB_BANNER_SIZE __attribute__((deprecated("Use kMPPresetMaxAdSizeMatchFrame, kMPPresetMaxAdSizeMatchFrame, kMPPresetMaxAdSize50Height, kMPPresetMaxAdSizeBanner90Height, kMPPresetMaxAdSize90Height, kMPPresetMaxAdSize250Height, kMPPresetMaxAdSize280Height, or a custom maximum desired ad area instead")));

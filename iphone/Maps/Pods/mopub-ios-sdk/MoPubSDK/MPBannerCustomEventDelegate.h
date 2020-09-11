@@ -1,7 +1,7 @@
 //
 //  MPBannerCustomEventDelegate.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -39,8 +39,10 @@
  * into `MPAdView`.
  *
  * You may use this to inform third-party ad networks of the user's location.
+ *
+ * @deprecated This API is deprecated and will be removed in a future version.
  */
-- (CLLocation *)location;
+- (CLLocation *)location __attribute__((deprecated("This API is deprecated and will be removed in a future version.")));
 
 /** @name Banner Ad Event Callbacks - Fetching Ads */
 

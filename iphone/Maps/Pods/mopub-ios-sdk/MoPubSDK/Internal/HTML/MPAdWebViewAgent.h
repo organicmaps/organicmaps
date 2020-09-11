@@ -1,7 +1,7 @@
 //
 //  MPAdWebViewAgent.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -42,8 +42,6 @@ typedef NSUInteger MPAdWebViewEvent;
 
 @protocol MPAdWebViewAgentDelegate <NSObject>
 
-- (NSString *)adUnitId;
-- (CLLocation *)location;
 - (UIViewController *)viewControllerForPresentingModalView;
 - (void)adDidClose:(MPWebView *)ad;
 - (void)adDidFinishLoadingAd:(MPWebView *)ad;

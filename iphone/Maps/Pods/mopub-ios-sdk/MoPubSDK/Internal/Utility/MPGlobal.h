@@ -1,7 +1,7 @@
 //
 //  MPGlobal.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -57,25 +57,5 @@ UIInterfaceOrientationMask MPInterstitialOrientationTypeToUIInterfaceOrientation
 
 - (BOOL)mp_supportsOrientationMask:(UIInterfaceOrientationMask)orientationMask;
 - (BOOL)mp_doesOrientation:(UIInterfaceOrientation)orientation matchOrientationMask:(UIInterfaceOrientationMask)orientationMask;
-
-@end
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// Optional Class Forward Def Protocols
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@class MPAdConfiguration, CLLocation;
-
-@protocol MPAdAlertManagerProtocol <NSObject>
-
-@property (nonatomic, strong) MPAdConfiguration *adConfiguration;
-@property (nonatomic, copy) NSString *adUnitId;
-@property (nonatomic, copy) CLLocation *location;
-@property (nonatomic, weak) UIView *targetAdView;
-@property (nonatomic, weak) id delegate;
-
-- (void)beginMonitoringAlerts;
-- (void)endMonitoringAlerts;
-- (void)processAdAlertOnce;
 
 @end

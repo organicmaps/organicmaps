@@ -16,7 +16,6 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <StoreKit/StoreKit.h>
 #import <UIKit/UIKit.h>
 
 #import <FBAudienceNetwork/FBAdDefines.h>
@@ -55,7 +54,7 @@ FB_CLASS_EXPORT
 - (nullable instancetype)initWithPlacementID:(NSString *)placementID
                                   bidPayload:(NSString *)bidPayload
                           rootViewController:(nullable UIViewController *)rootViewController
-                                       error:(NSError * __autoreleasing *) error;
+                                       error:(NSError *__autoreleasing *)error;
 
 /**
   Begins loading the FBAdView content.

@@ -1,7 +1,7 @@
 //
 //  MPInterstitialAdController.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -70,7 +70,6 @@
     MPAdTargeting * targeting = [MPAdTargeting targetingWithCreativeSafeSize:MPApplicationFrame(YES).size];
     targeting.keywords = self.keywords;
     targeting.localExtras = self.localExtras;
-    targeting.location = self.location;
     targeting.userDataKeywords = self.userDataKeywords;
 
     [self.manager loadInterstitialWithAdUnitID:self.adUnitId targeting:targeting];

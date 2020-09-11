@@ -1,7 +1,7 @@
 //
 //  MPMoPubNativeAdAdapter.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -22,7 +22,7 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
 @interface MPMoPubNativeAdAdapter () <MPAdDestinationDisplayAgentDelegate, MPAdImpressionTimerDelegate>
 
 @property (nonatomic, strong) MPAdImpressionTimer *impressionTimer;
-@property (nonatomic, strong) MPAdDestinationDisplayAgent *destinationDisplayAgent;
+@property (nonatomic, strong) id<MPAdDestinationDisplayAgent> destinationDisplayAgent;
 
 @end
 
@@ -38,9 +38,9 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
 
         // Let's make sure the data types of all the provided native ad properties are strings before creating the adapter
 
-        NSArray *keysToCheck = @[kAdIconImageKey, kAdMainImageKey, kAdTextKey, kAdTitleKey, kAdCTATextKey, kAdPrivacyIconImageUrlKey, kAdPrivacyIconClickUrlKey];
+        NSArray *stringKeysToCheck = @[kAdIconImageKey, kAdMainImageKey, kAdTextKey, kAdSponsoredByCompanyKey, kAdTitleKey, kAdCTATextKey, kAdPrivacyIconImageUrlKey, kAdPrivacyIconClickUrlKey];
 
-        for (NSString *key in keysToCheck) {
+        for (NSString *key in stringKeysToCheck) {
             id value = properties[key];
             if (value != nil && ![value isKindOfClass:[NSString class]]) {
                 return nil;
@@ -57,13 +57,6 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
         }
 
         BOOL valid = YES;
-        NSArray *impressionTrackers = [properties objectForKey:kImpressionTrackerURLsKey];
-        if (![impressionTrackers isKindOfClass:[NSArray class]] || [impressionTrackers count] < 1) {
-            valid = NO;
-        } else {
-            _impressionTrackerURLs = MPConvertStringArrayToURLArray(impressionTrackers);
-        }
-
         NSObject *clickTracker = [properties objectForKey:kClickTrackerURLKey];
 
         // The click tracker could either be a single URL or an array of URLS.
@@ -96,7 +89,7 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
         }
         _impressionTimer.delegate = self;
 
-        [properties removeObjectsForKeys:@[kImpressionTrackerURLsKey, kClickTrackerURLKey, kDefaultActionURLKey, kNativeAdConfigKey]];
+        [properties removeObjectsForKeys:@[kClickTrackerURLKey, kDefaultActionURLKey, kNativeAdConfigKey]];
         _properties = properties;
 
         if (!valid) {

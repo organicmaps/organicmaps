@@ -1,25 +1,20 @@
 //
 //  MPNativeAdRendererImageHandler.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "MPImageLoader.h"
 
-@protocol MPNativeAdRendererImageHandlerDelegate <NSObject>
-
-- (BOOL)nativeAdViewInViewHierarchy;
-
+@protocol MPNativeAdRendererImageHandlerDelegate <MPImageLoaderDelegate>
 @end
 
-@interface MPNativeAdRendererImageHandler : NSObject
-
+@interface MPNativeAdRendererImageHandler : MPImageLoader
 
 @property (nonatomic, weak) id<MPNativeAdRendererImageHandlerDelegate> delegate;
-
-- (void)loadImageForURL:(NSURL *)imageURL intoImageView:(UIImageView *)imageView;
 
 @end

@@ -1,7 +1,7 @@
 //
 //  MoPub.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -10,7 +10,6 @@
 #import "MPAdServerURLBuilder.h"
 #import "MPConsentManager.h"
 #import "MPConstants.h"
-#import "MPCoreInstanceProvider.h"
 #import "MPGeolocationProvider.h"
 #import "MPLogging.h"
 #import "MPMediationManager.h"
@@ -68,12 +67,12 @@ static NSString * const kPublisherEnteredAdUnitIdStorageKey = @"com.mopub.mopub-
 
 - (void)setLocationUpdatesEnabled:(BOOL)locationUpdatesEnabled
 {
-    [[[MPCoreInstanceProvider sharedProvider] sharedMPGeolocationProvider] setLocationUpdatesEnabled:locationUpdatesEnabled];
+    [MPGeolocationProvider.sharedProvider setLocationUpdatesEnabled:locationUpdatesEnabled];
 }
 
 - (BOOL)locationUpdatesEnabled
 {
-    return [[MPCoreInstanceProvider sharedProvider] sharedMPGeolocationProvider].locationUpdatesEnabled;
+    return MPGeolocationProvider.sharedProvider.locationUpdatesEnabled;
 }
 
 - (void)setFrequencyCappingIdUsageEnabled:(BOOL)frequencyCappingIdUsageEnabled

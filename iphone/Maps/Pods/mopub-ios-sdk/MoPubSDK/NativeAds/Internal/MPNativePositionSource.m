@@ -1,14 +1,13 @@
 //
 //  MPNativePositionSource.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPNativePositionSource.h"
 #import "MPConstants.h"
-#import "MPIdentityProvider.h"
 #import "MPAdPositioning.h"
 #import "MPClientAdPositioning.h"
 #import "MPLogging.h"

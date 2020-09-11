@@ -1,7 +1,7 @@
 //
 //  MPNativeCustomEvent.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -42,12 +42,6 @@
             completionBlock(nil);
         }
     }
-}
-
-- (void)requestAdWithCustomEventInfo:(NSDictionary *)info
-{
-    // This deprecated method will forward the request to with no ad markup.
-    [self requestAdWithCustomEventInfo:info adMarkup:nil];
 }
 
 - (void)requestAdWithCustomEventInfo:(NSDictionary *)info adMarkup:(NSString *)adMarkup

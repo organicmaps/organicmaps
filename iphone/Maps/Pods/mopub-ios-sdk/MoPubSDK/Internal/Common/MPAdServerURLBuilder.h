@@ -1,7 +1,7 @@
 //
 //  MPAdServerURLBuilder.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -10,8 +10,6 @@
 #import "MPAdTargeting.h"
 #import "MPEngineInfo.h"
 #import "MPURL.h"
-
-@class CLLocation;
 
 @interface MPAdServerURLBuilder : NSObject
 

@@ -1,7 +1,7 @@
 //
 //  MPDiskLRUCache.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -63,6 +63,8 @@
                        fileManager:[NSFileManager defaultManager]];
 }
 
+#pragma mark Private
+
 - (id)initWithCachePath:(NSString *)cachePath fileManager:(NSFileManager *)fileManager {
     self = [super init];
     if (self != nil) {
@@ -87,65 +89,6 @@
 
     return self;
 }
-
-#pragma mark Public
-
-- (void)removeAllCachedFiles
-{
-    dispatch_sync(self.diskIOQueue, ^{
-        NSArray *allFiles = [self cacheFilesSortedByModDate];
-        for (MPDiskLRUCacheFile *file in allFiles) {
-            [self.fileManager removeItemAtPath:file.filePath error:nil];
-        }
-    });
-}
-
-- (BOOL)cachedDataExistsForKey:(NSString *)key
-{
-    __block BOOL result = NO;
-
-    dispatch_sync(self.diskIOQueue, ^{
-        result = [self.fileManager fileExistsAtPath:[self cacheFilePathForKey:key]];
-    });
-
-    return result;
-}
-
-- (NSData *)retrieveDataForKey:(NSString *)key
-{
-    __block NSData *data = nil;
-
-    if ([self cachedDataExistsForKey:key]) {
-        NSString *cacheFilePath = [self cacheFilePathForKey:key];
-        data = [NSData dataWithContentsOfFile:cacheFilePath];
-        [self touchCacheFileAtPath:cacheFilePath];
-    }
-
-    return data;
-}
-
-- (void)storeData:(NSData *)data forKey:(NSString *)key
-{
-    NSString *cacheFilePath = [self cacheFilePathForKey:key];
-
-    dispatch_sync(self.diskIOQueue, ^{
-        if (![self.fileManager fileExistsAtPath:cacheFilePath]) {
-            [self.fileManager createFileAtPath:cacheFilePath contents:data attributes:nil];
-        } else {
-            // overwrite existing file
-            [data writeToFile:cacheFilePath atomically:YES];
-        }
-    });
-
-    self.numBytesStoredForSizeCheck += data.length;
-
-    if (self.numBytesStoredForSizeCheck >= kCacheBytesStoredBeforeSizeCheck) {
-        [self ensureCacheSizeLimit];
-        self.numBytesStoredForSizeCheck = 0;
-    }
-}
-
-#pragma mark Private
 
 - (void)ensureCacheSizeLimit
 {
@@ -265,6 +208,69 @@
 
 @end
 
+#pragma mark - MPDiskLRUCache
+
+@implementation MPDiskLRUCache (MPDiskLRUCache)
+
+- (BOOL)cachedDataExistsForKey:(NSString *)key
+{
+    __block BOOL result = NO;
+
+    dispatch_sync(self.diskIOQueue, ^{
+        result = [self.fileManager fileExistsAtPath:[self cacheFilePathForKey:key]];
+    });
+
+    return result;
+}
+
+- (NSData *)retrieveDataForKey:(NSString *)key
+{
+    __block NSData *data = nil;
+
+    if ([self cachedDataExistsForKey:key]) {
+        NSString *cacheFilePath = [self cacheFilePathForKey:key];
+        data = [NSData dataWithContentsOfFile:cacheFilePath];
+        [self touchCacheFileAtPath:cacheFilePath];
+    }
+
+    return data;
+}
+
+- (void)storeData:(NSData *)data forKey:(NSString *)key
+{
+    NSString *cacheFilePath = [self cacheFilePathForKey:key];
+
+    dispatch_sync(self.diskIOQueue, ^{
+        if (![self.fileManager fileExistsAtPath:cacheFilePath]) {
+            [self.fileManager createFileAtPath:cacheFilePath contents:data attributes:nil];
+        } else {
+            // overwrite existing file
+            [data writeToFile:cacheFilePath atomically:YES];
+        }
+    });
+
+    self.numBytesStoredForSizeCheck += data.length;
+
+    if (self.numBytesStoredForSizeCheck >= kCacheBytesStoredBeforeSizeCheck) {
+        [self ensureCacheSizeLimit];
+        self.numBytesStoredForSizeCheck = 0;
+    }
+}
+
+- (void)removeAllCachedFiles
+{
+    dispatch_sync(self.diskIOQueue, ^{
+        NSArray *allFiles = [self cacheFilesSortedByModDate];
+        for (MPDiskLRUCacheFile *file in allFiles) {
+            [self.fileManager removeItemAtPath:file.filePath error:nil];
+        }
+    });
+}
+
+@end
+
+#pragma mark - MPMediaFileCache
+
 @implementation MPDiskLRUCache (MPMediaFileCache)
 
 - (NSString *)cacheKeyForRemoteMediaURL:(NSURL *)remoteFileURL {
@@ -273,8 +279,8 @@
 
 /**
  Obtain the expected local cache file URL provided the remote file URL.
- Note: The cached file referenced by the returned URL may not exist. After the remote file is
- downloaded, use `moveFileAtLocalURL:toCacheURL:` to move it to the returned cache file URL.
+ Note: The cached file referenced by the returned URL may not exist. After the remote data is
+ downloaded, use `storeData:forRemoteSourceFileURL:` to store it to the returned cache file URL.
  */
 - (NSURL *)cachedFileURLForRemoteFileURL:(NSURL *)remoteFileURL {
     NSString *cacheKey = [self cacheKeyForRemoteMediaURL:remoteFileURL];
@@ -291,15 +297,10 @@
     return result;
 }
 
-- (NSError *)moveLocalFileToCache:(NSURL *)localFileURL remoteSourceFileURL:(NSURL *)remoteFileURL {
-    NSURL *localCacheFileURL = [self cachedFileURLForRemoteFileURL:remoteFileURL];
-    __block NSError *error;
+- (void)storeData:(NSData *)data forRemoteSourceFileURL:(NSURL *)remoteFileURL {
     dispatch_sync(self.diskIOQueue, ^{
-        [self.fileManager moveItemAtURL:localFileURL
-                                  toURL:localCacheFileURL
-                                  error:&error];
+        [data writeToURL:[self cachedFileURLForRemoteFileURL:remoteFileURL] atomically:YES];
     });
-    return error;
 }
 
 - (void)touchCachedFileForRemoteFile:(NSURL *)remoteFileURL {

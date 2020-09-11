@@ -1,7 +1,7 @@
 //
 //  MPMediaFileCache.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -25,17 +25,23 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MPMediaFileCache <NSObject>
 
 /**
+ Obtain the expected local cache file URL provided the remote file URL.
+ Note: The cached file referenced by the returned URL may not exist. After the remote data is
+ downloaded, use `storeData:forRemoteSourceFileURL:` to store it to the returned cache file URL.
+ */
+- (NSURL *)cachedFileURLForRemoteFileURL:(NSURL *)remoteFileURL;
+
+/**
  Determine whether a remote media file has been locally cached.
  */
 - (BOOL)isRemoteFileCached:(NSURL *)remoteFileURL;
 
 /**
- Move a file to the cache directory.
- @param localFileURL The location of the file to move. Typically this source file is a temporary file
- provided by the completion handler of a URL session download task.
+ Store data to the cache directory.
+ @param data The data to write.
  @param remoteFileURL The original remote URL that the file was hosted.
  */
-- (NSError *)moveLocalFileToCache:(NSURL *)localFileURL remoteSourceFileURL:(NSURL *)remoteFileURL;
+- (void)storeData:(NSData *)data forRemoteSourceFileURL:(NSURL *)remoteFileURL;
 
 @optional
 

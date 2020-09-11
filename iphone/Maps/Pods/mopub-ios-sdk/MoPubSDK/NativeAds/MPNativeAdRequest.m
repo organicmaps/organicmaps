@@ -1,7 +1,7 @@
 //
 //  MPNativeAdRequest.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -168,7 +168,7 @@ static NSString * const kNativeAdErrorDomain = @"com.mopub.NativeAd";
                                                                                    impressionMinVisiblePercent:configuration.nativeImpressionMinVisiblePercent
                                                                                    impressionMinVisibleSeconds:configuration.nativeImpressionMinVisibleTimeInterval
                                                                                               maxBufferingTime:configuration.nativeVideoMaxBufferingTime
-                                                                                                      trackers:configuration.nativeVideoTrackers];
+                                                                                                      trackers:configuration.vastVideoTrackers];
         } else if (configuration.customEventClass == [MPMoPubNativeCustomEvent class]) {
             classData[kNativeAdConfigKey] = [[MPNativeAdConfigValues alloc] initWithImpressionMinVisiblePixels:configuration.nativeImpressionMinVisiblePixels
                                                                                    impressionMinVisiblePercent:configuration.nativeImpressionMinVisiblePercent

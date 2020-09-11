@@ -1,7 +1,7 @@
 //
 //  MPAdTargeting.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @class CLLocation;
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  Optional targeting parameters to use when requesting an ad.
@@ -28,17 +30,18 @@
  @remark If a user is in General Data Protection Regulation (GDPR) region and MoPub doesn't obtain
  consent from the user, @c keywords will still be sent to the server.
  */
-@property (nonatomic, copy) NSString * keywords;
+@property (nullable, nonatomic, copy) NSString * keywords;
 
 /**
  Key-value pairs that are locally available to the custom event.
  */
-@property (nonatomic, copy) NSDictionary * localExtras;
+@property (nullable, nonatomic, copy) NSDictionary * localExtras;
 
 /**
- A user's location that should be passed to the MoPub ad server to receive more relevant advertising.
+ The device's current location if permission to access location has been granted.
+ * @deprecated This API is deprecated and will be removed in a future version.
  */
-@property (nonatomic, copy) CLLocation * location;
+@property (nullable, nonatomic, copy) CLLocation * location __attribute__((deprecated("This API is deprecated and will be removed in a future version.")));
 
 /**
  A string representing a set of personally identifiable keywords that should be passed to the MoPub ad server to receive
@@ -53,7 +56,7 @@
  @remark If a user is in General Data Protection Regulation (GDPR) region and MoPub doesn't obtain
  consent from the user, @c userDataKeywords will not be sent to the server.
  */
-@property (nonatomic, copy) NSString * userDataKeywords;
+@property (nullable, nonatomic, copy) NSString * userDataKeywords;
 
 /**
  Initializes ad targeting information.
@@ -75,3 +78,5 @@
 + (instancetype)new NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

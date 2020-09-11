@@ -14,5 +14,6 @@
 	<string>UnityAdsAdapterConfiguration</string>
 	<string>VerizonAdapterConfiguration</string>
 	<string>VungleAdapterConfiguration</string>
+	<string>MintegralAdapterConfiguration</string>
 </array>
 </plist>

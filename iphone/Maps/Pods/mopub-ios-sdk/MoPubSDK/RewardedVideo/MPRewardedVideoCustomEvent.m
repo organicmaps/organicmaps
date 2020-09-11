@@ -1,7 +1,7 @@
 //
 //  MPRewardedVideoCustomEvent.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -10,12 +10,6 @@
 #import <UIKit/UIKit.h>
 
 @implementation MPRewardedVideoCustomEvent
-
-- (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info
-{
-    // This deprecated method will forward the request to with no ad markup.
-    [self requestRewardedVideoWithCustomEventInfo:info adMarkup:nil];
-}
 
 - (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info adMarkup:(NSString *)adMarkup
 {

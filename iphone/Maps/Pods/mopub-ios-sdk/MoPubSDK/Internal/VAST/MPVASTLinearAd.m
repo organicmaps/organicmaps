@@ -1,7 +1,7 @@
 //
 //  MPVASTLinearAd.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -34,7 +34,7 @@
                                                             modelProvider:^id(NSDictionary *dictionary) {
                                                                 return [[MPVASTTrackingEvent alloc] initWithDictionary:dictionary];
                                                             }];
-        NSMutableDictionary *eventsDictionary = [NSMutableDictionary dictionary];
+        NSMutableDictionary<NSString *, NSMutableArray<MPVASTTrackingEvent *> *> *eventsDictionary = [NSMutableDictionary dictionary];
         for (MPVASTTrackingEvent *event in trackingEvents) {
             NSMutableArray *events = [eventsDictionary objectForKey:event.eventType];
             if (!events) {

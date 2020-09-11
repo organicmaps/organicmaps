@@ -1,7 +1,7 @@
 //
 //  MPMRAIDBannerCustomEvent.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -47,19 +47,9 @@
 
 #pragma mark - MRControllerDelegate
 
-- (CLLocation *)location
-{
-    return [self.delegate location];
-}
-
 - (NSString *)adUnitId
 {
     return [self.delegate adUnitId];
-}
-
-- (MPAdConfiguration *)adConfiguration
-{
-    return [self.delegate configuration];
 }
 
 - (UIViewController *)viewControllerForPresentingModalView
@@ -75,11 +65,16 @@
 
 - (void)adDidFailToLoad:(UIView *)adView
 {
-    NSString * message = [NSString stringWithFormat:@"Failed to load creative:\n%@", self.adConfiguration.adResponseHTMLString];
+    NSString * message = [NSString stringWithFormat:@"Failed to load creative:\n%@", self.delegate.configuration.adResponseHTMLString];
     NSError * error = [NSError errorWithCode:MOPUBErrorAdapterFailedToLoadAd localizedDescription:message];
 
     MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:error], self.adUnitId);
     [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:error];
+}
+
+- (void)adDidReceiveClickthrough:(NSURL *)url
+{
+    [self.delegate trackClick];
 }
 
 - (void)closeButtonPressed
@@ -99,12 +94,12 @@
 
 - (void)trackImpressionsIncludedInMarkup
 {
-    [self.mraidController.mraidWebView stringByEvaluatingJavaScriptFromString:@"webviewDidAppear();"];
+    [self.mraidController triggerWebviewDidAppear];
 }
 
 - (void)startViewabilityTracker
 {
-    [self.mraidController.viewabilityTracker startTracking];
+    [self.mraidController startViewabilityTracking];
 }
 
 - (void)adWillExpand:(UIView *)adView

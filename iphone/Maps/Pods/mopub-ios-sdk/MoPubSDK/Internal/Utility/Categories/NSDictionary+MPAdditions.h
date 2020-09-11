@@ -1,7 +1,7 @@
 //
 //  NSDictionary+MPAdditions.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -12,6 +12,8 @@
 
 - (NSInteger)mp_integerForKey:(id)key;
 - (NSInteger)mp_integerForKey:(id)key defaultValue:(NSInteger)defaultVal;
+- (NSUInteger)mp_unsignedIntegerForKey:(id)key;
+- (NSUInteger)mp_unsignedIntegerForKey:(id)key defaultValue:(NSUInteger)defaultVal;
 - (double)mp_doubleForKey:(id)key;
 - (double)mp_doubleForKey:(id)key defaultValue:(double)defaultVal;
 - (NSString *)mp_stringForKey:(id)key;

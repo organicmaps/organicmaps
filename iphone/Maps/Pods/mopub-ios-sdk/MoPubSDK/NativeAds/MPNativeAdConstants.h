@@ -1,7 +1,7 @@
 //
 //  MPNativeAdConstants.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -21,6 +21,7 @@ extern NSString *const kAdTextKey;
 extern NSString *const kAdIconImageKey;
 extern NSString *const kAdIconImageViewKey;
 extern NSString *const kAdMainImageKey;
+extern NSString *const kAdSponsoredByCompanyKey;
 extern NSString *const kAdMainMediaViewKey;
 extern NSString *const kAdCTATextKey;
 extern NSString *const kAdStarRatingKey;
@@ -33,7 +34,6 @@ extern NSString *const kAdPrivacyIconClickUrlKey;
 
 extern NSString *const kPrivacyIconImageName;
 extern NSString *const kPrivacyIconTapDestinationURL;
-extern NSString *const kImpressionTrackerURLsKey;
 extern NSString *const kDefaultActionURLKey;
 extern NSString *const kClickTrackerURLKey;
 

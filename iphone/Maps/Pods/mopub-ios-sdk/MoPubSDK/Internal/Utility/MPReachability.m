@@ -14,8 +14,8 @@
 
 #import <CoreFoundation/CoreFoundation.h>
 
+#import "MPDeviceInformation.h"
 #import "MPReachability.h"
-#import "MPCoreInstanceProvider.h"
 
 #pragma mark IPv6 Support
 //Reachability fully support IPv6.  For full details, see ReadMe.md.
@@ -206,7 +206,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
          */
 
         // If using WWAN, get current radio access technology to fill in 2G/3G/4G info
-        returnValue = [[MPCoreInstanceProvider sharedProvider] currentRadioAccessTechnology];
+        returnValue = MPDeviceInformation.currentRadioAccessTechnology;
     }
 
     return returnValue;

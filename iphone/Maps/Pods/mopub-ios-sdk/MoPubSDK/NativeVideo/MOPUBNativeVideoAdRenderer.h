@@ -1,18 +1,18 @@
 //
 //  MOPUBNativeVideoAdRenderer.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
-#import <UIKit/UIKit.h>
+#import "MPBaseNativeAdRenderer.h"
 #import "MPNativeAdRenderer.h"
 
 @class MPNativeAdRendererConfiguration;
 @class MPStaticNativeAdRendererSettings;
 
-@interface MOPUBNativeVideoAdRenderer : NSObject
+@interface MOPUBNativeVideoAdRenderer : MPBaseNativeAdRenderer
 
 @property (nonatomic, readonly) MPNativeViewSizeHandler viewSizeHandler;
 

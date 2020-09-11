@@ -1,7 +1,7 @@
 //
 //  MPVASTLinearAd.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -12,6 +12,7 @@
 @class MPVASTDurationOffset;
 @class MPVASTIndustryIcon;
 @class MPVASTMediaFile;
+@class MPVASTTrackingEvent;
 
 @interface MPVASTLinearAd : MPVASTModel
 
@@ -22,6 +23,6 @@
 @property (nonatomic, readonly) NSArray<MPVASTIndustryIcon *> *industryIcons;
 @property (nonatomic, readonly) NSArray<MPVASTMediaFile *> *mediaFiles;
 @property (nonatomic, readonly) MPVASTDurationOffset *skipOffset;
-@property (nonatomic, readonly) NSDictionary *trackingEvents;
+@property (nonatomic, readonly) NSDictionary<NSString *, NSArray<MPVASTTrackingEvent *> *> *trackingEvents;
 
 @end

@@ -1,7 +1,7 @@
 //
 //  NSDictionary+MPAdditions.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -20,6 +20,20 @@
     id obj = [self objectForKey:key];
     if ([obj respondsToSelector:@selector(integerValue)]) {
         return [obj integerValue];
+    }
+    return defaultVal;
+}
+
+- (NSUInteger)mp_unsignedIntegerForKey:(id)key
+{
+    return [self mp_unsignedIntegerForKey:key defaultValue:0];
+}
+
+- (NSUInteger)mp_unsignedIntegerForKey:(id)key defaultValue:(NSUInteger)defaultVal
+{
+    id obj = [self objectForKey:key];
+    if ([obj respondsToSelector:@selector(unsignedIntValue)]) {
+        return [obj unsignedIntValue];
     }
     return defaultVal;
 }

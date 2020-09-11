@@ -1,7 +1,7 @@
 //
 //  MPViewabilityAdapterMoat.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -34,41 +34,7 @@ static NSString *const kMOATSendAdStoppedJavascript = @"MoTracker.sendMoatAdStop
 
 @implementation MPViewabilityAdapterMoat
 
-- (instancetype)initWithAdView:(UIView *)webView isVideo:(BOOL)isVideo startTrackingImmediately:(BOOL)startTracking {
-    if (self = [super init]) {
-        _isTracking = NO;
-
-#ifdef __HAS_MOAT_FRAMEWORK_
-        static dispatch_once_t sMoatSharedInstanceStarted;
-        dispatch_once(&sMoatSharedInstanceStarted, ^{
-            // explicitly disable location tracking and IDFA tracking
-            MPUBMoatOptions *options = [[MPUBMoatOptions alloc] init];
-            options.locationServicesEnabled = NO;
-            options.IDFACollectionEnabled = NO;
-            options.debugLoggingEnabled = NO;
-
-            // start with options
-            [[MPUBMoatAnalytics sharedInstance] startWithOptions:options];
-        });
-
-        _moatWebTracker = [MPUBMoatWebTracker trackerWithWebComponent:webView];
-        _webView = webView;
-        _isVideo = isVideo;
-        if (_moatWebTracker == nil) {
-            NSString * adViewClassName = NSStringFromClass([webView class]);
-            MPLogError(@"Couldn't attach Moat to %@.", adViewClassName);
-        }
-
-        if (startTracking) {
-            [_moatWebTracker startTracking];
-            _isTracking = YES;
-            MPLogInfo(@"MOAT tracking started");
-        }
-#endif
-    }
-
-    return self;
-}
+#pragma mark - MPViewabilityAdapter
 
 - (void)startTracking {
 #ifdef __HAS_MOAT_FRAMEWORK_
@@ -120,6 +86,44 @@ static NSString *const kMOATSendAdStoppedJavascript = @"MoTracker.sendMoatAdStop
 
 - (void)registerFriendlyObstructionView:(UIView *)view {
     // Nothing to do
+}
+
+#pragma mark - MPViewabilityAdapterForWebView
+
+- (instancetype)initWithWebView:(UIView *)webView isVideo:(BOOL)isVideo startTrackingImmediately:(BOOL)startTracking {
+    if (self = [super init]) {
+        _isTracking = NO;
+
+#ifdef __HAS_MOAT_FRAMEWORK_
+        static dispatch_once_t sMoatSharedInstanceStarted;
+        dispatch_once(&sMoatSharedInstanceStarted, ^{
+            // explicitly disable location tracking and IDFA tracking
+            MPUBMoatOptions *options = [[MPUBMoatOptions alloc] init];
+            options.locationServicesEnabled = NO;
+            options.IDFACollectionEnabled = NO;
+            options.debugLoggingEnabled = NO;
+
+            // start with options
+            [[MPUBMoatAnalytics sharedInstance] startWithOptions:options];
+        });
+
+        _moatWebTracker = [MPUBMoatWebTracker trackerWithWebComponent:webView];
+        _webView = webView;
+        _isVideo = isVideo;
+        if (_moatWebTracker == nil) {
+            NSString * adViewClassName = NSStringFromClass([webView class]);
+            MPLogError(@"Couldn't attach Moat to %@.", adViewClassName);
+        }
+
+        if (startTracking) {
+            [_moatWebTracker startTracking];
+            _isTracking = YES;
+            MPLogInfo(@"MOAT tracking started");
+        }
+#endif
+    }
+
+    return self;
 }
 
 @end

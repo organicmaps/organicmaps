@@ -1,7 +1,7 @@
 //
 //  MPTableViewAdPlacer.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -144,7 +144,7 @@ static NSString * const kTableViewAdPlacerReuseIdentifier = @"MPTableViewAdPlace
     BOOL originalAnimationsEnabled = [UIView areAnimationsEnabled];
     [UIView setAnimationsEnabled:NO];
     [self.tableView mp_beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView deleteRowsAtIndexPaths:validIndexPaths withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView mp_endUpdates];
     [UIView setAnimationsEnabled:originalAnimationsEnabled];
 }

@@ -23,7 +23,7 @@ If you do not remove or disable IAS's and/or Moat’s technology in accordance w
 
 The MoPub SDK supports multiple methods for installing the library in a project.
 
-The current version of the SDK is 5.10.0
+The current version of the SDK is 5.12.0
 
 ### Installation with CocoaPods
 
@@ -56,7 +56,7 @@ $ pod install
 
 MoPub provides a prepackaged archive of the dynamic framework:
 
-- **[MoPub SDK Framework.zip](https://github.com/mopub/mopub-ios-sdk/releases/download/5.10.0/mopub-framework-5.10.0.zip)**
+- **[MoPub SDK Framework.zip](https://github.com/mopub/mopub-ios-sdk/releases/download/5.12.0/mopub-framework-5.12.0.zip)**
 
   Includes everything you need to serve HTML, MRAID, and Native MoPub advertisements.  Third party ad networks are not included.
 
@@ -66,11 +66,11 @@ Add the dynamic framework to the target's Embedded Binaries section of the Gener
 
 MoPub provides two prepackaged archives of source code:
 
-- **[MoPub Base SDK.zip](https://github.com/mopub/mopub-ios-sdk/releases/download/5.10.0/mopub-base-5.10.0.zip)**
+- **[MoPub Base SDK.zip](https://github.com/mopub/mopub-ios-sdk/releases/download/5.12.0/mopub-base-5.12.0.zip)**
 
   Includes everything you need to serve HTML, MRAID, and Native MoPub advertisements.  Third party ad networks are not included.
 
-- **[MoPub Base SDK Excluding Native.zip](https://github.com/mopub/mopub-ios-sdk/releases/download/5.10.0/mopub-nonnative-5.10.0.zip)**
+- **[MoPub Base SDK Excluding Native.zip](https://github.com/mopub/mopub-ios-sdk/releases/download/5.12.0/mopub-nonnative-5.12.0.zip)**
 
   Includes everything you need to serve HTML and MRAID advertisements.  Third party ad networks and Native MoPub advertisements are not included.
 
@@ -83,14 +83,14 @@ Integration instructions are available on the [wiki](https://github.com/mopub/mo
 Please view the [changelog](https://github.com/mopub/mopub-ios-sdk/blob/master/CHANGELOG.md) for details.
 
 - **Features**
-  - Added support for the Verizon native ad renderer.
-  - Deprecated base custom event `requestAd` calls without the `adMarkup` parameter.
+  - Location setters for all formats are marked deprecated and will be removed in a future release.
+  - Added Mintegral as a supported network.
+  - A new field `appVersion` has been added to `MPImpressionData`.
+  - Update the Sample app to 64-bit architectures only.
+  - Added ad load history to the Saved Ads section in the Sample app.
 
 - **Bug Fixes**
-  - Fixed non-native SDK target compilation error.
-  - Fixed potential crash in `MPTableViewAdPlacer` and `MPCollectionViewAdPlacer`.
-  - Removed extraneous `NSLog` statements for Release build configuration.
-  - Fixed VAST error code macro replacement in tracking URLs.
+  - Fixed potential multithreading crash in `MPAdServerURLBuilder`.
 
 See the [Getting Started Guide](https://github.com/mopub/mopub-ios-sdk/wiki/Getting-Started#app-transport-security-settings) for instructions on setting up ATS in your app.
 

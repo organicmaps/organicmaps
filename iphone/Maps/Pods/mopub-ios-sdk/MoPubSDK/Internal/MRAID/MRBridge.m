@@ -1,7 +1,7 @@
 //
 //  MRBridge.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -9,6 +9,7 @@
 #import "MRBridge.h"
 #import "MPConstants.h"
 #import "MPCoreInstanceProvider+MRAID.h"
+#import "MPError.h"
 #import "MPLogging.h"
 #import "NSURL+MPAdditions.h"
 #import "MPGlobal.h"
@@ -57,14 +58,43 @@ static NSString * const kTelURLScheme   = @"tel";
         return;
     }
 
-    if (HTML) {
-        // Execute the javascript in the web view directly.
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.webView evaluateJavaScript:[[MPCoreInstanceProvider sharedProvider] mraidJavascript] completionHandler:^(id result, NSError *error){
-                [self.webView loadHTMLString:HTML baseURL:baseURL];
-            }];
-        });
+    // No URL
+    if (HTML == nil) {
+        NSError *error = [NSError errorWithDomain:kNSErrorDomain code:MOPUBErrorNoHTMLToLoad userInfo:nil];
+        [self.delegate bridge:self didFailLoadingWebView:self.webView error:error];
+        return;
     }
+
+    // Execute the javascript in the web view directly.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.webView evaluateJavaScript:[[MPCoreInstanceProvider sharedProvider] mraidJavascript] completionHandler:^(id result, NSError *error){
+            [self.webView loadHTMLString:HTML baseURL:baseURL];
+        }];
+    });
+}
+
+- (void)loadHTMLUrl:(NSURL *)url {
+    // Bail out if we can't locate mraid.js.
+    if (![[MPCoreInstanceProvider sharedProvider] isMraidJavascriptAvailable]) {
+        NSError *error = [NSError errorWithDomain:MoPubMRAIDAdsSDKDomain code:MRErrorMRAIDJSNotFound userInfo:nil];
+        [self.delegate bridge:self didFailLoadingWebView:self.webView error:error];
+        return;
+    }
+
+    // No URL
+    if (url == nil) {
+        NSError *error = [NSError errorWithDomain:kNSErrorDomain code:MOPUBErrorNoHTMLUrlToLoad userInfo:nil];
+        [self.delegate bridge:self didFailLoadingWebView:self.webView error:error];
+        return;
+    }
+
+    // Execute the javascript in the web view directly.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.webView evaluateJavaScript:[[MPCoreInstanceProvider sharedProvider] mraidJavascript] completionHandler:^(id result, NSError *error){
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            [self.webView loadRequest:request];
+        }];
+    });
 }
 
 - (void)fireReadyEvent

@@ -1,14 +1,14 @@
 //
 //  MPAPIEndpoints.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPAPIEndpoints.h"
 #import "MPConstants.h"
-#import "MPCoreInstanceProvider.h"
+#import "MPDeviceInformation.h"
 
 // URL scheme constants
 static NSString * const kUrlSchemeHttp = @"http";
@@ -46,7 +46,7 @@ static BOOL sUsesHTTPS = YES;
 
 + (NSString *)baseURL
 {
-    if ([[MPCoreInstanceProvider sharedProvider] appTransportSecuritySettings] == MPATSSettingEnabled) {
+    if (MPDeviceInformation.appTransportSecuritySettings == MPATSSettingEnabled) {
         return [@"https://" stringByAppendingString:self.baseHostname];
     }
 

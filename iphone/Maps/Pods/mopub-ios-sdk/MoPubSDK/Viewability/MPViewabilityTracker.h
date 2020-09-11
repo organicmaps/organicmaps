@@ -1,13 +1,16 @@
 //
 //  MPViewabilityTracker.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <UIKit/UIKit.h>
 #import "MPViewabilityOption.h"
+#import "MPVASTTrackingEvent.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class MPWebView;
 
@@ -48,9 +51,17 @@ extern NSString *const kDisabledViewabilityTrackers;
  * @param startTracking Flag indicating that viewability tracking should start immediately.
  * @return A viewability tracker instance.
  */
-- (instancetype)initWithAdView:(MPWebView *)webView
-                       isVideo:(BOOL)isVideo
-      startTrackingImmediately:(BOOL)startTracking NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithWebView:(MPWebView *)webView
+                        isVideo:(BOOL)isVideo
+       startTrackingImmediately:(BOOL)startTracking NS_DESIGNATED_INITIALIZER;
+
+/**
+ Instantiate a viewability adapter for a native video view.
+ * @param nativeVideoView A view that is backed by `AVPlayerLayer`, or a superview of it
+ * @param startTracking Flag indicating that viewability tracking should start immediately.
+ */
+- (instancetype)initWithNativeVideoView:(UIView *)nativeVideoView
+               startTrackingImmediately:(BOOL)startTracking NS_DESIGNATED_INITIALIZER;
 
 /**
  * Starts viewability tracking. This will do nothing if it is currently tracking.
@@ -70,8 +81,18 @@ extern NSString *const kDisabledViewabilityTrackers;
 - (void)registerFriendlyObstructionView:(UIView *)view;
 
 /**
+ * Track an `MPVideoEvent` event for a native video view.
+ * @param event The event to track.
+ * @param eventInfo For `MPVideoEventError`, it's a dictionary with "message" as key and an
+ *        `NSString` for the message. It's nil for all other events.
+ */
+- (void)trackNativeVideoEvent:(MPVideoEvent)event eventInfo:(NSDictionary<NSString *, id> * _Nullable)eventInfo;
+
+/**
  * `init` is not available.
  */
 - (instancetype)init __attribute__((unavailable("init not available")));
 
 @end
+
+NS_ASSUME_NONNULL_END

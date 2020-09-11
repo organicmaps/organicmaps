@@ -1,17 +1,13 @@
 //
 //  MPSessionTracker.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPSessionTracker.h"
 #import "MPConstants.h"
-#import "MPIdentityProvider.h"
-#import "MPGlobal.h"
-#import "MPCoreInstanceProvider.h"
-#import "MPAPIEndpoints.h"
 #import "MPHTTPNetworkSession.h"
 #import "MPURLRequest.h"
 #import "MPAdServerURLBuilder.h"

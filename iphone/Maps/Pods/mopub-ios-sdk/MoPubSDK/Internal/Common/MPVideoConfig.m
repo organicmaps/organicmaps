@@ -1,7 +1,7 @@
 //
 //  MPVideoConfig.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -9,6 +9,8 @@
 #import "MPVideoConfig.h"
 #import "MPLogging.h"
 #import "MPVASTStringUtilities.h"
+#import "MPVASTCompanionAd.h"
+#import "MPVASTConstant.h"
 #import "MPVASTTracking.h"
 
 /**
@@ -19,6 +21,9 @@
 @property (nonatomic, strong) MPVASTLinearAd *linearAd;
 @property (nonatomic, strong) NSArray<NSURL *> *errorURLs;
 @property (nonatomic, strong) NSArray<NSURL *> *impressionURLs;
+@property (nonatomic, strong) MPVASTDurationOffset *skipOffset;
+@property (nonatomic, strong) NSString *callToActionButtonTitle;
+@property (nonatomic, strong) NSArray<MPVASTCompanionAd *> *companionAds;
 
 @end
 
@@ -39,12 +44,23 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface MPVideoConfig ()
+@property (nonatomic, strong) MPVASTDurationOffset *skipOffset;
+@property (nonatomic, strong) NSArray<MPVASTCompanionAd *> *companionAds;
 @property (nonatomic, strong) NSDictionary<MPVideoEvent, NSArray<MPVASTTrackingEvent *> *> *trackingEventTable;
 @end
 
 @implementation MPVideoConfig
 
 #pragma mark - Public
+
+- (MPVASTDurationOffset *)skipOffset {
+    // If the video is rewarded, do not use the skip offset for countdown timer purposes
+    if (self.isRewarded) {
+        return nil;
+    } else {
+        return _skipOffset;
+    }
+}
 
 - (instancetype)initWithVASTResponse:(MPVASTResponse *)response additionalTrackers:(NSDictionary *)additionalTrackers
 {
@@ -71,8 +87,19 @@
 
     MPVideoPlaybackCandidate *candidate = candidates[0];
 
+    // obtain from linear ad
     _mediaFiles = candidate.linearAd.mediaFiles;
     _clickThroughURL = candidate.linearAd.clickThroughURL;
+    _industryIcons = candidate.linearAd.industryIcons;
+
+    _skipOffset = candidate.skipOffset;
+    _companionAds = candidate.companionAds;
+
+    if (candidate.callToActionButtonTitle.length > 0) {
+        _callToActionButtonTitle = candidate.callToActionButtonTitle;
+    } else {
+        _callToActionButtonTitle = kVASTDefaultCallToActionButtonTitle;
+    }
 
     // set up the tracking event table
     NSMutableDictionary<MPVideoEvent, NSArray<MPVASTTrackingEvent *> *> *table
@@ -118,14 +145,24 @@
     for (MPVASTAd *ad in response.ads) {
         if (ad.inlineAd) {
             MPVASTInline *inlineAd = ad.inlineAd;
-            NSArray *creatives = inlineAd.creatives;
-            for (MPVASTCreative *creative in creatives) {
+            MPVideoPlaybackCandidate *candidate = [[MPVideoPlaybackCandidate alloc] init];
+            candidate.callToActionButtonTitle = [self extensionFromInlineAd:inlineAd forKey:kVASTMoPubCTATextKey][kVASTAdTextKey];
+
+            for (MPVASTCreative *creative in inlineAd.creatives) {
                 if (creative.linearAd && [creative.linearAd.mediaFiles count]) {
-                    MPVideoPlaybackCandidate *candidate = [[MPVideoPlaybackCandidate alloc] init];
                     candidate.linearAd = creative.linearAd;
+                    candidate.skipOffset = creative.linearAd.skipOffset;
                     candidate.errorURLs = inlineAd.errorURLs;
                     candidate.impressionURLs = inlineAd.impressionURLs;
                     [candidates addObject:candidate];
+                } else if (creative.companionAds.count > 0) {
+                    NSMutableArray<MPVASTCompanionAd *> *companionAds = [NSMutableArray new];
+                    for (MPVASTCompanionAd *companionAd in creative.companionAds) {
+                        if (companionAd.resourceToDisplay != nil) { // cannot display ad without any resource
+                            [companionAds addObject:companionAd];
+                        }
+                    }
+                    candidate.companionAds = [NSArray arrayWithArray:companionAds];
                 }
             }
         } else if (ad.wrapper) {
@@ -268,6 +305,21 @@
         }
     }
     return mergedDictionary;
+}
+
+@end
+
+#pragma mark - MPVASTCompanionAdProvider
+
+@implementation MPVideoConfig (MPVASTCompanionAdProvider)
+
+- (BOOL)hasCompanionAd {
+    return self.companionAds.count > 0;
+}
+
+- (MPVASTCompanionAd *)companionAdForContainerSize:(CGSize)containerSize {
+    return [MPVASTCompanionAd bestCompanionAdForCandidates:self.companionAds
+                                             containerSize:containerSize];
 }
 
 @end

@@ -9,28 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <netinet/in.h>
-
-
-// Values chosen to match the IAB Connection Type Spec, where:
-// Unknown: 0
-// Ethernet: 1 (skipped because it's not possible on a phone)
-// Wifi: 2
-// Cellular Unknown: 3
-// Cellular 2G: 4
-// Cellular 3G: 5
-// Cellular 4G: 6
-typedef enum : NSInteger {
-    MPNotReachable = 0,
-    MPReachableViaWiFi = 2,
-    MPReachableViaCellularNetworkUnknownGeneration,
-    MPReachableViaCellularNetwork2G,
-    MPReachableViaCellularNetwork3G,
-    MPReachableViaCellularNetwork4G
-} MPNetworkStatus;
+#import "MPNetworkStatus.h"
 
 #pragma mark IPv6 Support
 //Reachability fully support IPv6.  For full details, see ReadMe.md.
-
 
 extern NSString *kMPReachabilityChangedNotification;
 

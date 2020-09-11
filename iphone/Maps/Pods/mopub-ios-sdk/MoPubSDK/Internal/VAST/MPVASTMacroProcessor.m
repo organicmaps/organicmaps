@@ -1,7 +1,7 @@
 //
 //  MPVASTMacroProcessor.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -11,11 +11,16 @@
 #import "MPVASTStringUtilities.h"
 #import "NSString+MPAdditions.h"
 
+const NSTimeInterval kMPVASTMacroProcessorUnknownTimeOffset = -1;
+
 @implementation MPVASTMacroProcessor
 
 + (NSURL *)macroExpandedURLForURL:(NSURL *)URL errorCode:(NSString *)errorCode
 {
-    return [self macroExpandedURLForURL:URL errorCode:errorCode videoTimeOffset:-1 videoAssetURL:nil];
+    return [self macroExpandedURLForURL:URL
+                              errorCode:errorCode
+                        videoTimeOffset:kMPVASTMacroProcessorUnknownTimeOffset
+                          videoAssetURL:nil];
 }
 
 + (NSURL *)macroExpandedURLForURL:(NSURL *)URL errorCode:(NSString *)errorCode videoTimeOffset:(NSTimeInterval)timeOffset videoAssetURL:(NSURL *)assetURL

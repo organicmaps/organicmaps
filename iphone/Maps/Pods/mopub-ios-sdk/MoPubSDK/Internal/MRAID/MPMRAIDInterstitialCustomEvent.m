@@ -1,7 +1,7 @@
 //
 //  MPMRAIDInterstitialCustomEvent.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -26,6 +26,11 @@
 // Explicitly `@synthesize` here to fix a "-Wobjc-property-synthesis" warning because super class `delegate` is
 // `id<MPInterstitialCustomEventDelegate>` and this `delegate` is `id<MPPrivateInterstitialCustomEventDelegate>`
 @synthesize delegate;
+
+- (NSString *)adUnitId
+{
+    return [self.delegate adUnitId];
+}
 
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info adMarkup:(NSString *)adMarkup
 {
@@ -58,16 +63,6 @@
 #pragma mark - MPInterstitialViewControllerDelegate
 
 @implementation MPMRAIDInterstitialCustomEvent (MPInterstitialViewControllerDelegate)
-
-- (CLLocation *)location
-{
-    return [self.delegate location];
-}
-
-- (NSString *)adUnitId
-{
-    return [self.delegate adUnitId];
-}
 
 - (void)interstitialDidLoadAd:(id<MPInterstitialViewController>)interstitial
 {

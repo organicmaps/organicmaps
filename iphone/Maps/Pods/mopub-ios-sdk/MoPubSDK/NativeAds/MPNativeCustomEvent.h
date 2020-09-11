@@ -1,7 +1,7 @@
 //
 //  MPNativeCustomEvent.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -28,21 +28,6 @@
 @interface MPNativeCustomEvent : NSObject
 
 /** @name Requesting a Native Ad */
-
-/**
- * @deprecated Use @c requestAdWithCustomEventInfo:adMarkup: instead
- *
- * Called when the MoPub SDK requires a new native ad.
- *
- * When the MoPub SDK receives a response indicating it should load a custom event, it will send
- * this message to your custom event class. Your implementation should load a native ad from a
- * third-party ad network.
- *
- * @param info A dictionary containing additional custom data associated with a given custom event
- * request. This data is configurable on the MoPub website, and may be used to pass dynamic
- * information, such as publisher IDs.
- */
-- (void)requestAdWithCustomEventInfo:(NSDictionary *)info __attribute((deprecated("Use requestAdWithCustomEventInfo:adMarkup: instead.")));
 
 /**
  * Called when the MoPub SDK requires a new native ad.

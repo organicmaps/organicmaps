@@ -1,7 +1,7 @@
 //
 //  MPAdServerURLBuilder.m
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -15,6 +15,7 @@
 #import "MPConsentManager.h"
 #import "MPConstants.h"
 #import "MPCoreInstanceProvider+MRAID.h"
+#import "MPDeviceInformation.h"
 #import "MPError.h"
 #import "MPGeolocationProvider.h"
 #import "MPGlobal.h"
@@ -204,10 +205,10 @@ static MPEngineInfo * _engineInfo = nil;
     queryParams[kTimeZoneKey]                   = [self timeZoneValue];
     queryParams[kIsMRAIDEnabledSDKKey]          = [self isMRAIDEnabledSDKValue];
     queryParams[kConnectionTypeKey]             = [self connectionTypeValue];
-    queryParams[kCarrierNameKey]                = [self carrierNameValue];
-    queryParams[kISOCountryCodeKey]             = [self isoCountryCodeValue];
-    queryParams[kMobileNetworkCodeKey]          = [self mobileNetworkCodeValue];
-    queryParams[kMobileCountryCodeKey]          = [self mobileCountryCodeValue];
+    queryParams[kCarrierNameKey]                = MPDeviceInformation.carrierName;
+    queryParams[kISOCountryCodeKey]             = MPDeviceInformation.isoCountryCode;
+    queryParams[kMobileNetworkCodeKey]          = MPDeviceInformation.mobileNetworkCode;
+    queryParams[kMobileCountryCodeKey]          = MPDeviceInformation.mobileCountryCode;
     queryParams[kDeviceNameKey]                 = [self deviceNameValue];
     queryParams[kDesiredAdAssetsKey]            = [self desiredAdAssetsValue:assets];
     queryParams[kAdSequenceKey]                 = [self adSequenceValue:adSequence];
@@ -222,7 +223,7 @@ static MPEngineInfo * _engineInfo = nil;
     queryParams[kAdvancedBiddingKey]            = [self advancedBiddingValue];
     queryParams[kBackoffMsKey]                  = [self backoffMillisecondsValueForAdUnitID:adUnitID];
     queryParams[kBackoffReasonKey]              = [[MPRateLimitManager sharedInstance] lastRateLimitReasonForAdUnitId:adUnitID];
-    [queryParams addEntriesFromDictionary:[self locationInformationDictionary:targeting.location]];
+    [queryParams addEntriesFromDictionary:self.locationInformation];
 
     return [self URLWithEndpointPath:MOPUB_API_PATH_AD_REQUEST postData:queryParams];
 }
@@ -263,30 +264,6 @@ static MPEngineInfo * _engineInfo = nil;
 + (NSString *)connectionTypeValue
 {
     return [NSString stringWithFormat:@"%ld", (long)MPReachabilityManager.sharedManager.currentStatus];
-}
-
-+ (NSString *)carrierNameValue
-{
-    NSString *carrierName = [[[MPCoreInstanceProvider sharedProvider] sharedCarrierInfo] objectForKey:@"carrierName"];
-    return carrierName;
-}
-
-+ (NSString *)isoCountryCodeValue
-{
-    NSString *code = [[[MPCoreInstanceProvider sharedProvider] sharedCarrierInfo] objectForKey:@"isoCountryCode"];
-    return code;
-}
-
-+ (NSString *)mobileNetworkCodeValue
-{
-    NSString *code = [[[MPCoreInstanceProvider sharedProvider] sharedCarrierInfo] objectForKey:@"mobileNetworkCode"];
-    return code;
-}
-
-+ (NSString *)mobileCountryCodeValue
-{
-    NSString *code = [[[MPCoreInstanceProvider sharedProvider] sharedCarrierInfo] objectForKey:@"mobileCountryCode"];
-    return code;
 }
 
 + (NSString *)deviceNameValue
@@ -330,7 +307,7 @@ static MPEngineInfo * _engineInfo = nil;
 
 + (NSString *)appTransportSecurityStatusValue
 {
-    return [NSString stringWithFormat:@"%@", @([[MPCoreInstanceProvider sharedProvider] appTransportSecuritySettings])];
+    return [NSString stringWithFormat:@"%@", @(MPDeviceInformation.appTransportSecuritySettings)];
 }
 
 + (NSString *)keywordsValue:(NSString *)keywords
@@ -384,7 +361,7 @@ static MPEngineInfo * _engineInfo = nil;
     return MPMediationManager.sharedManager.adRequestPayload;
 }
 
-+ (NSDictionary *)locationInformationDictionary:(CLLocation *)location {
++ (NSDictionary *)locationInformation {
     // Not allowed to collect location because it is PII
     if (![MPConsentManager.sharedManager canCollectPersonalInfo]) {
         return @{};
@@ -392,14 +369,7 @@ static MPEngineInfo * _engineInfo = nil;
 
     NSMutableDictionary *locationDict = [NSMutableDictionary dictionary];
 
-    CLLocation *bestLocation = location;
-    CLLocation *locationFromProvider = [[[MPCoreInstanceProvider sharedProvider] sharedMPGeolocationProvider] lastKnownLocation];
-
-    // Location determined by CoreLocation is given priority over the Publisher-specified location.
-    if (locationFromProvider) {
-        bestLocation = locationFromProvider;
-    }
-
+    CLLocation *bestLocation = MPGeolocationProvider.sharedProvider.lastKnownLocation;
     if (bestLocation && bestLocation.horizontalAccuracy >= 0) {
         locationDict[kLocationLatitudeLongitudeKey] = [NSString stringWithFormat:@"%@,%@",
                                                        @(bestLocation.coordinate.latitude),
@@ -408,9 +378,8 @@ static MPEngineInfo * _engineInfo = nil;
             locationDict[kLocationHorizontalAccuracy] = [NSString stringWithFormat:@"%@", @(bestLocation.horizontalAccuracy)];
         }
 
-        if (bestLocation == locationFromProvider) {
-            locationDict[kLocationIsFromSDK] = @"1";
-        }
+        // Only SDK-specified locations are allowed.
+        locationDict[kLocationIsFromSDK] = @"1";
 
         NSTimeInterval locationLastUpdatedMillis = [[NSDate date] timeIntervalSinceDate:bestLocation.timestamp] * 1000.0;
         locationDict[kLocationLastUpdatedMilliseconds] = [NSString stringWithFormat:@"%.0f", locationLastUpdatedMillis];

@@ -1,7 +1,7 @@
 //
 //  MPCountdownTimerView.h
 //
-//  Copyright 2018-2019 Twitter, Inc.
+//  Copyright 2018-2020 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -40,6 +40,16 @@ NS_ASSUME_NONNULL_BEGIN
  * @param shouldSignalCompletion If YES, then invoke the completion. Do not invoke the completion otherwise.
  */
 - (void)stopAndSignalCompletion:(BOOL)shouldSignalCompletion;
+
+/**
+ * Pause the countdown timer.
+ */
+- (void)pause;
+
+/**
+ * Resume the countdown timer.
+ */
+- (void)resume;
 
 @end
 
