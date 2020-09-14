@@ -47,6 +47,7 @@ ScreenBase::ScreenBase(m2::RectI const & pxRect, m2::AnyRectD const & glbRect)
 ScreenBase::ScreenBase(ScreenBase const & s, m2::PointD const & org, double scale, double angle)
   : m_Org(org), m_ViewportRect(s.m_ViewportRect), m_Scale(scale), m_Angle(angle)
 {
+  CHECK_GREATER_OR_EQUAL(m_Scale, 0.0, ());
   UpdateDependentParameters();
 }
 
@@ -131,6 +132,8 @@ void ScreenBase::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & px
   double hScale = glbRect.GetLocalRect().SizeX() / pxRect.SizeX();
   double vScale = glbRect.GetLocalRect().SizeY() / pxRect.SizeY();
 
+  CHECK_GREATER_OR_EQUAL(hScale, 0.0, ());
+  CHECK_GREATER_OR_EQUAL(vScale, 0.0, ());
   m_Scale = max(hScale, vScale);
   m_Angle = glbRect.Angle();
   m_Org = glbRect.GlobalCenter();
@@ -142,6 +145,7 @@ void ScreenBase::SetFromRect(m2::AnyRectD const & glbRect) { SetFromRects(glbRec
 
 void ScreenBase::SetFromParams(m2::PointD const & org, double angle, double scale)
 {
+  CHECK_GREATER_OR_EQUAL(scale, 0.0, ());
   m_Scale = scale;
   m_Angle = ang::Angle<double>(angle);
   m_Org = org;
@@ -181,6 +185,7 @@ void ScreenBase::MoveG(m2::PointD const & p)
 void ScreenBase::Scale(double scale)
 {
   m_Scale /= scale;
+  CHECK_GREATER_OR_EQUAL(m_Scale, 0.0, ());
   UpdateDependentParameters();
 }
 
@@ -200,6 +205,7 @@ void ScreenBase::OnSize(int x0, int y0, int w, int h) { OnSize(m2::RectI(x0, y0,
 
 void ScreenBase::SetScale(double scale)
 {
+  CHECK_GREATER_OR_EQUAL(scale, 0.0, ());
   m_Scale = scale;
   UpdateDependentParameters();
 }
@@ -240,6 +246,7 @@ void ScreenBase::SetGtoPMatrix(MatrixT const & m)
   ExtractGtoPParams(m, a, s, dx, dy);
   m_Angle = ang::AngleD(-a);
   m_Scale = 1 / s;
+  CHECK_GREATER_OR_EQUAL(m_Scale, 0.0, ());
   m_Org = PtoG(m_PixelRect.Center());
 
   UpdateDependentParameters();

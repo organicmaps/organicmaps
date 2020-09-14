@@ -749,6 +749,9 @@ void SearchMarks::SetBookmarkManager(BookmarkManager * bmManager)
 m2::PointD SearchMarks::GetMaxDimension(ScreenBase const & modelView) const
 {
   double const pixelToMercator = modelView.GetScale();
+  CHECK_GREATER_OR_EQUAL(pixelToMercator, 0.0, ());
+  CHECK_GREATER_OR_EQUAL(m_maxDimension.x, 0.0, ());
+  CHECK_GREATER_OR_EQUAL(m_maxDimension.y, 0.0, ());
   return m_maxDimension * pixelToMercator;
 }
 

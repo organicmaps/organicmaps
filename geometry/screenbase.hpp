@@ -33,7 +33,11 @@ public:
   void OnSize(m2::RectI const & r);
   void OnSize(int x0, int y0, int w, int h);
 
-  double GetScale() const { return m_Scale; }
+  double GetScale() const
+  {
+    CHECK_GREATER_OR_EQUAL(m_Scale, 0.0, ());
+    return m_Scale;
+  }
   void SetScale(double scale);
 
   double GetAngle() const { return m_Angle.val(); }
