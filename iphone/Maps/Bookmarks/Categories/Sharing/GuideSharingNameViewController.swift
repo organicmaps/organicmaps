@@ -1,13 +1,13 @@
-protocol GuideNameViewControllerDelegate {
-  func viewController(_ viewController: GuideNameViewController, didFinishEditing text: String)
+protocol GuideSharingNameViewControllerDelegate {
+  func viewController(_ viewController: GuideSharingNameViewController, didFinishEditing text: String)
 }
 
-class GuideNameViewController: MWMTableViewController {
+class GuideSharingNameViewController: MWMTableViewController {
   @IBOutlet weak var nextBarButton: UIBarButtonItem!
   @IBOutlet weak var nameTextField: UITextField!
 
   var guideName: String?
-  var delegate: GuideNameViewControllerDelegate?
+  var delegate: GuideSharingNameViewControllerDelegate?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -37,7 +37,7 @@ class GuideNameViewController: MWMTableViewController {
   }
 }
 
-extension GuideNameViewController: UITextFieldDelegate {
+extension GuideSharingNameViewController: UITextFieldDelegate {
   func textField(_ textField: UITextField,
                  shouldChangeCharactersIn range: NSRange,
                  replacementString string: String) -> Bool {

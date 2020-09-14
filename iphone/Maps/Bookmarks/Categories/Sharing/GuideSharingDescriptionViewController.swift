@@ -1,14 +1,14 @@
-protocol GuideDescriptionViewControllerDelegate {
-  func viewController(_ viewController: GuideDescriptionViewController, didFinishEditing text: String)
+protocol GuideSharingDescriptionViewControllerDelegate {
+  func viewController(_ viewController: GuideSharingDescriptionViewController, didFinishEditing text: String)
 }
 
 fileprivate let kLengthLimit = 500
 
-class GuideDescriptionViewController: MWMTableViewController {
+class GuideSharingDescriptionViewController: MWMTableViewController {
   @IBOutlet weak var nextBarButton: UIBarButtonItem!
   @IBOutlet weak var descriptionTextView: MWMTextView!
 
-  var delegate: GuideDescriptionViewControllerDelegate?
+  var delegate: GuideSharingDescriptionViewControllerDelegate?
   var guideDescription: String? {
     didSet {
       if let str = guideDescription, str.count > kLengthLimit {
@@ -39,7 +39,7 @@ class GuideDescriptionViewController: MWMTableViewController {
   }
 }
 
-extension GuideDescriptionViewController: UITextViewDelegate {
+extension GuideSharingDescriptionViewController: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {
     nextBarButton.isEnabled = textView.text.count > 0
   }

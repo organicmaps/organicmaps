@@ -396,7 +396,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
   private func showEditName() {
     let storyboard = UIStoryboard.instance(.sharing)
     let guideNameController = storyboard.instantiateViewController(withIdentifier: kNameControllerIdentifier)
-      as! GuideNameViewController
+      as! GuideSharingNameViewController
     guideNameController.guideName = category.title
     guideNameController.delegate = self
     navigationController?.pushViewController(guideNameController, animated: true)
@@ -405,7 +405,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
   private func showEditDescr() {
     let storyboard = UIStoryboard.instance(.sharing)
     let guideDescrController = storyboard.instantiateViewController(withIdentifier: kDescriptionControllerIdentifier)
-      as! GuideDescriptionViewController
+      as! GuideSharingDescriptionViewController
     guideDescrController.guideDescription = category.detailedAnnotation
     guideDescrController.delegate = self
 
@@ -504,15 +504,15 @@ extension BookmarksSharingViewController: EditOnWebViewControllerDelegate {
   }
 }
 
-extension BookmarksSharingViewController: GuideNameViewControllerDelegate {
-  func viewController(_ viewController: GuideNameViewController, didFinishEditing text: String) {
+extension BookmarksSharingViewController: GuideSharingNameViewControllerDelegate {
+  func viewController(_ viewController: GuideSharingNameViewController, didFinishEditing text: String) {
     category.title = text
     showEditDescr()
   }
 }
 
-extension BookmarksSharingViewController: GuideDescriptionViewControllerDelegate {
-  func viewController(_ viewController: GuideDescriptionViewController, didFinishEditing text: String) {
+extension BookmarksSharingViewController: GuideSharingDescriptionViewControllerDelegate {
+  func viewController(_ viewController: GuideSharingDescriptionViewController, didFinishEditing text: String) {
     category.detailedAnnotation = text
     showSelectProperties()
   }

@@ -368,8 +368,7 @@
 		47699A0A21F0C4C8009E6585 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47699A0921F0C4C8009E6585 /* NotificationManager.swift */; };
 		477219052243E79500E5B227 /* DrivingOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477219042243E79500E5B227 /* DrivingOptionsViewController.swift */; };
 		477D7AC7218F1515007EE2CB /* IPaidRoutePurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477D7AC6218F1515007EE2CB /* IPaidRoutePurchase.swift */; };
-		47868A7B22145A2C000AFC86 /* GuideNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47868A7A22145A2C000AFC86 /* GuideNameViewController.swift */; };
-		47868A7D22145A95000AFC86 /* GuideDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47868A7C22145A95000AFC86 /* GuideDescriptionViewController.swift */; };
+		47868A7D22145A95000AFC86 /* GuideSharingDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47868A7C22145A95000AFC86 /* GuideSharingDescriptionViewController.swift */; };
 		4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788739120EE326400F6826B /* VerticallyAlignedButton.swift */; };
 		478F6FA423C447E500054A53 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F6FA323C447E500054A53 /* ReviewView.swift */; };
 		478F6FA623C4521F00054A53 /* MoreReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */; };
@@ -553,6 +552,7 @@
 		990F33B624BC915200D0F426 /* SearchActionBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990F33B524BC915200D0F426 /* SearchActionBarView.swift */; };
 		9917D17D2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */; };
 		9917D17F2397B1D600A7E06E /* IPadModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917D17E2397B1D600A7E06E /* IPadModalPresentationController.swift */; };
+		991A726C250F666D0075348C /* GuideSharingNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A726B250F666D0075348C /* GuideSharingNameViewController.swift */; };
 		991CE2BF2371D349009EB02A /* ABTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BA2371D349009EB02A /* ABTestManager.swift */; };
 		991CE2C02371D349009EB02A /* IABTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BB2371D349009EB02A /* IABTest.swift */; };
 		991CE2C22371D349009EB02A /* PromoDiscoveryCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */; };
@@ -1510,8 +1510,7 @@
 		47699A0921F0C4C8009E6585 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		477219042243E79500E5B227 /* DrivingOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrivingOptionsViewController.swift; sourceTree = "<group>"; };
 		477D7AC6218F1515007EE2CB /* IPaidRoutePurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPaidRoutePurchase.swift; sourceTree = "<group>"; };
-		47868A7A22145A2C000AFC86 /* GuideNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideNameViewController.swift; sourceTree = "<group>"; };
-		47868A7C22145A95000AFC86 /* GuideDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDescriptionViewController.swift; sourceTree = "<group>"; };
+		47868A7C22145A95000AFC86 /* GuideSharingDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideSharingDescriptionViewController.swift; sourceTree = "<group>"; };
 		4788739120EE326400F6826B /* VerticallyAlignedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedButton.swift; sourceTree = "<group>"; };
 		478F6FA323C447E500054A53 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreReviewsViewController.swift; sourceTree = "<group>"; };
@@ -1656,6 +1655,7 @@
 		990F33B524BC915200D0F426 /* SearchActionBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchActionBarView.swift; sourceTree = "<group>"; };
 		9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRoutesSubscriptionCampaign.swift; sourceTree = "<group>"; };
 		9917D17E2397B1D600A7E06E /* IPadModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPadModalPresentationController.swift; sourceTree = "<group>"; };
+		991A726B250F666D0075348C /* GuideSharingNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideSharingNameViewController.swift; sourceTree = "<group>"; };
 		991CE2BA2371D349009EB02A /* ABTestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABTestManager.swift; sourceTree = "<group>"; };
 		991CE2BB2371D349009EB02A /* IABTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IABTest.swift; sourceTree = "<group>"; };
 		991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryCampaign.swift; sourceTree = "<group>"; };
@@ -2475,8 +2475,8 @@
 				33F8BA3B2199858B00ECA8EE /* Tags */,
 				47289E582212DFFF002ABFC0 /* EditOnWebAlertViewController.swift */,
 				47289E592212DFFF002ABFC0 /* EditOnWebAlertViewController.xib */,
-				47868A7A22145A2C000AFC86 /* GuideNameViewController.swift */,
-				47868A7C22145A95000AFC86 /* GuideDescriptionViewController.swift */,
+				991A726B250F666D0075348C /* GuideSharingNameViewController.swift */,
+				47868A7C22145A95000AFC86 /* GuideSharingDescriptionViewController.swift */,
 			);
 			path = Sharing;
 			sourceTree = "<group>";
@@ -5686,7 +5686,6 @@
 				F6E2FE281E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
 				3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
 				340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */,
-				47868A7B22145A2C000AFC86 /* GuideNameViewController.swift in Sources */,
 				34AB66501FC5AA330078E451 /* RoutePreviewTaxiCell.swift in Sources */,
 				F6E2FE251E097BA00083EBEC /* MWMOpeningHoursModel.mm in Sources */,
 				99AAEA74244DA5ED0039D110 /* BottomMenuPresentationController.swift in Sources */,
@@ -5816,6 +5815,7 @@
 				340E1EFB1E2F614400CE49BF /* Storyboard.swift in Sources */,
 				34E776331F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,
 				993DF12D23F6BDB100AC231A /* GlobalStyleSheet.swift in Sources */,
+				991A726C250F666D0075348C /* GuideSharingNameViewController.swift in Sources */,
 				F6E2FF361E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
 				3472B5CF200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */,
 				477219052243E79500E5B227 /* DrivingOptionsViewController.swift in Sources */,
@@ -5969,7 +5969,7 @@
 				34C9BD051C6DB693000DC38D /* MWMViewController.m in Sources */,
 				47699A0A21F0C4C8009E6585 /* NotificationManager.swift in Sources */,
 				331630D12191D74B00BB91A9 /* TagSectionHeaderView.swift in Sources */,
-				47868A7D22145A95000AFC86 /* GuideDescriptionViewController.swift in Sources */,
+				47868A7D22145A95000AFC86 /* GuideSharingDescriptionViewController.swift in Sources */,
 				F6E2FDA41E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
 				3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.m in Sources */,
 				34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */,
