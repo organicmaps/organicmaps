@@ -80,7 +80,7 @@ final class EditBookmarkViewController: MWMTableViewController {
         let cell = tableView.dequeueDefaultCell(for: indexPath)
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = bookmarkColor.title
-        cell.imageView?.image = circleImageForColor(bookmarkColor, frameSize: 28, diameter: 22, iconName: "ic_bm_none")
+        cell.imageView?.image = circleImageForColor(bookmarkColor.color, frameSize: 28, diameter: 22, iconName: "ic_bm_none")
         return cell
       case .bookmarkGroup:
         let cell = tableView.dequeueDefaultCell(for: indexPath)

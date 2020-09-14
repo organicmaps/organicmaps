@@ -85,7 +85,7 @@ final class BMCViewController: MWMViewController {
     viewModel.shareCategoryFile(at: index) {
       switch $0 {
       case let .success(url):
-        let shareController = MWMActivityViewController.share(for: url,
+        let shareController = ActivityViewController.share(for: url,
                                                               message: L("share_bookmarks_email_body"))
         { [weak self] _, _, _, _ in
           self?.viewModel?.finishShareCategory()
@@ -115,15 +115,16 @@ final class BMCViewController: MWMViewController {
   }
 
   private func openCategory(category: BookmarkGroup) {
-    let bmViewController = BookmarksVC(category: category.categoryId)
-    bmViewController.delegate = self
+    let bmViewController = BookmarksListBuilder.build(markGroupId: category.categoryId,
+                                                      bookmarksCoordinator: coordinator,
+                                                      delegate: self)
     MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
                                                                                    animated: true)
   }
 
   private func setCategoryVisible(_ visible: Bool, at index: Int) {
     let category = viewModel.category(at: index)
-    category.isVisible = visible
+    BookmarksManager.shared().setCategory(category.categoryId, isVisible: visible)
     if let categoriesHeader = tableView.headerView(forSection: viewModel.sectionIndex(section: .categories)) as? BMCCategoriesHeader {
       categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
     }
@@ -382,17 +383,9 @@ extension BMCViewController: CategorySettingsViewControllerDelegate {
   }
 }
 
-extension BMCViewController: BookmarksVCDelegate {
-  func bookmarksVCdidUpdateCategory(_ viewController: BookmarksVC) {
-    // for now we did necessary interface update in -viewWillAppear
-  }
-
-  func bookmarksVCdidDeleteCategory(_ viewController: BookmarksVC) {
+extension BMCViewController: BookmarksListDelegate {
+  func bookmarksListDidDeleteGroup() {
     guard let parentVC = parent else { return }
     navigationController?.popToViewController(parentVC, animated: true)
-  }
-
-  func bookmarksVCdidView(onMap viewController: BookmarksVC, categoryId: MWMMarkGroupID) {
-    coordinator?.hide(categoryId: categoryId)
   }
 }

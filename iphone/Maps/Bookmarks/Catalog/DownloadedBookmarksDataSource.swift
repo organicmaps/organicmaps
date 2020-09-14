@@ -38,7 +38,7 @@ class DownloadedBookmarksDataSource {
 
   func setCategory(visible: Bool, at index: Int) {
     let category = categories[index]
-    category.isVisible = visible
+    BookmarksManager.shared().setCategory(category.categoryId, isVisible: visible)
   }
 
   func deleteCategory(at index: Int) {

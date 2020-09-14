@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, MWMSynchronizationResult)
   MWMSynchronizationResultInvalidCall
 };
 
+NS_SWIFT_NAME(BookmarksObserver)
 @protocol MWMBookmarksObserver<NSObject>
 @optional
 - (void)onConversionFinish:(BOOL)success;

@@ -73,7 +73,8 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
                   cancelButtonTitle: L("ok")).show()
       return;
     }
-    let vc = MWMActivityViewController.share(forMyPosition: coordinates)
+    guard let viewController = viewController else { return }
+    let vc = ActivityViewController.share(forMyPosition: coordinates)
     vc?.present(inParentViewController: viewController, anchorView: cell.anchorView)
   }
 }

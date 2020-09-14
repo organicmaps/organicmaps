@@ -28,10 +28,6 @@
   return [self.manager getCategoryPhotoUrl:self.categoryId];
 }
 
-- (void)setTitle:(NSString *)title {
-  [self.manager setCategory:self.categoryId name:title];
-}
-
 - (NSString *)author {
   return [self.manager getCategoryAuthorName:self.categoryId];
 }
@@ -49,8 +45,8 @@
   return [self.manager getCategoryDescription:self.categoryId];
 }
 
-- (void)setDetailedAnnotation:(NSString *)detailedAnnotation {
-  [self.manager setCategory:self.categoryId description:detailedAnnotation];
+- (NSString *)serverId {
+  return [self.manager getServerId:self.categoryId];
 }
 
 - (NSInteger)bookmarksCount {
@@ -65,16 +61,28 @@
   return [self.manager isCategoryVisible:self.categoryId];
 }
 
-- (void)setVisible:(BOOL)visible {
-  [self.manager setCategory:self.categoryId isVisible:visible];
-}
-
 - (BOOL)isEmpty {
   return ![self.manager isCategoryNotEmpty:self.categoryId];
 }
 
+- (BOOL)isEditable {
+  return [self.manager isCategoryEditable:self.categoryId];
+}
+
+- (BOOL)isGuide {
+  return [self.manager isGuide:self.categoryId];
+}
+
 - (MWMBookmarkGroupAccessStatus)accessStatus {
   return [self.manager getCategoryAccessStatus:self.categoryId];
+}
+
+- (NSArray<MWMBookmark *> *)bookmarks {
+  return [self.manager bookmarksForGroup:self.categoryId];
+}
+
+- (NSArray<MWMTrack *> *)tracks {
+  return [self.manager tracksForGroup:self.categoryId];
 }
 
 @end

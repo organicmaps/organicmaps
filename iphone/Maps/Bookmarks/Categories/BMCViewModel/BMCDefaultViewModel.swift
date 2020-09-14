@@ -263,7 +263,7 @@ extension BMCDefaultViewModel {
   }
 }
 
-extension BMCDefaultViewModel: MWMBookmarksObserver {
+extension BMCDefaultViewModel: BookmarksObserver {
   func onBackupStarted() {
     Statistics.logEvent(kStatBookmarksSyncStarted)
   }

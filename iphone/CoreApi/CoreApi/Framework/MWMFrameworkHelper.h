@@ -41,6 +41,8 @@ NS_SWIFT_NAME(FrameworkHelper)
                 completion:(SearchInDownloaderCompletions)completion;
 + (BOOL)canEditMap;
 + (void)showOnMap:(MWMMarkGroupID)categoryId;
++ (void)showBookmark:(MWMMarkID)bookmarkId;
++ (void)showTrack:(MWMTrackID)trackId;
 + (void)updatePlacePageData;
 
 @end

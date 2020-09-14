@@ -9,7 +9,9 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/DeepLinkSearchData.h>
 #import <CoreApi/DeepLinkSubscriptionData.h>
 #import <CoreApi/Logger.h>
+#import <CoreApi/MWMBookmark.h>
 #import <CoreApi/MWMBookmarkGroup.h>
+#import <CoreApi/MWMBookmarksSection.h>
 #import <CoreApi/MWMBookmarksManager.h>
 #import <CoreApi/MWMBookmarksObserver.h>
 #import <CoreApi/MWMCarPlayBookmarkObject.h>
@@ -28,6 +30,7 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMStorage.h>
 #import <CoreApi/MWMTag.h>
 #import <CoreApi/MWMTagGroup.h>
+#import <CoreApi/MWMTrack.h>
 #import <CoreApi/MWMTypes.h>
 #import <CoreApi/MWMUTM.h>
 #import <CoreApi/MWMUser.h>

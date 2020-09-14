@@ -22,7 +22,6 @@
 
 #import <CoreApi/CoreApi-swift.h>
 
-#import "BookmarksVC.h"
 #import "CoreNotificationWrapper.h"
 #import "DeepLinkRouteStrategyAdapter.h"
 #import "EAGLView.h"

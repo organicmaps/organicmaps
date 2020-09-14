@@ -11,10 +11,14 @@ extension BookmarkColor {
 
   func image(_ selected: Bool) -> UIImage {
     if selected {
-      return circleImageForColor(self, frameSize: 22, iconName: "ic_bm_none")
+      return circleImageForColor(color, frameSize: 22, iconName: "ic_bm_none")
     } else {
-      return circleImageForColor(self, frameSize: 22, diameter: 14)
+      return circleImageForColor(color, frameSize: 22, diameter: 14)
     }
+  }
+
+  func image(_ iconName: String) -> UIImage {
+    circleImageForColor(color, frameSize: 22, iconName: iconName)
   }
 }
 
@@ -75,7 +79,7 @@ fileprivate func uiColorForBookmarkColor(_ color: BookmarkColor) -> UIColor {
   }
 }
 
-func circleImageForColor(_ color: BookmarkColor,
+func circleImageForColor(_ color: UIColor,
                          frameSize: CGFloat,
                          diameter: CGFloat? = nil,
                          iconName: String? = nil) -> UIImage {
@@ -84,7 +88,7 @@ func circleImageForColor(_ color: BookmarkColor,
     let d = diameter ?? frameSize
     let rect = CGRect(x: (frameSize - d) / 2, y: (frameSize - d) / 2, width: d, height: d)
     context.cgContext.addEllipse(in: rect)
-    context.cgContext.setFillColor(color.color.cgColor)
+    context.cgContext.setFillColor(color.cgColor)
     context.cgContext.fillPath()
 
     guard let iconName = iconName, let image = UIImage(named: iconName) else { return }

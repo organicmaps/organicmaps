@@ -1,6 +1,5 @@
 #import "MapViewController.h"
 #import <CoreApi/MWMBookmarksManager.h>
-#import "BookmarksVC.h"
 #import "EAGLView.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"

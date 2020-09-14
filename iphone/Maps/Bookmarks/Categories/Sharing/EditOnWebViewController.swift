@@ -100,7 +100,7 @@ final class EditOnWebViewController: MWMViewController {
 
     let message = String(coreFormat: L("share_bookmarks_email_body_link"),
                          arguments: [url.absoluteString])
-    let shareController = MWMActivityViewController.share(for: nil, message: message) {
+    let shareController = ActivityViewController.share(for: nil, message: message) {
       [weak self] _, success, _, _ in
       if success {
         Statistics.logEvent(kStatSharingLinkSuccess, withParameters: [kStatFrom : kStatEditOnWeb])

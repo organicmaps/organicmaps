@@ -102,8 +102,7 @@ class DownloadedBookmarksViewController: MWMViewController {
   }
 
   private func openCategory(category: BookmarkGroup) {
-    let bmViewController = BookmarksVC(category: category.categoryId)
-    bmViewController.delegate = self
+    let bmViewController = BookmarksListBuilder.build(markGroupId: category.categoryId, bookmarksCoordinator: coordinator)
     MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
                                                                                    animated: true)
   }
@@ -187,15 +186,5 @@ extension DownloadedBookmarksViewController: BMCCategoriesHeaderDelegate {
   func visibilityAction(_ categoriesHeader: BMCCategoriesHeader) {
     dataSource.allCategoriesHidden = !dataSource.allCategoriesHidden
     tableView.reloadData()
-  }
-}
-
-extension DownloadedBookmarksViewController: BookmarksVCDelegate {
-  func bookmarksVCdidUpdateCategory(_ viewController: BookmarksVC) { }
-
-  func bookmarksVCdidDeleteCategory(_ viewController: BookmarksVC) { }
-
-  func bookmarksVCdidView(onMap viewController: BookmarksVC, categoryId: MWMMarkGroupID) {
-    coordinator?.hide(categoryId: categoryId)
   }
 }

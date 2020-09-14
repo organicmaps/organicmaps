@@ -178,6 +178,14 @@
   GetFramework().ShowBookmarkCategory(categoryId);
 }
 
++ (void)showBookmark:(MWMMarkID)bookmarkId {
+  GetFramework().ShowBookmark(bookmarkId);
+}
+
++ (void)showTrack:(MWMTrackID)trackId {
+  GetFramework().ShowTrack(trackId);
+}
+
 + (void)updatePlacePageData {
   GetFramework().UpdatePlacePageInfoForCurrentSelection();
 }

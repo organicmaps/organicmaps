@@ -124,12 +124,12 @@ final class CategorySettingsViewController: MWMTableViewController {
   @objc func onSave() {
     view.endEditing(true)
     if let newName = newName, !newName.isEmpty {
-      bookmarkGroup.title = newName
+      BookmarksManager.shared().setCategory(bookmarkGroup.categoryId, name: newName)
       changesMade = true
     }
 
     if let newAnnotation = newAnnotation, !newAnnotation.isEmpty {
-      bookmarkGroup.detailedAnnotation = newAnnotation
+      BookmarksManager.shared().setCategory(bookmarkGroup.categoryId, description: newAnnotation)
       changesMade = true
     }
 

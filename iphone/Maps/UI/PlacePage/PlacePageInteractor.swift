@@ -235,7 +235,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
     case .routeTo:
       MWMPlacePageManagerHelper.route(to: placePageData)
     case .share:
-      let shareVC = MWMActivityViewController.share(forPlacePage: placePageData)
+      let shareVC = ActivityViewController.share(forPlacePage: placePageData)
       shareVC!.present(inParentViewController: MapViewController.shared(), anchorView: actionBar.popoverSourceView)
       Statistics.logEvent(kStatEventName(kStatPlacePage, kStatShare))
     case .avoidToll:

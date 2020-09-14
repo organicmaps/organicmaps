@@ -468,7 +468,7 @@ extension BookmarksSharingViewController: UploadActionCellDelegate {
     
     Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatCopyLink])
     let message = String(coreFormat: L("share_bookmarks_email_body_link"), arguments: [url.absoluteString])
-    let shareController = MWMActivityViewController.share(for: nil, message: message) {
+    let shareController = ActivityViewController.share(for: nil, message: message) {
       _, success, _, _ in
       if success {
         Statistics.logEvent(kStatSharingLinkSuccess, withParameters: [kStatFrom : kStatSharingOptions])
@@ -506,14 +506,14 @@ extension BookmarksSharingViewController: EditOnWebViewControllerDelegate {
 
 extension BookmarksSharingViewController: GuideSharingNameViewControllerDelegate {
   func viewController(_ viewController: GuideSharingNameViewController, didFinishEditing text: String) {
-    category.title = text
+    manager.setCategory(category.categoryId, name: text)
     showEditDescr()
   }
 }
 
 extension BookmarksSharingViewController: GuideSharingDescriptionViewControllerDelegate {
   func viewController(_ viewController: GuideSharingDescriptionViewController, didFinishEditing text: String) {
-    category.detailedAnnotation = text
+    manager.setCategory(category.categoryId, description: text)
     showSelectProperties()
   }
 }
