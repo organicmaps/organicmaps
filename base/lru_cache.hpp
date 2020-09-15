@@ -14,25 +14,22 @@ class LruCache
   template <typename K, typename V> friend class LruCacheTest;
   template <typename K, typename V> friend class LruCacheKeyAgeTest;
 public:
-  using Loader = std::function<void(Key const & key, Value & value)>;
-
   /// \param maxCacheSize Maximum size of the cache in number of items. It should be one or greater.
   /// \param loader Function which is called if it's necessary to load a new item for the cache.
   /// For the same |key| should be loaded the same |value|.
-  LruCache(size_t maxCacheSize, Loader const & loader)
-    : m_maxCacheSize(maxCacheSize), m_loader(loader)
+  LruCache(size_t maxCacheSize) : m_maxCacheSize(maxCacheSize)
   {
     CHECK_GREATER(maxCacheSize, 0, ());
   }
 
-  /// \brief Loads value, if it's necessary, by |key| with |m_loader|, puts it to |m_cache| and
-  /// returns the reference to the value to |m_cache|.
-  Value const & GetValue(Key const & key)
+  // Find value by @key. If @key is found, returns reference to its value.
+  Value & Find(Key const & key, bool & found)
   {
     auto const it = m_cache.find(key);
     if (it != m_cache.cend())
     {
       m_keyAge.UpdateAge(key);
+      found = true;
       return it->second;
     }
 
@@ -44,7 +41,7 @@ public:
 
     m_keyAge.InsertKey(key);
     Value & value = m_cache[key];
-    m_loader(key, value);
+    found = false;
     return value;
   }
 
@@ -158,7 +155,6 @@ private:
   };
 
   size_t const m_maxCacheSize;
-  Loader const m_loader;
   std::unordered_map<Key, Value> m_cache;
   KeyAge m_keyAge;
 };

@@ -9,16 +9,26 @@ template <typename Key, typename Value>
 class LruCacheTest
 {
 public:
-  LruCacheTest(size_t maxCacheSize, typename LruCache<Key, Value>::Loader const & loader)
-    : m_cache(maxCacheSize, loader)
+  using Loader = std::function<void(Key const & key, Value & value)>;
+
+  LruCacheTest(size_t maxCacheSize, Loader const & loader) : m_cache(maxCacheSize), m_loader(loader)
   {
   }
 
-  Value const & GetValue(Key const & key) { return m_cache.GetValue(key); }
+  Value const & GetValue(Key const & key)
+  {
+    bool found;
+    auto & value = m_cache.Find(key, found);
+    if (!found)
+      m_loader(key, value);
+    return value;
+  }
+
   bool IsValid() const { return m_cache.IsValid(); }
 
 private:
   LruCache<Key, Value> m_cache;
+  Loader m_loader;
 };
 
 template <typename Key, typename Value>
