@@ -24,7 +24,7 @@ public:
     return value;
   }
 
-  bool IsValid() const { return m_cache.IsValid(); }
+  bool IsValid() const { return m_cache.IsValidForTesting(); }
 
 private:
   LruCache<Key, Value> m_cache;

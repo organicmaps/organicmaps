@@ -17,7 +17,7 @@ public:
   /// \param maxCacheSize Maximum size of the cache in number of items. It should be one or greater.
   /// \param loader Function which is called if it's necessary to load a new item for the cache.
   /// For the same |key| should be loaded the same |value|.
-  LruCache(size_t maxCacheSize) : m_maxCacheSize(maxCacheSize)
+  explicit LruCache(size_t maxCacheSize) : m_maxCacheSize(maxCacheSize)
   {
     CHECK_GREATER(maxCacheSize, 0, ());
   }
@@ -47,7 +47,7 @@ public:
 
   /// \brief Checks for coherence class params.
   /// \note It's a time consumption method and should be called for tests only.
-  bool IsValid() const
+  bool IsValidForTesting() const
   {
     if (!m_keyAge.IsValidForTesting())
       return false;
@@ -65,7 +65,7 @@ private:
   /// \brief This class support cross mapping from age to key and for key to age.
   /// It lets effectively get least recently used key (key with minimum value of age)
   /// and find key age by its value to update the key age.
-  /// \note Size of |m_ageToKey| and |m_ageToKey| should be the sameß.
+  /// \note Size of |m_ageToKey| and |m_ageToKey| should be the same.
   /// All keys of |m_ageToKey| should be values of |m_ageToKey| and on the contrary
   /// all keys of |m_ageToKey| should be values of |m_ageToKey|.
   /// \note Ages should be unique for all keys.
