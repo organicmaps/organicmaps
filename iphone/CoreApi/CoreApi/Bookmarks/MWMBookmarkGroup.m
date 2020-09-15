@@ -24,12 +24,25 @@
   return [self.manager getCategoryName:self.categoryId];
 }
 
+- (NSURL *)photoUrl {
+  return [self.manager getCategoryPhotoUrl:self.categoryId];
+}
+
 - (void)setTitle:(NSString *)title {
   [self.manager setCategory:self.categoryId name:title];
 }
 
 - (NSString *)author {
   return [self.manager getCategoryAuthorName:self.categoryId];
+}
+
+- (NSString *)authorIconPath {
+  // TODO: (boriskov) fixme
+  return nil;
+}
+
+- (NSString *)annotation {
+  return [self.manager getCategoryAnnotation:self.categoryId];
 }
 
 - (NSString *)detailedAnnotation {

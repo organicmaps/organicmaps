@@ -15,7 +15,9 @@ NS_SWIFT_NAME(BookmarkGroup)
 
 @property(nonatomic, readonly) MWMMarkGroupID categoryId;
 @property(nonatomic, copy) NSString *title;
+@property(nonatomic, readonly, nullable) NSURL *photoUrl;
 @property(nonatomic, readonly) NSString *author;
+@property(nonatomic, readonly, nullable) NSString *authorIconPath;
 @property(nonatomic, readonly) NSString *annotation;
 @property(nonatomic, copy) NSString *detailedAnnotation;
 @property(nonatomic, readonly) NSInteger bookmarksCount;

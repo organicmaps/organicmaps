@@ -350,6 +350,10 @@ static kml::PredefinedColor convertBookmarkColor(MWMBookmarkColor bookmarkColor)
   }
 }
 
+- (NSString *)getCategoryAnnotation:(MWMMarkGroupID)groupId {
+  return @(kml::GetDefaultStr(self.bm.GetCategoryData(groupId).m_annotation).c_str());
+}
+
 - (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId
 {
   return @(kml::GetDefaultStr(self.bm.GetCategoryData(groupId).m_description).c_str());
@@ -358,6 +362,10 @@ static kml::PredefinedColor convertBookmarkColor(MWMBookmarkColor bookmarkColor)
 - (NSString *)getCategoryAuthorName:(MWMMarkGroupID)groupId
 {
   return @(self.bm.GetCategoryData(groupId).m_authorName.c_str());
+}
+
+- (NSURL *)getCategoryPhotoUrl:(MWMMarkGroupID)groupId {
+  return [[NSURL alloc] initWithString:@(self.bm.GetCategoryData(groupId).m_imageUrl.c_str())];
 }
 
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name

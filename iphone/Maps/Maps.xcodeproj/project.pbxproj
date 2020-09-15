@@ -553,6 +553,8 @@
 		9917D17D2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */; };
 		9917D17F2397B1D600A7E06E /* IPadModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917D17E2397B1D600A7E06E /* IPadModalPresentationController.swift */; };
 		991A726C250F666D0075348C /* GuideSharingNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A726B250F666D0075348C /* GuideSharingNameViewController.swift */; };
+		991A7270250F6C4A0075348C /* GuideDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A726E250F6C4A0075348C /* GuideDescriptionViewController.swift */; };
+		991A7271250F6C4A0075348C /* GuideDescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 991A726F250F6C4A0075348C /* GuideDescriptionViewController.xib */; };
 		991CE2BF2371D349009EB02A /* ABTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BA2371D349009EB02A /* ABTestManager.swift */; };
 		991CE2C02371D349009EB02A /* IABTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BB2371D349009EB02A /* IABTest.swift */; };
 		991CE2C22371D349009EB02A /* PromoDiscoveryCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */; };
@@ -1656,6 +1658,8 @@
 		9917D17C2396793A00A7E06E /* PaidRoutesSubscriptionCampaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRoutesSubscriptionCampaign.swift; sourceTree = "<group>"; };
 		9917D17E2397B1D600A7E06E /* IPadModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPadModalPresentationController.swift; sourceTree = "<group>"; };
 		991A726B250F666D0075348C /* GuideSharingNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideSharingNameViewController.swift; sourceTree = "<group>"; };
+		991A726E250F6C4A0075348C /* GuideDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDescriptionViewController.swift; sourceTree = "<group>"; };
+		991A726F250F6C4A0075348C /* GuideDescriptionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideDescriptionViewController.xib; sourceTree = "<group>"; };
 		991CE2BA2371D349009EB02A /* ABTestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABTestManager.swift; sourceTree = "<group>"; };
 		991CE2BB2371D349009EB02A /* IABTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IABTest.swift; sourceTree = "<group>"; };
 		991CE2BE2371D349009EB02A /* PromoDiscoveryCampaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoDiscoveryCampaign.swift; sourceTree = "<group>"; };
@@ -3658,6 +3662,15 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
+		991A726D250F6C320075348C /* GuideDescription */ = {
+			isa = PBXGroup;
+			children = (
+				991A726E250F6C4A0075348C /* GuideDescriptionViewController.swift */,
+				991A726F250F6C4A0075348C /* GuideDescriptionViewController.xib */,
+			);
+			path = GuideDescription;
+			sourceTree = "<group>";
+		};
 		991CE2B92371D349009EB02A /* ABTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -5007,6 +5020,7 @@
 		FA36B8011540388B004560CC /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				991A726D250F6C320075348C /* GuideDescription */,
 				B32FE73D20D283D600EF7446 /* Catalog */,
 				FA36B80515403A4F004560CC /* BookmarksVC.h */,
 				FA36B80615403A4F004560CC /* BookmarksVC.mm */,
@@ -5296,6 +5310,7 @@
 				4738A8E9239FC526007C0F43 /* AdBannerView.xib in Resources */,
 				344532511F714FD70059FBCC /* UGCAddReviewController.xib in Resources */,
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
+				991A7271250F6C4A0075348C /* GuideDescriptionViewController.xib in Resources */,
 				346DB82B1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
 				F6E2FE2E1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				47A13CAB24BE881000027D4F /* DatePickerViewController.xib in Resources */,
@@ -5701,6 +5716,7 @@
 				340475531E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */,
 				349D1CE41E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */,
 				CDB4D4E1222D70DF00104869 /* CarPlayMapViewController.swift in Sources */,
+				991A7270250F6C4A0075348C /* GuideDescriptionViewController.swift in Sources */,
 				471AB98923AA8A3500F56D49 /* IDownloaderDataSource.swift in Sources */,
 				F692F3831EA0FAF5001E82EB /* MWMAutoupdateController.mm in Sources */,
 				34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */,
