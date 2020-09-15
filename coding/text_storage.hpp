@@ -6,6 +6,7 @@
 #include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
+#include "base/lru_cache.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -212,6 +213,11 @@ private:
 class BlockedTextStorageReader
 {
 public:
+  inline static size_t const kDefaultCacheSize = 32;
+
+  BlockedTextStorageReader() : m_cache(kDefaultCacheSize) {}
+  explicit BlockedTextStorageReader(size_t cacheSize) : m_cache(cacheSize) {}
+
   template <typename Reader>
   void InitializeIfNeeded(Reader & reader)
   {
@@ -235,14 +241,11 @@ public:
     auto const blockIx = m_index.GetBlockIx(stringIx);
     CHECK_LESS(blockIx, m_index.GetNumBlockInfos(), ());
 
-    if (blockIx >= m_cache.size())
-      m_cache.resize(blockIx + 1);
-    ASSERT_LESS(blockIx, m_cache.size(), ());
-
     auto const & bi = m_index.GetBlockInfo(blockIx);
 
-    auto & entry = m_cache[blockIx];
-    if (!entry.m_valid)
+    bool found;
+    auto & entry = m_cache.Find(blockIx, found);
+    if (!found)
     {
       NonOwningReaderSource source(reader);
       source.Skip(bi.m_offset);
@@ -260,9 +263,7 @@ public:
         offset += sub.m_length;
       }
       BWTCoder::ReadAndDecodeBlock(source, std::back_inserter(entry.m_value));
-      entry.m_valid = true;
     }
-    ASSERT(entry.m_valid, ());
 
     ASSERT_GREATER_OR_EQUAL(stringIx, bi.From(), ());
     ASSERT_LESS(stringIx, bi.To(), ());
@@ -275,8 +276,6 @@ public:
     ASSERT_LESS_OR_EQUAL(si.m_offset + si.m_length, value.size(), ());
     return value.substr(static_cast<size_t>(si.m_offset), static_cast<size_t>(si.m_length));
   }
-
-  void ClearCache() { m_cache.clear(); }
 
 private:
   struct StringInfo
@@ -292,11 +291,10 @@ private:
   {
     std::string m_value;             // concatenation of the strings
     std::vector<StringInfo> m_subs;  // indices of individual strings
-    bool m_valid = false;
   };
 
   BlockedTextStorageIndex m_index;
-  std::vector<CacheEntry> m_cache;
+  LruCache<size_t, CacheEntry> m_cache;
   bool m_initialized = false;
 };
 
@@ -311,7 +309,6 @@ public:
 
   size_t GetNumStrings() const { return m_storage.GetNumStrings(); }
   std::string ExtractString(size_t stringIx) { return m_storage.ExtractString(m_reader, stringIx); }
-  void ClearCache() { m_storage.ClearCache(); }
 
 private:
   BlockedTextStorageReader m_storage;

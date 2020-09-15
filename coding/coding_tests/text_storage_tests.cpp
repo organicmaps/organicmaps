@@ -125,7 +125,7 @@ UNIT_TEST(TextStorage_Random)
   TEST_EQUAL(ts.GetNumStrings(), strings.size(), ());
   for (size_t i = 0; i < ts.GetNumStrings(); ++i)
     TEST_EQUAL(ts.ExtractString(i), strings[i], ());
-  ts.ClearCache();
+
   for (size_t i = ts.GetNumStrings() - 1; i < ts.GetNumStrings(); --i)
     TEST_EQUAL(ts.ExtractString(i), strings[i], ());
 }
