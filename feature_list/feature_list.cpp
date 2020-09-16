@@ -205,9 +205,10 @@ public:
   {
     f.ParseBeforeStatistic();
     string const & category = GetReadableType(f);
+    auto const & meta = f.GetMetadata();
     // "operator" is a reserved word, hence "operatr". This word is pretty
     // common in C++ projects.
-    string const & operatr = f.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
+    string const & operatr = meta.Get(feature::Metadata::FMD_OPERATOR);
     auto const & osmIt = ft2osm.find(f.GetID().m_index);
     if ((!f.HasName() && operatr.empty()) ||
         (f.GetGeomType() == feature::GeomType::Line && category != "highway-pedestrian") ||
@@ -238,7 +239,7 @@ public:
     {
       // For sponsored types, adding invented sponsored ids (booking = 00) to the id tail.
       if (ftypes::IsBookingChecker::Instance()(f))
-        osmId = f.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID) + "00";
+        osmId = meta.Get(feature::Metadata::FMD_SPONSORED_ID) + "00";
     }
     string const & uid = BuildUniqueId(ll, name);
     string const & lat = strings::to_string_with_digits_after_comma(ll.m_lat, 6);
@@ -261,17 +262,17 @@ public:
         addrHouse = addr.GetHouseNumber();
       }
     }
-    string const & phone = f.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER);
-    string const & website = f.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
-    string cuisine = f.GetMetadata().Get(feature::Metadata::FMD_CUISINE);
+    string const & phone = meta.Get(feature::Metadata::FMD_PHONE_NUMBER);
+    string const & website = meta.Get(feature::Metadata::FMD_WEBSITE);
+    string cuisine = meta.Get(feature::Metadata::FMD_CUISINE);
     replace(cuisine.begin(), cuisine.end(), ';', ',');
-    string const & stars = f.GetMetadata().Get(feature::Metadata::FMD_STARS);
-    string const & internet = f.GetMetadata().Get(feature::Metadata::FMD_INTERNET);
-    string const & denomination = f.GetMetadata().Get(feature::Metadata::FMD_DENOMINATION);
+    string const & stars = meta.Get(feature::Metadata::FMD_STARS);
+    string const & internet = meta.Get(feature::Metadata::FMD_INTERNET);
+    string const & denomination = meta.Get(feature::Metadata::FMD_DENOMINATION);
     string const & wheelchair = GetWheelchairType(f);
-    string const & opening_hours = f.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS);
-    string const & wikipedia = f.GetMetadata().GetWikiURL();
-    string const & floor = f.GetMetadata().Get(feature::Metadata::FMD_LEVEL);
+    string const & opening_hours = meta.Get(feature::Metadata::FMD_OPEN_HOURS);
+    string const & wikipedia = meta.GetWikiURL();
+    string const & floor = meta.Get(feature::Metadata::FMD_LEVEL);
     string const & fee = strings::EndsWith(category, "-fee") ? "yes" : "";
     string const & atm = HasAtm(f) ? "yes" : "";
 

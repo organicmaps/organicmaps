@@ -27,19 +27,17 @@ void Description::FromFeature(FeatureType & ft)
   m_rating = Rating::kDefault;
   m_priceRate = PriceRate::kDefault;
 
-  auto const & metadata = ft.GetMetadata();
-
-  if (metadata.Has(feature::Metadata::FMD_RATING))
+  string const rating = ft.GetMetadata(feature::Metadata::FMD_RATING);
+  if (!rating.empty())
   {
-    string const rating = metadata.Get(feature::Metadata::FMD_RATING);
     float r;
     if (strings::to_float(rating, r))
       m_rating = r;
   }
 
-  if (metadata.Has(feature::Metadata::FMD_PRICE_RATE))
+  string const priceRate = ft.GetMetadata(feature::Metadata::FMD_PRICE_RATE);
+  if (!priceRate.empty())
   {
-    string const priceRate = metadata.Get(feature::Metadata::FMD_PRICE_RATE);
     int pr;
     if (strings::to_int(priceRate, pr))
       m_priceRate = pr;

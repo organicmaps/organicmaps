@@ -66,6 +66,14 @@ public:
   // This method is threadsafe.
   WARN_UNUSED_RESULT bool Get(uint32_t featureId, feature::MetadataBase & meta);
 
+  // Tries to get string ids for metagata of the feature with id |featureId|. Returns false
+  // if table does not have entry for the feature.
+  // This method is threadsafe.
+  WARN_UNUSED_RESULT bool GetIds(uint32_t featureId, MetaIds & metaIds) const;
+
+  // Gets single metadata string from text storage. This method is threadsafe.
+  std::string GetMetaById(uint8_t id);
+
 private:
   using Map = MapUint32ToValue<MetaIds>;
 

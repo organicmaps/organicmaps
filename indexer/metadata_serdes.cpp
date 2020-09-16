@@ -25,10 +25,10 @@ void MetadataDeserializer::Header::Read(Reader & reader)
   m_metadataMapSize = ReadPrimitiveFromSource<uint32_t>(source);
 }
 
-bool MetadataDeserializer::Get(uint32_t id, feature::MetadataBase & meta)
+bool MetadataDeserializer::Get(uint32_t featureId, feature::MetadataBase & meta)
 {
   MetaIds metaIds;
-  if (!m_map->GetThreadsafe(id, metaIds))
+  if (!m_map->GetThreadsafe(featureId, metaIds))
     return false;
 
   lock_guard<mutex> guard(m_stringsMutex);
@@ -38,6 +38,17 @@ bool MetadataDeserializer::Get(uint32_t id, feature::MetadataBase & meta)
     meta.Set(id.first, m_strings.ExtractString(*m_stringsSubreader, id.second));
   }
   return true;
+}
+
+bool MetadataDeserializer::GetIds(uint32_t featureId, MetaIds & metaIds) const
+{
+  return m_map->GetThreadsafe(featureId, metaIds);
+}
+
+std::string MetadataDeserializer::GetMetaById(uint8_t id)
+{
+  lock_guard<mutex> guard(m_stringsMutex);
+  return m_strings.ExtractString(*m_stringsSubreader, id);
 }
 
 // static

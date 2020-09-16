@@ -210,7 +210,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 
   if (m_routingOptions.Has(RoutingOptions::Road::Ferry))
   {
-    auto const durationHours = feature.GetMetadata().Get(feature::Metadata::FMD_DURATION);
+    auto const durationHours = feature.GetMetadata(feature::Metadata::FMD_DURATION);
     auto const roadLenKm = GetRoadLengthM() / 1000.0;
     double const durationH = CalcFerryDurationHours(durationHours, roadLenKm);
 

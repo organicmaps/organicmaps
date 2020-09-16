@@ -152,16 +152,16 @@ pair<NameScores, size_t> GetNameScores(FeatureType & ft, Geocoder::Params const 
 
   if (ftypes::IsAirportChecker::Instance()(ft))
   {
-    string const iata = ft.GetMetadata().Get(feature::Metadata::FMD_AIRPORT_IATA);
+    string const iata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
     if (!iata.empty())
       UpdateNameScores(iata, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
   }
 
-  string const op = ft.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
+  string const op = ft.GetMetadata(feature::Metadata::FMD_OPERATOR);
   if (!op.empty())
     UpdateNameScores(op, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
 
-  string const brand = ft.GetMetadata().Get(feature::Metadata::FMD_BRAND);
+  string const brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
   if (!brand.empty())
   {
     auto const & brands = indexer::GetDefaultBrands();
@@ -438,9 +438,8 @@ private:
       info.m_hasName = ft.HasName();
       if (!info.m_hasName)
       {
-        auto const & meta = ft.GetMetadata();
-        info.m_hasName =
-            meta.Has(feature::Metadata::FMD_OPERATOR) || meta.Has(feature::Metadata::FMD_BRAND);
+        info.m_hasName = ft.HasMetadata(feature::Metadata::FMD_OPERATOR) ||
+                         ft.HasMetadata(feature::Metadata::FMD_BRAND);
       }
     }
     else

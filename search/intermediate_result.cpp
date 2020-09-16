@@ -231,12 +231,10 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   if (details.m_isInitialized)
     return;
 
-  feature::Metadata const & src = ft.GetMetadata();
+  details.m_airportIata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
+  details.m_brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
 
-  details.m_airportIata = src.Get(feature::Metadata::FMD_AIRPORT_IATA);
-  details.m_brand = src.Get(feature::Metadata::FMD_BRAND);
-
-  string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
+  string const openHours = ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())
   {
     osmoh::OpeningHours const oh(openHours);
@@ -247,7 +245,7 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     // In else case value us osm::Unknown, it's set in preview's constructor.
   }
 
-  if (strings::to_int(src.Get(feature::Metadata::FMD_STARS), details.m_stars))
+  if (strings::to_int(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
     details.m_stars = base::Clamp(details.m_stars, 0, 5);
   else
     details.m_stars = 0;
@@ -258,7 +256,7 @@ void FillDetails(FeatureType & ft, Result::Details & details)
 
   if (isSponsoredHotel)
   {
-    auto const r = src.Get(feature::Metadata::FMD_RATING);
+    auto const r = ft.GetMetadata(feature::Metadata::FMD_RATING);
     if (!r.empty())
     {
       float raw;
@@ -267,7 +265,7 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     }
 
     int pricing;
-    if (!strings::to_int(src.Get(feature::Metadata::FMD_PRICE_RATE), pricing))
+    if (!strings::to_int(ft.GetMetadata(feature::Metadata::FMD_PRICE_RATE), pricing))
       pricing = 0;
     string pricingStr;
     CHECK_GREATER_OR_EQUAL(pricing, 0, ("Pricing must be positive!"));

@@ -89,7 +89,7 @@ void TestFeature::Init()
 
 bool TestFeature::Matches(FeatureType & feature) const
 {
-  istringstream is(feature.GetMetadata().Get(Metadata::FMD_TEST_ID));
+  istringstream is(feature.GetMetadata(Metadata::FMD_TEST_ID));
   uint64_t id;
   is >> id;
   return id == m_id;

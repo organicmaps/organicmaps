@@ -179,7 +179,7 @@ int main(int argc, char * argv[])
   }
 
   auto const getAddress = [&](FeatureType & hotel) -> string {
-    auto const id = hotel.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+    auto const id = hotel.GetMetadata(feature::Metadata::FMD_SPONSORED_ID);
     if (id.empty())
       return {};
 

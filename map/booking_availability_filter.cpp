@@ -211,7 +211,7 @@ void PrepareData(DataSource const & dataSource, search::Results const & results,
     if (!ftypes::IsBookingChecker::Instance()(*ft))
       continue;
 
-    auto hotelId = ft->GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+    auto hotelId = ft->GetMetadata(feature::Metadata::FMD_SPONSORED_ID);
     auto info = cache.Get(hotelId);
     auto const status = info.m_status;
 
@@ -252,7 +252,7 @@ void PrepareData(DataSource const & dataSource, std::vector<FeatureID> const & f
     if (!ftypes::IsBookingChecker::Instance()(*ft))
       continue;
 
-    auto const hotelId = ft->GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+    auto const hotelId = ft->GetMetadata(feature::Metadata::FMD_SPONSORED_ID);
     auto info = cache.Get(hotelId);
     auto const status = info.m_status;
 
@@ -377,7 +377,7 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
       continue;
     }
 
-    auto const & hotelId = ft->GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+    auto const & hotelId = ft->GetMetadata(feature::Metadata::FMD_SPONSORED_ID);
 
     auto info = m_cache->Get(hotelId);
     if (info.m_status == availability::Cache::HotelStatus::Available)

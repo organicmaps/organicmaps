@@ -191,7 +191,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
       search::Result result(ft.GetID(), ft.GetCenter(), name, "", 0, details);
       InsertResult(result, results);
 
-      auto const sponsoredId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+      auto const sponsoredId = ft.GetMetadata(feature::Metadata::FMD_SPONSORED_ID);
 
       if (kAvailableHotels.find(sponsoredId) != kAvailableHotels.cend())
         InsertResult(result, expectedAvailabilityResults);
@@ -323,7 +323,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ApplyFilterOntoWithFeatureIds)
 
       allFeatureIds.push_back(ft.GetID());
 
-      auto hotelId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
+      auto hotelId = ft.GetMetadata(feature::Metadata::FMD_SPONSORED_ID);
       if (kHotelIds.cend() != std::find(kHotelIds.cbegin(), kHotelIds.cend(), hotelId))
         expectedFeatureIds.push_back(ft.GetID());
     },

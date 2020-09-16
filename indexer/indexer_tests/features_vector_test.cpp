@@ -65,7 +65,7 @@ UNIT_TEST(FeaturesVectorTest_ParseMetadata)
   map<string, int> actual;
   fv.ForEach([&](FeatureType & ft, uint32_t index)
              {
-               string postcode = ft.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
+               string postcode = ft.GetMetadata(feature::Metadata::FMD_POSTCODE);
                if (!postcode.empty())
                  ++actual[postcode];
              });

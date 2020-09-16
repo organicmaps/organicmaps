@@ -160,7 +160,7 @@ bool GetRating(FeatureType & ft, double & rating)
 {
   double constexpr kDefaultRating = 0.0;
 
-  string ratingStr = ft.GetMetadata().Get(feature::Metadata::FMD_RATING);
+  string ratingStr = ft.GetMetadata(feature::Metadata::FMD_RATING);
   if (ratingStr.empty() || !strings::to_double(ratingStr, rating))
     rating = kDefaultRating;
   return true;

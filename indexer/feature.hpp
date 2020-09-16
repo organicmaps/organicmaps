@@ -157,7 +157,11 @@ public:
   uint64_t GetPopulation();
   std::string GetRoadNumber();
 
-  feature::Metadata & GetMetadata();
+  feature::Metadata const & GetMetadata();
+
+  // Gets single metadata string. Does not parse all metadata.
+  std::string GetMetadata(feature::Metadata::EType type);
+  bool HasMetadata(feature::Metadata::EType type);
 
   /// @name Statistic functions.
   //@{
@@ -195,8 +199,12 @@ private:
     bool m_points = false;
     bool m_triangles = false;
     bool m_metadata = false;
+    bool m_metaIds = false;
 
-    void Reset() { m_types = m_common = m_header2 = m_points = m_triangles = m_metadata = false; }
+    void Reset()
+    {
+      m_types = m_common = m_header2 = m_points = m_triangles = m_metadata = m_metaIds = false;
+    }
   };
 
   struct Offsets
@@ -218,6 +226,7 @@ private:
   void ParseCommon();
   void ParseHeader2();
   void ParseMetadata();
+  void ParseMetaIds();
   void ParseGeometryAndTriangles(int scale);
 
   uint8_t m_header = 0;
@@ -235,6 +244,7 @@ private:
   using Points = buffer_vector<m2::PointD, kStaticBufferSize>;
   Points m_points, m_triangles;
   feature::Metadata m_metadata;
+  indexer::MetadataDeserializer::MetaIds m_metaIds;
 
   // Non-owning pointer to shared load info. SharedLoadInfo created once per FeaturesVector.
   feature::SharedLoadInfo const * m_loadInfo = nullptr;

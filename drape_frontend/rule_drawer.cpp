@@ -52,10 +52,9 @@ double GetBuildingHeightInMeters(FeatureType & f)
   double constexpr kDefaultHeightInMeters = 3.0;
   double constexpr kMetersPerLevel = 3.0;
 
-  feature::Metadata const & md = f.GetMetadata();
   double heightInMeters = kDefaultHeightInMeters;
 
-  std::string value = md.Get(feature::Metadata::FMD_HEIGHT);
+  std::string value = f.GetMetadata(feature::Metadata::FMD_HEIGHT);
   if (!value.empty())
   {
     if (!strings::to_double(value, heightInMeters))
@@ -63,7 +62,7 @@ double GetBuildingHeightInMeters(FeatureType & f)
   }
   else
   {
-    value = md.Get(feature::Metadata::FMD_BUILDING_LEVELS);
+    value = f.GetMetadata(feature::Metadata::FMD_BUILDING_LEVELS);
     if (!value.empty())
     {
       if (strings::to_double(value, heightInMeters))
@@ -75,8 +74,7 @@ double GetBuildingHeightInMeters(FeatureType & f)
 
 double GetBuildingMinHeightInMeters(FeatureType & f)
 {
-  feature::Metadata const & md = f.GetMetadata();
-  std::string value = md.Get(feature::Metadata::FMD_MIN_HEIGHT);
+  std::string value = f.GetMetadata(feature::Metadata::FMD_MIN_HEIGHT);
   if (value.empty())
     return 0.0;
 
@@ -92,12 +90,11 @@ df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType & f)
   df::BaseApplyFeature::HotelData result;
   if (ftypes::IsBookingChecker::Instance()(f))
   {
-    auto const & metadata = f.GetMetadata();
     result.m_isHotel = true;
-    result.m_rating = metadata.Get(feature::Metadata::FMD_RATING);
-    if (!strings::to_int(metadata.Get(feature::Metadata::FMD_STARS), result.m_stars))
+    result.m_rating = f.GetMetadata(feature::Metadata::FMD_RATING);
+    if (!strings::to_int(f.GetMetadata(feature::Metadata::FMD_STARS), result.m_stars))
       result.m_stars = 0;
-    if (!strings::to_int(metadata.Get(feature::Metadata::FMD_PRICE_RATE), result.m_priceCategory))
+    if (!strings::to_int(f.GetMetadata(feature::Metadata::FMD_PRICE_RATE), result.m_priceCategory))
       result.m_priceCategory = 0;
   }
   return result;

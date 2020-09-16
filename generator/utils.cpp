@@ -117,8 +117,7 @@ bool ParseFeatureIdToTestIdMapping(std::string const & path,
 {
   bool success = true;
   feature::ForEachFeature(path, [&](FeatureType & feature, uint32_t fid) {
-    auto const & metatada = feature.GetMetadata();
-    auto const testIdStr = metatada.Get(feature::Metadata::FMD_TEST_ID);
+    auto const testIdStr = feature.GetMetadata(feature::Metadata::FMD_TEST_ID);
     uint64_t testId;
     if (!strings::to_uint64(testIdStr, testId))
     {

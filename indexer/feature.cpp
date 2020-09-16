@@ -244,6 +244,7 @@ FeatureType::FeatureType(osm::MapObject const & emo)
 
   m_metadata = emo.GetMetadata();
   m_parsed.m_metadata = true;
+  m_parsed.m_metaIds = true;
 
   CHECK_LESS_OR_EQUAL(emo.GetTypes().Size(), feature::kMaxTypesCount, ());
   copy(emo.GetTypes().begin(), emo.GetTypes().end(), m_types.begin());
@@ -586,6 +587,28 @@ void FeatureType::ParseMetadata()
   m_parsed.m_metadata = true;
 }
 
+void FeatureType::ParseMetaIds()
+{
+  if (m_parsed.m_metaIds)
+    return;
+
+  CHECK(m_loadInfo, ());
+  try
+  {
+    auto const format = m_loadInfo->GetMWMFormat();
+    if (format >= version::Format::v11)
+      UNUSED_VALUE(m_metadataDeserializer->GetIds(m_id.m_index, m_metaIds));
+    else
+      ParseMetadata();
+  }
+  catch (Reader::OpenException const &)
+  {
+    // now ignore exception because not all mwm have needed sections
+  }
+
+  m_parsed.m_metaIds = true;
+}
+
 StringUtf8Multilang const & FeatureType::GetNames()
 {
   ParseCommon();
@@ -803,8 +826,33 @@ string FeatureType::GetRoadNumber()
   return m_params.ref;
 }
 
-feature::Metadata & FeatureType::GetMetadata()
+feature::Metadata const & FeatureType::GetMetadata()
 {
   ParseMetadata();
   return m_metadata;
+}
+
+std::string FeatureType::GetMetadata(feature::Metadata::EType type)
+{
+  ParseMetaIds();
+  if (m_metadata.Has(type))
+    return m_metadata.Get(type);
+
+  auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
+  if (it == m_metaIds.end())
+    return {};
+
+  auto const value = m_metadataDeserializer->GetMetaById(it->second);
+  m_metadata.Set(type, value);
+  return value;
+}
+
+bool FeatureType::HasMetadata(feature::Metadata::EType type)
+{
+  ParseMetaIds();
+  if (m_metadata.Has(type))
+    return true;
+
+  return base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; }) !=
+         m_metaIds.end();
 }
