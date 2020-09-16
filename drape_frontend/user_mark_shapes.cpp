@@ -29,8 +29,8 @@ namespace df
 {
 std::vector<double> const kLineWidthZoomFactor =
 {
-// 1   2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19
-  0.3, 0.3, 0.3, 0.4, 0.5, 0.6, 0.7, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+// 1   2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20
+  0.3, 0.3, 0.3, 0.4, 0.5, 0.6, 0.7, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
 };
 int const kLineSimplifyLevelEnd = 15;
 
@@ -606,7 +606,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
                     UserLinesRenderCollection & renderParams, dp::Batcher & batcher)
 {
   CHECK_GREATER(tileKey.m_zoomLevel, 0, ());
-  CHECK_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::GetUpperStyleScale(), ());
+  CHECK_LESS(tileKey.m_zoomLevel - 1, static_cast<int>(kLineWidthZoomFactor.size()), ());
 
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelEnd;
