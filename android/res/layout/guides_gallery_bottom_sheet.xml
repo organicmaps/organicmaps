@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/guides_gallery_bottom_sheet"
-  android:layout_width="match_parent"
+  android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:background="@android:color/transparent"
   android:orientation="vertical"
@@ -18,6 +18,6 @@
   app:layout_behavior="@string/placepage_behavior">
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/guides_gallery"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 </LinearLayout>
