@@ -2476,7 +2476,7 @@ cont {
     symbol {
       name: "bench"
       apply_for_type: 1
-      priority: 16447
+      priority: 16455
     }
   }
   element {
@@ -2484,7 +2484,7 @@ cont {
     symbol {
       name: "bench"
       apply_for_type: 1
-      priority: 16447
+      priority: 16455
     }
     caption {
       primary {
@@ -2492,7 +2492,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15447
+      priority: 15455
     }
   }
 }
