@@ -135,8 +135,10 @@ public:
   void SetUnavailable(std::vector<FeatureID> const & features, std::string const & reasonKey);
   bool IsUnavailable(FeatureID const & id) const;
 
+  void SetVisited(FeatureID const & id);
   bool IsVisited(FeatureID const & id) const;
 
+  void SetSelected(FeatureID const & id);
   bool IsSelected(FeatureID const & id) const;
 
   void ClearTrackedProperties();

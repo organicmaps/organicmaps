@@ -891,9 +891,19 @@ bool SearchMarks::IsUnavailable(FeatureID const & id) const
   return m_unavailable.find(id) != m_unavailable.cend();
 }
 
+void SearchMarks::SetVisited(FeatureID const & id)
+{
+  m_visitedSearchMarks.insert(id);
+}
+
 bool SearchMarks::IsVisited(FeatureID const & id) const
 {
   return m_visitedSearchMarks.find(id) != m_visitedSearchMarks.cend();
+}
+
+void SearchMarks::SetSelected(FeatureID const & id)
+{
+  m_selectedFeature = id;
 }
 
 bool SearchMarks::IsSelected(FeatureID const & id) const
@@ -907,7 +917,6 @@ void SearchMarks::ClearTrackedProperties()
     std::scoped_lock<std::mutex> lock(m_lock);
     m_unavailable.clear();
   }
-  m_visitedSearchMarks.clear();
   m_selectedFeature = {};
 }
 

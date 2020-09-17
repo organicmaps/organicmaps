@@ -333,10 +333,10 @@ using Observers = NSHashTable<Observer>;
   auto const navigationManagerState = [MWMNavigationDashboardManager sharedManager].state;
   [self viewHidden:navigationManagerState != MWMNavigationDashboardStateHidden];
   self.controlsManager.menuState = MWMBottomMenuStateHidden;
+  GetFramework().DeactivateMapSelection(true);
   [MWMSearch setSearchOnMap:YES];
   [self.tableViewController reloadData];
 
-  GetFramework().DeactivateMapSelection(true);
   [self.searchTextField resignFirstResponder];
 
   if (navigationManagerState == MWMNavigationDashboardStateNavigation) {

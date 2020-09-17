@@ -2463,6 +2463,8 @@ void Framework::ActivateMapSelection()
   auto const & featureId = m_currentPlacePageInfo->GetID();
   bool const isHotel = m_currentPlacePageInfo->GetHotelType().has_value();
 
+  m_searchMarks.SetSelected(featureId);
+
   bool isSelectionShapeVisible = true;
   if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking &&
       m_searchMarks.IsThereSearchMarkForFeature(featureId))
@@ -2492,7 +2494,7 @@ void Framework::ActivateMapSelection()
 
 void Framework::DeactivateMapSelection(bool notifyUI)
 {
-  bool const somethingWasAlreadySelected = (m_currentPlacePageInfo.has_value());
+  bool const somethingWasAlreadySelected = m_currentPlacePageInfo.has_value();
 
   if (notifyUI && m_onPlacePageClose)
     m_onPlacePageClose(!somethingWasAlreadySelected);
@@ -2520,15 +2522,18 @@ void Framework::DeactivateHotelSearchMark()
 {
   if (!m_currentPlacePageInfo)
     return;
+
+  m_searchMarks.SetSelected({});
   if (m_currentPlacePageInfo->GetHotelType().has_value())
   {
-    if (GetSearchAPI().IsViewportSearchActive())
+    auto const & featureId = m_currentPlacePageInfo->GetID();
+    if (m_searchMarks.IsThereSearchMarkForFeature(featureId))
     {
-      auto const & featureId = m_currentPlacePageInfo->GetID();
-      if (m_searchMarks.IsThereSearchMarkForFeature(featureId))
-        m_searchMarks.OnDeactivate(featureId);
+      m_searchMarks.SetVisited(featureId);
+      m_searchMarks.OnDeactivate(featureId);
     }
-    else
+
+    if (!GetSearchAPI().IsViewportSearchActive())
     {
       GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
     }
