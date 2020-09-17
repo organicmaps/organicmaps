@@ -649,7 +649,7 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onResultsEnd(long timestamp)
+  public void onResultsEnd(long timestamp, boolean isHotel)
   {
     onSearchEnd();
   }

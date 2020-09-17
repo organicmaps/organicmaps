@@ -44,13 +44,13 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   @Override
-  public void onResultsEnd(final long timestamp)
+  public void onResultsEnd(final long timestamp, final boolean isHotel)
   {
     UiThread.run(
         () ->
         {
           for (NativeSearchListener listener : mListeners)
-            listener.onResultsEnd(timestamp);
+            listener.onResultsEnd(timestamp, isHotel);
           mListeners.finishIterate();
         });
   }

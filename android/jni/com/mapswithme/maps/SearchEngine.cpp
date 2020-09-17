@@ -389,12 +389,14 @@ void OnResults(Results const & results, vector<search::ProductInfo> const & prod
     jni::TScopedLocalObjectArrayRef jResults(
         env, BuildSearchResults(results, productInfo, hasPosition, lat, lon));
     env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(),
-                        static_cast<jlong>(timestamp), results.GetType() == Results::Type::Hotels);
+                        static_cast<jlong>(timestamp),
+                        static_cast<jboolean>(results.GetType() == Results::Type::Hotels));
   }
 
   if (results.IsEndMarker())
   {
-    env->CallVoidMethod(g_javaListener, g_endResultsId, static_cast<jlong>(timestamp));
+    env->CallVoidMethod(g_javaListener, g_endResultsId, static_cast<jlong>(timestamp),
+                        static_cast<jboolean>(results.GetType() == Results::Type::Hotels));
     if (isMapAndTable && results.IsEndedNormal())
       g_framework->NativeFramework()->GetSearchAPI().PokeSearchInViewport();
   }
@@ -660,7 +662,7 @@ extern "C"
     g_javaListener = env->NewGlobalRef(thiz);
     g_updateResultsId = jni::GetMethodID(env, g_javaListener, "onResultsUpdate",
                                          "([Lcom/mapswithme/maps/search/SearchResult;JZ)V");
-    g_endResultsId = jni::GetMethodID(env, g_javaListener, "onResultsEnd", "(J)V");
+    g_endResultsId = jni::GetMethodID(env, g_javaListener, "onResultsEnd", "(JZ)V");
     g_resultClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/SearchResult");
     g_resultConstructor = jni::GetConstructorID(
         env, g_resultClass,

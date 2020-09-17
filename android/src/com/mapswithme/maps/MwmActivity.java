@@ -2207,8 +2207,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onResultsEnd(long timestamp)
+  public void onResultsEnd(long timestamp, boolean isHotel)
   {
+    if (mFilterController != null)
+      mFilterController.updateFilterButtonsVisibility(isHotel);
   }
 
   @Override
