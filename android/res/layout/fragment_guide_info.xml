@@ -6,7 +6,7 @@
     layout="@layout/item_guide_info">
   </include>
   <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/_collections_recycler"
+    android:id="@+id/collections_recycler"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:layout_height="@dimen/height_block_base"
+  android:layout_width="wrap_content"
+  android:background="?windowBackgroundForced"
   android:orientation="horizontal"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?windowBackgroundForced">
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base">
   <TextView
     android:id="@+id/text_message"
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:text="@string/bookmarks_groups"
-    android:fontFamily="@string/robotoMedium"
-    tools:targetApi="jelly_bean"/>
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:text="@string/categories"
+    android:gravity="center_vertical"
+    android:layout_alignParentStart="true"
+    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"/>
   <TextView
     android:id="@+id/button"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingStart="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
-    android:paddingTop="@dimen/bookmark_hide_btn_padding_top"
-    android:paddingBottom="@dimen/margin_half_double_plus"
-    android:textColor="?colorAccent"
-    android:textAllCaps="true"
-    android:background="?selectableItemBackground"
-    android:text="@string/bookmarks_groups_hide_all"
+    android:layout_height="match_parent"
     android:fontFamily="@string/robotoMedium"
-    tools:targetApi="jelly_bean"/>
-</LinearLayout>
+    android:text="@string/bookmarks_groups_hide_all"
+    android:textAllCaps="true"
+    android:gravity="center_vertical"
+    android:layout_alignParentEnd="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:textColor="?colorAccent"
+    android:background="?selectableItemBackground" />
+</RelativeLayout>

@@ -30,7 +30,6 @@
     android:layout_alignWithParentIfMissing="true"
     android:layout_above="@id/container"
     android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_base"
     android:src="?fabViewOnMap"

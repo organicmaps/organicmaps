@@ -66,7 +66,7 @@ public interface BookmarkCategoriesPageResProvider
     @Override
     public int getHeaderText()
     {
-      return R.string.guides_groups_cached;
+      return R.string.guides;
     }
 
     @Override
