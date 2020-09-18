@@ -103,6 +103,7 @@ final class ExpandableLabel: UIView {
     textView.attributedText = attributedText
     textView.setContentHuggingPriority(contentHuggingPriority(for: .vertical), for: .vertical)
     textView.backgroundColor = .clear
+    textView.dataDetectorTypes = [.link, .phoneNumber]
     expandLabel.setContentHuggingPriority(contentHuggingPriority(for: .vertical), for: .vertical)
     expandLabel.font = font
     expandLabel.textColor = expandColor
