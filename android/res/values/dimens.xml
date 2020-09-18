@@ -269,10 +269,10 @@
   <dimen name="dp_0">0dp</dimen>
   <dimen name="toggle_map_layer_frame_height">98dp</dimen>
   <dimen name="focal_radius">44dp</dimen>
-  <dimen name="guide_image_size">180dp</dimen>
-  <dimen name="description_guide_block_size">108dp</dimen>
-  <dimen name="block_content_by_size">60dp</dimen>
-  <dimen name="content_by_logo_size">100dp</dimen>
+  <dimen name="guide_image_height">180dp</dimen>
+  <dimen name="guide_description_block_height">108dp</dimen>
+  <dimen name="guide_description_content_by_height">60dp</dimen>
+  <dimen name="content_by_logo_width">68dp</dimen>
 
   <!-- Purchases-->
   <dimen name="ads_removal_dialog_min_height">508dp</dimen>

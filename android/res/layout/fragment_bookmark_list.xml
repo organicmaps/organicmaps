@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:mapsme="http://schemas.android.com/apk/res-auto"
+  xmlns:mapsme="http://schemas.android.com/apk/app"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
@@ -10,10 +10,11 @@
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="match_parent"
+      android:focusableInTouchMode="true">
       <include
-        android:id="@+id/guides_description"
-        layout="@layout/fragment_guide_info"
+        android:id="@+id/guide_info"
+        layout="@layout/guide_info_layout"
         mapsme:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
       <androidx.recyclerview.widget.RecyclerView

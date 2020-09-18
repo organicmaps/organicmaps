@@ -150,8 +150,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     mSearchContainer = toolbar.findViewById(R.id.search_container);
     UiUtils.hide(mSearchContainer, R.id.back);
 
-    //todo (velichkomarija) : Delete hide function where core will provide description
-    UiUtils.hide(view.findViewById(R.id.guides_description));
+    //TODO: (@velichkomarija) : Delete hide function where core will provide description
+    UiUtils.hide(view.findViewById(R.id.guide_info));
 
     mToolbarController = new BookmarksToolbarController(toolbar, requireActivity(), this);
     mToolbarController.setHint(R.string.search_in_the_list);
