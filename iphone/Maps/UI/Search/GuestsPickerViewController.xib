@@ -22,14 +22,21 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iE2-RE-OWd">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3ZC-cU-MNM">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xyR-57-dCD">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="54"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Family" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TG5-PM-toX">
-                                    <rect key="frame" x="16" y="10" width="382" height="29"/>
+                                    <rect key="frame" x="16" y="10" width="382" height="33"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -39,7 +46,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apc-aI-IJI">
-                                    <rect key="frame" x="16" y="49" width="398" height="1"/>
+                                    <rect key="frame" x="16" y="53" width="398" height="1"/>
                                     <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="BRZ-qD-EIb"/>
@@ -61,10 +68,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8cM-v0-O7k">
-                            <rect key="frame" x="0.0" y="50" width="414" height="49"/>
+                            <rect key="frame" x="0.0" y="54" width="414" height="47.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9md-9e-Ze0">
-                                    <rect key="frame" x="56" y="48" width="358" height="1"/>
+                                    <rect key="frame" x="56" y="46.5" width="358" height="1"/>
                                     <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="ySS-I1-GZF"/>
@@ -74,7 +81,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_booking_room" translatesAutoresizingMaskIntoConstraints="NO" id="vYB-zA-nJQ">
-                                    <rect key="frame" x="16" y="12.5" width="24" height="24"/>
+                                    <rect key="frame" x="16" y="12" width="24" height="24"/>
                                     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="6aD-2h-Vgl"/>
@@ -85,7 +92,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnR-wq-ESo">
-                                    <rect key="frame" x="56" y="14" width="234" height="21"/>
+                                    <rect key="frame" x="56" y="14" width="234" height="19.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -95,7 +102,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UuG-Jq-Ceh" customClass="ValueStepperView" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="306" y="5.5" width="100" height="38"/>
+                                    <rect key="frame" x="306" y="5" width="100" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="38" id="AKR-Yw-d97"/>
@@ -122,10 +129,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZa-Gy-akP">
-                            <rect key="frame" x="0.0" y="99" width="414" height="50"/>
+                            <rect key="frame" x="0.0" y="101.5" width="414" height="47.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CqJ-mp-Yqh">
-                                    <rect key="frame" x="56" y="49" width="358" height="1"/>
+                                    <rect key="frame" x="56" y="46.5" width="358" height="1"/>
                                     <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="Fye-yR-j29"/>
@@ -135,7 +142,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_booking_people" translatesAutoresizingMaskIntoConstraints="NO" id="xgI-wP-Ash">
-                                    <rect key="frame" x="16" y="13" width="24" height="24"/>
+                                    <rect key="frame" x="16" y="12" width="24" height="24"/>
                                     <color key="tintColor" white="0.13233090750000001" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="Uq7-1Q-nj7"/>
@@ -146,7 +153,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adults" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwB-tL-w2R">
-                                    <rect key="frame" x="56" y="14" width="234" height="22"/>
+                                    <rect key="frame" x="56" y="14" width="234" height="19.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -156,7 +163,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iih-wx-HWd" customClass="ValueStepperView" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="306" y="6" width="100" height="38"/>
+                                    <rect key="frame" x="306" y="5" width="100" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="100" id="H6l-kr-84N"/>
@@ -360,21 +367,45 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="320" id="Z4S-Eo-vxK"/>
+                        <constraint firstAttribute="width" constant="350" id="gJY-Sg-qaN"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="gJY-Sg-qaN"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=compact">
+                        <mask key="constraints">
+                            <include reference="gJY-Sg-qaN"/>
+                        </mask>
+                    </variation>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="iE2-RE-OWd" firstAttribute="trailing" secondItem="3ZC-cU-MNM" secondAttribute="trailing" id="2bX-R0-ETI"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="3ZC-cU-MNM" secondAttribute="bottom" id="AzB-Y2-R3U"/>
+                <constraint firstItem="iE2-RE-OWd" firstAttribute="top" secondItem="3ZC-cU-MNM" secondAttribute="top" id="B0O-V2-7U1"/>
+                <constraint firstItem="iE2-RE-OWd" firstAttribute="leading" secondItem="3ZC-cU-MNM" secondAttribute="leading" id="DYO-z4-s32"/>
+                <constraint firstAttribute="bottom" secondItem="iE2-RE-OWd" secondAttribute="bottom" id="Ifr-hn-5ex"/>
                 <constraint firstItem="3ZC-cU-MNM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VXy-sp-VfJ"/>
-                <constraint firstItem="3ZC-cU-MNM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="j8c-dC-FdF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3ZC-cU-MNM" secondAttribute="trailing" id="lj2-YQ-0bF"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
-            </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="137.59999999999999" y="313.94302848575717"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="lj2-YQ-0bF"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular">
+                <mask key="constraints">
+                    <include reference="lj2-YQ-0bF"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="134.40000000000001" y="349.92503748125938"/>
         </view>
     </objects>
     <resources>

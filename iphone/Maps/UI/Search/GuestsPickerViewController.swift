@@ -13,7 +13,7 @@
 }
 
 @objc final class GuestsPickerViewController: UIViewController {
-  private let transitioning = CoverVerticalModalTransitioning(presentationHeight: 320)
+  private let transitioning = CoverVerticalModalTransitioning(presentationHeight: 340)
 
   @IBOutlet var roomsStepper: ValueStepperView!
   @IBOutlet var adultsStepper: ValueStepperView!

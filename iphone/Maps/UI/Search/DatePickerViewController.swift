@@ -8,7 +8,8 @@ import UIKit
 }
 
 @objc final class DatePickerViewController: UIViewController {
-  private let transitioning = CoverVerticalModalTransitioning(presentationHeight: 550)
+  private static let kHeight: CGFloat = 550
+  private let transitioning = CoverVerticalModalTransitioning(presentationHeight: min(UIScreen.main.bounds.height, kHeight))
 
   @IBOutlet var checkInLabel: UILabel!
   @IBOutlet var startDateLabel: UILabel!
@@ -58,6 +59,16 @@ import UIKit
 
   @IBAction func onCancel(_ sender: UIButton) {
     delegate?.datePickerDidCancel(self)
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    alternativeSizeClass(iPhone: {
+      if let superview = view.superview {
+        view.height = min(UIScreen.main.bounds.height, DatePickerViewController.kHeight)
+        view.minY = superview.height - view.height
+      }
+    }, iPad: {})
   }
 }
 
