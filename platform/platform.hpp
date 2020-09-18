@@ -190,6 +190,8 @@ public:
   std::string TmpPathForFile(std::string const & file) const { return TmpDir() + file; }
   /// @return full random path to temporary file.
   std::string TmpPathForFile() const;
+  /// @return full partially random path to temporary file.
+  std::string TmpPathForFile(std::string const & prefix, std::string const & suffix) const;
 
   /// @return full path to the file where data for unit tests is stored.
   std::string TestsDataPathForFile(std::string const & file) const { return ReadPathForFile(file); }

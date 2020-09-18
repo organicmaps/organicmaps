@@ -177,8 +177,14 @@ bool Platform::RemoveFileIfExists(string const & filePath)
 
 string Platform::TmpPathForFile() const
 {
-  size_t const kNameLen = 32;
+  size_t constexpr kNameLen = 32;
   return TmpDir() + RandomString(kNameLen);
+}
+
+string Platform::TmpPathForFile(string const & prefix, string const & suffix) const
+{
+  size_t constexpr kRandomLen = 8;
+  return TmpDir() + prefix + RandomString(kRandomLen) + suffix;
 }
 
 void Platform::GetFontNames(FilesList & res) const

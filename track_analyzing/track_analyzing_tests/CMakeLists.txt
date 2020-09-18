@@ -8,6 +8,7 @@ set(
   ../track_analyzer/utils.hpp
   balance_tests.cpp
   statistics_tests.cpp
+  track_archive_reader_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
@@ -15,6 +16,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   track_analyzing
+  tracking
   generator
   routing
   traffic
@@ -22,6 +24,7 @@ omim_link_libraries(
   storage
   indexer
   platform
+  minizip
   mwm_diff
   bsdiff
   geometry

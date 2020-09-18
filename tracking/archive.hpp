@@ -145,6 +145,11 @@ struct TraitsPacket<Packet>
     uint32_t const timestamp = previous.m_timestamp + delta.m_timestamp;
     return Packet(lat, lon, timestamp);
   }
+
+  static traffic::SpeedGroup GetSpeedGroup(Packet const & packet)
+  {
+    return traffic::SpeedGroup::Unknown;
+  }
 };
 
 template <>
@@ -177,6 +182,11 @@ struct TraitsPacket<PacketCar>
   {
     Packet const base = TraitsPacket<Packet>::Combine(previous, delta);
     return PacketCar(base.m_lat, base.m_lon, base.m_timestamp, delta.m_speedGroup);
+  }
+
+  static traffic::SpeedGroup GetSpeedGroup(PacketCar const & packet)
+  {
+    return packet.m_speedGroup;
   }
 };
 
