@@ -21,7 +21,7 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        mapsme:layout_constraintTop_toBottomOf="@id/guides_description" />
+        mapsme:layout_constraintTop_toBottomOf="@id/guide_info" />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.core.widget.NestedScrollView>
   <com.google.android.material.floatingactionbutton.FloatingActionButton
