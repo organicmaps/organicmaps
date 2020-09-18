@@ -92,7 +92,7 @@ public:
   void UpdateViewport(ScreenBase const & screen);
   void Reconnect();
 
-  void SetEnabled(bool enabled);
+  void SetEnabled(bool enabled, bool silentMode = false, bool suggestZoom = true);
   bool IsEnabled() const;
 
   GuidesGallery GetGallery() const;
@@ -116,7 +116,7 @@ public:
   void LogGuideSelectedStatistic();
 
 private:
-  void ChangeState(GuidesState newState, bool force = false);
+  void ChangeState(GuidesState newState, bool force = false, bool needNotify = true);
   void RequestGuides(bool suggestZoom = false);
   void Clear();
 
@@ -159,6 +159,8 @@ private:
 
   std::unordered_set<std::string> m_shownGuides;
   LayersStatistics m_statistics;
+
+  bool m_silentMode = false;
 };
 
 std::string DebugPrint(GuidesManager::GuidesState state);

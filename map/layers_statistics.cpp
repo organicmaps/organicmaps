@@ -27,6 +27,16 @@ std::string ToString(LayersStatistics::LayerItemType itemType)
   }
   UNREACHABLE();
 }
+
+std::string ToString(LayersStatistics::InitType initType)
+{
+  switch (initType)
+  {
+    case LayersStatistics::InitType::User: return "user";
+    case LayersStatistics::InitType::Auto: return "auto";
+  }
+  UNREACHABLE();
+}
 }  // namespace
 
 LayersStatistics::LayersStatistics(std::string const & layerName)
@@ -35,9 +45,11 @@ LayersStatistics::LayersStatistics(std::string const & layerName)
 }
 
 void LayersStatistics::LogActivate(Status status,
-                                   std::set<int64_t> const & mwmVersions /* = {} */) const
+                                   std::set<int64_t> const & mwmVersions /* = {} */,
+                                   InitType initType /* = InitType::User */) const
 {
-  alohalytics::TStringMap params = {{"name", m_layerName}, {"status", ToString(status)}};
+  alohalytics::TStringMap params = {{"name", m_layerName}, {"status", ToString(status)},
+                                    {"init", ToString(initType)}};
 
   if (!mwmVersions.empty())
     params.emplace("dataversion", strings::JoinAny(mwmVersions));

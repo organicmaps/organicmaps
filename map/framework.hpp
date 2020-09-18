@@ -907,6 +907,8 @@ private:
   TipsApi m_tipsApi;
   notifications::NotificationManager m_notificationManager;
 
+  void EnableGuidesOnce(bool isFirstLaunch, bool isLaunchByDeeplink);
+
 public:
   TipsApi const & GetTipsApi() const;
 

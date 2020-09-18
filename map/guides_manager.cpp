@@ -126,7 +126,8 @@ void GuidesManager::Reconnect()
   RequestGuides();
 }
 
-void GuidesManager::SetEnabled(bool enabled)
+void GuidesManager::SetEnabled(bool enabled, bool silentMode /* = false */,
+                               bool suggestZoom /* = true */)
 {
   auto const newState = enabled ? GuidesState::Enabled : GuidesState::Disabled;
   if (newState == m_state)
@@ -140,13 +141,18 @@ void GuidesManager::SetEnabled(bool enabled)
   if (!enabled)
     return;
 
+  m_silentMode = silentMode;
+
   if (!GetPlatform().IsConnected())
   {
-    ChangeState(GuidesState::FatalNetworkError);
+    if (m_silentMode)
+      ChangeState(GuidesState::Disabled);
+    else
+      ChangeState(GuidesState::FatalNetworkError);
     return;
   }
 
-  RequestGuides(true /* suggestZoom */);
+  RequestGuides(suggestZoom);
 }
 
 bool GuidesManager::IsEnabled() const
@@ -154,12 +160,12 @@ bool GuidesManager::IsEnabled() const
   return m_state != GuidesState::Disabled;
 }
 
-void GuidesManager::ChangeState(GuidesState newState, bool force /* = false */)
+void GuidesManager::ChangeState(GuidesState newState, bool force /* = false */, bool needNotify /* = true */)
 {
   if (m_state == newState && !force)
     return;
   m_state = newState;
-  if (m_onStateChanged != nullptr)
+  if (m_onStateChanged != nullptr && needNotify)
     m_onStateChanged(newState);
 
   if (m_shownGuides.empty())
@@ -232,7 +238,8 @@ void GuidesManager::OnRequestSucceed(guides_on_map::GuidesOnMap const & guides, 
     }
     else
     {
-      ChangeState(GuidesState::NoData);
+      if (!m_silentMode)
+        ChangeState(GuidesState::NoData, false /* force */, !m_silentMode /* needNotify */);
     }
   }
 
@@ -260,11 +267,14 @@ void GuidesManager::OnRequestError()
   if (++m_errorRequestsCount >= kRequestAttemptsCount)
   {
     Clear();
-    ChangeState(GuidesState::FatalNetworkError);
+    if (m_silentMode)
+      ChangeState(GuidesState::Disabled);
+    else
+      ChangeState(GuidesState::FatalNetworkError);
     return;
   }
 
-  ChangeState(GuidesState::NetworkError, true /* force */);
+  ChangeState(GuidesState::NetworkError, true /* force */, !m_silentMode /* needNotify */);
 
   m_retryAfterErrorRequestId =
       GetPlatform().RunDelayedTask(Platform::Thread::Background, kErrorTimeout, [this]() {
@@ -470,12 +480,14 @@ bool GuidesManager::IsRequestParamsInitialized() const
 
 void GuidesManager::TrackStatistics() const
 {
+  auto const initType = m_silentMode ? LayersStatistics::InitType::Auto
+                                     : LayersStatistics::InitType::User;
   if (m_state == GuidesState::HasData)
-    m_statistics.LogActivate(LayersStatistics::Status::Success);
+    m_statistics.LogActivate(LayersStatistics::Status::Success, {} /* mwmVersions */, initType);
   else if (m_state == GuidesState::NoData)
-    m_statistics.LogActivate(LayersStatistics::Status::Unavailable);
+    m_statistics.LogActivate(LayersStatistics::Status::Unavailable, {} /* mwmVersions */, initType);
   else if (m_state == GuidesState::NetworkError || m_state == GuidesState::FatalNetworkError)
-    m_statistics.LogActivate(LayersStatistics::Status::Error);
+    m_statistics.LogActivate(LayersStatistics::Status::Error, {} /* mwmVersions */, initType);
 }
 
 GalleryItem GuidesManager::MakeGalleryItem(guides_on_map::GuidesNode const & guide) const

@@ -1,4 +1,6 @@
-#include "com/mapswithme/maps/guides/Guides.hpp"
+#include "android/jni/com/mapswithme/maps/guides/Guides.hpp"
+
+#include "android/jni/com/mapswithme/platform/Platform.hpp"
 
 namespace
 {
@@ -83,3 +85,32 @@ jobject CreateGallery(JNIEnv *env, GuidesManager::GuidesGallery const & gallery)
   return env->NewObject(g_galleryClass, g_galleryConstructor, items.get());
 }
 } // namespace guides
+
+namespace platform
+{
+bool IsGuidesLayerFirstLaunch()
+{
+  JNIEnv * env = jni::GetEnv();
+  static jclass sharedPropertiesClass = jni::GetGlobalClassRef(env, "com/mapswithme/util/SharedPropertiesUtils");
+  static jmethodID getter = jni::GetStaticMethodID(env, sharedPropertiesClass,
+                                                   "shouldShowNewMarkerForLayerMode",
+                                                   "(Landroid/content/Context;Ljava/lang/String;)Z");
+  jobject context = android::Platform::Instance().GetContext();
+  jni::ScopedLocalRef mode(env, jni::ToJavaString(env, "GUIDES"));
+
+  return env->CallStaticBooleanMethod(sharedPropertiesClass, getter, context, mode.get());
+}
+
+void SetGuidesLayerFirstLaunch(bool /* isFirstLaunch */)
+{
+  JNIEnv * env = jni::GetEnv();
+  static jclass sharedPropertiesClass = jni::GetGlobalClassRef(env, "com/mapswithme/util/SharedPropertiesUtils");
+  static jmethodID setter = jni::GetStaticMethodID(env, sharedPropertiesClass,
+                                                   "setLayerMarkerShownForLayerMode",
+                                                   "(Landroid/content/Context;Ljava/lang/String;)V");
+  jobject context = android::Platform::Instance().GetContext();
+  jni::ScopedLocalRef mode(env, jni::ToJavaString(env, "GUIDES"));
+
+  env->CallStaticVoidMethod(sharedPropertiesClass, setter, context, mode.get());
+}
+}  // namespace platform

@@ -149,6 +149,11 @@ public final class SharedPropertiesUtils
     }
   }
 
+  public static boolean shouldShowNewMarkerForLayerMode(@NonNull Context context, @NonNull String mode)
+  {
+    return shouldShowNewMarkerForLayerMode(context, Mode.valueOf(mode));
+  }
+
   public static boolean shouldShowLayerTutorialToast(@NonNull Context context)
   {
     boolean result = getBoolean(context, PREFS_SHOULD_SHOW_LAYER_TUTORIAL_TOAST, true);
@@ -167,6 +172,11 @@ public final class SharedPropertiesUtils
   {
     putBoolean(context, PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name()
                                                                  .toLowerCase(Locale.ENGLISH), false);
+  }
+
+  public static void setLayerMarkerShownForLayerMode(@NonNull Context context, @NonNull String mode)
+  {
+    setLayerMarkerShownForLayerMode(context, Mode.valueOf(mode));
   }
 
   private static boolean getBoolean(@NonNull Context context,  @NonNull String key)

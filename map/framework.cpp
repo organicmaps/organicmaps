@@ -82,6 +82,7 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 #include "platform/socket.hpp"
+#include "platform/utils.hpp"
 
 #include "coding/endianness.hpp"
 #include "coding/point_coding.hpp"
@@ -1969,9 +1970,12 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   Load3dMode(allow3d, allow3dBuildings);
 
   auto const isAutozoomEnabled = LoadAutoZoom();
+
+  EnableGuidesOnce(params.m_hints.m_isFirstLaunch, params.m_hints.m_isLaunchByDeepLink);
   auto const trafficEnabled = m_trafficManager.IsEnabled();
   auto const isolinesEnabled = m_isolinesManager.IsEnabled();
   auto const guidesEnabled = m_guidesManager.IsEnabled();
+
   auto const simplifiedTrafficColors = m_trafficManager.HasSimplifiedColorScheme();
   auto const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
 
@@ -4399,4 +4403,26 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
 notifications::NotificationManager & Framework::GetNotificationManager()
 {
   return m_notificationManager;
+}
+
+void Framework::EnableGuidesOnce(bool isFirstLaunch, bool isLaunchByDeeplink)
+{
+  if (m_guidesManager.IsEnabled() || !GetPlatform().IsConnected() || !platform::IsGuidesLayerFirstLaunch())
+    return;
+
+  GetTrafficManager().SetEnabled(false);
+  SaveTrafficEnabled(false);
+
+  GetIsolinesManager().SetEnabled(false);
+  SaveIsolinesEnabled(false);
+
+  GetTransitManager().EnableTransitSchemeMode(false);
+  SaveTransitSchemeEnabled(false);
+
+  platform::SetGuidesLayerFirstLaunch(true);
+  SaveGuidesEnabled(true);
+
+  bool suggestZoom = !m_routingManager.IsRoutingActive() && !isFirstLaunch && !isLaunchByDeeplink;
+  m_guidesManager.SetEnabled(true /* enabled */, true /* silentMode */, suggestZoom);
+
 }

@@ -237,23 +237,6 @@ public class MapLayerCompositeController implements MapLayerController
     ToggleMapLayerDialog.show(mActivity);
   }
 
-  public void turnOn(@NonNull Mode mode)
-  {
-    ControllerAndMode entry = findModeMapLayerController(mode);
-    entry.getMode().setEnabled(mActivity, true);
-    entry.getController().turnOn();
-    entry.getController().showImmediately();
-  }
-
-  public void turnOff(@NonNull Mode mode)
-  {
-    ControllerAndMode entry = findModeMapLayerController(mode);
-    entry.getMode().setEnabled(mActivity, false);
-    entry.getController().turnOff();
-    entry.getController().hideImmediately();
-    turnInitialMode();
-  }
-
   @NonNull
   private ControllerAndMode findModeMapLayerController(@NonNull Mode mode)
   {
@@ -264,6 +247,13 @@ public class MapLayerCompositeController implements MapLayerController
     }
 
     throw new IllegalArgumentException("Mode not found : " + mode);
+  }
+
+  public void turnOnView(@NonNull Mode mode)
+  {
+    setMasterController(mode);
+    mCurrentLayer.getController().showImmediately();
+    mCurrentLayer.getController().turnOn();
   }
 
   public void turnOffCurrentView()

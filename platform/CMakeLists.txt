@@ -61,6 +61,7 @@ set(
   socket.hpp
   string_storage_base.cpp
   string_storage_base.hpp
+  utils.hpp
 )
 
 if(${PLATFORM_IPHONE})
@@ -82,6 +83,7 @@ if(${PLATFORM_IPHONE})
     platform_unix_impl.hpp
     secure_storage_ios.mm
     socket_apple.mm
+    utils.mm
   )
 elseif(${PLATFORM_ANDROID})
   append(
@@ -137,6 +139,7 @@ else() # neither iPhone nor Android
       secure_storage_qt.cpp
       socket_apple.mm
       http_session_manager.mm
+      utils.cpp
     )
   elseif(${PLATFORM_LINUX})
     append(
@@ -154,6 +157,7 @@ else() # neither iPhone nor Android
       platform_unix_impl.cpp
       platform_unix_impl.hpp
       secure_storage_qt.cpp
+      utils.cpp
     )
   endif()
 endif()

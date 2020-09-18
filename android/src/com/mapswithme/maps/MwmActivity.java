@@ -1526,8 +1526,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
       onGuidesFatalError();
     else if (state == GuidesState.DISABLED)
       onGuidesDisabled();
+    else if (state == GuidesState.ENABLED)
+      onGuidesEnabled();
     else
       state.activate(getApplicationContext());
+  }
+
+  private void onGuidesEnabled()
+  {
+    mToggleMapLayerController.turnOnView(Mode.GUIDES);
   }
 
   private void onGuidesDisabled()

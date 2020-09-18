@@ -18,6 +18,7 @@ com/mapswithme/util/HttpPayload.class
 com/mapswithme/util/HttpUploader$Result.class
 com/mapswithme/util/HttpUploader.class
 com/mapswithme/util/KeyValue.class
+com/mapswithme/util/SharedPropertiesUtils.class
 com/mapswithme/util/log/BaseLogger.class
 com/mapswithme/util/log/FileLoggerStrategy.class
 com/mapswithme/util/log/LogCatStrategy.class

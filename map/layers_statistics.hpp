@@ -20,9 +20,16 @@ public:
     Cluster,
   };
 
+  enum class InitType
+  {
+    User,
+    Auto,
+  };
+
   explicit LayersStatistics(std::string const & layerName);
 
-  void LogActivate(Status status, std::set<int64_t> const & mwmVersions = {}) const;
+  void LogActivate(Status status, std::set<int64_t> const & mwmVersions = {},
+                   InitType initType = InitType::User) const;
   void LogItemSelected(LayerItemType itemType) const;
 
 private:
