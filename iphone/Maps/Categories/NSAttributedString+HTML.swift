@@ -73,10 +73,14 @@ extension NSMutableAttributedString {
     enumerateAttribute(.attachment, in: NSMakeRange(0, length), options: []) { (value, range, _) in
       if let attachement = value as? NSTextAttachment,
         let image = attachement.image(forBounds: attachement.bounds, textContainer: NSTextContainer(), characterIndex: range.location) {
-        if image.size.width > estimatedWidth {
-          let newImage = resizeImage(image: image, scale: estimatedWidth/image.size.width) ?? image
+        if image.size.width > estimatedWidth || attachement.bounds.width > estimatedWidth {
           let resizedAttachment = NSTextAttachment()
-          resizedAttachment.image = newImage
+          if image.size.width > estimatedWidth {
+            let newImage = resizeImage(image: image, scale: estimatedWidth/image.size.width) ?? image
+            resizedAttachment.image = newImage
+          } else {
+            resizedAttachment.image = image
+          }
           addAttribute(.attachment, value: resizedAttachment, range: range)
         }
       }
