@@ -12,6 +12,8 @@ set(
   types.hpp
   types_v3.hpp
   types_v6.hpp
+  types_v7.hpp
+  types_v8.hpp
   visitors.hpp
 )
 

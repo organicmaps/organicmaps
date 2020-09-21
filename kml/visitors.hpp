@@ -1,5 +1,9 @@
 #pragma once
 
+#include "kml/types_v3.hpp"
+#include "kml/types_v6.hpp"
+#include "kml/types_v7.hpp"
+#include "kml/types_v8.hpp"
 #include "kml/types.hpp"
 
 #include "coding/geometry_coding.hpp"
@@ -36,15 +40,22 @@ class CollectorVisitor
   class VisitedTypes
   {
   public:
-    enum {value = std::is_same<T, FileData>::value ||
-                  std::is_same<T, CategoryData>::value ||
-                  std::is_same<T, BookmarkData>::value ||
+    enum {value = std::is_same<T, BookmarkData>::value ||
                   std::is_same<T, TrackData>::value ||
-                  std::is_same<T, FileDataV3>::value ||
-                  std::is_same<T, CategoryDataV3>::value ||
+                  std::is_same<T, CategoryData>::value ||
+                  std::is_same<T, FileData>::value ||
                   std::is_same<T, BookmarkDataV3>::value ||
                   std::is_same<T, TrackDataV3>::value ||
-                  std::is_same<T, TrackDataV6>::value};
+                  std::is_same<T, CategoryDataV3>::value ||
+                  std::is_same<T, FileDataV3>::value ||
+                  std::is_same<T, BookmarkDataV6>::value ||
+                  std::is_same<T, TrackDataV6>::value ||
+                  std::is_same<T, CategoryDataV6>::value ||
+                  std::is_same<T, FileDataV6>::value ||
+                  std::is_same<T, BookmarkDataV7>::value ||
+                  std::is_same<T, TrackDataV7>::value ||
+                  std::is_same<T, CategoryDataV7>::value ||
+                  std::is_same<T, FileDataV7>::value};
   };
 
 public:

@@ -1,9 +1,11 @@
 #pragma once
 
 #include "kml/header_binary.hpp"
-#include "kml/types.hpp"
 #include "kml/types_v3.hpp"
 #include "kml/types_v6.hpp"
+#include "kml/types_v7.hpp"
+#include "kml/types_v8.hpp"
+#include "kml/types.hpp"
 #include "kml/visitors.hpp"
 
 #include "platform/platform.hpp"
@@ -31,7 +33,8 @@ enum class Version : uint8_t
   V6 = 6,  // 3rd December 2019: extended bookmark icons. V6 is binary compatible with V4 and V5
            // versions.
   V7 = 7,  // 13th February 2020: track points are replaced by points with altitude.
-  Latest = V7
+  V8 = 8,  // TODO(tomilov):
+  Latest = V8
 };
 
 class SerializerKml
@@ -143,8 +146,9 @@ public:
     NonOwningReaderSource source(reader);
     auto const v = ReadPrimitiveFromSource<Version>(source);
 
-    if (v != Version::Latest && v != Version::V2 && v != Version::V3 && v != Version::V4 &&
-        v != Version::V5 && v != Version::V6)
+    if (v != Version::V2 && v != Version::V3 && v != Version::V4 &&
+        v != Version::V5 && v != Version::V6 && v != Version::V7 &&
+        v != Version::V8)
     {
       MYTHROW(DeserializeException, ("Incorrect file version."));
     }
@@ -156,11 +160,26 @@ public:
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
     InitializeIfNeeded(*subReader);
 
-    if (v == Version::V7)
+    switch (v)
+    {
+    case Version::Latest:
     {
       DeserializeFileData(subReader, m_data);
+      break;
     }
-    else if (v == Version::V6 || v == Version::V5 || v == Version::V4)
+    case Version::V7:
+    {
+      FileDataV7 dataV7;
+      dataV7.m_deviceId = m_data.m_deviceId;
+      dataV7.m_serverId = m_data.m_serverId;
+      DeserializeFileData(subReader, dataV7);
+
+      m_data = dataV7.ConvertToLatestVersion();
+      break;
+    }
+    case Version::V6:
+    case Version::V5:
+    case Version::V4:
     {
       // NOTE: v.4, v.5 and v.6 are binary compatible.
       FileDataV6 dataV6;
@@ -169,8 +188,10 @@ public:
       DeserializeFileData(subReader, dataV6);
 
       m_data = dataV6.ConvertToLatestVersion();
+      break;
     }
-    else
+    case Version::V3:
+    case Version::V2:
     {
       // NOTE: v.2 and v.3 are binary compatible.
       FileDataV3 dataV3;
@@ -183,6 +204,12 @@ public:
         MigrateBookmarksV2(dataV3);
 
       m_data = dataV3.ConvertToLatestVersion();
+      break;
+    }
+    default:
+    {
+      UNREACHABLE();
+    }
     }
   }
 

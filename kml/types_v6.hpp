@@ -1,6 +1,7 @@
 #pragma once
 
 #include "kml/type_utils.hpp"
+#include "kml/types_v7.hpp"
 #include "kml/types.hpp"
 
 #include "base/visitor.hpp"
@@ -14,6 +15,8 @@
 
 namespace kml
 {
+using BookmarkDataV6 = BookmarkDataV7;
+
 // All kml structures for V6 and V7 are same except TrackData.
 // Saved V6 version of TrackData to support migration from V6 to V7.
 struct TrackDataV6
@@ -83,6 +86,8 @@ struct TrackDataV6
   Properties m_properties;
 };
 
+using CategoryDataV6 = CategoryDataV7;
+
 struct FileDataV6
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV6, visitor(m_serverId, "serverId"),
@@ -103,8 +108,12 @@ struct FileDataV6
     FileData data;
     data.m_deviceId = m_deviceId;
     data.m_serverId = m_serverId;
-    data.m_categoryData = m_categoryData;
-    data.m_bookmarksData = m_bookmarksData;
+
+    data.m_categoryData = m_categoryData.ConvertToLatestVersion();
+
+    data.m_bookmarksData.reserve(m_bookmarksData.size());
+    for (auto & d : m_bookmarksData)
+      data.m_bookmarksData.emplace_back(d.ConvertToLatestVersion());
 
     data.m_tracksData.reserve(m_tracksData.size());
     for (auto & track : m_tracksData)
@@ -118,9 +127,9 @@ struct FileDataV6
   // Server id.
   std::string m_serverId;
   // Category's data.
-  CategoryData m_categoryData;
+  CategoryDataV7 m_categoryData;
   // Bookmarks collection.
-  std::vector<BookmarkData> m_bookmarksData;
+  std::vector<BookmarkDataV6> m_bookmarksData;
   // Tracks collection.
   std::vector<TrackDataV6> m_tracksData;
 };
