@@ -16,10 +16,9 @@
 #include <cstdint>
 #include <functional>
 #include <map>
+#include <optional>
 #include <set>
 #include <string>
-
-#include <boost/optional.hpp>
 
 class IsolinesManager final
 {
@@ -86,7 +85,7 @@ private:
 
   df::DrapeEngineSafePtr m_drapeEngine;
 
-  boost::optional<ScreenBase> m_currentModelView;
+  std::optional<ScreenBase> m_currentModelView;
 
   std::vector<MwmSet::MwmId> m_lastMwms;
   mutable std::map<MwmSet::MwmId, Info> m_mwmCache;

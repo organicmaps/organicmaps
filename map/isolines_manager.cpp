@@ -95,7 +95,7 @@ void IsolinesManager::UpdateViewport(ScreenBase const & screen)
   if (screen.GlobalRect().GetLocalRect().IsEmptyInterior())
     return;
 
-  m_currentModelView.reset(screen);
+  m_currentModelView = screen;
   if (!IsEnabled())
     return;
 
@@ -171,7 +171,7 @@ void IsolinesManager::Invalidate()
     return;
   m_lastMwms.clear();
   if (m_currentModelView)
-    UpdateViewport(m_currentModelView.get());
+    UpdateViewport(*m_currentModelView);
 }
 
 isolines::Quality IsolinesManager::GetDataQuality(MwmSet::MwmId const & id) const

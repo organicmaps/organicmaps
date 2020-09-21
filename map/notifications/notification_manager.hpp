@@ -12,8 +12,6 @@
 #include <string>
 #include <unordered_set>
 
-#include <boost/optional.hpp>
-
 namespace ugc
 {
 class Api;
