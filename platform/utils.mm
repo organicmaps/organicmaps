@@ -1,6 +1,6 @@
 #include "platform/utils.hpp"
 
-#import "iphone/CoreApi/CoreApi/Traffic/MWMMapOverlayManager.h"
+#import <Foundation/NSUserDefaults.h>
 
 namespace platform
 {

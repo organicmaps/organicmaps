@@ -91,10 +91,10 @@ namespace platform
 bool IsGuidesLayerFirstLaunch()
 {
   JNIEnv * env = jni::GetEnv();
-  static jclass sharedPropertiesClass = jni::GetGlobalClassRef(env, "com/mapswithme/util/SharedPropertiesUtils");
-  static jmethodID getter = jni::GetStaticMethodID(env, sharedPropertiesClass,
-                                                   "shouldShowNewMarkerForLayerMode",
-                                                   "(Landroid/content/Context;Ljava/lang/String;)Z");
+  static const jclass sharedPropertiesClass = jni::GetGlobalClassRef(env, "com/mapswithme/util/SharedPropertiesUtils");
+  static const jmethodID getter = jni::GetStaticMethodID(env, sharedPropertiesClass,
+                                                         "shouldShowNewMarkerForLayerMode",
+                                                         "(Landroid/content/Context;Ljava/lang/String;)Z");
   jobject context = android::Platform::Instance().GetContext();
   jni::ScopedLocalRef mode(env, jni::ToJavaString(env, "GUIDES"));
 
@@ -104,10 +104,10 @@ bool IsGuidesLayerFirstLaunch()
 void SetGuidesLayerFirstLaunch(bool /* isFirstLaunch */)
 {
   JNIEnv * env = jni::GetEnv();
-  static jclass sharedPropertiesClass = jni::GetGlobalClassRef(env, "com/mapswithme/util/SharedPropertiesUtils");
-  static jmethodID setter = jni::GetStaticMethodID(env, sharedPropertiesClass,
-                                                   "setLayerMarkerShownForLayerMode",
-                                                   "(Landroid/content/Context;Ljava/lang/String;)V");
+  static const jclass sharedPropertiesClass = jni::GetGlobalClassRef(env, "com/mapswithme/util/SharedPropertiesUtils");
+  static const jmethodID setter = jni::GetStaticMethodID(env, sharedPropertiesClass,
+                                                         "setLayerMarkerShownForLayerMode",
+                                                         "(Landroid/content/Context;Ljava/lang/String;)V");
   jobject context = android::Platform::Instance().GetContext();
   jni::ScopedLocalRef mode(env, jni::ToJavaString(env, "GUIDES"));
 
