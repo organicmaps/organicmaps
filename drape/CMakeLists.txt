@@ -135,9 +135,10 @@ append(
   hw_texture_ios.mm
   metal/metal_base_context.hpp
   metal/metal_base_context.mm
+  metal/metal_cleaner.hpp
+  metal/metal_cleaner.mm
   metal/metal_gpu_buffer_impl.mm
   metal/metal_gpu_program.hpp
-  metal/metal_mesh_object_impl.hpp
   metal/metal_mesh_object_impl.mm
   metal/metal_states.hpp
   metal/metal_states.mm

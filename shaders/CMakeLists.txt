@@ -141,7 +141,7 @@ if (PLATFORM_IPHONE)
   target_sources(
     ${PROJECT_NAME}
     PRIVATE
-      metal/debug_rect.metal
+      Metal/debug_rect.metal
       metal_program_params.hpp
       metal_program_params.mm
       metal_program_pool.hpp
