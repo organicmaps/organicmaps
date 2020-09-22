@@ -503,6 +503,9 @@ public:
   void OnTrackSelected(kml::TrackId trackId);
   void OnTrackDeselected();
 
+  kml::GroupIdCollection GetChildrenCategories(kml::MarkGroupId parentCategoryId) const;
+  kml::GroupIdCollection GetChildrenCollections(kml::MarkGroupId parentCategoryId) const;
+
 private:
   class MarksChangesTracker : public df::UserMarksProvider
   {
@@ -582,6 +585,9 @@ private:
     GroupMarkIdSet m_attachedBookmarks;
     GroupMarkIdSet m_detachedBookmarks;
   };
+
+  // TODO(a): remove it when correct implementation will be done.
+  void AddNestedGroupDummy();
 
   template <typename UserMarkT>
   UserMarkT * CreateUserMark(m2::PointD const & ptOrg)
@@ -787,6 +793,9 @@ private:
   void UpdateTrackMarksVisibility(kml::MarkGroupId groupId);
   void RequestSymbolSizes();
 
+  kml::GroupIdCollection GetChildrenOfType(kml::MarkGroupId parentid,
+                                           kml::CompilationType type) const;
+
   ThreadChecker m_threadChecker;
 
   User & m_user;
@@ -908,6 +917,10 @@ private:
   Metadata m_metadata;
 
   bool m_testModeEnabled = false;
+
+  // Dummy
+  // TODO(a): replace it with correct implementation
+  CategoriesCollection m_childrenGroups;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };

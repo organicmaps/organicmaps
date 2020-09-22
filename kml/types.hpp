@@ -407,6 +407,8 @@ struct CategoryData
   MarkGroupId m_id = kInvalidMarkGroupId;
   // Id unique within single kml (have to be serialized in text files).
   CompilationId m_compilationId = kInvalidCompilationId;
+  // Unique ids of nested groups (it will not be serialized in text files).
+  GroupIdCollection m_childrenIds;
   // Compilation's type
   CompilationType m_type = CompilationType::Category;
   // Category's name.
