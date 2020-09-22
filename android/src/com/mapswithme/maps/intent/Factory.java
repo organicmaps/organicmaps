@@ -1297,12 +1297,6 @@ public class Factory
     @NonNull
     private final ArrayList<KeyValue> mKeyValues;
 
-    public ShowDialogTask(@NonNull String dialogName)
-    {
-
-      this(dialogName, new ArrayList<>());
-    }
-
     public ShowDialogTask(@NonNull String dialogName, @NonNull ArrayList<KeyValue> keyValues)
     {
       mDialogName = dialogName;

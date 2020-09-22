@@ -326,17 +326,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)
   {
     return new Intent(context, DownloadResourcesLegacyActivity.class)
-               .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId);
+        .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId);
   }
 
   @NonNull
   public static Intent createAuthenticateIntent(@NonNull Context context)
   {
+    ArrayList<KeyValue> params = new ArrayList<>();
+    params.add(new KeyValue(Statistics.EventParam.FROM, Statistics.ParamValue.NOTIFICATION));
+
     return new Intent(context, MwmActivity.class)
         .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         .putExtra(MwmActivity.EXTRA_TASK,
-                  new Factory.ShowDialogTask(PassportAuthDialogFragment.class.getName()));
+                  new Factory.ShowDialogTask(PassportAuthDialogFragment.class.getName(), params));
   }
 
   @NonNull

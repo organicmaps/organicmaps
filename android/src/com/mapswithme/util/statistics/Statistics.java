@@ -829,6 +829,7 @@ public enum Statistics
     public static final String LIST = "list";
     public static final String MENU = "menu";
     public static final String ISOLINES = "isolines";
+    public static final String NOTIFICATION = "notification";
     static final String GOOGLE = "google";
     static final String PHONE = "phone";
     static final String ADD_DESC = "add_description";
