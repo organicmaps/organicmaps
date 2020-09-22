@@ -8554,10 +8554,6 @@
     sk = Ulica
     fa = جاده
 
-  [type.highway.proposed]
-    en = highway-proposed
-    pl = Droga projektowana
-
   [type.highway.raceway]
     en = Racetrack
     ru = Гоночный трек
@@ -14394,9 +14390,6 @@
 
   [type.railway.preserved.tunnel]
     en = railway-preserved-tunnel
-
-  [type.railway.proposed]
-    en = railway-proposed
 
   [type.railway.rail]
     en = Railway
