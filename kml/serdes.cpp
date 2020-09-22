@@ -28,6 +28,7 @@ std::string const kStyleMap = "StyleMap";
 std::string const kStyleUrl = "styleUrl";
 std::string const kPair = "Pair";
 std::string const kExtendedData = "ExtendedData";
+std::string const kCompilation = "mwm:compilation";
 
 std::string const kKmlHeader =
   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -43,6 +44,8 @@ std::string const kExtendedDataHeader =
 
 std::string const kExtendedDataFooter =
   "</ExtendedData>\n";
+
+std::string const kCompilationFooter = "</" + kCompilation + ">\n";
 
 auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
 
@@ -187,18 +190,19 @@ void SaveStringWithCDATA(KmlWriter::WriterWrapper & writer, std::string const & 
     writer << s;
 }
 
-void SaveStyle(KmlWriter::WriterWrapper & writer, std::string const & style)
+void SaveStyle(KmlWriter::WriterWrapper & writer, std::string const & style, bool isCompilationData)
 {
   if (style.empty())
     return;
 
-  writer << kIndent2 << "<Style id=\"" << style << "\">\n"
-         << kIndent4 << "<IconStyle>\n"
-         << kIndent6 << "<Icon>\n"
-         << kIndent8 << "<href>http://maps.me/placemarks/" << style << ".png</href>\n"
-         << kIndent6 << "</Icon>\n"
-         << kIndent4 << "</IconStyle>\n"
-         << kIndent2 << "</Style>\n";
+  writer << (isCompilationData ? kIndent4 : kIndent2) << "<Style id=\"" << style << "\">\n"
+         << (isCompilationData ? kIndent6 : kIndent4) << "<IconStyle>\n"
+         << (isCompilationData ? kIndent8 : kIndent6) << "<Icon>\n"
+         << (isCompilationData ? kIndent10 : kIndent8) << "<href>http://maps.me/placemarks/"
+         << style << ".png</href>\n"
+         << (isCompilationData ? kIndent8 : kIndent6) << "</Icon>\n"
+         << (isCompilationData ? kIndent6 : kIndent4) << "</IconStyle>\n"
+         << (isCompilationData ? kIndent4 : kIndent2) << "</Style>\n";
 }
 
 void SaveColorToABGR(KmlWriter::WriterWrapper & writer, uint32_t rgba)
@@ -266,53 +270,75 @@ void SaveStringsMap(KmlWriter::WriterWrapper & writer,
   writer << offsetStr << "</mwm:" << tagName << ">\n";
 }
 
+void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData,
+                      std::string const & extendedServerId,
+                      std::vector<CategoryData> const * compilationData);
+
 void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData,
-                              std::string const & extendedServerId)
+                              std::string const & extendedServerId,
+                              std::vector<CategoryData> const * compilationData)
 {
-  writer << kIndent2 << kExtendedDataHeader;
+  if (compilationData)
+  {
+    writer << kIndent2 << kExtendedDataHeader;
+  }
+  else
+  {
+    std::string compilationAttributes;
+    if (categoryData.m_compilationId != kInvalidCompilationId)
+      compilationAttributes += " id=\"" + strings::to_string(categoryData.m_compilationId) + "\"";
+    compilationAttributes += " type=\"" + DebugPrint(categoryData.m_type) + "\"";
+    writer << kIndent4 << "<" << kCompilation << compilationAttributes << ">\n";
+  }
 
-  if (!extendedServerId.empty())
-    writer << kIndent4 << "<mwm:serverId>" << extendedServerId << "</mwm:serverId>\n";
+  auto const & indent = compilationData ? kIndent4 : kIndent6;
 
-  SaveLocalizableString(writer, categoryData.m_name, "name", kIndent4);
-  SaveLocalizableString(writer, categoryData.m_annotation, "annotation", kIndent4);
-  SaveLocalizableString(writer, categoryData.m_description, "description", kIndent4);
+  if (!extendedServerId.empty() && compilationData)
+    writer << indent << "<mwm:serverId>" << extendedServerId << "</mwm:serverId>\n";
+
+  SaveLocalizableString(writer, categoryData.m_name, "name", indent);
+  SaveLocalizableString(writer, categoryData.m_annotation, "annotation", indent);
+  SaveLocalizableString(writer, categoryData.m_description, "description", indent);
+
+  if (!compilationData)
+    writer << indent << "<mwm:visibility>" << (categoryData.m_visible ? "1" : "0")
+           << "</mwm:visibility>\n";
 
   if (!categoryData.m_imageUrl.empty())
-    writer << kIndent4 << "<mwm:imageUrl>" << categoryData.m_imageUrl << "</mwm:imageUrl>\n";
+    writer << indent << "<mwm:imageUrl>" << categoryData.m_imageUrl << "</mwm:imageUrl>\n";
 
   if (!categoryData.m_authorId.empty() || !categoryData.m_authorName.empty())
   {
-    writer << kIndent4 << "<mwm:author id=\"" << categoryData.m_authorId << "\">";
+    writer << indent << "<mwm:author id=\"" << categoryData.m_authorId << "\">";
     SaveStringWithCDATA(writer, categoryData.m_authorName);
     writer << "</mwm:author>\n";
   }
 
   if (categoryData.m_lastModified != Timestamp())
   {
-    writer << kIndent4 << "<mwm:lastModified>" << TimestampToString(categoryData.m_lastModified)
+    writer << indent << "<mwm:lastModified>" << TimestampToString(categoryData.m_lastModified)
            << "</mwm:lastModified>\n";
   }
 
   double constexpr kEps = 1e-5;
   if (fabs(categoryData.m_rating) > kEps)
   {
-    writer << kIndent4 << "<mwm:rating>" << strings::to_string(categoryData.m_rating)
+    writer << indent << "<mwm:rating>" << strings::to_string(categoryData.m_rating)
            << "</mwm:rating>\n";
   }
 
   if (categoryData.m_reviewsNumber > 0)
   {
-    writer << kIndent4 << "<mwm:reviewsNumber>"
-           << strings::to_string(categoryData.m_reviewsNumber) << "</mwm:reviewsNumber>\n";
+    writer << indent << "<mwm:reviewsNumber>" << strings::to_string(categoryData.m_reviewsNumber)
+           << "</mwm:reviewsNumber>\n";
   }
 
-  writer << kIndent4 << "<mwm:accessRules>" << DebugPrint(categoryData.m_accessRules)
+  writer << indent << "<mwm:accessRules>" << DebugPrint(categoryData.m_accessRules)
          << "</mwm:accessRules>\n";
 
-  SaveStringsArray(writer, categoryData.m_tags, "tags", kIndent4);
+  SaveStringsArray(writer, categoryData.m_tags, "tags", indent);
 
-  SaveStringsArray(writer, categoryData.m_toponyms, "toponyms", kIndent4);
+  SaveStringsArray(writer, categoryData.m_toponyms, "toponyms", indent);
 
   std::vector<std::string> languageCodes;
   languageCodes.reserve(categoryData.m_languageCodes.size());
@@ -322,33 +348,54 @@ void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData co
     if (!str.empty())
       languageCodes.push_back(std::move(str));
   }
-  SaveStringsArray(writer, languageCodes, "languageCodes", kIndent4);
+  SaveStringsArray(writer, languageCodes, "languageCodes", indent);
 
-  SaveStringsMap(writer, categoryData.m_properties, "properties", kIndent4);
+  SaveStringsMap(writer, categoryData.m_properties, "properties", indent);
 
-  writer << kIndent2 << kExtendedDataFooter;
+  if (compilationData)
+  {
+    for (auto const & compilationDatum : *compilationData)
+      SaveCategoryData(writer, compilationDatum, {} /* extendedServerId */,
+                       nullptr /* compilationData */);
+  }
+
+  if (compilationData)
+    writer << kIndent2 << kExtendedDataFooter;
+  else
+    writer << kIndent4 << kCompilationFooter;
 }
 
 void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData,
-                      std::string const & extendedServerId)
+                      std::string const & extendedServerId,
+                      std::vector<CategoryData> const * compilationData)
 {
-  for (uint8_t i = 0; i < base::Underlying(PredefinedColor::Count); ++i)
-    SaveStyle(writer, GetStyleForPredefinedColor(static_cast<PredefinedColor>(i)));
-
-  // Use CDATA if we have special symbols in the name.
-  writer << kIndent2 << "<name>";
-  SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_name, kDefaultLang));
-  writer << "</name>\n";
-  if (!categoryData.m_description.empty())
+  if (compilationData)
   {
-    writer << kIndent2 << "<description>";
-    SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_description, kDefaultLang));
-    writer << "</description>\n";
+    for (uint8_t i = 0; i < base::Underlying(PredefinedColor::Count); ++i)
+      SaveStyle(writer, GetStyleForPredefinedColor(static_cast<PredefinedColor>(i)),
+                !compilationData);
   }
 
-  writer << kIndent2 << "<visibility>" << (categoryData.m_visible ? "1" : "0") <<"</visibility>\n";
+  auto const & indent = compilationData ? kIndent2 : kIndent4;
 
-  SaveCategoryExtendedData(writer, categoryData, extendedServerId);
+  if (compilationData)
+  {
+    // Use CDATA if we have special symbols in the name.
+    writer << indent << "<name>";
+    SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_name, kDefaultLang));
+    writer << "</name>\n";
+
+    if (!categoryData.m_description.empty())
+    {
+      writer << indent << "<description>";
+      SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_description, kDefaultLang));
+      writer << "</description>\n";
+    }
+
+    writer << indent << "<visibility>" << (categoryData.m_visible ? "1" : "0") << "</visibility>\n";
+  }
+
+  SaveCategoryExtendedData(writer, categoryData, extendedServerId, compilationData);
 }
 
 void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData const & bookmarkData)
@@ -572,7 +619,8 @@ void KmlWriter::Write(FileData const & fileData)
   m_writer << kKmlHeader;
 
   // Save category.
-  SaveCategoryData(m_writer, fileData.m_categoryData, fileData.m_serverId);
+  SaveCategoryData(m_writer, fileData.m_categoryData, fileData.m_serverId,
+                   &fileData.m_compilationData);
 
   // Save bookmarks.
   for (auto const & bookmarkData : fileData.m_bookmarksData)
@@ -587,6 +635,7 @@ void KmlWriter::Write(FileData const & fileData)
 
 KmlParser::KmlParser(FileData & data)
   : m_data(data)
+  , m_categoryData(&m_data.m_categoryData)
   , m_attrCode(StringUtf8Multilang::kUnsupportedLanguageCode)
 {
   ResetPoint();
@@ -716,9 +765,14 @@ double KmlParser::GetTrackWidthForStyle(std::string const & styleUrl) const
   return kDefaultTrackWidth;
 }
 
-bool KmlParser::Push(std::string const & name)
+bool KmlParser::Push(std::string const & tag)
 {
-  m_tags.push_back(name);
+  m_tags.push_back(tag);
+  if (tag == kCompilation)
+  {
+    m_categoryData = &m_compilationData;
+    m_compilationData.m_accessRules = m_data.m_categoryData.m_accessRules;
+  }
   return true;
 }
 
@@ -728,16 +782,44 @@ void KmlParser::AddAttr(std::string const & attr, std::string const & value)
   strings::AsciiToLower(attrInLowerCase);
 
   if (IsValidAttribute(kStyle, value, attrInLowerCase))
+  {
     m_styleId = value;
+  }
   else if (IsValidAttribute(kStyleMap, value, attrInLowerCase))
+  {
     m_mapStyleId = value;
+  }
+  else if (IsValidAttribute(kCompilation, value, attrInLowerCase))
+  {
+    if (!strings::to_uint64(value, m_categoryData->m_compilationId))
+      m_categoryData->m_compilationId = 0;
+  }
 
   if (attrInLowerCase == "code")
+  {
     m_attrCode = StringUtf8Multilang::GetLangIndex(value);
+  }
   else if (attrInLowerCase == "id")
+  {
     m_attrId = value;
+  }
   else if (attrInLowerCase == "key")
+  {
     m_attrKey = value;
+  }
+  else if (attrInLowerCase == "type" && !value.empty() && GetTagFromEnd(0) == kCompilation)
+  {
+    std::string valueInLowerCase = value;
+    strings::AsciiToLower(valueInLowerCase);
+    if (valueInLowerCase == "category")
+      m_categoryData->m_type = CompilationType::Category;
+    else if (valueInLowerCase == "collection")
+      m_categoryData->m_type = CompilationType::Collection;
+    else if (valueInLowerCase == "day")
+      m_categoryData->m_type = CompilationType::Day;
+    else
+      m_categoryData->m_type = CompilationType::Category;
+  }
 }
 
 bool KmlParser::IsValidAttribute(std::string const & type, std::string const & value,
@@ -832,6 +914,11 @@ void KmlParser::Pop(std::string const & tag)
     m_trackWidth = kDefaultTrackWidth;
     m_color = 0;
   }
+  else if (tag == kCompilation)
+  {
+    m_data.m_compilationData.push_back(std::move(m_compilationData));
+    m_categoryData = &m_data.m_categoryData;
+  }
 
   m_tags.pop_back();
 }
@@ -847,94 +934,104 @@ void KmlParser::CharData(std::string value)
     std::string const & prevTag = m_tags[count - 2];
     std::string const ppTag = count > 2 ? m_tags[count - 3] : std::string();
     std::string const pppTag = count > 3 ? m_tags[count - 4] : std::string();
+    std::string const ppppTag = count > 4 ? m_tags[count - 5] : std::string();
 
     if (prevTag == kDocument)
     {
       if (currTag == "name")
-        m_data.m_categoryData.m_name[kDefaultLang] = value;
+        m_categoryData->m_name[kDefaultLang] = value;
       else if (currTag == "description")
-        m_data.m_categoryData.m_description[kDefaultLang] = value;
+        m_categoryData->m_description[kDefaultLang] = value;
       else if (currTag == "visibility")
-        m_data.m_categoryData.m_visible = value != "0";
+        m_categoryData->m_visible = value != "0";
     }
-    else if (prevTag == kExtendedData && ppTag == kDocument)
+    else if ((prevTag == kExtendedData && ppTag == kDocument) ||
+             (prevTag == kCompilation && ppTag == kExtendedData && pppTag == kDocument))
     {
       if (currTag == "mwm:author")
       {
-        m_data.m_categoryData.m_authorName = value;
-        m_data.m_categoryData.m_authorId = m_attrId;
+        m_categoryData->m_authorName = value;
+        m_categoryData->m_authorId = m_attrId;
         m_attrId.clear();
       }
       else if (currTag == "mwm:lastModified")
       {
         auto const ts = base::StringToTimestamp(value);
         if (ts != base::INVALID_TIME_STAMP)
-          m_data.m_categoryData.m_lastModified = std::chrono::system_clock::from_time_t(ts);
+          m_categoryData->m_lastModified = std::chrono::system_clock::from_time_t(ts);
       }
       else if (currTag == "mwm:accessRules")
       {
         // 'Private' is here for back-compatibility.
         if (value == "Private" || value == "Local")
-          m_data.m_categoryData.m_accessRules = AccessRules::Local;
+          m_categoryData->m_accessRules = AccessRules::Local;
         else if (value == "DirectLink")
-          m_data.m_categoryData.m_accessRules = AccessRules::DirectLink;
+          m_categoryData->m_accessRules = AccessRules::DirectLink;
         else if (value == "P2P")
-          m_data.m_categoryData.m_accessRules = AccessRules::P2P;
+          m_categoryData->m_accessRules = AccessRules::P2P;
         else if (value == "Paid")
-          m_data.m_categoryData.m_accessRules = AccessRules::Paid;
+          m_categoryData->m_accessRules = AccessRules::Paid;
         else if (value == "Public")
-          m_data.m_categoryData.m_accessRules = AccessRules::Public;
+          m_categoryData->m_accessRules = AccessRules::Public;
         else if (value == "AuthorOnly")
-          m_data.m_categoryData.m_accessRules = AccessRules::AuthorOnly;
+          m_categoryData->m_accessRules = AccessRules::AuthorOnly;
       }
       else if (currTag == "mwm:imageUrl")
       {
-        m_data.m_categoryData.m_imageUrl = value;
+        m_categoryData->m_imageUrl = value;
       }
       else if (currTag == "mwm:rating")
       {
-        if (!strings::to_double(value, m_data.m_categoryData.m_rating))
-          m_data.m_categoryData.m_rating = 0.0;
+        if (!strings::to_double(value, m_categoryData->m_rating))
+          m_categoryData->m_rating = 0.0;
       }
       else if (currTag == "mwm:reviewsNumber")
       {
-        if (!strings::to_uint(value, m_data.m_categoryData.m_reviewsNumber))
-          m_data.m_categoryData.m_reviewsNumber = 0;
+        if (!strings::to_uint(value, m_categoryData->m_reviewsNumber))
+          m_categoryData->m_reviewsNumber = 0;
       }
       else if (currTag == "mwm:serverId")
       {
         m_data.m_serverId = value;
       }
+      else if (currTag == "mwm:visibility")
+      {
+        m_categoryData->m_visible = value != "0";
+      }
     }
-    else if (pppTag == kDocument && ppTag == kExtendedData && currTag == "mwm:lang")
+    else if (((pppTag == kDocument && ppTag == kExtendedData) ||
+              (ppppTag == kDocument && pppTag == kExtendedData && ppTag == kCompilation)) &&
+             currTag == "mwm:lang")
     {
       if (prevTag == "mwm:name" && m_attrCode >= 0)
-        m_data.m_categoryData.m_name[m_attrCode] = value;
+        m_categoryData->m_name[m_attrCode] = value;
       else if (prevTag == "mwm:description" && m_attrCode >= 0)
-        m_data.m_categoryData.m_description[m_attrCode] = value;
+        m_categoryData->m_description[m_attrCode] = value;
       else if (prevTag == "mwm:annotation" && m_attrCode >= 0)
-        m_data.m_categoryData.m_annotation[m_attrCode] = value;
+        m_categoryData->m_annotation[m_attrCode] = value;
       m_attrCode = StringUtf8Multilang::kUnsupportedLanguageCode;
     }
-    else if (pppTag == kDocument && ppTag == kExtendedData && currTag == "mwm:value")
+    else if (((pppTag == kDocument && ppTag == kExtendedData) ||
+              (ppppTag == kDocument && pppTag == kExtendedData && ppTag == kCompilation)) &&
+             currTag == "mwm:value")
     {
       if (prevTag == "mwm:tags")
       {
-        m_data.m_categoryData.m_tags.push_back(value);
+        m_categoryData->m_tags.push_back(value);
       }
       else if (prevTag == "mwm:toponyms")
       {
-        m_data.m_categoryData.m_toponyms.push_back(value);
+        m_categoryData->m_toponyms.push_back(value);
       }
       else if (prevTag == "mwm:languageCodes")
       {
         auto const lang = StringUtf8Multilang::GetLangIndex(value);
         if (lang != StringUtf8Multilang::kUnsupportedLanguageCode)
-          m_data.m_categoryData.m_languageCodes.push_back(lang);
+          m_categoryData->m_languageCodes.push_back(lang);
       }
       else if (prevTag == "mwm:properties" && !m_attrKey.empty())
       {
-        m_data.m_categoryData.m_properties[m_attrKey] = value;
+        m_categoryData->m_properties[m_attrKey] = value;
         m_attrKey.clear();
       }
     }

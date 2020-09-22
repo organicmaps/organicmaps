@@ -281,7 +281,12 @@ public:
     (*this)(static_cast<uint8_t>(rules));
   }
 
-  void operator()(Timestamp const & t, char const * name = nullptr)
+  void operator()(CompilationType type, char const * /* name */ = nullptr)
+  {
+    (*this)(static_cast<uint8_t>(type));
+  }
+
+  void operator()(Timestamp const & t, char const * /* name */ = nullptr)
   {
     WriteVarUint(m_sink, ToSecondsSinceEpoch(t));
   }
@@ -295,6 +300,11 @@ public:
   void operator()(m2::PointD const & pt, char const * /* name */ = nullptr)
   {
     WritePointD(m_sink, pt, m_doubleBits);
+  }
+
+  void operator()(CategoryData const & compilationData, char const * /* name */ = nullptr)
+  {
+    compilationData.Visit(*this);
   }
 
   template <typename T>
@@ -471,6 +481,11 @@ public:
     rules = static_cast<AccessRules>(ReadPrimitiveFromSource<uint8_t>(m_source));
   }
 
+  void operator()(CompilationType & type, char const * /* name */ = nullptr)
+  {
+    type = static_cast<CompilationType>(ReadPrimitiveFromSource<uint8_t>(m_source));
+  }
+
   void operator()(Timestamp & t, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint64_t, Source>(m_source);
@@ -486,6 +501,11 @@ public:
   void operator()(m2::PointD & pt, char const * /* name */ = nullptr)
   {
     pt = ReadPointD(m_source, m_doubleBits);
+  }
+
+  void operator()(CategoryData & compilationData, char const * /* name */ = nullptr)
+  {
+    compilationData.Visit(*this);
   }
 
   template <typename T>

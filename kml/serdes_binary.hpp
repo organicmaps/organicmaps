@@ -21,22 +21,6 @@ namespace kml
 {
 namespace binary
 {
-enum class Version : uint8_t
-{
-  V0 = 0,
-  V1 = 1,  // 11th April 2018: new Point2D storage, added deviceId, feature name -> custom name.
-  V2 = 2,  // 25th April 2018: added serverId.
-  V3 = 3,  // 7th May 2018: persistent feature types. V3 is binary compatible with lower versions.
-  V4 = 4,  // 26th August 2019: key-value properties and nearestToponym for bookmarks and tracks,
-           // cities -> toponyms.
-  V5 = 5,  // 21st November 2019: extended color palette.
-  V6 = 6,  // 3rd December 2019: extended bookmark icons. V6 is binary compatible with V4 and V5
-           // versions.
-  V7 = 7,  // 13th February 2020: track points are replaced by points with altitude.
-  V8 = 8,  // TODO(tomilov):
-  Latest = V8
-};
-
 class SerializerKml
 {
 public:
@@ -86,6 +70,10 @@ public:
     header.m_tracksOffset = sink.Pos() - startPos;
     SerializeTracks(sink);
 
+    // Serialize tracks.
+    header.m_compilationsOffset = sink.Pos() - startPos;
+    SerializeCompilations(sink);
+
     // Serialize strings.
     header.m_stringsOffset = sink.Pos() - startPos;
     SerializeStrings(sink);
@@ -118,6 +106,13 @@ public:
     visitor(m_data.m_tracksData);
   }
 
+  template <typename Sink>
+  void SerializeCompilations(Sink & sink)
+  {
+    CategorySerializerVisitor<Sink> visitor(sink, kDoubleBits);
+    visitor(m_data.m_compilationData);
+  }
+
   // Serializes texts in a compressed storage with block access.
   template <typename Sink>
   void SerializeStrings(Sink & sink)
@@ -144,11 +139,12 @@ public:
   {
     // Check version.
     NonOwningReaderSource source(reader);
-    auto const v = ReadPrimitiveFromSource<Version>(source);
+    m_header.m_version = ReadPrimitiveFromSource<Version>(source);
 
-    if (v != Version::V2 && v != Version::V3 && v != Version::V4 &&
-        v != Version::V5 && v != Version::V6 && v != Version::V7 &&
-        v != Version::V8)
+    if (m_header.m_version != Version::V2 && m_header.m_version != Version::V3 &&
+        m_header.m_version != Version::V4 && m_header.m_version != Version::V5 &&
+        m_header.m_version != Version::V6 && m_header.m_version != Version::V7 &&
+        m_header.m_version != Version::V8)
     {
       MYTHROW(DeserializeException, ("Incorrect file version."));
     }
@@ -160,7 +156,7 @@ public:
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
     InitializeIfNeeded(*subReader);
 
-    switch (v)
+    switch (m_header.m_version)
     {
     case Version::Latest:
     {
@@ -172,7 +168,7 @@ public:
       FileDataV7 dataV7;
       dataV7.m_deviceId = m_data.m_deviceId;
       dataV7.m_serverId = m_data.m_serverId;
-      DeserializeFileData(subReader, dataV7);
+      DeserializeFileDataBeforeV8(subReader, dataV7);
 
       m_data = dataV7.ConvertToLatestVersion();
       break;
@@ -185,7 +181,7 @@ public:
       FileDataV6 dataV6;
       dataV6.m_deviceId = m_data.m_deviceId;
       dataV6.m_serverId = m_data.m_serverId;
-      DeserializeFileData(subReader, dataV6);
+      DeserializeFileDataBeforeV8(subReader, dataV6);
 
       m_data = dataV6.ConvertToLatestVersion();
       break;
@@ -197,10 +193,10 @@ public:
       FileDataV3 dataV3;
       dataV3.m_deviceId = m_data.m_deviceId;
       dataV3.m_serverId = m_data.m_serverId;
-      DeserializeFileData(subReader, dataV3);
+      DeserializeFileDataBeforeV8(subReader, dataV3);
 
       // Migrate bookmarks (it's necessary ony for v.2).
-      if (v == Version::V2)
+      if (m_header.m_version == Version::V2)
         MigrateBookmarksV2(dataV3);
 
       m_data = dataV3.ConvertToLatestVersion();
@@ -250,7 +246,13 @@ private:
   template <typename ReaderType>
   std::unique_ptr<Reader> CreateTrackSubReader(ReaderType const & reader)
   {
-    return CreateSubReader(reader, m_header.m_tracksOffset, m_header.m_stringsOffset);
+    return CreateSubReader(reader, m_header.m_tracksOffset, m_header.m_compilationsOffset);
+  }
+
+  template <typename ReaderType>
+  std::unique_ptr<Reader> CreateCompilationsSubReader(ReaderType const & reader)
+  {
+    return CreateSubReader(reader, m_header.m_compilationsOffset, m_header.m_stringsOffset);
   }
 
   template <typename ReaderType>
@@ -282,6 +284,20 @@ private:
 
   template <typename FileDataType>
   void DeserializeFileData(std::unique_ptr<Reader> & subReader, FileDataType & data)
+  {
+    // Keep in mind - deserialization/serialization works in two stages:
+    // - serialization/deserialization non-string members of structures;
+    // - serialization/deserialization string members of structures.
+    DeserializeCategory(subReader, data);
+    DeserializeBookmarks(subReader, data);
+    DeserializeTracks(subReader, data);
+    if (m_header.HasCompilationsSection())
+      DeserializeCompilations(subReader, data);
+    DeserializeStrings(subReader, data);
+  }
+
+  template <typename FileDataType>
+  void DeserializeFileDataBeforeV8(std::unique_ptr<Reader> & subReader, FileDataType & data)
   {
     // Keep in mind - deserialization/serialization works in two stages:
     // - serialization/deserialization non-string members of structures;
@@ -323,6 +339,15 @@ private:
     NonOwningReaderSource src(*trackSubReader);
     BookmarkDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
     visitor(data.m_tracksData);
+  }
+
+  template <typename FileDataType>
+  void DeserializeCompilations(std::unique_ptr<Reader> & subReader, FileDataType & data)
+  {
+    auto compilationsSubReader = CreateCompilationsSubReader(*subReader);
+    NonOwningReaderSource src(*compilationsSubReader);
+    CategoryDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
+    visitor(data.m_compilationData);
   }
 
   template <typename FileDataType>

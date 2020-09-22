@@ -229,7 +229,6 @@ struct BookmarkData
                                   visitor(m_visible, "visible"),
                                   visitor(m_nearestToponym, "nearestToponym"),
                                   visitor(m_properties, "properties"),
-                                  //visitor(m_compilations, "compilations"),  // TODO(tomilov): enable ASAP
                                   VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName,
@@ -248,8 +247,7 @@ struct BookmarkData
            m_boundTracks == data.m_boundTracks &&
            m_visible == data.m_visible &&
            m_nearestToponym == data.m_nearestToponym &&
-           m_properties == data.m_properties &&
-           m_compilations == data.m_compilations;
+           m_properties == data.m_properties;
   }
 
   bool operator!=(BookmarkData const & data) const { return !operator==(data); }
@@ -283,8 +281,6 @@ struct BookmarkData
   std::string m_nearestToponym;
   // Key-value properties.
   Properties m_properties;
-  // List of compilationIds.
-  std::vector<CompilationId> m_compilations;
 };
 
 // Note: any changes in binary format of this structure
@@ -365,8 +361,8 @@ struct TrackData
 struct CategoryData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryData, visitor(m_id, "id"),
-                                  //visitor(m_compilationId, "compilationId"),  // TODO(tomilov): enable ASAP
-                                  //visitor(m_type, "type"),  // TODO(tomilov): enable ASAP
+                                  visitor(m_compilationId, "compilationId"),
+                                  visitor(m_type, "type"),
                                   visitor(m_name, "name"),
                                   visitor(m_imageUrl, "imageUrl"),
                                   visitor(m_annotation, "annotation"),
@@ -448,12 +444,14 @@ struct FileData
   DECLARE_VISITOR_AND_DEBUG_PRINT(FileData, visitor(m_serverId, "serverId"),
                                   visitor(m_categoryData, "category"),
                                   visitor(m_bookmarksData, "bookmarks"),
-                                  visitor(m_tracksData, "tracks"))
+                                  visitor(m_tracksData, "tracks"),
+                                  visitor(m_compilationData, "compilations"))
 
   bool operator==(FileData const & data) const
   {
     return m_serverId == data.m_serverId && m_categoryData == data.m_categoryData &&
-           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData;
+           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData &&
+           m_compilationData == data.m_compilationData;
   }
 
   bool operator!=(FileData const & data) const { return !operator==(data); }

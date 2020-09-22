@@ -10,6 +10,23 @@ namespace kml
 {
 namespace binary
 {
+enum class Version : uint8_t
+{
+  V0 = 0,
+  V1 = 1,  // 11th April 2018: new Point2D storage, added deviceId, feature name -> custom name.
+  V2 = 2,  // 25th April 2018: added serverId.
+  V3 = 3,  // 7th May 2018: persistent feature types. V3 is binary compatible with lower versions.
+  V4 = 4,  // 26th August 2019: key-value properties and nearestToponym for bookmarks and tracks,
+           // cities -> toponyms.
+  V5 = 5,  // 21st November 2019: extended color palette.
+  V6 = 6,  // 3rd December 2019: extended bookmark icons. V6 is binary compatible with V4 and V5
+           // versions.
+  V7 = 7,  // 13th February 2020: track points are replaced by points with altitude.
+  V8 = 8,  // 24 September 2020: add compilations to types and corresponding section to kmb and
+           // tags to kml
+  Latest = V8
+};
+
 struct Header
 {
   template <typename Visitor>
@@ -18,7 +35,11 @@ struct Header
     visitor(m_categoryOffset, "categoryOffset");
     visitor(m_bookmarksOffset, "bookmarksOffset");
     visitor(m_tracksOffset, "tracksOffset");
+    if (HasCompilationsSection())
+      visitor(m_compilationsOffset, "compilationsOffset");
     visitor(m_stringsOffset, "stringsOffset");
+    if (!HasCompilationsSection())
+      m_compilationsOffset = m_stringsOffset;
     visitor(m_eosOffset, "eosOffset");
   }
 
@@ -44,9 +65,16 @@ struct Header
     return visitor.m_size;
   }
 
+  bool HasCompilationsSection() const
+  {
+    return static_cast<uint8_t>(m_version) > static_cast<uint8_t>(Version::V7);
+  }
+
+  Version m_version = Version::Latest;
   uint64_t m_categoryOffset = 0;
   uint64_t m_bookmarksOffset = 0;
   uint64_t m_tracksOffset = 0;
+  uint64_t m_compilationsOffset = 0;
   uint64_t m_stringsOffset = 0;
   uint64_t m_eosOffset = 0;
 };

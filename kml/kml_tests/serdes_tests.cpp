@@ -84,7 +84,10 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_boundTracks = {0};
   bookmarkData.m_visible = false;
   bookmarkData.m_nearestToponym = "12345";
-  bookmarkData.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}};
+  bookmarkData.m_properties = {{"bm_property1", "value1"},
+                               {"bm_property2", "value2"},
+                               {"score", "5"},
+                               {"compilations", {"1, 4"}}};
   result.m_bookmarksData.emplace_back(std::move(bookmarkData));
 
   kml::TrackData trackData;
@@ -104,241 +107,365 @@ kml::FileData GenerateKmlFileData()
   trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
   result.m_tracksData.emplace_back(std::move(trackData));
 
+  kml::CategoryData compilationData1;
+  compilationData1.m_compilationId = 1;
+  compilationData1.m_type = kml::CompilationType::Collection;
+  compilationData1.m_name[kDefaultLang] = "Test collection";
+  compilationData1.m_name[kRuLang] = "Тестовая коллекция";
+  compilationData1.m_description[kDefaultLang] = "Test collection description";
+  compilationData1.m_description[kRuLang] = "Тестовое описание коллекции";
+  compilationData1.m_annotation[kDefaultLang] = "Test collection annotation";
+  compilationData1.m_annotation[kEnLang] = "Test collection annotation";
+  compilationData1.m_imageUrl = "https://localhost/1234.png";
+  compilationData1.m_visible = true;
+  compilationData1.m_authorName = "Maps.Me";
+  compilationData1.m_authorId = "54321";
+  compilationData1.m_rating = 5.9;
+  compilationData1.m_reviewsNumber = 333;
+  compilationData1.m_lastModified = std::chrono::system_clock::from_time_t(999);
+  compilationData1.m_accessRules = kml::AccessRules::Public;
+  compilationData1.m_tags = {"mountains", "ski"};
+  compilationData1.m_toponyms = {"8", "9"};
+  compilationData1.m_languageCodes = {1, 2, 8};
+  compilationData1.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
+  result.m_compilationData.push_back(std::move(compilationData1));
+
+  kml::CategoryData compilationData2;
+  compilationData2.m_compilationId = 4;
+  compilationData2.m_type = kml::CompilationType::Category;
+  compilationData2.m_name[kDefaultLang] = "Test category";
+  compilationData2.m_name[kRuLang] = "Тестовая категория";
+  compilationData2.m_description[kDefaultLang] = "Test category description";
+  compilationData2.m_description[kRuLang] = "Тестовое описание категории";
+  compilationData2.m_annotation[kDefaultLang] = "Test category annotation";
+  compilationData2.m_annotation[kEnLang] = "Test category annotation";
+  compilationData2.m_imageUrl = "https://localhost/134.png";
+  compilationData2.m_visible = false;
+  compilationData2.m_authorName = "Maps.Me";
+  compilationData2.m_authorId = "11111";
+  compilationData2.m_rating = 3.3;
+  compilationData2.m_reviewsNumber = 222;
+  compilationData2.m_lastModified = std::chrono::system_clock::from_time_t(323);
+  compilationData2.m_accessRules = kml::AccessRules::Public;
+  compilationData2.m_tags = {"mountains", "bike"};
+  compilationData2.m_toponyms = {"10", "11"};
+  compilationData2.m_languageCodes = {1, 2, 8};
+  compilationData2.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
+  result.m_compilationData.push_back(std::move(compilationData2));
+
   return result;
 }
 
 char const * kGeneratedKml =
-  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-  "<kml xmlns=\"http://earth.google.com/kml/2.2\">\n"
-  "<Document>\n"
-  "  <Style id=\"placemark-red\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-red.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-blue\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-blue.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-purple\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-purple.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-yellow\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-yellow.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-pink\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-pink.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-brown\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-brown.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-green\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-green.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-orange\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-orange.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-deeppurple\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-deeppurple.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-lightblue\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-lightblue.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-cyan\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-cyan.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-teal\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-teal.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-lime\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-lime.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-deeporange\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-deeporange.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-gray\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-gray.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <Style id=\"placemark-bluegray\">\n"
-  "    <IconStyle>\n"
-  "      <Icon>\n"
-  "        <href>http://maps.me/placemarks/placemark-bluegray.png</href>\n"
-  "      </Icon>\n"
-  "    </IconStyle>\n"
-  "  </Style>\n"
-  "  <name>Test category</name>\n"
-  "  <description>Test description</description>\n"
-  "  <visibility>1</visibility>\n"
-  "  <ExtendedData xmlns:mwm=\"https://maps.me\">\n"
-  "    <mwm:serverId>AAAA-BBBB-CCCC-DDDD</mwm:serverId>\n"
-  "    <mwm:name>\n"
-  "      <mwm:lang code=\"ru\">Тестовая категория</mwm:lang>\n"
-  "      <mwm:lang code=\"default\">Test category</mwm:lang>\n"
-  "    </mwm:name>\n"
-  "    <mwm:annotation>\n"
-  "      <mwm:lang code=\"en\">Test annotation</mwm:lang>\n"
-  "      <mwm:lang code=\"default\">Test annotation</mwm:lang>\n"
-  "    </mwm:annotation>\n"
-  "    <mwm:description>\n"
-  "      <mwm:lang code=\"ru\">Тестовое описание</mwm:lang>\n"
-  "      <mwm:lang code=\"default\">Test description</mwm:lang>\n"
-  "    </mwm:description>\n"
-  "    <mwm:imageUrl>https://localhost/123.png</mwm:imageUrl>\n"
-  "    <mwm:author id=\"12345\">Maps.Me</mwm:author>\n"
-  "    <mwm:lastModified>1970-01-01T00:16:40Z</mwm:lastModified>\n"
-  "    <mwm:rating>8.9</mwm:rating>\n"
-  "    <mwm:reviewsNumber>567</mwm:reviewsNumber>\n"
-  "    <mwm:accessRules>Public</mwm:accessRules>\n"
-  "    <mwm:tags>\n"
-  "      <mwm:value>mountains</mwm:value>\n"
-  "      <mwm:value>ski</mwm:value>\n"
-  "      <mwm:value>snowboard</mwm:value>\n"
-  "    </mwm:tags>\n"
-  "    <mwm:toponyms>\n"
-  "      <mwm:value>12345</mwm:value>\n"
-  "      <mwm:value>54321</mwm:value>\n"
-  "    </mwm:toponyms>\n"
-  "    <mwm:languageCodes>\n"
-  "      <mwm:value>en</mwm:value>\n"
-  "      <mwm:value>ja</mwm:value>\n"
-  "      <mwm:value>ru</mwm:value>\n"
-  "    </mwm:languageCodes>\n"
-  "    <mwm:properties>\n"
-  "      <mwm:value key=\"property1\">value1</mwm:value>\n"
-  "      <mwm:value key=\"property2\">value2</mwm:value>\n"
-  "    </mwm:properties>\n"
-  "  </ExtendedData>\n"
-  "  <Placemark>\n"
-  "    <name>Мое любимое место</name>\n"
-  "    <description>Test bookmark description</description>\n"
-  "    <TimeStamp><when>1970-01-01T00:13:20Z</when></TimeStamp>\n"
-  "    <styleUrl>#placemark-blue</styleUrl>\n"
-  "    <Point><coordinates>45.9242,49.326859</coordinates></Point>\n"
-  "    <ExtendedData xmlns:mwm=\"https://maps.me\">\n"
-  "      <mwm:name>\n"
-  "        <mwm:lang code=\"ru\">Тестовая метка</mwm:lang>\n"
-  "        <mwm:lang code=\"default\">Test bookmark</mwm:lang>\n"
-  "      </mwm:name>\n"
-  "      <mwm:description>\n"
-  "        <mwm:lang code=\"ru\">Тестовое описание метки</mwm:lang>\n"
-  "        <mwm:lang code=\"default\">Test bookmark description</mwm:lang>\n"
-  "      </mwm:description>\n"
-  "      <mwm:featureTypes>\n"
-  "        <mwm:value>historic-castle</mwm:value>\n"
-  "        <mwm:value>historic-memorial</mwm:value>\n"
-  "      </mwm:featureTypes>\n"
-  "      <mwm:customName>\n"
-  "        <mwm:lang code=\"en\">My favorite place</mwm:lang>\n"
-  "        <mwm:lang code=\"default\">Мое любимое место</mwm:lang>\n"
-  "      </mwm:customName>\n"
-  "      <mwm:scale>15</mwm:scale>\n"
-  "      <mwm:boundTracks>\n"
-  "        <mwm:value>0</mwm:value>\n"
-  "      </mwm:boundTracks>\n"
-  "      <mwm:visibility>0</mwm:visibility>\n"
-  "      <mwm:nearestToponym>12345</mwm:nearestToponym>\n"
-  "      <mwm:properties>\n"
-  "        <mwm:value key=\"bm_property1\">value1</mwm:value>\n"
-  "        <mwm:value key=\"bm_property2\">value2</mwm:value>\n"
-  "      </mwm:properties>\n"
-  "    </ExtendedData>\n"
-  "  </Placemark>\n"
-  "  <Placemark>\n"
-  "    <name>Test track</name>\n"
-  "    <description>Test track description</description>\n"
-  "    <Style><LineStyle>\n"
-  "      <color>FF0000FF</color>\n"
-  "      <width>6</width>\n"
-  "    </LineStyle></Style>\n"
-  "    <TimeStamp><when>1970-01-01T00:15:00Z</when></TimeStamp>\n"
-  "    <LineString><coordinates>45.9242,49.326859,1 45.2244,48.941288,2 45.1964,49.401948,3</coordinates></LineString>\n"
-  "    <ExtendedData xmlns:mwm=\"https://maps.me\">\n"
-  "      <mwm:name>\n"
-  "        <mwm:lang code=\"ru\">Тестовый трек</mwm:lang>\n"
-  "        <mwm:lang code=\"default\">Test track</mwm:lang>\n"
-  "      </mwm:name>\n"
-  "      <mwm:description>\n"
-  "        <mwm:lang code=\"ru\">Тестовое описание трека</mwm:lang>\n"
-  "        <mwm:lang code=\"default\">Test track description</mwm:lang>\n"
-  "      </mwm:description>\n"
-  "      <mwm:localId>0</mwm:localId>\n"
-  "      <mwm:additionalStyle>\n"
-  "        <mwm:additionalLineStyle>\n"
-  "          <color>FF00FF00</color>\n"
-  "          <width>7</width>\n"
-  "        </mwm:additionalLineStyle>\n"
-  "      </mwm:additionalStyle>\n"
-  "      <mwm:visibility>0</mwm:visibility>\n"
-  "      <mwm:nearestToponyms>\n"
-  "        <mwm:value>12345</mwm:value>\n"
-  "        <mwm:value>54321</mwm:value>\n"
-  "        <mwm:value>98765</mwm:value>\n"
-  "      </mwm:nearestToponyms>\n"
-  "      <mwm:properties>\n"
-  "        <mwm:value key=\"tr_property1\">value1</mwm:value>\n"
-  "        <mwm:value key=\"tr_property2\">value2</mwm:value>\n"
-  "      </mwm:properties>\n"
-  "    </ExtendedData>\n"
-  "  </Placemark>\n"
-  "</Document>\n"
-  "</kml>";
+R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <Style id="placemark-red">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-red.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-blue">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-blue.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-purple">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-purple.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-yellow">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-yellow.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-pink">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-pink.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-brown">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-brown.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-green">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-green.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-orange">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-orange.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-deeppurple">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-deeppurple.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-lightblue">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-lightblue.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-cyan">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-cyan.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-teal">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-teal.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-lime">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-lime.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-deeporange">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-deeporange.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-gray">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-gray.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="placemark-bluegray">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.me/placemarks/placemark-bluegray.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <name>Test category</name>
+  <description>Test description</description>
+  <visibility>1</visibility>
+  <ExtendedData xmlns:mwm="https://maps.me">
+    <mwm:serverId>AAAA-BBBB-CCCC-DDDD</mwm:serverId>
+    <mwm:name>
+      <mwm:lang code="ru">Тестовая категория</mwm:lang>
+      <mwm:lang code="default">Test category</mwm:lang>
+    </mwm:name>
+    <mwm:annotation>
+      <mwm:lang code="en">Test annotation</mwm:lang>
+      <mwm:lang code="default">Test annotation</mwm:lang>
+    </mwm:annotation>
+    <mwm:description>
+      <mwm:lang code="ru">Тестовое описание</mwm:lang>
+      <mwm:lang code="default">Test description</mwm:lang>
+    </mwm:description>
+    <mwm:imageUrl>https://localhost/123.png</mwm:imageUrl>
+    <mwm:author id="12345">Maps.Me</mwm:author>
+    <mwm:lastModified>1970-01-01T00:16:40Z</mwm:lastModified>
+    <mwm:rating>8.9</mwm:rating>
+    <mwm:reviewsNumber>567</mwm:reviewsNumber>
+    <mwm:accessRules>Public</mwm:accessRules>
+    <mwm:tags>
+      <mwm:value>mountains</mwm:value>
+      <mwm:value>ski</mwm:value>
+      <mwm:value>snowboard</mwm:value>
+    </mwm:tags>
+    <mwm:toponyms>
+      <mwm:value>12345</mwm:value>
+      <mwm:value>54321</mwm:value>
+    </mwm:toponyms>
+    <mwm:languageCodes>
+      <mwm:value>en</mwm:value>
+      <mwm:value>ja</mwm:value>
+      <mwm:value>ru</mwm:value>
+    </mwm:languageCodes>
+    <mwm:properties>
+      <mwm:value key="property1">value1</mwm:value>
+      <mwm:value key="property2">value2</mwm:value>
+    </mwm:properties>
+    <mwm:compilation id="1" type="Collection">
+      <mwm:name>
+        <mwm:lang code="ru">Тестовая коллекция</mwm:lang>
+        <mwm:lang code="default">Test collection</mwm:lang>
+      </mwm:name>
+      <mwm:annotation>
+        <mwm:lang code="en">Test collection annotation</mwm:lang>
+        <mwm:lang code="default">Test collection annotation</mwm:lang>
+      </mwm:annotation>
+      <mwm:description>
+        <mwm:lang code="ru">Тестовое описание коллекции</mwm:lang>
+        <mwm:lang code="default">Test collection description</mwm:lang>
+      </mwm:description>
+      <mwm:visibility>1</mwm:visibility>
+      <mwm:imageUrl>https://localhost/1234.png</mwm:imageUrl>
+      <mwm:author id="54321">Maps.Me</mwm:author>
+      <mwm:lastModified>1970-01-01T00:16:39Z</mwm:lastModified>
+      <mwm:rating>5.9</mwm:rating>
+      <mwm:reviewsNumber>333</mwm:reviewsNumber>
+      <mwm:accessRules>Public</mwm:accessRules>
+      <mwm:tags>
+        <mwm:value>mountains</mwm:value>
+        <mwm:value>ski</mwm:value>
+      </mwm:tags>
+      <mwm:toponyms>
+        <mwm:value>8</mwm:value>
+        <mwm:value>9</mwm:value>
+      </mwm:toponyms>
+      <mwm:languageCodes>
+        <mwm:value>en</mwm:value>
+        <mwm:value>ja</mwm:value>
+        <mwm:value>ru</mwm:value>
+      </mwm:languageCodes>
+      <mwm:properties>
+        <mwm:value key="property1">value1</mwm:value>
+        <mwm:value key="property2">value2</mwm:value>
+      </mwm:properties>
+    </mwm:compilation>
+    <mwm:compilation id="4" type="Category">
+      <mwm:name>
+        <mwm:lang code="ru">Тестовая категория</mwm:lang>
+        <mwm:lang code="default">Test category</mwm:lang>
+      </mwm:name>
+      <mwm:annotation>
+        <mwm:lang code="en">Test category annotation</mwm:lang>
+        <mwm:lang code="default">Test category annotation</mwm:lang>
+      </mwm:annotation>
+      <mwm:description>
+        <mwm:lang code="ru">Тестовое описание категории</mwm:lang>
+        <mwm:lang code="default">Test category description</mwm:lang>
+      </mwm:description>
+      <mwm:visibility>0</mwm:visibility>
+      <mwm:imageUrl>https://localhost/134.png</mwm:imageUrl>
+      <mwm:author id="11111">Maps.Me</mwm:author>
+      <mwm:lastModified>1970-01-01T00:05:23Z</mwm:lastModified>
+      <mwm:rating>3.3</mwm:rating>
+      <mwm:reviewsNumber>222</mwm:reviewsNumber>
+      <mwm:accessRules>Public</mwm:accessRules>
+      <mwm:tags>
+        <mwm:value>mountains</mwm:value>
+        <mwm:value>bike</mwm:value>
+      </mwm:tags>
+      <mwm:toponyms>
+        <mwm:value>10</mwm:value>
+        <mwm:value>11</mwm:value>
+      </mwm:toponyms>
+      <mwm:languageCodes>
+        <mwm:value>en</mwm:value>
+        <mwm:value>ja</mwm:value>
+        <mwm:value>ru</mwm:value>
+      </mwm:languageCodes>
+      <mwm:properties>
+        <mwm:value key="property1">value1</mwm:value>
+        <mwm:value key="property2">value2</mwm:value>
+      </mwm:properties>
+    </mwm:compilation>
+  </ExtendedData>
+  <Placemark>
+    <name>Мое любимое место</name>
+    <description>Test bookmark description</description>
+    <TimeStamp><when>1970-01-01T00:13:20Z</when></TimeStamp>
+    <styleUrl>#placemark-blue</styleUrl>
+    <Point><coordinates>45.9242,49.326859</coordinates></Point>
+    <ExtendedData xmlns:mwm="https://maps.me">
+      <mwm:name>
+        <mwm:lang code="ru">Тестовая метка</mwm:lang>
+        <mwm:lang code="default">Test bookmark</mwm:lang>
+      </mwm:name>
+      <mwm:description>
+        <mwm:lang code="ru">Тестовое описание метки</mwm:lang>
+        <mwm:lang code="default">Test bookmark description</mwm:lang>
+      </mwm:description>
+      <mwm:featureTypes>
+        <mwm:value>historic-castle</mwm:value>
+        <mwm:value>historic-memorial</mwm:value>
+      </mwm:featureTypes>
+      <mwm:customName>
+        <mwm:lang code="en">My favorite place</mwm:lang>
+        <mwm:lang code="default">Мое любимое место</mwm:lang>
+      </mwm:customName>
+      <mwm:scale>15</mwm:scale>
+      <mwm:boundTracks>
+        <mwm:value>0</mwm:value>
+      </mwm:boundTracks>
+      <mwm:visibility>0</mwm:visibility>
+      <mwm:nearestToponym>12345</mwm:nearestToponym>
+      <mwm:properties>
+        <mwm:value key="bm_property1">value1</mwm:value>
+        <mwm:value key="bm_property2">value2</mwm:value>
+        <mwm:value key="compilations">1, 4</mwm:value>
+        <mwm:value key="score">5</mwm:value>
+      </mwm:properties>
+    </ExtendedData>
+  </Placemark>
+  <Placemark>
+    <name>Test track</name>
+    <description>Test track description</description>
+    <Style><LineStyle>
+      <color>FF0000FF</color>
+      <width>6</width>
+    </LineStyle></Style>
+    <TimeStamp><when>1970-01-01T00:15:00Z</when></TimeStamp>
+    <LineString><coordinates>45.9242,49.326859,1 45.2244,48.941288,2 45.1964,49.401948,3</coordinates></LineString>
+    <ExtendedData xmlns:mwm="https://maps.me">
+      <mwm:name>
+        <mwm:lang code="ru">Тестовый трек</mwm:lang>
+        <mwm:lang code="default">Test track</mwm:lang>
+      </mwm:name>
+      <mwm:description>
+        <mwm:lang code="ru">Тестовое описание трека</mwm:lang>
+        <mwm:lang code="default">Test track description</mwm:lang>
+      </mwm:description>
+      <mwm:localId>0</mwm:localId>
+      <mwm:additionalStyle>
+        <mwm:additionalLineStyle>
+          <color>FF00FF00</color>
+          <width>7</width>
+        </mwm:additionalLineStyle>
+      </mwm:additionalStyle>
+      <mwm:visibility>0</mwm:visibility>
+      <mwm:nearestToponyms>
+        <mwm:value>12345</mwm:value>
+        <mwm:value>54321</mwm:value>
+        <mwm:value>98765</mwm:value>
+      </mwm:nearestToponyms>
+      <mwm:properties>
+        <mwm:value key="tr_property1">value1</mwm:value>
+        <mwm:value key="tr_property2">value2</mwm:value>
+      </mwm:properties>
+    </ExtendedData>
+  </Placemark>
+</Document>
+</kml>)";
 }  // namespace
 
 // 1. Check text and binary deserialization from the prepared sources in memory.

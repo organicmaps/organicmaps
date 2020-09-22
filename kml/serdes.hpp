@@ -95,6 +95,8 @@ private:
   double GetTrackWidthForStyle(std::string const & styleUrl) const;
 
   FileData & m_data;
+  CategoryData m_compilationData;
+  CategoryData * m_categoryData;
 
   std::vector<std::string> m_tags;
   GeometryType m_geometryType;
