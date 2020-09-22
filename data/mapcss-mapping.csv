@@ -881,7 +881,6 @@ area:highway|trunk;880;
 deprecated|deprecated;881;x
 entrance;[entrance];;ref;addr:flats;882;
 deprecated|deprecated;883;x
-highway|proposed;884;
 tourism|artwork;885;
 railway|subway|red;[railway=subway][colour=red];;name;int_name;886;
 railway|subway|blue;[railway=subway][colour=blue];;name;int_name;887;
@@ -956,7 +955,6 @@ shop|furniture;955;
 deprecated|deprecated;956;x
 waterway|waterfall;957;
 deprecated|deprecated;958;x
-railway|proposed;959;
 amenity|casino;960;
 amenity|brothel;961;
 place|neighbourhood;[place=neighbourhood],[place=quarter];;name;int_name;962;
