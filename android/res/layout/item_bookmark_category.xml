@@ -3,60 +3,54 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
+  android:layout_height="@dimen/height_item_edit_bookmark"
   android:background="?clickableBackground"
   android:gravity="center_vertical">
   <CheckBox
     android:id="@+id/checkbox"
+    android:layout_width="@dimen/bookmark_checkbox_size"
+    android:layout_height="match_parent"
     android:layout_centerVertical="true"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:minHeight="@dimen/height_item_edit_bookmark"
-    android:layout_marginLeft="@dimen/margin_half_plus"
     android:layout_marginStart="@dimen/margin_half_plus"
-    android:layout_marginRight="@dimen/margin_base_plus"
-    android:layout_marginEnd="@dimen/margin_base_plus"/>
+    android:layout_marginEnd="@dimen/margin_base_plus" />
   <TextView
     android:id="@+id/name"
-    android:layout_toEndOf="@id/checkbox"
-    android:layout_toRightOf="@id/checkbox"
-    android:layout_toStartOf="@id/more"
-    android:layout_toLeftOf="@id/more"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
+    android:layout_toLeftOf="@id/more"
+    android:layout_toEndOf="@id/checkbox"
     android:ellipsize="middle"
     android:singleLine="true"
-    android:textAppearance="@style/MwmTextAppearance.Body1"
-    tools:text="Bookmark name looooooooooooooooooongasdasdasd"/>
+    android:textAppearance="?fontBody1"
+    tools:text="Bookmark name looooooooooooooooooongasdasdasd" />
   <LinearLayout
     android:id="@+id/bottom_line_container"
-    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_below="@id/name"
-    android:layout_alignLeft="@id/name"
     android:layout_alignStart="@id/name"
+    android:layout_alignLeft="@id/name"
+    android:layout_marginBottom="@dimen/margin_half_plus"
     android:layout_toStartOf="@id/more"
     android:layout_toLeftOf="@id/more"
-    android:layout_marginBottom="@dimen/margin_half_plus"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:orientation="horizontal">
     <ImageView
       android:id="@+id/access_rule_img"
-      android:layout_gravity="center_vertical"
-      android:tint="?iconTint"
       android:layout_width="@dimen/margin_half_plus_eight"
-      android:layout_height="@dimen/margin_half_plus_eight"/>
+      android:layout_height="@dimen/margin_half_plus_eight"
+      android:layout_gravity="center_vertical"
+      android:tint="?iconTint" />
     <TextView
       android:id="@+id/access_rule"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
+      android:layout_marginStart="@dimen/margin_half"
       android:ellipsize="end"
       android:singleLine="true"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      tools:text="42000000"
-      android:layout_marginLeft="@dimen/margin_half"
-      android:layout_marginStart="@dimen/margin_half"/>
+      tools:text="42000000" />
     <TextView
       android:id="@+id/size"
       android:layout_width="wrap_content"
@@ -65,7 +59,7 @@
       android:ellipsize="end"
       android:singleLine="true"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      tools:text="42000000"/>
+      tools:text="42000000" />
     <TextView
       android:id="@+id/author_name"
       android:layout_width="wrap_content"
@@ -74,21 +68,17 @@
       android:ellipsize="end"
       android:singleLine="true"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      tools:text="42000000"/>
+      tools:text="42000000" />
   </LinearLayout>
-
   <ImageView
     android:id="@id/more"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:minHeight="@dimen/height_item_edit_bookmark"
-    android:paddingRight="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_base"
-    android:paddingLeft="@dimen/margin_double"
-    android:paddingStart="@dimen/margin_double"
     android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:src="@drawable/ic_more"
     android:background="?selectableItemBackgroundBorderless"
-    android:tint="?secondary"/>
+    android:minHeight="@dimen/height_item_edit_bookmark"
+    android:paddingStart="@dimen/margin_double"
+    android:paddingEnd="@dimen/margin_base_plus_quarter"
+    android:src="@drawable/ic_more"
+    android:tint="?secondary" />
 </RelativeLayout>
