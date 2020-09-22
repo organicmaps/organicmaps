@@ -362,7 +362,6 @@ world  +
             bridge  -
             tunnel  -
             {}
-        proposed  -
         raceway  -
         residential  +
             area  -
@@ -750,7 +749,6 @@ world  +
             bridge  -
             tunnel  -
             {}
-        proposed  -
         rail  +
             bridge  -
             motor_vehicle  -

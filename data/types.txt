@@ -881,7 +881,7 @@ mapswithme
 mapswithme
 *entrance
 mapswithme
-*highway|proposed
+mapswithme
 *tourism|artwork
 *railway|subway|red
 *railway|subway|blue
@@ -956,7 +956,7 @@ mapswithme
 mapswithme
 *waterway|waterfall
 mapswithme
-*railway|proposed
+mapswithme
 *amenity|casino
 *amenity|brothel
 *place|neighbourhood
