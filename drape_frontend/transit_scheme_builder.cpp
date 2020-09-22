@@ -845,7 +845,7 @@ void TransitSchemeBuilder::PrepareSchemeSubway(MwmSchemeData & scheme)
 }
 
 void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & newDir,
-                      std::string const & color)
+                      std::set<std::string> const & colors)
 {
   static double constexpr eps = 1e-1;
 
@@ -856,21 +856,19 @@ void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & 
     if (base::AlmostEqualAbs(info.m_direction, newDir, eps) ||
         base::AlmostEqualAbs(info.m_direction, newDirReverse, eps))
     {
-      info.m_colors.insert(color);
+      for (auto const & color : colors)
+        info.m_colors.insert(color);
       return;
     }
   }
 
-  shapeInfos.push_back(ShapeInfoPT(newDir, {color}));
+  shapeInfos.push_back(ShapeInfoPT(newDir, colors));
 }
 
 void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & newDir,
-                      std::set<std::string> const & colors)
+                      std::string const & color)
 {
-  for (auto const & color : colors)
-  {
-    UpdateShapeInfos(shapeInfos, newDir, color);
-  }
+  UpdateShapeInfos(shapeInfos, newDir, std::set<std::string>{color});
 }
 
 void TransitSchemeBuilder::PrepareSchemePT(TransitDisplayInfo const & transitDisplayInfo,
