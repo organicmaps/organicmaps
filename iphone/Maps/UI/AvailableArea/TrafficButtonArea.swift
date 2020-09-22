@@ -11,7 +11,6 @@ final class TrafficButtonArea: AvailableArea {
 
   override func notifyObserver() {
     MWMTrafficButtonViewController.updateAvailableArea(areaFrame)
-    BookmarksBackButtonViewController.updateAvailableArea(areaFrame)
   }
 }
 

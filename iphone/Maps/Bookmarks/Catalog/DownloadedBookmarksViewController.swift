@@ -195,12 +195,7 @@ extension DownloadedBookmarksViewController: BookmarksVCDelegate {
 
   func bookmarksVCdidDeleteCategory(_ viewController: BookmarksVC) { }
 
-  func bookmarksVCdidView(onMap viewController: BookmarksVC, type: BookmarksVCSelectedType) {
-    switch type {
-    case .bookmark:
-      coordinator?.state = .hidden
-    default:
-      coordinator?.state = .closed
-    }
+  func bookmarksVCdidView(onMap viewController: BookmarksVC, categoryId: MWMMarkGroupID) {
+    coordinator?.hide(categoryId: categoryId)
   }
 }

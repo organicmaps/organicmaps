@@ -91,6 +91,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *placePageAreaKeyboard;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *sideButtonsAreaBottom;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *sideButtonsAreaKeyboard;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *guidesNavigationBarAreaBottom;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *guidesVisibleConstraint;;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *guidesHiddenConstraint;
 @property(strong, nonatomic) IBOutlet UIImageView *carplayPlaceholderLogo;
@@ -223,10 +224,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
       [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
     }
   }
-
-  BOOL const isBookmarksViewHidden = self.bookmarksCoordinator.state == BookmarksStateHidden;
-  if (isBookmarksViewHidden)
-    self.bookmarksCoordinator.state = BookmarksStateClosed;
 
   if (!switchFullScreenMode)
     return;
@@ -396,7 +393,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [super viewWillAppear:animated];
 
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
-      [MWMSearchManager manager].state == MWMSearchManagerStateHidden)
+      [MWMSearchManager manager].state == MWMSearchManagerStateHidden &&
+      [MWMMapViewControlsManager manager].guidesNavigationBarHidden == NO)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
@@ -797,7 +795,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     auto searchState = MWMSearchManagerStateHidden;
     [MWMRouter stopRouting];
     if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
-      self.bookmarksCoordinator.state = BookmarksStateOpened;
+      [self.bookmarksCoordinator open];
     else if ([action isEqualToString:@"me.maps.3daction.search"])
       searchState = MWMSearchManagerStateDefault;
     else if ([action isEqualToString:@"me.maps.3daction.route"])
@@ -879,6 +877,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration {
   self.visibleAreaBottom.constant = bound;
   self.sideButtonsAreaBottom.constant = bound;
+  self.guidesNavigationBarAreaBottom.constant = bound;
   [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
     [self.view layoutIfNeeded];
   } completion:nil];

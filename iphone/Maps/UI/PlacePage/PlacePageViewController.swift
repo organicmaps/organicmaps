@@ -170,8 +170,7 @@ final class PlacePageScrollView: UIScrollView {
 
   func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
     alternativeSizeClass(iPhone: {
-      let isLandscape = UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight
-      presenter.updateTopBound(isLandscape ? 0 : bound, duration: duration)
+      presenter.updateTopBound(bound, duration: duration)
     }, iPad: {})
   }
 }

@@ -377,7 +377,7 @@ using namespace std;
 
 - (void)viewOnMap {
   GetFramework().ShowBookmarkCategory(self.categoryId);
-  [self.delegate bookmarksVCdidViewOnMap:self type:BookmarksVCSelectedTypeNone];
+  [self.delegate bookmarksVCdidViewOnMap:self categoryId:self.categoryId];
 }
 
 - (IBAction)onSort:(UIBarButtonItem *)sender {
@@ -694,13 +694,7 @@ using namespace std;
     [Statistics logEvent:kStatBookmarksSearchResultSelected withParameters:@{kStatFrom : kStatBookmarksList}];
   [self.searchBar resignFirstResponder];
 
-  BookmarksVCSelectedType selectedType = BookmarksVCSelectedTypeNone;
-  if ([currentSection isKindOfClass:[BookmarksSection class]]) {
-    selectedType = BookmarksVCSelectedTypeBookmark;
-  } else if ([currentSection isKindOfClass:[TracksSection class]]) {
-    selectedType = BookmarksVCSelectedTypeTrack;
-  }
-  [self.delegate bookmarksVCdidViewOnMap:self type:selectedType];
+  [self.delegate bookmarksVCdidViewOnMap:self categoryId:self.categoryId];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

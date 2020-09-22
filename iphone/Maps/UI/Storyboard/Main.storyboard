@@ -68,6 +68,10 @@
                                             </mask>
                                         </variation>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNg-zA-Jne" customClass="GuidesNavigationBarArea" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                     <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awj-9E-eBS" customClass="PlacePageArea" customModule="maps_me" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
@@ -101,8 +105,10 @@
                                     <constraint firstAttribute="trailing" secondItem="aVk-ab-LFJ" secondAttribute="trailing" priority="100" id="GPp-90-Ied"/>
                                     <constraint firstItem="TdT-ia-GP9" firstAttribute="top" secondItem="rL1-9E-4b7" secondAttribute="top" priority="100" id="RAX-O7-Lnd"/>
                                     <constraint firstAttribute="trailing" secondItem="awj-9E-eBS" secondAttribute="trailing" priority="100" id="TEL-dH-TJ7"/>
+                                    <constraint firstItem="QNg-zA-Jne" firstAttribute="leading" secondItem="rL1-9E-4b7" secondAttribute="leading" id="VQH-6U-4Db"/>
                                     <constraint firstAttribute="trailing" secondItem="TdT-ia-GP9" secondAttribute="trailing" priority="100" id="aeq-NS-iqz"/>
                                     <constraint firstItem="awj-9E-eBS" firstAttribute="leading" secondItem="rL1-9E-4b7" secondAttribute="leading" priority="100" id="m7e-b7-NS9"/>
+                                    <constraint firstAttribute="trailing" secondItem="QNg-zA-Jne" secondAttribute="trailing" id="nMy-dG-vag"/>
                                     <constraint firstAttribute="trailing" secondItem="QKu-4A-UgP" secondAttribute="trailing" priority="100" id="p0L-Ic-nWq"/>
                                     <constraint firstAttribute="trailing" secondItem="65S-M4-TnM" secondAttribute="trailing" priority="100" id="pyg-ph-5Qe"/>
                                     <constraint firstItem="awj-9E-eBS" firstAttribute="top" secondItem="rL1-9E-4b7" secondAttribute="top" priority="100" id="sdc-wL-91M"/>
@@ -211,6 +217,8 @@
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="rL1-9E-4b7" secondAttribute="trailing" id="QdS-Yx-ADV"/>
                             <constraint firstItem="jio-3T-E6G" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="SAj-bF-qrr"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xJx-UU-IdV" secondAttribute="bottom" id="SDX-4J-Jz5"/>
+                            <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="QNg-zA-Jne" secondAttribute="bottom" id="TGG-JD-3dN"/>
+                            <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="FFY-Dy-Wou" secondAttribute="bottom" id="TZk-MH-pMV"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="xJx-UU-IdV" secondAttribute="bottom" priority="100" id="VfU-Zk-8IU"/>
                             <constraint firstItem="rbx-Oj-jeo" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" constant="8" id="W0l-NG-7lt"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="top" secondItem="QKu-4A-UgP" secondAttribute="top" priority="100" id="X96-y7-5oI"/>
@@ -229,14 +237,30 @@
                             <constraint firstAttribute="trailing" secondItem="jio-3T-E6G" secondAttribute="trailing" id="t9l-Ud-h6j"/>
                             <constraint firstAttribute="bottom" secondItem="aPn-pa-nCx" secondAttribute="bottom" id="tB3-eX-gUV"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rbx-Oj-jeo" secondAttribute="bottom" constant="70" id="u9s-KY-yCt"/>
+                            <constraint firstItem="QNg-zA-Jne" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="top" id="vCA-75-hd4"/>
+                            <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="xJx-UU-IdV" secondAttribute="bottom" id="veF-Rn-BEm"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="top" secondItem="65S-M4-TnM" secondAttribute="top" priority="100" id="vfQ-ZT-Dlc"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="rL1-9E-4b7" secondAttribute="trailing" priority="100" id="xUq-Vo-ETR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="utd-Jy-pE5"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="SDX-4J-Jz5"/>
+                                <exclude reference="TZk-MH-pMV"/>
                                 <exclude reference="u9s-KY-yCt"/>
+                                <exclude reference="veF-Rn-BEm"/>
                                 <exclude reference="W0l-NG-7lt"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <include reference="TZk-MH-pMV"/>
+                                <include reference="veF-Rn-BEm"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="constraints">
+                                <include reference="SDX-4J-Jz5"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
@@ -268,6 +292,7 @@
                         <outlet property="controlsView" destination="rL1-9E-4b7" id="sfV-7X-WlR"/>
                         <outlet property="guidesCollectionContainer" destination="at1-V1-pzl" id="zwo-PP-5N0"/>
                         <outlet property="guidesHiddenConstraint" destination="8JV-dP-iYZ" id="19x-c0-wYa"/>
+                        <outlet property="guidesNavigationBarAreaBottom" destination="TGG-JD-3dN" id="n00-S5-6VI"/>
                         <outlet property="guidesVisibleConstraint" destination="O8L-nd-nOa" id="vhS-sT-o0o"/>
                         <outlet property="mapView" destination="aPn-pa-nCx" id="tCi-LW-1ll"/>
                         <outlet property="placePageAreaKeyboard" destination="PFs-sL-oVA" id="O3P-ia-ZlX"/>
@@ -953,17 +978,17 @@
             <objects>
                 <viewController storyboardIdentifier="MWMNoMapsViewController" id="3el-Zi-2E4" customClass="MWMNoMapsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4WP-vj-Alg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1310"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-e3-n53" userLabel="Container" customClass="MWMNoMapsView">
-                                <rect key="frame" x="3.5" y="0.0" width="407" height="762"/>
+                                <rect key="frame" x="308.5" y="0.0" width="407" height="1310"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCZ-PN-2Ob" userLabel="BoundsView">
-                                        <rect key="frame" x="16" y="0.0" width="375" height="658"/>
+                                        <rect key="frame" x="16" y="0.0" width="375" height="1206"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87G-jh-N8H" userLabel="CenteredView">
-                                                <rect key="frame" x="0.0" y="204.5" width="375" height="249"/>
+                                                <rect key="frame" x="0.0" y="478.5" width="375" height="249"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_no_maps" translatesAutoresizingMaskIntoConstraints="NO" id="vI9-fc-FO2">
                                                         <rect key="frame" x="107.5" y="0.0" width="160" height="160"/>
@@ -1024,7 +1049,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Moj-UK-oyl" userLabel="DownloadMaps" customClass="MWMButton">
-                                        <rect key="frame" x="83.5" y="678" width="240" height="44"/>
+                                        <rect key="frame" x="83.5" y="1226" width="240" height="44"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="49x-bx-JJj"/>

@@ -236,7 +236,7 @@ BOOL defaultOrientation(CGSize const & size)
         withParameters:@{
           kStatMode: (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
         }];
-  [MapViewController sharedController].bookmarksCoordinator.state = BookmarksStateOpened;
+  [[MapViewController sharedController].bookmarksCoordinator open];
 }
 
 - (void)collapseSearchOnTimer

@@ -63,7 +63,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.sideButtonsHidden = NO;
   self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
-  self.bookmarksBackButtonHidden = YES;
   self.menuRestoreState = MWMBottomMenuStateInactive;
   self.promoDiscoveryCampaign = [ABTestManager manager].promoDiscoveryCampaign;
   if (_promoDiscoveryCampaign.enabled) {
@@ -104,7 +103,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
   [self.trafficButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.tabBarController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  [self.bookmarksBackButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+  [self.guidesNavigationBar viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.searchManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
@@ -197,8 +196,11 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)onSearchManagerStateChanged {
   auto state = [MWMSearchManager manager].state;
-  if (!IPAD && state == MWMSearchManagerStateHidden)
+  if (!IPAD && state == MWMSearchManagerStateHidden) {
     self.hidden = NO;
+  } else if (state != MWMSearchManagerStateHidden) {
+    [self hideGuidesNavigationBar];
+  }
 }
 
 #pragma mark - Routing
@@ -207,6 +209,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   auto nm = self.navigationManager;
   [nm onRoutePrepare];
   [nm onRoutePointsUpdated];
+  [self.ownerController.bookmarksCoordinator close];
   self.promoButton.hidden = YES;
 }
 
@@ -214,6 +217,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   if (IPAD)
     self.searchManager.state = MWMSearchManagerStateHidden;
 
+  [self.ownerController.bookmarksCoordinator close];
   [self.navigationManager onRoutePlanning];
   self.promoButton.hidden = YES;
 }
@@ -277,16 +281,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   return _tabBarController;
 }
 
-- (BookmarksBackButtonViewController *)bookmarksBackButton {
-  if (!_bookmarksBackButton) {
-    _bookmarksBackButton = [[BookmarksBackButtonViewController alloc] init];
-    [self.ownerController addChildViewController:_bookmarksBackButton];
-    [self.ownerController.controlsView addSubview:_bookmarksBackButton.view];
-    [_bookmarksBackButton configLayout];
-  }
-  return _bookmarksBackButton;
-}
-
 - (id<MWMPlacePageProtocol>)placePageManager {
   if (!_placePageManager)
     _placePageManager = [[MWMPlacePageManager alloc] init];
@@ -334,13 +328,25 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.trafficButton.hidden = self.hidden || _trafficButtonHidden;
 }
 
-- (void)setBookmarksBackButtonHidden:(BOOL)bookmarksBackButtonHidden {
-  _bookmarksBackButtonHidden = bookmarksBackButtonHidden;
-  self.bookmarksBackButton.hidden = _bookmarksBackButtonHidden;
-  if (_bookmarksBackButtonHidden) {
-    self.trafficButton.hidden = self.hidden || _trafficButtonHidden;
-  } else {
-    self.trafficButton.hidden = YES;
+- (void)showGuidesNavigationBar:(MWMMarkGroupID)categoryId {
+  if (!_guidesNavigationBar) {
+    MapViewController *parentViewController = self.ownerController;
+    _guidesNavigationBar = [[GuidesNavigationBarViewController alloc] initWithCategoryId:categoryId];
+    [parentViewController addChildViewController:_guidesNavigationBar];
+    [parentViewController.controlsView addSubview:_guidesNavigationBar.view];
+    [_guidesNavigationBar configLayout];
+    _guidesNavigationBarHidden = YES;
+    self.menuState = MWMBottomMenuStateHidden;
+  }
+}
+
+- (void)hideGuidesNavigationBar {
+  if (_guidesNavigationBar) {
+    [_guidesNavigationBar removeFromParentViewController];
+    [_guidesNavigationBar.view removeFromSuperview];
+    _guidesNavigationBar = nil;
+    _guidesNavigationBarHidden = NO;
+    self.menuState = _menuRestoreState;
   }
 }
 

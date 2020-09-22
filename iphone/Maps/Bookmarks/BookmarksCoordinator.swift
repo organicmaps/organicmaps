@@ -1,17 +1,17 @@
 import UIKit
 
 @objc class BookmarksCoordinator: NSObject {
-  @objc enum BookmarksState: Int {
+  enum BookmarksState {
     case opened
     case closed
-    case hidden
+    case hidden(categoryId: MWMMarkGroupID)
   }
 
   private weak var navigationController: UINavigationController?
   private weak var controlsManager: MWMMapViewControlsManager?
   private weak var navigationManager: MWMNavigationDashboardManager?
   private var bookmarksControllers: [UIViewController]?
-  @objc var state: BookmarksState = .closed {
+  private var state: BookmarksState = .closed {
     didSet {
       updateForState(newState: state)
     }
@@ -23,6 +23,18 @@ import UIKit
     self.navigationController = navigationController
     self.controlsManager = controlsManager
     self.navigationManager = navigationManager
+  }
+
+  @objc func open() {
+    state = .opened
+  }
+
+  @objc func close() {
+    state = .closed
+  }
+
+  @objc func hide(categoryId: MWMMarkGroupID) {
+    state = .hidden(categoryId: categoryId)
   }
 
   private func updateForState(newState: BookmarksState) {
@@ -47,12 +59,12 @@ import UIKit
       }, completion: nil)
       FrameworkHelper.deactivateMapSelection(notifyUI: true)
       self.bookmarksControllers = nil
-      controlsManager?.bookmarksBackButtonHidden = true
+      controlsManager?.hideGuidesNavigationBar()
     case .closed:
       navigationController.popToRootViewController(animated: true)
       bookmarksControllers = nil
-      controlsManager?.bookmarksBackButtonHidden = true
-    case .hidden:
+      controlsManager?.hideGuidesNavigationBar()
+    case let .hidden(categoryId):
       UIView.transition(with: self.navigationController!.view,
                         duration: kDefaultAnimationDuration,
                         options: [.curveEaseInOut, .transitionCrossDissolve],
@@ -60,7 +72,9 @@ import UIKit
                           self.bookmarksControllers = navigationController.popToRootViewController(animated: false)
       }, completion: nil)
       let isNavigation = navigationManager?.state != .hidden
-      controlsManager?.bookmarksBackButtonHidden = false || isNavigation
+      if isNavigation == false {
+        controlsManager?.showGuidesNavigationBar(categoryId)
+      }
     }
   }
 }

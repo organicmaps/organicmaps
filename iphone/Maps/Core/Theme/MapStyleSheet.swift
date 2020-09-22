@@ -121,5 +121,14 @@ class MapStyleSheet: IStyleSheet {
       s.shadowOpacity = 1
       s.backgroundColor = colors.white
     }
+
+    theme.add(styleName: "GuidesNavigationBar") { (s) -> (Void) in
+      s.barTintColor = colors.white
+      s.tintColor = colors.linkBlue
+      s.backgroundImage = UIImage()
+      s.shadowImage = UIImage()
+      s.font = fonts.regular18
+      s.fontColor = colors.blackPrimaryText
+    }
   }
 }

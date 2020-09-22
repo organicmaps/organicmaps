@@ -1,13 +1,7 @@
-#import "MWMViewController.h"
 #import <CoreApi/MWMTypes.h>
+#import "MWMViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef NS_ENUM(NSInteger, BookmarksVCSelectedType) {
-  BookmarksVCSelectedTypeNone,
-  BookmarksVCSelectedTypeBookmark,
-  BookmarksVCSelectedTypeTrack
-};
 
 @class BookmarksVC;
 
@@ -15,14 +9,14 @@ typedef NS_ENUM(NSInteger, BookmarksVCSelectedType) {
 
 - (void)bookmarksVCdidUpdateCategory:(BookmarksVC *)viewController;
 - (void)bookmarksVCdidDeleteCategory:(BookmarksVC *)viewController;
-- (void)bookmarksVCdidViewOnMap:(BookmarksVC *)viewController type:(BookmarksVCSelectedType) type;
+- (void)bookmarksVCdidViewOnMap:(BookmarksVC *)viewController categoryId:(MWMMarkGroupID)categoryId;
 
 @end
 
 @interface BookmarksVC : MWMViewController <UITextFieldDelegate>
 
-@property (nonatomic) MWMMarkGroupID categoryId;
-@property (weak, nonatomic) id<BookmarksVCDelegate> delegate;
+@property(nonatomic) MWMMarkGroupID categoryId;
+@property(weak, nonatomic) id<BookmarksVCDelegate> delegate;
 
 - (instancetype)initWithCategory:(MWMMarkGroupID)categoryId;
 

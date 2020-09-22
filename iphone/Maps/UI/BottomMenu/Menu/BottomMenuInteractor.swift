@@ -33,7 +33,11 @@ class BottomMenuInteractor {
 
 extension BottomMenuInteractor: BottomMenuInteractorProtocol {
   func close() {
-    controlsManager?.menuState = .inactive
+    if controlsManager?.guidesNavigationBarHidden == false {
+      controlsManager?.menuState = .inactive
+    } else {
+      controlsManager?.menuState = .hidden
+    }
   }
 
   func addPlace() {
