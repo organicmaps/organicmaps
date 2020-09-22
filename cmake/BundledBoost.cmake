@@ -71,10 +71,11 @@ set(BOOST_LIBRARYDIR "${BOOST_ROOT}/stage/lib")
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
 
-if (PLATFORM_ANDROID)
+if (PLATFORM_ANDROID OR PLATFORM_LINUX)
   # todo This variable must be set by find_package(Boost).
   #      However, Android sdk that we currently use ships with CMake 3.10
   #      which is unable to do it because of a bug in CMake's find_path().
+  #      CMake 3.18.2 also can't find bundled Boost on Linux platform.
   set(Boost_INCLUDE_DIR ${BOOST_ROOT})
 endif()
 
