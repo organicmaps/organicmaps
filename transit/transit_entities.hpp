@@ -59,7 +59,7 @@ using Translations = std::unordered_map<std::string, std::string>;
 struct TimeFromGateToStop
 {
   TimeFromGateToStop() = default;
-  TimeFromGateToStop(TransitId stopId, size_t timeSeconds)
+  TimeFromGateToStop(TransitId stopId, uint32_t timeSeconds)
     : m_stopId(stopId), m_timeSeconds(timeSeconds)
   {
   }
@@ -72,7 +72,7 @@ struct TimeFromGateToStop
                                   visitor(m_timeSeconds, "timeSeconds"))
 
   TransitId m_stopId = kInvalidTransitId;
-  size_t m_timeSeconds = 0;
+  uint32_t m_timeSeconds = 0;
 };
 
 using IdList = std::vector<TransitId>;
@@ -84,7 +84,7 @@ using EdgeWeight = uint32_t;
 struct ShapeLink
 {
   ShapeLink() = default;
-  ShapeLink(TransitId id, size_t startIndex, size_t endIndex)
+  ShapeLink(TransitId id, uint32_t startIndex, uint32_t endIndex)
     : m_shapeId(id), m_startIndex(startIndex), m_endIndex(endIndex)
   {
   }
@@ -106,8 +106,8 @@ struct ShapeLink
                                   visitor(m_endIndex, "endIndex"))
 
   TransitId m_shapeId = kInvalidTransitId;
-  size_t m_startIndex = 0;
-  size_t m_endIndex = 0;
+  uint32_t m_startIndex = 0;
+  uint32_t m_endIndex = 0;
 };
 
 struct EdgeId
@@ -157,8 +157,8 @@ struct EdgeData
 struct LineSegment
 {
   LineSegment() = default;
-  explicit LineSegment(size_t startIdx) : m_startIdx(startIdx) {}
-  LineSegment(size_t startIdx, size_t endIdx) : m_startIdx(startIdx), m_endIdx(endIdx) {}
+  explicit LineSegment(uint32_t startIdx) : m_startIdx(startIdx) {}
+  LineSegment(uint32_t startIdx, uint32_t endIdx) : m_startIdx(startIdx), m_endIdx(endIdx) {}
 
   bool operator==(LineSegment const & rhs) const
   {
@@ -168,8 +168,8 @@ struct LineSegment
   DECLARE_VISITOR_AND_DEBUG_PRINT(LineSegment, visitor(m_startIdx, "startIdx"),
                                   visitor(m_endIdx, "endIdx"))
 
-  size_t m_startIdx = 0;
-  size_t m_endIdx = 0;
+  uint32_t m_startIdx = 0;
+  uint32_t m_endIdx = 0;
 };
 
 using LineSegments = std::vector<LineSegment>;
