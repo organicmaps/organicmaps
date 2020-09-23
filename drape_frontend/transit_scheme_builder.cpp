@@ -847,7 +847,7 @@ void TransitSchemeBuilder::PrepareSchemeSubway(MwmSchemeData & scheme)
 void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & newDir,
                       std::set<std::string> const & colors)
 {
-  static double constexpr eps = 1e-1;
+  static double constexpr eps = 1e-5;
 
   auto const newDirReverse = -newDir;
 
