@@ -4034,8 +4034,6 @@
 
 "type.highway.primary_link.tunnel" = "جاده";
 
-"type.highway.proposed" = "highway-proposed";
-
 "type.highway.raceway" = "کانال";
 
 "type.highway.residential" = "جاده";
@@ -4657,8 +4655,6 @@
 "type.railway.preserved.bridge" = "railway-preserved-bridge";
 
 "type.railway.preserved.tunnel" = "railway-preserved-tunnel";
-
-"type.railway.proposed" = "railway-proposed";
 
 "type.railway.rail" = "راه آهن";
 

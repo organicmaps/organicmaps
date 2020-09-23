@@ -4034,8 +4034,6 @@
 
 "type.highway.primary_link.tunnel" = "거리";
 
-"type.highway.proposed" = "highway-proposed";
-
 "type.highway.raceway" = "경마장";
 
 "type.highway.residential" = "거리";
@@ -4657,8 +4655,6 @@
 "type.railway.preserved.bridge" = "railway-preserved-bridge";
 
 "type.railway.preserved.tunnel" = "railway-preserved-tunnel";
-
-"type.railway.proposed" = "railway-proposed";
 
 "type.railway.rail" = "철로";
 

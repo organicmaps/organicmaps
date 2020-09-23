@@ -2244,7 +2244,6 @@
 	<string name="type.highway.primary_link">Street</string>
 	<string name="type.highway.primary_link.bridge">Street</string>
 	<string name="type.highway.primary_link.tunnel">Street</string>
-	<string name="type.highway.proposed">highway-proposed</string>
 	<string name="type.highway.raceway">Racetrack</string>
 	<string name="type.highway.residential">Street</string>
 	<string name="type.highway.residential.area">Street</string>
@@ -2556,7 +2555,6 @@
 	<string name="type.railway.preserved">railway-preserved</string>
 	<string name="type.railway.preserved.bridge">railway-preserved-bridge</string>
 	<string name="type.railway.preserved.tunnel">railway-preserved-tunnel</string>
-	<string name="type.railway.proposed">railway-proposed</string>
 	<string name="type.railway.rail">Railway</string>
 	<string name="type.railway.rail.bridge">railway-rail-bridge</string>
 	<string name="type.railway.rail.motor_vehicle">railway-rail-motor_vehicle</string>

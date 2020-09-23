@@ -2157,7 +2157,6 @@
 	<string name="type.highway.primary_link">Ulica</string>
 	<string name="type.highway.primary_link.bridge">Ulica</string>
 	<string name="type.highway.primary_link.tunnel">Ulica</string>
-	<string name="type.highway.proposed">Droga projektowana</string>
 	<string name="type.highway.raceway">Tor wyścigowy</string>
 	<string name="type.highway.residential">Ulica</string>
 	<string name="type.highway.residential.area">Ulica</string>

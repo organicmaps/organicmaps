@@ -4034,8 +4034,6 @@
 
 "type.highway.primary_link.tunnel" = "Ulica";
 
-"type.highway.proposed" = "Droga projektowana";
-
 "type.highway.raceway" = "Tor wyścigowy";
 
 "type.highway.residential" = "Ulica";
@@ -4657,8 +4655,6 @@
 "type.railway.preserved.bridge" = "railway-preserved-bridge";
 
 "type.railway.preserved.tunnel" = "railway-preserved-tunnel";
-
-"type.railway.proposed" = "railway-proposed";
 
 "type.railway.rail" = "Kolej";
 
