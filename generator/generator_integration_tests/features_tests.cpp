@@ -128,20 +128,20 @@ CountryFeaturesCounters constexpr kWorldCounters(945 /* fbs */, 364406 /* geomet
                                                  0 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kNorthAucklandCounters(
-    1812339 /* fbs */, 12196983 /* geometryPoints */, 1007586 /* point */, 205637 /* line */,
-    599116 /* area */, 212615 /* poi */, 521 /* cityTownOrVillage */, 3557 /* bookingHotels */);
+    1812150 /* fbs */, 12195450 /* geometryPoints */, 1007586 /* point */, 205448 /* line */,
+    599116 /* area */, 212424 /* poi */, 521 /* cityTownOrVillage */, 3557 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kNorthWellingtonCounters(
-    797848 /* fbs */, 7771687 /* geometryPoints */, 460560 /* point */, 87012 /* line */,
-    250276 /* area */, 95897 /* poi */, 297 /* cityTownOrVillage */, 1062 /* bookingHotels */);
+    797814 /* fbs */, 7771530 /* geometryPoints */, 460560 /* point */, 86978 /* line */,
+    250276 /* area */, 95863 /* poi */, 297 /* cityTownOrVillage */, 1062 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthCanterburyCounters(
-    637249 /* fbs */, 6984685 /* geometryPoints */, 397964 /* point */, 81698 /* line */,
-    157587 /* area */, 89700 /* poi */, 331 /* cityTownOrVillage */, 2085 /* bookingHotels */);
+    637239 /* fbs */, 6984183 /* geometryPoints */, 397964 /* point */, 81688 /* line */,
+    157587 /* area */, 89690 /* poi */, 331 /* cityTownOrVillage */, 2085 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthSouthlandCounters(
     340645 /* fbs */, 5342381 /* geometryPoints */, 186001 /* point */, 40118 /* line */,
-    114526 /* area */, 40672 /* poi */, 297 /* cityTownOrVillage */, 1621 /* bookingHotels */);
+    114526 /* area */, 40671 /* poi */, 297 /* cityTownOrVillage */, 1621 /* bookingHotels */);
 
 CountryFeaturesCounters constexpr kSouthSouthlandMixedNodesCounters(
     2 /* fbs */, 2 /* geometryPoints */, 2 /* point */, 0 /* line */, 0 /* area */, 0 /* poi */,
@@ -379,10 +379,10 @@ public:
 
     TestGeneratedFile(cameraToWays, 0 /* fileSize */);
     TestGeneratedFile(citiesAreas, 18601 /* fileSize */);
-    TestGeneratedFile(maxSpeeds, 1301515 /* fileSize */);
-    TestGeneratedFile(metalines, 288032 /* fileSize */);
+    TestGeneratedFile(maxSpeeds, 1301155 /* fileSize */);
+    TestGeneratedFile(metalines, 287660 /* fileSize */);
     TestGeneratedFile(restrictions, 371110 /* fileSize */);
-    TestGeneratedFile(roadAccess, 1915402 /* fileSize */);
+    TestGeneratedFile(roadAccess, 1915227 /* fileSize */);
     TestGeneratedFile(m_genInfo.m_citiesBoundariesFilename, 95 /* fileSize */);
   }
 
