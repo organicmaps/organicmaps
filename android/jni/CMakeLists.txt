@@ -124,7 +124,6 @@ target_link_libraries(
   routing
   traffic
   routing_common
-  transit
   drape_frontend
   shaders
   search
@@ -134,6 +133,7 @@ target_link_libraries(
   drape
   kml
   editor
+  transit
   indexer
   metrics
   platform

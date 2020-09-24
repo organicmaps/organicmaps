@@ -19,6 +19,8 @@
 #include "drape/render_bucket.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
+#include "transit/transit_entities.hpp"
+
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
