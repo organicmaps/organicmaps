@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D921BBB251D0BA6002EDB00 /* transit_entities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D921BBA251D0BA6002EDB00 /* transit_entities.cpp */; };
 		562DDBDC1FE8EA0A0091F566 /* transit_graph_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 562DDBD81FE8EA080091F566 /* transit_graph_data.cpp */; };
 		562DDBDD1FE8EA0A0091F566 /* transit_graph_data.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 562DDBD91FE8EA080091F566 /* transit_graph_data.hpp */; };
 		562DDBDE1FE8EA0A0091F566 /* transit_speed_limits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 562DDBDA1FE8EA090091F566 /* transit_speed_limits.hpp */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D921BBA251D0BA6002EDB00 /* transit_entities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_entities.cpp; sourceTree = "<group>"; };
 		562DDBD81FE8EA080091F566 /* transit_graph_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_graph_data.cpp; sourceTree = "<group>"; };
 		562DDBD91FE8EA080091F566 /* transit_graph_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_graph_data.hpp; sourceTree = "<group>"; };
 		562DDBDA1FE8EA090091F566 /* transit_speed_limits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_speed_limits.hpp; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 		56D7F2F61FE7F0F200D99E62 /* transit */ = {
 			isa = PBXGroup;
 			children = (
+				3D921BBA251D0BA6002EDB00 /* transit_entities.cpp */,
 				D56AD1D624CB02BF0057F2E0 /* experimental */,
 				D55B290524CACF9E000E2EBE /* transit_display_info.hpp */,
 				D5E1DDAF24F6A0E9001F72D5 /* transit_schedule.cpp */,
@@ -190,6 +193,7 @@
 				56EE14CB1FE7F2900036F20C /* transit_types.cpp in Sources */,
 				D56AD1DD24CB02C00057F2E0 /* transit_data.cpp in Sources */,
 				D5E1DDB124F6A0E9001F72D5 /* transit_schedule.cpp in Sources */,
+				3D921BBB251D0BA6002EDB00 /* transit_entities.cpp in Sources */,
 				D56AD1DE24CB02C00057F2E0 /* transit_types_experimental.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
