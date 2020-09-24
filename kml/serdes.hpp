@@ -96,7 +96,7 @@ private:
 
   FileData & m_data;
   CategoryData m_compilationData;
-  CategoryData * m_categoryData;
+  CategoryData * m_categoryData;  // never null
 
   std::vector<std::string> m_tags;
   GeometryType m_geometryType;
@@ -130,6 +130,7 @@ private:
   std::string m_nearestToponym;
   std::vector<std::string> m_nearestToponyms;
   kml::Properties m_properties;
+  std::vector<CompilationId> m_compilations;
   double m_trackWidth;
 };
 

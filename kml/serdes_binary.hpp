@@ -70,7 +70,7 @@ public:
     header.m_tracksOffset = sink.Pos() - startPos;
     SerializeTracks(sink);
 
-    // Serialize tracks.
+    // Serialize compilations.
     header.m_compilationsOffset = sink.Pos() - startPos;
     SerializeCompilations(sink);
 
@@ -127,6 +127,17 @@ private:
   std::vector<std::string> m_strings;
 };
 
+template <typename T, typename = void>
+struct HasCompilationData : std::false_type
+{
+};
+
+template <typename T>
+struct HasCompilationData<T, std::void_t<decltype(T::m_compilationData)>>
+  : std::is_same<decltype(T::m_compilationData), std::vector<CategoryData>>
+{
+};
+
 class DeserializerKml
 {
 public:
@@ -168,7 +179,7 @@ public:
       FileDataV7 dataV7;
       dataV7.m_deviceId = m_data.m_deviceId;
       dataV7.m_serverId = m_data.m_serverId;
-      DeserializeFileDataBeforeV8(subReader, dataV7);
+      DeserializeFileData(subReader, dataV7);
 
       m_data = dataV7.ConvertToLatestVersion();
       break;
@@ -181,7 +192,7 @@ public:
       FileDataV6 dataV6;
       dataV6.m_deviceId = m_data.m_deviceId;
       dataV6.m_serverId = m_data.m_serverId;
-      DeserializeFileDataBeforeV8(subReader, dataV6);
+      DeserializeFileData(subReader, dataV6);
 
       m_data = dataV6.ConvertToLatestVersion();
       break;
@@ -193,7 +204,7 @@ public:
       FileDataV3 dataV3;
       dataV3.m_deviceId = m_data.m_deviceId;
       dataV3.m_serverId = m_data.m_serverId;
-      DeserializeFileDataBeforeV8(subReader, dataV3);
+      DeserializeFileData(subReader, dataV3);
 
       // Migrate bookmarks (it's necessary ony for v.2).
       if (m_header.m_version == Version::V2)
@@ -291,20 +302,8 @@ private:
     DeserializeCategory(subReader, data);
     DeserializeBookmarks(subReader, data);
     DeserializeTracks(subReader, data);
-    if (m_header.HasCompilationsSection())
+    if constexpr (HasCompilationData<FileDataType>::value)
       DeserializeCompilations(subReader, data);
-    DeserializeStrings(subReader, data);
-  }
-
-  template <typename FileDataType>
-  void DeserializeFileDataBeforeV8(std::unique_ptr<Reader> & subReader, FileDataType & data)
-  {
-    // Keep in mind - deserialization/serialization works in two stages:
-    // - serialization/deserialization non-string members of structures;
-    // - serialization/deserialization string members of structures.
-    DeserializeCategory(subReader, data);
-    DeserializeBookmarks(subReader, data);
-    DeserializeTracks(subReader, data);
     DeserializeStrings(subReader, data);
   }
 

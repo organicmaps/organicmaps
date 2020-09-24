@@ -229,6 +229,7 @@ struct BookmarkData
                                   visitor(m_visible, "visible"),
                                   visitor(m_nearestToponym, "nearestToponym"),
                                   visitor(m_properties, "properties"),
+                                  visitor(m_compilations, "compilations"),
                                   VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName,
@@ -281,6 +282,8 @@ struct BookmarkData
   std::string m_nearestToponym;
   // Key-value properties.
   Properties m_properties;
+  // List of compilationIds.
+  std::vector<CompilationId> m_compilations;
 };
 
 // Note: any changes in binary format of this structure

@@ -86,8 +86,8 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_nearestToponym = "12345";
   bookmarkData.m_properties = {{"bm_property1", "value1"},
                                {"bm_property2", "value2"},
-                               {"score", "5"},
-                               {"compilations", {"1, 4"}}};
+                               {"score", "5"}};
+  bookmarkData.m_compilations = {1, 2, 3, 4, 5};
   result.m_bookmarksData.emplace_back(std::move(bookmarkData));
 
   kml::TrackData trackData;
@@ -422,9 +422,9 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
       <mwm:properties>
         <mwm:value key="bm_property1">value1</mwm:value>
         <mwm:value key="bm_property2">value2</mwm:value>
-        <mwm:value key="compilations">1, 4</mwm:value>
         <mwm:value key="score">5</mwm:value>
       </mwm:properties>
+      <mwm:compilations>1,2,3,4,5</mwm:compilations>
     </ExtendedData>
   </Placemark>
   <Placemark>
@@ -462,6 +462,7 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
         <mwm:value key="tr_property1">value1</mwm:value>
         <mwm:value key="tr_property2">value2</mwm:value>
       </mwm:properties>
+      <mwm:compilations>5,6,7,8,9</mwm:compilations>
     </ExtendedData>
   </Placemark>
 </Document>

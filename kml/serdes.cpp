@@ -61,6 +61,7 @@ std::string Indent(size_t count)
   return indent.str();
 }
 
+static std::string const kIndent0 = Indent(0);
 static std::string const kIndent2 = Indent(2);
 static std::string const kIndent4 = Indent(4);
 static std::string const kIndent6 = Indent(6);
@@ -190,19 +191,19 @@ void SaveStringWithCDATA(KmlWriter::WriterWrapper & writer, std::string const & 
     writer << s;
 }
 
-void SaveStyle(KmlWriter::WriterWrapper & writer, std::string const & style, bool isCompilationData)
+void SaveStyle(KmlWriter::WriterWrapper & writer, std::string const & style,
+               std::string const & offsetStr)
 {
   if (style.empty())
     return;
 
-  writer << (isCompilationData ? kIndent4 : kIndent2) << "<Style id=\"" << style << "\">\n"
-         << (isCompilationData ? kIndent6 : kIndent4) << "<IconStyle>\n"
-         << (isCompilationData ? kIndent8 : kIndent6) << "<Icon>\n"
-         << (isCompilationData ? kIndent10 : kIndent8) << "<href>http://maps.me/placemarks/"
-         << style << ".png</href>\n"
-         << (isCompilationData ? kIndent8 : kIndent6) << "</Icon>\n"
-         << (isCompilationData ? kIndent6 : kIndent4) << "</IconStyle>\n"
-         << (isCompilationData ? kIndent4 : kIndent2) << "</Style>\n";
+  writer << offsetStr << kIndent2 << "<Style id=\"" << style << "\">\n"
+         << offsetStr << kIndent4 << "<IconStyle>\n"
+         << offsetStr << kIndent6 << "<Icon>\n"
+         << offsetStr << kIndent8 << "<href>http://maps.me/placemarks/" << style << ".png</href>\n"
+         << offsetStr << kIndent6 << "</Icon>\n"
+         << offsetStr << kIndent4 << "</IconStyle>\n"
+         << offsetStr << kIndent2 << "</Style>\n";
 }
 
 void SaveColorToABGR(KmlWriter::WriterWrapper & writer, uint32_t rgba)
@@ -372,14 +373,13 @@ void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & ca
   if (compilationData)
   {
     for (uint8_t i = 0; i < base::Underlying(PredefinedColor::Count); ++i)
+    {
       SaveStyle(writer, GetStyleForPredefinedColor(static_cast<PredefinedColor>(i)),
-                !compilationData);
-  }
+                compilationData ? kIndent0 : kIndent2);
+    }
 
-  auto const & indent = compilationData ? kIndent2 : kIndent4;
+    auto const & indent = compilationData ? kIndent2 : kIndent4;
 
-  if (compilationData)
-  {
     // Use CDATA if we have special symbols in the name.
     writer << indent << "<name>";
     SaveStringWithCDATA(writer, GetLocalizableString(categoryData.m_name, kDefaultLang));
@@ -451,6 +451,15 @@ void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData co
   }
 
   SaveStringsMap(writer, bookmarkData.m_properties, "properties", kIndent6);
+
+  if (!bookmarkData.m_compilations.empty())
+  {
+    writer << kIndent6 << "<mwm:compilations>";
+    writer << strings::to_string(bookmarkData.m_compilations.front());
+    for (size_t c = 1; c < bookmarkData.m_compilations.size(); ++c)
+      writer << "," << strings::to_string(bookmarkData.m_compilations[c]);
+    writer << "</mwm:compilations>\n";
+  }
 
   writer << kIndent4 << kExtendedDataFooter;
 }
@@ -859,6 +868,7 @@ void KmlParser::Pop(std::string const & tag)
         data.m_visible = m_visible;
         data.m_nearestToponym = std::move(m_nearestToponym);
         data.m_properties = std::move(m_properties);
+        data.m_compilations = std::move(m_compilations);
 
         // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
         if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode &&
@@ -1149,6 +1159,20 @@ void KmlParser::CharData(std::string value)
         else if (currTag == "mwm:nearestToponym")
         {
           m_nearestToponym = value;
+        }
+        else if (currTag == "mwm:compilations")
+        {
+          m_compilations.clear();
+          for (strings::SimpleTokenizer tupleIter(value, ","); tupleIter; ++tupleIter)
+          {
+            CompilationId compilationId = kInvalidCompilationId;
+            if (!strings::to_uint64(*tupleIter, compilationId))
+            {
+              m_compilations.clear();
+              break;
+            }
+            m_compilations.push_back(compilationId);
+          }
         }
       }
       else if (prevTag == "TimeStamp")
