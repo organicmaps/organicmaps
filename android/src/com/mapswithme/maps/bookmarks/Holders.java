@@ -122,6 +122,60 @@ public class Holders
     }
   }
 
+  static class CollectionViewHolder extends RecyclerView.ViewHolder
+  {
+    @NonNull
+    private final TextView mName;
+    @NonNull
+    CheckBox mVisibilityMarker;
+    @NonNull
+    TextView mSize;
+    @Nullable
+    private BookmarkCategory mEntity;
+
+    CollectionViewHolder(@NonNull View root)
+    {
+      super(root);
+      mName = root.findViewById(R.id.name);
+      mVisibilityMarker = root.findViewById(R.id.checkbox);
+      mSize = root.findViewById(R.id.size);
+    }
+
+    void setVisibilityState(boolean visible)
+    {
+      mVisibilityMarker.setChecked(visible);
+    }
+
+    void setVisibilityListener(@Nullable View.OnClickListener listener)
+    {
+      mVisibilityMarker.setOnClickListener(listener);
+    }
+
+    void setName(@NonNull String name)
+    {
+      mName.setText(name);
+    }
+
+    void setSize(@PluralsRes int phrase, int size)
+    {
+      mSize.setText(mSize.getResources().getQuantityString(phrase, size, size));
+    }
+
+    void setCategory(@NonNull BookmarkCategory entity)
+    {
+      mEntity = entity;
+    }
+
+    @NonNull
+    public BookmarkCategory getEntity()
+    {
+      if (mEntity == null)
+        throw new AssertionError("BookmarkCategory is null");
+      return mEntity;
+    }
+
+  }
+
   static class CategoryViewHolder extends RecyclerView.ViewHolder
   {
     @NonNull
