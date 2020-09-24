@@ -873,8 +873,12 @@ public enum BookmarkManager
     nativeGetSortedCategory(catId, sortingType, hasMyPosition, lat, lon, timestamp);
   }
 
+  @NonNull
   native BookmarkCategory[] nativeGetBookmarkCategories();
-
+  @NonNull
+  native BookmarkCategory[] nativeGetChildrenCategories(long catId);
+  @NonNull
+  native BookmarkCategory[] nativeGetChildrenCollections(long catId);
 
   @NonNull
   public String getBookmarkName(@IntRange(from = 0) long bookmarkId)

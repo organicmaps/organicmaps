@@ -1411,7 +1411,6 @@ void BookmarkManager::AddNestedGroupDummy()
     data.m_lastModified = kml::Timestamp::clock::now();
     data.m_accessRules = kml::AccessRules::Paid;
 
-    BookmarkCategory collection();
     m_childrenGroups.emplace(kDummyChildCollection,
                              std::make_unique<BookmarkCategory>(std::move(data), true));
   }
@@ -1429,7 +1428,6 @@ void BookmarkManager::AddNestedGroupDummy()
     data.m_lastModified = kml::Timestamp::clock::now();
     data.m_accessRules = kml::AccessRules::Paid;
 
-    BookmarkCategory category();
     m_childrenGroups.emplace(kDummyChildCategory,
                              std::make_unique<BookmarkCategory>(std::move(data), true));
   }
