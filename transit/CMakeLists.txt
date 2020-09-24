@@ -11,6 +11,7 @@ set(
   experimental/transit_types_experimental.cpp
   experimental/transit_types_experimental.hpp
   transit_display_info.hpp
+  transit_entities.cpp
   transit_entities.hpp
   transit_graph_data.cpp
   transit_graph_data.hpp
