@@ -234,7 +234,7 @@ void PrepareData(DataSource const & dataSource, std::vector<FeatureID> const & f
 
   MwmSet::MwmId mwmId;
   std::unique_ptr<FeaturesLoaderGuard> guard;
-  for (auto const featureId : featureIds)
+  for (auto const & featureId : featureIds)
   {
     if (mwmId != featureId.m_mwmId)
     {

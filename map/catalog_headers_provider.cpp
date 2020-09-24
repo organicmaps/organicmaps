@@ -28,7 +28,7 @@ platform::HttpClient::Headers CatalogHeadersProvider::GetHeaders()
   auto const & countryToCity = m_storage.GetMwmTopCityGeoIds();
   std::set<base::GeoObjectId> countries;
   auto & cities = params.m_cityGeoIds;
-  for (auto const id : localMaps)
+  for (auto const & id : localMaps)
   {
     auto const countryIds = m_storage.GetTopCountryGeoIds(id);
     countries.insert(countryIds.cbegin(), countryIds.cend());

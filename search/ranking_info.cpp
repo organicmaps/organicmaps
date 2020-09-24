@@ -10,6 +10,7 @@
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <array>
 #include <iomanip>
 #include <limits>
 #include <sstream>
@@ -126,13 +127,9 @@ class IsServiceTypeChecker
 private:
   IsServiceTypeChecker()
   {
-    vector<string> const oneLevelTypes = {
-      "barrier",
-      "power",
-      "traffic_calming"
-    };
+    array<string, 3> const oneLevelTypes = {"barrier", "power", "traffic_calming"};
 
-    for (auto const t : oneLevelTypes)
+    for (auto const & t : oneLevelTypes)
       m_oneLevelTypes.push_back(classif().GetTypeByPath({t}));
   }
 

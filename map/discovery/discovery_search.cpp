@@ -129,7 +129,7 @@ void SearchHotels::ProcessAccumulated()
   std::vector<search::Result> sortedByRating;
   sortedByRating.reserve(m_featureIds.size());
 
-  for (auto const featureId : m_featureIds)
+  for (auto const & featureId : m_featureIds)
   {
     auto ft = loader.Load(featureId);
     CHECK(ft, ("Failed to load feature with id", featureId));
