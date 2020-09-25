@@ -290,7 +290,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
 
-  auto const formerCurIter = m_route->GetCurrentIteratorTurn();
+  auto const formerIter = m_route->GetCurrentIteratorTurn();
   if (m_route->MoveIterator(info))
   {
     m_moveAwayCounter = 0;
@@ -320,8 +320,8 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     auto const curIter = m_route->GetCurrentIteratorTurn();
     // If we are moving to the next segment after passing the turn
     // it means the turn is changed. So the |m_onNewTurn| should be called.
-    if (formerCurIter && curIter && IsNormalTurn(*formerCurIter) &&
-        formerCurIter->m_index < curIter->m_index && m_onNewTurn)
+    if (formerIter && curIter && IsNormalTurn(*formerIter) &&
+        formerIter->m_index < curIter->m_index && m_onNewTurn)
     {
       m_onNewTurn();
     }
