@@ -130,6 +130,7 @@ public:
   void SetCheckpointCallback(CheckpointCallback const & checkpointCallback);
   /// \brief Sets a callback which is called every time when RoutingSession::m_state is changed.
   void SetChangeSessionStateCallback(ChangeSessionStateCallback const & changeSessionStateCallback);
+  void SetOnNewTurnCallback(OnNewTurn const & onNewTurn);
 
   void SetSpeedCamShowCallback(SpeedCameraShowCallback && callback);
   void SetSpeedCamClearCallback(SpeedCameraClearCallback && callback);
@@ -221,6 +222,7 @@ private:
   ProgressCallback m_progressCallback;
   CheckpointCallback m_checkpointCallback;
   ChangeSessionStateCallback m_changeSessionStateCallback;
+  OnNewTurn m_onNewTurn;
 
   // Statistics parameters
   // Passed distance on route including reroutes

@@ -30,14 +30,6 @@ namespace
 {
 double constexpr kOnEndToleranceM = 10.0;
 double constexpr kSteetNameLinkMeters = 400.;
-
-bool IsNormalTurn(TurnItem const & turn)
-{
-  CHECK_NOT_EQUAL(turn.m_turn, CarDirection::Count, ());
-  CHECK_NOT_EQUAL(turn.m_pedestrianTurn, PedestrianDirection::Count, ());
-
-  return !turn.IsTurnNone();
-}
 }  //  namespace
 
 Route::Route(string const & router, vector<m2::PointD> const & points, uint64_t routeId,
@@ -187,6 +179,16 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, TurnItem & turn) const
   GetClosestTurn(m_poly.GetCurrentIter().m_ind, turn);
   distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
                                              m_poly.GetIterToIndex(turn.m_index));
+}
+
+optional<turns::TurnItem> Route::GetCurrentIteratorTurn() const
+{
+  auto const & iter = m_poly.GetCurrentIter();
+  if (!iter.IsValid())
+    return nullopt;
+
+  CHECK_LESS(iter.m_ind, m_routeSegments.size(), ());
+  return m_routeSegments[iter.m_ind].GetTurn();
 }
 
 bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & nextTurn) const
@@ -425,6 +427,14 @@ double Route::GetETAToLastPassedPointSec() const
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
 
   return curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetTimeFromBeginningSec();
+}
+
+bool IsNormalTurn(TurnItem const & turn)
+{
+  CHECK_NOT_EQUAL(turn.m_turn, CarDirection::Count, ());
+  CHECK_NOT_EQUAL(turn.m_pedestrianTurn, PedestrianDirection::Count, ());
+
+  return !turn.IsTurnNone();
 }
 
 string DebugPrint(Route const & r)

@@ -290,6 +290,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speedMpS);
 
+  auto const formerCurIter = m_route->GetCurrentIteratorTurn();
   if (m_route->MoveIterator(info))
   {
     m_moveAwayCounter = 0;
@@ -315,6 +316,15 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
     if (m_userCurrentPositionValid)
       m_lastGoodPosition = m_userCurrentPosition;
+
+    auto const curIter = m_route->GetCurrentIteratorTurn();
+    // If we are moving to the next segment after passing the turn
+    // it means the turn is changed. So the |m_onNewTurn| should be called.
+    if (formerCurIter && curIter && IsNormalTurn(*formerCurIter) &&
+        formerCurIter->m_index < curIter->m_index && m_onNewTurn)
+    {
+      m_onNewTurn();
+    }
 
     return m_state;
   }
@@ -662,6 +672,12 @@ void RoutingSession::SetChangeSessionStateCallback(
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_changeSessionStateCallback = changeSessionStateCallback;
+}
+
+void RoutingSession::SetOnNewTurnCallback(OnNewTurn const & onNewTurn)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_onNewTurn = onNewTurn;
 }
 
 void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)
