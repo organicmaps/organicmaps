@@ -25,6 +25,7 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -50,6 +51,9 @@ import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListAdapter>
     implements BookmarkManager.BookmarksSharingListener,
                BookmarkManager.BookmarksSortingListener,
@@ -73,6 +77,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   private boolean mSearchMode = false;
   private boolean mNeedUpdateSorting = true;
+
+  @NonNull
+  private BookmarkCollectionAdapter mBookmarkCollectionAdapter;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -123,6 +130,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   protected BookmarkListAdapter createAdapter()
   {
     return new BookmarkListAdapter(mCategoryDataSource);
+  }
+
+  @NonNull
+  private BookmarkCollectionAdapter createAdditionalCollectionAdapter(){
+    // TODO (@velichkomarija): Get items from BookmarkMagager.
+    List<BookmarkCategory> mCollectionItems = new ArrayList<>();
+    List<BookmarkCategory> mCategoryItems = new ArrayList<>();
+    return new BookmarkCollectionAdapter(requireContext(),mCategoryItems, mCollectionItems);
   }
 
   @Override
