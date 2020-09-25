@@ -30,12 +30,15 @@ using chrono::steady_clock;
 
 vector<m2::PointD> kTestRoute = {{0., 1.}, {0., 2.}, {0., 3.}, {0., 4.}};
 vector<Segment> const kTestSegments({{0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}});
-Route::TTurns const kTestTurns = {turns::TurnItem(3, turns::CarDirection::ReachedYourDestination)};
+Route::TTurns const kTestTurnsReachOnly = {
+    turns::TurnItem(3, turns::CarDirection::ReachedYourDestination)};
+Route::TTurns const kTestTurns = {turns::TurnItem(1, turns::CarDirection::TurnLeft),
+                                  turns::TurnItem(3, turns::CarDirection::ReachedYourDestination)};
 Route::TTimes const kTestTimes({Route::TTimeItem(1, 5), Route::TTimeItem(2, 10),
                                 Route::TTimeItem(3, 15)});
 auto const kRouteBuildingMaxDuration = seconds(30);
 
-void FillSubroutesInfo(Route & route);
+void FillSubroutesInfo(Route & route, Route::TTurns const & turns = kTestTurnsReachOnly);
 
 // Simple router. It returns route given to him on creation.
 class DummyRouter : public IRouter
@@ -189,15 +192,15 @@ private:
   RoutingSession & m_session;
 };
 
-void FillSubroutesInfo(Route & route)
+void FillSubroutesInfo(Route & route, Route::TTurns const & turns /* = kTestTurnsReachOnly */)
 {
   vector<geometry::PointWithAltitude> junctions;
   for (auto const & point : kTestRoute)
     junctions.emplace_back(point, geometry::kDefaultAltitudeMeters);
 
   vector<RouteSegment> segmentInfo;
-  FillSegmentInfo(kTestSegments, junctions, kTestTurns, {}, kTestTimes,
-                  nullptr /* trafficStash */, segmentInfo);
+  FillSegmentInfo(kTestSegments, junctions, turns, {}, kTestTimes, nullptr /* trafficStash */,
+                  segmentInfo);
   route.SetRouteSegments(move(segmentInfo));
   route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
       {Route::SubrouteAttrs(junctions.front(), junctions.back(), 0, kTestSegments.size())}));
@@ -408,7 +411,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
   GetPlatform().RunTask(Platform::Thread::Gui, [&alongTimedSignal, this, &counter]() {
     InitRoutingSession();
     Route masterRoute("dummy", kTestRoute.begin(), kTestRoute.end(), 0 /* route id */);
-    FillSubroutesInfo(masterRoute);
+    FillSubroutesInfo(masterRoute, kTestTurns);
     unique_ptr<DummyRouter> router =
         make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
     m_session->SetRouter(move(router), nullptr);
@@ -422,6 +425,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
                           RouterDelegate::kNoTimeout);
   });
   TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+  TEST_EQUAL(m_onNewTurnCallbackCounter, 0, ());
 
   TimedSignal oppositeTimedSignal;
   GetPlatform().RunTask(Platform::Thread::Gui, [&oppositeTimedSignal, &info, this, &counter]() {
@@ -451,6 +455,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
                           RouterDelegate::kNoTimeout);
   });
   TEST(oppositeTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+  TEST_EQUAL(m_onNewTurnCallbackCounter, 1, ());
 
   TimedSignal rebuildTimedSignal;
   GetPlatform().RunTask(Platform::Thread::Gui, [&rebuildTimedSignal, &info, this] {
@@ -477,6 +482,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
         SessionState::RouteBuilding, false /* adjust */);
   });
   TEST(rebuildTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+  TEST_EQUAL(m_onNewTurnCallbackCounter, 1, ());
 
   TimedSignal checkTimedSignal;
   GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignal, this] {
@@ -484,6 +490,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     checkTimedSignal.Signal();
   });
   TEST(checkTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route checking timeout."));
+  TEST_EQUAL(m_onNewTurnCallbackCounter, 1, ());
 }
 
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRoutePercentTest)
