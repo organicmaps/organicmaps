@@ -21,7 +21,7 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
         description="This package contains tools for maps generation.",
         url="https://github.com/mapsme",
         package_dir={"maps_generator": ""},
-        package_data={"": ["var/*"]},
+        package_data={"": ["var/**/*"]},
         packages=[
             "maps_generator",
             "maps_generator.generator",

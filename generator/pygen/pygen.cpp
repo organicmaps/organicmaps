@@ -250,7 +250,7 @@ std::string ReadAll(std::string const & filename)
   return std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
 }
 
-bool InitClassificator(std::string const & resourcePath)
+void InitClassificator(std::string const & resourcePath)
 {
   classificator::LoadTypes(
         ReadAll(base::JoinPath(resourcePath, "classificator.txt")),

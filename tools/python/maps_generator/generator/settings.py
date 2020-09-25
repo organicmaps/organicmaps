@@ -128,7 +128,7 @@ STATS_TYPES_CONFIG = os.path.join(ETC_DIR, "stats_types_config.txt")
 
 # Other variables:
 PLANET = "planet"
-GEN_TOOL = "generator_tool"
+POSSIBLE_GEN_TOOL_NAMES = ("generator_tool", "omim-generator_tool")
 VERSION_FILE_NAME = "version.txt"
 
 # Osm tools:

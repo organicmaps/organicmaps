@@ -21,6 +21,7 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
         description="This package contains tools for generating maps with Apache Airflow.",
         url="https://github.com/mapsme",
         package_dir={"airmaps": ""},
+        package_data={"": ["var/**/*"]},
         packages=[
             "airmaps",
             "airmaps.dags",

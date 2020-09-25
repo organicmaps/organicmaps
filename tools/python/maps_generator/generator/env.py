@@ -489,12 +489,21 @@ class Env:
     @staticmethod
     def setup_generator_tool() -> AnyStr:
         logger.info("Check generator tool ...")
-        gen_tool_path = shutil.which(settings.GEN_TOOL)
-        if gen_tool_path is None:
-            logger.info(f"Find generator tool in {settings.BUILD_PATH} ...")
-            gen_tool_path = find_executable(settings.BUILD_PATH, settings.GEN_TOOL)
-        logger.info(f"Generator found - {gen_tool_path}")
-        return gen_tool_path
+        exceptions = []
+        for gen_tool in settings.POSSIBLE_GEN_TOOL_NAMES:
+            gen_tool_path = shutil.which(gen_tool)
+            if gen_tool_path is None:
+                logger.info(f"Looking for generator tool in {settings.BUILD_PATH} ...")
+                try:
+                    gen_tool_path = find_executable(settings.BUILD_PATH, gen_tool)
+                except FileNotFoundError as e:
+                    exceptions.append(e)
+                    continue
+
+            logger.info(f"Generator tool found - {gen_tool_path}")
+            return gen_tool_path
+
+        raise Exception(exceptions)
 
     @staticmethod
     def setup_osm_tools() -> Dict[AnyStr, AnyStr]:
