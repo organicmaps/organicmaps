@@ -8,21 +8,23 @@
   <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:orientation="vertical"
       android:focusableInTouchMode="true">
       <include
         android:id="@+id/guide_info"
-        layout="@layout/guide_info_layout"
-        mapsme:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        layout="@layout/item_guide_info" />
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/collections_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        mapsme:layout_constraintTop_toBottomOf="@id/guide_info" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content" />
+    </LinearLayout>
   </androidx.core.widget.NestedScrollView>
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/fabViewOnMap"

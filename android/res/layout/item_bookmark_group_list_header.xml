@@ -15,6 +15,7 @@
     android:layout_height="match_parent"
     android:layout_alignParentStart="true"
     android:gravity="center_vertical"
+    android:fontFamily="@string/robotoMedium"
     android:textAppearance="?fontHeadline6"
     tools:text="@string/categories" />
   <TextView
