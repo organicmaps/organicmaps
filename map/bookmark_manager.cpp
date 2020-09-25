@@ -1453,17 +1453,14 @@ void BookmarkManager::AddNestedGroupDummy()
     data.m_point = {55.746438, 37.606609};
     data.m_visible = true;
 
+    for (auto const groupId : {parentId, kDummyChildCollection, kDummyChildCategory})
     {
       auto copy = data;
-      CreateBookmark(std::move(copy), parentId);
-    }
-    {
-      auto copy = data;
-      CreateBookmark(std::move(copy), kDummyChildCollection);
-    }
-    {
-      auto copy = data;
-      CreateBookmark(std::move(copy), kDummyChildCategory);
+      auto * bookmark = CreateBookmark(std::move(copy));
+      bookmark->Attach(groupId);
+      auto * group = GetBmCategory(groupId);
+      group->AttachUserMark(bookmark->GetId());
+      m_changesTracker.OnAttachBookmark(bookmark->GetId(), groupId);
     }
   }
   {
@@ -1476,13 +1473,14 @@ void BookmarkManager::AddNestedGroupDummy()
     data.m_point = {55.757780, 37.629519};
     data.m_visible = true;
 
+    for (auto const groupId : {parentId, kDummyChildCategory})
     {
       auto copy = data;
-      CreateBookmark(std::move(copy), parentId);
-    }
-    {
-      auto copy = data;
-      CreateBookmark(std::move(copy), kDummyChildCategory);
+      auto * bookmark = CreateBookmark(std::move(copy));
+      bookmark->Attach(groupId);
+      auto * group = GetBmCategory(groupId);
+      group->AttachUserMark(bookmark->GetId());
+      m_changesTracker.OnAttachBookmark(bookmark->GetId(), groupId);
     }
   }
 
