@@ -27,7 +27,7 @@ void MetadataDeserializer::Header::Read(Reader & reader)
 
 bool MetadataDeserializer::Get(uint32_t id, feature::MetadataBase & meta)
 {
-  vector<pair<uint8_t, uint32_t>> metaIds;
+  MetaIds metaIds;
   if (!m_map->GetThreadsafe(id, metaIds))
     return false;
 
@@ -60,9 +60,9 @@ unique_ptr<MetadataDeserializer> MetadataDeserializer::Load(Reader & reader)
   if (!deserializer->m_mapSubreader)
     return {};
 
-  // Decodes block encoded by writeBlockCallback from PostcodesBuilder::Freeze.
+  // Decodes block encoded by writeBlockCallback from MetadataBuilder::Freeze.
   auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize,
-                                     vector<vector<pair<uint8_t, uint32_t>>> & values) {
+                                     vector<MetaIds> & values) {
     // We may have some unused values it the tail of the last block but it's ok because
     // default block size is 64.
     values.resize(blockSize);
@@ -92,7 +92,7 @@ unique_ptr<MetadataDeserializer> MetadataDeserializer::Load(Reader & reader)
 // MetadataBuilder -----------------------------------------------------------------------------
 void MetadataBuilder::Put(uint32_t featureId, feature::MetadataBase const & meta)
 {
-  vector<pair<uint8_t, uint32_t>> metaIds;
+  MetadataDeserializer::MetaIds metaIds;
   for (auto const & type : meta.GetPresentTypes())
   {
     uint32_t id = 0;
@@ -148,16 +148,18 @@ void MetadataBuilder::Freeze(Writer & writer) const
   auto const writeBlockCallback = [](auto & w, auto begin, auto end) {
     for (auto it = begin; it != end; ++it)
     {
-      // |*it| is vector<pair<uint8_t, uint32_t>>
-      CHECK_GREATER(it->size(), 0, ());
-      WriteVarUint(w, it->size());
-      for (auto const & kv : *it)
+      MetadataDeserializer::MetaIds const & metaIds = *it;
+      CHECK_GREATER(metaIds.size(), 0, ());
+      WriteVarUint(w, metaIds.size());
+      for (auto const & kv : metaIds)
         WriteToSink(w, kv.first);
 
-      WriteVarUint(w, (*it)[0].second);
+      WriteVarUint(w, metaIds[0].second);
       for (size_t i = 1; i < it->size(); ++i)
-        WriteVarInt(
-            w, static_cast<int32_t>((*it)[i].second) - static_cast<int32_t>((*it)[i - 1].second));
+      {
+        WriteVarInt(w, static_cast<int32_t>(metaIds[i].second) -
+                           static_cast<int32_t>(metaIds[i - 1].second));
+      }
     }
   };
   m_builder.Freeze(writer, writeBlockCallback);

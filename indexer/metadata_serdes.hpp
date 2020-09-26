@@ -55,6 +55,10 @@ public:
     uint32_t m_metadataMapSize = 0;
   };
 
+  // Vector of metadata ids. Each element first is meta type, second is metadata value id inside
+  // string storage.
+  using MetaIds = std::vector<std::pair<uint8_t, uint32_t>>;
+
   static std::unique_ptr<MetadataDeserializer> Load(Reader & reader);
 
   // Tries to get metadata of the feature with id |featureId|. Returns false if table
@@ -63,7 +67,7 @@ public:
   WARN_UNUSED_RESULT bool Get(uint32_t featureId, feature::MetadataBase & meta);
 
 private:
-  using Map = MapUint32ToValue<std::vector<std::pair<uint8_t, uint32_t>>>;
+  using Map = MapUint32ToValue<MetaIds>;
 
   std::unique_ptr<Reader> m_stringsSubreader;
   coding::BlockedTextStorageReader m_strings;
@@ -82,6 +86,6 @@ public:
 private:
   std::unordered_map<std::string, uint32_t> m_stringToId;
   std::unordered_map<uint32_t, std::string> m_idToString;
-  MapUint32ToValueBuilder<std::vector<std::pair<uint8_t, uint32_t>>> m_builder;
+  MapUint32ToValueBuilder<MetadataDeserializer::MetaIds> m_builder;
 };
 }  // namespace indexer

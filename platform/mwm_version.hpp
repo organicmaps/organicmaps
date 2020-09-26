@@ -27,7 +27,7 @@ enum class Format
   v10,     // April 2020 (dat section renamed to features, compressed metadata index, addr section with
            // header, sdx section with header, dat section renamed to features, features section with
            // header).
-  v11,     // September 2020 (complessed string storage for metadata).
+  v11,     // September 2020 (compressed string storage for metadata).
   lastFormat = v11
 };
 

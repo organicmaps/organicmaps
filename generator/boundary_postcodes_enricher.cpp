@@ -11,21 +11,21 @@ namespace generator
 BoundaryPostcodesEnricher::BoundaryPostcodesEnricher(std::string const & boundaryPostcodesFilename)
 {
   // May be absent for tests because TestMwmBuilder cannot collect data from osm elements.
-  if (Platform::IsFileExistsByFullPath(boundaryPostcodesFilename))
-  {
-    FileReader reader(boundaryPostcodesFilename);
-    ReaderSource<FileReader> src(reader);
+  if (!Platform::IsFileExistsByFullPath(boundaryPostcodesFilename))
+    return;
 
-    while (src.Size() > 0)
-    {
-      std::string postcode;
-      utils::ReadString(src, postcode);
-      std::vector<m2::PointD> geometry;
-      rw::ReadVectorOfPOD(src, geometry);
-      m_boundaryPostcodes.emplace_back(std::move(postcode), std::move(geometry));
-      m_boundariesTree.Add(m_boundaryPostcodes.size() - 1,
-                           m_boundaryPostcodes.back().second.GetRect());
-    }
+  FileReader reader(boundaryPostcodesFilename);
+  ReaderSource<FileReader> src(reader);
+
+  while (src.Size() > 0)
+  {
+    std::string postcode;
+    utils::ReadString(src, postcode);
+    std::vector<m2::PointD> geometry;
+    rw::ReadVectorOfPOD(src, geometry);
+    m_boundaryPostcodes.emplace_back(std::move(postcode), std::move(geometry));
+    m_boundariesTree.Add(m_boundaryPostcodes.size() - 1,
+                         m_boundaryPostcodes.back().second.GetRect());
   }
 };
 
