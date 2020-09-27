@@ -18,6 +18,7 @@ import com.mapswithme.util.statistics.Statistics;
 import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -873,6 +874,15 @@ public enum BookmarkManager
     nativeGetSortedCategory(catId, sortingType, hasMyPosition, lat, lon, timestamp);
   }
 
+  @NonNull
+  public List<BookmarkCategory> getChildrenCategories(long catId){
+    return Arrays.asList(nativeGetChildrenCategories(catId));
+  }
+
+  @NonNull
+  public List<BookmarkCategory> getChildrenCollections(long catId){
+    return Arrays.asList(nativeGetChildrenCollections(catId));
+  }
   @NonNull
   native BookmarkCategory[] nativeGetBookmarkCategories();
   @NonNull

@@ -25,7 +25,6 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -51,7 +50,6 @@ import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListAdapter>
@@ -122,6 +120,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     if (args == null || ((category = args.getParcelable(EXTRA_CATEGORY))) == null)
       throw new IllegalArgumentException("Category not exist in bundle");
 
+    initAdditionalCollectionAdapter(category.getId());
     return category;
   }
 
@@ -133,11 +132,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   }
 
   @NonNull
-  private BookmarkCollectionAdapter createAdditionalCollectionAdapter(){
-    // TODO (@velichkomarija): Get items from BookmarkMagager.
-    List<BookmarkCategory> mCollectionItems = new ArrayList<>();
-    List<BookmarkCategory> mCategoryItems = new ArrayList<>();
-    return new BookmarkCollectionAdapter(requireContext(),mCategoryItems, mCollectionItems);
+  private void initAdditionalCollectionAdapter(long categoryId)
+  {
+    List<BookmarkCategory> mCategoryItems = BookmarkManager.INSTANCE.getChildrenCategories(categoryId);
+    List<BookmarkCategory> mCollectionItems = BookmarkManager.INSTANCE.getChildrenCollections(categoryId);
+
+    mBookmarkCollectionAdapter = new BookmarkCollectionAdapter(requireContext(),mCategoryItems, mCollectionItems);
   }
 
   @Override
@@ -153,6 +153,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     super.onViewCreated(view, savedInstanceState);
     CrashlyticsUtils.log(Log.INFO, TAG, "onViewCreated");
     configureAdapter();
+
+    configureCollectionRecycler(view);
+
     configureFab(view);
 
     setHasOptionsMenu(true);
@@ -230,6 +233,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     {
       onItemMore(position);
     });
+  }
+
+  private void configureCollectionRecycler(@NonNull View view){
+    RecyclerView recyclerViewForCollection = view.findViewById(R.id.collections_recycler);
+    LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
+    manager.setSmoothScrollbarEnabled(true);
+    recyclerViewForCollection.setLayoutManager(manager);
+    recyclerViewForCollection.setAdapter(mBookmarkCollectionAdapter);
   }
 
   private void configureFab(@NonNull View view)

@@ -20,6 +20,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private final static int TYPE_COLLECTION_ITEM = 1;
   private final static int TYPE_CATEGORY_ITEM = 2;
 
+  // TODO (@velichkomarija): Delete this if do not need.
   @NonNull
   private final Context mContext;
   @NonNull
@@ -84,7 +85,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   public String getTitle(int sectionIndex, @NonNull Resources rs)
   {
     if (sectionIndex == mCollectionSectionIndex)
-      // TODO (@velichkomarija): Replace categories
+      // TODO (@velichkomarija): Replace categories for collections.
       return rs.getString(R.string.categories);
     return rs.getString(R.string.categories);
   }
@@ -111,23 +112,20 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private List<BookmarkCategory> getItemsListByType(int type)
   {
     if (type == TYPE_COLLECTION_ITEM)
-    {
       return mItemsCollection;
-    }
     else
-    {
       return mItemsCategory;
-    }
   }
 
   @NonNull
-  public BookmarkCategory getCategoryByPosition(int position, int type)
+  public BookmarkCategory getCategoryByPosition(SectionPosition sp, int type)
   {
     List<BookmarkCategory> categories = getItemsListByType(type);
 
-    if (position < 0 || position > categories.size() - /* header */ 1)
-      throw new ArrayIndexOutOfBoundsException(position);
-    return categories.get(position);
+    int itemIndex = sp.mItemIndex;
+    if (sp.mItemIndex > categories.size() - 1)
+      throw new ArrayIndexOutOfBoundsException(itemIndex);
+    return categories.get(itemIndex);
   }
 
   BookmarkCollectionAdapter(@NonNull Context context,
@@ -189,17 +187,27 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
   {
-    int type = getItemViewType(position);
-
-    if (type == TYPE_HEADER_ITEM)
-      bindHeaderHolder(holder);
+    SectionPosition sectionPosition = getSectionPosition(position);
+    if (sectionPosition.isTitlePosition())
+      bindHeaderHolder(holder, sectionPosition.getSectionIndex() + 1);
     else
-      bindCollectionHolder(holder, position, type);
+      bindCollectionHolder(holder, sectionPosition, getItemsType(sectionPosition.mSectionIndex));
   }
 
-  private void bindCollectionHolder(RecyclerView.ViewHolder holder, int position, int type)
+  @Override
+  public int getItemViewType(int position)
   {
-    final  BookmarkCategory category = getCategoryByPosition(position, type);
+    SectionPosition sectionPosition = getSectionPosition(position);
+    if (sectionPosition.isTitlePosition())
+      return TYPE_HEADER_ITEM;
+    if (sectionPosition.isItemPosition())
+      return getItemsType(sectionPosition.getSectionIndex());
+    throw new AssertionError("Position not found: " + position);
+  }
+
+  private void bindCollectionHolder(RecyclerView.ViewHolder holder, SectionPosition position, int type)
+  {
+    final BookmarkCategory category = getCategoryByPosition(position, type);
     Holders.CollectionViewHolder collectionViewHolder = (Holders.CollectionViewHolder) holder;
     collectionViewHolder.setCategory(category);
     collectionViewHolder.setName(category.getName());
@@ -215,26 +223,34 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     holder.setSize(template.getPlurals(), template.getCount());
   }
 
-  private void bindHeaderHolder(@NonNull RecyclerView.ViewHolder holder)
+  private void bindHeaderHolder(@NonNull RecyclerView.ViewHolder holder, int nextSectionPosition)
   {
     Holders.HeaderViewHolder headerViewHolder = (Holders.HeaderViewHolder) holder;
+    headerViewHolder.getText()
+                    .setText(getTitle(nextSectionPosition, holder.itemView.getResources()));
     // TODO: (@velichkomarija) : Hide and All button.
   }
 
   @Override
-  public int getItemViewType(int position)
+  public long getItemId(int position)
   {
-    SectionPosition sectionPosition = getSectionPosition(position);
-    if (sectionPosition.isTitlePosition())
-      return TYPE_HEADER_ITEM;
-    if (sectionPosition.isItemPosition())
-      return getItemsType(sectionPosition.getSectionIndex());
-    throw new AssertionError("Position not found: " + position);
+    return position;
   }
 
   @Override
   public int getItemCount()
   {
-    return mItemsCategory.size() + mItemsCollection.size();
+    int itemCount = 0;
+
+    for (int i = 0; i < mSectionCount; ++i)
+    {
+
+      int sectionItemsCount = getItemsCount(i);
+      if (sectionItemsCount == 0)
+        continue;
+      itemCount += sectionItemsCount + /* header */ 1;
+    }
+    return itemCount;
   }
 }
+
