@@ -542,7 +542,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     switch (adapter.getItemViewType(position))
     {
       case BookmarkListAdapter.TYPE_SECTION:
-      case BookmarkListAdapter.TYPE_DESC:
         return;
 
       case BookmarkListAdapter.TYPE_BOOKMARK:
@@ -597,7 +596,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     switch (type)
     {
       case BookmarkListAdapter.TYPE_SECTION:
-      case BookmarkListAdapter.TYPE_DESC:
         // Do nothing here?
         break;
 

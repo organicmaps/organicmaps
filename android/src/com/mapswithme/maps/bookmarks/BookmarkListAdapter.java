@@ -28,7 +28,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   static final int TYPE_TRACK = 0;
   static final int TYPE_BOOKMARK = 1;
   static final int TYPE_SECTION = 2;
-  static final int TYPE_DESC = 3;
 
   @NonNull
   private final DataSource<BookmarkCategory> mDataSource;
@@ -94,12 +93,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
     public BookmarkCategory getCategory() { return mDataSource.getData(); }
 
-    boolean hasDescription()
-    {
-      return !mDataSource.getData().getAnnotation().isEmpty() ||
-             !mDataSource.getData().getDescription().isEmpty();
-    }
-
     public abstract int getSectionsCount();
     public abstract boolean isEditable(int sectionIndex);
     public abstract boolean hasTitle(int sectionIndex);
@@ -115,7 +108,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   private static class CategorySectionsDataSource extends SectionsDataSource
   {
     private int mSectionsCount;
-    private int mDescriptionSectionIndex;
     private int mBookmarksSectionIndex;
     private int mTracksSectionIndex;
 
@@ -127,13 +119,10 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
     private void calculateSections()
     {
-      mDescriptionSectionIndex = SectionPosition.INVALID_POSITION;
       mBookmarksSectionIndex = SectionPosition.INVALID_POSITION;
       mTracksSectionIndex = SectionPosition.INVALID_POSITION;
 
       mSectionsCount = 0;
-      if (hasDescription())
-        mDescriptionSectionIndex = mSectionsCount++;
       if (getCategory().getTracksCount() > 0)
         mTracksSectionIndex = mSectionsCount++;
       if (getCategory().getBookmarksCount() > 0)
@@ -146,7 +135,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public boolean isEditable(int sectionIndex)
     {
-      return sectionIndex != mDescriptionSectionIndex && !getCategory().isFromCatalog();
+      return !getCategory().isFromCatalog();
     }
 
     @Override
@@ -155,8 +144,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Nullable
     public String getTitle(int sectionIndex, @NonNull Resources rs)
     {
-      if (sectionIndex == mDescriptionSectionIndex)
-        return rs.getString(R.string.description);
       if (sectionIndex == mTracksSectionIndex)
         return rs.getString(R.string.tracks_title);
       return rs.getString(R.string.bookmarks);
@@ -165,8 +152,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public int getItemsCount(int sectionIndex)
     {
-      if (sectionIndex == mDescriptionSectionIndex)
-        return 1;
       if (sectionIndex == mTracksSectionIndex)
         return getCategory().getTracksCount();
       if (sectionIndex == mBookmarksSectionIndex)
@@ -177,8 +162,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public int getItemsType(int sectionIndex)
     {
-      if (sectionIndex == mDescriptionSectionIndex)
-        return TYPE_DESC;
       if (sectionIndex == mTracksSectionIndex)
         return TYPE_TRACK;
       if (sectionIndex == mBookmarksSectionIndex)
@@ -268,30 +251,23 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       mSortedBlocks = sortedBlocks;
     }
 
-    private boolean isDescriptionSection(int sectionIndex)
-    {
-      return hasDescription() && sectionIndex == 0;
-    }
 
     @NonNull
     private SortedBlock getSortedBlock(int sectionIndex)
     {
-      if (isDescriptionSection(sectionIndex))
-        throw new IllegalArgumentException("Invalid section index for sorted block.");
-      int blockIndex = sectionIndex - (hasDescription() ? 1 : 0);
-      return mSortedBlocks.get(blockIndex);
+      return mSortedBlocks.get(sectionIndex);
     }
 
     @Override
     public int getSectionsCount()
     {
-      return mSortedBlocks.size() + (hasDescription() ? 1 : 0);
+      return mSortedBlocks.size();
     }
 
     @Override
     public boolean isEditable(int sectionIndex)
     {
-      return !isDescriptionSection(sectionIndex);
+      return true;
     }
 
     @Override
@@ -300,16 +276,12 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Nullable
     public String getTitle(int sectionIndex, @NonNull Resources rs)
     {
-      if (isDescriptionSection(sectionIndex))
-        return rs.getString(R.string.description);
       return getSortedBlock(sectionIndex).getName();
     }
 
     @Override
     public int getItemsCount(int sectionIndex)
     {
-      if (isDescriptionSection(sectionIndex))
-        return 1;
       SortedBlock block = getSortedBlock(sectionIndex);
       if (block.isBookmarksBlock())
         return block.getBookmarkIds().size();
@@ -319,8 +291,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public int getItemsType(int sectionIndex)
     {
-      if (isDescriptionSection(sectionIndex))
-        return TYPE_DESC;
       if (getSortedBlock(sectionIndex).isBookmarksBlock())
         return TYPE_BOOKMARK;
       return TYPE_TRACK;
@@ -329,10 +299,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public void onDelete(@NonNull SectionPosition pos)
     {
-      if (isDescriptionSection(pos.getSectionIndex()))
-        throw new IllegalArgumentException("Delete failed. Invalid section index.");
-
-      int blockIndex = pos.getSectionIndex() - (hasDescription() ? 1 : 0);
+      int blockIndex = pos.getSectionIndex();
       SortedBlock block = mSortedBlocks.get(blockIndex);
       if (block.isBookmarksBlock())
       {
@@ -459,10 +426,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
         TextView tv = (TextView) inflater.inflate(R.layout.item_category_title, parent, false);
         holder = new Holders.SectionViewHolder(tv);
         break;
-      case TYPE_DESC:
-        View desc = inflater.inflate(R.layout.item_category_description, parent, false);
-        holder = new Holders.DescriptionViewHolder(desc, mSectionsDataSource.getCategory());
-        break;
     }
 
     if (holder == null)
@@ -528,9 +491,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
   public Object getItem(int position)
   {
-    if (getItemViewType(position) == TYPE_DESC)
-      throw new UnsupportedOperationException("Not supported here! Position = " + position);
-
     SectionPosition pos = getSectionPosition(position);
     if (getItemViewType(position) == TYPE_TRACK)
     {
