@@ -141,9 +141,9 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   params.m_viewport = kViewport;
   params.m_accuratePivotCenter = kPivot;
   params.m_scale = scales::GetUpperScale();
-  params.m_batchSize = kBatchSize;
+  params.m_everywhereBatchSize = kBatchSize;
   params.m_limit = pois.size();
-  params.m_viewportSearch = true;
+  params.m_viewportSearch = false;
   preRanker.Init(params);
 
   vector<double> distances(pois.size());

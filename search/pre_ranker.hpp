@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <limits>
 #include <optional>
 #include <random>
 #include <set>
@@ -47,7 +48,9 @@ public:
 
     int m_scale = 0;
 
-    size_t m_batchSize = 100;
+    // Batch size for Everywhere search mode. For viewport search we limit search results number
+    // with SweepNearbyResults.
+    size_t m_everywhereBatchSize = 100;
 
     // The maximum total number of results to be emitted in all batches.
     size_t m_limit = 0;
@@ -87,7 +90,11 @@ public:
   void UpdateResults(bool lastUpdate);
 
   size_t Size() const { return m_results.size() + m_relaxedResults.size(); }
-  size_t BatchSize() const { return m_params.m_batchSize; }
+  size_t BatchSize() const
+  {
+    return m_params.m_viewportSearch ? std::numeric_limits<size_t>::max()
+                                     : m_params.m_everywhereBatchSize;
+  }
   size_t NumSentResults() const { return m_numSentResults; }
   bool HaveFullyMatchedResult() const { return m_haveFullyMatchedResult; }
   size_t Limit() const { return m_params.m_limit; }

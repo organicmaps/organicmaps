@@ -289,67 +289,7 @@ void PreRanker::FilterForViewportSearch()
   SweepNearbyResults(m_params.m_minDistanceOnMapBetweenResultsX,
                      m_params.m_minDistanceOnMapBetweenResultsY, m_prevEmit, m_results);
 
-  size_t const n = m_results.size();
-
-  if (n <= BatchSize())
-    return;
-
-  size_t const kNumXSlots = 5;
-  size_t const kNumYSlots = 5;
-  size_t const kNumBuckets = kNumXSlots * kNumYSlots;
-  vector<size_t> buckets[kNumBuckets];
-
-  double const sizeX = viewport.SizeX();
-  double const sizeY = viewport.SizeY();
-
-  for (size_t i = 0; i < m_results.size(); ++i)
-  {
-    auto const & p = m_results[i].GetInfo().m_center;
-    int dx = static_cast<int>((p.x - viewport.minX()) / sizeX * kNumXSlots);
-    dx = base::Clamp(dx, 0, static_cast<int>(kNumXSlots) - 1);
-
-    int dy = static_cast<int>((p.y - viewport.minY()) / sizeY * kNumYSlots);
-    dy = base::Clamp(dy, 0, static_cast<int>(kNumYSlots) - 1);
-
-    buckets[dx * kNumYSlots + dy].push_back(i);
-  }
-
-  vector<PreRankerResult> results;
-  double const density = static_cast<double>(BatchSize()) / static_cast<double>(n);
-  for (auto & bucket : buckets)
-  {
-    size_t const m = std::min(static_cast<size_t>(ceil(density * bucket.size())), bucket.size());
-
-    size_t const old =
-        partition(bucket.begin(), bucket.end(),
-                  [this](size_t i) { return m_prevEmit.count(m_results[i].GetId()) != 0; }) -
-        bucket.begin();
-
-    if (m <= old)
-    {
-      for (size_t i : base::RandomSample(old, m, m_rng))
-        results.push_back(m_results[bucket[i]]);
-    }
-    else
-    {
-      for (size_t i = 0; i < old; ++i)
-        results.push_back(m_results[bucket[i]]);
-
-      for (size_t i : base::RandomSample(bucket.size() - old, m - old, m_rng))
-        results.push_back(m_results[bucket[old + i]]);
-    }
-  }
-
-  if (results.size() <= BatchSize())
-  {
-    m_results.swap(results);
-  }
-  else
-  {
-    m_results.clear();
-    for (size_t i : base::RandomSample(results.size(), BatchSize(), m_rng))
-      m_results.push_back(results[i]);
-  }
+  CHECK_LESS_OR_EQUAL(m_results.size(), BatchSize(), ());
 }
 
 void PreRanker::FilterRelaxedResults(bool lastUpdate)
