@@ -131,7 +131,7 @@ UNIT_TEST(SwedenStockholmBicyclePastFerry)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(59.4725, 18.51355), {0.0, 0.0},
-      mercator::FromLatLon(59.32967, 18.075), 46163.7);
+      mercator::FromLatLon(59.42533, 18.35991), 14338.0);
 }
 
 // Test on cross mwm bicycle routing.
