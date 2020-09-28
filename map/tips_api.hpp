@@ -46,6 +46,8 @@ public:
 
   std::optional<eye::Tip::Type> GetTip() const;
 
+  void SetEnabled(bool isEnabled);
+
   static std::optional<eye::Tip::Type> GetTipForTesting(Duration showAnyTipPeriod,
                                                         Duration showSameTipPeriod,
                                                         TipsApi::Delegate const & delegate,
@@ -54,4 +56,5 @@ public:
 private:
   std::unique_ptr<Delegate> m_delegate;
   Conditions m_conditions;
+  bool m_isEnabled = true;
 };

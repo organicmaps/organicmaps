@@ -241,7 +241,15 @@ TipsApi::TipsApi(std::unique_ptr<Delegate> delegate)
 
 std::optional<eye::Tip::Type> TipsApi::GetTip() const
 {
+  if (!m_isEnabled)
+    return {};
+
   return GetTipImpl(GetShowAnyTipPeriod(), GetShowSameTipPeriod(), *m_delegate, m_conditions);
+}
+
+void TipsApi::SetEnabled(bool isEnabled)
+{
+  m_isEnabled = isEnabled;
 }
 
 // static

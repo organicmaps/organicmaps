@@ -1499,6 +1499,7 @@ void Framework::EnterBackground()
 
   m_trafficManager.OnEnterBackground();
   m_routingManager.SetAllowSendingPoints(false);
+  m_tipsApi.SetEnabled(true);
 
   ms::LatLon const ll = mercator::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
@@ -4422,7 +4423,8 @@ void Framework::EnableGuidesOnce(bool isFirstLaunch, bool isLaunchByDeeplink)
   platform::SetGuidesLayerFirstLaunch(true);
   SaveGuidesEnabled(true);
 
+  m_tipsApi.SetEnabled(false);
+
   bool suggestZoom = !m_routingManager.IsRoutingActive() && !isFirstLaunch && !isLaunchByDeeplink;
   m_guidesManager.SetEnabled(true /* enabled */, true /* silentMode */, suggestZoom);
-
 }
