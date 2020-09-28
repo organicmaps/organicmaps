@@ -36,6 +36,8 @@ NS_SWIFT_NAME(RoutingManager)
 - (void)addRoutePoint:(MWMRoutePoint *)point NS_SWIFT_NAME(add(routePoint:));
 - (void)buildRouteWithDidFailError:(NSError **)errorPtr __attribute__((swift_error(nonnull_error))) NS_SWIFT_NAME(buildRoute());
 - (void)startRoute;
+- (void)setOnNewTurnCallback:(MWMVoidBlock)callback;
+- (void)resetOnNewTurnCallback;
 
 - (instancetype)init __attribute__((unavailable("call +routingManager instead")));
 - (instancetype)copy __attribute__((unavailable("call +routingManager instead")));

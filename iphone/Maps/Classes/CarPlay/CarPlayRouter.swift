@@ -211,23 +211,47 @@ extension CarPlayRouter {
     routeSession = template.startNavigationSession(for: trip)
     routeSession?.pauseTrip(for: .loading, description: nil)
     updateUpcomingManeuvers()
+    RoutingManager.routingManager.setOnNewTurnCallback { [weak self] in
+      self?.updateUpcomingManeuvers()
+    }
   }
   
   func cancelTrip() {
     routeSession?.cancelTrip()
     routeSession = nil
     completeRouteAndRemovePoints()
+    RoutingManager.routingManager.resetOnNewTurnCallback()
   }
   
   func finishTrip() {
     routeSession?.finishTrip()
     routeSession = nil
     completeRouteAndRemovePoints()
+    RoutingManager.routingManager.resetOnNewTurnCallback()
   }
   
   func updateUpcomingManeuvers() {
     let maneuvers = createUpcomingManeuvers()
     routeSession?.upcomingManeuvers = maneuvers
+  }
+
+  func updateEstimates() {
+    guard let routeSession = routeSession,
+          let routeInfo = RoutingManager.routingManager.routeInfo,
+          let primaryManeuver = routeSession.upcomingManeuvers.first,
+          let estimates = createEstimates(routeInfo) else {
+      return
+    }
+    routeSession.updateEstimates(estimates, for: primaryManeuver)
+  }
+
+  private func createEstimates(_ routeInfo: RouteInfo) -> CPTravelEstimates? {
+    guard let distance = Double(routeInfo.distanceToTurn) else {
+      return nil
+    }
+
+    let measurement = Measurement(value: distance, unit: routeInfo.turnUnits)
+    return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: 0.0)
   }
   
   private func createUpcomingManeuvers() -> [CPManeuver] {
@@ -251,11 +275,7 @@ extension CarPlayRouter {
       primaryManeuver.symbolSet = CPImageSet(lightContentImage: symbol,
                                              darkContentImage: symbol)
     }
-    if let distance = Double(routeInfo.distanceToTurn) {
-      let measurement = Measurement(value: distance,
-                                    unit: routeInfo.turnUnits)
-      let estimates = CPTravelEstimates(distanceRemaining: measurement,
-                                        timeRemaining: 0.0)
+    if let estimates = createEstimates(routeInfo) {
       primaryManeuver.initialTravelEstimates = estimates
     }
     maneuvers.append(primaryManeuver)
@@ -321,6 +341,7 @@ extension CarPlayRouter: RoutingManagerListener {
           listenerContainer.forEach({
             $0.didUpdateRouteInfo(info, forTrip: trip)
           })
+          updateUpcomingManeuvers()
         }
       }
     default:

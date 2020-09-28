@@ -198,6 +198,16 @@
   }
 }
 
+- (void)setOnNewTurnCallback:(MWMVoidBlock)callback {
+  self.rm.RoutingSession().SetOnNewTurnCallback([callback] {
+    callback();
+  });
+}
+
+- (void)resetOnNewTurnCallback {
+  self.rm.RoutingSession().SetOnNewTurnCallback(nullptr);
+}
+
 #pragma mark - MWMFrameworkRouteBuilderObserver implementation
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
