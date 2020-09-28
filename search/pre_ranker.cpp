@@ -39,11 +39,12 @@ void SweepNearbyResults(double xEps, double yEps, set<FeatureID> const & prevEmi
     auto const & p = results[i].GetInfo().m_center;
     uint8_t const rank = results[i].GetInfo().m_rank;
     uint8_t const popularity = results[i].GetInfo().m_popularity;
-    uint8_t const prevCount = prevEmit.count(results[i].GetId()) ? 1 : 0;
     uint8_t const exactMatch = results[i].GetInfo().m_exactMatch ? 1 : 0;
-    // We prefer result which passed the filter even if it has lower rank / popularity / prevCount /
-    // exactMatch.
+    // We prefer result which passed the filter even if it has lower rank / popularity / exactMatch.
     uint8_t const filterPassed = results[i].GetInfo().m_refusedByFilter ? 0 : 2;
+    // We prefer result from prevEmit over result with better filterPassed because otherwise we have
+    // lots of blinking results.
+    uint8_t const prevCount = prevEmit.count(results[i].GetId()) == 0 ? 0 : 3;
     uint8_t const priority = max({rank, prevCount, popularity, exactMatch}) + filterPassed;
     sweeper.Add(p.x, p.y, i, priority);
   }
