@@ -60,7 +60,6 @@ void QueryParams::Clear()
   m_hasPrefix = false;
   m_typeIndices.clear();
   m_langs.Clear();
-  m_scale = scales::GetUpperScale();
 }
 
 bool QueryParams::IsCategorySynonym(size_t i) const { return !GetTypeIndices(i).empty(); }

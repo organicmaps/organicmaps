@@ -755,7 +755,7 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
   params.m_viewport = GetViewport();
   params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
   params.m_position = m_position;
-  params.m_scale = geocoderParams.GetScale();
+  params.m_scale = geocoderParams.m_scale;
   params.m_limit = max(SearchParams::kPreResultsCount, searchParams.m_maxNumResults);
   params.m_viewportSearch = viewportSearch;
   params.m_categorialRequest = geocoderParams.IsCategorialRequest();

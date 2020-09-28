@@ -135,8 +135,6 @@ public:
   void SetCategorialRequest(bool isCategorial) { m_isCategorialRequest = isCategorial; }
   bool IsCategorialRequest() const { return m_isCategorialRequest; }
 
-  int GetScale() const { return m_scale; }
-
 private:
   friend std::string DebugPrint(QueryParams const & params);
 
@@ -153,6 +151,5 @@ private:
   std::vector<TypeIndices> m_typeIndices;
 
   Langs m_langs;
-  int m_scale = scales::GetUpperScale();
 };
 }  // namespace search

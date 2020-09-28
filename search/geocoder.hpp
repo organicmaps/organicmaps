@@ -94,6 +94,7 @@ public:
     std::shared_ptr<Tracer> m_tracer;
     double m_streetSearchRadiusM = 0.0;
     double m_villageSearchRadiusM = 0.0;
+    int m_scale = scales::GetUpperScale();
   };
 
   struct LocalitiesCaches
