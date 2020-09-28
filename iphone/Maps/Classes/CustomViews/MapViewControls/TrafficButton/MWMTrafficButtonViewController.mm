@@ -133,9 +133,11 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
     case MWMMapOverlayGuidesStateEnabled:
       break;
     case MWMMapOverlayGuidesStateHasData:
-      performOnce(^{
-        [[MWMToast toastWithText:L(@"routes_layer_is_on_toast")] showWithAlignment:MWMToastAlignmentTop];
-      }, @"routes_layer_is_on_toast");
+      if (![MapViewController sharedController].welcomePageController) {
+        performOnce(^{
+          [[MWMToast toastWithText:L(@"routes_layer_is_on_toast")] showWithAlignment:MWMToastAlignmentTop];
+        }, @"routes_layer_is_on_toast");
+      }
       break;
     case MWMMapOverlayGuidesStateNetworkError:
       [[MWMToast toastWithText:L(@"connection_error_toast_guides")] show];
