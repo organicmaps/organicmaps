@@ -11,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
+import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -60,6 +63,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
+  public static final String AUTHOR_LONELY_PLANET_ID = "28035594-6457-466d-8f6f-8499607df570";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -158,6 +162,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
     configureFab(view);
 
+    configureGuidesInfoLayout(view);
+
     setHasOptionsMenu(true);
 
     ActionBar bar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
@@ -167,9 +173,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     ViewGroup toolbar = ((AppCompatActivity) requireActivity()).findViewById(R.id.toolbar);
     mSearchContainer = toolbar.findViewById(R.id.search_container);
     UiUtils.hide(mSearchContainer, R.id.back);
-
-    //TODO: (@velichkomarija) : Delete hide function where core will provide description
-    UiUtils.hide(view.findViewById(R.id.guide_info));
 
     mToolbarController = new BookmarksToolbarController(toolbar, requireActivity(), this);
     mToolbarController.setHint(R.string.search_in_the_list);
@@ -217,6 +220,31 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
   }
 
+  private void configureGuidesInfoLayout(View view)
+  {
+    //TODO: (@velichkomarija) : Add image.
+    ImageView imageView = view.findViewById(R.id.guide_image);
+
+    TextView title = view.findViewById(R.id.guide_title);
+    title.setText(mCategoryDataSource.getData().getName());
+
+    BookmarkCategory.Author author = mCategoryDataSource.getData().getAuthor();
+    ImageView imageViewLogo = view.findViewById(R.id.logo);
+    TextView authorTextView = view.findViewById(R.id.content_by);
+
+    if (author != null)
+    {
+      if (author.getId().equals(AUTHOR_LONELY_PLANET_ID))
+        imageViewLogo.setImageDrawable(requireContext().getDrawable(R.drawable.ic_lp_logo));
+      else
+        imageViewLogo.setVisibility(View.GONE);
+
+      //TODO: (@velichkomarija) : Replace with "Content by ".
+      CharSequence authorName = BookmarkCategory.Author.getRepresentation(requireContext(), author);
+      authorTextView.setText(authorName);
+    }
+  }
+
   private void configureAdapter()
   {
     BookmarkListAdapter adapter = getAdapter();
@@ -240,7 +268,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
     manager.setSmoothScrollbarEnabled(true);
     recyclerViewForCollection.setLayoutManager(manager);
+
     recyclerViewForCollection.setAdapter(mBookmarkCollectionAdapter);
+    configureRecyclerDividers(recyclerViewForCollection);
   }
 
   private void configureFab(@NonNull View view)
@@ -258,10 +288,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   private void configureRecycler()
   {
-    RecyclerView.ItemDecoration decor = ItemDecoratorFactory
-        .createDefaultDecorator(requireContext(), LinearLayoutManager.VERTICAL);
-    getRecyclerView().addItemDecoration(decor);
+  configureRecyclerDividers(getRecyclerView());
     getRecyclerView().addOnScrollListener(mRecyclerListener);
+  }
+
+  private void configureRecyclerDividers(@NonNull RecyclerView recyclerView)
+  {
+    RecyclerView.ItemDecoration decorWithPadding = ItemDecoratorFactory
+        .createVerticalDefaultDecorator(requireContext());
+    recyclerView.addItemDecoration(decorWithPadding);
   }
 
   private void updateRecyclerVisibility()

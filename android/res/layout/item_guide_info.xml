@@ -54,6 +54,7 @@
       android:layout_height="match_parent"
       android:paddingTop="@dimen/margin_half_plus"
       android:paddingBottom="@dimen/margin_half_plus"
+      android:layout_marginEnd="@dimen/margin_base"
       android:scaleType="fitCenter"
       tools:src="@drawable/bg_ads" />
     <TextView
@@ -61,7 +62,6 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:gravity="center_vertical"
-      android:paddingStart="@dimen/margin_base"
       android:textAppearance="?fontCaption"
       tools:text="@string/about_menu_title" />
   </LinearLayout>
