@@ -263,7 +263,7 @@ void PreRanker::UpdateResults(bool lastUpdate)
   m_results.clear();
   m_ranker.UpdateResults(lastUpdate);
 
-  if (lastUpdate)
+  if (lastUpdate && !m_currEmit.empty())
     m_currEmit.swap(m_prevEmit);
 }
 
