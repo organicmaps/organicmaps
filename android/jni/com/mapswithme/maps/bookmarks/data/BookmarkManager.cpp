@@ -159,7 +159,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_bookmarkCategoryConstructor =
       jni::GetConstructorID(env, g_bookmarkCategoryClass,
                             "(JLjava/lang/String;Ljava/lang/String;"
-                            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZILjava/lang/String;)V");
+                            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZILjava/lang/String;Ljava/lang/String;)V");
 
   g_catalogTagClass =
     jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/CatalogTag");
@@ -557,6 +557,7 @@ jobjectArray MakeCategories(JNIEnv * env, kml::GroupIdCollection const & ids)
     auto const description = GetPreferredBookmarkStr(data.m_description);
     auto const accessRules = data.m_accessRules;
     auto const serverId = manager.GetCategoryServerId(data.m_id);
+    auto const imageUrl = data.m_imageUrl;
 
     jni::TScopedLocalRef preferBookmarkStrRef(env, jni::ToJavaString(env, preferBookmarkStr));
     jni::TScopedLocalRef authorIdRef(env, jni::ToJavaString(env, data.m_authorId));
@@ -564,6 +565,7 @@ jobjectArray MakeCategories(JNIEnv * env, kml::GroupIdCollection const & ids)
     jni::TScopedLocalRef annotationRef(env, jni::ToJavaString(env, annotation));
     jni::TScopedLocalRef descriptionRef(env, jni::ToJavaString(env, description));
     jni::TScopedLocalRef serverIdRef(env, jni::ToJavaString(env, serverId));
+    jni::TScopedLocalRef imageUrlIdRef(env, jni::ToJavaString(env, imageUrl));
 
     return env->NewObject(g_bookmarkCategoryClass,
                           g_bookmarkCategoryConstructor,
@@ -579,7 +581,8 @@ jobjectArray MakeCategories(JNIEnv * env, kml::GroupIdCollection const & ids)
                           static_cast<jboolean>(isMyCategory),
                           static_cast<jboolean>(isVisible),
                           static_cast<jint>(accessRules),
-                          serverIdRef.get());
+                          serverIdRef.get(),
+                          imageUrlIdRef.get());
   };
   return ToJavaArray(env, g_bookmarkCategoryClass, ids, bookmarkConverter);
 }

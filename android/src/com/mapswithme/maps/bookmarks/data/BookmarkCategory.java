@@ -34,13 +34,15 @@ public class BookmarkCategory implements Parcelable
   private final boolean mIsVisible;
   @NonNull
   private final String mServerId;
+  @NonNull
+  private final String mImageUrl;
 
 
   public BookmarkCategory(long id, @NonNull String name, @NonNull String authorId,
                           @NonNull String authorName, @NonNull String annotation,
                           @NonNull String description, int tracksCount, int bookmarksCount,
                           boolean fromCatalog, boolean isMyCategory, boolean isVisible,
-                          int accessRulesIndex, @NonNull String serverId)
+                          int accessRulesIndex, @NonNull String serverId, @NonNull String imageUrl)
   {
     mId = id;
     mName = name;
@@ -56,6 +58,7 @@ public class BookmarkCategory implements Parcelable
               ? null
               : new Author(authorId, authorName);
     mAccessRulesIndex = accessRulesIndex;
+    mImageUrl = imageUrl;
   }
 
   @Override
@@ -148,6 +151,12 @@ public class BookmarkCategory implements Parcelable
   public String getServerId()
   {
     return mServerId;
+  }
+
+  @NonNull
+  public String getImageUrl()
+  {
+    return mImageUrl;
   }
 
   @NonNull
@@ -309,6 +318,7 @@ public class BookmarkCategory implements Parcelable
     sb.append(", mIsVisible=").append(mIsVisible);
     sb.append(", mAccessRules=").append(getAccessRules());
     sb.append(", mServerId=").append(mServerId);
+    sb.append(", mImageUrl=").append(mImageUrl);
     sb.append('}');
     return sb.toString();
   }
@@ -372,6 +382,7 @@ public class BookmarkCategory implements Parcelable
     dest.writeByte(this.mIsVisible ? (byte) 1 : (byte) 0);
     dest.writeInt(this.mAccessRulesIndex);
     dest.writeString(this.mServerId);
+    dest.writeString(this.mImageUrl);
   }
 
   protected BookmarkCategory(Parcel in)
@@ -388,6 +399,7 @@ public class BookmarkCategory implements Parcelable
     this.mIsVisible = in.readByte() != 0;
     this.mAccessRulesIndex = in.readInt();
     this.mServerId = in.readString();
+    this.mImageUrl = in.readString();
   }
 
   public static final Creator<BookmarkCategory> CREATOR = new Creator<BookmarkCategory>()
