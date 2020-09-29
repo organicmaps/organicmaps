@@ -67,13 +67,22 @@ class AllPassSubscriptionViewController: UIViewController {
     startAnimating()
 
     let fontSize: CGFloat = UIScreen.main.bounds.width > 320 ? 17.0 : 14.0
+    let fontColor = UIColor.whitePrimaryText()
     let fontFamily = UIFont.systemFont(ofSize: fontSize).familyName
     let css = "<style type=\"text/css\">b{font-weight: 900;}body{font-weight: 300; font-size: \(fontSize); font-family: '-apple-system','\(fontFamily)';}</style>"
-    zip(descriptionSubtitles, ["all_pass_subscription_message_subtitle",
-                               "all_pass_subscription_message_subtitle_3",
-                               "all_pass_subscription_message_subtitle_2",
-                               "all_pass_subscription_message_subtitle_4"]).forEach { title, loc in
-                                title.attributedText = NSAttributedString.string(withHtml: css + L(loc), defaultAttributes: [:])
+
+    DispatchQueue.global().async {
+      let titles = ["all_pass_subscription_message_subtitle",
+                    "all_pass_subscription_message_subtitle_3",
+                    "all_pass_subscription_message_subtitle_2",
+                    "all_pass_subscription_message_subtitle_4"].map { (key) -> NSAttributedString? in
+                      NSAttributedString.string(withHtml: css + L(key), defaultAttributes: [.foregroundColor: fontColor])
+                    }
+      DispatchQueue.main.async {
+        zip(self.descriptionSubtitles, titles).forEach { title, str in
+          title.attributedText = str
+        }
+      }
     }
 
     preferredContentSize = CGSize(width: 414, height: contentView.frame.height)
