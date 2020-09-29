@@ -128,7 +128,7 @@ kml::FileData GenerateKmlFileData()
   compilationData1.m_toponyms = {"8", "9"};
   compilationData1.m_languageCodes = {1, 2, 8};
   compilationData1.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
-  result.m_compilationData.push_back(std::move(compilationData1));
+  result.m_compilationsData.push_back(std::move(compilationData1));
 
   kml::CategoryData compilationData2;
   compilationData2.m_compilationId = 4;
@@ -151,7 +151,7 @@ kml::FileData GenerateKmlFileData()
   compilationData2.m_toponyms = {"10", "11"};
   compilationData2.m_languageCodes = {1, 2, 8};
   compilationData2.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
-  result.m_compilationData.push_back(std::move(compilationData2));
+  result.m_compilationsData.push_back(std::move(compilationData2));
 
   return result;
 }

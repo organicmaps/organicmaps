@@ -629,7 +629,7 @@ void KmlWriter::Write(FileData const & fileData)
 
   // Save category.
   SaveCategoryData(m_writer, fileData.m_categoryData, fileData.m_serverId,
-                   &fileData.m_compilationData);
+                   &fileData.m_compilationsData);
 
   // Save bookmarks.
   for (auto const & bookmarkData : fileData.m_bookmarksData)
@@ -926,7 +926,7 @@ void KmlParser::Pop(std::string const & tag)
   }
   else if (tag == kCompilation)
   {
-    m_data.m_compilationData.push_back(std::move(m_compilationData));
+    m_data.m_compilationsData.push_back(std::move(m_compilationData));
     m_categoryData = &m_data.m_categoryData;
   }
 

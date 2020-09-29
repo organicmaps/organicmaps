@@ -228,8 +228,8 @@ struct BookmarkData
                                   visitor(m_boundTracks, "boundTracks"),
                                   visitor(m_visible, "visible"),
                                   visitor(m_nearestToponym, "nearestToponym"),
-                                  visitor(m_properties, "properties"),
                                   visitor(m_compilations, "compilations"),
+                                  visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName,
@@ -248,6 +248,7 @@ struct BookmarkData
            m_boundTracks == data.m_boundTracks &&
            m_visible == data.m_visible &&
            m_nearestToponym == data.m_nearestToponym &&
+           m_compilations == data.m_compilations &&
            m_properties == data.m_properties;
   }
 
@@ -280,10 +281,10 @@ struct BookmarkData
   bool m_visible = true;
   // Nearest toponym.
   std::string m_nearestToponym;
-  // Key-value properties.
-  Properties m_properties;
   // List of compilationIds.
   std::vector<CompilationId> m_compilations;
+  // Key-value properties.
+  Properties m_properties;
 };
 
 // Note: any changes in binary format of this structure
@@ -448,13 +449,13 @@ struct FileData
                                   visitor(m_categoryData, "category"),
                                   visitor(m_bookmarksData, "bookmarks"),
                                   visitor(m_tracksData, "tracks"),
-                                  visitor(m_compilationData, "compilations"))
+                                  visitor(m_compilationsData, "compilations"))
 
   bool operator==(FileData const & data) const
   {
     return m_serverId == data.m_serverId && m_categoryData == data.m_categoryData &&
            m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData &&
-           m_compilationData == data.m_compilationData;
+           m_compilationsData == data.m_compilationsData;
   }
 
   bool operator!=(FileData const & data) const { return !operator==(data); }
@@ -470,7 +471,7 @@ struct FileData
   // Tracks collection.
   std::vector<TrackData> m_tracksData;
   // Compilation collection.
-  std::vector<CategoryData> m_compilationData;
+  std::vector<CategoryData> m_compilationsData;
 };
   
 inline std::string DebugPrint(BookmarkIcon icon)

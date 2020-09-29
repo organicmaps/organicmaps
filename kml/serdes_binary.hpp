@@ -110,7 +110,7 @@ public:
   void SerializeCompilations(Sink & sink)
   {
     CategorySerializerVisitor<Sink> visitor(sink, kDoubleBits);
-    visitor(m_data.m_compilationData);
+    visitor(m_data.m_compilationsData);
   }
 
   // Serializes texts in a compressed storage with block access.
@@ -128,13 +128,13 @@ private:
 };
 
 template <typename T, typename = void>
-struct HasCompilationData : std::false_type
+struct HasCompilationsData : std::false_type
 {
 };
 
 template <typename T>
-struct HasCompilationData<T, std::void_t<decltype(T::m_compilationData)>>
-  : std::is_same<decltype(T::m_compilationData), std::vector<CategoryData>>
+struct HasCompilationsData<T, std::void_t<decltype(T::m_compilationsData)>>
+  : std::is_same<decltype(T::m_compilationsData), std::vector<CategoryData>>
 {
 };
 
@@ -302,7 +302,7 @@ private:
     DeserializeCategory(subReader, data);
     DeserializeBookmarks(subReader, data);
     DeserializeTracks(subReader, data);
-    if constexpr (HasCompilationData<FileDataType>::value)
+    if constexpr (HasCompilationsData<FileDataType>::value)
       DeserializeCompilations(subReader, data);
     DeserializeStrings(subReader, data);
   }
@@ -346,7 +346,7 @@ private:
     auto compilationsSubReader = CreateCompilationsSubReader(*subReader);
     NonOwningReaderSource src(*compilationsSubReader);
     CategoryDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
-    visitor(data.m_compilationData);
+    visitor(data.m_compilationsData);
   }
 
   template <typename FileDataType>
