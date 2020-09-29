@@ -223,33 +223,38 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   private void configureGuidesInfoLayout(View view)
   {
-    ImageView imageView = view.findViewById(R.id.guide_image);
-    String imageUrl = mCategoryDataSource.getData().getImageUrl();
-    if (imageUrl.isEmpty())
-      UiUtils.hide(imageView);
-    Glide.with(view.getContext())
-         .load(imageUrl)
-         .centerCrop()
-         .into(imageView);
-
-    TextView title = view.findViewById(R.id.guide_title);
-    title.setText(mCategoryDataSource.getData().getName());
-
-    BookmarkCategory.Author author = mCategoryDataSource.getData().getAuthor();
-    ImageView imageViewLogo = view.findViewById(R.id.logo);
-    TextView authorTextView = view.findViewById(R.id.content_by);
-
-    if (author != null)
+    if (!mCategoryDataSource.getData().isMyCategory())
     {
-      if (author.getId().equals(AUTHOR_LONELY_PLANET_ID))
-        imageViewLogo.setImageDrawable(requireContext().getDrawable(R.drawable.ic_lp_logo));
-      else
-        UiUtils.hide(imageViewLogo);
+      ImageView imageView = view.findViewById(R.id.guide_image);
+      String imageUrl = mCategoryDataSource.getData().getImageUrl();
+      if (imageUrl.isEmpty())
+        UiUtils.hide(imageView);
+      Glide.with(view.getContext())
+           .load(imageUrl)
+           .centerCrop()
+           .into(imageView);
 
-      //TODO: (@velichkomarija) : Replace with "Content by ".
-      CharSequence authorName = BookmarkCategory.Author.getRepresentation(requireContext(), author);
-      authorTextView.setText(authorName);
+      TextView title = view.findViewById(R.id.guide_title);
+      title.setText(mCategoryDataSource.getData().getName());
+
+      BookmarkCategory.Author author = mCategoryDataSource.getData().getAuthor();
+      ImageView imageViewLogo = view.findViewById(R.id.logo);
+      TextView authorTextView = view.findViewById(R.id.content_by);
+
+      if (author != null)
+      {
+        if (author.getId().equals(AUTHOR_LONELY_PLANET_ID))
+          imageViewLogo.setImageDrawable(requireContext().getDrawable(R.drawable.ic_lp_logo));
+        else
+          UiUtils.hide(imageViewLogo);
+
+        //TODO: (@velichkomarija) : Replace with "Content by ".
+        CharSequence authorName = BookmarkCategory.Author.getRepresentation(requireContext(), author);
+        authorTextView.setText(authorName);
+      }
     }
+    else
+      UiUtils.hide(view.findViewById(R.id.guide_info));
   }
 
   private void configureAdapter()
