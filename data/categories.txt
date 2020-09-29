@@ -867,7 +867,7 @@ de:Gemischtwarenladen|Verbauchermarkt|Lebensmittelhändler|Lebensmittelhandlung|
 hu:Csemegebolt|ábécé
 id:Mini market
 it:Minimarket
-ja:コンビニエンスストア|コンビニ|スーパー|スーパーマーケット
+ja:コンビニエンスストア|コンビニ|スーパー|スーパーマーケット|コンビニエンス
 ko:편의점
 nb:Nærbutikk|nærbutikk
 pl:Sklep spożywczy
