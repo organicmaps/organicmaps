@@ -21,6 +21,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.cocosw.bottomsheet.BottomSheet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapswithme.maps.MwmActivity;
@@ -222,8 +223,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   private void configureGuidesInfoLayout(View view)
   {
-    //TODO: (@velichkomarija) : Add image.
     ImageView imageView = view.findViewById(R.id.guide_image);
+    String imageUrl = mCategoryDataSource.getData().getImageUrl();
+    if (imageUrl.isEmpty())
+      UiUtils.hide(imageView);
+    Glide.with(view.getContext())
+         .load(imageUrl)
+         .centerCrop()
+         .into(imageView);
 
     TextView title = view.findViewById(R.id.guide_title);
     title.setText(mCategoryDataSource.getData().getName());
@@ -237,7 +244,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       if (author.getId().equals(AUTHOR_LONELY_PLANET_ID))
         imageViewLogo.setImageDrawable(requireContext().getDrawable(R.drawable.ic_lp_logo));
       else
-        imageViewLogo.setVisibility(View.GONE);
+        UiUtils.hide(imageViewLogo);
 
       //TODO: (@velichkomarija) : Replace with "Content by ".
       CharSequence authorName = BookmarkCategory.Author.getRepresentation(requireContext(), author);
