@@ -300,6 +300,13 @@ void VectorAdapter<TrackData>::PrintType(std::ostringstream & out, TrackData con
   out << TrackDataToString(t);
 }
 
+std::string CategoryDataToString(CategoryData const & c);
+template<>
+void VectorAdapter<CategoryData>::PrintType(std::ostringstream & out, CategoryData const & c)
+{
+  out << CategoryDataToString(c);
+}
+
 std::string PredefinedColorToString(PredefinedColor c)
 {
   switch (c)
@@ -395,6 +402,17 @@ std::string LatLonToString(ms::LatLon const & latLon)
   return out.str();
 }
 
+std::string CompilationTypeToString(CompilationType compilationType)
+{
+  switch (compilationType)
+  {
+  case CompilationType::Category: return "Category";
+  case CompilationType::Collection: return "Collection";
+  case CompilationType::Day: return "Day";
+  case CompilationType::Count: CHECK(false, ("Unknown access rules")); return {};
+  }
+}
+
 std::string BookmarkDataToString(BookmarkData const & bm)
 {
   std::ostringstream out;
@@ -412,6 +430,7 @@ std::string BookmarkDataToString(BookmarkData const & bm)
       << "bound_tracks:" << VectorAdapter<uint8_t>::ToString(bm.m_boundTracks) << ", "
       << "visible:" << (bm.m_visible ? "True" : "False") << ", "
       << "nearest_toponym:'" << bm.m_nearestToponym << "', "
+      << "compilations:" << VectorAdapter<uint64_t>::ToString(bm.m_compilations) << ", "
       << "properties:" << PropertiesAdapter::ToString(bm.m_properties)
       << "]";
   return out.str();
@@ -463,6 +482,7 @@ std::string CategoryDataToString(CategoryData const & c)
 {
   std::ostringstream out;
   out << "["
+      << "type:" << CompilationTypeToString(c.m_type) << ", "
       << "name:" << LocalizableStringAdapter::ToString(c.m_name) << ", "
       << "annotation:" << LocalizableStringAdapter::ToString(c.m_annotation) << ", "
       << "description:" << LocalizableStringAdapter::ToString(c.m_description) << ", "
@@ -489,7 +509,8 @@ std::string FileDataToString(FileData const & fd)
       << "server_id:" << fd.m_serverId << ", "
       << "category:" << CategoryDataToString(fd.m_categoryData) << ", "
       << "bookmarks:" << VectorAdapter<BookmarkData>::ToString(fd.m_bookmarksData) << ", "
-      << "tracks:" << VectorAdapter<TrackData>::ToString(fd.m_tracksData)
+      << "tracks:" << VectorAdapter<TrackData>::ToString(fd.m_tracksData) << ", "
+      << "compilations:" << VectorAdapter<CategoryData>::ToString(fd.m_compilationsData)
       << "]";
   return out.str();
 }
@@ -743,6 +764,12 @@ BOOST_PYTHON_MODULE(pykmlib)
     .value(BookmarkIconToString(BookmarkIcon::Finish).c_str(), BookmarkIcon::Finish)
     .export_values();
 
+  enum_<CompilationType>("CompilationType")
+    .value(CompilationTypeToString(CompilationType::Category).c_str(), CompilationType::Category)
+    .value(CompilationTypeToString(CompilationType::Collection).c_str(), CompilationType::Collection)
+    .value(CompilationTypeToString(CompilationType::Day).c_str(), CompilationType::Day)
+    .export_values();
+
   class_<ColorData>("ColorData")
     .def_readwrite("predefined_color", &ColorData::m_predefinedColor)
     .def_readwrite("rgba", &ColorData::m_rgba)
@@ -817,6 +844,7 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def_readwrite("bound_tracks", &BookmarkData::m_boundTracks)
     .def_readwrite("visible", &BookmarkData::m_visible)
     .def_readwrite("nearest_toponym", &BookmarkData::m_nearestToponym)
+    .def_readwrite("compilations", &BookmarkData::m_compilations)
     .def_readwrite("properties", &BookmarkData::m_properties)
     .def("__eq__", &BookmarkData::operator==)
     .def("__ne__", &BookmarkData::operator!=)
@@ -871,6 +899,7 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("__str__", &LanguagesListToString);
 
   class_<CategoryData>("CategoryData")
+    .def_readwrite("type", &CategoryData::m_type)
     .def_readwrite("name", &CategoryData::m_name)
     .def_readwrite("annotation", &CategoryData::m_annotation)
     .def_readwrite("description", &CategoryData::m_description)
@@ -902,11 +931,18 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("set_list", &VectorAdapter<TrackData>::Set)
     .def("__str__", &VectorAdapter<TrackData>::ToString);
 
+  class_<std::vector<CategoryData>>("CompilationList")
+    .def(vector_indexing_suite<std::vector<CategoryData>>())
+    .def("get_list", &VectorAdapter<CategoryData>::Get)
+    .def("set_list", &VectorAdapter<CategoryData>::Set)
+    .def("__str__", &VectorAdapter<CategoryData>::ToString);
+
   class_<FileData>("FileData")
     .def_readwrite("server_id", &FileData::m_serverId)
     .def_readwrite("category", &FileData::m_categoryData)
     .def_readwrite("bookmarks", &FileData::m_bookmarksData)
     .def_readwrite("tracks", &FileData::m_tracksData)
+    .def_readwrite("compilations", &FileData::m_compilationsData)
     .def("__eq__", &FileData::operator==)
     .def("__ne__", &FileData::operator!=)
     .def("__str__", &FileDataToString);

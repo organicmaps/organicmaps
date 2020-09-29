@@ -15,25 +15,30 @@ class PyKmlibAdsTest(unittest.TestCase):
 
         pykmlib.load_classificator_types(classificator_file_str, types_file_str)
 
-        category = pykmlib.CategoryData()
-        category.name['default'] = 'Test category'
-        category.name['ru'] = 'Тестовая категория'
-        category.description['default'] = 'Test description'
-        category.description['ru'] = 'Тестовое описание'
-        category.annotation['default'] = 'Test annotation'
-        category.annotation['en'] = 'Test annotation'
-        category.image_url = 'https://localhost/123.png'
-        category.visible = True
-        category.author_name = 'Maps.Me'
-        category.author_id = '12345'
-        category.rating = 8.9
-        category.reviews_number = 567
-        category.last_modified = int(datetime.datetime.now().timestamp())
-        category.access_rules = pykmlib.AccessRules.PUBLIC
-        category.tags.set_list(['mountains', 'ski', 'snowboard'])
-        category.toponyms.set_list(['12345', '54321'])
-        category.languages.set_list(['en', 'ru', 'de'])
-        category.properties.set_dict({'property1':'value1', 'property2':'value2'})
+        def make_category():
+            c = pykmlib.CategoryData()
+            c.type = pykmlib.CompilationType.Category
+            c.name['default'] = 'Test category'
+            c.name['ru'] = 'Тестовая категория'
+            c.description['default'] = 'Test description'
+            c.description['ru'] = 'Тестовое описание'
+            c.annotation['default'] = 'Test annotation'
+            c.annotation['en'] = 'Test annotation'
+            c.image_url = 'https://localhost/123.png'
+            c.visible = True
+            c.author_name = 'Maps.Me'
+            c.author_id = '12345'
+            c.rating = 8.9
+            c.reviews_number = 567
+            c.last_modified = int(datetime.datetime.now().timestamp())
+            c.access_rules = pykmlib.AccessRules.PUBLIC
+            c.tags.set_list(['mountains', 'ski', 'snowboard'])
+            c.toponyms.set_list(['12345', '54321'])
+            c.languages.set_list(['en', 'ru', 'de'])
+            c.properties.set_dict({'property1':'value1', 'property2':'value2'})
+            return c
+
+        category = make_category()
 
         bookmark = pykmlib.BookmarkData()
         bookmark.name['default'] = 'Test bookmark'
@@ -85,11 +90,21 @@ class PyKmlibAdsTest(unittest.TestCase):
         track.nearest_toponyms.set_list(['12345', '54321', '98765'])
         track.properties.set_dict({'tr_property1':'value1', 'tr_property2':'value2'})
 
+        compilations = pykmlib.CompilationList()
+        compilations.append(make_category())
+        collection = make_category()
+        collection.type = pykmlib.CompilationType.Collection
+        compilations.append(collection)
+        day = make_category()
+        day.type = pykmlib.CompilationType.Day
+        compilations.append(day)
+
         file_data = pykmlib.FileData()
         file_data.server_id = 'AAAA-BBBB-CCCC-DDDD'
         file_data.category = category
         file_data.bookmarks.append(bookmark)
         file_data.tracks.append(track)
+        file_data.compilations = compilations
 
         s = pykmlib.export_kml(file_data)
         imported_file_data = pykmlib.import_kml(s)
