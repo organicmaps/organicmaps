@@ -11,7 +11,7 @@ extension UISearchBar {
   }
 
   @objc override func sw_didMoveToWindow() {
-    guard UIApplication.shared.keyWindow === window else {
+    guard MapsAppDelegate.theApp().window === window else {
       sw_didMoveToWindow();
       return
     }

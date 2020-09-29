@@ -5,7 +5,7 @@ fileprivate struct AssociatedKeys {
 
 @objc extension UIView {
   @objc func sw_didMoveToWindow() {
-    guard UIApplication.shared.keyWindow === window else {
+    guard MapsAppDelegate.theApp().window === window else {
       sw_didMoveToWindow();
       return
     }
