@@ -20,6 +20,9 @@ final class CarPlayMapViewController: MWMViewController {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
+    if mapView?.drapeEngineCreated == false {
+      mapView?.createDrapeEngine()
+    }
     updateVisibleViewPortState(viewPortState)
   }
   
