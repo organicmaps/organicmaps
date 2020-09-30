@@ -219,7 +219,7 @@ protected:
 class DeserializerJson
 {
 public:
-  DECLARE_EXCEPTION(Exception, RootException);
+  using Exception = base::Json::Exception;
 
   template <typename Source,
             typename std::enable_if<!std::is_convertible<Source, std::string>::value,
