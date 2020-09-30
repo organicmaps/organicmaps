@@ -14,6 +14,7 @@ if (PLATFORM_MAC)
     ${PROJECT_NAME}
     ${Qt5Widgets_LIBRARIES}
     "-framework QuartzCore"
+    "-Wl,-undefined,dynamic_lookup"
   )
 endif()
 

@@ -16,4 +16,8 @@ omim_link_libraries(
   base
 )
 
+if (PLATFORM_MAC)
+  omim_link_libraries(${PROJECT_NAME} "-Wl,-undefined,dynamic_lookup")
+endif()
+
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
