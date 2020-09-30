@@ -680,7 +680,7 @@ void BookmarkCatalog::RequestBookmarksToDelete(std::string const & accessToken, 
                                                BookmarksToDeleteCallback && callback) const
 {
   auto const url = BuildDeleteRequestUrl();
-  if (url.empty())
+  if (url.empty() || serverIds.empty())
   {
     if (callback)
       callback({});
