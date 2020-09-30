@@ -15,7 +15,7 @@ class PyKmlibAdsTest(unittest.TestCase):
 
         pykmlib.load_classificator_types(classificator_file_str, types_file_str)
 
-        def make_category():
+        def make_compilation():
             c = pykmlib.CategoryData()
             c.type = pykmlib.CompilationType.Category
             c.name['default'] = 'Test category'
@@ -38,7 +38,7 @@ class PyKmlibAdsTest(unittest.TestCase):
             c.properties.set_dict({'property1':'value1', 'property2':'value2'})
             return c
 
-        category = make_category()
+        category = make_compilation()
 
         bookmark = pykmlib.BookmarkData()
         bookmark.name['default'] = 'Test bookmark'
@@ -91,11 +91,11 @@ class PyKmlibAdsTest(unittest.TestCase):
         track.properties.set_dict({'tr_property1':'value1', 'tr_property2':'value2'})
 
         compilations = pykmlib.CompilationList()
-        compilations.append(make_category())
-        collection = make_category()
+        compilations.append(make_compilation())
+        collection = make_compilation()
         collection.type = pykmlib.CompilationType.Collection
         compilations.append(collection)
-        day = make_category()
+        day = make_compilation()
         day.type = pykmlib.CompilationType.Day
         compilations.append(day)
 
