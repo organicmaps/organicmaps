@@ -605,7 +605,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> const & infos, bool inViewport
 
     ctx.m_villages = m_localitiesCaches.m_villages.Get(*m_context);
 
-    auto citiesFromWorld = m_cities;
+    auto const citiesFromWorld = m_cities;
     FillVillageLocalities(ctx);
     SCOPE_GUARD(remove_villages, [&]() { m_cities = citiesFromWorld; });
 
