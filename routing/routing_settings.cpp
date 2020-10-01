@@ -29,7 +29,7 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
   case VehicleType::Pedestrian:
     return {false /* useDirectionForRouteBuilding */,
             false /* m_matchRoute */,
-            false /* m_soundDirection */,
+            true /* m_soundDirection */,
             20.0 /* m_matchingThresholdM */,
             false /* m_showTurnAfterNext */,
             -1 /* m_minSpeedForRouteRebuildMpS */,
