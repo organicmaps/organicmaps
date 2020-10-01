@@ -52,6 +52,13 @@ string GetTtsText::GetTurnNotification(Notification const & notification) const
   if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance)
     return GetTextById(GetDirectionTextId(notification));
 
+  if (notification.IsPedestrianNotification())
+  {
+    if (notification.m_useThenInsteadOfDistance &&
+        notification.m_turnDirPedestrian == PedestrianDirection::None)
+      return string();
+  }
+
   if (notification.m_useThenInsteadOfDistance && notification.m_turnDir == CarDirection::None)
     return string();
 
@@ -127,7 +134,15 @@ string GetRoundaboutTextId(Notification const & notification)
 
 string GetYouArriveTextId(Notification const & notification)
 {
-  if (notification.m_turnDir != CarDirection::ReachedYourDestination)
+  if (!notification.IsPedestrianNotification() &&
+      notification.m_turnDir != CarDirection::ReachedYourDestination)
+  {
+    ASSERT(false, ());
+    return string();
+  }
+
+  if (notification.IsPedestrianNotification() &&
+      notification.m_turnDirPedestrian != PedestrianDirection::ReachedYourDestination)
   {
     ASSERT(false, ());
     return string();
@@ -140,6 +155,19 @@ string GetYouArriveTextId(Notification const & notification)
 
 string GetDirectionTextId(Notification const & notification)
 {
+  if (notification.IsPedestrianNotification())
+  {
+    switch (notification.m_turnDirPedestrian)
+    {
+    case PedestrianDirection::GoStraight: return "go_straight";
+    case PedestrianDirection::TurnRight: return "make_a_right_turn";
+    case PedestrianDirection::TurnLeft: return "make_a_left_turn";
+    case PedestrianDirection::ReachedYourDestination: return GetYouArriveTextId(notification);
+    case PedestrianDirection::None:
+    case PedestrianDirection::Count: ASSERT(false, ()); return string();
+    }
+  }
+
   switch (notification.m_turnDir)
   {
     case CarDirection::GoStraight:
