@@ -398,11 +398,13 @@ UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
 
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
-  TEST_EQUAL(t.size(), 3, ());
+  TEST_EQUAL(t.size(), 5, ());
 
-  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
-  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Upstairs, ());
-  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
+  TEST_EQUAL(t[3].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[4].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
 UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
@@ -418,11 +420,15 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
 
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
-  TEST_EQUAL(t.size(), 3, ());
+  TEST_EQUAL(t.size(), 7, ());
 
-  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Upstairs, ());
-  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
-  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
+  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[3].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[4].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[5].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[6].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
 UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
@@ -438,11 +444,13 @@ UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
 
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
-  TEST_EQUAL(t.size(), 3, ());
+  TEST_EQUAL(t.size(), 5, ());
 
-  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::Downstairs, ());
-  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::Upstairs, ());
-  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[3].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[4].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
 UNIT_TEST(MoscowVodnyStadiumHighwayPlatform)
