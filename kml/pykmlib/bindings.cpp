@@ -483,6 +483,7 @@ std::string CategoryDataToString(CategoryData const & c)
   std::ostringstream out;
   out << "["
       << "type:" << CompilationTypeToString(c.m_type) << ", "
+      << "compilation_id:" << c.m_compilationId << ", "
       << "name:" << LocalizableStringAdapter::ToString(c.m_name) << ", "
       << "annotation:" << LocalizableStringAdapter::ToString(c.m_annotation) << ", "
       << "description:" << LocalizableStringAdapter::ToString(c.m_description) << ", "
@@ -900,6 +901,7 @@ BOOST_PYTHON_MODULE(pykmlib)
 
   class_<CategoryData>("CategoryData")
     .def_readwrite("type", &CategoryData::m_type)
+    .def_readwrite("compilation_id", &CategoryData::m_compilationId)
     .def_readwrite("name", &CategoryData::m_name)
     .def_readwrite("annotation", &CategoryData::m_annotation)
     .def_readwrite("description", &CategoryData::m_description)

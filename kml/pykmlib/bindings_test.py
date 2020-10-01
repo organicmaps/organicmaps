@@ -91,11 +91,15 @@ class PyKmlibAdsTest(unittest.TestCase):
         track.properties.set_dict({'tr_property1':'value1', 'tr_property2':'value2'})
 
         compilations = pykmlib.CompilationList()
-        compilations.append(make_compilation())
+        compilation = make_compilation()
+        compilation.compilation_id = 1
+        compilations.append(compilation)
         collection = make_compilation()
+        collection.compilation_id = 2
         collection.type = pykmlib.CompilationType.Collection
         compilations.append(collection)
         day = make_compilation()
+        day.compilation_id = 3
         day.type = pykmlib.CompilationType.Day
         compilations.append(day)
 
