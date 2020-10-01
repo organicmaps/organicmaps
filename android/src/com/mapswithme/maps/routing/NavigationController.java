@@ -22,7 +22,6 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.MediaPlayerWrapper;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.settings.SettingsActivity;
@@ -83,8 +82,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
   private final View mOnboardingBtn;
 
   private boolean mShowTimeLeft = true;
-
-  private double mNorth;
 
   @NonNull
   private final MediaPlayer.OnCompletionListener mSpeedCamSignalCompletionListener;
@@ -215,20 +212,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
       info.nextCarDirection.setNextTurnDrawable(mNextNextTurnImage);
   }
 
-  private void updatePedestrian(RoutingInfo info, @NonNull Location location)
+  private void updatePedestrian(RoutingInfo info)
   {
-    Location next = info.pedestrianNextDirection;
-    DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimuthFromLatLon(next.getLatitude(), next.getLongitude(),
-                                                                           location.getLatitude(), location.getLongitude(),
-                                                                           mNorth);
-    String[] splitDistance = da.getDistance().split(" ");
-    mNextTurnDistance.setText(Utils.formatUnitsText(mFrame.getContext(),
-                                                    R.dimen.text_size_nav_number,
-                                                    R.dimen.text_size_nav_dimension,
-                                                    splitDistance[0],
-                                                    splitDistance[1]));
-    if (info.pedestrianTurnDirection != null)
-      RoutingInfo.PedestrianTurnDirection.setTurnDrawable(mNextTurnImage, da);
+    mNextTurnDistance.setText(
+        Utils.formatUnitsText(mFrame.getContext(), R.dimen.text_size_nav_number,
+                              R.dimen.text_size_nav_dimension, info.distToTurn, info.turnUnits));
+
+    info.pedestrianTurnDirection.setTurnDrawable(mNextTurnImage);
   }
 
   public void updateNorth(double north)
@@ -236,7 +226,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     if (!RoutingController.get().isNavigating())
       return;
 
-    mNorth = north;
     update(Framework.nativeGetRouteFollowingInfo());
   }
 
@@ -245,9 +234,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     if (info == null)
       return;
 
-    Location location = LocationHelper.INSTANCE.getSavedLocation();
-    if (Framework.nativeGetRouter() == Framework.ROUTER_TYPE_PEDESTRIAN && location != null)
-      updatePedestrian(info, location);
+    if (Framework.nativeGetRouter() == Framework.ROUTER_TYPE_PEDESTRIAN)
+      updatePedestrian(info);
     else
       updateVehicle(info);
 
