@@ -229,13 +229,22 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       String imageUrl = mCategoryDataSource.getData().getImageUrl();
       if (imageUrl.isEmpty())
         UiUtils.hide(imageView);
-      Glide.with(view.getContext())
+      else
+        Glide.with(view.getContext())
            .load(imageUrl)
            .centerCrop()
            .into(imageView);
 
       TextView title = view.findViewById(R.id.guide_title);
       title.setText(mCategoryDataSource.getData().getName());
+
+      TextView descriptionBtn = view.findViewById(R.id.btn_description);
+      boolean isHideDescriptionBtn = mCategoryDataSource.getData()
+                                                        .getDescription()
+                                                        .isEmpty() || mCategoryDataSource.getData()
+                                                                                         .getAnnotation()
+                                                                                         .isEmpty();
+      UiUtils.hideIf(isHideDescriptionBtn, descriptionBtn);
 
       BookmarkCategory.Author author = mCategoryDataSource.getData().getAuthor();
       ImageView imageViewLogo = view.findViewById(R.id.logo);
