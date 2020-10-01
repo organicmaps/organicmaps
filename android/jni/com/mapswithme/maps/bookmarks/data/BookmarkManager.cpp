@@ -565,7 +565,7 @@ jobjectArray MakeCategories(JNIEnv * env, kml::GroupIdCollection const & ids)
     jni::TScopedLocalRef annotationRef(env, jni::ToJavaString(env, annotation));
     jni::TScopedLocalRef descriptionRef(env, jni::ToJavaString(env, description));
     jni::TScopedLocalRef serverIdRef(env, jni::ToJavaString(env, serverId));
-    jni::TScopedLocalRef imageUrlIdRef(env, jni::ToJavaString(env, imageUrl));
+    jni::TScopedLocalRef imageUrlRef(env, jni::ToJavaString(env, imageUrl));
 
     return env->NewObject(g_bookmarkCategoryClass,
                           g_bookmarkCategoryConstructor,
@@ -582,7 +582,7 @@ jobjectArray MakeCategories(JNIEnv * env, kml::GroupIdCollection const & ids)
                           static_cast<jboolean>(isVisible),
                           static_cast<jint>(accessRules),
                           serverIdRef.get(),
-                          imageUrlIdRef.get());
+                          imageUrlRef.get());
   };
   return ToJavaArray(env, g_bookmarkCategoryClass, ids, bookmarkConverter);
 }
