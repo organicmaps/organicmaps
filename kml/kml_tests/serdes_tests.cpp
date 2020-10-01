@@ -84,6 +84,7 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_boundTracks = {0};
   bookmarkData.m_visible = false;
   bookmarkData.m_nearestToponym = "12345";
+  bookmarkData.m_minZoom = 10;
   bookmarkData.m_properties = {{"bm_property1", "value1"},
                                {"bm_property2", "value2"},
                                {"score", "5"}};
@@ -419,6 +420,7 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
       </mwm:boundTracks>
       <mwm:visibility>0</mwm:visibility>
       <mwm:nearestToponym>12345</mwm:nearestToponym>
+      <mwm:minZoom>10</mwm:minZoom>
       <mwm:properties>
         <mwm:value key="bm_property1">value1</mwm:value>
         <mwm:value key="bm_property2">value2</mwm:value>
@@ -462,7 +464,6 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
         <mwm:value key="tr_property1">value1</mwm:value>
         <mwm:value key="tr_property2">value2</mwm:value>
       </mwm:properties>
-      <mwm:compilations>5,6,7,8,9</mwm:compilations>
     </ExtendedData>
   </Placemark>
 </Document>

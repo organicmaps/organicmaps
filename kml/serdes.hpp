@@ -129,6 +129,7 @@ private:
   bool m_visible;
   std::string m_nearestToponym;
   std::vector<std::string> m_nearestToponyms;
+  int m_minZoom = 1;
   kml::Properties m_properties;
   std::vector<CompilationId> m_compilations;
   double m_trackWidth;

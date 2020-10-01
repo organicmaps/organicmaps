@@ -450,6 +450,12 @@ void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData co
     writer << "</mwm:nearestToponym>\n";
   }
 
+  if (bookmarkData.m_minZoom > 1)
+  {
+    writer << kIndent6 << "<mwm:minZoom>" << strings::to_string(bookmarkData.m_minZoom)
+           << "</mwm:minZoom>\n";
+  }
+
   SaveStringsMap(writer, bookmarkData.m_properties, "properties", kIndent6);
 
   if (!bookmarkData.m_compilations.empty())
@@ -867,6 +873,7 @@ void KmlParser::Pop(std::string const & tag)
         data.m_boundTracks = std::move(m_boundTracks);
         data.m_visible = m_visible;
         data.m_nearestToponym = std::move(m_nearestToponym);
+        data.m_minZoom = m_minZoom;
         data.m_properties = std::move(m_properties);
         data.m_compilations = std::move(m_compilations);
 
@@ -1159,6 +1166,13 @@ void KmlParser::CharData(std::string value)
         else if (currTag == "mwm:nearestToponym")
         {
           m_nearestToponym = value;
+        }
+        else if (currTag == "mwm:minZoom")
+        {
+          if (!strings::to_int(value, m_minZoom) || m_minZoom < 1)
+            m_minZoom = 1;
+          else if (m_minZoom > 19)
+            m_minZoom = 19;
         }
         else if (currTag == "mwm:compilations")
         {
