@@ -24,7 +24,8 @@ enum class Version : uint8_t
   V7 = 7,  // 13th February 2020: track points are replaced by points with altitude.
   V8 = 8,  // 24 September 2020: add compilations to types and corresponding section to kmb and
            // tags to kml
-  Latest = V8
+  V9 = 9,  // 01 October 2020: add minZoom to bookmarks
+  Latest = V9
 };
 
 struct Header

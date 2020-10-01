@@ -228,6 +228,7 @@ struct BookmarkData
                                   visitor(m_boundTracks, "boundTracks"),
                                   visitor(m_visible, "visible"),
                                   visitor(m_nearestToponym, "nearestToponym"),
+                                  visitor(m_minZoom, "minZoom"),
                                   visitor(m_compilations, "compilations"),
                                   visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
@@ -248,6 +249,7 @@ struct BookmarkData
            m_boundTracks == data.m_boundTracks &&
            m_visible == data.m_visible &&
            m_nearestToponym == data.m_nearestToponym &&
+           m_minZoom == data.m_minZoom &&
            m_compilations == data.m_compilations &&
            m_properties == data.m_properties;
   }
@@ -281,6 +283,8 @@ struct BookmarkData
   bool m_visible = true;
   // Nearest toponym.
   std::string m_nearestToponym;
+  // Minimal zoom when bookmark is visible.
+  int m_minZoom = 1;
   // List of compilationIds.
   std::vector<CompilationId> m_compilations;
   // Key-value properties.

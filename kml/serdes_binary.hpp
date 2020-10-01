@@ -155,7 +155,7 @@ public:
     if (m_header.m_version != Version::V2 && m_header.m_version != Version::V3 &&
         m_header.m_version != Version::V4 && m_header.m_version != Version::V5 &&
         m_header.m_version != Version::V6 && m_header.m_version != Version::V7 &&
-        m_header.m_version != Version::V8)
+        m_header.m_version != Version::V8 && m_header.m_version != Version::V9)
     {
       MYTHROW(DeserializeException, ("Incorrect file version."));
     }
@@ -172,6 +172,16 @@ public:
     case Version::Latest:
     {
       DeserializeFileData(subReader, m_data);
+      break;
+    }
+    case Version::V8:
+    {
+      FileDataV8 dataV8;
+      dataV8.m_deviceId = m_data.m_deviceId;
+      dataV8.m_serverId = m_data.m_serverId;
+      DeserializeFileData(subReader, dataV8);
+
+      m_data = dataV8.ConvertToLatestVersion();
       break;
     }
     case Version::V7:

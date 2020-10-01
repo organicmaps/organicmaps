@@ -70,6 +70,11 @@
 		56C633BB239933AC0003891E /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C633BD239933D00003891E /* libminizip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libminizip.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C633BF239934260003891E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		E2DC9C8925264E0C0098174E /* types_v3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_v3.hpp; sourceTree = "<group>"; };
+		E2DC9C8A25264E0C0098174E /* types_v7.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_v7.hpp; sourceTree = "<group>"; };
+		E2DC9C8B25264E0C0098174E /* types_v9.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_v9.hpp; sourceTree = "<group>"; };
+		E2DC9C8C25264E0C0098174E /* types_v6.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_v6.hpp; sourceTree = "<group>"; };
+		E2DC9C8D25264E0C0098174E /* types_v8.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types_v8.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +133,11 @@
 		45E4557F205849A600D9F45E /* kml */ = {
 			isa = PBXGroup;
 			children = (
+				E2DC9C8925264E0C0098174E /* types_v3.hpp */,
+				E2DC9C8C25264E0C0098174E /* types_v6.hpp */,
+				E2DC9C8A25264E0C0098174E /* types_v7.hpp */,
+				E2DC9C8D25264E0C0098174E /* types_v8.hpp */,
+				E2DC9C8B25264E0C0098174E /* types_v9.hpp */,
 				45E4558D20584AB900D9F45E /* header_binary.hpp */,
 				45E4559220584ABA00D9F45E /* serdes_binary.cpp */,
 				45E4559320584ABA00D9F45E /* serdes_binary.hpp */,
