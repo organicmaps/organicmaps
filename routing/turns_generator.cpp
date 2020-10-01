@@ -310,17 +310,17 @@ bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes,
  * These angles should be measured in degrees and should belong to the range [-180; 180].
  * The second paramer (angle) shall belong to the range [-180; 180] and is measured in degrees.
  */
-CarDirection FindDirectionByAngle(vector<pair<double, CarDirection>> const & lowerBounds,
-                                   double angle)
+template <class T>
+T FindDirectionByAngle(vector<pair<double, T>> const & lowerBounds, double angle)
 {
   ASSERT_GREATER_OR_EQUAL(angle, -180., (angle));
   ASSERT_LESS_OR_EQUAL(angle, 180., (angle));
   ASSERT(!lowerBounds.empty(), ());
   ASSERT(is_sorted(lowerBounds.cbegin(), lowerBounds.cend(),
-             [](pair<double, CarDirection> const & p1, pair<double, CarDirection> const & p2)
-         {
-           return p1.first > p2.first;
-         }), ());
+                   [](pair<double, T> const & p1, pair<double, T> const & p2) {
+                     return p1.first > p2.first;
+                   }),
+         ());
 
   for (auto const & lower : lowerBounds)
   {
@@ -329,7 +329,7 @@ CarDirection FindDirectionByAngle(vector<pair<double, CarDirection>> const & low
   }
 
   ASSERT(false, ("The angle is not covered by the table. angle = ", angle));
-  return CarDirection::None;
+  return T::None;
 }
 
 RoutePointIndex GetFirstOutgoingPointIndex(size_t outgoingSegmentIndex)
@@ -526,6 +526,18 @@ void GoStraightCorrection(TurnCandidate const & notRouteCandidate, CarDirection 
 
   turn.m_turn = turnToSet;
 }
+
+// Returns distance in meters between |junctions[start]| and |junctions[end]|.
+double CalcRouteDistanceM(vector<geometry::PointWithAltitude> const & junctions, uint32_t start,
+                          uint32_t end)
+{
+  double res = 0.0;
+
+  for (uint32_t i = start + 1; i < end; ++i)
+    res += mercator::DistanceOnEarth(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
+
+  return res;
+}
 }  // namespace
 
 namespace routing
@@ -574,7 +586,7 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
                                     Route::TTurns & turnsDir, Route::TStreets & streets,
                                     vector<Segment> & segments)
 {
-  LOG(LDEBUG, ("Shortest th length:", result.GetPathLength()));
+  LOG(LDEBUG, ("Shortest path length:", result.GetPathLength()));
 
   if (cancellable.IsCancelled())
     return RouterResultCode::Cancelled;
@@ -660,6 +672,84 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
   return RouterResultCode::NoError;
 }
 
+RouterResultCode MakeTurnAnnotationPedestrian(IRoutingResult const & result,
+                                              NumMwmIds const & numMwmIds,
+                                              base::Cancellable const & cancellable,
+                                              vector<geometry::PointWithAltitude> & junctions,
+                                              Route::TTurns & turnsDir, Route::TStreets & streets,
+                                              vector<Segment> & segments)
+{
+  LOG(LDEBUG, ("Shortest path length:", result.GetPathLength()));
+
+  if (cancellable.IsCancelled())
+    return RouterResultCode::Cancelled;
+
+  size_t skipTurnSegments = 0;
+  auto const & loadedSegments = result.GetSegments();
+  segments.reserve(loadedSegments.size());
+
+  for (auto loadedSegmentIt = loadedSegments.cbegin(); loadedSegmentIt != loadedSegments.cend();
+       ++loadedSegmentIt)
+  {
+    CHECK(loadedSegmentIt->IsValid(), ());
+
+    // Street names contain empty names too for avoiding of freezing of old street name while
+    // moving along unnamed street.
+    streets.emplace_back(max(junctions.size(), static_cast<size_t>(1)) - 1,
+                         loadedSegmentIt->m_name);
+
+    // Turns information.
+    if (!junctions.empty() && skipTurnSegments == 0)
+    {
+      auto const outgoingSegmentDist = distance(loadedSegments.begin(), loadedSegmentIt);
+      CHECK_GREATER(outgoingSegmentDist, 0, ());
+
+      auto const outgoingSegmentIndex = static_cast<size_t>(outgoingSegmentDist);
+
+      TurnItem turnItem;
+      turnItem.m_index = static_cast<uint32_t>(junctions.size() - 1);
+      GetTurnDirectionPedestrian(result, outgoingSegmentIndex, numMwmIds, turnItem);
+
+      if (turnItem.m_pedestrianTurn != PedestrianDirection::None)
+        turnsDir.push_back(move(turnItem));
+    }
+
+    if (skipTurnSegments > 0)
+      --skipTurnSegments;
+
+    CHECK_GREATER_OR_EQUAL(loadedSegmentIt->m_path.size(), 2, ());
+
+    junctions.insert(junctions.end(),
+                     loadedSegmentIt == loadedSegments.cbegin()
+                         ? loadedSegmentIt->m_path.cbegin()
+                         : loadedSegmentIt->m_path.cbegin() + 1,
+                     loadedSegmentIt->m_path.cend());
+
+    segments.insert(segments.end(), loadedSegmentIt->m_segments.cbegin(),
+                    loadedSegmentIt->m_segments.cend());
+  }
+
+  if (junctions.size() == 1)
+    junctions.push_back(junctions.front());
+
+  if (junctions.size() < 2)
+    return RouterResultCode::RouteNotFound;
+
+  junctions.front() = result.GetStartPoint();
+  junctions.back() = result.GetEndPoint();
+
+  turnsDir.emplace_back(TurnItem(base::asserted_cast<uint32_t>(junctions.size()) - 1,
+                                 PedestrianDirection::ReachedYourDestination));
+
+  FixupTurnsPedestrian(junctions, turnsDir);
+
+#ifdef DEBUG
+  for (auto t : turnsDir)
+    LOG(LDEBUG, (t.m_pedestrianTurn, ":", t.m_index, t.m_sourceName, "-", t.m_targetName));
+#endif
+  return RouterResultCode::NoError;
+}
+
 double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,
                                           vector<m2::PointD> const & points)
 {
@@ -684,14 +774,6 @@ void FixupTurns(vector<geometry::PointWithAltitude> const & junctions, Route::TT
   // If a roundabout is worked up the roundabout value junctions to the turn
   // of the enter to the roundabout. If not, roundabout is equal to nullptr.
   TurnItem * roundabout = nullptr;
-
-  auto routeDistanceMeters = [&junctions](uint32_t start, uint32_t end)
-  {
-    double res = 0.0;
-    for (uint32_t i = start + 1; i < end; ++i)
-      res += mercator::DistanceOnEarth(junctions[i - 1].GetPoint(), junctions[i].GetPoint());
-    return res;
-  };
 
   for (size_t idx = 0; idx < turnsDir.size(); )
   {
@@ -727,7 +809,8 @@ void FixupTurns(vector<geometry::PointWithAltitude> const & junctions, Route::TT
     // and the current turn (idx).
     if (idx > 0 && IsStayOnRoad(turnsDir[idx - 1].m_turn) &&
         IsLeftOrRightTurn(turnsDir[idx].m_turn) &&
-        routeDistanceMeters(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < kMergeDistMeters)
+        CalcRouteDistanceM(junctions, turnsDir[idx - 1].m_index, turnsDir[idx].m_index) <
+            kMergeDistMeters)
     {
       turnsDir.erase(turnsDir.begin() + idx - 1);
       continue;
@@ -736,7 +819,31 @@ void FixupTurns(vector<geometry::PointWithAltitude> const & junctions, Route::TT
     ++idx;
   }
   SelectRecommendedLanes(turnsDir);
-  return;
+}
+
+void FixupTurnsPedestrian(vector<geometry::PointWithAltitude> const & junctions,
+                          Route::TTurns & turnsDir)
+{
+  double const kMergeDistMeters = 15.0;
+
+  for (size_t idx = 0; idx < turnsDir.size();)
+  {
+    bool const prevStepNoTurn =
+        idx > 0 && turnsDir[idx - 1].m_pedestrianTurn == PedestrianDirection::GoStraight;
+    bool const needToTurn = turnsDir[idx].m_pedestrianTurn == PedestrianDirection::TurnLeft ||
+                            turnsDir[idx].m_pedestrianTurn == PedestrianDirection::TurnRight;
+
+    // Merging turns which are closer to each other under some circumstance.
+    if (prevStepNoTurn && needToTurn &&
+        CalcRouteDistanceM(junctions, turnsDir[idx - 1].m_index, turnsDir[idx].m_index) <
+            kMergeDistMeters)
+    {
+      turnsDir.erase(turnsDir.begin() + idx - 1);
+      continue;
+    }
+
+    ++idx;
+  }
 }
 
 void SelectRecommendedLanes(Route::TTurns & turnsDir)
@@ -841,7 +948,17 @@ CarDirection IntermediateDirection(const double angle)
   return FindDirectionByAngle(kLowerBounds, angle);
 }
 
-/// \returns true iff one of the turn candidates goes along the ingoing route segment.
+PedestrianDirection IntermediateDirectionPedestrian(const double angle)
+{
+  static vector<pair<double, PedestrianDirection>> const kLowerBounds = {
+      {10.0, PedestrianDirection::TurnRight},
+      {-10.0, PedestrianDirection::GoStraight},
+      {-180.0, PedestrianDirection::TurnLeft}};
+
+  return FindDirectionByAngle(kLowerBounds, angle);
+}
+
+/// \returns true if one of the turn candidates goes along the ingoing route segment.
 bool OneOfTurnCandidatesGoesAlongIngoingSegment(NumMwmIds const & numMwmIds,
                                                 TurnCandidates const & turnCandidates,
                                                 TurnInfo const & turnInfo)
@@ -1030,8 +1147,59 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
     // Note. It's possible that |firstOutgoingSeg| is not contained in |nodes.candidates|.
     // It may happened if |firstOutgoingSeg| and candidates in |nodes.candidates| are
     // from different mwms.
-
   }
+}
+
+void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSegmentIndex,
+                                NumMwmIds const & numMwmIds, TurnItem & turn)
+{
+  auto const & segments = result.GetSegments();
+  CHECK_LESS(outgoingSegmentIndex, segments.size(), ());
+  CHECK_GREATER(outgoingSegmentIndex, 0, ());
+
+  TurnInfo turnInfo(segments[outgoingSegmentIndex - 1], segments[outgoingSegmentIndex]);
+  if (!turnInfo.IsSegmentsValid() || turnInfo.m_ingoing.m_segmentRange.IsEmpty())
+    return;
+
+  ASSERT(!turnInfo.m_ingoing.m_path.empty(), ());
+  ASSERT(!turnInfo.m_outgoing.m_path.empty(), ());
+  ASSERT_LESS(mercator::DistanceOnEarth(turnInfo.m_ingoing.m_path.back().GetPoint(),
+                                        turnInfo.m_outgoing.m_path.front().GetPoint()),
+              kFeaturesNearTurnMeters, ());
+
+  m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();
+  m2::PointD const ingoingPoint =
+      GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, kMaxIngoingPointsCount,
+                      kMinIngoingDistMeters, false /* forward */);
+  m2::PointD const outgoingPoint =
+      GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, kMaxOutgoingPointsCount,
+                      kMinOutgoingDistMeters, true /* forward */);
+
+  double const turnAngle =
+      base::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+
+  turn.m_sourceName = turnInfo.m_ingoing.m_name;
+  turn.m_targetName = turnInfo.m_outgoing.m_name;
+  turn.m_pedestrianTurn = PedestrianDirection::None;
+
+  ASSERT_GREATER(turnInfo.m_ingoing.m_path.size(), 1, ());
+  TurnCandidates nodes;
+  size_t ingoingCount = 0;
+  result.GetPossibleTurns(turnInfo.m_ingoing.m_segmentRange, junctionPoint, ingoingCount, nodes);
+  if (nodes.isCandidatesAngleValid)
+  {
+    ASSERT(is_sorted(nodes.candidates.begin(), nodes.candidates.end(),
+                     base::LessBy(&TurnCandidate::m_angle)),
+           ("Turn candidates should be sorted by its angle field."));
+  }
+
+  if (nodes.candidates.size() == 0)
+    return;
+
+  turn.m_pedestrianTurn = IntermediateDirectionPedestrian(turnAngle);
+
+  if (turn.m_pedestrianTurn == PedestrianDirection::GoStraight)
+    turn.m_pedestrianTurn = PedestrianDirection::None;
 }
 
 size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t outgoingSegmentIndex,

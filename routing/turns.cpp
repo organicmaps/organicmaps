@@ -361,10 +361,9 @@ string DebugPrint(PedestrianDirection const l)
   switch (l)
   {
   case PedestrianDirection::None: return "None";
-  case PedestrianDirection::Upstairs: return "Upstairs";
-  case PedestrianDirection::Downstairs: return "Downstairs";
-  case PedestrianDirection::LiftGate: return "LiftGate";
-  case PedestrianDirection::Gate: return "Gate";
+  case PedestrianDirection::GoStraight: return "GoStraight";
+  case PedestrianDirection::TurnRight: return "TurnRight";
+  case PedestrianDirection::TurnLeft: return "TurnLeft";
   case PedestrianDirection::ReachedYourDestination: return "ReachedYourDestination";
   case PedestrianDirection::Count:
     // PedestrianDirection::Count should be never used in the code, print it as unknown value

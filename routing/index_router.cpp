@@ -119,7 +119,7 @@ unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
   switch (vehicleType)
   {
   case VehicleType::Pedestrian:
-  case VehicleType::Transit: return make_unique<PedestrianDirectionsEngine>(numMwmIds);
+  case VehicleType::Transit: return make_unique<PedestrianDirectionsEngine>(dataSource, numMwmIds);
   case VehicleType::Bicycle:
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.

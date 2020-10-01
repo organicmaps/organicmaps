@@ -36,7 +36,10 @@ set(
   cross_mwm_graph.hpp
   cross_mwm_ids.hpp
   cross_mwm_index_graph.hpp
+  directions_engine.cpp
   directions_engine.hpp
+  directions_engine_helpers.cpp
+  directions_engine_helpers.hpp
   edge_estimator.cpp
   edge_estimator.hpp
   fake_edges_container.hpp

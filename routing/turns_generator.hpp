@@ -101,6 +101,13 @@ RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds con
                                     Route::TTurns & turnsDir, Route::TStreets & streets,
                                     std::vector<Segment> & segments);
 
+RouterResultCode MakeTurnAnnotationPedestrian(IRoutingResult const & result,
+                                              NumMwmIds const & numMwmIds,
+                                              base::Cancellable const & cancellable,
+                                              std::vector<geometry::PointWithAltitude> & points,
+                                              Route::TTurns & turnsDir, Route::TStreets & streets,
+                                              std::vector<Segment> & segments);
+
 // Returns the distance in meractor units for the path of points for the range [startPointIndex, endPointIndex].
 double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,
                                           std::vector<m2::PointD> const & points);
@@ -110,6 +117,9 @@ double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t end
  */
 void SelectRecommendedLanes(Route::TTurns & turnsDir);
 void FixupTurns(std::vector<geometry::PointWithAltitude> const & points, Route::TTurns & turnsDir);
+void FixupTurnsPedestrian(std::vector<geometry::PointWithAltitude> const & junctions,
+                          Route::TTurns & turnsDir);
+
 inline size_t GetFirstSegmentPointIndex(std::pair<size_t, size_t> const & p) { return p.first; }
 
 CarDirection InvertDirection(CarDirection dir);
@@ -166,6 +176,8 @@ CarDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoin
  */
 void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex,
                       NumMwmIds const & numMwmIds, TurnItem & turn);
+void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSegmentIndex,
+                                NumMwmIds const & numMwmIds, TurnItem & turn);
 
 /*!
  * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.

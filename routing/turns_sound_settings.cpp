@@ -113,6 +113,7 @@ string DebugPrint(Notification const & notification)
       << ", m_exitNum == " << notification.m_exitNum
       << ", m_useThenInsteadOfDistance == " << notification.m_useThenInsteadOfDistance
       << ", m_turnDir == " << DebugPrint(notification.m_turnDir)
+      << ", m_turnDirPedestrian == " << DebugPrint(notification.m_turnDirPedestrian)
       << ", m_lengthUnits == " << DebugPrint(notification.m_lengthUnits) << " ]" << endl;
   return out.str();
 }

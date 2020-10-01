@@ -136,7 +136,8 @@ struct Notification
   /// if m_useThenInsteadOfDistance == true the m_distanceUnits is ignored.
   /// The word "Then" shall be pronounced intead of the distance.
   bool m_useThenInsteadOfDistance;
-  CarDirection m_turnDir;
+  CarDirection m_turnDir = CarDirection::None;
+  PedestrianDirection m_turnDirPedestrian = PedestrianDirection::None;
   measurement_utils::Units m_lengthUnits;
 
   Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
@@ -148,11 +149,28 @@ struct Notification
     , m_lengthUnits(lengthUnits)
   {
   }
+
+  Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+               PedestrianDirection turnDirPedestrian, measurement_utils::Units lengthUnits)
+    : m_distanceUnits(distanceUnits)
+    , m_exitNum(exitNum)
+    , m_useThenInsteadOfDistance(useThenInsteadOfDistance)
+    , m_turnDirPedestrian(turnDirPedestrian)
+    , m_lengthUnits(lengthUnits)
+  {
+  }
+
   bool operator==(Notification const & rhv) const
   {
     return m_distanceUnits == rhv.m_distanceUnits && m_exitNum == rhv.m_exitNum &&
            m_useThenInsteadOfDistance == rhv.m_useThenInsteadOfDistance &&
-           m_turnDir == rhv.m_turnDir && m_lengthUnits == rhv.m_lengthUnits;
+           m_turnDir == rhv.m_turnDir && m_turnDirPedestrian == rhv.m_turnDirPedestrian &&
+           m_lengthUnits == rhv.m_lengthUnits;
+  }
+
+  bool IsPedestrianNotification() const
+  {
+    return m_turnDir == CarDirection::None && m_turnDirPedestrian != PedestrianDirection::None;
   }
 };
 
