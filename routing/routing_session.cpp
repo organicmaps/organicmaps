@@ -28,8 +28,8 @@ int constexpr kOnRouteMissedCount = 10;
 // @TODO(vbykoianko) The distance should depend on the current speed.
 double constexpr kShowLanesDistInMeters = 500.;
 
-// @todo(kshalnev) The distance may depend on the current speed.
-double constexpr kShowPedestrianTurnInMeters = 5.;
+// @TODO The distance may depend on the current speed.
+double constexpr kShowPedestrianTurnInMeters = 20.0;
 
 double constexpr kRunawayDistanceSensitivityMeters = 0.01;
 
@@ -415,12 +415,13 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_lanes.clear();
   }
 
-  // Pedestrian info
+  // Pedestrian info.
   m2::PointD pos;
   m_route->GetCurrentDirectionPoint(pos);
   info.m_pedestrianDirectionPos = mercator::ToLatLon(pos);
-  info.m_pedestrianTurn =
-      (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
+  info.m_pedestrianTurn = (distanceToTurnMeters < kShowPedestrianTurnInMeters)
+                              ? turn.m_pedestrianTurn
+                              : turns::PedestrianDirection::None;
 }
 
 double RoutingSession::GetCompletionPercent() const
