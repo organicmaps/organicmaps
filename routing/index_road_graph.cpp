@@ -86,7 +86,6 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
 void IndexRoadGraph::GetJunctionTypes(geometry::PointWithAltitude const & junction,
                                       feature::TypesHolder & types) const
 {
-  // TODO: implement method to support PedestrianDirection::LiftGate, PedestrianDirection::Gate
   types = feature::TypesHolder();
 }
 
