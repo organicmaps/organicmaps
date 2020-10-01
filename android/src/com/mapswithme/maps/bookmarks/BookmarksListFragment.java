@@ -28,7 +28,6 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -87,11 +86,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ViewGroup mSearchContainer;
-  @SuppressWarnings("NullableProblems")
   @NonNull
   private FloatingActionButton mFabViewOnMap;
-
-  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private ViewGroup mDescriptionView;
+  @NonNull
+  private RecyclerView mRecyclerViewForCollection;
   @NonNull
   private BookmarkManager.BookmarksCatalogListener mCatalogListener;
 
@@ -142,7 +142,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     List<BookmarkCategory> mCategoryItems = BookmarkManager.INSTANCE.getChildrenCategories(categoryId);
     List<BookmarkCategory> mCollectionItems = BookmarkManager.INSTANCE.getChildrenCollections(categoryId);
 
-    mBookmarkCollectionAdapter = new BookmarkCollectionAdapter(requireContext(),mCategoryItems, mCollectionItems);
+    mBookmarkCollectionAdapter = new BookmarkCollectionAdapter(requireContext(), mCategoryItems, mCollectionItems);
   }
 
   @Override
@@ -163,6 +163,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
     configureFab(view);
 
+    mDescriptionView = view.findViewById(R.id.guide_info);
     configureGuidesInfoLayout(view);
 
     setHasOptionsMenu(true);
@@ -177,7 +178,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
     mToolbarController = new BookmarksToolbarController(toolbar, requireActivity(), this);
     mToolbarController.setHint(R.string.search_in_the_list);
-    configureRecycler();
+    configureRecyclerDividers(getRecyclerView());
   }
 
   @Override
@@ -284,14 +285,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     });
   }
 
-  private void configureCollectionRecycler(@NonNull View view){
-    RecyclerView recyclerViewForCollection = view.findViewById(R.id.collections_recycler);
+  private void configureCollectionRecycler(@NonNull View view)
+  {
+    mRecyclerViewForCollection = view.findViewById(R.id.collections_recycler);
     LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
     manager.setSmoothScrollbarEnabled(true);
-    recyclerViewForCollection.setLayoutManager(manager);
+    mRecyclerViewForCollection.setLayoutManager(manager);
 
-    recyclerViewForCollection.setAdapter(mBookmarkCollectionAdapter);
-    configureRecyclerDividers(recyclerViewForCollection);
+    mRecyclerViewForCollection.setAdapter(mBookmarkCollectionAdapter);
+    configureRecyclerDividers(mRecyclerViewForCollection);
   }
 
   private void configureFab(@NonNull View view)
@@ -307,17 +309,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     });
   }
 
-  private void configureRecycler()
-  {
-  configureRecyclerDividers(getRecyclerView());
-    getRecyclerView().addOnScrollListener(mRecyclerListener);
-  }
-
   private void configureRecyclerDividers(@NonNull RecyclerView recyclerView)
   {
     RecyclerView.ItemDecoration decorWithPadding = ItemDecoratorFactory
         .createVerticalDefaultDecorator(requireContext());
     recyclerView.addItemDecoration(decorWithPadding);
+    recyclerView.addOnScrollListener(mRecyclerListener);
   }
 
   private void updateRecyclerVisibility()
@@ -339,6 +336,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
     showPlaceholder(isEmptyRecycler);
     UiUtils.showIf(!isEmptyRecycler, getRecyclerView(), mFabViewOnMap);
+    UiUtils.hideIf(getAdapter().isSearchResults(), mRecyclerViewForCollection, mDescriptionView);
     requireActivity().invalidateOptionsMenu();
   }
 
