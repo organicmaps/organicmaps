@@ -119,7 +119,7 @@ public:
 private:
   friend class RankerResultMaker;
 
-  void MakeRankerResults(Geocoder::Params const & params, std::vector<RankerResult> & results);
+  void MakeRankerResults();
 
   void GetBestMatchName(FeatureType & f, std::string & name) const;
   void MatchForSuggestions(strings::UniString const & token, int8_t locale,

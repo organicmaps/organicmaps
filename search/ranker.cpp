@@ -689,7 +689,7 @@ void Ranker::UpdateResults(bool lastUpdate)
   if (!lastUpdate)
     BailIfCancelled();
 
-  MakeRankerResults(m_geocoderParams, m_tentativeResults);
+  MakeRankerResults();
   RemoveDuplicatingLinear(m_tentativeResults);
   if (m_tentativeResults.empty())
     return;
@@ -769,24 +769,23 @@ void Ranker::SetLocale(string const & locale)
 
 void Ranker::LoadCountriesTree() { m_regionInfoGetter.LoadCountriesTree(); }
 
-void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
-                               vector<RankerResult> & results)
+void Ranker::MakeRankerResults()
 {
-  RankerResultMaker maker(*this, m_dataSource, m_infoGetter, m_reverseGeocoder, geocoderParams);
+  RankerResultMaker maker(*this, m_dataSource, m_infoGetter, m_reverseGeocoder, m_geocoderParams);
   for (auto const & r : m_preRankerResults)
   {
     auto p = maker(r);
     if (!p)
       continue;
 
-    if (geocoderParams.m_mode == Mode::Viewport &&
-        !geocoderParams.m_pivot.IsPointInside(p->GetCenter()))
+    if (m_geocoderParams.m_mode == Mode::Viewport &&
+        !m_geocoderParams.m_pivot.IsPointInside(p->GetCenter()))
     {
       continue;
     }
 
-    if (!ResultExists(*p, results, m_params.m_minDistanceBetweenResultsM))
-      results.push_back(move(*p));
+    if (!ResultExists(*p, m_tentativeResults, m_params.m_minDistanceBetweenResultsM))
+      m_tentativeResults.push_back(move(*p));
   };
 
   m_preRankerResults.clear();
