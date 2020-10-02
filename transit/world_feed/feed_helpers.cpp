@@ -370,7 +370,7 @@ std::optional<LineSegment> GetIntersection(size_t start1, size_t finish1, size_t
   if (intersectionLen == 0)
     return std::nullopt;
 
-  return LineSegment(maxStart, maxStart + intersectionLen);
+  return LineSegment(maxStart, static_cast<uint32_t>(maxStart + intersectionLen));
 }
 
 int CalcSegmentOrder(size_t segIndex, size_t totalSegCount)
@@ -382,5 +382,144 @@ int CalcSegmentOrder(size_t segIndex, size_t totalSegCount)
   int const curSegOffset = shapeOffset + shapeOffsetIncrement * static_cast<int>(segIndex);
 
   return curSegOffset;
+}
+
+bool StopIndexIsSet(size_t stopIndex)
+{
+  return stopIndex != std::numeric_limits<size_t>::max();
+}
+
+std::pair<size_t, size_t> GetStopsRange(IdList const & lineStopIds, IdSet const & stopIdsInRegion)
+{
+  size_t first = std::numeric_limits<size_t>::max();
+  size_t last = std::numeric_limits<size_t>::max();
+
+  for (size_t i = 0; i < lineStopIds.size(); ++i)
+  {
+    auto const & stopId = lineStopIds[i];
+    if (stopIdsInRegion.count(stopId) != 0)
+    {
+      if (!StopIndexIsSet(first))
+      {
+        first = i;
+      }
+      last = i;
+    }
+  }
+
+  if (StopIndexIsSet(first))
+  {
+    if (first > 0)
+      --first;
+
+    if (last < lineStopIds.size() - 1)
+      ++last;
+  }
+
+  CHECK_GREATER_OR_EQUAL(last, first, ());
+  return {first, last};
+}
+
+// Returns indexes of nearest to the |point| elements in |shape|.
+std::vector<size_t> GetMinDistIndexes(std::vector<m2::PointD> const & shape,
+                                      m2::PointD const & point)
+{
+  double minDist = std::numeric_limits<double>::max();
+
+  std::vector<size_t> indexes;
+
+  for (size_t i = 0; i < shape.size(); ++i)
+  {
+    double dist = mercator::DistanceOnEarth(shape[i], point);
+
+    if (base::AlmostEqualAbs(dist, minDist, kEps))
+    {
+      indexes.push_back(i);
+      continue;
+    }
+
+    if (dist < minDist)
+    {
+      minDist = dist;
+      indexes.clear();
+      indexes.push_back(i);
+    }
+  }
+
+  CHECK(std::is_sorted(indexes.begin(), indexes.end()), ());
+  return indexes;
+}
+
+// Returns minimal distance between |val| and element in |vals| and the nearest element value.
+std::pair<size_t, size_t> FindMinDist(size_t val, std::vector<size_t> const & vals)
+{
+  size_t minDist = std::numeric_limits<size_t>::max();
+  size_t minVal;
+
+  CHECK(!vals.empty(), ());
+
+  for (size_t curVal : vals)
+  {
+    auto const & [min, max] = std::minmax(val, curVal);
+    size_t const dist = max - min;
+
+    if (dist < minDist)
+    {
+      minVal = curVal;
+      minDist = dist;
+    }
+  }
+
+  return {minDist, minVal};
+}
+
+std::pair<size_t, size_t> FindSegmentOnShape(std::vector<m2::PointD> const & shape,
+                                             std::vector<m2::PointD> const & segment)
+{
+  auto const & intersectionsShape = FindIntersections(shape, segment).first;
+
+  if (intersectionsShape.empty())
+    return {0, 0};
+
+  auto const & firstIntersection = intersectionsShape.front();
+  return {firstIntersection.m_startIdx, firstIntersection.m_endIdx};
+}
+
+std::pair<size_t, size_t> FindPointsOnShape(std::vector<m2::PointD> const & shape,
+                                            m2::PointD const & p1, m2::PointD const & p2)
+{
+  // We find indexes of nearest points in |shape| to |p1| and |p2| correspondingly.
+  std::vector<size_t> const & indexes1 = GetMinDistIndexes(shape, p1);
+  std::vector<size_t> const & indexes2 = GetMinDistIndexes(shape, p2);
+
+  // We fill mapping of distance (between p1 and p2 on the shape) to pairs of indexes of p1 and p2.
+  std::map<size_t, std::pair<size_t, size_t>> distToIndexes;
+
+  for (size_t i1 : indexes1)
+  {
+    auto [minDist, i2] = FindMinDist(i1, indexes2);
+    distToIndexes.emplace(minDist, std::make_pair(i1, i2));
+  }
+
+  CHECK(!distToIndexes.empty(), ());
+
+  // If index of |p1| equals index of |p2| on the |shape| we return the next pair of the nearest
+  // indexes. It is possible in case if |p1| and |p2| are ends of the edge which represents the loop
+  // on the route.
+  auto const & [first, last] = distToIndexes.begin()->second;
+  if (first == last)
+  {
+    LOG(LINFO,
+        ("Edge with equal indexes of first and last points on the shape. Index on the shape:",
+         first));
+    CHECK_GREATER(distToIndexes.size(), 1, ());
+
+    auto const & nextPair = std::next(distToIndexes.begin());
+    CHECK_NOT_EQUAL(nextPair->second.first, nextPair->second.second, ());
+
+    return nextPair->second;
+  }
+
+  return distToIndexes.begin()->second;
 }
 }  // namespace transit

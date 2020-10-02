@@ -97,7 +97,7 @@ LineParts::iterator FindLinePart(LineParts & lineParts, LineSegment const & segm
 struct LineSchemeData
 {
   TransitId m_lineId = 0;
-  TransitId m_routeId = 0;
+  std::string m_color;
   ShapeLink m_shapeLink;
 
   LineParts m_lineParts;
@@ -122,4 +122,29 @@ std::optional<LineSegment> GetIntersection(size_t start1, size_t finish1, size_t
 // total parallel lines count. Line order must be symmetrical with respect to the сentral axis of
 // the polyline.
 int CalcSegmentOrder(size_t segIndex, size_t totalSegCount);
+
+// Returns true if |stopIndex| doesn't equal size_t maximum value.
+bool StopIndexIsSet(size_t stopIndex);
+
+// Gets interval of stop indexes on the line with |lineStopIds| which belong to the region and
+// its vicinity. |stopIdsInRegion| is set of all stop ids in the region.
+std::pair<size_t, size_t> GetStopsRange(IdList const & lineStopIds, IdSet const & stopIdsInRegion);
+
+// Returns indexes of points |p1| and |p2| on the |shape| polyline. If there are more then 1
+// occurrences of |p1| or |p2| in |shape|, indexes with minimum distance are returned.
+std::pair<size_t, size_t> FindPointsOnShape(std::vector<m2::PointD> const & shape,
+                                            m2::PointD const & p1, m2::PointD const & p2);
+
+// Returns indexes of first and last points of |segment| in the |shape| polyline. If |edgeShape|
+// is not found returns pair of zeroes.
+std::pair<size_t, size_t> FindSegmentOnShape(std::vector<m2::PointD> const & shape,
+                                             std::vector<m2::PointD> const & segment);
+
+// Returns reversed vector.
+template <class T>
+std::vector<T> GetReversed(std::vector<T> vec)
+{
+  std::reverse(vec.begin(), vec.end());
+  return vec;
+}
 }  // namespace transit
