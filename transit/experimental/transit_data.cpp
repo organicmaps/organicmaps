@@ -163,7 +163,10 @@ std::vector<m2::PointD> GetPointsFromJson(json_t * obj)
 
 TimeTable GetTimeTableFromJson(json_t * obj)
 {
-  json_t * arr = base::GetJSONObligatoryField(obj, "timetable");
+  json_t * arr = base::GetJSONOptionalField(obj, "timetable");
+  if (!arr)
+    return TimeTable{};
+
   CHECK(json_is_array(arr), ());
 
   TimeTable timetable;
