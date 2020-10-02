@@ -5,6 +5,7 @@ import sys
 module_dir = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(module_dir, "..", ".."))
 
+from data.base import get_version
 from data.base import setup
 
 setup(
@@ -20,4 +21,5 @@ setup(
         "06_code2000.ttf",
         "07_roboto_medium.ttf",
     ],
+    install_requires=["omim-data-files=={}".format(get_version())]
 )

@@ -1,4 +1,5 @@
 omim-data-all
+omim-data-files
 omim-descriptions
 omim-post_generation
 filelock==3.0.10

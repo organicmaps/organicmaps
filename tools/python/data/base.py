@@ -42,7 +42,10 @@ def setup(
     source_file,
     suffix,
     relative_data_paths,
+    packages=None,
+    package_dir=None,
     install_requires=None,
+    cmdclass=None,
     supported_pythons=("2", "2.7", "3", "3.5", "3.6", "3.7"),
 ):
     with chdir(os.path.abspath(os.path.dirname(source_file))):
@@ -53,7 +56,9 @@ def setup(
             author_email="dev@maps.me",
             description="This package contains {} data files.".format(suffix),
             url="https://github.com/mapsme",
-            packages=[],
+            packages=[] if packages is None else packages,
+            package_dir={} if package_dir is None else package_dir,
+            cmdclass={} if cmdclass is None else cmdclass,
             classifiers=["License :: OSI Approved :: Apache Software License",]
             + [
                 "Programming Language :: Python :: {}".format(supported_python)

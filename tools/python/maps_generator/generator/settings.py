@@ -92,12 +92,7 @@ OSM_TOOLS_PATH = os.path.join(_WORK_PATH, "osmctools")
 # Generator tool section:
 NODE_STORAGE = "mem" if total_virtual_memory() / 10 ** 9 >= 64 else "map"
 
-_omim_data_dir = "omim-data"
-USER_RESOURCE_PATH = os.path.join(sys.prefix, _omim_data_dir)
-if not os.path.exists(USER_RESOURCE_PATH):
-    USER_RESOURCE_PATH = os.path.join(site.USER_BASE, _omim_data_dir)
-if not os.path.exists(USER_RESOURCE_PATH):
-    USER_RESOURCE_PATH = os.path.join(OMIM_PATH, "data")
+USER_RESOURCE_PATH = os.path.join(OMIM_PATH, "data")
 
 # Stages section:
 NEED_PLANET_UPDATE = False
@@ -219,6 +214,17 @@ def init(default_settings_path: AnyStr):
         "Generator tool", "USER_RESOURCE_PATH", USER_RESOURCE_PATH
     )
     NODE_STORAGE = cfg.get_opt("Generator tool", "NODE_STORAGE", NODE_STORAGE)
+
+    if not os.path.exists(USER_RESOURCE_PATH):
+        from data_files import find_data_files
+        USER_RESOURCE_PATH = find_data_files("omim-data")
+        assert USER_RESOURCE_PATH is not None
+
+        import borders
+        # Issue: If maps_generator is installed in your system as a system
+        # package and borders.init() is called first time, call borders.init()
+        # might return False, because you need root permission.
+        assert borders.init()
 
     # Stages section:
     global NEED_PLANET_UPDATE
