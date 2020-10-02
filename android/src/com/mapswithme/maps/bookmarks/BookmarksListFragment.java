@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -142,7 +143,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     List<BookmarkCategory> mCategoryItems = BookmarkManager.INSTANCE.getChildrenCategories(categoryId);
     List<BookmarkCategory> mCollectionItems = BookmarkManager.INSTANCE.getChildrenCollections(categoryId);
 
-    mBookmarkCollectionAdapter = new BookmarkCollectionAdapter(requireContext(), mCategoryItems, mCollectionItems);
+    mBookmarkCollectionAdapter = new BookmarkCollectionAdapter(mCategoryItems, mCollectionItems);
   }
 
   @Override
@@ -224,30 +225,31 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   private void configureGuidesInfoLayout(View view)
   {
-    if (!mCategoryDataSource.getData().isMyCategory())
+    BookmarkCategory category = mCategoryDataSource.getData();
+    if (!category.isMyCategory())
     {
       ImageView imageView = view.findViewById(R.id.guide_image);
-      String imageUrl = mCategoryDataSource.getData().getImageUrl();
-      if (imageUrl.isEmpty())
+      String imageUrl = category.getImageUrl();
+      if (TextUtils.isEmpty(imageUrl))
+      {
         UiUtils.hide(imageView);
+      }
       else
+      {
         Glide.with(view.getContext())
-           .load(imageUrl)
-           .centerCrop()
-           .into(imageView);
-
+             .load(imageUrl)
+             .centerCrop()
+             .into(imageView);
+      }
       TextView title = view.findViewById(R.id.guide_title);
-      title.setText(mCategoryDataSource.getData().getName());
+      title.setText(category.getName());
 
       TextView descriptionBtn = view.findViewById(R.id.btn_description);
-      boolean isHideDescriptionBtn = mCategoryDataSource.getData()
-                                                        .getDescription()
-                                                        .isEmpty() || mCategoryDataSource.getData()
-                                                                                         .getAnnotation()
-                                                                                         .isEmpty();
+      boolean isHideDescriptionBtn = TextUtils.isEmpty(category.getDescription())
+                                     || TextUtils.isEmpty(category.getAnnotation());
       UiUtils.hideIf(isHideDescriptionBtn, descriptionBtn);
 
-      BookmarkCategory.Author author = mCategoryDataSource.getData().getAuthor();
+      BookmarkCategory.Author author = category.getAuthor();
       ImageView imageViewLogo = view.findViewById(R.id.logo);
       TextView authorTextView = view.findViewById(R.id.content_by);
 
@@ -264,7 +266,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       }
     }
     else
+    {
       UiUtils.hide(view.findViewById(R.id.guide_info));
+    }
   }
 
   private void configureAdapter()

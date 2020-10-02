@@ -161,7 +161,7 @@ public class Holders
       mSize.setText(mSize.getResources().getQuantityString(phrase, size, size));
     }
 
-    void setCategory(@NonNull BookmarkCategory entity)
+    void setEntity(@NonNull BookmarkCategory entity)
     {
       mEntity = entity;
     }

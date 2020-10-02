@@ -1,6 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -20,9 +19,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private final static int TYPE_COLLECTION_ITEM = 1;
   private final static int TYPE_CATEGORY_ITEM = 2;
 
-  // TODO (@velichkomarija): Delete this if do not need.
-  @NonNull
-  private final Context mContext;
   @NonNull
   private List<BookmarkCategory> mItemsCollection;
   @NonNull
@@ -30,9 +26,9 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   @NonNull
   private int mSectionCount;
   @NonNull
-  private int mCollectionSectionIndex;
+  private int mCollectionSectionIndex = SectionPosition.INVALID_POSITION;
   @NonNull
-  private int mCategorySectionIndex;
+  private int mCategorySectionIndex = SectionPosition.INVALID_POSITION;
   @Nullable
   private OnItemClickListener<BookmarkCategory> mClickListener;
 
@@ -70,10 +66,11 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     }
   }
 
-  private void calculateSections()
+  BookmarkCollectionAdapter(@NonNull List<BookmarkCategory> itemsCategories,
+                            @NonNull List<BookmarkCategory> itemsCollection)
   {
-    mCollectionSectionIndex = SectionPosition.INVALID_POSITION;
-    mCategorySectionIndex = SectionPosition.INVALID_POSITION;
+    mItemsCategory = itemsCategories;
+    mItemsCollection = itemsCollection;
 
     mSectionCount = 0;
     if (mItemsCollection.size() > 0)
@@ -118,7 +115,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   }
 
   @NonNull
-  public BookmarkCategory getCategoryByPosition(SectionPosition sp, int type)
+  public BookmarkCategory getGroupByPosition(SectionPosition sp, int type)
   {
     List<BookmarkCategory> categories = getItemsListByType(type);
 
@@ -126,16 +123,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     if (sp.mItemIndex > categories.size() - 1)
       throw new ArrayIndexOutOfBoundsException(itemIndex);
     return categories.get(itemIndex);
-  }
-
-  BookmarkCollectionAdapter(@NonNull Context context,
-                            @NonNull List<BookmarkCategory> itemsCategories,
-                            @NonNull List<BookmarkCategory> itemsCollection)
-  {
-    mContext = context;
-    mItemsCategory = itemsCategories;
-    mItemsCollection = itemsCollection;
-    calculateSections();
   }
 
   public void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
@@ -207,9 +194,9 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   private void bindCollectionHolder(RecyclerView.ViewHolder holder, SectionPosition position, int type)
   {
-    final BookmarkCategory category = getCategoryByPosition(position, type);
+    final BookmarkCategory category = getGroupByPosition(position, type);
     Holders.CollectionViewHolder collectionViewHolder = (Holders.CollectionViewHolder) holder;
-    collectionViewHolder.setCategory(category);
+    collectionViewHolder.setEntity(category);
     collectionViewHolder.setName(category.getName());
     bindSize(collectionViewHolder, category);
     collectionViewHolder.setVisibilityState(category.isVisible());
@@ -244,7 +231,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
     for (int i = 0; i < mSectionCount; ++i)
     {
-
       int sectionItemsCount = getItemsCount(i);
       if (sectionItemsCount == 0)
         continue;

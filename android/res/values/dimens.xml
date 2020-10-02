@@ -270,12 +270,9 @@
   <dimen name="toggle_map_layer_frame_height">98dp</dimen>
   <dimen name="focal_radius">44dp</dimen>
   <dimen name="guide_image_height">180dp</dimen>
-  <dimen name="guide_description_block_height">108dp</dimen>
   <dimen name="guide_description_content_by_height">60dp</dimen>
   <dimen name="content_by_logo_width">68dp</dimen>
-  <dimen name="bookmark_checkbox_size">32dp</dimen>
   <dimen name="bookmark_collection_item_end_margin">56dp</dimen>
-  <dimen name="bookmark_category_title_height">60dp</dimen>
 
   <!-- Purchases-->
   <dimen name="ads_removal_dialog_min_height">508dp</dimen>
