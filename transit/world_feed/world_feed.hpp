@@ -13,6 +13,7 @@
 
 #include <cstdint>
 #include <fstream>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -85,16 +86,28 @@ struct LineData
   std::unordered_set<std::string> m_gtfsServiceIds;
 };
 
+struct LineSegmentInRegion
+{
+  // Stops in the region.
+  IdList m_stopIds;
+  // Spline line id to its parent line id mapping.
+  std::optional<TransitId> m_splineParent = std::nullopt;
+  // Indexes of the line shape link may differ in different regions.
+  ShapeLink m_shapeLink;
+};
+
 struct Lines
 {
-  void Write(std::unordered_map<TransitId, IdList> const & ids, std::ofstream & stream) const;
+  void Write(std::unordered_map<TransitId, LineSegmentInRegion> const & ids,
+             std::ofstream & stream) const;
 
   std::unordered_map<TransitId, LineData> m_data;
 };
 
 struct LinesMetadata
 {
-  void Write(std::unordered_map<TransitId, IdList> const & ids, std::ofstream & stream) const;
+  void Write(std::unordered_map<TransitId, LineSegmentInRegion> const & linesInRegion,
+             std::ofstream & stream) const;
 
   // Line id to line additional data (e.g. for rendering).
   std::unordered_map<TransitId, LineSegmentsOrder> m_data;
@@ -234,7 +247,8 @@ struct StopsOnLines
 };
 
 using IdsInRegion = std::unordered_map<std::string, IdSet>;
-using LineIdsInRegion = std::unordered_map<std::string, std::unordered_map<TransitId, IdList>>;
+using LinesInRegion =
+    std::unordered_map<std::string, std::unordered_map<TransitId, LineSegmentInRegion>>;
 using EdgeIdsInRegion = std::unordered_map<std::string, IdEdgeSet>;
 using EdgeTransferIdsInRegion = std::unordered_map<std::string, IdEdgeTransferSet>;
 
@@ -244,7 +258,7 @@ struct TransitByRegion
 {
   IdsInRegion m_networks;
   IdsInRegion m_routes;
-  LineIdsInRegion m_lines;
+  LinesInRegion m_lines;
   IdsInRegion m_shapes;
   IdsInRegion m_stops;
   EdgeIdsInRegion m_edges;
@@ -252,6 +266,9 @@ struct TransitByRegion
   IdsInRegion m_transfers;
   IdsInRegion m_gates;
 };
+
+// Pair of points representing corresponding edge endings.
+using EdgePoints = std::pair<m2::PointD, m2::PointD>;
 
 // Class for merging scattered GTFS feeds into one World feed with static ids.
 // The usage scenario consists of steps:
@@ -303,6 +320,11 @@ private:
   // links to it |lineId|.
   bool UpdateStop(TransitId stopId, gtfs::StopTime const & stopTime, std::string const & stopHash,
                   TransitId lineId);
+
+  std::optional<TransitId> GetParentLineForSpline(TransitId lineId) const;
+  bool PrepareEdgesInRegion(std::string const & region);
+
+  TransitId GetSplineParent(TransitId lineId, std::string const & region) const;
 
   std::unordered_map<TransitId, std::vector<StopsOnLines>> GetStopsForShapeMatching();
 
@@ -356,6 +378,9 @@ private:
   EdgesTransfer m_edgesTransfers;
   Transfers m_transfers;
   Gates m_gates;
+
+  // Mapping of the edge to its ending points on the shape polyline.
+  std::unordered_map<EdgeId, std::vector<std::vector<m2::PointD>>, EdgeIdHasher> m_edgesOnShapes;
 
   // Ids of entities for json'izing, split by regions.
   TransitByRegion m_splitting;

@@ -4,6 +4,7 @@
 
 #include "transit/transit_entities.hpp"
 #include "transit/transit_graph_data.hpp"
+#include "transit/world_feed/feed_helpers.hpp"
 #include "transit/world_feed/world_feed.hpp"
 
 #include "geometry/mercator.hpp"
@@ -22,9 +23,7 @@
 
 namespace transit
 {
-// Pair of points representing corresponding edge endings.
-using EdgePoints = std::pair<m2::PointD, m2::PointD>;
-
+using LineIdToStops = std::unordered_map<TransitId, IdList>;
 // Converts public transport data from the MAPS.ME old transit.json format (which contains only
 // subway data) to the new line-by-line jsons used for handling data extracted from GTFS.
 class SubwayConverter
@@ -45,14 +44,29 @@ private:
   bool ConvertTransfers();
   bool ConvertGates();
   bool ConvertEdges();
+  // Tries to minimize the reversed lines count where it is possible by reversing line geometry.
+  void MinimizeReversedLinesCount();
+  // Returns line ids with corresponding shape links and route ids. There can be may lines inside
+  // the route with same shapeLink. We keep only one of them. These line ids are used in
+  // |PrepareLinesMetadata()|.
+  std::vector<LineSchemeData> GetLinesOnScheme(
+      std::unordered_map<TransitId, LineSegmentInRegion> const & linesInRegion) const;
+  // Finds common overlapping (parallel on the subway layer) segments on polylines. Motivation:
+  // we shouldn't draw parallel lines of different routes on top of each other so the user can’t
+  // tell which lines go where (the only visible line is the one that is drawn last). We need these
+  // lines to be drawn in parallel in corresponding routes colours.
+  void PrepareLinesMetadata();
+  // Calculates order for each of the parallel lines in the overlapping segment. In drape frontend
+  // we use this order as an offset for drawing line.
+  void CalculateLinePriorities(std::vector<LineSchemeData> const & linesOnScheme);
 
   // Methods for creating id & data pairs for |m_feed| based on the subway items.
   std::pair<TransitId, RouteData> MakeRoute(routing::transit::Line const & lineSubway);
   std::pair<TransitId, GateData> MakeGate(routing::transit::Gate const & gateSubway);
   std::pair<TransitId, TransferData> MakeTransfer(
       routing::transit::Transfer const & transferSubway);
-  std::pair<TransitId, LineData> MakeLine(routing::transit::Line const & lineSubway,
-                                          TransitId routeId);
+  static std::pair<TransitId, LineData> MakeLine(routing::transit::Line const & lineSubway,
+                                                 TransitId routeId);
   std::pair<EdgeId, EdgeData> MakeEdge(routing::transit::Edge const & edgeSubway);
   std::pair<EdgeTransferId, size_t> MakeEdgeTransfer(routing::transit::Edge const & edgeSubway);
   std::pair<TransitId, StopData> MakeStop(routing::transit::Stop const & stopSubway);
@@ -73,7 +87,5 @@ private:
   std::vector<routing::transit::Edge> m_edgesSubway;
   // Subset of the |m_graphData| edges with transfers.
   std::vector<routing::transit::Edge> m_edgesTransferSubway;
-  // Mapping of the edge to its ending points on the shape polyline.
-  std::unordered_map<EdgeId, EdgePoints, EdgeIdHasher> m_edgesOnShapes;
 };
 }  // namespace transit
