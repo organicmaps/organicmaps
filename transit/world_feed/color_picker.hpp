@@ -12,6 +12,7 @@ class ColorPicker
 {
 public:
   ColorPicker();
+  // Picks the closest match for the |rgb| color from our transit palette.
   std::string GetNearestColor(std::string const & rgb);
 
 private:

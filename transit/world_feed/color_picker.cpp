@@ -16,11 +16,25 @@ std::tuple<double, double, double> GetColors(dp::Color const & color)
   return {color.GetRedF(), color.GetGreenF(), color.GetBlueF()};
 }
 
-double GetSquareDistance(dp::Color const & color1, dp::Color const & color2)
+double GetDistance(dp::Color const & color1, dp::Color const & color2)
 {
   auto [r1, g1, b1] = GetColors(color1);
   auto [r2, g2, b2] = GetColors(color2);
-  return (r1 - r2) * (r1 - r2) + (g1 - g2) * (g1 - g2) + (b1 - b2) * (b1 - b2);
+
+  // We use the cmetric (Color metric) for calculating the distance between two colors.
+  // https://en.wikipedia.org/wiki/Color_difference
+  // It reflects human perception of closest match for a specific colour. The formula weights RGB
+  // values to better fit eye perception and performs well at proper determinations of colors
+  // contributions, brightness of these colors, and degree to which human vision has less tolerance
+  // for these colors.
+  double const redMean = (r1 + r2) / 2.0;
+
+  double const redDelta = r1 - r2;
+  double const greenDelta = g1 - g2;
+  double const blueDelta = b1 - b2;
+
+  return (2.0 + redMean / 256.0) * redDelta * redDelta + 4 * greenDelta * greenDelta +
+         (2.0 + (255.0 - redMean) / 256.0) * blueDelta * blueDelta;
 }
 }  // namespace
 
@@ -60,7 +74,7 @@ std::string ColorPicker::GetNearestColor(std::string const & rgb)
 
   for (auto const & [name, transitColor] : m_drapeClearColors)
   {
-    if (double const dist = GetSquareDistance(color, transitColor); dist < minDist)
+    if (double const dist = GetDistance(color, transitColor); dist < minDist)
     {
       minDist = dist;
       nearestColor = name;
