@@ -264,6 +264,8 @@ private:
                     m2::PointD const & pivot, dp::Color const & colorConst, float lineOffset,
                     float halfWidth, float depth, dp::Batcher & batcher);
 
+  StopNodeParamsPT & GetStopOrTransfer(MwmSchemeData & scheme, ::transit::TransitId id);
+
   using TransitSchemes = std::map<MwmSet::MwmId, MwmSchemeData>;
   TransitSchemes m_schemes;
 

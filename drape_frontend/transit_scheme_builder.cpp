@@ -63,6 +63,8 @@ std::string const kTransitStopInnerColor = "TransitStopInnerMarker";
 
 float constexpr kTransitMarkTextSize = 11.0f;
 
+m2::PointD constexpr kDefaultDirection{0.5, 0.5};
+
 struct TransitStaticVertex
 {
   using TPosition = glsl::vec3;
@@ -873,6 +875,16 @@ void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & 
   UpdateShapeInfos(shapeInfos, newDir, std::set<std::string>{color});
 }
 
+StopNodeParamsPT & TransitSchemeBuilder::GetStopOrTransfer(MwmSchemeData & scheme,
+                                                           ::transit::TransitId id)
+{
+  auto itStop = scheme.m_stopsPT.find(id);
+  if (itStop != scheme.m_stopsPT.end())
+    return itStop->second;
+
+  return scheme.m_transfersPT[id];
+}
+
 void TransitSchemeBuilder::PrepareSchemePT(TransitDisplayInfo const & transitDisplayInfo,
                                            LinesDataPT const & lineData, MwmSchemeData & scheme)
 {
@@ -893,13 +905,8 @@ void TransitSchemeBuilder::PrepareSchemePT(TransitDisplayInfo const & transitDis
       ::transit::TransitId stop1Id = lineData.m_stopIds[i];
       ::transit::TransitId stop2Id = lineData.m_stopIds[i + 1];
 
-      StopNodeParamsPT & params1 = (scheme.m_stopsPT.find(stop1Id) == scheme.m_stopsPT.end())
-                                       ? scheme.m_transfersPT[stop1Id]
-                                       : scheme.m_stopsPT[stop1Id];
-
-      StopNodeParamsPT & params2 = (scheme.m_stopsPT.find(stop2Id) == scheme.m_stopsPT.end())
-                                       ? scheme.m_transfersPT[stop2Id]
-                                       : scheme.m_stopsPT[stop2Id];
+      StopNodeParamsPT & params1 = GetStopOrTransfer(scheme, stop1Id);
+      StopNodeParamsPT & params2 = GetStopOrTransfer(scheme, stop2Id);
 
       m2::PointD dir1;
       m2::PointD dir2;
@@ -909,6 +916,9 @@ void TransitSchemeBuilder::PrepareSchemePT(TransitDisplayInfo const & transitDis
       if (it == transitDisplayInfo.m_edgesPT.end())
       {
         dir1 = (params2.m_pivot - params1.m_pivot).Normalize();
+        if (dir1.IsAlmostZero() && dir2.IsAlmostZero())
+          dir1 = kDefaultDirection;
+
         dir2 = -dir1;
       }
       else
