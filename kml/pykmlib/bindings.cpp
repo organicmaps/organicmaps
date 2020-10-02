@@ -35,6 +35,7 @@
 #include "pyhelpers/vector_list_conversion.hpp"
 
 #include <boost/python.hpp>
+#include <boost/python/args.hpp>
 #include <boost/python/dict.hpp>
 #include <boost/python/enum.hpp>
 #include <boost/python/exception_translator.hpp>
@@ -945,6 +946,7 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def_readwrite("bookmarks", &FileData::m_bookmarksData)
     .def_readwrite("tracks", &FileData::m_tracksData)
     .def_readwrite("compilations", &FileData::m_compilationsData)
+    .def("set_bookmarks_min_zoom", &FileData::SetBookmarksMinZoom)
     .def("__eq__", &FileData::operator==)
     .def("__ne__", &FileData::operator!=)
     .def("__str__", &FileDataToString);
