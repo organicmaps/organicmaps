@@ -78,6 +78,14 @@ void TestPlanFact(size_t planIndex, bool planInsert, std::pair<size_t, bool> con
   TEST_EQUAL(factRes.second, planInsert, ());
 }
 
+void TestStopsRange(IdList const & stopsOnLine, IdSet const & stopsInRegion, size_t firstIdxPlan,
+                    size_t lastIdxPlan)
+{
+  auto const & [firstIdxFact, lastIdxFact] = GetStopsRange(stopsOnLine, stopsInRegion);
+  TEST_EQUAL(firstIdxFact, firstIdxPlan, ());
+  TEST_EQUAL(lastIdxFact, lastIdxPlan, ());
+}
+
 UNIT_TEST(Transit_GTFS_OpenCloseInterval1)
 {
   auto const & intervals = GetOpenCloseIntervals(GetCalendarAvailability({1, 1, 1, 1, 1, 0, 0}));
@@ -477,5 +485,15 @@ UNIT_TEST(CalcSegmentOrder)
   TEST_EQUAL(CalcSegmentOrder(2 /* segIndex */, 5 /* totalSegCount */), 0, ());
   TEST_EQUAL(CalcSegmentOrder(3 /* segIndex */, 5 /* totalSegCount */), 2, ());
   TEST_EQUAL(CalcSegmentOrder(4 /* segIndex */, 5 /* totalSegCount */), 4, ());
+}
+
+UNIT_TEST(SplitLineToRegions)
+{
+  TestStopsRange({1, 2, 3, 4, 5} /* stopsOnLine */, {1, 2, 3, 4, 5} /* stopsInRegion */,
+                 0 /* firstIdxPlan */, 4 /* lastIdxPlan */);
+  TestStopsRange({1, 2, 3, 4, 5, 6, 7} /* stopsOnLine */, {1, 2, 3} /* stopsInRegion */,
+                 0 /* firstIdxPlan */, 3 /* lastIdxPlan */);
+  TestStopsRange({1, 2, 3, 4, 5, 6, 7} /* stopsOnLine */, {3, 4} /* stopsInRegion */,
+                 1 /* firstIdxPlan */, 4 /* lastIdxPlan */);
 }
 }  // namespace
