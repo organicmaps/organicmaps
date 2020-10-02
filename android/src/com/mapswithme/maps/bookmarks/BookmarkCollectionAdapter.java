@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,10 +12,16 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ TYPE_HEADER_ITEM, TYPE_COLLECTION_ITEM, TYPE_CATEGORY_ITEM })
+  public @interface SectionType {}
+
   private final static int TYPE_HEADER_ITEM = 0;
   private final static int TYPE_COLLECTION_ITEM = 1;
   private final static int TYPE_CATEGORY_ITEM = 2;
@@ -96,6 +103,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     return 0;
   }
 
+  @SectionType
   public int getItemsType(int sectionIndex)
   {
     if (sectionIndex == mCollectionSectionIndex)
@@ -106,7 +114,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   }
 
   @NonNull
-  private List<BookmarkCategory> getItemsListByType(int type)
+  private List<BookmarkCategory> getItemsListByType(@SectionType int type)
   {
     if (type == TYPE_COLLECTION_ITEM)
       return mItemsCollection;
@@ -115,7 +123,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   }
 
   @NonNull
-  public BookmarkCategory getGroupByPosition(SectionPosition sp, int type)
+  public BookmarkCategory getGroupByPosition(SectionPosition sp, @SectionType int type)
   {
     List<BookmarkCategory> categories = getItemsListByType(type);
 
@@ -147,7 +155,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   @NonNull
   @Override
-  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @SectionType int viewType)
   {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     RecyclerView.ViewHolder holder = null;
@@ -182,6 +190,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   }
 
   @Override
+  @SectionType
   public int getItemViewType(int position)
   {
     SectionPosition sectionPosition = getSectionPosition(position);
@@ -192,7 +201,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     throw new AssertionError("Position not found: " + position);
   }
 
-  private void bindCollectionHolder(RecyclerView.ViewHolder holder, SectionPosition position, int type)
+  private void bindCollectionHolder(RecyclerView.ViewHolder holder, SectionPosition position,
+                                    @SectionType int type)
   {
     final BookmarkCategory category = getGroupByPosition(position, type);
     Holders.CollectionViewHolder collectionViewHolder = (Holders.CollectionViewHolder) holder;
