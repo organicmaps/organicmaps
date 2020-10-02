@@ -72,7 +72,7 @@ public:
   WARN_UNUSED_RESULT bool GetIds(uint32_t featureId, MetaIds & metaIds) const;
 
   // Gets single metadata string from text storage. This method is threadsafe.
-  std::string GetMetaById(uint8_t id);
+  std::string GetMetaById(uint32_t id);
 
 private:
   using Map = MapUint32ToValue<MetaIds>;

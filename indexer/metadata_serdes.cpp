@@ -45,7 +45,7 @@ bool MetadataDeserializer::GetIds(uint32_t featureId, MetaIds & metaIds) const
   return m_map->GetThreadsafe(featureId, metaIds);
 }
 
-std::string MetadataDeserializer::GetMetaById(uint8_t id)
+std::string MetadataDeserializer::GetMetaById(uint32_t id)
 {
   lock_guard<mutex> guard(m_stringsMutex);
   return m_strings.ExtractString(*m_stringsSubreader, id);
