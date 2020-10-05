@@ -179,8 +179,7 @@ void Route::GetClosestTurn(size_t segIdx, TurnItem & turn) const
       return;
     }
   }
-  CHECK(false, ("The last turn should be CarDirection::ReachedYourDestination."));
-  return;
+  CHECK(false, ("The last turn should be ReachedYourDestination."));
 }
 
 void Route::GetCurrentTurn(double & distanceToTurnMeters, TurnItem & turn) const
@@ -194,7 +193,7 @@ void Route::GetCurrentTurn(double & distanceToTurnMeters, TurnItem & turn) const
 bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & nextTurn) const
 {
   TurnItem curTurn;
-  // Note. |m_poly.GetCurrentIter().m_ind| is a zero based index of last passed point at \m_poly|.
+  // Note. |m_poly.GetCurrentIter().m_ind| is a zero based index of last passed point at |m_poly|.
   size_t const curIdx = m_poly.GetCurrentIter().m_ind;
   // Note. First param of GetClosestTurn() is a segment index at |m_routeSegments|.
   // |curIdx| is an index of last passed point at |m_poly|.
