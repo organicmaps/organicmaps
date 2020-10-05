@@ -57,8 +57,9 @@
       android:paddingTop="@dimen/margin_half_plus"
       android:paddingBottom="@dimen/margin_half_plus"
       android:layout_marginEnd="@dimen/margin_base"
+      android:tint="?tintLonelyPlanetLogo"
       android:scaleType="fitCenter"
-      tools:src="@drawable/bg_ads" />
+      tools:src="@drawable/ic_lp_logo" />
     <TextView
       android:id="@+id/content_by"
       android:layout_width="match_parent"

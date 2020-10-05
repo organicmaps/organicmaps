@@ -178,6 +178,8 @@
   <color name="bg_brand_booking_pressed">#FF1B549E</color>
   <color name="bg_brand_opentable">#FFDA3743</color>
   <color name="bg_brand_opentable_pressed">#FFFC5965</color>
+  <color name="tint_brand_lonely_planet">#004990</color>
+  <color name="tint_brand_lonely_planet_night">#B3FFFFFF</color>
 
   <!-- Banner colors -->
   <color name="bg_banner_color">#F2F5D4</color>

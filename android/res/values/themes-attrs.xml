@@ -93,6 +93,7 @@
     <attr name="guidesDistance" format="reference" />
     <attr name="bgRectangleView" format="reference" />
     <attr name="bgRoundedCard" format="reference" />
+    <attr name="tintLonelyPlanetLogo" format="color" />
   </declare-styleable>
   <declare-styleable name="ThemeAttrs.NavButtons">
     <attr name="nav_background" format="reference" />

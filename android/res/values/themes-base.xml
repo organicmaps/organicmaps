@@ -202,6 +202,7 @@
     <item name="chipBackgroundColor">@color/white_secondary</item>
     <item name="chipIconTintColor">@color/extended_green</item>
     <item name="chipTextColor">@color/bg_primary</item>
+    <item name="tintLonelyPlanetLogo">@color/tint_brand_lonely_planet</item>
   </style>
 
   <!-- Night theme -->
@@ -403,5 +404,6 @@
     <item name="chipBackgroundColor">@android:color/black</item>
     <item name="chipIconTintColor">@color/white_lightest</item>
     <item name="chipTextColor">@color/white_secondary</item>
+    <item name="tintLonelyPlanetLogo">@color/tint_brand_lonely_planet_night</item>
   </style>
 </resources>
