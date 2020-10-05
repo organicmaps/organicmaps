@@ -38,9 +38,13 @@ class Settings
   /// meters before the turn (for the second voice notification).
   /// When m_startBeforeSeconds * TurnsSound::m_speedMetersPerSecond is too small or too large
   /// we use m_{min|max}StartBeforeMeters to clamp the value.
-  uint32_t m_startBeforeSeconds;
-  uint32_t m_minStartBeforeMeters;
-  uint32_t m_maxStartBeforeMeters;
+  uint32_t m_startBeforeSecondsVehicle;
+  uint32_t m_minStartBeforeMetersVehicle;
+  uint32_t m_maxStartBeforeMetersVehicle;
+
+  uint32_t m_startBeforeSecondsPedestrian = 0;
+  uint32_t m_minStartBeforeMetersPedestrian = 0;
+  uint32_t m_maxStartBeforeMetersPedestrian = 0;
 
   /// m_minDistToSayNotificationMeters is minimum distance between two turns
   /// when pronouncing the first notification about the second turn makes sense.
@@ -61,9 +65,9 @@ class Settings
     : m_timeSeconds(notificationTimeSeconds)
     , m_minDistanceUnits(minNotificationDistanceUnits)
     , m_maxDistanceUnits(maxNotificationDistanceUnits)
-    , m_startBeforeSeconds(startBeforeSeconds)
-    , m_minStartBeforeMeters(minStartBeforeMeters)
-    , m_maxStartBeforeMeters(maxStartBeforeMeters)
+    , m_startBeforeSecondsVehicle(startBeforeSeconds)
+    , m_minStartBeforeMetersVehicle(minStartBeforeMeters)
+    , m_maxStartBeforeMetersVehicle(maxStartBeforeMeters)
     , m_minDistToSayNotificationMeters(minDistToSayNotificationMeters)
     , m_soundedDistancesUnits(soundedDistancesUnits)
     , m_lengthUnits(lengthUnits)
@@ -72,14 +76,19 @@ class Settings
   }
 
 public:
-  Settings(uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
-           uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters)
+  Settings(uint32_t startBeforeSecondsVehicle, uint32_t minStartBeforeMetersVehicle,
+           uint32_t maxStartBeforeMetersVehicle, uint32_t minDistToSayNotificationMeters,
+           uint32_t startBeforeSecondsPedestrian, uint32_t minStartBeforeMetersPedestrian,
+           uint32_t maxStartBeforeMetersPedestrian)
     : m_timeSeconds(0)
     , m_minDistanceUnits(0)
     , m_maxDistanceUnits(0)
-    , m_startBeforeSeconds(startBeforeSeconds)
-    , m_minStartBeforeMeters(minStartBeforeMeters)
-    , m_maxStartBeforeMeters(maxStartBeforeMeters)
+    , m_startBeforeSecondsVehicle(startBeforeSecondsVehicle)
+    , m_minStartBeforeMetersVehicle(minStartBeforeMetersVehicle)
+    , m_maxStartBeforeMetersVehicle(maxStartBeforeMetersVehicle)
+    , m_startBeforeSecondsPedestrian(startBeforeSecondsPedestrian)
+    , m_minStartBeforeMetersPedestrian(minStartBeforeMetersPedestrian)
+    , m_maxStartBeforeMetersPedestrian(maxStartBeforeMetersPedestrian)
     , m_minDistToSayNotificationMeters(minDistToSayNotificationMeters)
     , m_lengthUnits(measurement_utils::Units::Metric)
   {
@@ -103,7 +112,7 @@ public:
 
   /// \brief computes the distance which will be passed at the |speedMetersPerSecond|
   /// while pronouncing turn sound notification.
-  uint32_t ComputeDistToPronounceDistM(double speedMetersPerSecond) const;
+  uint32_t ComputeDistToPronounceDistM(double speedMetersPerSecond, bool pedestrian = false) const;
 
   /// @return true if distToTurnMeters is too short to start pronouncing first turn notification.
   bool TooCloseForFisrtNotification(double distToTurnMeters) const;

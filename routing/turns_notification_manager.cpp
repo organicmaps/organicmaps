@@ -38,8 +38,10 @@ namespace sound
 NotificationManager::NotificationManager()
   : m_enabled(false)
   , m_speedMetersPerSecond(0.0)
-  , m_settings(8 /* m_startBeforeSeconds */, 35 /* m_minStartBeforeMeters */,
-               150 /* m_maxStartBeforeMeters */, 170 /* m_minDistToSayNotificationMeters */)
+  , m_settings(8 /* m_startBeforeSecondsVehicle */, 35 /* m_minStartBeforeMetersVehicle */,
+               150 /* m_maxStartBeforeMetersVehicle */, 170, /* m_minDistToSayNotificationMeters */
+               8 /* m_startBeforeSecondsPedestrian */, 15 /* m_minStartBeforeMetersPedestrian */,
+               25 /* m_maxStartBeforeMetersPedestrian */)
   , m_nextTurnNotificationProgress(PronouncedNotification::Nothing)
   , m_turnNotificationWithThen(false)
   , m_nextTurnIndex(0)
@@ -56,7 +58,9 @@ NotificationManager NotificationManager::CreateNotificationManagerForTesting(
 {
   NotificationManager notificationManager;
   notificationManager.m_settings = Settings(startBeforeSeconds, minStartBeforeMeters,
-                                            maxStartBeforeMeters, minDistToSayNotificationMeters);
+                                            maxStartBeforeMeters, minDistToSayNotificationMeters,
+                                            startBeforeSeconds, minStartBeforeMeters,
+                                            maxStartBeforeMeters);
   notificationManager.Enable(true);
   notificationManager.SetLengthUnits(lengthUnits);
   notificationManager.m_getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
@@ -136,8 +140,11 @@ string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn,
     m_nextTurnIndex = turn.m_index;
   }
 
+  bool const pedestrian = turn.m_pedestrianTurn != PedestrianDirection::None;
+
   uint32_t const distanceToPronounceNotificationM =
-      m_settings.ComputeDistToPronounceDistM(m_speedMetersPerSecond);
+      m_settings.ComputeDistToPronounceDistM(m_speedMetersPerSecond, pedestrian);
+
   if (m_nextTurnNotificationProgress == PronouncedNotification::Nothing)
   {
     if (!m_settings.TooCloseForFisrtNotification(distanceToTurnMeters))
