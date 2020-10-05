@@ -1448,8 +1448,9 @@ void BookmarkManager::AddNestedGroupDummy()
     data.m_icon = kml::BookmarkIcon::Museum;
     data.m_viewportScale = 0;
     data.m_timestamp = {};
-    data.m_point = {55.746438, 37.606609};
+    data.m_point = {37.606609, 55.746438};
     data.m_visible = true;
+    data.m_color = {kml::PredefinedColor::Green, 0x0000ff00};
 
     for (auto const groupId : {parentId, kDummyChildCollection, kDummyChildCategory})
     {
@@ -1468,8 +1469,9 @@ void BookmarkManager::AddNestedGroupDummy()
     data.m_icon = kml::BookmarkIcon::Museum;
     data.m_viewportScale = 0;
     data.m_timestamp = {};
-    data.m_point = {55.757780, 37.629519};
+    data.m_point = {37.629519, 55.757780};
     data.m_visible = true;
+    data.m_color = {kml::PredefinedColor::Green, 0x0000ff00};
 
     for (auto const groupId : {parentId, kDummyChildCategory})
     {
