@@ -464,8 +464,6 @@ struct FileData
 
   bool operator!=(FileData const & data) const { return !operator==(data); }
 
-  void SetBookmarksMinZoom(double countPerTile, int maxZoom);
-
   // Device id (it will not be serialized in text files).
   std::string m_deviceId;
   // Server id.
@@ -479,6 +477,8 @@ struct FileData
   // Compilation collection.
   std::vector<CategoryData> m_compilationsData;
 };
+
+void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom);
   
 inline std::string DebugPrint(BookmarkIcon icon)
 {

@@ -8,7 +8,7 @@
 
 namespace kml
 {
-void FileData::SetBookmarksMinZoom(double countPerTile, int maxZoom)
+void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom)
 {
   using ValueType = std::pair<BookmarkData *, int /* score */>;
   auto const scoreLess = [](ValueType const & lhs, ValueType const & rhs) -> bool
@@ -16,7 +16,7 @@ void FileData::SetBookmarksMinZoom(double countPerTile, int maxZoom)
     return lhs.second < rhs.second;
   };
   MinZoomQuadtree<ValueType, decltype(scoreLess)> minZoomQuadtree{scoreLess};
-  for (auto & bm : m_bookmarksData)
+  for (auto & bm : fileData.m_bookmarksData)
   {
     auto const & properties = bm.m_properties;
     int score = 0;

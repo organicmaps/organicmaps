@@ -109,7 +109,8 @@ class PyKmlibAdsTest(unittest.TestCase):
         file_data.bookmarks.append(bookmark)
         file_data.tracks.append(track)
         file_data.compilations = compilations
-        file_data.set_bookmarks_min_zoom(1.0, 19)
+
+        pykmlib.set_bookmarks_min_zoom(file_data, 1.0, 19)
 
         s = pykmlib.export_kml(file_data)
         imported_file_data = pykmlib.import_kml(s)

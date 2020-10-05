@@ -946,10 +946,11 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def_readwrite("bookmarks", &FileData::m_bookmarksData)
     .def_readwrite("tracks", &FileData::m_tracksData)
     .def_readwrite("compilations", &FileData::m_compilationsData)
-    .def("set_bookmarks_min_zoom", &FileData::SetBookmarksMinZoom)
     .def("__eq__", &FileData::operator==)
     .def("__ne__", &FileData::operator!=)
     .def("__str__", &FileDataToString);
+
+  def("set_bookmarks_min_zoom", &SetBookmarksMinZoom);
 
   def("get_supported_languages", GetSupportedLanguages);
   def("get_language_index", GetLanguageIndex);
