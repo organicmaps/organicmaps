@@ -272,6 +272,14 @@ kml::MarkGroupId Bookmark::GetGroupId() const
   return m_groupId;
 }
 
+bool Bookmark::CanFillPlacePageMetadata() const
+{
+  auto const & p = m_data.m_properties;
+  if (auto const hours = p.find("hours"); hours != p.end() && !hours->second.empty())
+    return true;
+  return false;
+}
+
 void Bookmark::Attach(kml::MarkGroupId groupId)
 {
   ASSERT(m_groupId == kml::kInvalidMarkGroupId, ());

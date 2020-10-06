@@ -1,19 +1,20 @@
 #pragma once
 
 #include "map/bookmark.hpp"
-
-#include "partners_api/taxi_provider.hpp"
+#include "map/routing_mark.hpp"
 
 #include "ugc/api.hpp"
 
-#include "map/routing_mark.hpp"
-
-#include "drape_frontend/frontend_renderer.hpp"
-#include "drape_frontend/selection_shape.hpp"
+#include "partners_api/taxi_provider.hpp"
 
 #include "storage/storage_defines.hpp"
 
 #include "editor/osm_editor.hpp"
+
+#include "drape_frontend/frontend_renderer.hpp"
+#include "drape_frontend/selection_shape.hpp"
+
+#include "kml/types.hpp"
 
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_meta.hpp"
@@ -191,6 +192,7 @@ public:
 
   /// UI setters
   void SetCustomName(std::string const & name);
+  void SetTitlesForBookmark();
   void SetCustomNames(std::string const & title, std::string const & subtitle);
   void SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string const & name);
   void SetAddress(std::string const & address) { m_address = address; }
@@ -198,6 +200,7 @@ public:
   void SetLocalizedWifiString(std::string const & str) { m_localizedWifiString = str; }
 
   /// Bookmark
+  void SetFromBookmarkProperties(kml::Properties const & p);
   void SetBookmarkId(kml::MarkId bookmarkId);
   kml::MarkId GetBookmarkId() const { return m_bookmarkId; }
   void SetBookmarkCategoryId(kml::MarkGroupId markGroupId) { m_markGroupId = markGroupId; }
@@ -206,6 +209,7 @@ public:
   void SetBookmarkCategoryName(std::string const & name) { m_bookmarkCategoryName = name; }
   void SetBookmarkData(kml::BookmarkData const & data) { m_bookmarkData = data; }
   kml::BookmarkData const & GetBookmarkData() const { return m_bookmarkData; }
+  bool IsTopChoise() const { return m_isTopChoise; }
 
   /// Track
   void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; };
@@ -325,7 +329,6 @@ private:
   std::string GetBookmarkName();
   /// @returns empty string or GetStars() count of ★ symbol.
   std::string FormatStars() const;
-  void SetTitlesForBookmark();
 
   place_page::BuildInfo m_buildInfo;
 
@@ -359,6 +362,8 @@ private:
   kml::BookmarkData m_bookmarkData;
   /// If not invalid, track is bound to this place page.
   kml::TrackId m_trackId = kml::kInvalidTrackId;
+  /// Whether to show "Must See".
+  bool m_isTopChoise = false;
 
   /// Guide
   bool m_isGuide = false;

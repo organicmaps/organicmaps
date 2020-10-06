@@ -796,7 +796,7 @@ kml::MarkGroupId Framework::AddCategory(string const & categoryName)
 void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const
 {
   auto types = feature::TypesHolder::FromTypesIndexes(bmk.GetData().m_featureTypes);
-  FillPointInfo(info, bmk.GetPivot(), {}, [&types](FeatureType & ft)
+  FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft)
   {
     return !types.Empty() && feature::TypesHolder(ft).Equals(types);
   });
@@ -813,7 +813,17 @@ void Framework::FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) 
                      ? place_page::OpeningMode::Preview
                      : place_page::OpeningMode::PreviewPlus;
   info.SetOpeningMode(openingMode);
-  FillPointInfoForBookmark(bmk, info);
+  if (bmk.CanFillPlacePageMetadata())
+  {
+    info.SetMercator(bmk.GetPivot());
+    info.SetTitlesForBookmark();
+    info.SetCanEditOrAdd(false);
+    info.SetFromBookmarkProperties(bmk.GetData().m_properties);
+  }
+  else
+  {
+    FillPointInfoForBookmark(bmk, info);
+  }
 }
 
 void Framework::FillTrackInfo(Track const & track, m2::PointD const & trackPoint,

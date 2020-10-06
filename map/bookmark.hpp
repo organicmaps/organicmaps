@@ -57,6 +57,9 @@ public:
 
   kml::MarkGroupId GetGroupId() const override;
 
+  // Whether m_data.m_properties suitable to fill "Key info" part of placepage.
+  bool CanFillPlacePageMetadata() const;
+
   void Attach(kml::MarkGroupId groupId);
   void Detach();
 
