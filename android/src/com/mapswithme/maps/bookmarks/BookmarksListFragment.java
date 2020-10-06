@@ -173,7 +173,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     configureFab(view);
 
     mDescriptionView = view.findViewById(R.id.guide_info);
-    configureGuidesInfoLayout(view);
+    configureGuidesInfoLayout();
 
     setHasOptionsMenu(true);
 
@@ -231,12 +231,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
   }
 
-  private void configureGuidesInfoLayout(@NonNull View view)
+  private void configureGuidesInfoLayout()
   {
     BookmarkCategory category = mCategoryDataSource.getData();
     if (!category.isMyCategory())
     {
-      ImageView imageView = view.findViewById(R.id.guide_image);
+      ImageView imageView = mDescriptionView.findViewById(R.id.guide_image);
       String imageUrl = category.getImageUrl();
       if (TextUtils.isEmpty(imageUrl))
       {
@@ -244,22 +244,22 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       }
       else
       {
-        Glide.with(view.getContext())
+        Glide.with(mDescriptionView.getContext())
              .load(imageUrl)
              .centerCrop()
              .into(imageView);
       }
-      TextView title = view.findViewById(R.id.guide_title);
+      TextView title = mDescriptionView.findViewById(R.id.guide_title);
       title.setText(category.getName());
 
-      TextView descriptionBtn = view.findViewById(R.id.btn_description);
+      TextView descriptionBtn = mDescriptionView.findViewById(R.id.btn_description);
       boolean isHideDescriptionBtn = TextUtils.isEmpty(category.getDescription())
                                      || TextUtils.isEmpty(category.getAnnotation());
       UiUtils.hideIf(isHideDescriptionBtn, descriptionBtn);
 
       BookmarkCategory.Author author = category.getAuthor();
-      ImageView imageViewLogo = view.findViewById(R.id.logo);
-      TextView authorTextView = view.findViewById(R.id.content_by);
+      ImageView imageViewLogo = mDescriptionView.findViewById(R.id.logo);
+      TextView authorTextView = mDescriptionView.findViewById(R.id.content_by);
 
       if (author != null)
       {
@@ -275,7 +275,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     }
     else
     {
-      UiUtils.hide(view.findViewById(R.id.guide_info));
+      UiUtils.hide(mDescriptionView);
     }
   }
 
@@ -347,8 +347,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     boolean isEmptyRecycler = isEmpty() || isEmptySearchResults();
 
     showPlaceholder(isEmptyRecycler);
-    UiUtils.showIf(!isEmptyRecycler, getRecyclerView(), mFabViewOnMap);
+    UiUtils.showIf(!isEmptyRecycler, getRecyclerView(), mFabViewOnMap, mDescriptionView);
     UiUtils.hideIf(getAdapter().isSearchResults(), mCollectionRecyclerView, mDescriptionView);
+
+    if (getCategoryOrThrow().isMyCategory())
+    {
+      UiUtils.hide(mDescriptionView);
+    }
+
     requireActivity().invalidateOptionsMenu();
   }
 
