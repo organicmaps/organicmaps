@@ -44,6 +44,8 @@ struct BookmarkDataV8
            m_compilations == data.m_compilations;
   }
 
+  bool operator!=(BookmarkDataV8 const & data) const { return !operator==(data); }
+
   BookmarkData ConvertToLatestVersion()
   {
     BookmarkData data;
@@ -64,8 +66,6 @@ struct BookmarkDataV8
     data.m_compilations = m_compilations;
     return data;
   }
-
-  bool operator!=(BookmarkDataV8 const & data) const { return !operator==(data); }
 
   // Unique id (it will not be serialized in text files).
   MarkId m_id = kInvalidMarkId;

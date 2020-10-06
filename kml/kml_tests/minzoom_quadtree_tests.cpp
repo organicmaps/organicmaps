@@ -13,7 +13,7 @@
 
 namespace
 {
-constexpr double kEps = std::numeric_limits<double>::epsilon();
+double constexpr kEps = std::numeric_limits<double>::epsilon();
 
 m2::PointD MakeGlobalPoint(double x, double y)
 {
@@ -48,7 +48,7 @@ UNIT_TEST(Kml_MinzoomQuadtree_PopulationGrowthRate)
       ++populationCount[zoom];
     };
     minZoomQuadtree.SetMinZoom(kCountPerTile, scales::GetUpperStyleScale(), incZoomPopulation);
-    TEST_EQUAL(populationCount.size(), kMaxDepth + 1, ());
+    TEST_EQUAL(populationCount.size(), kMaxDepth + 1, (populationCount));
 
     auto p = populationCount.cbegin();
     ASSERT(p != populationCount.cend(), ());
@@ -58,32 +58,32 @@ UNIT_TEST(Kml_MinzoomQuadtree_PopulationGrowthRate)
       partialSums.push_back(partialSums.back() + p->second);
     TEST_EQUAL(partialSums.front(), 1, ());
     TEST_EQUAL(partialSums.back(), (1 << (kMaxDepth * 2)), ());
-    auto const isGrowthExponential = [](size_t lhs, size_t rhs) { return rhs == 4 * lhs; };
-    TEST(std::is_sorted(partialSums.cbegin(), partialSums.cend(), isGrowthExponential),
-         (partialSums));
+    auto const isGrowthExponential = [](size_t lhs, size_t rhs) { return rhs != 4 * lhs; };
+    TEST(std::adjacent_find(partialSums.cbegin(), partialSums.cend(), isGrowthExponential) ==
+         partialSums.cend(), (partialSums));
   }
 
-  std::mt19937 gen(0);
+  std::mt19937 g(0);
 
-  auto const generate_canonical = [&gen]
+  auto const gen = [&g]
   {
-    return std::generate_canonical<double, std::numeric_limits<uint32_t>::digits>(gen);
+    return std::generate_canonical<double, std::numeric_limits<uint32_t>::digits>(g);
   };
 
   for (int i = 0; i < 5; ++i)
   {
     kml::MinZoomQuadtree<double /* rank */, std::less<double>> minZoomQuadtree{{} /* less */};
 
-    size_t const kTotalCount = 1 + gen() % 10000;
+    size_t const kTotalCount = 1 + g() % 10000;
     for (size_t i = 0; i < kTotalCount; ++i)
     {
-      auto const x = generate_canonical();
-      auto const y = generate_canonical();
-      auto const rank = generate_canonical();
+      auto const x = gen();
+      auto const y = gen();
+      auto const rank = gen();
       minZoomQuadtree.Add(MakeGlobalPoint(x, y), rank);
     }
 
-    double const kCountPerTile = 1.0 + kTotalCount * generate_canonical() / 2.0;
+    double const kCountPerTile = 1.0 + kTotalCount * gen() / 2.0;
     std::map<int /* zoom */, size_t> populationCount;
     auto const incZoomPopulation = [&](double & /* rank */, int zoom) { ++populationCount[zoom]; };
     minZoomQuadtree.SetMinZoom(kCountPerTile, scales::GetUpperStyleScale(), incZoomPopulation);
@@ -150,7 +150,7 @@ UNIT_TEST(Kml_MinzoomQuadtree_MaxZoom)
   };
   int const kMaxZoom = 4;
   minZoomQuadtree.SetMinZoom(kCountPerTile, kMaxZoom, incZoomPopulation);
-  TEST_EQUAL(populationCount.size(), kMaxZoom, ());
+  TEST_EQUAL(populationCount.size(), kMaxZoom, (populationCount));
 
   auto p = populationCount.cbegin();
   ASSERT(p != populationCount.cend(), ());
@@ -160,8 +160,8 @@ UNIT_TEST(Kml_MinzoomQuadtree_MaxZoom)
     partialSums.push_back(partialSums.back() + p->second);
   TEST_EQUAL(partialSums.front(), 1, ());
   TEST_EQUAL(partialSums.back(), (1 << (kMaxDepth * 2)), ());
-  auto const isGrowthExponential = [](size_t lhs, size_t rhs) { return rhs == 4 * lhs; };
-  TEST(std::is_sorted(partialSums.cbegin(), std::prev(partialSums.cend()), isGrowthExponential),
-       (partialSums));
+  auto const isGrowthExponential = [](size_t lhs, size_t rhs) { return rhs != 4 * lhs; };
+  TEST(std::adjacent_find(partialSums.cbegin(), std::prev(partialSums.cend()), isGrowthExponential) ==
+       std::prev(partialSums.cend()), (partialSums));
   TEST_LESS_OR_EQUAL(4 * *std::prev(partialSums.cend(), 2), partialSums.back(), ());
 }
