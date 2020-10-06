@@ -29,8 +29,10 @@ public class CategoryDataSource extends RecyclerView.AdapterDataObserver impleme
     super.onChanged();
     AbstractCategoriesSnapshot.Default snapshot =
         BookmarkManager.INSTANCE.getCategoriesSnapshot(mCategory.getType().getFilterStrategy());
-
-    int index = snapshot.indexOfOrThrow(mCategory);
-    mCategory = snapshot.getItems().get(index);
+    int index = snapshot.indexOfOrInvalidIndex(mCategory);
+    if (index >= 0)
+    {
+      mCategory = snapshot.getItems().get(index);
+    }
   }
 }

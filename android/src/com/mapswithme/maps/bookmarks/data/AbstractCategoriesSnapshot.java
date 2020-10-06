@@ -45,6 +45,11 @@ public abstract class AbstractCategoriesSnapshot
       return indexOfThrowInternal(getItems(), category);
     }
 
+    public int indexOfOrInvalidIndex(@NonNull BookmarkCategory category)
+    {
+      return getItems().indexOf(category);
+    }
+
     private static int indexOfThrowInternal(@NonNull List<BookmarkCategory> categories,
                                             @NonNull BookmarkCategory category)
     {

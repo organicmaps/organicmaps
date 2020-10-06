@@ -177,6 +177,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     collectionViewHolder.setName(category.getName());
     bindSize(collectionViewHolder, category);
     collectionViewHolder.setVisibilityState(category.isVisible());
+    collectionViewHolder.setOnClickListener(mClickListener);
 
     // TODO (@velichkomarija): ToggleVisibilityClickListener for visibility.
   }

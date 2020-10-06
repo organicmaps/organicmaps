@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -120,6 +121,8 @@ public class Holders
   static class CollectionViewHolder extends RecyclerView.ViewHolder
   {
     @NonNull
+    private final View mView;
+    @NonNull
     private final TextView mName;
     @NonNull
     private final CheckBox mVisibilityMarker;
@@ -131,9 +134,18 @@ public class Holders
     CollectionViewHolder(@NonNull View root)
     {
       super(root);
+      mView = root;
       mName = root.findViewById(R.id.name);
       mVisibilityMarker = root.findViewById(R.id.checkbox);
       mSize = root.findViewById(R.id.size);
+    }
+
+    void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
+    {
+      mView.setOnClickListener(v -> {
+        if (listener != null)
+          listener.onItemClick(v,mEntity);
+      });
     }
 
     void setVisibilityState(boolean visible)
