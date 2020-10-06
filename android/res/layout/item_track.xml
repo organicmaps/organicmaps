@@ -25,7 +25,7 @@
       android:layout_marginTop="@dimen/margin_base"
       android:layout_marginEnd="@dimen/bookmark_collection_item_end_margin"
       android:singleLine="true"
-      android:textAppearance="?textAppearanceBody1"
+      android:textAppearance="?fontBody1"
       tools:text="@string/tracks_title" />
     <TextView
       android:id="@+id/tv__bookmark_distance"
@@ -34,7 +34,8 @@
       android:layout_marginEnd="@dimen/bookmark_collection_item_end_margin"
       android:layout_marginBottom="@dimen/margin_half_plus"
       android:singleLine="true"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textColor="?android:textColorSecondary"
+      android:textAppearance="?fontBody2"
       tools:text="@string/by_distance" />
   </LinearLayout>
 </RelativeLayout>

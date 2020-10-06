@@ -155,11 +155,13 @@ void PrepareClassRefs(JNIEnv * env)
 //                          int bookmarksCount,
 //                          boolean fromCatalog,
 //                          boolean isMyCategory,
-//                          boolean isVisible)
+//                          boolean isVisible,
+//                          String mImageUrl)
   g_bookmarkCategoryConstructor =
       jni::GetConstructorID(env, g_bookmarkCategoryClass,
                             "(JLjava/lang/String;Ljava/lang/String;"
-                            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZILjava/lang/String;Ljava/lang/String;)V");
+                            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
+                            "IIZZZILjava/lang/String;Ljava/lang/String;)V");
 
   g_catalogTagClass =
     jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/CatalogTag");

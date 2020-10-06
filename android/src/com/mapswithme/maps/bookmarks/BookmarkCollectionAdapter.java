@@ -27,15 +27,14 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private final static int TYPE_CATEGORY_ITEM = 2;
 
   @NonNull
-  private List<BookmarkCategory> mItemsCollection;
+  private final List<BookmarkCategory> mItemsCollection;
   @NonNull
-  private List<BookmarkCategory> mItemsCategory;
-  @NonNull
+  private final List<BookmarkCategory> mItemsCategory;
+
   private int mSectionCount;
-  @NonNull
   private int mCollectionSectionIndex = SectionPosition.INVALID_POSITION;
-  @NonNull
   private int mCategorySectionIndex = SectionPosition.INVALID_POSITION;
+
   @Nullable
   private OnItemClickListener<BookmarkCategory> mClickListener;
 

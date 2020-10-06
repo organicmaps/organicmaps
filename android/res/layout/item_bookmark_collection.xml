@@ -36,7 +36,8 @@
       android:layout_marginBottom="@dimen/margin_half_plus"
       android:ellipsize="end"
       android:singleLine="true"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textColor="?android:textColorSecondary"
+      android:textAppearance="?fontBody2"
       tools:text="42000000" />
   </LinearLayout>
 </LinearLayout>
