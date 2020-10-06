@@ -2,6 +2,7 @@ protocol IBookmarksListRouter {
   func listSettings(_ bookmarkGroup: BookmarkGroup, delegate: CategorySettingsViewControllerDelegate?)
   func sharingOptions(_ bookmarkGroup: BookmarkGroup)
   func viewOnMap(_ bookmarkGroup: BookmarkGroup)
+  func showDescription(_ bookmarkGroup: BookmarkGroup)
 }
 
 final class BookmarksListRouter {
@@ -30,5 +31,10 @@ extension BookmarksListRouter: IBookmarksListRouter {
 
   func viewOnMap(_ bookmarkGroup: BookmarkGroup) {
     coordinator?.hide(categoryId: bookmarkGroup.categoryId)
+  }
+
+  func showDescription(_ bookmarkGroup: BookmarkGroup) {
+    let descriptionViewController = GuideDescriptionViewController(category: bookmarkGroup)
+    mapViewController.navigationController?.pushViewController(descriptionViewController, animated: true)
   }
 }

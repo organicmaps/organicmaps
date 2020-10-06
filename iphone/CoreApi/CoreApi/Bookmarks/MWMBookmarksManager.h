@@ -50,8 +50,9 @@ NS_SWIFT_NAME(BookmarksManager)
 - (NSString *)getCategoryAnnotation:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryAuthorName:(MWMMarkGroupID)groupId;
-- (NSURL *)getCategoryPhotoUrl:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryAuthorId:(MWMMarkGroupID)groupId;
+- (nullable NSURL *)getCategoryImageUrl:(MWMMarkGroupID)groupId;
+- (BOOL)hasExtraInfo:(MWMMarkGroupID)groupId;
 
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name;
 - (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name;

@@ -312,6 +312,8 @@
 		470B3630244E2DB400C0EA9E /* GuidesGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470B362F244E2DB400C0EA9E /* GuidesGalleryViewController.swift */; };
 		470B3632244E2DE200C0EA9E /* GuidesGalleryCityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470B3631244E2DE200C0EA9E /* GuidesGalleryCityCell.swift */; };
 		470B3634244E2DF900C0EA9E /* GuidesGalleryOutdoorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470B3633244E2DF900C0EA9E /* GuidesGalleryOutdoorCell.swift */; };
+		470E1674252AD7F2002D201A /* BookmarksListInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470E1672252AD7F2002D201A /* BookmarksListInfoViewController.swift */; };
+		470E1675252AD7F2002D201A /* BookmarksListInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 470E1673252AD7F2002D201A /* BookmarksListInfoViewController.xib */; };
 		470F0B7D238842EA006AEC94 /* ExpandableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F0B7C238842EA006AEC94 /* ExpandableLabel.swift */; };
 		470F0B7F2388431E006AEC94 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F0B7E2388431E006AEC94 /* StarRatingView.swift */; };
 		470F5A5B2181DE7500754295 /* PaidRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5A592181DE7400754295 /* PaidRouteViewController.swift */; };
@@ -1456,6 +1458,8 @@
 		470B362F244E2DB400C0EA9E /* GuidesGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryViewController.swift; sourceTree = "<group>"; };
 		470B3631244E2DE200C0EA9E /* GuidesGalleryCityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryCityCell.swift; sourceTree = "<group>"; };
 		470B3633244E2DF900C0EA9E /* GuidesGalleryOutdoorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryOutdoorCell.swift; sourceTree = "<group>"; };
+		470E1672252AD7F2002D201A /* BookmarksListInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListInfoViewController.swift; sourceTree = "<group>"; };
+		470E1673252AD7F2002D201A /* BookmarksListInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksListInfoViewController.xib; sourceTree = "<group>"; };
 		470F0B7C238842EA006AEC94 /* ExpandableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableLabel.swift; sourceTree = "<group>"; };
 		470F0B7E2388431E006AEC94 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		470F5A592181DE7400754295 /* PaidRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRouteViewController.swift; sourceTree = "<group>"; };
@@ -3605,6 +3609,8 @@
 				47CA68D52500448D00671019 /* BookmarksListInteractor.swift */,
 				47CA68D7250044C500671019 /* BookmarksListRouter.swift */,
 				47CA68D92500469400671019 /* BookmarksListBuilder.swift */,
+				470E1672252AD7F2002D201A /* BookmarksListInfoViewController.swift */,
+				470E1673252AD7F2002D201A /* BookmarksListInfoViewController.xib */,
 			);
 			path = BookmarksList;
 			sourceTree = "<group>";
@@ -5299,6 +5305,7 @@
 				F6E2FE1C1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.xib in Resources */,
 				F6BD1D241CA412E40047B8E8 /* MWMOsmAuthAlert.xib in Resources */,
 				F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */,
+				470E1675252AD7F2002D201A /* BookmarksListInfoViewController.xib in Resources */,
 				F6E407D41FC4722F001F7821 /* MWMDiscoveryController.xib in Resources */,
 				F6E2FE7F1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				34AB66711FC5AA330078E451 /* TransportTransitTrain.xib in Resources */,
@@ -5691,6 +5698,7 @@
 				346DB8281E5C4F6700E3123E /* GalleryCell.swift in Sources */,
 				993DF12223F6BDB100AC231A /* UINavigationItemRenderer.swift in Sources */,
 				993DF12B23F6BDB100AC231A /* StyleManager.swift in Sources */,
+				470E1674252AD7F2002D201A /* BookmarksListInfoViewController.swift in Sources */,
 				47B9065521C7FA400079C85E /* NSString+MD5.m in Sources */,
 				CDB4D5022231412900104869 /* SettingsTemplateBuilder.swift in Sources */,
 				F6EBB26F1FD7E33300B69B6A /* DiscoveryNoResultsCell.swift in Sources */,

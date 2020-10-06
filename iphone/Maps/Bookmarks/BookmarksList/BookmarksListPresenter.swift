@@ -8,6 +8,7 @@ protocol IBookmarksListPresenter {
   func more()
   func deleteBookmark(in section: IBookmarksListSectionViewModel, at index: Int)
   func viewOnMap(in section: IBookmarksListSectionViewModel, at index: Int)
+  func showDescription()
 }
 
 protocol BookmarksListDelegate: AnyObject {
@@ -190,6 +191,13 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     view.setTitle(bookmarkGroup.title)
     view.setMoreItemTitle(bookmarkGroup.isEditable ? L("placepage_more_button") : L("view_on_map_bookmarks"))
     view.enableEditing(bookmarkGroup.isEditable)
+
+    let info = BookmarksListInfo(title: bookmarkGroup.title,
+                                 author: bookmarkGroup.author,
+                                 hasDescription: bookmarkGroup.hasDescription,
+                                 imageUrl: bookmarkGroup.imageUrl,
+                                 hasLogo: bookmarkGroup.isLonelyPlanet)
+    view.setInfo(info)
   }
 
   func activateSearch() {
@@ -259,6 +267,10 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     default:
       fatalError("Wrong section type: \(section.self)")
     }
+  }
+
+  func showDescription() {
+    router.showDescription(bookmarkGroup)
   }
 }
 
@@ -345,5 +357,21 @@ fileprivate struct BookmarksListMenuItem: IBookmarksListMenuItem {
     self.destructive = destructive
     self.enabled = enabled
     self.action = action
+  }
+}
+
+fileprivate struct BookmarksListInfo: IBookmakrsListInfoViewModel {
+  let title: String
+  let author: String
+  let hasDescription: Bool
+  let imageUrl: URL?
+  let hasLogo: Bool
+
+  init(title: String, author: String, hasDescription:Bool, imageUrl: URL? = nil, hasLogo: Bool = false) {
+    self.title = title
+    self.author = author
+    self.hasDescription = hasDescription
+    self.imageUrl = imageUrl
+    self.hasLogo = hasLogo
   }
 }

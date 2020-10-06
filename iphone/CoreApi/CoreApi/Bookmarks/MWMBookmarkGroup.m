@@ -24,17 +24,8 @@
   return [self.manager getCategoryName:self.categoryId];
 }
 
-- (NSURL *)photoUrl {
-  return [self.manager getCategoryPhotoUrl:self.categoryId];
-}
-
 - (NSString *)author {
   return [self.manager getCategoryAuthorName:self.categoryId];
-}
-
-- (NSString *)authorIconPath {
-  // TODO: (boriskov) fixme
-  return nil;
 }
 
 - (NSString *)annotation {
@@ -47,6 +38,10 @@
 
 - (NSString *)serverId {
   return [self.manager getServerId:self.categoryId];
+}
+
+- (NSString *)imageUrl {
+  return [self.manager getCategoryImageUrl:self.categoryId];
 }
 
 - (NSInteger)bookmarksCount {
@@ -71,6 +66,14 @@
 
 - (BOOL)isGuide {
   return [self.manager isGuide:self.categoryId];
+}
+
+- (BOOL)isLonelyPlanet {
+  return [[self.manager getCategoryAuthorId:self.categoryId] isEqualToString: @"28035594-6457-466d-8f6f-8499607df570"];
+}
+
+- (BOOL)hasDescription {
+  return [self.manager hasExtraInfo:self.categoryId];
 }
 
 - (MWMBookmarkGroupAccessStatus)accessStatus {

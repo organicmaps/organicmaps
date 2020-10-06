@@ -379,12 +379,12 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 }
 
 - (NSString *)getCategoryAnnotation:(MWMMarkGroupID)groupId {
-  return @(kml::GetDefaultStr(self.bm.GetCategoryData(groupId).m_annotation).c_str());
+  return @(GetPreferredBookmarkStr(self.bm.GetCategoryData(groupId).m_annotation).c_str());
 }
 
 - (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId
 {
-  return @(kml::GetDefaultStr(self.bm.GetCategoryData(groupId).m_description).c_str());
+  return @(GetPreferredBookmarkStr(self.bm.GetCategoryData(groupId).m_description).c_str());
 }
 
 - (NSString *)getCategoryAuthorName:(MWMMarkGroupID)groupId
@@ -392,13 +392,19 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   return @(self.bm.GetCategoryData(groupId).m_authorName.c_str());
 }
 
-- (NSURL *)getCategoryPhotoUrl:(MWMMarkGroupID)groupId {
-  return [[NSURL alloc] initWithString:@(self.bm.GetCategoryData(groupId).m_imageUrl.c_str())];
-}
-
 - (NSString *)getCategoryAuthorId:(MWMMarkGroupID)groupId
 {
   return @(self.bm.GetCategoryData(groupId).m_authorId.c_str());
+}
+
+- (nullable NSURL *)getCategoryImageUrl:(MWMMarkGroupID)groupId {
+  NSString *urlString = @(self.bm.GetCategoryData(groupId).m_imageUrl.c_str());
+  return [NSURL URLWithString:urlString];
+}
+
+- (BOOL)hasExtraInfo:(MWMMarkGroupID)groupId {
+  auto data = self.bm.GetCategoryData(groupId);
+  return !data.m_description.empty() || !data.m_annotation.empty();
 }
 
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name

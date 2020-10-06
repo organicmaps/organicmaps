@@ -28,7 +28,7 @@ class GuideDescriptionViewController: MWMViewController {
     subtitleLabel.attributedText = NSMutableAttributedString(htmlString: category.annotation, baseFont: UIFont.regular16())
     descriptionText.attributedText = NSMutableAttributedString(htmlString: category.detailedAnnotation, baseFont: UIFont.regular16())
 
-    if FrameworkHelper.isNetworkConnected(), let photoUrl = category.photoUrl {
+    if let photoUrl = category.imageUrl {
       photo.wi_setImage(with: photoUrl, transitionDuration: 0) { [weak self] _, error in
         if error != nil {
           self?.photoViewContainer.isHidden = true
@@ -40,11 +40,6 @@ class GuideDescriptionViewController: MWMViewController {
       photoActivityIndicator.stopAnimating()
     }
 
-    if let authorIconPath = category.authorIconPath,
-      let authorImage = UIImage(contentsOfFile: authorIconPath) {
-      providerIcon.image = authorImage
-    } else {
-      providerIcon.isHidden = true
-    }
+    providerIcon.isHidden = !category.isLonelyPlanet
   }
 }

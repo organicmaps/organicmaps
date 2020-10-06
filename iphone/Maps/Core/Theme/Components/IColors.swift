@@ -81,4 +81,5 @@ let alpha100: CGFloat = 1.0
   var chartShadow: UIColor { get }
   var cityColor: UIColor { get }
   var outdoorColor: UIColor { get }
+  var lonelyPlanetLogoColor: UIColor { get }
 }

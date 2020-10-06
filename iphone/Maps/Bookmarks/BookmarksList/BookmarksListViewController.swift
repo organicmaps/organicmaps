@@ -47,6 +47,7 @@ protocol IBookmarksListMenuItem {
 
 protocol IBookmarksListView: AnyObject {
   func setTitle(_ title: String)
+  func setInfo(_ info: IBookmakrsListInfoViewModel)
   func setSections(_ sections: [IBookmarksListSectionViewModel])
   func setMoreItemTitle(_ itemTitle: String)
   func showMenu(_ items: [IBookmarksListMenuItem])
@@ -68,6 +69,8 @@ final class BookmarksListViewController: MWMViewController {
   @IBOutlet var toolBar: UIToolbar!
   @IBOutlet var sortToolbarItem: UIBarButtonItem!
   @IBOutlet var moreToolbarItem: UIBarButtonItem!
+
+  private var infoViewController: BookmarksListInfoViewController?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -81,6 +84,22 @@ final class BookmarksListViewController: MWMViewController {
     searchBar.placeholder = L("search_in_the_list")
     cellStrategy.registerCells(tableView)
     presenter.viewDidLoad()
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    updateInfoSize()
+  }
+
+  private func updateInfoSize() {
+    guard let infoView = infoViewController?.view else {
+      return
+    }
+    let infoViewSize = infoView.systemLayoutSizeFitting(CGSize(width: view.width, height: 0),
+                                                        withHorizontalFittingPriority: .required,
+                                                        verticalFittingPriority: .fittingSizeLevel)
+    infoView.size = infoViewSize
+    tableView.tableHeaderView = infoView
   }
 
   @IBAction func onSortItem(_ sender: UIBarButtonItem) {
@@ -188,6 +207,16 @@ extension BookmarksListViewController: IBookmarksListView {
     self.title = title
   }
 
+  func setInfo(_ info: IBookmakrsListInfoViewModel) {
+    let infoViewController = BookmarksListInfoViewController()
+    infoViewController.info = info
+    infoViewController.delegate = self
+    addChild(infoViewController)
+    tableView.tableHeaderView = infoViewController.view
+    infoViewController.didMove(toParent: self)
+    self.infoViewController = infoViewController
+  }
+
   func setSections(_ sections: [IBookmarksListSectionViewModel]) {
     self.sections = sections
     tableView.reloadData()
@@ -226,5 +255,15 @@ extension BookmarksListViewController: IBookmarksListView {
 
   func showError(title: String, message: String) {
     MWMAlertViewController.activeAlert().presentInfoAlert(title, text: message)
+  }
+}
+
+extension BookmarksListViewController: BookmarksListInfoViewControllerDelegate {
+  func didPressDescription() {
+    presenter.showDescription()
+  }
+
+  func didUpdateContent() {
+    updateInfoSize()
   }
 }

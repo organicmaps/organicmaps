@@ -1,5 +1,6 @@
 protocol IBookmarksListInteractor {
   func getBookmarkGroup() -> BookmarkGroup
+  func hasDescription() -> Bool
   func prepareForSearch()
   func search(_ text: String, completion: @escaping ([Bookmark]) -> Void)
   func availableSortingTypes(hasMyPosition: Bool) -> [BookmarksListSortingType]
@@ -81,6 +82,10 @@ final class BookmarksListInteractor {
 extension BookmarksListInteractor: IBookmarksListInteractor {
   func getBookmarkGroup() -> BookmarkGroup {
     bookmarksManager.category(withId: markGroupId)
+  }
+
+  func hasDescription() -> Bool {
+    bookmarksManager.hasExtraInfo(markGroupId)
   }
 
   func prepareForSearch() {

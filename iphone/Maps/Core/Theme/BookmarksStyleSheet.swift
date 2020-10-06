@@ -18,6 +18,10 @@ class BookmarksStyleSheet: IStyleSheet {
       s.tintColor = colors.linkBlue
     }
 
+    theme.add(styleName: "LonelyPlanetLogo") { (s) -> (Void) in
+      s.tintColor = colors.lonelyPlanetLogoColor
+    }
+
     theme.add(styleName: "BookmarkSharingLicense", from: "TermsOfUseLinkText") { (s) -> (Void) in
       s.fontColor = colors.blackSecondaryText
       s.font = fonts.regular14

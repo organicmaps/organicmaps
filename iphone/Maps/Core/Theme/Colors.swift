@@ -71,6 +71,7 @@ class DayColors: IColors {
   var chartShadow = UIColor(red: 0.118, green: 0.588, blue: 0.941, alpha: 0.12)
   var cityColor = UIColor(red: 0.4, green: 0.225, blue: 0.75, alpha: 1)
   var outdoorColor = UIColor(red: 0.235, green: 0.549, blue: 0.235, alpha: 1)
+  var lonelyPlanetLogoColor = UIColor(red: 0, green: 0.286, blue: 0.565, alpha: 1)
 }
 
 class NightColors: IColors {
@@ -146,4 +147,5 @@ class NightColors: IColors {
   var chartShadow = UIColor(red: 0.294, green: 0.725, blue: 0.902, alpha: 0.12)
   var cityColor = UIColor(152, 103, 252, alpha100)
   var outdoorColor = UIColor(147, 191, 57, alpha100)
+  var lonelyPlanetLogoColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.7)
 }
