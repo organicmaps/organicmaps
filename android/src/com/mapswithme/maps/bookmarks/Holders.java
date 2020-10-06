@@ -122,9 +122,9 @@ public class Holders
     @NonNull
     private final TextView mName;
     @NonNull
-    CheckBox mVisibilityMarker;
+    private final CheckBox mVisibilityMarker;
     @NonNull
-    TextView mSize;
+    private final TextView mSize;
     @Nullable
     private BookmarkCategory mEntity;
 
@@ -168,7 +168,6 @@ public class Holders
         throw new AssertionError("BookmarkCategory is null");
       return mEntity;
     }
-
   }
 
   static class CategoryViewHolder extends RecyclerView.ViewHolder

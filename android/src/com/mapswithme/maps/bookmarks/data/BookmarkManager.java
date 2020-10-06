@@ -875,14 +875,17 @@ public enum BookmarkManager
   }
 
   @NonNull
-  public List<BookmarkCategory> getChildrenCategories(long catId){
+  public List<BookmarkCategory> getChildrenCategories(long catId)
+  {
     return Arrays.asList(nativeGetChildrenCategories(catId));
   }
 
   @NonNull
-  public List<BookmarkCategory> getChildrenCollections(long catId){
+  public List<BookmarkCategory> getChildrenCollections(long catId)
+  {
     return Arrays.asList(nativeGetChildrenCollections(catId));
   }
+  
   @NonNull
   native BookmarkCategory[] nativeGetBookmarkCategories();
   @NonNull
