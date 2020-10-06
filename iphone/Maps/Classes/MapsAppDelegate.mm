@@ -733,6 +733,9 @@ using namespace osm_auth_ios;
   didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
                           toWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
   [self.carplayService setupWithWindow:window interfaceController:interfaceController];
+  if (@available(iOS 13.0, *)) {
+    window.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
+  }
   [self updateAppearanceFromWindow:self.window toWindow:window isCarplayActivated:YES];
 
   [Statistics logEvent:kStatCarplayActivated];

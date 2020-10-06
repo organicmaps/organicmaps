@@ -9,6 +9,9 @@ final class ThemeManager: NSObject {
 
   private override init() {
     super.init()
+    if #available(iOS 13.0, *) {
+      MapsAppDelegate.theApp().window.overrideUserInterfaceStyle = .light
+    }
   }
 
   @objc static func setDarkModeEnabled(_ val: Bool) {
