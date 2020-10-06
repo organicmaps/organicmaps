@@ -1,16 +1,11 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.PluralsRes;
 import androidx.recyclerview.widget.RecyclerView;
-import android.text.Html;
-import android.text.Layout;
-import android.text.Spanned;
-import android.text.StaticLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -266,7 +261,7 @@ public class Holders
       mView = itemView;
     }
 
-    abstract void bind(@NonNull BookmarkListAdapter.SectionPosition position,
+    abstract void bind(@NonNull SectionPosition position,
                        @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource);
 
     void setOnClickListener(@Nullable RecyclerClickListener listener)
@@ -308,7 +303,7 @@ public class Holders
     }
 
     @Override
-    void bind(@NonNull BookmarkListAdapter.SectionPosition position,
+    void bind(@NonNull SectionPosition position,
               @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
     {
       final long bookmarkId = sectionsDataSource.getBookmarkId(position);
@@ -362,7 +357,7 @@ public class Holders
     }
 
     @Override
-    void bind(@NonNull BookmarkListAdapter.SectionPosition position,
+    void bind(@NonNull SectionPosition position,
               @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
     {
       final long trackId = sectionsDataSource.getTrackId(position);
@@ -391,7 +386,7 @@ public class Holders
     }
 
     @Override
-    void bind(@NonNull BookmarkListAdapter.SectionPosition position,
+    void bind(@NonNull SectionPosition position,
               @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
     {
       mView.setText(sectionsDataSource.getTitle(position.getSectionIndex(), mView.getResources()));

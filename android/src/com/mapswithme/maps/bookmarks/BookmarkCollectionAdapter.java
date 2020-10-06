@@ -38,44 +38,12 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   @Nullable
   private OnItemClickListener<BookmarkCategory> mClickListener;
 
-  static class SectionPosition
-  {
-    static final int INVALID_POSITION = -1;
-
-    private final int mSectionIndex;
-    private final int mItemIndex;
-
-    SectionPosition(int sectionInd, int itemInd)
-    {
-      mSectionIndex = sectionInd;
-      mItemIndex = itemInd;
-    }
-
-    int getSectionIndex()
-    {
-      return mSectionIndex;
-    }
-
-    int getItemIndex()
-    {
-      return mItemIndex;
-    }
-
-    boolean isTitlePosition()
-    {
-      return mSectionIndex != INVALID_POSITION && mItemIndex == INVALID_POSITION;
-    }
-
-    boolean isItemPosition()
-    {
-      return mSectionIndex != INVALID_POSITION && mItemIndex != INVALID_POSITION;
-    }
-  }
-
   BookmarkCollectionAdapter(@NonNull List<BookmarkCategory> itemsCategories,
                             @NonNull List<BookmarkCategory> itemsCollection)
   {
+    //noinspection AssignmentOrReturnOfFieldWithMutableType
     mItemsCategory = itemsCategories;
+    //noinspection AssignmentOrReturnOfFieldWithMutableType
     mItemsCollection = itemsCollection;
 
     mSectionCount = 0;
@@ -126,8 +94,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   {
     List<BookmarkCategory> categories = getItemsListByType(type);
 
-    int itemIndex = sp.mItemIndex;
-    if (sp.mItemIndex > categories.size() - 1)
+    int itemIndex = sp.getItemIndex();
+    if (sp.getItemIndex() > categories.size() - 1)
       throw new ArrayIndexOutOfBoundsException(itemIndex);
     return categories.get(itemIndex);
   }
@@ -185,7 +153,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     if (sectionPosition.isTitlePosition())
       bindHeaderHolder(holder, sectionPosition.getSectionIndex() + 1);
     else
-      bindCollectionHolder(holder, sectionPosition, getItemsType(sectionPosition.mSectionIndex));
+      bindCollectionHolder(holder, sectionPosition, getItemsType(sectionPosition.getSectionIndex()));
   }
 
   @Override
