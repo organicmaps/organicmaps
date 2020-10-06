@@ -367,8 +367,10 @@ extension CarPlayService: CPMapTemplateDelegate {
     }
     
     MapTemplateBuilder.configureNavigationUI(mapTemplate: rootMapTemplate)
-    interfaceController.popToRootTemplate(animated: false)
-    
+
+    if interfaceController.templates.count > 1 {
+      interfaceController.popToRootTemplate(animated: false)
+    }
     router.startNavigationSession(forTrip: trip, template: rootMapTemplate)
     router.startRoute()
     if let estimates = createEstimates(routeInfo: info) {
@@ -617,7 +619,10 @@ extension CarPlayService {
     let mapTemplate = MapTemplateBuilder.buildTripPreviewTemplate(forTrips: trips)
     if let interfaceController = interfaceController {
       mapTemplate.mapDelegate = self
-      interfaceController.popToRootTemplate(animated: false)
+
+      if interfaceController.templates.count > 1 {
+        interfaceController.popToRootTemplate(animated: false)
+      }
       interfaceController.pushTemplate(mapTemplate, animated: false)
     }
   }
