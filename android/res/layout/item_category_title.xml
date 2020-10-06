@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/text"
+  style="?fontHeadline6"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?windowBackgroundForced"
-  android:fontFamily="@string/robotoMedium"
   android:gravity="start|center_vertical"
   android:paddingStart="@dimen/margin_base"
   android:paddingTop="@dimen/margin_base_plus"
-  android:paddingBottom="@dimen/margin_half_plus"
   android:paddingEnd="@dimen/margin_base"
-  android:text="@string/bookmarks"
-  android:textAppearance="?fontHeadline6"
-  tools:targetApi="jelly_bean" />
+  android:paddingBottom="@dimen/margin_half_plus"
+  android:text="@string/bookmarks" />

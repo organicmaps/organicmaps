@@ -20,21 +20,20 @@
     android:paddingEnd="@dimen/margin_base">
     <TextView
       android:id="@+id/guide_title"
+      style="?textAppearanceHeadline5"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textAppearance="?textAppearanceHeadline5"
       android:textColor="?actionMenuTextColor"
       tools:text="@string/guides" />
     <TextView
       android:id="@+id/btn_description"
+      style="?fontSubtitle2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_half_plus"
-      android:fontFamily="@string/robotoMedium"
       android:text="@string/description_guide"
       android:layout_marginBottom="@dimen/margin_half"
       android:textAllCaps="true"
-      android:textAppearance="?fontSubtitle2"
       android:textColor="?colorAccent" />
   </LinearLayout>
   <include
@@ -62,10 +61,10 @@
       tools:src="@drawable/ic_lp_logo" />
     <TextView
       android:id="@+id/content_by"
+      style="?fontCaption"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:gravity="center_vertical"
-      android:textAppearance="?fontCaption"
       tools:text="@string/about_menu_title" />
   </LinearLayout>
   <include layout="@layout/divider_horizontal" />

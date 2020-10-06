@@ -37,7 +37,7 @@
       android:ellipsize="end"
       android:singleLine="true"
       android:textColor="?android:textColorSecondary"
-      android:textAppearance="?fontBody2"
+      style="?fontBody2"
       tools:text="42000000" />
   </LinearLayout>
 </LinearLayout>
