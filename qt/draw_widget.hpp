@@ -1,6 +1,7 @@
 #pragma once
 
 #include "qt/qt_common/map_widget.hpp"
+#include "qt/routing_turns_visualizer.hpp"
 #include "qt/ruler.hpp"
 
 #include "map/everywhere_search_params.hpp"
@@ -11,9 +12,10 @@
 
 #include "routing/router.hpp"
 
+#include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/gui/skin.hpp"
 
-#include "drape_frontend/drape_engine.hpp"
+#include <QtWidgets/QRubberBand>
 
 #include <condition_variable>
 #include <functional>
@@ -21,8 +23,6 @@
 #include <mutex>
 #include <optional>
 #include <string>
-
-#include <QtWidgets/QRubberBand>
 
 class Framework;
 
@@ -150,5 +150,6 @@ private:
 
   std::unique_ptr<Screenshoter> m_screenshoter;
   Ruler m_ruler;
+  RoutingTurnsVisualizer m_turnsVisualizer;
 };
 }  // namespace qt

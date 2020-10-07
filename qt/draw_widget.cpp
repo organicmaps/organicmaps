@@ -8,9 +8,9 @@
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
 
-#include "map/framework.hpp"
-
 #include "generator/borders.hpp"
+
+#include "map/framework.hpp"
 
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
@@ -32,22 +32,19 @@
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 
-#include <string>
-#include <vector>
+#include "defines.hpp"
 
-#include <QtGui/QMouseEvent>
+#include <QtCore/QThread>
+#include <QtCore/QTimer>
 #include <QtGui/QGuiApplication>
-
+#include <QtGui/QMouseEvent>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QMenu>
 
-#include <QtCore/QLocale>
-#include <QtCore/QThread>
-#include <QtCore/QTimer>
-
-#include "defines.hpp"
+#include <string>
+#include <vector>
 
 using namespace qt::common;
 
@@ -96,14 +93,20 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr
   m_framework.SetPlacePageListeners([this]() { ShowPlacePage(); },
                                     {} /* onClose */, {} /* onUpdate */);
 
-  m_framework.GetRoutingManager().SetRouteBuildingListener(
-      [](routing::RouterResultCode, storage::CountriesSet const &) {});
+  auto & routingManager = m_framework.GetRoutingManager();
 
-  m_framework.GetRoutingManager().SetRouteRecommendationListener(
-    [this](RoutingManager::Recommendation r)
-  {
-    OnRouteRecommendation(r);
-  });
+  routingManager.SetRouteBuildingListener(
+      [&routingManager, this](routing::RouterResultCode, storage::CountriesSet const &) {
+        auto & drapeApi = m_framework.GetDrapeApi();
+
+        m_turnsVisualizer.ClearTurns(drapeApi);
+
+        if (RoutingSettings::TurnsEnabled())
+          m_turnsVisualizer.Visualize(routingManager, drapeApi);
+      });
+
+  routingManager.SetRouteRecommendationListener(
+      [this](RoutingManager::Recommendation r) { OnRouteRecommendation(r); });
 
   m_framework.SetCurrentCountryChangedListener([this](storage::CountryId const & countryId) {
     m_countryId = countryId;
@@ -578,7 +581,9 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
   routingManager.AddRoutePoint(std::move(point));
 
   if (routingManager.GetRoutePoints().size() >= 2)
+  {
     routingManager.BuildRoute();
+  }
 }
 
 void DrawWidget::SubmitBookmark(m2::PointD const & pt)
@@ -626,6 +631,8 @@ void DrawWidget::ClearRoute()
     else if (style == MapStyle::MapStyleVehicleDark)
       SetMapStyle(MapStyle::MapStyleDark);
   }
+
+  m_turnsVisualizer.ClearTurns(m_framework.GetDrapeApi());
 }
 
 void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommendation)
