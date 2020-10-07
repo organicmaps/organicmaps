@@ -1199,6 +1199,16 @@ void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSe
   turn.m_pedestrianTurn = IntermediateDirectionPedestrian(turnAngle);
 
   if (turn.m_pedestrianTurn == PedestrianDirection::GoStraight)
+  {
+    turn.m_pedestrianTurn = PedestrianDirection::None;
+    return;
+  }
+
+  bool const roadForks = HasMultiTurns(numMwmIds, nodes, turnInfo);
+
+  // If there is no fork on the road we don't need to generate any turn. It is pointless because
+  // there is no possibility of leaving the route.
+  if (!roadForks)
     turn.m_pedestrianTurn = PedestrianDirection::None;
 }
 

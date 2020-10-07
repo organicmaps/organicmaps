@@ -83,6 +83,7 @@ public:
   /// @name Pedestrian direction information
   //@{
   turns::PedestrianDirection m_pedestrianTurn;
+  // TODO(o.khlopkova) Remove this unused field from C++ code, jni and platforms.
   ms::LatLon m_pedestrianDirectionPos;
   //@}
 };
