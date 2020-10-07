@@ -22,10 +22,19 @@ char constexpr kDelim[] = " ,\t";
 
 namespace qt
 {
+std::string const RoutingSettings::kShowTurnsSettings = "show_turns_desktop";
 std::string const RoutingSettings::kUseCachedRoutingSettings = "use_cached_settings_desktop";
 std::string const RoutingSettings::kStartCoordsCachedSettings = "start_coords_desktop";
 std::string const RoutingSettings::kFinishCoordsCachedSettings = "finish_coords_desktop";
 std::string const RoutingSettings::kRouterTypeCachedSettings = "router_type_desktop";
+
+// static
+bool RoutingSettings::TurnsEnabled()
+{
+  bool enabled = false;
+  settings::Get(kShowTurnsSettings, enabled);
+  return enabled;
+}
 
 // static
 bool RoutingSettings::IsCacheEnabled()
@@ -83,13 +92,14 @@ void RoutingSettings::LoadSettings(Framework & framework)
 }
 
 RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework)
-  : QDialog(parent),
-    m_framework(framework),
-    m_form(this),
-    m_startInput(new QLineEdit(this)),
-    m_finishInput(new QLineEdit(this)),
-    m_routerType(new QComboBox(this)),
-    m_alwaysCheckbox(new QCheckBox("", this))
+  : QDialog(parent)
+  , m_framework(framework)
+  , m_form(this)
+  , m_startInput(new QLineEdit(this))
+  , m_finishInput(new QLineEdit(this))
+  , m_routerType(new QComboBox(this))
+  , m_showTurnsCheckbox(new QCheckBox("", this))
+  , m_alwaysCheckbox(new QCheckBox("", this))
 {
   setWindowTitle("Routing settings");
 
@@ -121,6 +131,7 @@ void RoutingSettings::AddLineEdit(std::string const & title, QLineEdit * lineEdi
 
 void RoutingSettings::AddCheckBox()
 {
+  m_form.addRow("Show turns:", m_showTurnsCheckbox);
   m_form.addRow("Save for next sessions:", m_alwaysCheckbox);
 }
 
@@ -173,6 +184,7 @@ bool RoutingSettings::ValidateAndSaveCoordsFromInput()
 
 void RoutingSettings::SaveSettings()
 {
+  settings::Set(kShowTurnsSettings, m_showTurnsCheckbox->checkState() == Qt::CheckState::Checked);
   settings::Set(kUseCachedRoutingSettings, true);
   ValidateAndSaveCoordsFromInput();
   settings::Set(kRouterTypeCachedSettings, m_routerType->currentIndex());
@@ -193,6 +205,10 @@ void RoutingSettings::LoadSettings()
   m_routerType->setCurrentIndex(routerType);
 
   m_framework.GetRoutingManager().SetRouterImpl(static_cast<routing::RouterType>(routerType));
+
+  bool showTurns = false;
+  settings::TryGet(kShowTurnsSettings, showTurns);
+  m_showTurnsCheckbox->setChecked(showTurns);
 
   bool setChecked = false;
   settings::TryGet(kUseCachedRoutingSettings, setChecked);

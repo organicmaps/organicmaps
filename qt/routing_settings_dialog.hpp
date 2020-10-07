@@ -20,6 +20,8 @@ class RoutingSettings : public QDialog
 {
 public:
   static bool IsCacheEnabled();
+  static bool TurnsEnabled();
+
   static std::optional<ms::LatLon> GetCoords(bool start);
   static void LoadSettings(Framework & framework);
   static void ResetSettings();
@@ -29,6 +31,7 @@ public:
   void ShowModal();
 
 private:
+  static std::string const kShowTurnsSettings;
   static std::string const kUseCachedRoutingSettings;
   static std::string const kStartCoordsCachedSettings;
   static std::string const kFinishCoordsCachedSettings;
@@ -54,6 +57,7 @@ private:
   QLineEdit * m_finishInput;
 
   QComboBox * m_routerType;
+  QCheckBox * m_showTurnsCheckbox;
   QCheckBox * m_alwaysCheckbox;
 };
 }  // namespace qt
