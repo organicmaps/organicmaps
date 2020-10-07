@@ -214,6 +214,18 @@ public:
   {
     return m_routingSession.GetTurnNotificationsLocale();
   }
+  // @return polyline of the route.
+  routing::FollowedPolyline const & GetRoutePolylineForTests() const
+  {
+    return m_routingSession.GetRouteForTests()->GetFollowedPolyline();
+  }
+  // @return generated turns on the route.
+  std::vector<routing::turns::TurnItem> GetTurnsOnRouteForTests() const
+  {
+    std::vector<routing::turns::TurnItem> turns;
+    m_routingSession.GetRouteForTests()->GetTurnsForTesting(turns);
+    return turns;
+  }
   /// \brief Adds to @param notifications strings - notifications, which are ready to be
   /// pronounced to end user right now.
   /// Adds notifications about turns and speed camera on the road.
