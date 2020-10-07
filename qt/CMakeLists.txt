@@ -54,6 +54,8 @@ set(
   preferences_dialog.hpp
   routing_settings_dialog.cpp
   routing_settings_dialog.hpp
+  routing_turns_visualizer.cpp
+  routing_turns_visualizer.hpp
   ruler.cpp
   ruler.hpp
   screenshoter.cpp
