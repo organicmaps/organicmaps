@@ -34,6 +34,8 @@ NS_SWIFT_NAME(BookmarkGroup)
 @property(nonatomic, readonly) MWMBookmarkGroupAccessStatus accessStatus;
 @property(nonatomic, readonly) NSArray<MWMBookmark *> *bookmarks;
 @property(nonatomic, readonly) NSArray<MWMTrack *> *tracks;
+@property(nonatomic, readonly) NSArray<MWMBookmarkGroup *> *collections;
+@property(nonatomic, readonly) NSArray<MWMBookmarkGroup *> *categories;
 
 @end
 

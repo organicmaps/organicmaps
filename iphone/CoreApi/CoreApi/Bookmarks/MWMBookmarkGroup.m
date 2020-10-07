@@ -88,4 +88,12 @@
   return [self.manager tracksForGroup:self.categoryId];
 }
 
+- (NSArray<MWMBookmarkGroup *> *)collections {
+  return [self.manager collectionsForGroup:self.categoryId];
+}
+
+- (NSArray<MWMBookmarkGroup *> *)categories {
+  return [self.manager categoriesForGroup:self.categoryId];
+}
+
 @end

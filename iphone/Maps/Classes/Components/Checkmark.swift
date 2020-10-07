@@ -1,4 +1,3 @@
-@IBDesignable
 class Checkmark: UIControl {
   
   private let imageView = UIImageView(frame: .zero)

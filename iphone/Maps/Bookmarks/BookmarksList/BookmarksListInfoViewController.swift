@@ -14,7 +14,13 @@ protocol BookmarksListInfoViewControllerDelegate: AnyObject {
 }
 
 class BookmarksListInfoViewController: UIViewController {
-  var info: IBookmakrsListInfoViewModel!
+  var info: IBookmakrsListInfoViewModel? {
+    didSet {
+      guard isViewLoaded, let info = info else { return }
+      updateInfo(info)
+    }
+  }
+
   weak var delegate: BookmarksListInfoViewControllerDelegate?
 
   @IBOutlet var titleImageView: UIImageView!
@@ -32,6 +38,11 @@ class BookmarksListInfoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     descriptionButton.setTitle(L("description_guide").uppercased(), for: .normal)
+    guard let info = info else { return }
+    updateInfo(info)
+  }
+
+  private func updateInfo(_ info: IBookmakrsListInfoViewModel) {
     titleLabel.text = info.title
     authorLabel.text = String(coreFormat: L("author_name_by_prefix"), arguments: [info.author])
     authorImageView.isHidden = !info.hasLogo

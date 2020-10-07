@@ -7,7 +7,8 @@ protocol IBookmarksListPresenter {
   func sort()
   func more()
   func deleteBookmark(in section: IBookmarksListSectionViewModel, at index: Int)
-  func viewOnMap(in section: IBookmarksListSectionViewModel, at index: Int)
+  func selectItem(in section: IBookmarksListSectionViewModel, at index: Int)
+  func checkItem(in section: IBookmarksListSectionViewModel, at index: Int, checked: Bool)
   func showDescription()
 }
 
@@ -57,6 +58,17 @@ final class BookmarksListPresenter {
     if !tracks.isEmpty {
       sections.append(TracksSectionViewModel(tracks: tracks))
     }
+
+    let collections = bookmarkGroup.collections.map { SubgroupViewModel($0) }
+    if !collections.isEmpty {
+      sections.append(SubgroupsSectionViewModel(title: L("collections"), subgroups: collections))
+    }
+
+    let categories = bookmarkGroup.categories.map { SubgroupViewModel($0)}
+    if !categories.isEmpty {
+      sections.append(SubgroupsSectionViewModel(title: L("categories"), subgroups: categories))
+    }
+
     let bookmarks = mapBookmarks(bookmarkGroup.bookmarks)
     if !bookmarks.isEmpty {
       sections.append(BookmarksSectionViewModel(title: L("bookmarks"), bookmarks: bookmarks))
@@ -243,7 +255,7 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     reload()
   }
 
-  func viewOnMap(in section: IBookmarksListSectionViewModel, at index: Int) {
+  func selectItem(in section: IBookmarksListSectionViewModel, at index: Int) {
     switch section {
     case let bookmarksSection as IBookmarksSectionViewModel:
       let bookmark = bookmarksSection.bookmarks[index] as! BookmarkViewModel
@@ -255,8 +267,8 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
                             withParameters: [kStatServerId : bookmarkGroup.serverId],
                             with: .realtime)
       }
-    case let trackSection as ITracksSectionViewModel:
-      let track = trackSection.tracks[index] as! TrackViewModel
+    case let tracksSection as ITracksSectionViewModel:
+      let track = tracksSection.tracks[index] as! TrackViewModel
       interactor.viewTrackOnMap(track.trackId)
       router.viewOnMap(bookmarkGroup)
       if bookmarkGroup.isGuide {
@@ -264,6 +276,19 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
                             withParameters: [kStatServerId : bookmarkGroup.serverId],
                             with: .realtime)
       }
+    case let subgroupsSection as ISubgroupsSectionViewModel:
+      let subgroup = subgroupsSection.subgroups[index] as! SubgroupViewModel
+      router.showSubgroup(subgroup.groupId)
+    default:
+      fatalError("Wrong section type: \(section.self)")
+    }
+  }
+
+  func checkItem(in section: IBookmarksListSectionViewModel, at index: Int, checked: Bool) {
+    switch section {
+    case let subgroupsSection as ISubgroupsSectionViewModel:
+      let subgroup = subgroupsSection.subgroups[index] as! SubgroupViewModel
+      interactor.setGroup(subgroup.groupId, visible: checked)
     default:
       fatalError("Wrong section type: \(section.self)")
     }
@@ -276,13 +301,23 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 
 extension BookmarksListPresenter: BookmarksSharingViewControllerDelegate {
   func didShareCategory() {
-    // TODO: update description
+    let info = BookmarksListInfo(title: bookmarkGroup.title,
+                                 author: bookmarkGroup.author,
+                                 hasDescription: bookmarkGroup.hasDescription,
+                                 imageUrl: bookmarkGroup.imageUrl,
+                                 hasLogo: bookmarkGroup.isLonelyPlanet)
+    view.setInfo(info)
   }
 }
 
 extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
   func categorySettingsController(_ viewController: CategorySettingsViewController, didEndEditing categoryId: MWMMarkGroupID) {
-    // TODO: update description
+    let info = BookmarksListInfo(title: bookmarkGroup.title,
+                                 author: bookmarkGroup.author,
+                                 hasDescription: bookmarkGroup.hasDescription,
+                                 imageUrl: bookmarkGroup.imageUrl,
+                                 hasLogo: bookmarkGroup.isLonelyPlanet)
+    view.setInfo(info)
   }
 
   func categorySettingsController(_ viewController: CategorySettingsViewController, didDelete categoryId: MWMMarkGroupID) {
@@ -328,6 +363,20 @@ fileprivate struct TrackViewModel: ITrackViewModel {
   }
 }
 
+fileprivate struct SubgroupViewModel: ISubgroupViewModel {
+  let groupId: MWMMarkGroupID
+  let subgroupName: String
+  let subtitle: String
+  let isVisible: Bool
+
+  init(_ bookmarkGroup: BookmarkGroup) {
+    groupId = bookmarkGroup.categoryId
+    subgroupName = bookmarkGroup.title
+    subtitle = bookmarkGroup.placesCountTitle()
+    isVisible = bookmarkGroup.isVisible
+  }
+}
+
 fileprivate struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
   let sectionTitle: String
   let bookmarks: [IBookmarkViewModel]
@@ -339,10 +388,20 @@ fileprivate struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
 }
 
 fileprivate struct TracksSectionViewModel: ITracksSectionViewModel {
-  var tracks: [ITrackViewModel]
+  let tracks: [ITrackViewModel]
 
   init(tracks: [ITrackViewModel]) {
     self.tracks = tracks
+  }
+}
+
+fileprivate struct SubgroupsSectionViewModel: ISubgroupsSectionViewModel {
+  let subgroups: [ISubgroupViewModel]
+  let sectionTitle: String
+
+  init(title: String, subgroups: [ISubgroupViewModel]) {
+    sectionTitle = title
+    self.subgroups = subgroups
   }
 }
 

@@ -633,6 +633,24 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   return [result copy];
 }
 
+- (NSArray<MWMBookmarkGroup *> *)collectionsForGroup:(MWMMarkGroupID)groupId {
+  auto const &collectionIds = self.bm.GetChildrenCollections(groupId);
+  NSMutableArray *result = [NSMutableArray array];
+  for (auto collectionId : collectionIds) {
+    [result addObject:[[MWMBookmarkGroup alloc] initWithCategoryId:collectionId bookmarksManager:self]];
+  }
+  return [result copy];
+}
+
+- (NSArray<MWMBookmarkGroup *> *)categoriesForGroup:(MWMMarkGroupID)groupId {
+  auto const &categoryIds = self.bm.GetChildrenCategories(groupId);
+  NSMutableArray *result = [NSMutableArray array];
+  for (auto categoryId : categoryIds) {
+    [result addObject:[[MWMBookmarkGroup alloc] initWithCategoryId:categoryId bookmarksManager:self]];
+  }
+  return [result copy];
+}
+
 #pragma mark - Category sharing
 
 - (void)shareCategory:(MWMMarkGroupID)groupId

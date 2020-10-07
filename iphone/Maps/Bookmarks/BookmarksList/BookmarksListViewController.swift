@@ -26,6 +26,16 @@ extension ITracksSectionViewModel {
   var canEdit: Bool { true }
 }
 
+protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
+  var subgroups: [ISubgroupViewModel] { get }
+}
+
+extension ISubgroupsSectionViewModel {
+  var numberOfItems: Int { subgroups.count }
+  var hasVisibilityButton: Bool { true }
+  var canEdit: Bool { false }
+}
+
 protocol IBookmarkViewModel {
   var bookmarkName: String { get }
   var subtitle: String { get }
@@ -36,6 +46,12 @@ protocol ITrackViewModel {
   var trackName: String { get }
   var subtitle: String { get }
   var image: UIImage { get }
+}
+
+protocol ISubgroupViewModel {
+  var subgroupName: String { get }
+  var subtitle: String { get }
+  var isVisible: Bool { get }
 }
 
 protocol IBookmarksListMenuItem {
@@ -70,7 +86,14 @@ final class BookmarksListViewController: MWMViewController {
   @IBOutlet var sortToolbarItem: UIBarButtonItem!
   @IBOutlet var moreToolbarItem: UIBarButtonItem!
 
-  private var infoViewController: BookmarksListInfoViewController?
+  private lazy var infoViewController: BookmarksListInfoViewController = {
+    let infoViewController = BookmarksListInfoViewController()
+    infoViewController.delegate = self
+    addChild(infoViewController)
+    tableView.tableHeaderView = infoViewController.view
+    infoViewController.didMove(toParent: self)
+    return infoViewController
+  }()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -83,6 +106,9 @@ final class BookmarksListViewController: MWMViewController {
     sortToolbarItem.title = L("sort")
     searchBar.placeholder = L("search_in_the_list")
     cellStrategy.registerCells(tableView)
+    cellStrategy.cellCheckHandler = { [weak self] (viewModel, index, checked) in
+      self?.presenter.checkItem(in: viewModel, at: index, checked: checked)
+    }
     presenter.viewDidLoad()
   }
 
@@ -92,9 +118,7 @@ final class BookmarksListViewController: MWMViewController {
   }
 
   private func updateInfoSize() {
-    guard let infoView = infoViewController?.view else {
-      return
-    }
+    guard let infoView = infoViewController.view else { return }
     let infoViewSize = infoView.systemLayoutSizeFitting(CGSize(width: view.width, height: 0),
                                                         withHorizontalFittingPriority: .required,
                                                         verticalFittingPriority: .fittingSizeLevel)
@@ -149,7 +173,7 @@ extension BookmarksListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     guard let section = sections?[indexPath.section] else { fatalError() }
-    presenter.viewOnMap(in: section, at: indexPath.row)
+    presenter.selectItem(in: section, at: indexPath.row)
   }
 
   func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -208,13 +232,8 @@ extension BookmarksListViewController: IBookmarksListView {
   }
 
   func setInfo(_ info: IBookmakrsListInfoViewModel) {
-    let infoViewController = BookmarksListInfoViewController()
     infoViewController.info = info
-    infoViewController.delegate = self
-    addChild(infoViewController)
-    tableView.tableHeaderView = infoViewController.view
-    infoViewController.didMove(toParent: self)
-    self.infoViewController = infoViewController
+    updateInfoSize()
   }
 
   func setSections(_ sections: [IBookmarksListSectionViewModel]) {

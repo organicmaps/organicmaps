@@ -77,6 +77,8 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)deleteBookmark:(MWMMarkID)bookmarkId;
 - (NSArray<MWMBookmark *> *)bookmarksForGroup:(MWMMarkGroupID)groupId;
 - (NSArray<MWMTrack *> *)tracksForGroup:(MWMMarkGroupID)groupId;
+- (NSArray<MWMBookmarkGroup *> *)collectionsForGroup:(MWMMarkGroupID)groupId;
+- (NSArray<MWMBookmarkGroup *> *)categoriesForGroup:(MWMMarkGroupID)groupId;
 - (void)searchBookmarksGroup:(MWMMarkGroupID)groupId
                         text:(NSString *)text
                   completion:(SearchBookmarksCompletionBlock)completion;

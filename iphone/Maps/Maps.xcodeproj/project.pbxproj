@@ -361,6 +361,8 @@
 		475ED78424C7A5400063ADC7 /* GuestsPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475ED78224C7A5400063ADC7 /* GuestsPickerViewController.xib */; };
 		475ED78624C7C7300063ADC7 /* ValueStepperViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475ED78524C7C72F0063ADC7 /* ValueStepperViewRenderer.swift */; };
 		475ED78824C7D0F30063ADC7 /* ValueStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475ED78724C7D0F30063ADC7 /* ValueStepperView.swift */; };
+		4761BE2A252D3DB900EE2DE4 /* SubgroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4761BE28252D3DB900EE2DE4 /* SubgroupCell.swift */; };
+		4761BE2B252D3DB900EE2DE4 /* SubgroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4761BE29252D3DB900EE2DE4 /* SubgroupCell.xib */; };
 		4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CD9E20AAD48A00BD8166 /* Checkmark.swift */; };
 		4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */; };
 		4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */; };
@@ -1512,6 +1514,8 @@
 		475ED78224C7A5400063ADC7 /* GuestsPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuestsPickerViewController.xib; sourceTree = "<group>"; };
 		475ED78524C7C72F0063ADC7 /* ValueStepperViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStepperViewRenderer.swift; sourceTree = "<group>"; };
 		475ED78724C7D0F30063ADC7 /* ValueStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStepperView.swift; sourceTree = "<group>"; };
+		4761BE28252D3DB900EE2DE4 /* SubgroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgroupCell.swift; sourceTree = "<group>"; };
+		4761BE29252D3DB900EE2DE4 /* SubgroupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubgroupCell.xib; sourceTree = "<group>"; };
 		4767CD9E20AAD48A00BD8166 /* Checkmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkmark.swift; sourceTree = "<group>"; };
 		4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+HTML.swift"; sourceTree = "<group>"; };
 		4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedIconButton.swift; sourceTree = "<group>"; };
@@ -3625,6 +3629,8 @@
 				47CA68F4250B550C00671019 /* TrackCell.xib */,
 				47CA68F7250F8AB600671019 /* BookmarksListSectionHeader.swift */,
 				47CA68F9250F8AD100671019 /* BookmarksListSectionHeader.xib */,
+				4761BE28252D3DB900EE2DE4 /* SubgroupCell.swift */,
+				4761BE29252D3DB900EE2DE4 /* SubgroupCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5233,6 +5239,7 @@
 				B366130B20D5E2E000E7DC3E /* CatalogCategoryCell.xib in Resources */,
 				4501B1942077C35A001B9173 /* resources-xxxhdpi_clear in Resources */,
 				3467CEB7202C6FA900D3C670 /* BMCNotificationsCell.xib in Resources */,
+				4761BE2B252D3DB900EE2DE4 /* SubgroupCell.xib in Resources */,
 				99F9A0E72462CA1700AE21E0 /* DownloadAllView.xib in Resources */,
 				349D1AD51E2E325B004A2006 /* BottomMenuItemCell.xib in Resources */,
 				349D1AE11E2E325C004A2006 /* BottomTabBarViewController.xib in Resources */,
@@ -5758,6 +5765,7 @@
 				475ED78824C7D0F30063ADC7 /* ValueStepperView.swift in Sources */,
 				3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.m in Sources */,
 				99AAEA78244DA9810039D110 /* BottomMenuTransitioningManager.swift in Sources */,
+				4761BE2A252D3DB900EE2DE4 /* SubgroupCell.swift in Sources */,
 				1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */,
 				9989273B2449E60200260CE2 /* BottomMenuBuilder.swift in Sources */,
 				993DF10F23F6BDB100AC231A /* UIActivityIndicatorRenderer.swift in Sources */,
