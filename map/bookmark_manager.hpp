@@ -508,6 +508,8 @@ public:
   kml::GroupIdCollection GetChildrenCategories(kml::MarkGroupId parentCategoryId) const;
   kml::GroupIdCollection GetChildrenCollections(kml::MarkGroupId parentCategoryId) const;
 
+  std::vector<std::string> GetAllPaidCategoriesIds() const;
+
 private:
   class MarksChangesTracker : public df::UserMarksProvider
   {
@@ -782,8 +784,6 @@ private:
   void AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks,
                             SortedBlocksCollection & sortedBlocks) const;
   void SortTracksByTime(std::vector<SortTrackData> & tracks) const;
-
-  std::vector<std::string> GetAllPaidCategoriesIds() const;
 
   kml::MarkId GetTrackSelectionMarkId(kml::TrackId trackId) const;
   int GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const;

@@ -1391,6 +1391,14 @@ kml::GroupIdCollection BookmarkManager::GetCompilationOfType(kml::MarkGroupId pa
   return result;
 }
 
+std::vector<std::string> BookmarkManager::GetAllPaidCategoriesIds() const
+{
+  return GetCategoriesFromCatalog([](kml::AccessRules accessRules)
+  {
+    return accessRules == kml::AccessRules::Paid;
+  });
+}
+
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
                                                 AddressesCollection & newAddresses)
 {
@@ -3325,13 +3333,6 @@ void BookmarkManager::SetAllCategoriesVisibility(CategoryFilterType const filter
       continue;
     category.second->SetIsVisible(visible);
   }
-}
-
-std::vector<std::string> BookmarkManager::GetAllPaidCategoriesIds() const
-{
-  return GetCategoriesFromCatalog([](kml::AccessRules accessRules) {
-    return accessRules == kml::AccessRules::Paid;
-  });
 }
 
 bool BookmarkManager::CanConvert() const

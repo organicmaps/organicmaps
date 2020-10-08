@@ -467,7 +467,7 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager->InitRegionAddressGetter(m_featuresFetcher.GetDataSource(), *m_infoGetter);
 
-  catalogHeadersProvider->SetBookmarkCatalog(&m_bmManager->GetCatalog());
+  catalogHeadersProvider->SetBookmarkManager(m_bmManager.get());
   m_parsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());
   m_guidesManager.SetBookmarkManager(m_bmManager.get());
