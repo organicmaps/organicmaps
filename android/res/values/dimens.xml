@@ -20,6 +20,7 @@
   <dimen name="margin_double_and_half">40dp</dimen>
   <dimen name="margin_double_plus">48dp</dimen>
   <dimen name="margin_quadruple">64dp</dimen>
+  <dimen name="margin_quadruple_plus_half">72dp</dimen>
 
   <dimen name="neg_margin_eighth">-2dp</dimen>
   <dimen name="neg_margin_quarter">-4dp</dimen>

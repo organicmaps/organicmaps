@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -324,7 +325,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private void configureRecyclerDividers(@NonNull RecyclerView recyclerView)
   {
     RecyclerView.ItemDecoration decorWithPadding = ItemDecoratorFactory
-        .createVerticalDefaultDecorator(requireContext());
+        .createDecoratorWithPadding(requireContext());
     recyclerView.addItemDecoration(decorWithPadding);
     recyclerView.addOnScrollListener(mRecyclerListener);
   }

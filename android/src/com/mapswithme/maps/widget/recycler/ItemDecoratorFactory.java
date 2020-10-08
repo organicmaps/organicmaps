@@ -1,6 +1,8 @@
 package com.mapswithme.maps.widget.recycler;
 
 import android.content.Context;
+
+import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -66,6 +68,18 @@ public class ItemDecoratorFactory
   public static RecyclerView.ItemDecoration createVerticalDefaultDecorator(@NonNull Context context)
   {
     return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+  }
+
+  @NonNull
+  public static RecyclerView.ItemDecoration createDecoratorWithPadding(@NonNull Context context)
+  {
+    @DrawableRes
+    int dividerRes = R.drawable.divider_base;
+    @DimenRes
+    int marginDimen = R.dimen.margin_quadruple_plus_half;
+    return new DividerItemDecorationWithPadding(
+        Objects.requireNonNull(context.getDrawable(dividerRes)),
+        context.getResources().getDimensionPixelSize(marginDimen));
   }
 
   @NonNull
