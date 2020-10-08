@@ -25,6 +25,15 @@ static NSString *const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 @implementation MWMDefaultAlert
 
++ (instancetype)authErrorAlertWithRetryBlock:(MWMVoidBlock)retryBlock {
+  return [self defaultAlertWithTitle:L(@"profile_authorization_error")
+                             message:nil
+                    rightButtonTitle:L(@"downloader_retry")
+                     leftButtonTitle:L(@"cancel")
+                   rightButtonAction:retryBlock
+                     statisticsEvent:@"Authorization Error Alert"];
+}
+
 + (instancetype)routeFileNotExistAlert {
   return [self defaultAlertWithTitle:L(@"dialog_routing_download_files")
                              message:L(@"dialog_routing_download_and_update_all")

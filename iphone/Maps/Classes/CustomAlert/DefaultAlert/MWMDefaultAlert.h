@@ -2,6 +2,7 @@
 
 @interface MWMDefaultAlert : MWMAlert
 
++ (instancetype)authErrorAlertWithRetryBlock:(MWMVoidBlock)retryBlock;
 + (instancetype)routeNotFoundAlert;
 + (instancetype)routeNotFoundNoPublicTransportAlert;
 + (instancetype)routeNotFoundTooLongPedestrianAlert;

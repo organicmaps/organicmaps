@@ -263,11 +263,11 @@ final class CatalogWebViewController: WebViewController {
         self?.loadingIndicator.stopAnimating()
       case .needAuth:
         if let s = self, let navBar = s.navigationController?.navigationBar {
-          s.signup(anchor: navBar, source: .guideCatalogue, onComplete: {
-            if $0 {
+          s.signup(anchor: navBar, source: .guideCatalogue, onComplete: { result in
+            if result == .succes {
               s.reloadFromOrigin()
               s.handlePendingTransactions(completion: completion)
-            } else {
+            } else if result == .error {
               MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
                                                                     text: L("failed_purchase_support_message"))
               completion(false)
@@ -327,10 +327,14 @@ final class CatalogWebViewController: WebViewController {
           switch status {
           case .needAuth:
             if let s = self, let navBar = s.navigationController?.navigationBar {
-              s.signup(anchor: navBar, source: .guideCatalogue) {
-                if $0 {
+              s.signup(anchor: navBar, source: .guideCatalogue) { result in
+                if result == .succes {
                   s.reloadFromOrigin()
                   s.download()
+                } else if result == .error {
+                  MWMAlertViewController.activeAlert().presentAuthErrorAlert {
+                    s.download()
+                  }
                 }
               }
             }

@@ -28,19 +28,24 @@ extension SubscriptionInteractor: SubscriptionInteractorProtocol {
   func purchase(anchor: UIView, subscription: ISubscription, trial: Bool) {
     self.trial = trial
     subscriptionManager.addListener(self)
-    viewController?.signup(anchor: anchor, source: .subscription) { [weak self] success in
-      guard success else { return }
-      self?.presenter.isLoadingHidden = false
-      self?.bookmarksManager.ping { success in
-        guard success else {
-          self?.presenter.isLoadingHidden = true
-          let errorDialog = SubscriptionFailViewController { [weak self] in
-            self?.presenter.onCancel()
+    viewController?.signup(anchor: anchor, source: .subscription) { [weak self] result in
+      if result == .succes {
+        self?.presenter.isLoadingHidden = false
+        self?.bookmarksManager.ping { success in
+          guard success else {
+            self?.presenter.isLoadingHidden = true
+            let errorDialog = SubscriptionFailViewController { [weak self] in
+              self?.presenter.onCancel()
+            }
+            self?.viewController?.present(errorDialog, animated: true)
+            return
           }
-          self?.viewController?.present(errorDialog, animated: true)
-          return
+          self?.subscriptionManager.subscribe(to: subscription)
         }
-        self?.subscriptionManager.subscribe(to: subscription)
+      } else if result == .error {
+        MWMAlertViewController.activeAlert().presentAuthErrorAlert {
+          self?.purchase(anchor: anchor, subscription: subscription, trial: trial)
+        }
       }
     }
   }
@@ -48,23 +53,28 @@ extension SubscriptionInteractor: SubscriptionInteractorProtocol {
   func restore(anchor: UIView) {
     trial = false
     subscriptionManager.addListener(self)
-    viewController?.signup(anchor: anchor, source: .subscription) { [weak self] success in
-      guard success else { return }
-      self?.presenter.isLoadingHidden = false
-      self?.subscriptionManager.restore { result, _ in
-        self?.presenter.isLoadingHidden = true
-        let alertText: String
-        switch result {
-        case .valid:
-          alertText = L("restore_success_alert")
-        case .notValid:
-          alertText = L("restore_no_subscription_alert")
-        case .serverError, .authError:
-          alertText = L("restore_error_alert")
-        @unknown default:
-          fatalError()
+    viewController?.signup(anchor: anchor, source: .subscription) { [weak self] result in
+      if result == .succes {
+        self?.presenter.isLoadingHidden = false
+        self?.subscriptionManager.restore { result, _ in
+          self?.presenter.isLoadingHidden = true
+          let alertText: String
+          switch result {
+          case .valid:
+            alertText = L("restore_success_alert")
+          case .notValid:
+            alertText = L("restore_no_subscription_alert")
+          case .serverError, .authError:
+            alertText = L("restore_error_alert")
+          @unknown default:
+            fatalError()
+          }
+          MWMAlertViewController.activeAlert().presentInfoAlert(L("restore_subscription"), text: alertText)
         }
-        MWMAlertViewController.activeAlert().presentInfoAlert(L("restore_subscription"), text: alertText)
+      } else if result == .error {
+        MWMAlertViewController.activeAlert().presentAuthErrorAlert {
+          self?.restore(anchor: anchor)
+        }
       }
     }
   }

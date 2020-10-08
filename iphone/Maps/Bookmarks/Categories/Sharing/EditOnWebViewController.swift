@@ -131,9 +131,13 @@ final class EditOnWebViewController: MWMViewController {
   }
 
   private func authError() {
-    signup(anchor: sendMeLinkButton, source: .exportBookmarks) {
-      if ($0) {
-        self.uploadCategory()
+    signup(anchor: sendMeLinkButton, source: .exportBookmarks) {[weak self] result in
+      if result == .succes {
+        self?.uploadCategory()
+      } else if result == .error {
+        MWMAlertViewController.activeAlert().presentAuthErrorAlert {
+          self?.authError()
+        }
       }
     }
   }

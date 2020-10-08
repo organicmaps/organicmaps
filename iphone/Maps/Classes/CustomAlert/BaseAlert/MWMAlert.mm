@@ -16,6 +16,11 @@
 + (MWMAlert *)rateAlert {
   return [MWMRateAlert alert];
 }
+
++ (MWMAlert *)authErrorAlertWithRetryBlock:(MWMVoidBlock)retryBlock {
+  return [MWMDefaultAlert authErrorAlertWithRetryBlock:retryBlock];
+}
+
 + (MWMAlert *)locationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock {
   return [MWMLocationAlert alertWithCancelBlock:cancelBlock];
 }

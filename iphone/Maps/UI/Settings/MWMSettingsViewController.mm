@@ -323,9 +323,13 @@ using namespace power_management;
     __weak auto s = self;
     [self signupWithAnchor:self.restoreSubscriptionCell.progress
                     source:AuthorizationSourceSubscription
-                onComplete:^(BOOL success) {
-                  if (success) {
+                onComplete:^(AuthorizationResult result) {
+                  if (result == AuthorizationResultSucces) {
                     [s restoreSubscription];
+                  } else if (result == AuthorizationResultError) {
+                    [MWMAlertViewController.activeAlertController presentAuthErrorAlertWithRetryBlock:^{
+                      [s tableView:tableView didSelectRowAtIndexPath:indexPath];
+                    }];
                   }
                 }];
   } else if (cell == self.manageSubscriptionsCell) {

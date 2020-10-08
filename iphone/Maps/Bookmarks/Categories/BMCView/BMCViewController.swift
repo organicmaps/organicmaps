@@ -315,10 +315,17 @@ extension BMCViewController: BMCPermissionsCellDelegate {
     switch permission {
     case .signup:
       viewModel.pendingPermission(isPending: true)
-      signup(anchor: anchor, source: .bookmarksBackup, onComplete: { [viewModel] success in
-        viewModel!.grant(permission: success ? .backup : nil)
-        if !success {
+      signup(anchor: anchor, source: .bookmarksBackup, onComplete: { [weak self, viewModel] result in
+        if result == .succes {
+          viewModel!.grant(permission: .backup)
+        } else if result == .cancel {
+          viewModel?.pendingPermission(isPending: false)
+        } else if result == .error {
           Statistics.logEvent(kStatBookmarksAuthRequestError)
+          viewModel?.pendingPermission(isPending: false)
+          MWMAlertViewController.activeAlert().presentAuthErrorAlert {
+            self?.permissionAction(permission: permission, anchor: anchor)
+          }
         }
       })
     case .backup:

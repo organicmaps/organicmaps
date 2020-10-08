@@ -50,6 +50,11 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 - (void)presentRateAlert {
   [self displayAlert:[MWMAlert rateAlert]];
 }
+
+- (void)presentAuthErrorAlertWithRetryBlock:(nonnull MWMVoidBlock)retryBlock {
+  [self displayAlert:[MWMAlert authErrorAlertWithRetryBlock:retryBlock]];
+}
+
 - (void)presentLocationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock {
   if (![MapViewController sharedController].welcomePageController)
     [self displayAlert:[MWMAlert locationAlertWithCancelBlock:cancelBlock]];
