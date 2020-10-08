@@ -26,10 +26,11 @@ class BookmarksListInfoViewController: UIViewController {
   @IBOutlet var titleImageView: UIImageView!
   @IBOutlet var titleLabel: UILabel!
   @IBOutlet var descriptionButton: UIButton!
-  @IBOutlet var descriptionButtonView: UIView!
+  @IBOutlet var authorContainerView: UIView!
   @IBOutlet var authorImageView: UIImageView!
   @IBOutlet var authorLabel: UILabel!
   @IBOutlet var infoStack: UIStackView!
+  @IBOutlet var separatorsConstraints: [NSLayoutConstraint]!
 
   @IBAction func onDescription(_ sender: UIButton) {
     delegate?.didPressDescription()
@@ -38,6 +39,8 @@ class BookmarksListInfoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     descriptionButton.setTitle(L("description_guide").uppercased(), for: .normal)
+    separatorsConstraints.forEach { $0.constant = 1 / UIScreen.main.scale }
+
     guard let info = info else { return }
     updateInfo(info)
   }
@@ -46,7 +49,8 @@ class BookmarksListInfoViewController: UIViewController {
     titleLabel.text = info.title
     authorLabel.text = String(coreFormat: L("author_name_by_prefix"), arguments: [info.author])
     authorImageView.isHidden = !info.hasLogo
-    descriptionButtonView.isHidden = !info.hasDescription
+    authorContainerView.isHidden = info.author.isEmpty
+    descriptionButton.isHidden = !info.hasDescription
 
     titleImageView.isHidden = true
     if let imageUrl = info.imageUrl {

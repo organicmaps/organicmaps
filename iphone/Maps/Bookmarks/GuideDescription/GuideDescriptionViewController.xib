@@ -15,6 +15,7 @@
                 <outlet property="photo" destination="OZ0-EB-ayO" id="6Zx-Ve-8dW"/>
                 <outlet property="photoActivityIndicator" destination="Bgr-g1-5lE" id="BnS-zE-hqq"/>
                 <outlet property="photoViewContainer" destination="vQ9-Cg-9CP" id="o1E-7m-xkD"/>
+                <outlet property="providerContainerView" destination="mTg-8a-cqj" id="YrF-4P-3bb"/>
                 <outlet property="providerIcon" destination="fwF-di-rja" id="rHe-gz-cs9"/>
                 <outlet property="providerLabel" destination="CDJ-Rz-hR5" id="6hu-4R-Byi"/>
                 <outlet property="subtitleLabel" destination="LbD-yc-cal" id="ZYn-UM-S94"/>
@@ -74,13 +75,26 @@
                                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackPrimaryText"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJn-rO-FZg">
+                                            <rect key="frame" x="16" y="96" width="382" height="1"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="ezx-6w-ZyU"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="QJn-rO-FZg" secondAttribute="bottom" id="1KL-sf-EIJ"/>
                                         <constraint firstAttribute="trailing" secondItem="hh3-UD-FXJ" secondAttribute="trailing" constant="16" id="33S-zf-SgW"/>
                                         <constraint firstAttribute="trailing" secondItem="LbD-yc-cal" secondAttribute="trailing" constant="16" id="FXi-lH-haB"/>
                                         <constraint firstItem="hh3-UD-FXJ" firstAttribute="top" secondItem="Y73-5Z-ypa" secondAttribute="top" constant="28" id="Meh-Du-GBq"/>
                                         <constraint firstAttribute="bottom" secondItem="LbD-yc-cal" secondAttribute="bottom" constant="20" id="eu8-JJ-CuV"/>
+                                        <constraint firstAttribute="trailing" secondItem="QJn-rO-FZg" secondAttribute="trailing" constant="16" id="kHQ-nY-plH"/>
                                         <constraint firstItem="LbD-yc-cal" firstAttribute="leading" secondItem="Y73-5Z-ypa" secondAttribute="leading" constant="16" id="ooJ-xp-PFq"/>
+                                        <constraint firstItem="QJn-rO-FZg" firstAttribute="leading" secondItem="Y73-5Z-ypa" secondAttribute="leading" constant="16" id="rGD-ie-QUb"/>
                                         <constraint firstItem="hh3-UD-FXJ" firstAttribute="leading" secondItem="Y73-5Z-ypa" secondAttribute="leading" constant="16" id="x2s-nc-dOt"/>
                                         <constraint firstItem="LbD-yc-cal" firstAttribute="top" secondItem="hh3-UD-FXJ" secondAttribute="bottom" constant="8" id="ymw-Mn-Fe0"/>
                                     </constraints>
@@ -91,16 +105,6 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTg-8a-cqj">
                                     <rect key="frame" x="0.0" y="279" width="414" height="84"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJn-rO-FZg">
-                                            <rect key="frame" x="16" y="0.0" width="382" height="1"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="1" id="ezx-6w-ZyU"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="12S-Lx-MCj">
                                             <rect key="frame" x="16" y="12" width="382" height="60"/>
                                             <subviews>
@@ -134,15 +138,12 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="12S-Lx-MCj" secondAttribute="trailing" constant="16" id="55h-DV-gQu"/>
-                                        <constraint firstItem="QJn-rO-FZg" firstAttribute="top" secondItem="mTg-8a-cqj" secondAttribute="top" id="Fei-fA-xca"/>
                                         <constraint firstItem="SjC-kq-PvM" firstAttribute="leading" secondItem="mTg-8a-cqj" secondAttribute="leading" constant="16" id="GFs-Fs-fFc"/>
-                                        <constraint firstItem="QJn-rO-FZg" firstAttribute="leading" secondItem="mTg-8a-cqj" secondAttribute="leading" constant="16" id="HCg-qc-nRx"/>
                                         <constraint firstAttribute="trailing" secondItem="SjC-kq-PvM" secondAttribute="trailing" constant="16" id="ZTc-et-gze"/>
-                                        <constraint firstAttribute="trailing" secondItem="QJn-rO-FZg" secondAttribute="trailing" constant="16" id="bhh-Mc-h2g"/>
-                                        <constraint firstItem="12S-Lx-MCj" firstAttribute="top" secondItem="QJn-rO-FZg" secondAttribute="bottom" constant="11" id="fuT-5c-Zfb"/>
                                         <constraint firstAttribute="bottom" secondItem="SjC-kq-PvM" secondAttribute="bottom" id="izq-lF-HqV"/>
                                         <constraint firstItem="SjC-kq-PvM" firstAttribute="top" secondItem="12S-Lx-MCj" secondAttribute="bottom" constant="11" id="kjx-7y-3Sa"/>
                                         <constraint firstItem="12S-Lx-MCj" firstAttribute="leading" secondItem="mTg-8a-cqj" secondAttribute="leading" constant="16" id="oSW-rQ-KED"/>
+                                        <constraint firstItem="12S-Lx-MCj" firstAttribute="top" secondItem="mTg-8a-cqj" secondAttribute="top" constant="12" id="wLQ-m7-Vmq"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0J-od-RtZ">

@@ -40,7 +40,7 @@
                         <outlet property="delegate" destination="-1" id="Ub6-3s-o8d"/>
                     </connections>
                 </searchBar>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="fva-qQ-WqU">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="60" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="fva-qQ-WqU">
                     <rect key="frame" x="0.0" y="56" width="375" height="567"/>
                     <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                     <inset key="separatorInset" minX="56" minY="0.0" maxX="0.0" maxY="0.0"/>

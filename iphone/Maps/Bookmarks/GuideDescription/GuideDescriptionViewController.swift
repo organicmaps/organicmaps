@@ -4,6 +4,7 @@ class GuideDescriptionViewController: MWMViewController {
   @IBOutlet private var photoActivityIndicator: UIActivityIndicatorView!
   @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var subtitleLabel: UILabel!
+  @IBOutlet private var providerContainerView: UIView!
   @IBOutlet private var providerIcon: UIImageView!
   @IBOutlet private var providerLabel: UILabel!
   @IBOutlet private var descriptionText: UITextView!
@@ -24,7 +25,8 @@ class GuideDescriptionViewController: MWMViewController {
 
     title = category.title
     titleLabel.text = category.title
-    providerLabel.text = category.author
+    providerLabel.text = String(coreFormat: L("author_name_by_prefix"), arguments: [category.author])
+    providerContainerView.isHidden = category.author.isEmpty
     subtitleLabel.attributedText = NSMutableAttributedString(htmlString: category.annotation, baseFont: UIFont.regular16())
     descriptionText.attributedText = NSMutableAttributedString(htmlString: category.detailedAnnotation, baseFont: UIFont.regular16())
 

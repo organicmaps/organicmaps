@@ -158,7 +158,7 @@ extension BookmarksListViewController: UITableViewDataSource {
 
 extension BookmarksListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    48
+    60
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
