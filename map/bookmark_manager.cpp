@@ -43,6 +43,7 @@
 #include <iomanip>
 #include <limits>
 #include <sstream>
+#include <unordered_map>
 #include <utility>
 
 #include "3party/Alohalytics/src/alohalytics.h"
@@ -685,8 +686,7 @@ void BookmarkManager::DetachBookmark(kml::MarkId bmId, kml::MarkGroupId catId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   GetBookmarkForEdit(bmId)->Detach();
-  GetGroup(catId)->DetachUserMark(bmId);
-  m_changesTracker.OnDetachBookmark(bmId, catId);
+  DetachUserMark(bmId, catId);
 }
 
 void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
@@ -696,13 +696,30 @@ void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
   auto const it = m_bookmarks.find(bmId);
   CHECK(it != m_bookmarks.end(), ());
   auto const groupId = it->second->GetGroupId();
+
   if (groupId != kml::kInvalidMarkGroupId)
-  {
-    GetGroup(groupId)->DetachUserMark(bmId);
-    m_changesTracker.OnDetachBookmark(bmId, groupId);
-  }
+    DetachUserMark(bmId, groupId);
+
   m_changesTracker.OnDeleteMark(bmId);
   m_bookmarks.erase(it);
+}
+
+void BookmarkManager::DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId)
+{
+  GetGroup(catId)->DetachUserMark(bmId);
+  for (auto const compilationId : GetCategoryData(catId).m_compilationIds)
+  {
+    GetGroup(compilationId)->DetachUserMark(bmId);
+  }
+  m_changesTracker.OnDetachBookmark(bmId, catId);
+}
+
+void BookmarkManager::DeleteCompilations(kml::GroupIdCollection const & compilations)
+{
+  for (auto const compilationId : compilations)
+  {
+    m_compilations.erase(compilationId);
+  }
 }
 
 Track * BookmarkManager::CreateTrack(kml::TrackData && trackData)
@@ -1351,140 +1368,27 @@ void BookmarkManager::OnTrackDeselected()
 
 kml::GroupIdCollection BookmarkManager::GetChildrenCategories(kml::MarkGroupId parentId) const
 {
-  return GetChildrenOfType(parentId, kml::CompilationType::Category);
+  return GetCompilationOfType(parentId, kml::CompilationType::Category);
 }
 
 kml::GroupIdCollection BookmarkManager::GetChildrenCollections(kml::MarkGroupId parentId) const
 {
-  return GetChildrenOfType(parentId, kml::CompilationType::Collection);
+  return GetCompilationOfType(parentId, kml::CompilationType::Collection);
 }
 
-kml::GroupIdCollection BookmarkManager::GetChildrenOfType(kml::MarkGroupId parentId,
-                                                          kml::CompilationType type) const
+kml::GroupIdCollection BookmarkManager::GetCompilationOfType(kml::MarkGroupId parentId,
+                                                             kml::CompilationType type) const
 {
   kml::GroupIdCollection result;
-  auto const & childrenGroups = GetCategoryData(parentId).m_childrenIds;
-  std::copy_if(childrenGroups.cbegin(), childrenGroups.cend(), std::back_inserter(result),
+  auto const & compilations = GetCategoryData(parentId).m_compilationIds;
+  std::copy_if(compilations.cbegin(), compilations.cend(), std::back_inserter(result),
                [this, type](auto const groupId)
                {
-                 auto const & child = m_childrenGroups.at(groupId);
+                 auto const & child = m_compilations.at(groupId);
                  return child->GetCategoryData().m_type == type;
                });
 
   return result;
-}
-
-// TODO(a): remove it when correct implementation will be done.
-void BookmarkManager::AddNestedGroupDummy()
-{
-  auto constexpr kDummyChildCollection = std::numeric_limits<kml::MarkGroupId>::max() - 1;
-  auto constexpr kDummyChildCategory = std::numeric_limits<kml::MarkGroupId>::max() - 2;
-
-  kml::CategoryData parentData;
-
-  parentData.m_childrenIds = {kDummyChildCollection, kDummyChildCategory};
-  parentData.m_type = kml::CompilationType::Category;
-  parentData.m_name = {{StringUtf8Multilang::kEnglishCode, "Around the world"}};
-  parentData.m_imageUrl = "https://upload.wikimedia.org/wikipedia/commons/b/b9/Yggdrasil.jpg";
-  parentData.m_annotation = {{StringUtf8Multilang::kEnglishCode, "The world is the Earth and all life on it, including human civilization."}};;
-  parentData.m_description = {{StringUtf8Multilang::kEnglishCode, "<h2><span class=\"mw-headline\" id=\"Philosophy\">Philosophy</span></h2>\n"
-                                                                  "<p>In philosophy, the term <i>world</i> has several possible meanings. In some contexts, it refers to everything that makes up reality or the physical universe. In others, it can mean have a specific ontological sense. While clarifying the concept of world has arguably always been among the basic tasks of Western philosophy, this theme appears to have been raised explicitly only at the start of the twentieth century and has been the subject of continuous debate. The question of what the world is has by no means been settled.\n"
-                                                                  "</p>"}};
-  parentData.m_visible = true;
-  parentData.m_authorName = "Lonely Planet";
-  parentData.m_authorId = "28035594-6457-466d-8f6f-8499607df570";
-  parentData.m_lastModified = kml::Timestamp::clock::now();
-  parentData.m_accessRules = kml::AccessRules::Paid;
-
-  {
-    kml::CategoryData data;
-
-    data.m_id = kDummyChildCollection;
-    data.m_type = kml::CompilationType::Collection;
-    data.m_name = {{StringUtf8Multilang::kEnglishCode, "Historical Art"}};
-    data.m_imageUrl = "https://glazunov-gallery.ru/uploads/image/image/1549/9.__________.jpg";
-    data.m_annotation = {{StringUtf8Multilang::kEnglishCode, "Art history is an interdisciplinary practice that analyzes the various factors—cultural, political, religious, economic, or artistic—which contribute to visual appearance of a work of art."}};;
-    data.m_description = {{StringUtf8Multilang::kEnglishCode, "Art history is the study of aesthetic objects and visual expression in historical and stylistic context. Traditionally, the discipline of art history emphasized painting, drawing, sculpture, architecture, ceramics, and decorative arts, yet today, art history examines broader aspects of visual culture"}};
-    data.m_visible = true;
-    data.m_authorName = "Lonely Planet";
-    data.m_authorId = "28035594-6457-466d-8f6f-8499607df570";
-    data.m_lastModified = kml::Timestamp::clock::now();
-    data.m_accessRules = kml::AccessRules::Paid;
-
-    m_childrenGroups.emplace(kDummyChildCollection,
-                             std::make_unique<BookmarkCategory>(std::move(data), true));
-  }
-  {
-    kml::CategoryData data;
-    data.m_id = kDummyChildCategory;
-    data.m_type = kml::CompilationType::Category;
-    data.m_name = {{StringUtf8Multilang::kEnglishCode, "Museums"}};
-    data.m_imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Museo_mar%C3%ADtimo_%C3%93sv%C3%B6r%2C_Bolungarv%C3%ADk%2C_Vestfir%C3%B0ir%2C_Islandia%2C_2014-08-15%2C_DD_066.JPG/640px-Museo_mar%C3%ADtimo_%C3%93sv%C3%B6r%2C_Bolungarv%C3%ADk%2C_Vestfir%C3%B0ir%2C_Islandia%2C_2014-08-15%2C_DD_066.JPG";
-    data.m_annotation = {{StringUtf8Multilang::kEnglishCode, "The English \"museum\" comes from the Latin word, and is pluralized as \"museums\" (or rarely, \"musea\")."}};;
-    data.m_description = {{StringUtf8Multilang::kEnglishCode, "A museum is an institution that cares for (conserves) a collection of artifacts and other objects of artistic, cultural, historical, or scientific importance."}};
-    data.m_visible = true;
-    data.m_authorName = "Lonely Planet";
-    data.m_authorId = "28035594-6457-466d-8f6f-8499607df570";
-    data.m_lastModified = kml::Timestamp::clock::now();
-    data.m_accessRules = kml::AccessRules::Paid;
-
-    m_childrenGroups.emplace(kDummyChildCategory,
-                             std::make_unique<BookmarkCategory>(std::move(data), true));
-  }
-
-  auto const parentId = CreateBookmarkCategory(std::move(parentData));
-  auto * parent = GetBmCategory(parentId);
-  parent->SetServerId("XXXXX");
-
-  auto * collection = GetBmCategory(kDummyChildCollection);
-  collection->SetServerId("XXXXX");
-  auto * category = GetBmCategory(kDummyChildCategory);
-  category->SetServerId("XXXXX");
-
-  {
-    kml::BookmarkData data;
-    data.m_name = {{StringUtf8Multilang::kEnglishCode, "Art Gallery of Ilya Glazunov"}};
-    data.m_description = {{StringUtf8Multilang::kEnglishCode, "The Ilya Glazunov Art Gallery presents works by a prominent Russian painter of our age and holder of the UNESCO medal for outstanding contribution to world culture. Glazunov became known internationally as a master of portrait painting."}};
-    data.m_icon = kml::BookmarkIcon::Museum;
-    data.m_viewportScale = 0;
-    data.m_timestamp = {};
-    data.m_point = {37.606609, 55.746438};
-    data.m_visible = true;
-    data.m_color = {kml::PredefinedColor::Green, 0x0000ff00};
-
-    for (auto const groupId : {parentId, kDummyChildCollection, kDummyChildCategory})
-    {
-      auto copy = data;
-      auto * bookmark = CreateBookmark(std::move(copy));
-      bookmark->Attach(groupId);
-      auto * group = GetBmCategory(groupId);
-      group->AttachUserMark(bookmark->GetId());
-      m_changesTracker.OnAttachBookmark(bookmark->GetId(), groupId);
-    }
-  }
-  {
-    kml::BookmarkData data;
-    data.m_name = {{StringUtf8Multilang::kEnglishCode, "The Polytechnic Museum"}};
-    data.m_description = {{StringUtf8Multilang::kEnglishCode, "The Polytechnic Museum (Russian: Политехнический музей) is one of the oldest science museums in the world and is located in Moscow. It showcases Russian and Soviet technology and science, as well as modern inventions."}};
-    data.m_icon = kml::BookmarkIcon::Museum;
-    data.m_viewportScale = 0;
-    data.m_timestamp = {};
-    data.m_point = {37.629519, 55.757780};
-    data.m_visible = true;
-    data.m_color = {kml::PredefinedColor::Green, 0x0000ff00};
-
-    for (auto const groupId : {parentId, kDummyChildCategory})
-    {
-      auto copy = data;
-      auto * bookmark = CreateBookmark(std::move(copy));
-      bookmark->Attach(groupId);
-      auto * group = GetBmCategory(groupId);
-      group->AttachUserMark(bookmark->GetId());
-      m_changesTracker.OnAttachBookmark(bookmark->GetId(), groupId);
-    }
-  }
-
-  NotifyChanges();
 }
 
 void BookmarkManager::PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort,
@@ -1876,6 +1780,8 @@ void BookmarkManager::GetSortedCategory(SortParams const & params)
 void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(m_compilations.count(groupId) == 0, ());
+
   auto * group = GetGroup(groupId);
   for (auto markId : group->GetUserMarks())
   {
@@ -2325,6 +2231,7 @@ void BookmarkManager::ClearCategories()
     m_changesTracker.OnDeleteGroup(groupId);
   }
 
+  m_compilations.clear();
   m_categories.clear();
   UpdateBmGroupIdList();
 
@@ -2510,8 +2417,6 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
       CheckAndCreateDefaultCategory();
     }
 
-    AddNestedGroupDummy();
-
     m_loadBookmarksFinished = true;
 
     if (!m_bookmarkLoadingQueue.empty())
@@ -2665,11 +2570,9 @@ BookmarkCategory const * BookmarkManager::GetBmCategory(kml::MarkGroupId categor
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmarkCategory(categoryId), ());
 
-  // Dummy.
-  // TODO(a): remove it with correct implementation will be done.
-  auto const childIt = m_childrenGroups.find(categoryId);
-  if (childIt != m_childrenGroups.cend())
-    return childIt->second.get();
+  auto const compilationIt = m_compilations.find(categoryId);
+  if (compilationIt != m_compilations.cend())
+    return compilationIt->second.get();
 
   auto const it = m_categories.find(categoryId);
   return (it != m_categories.end() ? it->second.get() : nullptr);
@@ -2680,11 +2583,9 @@ BookmarkCategory * BookmarkManager::GetBmCategory(kml::MarkGroupId categoryId)
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmarkCategory(categoryId), ());
 
-  // Dummy.
-  // TODO(a): remove it with correct implementation will be done.
-  auto const childIt = m_childrenGroups.find(categoryId);
-  if (childIt != m_childrenGroups.cend())
-    return childIt->second.get();
+  auto const compilationIt = m_compilations.find(categoryId);
+  if (compilationIt != m_compilations.cend())
+    return compilationIt->second.get();
 
   auto const it = m_categories.find(categoryId);
   return (it != m_categories.end() ? it->second.get() : nullptr);
@@ -2780,7 +2681,9 @@ void BookmarkManager::NotifyCategoriesChanged()
 bool BookmarkManager::HasBmCategory(kml::MarkGroupId groupId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_categories.find(groupId) != m_categories.end();
+  if (!IsBookmarkCategory(groupId))
+    return false;
+  return GetBmCategory(groupId) != nullptr;
 }
 
 void BookmarkManager::UpdateBmGroupIdList()
@@ -2792,14 +2695,15 @@ void BookmarkManager::UpdateBmGroupIdList()
     m_bmGroupsIdList.push_back(it->first);
 }
 
-kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && data, bool autoSave)
+kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && data, bool autoSave /* = true */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (data.m_id == kml::kInvalidMarkGroupId)
     data.m_id = UserMarkIdStorage::Instance().GetNextCategoryId();
   auto groupId = data.m_id;
   CHECK_EQUAL(m_categories.count(groupId), 0, ());
-  m_categories[groupId] = std::make_unique<BookmarkCategory>(std::move(data), autoSave);
+  CHECK_EQUAL(m_compilations.count(groupId), 0, ());
+  m_categories.emplace(groupId, std::make_unique<BookmarkCategory>(std::move(data), autoSave));
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
   return groupId;
@@ -2815,6 +2719,19 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   m_changesTracker.OnAddGroup(groupId);
   NotifyBookmarksChanged();
   NotifyCategoriesChanged();
+  return groupId;
+}
+
+kml::MarkGroupId BookmarkManager::CreateBookmarkCompilation(kml::CategoryData && data)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (data.m_id == kml::kInvalidMarkGroupId)
+    data.m_id = UserMarkIdStorage::Instance().GetNextCategoryId();
+  auto groupId = data.m_id;
+  CHECK_EQUAL(m_categories.count(groupId), 0, ());
+  CHECK_EQUAL(m_compilations.count(groupId), 0, ());
+  m_compilations.emplace(groupId, std::make_unique<BookmarkCategory>(std::move(data), false));
+
   return groupId;
 }
 
@@ -2858,6 +2775,7 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId)
   FileWriter::DeleteFileX(it->second->GetFileName());
   m_bookmarkCatalog.UnregisterByServerId(it->second->GetServerId());
 
+  DeleteCompilations(it->second->GetCategoryData().m_compilationIds);
   m_categories.erase(it);
   UpdateBmGroupIdList();
   return true;
@@ -2955,11 +2873,9 @@ UserMarkLayer const * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
     return m_userMarkLayers[static_cast<size_t>(groupId - 1)].get();
   }
 
-  // Dummy.
-  // TODO(a): remove it with correct implementation will be done.
-  auto const it = m_childrenGroups.find(groupId);
-  if (it != m_childrenGroups.cend())
-    return it->second.get();
+  auto const compilationIt = m_compilations.find(groupId);
+  if (compilationIt != m_compilations.cend())
+    return compilationIt->second.get();
 
   ASSERT(m_categories.find(groupId) != m_categories.end(), ());
   return m_categories.at(groupId).get();
@@ -2973,6 +2889,10 @@ UserMarkLayer * BookmarkManager::GetGroup(kml::MarkGroupId groupId)
     CHECK_GREATER(groupId, 0, ());
     return m_userMarkLayers[static_cast<size_t>(groupId - 1)].get();
   }
+
+  auto const compilationIt = m_compilations.find(groupId);
+  if (compilationIt != m_compilations.cend())
+    return compilationIt->second.get();
 
   auto const it = m_categories.find(groupId);
   return it != m_categories.end() ? it->second.get() : nullptr;
@@ -3000,26 +2920,25 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       ResetIds(fileData);
     }
 
-    auto originalName = kml::GetDefaultStr(categoryData.m_name);
-    if (originalName.empty())
+    std::unordered_map<kml::CompilationId, BookmarkCategory *> compilations;
+    for (auto & compilation : fileData.m_compilationsData)
     {
-      originalName = kDefaultBookmarksFileName;
-      kml::SetDefaultStr(categoryData.m_name, originalName);
+      SetUniqueName(compilation, [&compilations](auto const & name) {
+        return std::all_of(compilations.cbegin(), compilations.cend(),
+                           [&name](auto const & c) { return c.second->GetName() != name; });
+      });
+
+      auto const compilationId = compilation.m_compilationId;
+      auto const compilationGroupId = CreateBookmarkCompilation(std::move(compilation));
+      categoryData.m_compilationIds.push_back(compilationGroupId);
+
+      auto * childGroup = GetBmCategory(compilationGroupId);
+      compilations.emplace(compilationId, childGroup);
+      childGroup->SetFileName(fileName);
+      childGroup->SetServerId(fileData.m_serverId);
     }
 
-    auto uniqueName = originalName;
-    int counter = 0;
-    while (IsUsedCategoryName(uniqueName))
-      uniqueName = originalName + strings::to_string(++counter);
-
-    if (counter > 0)
-    {
-      auto const sameCategoryId = GetCategoryId(originalName);
-      if (categoryData.m_id != kml::kInvalidMarkGroupId && categoryData.m_id < sameCategoryId)
-        SetCategoryName(sameCategoryId, uniqueName);
-      else
-        kml::SetDefaultStr(categoryData.m_name, uniqueName);
-    }
+    SetUniqueName(categoryData, [this](auto const & name) { return !IsUsedCategoryName(name); });
 
     UserMarkIdStorage::Instance().EnableSaving(false);
 
@@ -3043,9 +2962,21 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 
     for (auto & bmData : fileData.m_bookmarksData)
     {
+      auto const compilationIds = bmData.m_compilations;
       auto * bm = CreateBookmark(std::move(bmData));
       bm->Attach(groupId);
       group->AttachUserMark(bm->GetId());
+      for (auto const c : compilationIds)
+      {
+        auto const it = compilations.find(c);
+        if (it == compilations.cend())
+        {
+          LOG(LERROR, ("Incorrect compilation id", c, "into", fileName));
+          continue;
+        }
+        bm->AttachCompilation(groupId);
+        it->second->AttachUserMark(bm->GetId());
+      }
       m_changesTracker.OnAttachBookmark(bm->GetId(), groupId);
     }
     for (auto & trackData : fileData.m_tracksData)
@@ -3092,7 +3023,43 @@ bool BookmarkManager::HasDuplicatedIds(kml::FileData const & fileData) const
     if (t.m_id != kml::kInvalidTrackId && m_tracks.count(t.m_id) > 0)
       return true;
   }
+
+  for (auto const & c : fileData.m_compilationsData)
+  {
+    if (c.m_id != kml::kInvalidMarkGroupId &&
+        (m_categories.find(c.m_id) != m_categories.cend() ||
+         m_compilations.find(c.m_id) != m_compilations.cend()))
+    {
+      return true;
+    }
+  }
+
   return false;
+}
+
+template <typename UniquityChecker>
+void BookmarkManager::SetUniqueName(kml::CategoryData & data, UniquityChecker checker)
+{
+  auto originalName = kml::GetDefaultStr(data.m_name);
+  if (originalName.empty())
+  {
+    originalName = kDefaultBookmarksFileName;
+    kml::SetDefaultStr(data.m_name, originalName);
+  }
+
+  auto uniqueName = originalName;
+  int counter = 0;
+  while (!checker(uniqueName))
+    uniqueName = originalName + strings::to_string(++counter);
+
+  if (counter > 0)
+  {
+    auto const sameCategoryId = GetCategoryId(originalName);
+    if (data.m_id != kml::kInvalidMarkGroupId && data.m_id < sameCategoryId)
+      SetCategoryName(sameCategoryId, uniqueName);
+    else
+      kml::SetDefaultStr(data.m_name, uniqueName);
+  }
 }
 
 std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCategory const * group) const
@@ -3105,15 +3072,21 @@ std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCa
   kmlData->m_bookmarksData.reserve(markIds.size());
   for (auto it = markIds.rbegin(); it != markIds.rend(); ++it)
   {
-    Bookmark const * bm = GetBookmark(*it);
+    auto const * bm = GetBookmark(*it);
     kmlData->m_bookmarksData.emplace_back(bm->GetData());
   }
   auto const & lineIds = group->GetUserLines();
   kmlData->m_tracksData.reserve(lineIds.size());
   for (auto trackId : lineIds)
   {
-    Track const *track = GetTrack(trackId);
+    auto const * track = GetTrack(trackId);
     kmlData->m_tracksData.emplace_back(track->GetData());
+  }
+
+  for (auto const compilationId : group->GetCategoryData().m_compilationIds)
+  {
+    auto const & compilation = GetCategoryData(compilationId);
+    kmlData->m_compilationsData.emplace_back(compilation);
   }
   return kmlData;
 }
@@ -3655,8 +3628,10 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
         {
           ClearGroup(categoryId);
           m_changesTracker.OnDeleteGroup(categoryId);
+
           auto const it = m_categories.find(categoryId);
           FileWriter::DeleteFileX(it->second->GetFileName());
+          DeleteCompilations(it->second->GetCategoryData().m_compilationIds);
           m_categories.erase(categoryId);
         }
         UpdateBmGroupIdList();

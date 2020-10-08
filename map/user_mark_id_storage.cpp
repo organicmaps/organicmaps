@@ -96,6 +96,12 @@ bool UserMarkIdStorage::CheckIds(kml::FileData const & fileData) const
       return false;
   }
 
+  for (auto const & c : fileData.m_compilationsData)
+  {
+    if (c.m_id != kml::kInvalidTrackId && c.m_id > m_initialLastCategoryId)
+      return false;
+  }
+
   // No one corner case. Check passed.
   return true;
 }

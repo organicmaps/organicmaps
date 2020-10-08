@@ -275,6 +275,8 @@ public:
   kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
 
+  kml::MarkGroupId CreateBookmarkCompilation(kml::CategoryData && data);
+
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
   m2::RectD GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const;
@@ -586,9 +588,6 @@ private:
     GroupMarkIdSet m_detachedBookmarks;
   };
 
-  // TODO(a): remove it when correct implementation will be done.
-  void AddNestedGroupDummy();
-
   template <typename UserMarkT>
   UserMarkT * CreateUserMark(m2::PointD const & ptOrg)
   {
@@ -640,6 +639,8 @@ private:
   void AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DeleteBookmark(kml::MarkId bmId);
+  void DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId);
+  void DeleteCompilations(kml::GroupIdCollection const & compilations);
 
   Track * CreateTrack(kml::TrackData && trackData);
 
@@ -724,6 +725,8 @@ private:
   void FinishConversion(ConversionHandler const & handler, bool result);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
+  template <typename UniquityChecker>
+  void SetUniqueName(kml::CategoryData & data, UniquityChecker checker);
   bool CheckVisibility(CategoryFilterType const filter, bool isVisible) const;
 
   struct SortBookmarkData
@@ -793,8 +796,8 @@ private:
   void UpdateTrackMarksVisibility(kml::MarkGroupId groupId);
   void RequestSymbolSizes();
 
-  kml::GroupIdCollection GetChildrenOfType(kml::MarkGroupId parentid,
-                                           kml::CompilationType type) const;
+  kml::GroupIdCollection GetCompilationOfType(kml::MarkGroupId parentId,
+                                              kml::CompilationType type) const;
 
   ThreadChecker m_threadChecker;
 
@@ -918,9 +921,7 @@ private:
 
   bool m_testModeEnabled = false;
 
-  // Dummy
-  // TODO(a): replace it with correct implementation
-  CategoriesCollection m_childrenGroups;
+  CategoriesCollection m_compilations;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };

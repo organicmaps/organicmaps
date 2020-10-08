@@ -61,6 +61,7 @@ public:
   bool CanFillPlacePageMetadata() const;
 
   void Attach(kml::MarkGroupId groupId);
+  void AttachCompilation(kml::MarkGroupId groupId);
   void Detach();
 
 private:
@@ -68,6 +69,7 @@ private:
 
   kml::BookmarkData m_data;
   kml::MarkGroupId m_groupId;
+  kml::GroupIdCollection m_compilationIds;
   search::ReverseGeocoder::RegionAddress m_address;
 };
 

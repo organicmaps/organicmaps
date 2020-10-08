@@ -286,9 +286,16 @@ void Bookmark::Attach(kml::MarkGroupId groupId)
   m_groupId = groupId;
 }
 
+void Bookmark::AttachCompilation(kml::MarkGroupId groupId)
+{
+  ASSERT(groupId != kml::kInvalidMarkGroupId, ());
+  m_compilationIds.push_back(groupId);
+}
+
 void Bookmark::Detach()
 {
   m_groupId = kml::kInvalidMarkGroupId;
+  m_compilationIds.clear();
 }
 
 BookmarkCategory::BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave)
