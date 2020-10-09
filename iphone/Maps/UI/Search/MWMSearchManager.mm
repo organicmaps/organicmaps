@@ -56,6 +56,7 @@ using Observers = NSHashTable<Observer>;
 @property(nonatomic) MWMNoMapsViewController *noMapsController;
 
 @property(nonatomic) Observers *observers;
+@property(nonatomic) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -71,6 +72,8 @@ using Observers = NSHashTable<Observer>;
     self.state = MWMSearchManagerStateHidden;
     [MWMSearch addObserver:self];
     _observers = [Observers weakObjectsHashTable];
+    _dateFormatter = [[NSDateFormatter alloc] init];
+    _dateFormatter.dateFormat = @"yyyy-MM-dd";
   }
   return self;
 }
@@ -463,9 +466,10 @@ using Observers = NSHashTable<Observer>;
 - (void)datePickerDidClick:(DatePickerViewController *)datePicker
         didSelectStartDate:(NSDate *)startDate
                    endDate:(NSDate *)endDate {
+  NSString *startString = startDate ? [self.dateFormatter stringFromDate:startDate] : kStatNone;
+  NSString *endString = endDate ? [self.dateFormatter stringFromDate:endDate] : kStatNone;
   [Statistics logEvent:kStatSearchQuickFilterClick withParameters:@{ kStatCategory: kStatHotel,
-                                                                     kStatDate: @[startDate ? startDate : kStatNone,
-                                                                                  endDate ? endDate : kStatNone]}];
+                                                                     kStatDate: @[startString, endString]}];
 }
 
 #pragma mark - GuestsPickerViewControllerDelegate
