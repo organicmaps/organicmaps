@@ -23,15 +23,16 @@ public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoratio
   }
 
   @Override
-  public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state)
+  public void onDrawOver(@NonNull Canvas c, @NonNull RecyclerView parent,
+                         @NonNull RecyclerView.State state)
   {
     if (state.isMeasuring())
       return;
 
-    int right = parent.getWidth();
-    int dividerHeight = mDivider.getIntrinsicHeight();
+    final int right = parent.getWidth();
+    final int dividerHeight = mDivider.getIntrinsicHeight();
 
-    int childCount = parent.getChildCount();
+    final int childCount = parent.getChildCount();
     for (int i = 0; i < childCount; i++)
     {
       View child = parent.getChildAt(i);
