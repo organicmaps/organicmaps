@@ -143,8 +143,8 @@ public class Holders
     void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
     {
       mView.setOnClickListener(v -> {
-        if (listener != null)
-          listener.onItemClick(v,mEntity);
+        if (listener != null && mEntity != null)
+          listener.onItemClick(v, mEntity);
       });
     }
 

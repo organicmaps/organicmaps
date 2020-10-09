@@ -146,9 +146,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
     mBookmarkCollectionAdapter = new BookmarkCollectionAdapter(mCategoryItems, mCollectionItems);
     mBookmarkCollectionAdapter.setOnClickListener((v, item) -> {
-      Intent intent  = new Intent(getActivity(), BookmarkListActivity.class)
+      Intent intent = new Intent(getActivity(), BookmarkListActivity.class)
           .putExtra(BookmarksListFragment.EXTRA_CATEGORY, item);
-        startActivityForResult(intent, 101);
+      startActivity(intent);
     });
   }
 
