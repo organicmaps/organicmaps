@@ -246,8 +246,8 @@ bool ProcessorOsmElementsFromXml::TryRead(OsmElement & element)
 
 bool GenerateIntermediateData(feature::GenerateInfo & info)
 {
-  auto nodes = cache::CreatePointStorageWriter(info.m_nodeStorageType,
-                                               info.GetIntermediateFileName(NODES_FILE));
+  auto nodes =
+      cache::CreatePointStorageWriter(info.m_nodeStorageType, info.GetCacheFileName(NODES_FILE));
   cache::IntermediateDataWriter cache(*nodes, info);
   TownsDumper towns;
   SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);

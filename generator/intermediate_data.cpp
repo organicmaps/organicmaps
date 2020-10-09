@@ -376,25 +376,25 @@ IndexFileReader const & IntermediateDataObjectsCache::AllocatedObjects::GetOrCre
 
 // IntermediateDataReader
 IntermediateDataReader::IntermediateDataReader(
-    IntermediateDataObjectsCache::AllocatedObjects & objs,
-    feature::GenerateInfo const & info)
+    IntermediateDataObjectsCache::AllocatedObjects & objs, feature::GenerateInfo const & info)
   : m_nodes(objs.GetPointStorageReader())
-  , m_ways(objs, info.GetIntermediateFileName(WAYS_FILE), info.m_preloadCache)
-  , m_relations(objs, info.GetIntermediateFileName(RELATIONS_FILE), info.m_preloadCache)
-  , m_nodeToRelations(objs.GetOrCreateIndexReader(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT)))
-  , m_wayToRelations(objs.GetOrCreateIndexReader(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT)))
-  , m_relationToRelations(objs.GetOrCreateIndexReader(info.GetIntermediateFileName(RELATIONS_FILE, ID2REL_EXT)))
+  , m_ways(objs, info.GetCacheFileName(WAYS_FILE), info.m_preloadCache)
+  , m_relations(objs, info.GetCacheFileName(RELATIONS_FILE), info.m_preloadCache)
+  , m_nodeToRelations(objs.GetOrCreateIndexReader(info.GetCacheFileName(NODES_FILE, ID2REL_EXT)))
+  , m_wayToRelations(objs.GetOrCreateIndexReader(info.GetCacheFileName(WAYS_FILE, ID2REL_EXT)))
+  , m_relationToRelations(
+        objs.GetOrCreateIndexReader(info.GetCacheFileName(RELATIONS_FILE, ID2REL_EXT)))
 {}
 
 // IntermediateDataWriter
 IntermediateDataWriter::IntermediateDataWriter(PointStorageWriterInterface & nodes,
                                                feature::GenerateInfo const & info)
   : m_nodes(nodes)
-  , m_ways(info.GetIntermediateFileName(WAYS_FILE))
-  , m_relations(info.GetIntermediateFileName(RELATIONS_FILE))
-  , m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT))
-  , m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT))
-  , m_relationToRelations(info.GetIntermediateFileName(RELATIONS_FILE, ID2REL_EXT))
+  , m_ways(info.GetCacheFileName(WAYS_FILE))
+  , m_relations(info.GetCacheFileName(RELATIONS_FILE))
+  , m_nodeToRelations(info.GetCacheFileName(NODES_FILE, ID2REL_EXT))
+  , m_wayToRelations(info.GetCacheFileName(WAYS_FILE, ID2REL_EXT))
+  , m_relationToRelations(info.GetCacheFileName(RELATIONS_FILE, ID2REL_EXT))
 {}
 
 void IntermediateDataWriter::AddRelation(Key id, RelationElement const & e)
@@ -458,7 +458,7 @@ IntermediateData::IntermediateData(IntermediateDataObjectsCache & objectsCache,
   , m_info(info)
 {
   auto & allocatedObjects = m_objectsCache.GetOrCreatePointStorageReader(
-                              info.m_nodeStorageType, info.GetIntermediateFileName(NODES_FILE));
+      info.m_nodeStorageType, info.GetCacheFileName(NODES_FILE));
   m_reader = make_shared<IntermediateDataReader>(allocatedObjects, info);
 }
 

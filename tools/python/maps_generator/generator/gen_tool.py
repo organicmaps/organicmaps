@@ -51,6 +51,7 @@ class GenTool:
         "promo_catalog_cities": str,
         "brands_data": str,
         "brands_translations_data": str,
+        "cache_path": str,
         "cities_boundaries_data": str,
         "data_path": str,
         "dump_wikipedia_urls": str,

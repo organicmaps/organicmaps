@@ -42,10 +42,12 @@ maps_generator$ vim var/etc/map_generator.ini
 
 ```ini
 [Main]
-# The path where the planet will be downloaded and the maps are generated.
-MAIN_OUT_PATH: ~/maps_build
 # If the flag DEBUG is set a special small planet file will be downloaded.
 DEBUG: 1
+# The path where the planet will be downloaded and the maps are generated.
+MAIN_OUT_PATH: ~/maps_build
+# The path where caches for nodes, ways, relations are stored.
+# CACHE_PATH:
 
 
 [Developer]

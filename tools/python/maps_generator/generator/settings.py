@@ -80,6 +80,7 @@ _HOME_PATH = str(Path.home())
 _WORK_PATH = _HOME_PATH
 TMPDIR = os.path.join(_HOME_PATH, "tmp")
 MAIN_OUT_PATH = os.path.join(_WORK_PATH, "generation")
+CACHE_PATH = ""
 
 # Developer section:
 BUILD_PATH = os.path.join(_WORK_PATH, "omim-build-release")
@@ -186,12 +187,14 @@ def init(default_settings_path: AnyStr):
 
     # Main section:
     global DEBUG
-    global MAIN_OUT_PATH
     global TMPDIR
+    global MAIN_OUT_PATH
+    global CACHE_PATH
     _DEBUG = cfg.get_opt("Main", "DEBUG")
     DEBUG = DEBUG if _DEBUG is None else int(_DEBUG)
-    MAIN_OUT_PATH = cfg.get_opt_path("Main", "MAIN_OUT_PATH", MAIN_OUT_PATH)
     TMPDIR = cfg.get_opt_path("Main", "TMPDIR", TMPDIR)
+    MAIN_OUT_PATH = cfg.get_opt_path("Main", "MAIN_OUT_PATH", MAIN_OUT_PATH)
+    CACHE_PATH = cfg.get_opt_path("Main", "CACHE_PATH", CACHE_PATH)
 
     # Developer section:
     global BUILD_PATH

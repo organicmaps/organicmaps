@@ -796,8 +796,7 @@ kml::MarkGroupId Framework::AddCategory(string const & categoryName)
 void Framework::FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const
 {
   auto types = feature::TypesHolder::FromTypesIndexes(bmk.GetData().m_featureTypes);
-  FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft)
-  {
+  FillPointInfo(info, bmk.GetPivot(), {} /* customTitle */, [&types](FeatureType & ft) {
     return !types.Empty() && feature::TypesHolder(ft).Equals(types);
   });
 }

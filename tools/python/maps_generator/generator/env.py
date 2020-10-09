@@ -45,7 +45,7 @@ def get_all_countries_list(borders_path: AnyStr) -> List[AnyStr]:
 def create_if_not_exist_path(path: AnyStr) -> bool:
     """Creates directory if it doesn't exist."""
     try:
-        os.mkdir(path)
+        os.makedirs(path)
         logger.info(f"Create {path} ...")
         return True
     except FileExistsError:
@@ -118,8 +118,9 @@ class PathProvider:
     PathProvider is used for building paths for a maps generation.
     """
 
-    def __init__(self, build_path: AnyStr, mwm_version: AnyStr):
+    def __init__(self, build_path: AnyStr, build_name:AnyStr, mwm_version: AnyStr):
         self.build_path = build_path
+        self.build_name = build_name
         self.mwm_version = mwm_version
 
         create_if_not_exist_path(self.build_path)
@@ -136,8 +137,17 @@ class PathProvider:
 
     @property
     @create_if_not_exist
+    def cache_path(self) -> AnyStr:
+        """cache_path contains caches for nodes, ways, relations."""
+        if not settings.CACHE_PATH:
+            return self.intermediate_data_path
+
+        return os.path.join(settings.CACHE_PATH, self.build_name)
+
+    @property
+    @create_if_not_exist
     def data_path(self) -> AnyStr:
-        """It's a synonum for intermediate_data_path."""
+        """It's a synonym for intermediate_data_path."""
         return self.intermediate_data_path
 
     @property
@@ -405,7 +415,7 @@ class Env:
         logger.info(f"Build name is {self.build_name}.")
         logger.info(f"Build path is {self.build_path}.")
 
-        self.paths = PathProvider(self.build_path, self.mwm_version)
+        self.paths = PathProvider(self.build_path, self.build_name, self.mwm_version)
 
         Version.write(self.build_path, self.planet_version)
         self.setup_borders()

@@ -100,7 +100,10 @@ DEFINE_string(osm_file_name, "", "Input osm area file.");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m].");
 DEFINE_string(data_path, "", GetDataPathHelp());
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
-DEFINE_string(intermediate_data_path, "", "Path to stored nodes, ways, relations.");
+DEFINE_string(intermediate_data_path, "", "Path to stored intermediate data.");
+DEFINE_string(cache_path, "",
+              "Path to stored caches for nodes, ways, relations. "
+              "If 'cache_path' is empty, caches are stored to 'intermediate_data_path'.");
 DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
 DEFINE_bool(preload_cache, false, "Preload all ways and relations cache.");
 DEFINE_string(node_storage, "map",
@@ -241,6 +244,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty()
                                   ? path
                                   : base::AddSlashIfNeeded(FLAGS_intermediate_data_path);
+  genInfo.m_cacheDir = FLAGS_cache_path.empty() ? genInfo.m_intermediateDir
+                                                : base::AddSlashIfNeeded(FLAGS_cache_path);
   genInfo.m_targetDir = genInfo.m_tmpDir = path;
 
   /// @todo Probably, it's better to add separate option for .mwm.tmp files.

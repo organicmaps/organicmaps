@@ -37,6 +37,8 @@ struct GenerateInfo
   // Directory for all intermediate files.
   std::string m_intermediateDir;
 
+  std::string m_cacheDir;
+
   // Directory with isolines files.
   std::string m_isolinesDir;
 
@@ -114,6 +116,11 @@ struct GenerateInfo
                                       std::string const & ext = "") const
   {
     return base::JoinPath(m_intermediateDir, fileName + ext);
+  }
+
+  std::string GetCacheFileName(std::string const & fileName, std::string const & ext = "") const
+  {
+    return base::JoinPath(m_cacheDir, fileName + ext);
   }
 };
 }  // namespace feature
