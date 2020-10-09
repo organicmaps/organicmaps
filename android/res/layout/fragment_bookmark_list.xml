@@ -15,9 +15,10 @@
       android:layout_height="wrap_content"
       android:focusableInTouchMode="true"
       android:orientation="vertical">
-      <include
+      <com.mapswithme.maps.bookmarks.BookmarkHeaderView
         android:id="@+id/guide_info"
-        layout="@layout/item_guide_info" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/collections_recycler"
         android:layout_width="match_parent"

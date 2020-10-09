@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
@@ -20,10 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.cocosw.bottomsheet.BottomSheet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapswithme.maps.MwmActivity;
@@ -37,6 +33,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.CategoryDataSource;
 import com.mapswithme.maps.bookmarks.data.SortedBlock;
 import com.mapswithme.maps.bookmarks.data.Track;
+import com.mapswithme.maps.bookmarks.description.BookmarksDescriptionActivity;
 import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.search.NativeBookmarkSearchListener;
@@ -49,7 +46,6 @@ import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.BottomSheetHelper;
-import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.ShareOption;
@@ -66,7 +62,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
-  public static final String AUTHOR_LONELY_PLANET_ID = "28035594-6457-466d-8f6f-8499607df570";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -95,7 +90,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private FloatingActionButton mFabViewOnMap;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private ViewGroup mDescriptionView;
+  private BookmarkHeaderView mDescriptionView;
   @NonNull
   private RecyclerView mCollectionRecyclerView;
   @NonNull
@@ -190,6 +185,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     mToolbarController = new BookmarksToolbarController(toolbar, requireActivity(), this);
     mToolbarController.setHint(R.string.search_in_the_list);
     configureRecyclerDividers(getRecyclerView());
+
+    TextView description = requireActivity().findViewById(R.id.btn_description);
+    description.setOnClickListener((btnView) -> {
+      openDescriptionScreen();
+    });
   }
 
   @Override
@@ -236,50 +236,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private void configureGuidesInfoLayout()
   {
     BookmarkCategory category = mCategoryDataSource.getData();
-    if (!category.isMyCategory())
-    {
-      ImageView imageView = mDescriptionView.findViewById(R.id.guide_image);
-      String imageUrl = category.getImageUrl();
-      if (TextUtils.isEmpty(imageUrl) || !ConnectionState.isConnected())
-      {
-        UiUtils.hide(imageView);
-      }
-      else
-      {
-        Glide.with(mDescriptionView.getContext())
-             .load(imageUrl)
-             .placeholder(R.drawable.ic_placeholder)
-             .centerCrop()
-             .into(imageView);
-      }
-      TextView title = mDescriptionView.findViewById(R.id.guide_title);
-      title.setText(category.getName());
-
-      TextView descriptionBtn = mDescriptionView.findViewById(R.id.btn_description);
-      boolean isHideDescriptionBtn = TextUtils.isEmpty(category.getDescription())
-                                     || TextUtils.isEmpty(category.getAnnotation());
-      UiUtils.hideIf(isHideDescriptionBtn, descriptionBtn);
-
-      BookmarkCategory.Author author = category.getAuthor();
-      ImageView imageViewLogo = mDescriptionView.findViewById(R.id.logo);
-      TextView authorTextView = mDescriptionView.findViewById(R.id.content_by);
-
-      if (author != null)
-      {
-        if (author.getId().equals(AUTHOR_LONELY_PLANET_ID))
-          imageViewLogo.setImageDrawable(requireContext().getDrawable(R.drawable.ic_lp_logo));
-        else
-          UiUtils.hide(imageViewLogo);
-
-        //TODO: (@velichkomarija) : Replace with "Content by ".
-        CharSequence authorName = BookmarkCategory.Author.getRepresentation(requireContext(), author);
-        authorTextView.setText(authorName);
-      }
-    }
-    else
-    {
-      UiUtils.hide(mDescriptionView);
-    }
+    mDescriptionView.setCategory(category);
   }
 
   private void configureAdapter()
@@ -850,6 +807,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private void openSharingOptionsScreen()
   {
     UgcRouteSharingOptionsActivity.startForResult(requireActivity(), mCategoryDataSource.getData());
+  }
+
+  private void openDescriptionScreen()
+  {
+    BookmarksDescriptionActivity.start(requireContext(), mCategoryDataSource.getData());
   }
 
   private static void trackBookmarkListSharingOptions()
