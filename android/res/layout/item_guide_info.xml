@@ -10,6 +10,7 @@
     android:id="@+id/guide_image"
     android:layout_width="match_parent"
     android:layout_height="@dimen/guide_image_height"
+    android:background="@color/bg_placeholder"
     tools:src="@drawable/bg_ads" />
   <LinearLayout
     android:layout_width="match_parent"

@@ -49,6 +49,7 @@ import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.ShareOption;
@@ -239,7 +240,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     {
       ImageView imageView = mDescriptionView.findViewById(R.id.guide_image);
       String imageUrl = category.getImageUrl();
-      if (TextUtils.isEmpty(imageUrl))
+      if (TextUtils.isEmpty(imageUrl) || !ConnectionState.isConnected())
       {
         UiUtils.hide(imageView);
       }
@@ -247,6 +248,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       {
         Glide.with(mDescriptionView.getContext())
              .load(imageUrl)
+             .placeholder(R.drawable.ic_placeholder)
              .centerCrop()
              .into(imageView);
       }

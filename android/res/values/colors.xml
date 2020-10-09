@@ -220,6 +220,7 @@
   <color name="sale_view_bg">#A335F4</color>
   <color name="sightseeing_subs_sale_view_bg">#E54E35</color>
   <color name="bg_sightseeing_subs">#F0FCFF</color>
+  <color name="bg_placeholder">#E2E2E2</color>
 
   <color name="notification">#82E510</color>
   <color name="yellow">#FFC800</color>
