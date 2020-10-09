@@ -26,11 +26,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.appbar.AppBarLayout;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
@@ -46,10 +48,12 @@ import com.mapswithme.maps.bookmarks.AuthBundleFactory;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.DefaultConfirmationAlertDialog;
 import com.mapswithme.maps.dialog.DialogUtils;
@@ -141,7 +145,9 @@ import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
+import com.mapswithme.maps.widget.placepage.PlacePageStateObserver;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
+import com.mapswithme.maps.widget.placepage.ToolbarBehavior;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.NetworkPolicy;
@@ -195,7 +201,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                OnIsolinesLayerToggleListener,
                OnGuidesLayerToggleListener,
                GuidesGalleryListener,
-               NoConnectionListener
+               NoConnectionListener,
+               PlacePageStateObserver
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -303,10 +310,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private Tutorial mTutorial;
   @Nullable
   private OnboardingTip mOnboardingTip;
-
-  @SuppressWarnings("NullableProblems")
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private ChartController mChartController;
+  private Toolbar mPlacePageToolbar;
 
   public interface LeftAnimationTrackListener
   {
@@ -551,7 +557,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_map);
 
     mPlacePageController = PlacePageFactory.createCompositePlacePageController(
-        this, this, this, this);
+        this, this, this, this, this);
     mPlacePageController.initialize(this);
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 
@@ -564,6 +570,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.getToolbar().getViewTreeObserver().addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
     mSearchController.setVisibilityListener(this);
 
+    mPlacePageToolbar = findViewById(R.id.pp_toolbar);
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
 
@@ -2711,6 +2718,65 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private MenuController getMainMenuController()
   {
     return mMainMenuController;
+  }
+
+  @Override
+  public void onPlacePageDetails()
+  {
+    // Do nothing.
+  }
+
+  @Override
+  public void onPlacePagePreview()
+  {
+    // Do nothing.
+  }
+
+  @Override
+  public void onPlacePageClosed()
+  {
+    AppBarLayout appBarLayout = (AppBarLayout) mPlacePageToolbar.getParent();
+    CoordinatorLayout.LayoutParams params
+        = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+    ToolbarBehavior behavior = (ToolbarBehavior) params.getBehavior();
+    Objects.requireNonNull(behavior);
+    if (behavior.isBookmarkModeEnabled())
+    {
+      behavior.setBookmarkModeEnabled(false);
+      UiUtils.hide(appBarLayout);
+      mPlacePageToolbar.setNavigationOnClickListener(v -> closePlacePage());
+    }
+  }
+
+  public void showTrackOnMap(long trackId)
+  {
+    Track track = BookmarkManager.INSTANCE.getTrack(trackId);
+    Objects.requireNonNull(track);
+    setupToolbarForUserMark(track.getName(), track.getCategoryId());
+    Framework.nativeShowTrackRect(trackId);
+  }
+
+  public void showBookmarkOnMap(long bookmarkId)
+  {
+    BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
+    Objects.requireNonNull(info);
+    setupToolbarForUserMark(info.getName(), info.getCategoryId());
+    BookmarkManager.INSTANCE.showBookmarkOnMap(bookmarkId);
+  }
+
+  private void setupToolbarForUserMark(@NonNull String name, long categoryId)
+  {
+    AppBarLayout appBarLayout = (AppBarLayout) mPlacePageToolbar.getParent();
+    CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+    ToolbarBehavior behavior = (ToolbarBehavior) params.getBehavior();
+    Objects.requireNonNull(behavior);
+    behavior.setBookmarkModeEnabled(true);
+    mPlacePageToolbar.setTitle(name);
+    mPlacePageToolbar.setNavigationOnClickListener(v -> {
+      BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(categoryId);
+      BookmarkCategoriesActivity.startForResult(this, category, true);
+      closePlacePage();
+    });
   }
 
   private class CurrentPositionClickListener implements OnClickListener

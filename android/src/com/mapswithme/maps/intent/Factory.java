@@ -9,12 +9,16 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import com.google.android.material.appbar.AppBarLayout;
 import com.mapswithme.maps.DownloadResourcesLegacyActivity;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
@@ -25,6 +29,8 @@ import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -41,11 +47,13 @@ import com.mapswithme.maps.tips.Tutorial;
 import com.mapswithme.maps.ugc.EditParams;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.ugc.UGCEditorActivity;
+import com.mapswithme.maps.widget.placepage.ToolbarBehavior;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.UTM;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.log.Logger;
@@ -59,6 +67,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Factory
 {
@@ -1071,7 +1080,7 @@ public class Factory
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      BookmarkManager.INSTANCE.showBookmarkOnMap(mId);
+      target.showBookmarkOnMap(mId);
       return true;
     }
   }
@@ -1088,7 +1097,7 @@ public class Factory
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      Framework.nativeShowTrackRect(mId);
+      target.showTrackOnMap(mId);
       return true;
     }
   }

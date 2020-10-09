@@ -48,7 +48,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
 {
   static final int REQ_CODE_CATALOG = 101;
-  private static final int REQ_CODE_DELETE_CATEGORY = 102;
+  static final int REQ_CODE_DELETE_CATEGORY = 102;
 
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
 

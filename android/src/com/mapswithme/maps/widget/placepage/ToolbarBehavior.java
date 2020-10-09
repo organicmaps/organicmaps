@@ -1,17 +1,19 @@
 package com.mapswithme.maps.widget.placepage;
 
 import android.content.Context;
-import com.google.android.material.appbar.AppBarLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.appbar.AppBarLayout;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 
 @SuppressWarnings("unused")
 public class ToolbarBehavior extends AppBarLayout.ScrollingViewBehavior
 {
+  private boolean mBookmarkMode;
+
   public ToolbarBehavior()
   {
     // Do nothing by default.
@@ -29,20 +31,36 @@ public class ToolbarBehavior extends AppBarLayout.ScrollingViewBehavior
   }
 
   @Override
-  public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency)
+  public boolean onDependentViewChanged(CoordinatorLayout parent, View toolbar, View placePage)
   {
-    if (dependency.getY() == 0 && UiUtils.isHidden(child))
+    if (mBookmarkMode)
     {
-      UiUtils.show(child);
+      UiUtils.show(toolbar);
       return false;
     }
 
-    if (dependency.getY() > 0 && UiUtils.isVisible(child))
+    if (placePage.getY() == 0 && UiUtils.isHidden(toolbar))
     {
-      UiUtils.hide(child);
+      UiUtils.show(toolbar);
+      return false;
+    }
+
+    if (placePage.getY() > 0 && UiUtils.isVisible(toolbar))
+    {
+      UiUtils.hide(toolbar);
       return false;
     }
 
     return false;
+  }
+
+  public void setBookmarkModeEnabled(boolean enable)
+  {
+    mBookmarkMode = enable;
+  }
+
+  public boolean isBookmarkModeEnabled()
+  {
+    return mBookmarkMode;
   }
 }
