@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePageData>,
-                                                  PlacePageStateObserver,
+                                                  PlacePageStateListener,
                                                   OnGuidesGalleryChangedListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);

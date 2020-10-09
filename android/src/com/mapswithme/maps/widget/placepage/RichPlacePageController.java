@@ -83,7 +83,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @Nullable
   private final RoutingModeListener mRoutingModeListener;
   @Nullable
-  private final PlacePageStateObserver mStateObserver;
+  private final PlacePageStateListener mStateListener;
   @NonNull
   private final BottomSheetChangedListener mBottomSheetChangedListener = new BottomSheetChangedListener()
   {
@@ -91,8 +91,8 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     public void onSheetHidden()
     {
       onHiddenInternal();
-      if (mStateObserver != null)
-        mStateObserver.onPlacePageClosed();
+      if (mStateListener != null)
+        mStateListener.onPlacePageClosed();
     }
 
     @Override
@@ -106,8 +106,8 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     {
       mBannerController.onPlacePageDetails();
       mPlacePageTracker.onDetails();
-      if (mStateObserver != null)
-        mStateObserver.onPlacePageDetails();
+      if (mStateListener != null)
+        mStateListener.onPlacePageDetails();
     }
 
     @Override
@@ -116,8 +116,8 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       mPlacePage.resetScroll();
       mBannerController.onPlacePagePreview();
       setPeekHeight();
-      if (mStateObserver != null)
-        mStateObserver.onPlacePagePreview();
+      if (mStateListener != null)
+        mStateListener.onPlacePagePreview();
     }
 
     @Override
@@ -205,12 +205,12 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   RichPlacePageController(@NonNull AdsRemovalPurchaseControllerProvider provider,
                           @NonNull SlideListener listener,
                           @Nullable RoutingModeListener routingModeListener,
-                          @Nullable PlacePageStateObserver stateObserver)
+                          @Nullable PlacePageStateListener stateListener)
   {
     mPurchaseControllerProvider = provider;
     mSlideListener = listener;
     mRoutingModeListener = routingModeListener;
-    mStateObserver = stateObserver;
+    mStateListener = stateListener;
   }
 
   @SuppressLint("ClickableViewAccessibility")

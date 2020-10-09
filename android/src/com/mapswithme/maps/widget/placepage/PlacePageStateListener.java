@@ -1,6 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
-public interface PlacePageStateObserver
+public interface PlacePageStateListener
 {
   void onPlacePageDetails();
   void onPlacePagePreview();

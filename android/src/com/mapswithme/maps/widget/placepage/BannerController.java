@@ -40,7 +40,7 @@ import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_DETAILS;
 import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_PREVIEW;
 
 
-final class BannerController implements PlacePageStateObserver
+final class BannerController implements PlacePageStateListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE
       .getLogger(LoggerFactory.Type.MISC);

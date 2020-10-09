@@ -36,7 +36,7 @@ public class SimplePlacePageController implements PlacePageController
   @NonNull
   private final PlacePageViewRenderer<PlacePageData> mViewRenderer;
   @Nullable
-  private final PlacePageStateObserver mStateObserver;
+  private final PlacePageStateListener mStateListener;
   @NonNull
   private final BottomSheetChangedListener mBottomSheetChangedListener =
       new BottomSheetChangedListener()
@@ -45,8 +45,8 @@ public class SimplePlacePageController implements PlacePageController
         public void onSheetHidden()
         {
           onHiddenInternal();
-          if (mStateObserver != null)
-            mStateObserver.onPlacePageClosed();
+          if (mStateListener != null)
+            mStateListener.onPlacePageClosed();
         }
 
         @Override
@@ -63,8 +63,8 @@ public class SimplePlacePageController implements PlacePageController
         {
           if (UiUtils.isLandscape(mApplication))
             PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
-          if (mStateObserver != null)
-            mStateObserver.onPlacePageDetails();
+          if (mStateListener != null)
+            mStateListener.onPlacePageDetails();
         }
 
         @Override
@@ -72,8 +72,8 @@ public class SimplePlacePageController implements PlacePageController
         {
           if (UiUtils.isLandscape(mApplication))
             PlacePageUtils.moveViewPortRight(mSheet, mViewPortMinWidth);
-          if (mStateObserver != null)
-            mStateObserver.onPlacePagePreview();
+          if (mStateListener != null)
+            mStateListener.onPlacePagePreview();
         }
 
         @Override
@@ -103,13 +103,13 @@ public class SimplePlacePageController implements PlacePageController
   private final int mSheetResId;
 
   SimplePlacePageController(int sheetResId, @NonNull PlacePageViewRenderer<PlacePageData> renderer,
-                            @Nullable PlacePageStateObserver stateObserver,
+                            @Nullable PlacePageStateListener stateListener,
                             @NonNull SlideListener slideListener)
   {
     mSheetResId = sheetResId;
     mSlideListener = slideListener;
     mViewRenderer = renderer;
-    mStateObserver = stateObserver;
+    mStateListener = stateListener;
   }
 
   @Override

@@ -19,7 +19,7 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.Objects;
 
 public class ElevationProfileViewRenderer implements PlacePageViewRenderer<PlacePageData>,
-                                                     PlacePageStateObserver
+                                                     PlacePageStateListener
 {
   // Must be correspond to map/elevation_info.hpp constants.
   private static final int MAX_DIFFICULTY_LEVEL = 3;

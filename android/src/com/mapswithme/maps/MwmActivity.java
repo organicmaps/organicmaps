@@ -145,7 +145,7 @@ import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
-import com.mapswithme.maps.widget.placepage.PlacePageStateObserver;
+import com.mapswithme.maps.widget.placepage.PlacePageStateListener;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
 import com.mapswithme.maps.widget.placepage.ToolbarBehavior;
 import com.mapswithme.util.Counters;
@@ -202,7 +202,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                OnGuidesLayerToggleListener,
                GuidesGalleryListener,
                NoConnectionListener,
-               PlacePageStateObserver
+               PlacePageStateListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();

@@ -14,10 +14,10 @@ public class PlacePageFactory
       @NonNull PlacePageController.SlideListener slideListener,
       @NonNull RoutingModeListener routingModeListener,
       @Nullable GuidesGalleryListener galleryListener,
-      @Nullable PlacePageStateObserver stateObserver)
+      @Nullable PlacePageStateListener stateListener)
   {
     return new PlacePageControllerComposite(provider, slideListener, routingModeListener,
-                                            galleryListener, stateObserver);
+                                            galleryListener, stateListener);
   }
 
   @NonNull
@@ -25,9 +25,9 @@ public class PlacePageFactory
       @NonNull AdsRemovalPurchaseControllerProvider provider,
       @NonNull PlacePageController.SlideListener listener,
       @Nullable RoutingModeListener routingModeListener,
-      @Nullable PlacePageStateObserver stateObserver)
+      @Nullable PlacePageStateListener stateListener)
   {
-    return new RichPlacePageController(provider, listener, routingModeListener, stateObserver);
+    return new RichPlacePageController(provider, listener, routingModeListener, stateListener);
   }
 
   @NonNull

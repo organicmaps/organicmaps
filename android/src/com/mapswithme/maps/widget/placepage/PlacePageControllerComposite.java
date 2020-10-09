@@ -22,7 +22,7 @@ class PlacePageControllerComposite implements PlacePageController
   @Nullable
   private final GuidesGalleryListener mGuidesGalleryListener;
   @Nullable
-  private final PlacePageStateObserver mStateObserver;
+  private final PlacePageStateListener mStateListener;
   @NonNull
   private final List<PlacePageController> mControllers = new ArrayList<>();
   @SuppressWarnings("NullableProblems")
@@ -33,13 +33,13 @@ class PlacePageControllerComposite implements PlacePageController
                                @NonNull SlideListener slideListener,
                                @Nullable RoutingModeListener routingModeListener,
                                @Nullable GuidesGalleryListener galleryListener,
-                               @Nullable PlacePageStateObserver stateObserver)
+                               @Nullable PlacePageStateListener stateObserver)
   {
     mAdsProvider = adsProvider;
     mSlideListener = slideListener;
     mRoutingModeListener = routingModeListener;
     mGuidesGalleryListener = galleryListener;
-    mStateObserver = stateObserver;
+    mStateListener = stateObserver;
   }
 
   @Override
@@ -123,7 +123,7 @@ class PlacePageControllerComposite implements PlacePageController
 
     PlacePageController richController =
         PlacePageFactory.createRichController(mAdsProvider, mSlideListener,
-                                              mRoutingModeListener, mStateObserver);
+                                              mRoutingModeListener, mStateListener);
     richController.initialize(activity);
     mControllers.add(richController);
 
