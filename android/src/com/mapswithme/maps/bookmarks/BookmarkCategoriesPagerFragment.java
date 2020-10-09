@@ -29,7 +29,6 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
 {
   final static String ARG_CATEGORIES_PAGE = "arg_categories_page";
   final static String ARG_CATALOG_DEEPLINK = "arg_catalog_deeplink";
-  final static String ARG_OPEN_BOOKMARK_LIST = "arg_open_bookmark_list";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -103,7 +102,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   {
     super.onViewCreated(view, savedInstanceState);
     Bundle args = getArguments();
-    if (args != null && args.getBoolean(ARG_OPEN_BOOKMARK_LIST))
+    if (args != null)
     {
       BookmarkCategory category = args.getParcelable(BookmarksListFragment.EXTRA_CATEGORY);
       if (category == null)

@@ -68,13 +68,12 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
   }
 
   public static void startForResult(@NonNull Activity context, int initialPage,
-                                    @Nullable String catalogDeeplink, boolean openBookmarkList,
+                                    @Nullable String catalogDeeplink,
                                     @Nullable BookmarkCategory category)
   {
     Bundle args = new Bundle();
     args.putInt(BookmarkCategoriesPagerFragment.ARG_CATEGORIES_PAGE, initialPage);
     args.putString(BookmarkCategoriesPagerFragment.ARG_CATALOG_DEEPLINK, catalogDeeplink);
-    args.putBoolean(BookmarkCategoriesPagerFragment.ARG_OPEN_BOOKMARK_LIST, openBookmarkList);
     args.putParcelable(BookmarksListFragment.EXTRA_CATEGORY, category);
     Intent intent = new Intent(context, BookmarkCategoriesActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtras(args);
@@ -84,19 +83,18 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
   public static void startForResult(@NonNull Activity context, int initialPage,
                                     @Nullable String catalogDeeplink)
   {
-    startForResult(context, initialPage, catalogDeeplink, false, null);
+    startForResult(context, initialPage, catalogDeeplink, null);
   }
 
   public static void startForResult(@NonNull Activity context)
   {
     int initialPage = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(context);
-    startForResult(context, initialPage, null, false, null);
+    startForResult(context, initialPage, null, null);
   }
 
-  public static void startForResult(@NonNull Activity context, @Nullable BookmarkCategory category,
-                                    boolean openBookmarkList)
+  public static void startForResult(@NonNull Activity context, @Nullable BookmarkCategory category)
   {
     int initialPage = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(context);
-    startForResult(context, initialPage, null, true, category);
+    startForResult(context, initialPage, null, category);
   }
 }

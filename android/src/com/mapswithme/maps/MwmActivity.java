@@ -2774,7 +2774,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageToolbar.setTitle(name);
     mPlacePageToolbar.setNavigationOnClickListener(v -> {
       BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(categoryId);
-      BookmarkCategoriesActivity.startForResult(this, category, true);
+      BookmarkCategoriesActivity.startForResult(this, category);
       closePlacePage();
     });
   }
