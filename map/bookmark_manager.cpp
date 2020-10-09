@@ -2722,7 +2722,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   return groupId;
 }
 
-kml::MarkGroupId BookmarkManager::CreateBookmarkCompilation(kml::CategoryData && data)
+BookmarkCategory * BookmarkManager::CreateBookmarkCompilation(kml::CategoryData && data)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (data.m_id == kml::kInvalidMarkGroupId)
@@ -2730,9 +2730,11 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCompilation(kml::CategoryData &&
   auto groupId = data.m_id;
   CHECK_EQUAL(m_categories.count(groupId), 0, ());
   CHECK_EQUAL(m_compilations.count(groupId), 0, ());
-  m_compilations.emplace(groupId, std::make_unique<BookmarkCategory>(std::move(data), false));
+  auto compilation = std::make_unique<BookmarkCategory>(std::move(data), false);
+  auto result = compilation.get();
+  m_compilations.emplace(groupId, std::move(compilation));
 
-  return groupId;
+  return result;
 }
 
 kml::MarkGroupId BookmarkManager::CheckAndCreateDefaultCategory()
@@ -2921,19 +2923,20 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     }
 
     std::unordered_map<kml::CompilationId, BookmarkCategory *> compilations;
+    std::unordered_set<std::string> compilationNames;
     for (auto & compilation : fileData.m_compilationsData)
     {
-      SetUniqueName(compilation, [&compilations](auto const & name) {
-        return std::all_of(compilations.cbegin(), compilations.cend(),
-                           [&name](auto const & c) { return c.second->GetName() != name; });
+      SetUniqueName(compilation, [&compilationNames](auto const & name)
+      {
+        return compilationNames.count(name) == 0;
       });
 
       auto const compilationId = compilation.m_compilationId;
-      auto const compilationGroupId = CreateBookmarkCompilation(std::move(compilation));
-      categoryData.m_compilationIds.push_back(compilationGroupId);
+      auto childGroup = CreateBookmarkCompilation(std::move(compilation));
+      categoryData.m_compilationIds.push_back(childGroup->GetID());
 
-      auto * childGroup = GetBmCategory(compilationGroupId);
       compilations.emplace(compilationId, childGroup);
+      compilationNames.emplace(childGroup->GetName());
       childGroup->SetFileName(fileName);
       childGroup->SetServerId(fileData.m_serverId);
     }

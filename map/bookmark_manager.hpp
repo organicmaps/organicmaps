@@ -275,7 +275,7 @@ public:
   kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
 
-  kml::MarkGroupId CreateBookmarkCompilation(kml::CategoryData && data);
+  BookmarkCategory * CreateBookmarkCompilation(kml::CategoryData && data);
 
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
