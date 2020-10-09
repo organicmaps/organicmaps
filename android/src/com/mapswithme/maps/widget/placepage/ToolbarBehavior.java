@@ -33,12 +33,6 @@ public class ToolbarBehavior extends AppBarLayout.ScrollingViewBehavior
   @Override
   public boolean onDependentViewChanged(CoordinatorLayout parent, View toolbar, View placePage)
   {
-    if (mBookmarkMode)
-    {
-      UiUtils.show(toolbar);
-      return false;
-    }
-
     if (placePage.getY() == 0 && UiUtils.isHidden(toolbar))
     {
       UiUtils.show(toolbar);
@@ -52,15 +46,5 @@ public class ToolbarBehavior extends AppBarLayout.ScrollingViewBehavior
     }
 
     return false;
-  }
-
-  public void setBookmarkModeEnabled(boolean enable)
-  {
-    mBookmarkMode = enable;
-  }
-
-  public boolean isBookmarkModeEnabled()
-  {
-    return mBookmarkMode;
   }
 }

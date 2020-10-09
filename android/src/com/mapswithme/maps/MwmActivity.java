@@ -2738,11 +2738,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     AppBarLayout appBarLayout = (AppBarLayout) mPlacePageToolbar.getParent();
     CoordinatorLayout.LayoutParams params
         = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
-    ToolbarBehavior behavior = (ToolbarBehavior) params.getBehavior();
-    Objects.requireNonNull(behavior);
-    if (behavior.isBookmarkModeEnabled())
+    if (params.getBehavior() == null)
     {
-      behavior.setBookmarkModeEnabled(false);
+      params.setBehavior(new ToolbarBehavior());
       UiUtils.hide(appBarLayout);
       mPlacePageToolbar.setNavigationOnClickListener(v -> closePlacePage());
     }
@@ -2767,10 +2765,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void setupToolbarForUserMark(@NonNull String name, long categoryId)
   {
     AppBarLayout appBarLayout = (AppBarLayout) mPlacePageToolbar.getParent();
-    CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
-    ToolbarBehavior behavior = (ToolbarBehavior) params.getBehavior();
-    Objects.requireNonNull(behavior);
-    behavior.setBookmarkModeEnabled(true);
+    CoordinatorLayout.LayoutParams params
+        = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+    params.setBehavior(null);
+    UiUtils.show(appBarLayout);
     mPlacePageToolbar.setTitle(name);
     mPlacePageToolbar.setNavigationOnClickListener(v -> {
       BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(categoryId);
