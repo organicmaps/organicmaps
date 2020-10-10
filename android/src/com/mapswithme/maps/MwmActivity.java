@@ -2735,15 +2735,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageClosed()
   {
-    AppBarLayout appBarLayout = (AppBarLayout) mPlacePageToolbar.getParent();
-    CoordinatorLayout.LayoutParams params
-        = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
-    if (params.getBehavior() == null)
-    {
-      params.setBehavior(new ToolbarBehavior());
-      UiUtils.hide(appBarLayout);
-      mPlacePageToolbar.setNavigationOnClickListener(v -> closePlacePage());
-    }
+    setupToolbarForPlacePage();
   }
 
   public void showTrackOnMap(long trackId)
@@ -2773,8 +2765,26 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageToolbar.setNavigationOnClickListener(v -> {
       BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(categoryId);
       BookmarkCategoriesActivity.startForResult(this, category);
-      closePlacePage();
+      if (!mPlacePageController.isClosed())
+      {
+        closePlacePage();
+        return;
+      }
+      setupToolbarForPlacePage();
     });
+  }
+
+  private void setupToolbarForPlacePage()
+  {
+    AppBarLayout appBarLayout = (AppBarLayout) mPlacePageToolbar.getParent();
+    CoordinatorLayout.LayoutParams params
+        = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+    if (params.getBehavior() == null)
+    {
+      params.setBehavior(new ToolbarBehavior());
+      UiUtils.hide(appBarLayout);
+      mPlacePageToolbar.setNavigationOnClickListener(v -> closePlacePage());
+    }
   }
 
   private class CurrentPositionClickListener implements OnClickListener
