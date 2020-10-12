@@ -1625,6 +1625,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                              TrafficManager.INSTANCE.isEnabled());
     }
 
+    if (UiUtils.isVisible(mBookmarkCategoryToolbar) && mPlacePageController.isClosed())
+    {
+      UiUtils.hide(mBookmarkCategoryToolbar);
+      return;
+    }
+
     if (!closePlacePage() && !closeSidePanel() && !isRoutingCancelled
         && !closePositionChooser())
     {
