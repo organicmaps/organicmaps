@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,13 +27,11 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.appbar.AppBarLayout;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
@@ -147,7 +146,6 @@ import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
 import com.mapswithme.maps.widget.placepage.PlacePageStateListener;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
-import com.mapswithme.maps.widget.placepage.ToolbarBehavior;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.NetworkPolicy;
@@ -313,6 +311,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private Toolbar mPlacePageToolbar;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private Toolbar mBookmarkCategoryToolbar;
 
   public interface LeftAnimationTrackListener
   {
@@ -571,6 +572,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.setVisibilityListener(this);
 
     mPlacePageToolbar = findViewById(R.id.pp_toolbar);
+    mBookmarkCategoryToolbar = findViewById(R.id.bookmark_category_toolbar);
+    mBookmarkCategoryToolbar.inflateMenu(R.menu.menu_bookmark_catalog);
+    mBookmarkCategoryToolbar.setOnMenuItemClickListener(this::onBookmarkToolbarMenuClicked);
+    UiUtils.extendViewWithStatusBar(mBookmarkCategoryToolbar);
+
     boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews(isLaunchByDeepLink);
 
@@ -597,6 +603,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState == null)
       tryToShowAdditionalViewOnTop();
+  }
+
+  private boolean onBookmarkToolbarMenuClicked(@NonNull MenuItem item)
+  {
+    if (item.getItemId() == R.id.close)
+    {
+      UiUtils.hide(mBookmarkCategoryToolbar);
+      return true;
+    }
+
+    return false;
   }
 
   @Override
@@ -2735,14 +2752,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageClosed()
   {
-    setupToolbarForPlacePage();
+    // Do nothing.
   }
 
   public void showTrackOnMap(long trackId)
   {
     Track track = BookmarkManager.INSTANCE.getTrack(trackId);
     Objects.requireNonNull(track);
-    setupToolbarForUserMark(track.getName(), track.getCategoryId());
+    setupBookmarkCategoryToolbar(track.getCategoryId());
     Framework.nativeShowTrackRect(trackId);
   }
 
@@ -2750,41 +2767,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
     Objects.requireNonNull(info);
-    setupToolbarForUserMark(info.getName(), info.getCategoryId());
+    setupBookmarkCategoryToolbar(info.getCategoryId());
     BookmarkManager.INSTANCE.showBookmarkOnMap(bookmarkId);
   }
 
-  private void setupToolbarForUserMark(@NonNull String name, long categoryId)
+  private void setupBookmarkCategoryToolbar(long categoryId)
   {
-    AppBarLayout appBarLayout = (AppBarLayout) mPlacePageToolbar.getParent();
-    CoordinatorLayout.LayoutParams params
-        = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
-    params.setBehavior(null);
-    UiUtils.show(appBarLayout);
-    mPlacePageToolbar.setTitle(name);
-    mPlacePageToolbar.setNavigationOnClickListener(v -> {
-      BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(categoryId);
-      BookmarkCategoriesActivity.startForResult(this, category);
-      if (!mPlacePageController.isClosed())
-      {
-        closePlacePage();
-        return;
-      }
-      setupToolbarForPlacePage();
+    final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(categoryId);
+    mBookmarkCategoryToolbar.setTitle(category.getName());
+    UiUtils.setupNavigationIcon(mBookmarkCategoryToolbar, v -> {
+      BookmarkCategoriesActivity.startForResult(MwmActivity.this, category);
+      closePlacePage();
+      UiUtils.hide(mBookmarkCategoryToolbar);
     });
-  }
 
-  private void setupToolbarForPlacePage()
-  {
-    AppBarLayout appBarLayout = (AppBarLayout) mPlacePageToolbar.getParent();
-    CoordinatorLayout.LayoutParams params
-        = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
-    if (params.getBehavior() == null)
-    {
-      params.setBehavior(new ToolbarBehavior());
-      UiUtils.hide(appBarLayout);
-      mPlacePageToolbar.setNavigationOnClickListener(v -> closePlacePage());
-    }
+    UiUtils.show(mBookmarkCategoryToolbar);
   }
 
   private class CurrentPositionClickListener implements OnClickListener

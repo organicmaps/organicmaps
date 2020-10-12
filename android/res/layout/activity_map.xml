@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/coordinator"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
@@ -114,4 +115,13 @@
       android:layout_height="?attr/actionBarSize"
       android:theme="@style/MwmWidget.ToolbarTheme.DownButton"/>
   </com.google.android.material.appbar.AppBarLayout>
+  <androidx.appcompat.widget.Toolbar
+    android:id="@+id/bookmark_category_toolbar"
+    style="@style/MwmWidget.ToolbarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:elevation="0dp"
+    android:theme="@style/MwmWidget.ToolbarTheme"
+    android:visibility="gone"
+    tools:visibility="visible" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
