@@ -49,9 +49,7 @@ protected:
   unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine(
     shared_ptr<routing::NumMwmIds> numMwmIds) override
   {
-    unique_ptr<routing::IDirectionsEngine> engine(
-        new routing::PedestrianDirectionsEngine(m_dataSource, move(numMwmIds)));
-    return engine;
+    return std::make_unique<routing::PedestrianDirectionsEngine>(m_dataSource, move(numMwmIds));
   }
 
   unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() override

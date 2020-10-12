@@ -75,7 +75,7 @@ string NotificationManager::GenerateTurnText(uint32_t distanceUnits, uint8_t exi
                                              bool useThenInsteadOfDistance, TurnItem const & turn,
                                              measurement_utils::Units lengthUnits) const
 {
-  if (turn.m_turn != CarDirection::None && turn.m_pedestrianTurn == PedestrianDirection::None)
+  if (turn.m_turn != CarDirection::None)
   {
     Notification const notification(distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_turn,
                                     lengthUnits);

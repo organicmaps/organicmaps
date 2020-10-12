@@ -164,7 +164,7 @@ string GetDirectionTextId(Notification const & notification)
     case PedestrianDirection::TurnLeft: return "make_a_left_turn";
     case PedestrianDirection::ReachedYourDestination: return GetYouArriveTextId(notification);
     case PedestrianDirection::None:
-    case PedestrianDirection::Count: ASSERT(false, ()); return string();
+    case PedestrianDirection::Count: ASSERT(false, (notification)); return string();
     }
   }
 

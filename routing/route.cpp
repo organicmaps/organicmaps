@@ -36,8 +36,7 @@ bool IsNormalTurn(TurnItem const & turn)
   CHECK_NOT_EQUAL(turn.m_turn, CarDirection::Count, ());
   CHECK_NOT_EQUAL(turn.m_pedestrianTurn, PedestrianDirection::Count, ());
 
-  return turn.m_turn != turns::CarDirection::None ||
-         turn.m_pedestrianTurn != turns::PedestrianDirection::None;
+  return !turn.IsTurnNone();
 }
 }  //  namespace
 
@@ -201,8 +200,7 @@ bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & nextTurn) cons
   // |curIdx| + 1 - 1 is an index of segment to start look for the closest turn.
   GetClosestTurn(curIdx, curTurn);
   CHECK_LESS(curIdx, curTurn.m_index, ());
-  if (curTurn.m_turn == CarDirection::ReachedYourDestination ||
-      curTurn.m_pedestrianTurn == PedestrianDirection::ReachedYourDestination)
+  if (curTurn.IsTurnReachedYourDestination())
   {
     nextTurn = TurnItem();
     return false;

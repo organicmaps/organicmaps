@@ -187,6 +187,17 @@ struct TurnItem
            m_pedestrianTurn == rhs.m_pedestrianTurn;
   }
 
+  bool IsTurnReachedYourDestination() const
+  {
+    return m_turn == CarDirection::ReachedYourDestination ||
+           m_pedestrianTurn == PedestrianDirection::ReachedYourDestination;
+  }
+
+  bool IsTurnNone() const
+  {
+    return m_turn == CarDirection::None && m_pedestrianTurn == PedestrianDirection::None;
+  }
+
   uint32_t m_index;                    /*!< Index of point on route polyline (number of segment + 1). */
   CarDirection m_turn = CarDirection::None; /*!< The turn instruction of the TurnItem */
   std::vector<SingleLaneInfo> m_lanes; /*!< Lane information on the edge before the turn. */

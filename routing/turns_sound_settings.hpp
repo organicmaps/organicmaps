@@ -179,7 +179,7 @@ struct Notification
 
   bool IsPedestrianNotification() const
   {
-    return m_turnDir == CarDirection::None && m_turnDirPedestrian != PedestrianDirection::None;
+    return m_turnDirPedestrian != PedestrianDirection::None;
   }
 };
 
