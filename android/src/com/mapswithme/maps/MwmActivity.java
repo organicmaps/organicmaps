@@ -607,7 +607,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (item.getItemId() == R.id.close)
     {
-      UiUtils.hide(mBookmarkCategoryToolbar);
+      hideBookmarkCategoryToolbar();
       return true;
     }
 
@@ -1627,7 +1627,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (UiUtils.isVisible(mBookmarkCategoryToolbar) && mPlacePageController.isClosed())
     {
-      UiUtils.hide(mBookmarkCategoryToolbar);
+      hideBookmarkCategoryToolbar();
       return;
     }
 
@@ -2086,7 +2086,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (show)
     {
       mSearchController.hide();
-      UiUtils.hide(mBookmarkCategoryToolbar);
+      hideBookmarkCategoryToolbar();
       if (mIsTabletLayout)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
@@ -2764,10 +2764,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
     UiUtils.setupNavigationIcon(mBookmarkCategoryToolbar, v -> {
       BookmarkCategoriesActivity.startForResult(MwmActivity.this, category);
       closePlacePage();
-      UiUtils.hide(mBookmarkCategoryToolbar);
+      hideBookmarkCategoryToolbar();
     });
 
+    showBookmarkCategoryToolbar();
+  }
+
+  private void showBookmarkCategoryToolbar()
+  {
     UiUtils.show(mBookmarkCategoryToolbar);
+    adjustCompassAndTraffic(mBookmarkCategoryToolbar.getHeight());
+  }
+
+  private void hideBookmarkCategoryToolbar()
+  {
+    UiUtils.hide(mBookmarkCategoryToolbar);
+    adjustCompassAndTraffic(UiUtils.getStatusBarHeight(MwmActivity.this));
   }
 
   private class CurrentPositionClickListener implements OnClickListener
