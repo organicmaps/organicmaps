@@ -2086,7 +2086,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (show)
     {
       mSearchController.hide();
-
+      UiUtils.hide(mBookmarkCategoryToolbar);
       if (mIsTabletLayout)
       {
         replaceFragment(RoutingPlanFragment.class, null, completionListener);
