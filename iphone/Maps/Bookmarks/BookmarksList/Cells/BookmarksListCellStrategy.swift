@@ -9,6 +9,9 @@ final class BookmarksListCellStrategy {
   typealias CheckHandlerClosure = (IBookmarksListSectionViewModel, Int, Bool) -> Void
   var cellCheckHandler: CheckHandlerClosure?
 
+  typealias VisibilityHandlerClosure = (IBookmarksListSectionViewModel) -> Void
+  var cellVisibilityHandler: VisibilityHandlerClosure?
+
   func registerCells(_ tableView: UITableView) {
     tableView.register(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: CellId.bookmark)
     tableView.register(UINib(nibName: "TrackCell", bundle: nil), forCellReuseIdentifier: CellId.track)
@@ -49,6 +52,9 @@ final class BookmarksListCellStrategy {
     let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellId.sectionHeader)
       as! BookmarksListSectionHeader
     headerView.config(viewModel)
+    headerView.visibilityHandler = { [weak self] in
+      self?.cellVisibilityHandler?(viewModel)
+    }
     return headerView
   }
 }

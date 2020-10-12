@@ -9,6 +9,7 @@ protocol IBookmarksListPresenter {
   func deleteBookmark(in section: IBookmarksListSectionViewModel, at index: Int)
   func selectItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func checkItem(in section: IBookmarksListSectionViewModel, at index: Int, checked: Bool)
+  func toggleVisibility(in section: IBookmarksListSectionViewModel)
   func showDescription()
 }
 
@@ -289,6 +290,29 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     case let subgroupsSection as ISubgroupsSectionViewModel:
       let subgroup = subgroupsSection.subgroups[index] as! SubgroupViewModel
       interactor.setGroup(subgroup.groupId, visible: checked)
+      reload()
+    default:
+      fatalError("Wrong section type: \(section.self)")
+    }
+  }
+
+  func toggleVisibility(in section: IBookmarksListSectionViewModel) {
+    switch section {
+    case let subgroupsSection as ISubgroupsSectionViewModel:
+      let visible: Bool
+      switch subgroupsSection.visibilityButtonState {
+      case .hidden:
+        fatalError("Unexpected visibility button state")
+      case .hideAll:
+        visible = false
+      case .showAll:
+        visible = true
+      }
+      subgroupsSection.subgroups.forEach {
+        let subgroup = $0 as! SubgroupViewModel
+        interactor.setGroup(subgroup.groupId, visible: visible)
+      }
+      reload()
     default:
       fatalError("Wrong section type: \(section.self)")
     }

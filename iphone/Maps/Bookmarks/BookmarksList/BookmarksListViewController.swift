@@ -1,7 +1,13 @@
+enum BookmarksListVisibilityButtonState {
+  case hidden
+  case hideAll
+  case showAll
+}
+
 protocol IBookmarksListSectionViewModel {
   var numberOfItems: Int { get }
   var sectionTitle: String { get }
-  var hasVisibilityButton: Bool { get }
+  var visibilityButtonState: BookmarksListVisibilityButtonState { get }
   var canEdit: Bool { get }
 }
 
@@ -11,7 +17,7 @@ protocol IBookmarksSectionViewModel: IBookmarksListSectionViewModel {
 
 extension IBookmarksSectionViewModel {
   var numberOfItems: Int { bookmarks.count }
-  var hasVisibilityButton: Bool { false }
+  var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
   var canEdit: Bool { true }
 }
 
@@ -22,7 +28,7 @@ protocol ITracksSectionViewModel: IBookmarksListSectionViewModel {
 extension ITracksSectionViewModel {
   var numberOfItems: Int { tracks.count }
   var sectionTitle: String { L("tracks_title") }
-  var hasVisibilityButton: Bool { false }
+  var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
   var canEdit: Bool { true }
 }
 
@@ -32,7 +38,9 @@ protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
 
 extension ISubgroupsSectionViewModel {
   var numberOfItems: Int { subgroups.count }
-  var hasVisibilityButton: Bool { true }
+  var visibilityButtonState: BookmarksListVisibilityButtonState {
+    subgroups.reduce(false) { $0 ? $0 : $1.isVisible } ? .hideAll : .showAll
+  }
   var canEdit: Bool { false }
 }
 
@@ -108,6 +116,9 @@ final class BookmarksListViewController: MWMViewController {
     cellStrategy.registerCells(tableView)
     cellStrategy.cellCheckHandler = { [weak self] (viewModel, index, checked) in
       self?.presenter.checkItem(in: viewModel, at: index, checked: checked)
+    }
+    cellStrategy.cellVisibilityHandler = { [weak self] viewModel in
+      self?.presenter.toggleVisibility(in: viewModel)
     }
     presenter.viewDidLoad()
   }
