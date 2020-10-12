@@ -22,22 +22,22 @@ using namespace routing::turns;
 using namespace std;
 using namespace traffic;
 
-void IDirectionsEngine::Clear()
+void DirectionsEngine::Clear()
 {
   m_adjacentEdges.clear();
   m_pathSegments.clear();
   m_loader.reset();
 }
 
-FeaturesLoaderGuard & IDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
+FeaturesLoaderGuard & DirectionsEngine::GetLoader(MwmSet::MwmId const & id)
 {
   if (!m_loader || id != m_loader->GetId())
     m_loader = make_unique<FeaturesLoaderGuard>(m_dataSource, id);
   return *m_loader;
 }
 
-void IDirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
-                                           LoadedPathSegment & pathSegment)
+void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
+                                          LoadedPathSegment & pathSegment)
 {
   if (!featureId.IsValid())
     return;
@@ -59,9 +59,11 @@ void IDirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(*ft);
 }
 
-void IDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
-    IRoadGraph::EdgeVector const & outgoingEdges, Edge const & inEdge, uint32_t startSegId,
-    uint32_t endSegId, SegmentRange & segmentRange, TurnCandidates & outgoingTurns)
+void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeVector const & outgoingEdges,
+                                                       Edge const & inEdge, uint32_t startSegId,
+                                                       uint32_t endSegId,
+                                                       SegmentRange & segmentRange,
+                                                       TurnCandidates & outgoingTurns)
 {
   outgoingTurns.isCandidatesAngleValid = true;
   outgoingTurns.candidates.reserve(outgoingEdges.size());
@@ -124,10 +126,10 @@ void IDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
   }
 }
 
-void IDirectionsEngine::GetEdges(IndexRoadGraph const & graph,
-                                 geometry::PointWithAltitude const & currJunction,
-                                 bool isCurrJunctionFinish, IRoadGraph::EdgeVector & outgoing,
-                                 IRoadGraph::EdgeVector & ingoing)
+void DirectionsEngine::GetEdges(IndexRoadGraph const & graph,
+                                geometry::PointWithAltitude const & currJunction,
+                                bool isCurrJunctionFinish, IRoadGraph::EdgeVector & outgoing,
+                                IRoadGraph::EdgeVector & ingoing)
 {
   // Note. If |currJunction| is a finish the outgoing edges
   // from finish are not important for turn generation.
@@ -137,7 +139,7 @@ void IDirectionsEngine::GetEdges(IndexRoadGraph const & graph,
   graph.GetIngoingEdges(currJunction, ingoing);
 }
 
-void IDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
+void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     IndexRoadGraph const & graph, vector<geometry::PointWithAltitude> const & path,
     IRoadGraph::EdgeVector const & routeEdges, base::Cancellable const & cancellable)
 {

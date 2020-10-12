@@ -46,8 +46,8 @@ public:
 
 protected:
   // RoutingTest overrides:
-  unique_ptr<routing::IDirectionsEngine> CreateDirectionsEngine(
-    shared_ptr<routing::NumMwmIds> numMwmIds) override
+  unique_ptr<routing::DirectionsEngine> CreateDirectionsEngine(
+      shared_ptr<routing::NumMwmIds> numMwmIds) override
   {
     return std::make_unique<routing::PedestrianDirectionsEngine>(m_dataSource, move(numMwmIds));
   }

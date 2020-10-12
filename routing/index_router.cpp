@@ -112,9 +112,9 @@ shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
   UNREACHABLE();
 }
 
-unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
-                                                     shared_ptr<NumMwmIds> numMwmIds,
-                                                     DataSource & dataSource)
+unique_ptr<DirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
+                                                    shared_ptr<NumMwmIds> numMwmIds,
+                                                    DataSource & dataSource)
 {
   switch (vehicleType)
   {

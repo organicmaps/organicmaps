@@ -57,7 +57,7 @@ void FillSegmentInfo(std::vector<Segment> const & segments,
                      std::shared_ptr<TrafficStash> const & trafficStash,
                      std::vector<RouteSegment> & routeSegment);
 
-void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
+void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph,
                       std::shared_ptr<TrafficStash> const & trafficStash,
                       base::Cancellable const & cancellable,
                       std::vector<geometry::PointWithAltitude> const & path, Route::TTimes && times,

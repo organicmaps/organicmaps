@@ -47,7 +47,7 @@ private:
   uint32_t m_endSegId = 0;     // The last segment index of SegmentRange.
   bool m_forward = true;       // Segment direction in |m_featureId|.
   // Note. According to current implementation SegmentRange is filled based on instances of
-  // Edge class in IDirectionsEngine::GetSegmentRangeAndAdjacentEdges() method. In Edge class
+  // Edge class in DirectionsEngine::GetSegmentRangeAndAdjacentEdges() method. In Edge class
   // to identify fake edges (part of real and completely fake) is used coordinates of beginning
   // and ending of the edge. To keep SegmentRange instances unique for unique edges
   // in case of fake edges it's necessary to have |m_start| and |m_end| fields below.

@@ -97,7 +97,7 @@ void FillSegmentInfo(vector<Segment> const & segments,
   }
 }
 
-void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
+void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,
                       base::Cancellable const & cancellable,
                       vector<geometry::PointWithAltitude> const & path, Route::TTimes && times,
@@ -122,7 +122,7 @@ void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
   if (cancellable.IsCancelled())
     return;
 
-  // In case of any errors in IDirectionsEngine::Generate() |junctions| is empty.
+  // In case of any errors in DirectionsEngine::Generate() |junctions| is empty.
   if (junctions.empty())
   {
     LOG(LERROR, ("Internal error happened while turn generation."));
