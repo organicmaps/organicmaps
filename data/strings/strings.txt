@@ -48746,3 +48746,7 @@
 
   [yango_taxi_title] 
     en = Yango
+
+  [citymobil_taxi_title]
+    en = Citymobil
+    ru = Ситимобил
