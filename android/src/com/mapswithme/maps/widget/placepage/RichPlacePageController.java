@@ -82,8 +82,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   private final SlideListener mSlideListener;
   @Nullable
   private final RoutingModeListener mRoutingModeListener;
-  @Nullable
-  private final PlacePageStateListener mStateListener;
   @NonNull
   private final BottomSheetChangedListener mBottomSheetChangedListener = new BottomSheetChangedListener()
   {
@@ -91,8 +89,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     public void onSheetHidden()
     {
       onHiddenInternal();
-      if (mStateListener != null)
-        mStateListener.onPlacePageClosed();
     }
 
     @Override
@@ -106,8 +102,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     {
       mBannerController.onPlacePageDetails();
       mPlacePageTracker.onDetails();
-      if (mStateListener != null)
-        mStateListener.onPlacePageDetails();
     }
 
     @Override
@@ -116,8 +110,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       mPlacePage.resetScroll();
       mBannerController.onPlacePagePreview();
       setPeekHeight();
-      if (mStateListener != null)
-        mStateListener.onPlacePagePreview();
     }
 
     @Override
@@ -204,13 +196,11 @@ public class RichPlacePageController implements PlacePageController, LocationLis
 
   RichPlacePageController(@NonNull AdsRemovalPurchaseControllerProvider provider,
                           @NonNull SlideListener listener,
-                          @Nullable RoutingModeListener routingModeListener,
-                          @Nullable PlacePageStateListener stateListener)
+                          @Nullable RoutingModeListener routingModeListener)
   {
     mPurchaseControllerProvider = provider;
     mSlideListener = listener;
     mRoutingModeListener = routingModeListener;
-    mStateListener = stateListener;
   }
 
   @SuppressLint("ClickableViewAccessibility")

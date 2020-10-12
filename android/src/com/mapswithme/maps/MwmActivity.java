@@ -144,7 +144,6 @@ import com.mapswithme.maps.widget.menu.MyPositionButton;
 import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
-import com.mapswithme.maps.widget.placepage.PlacePageStateListener;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
@@ -199,8 +198,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                OnIsolinesLayerToggleListener,
                OnGuidesLayerToggleListener,
                GuidesGalleryListener,
-               NoConnectionListener,
-               PlacePageStateListener
+               NoConnectionListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -558,7 +556,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_map);
 
     mPlacePageController = PlacePageFactory.createCompositePlacePageController(
-        this, this, this, this, this);
+        this, this, this, this);
     mPlacePageController.initialize(this);
     mPlacePageController.onActivityCreated(this, savedInstanceState);
 
@@ -2735,24 +2733,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private MenuController getMainMenuController()
   {
     return mMainMenuController;
-  }
-
-  @Override
-  public void onPlacePageDetails()
-  {
-    // Do nothing.
-  }
-
-  @Override
-  public void onPlacePagePreview()
-  {
-    // Do nothing.
-  }
-
-  @Override
-  public void onPlacePageClosed()
-  {
-    // Do nothing.
   }
 
   public void showTrackOnMap(long trackId)
