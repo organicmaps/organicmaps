@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.content.res.Resources;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.IntDef;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -37,6 +39,26 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   @Nullable
   private OnItemClickListener<BookmarkCategory> mClickListener;
+
+  private class ToggleVisibilityClickListener implements View.OnClickListener
+  {
+    @NonNull
+    private final Holders.CollectionViewHolder mHolder;
+
+    ToggleVisibilityClickListener(@NonNull Holders.CollectionViewHolder holder)
+    {
+      mHolder = holder;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      BookmarkCategory category = mHolder.getEntity();
+      BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
+      notifyItemChanged(mHolder.getAdapterPosition());
+      notifyItemChanged(SectionPosition.INVALID_POSITION);
+    }
+  }
 
   BookmarkCollectionAdapter(@NonNull List<BookmarkCategory> itemsCategories,
                             @NonNull List<BookmarkCategory> itemsCollection)
@@ -127,17 +149,11 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     RecyclerView.ViewHolder holder = null;
 
     if (viewType == TYPE_HEADER_ITEM)
-    {
       holder = new Holders.HeaderViewHolder(inflater.inflate(R.layout.item_bookmark_group_list_header,
                                                              parent, false));
-      // TODO (@velichkomarija) : Add click listener for this.
-    }
     if (viewType == TYPE_CATEGORY_ITEM || viewType == TYPE_COLLECTION_ITEM)
-    {
       holder = new Holders.CollectionViewHolder(inflater.inflate(R.layout.item_bookmark_collection,
                                                                  parent, false));
-      // TODO (@velichkomarija): add click listeners.
-    }
 
     if (holder == null)
       throw new AssertionError("Unsupported view type: " + viewType);
@@ -177,8 +193,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     bindSize(collectionViewHolder, category);
     collectionViewHolder.setVisibilityState(category.isVisible());
     collectionViewHolder.setOnClickListener(mClickListener);
-
-    // TODO (@velichkomarija): ToggleVisibilityClickListener for visibility.
+    ToggleVisibilityClickListener listener = new ToggleVisibilityClickListener(collectionViewHolder);
+    collectionViewHolder.setVisibilityListener(listener);
   }
 
   private void bindSize(Holders.CollectionViewHolder holder, BookmarkCategory category)
