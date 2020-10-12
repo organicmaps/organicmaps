@@ -2757,6 +2757,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkManager.INSTANCE.showBookmarkOnMap(bookmarkId);
   }
 
+  public void showBookmarkCategoryOnMap(long categoryId)
+  {
+    setupBookmarkCategoryToolbar(categoryId);
+    BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryId);
+  }
+
   private void setupBookmarkCategoryToolbar(long categoryId)
   {
     final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(categoryId);

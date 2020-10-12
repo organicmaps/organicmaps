@@ -1050,7 +1050,7 @@ public class Factory
 
     public boolean run(@NonNull MwmActivity target)
     {
-      BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(mCategoryId);
+      target.showBookmarkCategoryOnMap(mCategoryId);
       return true;
     }
   }
