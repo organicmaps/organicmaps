@@ -65,6 +65,7 @@
       android:theme="@style/MwmTheme"
       android:supportsRtl="false"
       android:networkSecurityConfig="@xml/network_security_config"
+      android:requestLegacyExternalStorage="true"
       tools:replace="android:supportsRtl"
       tools:ignore="UnusedAttribute">
 
