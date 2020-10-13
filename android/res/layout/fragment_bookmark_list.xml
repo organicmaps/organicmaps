@@ -17,6 +17,7 @@
       android:orientation="vertical">
       <com.mapswithme.maps.bookmarks.BookmarkHeaderView
         android:id="@+id/guide_info"
+        android:background="?cardBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
       <androidx.recyclerview.widget.RecyclerView
