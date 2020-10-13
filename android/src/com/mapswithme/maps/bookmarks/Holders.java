@@ -90,6 +90,15 @@ public class Holders
       mButton.setOnClickListener(new ToggleShowAllClickListener(action, showAll));
     }
 
+    void setAction(@NonNull HeaderAction action,
+                   final boolean showAll)
+    {
+      mButton.setText(showAll
+                      ? R.string.bookmarks_groups_show_all
+                      : R.string.bookmarks_groups_hide_all);
+      mButton.setOnClickListener(new ToggleShowAllClickListener(action, showAll));
+    }
+
     public interface HeaderAction
     {
       void onHideAll();

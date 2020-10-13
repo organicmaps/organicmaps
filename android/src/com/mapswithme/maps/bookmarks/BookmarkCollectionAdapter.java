@@ -39,6 +39,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   @Nullable
   private OnItemClickListener<BookmarkCategory> mClickListener;
+  @NonNull
+  private final MassOperationAction mMassOperationAction = new MassOperationAction();
 
   private class ToggleVisibilityClickListener implements View.OnClickListener
   {
@@ -143,7 +145,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   @NonNull
   @Override
-  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @SectionType int viewType)
+  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                    @SectionType int viewType)
   {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     RecyclerView.ViewHolder holder = null;
@@ -208,7 +211,9 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     Holders.HeaderViewHolder headerViewHolder = (Holders.HeaderViewHolder) holder;
     headerViewHolder.getText()
                     .setText(getTitle(nextSectionPosition, holder.itemView.getResources()));
-    // TODO: (@velichkomarija) : Hide and All button.
+
+    headerViewHolder.setAction(mMassOperationAction, BookmarkManager.INSTANCE
+        .areAllCategoriesInvisible(BookmarkCategory.Type.DOWNLOADED));
   }
 
   @Override
@@ -230,6 +235,23 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
       itemCount += sectionItemsCount + /* header */ 1;
     }
     return itemCount;
+  }
+
+  private class MassOperationAction implements Holders.HeaderViewHolder.HeaderAction
+  {
+    @Override
+    public void onHideAll()
+    {
+      BookmarkManager.INSTANCE.setAllCategoriesVisibility(false, BookmarkCategory.Type.DOWNLOADED);
+      notifyDataSetChanged();
+    }
+
+    @Override
+    public void onShowAll()
+    {
+      BookmarkManager.INSTANCE.setAllCategoriesVisibility(true, BookmarkCategory.Type.DOWNLOADED);
+      notifyDataSetChanged();
+    }
   }
 }
 
