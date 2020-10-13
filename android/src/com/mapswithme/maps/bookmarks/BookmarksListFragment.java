@@ -145,6 +145,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     mBookmarkCollectionAdapter.setOnClickListener((v, item) -> {
       Intent intent = new Intent(getActivity(), BookmarkListActivity.class)
           .putExtra(BookmarksListFragment.EXTRA_CATEGORY, item);
+      // TODO(@velichkomarija):  Statistics.INSTANCE.trackCollectionOrCategorySelect()
       startActivity(intent);
     });
   }
@@ -614,8 +615,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     i.putExtra(MwmActivity.EXTRA_TASK,
                new Factory.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
 
-    if (BookmarkManager.INSTANCE.isGuide(mCategoryDataSource.getData()))
-      Statistics.INSTANCE.trackGuideBookmarkSelect(mCategoryDataSource.getData().getServerId());
+    // TODO (@velichkomarija): Added from param category or collection instead MAIN if need.
+    Statistics.INSTANCE.trackGuideBookmarkSelect(mCategoryDataSource.getData().getServerId(),
+                                                 Statistics.ParamValue.MAIN);
   }
 
   public void onItemMore(int position)

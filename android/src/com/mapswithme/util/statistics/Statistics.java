@@ -63,8 +63,11 @@ import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_CO
 import static com.mapswithme.util.statistics.Statistics.EventName.AUTH_DECLINED;
 import static com.mapswithme.util.statistics.Statistics.EventName.AUTH_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.AUTH_EXTERNAL_REQUEST_SUCCESS;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_BOOKMARKS_LIST_CATEGORY_SELECT;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_BOOKMARKS_LIST_COLLECTION_SELECT;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_BOOKMARKS_VISIBILITY_CHANGE;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_GUIDES_DOWNLOADDIALOGUE_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_GUIDE_VISIBILITY_CHANGE;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_SUCCESS;
@@ -444,6 +447,9 @@ public enum Statistics
     private static final String BM_SHARING_OPTIONS_UPLOAD_SUCCESS = "Bookmarks_SharingOptions_upload_success";
     private static final String BM_DOWNLOADED_CATALOGUE_OPEN = "Bookmarks_Downloaded_Catalogue_open";
     private static final String BM_DOWNLOADED_CATALOGUE_ERROR = "Bookmarks_Downloaded_Catalogue_error";
+    public static final String BM_BOOKMARKS_LIST_COLLECTION_SELECT = "Bookmarks_BookmarksList_Collection_select";
+    public static final String BM_BOOKMARKS_LIST_CATEGORY_SELECT = "Bookmarks_BookmarksList_Category_select";
+    public static final String BM_GUIDE_VISIBILITY_CHANGE = "Bookmarks_Guide_Visibility_change";
 
     // search
     public static final String SEARCH_ITEM_CLICKED = "Search. Key clicked";
@@ -808,10 +814,15 @@ public enum Statistics
     public static final String BOOKMARK_LIST = "bookmark_list";
     public static final String SHOW = "show";
     public static final String HIDE = "hide";
+    public static final String SHOW_ALL = "show_all";
+    public static final String HIDE_ALL = "hide_all";
     public static final String NEW_OBJECT = "new_object";
     public static final String EDIT_OBJECT = "edit_object";
     public static final String DATE = "date";
     public static final String ROOMS = "rooms";
+    public static final String MAIN = "main";
+    public static final String COLLECTION = "collection";
+    public static final String CATEGORY = "category";
     static final String CRASH_REPORTS = "crash_reports";
     static final String PERSONAL_ADS = "personal_ads";
     public static final String MAP = "map";
@@ -1939,9 +1950,27 @@ public enum Statistics
     trackEvent(GUIDES_OPEN, params().add(SERVER_ID, serverId), STATISTICS_CHANNEL_REALTIME);
   }
 
-  public void trackGuideBookmarkSelect(@NonNull String serverId)
+  public void trackGuideBookmarkSelect(@NonNull String serverId, @NonNull String from)
   {
-    trackEvent(GUIDES_BOOKMARK_SELECT, params().add(SERVER_ID, serverId), STATISTICS_CHANNEL_REALTIME);
+    trackEvent(GUIDES_BOOKMARK_SELECT, params().add(SERVER_ID, serverId).add(FROM, from),
+               STATISTICS_CHANNEL_REALTIME);
+  }
+
+  public void trackCollectionOrCategorySelect(@NonNull String serverId, @NonNull String categoryName,
+                                              boolean isCategory)
+  {
+    String logEventName = isCategory ? BM_BOOKMARKS_LIST_CATEGORY_SELECT :
+                          BM_BOOKMARKS_LIST_COLLECTION_SELECT;
+
+    trackEvent(logEventName, params().add(SERVER_ID, serverId).add(NAME, categoryName),
+               STATISTICS_CHANNEL_REALTIME);
+  }
+
+  public void trackGuideVisibilityChange(@NonNull String action, @NonNull String serverId,
+                                         @NonNull String type)
+  {
+    trackEvent(BM_GUIDE_VISIBILITY_CHANGE, params().add(ACTION, action).add(SERVER_ID, serverId)
+                                                   .add(TYPE, type), STATISTICS_CHANNEL_REALTIME);
   }
 
   public void trackGuideTrackSelect(@NonNull String serverId)
