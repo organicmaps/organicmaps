@@ -1372,14 +1372,17 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
     return nullptr;
 
   static jclass const klass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/RoutingInfo");
-  // Java signature : RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String currentStreet, String nextStreet,
-  //                              double completionPercent, int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal,
-  //                              double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum, int totalTime, SingleLaneInfo[] lanes)
-  static jmethodID const ctorRouteInfoID = jni::GetConstructorID(env, klass,
-                                               "(Ljava/lang/String;Ljava/lang/String;"
-                                               "Ljava/lang/String;Ljava/lang/String;"
-                                               "Ljava/lang/String;Ljava/lang/String;DIIIDDII"
-                                               "[Lcom/mapswithme/maps/routing/SingleLaneInfo;ZZ)V");
+  // Java signature : RoutingInfo(String distToTarget, String units, String distTurn, String
+  //                              turnSuffix, String currentStreet, String nextStreet,
+  //                              double completionPercent, int vehicleTurnOrdinal, int
+  //                              vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
+  //                              int totalTime, SingleLaneInfo[] lanes)
+  static jmethodID const ctorRouteInfoID =
+      jni::GetConstructorID(env, klass,
+                            "(Ljava/lang/String;Ljava/lang/String;"
+                            "Ljava/lang/String;Ljava/lang/String;"
+                            "Ljava/lang/String;Ljava/lang/String;DIIIII"
+                            "[Lcom/mapswithme/maps/routing/SingleLaneInfo;ZZ)V");
 
   vector<routing::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
   jobjectArray jLanes = nullptr;
@@ -1413,8 +1416,8 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
       klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
       jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
       jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
-      jni::ToJavaString(env, info.m_displayedStreetName), info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn,
-      info.m_pedestrianDirectionPos.m_lat, info.m_pedestrianDirectionPos.m_lon, info.m_exitNum, info.m_time, jLanes,
+      jni::ToJavaString(env, info.m_displayedStreetName), info.m_completionPercent, info.m_turn,
+      info.m_nextTurn, info.m_pedestrianTurn, info.m_exitNum, info.m_time, jLanes,
       static_cast<jboolean>(isSpeedLimitExceeded), static_cast<jboolean>(shouldPlaySignal));
   ASSERT(result, (jni::DescribeException()));
   return result;

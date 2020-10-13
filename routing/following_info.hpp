@@ -22,7 +22,6 @@ public:
     , m_time(0)
     , m_completionPercent(0)
     , m_pedestrianTurn(turns::PedestrianDirection::None)
-    , m_pedestrianDirectionPos(0.0, 0.0)
   {
   }
 
@@ -83,8 +82,6 @@ public:
   /// @name Pedestrian direction information
   //@{
   turns::PedestrianDirection m_pedestrianTurn;
-  // TODO(o.khlopkova) Remove this unused field from C++ code, jni and platforms.
-  ms::LatLon m_pedestrianDirectionPos;
   //@}
 };
 }  // namespace routing

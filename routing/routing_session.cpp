@@ -416,9 +416,6 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   }
 
   // Pedestrian info.
-  m2::PointD pos;
-  m_route->GetCurrentDirectionPoint(pos);
-  info.m_pedestrianDirectionPos = mercator::ToLatLon(pos);
   info.m_pedestrianTurn = (distanceToTurnMeters < kShowPedestrianTurnInMeters)
                               ? turn.m_pedestrianTurn
                               : turns::PedestrianDirection::None;
