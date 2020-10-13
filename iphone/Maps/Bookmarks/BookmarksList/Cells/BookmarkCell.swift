@@ -1,7 +1,7 @@
 final class BookmarkCell: UITableViewCell {
-  @IBOutlet var bookmarkImageView: UIImageView!
-  @IBOutlet var bookmarkTitleLabel: UILabel!
-  @IBOutlet var bookmarkSubtitleLabel: UILabel!
+  @IBOutlet private var bookmarkImageView: UIImageView!
+  @IBOutlet private var bookmarkTitleLabel: UILabel!
+  @IBOutlet private var bookmarkSubtitleLabel: UILabel!
 
   func config(_ bookmark: IBookmarkViewModel) {
     bookmarkImageView.image = bookmark.image

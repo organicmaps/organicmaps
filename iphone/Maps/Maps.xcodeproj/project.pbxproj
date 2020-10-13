@@ -354,6 +354,7 @@
 		474AC76C2139E4F2002F9BF9 /* RemoveAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474AC76A2139E4F2002F9BF9 /* RemoveAdsViewController.swift */; };
 		474AC76D2139E4F2002F9BF9 /* RemoveAdsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474AC76B2139E4F2002F9BF9 /* RemoveAdsViewController.xib */; };
 		474C9F5A213FF75800369009 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474C9F59213FF75800369009 /* StoreKit.framework */; };
+		4757D6212535BB6E0062364F /* BookmarksListInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4757D6202535BB6E0062364F /* BookmarksListInterfaces.swift */; };
 		475EC36D244EDE66003BC295 /* GuidesGalleryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475EC36C244EDE66003BC295 /* GuidesGalleryPresenter.swift */; };
 		475EC36F244EF7A9003BC295 /* GuidesGalleryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475EC36E244EF7A9003BC295 /* GuidesGalleryBuilder.swift */; };
 		475EC373244F0992003BC295 /* PlacePageGalleryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475EC372244F0992003BC295 /* PlacePageGalleryLayout.swift */; };
@@ -1507,6 +1508,7 @@
 		474AC76A2139E4F2002F9BF9 /* RemoveAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAdsViewController.swift; sourceTree = "<group>"; };
 		474AC76B2139E4F2002F9BF9 /* RemoveAdsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoveAdsViewController.xib; sourceTree = "<group>"; };
 		474C9F59213FF75800369009 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		4757D6202535BB6E0062364F /* BookmarksListInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListInterfaces.swift; sourceTree = "<group>"; };
 		475EC36C244EDE66003BC295 /* GuidesGalleryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryPresenter.swift; sourceTree = "<group>"; };
 		475EC36E244EF7A9003BC295 /* GuidesGalleryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesGalleryBuilder.swift; sourceTree = "<group>"; };
 		475EC372244F0992003BC295 /* PlacePageGalleryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageGalleryLayout.swift; sourceTree = "<group>"; };
@@ -3615,6 +3617,7 @@
 				47CA68D92500469400671019 /* BookmarksListBuilder.swift */,
 				470E1672252AD7F2002D201A /* BookmarksListInfoViewController.swift */,
 				470E1673252AD7F2002D201A /* BookmarksListInfoViewController.xib */,
+				4757D6202535BB6E0062364F /* BookmarksListInterfaces.swift */,
 			);
 			path = BookmarksList;
 			sourceTree = "<group>";
@@ -5559,6 +5562,7 @@
 				472E3F4C2147D5700020E412 /* Subscription.swift in Sources */,
 				340B33C61F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */,
 				F6E2FE191E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
+				4757D6212535BB6E0062364F /* BookmarksListInterfaces.swift in Sources */,
 				F6E407D01FC45EF5001F7821 /* MWMDiscoveryController.mm in Sources */,
 				F6E2FDEC1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.mm in Sources */,
 				34BBD64C1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,

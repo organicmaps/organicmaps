@@ -1,11 +1,3 @@
-protocol IBookmarksListRouter {
-  func listSettings(_ bookmarkGroup: BookmarkGroup, delegate: CategorySettingsViewControllerDelegate?)
-  func sharingOptions(_ bookmarkGroup: BookmarkGroup)
-  func viewOnMap(_ bookmarkGroup: BookmarkGroup)
-  func showDescription(_ bookmarkGroup: BookmarkGroup)
-  func showSubgroup(_ subgroupId: MWMMarkGroupID)
-}
-
 final class BookmarksListRouter {
   private let mapViewController: MapViewController
   private weak var coordinator: BookmarksCoordinator?

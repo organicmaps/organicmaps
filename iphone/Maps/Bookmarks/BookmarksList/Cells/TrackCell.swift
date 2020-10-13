@@ -1,7 +1,7 @@
 final class TrackCell: UITableViewCell {
-  @IBOutlet var trackImageView: UIImageView!
-  @IBOutlet var trackTitleLabel: UILabel!
-  @IBOutlet var trackSubtitleLabel: UILabel!
+  @IBOutlet private var trackImageView: UIImageView!
+  @IBOutlet private var trackTitleLabel: UILabel!
+  @IBOutlet private var trackSubtitleLabel: UILabel!
 
   func config(_ track: ITrackViewModel) {
     trackImageView.image = track.image

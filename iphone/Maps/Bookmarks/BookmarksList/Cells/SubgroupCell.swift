@@ -1,7 +1,7 @@
 final class SubgroupCell: UITableViewCell {
-  @IBOutlet var subgroupTitleLabel: UILabel!
-  @IBOutlet var subgroupSubtitleLabel: UILabel!
-  @IBOutlet var subgroupVisibleMark: Checkmark!
+  @IBOutlet private var subgroupTitleLabel: UILabel!
+  @IBOutlet private var subgroupSubtitleLabel: UILabel!
+  @IBOutlet private var subgroupVisibleMark: Checkmark!
 
   typealias CheckHandlerClosure = (Bool) -> Void
   var checkHandler: CheckHandlerClosure?
@@ -12,7 +12,7 @@ final class SubgroupCell: UITableViewCell {
     subgroupVisibleMark.isChecked = subgroup.isVisible
   }
 
-  @IBAction func onCheck(_ sender: Checkmark) {
+  @IBAction private func onCheck(_ sender: Checkmark) {
     checkHandler?(sender.isChecked)
   }
 }

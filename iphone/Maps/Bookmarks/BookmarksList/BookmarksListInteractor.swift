@@ -1,31 +1,3 @@
-protocol IBookmarksListInteractor {
-  func getBookmarkGroup() -> BookmarkGroup
-  func hasDescription() -> Bool
-  func prepareForSearch()
-  func search(_ text: String, completion: @escaping ([Bookmark]) -> Void)
-  func availableSortingTypes(hasMyPosition: Bool) -> [BookmarksListSortingType]
-  func viewOnMap()
-  func viewBookmarkOnMap(_ bookmarkId: MWMMarkID)
-  func viewTrackOnMap(_ trackId: MWMTrackID)
-  func setGroup(_ groupId: MWMMarkGroupID, visible: Bool)
-  func sort(_ sortingType: BookmarksListSortingType,
-            location: CLLocation?,
-            completion: @escaping ([BookmarksSection]) -> Void)
-  func resetSort()
-  func lastSortingType() -> BookmarksListSortingType?
-  func deleteBookmark(_ bookmarkId: MWMMarkID)
-  func deleteBookmarksGroup()
-  func canDeleteGroup() -> Bool
-  func exportFile(_ completion: @escaping (URL?, ExportFileStatus) -> Void)
-  func finishExportFile()
-}
-
-enum BookmarksListSortingType {
-  case distance
-  case date
-  case type
-}
-
 extension BookmarksListSortingType {
   init(_ sortingType: BookmarksSortingType) {
     switch sortingType {

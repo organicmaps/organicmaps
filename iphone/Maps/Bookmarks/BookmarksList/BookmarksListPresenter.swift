@@ -1,18 +1,3 @@
-protocol IBookmarksListPresenter {
-  func viewDidLoad()
-  func activateSearch()
-  func deactivateSearch()
-  func cancelSearch()
-  func search(_ text: String)
-  func sort()
-  func more()
-  func deleteBookmark(in section: IBookmarksListSectionViewModel, at index: Int)
-  func selectItem(in section: IBookmarksListSectionViewModel, at index: Int)
-  func checkItem(in section: IBookmarksListSectionViewModel, at index: Int, checked: Bool)
-  func toggleVisibility(in section: IBookmarksListSectionViewModel)
-  func showDescription()
-}
-
 protocol BookmarksListDelegate: AnyObject {
   func bookmarksListDidDeleteGroup()
 }
@@ -347,6 +332,27 @@ extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
   func categorySettingsController(_ viewController: CategorySettingsViewController, didDelete categoryId: MWMMarkGroupID) {
     delegate?.bookmarksListDidDeleteGroup()
   }
+}
+
+extension IBookmarksSectionViewModel {
+  var numberOfItems: Int { bookmarks.count }
+  var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
+  var canEdit: Bool { true }
+}
+
+extension ITracksSectionViewModel {
+  var numberOfItems: Int { tracks.count }
+  var sectionTitle: String { L("tracks_title") }
+  var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
+  var canEdit: Bool { true }
+}
+
+extension ISubgroupsSectionViewModel {
+  var numberOfItems: Int { subgroups.count }
+  var visibilityButtonState: BookmarksListVisibilityButtonState {
+    subgroups.reduce(false) { $0 ? $0 : $1.isVisible } ? .hideAll : .showAll
+  }
+  var canEdit: Bool { false }
 }
 
 fileprivate struct BookmarkViewModel: IBookmarkViewModel {

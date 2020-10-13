@@ -1,85 +1,3 @@
-enum BookmarksListVisibilityButtonState {
-  case hidden
-  case hideAll
-  case showAll
-}
-
-protocol IBookmarksListSectionViewModel {
-  var numberOfItems: Int { get }
-  var sectionTitle: String { get }
-  var visibilityButtonState: BookmarksListVisibilityButtonState { get }
-  var canEdit: Bool { get }
-}
-
-protocol IBookmarksSectionViewModel: IBookmarksListSectionViewModel {
-  var bookmarks: [IBookmarkViewModel] { get }
-}
-
-extension IBookmarksSectionViewModel {
-  var numberOfItems: Int { bookmarks.count }
-  var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
-  var canEdit: Bool { true }
-}
-
-protocol ITracksSectionViewModel: IBookmarksListSectionViewModel {
-  var tracks: [ITrackViewModel] { get }
-}
-
-extension ITracksSectionViewModel {
-  var numberOfItems: Int { tracks.count }
-  var sectionTitle: String { L("tracks_title") }
-  var visibilityButtonState: BookmarksListVisibilityButtonState { .hidden }
-  var canEdit: Bool { true }
-}
-
-protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
-  var subgroups: [ISubgroupViewModel] { get }
-}
-
-extension ISubgroupsSectionViewModel {
-  var numberOfItems: Int { subgroups.count }
-  var visibilityButtonState: BookmarksListVisibilityButtonState {
-    subgroups.reduce(false) { $0 ? $0 : $1.isVisible } ? .hideAll : .showAll
-  }
-  var canEdit: Bool { false }
-}
-
-protocol IBookmarkViewModel {
-  var bookmarkName: String { get }
-  var subtitle: String { get }
-  var image: UIImage { get }
-}
-
-protocol ITrackViewModel {
-  var trackName: String { get }
-  var subtitle: String { get }
-  var image: UIImage { get }
-}
-
-protocol ISubgroupViewModel {
-  var subgroupName: String { get }
-  var subtitle: String { get }
-  var isVisible: Bool { get }
-}
-
-protocol IBookmarksListMenuItem {
-  var title: String { get }
-  var destructive: Bool { get }
-  var enabled: Bool { get }
-  var action: () -> Void { get }
-}
-
-protocol IBookmarksListView: AnyObject {
-  func setTitle(_ title: String)
-  func setInfo(_ info: IBookmakrsListInfoViewModel)
-  func setSections(_ sections: [IBookmarksListSectionViewModel])
-  func setMoreItemTitle(_ itemTitle: String)
-  func showMenu(_ items: [IBookmarksListMenuItem])
-  func enableEditing(_ enable: Bool)
-  func share(_ url: URL, completion: @escaping () -> Void)
-  func showError(title: String, message: String)
-}
-
 final class BookmarksListViewController: MWMViewController {
   var presenter: IBookmarksListPresenter!
 
@@ -88,11 +6,11 @@ final class BookmarksListViewController: MWMViewController {
 
   private var canEdit = false
 
-  @IBOutlet var tableView: UITableView!
-  @IBOutlet var searchBar: UISearchBar!
-  @IBOutlet var toolBar: UIToolbar!
-  @IBOutlet var sortToolbarItem: UIBarButtonItem!
-  @IBOutlet var moreToolbarItem: UIBarButtonItem!
+  @IBOutlet private var tableView: UITableView!
+  @IBOutlet private var searchBar: UISearchBar!
+  @IBOutlet private var toolBar: UIToolbar!
+  @IBOutlet private var sortToolbarItem: UIBarButtonItem!
+  @IBOutlet private var moreToolbarItem: UIBarButtonItem!
 
   private lazy var infoViewController: BookmarksListInfoViewController = {
     let infoViewController = BookmarksListInfoViewController()
@@ -137,11 +55,11 @@ final class BookmarksListViewController: MWMViewController {
     tableView.tableHeaderView = infoView
   }
 
-  @IBAction func onSortItem(_ sender: UIBarButtonItem) {
+  @IBAction private func onSortItem(_ sender: UIBarButtonItem) {
     presenter.sort()
   }
 
-  @IBAction func onMoreItem(_ sender: UIBarButtonItem) {
+  @IBAction private func onMoreItem(_ sender: UIBarButtonItem) {
     presenter.more()
   }
 

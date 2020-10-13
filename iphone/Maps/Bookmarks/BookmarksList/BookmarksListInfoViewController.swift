@@ -1,19 +1,9 @@
-import UIKit
-
-protocol IBookmakrsListInfoViewModel {
-  var title: String { get }
-  var author: String { get }
-  var hasDescription: Bool { get }
-  var imageUrl: URL? { get }
-  var hasLogo: Bool { get } //TODO: maybe replace with logo url or similar
-}
-
 protocol BookmarksListInfoViewControllerDelegate: AnyObject {
   func didPressDescription()
   func didUpdateContent()
 }
 
-class BookmarksListInfoViewController: UIViewController {
+final class BookmarksListInfoViewController: UIViewController {
   var info: IBookmakrsListInfoViewModel? {
     didSet {
       guard isViewLoaded, let info = info else { return }
@@ -23,16 +13,16 @@ class BookmarksListInfoViewController: UIViewController {
 
   weak var delegate: BookmarksListInfoViewControllerDelegate?
 
-  @IBOutlet var titleImageView: UIImageView!
-  @IBOutlet var titleLabel: UILabel!
-  @IBOutlet var descriptionButton: UIButton!
-  @IBOutlet var authorContainerView: UIView!
-  @IBOutlet var authorImageView: UIImageView!
-  @IBOutlet var authorLabel: UILabel!
-  @IBOutlet var infoStack: UIStackView!
-  @IBOutlet var separatorsConstraints: [NSLayoutConstraint]!
+  @IBOutlet private var titleImageView: UIImageView!
+  @IBOutlet private var titleLabel: UILabel!
+  @IBOutlet private var descriptionButton: UIButton!
+  @IBOutlet private var authorContainerView: UIView!
+  @IBOutlet private var authorImageView: UIImageView!
+  @IBOutlet private var authorLabel: UILabel!
+  @IBOutlet private var infoStack: UIStackView!
+  @IBOutlet private var separatorsConstraints: [NSLayoutConstraint]!
 
-  @IBAction func onDescription(_ sender: UIButton) {
+  @IBAction private func onDescription(_ sender: UIButton) {
     delegate?.didPressDescription()
   }
   
