@@ -101,7 +101,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
     rw.setNestedScrollingEnabled(false);
     RecyclerView.ItemDecoration decor = ItemDecoratorFactory
-        .createVerticalDefaultDecorator(getContext());
+        .createDecoratorWithPadding(getContext());
     rw.addItemDecoration(decor);
     mCatalogListener = new CatalogListenerDecorator(createCatalogListener(), this);
     mCategoriesAdapterObserver = new CategoriesAdapterObserver(this);

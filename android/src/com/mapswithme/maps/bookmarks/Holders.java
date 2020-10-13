@@ -26,7 +26,7 @@ import com.mapswithme.util.UiUtils;
 
 public class Holders
 {
-  static class GeneralViewHolder extends RecyclerView.ViewHolder
+  public static class GeneralViewHolder extends RecyclerView.ViewHolder
   {
     @NonNull
     private final TextView mText;

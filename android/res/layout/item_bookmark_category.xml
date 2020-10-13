@@ -11,6 +11,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
+    android:minWidth="@dimen/bookmark_category_checkbox_width"
     android:layout_marginStart="@dimen/margin_half_plus"
     android:layout_marginEnd="@dimen/margin_base_plus" />
   <TextView

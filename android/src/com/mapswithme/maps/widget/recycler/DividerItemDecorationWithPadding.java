@@ -48,7 +48,8 @@ public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoratio
       if (viewHolder instanceof Holders.SectionViewHolder
           || viewHolder instanceof Holders.HeaderViewHolder
           || viewHolderNext instanceof Holders.SectionViewHolder
-          || viewHolderNext instanceof Holders.HeaderViewHolder)
+          || viewHolderNext instanceof Holders.HeaderViewHolder
+          || viewHolderNext instanceof Holders.GeneralViewHolder)
         mDivider.setBounds(0, top, right, bottom);
       else if (i == childCount - 1)
         mDivider.setBounds(0, top - dividerHeight, right, bottom);

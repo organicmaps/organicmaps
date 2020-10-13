@@ -274,6 +274,7 @@
   <dimen name="guide_description_content_by_height">60dp</dimen>
   <dimen name="content_by_logo_width">68dp</dimen>
   <dimen name="bookmark_collection_item_end_margin">56dp</dimen>
+  <dimen name="bookmark_category_checkbox_width">36dp</dimen>
 
   <!-- Purchases-->
   <dimen name="ads_removal_dialog_min_height">508dp</dimen>
