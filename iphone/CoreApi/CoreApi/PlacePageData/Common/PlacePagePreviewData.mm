@@ -81,6 +81,7 @@ static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChec
     _rawRating = rawData.GetRatingRawValue();
     _isMyPosition = rawData.IsMyPosition();
     _isPopular = rawData.GetPopularity() > 0;
+    _isTopChoise = rawData.IsTopChoise();
     _isBookingPlace = rawData.GetSponsoredType() == place_page::SponsoredType::Booking;
     _schedule = convertOpeningHours(rawData.GetOpeningHours());
     _hotelType = convertHotelType(rawData.GetHotelType());

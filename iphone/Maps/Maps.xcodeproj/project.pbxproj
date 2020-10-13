@@ -577,6 +577,7 @@
 		991CE2DD2373145C009EB02A /* PromoAfterBookingCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991CE2DC2373145C009EB02A /* PromoAfterBookingCampaign.swift */; };
 		991FCA2023B0FF33009AD684 /* AdsStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991FCA1F23B0FF33009AD684 /* AdsStyleSheet.swift */; };
 		991FCA2423B11E61009AD684 /* BookmarksStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991FCA2323B11E61009AD684 /* BookmarksStyleSheet.swift */; };
+		993416F82534427300526F6E /* PlacePageDividerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993416F72534427300526F6E /* PlacePageDividerViewController.swift */; };
 		993DF0B523F6B2EF00AC231A /* PlacePageElevationLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0B423F6B2EF00AC231A /* PlacePageElevationLayout.swift */; };
 		993DF0C823F6BD0600AC231A /* ElevationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0C323F6BD0600AC231A /* ElevationDetailsViewController.swift */; };
 		993DF0C923F6BD0600AC231A /* ElevationDetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0C423F6BD0600AC231A /* ElevationDetailsBuilder.swift */; };
@@ -1694,6 +1695,7 @@
 		991CE2DC2373145C009EB02A /* PromoAfterBookingCampaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoAfterBookingCampaign.swift; sourceTree = "<group>"; };
 		991FCA1F23B0FF33009AD684 /* AdsStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsStyleSheet.swift; sourceTree = "<group>"; };
 		991FCA2323B11E61009AD684 /* BookmarksStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksStyleSheet.swift; sourceTree = "<group>"; };
+		993416F72534427300526F6E /* PlacePageDividerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageDividerViewController.swift; sourceTree = "<group>"; };
 		993DF0B423F6B2EF00AC231A /* PlacePageElevationLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageElevationLayout.swift; sourceTree = "<group>"; };
 		993DF0C323F6BD0600AC231A /* ElevationDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElevationDetailsViewController.swift; sourceTree = "<group>"; };
 		993DF0C423F6BD0600AC231A /* ElevationDetailsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElevationDetailsBuilder.swift; sourceTree = "<group>"; };
@@ -4049,6 +4051,7 @@
 				99A906D823F6F7030005872B /* WikiDescriptionViewController.swift */,
 				478F6FA523C4521F00054A53 /* MoreReviewsViewController.swift */,
 				4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */,
+				993416F72534427300526F6E /* PlacePageDividerViewController.swift */,
 				99C964222428C0D500E41723 /* PlacePageHeader */,
 				993DF0C223F6BD0600AC231A /* ElevationDetails */,
 				99DEF9D523E420D2006BFD21 /* ElevationProfile */,
@@ -5542,6 +5545,7 @@
 				F6E2FDE91E097BA00083EBEC /* MWMObjectsCategorySelectorController.mm in Sources */,
 				34AB665F1FC5AA330078E451 /* TransportTransitIntermediatePoint.swift in Sources */,
 				34B846A82029E8110081ECCD /* BMCDefaultViewModel.swift in Sources */,
+				993416F82534427300526F6E /* PlacePageDividerViewController.swift in Sources */,
 				470F5A7F2189C30800754295 /* InAppPurchase.swift in Sources */,
 				348A8DF51F66775A00D83026 /* RatingView.swift in Sources */,
 				F63AF50F1EA6215100A1DB98 /* FilterPriceCategoryCell.swift in Sources */,

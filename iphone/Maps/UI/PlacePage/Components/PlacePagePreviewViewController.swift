@@ -94,10 +94,14 @@ final class PlacePagePreviewViewController: UIViewController {
         subtitleString.append(NSAttributedString(string: L("popular_place"),
                                                  attributes: [.foregroundColor : UIColor.linkBlue(),
                                                               .font : UIFont.regular14()]))
+      } else if placePagePreviewData.isTopChoise {
+        subtitleString.append(NSAttributedString(string: L("mustsee_title"),
+                                                 attributes: [.foregroundColor : UIColor.linkBlue(),
+                                                              .font : UIFont.regular14()]))
       }
 
       if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
-        subtitleString.append(NSAttributedString(string: placePagePreviewData.isPopular ? " • " + subtitle : subtitle,
+        subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
                                                  attributes: [.foregroundColor : UIColor.blackSecondaryText(),
                                                               .font : UIFont.regular14()]))
       }

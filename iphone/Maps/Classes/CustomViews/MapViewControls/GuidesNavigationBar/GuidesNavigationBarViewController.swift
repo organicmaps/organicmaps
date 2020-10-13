@@ -19,14 +19,14 @@ class GuidesNavigationBarViewController: UIViewController {
     super.viewDidLoad()
     navigationBarItem.title = category.title
 
-    let rightButton: UIButton = UIButton(type: .custom)
-    rightButton.setImage(UIImage(named: "ic_nav_bar_back")?.withRenderingMode(.alwaysTemplate), for: .normal)
-    rightButton.setTitle(L("list"), for: .normal)
-    rightButton.addTarget(self, action: #selector(onBackPressed), for: .touchUpInside)
-    rightButton.contentHorizontalAlignment = .left
-    rightButton.styleName = "FlatNormalTransButton"
+    let leftButton: UIButton = UIButton(type: .custom)
+    leftButton.setImage(UIImage(named: "ic_nav_bar_back")?.withRenderingMode(.alwaysTemplate), for: .normal)
+    leftButton.setTitle(L("bookmarks_groups"), for: .normal)
+    leftButton.addTarget(self, action: #selector(onBackPressed), for: .touchUpInside)
+    leftButton.contentHorizontalAlignment = .left
+    leftButton.styleName = "FlatNormalTransButton"
 
-    navigationBarItem.leftBarButtonItem = UIBarButtonItem(customView: rightButton)
+    navigationBarItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
     navigationBarItem.rightBarButtonItem = UIBarButtonItem(title: L("cancel"),
                                                            style: .plain,
                                                            target: self,
