@@ -1,11 +1,13 @@
 #include "testing/testing.hpp"
 
+#include "partners_api/citymobil_api.hpp"
 #include "partners_api/freenow_api.hpp"
 #include "partners_api/maxim_api.hpp"
 #include "partners_api/rutaxi_api.hpp"
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/uber_api.hpp"
 #include "partners_api/yandex_api.hpp"
+#include "partners_api/yango_api.hpp"
 
 #include "platform/platform_tests_support/async_gui_thread.hpp"
 
@@ -110,6 +112,18 @@ public:
   storage::CountryId GetMwmId(m2::PointD const & point) override { return {}; }
 };
 
+class RussiaMoscowDelegate : public taxi::Delegate
+{
+public:
+  storage::CountriesVec GetCountryIds(m2::PointD const & point) override
+  {
+    return {"Russian Federation"};
+  }
+
+  std::string GetCityName(m2::PointD const & point) override { return "Moscow"; }
+  storage::CountryId GetMwmId(m2::PointD const & point) override { return {}; }
+};
+
 std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLon const & to,
                                               std::string const & url)
 {
@@ -191,6 +205,25 @@ std::vector<taxi::Product> GetFreenowSynchronous(ms::LatLon const & from, ms::La
   return taxi::freenow::MakeProductsFromJson(freenowAnswer);
 }
 
+std::vector<taxi::Product> GetCitymobilSynchronous(ms::LatLon const & from, ms::LatLon const & to,
+                                                   std::string const & url)
+{
+  std::string tariffsResult;
+  taxi::citymobil::RawApi::SupportedTariffsBody supportedTariffs(from);
+  TEST(taxi::citymobil::RawApi::GetSupportedTariffs(supportedTariffs, tariffsResult, url), ());
+    return {};
+
+  taxi::citymobil::RawApi::TariffGroups tariffGroups =
+      taxi::citymobil::MakeTariffGroupsFromJson(tariffsResult);
+
+  std::string calculatePriceResult;
+  taxi::citymobil::RawApi::CalculatePriceBody calculatePrice(from, to, tariffGroups);
+  TEST(taxi::citymobil::RawApi::CalculatePrice(calculatePrice, calculatePriceResult, url), ());
+
+  return taxi::citymobil::MakeProductsFromJson(calculatePriceResult);
+}
+
+
 taxi::ProvidersContainer GetProvidersSynchronous(taxi::Engine const & engine,
                                                  ms::LatLon const & from, ms::LatLon const & to,
                                                  taxi::Delegate & delegate, std::string const & url)
@@ -216,6 +249,12 @@ taxi::ProvidersContainer GetProvidersSynchronous(taxi::Engine const & engine,
       break;
     case taxi::Provider::Type::Freenow:
       providers.emplace_back(taxi::Provider::Type::Freenow, GetFreenowSynchronous(from, to, url));
+      break;
+    case taxi::Provider::Type::Yango:
+      providers.emplace_back(taxi::Provider::Type::Yango, GetYandexSynchronous(from, to, url));
+      break;
+    case taxi::Provider::Type::Citymobil:
+      providers.emplace_back(taxi::Provider::Type::Citymobil, GetCitymobilSynchronous(from, to, url));
       break;
     case taxi::Provider::Type::Count:
       LOG(LERROR, ());
@@ -471,7 +510,8 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_Smoke)
                        {taxi::Provider::Type::Yandex, kTesturl},
                        {taxi::Provider::Type::Maxim, kTesturl},
                        {taxi::Provider::Type::Rutaxi, kTesturl},
-                       {taxi::Provider::Type::Freenow, kTesturl}});
+                       {taxi::Provider::Type::Freenow, kTesturl},
+                       {taxi::Provider::Type::Citymobil, kTesturl}});
 
   engine.SetDelegate(std::make_unique<BelarusMinskDelegate>());
   BelarusMinskDelegate delegate;
@@ -544,7 +584,7 @@ UNIT_TEST(TaxiEngine_GetProvidersAtPos)
   engine.SetDelegate(std::make_unique<RussiaSochiDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
   TEST_EQUAL(providers.size(), 1, ());
-  TEST_EQUAL(providers[0], taxi::Provider::Type::Yandex, ());
+  TEST_EQUAL(providers[0], taxi::Provider::Type::Citymobil, ());
 
   engine.SetDelegate(std::make_unique<RussiaKonetsDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
@@ -554,5 +594,10 @@ UNIT_TEST(TaxiEngine_GetProvidersAtPos)
   providers = engine.GetProvidersAtPos(latlon);
   TEST_EQUAL(providers.size(), 1, ());
   TEST_EQUAL(providers[0], taxi::Provider::Type::Freenow, ());
+
+  engine.SetDelegate(std::make_unique<RussiaMoscowDelegate>());
+  providers = engine.GetProvidersAtPos(latlon);
+  TEST_EQUAL(providers.size(), 1, ());
+  TEST_EQUAL(providers[0], taxi::Provider::Type::Citymobil, ());
 }
 }  // namespace

@@ -726,3 +726,232 @@ GUIDES_ON_MAP_GALLERY = """
   }
 }
 """
+
+CITYMOBIL_SUPPORTED_TARIFFS = """
+{
+  "tariff_groups": [
+    {
+      "tariff_group_id": 2,
+      "tariff_options": [],
+      "tariff_detail": {
+        "is_waypoints_enabled": false,
+        "is_by_instruction_enabled": true,
+        "is_options_enabled": true,
+        "order_time_type": [
+          "asap",
+          "delay"
+        ],
+        "description": "Таксипортация для ежедневных поездок",
+        "luxury_level": 1,
+        "car_models": "Kia Rio, Hyundai Solaris, VW Polo",
+        "car_image": "https://external-storage.city-mobil.ru/generated/storage_files/Polo.png",
+        "fastest_car_image": "https://external-storage.city-mobil.ru/generated/storage_files/econom_vw.png"
+      }
+    },
+    {
+      "tariff_group_id": 4,
+      "tariff_options": [],
+      "tariff_detail": {
+        "is_waypoints_enabled": false,
+        "is_by_instruction_enabled": true,
+        "is_options_enabled": true,
+        "order_time_type": [
+          "asap",
+          "delay"
+        ],
+        "description": "Комфортная таксипортация",
+        "luxury_level": 3,
+        "car_models": "Skoda Octavia, Hyundai Elantra, Kia Cerato",
+        "car_image": "https://external-storage.city-mobil.ru/generated/storage_files/Octavia.png",
+        "fastest_car_image": "https://external-storage.city-mobil.ru/generated/storage_files/comfort_shkoda.png"
+      }
+    },
+    {
+      "tariff_group_id": 13,
+      "tariff_options": [],
+      "tariff_detail": {
+        "is_waypoints_enabled": false,
+        "is_by_instruction_enabled": true,
+        "is_options_enabled": true,
+        "order_time_type": [
+          "asap",
+          "delay"
+        ],
+        "description": "Таксипортация с повышенным комфортом",
+        "luxury_level": 4,
+        "car_models": "Kia Optima, Toyota Camry, Hyundai Sonata",
+        "car_image": "https://external-storage.city-mobil.ru/generated/storage_files/Optima.png",
+        "fastest_car_image": "https://external-storage.city-mobil.ru/generated/storage_files/comfort_plus_kia.png"
+      }
+    },
+    {
+      "tariff_group_id": 5,
+      "tariff_options": [],
+      "tariff_detail": {
+        "is_waypoints_enabled": false,
+        "is_by_instruction_enabled": true,
+        "is_options_enabled": true,
+        "order_time_type": [
+          "asap",
+          "delay"
+        ],
+        "description": "Для важных встреч",
+        "luxury_level": 5,
+        "car_models": "BMW 5, Mercedes E-klasse, Audi A6",
+        "car_image": "https://external-storage.city-mobil.ru/generated/storage_files/E-Klasse.png",
+        "fastest_car_image": "https://external-storage.city-mobil.ru/generated/storage_files/buisness_merce.png"
+      }
+    },
+    {
+      "tariff_group_id": 3,
+      "tariff_options": [],
+      "tariff_detail": {
+        "is_waypoints_enabled": false,
+        "is_by_instruction_enabled": true,
+        "is_options_enabled": true,
+        "order_time_type": [
+          "asap",
+          "delay"
+        ],
+        "description": "",
+        "luxury_level": 0,
+        "car_models": "Ford Focus, Kia Rio, Nissan Almera",
+        "car_image": "",
+        "fastest_car_image": ""
+      }
+    },
+    {
+      "tariff_group_id": 7,
+      "tariff_options": [],
+      "tariff_detail": {
+        "is_waypoints_enabled": false,
+        "is_by_instruction_enabled": true,
+        "is_options_enabled": true,
+        "order_time_type": [
+          "asap",
+          "delay"
+        ],
+        "description": "Таксипортация для большой компании",
+        "luxury_level": -1,
+        "car_models": "Ford Galaxy, Citroen C4 Picasso, Chevrolet Orlando",
+        "car_image": "https://external-storage.city-mobil.ru/generated/storage_files/C4.png",
+        "fastest_car_image": "https://external-storage.city-mobil.ru/generated/storage_files/miniven_citrienC4.png"
+      }
+    },
+    {
+      "tariff_group_id": 27,
+      "tariff_options": [
+        {
+          "id": 99,
+          "title": "От двери до двери",
+          "type": "delivery_tariff_door_to_door",
+          "is_toggle_selection": true,
+          "description": "Водитель сам заберет посылку у вас и доставит ее адресату до квартиры"
+        }
+      ],
+      "tariff_detail": {
+        "is_waypoints_enabled": false,
+        "is_by_instruction_enabled": false,
+        "is_options_enabled": false,
+        "order_time_type": [
+          "asap"
+        ],
+        "description": "",
+        "luxury_level": -1,
+        "car_models": "Когда можно не ехать, но нужно передать документы, ключи или чемодан",
+        "car_image": "https://external-storage.city-mobil.ru/generated/storage_files/Delivery_day.png",
+        "fastest_car_image": ""
+      }
+    }
+  ]
+}
+"""
+
+CITYMOBIL_CALCULATE_PRICE = """
+{
+  "distance_text": "8 км",
+  "duration_text": "15 мин",
+  "id_calculation": "494d1fc56850ae4411e86fe2d902abe9",
+  "prices": [
+    {
+      "coefficient": 1,
+      "fixed_price": true,
+      "has_discount": false,
+      "id_tariff": 4098,
+      "id_tariff_group": 2,
+      "label": "763₽. В пути ~15 мин",
+      "new_user_discount": false,
+      "price": 763,
+      "total_price": 763,
+      "tariff_info": {
+        "name": "Эконом",
+        "price": "763₽. В пути ~15 мин",
+        "car_models": "Kia Rio, Hyundai Solaris, VW Polo, Renault Logan, Skoda Rapid, Nissan Almera, Chevrolet Aveo, Ford Focus.",
+        "car_capacity": "Пассажиров: 4, мест багажа: 2",
+        "link": "https://t.city-mobil.ru/view/tariffs/2/ru?id_tariff=4098",
+        "details": [
+          {
+            "text": "Стоимость поездки",
+            "value": "763₽"
+          }
+        ]
+      }
+    },
+    {
+      "coefficient": 1,
+      "fixed_price": true,
+      "has_discount": false,
+      "id_tariff": 2,
+      "id_tariff_group": 4,
+      "label": "816₽. В пути ~15 мин",
+      "new_user_discount": false,
+      "price": 816,
+      "total_price": 816,
+      "tariff_info": {
+        "name": "Комфорт",
+        "price": "816₽. В пути ~15 мин",
+        "car_models": "Skoda Octavia, Hyundai Elantra, Kia Cerato, Toyota Camry, Nissan Teana, Ford Mondeo, Kia Ceed, Hyundai Sonata",
+        "car_capacity": "Пассажиров: 4, мест багажа: 2. Кондиционер обязателен.",
+        "link": "https://t.city-mobil.ru/view/tariffs/2/ru?id_tariff=2",
+        "details": [
+          {
+            "text": "Стоимость поездки",
+            "value": "816₽"
+          }
+        ]
+      }
+    },
+    {
+      "coefficient": 1,
+      "fixed_price": true,
+      "has_discount": false,
+      "id_tariff": 144,
+      "id_tariff_group": 5,
+      "label": "1000₽. В пути ~15 мин",
+      "new_user_discount": false,
+      "price": 1000,
+      "total_price": 1000,
+      "tariff_info": {
+        "name": "Бизнес",
+        "price": "1000₽. В пути ~15 мин",
+        "car_models": "BMW 5, Mercedes E-klasse, Audi A6, Lexus GS, Hyundai Equus",
+        "car_capacity": "Пассажиров: 4, мест багажа: 2",
+        "link": "https://t.city-mobil.ru/view/tariffs/2/ru?id_tariff=144",
+        "details": [
+          {
+            "text": "Стоимость поездки",
+            "value": "1000₽"
+          }
+        ]
+      }
+    }
+  ],
+  "route": {
+    "distance": 7250,
+    "duration": 846,
+    "points": ""
+  },
+  "service_status": 1,
+  "eta": 600
+}
+"""

@@ -40,6 +40,8 @@ set(
   booking_ordering_params.cpp
   booking_ordering_params.hpp
   booking_params_base.hpp
+  citymobil_api.cpp
+  citymobil_api.hpp
   freenow_api.cpp
   freenow_api.hpp
   guides_on_map_api.cpp

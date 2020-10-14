@@ -19,7 +19,7 @@ struct Product
 class Provider
 {
 public:
-  enum Type
+  enum class Type
   {
     Uber,
     Yandex,
@@ -27,6 +27,7 @@ public:
     Rutaxi,
     Freenow,
     Yango,
+    Citymobil,
     Count
   };
 
@@ -86,6 +87,7 @@ inline std::string DebugPrint(Provider::Type type)
   case Provider::Type::Rutaxi: return "Rutaxi";
   case Provider::Type::Freenow: return "Freenow";
   case Provider::Type::Yango: return "Yango";
+  case Provider::Type::Citymobil: return "Citymobil";
   case Provider::Type::Count: ASSERT(false, ()); return "";
   }
   UNREACHABLE();

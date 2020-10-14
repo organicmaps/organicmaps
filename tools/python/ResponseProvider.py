@@ -153,6 +153,8 @@ class ResponseProvider:
                 "/partners/oauth/token": self.freenow_auth_token,
                 "/partners/service-types": self.freenow_service_types,
                 "/gallery/v2/map": self.guides_on_map_gallery,
+                "/partners/get_supported_tariffs": self.citymobil_supported_tariffs,
+                "/partners/calculate_price": self.citymobil_calculate_price,
             }[url]()
         except:
             return self.test_404()
@@ -262,6 +264,12 @@ class ResponseProvider:
 
     def guides_on_map_gallery(self):
         return Payload(jsons.GUIDES_ON_MAP_GALLERY)
+
+    def citymobil_supported_tariffs(self):
+        return Payload(jsons.CITYMOBIL_SUPPORTED_TARIFFS)
+
+    def citymobil_calculate_price(self):
+        return Payload(jsons.CITYMOBIL_CALCULATE_PRICE)
 
     def kill(self):
         logging.debug("Kill called in ResponseProvider")
