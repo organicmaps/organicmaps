@@ -589,6 +589,7 @@ static NSString *const kStatWifi = @"wifi";
 static NSString *const kStatWikipedia = @"wikipedia";
 static NSString *const kStatYandex = @"Yandex";
 static NSString *const kStatYango = @"Yango";
+static NSString *const kStatCitymobil = @"Citymobil";
 static NSString *const kStatYes = @"Yes";
 static NSString *const kStatZoom = @"Zoom";
 static NSString *const kStatId = @"id";

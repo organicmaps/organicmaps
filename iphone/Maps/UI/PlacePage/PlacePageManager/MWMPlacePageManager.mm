@@ -138,6 +138,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   case PlacePageTaxiProviderRutaxi: providerString = kStatVezet; break;
   case PlacePageTaxiProviderFreenow: providerString = kStatFreenow; break;
   case PlacePageTaxiProviderYango: providerString = kStatYango; break;
+  case PlacePageTaxiProviderCitymobil: providerString = kStatCitymobil; break;
   }
 
   [Statistics logEvent:kStatPlacePageTaxiClick

@@ -15,17 +15,19 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
       case .vezet: return #imageLiteral(resourceName: "ic_taxi_logo_vezet")
       case .freenow: return #imageLiteral(resourceName: "ic_logo_freenow")
       case .yango: return #imageLiteral(resourceName: "ic_taxi_logo_yango")
+      case .citymobil: return #imageLiteral(resourceName: "ic_taxi_logo_citymobil")
       }
     }
 
     let titleString = { () -> String in
       switch type {
       case .taxi: fallthrough
-      case .uber: return title
+      case .uber: fallthrough
+      case .freenow: fallthrough
+      case .citymobil: return title
       case .yandex: return L("yandex_taxi_title")
       case .maxim: return L("maxim_taxi_title")
       case .vezet: return L("vezet_taxi")
-      case .freenow: return title
       case .yango: return L("yango_taxi_title")
       }
     }
@@ -33,7 +35,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
     let priceString = { () -> String in
       switch type {
       case .taxi, .uber, .freenow: return price
-      case .yandex, .maxim, .vezet, .yango:
+      case .yandex, .maxim, .vezet, .yango, .citymobil:
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencyCode = currency

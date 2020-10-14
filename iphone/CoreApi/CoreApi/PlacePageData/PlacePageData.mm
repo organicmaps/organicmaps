@@ -39,19 +39,21 @@ static PlacePageSponsoredType convertSponsoredType(place_page::SponsoredType spo
 
 static PlacePageTaxiProvider convertTaxiProvider(taxi::Provider::Type providerType) {
   switch (providerType) {
-    case taxi::Provider::Uber:
+    case taxi::Provider::Type::Uber:
       return PlacePageTaxiProviderUber;
-    case taxi::Provider::Yandex:
+    case taxi::Provider::Type::Yandex:
       return PlacePageTaxiProviderYandex;
-    case taxi::Provider::Maxim:
+    case taxi::Provider::Type::Maxim:
       return PlacePageTaxiProviderMaxim;
-    case taxi::Provider::Rutaxi:
+    case taxi::Provider::Type::Rutaxi:
       return PlacePageTaxiProviderRutaxi;
-    case taxi::Provider::Freenow:
+    case taxi::Provider::Type::Freenow:
       return PlacePageTaxiProviderFreenow;
-    case taxi::Provider::Yango:
+    case taxi::Provider::Type::Yango:
       return PlacePageTaxiProviderYango;
-    case taxi::Provider::Count:
+    case taxi::Provider::Type::Citymobil:
+      return PlacePageTaxiProviderCitymobil;
+    case taxi::Provider::Type::Count:
       return PlacePageTaxiProviderNone;
   }
 }

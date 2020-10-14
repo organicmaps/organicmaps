@@ -42,6 +42,9 @@
 		3D8DAE7525026B550000513A /* yango_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D8DAE7325026B540000513A /* yango_api.hpp */; };
 		3D8DAE7625026B550000513A /* yango_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8DAE7425026B550000513A /* yango_api.cpp */; };
 		3DA5713420B57358007BDE27 /* booking_params_base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5713320B57358007BDE27 /* booking_params_base.hpp */; };
+		3DA6BCDF2535B52E00DF0DA5 /* citymobil_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA6BCDD2535B52E00DF0DA5 /* citymobil_api.hpp */; };
+		3DA6BCE02535B52E00DF0DA5 /* citymobil_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6BCDE2535B52E00DF0DA5 /* citymobil_api.cpp */; };
+		3DA6BCE22535B53C00DF0DA5 /* citymobil_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6BCE12535B53C00DF0DA5 /* citymobil_tests.cpp */; };
 		3DBD7B9824112DE100ED9FE8 /* freenow_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B9624112DE000ED9FE8 /* freenow_api.cpp */; };
 		3DBD7B9924112DE100ED9FE8 /* freenow_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7B9724112DE100ED9FE8 /* freenow_api.hpp */; };
 		3DBD7B9B24112DEA00ED9FE8 /* freenow_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B9A24112DEA00ED9FE8 /* freenow_tests.cpp */; };
@@ -165,6 +168,9 @@
 		3D8DAE7325026B540000513A /* yango_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = yango_api.hpp; sourceTree = "<group>"; };
 		3D8DAE7425026B550000513A /* yango_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = yango_api.cpp; sourceTree = "<group>"; };
 		3DA5713320B57358007BDE27 /* booking_params_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_params_base.hpp; sourceTree = "<group>"; };
+		3DA6BCDD2535B52E00DF0DA5 /* citymobil_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = citymobil_api.hpp; sourceTree = "<group>"; };
+		3DA6BCDE2535B52E00DF0DA5 /* citymobil_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = citymobil_api.cpp; sourceTree = "<group>"; };
+		3DA6BCE12535B53C00DF0DA5 /* citymobil_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = citymobil_tests.cpp; sourceTree = "<group>"; };
 		3DBC1C501E4B14810016897F /* facebook_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = facebook_tests.cpp; sourceTree = "<group>"; };
 		3DBD7B9624112DE000ED9FE8 /* freenow_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = freenow_api.cpp; sourceTree = "<group>"; };
 		3DBD7B9724112DE100ED9FE8 /* freenow_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = freenow_api.hpp; sourceTree = "<group>"; };
@@ -348,6 +354,8 @@
 		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
 			isa = PBXGroup;
 			children = (
+				3DA6BCDE2535B52E00DF0DA5 /* citymobil_api.cpp */,
+				3DA6BCDD2535B52E00DF0DA5 /* citymobil_api.hpp */,
 				3D8DAE7425026B550000513A /* yango_api.cpp */,
 				3D8DAE7325026B540000513A /* yango_api.hpp */,
 				3DCAC69324D1CFE800518E8B /* booking_ordering_params.cpp */,
@@ -405,6 +413,7 @@
 		F6B536441DA521060067EEA5 /* partners_api_tests */ = {
 			isa = PBXGroup;
 			children = (
+				3DA6BCE12535B53C00DF0DA5 /* citymobil_tests.cpp */,
 				3DCF64AA24DC0A2300C49963 /* mastercard_sberbank_tests.cpp */,
 				3D035CA4245195EF00C21B57 /* guides_on_map_tests.cpp */,
 				3DBD7C1C24251C1100ED9FE8 /* bookmark_catalog_ads_tests.cpp */,
@@ -495,6 +504,7 @@
 				3DBD7B9924112DE100ED9FE8 /* freenow_api.hpp in Headers */,
 				3D8DAE7525026B550000513A /* yango_api.hpp in Headers */,
 				3D15ACE6214AA1B000F725D5 /* taxi_delegate.hpp in Headers */,
+				3DA6BCDF2535B52E00DF0DA5 /* citymobil_api.hpp in Headers */,
 				3DFEBF9A1EFBFC1500317D5C /* taxi_base.hpp in Headers */,
 				3DFEBF9F1EFBFC1500317D5C /* yandex_api.hpp in Headers */,
 				3DFEBF9D1EFBFC1500317D5C /* taxi_provider.hpp in Headers */,
@@ -611,8 +621,10 @@
 			files = (
 				3D18DC4222956DFA00A583A6 /* promo_api.cpp in Sources */,
 				349CFD0B2045720000569949 /* maxim_api.cpp in Sources */,
+				3DA6BCE22535B53C00DF0DA5 /* citymobil_tests.cpp in Sources */,
 				3DBD7C1424251BF000ED9FE8 /* facebook_ads.cpp in Sources */,
 				3DFEBFA41EFBFC2300317D5C /* yandex_tests.cpp in Sources */,
+				3DA6BCE02535B52E00DF0DA5 /* citymobil_api.cpp in Sources */,
 				3D1775A72318198700F8889C /* promo_catalog_types.cpp in Sources */,
 				3D452AEF1EE6D202009EAB9B /* google_tests.cpp in Sources */,
 				3D035CA3245195E600C21B57 /* guides_on_map_api.cpp in Sources */,
