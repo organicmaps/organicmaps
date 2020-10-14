@@ -893,6 +893,9 @@ public enum BookmarkManager
   @NonNull
   native BookmarkCategory[] nativeGetChildrenCollections(long catId);
 
+  native boolean nativeIsBookmarkCompilation(long catId);
+  native int nativeGetCompilationType(long catId);
+
   @NonNull
   public String getBookmarkName(@IntRange(from = 0) long bookmarkId)
   {

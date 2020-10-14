@@ -1368,11 +1368,13 @@ void BookmarkManager::OnTrackDeselected()
 
 kml::GroupIdCollection BookmarkManager::GetChildrenCategories(kml::MarkGroupId parentId) const
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return GetCompilationOfType(parentId, kml::CompilationType::Category);
 }
 
 kml::GroupIdCollection BookmarkManager::GetChildrenCollections(kml::MarkGroupId parentId) const
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return GetCompilationOfType(parentId, kml::CompilationType::Collection);
 }
 
@@ -1389,6 +1391,21 @@ kml::GroupIdCollection BookmarkManager::GetCompilationOfType(kml::MarkGroupId pa
                });
 
   return result;
+}
+
+bool BookmarkManager::IsBookmarkCompilation(kml::MarkGroupId id) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return m_compilations.find(id) != m_compilations.cend();
+}
+
+kml::CompilationType BookmarkManager::GetCompilationType(kml::MarkGroupId id) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  auto const compilation = m_compilations.find(id);
+  CHECK(compilation != m_compilations.cend(), ());
+  return compilation->second->GetCategoryData().m_type;
 }
 
 std::vector<std::string> BookmarkManager::GetAllPaidCategoriesIds() const

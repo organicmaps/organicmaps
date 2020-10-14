@@ -508,6 +508,9 @@ public:
   kml::GroupIdCollection GetChildrenCategories(kml::MarkGroupId parentCategoryId) const;
   kml::GroupIdCollection GetChildrenCollections(kml::MarkGroupId parentCategoryId) const;
 
+  bool IsBookmarkCompilation(kml::MarkGroupId id) const;
+  kml::CompilationType GetCompilationType(kml::MarkGroupId id) const;
+
   std::vector<std::string> GetAllPaidCategoriesIds() const;
 
 private:
