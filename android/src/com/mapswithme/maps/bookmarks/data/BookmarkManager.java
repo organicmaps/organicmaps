@@ -64,6 +64,14 @@ public enum BookmarkManager
   public static final int SORT_BY_DISTANCE = 1;
   public static final int SORT_BY_TIME = 2;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ CATEGORY, COLLECTION, DAY })
+  public @interface CompilationType {}
+
+  public static final int CATEGORY = 0;
+  public static final int COLLECTION = 1;
+  public static final int DAY = 2;
+
   public static final List<Icon> ICONS = new ArrayList<>();
 
   @NonNull
@@ -700,6 +708,11 @@ public enum BookmarkManager
     nativeSetAllCategoriesVisibility(visible, type.ordinal());
   }
 
+  public void setChildCategoriesVisibility(long catId, @BookmarkManager.CompilationType int compilationType, boolean visible)
+  {
+    nativeSetChildCategoriesVisibility(catId, compilationType, visible);
+  }
+
   public int getKmlFilesCountForConversion()
   {
     return nativeGetKmlFilesCountForConversion();
@@ -1110,6 +1123,8 @@ public enum BookmarkManager
   private static native boolean nativeAreAllCategoriesInvisible(int type);
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible, int type);
+  
+  private static native void nativeSetChildCategoriesVisibility(long catId, int compilationType, boolean visible);
 
   private static native int nativeGetKmlFilesCountForConversion();
 

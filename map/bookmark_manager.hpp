@@ -49,7 +49,6 @@ class BookmarkManager final
 {
   using UserMarkLayers = std::vector<std::unique_ptr<UserMarkLayer>>;
   using CategoriesCollection = std::map<kml::MarkGroupId, std::unique_ptr<BookmarkCategory>>;
-
   using MarksCollection = std::map<kml::MarkId, std::unique_ptr<UserMark>>;
   using BookmarksCollection = std::map<kml::MarkId, std::unique_ptr<Bookmark>>;
   using TracksCollection = std::map<kml::TrackId, std::unique_ptr<Track>>;
@@ -372,6 +371,8 @@ public:
   bool AreAllCategoriesVisible(CategoryFilterType const filter) const;
   bool AreAllCategoriesInvisible(CategoryFilterType const filter) const;
   void SetAllCategoriesVisibility(CategoryFilterType const filter, bool visible);
+  void SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType,
+                                    bool visible);
 
   // Return number of files for the conversion to the binary format.
   size_t GetKmlFilesCountForConversion() const;
@@ -573,6 +574,8 @@ private:
                         GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase);
     bool HasBookmarkCategories(kml::GroupIdSet const & groupIds) const;
 
+    void InferBookmarksVisibility(BookmarkCategory * const group, kml::MarkIdSet & dirtyMarks);
+
     BookmarkManager * m_bmManager;
 
     kml::MarkIdSet m_createdMarks;
@@ -641,6 +644,7 @@ private:
   Bookmark * CreateBookmark(kml::BookmarkData && bmData, kml::MarkGroupId groupId);
 
   Bookmark * GetBookmarkForEdit(kml::MarkId markId);
+  Bookmark * GetBookmarkForVisibilityChange(kml::MarkId markId);
   void AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DeleteBookmark(kml::MarkId bmId);

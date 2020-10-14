@@ -93,6 +93,12 @@ void Bookmark::SetAddress(search::ReverseGeocoder::RegionAddress const & address
   m_address = address;
 }
 
+void Bookmark::SetIsVisible(bool isVisible)
+{
+  SetDirty();
+  m_isVisible = isVisible;
+}
+
 dp::Anchor Bookmark::GetAnchor() const
 {
   return dp::Bottom;

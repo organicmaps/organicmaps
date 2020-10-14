@@ -1013,6 +1013,15 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetAllCategoriesVi
   frm()->GetBookmarkManager().SetAllCategoriesVisibility(filter, static_cast<bool>(visible));
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetChildCategoriesVisibility(
+        JNIEnv * env, jobject thiz, jlong categoryId, jint compilationType, jboolean visible)
+{
+  frm()->GetBookmarkManager().SetChildCategoriesVisibility(categoryId, 
+                                                           static_cast<kml::CompilationType>(compilationType),
+                                                           static_cast<bool>(visible));
+}
+
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetKmlFilesCountForConversion(
         JNIEnv * env, jobject thiz)

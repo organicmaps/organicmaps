@@ -25,6 +25,9 @@ public:
   search::ReverseGeocoder::RegionAddress const & GetAddress() const;
   void SetAddress(search::ReverseGeocoder::RegionAddress const & address);
 
+  bool IsVisible() const override { return m_isVisible; }
+  void SetIsVisible(bool isVisible);
+
   bool HasCreationAnimation() const override;
 
   std::string GetPreferredName() const;
@@ -64,12 +67,15 @@ public:
   void AttachCompilation(kml::MarkGroupId groupId);
   void Detach();
 
+  kml::GroupIdCollection const & GetCompilations() const { return m_compilationIds; }
+
 private:
   drape_ptr<df::UserPointMark::SymbolNameZoomInfo> GetCustomSymbolNames() const;
 
   kml::BookmarkData m_data;
   kml::MarkGroupId m_groupId;
   kml::GroupIdCollection m_compilationIds;
+  bool m_isVisible = true;
   search::ReverseGeocoder::RegionAddress m_address;
 };
 
@@ -84,6 +90,8 @@ public:
   static kml::PredefinedColor GetDefaultColor();
 
   kml::MarkGroupId GetID() const { return m_data.m_id; }
+  kml::MarkGroupId GetParentID() const { return m_parentId; }
+  void SetParentId(kml::MarkGroupId parentId) { m_parentId = parentId; }
 
   void SetIsVisible(bool isVisible) override;
   void SetName(std::string const & name);
@@ -110,12 +118,13 @@ public:
   void SetTags(std::vector<std::string> const & tags);
   void SetCustomProperty(std::string const & key, std::string const & value);
 
-private:
   void SetDirty() override;
 
+private:
   // Stores file name from which bookmarks were loaded.
   std::string m_file;
   bool m_autoSave = true;
   kml::CategoryData m_data;
   std::string m_serverId;
+  kml::MarkGroupId m_parentId = kml::kInvalidMarkGroupId;
 };
