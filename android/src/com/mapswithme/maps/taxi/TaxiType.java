@@ -200,6 +200,38 @@ public enum TaxiType
         {
           return "Yango";
         }
+      },
+  CITYMOBIL
+      {
+        @NonNull
+        public String getPackageName()
+        {
+          return "com.citymobil";
+        }
+
+        @NonNull
+        public Utils.PartnerAppOpenMode getOpenMode()
+        {
+          return Utils.PartnerAppOpenMode.Indirect;
+        }
+
+        @DrawableRes
+        public int getIcon()
+        {
+          return R.drawable.ic_logo_citymobil;
+        }
+
+        @StringRes
+        public int getTitle()
+        {
+          return R.string.citymobil_taxi_title;
+        }
+
+        @NonNull
+        public String getProviderName()
+        {
+          return "Citymobil";
+        }
       };
 
   @StringRes
