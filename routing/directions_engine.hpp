@@ -44,6 +44,8 @@ public:
                         std::vector<Segment> & segments) = 0;
   void Clear();
 
+  void SetIsTransit(bool isTransit) { m_isTransit = isTransit; }
+
 protected:
   FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
   void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
@@ -68,5 +70,6 @@ protected:
   DataSource const & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::unique_ptr<FeaturesLoaderGuard> m_loader;
+  bool m_isTransit = false;
 };
 }  // namespace routing

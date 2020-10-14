@@ -16,6 +16,15 @@
 #include <cstdlib>
 #include <utility>
 
+namespace
+{
+bool IsFakeFeature(uint32_t featureId)
+{
+  return routing::FakeFeatureIds::IsGuidesFeature(featureId) ||
+         routing::FakeFeatureIds::IsTransitFeature(featureId);
+}
+}  // namespace
+
 namespace routing
 {
 using namespace routing::turns;
@@ -34,11 +43,6 @@ FeaturesLoaderGuard & DirectionsEngine::GetLoader(MwmSet::MwmId const & id)
   if (!m_loader || id != m_loader->GetId())
     m_loader = make_unique<FeaturesLoaderGuard>(m_dataSource, id);
   return *m_loader;
-}
-
-bool IsFakeFeature(uint32_t featureId)
-{
-  return FakeFeatureIds::IsGuidesFeature(featureId) || FakeFeatureIds::IsTransitFeature(featureId);
 }
 
 void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,

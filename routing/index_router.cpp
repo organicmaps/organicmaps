@@ -121,8 +121,6 @@ unique_ptr<DirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
   case VehicleType::Pedestrian:
   case VehicleType::Transit: return make_unique<PedestrianDirectionsEngine>(dataSource, numMwmIds);
   case VehicleType::Bicycle:
-  // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
-  // But later a special car turn generation engine should be implemented.
   case VehicleType::Car: return make_unique<CarDirectionsEngine>(dataSource, numMwmIds);
   case VehicleType::Count:
     CHECK(false, ("Can't create DirectionsEngine for", vehicleType));
@@ -1498,6 +1496,8 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   }
 
   CHECK(m_directionsEngine, ());
+
+  m_directionsEngine->SetIsTransit(m_vehicleType == VehicleType::Transit);
   ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, cancellable, junctions,
                    move(times), route);
 

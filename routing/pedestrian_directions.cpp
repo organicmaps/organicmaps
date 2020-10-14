@@ -32,6 +32,18 @@ bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
   turns.clear();
   streetNames.clear();
   segments.clear();
+
+  vector<Edge> routeEdges;
+
+  if (m_isTransit)
+  {
+    routeGeometry = path;
+    graph.GetRouteSegments(segments);
+    graph.GetRouteEdges(routeEdges);
+    turns.emplace_back(routeEdges.size(), turns::PedestrianDirection::ReachedYourDestination);
+    return true;
+  }
+
   routeGeometry.clear();
 
   if (path.size() <= 1)
@@ -39,7 +51,6 @@ bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
 
   size_t const pathSize = path.size();
 
-  vector<Edge> routeEdges;
   graph.GetRouteEdges(routeEdges);
 
   if (routeEdges.empty())
