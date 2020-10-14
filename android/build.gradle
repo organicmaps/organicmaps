@@ -91,7 +91,7 @@ dependencies {
   implementation 'com.trafi:anchor-bottom-sheet-behavior:0.13-alpha'
   implementation 'com.google.firebase:firebase-messaging:17.0.0'
   implementation 'com.github.yoksnod:MPAndroidChart:3.2.0-alpha'
-  implementation 'com.google.android.material:material:1.2.0'
+  implementation 'com.google.android.material:material:1.3.0-alpha03'
   implementation 'androidx.appcompat:appcompat:1.1.0'
   implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
   implementation 'androidx.preference:preference:1.1.0'
@@ -146,7 +146,7 @@ configurations.all {
     force "com.google.firebase:firebase-measurement-connector:18.0.0"
     force "com.google.firebase:firebase-iid-interop:17.0.0"
     force "com.google.firebase:firebase-common:19.3.0"
-    force "com.google.android.material:material:1.2.0"
+    force "com.google.android.material:material:1.3.0-alpha03"
     force "androidx.constraintlayout:constraintlayout:1.1.3"
     force "androidx.vectordrawable:vectordrawable:1.1.0"
     force "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
