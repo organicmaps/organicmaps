@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +13,9 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
@@ -74,6 +74,8 @@ public class MapFragment extends BaseMwmFragment
   private SurfaceView mSurfaceView;
   @Nullable
   private MapRenderingListener mMapRenderingListener;
+  @Nullable
+  private MapWidgetOffsetsProvider mWidgetOffsetsProvider;
 
   private void setupWidgets(int width, int height)
   {
@@ -90,8 +92,7 @@ public class MapFragment extends BaseMwmFragment
       sWasCopyrightDisplayed = true;
     }
 
-    setupRuler(0, false);
-    setupWatermark(0, false);
+    setupWidgetOffsets();
 
     nativeSetupWidget(WIDGET_SCALE_FPS_LABEL,
                       UiUtils.dimen(R.dimen.margin_base),
@@ -99,6 +100,19 @@ public class MapFragment extends BaseMwmFragment
                       ANCHOR_LEFT_TOP);
 
     setupCompass(UiUtils.getCompassYOffset(requireContext()), false);
+  }
+
+  private void setupWidgetOffsets()
+  {
+    int rulerOffset = 0;
+    int watermarkOffset = 0;
+    if (mWidgetOffsetsProvider != null)
+    {
+      rulerOffset = mWidgetOffsetsProvider.getRulerOffsetY();
+      watermarkOffset = mWidgetOffsetsProvider.getWaterMarkOffsetY();
+    }
+    setupRuler(rulerOffset, false);
+    setupWatermark(watermarkOffset, false);
   }
 
   void setupCompass(int offsetY, boolean forceRedraw)
@@ -256,6 +270,7 @@ public class MapFragment extends BaseMwmFragment
   {
     super.onAttach(context);
     mMapRenderingListener = (MapRenderingListener) context;
+    mWidgetOffsetsProvider = (MapWidgetOffsetsProvider) context;
   }
 
   @Override
@@ -263,6 +278,7 @@ public class MapFragment extends BaseMwmFragment
   {
     super.onDetach();
     mMapRenderingListener = null;
+    mWidgetOffsetsProvider = null;
   }
 
   @Override

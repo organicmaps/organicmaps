@@ -198,7 +198,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                OnIsolinesLayerToggleListener,
                OnGuidesLayerToggleListener,
                GuidesGalleryListener,
-               NoConnectionListener
+               NoConnectionListener,
+               MapWidgetOffsetsProvider
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -758,6 +759,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeTurnOnChoosePositionMode(isBusiness, applyPosition);
     closePlacePage();
     mSearchController.hide();
+    hideBookmarkCategoryToolbar();
   }
 
   private void hidePositionChooser()
@@ -1761,6 +1763,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
             || RoutingController.get().isPlanning())
       return;
 
+    if (UiUtils.isVisible(mBookmarkCategoryToolbar))
+      return;
+
     mIsFullscreen = isFullscreen;
     final BaseMenu menu = getCurrentMenu();
 
@@ -1770,10 +1775,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return;
 
       mIsFullscreenAnimating = true;
-      UiUtils.invisible(menu.getFrame());
 
-      final int menuHeight = menu.getFrame().getHeight();
-      adjustBottomWidgets(menuHeight);
+      showLineFrame(false);
 
       mIsFullscreenAnimating = false;
       if (mIsAppearMenuLater)
@@ -1801,7 +1804,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void appearMenu(BaseMenu menu)
   {
-    appearMenuFrame(menu);
+    showLineFrame(true);
     showNavMyPositionBtn();
     mToggleMapLayerController.applyLastActiveMode();
   }
@@ -1810,12 +1813,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mNavMyPosition != null)
       mNavMyPosition.show();
-  }
-
-  private void appearMenuFrame(@NonNull BaseMenu menu)
-  {
-    UiUtils.show(menu.getFrame());
-    adjustBottomWidgets(0);
   }
 
   @Override
@@ -1893,6 +1890,24 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public int getRulerOffsetY()
+  {
+    return getBottomMapWidgetOffsetY();
+  }
+
+  private int getBottomMapWidgetOffsetY()
+  {
+    View menuView = getCurrentMenu().getFrame();
+    return UiUtils.isVisible(menuView) ? 0 : menuView.getHeight();
+  }
+
+  @Override
+  public int getWaterMarkOffsetY()
+  {
+    return getBottomMapWidgetOffsetY();
+  }
+
+  @Override
   public FragmentActivity getActivity()
   {
     return this;
@@ -1907,7 +1922,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void updateMenu()
   {
-    adjustMenuLineFrameVisibility();
+    boolean isVisible = adjustMenuLineFrameVisibility();
+    if (!isVisible)
+      return;
+
     mNavigationController.showSearchButtons(RoutingController.get().isPlanning()
                                             || RoutingController.get().isBuilt());
 
@@ -1941,31 +1959,36 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closePlacePage();
   }
 
-  private void adjustMenuLineFrameVisibility()
+  private boolean adjustMenuLineFrameVisibility()
   {
     final RoutingController controller = RoutingController.get();
 
     if (controller.isBuilt() || controller.isTaxiRequestHandled())
     {
-      showLineFrame();
-      return;
+      showLineFrame(true);
+      return true;
     }
 
     if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
     {
       if (showAddStartOrFinishFrame(controller, true))
       {
-        return;
+        return true;
       }
 
       showLineFrame(false);
-      final int menuHeight = getCurrentMenu().getFrame().getHeight();
-      adjustBottomWidgets(menuHeight);
-      return;
+      return false;
+    }
+
+    if (UiUtils.isVisible(mBookmarkCategoryToolbar))
+    {
+      showLineFrame(false);
+      return false;
     }
 
     hideRoutingActionFrame();
-    showLineFrame();
+    showLineFrame(true);
+    return true;
   }
 
   private boolean showAddStartOrFinishFrame(@NonNull RoutingController controller,
@@ -1987,21 +2010,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       showAddFinishFrame();
       if (showFrame)
-        showLineFrame();
+        showLineFrame(true);
       return true;
     }
     if (!controller.hasStartPoint())
     {
       showAddStartFrame();
       if (showFrame)
-        showLineFrame();
+        showLineFrame(true);
       return true;
     }
     if (!controller.hasEndPoint())
     {
       showAddFinishFrame();
       if (showFrame)
-        showLineFrame();
+        showLineFrame(true);
       return true;
     }
 
@@ -2047,15 +2070,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
       fragment.hideActionFrame();
   }
 
-  private void showLineFrame()
-  {
-    showLineFrame(true);
-    adjustBottomWidgets(0);
-  }
-
   private void showLineFrame(boolean show)
   {
-    mMainMenu.showLineFrame(show);
+    UiUtils.showIf(show, getCurrentMenu().getFrame());
+    adjustBottomWidgets(show ? 0 : getBottomMapWidgetOffsetY());
   }
 
   private void setNavButtonsTopLimit(int limit)
@@ -2780,12 +2798,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     UiUtils.show(mBookmarkCategoryToolbar);
     adjustCompassAndTraffic(mBookmarkCategoryToolbar.getHeight());
+    adjustMenuLineFrameVisibility();
   }
 
   private void hideBookmarkCategoryToolbar()
   {
     UiUtils.hide(mBookmarkCategoryToolbar);
     adjustCompassAndTraffic(UiUtils.getStatusBarHeight(MwmActivity.this));
+    adjustMenuLineFrameVisibility();
   }
 
   private class CurrentPositionClickListener implements OnClickListener
