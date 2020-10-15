@@ -1264,8 +1264,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetChildrenCategor
 
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetChildrenCollections(JNIEnv *env,
-                                                                                      jobject,
-                                                                                      jlong parentId)
+                                                                                     jobject,
+                                                                                     jlong parentId)
 {
   auto const & bm = frm()->GetBookmarkManager();
   auto const ids = bm.GetChildrenCollections(static_cast<kml::MarkGroupId>(parentId));
@@ -1274,18 +1274,16 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetChildrenCollect
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsBookmarkCompilation(JNIEnv *env,
-                                                                                      jobject,
-                                                                                      jlong id)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCompilation(JNIEnv *env, jobject,
+                                                                            jlong id)
 {
   auto const & bm = frm()->GetBookmarkManager();
-  return static_cast<jboolean>(bm.IsBookmarkCompilation(static_cast<kml::MarkGroupId>(id)));
+  return static_cast<jboolean>(bm.IsCompilation(static_cast<kml::MarkGroupId>(id)));
 }
 
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCompilationType(JNIEnv *env,
-                                                                                       jobject,
-                                                                                       jlong id)
+                                                                                 jobject, jlong id)
 {
   auto const & bm = frm()->GetBookmarkManager();
   return static_cast<jint>(bm.GetCompilationType(static_cast<kml::MarkGroupId>(id)));

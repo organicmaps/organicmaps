@@ -1393,7 +1393,7 @@ kml::GroupIdCollection BookmarkManager::GetCompilationOfType(kml::MarkGroupId pa
   return result;
 }
 
-bool BookmarkManager::IsBookmarkCompilation(kml::MarkGroupId id) const
+bool BookmarkManager::IsCompilation(kml::MarkGroupId id) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   return m_compilations.find(id) != m_compilations.cend();
