@@ -574,7 +574,7 @@ private:
                         GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase);
     bool HasBookmarkCategories(kml::GroupIdSet const & groupIds) const;
 
-    void InferBookmarksVisibility(BookmarkCategory * const group, kml::MarkIdSet & dirtyMarks);
+    void InferVisibility(BookmarkCategory * const group);
 
     BookmarkManager * m_bmManager;
 
@@ -644,7 +644,6 @@ private:
   Bookmark * CreateBookmark(kml::BookmarkData && bmData, kml::MarkGroupId groupId);
 
   Bookmark * GetBookmarkForEdit(kml::MarkId markId);
-  Bookmark * GetBookmarkForVisibilityChange(kml::MarkId markId);
   void AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DeleteBookmark(kml::MarkId bmId);

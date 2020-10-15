@@ -1017,7 +1017,7 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetChildCategoriesVisibility(
         JNIEnv * env, jobject thiz, jlong categoryId, jint compilationType, jboolean visible)
 {
-  frm()->GetBookmarkManager().SetChildCategoriesVisibility(categoryId, 
+  frm()->GetBookmarkManager().SetChildCategoriesVisibility(static_cast<kml::MarkGroupId>(categoryId),
                                                            static_cast<kml::CompilationType>(compilationType),
                                                            static_cast<bool>(visible));
 }

@@ -68,6 +68,7 @@ public enum BookmarkManager
   @IntDef({ CATEGORY, COLLECTION, DAY })
   public @interface CompilationType {}
 
+  // These values have to match the values of kml::CompilationType from kml/types.hpp
   public static final int CATEGORY = 0;
   public static final int COLLECTION = 1;
   public static final int DAY = 2;
@@ -708,7 +709,7 @@ public enum BookmarkManager
     nativeSetAllCategoriesVisibility(visible, type.ordinal());
   }
 
-  public void setChildCategoriesVisibility(long catId, @BookmarkManager.CompilationType int compilationType, boolean visible)
+  public void setChildCategoriesVisibility(long catId, @CompilationType int compilationType, boolean visible)
   {
     nativeSetChildCategoriesVisibility(catId, compilationType, visible);
   }
