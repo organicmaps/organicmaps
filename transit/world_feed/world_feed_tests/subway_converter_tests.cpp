@@ -345,7 +345,7 @@ public:
     TEST_EQUAL(feed.m_stops.m_data.size(), 5, ());
     TEST_EQUAL(feed.m_edges.m_data.size(), 4, ());
     TEST_EQUAL(feed.m_edgesTransfers.m_data.size(), 1, ());
-    TEST_EQUAL(feed.m_transfers.m_data.size(), 1, ());
+    TEST_EQUAL(feed.m_transfers.m_data.size(), 0, ());
     TEST_EQUAL(feed.m_gates.m_data.size(), 1, ());
 
     // Two initial shapes must be merged into one.

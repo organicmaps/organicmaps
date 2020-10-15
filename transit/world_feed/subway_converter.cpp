@@ -93,8 +93,7 @@ bool SubwayConverter::Convert()
   if (!ConvertStops())
     return false;
 
-  if (!ConvertTransfers())
-    return false;
+  ConvertTransfers();
 
   // In contrast to the GTFS gates OSM gates for subways shouldn't be empty.
   if (!ConvertGates())
@@ -387,7 +386,7 @@ bool SubwayConverter::ConvertTransfers()
       }
     }
 
-    // We don't count as transfers tranfer points between lines on the same route, so we skip them.
+    // We don't count as transfers transfer points between lines on the same route, so we skip them.
     if (routeToStops.size() < 2)
     {
       LOG(LINFO, ("Skip transfer on route", transferId));
