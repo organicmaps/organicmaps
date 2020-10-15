@@ -9,8 +9,11 @@ namespace routing
 // RoutingSettings ---------------------------------------------------------------------------------
 RoutingSettings::RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute,
                                  bool soundDirection, double matchingThresholdM,
-                                 bool showTurnAfterNext,
-                                 double minSpeedForRouteRebuildMpS, double finishToleranceM)
+                                 bool showTurnAfterNext, double minSpeedForRouteRebuildMpS,
+                                 double finishToleranceM, size_t maxOutgoingPointsCount,
+                                 double minOutgoingDistMeters, size_t maxIngoingPointsCount,
+                                 double minIngoingDistMeters, size_t notSoCloseMaxPointsCount,
+                                 double notSoCloseMaxDistMeters)
 
   : m_useDirectionForRouteBuilding(useDirectionForRouteBuilding)
   , m_matchRoute(matchRoute)
@@ -19,6 +22,12 @@ RoutingSettings::RoutingSettings(bool useDirectionForRouteBuilding, bool matchRo
   , m_showTurnAfterNext(showTurnAfterNext)
   , m_minSpeedForRouteRebuildMpS(minSpeedForRouteRebuildMpS)
   , m_finishToleranceM(finishToleranceM)
+  , m_maxOutgoingPointsCount(maxOutgoingPointsCount)
+  , m_minOutgoingDistMeters(minOutgoingDistMeters)
+  , m_maxIngoingPointsCount(maxIngoingPointsCount)
+  , m_minIngoingDistMeters(minIngoingDistMeters)
+  , m_notSoCloseMaxPointsCount(notSoCloseMaxPointsCount)
+  , m_notSoCloseMaxDistMeters(notSoCloseMaxDistMeters)
 {
 }
 
@@ -33,7 +42,13 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             20.0 /* m_matchingThresholdM */,
             false /* m_showTurnAfterNext */,
             -1 /* m_minSpeedForRouteRebuildMpS */,
-            15.0 /* m_finishToleranceM */};
+            15.0 /* m_finishToleranceM */,
+            6 /* m_maxOutgoingPointsCount */,
+            5.0 /* m_minOutgoingDistMeters */,
+            2 /* m_maxIngoingPointsCount */,
+            4.0 /* m_minIngoingDistMeters */,
+            3 /* m_notSoCloseMaxPointsCount */,
+            25.0 /* m_notSoCloseMaxDistMeters */};
   case VehicleType::Transit:
     return {false /* useDirectionForRouteBuilding */,
             true /* m_matchRoute */,
@@ -41,7 +56,13 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             40.0 /* m_matchingThresholdM */,
             false /* m_showTurnAfterNext */,
             -1 /* m_minSpeedForRouteRebuildMpS */,
-            15.0 /* m_finishToleranceM */};
+            15.0 /* m_finishToleranceM */,
+            6 /* m_maxOutgoingPointsCount */,
+            5.0 /* m_minOutgoingDistMeters */,
+            2 /* m_maxIngoingPointsCount */,
+            4.0 /* m_minIngoingDistMeters */,
+            3 /* m_notSoCloseMaxPointsCount */,
+            25.0 /* m_notSoCloseMaxDistMeters */};
   case VehicleType::Bicycle:
     return {false /* useDirectionForRouteBuilding */,
             true /* m_matchRoute */,
@@ -49,7 +70,13 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             30.0 /* m_matchingThresholdM */,
             false /* m_showTurnAfterNext */,
             -1 /* m_minSpeedForRouteRebuildMpS */,
-            15.0 /* m_finishToleranceM */};
+            15.0 /* m_finishToleranceM */,
+            9 /* m_maxOutgoingPointsCount */,
+            90.0 /* m_minOutgoingDistMeters */,
+            2 /* m_maxIngoingPointsCount */,
+            70.0 /* m_minIngoingDistMeters */,
+            3 /* m_notSoCloseMaxPointsCount */,
+            25.0 /* m_notSoCloseMaxDistMeters */};
   case VehicleType::Car:
     return {true /* useDirectionForRouteBuilding */,
             true /* m_matchRoute */,
@@ -57,7 +84,13 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             50.0 /* m_matchingThresholdM */,
             true /* m_showTurnAfterNext */,
             routing::KMPH2MPS(3.0) /* m_minSpeedForRouteRebuildMpS */,
-            20.0 /* m_finishToleranceM */};
+            20.0 /* m_finishToleranceM */,
+            9 /* m_maxOutgoingPointsCount */,
+            120.0 /* m_minOutgoingDistMeters */,
+            2 /* m_maxIngoingPointsCount */,
+            100.0 /* m_minIngoingDistMeters */,
+            3 /* m_notSoCloseMaxPointsCount */,
+            30.0 /* m_notSoCloseMaxDistMeters */};
   case VehicleType::Count:
     CHECK(false, ("Can't create GetRoutingSettings for", vehicleType));
   }

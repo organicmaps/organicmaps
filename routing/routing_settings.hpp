@@ -14,8 +14,10 @@ struct RoutingSettings
 private:
   RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute, bool soundDirection,
                   double matchingThresholdM, bool showTurnAfterNext,
-                  double minSpeedForRouteRebuildMpS, double finishToleranceM);
-
+                  double minSpeedForRouteRebuildMpS, double finishToleranceM,
+                  size_t maxOutgoingPointsCount, double minOutgoingDistMeters,
+                  size_t maxIngoingPointsCount, double minIngoingDistMeters,
+                  size_t notSoCloseMaxPointsCount, double notSoCloseMaxDistMeters);
 
 public:
   /// \brief We accumulate several positions to calculate current direction.
@@ -47,6 +49,18 @@ public:
 
   /// \brief The distance to the route finish point at which the route should be completed.
   double m_finishToleranceM;
+
+  // These 4 parameters are used during turns generation to calculate the turn angle. Based on these
+  // parameters, the point before the turn and the point after the turn are determined, and the
+  // angle between them is calculated.
+  size_t m_maxOutgoingPointsCount;
+  double m_minOutgoingDistMeters;
+  size_t m_maxIngoingPointsCount;
+  double m_minIngoingDistMeters;
+  // These 2 parameters are used during turns generation to calculate the angle between the turn
+  // point and one of the neighbour points to find out if the route turns significantly or not.
+  size_t m_notSoCloseMaxPointsCount;
+  double m_notSoCloseMaxDistMeters;
 };
 
 RoutingSettings GetRoutingSettings(VehicleType vehicleType);
