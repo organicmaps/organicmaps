@@ -32,11 +32,12 @@ def get_config_path(config_path: AnyStr):
         if opt == opt_config:
             indexes = (i, i + 2)
 
-    if indexes[1] > len(argv):
-        return config_path
+    config_args = argv[indexes[0] : indexes[1]]
+    if config_args:
+        return parser.parse_args(config_args).config
 
-    args = argv[indexes[0] : indexes[1]]
-    return parser.parse_args(args).config if args else config_path
+    config_var = os.environ.get(f"MM__CONFIG")
+    return config_path if config_var is None else config_var
 
 
 class CfgReader:
