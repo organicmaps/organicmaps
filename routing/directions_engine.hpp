@@ -5,6 +5,7 @@
 #include "routing/road_point.hpp"
 #include "routing/route.hpp"
 #include "routing/segment.hpp"
+#include "routing/vehicle_mask.hpp"
 
 #include "traffic/traffic_info.hpp"
 
@@ -44,7 +45,7 @@ public:
                         std::vector<Segment> & segments) = 0;
   void Clear();
 
-  void SetIsTransit(bool isTransit) { m_isTransit = isTransit; }
+  void SetVehicleType(VehicleType const & vehicleType) { m_vehicleType = vehicleType; }
 
 protected:
   FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
@@ -70,6 +71,6 @@ protected:
   DataSource const & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::unique_ptr<FeaturesLoaderGuard> m_loader;
-  bool m_isTransit = false;
+  VehicleType m_vehicleType = VehicleType::Count;
 };
 }  // namespace routing

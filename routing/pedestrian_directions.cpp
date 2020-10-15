@@ -35,7 +35,9 @@ bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
 
   vector<Edge> routeEdges;
 
-  if (m_isTransit)
+  CHECK_NOT_EQUAL(m_vehicleType, VehicleType::Count, (m_vehicleType));
+
+  if (m_vehicleType == VehicleType::Transit)
   {
     routeGeometry = path;
     graph.GetRouteSegments(segments);
@@ -65,8 +67,9 @@ bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
     return false;
 
   RoutingEngineResult resultGraph(routeEdges, m_adjacentEdges, m_pathSegments);
-  auto const res = MakeTurnAnnotationPedestrian(resultGraph, *m_numMwmIds, cancellable,
-                                                routeGeometry, turns, streetNames, segments);
+  auto const res =
+      MakeTurnAnnotationPedestrian(resultGraph, *m_numMwmIds, m_vehicleType, cancellable,
+                                   routeGeometry, turns, streetNames, segments);
 
   if (res != RouterResultCode::NoError)
     return false;

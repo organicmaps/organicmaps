@@ -1,17 +1,18 @@
 #pragma once
 
 #include "routing/loaded_path_segment.hpp"
-#include "routing/routing_callbacks.hpp"
-#include "routing/routing_result_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
-#include "routing/turns.hpp"
-#include "routing/turn_candidate.hpp"
+#include "routing/routing_callbacks.hpp"
+#include "routing/routing_result_graph.hpp"
 #include "routing/segment.hpp"
-
-#include "routing_common/num_mwm_id.hpp"
+#include "routing/turn_candidate.hpp"
+#include "routing/turns.hpp"
+#include "routing/vehicle_mask.hpp"
 
 #include "traffic/traffic_info.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/point_with_altitude.hpp"
 
@@ -96,19 +97,19 @@ bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const
  * \return routing operation result code.
  */
 RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
+                                    VehicleType const & vehicleType,
                                     base::Cancellable const & cancellable,
                                     std::vector<geometry::PointWithAltitude> & points,
                                     Route::TTurns & turnsDir, Route::TStreets & streets,
                                     std::vector<Segment> & segments);
 
-RouterResultCode MakeTurnAnnotationPedestrian(IRoutingResult const & result,
-                                              NumMwmIds const & numMwmIds,
-                                              base::Cancellable const & cancellable,
-                                              std::vector<geometry::PointWithAltitude> & points,
-                                              Route::TTurns & turnsDir, Route::TStreets & streets,
-                                              std::vector<Segment> & segments);
+RouterResultCode MakeTurnAnnotationPedestrian(
+    IRoutingResult const & result, NumMwmIds const & numMwmIds, VehicleType const & vehicleType,
+    base::Cancellable const & cancellable, std::vector<geometry::PointWithAltitude> & points,
+    Route::TTurns & turnsDir, Route::TStreets & streets, std::vector<Segment> & segments);
 
-// Returns the distance in meractor units for the path of points for the range [startPointIndex, endPointIndex].
+// Returns the distance in mercator units for the path of points for the range [startPointIndex,
+// endPointIndex].
 double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,
                                           std::vector<m2::PointD> const & points);
 
@@ -175,9 +176,11 @@ CarDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoin
  * \param turn is used for keeping the result of turn calculation.
  */
 void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex,
-                      NumMwmIds const & numMwmIds, TurnItem & turn);
+                      NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
+                      TurnItem & turn);
 void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSegmentIndex,
-                                NumMwmIds const & numMwmIds, TurnItem & turn);
+                                NumMwmIds const & numMwmIds,
+                                RoutingSettings const & vehicleSettings, TurnItem & turn);
 
 /*!
  * \brief Finds an U-turn that starts from master segment and returns how many segments it lasts.
@@ -186,7 +189,8 @@ void GetTurnDirectionPedestrian(IRoutingResult const & result, size_t outgoingSe
  * \warning |currentSegment| must be greater than 0.
  */
 size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t outgoingSegmentIndex,
-                         NumMwmIds const & numMwmIds, TurnItem & turn);
+                         NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
+                         TurnItem & turn);
 
 std::string DebugPrint(RoutePointIndex const & index);
 }  // namespace routing

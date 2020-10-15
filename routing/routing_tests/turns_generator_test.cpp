@@ -404,18 +404,24 @@ UNIT_TEST(TestCheckUTurnOnRoute)
   pathSegments[3].m_path.clear();
 
   RoutingResultTest resultTest(pathSegments);
-
+  RoutingSettings const vehicleSettings = GetRoutingSettings(VehicleType::Car);
   // Zigzag test.
   TurnItem turn1;
-  TEST_EQUAL(CheckUTurnOnRoute(resultTest, 1 /* outgoingSegmentIndex */, NumMwmIds(), turn1), 1, ());
+  TEST_EQUAL(CheckUTurnOnRoute(resultTest, 1 /* outgoingSegmentIndex */, NumMwmIds(),
+                               vehicleSettings, turn1),
+             1, ());
   TEST_EQUAL(turn1.m_turn, CarDirection::UTurnLeft, ());
   TurnItem turn2;
-  TEST_EQUAL(CheckUTurnOnRoute(resultTest, 2 /* outgoingSegmentIndex */, NumMwmIds(), turn2), 1, ());
+  TEST_EQUAL(CheckUTurnOnRoute(resultTest, 2 /* outgoingSegmentIndex */, NumMwmIds(),
+                               vehicleSettings, turn2),
+             1, ());
   TEST_EQUAL(turn2.m_turn, CarDirection::UTurnLeft, ());
 
   // Empty path test.
   TurnItem turn3;
-  TEST_EQUAL(CheckUTurnOnRoute(resultTest, 3 /* outgoingSegmentIndex */, NumMwmIds(), turn3), 0, ());
+  TEST_EQUAL(CheckUTurnOnRoute(resultTest, 3 /* outgoingSegmentIndex */, NumMwmIds(),
+                               vehicleSettings, turn3),
+             0, ());
 }
 
 UNIT_TEST(GetNextRoutePointIndex)
