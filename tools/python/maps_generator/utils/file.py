@@ -52,10 +52,23 @@ def download_file(url: AnyStr, name: AnyStr, download_if_exists: bool = True):
     os.makedirs(os.path.dirname(tmp_name), exist_ok=True)
     with requests.Session() as session:
         session.mount("file://", FileAdapter())
-        response = session.get(url, stream=True)
         with open(tmp_name, "wb") as handle:
-            for data in response.iter_content(chunk_size=4096):
-                handle.write(data)
+            response = session.get(url, stream=True)
+            file_length = int(response.headers["Content-length"])
+            current = 0
+            while True:
+                for data in response.iter_content(chunk_size=4096):
+                    current += len(data)
+                    handle.write(data)
+
+                if file_length == current:
+                    break
+                else:
+                    logger.warning(
+                        f"Connection was closed[{url}]: {current}/{file_length}."
+                    )
+                    headers = {"Range": f"bytes={current}-"}
+                    response = session.get(url, headers=headers, stream=True)
 
     shutil.move(tmp_name, name)
     logger.info(f"File {name} was downloaded from {url}.")
