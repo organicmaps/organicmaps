@@ -234,6 +234,7 @@ void Batcher::ChangeBuffer(ref_ptr<GraphicsContext> context, ref_ptr<CallbacksWr
   RenderState const & state = wrapper->GetState();
   FinalizeBucket(context, state);
 
+  CHECK(m_buckets.find(state) == m_buckets.end(), ());
   ref_ptr<RenderBucket> bucket = GetBucket(state);
   wrapper->SetVAO(bucket->GetBuffer());
 }
@@ -251,7 +252,8 @@ ref_ptr<RenderBucket> Batcher::GetBucket(RenderState const & state)
   ref_ptr<RenderBucket> result = make_ref(buffer);
   result->SetFeatureMinZoom(m_featureMinZoom);
 
-  m_buckets.emplace(state, std::move(buffer));
+  if (!m_buckets.emplace(state, std::move(buffer)).second)
+    CHECK(false, ());
 
   return result;
 }
@@ -259,9 +261,10 @@ ref_ptr<RenderBucket> Batcher::GetBucket(RenderState const & state)
 void Batcher::FinalizeBucket(ref_ptr<GraphicsContext> context, RenderState const & state)
 {
   auto const it = m_buckets.find(state);
-  ASSERT(it != m_buckets.end(), ("Have no bucket for finalize with given state"));
+  CHECK(it != m_buckets.end(), ("Have no bucket for finalize with given state"));
   drape_ptr<RenderBucket> bucket = std::move(it->second);
-  m_buckets.erase(state);
+  if (m_buckets.erase(state) == 0)
+    CHECK(false, ());
 
   bucket->GetBuffer()->Preflush(context);
   m_flushInterface(state, std::move(bucket));
