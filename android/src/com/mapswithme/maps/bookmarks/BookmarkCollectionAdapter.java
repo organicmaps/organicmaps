@@ -22,11 +22,13 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 {
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ TYPE_HEADER_ITEM, TYPE_COLLECTION_ITEM, TYPE_CATEGORY_ITEM })
-  public @interface SectionType {}
+  public @interface SectionType { }
 
   private final static int TYPE_HEADER_ITEM = 0;
   private final static int TYPE_COLLECTION_ITEM = 1;
   private final static int TYPE_CATEGORY_ITEM = 2;
+
+  private final long mParentCategoryId;
 
   @NonNull
   private final List<BookmarkCategory> mItemsCollection;
@@ -62,9 +64,11 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     }
   }
 
-  BookmarkCollectionAdapter(@NonNull List<BookmarkCategory> itemsCategories,
+  BookmarkCollectionAdapter(long parentCategoryId,
+                            @NonNull List<BookmarkCategory> itemsCategories,
                             @NonNull List<BookmarkCategory> itemsCollection)
   {
+    mParentCategoryId = parentCategoryId;
     //noinspection AssignmentOrReturnOfFieldWithMutableType
     mItemsCategory = itemsCategories;
     //noinspection AssignmentOrReturnOfFieldWithMutableType
@@ -212,8 +216,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     headerViewHolder.getText()
                     .setText(getTitle(nextSectionPosition, holder.itemView.getResources()));
 
-    headerViewHolder.setAction(mMassOperationAction, BookmarkManager.INSTANCE
-        .areAllCategoriesInvisible(BookmarkCategory.Type.DOWNLOADED));
+    int compilationType = nextSectionPosition == mCategorySectionIndex ? BookmarkManager.CATEGORY : BookmarkManager.COLLECTION;
+    headerViewHolder.setAction(mMassOperationAction, isCategoryAllItemsAreVisible(nextSectionPosition), compilationType);
   }
 
   @Override
@@ -237,19 +241,41 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     return itemCount;
   }
 
-  private class MassOperationAction implements Holders.HeaderViewHolder.HeaderAction
+  // TODO (@velichkomarija): Remove this method in core.
+  private boolean isCategoryAllItemsAreVisible(int sectionPosition)
+  {
+    if (sectionPosition == mCategorySectionIndex)
+    {
+      for (BookmarkCategory category : mItemsCategory)
+      {
+        if (!category.isVisible())
+          return false;
+      }
+    }
+    else
+    {
+      for (BookmarkCategory category : mItemsCollection)
+      {
+        if (!category.isVisible())
+          return false;
+      }
+    }
+    return true;
+  }
+
+  class MassOperationAction implements Holders.HeaderViewHolder.HeaderActionChildCategories
   {
     @Override
-    public void onHideAll()
+    public void onHideAll(int compilationType)
     {
-      BookmarkManager.INSTANCE.setAllCategoriesVisibility(false, BookmarkCategory.Type.DOWNLOADED);
+      BookmarkManager.INSTANCE.setChildCategoriesVisibility(mParentCategoryId, compilationType, false);
       notifyDataSetChanged();
     }
 
     @Override
-    public void onShowAll()
+    public void onShowAll(int compilationType)
     {
-      BookmarkManager.INSTANCE.setAllCategoriesVisibility(true, BookmarkCategory.Type.DOWNLOADED);
+      BookmarkManager.INSTANCE.setChildCategoriesVisibility(mParentCategoryId, compilationType, true);
       notifyDataSetChanged();
     }
   }

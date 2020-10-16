@@ -90,19 +90,52 @@ public class Holders
       mButton.setOnClickListener(new ToggleShowAllClickListener(action, showAll));
     }
 
-    void setAction(@NonNull HeaderAction action,
-                   final boolean showAll)
+    void setAction(@NonNull HeaderActionChildCategories action,
+                   final boolean showAll,
+                   @BookmarkManager.CompilationType final int compilationType)
     {
       mButton.setText(showAll
                       ? R.string.bookmarks_groups_show_all
                       : R.string.bookmarks_groups_hide_all);
-      mButton.setOnClickListener(new ToggleShowAllClickListener(action, showAll));
+      mButton.setOnClickListener(new ToggleShowAllChildCategoryClickListener(action, showAll, compilationType));
     }
 
     public interface HeaderAction
+  {
+    void onHideAll();
+    void onShowAll();
+  }
+
+    public interface HeaderActionChildCategories
     {
-      void onHideAll();
-      void onShowAll();
+      void onHideAll(@BookmarkManager.CompilationType int compilationType);
+      void onShowAll(@BookmarkManager.CompilationType int compilationType);
+    }
+
+    private static class ToggleShowAllChildCategoryClickListener implements View.OnClickListener
+    {
+      private final HeaderActionChildCategories mAction;
+      private final boolean mShowAll;
+      @BookmarkManager.CompilationType
+      private final int mCompilationType;
+
+      ToggleShowAllChildCategoryClickListener(@NonNull HeaderActionChildCategories action, boolean showAll,
+                                              @BookmarkManager.CompilationType int compilationType)
+      {
+        mAction = action;
+        mShowAll = showAll;
+        mCompilationType = compilationType;
+      }
+
+      @Override
+      public void onClick(View view)
+      {
+        if (mShowAll)
+          mAction.onShowAll(mCompilationType);
+
+        else
+          mAction.onHideAll(mCompilationType);
+      }
     }
 
     private static class ToggleShowAllClickListener implements View.OnClickListener
