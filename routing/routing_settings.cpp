@@ -72,9 +72,9 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             -1 /* m_minSpeedForRouteRebuildMpS */,
             15.0 /* m_finishToleranceM */,
             9 /* m_maxOutgoingPointsCount */,
-            90.0 /* m_minOutgoingDistMeters */,
+            10.0 /* m_minOutgoingDistMeters */,
             2 /* m_maxIngoingPointsCount */,
-            70.0 /* m_minIngoingDistMeters */,
+            10.0 /* m_minIngoingDistMeters */,
             3 /* m_notSoCloseMaxPointsCount */,
             25.0 /* m_notSoCloseMaxDistMeters */};
   case VehicleType::Car:
