@@ -330,7 +330,7 @@ private:
       bestDistance.insert_or_assign(state.vertex, state.distance);
     }
 
-    std::optional<Weight> GetDistance(Vertex const & vertex)
+    std::optional<Weight> GetDistance(Vertex const & vertex) const
     {
       auto const it = bestDistance.find(vertex);
       return it != bestDistance.cend() ? std::optional<Weight>(it->second) : std::nullopt;
