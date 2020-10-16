@@ -1,6 +1,7 @@
 #include "partners_api/ads/ads_engine.hpp"
 
 #include "partners_api/ads/bookmark_catalog_ads.hpp"
+#include "partners_api/ads/citymobil_ads.hpp"
 #include "partners_api/ads/facebook_ads.hpp"
 #include "partners_api/ads/mastercard_sber_ads.hpp"
 #include "partners_api/ads/mopub_ads.hpp"
@@ -53,6 +54,8 @@ Engine::Engine(std::unique_ptr<Delegate> delegate)
                                       std::make_unique<MastercardSberbank>(*m_delegate));
   m_downloadOnMapPromo.emplace_back(Banner::Type::BookmarkCatalog,
                                     std::make_unique<BookmarkCatalog>(*m_delegate));
+  m_searchCategoryBanners.emplace_back(Banner::Type::Citymobil,
+                                       std::make_unique<Citymobil>(*m_delegate));
 }
 
 std::vector<Banner> Engine::GetPoiBanners(feature::TypesHolder const & types,
@@ -65,6 +68,11 @@ std::vector<Banner> Engine::GetPoiBanners(feature::TypesHolder const & types,
 std::vector<Banner> Engine::GetSearchBanners() const
 {
   return GetBanners(m_searchBanners, m_delegate->IsAdsRemoved());
+}
+
+std::vector<Banner> Engine::GetSearchCategoryBanners(std::optional<m2::PointD> const & userPos) const
+{
+  return GetBanners(m_searchCategoryBanners, m_delegate->IsAdsRemoved(), userPos);
 }
 
 std::vector<Banner> Engine::GetDownloadOnMapBanners(storage::CountryId const & downloadMwmId,
@@ -92,6 +100,8 @@ void Engine::DisableAdProvider(Banner::Type const type, Banner::Place const plac
   case Banner::Place::Poi: return SetAdProviderEnabled(m_poiBanners, type, false);
   case Banner::Place::DownloadOnMap:
     return SetAdProviderEnabled(m_downloadOnMapBanners, type, false);
+  case Banner::Place::SearchCategory:
+    return SetAdProviderEnabled(m_searchCategoryBanners, type, false);
   }
 }
 }  // namespace ads

@@ -8,6 +8,7 @@ set(
   booking_tests.cpp
   bookmark_catalog_ads_tests.cpp
   citymobil_tests.cpp
+  citymobil_ads_tests.cpp
   download_on_map_container_delegate.hpp
   facebook_tests.cpp
   freenow_tests.cpp

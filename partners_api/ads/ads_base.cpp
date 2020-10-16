@@ -81,6 +81,11 @@ std::string PoiContainer::GetBannerForOtherTypes() const
   return {};
 }
 
+SearchCategoryContainerBase::SearchCategoryContainerBase(Delegate const & delegate)
+  : m_delegate(delegate)
+{
+}
+
 DownloadOnMapContainer::DownloadOnMapContainer(Delegate & delegate)
   : m_delegate(delegate)
 {

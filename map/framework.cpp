@@ -4,7 +4,7 @@
 #include "map/catalog_headers_provider.hpp"
 #include "map/chart_generator.hpp"
 #include "map/displayed_categories_modifiers.hpp"
-#include "map/download_on_map_ads_delegate.hpp"
+#include "map/ads_engine_delegate.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/guides_on_map_delegate.hpp"
@@ -536,7 +536,8 @@ Framework::Framework(FrameworkParams const & params)
   m_guidesManager.SetEnabled(LoadGuidesEnabled());
 
   m_adsEngine = make_unique<ads::Engine>(
-      make_unique<ads::DownloadOnMapDelegate>(*m_infoGetter, m_storage, *m_promoApi, *m_purchase));
+      make_unique<ads::AdsEngineDelegate>(*m_infoGetter, m_storage, *m_promoApi, *m_purchase,
+                                          *m_taxiEngine));
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));

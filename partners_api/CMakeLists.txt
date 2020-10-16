@@ -13,6 +13,8 @@ set(
   ads/banner.hpp
   ads/bookmark_catalog_ads.cpp
   ads/bookmark_catalog_ads.hpp
+  ads/citymobil_ads.cpp
+  ads/citymobil_ads.hpp
   ads/facebook_ads.cpp
   ads/facebook_ads.hpp
   ads/google_ads.cpp

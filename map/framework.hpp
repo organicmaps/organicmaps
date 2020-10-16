@@ -876,8 +876,6 @@ private:
   void InitCityFinder();
   void InitTaxiEngine();
 
-
-
 public:
   // UGC.
   void UploadUGC(User::CompleteUploadingHandler const & onCompleteUploading);

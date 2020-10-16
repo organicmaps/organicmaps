@@ -24,6 +24,7 @@ public:
   storage::CountryId GetCountryId(m2::PointD const & pos) override { return {}; }
   storage::CountryId GetTopmostParentFor(storage::CountryId const & mwmId) const override { return {}; };
   std::string GetLinkForCountryId(storage::CountryId const & countryId) const override { return {}; };
+  std::vector<taxi::Provider::Type> GetTaxiProvidersAtPos(m2::PointD const & pos) const override { return {}; }
 };
 
 void CheckCountAndTypes(std::vector<ads::Banner> const & banners)

@@ -18,7 +18,8 @@ namespace ads
 class Engine
 {
 public:
-  class Delegate : public DownloadOnMapContainer::Delegate
+class Delegate : public DownloadOnMapContainer::Delegate,
+                 public SearchCategoryContainerBase::Delegate
   {
   public:
     virtual bool IsAdsRemoved() const = 0;
@@ -30,6 +31,7 @@ public:
                                     storage::CountriesVec const & countryIds,
                                     std::string const & userLanguage) const;
   std::vector<Banner> GetSearchBanners() const;
+  std::vector<Banner> GetSearchCategoryBanners(std::optional<m2::PointD> const & userPos) const;
   std::vector<Banner> GetDownloadOnMapBanners(storage::CountryId const & downloadMwmId,
                                               std::optional<m2::PointD> const & userPos,
                                               std::string const & userLanguage) const;
@@ -67,6 +69,7 @@ private:
 
   std::vector<ContainerItem<PoiContainerBase>> m_poiBanners;
   std::vector<ContainerItem<SearchContainerBase>> m_searchBanners;
+  std::vector<ContainerItem<SearchCategoryContainerBase>> m_searchCategoryBanners;
   std::vector<ContainerItem<DownloadOnMapContainer>> m_downloadOnMapBanners;
   std::vector<ContainerItem<DownloadOnMapContainer>> m_downloadOnMapPromo;
 };

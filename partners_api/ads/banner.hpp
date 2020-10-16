@@ -13,6 +13,7 @@ struct Banner
     Search = 0,
     Poi = 1,
     DownloadOnMap = 2,
+    SearchCategory = 3,
   };
 
   enum class Type : uint8_t
@@ -27,6 +28,7 @@ struct Banner
     Skyeng = 7,
     BookmarkCatalog = 8,
     MastercardSberbank = 9,
+    Citymobil = 10,
   };
 
   Banner() = default;
@@ -50,6 +52,7 @@ inline std::string DebugPrint(Banner::Type type)
   case Banner::Type::Skyeng: return "Skyeng";
   case Banner::Type::BookmarkCatalog: return "BookmarkCatalog";
   case Banner::Type::MastercardSberbank: return "MastercardSberbank";
+  case Banner::Type::Citymobil: return "Citymobil";
   }
   UNREACHABLE();
 }
