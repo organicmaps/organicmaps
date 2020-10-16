@@ -59,7 +59,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   void updateCategories(@NonNull Fragment fragment)
   {
     final String packageName = fragment.getActivity().getPackageName();
-    final boolean isNightTheme = ThemeUtils.isNightTheme();
     final Resources resources = fragment.getActivity().getResources();
 
     final String[] keys = getAllCategories();
@@ -70,17 +69,14 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     for (int i = 0; i < numKeys; i++)
     {
       String key = keys[i];
-      mCategoryResIds[i] = resources.getIdentifier(key, "string", packageName);
+      mCategoryResIds[i] = getStringResIdByKey(resources, packageName, key);
 
       if (mCategoryResIds[i] == 0)
         throw new IllegalStateException("Can't get string resource id for category:" + key);
 
-      String iconId = "ic_category_" + key;
-      if (isNightTheme)
-        iconId = iconId + "_night";
-      mIconResIds[i] = resources.getIdentifier(iconId, "drawable", packageName);
+      mIconResIds[i] = getDrawableResIdByKey(resources, packageName, key);
       if (mIconResIds[i] == 0)
-        throw new IllegalStateException("Can't get icon resource id:" + iconId);
+        throw new IllegalStateException("Can't get icon resource id for category:" + key);
     }
   }
 
@@ -110,6 +106,40 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     }
 
     return allCategories;
+  }
+
+  @StringRes
+  private static int getStringResIdByKey(@NonNull Resources resources, @NonNull String packageName,
+                                         @NonNull String key)
+  {
+    try
+    {
+      PromoCategory promoCategory = PromoCategory.valueOf(key);
+      return promoCategory.getStringId();
+    }
+    catch (IllegalArgumentException ex)
+    {
+      return resources.getIdentifier(key, "string", packageName);
+    }
+  }
+
+  @DrawableRes
+  private static int getDrawableResIdByKey(@NonNull Resources resources, @NonNull String packageName,
+                                           @NonNull String key)
+  {
+    final boolean isNightTheme = ThemeUtils.isNightTheme();
+    try
+    {
+      PromoCategory promoCategory = PromoCategory.valueOf(key);
+      return promoCategory.getIconId(isNightTheme);
+    }
+    catch (IllegalArgumentException ex)
+    {
+      String iconId = "ic_category_" + key;
+      if (isNightTheme)
+        iconId = iconId + "_night";
+      return resources.getIdentifier(iconId, "drawable", packageName);
+    }
   }
 
   @Override

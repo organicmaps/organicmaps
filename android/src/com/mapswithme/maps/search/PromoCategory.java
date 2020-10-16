@@ -1,6 +1,8 @@
 package com.mapswithme.maps.search;
 
 import android.app.Activity;
+
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -20,13 +22,21 @@ public enum PromoCategory
         @Override
         String getKey()
         {
-          return "megafon";
+          return "MEGAFON";
         }
 
         @Override
+        @StringRes
         int getStringId()
         {
           return R.string.megafon;
+        }
+
+        @Override
+        @DrawableRes
+        int getIconId(boolean isNightTheme)
+        {
+          return isNightTheme ? R.drawable.ic_category_megafon_night : R.drawable.ic_category_megafon;
         }
 
         @NonNull
@@ -52,13 +62,67 @@ public enum PromoCategory
         @Override
         boolean isSupported()
         {
-          return ConnectionState.isConnected() && Framework.nativeHasMegafonCategoryBanner();
+          return Framework.nativeHasMegafonCategoryBanner();
         }
 
         @Override
         int getCallToActionText()
         {
           return R.string.details;
+        }
+      },
+  CITYMOBIL
+      {
+        @NonNull
+        @Override
+        String getKey()
+        {
+          return "CITYMOBIL";
+        }
+
+        @Override
+        int getStringId()
+        {
+          return R.string.taxi;
+        }
+
+        @Override
+        @DrawableRes
+        int getIconId(boolean isNightTheme)
+        {
+          return isNightTheme ? R.drawable.ic_logo_citymobil_night : R.drawable.ic_logo_citymobil;
+        }
+
+        @NonNull
+        @Override
+        String getProvider()
+        {
+          return "Citymobil";
+        }
+
+        @Override
+        int getPosition()
+        {
+          return 6;
+        }
+
+        @NonNull
+        @Override
+        PromoCategoryProcessor createProcessor(@NonNull Activity activity)
+        {
+          return new CitymobilPromoProcessor(activity);
+        }
+
+        @Override
+        boolean isSupported()
+        {
+          return ConnectionState.isConnected() && Framework.nativeHasCitymobilCategoryBanner();
+        }
+
+        @Override
+        int getCallToActionText()
+        {
+          return R.string.taxi_category_order;
         }
       };
 
@@ -67,6 +131,9 @@ public enum PromoCategory
 
   @StringRes
   abstract int getStringId();
+
+  @DrawableRes
+  abstract int getIconId(boolean isNightTheme);
 
   @NonNull
   abstract String getProvider();

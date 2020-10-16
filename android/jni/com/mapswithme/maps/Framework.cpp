@@ -2106,6 +2106,31 @@ Java_com_mapswithme_maps_Framework_nativeGetMegafonCategoryBannerUrl(JNIEnv * en
   return jni::ToJavaString(env, ads::GetMegafonCategoryBannerUrl());
 }
 
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeHasCitymobilCategoryBanner(JNIEnv * env, jclass)
+{
+  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+    return static_cast<jboolean>(false);
+
+  auto const pos = frm()->GetCurrentPosition();
+  auto const banners = frm()->GetAdsEngine().GetSearchCategoryBanners(pos);
+
+  return static_cast<jboolean>(!banners.empty() &&
+                               banners.begin()->m_type == ads::Banner::Type::Citymobil);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetCitymobilCategoryBannerUrl(JNIEnv * env, jclass)
+{
+  auto const pos = frm()->GetCurrentPosition();
+  auto const banners = frm()->GetAdsEngine().GetSearchCategoryBanners(pos);
+
+  if (banners.empty() || banners.begin()->m_type != ads::Banner::Type::Citymobil)
+    return jni::ToJavaString(env, "");
+
+  return jni::ToJavaString(env, banners.begin()->m_value);
+}
+
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeMakeCrash(JNIEnv *env, jclass type)
 {

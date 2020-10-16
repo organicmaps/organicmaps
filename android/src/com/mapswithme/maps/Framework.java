@@ -518,6 +518,11 @@ public class Framework
   @NonNull
   public static native String nativeGetMegafonCategoryBannerUrl();
 
+  public static native boolean nativeHasCitymobilCategoryBanner();
+
+  @NonNull
+  public static native String nativeGetCitymobilCategoryBannerUrl();
+
   public static native void nativeMakeCrash();
 
   public static native void nativeStartPurchaseTransaction(@NonNull String serverId,
