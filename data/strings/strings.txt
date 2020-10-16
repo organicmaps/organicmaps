@@ -49360,3 +49360,7 @@
     zh-Hans = 餐厅
     zh-Hant = 餐廳
     fa = غذا
+
+  [taxi_category_order]
+    en = Order
+    ru = Заказать
