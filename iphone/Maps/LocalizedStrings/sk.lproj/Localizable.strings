@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Neskôr";
 
-"all_pass_subscription_header" = "ODBER KATALÓGU";
+"all_pass_subscription_header" = "Prihlásiť sa do";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Katalóg sprievodcov";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nsprievodcov\na tratí";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Prihlásiť sa do\n<b>Katalógu sprievodcov</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Sprievodcovia\nod Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Ešte <b>viac zážitkov</b> s tisíckami zaujímavých miest <b>po celom svete</b>";
+
+"content_by_component" = "Obsah od:";
+
+"whatsnew_lp_title" = "Ešte viac emócií";
+
+"whatsnew_lp_message" = "Sprievodcovia Lonely Planet sú teraz v našej aplikácii! Najlepšie atrakcie, tematické prechádzky a jedinečné turistické miesta pre viac ako 7 000 miest.";
+
+"collections_title" = "Kolekcie";
+
+"key_information_title" = "Kľúčová informácia";
+
+"mustsee_title" = "Treba vidieť";
+
+"see_lp_category" = "Čo vidieť";
+
+"play_lp_category" = "Zábava";
+
+"shop_lp_category" = "Nakupovanie";
+
+"transport_lp_category" = "Doprava";
+
+"sleep_lp_category" = "Ubytovanie";
+
+"general_lp_category" = "Všeobecné";
+
+"drink_lp_category" = "Nápoje";
+
+"eat_lp_category" = "Jedlo";
 
 
 /**********  Partners  **********/

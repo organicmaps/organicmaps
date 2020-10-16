@@ -1704,7 +1704,8 @@
 	<string name="new_onboarding_step5.3_message">Lataa ja arvioi kaupunkikierroksia ja ulkoiluaktiviteetteja ilmaisella MAPS.ME-valinnalla!</string>
 	<string name="new_onboarding_step5.3_button">Lataa ilmaiseksi</string>
 	<string name="new_onboarding_additional_steps_later_button">Ei nyt</string>
-	<string name="all_pass_subscription_header">MATKAOPASLUETTELON TILAUS</string>
+	<string name="all_pass_subscription_header">Tilaa</string>
+	<string name="all_pass_subscription_subheader">Oppaiden luettelo</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">30000+\nopasta\nja polkua</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1830,6 +1831,25 @@
 	<string name="whatsnew_trial_cta">Kokeile</string>
 	<string name="subscription_terms_guides_outdoor">Summa veloitetaan iTunes -tililtäsi ostosta vahvistettaessa. Tilaus jatkuu automaattisesti ellei sitä peruuteta vähintään 24 tuntia ennen kuluvan tilauskauden päättymistä. Raha kirjataan pois käyttäjätililtäsi jatkoliittymäehtojen mukaan 24 tunnin kuluessa ennen kuluvan jakson päättymistä. Voit hallita automaatista jatkoa tai ottaa sen pois päältä Apple ID -käyttäjätilisi asetuksissa milloin hyvänsä ostoksen jälkeen. Tilauksen puitteissa ladattuja matkaoppaita voit käyttää ainoastaan tilauksen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat on poistettu automaattisesti.\n* Ilmainen kokeilujaksotilaus automaattisesti muuttuu maksulliseksi tilaukseksi. Voit hallita ilmaisen kokeilujaksotilauksen automaatista jatkoa tai peruuttaa sen käyttäjätilisi asetuksissa milloin tahansa ostoksen jälkeen. Peruutus astuu voimaan 24 tunnin päästä kuluvan tilausjakson viimeisestä päivästä. Sen jälkeen tilaus siirtyy toimimaan maksuttomam tilauksen ehdoilla. Huom. Ilmaisen kokeilujakson kaikki käyttämättömät osat on lopetettu, jos teet maksullisen tilauksen kokeilujakson aikana.</string>
 	<string name="subscription_terms_android_outdoor">Summa veloitetaan Google Play -tililtäsi oston vahvistamisen yhteydessä. Tilaus jatkuu automaattisesti ellei sitä peruuteta vähintään 24 tuntia ennen kuluvan tilauskauden päättymistä. Raha kirjataan pois käyttäjätililtäsi jatkoliittymäehtojen mukaan 24 tunnin kuluessa ennen kuluvan jakson päättymistä. Voit hallita automaatista jatkoa tai ottaa sen pois päältä käyttäjätilisi asetuksissa ostoksen jälkeen. Tilauksen puitteissa ladattuja matkaoppaita voit käyttää ainoastaan tilauksen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat on poistettu automaattisesti.\n* Ilmainen kokeilujaksotilaus automaattisesti muuttuu maksulliseksi tilaukseksi. Voit hallita ilmaisen kokeilujaksotilauksen automaatista jatkoa tai peruuttaa sen käyttäjätilisi asetuksissa milloin tahansa ostoksen jälkeen. Peruutus astuu voimaan 24 tunnin päästä kuluvan tilausjakson viimeisestä päivästä. Sen jälkeen tilaus siirtyy toimimaan maksuttomam tilauksen ehdoilla. Huom. Ilmaisen kokeilujakson kaikki käyttämättömät osat on lopetettu, jos teet maksullisen tilauksen kokeilujakson aikana.</string>
+	<string name="subscription_header">Tilaa\n<b>Verkko-oppaat</b></string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">Lonely Planet®\n-matkaoppaat</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4">Entistä <b>enemmän elämyksiä</b> tuhansista paikoista <b>kaikkialla maailmassa</b></string>
+	<string name="content_by_component">Sisällön toimittaja:</string>
+	<string name="whatsnew_lp_title">Entistä enemmän elämyksiä</string>
+	<string name="whatsnew_lp_message">Lonely Planet -oppaat ovat jo sovelluksessamme! Parhaita nähtävyyksiä, aiheisiin liittyviä kävelyretkejä ja ainutlaatuisia matkailupaikkoja yli 7000 kaupungissa.</string>
+	<string name="collections_title">Kokoelmia</string>
+	<string name="key_information_title">Avaintietoa</string>
+	<string name="mustsee_title">Pakko nähdä</string>
+	<string name="see_lp_category">Nähtävyydet</string>
+	<string name="play_lp_category">Viihteet</string>
+	<string name="shop_lp_category">Ostokset</string>
+	<string name="transport_lp_category">Liikenneyhteydet</string>
+	<string name="sleep_lp_category">Majoitus</string>
+	<string name="general_lp_category">Tärkeimmät</string>
+	<string name="drink_lp_category">Baarit</string>
+	<string name="eat_lp_category">Ravintolat</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

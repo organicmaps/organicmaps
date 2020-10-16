@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Αργότερα";
 
-"all_pass_subscription_header" = "ΕΓΓΡΑΦΗ ΣΤΟΝ ΚΑΤΑΛΟΓΟ";
+"all_pass_subscription_header" = "Συνδρομή στον";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Κατάλογος οδηγών";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30.000+\nοδηγών\nκαι μονοπατιών";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Συνδρομή στον\n<b>Κατάλογο ταξιδιωτικών οδηγών</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Ταξιδιωτικοί οδηγοί\nτης Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Ακόμα <b>περισσότερες εντυπώσεις</b> με χιλιάδες ενδιαφέροντες προορισμούς σε <b>όλο τον κόσμο</b>";
+
+"content_by_component" = "Περιεχόμενο από:";
+
+"whatsnew_lp_title" = "Περισσότερες εντυπώσεις";
+
+"whatsnew_lp_message" = "Γνωρίστε τους ταξιδιωτικούς οδηγούς της Lonely Planet! Αξιοθέατα, θεματικές διαδρομές και μοναδικοί προορισμοί σε 7.000+ πόλεις.";
+
+"collections_title" = "Συλλογές";
+
+"key_information_title" = "Βασικές πληροφορίες";
+
+"mustsee_title" = "Πρέπει να δεις";
+
+"see_lp_category" = "Αξιοθέατα";
+
+"play_lp_category" = "Ψυχαγωγία";
+
+"shop_lp_category" = "Ψώνια";
+
+"transport_lp_category" = "Συγκοινωνία";
+
+"sleep_lp_category" = "Διανυκτέρευση";
+
+"general_lp_category" = "Γενικά";
+
+"drink_lp_category" = "Μπαράκια";
+
+"eat_lp_category" = "Εστιατόρια";
 
 
 /**********  Partners  **********/

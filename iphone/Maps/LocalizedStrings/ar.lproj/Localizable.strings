@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "لاحقًا";
 
-"all_pass_subscription_header" = "اشتراك في الدلائل";
+"all_pass_subscription_header" = "اشترك في";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "قائمة الدلائل";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nأدلة ومسارات";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "اشترك في\n<b>قائمة الأدلة</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "أدلة سفر\nمن Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "<b>تجارب أكثر</b> مع الكثير من الأماكن الممتعة <b>حول العالم</b>";
+
+"content_by_component" = "المحتوى من قبل:";
+
+"whatsnew_lp_title" = "عواطف أكثر";
+
+"whatsnew_lp_message" = "أدلة Lonely Planet متوفرة الآن على تطبيقنا! أفضل مناطق الجذب ومناطق التمشية وأماكن السفر الفريدة لأكثر من 7000 مدينة.";
+
+"collections_title" = "مجموعات";
+
+"key_information_title" = "معلومات رئيسية";
+
+"mustsee_title" = "يجب رؤيته";
+
+"see_lp_category" = "شاهد";
+
+"play_lp_category" = "العب";
+
+"shop_lp_category" = "تسوق";
+
+"transport_lp_category" = "اذهب";
+
+"sleep_lp_category" = "الإقامة";
+
+"general_lp_category" = "اماكن شهيرة";
+
+"drink_lp_category" = "الشرب";
+
+"eat_lp_category" = "الأكل";
 
 
 /**********  Partners  **********/

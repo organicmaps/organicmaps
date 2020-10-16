@@ -1708,7 +1708,8 @@
 	<string name="new_onboarding_step5.3_message">下载或评论带有 MAPS.ME免费编录的市内旅行和休闲运动的线路！</string>
 	<string name="new_onboarding_step5.3_button">免费下载</string>
 	<string name="new_onboarding_additional_steps_later_button">稍后</string>
-	<string name="all_pass_subscription_header">订阅目录</string>
+	<string name="all_pass_subscription_header">订阅</string>
+	<string name="all_pass_subscription_subheader">指南目录</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">30000+\n指南\n和道路</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1834,6 +1835,25 @@
 	<string name="whatsnew_trial_cta">試用</string>
 	<string name="subscription_terms_guides_outdoor">確認購買後，付款將從您的iTunes帳戶中扣除。訂閱將自動續訂，除非在到期前至少24小時關閉自動續訂。在到期前的24小時內，將根據您的續訂計劃從您的帳戶扣費。購買成功後，您可以隨時進入Apple ID帳戶設置來管理或關閉自動更新。您只能在有效期內使用通過訂閱下載的指南。訂閱結束後30天，帶有所有標籤的指南將被自動刪除。\n*免費試用期的訂閱會自動轉換為付費訂閱。購買後，您可以轉到“帳戶設置”來取消或管理免費試用版的自動續訂。取消將在當前訂閱期最後一天的24小時後生效，您將被轉為免費訂閱。請注意，免費試用期內未使用的部分在該期間購買付費訂閱時將被收回。</string>
 	<string name="subscription_terms_android_outdoor">確認購買後，付款將從您的Google Play帳戶中扣除。訂閱將自動續訂，除非在到期前至少24小時關閉自動續訂。在到期前的24小時內，將根據您的續訂計劃從您的帳戶扣費。購買後，您可以轉到“帳戶設置”來管理或關閉自動續訂。您只能在有效期內使用通過訂閱下載的指南。訂閱結束後30天后，指南將自動刪除。\n*免費試用期的訂閱會自動轉換為付費訂閱。購買後，您可以轉到“帳戶設置”來取消或管理免費試用版的自動續訂。取消將在當前訂閱期最後一天的24小時後生效，您將被轉為免費訂閱。請注意，免費試用期內未使用的部分在該期間購買付費訂閱時將被收回。</string>
+	<string name="subscription_header">订阅\n<b>旅行指南目录</b></string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">旅行指南\nLonely Planet®出品</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4">还有<b>来自全球各地</b> 千万有趣景点的 <b>无穷印象</b></string>
+	<string name="content_by_component">内容来源：</string>
+	<string name="whatsnew_lp_title">更多印象</string>
+	<string name="whatsnew_lp_message">欢迎Lonely Planet旅行指南加入我们！7000余座城市的名胜古迹、主题路线和独特景点。</string>
+	<string name="collections_title">专栏</string>
+	<string name="key_information_title">关键信息</string>
+	<string name="mustsee_title">必看</string>
+	<string name="see_lp_category">名胜古迹</string>
+	<string name="play_lp_category">休闲娱乐</string>
+	<string name="shop_lp_category">购物</string>
+	<string name="transport_lp_category">交通</string>
+	<string name="sleep_lp_category">住宿</string>
+	<string name="general_lp_category">主要</string>
+	<string name="drink_lp_category">酒吧</string>
+	<string name="eat_lp_category">餐厅</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

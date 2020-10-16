@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "ภายหลัง";
 
-"all_pass_subscription_header" = "สมัครสมาชิกแคตตาล็อก";
+"all_pass_subscription_header" = "สมัครสมาชิกเพื่อใช้";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "ไกด์แคตตาล็อก";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nไกด์และเส้นทาง";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "สมัครสมาชิกเพื่อใช้\n<b>ไกด์แคตตาล็อก</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "คู่มือการท่องเที่ยว\nโดย Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "มอบ<b>ประสบการณ์ใหม่ ๆ จำนวนมาก</b>ด้วยพื้นที่น่าสนใจหลายพันแห่ง<b>รอบโลก</b>";
+
+"content_by_component" = "เนื้อหาโดย:";
+
+"whatsnew_lp_title" = "ด้วยความรู้สึกที่เปี่ยมล้นกว่าเดิม";
+
+"whatsnew_lp_message" = "คู่มือใช้งานของ Lonely Planet อยู่ในแอปของเราแล้ว! สถานที่ดึงดูดนักท่องเที่ยว ที่เดินเที่ยวชมตามธีม และจุดท่องเที่ยวที่มีเอกลักษณ์ที่ตั้งอยู่ในมากกว่า 7,000 เมือง";
+
+"collections_title" = "คอลเลคชั่น";
+
+"key_information_title" = "ข้อมูลหลัก";
+
+"mustsee_title" = "ห้ามพลาด";
+
+"see_lp_category" = "ดู";
+
+"play_lp_category" = "เล่น";
+
+"shop_lp_category" = "ร้านค้า";
+
+"transport_lp_category" = "เส้นทาง";
+
+"sleep_lp_category" = "ที่พัก";
+
+"general_lp_category" = "ทั่วไป";
+
+"drink_lp_category" = "ที่ดื่ม";
+
+"eat_lp_category" = "ที่กิน";
 
 
 /**********  Partners  **********/

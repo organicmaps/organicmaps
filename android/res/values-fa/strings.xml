@@ -1651,7 +1651,8 @@
 	<string name="new_onboarding_step5.3_message">با گزینش رایگان MAPS.ME نمونههای رایگان مسیرهای آماده شهرها و فضاهای باز را چک کنید!</string>
 	<string name="new_onboarding_step5.3_button">دانلود رایگان</string>
 	<string name="new_onboarding_additional_steps_later_button">بعداً</string>
-	<string name="all_pass_subscription_header">اشتراک کاتالوگ</string>
+	<string name="all_pass_subscription_header">اشتراک در</string>
+	<string name="all_pass_subscription_subheader">کاتالوگراهنماها</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">30000+\nراهنما و مسیرها</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1777,6 +1778,25 @@
 	<string name="whatsnew_trial_cta">همین الان امتحان کنید</string>
 	<string name="subscription_terms_guides_outdoor">بعد از اینکه خرید را تایید کنید، مبلغ از حساب آی تونز شما کسر خواهد شد. عضویت شما بصورت خودکار تمدید خواهد شد مگر اینکه حداقل 24 ساعت قبل از پایان دوره عضویت فعلی، گزینه \"تمدید خودکار\" را غیرفعال کنید. مبلغ عضویت دوره بعدی بطور خودکار و 24 ساعت قبل از پایان دوره عضویت فعلی، از حساب شما کسر خواهد شد. شما می توانید بعد از خرید، هر زمان که مایل باشید گزینه تمدید خودکار را از قسمت تنظیمات حساب اپل آی دی خود تغییر داده یا غیرفعال کنید. از راهنماهای دانلود شده در دوره عضویت تنها تا پایان دوره عضویت می توانید استفاده کنید. راهنماها و علاقه مندی های شما 30 روز پس از پایان دوره عضویت، بصورت خودکار حذف خواهد شد.\n* عضویت در دوره آزمایشی رایگان، پس از پایان بصورت خودکار تبدیل به عضویت پولی خواهد شد. پس از فعالسازی دوره آزمایشی می توانید از قسمت تنظیمات حساب کاربری خود، گزینه تمدید خودکار دوره آزمایشی را غیرفعال کنید. لغو عضویت، 24 ساعت پس از آخرین روز دوره عضویت فعلی انجام خواهد شد. پس از لغو عضویت، شما تنها به خدمات رایگان ما دسترسی خواهید داشت. لطفا توجه داشته باشید که: پس از خرید و فعالسازی اکانت پولی، بخشهای بلااستفادۀ خود در اکانت رایگان را از دست خواهید داد.</string>
 	<string name="subscription_terms_android_outdoor">پس از تایید خرید، مبلغ از حساب گوگل پلی شما کسر خواهد شد. عضویت شما بصورت خودکار تمدید خواهد شد مگر اینکه حداقل 24 ساعت قبل از پایان دوره عضویت فعلی، گزینه \"تمدید خودکار\" را غیرفعال کنید. مبلغ عضویت دوره بعدی بطور خودکار و 24 ساعت قبل از پایان دوره عضویت فعلی، از حساب شما کسر خواهد شد. شما می توانید بعد از خرید، هر زمان که مایل باشید گزینه تمدید خودکار را از قسمت تنظیمات حساب خود تغییر داده یا غیرفعال کنید. از راهنماهای دانلود شده در دوره عضویت تنها تا پایان دوره عضویت می توانید استفاده کنید. راهنماهای شما 30 روز پس از پایان دوره عضویت، بصورت خودکار حذف خواهد شد.\n* عضویت در دوره آزمایشی رایگان، پس از پایان بصورت خودکار تبدیل به عضویت پولی خواهد شد. پس از فعالسازی دوره آزمایشی می توانید از قسمت تنظیمات حساب کاربری خود، گزینه تمدید خودکار دوره آزمایشی را غیرفعال کنید. لغو عضویت، 24 ساعت پس از آخرین روز دوره عضویت فعلی انجام خواهد شد. پس از لغو عضویت، شما تنها به خدمات رایگان ما دسترسی خواهید داشت. لطفا توجه داشته باشید که: پس از خرید و فعالسازی اکانت پولی، بخشهای بلااستفادۀ خود در اکانت رایگان را از دست خواهید داد.</string>
+	<string name="subscription_header">اشتراک در\n<b>کاتالوگ راهنماها</b></string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">راهنمای سفر\nبا Lonely Planet®</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4"><b>تجربه هایی بیش از پیش</b> با هزاران مکان جذاب <b>در سراسر جهان</b></string>
+	<string name="content_by_component">منبع مطالب:</string>
+	<string name="whatsnew_lp_title">و حتی هیجان بیشتر</string>
+	<string name="whatsnew_lp_message">هم اکنون راهنماهای Lonely Planet در برنامه ما موجود است! بهترین جاذبه ها، مسیرهای موضوعی و نقاط بی نظیر سفر برای بیش از 7000 شهر.</string>
+	<string name="collections_title">مجموعه‌ها</string>
+	<string name="key_information_title">اطلاعات کلیدی</string>
+	<string name="mustsee_title">دیدنی</string>
+	<string name="see_lp_category">دیدنیها</string>
+	<string name="play_lp_category">سرگرمی</string>
+	<string name="shop_lp_category">خرید</string>
+	<string name="transport_lp_category">حملونقل</string>
+	<string name="sleep_lp_category">هتل</string>
+	<string name="general_lp_category">عمومی</string>
+	<string name="drink_lp_category">نوشیدنی</string>
+	<string name="eat_lp_category">غذا</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

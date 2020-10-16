@@ -1703,7 +1703,8 @@
 	<string name="new_onboarding_step5.3_message">MAPS.MEの無料セレクションでレディメイドな都市と戸外のルートのサンプルをご覧ください！</string>
 	<string name="new_onboarding_step5.3_button">無料ダウンロード</string>
 	<string name="new_onboarding_additional_steps_later_button">後で</string>
-	<string name="all_pass_subscription_header">カタログにサブスクライブ</string>
+	<string name="all_pass_subscription_header">にサブスクライブ</string>
+	<string name="all_pass_subscription_subheader">ガイドのカタログ</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">30000+の\nガイド&amp;トレイル</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1829,6 +1830,25 @@
 	<string name="whatsnew_trial_cta">今すぐ試してみましょう</string>
 	<string name="subscription_terms_guides_outdoor">購入を確認すると、iTunesのアカウントに請求がなされます。このサブスクリプションは、現在のサブスクリプション期間が終了する24時間前までに自動更新機能を無効化しない限り、自動的に更新されます。あなたのアカウントには、あなたの更新プランに従って、現在のサブスクリプション期間が終了する24時間以内に請求がなされます。自動更新は、購入後にいつでもApple IDの設定から管理または無効化する事ができます。ガイドは、サブスクリプションが失効するまでの期間内にダウンロードしたものしか利用できません。ガイドと全てのブックマークは、サブスクリプションの失効後30日で自動的に削除されます。\n*無料トライアル期間を持つサブスクリプションは、有料サブスクリプションに自動的に更新されます。無料トライアルの自動更新は、購入後にアカウント設定からキャンセルまたは管理をする事ができます。このキャンセルは、現在のサブスクリプション期間の最終日の24時間後から発効します。その後は無料サービスにダウングレードされます。注意：無料トライアル期間中に有料サブスクリプションを購入すると、無料トライアルの未使用の期間は喪失します。</string>
 	<string name="subscription_terms_android_outdoor">購入を確認すると、支払はGoogle Playのアカウントに請求されます。このサブスクリプションは、現在のサブスクリプション期間が終了する24時間前までに自動更新機能を無効化しない限り、自動的に更新されます。あなたのアカウントには、あなたの更新プランに従って、現在のサブスクリプション期間が終了する24時間以内に請求がなされます。自動更新は、購入後にいつでもアカウント設定から管理または無効化する事ができます。ガイドは、サブスクリプションが失効するまでの期間内にダウンロードしたものしか利用できません。ガイドは、サブスクリプションの失効後30日で自動的に削除されます。\n*無料トライアル期間を持つサブスクリプションは、有料サブスクリプションに自動的に更新されます。無料トライアルの自動更新は、購入後にアカウント設定からキャンセルまたは管理をする事ができます。このキャンセルは、現在のサブスクリプション期間の最終日の24時間後から発効します。その後は無料サービスにダウングレードされます。注意：無料トライアル期間中に有料サブスクリプションを購入すると、無料トライアルの未使用の期間は喪失します。</string>
+	<string name="subscription_header"><b>ガイドのカタログ</b>\nにサブスクライブ</string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">トラベルガイド：\nLonely Planet®提供</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4"><b>世界中</b>の数千か所に及ぶ興味深い場所で<b>更なる体験</b> を</string>
+	<string name="content_by_component">コンテンツ提供：</string>
+	<string name="whatsnew_lp_title">更なる感情を</string>
+	<string name="whatsnew_lp_message">Lonely Planetのガイドがアプリ内から利用できるようになりました！7000を超える都市の最高のアトラクションや、セマティックウォーク、そしてユニークな旅行スポットがご利用いただけます。</string>
+	<string name="collections_title">コレクション</string>
+	<string name="key_information_title">重要情報</string>
+	<string name="mustsee_title">必見</string>
+	<string name="see_lp_category">観光</string>
+	<string name="play_lp_category">娯楽</string>
+	<string name="shop_lp_category">ショップ</string>
+	<string name="transport_lp_category">移動</string>
+	<string name="sleep_lp_category">宿泊</string>
+	<string name="general_lp_category">一般</string>
+	<string name="drink_lp_category">お酒</string>
+	<string name="eat_lp_category">食事</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

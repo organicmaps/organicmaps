@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Később";
 
-"all_pass_subscription_header" = "ELŐFIZETÉS A KATALÓGUSRA";
+"all_pass_subscription_header" = "Iratkozzon fel az";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Útmutató katalógus";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nútmutatók\n& sávok";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Iratkozzon fel az\n<b>Útmutató katalógusra</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Útikalauzok\na Lonely Planet®-től";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Még <b>több élmény</b> érdekes helyszínek ezreivel <b>a világon</b>";
+
+"content_by_component" = "Tartalom:";
+
+"whatsnew_lp_title" = "Még több izgalom";
+
+"whatsnew_lp_message" = "Mostantól Lonely Planet útmutatók vannak az alkalmazásunkban! A legjobb látnivalók, tematikus séták, egyedi úti helyek több mint 7000 városhoz.";
+
+"collections_title" = "Gyűjtemények";
+
+"key_information_title" = "Kulcs információ";
+
+"mustsee_title" = "Látnia kell";
+
+"see_lp_category" = "Lásd";
+
+"play_lp_category" = "Játék";
+
+"shop_lp_category" = "Vásárlás";
+
+"transport_lp_category" = "Utazás";
+
+"sleep_lp_category" = "Szállás";
+
+"general_lp_category" = "Általános";
+
+"drink_lp_category" = "Ital";
+
+"eat_lp_category" = "Étel";
 
 
 /**********  Partners  **********/

@@ -1709,7 +1709,8 @@
 	<string name="new_onboarding_step5.3_message">Vyskúšajte bezplatné ukážky hotových mestských a vonkajších trás s bezplatným výberom MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Bezplatné stiahnutie</string>
 	<string name="new_onboarding_additional_steps_later_button">Neskôr</string>
-	<string name="all_pass_subscription_header">ODBER KATALÓGU</string>
+	<string name="all_pass_subscription_header">Prihlásiť sa do</string>
+	<string name="all_pass_subscription_subheader">Katalóg sprievodcov</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">30000+\nsprievodcov\na tratí</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1835,6 +1836,25 @@
 	<string name="whatsnew_trial_cta">Vyskúšajte to teraz</string>
 	<string name="subscription_terms_guides_outdoor">Po potvrdení nákupu sa platba naúčtuje na váš iTunes účet. Predplatné sa automaticky obnoví, pokiaľ nie je funkcia automatického obnovenia vypnutá najmenej 24 hodín pred koncom aktuálneho obdobia predplatného. Váš účet bude zaúčtovaný podľa plánu obnovenia do 24 hodín pred koncom súčasného obdobia predplatného. Automatické obnovenie môžete spravovať alebo deaktivovať v nastaveniach účtu Apple ID kedykoľvek po zakúpení. Sprievodcov, ktorých ste si stiahli počas predplatného, môžete používať iba do vypršania platnosti predplatného. Sprievodcovia a všetky záložky sa automaticky odstránia 30 dní po uplynutí platnosti predplatného.\n* Predplatné s bezplatnou skúšobnou dobou sa automaticky obnoví na platené predplatné. Po zakúpení môžete automatické obnovenie bezplatnej skúšobnej verzie zrušiť alebo spravovať v nastaveniach svojho účtu. Zrušenie nadobudne účinnosť 24 hodín po poslednom dni aktuálneho obdobia predplatného. Potom budete zaradení do bezplatnej služby. Upozornenie: Akákoľvek nevyužitá časť bezplatnej skúšobnej verzie prepadne, keď si počas nej zakúpite prémiové predplatné.</string>
 	<string name="subscription_terms_android_outdoor">Po potvrdení nákupu sa platba naúčtuje na váš Google Play účet. Predplatné sa automaticky obnoví, pokiaľ nie je funkcia automatického obnovenia vypnutá najmenej 24 hodín pred koncom aktuálneho obdobia predplatného. Váš účet bude zaúčtovaný podľa plánu obnovenia do 24 hodín pred koncom súčasného obdobia predplatného. Automatické obnovenie môžete spravovať alebo deaktivovať v nastaveniach účtu kedykoľvek po zakúpení. Sprievodcov, ktorých ste si stiahli počas predplatného, môžete používať iba do vypršania platnosti predplatného. Sprievodcovia sa automaticky odstránia 30 dní po uplynutí platnosti predplatného.\n* Predplatné s bezplatnou skúšobnou dobou sa automaticky obnoví na platené predplatné. Po zakúpení môžete automatické obnovenie bezplatnej skúšobnej verzie zrušiť alebo spravovať v nastaveniach svojho účtu. Zrušenie nadobudne účinnosť 24 hodín po poslednom dni aktuálneho obdobia predplatného. Potom budete zaradení do bezplatnej služby. Upozornenie: Akákoľvek nevyužitá časť bezplatnej skúšobnej verzie prepadne, keď si počas nej zakúpite prémiové predplatné.</string>
+	<string name="subscription_header">Prihlásiť sa do\n<b>Katalógu sprievodcov</b></string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">Sprievodcovia\nod Lonely Planet®</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4">Ešte <b>viac zážitkov</b> s tisíckami zaujímavých miest <b>po celom svete</b></string>
+	<string name="content_by_component">Obsah od:</string>
+	<string name="whatsnew_lp_title">Ešte viac emócií</string>
+	<string name="whatsnew_lp_message">Sprievodcovia Lonely Planet sú teraz v našej aplikácii! Najlepšie atrakcie, tematické prechádzky a jedinečné turistické miesta pre viac ako 7 000 miest.</string>
+	<string name="collections_title">Kolekcie</string>
+	<string name="key_information_title">Kľúčová informácia</string>
+	<string name="mustsee_title">Treba vidieť</string>
+	<string name="see_lp_category">Čo vidieť</string>
+	<string name="play_lp_category">Zábava</string>
+	<string name="shop_lp_category">Nakupovanie</string>
+	<string name="transport_lp_category">Doprava</string>
+	<string name="sleep_lp_category">Ubytovanie</string>
+	<string name="general_lp_category">Všeobecné</string>
+	<string name="drink_lp_category">Nápoje</string>
+	<string name="eat_lp_category">Jedlo</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

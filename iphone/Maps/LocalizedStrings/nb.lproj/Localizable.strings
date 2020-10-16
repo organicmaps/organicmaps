@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Ikke nå";
 
-"all_pass_subscription_header" = "KATALOGABONNEMENT";
+"all_pass_subscription_header" = "Abonnement på";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Guide katalog";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nguider\nog stier";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Abonnement på\n<b>Guider-katalogen</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Guider\nfra Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Enda<b>flere inntrykk</b> med tusenvis av interessante steder<b>verden rundt</b>";
+
+"content_by_component" = "Innhold fra:";
+
+"whatsnew_lp_title" = "Enda flere inntrykk";
+
+"whatsnew_lp_message" = "Møt Lonely Planet-guidene! Severdigheter, temaruter og unike steder i 7000+ byer.";
+
+"collections_title" = "Samlinger";
+
+"key_information_title" = "Nøkkelinformasjon";
+
+"mustsee_title" = "Ting å se";
+
+"see_lp_category" = "Severdigheter";
+
+"play_lp_category" = "Fritidsaktiviteter";
+
+"shop_lp_category" = "Shopping";
+
+"transport_lp_category" = "Transport";
+
+"sleep_lp_category" = "Overnatting";
+
+"general_lp_category" = "Toppattraksjoner";
+
+"drink_lp_category" = "Barer";
+
+"eat_lp_category" = "Restauranter";
 
 
 /**********  Partners  **********/

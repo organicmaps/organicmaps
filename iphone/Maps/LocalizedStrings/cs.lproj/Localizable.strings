@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Později";
 
-"all_pass_subscription_header" = "PŘEDPLATNÉ KATALOGU";
+"all_pass_subscription_header" = "Předplaťte si";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Katalog průvodců";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "Více než 30000\nprůvodců a tras";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Předplaťte si\n<b>katalog průvodců</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Cestovní průvodci\nod Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Ještě <b>více zážitků</b> s tisíci zajímavými místy <b>po celém světě</b>";
+
+"content_by_component" = "Obsah od:";
+
+"whatsnew_lp_title" = "Ještě více emocí";
+
+"whatsnew_lp_message" = "Průvodci Lonely Planet jsou nyní v naší aplikaci! Nejlepší atrakce, tematické procházky a unikátní místa k cestování pro více než 7 000 měst.";
+
+"collections_title" = "Sbírky";
+
+"key_information_title" = "Klíčové informace";
+
+"mustsee_title" = "Musíte vidět";
+
+"see_lp_category" = "K vidění";
+
+"play_lp_category" = "Zábava";
+
+"shop_lp_category" = "Nakupování";
+
+"transport_lp_category" = "Doprava";
+
+"sleep_lp_category" = "Spánek";
+
+"general_lp_category" = "Obecné";
+
+"drink_lp_category" = "Pití";
+
+"eat_lp_category" = "Jídlo";
 
 
 /**********  Partners  **********/

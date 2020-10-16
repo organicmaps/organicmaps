@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Senare";
 
-"all_pass_subscription_header" = "PRENUMERATION PÅ KATALOGEN";
+"all_pass_subscription_header" = "Prenumeration på";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Guidebok katalogen";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nguider & spår";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Prenumeration på\n<b>Guidebok katalogen</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Guider\nfrån Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Ännu <b>mer intryck</b> med tusentals intressanta platser <b>runt om i världen</b>";
+
+"content_by_component" = "Innehåll från:";
+
+"whatsnew_lp_title" = "Ännu mer intryck";
+
+"whatsnew_lp_message" = "Träffa Lonely Planet-guider! Sevärdheter, tematiska rutter och unika platser i 7000+ städer.";
+
+"collections_title" = "Samlingar";
+
+"key_information_title" = "Nyckelinformation";
+
+"mustsee_title" = "Måste se";
+
+"see_lp_category" = "Sevärdheter";
+
+"play_lp_category" = "Förströelser";
+
+"shop_lp_category" = "Handla";
+
+"transport_lp_category" = "Transport";
+
+"sleep_lp_category" = "Övernatta";
+
+"general_lp_category" = "Allmäna";
+
+"drink_lp_category" = "Barer";
+
+"eat_lp_category" = "Restauranger";
 
 
 /**********  Partners  **********/

@@ -1769,9 +1769,8 @@
 	<string name="new_onboarding_step5.3_message">Check out free samples of ready-made city and outdoor routes with a free selection of MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Free download</string>
 	<string name="new_onboarding_additional_steps_later_button">Later</string>
-	<string name="all_pass_subscription_header">SUBSCRIPTION TO CATALOG</string>
-	<!-- do not translate -->
-	<string name="all_pass_subscription_subheader">City + Outdoor Pass</string>
+	<string name="all_pass_subscription_header">Subscribe to</string>
+	<string name="all_pass_subscription_subheader">Guides catalog</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">30000+\nguides &amp; trails</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1914,6 +1913,25 @@
 	<string name="sberbank_map_downloader_cta_button">Узнать больше</string>
 	<string name="yango_taxi_title">Yango</string>
 	<string name="citymobil_taxi_title">Citymobil</string>
+	<string name="subscription_header">Subscribe to\n<b>Guides catalog</b></string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">Travel guides\nby Lonely Planet®</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4">Even <b>more experiences</b> with thousands of interesting places <b>around the world</b></string>
+	<string name="content_by_component">Content by:</string>
+	<string name="whatsnew_lp_title">Even more emotions</string>
+	<string name="whatsnew_lp_message">Lonely Planet guides are now in our app! The best attractions, thematic walks and unique travel spots for 7000+ cities.</string>
+	<string name="collections_title">Collections</string>
+	<string name="key_information_title">Key information</string>
+	<string name="mustsee_title">Must see</string>
+	<string name="see_lp_category">See</string>
+	<string name="play_lp_category">Play</string>
+	<string name="shop_lp_category">Shop</string>
+	<string name="transport_lp_category">Transport</string>
+	<string name="sleep_lp_category">Sleep</string>
+	<string name="general_lp_category">General</string>
+	<string name="drink_lp_category">Drink</string>
+	<string name="eat_lp_category">Eat</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

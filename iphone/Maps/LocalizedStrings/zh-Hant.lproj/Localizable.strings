@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "稍後";
 
-"all_pass_subscription_header" = "訂閱目錄";
+"all_pass_subscription_header" = "訂閱";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "指南目錄";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\n指南\n和道路";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "訂閱\n<b>旅行指南目錄</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "旅行指南\nLonely Planet®出品";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "還有<b>來自全球各地</b> 千萬有趣景點的 <b>無窮印象</b>";
+
+"content_by_component" = "內容來源：";
+
+"whatsnew_lp_title" = "更多印象";
+
+"whatsnew_lp_message" = "歡迎Lonely Planet旅行指南加入我們！7000余座城市的名勝古跡、主題路線和獨特景點。";
+
+"collections_title" = "專欄";
+
+"key_information_title" = "關鍵信息";
+
+"mustsee_title" = "必看";
+
+"see_lp_category" = "名勝古跡";
+
+"play_lp_category" = "休閑娛樂";
+
+"shop_lp_category" = "購物";
+
+"transport_lp_category" = "交通";
+
+"sleep_lp_category" = "住宿";
+
+"general_lp_category" = "主要";
+
+"drink_lp_category" = "酒吧";
+
+"eat_lp_category" = "餐廳";
 
 
 /**********  Partners  **********/

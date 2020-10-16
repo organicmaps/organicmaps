@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "بعداً";
 
-"all_pass_subscription_header" = "اشتراک کاتالوگ";
+"all_pass_subscription_header" = "اشتراک در";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "کاتالوگراهنماها";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nراهنما و مسیرها";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "اشتراک در\n<b>کاتالوگ راهنماها</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "راهنمای سفر\nبا Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "<b>تجربه هایی بیش از پیش</b> با هزاران مکان جذاب <b>در سراسر جهان</b>";
+
+"content_by_component" = "منبع مطالب:";
+
+"whatsnew_lp_title" = "و حتی هیجان بیشتر";
+
+"whatsnew_lp_message" = "هم اکنون راهنماهای Lonely Planet در برنامه ما موجود است! بهترین جاذبه ها، مسیرهای موضوعی و نقاط بی نظیر سفر برای بیش از 7000 شهر.";
+
+"collections_title" = "مجموعه‌ها";
+
+"key_information_title" = "اطلاعات کلیدی";
+
+"mustsee_title" = "دیدنی";
+
+"see_lp_category" = "دیدنیها";
+
+"play_lp_category" = "سرگرمی";
+
+"shop_lp_category" = "خرید";
+
+"transport_lp_category" = "حملونقل";
+
+"sleep_lp_category" = "هتل";
+
+"general_lp_category" = "عمومی";
+
+"drink_lp_category" = "نوشیدنی";
+
+"eat_lp_category" = "غذا";
 
 
 /**********  Partners  **********/

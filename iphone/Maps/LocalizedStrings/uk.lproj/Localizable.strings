@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Не зараз";
 
-"all_pass_subscription_header" = "ПЕРЕДПЛАТА КАТАЛОГУ";
+"all_pass_subscription_header" = "Передплата";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Каталог путівників";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nпутівників\nі стежок";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Передплата\n<b>Каталогу путівників</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Путівники\nвід Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Ще <b>більше вражень</b> із тисячами цікавих місць у <b>всьому світі</b>";
+
+"content_by_component" = "Контент від:";
+
+"whatsnew_lp_title" = "Ще більше вражень";
+
+"whatsnew_lp_message" = "Зустрічайте путівники Lonely Planet! Пам’ятки, тематичні маршрути й унікальні місця в 7 000+ містах.";
+
+"collections_title" = "Добірка";
+
+"key_information_title" = "Ключова інформація";
+
+"mustsee_title" = "Треба побачити";
+
+"see_lp_category" = "Пам’ятки";
+
+"play_lp_category" = "Розваги";
+
+"shop_lp_category" = "Купівлі";
+
+"transport_lp_category" = "Транспорт";
+
+"sleep_lp_category" = "Ночівля";
+
+"general_lp_category" = "Основні";
+
+"drink_lp_category" = "Бари";
+
+"eat_lp_category" = "Ресторани";
 
 
 /**********  Partners  **********/

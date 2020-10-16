@@ -1710,7 +1710,8 @@
 	<string name="new_onboarding_step5.3_message">Scarica gratuitamente una selezione di percorsi cittadini e di attività all\'aria aperta realizzata da MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Scarica gratis</string>
 	<string name="new_onboarding_additional_steps_later_button">Non ora</string>
-	<string name="all_pass_subscription_header">ISCRIVITI AL CATALOGO</string>
+	<string name="all_pass_subscription_header">Abbonamento al</string>
+	<string name="all_pass_subscription_subheader">Catalogo guide</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">Più di 30000\nguide\ne sentieri</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1836,6 +1837,25 @@
 	<string name="whatsnew_trial_cta">Provalo</string>
 	<string name="subscription_terms_guides_outdoor">Una volta confermato l\'acquisto, il pagamento verrà addebitato sul tuo account iTunes. L\'abbonamento si rinnova automaticamente, a meno che il rinnovo automatico non venga disattivato almeno 24 ore prima della fine del periodo in corso. L\'importo verrà addebitato sul tuo account secondo il tuo piano di rinnovo massimo 24 ore prima della fine del periodo in corso. Dopo l\'acquisto è possibile gestire o disattivare in qualsiasi momento il rinnovo automatico dell\'abbonamento nelle impostazioni dell\'account ID Apple. È possibile utilizzare le guide scaricate tramite l\'abbonamento solamente se questo è attivo. Guide e segnalibri verranno automaticamente eliminati 30 giorni dopo il termine dell\'abbonamento.\n* L\'abbonamento di prova gratuito si rinnova automaticamente passando alla a pagamento. Dopo l\'acquisto è possibile disabilitare o gestire il rinnovo automatico dell\'abbonamento di prova gratuito nelle impostazioni dell\'account. La disdetta avverrà 24 ore dopo l\'ultimo giorno del periodo di abbonamento in corso. Dopo la disdetta, l\'account passerà automaticamente all\'abbonamento gratuito. Nota: al momento dell\'acquisto dell\'abbonamento durante il periodo di prova gratuito, i giorni inutilizzati di tale periodo andranno persi.</string>
 	<string name="subscription_terms_android_outdoor">Una volta confermato l\'acquisto, il pagamento verrà addebitato sul tuo account Google Play. L\'abbonamento si rinnova automaticamente, a meno che il rinnovo automatico non venga disattivato almeno 24 ore prima della fine del periodo in corso. L\'importo verrà addebitato sul tuo account secondo il tuo piano di rinnovo massimo 24 ore prima della fine del periodo in corso. Dopo l\'acquisto è possibile gestire o disattivare in qualsiasi momento il rinnovo automatico dell\'abbonamento nelle impostazioni dell\'account. È possibile utilizzare le guide scaricate tramite l\'abbonamento solamente se questo è attivo. Le guide verranno automaticamente eliminate 30 giorni dopo il termine dell\'abbonamento.\n* L\'abbonamento di prova gratuito si rinnova automaticamente passando alla a pagamento. Dopo l\'acquisto è possibile disabilitare o gestire il rinnovo automatico dell\'abbonamento di prova gratuito nelle impostazioni dell\'account. La disdetta avverrà 24 ore dopo l\'ultimo giorno del periodo di abbonamento in corso. Dopo la disdetta, l\'account passerà automaticamente all\'abbonamento gratuito. Nota: al momento dell\'acquisto dell\'abbonamento durante il periodo di prova gratuito, i giorni inutilizzati di tale periodo andranno persi.</string>
+	<string name="subscription_header">Abbonamento al\n<b>Catalogo guide</b></string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">Guide\ndi Lonely Planet®</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4">Altre <b>grandi novità</b> con migliaia di luoghi d\'interesse <b>in tutto il mondo</b></string>
+	<string name="content_by_component">Contenuto di:</string>
+	<string name="whatsnew_lp_title">Altre grandi novità</string>
+	<string name="whatsnew_lp_message">Le guide di Lonely Planet! Luoghi da vedere, percorsi a tema e posti unici in più di 7000 città sparse in tutto il mondo.</string>
+	<string name="collections_title">Collezione</string>
+	<string name="key_information_title">Informazioni importanti</string>
+	<string name="mustsee_title">Da non perdere</string>
+	<string name="see_lp_category">Luoghi di interesse</string>
+	<string name="play_lp_category">Tempo libero</string>
+	<string name="shop_lp_category">Negozi</string>
+	<string name="transport_lp_category">Trasporti</string>
+	<string name="sleep_lp_category">Pernottare</string>
+	<string name="general_lp_category">Popolari</string>
+	<string name="drink_lp_category">Bar</string>
+	<string name="eat_lp_category">Ristoranti</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Funivia</string>

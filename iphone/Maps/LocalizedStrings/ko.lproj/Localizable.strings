@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "나중에";
 
-"all_pass_subscription_header" = "카탈로그 구독";
+"all_pass_subscription_header" = "구독하기";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "가이드 카탈로그";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000개 이상의\n가이드 및 길들";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "<b>가이드 카탈로그</b>\n구독하기";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "여행 가이드\nby Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "<b>전 세계의</b> 흥미로운 수천 곳에 대해 <b>더 많은 경험</b>을 하실 수 있습니다";
+
+"content_by_component" = "제작:";
+
+"whatsnew_lp_title" = "더 많은 감동을 느껴보세요";
+
+"whatsnew_lp_message" = "이제 Lonely Planet 가이드를 Maps.me에서 이용하실 수 있습니다! 7천개가 넘는 도시들의 최고로 매력적인 관광명소, 테마별 걷기와 개성이 넘치는 여행 장소들이 기다리고 있습니다.";
+
+"collections_title" = "콜렉션";
+
+"key_information_title" = "핵심 정보";
+
+"mustsee_title" = "꼭 들려봐야 하는 곳";
+
+"see_lp_category" = "명소";
+
+"play_lp_category" = "놀 곳";
+
+"shop_lp_category" = "쇼핑";
+
+"transport_lp_category" = "교통수단";
+
+"sleep_lp_category" = "숙박";
+
+"general_lp_category" = "일반 장소";
+
+"drink_lp_category" = "술집";
+
+"eat_lp_category" = "음식점";
 
 
 /**********  Partners  **********/

@@ -1718,7 +1718,8 @@
 	<string name="new_onboarding_step5.3_message">Lade herunter und bewerte Routen für Spaziergänge durch die Stadt und aktive Erholung mit der gratis Sammlung von MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Download Gratis</string>
 	<string name="new_onboarding_additional_steps_later_button">Später</string>
-	<string name="all_pass_subscription_header">KATALOGSUBSKRIPTION</string>
+	<string name="all_pass_subscription_header">Abo</string>
+	<string name="all_pass_subscription_subheader">Reiseführer-Katalog</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">30000+\nReisführer\nund Wanderwege</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1844,6 +1845,25 @@
 	<string name="whatsnew_trial_cta">Ausprobieren</string>
 	<string name="subscription_terms_guides_outdoor">Die Bezahlung erfolgt über Ihr iTunes-Konto bei der Kaufbestätigung. Ihr Abo wird automatisch erneuert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf der Probezeit nicht deaktiviert wird. Der Betrag wird von Ihrem Konto gemäß unserem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ende der laufenden Periode abgebucht. Sie können die automatische Verlängerung jederzeit nach dem Kauf in den Kontoeinstellungen Apple ID deaktivieren. Die heruntergeladenen Abo-Reiseführer stehen Ihnen nur für den Abozeitraum zur Verfügung. 30 Tage nach Ablauf des Abozeitraums werden die Reiseführer samt Lesezeichen automatisch gelöscht.\n* Das Gratis-Probeabo wird automatisch kostenpflichtig. Sie können nach dem Kauf die automatische Verlängerung des Probeabos in Ihren Kontoeinstellungen deaktivieren. Die Deaktivierung tritt 24 Stunden nach dem letzten Tag des laufenden Abozeitraums in Kraft und Sie erhalten das Gratis-Abo. Achten Sie bitte darauf, dass jeder ungenutzter Gratis-Probeabozeitraum beim Kauf des kostenpflichtigen Abos für diesen Zeitraum annulliert wird.</string>
 	<string name="subscription_terms_android_outdoor">Die Bezahlung erfolgt über Ihr Google Play-Konto bei der Kaufbestätigung. Ihr Abo wird automatisch erneuert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf der Probezeit nicht deaktiviert wird. Der Betrag wird von Ihrem Konto gemäß unserem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ende der laufenden Periode abgebucht. Sie können die automatische Verlängerung jederzeit nach dem Kauf in den Kontoeinstellungen aktivieren oder deaktivieren. Die heruntergeladenen Abo-Reiseführer stehen Ihnen nur für den Abozeitraum zur Verfügung. 30 Tage nach Ablauf des Abozeitraums werden die Reiseführer automatisch gelöscht.\n* Das Gratis-Probeabo wird automatisch kostenpflichtig. Sie können nach dem Kauf die automatische Verlängerung des Probeabos in Ihren Kontoeinstellungen deaktivieren. Die Deaktivierung tritt 24 Stunden nach dem letzten Tag des laufenden Abozeitraums in Kraft und Sie erhalten das Gratis-Abo. Achten Sie bitte darauf, dass jeder ungenutzter Gratis-Probeabozeitraum beim Kauf des kostenpflichtigen Abos für diesen Zeitraum annulliert wird.</string>
+	<string name="subscription_header"><b>Reiseführerkatalog</b>-\nAbo</string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">Reiseführer\nvon Lonely Planet®</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4">Noch <b>mehr Eindrücke</b> mit tausenden interessanten Orten <b>weltweit</b></string>
+	<string name="content_by_component">Content von:</string>
+	<string name="whatsnew_lp_title">Noch mehr Eindrücke</string>
+	<string name="whatsnew_lp_message">Wir präsentieren Ihnen die Reiseführer Lonely Planet! Sehenswürdigkeiten, Themenrouten und einzigartige Orte in 7000+ Städten.</string>
+	<string name="collections_title">Sammlungen</string>
+	<string name="key_information_title">Wichtige Informationen</string>
+	<string name="mustsee_title">Sehenswert</string>
+	<string name="see_lp_category">Sehenswürdigkeiten</string>
+	<string name="play_lp_category">Unterhaltungen</string>
+	<string name="shop_lp_category">Shopping</string>
+	<string name="transport_lp_category">Transport</string>
+	<string name="sleep_lp_category">Übernachtung</string>
+	<string name="general_lp_category">Haupt</string>
+	<string name="drink_lp_category">Bars</string>
+	<string name="eat_lp_category">Restaurants</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

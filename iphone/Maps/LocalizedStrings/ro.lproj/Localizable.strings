@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Nu acum";
 
-"all_pass_subscription_header" = "ABONAREA LA CATALOG";
+"all_pass_subscription_header" = "Abonați-vă la";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Catalogul ghidurilor";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nghiduri\nși rute";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Abonați-vă la\n<b>Catalogul ghidurilor</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Ghiduri de călătorie\nde la Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Chiar <b>mai multe experiențe</b> cu mii de locuri interesante de vizitat <b>de peste tot din lume</b>";
+
+"content_by_component" = "Conținut oferit de:";
+
+"whatsnew_lp_title" = "Chiar și mai multe emoții";
+
+"whatsnew_lp_message" = "Ghidurile Lonely Planet sunt acum disponibile în aplicația noastră! Cele mai interesante atracții, plimbări tematice și destinații turistice unice pentru peste 7000 de orașe.";
+
+"collections_title" = "Colecții";
+
+"key_information_title" = "Informații cheie";
+
+"mustsee_title" = "Nu ratați";
+
+"see_lp_category" = "De vizitat";
+
+"play_lp_category" = "Joacă";
+
+"shop_lp_category" = "Cumpărături";
+
+"transport_lp_category" = "Transport";
+
+"sleep_lp_category" = "Cazare";
+
+"general_lp_category" = "General";
+
+"drink_lp_category" = "Localuri";
+
+"eat_lp_category" = "Restaurante";
 
 
 /**********  Partners  **********/

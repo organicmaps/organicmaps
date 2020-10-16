@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Sonra";
 
-"all_pass_subscription_header" = "KATALOĞA ABONELİK";
+"all_pass_subscription_header" = "Üye olun";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Rehber kataloğu";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nrehberler\nve yollar";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "<b>Rehber kataloğuna</b>\nüye olun";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Lonely Planet®\nseyahat rehberleri";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "<b>Dünyanın dört bir yanındaki</b> binlerce ilginç yer sayesinde <b>daha da fazla deneyim</b>";
+
+"content_by_component" = "Yayınlayan:";
+
+"whatsnew_lp_title" = "Daha da fazla duygu";
+
+"whatsnew_lp_message" = "Lonely Planet rehberlerine uygulamamızdan erişebilirsiniz! 7000'den fazla şehirde eşsiz seyahat noktaları, cazibe yerleri ve tematik yürüyüşler.";
+
+"collections_title" = "Koleksiyonlar";
+
+"key_information_title" = "Anahtar bilgisi";
+
+"mustsee_title" = "Görmeden geçme";
+
+"see_lp_category" = "Görülecek Yerler";
+
+"play_lp_category" = "Eğlence";
+
+"shop_lp_category" = "Alışveriş";
+
+"transport_lp_category" = "Ulaşım";
+
+"sleep_lp_category" = "Dinlenme";
+
+"general_lp_category" = "Genel";
+
+"drink_lp_category" = "İçecek";
+
+"eat_lp_category" = "Yiyecek";
 
 
 /**********  Partners  **********/

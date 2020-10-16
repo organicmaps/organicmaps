@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Niet nu";
 
-"all_pass_subscription_header" = "INSCHRIJVING OP DE CATALOGUS";
+"all_pass_subscription_header" = "Abonneer u op";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Reisgidscatalogus";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\ngidsen\nen paden";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Abonneer u op\n<b>Gidsencatalogus</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Reisgidsen\nvan Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Nog <b>meer impressies</b> met duizenden interessante plaatsen <b>over de hele wereld</b>";
+
+"content_by_component" = "Inhoud van:";
+
+"whatsnew_lp_title" = "Nog meer emoties";
+
+"whatsnew_lp_message" = "Gidsen van Lonely Planet staan nu in onze app! De beste attracties, themawandelingen en unieke reisbestemmingen voor meer dan 7000 steden.";
+
+"collections_title" = "Verzameling";
+
+"key_information_title" = "Belangrijke informatie";
+
+"mustsee_title" = "Must-see";
+
+"see_lp_category" = "Bezienswaardigheden";
+
+"play_lp_category" = "Ontspanning";
+
+"shop_lp_category" = "Winkelen";
+
+"transport_lp_category" = "Transport";
+
+"sleep_lp_category" = "Overnachtingen";
+
+"general_lp_category" = "Algemeen";
+
+"drink_lp_category" = "Drinken";
+
+"eat_lp_category" = "Eten";
 
 
 /**********  Partners  **********/

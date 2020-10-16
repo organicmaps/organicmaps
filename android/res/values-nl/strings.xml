@@ -1711,7 +1711,8 @@
 	<string name="new_onboarding_step5.3_message">Bekijk gratis voorbeelden van kant-en-klare stads- en buitenroutes met een gratis selectie van MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Gratis downloaden</string>
 	<string name="new_onboarding_additional_steps_later_button">Niet nu</string>
-	<string name="all_pass_subscription_header">INSCHRIJVING OP DE CATALOGUS</string>
+	<string name="all_pass_subscription_header">Abonneer u op</string>
+	<string name="all_pass_subscription_subheader">Reisgidscatalogus</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">30000+\ngidsen\nen paden</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1832,6 +1833,25 @@
 	<string name="whatsnew_trial_cta">Probeer het nu</string>
 	<string name="subscription_terms_guides_outdoor">Wanneer u de aankoop bevestigt, wordt de betaling in rekening gebracht op uw iTunes-account. Het abonnement wordt automatisch verlengd, tenzij de functie voor automatisch verlengen ten minste 24 uur voor het einde van de huidige abonnementsperiode is uitgeschakeld. Uw account wordt binnen 24 uur voordat de huidige abonnementsperiode eindigt, volgens uw verlengingsplan in rekening gebracht. U kunt automatische verlenging op elk gewenst moment na aankoop beheren of uitschakelen in uw Apple ID-accountinstellingen. U kunt alleen reisgidsen gebruiken die tijdens uw abonnement zijn gedownload totdat het abonnement verloopt. Reisgidsen en alle bladwijzers worden automatisch 30 dagen na het verlopen van het abonnement verwijderd.\n* Het abonnement met een gratis proefperiode wordt automatisch verlengd tot een betaald abonnement. U kunt de automatische verlenging van uw gratis proefperiode na aankoop annuleren of beheren in uw accountinstellingen. De opzegging wordt van kracht 24 uur na de laatste dag van de huidige abonnementsperiode. Daarna wordt u gedowngraded naar de gratis service. Let op: elk ongebruikt deel van de gratis proefperiode vervalt wanneer u tijdens de gratis proefperiode een premium abonnement koopt.</string>
 	<string name="subscription_terms_android_outdoor">Wanneer u de aankoop bevestigt, wordt de betaling in rekening gebracht op uw Google Play-account. Het abonnement wordt automatisch verlengd, tenzij de functie voor automatisch verlengen ten minste 24 uur voor het einde van de huidige abonnementsperiode is uitgeschakeld. Uw account wordt binnen 24 uur voordat de huidige abonnementsperiode eindigt, volgens uw verlengingsplan in rekening gebracht. U kunt automatische verlenging op elk gewenst moment na aankoop beheren of uitschakelen in accountinstellingen. U kunt alleen reisgidsen gebruiken die tijdens uw abonnement zijn gedownload totdat het abonnement verloopt. Reisgidsen worden automatisch verwijderd 30 dagen nadat het abonnement is verlopen.\n* Het abonnement met een gratis proefperiode wordt automatisch verlengd tot een betaald abonnement. U kunt de automatische verlenging van uw gratis proefperiode na aankoop annuleren of beheren in uw accountinstellingen. De opzegging wordt van kracht 24 uur na de laatste dag van de huidige abonnementsperiode. Daarna wordt u gedowngraded naar de gratis service. Let op: elk ongebruikt deel van de gratis proefperiode vervalt wanneer u tijdens de gratis proefperiode een premium abonnement koopt.</string>
+	<string name="subscription_header">Abonneer u op\n<b>Gidsencatalogus</b></string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">Reisgidsen\nvan Lonely Planet®</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4">Nog <b>meer impressies</b> met duizenden interessante plaatsen <b>over de hele wereld</b></string>
+	<string name="content_by_component">Inhoud van:</string>
+	<string name="whatsnew_lp_title">Nog meer emoties</string>
+	<string name="whatsnew_lp_message">Gidsen van Lonely Planet staan nu in onze app! De beste attracties, themawandelingen en unieke reisbestemmingen voor meer dan 7000 steden.</string>
+	<string name="collections_title">Verzameling</string>
+	<string name="key_information_title">Belangrijke informatie</string>
+	<string name="mustsee_title">Must-see</string>
+	<string name="see_lp_category">Bezienswaardigheden</string>
+	<string name="play_lp_category">Ontspanning</string>
+	<string name="shop_lp_category">Winkelen</string>
+	<string name="transport_lp_category">Transport</string>
+	<string name="sleep_lp_category">Overnachtingen</string>
+	<string name="general_lp_category">Algemeen</string>
+	<string name="drink_lp_category">Drinken</string>
+	<string name="eat_lp_category">Eten</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

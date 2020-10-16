@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Nanti";
 
-"all_pass_subscription_header" = "BERLANGGANAN KATALOG";
+"all_pass_subscription_header" = "Berlangganan ke";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Katalog panduan";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\npanduan & jalur";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Berlangganan ke\n<b>Katalog panduan</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Panduan perjalanan\noleh Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "<b>Lebih banyak pengalaman</b> dengan ribuan tempat menarik <b>di seluruh dunia</b>";
+
+"content_by_component" = "Konten oleh:";
+
+"whatsnew_lp_title" = "Lebih banyak emosi";
+
+"whatsnew_lp_message" = "Panduan Lonely Planet sekarang ada di aplikasi kami! Atraksi terbaik, jalan-jalan tematik, dan tempat wisata unik untuk 7000+ kota.";
+
+"collections_title" = "Koleksi";
+
+"key_information_title" = "Informasi kunci";
+
+"mustsee_title" = "Harus dilihat";
+
+"see_lp_category" = "Tontonan";
+
+"play_lp_category" = "Hiburan";
+
+"shop_lp_category" = "Perbelanjaan";
+
+"transport_lp_category" = "Transportasi";
+
+"sleep_lp_category" = "Penginapan";
+
+"general_lp_category" = "Umum";
+
+"drink_lp_category" = "Minuman";
+
+"eat_lp_category" = "Makanan";
 
 
 /**********  Partners  **********/

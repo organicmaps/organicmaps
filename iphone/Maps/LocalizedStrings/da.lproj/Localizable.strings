@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Senere";
 
-"all_pass_subscription_header" = "ABONNEMENT TIL KATALOG";
+"all_pass_subscription_header" = "Abonner på";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Katalog over Guides";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nguide & stier";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Abonner på\n<b>Guidekatalog</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Rejseguider\naf Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Endnu <b>flere oplevelser</b> med tusindvis af interessante steder <b>i hele verden</b>";
+
+"content_by_component" = "Indhold af:";
+
+"whatsnew_lp_title" = "Endnu flere følelser";
+
+"whatsnew_lp_message" = "Lonely Planet guides kan nu findes i vores app! De bedse attraktioner, tematiske gåture og unikke destinationer for 7000+ byer.";
+
+"collections_title" = "Samlinger";
+
+"key_information_title" = "Central information";
+
+"mustsee_title" = "Skal se";
+
+"see_lp_category" = "Attraktioner";
+
+"play_lp_category" = "Underholdning";
+
+"shop_lp_category" = "Forretninger";
+
+"transport_lp_category" = "Transport";
+
+"sleep_lp_category" = "Overnatning";
+
+"general_lp_category" = "Generelt";
+
+"drink_lp_category" = "Drikke";
+
+"eat_lp_category" = "Mad";
 
 
 /**********  Partners  **********/

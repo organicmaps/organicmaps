@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Не сейчас";
 
-"all_pass_subscription_header" = "ПОДПИСКА НА КАТАЛОГ";
+"all_pass_subscription_header" = "Подписка на";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Каталог путеводителей";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nпутеводителей\nи троп";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Ситимобил";
+
+"subscription_header" = "Подписка на\n<b>Каталог путеводителей</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Путеводители\nот Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Еще <b>больше впечатлений</b> c тысячами интересных мест по <b>всему миру</b>";
+
+"content_by_component" = "Контент от:";
+
+"whatsnew_lp_title" = "Еще больше впечатлений";
+
+"whatsnew_lp_message" = "Встречайте путеводители Lonely Planet! Достопримечательности, тематические маршруты и уникальные места в 7000+ городах.";
+
+"collections_title" = "Подборки";
+
+"key_information_title" = "Ключевая информация";
+
+"mustsee_title" = "Надо увидеть";
+
+"see_lp_category" = "Достопримечательности";
+
+"play_lp_category" = "Развлечения";
+
+"shop_lp_category" = "Покупки";
+
+"transport_lp_category" = "Транспорт";
+
+"sleep_lp_category" = "Ночлег";
+
+"general_lp_category" = "Основные";
+
+"drink_lp_category" = "Бары";
+
+"eat_lp_category" = "Рестораны";
 
 
 /**********  Partners  **********/

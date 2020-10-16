@@ -1715,7 +1715,8 @@
 	<string name="new_onboarding_step5.3_message">تحقق من عينات مجانية لمسارات جاهزة للمدن والمناطق الخارجية مع مجموعة مختارة مجانية من MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">تحميل مجاني</string>
 	<string name="new_onboarding_additional_steps_later_button">لاحقًا</string>
-	<string name="all_pass_subscription_header">اشتراك في الدلائل</string>
+	<string name="all_pass_subscription_header">اشترك في</string>
+	<string name="all_pass_subscription_subheader">قائمة الدلائل</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">30000+\nأدلة ومسارات</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1841,6 +1842,25 @@
 	<string name="whatsnew_trial_cta">جربه الآن</string>
 	<string name="subscription_terms_guides_outdoor">عندما تأكيد عملية الشراء، سيتم خصم المبلغ من حساب iTunes الخاص بك. سيتم تجديد الاشتراك تلقائيًا ما لم تقم بإلغاء خاصية التجديد التلقائي قبل 24 ساعة على الأقل من نهاية فترة الاشتراك الحالية. سيتم تحصيل مبلغ الاشتراك من حسابك وفقًا لخطة التجديد خلال 24 ساعة قبل انتهاء فترة الاشتراك الحالية. يمكنك إدارة أو إلغاء التجديد التلقائي من إعدادات حساب Apple ID الخاص بك في أي وقت بعد الشراء. يمكنك استخدام الأدلة التي تم تحميلها أثناء اشتراكك فقط حتى انتهاء فترة صلاحية الاشتراك. سيتم حذف الأدلة وجميع الإشارات المرجعية تلقائيًا بعد 30 يومًا من انتهاء فترة صلاحية الاشتراك.\n* سيتم تجديد الاشتراك للفترة التجريبية المجانية تلقائيًا إلى اشتراك مدفوع. يمكنك إلغاء أو إدارة التجديد التلقائي للفترة التجريبية المجانية من إعدادات حسابك بعد الشراء. سيتم الإلغاء بعد 24 ساعة من اليوم الأخير من فترة الاشتراك الحالية. بعد ذلك، سيتم إرجاعك إلى الخدمة المجانية. يرجى الملاحظة: سيتم فقدان أي خاصية غير مستخدمة من الإصدار التجريبي المجاني عند شراء اشتراك مدفوع أثناء الفترة التجريبية المجانية.</string>
 	<string name="subscription_terms_android_outdoor">عندما تأكيد عملية الشراء، سيتم خصم المبلغ من حساب Google Play الخاص بك سيتم تجديد الاشتراك تلقائيًا ما لم تقم بإلغاء خاصية التجديد التلقائي قبل 24 ساعة على الأقل من نهاية فترة الاشتراك الحالية. سيتم تحصيل مبلغ الاشتراك من حسابك وفقًا لخطة التجديد خلال 24 ساعة قبل انتهاء فترة الاشتراك الحالية. يمنكن إدارة أو إلغاء التجديد التلقائي من إعدادات الحساب في أي وقت بعد الشراء. يمكنك استخدام الأدلة التي تم تحميلها أثناء اشتراكك فقط حتى انتهاء فترة صلاحية الاشتراك. سيتم حذف الأدلة تلقائيًا بعد 30 يومًا من انتهاء فترة صلاحية الاشتراك.\n* سيتم تجديد الاشتراك للفترة التجريبية المجانية تلقائيًا إلى اشتراك مدفوع. يمكنك إلغاء أو إدارة التجديد التلقائي للفترة التجريبية المجانية من إعدادات حسابك بعد الشراء. سيتم الإلغاء بعد 24 ساعة من اليوم الأخير من فترة الاشتراك الحالية. بعد ذلك، سيتم إرجاعك إلى الخدمة المجانية. يرجى الملاحظة: سيتم فقدان أي خاصية غير مستخدمة من الإصدار التجريبي المجاني عند شراء اشتراك مدفوع أثناء الفترة التجريبية المجانية.</string>
+	<string name="subscription_header">اشترك في\n<b>قائمة الأدلة</b></string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">أدلة سفر\nمن Lonely Planet®</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4"><b>تجارب أكثر</b> مع الكثير من الأماكن الممتعة <b>حول العالم</b></string>
+	<string name="content_by_component">المحتوى من قبل:</string>
+	<string name="whatsnew_lp_title">عواطف أكثر</string>
+	<string name="whatsnew_lp_message">أدلة Lonely Planet متوفرة الآن على تطبيقنا! أفضل مناطق الجذب ومناطق التمشية وأماكن السفر الفريدة لأكثر من 7000 مدينة.</string>
+	<string name="collections_title">مجموعات</string>
+	<string name="key_information_title">معلومات رئيسية</string>
+	<string name="mustsee_title">يجب رؤيته</string>
+	<string name="see_lp_category">شاهد</string>
+	<string name="play_lp_category">العب</string>
+	<string name="shop_lp_category">تسوق</string>
+	<string name="transport_lp_category">اذهب</string>
+	<string name="sleep_lp_category">الإقامة</string>
+	<string name="general_lp_category">اماكن شهيرة</string>
+	<string name="drink_lp_category">الشرب</string>
+	<string name="eat_lp_category">الأكل</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

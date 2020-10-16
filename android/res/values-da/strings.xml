@@ -1714,7 +1714,8 @@
 	<string name="new_onboarding_step5.3_message">Check de gratis prøver på færdige by- og udendørsruter med et gratis udvalg af MAPS.ME!</string>
 	<string name="new_onboarding_step5.3_button">Gratis download</string>
 	<string name="new_onboarding_additional_steps_later_button">Senere</string>
-	<string name="all_pass_subscription_header">ABONNEMENT TIL KATALOG</string>
+	<string name="all_pass_subscription_header">Abonner på</string>
+	<string name="all_pass_subscription_subheader">Katalog over Guides</string>
 	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
 	<string name="all_pass_subscription_message_title">30000+\nguide &amp; stier</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
@@ -1840,6 +1841,25 @@
 	<string name="whatsnew_trial_cta">Prøv det nu</string>
 	<string name="subscription_terms_guides_outdoor">Når du bekræfter købet, vil betalingen blive debiteret på din iTunes-konto. Abonnementet vil automatisk blive fornyet, med mindre automatisk fornyelse slås fra mindst 24 timer før slutningen af den nuværende abonnementsperiode. Din konto vil blive debiteret ifølge din fornyelsesplan inden for 24 timer før den nuværende abonnementsperiode slutter. Du kan administrere eller slå automatisk fornyelse fra i dine Apple ID-kontoindstillinger når som helst efter købet. Du kan kun bruge de downloadede guider i løbet af dit abonnement, indtil abonnementet udløber. Guider og bogmærker vil automatisk blive slettet 30 dage efter abonnementet udløber.\n* Abonnementet med gratis prøveperiode vil automatisk blive fornyet til et betalt abonnement. Du kan annullere eller administrere automatisk fornyelse af din gratis prøveperiode i dine kontoindstillinger efter købet. Annulleringen træder i kraft 24 timer efter den sidste dag af den nuværende abonnementsperiode. Derefter vil du blive nedgraderet til den gratis tjeneste. Bemærk venligst: Enhver ubrugt del af den gratis prøveperiode går tabt, når du køber et premium-abonnement i løbet af den gratis prøveperiode.</string>
 	<string name="subscription_terms_android_outdoor">Når du bekræfter købet, vil betalingen blive debiteret på din Google Play-konto. Abonnementet vil automatisk blive fornyet, med mindre automatisk fornyelse slås fra mindst 24 timer før slutningen af den nuværende abonnementsperiode. Din konto vil blive debiteret ifølge din fornyelsesplan inden for 24 timer før den nuværende abonnementsperiode slutter. Du kan administrere eller slå automatisk fornyelse fra i dine kontoindstillinger når som helst efter købet. Du kan kun bruge de downloadede guider i løbet af dit abonnement, indtil abonnementet udløber. Guider vil automatisk blive slettet 30 dage efter abonnementet udløber.\n* Abonnementet med gratis prøveperiode vil automatisk blive fornyet til et betalt abonnement. Du kan annullere eller administrere automatisk fornyelse af din gratis prøveperiode i dine kontoindstillinger efter købet. Annulleringen træder i kraft 24 timer efter den sidste dag af den nuværende abonnementsperiode. Derefter vil du blive nedgraderet til den gratis tjeneste. Bemærk venligst: Enhver ubrugt del af den gratis prøveperiode går tabt, når du køber et premium-abonnement i løbet af den gratis prøveperiode.</string>
+	<string name="subscription_header">Abonner på\n<b>Guidekatalog</b></string>
+	<!-- Max. 20 characters per 1 line. -->
+	<string name="all_pass_subscription_message_title_4">Rejseguider\naf Lonely Planet®</string>
+	<!-- <b> & </b> tag to make a part of the line bold -->
+	<string name="all_pass_subscription_message_subtitle_4">Endnu <b>flere oplevelser</b> med tusindvis af interessante steder <b>i hele verden</b></string>
+	<string name="content_by_component">Indhold af:</string>
+	<string name="whatsnew_lp_title">Endnu flere følelser</string>
+	<string name="whatsnew_lp_message">Lonely Planet guides kan nu findes i vores app! De bedse attraktioner, tematiske gåture og unikke destinationer for 7000+ byer.</string>
+	<string name="collections_title">Samlinger</string>
+	<string name="key_information_title">Central information</string>
+	<string name="mustsee_title">Skal se</string>
+	<string name="see_lp_category">Attraktioner</string>
+	<string name="play_lp_category">Underholdning</string>
+	<string name="shop_lp_category">Forretninger</string>
+	<string name="transport_lp_category">Transport</string>
+	<string name="sleep_lp_category">Overnatning</string>
+	<string name="general_lp_category">Generelt</string>
+	<string name="drink_lp_category">Drikke</string>
+	<string name="eat_lp_category">Mad</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

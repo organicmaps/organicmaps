@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Later";
 
-"all_pass_subscription_header" = "SUBSCRIPTION TO CATALOG";
+"all_pass_subscription_header" = "Subscribe to";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Guides catalog";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nguides & trails";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Subscribe to\n<b>Guides catalog</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Travel guides\nby Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Even <b>more experiences</b> with thousands of interesting places <b>around the world</b>";
+
+"content_by_component" = "Content by:";
+
+"whatsnew_lp_title" = "Even more emotions";
+
+"whatsnew_lp_message" = "Lonely Planet guides are now in our app! The best attractions, thematic walks and unique travel spots for 7000+ cities.";
+
+"collections_title" = "Collections";
+
+"key_information_title" = "Key information";
+
+"mustsee_title" = "Must see";
+
+"see_lp_category" = "See";
+
+"play_lp_category" = "Play";
+
+"shop_lp_category" = "Shop";
+
+"transport_lp_category" = "Transport";
+
+"sleep_lp_category" = "Sleep";
+
+"general_lp_category" = "General";
+
+"drink_lp_category" = "Drink";
+
+"eat_lp_category" = "Eat";
 
 
 /**********  Partners  **********/

@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Không phải bây giờ";
 
-"all_pass_subscription_header" = "ĐĂNG KÝ DANH SÁCH";
+"all_pass_subscription_header" = "Đăng ký";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Danh mục sách hướng dẫn";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+\nhướng dẫn\nvà đường mòn";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Đăng ký\n<b>Danh mục hướng dẫn</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Hướng dẫn du lịch\nbởi Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Thậm chí <b>thêm nhiều trải nghiệm</b> với hàng nghìn những địa điểm thú vị <b>vòng quanh thế giới</b>";
+
+"content_by_component" = "Nội dung bởi:";
+
+"whatsnew_lp_title" = "Còn ấn tượng hơn nữa";
+
+"whatsnew_lp_message" = "Hãy chào đón cẩm nang du lịch Lonely Planet! Các điểm tham quan, tuyến hành trình theo chủ đề và các địa điểm độc đáo tại 7000 + thành phố.";
+
+"collections_title" = "Tuyển chọn";
+
+"key_information_title" = "Thông tin chìa khóa";
+
+"mustsee_title" = "Phải xem";
+
+"see_lp_category" = "Xem";
+
+"play_lp_category" = "Chơi";
+
+"shop_lp_category" = "Mua sắm";
+
+"transport_lp_category" = "Di chuyển";
+
+"sleep_lp_category" = "Ngủ";
+
+"general_lp_category" = "Phổ biến";
+
+"drink_lp_category" = "Uống";
+
+"eat_lp_category" = "Ăn";
 
 
 /**********  Partners  **********/

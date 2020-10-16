@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "後で";
 
-"all_pass_subscription_header" = "カタログにサブスクライブ";
+"all_pass_subscription_header" = "にサブスクライブ";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "ガイドのカタログ";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "30000+の\nガイド&トレイル";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "<b>ガイドのカタログ</b>\nにサブスクライブ";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "トラベルガイド：\nLonely Planet®提供";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "<b>世界中</b>の数千か所に及ぶ興味深い場所で<b>更なる体験</b> を";
+
+"content_by_component" = "コンテンツ提供：";
+
+"whatsnew_lp_title" = "更なる感情を";
+
+"whatsnew_lp_message" = "Lonely Planetのガイドがアプリ内から利用できるようになりました！7000を超える都市の最高のアトラクションや、セマティックウォーク、そしてユニークな旅行スポットがご利用いただけます。";
+
+"collections_title" = "コレクション";
+
+"key_information_title" = "重要情報";
+
+"mustsee_title" = "必見";
+
+"see_lp_category" = "観光";
+
+"play_lp_category" = "娯楽";
+
+"shop_lp_category" = "ショップ";
+
+"transport_lp_category" = "移動";
+
+"sleep_lp_category" = "宿泊";
+
+"general_lp_category" = "一般";
+
+"drink_lp_category" = "お酒";
+
+"eat_lp_category" = "食事";
 
 
 /**********  Partners  **********/

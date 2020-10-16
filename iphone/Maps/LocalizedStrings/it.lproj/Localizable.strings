@@ -3115,10 +3115,9 @@
 
 "new_onboarding_additional_steps_later_button" = "Non ora";
 
-"all_pass_subscription_header" = "ISCRIVITI AL CATALOGO";
+"all_pass_subscription_header" = "Abbonamento al";
 
-/* do not translate */
-"all_pass_subscription_subheader" = "City + Outdoor Pass";
+"all_pass_subscription_subheader" = "Catalogo guide";
 
 /* \n - for a break between lines. Max. 15 characters per 1 line. */
 "all_pass_subscription_message_title" = "Più di 30000\nguide\ne sentieri";
@@ -3375,6 +3374,42 @@
 "yango_taxi_title" = "Yango";
 
 "citymobil_taxi_title" = "Citymobil";
+
+"subscription_header" = "Abbonamento al\n<b>Catalogo guide</b>";
+
+/* Max. 20 characters per 1 line. */
+"all_pass_subscription_message_title_4" = "Guide\ndi Lonely Planet®";
+
+/* <b> & </b> tag to make a part of the line bold */
+"all_pass_subscription_message_subtitle_4" = "Altre <b>grandi novità</b> con migliaia di luoghi d'interesse <b>in tutto il mondo</b>";
+
+"content_by_component" = "Contenuto di:";
+
+"whatsnew_lp_title" = "Altre grandi novità";
+
+"whatsnew_lp_message" = "Le guide di Lonely Planet! Luoghi da vedere, percorsi a tema e posti unici in più di 7000 città sparse in tutto il mondo.";
+
+"collections_title" = "Collezione";
+
+"key_information_title" = "Informazioni importanti";
+
+"mustsee_title" = "Da non perdere";
+
+"see_lp_category" = "Luoghi di interesse";
+
+"play_lp_category" = "Tempo libero";
+
+"shop_lp_category" = "Negozi";
+
+"transport_lp_category" = "Trasporti";
+
+"sleep_lp_category" = "Pernottare";
+
+"general_lp_category" = "Popolari";
+
+"drink_lp_category" = "Bar";
+
+"eat_lp_category" = "Ristoranti";
 
 
 /**********  Partners  **********/
