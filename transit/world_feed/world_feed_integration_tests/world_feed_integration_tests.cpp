@@ -119,16 +119,16 @@ public:
 
     // First and last stops are connected through 1 edge with 1 nearest stop.
     // Stops in the middle are connected through 2 edges with 2 nearest stops.
-    TEST_EQUAL(stopsInRegions["Switzerland_Ticino"].size(), 2, ());
+    TEST_EQUAL(stopsInRegions["Switzerland_Ticino"].size(), 3, ());
     TEST_EQUAL(edgesInRegions["Switzerland_Ticino"].size(), 1, ());
 
-    TEST_EQUAL(stopsInRegions["Switzerland_Eastern"].size(), 3, ());
+    TEST_EQUAL(stopsInRegions["Switzerland_Eastern"].size(), 4, ());
     TEST_EQUAL(edgesInRegions["Switzerland_Eastern"].size(), 2, ());
 
-    TEST_EQUAL(stopsInRegions["Italy_Lombardy_Como"].size(), 3, ());
+    TEST_EQUAL(stopsInRegions["Italy_Lombardy_Como"].size(), 4, ());
     TEST_EQUAL(edgesInRegions["Italy_Lombardy_Como"].size(), 2, ());
 
-    TEST_EQUAL(stopsInRegions["Italy_Lombardy_Monza and Brianza"].size(), 2, ());
+    TEST_EQUAL(stopsInRegions["Italy_Lombardy_Monza and Brianza"].size(), 3, ());
     TEST_EQUAL(edgesInRegions["Italy_Lombardy_Monza and Brianza"].size(), 1, ());
   }
 

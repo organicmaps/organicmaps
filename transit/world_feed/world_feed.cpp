@@ -762,8 +762,7 @@ void WorldFeed::ModifyLinesAndShapes()
     }
 
     auto const & pointsNeedle = m_shapes.m_data[shapeIdNeedle].m_points;
-    auto pointsNeedleRev = pointsNeedle;
-    std::reverse(pointsNeedleRev.begin(), pointsNeedleRev.end());
+    auto const pointsNeedleRev = GetReversed(pointsNeedle);
 
     for (size_t j = 0; j < i; ++j)
     {
@@ -1735,7 +1734,8 @@ bool WorldFeed::PrepareEdgesInRegion(std::string const & region)
     CHECK(!shapePoints.empty(), ("Shape is empty."));
 
     auto const it = m_edgesOnShapes.find(edgeId);
-    CHECK(it != m_edgesOnShapes.end(), (edgeId.m_lineId));
+    if (it == m_edgesOnShapes.end())
+      continue;
 
     for (auto const & polyline : it->second)
     {
@@ -1749,10 +1749,8 @@ bool WorldFeed::PrepareEdgesInRegion(std::string const & region)
     {
       for (auto const & polyline : it->second)
       {
-        auto r = polyline;
-        std::reverse(r.begin(), r.end());
         std::tie(edgeData.m_shapeLink.m_startIndex, edgeData.m_shapeLink.m_endIndex) =
-            FindSegmentOnShape(shapePoints, r);
+            FindSegmentOnShape(shapePoints, GetReversed(polyline));
         if (!(edgeData.m_shapeLink.m_startIndex == 0 && edgeData.m_shapeLink.m_endIndex == 0))
           break;
       }

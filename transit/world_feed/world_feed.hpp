@@ -379,7 +379,7 @@ private:
   Transfers m_transfers;
   Gates m_gates;
 
-  // Mapping of the edge to its ending points on the shape polyline.
+  // Mapping of the edge to its points on the shape polyline.
   std::unordered_map<EdgeId, std::vector<std::vector<m2::PointD>>, EdgeIdHasher> m_edgesOnShapes;
 
   // Ids of entities for json'izing, split by regions.
