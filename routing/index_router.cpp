@@ -1610,7 +1610,7 @@ void IndexRouter::FillSpeedCamProhibitedMwms(vector<Segment> const & segments,
   }
 }
 
-void IndexRouter::SetupAlgorithmMode(IndexGraphStarter & starter, bool guidesActive)
+void IndexRouter::SetupAlgorithmMode(IndexGraphStarter & starter, bool guidesActive) const
 {
   // We use NoLeaps for pedestrians and bicycles with route points near to the Guides tracks
   // because it is much easier to implement. Otherwise for pedestrians and bicycles we use Joints.

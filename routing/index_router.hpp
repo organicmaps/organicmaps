@@ -216,7 +216,7 @@ private:
         mwmIds, ConvertResult<Vertex, Edge, Weight>(algorithm.FindPathBidirectional(params, routingResult)));
   }
 
-  void SetupAlgorithmMode(IndexGraphStarter & starter, bool guidesActive = false);
+  void SetupAlgorithmMode(IndexGraphStarter & starter, bool guidesActive = false) const;
   uint32_t ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints,
                                       WorldGraph & graph);
 
