@@ -51,6 +51,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryAuthorName:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryAuthorId:(MWMMarkGroupID)groupId;
+- (MWMBookmarkGroupType)getCategoryGroupType:(MWMMarkGroupID)groupId;
 - (nullable NSURL *)getCategoryImageUrl:(MWMMarkGroupID)groupId;
 - (BOOL)hasExtraInfo:(MWMMarkGroupID)groupId;
 

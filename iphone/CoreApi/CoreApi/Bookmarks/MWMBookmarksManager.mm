@@ -397,6 +397,21 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   return @(self.bm.GetCategoryData(groupId).m_authorId.c_str());
 }
 
+- (MWMBookmarkGroupType)getCategoryGroupType:(MWMMarkGroupID)groupId {
+  if (self.bm.IsCompilation(groupId) == false) {
+    return MWMBookmarkGroupTypeRoot;
+  }
+  switch (self.bm.GetCompilationType(groupId)) {
+    case kml::CompilationType::Category:
+      return MWMBookmarkGroupTypeCategory;
+    case kml::CompilationType::Collection:
+      return MWMBookmarkGroupTypeCollection;
+    case kml::CompilationType::Day:
+      return MWMBookmarkGroupTypeDay;
+  }
+  return MWMBookmarkGroupTypeRoot;
+}
+
 - (nullable NSURL *)getCategoryImageUrl:(MWMMarkGroupID)groupId {
   NSString *urlString = @(self.bm.GetCategoryData(groupId).m_imageUrl.c_str());
   return [NSURL URLWithString:urlString];

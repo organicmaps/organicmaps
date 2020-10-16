@@ -96,4 +96,8 @@
   return [self.manager categoriesForGroup:self.categoryId];
 }
 
+- (MWMBookmarkGroupType)type {
+  return [self.manager getCategoryGroupType:self.categoryId];
+}
+
 @end

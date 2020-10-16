@@ -47,4 +47,11 @@ typedef NS_ENUM(NSUInteger, MWMBookmarkGroupAuthorType) {
   MWMBookmarkGroupAuthorTypeTraveler
 } NS_SWIFT_NAME(BookmarkGroupAuthorType);
 
+typedef NS_ENUM(NSInteger, MWMBookmarkGroupType) {
+  MWMBookmarkGroupTypeRoot,
+  MWMBookmarkGroupTypeCategory,
+  MWMBookmarkGroupTypeCollection,
+  MWMBookmarkGroupTypeDay
+} NS_SWIFT_NAME(BookmarkGroupType);
+
 NS_ASSUME_NONNULL_END

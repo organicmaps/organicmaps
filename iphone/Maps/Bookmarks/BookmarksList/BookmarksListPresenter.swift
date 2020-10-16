@@ -248,23 +248,22 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
       interactor.viewBookmarkOnMap(bookmark.bookmarkId)
       router.viewOnMap(bookmarkGroup)
       Statistics.logEvent(kStatEventName(kStatBookmarks, kStatShowOnMap))
-      if bookmarkGroup.isGuide {
-        Statistics.logEvent(kStatGuidesBookmarkSelect,
-                            withParameters: [kStatServerId : bookmarkGroup.serverId],
-                            with: .realtime)
-      }
+      logSelectEvent(kStatGuidesBookmarkSelect, type: bookmarkGroup.type)
     case let tracksSection as ITracksSectionViewModel:
       let track = tracksSection.tracks[index] as! TrackViewModel
       interactor.viewTrackOnMap(track.trackId)
       router.viewOnMap(bookmarkGroup)
-      if bookmarkGroup.isGuide {
-        Statistics.logEvent(kStatGuidesTrackSelect,
-                            withParameters: [kStatServerId : bookmarkGroup.serverId],
-                            with: .realtime)
-      }
+      logSelectEvent(kStatGuidesTrackSelect)
     case let subgroupsSection as ISubgroupsSectionViewModel:
       let subgroup = subgroupsSection.subgroups[index] as! SubgroupViewModel
       router.showSubgroup(subgroup.groupId)
+      if subgroup.type == .collection {
+        logSelectEvent(kStatGuidesCollectionSelect, name: subgroup.subgroupName)
+      } else if subgroup.type == .category {
+        logSelectEvent(kStatGuidesCategorySelect, name: subgroup.subgroupName)
+      } else {
+        assertionFailure()
+      }
     default:
       fatalError("Wrong section type: \(section.self)")
     }
@@ -275,6 +274,9 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     case let subgroupsSection as ISubgroupsSectionViewModel:
       let subgroup = subgroupsSection.subgroups[index] as! SubgroupViewModel
       interactor.setGroup(subgroup.groupId, visible: checked)
+      logVisibleEvent(serverId: bookmarkGroup.serverId,
+                      type: subgroup.type,
+                      action: checked ? kStatShow : kStatHide)
       reload()
     default:
       fatalError("Wrong section type: \(section.self)")
@@ -298,6 +300,9 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
         interactor.setGroup(subgroup.groupId, visible: visible)
       }
       reload()
+      logVisibleEvent(serverId: bookmarkGroup.serverId,
+                      type: bookmarkGroup.type,
+                      action: visible ? kStatShowAll : kStatHideAll)
     default:
       fatalError("Wrong section type: \(section.self)")
     }
@@ -305,6 +310,36 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 
   func showDescription() {
     router.showDescription(bookmarkGroup)
+  }
+
+  private func logSelectEvent(_ eventName: String, type: BookmarkGroupType? = nil, name: String? = nil) {
+    var eventArguments: [AnyHashable: Any] = [:]
+    if let type = type {
+      eventArguments[kStatFrom] = type.getStatName()
+    }
+    if let name = name {
+      eventArguments[kStatName] = name
+    }
+    if !bookmarkGroup.serverId.isEmpty {
+      eventArguments[kStatServerId] = bookmarkGroup.serverId
+    }
+
+    Statistics.logEvent(eventName,
+                        withParameters: eventArguments,
+                        with: .realtime)
+  }
+
+  private func logVisibleEvent(serverId: String, type: BookmarkGroupType, action: String) {
+    var eventArguments: [AnyHashable: Any] = [:]
+    if !serverId.isEmpty {
+      eventArguments[kStatServerId] = bookmarkGroup.serverId
+    }
+    eventArguments[kStatType] = type.getStatName()
+    eventArguments[kStatAction] = action
+
+    Statistics.logEvent(kStatGuidesVisibilityChange,
+                        withParameters: eventArguments,
+                        with: .realtime)
   }
 }
 
@@ -398,12 +433,14 @@ fileprivate struct SubgroupViewModel: ISubgroupViewModel {
   let subgroupName: String
   let subtitle: String
   let isVisible: Bool
+  let type: BookmarkGroupType
 
   init(_ bookmarkGroup: BookmarkGroup) {
     groupId = bookmarkGroup.categoryId
     subgroupName = bookmarkGroup.title
     subtitle = bookmarkGroup.placesCountTitle()
     isVisible = bookmarkGroup.isVisible
+    type = bookmarkGroup.type
   }
 }
 
@@ -462,5 +499,22 @@ fileprivate struct BookmarksListInfo: IBookmakrsListInfoViewModel {
     self.hasDescription = hasDescription
     self.imageUrl = imageUrl
     self.hasLogo = hasLogo
+  }
+}
+
+fileprivate extension BookmarkGroupType {
+  func getStatName() -> String {
+    switch self {
+    case .root:
+      return kStatMain
+    case .collection:
+      return kStatCollection
+    case .category:
+      return kStatCategory
+    case .day:
+      return kStatDay
+    @unknown default:
+      fatalError()
+    }
   }
 }
