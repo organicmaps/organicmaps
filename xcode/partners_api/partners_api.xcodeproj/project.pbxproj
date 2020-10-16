@@ -45,6 +45,8 @@
 		3DA6BCDF2535B52E00DF0DA5 /* citymobil_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA6BCDD2535B52E00DF0DA5 /* citymobil_api.hpp */; };
 		3DA6BCE02535B52E00DF0DA5 /* citymobil_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6BCDE2535B52E00DF0DA5 /* citymobil_api.cpp */; };
 		3DA6BCE22535B53C00DF0DA5 /* citymobil_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6BCE12535B53C00DF0DA5 /* citymobil_tests.cpp */; };
+		3DA6BCE52538B3B600DF0DA5 /* citymobil_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6BCE32538B3B500DF0DA5 /* citymobil_ads.cpp */; };
+		3DA6BCE62538B3B600DF0DA5 /* citymobil_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA6BCE42538B3B500DF0DA5 /* citymobil_ads.hpp */; };
 		3DBD7B9824112DE100ED9FE8 /* freenow_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B9624112DE000ED9FE8 /* freenow_api.cpp */; };
 		3DBD7B9924112DE100ED9FE8 /* freenow_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7B9724112DE100ED9FE8 /* freenow_api.hpp */; };
 		3DBD7B9B24112DEA00ED9FE8 /* freenow_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B9A24112DEA00ED9FE8 /* freenow_tests.cpp */; };
@@ -171,6 +173,8 @@
 		3DA6BCDD2535B52E00DF0DA5 /* citymobil_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = citymobil_api.hpp; sourceTree = "<group>"; };
 		3DA6BCDE2535B52E00DF0DA5 /* citymobil_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = citymobil_api.cpp; sourceTree = "<group>"; };
 		3DA6BCE12535B53C00DF0DA5 /* citymobil_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = citymobil_tests.cpp; sourceTree = "<group>"; };
+		3DA6BCE32538B3B500DF0DA5 /* citymobil_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = citymobil_ads.cpp; sourceTree = "<group>"; };
+		3DA6BCE42538B3B500DF0DA5 /* citymobil_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = citymobil_ads.hpp; sourceTree = "<group>"; };
 		3DBC1C501E4B14810016897F /* facebook_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = facebook_tests.cpp; sourceTree = "<group>"; };
 		3DBD7B9624112DE000ED9FE8 /* freenow_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = freenow_api.cpp; sourceTree = "<group>"; };
 		3DBD7B9724112DE100ED9FE8 /* freenow_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = freenow_api.hpp; sourceTree = "<group>"; };
@@ -298,6 +302,8 @@
 		3DBD7BE524251BF000ED9FE8 /* ads */ = {
 			isa = PBXGroup;
 			children = (
+				3DA6BCE32538B3B500DF0DA5 /* citymobil_ads.cpp */,
+				3DA6BCE42538B3B500DF0DA5 /* citymobil_ads.hpp */,
 				3DCF64A724DC0A0200C49963 /* mastercard_sber_ads.cpp */,
 				3DCF64A624DC0A0200C49963 /* mastercard_sber_ads.hpp */,
 				3DBD7BE624251BF000ED9FE8 /* bookmark_catalog_ads.cpp */,
@@ -488,6 +494,7 @@
 				3DA5713420B57358007BDE27 /* booking_params_base.hpp in Headers */,
 				3DBD7C0224251BF000ED9FE8 /* tinkoff_insurance_ads.hpp in Headers */,
 				3D18DC4122956DFA00A583A6 /* promo_api.hpp in Headers */,
+				3DA6BCE62538B3B600DF0DA5 /* citymobil_ads.hpp in Headers */,
 				3D1775A82318198700F8889C /* promo_catalog_types.hpp in Headers */,
 				3DBD7C1524251BF000ED9FE8 /* bookmark_catalog_ads.hpp in Headers */,
 				3DCD415420DAB33700143533 /* booking_block_params.hpp in Headers */,
@@ -653,6 +660,7 @@
 				3DF01C2D20652463005DDF8C /* taxi_places.cpp in Sources */,
 				3DBD7C0724251BF000ED9FE8 /* mts_ads.cpp in Sources */,
 				F67E75251DB8F06F00D6741F /* opentable_api.cpp in Sources */,
+				3DA6BCE52538B3B600DF0DA5 /* citymobil_ads.cpp in Sources */,
 				3DBD7C1F24251C1100ED9FE8 /* mts_tests.cpp in Sources */,
 				3DCF64A924DC0A0300C49963 /* mastercard_sber_ads.cpp in Sources */,
 				3D18DC4422956E0900A583A6 /* promo_tests.cpp in Sources */,

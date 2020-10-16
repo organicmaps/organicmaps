@@ -6,16 +6,16 @@ protocol SearchCategoriesViewControllerDelegate: AnyObject {
 final class SearchCategoriesViewController: MWMTableViewController {
   private weak var delegate: SearchCategoriesViewControllerDelegate?
   private let categories: [String]
-  private let showMegafonBanner: Bool
+  private let showCitymobilBanner: Bool
   private let bannerUrl: URL
-  private static let megafonIndex = 6
+  private var bannerShown = false
+  private static let citymobilIndex = 6
   
   init(frameworkHelper: MWMSearchFrameworkHelper, delegate: SearchCategoriesViewControllerDelegate?) {
     self.delegate = delegate
     categories = frameworkHelper.searchCategories()
-    showMegafonBanner = frameworkHelper.hasMegafonCategoryBanner()
-    bannerUrl = frameworkHelper.megafonBannerUrl()
-
+    bannerUrl = frameworkHelper.citymobilBannerUrl()
+    showCitymobilBanner = !bannerUrl.absoluteString.isEmpty
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -33,13 +33,17 @@ final class SearchCategoriesViewController: MWMTableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return categories.count + (showMegafonBanner ? 1 : 0)
+    return categories.count + (showCitymobilBanner ? 1 : 0)
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if showMegafonBanner && (indexPath.row == SearchCategoriesViewController.megafonIndex) {
+    if showCitymobilBanner && (indexPath.row == SearchCategoriesViewController.citymobilIndex) {
       let cell = tableView.dequeueReusableCell(cell: SearchBannerCell.self, indexPath: indexPath)
       cell.delegate = self
+      if (!bannerShown) {
+        bannerShown = true;
+        Statistics.logEvent(kStatSearchSponsoredShow);
+      }
       return cell
     }
     
@@ -49,6 +53,10 @@ final class SearchCategoriesViewController: MWMTableViewController {
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if showCitymobilBanner && (indexPath.row == SearchCategoriesViewController.citymobilIndex) {
+      openBanner()
+      return
+    }
     let selectedCategory = category(at: indexPath)
     delegate?.categoriesViewController(self, didSelect: selectedCategory)
     
@@ -58,17 +66,22 @@ final class SearchCategoriesViewController: MWMTableViewController {
   
   func category(at indexPath: IndexPath) -> String {
     let index = indexPath.row
-    if showMegafonBanner && (index > SearchCategoriesViewController.megafonIndex) {
+    if showCitymobilBanner && (index > SearchCategoriesViewController.citymobilIndex) {
       return categories[index - 1]
     } else {
       return categories[index]
     }
   }
+  
+  func openBanner() {
+    UIApplication.shared.open(bannerUrl)
+    Statistics.logEvent(kStatSearchSponsoredSelect);
+  }
 }
 
 extension SearchCategoriesViewController: SearchBannerCellDelegate {
   func cellDidPressAction(_ cell: SearchBannerCell) {
-    UIApplication.shared.open(bannerUrl)
+    openBanner()
   }
   
   func cellDidPressClose(_ cell: SearchBannerCell) {

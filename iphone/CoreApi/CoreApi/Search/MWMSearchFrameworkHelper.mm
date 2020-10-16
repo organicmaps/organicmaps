@@ -1,5 +1,6 @@
 #import "MWMSearchFrameworkHelper.h"
 
+#include "partners_api/ads/ads_engine.hpp"
 #include "partners_api/megafon_countries.hpp"
 
 #include "platform/preferred_languages.hpp"
@@ -42,6 +43,18 @@
 {
   auto urlStr = ads::GetMegafonCategoryBannerUrl();
   return [NSURL URLWithString:@(urlStr.c_str())];
+}
+
+- (NSURL *)citymobilBannerUrl
+{
+  auto const & f = GetFramework();
+  auto const pos = f.GetCurrentPosition();
+  auto const banners = f.GetAdsEngine().GetSearchCategoryBanners(pos);
+
+  if (banners.empty() || banners.begin()->m_type != ads::Banner::Type::Citymobil)
+    return [NSURL URLWithString:@("")];;
+
+  return [NSURL URLWithString:@(banners.begin()->m_value.c_str())];
 }
 
 - (BOOL)isSearchHistoryEmpty

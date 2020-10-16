@@ -22,6 +22,8 @@ static MWMBannerType ConvertBannerType(ads::Banner::Type coreType) {
       return MWMBannerTypeBookmarkCatalog;
     case ads::Banner::Type::MastercardSberbank:
       return MWMBannerTypeMastercardSberbank;
+    case ads::Banner::Type::Citymobil:
+      return MWMBannerTypeCitymobil;
   }
 }
 

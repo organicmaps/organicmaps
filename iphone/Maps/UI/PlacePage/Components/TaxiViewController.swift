@@ -34,7 +34,7 @@ class TaxiViewController: UIViewController {
       taxiImageView.image = UIImage(named: "ic_taxi_logo_yango")
       taxiNameLabel.text = L("yango_taxi_title")
     case .citymobil:
-      taxiImageView.image = UIImage(named: "ic_taxi_logo_citymobil")
+      taxiImageView.image = UIImage(named: "ic_taxi_logo_citymobil_light")
       taxiNameLabel.text = L("citymobil_taxi_title")
     @unknown default:
       fatalError()

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_taxi_logo_citymobil_dark.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

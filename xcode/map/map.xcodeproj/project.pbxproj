@@ -95,10 +95,10 @@
 		3DA5723120C195ED007BDE27 /* everywhere_search_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5722D20C195EC007BDE27 /* everywhere_search_callback.hpp */; };
 		3DA5723220C195ED007BDE27 /* everywhere_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5722E20C195EC007BDE27 /* everywhere_search_callback.cpp */; };
 		3DA5723320C195ED007BDE27 /* viewport_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5722F20C195EC007BDE27 /* viewport_search_callback.cpp */; };
+		3DA6BCE92539F4ED00DF0DA5 /* ads_engine_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA6BCE72539F4EC00DF0DA5 /* ads_engine_delegate.hpp */; };
+		3DA6BCEA2539F4ED00DF0DA5 /* ads_engine_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6BCE82539F4EC00DF0DA5 /* ads_engine_delegate.cpp */; };
 		3DBD7B92240D523400ED9FE8 /* elevation_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B90240D523300ED9FE8 /* elevation_info.cpp */; };
 		3DBD7B93240D523400ED9FE8 /* elevation_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7B91240D523300ED9FE8 /* elevation_info.hpp */; };
-		3DBD7BE124237FA600ED9FE8 /* download_on_map_ads_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BDF24237FA500ED9FE8 /* download_on_map_ads_delegate.hpp */; };
-		3DBD7BE224237FA600ED9FE8 /* download_on_map_ads_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BE024237FA600ED9FE8 /* download_on_map_ads_delegate.cpp */; };
 		3DD1166621888AAC007A2ED4 /* notification_queue_serdes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD1165F21888AAC007A2ED4 /* notification_queue_serdes.cpp */; };
 		3DD1166721888AAC007A2ED4 /* notification_queue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DD1166021888AAC007A2ED4 /* notification_queue.hpp */; };
 		3DD1166821888AAC007A2ED4 /* notification_queue_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DD1166121888AAC007A2ED4 /* notification_queue_storage.hpp */; };
@@ -401,10 +401,10 @@
 		3DA5722D20C195EC007BDE27 /* everywhere_search_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = everywhere_search_callback.hpp; sourceTree = "<group>"; };
 		3DA5722E20C195EC007BDE27 /* everywhere_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = everywhere_search_callback.cpp; sourceTree = "<group>"; };
 		3DA5722F20C195EC007BDE27 /* viewport_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viewport_search_callback.cpp; sourceTree = "<group>"; };
+		3DA6BCE72539F4EC00DF0DA5 /* ads_engine_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ads_engine_delegate.hpp; sourceTree = "<group>"; };
+		3DA6BCE82539F4EC00DF0DA5 /* ads_engine_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ads_engine_delegate.cpp; sourceTree = "<group>"; };
 		3DBD7B90240D523300ED9FE8 /* elevation_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = elevation_info.cpp; sourceTree = "<group>"; };
 		3DBD7B91240D523300ED9FE8 /* elevation_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = elevation_info.hpp; sourceTree = "<group>"; };
-		3DBD7BDF24237FA500ED9FE8 /* download_on_map_ads_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = download_on_map_ads_delegate.hpp; sourceTree = "<group>"; };
-		3DBD7BE024237FA600ED9FE8 /* download_on_map_ads_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = download_on_map_ads_delegate.cpp; sourceTree = "<group>"; };
 		3DD1165F21888AAC007A2ED4 /* notification_queue_serdes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = notification_queue_serdes.cpp; sourceTree = "<group>"; };
 		3DD1166021888AAC007A2ED4 /* notification_queue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = notification_queue.hpp; sourceTree = "<group>"; };
 		3DD1166121888AAC007A2ED4 /* notification_queue_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = notification_queue_storage.hpp; sourceTree = "<group>"; };
@@ -916,6 +916,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3DA6BCE82539F4EC00DF0DA5 /* ads_engine_delegate.cpp */,
+				3DA6BCE72539F4EC00DF0DA5 /* ads_engine_delegate.hpp */,
 				3DE28A7624BE05220009465C /* booking_utils.cpp */,
 				3DE28A7724BE05220009465C /* booking_utils.hpp */,
 				3D089870247FF5FE00837783 /* layers_statistics.cpp */,
@@ -926,8 +928,6 @@
 				3D035CA72451960400C21B57 /* guides_on_map_delegate.hpp */,
 				BBBB5ED024460BF9000CBFF4 /* guides_manager.cpp */,
 				BBBB5ED124460BF9000CBFF4 /* guides_manager.hpp */,
-				3DBD7BE024237FA600ED9FE8 /* download_on_map_ads_delegate.cpp */,
-				3DBD7BDF24237FA500ED9FE8 /* download_on_map_ads_delegate.hpp */,
 				BB1C0195241BF73C0067FD5C /* track_mark.cpp */,
 				BB1C0194241BF73C0067FD5C /* track_mark.hpp */,
 				3DBD7B90240D523300ED9FE8 /* elevation_info.cpp */,
@@ -1108,7 +1108,6 @@
 				3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */,
 				675346751A4054E800A0A8C3 /* mwm_url.hpp in Headers */,
 				6753464B1A4054E800A0A8C3 /* bookmark.hpp in Headers */,
-				3DBD7BE124237FA600ED9FE8 /* download_on_map_ads_delegate.hpp in Headers */,
 				3D18DC3C22956DD100A583A6 /* framework_light_delegate.hpp in Headers */,
 				4564FA82209497A70043CCFB /* bookmark_catalog.hpp in Headers */,
 				3DA5714020B5CC80007BDE27 /* booking_filter_params.hpp in Headers */,
@@ -1130,6 +1129,7 @@
 				3DD1166C21888AAD007A2ED4 /* notification_queue_serdes.hpp in Headers */,
 				BB1C0196241BF73C0067FD5C /* track_mark.hpp in Headers */,
 				3D0D2F7423D854AA00945C8D /* tips_api_delegate.hpp in Headers */,
+				3DA6BCE92539F4ED00DF0DA5 /* ads_engine_delegate.hpp in Headers */,
 				675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */,
 				3DA5714320B5CC80007BDE27 /* booking_filter_processor.hpp in Headers */,
 				F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */,
@@ -1370,9 +1370,9 @@
 				F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */,
 				3D089872247FF5FE00837783 /* layers_statistics.cpp in Sources */,
 				3D74ABBE1EA76F1D0063A898 /* local_ads_supported_types.cpp in Sources */,
-				3DBD7BE224237FA600ED9FE8 /* download_on_map_ads_delegate.cpp in Sources */,
 				45A2D9D51F7556EB003310A0 /* user.cpp in Sources */,
 				0C2B73DE1E92AB9900530BB8 /* local_ads_manager.cpp in Sources */,
+				3DA6BCEA2539F4ED00DF0DA5 /* ads_engine_delegate.cpp in Sources */,
 				F6B283071C1B03320081957A /* gps_track_storage.cpp in Sources */,
 				3DE28A7824BE05220009465C /* booking_utils.cpp in Sources */,
 				670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */,

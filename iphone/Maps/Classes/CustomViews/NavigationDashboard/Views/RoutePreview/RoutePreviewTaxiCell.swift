@@ -15,7 +15,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
       case .vezet: return #imageLiteral(resourceName: "ic_taxi_logo_vezet")
       case .freenow: return #imageLiteral(resourceName: "ic_logo_freenow")
       case .yango: return #imageLiteral(resourceName: "ic_taxi_logo_yango")
-      case .citymobil: return #imageLiteral(resourceName: "ic_taxi_logo_citymobil")
+      case .citymobil: return #imageLiteral(resourceName: "ic_taxi_logo_citymobil_light")
       }
     }
 

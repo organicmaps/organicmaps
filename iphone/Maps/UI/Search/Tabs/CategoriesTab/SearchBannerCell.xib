@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="ic_megafon_light" translatesAutoresizingMaskIntoConstraints="NO" id="a9s-eh-L10" userLabel="Icon">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="ic_taxi_logo_citymobil_light" translatesAutoresizingMaskIntoConstraints="NO" id="a9s-eh-L10" userLabel="Icon">
                         <rect key="frame" x="16" y="8" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="28" id="UkL-Ob-9dH"/>
@@ -29,7 +31,7 @@
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="megafon"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="taxi"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1X-p4-OlN">
@@ -45,7 +47,7 @@
                         </state>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchInstallButton"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="details"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="taxi_category_order"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="onInstall:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0o7-8I-f79"/>
@@ -110,6 +112,6 @@
     </objects>
     <resources>
         <image name="ic_ad_close" width="8" height="8"/>
-        <image name="ic_megafon_light" width="28" height="28"/>
+        <image name="ic_taxi_logo_citymobil_light" width="24" height="24"/>
     </resources>
 </document>
