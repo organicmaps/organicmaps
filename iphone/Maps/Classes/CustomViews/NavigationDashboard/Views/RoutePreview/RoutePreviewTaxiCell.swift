@@ -21,10 +21,7 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
 
     let titleString = { () -> String in
       switch type {
-      case .taxi: fallthrough
-      case .uber: fallthrough
-      case .freenow: fallthrough
-      case .citymobil: return title
+      case .taxi, .uber, .freenow, .citymobil: return title
       case .yandex: return L("yandex_taxi_title")
       case .maxim: return L("maxim_taxi_title")
       case .vezet: return L("vezet_taxi")
