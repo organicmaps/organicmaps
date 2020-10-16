@@ -87,7 +87,7 @@ FileReader::FileReader(string const & fileName, uint32_t logPageSize, uint32_t l
   : ModelReader(fileName)
   , m_logPageSize(logPageSize)
   , m_logPageCount(logPageCount)
-  , m_fileData(new FileReaderData(fileName, logPageSize, logPageCount))
+  , m_fileData(make_shared<FileReaderData>(fileName, logPageSize, logPageCount))
   , m_offset(0)
   , m_size(m_fileData->Size())
 {
