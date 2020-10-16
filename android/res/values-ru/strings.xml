@@ -1903,6 +1903,7 @@
 	<string name="general_lp_category">Основные</string>
 	<string name="drink_lp_category">Бары</string>
 	<string name="eat_lp_category">Рестораны</string>
+	<string name="taxi_category_order">Заказать</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>
