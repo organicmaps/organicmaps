@@ -31,7 +31,7 @@ public class BookmarkCategory implements Parcelable
   private final int mTypeIndex;
   private final int mAccessRulesIndex;
   private final boolean mIsMyCategory;
-  private final boolean mIsVisible;
+  private boolean mIsVisible;
   @NonNull
   private final String mServerId;
   @NonNull
@@ -125,6 +125,11 @@ public class BookmarkCategory implements Parcelable
     return mIsVisible;
   }
 
+  public void setVisible(boolean isVisible)
+  {
+    mIsVisible = isVisible;
+  }
+
   public boolean isMyCategory()
   {
     return mIsMyCategory;
@@ -187,6 +192,11 @@ public class BookmarkCategory implements Parcelable
     BookmarkCategory.AccessRules rules = getAccessRules();
     boolean isLocal = rules == BookmarkCategory.AccessRules.ACCESS_RULES_LOCAL;
     return isLocal && size() > 0;
+  }
+
+  public void invertVisibility()
+  {
+    mIsVisible = !mIsVisible;
   }
 
   public static class CountAndPlurals {
