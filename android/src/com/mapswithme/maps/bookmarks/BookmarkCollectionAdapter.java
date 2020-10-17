@@ -56,8 +56,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   public String getTitle(int sectionIndex, @NonNull Resources rs)
   {
     if (sectionIndex == mCollectionSectionIndex)
-      // TODO (@velichkomarija): Replace categories for collections.
-      return rs.getString(R.string.categories);
+      return rs.getString(R.string.collections_title);
     return rs.getString(R.string.categories);
   }
 

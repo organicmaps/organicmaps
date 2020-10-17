@@ -273,6 +273,12 @@ public class BookmarkCategory implements Parcelable
       return String.format(res.getString(R.string.author_name_by_prefix), author.getName());
     }
 
+    public static String getContentByString(@NonNull Context context, @NonNull Author author)
+    {
+      Resources res = context.getResources();
+      return res.getString(R.string.content_by_component).concat(" ").concat(author.getName());
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {

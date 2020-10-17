@@ -100,8 +100,7 @@ public class BookmarkHeaderView extends LinearLayout
         else
           UiUtils.hide(mImageViewLogo);
 
-        //TODO: (@velichkomarija) : Replace with "Content by ".
-        CharSequence authorName = BookmarkCategory.Author.getRepresentation(context, author);
+        CharSequence authorName = BookmarkCategory.Author.getContentByString(context, author);
         mAuthorTextView.setText(authorName);
       }
     }

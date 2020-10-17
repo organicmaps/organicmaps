@@ -11,7 +11,7 @@
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whatsnew_lp_integration_message</item>
+    <item>@string/whatsnew_lp_message</item>
   </string-array>
 
   <string-array name="news_messages_2">
