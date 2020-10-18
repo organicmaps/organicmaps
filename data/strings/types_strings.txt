@@ -2,26 +2,32 @@
 
   [type.aerialway]
     en = aerialway
+    ja = 索道
     pl = Transport linowy
 
   [type.aerialway.cable_car]
     en = aerialway-cable_car
+    ja = ロープウェイ
     pl = Kolej linowa
 
   [type.aerialway.chair_lift]
     en = aerialway-chair_lift
+    ja = チェアリフト
     pl = Wyciąg krzesełkowy
 
   [type.aerialway.drag_lift]
     en = aerialway-drag_lift
+    ja = 牽引リフト
     pl = Wyciąg orczykowy
 
   [type.aerialway.gondola]
     en = aerialway-gondola
+    ja = ゴンドラ
     pl = Gondola kolejki linowej
 
   [type.aerialway.mixed_lift]
     en = aerialway-mixed_lift
+    ja = 混合リフト
     pl = Wyciąg mieszany
 
   [type.aerialway.station]
@@ -57,6 +63,7 @@
 
   [type.aeroway]
     en = aeroway
+    ja = 空路
 
   [type.aeroway.aerodrome]
     en = Airport
@@ -124,10 +131,12 @@
 
   [type.aeroway.apron]
     en = aeroway-apron
+    ja = エプロン
     pl = Płyta postojowa samolotów
 
   [type.aeroway.gate]
     en = aeroway-gate
+    ja = 搭乗口
     pl = Wyjście lotniskowe
 
   [type.aeroway.helipad]
@@ -162,14 +171,17 @@
 
   [type.aeroway.runway]
     en = aeroway-runway
+    ja = 滑走路
     pl = Droga startowa
 
   [type.aeroway.taxiway]
     en = aeroway-taxiway
+    ja = 誘導路
     pl = Droga kołowania
 
   [type.aeroway.terminal]
     en = aeroway-terminal
+    ja = 空港ターミナルビル
     pl = Terminal lotniskowy
 
   [type.amenity]
@@ -503,7 +515,7 @@
     hu = Pénzváltó
     id = Pertukaran valuta
     it = Cambio valute
-    ja = 為替
+    ja = 外貨両替所
     ko = 환전
     nb = Valutaveksling
     pl = Kantor
@@ -599,7 +611,7 @@
     hu = Gépkocsi-kölcsönző
     id = Rental mobil
     it = Noleggio di automobili
-    ja = カーシェアリング
+    ja = レンタカー
     ko = 자동차 공유
     nb = Bilutleie
     pl = Wynajem samochodów
@@ -659,7 +671,7 @@
     hu = Autómosó
     id = Cuci Mobil
     it = Lavaggio auto
-    ja = 洗車
+    ja = 洗車場
     ko = 세차
     nb = Bilvask
     pl = Myjnia samochodowa
@@ -840,7 +852,7 @@
     hu = Kollégium
     id = Kampus
     it = Collegio
-    ja = 大学
+    ja = カレッジ
     ko = 칼리지
     nb = Høyskole
     pl = Szkoła wyższa
@@ -936,7 +948,7 @@
     hu = Fogorvos
     id = Dokter gigi
     it = Dentista
-    ja = 歯科医
+    ja = 歯医者
     ko = 치과
     nb = Tannlege
     pl = Dentysta
@@ -967,7 +979,7 @@
     hu = Rendelő
     id = Praktik dokter
     it = Studio medico
-    ja = 医者のオフィス
+    ja = 医院
     ko = 개인병원
     nb = Legekontor
     pl = Lekarz
@@ -1180,6 +1192,7 @@
   [type.amenity.food_court]
     en = Food court
     ru = Ресторанный дворик
+    ja = フードコート
     pl = Sekcja gastronomiczna
 
   [type.amenity.fountain]
@@ -1227,7 +1240,7 @@
     hu = Benzinkút
     id = Pompa bensin
     it = Stazione di rifornimento
-    ja = ガスステーション
+    ja = ガソリンスタンド
     ko = 가스가 역
     nb = Bensinstasjon
     pl = Stacja benzynowa
@@ -1291,7 +1304,7 @@
     hu = Temető
     id = Pemakaman
     it = Cimitero
-    ja = 墓地
+    ja = キリスト教墓地
     ko = 묘소
     nb = Gravplass
     pl = Cmentarz chrześcijański
@@ -2121,7 +2134,7 @@
     hu = Templom
     id = Kuil
     it = Tempio
-    ja = 寺
+    ja = 寺院
     ko = 절
     nb = Tempel
     pl = Świątynia buddyjska
@@ -2153,7 +2166,7 @@
     hu = Templom
     id = Gereja
     it = Chiesa
-    ja = 教会
+    ja = キリスト教会
     ko = 교회
     nb = Kirke
     pl = Kościół chrześcijański
@@ -2184,7 +2197,7 @@
     hu = Templom
     id = Kuil
     it = Tempio
-    ja = 寺
+    ja = ヒンドゥー教寺院
     ko = 절
     nb = Tempel
     pl = Świątynia hinduistyczna
@@ -2310,7 +2323,7 @@
     hu = Templom
     id = Kuil
     it = Tempio
-    ja = 寺
+    ja = 道教寺院
     ko = 절
     nb = Tempel
     pl = Świątynia taoistyczna
@@ -2429,6 +2442,7 @@
   [type.amenity.prison]
     en = Prison
     ru = Тюрьма
+    ja = 刑務所
     pl = Więzienie
 
   [type.amenity.pub]
@@ -2467,7 +2481,7 @@
     hu = Nyilvános könyvespolc
     id = Rak Buku
     it = Libreria
-    ja = 書棚
+    ja = 街角文庫
     ko = 책장, 도서 교환
     nb = Bokhylle
     pl = Wymiana książek
@@ -2498,7 +2512,7 @@
     hu = Újrahasznosító központ
     id = TPA
     it = Centro di riciclaggio
-    ja = リサクルセンター
+    ja = リサイクルセンター
     ko = 재활용센터
     nb = Resirkuleringssenter
     pl = Centrum przetwórstwa odpadów
@@ -3118,6 +3132,7 @@
   [type.amenity.vending_machine]
     en = Vending machine
     ru = Торговый автомат
+    ja = 自動販売機
     pl = Automat sprzedający
 
   [type.amenity.vending_machine.cigarettes]
@@ -3295,7 +3310,7 @@
     hu = Szemétkosár
     id = Kotak sampah
     it = Contenitore per rifiuti
-    ja = くずかご
+    ja = ゴミ箱
     ko = 쓰레기통
     nb = Søppelkasse
     pl = Kosz na śmieci
@@ -3381,6 +3396,7 @@
   [type.barrier]
     en = Barrier
     ru = Преграда
+    ja = 障害物
     pl = Bariera
 
   [type.barrier.block]
@@ -3481,11 +3497,13 @@
   [type.barrier.city_wall]
     en = City wall
     ru = Городская стена
+    ja = 城壁
     pl = Mur miejski
 
   [type.barrier.cycle_barrier]
     en = Cycle barrier
     ru = Ограждение, предотвращающее проезд велосипедов
+    ja = 自転車止め
     pl = Bariera rowerowa
 
   [type.barrier.entrance]
@@ -3523,6 +3541,7 @@
   [type.barrier.fence]
     en = Fence
     ru = Забор
+    ja = フェンス
     pl = Płot
 
   [type.barrier.gate]
@@ -3560,6 +3579,7 @@
   [type.barrier.hedge]
     en = Hedge
     ru = Живая изгородь
+    ja = 生垣
     pl = Żywopłot
 
   [type.barrier.lift_gate]
@@ -3597,6 +3617,7 @@
   [type.barrier.retaining_wall]
     en = Retaining wall
     ru = Стена, удерживающая от осыпания
+    ja = 擁壁
     pl = Mur oporowy
 
   [type.barrier.stile]
@@ -3666,15 +3687,18 @@
   [type.barrier.wall]
     en = Wall
     ru = Стена
+    ja = 壁
     pl = Mur
 
   [type.boundary]
     en = Boundary
     ru = Граница
+    ja = 境界線
     pl = Granica
 
   [type.boundary.administrative]
     en = boundary-administrative
+    ja = 行政境界
     pl = Granica administracyjna
 
   [type.boundary.administrative.10]
@@ -3930,6 +3954,7 @@
 
   [type.craft]
     en = craft
+    ja = 工房
     pl = Rzemiosło
 
   [type.craft.brewery]
@@ -4603,7 +4628,7 @@
     hu = Gyúdon
     id = Nasi daging sapi
     it = Gyūdon
-    ja = ビーフボウル
+    ja = 牛丼
     ko = 쇠고기 덮밥
     nb = Biffbolle
     pl = Gyūdon
@@ -5906,7 +5931,7 @@
     hu = Helyi konyha
     id = Masakan lokal
     it = Cucina locale
-    ja = 地元の料理
+    ja = 地元料理
     ko = 현지식 음식
     nb = Lokal mat
     pl = Kuchnia lokalna
@@ -6123,7 +6148,7 @@
     hu = Keleti konyha
     id = Masakan oriental
     it = Cucina orientale
-    ja = 東洋の料理
+    ja = 東洋料理
     ko = 극동식 음식
     nb = Orientalsk mat
     pl = Kuchnia orientalna
@@ -7047,22 +7072,27 @@
 
   [type.highway]
     en = highway
+    ja = 道路
     pl = Droga
 
   [type.highway.bridleway]
     en = highway-bridleway
+    ja = 馬道
     pl = Droga dla koni
 
   [type.highway.bridleway.bridge]
     en = highway-bridleway-bridge
+    ja = 馬道(橋)
     pl = Most drogowy dla koni 
 
   [type.highway.bridleway.permissive]
     en = highway-bridleway-permissive
+    ja = 馬道
     pl = Droga dla koni ograniczona
 
   [type.highway.bridleway.tunnel]
     en = highway-bridleway-tunnel
+    ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
 
   [type.highway.bus_stop]
@@ -7133,18 +7163,22 @@
 
   [type.highway.cycleway]
     en = highway-cycleway
+    ja = 自転車道
     pl = Droga rowerowa
 
   [type.highway.cycleway.bridge]
     en = highway-cycleway-bridge
+    ja = 自転車道(橋)
     pl = Most drogowy dla rowerów
 
   [type.highway.cycleway.permissive]
     en = highway-cycleway-permissive
+    ja = 自転車道
     pl = Droga rowerowa ograniczona
 
   [type.highway.cycleway.tunnel]
     en = highway-cycleway-tunnel
+    ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
 
   [type.highway.footway]
@@ -9227,6 +9261,7 @@
 
   [type.highway.services]
     en = highway-services
+    ja = サービスエリア
     pl = Miejsce obsługi podróżnych
 
   [type.highway.speed_camera]
@@ -9242,7 +9277,7 @@
     hu = Traffipax
     id = Kamera Kecepatan
     it = Autovelox
-    ja = オービス
+    ja = 自動速度違反取締装置
     ko = 스피드 카메라
     nb = Fotoboks
     pl = Fotoradar
@@ -10261,6 +10296,7 @@
 
   [type.historic]
     en = historic
+    ja = 史跡
     pl = Historyczne
 
   [type.historic.archaeological_site]
@@ -10298,10 +10334,12 @@
   [type.historic.battlefield]
     en = Battlefield
     ru = Место исторического сражения
+    ja = 古戦場
     pl = Miejsce historycznej bitwy
 
   [type.historic.boundary_stone]
     en = historic-boundary_stone
+    ja = 境界標
     pl = Historyczny kamień graniczny
 
   [type.historic.castle]
@@ -10402,10 +10440,12 @@
 
   [type.historic.citywalls]
     en = historic-citywalls
+    ja = 歴史的な城壁
     pl = Historyczne mury miasta
 
   [type.historic.fort]
     en = historic-fort
+    ja = 歴史的な要塞
     pl = Historyczny fort
 
   [type.historic.memorial]
@@ -10421,7 +10461,7 @@
     hu = Emlékmű
     id = Tugu peringatan
     it = Memoriale
-    ja = 追悼
+    ja = 記念碑
     ko = 기념비
     nb = Minnesmerke
     pl = Pomnik
@@ -10450,7 +10490,7 @@
     hu = Emlékmű
     id = Tugu peringatan
     it = Memoriale
-    ja = 追悼
+    ja = 銘板
     ko = 기념비
     nb = Minnesmerke
     pl = Tablica pamiątkowa
@@ -10479,7 +10519,7 @@
     hu = Emlékmű
     id = Tugu peringatan
     it = Memoriale
-    ja = 追悼
+    ja = 彫刻
     ko = 기념비
     nb = Minnesmerke
     pl = Rzeźba
@@ -10508,7 +10548,7 @@
     hu = Emlékmű
     id = Tugu peringatan
     it = Memoriale
-    ja = 追悼
+    ja = 塑像
     ko = 기념비
     nb = Minnesmerke
     pl = Pomnik
@@ -10550,6 +10590,7 @@
 
   [type.historic.museum]
     en = historic-museum
+    ja = 歴史的なミュージアム
     pl = Muzeum historyczne
 
   [type.historic.ruins]
@@ -10597,7 +10638,7 @@
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
-    ja = 観光
+    ja = 退役船
     ko = 관광
     nb = Severdigheter
     pl = Okręt
@@ -10629,7 +10670,7 @@
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
-    ja = 観光
+    ja = 墓
     ko = 관광
     nb = Severdigheter
     pl = Grobowiec
@@ -10650,10 +10691,12 @@
 
   [type.historic.wayside_cross]
     en = historic-wayside_cross
+    ja = 歴史的な十字架
     pl = Krzyż przydrożny
 
   [type.historic.wayside_shrine]
     en = historic-wayside_shrine
+    ja = 歴史的な祠
     pl = Kapliczka przydrożna
 
   [type.hwtag]
@@ -10723,19 +10766,23 @@
 
   [type.junction]
     en = junction
+    ja = 交差点
     pl = Skrzyżowanie
 
   [type.junction.roundabout]
     en = junction-roundabout
+    ja = ラウンドアバウト
     pl = Rondo
 
   [type.landuse]
     en = landuse
+    ja = 土地利用
     pl = Zagospodarowanie ziemi
 
   [type.landuse.allotments]
     en = Allotments
     ru = Земельные участки
+    ja = 市民農園
     pl = Działki
 
   [type.landuse.basin]
@@ -10750,7 +10797,7 @@
     hu = Víz
     id = Air
     it = Bacino
-    ja = 水地
+    ja = 遊水地
     ko = 연못
     nb = Vann
     pl = Woda
@@ -10772,6 +10819,7 @@
   [type.landuse.brownfield]
     en = Brownfield
     ru = Земли для застройки
+    ja = 再開発用地
     pl = Teren do zabudowy
 
   [type.landuse.cemetery]
@@ -10819,7 +10867,7 @@
     hu = Temető
     id = Pemakaman
     it = Cimitero
-    ja = 墓地
+    ja = キリスト教墓地
     ko = 묘소
     nb = Gravplass
     pl = Cmentarz chrześcijański
@@ -10851,7 +10899,7 @@
     hu = Templomtér
     id = Halaman gereja
     it = Sagrato della chiesa
-    ja = 教会付属墓地
+    ja = キリスト教教会付属地
     ko = 교회
     nb = Kirkegård
     pl = Teren kościelny
@@ -10874,16 +10922,19 @@
 
   [type.landuse.commercial]
     en = landuse-commercial
+    ja = 商業用地
     pl = Teren handlu i usług
 
   [type.landuse.construction]
     en = Construction
     ru = Стройка
+    ja = 建設工事中
     pl = Teren budowy
 
   [type.landuse.farm]
     en = Farm
     ru = Ферма
+    ja = 農地
     pl = Gospodarstwo rolne
 
   [type.landuse.farmland]
@@ -10923,6 +10974,7 @@
   [type.landuse.farmyard]
     en = Farmyard
     ru = Сельскохозяйственная земля
+    ja = 農地
     pl = Obejście gospodarskie
 
   [type.landuse.field]
@@ -11061,6 +11113,7 @@
   [type.landuse.garages]
     en = Garages
     ru = Гаражи
+    ja = ガレージ
     pl = Garaże
 
   [type.landuse.grass]
@@ -11099,14 +11152,17 @@
 
   [type.landuse.greenfield]
     en = landuse-greenfield
+    ja = 建設予定地
     pl = Obszar pod zabudowę
 
   [type.landuse.greenhouse_horticulture]
     en = landuse-greenhouse_horticulture
+    ja = 温室栽培
 
   [type.landuse.industrial]
     en = Industrial land
     ru = Промзона
+    ja = 工業用地
     pl = Obszar przemysłowy
 
   [type.landuse.landfill]
@@ -11146,19 +11202,23 @@
   [type.landuse.meadow]
     en = Meadow
     ru = Луг
+    ja = 牧草地
     pl = Łąka
 
   [type.landuse.military]
     en = Military area
+    ja = 軍用地
     pl = Teren wojskowy
 
   [type.landuse.orchard]
     en = Orchard
     ru = Сад
+    ja = 果樹園
     pl = Sad
 
   [type.landuse.quarry]
     en = Quarry
+    ja = 採石場
     pl = Kamieniołom
 
   [type.landuse.railway]
@@ -11197,6 +11257,7 @@
 
   [type.landuse.recreation_ground]
     en = landuse-recreation_ground
+    ja = レクリエーション
     pl = Tereny wypoczynkowe
 
   [type.landuse.reservoir]
@@ -11211,7 +11272,7 @@
     hu = Víz
     id = Air
     it = Bacino
-    ja = 水地
+    ja = 貯水池
     ko = 연못
     nb = Vann
     pl = Woda
@@ -11232,30 +11293,37 @@
 
   [type.landuse.residential]
     en = landuse-residential
+    ja = 住宅地
     pl = Tereny zamieszkania
 
   [type.landuse.retail]
     en = landuse-retail
+    ja = 小売店エリア
     pl = Obszar handlu
 
   [type.landuse.salt_pond]
     en = landuse-salt_pond
+    ja = 塩田
     pl = Słone jezioro
 
   [type.landuse.village_green]
     en = landuse-village_green
+    ja = 村の中心
     pl = Nawsie
 
   [type.landuse.vineyard]
     en = Vineyard
+    ja = ブドウ園
     pl = Winnica
 
   [type.leisure]
     en = leisure
+    ja = レジャー
     pl = Wypoczynek
 
   [type.leisure.common]
     en = leisure-common
+    ja = レジャー(共有地)
 
   [type.leisure.dog_park]
     en = Dog area
@@ -11421,14 +11489,17 @@
 
   [type.leisure.ice_rink]
     en = Ice rink
+    ja = アイスリンク
     pl = Lodowisko
 
   [type.leisure.landscape_reserve]
     en = Landscape reserve
+    ja = 自然保護区
     pl = Rezerwat krajobrazu
 
   [type.leisure.marina]
     en = Marina
+    ja = マリーナ
 
   [type.leisure.nature_reserve]
     en = Nature reserve
@@ -11703,6 +11774,7 @@
 
   [type.leisure.slipway]
     en = leisure-slipway
+    ja = スリップウェイ
     pl = Pochylnia
 
   [type.leisure.sports_centre]
@@ -11928,6 +12000,7 @@
 
   [type.leisure.track]
     en = leisure-track
+    ja = トラック
 
   [type.leisure.water_park]
     en = Water Park
@@ -11963,13 +12036,16 @@
 
   [type.man_made]
     en = man_made
+    ja = 構造物
 
   [type.man_made.breakwater]
     en = man_made-breakwater
+    ja = 防波堤
     pl = Falochron
 
   [type.man_made.cairn]
     en = man_made-cairn
+    ja = ケルン
     pl = Kopiec
 
   [type.man_made.chimney]
@@ -12005,6 +12081,7 @@
 
   [type.man_made.cutline]
     en = man_made-cutline
+    ja = 森林の切れ目
     pl = Przecinka leśna
 
   [type.man_made.lighthouse]
@@ -12041,14 +12118,17 @@
 
   [type.man_made.pier]
     en = man_made-pier
+    ja = 桟橋
     pl = Molo
 
   [type.man_made.pipeline]
     en = man_made-pipeline
+    ja = パイプライン
     pl = Rurociąg
 
   [type.man_made.pipeline.overground]
     en = man_made-pipeline-overground
+    ja = 地表のパイプライン
     pl = Rurociąg nad ziemią
 
   [type.man_made.surveillance]
@@ -12117,6 +12197,7 @@
 
   [type.man_made.wastewater_plant]
     en = man_made-wastewater_plant
+    ja = 下水処理場
     pl = Oczyszczalnia ścieków
 
   [type.man_made.water_tap]
@@ -12249,6 +12330,7 @@
 
   [type.man_made.works]
     en = man_made-works
+    ja = 工場
 
   [type.mapswithme]
     en = mapswithme
@@ -12258,6 +12340,7 @@
 
   [type.military]
     en = military
+    ja = 軍事
     pl = Wojskowe
 
   [type.military.bunker]
@@ -12281,10 +12364,12 @@
 
   [type.natural]
     en = natural
+    ja = 自然
     pl = Natura
 
   [type.natural.bare_rock]
     en = Bare rock
+    ja = 岩肌
     pl = Skała macierzysta
 
   [type.natural.bay]
@@ -12417,11 +12502,13 @@
 
   [type.natural.cliff]
     en = Cliff
+    ja = 崖
     pl = Klif
 
   [type.natural.coastline]
     en = Coastline
     ru = Береговая линия
+    ja = 海岸線
     pl = Linia brzegowa
 
   [type.natural.geyser]
@@ -12528,11 +12615,13 @@
 
   [type.natural.heath]
     en = Heath
+    ja = ヒース
     pl = Wrzosowisko
 
   [type.natural.hot_spring]
     en = Hot spring
     ru = Горячий источник
+    ja = 温泉
     pl = Gorące źródło
 
   [type.natural.lake]
@@ -12569,13 +12658,16 @@
 
   [type.natural.land]
     en = natural-land
+    ja = 陸地
 
   [type.natural.meadow]
     en = Meadow
+    ja = 牧草地
     pl = Łąka
 
   [type.natural.orchard]
     en = Orchard
+    ja = 果樹園
     pl = Sad
 
   [type.natural.peak]
@@ -12644,10 +12736,12 @@
 
   [type.natural.rock]
     en = Rock
+    ja = 岩
     pl = Skała
 
   [type.natural.salt_pond]
     en = Salt pond
+    ja = 塩田
     pl = Słony staw
 
   [type.natural.scrub]
@@ -12784,10 +12878,12 @@
 
   [type.natural.tree_row]
     en = Tree row
+    ja = 並木
     pl = Rząd drzew
 
   [type.natural.vineyard]
     en = Vineyard
+    ja = ブドウ園
     pl = Winnica
 
   [type.natural.volcano]
@@ -12889,18 +12985,22 @@
 
   [type.natural.wetland.bog]
     en = Wetland
+    ja = 泥炭地
     pl = Torfowisko
 
   [type.natural.wetland.marsh]
     en = Wetland
+    ja = 沼地
     pl = Moczary
 
   [type.noexit]
     en = noexit
+    ja = 行き止まり
     pl = Ślepy koniec drogi
 
   [type.noexit.motor_vehicle]
     en = noexit-motor_vehicle
+    ja = 行き止まり
     pl = Ślepy koniec drogi dla pojazdów mechanicznych
 
   [type.office]
@@ -13161,14 +13261,17 @@
 
   [type.olympics]
     en = olympics
+    ja = オリンピック
     pl = Olimpiada
 
   [type.olympics.attraction]
     en = olympics-attraction
+    ja = オリンピックアトラクション
     pl = Atrakcje olimpijskie
 
   [type.olympics.bike_sport]
     en = olympics-bike_sport
+    ja = オリンピック自転車競技
     pl = Olimpijskie sporty rowerowe
 
   [type.olympics.live_site]
@@ -13180,10 +13283,12 @@
 
   [type.olympics.stadium]
     en = olympics-stadium
+    ja = オリンピックスタジアム
     pl = Stadion olimpijski
 
   [type.olympics.stadium_main]
     en = olympics-stadium_main
+    ja = オリンピックメインスタジアム
     pl = Główny stadion olimpijski
 
   [type.olympics.transport_airport]
@@ -13209,10 +13314,12 @@
 
   [type.olympics.water_sport]
     en = olympics-water_sport
+    ja = オリンピック水上競技
     pl = Olimpijskie sporty wodne
 
   [type.place]
     en = place
+    ja = 地名
     pl = Miejsce
 
   [type.place.city]
@@ -13789,6 +13896,7 @@
 
   [type.place.isolated_dwelling]
     en = place-isolated_dwelling
+    ja = 小規模な村
     pl = Mała osada
 
   [type.place.locality]
@@ -13825,6 +13933,7 @@
 
   [type.place.neighbourhood]
     en = Neighbourhood
+    ja = 小字・丁目
     pl = Sąsiedztwo
 
   [type.place.ocean]
@@ -13915,6 +14024,7 @@
 
   [type.place.square]
     en = place-square
+    ja = 広場
     pl = Plac
 
   [type.place.state]
@@ -14078,20 +14188,25 @@
 
   [type.power]
     en = power
+    ja = 電力
 
   [type.power.generator]
     en = power-generator
+    ja = 発電機
 
   [type.power.line]
     en = power-line
+    ja = 電力線
     pl = Linia wysokiego napięcia
 
   [type.power.line.underground]
     en = power-line-underground
+    ja = 地下電力線
     pl = Podziemna linia wysokiego napięcia
 
   [type.power.minor_line]
     en = power-minor_line
+    ja = 低圧電力線
     pl = Linia niskiego napięcia
 
   [type.power.pole]
@@ -14128,6 +14243,7 @@
 
   [type.power.station]
     en = power-station
+    ja = 変電所
     pl = Elektrownia
 
   [type.power.substation]
@@ -14209,42 +14325,54 @@
 
   [type.public_transport]
     en = public_transport
+    ja = 公共交通機関
     pl = Transport publiczny
 
   [type.public_transport.platform]
     en = public_transport-platform
+    ja = 公共交通機関のプラットホーム
     pl = Przystanek transportu publicznego
 
   [type.railway]
     en = railway
+    ja = 鉄道
     pl = Kolej
 
   [type.railway.abandoned]
     en = railway-abandoned
+    ja = 廃線
 
   [type.railway.abandoned.bridge]
     en = railway-abandoned-bridge
+    ja = 廃線(橋)
 
   [type.railway.abandoned.tunnel]
     en = railway-abandoned-tunnel
+    ja = 廃線(トンネル)
 
   [type.railway.construction]
     en = railway-construction
+    ja = 建設中の鉄道
 
   [type.railway.crossing]
     en = railway-crossing
+    ja = 歩行者用踏切
 
   [type.railway.disused]
     en = railway-disused
+    ja = 休止線
 
   [type.railway.funicular]
     en = railway-funicular
+    ja = ケーブルカー
 
   [type.railway.funicular.bridge]
     en = railway-funicular-bridge
+    ja = ケーブルカー(橋)
 
   [type.railway.funicular.tunnel]
     en = railway-funicular-tunnel
+    ja = ケーブルカー(トンネル)
 
   [type.railway.halt]
     en = Train Station
@@ -14323,12 +14451,15 @@
 
   [type.railway.light_rail]
     en = railway-light_rail
+    ja = ライトレール
 
   [type.railway.light_rail.bridge]
     en = railway-light_rail-bridge
+    ja = ライトレール(橋)
 
   [type.railway.light_rail.tunnel]
     en = railway-light_rail-tunnel
+    ja = ライトレール(トンネル)
 
   [type.railway.monorail]
     en = Monorail
@@ -14366,30 +14497,39 @@
 
   [type.railway.monorail.bridge]
     en = railway-monorail-bridge
+    ja = モノレール(橋)
 
   [type.railway.monorail.tunnel]
     en = railway-monorail-tunnel
+    ja = モノレール(トンネル)
 
   [type.railway.narrow_gauge]
     en = railway-narrow_gauge
+    ja = 狭軌鉄道
 
   [type.railway.narrow_gauge.bridge]
     en = railway-narrow_gauge-bridge
+    ja = 狭軌鉄道(橋)
 
   [type.railway.narrow_gauge.tunnel]
     en = railway-narrow_gauge-tunnel
+    ja = ja = 狭軌鉄道(トンネル)
 
   [type.railway.platform]
     en = railway-platform
+    ja = プラットホーム
 
   [type.railway.preserved]
     en = railway-preserved
+    ja = 保存鉄道
 
   [type.railway.preserved.bridge]
     en = railway-preserved-bridge
+    ja = 保存鉄道(橋)
 
   [type.railway.preserved.tunnel]
     en = railway-preserved-tunnel
+    ja = 保存鉄道(トンネル)
 
   [type.railway.rail]
     en = Railway
@@ -14427,33 +14567,43 @@
 
   [type.railway.rail.bridge]
     en = railway-rail-bridge
+    ja = 鉄道(橋)
 
   [type.railway.rail.motor_vehicle]
     en = railway-rail-motor_vehicle
+    ja = 鉄道
 
   [type.railway.rail.tunnel]
     en = railway-rail-tunnel
+    ja = 鉄道(鉄道)
 
   [type.railway.razed]
     en = railway-razed
+    ja = 撤去済の鉄道
 
   [type.railway.siding]
     en = railway-siding
+    ja = 側線
 
   [type.railway.siding.bridge]
     en = railway-siding-bridge
+    ja = 側線(橋)
 
   [type.railway.siding.tunnel]
     en = railway-siding-tunnel
+    ja = 側線(トンネル)
 
   [type.railway.spur]
     en = railway-spur
+    ja = 引き込み線
 
   [type.railway.spur.bridge]
     en = railway-spur-bridge
+    ja = 引き込み線(橋)
 
   [type.railway.spur.tunnel]
     en = railway-spur-tunnel
+    ja = 引き込み線(トンネル)
 
   [type.railway.station]
     en = Train Station
@@ -15787,12 +15937,15 @@
 
   [type.railway.tram]
     en = railway-tram
+    ja = トラム
 
   [type.railway.tram.bridge]
     en = railway-tram-bridge
+    ja = トラム(橋)
 
   [type.railway.tram.tunnel]
     en = railway-tram-tunnel
+    ja = トラム(トンネル)
 
   [type.railway.tram_stop]
     en = Tram Stop
@@ -15828,24 +15981,31 @@
 
   [type.railway.yard]
     en = railway-yard
+    ja = ヤード
 
   [type.railway.yard.bridge]
     en = railway-yard-bridge
+    ja = ヤード(橋)
 
   [type.railway.yard.tunnel]
     en = railway-yard-tunnel
+    ja = ヤード(トンネル)
 
   [type.route]
     en = route
+    ja = ルート
 
   [type.route.ferry]
     en = route-ferry
+    ja = フェリー航路
 
   [type.route.ferry.motor_vehicle]
     en = route-ferry-motor_vehicle
+    ja = フェリー航路(動力車)
 
   [type.route.ferry.motorcar]
     en = route-ferry-motorcar
+    ja = フェリー航路(自動車)
 
   [type.route.shuttle_train]
     en = route-shuttle_train
@@ -16305,7 +16465,7 @@
     hu = Bolt
     id = Toko
     it = Negozio
-    ja = 買い物
+    ja = チョコレート屋
     ko = 쇼핑
     nb = Butikk
     pl = Sklep z czekoladą
@@ -16369,7 +16529,7 @@
     hu = Bolt
     id = Toko
     it = Negozio
-    ja = 買い物
+    ja = コーヒー屋
     ko = 쇼핑
     nb = Butikk
     pl = Sklep z kawą
@@ -16720,7 +16880,7 @@
     hu = Bolt
     id = Toko
     it = Negozio
-    ja = 買い物
+    ja = 生地屋
     ko = 쇼핑
     nb = Butikk
     pl = Sklep
@@ -16848,7 +17008,7 @@
     hu = Faiskola
     id = Penitipan anak
     it = Vivaio
-    ja = 保育園
+    ja = ガーデンセンター
     ko = 종묘점
     nb = Planteskole
     pl = Sklep ogrodniczy
@@ -16944,7 +17104,7 @@
     hu = Fodrász
     id = Penata rambut
     it = Parrucchiera
-    ja = 美容師
+    ja = 美容院/理容店
     ko = 이발사
     nb = Frisør
     pl = Fryzjer
@@ -17128,7 +17288,7 @@
     hu = Masszázs szalon
     id = Tempat Pijat
     it = Centro massaggi
-    ja = マッサージパーラー
+    ja = マッサージ店
     ko = 안마 시술소
     nb = Massasjesalong
     pl = Salon masażu
@@ -17192,7 +17352,7 @@
     hu = Bolt
     id = Toko
     it = Negozio
-    ja = 買い物
+    ja = 消費者金融
     ko = 쇼핑
     nb = Butikk
     pl = Pożyczkodawca
@@ -17256,7 +17416,7 @@
     hu = Bolt
     id = Toko
     it = Negozio
-    ja = 買い物
+    ja = CDショップ
     ko = 쇼핑
     nb = Butikk
     pl = Sklep muzyczny
@@ -17288,7 +17448,7 @@
     hu = Bolt
     id = Toko
     it = Negozio
-    ja = 買い物
+    ja = 楽器店
     ko = 쇼핑
     nb = Butikk
     pl = Sklep z instrumentami muzycznymi
@@ -17384,7 +17544,7 @@
     hu = Kültéri felszerelés
     id = Peralatan Outdoor
     it = Attrezzatura sportiva
-    ja = アウトドア用品
+    ja = アウトドア用品店
     ko = 야외 장비
     nb = Fritidsutstyr
     pl = Sprzęt turystyczny
@@ -17667,7 +17827,7 @@
     hu = Tetováló szalon
     id = Tempat Tato
     it = Studio tatuaggi
-    ja = タトゥーパーラー
+    ja = タトゥースタジオ
     ko = 문신 시술소
     nb = Tatovør
     pl = Salon tatuażu
@@ -17699,7 +17859,7 @@
     hu = Bolt
     id = Toko
     it = Negozio
-    ja = 買い物
+    ja = 茶販売店
     ko = 쇼핑
     nb = Butikk
     pl = Sklep z herbatą
@@ -17959,7 +18119,7 @@
     hu = Szeszesital-üzlet
     id = Toko anggur
     it = Negozio di alcolici
-    ja = ワイン
+    ja = ワイン店
     ko = 와인 샵
     nb = Alkoholutsalg
     pl = Sklep monopolowy
@@ -18058,13 +18218,16 @@
 
   [type.sport]
     en = sport
+    ja = スポーツ
 
   [type.sport.american_football]
     en = sport-american_football
+    ja = アメリカンフットボール
     pl = Futbol amerykański
 
   [type.sport.archery]
     en = sport-archery
+    ja = アーチェリー
     pl = Łucznictwo sportowe
 
   [type.sport.athletics]
@@ -18103,9 +18266,11 @@
 
   [type.sport.australian_football]
     en = sport-australian_football
+    ja = オーストラリアンフットボール
 
   [type.sport.baseball]
     en = sport-baseball
+    ja = 野球
     pl = Baseball
 
   [type.sport.basketball]
@@ -18144,17 +18309,21 @@
 
   [type.sport.bowls]
     en = sport-bowls
+    ja = ローンボウルズ
     pl = Kręgle
 
   [type.sport.cricket]
     en = sport-cricket
+    ja = クリケット
     pl = Krykiet
 
   [type.sport.curling]
     en = sport-curling
+    ja = カーリング
 
   [type.sport.diving]
     en = sport-diving
+    ja = ダイビング
 
   [type.sport.equestrian]
     en = Equestrian Sports
@@ -18169,7 +18338,7 @@
     hu = Lovas sportok
     id = Olahraga Berkuda
     it = Equitazione
-    ja = 乗馬スポーツ
+    ja = 馬術
     ko = 승마 경기장
     nb = Hestesport
     pl = Jeździectwo
@@ -18192,39 +18361,49 @@
 
   [type.sport.football]
     en = sport-football
+    ja = フットボール
     pl = Piłka nożna
 
   [type.sport.golf]
     en = sport-golf
+    ja = ゴルフ
     pl = Golf
 
   [type.sport.gymnastics]
     en = sport-gymnastics
+    ja = 体操競技
     pl = Gimnastyka
 
   [type.sport.handball]
     en = sport-handball
+    ja = ハンドボール
     pl = Piłka ręczna
 
   [type.sport.multi]
     en = sport-multi
+    ja = 複数
 
   [type.sport.scuba_diving]
     en = sport-scuba_diving
+    ja = スクーバダイビング
     pl = Nurkowanie
 
   [type.sport.shooting]
     en = sport-shooting
+    ja = 射撃競技
     pl = Strzelectwo sportowe
 
   [type.sport.skiing]
     en = sport-skiing
+    ja = スキー
 
   [type.sport.soccer]
     en = sport-soccer
+    ja = サッカー
 
   [type.sport.swimming]
     en = sport-swimming
+    ja = 水泳
     pl = Pływanie
 
   [type.sport.tennis]
@@ -18263,6 +18442,7 @@
 
   [type.tourism]
     en = tourism
+    ja = 観光
     pl = Turystyka
 
   [type.tourism.alpine_hut]
@@ -18341,7 +18521,7 @@
     hu = Szobor
     id = Pariwisata
     it = Opere d'arte
-    ja = イラスト
+    ja = 芸術
     ko = 작품
     nb = Kunstverk
     pl = Dzieło sztuki
@@ -18373,7 +18553,7 @@
     hu = Szobor
     id = Pariwisata
     it = Opere d'arte
-    ja = イラスト
+    ja = 建築
     ko = 작품
     nb = Kunstverk
     pl = Architektura
@@ -18405,7 +18585,7 @@
     hu = Szobor
     id = Pariwisata
     it = Opere d'arte
-    ja = イラスト
+    ja = 絵画
     ko = 작품
     nb = Kunstverk
     pl = Malarstwo
@@ -18437,7 +18617,7 @@
     hu = Szobor
     id = Pariwisata
     it = Opere d'arte
-    ja = イラスト
+    ja = 彫刻
     ko = 작품
     nb = Kunstverk
     pl = Rzeźba
@@ -18469,7 +18649,7 @@
     hu = Szobor
     id = Pariwisata
     it = Opere d'arte
-    ja = イラスト
+    ja = 像
     ko = 작품
     nb = Kunstverk
     pl = Rzeźba
@@ -18531,7 +18711,7 @@
     hu = Látnivaló
     id = Atraksi
     it = Attrattiva
-    ja = アトラクション
+    ja = 動物
     ko = 관광 명소
     nb = Attraksjon
     pl = Atrakcje zwierzęce
@@ -18620,7 +18800,7 @@
     hu = Karaván pihenő
     id = Lokasi perkemahan
     it = Area per campeggiatori
-    ja = キャラバンサイト
+    ja = オートキャンプ場
     ko = 대상 사이트
     nb = Camping
     pl = Pole namiotowe
@@ -18676,7 +18856,7 @@
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
-    ja = 観光
+    ja = 美術館
     ko = 관광
     nb = Severdigheter
     pl = Galeria
@@ -18847,7 +19027,7 @@
     hu = Túrista információ
     id = Informasi turis
     it = Informazione
-    ja = インフォメーション
+    ja = 道標
     ko = 관광 정보
     nb = Turistinformasjon
     pl = Informacja turystyczna
@@ -18986,7 +19166,7 @@
     hu = Piknikező hely
     id = Lokasi piknik
     it = Picnic
-    ja = ピクニック
+    ja = ピクニック場
     ko = 소풍 사이트
     nb = Rasteplasser
     pl = Pole piknikowe
@@ -19044,7 +19224,7 @@
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
-    ja = 観光
+    ja = テーマパーク
     ko = 관광
     nb = Severdigheter
     pl = Park tematyczny
@@ -19155,18 +19335,22 @@
 
   [type.traffic_calming]
     en = traffic_calming
+    ja = 交通静穏化
     pl = Uspokojenie ruchu drogowego
 
   [type.traffic_calming.bump]
     en = traffic_calming-bump
+    ja = スピードバンプ
     pl = Krótki próg zwalniający
 
   [type.traffic_calming.hump]
     en = traffic_calming-hump
+    ja = スピードハンプ
     pl = Długi próg zwalniający
 
   [type.waterway]
     en = waterway
+    ja = 水域
 
   [type.waterway.canal]
     en = Canal
@@ -19224,21 +19408,26 @@
 
   [type.waterway.dam]
     en = waterway-dam
+    ja = ダム
 
   [type.waterway.ditch]
     en = waterway-ditch
+    ja = 排水路
 
   [type.waterway.ditch.tunnel]
     en = waterway-ditch-tunnel
+    ja = 排水路(トンネル)
 
   [type.waterway.dock]
     en = waterway-dock
+    ja = ドック
 
   [type.waterway.drain]
     en = waterway-drain
 
   [type.waterway.drain.tunnel]
     en = waterway-drain-tunnel
+    ja = 用水路
 
   [type.waterway.lock]
     en = waterway-lock
@@ -19383,7 +19572,7 @@
     hu = Folyó
     id = Sungai
     it = Fiume
-    ja = 河川
+    ja = 小川
     ko = 강
     nb = Elv
     pl = Ciek rzeki
@@ -19415,7 +19604,7 @@
     hu = Folyó
     id = Sungai
     it = Fiume
-    ja = 河川
+    ja = 小川
     ko = 강
     nb = Elv
     pl = Rzeka
@@ -19447,7 +19636,7 @@
     hu = Folyó
     id = Sungai
     it = Fiume
-    ja = 河川
+    ja = 小川
     ko = 강
     nb = Elv
     pl = Rzeka
@@ -19479,7 +19668,7 @@
     hu = Folyó
     id = Sungai
     it = Fiume
-    ja = 河川
+    ja = 小川
     ko = 강
     nb = Elv
     pl = Rzeka
@@ -19532,9 +19721,11 @@
 
   [type.waterway.weir]
     en = waterway-weir
+    ja = 堰
 
   [type.wheelchair]
     en = wheelchair
+    ja = 車椅子
 
   [type.wheelchair.limited]
     en = Limited wheelchair access

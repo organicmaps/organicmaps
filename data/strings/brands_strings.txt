@@ -96,7 +96,7 @@
 
   [brand.coco_ichibanya]
     en = Coco Ichibanya
-    ja = ここいちばんや
+    ja = CoCo壱番屋
 
   [brand.cocos]
     en = COCO'S
@@ -167,6 +167,7 @@
 
   [brand.first_kitchen]
     en = First Kitchen
+    ja = ファーストキッチン
 
   [brand.freshness_burger]
     en = Freshness Burger
@@ -335,11 +336,11 @@
 
   [brand.matsunoya]
     en = Matsunoya
-    ja = 松乃家
+    ja = 松のや
 
   [brand.matsuya]
     en = Matsuya
-    ja = まつや
+    ja = 松屋
 
   [brand.mcdonalds]
     en = McDonald's
@@ -389,7 +390,7 @@
 
   [brand.ohsho]
     en = Gyoza no Ohsho
-    ja = ぎょうざのおうしょう
+    ja = 餃子の王将
 
   [brand.onebuckscoffee]
     en = OneBucksCoffee
