@@ -141,17 +141,23 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     List<BookmarkCategory> mCategoryItems = BookmarkManager.INSTANCE.getChildrenCategories(categoryId);
     List<BookmarkCategory> mCollectionItems = BookmarkManager.INSTANCE.getChildrenCollections(categoryId);
 
-    mBookmarkCollectionAdapter = new BookmarkCollectionAdapter(categoryId ,mCategoryItems, mCollectionItems);
+    mBookmarkCollectionAdapter = new BookmarkCollectionAdapter(
+        getCategoryOrThrow().getServerId(), categoryId, mCategoryItems, mCollectionItems);
     mBookmarkCollectionAdapter.setOnClickListener((v, item) -> {
       Intent intent = new Intent(getActivity(), BookmarkListActivity.class)
           .putExtra(BookmarksListFragment.EXTRA_CATEGORY, item);
-      // TODO(@velichkomarija):  Statistics.INSTANCE.trackCollectionOrCategorySelect()
+
+      final boolean isCategory = BookmarkManager.INSTANCE.getCompilationType(item.getId()) ==
+                                 BookmarkManager.CATEGORY;
+      Statistics.INSTANCE.trackCollectionOrCategorySelect(item.getServerId(), item.getName(),
+                                                          isCategory);
       startActivity(intent);
     });
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.fragment_bookmark_list, container, false);
   }
@@ -615,9 +621,19 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     i.putExtra(MwmActivity.EXTRA_TASK,
                new Factory.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
 
-    // TODO (@velichkomarija): Added from param category or collection instead MAIN if need.
     Statistics.INSTANCE.trackGuideBookmarkSelect(mCategoryDataSource.getData().getServerId(),
-                                                 Statistics.ParamValue.MAIN);
+                                                 getParamValueByType(bookmark.getCategoryId()));
+  }
+
+  @NonNull
+  private String getParamValueByType(long catId)
+  {
+    if (BookmarkManager.INSTANCE.isCompilation(catId))
+      return Statistics.ParamValue.MAIN;
+    else if (BookmarkManager.INSTANCE.getCompilationType(catId) == BookmarkManager.CATEGORY)
+      return Statistics.ParamValue.CATEGORY;
+    else
+      return Statistics.ParamValue.COLLECTION;
   }
 
   public void onItemMore(int position)

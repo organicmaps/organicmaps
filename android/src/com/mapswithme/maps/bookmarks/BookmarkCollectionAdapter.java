@@ -13,6 +13,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,6 +30,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private final static int TYPE_HEADER_ITEM = 3;
 
   private final long mParentCategoryId;
+  @NonNull
+  private final String mParentServerId;
 
   @NonNull
   private List<BookmarkCategory> mItemsCollection;
@@ -62,13 +65,23 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
       category.invertVisibility();
       notifyItemChanged(mHolder.getAdapterPosition());
       notifyItemChanged(SectionPosition.INVALID_POSITION);
+
+      String compilationTypeString = BookmarkManager.INSTANCE.getCompilationType(category.getId()) ==
+                                     BookmarkManager.CATEGORY ?
+                                     Statistics.ParamValue.CATEGORY :
+                                     Statistics.ParamValue.COLLECTION;
+      Statistics.INSTANCE.trackGuideVisibilityChange(
+          category.isVisible() ? Statistics.ParamValue.SHOW : Statistics.ParamValue.HIDE,
+          category.getServerId(), compilationTypeString);
     }
   }
 
-  BookmarkCollectionAdapter(long parentCategoryId,
+  BookmarkCollectionAdapter(@NonNull String parentServerId,
+                            long parentCategoryId,
                             @NonNull List<BookmarkCategory> itemsCategories,
                             @NonNull List<BookmarkCategory> itemsCollection)
   {
+    mParentServerId = parentServerId;
     mParentCategoryId = parentCategoryId;
     //noinspection AssignmentOrReturnOfFieldWithMutableType
     mItemsCategory = itemsCategories;
@@ -220,7 +233,8 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     int compilationType = nextSectionPosition == mCategorySectionIndex ?
                           BookmarkManager.CATEGORY : BookmarkManager.COLLECTION;
     headerViewHolder.setAction(mMassOperationAction,
-                               !isCategoryAllItemsAreVisible(nextSectionPosition), compilationType);
+                               !isCategoryAllItemsAreVisible(nextSectionPosition),
+                               compilationType, mParentServerId);
   }
 
   @Override

@@ -23,6 +23,7 @@ import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 public class Holders
 {
@@ -92,13 +93,14 @@ public class Holders
 
     void setAction(@NonNull HeaderActionChildCategories action,
                    final boolean showAll,
-                   @BookmarkManager.CompilationType final int compilationType)
+                   @BookmarkManager.CompilationType final int compilationType,
+                   @NonNull String serverId)
     {
       mButton.setText(showAll
                       ? R.string.bookmarks_groups_show_all
                       : R.string.bookmarks_groups_hide_all);
       mButton.setOnClickListener(new ToggleShowAllChildCategoryClickListener(
-          action, showAll, compilationType));
+          action, showAll, compilationType, serverId));
     }
 
     public interface HeaderAction
@@ -121,22 +123,37 @@ public class Holders
       private final boolean mShowAll;
       @BookmarkManager.CompilationType
       private final int mCompilationType;
+      private final String mServerId;
+      private final String mCompilationTypeString;
 
-      ToggleShowAllChildCategoryClickListener(@NonNull HeaderActionChildCategories action, boolean showAll,
-                                              @BookmarkManager.CompilationType int compilationType)
+      ToggleShowAllChildCategoryClickListener(@NonNull HeaderActionChildCategories action,
+                                              boolean showAll,
+                                              @BookmarkManager.CompilationType int compilationType,
+                                              @NonNull String serverId)
       {
         mAction = action;
         mShowAll = showAll;
         mCompilationType = compilationType;
+        mServerId = serverId;
+        mCompilationTypeString = compilationType == BookmarkManager.CATEGORY ?
+                                 Statistics.ParamValue.CATEGORY : Statistics.ParamValue.COLLECTION;
       }
 
       @Override
       public void onClick(View view)
       {
         if (mShowAll)
+        {
           mAction.onShowAll(mCompilationType);
+          Statistics.INSTANCE.trackGuideVisibilityChange(Statistics.ParamValue.SHOW_ALL, mServerId,
+                                                         mCompilationTypeString);
+        }
         else
+        {
           mAction.onHideAll(mCompilationType);
+          Statistics.INSTANCE.trackGuideVisibilityChange(Statistics.ParamValue.HIDE_ALL, mServerId,
+                                                         mCompilationTypeString);
+        }
       }
     }
 
