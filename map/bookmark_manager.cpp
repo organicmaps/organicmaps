@@ -3373,6 +3373,35 @@ void BookmarkManager::SetAllCategoriesVisibility(CategoryFilterType const filter
   }
 }
 
+bool BookmarkManager::AreAllCompilationsVisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const
+{
+  return CheckCompilationsVisibility(categoryId, compilationType, true);
+}
+
+bool BookmarkManager::AreAllCompilationsInvisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const
+{
+  return CheckCompilationsVisibility(categoryId, compilationType, false);
+}
+
+bool BookmarkManager::CheckCompilationsVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType, bool isVisible) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const categoryIt = m_categories.find(categoryId);
+  CHECK(categoryIt != m_categories.end(), ());
+  auto & category = *categoryIt->second;
+  for (kml::MarkGroupId const compilationId : category.GetCategoryData().m_compilationIds)
+  {
+    auto const compilationIt = m_compilations.find(compilationId);
+    CHECK(compilationIt != m_compilations.cend(), ());
+    auto & compilation = *compilationIt->second;
+    if (compilation.GetCategoryData().m_type != compilationType)
+      continue;
+    if (compilation.IsVisible() != isVisible)
+      return false;
+  }
+  return true;
+}
+
 void BookmarkManager::SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType,
                                                    bool visible)
 {

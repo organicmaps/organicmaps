@@ -709,6 +709,16 @@ public enum BookmarkManager
     nativeSetAllCategoriesVisibility(visible, type.ordinal());
   }
 
+  public boolean areAllCompilationsVisible(long catId, @CompilationType int compilationType)
+  {
+    return nativeAreAllCompilationsVisible(catId, compilationType);
+  }
+
+  public boolean areAllCompilationsInvisible(long catId, @CompilationType int compilationType)
+  {
+    return nativeAreAllCompilationsInvisible(catId, compilationType);
+  }
+
   public void setChildCategoriesVisibility(long catId, @CompilationType int compilationType, boolean visible)
   {
     nativeSetChildCategoriesVisibility(catId, compilationType, visible);
@@ -1124,8 +1134,12 @@ public enum BookmarkManager
   private static native boolean nativeAreAllCategoriesInvisible(int type);
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible, int type);
+
+  private static native boolean nativeAreAllCompilationsVisible(long catId, @CompilationType int compilationType);
+
+  private static native boolean nativeAreAllCompilationsInvisible(long catId, @CompilationType int compilationType);
   
-  private static native void nativeSetChildCategoriesVisibility(long catId, int compilationType, boolean visible);
+  private static native void nativeSetChildCategoriesVisibility(long catId, @CompilationType int compilationType, boolean visible);
 
   private static native int nativeGetKmlFilesCountForConversion();
 

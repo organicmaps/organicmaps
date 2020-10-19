@@ -1022,6 +1022,22 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetChildCategories
                                                            static_cast<bool>(visible));
 }
 
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCompilationsInvisible(
+    JNIEnv * env, jobject thiz, jlong categoryId, jint compilationType)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().AreAllCompilationsInvisible(static_cast<kml::MarkGroupId>(categoryId),
+                                                                                       static_cast<kml::CompilationType>(compilationType)));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCompilationsVisible(
+    JNIEnv * env, jobject thiz, jlong categoryId, jint compilationType)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().AreAllCompilationsVisible(static_cast<kml::MarkGroupId>(categoryId),
+                                                                                     static_cast<kml::CompilationType>(compilationType)));
+}
+
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetKmlFilesCountForConversion(
         JNIEnv * env, jobject thiz)

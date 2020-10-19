@@ -371,6 +371,8 @@ public:
   bool AreAllCategoriesVisible(CategoryFilterType const filter) const;
   bool AreAllCategoriesInvisible(CategoryFilterType const filter) const;
   void SetAllCategoriesVisibility(CategoryFilterType const filter, bool visible);
+  bool AreAllCompilationsVisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const;
+  bool AreAllCompilationsInvisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const;
   void SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType,
                                     bool visible);
 
@@ -736,6 +738,7 @@ private:
   template <typename UniquityChecker>
   void SetUniqueName(kml::CategoryData & data, UniquityChecker checker);
   bool CheckVisibility(CategoryFilterType const filter, bool isVisible) const;
+  bool CheckCompilationsVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType, bool isVisible) const;
 
   struct SortBookmarkData
   {
