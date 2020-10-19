@@ -46,7 +46,7 @@ def setup(
     package_dir=None,
     install_requires=None,
     cmdclass=None,
-    supported_pythons=("2", "2.7", "3", "3.5", "3.6", "3.7"),
+    supported_pythons=("2", "2.7", "3", "3.5", "3.6", "3.7", "3.8", "3.9"),
 ):
     with chdir(os.path.abspath(os.path.dirname(source_file))):
         setuptools.setup(

@@ -513,7 +513,7 @@ def setup_omim_pybinding(
     author_email='dev@maps.me',
     url='https://github.com/mapsme/omim',
     license='Apache-2.0',
-    supported_pythons=('2', '2.7', '3', '3.5', '3.6', '3.7'),
+    supported_pythons=('2', '2.7', '3', '3.5', '3.6', '3.7', '3.8', '3.9'),
 ):
     if version is None:
         version = str(get_version())
