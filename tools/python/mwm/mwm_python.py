@@ -228,9 +228,6 @@ class FeaturePython(mi.Feature):
     def limit_rect(self) -> mi.Rect:
         logger.warn("Method limit_rect() does not have an implementation.")
 
-    def postcode(self) -> str:
-        logger.warn("Method postcode() does not have an implementation.")
-
     def index(self) -> int:
         return self._index
 

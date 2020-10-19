@@ -89,7 +89,6 @@ def example__working_with_features(path):
     print("population:", ft.population())
     print("road_number:", ft.road_number())
     print("house_number:", ft.house_number())
-    print("postcode:", ft.postcode())
     print("layer:", ft.layer())
     print("geom_type:", ft.geom_type())
     print("center:", ft.center())

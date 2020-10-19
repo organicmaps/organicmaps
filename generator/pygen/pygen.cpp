@@ -95,8 +95,6 @@ public:
 
   std::string GetHouseNumber() { return m_feature->GetHouseNumber(); }
 
-  std::string GetPostcode() { return m_feature->GetPostcode(); }
-
   int8_t GetLayer() { return m_feature->GetLayer(); }
 
   GeomType GetGeomType() { return m_feature->GetGeomType(); }
@@ -146,7 +144,6 @@ public:
     GetPopulation();
     GetRoadNumber();
     GetHouseNumber();
-    GetPostcode();
     GetLayer();
     GetGeomType();
     GetGeometry();
@@ -393,7 +390,6 @@ BOOST_PYTHON_MODULE(pygen)
         .def("population", &FeatureTypeWrapper::GetPopulation)
         .def("road_number", &FeatureTypeWrapper::GetRoadNumber)
         .def("house_number", &FeatureTypeWrapper::GetHouseNumber)
-        .def("postcode", &FeatureTypeWrapper::GetPostcode)
         .def("layer", &FeatureTypeWrapper::GetLayer)
         .def("geom_type", &FeatureTypeWrapper::GetGeomType)
         .def("center", &FeatureTypeWrapper::GetCenter)

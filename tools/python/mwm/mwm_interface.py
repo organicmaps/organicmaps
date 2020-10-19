@@ -343,10 +343,6 @@ class Feature(ABC):
         pass
 
     @abstractmethod
-    def postcode(self) -> str:
-        pass
-
-    @abstractmethod
     def layer(self) -> int:
         pass
 
@@ -405,7 +401,6 @@ class Feature(ABC):
             "population": self.population(),
             "road_number": self.road_number(),
             "house_number": self.house_number(),
-            "postcode": self.postcode(),
             "layer": self.layer(),
             "geom_type": self.geom_type(),
             "center": center,

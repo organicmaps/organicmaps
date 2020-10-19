@@ -94,9 +94,6 @@ class FeaturePygen(mi.Feature):
     def house_number(self) -> str:
         return self.ft.house_number()
 
-    def postcode(self) -> str:
-        return self.ft.postcode()
-
     def layer(self) -> int:
         return self.ft.layer()
 
