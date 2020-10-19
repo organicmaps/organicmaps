@@ -267,12 +267,14 @@ public class BookmarkCategory implements Parcelable
       return 0;
     }
 
+    @NonNull
     public static String getRepresentation(@NonNull Context context, @NonNull Author author)
     {
       Resources res = context.getResources();
       return String.format(res.getString(R.string.author_name_by_prefix), author.getName());
     }
 
+    @NonNull
     public static String getContentByString(@NonNull Context context, @NonNull Author author)
     {
       Resources res = context.getResources();
