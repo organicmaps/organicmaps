@@ -575,7 +575,7 @@
     pt = Deixe uma revisão
     pt-BR = Deixe uma avaliação
     ro = Scrieți o recenzie
-    es = Escribir una opinión|comentario
+    es = Escribir una opinión
     sv = Skriv en recension
     th = ให้คำวิจารณ์
     tr = Bir Yorum Bırak
@@ -2990,7 +2990,7 @@
     pt = Configurações
     pt-BR = Configurações
     ro = Setări
-    es = Ajustes
+    es = Configuración
     sv = Inställningar
     th = การตั้งค่า
     tr = Ayarlar
@@ -6009,7 +6009,7 @@
     pl = Automatyczne powiększanie
     pt = Zoom automático
     ro = Zoom automat
-    es = Autozoom
+    es = Zoom automático
     sv = Automatisk zoom
     th = ซูมอัตโนมัติ
     tr = Otomatik yakınlaştırma
@@ -13076,7 +13076,7 @@
     pt = Itinerário para
     pt-BR = Para
     ro = Ruta la
-    es = Ruta hasta
+    es = Ruta hacia
     sv = Rutt till
     th = เส้นทางถึง
     tr = Varış yeri:
@@ -14215,7 +14215,7 @@
     pt = Desativar o download automático
     pt-BR = Desativar o download automático
     ro = Dezactivare descărcare automată
-    es = Inhabilitar descarga automática
+    es = Desactivar descarga automática
     sv = Avaktivera automatisk nedladdning
     th = หยุดการดาวน์โหลดแบบอัตโนมัติ
     tr = Otomatik indirmeyi devre dışı bırak
@@ -25320,7 +25320,7 @@
     pl = Wł.
     pt = Lig.
     ro = Activat
-    es = Akt.
+    es = Act.
     sv = På
     th = เปิด
     tr = Aç
@@ -25628,7 +25628,7 @@
     pl = Aby zaplanować trasę, dodaj punkt początkowy
     pt = Adicionar ponto de partida para planear uma rota
     ro = Adăugați punctul de plecare pentru a planifica un traseu
-    es = Agregar un punto de inicio para planificar una ruta
+    es = Buscar un origen para el plan de ruta
     sv = Lägg till startpunkt för att planera en rutt
     th = เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง
     tr = Güzergâhı planlamak için bir başlangıç noktası ekleyin
@@ -25660,7 +25660,7 @@
     pl = Aby zaplanować trasę, dodaj punkt końcowy
     pt = Adicionar final da viagem para planear uma rota
     ro = Adăugați punctul de sosire pentru a planifica un traseu
-    es = Agregar un destino para planificar una ruta
+    es = Buscar un destino para el plan de ruta
     sv = Lägg till slutpunkt för att planera en rutt
     th = เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง
     tr = Güzergâhı planlamak için bir varış noktası ekleyin
@@ -29348,7 +29348,7 @@
     pt = Cópia de segurança dos favoritos
     pt-BR = Fazer backup dos favoritos
     ro = Backup semne de carte
-    es = Marcadores de copia de seguridad
+    es = Copia de seguridad de marcadores
     sv = Säkerhetskopiera bokmärken
     th = สำรองข้อมูลบุ๊กมาร์ก
     tr = Yer İmlerini Yedekle
@@ -29382,7 +29382,7 @@
     pt = Listas
     pt-BR = Listas
     ro = Liste
-    es = Liza
+    es = Listas
     sv = Listor
     th = รายการ
     tr = Listeler
@@ -33073,7 +33073,7 @@
     ko = 가이드 찾기
     nb = Søke etter guider
     pl = Znajdź przewodniki
-    pt = Encontrar guias
+    pt = Buscar guías
     pt-BR = Pesquisar guias
     ro = Găsește ghiduri
     es = Encontrar guías
@@ -34434,7 +34434,7 @@
     pt = Gerir a subscrição
     pt-BR = Gerenciar assinatura
     ro = Administrare abonament
-    es = Gestionar suscripción
+    es = Administrar suscripción
     es_MX = Gestionar la suscripción
     sv = Hantera prenumeration
     th = จัดการการสมัครสมาชิก
@@ -34505,7 +34505,7 @@
     pt = Exportar o arquivo
     pt-BR = Exportar arquivo
     ro = Exportați fișierul
-    es = Exportar el archivo
+    es = Exportar como archivo
     es-MX = Exportar archivo
     sv = Exportera fil
     th = ส่งออกไฟล์
@@ -48886,38 +48886,38 @@
     fa = <b>تجربه هایی بیش از پیش</b> با هزاران مکان جذاب <b>در سراسر جهان</b>
 
   [content_by_component]
-    en = Content by:
-    ru = Контент от:
-    ar = المحتوى من قبل:
-    cs = Obsah od:
-    da = Indhold af:
-    nl = Inhoud van:
-    fi = Sisällön toimittaja:
-    fr = Contenu de :
-    de = Content von:
-    hu = Tartalom:
-    id = Konten oleh:
-    it = Contenuto di:
-    ja = コンテンツ提供：
-    ko = 제작:
-    nb = Innhold fra:
-    pl = Treść od:
-    pt = Conteúdo de:
-    pt-BR = Conteúdo por:
-    ro = Conținut oferit de:
-    es = Contenido de:
-    es-MX = Contenido de:
-    sv = Innehåll från:
-    th = เนื้อหาโดย:
-    tr = Yayınlayan:
-    uk = Контент від:
-    vi = Nội dung bởi:
-    el = Περιεχόμενο από:
-    sk = Obsah od:
-    sw = Maudhui na:
-    zh-Hans = 内容来源：
-    zh-Hant = 內容來源：
-    fa = منبع مطالب:
+    en = Content by: %s
+    ru = Контент от: %s
+    ar = المحتوى من قبل: %s
+    cs = Obsah od: %s
+    da = Indhold af: %s
+    nl = Inhoud van: %s
+    fi = Sisällön toimittaja: %s
+    fr = Contenu de : %s
+    de = Content von: %s
+    hu = Tartalom: %s
+    id = Konten oleh: %s
+    it = Contenuto di: %s
+    ja = コンテンツ提供：%s
+    ko = 제작: %s
+    nb = Innhold fra: %s
+    pl = Treść od: %s
+    pt = Conteúdo de: %s
+    pt-BR = Conteúdo por: %s
+    ro = Conținut oferit de: %s
+    es = Contenido de: %s
+    es-MX = Contenido de: %s
+    sv = Innehåll från: %s
+    th = เนื้อหาโดย: %s
+    tr = Yayınlayan: %s
+    uk = Контент від: %s
+    vi = Nội dung bởi: %s
+    el = Περιεχόμενο από: %s
+    sk = Obsah od: %s
+    sw = Maudhui na: %s
+    zh-Hans = 内容来源：%s
+    zh-Hant = 內容來源：%s
+    fa = منبع مطالب: %s
 
   [whatsnew_lp_title]
     en = Even more emotions
