@@ -30,18 +30,7 @@ using namespace feature;
 using namespace platform;
 using namespace std;
 
-LocalCountryFile GetLocalCountryFileByCountryId(CountryFile const & country)
-{
-  vector<LocalCountryFile> localFiles;
-  integration::GetAllLocalFiles(localFiles);
 
-  for (auto const & lf : localFiles)
-  {
-    if (lf.GetCountryFile() == country)
-      return lf;
-  }
-  return {};
-}
 
 void TestAltitudeOfAllMwmFeatures(string const & countryId,
                                   geometry::Altitude const altitudeLowerBoundMeters,
@@ -49,7 +38,7 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId,
 {
   FrozenDataSource dataSource;
 
-  LocalCountryFile const country = GetLocalCountryFileByCountryId(CountryFile(countryId));
+  LocalCountryFile const country = integration::GetLocalCountryFileByCountryId(CountryFile(countryId));
   TEST_NOT_EQUAL(country, LocalCountryFile(), ());
   TEST(country.HasFiles(), (country));
 

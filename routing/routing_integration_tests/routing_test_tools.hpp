@@ -7,6 +7,7 @@
 
 #include "map/features_fetcher.hpp"
 
+#include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 
 #include <cstdint>
@@ -176,4 +177,6 @@ TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
 void TestCurrentStreetName(routing::Route const & route, std::string const & expectedStreetName);
 
 void TestNextStreetName(routing::Route const & route, std::string const & expectedStreetName);
+
+LocalCountryFile GetLocalCountryFileByCountryId(platform::CountryFile const & country);
 }  // namespace integration
