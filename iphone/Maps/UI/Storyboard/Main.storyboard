@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wns-nH-AQU">
     <device id="ipad12_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -68,7 +68,7 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNg-zA-Jne" customClass="GuidesNavigationBarArea" customModule="maps_me" customModuleProvider="target">
+                                    <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNg-zA-Jne" customClass="GuidesNavigationBarArea" customModule="maps_me" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
@@ -193,6 +193,7 @@
                                 </connections>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="utd-Jy-pE5"/>
                         <color key="backgroundColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Tqh-46-Yrm" firstAttribute="centerX" secondItem="utd-Jy-pE5" secondAttribute="centerX" id="0T0-4t-4m2"/>
@@ -242,7 +243,6 @@
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="top" secondItem="65S-M4-TnM" secondAttribute="top" priority="100" id="vfQ-ZT-Dlc"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="rL1-9E-4b7" secondAttribute="trailing" priority="100" id="xUq-Vo-ETR"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="utd-Jy-pE5"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="SDX-4J-Jz5"/>
@@ -636,6 +636,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="xW7-hS-tWE"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="SZQ-ra-FC3" firstAttribute="top" secondItem="aQv-7U-zAP" secondAttribute="bottom" id="14K-dW-WIs"/>
@@ -650,7 +651,6 @@
                             <constraint firstItem="aQv-7U-zAP" firstAttribute="top" secondItem="xW7-hS-tWE" secondAttribute="top" id="bqT-uu-tmG"/>
                             <constraint firstItem="X1H-IB-Nv1" firstAttribute="top" secondItem="xW7-hS-tWE" secondAttribute="top" id="dQa-Ak-qfa"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="xW7-hS-tWE"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
                         </userDefinedRuntimeAttributes>
@@ -778,6 +778,7 @@
                                 </connections>
                             </searchBar>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="lsu-H8-wQc"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="gzF-B7-8pj" secondAttribute="trailing" id="05P-0L-iQz"/>
@@ -791,7 +792,6 @@
                             <constraint firstAttribute="trailing" secondItem="rI9-RR-sKP" secondAttribute="trailing" id="p51-up-UeV"/>
                             <constraint firstItem="rI9-RR-sKP" firstAttribute="leading" secondItem="MIY-NW-Joh" secondAttribute="leading" id="uJM-3a-T9n"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="lsu-H8-wQc"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
                         </userDefinedRuntimeAttributes>
@@ -849,6 +849,7 @@
                                 </connections>
                             </searchBar>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="aCA-5u-5ht"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="aCA-5u-5ht" firstAttribute="bottom" secondItem="ina-WD-kps" secondAttribute="bottom" id="4ua-eU-UlF"/>
@@ -862,7 +863,6 @@
                             <constraint firstAttribute="trailing" secondItem="ina-WD-kps" secondAttribute="trailing" id="rNY-6Q-e5e"/>
                             <constraint firstItem="HEU-Bu-3wh" firstAttribute="leading" secondItem="iTG-qE-svw" secondAttribute="leading" id="w8n-vg-Wp1"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="aCA-5u-5ht"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
                         </userDefinedRuntimeAttributes>
@@ -934,6 +934,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="dlW-OQ-WMO"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -955,7 +956,6 @@
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="CDj-ol-HRP" secondAttribute="bottom" id="tp7-f9-Sw5"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="kXO-Oh-2vO" secondAttribute="trailing" id="yMA-25-2pq"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="dlW-OQ-WMO"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
                         </userDefinedRuntimeAttributes>
@@ -1096,6 +1096,7 @@
                                 </connections>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6lX-F6-61M"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Gmw-e3-n53" firstAttribute="width" relation="lessThanOrEqual" secondItem="4WP-vj-Alg" secondAttribute="width" id="IPr-ei-Pbl"/>
@@ -1104,7 +1105,6 @@
                             <constraint firstAttribute="topMargin" secondItem="Gmw-e3-n53" secondAttribute="top" id="aKd-EX-mvs"/>
                             <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="Gmw-e3-n53" secondAttribute="bottom" id="g7o-yu-JXZ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6lX-F6-61M"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                         </userDefinedRuntimeAttributes>
@@ -1134,6 +1134,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="yK4-pW-Ads"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="EbW-Mp-c6s" firstAttribute="centerY" secondItem="9jm-RW-DZK" secondAttribute="centerY" priority="250" id="BHf-cB-UbU"/>
@@ -1145,7 +1146,6 @@
                             <constraint firstItem="EbW-Mp-c6s" firstAttribute="centerX" secondItem="yK4-pW-Ads" secondAttribute="centerX" id="xbz-FB-nZl"/>
                             <constraint firstItem="EbW-Mp-c6s" firstAttribute="width" secondItem="9jm-RW-DZK" secondAttribute="width" priority="750" id="zcx-oD-0Uk"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="yK4-pW-Ads"/>
                     </view>
                     <connections>
                         <outlet property="container" destination="EbW-Mp-c6s" id="T6K-0M-IAe"/>
@@ -1198,6 +1198,12 @@
             <point key="canvasLocation" x="3780" y="2227.8169014084506"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="sMq-pa-AId"/>
+        <segue reference="4Cc-99-mlN"/>
+        <segue reference="OEF-kR-jKi"/>
+        <segue reference="0A8-4b-0A2"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="ic_add_button" width="28" height="28"/>
         <image name="ic_arrow_gray_down" width="28" height="28"/>
@@ -1206,10 +1212,4 @@
         <image name="img_no_maps" width="240" height="240"/>
         <image name="separator_image" width="1" height="1"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="sMq-pa-AId"/>
-        <segue reference="4Cc-99-mlN"/>
-        <segue reference="OEF-kR-jKi"/>
-        <segue reference="0A8-4b-0A2"/>
-    </inferredMetricsTieBreakers>
 </document>
