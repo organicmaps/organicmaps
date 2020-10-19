@@ -19,6 +19,7 @@ set(
   archival_reporter_tests.cpp
   bicycle_route_test.cpp
   bicycle_turn_test.cpp
+  concurrent_feature_parsing_test.cpp
   cross_country_routing_tests.cpp
   get_altitude_test.cpp
   guides_tests.cpp

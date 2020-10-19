@@ -397,7 +397,7 @@ void CheckSubwayExistence(Route const & route)
 LocalCountryFile GetLocalCountryFileByCountryId(platform::CountryFile const & country)
 {
   vector<LocalCountryFile> localFiles;
-  integration::GetAllLocalFiles(localFiles);
+  GetAllLocalFiles(localFiles);
 
   for (auto const & lf : localFiles)
   {
@@ -406,4 +406,4 @@ LocalCountryFile GetLocalCountryFileByCountryId(platform::CountryFile const & co
   }
   return {};
 }
-}  // namespace
+}  // namespace integration

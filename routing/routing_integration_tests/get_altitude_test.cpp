@@ -30,8 +30,6 @@ using namespace feature;
 using namespace platform;
 using namespace std;
 
-
-
 void TestAltitudeOfAllMwmFeatures(string const & countryId,
                                   geometry::Altitude const altitudeLowerBoundMeters,
                                   geometry::Altitude const altitudeUpperBoundMeters)
