@@ -23,8 +23,7 @@
   self.verticalConstraint.active = YES;
 
   NSLayoutXAxisAnchor * backLeadingAnchor = sv.leadingAnchor;
-  if (@available(iOS 11.0, *))
-    backLeadingAnchor = sv.safeAreaLayoutGuide.leadingAnchor;
+  backLeadingAnchor = sv.safeAreaLayoutGuide.leadingAnchor;
   [self.backButton.leadingAnchor constraintEqualToAnchor:backLeadingAnchor].active = YES;
 
   [sv layoutIfNeeded];
@@ -41,10 +40,7 @@
   CGFloat constant = 0;
   if (isVisible)
   {
-    if (@available(iOS 11.0, *))
-      topAnchor = sv.safeAreaLayoutGuide.topAnchor;
-    else
-      constant = statusBarHeight();
+    topAnchor = sv.topAnchor;
   }
   self.verticalConstraint = [selfAnchor constraintEqualToAnchor:topAnchor constant:constant];
   self.verticalConstraint.active = YES;

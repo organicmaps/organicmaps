@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,11 +49,8 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRj-9k-ciR">
-                    <rect key="frame" x="0.0" y="-44" width="320" height="44"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="QYY-96-CiC"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PrimaryBackground"/>
                     </userDefinedRuntimeAttributes>
@@ -169,6 +166,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="h9I-OO-tom"/>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="tRj-9k-ciR" secondAttribute="trailing" id="7jY-DP-PkA"/>
@@ -176,6 +174,7 @@
                 <constraint firstItem="WqK-Yb-PmP" firstAttribute="top" secondItem="h9I-OO-tom" secondAttribute="top" id="DDa-WE-Bpd"/>
                 <constraint firstItem="Ib5-qh-Cmo" firstAttribute="top" secondItem="WqK-Yb-PmP" secondAttribute="bottom" id="Oxx-fO-ZLa"/>
                 <constraint firstItem="Ib5-qh-Cmo" firstAttribute="leading" secondItem="h9I-OO-tom" secondAttribute="leading" id="UJ9-p8-11L"/>
+                <constraint firstAttribute="top" secondItem="tRj-9k-ciR" secondAttribute="top" id="eyS-x2-mYX"/>
                 <constraint firstItem="tRj-9k-ciR" firstAttribute="leading" secondItem="aNH-vh-DPz" secondAttribute="leading" id="gxu-Mc-DSI"/>
                 <constraint firstAttribute="trailing" secondItem="WqK-Yb-PmP" secondAttribute="trailing" id="hui-oa-rbV"/>
                 <constraint firstItem="WqK-Yb-PmP" firstAttribute="leading" secondItem="aNH-vh-DPz" secondAttribute="leading" id="rQB-KG-9Kg"/>
@@ -184,7 +183,6 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="h9I-OO-tom"/>
             <connections>
                 <outlet property="backButton" destination="wpf-tw-Coz" id="33r-Ij-AuQ"/>
                 <outlet property="bicycle" destination="FuO-c6-y9C" id="UR2-pF-Amb"/>
@@ -241,7 +239,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackSecondaryText"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zzm-Yo-BvL">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zzm-Yo-BvL">
                             <rect key="frame" x="81" y="8" width="127" height="32"/>
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -322,7 +320,7 @@
                             <rect key="frame" x="-100" y="0.0" width="520" height="144"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K37-2W-GE8">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K37-2W-GE8">
                             <rect key="frame" x="20" y="10" width="127" height="24"/>
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -395,6 +393,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="Mhb-kh-JDR"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FBs-iT-nWY" secondAttribute="bottom" id="0pP-L9-PjJ"/>
@@ -427,7 +426,6 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="Mhb-kh-JDR"/>
             <connections>
                 <outlet property="errorBox" destination="fD2-1N-x27" id="IV5-eS-JLl"/>
                 <outlet property="errorBoxBottom" destination="x7F-TL-lJx" id="W6w-05-Dll"/>
@@ -474,6 +472,7 @@
                     <collectionViewLayout key="collectionViewLayout" id="d3P-nT-IFD" customClass="TransportTransitFlowLayout" customModule="maps_me" customModuleProvider="target"/>
                 </collectionView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="YJK-Xe-9oN"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Iu4-M8-t6g" firstAttribute="leading" secondItem="iWi-pM-AJF" secondAttribute="leading" constant="16" id="5Ge-fx-3pw"/>
@@ -489,7 +488,6 @@
                 <constraint firstItem="uA3-5h-DWb" firstAttribute="leading" secondItem="iWi-pM-AJF" secondAttribute="leading" constant="-100" id="zCP-aF-HvA"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="YJK-Xe-9oN"/>
             <connections>
                 <outlet property="etaLabel" destination="Iu4-M8-t6g" id="hJe-KS-ctT"/>
                 <outlet property="stepsCollectionView" destination="RVh-LF-kSn" id="3uG-nE-mt3"/>
