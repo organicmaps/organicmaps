@@ -74,6 +74,12 @@ OSM_TOOLS_PATH: ~/osmctools
 [Stages]
 # Run osmupdate tool for planet.
 NEED_PLANET_UPDATE: 0
+# Auto detection.
+THREADS_COUNT_FEATURES_STAGE: 0
+# If you want to calculate diffs, you need to specify, where old maps are
+DATA_ARCHIVE_DIR: ${Generator tool:USER_RESOURCE_PATH}
+# You may specify, how many versions in the archive to use for diff calculation
+DIFF_VERSION_DEPTH: 2
 
 
 [Logging]

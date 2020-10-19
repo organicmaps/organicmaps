@@ -92,15 +92,14 @@ OSM_TOOLS_SRC_PATH = os.path.join(OMIM_PATH, "tools", "osmctools")
 OSM_TOOLS_PATH = os.path.join(_WORK_PATH, "osmctools")
 
 # Generator tool section:
-NODE_STORAGE = "mem" if total_virtual_memory() / 10 ** 9 >= 64 else "map"
-
 USER_RESOURCE_PATH = os.path.join(OMIM_PATH, "data")
-
-DATA_ARCHIVE_DIR = USER_RESOURCE_PATH
-DIFF_VERSION_DEPTH = 2
+NODE_STORAGE = "mem" if total_virtual_memory() / 10 ** 9 >= 64 else "map"
 
 # Stages section:
 NEED_PLANET_UPDATE = False
+THREADS_COUNT_FEATURES_STAGE = multiprocessing.cpu_count()
+DATA_ARCHIVE_DIR = USER_RESOURCE_PATH
+DIFF_VERSION_DEPTH = 2
 
 # Logging section:
 LOG_FILE_PATH = os.path.join(MAIN_OUT_PATH, "generation.log")
@@ -216,26 +215,20 @@ def init(default_settings_path: AnyStr):
 
     # Generator tool section:
     global USER_RESOURCE_PATH
-    global DATA_ARCHIVE_DIR
-    global DIFF_VERSION_DEPTH
     global NODE_STORAGE
     USER_RESOURCE_PATH = cfg.get_opt_path(
         "Generator tool", "USER_RESOURCE_PATH", USER_RESOURCE_PATH
-    )
-    DATA_ARCHIVE_DIR = cfg.get_opt_path(
-        "Generator tool", "DATA_ARCHIVE_DIR", DATA_ARCHIVE_DIR
-    )
-    DIFF_VERSION_DEPTH = cfg.get_opt(
-        "Generator tool", "DIFF_VERSION_DEPTH", DIFF_VERSION_DEPTH
     )
     NODE_STORAGE = cfg.get_opt("Generator tool", "NODE_STORAGE", NODE_STORAGE)
 
     if not os.path.exists(USER_RESOURCE_PATH):
         from data_files import find_data_files
+
         USER_RESOURCE_PATH = find_data_files("omim-data")
         assert USER_RESOURCE_PATH is not None
 
         import borders
+
         # Issue: If maps_generator is installed in your system as a system
         # package and borders.init() is called first time, call borders.init()
         # might return False, because you need root permission.
@@ -243,7 +236,26 @@ def init(default_settings_path: AnyStr):
 
     # Stages section:
     global NEED_PLANET_UPDATE
+    global DATA_ARCHIVE_DIR
+    global DIFF_VERSION_DEPTH
+    global THREADS_COUNT_FEATURES_STAGE
     NEED_PLANET_UPDATE = cfg.get_opt("Stages", "NEED_PLANET_UPDATE", NEED_PLANET_UPDATE)
+    DATA_ARCHIVE_DIR = cfg.get_opt_path(
+        "Generator tool", "DATA_ARCHIVE_DIR", DATA_ARCHIVE_DIR
+    )
+    DIFF_VERSION_DEPTH = cfg.get_opt(
+        "Generator tool", "DIFF_VERSION_DEPTH", DIFF_VERSION_DEPTH
+    )
+
+    threads_count = int(
+        cfg.get_opt(
+            "Generator tool",
+            "THREADS_COUNT_FEATURES_STAGE",
+            THREADS_COUNT_FEATURES_STAGE,
+        )
+    )
+    if threads_count > 0:
+        THREADS_COUNT_FEATURES_STAGE = threads_count
 
     # Logging section:
     global LOG_FILE_PATH

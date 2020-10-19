@@ -129,7 +129,7 @@ def step_features(env: Env, **kwargs):
         dump_cities_boundaries=True,
         cities_boundaries_data=env.paths.cities_boundaries_path,
         generate_features=True,
-        threads_count=settings.THREADS_COUNT,
+        threads_count=settings.THREADS_COUNT_FEATURES_STAGE,
         **kwargs,
     )
 

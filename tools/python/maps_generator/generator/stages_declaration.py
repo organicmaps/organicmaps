@@ -178,23 +178,27 @@ class StageMwm(Stage):
 
     @staticmethod
     def make_mwm(country: AnyStr, env: Env):
-        if country == WORLD_NAME:
-            StageIndex(country=country)(env)
-            StageCitiesIdsWorld(country=country)(env)
-        elif country == WORLD_COASTS_NAME:
-            StageIndex(country=country)(env)
-        else:
-            StageIndex(country=country)(env)
-            StageUgc(country=country)(env)
-            StagePopularity(country=country)(env)
-            StageSrtm(country=country)(env)
-            StageIsolinesInfo(country=country)(env)
-            StageDescriptions(country=country)(env)
-            StageRouting(country=country)(env)
-            StageRoutingTransit(country=country)(env)
-            StageMwmDiffs(country=country)(env)
+        world_stages = {
+            WORLD_NAME: [StageIndex, StageCitiesIdsWorld, StageMwmStatistics],
+            WORLD_COASTS_NAME: [StageIndex, StageMwmStatistics],
+        }
 
-        StageMwmStatistics(country=country)(env)
+        mwm_stages = [
+            StageIndex,
+            StageUgc,
+            StagePopularity,
+            StageSrtm,
+            StageIsolinesInfo,
+            StageDescriptions,
+            StageRouting,
+            StageRoutingTransit,
+            StageMwmDiffs,
+            StageMwmStatistics,
+        ]
+
+        for stage in world_stages.get(country, mwm_stages):
+            stage(country=country)(env)
+
         env.finish_mwm(country)
 
 
@@ -270,8 +274,10 @@ class StageRouting(Stage):
 
 
 @country_stage
-@depends_from_internal(D(settings.SUBWAY_URL, PathProvider.subway_path),
-                       D(settings.TRANSIT_URL, PathProvider.transit_path_experimental),)
+@depends_from_internal(
+    D(settings.SUBWAY_URL, PathProvider.subway_path),
+    D(settings.TRANSIT_URL, PathProvider.transit_path_experimental),
+)
 class StageRoutingTransit(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_routing_transit(env, country, **kwargs)
