@@ -256,7 +256,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     return true;
   }
 
-  private void updateAllVisibility(@BookmarkManager.CompilationType int compilationType)
+  private void updateItemsByType(@BookmarkManager.CompilationType int compilationType)
   {
     if (compilationType == BookmarkManager.COLLECTION)
       mItemsCollection = BookmarkManager.INSTANCE.getChildrenCollections(mParentCategoryId);
@@ -270,7 +270,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     public void onHideAll(@BookmarkManager.CompilationType int compilationType)
     {
       BookmarkManager.INSTANCE.setChildCategoriesVisibility(mParentCategoryId, compilationType, false);
-      updateAllVisibility(compilationType);
+      updateItemsByType(compilationType);
       notifyDataSetChanged();
     }
 
@@ -278,7 +278,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     public void onShowAll(@BookmarkManager.CompilationType int compilationType)
     {
       BookmarkManager.INSTANCE.setChildCategoriesVisibility(mParentCategoryId, compilationType, true);
-      updateAllVisibility(compilationType);
+      updateItemsByType(compilationType);
       notifyDataSetChanged();
     }
   }

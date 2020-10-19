@@ -97,18 +97,21 @@ public class Holders
       mButton.setText(showAll
                       ? R.string.bookmarks_groups_show_all
                       : R.string.bookmarks_groups_hide_all);
-      mButton.setOnClickListener(new ToggleShowAllChildCategoryClickListener(action, showAll, compilationType));
+      mButton.setOnClickListener(new ToggleShowAllChildCategoryClickListener(
+          action, showAll, compilationType));
     }
 
     public interface HeaderAction
-  {
-    void onHideAll();
-    void onShowAll();
-  }
+    {
+      void onHideAll();
+
+      void onShowAll();
+    }
 
     public interface HeaderActionChildCategories
     {
       void onHideAll(@BookmarkManager.CompilationType int compilationType);
+
       void onShowAll(@BookmarkManager.CompilationType int compilationType);
     }
 
@@ -132,7 +135,6 @@ public class Holders
       {
         if (mShowAll)
           mAction.onShowAll(mCompilationType);
-
         else
           mAction.onHideAll(mCompilationType);
       }
