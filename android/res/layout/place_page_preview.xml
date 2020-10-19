@@ -2,9 +2,9 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:gravity="center_vertical"
   android:background="?cardBackground"
   android:paddingTop="@dimen/margin_base"
@@ -82,7 +82,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_quarter"
-      android:lines="1"
+      android:maxLines="2"
       android:textAppearance="@style/MwmTextAppearance.Body3"
       android:ellipsize="end"
       tools:background="#300000F0"
@@ -121,6 +121,7 @@
     android:text="@string/popular_place"
     android:visibility="gone"
     app:drawSmile="false"
+    tools:visibility="visible"
     app:rating="popular"/>
 
   <LinearLayout
@@ -171,6 +172,7 @@
     android:layout_marginLeft="@dimen/margin_half_double_plus"
     tools:background="#8000FFFF"
     tools:showIn="@layout/place_page_preview"
+    tools:visibility="gone"
     layout="@layout/place_page_preview_rating"/>
 
   <TextView
@@ -207,13 +209,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
-    android:layout_marginLeft="@dimen/margin_quarter"
-    android:layout_marginStart="@dimen/margin_quarter"
-    android:layout_marginRight="@dimen/margin_quarter"
-    android:layout_marginEnd="@dimen/margin_quarter"
     android:layout_below="@id/tv__address"
+    android:layout_marginStart="@dimen/margin_quarter"
+    android:layout_marginLeft="@dimen/margin_quarter"
     android:layout_marginTop="@dimen/margin_half_plus"
+    android:layout_marginEnd="@dimen/margin_quarter"
+    android:layout_marginRight="@dimen/margin_quarter"
     android:visibility="gone"
-    tools:visibility="visible"/>
+    tools:visibility="visible" />
 </RelativeLayout>
 

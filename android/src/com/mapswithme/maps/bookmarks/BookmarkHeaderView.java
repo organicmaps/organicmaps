@@ -19,7 +19,7 @@ import com.mapswithme.util.UiUtils;
 public class BookmarkHeaderView extends LinearLayout
 {
 
-  private static final String AUTHOR_LONELY_PLANET_ID = "28035594-6457-466d-8f6f-8499607df570";
+  public static final String AUTHOR_LONELY_PLANET_ID = "28035594-6457-466d-8f6f-8499607df570";
 
   @NonNull
   private ImageView mImageView;

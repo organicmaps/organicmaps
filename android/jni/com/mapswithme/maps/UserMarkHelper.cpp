@@ -78,7 +78,8 @@ jobject CreateMapObject(JNIEnv * env, std::string const & mwmName, int64_t mwmVe
                         bool shouldShowUGC, bool canBeRated, bool canBeReviewed,
                         jobjectArray jratings, jobject const & hotelType, int priceRate,
                         jobject const & popularity, std::string const & description,
-                        RoadWarningMarkType roadWarningMarkType, jobjectArray jrawTypes)
+                        RoadWarningMarkType roadWarningMarkType, bool isTopChoice,
+                        jobjectArray jrawTypes)
 {
   // public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
   //                  @Nullable String secondaryTitle, String subtitle, String address,
@@ -88,7 +89,8 @@ jobject CreateMapObject(JNIEnv * env, std::string const & mwmName, int64_t mwmVe
   //                  @OpeningMode int openingMode, boolean shouldShowUGC, boolean canBeRated,
   //                  boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
   //                  @Nullable HotelsFilter.HotelType hotelType,
-  //                  @PriceFilterView.PriceDef int priceRate)
+  //                  @PriceFilterView.PriceDef int priceRate
+  //                  boolean isTopChoice)
   static jmethodID const ctorId = jni::GetConstructorID(
       env, g_mapObjectClazz,
       "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;ILjava/lang/String;Ljava/lang/"
@@ -97,7 +99,7 @@ jobject CreateMapObject(JNIEnv * env, std::string const & mwmName, int64_t mwmVe
       "Lcom/mapswithme/maps/ads/LocalAdInfo;"
       "Lcom/mapswithme/maps/routing/RoutePointInfo;IZZZ[Lcom/mapswithme/maps/ugc/UGC$Rating;"
       "Lcom/mapswithme/maps/search/HotelsFilter$HotelType;ILcom/mapswithme/maps/search/Popularity;"
-      "Ljava/lang/String;I[Ljava/lang/String;)V");
+      "Ljava/lang/String;IZ[Ljava/lang/String;)V");
 
   //public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
   static jmethodID const featureCtorId =
@@ -121,7 +123,8 @@ jobject CreateMapObject(JNIEnv * env, std::string const & mwmName, int64_t mwmVe
                      static_cast<jint>(openingMode), static_cast<jboolean>(shouldShowUGC),
                      static_cast<jboolean>(canBeRated), static_cast<jboolean>(canBeReviewed),
                      jratings, hotelType, priceRate, popularity, jDescription.get(),
-                     static_cast<jint>(roadWarningMarkType), jrawTypes);
+                     static_cast<jint>(roadWarningMarkType), static_cast<jboolean>(isTopChoice),
+                     jrawTypes);
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -147,7 +150,8 @@ jobject CreateBookmark(JNIEnv *env, const place_page::Info &info,
   //                 @Nullable HotelsFilter.HotelType hotelType,
   //                 @PriceFilterView.PriceDef int priceRate,
   //                 @NotNull com.mapswithme.maps.search.Popularity entity
-  //                 @NotNull String description)
+  //                 @NotNull String description
+  //                 boolean isTopChoice)
   static jmethodID const ctorId =
           jni::GetConstructorID(env, g_bookmarkClazz,
                                 "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;JJLjava/lang/String;"
@@ -158,7 +162,7 @@ jobject CreateBookmark(JNIEnv *env, const place_page::Info &info,
                                 "IZZZ[Lcom/mapswithme/maps/ugc/UGC$Rating;"
                                 "Lcom/mapswithme/maps/search/HotelsFilter$HotelType;"
                                 "ILcom/mapswithme/maps/search/Popularity;Ljava/lang/String;"
-                                "[Ljava/lang/String;)V");
+                                "Z[Ljava/lang/String;)V");
   // public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
   static jmethodID const featureCtorId =
           jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
@@ -181,7 +185,7 @@ jobject CreateBookmark(JNIEnv *env, const place_page::Info &info,
           jAddress.get(), jbanners.get(), jTaxiTypes.get(), jBookingSearchUrl.get(),
           localAdInfo.get(), routingPointInfo.get(), info.GetOpeningMode(), info.ShouldShowUGC(),
           info.CanBeRated(), info.CanBeReviewed(), jratings.get(), hotelType.get(), priceRate,
-          popularity.get(), jDescription.get(), jrawTypes.get());
+          popularity.get(), jDescription.get(), info.IsTopChoise(), jrawTypes.get());
 
   if (info.IsFeature())
     InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
@@ -276,7 +280,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                            info.GetOpeningMode(), info.ShouldShowUGC(), info.CanBeRated(),
                            info.CanBeReviewed(), jratings.get(), hotelType.get(), priceRate,
                            popularity.get(), info.GetDescription(), info.GetRoadType(),
-                           jrawTypes.get());
+                           info.IsTopChoise(), jrawTypes.get());
   }
 
   if (info.HasApiUrl())
@@ -288,7 +292,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(), info.GetOpeningMode(),
         info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(), jratings.get(),
         hotelType.get(), priceRate, popularity.get(), info.GetDescription(), info.GetRoadType(),
-        jrawTypes.get());
+        info.IsTopChoise(), jrawTypes.get());
   }
 
   return CreateMapObject(
@@ -298,7 +302,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
       jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
       info.GetOpeningMode(), info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(),
       jratings.get(), hotelType.get(), priceRate, popularity.get(),
-      info.GetDescription(), info.GetRoadType(), jrawTypes.get());
+      info.GetDescription(), info.GetRoadType(), info.IsTopChoise(), jrawTypes.get());
 }
 
 jobjectArray ToBannersArray(JNIEnv * env, std::vector<ads::Banner> const & banners)

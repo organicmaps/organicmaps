@@ -112,6 +112,7 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
   private final int mPriceRate;
   @Nullable
   private List<String> mRawTypes;
+  private boolean mIsTopChoice;
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,
@@ -122,13 +123,13 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
                    boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
                    @Nullable HotelsFilter.HotelType hotelType, @PriceFilterView.PriceDef int priceRate,
                    @NonNull Popularity popularity, @NonNull String description, int roadWarningType,
-                   @Nullable String[] rawTypes)
+                   boolean isTopChoice, @Nullable String[] rawTypes)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
          types, bookingSearchUrl, localAdInfo, routePointInfo, openingMode, shouldShowUGC,
          canBeRated, canBeReviewed, ratings, hotelType, priceRate, popularity, description,
-         roadWarningType, rawTypes);
+         roadWarningType, isTopChoice, rawTypes);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
@@ -140,7 +141,8 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
                    boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
                    @Nullable UGC.Rating[] ratings, @Nullable HotelsFilter.HotelType hotelType,
                    @PriceFilterView.PriceDef int priceRate, @NonNull Popularity popularity,
-                   @NonNull String description, int roadWarningType, @Nullable String[] rawTypes)
+                   @NonNull String description, int roadWarningType, boolean isTopChoice,
+                   @Nullable String[] rawTypes)
   {
     mFeatureId = featureId;
     mMapObjectType = mapObjectType;
@@ -176,6 +178,7 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
     mRoadWarningMarkType = RoadWarningMarkType.values()[roadWarningType];
     if (rawTypes != null)
       mRawTypes = new ArrayList<>(Arrays.asList(rawTypes));
+    mIsTopChoice = isTopChoice;
   }
 
   protected MapObject(@MapObjectType int type, Parcel source)
@@ -207,6 +210,7 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
          source.readParcelable(Popularity.class.getClassLoader()),
          source.readString(),
          source.readInt(),
+         source.readInt() == 1, //mIsTopChoice
          null // mRawTypes
         );
 
@@ -226,7 +230,7 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
                          false /* shouldShowUGC */, false /* canBeRated */, false /* canBeReviewed */,
                          null /* ratings */, null /* mHotelType */,
                          PriceFilterView.UNDEFINED, Popularity.defaultInstance(), "",
-                         RoadWarningMarkType.UNKNOWN.ordinal(), new String[0]);
+                         RoadWarningMarkType.UNKNOWN.ordinal(), false, new String[0]);
   }
 
   @Nullable
@@ -416,6 +420,11 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
     return types;
   }
 
+  public boolean isTopChoice()
+  {
+    return mIsTopChoice;
+  }
+
   public void setLat(double lat)
   {
     mLat = lat;
@@ -556,6 +565,7 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
     dest.writeParcelable(mPopularity, 0);
     dest.writeString(mDescription);
     dest.writeInt(getRoadWarningMarkType().ordinal());
+    dest.writeInt(mIsTopChoice ? 1 : 0);
     // All collections are deserialized AFTER non-collection and primitive type objects,
     // so collections must be always serialized at the end.
     dest.writeTypedList(mBanners);

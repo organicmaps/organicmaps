@@ -35,12 +35,12 @@ public class Bookmark extends MapObject
                   boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
                   @Nullable HotelsFilter.HotelType hotelType, @PriceFilterView.PriceDef int priceRate,
                   @NonNull Popularity popularity, @NonNull String description,
-                  @Nullable String[] rawTypes)
+                  boolean isTopChoice, @Nullable String[] rawTypes)
   {
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
           banners, reachableByTaxiTypes, bookingSearchUrl, localAdInfo, routePointInfo,
           openingMode, shouldShowUGC, canBeRated, canBeReviewed, ratings, hotelType, priceRate,
-          popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+          popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), isTopChoice, rawTypes);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
@@ -160,5 +160,13 @@ public class Bookmark extends MapObject
   public String getHttpGe0Url(boolean addName)
   {
     return getGe0Url(addName).replaceFirst(Constants.Url.GE0_PREFIX, Constants.Url.HTTP_GE0_PREFIX);
+  }
+
+  @Nullable
+  public String getRelatedAuthorId()
+  {
+    BookmarkCategory.Author author = BookmarkManager.INSTANCE.getCategoryById(mCategoryId)
+                                                             .getAuthor();
+    return author != null ? author.getId() : null;
   }
 }

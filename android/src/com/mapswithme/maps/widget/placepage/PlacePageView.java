@@ -39,6 +39,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
@@ -104,6 +105,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import static com.mapswithme.maps.bookmarks.BookmarkHeaderView.AUTHOR_LONELY_PLANET_ID;
 import static com.mapswithme.maps.widget.placepage.PlacePageButtons.Item.BOOKING;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_DESCRIPTION_LAND;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_FACILITIES;
@@ -130,6 +132,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private static final String PREF_USE_DMS = "use_dms";
   private static final String DISCOUNT_PREFIX = "-";
   private static final String DISCOUNT_SUFFIX = "%";
+  private static final String DELIMITER_DOT = " • ";
 
   private boolean mIsDocked;
   private boolean mIsFloating;
@@ -203,6 +206,18 @@ public class PlacePageView extends NestedScrollViewClickFixed
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPlaceDescriptionContainer;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private View mPlaceDescriptionHeaderContainer;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private View mPromoDivider;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private ImageView mPlaceDescriptionImage;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -760,6 +775,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     mPlaceDescriptionContainer = findViewById(R.id.poi_description_container);
     mPlaceDescriptionView = findViewById(R.id.poi_description);
+    mPlaceDescriptionImage = findViewById(R.id.poi_description_logo);
+    mPromoDivider = findViewById(R.id.place_page_promo_divider);
+    mPlaceDescriptionHeaderContainer = findViewById(R.id.pp_description_header_container);
     mPlaceDescriptionMoreBtn = findViewById(R.id.more_btn);
     mPlaceDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
   }
@@ -1260,37 +1278,55 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     if (TextUtils.isEmpty(mapObject.getDescription()))
     {
-      UiUtils.hide(mPlaceDescriptionContainer);
+      UiUtils.hide(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
       return;
     }
 
+    String authorId = null;
     if (MapObject.isOfType(MapObject.BOOKMARK, mapObject))
     {
       Bookmark bmk = (Bookmark) mapObject;
       if (!TextUtils.isEmpty(bmk.getBookmarkDescription()))
       {
-        UiUtils.hide(mPlaceDescriptionContainer);
+        UiUtils.hide(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
         return;
       }
+      authorId = bmk.getRelatedAuthorId();
     }
 
-    UiUtils.show(mPlaceDescriptionContainer);
+    UiUtils.show(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
+    UiUtils.hide(mPromoDivider);
     mPlaceDescriptionView.setText(Html.fromHtml(mapObject.getDescription()));
+
+    if (authorId != null && authorId.equals(AUTHOR_LONELY_PLANET_ID))
+    {
+      UiUtils.show(mPlaceDescriptionImage);
+      mPlaceDescriptionImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_lp_logo));
+    }
   }
 
-  private void colorizeSubtitle()
+  private void setTextAndColorizeSubtitle(@NonNull MapObject mapObject)
   {
-    String text = mTvSubtitle.getText().toString();
-    if (TextUtils.isEmpty(text))
-      return;
-
-    int start = text.indexOf("★");
-    if (start > -1)
+    String text = mapObject.getSubtitle();
+    UiUtils.setTextAndHideIfEmpty(mTvSubtitle, text);
+    if (!TextUtils.isEmpty(text))
     {
       SpannableStringBuilder sb = new SpannableStringBuilder(text);
-      sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_yellow)),
-                 start, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+      if (mapObject.isTopChoice()) {
+        String mustSee = getContext().getResources().getString(R.string.mustsee_title);
+        StringBuilder stringBuilder = new StringBuilder();
+        text = stringBuilder.append(mustSee).append(DELIMITER_DOT).append(text).toString();
+        sb = new SpannableStringBuilder(text);
+        sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_accent)),
+                   0, mustSee.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+      }
+      int start = text.indexOf("★");
+      if (start > -1)
+      {
+        sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_yellow)),
+                   start, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 
+      }
       mTvSubtitle.setText(sb);
     }
   }
@@ -1303,8 +1339,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     UiUtils.showIf(isPopular, mPopularityView);
     if (mToolbar != null)
       mToolbar.setTitle(mapObject.getTitle());
-    UiUtils.setTextAndHideIfEmpty(mTvSubtitle, mapObject.getSubtitle());
-    colorizeSubtitle();
+    setTextAndColorizeSubtitle(mapObject);
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mapObject.getAddress());
     boolean sponsored = isSponsored();

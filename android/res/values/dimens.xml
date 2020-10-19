@@ -48,6 +48,8 @@
 
   <dimen name="place_page_width">320dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>
+  <dimen name="place_page_category_logo_height">30dp</dimen>
+  <dimen name="place_page_category_logo_width">60dp</dimen>
 
   <dimen name="downloader_status_size">40dp</dimen>
   <dimen name="downloader_ad_icon_size">@dimen/downloader_status_size</dimen>
