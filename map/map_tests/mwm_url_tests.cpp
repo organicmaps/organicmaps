@@ -25,6 +25,7 @@ using namespace url_scheme;
 
 namespace
 {
+using UrlType = ParsedMapApi::UrlType;
 static FrameworkParams const kFrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */);
 
 void ToMercatoToLatLon(double & lat, double & lon)
@@ -111,11 +112,14 @@ private:
   BookmarkManager * m_m;
 };
 
-bool IsValid(Framework & fm, string const & urlString)
+bool IsValid(Framework & fm, string const & urlString, UrlType expectedType)
 {
   ParsedMapApi api;
   api.SetBookmarkManager(&fm.GetBookmarkManager());
-  api.SetUrlAndParse(urlString);
+
+  auto [type, success] = api.SetUrlAndParse(urlString);
+  TEST_EQUAL(type, expectedType, ());
+
   fm.GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::API);
 
   return api.IsValid();
@@ -166,13 +170,18 @@ UNIT_TEST(CatalogueApiSmoke)
 UNIT_TEST(CatalogueApiInvalidUrl)
 {
   Framework f(kFrameworkParams);
-  TEST(!IsValid(f, "mapsme://catalogue?"), ("id parameter is required"));
-  TEST(IsValid(f, "mapsme://catalogue?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7"), ("Name is optional"));
-  TEST(IsValid(f, "mapsme://catalogue?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7&name=CatalogGroupName&otherExtraParam=xyz"),
+  TEST(!IsValid(f, "mapsme://catalogue?", UrlType::Catalogue), ("id parameter is required"));
+  TEST(!IsValid(f, "mapsme://catalog?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7", UrlType::Incorrect),
+       ("Incorrect url type"));
+  TEST(IsValid(f, "mapsme://catalogue?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7", UrlType::Catalogue),
+       ("Name is optional"));
+  TEST(IsValid(f, "mapsme://catalogue?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7&name=CatalogGroupName&otherExtraParam=xyz",
+               UrlType::Catalogue),
        ("We shouldn't fail on extra params"));
-  TEST(IsValid(f, "mapsme://catalogue?name=CatalogGroupName&id=440f02e5-ff38-45ed-95c0-44587c9a5fc7"),
+  TEST(IsValid(f, "mapsme://catalogue?name=CatalogGroupName&id=440f02e5-ff38-45ed-95c0-44587c9a5fc7",
+               UrlType::Catalogue),
        ("parameter position doesn't matter"));
-  TEST(!IsValid(f, "mapsme://catalogue?ID=440f02e5-ff38-45ed-95c0-44587c9a5fc7"),
+  TEST(!IsValid(f, "mapsme://catalogue?ID=440f02e5-ff38-45ed-95c0-44587c9a5fc7", UrlType::Catalogue),
        ("The parser is case sensitive"));
 }
 
@@ -195,12 +204,13 @@ UNIT_TEST(SearchApiSmoke)
 UNIT_TEST(SearchApiInvalidUrl)
 {
   Framework f(kFrameworkParams);
-  TEST(!IsValid(f, "mapsme://search?"), ("The search query parameter is necessary"));
-  TEST(!IsValid(f, "mapsme://search?query"), ("Search query can't be empty"));
-  TEST(IsValid(f, "mapsme://search?query=aaa&cll=1,1,1"), ("If it's wrong lat lon format then just ignore it"));
-  TEST(IsValid(f, "mapsme://search?query=aaa&ignoreThisParam=sure"), ("We shouldn't fail search request if there are some unsupported parameters"));
-  TEST(IsValid(f, "mapsme://search?cll=1,1&locale=ru&query=aaa"), ("Query parameter position doesn't matter"));
-  TEST(!IsValid(f, "mapsme://search?Query=fff"), ("The parser is case sensitive"));
+  TEST(!IsValid(f, "mapsme://search?", UrlType::Search), ("The search query parameter is necessary"));
+  TEST(!IsValid(f, "mapsme://search?query", UrlType::Search), ("Search query can't be empty"));
+  TEST(IsValid(f, "mapsme://search?query=aaa&cll=1,1,1", UrlType::Search), ("If it's wrong lat lon format then just ignore it"));
+  TEST(IsValid(f, "mapsme://search?query=aaa&ignoreThisParam=sure", UrlType::Search), ("We shouldn't fail search request if there are some unsupported parameters"));
+  TEST(IsValid(f, "mapsme://search?cll=1,1&locale=ru&query=aaa", UrlType::Search), ("Query parameter position doesn't matter"));
+  TEST(!IsValid(f, "mapsme://serch?cll=1,1&locale=ru&query=aaa", UrlType::Incorrect), ("Incorrect url type"));
+  TEST(!IsValid(f, "mapsme://search?Query=fff", UrlType::Search), ("The parser is case sensitive"));
 }
 
 UNIT_TEST(LeadApiSmoke)
@@ -232,52 +242,57 @@ UNIT_TEST(LeadApiSmoke)
 UNIT_TEST(LeadApiInvalid)
 {
   Framework f(kFrameworkParams);
-  TEST(!IsValid(f, "mapsme://lead?"), ("From, type and name parameters are necessary"));
-  TEST(!IsValid(f, "mapsme://lead?utm_source&utm_medium&utm_campaign"), ("Parameters can't be empty"));
-  TEST(IsValid(f, "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c"), ("These parameters are enough"));
-  TEST(IsValid(f, "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&smh=smh"), ("If there is an excess parameter just ignore it"));
-  TEST(!IsValid(f, "mapsme://lead?utm_source=a&UTM_MEDIUM=b&utm_campaign=c&smh=smh"), ("The parser is case sensitive"));
+  TEST(!IsValid(f, "mapsme://lead?", UrlType::Lead), ("From, type and name parameters are necessary"));
+  TEST(!IsValid(f, "mapsme://lead?utm_source&utm_medium&utm_campaign", UrlType::Lead),
+       ("Parameters can't be empty"));
+  TEST(!IsValid(f, "mapsme://leed?utm_source=a&utm_medium=b&utm_campaign=c", UrlType::Incorrect),
+       ("Incorrect url type"));
+  TEST(IsValid(f, "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c", UrlType::Lead),
+       ("These parameters are enough"));
+  TEST(IsValid(f, "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&smh=smh", UrlType::Lead),
+       ("If there is an excess parameter just ignore it"));
+  TEST(!IsValid(f, "mapsme://lead?utm_source=a&UTM_MEDIUM=b&utm_campaign=c&smh=smh", UrlType::Lead),
+       ("The parser is case sensitive"));
 }
 
 UNIT_TEST(MapApiInvalidUrl)
 {
   Framework fm(kFrameworkParams);
-  TEST(!IsValid(fm, "competitors://map?ll=12.3,34.54"), ());
-  TEST(!IsValid(fm, "mapswithme://ggg?ll=12.3,34.54"), ());
-  TEST(!IsValid(fm, "mwm://"), ("No parameters"));
-  TEST(!IsValid(fm, "mapswithme://map?"), ("No longtitude"));
-  TEST(!IsValid(fm, "mapswithme://map?ll=1,2,3"), ("Too many values for ll"));
-  TEST(!IsValid(fm, "mapswithme://fffff://map?ll=1,2"), ());
-  TEST(!IsValid(fm, "mapsme://map?LL=1,1"), ("The parser is case sensitive"));
+  TEST(!IsValid(fm, "competitors://map?ll=12.3,34.54", UrlType::Incorrect), ());
+  TEST(!IsValid(fm, "mapswithme://ggg?ll=12.3,34.54", UrlType::Incorrect), ());
+  TEST(!IsValid(fm, "mwm://", UrlType::Incorrect), ("No parameters"));
+  TEST(!IsValid(fm, "mapswithme://map?", UrlType::Map), ("No longtitude"));
+  TEST(!IsValid(fm, "mapswithme://map?ll=1,2,3", UrlType::Map), ("Too many values for ll"));
+  TEST(!IsValid(fm, "mapswithme://fffff://map?ll=1,2", UrlType::Incorrect), ());
+  TEST(!IsValid(fm, "mapsme://map?LL=1,1", UrlType::Map), ("The parser is case sensitive"));
 }
 
 UNIT_TEST(RouteApiInvalidUrl)
 {
   Framework f(kFrameworkParams);
-  TEST(!IsValid(f, "mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name2"),
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name2", UrlType::Route),
        ("Route type doesn't exist"));
-  TEST(!IsValid(f, "mapswithme://route?sll=1,1&saddr=name0"), ("Destination doesn't exist"));
-  TEST(!IsValid(f, "mapswithme://route?sll=1,1&dll=2,2&type=vehicle"),
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&saddr=name0", UrlType::Route), ("Destination doesn't exist"));
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&dll=2,2&type=vehicle", UrlType::Route),
        ("Source or destination name doesn't exist"));
-  TEST(!IsValid(f, "mapswithme://route?saddr=name0&daddr=name1&type=vehicle"), ());
-  TEST(!IsValid(f, "mapswithme://route?sll=1,1&sll=2.2&type=vehicle"), ());
-  TEST(!IsValid(f, "mapswithme://route?sll=1,1&dll=2.2&type=666"), ());
-  TEST(!IsValid(f, "mapswithme://route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&type=vehicle"), ());
-  TEST(!IsValid(f, "mapswithme://route?sll=1,1&type=vehicle"), ());
-  TEST(!IsValid(f,
-                "mapswithme://"
-                "route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&sll=1,1&saddr=name0&type=vehicle"),
-       ());
-  TEST(!IsValid(f, "mapswithme://route?type=vehicle"), ());
+  TEST(!IsValid(f, "mapswithme://route?saddr=name0&daddr=name1&type=vehicle", UrlType::Route), ());
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&sll=2.2&type=vehicle", UrlType::Route), ());
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&dll=2.2&type=666", UrlType::Route), ());
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&type=vehicle", UrlType::Route), ());
+  TEST(!IsValid(f, "mapswithme://route?sll=1,1&type=vehicle", UrlType::Route), ());
+  TEST(!IsValid(f,"mapswithme://route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&sll=1,1&saddr=name0&type=vehicle",
+                UrlType::Route), ());
+  TEST(!IsValid(f, "mapswithme://route?type=vehicle", UrlType::Route), ());
+  TEST(!IsValid(f, "mapswithme://rout?sll=1,1&saddr=name0&dll=2,2&daddr=name1&type=vehicle", UrlType::Incorrect), ());
 }
 
 UNIT_TEST(MapApiLatLonLimits)
 {
   Framework fm(kFrameworkParams);
-  TEST(!IsValid(fm, "mapswithme://map?ll=-91,10"), ("Invalid latitude"));
-  TEST(!IsValid(fm, "mwm://map?ll=523.55,10"), ("Invalid latitude"));
-  TEST(!IsValid(fm, "mapswithme://map?ll=23.55,450"), ("Invalid longtitude"));
-  TEST(!IsValid(fm, "mapswithme://map?ll=23.55,-450"), ("Invalid longtitude"));
+  TEST(!IsValid(fm, "mapswithme://map?ll=-91,10", UrlType::Map), ("Invalid latitude"));
+  TEST(!IsValid(fm, "mwm://map?ll=523.55,10", UrlType::Map), ("Invalid latitude"));
+  TEST(!IsValid(fm, "mapswithme://map?ll=23.55,450", UrlType::Map), ("Invalid longtitude"));
+  TEST(!IsValid(fm, "mapswithme://map?ll=23.55,-450", UrlType::Map), ("Invalid longtitude"));
 }
 
 UNIT_TEST(MapApiPointNameBeforeLatLon)

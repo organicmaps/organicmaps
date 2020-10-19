@@ -566,4 +566,20 @@ ApiMarkPoint const * ParsedMapApi::GetSinglePoint() const
 
   return static_cast<ApiMarkPoint const *>(m_bmManager->GetUserMark(*markIds.begin()));
 }
+
+std::string DebugPrint(ParsedMapApi::UrlType type)
+{
+  switch(type)
+  {
+  case ParsedMapApi::UrlType::Incorrect: return "Incorrect";
+  case ParsedMapApi::UrlType::Map: return "Map";
+  case ParsedMapApi::UrlType::Route: return "Route";
+  case ParsedMapApi::UrlType::Search: return "Search";
+  case ParsedMapApi::UrlType::Lead: return "Lead";
+  case ParsedMapApi::UrlType::Catalogue: return "Catalogue";
+  case ParsedMapApi::UrlType::CataloguePath: return "CataloguePath";
+  case ParsedMapApi::UrlType::Subscription: return "Subscription";
+  }
+  UNREACHABLE();
+}
 }  // namespace url_scheme

@@ -23,13 +23,13 @@ public class ParsingResult
   public static final int TYPE_SUBSCRIPTION = 7;
 
   private final int mUrlType;
-  private final boolean mIsSuccess;
+  private final boolean mSuccess;
 
   @SuppressWarnings("unused")
   public ParsingResult(@UrlType int urlType, boolean isSuccess)
   {
     mUrlType = urlType;
-    mIsSuccess = isSuccess;
+    mSuccess = isSuccess;
   }
 
   @UrlType
@@ -40,6 +40,6 @@ public class ParsingResult
 
   public boolean isSuccess()
   {
-    return mIsSuccess;
+    return mSuccess;
   }
 }

@@ -83,8 +83,8 @@ public:
   
   struct ParsingResult
   {
-    UrlType m_type;
-    bool m_isSuccess;
+    UrlType m_type = UrlType::Incorrect;
+    bool m_isSuccess = false;
   };
 
   ParsedMapApi() = default;
@@ -111,6 +111,10 @@ public:
   std::string const & GetAffiliateId() const { return m_affiliateId; }
 
 private:
+  /// Returns true when all statements are true:
+  ///  - url parsed correctly;
+  ///  - all mandatory parameters for url type |type| are provided;
+  ///  - the order of params is correct (for UrlType::Map)
   bool Parse(url::Url const & url, UrlType type);
   void ParseAdditional(url::Url const & url);
   void ParseMapParam(url::Param const & param, std::vector<ApiPoint> & points, bool & correctOrder);
@@ -138,4 +142,6 @@ private:
   bool m_goBackOnBalloonClick = false;
   bool m_isValid = false;
 };
+
+std::string DebugPrint(ParsedMapApi::UrlType type);
 }  // namespace url_scheme
