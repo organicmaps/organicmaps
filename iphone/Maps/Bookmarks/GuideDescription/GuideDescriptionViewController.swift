@@ -25,7 +25,7 @@ class GuideDescriptionViewController: MWMViewController {
 
     title = category.title
     titleLabel.text = category.title
-    providerLabel.text = String(coreFormat: L("author_name_by_prefix"), arguments: [category.author])
+    providerLabel.text = String(coreFormat: L("content_by_component"), arguments: [category.author])
     providerContainerView.isHidden = category.author.isEmpty
     subtitleLabel.attributedText = NSMutableAttributedString(htmlString: category.annotation, baseFont: UIFont.regular16())
     descriptionText.attributedText = NSMutableAttributedString(htmlString: category.detailedAnnotation, baseFont: UIFont.regular16())
