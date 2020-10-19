@@ -1836,7 +1836,7 @@
 	<string name="all_pass_subscription_message_title_4">Lonely Planet®\n-matkaoppaat</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4">Entistä <b>enemmän elämyksiä</b> tuhansista paikoista <b>kaikkialla maailmassa</b></string>
-	<string name="content_by_component">Sisällön toimittaja:</string>
+	<string name="content_by_component">Sisällön toimittaja: %s</string>
 	<string name="whatsnew_lp_title">Entistä enemmän elämyksiä</string>
 	<string name="whatsnew_lp_message">Lonely Planet -oppaat ovat jo sovelluksessamme! Parhaita nähtävyyksiä, aiheisiin liittyviä kävelyretkejä ja ainutlaatuisia matkailupaikkoja yli 7000 kaupungissa.</string>
 	<string name="collections_title">Kokoelmia</string>

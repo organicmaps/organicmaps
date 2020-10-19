@@ -1835,7 +1835,7 @@
 	<string name="all_pass_subscription_message_title_4">Panduan perjalanan\noleh Lonely Planet®</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4"><b>Lebih banyak pengalaman</b> dengan ribuan tempat menarik <b>di seluruh dunia</b></string>
-	<string name="content_by_component">Konten oleh:</string>
+	<string name="content_by_component">Konten oleh: %s</string>
 	<string name="whatsnew_lp_title">Lebih banyak emosi</string>
 	<string name="whatsnew_lp_message">Panduan Lonely Planet sekarang ada di aplikasi kami! Atraksi terbaik, jalan-jalan tematik, dan tempat wisata unik untuk 7000+ kota.</string>
 	<string name="collections_title">Koleksi</string>

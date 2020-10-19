@@ -1840,7 +1840,7 @@
 	<string name="all_pass_subscription_message_title_4">旅行指南\nLonely Planet®出品</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4">还有<b>来自全球各地</b> 千万有趣景点的 <b>无穷印象</b></string>
-	<string name="content_by_component">内容来源：</string>
+	<string name="content_by_component">内容来源：%s</string>
 	<string name="whatsnew_lp_title">更多印象</string>
 	<string name="whatsnew_lp_message">欢迎Lonely Planet旅行指南加入我们！7000余座城市的名胜古迹、主题路线和独特景点。</string>
 	<string name="collections_title">专栏</string>

@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "Ακόμα <b>περισσότερες εντυπώσεις</b> με χιλιάδες ενδιαφέροντες προορισμούς σε <b>όλο τον κόσμο</b>";
 
-"content_by_component" = "Περιεχόμενο από:";
+"content_by_component" = "Περιεχόμενο από: %s";
 
 "whatsnew_lp_title" = "Περισσότερες εντυπώσεις";
 

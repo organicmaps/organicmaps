@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "<b>تجربه هایی بیش از پیش</b> با هزاران مکان جذاب <b>در سراسر جهان</b>";
 
-"content_by_component" = "منبع مطالب:";
+"content_by_component" = "منبع مطالب: %s";
 
 "whatsnew_lp_title" = "و حتی هیجان بیشتر";
 

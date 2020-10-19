@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "Ešte <b>viac zážitkov</b> s tisíckami zaujímavých miest <b>po celom svete</b>";
 
-"content_by_component" = "Obsah od:";
+"content_by_component" = "Obsah od: %s";
 
 "whatsnew_lp_title" = "Ešte viac emócií";
 

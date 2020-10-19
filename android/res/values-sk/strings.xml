@@ -1841,7 +1841,7 @@
 	<string name="all_pass_subscription_message_title_4">Sprievodcovia\nod Lonely Planet®</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4">Ešte <b>viac zážitkov</b> s tisíckami zaujímavých miest <b>po celom svete</b></string>
-	<string name="content_by_component">Obsah od:</string>
+	<string name="content_by_component">Obsah od: %s</string>
 	<string name="whatsnew_lp_title">Ešte viac emócií</string>
 	<string name="whatsnew_lp_message">Sprievodcovia Lonely Planet sú teraz v našej aplikácii! Najlepšie atrakcie, tematické prechádzky a jedinečné turistické miesta pre viac ako 7 000 miest.</string>
 	<string name="collections_title">Kolekcie</string>

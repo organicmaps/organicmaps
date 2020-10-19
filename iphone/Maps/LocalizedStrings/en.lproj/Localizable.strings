@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "Even <b>more experiences</b> with thousands of interesting places <b>around the world</b>";
 
-"content_by_component" = "Content by:";
+"content_by_component" = "Content by: %s";
 
 "whatsnew_lp_title" = "Even more emotions";
 

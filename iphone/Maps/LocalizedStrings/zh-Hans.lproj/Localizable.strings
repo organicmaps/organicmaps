@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "还有<b>来自全球各地</b> 千万有趣景点的 <b>无穷印象</b>";
 
-"content_by_component" = "内容来源：";
+"content_by_component" = "内容来源：%s";
 
 "whatsnew_lp_title" = "更多印象";
 

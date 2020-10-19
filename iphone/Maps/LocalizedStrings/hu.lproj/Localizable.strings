@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "Még <b>több élmény</b> érdekes helyszínek ezreivel <b>a világon</b>";
 
-"content_by_component" = "Tartalom:";
+"content_by_component" = "Tartalom: %s";
 
 "whatsnew_lp_title" = "Még több izgalom";
 

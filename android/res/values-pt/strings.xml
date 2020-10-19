@@ -1350,7 +1350,7 @@
 	<string name="guides">Guias</string>
 	<string name="guide_downloaded_title">O guia foi descarregado com sucesso</string>
 	<!-- as few symbols as possible -->
-	<string name="download_guides">Encontrar guias</string>
+	<string name="download_guides">Buscar guías</string>
 	<string name="guides_groups_cached">Descarregar guias</string>
 	<string name="subtitle_error_downloading_guide">O guia não foi descarregado</string>
 	<string name="error_already_downloaded_guide">Este guia já foi descarregado</string>
@@ -1846,7 +1846,7 @@
 	<string name="all_pass_subscription_message_title_4">Guias\nda Lonely Planet®</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4">Ainda <b>mais emoções</b> com milhares de locais curiosos pelo <b>mundo inteiro</b></string>
-	<string name="content_by_component">Conteúdo de:</string>
+	<string name="content_by_component">Conteúdo de: %s</string>
 	<string name="whatsnew_lp_title">Ainda mais emoções</string>
 	<string name="whatsnew_lp_message">Conheça guias de Lonely Planet! Pontos turísticos, percursos temáticos e locais únicos em 7.000+ cidades.</string>
 	<string name="collections_title">Coleções</string>

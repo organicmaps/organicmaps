@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "Chiar <b>mai multe experiențe</b> cu mii de locuri interesante de vizitat <b>de peste tot din lume</b>";
 
-"content_by_component" = "Conținut oferit de:";
+"content_by_component" = "Conținut oferit de: %s";
 
 "whatsnew_lp_title" = "Chiar și mai multe emoții";
 

@@ -1838,7 +1838,7 @@
 	<string name="all_pass_subscription_message_title_4">Reisgidsen\nvan Lonely Planet®</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4">Nog <b>meer impressies</b> met duizenden interessante plaatsen <b>over de hele wereld</b></string>
-	<string name="content_by_component">Inhoud van:</string>
+	<string name="content_by_component">Inhoud van: %s</string>
 	<string name="whatsnew_lp_title">Nog meer emoties</string>
 	<string name="whatsnew_lp_message">Gidsen van Lonely Planet staan nu in onze app! De beste attracties, themawandelingen en unieke reisbestemmingen voor meer dan 7000 steden.</string>
 	<string name="collections_title">Verzameling</string>

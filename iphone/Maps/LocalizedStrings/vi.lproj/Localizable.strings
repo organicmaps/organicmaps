@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "Thậm chí <b>thêm nhiều trải nghiệm</b> với hàng nghìn những địa điểm thú vị <b>vòng quanh thế giới</b>";
 
-"content_by_component" = "Nội dung bởi:";
+"content_by_component" = "Nội dung bởi: %s";
 
 "whatsnew_lp_title" = "Còn ấn tượng hơn nữa";
 

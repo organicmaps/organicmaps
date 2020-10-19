@@ -1846,7 +1846,7 @@
 	<string name="all_pass_subscription_message_title_4">Rejseguider\naf Lonely Planet®</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4">Endnu <b>flere oplevelser</b> med tusindvis af interessante steder <b>i hele verden</b></string>
-	<string name="content_by_component">Indhold af:</string>
+	<string name="content_by_component">Indhold af: %s</string>
 	<string name="whatsnew_lp_title">Endnu flere følelser</string>
 	<string name="whatsnew_lp_message">Lonely Planet guides kan nu findes i vores app! De bedse attraktioner, tematiske gåture og unikke destinationer for 7000+ byer.</string>
 	<string name="collections_title">Samlinger</string>

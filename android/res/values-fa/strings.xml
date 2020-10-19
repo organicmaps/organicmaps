@@ -1783,7 +1783,7 @@
 	<string name="all_pass_subscription_message_title_4">راهنمای سفر\nبا Lonely Planet®</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4"><b>تجربه هایی بیش از پیش</b> با هزاران مکان جذاب <b>در سراسر جهان</b></string>
-	<string name="content_by_component">منبع مطالب:</string>
+	<string name="content_by_component">منبع مطالب: %s</string>
 	<string name="whatsnew_lp_title">و حتی هیجان بیشتر</string>
 	<string name="whatsnew_lp_message">هم اکنون راهنماهای Lonely Planet در برنامه ما موجود است! بهترین جاذبه ها، مسیرهای موضوعی و نقاط بی نظیر سفر برای بیش از 7000 شهر.</string>
 	<string name="collections_title">مجموعه‌ها</string>

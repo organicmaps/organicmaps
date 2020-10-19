@@ -1832,7 +1832,7 @@
 	<string name="all_pass_subscription_message_title_4">Ghiduri de călătorie\nde la Lonely Planet®</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4">Chiar <b>mai multe experiențe</b> cu mii de locuri interesante de vizitat <b>de peste tot din lume</b></string>
-	<string name="content_by_component">Conținut oferit de:</string>
+	<string name="content_by_component">Conținut oferit de: %s</string>
 	<string name="whatsnew_lp_title">Chiar și mai multe emoții</string>
 	<string name="whatsnew_lp_message">Ghidurile Lonely Planet sunt acum disponibile în aplicația noastră! Cele mai interesante atracții, plimbări tematice și destinații turistice unice pentru peste 7000 de orașe.</string>
 	<string name="collections_title">Colecții</string>

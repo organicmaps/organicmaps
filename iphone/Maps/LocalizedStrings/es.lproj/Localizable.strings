@@ -56,7 +56,7 @@
 "kilometres" = "Kilómetros";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Escribir una opinión|comentario";
+"leave_a_review" = "Escribir una opinión";
 
 /* View and button titles for accessibility */
 "maps" = "Mapas";
@@ -255,7 +255,7 @@
 "bookmarks_usage_hint_import_only" = "Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.";
 
 /* Settings button in system menu */
-"settings" = "Ajustes";
+"settings" = "Configuración";
 
 /* Header of settings activity where user defines storage path */
 "maps_storage" = "Guardar mapas en";
@@ -520,7 +520,7 @@
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Trayecto reciente";
 
-"pref_map_auto_zoom" = "Autozoom";
+"pref_map_auto_zoom" = "Zoom automático";
 
 "duration_disabled" = "Desactivada";
 
@@ -1065,7 +1065,7 @@
 
 "p2p_from_here" = "Desde";
 
-"p2p_to_here" = "Ruta hasta";
+"p2p_to_here" = "Ruta hacia";
 
 "p2p_only_from_current" = "La navegación solo está disponible desde tu ubicación actual.";
 
@@ -1137,7 +1137,7 @@
 
 "autodownload" = "Descarga automática";
 
-"disable_autodownload" = "Inhabilitar descarga automática";
+"disable_autodownload" = "Desactivar descarga automática";
 
 /* Place Page opening hours text */
 "closed_now" = "Cerrado ahora";
@@ -1908,7 +1908,7 @@
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Opinión general";
 
-"on" = "Akt.";
+"on" = "Act.";
 
 "off" = "Desact.";
 
@@ -1928,9 +1928,9 @@
 
 "core_exit" = "Salir";
 
-"routing_add_start_point" = "Agregar un punto de inicio para planificar una ruta";
+"routing_add_start_point" = "Buscar un origen para el plan de ruta";
 
-"routing_add_finish_point" = "Agregar un destino para planificar una ruta";
+"routing_add_finish_point" = "Buscar un destino para el plan de ruta";
 
 "onboarding_welcome_message" = "Mapas gratuitos, rápidos y detallados sin conexión a internet y con navegación paso a paso.";
 
@@ -2167,9 +2167,9 @@
 
 "bookmarks_message_backuped_user" = "La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. La última copia de seguridad se hizo %s";
 
-"settings_backup_bookmarks" = "Marcadores de copia de seguridad";
+"settings_backup_bookmarks" = "Copia de seguridad de marcadores";
 
-"bookmarks_groups" = "Liza";
+"bookmarks_groups" = "Listas";
 
 "bookmarks_groups_hide_all" = "Ocultar todo";
 
@@ -2466,13 +2466,13 @@
 
 "subscriptions_title" = "Suscripciones";
 
-"manage_subscription" = "Gestionar suscripción";
+"manage_subscription" = "Administrar suscripción";
 
 "taxi" = "Taxi";
 
 "sharing_options" = "Configuración de acceso";
 
-"export_file" = "Exportar el archivo";
+"export_file" = "Exportar como archivo";
 
 "list_settings" = "Configurar lista";
 
@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "Más <b>impresiones adicionales</b> con miles de lugares interesantes <b>en todo el mundo</b>";
 
-"content_by_component" = "Contenido de:";
+"content_by_component" = "Contenido de: %s";
 
 "whatsnew_lp_title" = "Aún más impresiones";
 

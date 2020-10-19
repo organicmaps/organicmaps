@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "<b>世界中</b>の数千か所に及ぶ興味深い場所で<b>更なる体験</b> を";
 
-"content_by_component" = "コンテンツ提供：";
+"content_by_component" = "コンテンツ提供：%s";
 
 "whatsnew_lp_title" = "更なる感情を";
 

@@ -1835,7 +1835,7 @@
 	<string name="all_pass_subscription_message_title_4">トラベルガイド：\nLonely Planet®提供</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4"><b>世界中</b>の数千か所に及ぶ興味深い場所で<b>更なる体験</b> を</string>
-	<string name="content_by_component">コンテンツ提供：</string>
+	<string name="content_by_component">コンテンツ提供：%s</string>
 	<string name="whatsnew_lp_title">更なる感情を</string>
 	<string name="whatsnew_lp_message">Lonely Planetのガイドがアプリ内から利用できるようになりました！7000を超える都市の最高のアトラクションや、セマティックウォーク、そしてユニークな旅行スポットがご利用いただけます。</string>
 	<string name="collections_title">コレクション</string>

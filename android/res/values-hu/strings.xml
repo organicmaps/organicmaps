@@ -1843,7 +1843,7 @@
 	<string name="all_pass_subscription_message_title_4">Útikalauzok\na Lonely Planet®-től</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4">Még <b>több élmény</b> érdekes helyszínek ezreivel <b>a világon</b></string>
-	<string name="content_by_component">Tartalom:</string>
+	<string name="content_by_component">Tartalom: %s</string>
 	<string name="whatsnew_lp_title">Még több izgalom</string>
 	<string name="whatsnew_lp_message">Mostantól Lonely Planet útmutatók vannak az alkalmazásunkban! A legjobb látnivalók, tematikus séták, egyedi úti helyek több mint 7000 városhoz.</string>
 	<string name="collections_title">Gyűjtemények</string>

@@ -1860,7 +1860,7 @@
 	<string name="all_pass_subscription_message_title_4">Guides\nLonely Planet®</string>
 	<!-- <b> & </b> tag to make a part of the line bold -->
 	<string name="all_pass_subscription_message_subtitle_4">Encore <b>plus d\'impressions</b> avec des milliers d\'endroits intéressants partout <b>dans le monde</b></string>
-	<string name="content_by_component">Contenu de :</string>
+	<string name="content_by_component">Contenu de : %s</string>
 	<string name="whatsnew_lp_title">Encore plus d\'émotions</string>
 	<string name="whatsnew_lp_message">Nous accueillons les guides Lonely Planet ! Des lieux d\'intérêt touristique, des itinéraires thématiques et des endroits inédits dans + de 7000 villes.</string>
 	<string name="collections_title">Sélection</string>

@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "<b>Dünyanın dört bir yanındaki</b> binlerce ilginç yer sayesinde <b>daha da fazla deneyim</b>";
 
-"content_by_component" = "Yayınlayan:";
+"content_by_component" = "Yayınlayan: %s";
 
 "whatsnew_lp_title" = "Daha da fazla duygu";
 

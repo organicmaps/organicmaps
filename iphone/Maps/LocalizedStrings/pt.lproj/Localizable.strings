@@ -2384,7 +2384,7 @@
 "guide_downloaded_title" = "O guia foi descarregado com sucesso";
 
 /* as few symbols as possible */
-"download_guides" = "Encontrar guias";
+"download_guides" = "Buscar guías";
 
 "guides_groups_cached" = "Descarregar guias";
 
@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "Ainda <b>mais emoções</b> com milhares de locais curiosos pelo <b>mundo inteiro</b>";
 
-"content_by_component" = "Conteúdo de:";
+"content_by_component" = "Conteúdo de: %s";
 
 "whatsnew_lp_title" = "Ainda mais emoções";
 

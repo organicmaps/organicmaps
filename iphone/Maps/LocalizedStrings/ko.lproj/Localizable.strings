@@ -3383,7 +3383,7 @@
 /* <b> & </b> tag to make a part of the line bold */
 "all_pass_subscription_message_subtitle_4" = "<b>전 세계의</b> 흥미로운 수천 곳에 대해 <b>더 많은 경험</b>을 하실 수 있습니다";
 
-"content_by_component" = "제작:";
+"content_by_component" = "제작: %s";
 
 "whatsnew_lp_title" = "더 많은 감동을 느껴보세요";
 
