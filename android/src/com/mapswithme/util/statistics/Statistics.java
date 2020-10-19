@@ -1950,10 +1950,22 @@ public enum Statistics
     trackEvent(GUIDES_OPEN, params().add(SERVER_ID, serverId), STATISTICS_CHANNEL_REALTIME);
   }
 
-  public void trackGuideBookmarkSelect(@NonNull String serverId, @NonNull String from)
+  public void trackGuideBookmarkSelect(@NonNull String serverId, long catId)
   {
-    trackEvent(GUIDES_BOOKMARK_SELECT, params().add(SERVER_ID, serverId).add(FROM, from),
-               STATISTICS_CHANNEL_REALTIME);
+    trackEvent(GUIDES_BOOKMARK_SELECT, params()
+                   .add(SERVER_ID, serverId)
+                   .add(FROM, getCompilationTypeById(catId)), STATISTICS_CHANNEL_REALTIME);
+  }
+
+  @NonNull
+  private String getCompilationTypeById(long catId)
+  {
+    if (!BookmarkManager.INSTANCE.isCompilation(catId))
+      return Statistics.ParamValue.MAIN;
+    else if (BookmarkManager.INSTANCE.getCompilationType(catId) == BookmarkManager.CATEGORY)
+      return Statistics.ParamValue.CATEGORY;
+    else
+      return Statistics.ParamValue.COLLECTION;
   }
 
   public void trackCollectionOrCategorySelect(@NonNull String serverId, @NonNull String categoryName,

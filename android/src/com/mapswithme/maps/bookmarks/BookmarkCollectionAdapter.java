@@ -64,9 +64,9 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
       category.invertVisibility();
       notifyItemChanged(mHolder.getAdapterPosition());
       notifyItemChanged(SectionPosition.INVALID_POSITION);
-      
-      String compilationTypeString = BookmarkManager.INSTANCE.getCompilationType(category.getId()) ==
-                                     BookmarkManager.CATEGORY ?
+
+      int type = BookmarkManager.INSTANCE.getCompilationType(category.getId());
+      String compilationTypeString = type == BookmarkManager.CATEGORY ?
                                      Statistics.ParamValue.CATEGORY :
                                      Statistics.ParamValue.COLLECTION;
       Statistics.INSTANCE.trackGuideVisibilityChange(

@@ -93,7 +93,7 @@ public class Holders
 
     void setAction(@NonNull HeaderActionChildCategories action,
                    final boolean showAll,
-                   @BookmarkManager.CompilationType final int compilationType,
+                   @BookmarkManager.CompilationType int compilationType,
                    @NonNull String serverId)
     {
       mButton.setText(showAll
@@ -123,7 +123,9 @@ public class Holders
       private final boolean mShowAll;
       @BookmarkManager.CompilationType
       private final int mCompilationType;
+      @NonNull
       private final String mServerId;
+      @NonNull
       private final String mCompilationTypeString;
 
       ToggleShowAllChildCategoryClickListener(@NonNull HeaderActionChildCategories action,

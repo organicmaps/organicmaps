@@ -622,18 +622,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
                new Factory.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
 
     Statistics.INSTANCE.trackGuideBookmarkSelect(mCategoryDataSource.getData().getServerId(),
-                                                 getParamValueByType(bookmark.getCategoryId()));
-  }
-
-  @NonNull
-  private String getParamValueByType(long catId)
-  {
-    if (BookmarkManager.INSTANCE.isCompilation(catId))
-      return Statistics.ParamValue.MAIN;
-    else if (BookmarkManager.INSTANCE.getCompilationType(catId) == BookmarkManager.CATEGORY)
-      return Statistics.ParamValue.CATEGORY;
-    else
-      return Statistics.ParamValue.COLLECTION;
+                                                 bookmark.getCategoryId());
   }
 
   public void onItemMore(int position)
