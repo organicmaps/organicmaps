@@ -52,7 +52,7 @@ function(setup_bundled_boost_with_python)
 
   find_package(Boost ${BOOST_VERSION} EXACT REQUIRED COMPONENTS ${BOOST_PYTHON_LIBNAME})
   find_package(PythonInterp ${PYTHON_VERSION} REQUIRED)
-  include_directories(${PYTHON_INCLUDE_DIRS})
+  include_directories(${PYTHON_INCLUDE_DIR})
 
   include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
