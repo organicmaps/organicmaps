@@ -131,7 +131,7 @@ public:
     if (result != CheckResult::EndiannessMatch)
       return unique_ptr<RankTableV0>();
 
-    unique_ptr<RankTableV0> table(new RankTableV0());
+    auto table = make_unique<RankTableV0>();
     coding::Map(table->m_coding, region->ImmutableData() + kHeaderSize, "SimpleDenseCoding");
     table->m_region = move(region);
     return table;

@@ -24,7 +24,7 @@ protected:
   std::unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const override
   {
     int const n = localFile.GetCountryName()[0] - '0';
-    std::unique_ptr<MwmInfo> info(new MwmInfo());
+    auto info = std::make_unique<MwmInfo>();
     info->m_maxScale = n;
     info->m_bordersRect = m2::RectD(0, 0, 1, 1);
     info->m_version.SetFormat(version::Format::lastFormat);

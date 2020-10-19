@@ -182,7 +182,7 @@ unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
 {
   // Create a section with rank table if it does not exist.
   platform::LocalCountryFile const & localFile = info.GetLocalFile();
-  unique_ptr<MwmValue> p(new MwmValue(localFile));
+  auto p = make_unique<MwmValue>(localFile);
   if (!p || version::GetMwmType(p->GetMwmVersion()) != version::MwmType::SingleMwm)
     return nullptr;
 
