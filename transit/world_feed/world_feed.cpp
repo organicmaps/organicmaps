@@ -347,12 +347,6 @@ TransitId IdGenerator::MakeId(const std::string & hash)
   return it->second;
 }
 
-void IdGenerator::SetCurId(TransitId curId)
-{
-  if (curId > m_curId)
-    m_curId = curId;
-}
-
 void IdGenerator::Save()
 {
   LOG(LINFO, ("Started saving", m_hashToId.size(), "mappings to", m_idMappingPath));

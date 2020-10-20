@@ -379,9 +379,9 @@ void CalcCrossMwmTransitions(
 void CalcCrossMwmTransitionsExperimental(
     string const & mwmFile, vector<m2::RegionD> const & borders, string const & country,
     routing::CountryParentNameGetterFn const & /* countryParentNameGetterFn */,
+    ::transit::experimental::EdgeIdToFeatureId const & edgeIdToFeatureId,
     vector<routing::CrossMwmConnectorSerializer::Transition<routing::connector::TransitId>> &
-        transitions,
-    ::transit::experimental::EdgeIdToFeatureId const & edgeIdToFeatureId)
+        transitions)
 {
   try
   {
@@ -445,8 +445,8 @@ void CalcCrossMwmTransitionsExperimental(
 void CalcCrossMwmTransitionsExperimental(
     string const & mwmFile, vector<m2::RegionD> const & borders, string const & country,
     routing::CountryParentNameGetterFn const & countryParentNameGetterFn,
-    vector<routing::CrossMwmConnectorSerializer::Transition<base::GeoObjectId>> & transitions,
-    ::transit::experimental::EdgeIdToFeatureId const & edgeIdToFeatureId)
+    ::transit::experimental::EdgeIdToFeatureId const & edgeIdToFeatureId,
+    vector<routing::CrossMwmConnectorSerializer::Transition<base::GeoObjectId>> & transitions)
 {
   CHECK(false, ("This is dummy specialization and it shouldn't be called."));
 }
@@ -461,9 +461,9 @@ void CalcCrossMwmConnectors(
     string const & path, string const & mwmFile, string const & intermediateDir,
     string const & country, routing::CountryParentNameGetterFn const & countryParentNameGetterFn,
     string const & mappingFile,
+    ::transit::experimental::EdgeIdToFeatureId const & edgeIdToFeatureId,
     vector<routing::CrossMwmConnectorSerializer::Transition<CrossMwmId>> & transitions,
     routing::CrossMwmConnectorPerVehicleType<CrossMwmId> & connectors,
-    ::transit::experimental::EdgeIdToFeatureId const & edgeIdToFeatureId,
     bool experimentalTransit = false)
 {
   base::Timer timer;
@@ -486,7 +486,7 @@ void CalcCrossMwmConnectors(
     CHECK(!edgeIdToFeatureId.empty(),
           ("Edge id to feature id must be filled before building cross-mwm transit section."));
     CalcCrossMwmTransitionsExperimental(mwmFile, borders, country, countryParentNameGetterFn,
-                                        transitions, edgeIdToFeatureId);
+                                        edgeIdToFeatureId, transitions);
   }
   else
   {
@@ -709,7 +709,7 @@ void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
   vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> transitions;
 
   CalcCrossMwmConnectors(path, mwmFile, intermediateDir, country, countryParentNameGetterFn,
-                         osmToFeatureFile, transitions, connectors, {} /*edgeIdToFeatureId */);
+                         osmToFeatureFile, {} /*edgeIdToFeatureId */, transitions, connectors);
 
   // We use leaps for cars only. To use leaps for other vehicle types add weights generation
   // here and change WorldGraph mode selection rule in IndexRouter::CalculateSubroute.
@@ -731,8 +731,8 @@ void BuildTransitCrossMwmSection(
   vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> transitions;
 
   CalcCrossMwmConnectors(path, mwmFile, "" /* intermediateDir */, country,
-                         countryParentNameGetterFn, "" /* mapping file */, transitions, connectors,
-                         edgeIdToFeatureId, experimentalTransit);
+                         countryParentNameGetterFn, "" /* mapping file */, edgeIdToFeatureId,
+                         transitions, connectors, experimentalTransit);
 
   CHECK(connectors[static_cast<size_t>(VehicleType::Pedestrian)].IsEmpty(), ());
   CHECK(connectors[static_cast<size_t>(VehicleType::Bicycle)].IsEmpty(), ());

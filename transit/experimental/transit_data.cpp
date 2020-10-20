@@ -408,7 +408,7 @@ void Read(base::Json const & obj, std::vector<Shape> & shapes)
   shapes.emplace_back(id, polyline);
 }
 
-void Read(base::Json const & obj, std::vector<Edge> & edges)
+void Read(base::Json const & obj, std::vector<Edge> & edges, EdgeIdToFeatureId & edgeFeatureIds)
 {
   TransitId stopFrom = kInvalidTransitId;
   TransitId stopTo = kInvalidTransitId;
@@ -423,6 +423,10 @@ void Read(base::Json const & obj, std::vector<Edge> & edges)
   bool isTransfer = false;
 
   FromJSONObjectOptionalField(obj.get(), "line_id", lineId);
+
+  TransitId featureId = kInvalidFeatureId;
+  FromJSONObjectOptionalField(obj.get(), "feature_id", featureId);
+
   if (lineId == 0)
   {
     lineId = kInvalidTransitId;
@@ -434,6 +438,7 @@ void Read(base::Json const & obj, std::vector<Edge> & edges)
   }
 
   edges.emplace_back(stopFrom, stopTo, weight, lineId, isTransfer, shapeLink);
+  edgeFeatureIds.emplace(EdgeId(stopFrom, stopTo, lineId), featureId);
 }
 
 void Read(base::Json const & obj, std::vector<Transfer> & transfers)
@@ -501,8 +506,8 @@ void TransitData::DeserializeFromJson(std::string const & dirWithJsons,
   ReadData(base::JoinPath(dirWithJsons, kLinesMetadataFile), m_linesMetadata);
   ReadData(base::JoinPath(dirWithJsons, kStopsFile), m_stops, mapping);
   ReadData(base::JoinPath(dirWithJsons, kShapesFile), m_shapes);
-  ReadData(base::JoinPath(dirWithJsons, kEdgesFile), m_edges);
-  ReadData(base::JoinPath(dirWithJsons, kEdgesTransferFile), m_edges);
+  ReadData(base::JoinPath(dirWithJsons, kEdgesFile), m_edges, m_edgeFeatureIds);
+  ReadData(base::JoinPath(dirWithJsons, kEdgesTransferFile), m_edges, m_edgeFeatureIds);
   ReadData(base::JoinPath(dirWithJsons, kTransfersFile), m_transfers);
   ReadData(base::JoinPath(dirWithJsons, kGatesFile), m_gates, mapping);
 }

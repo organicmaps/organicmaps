@@ -152,7 +152,7 @@ struct EdgeData
   }
 
   explicit EdgeData(EdgeWeight const & weight) : m_weight(weight) {}
-  
+
   ShapeLink m_shapeLink;
   EdgeWeight m_weight = 0;
 

@@ -34,7 +34,6 @@ public:
   void Save();
 
   TransitId MakeId(std::string const & hash);
-  void SetCurId(TransitId curId);
 
 private:
   std::unordered_map<std::string, TransitId> m_hashToId;

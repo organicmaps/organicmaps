@@ -17,6 +17,7 @@
 #include <map>
 #include <string>
 #include <type_traits>
+#include <unordered_map>
 #include <vector>
 
 #include "3party/jansson/myjansson.hpp"
@@ -26,7 +27,7 @@ namespace transit
 namespace experimental
 {
 using OsmIdToFeatureIdsMap = std::map<base::GeoObjectId, std::vector<FeatureId>>;
-
+using EdgeIdToFeatureId = std::unordered_map<EdgeId, uint32_t, EdgeIdHasher>;
 // Functions for parsing one line of line-by-line json and creating corresponding item in container.
 void Read(base::Json const & obj, std::vector<Network> & networks);
 void Read(base::Json const & obj, std::vector<Route> & routes);
@@ -34,7 +35,7 @@ void Read(base::Json const & obj, std::vector<Line> & lines);
 void Read(base::Json const & obj, std::vector<LineMetadata> & linesMetadata);
 void Read(base::Json const & obj, std::vector<Stop> & stops, OsmIdToFeatureIdsMap const & mapping);
 void Read(base::Json const & obj, std::vector<Shape> & shapes);
-void Read(base::Json const & obj, std::vector<Edge> & edges);
+void Read(base::Json const & obj, std::vector<Edge> & edges, EdgeIdToFeatureId & edgeFeatureIds);
 void Read(base::Json const & obj, std::vector<Transfer> & transfers);
 void Read(base::Json const & obj, std::vector<Gate> & gates, OsmIdToFeatureIdsMap const & mapping);
 
@@ -68,6 +69,8 @@ public:
   std::vector<Shape> const & GetShapes() const { return m_shapes; }
   std::vector<Route> const & GetRoutes() const { return m_routes; }
   std::vector<Network> const & GetNetworks() const { return m_networks; }
+
+  EdgeIdToFeatureId const & GetEdgeIdToFeatureId() const { return m_edgeFeatureIds; }
 
 private:
   DECLARE_VISITOR_AND_DEBUG_PRINT(TransitData, visitor(m_stops, "stops"), visitor(m_gates, "gates"),
@@ -106,6 +109,8 @@ private:
   std::vector<Line> m_lines;
   std::vector<LineMetadata> m_linesMetadata;
   std::vector<Shape> m_shapes;
+
+  EdgeIdToFeatureId m_edgeFeatureIds;
 };
 }  // namespace experimental
 }  // namespace transit

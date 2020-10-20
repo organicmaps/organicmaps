@@ -252,8 +252,9 @@ UNIT_TEST(ReadJson_Edge)
            ShapeLink(kInvalidTransitId /* shapeId */, 0 /* startIndex */, 0 /* endIndex */))};
 
   std::vector<Edge> edgesFact;
+  EdgeIdToFeatureId edgeIdToFeatureId;
 
-  FillContainer(lineByLineJson, edgesFact);
+  FillContainer(lineByLineJson, edgesFact, edgeIdToFeatureId);
   TestEqual(edgesFact, edgesPlan);
 }
 
