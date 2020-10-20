@@ -469,11 +469,9 @@ def get_version():
                     break
     code_version = max(versions)
 
-    env_version_addendum = os.environ.get('OMIM_SCM_VERSION')
+    env_version_addendum = os.environ.get('OMIM_SCM_VERSION', '')
 
-    if env_version_addendum:
-        return "{}_{}".format(code_version, env_version_addendum)
-    return code_version
+    return "{}{}".format(code_version, env_version_addendum)
 
 
 def transform_omim_requirement(requirement, omim_package_version):
