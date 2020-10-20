@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iosfwd>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <tuple>
@@ -33,6 +34,8 @@ static double constexpr kAvgTransitSpeedMpS = 11.1;
 // If count of corrupted shapes in feed exceeds this value we skip feed and don't save it. The shape
 // is corrupted if we cant't properly project all stops from the trip to its polyline.
 static size_t constexpr kMaxInvalidShapesCount = 5;
+
+::transit::TransitId constexpr kInvalidLineId = std::numeric_limits<::transit::TransitId>::max();
 
 template <class C, class ID>
 void AddToRegions(C & container, ID const & id, transit::Regions const & regions)
@@ -344,6 +347,12 @@ TransitId IdGenerator::MakeId(const std::string & hash)
   return it->second;
 }
 
+void IdGenerator::SetCurId(TransitId curId)
+{
+  if (curId > m_curId)
+    m_curId = curId;
+}
+
 void IdGenerator::Save()
 {
   LOG(LINFO, ("Started saving", m_hashToId.size(), "mappings to", m_idMappingPath));
@@ -390,9 +399,12 @@ void StopData::UpdateTimetable(TransitId lineId, gtfs::StopTime const & stopTime
     it->second.push_back(timeInterval);
 }
 
-WorldFeed::WorldFeed(IdGenerator & generator, ColorPicker & colorPicker,
-                     feature::CountriesFilesAffiliation & mwmMatcher)
-  : m_idGenerator(generator), m_colorPicker(colorPicker), m_affiliation(mwmMatcher)
+WorldFeed::WorldFeed(IdGenerator & generator, IdGenerator & generatorEdges,
+                     ColorPicker & colorPicker, feature::CountriesFilesAffiliation & mwmMatcher)
+  : m_idGenerator(generator)
+  , m_idGeneratorEdges(generatorEdges)
+  , m_colorPicker(colorPicker)
+  , m_affiliation(mwmMatcher)
 {
 }
 
@@ -587,7 +599,7 @@ bool WorldFeed::FillStopsEdges()
 
   for (auto it = m_lines.m_data.begin(); it != m_lines.m_data.end(); ++it)
   {
-    auto const & lineId = it->first;
+    TransitId const & lineId = it->first;
     LineData & lineData = it->second;
     TransitId const & shapeId = lineData.m_shapeLink.m_shapeId;
     gtfs::StopTimes stopTimes = GetStopTimesForTrip(allStopTimes, lineData.m_gtfsTripId);
@@ -624,7 +636,10 @@ bool WorldFeed::FillStopsEdges()
           return false;
       }
 
+      std::string const edgeHash =
+          BuildHash(std::to_string(lineId), std::to_string(stop1Id), std::to_string(stop2Id));
       EdgeData data;
+      data.m_featureId = m_idGeneratorEdges.MakeId(edgeHash);
       data.m_shapeLink.m_shapeId = shapeId;
       data.m_weight =
           static_cast<transit::EdgeWeight>(stopTime2.arrival_time.get_total_seconds() -
@@ -814,6 +829,7 @@ void WorldFeed::ModifyLinesAndShapes()
 
       lineDataNeedle.m_shapeLink.m_endIndex =
           static_cast<uint32_t>(lineDataNeedle.m_shapeLink.m_startIndex + pointsNeedle.size() - 1);
+
       itCache->second = lineIdNeedle;
       shapesForRemoval.insert(shapeIdNeedle);
       ++subShapesCount;
@@ -1076,8 +1092,13 @@ void WorldFeed::FillTransfers()
     {
       EdgeTransferId const transferId(stop1Id, stop2Id);
 
-      std::tie(std::ignore, inserted) =
-          m_edgesTransfers.m_data.emplace(transferId, transfer.min_transfer_time);
+      EdgeData data;
+      data.m_weight = static_cast<EdgeWeight>(transfer.min_transfer_time);
+      std::string const edgeHash = BuildHash(std::to_string(kInvalidLineId),
+                                             std::to_string(stop1Id), std::to_string(stop2Id));
+
+      data.m_featureId = m_idGeneratorEdges.MakeId(edgeHash);
+      std::tie(std::ignore, inserted) = m_edgesTransfers.m_data.emplace(transferId, data);
 
       LinkTransferIdToStop(stop1, transitId);
       LinkTransferIdToStop(stop2, transitId);
@@ -1554,6 +1575,9 @@ void Edges::Write(IdEdgeSet const & ids, std::ofstream & stream) const
     ToJSONObject(*node, "stop_id_from", edgeId.m_fromStopId);
     ToJSONObject(*node, "stop_id_to", edgeId.m_toStopId);
 
+    if (edge.m_featureId != 0)
+      ToJSONObject(*node, "feature_id", edge.m_featureId);
+
     CHECK_GREATER(edge.m_weight, 0, (edgeId.m_fromStopId, edgeId.m_toStopId, edgeId.m_lineId));
     ToJSONObject(*node, "weight", edge.m_weight);
 
@@ -1567,12 +1591,15 @@ void EdgesTransfer::Write(IdEdgeTransferSet const & ids, std::ofstream & stream)
 {
   for (auto const & edgeTransferId : ids)
   {
-    auto const weight = m_data.find(edgeTransferId)->second;
+    auto const & edgeData = m_data.find(edgeTransferId)->second;
     auto node = base::NewJSONObject();
 
     ToJSONObject(*node, "stop_id_from", edgeTransferId.m_fromStopId);
     ToJSONObject(*node, "stop_id_to", edgeTransferId.m_toStopId);
-    ToJSONObject(*node, "weight", weight);
+    ToJSONObject(*node, "weight", edgeData.m_weight);
+
+    if (edgeData.m_featureId != 0)
+      ToJSONObject(*node, "feature_id", edgeData.m_featureId);
 
     WriteJson(node.get(), stream);
   }

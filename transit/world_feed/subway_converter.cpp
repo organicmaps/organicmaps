@@ -87,7 +87,6 @@ bool SubwayConverter::Convert()
     return false;
 
   m_feed.ModifyLinesAndShapes();
-
   MinimizeReversedLinesCount();
 
   if (!ConvertStops())
@@ -131,12 +130,16 @@ bool SubwayConverter::ConvertNetworks()
 
 bool SubwayConverter::SplitEdges()
 {
-  for (auto const & edgeSubway : m_graphData.GetEdges())
+  auto & edgesSubway = m_graphData.GetEdges();
+
+  for (size_t i = 0; i < edgesSubway.size(); ++i)
   {
+    auto const & edgeSubway = edgesSubway[i];
+
     if (edgeSubway.GetTransfer())
-      m_edgesTransferSubway.emplace_back(edgeSubway);
+      m_edgesTransferSubway.emplace(edgeSubway, i);
     else
-      m_edgesSubway.emplace_back(edgeSubway);
+      m_edgesSubway.emplace(edgeSubway, i);
   }
 
   return !m_edgesSubway.empty() && !m_edgesTransferSubway.empty();
@@ -211,13 +214,15 @@ std::pair<TransitId, LineData> SubwayConverter::MakeLine(routing::transit::Line 
   return {lineId, lineData};
 }
 
-std::pair<EdgeId, EdgeData> SubwayConverter::MakeEdge(routing::transit::Edge const & edgeSubway)
+std::pair<EdgeId, EdgeData> SubwayConverter::MakeEdge(routing::transit::Edge const & edgeSubway,
+                                                      uint32_t index)
 {
   auto const lineId = edgeSubway.GetLineId();
   EdgeId const edgeId(m_stopIdMapping[edgeSubway.GetStop1Id()],
                       m_stopIdMapping[edgeSubway.GetStop2Id()], lineId);
   EdgeData edgeData;
   edgeData.m_weight = edgeSubway.GetWeight();
+  edgeData.m_featureId = index;
 
   CHECK(m_feed.m_edgesOnShapes.find(edgeId) != m_feed.m_edgesOnShapes.end(), (lineId));
 
@@ -226,12 +231,16 @@ std::pair<EdgeId, EdgeData> SubwayConverter::MakeEdge(routing::transit::Edge con
   return {edgeId, edgeData};
 }
 
-std::pair<EdgeTransferId, size_t> SubwayConverter::MakeEdgeTransfer(
-    routing::transit::Edge const & edgeSubway)
+std::pair<EdgeTransferId, EdgeData> SubwayConverter::MakeEdgeTransfer(
+    routing::transit::Edge const & edgeSubway, uint32_t index)
 {
   EdgeTransferId const edgeTransferId(m_stopIdMapping[edgeSubway.GetStop1Id()] /* fromStopId */,
                                       m_stopIdMapping[edgeSubway.GetStop2Id()] /* toStopId */);
-  return {edgeTransferId, edgeSubway.GetWeight()};
+  EdgeData edgeData;
+  edgeData.m_weight = edgeSubway.GetWeight();
+  edgeData.m_featureId = index;
+
+  return {edgeTransferId, edgeData};
 }
 
 std::pair<TransitId, StopData> SubwayConverter::MakeStop(routing::transit::Stop const & stopSubway)
@@ -423,13 +432,13 @@ bool SubwayConverter::ConvertGates()
 
 bool SubwayConverter::ConvertEdges()
 {
-  for (auto const & edgeSubway : m_edgesSubway)
-    m_feed.m_edges.m_data.emplace(MakeEdge(edgeSubway));
+  for (auto const & [edgeSubway, index] : m_edgesSubway)
+    m_feed.m_edges.m_data.emplace(MakeEdge(edgeSubway, index));
 
   LOG(LINFO, ("Converted", m_feed.m_edges.m_data.size(), "edges."));
 
-  for (auto const & edgeTransferSubway : m_edgesTransferSubway)
-    m_feed.m_edgesTransfers.m_data.emplace(MakeEdgeTransfer(edgeTransferSubway));
+  for (auto const & [edgeTransferSubway, index] : m_edgesTransferSubway)
+    m_feed.m_edgesTransfers.m_data.emplace(MakeEdgeTransfer(edgeTransferSubway, index));
 
   LOG(LINFO, ("Converted", m_feed.m_edgesTransfers.m_data.size(), "transfer edges."));
 
@@ -743,7 +752,7 @@ void SubwayConverter::PrepareLinesMetadata()
 {
   for (auto const & [region, linesInRegion] : m_feed.m_splitting.m_lines)
   {
-    LOG(LINFO, ("Handling", region, "region"));
+    LOG(LINFO, ("Preparing metadata for", region, "region"));
 
     std::vector<LineSchemeData> linesOnScheme = GetLinesOnScheme(linesInRegion);
 
@@ -837,15 +846,13 @@ routing::transit::Edge SubwayConverter::FindEdge(routing::transit::StopId stop1I
                                                  routing::transit::StopId stop2Id,
                                                  routing::transit::LineId lineId) const
 {
-  auto const itEdge = std::find_if(m_edgesSubway.begin(), m_edgesSubway.end(),
-                                   [stop1Id, stop2Id, lineId](routing::transit::Edge const & edge) {
-                                     return edge.GetStop1Id() == stop1Id &&
-                                            edge.GetStop2Id() == stop2Id &&
-                                            edge.GetLineId() == lineId;
-                                   });
+  routing::transit::Edge edge(stop1Id, stop2Id, 0 /* weight */, lineId, false /* transfer */,
+                              {} /* shapeIds */);
+
+  auto const itEdge = m_edgesSubway.find(edge);
 
   CHECK(itEdge != m_edgesSubway.end(), (stop1Id, stop2Id, lineId));
 
-  return *itEdge;
+  return itEdge->first;
 }
 }  // namespace transit

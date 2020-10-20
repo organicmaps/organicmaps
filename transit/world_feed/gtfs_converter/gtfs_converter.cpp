@@ -13,7 +13,11 @@
 
 #include "3party/gflags/src/gflags/gflags.h"
 
-DEFINE_string(path_mapping, "", "Path to the mapping file of TransitId to GTFS hash");
+DEFINE_string(
+    path_mapping, "",
+    "Path to the mapping file of TransitId to GTFS hash for all transit entities except edges");
+DEFINE_string(path_mapping_edges, "",
+              "Path to the mapping file of TransitId to GTFS hash for edges");
 // One of these two paths should be specified: |path_gtfs_feeds| and/or |path_subway_json|.
 DEFINE_string(path_gtfs_feeds, "", "Directory with GTFS feeds subdirectories");
 DEFINE_string(path_subway_json, "", "MAPS.ME json file with subway data from OSM");
@@ -161,7 +165,8 @@ FeedStatus ReadFeed(gtfs::Feed & feed)
 
 // Reads GTFS feeds from directories in |FLAGS_path_gtfs_feeds|. Converts each feed to the WorldFeed
 // object and saves to the |FLAGS_path_json| path in the new transit line-by-line json format.
-bool ConvertFeeds(transit::IdGenerator & generator, transit::ColorPicker & colorPicker,
+bool ConvertFeeds(transit::IdGenerator & generator, transit::IdGenerator & generatorEdges,
+                  transit::ColorPicker & colorPicker,
                   feature::CountriesFilesAffiliation & mwmMatcher)
 {
   auto const gtfsFeeds = GetGtfsFeedsInDirectory(FLAGS_path_gtfs_feeds);
@@ -213,7 +218,7 @@ bool ConvertFeeds(transit::IdGenerator & generator, transit::ColorPicker & color
       continue;
     }
 
-    transit::WorldFeed globalFeed(generator, colorPicker, mwmMatcher);
+    transit::WorldFeed globalFeed(generator, generatorEdges, colorPicker, mwmMatcher);
 
     if (!globalFeed.SetFeed(std::move(feed)))
     {
@@ -247,10 +252,11 @@ bool ConvertFeeds(transit::IdGenerator & generator, transit::ColorPicker & color
 
 // Reads subway json from |FLAGS_path_subway_json|, converts it to the WorldFeed object and saves
 // to the |FLAGS_path_json| path in the new transit line-by-line json format.
-bool ConvertSubway(transit::IdGenerator & generator, transit::ColorPicker & colorPicker,
+bool ConvertSubway(transit::IdGenerator & generator, transit::IdGenerator & generatorEdges,
+                   transit::ColorPicker & colorPicker,
                    feature::CountriesFilesAffiliation & mwmMatcher, bool overwrite)
 {
-  transit::WorldFeed globalFeed(generator, colorPicker, mwmMatcher);
+  transit::WorldFeed globalFeed(generator, generatorEdges, colorPicker, mwmMatcher);
   transit::SubwayConverter converter(FLAGS_path_subway_json, globalFeed);
 
   if (!converter.Convert())
@@ -274,7 +280,7 @@ int main(int argc, char ** argv)
     return EXIT_FAILURE;
   }
 
-  if (FLAGS_path_mapping.empty() || FLAGS_path_json.empty())
+  if (FLAGS_path_mapping.empty() || FLAGS_path_mapping_edges.empty() || FLAGS_path_json.empty())
   {
     LOG(LWARNING, ("Some of the required options are not present."));
     google::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
@@ -293,6 +299,7 @@ int main(int argc, char ** argv)
   }
 
   transit::IdGenerator generator(FLAGS_path_mapping);
+  transit::IdGenerator generatorEdges(FLAGS_path_mapping_edges);
 
   GetPlatform().SetResourceDir(FLAGS_path_resources);
   transit::ColorPicker colorPicker;
@@ -302,7 +309,8 @@ int main(int argc, char ** argv)
 
   // We convert GTFS feeds to the json format suitable for generator_tool and save it to the
   // corresponding directory.
-  if (!FLAGS_path_gtfs_feeds.empty() && !ConvertFeeds(generator, colorPicker, mwmMatcher))
+  if (!FLAGS_path_gtfs_feeds.empty() &&
+      !ConvertFeeds(generator, generatorEdges, colorPicker, mwmMatcher))
     return EXIT_FAILURE;
 
   // We mixin data in our "old transit" (in fact subway-only) json format to the resulting files
@@ -310,7 +318,7 @@ int main(int argc, char ** argv)
   // experimental transit section. We use the same id |generator| so ids of subway and GTFS
   // itineraries will not conflict.
   if (!FLAGS_path_subway_json.empty() &&
-      !ConvertSubway(generator, colorPicker, mwmMatcher,
+      !ConvertSubway(generator, generatorEdges, colorPicker, mwmMatcher,
                      FLAGS_path_gtfs_feeds.empty() /* overwrite */))
   {
     return EXIT_FAILURE;

@@ -34,6 +34,7 @@ public:
   void Save();
 
   TransitId MakeId(std::string const & hash);
+  void SetCurId(TransitId curId);
 
 private:
   std::unordered_map<std::string, TransitId> m_hashToId;
@@ -187,8 +188,8 @@ using IdEdgeTransferSet = std::unordered_set<EdgeTransferId, EdgeTransferIdHashe
 struct EdgesTransfer
 {
   void Write(IdEdgeTransferSet const & ids, std::ofstream & stream) const;
-  // Key is pair of stops and value is weight (in seconds).
-  std::unordered_map<EdgeTransferId, size_t, EdgeTransferIdHasher> m_data;
+  // Key is pair of stops and value is |EdgeData|, containing weight (in seconds).
+  std::unordered_map<EdgeTransferId, EdgeData, EdgeTransferIdHasher> m_data;
 };
 
 struct TransferData
@@ -280,7 +281,7 @@ using EdgePoints = std::pair<m2::PointD, m2::PointD>;
 class WorldFeed
 {
 public:
-  WorldFeed(IdGenerator & generator, ColorPicker & colorPicker,
+  WorldFeed(IdGenerator & generator, IdGenerator & generatorEdges, ColorPicker & colorPicker,
             feature::CountriesFilesAffiliation & mwmMatcher);
   // Transforms GTFS feed into the global feed.
   bool SetFeed(gtfs::Feed && feed);
@@ -387,6 +388,8 @@ private:
 
   // Generator of ids, globally unique and constant between re-runs.
   IdGenerator & m_idGenerator;
+  // Generator of ids for edges only.
+  IdGenerator & m_idGeneratorEdges;
   // Color name picker of the nearest color for route RBG from our constant list of transfer colors.
   ColorPicker & m_colorPicker;
   // Mwm matcher for m2:Points representing stops and other entities.

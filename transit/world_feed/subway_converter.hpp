@@ -67,8 +67,9 @@ private:
       routing::transit::Transfer const & transferSubway);
   static std::pair<TransitId, LineData> MakeLine(routing::transit::Line const & lineSubway,
                                                  TransitId routeId);
-  std::pair<EdgeId, EdgeData> MakeEdge(routing::transit::Edge const & edgeSubway);
-  std::pair<EdgeTransferId, size_t> MakeEdgeTransfer(routing::transit::Edge const & edgeSubway);
+  std::pair<EdgeId, EdgeData> MakeEdge(routing::transit::Edge const & edgeSubway, uint32_t index);
+  std::pair<EdgeTransferId, EdgeData> MakeEdgeTransfer(routing::transit::Edge const & edgeSubway,
+                                                       uint32_t index);
   std::pair<TransitId, StopData> MakeStop(routing::transit::Stop const & stopSubway);
 
   routing::transit::Edge FindEdge(routing::transit::StopId stop1Id,
@@ -84,8 +85,8 @@ private:
   // Mapping of subway stop id to transit stop id.
   std::unordered_map<routing::transit::StopId, TransitId> m_stopIdMapping;
   // Subset of the |m_graphData| edges with no transfers.
-  std::vector<routing::transit::Edge> m_edgesSubway;
+  std::map<routing::transit::Edge, uint32_t> m_edgesSubway;
   // Subset of the |m_graphData| edges with transfers.
-  std::vector<routing::transit::Edge> m_edgesTransferSubway;
+  std::map<routing::transit::Edge, uint32_t> m_edgesTransferSubway;
 };
 }  // namespace transit
