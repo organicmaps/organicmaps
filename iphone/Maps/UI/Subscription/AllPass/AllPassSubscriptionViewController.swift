@@ -23,10 +23,12 @@ class AllPassSubscriptionViewController: UIViewController {
     return descriptionPageScrollView.frame.width
   }
 
-  private let maxPages = 3
+  private let maxPages = 4
   private var currentPage: Int {
     return Int(descriptionPageScrollView.contentOffset.x / pageWidth) + 1
   }
+
+  private let startPage: Int
 
   private var animatingTask: DispatchWorkItem?
   private let animationDelay: TimeInterval = 2
@@ -36,8 +38,9 @@ class AllPassSubscriptionViewController: UIViewController {
   private let stackTopOffsetSubscriptions: CGFloat = 60
   private let stackTopOffsetTrial: CGFloat = 48
 
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+  init(startPage: Int = 0) {
+    self.startPage = startPage
+    super.init(nibName: nil, bundle: nil)
     if UIDevice.current.userInterfaceIdiom == .pad {
       transitioningDelegate = transitioning
       modalPresentationStyle = .custom
@@ -57,8 +60,10 @@ class AllPassSubscriptionViewController: UIViewController {
     backgroundImageView.images = [
       UIImage(named: "AllPassSubscriptionBg1"),
       UIImage(named: "AllPassSubscriptionBg2"),
-      UIImage(named: "AllPassSubscriptionBg3")
+      UIImage(named: "AllPassSubscriptionBg3"),
+      UIImage(named: "AllPassSubscriptionBg4")
     ]
+    scrollTo(page: startPage, animation: false, completion: nil)
     startAnimating()
 
     let fontSize: CGFloat = UIScreen.main.bounds.width > 320 ? 17.0 : 14.0
@@ -66,7 +71,8 @@ class AllPassSubscriptionViewController: UIViewController {
     let css = "<style type=\"text/css\">b{font-weight: 900;}body{font-weight: 300; font-size: \(fontSize); font-family: '-apple-system','\(fontFamily)';}</style>"
     zip(descriptionSubtitles, ["all_pass_subscription_message_subtitle",
                                "all_pass_subscription_message_subtitle_3",
-                               "all_pass_subscription_message_subtitle_2"]).forEach { title, loc in
+                               "all_pass_subscription_message_subtitle_2",
+                               "all_pass_subscription_message_subtitle_4"]).forEach { title, loc in
                                 title.attributedText = NSAttributedString.string(withHtml: css + L(loc), defaultAttributes: [:])
     }
 
@@ -170,7 +176,9 @@ extension AllPassSubscriptionViewController {
       animatingTask?.cancel()
     }
     animatingTask = DispatchWorkItem.init { [weak self, animationDelay] in
-      self?.scrollToWithAnimation(page: (self?.currentPage ?? 0) + 1, completion: {
+      self?.scrollTo(page: (self?.currentPage ?? 0) + 1,
+                     animation: true,
+                     completion: {
         self?.perform(withDelay: animationDelay, execute: self?.animatingTask)
       })
     }
@@ -183,7 +191,7 @@ extension AllPassSubscriptionViewController {
     view.layer.removeAllAnimations()
   }
 
-  private func scrollToWithAnimation(page: Int, completion: @escaping () -> Void) {
+  private func scrollTo(page: Int, animation: Bool, completion: (() -> Void)?) {
     var nextPage = page
     var duration = animationDuration
     if nextPage < 1 || nextPage > maxPages {
@@ -192,14 +200,19 @@ extension AllPassSubscriptionViewController {
     }
 
     let xOffset = CGFloat(nextPage - 1) * pageWidth
-    UIView.animate(withDuration: duration,
-                   delay: 0,
-                   options: [.curveEaseInOut, .allowUserInteraction],
-                   animations: { [weak self] in
-                    self?.descriptionPageScrollView.contentOffset.x = xOffset
-      }, completion: { complete in
-        completion()
-    })
+    if animation {
+      UIView.animate(withDuration: duration,
+                     delay: 0,
+                     options: [.curveEaseInOut, .allowUserInteraction],
+                     animations: { [weak self] in
+                      self?.descriptionPageScrollView.contentOffset.x = xOffset
+                     }, completion: { complete in
+                      completion?()
+                     })
+    } else {
+      descriptionPageScrollView.contentOffset.x = xOffset
+      completion?()
+    }
   }
 }
 

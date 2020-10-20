@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,6 +27,7 @@
                 <outletCollection property="descriptionSubtitles" destination="X8c-aP-lNH" collectionClass="NSMutableArray" id="Zhs-4j-bdx"/>
                 <outletCollection property="descriptionSubtitles" destination="ysy-K0-iWY" collectionClass="NSMutableArray" id="UA8-GU-XUQ"/>
                 <outletCollection property="descriptionSubtitles" destination="8li-NQ-mbT" collectionClass="NSMutableArray" id="s78-H5-Eyc"/>
+                <outletCollection property="descriptionSubtitles" destination="scD-8Z-2GW" collectionClass="NSMutableArray" id="3aS-FP-Hjz"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -60,28 +62,28 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="1202"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6YG-W2-c2H">
-                                    <rect key="frame" x="-10" y="18" width="241.5" height="72.5"/>
+                                    <rect key="frame" x="-10" y="18" width="239.5" height="72.5"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zls-Si-nGK">
-                                            <rect key="frame" x="0.0" y="0.0" width="241.5" height="72.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="239.5" height="72.5"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="suT-Qs-vlr">
-                                                <rect key="frame" x="0.0" y="0.0" width="241.5" height="72.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="239.5" height="72.5"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <blurEffect style="regular"/>
                                         </visualEffectView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribe" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4o-CM-FZh">
-                                            <rect key="frame" x="30" y="13" width="81" height="20.5"/>
+                                            <rect key="frame" x="30" y="13" width="80.5" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionTitle"/>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="subscription"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_header"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City + Outdoor pass" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQG-Je-4JN">
-                                            <rect key="frame" x="30" y="35.5" width="195.5" height="24"/>
+                                            <rect key="frame" x="30" y="35.5" width="193.5" height="24"/>
                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -91,7 +93,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="PQG-Je-4JN" secondAttribute="bottom" constant="13" id="KmS-rM-JIt"/>
                                         <constraint firstItem="zls-Si-nGK" firstAttribute="top" secondItem="6YG-W2-c2H" secondAttribute="top" id="Vmj-6k-fg1"/>
@@ -111,7 +113,7 @@
                                     <rect key="frame" x="0.0" y="112.5" width="414" height="462.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dDh-cr-cQb">
-                                            <rect key="frame" x="0.0" y="0.0" width="1242" height="462.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1656" height="462.5"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d1O-vM-kfx">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="462.5"/>
@@ -221,6 +223,42 @@
                                                         <constraint firstItem="Ss5-hD-fVK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Mpg-Va-Z94" secondAttribute="top" constant="38" id="zl7-Bk-3ha"/>
                                                     </constraints>
                                                 </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o5c-7F-2OV">
+                                                    <rect key="frame" x="1242" y="0.0" width="414" height="462.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ji9-ix-taU">
+                                                            <rect key="frame" x="20" y="383" width="374" height="41"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription1"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_title_4"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scD-8Z-2GW">
+                                                            <rect key="frame" x="20" y="442" width="374" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AllPassSubscriptionDescription2"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="all_pass_subscription_message_subtitle_4"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Ji9-ix-taU" firstAttribute="leading" secondItem="o5c-7F-2OV" secondAttribute="leading" constant="20" id="1bz-pk-IPC"/>
+                                                        <constraint firstItem="Ji9-ix-taU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="o5c-7F-2OV" secondAttribute="top" constant="38" id="76f-C8-rWP"/>
+                                                        <constraint firstItem="scD-8Z-2GW" firstAttribute="top" secondItem="Ji9-ix-taU" secondAttribute="bottom" constant="18" id="80A-2N-dcP"/>
+                                                        <constraint firstItem="scD-8Z-2GW" firstAttribute="leading" secondItem="o5c-7F-2OV" secondAttribute="leading" constant="20" id="8Za-2N-KaS"/>
+                                                        <constraint firstItem="Ji9-ix-taU" firstAttribute="top" secondItem="o5c-7F-2OV" secondAttribute="top" priority="250" constant="16" id="NnB-9D-Ohf"/>
+                                                        <constraint firstAttribute="trailing" secondItem="scD-8Z-2GW" secondAttribute="trailing" constant="20" id="fmb-7c-lse"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Ji9-ix-taU" secondAttribute="trailing" constant="20" id="guC-d4-JAa"/>
+                                                        <constraint firstAttribute="bottom" secondItem="scD-8Z-2GW" secondAttribute="bottom" id="ngd-Uz-3kz"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -273,7 +311,7 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                             <state key="normal" title="!! Monthly">
-                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleColor" systemColor="darkTextColor"/>
                                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
@@ -334,8 +372,8 @@
                                     </subviews>
                                 </stackView>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUV-kf-oUo" customClass="InsetsLabel" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="28" y="612" width="48.5" height="35"/>
-                                    <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="28" y="612" width="48" height="35"/>
+                                    <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="BYp-RT-R6I"/>
                                     </constraints>
@@ -473,6 +511,7 @@
                     <blurEffect style="dark"/>
                 </visualEffectView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="LdD-sY-6l2"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="pyJ-8x-bjL" firstAttribute="height" secondItem="ttH-ve-i20" secondAttribute="height" multiplier="0.516197" id="1ld-qD-0by"/>
@@ -495,14 +534,13 @@
                 <constraint firstItem="6CL-w4-bnh" firstAttribute="leading" secondItem="LdD-sY-6l2" secondAttribute="leading" id="dfi-DR-Vzf"/>
                 <constraint firstItem="OgE-tu-SWu" firstAttribute="top" secondItem="ttH-ve-i20" secondAttribute="top" id="edn-oI-aXU"/>
                 <constraint firstAttribute="trailing" secondItem="e6Y-4z-J5I" secondAttribute="trailing" id="gDt-bE-oVK"/>
-                <constraint firstItem="dDh-cr-cQb" firstAttribute="width" secondItem="ttH-ve-i20" secondAttribute="width" multiplier="3" id="hQi-FV-7vM"/>
+                <constraint firstItem="dDh-cr-cQb" firstAttribute="width" secondItem="ttH-ve-i20" secondAttribute="width" multiplier="4" id="hQi-FV-7vM"/>
                 <constraint firstItem="g8K-hH-jwt" firstAttribute="height" secondItem="ttH-ve-i20" secondAttribute="height" multiplier="0.3" id="imQ-6M-EzW"/>
                 <constraint firstItem="MVh-rE-VHd" firstAttribute="trailing" secondItem="LdD-sY-6l2" secondAttribute="trailing" id="jrm-Tu-hDq"/>
                 <constraint firstItem="MVh-rE-VHd" firstAttribute="height" secondItem="ttH-ve-i20" secondAttribute="height" id="saW-Vf-Jcf"/>
                 <constraint firstItem="LdD-sY-6l2" firstAttribute="trailing" secondItem="g8K-hH-jwt" secondAttribute="trailing" id="tKl-Sp-71v"/>
                 <constraint firstAttribute="trailing" secondItem="OgE-tu-SWu" secondAttribute="trailing" id="ugD-Iv-ilf"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="LdD-sY-6l2"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
             </userDefinedRuntimeAttributes>
@@ -511,5 +549,14 @@
     </objects>
     <resources>
         <image name="bookmarksSubscriptionClose" width="24" height="24"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

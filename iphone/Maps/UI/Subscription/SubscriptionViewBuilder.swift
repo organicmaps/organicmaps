@@ -19,4 +19,16 @@ class SubscriptionViewBuilder {
                                               completion: completion)
     }
   }
+
+  static func buildLonelyPlanet(parentViewController: UIViewController,
+                                source: String,
+                                successDialog: SubscriptionSuccessDialog,
+                                completion: ((Bool) -> Void)?) -> UIViewController {
+    return AllPassSubscriptionBuilder.build(parentViewController: parentViewController,
+                                            source: source,
+                                            successDialog: successDialog,
+                                            subscriptionGroupType: .allPass,
+                                            completion: completion,
+                                            startPage: 4)
+  }
 }

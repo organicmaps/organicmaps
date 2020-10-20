@@ -3,8 +3,9 @@ class AllPassSubscriptionBuilder {
                     source: String,
                     successDialog: SubscriptionSuccessDialog,
                     subscriptionGroupType: SubscriptionGroupType,
-                    completion: ((Bool) -> Void)?) -> UIViewController {
-    let viewController = AllPassSubscriptionViewController(nibName: nil, bundle: nil)
+                    completion: ((Bool) -> Void)?,
+                    startPage: Int = 0) -> UIViewController {
+    let viewController = AllPassSubscriptionViewController(startPage: startPage)
     let router = SubscriptionRouter(viewController: viewController,
                                     parentViewController: parentViewController,
                                     successDialog: successDialog,
