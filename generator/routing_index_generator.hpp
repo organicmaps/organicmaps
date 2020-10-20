@@ -1,5 +1,7 @@
 #pragma once
 
+#include "transit/experimental/transit_data.hpp"
+
 #include <cstdint>
 #include <functional>
 #include <string>
@@ -22,8 +24,9 @@ void BuildRoutingCrossMwmSection(std::string const & path, std::string const & m
                                  bool disableCrossMwmProgress);
 /// \brief Builds TRANSIT_CROSS_MWM_FILE_TAG section.
 /// \note Before a call of this method TRANSIT_FILE_TAG should be built.
-void BuildTransitCrossMwmSection(std::string const & path, std::string const & mwmFile,
-                                 std::string const & country,
-                                 CountryParentNameGetterFn const & countryParentNameGetterFn,
-                                 bool experimentalTransit = false);
+void BuildTransitCrossMwmSection(
+    std::string const & path, std::string const & mwmFile, std::string const & country,
+    CountryParentNameGetterFn const & countryParentNameGetterFn,
+    ::transit::experimental::EdgeIdToFeatureId const & edgeIdToFeatureId,
+    bool experimentalTransit = false);
 }  // namespace routing

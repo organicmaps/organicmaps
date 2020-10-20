@@ -459,10 +459,12 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     if (!FLAGS_srtm_path.empty())
       routing::BuildRoadAltitudes(dataFile, FLAGS_srtm_path);
 
+    transit::experimental::EdgeIdToFeatureId transitEdgeFeatureIds;
+
     if (!FLAGS_transit_path_experimental.empty())
     {
-      transit::experimental::BuildTransit(path, country, osmToFeatureFilename,
-                                          FLAGS_transit_path_experimental);
+      transitEdgeFeatureIds = transit::experimental::BuildTransit(
+          path, country, osmToFeatureFilename, FLAGS_transit_path_experimental);
     }
     else if (!FLAGS_transit_path.empty())
     {
@@ -543,11 +545,12 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (FLAGS_make_transit_cross_mwm_experimental)
       {
         routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
-                                             true /* experimentalTransit */);
+                                             transitEdgeFeatureIds, true /* experimentalTransit */);
       }
       else if (FLAGS_make_transit_cross_mwm)
       {
         routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
+                                             transitEdgeFeatureIds,
                                              false /* experimentalTransit */);
       }
     }
