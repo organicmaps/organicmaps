@@ -30,7 +30,7 @@ class WorldFeedIntegrationTests
 public:
   WorldFeedIntegrationTests()
     : m_mwmMatcher(GetTestingOptions().m_resourcePath, false /* haveBordersForWholeWorld */)
-    , m_globalFeed(m_generator, m_colorPicker, m_mwmMatcher)
+    , m_globalFeed(m_generator, m_generatorEdges, m_colorPicker, m_mwmMatcher)
   {
     auto const & options = GetTestingOptions();
 
@@ -39,6 +39,7 @@ public:
     CHECK(GetPlatform().MkDirRecursively(m_testPath), ());
 
     m_generator = IdGenerator(base::JoinPath(m_testPath, "mapping.txt"));
+    m_generatorEdges = IdGenerator(base::JoinPath(m_testPath, "mapping_edges.txt"));
 
     auto const src = base::JoinPath(options.m_resourcePath, kArchiveWithFeeds + ".zip");
     ZipFileReader::FileList filesAndSizes;
@@ -135,6 +136,7 @@ public:
 private:
   std::string m_testPath;
   IdGenerator m_generator;
+  IdGenerator m_generatorEdges;
   transit::ColorPicker m_colorPicker;
   feature::CountriesFilesAffiliation m_mwmMatcher;
   WorldFeed m_globalFeed;

@@ -18,6 +18,7 @@ namespace
 std::string const kSubwayTestsDir = "transit_subway_converter_tests";
 std::string const kSubwayJsonFile = "subways.json";
 std::string const kMappingFile = "mapping.txt";
+std::string const kMappingEdgesFile = "mapping.txt";
 
 void WriteStringToFile(std::string const & fileName, std::string const & data)
 {
@@ -42,6 +43,7 @@ public:
     CHECK(Platform::MkDirChecked(kSubwayTestsDir),
           ("Could not create directory for test data:", kSubwayTestsDir));
     m_generator = transit::IdGenerator(base::JoinPath(kSubwayTestsDir, kMappingFile));
+    m_generatorEdges = transit::IdGenerator(base::JoinPath(kSubwayTestsDir, kMappingEdgesFile));
   }
 
   ~SubwayConverterTests() { Platform::RmDirRecursively(kSubwayTestsDir); }
@@ -60,7 +62,7 @@ public:
 
     auto const & filePath = base::JoinPath(kSubwayTestsDir, kSubwayJsonFile);
     WriteStringToFile(filePath, emptySubway);
-    transit::WorldFeed feed(m_generator, m_colorPicker, m_mwmMatcher);
+    transit::WorldFeed feed(m_generator, m_generatorEdges, m_colorPicker, m_mwmMatcher);
     transit::SubwayConverter converter(filePath, feed);
     TEST(!converter.Convert(), ());
   }
@@ -332,7 +334,7 @@ public:
 
     auto const & filePath = base::JoinPath(kSubwayTestsDir, kSubwayJsonFile);
     WriteStringToFile(filePath, validSubway);
-    transit::WorldFeed feed(m_generator, m_colorPicker, m_mwmMatcher);
+    transit::WorldFeed feed(m_generator, m_generatorEdges, m_colorPicker, m_mwmMatcher);
     transit::SubwayConverter converter(filePath, feed);
 
     // We check that the conversion between old and new formats is successful.
@@ -374,6 +376,7 @@ public:
 
 private:
   transit::IdGenerator m_generator;
+  transit::IdGenerator m_generatorEdges;
   transit::ColorPicker m_colorPicker;
   feature::CountriesFilesAffiliation m_mwmMatcher;
 };
