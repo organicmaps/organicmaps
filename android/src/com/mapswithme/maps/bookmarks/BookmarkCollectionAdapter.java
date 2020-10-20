@@ -229,9 +229,10 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
     int compilationType = nextSectionPosition == mCategorySectionIndex ?
                           BookmarkManager.CATEGORY : BookmarkManager.COLLECTION;
-    headerViewHolder.setAction(mMassOperationAction,
-                               !isCategoryAllItemsAreVisible(nextSectionPosition),
-                               compilationType, mBookmarkCategory.getServerId());
+    boolean visibility = !BookmarkManager.INSTANCE.areAllCompilationsVisible(
+        mBookmarkCategory.getId(), compilationType);
+    headerViewHolder.setAction(mMassOperationAction, visibility, compilationType,
+                               mBookmarkCategory.getServerId());
   }
 
   @Override
@@ -253,18 +254,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
       itemCount += sectionItemsCount + /* header */ 1;
     }
     return itemCount;
-  }
-
-  // TODO (@velichkomarija): Remove this method in core.
-  private boolean isCategoryAllItemsAreVisible(int sectionPosition)
-  {
-    int type = sectionPosition == mCategorySectionIndex ? TYPE_CATEGORY_ITEM : TYPE_COLLECTION_ITEM;
-    for (BookmarkCategory category : getItemsListByType(type))
-    {
-      if (!category.isVisible())
-        return false;
-    }
-    return true;
   }
 
   private void updateItemsByType(@BookmarkManager.CompilationType int compilationType)
