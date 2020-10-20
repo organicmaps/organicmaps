@@ -150,8 +150,15 @@ struct EdgeData
     : m_shapeLink(shapeLink), m_weight(weight)
   {
   }
+
+  explicit EdgeData(EdgeWeight const & weight) : m_weight(weight) {}
+  
   ShapeLink m_shapeLink;
   EdgeWeight m_weight = 0;
+
+  // Feature id for cross-mwm transit section. It is used in Segment class as a feature id for
+  // transit routing case.
+  uint32_t m_featureId = 0;
 };
 
 struct LineSegment
