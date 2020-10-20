@@ -62,8 +62,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
       BookmarkCategory category = mHolder.getEntity();
       BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
       category.invertVisibility();
-      notifyItemChanged(mHolder.getAdapterPosition());
-      notifyItemChanged(SectionPosition.INVALID_POSITION);
 
       int type = BookmarkManager.INSTANCE.getCompilationType(category.getId());
       String compilationTypeString = type == BookmarkManager.CATEGORY ?
@@ -72,6 +70,13 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
       Statistics.INSTANCE.trackGuideVisibilityChange(
           category.isVisible() ? Statistics.ParamValue.SHOW : Statistics.ParamValue.HIDE,
           category.getServerId(), compilationTypeString);
+
+      if (type == BookmarkManager.COLLECTION)
+        notifyItemChanged(0);
+      else if (mItemsCollection.size() > 0)
+        notifyItemChanged(mItemsCollection.size() + 1);
+      else
+        notifyItemChanged(0);
     }
   }
 

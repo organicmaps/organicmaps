@@ -20,6 +20,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 import com.cocosw.bottomsheet.BottomSheet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapswithme.maps.MwmActivity;
@@ -270,6 +271,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
     manager.setSmoothScrollbarEnabled(true);
     mCollectionRecyclerView.setLayoutManager(manager);
+
+    RecyclerView.ItemAnimator itemAnimator = mCollectionRecyclerView.getItemAnimator();
+    if (itemAnimator != null)
+      ((SimpleItemAnimator) itemAnimator).setSupportsChangeAnimations(false);
 
     mCollectionRecyclerView.setAdapter(mBookmarkCollectionAdapter);
     configureRecyclerDividers(mCollectionRecyclerView);
