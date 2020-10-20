@@ -7,7 +7,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
   private weak var delegate: SearchCategoriesViewControllerDelegate?
   private let categories: [String]
   private let showCitymobilBanner: Bool
-  private let bannerUrl: URL
+  private let bannerUrl: URL?
   private var bannerShown = false
   private static let citymobilIndex = 6
   
@@ -15,7 +15,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
     self.delegate = delegate
     categories = frameworkHelper.searchCategories()
     bannerUrl = frameworkHelper.citymobilBannerUrl()
-    showCitymobilBanner = !bannerUrl.absoluteString.isEmpty
+    showCitymobilBanner = bannerUrl != nil
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -74,7 +74,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
   }
   
   func openBanner() {
-    UIApplication.shared.open(bannerUrl)
+    UIApplication.shared.open(bannerUrl!)
     Statistics.logEvent(kStatSearchSponsoredSelect);
   }
 }

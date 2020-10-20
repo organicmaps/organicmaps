@@ -5,9 +5,8 @@
 namespace ads
 {
 AdsEngineDelegate::AdsEngineDelegate(storage::CountryInfoGetter const & infoGetter,
-                                             storage::Storage const & storage,
-                                             promo::Api const & promoApi, Purchase const & purchase,
-                                             taxi::Engine const & taxiEngine)
+                                     storage::Storage const & storage, promo::Api const & promoApi,
+                                     Purchase const & purchase, taxi::Engine const & taxiEngine)
   : m_countryInfoGetter(infoGetter)
   , m_storage(storage)
   , m_promoApi(promoApi)

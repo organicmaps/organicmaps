@@ -535,9 +535,8 @@ Framework::Framework(FrameworkParams const & params)
   m_guidesManager.SetApiDelegate(make_unique<GuidesOnMapDelegate>(catalogHeadersProvider));
   m_guidesManager.SetEnabled(LoadGuidesEnabled());
 
-  m_adsEngine = make_unique<ads::Engine>(
-      make_unique<ads::AdsEngineDelegate>(*m_infoGetter, m_storage, *m_promoApi, *m_purchase,
-                                          *m_taxiEngine));
+  m_adsEngine = make_unique<ads::Engine>(make_unique<ads::AdsEngineDelegate>(
+      *m_infoGetter, m_storage, *m_promoApi, *m_purchase, *m_taxiEngine));
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));

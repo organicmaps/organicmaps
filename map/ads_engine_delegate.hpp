@@ -19,9 +19,9 @@ namespace ads
 class AdsEngineDelegate : public Engine::Delegate
 {
 public:
-  AdsEngineDelegate(storage::CountryInfoGetter const & infoGetter,
-                        storage::Storage const & storage, promo::Api const & promoApi,
-                        Purchase const & purchase, taxi::Engine const & taxiEngine);
+  AdsEngineDelegate(storage::CountryInfoGetter const & infoGetter, storage::Storage const & storage,
+                    promo::Api const & promoApi, Purchase const & purchase,
+                    taxi::Engine const & taxiEngine);
 
   // Engine::Delegate overrides:
   bool IsAdsRemoved() const override;

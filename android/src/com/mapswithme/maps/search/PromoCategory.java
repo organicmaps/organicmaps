@@ -18,13 +18,6 @@ public enum PromoCategory
 {
   MEGAFON
       {
-        @NonNull
-        @Override
-        String getKey()
-        {
-          return "MEGAFON";
-        }
-
         @Override
         @StringRes
         int getStringId()
@@ -73,13 +66,6 @@ public enum PromoCategory
       },
   CITYMOBIL
       {
-        @NonNull
-        @Override
-        String getKey()
-        {
-          return "CITYMOBIL";
-        }
-
         @Override
         int getStringId()
         {
@@ -125,9 +111,6 @@ public enum PromoCategory
           return R.string.taxi_category_order;
         }
       };
-
-  @NonNull
-  abstract String getKey();
 
   @StringRes
   abstract int getStringId();

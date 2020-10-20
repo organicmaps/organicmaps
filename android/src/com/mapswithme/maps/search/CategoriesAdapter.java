@@ -93,7 +93,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
         throw new AssertionError("Promo position must be in range: "
                                  + "[0 - " + amountSize + ")");
 
-      allCategories[promo.getPosition()] = promo.getKey();
+      allCategories[promo.getPosition()] = promo.name();
     }
 
     for (int i = 0, j = 0; i < amountSize; i++)

@@ -2116,7 +2116,7 @@ Java_com_mapswithme_maps_Framework_nativeHasCitymobilCategoryBanner(JNIEnv * env
   auto const banners = frm()->GetAdsEngine().GetSearchCategoryBanners(pos);
 
   return static_cast<jboolean>(!banners.empty() &&
-                               banners.begin()->m_type == ads::Banner::Type::Citymobil);
+                               banners.front().m_type == ads::Banner::Type::Citymobil);
 }
 
 JNIEXPORT jstring JNICALL
@@ -2125,10 +2125,10 @@ Java_com_mapswithme_maps_Framework_nativeGetCitymobilCategoryBannerUrl(JNIEnv * 
   auto const pos = frm()->GetCurrentPosition();
   auto const banners = frm()->GetAdsEngine().GetSearchCategoryBanners(pos);
 
-  if (banners.empty() || banners.begin()->m_type != ads::Banner::Type::Citymobil)
+  if (banners.empty() || banners.front().m_type != ads::Banner::Type::Citymobil)
     return jni::ToJavaString(env, "");
 
-  return jni::ToJavaString(env, banners.begin()->m_value);
+  return jni::ToJavaString(env, banners.front().m_value);
 }
 
 JNIEXPORT void JNICALL

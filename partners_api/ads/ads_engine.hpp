@@ -18,8 +18,8 @@ namespace ads
 class Engine
 {
 public:
-class Delegate : public DownloadOnMapContainer::Delegate,
-                 public SearchCategoryContainerBase::Delegate
+  class Delegate : public DownloadOnMapContainer::Delegate,
+                   public SearchCategoryContainerBase::Delegate
   {
   public:
     virtual bool IsAdsRemoved() const = 0;

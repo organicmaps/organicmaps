@@ -51,10 +51,10 @@
   auto const pos = f.GetCurrentPosition();
   auto const banners = f.GetAdsEngine().GetSearchCategoryBanners(pos);
 
-  if (banners.empty() || banners.begin()->m_type != ads::Banner::Type::Citymobil)
-    return [NSURL URLWithString:@("")];;
+  if (banners.empty() || banners.front().m_type != ads::Banner::Type::Citymobil)
+    return nil;
 
-  return [NSURL URLWithString:@(banners.begin()->m_value.c_str())];
+  return [NSURL URLWithString:@(banners.front().m_value.c_str())];
 }
 
 - (BOOL)isSearchHistoryEmpty
