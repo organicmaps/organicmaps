@@ -418,11 +418,12 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
 
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
-  TEST_EQUAL(t.size(), 3, ());
+  TEST_EQUAL(t.size(), 4, ());
 
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
-  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
-  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
+  TEST_EQUAL(t[1].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
+  TEST_EQUAL(t[2].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+  TEST_EQUAL(t[3].m_pedestrianTurn, PedestrianDirection::ReachedYourDestination, ());
 }
 
 UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
