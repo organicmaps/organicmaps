@@ -288,7 +288,7 @@ public class BookmarkCategory implements Parcelable
     public static String getContentByString(@NonNull Context context, @NonNull Author author)
     {
       Resources res = context.getResources();
-      return res.getString(R.string.content_by_component).concat(" ").concat(author.getName());
+      return res.getString(R.string.content_by_component, author.getName());
     }
 
     @Override
