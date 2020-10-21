@@ -26265,7 +26265,7 @@
     hu = Útvonal kezelése
     id = Kelola rute
     it = Gestisci percorso
-    ja = ルートを管理
+    ja = ルートを編集
     ko = 경로 관리
     nb = Administrere rute
     pl = Zarządzaj trasą
@@ -26297,7 +26297,7 @@
     hu = Terv
     id = Rencana
     it = Pianifica
-    ja = 計画する
+    ja = 適用する
     ko = 계획
     nb = Planlegge
     pl = Zaplanuj
@@ -26489,7 +26489,7 @@
     hu = Hozzáad megállót
     id = Tambah perhentian
     it = Aggiungi sosta
-    ja = 停止地点を追加
+    ja = 経由地点を追加
     ko = 스톱 추가
     nb = Angi stopp
     pl = Dodaj postój
@@ -26521,7 +26521,7 @@
     hu = További megálló
     id = Perhentian tambahan
     it = Ulteriore sosta
-    ja = その他の停止地点
+    ja = その他の経由地点
     ko = 추가 스톱
     nb = Ekstra mellomstopp
     pl = Dodatkowy postój
@@ -26765,7 +26765,7 @@
     hu = Kijavítottuk a hibákat, töredékére csökkentettük az útvonalak felépítéséhez szükséges időt, közbülső megállókat építettünk be
     id = Kami sudah memperbaiki kesalahan, membuat pembangunan rute menjadi berkali-kali lipat lebih cepat, dan menambahkan sejumlah perhentian antara
     it = Abbiamo corretto gli errori, reso la creazione dei percorsi notevolmente più veloce e aggiunto soste intermedie
-    ja = エラーの修正を行い、ルート探索速度を数倍に改善し、中間停止地点を追加しました。
+    ja = エラーの修正を行い、ルート探索速度を数倍に改善し、途中経由地点を追加しました。
     ko = 오류를 수정하고, 경로 탐색 속도를 몇 배 더 빠르게 개선하고, 중간 정지 지점을 추가했습니다.
     nb = Vi har rettet opp i feil, gjort ruteplanlegging mye kjappere og ordnet for muligheten til å legge til mellomstopp
     pl = Naprawione błędy, wielokrotnie szybsze budowanie tras, dodane postoje
