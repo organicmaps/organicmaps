@@ -8,9 +8,12 @@
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <functional>
 #include <future>
 #include <mutex>
 #include <string>
@@ -47,7 +50,8 @@ void TestConcurrentAccessToFeatures(string const & mwm)
               "threads simultaneously.", local));
 
   mutex guardCtorMtx;
-  auto parseGeometries = [&guardCtorMtx, &featureNumber,  &dataSource, &handle, &local](){
+  auto parseGeometries = [&guardCtorMtx, &featureNumber, &dataSource, &handle,
+                          &local](vector<m2::PointD> & points) {
     unique_lock<mutex> guardCtor(guardCtorMtx);
     FeaturesLoaderGuard guard(dataSource, handle.GetId());
     guardCtor.unlock();
@@ -58,17 +62,30 @@ void TestConcurrentAccessToFeatures(string const & mwm)
       TEST(feature, ("Feature id:", i, "is not found in", local));
 
       feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
+      for (size_t i = 0; i < feature->GetTypesCount(); ++i)
+        points.push_back(feature->GetPoint(i));
     }
   };
 
   vector<future<void>> futures;
   futures.reserve(threadNumber);
+  vector<vector<m2::PointD>> pointsByThreads;
+  pointsByThreads.resize(threadNumber);
   for (size_t i = 0; i < threadNumber - 1; ++i)
-    futures.push_back(std::async(std::launch::async, parseGeometries));
-  parseGeometries();
+    futures.push_back(std::async(std::launch::async, parseGeometries, ref(pointsByThreads[i])));
+  parseGeometries(pointsByThreads[threadNumber - 1]);
 
   for (auto const & fut : futures)
     fut.wait();
+
+  // Checking that all geometry points are equal after parsing in different threads.
+  CHECK_GREATER_OR_EQUAL(pointsByThreads.size(), 2, ());
+  for (size_t i = 1; i < pointsByThreads.size(); ++i)
+  {
+    TEST_EQUAL(pointsByThreads[i].size(), pointsByThreads[0].size(), (i));
+    for (size_t j = 0; j < pointsByThreads[i].size(); ++j)
+      TEST_EQUAL(pointsByThreads[i][j], pointsByThreads[0][j], (i, j));
+  }
 
   LOG(LINFO, ("Parsing is done."));
 }
