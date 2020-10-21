@@ -74,7 +74,7 @@ void GuidesManager::SetStateListener(GuidesStateChangedFn const & onStateChanged
 
 void GuidesManager::UpdateViewport(ScreenBase const & screen)
 {
-  m_lastShownViewport = m_screen.GlobalRect();
+  m_lastShownViewport = screen.GlobalRect();
   auto const zoom = df::GetDrawTileScale(screen);
 
   if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError)
