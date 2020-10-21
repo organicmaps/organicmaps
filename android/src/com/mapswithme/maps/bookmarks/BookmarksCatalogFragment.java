@@ -51,6 +51,7 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.HttpClient;
 import com.mapswithme.util.KeyValue;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -296,6 +297,9 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
     if (!TextUtils.isEmpty(productDetailsBundle))
       headers.put(HttpClient.HEADER_BUNDLE_TIERS, productDetailsBundle);
+
+    if (ThemeUtils.isNightTheme())
+      headers.put(HttpClient.HEADER_THEME_KEY, HttpClient.HEADER_THEME_DARK);
 
     for (KeyValue header : BookmarkManager.INSTANCE.getCatalogHeaders())
     {
