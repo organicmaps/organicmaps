@@ -19,16 +19,12 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleWayTurnTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
       {CarDirection::TurnSlightRight});
   integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
-      {CarDirection::GoStraight, CarDirection::TurnSlightLeft});
-  integration::GetNthTurn(route, 2).TestValid().TestOneOfDirections(
-      {CarDirection::GoStraight, CarDirection::TurnSlightRight});
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 4).TestValid().TestOneOfDirections(
-      {CarDirection::TurnSlightRight, CarDirection::TurnRight});
+      {CarDirection::TurnLeft});
+
   integration::TestRouteLength(route, 753.0);
 }
 
@@ -61,8 +57,8 @@ UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   integration::TestTurnCount(route, 3 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
 }
 
