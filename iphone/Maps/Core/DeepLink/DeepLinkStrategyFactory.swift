@@ -14,9 +14,12 @@ class DeepLinkStrategyFactory {
 
   private static func createCommon(url deeplinkURL: DeepLinkURL) -> IDeepLinkHandlerStrategy {
     let data = DeepLinkParser.parseAndSetApiURL(deeplinkURL.url)
+    guard data.success else {
+      return DeepLinkIncorrectStrategy(url: deeplinkURL, data: data)
+    }
     switch data.urlType {
     case .incorrect:
-      return DeepLinkIncorrectStrategy(url: deeplinkURL)
+      return DeepLinkIncorrectStrategy(url: deeplinkURL, data: data)
     case .route:
       return DeepLinkRouteStrategy(url: deeplinkURL)
     case .map:

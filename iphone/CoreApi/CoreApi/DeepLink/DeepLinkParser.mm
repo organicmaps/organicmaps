@@ -11,21 +11,14 @@
   Framework &f = GetFramework();
   url_scheme::ParsedMapApi::ParsingResult internalResult = f.ParseAndSetApiURL(url.absoluteString.UTF8String);
   DeeplinkUrlType result = deeplinkUrlType(internalResult.m_type);
-  
-  // TODO: remove this if-contition and implement correct result handling.
-  // This condition is added for backward compatibility only.
-  // Two states were represented by DeeplinkUrlTypeIncorrect: incorrect url and failed parsing.
-  // But now it replaced by two parameters: url type and isSuccess flag.
-  if (!internalResult.m_isSuccess)
-   result = DeeplinkUrlTypeIncorrect;
-   
+
   switch (result) {
     case DeeplinkUrlTypeSearch:
-      return [[DeepLinkSearchData alloc] init:result];
+      return [[DeepLinkSearchData alloc] init:result success:internalResult.m_isSuccess];
     case DeeplinkUrlTypeSubscription:
-      return [[DeepLinkSubscriptionData alloc] init:result];
+      return [[DeepLinkSubscriptionData alloc] init:result success:internalResult.m_isSuccess];
     default:
-      return [[DeepLinkData alloc] init:result];
+      return [[DeepLinkData alloc] init:result success:internalResult.m_isSuccess];
   }
 }
 

@@ -15,15 +15,17 @@ typedef NS_ENUM(NSUInteger, DeeplinkUrlType) {
 
 @protocol IDeepLinkData <NSObject>
 
-@property (nonatomic, readonly) DeeplinkUrlType urlType;
+@property(nonatomic, readonly) DeeplinkUrlType urlType;
+@property(nonatomic, readonly) BOOL success;
 
 @end
 
 @interface DeepLinkData : NSObject <IDeepLinkData>
 
-@property (nonatomic, readonly) DeeplinkUrlType urlType;
+@property(nonatomic, readonly) DeeplinkUrlType urlType;
+@property(nonatomic, readonly) BOOL success;
 
-- (instancetype)init:(DeeplinkUrlType)urlType;
+- (instancetype)init:(DeeplinkUrlType)urlType success:(BOOL)success;
 
 @end
 
