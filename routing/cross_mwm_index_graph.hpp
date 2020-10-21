@@ -135,14 +135,24 @@ public:
 
       CHECK_NOT_EQUAL(twinSeg->GetMwmId(), s.GetMwmId(), ());
 
-      // Checks twins for equality.
+      // Checks twins for equality if they are from different mwm versions.
       // There are same in common, but in case of different version of mwms
       // their's geometry can differ from each other. Because of this we can not
       // build the route, because we fail in astar_algorithm.hpp CHECK(invariant) sometimes.
-      if (SegmentsAreEqualByGeometry(s, *twinSeg))
+      auto const & sMwmId = m_dataSource.GetMwmIdByCountryFile(m_numMwmIds->GetFile(s.GetMwmId()));
+      CHECK(sMwmId.IsAlive(), (s));
+      auto const & twinSegMwmId =
+          m_dataSource.GetMwmIdByCountryFile(m_numMwmIds->GetFile(twinSeg->GetMwmId()));
+      CHECK(twinSegMwmId.IsAlive(), (*twinSeg));
+      if (sMwmId.GetInfo()->GetVersion() == twinSegMwmId.GetInfo()->GetVersion() ||
+          SegmentsAreEqualByGeometry(s, *twinSeg))
+      {
         twins.push_back(*twinSeg);
+      }
       else
+      {
         LOG(LINFO, ("Bad cross mwm feature, differ in geometry. Current:", s, ", twin:", *twinSeg));
+      }
     }
   }
 
@@ -206,7 +216,6 @@ private:
     };
 
     m_dataSource.ReadFeature(fillGeometry, featureId);
-
     return geometry;
   }
 
