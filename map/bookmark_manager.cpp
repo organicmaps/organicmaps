@@ -3023,7 +3023,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
           LOG(LERROR, ("Incorrect compilation id", c, "into", fileName));
           continue;
         }
-        bm->AttachCompilation(groupId);
+        bm->AttachCompilation(it->second->GetID());
         it->second->AttachUserMark(bm->GetId());
       }
       m_changesTracker.OnAttachBookmark(bm->GetId(), groupId);
