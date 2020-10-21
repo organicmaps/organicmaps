@@ -89,6 +89,11 @@ public:
 
 /// Guard for loading features from particular MWM by demand.
 /// @note This guard is suitable when mwm is loaded.
+/// @note If you need to work with |FeatureType| from different threads you need to use
+/// a unique |FeaturesLoaderGuard| instance for every threads. Construction of
+/// |FeaturesLoaderGuard| should be serialized. Then instances of |FeaturesLoaderGuard|
+/// may be used concurrently. The example of concurrent use of |FeaturesLoaderGuard|
+/// please see |ConcurrentFeatureParsingTest|.
 class FeaturesLoaderGuard
 {
 public:
