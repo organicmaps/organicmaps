@@ -25,6 +25,7 @@
 #define BOOKING_KEY ""
 #define BOOKING_SECRET ""
 #define BOOKING_EXTENDED_INFO_BASE_URL ""
+#define CITYMOBIL_TOKEN ""
 #define UBER_SERVER_TOKEN ""
 #define UBER_CLIENT_ID ""
 #define OPENTABLE_AFFILATE_ID ""
