@@ -1784,6 +1784,18 @@ bool WorldFeed::PrepareEdgesInRegion(std::string const & region)
       std::tie(edgeData.m_shapeLink.m_startIndex, edgeData.m_shapeLink.m_endIndex) =
           FindPointsOnShape(shapePoints, it->second[0].front(), it->second[0].back());
     }
+
+    CHECK(edgeData.m_shapeLink.m_startIndex != 0 || edgeData.m_shapeLink.m_endIndex != 0, (edgeData.m_shapeLink.m_shapeId));
+
+    auto const & pointOnShapeStart = shapePoints[edgeData.m_shapeLink.m_startIndex];
+    auto const & pointOnShapeEnd = shapePoints[edgeData.m_shapeLink.m_endIndex];
+
+    auto const & pointStopStart = m_stops.m_data.at(edgeId.m_fromStopId).m_point;
+
+    if (mercator::DistanceOnEarth(pointOnShapeStart, pointStopStart) > mercator::DistanceOnEarth(pointOnShapeEnd, pointStopStart))
+    {
+      std::swap(edgeData.m_shapeLink.m_startIndex, edgeData.m_shapeLink.m_endIndex);
+    }
   }
 
   return !edgeIdsInRegion.empty();
