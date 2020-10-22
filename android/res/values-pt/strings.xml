@@ -1350,7 +1350,7 @@
 	<string name="guides">Guias</string>
 	<string name="guide_downloaded_title">O guia foi descarregado com sucesso</string>
 	<!-- as few symbols as possible -->
-	<string name="download_guides">Buscar guías</string>
+	<string name="download_guides">Encontrar guias</string>
 	<string name="guides_groups_cached">Descarregar guias</string>
 	<string name="subtitle_error_downloading_guide">O guia não foi descarregado</string>
 	<string name="error_already_downloaded_guide">Este guia já foi descarregado</string>
