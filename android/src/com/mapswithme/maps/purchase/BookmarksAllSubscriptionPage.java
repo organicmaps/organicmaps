@@ -10,7 +10,9 @@ public enum BookmarksAllSubscriptionPage
   SECOND(R.string.all_pass_subscription_message_title_3,
          R.string.all_pass_subscription_message_subtitle_3),
   THIRD(R.string.all_pass_subscription_message_title_2,
-        R.string.all_pass_subscription_message_subtitle_2);
+        R.string.all_pass_subscription_message_subtitle_2),
+  FOURTH(R.string.all_pass_subscription_message_title_4,
+         R.string.all_pass_subscription_message_subtitle_4);
 
   @StringRes
   private final int mTitleId;

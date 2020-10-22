@@ -88,6 +88,7 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
   private static List<Integer> makeItems()
   {
     List<Integer> items = new ArrayList<>();
+    items.add(R.id.img4);
     items.add(R.id.img3);
     items.add(R.id.img2);
     items.add(R.id.img1);

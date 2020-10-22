@@ -10,15 +10,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
-    android:src="@drawable/all_pass_premium_61" />
+    android:src="@drawable/all_pass_premium_63" />
   <ImageView
     android:id="@+id/img2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
-    android:src="@drawable/all_pass_premium_62" />
+    android:src="@drawable/all_pass_premium_61" />
   <ImageView
     android:id="@+id/img3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:src="@drawable/all_pass_premium_62" />
+  <ImageView
+    android:id="@+id/img4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
