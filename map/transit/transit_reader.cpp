@@ -141,13 +141,10 @@ void ReadTransitTask::Do()
       if (m_loadSubset && !stop.second.GetTransferIds().empty())
       {
         for (auto const transferId : stop.second.GetTransferIds())
-        {
-          auto transfer = m_transitInfo->m_transfersPT.find(transferId);
-          if (transfer != m_transitInfo->m_transfersPT.end())
-            transfer->second = {};
-        }
+          m_transitInfo->m_transfersPT[transferId] = {};
       }
     }
+
     FillItemsByIdMap(transitData.GetTransfers(), m_transitInfo->m_transfersPT);
     FillItemsByIdMap(transitData.GetShapes(), m_transitInfo->m_shapesPT);
     FillLinesAndRoutes(transitData);
