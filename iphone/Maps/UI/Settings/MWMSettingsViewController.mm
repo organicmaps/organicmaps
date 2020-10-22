@@ -87,7 +87,7 @@ using namespace power_management;
   [self.is3dCell configWithDelegate:self title:L(@"pref_map_3d_buildings_title") isOn:on];
 
   [self.autoDownloadCell configWithDelegate:self
-                                      title:L(@"disable_autodownload")
+                                      title:L(@"autodownload")
                                        isOn:[MWMSettings autoDownloadEnabled]];
 
   [self.backupBookmarksCell configWithDelegate:self
