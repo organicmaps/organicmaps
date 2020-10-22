@@ -922,7 +922,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
       UiUtils.show(mHotelReview);
       mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.mReviews)));
       //noinspection ConstantConditions
-      mHotelRating.setText(mSponsored.getRating());
+      mHotelRating.setText(getContext().getString(R.string.place_page_booking_rating,
+                                                  mSponsored.getRating()));
       int reviewsCount = (int) info.mReviewsAmount;
       String text = getResources().getQuantityString(
           R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount);
