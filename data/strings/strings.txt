@@ -33073,10 +33073,10 @@
     ko = 가이드 찾기
     nb = Søke etter guider
     pl = Znajdź przewodniki
-    pt = Buscar guías
+    pt = Encontrar guias
     pt-BR = Pesquisar guias
     ro = Găsește ghiduri
-    es = Encontrar guías
+    es = Buscar guías
     es-MX = Encontrar guías
     sv = Hitta guider
     th = ค้นหาคู่มือใช้งาน
