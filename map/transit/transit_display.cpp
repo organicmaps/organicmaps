@@ -195,11 +195,13 @@ void AddTransitShapes(::transit::ShapeLink shapeLink, TransitShapesInfoPT const 
   style.m_startIndex = subroute.m_polyline.GetSize() - 1;
 
   bool const isInverted = shapeLink.m_startIndex > shapeLink.m_endIndex;
+
   auto const it = shapesInfo.find(shapeLink.m_shapeId);
   CHECK(it != shapesInfo.end(), (shapeLink.m_shapeId));
 
   size_t const startIdx = isInverted ? shapeLink.m_endIndex : shapeLink.m_startIndex;
   size_t const endIdx = isInverted ? shapeLink.m_startIndex : shapeLink.m_endIndex;
+
   auto const & edgePolyline = vector<m2::PointD>(it->second.GetPolyline().begin() + startIdx,
                                                  it->second.GetPolyline().begin() + endIdx + 1);
 
@@ -387,13 +389,23 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
   auto const & stop1 = ssp.m_displayInfo.m_stopsPT.at(edge.m_stop1Id);
   auto const & stop2 = ssp.m_displayInfo.m_stopsPT.at(edge.m_stop2Id);
 
-  // TODO(o.khlopkova) implement transfers case.
+  bool const isTransfer1 = !stop1.GetTransferIds().empty();
+  bool const isTransfer2 = !stop2.GetTransferIds().empty();
 
   sp.m_marker.m_distance = sp.m_prevDistance;
   sp.m_marker.m_scale = kStopMarkerScale;
   sp.m_marker.m_innerColor = currentColor;
 
-  sp.m_marker.m_position = stop1.GetPoint();
+  if (isTransfer1)
+  {
+    auto itTransfer = ssp.m_displayInfo.m_transfersPT.find(stop1.GetTransferIds().front());
+    ASSERT(itTransfer != ssp.m_displayInfo.m_transfersPT.end(), ());
+    sp.m_marker.m_position = itTransfer->second.GetPoint();
+  }
+  else
+  {
+    sp.m_marker.m_position = stop1.GetPoint();
+  }
 
   sp.m_transitMarkInfo.m_point = sp.m_marker.m_position;
 
@@ -406,8 +418,8 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
     sp.m_pendingEntrance = false;
   }
 
-  auto const id1 = stop1.GetId();
-  auto const id2 = stop2.GetId();
+  auto const id1 = isTransfer1 ? stop1.GetTransferIds().front() : stop1.GetId();
+  auto const id2 = isTransfer2 ? stop2.GetTransferIds().front() : stop2.GetId();
 
   if (id1 != id2)
   {
@@ -459,7 +471,17 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
   sp.m_marker.m_scale = kStopMarkerScale;
   sp.m_marker.m_innerColor = currentColor;
   sp.m_marker.m_colors.push_back(currentColor);
-  sp.m_marker.m_position = stop2.GetPoint();
+
+  if (isTransfer2)
+  {
+    auto itTransfer = ssp.m_displayInfo.m_transfersPT.find(stop2.GetTransferIds().front());
+    ASSERT(itTransfer != ssp.m_displayInfo.m_transfersPT.end(), ());
+    sp.m_marker.m_position = itTransfer->second.GetPoint();
+  }
+  else
+  {
+    sp.m_marker.m_position = stop2.GetPoint();
+  }
 
   sp.m_transitMarkInfo.m_point = sp.m_marker.m_position;
   if (stop2.GetFeatureId() != routing::transit::kInvalidFeatureId)
@@ -621,6 +643,7 @@ bool TransitRouteDisplay::ProcessSubroute(vector<routing::RouteSegment> const & 
       sp.m_transitType = TransitType::Pedestrian;
       continue;
     }
+
     SubrouteSegmentParams ssp(s.GetTransitInfo());
 
     ssp.m_time = time;
