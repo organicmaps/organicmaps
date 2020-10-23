@@ -134,6 +134,7 @@ import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.tips.Tutorial;
 import com.mapswithme.maps.tips.TutorialAction;
 import com.mapswithme.maps.widget.FadeView;
+import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.menu.MainMenuOptionListener;
@@ -201,7 +202,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                OnGuidesLayerToggleListener,
                GuidesGalleryListener,
                NoConnectionListener,
-               MapWidgetOffsetsProvider
+               MapWidgetOffsetsProvider,
+               SearchToolbarController.RoomsGuestsMenuStateCallback
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -573,7 +575,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                                          this);
     mMainMenuController.initialize(findViewById(R.id.coordinator));
 
-    mSearchController = new FloatingSearchToolbarController(this, this);
+    mSearchController = new FloatingSearchToolbarController(this, this, this);
     mSearchController.getToolbar()
                      .getViewTreeObserver()
                      .addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
@@ -2682,6 +2684,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onSearchQueryClick(@Nullable String query)
   {
     showSearch(query);
+  }
+
+  @Override
+  public void onRoomsGuestsMenuStateChange(boolean isOpen)
+  {
+    if (isOpen)
+      closePlacePage();
   }
 
   public void showIntroductionScreenForDeeplink(@NonNull String deepLink,

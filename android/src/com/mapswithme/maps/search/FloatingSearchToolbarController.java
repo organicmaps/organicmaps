@@ -1,9 +1,9 @@
 package com.mapswithme.maps.search;
 
 import android.app.Activity;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.UiUtils;
@@ -20,9 +20,11 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     void onSearchVisibilityChanged(boolean visible);
   }
 
-  public FloatingSearchToolbarController(Activity activity, @Nullable SearchToolbarListener listener)
+  public FloatingSearchToolbarController(@NonNull Activity activity,
+                                         @Nullable SearchToolbarListener listener,
+                                         @Nullable RoomsGuestsMenuStateCallback callback)
   {
-    super(activity.getWindow().getDecorView(), activity);
+    super(activity.getWindow().getDecorView(), activity, callback);
     mListener = listener;
   }
 

@@ -152,8 +152,14 @@ public class SearchToolbarController extends ToolbarController
     SearchToolbarController getController();
   }
 
+  public SearchToolbarController(@NonNull View root, @NonNull Activity activity)
+  {
+    this(root, activity, null);
+  }
 
-  public SearchToolbarController(View root, Activity activity)
+  public SearchToolbarController(@NonNull View root,
+                                 @NonNull Activity activity,
+                                 @Nullable RoomsGuestsMenuStateCallback callback)
   {
     super(root, activity);
     mToolbarContainer = getToolbar().findViewById(R.id.toolbar_container);
@@ -194,7 +200,7 @@ public class SearchToolbarController extends ToolbarController
     if (coordinatorLayout != null
         && coordinatorLayout.findViewById(R.id.guests_and_rooms_menu_sheet) != null)
     {
-      MenuStateObserver stateObserver = new RoomsGuestsMenuStateObserver(requireActivity());
+      MenuStateObserver stateObserver = new RoomsGuestsMenuStateObserver(requireActivity(), callback);
       mGuestsRoomsMenuController
           = MenuControllerFactory.createGuestsRoomsMenuController(this, stateObserver, this);
       mGuestsRoomsMenuController.initialize(requireActivity().findViewById(R.id.coordinator));
@@ -479,10 +485,14 @@ public class SearchToolbarController extends ToolbarController
   {
     @NonNull
     private final Activity mActivity;
+    @NonNull
+    private final RoomsGuestsMenuStateCallback mCallback;
 
-    private RoomsGuestsMenuStateObserver(@NonNull Activity activity)
+    private RoomsGuestsMenuStateObserver(@NonNull Activity activity,
+                                         @Nullable RoomsGuestsMenuStateCallback callback)
     {
       mActivity = activity;
+      mCallback = callback;
     }
 
     @Override
@@ -493,6 +503,8 @@ public class SearchToolbarController extends ToolbarController
         return;
 
       fadeView.fadeIn();
+      if (mCallback != null)
+        mCallback.onRoomsGuestsMenuStateChange(true);
     }
 
     @Override
@@ -502,7 +514,14 @@ public class SearchToolbarController extends ToolbarController
       if (fadeView == null)
         return;
 
+      if (mCallback != null)
+        mCallback.onRoomsGuestsMenuStateChange(false);
       fadeView.fadeOut();
     }
+  }
+
+  public static interface RoomsGuestsMenuStateCallback
+  {
+    public void onRoomsGuestsMenuStateChange(boolean isOpen);
   }
 }
