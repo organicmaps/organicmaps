@@ -15,6 +15,7 @@
 + (void)addBusiness;
 + (void)addPlace:(CLLocationCoordinate2D)coordinate;
 + (void)orderTaxi:(PlacePageData *)data;
++ (void)taxiShown:(PlacePageData *)data;
 + (void)openLocalAdsURL:(PlacePageData *)data;
 + (void)openWebsite:(PlacePageData *)data;
 + (void)call:(PlacePageData *)data;

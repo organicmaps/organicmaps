@@ -126,20 +126,24 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   [self closePlacePage];
 }
 
++ (NSString *)taxiProviderStatisticsString:(PlacePageTaxiProvider)provider
+{
+  switch (provider)
+  {
+  case PlacePageTaxiProviderNone: return kStatUnknown;
+  case PlacePageTaxiProviderUber: return kStatUber;
+  case PlacePageTaxiProviderYandex: return kStatYandex;
+  case PlacePageTaxiProviderMaxim: return kStatMaxim;
+  case PlacePageTaxiProviderRutaxi: return kStatVezet;
+  case PlacePageTaxiProviderFreenow: return kStatFreenow;
+  case PlacePageTaxiProviderYango: return kStatYango;
+  case PlacePageTaxiProviderCitymobil: return kStatCitymobil;
+  }
+}
+
 - (void)orderTaxi:(PlacePageData *)data
 {
-  NSString * providerString = nil;
-  switch (data.taxiProvider)
-  {
-  case PlacePageTaxiProviderNone: providerString = kStatUnknown; break;
-  case PlacePageTaxiProviderUber: providerString = kStatUber; break;
-  case PlacePageTaxiProviderYandex: providerString = kStatYandex; break;
-  case PlacePageTaxiProviderMaxim: providerString = kStatMaxim; break;
-  case PlacePageTaxiProviderRutaxi: providerString = kStatVezet; break;
-  case PlacePageTaxiProviderFreenow: providerString = kStatFreenow; break;
-  case PlacePageTaxiProviderYango: providerString = kStatYango; break;
-  case PlacePageTaxiProviderCitymobil: providerString = kStatCitymobil; break;
-  }
+  NSString * providerString = [MWMPlacePageManager taxiProviderStatisticsString:data.taxiProvider];
 
   [Statistics logEvent:kStatPlacePageTaxiClick
         withParameters:@{kStatProvider : providerString, kStatTags : data.statisticsTags}];
@@ -147,6 +151,12 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   MWMRoutePoint * point = [self routePointWithData:data pointType:MWMRoutePointTypeFinish intermediateIndex:0];
   [MWMRouter buildToPoint:point bestRouter:NO];
   [self closePlacePage];
+}
+
+- (void)taxiShown:(PlacePageData *)data
+{
+  NSString * providerString = [MWMPlacePageManager taxiProviderStatisticsString:data.taxiProvider];
+  [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{kStatProvider : providerString}];
 }
 
 - (MWMRoutePoint *)routePointWithData:(PlacePageData *)data

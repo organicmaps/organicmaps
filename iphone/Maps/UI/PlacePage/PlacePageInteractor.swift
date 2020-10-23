@@ -72,6 +72,10 @@ extension PlacePageInteractor: TaxiViewControllerDelegate {
   func didPressOrder() {
     MWMPlacePageManagerHelper.orderTaxi(placePageData)
   }
+  
+  func didTaxiShown() {
+    MWMPlacePageManagerHelper.taxiShown(placePageData)
+  }
 }
 
 // MARK: - AddReviewViewControllerDelegate

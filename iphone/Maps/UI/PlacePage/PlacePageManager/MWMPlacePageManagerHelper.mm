@@ -17,6 +17,7 @@
 - (void)addBusiness;
 - (void)addPlace:(CLLocationCoordinate2D)coordinate;
 - (void)orderTaxi:(PlacePageData *)data;
+- (void)taxiShown:(PlacePageData *)data;
 - (void)openLocalAdsURL:(PlacePageData *)data;
 - (void)openWebsite:(PlacePageData *)data;
 - (void)call:(PlacePageData *)data;
@@ -76,6 +77,10 @@
 
 + (void)orderTaxi:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager orderTaxi:data];
+}
+
++ (void)taxiShown:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager taxiShown:data];
 }
 
 + (void)openLocalAdsURL:(PlacePageData *)data {
