@@ -547,3 +547,37 @@ UNIT_TEST(RussiaSmolenskAriaFeatureCrossingBorderWithFord)
       mercator::FromLatLon(55.01727, 30.91566), {0., 0.},
       mercator::FromLatLon(55.01867, 30.91285), 298.6);
 }
+
+UNIT_TEST(NoTurnOnForkingRoad)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetVehicleComponents(VehicleType::Pedestrian),
+      mercator::FromLatLon(55.67505, 37.51851), {0.0, 0.0}, mercator::FromLatLon(55.67488, 37.5178));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  std::vector<turns::TurnItem> t;
+  route.GetTurnsForTesting(t);
+  TEST_EQUAL(t.size(), 2, ());
+
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
+}
+
+UNIT_TEST(NoTurnOnForkingRoad2)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetVehicleComponents(VehicleType::Pedestrian),
+      mercator::FromLatLon(55.68336, 37.49492), {0.0, 0.0}, mercator::FromLatLon(55.68488, 37.49789));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  std::vector<turns::TurnItem> t;
+  route.GetTurnsForTesting(t);
+  TEST_EQUAL(t.size(), 2, ());
+
+  TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnRight, ());
+}
