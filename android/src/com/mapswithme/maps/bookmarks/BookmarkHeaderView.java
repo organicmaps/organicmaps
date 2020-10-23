@@ -90,7 +90,7 @@ public class BookmarkHeaderView extends LinearLayout
       }
       mTitle.setText(category.getName());
       boolean isHideDescriptionBtn = TextUtils.isEmpty(category.getDescription())
-                                     || TextUtils.isEmpty(category.getAnnotation());
+                                     && TextUtils.isEmpty(category.getAnnotation());
       UiUtils.hideIf(isHideDescriptionBtn, mDescriptionBtn);
       BookmarkCategory.Author author = category.getAuthor();
       if (author != null)
