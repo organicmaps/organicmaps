@@ -919,7 +919,9 @@ public enum BookmarkManager
   {
     return nativeGetCompilationType(catId);
   }
-  
+
+  @NonNull
+  native BookmarkCategory nativeGetBookmarkCategory(long catId);
   @NonNull
   native BookmarkCategory[] nativeGetBookmarkCategories();
   @NonNull
