@@ -575,7 +575,10 @@ void SearchMarkPoint::SetSale(bool hasSale)
   SetAttributeValue(m_hasSale, hasSale);
 }
 
-void SearchMarkPoint::SetSelected(bool isSelected) { SetAttributeValue(m_isSelected, isSelected); }
+void SearchMarkPoint::SetSelected(bool isSelected)
+{
+  SetAttributeValue(m_isSelected, isSelected);
+}
 
 void SearchMarkPoint::SetVisited(bool isVisited)
 {
@@ -824,10 +827,12 @@ bool SearchMarks::IsThereSearchMarkForFeature(FeatureID const & featureId) const
 void SearchMarks::OnActivate(FeatureID const & featureId)
 {
   m_selectedFeature = featureId;
-  ProcessMarks([&featureId](SearchMarkPoint * mark) -> base::ControlFlow
+  m_visitedSearchMarks.erase(featureId);
+  ProcessMarks([this, &featureId](SearchMarkPoint * mark) -> base::ControlFlow
   {
     if (featureId != mark->GetFeatureID())
       return base::ControlFlow::Continue;
+    mark->SetVisited(false);
     mark->SetSelected(true);
     if (!mark->IsAvailable())
     {
@@ -843,8 +848,8 @@ void SearchMarks::OnActivate(FeatureID const & featureId)
 
 void SearchMarks::OnDeactivate(FeatureID const & featureId)
 {
-  m_visitedSearchMarks.insert(featureId);
   m_selectedFeature = {};
+  m_visitedSearchMarks.insert(featureId);
   ProcessMarks([&featureId](SearchMarkPoint * mark) -> base::ControlFlow
   {
     if (featureId != mark->GetFeatureID())
