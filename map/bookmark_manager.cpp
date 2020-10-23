@@ -4124,7 +4124,7 @@ void BookmarkManager::MarksChangesTracker::InferVisibility(BookmarkCategory * co
   {
     auto const compilation = m_bmManager->m_compilations.find(compilationId);
     CHECK(compilation != m_bmManager->m_compilations.end(), ());
-    if (compilation->second.get()->IsVisible())
+    if (compilation->second->IsVisible())
       visibility.emplace(compilationId);
   }
   auto const groupId = group->GetID();
@@ -4137,19 +4137,26 @@ void BookmarkManager::MarksChangesTracker::InferVisibility(BookmarkCategory * co
       continue;
     }
     Bookmark * const bookmark = m_bmManager->GetBookmarkForEdit(userMark);
-    if (bookmark->GetCompilations().empty())
-      hasUserMarksOrDanglingBookmarks = true;
     bool isVisible = false;
-    for (kml::MarkGroupId const compilationId : bookmark->GetCompilations())
+    if (bookmark->GetCompilations().empty())
     {
-      if (visibility.count(compilationId) != 0)
+      hasUserMarksOrDanglingBookmarks = true;
+      // Bookmarks that not belong to any compilation have to be visible.
+      // They can be hidden only by changing parental BookmarkCategory visibility to false.
+      isVisible = true;
+    }
+    else
+    {
+      for (kml::MarkGroupId const compilationId : bookmark->GetCompilations())
       {
-        isVisible = true;
-        break;
+        if (visibility.count(compilationId) != 0)
+        {
+          isVisible = true;
+          break;
+        }
       }
     }
-    if (isVisible != bookmark->IsVisible())
-      bookmark->SetIsVisible(isVisible);
+    bookmark->SetIsVisible(isVisible);
   }
   if (visibility.empty() && m_bmManager->GetTrackIds(groupId).empty() &&
       !hasUserMarksOrDanglingBookmarks)
