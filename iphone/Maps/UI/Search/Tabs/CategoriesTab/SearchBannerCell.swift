@@ -4,12 +4,17 @@ protocol SearchBannerCellDelegate: AnyObject {
 }
 
 class SearchBannerCell: MWMTableViewCell {
-  @IBOutlet var taxiImageView: UIImageView!
-  weak var delegate: SearchBannerCellDelegate?
-
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    taxiImageView.mwm_name = "ic_taxi_logo_citymobil"
+  @IBOutlet var iconView: UIImageView!
+  @IBOutlet weak var labelView: UILabel!
+  @IBOutlet weak var buttonView: UIButton!
+  
+  private weak var delegate: SearchBannerCellDelegate?
+  
+  func configure(icon: String, label: String, buttonText: String, delegate: SearchBannerCellDelegate?) {
+    iconView.mwm_name = icon
+    labelView.text  = label
+    buttonView.localizedText = buttonText
+    self.delegate = delegate
   }
   
   @IBAction private func onInstall(_ sender: UIButton) {

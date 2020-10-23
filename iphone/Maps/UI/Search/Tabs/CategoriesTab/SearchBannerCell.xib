@@ -17,37 +17,35 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="ic_taxi_logo_citymobil_light" translatesAutoresizingMaskIntoConstraints="NO" id="a9s-eh-L10" userLabel="Icon">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="a9s-eh-L10" userLabel="Icon">
                         <rect key="frame" x="16" y="8" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="28" id="UkL-Ob-9dH"/>
                             <constraint firstAttribute="height" constant="28" id="hQ1-JP-hkI"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Taxi" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Wf-Ru-5dt" userLabel="Category label">
-                        <rect key="frame" x="60" y="12" width="172" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Wf-Ru-5dt" userLabel="Category label">
+                        <rect key="frame" x="60" y="22" width="212" height="0.0"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="taxi"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1X-p4-OlN">
-                        <rect key="frame" x="240" y="10" width="56" height="24"/>
+                        <rect key="frame" x="280" y="10" width="16" height="24"/>
                         <color key="backgroundColor" red="0.81568627449999997" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="mma-Ly-hLb"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                         <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
-                        <state key="normal" title="Install">
+                        <state key="normal">
                             <color key="titleColor" red="0.57254901960000004" green="0.58431372550000005" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SearchInstallButton"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="taxi_category_order"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="onInstall:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0o7-8I-f79"/>
@@ -105,13 +103,14 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="taxiImageView" destination="a9s-eh-L10" id="aS5-nJ-ZZW"/>
+                <outlet property="buttonView" destination="M1X-p4-OlN" id="dGP-aq-Yky"/>
+                <outlet property="iconView" destination="a9s-eh-L10" id="aS5-nJ-ZZW"/>
+                <outlet property="labelView" destination="6Wf-Ru-5dt" id="1DI-gN-fDf"/>
             </connections>
             <point key="canvasLocation" x="52.799999999999997" y="48.575712143928037"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="ic_ad_close" width="8" height="8"/>
-        <image name="ic_taxi_logo_citymobil_light" width="24" height="24"/>
     </resources>
 </document>

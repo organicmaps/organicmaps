@@ -6,16 +6,14 @@ protocol SearchCategoriesViewControllerDelegate: AnyObject {
 final class SearchCategoriesViewController: MWMTableViewController {
   private weak var delegate: SearchCategoriesViewControllerDelegate?
   private let categories: [String]
-  private let showCitymobilBanner: Bool
-  private let bannerUrl: URL?
+  private let banner: MWMBanner?
   private var bannerShown = false
-  private static let citymobilIndex = 6
+  private static let bannerIndex = 6
   
   init(frameworkHelper: MWMSearchFrameworkHelper, delegate: SearchCategoriesViewControllerDelegate?) {
     self.delegate = delegate
     categories = frameworkHelper.searchCategories()
-    bannerUrl = frameworkHelper.citymobilBannerUrl()
-    showCitymobilBanner = bannerUrl != nil
+    banner = frameworkHelper.searchCategoryBanner()
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -33,18 +31,12 @@ final class SearchCategoriesViewController: MWMTableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return categories.count + (showCitymobilBanner ? 1 : 0)
+    return categories.count + (banner != nil ? 1 : 0)
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if showCitymobilBanner && (indexPath.row == SearchCategoriesViewController.citymobilIndex) {
-      let cell = tableView.dequeueReusableCell(cell: SearchBannerCell.self, indexPath: indexPath)
-      cell.delegate = self
-      if (!bannerShown) {
-        bannerShown = true;
-        Statistics.logEvent(kStatSearchSponsoredShow);
-      }
-      return cell
+    if banner != nil && (indexPath.row == SearchCategoriesViewController.bannerIndex) {
+      return createBanner(indexPath)
     }
     
     let cell = tableView.dequeueReusableCell(cell: SearchCategoryCell.self, indexPath: indexPath)
@@ -53,7 +45,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if showCitymobilBanner && (indexPath.row == SearchCategoriesViewController.citymobilIndex) {
+    if banner != nil && (indexPath.row == SearchCategoriesViewController.bannerIndex) {
       openBanner()
       return
     }
@@ -66,16 +58,43 @@ final class SearchCategoriesViewController: MWMTableViewController {
   
   func category(at indexPath: IndexPath) -> String {
     let index = indexPath.row
-    if showCitymobilBanner && (index > SearchCategoriesViewController.citymobilIndex) {
+    if banner != nil && (index > SearchCategoriesViewController.bannerIndex) {
       return categories[index - 1]
     } else {
       return categories[index]
     }
   }
   
-  func openBanner() {
-    UIApplication.shared.open(bannerUrl!)
-    Statistics.logEvent(kStatSearchSponsoredSelect);
+  private func bannerStatProvider() -> String {
+    switch banner!.mwmType {
+      case .citymobil: return kStatCitymobil
+      default: return ""
+    }
+  }
+  
+  private func createBanner(_ indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(cell: SearchBannerCell.self, indexPath: indexPath)
+    switch self.banner!.mwmType {
+      case .citymobil:
+        cell.configure(icon: "ic_taxi_logo_citymobil",
+                       label: L("taxi"),
+                       buttonText: L("taxi_category_order"),
+                       delegate: self)
+      default: fatalError("Unexpected banner type")
+    }
+    if (!bannerShown) {
+      bannerShown = true;
+      Statistics.logEvent(kStatSearchSponsoredShow, withParameters: [kStatProvider: bannerStatProvider()]);
+    }
+    return cell
+
+  }
+  
+  private func openBanner() {
+    if let url = URL(string: banner!.bannerID) {
+      UIApplication.shared.open(url)
+    }
+    Statistics.logEvent(kStatSearchSponsoredSelect, withParameters: [kStatProvider: bannerStatProvider()]);
   }
 }
 

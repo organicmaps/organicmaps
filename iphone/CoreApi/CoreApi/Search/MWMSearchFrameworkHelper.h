@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+@protocol MWMBanner;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWMSearchFrameworkHelper : NSObject
@@ -7,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<NSString *> *)searchCategories;
 - (BOOL)hasMegafonCategoryBanner;
 - (NSURL *)megafonBannerUrl;
-- (nullable NSURL *)citymobilBannerUrl;
+- (nullable id<MWMBanner>)searchCategoryBanner;
 
 - (BOOL)isSearchHistoryEmpty;
 - (NSArray<NSString *> *)lastSearchQueries;

@@ -1,4 +1,5 @@
 #import "MWMSearchFrameworkHelper.h"
+#import "CoreBanner+Core.h"
 
 #include "partners_api/ads/ads_engine.hpp"
 #include "partners_api/megafon_countries.hpp"
@@ -45,16 +46,16 @@
   return [NSURL URLWithString:@(urlStr.c_str())];
 }
 
-- (NSURL *)citymobilBannerUrl
+- (id<MWMBanner>)searchCategoryBanner
 {
   auto const & f = GetFramework();
   auto const pos = f.GetCurrentPosition();
   auto const banners = f.GetAdsEngine().GetSearchCategoryBanners(pos);
 
-  if (banners.empty() || banners.front().m_type != ads::Banner::Type::Citymobil)
+  if (banners.empty())
     return nil;
-
-  return [NSURL URLWithString:@(banners.front().m_value.c_str())];
+    
+  return [[CoreBanner alloc] initWithAdBanner:banners.front()];
 }
 
 - (BOOL)isSearchHistoryEmpty
