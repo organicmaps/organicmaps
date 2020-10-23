@@ -142,3 +142,81 @@ UNIT_TEST(RussiaMoscowSvobodiOnewayBicycleWayTurnTest)
 
   integration::TestRouteLength(route, 768.0);
 }
+
+UNIT_TEST(TurnsNearAltufievskoeShosseLongFakeSegmentTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
+                                  mercator::FromLatLon(55.91569, 37.58972), {0.0, 0.0},
+                                  mercator::FromLatLon(55.91608, 37.58614));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
+
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+
+  integration::TestRouteLength(route, 341.5);
+}
+
+UNIT_TEST(TurnsNearMoscowRiverShortFakeSegmentTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
+                                  mercator::FromLatLon(55.71484, 37.54868), {0.0, 0.0},
+                                  mercator::FromLatLon(55.71586, 37.54594));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+
+  integration::TestRouteLength(route, 382.2);
+}
+
+UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
+                                  mercator::FromLatLon(55.91788, 37.58603), {0.0, 0.0},
+                                  mercator::FromLatLon(55.91684, 37.57884));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestTurnCount(route, 4 /* expectedTurnCount */);
+
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
+
+  integration::TestRouteLength(route, 774.6);
+}
+
+UNIT_TEST(TurnsNearKhladkombinatTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Bicycle),
+                                  mercator::FromLatLon(55.86973, 37.45825), {0.0, 0.0},
+                                  mercator::FromLatLon(55.87020, 37.46011));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
+
+  integration::TestRouteLength(route, 484.3);
+}
