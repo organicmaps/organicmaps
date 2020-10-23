@@ -666,7 +666,7 @@ public enum BookmarkManager
   @NonNull
   public BookmarkCategory getCategoryById(long categoryId)
   {
-    return mCurrentDataProvider.getCategoryById(categoryId);
+    return nativeGetBookmarkCategory(categoryId);
   }
 
   public boolean isUsedCategoryName(@NonNull String name)
