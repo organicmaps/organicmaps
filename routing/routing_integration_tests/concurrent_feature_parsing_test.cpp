@@ -71,8 +71,8 @@ void TestConcurrentAccessToFeatures(string const & mwm)
   futures.reserve(threadNumber);
   vector<vector<m2::PointD>> pointsByThreads;
   pointsByThreads.resize(threadNumber);
-  for (size_t i = 0; i < threadNumber - 1; ++i)
-    futures.push_back(std::async(std::launch::async, parseGeometries, ref(pointsByThreads[i])));
+  for (size_t i = 0; i + 1 < threadNumber; ++i)
+    futures.push_back(async(launch::async, parseGeometries, ref(pointsByThreads[i])));
   parseGeometries(pointsByThreads[threadNumber - 1]);
 
   for (auto const & fut : futures)
