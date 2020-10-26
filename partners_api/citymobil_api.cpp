@@ -27,7 +27,7 @@ bool RunHttpRequest(std::string const & url, std::string && body, std::string & 
 {
   platform::HttpClient request(url);
   request.SetRawHeader("Accept", "application/json");
-  request.SetRawHeader("Authorization", CITYMOBIL_TOKEN);
+  request.SetRawHeader("Authorization", std::string("Bearer ") + CITYMOBIL_TOKEN);
   request.SetBodyData(std::move(body), "application/json");
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {
@@ -54,7 +54,7 @@ namespace taxi
 {
 namespace citymobil
 {
-std::string const kBaseUrl = "https://t.city-mobil.ru/taxiserv/api/corporation/v2";
+std::string const kBaseUrl = "https://corp-api.city-mobil.ru";
 
 // static
 bool RawApi::GetSupportedTariffs(SupportedTariffsBody const & body, std::string & result,
