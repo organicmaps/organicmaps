@@ -93,6 +93,7 @@ public class BottomSheetMenuController implements MenuController
     Objects.requireNonNull(sheet);
     mSheetBehavior = BottomSheetBehavior.from(sheet);
     mSheetBehavior.setBottomSheetCallback(mSheetCallback);
+    mSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     GestureDetectorCompat gestureDetector = new GestureDetectorCompat(
         view.getContext(), new BottomSheetMenuGestureListener(mSheetBehavior));
     sheet.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
