@@ -544,8 +544,12 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
       if (FLAGS_make_transit_cross_mwm_experimental)
       {
-        routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
-                                             transitEdgeFeatureIds, true /* experimentalTransit */);
+        if (!transitEdgeFeatureIds.empty())
+        {
+          routing::BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
+                                               transitEdgeFeatureIds,
+                                               true /* experimentalTransit */);
+        }
       }
       else if (FLAGS_make_transit_cross_mwm)
       {
