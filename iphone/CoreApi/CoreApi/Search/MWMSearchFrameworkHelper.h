@@ -7,8 +7,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWMSearchFrameworkHelper : NSObject
 
 - (NSArray<NSString *> *)searchCategories;
-- (BOOL)hasMegafonCategoryBanner;
-- (NSURL *)megafonBannerUrl;
 - (nullable id<MWMBanner>)searchCategoryBanner;
 
 - (BOOL)isSearchHistoryEmpty;

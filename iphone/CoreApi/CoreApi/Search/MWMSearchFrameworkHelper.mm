@@ -21,43 +21,18 @@
   return [result copy];
 }
 
-- (BOOL)hasMegafonCategoryBanner
-{
-  auto & f = GetFramework();
-  auto const & purchase = f.GetPurchase();
-  if (purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
-    return NO;
-  
-  auto const position = f.GetCurrentPosition();
-  if (!position)
-    return NO;
-
-  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
-    return NO;
-
-  auto const latLon = mercator::ToLatLon(*position);
-  return ads::HasMegafonCategoryBanner(f.GetStorage(), f.GetTopmostCountries(latLon),
-                                       languages::GetCurrentNorm());
-}
-
-- (NSURL *)megafonBannerUrl
-{
-  auto urlStr = ads::GetMegafonCategoryBannerUrl();
-  return [NSURL URLWithString:@(urlStr.c_str())];
-}
-
 - (id<MWMBanner>)searchCategoryBanner
 {
   if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
     return nil;
-    
+
   auto const & f = GetFramework();
   auto const pos = f.GetCurrentPosition();
   auto const banners = f.GetAdsEngine().GetSearchCategoryBanners(pos);
 
   if (banners.empty())
     return nil;
-    
+
   return [[CoreBanner alloc] initWithAdBanner:banners.front()];
 }
 
