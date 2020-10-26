@@ -1569,8 +1569,9 @@ void Edges::Write(IdEdgeSet const & ids, std::ofstream & stream) const
     ToJSONObject(*node, "stop_id_from", edgeId.m_fromStopId);
     ToJSONObject(*node, "stop_id_to", edgeId.m_toStopId);
 
-    if (edge.m_featureId != 0)
-      ToJSONObject(*node, "feature_id", edge.m_featureId);
+    CHECK_NOT_EQUAL(edge.m_featureId, std::numeric_limits<uint32_t>::max(),
+                   (edgeId.m_lineId, edgeId.m_fromStopId, edgeId.m_toStopId));
+    ToJSONObject(*node, "feature_id", edge.m_featureId);
 
     CHECK_GREATER(edge.m_weight, 0, (edgeId.m_fromStopId, edgeId.m_toStopId, edgeId.m_lineId));
     ToJSONObject(*node, "weight", edge.m_weight);
@@ -1592,8 +1593,9 @@ void EdgesTransfer::Write(IdEdgeTransferSet const & ids, std::ofstream & stream)
     ToJSONObject(*node, "stop_id_to", edgeTransferId.m_toStopId);
     ToJSONObject(*node, "weight", edgeData.m_weight);
 
-    if (edgeData.m_featureId != 0)
-      ToJSONObject(*node, "feature_id", edgeData.m_featureId);
+    CHECK_NOT_EQUAL(edgeData.m_featureId, std::numeric_limits<uint32_t>::max(),
+                   (edgeTransferId.m_fromStopId, edgeTransferId.m_toStopId));
+    ToJSONObject(*node, "feature_id", edgeData.m_featureId);
 
     WriteJson(node.get(), stream);
   }

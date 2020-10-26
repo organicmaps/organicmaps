@@ -158,7 +158,7 @@ struct EdgeData
 
   // Feature id for cross-mwm transit section. It is used in Segment class as a feature id for
   // transit routing case.
-  uint32_t m_featureId = 0;
+  uint32_t m_featureId = std::numeric_limits<uint32_t>::max();
 };
 
 struct LineSegment

@@ -425,7 +425,7 @@ void Read(base::Json const & obj, std::vector<Edge> & edges, EdgeIdToFeatureId &
   FromJSONObjectOptionalField(obj.get(), "line_id", lineId);
 
   TransitId featureId = kInvalidFeatureId;
-  FromJSONObjectOptionalField(obj.get(), "feature_id", featureId);
+  FromJSONObject(obj.get(), "feature_id", featureId);
 
   if (lineId == 0)
   {
