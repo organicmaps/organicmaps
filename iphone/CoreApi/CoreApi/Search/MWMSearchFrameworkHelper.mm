@@ -48,6 +48,9 @@
 
 - (id<MWMBanner>)searchCategoryBanner
 {
+  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
+    return nil;
+    
   auto const & f = GetFramework();
   auto const pos = f.GetCurrentPosition();
   auto const banners = f.GetAdsEngine().GetSearchCategoryBanners(pos);
