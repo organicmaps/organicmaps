@@ -709,7 +709,7 @@ void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
   vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> transitions;
 
   CalcCrossMwmConnectors(path, mwmFile, intermediateDir, country, countryParentNameGetterFn,
-                         osmToFeatureFile, {} /*edgeIdToFeatureId */, transitions, connectors);
+                         osmToFeatureFile, {} /* edgeIdToFeatureId */, transitions, connectors);
 
   // We use leaps for cars only. To use leaps for other vehicle types add weights generation
   // here and change WorldGraph mode selection rule in IndexRouter::CalculateSubroute.

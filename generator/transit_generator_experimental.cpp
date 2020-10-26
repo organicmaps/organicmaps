@@ -173,14 +173,20 @@ EdgeIdToFeatureId BuildTransit(std::string const & mwmDir, CountryId const & cou
 
   std::string const transitPath = base::JoinPath(transitDir, countryId);
   if (!Platform::IsFileExistsByFullPath(transitPath))
+  {
+    LOG(LWARNING, ("Path to experimental transit files doesn't exist:", transitPath));
     return {};
+  }
 
   TransitData data;
   DeserializeFromJson(mapping, transitPath, data);
 
   // Transit section can be empty.
   if (data.IsEmpty())
+  {
+    LOG(LWARNING, ("Experimental transit data deserialized from jsons is empty:", transitPath));
     return {};
+  }
 
   CalculateBestPedestrianSegments(mwmPath, countryId, data);
 

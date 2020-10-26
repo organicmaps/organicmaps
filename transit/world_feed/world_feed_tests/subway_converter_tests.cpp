@@ -18,7 +18,7 @@ namespace
 std::string const kSubwayTestsDir = "transit_subway_converter_tests";
 std::string const kSubwayJsonFile = "subways.json";
 std::string const kMappingFile = "mapping.txt";
-std::string const kMappingEdgesFile = "mapping.txt";
+std::string const kMappingEdgesFile = "mapping_edges.txt";
 
 void WriteStringToFile(std::string const & fileName, std::string const & data)
 {

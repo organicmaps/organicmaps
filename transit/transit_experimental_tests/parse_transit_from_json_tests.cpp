@@ -229,6 +229,7 @@ UNIT_TEST(ReadJson_Edge)
            "line_id":4036591958,
            "stop_id_from":4036592295,
            "stop_id_to":4036592296,
+           "feature_id":10731,
            "weight":69,
            "shape":{
              "id":4036591484,
@@ -239,6 +240,7 @@ UNIT_TEST(ReadJson_Edge)
       R"({
            "stop_id_from":4030648032,
            "stop_id_to":4030648073,
+           "feature_id":860522,
            "weight":40
          }
       )"};
