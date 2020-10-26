@@ -171,8 +171,12 @@ EdgeIdToFeatureId BuildTransit(std::string const & mwmDir, CountryId const & cou
   OsmIdToFeatureIdsMap mapping;
   FillOsmIdToFeatureIdsMap(osmIdToFeatureIdsPath, mapping);
 
+  std::string const transitPath = base::JoinPath(transitDir, countryId);
+  if (!Platform::IsFileExistsByFullPath(transitPath))
+    return {};
+
   TransitData data;
-  DeserializeFromJson(mapping, base::JoinPath(transitDir, countryId), data);
+  DeserializeFromJson(mapping, transitPath, data);
 
   // Transit section can be empty.
   if (data.IsEmpty())
