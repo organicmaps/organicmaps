@@ -10,7 +10,6 @@
     android:id="@+id/image"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_double_plus"
     android:layout_marginStart="@dimen/margin_double_plus"
     android:layout_gravity="center_vertical"/>
   <ScrollView
@@ -20,14 +19,9 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/margin_double_plus"
-      android:layout_marginRight="@dimen/margin_double_plus"
-      android:layout_marginLeft="@dimen/margin_base"
       android:layout_marginStart="@dimen/margin_base"
+      android:layout_gravity="center_vertical"
       android:orientation="vertical">
-      <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
         <LinearLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -52,7 +46,6 @@
             tools:text="We\'ve made some cool stuff!\nSit down and be happy now, man."/>
           <include layout="@layout/whats_new_promo_button"/>
         </LinearLayout>
-      </FrameLayout>
       <LinearLayout
         android:id="@+id/switch_block"
         android:layout_width="match_parent"
@@ -88,5 +81,4 @@
       </LinearLayout>
     </LinearLayout>
   </ScrollView>
-
 </LinearLayout>
