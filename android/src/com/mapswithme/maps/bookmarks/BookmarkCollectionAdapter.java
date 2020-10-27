@@ -61,7 +61,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     {
       BookmarkCategory category = mHolder.getEntity();
       BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
-      category.invertVisibility();
 
       int type = BookmarkManager.INSTANCE.getCompilationType(category.getId());
       String compilationTypeString = type == BookmarkManager.CATEGORY ?

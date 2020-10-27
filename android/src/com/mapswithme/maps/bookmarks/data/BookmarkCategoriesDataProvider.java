@@ -8,7 +8,10 @@ public interface BookmarkCategoriesDataProvider
 {
   @NonNull
   List<BookmarkCategory> getCategories();
-
+  @NonNull
+  List<BookmarkCategory> getChildrenCategories(long parentId);
+  @NonNull
+  List<BookmarkCategory> getChildrenCollections(long parentId);
   @NonNull
   BookmarkCategory getCategoryById(long categoryId);
 }

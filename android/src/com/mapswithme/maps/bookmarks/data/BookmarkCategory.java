@@ -194,11 +194,6 @@ public class BookmarkCategory implements Parcelable
     return isLocal && size() > 0;
   }
 
-  public void invertVisibility()
-  {
-    mIsVisible = !mIsVisible;
-  }
-
   public static class CountAndPlurals {
     private final int mCount;
     @PluralsRes

@@ -18,7 +18,6 @@ import com.mapswithme.util.statistics.Statistics;
 import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -82,9 +81,7 @@ public enum BookmarkManager
   @NonNull
   private BookmarkCategoriesDataProvider mCurrentDataProvider = mCategoriesCoreDataProvider;
 
-  @NonNull
-  private final BookmarkCategoriesCache mBookmarkCategoriesCache
-      = new BookmarkManager.BookmarkCategoriesCache();
+  private final BookmarkCategoriesCache mBookmarkCategoriesCache = new BookmarkCategoriesCache();
 
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
@@ -666,7 +663,7 @@ public enum BookmarkManager
   @NonNull
   public BookmarkCategory getCategoryById(long categoryId)
   {
-    return nativeGetBookmarkCategory(categoryId);
+    return mCurrentDataProvider.getCategoryById(categoryId);
   }
 
   public boolean isUsedCategoryName(@NonNull String name)
@@ -901,13 +898,13 @@ public enum BookmarkManager
   @NonNull
   public List<BookmarkCategory> getChildrenCategories(long catId)
   {
-    return Arrays.asList(nativeGetChildrenCategories(catId));
+    return mCurrentDataProvider.getChildrenCategories(catId);
   }
 
   @NonNull
   public List<BookmarkCategory> getChildrenCollections(long catId)
   {
-    return Arrays.asList(nativeGetChildrenCollections(catId));
+    return mCurrentDataProvider.getChildrenCollections(catId);
   }
 
   public boolean isCompilation(long catId)
