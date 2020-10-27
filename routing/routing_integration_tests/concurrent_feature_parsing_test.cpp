@@ -62,7 +62,7 @@ void TestConcurrentAccessToFeatures(string const & mwm)
       TEST(feature, ("Feature id:", i, "is not found in", local));
 
       feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
-      for (size_t i = 0; i < feature->GetTypesCount(); ++i)
+      for (size_t i = 0; i < feature->GetPointsCount(); ++i)
         points.push_back(feature->GetPoint(i));
     }
   };
