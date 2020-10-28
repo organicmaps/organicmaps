@@ -402,6 +402,8 @@ public class Holders
                                                     R.dimen.bookmark_icon_size,
                                                     mIcon.getContext().getResources());
       mIcon.setImageDrawable(circle);
+
+      UiUtils.visibleIf(sectionsDataSource.getCategory().isSharingOptionsAllowed(), mMore);
     }
 
     void setMoreListener(@Nullable RecyclerClickListener listener)
