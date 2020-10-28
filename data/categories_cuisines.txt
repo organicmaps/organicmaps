@@ -1191,7 +1191,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # hu:Gyúdon
 # id:Nasi daging sapi
 # it:Gyūdon
-# ja:ビーフボウル
+# ja:牛丼|ビーフボウル
 # ko:쇠고기 덮밥
 # nb:Biffbolle
 # pl:Gyūdon
@@ -2028,7 +2028,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # hu:Helyi konyha
 # id:Masakan lokal
 # it:Cucina locale
-# ja:地元の料理
+# ja:地元料理
 # ko:현지식 음식
 # nb:Lokal mat
 # pl:Kuchnia lokalna
@@ -2214,7 +2214,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # hu:Keleti konyha
 # id:Masakan oriental
 # it:Cucina orientale
-# ja:東洋の料理
+# ja:東洋料理
 # ko:극동식 음식
 # nb:Orientalsk mat
 # pl:Kuchnia orientalna
