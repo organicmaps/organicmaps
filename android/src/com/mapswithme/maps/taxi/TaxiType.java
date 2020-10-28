@@ -201,7 +201,7 @@ public enum TaxiType
           return "Yango";
         }
       },
-  CITYMOBIL
+  CITYMOBIL(new LocaleDependentFormatPriceStrategy(), false)
       {
         @NonNull
         public String getPackageName()
