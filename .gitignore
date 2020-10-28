@@ -172,6 +172,7 @@ android/google-services.json
 server
 iphone/Maps/com.mapswithme.full/
 iphone/Maps/com.my.maps-beta-enterprise/
+iphone/Maps/mapsme.release/
 
 *.li
 
