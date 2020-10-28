@@ -44,7 +44,7 @@ de:Essmöglichkeiten|Essen
 hu:Hol lehet enni valamit|Élelmiszer
 id:Tempat makan|Makanan
 it:Dove mangiare|Cibo
-ja:食事場所|飲食
+ja:食事場所|飲食|飲食店
 ko:어디서먹을까|음식
 nb:Spisesteder|Mat
 pl:Gdzie zjeść|Jedzenie
