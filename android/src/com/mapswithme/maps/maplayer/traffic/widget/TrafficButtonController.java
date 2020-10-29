@@ -1,13 +1,13 @@
 package com.mapswithme.maps.maplayer.traffic.widget;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.maplayer.MapLayerController;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;

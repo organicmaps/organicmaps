@@ -1,6 +1,5 @@
 package com.mapswithme.maps.settings;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.WebContainerDelegate;
 import com.mapswithme.util.Constants;
