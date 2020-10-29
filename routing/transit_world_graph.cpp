@@ -129,9 +129,9 @@ RouteWeight TransitWorldGraph::CalcSegmentWeight(Segment const & segment,
       segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()), purpose));
 }
 
-RouteWeight TransitWorldGraph::CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to) const
+RouteWeight TransitWorldGraph::CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to, NumMwmId mwmId) const
 {
-  return RouteWeight(m_estimator->CalcLeapWeight(from, to));
+  return RouteWeight(m_estimator->CalcLeapWeight(from, to, mwmId));
 }
 
 RouteWeight TransitWorldGraph::CalcOffroadWeight(ms::LatLon const & from,

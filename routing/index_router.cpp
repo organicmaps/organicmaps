@@ -291,7 +291,8 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                 m_vehicleModelFactory)
   , m_estimator(EdgeEstimator::Create(
         m_vehicleType, CalcMaxSpeed(*m_numMwmIds, *m_vehicleModelFactory, m_vehicleType),
-        CalcOffroadSpeed(*m_vehicleModelFactory), m_trafficStash))
+        CalcOffroadSpeed(*m_vehicleModelFactory), m_trafficStash,
+        &dataSource, m_numMwmIds))
   , m_directionsEngine(CreateDirectionsEngine(m_vehicleType, m_numMwmIds, m_dataSource))
   , m_countryParentNameGetterFn(countryParentNameGetterFn)
 {

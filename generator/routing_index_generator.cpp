@@ -534,7 +534,9 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   routing::IndexGraph graph(make_shared<routing::Geometry>(
                                 routing::GeometryLoader::CreateFromFile(mwmFile, vehicleModel), mwmNumRoads),
                             routing::EdgeEstimator::Create(routing::VehicleType::Car, *vehicleModel,
-                                                           nullptr /* trafficStash */));
+                                                           nullptr /* trafficStash */,
+                                                           nullptr /* dataSource */,
+                                                           nullptr /* numMvmIds */));
   DeserializeIndexGraph(mwmValue, routing::VehicleType::Car, graph);
 
   map<routing::Segment, map<routing::Segment, routing::RouteWeight>> weights;

@@ -44,7 +44,8 @@ CreateIndexGraph(std::string const & targetPath,
 
   auto graph = std::make_unique<IndexGraph>(
       std::make_shared<Geometry>(GeometryLoader::CreateFromFile(mwmPath, vehicleModel)),
-      EdgeEstimator::Create(VehicleType::Car, *vehicleModel, nullptr /* trafficStash */));
+      EdgeEstimator::Create(VehicleType::Car, *vehicleModel, nullptr /* trafficStash */,
+        nullptr /* dataSource */, nullptr /* numMvmIds */));
 
   DeserializeIndexGraph(mwmValue, VehicleType::Car, *graph);
 
@@ -108,7 +109,7 @@ void SerializeRestrictions(RestrictionCollector & restrictionCollector,
 
     CHECK_GREATER_OR_EQUAL(i, 1, ("Unexpected overflow."));
     auto const prevType = RestrictionHeader::kRestrictionTypes[i - 1];
-    header.SetNumberOf(prevType, 
+    header.SetNumberOf(prevType,
                        base::checked_cast<uint32_t>(std::distance(prevTypeEndIt, firstNextType)));
 
     prevTypeEndIt = firstNextType;

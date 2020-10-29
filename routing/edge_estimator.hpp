@@ -15,6 +15,7 @@
 #include "geometry/point2d.hpp"
 
 #include <memory>
+#include <unordered_map>
 
 namespace routing
 {
@@ -27,7 +28,8 @@ public:
     ETA
   };
 
-  EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH);
+  EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
+    DataSource * dataSourcePtr = nullptr, std::shared_ptr<NumMwmIds> numMwmIds = nullptr);
   virtual ~EdgeEstimator() = default;
 
   double CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const;
@@ -37,7 +39,7 @@ public:
   // (|from|, |to|) in road graph.
   // Note 2. The result of the method should be less or equal to CalcHeuristic(|from|, |to|).
   // Note 3. It's assumed here that CalcLeapWeight(p1, p2) == CalcLeapWeight(p2, p1).
-  double CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to) const;
+  double CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to, NumMwmId mwmId = kFakeNumMwmId);
 
   double GetMaxWeightSpeedMpS() const;
 
@@ -51,15 +53,27 @@ public:
 
   static std::shared_ptr<EdgeEstimator> Create(VehicleType vehicleType, double maxWeighSpeedKMpH,
                                                SpeedKMpH const & offroadSpeedKMpH,
-                                               std::shared_ptr<TrafficStash>);
+                                               std::shared_ptr<TrafficStash>,
+                                               DataSource * dataSourcePtr,
+                                               std::shared_ptr<NumMwmIds> numMwmIds);
 
   static std::shared_ptr<EdgeEstimator> Create(VehicleType vehicleType,
                                                VehicleModelInterface const & vehicleModel,
-                                               std::shared_ptr<TrafficStash>);
+                                               std::shared_ptr<TrafficStash>,
+                                               DataSource * dataSourcePtr,
+                                               std::shared_ptr<NumMwmIds> numMwmIds);
 
 private:
   double const m_maxWeightSpeedMpS;
   SpeedKMpH const m_offroadSpeedKMpH;
+
+  DataSource * m_dataSourcePtr;
+  std::shared_ptr<NumMwmIds> m_numMwmIds;
+  std::unordered_map<NumMwmId, double> m_leapWeightSpeedMpS;
+
+  double ComputeDefaultLeapWeightSpeed() const;
+  double GetLeapWeightSpeed(NumMwmId mwmId);
+  double LoadLeapWeightSpeed(NumMwmId mwmId);
 };
 
 double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,

@@ -70,7 +70,8 @@ TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId,
       make_shared<Geometry>(GeometryLoader::Create(m_dataSource, handle, m_vehicleModel,
                                                    AttrLoader(m_dataSource, handle),
                                                    false /* loadAltitudes */)),
-      EdgeEstimator::Create(VehicleType::Car, *m_vehicleModel, nullptr /* trafficStash */));
+      EdgeEstimator::Create(VehicleType::Car, *m_vehicleModel, nullptr /* trafficStash */,
+        nullptr /* dataSource */, nullptr /* numMvmIds */));
 
   DeserializeIndexGraph(*handle.GetValue(), VehicleType::Car, *m_graph);
 }

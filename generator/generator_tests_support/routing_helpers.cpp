@@ -74,7 +74,8 @@ void TestGeometryLoader::SetPassThroughAllowed(uint32_t featureId, bool passThro
 std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(std::shared_ptr<TrafficStash> trafficStash)
 {
   auto const carModel = CarModelFactory({}).GetVehicleModel();
-  return EdgeEstimator::Create(VehicleType::Car, *carModel, trafficStash);
+  return EdgeEstimator::Create(VehicleType::Car, *carModel, trafficStash,
+    nullptr /* DataSource */, nullptr /* NumMwmIds */);
 }
 
 std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(traffic::TrafficCache const & trafficCache)
@@ -103,4 +104,3 @@ std::unique_ptr<IndexGraph> BuildIndexGraph(std::unique_ptr<TestGeometryLoader> 
   return graph;
 }
 }  // namespace routing
-

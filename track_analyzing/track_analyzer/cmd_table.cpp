@@ -406,7 +406,8 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
     MatchedTrackPointToMoveType pointToMoveType(FilesContainerR(make_unique<FileReader>(mwmFile)), *vehicleModel);
     Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));
     auto const vehicleType = VehicleType::Car;
-    auto const edgeEstimator = EdgeEstimator::Create(vehicleType, *vehicleModel, nullptr /* trafficStash */);
+    auto const edgeEstimator = EdgeEstimator::Create(vehicleType, *vehicleModel,
+      nullptr /* trafficStash */, &dataSource, numMwmIds);
     auto indexGraphLoader = IndexGraphLoader::Create(vehicleType, false /* loadAltitudes */, numMwmIds,
                                                      carModelFactory, edgeEstimator, dataSource);
 

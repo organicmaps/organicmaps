@@ -82,7 +82,7 @@ public:
   virtual RouteWeight CalcSegmentWeight(Segment const & segment,
                                         EdgeEstimator::Purpose purpose) = 0;
 
-  virtual RouteWeight CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to) const = 0;
+  virtual RouteWeight CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to, NumMwmId mwmId) const = 0;
 
   virtual RouteWeight CalcOffroadWeight(ms::LatLon const & from, ms::LatLon const & to,
                                         EdgeEstimator::Purpose purpose) const = 0;

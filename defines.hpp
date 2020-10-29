@@ -80,6 +80,7 @@
 
 #define COUNTRIES_FILE "countries.txt"
 #define COUNTRIES_META_FILE "countries_meta.txt"
+#define LEAP_SPEEDS_FILE "leap_speeds.json"
 
 #define WORLD_FILE_NAME "World"
 #define WORLD_COASTS_FILE_NAME "WorldCoasts"

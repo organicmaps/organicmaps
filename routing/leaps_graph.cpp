@@ -87,7 +87,7 @@ void LeapsGraph::GetEdgesListFromStart(Segment const & segment, std::vector<Segm
     for (auto const & exit : exits)
     {
       auto const & exitFrontPoint = m_starter.GetPoint(exit, true /* front */);
-      auto const weight = m_starter.GetGraph().CalcLeapWeight(m_startPoint, exitFrontPoint);
+      auto const weight = m_starter.GetGraph().CalcLeapWeight(m_startPoint, exitFrontPoint, mwmId);
 
       edges.emplace_back(exit, weight);
     }
@@ -103,7 +103,7 @@ void LeapsGraph::GetEdgesListToFinish(Segment const & segment, std::vector<Segme
     for (auto const & enter : enters)
     {
       auto const & enterFrontPoint = m_starter.GetPoint(enter, true /* front */);
-      auto const weight = m_starter.GetGraph().CalcLeapWeight(enterFrontPoint, m_finishPoint);
+      auto const weight = m_starter.GetGraph().CalcLeapWeight(enterFrontPoint, m_finishPoint, mwmId);
 
       edges.emplace_back(enter, weight);
     }

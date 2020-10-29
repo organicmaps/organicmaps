@@ -161,9 +161,10 @@ RouteWeight SingleVehicleWorldGraph::CalcSegmentWeight(Segment const & segment,
 }
 
 RouteWeight SingleVehicleWorldGraph::CalcLeapWeight(ms::LatLon const & from,
-                                                    ms::LatLon const & to) const
+                                                    ms::LatLon const & to,
+                                                    NumMwmId mwmId) const
 {
-  return RouteWeight(m_estimator->CalcLeapWeight(from, to));
+  return RouteWeight(m_estimator->CalcLeapWeight(from, to, mwmId));
 }
 
 RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(ms::LatLon const & from,
@@ -271,7 +272,7 @@ NumMwmId GetCommonMwmInChain(vector<VertexType> const & chain)
 }
 
 template <typename VertexType>
-bool 
+bool
 SingleVehicleWorldGraph::AreWavesConnectibleImpl(Parents<VertexType> const & forwardParents,
                                                  VertexType const & commonVertex,
                                                  Parents<VertexType> const & backwardParents,

@@ -116,8 +116,12 @@ double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangen
 }
 
 // EdgeEstimator -----------------------------------------------------------------------------------
-EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH)
-  : m_maxWeightSpeedMpS(KMPH2MPS(maxWeightSpeedKMpH)), m_offroadSpeedKMpH(offroadSpeedKMpH)
+EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroadSpeedKMpH,
+                             DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds> numMwmIds)
+  : m_maxWeightSpeedMpS(KMPH2MPS(maxWeightSpeedKMpH))
+  , m_offroadSpeedKMpH(offroadSpeedKMpH)
+  , m_dataSourcePtr(dataSourcePtr)
+  , m_numMwmIds(numMwmIds)
 {
   CHECK_GREATER(m_offroadSpeedKMpH.m_weight, 0.0, ());
   CHECK_GREATER(m_offroadSpeedKMpH.m_eta, 0.0, ());
@@ -132,13 +136,49 @@ double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & 
   return TimeBetweenSec(from, to, m_maxWeightSpeedMpS);
 }
 
-double EdgeEstimator::CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to) const
+double EdgeEstimator::ComputeDefaultLeapWeightSpeed() const
 {
   // Let us assume for the time being that
-  // leap edges will be added with a half of max speed.
-  // @TODO(bykoianko) It's necessary to gather statistics to calculate better factor(s) instead of
-  // one below.
-  return TimeBetweenSec(from, to, m_maxWeightSpeedMpS / 2.0);
+  // leap edges will be added with a half of max speed
+  // if no leap speed provided
+  return m_maxWeightSpeedMpS / 2.0;
+}
+
+double EdgeEstimator::LoadLeapWeightSpeed(NumMwmId mwmId)
+{
+  if (m_dataSourcePtr)
+  {
+    MwmSet::MwmHandle handle =
+        m_dataSourcePtr->GetMwmHandleByCountryFile(m_numMwmIds->GetFile(mwmId));
+    if (!handle.IsAlive())
+      MYTHROW(RoutingException, ("Mwm", m_numMwmIds->GetFile(mwmId), "cannot be loaded."));
+
+    if (handle.GetInfo())
+      return handle.GetInfo()->GetRegionData().GetLeapWeightSpeed(m_maxWeightSpeedMpS / 2.0);
+  }
+
+  return ComputeDefaultLeapWeightSpeed();
+}
+
+double EdgeEstimator::GetLeapWeightSpeed(NumMwmId mwmId)
+{
+  double defaultSpeed = ComputeDefaultLeapWeightSpeed();
+
+  if (mwmId != kFakeNumMwmId)
+  {
+    auto [speedIt, inserted] = m_leapWeightSpeedMpS.emplace(mwmId, defaultSpeed);
+    if (inserted)
+      speedIt->second = LoadLeapWeightSpeed(mwmId);
+
+    return speedIt->second;
+  }
+
+  return defaultSpeed;
+}
+
+double EdgeEstimator::CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to, NumMwmId mwmId)
+{
+  return TimeBetweenSec(from, to, GetLeapWeightSpeed(mwmId));
 }
 
 double EdgeEstimator::GetMaxWeightSpeedMpS() const { return m_maxWeightSpeedMpS; }
@@ -216,7 +256,8 @@ public:
 class CarEstimator final : public EdgeEstimator
 {
 public:
-  CarEstimator(shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
+  CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds> numMwmIds,
+               shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
                SpeedKMpH const & offroadSpeedKMpH);
 
   // EdgeEstimator overrides:
@@ -230,9 +271,11 @@ private:
   shared_ptr<TrafficStash> m_trafficStash;
 };
 
-CarEstimator::CarEstimator(shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
+CarEstimator::CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds> numMwmIds,
+                           shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
                            SpeedKMpH const & offroadSpeedKMpH)
-  : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH), m_trafficStash(move(trafficStash))
+  : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH, dataSourcePtr, numMwmIds)
+  , m_trafficStash(move(trafficStash))
 {
 }
 
@@ -254,7 +297,8 @@ double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
 {
   switch (purpose)
   {
-  case Purpose::Weight: return 40 * 60;  // seconds
+  case Purpose::Weight:
+    return 40 * 60;  // seconds
   // Based on https://confluence.mail.ru/display/MAPSME/Ferries
   case Purpose::ETA: return 20 * 60;  // seconds
   }
@@ -290,7 +334,9 @@ double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment,
 // static
 shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, double maxWeighSpeedKMpH,
                                                 SpeedKMpH const & offroadSpeedKMpH,
-                                                shared_ptr<TrafficStash> trafficStash)
+                                                shared_ptr<TrafficStash> trafficStash,
+                                                DataSource * dataSourcePtr,
+                                                std::shared_ptr<NumMwmIds> numMwmIds)
 {
   switch (vehicleType)
   {
@@ -300,7 +346,8 @@ shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, double 
   case VehicleType::Bicycle:
     return make_shared<BicycleEstimator>(maxWeighSpeedKMpH, offroadSpeedKMpH);
   case VehicleType::Car:
-    return make_shared<CarEstimator>(trafficStash, maxWeighSpeedKMpH, offroadSpeedKMpH);
+    return make_shared<CarEstimator>(dataSourcePtr, numMwmIds, trafficStash, maxWeighSpeedKMpH,
+                                     offroadSpeedKMpH);
   case VehicleType::Count:
     CHECK(false, ("Can't create EdgeEstimator for", vehicleType));
     return nullptr;
@@ -311,9 +358,11 @@ shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, double 
 // static
 shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType,
                                                 VehicleModelInterface const & vehicleModel,
-                                                shared_ptr<TrafficStash> trafficStash)
+                                                shared_ptr<TrafficStash> trafficStash,
+                                                DataSource * dataSourcePtr,
+                                                std::shared_ptr<NumMwmIds> numMwmIds)
 {
   return Create(vehicleType, vehicleModel.GetMaxWeightSpeed(), vehicleModel.GetOffroadSpeed(),
-                trafficStash);
+                trafficStash, dataSourcePtr, numMwmIds);
 }
 }  // namespace routing
