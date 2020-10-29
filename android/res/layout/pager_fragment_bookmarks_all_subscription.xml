@@ -60,7 +60,7 @@
           android:layout_marginEnd="@dimen/margin_base_plus_quarter"
           android:fontFamily="@string/robotoMedium"
           android:gravity="center|start"
-          android:text="@string/subscription"
+          android:text="@string/all_pass_subscription_header"
           android:textColor="@color/black_primary"
           android:textSize="@dimen/text_size_button" />
         <TextView
