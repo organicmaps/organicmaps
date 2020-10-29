@@ -209,7 +209,7 @@ public:
   void SetBookmarkCategoryName(std::string const & name) { m_bookmarkCategoryName = name; }
   void SetBookmarkData(kml::BookmarkData const & data) { m_bookmarkData = data; }
   kml::BookmarkData const & GetBookmarkData() const { return m_bookmarkData; }
-  bool IsTopChoise() const { return m_isTopChoise; }
+  bool IsTopChoice() const { return m_isTopChoice; }
 
   /// Track
   void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; };
@@ -363,7 +363,7 @@ private:
   /// If not invalid, track is bound to this place page.
   kml::TrackId m_trackId = kml::kInvalidTrackId;
   /// Whether to show "Must See".
-  bool m_isTopChoise = false;
+  bool m_isTopChoice = false;
 
   /// Guide
   bool m_isGuide = false;

@@ -94,7 +94,7 @@ final class PlacePagePreviewViewController: UIViewController {
         subtitleString.append(NSAttributedString(string: L("popular_place"),
                                                  attributes: [.foregroundColor : UIColor.linkBlue(),
                                                               .font : UIFont.regular14()]))
-      } else if placePagePreviewData.isTopChoise {
+      } else if placePagePreviewData.isTopChoice {
         subtitleString.append(NSAttributedString(string: L("mustsee_title"),
                                                  attributes: [.foregroundColor : UIColor.linkBlue(),
                                                               .font : UIFont.regular14()]))

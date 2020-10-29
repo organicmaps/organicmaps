@@ -245,8 +245,8 @@ void Info::SetFromBookmarkProperties(kml::Properties const & p)
     m_metadata.Set(feature::Metadata::EType::FMD_EMAIL, email->second);
   if (auto const url = p.find("url"); url != p.end() && !url->second.empty())
     m_metadata.Set(feature::Metadata::EType::FMD_URL, url->second);
-  if (auto const isTopChoise = p.find("is_top_choise"); isTopChoise != p.end())
-    m_isTopChoise = isTopChoise->second == "1";
+  if (auto const isTopChoice = p.find("is_top_choice"); isTopChoice != p.end())
+    m_isTopChoice = isTopChoice->second == "1";
 }
 
 void Info::SetBookmarkId(kml::MarkId bookmarkId)

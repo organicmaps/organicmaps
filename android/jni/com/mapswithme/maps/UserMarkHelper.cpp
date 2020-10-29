@@ -185,7 +185,7 @@ jobject CreateBookmark(JNIEnv *env, const place_page::Info &info,
           jAddress.get(), jbanners.get(), jTaxiTypes.get(), jBookingSearchUrl.get(),
           localAdInfo.get(), routingPointInfo.get(), info.GetOpeningMode(), info.ShouldShowUGC(),
           info.CanBeRated(), info.CanBeReviewed(), jratings.get(), hotelType.get(), priceRate,
-          popularity.get(), jDescription.get(), info.IsTopChoise(), jrawTypes.get());
+          popularity.get(), jDescription.get(), info.IsTopChoice(), jrawTypes.get());
 
   if (info.IsFeature())
     InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
@@ -280,7 +280,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                            info.GetOpeningMode(), info.ShouldShowUGC(), info.CanBeRated(),
                            info.CanBeReviewed(), jratings.get(), hotelType.get(), priceRate,
                            popularity.get(), info.GetDescription(), info.GetRoadType(),
-                           info.IsTopChoise(), jrawTypes.get());
+                           info.IsTopChoice(), jrawTypes.get());
   }
 
   if (info.HasApiUrl())
@@ -292,7 +292,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(), info.GetOpeningMode(),
         info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(), jratings.get(),
         hotelType.get(), priceRate, popularity.get(), info.GetDescription(), info.GetRoadType(),
-        info.IsTopChoise(), jrawTypes.get());
+        info.IsTopChoice(), jrawTypes.get());
   }
 
   return CreateMapObject(
@@ -302,7 +302,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
       jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
       info.GetOpeningMode(), info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(),
       jratings.get(), hotelType.get(), priceRate, popularity.get(),
-      info.GetDescription(), info.GetRoadType(), info.IsTopChoise(), jrawTypes.get());
+      info.GetDescription(), info.GetRoadType(), info.IsTopChoice(), jrawTypes.get());
 }
 
 jobjectArray ToBannersArray(JNIEnv * env, std::vector<ads::Banner> const & banners)
