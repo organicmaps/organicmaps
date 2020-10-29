@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -85,7 +85,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <pageControl opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="100" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="ppd-rW-dYo">
-                                    <rect key="frame" x="52.5" y="4" width="23" height="13"/>
+                                    <rect key="frame" x="12.5" y="4" width="103.5" height="13"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="BmO-Rd-DKp"/>
@@ -166,7 +166,7 @@
                                 <constraint firstItem="JiD-R1-DnS" firstAttribute="leading" secondItem="Q0w-Me-x4p" secondAttribute="leading" id="eon-hA-hQn"/>
                             </constraints>
                         </view>
-                        <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPO-sh-VhS" userLabel="ToggleInfo">
+                        <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPO-sh-VhS" userLabel="ToggleInfo">
                             <rect key="frame" x="0.0" y="0.0" width="260" height="48"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -230,42 +230,53 @@
                 <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMT-MI-d8X">
                     <rect key="frame" x="0.0" y="52" width="320" height="64"/>
                     <subviews>
-                        <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfb-5v-iWA" customClass="MWMButton">
-                            <rect key="frame" x="8" y="0.0" width="57.5" height="64"/>
-                            <state key="normal" image="ic_voice_on"/>
-                            <state key="selected" image="ic_voice_off"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="ttsButtonAction" destination="-1" eventType="touchUpInside" id="2U8-vo-LOQ"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaa-f0-INU" userLabel="Traffic" customClass="MWMButton">
-                            <rect key="frame" x="73.5" y="0.0" width="57" height="64"/>
-                            <state key="normal" image="ic_setting_traffic_on"/>
-                            <state key="selected" image="ic_setting_traffic_off"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="trafficButtonAction" destination="-1" eventType="touchUpInside" id="ZI3-1D-OeH"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skM-Xx-3En" userLabel="Settings" customClass="MWMButton">
-                            <rect key="frame" x="138.5" y="0.0" width="57.5" height="64"/>
-                            <state key="normal" image="ic_menu_settings"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="settingsButtonAction" destination="-1" eventType="touchUpInside" id="m7v-S7-aqm"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtt-q0-SUx" customClass="MWMStopButton">
+                        <stackView opaque="NO" contentMode="right" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="udk-ZC-Gz0">
+                            <rect key="frame" x="9" y="0.0" width="187" height="64"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfb-5v-iWA" customClass="MWMButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="57" height="64"/>
+                                    <state key="normal" image="ic_voice_on"/>
+                                    <state key="selected" image="ic_voice_off"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="ttsButtonAction" destination="-1" eventType="touchUpInside" id="2U8-vo-LOQ"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaa-f0-INU" userLabel="Traffic" customClass="MWMButton">
+                                    <rect key="frame" x="65" y="0.0" width="57" height="64"/>
+                                    <state key="normal" image="ic_setting_traffic_on"/>
+                                    <state key="selected" image="ic_setting_traffic_off"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="trafficButtonAction" destination="-1" eventType="touchUpInside" id="ZI3-1D-OeH"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skM-Xx-3En" userLabel="Settings" customClass="MWMButton">
+                                    <rect key="frame" x="130" y="0.0" width="57" height="64"/>
+                                    <state key="normal" image="ic_menu_settings"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="settingsButtonAction" destination="-1" eventType="touchUpInside" id="m7v-S7-aqm"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="eaa-f0-INU" firstAttribute="width" secondItem="Bfb-5v-iWA" secondAttribute="width" id="LRL-2t-ise"/>
+                                <constraint firstItem="Bfb-5v-iWA" firstAttribute="width" secondItem="udk-ZC-Gz0" secondAttribute="height" multiplier="57:64" id="Pvi-bX-9ME"/>
+                                <constraint firstItem="eaa-f0-INU" firstAttribute="width" secondItem="skM-Xx-3En" secondAttribute="width" id="wSy-Ay-Dg5"/>
+                            </constraints>
+                        </stackView>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtt-q0-SUx" customClass="MWMStopButton">
                             <rect key="frame" x="204" y="14" width="96" height="36"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
+                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="140" id="4E4-UU-lhc"/>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="N0o-f3-nuw"/>
                                 <constraint firstAttribute="height" priority="750" constant="36" id="Pfs-0w-XX9"/>
                             </constraints>
@@ -283,24 +294,17 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="eaa-f0-INU" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" id="2ZI-jO-Rzb"/>
-                        <constraint firstAttribute="bottom" secondItem="skM-Xx-3En" secondAttribute="bottom" id="3mJ-M7-QYs"/>
-                        <constraint firstItem="eaa-f0-INU" firstAttribute="leading" secondItem="Bfb-5v-iWA" secondAttribute="trailing" constant="8" id="5ar-52-BSS"/>
-                        <constraint firstItem="skM-Xx-3En" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" id="I7f-Pc-SUr"/>
                         <constraint firstItem="mtt-q0-SUx" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" priority="750" constant="14" id="L5z-8y-Duk"/>
                         <constraint firstAttribute="height" constant="64" id="LaX-SD-Kzr"/>
-                        <constraint firstItem="Bfb-5v-iWA" firstAttribute="leading" secondItem="CMT-MI-d8X" secondAttribute="leading" constant="8" id="V74-6u-Ohx"/>
-                        <constraint firstItem="eaa-f0-INU" firstAttribute="width" secondItem="Bfb-5v-iWA" secondAttribute="width" id="Wit-m1-Qhu"/>
-                        <constraint firstItem="Bfb-5v-iWA" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" id="hZJ-Ek-eep"/>
+                        <constraint firstItem="mtt-q0-SUx" firstAttribute="leading" secondItem="udk-ZC-Gz0" secondAttribute="trailing" constant="8" id="QSr-OG-Imw"/>
+                        <constraint firstItem="udk-ZC-Gz0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CMT-MI-d8X" secondAttribute="leading" priority="250" constant="8" id="V36-Jb-U8R"/>
+                        <constraint firstItem="udk-ZC-Gz0" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" id="W8O-lT-eqz"/>
+                        <constraint firstAttribute="bottom" secondItem="udk-ZC-Gz0" secondAttribute="bottom" id="bMN-ct-cOQ"/>
                         <constraint firstAttribute="trailing" secondItem="mtt-q0-SUx" secondAttribute="trailing" constant="20" id="huM-XX-MM9"/>
-                        <constraint firstAttribute="bottom" secondItem="Bfb-5v-iWA" secondAttribute="bottom" id="jWC-0W-pIV"/>
-                        <constraint firstItem="eaa-f0-INU" firstAttribute="width" secondItem="skM-Xx-3En" secondAttribute="width" id="jg9-YP-GwC"/>
-                        <constraint firstAttribute="bottom" secondItem="eaa-f0-INU" secondAttribute="bottom" id="mO5-Wj-UYu"/>
-                        <constraint firstItem="skM-Xx-3En" firstAttribute="leading" secondItem="eaa-f0-INU" secondAttribute="trailing" constant="8" id="nCN-ow-4GR"/>
-                        <constraint firstItem="mtt-q0-SUx" firstAttribute="leading" secondItem="skM-Xx-3En" secondAttribute="trailing" constant="8" id="rTu-89-tgS"/>
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="ghU-PK-XSf"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="u7O-n6-ZXy" secondAttribute="trailing" id="2zR-Xc-sbx"/>
@@ -319,7 +323,6 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="ghU-PK-XSf"/>
             <connections>
                 <outlet property="distanceLabel" destination="vbY-p5-3bX" id="uxW-PA-dra"/>
                 <outlet property="distanceLegendLabel" destination="7dx-1W-LWs" id="Kmh-8u-jgj"/>
@@ -337,7 +340,7 @@
                 <outlet property="trafficButton" destination="eaa-f0-INU" id="nyl-Nf-A4Z"/>
                 <outlet property="ttsButton" destination="Bfb-5v-iWA" id="GMb-ft-G6X"/>
             </connections>
-            <point key="canvasLocation" x="34" y="53.5"/>
+            <point key="canvasLocation" x="33.600000000000001" y="53.073463268365821"/>
         </view>
     </objects>
     <resources>

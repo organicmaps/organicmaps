@@ -274,10 +274,9 @@ BOOL defaultOrientation(CGSize const & size)
 - (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)info
 {
   self.navigationInfo = info;
-  BOOL const isPedestrianRouting = [MWMRouter type] == MWMRouterTypePedestrian;
   if (self.state != MWMNavigationInfoViewStateNavigation)
     return;
-  if (!isPedestrianRouting && info.streetName.length != 0)
+  if (info.streetName.length != 0)
   {
     [self setStreetNameVisible:YES];
     self.streetNameLabel.text = info.streetName;
@@ -319,7 +318,7 @@ BOOL defaultOrientation(CGSize const & size)
                                        attributes:turnLegendAttributes]];
 
     self.distanceToNextTurnLabel.attributedText = distance;
-    if (!isPedestrianRouting && info.nextTurnImage)
+    if (info.nextTurnImage)
     {
       self.secondTurnView.hidden = NO;
       self.secondTurnImageView.image = info.nextTurnImage;
@@ -343,21 +342,6 @@ BOOL defaultOrientation(CGSize const & size)
   BOOL const hasLocation = ([MWMLocationManager lastLocation] != nil);
   if (self.hasLocation != hasLocation)
     [self updateToastView];
-}
-
-- (void)onHeadingUpdate:(CLHeading *)heading
-{
-  auto transform = CATransform3DIdentity;
-  auto lastLocation = [MWMLocationManager lastLocation];
-  if (lastLocation && self.state == MWMNavigationInfoViewStateNavigation &&
-      [MWMRouter type] == MWMRouterTypePedestrian)
-  {
-    auto const info = location_util::compassInfoFromHeading(heading);
-    auto const angle = ang::AngleTo(lastLocation.mercator,
-                                    self.navigationInfo.pedestrianDirectionPosition.mercator);
-    transform = CATransform3DMakeRotation(M_PI_2 - angle - info.m_bearing, 0, 0, 1);
-  }
-  self.nextTurnImageView.layer.transform = transform;
 }
 
 #pragma mark - SolidTouchView

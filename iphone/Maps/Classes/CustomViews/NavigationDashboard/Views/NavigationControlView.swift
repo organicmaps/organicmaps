@@ -258,8 +258,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
 
   func onTTSStatusUpdated() {
     guard MWMRouter.isRoutingActive() else { return }
-    let isPedestrianRouting = MWMRouter.type() == .pedestrian
-    ttsButton.isHidden = isPedestrianRouting || !MWMTextToSpeech.isTTSEnabled()
+    ttsButton.isHidden = !MWMTextToSpeech.isTTSEnabled()
     if !ttsButton.isHidden {
       ttsButton.isSelected = MWMTextToSpeech.tts().active
     }
@@ -272,6 +271,12 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     trafficButton.isHidden = isPedestrianRouting
     trafficButton.isSelected = MapOverlayManager.trafficState() != .disabled
     refreshDiminishTimer()
+  }
+
+  override func applyTheme() {
+    super.applyTheme()
+    onTrafficStateUpdated()
+    onTTSStatusUpdated()
   }
 
   override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {

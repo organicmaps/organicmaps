@@ -20,9 +20,7 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
 {
   if (![MWMLocationManager lastLocation])
     return nil;
-  if ([MWMRouter type] == MWMRouterTypePedestrian)
-    return [UIImage imageNamed:@"ic_direction"];
-
+  
   using namespace routing::turns;
   NSString * imageName;
   switch (t)
@@ -49,6 +47,27 @@ UIImage * image(routing::turns::CarDirection t, bool isNextTurn)
   if (!imageName)
     return nil;
   return [UIImage imageNamed:isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName];
+}
+
+UIImage * image(routing::turns::PedestrianDirection t)
+{
+  if (![MWMLocationManager lastLocation])
+    return nil;
+  
+  using namespace routing::turns;
+  NSString * imageName;
+  switch (t)
+   {
+     case PedestrianDirection::TurnRight: imageName = @"simple_right"; break;
+     case PedestrianDirection::TurnLeft: imageName = @"simple_left"; break;
+     case PedestrianDirection::ReachedYourDestination: imageName = @"finish_point"; break;
+     case PedestrianDirection::GoStraight:
+     case PedestrianDirection::Count:
+     case PedestrianDirection::None: imageName = @"straight"; break;
+   }
+  if (!imageName)
+    return nil;
+  return [UIImage imageNamed:imageName];
 }
 
 NSAttributedString * estimate(NSTimeInterval time, NSAttributedString * dot, NSString * distance,
@@ -122,8 +141,7 @@ NSAttributedString * estimate(NSTimeInterval time, NSAttributedString * dot, NSS
 
 @implementation MWMNavigationDashboardManager (Entity)
 
-- (void)updateFollowingInfo:(routing::FollowingInfo const &)info
-{
+- (void)updateFollowingInfo:(routing::FollowingInfo const &)info type:(MWMRouterType)type {
   if ([MWMRouter isRouteFinished])
   {
     [MWMRouter stopRouting];
@@ -141,22 +159,26 @@ NSAttributedString * estimate(NSTimeInterval time, NSAttributedString * dot, NSS
     entity.distanceToTurn = @(info.m_distToTurn.c_str());
     entity.turnUnits = [self localizedUnitLength:@(info.m_turnUnitsSuffix.c_str())];
     entity.streetName = @(info.m_displayedStreetName.c_str());
-    entity.nextTurnImage = image(info.m_nextTurn, true);
 
     entity.estimate =
         estimate(entity.timeToTarget, entity.estimateDot, entity.targetDistance, entity.targetUnits,
                  self.etaAttributes, self.etaSecondaryAttributes, NO);
 
-    using namespace routing::turns;
-    CarDirection const turn = info.m_turn;
-    entity.turnImage = image(turn, false);
-    BOOL const isRound = turn == CarDirection::EnterRoundAbout ||
-                         turn == CarDirection::StayOnRoundAbout ||
-                         turn == CarDirection::LeaveRoundAbout;
-    if (isRound)
-      entity.roundExitNumber = info.m_exitNum;
-    else
-      entity.roundExitNumber = 0;
+   if (type == MWMRouterTypePedestrian) {
+     entity.turnImage = image(info.m_pedestrianTurn);
+   } else {
+      using namespace routing::turns;
+      CarDirection const turn = info.m_turn;
+      entity.turnImage = image(turn, false);
+      entity.nextTurnImage = image(info.m_nextTurn, true);
+      BOOL const isRound = turn == CarDirection::EnterRoundAbout ||
+      turn == CarDirection::StayOnRoundAbout ||
+      turn == CarDirection::LeaveRoundAbout;
+      if (isRound)
+        entity.roundExitNumber = info.m_exitNum;
+      else
+        entity.roundExitNumber = 0;
+    }
   }
 
   [self onNavigationInfoUpdated];
