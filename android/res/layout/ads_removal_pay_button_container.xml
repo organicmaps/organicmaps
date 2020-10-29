@@ -25,7 +25,8 @@
       android:textSize="@dimen/text_size_toolbar"
       android:textAllCaps="true"
       android:ellipsize="end"
-      android:gravity="center"/>
+      android:gravity="center"
+      tools:text="@string/remove_ads"/>
     <TextView
       android:id="@+id/saving"
       android:layout_width="match_parent"
@@ -35,14 +36,15 @@
       android:textSize="@dimen/text_size_body_3"
       android:textAllCaps="true"
       android:ellipsize="end"
-      android:gravity="center"/>
+      android:gravity="center"
+      tools:text="@string/remove_ads"/>
   </LinearLayout>
   <LinearLayout
     android:layout_width="wrap_content"
     android:minWidth="@dimen/ads_removal_pay_button_min_width"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
-    android:background="?attr/adsRemovalOptionsBg"
+    android:background="?adsRemovalOptionsBg"
     android:orientation="vertical">
     <ToggleButton
       android:id="@+id/options"
@@ -52,10 +54,9 @@
       android:textOn="@string/options_dropdown_title"
       android:textOff="@string/options_dropdown_title"
       android:textAppearance="@style/MwmTextAppearance.Body4"
-      android:background="?attr/clickableBackground"
+      android:background="?clickableBackground"
       android:gravity="start|center_vertical"
       android:drawableEnd="@drawable/ic_expand_more"
-      android:drawableRight="@drawable/ic_expand_more"
       android:padding="@dimen/margin_half_plus"
       android:textAllCaps="true"/>
     <TextView
@@ -64,7 +65,7 @@
       android:layout_height="wrap_content"
       android:minHeight="@dimen/primary_button_min_height"
       android:textAppearance="@style/MwmTextAppearance.Body4"
-      android:background="?attr/clickableBackground"
+      android:background="?clickableBackground"
       android:gravity="start|center_vertical"
       android:padding="@dimen/margin_half_plus"
       android:visibility="gone"/>
@@ -74,7 +75,7 @@
       android:layout_height="wrap_content"
       android:minHeight="@dimen/primary_button_min_height"
       android:textAppearance="@style/MwmTextAppearance.Body4"
-      android:background="?attr/clickableBackground"
+      android:background="?clickableBackground"
       android:gravity="start|center_vertical"
       android:padding="@dimen/margin_half_plus"
       android:visibility="gone"/>

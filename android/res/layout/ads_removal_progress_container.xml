@@ -21,5 +21,6 @@
     android:gravity="center"
     android:singleLine="true"
     android:ellipsize="end"
-    android:textSize="@dimen/text_size_body_2"/>
+    android:textSize="@dimen/text_size_body_2"
+    tools:text="@string/remove_ads"/>
 </LinearLayout>

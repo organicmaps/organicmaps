@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_height="match_parent"
   android:layout_width="match_parent"
+  android:background="?cardBackground"
   android:fillViewport="true">
   <RelativeLayout
     android:layout_width="wrap_content"
@@ -12,6 +13,7 @@
     android:padding="@dimen/margin_base_plus"
     android:orientation="vertical">
     <TextView
+      style="?fontHeadline5"
       android:id="@+id/title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -19,7 +21,6 @@
       android:layout_centerHorizontal="true"
       android:gravity="center"
       android:layout_gravity="center_horizontal"
-      android:textAppearance="@style/MwmTextAppearance.Title"
       android:visibility="invisible"
       tools:visibility="visible"/>
     <include
