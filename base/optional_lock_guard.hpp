@@ -18,4 +18,4 @@ public:
 private:
   std::optional<std::lock_guard<Mutex>> m_optionalGuard;
 };
-}
+}  // namespace base

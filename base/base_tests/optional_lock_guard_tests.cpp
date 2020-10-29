@@ -20,4 +20,3 @@ UNIT_TEST(OptionalLockGuard_Smoke)
   base::OptionalLockGuard<std::mutex> guard(empty);
 }
 }  // namespace
-
