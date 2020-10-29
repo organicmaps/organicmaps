@@ -20,7 +20,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d のブックマーク</string>
+      <string>%d個のブックマーク</string>
     </dict>
   </dict>
 
