@@ -3503,7 +3503,7 @@
   [type.barrier.cycle_barrier]
     en = Cycle barrier
     ru = Ограждение, предотвращающее проезд велосипедов
-    ja = 自転車止め
+    ja = バリカー
     pl = Bariera rowerowa
 
   [type.barrier.entrance]
@@ -13933,7 +13933,7 @@
 
   [type.place.neighbourhood]
     en = Neighbourhood
-    ja = 小字・丁目
+    ja = 地域
     pl = Sąsiedztwo
 
   [type.place.ocean]

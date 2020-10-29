@@ -3384,7 +3384,7 @@
     hu = Hol lehet enni valamit
     id = Tempat makan
     it = Dove mangiare
-    ja = 飲食店
+    ja = 食事場所
     ko = 어디서먹을까
     nb = Spisesteder
     pl = Gdzie zjeść
