@@ -28,6 +28,10 @@ class DataSource;
 
 namespace routing
 {
+// @TODO(bykoianko) Consider setting cache size based on available memory.
+// Maximum road geometry cache size in items.
+size_t constexpr kRoadsCacheSize = 5000;
+
 class RoadGeometry final
 {
 public:
@@ -135,8 +139,9 @@ class Geometry final
 {
 public:
   Geometry() = default;
-  explicit Geometry(std::unique_ptr<GeometryLoader> loader);
-  Geometry(std::unique_ptr<GeometryLoader> loader, size_t roadsCacheSize);
+  /// \brief Geometry constructor
+  /// \param roadsCacheSize in-memory geometry elements count limit
+  Geometry(std::unique_ptr<GeometryLoader> loader, size_t roadsCacheSize = kRoadsCacheSize);
 
   /// \note The reference returned by the method is valid until the next call of GetRoad()
   /// of GetPoint() methods.

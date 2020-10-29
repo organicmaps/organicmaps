@@ -280,5 +280,4 @@ uint32_t DeserializeIndexGraphNumRoads(MwmValue const & mwmValue, VehicleType ve
   ReaderSource<FilesContainerR::TReader> src(reader);
   return IndexGraphSerializer::DeserializeNumRoads(src, GetVehicleMask(vehicleType));
 }
-
 }  // namespace routing

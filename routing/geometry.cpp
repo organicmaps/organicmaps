@@ -23,9 +23,6 @@ using namespace std;
 
 namespace
 {
-// @TODO(bykoianko) Consider setting cache size based on available memory.
-// Maximum road geometry cache size in items.
-size_t constexpr kRoadsCacheSize = 5000;
 
 double CalcFerryDurationHours(string const & durationHours, double roadLenKm)
 {
@@ -41,7 +38,8 @@ double CalcFerryDurationHours(string const & durationHours, double roadLenKm)
   CHECK(strings::to_double(durationHours.c_str(), durationH), (durationHours));
 
   // See: https://confluence.mail.ru/download/attachments/249123157/image2019-8-22_16-15-53.png
-  // Shortly: we drop some points: (x: lengthKm, y: durationH), that are upper or lower these two lines.
+  // Shortly: we drop some points: (x: lengthKm, y: durationH), that are upper or lower these two
+  // lines.
   double constexpr kUpperBoundIntercept = 4.0;
   double constexpr kUpperBoundSlope = 0.037;
   if (kUpperBoundIntercept + kUpperBoundSlope * roadLenKm - durationH < 0)
@@ -60,8 +58,8 @@ class GeometryLoaderImpl final : public GeometryLoader
 {
 public:
   GeometryLoaderImpl(DataSource const & dataSource, MwmSet::MwmHandle const & handle,
-                     shared_ptr<VehicleModelInterface> vehicleModel,
-                     AttrLoader attrLoader, bool loadAltitudes);
+                     shared_ptr<VehicleModelInterface> vehicleModel, AttrLoader attrLoader,
+                     bool loadAltitudes);
 
   // GeometryLoader overrides:
   void Load(uint32_t featureId, RoadGeometry & road) override;
@@ -253,18 +251,9 @@ double RoadGeometry::GetRoadLengthM() const
 }
 
 // Geometry ----------------------------------------------------------------------------------------
-Geometry::Geometry(unique_ptr<GeometryLoader> loader)
-    : m_loader(move(loader))
-    , m_featureIdToRoad(make_unique<RoutingFifoCache>(
-        kRoadsCacheSize,
-        [this](uint32_t featureId, RoadGeometry & road) { m_loader->Load(featureId, road); }))
-{
-  CHECK(m_loader, ());
-}
-
 Geometry::Geometry(unique_ptr<GeometryLoader> loader, size_t roadsCacheSize)
-    : m_loader(move(loader))
-    , m_featureIdToRoad(make_unique<RoutingFifoCache>(
+  : m_loader(move(loader))
+  , m_featureIdToRoad(make_unique<RoutingFifoCache>(
         roadsCacheSize,
         [this](uint32_t featureId, RoadGeometry & road) { m_loader->Load(featureId, road); }))
 {
@@ -283,8 +272,7 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
 unique_ptr<GeometryLoader> GeometryLoader::Create(DataSource const & dataSource,
                                                   MwmSet::MwmHandle const & handle,
                                                   shared_ptr<VehicleModelInterface> vehicleModel,
-                                                  AttrLoader && attrLoader,
-                                                  bool loadAltitudes)
+                                                  AttrLoader && attrLoader, bool loadAltitudes)
 {
   CHECK(handle.IsAlive(), ());
   return make_unique<GeometryLoaderImpl>(dataSource, handle, vehicleModel, move(attrLoader),
@@ -292,8 +280,8 @@ unique_ptr<GeometryLoader> GeometryLoader::Create(DataSource const & dataSource,
 }
 
 // static
-unique_ptr<GeometryLoader> GeometryLoader::CreateFromFile(string const & fileName,
-                                                          shared_ptr<VehicleModelInterface> vehicleModel)
+unique_ptr<GeometryLoader> GeometryLoader::CreateFromFile(
+    string const & fileName, shared_ptr<VehicleModelInterface> vehicleModel)
 {
   return make_unique<FileGeometryLoader>(fileName, vehicleModel);
 }
