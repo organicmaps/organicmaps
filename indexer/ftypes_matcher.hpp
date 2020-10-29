@@ -550,6 +550,31 @@ public:
   DECLARE_CHECKER_INSTANCE(IsCityTownOrVillageChecker);
 };
 
+class IsEntranceChecker : public BaseChecker
+{
+  IsEntranceChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsEntranceChecker);
+};
+
+class IsAerowayGateChecker : public BaseChecker
+{
+  IsAerowayGateChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsAerowayGateChecker);
+};
+
+class IsRailwaySubwayEntranceChecker : public BaseChecker
+{
+  IsRailwaySubwayEntranceChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsRailwaySubwayEntranceChecker);
+};
+
+
 /// @name Get city radius and population.
 /// @param r Radius in meters.
 //@{

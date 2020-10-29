@@ -838,6 +838,24 @@ IsCityTownOrVillageChecker::IsCityTownOrVillageChecker()
     m_types.push_back(c.GetTypeByPath({t.first, t.second}));
 }
 
+IsEntranceChecker::IsEntranceChecker() : BaseChecker(1 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"entrance"}));
+}
+
+IsAerowayGateChecker::IsAerowayGateChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"aeroway", "gate"}));
+}
+
+IsRailwaySubwayEntranceChecker::IsRailwaySubwayEntranceChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"railway", "subway_entrance"}));
+}
+
 uint64_t GetPopulation(FeatureType & ft)
 {
   uint64_t population = ft.GetPopulation();

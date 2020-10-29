@@ -228,12 +228,18 @@ bool FeatureBuilder::PreSerialize()
       m_params.rank = 0;
     }
 
-    // Store ref's in name field (used in "highway-motorway_junction").
-    // Also can be used to save post_box postcodes.
     if (!m_params.ref.empty())
     {
-      if (ftypes::IsMotorwayJunctionChecker::Instance()(GetTypes()) || m_params.name.IsEmpty())
+
+      if (ftypes::IsMotorwayJunctionChecker::Instance()(GetTypes()) ||
+          (m_params.name.IsEmpty() &&
+           (ftypes::IsPostBoxChecker::Instance()(GetTypes()) ||
+            ftypes::IsRailwaySubwayEntranceChecker::Instance()(GetTypes()) ||
+            ftypes::IsEntranceChecker::Instance()(GetTypes()) ||
+            ftypes::IsRailwayStationChecker::Instance()(GetTypes()))))
+      {
         m_params.name.AddString(StringUtf8Multilang::kDefaultCode, m_params.ref);
+      }
     }
 
     m_params.ref.clear();
