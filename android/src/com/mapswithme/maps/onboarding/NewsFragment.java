@@ -124,7 +124,11 @@ public class NewsFragment extends BaseNewsFragment implements AlertDialogCallbac
 
     f = fm.findFragmentByTag(NewsFragment.class.getName());
     if (f != null)
-      return  true;
+    {
+      NewsFragment newsFragment = (NewsFragment) f;
+      newsFragment.resetListener(listener);
+      return true;
+    }
 
     String currentTitle = getCurrentTitleConcatenation(activity.getApplicationContext());
     String oldTitle = SharedPropertiesUtils.getWhatsNewTitleConcatenation();
