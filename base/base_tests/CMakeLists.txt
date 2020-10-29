@@ -31,6 +31,7 @@ set(
   newtype_test.cpp
   non_intersecting_intervals_tests.cpp
   observer_list_test.cpp
+  optional_lock_guard_tests.cpp
   range_iterator_test.cpp
   ref_counted_tests.cpp
   regexp_test.cpp
