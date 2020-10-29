@@ -155,12 +155,12 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
       [
         NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText(),
-        NSAttributedString.Key.font: UIFont.bold24(),
+        NSAttributedString.Key.font: UIFont.bold24()
       ]
     let routingLegendAttributes: [NSAttributedString.Key: Any] =
       [
         NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText(),
-        NSAttributedString.Key.font: UIFont.bold14(),
+        NSAttributedString.Key.font: UIFont.bold14()
       ]
 
     if timePageControl.currentPage == 0 {
@@ -197,7 +197,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     speedLegendLabel.textColor = textColor
     speedWithLegendLabel.textColor = textColor
 
-    self.routingProgress.constant = self.progressView.width * info.progress / 100
+    routingProgress.constant = progressView.width * info.progress / 100
   }
 
   @IBAction
@@ -284,5 +284,6 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
   }
 
   override var widgetsAreaAffectDirections: MWMAvailableAreaAffectDirections {
-    return alternative(iPhone: .bottom, iPad: []) }
+    return alternative(iPhone: .bottom, iPad: [])
+  }
 }

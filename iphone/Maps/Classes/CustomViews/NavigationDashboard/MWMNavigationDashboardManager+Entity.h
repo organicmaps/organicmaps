@@ -1,8 +1,7 @@
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRouterType.h"
 
-namespace routing
-{
+namespace routing {
 class FollowingInfo;
 }
 
