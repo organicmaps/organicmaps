@@ -85,7 +85,7 @@
   NSString *speed = @"0";
   if (lastLocation && lastLocation.speed >= 0) {
     auto const units = coreUnits([MWMSettings measurementUnits]);
-    speed = @(measurement_utils::FormatSpeed(lastLocation.speed, units).c_str());
+    speed = @(measurement_utils::FormatSpeedNumeric(lastLocation.speed, units).c_str());
   }
   NSInteger roundExitNumber = 0;
   if (info.m_turn == routing::turns::CarDirection::EnterRoundAbout ||
@@ -231,9 +231,9 @@
     if (speedLimit == routing::SpeedCameraOnRoute::kNoSpeedInfo) {
       [object updateCameraInfo:YES speedLimit:nil];
     } else {
-      auto const units = coreUnits([MWMSettings measurementUnits]);
-      
-      NSString *limit = @(measurement_utils::FormatSpeedLimit(speedLimit, units).c_str());
+      auto const metersPerSecond = measurement_utils::KmphToMps(speedLimit);
+
+      NSString *limit = @(measurement_utils::FormatSpeed(metersPerSecond).c_str());
       [object updateCameraInfo:YES speedLimit:limit];
     }
   }

@@ -591,9 +591,8 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
       imageData = [NSData dataWithBytes:imageRGBAData.data() length:imageRGBAData.size()];
       router.altitudeImagesData[sizeValue] = imageData;
 
-      std::string heightString;
-      measurement_utils::FormatDistance(maxRouteAltitude - minRouteAltitude, heightString);
-      router.altitudeElevation = @(heightString.c_str());
+      auto const height = maxRouteAltitude - minRouteAltitude;
+      router.altitudeElevation = @(measurement_utils::FormatDistance(height).c_str());
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{

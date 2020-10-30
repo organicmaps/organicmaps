@@ -657,8 +657,7 @@ void RoutingManager::CreateRoadWarningMarks(RoadWarningsCollection && roadWarnin
         mark->SetIndex(static_cast<uint32_t>(i));
         mark->SetRoadWarningType(type);
         mark->SetFeatureId(routeInfo.m_featureId);
-        std::string distanceStr;
-        measurement_utils::FormatDistance(routeInfo.m_distance, distanceStr);
+        std::string distanceStr = measurement_utils::FormatDistance(routeInfo.m_distance);
         mark->SetDistance(distanceStr);
       }
     }

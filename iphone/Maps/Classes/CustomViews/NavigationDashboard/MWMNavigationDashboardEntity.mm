@@ -38,7 +38,7 @@
   if (!lastLocation || lastLocation.speed < 0)
     return nil;
   auto const units = coreUnits([MWMSettings measurementUnits]);
-  return @(measurement_utils::FormatSpeed(lastLocation.speed, units).c_str());
+  return @(measurement_utils::FormatSpeedNumeric(lastLocation.speed, units).c_str());
 }
 
 - (BOOL)isSpeedLimitExceeded

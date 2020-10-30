@@ -46,7 +46,7 @@ Java_com_mapswithme_util_StringUtils_nativeFormatSpeedAndUnits(JNIEnv * env, jcl
   if (!settings::Get(settings::kMeasurementUnits, units))
     units = measurement_utils::Units::Metric;
   return env->NewObject(pairClass, pairCtor,
-                        jni::ToJavaString(env, measurement_utils::FormatSpeed(metersPerSecond, units)),
+                        jni::ToJavaString(env, measurement_utils::FormatSpeedNumeric(metersPerSecond, units)),
                         jni::ToJavaString(env, measurement_utils::FormatSpeedUnits(units)));
 }
 
@@ -54,8 +54,6 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_util_StringUtils_nativeFormatDistance(JNIEnv *env, jclass thiz,
                                                           jdouble distanceInMeters)
 {
-  std::string formattedDistance;
-  measurement_utils::FormatDistance(distanceInMeters, formattedDistance);
-  return jni::ToJavaString(env, formattedDistance);
+  return jni::ToJavaString(env, measurement_utils::FormatDistance(distanceInMeters));
 }
 } // extern "C"

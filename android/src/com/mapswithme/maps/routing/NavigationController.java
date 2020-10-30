@@ -265,7 +265,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
 
     mSpeedUnits.setText(speedAndUnits.second);
-    mSpeedValue.setText(speedAndUnits.first);
+    mSpeedValue.setText(" " + speedAndUnits.first);
     mSpeedViewContainer.setActivated(info.isSpeedLimitExceeded());
   }
 

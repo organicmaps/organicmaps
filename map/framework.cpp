@@ -1878,7 +1878,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
   double const d = ms::DistanceOnEarth(lat, lon, mercator::YToLat(point.y), mercator::XToLon(point.x));
 
   // Distance may be less than 1.0
-  UNUSED_VALUE(measurement_utils::FormatDistance(d, distance));
+  distance = measurement_utils::FormatDistance(d);
 
   // We calculate azimuth even when distance is very short (d ~ 0),
   // because return value has 2 states (near me or far from me).

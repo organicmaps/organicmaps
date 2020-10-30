@@ -102,8 +102,7 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
     {
       distanceInMeters =
           mercator::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
-      std::string distanceStr;
-      measurement_utils::FormatDistance(distanceInMeters, distanceStr);
+      std::string distanceStr = measurement_utils::FormatDistance(distanceInMeters);
 
       self.distanceLabel.text = @(distanceStr.c_str());
     }

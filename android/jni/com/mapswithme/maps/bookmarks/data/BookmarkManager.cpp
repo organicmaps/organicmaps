@@ -898,8 +898,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetTrack(
 
   ASSERT(nTrack, ("Track must not be null with id:)", trackId));
 
-  std::string formattedLength;
-  measurement_utils::FormatDistance(nTrack->GetLengthMeters(), formattedLength);
+  std::string formattedLength = measurement_utils::FormatDistance(nTrack->GetLengthMeters());
 
   dp::Color nColor = nTrack->GetColor(0);
 

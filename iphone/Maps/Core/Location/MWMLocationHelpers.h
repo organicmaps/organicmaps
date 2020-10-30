@@ -15,23 +15,19 @@ static inline NSString * formattedDistance(double const & meters) {
   
   auto units = measurement_utils::Units::Metric;
   settings::TryGet(settings::kMeasurementUnits, units);
-  
-  std::string distance;
+
   switch (units) {
     case measurement_utils::Units::Imperial:
-      measurement_utils::FormatDistanceWithLocalization(meters,
-                                                        distance,
-                                                        [[@" " stringByAppendingString:L(@"mile")] UTF8String],
-                                                        [[@" " stringByAppendingString:L(@"foot")] UTF8String]);
+      return @(measurement_utils::FormatDistanceWithLocalization(meters,
+                                                                 [L(@"mile") UTF8String],
+                                                                 [L(@"foot") UTF8String]).c_str());
       break;
     case measurement_utils::Units::Metric:
-      measurement_utils::FormatDistanceWithLocalization(meters,
-                                                        distance,
-                                                        [[@" " stringByAppendingString:L(@"kilometer")] UTF8String],
-                                                        [[@" " stringByAppendingString:L(@"meter")] UTF8String]);
+      return @(measurement_utils::FormatDistanceWithLocalization(meters,
+                                                                 [L(@"kilometer") UTF8String],
+                                                                 [L(@"meter") UTF8String]).c_str());
       break;
   }
-  return @(distance.c_str());
 }
 
 static inline BOOL isMyPositionPendingOrNoPosition()

@@ -4,25 +4,20 @@
 
 #include "base/assert.hpp"
 
+#include <optional>
 #include <string>
 
 namespace measurement_utils
 {
+using OptionalStringRef = std::optional<std::string> const &;
+
 enum class Units
 {
   Metric = 0,
   Imperial = 1
 };
 
-inline std::string DebugPrint(Units units)
-{
-  switch (units)
-  {
-  case Units::Imperial: return "Units::Imperial";
-  case Units::Metric: return "Units::Metric";
-  }
-  UNREACHABLE();
-}
+std::string DebugPrint(Units units);
 
 inline double MetersToMiles(double m) { return m * 0.000621371192; }
 inline double MilesToMeters(double mi) { return mi * 1609.344; }
@@ -34,6 +29,7 @@ inline double FeetToMeters(double ft) { return ft * 0.3048; }
 inline double FeetToMiles(double ft) { return ft * 5280; }
 inline double InchesToMeters(double in) { return in / 39.370; }
 inline double NauticalMilesToMeters(double nmi) { return nmi * 1852; }
+inline double KmphToMps(double kmph) { return kmph * 1000 / 3600; }
 
 double ToSpeedKmPH(double speed, measurement_utils::Units units);
 
@@ -41,17 +37,16 @@ double ToSpeedKmPH(double speed, measurement_utils::Units units);
 /// @param[in] m meters
 /// @param[out] res formatted std::string for search
 /// @return should be direction arrow drawed? false if distance is to small (< 1.0)
-bool FormatDistance(double m, std::string & res);
-bool FormatDistanceWithLocalization(double m, std::string & res, char const * high, char const * low);
+std::string FormatDistance(double distanceInMeters);
+std::string FormatDistanceWithLocalization(double m, OptionalStringRef high, OptionalStringRef low);
 
 /// We always use meters and feet/yards for altitude
 std::string FormatAltitude(double altitudeInMeters);
+std::string FormatAltitudeWithLocalization(double altitudeInMeters, OptionalStringRef localizedUnits);
 // Return value is measured in km/h for Metric and in mph for Imperial.
-std::string FormatSpeedWithDeviceUnits(double metersPerSecond);
-std::string FormatSpeedWithUnits(double metersPerSecond, Units units);
-std::string FormatSpeed(double metersPerSecond, Units units);
+std::string FormatSpeed(double metersPerSecond);
+std::string FormatSpeedNumeric(double metersPerSecond, Units units);
 std::string FormatSpeedUnits(Units units);
-std::string FormatSpeedLimit(double kilometersPerHour, Units units);
 
 /// @param[in] dac  Digits after comma in seconds.
 /// Use dac == 3 for our common conversions to DMS.

@@ -318,7 +318,7 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
       distanceInMeters = ms::DistanceOnEarth(lat, lon,
                                              mercator::YToLat(center.y),
                                              mercator::XToLon(center.x));
-      measurement_utils::FormatDistance(distanceInMeters, distance);
+      distance = measurement_utils::FormatDistance(distanceInMeters);
     }
   }
 

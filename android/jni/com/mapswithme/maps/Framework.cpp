@@ -1156,7 +1156,7 @@ Java_com_mapswithme_maps_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jd
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeFormatSpeed(JNIEnv * env, jclass, jdouble speed)
 {
-  return jni::ToJavaString(env, measurement_utils::FormatSpeedWithDeviceUnits(speed));
+  return jni::ToJavaString(env, measurement_utils::FormatSpeed(speed));
 }
 
 JNIEXPORT jobject JNICALL

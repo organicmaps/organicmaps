@@ -43,7 +43,7 @@ namespace routing
 void FormatDistance(double dist, string & value, string & suffix)
 {
   /// @todo Make better formatting of distance and units.
-  UNUSED_VALUE(measurement_utils::FormatDistance(dist, value));
+  value = measurement_utils::FormatDistance(dist);
 
   size_t const delim = value.find(' ');
   ASSERT(delim != string::npos, ());

@@ -1,4 +1,6 @@
 #include "platform/measurement_utils.hpp"
+
+#include "platform/localization.hpp"
 #include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
@@ -13,11 +15,14 @@
 #include <iomanip>
 #include <sstream>
 
+using namespace platform;
 using namespace settings;
 using namespace std;
 using namespace strings;
 
 namespace measurement_utils
+{
+namespace
 {
 string ToStringPrecision(double d, int pr)
 {
@@ -26,30 +31,46 @@ string ToStringPrecision(double d, int pr)
   return ss.str();
 }
 
-bool FormatDistanceImpl(double m, string & res,
-                        char const * high, char const * low,
-                        double highF, double lowF)
+string FormatDistanceImpl(Units units, double m, string const & low, string const & high)
 {
+  double highF, lowF;
+  switch (units)
+  {
+  case Units::Imperial: highF = 1609.344; lowF = 0.3048; break;
+  case Units::Metric: highF = 1000.0; lowF = 1.0; break;
+  }
+
   double const lowV = m / lowF;
   if (lowV < 1.0)
-  {
-    res = string("0") + low;
-    return false;
-  }
+    return string("0 ") + low;
 
   // To display any lower units only if < 1000
   if (m >= 1000.0 * lowF)
   {
     double const v = m / highF;
-    res = ToStringPrecision(v, v >= 10.0 ? 0 : 1) + high;
-  }
-  else
-  {
-    // To display unit number only if <= 100.
-    res = ToStringPrecision(lowV <= 100.0 ? lowV : round(lowV / 10) * 10, 0) + low;
+    return ToStringPrecision(v, v >= 10.0 ? 0 : 1) + " " + high;
   }
 
-  return true;
+  // To display unit number only if <= 100.
+  return ToStringPrecision(lowV <= 100.0 ? lowV : round(lowV / 10) * 10, 0) + " " + low;
+}
+
+string FormatAltitudeImpl(Units units, double altitude, string const & localizedUnits)
+{
+  ostringstream ss;
+  ss << fixed << setprecision(0) << altitude << " " << localizedUnits;
+  return ss.str();
+}
+}  // namespace
+
+std::string DebugPrint(Units units)
+{
+  switch (units)
+  {
+  case Units::Imperial: return "Units::Imperial";
+  case Units::Metric: return "Units::Metric";
+  }
+  UNREACHABLE();
 }
 
 double ToSpeedKmPH(double speed, measurement_utils::Units units)
@@ -62,32 +83,22 @@ double ToSpeedKmPH(double speed, measurement_utils::Units units)
   UNREACHABLE();
 }
 
-bool FormatDistanceWithLocalization(double m, string & res, char const * high, char const * low)
+std::string FormatDistanceWithLocalization(double m, OptionalStringRef high, OptionalStringRef low)
 {
   auto units = Units::Metric;
   TryGet(settings::kMeasurementUnits, units);
 
-  /// @todo Put string units resources.
   switch (units)
   {
-  case Units::Imperial: return FormatDistanceImpl(m, res, high, low, 1609.344, 0.3048);
-  case Units::Metric: return FormatDistanceImpl(m, res, high, low, 1000.0, 1.0);
+  case Units::Imperial: return FormatDistanceImpl(units, m, low ? *low : "ft", high ? *high : "mi");
+  case Units::Metric: return FormatDistanceImpl(units, m, low ? *low : "m", high ? *high : "km");
   }
   UNREACHABLE();
 }
-  
-bool FormatDistance(double m, string & res)
-{
-  auto units = Units::Metric;
-  TryGet(settings::kMeasurementUnits, units);
 
-  /// @todo Put string units resources.
-  switch (units)
-  {
-  case Units::Imperial: return FormatDistanceImpl(m, res, " mi", " ft", 1609.344, 0.3048);
-  case Units::Metric: return FormatDistanceImpl(m, res, " km", " m", 1000.0, 1.0);
-  }
-  UNREACHABLE();
+std::string FormatDistance(double m)
+{
+  return FormatDistanceWithLocalization(m, {} /* high */, {} /* low */);
 }
 
 
@@ -187,34 +198,33 @@ void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int
 
 string FormatAltitude(double altitudeInMeters)
 {
+  return FormatAltitudeWithLocalization(altitudeInMeters, {} /* localizedUnits */);
+}
+
+string FormatAltitudeWithLocalization(double altitudeInMeters, OptionalStringRef localizedUnits)
+{
   Units units = Units::Metric;
   TryGet(settings::kMeasurementUnits, units);
 
-  ostringstream ss;
-  ss << fixed << setprecision(0);
-
-  /// @todo Put string units resources.
   switch (units)
   {
-  case Units::Imperial: ss << MetersToFeet(altitudeInMeters) << " ft"; break;
-  case Units::Metric: ss << altitudeInMeters << " m"; break;
+  case Units::Imperial:
+    return FormatAltitudeImpl(units, MetersToFeet(altitudeInMeters), localizedUnits ? *localizedUnits : "ft");
+  case Units::Metric:
+    return FormatAltitudeImpl(units, altitudeInMeters, localizedUnits ? *localizedUnits : "m");
   }
-  return ss.str();
+  UNREACHABLE();
 }
 
-string FormatSpeedWithDeviceUnits(double metersPerSecond)
+string FormatSpeed(double metersPerSecond)
 {
   auto units = Units::Metric;
   TryGet(settings::kMeasurementUnits, units);
-  return FormatSpeedWithUnits(metersPerSecond, units);
+
+  return FormatSpeedNumeric(metersPerSecond, units) + " " + FormatSpeedUnits(units);
 }
 
-string FormatSpeedWithUnits(double metersPerSecond, Units units)
-{
-  return FormatSpeed(metersPerSecond, units) + FormatSpeedUnits(units);
-}
-
-string FormatSpeed(double metersPerSecond, Units units)
+string FormatSpeedNumeric(double metersPerSecond, Units units)
 {
   double constexpr kSecondsPerHour = 3600;
   double constexpr metersPerKilometer = 1000;
@@ -226,24 +236,13 @@ string FormatSpeed(double metersPerSecond, Units units)
   }
   return ToStringPrecision(unitsPerHour, unitsPerHour >= 10.0 ? 0 : 1);
 }
-  
-string FormatSpeedLimit(double kilometersPerHour, Units units)
-{
-  double unitsPerHour;
-  switch (units)
-  {
-      case Units::Imperial: unitsPerHour = 0.621371192 * kilometersPerHour; break;
-      case Units::Metric: unitsPerHour = kilometersPerHour; break;
-  }
-  return ToStringPrecision(unitsPerHour, unitsPerHour >= 10.0 ? 0 : 1);
-}
 
 string FormatSpeedUnits(Units units)
 {
   switch (units)
   {
-  case Units::Imperial: return " mph";
-  case Units::Metric: return " km/h";
+  case Units::Imperial: return "mph";
+  case Units::Metric: return "km/h";
   }
   UNREACHABLE();
 }
