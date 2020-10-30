@@ -458,9 +458,22 @@ WARN_UNUSED_RESULT inline bool to_int64(char const * s, int64_t & i)
   return internal::ToInteger(s, i);
 }
 
-// Unlike the 64-bit version, to_uint32 will not convert negative values.
-WARN_UNUSED_RESULT bool to_uint32(char const * s, uint32_t & i, int base = 10);
-WARN_UNUSED_RESULT bool to_int32(char const * s, int32_t & i);
+// Unlike the 64-bit version, to_uint32 is not guaranteed to convert negative values.
+// Current implementation conflates fixed-width types (uint32, uint64) with types that have no
+// guarantees on their exact sizes (unsigned long, unsigned long long) so results of internal
+// conversions may differ between platforms.
+// Converting strings representing negative numbers to unsigned integers looks like a bad
+// idea anyway and it's not worth changing the implementation solely for this reason.
+WARN_UNUSED_RESULT inline bool to_uint32(char const * s, uint32_t & i, int base = 10)
+{
+  return internal::ToInteger(s, i, base);
+}
+
+WARN_UNUSED_RESULT inline bool to_int32(char const * s, int32_t & i)
+{
+  return internal::ToInteger(s, i);
+}
+
 WARN_UNUSED_RESULT bool to_size_t(char const * s, size_t & i, int base = 10);
 WARN_UNUSED_RESULT bool to_float(char const * s, float & f);
 WARN_UNUSED_RESULT bool to_double(char const * s, double & d);
