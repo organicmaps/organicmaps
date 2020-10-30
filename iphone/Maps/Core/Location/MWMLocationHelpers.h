@@ -1,5 +1,6 @@
 #import "MWMMyPositionMode.h"
 
+#include "platform/localization.hpp"
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
@@ -12,22 +13,9 @@ namespace location_helpers
 static inline NSString * formattedDistance(double const & meters) {
   if (meters < 0.)
     return nil;
-  
-  auto units = measurement_utils::Units::Metric;
-  settings::TryGet(settings::kMeasurementUnits, units);
 
-  switch (units) {
-    case measurement_utils::Units::Imperial:
-      return @(measurement_utils::FormatDistanceWithLocalization(meters,
-                                                                 [L(@"mile") UTF8String],
-                                                                 [L(@"foot") UTF8String]).c_str());
-      break;
-    case measurement_utils::Units::Metric:
-      return @(measurement_utils::FormatDistanceWithLocalization(meters,
-                                                                 [L(@"kilometer") UTF8String],
-                                                                 [L(@"meter") UTF8String]).c_str());
-      break;
-  }
+  auto const localizedUnits = platform::GetLocalizedDistanceUnits();
+  return @(measurement_utils::FormatDistanceWithLocalization(meters, localizedUnits.m_high, localizedUnits.m_low).c_str());
 }
 
 static inline BOOL isMyPositionPendingOrNoPosition()

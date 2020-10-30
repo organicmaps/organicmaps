@@ -17,6 +17,7 @@
 #include <CoreApi/Framework.h>
 
 #include "platform/local_country_file_utils.hpp"
+#include "platform/localization.hpp"
 
 using namespace routing;
 
@@ -591,8 +592,10 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
       imageData = [NSData dataWithBytes:imageRGBAData.data() length:imageRGBAData.size()];
       router.altitudeImagesData[sizeValue] = imageData;
 
+      auto const localizedUnits = platform::GetLocalizedAltitudeUnits();
       auto const height = maxRouteAltitude - minRouteAltitude;
-      router.altitudeElevation = @(measurement_utils::FormatDistance(height).c_str());
+      router.altitudeElevation =
+        @(measurement_utils::FormatAltitudeWithLocalization(height, localizedUnits.m_low).c_str());
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
