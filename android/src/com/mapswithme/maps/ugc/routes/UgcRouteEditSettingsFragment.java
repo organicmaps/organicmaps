@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +25,8 @@ import java.util.Objects;
 
 public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
 {
+  private static final int TEXT_LENGTH_LIMIT = 60;
+
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarkCategory mCategory;
@@ -65,6 +68,8 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   {
     mEditCategoryNameView = root.findViewById(R.id.edit_category_name_view);
     mEditCategoryNameView.setText(mCategory.getName());
+    InputFilter[] f = { new InputFilter.LengthFilter(TEXT_LENGTH_LIMIT) };
+    mEditCategoryNameView.setFilters(f);
     mEditCategoryNameView.requestFocus();
     mAccessRulesView = root.findViewById(R.id.sharing_options_desc);
     mAccessRulesView.setText(mCategory.getAccessRules().getNameResId());
