@@ -2,8 +2,21 @@
 
 #include "indexer/search_string_utils.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
+
+#include <string>
+
+namespace
+{
+jobject MakeJavaPair(JNIEnv * env, std::string const & first, std::string const & second)
+{
+  static jclass const pairClass = jni::GetGlobalClassRef(env, "android/util/Pair");
+  static jmethodID const pairCtor = jni::GetConstructorID(env, pairClass, "(Ljava/lang/Object;Ljava/lang/Object;)V");
+  return env->NewObject(pairClass, pairCtor, jni::ToJavaString(env,first), jni::ToJavaString(env,second));
+}
+}  // namespace
 
 extern "C"
 {
@@ -39,21 +52,49 @@ Java_com_mapswithme_util_StringUtils_nativeFilterContainsNormalized(JNIEnv * env
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_util_StringUtils_nativeFormatSpeedAndUnits(JNIEnv * env, jclass thiz, jdouble metersPerSecond)
 {
-  static jclass const pairClass = jni::GetGlobalClassRef(env, "android/util/Pair");
-  static jmethodID const pairCtor = jni::GetConstructorID(env, pairClass, "(Ljava/lang/Object;Ljava/lang/Object;)V");
-
   measurement_utils::Units units;
   if (!settings::Get(settings::kMeasurementUnits, units))
     units = measurement_utils::Units::Metric;
-  return env->NewObject(pairClass, pairCtor,
-                        jni::ToJavaString(env, measurement_utils::FormatSpeedNumeric(metersPerSecond, units)),
-                        jni::ToJavaString(env, measurement_utils::FormatSpeedUnits(units)));
+  return MakeJavaPair(env, measurement_utils::FormatSpeedNumeric(metersPerSecond, units),
+                      measurement_utils::FormatSpeedUnits(units));
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_mapswithme_util_StringUtils_nativeFormatDistance(JNIEnv *env, jclass thiz,
+Java_com_mapswithme_util_StringUtils_nativeFormatDistance(JNIEnv * env, jclass thiz,
                                                           jdouble distanceInMeters)
 {
   return jni::ToJavaString(env, measurement_utils::FormatDistance(distanceInMeters));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_util_StringUtils_nativeFormatDistanceWithLocalization(JNIEnv * env, jclass,
+                                                                          jdouble distanceInMeters,
+                                                                          jstring high,
+                                                                          jstring low)
+{
+  auto const distance = measurement_utils::FormatDistanceWithLocalization(distanceInMeters,
+                                                                          jni::ToNativeString(env, high),
+                                                                          jni::ToNativeString(env, low));
+  return jni::ToJavaString(env, distance);
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_util_StringUtils_nativeGetLocalizedDistanceUnits(JNIEnv * env, jclass)
+{
+  auto const localizedUnits = platform::GetLocalizedDistanceUnits();
+  return MakeJavaPair(env, localizedUnits.m_high, localizedUnits.m_low);
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_util_StringUtils_nativeGetLocalizedAltitudeUnits(JNIEnv * env, jclass)
+{
+  auto const localizedUnits = platform::GetLocalizedAltitudeUnits();
+  return MakeJavaPair(env, localizedUnits.m_high, localizedUnits.m_low);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_util_StringUtils_nativeGetLocalizedSpeedUnits(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, platform::GetLocalizedSpeedUnits());
 }
 } // extern "C"

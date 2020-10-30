@@ -9,6 +9,7 @@
 
 #include "coding/zip_creator.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "base/macros.hpp"
@@ -898,8 +899,10 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetTrack(
 
   ASSERT(nTrack, ("Track must not be null with id:)", trackId));
 
-  std::string formattedLength = measurement_utils::FormatDistance(nTrack->GetLengthMeters());
-
+  auto const localizedUnits = platform::GetLocalizedDistanceUnits();
+  std::string formattedLength = measurement_utils::FormatDistanceWithLocalization(nTrack->GetLengthMeters(),
+                                                                                  localizedUnits.m_high,
+                                                                                  localizedUnits.m_low);
   dp::Color nColor = nTrack->GetColor(0);
 
   jint androidColor = shift(nColor.GetAlpha(), 24) +

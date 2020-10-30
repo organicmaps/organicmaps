@@ -4,6 +4,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 
@@ -23,6 +24,15 @@ public class StringUtils
 
   public static native Pair<String, String> nativeFormatSpeedAndUnits(double metersPerSecond);
   public static native String nativeFormatDistance(double meters);
+  public static native String nativeFormatDistanceWithLocalization(double meters,
+                                                                   @NonNull String high,
+                                                                   @NonNull String low);
+  @NonNull
+  public static native Pair<String, String> nativeGetLocalizedDistanceUnits();
+  @NonNull
+  public static native Pair<String, String> nativeGetLocalizedAltitudeUnits();
+  @NonNull
+  public static native String nativeGetLocalizedSpeedUnits();
 
   /**
    * Removes html tags, generated from edittext content after it's transformed to html.
