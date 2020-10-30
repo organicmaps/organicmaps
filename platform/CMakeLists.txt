@@ -37,6 +37,7 @@ set(
   local_country_file_utils.cpp
   local_country_file_utils.hpp
   locale.hpp
+  localization.cpp
   localization.hpp
   location.hpp
   marketing_service.cpp
