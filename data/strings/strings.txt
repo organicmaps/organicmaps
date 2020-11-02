@@ -19545,32 +19545,32 @@
 
   [foot]
     en = ft
-    ru = ft
+    ru = фут
     ar = قدم
-    cs = stop
+    cs = stopa
     da = fod
     nl = voet
     fi = ft
-    fr = pi
+    fr = pied
     de = ft
-    hu = l
+    hu = ft
     id = kaki
     it = ft
     ja = フィート
-    ko = ft
-    nb = ft
+    ko = 풋
+    nb = fot
     pl = ft
     pt = ft
-    ro = ft
-    es = fot
+    ro = picior
+    es = pie
     sv = fot
     th = ฟุต
-    tr = ft
+    tr = fit
     uk = фут
     vi = ft
     zh-Hans = 英尺
     zh-Hant = 英尺
-    sk = ft
+    sk = stopa
     fa = فوت
 
   [miles_per_hour]
