@@ -13,8 +13,10 @@ namespace
 jobject MakeJavaPair(JNIEnv * env, std::string const & first, std::string const & second)
 {
   static jclass const pairClass = jni::GetGlobalClassRef(env, "android/util/Pair");
-  static jmethodID const pairCtor = jni::GetConstructorID(env, pairClass, "(Ljava/lang/Object;Ljava/lang/Object;)V");
-  return env->NewObject(pairClass, pairCtor, jni::ToJavaString(env,first), jni::ToJavaString(env,second));
+  static jmethodID const pairCtor =
+      jni::GetConstructorID(env, pairClass, "(Ljava/lang/Object;Ljava/lang/Object;)V");
+  return env->NewObject(pairClass, pairCtor, jni::ToJavaString(env, first),
+                        jni::ToJavaString(env, second));
 }
 }  // namespace
 
@@ -49,8 +51,8 @@ Java_com_mapswithme_util_StringUtils_nativeFilterContainsNormalized(JNIEnv * env
   return jni::ToJavaStringArray(env, filtered);
 }
 
-JNIEXPORT jobject JNICALL
-Java_com_mapswithme_util_StringUtils_nativeFormatSpeedAndUnits(JNIEnv * env, jclass thiz, jdouble metersPerSecond)
+JNIEXPORT jobject JNICALL Java_com_mapswithme_util_StringUtils_nativeFormatSpeedAndUnits(
+    JNIEnv * env, jclass thiz, jdouble metersPerSecond)
 {
   measurement_utils::Units units;
   if (!settings::Get(settings::kMeasurementUnits, units))
@@ -72,9 +74,8 @@ Java_com_mapswithme_util_StringUtils_nativeFormatDistanceWithLocalization(JNIEnv
                                                                           jstring high,
                                                                           jstring low)
 {
-  auto const distance = measurement_utils::FormatDistanceWithLocalization(distanceInMeters,
-                                                                          jni::ToNativeString(env, high),
-                                                                          jni::ToNativeString(env, low));
+  auto const distance = measurement_utils::FormatDistanceWithLocalization(
+      distanceInMeters, jni::ToNativeString(env, high), jni::ToNativeString(env, low));
   return jni::ToJavaString(env, distance);
 }
 
