@@ -864,7 +864,7 @@
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
-	<string name="foot">ft</string>
+	<string name="foot">picior</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="day">z</string>
 	<string name="hour">o</string>
