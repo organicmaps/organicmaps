@@ -183,4 +183,9 @@ public enum Tutorial
     LOGGER.d(TAG, "tipsApi = " + tipsApi);
     return tipsApi;
   }
+
+  public boolean isLayer()
+  {
+    return this == SUBWAY || this == ISOLINES;
+  }
 }

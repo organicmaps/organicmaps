@@ -2550,6 +2550,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void setTutorial(@NonNull Tutorial tutorial)
   {
     mTutorial = tutorial;
+    if (mTutorial.isLayer())
+      mToggleMapLayerController.turnOff();
     mToggleMapLayerController.setTutorial(tutorial);
   }
 
