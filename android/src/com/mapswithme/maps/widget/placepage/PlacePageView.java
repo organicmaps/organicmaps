@@ -1164,6 +1164,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
       {
         listener.onSetMapObjectComplete(policy, true);
       }
+      detachCountry();
+      setCurrentCountry();
       return;
     }
 
@@ -1203,11 +1205,18 @@ public class PlacePageView extends NestedScrollViewClickFixed
       initEditMapObjectBtn();
       mUgcController.clearViewsFor(mMapObject);
 
-      String country = MapManager.nativeGetSelectedCountry();
-      if (country != null && !RoutingController.get().isNavigating())
-        attachCountry(country);
+      setCurrentCountry();
     }
     refreshViews(policy);
+  }
+
+  private void setCurrentCountry()
+  {
+    if (mCurrentCountry != null)
+      throw new AssertionError("country should be detached before!");
+    String country = MapManager.nativeGetSelectedCountry();
+    if (country != null && !RoutingController.get().isNavigating())
+      attachCountry(country);
   }
 
   private void processSponsored(@NonNull NetworkPolicy policy)
