@@ -461,6 +461,7 @@ private:
     m_genInfo.SetNodeStorageType("map");
     m_genInfo.SetOsmFileType("o5m");
     m_genInfo.m_intermediateDir = base::JoinPath(m_testPath, archiveName, "intermediate_data");
+    m_genInfo.m_cacheDir = base::JoinPath(m_testPath, archiveName, "intermediate_data");
     m_genInfo.m_targetDir = m_genInfo.m_intermediateDir;
     m_genInfo.m_tmpDir = base::JoinPath(m_genInfo.m_intermediateDir, "tmp");
     m_genInfo.m_osmFileName = base::JoinPath(m_testPath, "planet.o5m");
