@@ -817,6 +817,11 @@ public enum Statistics
     public static final String SKYENG = "Skyeng";
     public static final String MTS = "MTS";
     public static final String MASTERCARD_SBERBANK = "MastercardSberbank";
+    public static final String ARSENAL_MEDIC = "Arsenal_telemed";
+    public static final String ARSENAL_FLAT = "Arsenal_flat";
+    public static final String ARSENAL_INSURANCE_CRIMEA = "Arsenal_crimea";
+    public static final String ARSENAL_INSURANCE_RUSSIA = "Arsenal_russia";
+    public static final String ARSENAL_INSURANCE_WORLD = "Arsenal_abroad";
     public static final String WIKIPEDIA = "wikipedia";
     public static final String PREVIEW = "preview";
     public static final String FULL = "full";

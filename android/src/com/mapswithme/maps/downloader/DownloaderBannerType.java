@@ -136,7 +136,107 @@ enum DownloaderBannerType implements StatisticValueConverter<String>
         {
           return R.layout.onmap_downloader_banner_big_logo;
         }
-      };
+      },
+  ARSENAL_MEDIC(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_arsenal,
+                                                          R.string.arsenal_telemed_map_downloader_title,
+                                                          R.string.arsenal_cta_button,
+                                                          R.color.white_primary,
+                                                          R.color.arsenal_button))
+      {
+        @NonNull
+        @Override
+        public String toStatisticValue()
+        {
+          return Statistics.ParamValue.ARSENAL_MEDIC;
+        }
+
+        @LayoutRes
+        @Override
+        int getLayoutId()
+        {
+          return R.layout.onmap_downloader_banner;
+        }
+      },
+  ARSENAL_FLAT(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_arsenal,
+                                                         R.string.arsenal_flat_map_downloader_title,
+                                                         R.string.arsenal_cta_button,
+                                                         R.color.white_primary,
+                                                         R.color.arsenal_button))
+    {
+      @NonNull
+      @Override
+      public String toStatisticValue()
+      {
+        return Statistics.ParamValue.ARSENAL_FLAT;
+      }
+
+      @LayoutRes
+      @Override
+      int getLayoutId()
+      {
+        return R.layout.onmap_downloader_banner;
+      }
+    },
+  ARSENAL_INSURANCE_CRIMEA(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_arsenal,
+                                                                     R.string.arsenal_crimea_map_downloader_title,
+                                                                     R.string.arsenal_cta_button,
+                                                                     R.color.white_primary,
+                                                                     R.color.arsenal_button))
+    {
+      @NonNull
+      @Override
+      public String toStatisticValue()
+      {
+        return Statistics.ParamValue.ARSENAL_INSURANCE_CRIMEA;
+      }
+
+      @LayoutRes
+      @Override
+      int getLayoutId()
+      {
+        return R.layout.onmap_downloader_banner;
+      }
+    },
+  ARSENAL_INSURANCE_RUSSIA(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_arsenal,
+                                                                     R.string.arsenal_russia_map_downloader_title,
+                                                                     R.string.arsenal_cta_button,
+                                                                     R.color.white_primary,
+                                                                     R.color.arsenal_button))
+    {
+      @NonNull
+      @Override
+      public String toStatisticValue()
+      {
+        return Statistics.ParamValue.ARSENAL_INSURANCE_RUSSIA;
+      }
+
+      @LayoutRes
+      @Override
+      int getLayoutId()
+      {
+        return R.layout.onmap_downloader_banner;
+      }
+    },
+  ARSENAL_INSURANCE_WORLD(new DownloaderBannerConfigStrategyPartner(R.drawable.ic_logo_arsenal,
+                                                                    R.string.arsenal_abroad_map_downloader_title,
+                                                                    R.string.arsenal_cta_button,
+                                                                    R.color.white_primary,
+                                                                    R.color.arsenal_button))
+    {
+      @NonNull
+      @Override
+      public String toStatisticValue()
+      {
+        return Statistics.ParamValue.ARSENAL_INSURANCE_WORLD;
+      }
+
+      @LayoutRes
+      @Override
+      int getLayoutId()
+      {
+        return R.layout.onmap_downloader_banner;
+      }
+    };
 
   @NonNull
   private final DownloaderBannerConfigStrategy mViewConfigStrategy;

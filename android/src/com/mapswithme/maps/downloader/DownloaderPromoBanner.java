@@ -35,6 +35,11 @@ public final class DownloaderPromoBanner
       case 7: return DownloaderBannerType.SKYENG;
       case 8: return DownloaderBannerType.BOOKMARK_CATALOG;
       case 9: return DownloaderBannerType.MASTERCARD_SBERBANK;
+      case 11: return DownloaderBannerType.ARSENAL_MEDIC;
+      case 12: return DownloaderBannerType.ARSENAL_FLAT;
+      case 13: return DownloaderBannerType.ARSENAL_INSURANCE_CRIMEA;
+      case 14: return DownloaderBannerType.ARSENAL_INSURANCE_RUSSIA;
+      case 15: return DownloaderBannerType.ARSENAL_INSURANCE_WORLD;
       default: throw new AssertionError("Incorrect core banner type: " + coreValue);
     }
   }
