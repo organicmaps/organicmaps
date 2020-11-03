@@ -31,6 +31,14 @@ class PartnersStyleSheet: IStyleSheet {
       s.cornerRadius = 14
       s.clip = true
     }
+    
+    theme.add(styleName: "Arsenal") { (s) -> (Void) in
+      s.backgroundColor = UIColor(fromHexString: "93C950")
+      s.fontColor = .white
+      s.font = fonts.semibold14
+      s.cornerRadius = 14
+      s.clip = true
+    }
   }
 }
 

@@ -44,6 +44,36 @@ extension PartnerBannerViewModel {
                 button: L("sberbank_map_downloader_cta_button"),
                 style: "Sberbank",
                 type: .multiple)
+    case .arsenalMedic:
+      self.init(images: ["ic_logo_arsenal"],
+                message: L("arsenal_telemed_map_downloader_title"),
+                button: L("arsenal_cta_button"),
+                style: "Arsenal",
+                type: .single)
+    case . arsenalFlat:
+      self.init(images: ["ic_logo_arsenal"],
+                message: L("arsenal_flat_map_downloader_title"),
+                button: L("arsenal_cta_button"),
+                style: "Arsenal",
+                type: .single)
+    case . arsenalInsuranceCrimea:
+      self.init(images: ["ic_logo_arsenal"],
+                message: L("arsenal_crimea_map_downloader_title"),
+                button: L("arsenal_cta_button"),
+                style: "Arsenal",
+                type: .single)
+    case . arsenalInsuranceRussia:
+      self.init(images: ["ic_logo_arsenal"],
+                message: L("arsenal_russia_map_downloader_title"),
+                button: L("arsenal_cta_button"),
+                style: "Arsenal",
+                type: .single)
+    case . arsenalInsuranceWorld:
+      self.init(images: ["ic_logo_arsenal"],
+                message: L("arsenal_abroad_map_downloader_title"),
+                button: L("arsenal_cta_button"),
+                style: "Arsenal",
+                type: .single)
     default:
       return nil
     }

@@ -12,6 +12,11 @@ typedef NS_ENUM(NSInteger, MWMBannerType) {
   MWMBannerTypeBookmarkCatalog,
   MWMBannerTypeMastercardSberbank,
   MWMBannerTypeCitymobil,
+  MWMBannerTypeArsenalMedic,
+  MWMBannerTypeArsenalFlat,
+  MWMBannerTypeArsenalInsuranceCrimea,
+  MWMBannerTypeArsenalInsuranceRussia,
+  MWMBannerTypeArsenalInsuranceWorld,
 };
 
 NS_ASSUME_NONNULL_BEGIN

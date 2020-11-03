@@ -19,9 +19,13 @@ static inline MWMBannerType MatchBannerType(ads::Banner::Type coreType)
   case ads::Banner::Type::Mts: return MWMBannerTypeMts;
   case ads::Banner::Type::Skyeng: return MWMBannerTypeSkyeng;
   case ads::Banner::Type::BookmarkCatalog: return MWMBannerTypeBookmarkCatalog;
-  case ads::Banner::Type::MastercardSberbank:
-    return MWMBannerTypeMastercardSberbank;
+  case ads::Banner::Type::MastercardSberbank: return MWMBannerTypeMastercardSberbank;
   case ads::Banner::Type::Citymobil: return MWMBannerTypeCitymobil;
+  case ads::Banner::Type::ArsenalMedic: return MWMBannerTypeArsenalMedic;
+  case ads::Banner::Type::ArsenalFlat: return MWMBannerTypeArsenalFlat;
+  case ads::Banner::Type::ArsenalInsuranceCrimea: return MWMBannerTypeArsenalInsuranceCrimea;
+  case ads::Banner::Type::ArsenalInsuranceRussia: return MWMBannerTypeArsenalInsuranceRussia;
+  case ads::Banner::Type::ArsenalInsuranceWorld: return MWMBannerTypeArsenalInsuranceWorld;
   }
 }
 

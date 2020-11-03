@@ -280,8 +280,12 @@ using namespace storage;
   case MWMBannerTypeMts: return kStatMts;
   case MWMBannerTypeSkyeng: return kStatSkyeng;
   case MWMBannerTypeBookmarkCatalog: return kStatMapsmeGuides;
-  case MWMBannerTypeMastercardSberbank:
-    return kStatMastercardSberbank;
+  case MWMBannerTypeMastercardSberbank: return kStatMastercardSberbank;
+  case MWMBannerTypeArsenalMedic: return kStatArsenalMedic;
+  case MWMBannerTypeArsenalFlat: return kStatArsenalFlat;
+  case MWMBannerTypeArsenalInsuranceCrimea: return kStatArsenalInsuranceCrimea;
+  case MWMBannerTypeArsenalInsuranceRussia: return kStatArsenalInsuranceRussia;
+  case MWMBannerTypeArsenalInsuranceWorld: return kStatArsenalInsuranceWorld;
   default: return @("");
   }
 }
@@ -297,7 +301,12 @@ using namespace storage;
       case MWMBannerTypeTinkoffInsurance:
       case MWMBannerTypeMts:
       case MWMBannerTypeSkyeng:
-      case MWMBannerTypeMastercardSberbank: {
+      case MWMBannerTypeMastercardSberbank:
+      case MWMBannerTypeArsenalMedic:
+      case MWMBannerTypeArsenalFlat:
+      case MWMBannerTypeArsenalInsuranceCrimea:
+      case MWMBannerTypeArsenalInsuranceRussia:
+      case MWMBannerTypeArsenalInsuranceWorld: {
         __weak __typeof(self) ws = self;
         MWMVoidBlock onClick = ^{
           [ws bannerAction];

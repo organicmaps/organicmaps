@@ -24,6 +24,16 @@ static MWMBannerType ConvertBannerType(ads::Banner::Type coreType) {
       return MWMBannerTypeMastercardSberbank;
     case ads::Banner::Type::Citymobil:
       return MWMBannerTypeCitymobil;
+    case ads::Banner::Type::ArsenalMedic:
+      return MWMBannerTypeArsenalMedic;
+    case ads::Banner::Type::ArsenalFlat:
+      return MWMBannerTypeArsenalFlat;
+    case ads::Banner::Type::ArsenalInsuranceCrimea:
+      return MWMBannerTypeArsenalInsuranceCrimea;
+    case ads::Banner::Type::ArsenalInsuranceRussia:
+      return MWMBannerTypeArsenalInsuranceRussia;
+    case ads::Banner::Type::ArsenalInsuranceWorld:
+      return MWMBannerTypeArsenalInsuranceWorld;
   }
 }
 
