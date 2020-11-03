@@ -124,12 +124,6 @@ UNIT_TEST(ArsenalInsuranceCrimea)
   }
   {
     delegate.SetTopmostParent("Russian Federation");
-    delegate.SetCountryId("Cote dIvoire");
-    auto const banner = arsenalInsuranceCrimea.GetBanner("Crimea", point, "ru");
-    TEST(!banner.empty(), ());
-  }
-  {
-    delegate.SetTopmostParent("Russian Federation");
     delegate.SetCountryId("Russian Federation");
     auto const banner = arsenalInsuranceCrimea.GetBanner("Crimea", point, "ru");
     TEST(!banner.empty(), ());
@@ -218,7 +212,7 @@ UNIT_TEST(ArsenalInsuranceWorld)
   }
   {
     delegate.SetTopmostParent("Slovenia");
-    delegate.SetCountryId("Cote dIvoire");
+    delegate.SetCountryId("Slovenia");
     auto const banner = arsenalInsuranceWorld.GetBanner("Slovenia", point, "ru");
     TEST(!banner.empty(), ());
   }
