@@ -49364,3 +49364,21 @@
   [taxi_category_order]
     en = Order
     ru = Заказать
+
+  [arsenal_telemed_map_downloader_title]
+    en = Онлайн консультации профессиональных врачей 24/7
+
+  [arsenal_flat_map_downloader_title]
+    en = Уезжаешь? Позаботься о своей квартире и соседях.
+
+  [arsenal_crimea_map_downloader_title]
+    en = Туристическая страховка отдыха в Крыму. От 15₽/день
+
+  [arsenal_russia_map_downloader_title]
+    en = Путешествуй по России. Лечение COVID-19 включено!
+
+  [arsenal_abroad_map_downloader_title]
+    en = Полис «Выезд за рубеж». Лечение COVID-19 включено!
+
+  [arsenal_cta_button]
+    en = Оформить полис
