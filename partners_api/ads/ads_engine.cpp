@@ -1,9 +1,9 @@
 #include "partners_api/ads/ads_engine.hpp"
 
+#include "partners_api/ads/arsenal_ads.hpp"
 #include "partners_api/ads/bookmark_catalog_ads.hpp"
 #include "partners_api/ads/citymobil_ads.hpp"
 #include "partners_api/ads/facebook_ads.hpp"
-#include "partners_api/ads/mastercard_sber_ads.hpp"
 #include "partners_api/ads/mopub_ads.hpp"
 #include "partners_api/ads/rb_ads.hpp"
 
@@ -50,8 +50,16 @@ Engine::Engine(std::unique_ptr<Delegate> delegate)
 
   m_searchBanners.emplace_back(Banner::Type::Facebook, std::make_unique<FacebookSearch>());
 
-  m_downloadOnMapBanners.emplace_back(Banner::Type::MastercardSberbank,
-                                      std::make_unique<MastercardSberbank>(*m_delegate));
+  m_downloadOnMapBanners.emplace_back(Banner::Type::ArsenalMedic,
+                                      std::make_unique<ArsenalMedic>(*m_delegate));
+  m_downloadOnMapBanners.emplace_back(Banner::Type::ArsenalFlat,
+                                      std::make_unique<ArsenalFlat>(*m_delegate));
+  m_downloadOnMapBanners.emplace_back(Banner::Type::ArsenalInsuranceCrimea,
+                                      std::make_unique<ArsenalInsuranceCrimea>(*m_delegate));
+  m_downloadOnMapBanners.emplace_back(Banner::Type::ArsenalInsuranceRussia,
+                                      std::make_unique<ArsenalInsuranceRussia>(*m_delegate));
+  m_downloadOnMapBanners.emplace_back(Banner::Type::ArsenalInsuranceWorld,
+                                      std::make_unique<ArsenalInsuranceWorld>(*m_delegate));
   m_downloadOnMapPromo.emplace_back(Banner::Type::BookmarkCatalog,
                                     std::make_unique<BookmarkCatalog>(*m_delegate));
   m_searchCategoryBanners.emplace_back(Banner::Type::Citymobil,

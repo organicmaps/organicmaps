@@ -5,6 +5,7 @@ add_definitions(-DOMIM_UNIT_TEST_WITH_QT_EVENT_LOOP)
 set(
   SRC
   ads_engine_tests.cpp
+  arsenal_tests.cpp
   booking_tests.cpp
   bookmark_catalog_ads_tests.cpp
   citymobil_tests.cpp

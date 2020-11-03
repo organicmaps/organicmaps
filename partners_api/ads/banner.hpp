@@ -29,6 +29,11 @@ struct Banner
     BookmarkCatalog = 8,
     MastercardSberbank = 9,
     Citymobil = 10,
+    ArsenalMedic = 11,
+    ArsenalFlat = 12,
+    ArsenalInsuranceCrimea = 13,
+    ArsenalInsuranceRussia = 14,
+    ArsenalInsuranceWorld = 15,
   };
 
   Banner() = default;
@@ -53,6 +58,11 @@ inline std::string DebugPrint(Banner::Type type)
   case Banner::Type::BookmarkCatalog: return "BookmarkCatalog";
   case Banner::Type::MastercardSberbank: return "MastercardSberbank";
   case Banner::Type::Citymobil: return "Citymobil";
+  case Banner::Type::ArsenalMedic: return "ArsenalMedic";
+  case Banner::Type::ArsenalFlat: return "ArsenalFlat";
+  case Banner::Type::ArsenalInsuranceCrimea: return "ArsenalInsuranceCrimea";
+  case Banner::Type::ArsenalInsuranceRussia: return "ArsenalInsuranceRussia";
+  case Banner::Type::ArsenalInsuranceWorld: return "ArsenalInsuranceWorld";
   }
   UNREACHABLE();
 }

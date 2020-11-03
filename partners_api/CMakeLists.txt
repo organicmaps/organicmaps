@@ -10,6 +10,8 @@ set(
   ads/ads_engine.hpp
   ads/ads_utils.cpp
   ads/ads_utils.hpp
+  ads/arsenal_ads.cpp
+  ads/arsenal_ads.hpp
   ads/banner.hpp
   ads/bookmark_catalog_ads.cpp
   ads/bookmark_catalog_ads.hpp
