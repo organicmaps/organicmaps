@@ -65,16 +65,17 @@ final class SearchCategoriesViewController: MWMTableViewController {
     }
   }
   
-  private func bannerStatProvider() -> String {
-    switch banner!.mwmType {
+  private func bannerStatProvider(_ bannerType: MWMBannerType) -> String {
+    switch bannerType {
       case .citymobil: return kStatCitymobil
       default: return ""
     }
   }
   
   private func createBanner(_ indexPath: IndexPath) -> UITableViewCell {
+    guard let banner = banner else { fatalError("Banner must exist") }
     let cell = tableView.dequeueReusableCell(cell: SearchBannerCell.self, indexPath: indexPath)
-    switch self.banner!.mwmType {
+    switch banner.mwmType {
       case .citymobil:
         cell.configure(icon: "ic_taxi_logo_citymobil",
                        label: L("taxi"),
@@ -84,17 +85,20 @@ final class SearchCategoriesViewController: MWMTableViewController {
     }
     if (!bannerShown) {
       bannerShown = true;
-      Statistics.logEvent(kStatSearchSponsoredShow, withParameters: [kStatProvider: bannerStatProvider()]);
+      let provider = bannerStatProvider(banner.mwmType)
+      Statistics.logEvent(kStatSearchSponsoredShow, withParameters: [kStatProvider: provider]);
     }
     return cell
 
   }
   
   private func openBanner() {
-    if let url = URL(string: banner!.bannerID) {
+    guard let banner = banner else { fatalError("Banner must exist") }
+    if let url = URL(string: banner.bannerID) {
       UIApplication.shared.open(url)
     }
-    Statistics.logEvent(kStatSearchSponsoredSelect, withParameters: [kStatProvider: bannerStatProvider()]);
+    let provider = bannerStatProvider(banner.mwmType)
+    Statistics.logEvent(kStatSearchSponsoredSelect, withParameters: [kStatProvider: provider]);
   }
 }
 

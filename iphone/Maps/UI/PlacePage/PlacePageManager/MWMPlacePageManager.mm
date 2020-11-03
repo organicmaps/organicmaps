@@ -153,7 +153,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   [self closePlacePage];
 }
 
-- (void)taxiShown:(PlacePageData *)data
+- (void)logTaxiShown:(PlacePageData *)data
 {
   NSString * providerString = [MWMPlacePageManager taxiProviderStatisticsString:data.taxiProvider];
   [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{kStatProvider : providerString}];

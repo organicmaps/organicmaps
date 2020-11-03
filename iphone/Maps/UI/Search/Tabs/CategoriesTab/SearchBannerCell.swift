@@ -5,8 +5,8 @@ protocol SearchBannerCellDelegate: AnyObject {
 
 class SearchBannerCell: MWMTableViewCell {
   @IBOutlet var iconView: UIImageView!
-  @IBOutlet weak var labelView: UILabel!
-  @IBOutlet weak var buttonView: UIButton!
+  @IBOutlet var labelView: UILabel!
+  @IBOutlet var buttonView: UIButton!
   
   private weak var delegate: SearchBannerCellDelegate?
   

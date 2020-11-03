@@ -1,6 +1,6 @@
 protocol TaxiViewControllerDelegate: AnyObject {
   func didPressOrder()
-  func didTaxiShown()
+  func didShowTaxi()
 }
 
 class TaxiViewController: UIViewController {
@@ -41,7 +41,7 @@ class TaxiViewController: UIViewController {
       fatalError()
     }
     
-    delegate?.didTaxiShown()
+    delegate?.didShowTaxi()
   }
 
   @IBAction func onOrder(_ sender: UIButton) {
