@@ -2992,12 +2992,6 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     group->SetFileName(fileName);
     group->SetServerId(fileData.m_serverId);
 
-    for (auto const & [compilationId, compilation] : compilations)
-    {
-      UNUSED_VALUE(compilationId);
-      compilation->SetParentId(groupId);
-    }
-
     // Restore sensitive info from the cache.
     auto const cacheIt = m_restoringCache.find(fileName);
     if (cacheIt != m_restoringCache.end() &&
@@ -3009,6 +3003,15 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       group->EnableAutoSave(autoSave);
     }
 
+    for (auto const & [compilationId, compilation] : compilations)
+    {
+      UNUSED_VALUE(compilationId);
+      compilation->SetParentId(groupId);
+      auto const & categoryData = group->GetCategoryData();
+      compilation->SetAccessRules(categoryData.m_accessRules);
+      compilation->SetAuthor(categoryData.m_authorName, categoryData.m_authorId);
+    }
+
     for (auto & bmData : fileData.m_bookmarksData)
     {
       auto const compilationIds = bmData.m_compilations;
@@ -3018,7 +3021,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       for (auto const c : compilationIds)
       {
         auto const it = compilations.find(c);
-        if (it == compilations.cend())
+        if (it == compilations.end())
         {
           LOG(LERROR, ("Incorrect compilation id", c, "into", fileName));
           continue;
