@@ -795,6 +795,12 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("set_list", &VectorAdapter<std::string>::Set)
     .def("__str__", &VectorAdapter<std::string>::ToString);
 
+  class_<std::vector<uint64_t>>("Uint64List")
+    .def(vector_indexing_suite<std::vector<uint64_t>>())
+    .def("get_list", &VectorAdapter<uint64_t>::Get)
+    .def("set_list", &VectorAdapter<uint64_t>::Set)
+    .def("__str__", &VectorAdapter<uint64_t>::ToString);
+
   class_<std::vector<uint32_t>>("Uint32List")
     .def(vector_indexing_suite<std::vector<uint32_t>>())
     .def("get_list", &VectorAdapter<uint32_t>::Get)

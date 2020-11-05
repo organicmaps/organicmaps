@@ -60,6 +60,7 @@ class PyKmlibAdsTest(unittest.TestCase):
         bookmark.nearest_toponym = '12345'
         bookmark.properties.set_dict({'bm_property1':'value1', 'bm_property2':'value2'})
         bookmark.bound_tracks.set_list([0])
+        bookmark.compilations.set_list([1, 2, 3])
 
         layer1 = pykmlib.TrackLayer()
         layer1.line_width = 6.0
