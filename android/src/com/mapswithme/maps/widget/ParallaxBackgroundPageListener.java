@@ -1,138 +1,134 @@
 package com.mapswithme.maps.widget;
 
-import android.app.Activity;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
+import com.mapswithme.maps.purchase.BookmarksAllSubscriptionPageData;
 
 import java.util.Collections;
 import java.util.List;
 
+import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
+import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
+import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
+
 public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeListener
 {
-
-  private static final float MIDDLE_POSITION_OFFSET = 0.5f;
-  private static final int MIDDLE_POSITION_OFFSET_PIXELS = 1;
   private static final float ALPHA_TRANSPARENT = 0;
   private static final float ALPHA_OPAQUE = 1;
-  private static final int MINUS_INFINITY_EDGE = -1;
-  private static final int PLUS_INFINITY_EDGE = 1;
-  private static final float SETTLED_PAGE_POSITION = 0.0f;
+  private static final Float INVALID_OFFSET = -1f;
+  @NonNull
+  private final List<BookmarksAllSubscriptionPageData> mItems;
+  @NonNull
+  private final ImageView mFrontImageView;
+  @NonNull
+  private final ImageView mRearImageView;
+  @NonNull
+  private Direction mDirection = Direction.NONE;
+  private int mState = SCROLL_STATE_IDLE;
+  private int mCurrentPagePosition = 0;
+  private float previousPositionOffset = INVALID_OFFSET;
 
-  @NonNull
-  private final ViewPager mPager;
-  @NonNull
-  private final Activity mActivity;
-  @NonNull
-  private final List<Integer> mItems;
-
-  private int mCurrentPagePosition;
-  private boolean mScrollToRight = true;
-  private boolean mScrollStarted;
-  private boolean mShouldCalculateScrollDirection;
-  @NonNull
-  private final PageViewProvider mPageViewProvider;
-
-  ParallaxBackgroundPageListener(@NonNull Activity activity,
-                                 @NonNull ViewPager pager,
-                                 @NonNull List<Integer> items,
-                                 @NonNull PageViewProvider pageViewProvider)
+  public ParallaxBackgroundPageListener(@NonNull List<BookmarksAllSubscriptionPageData> items,
+                                        @NonNull ImageView frontImageView,
+                                        @NonNull ImageView rearImageView)
   {
-    mPager = pager;
-    mActivity = activity;
     mItems = Collections.unmodifiableList(items);
-    mPageViewProvider = pageViewProvider;
-  }
-
-  public ParallaxBackgroundPageListener(@NonNull FragmentActivity activity,
-                                        @NonNull ViewPager pager,
-                                        @NonNull List<Integer> items)
-  {
-    this(activity, pager, items, PageViewProviderFactory.defaultProvider(activity, pager));
+    mFrontImageView = frontImageView;
+    mRearImageView = rearImageView;
+    setInitialState();
   }
 
   @Override
   public void onPageScrollStateChanged(int state)
   {
-    boolean isIdle = state == ViewPager.SCROLL_STATE_IDLE;
-    if (isIdle)
-      setIdlePosition();
-
-    mScrollStarted  = isIdle && !mScrollStarted;
-
-    if (mScrollStarted)
-      mShouldCalculateScrollDirection = true;
-  }
-
-  private void setIdlePosition()
-  {
-    mCurrentPagePosition = mPager.getCurrentItem();
+    if (mState == SCROLL_STATE_IDLE && state == SCROLL_STATE_DRAGGING)
+      resetDirectionMarker();
+    if (mState == SCROLL_STATE_SETTLING && state == SCROLL_STATE_IDLE)
+      setIdleState();
+    mState = state;
   }
 
   @Override
   public void onPageSelected(int position)
   {
-    if (position == 0)
-      onPageScrollStateChanged(ViewPager.SCROLL_STATE_IDLE);
-
-    if (Math.abs(mCurrentPagePosition - position) > 1)
-      mCurrentPagePosition = mScrollToRight ? Math.max(0, position - 1)
-                                            : Math.min(position + 1, mItems.size() - 1);
+    mCurrentPagePosition = position;
   }
 
   @Override
   public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
   {
-    if (mShouldCalculateScrollDirection)
-    {
-      mScrollToRight =
-          MIDDLE_POSITION_OFFSET > positionOffset && positionOffsetPixels > MIDDLE_POSITION_OFFSET_PIXELS;
-      mShouldCalculateScrollDirection = false;
-    }
-
-    int scrollX = mPager.getScrollX();
-    int animatedItemIndex = mScrollToRight ? Math.min(mCurrentPagePosition, mItems.size() - 1)
-                                           : Math.max(0, mCurrentPagePosition - 1);
-    setAlpha(animatedItemIndex, scrollX);
-
-    if (scrollX == 0)
-      restoreInitialAlphaValues();
+    if (positionOffset != 0 && setupDirection(position, positionOffset))
+      mFrontImageView.setAlpha(ALPHA_OPAQUE - positionOffset);
   }
 
-  private void setAlpha(int animatedItemIndex, int scrollX)
+  private void setInitialState()
   {
-    View view = mPageViewProvider.findViewByIndex(animatedItemIndex);
-    if (view == null)
-      return;
+    mFrontImageView.setImageResource(mItems.get(0).getImageId());
+    mRearImageView.setImageResource(mItems.get(1).getImageId());
+  }
 
-    ViewPager.LayoutParams lp = (ViewPager.LayoutParams) view.getLayoutParams();
-    if (lp.isDecor)
-      return;
+  private void prepareForwardDirection(int position)
+  {
+    mRearImageView.setImageResource(mItems.get(position + 1).getImageId());
+  }
 
-    float transformPos = (float) (view.getLeft() - scrollX) / (float) getPagerWidth();
-    ImageView currentImage = mActivity.findViewById(mItems.get(animatedItemIndex));
-    if (transformPos <= MINUS_INFINITY_EDGE || transformPos >= PLUS_INFINITY_EDGE)
-      currentImage.setAlpha(ALPHA_TRANSPARENT);
-    else if (transformPos == SETTLED_PAGE_POSITION)
-      currentImage.setAlpha(ALPHA_OPAQUE);
+  private void prepareBackwardDirection(int position)
+  {
+    mRearImageView.setImageResource(mItems.get(mCurrentPagePosition).getImageId());
+    mFrontImageView.setAlpha(ALPHA_TRANSPARENT);
+    mFrontImageView.setImageResource(mItems.get(position).getImageId());
+  }
+
+  private void setIdleState()
+  {
+    mDirection = Direction.NONE;
+    mFrontImageView.setImageResource(mItems.get(mCurrentPagePosition).getImageId());
+    mFrontImageView.setAlpha(ALPHA_OPAQUE);
+  }
+
+  private void resetDirectionMarker()
+  {
+    previousPositionOffset = INVALID_OFFSET;
+  }
+
+  private boolean setupDirection(int position, float positionOffset)
+  {
+    if (previousPositionOffset == INVALID_OFFSET)
+    {
+      previousPositionOffset = positionOffset;
+      return false;
+    }
+    Direction newDirection;
+    if (previousPositionOffset < positionOffset && mCurrentPagePosition >= position)
+      newDirection = Direction.FORWARD;
     else
-      currentImage.setAlpha(ALPHA_OPAQUE - Math.abs(transformPos));
+      newDirection = Direction.BACKWARD;
+    if (newDirection == mDirection)
+      return true;
+    switchDirection(newDirection, position);
+    return true;
   }
 
-  private void restoreInitialAlphaValues()
+  private void switchDirection(@NonNull Direction direction, int position)
   {
-    for (int j = mItems.size() - 1; j >= 0; j--)
+    switch (direction)
     {
-      View view = mActivity.findViewById(mItems.get(j));
-      view.setAlpha(ALPHA_OPAQUE);
+      case NONE:
+        break;
+      case FORWARD:
+        prepareForwardDirection(position);
+        break;
+      case BACKWARD:
+        prepareBackwardDirection(position);
+        break;
     }
+    mDirection = direction;
   }
 
-  private int getPagerWidth()
+  private enum Direction
   {
-    return mPager.getMeasuredWidth() - mPager.getPaddingLeft() - mPager.getPaddingRight();
+    NONE, FORWARD, BACKWARD
   }
 }

@@ -15,17 +15,17 @@ import com.mapswithme.maps.databinding.FragmentBookmarksAllSubscriptionBinding;
 
 import java.util.Objects;
 
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionFragment.BUNDLE_DATA;
+
 public class BookmarksAllSubscriptionPageFragment extends Fragment
 {
-  private static final String BUNDLE_INDEX = "index";
-
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    int index = Objects.requireNonNull(getArguments()).getInt(BUNDLE_INDEX);
-    BookmarksAllSubscriptionPage page = BookmarksAllSubscriptionPage.values()[index];
+    BookmarksAllSubscriptionPageData data = Objects.requireNonNull(getArguments()).getParcelable(BUNDLE_DATA);
+    BookmarksAllSubscriptionPage page = data.getPage();
     FragmentBookmarksAllSubscriptionBinding binding = makeBinding(inflater, container);
     binding.setPage(page);
     binding.description.setText(Html.fromHtml(getString(page.getDescriptionId())));
@@ -40,11 +40,11 @@ public class BookmarksAllSubscriptionPageFragment extends Fragment
   }
 
   @NonNull
-  static Fragment newInstance(int index)
+  static Fragment newInstance(BookmarksAllSubscriptionPageData data)
   {
     BookmarksAllSubscriptionPageFragment fragment = new BookmarksAllSubscriptionPageFragment();
     Bundle args = new Bundle();
-    args.putInt(BUNDLE_INDEX, index);
+    args.putParcelable(BUNDLE_DATA, data);
     fragment.setArguments(args);
     return fragment;
   }

@@ -8,11 +8,17 @@ import androidx.fragment.app.FragmentActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.GUIDES;
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.LONELY;
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.BOOKMARKS;
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.ELEVATION;
+
 public class BookmarksAllSubscriptionActivity extends BaseMwmFragmentActivity
 {
   public static void startForResult(@NonNull FragmentActivity activity)
   {
     Intent intent = new Intent(activity, BookmarksAllSubscriptionActivity.class);
+    addBookmarkAllSubscriptionExtra(intent);
     activity.startActivityForResult(intent, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
   }
 
@@ -34,6 +40,13 @@ public class BookmarksAllSubscriptionActivity extends BaseMwmFragmentActivity
     Intent intent = new Intent(fragment.getActivity(), BookmarksAllSubscriptionActivity.class);
     intent.putExtra(AbstractBookmarkSubscriptionFragment.EXTRA_FROM, from)
           .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    addBookmarkAllSubscriptionExtra(intent);
     fragment.startActivityForResult(intent, requestCode);
+  }
+
+  private static void addBookmarkAllSubscriptionExtra(Intent intent)
+  {
+    intent.putExtra(BookmarksAllSubscriptionFragment.BUNDLE_DATA,
+                    new BookmarkAllSubscriptionData(GUIDES, BOOKMARKS, ELEVATION, LONELY));
   }
 }

@@ -18,11 +18,18 @@ import com.mapswithme.maps.widget.ParallaxBackgroundViewPager;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @SuppressWarnings("WeakerAccess")
 public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscriptionFragment
 {
+  public static final String BUNDLE_DATA = "data";
+
+  @NonNull
+  private List<BookmarksAllSubscriptionPage> mPageOrderList = Collections.emptyList();
+
   @NonNull
   @Override
   PurchaseController<PurchaseCallback> createPurchaseController()
@@ -35,6 +42,15 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
   SubscriptionFragmentDelegate createFragmentDelegate(@NonNull AbstractBookmarkSubscriptionFragment fragment)
   {
     return new TwoButtonsSubscriptionFragmentDelegate(fragment);
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.onCreate(savedInstanceState);
+    BookmarkAllSubscriptionData data = Objects
+        .requireNonNull(getArguments().getParcelable(BUNDLE_DATA));
+    mPageOrderList = data.getOrderList();
   }
 
   @Nullable
@@ -72,45 +88,60 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
 
   private void initViewPager(@NonNull View root)
   {
-    final List<Integer> items = makeItems();
-
+    final List<BookmarksAllSubscriptionPageData> items = makeItems();
     ParallaxBackgroundViewPager viewPager = root.findViewById(R.id.pager);
-    PagerAdapter adapter = new ParallaxFragmentPagerAdapter(requireFragmentManager(),
-                                                            items);
+    PagerAdapter adapter = new ParallaxFragmentPagerAdapter(requireFragmentManager(), items);
     viewPager.setAdapter(adapter);
-    ViewPager.OnPageChangeListener listener = new ParallaxBackgroundPageListener(requireActivity(),
-                                                                                 viewPager, items);
+    ViewPager.OnPageChangeListener listener =
+        new ParallaxBackgroundPageListener(items, root.findViewById(R.id.img2),
+                                           root.findViewById(R.id.img1));
     viewPager.addOnPageChangeListener(listener);
     viewPager.startAutoScroll();
   }
 
   @NonNull
-  private static List<Integer> makeItems()
+  private List<BookmarksAllSubscriptionPageData> makeItems()
   {
-    List<Integer> items = new ArrayList<>();
-    items.add(R.id.img4);
-    items.add(R.id.img3);
-    items.add(R.id.img2);
-    items.add(R.id.img1);
+    List<BookmarksAllSubscriptionPageData> items = new ArrayList<>();
+    for (BookmarksAllSubscriptionPage page : mPageOrderList)
+    {
+      int resId = 0;
+      switch (page)
+      {
+        case GUIDES:
+          resId = R.drawable.all_pass_premium_60;
+          break;
+        case BOOKMARKS:
+          resId = R.drawable.all_pass_premium_62;
+          break;
+        case ELEVATION:
+          resId = R.drawable.all_pass_premium_61;
+          break;
+        case LONELY:
+          resId = R.drawable.all_pass_premium_63;
+          break;
+      }
+      items.add(new BookmarksAllSubscriptionPageData(resId, page));
+    }
     return items;
   }
 
-  private class ParallaxFragmentPagerAdapter extends FragmentPagerAdapter
+  private static class ParallaxFragmentPagerAdapter extends FragmentPagerAdapter
   {
     @NonNull
-    private final List<Integer> mItems;
+    private final List<BookmarksAllSubscriptionPageData> mItems;
 
     ParallaxFragmentPagerAdapter(@NonNull FragmentManager fragmentManager,
-                                 @NonNull List<Integer> items)
+                                 @NonNull List<BookmarksAllSubscriptionPageData> items)
     {
-      super(fragmentManager);
+      super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
       mItems = items;
     }
 
     @Override
     public Fragment getItem(int i)
     {
-      return BookmarksAllSubscriptionPageFragment.newInstance(i);
+      return BookmarksAllSubscriptionPageFragment.newInstance(mItems.get(i));
     }
 
     @Override
