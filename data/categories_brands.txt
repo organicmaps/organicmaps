@@ -180,6 +180,7 @@ ja:エクセルシオール カフェ|エクセルシオールカフェ|Ekuserus
 
 brand.first_kitchen
 en:First Kitchen
+ja:ファーストキッチン
 
 brand.freshness_burger
 en:Freshness Burger
@@ -349,7 +350,7 @@ ja:丸亀製麺|丸亀饂飩|Marugame-seimen
 
 brand.matsunoya
 en:Matsunoya
-ja:松乃家
+ja:松乃家|松のや
 
 brand.matsuya
 en:Matsuya
