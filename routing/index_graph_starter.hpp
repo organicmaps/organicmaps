@@ -189,7 +189,6 @@ public:
   // Start or finish ending information.
   struct Ending
   {
-    bool OverlapsWithMwm(NumMwmId mwmId) const;
     void FillMwmIds();
     // Fake segment id.
     uint32_t m_id = 0;

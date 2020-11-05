@@ -32,11 +32,6 @@ void FillNumMwmIds(set<Segment> const & segments, set<NumMwmId> & mwms)
 namespace routing
 {
 // IndexGraphStarter::Ending -----------------------------------------------------------------------
-bool IndexGraphStarter::Ending::OverlapsWithMwm(NumMwmId mwmId) const
-{
-  return m_mwmIds.find(mwmId) != m_mwmIds.cend();
-}
-
 void IndexGraphStarter::Ending::FillMwmIds()
 {
   for (auto const & segment : m_real)
