@@ -25,6 +25,7 @@
 #include "pyhelpers/module_version.hpp"
 
 #include <fstream>
+#include <limits>
 #include <map>
 #include <string>
 
@@ -41,6 +42,8 @@ namespace
 class Mwm;
 class MwmIter;
 
+uint32_t const kInvalidIndex = std::numeric_limits<uint32_t>::max();
+
 class FeatureTypeWrapper
 {
 public:
@@ -55,7 +58,10 @@ public:
   bp::list GetTypes()
   {
     bp::list types;
-    m_feature->ForEachType([&](auto t) { types.append(classif().GetIndexForType(t)); });
+    m_feature->ForEachType([&](auto t) {
+      // A type can be invalid because the type was marked as deprecated in mapcss file.
+      types.append(classif().IsTypeValid(t) ? classif().GetIndexForType(t) : kInvalidIndex);
+    });
     return types;
   }
 
@@ -426,7 +432,9 @@ BOOST_PYTHON_MODULE(pygen)
 
     bp::def(
         "readable_type", +[](uint32_t index) {
-          return classif().GetReadableObjectName(classif().GetTypeForIndex(index));
+          return index == kInvalidIndex
+                     ? "unknown"
+                     : classif().GetReadableObjectName(classif().GetTypeForIndex(index));
         });
   }
 }
