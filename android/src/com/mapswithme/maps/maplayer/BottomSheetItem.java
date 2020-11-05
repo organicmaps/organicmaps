@@ -64,7 +64,8 @@ public abstract class BottomSheetItem
     public static BottomSheetItem makeInstance(@NonNull Context mContext)
     {
       int disabled = ThemeUtils.getResource(mContext, R.attr.subwayMenuDisabled);
-      return new Subway(R.drawable.ic_subway_menu_on, disabled);
+      int enabled = ThemeUtils.getResource(mContext, R.attr.subwayMenuEnabled);
+      return new Subway(enabled, disabled);
     }
   }
 
@@ -78,8 +79,8 @@ public abstract class BottomSheetItem
     public static BottomSheetItem makeInstance(@NonNull Context mContext)
     {
       int disabled = ThemeUtils.getResource(mContext, R.attr.trafficMenuDisabled);
-
-      return new Traffic(R.drawable.ic_traffic_menu_on, disabled);
+      int enabled = ThemeUtils.getResource(mContext, R.attr.trafficMenuEnabled);
+      return new Traffic(enabled, disabled);
     }
   }
 
@@ -93,8 +94,8 @@ public abstract class BottomSheetItem
     public static BottomSheetItem makeInstance(@NonNull Context mContext)
     {
       int disabled = ThemeUtils.getResource(mContext, R.attr.isoLinesMenuDisabled);
-
-      return new Isolines(R.drawable.ic_planning_route_isomaps_dark_on, disabled);
+      int enabled = ThemeUtils.getResource(mContext, R.attr.isoLinesMenuEnabled);
+      return new Isolines(enabled, disabled);
     }
   }
 
@@ -108,8 +109,8 @@ public abstract class BottomSheetItem
     public static BottomSheetItem makeInstance(@NonNull Context mContext)
     {
       int disabled = ThemeUtils.getResource(mContext, R.attr.guidesMenuDisabled);
-
-      return new Guides(R.drawable.guides_layer_active_light, disabled);
+      int enabled = ThemeUtils.getResource(mContext, R.attr.guidesMenuEnabled);
+      return new Guides(enabled, disabled);
     }
   }
 }

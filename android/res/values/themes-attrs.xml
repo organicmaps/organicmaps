@@ -131,6 +131,7 @@
   <declare-styleable name="ThemeAttrs.GuidesGallery">
     <attr name="guidesIcon" format="reference" />
     <attr name="guidesMenuDisabled" format="reference" />
+    <attr name="guidesMenuEnabled" format="reference" />
     <attr name="bgBoughtContent" format="reference" />
     <attr name="subtitleCityColor" format="color" />
     <attr name="subtitleOutdoorColor" format="color" />

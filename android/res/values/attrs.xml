@@ -70,6 +70,9 @@
   <attr name="trafficMenuDisabled" format="reference"/>
   <attr name="subwayMenuDisabled" format="reference"/>
   <attr name="isoLinesMenuDisabled" format="reference"/>
+  <attr name="trafficMenuEnabled" format="reference"/>
+  <attr name="subwayMenuEnabled" format="reference"/>
+  <attr name="isoLinesMenuEnabled" format="reference"/>
   <attr name="accentColorSelector" format="color"/>
   <attr name="accentDot" format="reference"/>
   <attr name="bookingFilterTitleColor" format="color"/>
@@ -81,7 +84,6 @@
   <attr name="bookmarkSubscriptionCardEdge" format="reference"/>
   <attr name="bookmarkSubscriptionCardBg" format="color"/>
   <attr name="bookmarkSubscriptionCardTextColor" format="color"/>
-
   <attr name="imgPromoBookingTitle" format="reference"/>
 
   <declare-styleable name="AnchorBottomSheetBehavior_Layout">
