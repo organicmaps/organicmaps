@@ -100,10 +100,10 @@ public class SearchFilterController implements SearchToolbarController.FilterPar
     initListeners();
   }
 
-  public void show(boolean show, boolean showPopulateButton)
+  public void show(boolean show)
   {
-    UiUtils.showIf(show && (showPopulateButton || mHotelMode), mFrame);
-    showPopulateButton(showPopulateButton);
+    UiUtils.showIf(show, mFrame);
+    showPopulateButton(true);
   }
 
   void showPopulateButton(boolean show)

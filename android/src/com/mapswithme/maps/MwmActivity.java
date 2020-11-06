@@ -1398,7 +1398,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mFilterController != null && (filter != null || params != null))
     {
       mFilterController.updateFilterButtonsVisibility(true);
-      mFilterController.show(!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()), true);
+      mFilterController.show(!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()));
       mFilterController.setFilter(filter);
       mFilterController.setFilterParams(params);
       return true;
@@ -2202,7 +2202,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       boolean show = visible && !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery())
                      && !RoutingController.get().isNavigating();
-      mFilterController.show(show, true);
+      mFilterController.show(show);
       mMainMenu.show(!show);
     }
   }
@@ -2245,7 +2245,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mSearchController.clear();
       mSearchController.hide();
       if (mFilterController != null)
-        mFilterController.show(false, true);
+        mFilterController.show(false);
     }
   }
 
