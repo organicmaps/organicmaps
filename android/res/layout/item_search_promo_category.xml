@@ -49,7 +49,7 @@
     android:textSize="@dimen/text_size_body_4"
     android:textColor="?android:textColorSecondary"
     android:textAllCaps="true"
-    android:background="?adsActionBackground"
+    android:background="?searchCategoryAdsActionBackground"
     android:foreground="?clickableBackground"
     android:text="@string/install_app"
     tools:visibility="visible"

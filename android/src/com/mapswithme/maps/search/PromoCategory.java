@@ -76,7 +76,8 @@ public enum PromoCategory
         @DrawableRes
         int getIconId(boolean isNightTheme)
         {
-          return isNightTheme ? R.drawable.ic_logo_citymobil_night : R.drawable.ic_logo_citymobil;
+          return isNightTheme ? R.drawable.ic_logo_citymobil_category_night
+                              : R.drawable.ic_logo_citymobil_category;
         }
 
         @NonNull

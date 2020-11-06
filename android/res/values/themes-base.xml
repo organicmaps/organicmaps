@@ -99,6 +99,7 @@
     <item name="adsBackground">@drawable/bg_ads</item>
     <item name="adsText">@color/text_ads_color</item>
     <item name="adsActionBackground">@drawable/bg_ads_action</item>
+    <item name="searchCategoryAdsActionBackground">@drawable/bg_search_category_ad_action</item>
     <item name="textBannerTitle">@color/black_secondary</item>
 
     <item name="steadyIconTint">@color/black_secondary</item>
@@ -306,6 +307,7 @@
     <item name="adsBackground">@drawable/bg_ads_night</item>
     <item name="adsText">@color/text_ads_color_night</item>
     <item name="adsActionBackground">@drawable/bg_ads_action_night</item>
+    <item name="searchCategoryAdsActionBackground">@drawable/bg_ads_action_night</item>
     <item name="textBannerTitle">@color/bg_primary_night</item>
 
     <item name="steadyIconTint">@color/white_secondary</item>

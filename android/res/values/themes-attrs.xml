@@ -61,6 +61,7 @@
     <attr name="adsBackground" format="reference" />
     <attr name="adsText" format="color" />
     <attr name="adsActionBackground" format="reference" />
+    <attr name="searchCategoryAdsActionBackground" format="reference" />
     <attr name="textBannerTitle" format="color" />
     <attr name="steadyIconTint" format="color" />
     <attr name="steadyIconBackground" format="reference" />

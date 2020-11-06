@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_pressed="true">
+    <shape android:shape="rectangle">
+      <corners android:radius="@dimen/placepage_banner_small_action_corner" />
+      <solid android:color="@color/black_24" />
+      <padding android:bottom="@dimen/placepage_banner_button_margin_top" android:left="@dimen/margin_half" android:right="@dimen/margin_half" android:top="@dimen/placepage_banner_button_margin_top" />
+    </shape>
+  </item>
+  <item android:state_pressed="false">
+    <shape android:shape="rectangle">
+      <corners android:radius="@dimen/placepage_banner_small_action_corner" />
+      <solid android:color="@color/black_12" />
+      <padding android:bottom="@dimen/placepage_banner_button_margin_top" android:left="@dimen/margin_half" android:right="@dimen/margin_half" android:top="@dimen/placepage_banner_button_margin_top" />
+    </shape>
+  </item>
+</selector>
