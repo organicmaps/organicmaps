@@ -104,15 +104,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   public void updateState(boolean shouldAutoDownload)
   {
     updateStateInternal(shouldAutoDownload);
-
-    if (mPromoBanner == null || !isMapDownloading(mCurrentCountry))
-      return;
-
-    Statistics.ParameterBuilder builder =
-        Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
-                                                    mCurrentCountry.id);
-
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_SHOW, builder);
   }
 
   private static boolean isMapDownloading(@Nullable CountryItem country)
@@ -308,6 +299,12 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     button.setOnClickListener(new BannerCallToActionListener());
 
     UiUtils.show(mPromoContentDivider, mBannerFrame);
+
+    Statistics.ParameterBuilder builder =
+        Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
+                                                    mCurrentCountry.id);
+
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_SHOW, builder);
   }
 
   @Override
