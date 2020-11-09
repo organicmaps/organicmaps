@@ -346,7 +346,7 @@ hu:Éjjeli élet
 id:Kehidupan Malam
 it:Vita notturna
 ja:ナイトライフ
-ko:유흥|나이트 라이프||밤의 생활
+ko:유흥|나이트 라이프|밤의 생활
 nb:Nattliv
 pl:Życie nocne
 pt:Convívio à noite
@@ -736,7 +736,6 @@ de:Tankstation|Tankstelle
 hu:3Benzinkút|benzin
 id:Pompa bensin
 ja:ガスステーション|ガス|燃料|軽油|給油
-ko:1주유소
 nb:3Bensinstasjon
 pl:3Benzyna|4paliwo
 pt:Gás
@@ -901,7 +900,7 @@ hu:Kertészet|Kertészeti áruház
 id:Penitipan anak
 it:Vivaio|articoli da giardinaggio
 ja:保育園|託児所
-ko:식물 상점|원예 용품점
+ko:식물 상점|원예 용품점|원예
 nb:Planteskole|hagesenter
 pl:Sklep ogrodniczy
 pt:Creche|infantário
@@ -933,7 +932,7 @@ hu:Mobiltelefon üzlet|elektronikai szaküzlet
 id:Toko telepon
 it:Negozio di telefonia mobile|negozio di elettronica
 ja:携帯ショップ
-ko:휴대폰 대리점|핸드폰|전자제품 상점
+ko:휴대폰 대리점|핸드폰|전자제품 상점|전자제품
 nb:Mobiltelefonbutikk|elektronikkbutikk
 pl:Sklep z elektroniką|sklep elektroniczny
 pt:Loja de telemóveis|loja de aparelhos eletrónicos
@@ -1126,7 +1125,7 @@ hu:Cipőbolt
 id:Toko sepatu
 it:Negozio di scarpe
 ja:靴屋|お買い物|ショップ|商店|雑貨
-ko:신발 가게|신발가게|구두가게
+ko:신발 가게|신발가게|구두가게|신발|구두
 nb:Skobutikk
 pl:Sklep obuwniczy|towary
 pt:Sapataria|loja de calçados|2loja
@@ -1384,7 +1383,7 @@ hu:Sporteszközök
 id:Barang olahraga
 it:Negozio sportivo|negozio articoli sportivi
 ja:スポーツ用品店|お買い物|ショップ|商店|雑貨
-ko:스포츠 가게|스포츠 용품
+ko:스포츠 가게|스포츠 용품|스포츠
 nb:Sportsutstyr
 pl:Sklep sportowy|towary
 pt:Artigos esportivos|2loja
@@ -1416,7 +1415,7 @@ hu:3Szupermarket
 id:3Supermarket
 it:3Supermercato
 ja:1スーパーマーケット|ショップ|お買い物|商店|スーパー
-ko:1수퍼마켓|슈퍼마켓
+ko:수퍼마켓|슈퍼마켓
 nb:3Supermarked
 pl:4Supermarket|zakupy
 pt:3Supermercado
@@ -1547,7 +1546,7 @@ hu:Számítógépüzlet
 id:Toko komputer
 it:Negozio di computer|negozio di articoli informatici
 ja:コンピュータショップ
-ko:컴퓨터 판매점|컴퓨터 가게
+ko:컴퓨터 판매점|컴퓨터 가게|컴퓨터
 nb:Databutikk
 pl:Sklep komputerowy
 pt:Loja de informática
@@ -1579,7 +1578,7 @@ hu:Cukrászüzlet|édességbolt
 id:Penganan|manisan
 it:Pasticceria|drogheria
 ja:菓子類|菓子屋
-ko:과저점|디저트점|페이스트리|콘펙셔너리|사탕|과자|제과점|베이커리
+ko:과저점|디저트점|페이스트리|컨펙셔너리|사탕|과자|제과점|베이커리
 nb:Søtsaker|godtebutikk
 pl:Sklep ze słodyczami
 pt:Confeitaria|loja de doces
@@ -1803,7 +1802,7 @@ de:Kiosk
 hu:Trafik
 it:Chiosco
 ja:1キオスク|売店
-ko:키오스크|정자
+ko:키오스크
 pl:Kiosk|gazety|prasa
 pt:Loja
 pt-BR:Quiosque
@@ -1897,7 +1896,7 @@ hu:2Buszpályaudvar|Buszállomás|2busz|megálló
 id:3Stasiun bus
 it:Autostazione|fermata|autobus
 ja:1バスステーション|バス|駅|乗合|トランスポート|バス停|高速バス|乗車|停留所|ばす
-ko:1버스 터미널|버스 정류장|버스
+ko:버스 터미널|버스 정류장|버스
 nb:3Busstasjon
 pl:2Stacja autobusowa|Zajezdnia
 pt:2Estação rodoviária
@@ -2453,7 +2452,7 @@ hu:Zsinagóga|imaház
 id:Sinagoge|tempat ibadah
 it:Sinagoga|tempio
 ja:ユダヤ教会|シナゴーグ|寺院|神社|仏閣|神殿|お寺
-ko:시나고그|유태교 회당
+ko:시나고그|유대교 회당
 nb:Synagoge|gudshus
 pl:Synagoga|świątynia
 pt:Sinagoga|templo|local de culto
@@ -3099,7 +3098,7 @@ hu:Főiskola
 id:Kampus
 it:Collegio
 ja:1大学|カレッジ
-ko:칼리지|대학
+ko:칼리지|대학|대학교
 nb:Høyskole
 pl:Szkoła wyższa|college
 pt:Faculdade
@@ -3263,7 +3262,7 @@ de:4Krankenhaus
 hu:4Kórház
 id:Rumahsakit|Rumah sakit
 it:4Ospedale
-ja:病a院
+ja:病院
 ko:병원|개인병원|클리닉|의사|의사가
 nb:Sykehus
 pl:4Szpital
@@ -3450,7 +3449,7 @@ hu:Óvoda
 id:Taman kanak-kanak
 it:Scuola materna
 ja:1幼稚園|保育園|託児|託児所
-ko:유치원
+ko:유치원|보육|탁아소
 nb:Barnehage
 pl:4Przedszkole|dzieci|zerówka
 pt:Jardim de infância
@@ -4327,7 +4326,7 @@ hu:Kisváros
 id:Kota
 it:Città
 ja:町|村
-ko:타운|도시
+ko:도시|타운
 nb:By
 pl:Miasteczko|miasto
 pt:Cidade
@@ -4594,7 +4593,7 @@ hu:Falu
 id:Desa
 it:Villaggio
 ja:村
-ko:마을|작은 마을
+ko:작은 마을|마을
 nb:Landsby
 pl:Wioska|wieś
 pt:Aldeia
@@ -4962,7 +4961,7 @@ de:Teich|Wasserbecken
 hu:Tavacska|víz
 id:Kolam
 it:Stagno|bacino
-ja:1池|연못
+ja:池
 ko:연못이|연못
 nb:Dam|vann
 pl:3Staw|woda
@@ -5132,7 +5131,7 @@ hu:3Turistaszálló|Ifjúsági szálló|szállás
 id:Hostel
 it:3Ostello
 ja:1ホステル|宿泊|宿|民宿
-ko:호스텔|호스텔|게스트하우스|모텔
+ko:호스텔|게스트하우스|모텔
 nb:Vandrerhjem
 pl:4Hostel|4motel
 pt:3Hostel|3Pousada|motel|Albergue
@@ -5420,7 +5419,7 @@ hu:Sportközpont|sport
 id:Olahraga
 it:Centro sportivo|sport
 ja:1スポーツセンター|スポーツ|体育館|総合体育館
-ko:스포츠 센터
+ko:스포츠 센터|스포츠
 nb:Sportssenter
 pl:Centrum sportowe|sport
 pt:Desporto|sport
@@ -6172,7 +6171,7 @@ hu:Fényképész|fényképész stúdió
 id:Juru foto
 it:Fotografo|studio di fotografia
 ja:写真家|写真撮影スタジオ
-ko:사진작가|사진가|사진 스튜디오|
+ko:사진작가|사진가|사진 스튜디오
 nb:Fotograf|fotostudio
 pl:Studio fotograficzne|3fotograf
 pt:Fotógrafo|estúdio de fotografia
