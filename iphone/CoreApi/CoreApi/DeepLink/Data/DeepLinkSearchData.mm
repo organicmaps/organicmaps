@@ -4,10 +4,10 @@
 #include "geometry/mercator.hpp"
 
 @implementation DeepLinkSearchData
-- (instancetype)init:(DeeplinkUrlType)result success:(BOOL)success {
+- (instancetype)init:(DeeplinkUrlType)urlType success:(BOOL)success {
   self = [super init];
   if (self) {
-    _result = result;
+    _urlType = urlType;
     _success = success;
     auto const &request = GetFramework().GetParsedSearchRequest();
     _query = [@((request.m_query + " ").c_str()) stringByRemovingPercentEncoding];

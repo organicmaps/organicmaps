@@ -5,11 +5,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeepLinkSubscriptionData : NSObject <IDeepLinkData>
 
-@property(nonatomic, readonly) DeeplinkUrlType result;
+@property(nonatomic, readonly) DeeplinkUrlType urlType;
 @property(nonatomic, readonly) BOOL success;
 @property(nonatomic, readonly) NSString *groups;
 
-- (instancetype)init:(DeeplinkUrlType)result success:(BOOL)success;
+- (instancetype)init:(DeeplinkUrlType)urlType success:(BOOL)success;
 
 @end
 

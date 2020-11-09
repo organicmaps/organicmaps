@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeepLinkSearchData : NSObject <IDeepLinkData>
 
-@property(nonatomic, readonly) DeeplinkUrlType result;
+@property(nonatomic, readonly) DeeplinkUrlType urlType;
 @property(nonatomic, readonly) BOOL success;
 @property(nonatomic, readonly) NSString *query;
 @property(nonatomic, readonly) NSString *locale;
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) double centerLon;
 @property(nonatomic, readonly) BOOL isSearchOnMap;
 
-- (instancetype)init:(DeeplinkUrlType)result success:(BOOL)success;
+- (instancetype)init:(DeeplinkUrlType)urlType success:(BOOL)success;
 - (void)onViewportChanged:(int)zoomLevel;
 @end
 
