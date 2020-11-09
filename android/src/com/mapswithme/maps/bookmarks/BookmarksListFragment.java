@@ -560,6 +560,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     return category.getType() == BookmarkCategory.Type.DOWNLOADED;
   }
 
+  private boolean isCompilation()
+  {
+    BookmarkCategory category = mCategoryDataSource.getData();
+    return BookmarkManager.INSTANCE.isCompilation(category.getId());
+  }
+
   private boolean isSearchAllowed()
   {
     BookmarkCategory category = mCategoryDataSource.getData();
@@ -800,7 +806,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
       @BookmarkManager.SortingType int[] types = getAvailableSortingTypes();
       bs.getMenu().findItem(R.id.sort).setVisible(types.length > 0);
-      bs.getMenu().findItem(R.id.delete_category).setVisible(!isLastOwnedCategory());
+
+      if (isCompilation())
+        bs.getMenu().findItem(R.id.delete_category).setVisible(false);
+      else
+        bs.getMenu().findItem(R.id.delete_category).setVisible(!isLastOwnedCategory());
 
       BottomSheetHelper.tint(bs);
       bs.show();
