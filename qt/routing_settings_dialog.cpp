@@ -32,8 +32,10 @@ std::string const RoutingSettings::kRouterTypeCachedSettings = "router_type_desk
 bool RoutingSettings::TurnsEnabled()
 {
   bool enabled = false;
-  settings::Get(kShowTurnsSettings, enabled);
-  return enabled;
+  if (settings::Get(kShowTurnsSettings, enabled))
+    return enable;
+
+  return false;
 }
 
 // static
