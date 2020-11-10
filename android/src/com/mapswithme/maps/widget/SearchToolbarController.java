@@ -419,7 +419,9 @@ public class SearchToolbarController extends ToolbarController
 
   public boolean closeBottomMenu()
   {
-    Objects.requireNonNull(mGuestsRoomsMenuController);
+    if (mGuestsRoomsMenuController == null)
+      return false;
+
     if (!mGuestsRoomsMenuController.isClosed())
     {
       mGuestsRoomsMenuController.close();
