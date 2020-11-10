@@ -10,6 +10,10 @@ std::initializer_list<storage::CountryId> const kSupportedCountriesMedic = {
 };
 
 std::initializer_list<storage::CountryId> const kSupportedCountriesFlat = {
+  "Guatemala",
+  "Honduras",
+  "El Salvador",
+  "Belize",
   "United States of America",
   "Greece",
   "Mexico",
@@ -20,7 +24,6 @@ std::initializer_list<storage::CountryId> const kSupportedCountriesFlat = {
   "Tanzania",
   "Morocco",
   "Macedonia",
-  "Andorra",
   "Haiti",
   "Egypt",
   "Maldives",
@@ -135,7 +138,13 @@ std::initializer_list<storage::CountryId> const kSupportedCountriesWorld = {
   "United Arab Emirates",
   "Albania",
   "Montenegro",
-  "Uzbekistan"
+  "Bahrain",
+  "Bolivia",
+  "Colombia",
+  "Malta",
+  "Peru",
+  "South Ossetia",
+  "South Africa"
 };
 
 std::initializer_list<storage::CountryId> const kSupportedUserPosCountriesRussia = {"Russian Federation"};
