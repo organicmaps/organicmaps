@@ -4,15 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class BookmarkAllSubscriptionData implements Parcelable
 {
   @SuppressWarnings("unused")
-  public static final Parcelable.Creator<BookmarkAllSubscriptionData> CREATOR = new Parcelable.Creator<BookmarkAllSubscriptionData>()
+  public static final Parcelable.Creator<BookmarkAllSubscriptionData> CREATOR =
+      new Parcelable.Creator<BookmarkAllSubscriptionData>()
   {
     @Override
     public BookmarkAllSubscriptionData createFromParcel(Parcel in)
@@ -26,12 +29,12 @@ public class BookmarkAllSubscriptionData implements Parcelable
       return new BookmarkAllSubscriptionData[size];
     }
   };
-  @NonNull
+  @Nullable
   private final List<BookmarksAllSubscriptionPage> mOrderList;
 
   public BookmarkAllSubscriptionData(@NonNull List<BookmarksAllSubscriptionPage> orderList)
   {
-    mOrderList = orderList;
+    mOrderList = Collections.unmodifiableList(orderList);
   }
 
   public BookmarkAllSubscriptionData(@NonNull BookmarksAllSubscriptionPage... arguments)
@@ -60,7 +63,8 @@ public class BookmarkAllSubscriptionData implements Parcelable
   @NonNull
   public List<BookmarksAllSubscriptionPage> getOrderList()
   {
-    return mOrderList;
+
+    return mOrderList != null ? mOrderList : Collections.emptyList();
   }
 
   @Override

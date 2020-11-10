@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 public class BookmarksAllSubscriptionPageData implements Parcelable
 {
   @SuppressWarnings("unused")
-  public static final Parcelable.Creator<BookmarksAllSubscriptionPageData> CREATOR = new Parcelable.Creator<BookmarksAllSubscriptionPageData>()
+  public static final Parcelable.Creator<BookmarksAllSubscriptionPageData> CREATOR =
+      new Parcelable.Creator<BookmarksAllSubscriptionPageData>()
   {
     @Override
     public BookmarksAllSubscriptionPageData createFromParcel(Parcel in)
@@ -23,7 +24,7 @@ public class BookmarksAllSubscriptionPageData implements Parcelable
       return new BookmarksAllSubscriptionPageData[size];
     }
   };
-  @NonNull
+
   @DrawableRes
   private final int mImageId;
   @NonNull
@@ -41,7 +42,7 @@ public class BookmarksAllSubscriptionPageData implements Parcelable
     mPage = BookmarksAllSubscriptionPage.values()[in.readInt()];
   }
 
-  @NonNull
+  @DrawableRes
   public int getImageId()
   {
     return mImageId;

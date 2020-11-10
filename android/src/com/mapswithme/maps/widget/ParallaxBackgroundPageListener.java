@@ -17,7 +17,7 @@ public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeLis
 {
   private static final float ALPHA_TRANSPARENT = 0;
   private static final float ALPHA_OPAQUE = 1;
-  private static final Float INVALID_OFFSET = -1f;
+  private static final float INVALID_OFFSET = -1f;
   @NonNull
   private final List<BookmarksAllSubscriptionPageData> mItems;
   @NonNull

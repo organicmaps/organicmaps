@@ -24,8 +24,8 @@ public class BookmarksAllSubscriptionPageFragment extends Fragment
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    BookmarksAllSubscriptionPageData data = Objects.requireNonNull(getArguments()).getParcelable(BUNDLE_DATA);
-    BookmarksAllSubscriptionPage page = data.getPage();
+    BookmarksAllSubscriptionPageData data = requireArguments().getParcelable(BUNDLE_DATA);
+    BookmarksAllSubscriptionPage page = Objects.requireNonNull(data).getPage();
     FragmentBookmarksAllSubscriptionBinding binding = makeBinding(inflater, container);
     binding.setPage(page);
     binding.description.setText(Html.fromHtml(getString(page.getDescriptionId())));
@@ -40,7 +40,7 @@ public class BookmarksAllSubscriptionPageFragment extends Fragment
   }
 
   @NonNull
-  static Fragment newInstance(BookmarksAllSubscriptionPageData data)
+  static Fragment newInstance(@NonNull BookmarksAllSubscriptionPageData data)
   {
     BookmarksAllSubscriptionPageFragment fragment = new BookmarksAllSubscriptionPageFragment();
     Bundle args = new Bundle();

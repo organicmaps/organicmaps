@@ -48,9 +48,8 @@ public class BookmarksAllSubscriptionFragment extends AbstractBookmarkSubscripti
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    BookmarkAllSubscriptionData data = Objects
-        .requireNonNull(getArguments().getParcelable(BUNDLE_DATA));
-    mPageOrderList = data.getOrderList();
+    BookmarkAllSubscriptionData data = requireArguments().getParcelable(BUNDLE_DATA);
+    mPageOrderList = Objects.requireNonNull(data).getOrderList();
   }
 
   @Nullable
