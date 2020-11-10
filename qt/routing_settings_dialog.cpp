@@ -33,7 +33,7 @@ bool RoutingSettings::TurnsEnabled()
 {
   bool enabled = false;
   if (settings::Get(kShowTurnsSettings, enabled))
-    return enable;
+    return enabled;
 
   return false;
 }
