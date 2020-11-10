@@ -19,6 +19,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
+import com.mapswithme.maps.purchase.BookmarkAllSubscriptionData;
 import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
 import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.util.Counters;
@@ -26,6 +27,11 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
+
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.BOOKMARKS;
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.ELEVATION;
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.GUIDES;
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.LONELY;
 
 public class NewsFragment extends BaseNewsFragment implements AlertDialogCallback
 {
@@ -85,7 +91,11 @@ public class NewsFragment extends BaseNewsFragment implements AlertDialogCallbac
       UiUtils.hide(view);
       BookmarksAllSubscriptionActivity.startForResult(NewsFragment.this,
                                                       PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
-                                                      Statistics.ParamValue.WHATSNEW);
+                                                      Statistics.ParamValue.WHATSNEW,
+                                                      new BookmarkAllSubscriptionData(LONELY,
+                                                                                      GUIDES,
+                                                                                      BOOKMARKS,
+                                                                                      ELEVATION));
     }
   }
 

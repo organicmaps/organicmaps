@@ -44,6 +44,16 @@ public class BookmarksAllSubscriptionActivity extends BaseMwmFragmentActivity
     fragment.startActivityForResult(intent, requestCode);
   }
 
+  public static void startForResult(@NonNull Fragment fragment, int requestCode,
+                                    @NonNull String from, @NonNull BookmarkAllSubscriptionData data)
+  {
+    Intent intent = new Intent(fragment.getActivity(), BookmarksAllSubscriptionActivity.class);
+    intent.putExtra(AbstractBookmarkSubscriptionFragment.EXTRA_FROM, from)
+          .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    intent.putExtra(BookmarksAllSubscriptionFragment.BUNDLE_DATA, data);
+    fragment.startActivityForResult(intent, requestCode);
+  }
+
   private static void addBookmarkAllSubscriptionExtra(Intent intent)
   {
     intent.putExtra(BookmarksAllSubscriptionFragment.BUNDLE_DATA,
