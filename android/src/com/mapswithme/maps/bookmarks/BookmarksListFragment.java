@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -96,6 +97,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private RecyclerView mCollectionRecyclerView;
   @NonNull
   private BookmarkManager.BookmarksCatalogListener mCatalogListener;
+  @NonNull
+  private NestedScrollView mNestedScrollView;
 
   @NonNull
   private final RecyclerView.OnScrollListener mRecyclerListener = new RecyclerView.OnScrollListener()
@@ -179,6 +182,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
     mDescriptionView = view.findViewById(R.id.guide_info);
     configureGuidesInfoLayout();
+
+    mNestedScrollView = view.findViewById(R.id.scroll_view);
 
     setHasOptionsMenu(true);
 
@@ -384,6 +389,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     BookmarkListAdapter adapter = getAdapter();
     adapter.setSearchResults(bookmarkIds);
     adapter.notifyDataSetChanged();
+    mNestedScrollView.smoothScrollTo(0, 0);
     updateRecyclerVisibility();
   }
 
