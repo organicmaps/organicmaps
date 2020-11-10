@@ -38,7 +38,6 @@ CGFloat const kButtonsBottomOffset = 6;
     self.height = self.location.height;
   self.location.maxY = self.height;
 
-  [self layoutXPosition:self.hidden];
   [self animate];
   [super layoutSubviews];
 }
@@ -53,7 +52,7 @@ CGFloat const kButtonsBottomOffset = 6;
     if (hidden)
       self.minX = self.superview.width;
     else
-      self.maxX = self.availableArea.origin.x + self.availableArea.size.width - kViewControlsOffsetToBounds;
+      self.maxX = self.superview.width - kViewControlsOffsetToBounds;
   }
 }
 
@@ -66,7 +65,7 @@ CGFloat const kButtonsBottomOffset = 6;
 
 - (void)fadeZoomButtonsShow:(BOOL)show {
   CGFloat const alpha = show ? 1.0 : 0.0;
-  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount)
+  [UIView animateWithDuration:kDefaultAnimationDuration
                    animations:^{
                      self.zoomIn.alpha = alpha;
                      self.zoomOut.alpha = alpha;
@@ -74,7 +73,7 @@ CGFloat const kButtonsBottomOffset = 6;
 }
 
 - (void)fadeLocationButtonShow:(BOOL)show {
-  [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount)
+  [UIView animateWithDuration:kDefaultAnimationDuration
                    animations:^{
                      self.location.alpha = show ? 1.0 : 0.0;
                    }];
@@ -122,8 +121,9 @@ CGFloat const kButtonsBottomOffset = 6;
       return;
     if (!hidden)
       self.hidden = NO;
-    [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount)
+    [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
+        self.alpha = hidden ? 0.0 : 1.0;
         [self layoutXPosition:hidden];
       }
       completion:^(BOOL finished) {
@@ -139,6 +139,7 @@ CGFloat const kButtonsBottomOffset = 6;
   if (CGRectEqualToRect(self.availableArea, frame))
     return;
   self.availableArea = frame;
+  [self layoutXPosition:self.hidden];
   [self setNeedsLayout];
 }
 
