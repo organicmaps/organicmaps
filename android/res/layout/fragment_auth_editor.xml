@@ -185,8 +185,7 @@
 
               <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="@string/editor_profile_rating_place"
                 android:textAppearance="@style/MwmTextAppearance.Body3"/>
@@ -194,8 +193,7 @@
               <TextView
                 android:id="@+id/rating"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:fontFamily="@string/robotoMedium"
                 android:gravity="center_vertical"
                 android:textAppearance="@style/MwmTextAppearance.Headline"
