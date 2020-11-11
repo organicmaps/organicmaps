@@ -942,6 +942,75 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
+{
+  {
+    Tags const tags = {
+      {"place", "city"},
+      {"name", "Tokyo"},
+      {"name:ja_kana", "トウキョウト"}
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    std::string s;
+    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
+    TEST_EQUAL(s, "Tokyo", ());
+    params.name.GetString(StringUtf8Multilang::GetLangIndex("ja_kana"), s);
+    TEST_EQUAL(s, "トウキョウト", ());
+  }
+  {
+    Tags const tags = {
+      {"place", "city"},
+      {"name", "Tokyo"},
+      {"name:ja-Hira", "とうきょうと"}
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    std::string s;
+    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
+    TEST_EQUAL(s, "Tokyo", ());
+    // Save ja-Hira as ja_kana if there is no ja_kana.
+    params.name.GetString(StringUtf8Multilang::GetLangIndex("ja_kana"), s);
+    TEST_EQUAL(s, "とうきょうと", ());
+  }
+  {
+    Tags const tags = {
+      {"place", "city"},
+      {"name", "Tokyo"},
+      {"name:ja_kana", "トウキョウト"},
+      {"name:ja-Hira", "とうきょうと"}
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    std::string s;
+    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
+    TEST_EQUAL(s, "Tokyo", ());
+    // Prefer ja_kana over ja-Hira. ja_kana tag goes first.
+    params.name.GetString(StringUtf8Multilang::GetLangIndex("ja_kana"), s);
+    TEST_EQUAL(s, "トウキョウト", ());
+  }
+  {
+    Tags const tags = {
+      {"place", "city"},
+      {"name", "Tokyo"},
+      {"name:ja-Hira", "とうきょうと"},
+      {"name:ja_kana", "トウキョウト"}
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    std::string s;
+    params.name.GetString(StringUtf8Multilang::kDefaultCode, s);
+    TEST_EQUAL(s, "Tokyo", ());
+    // Prefer ja_kana over ja-Hira. ja-Hira tag goes first.
+    params.name.GetString(StringUtf8Multilang::GetLangIndex("ja_kana"), s);
+    TEST_EQUAL(s, "トウキョウト", ());
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_MergeTags)
 {
   {

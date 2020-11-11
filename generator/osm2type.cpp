@@ -48,7 +48,8 @@ public:
   {
     Forbid,
     Accept,
-    Append
+    Append,
+    Replace
   };
 
   explicit NamesExtractor(FeatureBuilderParams & params) : m_params(params) {}
@@ -95,6 +96,17 @@ public:
     if (lang == "ar1")
       lang = "ar";
 
+    if (lang == "ja-Hira")
+    {
+      // Save "ja-Hira" if there is no "ja_kana".
+      lang = "ja_kana";
+    }
+    else if (lang == "ja_kana")
+    {
+      // Prefer "ja_kana" over "ja-Hira".
+      return LangAction::Replace;
+    }
+
     return LangAction::Accept;
   }
 
@@ -108,6 +120,7 @@ public:
     {
     case LangAction::Forbid: return;
     case LangAction::Accept: m_names.emplace(move(lang), move(v)); break;
+    case LangAction::Replace: swap(m_names[lang], v); break;
     case LangAction::Append:
       auto & name = m_names[lang];
       if (name.empty())
