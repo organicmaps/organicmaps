@@ -5,6 +5,7 @@
   android:id="@+id/rl__bookmark_details"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:background="?cardBackground"
   android:padding="@dimen/margin_half">
   <LinearLayout
     android:id="@+id/ll__bookmark_name"
@@ -24,7 +25,6 @@
         android:hint="@string/name"
         android:inputType="textCapSentences"
         android:singleLine="true"/>
-
     </com.mapswithme.maps.widget.CustomTextInputLayout>
   </LinearLayout>
 
