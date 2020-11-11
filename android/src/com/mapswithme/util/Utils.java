@@ -612,6 +612,16 @@ public class Utils
       // If the currency cannot be obtained for the default locale we will use Locale.US.
       if (currency == null)
         locale = Locale.US;
+
+      if (android.os.Build.VERSION.SDK_INT >= 24)
+      {
+        android.icu.text.NumberFormat formatter = android.icu.text.NumberFormat.getInstance(
+            locale, android.icu.text.NumberFormat.CURRENCYSTYLE);
+        if (!TextUtils.isEmpty(currencyCode))
+          formatter.setCurrency(android.icu.util.Currency.getInstance(currencyCode));
+        return formatter.format(price);
+      }
+
       NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
       if (!TextUtils.isEmpty(currencyCode))
         formatter.setCurrency(Currency.getInstance(currencyCode));
@@ -637,7 +647,7 @@ public class Utils
     {
       LOGGER.e(TAG, "Failed to obtain currency symbol by currency code = " + currencyCode, e);
     }
-    
+
     return currencyCode;
   }
 
