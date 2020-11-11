@@ -95,12 +95,14 @@
 
     <item name="bannerText">@color/text_banner_color</item>
     <item name="bannerBackground">@drawable/bg_pp_banner</item>
+    <item name="searchCategorybannerBackground">@drawable/bg_pp_banner</item>
     <item name="bannerButtonBackground">@drawable/bg_pp_banner_large_button</item>
     <item name="bannerButtonBackgroundColor">@color/black_12</item>
     <item name="adsBackground">@drawable/bg_ads</item>
     <item name="adsText">@color/text_ads_color</item>
     <item name="adsActionBackground">@drawable/bg_ads_action</item>
     <item name="searchCategoryAdsActionBackground">@drawable/bg_search_category_ad_action</item>
+    <item name="searchCategoryAdsActionTextColor">@color/black_50</item>
     <item name="textBannerTitle">@color/black_secondary</item>
 
     <item name="steadyIconTint">@color/black_secondary</item>
@@ -308,12 +310,14 @@
 
     <item name="bannerText">@color/text_banner_color_night</item>
     <item name="bannerBackground">@drawable/bg_pp_banner_night</item>
+    <item name="searchCategorybannerBackground">@drawable/bg_search_category_banner_night</item>
     <item name="bannerButtonBackground">@drawable/bg_pp_banner_large_button_night</item>
     <item name="bannerButtonBackgroundColor">@color/white_12</item>
     <item name="adsBackground">@drawable/bg_ads_night</item>
     <item name="adsText">@color/text_ads_color_night</item>
     <item name="adsActionBackground">@drawable/bg_ads_action_night</item>
-    <item name="searchCategoryAdsActionBackground">@drawable/bg_ads_action_night</item>
+    <item name="searchCategoryAdsActionBackground">@drawable/bg_search_category_ad_action_night</item>
+    <item name="searchCategoryAdsActionTextColor">@color/text_search_category_ad_color_night</item>
     <item name="textBannerTitle">@color/bg_primary_night</item>
 
     <item name="steadyIconTint">@color/white_secondary</item>

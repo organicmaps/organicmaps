@@ -184,10 +184,12 @@
   <!-- Banner colors -->
   <color name="bg_banner_color">#F2F5D4</color>
   <color name="bg_banner_color_night">#A5A6A8</color>
+  <color name="bg_search_category_banner_color_night">#525252</color>
   <color name="text_banner_color">#28000000</color>
   <color name="text_banner_color_night">#28FFFFFF</color>
   <color name="text_ads_color">#FFFFFBF2</color>
   <color name="text_ads_color_night">#FFFFFBF2</color>
+  <color name="text_search_category_ad_color_night">#383C40</color>
   <color name="megafon_button">@color/bg_brand_partner19</color>
   <color name="megafon_button_pressed">@color/bg_brand_partner19_pressed</color>
   <color name="red_cross_background">#FFE53935</color>
