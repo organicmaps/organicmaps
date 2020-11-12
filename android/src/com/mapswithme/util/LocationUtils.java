@@ -107,9 +107,8 @@ public class LocationUtils
     final ContentResolver resolver = MwmApplication.get().getContentResolver();
     try
     {
-      return Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT
-             ? !TextUtils.isEmpty(Settings.Secure.getString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED))
-             : Settings.Secure.getInt(resolver, Settings.Secure.LOCATION_MODE) != Settings.Secure.LOCATION_MODE_OFF;
+      return Settings.Secure.getInt(resolver, Settings.Secure.LOCATION_MODE)
+             != Settings.Secure.LOCATION_MODE_OFF;
     } catch (Settings.SettingNotFoundException e)
     {
       e.printStackTrace();
