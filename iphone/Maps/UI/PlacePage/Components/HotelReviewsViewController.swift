@@ -41,7 +41,19 @@ class HotelReviewsViewController: UIViewController {
 
   var totalScore: Float = 0 {
     didSet {
-      totalRatingLabel?.text = NSNumber(value: totalScore).stringValue
+      let ratingString: String
+      switch totalScore {
+      case 7..<8:
+        ratingString = " (\(L("booking_filters_ragting_good")))"
+      case 8..<9:
+        ratingString = " (\(L("booking_filters_rating_very_good")))"
+      case 9...Float.infinity:
+        ratingString = " (\(L("booking_filters_rating_excellent")))"
+      default:
+        ratingString = ""
+      }
+      totalRatingLabel?.text = String(coreFormat:L("place_page_booking_rating"),
+                                      arguments:[NSNumber(value: totalScore).stringValue]) + ratingString
     }
   }
   var reviewCount: UInt = 0 {
@@ -59,9 +71,6 @@ class HotelReviewsViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    totalRatingLabel.text = NSNumber(value: totalScore).stringValue
-    reviewsCountLabel.text = String(format:L("placepage_summary_rating_description"), reviewCount)
     updateReviews()
   }
 
