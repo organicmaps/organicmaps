@@ -95,7 +95,7 @@
 
     <item name="bannerText">@color/text_banner_color</item>
     <item name="bannerBackground">@drawable/bg_pp_banner</item>
-    <item name="searchCategorybannerBackground">@drawable/bg_pp_banner</item>
+    <item name="searchCategoryBannerBackground">@drawable/bg_pp_banner</item>
     <item name="bannerButtonBackground">@drawable/bg_pp_banner_large_button</item>
     <item name="bannerButtonBackgroundColor">@color/black_12</item>
     <item name="adsBackground">@drawable/bg_ads</item>
@@ -310,7 +310,7 @@
 
     <item name="bannerText">@color/text_banner_color_night</item>
     <item name="bannerBackground">@drawable/bg_pp_banner_night</item>
-    <item name="searchCategorybannerBackground">@drawable/bg_search_category_banner_night</item>
+    <item name="searchCategoryBannerBackground">@drawable/bg_search_category_banner_night</item>
     <item name="bannerButtonBackground">@drawable/bg_pp_banner_large_button_night</item>
     <item name="bannerButtonBackgroundColor">@color/white_12</item>
     <item name="adsBackground">@drawable/bg_ads_night</item>

@@ -56,7 +56,7 @@
     <attr name="routingButtonActivatedHint" format="color" />
     <attr name="bannerText" format="color" />
     <attr name="bannerBackground" format="reference" />
-    <attr name="searchCategorybannerBackground" format="reference" />
+    <attr name="searchCategoryBannerBackground" format="reference" />
     <attr name="bannerButtonBackground" format="reference" />
     <attr name="bannerButtonBackgroundColor" format="color" />
     <attr name="adsBackground" format="reference" />

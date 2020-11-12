@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="@dimen/search_item_height"
-  android:background="?searchCategorybannerBackground">
+  android:background="?searchCategoryBannerBackground">
   <ImageView
     android:id="@+id/ad_choices_label"
     android:layout_width="wrap_content"
