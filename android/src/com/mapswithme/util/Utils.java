@@ -67,19 +67,29 @@ public class Utils
 
   private Utils() {}
 
+  public static boolean isJellyBeanOrLater()
+  {
+    return isTargetOrLater(Build.VERSION_CODES.JELLY_BEAN_MR1);
+  }
+
   public static boolean isLollipopOrLater()
   {
     return isTargetOrLater(Build.VERSION_CODES.LOLLIPOP);
   }
 
-  public static boolean isOreoOrLater()
-  {
-    return isTargetOrLater(Build.VERSION_CODES.O);
-  }
-
   public static boolean isMarshmallowOrLater()
   {
     return isTargetOrLater(Build.VERSION_CODES.M);
+  }
+
+  public static boolean isNougatOrLater()
+  {
+    return isTargetOrLater(Build.VERSION_CODES.N);
+  }
+
+  public static boolean isOreoOrLater()
+  {
+    return isTargetOrLater(Build.VERSION_CODES.O);
   }
 
   private static boolean isTargetOrLater(int target)
@@ -613,7 +623,7 @@ public class Utils
       if (currency == null)
         locale = Locale.US;
 
-      if (android.os.Build.VERSION.SDK_INT >= 24)
+      if (isNougatOrLater())
       {
         android.icu.text.NumberFormat formatter = android.icu.text.NumberFormat.getInstance(
             locale, android.icu.text.NumberFormat.CURRENCYSTYLE);
@@ -712,11 +722,6 @@ public class Utils
   public static String getDeviceModel()
   {
     return Build.MODEL;
-  }
-
-  public static boolean isJellyBeanOrLater()
-  {
-    return isTargetOrLater(Build.VERSION_CODES.JELLY_BEAN_MR1);
   }
 
   @NonNull
