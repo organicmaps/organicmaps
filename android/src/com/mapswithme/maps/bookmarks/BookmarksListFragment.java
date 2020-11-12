@@ -59,6 +59,7 @@ import java.util.List;
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListAdapter>
     implements BookmarkManager.BookmarksSharingListener,
                BookmarkManager.BookmarksSortingListener,
+               BookmarkManager.BookmarksLoadingListener,
                NativeBookmarkSearchListener,
                ChooseBookmarksSortingTypeFragment.ChooseSortingTypeListener
 {
@@ -110,6 +111,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         mToolbarController.deactivate();
     }
   };
+
+  @Nullable
+  private Bundle mSavedInstanceState;
 
   @CallSuper
   @Override
@@ -170,8 +174,19 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.onViewCreated(view, savedInstanceState);
     CrashlyticsUtils.log(Log.INFO, TAG, "onViewCreated");
+    if (BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
+    {
+      mSavedInstanceState = savedInstanceState;
+      return;
+    }
+
+    super.onViewCreated(view, savedInstanceState);
+    onViewCreatedInternal(view);
+  }
+
+  private void onViewCreatedInternal(@NonNull View view)
+  {
     initAdditionalCollectionAdapter(getCategoryOrThrow().getId());
 
     configureAdapter();
@@ -211,6 +226,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     super.onStart();
     CrashlyticsUtils.log(Log.INFO, TAG, "onStart");
     SearchEngine.INSTANCE.addBookmarkListener(this);
+    BookmarkManager.INSTANCE.addLoadingListener(this);
     BookmarkManager.INSTANCE.addSortingListener(this);
     BookmarkManager.INSTANCE.addSharingListener(this);
     BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
@@ -221,6 +237,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     super.onResume();
     CrashlyticsUtils.log(Log.INFO, TAG, "onResume");
+    if (BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
+      return;
+
     BookmarkListAdapter adapter = getAdapter();
     adapter.notifyDataSetChanged();
     updateSorting();
@@ -241,6 +260,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     super.onStop();
     CrashlyticsUtils.log(Log.INFO, TAG, "onStop");
     SearchEngine.INSTANCE.removeBookmarkListener(this);
+    BookmarkManager.INSTANCE.removeLoadingListener(this);
     BookmarkManager.INSTANCE.removeSortingListener(this);
     BookmarkManager.INSTANCE.removeSharingListener(this);
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
@@ -865,5 +885,28 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     getAdapter().notifyDataSetChanged();
     ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
     actionBar.setTitle(mCategoryDataSource.getData().getName());
+  }
+
+  @Override
+  public void onBookmarksLoadingStarted()
+  {
+    // No op.
+  }
+
+  @Override
+  public void onBookmarksLoadingFinished()
+  {
+    View view = getView();
+    if (view == null)
+      return;
+
+    super.onViewCreated(view, mSavedInstanceState);
+    onViewCreatedInternal(view);
+  }
+
+  @Override
+  public void onBookmarksFileLoaded(boolean success)
+  {
+    // No op.
   }
 }
