@@ -26,25 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/bookmark_recycler_view_bottom_margin"/>
     </LinearLayout>
-    <LinearLayout
+    <include
       android:id="@+id/placeholder_loading"
-      android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:gravity="center"
+      layout="@layout/placeholder_with_progressbar_layout"
       android:visibility="gone"
-      tools:visibility="visible">
-      <ProgressBar
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:background="@null"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/margin_half"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        android:text="@string/load_kmz_title"/>
-    </LinearLayout>
+      tools:visibility="visible" />
   </FrameLayout>
 </androidx.core.widget.NestedScrollView>

@@ -7,8 +7,6 @@
   android:layout_height="match_parent">
 
   <androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -112,26 +110,9 @@
         android:text="@string/download_guides"
         android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
     </LinearLayout>
-    <LinearLayout
-      android:id="@+id/placeholder_loading"
-      android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_centerInParent="true"
-      android:gravity="center"
-      android:visibility="gone"
-      tools:visibility="visible">
-      <ProgressBar
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:background="@null"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/margin_half"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        android:text="@string/load_kmz_title"/>
-    </LinearLayout>
-
+  <include
+    android:id="@+id/placeholder_loading"
+    layout="@layout/placeholder_with_progressbar_layout"
+    android:visibility="gone"
+    tools:visibility="visible" />
 </RelativeLayout>
