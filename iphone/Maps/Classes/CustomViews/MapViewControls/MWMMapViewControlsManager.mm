@@ -335,7 +335,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     [parentViewController addChildViewController:_guidesNavigationBar];
     [parentViewController.controlsView addSubview:_guidesNavigationBar.view];
     [_guidesNavigationBar configLayout];
-    _guidesNavigationBarHidden = YES;
+    _guidesNavigationBarHidden = NO;
     self.menuState = MWMBottomMenuStateHidden;
   }
 }
@@ -345,7 +345,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     [_guidesNavigationBar removeFromParentViewController];
     [_guidesNavigationBar.view removeFromSuperview];
     _guidesNavigationBar = nil;
-    _guidesNavigationBarHidden = NO;
+    _guidesNavigationBarHidden = YES;
     self.menuState = _menuRestoreState;
   }
 }

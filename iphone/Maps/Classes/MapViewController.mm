@@ -393,7 +393,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
       [MWMSearchManager manager].state == MWMSearchManagerStateHidden &&
-      [MWMMapViewControlsManager manager].guidesNavigationBarHidden == NO)
+      [MWMMapViewControlsManager manager].guidesNavigationBarHidden == YES)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
@@ -489,7 +489,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [super viewWillDisappear:animated];
 
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
-      [MWMSearchManager manager].state == MWMSearchManagerStateHidden)
+      [MWMSearchManager manager].state == MWMSearchManagerStateHidden &&
+      [MWMMapViewControlsManager manager].guidesNavigationBarHidden == YES)
     self.controlsManager.menuRestoreState = self.controlsManager.menuState;
   GetFramework().SetRenderingDisabled(false);
 }
