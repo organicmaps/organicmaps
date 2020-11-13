@@ -36,7 +36,7 @@ def get_config_path(config_path: AnyStr):
     if config_args:
         return parser.parse_args(config_args).config
 
-    config_var = os.environ.get(f"MG__CONFIG")
+    config_var = os.environ.get(f"MM_GEN__CONFIG")
     return config_path if config_var is None else config_var
 
 
@@ -68,7 +68,7 @@ class CfgReader:
 
     @staticmethod
     def _get_env_val(s: AnyStr, v: AnyStr):
-        return os.environ.get(f"MG__{s.upper()}_{v.upper()}")
+        return os.environ.get(f"MM_GEN__{s.upper()}_{v.upper()}")
 
 
 DEFAULT_PLANET_URL = "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"

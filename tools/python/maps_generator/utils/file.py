@@ -54,21 +54,28 @@ def download_file(url: AnyStr, name: AnyStr, download_if_exists: bool = True):
         session.mount("file://", FileAdapter())
         with open(tmp_name, "wb") as handle:
             response = session.get(url, stream=True)
-            file_length = int(response.headers["Content-length"])
+            file_length = int(response.headers["Content-Length"])
             current = 0
-            while True:
+            max_attempts = 32
+            attempts = max_attempts
+            while attempts:
                 for data in response.iter_content(chunk_size=4096):
                     current += len(data)
                     handle.write(data)
 
                 if file_length == current:
                     break
-                else:
-                    logger.warning(
-                        f"Connection was closed[{url}]: {current}/{file_length}."
-                    )
-                    headers = {"Range": f"bytes={current}-"}
-                    response = session.get(url, headers=headers, stream=True)
+
+                logger.warning(
+                    f"Download interrupted. Resuming download from {url}: {current}/{file_length}."
+                )
+                headers = {"Range": f"bytes={current}-"}
+                response = session.get(url, headers=headers, stream=True)
+                attempts -= 1
+
+            assert (
+                attempts > 0
+            ), f"Maximum failed resuming download attempts of {max_attempts} is exceeded."
 
     shutil.move(tmp_name, name)
     logger.info(f"File {name} was downloaded from {url}.")
