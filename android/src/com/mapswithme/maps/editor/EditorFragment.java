@@ -9,6 +9,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +40,6 @@ import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import org.solovyev.android.views.llm.LinearLayoutManager;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener,
                                                                EditTextDialogFragment.EditTextDialogInterface
