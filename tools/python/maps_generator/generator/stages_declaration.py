@@ -281,9 +281,6 @@ class StageRoutingTransit(Stage):
 @production_only
 class StageMwmDiffs(Stage):
     def apply(self, env: Env, country, logger, **kwargs):
-        if country == WORLD_NAME or country == WORLD_COASTS_NAME:
-            return
-
         data_dir = diffs.DataDir(
             mwm_name=env.build_name, new_version_dir=env.build_path,
             old_version_root_dir=settings.DATA_ARCHIVE_DIR

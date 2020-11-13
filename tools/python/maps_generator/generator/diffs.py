@@ -2,7 +2,7 @@ from pathlib import Path
 from pymwm_diff import make_diff
 
 
-class Status(object):
+class Status:
     NO_NEW_VERSION = "Failed: new version doesn't exist: {new}"
     INTERNAL_ERROR = "Failed: internal error (C++ module) while calculating"
 
@@ -17,7 +17,7 @@ class Status(object):
 
 
 def calculate_diff(params):
-    new, old, out = params['new'], params['old'], params['out']
+    new, old, out = params["new"], params["old"], params["out"]
 
     diff_size = 0
 
@@ -42,8 +42,8 @@ def calculate_diff(params):
         status = Status.TOO_LARGE
 
     params.update({
-        'diff_size': diff_size,
-        'new_size': new_size
+        "diff_size": diff_size,
+        "new_size": new_size
     })
 
     return status, params
@@ -62,7 +62,7 @@ def mwm_diff_calculation(data_dir, logger, depth):
 class DataDir(object):
     def __init__(self, mwm_name, new_version_dir, old_version_root_dir):
         self.mwm_name = mwm_name
-        self.diff_name = self.mwm_name + '.mwmdiff'
+        self.diff_name = self.mwm_name + ".mwmdiff"
 
         self.new_version_dir = Path(new_version_dir)
         self.new_version_path = Path(new_version_dir, mwm_name)
@@ -70,22 +70,22 @@ class DataDir(object):
 
     def get_mwms(self):
         old_versions = sorted(
-            self.old_version_root_dir.glob('[0-9]*'),
+            self.old_version_root_dir.glob("[0-9]*"),
             reverse=True
         )
         for old_version_dir in old_versions:
-            if old_version_dir != self.new_version_dir and\
-                    old_version_dir.is_dir():
+            if (old_version_dir != self.new_version_dir and
+                    old_version_dir.is_dir()):
                 diff_dir = Path(self.new_version_dir, old_version_dir.name)
                 diff_dir.mkdir(exist_ok=True)
                 yield {
-                    'new': self.new_version_path,
-                    'old': Path(old_version_dir, self.mwm_name),
-                    'out': Path(diff_dir, self.diff_name)
+                    "new": self.new_version_path,
+                    "old": Path(old_version_dir, self.mwm_name),
+                    "out": Path(diff_dir, self.diff_name)
                 }
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import logging
     import sys
 
