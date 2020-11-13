@@ -39,7 +39,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
@@ -1164,8 +1163,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
       {
         listener.onSetMapObjectComplete(policy, true);
       }
-      detachCountry();
-      setCurrentCountry();
+      if (mCurrentCountry == null)
+        setCurrentCountry();
       return;
     }
 
