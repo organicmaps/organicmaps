@@ -1,5 +1,11 @@
 from pathlib import Path
-from pymwm_diff import make_diff
+
+import warnings
+
+try:
+    from pymwm_diff import make_diff
+except ImportError:
+    warnings.warn('No pymwm_diff module found', ImportWarning)
 
 
 class Status:
