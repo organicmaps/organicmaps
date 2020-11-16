@@ -1,6 +1,8 @@
 #include "drape/oglcontext.hpp"
+
 #include "drape/gl_functions.hpp"
 
+#include "base/logging.hpp"
 #include "base/macros.hpp"
 
 namespace dp
@@ -49,6 +51,55 @@ glConst DecodeStencilAction(StencilAction stencilAction)
   }
   UNREACHABLE();
 }
+
+void OpenGLMessageCallback(glConst source, glConst type, uint32_t id, glConst severity,
+                           int32_t length, char const * message, void * userData)
+{
+  UNUSED_VALUE(userData);
+
+  std::string debugSource;
+  if (source == gl_const::GLDebugSourceApi)
+    debugSource = "DEBUG_SOURCE_API";
+  else if (source == gl_const::GLDebugSourceShaderCompiler)
+    debugSource = "DEBUG_SOURCE_SHADER_COMPILER";
+  else if (source == gl_const::GLDebugSourceThirdParty)
+    debugSource = "DEBUG_SOURCE_THIRD_PARTY";
+  else if (source == gl_const::GLDebugSourceApplication)
+    debugSource = "DEBUG_SOURCE_APPLICATION";
+  else if (source == gl_const::GLDebugSourceOther)
+    debugSource = "DEBUG_SOURCE_OTHER";
+
+  std::string debugType;
+  if (type == gl_const::GLDebugTypeError)
+    debugType = "DEBUG_TYPE_ERROR";
+  else if (type == gl_const::GLDebugDeprecatedBehavior)
+    debugType = "DEBUG_TYPE_DEPRECATED_BEHAVIOR";
+  else if (type == gl_const::GLDebugUndefinedBehavior)
+    debugType = "DEBUG_TYPE_UNDEFINED_BEHAVIOR";
+  else if (type == gl_const::GLDebugPortability)
+    debugType = "DEBUG_TYPE_PORTABILITY";
+  else if (type == gl_const::GLDebugPerformance)
+    debugType = "DEBUG_TYPE_PERFORMANCE";
+  else if (type == gl_const::GLDebugOther)
+    debugType = "DEBUG_TYPE_OTHER";
+
+  std::string debugSeverity;
+  if (severity == gl_const::GLDebugSeverityLow)
+    debugSeverity = "DEBUG_SEVERITY_LOW";
+  else if (severity == gl_const::GLDebugSeverityMedium)
+    debugSeverity = "DEBUG_SEVERITY_MEDIUM";
+  else if (severity == gl_const::GLDebugSeverityHigh)
+    debugSeverity = "DEBUG_SEVERITY_HIGH";
+  else if (severity == gl_const::GLDebugSeverityNotification)
+    debugSeverity = "DEBUG_SEVERITY_NOTIFICATION";
+
+  LOG((type == gl_const::GLDebugTypeError) ? LERROR : LDEBUG,
+      (std::string(message, static_cast<size_t>(length)), id, debugSource, debugType,
+       debugSeverity));
+}
+
+static_assert(std::is_same_v<GLFunctions::TglDebugProc, decltype(&OpenGLMessageCallback)>,
+              "Keep OpenGLMessageCallback type in sync with TglDebugProc type");
 }  // namespace
 
 void OGLContext::Init(ApiVersion apiVersion)
@@ -65,6 +116,17 @@ void OGLContext::Init(ApiVersion apiVersion)
   GLFunctions::glCullFace(gl_const::GLBack);
   GLFunctions::glEnable(gl_const::GLCullFace);
   GLFunctions::glEnable(gl_const::GLScissorTest);
+
+  if (GLFunctions::CanEnableDebugMessages())
+  {
+    GLFunctions::glEnable(gl_const::GLDebugOutput);
+    GLFunctions::glEnable(gl_const::GLDebugOutputSynchronous);
+    GLFunctions::glDebugMessageCallback(&OpenGLMessageCallback, nullptr /* userData */);
+    GLFunctions::glDebugMessageControl(gl_const::GLDontCare /* source */,
+                                       gl_const::GLDebugTypeError, gl_const::GLDebugSeverityHigh,
+                                       0 /* count */, nullptr /* ids */,
+                                       gl_const::GLTrue /* enable */);
+  }
 }
 
 ApiVersion OGLContext::GetApiVersion() const

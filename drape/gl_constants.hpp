@@ -12,6 +12,9 @@ extern const glConst GLRenderer;
 extern const glConst GLVendor;
 extern const glConst GLVersion;
 
+extern const glConst glContextFlags;
+extern const glConst glContextFlagDebugBit;
+
 /// Clear bits
 extern const glConst GLColorBit;
 extern const glConst GLDepthBit;
@@ -142,6 +145,34 @@ extern const glConst GLBlending;
 extern const glConst GLCullFace;
 extern const glConst GLScissorTest;
 extern const glConst GLStencilTest;
+extern const glConst GLDebugOutput;
+extern const glConst GLDebugOutputSynchronous;
+
+extern const glConst GLDontCare;
+extern const glConst GLDontCare;
+extern const glConst GLTrue;
+extern const glConst GLFalse;
+
+// OpenGL source type
+extern const glConst GLDebugSourceApi;
+extern const glConst GLDebugSourceShaderCompiler;
+extern const glConst GLDebugSourceThirdParty;
+extern const glConst GLDebugSourceApplication;
+extern const glConst GLDebugSourceOther;
+
+// OpenGL debug type
+extern const glConst GLDebugTypeError;
+extern const glConst GLDebugDeprecatedBehavior;
+extern const glConst GLDebugUndefinedBehavior;
+extern const glConst GLDebugPortability;
+extern const glConst GLDebugPerformance;
+extern const glConst GLDebugOther;
+
+// OpenGL debug severity
+extern const glConst GLDebugSeverityLow;
+extern const glConst GLDebugSeverityMedium;
+extern const glConst GLDebugSeverityHigh;
+extern const glConst GLDebugSeverityNotification;
 
 /// Triangle faces order
 extern const glConst GLClockwise;

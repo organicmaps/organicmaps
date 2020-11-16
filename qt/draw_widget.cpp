@@ -715,6 +715,9 @@ void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)
   fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
   fmt.setSwapInterval(1);
   fmt.setDepthBufferSize(16);
+#ifdef ENABLE_OPENGL_DIAGNOSTICS
+  fmt.setOption(QSurfaceFormat::DebugContext);
+#endif
   if (apiOpenGLES3)
   {
     fmt.setProfile(QSurfaceFormat::CoreProfile);

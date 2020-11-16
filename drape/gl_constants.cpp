@@ -104,6 +104,12 @@ const glConst GLRenderer            = GL_RENDERER;
 const glConst GLVendor              = GL_VENDOR;
 const glConst GLVersion             = GL_VERSION;
 
+#ifdef GL_VERSION_3_0
+const glConst glContextFlags        = GL_CONTEXT_FLAGS;
+#else
+const glConst glContextFlags        = 0;
+#endif
+
 const glConst GLColorBit            = GL_COLOR_BUFFER_BIT;
 const glConst GLDepthBit            = GL_DEPTH_BUFFER_BIT;
 const glConst GLStencilBit          = GL_STENCIL_BUFFER_BIT;
@@ -214,6 +220,58 @@ const glConst GLBlending            = GL_BLEND;
 const glConst GLCullFace            = GL_CULL_FACE;
 const glConst GLScissorTest         = GL_SCISSOR_TEST;
 const glConst GLStencilTest         = GL_STENCIL_TEST;
+
+const glConst GLDontCare = GL_DONT_CARE;
+const glConst GLTrue     = GL_TRUE;
+const glConst GLFalse    = GL_FALSE;
+
+#ifdef GL_VERSION_4_3
+const glConst GLDebugOutput            = GL_DEBUG_OUTPUT;
+const glConst GLDebugOutputSynchronous = GL_DEBUG_OUTPUT_SYNCHRONOUS;
+
+const glConst GLDebugSourceApi            = GL_DEBUG_SOURCE_API;
+const glConst GLDebugSourceShaderCompiler = GL_DEBUG_SOURCE_SHADER_COMPILER;
+const glConst GLDebugSourceThirdParty     = GL_DEBUG_SOURCE_THIRD_PARTY;
+const glConst GLDebugSourceApplication    = GL_DEBUG_SOURCE_APPLICATION;
+const glConst GLDebugSourceOther          = GL_DEBUG_SOURCE_OTHER;
+
+const glConst GLDebugTypeError            = GL_DEBUG_TYPE_ERROR;
+const glConst GLDebugDeprecatedBehavior   = GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR;
+const glConst GLDebugUndefinedBehavior    = GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR;
+const glConst GLDebugPortability          = GL_DEBUG_TYPE_PORTABILITY;
+const glConst GLDebugPerformance          = GL_DEBUG_TYPE_PERFORMANCE;
+const glConst GLDebugOther                = GL_DEBUG_TYPE_OTHER;
+
+const glConst GLDebugSeverityLow          = GL_DEBUG_SEVERITY_LOW;
+const glConst GLDebugSeverityMedium       = GL_DEBUG_SEVERITY_MEDIUM;
+const glConst GLDebugSeverityHigh         = GL_DEBUG_SEVERITY_HIGH;
+const glConst GLDebugSeverityNotification = GL_DEBUG_SEVERITY_NOTIFICATION;
+
+const glConst glContextFlagDebugBit       = GL_CONTEXT_FLAG_DEBUG_BIT;
+#else
+const glConst GLDebugOutput            = 0;
+const glConst GLDebugOutputSynchronous = 0;
+
+const glConst GLDebugSourceApi            = 0;
+const glConst GLDebugSourceShaderCompiler = 0;
+const glConst GLDebugSourceThirdParty     = 0;
+const glConst GLDebugSourceApplication    = 0;
+const glConst GLDebugSourceOther          = 0;
+
+const glConst GLDebugTypeError            = 0;
+const glConst GLDebugDeprecatedBehavior   = 0;
+const glConst GLDebugUndefinedBehavior    = 0;
+const glConst GLDebugPortability          = 0;
+const glConst GLDebugPerformance          = 0;
+const glConst GLDebugOther                = 0;
+
+const glConst GLDebugSeverityLow          = 0;
+const glConst GLDebugSeverityMedium       = 0;
+const glConst GLDebugSeverityHigh         = 0;
+const glConst GLDebugSeverityNotification = 0;
+
+const glConst glContextFlagDebugBit       = 0;
+#endif
 
 const glConst GLClockwise           = GL_CW;
 const glConst GLCounterClockwise    = GL_CCW;

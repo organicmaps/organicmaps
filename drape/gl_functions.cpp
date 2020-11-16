@@ -49,6 +49,16 @@ typedef void(DP_APIENTRY * TglFlushFn)();
 typedef void(DP_APIENTRY * TglActiveTextureFn)(GLenum texture);
 typedef void(DP_APIENTRY * TglBlendEquationFn)(GLenum mode);
 
+#ifndef GL_VERSION_4_3
+using GLDEBUGPROC = void(DP_APIENTRY *)(GLenum source, GLenum type, GLuint id, GLenum severity,
+                                        GLsizei length, GLchar const * message,
+                                        void * const userParam);
+#endif
+typedef void(DP_APIENTRY * TglDebugMessageCallbackFn)(GLDEBUGPROC callback, void const * userParam);
+typedef void(DP_APIENTRY * TglDebugMessageControlFn)(GLenum source, GLenum type, GLenum severity,
+                                                     GLsizei count, GLuint const * ids,
+                                                     GLboolean enabled);
+
 typedef void(DP_APIENTRY * TglGenVertexArraysFn)(GLsizei n, GLuint * ids);
 typedef void(DP_APIENTRY * TglBindVertexArrayFn)(GLuint id);
 typedef void(DP_APIENTRY * TglDeleteVertexArrayFn)(GLsizei n, GLuint const * ids);
@@ -131,6 +141,9 @@ TglFlushFn glFlushFn = nullptr;
 
 TglActiveTextureFn glActiveTextureFn = nullptr;
 TglBlendEquationFn glBlendEquationFn = nullptr;
+
+TglDebugMessageCallbackFn glDebugMessageCallbackFn = nullptr;
+TglDebugMessageControlFn glDebugMessageControlFn = nullptr;
 
 /// VAO
 TglGenVertexArraysFn glGenVertexArraysFn = nullptr;
@@ -330,6 +343,11 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
 
   glActiveTextureFn = LOAD_GL_FUNC(TglActiveTextureFn, glActiveTexture);
   glBlendEquationFn = LOAD_GL_FUNC(TglBlendEquationFn, glBlendEquation);
+
+#ifdef GL_VERSION_4_3
+  glDebugMessageCallbackFn = LOAD_GL_FUNC(TglDebugMessageCallbackFn, glDebugMessageCallback);
+  glDebugMessageControlFn = LOAD_GL_FUNC(TglDebugMessageControlFn, glDebugMessageControl);
+#endif
 
   /// VBO
   glGetBufferParameterFn = LOAD_GL_FUNC(TglGetBufferParameterFn, glGetBufferParameteriv);
@@ -583,6 +601,33 @@ void GLFunctions::glBlendFunc(glConst srcFactor, glConst dstFactor)
   GLCHECK(::glBlendFunc(srcFactor, dstFactor));
 }
 
+bool GLFunctions::CanEnableDebugMessages()
+{
+  ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
+  if (glDebugMessageCallbackFn == nullptr)
+    return false;
+  if (glDebugMessageControlFn == nullptr)
+    return false;
+  if ((GLFunctions::glGetInteger(gl_const::glContextFlags) & gl_const::glContextFlagDebugBit) == 0)
+    return false;
+  return true;
+}
+
+void GLFunctions::glDebugMessageCallback(TglDebugProc messageCallback, void * userParam)
+{
+  ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
+  ASSERT(glDebugMessageCallbackFn != nullptr, ());
+  GLCHECK(glDebugMessageCallbackFn(reinterpret_cast<GLDEBUGPROC>(messageCallback), userParam));
+}
+
+void GLFunctions::glDebugMessageControl(glConst source, glConst type, glConst severity,
+                                        int32_t count, uint32_t const * ids, uint8_t enabled)
+{
+  ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
+  ASSERT(glDebugMessageControlFn != nullptr, ());
+  GLCHECK(glDebugMessageControlFn(source, type, severity, count, ids, enabled));
+}
+
 uint32_t GLFunctions::glGenVertexArray()
 {
   ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
@@ -699,7 +744,7 @@ void GLFunctions::glShaderSource(uint32_t shaderID, std::string const & src, std
 {
   ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
   ASSERT(glShaderSourceFn != nullptr, ());
-  
+
   std::string fullSrc;
   if (src.find("#version") != std::string::npos)
   {
@@ -712,7 +757,7 @@ void GLFunctions::glShaderSource(uint32_t shaderID, std::string const & src, std
   {
     fullSrc = defines + src;
   }
-  
+
   GLchar const * source[1] = {fullSrc.c_str()};
   GLint lengths[1] = {static_cast<GLint>(fullSrc.size())};
   GLCHECK(glShaderSourceFn(shaderID, 1, source, lengths));

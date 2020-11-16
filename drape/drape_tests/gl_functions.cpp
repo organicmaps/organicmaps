@@ -303,6 +303,14 @@ void GLFunctions::glBlendEquation(glConst function) {}
 
 void GLFunctions::glBlendFunc(glConst srcFactor, glConst dstFactor) {}
 
+bool GLFunctions::CanEnableDebugMessages() { return false; }
+
+void GLFunctions::glDebugMessageCallback(TglDebugProc messageCallback, void * userParam) {}
+
+void GLFunctions::glDebugMessageControl(glConst source, glConst type, glConst severity,
+                                        int32_t count, uint32_t const * ids, uint8_t enabled)
+{}
+
 void GLFunctions::glDisable(glConst mode) {}
 
 void GLFunctions::glDepthFunc(glConst depthFunc) {}

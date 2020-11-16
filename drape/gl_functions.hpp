@@ -50,6 +50,14 @@ public:
   static void glBlendEquation(glConst function);
   static void glBlendFunc(glConst srcFactor, glConst dstFactor);
 
+  /// Debug Output
+  static bool CanEnableDebugMessages();
+  using TglDebugProc = void (*)(glConst source, glConst type, uint32_t id, glConst severity,
+                                int32_t length, char const * message, void * userParam);
+  static void glDebugMessageCallback(TglDebugProc messageCallback, void * userParam);
+  static void glDebugMessageControl(glConst source, glConst type, glConst severity, int32_t count,
+                                    uint32_t const * ids, uint8_t enabled);
+
   static void glLineWidth(uint32_t value);
 
   /// VAO support
