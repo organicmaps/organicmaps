@@ -17,7 +17,6 @@ extern JavaVM * GetJVM()
 jclass g_mapObjectClazz;
 jclass g_featureIdClazz;
 jclass g_bookmarkClazz;
-jclass g_myTrackerClazz;
 jclass g_httpClientClazz;
 jclass g_httpParamsClazz;
 jclass g_platformSocketClazz;
@@ -48,7 +47,6 @@ JNI_OnLoad(JavaVM * jvm, void *)
   g_mapObjectClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/MapObject");
   g_featureIdClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/FeatureId");
   g_bookmarkClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/Bookmark");
-  g_myTrackerClazz = jni::GetGlobalClassRef(env, "com/my/tracker/MyTracker");
   g_httpClientClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient");
   g_httpParamsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpClient$Params");
   g_platformSocketClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/location/PlatformSocket");
@@ -78,7 +76,6 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_mapObjectClazz);
   env->DeleteGlobalRef(g_featureIdClazz);
   env->DeleteGlobalRef(g_bookmarkClazz);
-  env->DeleteGlobalRef(g_myTrackerClazz);
   env->DeleteGlobalRef(g_httpClientClazz);
   env->DeleteGlobalRef(g_httpParamsClazz);
   env->DeleteGlobalRef(g_platformSocketClazz);

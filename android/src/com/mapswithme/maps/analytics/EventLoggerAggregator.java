@@ -18,7 +18,6 @@ class EventLoggerAggregator extends ContextDependentEventLogger
     super(application);
     mLoggers = new HashMap<>();
     mLoggers.put(PushWooshEventLogger.class, new PushWooshEventLogger(application));
-    mLoggers.put(MyTrackerEventLogger.class, new MyTrackerEventLogger(application));
     mLoggers.put(FlurryEventLogger.class, new FlurryEventLogger(application));
   }
 

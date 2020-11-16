@@ -45,7 +45,6 @@ import com.mapswithme.util.Counters;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.PowerManagment;
 import com.mapswithme.util.SharedPropertiesUtils;
-import com.my.tracker.MyTracker;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -1217,9 +1216,6 @@ public enum Statistics
                                     .add(BANNER, ad.getBannerId())
                                     .add(PROVIDER, ad.getProvider())
                                     .add(STATE, String.valueOf(state)));
-
-    if (!eventName.equals(PP_BANNER_SHOW) || state == PP_BANNER_STATE_PREVIEW)
-      MyTracker.trackEvent(eventName);
   }
 
   public void trackPPBannerError(@NonNull String bannerId, @NonNull String provider,
@@ -1234,7 +1230,6 @@ public enum Statistics
            .add(PROVIDER, provider)
            .add(STATE, String.valueOf(state));
     trackEvent(eventName, builder.get());
-    MyTracker.trackEvent(eventName);
   }
 
   public void trackBookingSearchEvent(@NonNull MapObject mapObject)
@@ -1339,9 +1334,6 @@ public enum Statistics
                                              .add(PLACEMENT, placement.toString())
                                              .add(STATE, state.toString())
                                              .add(COUNT_LOWERCASE, itemsCount));
-
-    if (state == GalleryState.ONLINE)
-      MyTracker.trackEvent(PP_SPONSORED_SHOWN + "_" + type.getProvider());
   }
 
   public void trackGalleryError(@NonNull GalleryType type,
@@ -1388,7 +1380,6 @@ public enum Statistics
   public void trackSearchPromoCategory(@NonNull String eventName, @NonNull String provider)
   {
     trackEvent(eventName, Statistics.params().add(PROVIDER, provider).get());
-    MyTracker.trackEvent(eventName + "_" + provider);
   }
 
   public void trackSettingsToggle(boolean value)
