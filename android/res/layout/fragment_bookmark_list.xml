@@ -62,4 +62,9 @@
     mapsme:layout_constraintTop_toTopOf="parent"
     mapsme:subTitleDefault="@string/bookmarks_empty_list_message"
     mapsme:titleDefault="@string/bookmarks_empty_list_title" />
+  <include
+    android:id="@+id/placeholder_loading"
+    layout="@layout/placeholder_with_progressbar_layout"
+    android:visibility="gone"
+    tools:visibility="visible" />
 </RelativeLayout>

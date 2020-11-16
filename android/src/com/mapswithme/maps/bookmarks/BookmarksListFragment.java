@@ -175,9 +175,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     CrashlyticsUtils.log(Log.INFO, TAG, "onViewCreated");
+
     if (BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
     {
       mSavedInstanceState = savedInstanceState;
+      updateLoadingPlaceholder(view, true);
       return;
     }
 
@@ -218,6 +220,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     description.setOnClickListener((btnView) -> {
       openDescriptionScreen();
     });
+
+    updateLoadingPlaceholder(view, false);
   }
 
   @Override
@@ -902,11 +906,19 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
     super.onViewCreated(view, mSavedInstanceState);
     onViewCreatedInternal(view);
+    updateLoadingPlaceholder(view, false);
   }
 
   @Override
   public void onBookmarksFileLoaded(boolean success)
   {
     // No op.
+  }
+
+  private void updateLoadingPlaceholder(@NonNull View root, boolean isShowLoadingPlaceholder)
+  {
+    View loadingPlaceholder = root.findViewById(R.id.placeholder_loading);
+    UiUtils.showIf(!isShowLoadingPlaceholder, root, R.id.scroll_view, R.id.fabViewOnMap);
+    UiUtils.showIf(isShowLoadingPlaceholder, loadingPlaceholder);
   }
 }
