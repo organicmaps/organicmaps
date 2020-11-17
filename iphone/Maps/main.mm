@@ -1,4 +1,3 @@
-#import <MyTrackerSDK/MRMyTracker.h>
 #import <Pushwoosh/PushNotificationManager.h>
 #import "MapsAppDelegate.h"
 
@@ -39,16 +38,13 @@ void setMarketingSender()
     if (tag.empty())
       return;
     NSMutableDictionary<NSString *, NSString *> * eventParams = [@{} mutableCopy];
-    NSMutableString * myTrackerEvent = [@(tag.c_str()) mutableCopy];
     for (auto const & param : params)
     {
       NSString * key = @(param.first.c_str());
       NSString * value = @(param.second.c_str());
       eventParams[key] = value;
-      [myTrackerEvent appendString:[NSString stringWithFormat:@"_%@_%@", key, value]];
     }
-    [MRMyTracker trackEventWithName:myTrackerEvent];
-    
+
   #ifdef OMIM_PRODUCTION
     [[AppsFlyerTracker sharedTracker] trackEvent:@(tag.c_str()) withValues:eventParams];
   #endif

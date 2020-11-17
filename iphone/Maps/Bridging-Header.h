@@ -10,7 +10,6 @@
 #import "FBSDKLoginKit/FBSDKLoginKit.h"
 #import "GoogleSignIn/GIDSignIn.h"
 #import "MyTargetSDK/MyTargetSDK.h"
-#import "MyTrackerSDK/MRMyTracker.h"
 #import "Pushwoosh/PushNotificationManager.h"
 #import "UIKit/UIKit.h"
 

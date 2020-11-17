@@ -1,5 +1,4 @@
 import FirebaseCrashlytics
-import MyTrackerSDK
 
 @objc(MWMBannersCache)
 final class BannersCache: NSObject {
@@ -47,7 +46,6 @@ final class BannersCache: NSObject {
     }
     if let banner = banner {
       Statistics.logEvent(kStatPlacePageBannerShow, withParameters: banner.statisticsDescription)
-      MRMyTracker.trackEvent(withName: kStatPlacePageBannerShow)
       completion(banner, isAsync)
       banner.isBannerOnScreen = true
       self.completion = nil
@@ -93,11 +91,9 @@ final class BannersCache: NSObject {
       statParams[kStatErrorMessage] = (error as NSError).userInfo.reduce("") { $0 + "\($1.key) : \($1.value)\n" }
       Statistics.logEvent(event, withParameters: statParams)
       Crashlytics.crashlytics().record(error: error)
-      MRMyTracker.trackEvent(withName: event)
       self.setError(bannerType: bannerType)
     }, click: { banner in
       Statistics.logEvent(kStatPlacePageBannerClick, withParameters: banner.statisticsDescription)
-      MRMyTracker.trackEvent(withName: kStatPlacePageBannerClick)
     })
   }
 

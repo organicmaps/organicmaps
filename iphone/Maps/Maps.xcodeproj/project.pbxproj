@@ -38,7 +38,6 @@
 		3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */; };
 		340474F41E08199D00C92850 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DD1E08199D00C92850 /* Fabric.framework */; };
 		340475091E08199E00C92850 /* MWMMyTarget.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340474EB1E08199D00C92850 /* MWMMyTarget.mm */; };
-		3404750F1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474EE1E08199D00C92850 /* MyTrackerSDK.framework */; };
 		3404754D1E081A4600C92850 /* MWMKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 340475191E081A4600C92850 /* MWMKeyboard.m */; };
 		340475501E081A4600C92850 /* fabric_logging_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475201E081A4600C92850 /* fabric_logging_ios.mm */; };
 		340475531E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475221E081A4600C92850 /* MWMCustomFacebookEvents.mm */; };
@@ -997,7 +996,6 @@
 		340474EA1E08199D00C92850 /* MWMMyTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMyTarget.h; sourceTree = "<group>"; };
 		340474EB1E08199D00C92850 /* MWMMyTarget.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMyTarget.mm; sourceTree = "<group>"; };
 		340474EC1E08199D00C92850 /* MWMMyTargetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMyTargetDelegate.h; sourceTree = "<group>"; };
-		340474EE1E08199D00C92850 /* MyTrackerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTrackerSDK.framework; sourceTree = "<group>"; };
 		340475181E081A4600C92850 /* MWMKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMKeyboard.h; sourceTree = "<group>"; };
 		340475191E081A4600C92850 /* MWMKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMKeyboard.m; sourceTree = "<group>"; };
 		3404751A1E081A4600C92850 /* MWMKeyboardObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMKeyboardObserver.h; sourceTree = "<group>"; };
@@ -2291,7 +2289,6 @@
 				6741AACE1BF356BA002C974C /* libopening_hours.a in Frameworks */,
 				347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */,
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
-				3404750F1E08199E00C92850 /* MyTrackerSDK.framework in Frameworks */,
 				6741AAD11BF356BA002C974C /* libprotobuf.a in Frameworks */,
 				6741AAD31BF356BA002C974C /* librouting.a in Frameworks */,
 				674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */,
@@ -2536,7 +2533,6 @@
 				347D15C71F82362900E86251 /* GoogleSignIn.framework */,
 				347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */,
 				340474E91E08199D00C92850 /* MyTarget */,
-				340474EE1E08199D00C92850 /* MyTrackerSDK.framework */,
 			);
 			path = 3party;
 			sourceTree = "<group>";

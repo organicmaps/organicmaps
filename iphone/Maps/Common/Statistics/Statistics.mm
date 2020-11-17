@@ -5,8 +5,6 @@
 #import "3party/Alohalytics/src/alohalytics.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "Flurry.h"
-#import <MyTrackerSDK/MRMyTracker.h>
-#import <MyTrackerSDK/MRMyTrackerParams.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <AdSupport/ASIdentifierManager.h>
 #import <CoreApi/AppInfo.h>
@@ -49,13 +47,6 @@ NSInteger convertToAlohalyticsChannel(StatisticsChannel cnannel) {
       [sessionBuilder withDataSaleOptOut:true];
       [Flurry startSession:@(FLURRY_KEY) withSessionBuilder:sessionBuilder];
       [Flurry logAllPageViewsForTarget:application.windows.firstObject.rootViewController];
-
-      [MRMyTracker createTracker:@(MY_TRACKER_KEY)];
-  #ifdef DEBUG
-      [MRMyTracker setDebugMode:YES];
-  #endif
-      [MRMyTracker trackerParams].trackLaunch = YES;
-      [MRMyTracker setupTracker];
     }
 
     [Alohalytics setup:@[@(ALOHALYTICS_URL), [NSString stringWithFormat:@"%@/%@", @(ALOHALYTICS_URL), @"realtime"]]
