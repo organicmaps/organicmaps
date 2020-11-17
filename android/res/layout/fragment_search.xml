@@ -63,6 +63,8 @@
         android:id="@+id/results_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
         android:background="?cardBackground">
         <include
           layout="@layout/recycler_default"
