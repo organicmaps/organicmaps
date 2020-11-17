@@ -1152,13 +1152,17 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
   if (GetNodeStatus(*node).status == NodeStatus::OnDisk)
     return;
 
-  auto downloadAction = [this, isUpdate](CountryTree::Node const & descendantNode) {
+  auto const fileType =
+      isUpdate && (m_areDiffsPending || m_diffsDataSource->GetStatus() == diffs::Status::Available)
+          ? MapFileType::Diff
+          : MapFileType::Map;
+  auto downloadAction = [this, fileType](CountryTree::Node const & descendantNode) {
     if (descendantNode.ChildrenCount() == 0 &&
         GetNodeStatus(descendantNode).status != NodeStatus::OnDisk)
     {
       auto const countryId = descendantNode.Value().Name();
 
-      DownloadCountry(countryId, isUpdate ? MapFileType::Diff : MapFileType::Map);
+      DownloadCountry(countryId, fileType);
     }
   };
 
@@ -1392,21 +1396,25 @@ void Storage::OnFinishDownloading()
 
 void Storage::OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs)
 {
+  m_areDiffsPending = false;
   m_diffsDataSource->SetDiffInfo(move(diffs));
-  if (m_diffsDataSource->GetStatus() == diffs::Status::Available)
+  if (m_diffsDataSource->GetStatus() == diffs::Status::NotAvailable)
   {
-    for (auto const & localDiff : m_notAppliedDiffs)
-    {
-      auto const countryId = FindCountryIdByFile(localDiff.GetCountryName());
-
-      if (m_diffsDataSource->HasDiffFor(countryId))
-        UpdateNode(countryId);
-      else
-        localDiff.DeleteFromDisk(MapFileType::Diff);
-    }
-
-    m_notAppliedDiffs.clear();
+    AbortDiffScheme();
+    return;
   }
+  
+  for (auto const & localDiff : m_notAppliedDiffs)
+  {
+    auto const countryId = FindCountryIdByFile(localDiff.GetCountryName());
+
+    if (m_diffsDataSource->HasDiffFor(countryId))
+      UpdateNode(countryId);
+    else
+      localDiff.DeleteFromDisk(MapFileType::Diff);
+  }
+
+  m_notAppliedDiffs.clear();
 }
 
 StatusAndError Storage::GetNodeStatusInfo(CountryTree::Node const & node,
