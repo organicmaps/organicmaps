@@ -1482,7 +1482,7 @@ de:Kaufhaus|Einkaufen|Einkaufszentrum|Einkaufspassage
 hu:Áruház|Nagyáruház
 id:Toko serba ada
 it:Grandi magazzini|centro commerciale
-ja:デパート
+ja:デパート|百貨店
 ko:백화점
 nb:Varehus
 pl:Dom towarowy
