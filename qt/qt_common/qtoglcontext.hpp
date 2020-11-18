@@ -43,7 +43,6 @@ private:
   std::atomic<bool> m_isContextAvailable;
   int m_width = 0;
   int m_height = 0;
-  bool m_needRecreateAcquiredFrame = false;
 
   std::mutex m_frameMutex;
 };

@@ -81,7 +81,8 @@ void QtRenderOGLContext::Resize(int w, int h)
                                                            QOpenGLFramebufferObject::Depth);
   m_frontFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height),
                                                             QOpenGLFramebufferObject::Depth);
-  m_needRecreateAcquiredFrame = true;
+  m_acquiredFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height),
+                                                               QOpenGLFramebufferObject::Depth);
 }
 
 bool QtRenderOGLContext::AcquireFrame()
@@ -95,12 +96,6 @@ bool QtRenderOGLContext::AcquireFrame()
     return true;
 
   // Update acquired frame.
-  if (m_needRecreateAcquiredFrame)
-  {
-    m_acquiredFrame = std::make_unique<QOpenGLFramebufferObject>(QSize(m_width, m_height),
-                                                                 QOpenGLFramebufferObject::Depth);
-    m_needRecreateAcquiredFrame = false;
-  }
   m_acquiredFrameRect = m_frameRect;
   std::swap(m_acquiredFrame, m_frontFrame);
   m_frameUpdated = false;
