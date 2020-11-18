@@ -114,7 +114,9 @@ final class BookmarksListPresenter {
 
   private func showMoreMenu() {
     var moreItems: [BookmarksListMenuItem] = []
-    moreItems.append(BookmarksListMenuItem(title: L("sharing_options"), action: { [weak self] in
+    moreItems.append(BookmarksListMenuItem(title: L("sharing_options"),
+                                           enabled: !bookmarkGroup.isEmpty,
+                                           action: { [weak self] in
       guard let self = self else { return }
       self.router.sharingOptions(self.bookmarkGroup)
       Statistics.logEvent(kStatBookmarksListItemSettings, withParameters: [kStatOption : kStatSharingOptions])
