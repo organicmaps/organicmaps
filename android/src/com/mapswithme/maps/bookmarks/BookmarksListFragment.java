@@ -65,6 +65,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
+  public static final String EXTRA_BUNDLE = "bookmark_bundle";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -131,7 +132,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     Bundle args = getArguments();
     BookmarkCategory category;
-    if (args == null || ((category = args.getParcelable(EXTRA_CATEGORY))) == null)
+    if (args == null || (args.getBundle(EXTRA_BUNDLE) == null) ||
+        ((category = args.getBundle(EXTRA_BUNDLE).getParcelable(EXTRA_CATEGORY))) == null)
       throw new IllegalArgumentException("Category not exist in bundle");
 
     return category;
@@ -152,8 +154,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     mBookmarkCollectionAdapter = new BookmarkCollectionAdapter(getCategoryOrThrow(),
                                                                mCategoryItems, mCollectionItems);
     mBookmarkCollectionAdapter.setOnClickListener((v, item) -> {
-      Intent intent = new Intent(getActivity(), BookmarkListActivity.class)
-          .putExtra(BookmarksListFragment.EXTRA_CATEGORY, item);
+      Intent intent = BookmarkListActivity.getStartIntent(requireContext(), item);
 
       final boolean isCategory = BookmarkManager.INSTANCE.getCompilationType(item.getId()) ==
                                  BookmarkManager.CATEGORY;

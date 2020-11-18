@@ -294,14 +294,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   public void onItemClick(@NonNull View v, @NonNull BookmarkCategory category)
   {
     mSelectedCategory = category;
-    startActivityForResult(makeBookmarksListIntent(category), REQ_CODE_DELETE_CATEGORY);
-  }
-
-  @NonNull
-  private Intent makeBookmarksListIntent(@NonNull BookmarkCategory category)
-  {
-    return new Intent(getActivity(), BookmarkListActivity.class)
-        .putExtra(BookmarksListFragment.EXTRA_CATEGORY, category);
+    BookmarkListActivity.startForResult(requireActivity(), category);
   }
 
   protected void onShareActionSelected(@NonNull BookmarkCategory category)

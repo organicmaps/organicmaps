@@ -1,7 +1,9 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -12,6 +14,8 @@ import com.mapswithme.maps.base.BaseToolbarActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.ThemeUtils;
+
+import static com.mapswithme.maps.bookmarks.BookmarksListFragment.EXTRA_BUNDLE;
 
 public class BookmarkListActivity extends BaseToolbarActivity
 {
@@ -58,8 +62,25 @@ public class BookmarkListActivity extends BaseToolbarActivity
 
   static void startForResult(@NonNull Activity activity, @NonNull BookmarkCategory category)
   {
-    Intent intent = new Intent(activity, BookmarkListActivity.class);
-    intent.putExtra(BookmarksListFragment.EXTRA_CATEGORY, category);
-    activity.startActivityForResult(intent, BaseBookmarkCategoriesFragment.REQ_CODE_DELETE_CATEGORY);
+    activity.startActivityForResult(getStartIntent(activity, category),
+                                    BaseBookmarkCategoriesFragment.REQ_CODE_DELETE_CATEGORY);
+  }
+
+  @NonNull
+  static Intent getStartIntent(@NonNull Context context,
+                                        @NonNull BookmarkCategory bookmarkCategory)
+  {
+    Intent intent = new Intent(context, BookmarkListActivity.class);
+    return wrapDataToBundle(intent, bookmarkCategory);
+  }
+
+  @NonNull
+  private static Intent wrapDataToBundle(@NonNull Intent intent,
+                                                  @NonNull BookmarkCategory bookmarkCategory)
+  {
+    Bundle bundle = new Bundle();
+    bundle.putParcelable(BookmarksListFragment.EXTRA_CATEGORY, bookmarkCategory);
+    intent.putExtra(EXTRA_BUNDLE, bundle);
+    return intent;
   }
 }
