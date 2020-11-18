@@ -454,11 +454,6 @@
       </intent-filter>
     </receiver>
 
-    <!-- myTracker
-         IMPORTANT : we DON'T declare myTracker's broadcast receiver for INSTALL_REFERRER intent, cause we catch it in our custom
-         MultipleTrackerReferrerReceiver and then pass it manually to myTracker's one. -->
-    <service android:name="com.my.tracker.campaign.CampaignService"/>
-
     <receiver
         android:name="com.google.android.gms.gcm.GcmReceiver"
         android:exported="true"
