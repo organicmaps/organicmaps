@@ -106,8 +106,7 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
   public void onPrepareOptionsMenu(Menu menu)
   {
     super.onPrepareOptionsMenu(menu);
-    MenuItem item = menu.findItem(R.id.done);
-    item.setVisible(mEditText.getEditableText().length() > 0);
+    setMenuVisibility(mEditText.getEditableText().length() > 0);
   }
 
   @Override
@@ -168,8 +167,7 @@ public abstract class BaseEditUserBookmarkCategoryFragment extends BaseMwmToolba
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
     {
-      if (s.length() == 0 || s.length() == 1)
-        getActivity().invalidateOptionsMenu();
+      setMenuVisibility(s.length() > 1);
     }
 
     @Override
