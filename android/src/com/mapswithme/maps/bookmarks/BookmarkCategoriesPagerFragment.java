@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
@@ -16,16 +17,19 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
-    implements TargetFragmentCallback, AlertDialogCallback, AuthCompleteListener
+    implements TargetFragmentCallback, AlertDialogCallback, AuthCompleteListener,
+               KmlImportController.ImportKmlCallback, BookmarkManager.BookmarksLoadingListener
 {
   final static String ARG_CATEGORIES_PAGE = "arg_categories_page";
   final static String ARG_CATALOG_DEEPLINK = "arg_catalog_deeplink";
@@ -47,6 +51,10 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ViewPager mViewPager;
+  @NonNull
+  private final Runnable mImportKmlTask = new ImportKmlTask();
+  @Nullable
+  private KmlImportController mKmlImportController;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -86,14 +94,15 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     mViewPager = root.findViewById(R.id.viewpager);
     TabLayout tabLayout = root.findViewById(R.id.sliding_tabs_layout);
 
-    FragmentManager fm = getActivity().getSupportFragmentManager();
+    FragmentManager fm = requireActivity().getSupportFragmentManager();
     List<BookmarksPageFactory> dataSet = getAdapterDataSet();
-    mAdapter = new BookmarksPagerAdapter(getContext(), fm, dataSet);
+    mAdapter = new BookmarksPagerAdapter(requireContext(), fm, dataSet);
     mViewPager.setAdapter(mAdapter);
     mViewPager.setCurrentItem(saveAndGetInitialPage());
     tabLayout.setupWithViewPager(mViewPager);
     mViewPager.addOnPageChangeListener(new PageChangeListener());
     mDelegate.onCreateView(savedInstanceState);
+    mKmlImportController = new KmlImportController(requireActivity(), this);
     return root;
   }
 
@@ -116,6 +125,9 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   public void onStart()
   {
     super.onStart();
+    if (mKmlImportController != null)
+      mKmlImportController.onStart();
+    BookmarkManager.INSTANCE.addLoadingListener(this);
     mDelegate.onStart();
     if (TextUtils.isEmpty(mCatalogDeeplink))
      return;
@@ -129,6 +141,8 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   {
     super.onResume();
     mDelegate.onResume();
+    if (!BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
+      mImportKmlTask.run();
   }
 
   @Override
@@ -142,7 +156,10 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   public void onStop()
   {
     super.onStop();
+    if (mKmlImportController != null)
+      mKmlImportController.onStop();
     mDelegate.onStop();
+    BookmarkManager.INSTANCE.removeLoadingListener(this);
   }
 
   @Override
@@ -158,11 +175,11 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     if (args != null && args.containsKey(ARG_CATEGORIES_PAGE))
     {
       int page = args.getInt(ARG_CATEGORIES_PAGE);
-      SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(getActivity(), page);
+      SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(requireActivity(), page);
       return page;
     }
 
-    return SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(getActivity());
+    return SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(requireActivity());
   }
 
   @NonNull
@@ -210,14 +227,65 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     mViewPager.setAdapter(mAdapter);
   }
 
+  @Override
+  public void onFinishKmlImport()
+  {
+    if (getFragmentManager() == null)
+      return;
+    for (Fragment fragment : getFragmentManager().getFragments())
+    {
+      if (fragment != this && fragment instanceof KmlImportController.ImportKmlCallback)
+        ((KmlImportController.ImportKmlCallback) fragment).onFinishKmlImport();
+    }
+  }
+
+  @Override
+  public void onBookmarksLoadingStarted()
+  {
+    // No op
+  }
+
+  @Override
+  public void onBookmarksLoadingFinished()
+  {
+    mImportKmlTask.run();
+  }
+
+  @Override
+  public void onBookmarksFileLoaded(boolean success)
+  {
+    // No op
+  }
+
   private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener
   {
     @Override
     public void onPageSelected(int position)
     {
-      SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(getActivity(), position);
+      SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(requireActivity(), position);
       BookmarksPageFactory factory = mAdapter.getItemFactory(position);
       Statistics.INSTANCE.trackBookmarksTabEvent(factory.getAnalytics().getName());
+    }
+  }
+
+  private void importKml()
+  {
+    if (mKmlImportController != null)
+      mKmlImportController.importKml();
+  }
+
+  private class ImportKmlTask implements Runnable
+  {
+    private boolean alreadyDone;
+
+    @Override
+    public void run()
+    {
+      if (alreadyDone)
+        return;
+
+      importKml();
+      alreadyDone = true;
     }
   }
 }

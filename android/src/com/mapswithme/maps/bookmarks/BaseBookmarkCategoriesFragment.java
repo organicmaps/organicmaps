@@ -56,10 +56,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   private BookmarkCategory mSelectedCategory;
   @Nullable
   private CategoryEditor mCategoryEditor;
-  @Nullable
-  private KmlImportController mKmlImportController;
-  @NonNull
-  private Runnable mImportKmlTask = new ImportKmlTask();
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarkManager.BookmarksCatalogListener mCatalogListener;
@@ -110,7 +106,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
   protected void onPrepareControllers(@NonNull View view)
   {
-    mKmlImportController = new KmlImportController(getActivity(), this);
+    // No op
   }
 
   protected void updateLoadingPlaceholder()
@@ -131,8 +127,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     BookmarkManager.INSTANCE.addLoadingListener(this);
     BookmarkManager.INSTANCE.addSharingListener(this);
     BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
-    if (mKmlImportController != null)
-      mKmlImportController.onStart();
   }
 
   @Override
@@ -142,8 +136,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     BookmarkManager.INSTANCE.removeSharingListener(this);
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
-    if (mKmlImportController != null)
-      mKmlImportController.onStop();
   }
 
   @Override
@@ -152,8 +144,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     super.onResume();
     updateLoadingPlaceholder();
     getAdapter().notifyDataSetChanged();
-    if (!BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
-      mImportKmlTask.run();
   }
 
   @Override
@@ -234,19 +224,12 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   {
     updateLoadingPlaceholder();
     getAdapter().notifyDataSetChanged();
-    mImportKmlTask.run();
   }
 
   @Override
   public void onBookmarksFileLoaded(boolean success)
   {
     // Do nothing here.
-  }
-
-  private void importKml()
-  {
-    if (mKmlImportController != null)
-      mKmlImportController.importKml();
   }
 
   @Override
@@ -373,20 +356,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     void commit(@NonNull String newName);
   }
 
-  private class ImportKmlTask implements Runnable
-  {
-    private boolean alreadyDone;
-
-    @Override
-    public void run()
-    {
-      if (alreadyDone)
-        return;
-
-      importKml();
-      alreadyDone = true;
-    }
-  }
 
   protected enum MenuItemClickProcessorWrapper
   {

@@ -24,7 +24,6 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
   @Override
   protected void onPrepareControllers(@NonNull View view)
   {
-    super.onPrepareControllers(view);
     Authorizer authorizer = new Authorizer(this);
     BookmarkBackupView backupView = view.findViewById(R.id.backup);
 

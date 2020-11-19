@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.text.TextUtils;
 
@@ -93,7 +94,7 @@ public enum BookmarksPageFactory
   }
 
   @NonNull
-  public abstract Fragment instantiateFragment();
+  protected abstract Fragment instantiateFragment();
 
   public abstract int getTitle();
 

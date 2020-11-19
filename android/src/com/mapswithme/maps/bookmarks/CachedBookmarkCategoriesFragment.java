@@ -194,6 +194,13 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     }
   }
 
+  @Override
+  public void onFinishKmlImport()
+  {
+    updateLoadingPlaceholder();
+    super.onFinishKmlImport();
+  }
+
   private class BookmarkCategoriesCatalogListener implements BookmarkManager.BookmarksCatalogListener
   {
     @Override
