@@ -326,6 +326,8 @@
 		D5481E4E24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5481E4C24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp */; };
 		D5481E4F24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5481E4D24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp */; };
 		D563401F2423816C00FDE20A /* guides_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D563401E2423816C00FDE20A /* guides_tests.cpp */; };
+		D57834C02562ED5F0020A420 /* cross_border_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D57834BE2562ED5F0020A420 /* cross_border_graph.cpp */; };
+		D57834C12562ED5F0020A420 /* cross_border_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D57834BF2562ED5F0020A420 /* cross_border_graph.hpp */; };
 		D5C9497C2525C855001E45E2 /* directions_engine_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5C9497A2525C854001E45E2 /* directions_engine_helpers.hpp */; };
 		D5C9497D2525C855001E45E2 /* directions_engine_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5C9497B2525C855001E45E2 /* directions_engine_helpers.cpp */; };
 		F6C3A1B521AC298F0060EEC8 /* speed_camera_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6C3A1B321AC298E0060EEC8 /* speed_camera_manager.hpp */; };
@@ -621,6 +623,8 @@
 		D5481E4C24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_hierarchy_handler.hpp; sourceTree = "<group>"; };
 		D5481E4D24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_hierarchy_handler.cpp; sourceTree = "<group>"; };
 		D563401E2423816C00FDE20A /* guides_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_tests.cpp; sourceTree = "<group>"; };
+		D57834BE2562ED5F0020A420 /* cross_border_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_border_graph.cpp; sourceTree = "<group>"; };
+		D57834BF2562ED5F0020A420 /* cross_border_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_border_graph.hpp; sourceTree = "<group>"; };
 		D5C9497A2525C854001E45E2 /* directions_engine_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = directions_engine_helpers.hpp; sourceTree = "<group>"; };
 		D5C9497B2525C855001E45E2 /* directions_engine_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = directions_engine_helpers.cpp; sourceTree = "<group>"; };
 		F6C3A1B321AC298E0060EEC8 /* speed_camera_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera_manager.hpp; sourceTree = "<group>"; };
@@ -901,6 +905,8 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				D57834BE2562ED5F0020A420 /* cross_border_graph.cpp */,
+				D57834BF2562ED5F0020A420 /* cross_border_graph.hpp */,
 				D52EF20125260E1500DFEB57 /* directions_engine.cpp */,
 				D5C9497B2525C855001E45E2 /* directions_engine_helpers.cpp */,
 				D5C9497A2525C854001E45E2 /* directions_engine_helpers.hpp */,
@@ -1184,6 +1190,7 @@
 				56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */,
 				405F48DC1F6AD01C005BA81A /* routing_result.hpp in Headers */,
 				56FEAA6E219E8A610073DF5F /* maxspeeds_serialization.hpp in Headers */,
+				D57834C12562ED5F0020A420 /* cross_border_graph.hpp in Headers */,
 				4065EA801F824A6C0094DEF3 /* transit_world_graph.hpp in Headers */,
 				44B284C823F5A21300A3FBB7 /* opening_hours_serdes.hpp in Headers */,
 				44E5574A2136EEC900B01439 /* speed_camera_ser_des.hpp in Headers */,
@@ -1426,6 +1433,7 @@
 				441CC8C623ACF42C008B9A49 /* segment.cpp in Sources */,
 				44AE4A12214FBB8E006321F5 /* speed_camera.cpp in Sources */,
 				674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */,
+				D57834C02562ED5F0020A420 /* cross_border_graph.cpp in Sources */,
 				0C5F5D221E798B0400307B98 /* cross_mwm_connector.cpp in Sources */,
 				0C81E1531F02589800DC66DF /* traffic_stash.cpp in Sources */,
 				0CF5E8AA1E8EA7A1001ED497 /* coding_test.cpp in Sources */,
