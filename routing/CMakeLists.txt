@@ -28,6 +28,8 @@ set(
   city_roads.hpp
   city_roads_serialization.hpp
   coding.hpp
+  cross_border_graph.cpp
+  cross_border_graph.hpp
   cross_mwm_connector.cpp
   cross_mwm_connector.hpp
   cross_mwm_connector_serialization.cpp
