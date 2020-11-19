@@ -1155,7 +1155,7 @@ public enum Statistics
   {
     Statistics.ParameterBuilder params = Statistics.params();
     params.add(Statistics.EventParam.PROVIDER, error.getProviderName());
-    params.add(ERROR_CODE, error.getCode().name());
+    params.add(ERROR, error.getCode().toStatisticValue());
     trackEvent(EventName.ROUTING_TAXI_ROUTE_BUILT, params);
   }
 
