@@ -7,10 +7,9 @@
   android:gravity="center_horizontal"
   android:paddingTop="@dimen/hotels_filter_margin_top"
   android:paddingBottom="@dimen/hotels_filter_margin_top"
-  android:paddingRight="@dimen/margin_double"
   android:paddingEnd="@dimen/margin_double"
   android:paddingStart="@dimen/margin_double"
-  android:paddingLeft="@dimen/margin_double">
+  android:background="?cardBackground">
   <TextView
     android:textAppearance="@style/MwmTheme.DialogTitleBase"
     android:text="@string/guide_downloaded_title"
