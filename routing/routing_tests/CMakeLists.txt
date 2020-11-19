@@ -10,6 +10,7 @@ set(
   bfs_tests.cpp
   checkpoint_predictor_test.cpp
   coding_test.cpp
+  cross_border_graph_tests.cpp
   cross_mwm_connector_test.cpp
   cumulative_restriction_test.cpp
   edge_estimator_tests.cpp
@@ -51,6 +52,8 @@ omim_link_libraries(
   map
   ge0
   routing
+  storage
+  mwm_diff
   platform_tests_support
   traffic
   routing_common
@@ -68,6 +71,7 @@ omim_link_libraries(
   opening_hours
   protobuf
   pugixml
+  bsdiff
   succinct
   stats_client
   icu
