@@ -349,13 +349,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     boolean isEmptyRecycler = isEmpty() || isEmptySearchResults();
 
     showPlaceholder(isEmptyRecycler);
-    UiUtils.showIf(!isEmptyRecycler, getRecyclerView(), mFabViewOnMap, mDescriptionView);
     UiUtils.hideIf(getAdapter().isSearchResults(), mCollectionRecyclerView, mDescriptionView);
+    UiUtils.showIf(!isEmptyRecycler, getRecyclerView(), mFabViewOnMap, mDescriptionView);
 
     if (getCategoryOrThrow().isMyCategory())
-    {
       UiUtils.hide(mDescriptionView);
-    }
 
     requireActivity().invalidateOptionsMenu();
   }
@@ -623,6 +621,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     switch (adapter.getItemViewType(position))
     {
       case BookmarkListAdapter.TYPE_SECTION:
+      case BookmarkListAdapter.TYPE_DESC:
         return;
 
       case BookmarkListAdapter.TYPE_BOOKMARK:
@@ -677,6 +676,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     switch (type)
     {
       case BookmarkListAdapter.TYPE_SECTION:
+      case BookmarkListAdapter.TYPE_DESC:
         // Do nothing here?
         break;
 

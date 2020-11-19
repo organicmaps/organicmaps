@@ -1,11 +1,17 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.PluralsRes;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Html;
+import android.text.Layout;
+import android.text.Spanned;
+import android.text.StaticLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -466,6 +472,86 @@ public class Holders
               @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
     {
       mView.setText(sectionsDataSource.getTitle(position.getSectionIndex(), mView.getResources()));
+    }
+  }
+
+  static class DescriptionViewHolder extends BaseBookmarkHolder
+  {
+    static final float SPACING_MULTIPLE = 1.0f;
+    static final float SPACING_ADD = 0.0f;
+    @NonNull
+    private final TextView mTitle;
+    @NonNull
+    private final TextView mAuthor;
+    @NonNull
+    private final TextView mDescText;
+    @NonNull
+    private final View mMoreBtn;
+
+    DescriptionViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
+    {
+      super(itemView);
+      mDescText = itemView.findViewById(R.id.text);
+      mTitle = itemView.findViewById(R.id.title);
+      mAuthor = itemView.findViewById(R.id.author);
+
+      mMoreBtn = itemView.findViewById(R.id.more_btn);
+      boolean isEmptyDesc = TextUtils.isEmpty(category.getDescription());
+      UiUtils.hideIf(isEmptyDesc, mMoreBtn);
+      mMoreBtn.setOnClickListener(v -> onMoreBtnClicked(v, category));
+    }
+
+    private void onMoreBtnClicked(@NonNull View v, @NonNull BookmarkCategory category)
+    {
+      int lineCount = calcLineCount(mDescText, category.getDescription());
+      mDescText.setMaxLines(lineCount);
+      mDescText.setText(Html.fromHtml(category.getDescription()));
+      v.setVisibility(View.GONE);
+    }
+
+    @Override
+    void bind(@NonNull SectionPosition position,
+              @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
+    {
+      mTitle.setText(sectionsDataSource.getCategory().getName());
+      bindAuthor(sectionsDataSource.getCategory());
+      bindDescriptionIfEmpty(sectionsDataSource.getCategory());
+    }
+
+    private void bindDescriptionIfEmpty(@NonNull BookmarkCategory category)
+    {
+      if (TextUtils.isEmpty(mDescText.getText()))
+      {
+        String desc = TextUtils.isEmpty(category.getAnnotation())
+                      ? category.getDescription()
+                      : category.getAnnotation();
+
+        Spanned spannedDesc = Html.fromHtml(desc);
+        mDescText.setText(spannedDesc);
+      }
+    }
+
+    private void bindAuthor(@NonNull BookmarkCategory category)
+    {
+      BookmarkCategory.Author author = category.getAuthor();
+      Context c = itemView.getContext();
+      CharSequence authorName = author == null
+                                ? null
+                                : BookmarkCategory.Author.getRepresentation(c, author);
+      mAuthor.setText(authorName);
+    }
+
+    private static int calcLineCount(@NonNull TextView textView, @NonNull String src)
+    {
+      StaticLayout staticLayout = new StaticLayout(src,
+                                                   textView.getPaint(),
+                                                   textView.getWidth(),
+                                                   Layout.Alignment.ALIGN_NORMAL,
+                                                   SPACING_MULTIPLE,
+                                                   SPACING_ADD,
+                                                   true);
+
+      return staticLayout.getLineCount();
     }
   }
 }
