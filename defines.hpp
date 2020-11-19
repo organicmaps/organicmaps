@@ -60,6 +60,7 @@
 #define CITY_ROADS_FILE_TAG "city_roads"
 #define DESCRIPTIONS_FILE_TAG "descriptions"
 #define MAXSPEEDS_FILE_TAG "maxspeeds"
+#define ROUTING_WORLD_FILE_TAG "routing_world"
 
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume"
