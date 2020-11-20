@@ -146,6 +146,8 @@ double EdgeEstimator::ComputeDefaultLeapWeightSpeed() const
 
 double EdgeEstimator::LoadLeapWeightSpeed(NumMwmId mwmId)
 {
+  double leapWeightSpeed = ComputeDefaultLeapWeightSpeed();
+
   if (m_dataSourcePtr)
   {
     MwmSet::MwmHandle handle =
@@ -154,10 +156,13 @@ double EdgeEstimator::LoadLeapWeightSpeed(NumMwmId mwmId)
       MYTHROW(RoutingException, ("Mwm", m_numMwmIds->GetFile(mwmId), "cannot be loaded."));
 
     if (handle.GetInfo())
-      return handle.GetInfo()->GetRegionData().GetLeapWeightSpeed(m_maxWeightSpeedMpS / 2.0);
+      leapWeightSpeed = handle.GetInfo()->GetRegionData().GetLeapWeightSpeed(leapWeightSpeed);
   }
 
-  return ComputeDefaultLeapWeightSpeed();
+  if (leapWeightSpeed > m_maxWeightSpeedMpS)
+    leapWeightSpeed = m_maxWeightSpeedMpS;
+
+  return leapWeightSpeed;
 }
 
 double EdgeEstimator::GetLeapWeightSpeed(NumMwmId mwmId)
