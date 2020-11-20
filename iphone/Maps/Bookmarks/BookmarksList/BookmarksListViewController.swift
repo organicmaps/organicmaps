@@ -39,6 +39,11 @@ final class BookmarksListViewController: MWMViewController {
       self?.presenter.toggleVisibility(in: viewModel)
     }
     presenter.viewDidLoad()
+    MWMKeyboard.add(self);
+  }
+
+  deinit {
+    MWMKeyboard.remove(self);
   }
 
   override func viewDidLayoutSubviews() {
@@ -213,5 +218,12 @@ extension BookmarksListViewController: BookmarksListInfoViewControllerDelegate {
 
   func didUpdateContent() {
     updateInfoSize()
+  }
+}
+
+extension BookmarksListViewController: MWMKeyboardObserver {
+  func onKeyboardAnimation() {
+    let keyboardHeight = MWMKeyboard.keyboardHeight();
+    tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
   }
 }
