@@ -196,6 +196,23 @@
 
 #pragma mark - NSURLSessionDownloadDelegate implementation
 
+- (void)finishDownloading:(NSURLSessionTask *)downloadTask error:(nullable NSError *)error {
+  [self.restoredTasks removeObjectForKey:downloadTask.originalRequest.URL.path];
+
+  TaskInfo *info = [self.tasks objectForKey:@(downloadTask.taskIdentifier)];
+  if (!info)
+    return;
+
+  info.completion(error);
+
+  [self.tasks removeObjectForKey:@(downloadTask.taskIdentifier)];
+
+  if ([self.tasks count] == 0) {
+    for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
+      [subscriber didFinishDownloading];
+  }
+}
+
 - (void)URLSession:(NSURLSession *)session
                downloadTask:(NSURLSessionDownloadTask *)downloadTask
   didFinishDownloadingToURL:(NSURL *)location {
@@ -204,20 +221,7 @@
   [[NSFileManager defaultManager] moveItemAtURL:location.filePathURL toURL:destinationUrl error:&error];
 
   dispatch_async(dispatch_get_main_queue(), ^{
-    [self.restoredTasks removeObjectForKey:downloadTask.originalRequest.URL.path];
-
-    TaskInfo *info = [self.tasks objectForKey:@(downloadTask.taskIdentifier)];
-    if (!info)
-      return;
-
-    info.completion(destinationUrl, error);
-
-    [self.tasks removeObjectForKey:@(downloadTask.taskIdentifier)];
-
-    if ([self.tasks count] == 0) {
-      for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-        [subscriber didFinishDownloading];
-    }
+    [self finishDownloading:downloadTask error:error];
   });
 }
 
@@ -236,20 +240,8 @@
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)downloadTask didCompleteWithError:(NSError *)error {
   dispatch_async(dispatch_get_main_queue(), ^{
-    [self.restoredTasks removeObjectForKey:downloadTask.originalRequest.URL.path];
-
-    TaskInfo *info = [self.tasks objectForKey:@(downloadTask.taskIdentifier)];
-    if (!info)
-      return;
-
-    info.completion(nil, error);
-
-    [self.tasks removeObjectForKey:@(downloadTask.taskIdentifier)];
-
-    if ([self.tasks count] == 0) {
-      for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-        [subscriber didFinishDownloading];
-    }
+    if (error && error.code != NSURLErrorCancelled)
+      [self finishDownloading:downloadTask error:error];
   });
 }
 

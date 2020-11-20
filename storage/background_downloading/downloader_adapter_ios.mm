@@ -10,6 +10,21 @@
 #include <memory>
 #include <utility>
 
+@interface NSError (ToDownloaderError)
+
+- (downloader::DownloadStatus)toDownloaderError;
+
+@end
+
+@implementation NSError (ToDownloaderError)
+
+- (downloader::DownloadStatus)toDownloaderError {
+  return self.code == NSURLErrorFileDoesNotExist ? downloader::DownloadStatus::FileNotFound
+                                                 : downloader::DownloadStatus::Failed;
+}
+
+@end
+
 namespace storage
 {
 BackgroundDownloaderAdapter::BackgroundDownloaderAdapter()
@@ -77,15 +92,10 @@ void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId
 {
   if (urls.empty())
     return;
-  
-  auto onFinish = [this, countryId, downloadPath, urls = urls](NSURL *location, NSError *error) mutable {
-    if (!error || error.code == NSURLErrorCancelled)
-      return;
-     
-    downloader::DownloadStatus status = downloader::DownloadStatus::Completed;
-    status = error.code == NSURLErrorFileDoesNotExist ? downloader::DownloadStatus::FileNotFound
-                                                      : downloader::DownloadStatus::Failed;
-    
+
+  auto onFinish = [this, countryId, downloadPath, urls = urls](NSError *error) mutable {
+    downloader::DownloadStatus status = error ? [error toDownloaderError] : downloader::DownloadStatus::Completed;
+
     if (!m_queue.Contains(countryId))
       return;
 
@@ -100,7 +110,7 @@ void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId
       m_queue.Remove(countryId);
     }
   };
-  
+
   auto onProgress = [this, countryId](int64_t totalWritten, int64_t totalExpected) {
     if (!m_queue.Contains(countryId))
       return;
