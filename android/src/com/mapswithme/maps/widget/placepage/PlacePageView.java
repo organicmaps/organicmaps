@@ -1159,6 +1159,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       mMapObject = mapObject;
       NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
       refreshViews(policy);
+      processSponsored(policy);
       if (listener != null)
       {
         listener.onSetMapObjectComplete(policy, true);
@@ -1249,7 +1250,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       LOGGER.e(TAG, "A place page views cannot be refreshed, mMapObject is null");
       return;
     }
-
     refreshPreview(mMapObject, null);
     refreshDetails(mMapObject);
     refreshHotelDetailViews(policy);
