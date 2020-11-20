@@ -36,6 +36,7 @@ import com.mapswithme.maps.routing.RoutingOptions;
 import com.mapswithme.maps.settings.RoadType;
 import com.mapswithme.maps.taxi.TaxiInfoError;
 import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.BatteryState;
@@ -1151,18 +1152,12 @@ public enum Statistics
     trackEvent(eventName, params);
   }
 
-  public void trackTaxiError(@NonNull TaxiInfoError error)
+  public void trackTaxiError(@Nullable TaxiType type, @NonNull TaxiManager.ErrorCode code)
   {
     Statistics.ParameterBuilder params = Statistics.params();
-    params.add(Statistics.EventParam.PROVIDER, error.getProviderName());
-    params.add(ERROR, error.getCode().toStatisticValue());
-    trackEvent(EventName.ROUTING_TAXI_ROUTE_BUILT, params);
-  }
-
-  public void trackNoTaxiProvidersError()
-  {
-    Statistics.ParameterBuilder params = Statistics.params();
-    params.add(ERROR_CODE, TaxiManager.ErrorCode.NoProviders.name());
+    if (type != null)
+      params.add(Statistics.EventParam.PROVIDER, type.getProviderName());
+    params.add(ERROR, code.toStatisticValue());
     trackEvent(EventName.ROUTING_TAXI_ROUTE_BUILT, params);
   }
 

@@ -1209,7 +1209,7 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     {
       mContainer.onTaxiError(error.getCode());
       completeTaxiRequest();
-      Statistics.INSTANCE.trackTaxiError(error);
+      Statistics.INSTANCE.trackTaxiError(error.getTaxiType(), error.getCode());
     }
   }
 
@@ -1222,7 +1222,7 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     {
       mContainer.onTaxiError(TaxiManager.ErrorCode.NoProviders);
       completeTaxiRequest();
-      Statistics.INSTANCE.trackNoTaxiProvidersError();
+      Statistics.INSTANCE.trackTaxiError(null, TaxiManager.ErrorCode.NoProviders);
     }
   }
 }

@@ -22,9 +22,9 @@ public class TaxiInfoError
   }
 
   @NonNull
-  public String getProviderName()
+  public TaxiType getTaxiType()
   {
-    return mType.getProviderName();
+    return mType;
   }
 
   @Override
