@@ -3,11 +3,6 @@ package com.mapswithme.maps.bookmarks;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.PluralsRes;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Html;
 import android.text.Layout;
 import android.text.Spanned;
@@ -18,6 +13,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.PluralsRes;
+import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -327,6 +326,23 @@ public class Holders
     public TextView getAuthorName()
     {
       return mAuthorName;
+    }
+  }
+
+  static class BookmarkDescriptionHolder extends RecyclerView.ViewHolder
+  {
+    @NonNull
+    private final BookmarkHeaderView mDescriptionView;
+
+    public BookmarkDescriptionHolder(@NonNull BookmarkHeaderView itemView)
+    {
+      super(itemView);
+      mDescriptionView = itemView;
+    }
+
+    void bind(@NonNull BookmarkCategory category)
+    {
+      mDescriptionView.setCategory(category);
     }
   }
 

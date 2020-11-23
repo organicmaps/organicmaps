@@ -21,20 +21,26 @@ public class BookmarkHeaderView extends LinearLayout
 
   public static final String AUTHOR_LONELY_PLANET_ID = "28035594-6457-466d-8f6f-8499607df570";
 
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ImageView mImageView;
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private  TextView mTitle;
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private TextView mDescriptionBtn;
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ImageView mImageViewLogo;
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private TextView mAuthorTextView;
 
   public BookmarkHeaderView(@NonNull Context context)
   {
     super(context);
+    init();
   }
 
   public BookmarkHeaderView(@NonNull Context context, @Nullable AttributeSet attrs)
@@ -58,12 +64,6 @@ public class BookmarkHeaderView extends LinearLayout
   private void init() {
     setOrientation(LinearLayout.VERTICAL);
     View.inflate(getContext(), R.layout.item_guide_info, this);
-  }
-
-  @Override
-  protected void onFinishInflate()
-  {
-    super.onFinishInflate();
     mImageView = findViewById(R.id.guide_image);
     mTitle = findViewById(R.id.guide_title);
     mDescriptionBtn = findViewById(R.id.btn_description);
@@ -71,11 +71,12 @@ public class BookmarkHeaderView extends LinearLayout
     mImageViewLogo = findViewById(R.id.logo);
   }
 
-  public void setCategory(@NonNull BookmarkCategory category) {
-    Context context = getContext();
+  public void setCategory(@NonNull BookmarkCategory category)
+  {
     if (!category.isMyCategory())
     {
-      String imageUrl = category.getImageUrl();
+      final Context context = getContext();
+      final String imageUrl = category.getImageUrl();
       if (TextUtils.isEmpty(imageUrl) || !ConnectionState.isConnected())
       {
         UiUtils.hide(mImageView);
@@ -106,7 +107,7 @@ public class BookmarkHeaderView extends LinearLayout
     }
     else
     {
-      UiUtils.hide(findViewById(R.id.guide_info));
+      UiUtils.hide(this);
     }
   }
 }

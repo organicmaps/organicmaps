@@ -40,6 +40,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -577,6 +578,22 @@ public final class UiUtils
     Toast toast = Toast.makeText(context, stringId, Toast.LENGTH_LONG);
     toast.setGravity(Gravity.TOP, 0, 0);
     toast.show();
+  }
+
+  public static void showRecyclerItemView(boolean show, @NonNull View view)
+  {
+    if (show)
+    {
+      view.setLayoutParams(new RecyclerView.LayoutParams(
+          ViewGroup.LayoutParams.MATCH_PARENT,
+          ViewGroup.LayoutParams.WRAP_CONTENT));
+      UiUtils.show(view);
+    }
+    else
+    {
+      view.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+      UiUtils.hide(view);
+    }
   }
 
   // utility class
