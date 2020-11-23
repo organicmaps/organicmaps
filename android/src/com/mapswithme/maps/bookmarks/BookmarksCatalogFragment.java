@@ -103,6 +103,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private AlertDialogCallback mInvalidSubsDialogCallback;
+  @Nullable
+  private String mProductDetailsBundle;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -307,7 +309,11 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
         headers.put(header.getKey(), header.getValue());
     }
 
-    mWebView.loadUrl(getCatalogUrlOrThrow(), headers);
+    String url = mWebView.getUrl();
+    if (TextUtils.isEmpty(url))
+      url = getCatalogUrlOrThrow();
+    mWebView.loadUrl(url, headers);
+
     UserActionsLogger.logBookmarksCatalogShownEvent();
   }
 
@@ -538,6 +544,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     public void onAuthorizationRequired()
     {
       mDelegate.authorize(() -> mFailedPurchaseController.validateExistingPurchases());
+      loadCatalog(mProductDetailsBundle);
     }
 
     @Override
@@ -561,7 +568,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       }
 
       LOGGER.i(TAG, "Product details for web catalog loaded: " + details);
-      loadCatalog(toDetailsBundle(details));
+      mProductDetailsBundle = toDetailsBundle(details);
+      loadCatalog(mProductDetailsBundle);
     }
 
     @Nullable
