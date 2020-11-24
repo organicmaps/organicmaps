@@ -153,6 +153,7 @@ public:
   bool IsRoutePoint() const { return m_isRoutePoint; }
   bool IsRoadType() const { return m_roadType != RoadWarningMarkType::Count; }
   bool IsGuide() const { return m_isGuide; }
+  bool HasMetadata() const { return m_hasMetadata; }
 
   /// Edit and add
   bool ShouldShowAddPlace() const;
@@ -364,6 +365,8 @@ private:
   kml::TrackId m_trackId = kml::kInvalidTrackId;
   /// Whether to show "Must See".
   bool m_isTopChoice = false;
+  /// Whether to treat it as plain feature.
+  bool m_hasMetadata = false;
 
   /// Guide
   bool m_isGuide = false;

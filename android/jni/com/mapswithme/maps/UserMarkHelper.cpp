@@ -187,7 +187,7 @@ jobject CreateBookmark(JNIEnv *env, const place_page::Info &info,
           info.CanBeRated(), info.CanBeReviewed(), jratings.get(), hotelType.get(), priceRate,
           popularity.get(), jDescription.get(), info.IsTopChoice(), jrawTypes.get());
 
-  if (info.IsFeature())
+  if (info.HasMetadata())
     InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
   return mapObject;
 }
@@ -298,11 +298,11 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   return CreateMapObject(
       env, info.GetID().GetMwmName(), info.GetID().GetMwmVersion(), info.GetID().m_index, kPoi,
       info.GetTitle(), info.GetSecondaryTitle(), info.GetSubtitle(), ll.m_lat, ll.m_lon,
-      info.GetAddress(), info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
+      info.GetAddress(), info.HasMetadata() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
       jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
       info.GetOpeningMode(), info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(),
-      jratings.get(), hotelType.get(), priceRate, popularity.get(),
-      info.GetDescription(), info.GetRoadType(), info.IsTopChoice(), jrawTypes.get());
+      jratings.get(), hotelType.get(), priceRate, popularity.get(), info.GetDescription(),
+      info.GetRoadType(), info.IsTopChoice(), jrawTypes.get());
 }
 
 jobjectArray ToBannersArray(JNIEnv * env, std::vector<ads::Banner> const & banners)

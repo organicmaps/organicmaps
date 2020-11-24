@@ -60,6 +60,8 @@ bool Info::ShouldShowUGC() const
 void Info::SetFromFeatureType(FeatureType & ft)
 {
   MapObject::SetFromFeatureType(ft);
+  m_hasMetadata = true;
+
   std::string primaryName;
   std::string secondaryName;
   GetPrefferedNames(primaryName, secondaryName);
@@ -247,6 +249,7 @@ void Info::SetFromBookmarkProperties(kml::Properties const & p)
     m_metadata.Set(feature::Metadata::EType::FMD_URL, url->second);
   if (auto const isTopChoice = p.find("is_top_choice"); isTopChoice != p.end())
     m_isTopChoice = isTopChoice->second == "1";
+  m_hasMetadata = true;
 }
 
 void Info::SetBookmarkId(kml::MarkId bookmarkId)
