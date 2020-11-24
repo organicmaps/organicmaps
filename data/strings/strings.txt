@@ -49382,3 +49382,16 @@
 
   [arsenal_cta_button]
     en = Оформить полис
+
+  [download_map_title]
+    en = Download the world map
+    ru = Скачать карту мира
+
+  [connection_failure]
+    en = Connection failure
+    ru = Соединение не выполнено
+
+  [disconnect_usb_cable_title]
+    en = Disconnect USB cable
+    ru = Отсоедините USB кабель
+
