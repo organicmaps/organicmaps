@@ -68,5 +68,4 @@
       android:gravity="center_vertical"
       tools:text="@string/about_menu_title" />
   </LinearLayout>
-  <include layout="@layout/divider_horizontal" />
 </merge>
