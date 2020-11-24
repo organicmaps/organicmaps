@@ -133,6 +133,24 @@ public enum BookmarkManager
     ICONS.add(new Icon(Icon.PREDEFINED_COLOR_BLUEGRAY, Icon.BOOKMARK_ICON_TYPE_NONE));
   }
 
+  public void toggleCompilationVisibility(@NonNull BookmarkCategory category,
+                                          @CompilationType int type)
+  {
+    boolean isVisible = isVisible(category.getId());
+    setVisibility(category.getId(), !isVisible);
+    Statistics.INSTANCE.trackBookmarksVisibility(Statistics.ParamValue.BOOKMARK_LIST,
+                                                 isVisible ? Statistics.ParamValue.HIDE
+                                                           : Statistics.ParamValue.SHOW,
+                                                 category.isFromCatalog() ? category.getServerId()
+                                                                          : null);
+    String compilationTypeString = type == BookmarkManager.CATEGORY ?
+                                   Statistics.ParamValue.CATEGORY :
+                                   Statistics.ParamValue.COLLECTION;
+    Statistics.INSTANCE.trackGuideVisibilityChange(
+        isVisible ? Statistics.ParamValue.HIDE : Statistics.ParamValue.SHOW,
+        category.getServerId(), compilationTypeString);
+  }
+
   public void toggleCategoryVisibility(@NonNull BookmarkCategory category)
   {
     boolean isVisible = isVisible(category.getId());
