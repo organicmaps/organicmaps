@@ -3,7 +3,6 @@ package com.mapswithme.maps;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.dialog.AlertDialog;
+import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.intent.Factory;
@@ -38,10 +39,13 @@ import com.mapswithme.util.log.LoggerFactory;
 import java.util.List;
 
 @SuppressLint("StringFormatMatches")
-public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
+public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity implements AlertDialogCallback
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
   private static final String TAG = DownloadResourcesLegacyActivity.class.getName();
+
+  private static final String ERROR_LOADING_DIALOG_TAG = "error_loading_dialog";
+  private static final int ERROR_LOADING_DIALOG_REQ_CODE = 234;
 
   public static final String EXTRA_COUNTRY = "country";
 
@@ -429,6 +433,20 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   }
 
+  private static @StringRes int getErrorTitle(int res)
+  {
+    switch (res)
+    {
+      case ERR_STORAGE_DISCONNECTED:
+        return R.string.disconnect_usb_cable_title;
+
+      case ERR_DOWNLOAD_ERROR:
+        return R.string.connection_failure;
+      default:
+        return R.string.not_enough_space;
+    }
+  }
+
   public void showMap()
   {
     if (!mAreResourcesDownloaded)
@@ -481,9 +499,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      mTvMessage.setText(getErrorMessage(result));
-      mTvMessage.setTextColor(Color.RED);
-      setAction(TRY_AGAIN);
+      showErrorDialog(result);
     }
   }
 
@@ -511,6 +527,35 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
 
     return null;
+  }
+
+  private void showErrorDialog(int result){
+      AlertDialog dialog = new AlertDialog.Builder()
+            .setTitleId(getErrorTitle(result))
+            .setMessageId(getErrorMessage(result))
+            .setPositiveBtnId(R.string.try_again)
+            .setReqCode(ERROR_LOADING_DIALOG_REQ_CODE)
+            .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+            .build();
+    dialog.show(this, ERROR_LOADING_DIALOG_TAG);
+  }
+
+  @Override
+  public void onAlertDialogPositiveClick(int requestCode, int which)
+  {
+    setAction(TRY_AGAIN);
+  }
+
+  @Override
+  public void onAlertDialogNegativeClick(int requestCode, int which)
+  {
+    // no op
+  }
+
+  @Override
+  public void onAlertDialogCancel(int requestCode)
+  {
+    setAction(PAUSE);
   }
 
   private static native int nativeGetBytesToDownload();

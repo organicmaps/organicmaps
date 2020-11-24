@@ -32,7 +32,7 @@
       android:layout_marginTop="@dimen/margin_base_plus"
       android:gravity="center"
       android:layout_alignParentTop="true"
-      android:text="@string/downloader_download_map" />
+      android:text="@string/download_map_title" />
     <TextView
       android:id="@+id/download_message"
       style="?fontBody2"
