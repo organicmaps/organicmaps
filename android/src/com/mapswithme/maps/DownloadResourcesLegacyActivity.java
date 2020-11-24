@@ -77,8 +77,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   private static final int PROCEED_TO_MAP = 4;
   private static final int BTN_COUNT = 5;
 
-  private View.OnClickListener mBtnListeners[];
-  private String mBtnNames[];
+  private View.OnClickListener[] mBtnListeners;
+  private String[] mBtnNames;
 
   private int mCountryDownloadListenerSlot;
 
@@ -311,62 +311,27 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
 
   private void initViewsAndListeners()
   {
-    mTvMessage = (TextView) findViewById(R.id.download_message);
-    mProgress = (ProgressBar) findViewById(R.id.progressbar);
-    mBtnDownload = (Button) findViewById(R.id.btn_download_resources);
-    mChbDownloadCountry = (CheckBox) findViewById(R.id.chb_download_country);
-    mTvLocation = (TextView) findViewById(R.id.tv_location);
+    mTvMessage = findViewById(R.id.download_message);
+    mProgress = findViewById(R.id.progressbar);
+    mBtnDownload = findViewById(R.id.btn_download_resources);
+    mChbDownloadCountry = findViewById(R.id.chb_download_country);
+    mTvLocation = findViewById(R.id.tv_location);
     mBtnListeners = new View.OnClickListener[BTN_COUNT];
     mBtnNames = new String[BTN_COUNT];
 
-    mBtnListeners[DOWNLOAD] = new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        onDownloadClicked();
-      }
-    };
+    mBtnListeners[DOWNLOAD] = v -> onDownloadClicked();
     mBtnNames[DOWNLOAD] = getString(R.string.download);
 
-    mBtnListeners[PAUSE] = new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        onPauseClicked();
-      }
-    };
+    mBtnListeners[PAUSE] = v -> onPauseClicked();
     mBtnNames[PAUSE] = getString(R.string.pause);
 
-    mBtnListeners[RESUME] = new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        onResumeClicked();
-      }
-    };
+    mBtnListeners[RESUME] = v -> onResumeClicked();
     mBtnNames[RESUME] = getString(R.string.continue_download);
 
-    mBtnListeners[TRY_AGAIN] = new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        onTryAgainClicked();
-      }
-    };
+    mBtnListeners[TRY_AGAIN] = v -> onTryAgainClicked();
     mBtnNames[TRY_AGAIN] = getString(R.string.try_again);
 
-    mBtnListeners[PROCEED_TO_MAP] = new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        onProceedToMapClicked();
-      }
-    };
+    mBtnListeners[PROCEED_TO_MAP] = v -> onProceedToMapClicked();
     mBtnNames[PROCEED_TO_MAP] = getString(R.string.download_resources_continue);
   }
 
@@ -443,7 +408,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
       case ERR_DOWNLOAD_ERROR:
         return R.string.connection_failure;
       default:
-        return R.string.not_enough_space;
+        return R.string.routing_not_enough_space;
     }
   }
 
