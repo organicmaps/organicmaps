@@ -1904,6 +1904,9 @@
 	<string name="drink_lp_category">Бары</string>
 	<string name="eat_lp_category">Рестораны</string>
 	<string name="taxi_category_order">Заказать</string>
+	<string name="download_map_title">Скачать карту мира</string>
+	<string name="connection_failure">Соединение не выполнено</string>
+	<string name="disconnect_usb_cable_title">Отсоедините USB кабель</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

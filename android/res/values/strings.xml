@@ -1939,6 +1939,9 @@
 	<string name="arsenal_russia_map_downloader_title">Путешествуй по России. Лечение COVID-19 включено!</string>
 	<string name="arsenal_abroad_map_downloader_title">Полис «Выезд за рубеж». Лечение COVID-19 включено!</string>
 	<string name="arsenal_cta_button">Оформить полис</string>
+	<string name="download_map_title">Download the world map</string>
+	<string name="connection_failure">Connection failure</string>
+	<string name="disconnect_usb_cable_title">Disconnect USB cable</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

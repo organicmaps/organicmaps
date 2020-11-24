@@ -3425,6 +3425,12 @@
 
 "arsenal_cta_button" = "Оформить полис";
 
+"download_map_title" = "Download the world map";
+
+"connection_failure" = "Connection failure";
+
+"disconnect_usb_cable_title" = "Disconnect USB cable";
+
 
 /**********  Partners  **********/
 
