@@ -89,12 +89,12 @@
           if (info)
             continue;
 
-          NSString *urlString = downloadTask.originalRequest.URL.path;
+          NSString *urlString = downloadTask.currentRequest.URL.path;
 
           BOOL isTaskReplaced = NO;
           /// Replacing task with another one which was added into queue earlier (on previous application session).
           for (TaskInfo *info in self.tasks) {
-            if (![info.task.originalRequest.URL.path isEqualToString:urlString])
+            if (![info.task.currentRequest.URL.path isEqualToString:urlString])
               continue;
 
             TaskInfo *newInfo = [[TaskInfo alloc] initWithTask:downloadTask
@@ -197,7 +197,7 @@
 #pragma mark - NSURLSessionDownloadDelegate implementation
 
 - (void)finishDownloading:(NSURLSessionTask *)downloadTask error:(nullable NSError *)error {
-  [self.restoredTasks removeObjectForKey:downloadTask.originalRequest.URL.path];
+  [self.restoredTasks removeObjectForKey:downloadTask.currentRequest.URL.path];
 
   TaskInfo *info = [self.tasks objectForKey:@(downloadTask.taskIdentifier)];
   if (!info)
@@ -216,7 +216,7 @@
 - (void)URLSession:(NSURLSession *)session
                downloadTask:(NSURLSessionDownloadTask *)downloadTask
   didFinishDownloadingToURL:(NSURL *)location {
-  NSURL *destinationUrl = [self.saveStrategy getLocationForWebUrl:downloadTask.originalRequest.URL];
+  NSURL *destinationUrl = [self.saveStrategy getLocationForWebUrl:downloadTask.currentRequest.URL];
   NSError *error;
   [[NSFileManager defaultManager] moveItemAtURL:location.filePathURL toURL:destinationUrl error:&error];
 
