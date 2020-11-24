@@ -131,8 +131,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         mTvLocation.setText(String.format(getString(R.string.download_location_map_up_to_date), name));
       else
       {
-        final CheckBox checkBox = (CheckBox) findViewById(R.id.chb__download_country);
-        UiUtils.show(checkBox);
+        UiUtils.show(mChbDownloadCountry);
 
         String locationText;
         String checkBoxText;
@@ -149,7 +148,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         }
 
         mTvLocation.setText(locationText);
-        checkBox.setText(checkBoxText);
+        mChbDownloadCountry.setText(checkBoxText);
       }
 
       LocationHelper.INSTANCE.removeListener(this);
@@ -308,12 +307,11 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private void initViewsAndListeners()
   {
-    mTvMessage = (TextView) findViewById(R.id.tv__download_message);
-    mProgress = (ProgressBar) findViewById(R.id.pb__download_resources);
-    mBtnDownload = (Button) findViewById(R.id.btn__download_resources);
-    mChbDownloadCountry = (CheckBox) findViewById(R.id.chb__download_country);
-    mTvLocation = (TextView) findViewById(R.id.tv__location);
-
+    mTvMessage = (TextView) findViewById(R.id.download_message);
+    mProgress = (ProgressBar) findViewById(R.id.progressbar);
+    mBtnDownload = (Button) findViewById(R.id.btn_download_resources);
+    mChbDownloadCountry = (CheckBox) findViewById(R.id.chb_download_country);
+    mTvLocation = (TextView) findViewById(R.id.tv_location);
     mBtnListeners = new View.OnClickListener[BTN_COUNT];
     mBtnNames = new String[BTN_COUNT];
 
@@ -465,7 +463,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       if (mCurrentCountry != null && mChbDownloadCountry.isChecked())
       {
         CountryItem item = CountryItem.fill(mCurrentCountry);
-
         UiUtils.hide(mChbDownloadCountry, mTvLocation);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
         mProgress.setMax((int)item.totalSize);
