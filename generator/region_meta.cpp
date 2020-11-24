@@ -29,36 +29,43 @@ namespace feature
 {
 bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
 {
-  try
+  if (Platform::IsFileExistsByFullPath(LEAP_SPEEDS_FILE))
   {
-    auto crossMwmDataReader = GetPlatform().GetReader(LEAP_SPEEDS_FILE);
-    std::string crossMwmDataBuffer;
-    crossMwmDataReader->ReadAsString(crossMwmDataBuffer);
-    base::Json crossMwmData(crossMwmDataBuffer.data());
-
-    json_t const * crossMwmJsonData = nullptr;
-    FromJSONObjectOptionalField(crossMwmData.get(), countryName, crossMwmJsonData);
-    if (crossMwmJsonData)
+    try
     {
-      double leapSpeed = FromJSONObject<double>(crossMwmJsonData, "leapspeed");
-      if (leapSpeed > 0.0)
-        data.SetLeapWeightSpeed(leapSpeed);
+      auto crossMwmDataReader = GetPlatform().GetReader(LEAP_SPEEDS_FILE);
+      std::string crossMwmDataBuffer;
+      crossMwmDataReader->ReadAsString(crossMwmDataBuffer);
+      base::Json crossMwmData(crossMwmDataBuffer.data());
+
+      json_t const * crossMwmJsonData = nullptr;
+      FromJSONObjectOptionalField(crossMwmData.get(), countryName, crossMwmJsonData);
+      if (crossMwmJsonData)
+      {
+        double leapSpeed = FromJSONObject<double>(crossMwmJsonData, "leapspeed");
+        if (leapSpeed > 0.0)
+          data.SetLeapWeightSpeed(leapSpeed);
+      }
+    }
+    catch (FileAbsentException const & e)
+    {
+      LOG(LERROR, ("Error missing file", LEAP_SPEEDS_FILE, ":", e.Msg()));
+      return false;
+    }
+    catch (Reader::Exception const & e)
+    {
+      LOG(LWARNING, ("Error reading", LEAP_SPEEDS_FILE, ":", e.Msg()));
+      return false;
+    }
+    catch (base::Json::Exception const & e)
+    {
+      LOG(LERROR, ("Error parsing JSON in", LEAP_SPEEDS_FILE, ":", e.Msg()));
+      return false;
     }
   }
-  catch (FileAbsentException const & e)
+  else
   {
-    LOG(LERROR, ("Error missing file", LEAP_SPEEDS_FILE, ":", e.Msg()));
-    return false;
-  }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LWARNING, ("Error reading", LEAP_SPEEDS_FILE, ":", e.Msg()));
-    return false;
-  }
-  catch (base::Json::Exception const & e)
-  {
-    LOG(LERROR, ("Error parsing JSON in", LEAP_SPEEDS_FILE, ":", e.Msg()));
-    return false;
+    LOG(LWARNING, ("File", LEAP_SPEEDS_FILE, "not found."));
   }
 
   try
