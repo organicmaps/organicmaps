@@ -47,12 +47,12 @@ final class BookmarksListPresenter {
 
     let collections = bookmarkGroup.collections.map { SubgroupViewModel($0) }
     if !collections.isEmpty {
-      sections.append(SubgroupsSectionViewModel(title: L("collections"), subgroups: collections))
+      sections.append(SubgroupsSectionViewModel(title: L("collections"), subgroups: collections, type: .collection))
     }
 
     let categories = bookmarkGroup.categories.map { SubgroupViewModel($0)}
     if !categories.isEmpty {
-      sections.append(SubgroupsSectionViewModel(title: L("categories"), subgroups: categories))
+      sections.append(SubgroupsSectionViewModel(title: L("categories"), subgroups: categories, type: .category))
     }
 
     let bookmarks = mapBookmarks(bookmarkGroup.bookmarks)
@@ -303,7 +303,7 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
       }
       reload()
       logVisibleEvent(serverId: bookmarkGroup.serverId,
-                      type: bookmarkGroup.type,
+                      type: subgroupsSection.type,
                       action: visible ? kStatShowAll : kStatHideAll)
     default:
       fatalError("Wrong section type: \(section.self)")
@@ -467,9 +467,11 @@ fileprivate struct TracksSectionViewModel: ITracksSectionViewModel {
 fileprivate struct SubgroupsSectionViewModel: ISubgroupsSectionViewModel {
   let subgroups: [ISubgroupViewModel]
   let sectionTitle: String
+  var type: BookmarkGroupType
 
-  init(title: String, subgroups: [ISubgroupViewModel]) {
+  init(title: String, subgroups: [ISubgroupViewModel], type: BookmarkGroupType) {
     sectionTitle = title
+    self.type = type
     self.subgroups = subgroups
   }
 }

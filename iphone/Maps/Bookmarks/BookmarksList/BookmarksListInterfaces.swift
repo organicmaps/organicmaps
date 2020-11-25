@@ -23,6 +23,7 @@ protocol ITracksSectionViewModel: IBookmarksListSectionViewModel {
 
 protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
   var subgroups: [ISubgroupViewModel] { get }
+  var type: BookmarkGroupType { get }
 }
 
 protocol IBookmarkViewModel {
