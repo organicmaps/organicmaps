@@ -53,6 +53,7 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
+#include "platform/localization.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
@@ -1150,7 +1151,9 @@ Java_com_mapswithme_maps_Framework_nativeFormatLatLonToArr(JNIEnv * env, jclass,
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jdouble alt)
 {
-  return jni::ToJavaString(env, measurement_utils::FormatAltitude(alt));
+  auto const localizedUnits = platform::GetLocalizedAltitudeUnits();
+  return jni::ToJavaString(env, measurement_utils::FormatAltitudeWithLocalization(alt,
+                                                                                  localizedUnits.m_low));
 }
 
 JNIEXPORT jobject JNICALL

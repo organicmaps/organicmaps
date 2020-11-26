@@ -65,7 +65,10 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_util_StringUtils_nativeFormatDistance(JNIEnv * env, jclass thiz,
                                                           jdouble distanceInMeters)
 {
-  return jni::ToJavaString(env, measurement_utils::FormatDistance(distanceInMeters));
+  auto const localizedUnits = platform::GetLocalizedDistanceUnits();
+  return jni::ToJavaString(env, measurement_utils::FormatDistanceWithLocalization(distanceInMeters,
+                                                                                  localizedUnits.m_high,
+                                                                                  localizedUnits.m_low));
 }
 
 JNIEXPORT jstring JNICALL
