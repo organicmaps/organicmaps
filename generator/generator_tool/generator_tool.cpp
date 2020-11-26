@@ -25,6 +25,7 @@
 #include "generator/restriction_generator.hpp"
 #include "generator/road_access_generator.hpp"
 #include "generator/routing_index_generator.hpp"
+#include "generator/routing_world_roads_generator.hpp"
 #include "generator/search_index_builder.hpp"
 #include "generator/statistics.hpp"
 #include "generator/traffic_generator.hpp"
@@ -150,6 +151,10 @@ DEFINE_bool(disable_cross_mwm_progress, false,
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
+DEFINE_string(worldroads_path, "",
+              "Path to a file with roads that should end up on the world map. If set, generates a "
+              "section with these roads in World.mwm. The roads may be used to identify which mwm "
+              "files are touched by an arbitrary route.");
 DEFINE_string(transit_path, "", "Path to directory with transit graphs in json.");
 DEFINE_string(transit_path_experimental, "",
               "Experimental parameter. If set the new version of transit section will be "
@@ -483,6 +488,16 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
         string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
 
         BuildCamerasInfo(dataFile, camerasFilename, osmToFeatureFilename);
+      }
+    }
+
+    if (country == WORLD_FILE_NAME && !FLAGS_worldroads_path.empty())
+    {
+      LOG(LINFO, ("Generating routing section for World."));
+      if (!routing::BuildWorldRoads(dataFile, FLAGS_worldroads_path))
+      {
+        LOG(LCRITICAL, ("Generating routing section for World has failed."));
+        return EXIT_FAILURE;
       }
     }
 
