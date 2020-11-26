@@ -4,48 +4,48 @@
 #include "map/power_management/power_manager.hpp"
 #include "map/routing_mark.hpp"
 
-#include "private.h"
-
-#include "tracking/reporter.hpp"
-
+#include "routing/absent_regions_finder.hpp"
 #include "routing/checkpoint_predictor.hpp"
 #include "routing/index_router.hpp"
-#include "routing/online_absent_fetcher.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/speed_camera.hpp"
 
-#include "routing_common/num_mwm_id.hpp"
-
-#include "drape_frontend/drape_engine.hpp"
-
-#include "indexer/map_style_reader.hpp"
-#include "indexer/scales.hpp"
+#include "tracking/reporter.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
-#include "coding/file_reader.hpp"
-#include "coding/file_writer.hpp"
-#include "coding/string_utf8_multilang.hpp"
+#include "drape_frontend/drape_engine.hpp"
+
+#include "routing_common/num_mwm_id.hpp"
+
+#include "indexer/map_style_reader.hpp"
+#include "indexer/scales.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/mwm_traits.hpp"
 #include "platform/platform.hpp"
 #include "platform/socket.hpp"
 
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/string_utf8_multilang.hpp"
+
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
-#include "3party/jansson/myjansson.hpp"
+#include "private.h"
 
 #include <iomanip>
 #include <ios>
 #include <map>
 #include <sstream>
+
+#include "3party/Alohalytics/src/alohalytics.h"
+#include "3party/jansson/myjansson.hpp"
 
 using namespace routing;
 using namespace std;
@@ -549,14 +549,16 @@ void RoutingManager::SetRouterImpl(RouterType type)
     return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId);
   };
 
-  auto fetcher = make_unique<OnlineAbsentCountriesFetcher>(countryFileGetter, localFileChecker);
+  auto regionsFinder =
+      make_unique<AbsentRegionsFinder>(countryFileGetter, localFileChecker, numMwmIds, dataSource);
+
   auto router = make_unique<IndexRouter>(vehicleType, m_loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
                                          countryFileGetter, getMwmRectByName, numMwmIds,
                                          MakeNumMwmTree(*numMwmIds, m_callbacks.m_countryInfoGetter()),
                                          m_routingSession, dataSource);
 
   m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
-  m_routingSession.SetRouter(move(router), move(fetcher));
+  m_routingSession.SetRouter(move(router), move(regionsFinder));
   m_currentRouterType = type;
 }
 

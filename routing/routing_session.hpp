@@ -54,7 +54,7 @@ public:
             PointCheckCallback const & pointCheckCallback);
 
   void SetRouter(std::unique_ptr<IRouter> && router,
-                 std::unique_ptr<OnlineAbsentCountriesFetcher> && fetcher);
+                 std::unique_ptr<AbsentRegionsFinder> && finder);
 
   /// @param[in] checkpoints in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout

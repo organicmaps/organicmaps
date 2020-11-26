@@ -516,12 +516,12 @@ void RoutingSession::AssignRoute(shared_ptr<Route> route, RouterResultCode e)
 }
 
 void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
-                               unique_ptr<OnlineAbsentCountriesFetcher> && fetcher)
+                               unique_ptr<AbsentRegionsFinder> && finder)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_router != nullptr, ());
   Reset();
-  m_router->SetRouter(move(router), move(fetcher));
+  m_router->SetRouter(move(router), move(finder));
 }
 
 void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)

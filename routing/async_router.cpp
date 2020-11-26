@@ -203,14 +203,15 @@ AsyncRouter::~AsyncRouter()
   m_thread.join();
 }
 
-void AsyncRouter::SetRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFetcher> && fetcher)
+void AsyncRouter::SetRouter(unique_ptr<IRouter> && router,
+                            unique_ptr<AbsentRegionsFinder> && finder)
 {
   unique_lock<mutex> ul(m_guard);
 
   ResetDelegate();
 
   m_router = move(router);
-  m_absentFetcher = move(fetcher);
+  m_absentRegionsFinder = move(finder);
 }
 
 void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
@@ -352,7 +353,7 @@ void AsyncRouter::CalculateRoute()
   shared_ptr<RouterDelegateProxy> delegateProxy;
   m2::PointD startDirection;
   bool adjustToPrevRoute = false;
-  shared_ptr<IOnlineFetcher> absentFetcher;
+  shared_ptr<AbsentRegionsFinder> absentRegionsFinder;
   shared_ptr<IRouter> router;
   uint64_t routeId = 0;
   RoutingStatisticsCallback routingStatisticsCallback;
@@ -375,7 +376,7 @@ void AsyncRouter::CalculateRoute()
     adjustToPrevRoute = m_adjustToPrevRoute;
     delegateProxy = m_delegateProxy;
     router = m_router;
-    absentFetcher = m_absentFetcher;
+    absentRegionsFinder = m_absentRegionsFinder;
     routeId = ++m_routeCounter;
     routingStatisticsCallback = m_routingStatisticsCallback;
     routerName = router->GetName();
@@ -394,8 +395,8 @@ void AsyncRouter::CalculateRoute()
     LOG(LINFO, ("Calculating the route. checkpoints:", checkpoints, "startDirection:",
                 startDirection, "router name:", router->GetName()));
 
-    if (absentFetcher)
-      absentFetcher->GenerateRequest(checkpoints);
+    if (absentRegionsFinder)
+      absentRegionsFinder->GenerateAbsentRegions(checkpoints, delegateProxy->GetDelegate());
 
     // Run basic request.
     code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute,
@@ -439,12 +440,12 @@ void AsyncRouter::CalculateRoute()
                           [delegateProxy, route, code]() { delegateProxy->OnReady(route, code); });
   }
 
-  bool const needFetchAbsent = (code != RouterResultCode::Cancelled);
+  bool const needAbsentRegions = (code != RouterResultCode::Cancelled);
 
   // Check online response if we have.
   set<string> absent;
-  if (absentFetcher && needFetchAbsent)
-    absentFetcher->GetAbsentCountries(absent);
+  if (absentRegionsFinder && needAbsentRegions)
+    absentRegionsFinder->GetAbsentRegions(absent);
 
   absent.insert(route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
   if (!absent.empty())

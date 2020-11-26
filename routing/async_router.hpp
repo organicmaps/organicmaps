@@ -1,7 +1,7 @@
 #pragma once
 
+#include "routing/absent_regions_finder.hpp"
 #include "routing/checkpoints.hpp"
-#include "routing/online_absent_fetcher.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/router_delegate.hpp"
@@ -34,8 +34,9 @@ public:
 
   /// Sets a synchronous router, current route calculation will be cancelled
   /// @param router pointer to a router implementation
-  /// @param fetcher pointer to a online fetcher
-  void SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<IOnlineFetcher> && fetcher);
+  /// @param finder pointer to a router for generated absent wmwms.
+  void SetRouter(std::unique_ptr<IRouter> && router,
+                 std::unique_ptr<AbsentRegionsFinder> && finder);
 
   /// Main method to calculate new route from startPt to finalPt with start direction
   /// Processed result will be passed to callback. Callback will be called at the GUI thread.
@@ -122,7 +123,7 @@ private:
   m2::PointD m_startDirection = m2::PointD::Zero();
   bool m_adjustToPrevRoute = false;
   std::shared_ptr<RouterDelegateProxy> m_delegateProxy;
-  std::shared_ptr<IOnlineFetcher> m_absentFetcher;
+  std::shared_ptr<AbsentRegionsFinder> m_absentRegionsFinder;
   std::shared_ptr<IRouter> m_router;
 
   RoutingStatisticsCallback const m_routingStatisticsCallback;
