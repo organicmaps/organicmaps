@@ -15,7 +15,7 @@
 using namespace routing;
 using namespace std;
 
-namespace
+namespace routing
 {
 LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin,
                                            LatLonWithAltitude const & end,
@@ -40,10 +40,7 @@ LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin,
                                                   distBeginToProjection / distBeginToEnd;
   return LatLonWithAltitude(projectedLatLon, altitude);
 }
-}  // namespace
 
-namespace routing
-{
 bool Projection::operator==(const Projection & other) const
 {
   return tie(m_segment, m_isOneWay, m_segmentFront, m_segmentBack, m_junction) ==

@@ -46,4 +46,8 @@ struct FakeEnding final
 FakeEnding MakeFakeEnding(std::vector<Segment> const & segments, m2::PointD const & point,
                           WorldGraph & graph);
 FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, IndexGraph & graph);
+
+LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin,
+                                           LatLonWithAltitude const & end,
+                                           m2::PointD const & point);
 }  // namespace routing
