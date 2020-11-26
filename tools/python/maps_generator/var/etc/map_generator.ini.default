@@ -63,6 +63,9 @@ SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
 # The url of the location with the transit files extracted from GTFS.
 # TRANSIT_URL:
 
+# The url of the file with info about main roads between mwms for special routing section in World mwm.
+# WORLDROADS_URL:
+
 # Urls for production maps generation.
 # UGC_URL:
 # HOTELS_URL:
