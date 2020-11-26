@@ -106,8 +106,9 @@ void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId
     }
     else
     {
-      m_queue.GetCountryById(countryId).OnDownloadFinished(status);
+      auto const country = m_queue.GetCountryById(countryId);
       m_queue.Remove(countryId);
+      country.OnDownloadFinished(status);
     }
   };
 
