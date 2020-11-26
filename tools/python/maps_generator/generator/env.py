@@ -231,6 +231,14 @@ class PathProvider:
         )
 
     @property
+    def worldroads_path(self) -> AnyStr:
+        return (
+            os.path.join(self.intermediate_data_path, "worldroads.txt")
+            if settings.WORLDROADS_URL
+            else ""
+        )
+
+    @property
     def planet_osm_pbf(self) -> AnyStr:
         return os.path.join(self.build_path, f"{settings.PLANET}.osm.pbf")
 

@@ -200,6 +200,20 @@ def step_cities_ids_world(env: Env, country: AnyStr, **kwargs):
     )
 
 
+def step_routing_world(env: Env, country: AnyStr, **kwargs):
+    run_gen_tool_with_recovery_country(
+        env,
+        env.gen_tool,
+        out=env.get_subprocess_out(country),
+        err=env.get_subprocess_out(country),
+        data_path=env.paths.mwm_path,
+        user_resource_path=env.paths.user_resource_path,
+        output=country,
+        worldroads_path=env.paths.worldroads_path,
+        **kwargs,
+    )
+
+
 def step_index(env: Env, country: AnyStr, **kwargs):
     _generate_common_index(env, country, generate_search_index=True, **kwargs)
 
