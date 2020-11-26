@@ -278,6 +278,9 @@ SingleVehicleWorldGraph::AreWavesConnectibleImpl(Parents<VertexType> const & for
                                                  Parents<VertexType> const & backwardParents,
                                                  function<uint32_t(VertexType const &)> && fakeFeatureConverter)
 {
+  if (IsRegionsGraphMode())
+    return true;
+
   vector<VertexType> chain;
   auto const fillUntilNextFeatureId = [&](VertexType const & cur, auto const & parents)
   {
