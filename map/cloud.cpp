@@ -1550,8 +1550,12 @@ void Cloud::ApplyRestoredFiles(std::string const & dirPath, RestoredFilesCollect
       auto const readyFile = base::JoinPath(m_params.m_restoringFolder, finalFilename);
       if (!base::RenameFileX(restoredFile, readyFile))
       {
-        FinishRestoring(SynchronizationResult::DiskError, "Restored file moving error");
-        return;
+        if (!base::CopyFileX(restoredFile, readyFile))
+        {
+          FinishRestoring(SynchronizationResult::DiskError, "Restored file copying error");
+          return;
+        }
+        UNUSED_VALUE(base::DeleteFileX(restoredFile));
       }
       readyFiles.emplace_back(readyFile, f.m_hash);
     }
