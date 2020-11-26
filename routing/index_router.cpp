@@ -20,7 +20,6 @@
 #include "routing/single_vehicle_world_graph.hpp"
 #include "routing/speed_camera_prohibition.hpp"
 #include "routing/transit_world_graph.hpp"
-#include "routing/turns_generator.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "transit/transit_entities.hpp"
