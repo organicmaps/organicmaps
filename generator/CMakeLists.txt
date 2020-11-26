@@ -206,6 +206,8 @@ set(
   routing_helpers.hpp
   routing_index_generator.cpp
   routing_index_generator.hpp
+  routing_world_roads_generator.cpp
+  routing_world_roads_generator.hpp
   search_index_builder.cpp
   search_index_builder.hpp
   sponsored_dataset.hpp
