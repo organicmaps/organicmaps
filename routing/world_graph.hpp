@@ -58,6 +58,10 @@ public:
                            std::vector<JointEdge> & edges,
                            std::vector<RouteWeight> & parentWeights) = 0;
 
+  bool IsRegionsGraphMode() const { return m_isRegionsGraphMode; }
+
+  void SetRegionsGraphMode(bool isRegionsGraphMode) { m_isRegionsGraphMode = isRegionsGraphMode; }
+
   void GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions,
                    std::vector<SegmentEdge> & edges);
 
@@ -121,6 +125,8 @@ public:
 protected:
   void GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                 std::vector<SegmentEdge> & edges);
+
+  bool m_isRegionsGraphMode = false;
 };
 
 std::string DebugPrint(WorldGraphMode mode);
