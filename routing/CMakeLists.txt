@@ -7,6 +7,8 @@ include_directories(
 
 set(
   SRC
+  absent_regions_finder.cpp
+  absent_regions_finder.hpp
   async_router.cpp
   async_router.hpp
   base/astar_algorithm.hpp
@@ -42,6 +44,7 @@ set(
   directions_engine.hpp
   directions_engine_helpers.cpp
   directions_engine_helpers.hpp
+  dummy_world_graph.hpp
   edge_estimator.cpp
   edge_estimator.hpp
   fake_edges_container.hpp
@@ -106,6 +109,10 @@ set(
   pedestrian_directions.hpp
   position_accumulator.cpp
   position_accumulator.hpp
+  regions_router.cpp
+  regions_router.hpp
+  regions_sparse_graph.cpp
+  regions_sparse_graph.hpp
   restriction_loader.cpp
   restriction_loader.hpp
   restrictions_serialization.cpp

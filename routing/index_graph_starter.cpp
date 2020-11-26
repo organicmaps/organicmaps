@@ -91,6 +91,12 @@ void IndexGraphStarter::Append(FakeEdgesContainer const & container)
 
 void IndexGraphStarter::SetGuides(GuidesGraph const & guides) { m_guides = guides; }
 
+void IndexGraphStarter::SetRegionsGraphMode(std::shared_ptr<RegionsSparseGraph> regionsSparseGraph)
+{
+  m_regionsGraph = move(regionsSparseGraph);
+  m_graph.SetRegionsGraphMode(true);
+}
+
 LatLonWithAltitude const & IndexGraphStarter::GetStartJunction() const
 {
   auto const & startSegment = GetStartSegment();
@@ -113,6 +119,9 @@ bool IndexGraphStarter::ConvertToReal(Segment & segment) const
 
 LatLonWithAltitude const & IndexGraphStarter::GetJunction(Segment const & segment, bool front) const
 {
+  if (IsRegionsGraphMode() && !IsFakeSegment(segment))
+    return m_regionsGraph->GetJunction(segment, front);
+
   if (IsGuidesSegment(segment))
     return m_guides.GetJunction(segment, front);
 
@@ -216,6 +225,10 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
         {
           m_guides.GetEdgeList(real, isOutgoing, edges, ingoingSegmentWeight);
         }
+        else if (IsRegionsGraphMode())
+        {
+          m_regionsGraph->GetEdgeList(real, isOutgoing, edges, ingoingSegmentWeight);
+        }
         else
         {
           astar::VertexData const replacedFakeSegment(real, vertexData.m_realDistance);
@@ -234,6 +247,10 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
   else if (IsGuidesSegment(segment))
   {
     m_guides.GetEdgeList(segment, isOutgoing, edges, ingoingSegmentWeight);
+  }
+  else if (IsRegionsGraphMode())
+  {
+    m_regionsGraph->GetEdgeList(segment, isOutgoing, edges, ingoingSegmentWeight);
   }
   else
   {
@@ -260,6 +277,9 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment,
   if (IsGuidesSegment(segment))
     return CalcGuidesSegmentWeight(segment, purpose);
 
+  if (IsRegionsGraphMode() && !IsFakeSegment(segment))
+    return m_regionsGraph->CalcSegmentWeight(segment);
+
   if (!IsFakeSegment(segment))
     return m_graph.CalcSegmentWeight(segment, purpose);
 
@@ -276,8 +296,13 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment,
     // Theoretically it may be differ from |RouteWeight(0)| because some road access block
     // may be kept in it and it is up to |RouteWeight| to know how to multiply by zero.
 
-    Weight const weight = IsGuidesSegment(real) ? CalcGuidesSegmentWeight(real, purpose)
-                                                : m_graph.CalcSegmentWeight(real, purpose);
+    Weight weight;
+    if (IsGuidesSegment(real))
+      weight = CalcGuidesSegmentWeight(real, purpose);
+    else if (IsRegionsGraphMode())
+      weight = m_regionsGraph->CalcSegmentWeight(real);
+    else
+      weight = m_graph.CalcSegmentWeight(real, purpose);
     if (fullLen == 0.0)
       return 0.0 * weight;
 
@@ -312,6 +337,12 @@ double IndexGraphStarter::CalculateETA(Segment const & from, Segment const & to)
     return res;
   }
 
+  if (IsRegionsGraphMode())
+  {
+    return m_regionsGraph->CalcSegmentWeight(from).GetWeight() +
+           m_regionsGraph->CalcSegmentWeight(to).GetWeight();
+  }
+
   return m_graph.CalculateETA(from, to);
 }
 
@@ -322,6 +353,9 @@ double IndexGraphStarter::CalculateETAWithoutPenalty(Segment const & segment) co
 
   if (IsGuidesSegment(segment))
     return CalcGuidesSegmentWeight(segment, EdgeEstimator::Purpose::ETA).GetWeight();
+
+  if (IsRegionsGraphMode())
+    return m_regionsGraph->CalcSegmentWeight(segment).GetWeight();
 
   return m_graph.CalculateETAWithoutPenalty(segment);
 }
@@ -551,7 +585,7 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, v
 bool IndexGraphStarter::EndingPassThroughAllowed(Ending const & ending)
 {
   return any_of(ending.m_real.cbegin(), ending.m_real.cend(), [this](Segment const & s) {
-    if (IsGuidesSegment(s))
+    if (IsGuidesSegment(s) || IsRegionsGraphMode())
       return true;
     return m_graph.IsPassThroughAllowed(s.GetMwmId(), s.GetFeatureId());
   });

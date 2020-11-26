@@ -11,6 +11,7 @@
 #include "routing/index_graph.hpp"
 #include "routing/joint.hpp"
 #include "routing/latlon_with_altitude.hpp"
+#include "routing/regions_sparse_graph.hpp"
 #include "routing/route_point.hpp"
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
@@ -23,6 +24,7 @@
 #include <functional>
 #include <limits>
 #include <map>
+#include <memory>
 #include <set>
 #include <utility>
 #include <vector>
@@ -62,6 +64,9 @@ public:
   void Append(FakeEdgesContainer const & container);
 
   void SetGuides(GuidesGraph const & guides);
+
+  void SetRegionsGraphMode(std::shared_ptr<RegionsSparseGraph> regionsSparseGraph);
+  bool IsRegionsGraphMode() const { return m_regionsGraph != nullptr; }
 
   WorldGraph & GetGraph() const { return m_graph; }
   WorldGraphMode GetMode() const { return m_graph.GetMode(); }
@@ -258,5 +263,8 @@ private:
   uint32_t m_fakeNumerationStart;
 
   std::vector<FakeEnding> m_otherEndings;
+
+  // Field for routing in mode for finding all route mwms.
+  std::shared_ptr<RegionsSparseGraph> m_regionsGraph = nullptr;
 };
 }  // namespace routing
