@@ -138,10 +138,9 @@ double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & 
 
 double EdgeEstimator::ComputeDefaultLeapWeightSpeed() const
 {
-  // Let us assume for the time being that
-  // leap edges will be added with a half of max speed
-  // if no leap speed provided
-  return m_maxWeightSpeedMpS / 2.0;
+  // Scale coefficient computed as average ratio of escape/enter speed
+  // to max MWM speed across all MWMs.
+  return m_maxWeightSpeedMpS / 1.76;
 }
 
 double EdgeEstimator::LoadLeapWeightSpeed(NumMwmId mwmId)
@@ -302,8 +301,7 @@ double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
 {
   switch (purpose)
   {
-  case Purpose::Weight:
-    return 40 * 60;  // seconds
+  case Purpose::Weight: return 40 * 60;  // seconds
   // Based on https://confluence.mail.ru/display/MAPSME/Ferries
   case Purpose::ETA: return 20 * 60;  // seconds
   }
