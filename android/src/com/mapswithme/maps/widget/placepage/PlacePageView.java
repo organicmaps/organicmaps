@@ -399,7 +399,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs);
-    mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
+    mIsLatLonDms = MwmApplication.prefs(context).getBoolean(PREF_USE_DMS, false);
     mGalleryAdapter = new com.mapswithme.maps.widget.placepage.GalleryAdapter(context);
     init(attrs, defStyleAttr);
   }
@@ -1858,7 +1858,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_latlon:
         mIsLatLonDms = !mIsLatLonDms;
-        MwmApplication.prefs().edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).apply();
+        MwmApplication.prefs(getContext()).edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).apply();
         if (mMapObject == null)
         {
           LOGGER.e(TAG, "A LatLon cannot be refreshed, mMapObject is null");

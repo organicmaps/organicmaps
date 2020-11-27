@@ -52,15 +52,16 @@ public class NotificationService extends JobIntentService
       return false;
     }
 
-    final long lastEventTimestamp = prefs().getLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, 0);
+    final long lastEventTimestamp = prefs(getApplicationContext())
+        .getLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, 0);
 
     if (System.currentTimeMillis() - lastEventTimestamp > MIN_AUTH_EVENT_DELTA_MILLIS)
     {
       LOGGER.d(TAG, "Authentication notification will be sent.");
 
-      prefs().edit()
-             .putLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, System.currentTimeMillis())
-             .apply();
+      prefs(getApplicationContext()).edit()
+                                    .putLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, System.currentTimeMillis())
+                                    .apply();
 
       Notifier notifier = Notifier.from(getApplication());
       notifier.notifyAuthentication();

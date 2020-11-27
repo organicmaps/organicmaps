@@ -1,8 +1,11 @@
 package com.mapswithme.maps.editor;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,9 +33,9 @@ public class ViralFragment extends BaseMwmDialogFragment
   @Nullable
   private Runnable mDismissListener;
 
-  public static boolean shouldDisplay()
+  public static boolean shouldDisplay(@NonNull Context context)
   {
-    return !MwmApplication.prefs().contains(EXTRA_CONGRATS_SHOWN) &&
+    return !MwmApplication.prefs(context).contains(EXTRA_CONGRATS_SHOWN) &&
            Editor.nativeGetStats()[0] == 2 &&
            ConnectionState.isConnected();
   }
@@ -47,7 +50,7 @@ public class ViralFragment extends BaseMwmDialogFragment
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    MwmApplication.prefs().edit().putBoolean(EXTRA_CONGRATS_SHOWN, true).apply();
+    MwmApplication.prefs(requireContext()).edit().putBoolean(EXTRA_CONGRATS_SHOWN, true).apply();
 
     @SuppressLint("InflateParams")
     final View root = inflater.inflate(R.layout.fragment_editor_viral, null);

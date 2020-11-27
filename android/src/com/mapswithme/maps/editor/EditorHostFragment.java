@@ -291,7 +291,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
           return;
 
         // Save object edits
-        if (!MwmApplication.prefs().contains(NOOB_ALERT_SHOWN))
+        if (!MwmApplication.prefs(requireContext()).contains(NOOB_ALERT_SHOWN))
         {
           showNoobDialog();
         }
@@ -385,7 +385,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         @Override
         public void onClick(DialogInterface dlg, int which)
         {
-          MwmApplication.prefs().edit()
+          MwmApplication.prefs(requireContext()).edit()
                         .putBoolean(NOOB_ALERT_SHOWN, true)
                         .apply();
           saveNote();
