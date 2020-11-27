@@ -263,7 +263,7 @@ public class SplashActivity extends AppCompatActivity
 
     if (Counters.isMigrationNeeded())
     {
-      Config.migrateCountersToSharedPrefs();
+      Config.migrateCountersToSharedPrefs(getApplicationContext());
       Counters.setMigrationExecuted();
     }
     

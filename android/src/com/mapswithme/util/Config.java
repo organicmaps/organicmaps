@@ -1,5 +1,7 @@
 package com.mapswithme.util;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.BuildConfig;
@@ -102,10 +104,10 @@ public final class Config
     nativeSetBoolean(key, value);
   }
 
-  public static void migrateCountersToSharedPrefs()
+  public static void migrateCountersToSharedPrefs(@NonNull Context context)
   {
     int version = getInt(KEY_APP_FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
-    MwmApplication.prefs()
+    MwmApplication.prefs(context)
                   .edit()
                   .putInt(KEY_APP_LAUNCH_NUMBER, getInt(KEY_APP_LAUNCH_NUMBER))
                   .putInt(KEY_APP_FIRST_INSTALL_VERSION, version)

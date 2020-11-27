@@ -677,13 +677,13 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    ((TwoStatePreference)pref).setChecked(SharedPropertiesUtils.isStatisticsEnabled());
+    ((TwoStatePreference)pref).setChecked(SharedPropertiesUtils.isStatisticsEnabled(requireContext()));
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        Statistics.INSTANCE.setStatEnabled((Boolean) newValue);
+        Statistics.INSTANCE.setStatEnabled(requireContext(), (Boolean) newValue);
         return true;
       }
     });
@@ -710,7 +710,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       {
         boolean enabled = (Boolean) newValue;
         TrackRecorder.setEnabled(enabled);
-        Statistics.INSTANCE.setStatEnabled(enabled);
+        Statistics.INSTANCE.setStatEnabled(requireContext(), enabled);
         trackPref.setEnabled(enabled);
         if (root != null)
           root.setSummary(enabled ? R.string.on : R.string.off);

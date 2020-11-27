@@ -253,7 +253,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
                        filesPath, tempPath, StorageUtils.getObbGooglePath(), BuildConfig.FLAVOR,
                        BuildConfig.BUILD_TYPE, UiUtils.isTablet());
 
-    Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled());
+    Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled(this));
 
     @SuppressWarnings("unused")
     Statistics s = Statistics.INSTANCE;

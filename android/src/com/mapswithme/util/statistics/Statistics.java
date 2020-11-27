@@ -892,8 +892,8 @@ public enum Statistics
 
   Statistics()
   {
-    mEnabled = SharedPropertiesUtils.isStatisticsEnabled();
     final Context context = MwmApplication.get();
+    mEnabled = SharedPropertiesUtils.isStatisticsEnabled(context);
     // At the moment we need special handling for Alohalytics to enable/disable logging of events in core C++ code.
     if (mEnabled)
       org.alohalytics.Statistics.enable(context);
@@ -1002,9 +1002,9 @@ public enum Statistics
     mMediator.getEventLogger().stopActivity(activity);
   }
 
-  public void setStatEnabled(boolean isEnabled)
+  public void setStatEnabled(@NonNull Context context, boolean isEnabled)
   {
-    SharedPropertiesUtils.setStatisticsEnabled(isEnabled);
+    SharedPropertiesUtils.setStatisticsEnabled(context, isEnabled);
     Config.setStatisticsEnabled(isEnabled);
 
     // We track if user turned on/off statistics to understand data better.

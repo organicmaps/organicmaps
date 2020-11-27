@@ -37,14 +37,14 @@ public final class SharedPropertiesUtils
     throw new IllegalStateException("Try instantiate utility class SharedPropertiesUtils");
   }
 
-  public static boolean isStatisticsEnabled()
+  public static boolean isStatisticsEnabled(@NonNull Context context)
   {
-    return MwmApplication.prefs().getBoolean(KEY_PREF_STATISTICS, true);
+    return MwmApplication.prefs(context).getBoolean(KEY_PREF_STATISTICS, true);
   }
 
-  public static void setStatisticsEnabled(boolean enabled)
+  public static void setStatisticsEnabled(@NonNull Context context, boolean enabled)
   {
-    MwmApplication.prefs().edit().putBoolean(KEY_PREF_STATISTICS, enabled).apply();
+    MwmApplication.prefs(context).edit().putBoolean(KEY_PREF_STATISTICS, enabled).apply();
   }
 
   public static void setShouldShowEmulateBadStorageSetting(boolean show)
