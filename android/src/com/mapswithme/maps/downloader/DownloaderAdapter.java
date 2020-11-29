@@ -1067,7 +1067,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           }
         }, mActivity);
       }
-    });
+    }, mActivity.getApplicationContext());
   }
 
   private void clearAdsInternal()
