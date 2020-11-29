@@ -65,7 +65,7 @@ public class WorkerService extends JobIntentService
     switch (action)
     {
       case ACTION_UPLOAD_OSM_CHANGES:
-        handleActionUploadOsmChanges();
+        handleActionUploadOsmChanges(getApplicationContext());
         break;
 
       case ACTION_UPLOAD_UGC:
@@ -74,9 +74,9 @@ public class WorkerService extends JobIntentService
     }
   }
 
-  private static void handleActionUploadOsmChanges()
+  private static void handleActionUploadOsmChanges(@NonNull Context context)
   {
-    Editor.uploadChanges();
+    Editor.uploadChanges(context);
   }
 
   private static void handleUploadUGC()

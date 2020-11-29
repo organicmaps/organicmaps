@@ -66,6 +66,7 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.editor.FeatureCategoryActivity;
+import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.guides.GuidesGalleryListener;
@@ -489,7 +490,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // TODO(yunikkk) think about refactoring. It probably should be called in editor.
     Editor.nativeStartEdit();
-    Statistics.INSTANCE.trackEditorLaunch(false);
+    Statistics.INSTANCE.trackEditorLaunch(false,
+                                          String.valueOf(OsmOAuth.isAuthorized(getApplicationContext())));
     if (mIsTabletLayout)
       replaceFragment(EditorHostFragment.class, null, null);
     else
@@ -754,7 +756,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPositionChooser.findViewById(R.id.done).setOnClickListener(
         v ->
         {
-          Statistics.INSTANCE.trackEditorLaunch(true);
+          Statistics.INSTANCE.trackEditorLaunch(true,
+                                                String.valueOf(OsmOAuth.isAuthorized(getApplicationContext())));
           hidePositionChooser();
           if (Framework.nativeIsDownloadedMapAtScreenCenter())
             startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));

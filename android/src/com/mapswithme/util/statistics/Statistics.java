@@ -1083,10 +1083,10 @@ public enum Statistics
                                                 .add(EventParam.TO, Statistics.getPointType(to)));
   }
 
-  public void trackEditorLaunch(boolean newObject)
+  public void trackEditorLaunch(boolean newObject, String valueOfIsAuthorized)
   {
     trackEvent(newObject ? EventName.EDITOR_START_CREATE : EventName.EDITOR_START_EDIT,
-               editorMwmParams().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
+               editorMwmParams().add(EventParam.IS_AUTHENTICATED, valueOfIsAuthorized)
                                 .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
 
     if (newObject)
@@ -1102,17 +1102,17 @@ public enum Statistics
     trackEvent(EventName.MAP_LAYERS_CLICK, builder);
   }
 
-  public void trackEditorSuccess(boolean newObject)
+  public void trackEditorSuccess(boolean newObject, String valueOfIsAuthorized)
   {
     trackEvent(newObject ? EventName.EDITOR_SUCCESS_CREATE : EventName.EDITOR_SUCCESS_EDIT,
-               editorMwmParams().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
+               editorMwmParams().add(EventParam.IS_AUTHENTICATED, valueOfIsAuthorized)
                                 .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
   }
 
-  public void trackEditorError(boolean newObject)
+  public void trackEditorError(boolean newObject, String valueOfIsAuthorized)
   {
     trackEvent(newObject ? EventName.EDITOR_ERROR_CREATE : EventName.EDITOR_ERROR_EDIT,
-               editorMwmParams().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
+               editorMwmParams().add(EventParam.IS_AUTHENTICATED, valueOfIsAuthorized)
                                 .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
   }
 

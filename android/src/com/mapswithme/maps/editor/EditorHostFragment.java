@@ -1,6 +1,7 @@
 package com.mapswithme.maps.editor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -315,14 +316,17 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void processNoFeatures()
   {
-    Statistics.INSTANCE.trackEditorError(mIsNewObject);
+    Statistics.INSTANCE.trackEditorError(mIsNewObject,
+                                         String.valueOf(OsmOAuth.isAuthorized(requireContext())));
     DialogUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
   }
 
   private void processEditedFeatures()
   {
-    Statistics.INSTANCE.trackEditorSuccess(mIsNewObject);
-    if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
+    Context context = requireContext();
+    Statistics.INSTANCE.trackEditorSuccess(mIsNewObject,
+                                           String.valueOf(OsmOAuth.isAuthorized(context)));
+    if (OsmOAuth.isAuthorized(context) || !ConnectionState.isConnected())
     {
       Utils.navigateToParent(getActivity());
       return;

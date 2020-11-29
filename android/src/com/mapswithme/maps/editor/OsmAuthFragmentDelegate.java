@@ -70,7 +70,7 @@ public abstract class OsmAuthFragmentDelegate implements View.OnClickListener
       return;
     }
 
-    OsmOAuth.setAuthorization(auth[0], auth[1], username);
+    OsmOAuth.setAuthorization(mFragment.requireContext(), auth[0], auth[1], username);
     if (mFragment.isAdded())
       Utils.navigateToParent(mFragment.getActivity());
     Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST_RESULT,

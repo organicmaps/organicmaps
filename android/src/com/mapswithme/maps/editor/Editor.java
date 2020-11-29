@@ -52,11 +52,11 @@ public final class Editor
   }
 
   @WorkerThread
-  public static void uploadChanges()
+  public static void uploadChanges(@NonNull Context context)
   {
-    if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized())
-      nativeUploadChanges(OsmOAuth.getAuthToken(), OsmOAuth.getAuthSecret(), BuildConfig.VERSION_NAME,
-                          BuildConfig.APPLICATION_ID);
+    if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized(context))
+      nativeUploadChanges(OsmOAuth.getAuthToken(context), OsmOAuth.getAuthSecret(context),
+                          BuildConfig.VERSION_NAME, BuildConfig.APPLICATION_ID);
   }
 
   public static native boolean nativeShouldShowEditPlace();

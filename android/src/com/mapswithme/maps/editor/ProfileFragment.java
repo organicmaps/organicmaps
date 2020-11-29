@@ -1,5 +1,6 @@
 package com.mapswithme.maps.editor;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -41,14 +42,14 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
       @Override
       void invoke(final ProfileFragment fragment)
       {
-        new AlertDialog.Builder(fragment.getContext())
+        new AlertDialog.Builder(fragment.requireContext())
             .setMessage(R.string.are_you_sure)
             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
             {
               @Override
               public void onClick(DialogInterface dialog, int which)
               {
-                OsmOAuth.clearAuthorization();
+                OsmOAuth.clearAuthorization(fragment.requireContext());
                 fragment.refreshViews();
               }
             })
@@ -63,7 +64,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
       @Override
       void invoke(ProfileFragment fragment)
       {
-        OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername(), true /* forceUpdate */);
+        OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername(fragment.requireContext()), true /* forceUpdate */);
       }
     };
 
@@ -87,7 +88,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     initViews(view);
     refreshViews();
     OsmOAuth.setUserStatsListener(this);
-    OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername(), false /* forceUpdate */);
+    OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername(requireContext()), false /* forceUpdate */);
   }
 
   private void initViews(View view)
@@ -109,7 +110,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
 
   private void refreshViews()
   {
-    if (OsmOAuth.isAuthorized())
+    if (OsmOAuth.isAuthorized(requireContext()))
     {
       UiUtils.show(mMore, mRatingBlock, mSentBlock);
       UiUtils.hide(mAuthBlock);
