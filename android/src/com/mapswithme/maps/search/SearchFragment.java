@@ -541,7 +541,7 @@ public class SearchFragment extends BaseMwmFragment
 
     if (!RoutingController.get().isWaitingPoiPick())
       SearchEngine.INSTANCE.showResult(resultIndex);
-
+    SearchEngine.INSTANCE.setQuery(query);
     processSelected(result);
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ITEM_CLICKED);
