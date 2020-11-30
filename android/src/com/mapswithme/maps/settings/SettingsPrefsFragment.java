@@ -697,7 +697,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (trackPref == null || pref == null)
       return;
 
-    boolean enabled = TrackRecorder.isEnabled();
+    boolean enabled = TrackRecorder.INSTANCE.isEnabled();
     ((TwoStatePreference)pref).setChecked(enabled);
     trackPref.setEnabled(enabled);
     if (root != null)
@@ -709,7 +709,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
         boolean enabled = (Boolean) newValue;
-        TrackRecorder.setEnabled(enabled);
+        TrackRecorder.INSTANCE.setEnabled(enabled);
         Statistics.INSTANCE.setStatEnabled(requireContext(), enabled);
         trackPref.setEnabled(enabled);
         if (root != null)
@@ -720,7 +720,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       }
     });
 
-    String value = (enabled ? String.valueOf(TrackRecorder.getDuration()) : "0");
+    String value = (enabled ? String.valueOf(TrackRecorder.INSTANCE.getDuration()) : "0");
     trackPref.setValue(value);
     trackPref.setSummary(trackPref.getEntry());
     trackPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
@@ -731,8 +731,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         int value = Integer.valueOf((String)newValue);
         boolean enabled = value != 0;
         if (enabled)
-          TrackRecorder.setDuration(value);
-        TrackRecorder.setEnabled(enabled);
+          TrackRecorder.INSTANCE.setDuration(value);
+        TrackRecorder.INSTANCE.setEnabled(enabled);
         ((TwoStatePreference) pref).setChecked(enabled);
         trackPref.setEnabled(enabled);
         if (root != null)

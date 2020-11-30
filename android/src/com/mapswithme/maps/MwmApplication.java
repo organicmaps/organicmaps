@@ -262,7 +262,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
       mMediator.setInstallationIdToCrashlytics();
 
     mBackgroundTracker.addListener(mBackgroundListener);
-    TrackRecorder.init();
     Editor.init(this);
     UGC.init(this);
     mPlatformInitialized = true;
@@ -299,6 +298,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     SubwayManager.from(this).initialize(null);
     IsolinesManager.from(this).initialize(null);
     GuidesManager.from(this).initialize(null);
+    TrackRecorder.INSTANCE.initialize(this);
     mPurchaseOperationObservable.initialize(null);
     mBackgroundTracker.addListener(this);
     mFrameworkInitialized = true;

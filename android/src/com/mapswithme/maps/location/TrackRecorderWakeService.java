@@ -41,17 +41,17 @@ public class TrackRecorderWakeService extends JobIntentService
     {
       sService = this;
     }
-    TrackRecorder.onServiceStarted();
+    TrackRecorder.INSTANCE.onServiceStarted();
 
     try
     {
-      long timeout = TrackRecorder.getAwaitTimeout();
+      long timeout = TrackRecorder.INSTANCE.getAwaitTimeout();
       LOGGER.d(TAG, "Timeout: " + timeout);
 
       if (!mWaitMonitor.await(timeout, TimeUnit.MILLISECONDS))
       {
         LOGGER.d(TAG, "TIMEOUT awaiting coordinates");
-        TrackRecorder.incrementAwaitTimeout();
+        TrackRecorder.INSTANCE.incrementAwaitTimeout();
       }
     } catch (InterruptedException ignored) {}
 
@@ -60,7 +60,7 @@ public class TrackRecorderWakeService extends JobIntentService
       sService = null;
     }
 
-    TrackRecorder.onServiceStopped();
+    TrackRecorder.INSTANCE.onServiceStopped();
   }
 
   public static void start(@NonNull Context context)
