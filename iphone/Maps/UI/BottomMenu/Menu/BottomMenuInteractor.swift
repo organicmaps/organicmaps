@@ -33,10 +33,13 @@ class BottomMenuInteractor {
 
 extension BottomMenuInteractor: BottomMenuInteractorProtocol {
   func close() {
-    if controlsManager?.guidesNavigationBarHidden == false {
-      controlsManager?.menuState = .inactive
+    guard let controlsManager = controlsManager else {
+      fatalError()
+    }
+    if controlsManager.guidesNavigationBarHidden == false {
+      controlsManager.menuState = .inactive
     } else {
-      controlsManager?.menuState = .hidden
+      controlsManager.menuState = controlsManager.menuRestoreState
     }
   }
 
