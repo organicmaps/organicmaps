@@ -261,10 +261,11 @@ public class SplashActivity extends AppCompatActivity
     mBaseDelegate.onResume();
     mCanceled = false;
 
-    if (Counters.isMigrationNeeded())
+    Context context = getApplicationContext();
+    if (Counters.isMigrationNeeded(context))
     {
-      Config.migrateCountersToSharedPrefs(getApplicationContext());
-      Counters.setMigrationExecuted();
+      Config.migrateCountersToSharedPrefs(context);
+      Counters.setMigrationExecuted(context);
     }
     
     final boolean isFirstLaunch = WelcomeDialogFragment.isFirstLaunch(this);

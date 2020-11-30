@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -121,7 +122,9 @@ public class NewsFragment extends BaseNewsFragment implements AlertDialogCallbac
   public static boolean showOn(@NonNull FragmentActivity activity,
                                final @Nullable NewsDialogListener listener)
   {
-    if (Counters.getFirstInstallVersion() >= BuildConfig.VERSION_CODE)
+    Context context = activity.getApplicationContext();
+
+    if (Counters.getFirstInstallVersion(context) >= BuildConfig.VERSION_CODE)
       return false;
 
     FragmentManager fm = activity.getSupportFragmentManager();
@@ -140,16 +143,16 @@ public class NewsFragment extends BaseNewsFragment implements AlertDialogCallbac
       return true;
     }
 
-    String currentTitle = getCurrentTitleConcatenation(activity.getApplicationContext());
+    String currentTitle = getCurrentTitleConcatenation(context);
     String oldTitle = SharedPropertiesUtils.getWhatsNewTitleConcatenation();
     if (currentTitle.equals(oldTitle) && !recreate(activity, NewsFragment.class))
       return false;
 
     create(activity, NewsFragment.class, listener);
 
-    Counters.setWhatsNewShown();
+    Counters.setWhatsNewShown(context);
     SharedPropertiesUtils.setWhatsNewTitleConcatenation(currentTitle);
-    Counters.setShowReviewForOldUser(true);
+    Counters.setShowReviewForOldUser(context, true);
 
     return true;
   }

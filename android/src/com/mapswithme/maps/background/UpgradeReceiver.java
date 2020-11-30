@@ -23,6 +23,6 @@ public class UpgradeReceiver extends BroadcastReceiver
                  + !backgroundTracker().isForeground();
     LOGGER.i(TAG, msg);
     CrashlyticsUtils.log(Log.INFO, TAG, msg);
-    MwmApplication.onUpgrade();
+    MwmApplication.onUpgrade(context);
   }
 }

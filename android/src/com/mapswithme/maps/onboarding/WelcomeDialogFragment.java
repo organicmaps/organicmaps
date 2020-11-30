@@ -110,7 +110,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
   public static boolean isFirstLaunch(@NonNull FragmentActivity activity)
   {
-    if (Counters.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
+    if (Counters.getFirstInstallVersion(activity.getApplicationContext()) < BuildConfig.VERSION_CODE)
       return false;
 
     FragmentManager fm = activity.getSupportFragmentManager();

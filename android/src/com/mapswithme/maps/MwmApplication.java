@@ -357,9 +357,9 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     return mPurchaseOperationObservable;
   }
 
-  public static void onUpgrade()
+  public static void onUpgrade(@NonNull Context context)
   {
-    Counters.resetAppSessionCounters();
+    Counters.resetAppSessionCounters(context);
   }
 
   @SuppressWarnings("unused")

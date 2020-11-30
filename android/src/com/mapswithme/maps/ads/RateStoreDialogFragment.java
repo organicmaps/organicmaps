@@ -64,7 +64,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
         mRating = rating;
         if (rating >= BuildConfig.RATING_THRESHOLD)
         {
-          Counters.setRatingApplied(RateStoreDialogFragment.class);
+          Counters.setRatingApplied(requireContext(), RateStoreDialogFragment.class);
           dismiss();
           Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
         }

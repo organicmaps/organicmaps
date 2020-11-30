@@ -1480,10 +1480,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onResumeFragments();
     RoutingController.get().restore();
 
-    if (!LikesManager.INSTANCE.isNewUser() && Counters.isShowReviewForOldUser())
+    Context context = getApplicationContext();
+
+    if (!LikesManager.INSTANCE.isNewUser(context) && Counters.isShowReviewForOldUser(context))
     {
       LikesManager.INSTANCE.showRateDialogForOldUser(this);
-      Counters.setShowReviewForOldUser(false);
+      Counters.setShowReviewForOldUser(context, false);
     }
     else
     {

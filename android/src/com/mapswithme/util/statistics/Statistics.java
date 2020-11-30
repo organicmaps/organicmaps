@@ -1008,7 +1008,7 @@ public enum Statistics
     Config.setStatisticsEnabled(isEnabled);
 
     // We track if user turned on/off statistics to understand data better.
-    trackEvent(EventName.STATISTICS_STATUS_CHANGED + " " + Counters.getInstallFlavor(),
+    trackEvent(EventName.STATISTICS_STATUS_CHANGED + " " + Counters.getInstallFlavor(context),
                params().add(EventParam.ENABLED, String.valueOf(isEnabled)));
   }
 

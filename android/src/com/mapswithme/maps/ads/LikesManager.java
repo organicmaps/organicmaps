@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+
+import android.content.Context;
 import android.util.SparseArray;
 
 import com.mapswithme.maps.BuildConfig;
@@ -28,7 +30,6 @@ public enum LikesManager
 
   private static final int DIALOG_DELAY_DEFAULT = 30000;
   private static final int DIALOG_DELAY_SHORT = 5000;
-  private static final int SESSION_NUM = Counters.getSessionCount();
 
   /*
    Maps type of like dialog to the dialog, performing like.
@@ -72,13 +73,12 @@ public enum LikesManager
     sFragments.add(DownloaderFragment.class);
   }
 
-  private final boolean mIsNewUser = (Counters.getFirstInstallVersion() == BuildConfig.VERSION_CODE);
   private Runnable mLikeRunnable;
   private WeakReference<FragmentActivity> mActivityRef;
 
-  public boolean isNewUser()
+  public boolean isNewUser(@NonNull Context context)
   {
-    return mIsNewUser;
+    return (Counters.getFirstInstallVersion(context) == BuildConfig.VERSION_CODE);
   }
 
   public void showDialogs(FragmentActivity activity)
@@ -88,18 +88,22 @@ public enum LikesManager
     if (!ConnectionState.isConnected())
       return;
 
-    final LikeType type = mIsNewUser ? sNewUsersMapping.get(SESSION_NUM) : sOldUsersMapping.get(SESSION_NUM);
+    Context context = activity.getApplicationContext();
+    int sessionCount = Counters.getSessionCount(context);
+    final LikeType type = isNewUser(context) ?
+                          sNewUsersMapping.get(sessionCount) : sOldUsersMapping.get(sessionCount);
     if (type != null)
-      displayLikeDialog(type.clazz, type.delay);
+      displayLikeDialog(context, type.clazz, type.delay);
   }
 
   public void showRateDialogForOldUser(FragmentActivity activity)
   {
-    if (mIsNewUser)
+    Context context = activity.getApplicationContext();
+    if (isNewUser(context))
       return;
 
     mActivityRef = new WeakReference<>(activity);
-    displayLikeDialog(LikeType.GPLAY_OLD_USERS.clazz, LikeType.GPLAY_OLD_USERS.delay);
+    displayLikeDialog(context, LikeType.GPLAY_OLD_USERS.clazz, LikeType.GPLAY_OLD_USERS.delay);
   }
 
   public void cancelDialogs()
@@ -118,12 +122,16 @@ public enum LikesManager
     return false;
   }
 
-  private void displayLikeDialog(final Class<? extends DialogFragment> dialogFragmentClass, final int delayMillis)
+  private void displayLikeDialog(@NonNull Context context,
+                                 final Class<? extends DialogFragment> dialogFragmentClass,
+                                 final int delayMillis)
   {
-    if (Counters.isSessionRated(SESSION_NUM) || Counters.isRatingApplied(dialogFragmentClass))
+    int sessionCount = Counters.getSessionCount(context);
+    if (Counters.isSessionRated(context, sessionCount) ||
+        Counters.isRatingApplied(context, dialogFragmentClass))
       return;
 
-    Counters.setRatedSession(SESSION_NUM);
+    Counters.setRatedSession(context, sessionCount);
 
     UiThread.cancelDelayedTasks(mLikeRunnable);
     mLikeRunnable = new Runnable()
