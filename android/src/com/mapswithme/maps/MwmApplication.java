@@ -55,7 +55,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public final static String TAG = "MwmApplication";
 
   private static MwmApplication sSelf;
-  private SharedPreferences mPrefs;
   private AppBackgroundTracker mBackgroundTracker;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -147,19 +146,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     return ((MwmApplication) context.getApplicationContext()).getBackgroundTracker();
   }
 
-  /**
-   *
-   * Use {@link #prefs(Context)} instead.
-   */
-  @Deprecated
-  public synchronized static SharedPreferences prefs()
-  {
-    if (sSelf.mPrefs == null)
-      sSelf.mPrefs = sSelf.getSharedPreferences(sSelf.getString(R.string.pref_file_name), MODE_PRIVATE);
-
-    return sSelf.mPrefs;
-  }
-
   @NonNull
   public static SharedPreferences prefs(@NonNull Context context)
   {
@@ -188,8 +174,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mMediator.initSensitiveDataToleranceLibraries();
     mMediator.initSensitiveDataStrictLibrariesAsync();
     Statistics.INSTANCE.setMediator(mMediator);
-
-    mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
+    
     initNotificationChannels();
 
     mBackgroundTracker = new AppBackgroundTracker();

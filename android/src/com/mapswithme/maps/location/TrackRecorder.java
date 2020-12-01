@@ -162,7 +162,7 @@ public enum TrackRecorder implements Initializable<Context>
 
   long getAwaitTimeout()
   {
-    return MwmApplication.prefs().getLong(LOCATION_TIMEOUT_STORED_KEY, LOCATION_TIMEOUT_MIN_MS);
+    return MwmApplication.prefs(mContext).getLong(LOCATION_TIMEOUT_STORED_KEY, LOCATION_TIMEOUT_MIN_MS);
   }
 
   private void setAwaitTimeout(long timeout)
