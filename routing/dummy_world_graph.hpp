@@ -78,7 +78,8 @@ public:
     UNREACHABLE();
   }
 
-  RouteWeight CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to) const override
+  RouteWeight CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to,
+                             NumMwmId mwmId) const override
   {
     UNREACHABLE();
   }
