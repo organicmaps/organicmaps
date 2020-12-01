@@ -28,7 +28,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.MapManager;
@@ -63,10 +62,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     implements AdsRemovalActivationCallback, AdsRemovalPurchaseControllerProvider
 {
   private static final int REQUEST_INSTALL_DATA = 1;
-  private static final String TTS_SCREEN_KEY = MwmApplication.get()
-                                                             .getString(R.string.pref_tts_screen);
-  private static final String TTS_INFO_LINK = MwmApplication.get()
-                                                            .getString(R.string.tts_info_link);
 
   @NonNull
   private final StoragePathManager mPathManager = new StoragePathManager();
@@ -272,7 +267,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private boolean isOnTtsScreen()
   {
-    return mPreferenceScreen.getKey() != null && mPreferenceScreen.getKey().equals(TTS_SCREEN_KEY);
+    String ttsScreenKey = getActivity().getString(R.string.pref_tts_screen);
+    return mPreferenceScreen.getKey() != null && mPreferenceScreen.getKey().equals(ttsScreenKey);
   }
 
   @Override
@@ -456,6 +452,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
                                                                   UiUtils.getStyledResourceId(getContext(), R.attr.colorAccent))),
                    0, link.length(), 0);
       mLangInfoLink.setSummary(link);
+      String TTS_INFO_LINK = getActivity().getString(R.string.tts_info_link);
       mLangInfoLink.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
       {
         @Override
@@ -646,7 +643,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MwmApplication.get()) != ConnectionResult.SUCCESS)
+    if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getActivity().getApplicationContext())
+        != ConnectionResult.SUCCESS)
     {
       removePreference(getString(R.string.pref_settings_general), pref);
     }

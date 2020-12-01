@@ -1,5 +1,6 @@
 package com.mapswithme.maps.gallery;
 
+import android.content.Context;
 import android.content.res.Resources;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,21 +13,23 @@ import com.mapswithme.maps.MwmApplication;
 public abstract class SimpleSingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.Item>>
     extends SingleItemAdapterStrategy<T>
 {
-  protected SimpleSingleItemAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener,
+  protected SimpleSingleItemAdapterStrategy(@NonNull Context context,
+                                            @Nullable ItemSelectedListener<Items.Item> listener,
                                             @Nullable String url)
   {
-    super(url, listener);
+    super(context, url, listener);
   }
 
-  protected SimpleSingleItemAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener)
+  protected SimpleSingleItemAdapterStrategy(@NonNull Context context,
+                                            @Nullable ItemSelectedListener<Items.Item> listener)
   {
-    this(listener, null);
+    this(context, listener, null);
   }
 
   @Override
-  protected void buildItem(@Nullable String url)
+  protected void buildItem(@NonNull Context context, @Nullable String url)
   {
-    Resources res = MwmApplication.get().getResources();
+    Resources res = MwmApplication.from(context).getResources();
     mItems.add(new Items.Item(res.getString(getTitle()), null, null));
   }
 

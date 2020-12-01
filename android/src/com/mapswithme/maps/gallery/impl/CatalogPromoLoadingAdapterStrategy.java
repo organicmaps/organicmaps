@@ -2,6 +2,8 @@ package com.mapswithme.maps.gallery.impl;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,11 @@ import com.mapswithme.maps.gallery.Items;
 
 class CatalogPromoLoadingAdapterStrategy extends SimpleLoadingAdapterStrategy
 {
-  CatalogPromoLoadingAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener,
+  CatalogPromoLoadingAdapterStrategy(@NonNull Context context,
+                                     @Nullable ItemSelectedListener<Items.Item> listener,
                                      @Nullable String url)
   {
-    super(listener, url);
+    super(context, listener, url);
   }
 
   @NonNull

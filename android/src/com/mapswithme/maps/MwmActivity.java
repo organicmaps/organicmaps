@@ -596,7 +596,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     SearchEngine.INSTANCE.addListener(this);
 
-    SharingHelper.INSTANCE.initialize(null);
+    SharingHelper.INSTANCE.initialize(this);
 
     initControllersAndValidatePurchases(savedInstanceState);
 

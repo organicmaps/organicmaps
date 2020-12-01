@@ -194,9 +194,10 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
 
   private void initSearchBasedAdapters()
   {
-    getGallery(R.id.hotels).setAdapter(Factory.createSearchBasedLoadingAdapter());
-    getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedLoadingAdapter());
-    getGallery(R.id.food).setAdapter(Factory.createSearchBasedLoadingAdapter());
+    Context context = requireContext();
+    getGallery(R.id.hotels).setAdapter(Factory.createSearchBasedLoadingAdapter(context));
+    getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedLoadingAdapter(context));
+    getGallery(R.id.food).setAdapter(Factory.createSearchBasedLoadingAdapter(context));
   }
 
   private void initNetworkBasedAdapters()
@@ -208,8 +209,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
                                                 : new ErrorCatalogPromoListener<>(requireActivity(),
                                                                                   this::onNetworkPolicyResult);
 
-    GalleryAdapter adapter = mOnlineMode ? Factory.createCatalogPromoLoadingAdapter()
-                                         : Factory.createCatalogPromoErrorAdapter(listener);
+    GalleryAdapter adapter = mOnlineMode ? Factory.createCatalogPromoLoadingAdapter(requireContext())
+                                         : Factory.createCatalogPromoErrorAdapter(requireContext(), listener);
     promoRecycler.setAdapter(adapter);
   }
 
@@ -309,24 +310,24 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     switch (type)
     {
       case HOTELS:
-        getGallery(R.id.hotels).setAdapter(Factory.createSearchBasedErrorAdapter());
+        getGallery(R.id.hotels).setAdapter(Factory.createSearchBasedErrorAdapter(requireContext()));
         Statistics.INSTANCE.trackGalleryError(SEARCH_HOTELS, DISCOVERY, null);
         break;
       case ATTRACTIONS:
-        getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedErrorAdapter());
+        getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedErrorAdapter(requireContext()));
         Statistics.INSTANCE.trackGalleryError(SEARCH_ATTRACTIONS, DISCOVERY, null);
         break;
       case CAFES:
-        getGallery(R.id.food).setAdapter(Factory.createSearchBasedErrorAdapter());
+        getGallery(R.id.food).setAdapter(Factory.createSearchBasedErrorAdapter(requireContext()));
         Statistics.INSTANCE.trackGalleryError(SEARCH_RESTAURANTS, DISCOVERY, null);
         break;
       case LOCAL_EXPERTS:
-        getGallery(R.id.localGuides).setAdapter(Factory.createLocalExpertsErrorAdapter());
+        getGallery(R.id.localGuides).setAdapter(Factory.createLocalExpertsErrorAdapter(requireContext()));
         Statistics.INSTANCE.trackGalleryError(LOCAL_EXPERTS, DISCOVERY, null);
         break;
       case PROMO:
-        GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(new ErrorCatalogPromoListener<>(requireActivity(),
-                                                                                                        this::onNetworkPolicyResult));
+        GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(requireContext(),
+            new ErrorCatalogPromoListener<>(requireActivity(), this::onNetworkPolicyResult));
         RecyclerView gallery = getGallery(R.id.catalog_promo_recycler);
         gallery.setAdapter(adapter);
         Statistics.INSTANCE.trackGalleryError(PROMO, DISCOVERY, null);

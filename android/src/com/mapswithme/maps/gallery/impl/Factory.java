@@ -41,15 +41,15 @@ public class Factory
   }
 
   @NonNull
-  public static GalleryAdapter createSearchBasedLoadingAdapter()
+  public static GalleryAdapter createSearchBasedLoadingAdapter(@NonNull Context context)
   {
-    return new GalleryAdapter<>(new SimpleLoadingAdapterStrategy(null));
+    return new GalleryAdapter<>(new SimpleLoadingAdapterStrategy(context, null));
   }
 
   @NonNull
-  public static GalleryAdapter createSearchBasedErrorAdapter()
+  public static GalleryAdapter createSearchBasedErrorAdapter(@NonNull Context context)
   {
-    return new GalleryAdapter<>(new SimpleErrorAdapterStrategy(null));
+    return new GalleryAdapter<>(new SimpleErrorAdapterStrategy(context, null));
   }
 
   @NonNull
@@ -75,15 +75,9 @@ public class Factory
   }
 
   @NonNull
-  public static GalleryAdapter createLocalExpertsLoadingAdapter()
+  public static GalleryAdapter createLocalExpertsErrorAdapter(@NonNull Context context)
   {
-    return new GalleryAdapter<>(new LocalExpertsLoadingAdapterStrategy(null));
-  }
-
-  @NonNull
-  public static GalleryAdapter createLocalExpertsErrorAdapter()
-  {
-    return new GalleryAdapter<>(new LocalExpertsErrorAdapterStrategy(null));
+    return new GalleryAdapter<>(new LocalExpertsErrorAdapterStrategy(context, null));
   }
 
   @NonNull
@@ -117,16 +111,17 @@ public class Factory
   }
 
   @NonNull
-  public static GalleryAdapter createCatalogPromoLoadingAdapter()
+  public static GalleryAdapter createCatalogPromoLoadingAdapter(@NonNull Context context)
   {
-    CatalogPromoLoadingAdapterStrategy strategy = new CatalogPromoLoadingAdapterStrategy(null, null);
+    CatalogPromoLoadingAdapterStrategy strategy = new CatalogPromoLoadingAdapterStrategy(context, null, null);
     return new GalleryAdapter<>(strategy);
   }
 
   @NonNull
-  public static GalleryAdapter createCatalogPromoErrorAdapter(@Nullable ItemSelectedListener<Items.Item> listener)
+  public static GalleryAdapter createCatalogPromoErrorAdapter(@NonNull Context context,
+                                                              @Nullable ItemSelectedListener<Items.Item> listener)
   {
-    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(listener));
+    return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(context, listener));
   }
 
   private static <Product> void trackProductGalleryShownOrError(@NonNull Product[] products,

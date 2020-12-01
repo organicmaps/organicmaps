@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public enum SharingHelper implements Initializable<Void>
+public enum SharingHelper implements Initializable<Context>
 {
   INSTANCE;
 
@@ -47,21 +47,28 @@ public enum SharingHelper implements Initializable<Void>
   private static final String PREFS_KEY_ITEMS = "items";
   private static final String KMZ_MIME_TYPE = "application/vnd.google-earth.kmz";
 
-  private final SharedPreferences mPrefs
-      = MwmApplication.get().getSharedPreferences(PREFS_STORAGE, Context.MODE_PRIVATE);
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private Context mContext;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private SharedPreferences mPrefs;
   private final Map<String, SharingTarget> mItems = new HashMap<>();
 
   @Nullable
   private ProgressDialog mProgressDialog;
 
   @Override
-  public void initialize(@Nullable Void aVoid)
+  public void initialize(@Nullable Context context)
   {
+    mContext = context;
+    mPrefs = MwmApplication.from(context).getSharedPreferences(PREFS_STORAGE, Context.MODE_PRIVATE);
+
     ThreadPool.getStorage().execute(
         () ->
         {
           SharingTarget[] items;
-          String json = INSTANCE.mPrefs.getString(PREFS_KEY_ITEMS, null);
+          String json = mPrefs.getString(PREFS_KEY_ITEMS, null);
           items = parse(json);
 
           if (items != null)
@@ -118,7 +125,7 @@ public enum SharingHelper implements Initializable<Void>
     Set<String> missed = new HashSet<>(mItems.keySet());
 
     Intent it = data.getTargetIntent(null);
-    PackageManager pm = MwmApplication.get().getPackageManager();
+    PackageManager pm = MwmApplication.from(mContext).getPackageManager();
     List<ResolveInfo> rlist = pm.queryIntentActivities(it, 0);
 
     final List<SharingTarget> res = new ArrayList<>(rlist.size());

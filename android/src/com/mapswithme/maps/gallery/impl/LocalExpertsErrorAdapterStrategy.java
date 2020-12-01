@@ -2,6 +2,8 @@ package com.mapswithme.maps.gallery.impl;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +14,10 @@ import com.mapswithme.maps.gallery.Items;
 
 public class LocalExpertsErrorAdapterStrategy extends SimpleErrorAdapterStrategy
 {
-  LocalExpertsErrorAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener)
+  LocalExpertsErrorAdapterStrategy(@NonNull Context context,
+                                   @Nullable ItemSelectedListener<Items.Item> listener)
   {
-    super(listener);
+    super(context, listener);
   }
 
   @NonNull
