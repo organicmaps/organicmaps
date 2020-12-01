@@ -519,47 +519,47 @@ private:
   feature::GenerateInfo m_genInfo;
 };
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCoasts)
-{
-  FeatureIntegrationTests::BuildCoasts();
-}
+//UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCoasts)
+//{
+//  FeatureIntegrationTests::BuildCoasts();
+//}
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, BuildWorldMultithread)
-{
-  FeatureIntegrationTests::BuildWorld();
-}
+//UNIT_CLASS_TEST(FeatureIntegrationTests, BuildWorldMultithread)
+//{
+//  FeatureIntegrationTests::BuildWorld();
+//}
 
 UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCountriesMultithread)
 {
   FeatureIntegrationTests::BuildCountries();
 }
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCountriesWithComplex)
-{
-  FeatureIntegrationTests::BuildCountriesWithComplex();
-}
+//UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCountriesWithComplex)
+//{
+//  FeatureIntegrationTests::BuildCountriesWithComplex();
+//}
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, CheckMixedTagsAndNodes)
-{
-  FeatureIntegrationTests::CheckMixedTagsAndNodes();
-}
+//UNIT_CLASS_TEST(FeatureIntegrationTests, CheckMixedTagsAndNodes)
+//{
+//  FeatureIntegrationTests::CheckMixedTagsAndNodes();
+//}
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, CheckGeneratedDataMultithread)
-{
-  FeatureIntegrationTests::CheckGeneratedData();
-}
+//UNIT_CLASS_TEST(FeatureIntegrationTests, CheckGeneratedDataMultithread)
+//{
+//  FeatureIntegrationTests::CheckGeneratedData();
+//}
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, BuildWorldOneThread)
-{
-  FeatureIntegrationTests::BuildWorldOneThread();
-}
+//UNIT_CLASS_TEST(FeatureIntegrationTests, BuildWorldOneThread)
+//{
+//  FeatureIntegrationTests::BuildWorldOneThread();
+//}
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCountriesOneThread)
-{
-  FeatureIntegrationTests::BuildCountriesOneThread();
-}
+//UNIT_CLASS_TEST(FeatureIntegrationTests, BuildCountriesOneThread)
+//{
+//  FeatureIntegrationTests::BuildCountriesOneThread();
+//}
 
-UNIT_CLASS_TEST(FeatureIntegrationTests, CheckGeneratedDataOneThread)
-{
-  FeatureIntegrationTests::CheckGeneratedDataOneThread();
-}
+//UNIT_CLASS_TEST(FeatureIntegrationTests, CheckGeneratedDataOneThread)
+//{
+//  FeatureIntegrationTests::CheckGeneratedDataOneThread();
+//}

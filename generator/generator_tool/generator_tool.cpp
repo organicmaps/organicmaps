@@ -353,7 +353,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   for (size_t i = 0; i < count; ++i)
   {
     string const & country = genInfo.m_bucketNames[i];
-    string const dataFile = base::JoinPath(path, country + DATA_FILE_EXTENSION);
+    string const dataFile = genInfo.GetTargetFileName(country, DATA_FILE_EXTENSION);
     string const osmToFeatureFilename =
         genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
 
@@ -400,7 +400,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       LOG(LINFO, ("Generating search index for", dataFile));
 
       /// @todo Make threads count according to environment (single mwm build or planet build).
-      if (!indexer::BuildSearchIndexFromDataFile(path, country, true /* forceRebuild */,
+      if (!indexer::BuildSearchIndexFromDataFile(country, genInfo, true /* forceRebuild */,
                                                  threadsCount))
       {
         LOG(LCRITICAL, ("Error generating search index."));

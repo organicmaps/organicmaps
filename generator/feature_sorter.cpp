@@ -55,11 +55,11 @@ class FeaturesCollector2 : public FeaturesCollector
 public:
   static uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();
 
-  FeaturesCollector2(string const & filename, string const & boundaryPostcodesFilename,
-                     DataHeader const & header, RegionData const & regionData, uint32_t versionDate)
-    : FeaturesCollector(filename + FEATURES_FILE_TAG)
-    , m_filename(filename)
-    , m_boundaryPostcodesEnricher(boundaryPostcodesFilename)
+  FeaturesCollector2(std::string const & name, feature::GenerateInfo const & info, DataHeader const & header,
+                     RegionData const & regionData, uint32_t versionDate)
+    : FeaturesCollector(info.GetTargetFileName(name, FEATURES_FILE_TAG))
+    , m_filename(info.GetTargetFileName(name))
+    , m_boundaryPostcodesEnricher(info.GetIntermediateFileName(BOUNDARY_POSTCODE_TMP_FILENAME))
     , m_header(header)
     , m_regionData(regionData)
     , m_versionDate(versionDate)
@@ -67,11 +67,11 @@ public:
     for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
     {
       string const postfix = strings::to_string(i);
-      m_geoFile.push_back(make_unique<TmpFile>(filename + GEOMETRY_FILE_TAG + postfix));
-      m_trgFile.push_back(make_unique<TmpFile>(filename + TRIANGLE_FILE_TAG + postfix));
+      m_geoFile.push_back(make_unique<TmpFile>(info.GetIntermediateFileName(name, GEOMETRY_FILE_TAG + postfix)));
+      m_trgFile.push_back(make_unique<TmpFile>(info.GetIntermediateFileName(name, TRIANGLE_FILE_TAG + postfix)));
     }
 
-    m_addrFile = make_unique<FileWriter>(filename + TEMP_ADDR_FILENAME);
+    m_addrFile = make_unique<FileWriter>(info.GetIntermediateFileName(name + DATA_FILE_EXTENSION, TEMP_ADDR_FILENAME));
   }
 
   void Finish()
@@ -358,12 +358,8 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
     {
       // FeaturesCollector2 will create temporary file `dataFilePath + FEATURES_FILE_TAG`.
       // We cannot remove it in ~FeaturesCollector2(), we need to remove it in SCOPE_GUARD.
-      SCOPE_GUARD(_, [&]() { Platform::RemoveFileIfExists(dataFilePath + FEATURES_FILE_TAG); });
-      auto const boundaryPostcodesFilename =
-          info.GetIntermediateFileName(BOUNDARY_POSTCODE_TMP_FILENAME);
-      FeaturesCollector2 collector(dataFilePath, boundaryPostcodesFilename, header, regionData,
-                                   info.m_versionDate);
-
+      SCOPE_GUARD(_, [&]() { Platform::RemoveFileIfExists(info.GetTargetFileName(name, FEATURES_FILE_TAG)); });
+      FeaturesCollector2 collector(name, info, header, regionData, info.m_versionDate);
       for (auto const & point : midPoints.GetVector())
       {
         ReaderSource<FileReader> src(reader);

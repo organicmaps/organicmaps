@@ -60,15 +60,15 @@ UNIT_CLASS_TEST(CarTest, InCity)
   TestCarRouter(ms::LatLon(55.75785, 37.58267), ms::LatLon(55.76082, 37.58492), 30);
 }
 
-// Start and finish are located near a big road.
-UNIT_CLASS_TEST(CarTest, BigRoad)
-{
-  TestCarRouter(ms::LatLon(55.75826, 37.39476), ms::LatLon(55.7605, 37.39003), 30);
-}
+//// Start and finish are located near a big road.
+//UNIT_CLASS_TEST(CarTest, BigRoad)
+//{
+//  TestCarRouter(ms::LatLon(55.75826, 37.39476), ms::LatLon(55.7605, 37.39003), 30);
+//}
 
-// Start are located near an airport center. It's far from road network.
-UNIT_CLASS_TEST(CarTest, InAirport)
-{
-  TestCarRouter(ms::LatLon(55.97285, 37.41275), ms::LatLon(55.96396, 37.41922), 30);
-}
+//// Start are located near an airport center. It's far from road network.
+//UNIT_CLASS_TEST(CarTest, InAirport)
+//{
+//  TestCarRouter(ms::LatLon(55.97285, 37.41275), ms::LatLon(55.96396, 37.41922), 30);
+//}
 }  // namespace

@@ -519,12 +519,12 @@ namespace indexer
 {
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
 
-bool BuildSearchIndexFromDataFile(string const & path, string const & country, bool forceRebuild,
-                                  uint32_t threadsCount)
+bool BuildSearchIndexFromDataFile(string const & country, feature::GenerateInfo const & info,
+                                  bool forceRebuild, uint32_t threadsCount)
 {
   Platform & platform = GetPlatform();
 
-  auto const filename = base::JoinPath(path, country + DATA_FILE_EXTENSION);
+  auto const filename = info.GetTargetFileName(country, DATA_FILE_EXTENSION);
   FilesContainerR readContainer(platform.GetReader(filename, "f"));
   if (readContainer.IsExist(SEARCH_INDEX_FILE_TAG) && !forceRebuild)
     return true;
@@ -544,7 +544,7 @@ bool BuildSearchIndexFromDataFile(string const & path, string const & country, b
     if (filename != WORLD_FILE_NAME && filename != WORLD_COASTS_FILE_NAME)
     {
       FileWriter writer(addrFilePath);
-      auto const addrsFile = base::JoinPath(path, country + DATA_FILE_EXTENSION + TEMP_ADDR_FILENAME);
+      auto const addrsFile = info.GetIntermediateFileName(country + DATA_FILE_EXTENSION, TEMP_ADDR_FILENAME);
       BuildAddressTable(readContainer, addrsFile, writer, threadsCount);
       LOG(LINFO, ("Search address table size =", writer.Size()));
     }
