@@ -96,7 +96,7 @@ void RegionsRouter::Do()
     if (!finishFakeEnding)
       return;
 
-    IndexGraphStarter subrouteStarter(startFakeEnding.value(), finishFakeEnding.value(),
+    IndexGraphStarter subrouteStarter(*startFakeEnding, *finishFakeEnding,
                                       fakeNumerationStart, false /* isStartSegmentStrictForward */,
                                       *graph);
 
