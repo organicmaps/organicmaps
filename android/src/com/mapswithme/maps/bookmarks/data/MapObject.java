@@ -380,6 +380,11 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
     return res == null ? "" : res;
   }
 
+  public boolean hasMetadata()
+  {
+    return !mMetadata.isEmpty();
+  }
+
   @MapObjectType
   public int getMapObjectType()
   {
