@@ -18,11 +18,12 @@ public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MultipleTrackerReferrerReceiver.class.getSimpleName();
+
   @Override
   public void onReceive(Context context, Intent intent)
   {
     String msg = "onReceive: " + intent + " app in background = "
-                 + !backgroundTracker().isForeground();
+                 + !backgroundTracker(context).isForeground();
     LOGGER.i(TAG, msg);
     CrashlyticsUtils.log(Log.INFO, TAG, msg);
     Counters.initCounters(context);
@@ -32,14 +33,14 @@ public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
       if (intent.hasExtra("referrer"))
       {
         final String referrer = intent.getStringExtra("referrer");
-        final String referrerSplitted[] = referrer.split("&");
+        final String[] referrerSplitted = referrer.split("&");
         if (referrerSplitted.length != 0)
         {
           final String[] parsedValues = new String[referrerSplitted.length * 2];
           int i = 0;
           for (String referrerValue : referrerSplitted)
           {
-            String keyValue[] = referrerValue.split("=");
+            String[] keyValue = referrerValue.split("=");
             parsedValues[i++] = keyValue[0];
             parsedValues[i++] = keyValue.length == 2 ? keyValue[1] : "";
           }
@@ -49,7 +50,8 @@ public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
         else
           org.alohalytics.Statistics.logEvent(AlohaHelper.GPLAY_INSTALL_REFERRER, referrer);
       }
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       e.printStackTrace();
     }

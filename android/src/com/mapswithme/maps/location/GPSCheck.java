@@ -14,12 +14,15 @@ public class GPSCheck extends BroadcastReceiver
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   private static final String TAG = GPSCheck.class.getSimpleName();
+
   @Override
-  public void onReceive(Context context, Intent intent) {
+  public void onReceive(Context context, Intent intent)
+  {
     String msg = "onReceive: " + intent + " app in background = "
-                 + !backgroundTracker().isForeground();
+                 + !backgroundTracker(context).isForeground();
     LOGGER.i(TAG, msg);
-    if (MwmApplication.get().arePlatformAndCoreInitialized() && MwmApplication.backgroundTracker().isForeground())
+    if (MwmApplication.get().arePlatformAndCoreInitialized() &&
+        MwmApplication.backgroundTracker(context).isForeground())
     {
       LocationHelper.INSTANCE.restart();
     }

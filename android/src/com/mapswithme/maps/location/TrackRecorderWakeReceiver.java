@@ -15,11 +15,12 @@ public class TrackRecorderWakeReceiver extends BroadcastReceiver
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = TrackRecorderWakeReceiver.class.getSimpleName();
+
   @Override
   public void onReceive(Context context, Intent intent)
   {
     String msg = "onReceive: " + intent + " app in background = "
-                 + !backgroundTracker().isForeground();
+                 + !backgroundTracker(context).isForeground();
     LOGGER.i(TAG, msg);
     CrashlyticsUtils.log(Log.INFO, TAG, msg);
     TrackRecorder.INSTANCE.onWakeAlarm(context);

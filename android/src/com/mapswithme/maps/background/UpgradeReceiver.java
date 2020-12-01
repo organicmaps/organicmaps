@@ -20,7 +20,7 @@ public class UpgradeReceiver extends BroadcastReceiver
   public void onReceive(Context context, Intent intent)
   {
     String msg = "onReceive: " + intent + " app in background = "
-                 + !backgroundTracker().isForeground();
+                 + !backgroundTracker(context).isForeground();
     LOGGER.i(TAG, msg);
     CrashlyticsUtils.log(Log.INFO, TAG, msg);
     MwmApplication.onUpgrade(context);

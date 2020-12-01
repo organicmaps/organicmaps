@@ -48,7 +48,7 @@ public final class Editor
 
   public static void init(@NonNull Context context)
   {
-    MwmApplication.backgroundTracker().addListener(new OsmUploadListener(context));
+    MwmApplication.backgroundTracker(context).addListener(new OsmUploadListener(context));
   }
 
   @WorkerThread
