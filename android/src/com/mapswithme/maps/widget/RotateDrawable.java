@@ -15,11 +15,6 @@ public class RotateDrawable extends Drawable
   private final Drawable mBaseDrawable;
   private float mAngle;
 
-  public RotateDrawable(@DrawableRes int resId)
-  {
-    this(ContextCompat.getDrawable(MwmApplication.get(), resId));
-  }
-
   public RotateDrawable(Drawable drawable)
   {
     super();

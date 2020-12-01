@@ -2365,7 +2365,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
   {
-    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(lastResultCode, lastMissingMaps);
+    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(getApplicationContext(),
+                                                                            lastResultCode, lastMissingMaps);
     fragment.show(getSupportFragmentManager(), RoutingErrorDialogFragment.class.getSimpleName());
   }
 
@@ -2852,7 +2853,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
 
-      if (!PermissionsUtils.isLocationGranted())
+      if (!PermissionsUtils.isLocationGranted(getApplicationContext()))
       {
         if (PermissionsUtils.isLocationExplanationNeeded(MwmActivity.this))
           PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);

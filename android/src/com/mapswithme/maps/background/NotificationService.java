@@ -111,7 +111,7 @@ public class NotificationService extends JobIntentService
     }
 
     // Do not show push when user is in the navigation mode.
-    if (MwmApplication.get().arePlatformAndCoreInitialized()
+    if (MwmApplication.from(getApplicationContext()).arePlatformAndCoreInitialized()
         && RoutingController.get().isNavigating())
     {
       LOGGER.d(TAG, "Notification is rejected. The user is in navigation mode.");

@@ -1,5 +1,6 @@
 package com.mapswithme.maps.routing;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.Pair;
 
@@ -34,9 +35,10 @@ class ResultCodesHelper
   static final int HAS_WARNINGS = 16;
 
   @NonNull
-  static ResourcesHolder getDialogTitleSubtitle(int errorCode, int missingCount)
+  static ResourcesHolder getDialogTitleSubtitle(@NonNull Context context,
+                                                int errorCode, int missingCount)
   {
-    Resources resources = MwmApplication.get().getResources();
+    Resources resources = MwmApplication.from(context).getResources();
     int titleRes = 0;
     List<String> messages = new ArrayList<>();
     @StringRes

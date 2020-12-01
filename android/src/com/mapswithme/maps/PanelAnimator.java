@@ -3,6 +3,8 @@ package com.mapswithme.maps;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+
+import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,17 +16,19 @@ import com.mapswithme.util.UiUtils;
 
 class PanelAnimator
 {
-  private static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_panel);
   private static final int WIDTH = UiUtils.dimen(R.dimen.panel_width);
 
   private final MwmActivity mActivity;
   private final Listeners<MwmActivity.LeftAnimationTrackListener> mAnimationTrackListeners = new Listeners<>();
   private final View mPanel;
+  @IntegerRes
+  private final int mDuration;
 
   PanelAnimator(MwmActivity activity)
   {
     mActivity = activity;
     mPanel = mActivity.findViewById(R.id.fragment_container);
+    mDuration = mActivity.getResources().getInteger(R.integer.anim_panel);
   }
 
   void registerListener(@NonNull MwmActivity.LeftAnimationTrackListener animationTrackListener)
@@ -99,7 +103,7 @@ class PanelAnimator
       }
     });
 
-    animator.setDuration(DURATION);
+    animator.setDuration(mDuration);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
   }
@@ -144,7 +148,7 @@ class PanelAnimator
       }
     });
 
-    animator.setDuration(DURATION);
+    animator.setDuration(mDuration);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
   }

@@ -94,7 +94,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
           completion.run();
       }
     });
-    animator.setDuration(ANIM_TOGGLE);
+    animator.setDuration(mAnimToggle);
     animator.start();
     return animator;
   }

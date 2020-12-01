@@ -28,7 +28,6 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class RoutingPlanController extends ToolbarController
 {
-  static final int ANIM_TOGGLE = MwmApplication.get().getResources().getInteger(R.integer.anim_default);
   private static final String BUNDLE_HAS_DRIVING_OPTIONS_VIEW = "has_driving_options_view";
 
   private final View mFrame;
@@ -50,6 +49,7 @@ public class RoutingPlanController extends ToolbarController
   private final RoutingBottomMenuController mRoutingBottomMenuController;
 
   int mFrameHeight;
+  final int mAnimToggle;
 
   @NonNull
   private final View mDrivingOptionsBtnContainer;
@@ -110,6 +110,8 @@ public class RoutingPlanController extends ToolbarController
 
     btn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity()));
     mDriverOptionsLayoutListener = new SelfTerminatedDrivingOptionsLayoutListener();
+    mAnimToggle = MwmApplication.from(activity.getApplicationContext())
+                                .getResources().getInteger(R.integer.anim_default);
   }
 
   @NonNull

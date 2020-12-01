@@ -1,7 +1,10 @@
 package com.mapswithme.maps.routing;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 import android.view.View;
@@ -171,11 +174,12 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     }
   }
 
-  public static RoutingMapsDownloadFragment create(String[] missingMaps)
+  public static RoutingMapsDownloadFragment create(@NonNull Context context, String[] missingMaps)
   {
     Bundle args = new Bundle();
     args.putStringArray(EXTRA_MISSING_MAPS, missingMaps);
-    RoutingMapsDownloadFragment res = (RoutingMapsDownloadFragment) Fragment.instantiate(MwmApplication.get(), RoutingMapsDownloadFragment.class.getName());
+    RoutingMapsDownloadFragment res = (RoutingMapsDownloadFragment) Fragment
+        .instantiate(context, RoutingMapsDownloadFragment.class.getName());
     res.setArguments(args);
     return res;
   }

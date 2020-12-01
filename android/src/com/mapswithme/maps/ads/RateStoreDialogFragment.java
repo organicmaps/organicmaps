@@ -115,7 +115,9 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
       long installTime = 0;
       try
       {
-        info = MwmApplication.get().getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
+        info = MwmApplication.from(requireContext())
+                             .getPackageManager()
+                             .getPackageInfo(BuildConfig.APPLICATION_ID, 0);
         installTime = info.firstInstallTime;
       } catch (PackageManager.NameNotFoundException e)
       {

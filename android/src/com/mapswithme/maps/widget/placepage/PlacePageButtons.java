@@ -3,6 +3,8 @@ package com.mapswithme.maps.widget.placepage;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,7 +91,7 @@ public final class PlacePageButtons
       }
 
       @DrawableRes
-      public int getEnabledStateResId()
+      public int getEnabledStateResId(@NonNull Context context)
       {
         return mEnabledStateResId;
       }
@@ -108,7 +110,7 @@ public final class PlacePageButtons
         }
 
         @Override
-        public int getEnabledStateResId()
+        public int getEnabledStateResId(@NonNull Context context)
         {
           throw new UnsupportedOperationException("Not supported here");
         }
@@ -292,9 +294,10 @@ public final class PlacePageButtons
         new ImageResources.Stub()
         {
           @Override
-          public int getEnabledStateResId()
+          public int getEnabledStateResId(@NonNull Context context)
           {
-            return ThemeUtils.getResource(MwmApplication.get(), android.R.attr.homeAsUpIndicator);
+            return ThemeUtils.getResource(MwmApplication.from(context),
+                                          android.R.attr.homeAsUpIndicator);
           }
         },
         ButtonType.BACK),
@@ -491,7 +494,7 @@ public final class PlacePageButtons
     for (int i = mMaxButtons; i < buttons.size(); i++)
     {
       PlacePageButton bsItem = buttons.get(i);
-      int iconRes = bsItem.getIcon().getEnabledStateResId();
+      int iconRes = bsItem.getIcon().getEnabledStateResId(mPlacePage.getContext());
       bs.sheet(i, iconRes, bsItem.getTitle());
     }
 
@@ -511,14 +514,15 @@ public final class PlacePageButtons
   private View createButton(@NonNull final List<PlacePageButton> items,
                             @NonNull final PlacePageButton current)
   {
-    LayoutInflater inflater = LayoutInflater.from(mPlacePage.getContext());
+    Context context = mPlacePage.getContext();
+    LayoutInflater inflater = LayoutInflater.from(context);
     View parent = inflater.inflate(R.layout.place_page_button, mFrame, false);
 
     ImageView icon = (ImageView) parent.findViewById(R.id.icon);
     TextView title = (TextView) parent.findViewById(R.id.title);
 
     title.setText(current.getTitle());
-    icon.setImageResource(current.getIcon().getEnabledStateResId());
+    icon.setImageResource(current.getIcon().getEnabledStateResId(context));
     mItemListener.onPrepareVisibleView(current, parent, icon, title);
     parent.setOnClickListener(new ShowPopupClickListener(current, items));
     return parent;

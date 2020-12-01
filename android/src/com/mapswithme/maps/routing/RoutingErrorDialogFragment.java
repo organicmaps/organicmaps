@@ -1,7 +1,10 @@
 package com.mapswithme.maps.routing;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
@@ -30,7 +33,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     super.beforeDialogCreated(builder);
 
     ResultCodesHelper.ResourcesHolder resHolder =
-        ResultCodesHelper.getDialogTitleSubtitle(mResultCode, mMissingMaps.size());
+        ResultCodesHelper.getDialogTitleSubtitle(requireContext(), mResultCode, mMissingMaps.size());
     Pair<String, String> titleMessage = resHolder.getTitleMessage();
 
     builder.setTitle(titleMessage.first);
@@ -94,7 +97,8 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
       @Override
       public void run()
       {
-        RoutingMapsDownloadFragment downloader = RoutingMapsDownloadFragment.create(mMapsArray);
+        RoutingMapsDownloadFragment downloader = RoutingMapsDownloadFragment
+            .create(getAppContextOrThrow(), mMapsArray);
         downloader.show(getActivity().getSupportFragmentManager(), downloader.getClass().getSimpleName());
 
         mCancelled = false;
@@ -137,12 +141,14 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     mResultCode = getArguments().getInt(EXTRA_RESULT_CODE);
   }
 
-  public static RoutingErrorDialogFragment create(int resultCode, @Nullable String[] missingMaps)
+  public static RoutingErrorDialogFragment create(@NonNull Context context,
+                                                  int resultCode, @Nullable String[] missingMaps)
   {
     Bundle args = new Bundle();
     args.putInt(EXTRA_RESULT_CODE, resultCode);
     args.putStringArray(EXTRA_MISSING_MAPS, missingMaps);
-    RoutingErrorDialogFragment res = (RoutingErrorDialogFragment)Fragment.instantiate(MwmApplication.get(), RoutingErrorDialogFragment.class.getName());
+    RoutingErrorDialogFragment res = (RoutingErrorDialogFragment) Fragment
+        .instantiate(context, RoutingErrorDialogFragment.class.getName());
     res.setArguments(args);
     return res;
   }
