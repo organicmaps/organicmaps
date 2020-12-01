@@ -75,6 +75,7 @@ public:
   static std::string GetBoundariesFilename(std::string const & filename);
 
   explicit RoutingCityBoundariesWriter(std::string const & filename);
+  ~RoutingCityBoundariesWriter();
 
   void Process(uint64_t nodeOsmId, LocalityData const & localityData);
   void Process(uint64_t nodeOsmId, feature::FeatureBuilder const & feature);

@@ -274,6 +274,13 @@ RoutingCityBoundariesWriter::RoutingCityBoundariesWriter(std::string const & fil
 {
 }
 
+RoutingCityBoundariesWriter::~RoutingCityBoundariesWriter()
+{
+  CHECK(Platform::RemoveFileIfExists(m_nodeOsmIdToLocalityDataFilename), (m_nodeOsmIdToLocalityDataFilename));
+  CHECK(Platform::RemoveFileIfExists(m_nodeOsmIdToBoundariesFilename), (m_nodeOsmIdToBoundariesFilename));
+  CHECK(Platform::RemoveFileIfExists(m_finalBoundariesGeometryFilename), (m_finalBoundariesGeometryFilename));
+}
+
 void RoutingCityBoundariesWriter::Process(uint64_t nodeOsmId, LocalityData const & localityData)
 {
   m_nodeOsmIdToLocalityDataWriter->Write(&nodeOsmId, sizeof(nodeOsmId));
@@ -306,17 +313,17 @@ void RoutingCityBoundariesWriter::Reset()
 void RoutingCityBoundariesWriter::MergeInto(RoutingCityBoundariesWriter & writer)
 {
   CHECK(!m_nodeOsmIdToLocalityDataWriter || !writer.m_nodeOsmIdToLocalityDataWriter,
-        ("Finish() has not been called."));
+        ("Reset() has not been called."));
   base::AppendFileToFile(m_nodeOsmIdToLocalityDataFilename,
                          writer.m_nodeOsmIdToLocalityDataFilename);
 
   CHECK(!m_nodeOsmIdToBoundariesWriter || !writer.m_nodeOsmIdToBoundariesWriter,
-        ("Finish() has not been called."));
+        ("Reset() has not been called."));
   base::AppendFileToFile(m_nodeOsmIdToBoundariesFilename,
                          writer.m_nodeOsmIdToBoundariesFilename);
 
   CHECK(!m_finalBoundariesGeometryWriter || !writer.m_finalBoundariesGeometryWriter,
-        ("Finish() has not been called."));
+        ("Reset() has not been called."));
   base::AppendFileToFile(m_finalBoundariesGeometryFilename,
                          writer.m_finalBoundariesGeometryFilename);
 
@@ -335,6 +342,7 @@ void RoutingCityBoundariesWriter::Save(std::string const & finalFileName,
 
   base::AppendFileToFile(m_nodeOsmIdToLocalityDataFilename, nodeToLocalityFilename);
   base::AppendFileToFile(m_nodeOsmIdToBoundariesFilename, nodeToBoundariesFilename);
+
   if (Platform::IsFileExistsByFullPath(m_finalBoundariesGeometryFilename))
     CHECK(base::CopyFileX(m_finalBoundariesGeometryFilename, dumpFilename), ());
 }

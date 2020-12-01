@@ -60,7 +60,7 @@ class CollectorInterface
 {
 public:
   CollectorInterface(std::string const & filename = {}) : m_id(CreateId()), m_filename(filename) {}
-  virtual ~CollectorInterface() { CHECK(Platform::RemoveFileIfExists(GetTmpFilename()), ()); }
+  virtual ~CollectorInterface() { CHECK(Platform::RemoveFileIfExists(GetTmpFilename()), (GetTmpFilename())); }
 
   virtual std::shared_ptr<CollectorInterface> Clone(
       std::shared_ptr<cache::IntermediateDataReaderInterface> const & = {}) const = 0;
