@@ -6,7 +6,8 @@
   android:layout_height="wrap_content">
   <RelativeLayout
     android:layout_width="@dimen/promo_after_booking_width"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?cardBackground">
     <ImageView
       android:id="@+id/city_picture"
       android:layout_width="match_parent"
