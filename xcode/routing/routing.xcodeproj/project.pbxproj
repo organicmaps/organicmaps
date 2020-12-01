@@ -325,6 +325,13 @@
 		D52EF20225260E1500DFEB57 /* directions_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D52EF20125260E1500DFEB57 /* directions_engine.cpp */; };
 		D5481E4E24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D5481E4C24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp */; };
 		D5481E4F24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5481E4D24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp */; };
+		D549BEBD25765CFB009131F2 /* regions_sparse_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D549BEB625765CFA009131F2 /* regions_sparse_graph.hpp */; };
+		D549BEBE25765CFB009131F2 /* regions_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D549BEB725765CFA009131F2 /* regions_router.hpp */; };
+		D549BEBF25765CFB009131F2 /* dummy_world_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D549BEB825765CFA009131F2 /* dummy_world_graph.hpp */; };
+		D549BEC025765CFB009131F2 /* regions_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D549BEB925765CFA009131F2 /* regions_router.cpp */; };
+		D549BEC125765CFB009131F2 /* absent_regions_finder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D549BEBA25765CFA009131F2 /* absent_regions_finder.hpp */; };
+		D549BEC225765CFB009131F2 /* regions_sparse_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D549BEBB25765CFA009131F2 /* regions_sparse_graph.cpp */; };
+		D549BEC325765CFB009131F2 /* absent_regions_finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D549BEBC25765CFB009131F2 /* absent_regions_finder.cpp */; };
 		D563401F2423816C00FDE20A /* guides_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D563401E2423816C00FDE20A /* guides_tests.cpp */; };
 		D57834C02562ED5F0020A420 /* cross_border_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D57834BE2562ED5F0020A420 /* cross_border_graph.cpp */; };
 		D57834C12562ED5F0020A420 /* cross_border_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D57834BF2562ED5F0020A420 /* cross_border_graph.hpp */; };
@@ -622,6 +629,13 @@
 		D52EF20125260E1500DFEB57 /* directions_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = directions_engine.cpp; sourceTree = "<group>"; };
 		D5481E4C24BF4F70008FB1D8 /* mwm_hierarchy_handler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_hierarchy_handler.hpp; sourceTree = "<group>"; };
 		D5481E4D24BF4F70008FB1D8 /* mwm_hierarchy_handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_hierarchy_handler.cpp; sourceTree = "<group>"; };
+		D549BEB625765CFA009131F2 /* regions_sparse_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = regions_sparse_graph.hpp; sourceTree = "<group>"; };
+		D549BEB725765CFA009131F2 /* regions_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = regions_router.hpp; sourceTree = "<group>"; };
+		D549BEB825765CFA009131F2 /* dummy_world_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dummy_world_graph.hpp; sourceTree = "<group>"; };
+		D549BEB925765CFA009131F2 /* regions_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = regions_router.cpp; sourceTree = "<group>"; };
+		D549BEBA25765CFA009131F2 /* absent_regions_finder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = absent_regions_finder.hpp; sourceTree = "<group>"; };
+		D549BEBB25765CFA009131F2 /* regions_sparse_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = regions_sparse_graph.cpp; sourceTree = "<group>"; };
+		D549BEBC25765CFB009131F2 /* absent_regions_finder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = absent_regions_finder.cpp; sourceTree = "<group>"; };
 		D563401E2423816C00FDE20A /* guides_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guides_tests.cpp; sourceTree = "<group>"; };
 		D57834BE2562ED5F0020A420 /* cross_border_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_border_graph.cpp; sourceTree = "<group>"; };
 		D57834BF2562ED5F0020A420 /* cross_border_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_border_graph.hpp; sourceTree = "<group>"; };
@@ -905,6 +919,13 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				D549BEBC25765CFB009131F2 /* absent_regions_finder.cpp */,
+				D549BEBA25765CFA009131F2 /* absent_regions_finder.hpp */,
+				D549BEB825765CFA009131F2 /* dummy_world_graph.hpp */,
+				D549BEB925765CFA009131F2 /* regions_router.cpp */,
+				D549BEB725765CFA009131F2 /* regions_router.hpp */,
+				D549BEBB25765CFA009131F2 /* regions_sparse_graph.cpp */,
+				D549BEB625765CFA009131F2 /* regions_sparse_graph.hpp */,
 				D57834BE2562ED5F0020A420 /* cross_border_graph.cpp */,
 				D57834BF2562ED5F0020A420 /* cross_border_graph.hpp */,
 				D52EF20125260E1500DFEB57 /* directions_engine.cpp */,
@@ -1165,8 +1186,10 @@
 				44AE4A13214FBB8E006321F5 /* speed_camera.hpp in Headers */,
 				56EA2FD51D8FD8590083F01A /* routing_helpers.hpp in Headers */,
 				F6C3A1B521AC298F0060EEC8 /* speed_camera_manager.hpp in Headers */,
+				D549BEC125765CFB009131F2 /* absent_regions_finder.hpp in Headers */,
 				0C15B8021F02A61B0058E253 /* checkpoints.hpp in Headers */,
 				0C5F5D211E798B0400307B98 /* cross_mwm_connector_serialization.hpp in Headers */,
+				D549BEBD25765CFB009131F2 /* regions_sparse_graph.hpp in Headers */,
 				0C0DF9221DE898B70055A22F /* index_graph_starter.hpp in Headers */,
 				56290B88206A3232003892E0 /* routing_algorithm.hpp in Headers */,
 				40A111CE1F2F6776005E6AD5 /* route_weight.hpp in Headers */,
@@ -1189,9 +1212,11 @@
 				0C5FEC6B1DDE193F0017688C /* road_point.hpp in Headers */,
 				56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */,
 				405F48DC1F6AD01C005BA81A /* routing_result.hpp in Headers */,
+				D549BEBF25765CFB009131F2 /* dummy_world_graph.hpp in Headers */,
 				56FEAA6E219E8A610073DF5F /* maxspeeds_serialization.hpp in Headers */,
 				D57834C12562ED5F0020A420 /* cross_border_graph.hpp in Headers */,
 				4065EA801F824A6C0094DEF3 /* transit_world_graph.hpp in Headers */,
+				D549BEBE25765CFB009131F2 /* regions_router.hpp in Headers */,
 				44B284C823F5A21300A3FBB7 /* opening_hours_serdes.hpp in Headers */,
 				44E5574A2136EEC900B01439 /* speed_camera_ser_des.hpp in Headers */,
 				0C5FEC551DDE191E0017688C /* edge_estimator.hpp in Headers */,
@@ -1415,6 +1440,7 @@
 				D526BA7A241FC5580076E0B0 /* guides_connections.cpp in Sources */,
 				56CA09E71E30E73B00D05C9A /* restriction_test.cpp in Sources */,
 				0C5BC9D11E28FD4E0071BFDD /* index_road_graph.cpp in Sources */,
+				D549BEC325765CFB009131F2 /* absent_regions_finder.cpp in Sources */,
 				0C090C811E4E274000D52AFD /* index_graph_loader.cpp in Sources */,
 				349D1CE01E3F589900A878FD /* restrictions_serialization.cpp in Sources */,
 				56FEAA6F219E8A610073DF5F /* maxspeeds_serialization.cpp in Sources */,
@@ -1465,6 +1491,7 @@
 				0C81E1571F0258AA00DC66DF /* segmented_route.cpp in Sources */,
 				D526BA79241FC5580076E0B0 /* guides_graph.cpp in Sources */,
 				56CA09E51E30E73B00D05C9A /* index_graph_tools.cpp in Sources */,
+				D549BEC225765CFB009131F2 /* regions_sparse_graph.cpp in Sources */,
 				0C0DF92A1DE898FF0055A22F /* routing_helpers.cpp in Sources */,
 				67AB92E61B7B3E6E00AB5194 /* turns_tts_text.cpp in Sources */,
 				0C5FEC601DDE192A0017688C /* index_graph.cpp in Sources */,
@@ -1473,6 +1500,7 @@
 				568194751F03A32400450EC3 /* road_access_test.cpp in Sources */,
 				D51A9C14242E379D00F750F8 /* fake_graph.cpp in Sources */,
 				56CA09E41E30E73B00D05C9A /* cumulative_restriction_test.cpp in Sources */,
+				D549BEC025765CFB009131F2 /* regions_router.cpp in Sources */,
 				568194761F03A32400450EC3 /* routing_helpers_tests.cpp in Sources */,
 				569472422418C8220013CD21 /* car_directions.cpp in Sources */,
 				44E5574C2136EED000B01439 /* speed_camera_ser_des.cpp in Sources */,
