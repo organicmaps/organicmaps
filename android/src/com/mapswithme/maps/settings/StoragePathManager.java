@@ -155,10 +155,7 @@ public class StoragePathManager
   {
     Set<String> pathsFromConfig = new HashSet<>();
 
-    if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
-      StorageUtils.parseKitkatStorages(pathsFromConfig);
-    else
-      StorageUtils.parseStorages(pathsFromConfig);
+    StorageUtils.parseStorages(pathsFromConfig);
 
     mItems.clear();
 

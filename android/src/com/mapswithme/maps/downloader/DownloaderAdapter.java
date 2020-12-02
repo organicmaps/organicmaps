@@ -614,7 +614,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         size = ((!mSearchResultsMode && mMyMapsMode) ? mItem.size : mItem.totalSize);
       }
 
-      mSize.setText(StringUtils.getFileSizeString(size));
+      mSize.setText(StringUtils.getFileSizeString(mFragment.requireContext(), size));
       mStatusIcon.update(mItem);
     }
   }

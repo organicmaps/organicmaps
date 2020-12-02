@@ -143,56 +143,6 @@ final class StorageUtils
     parseMountFile("/proc/mounts", MOUNTS_MODE, paths);
   }
 
-  @TargetApi(Build.VERSION_CODES.KITKAT)
-  @SuppressWarnings("ResultOfMethodCallIgnored")
-  static void parseKitkatStorages(Set<String> paths)
-  {
-    final File primaryStorage = MwmApplication.get().getExternalFilesDir(null);
-    final File[] storages = MwmApplication.get().getExternalFilesDirs(null);
-    if (storages != null)
-    {
-      for (File f : storages)
-      {
-        // add only secondary dirs
-        if (f != null && !f.equals(primaryStorage))
-        {
-          LOGGER.i(StoragePathManager.TAG, "Additional storage path: " + f.getPath());
-          paths.add(f.getPath());
-        }
-      }
-    }
-
-    Set<String> testStorages = new HashSet<>();
-    parseStorages(testStorages);
-    String suffix = String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.FILES_DIR);
-    for (String testStorage : testStorages)
-    {
-      LOGGER.i(StoragePathManager.TAG, "Test storage from config files : " + testStorage);
-      if (isDirWritable(testStorage))
-      {
-        LOGGER.i(StoragePathManager.TAG, "Found writable storage : " + testStorage);
-        paths.add(testStorage);
-      }
-      else
-      {
-        testStorage += suffix;
-        File file = new File(testStorage);
-        if (!file.exists()) // create directory for our package if it isn't created by any reason
-        {
-          LOGGER.i(StoragePathManager.TAG, "Try to create MWM path");
-          if (file.mkdirs())
-            LOGGER.i(StoragePathManager.TAG, "Created!");
-        }
-
-        if (isDirWritable(testStorage))
-        {
-          LOGGER.i(StoragePathManager.TAG, "Found writable storage : " + testStorage);
-          paths.add(testStorage);
-        }
-      }
-    }
-  }
-
   static void copyFile(File source, File dest) throws IOException
   {
     int maxChunkSize = 10 * Constants.MB; // move file by smaller chunks to avoid OOM.

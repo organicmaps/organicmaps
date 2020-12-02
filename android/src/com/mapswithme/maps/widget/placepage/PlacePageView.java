@@ -2077,7 +2077,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     mDownloaderIcon.update(country);
 
-    StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(country.totalSize));
+    StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(getContext(), country.totalSize));
     if (country.isExpandable())
       sb.append(String.format(Locale.US, "  •  %s: %d", getContext().getString(R.string.downloader_status_maps), country.totalChildCount));
 

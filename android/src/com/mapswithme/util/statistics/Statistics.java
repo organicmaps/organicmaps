@@ -22,6 +22,7 @@ import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -186,7 +187,7 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.TRUE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.UNKNOWN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VEHICLE;
 
-public enum Statistics
+public enum Statistics implements Initializable<Context>
 {
   INSTANCE;
 
@@ -888,11 +889,11 @@ public enum Statistics
   // Initialized once in constructor and does not change until the process restarts.
   // In this way we can correctly finish all statistics sessions and completely
   // avoid their initialization if user has disabled statistics collection.
-  private final boolean mEnabled;
+  private boolean mEnabled;
 
-  Statistics()
+  @Override
+  public void initialize(@Nullable Context context)
   {
-    final Context context = MwmApplication.get();
     mEnabled = SharedPropertiesUtils.isStatisticsEnabled(context);
     // At the moment we need special handling for Alohalytics to enable/disable logging of events in core C++ code.
     if (mEnabled)
@@ -900,6 +901,12 @@ public enum Statistics
     else
       org.alohalytics.Statistics.disable(context);
     configure(context);
+  }
+
+  @Override
+  public void destroy()
+  {
+    // No op.
   }
 
   @SuppressWarnings("NullableProblems")

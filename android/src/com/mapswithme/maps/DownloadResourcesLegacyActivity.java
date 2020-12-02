@@ -274,7 +274,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private void setDownloadMessage(int bytesToDownload)
   {
-    mTvMessage.setText(getString(R.string.download_resources, StringUtils.getFileSizeString(bytesToDownload)));
+    mTvMessage.setText(getString(R.string.download_resources,
+                                 StringUtils.getFileSizeString(getApplicationContext(), bytesToDownload)));
   }
 
   private boolean prepareFilesDownload(boolean showMap)

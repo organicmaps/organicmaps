@@ -139,7 +139,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
     mBtnDownloadMap.setText(String.format(Locale.US, "%1$s (%2$s)",
                                           getString(R.string.downloader_download_map),
-                                          StringUtils.getFileSizeString(mCurrentCountry.totalSize)));
+                                          StringUtils.getFileSizeString(requireContext(), mCurrentCountry.totalSize)));
   }
 
   private void initViews(View view)

@@ -236,7 +236,7 @@ public class SplashActivity extends AppCompatActivity
       // If external permissions are still granted we just need to check platform
       // and core initialization, because we may be in the recovering process,
       // i.e. method onResume() may not be invoked in that case.
-      if (!MwmApplication.get().arePlatformAndCoreInitialized())
+      if (!MwmApplication.from(getApplicationContext()).arePlatformAndCoreInitialized())
       {
         init();
       }
