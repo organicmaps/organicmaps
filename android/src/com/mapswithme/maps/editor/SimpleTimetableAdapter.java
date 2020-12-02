@@ -221,18 +221,16 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
       final ViewGroup closedHost = (ViewGroup) itemView.findViewById(R.id.closed_host);
       for (int i = 0; i < MAX_CLOSED_SPANS; i++)
       {
-        final View span = LayoutInflater.from(itemView.getContext()).inflate(R.layout.item_timetable_closed_hours, closedHost, false);
-        closedHost.addView(span, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UiUtils.dimen(R.dimen.editor_height_closed)));
+        final View span = LayoutInflater
+            .from(itemView.getContext())
+            .inflate(R.layout.item_timetable_closed_hours, closedHost, false);
+        closedHost.addView(span, new LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            UiUtils.dimen(closedHost.getContext(), R.dimen.editor_height_closed)));
         closedHours[i] = span;
         final int finalI = i;
-        span.findViewById(R.id.iv__remove_closed).setOnClickListener(new View.OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            removeClosedHours(getAdapterPosition(), finalI);
-          }
-        });
+        span.findViewById(R.id.iv__remove_closed)
+            .setOnClickListener(v -> removeClosedHours(getAdapterPosition(), finalI));
       }
     }
 

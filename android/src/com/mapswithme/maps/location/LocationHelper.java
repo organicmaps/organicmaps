@@ -122,7 +122,7 @@ public enum LocationHelper implements Initializable<Context>
   private MapObject mMyPosition;
   private long mSavedLocationTime;
   @NonNull
-  private final SensorHelper mSensorHelper = new SensorHelper();
+  private SensorHelper mSensorHelper;
   @Nullable
   private BaseLocationProvider mLocationProvider;
   @Nullable
@@ -159,6 +159,7 @@ public enum LocationHelper implements Initializable<Context>
   public void initialize(@Nullable Context context)
   {
     mContext = context;
+    mSensorHelper = new SensorHelper(context);
     initProvider();
     LocationState.nativeSetListener(mMyPositionModeListener);
     LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
@@ -513,7 +514,7 @@ public enum LocationHelper implements Initializable<Context>
     mLogger.d(TAG, "startInternal(), current provider is '" + mLocationProvider
                    + "' , my position mode = " + LocationState.nameOf(getMyPositionMode())
                    + ", mInFirstRun = " + mInFirstRun);
-    if (!PermissionsUtils.isLocationGranted())
+    if (!PermissionsUtils.isLocationGranted(mContext))
     {
       mLogger.w(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted",
                 new Throwable());

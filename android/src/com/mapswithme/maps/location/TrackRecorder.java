@@ -23,7 +23,6 @@ public enum TrackRecorder implements Initializable<Context>
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.TRACK_RECORDER);
 
   private static final String TAG = TrackRecorder.class.getSimpleName();
-  private static final AlarmManager sAlarmManager = (AlarmManager)MwmApplication.get().getSystemService(Context.ALARM_SERVICE);
 
   private static final long WAKEUP_INTERVAL_MS = 20000;
   private static final long STARTUP_AWAIT_INTERVAL_MS = 5000;
@@ -37,6 +36,8 @@ public enum TrackRecorder implements Initializable<Context>
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private Context mContext;
+  @NonNull
+  private AlarmManager mAlarmManager;
   @NonNull
   private final Runnable mStartupAwaitProc = this::restartAlarmIfEnabled;
   @NonNull
@@ -65,6 +66,8 @@ public enum TrackRecorder implements Initializable<Context>
   {
     LOGGER.d(TAG, "Initialization of track recorder and setting the listener for track changes");
     mContext = context;
+    mAlarmManager = (AlarmManager) MwmApplication.from(context)
+                                                 .getSystemService(Context.ALARM_SERVICE);
 
     MwmApplication.backgroundTracker(context).addListener(foreground -> {
       LOGGER.d(TAG, "Transit to foreground: " + foreground);
@@ -98,21 +101,21 @@ public enum TrackRecorder implements Initializable<Context>
 
   private PendingIntent getAlarmIntent()
   {
-    Intent intent = new Intent(MwmApplication.get(), TrackRecorderWakeReceiver.class);
-    return PendingIntent.getBroadcast(MwmApplication.get(), 0, intent, 0);
+    Intent intent = new Intent(MwmApplication.from(mContext), TrackRecorderWakeReceiver.class);
+    return PendingIntent.getBroadcast(MwmApplication.from(mContext), 0, intent, 0);
   }
 
   private void restartAlarmIfEnabled()
   {
     LOGGER.d(TAG, "restartAlarmIfEnabled()");
     if (nativeIsEnabled())
-      sAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + WAKEUP_INTERVAL_MS, getAlarmIntent());
+      mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + WAKEUP_INTERVAL_MS, getAlarmIntent());
   }
 
   private void stop()
   {
     LOGGER.d(TAG, "stop(). Cancel awake timer");
-    sAlarmManager.cancel(getAlarmIntent());
+    mAlarmManager.cancel(getAlarmIntent());
     TrackRecorderWakeService.stop();
   }
 

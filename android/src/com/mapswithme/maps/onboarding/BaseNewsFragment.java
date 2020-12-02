@@ -1,6 +1,7 @@
 package com.mapswithme.maps.onboarding;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -249,22 +250,19 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
   private void fixPagerSize()
   {
-    if (!UiUtils.isTablet())
+    Context context = requireContext();
+
+    if (!UiUtils.isTablet(context))
       return;
 
-    UiUtils.waitLayout(mPager, new ViewTreeObserver.OnGlobalLayoutListener()
-    {
-      @Override
-      public void onGlobalLayout()
-      {
-        int maxWidth = UiUtils.dimen(R.dimen.news_max_width);
-        int maxHeight = UiUtils.dimen(R.dimen.news_max_height);
+    UiUtils.waitLayout(mPager, () -> {
+      int maxWidth = UiUtils.dimen(context, R.dimen.news_max_width);
+      int maxHeight = UiUtils.dimen(context, R.dimen.news_max_height);
 
-        if (mPager.getWidth() > maxWidth || mPager.getHeight() > maxHeight)
-        {
-          mPager.setLayoutParams(new LinearLayout.LayoutParams(Math.min(maxWidth, mPager.getWidth()),
-                                                               Math.min(maxHeight, mPager.getHeight())));
-        }
+      if (mPager.getWidth() > maxWidth || mPager.getHeight() > maxHeight)
+      {
+        mPager.setLayoutParams(new LinearLayout.LayoutParams(Math.min(maxWidth, mPager.getWidth()),
+                                                             Math.min(maxHeight, mPager.getHeight())));
       }
     });
   }
@@ -274,8 +272,8 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
   @Override
   protected int getCustomTheme()
   {
-    return (UiUtils.isTablet() ? super.getCustomTheme()
-                               : getFullscreenTheme());
+    return (UiUtils.isTablet(requireContext()) ? super.getCustomTheme()
+                                               : getFullscreenTheme());
   }
 
   @StyleRes

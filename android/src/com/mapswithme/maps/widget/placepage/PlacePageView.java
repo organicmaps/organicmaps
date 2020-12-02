@@ -502,7 +502,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-      setElevation(UiUtils.dimen(R.dimen.placepage_elevation));
+      setElevation(UiUtils.dimen(getContext(), R.dimen.placepage_elevation));
 
     if (UiUtils.isLandscape(getContext()))
       setBackgroundResource(0);
@@ -1563,7 +1563,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       }
     }
 
-    UiUtils.setTextAndShow(mFullOpeningHours, TimeFormatUtils.formatTimetables(timetables));
+    UiUtils.setTextAndShow(mFullOpeningHours, TimeFormatUtils.formatTimetables(getContext(), timetables));
     if (!containsCurrentWeekday)
       refreshTodayOpeningHours(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
   }

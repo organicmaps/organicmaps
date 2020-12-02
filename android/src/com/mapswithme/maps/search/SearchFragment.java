@@ -1,6 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -500,10 +501,11 @@ public class SearchFragment extends BaseMwmFragment
   {
     if (mHiddenCommands.isEmpty())
     {
-      mHiddenCommands.addAll(Arrays.asList(new BadStorageCommand("?emulateBadStorage"),
-                                           new JavaCrashCommand("?emulateJavaCrash"),
-                                           new NativeCrashCommand("?emulateNativeCrash"),
-                                           new PushTokenCommand("?pushToken")));
+      mHiddenCommands.addAll(
+          Arrays.asList(new BadStorageCommand("?emulateBadStorage", requireContext()),
+                        new JavaCrashCommand("?emulateJavaCrash"),
+                        new NativeCrashCommand("?emulateNativeCrash"),
+                        new PushTokenCommand("?pushToken")));
     }
 
     return mHiddenCommands;
@@ -771,15 +773,19 @@ public class SearchFragment extends BaseMwmFragment
 
   private static class BadStorageCommand extends HiddenCommand.BaseHiddenCommand
   {
-    BadStorageCommand(@NonNull String command)
+    @NonNull
+    Context mContext;
+
+    BadStorageCommand(@NonNull String command, @NonNull Context context)
     {
       super(command);
+      mContext = context;
     }
 
     @Override
     void executeInternal()
     {
-      SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(true);
+      SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(mContext, true);
     }
   }
 

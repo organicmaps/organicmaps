@@ -144,14 +144,14 @@ public class NewsFragment extends BaseNewsFragment implements AlertDialogCallbac
     }
 
     String currentTitle = getCurrentTitleConcatenation(context);
-    String oldTitle = SharedPropertiesUtils.getWhatsNewTitleConcatenation();
+    String oldTitle = SharedPropertiesUtils.getWhatsNewTitleConcatenation(context);
     if (currentTitle.equals(oldTitle) && !recreate(activity, NewsFragment.class))
       return false;
 
     create(activity, NewsFragment.class, listener);
 
     Counters.setWhatsNewShown(context);
-    SharedPropertiesUtils.setWhatsNewTitleConcatenation(currentTitle);
+    SharedPropertiesUtils.setWhatsNewTitleConcatenation(context, currentTitle);
     Counters.setShowReviewForOldUser(context, true);
 
     return true;

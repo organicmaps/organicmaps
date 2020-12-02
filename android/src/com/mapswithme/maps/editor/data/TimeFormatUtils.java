@@ -1,5 +1,6 @@
 package com.mapswithme.maps.editor.data;
 
+import android.content.Context;
 import android.content.res.Resources;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -66,9 +67,9 @@ public class TimeFormatUtils
     return builder.toString();
   }
 
-  public static String formatTimetables(@NonNull Timetable[] timetables)
+  public static String formatTimetables(@NonNull Context context,  @NonNull Timetable[] timetables)
   {
-    final Resources resources = MwmApplication.get().getResources();
+    final Resources resources = MwmApplication.from(context).getResources();
 
     if (timetables[0].isFullWeek())
     {

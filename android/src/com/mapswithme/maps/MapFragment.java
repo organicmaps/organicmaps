@@ -81,13 +81,14 @@ public class MapFragment extends BaseMwmFragment
   {
     mHeight = height;
     mWidth = width;
+    Context context = requireContext();
 
     nativeCleanWidgets();
     if (!sWasCopyrightDisplayed)
     {
       nativeSetupWidget(WIDGET_COPYRIGHT,
-                        UiUtils.dimen(R.dimen.margin_ruler_left),
-                        mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom),
+                        UiUtils.dimen(context, R.dimen.margin_ruler_left),
+                        mHeight - UiUtils.dimen(context, R.dimen.margin_ruler_bottom),
                         ANCHOR_LEFT_BOTTOM);
       sWasCopyrightDisplayed = true;
     }
@@ -95,8 +96,8 @@ public class MapFragment extends BaseMwmFragment
     setupWidgetOffsets();
 
     nativeSetupWidget(WIDGET_SCALE_FPS_LABEL,
-                      UiUtils.dimen(R.dimen.margin_base),
-                      UiUtils.dimen(R.dimen.margin_base),
+                      UiUtils.dimen(context, R.dimen.margin_base),
+                      UiUtils.dimen(context, R.dimen.margin_base),
                       ANCHOR_LEFT_TOP);
 
     setupCompass(UiUtils.getCompassYOffset(requireContext()), false);
@@ -117,9 +118,10 @@ public class MapFragment extends BaseMwmFragment
 
   void setupCompass(int offsetY, boolean forceRedraw)
   {
-    int navPadding = UiUtils.dimen(R.dimen.nav_frame_padding);
-    int marginX = UiUtils.dimen(R.dimen.margin_compass) + navPadding;
-    int marginY = UiUtils.dimen(R.dimen.margin_compass_top) + navPadding;
+    Context context = requireContext();
+    int navPadding = UiUtils.dimen(context, R.dimen.nav_frame_padding);
+    int marginX = UiUtils.dimen(context, R.dimen.margin_compass) + navPadding;
+    int marginY = UiUtils.dimen(context, R.dimen.margin_compass_top) + navPadding;
     nativeSetupWidget(WIDGET_COMPASS,
                       mWidth - marginX,
                       offsetY + marginY,
@@ -130,9 +132,10 @@ public class MapFragment extends BaseMwmFragment
 
   void setupRuler(int offsetY, boolean forceRedraw)
   {
+    Context context = requireContext();
     nativeSetupWidget(WIDGET_RULER,
-                      UiUtils.dimen(R.dimen.margin_ruler_left),
-                      mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom) + offsetY,
+                      UiUtils.dimen(context, R.dimen.margin_ruler_left),
+                      mHeight - UiUtils.dimen(context, R.dimen.margin_ruler_bottom) + offsetY,
                       ANCHOR_LEFT_BOTTOM);
     if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
@@ -140,9 +143,10 @@ public class MapFragment extends BaseMwmFragment
 
   void setupWatermark(int offsetY, boolean forceRedraw)
   {
+    Context context = requireContext();
     nativeSetupWidget(WIDGET_WATERMARK,
-                      mWidth - UiUtils.dimen(R.dimen.margin_watermark_right),
-                      mHeight - UiUtils.dimen(R.dimen.margin_watermark_bottom) + offsetY,
+                      mWidth - UiUtils.dimen(context, R.dimen.margin_watermark_right),
+                      mHeight - UiUtils.dimen(context, R.dimen.margin_watermark_bottom) + offsetY,
                       ANCHOR_RIGHT_BOTTOM);
     if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();

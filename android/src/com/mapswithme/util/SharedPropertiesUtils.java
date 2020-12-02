@@ -28,8 +28,6 @@ public final class SharedPropertiesUtils
   private static final String PREFS_SHOULD_SHOW_LAYER_TUTORIAL_TOAST = "ShouldShowLayerTutorialToast";
   private static final String PREFS_SHOULD_SHOW_HOW_TO_USE_GUIDES_LAYER_TOAST
       = "ShouldShowHowToUseGuidesLayerToast";
-  private static final SharedPreferences PREFS
-      = PreferenceManager.getDefaultSharedPreferences(MwmApplication.get());
 
   //Utils class
   private SharedPropertiesUtils()
@@ -47,41 +45,56 @@ public final class SharedPropertiesUtils
     MwmApplication.prefs(context).edit().putBoolean(KEY_PREF_STATISTICS, enabled).apply();
   }
 
-  public static void setShouldShowEmulateBadStorageSetting(boolean show)
+  public static void setShouldShowEmulateBadStorageSetting(@NonNull Context context, boolean show)
   {
-    PREFS.edit().putBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, show).apply();
+    SharedPreferences prefs = PreferenceManager
+        .getDefaultSharedPreferences(MwmApplication.from(context));
+    prefs.edit().putBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, show).apply();
   }
 
-  public static boolean shouldShowEmulateBadStorageSetting()
+  public static boolean shouldShowEmulateBadStorageSetting(@NonNull Context context)
   {
-    return PREFS.getBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, false);
+    SharedPreferences prefs = PreferenceManager
+        .getDefaultSharedPreferences(MwmApplication.from(context));
+    return prefs.getBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, false);
   }
 
-  public static boolean shouldEmulateBadExternalStorage()
+  public static boolean shouldEmulateBadExternalStorage(@NonNull Context context)
   {
-    String key = MwmApplication.get().getString(R.string.pref_emulate_bad_external_storage);
-    return PREFS.getBoolean(key, false);
+    SharedPreferences prefs = PreferenceManager
+        .getDefaultSharedPreferences(MwmApplication.from(context));
+    String key = MwmApplication.from(context).getString(R.string.pref_emulate_bad_external_storage);
+    return prefs.getBoolean(key, false);
   }
 
-  public static void setBackupWidgetExpanded(boolean expanded)
+  public static void setBackupWidgetExpanded(@NonNull Context context, boolean expanded)
   {
-    PREFS.edit().putBoolean(PREFS_BACKUP_WIDGET_EXPANDED, expanded).apply();
+    SharedPreferences prefs = PreferenceManager
+        .getDefaultSharedPreferences(MwmApplication.from(context));
+    prefs.edit().putBoolean(PREFS_BACKUP_WIDGET_EXPANDED, expanded).apply();
   }
 
-  public static boolean getBackupWidgetExpanded()
+  public static boolean getBackupWidgetExpanded(@NonNull Context context)
   {
-    return PREFS.getBoolean(PREFS_BACKUP_WIDGET_EXPANDED, true);
+    SharedPreferences prefs = PreferenceManager
+        .getDefaultSharedPreferences(MwmApplication.from(context));
+    return prefs.getBoolean(PREFS_BACKUP_WIDGET_EXPANDED, true);
   }
 
   @Nullable
-  public static String getWhatsNewTitleConcatenation()
+  public static String getWhatsNewTitleConcatenation(@NonNull Context context)
   {
-    return PREFS.getString(PREFS_WHATS_NEW_TITLE_CONCATENATION, null);
+    SharedPreferences prefs = PreferenceManager
+        .getDefaultSharedPreferences(MwmApplication.from(context));
+    return prefs.getString(PREFS_WHATS_NEW_TITLE_CONCATENATION, null);
   }
 
-  public static void setWhatsNewTitleConcatenation(@NonNull String concatenation)
+  public static void setWhatsNewTitleConcatenation(@NonNull Context context,
+                                                   @NonNull String concatenation)
   {
-    PREFS.edit().putString(PREFS_WHATS_NEW_TITLE_CONCATENATION, concatenation).apply();
+    SharedPreferences prefs = PreferenceManager
+        .getDefaultSharedPreferences(MwmApplication.from(context));
+    prefs.edit().putString(PREFS_WHATS_NEW_TITLE_CONCATENATION, concatenation).apply();
   }
 
   public static boolean isCatalogCategoriesHeaderClosed(@NonNull Context context)

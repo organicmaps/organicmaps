@@ -614,7 +614,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    if (!SharedPropertiesUtils.shouldShowEmulateBadStorageSetting())
+    if (!SharedPropertiesUtils.shouldShowEmulateBadStorageSetting(requireContext()))
       removePreference(getString(R.string.pref_settings_general), pref);
   }
 

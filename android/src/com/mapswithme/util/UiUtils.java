@@ -53,7 +53,6 @@ public final class UiUtils
   public static final String PHRASE_SEPARATOR = " • ";
   public static final String WIDE_PHRASE_SEPARATOR = "  •  ";
   public static final String APPROXIMATE_SYMBOL = "~";
-  private static float sScreenDensity;
 
   public static void addStatusBarOffset(@NonNull View view)
   {
@@ -76,21 +75,6 @@ public final class UiUtils
     Resources rs = policyView.getResources();
     policyView.setText(Html.fromHtml(rs.getString(stringId, link)));
     policyView.setMovementMethod(LinkMovementMethod.getInstance());
-  }
-
-  public static class SimpleAnimationListener implements AnimationListener
-  {
-    @Override
-    public void onAnimationStart(Animation animation)
-    {}
-
-    @Override
-    public void onAnimationEnd(Animation animation)
-    {}
-
-    @Override
-    public void onAnimationRepeat(Animation animation)
-    {}
   }
 
   public static class SimpleAnimatorListener implements Animator.AnimatorListener
@@ -119,11 +103,7 @@ public final class UiUtils
       @Override
       public void onGlobalLayout() {
         // viewTreeObserver can be dead(isAlive() == false), we should get a new one here.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
-          view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-        else
-          view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
+        view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
         callback.onGlobalLayout();
       }
     });
@@ -327,27 +307,14 @@ public final class UiUtils
     return rotation;
   }
 
-  public static boolean isTablet()
+  public static boolean isTablet(@NonNull Context context)
   {
-    return MwmApplication.get().getResources().getBoolean(R.bool.tabletLayout);
+    return MwmApplication.from(context).getResources().getBoolean(R.bool.tabletLayout);
   }
 
-  public static int dimen(@DimenRes int id)
-  {
-    return dimen(MwmApplication.get(), id);
-  }
-
-  public static int dimen(Context context, @DimenRes int id)
+  public static int dimen(@NonNull Context context, @DimenRes int id)
   {
     return context.getResources().getDimensionPixelSize(id);
-  }
-
-  public static int toPx(int dp)
-  {
-    if (sScreenDensity == 0)
-      sScreenDensity = MwmApplication.get().getResources().getDisplayMetrics().density;
-
-    return (int) (dp * sScreenDensity + 0.5);
   }
 
   public static void updateButton(Button button)
@@ -378,7 +345,7 @@ public final class UiUtils
                                                  : layout.getContext().getResources().getColor(R.color.base_red));
   }
 
-  public static boolean isLandscape(Context context)
+  public static boolean isLandscape(@NonNull Context context)
   {
     return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
   }
@@ -510,7 +477,7 @@ public final class UiUtils
   }
 
   @AnyRes
-  public static int getStyledResourceId(Context context, @AttrRes int res)
+  public static int getStyledResourceId(@NonNull Context context, @AttrRes int res)
   {
     TypedArray a = null;
     try

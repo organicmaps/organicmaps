@@ -53,17 +53,6 @@ public final class PermissionsUtils
     return checkPermissions(context).isLocationGranted();
   }
 
-  /**
-   *
-   * Use {@link #isLocationGranted(Context)} instead.
-   */
-  @SuppressWarnings("DeprecatedIsStillUsed")
-  @Deprecated
-  public static boolean isLocationGranted()
-  {
-    return checkPermissions(MwmApplication.get()).isLocationGranted();
-  }
-
   public static boolean isLocationExplanationNeeded(@NonNull Activity activity)
   {
     return shouldShowRequestPermissionRationale(activity, ACCESS_COARSE_LOCATION)

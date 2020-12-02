@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.menu;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -27,20 +28,20 @@ class MenuToggle
   private MenuToggle(View frame, @DimenRes int heightRes, @DrawableRes int src, @DrawableRes int dst)
   {
     mButton = (ImageView) frame.findViewById(R.id.toggle);
-
-    int sz = UiUtils.dimen(heightRes);
+    Context context = frame.getContext();
+    int sz = UiUtils.dimen(context, heightRes);
     Rect bounds = new Rect(0, 0, sz, sz);
 
     mOpenImage = new TrackedTransitionDrawable(new Drawable[]{
-        new RotateByAlphaDrawable(frame.getContext(), src, R.attr.iconTint, false)
+        new RotateByAlphaDrawable(context, src, R.attr.iconTint, false)
             .setInnerBounds(bounds),
-        new RotateByAlphaDrawable(frame.getContext(), dst, R.attr.iconTintLight, true)
+        new RotateByAlphaDrawable(context, dst, R.attr.iconTintLight, true)
             .setInnerBounds(bounds)
             .setBaseAngle(-90)});
     mCollapseImage = new TrackedTransitionDrawable(new Drawable[]{
-        new RotateByAlphaDrawable(frame.getContext(), src, R.attr.iconTint, false)
+        new RotateByAlphaDrawable(context, src, R.attr.iconTint, false)
             .setInnerBounds(bounds),
-        new RotateByAlphaDrawable(frame.getContext(), dst, R.attr.iconTintLight, true)
+        new RotateByAlphaDrawable(context, dst, R.attr.iconTintLight, true)
             .setInnerBounds(bounds)});
     mOpenImage.setCrossFadeEnabled(true);
     mCollapseImage.setCrossFadeEnabled(true);

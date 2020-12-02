@@ -16,11 +16,14 @@ class SensorHelper implements SensorEventListener
   private final SensorManager mSensorManager;
   @Nullable
   private Sensor mRotation;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private MwmApplication mMwmApplication;
 
   @Override
   public void onSensorChanged(SensorEvent event)
   {
-    if (!MwmApplication.get().arePlatformAndCoreInitialized())
+    if (!mMwmApplication.arePlatformAndCoreInitialized())
       return;
 
     notifyInternal(event);
@@ -45,10 +48,10 @@ class SensorHelper implements SensorEventListener
   @Override
   public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
-  SensorHelper()
+  SensorHelper(@NonNull Context context)
   {
-    mSensorManager = (SensorManager) MwmApplication.get().getSystemService(Context.SENSOR_SERVICE);
-
+    mMwmApplication = MwmApplication.from(context);
+    mSensorManager = (SensorManager) mMwmApplication.getSystemService(Context.SENSOR_SERVICE);
     if (mSensorManager != null)
       mRotation = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
   }

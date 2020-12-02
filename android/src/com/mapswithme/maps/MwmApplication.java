@@ -225,9 +225,11 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
       return;
 
     // First we need initialize paths and platform to have access to settings and other components.
-    nativeInitPlatform(StorageUtils.getApkPath(this), StorageUtils.getStoragePath(settingsPath),
-                       filesPath, tempPath, StorageUtils.getObbGooglePath(), BuildConfig.FLAVOR,
-                       BuildConfig.BUILD_TYPE, UiUtils.isTablet());
+    nativeInitPlatform(StorageUtils.getApkPath(this),
+                       StorageUtils.getStoragePath(settingsPath),
+                       filesPath, tempPath, StorageUtils.getObbGooglePath(),
+                       BuildConfig.FLAVOR,
+                       BuildConfig.BUILD_TYPE, UiUtils.isTablet(this));
 
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled(this));
 
@@ -240,10 +242,11 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mPlatformInitialized = true;
   }
 
-  private boolean createPlatformDirectories(@NonNull String settingsPath, @NonNull String filesPath,
+  private boolean createPlatformDirectories(@NonNull String settingsPath,
+                                            @NonNull String filesPath,
                                             @NonNull String tempPath)
   {
-    if (SharedPropertiesUtils.shouldEmulateBadExternalStorage())
+    if (SharedPropertiesUtils.shouldEmulateBadExternalStorage(this))
       return false;
 
     return StorageUtils.createDirectory(settingsPath) &&

@@ -1883,6 +1883,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   void adjustCompass(int offsetY)
   {
+    Context context = getApplicationContext();
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
@@ -1890,9 +1891,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     //If the compass is covered by navigation buttons, we move it beyond the visible screen
     if (mNavAnimationController != null && mNavAnimationController.isConflictWithCompass(offsetY))
     {
-      int halfHeight = (int) (UiUtils.dimen(R.dimen.compass_height) * 0.5f);
-      int margin = UiUtils.dimen(R.dimen.margin_compass_top)
-                   + UiUtils.dimen(R.dimen.nav_frame_padding);
+      int halfHeight = (int) (UiUtils.dimen(context, R.dimen.compass_height) * 0.5f);
+      int margin = UiUtils.dimen(context, R.dimen.margin_compass_top)
+                   + UiUtils.dimen(context, R.dimen.nav_frame_padding);
       resultOffset = -(offsetY + halfHeight + margin);
     }
 
@@ -2124,6 +2125,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
   {
+    Context context = getApplicationContext();
     if (show)
     {
       mSearchController.hide();
@@ -2138,8 +2140,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
             fragment.restoreRoutingPanelState(mSavedForTabletState);
         }
         showAddStartOrFinishFrame(RoutingController.get(), false);
-        int width = UiUtils.dimen(R.dimen.panel_width);
-        adjustTraffic(width, UiUtils.getStatusBarHeight(getApplicationContext()));
+        int width = UiUtils.dimen(context, R.dimen.panel_width);
+        adjustTraffic(width, UiUtils.getStatusBarHeight(context));
         mNavigationController.adjustSearchButtons(width);
       }
       else
