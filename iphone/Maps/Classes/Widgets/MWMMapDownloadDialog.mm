@@ -99,7 +99,6 @@ using namespace storage;
 }
 
 - (void)configDialog {
-  [self removePreviousBunnerIfNeeded];
   auto &f = GetFramework();
   auto const &s = f.GetStorage();
   auto const &p = f.GetDownloadingPolicy();
@@ -126,6 +125,7 @@ using namespace storage;
     switch (nodeAttrs.m_status) {
       case NodeStatus::NotDownloaded:
       case NodeStatus::Partly: {
+        [self removePreviousBunnerIfNeeded];
         MapViewController *controller = self.controller;
         BOOL const isMapVisible = [controller.navigationController.topViewController isEqual:controller];
         if (isMapVisible && !self.isAutoDownloadCancelled && canAutoDownload(m_countryId)) {
@@ -163,6 +163,7 @@ using namespace storage;
       case NodeStatus::Undefined:
       case NodeStatus::Error:
         if (p.IsAutoRetryDownloadFailed()) {
+          [self removePreviousBunnerIfNeeded];
           [self showError:nodeAttrs.m_error];
         } else {
           [self showInQueue];
