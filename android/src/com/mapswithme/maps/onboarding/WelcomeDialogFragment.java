@@ -161,8 +161,8 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   @Override
   protected int getCustomTheme()
   {
-    return ThemeUtils.isNightTheme() ? R.style.MwmTheme_DialogFragment_NoFullscreen_Night
-                                     : R.style.MwmTheme_DialogFragment_NoFullscreen;
+    return ThemeUtils.isNightTheme(requireContext()) ? R.style.MwmTheme_DialogFragment_NoFullscreen_Night
+                                                     : R.style.MwmTheme_DialogFragment_NoFullscreen;
   }
 
   @NonNull

@@ -78,7 +78,7 @@ public class SearchActivity extends BaseMwmFragmentActivity
   @StyleRes
   public int getThemeResourceId(@NonNull String theme)
   {
-    return ThemeUtils.getCardBgThemeResourceId(theme);
+    return ThemeUtils.getCardBgThemeResourceId(getApplicationContext(), theme);
   }
 
   @Override

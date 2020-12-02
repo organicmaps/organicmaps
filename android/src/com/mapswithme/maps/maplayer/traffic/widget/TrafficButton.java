@@ -44,22 +44,22 @@ public class TrafficButton
   void turnOff()
   {
     stopWaitingAnimation();
-    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.bg_subway_night_default
-                                                       : R.drawable.bg_subway_light_default);
+    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.bg_subway_night_default
+                                                                           : R.drawable.bg_subway_light_default);
   }
 
   void turnOn()
   {
     stopWaitingAnimation();
-    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_on_night
-                                                       : R.drawable.ic_traffic_on);
+    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_on_night
+                                                                           : R.drawable.ic_traffic_on);
   }
 
   void markAsOutdated()
   {
     stopWaitingAnimation();
-    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_outdated_night
-                                                       : R.drawable.ic_traffic_outdated);
+    mButton.setImageResource(ThemeUtils.isNightTheme(mButton.getContext()) ? R.drawable.ic_traffic_outdated_night
+                                                                           : R.drawable.ic_traffic_outdated);
   }
 
   void startWaitingAnimation()

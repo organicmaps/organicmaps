@@ -35,8 +35,8 @@ public class TagsResFactory
   private static int getDisabledTagColor(@NonNull Context context)
   {
     Resources res = context.getResources();
-    return ThemeUtils.isNightTheme() ? res.getColor(R.color.white_12)
-                                     : res.getColor(R.color.black_12);
+    return ThemeUtils.isNightTheme(context) ? res.getColor(R.color.white_12)
+                                            : res.getColor(R.color.black_12);
   }
 
   @NonNull

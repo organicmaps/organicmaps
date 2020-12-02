@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.location.LocationHelper;
@@ -26,27 +27,29 @@ public enum ThemeSwitcher implements Initializable<Context>
     @Override
     public void run()
     {
-      String theme = ThemeUtils.THEME_DEFAULT;
+      String nightTheme = MwmApplication.from(mContext).getString(R.string.theme_night);
+      String defaultTheme = MwmApplication.from(mContext).getString(R.string.theme_default);
+      String theme = defaultTheme;
 
       if (RoutingController.get().isNavigating())
       {
         Location last = LocationHelper.INSTANCE.getSavedLocation();
         if (last == null)
         {
-          theme = Config.getCurrentUiTheme();
+          theme = Config.getCurrentUiTheme(mContext);
         }
         else
         {
           boolean day = Framework.nativeIsDayTime(System.currentTimeMillis() / 1000,
                                                   last.getLatitude(), last.getLongitude());
-          theme = (day ? ThemeUtils.THEME_DEFAULT : ThemeUtils.THEME_NIGHT);
+          theme = (day ? defaultTheme : nightTheme);
         }
       }
 
       setThemeAndMapStyle(theme);
       UiThread.cancelDelayedTasks(mAutoThemeChecker);
 
-      if (ThemeUtils.isAutoTheme())
+      if (ThemeUtils.isAutoTheme(mContext))
         UiThread.runLater(mAutoThemeChecker, CHECK_INTERVAL_MS);
     }
   };
@@ -80,8 +83,8 @@ public enum ThemeSwitcher implements Initializable<Context>
   public void restart(boolean isRendererActive)
   {
     mRendererActive = isRendererActive;
-    String theme = Config.getUiThemeSettings();
-    if (ThemeUtils.isAutoTheme(theme))
+    String theme = Config.getUiThemeSettings(mContext);
+    if (ThemeUtils.isAutoTheme(mContext, theme))
     {
       mAutoThemeChecker.run();
       return;
@@ -93,8 +96,8 @@ public enum ThemeSwitcher implements Initializable<Context>
 
   private void setThemeAndMapStyle(@NonNull String theme)
   {
-    String oldTheme = Config.getCurrentUiTheme();
-    Config.setCurrentUiTheme(theme);
+    String oldTheme = Config.getCurrentUiTheme(mContext);
+    Config.setCurrentUiTheme(mContext, theme);
     changeMapStyle(theme, oldTheme);
   }
 
@@ -104,7 +107,7 @@ public enum ThemeSwitcher implements Initializable<Context>
     @Framework.MapStyle
     int style = RoutingController.get().isVehicleNavigation()
                 ? Framework.MAP_STYLE_VEHICLE_CLEAR : Framework.MAP_STYLE_CLEAR;
-    if (ThemeUtils.isNightTheme(newTheme))
+    if (ThemeUtils.isNightTheme(mContext, newTheme))
       style = RoutingController.get().isVehicleNavigation()
               ? Framework.MAP_STYLE_VEHICLE_DARK : Framework.MAP_STYLE_DARK;
 

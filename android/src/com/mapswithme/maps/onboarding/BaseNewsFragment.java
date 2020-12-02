@@ -241,10 +241,10 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
     for (int i = 0; i < mPageCount; i++)
     {
-      mDots[i].setImageResource(ThemeUtils.isNightTheme() ? i == cur ? R.drawable.news_marker_active_night
-                                                                     : R.drawable.news_marker_inactive_night
-                                                          : i == cur ? R.drawable.news_marker_active
-                                                                     : R.drawable.news_marker_inactive);
+      mDots[i].setImageResource(ThemeUtils.isNightTheme(requireContext()) ? i == cur ? R.drawable.news_marker_active_night
+                                                                                     : R.drawable.news_marker_inactive_night
+                                                                          : i == cur ? R.drawable.news_marker_active
+                                                                                     : R.drawable.news_marker_inactive);
     }
   }
 

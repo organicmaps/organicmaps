@@ -990,7 +990,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     if (mMyMapsMode || !CountryItem.isRoot(getCurrentRootId()))
       return;
 
-    if (!ThemeUtils.isDefaultTheme())
+    if (!ThemeUtils.isDefaultTheme(mActivity.getApplicationContext()))
       return;
 
     if (MapManager.nativeGetDownloadedCount() < 1)

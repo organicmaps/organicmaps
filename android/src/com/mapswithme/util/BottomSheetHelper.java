@@ -22,7 +22,7 @@ public final class BottomSheetHelper
     {
       super(context);
       setOnDismissListener(null);
-      if (ThemeUtils.isNightTheme())
+      if (ThemeUtils.isNightTheme(context))
         darkTheme();
     }
 

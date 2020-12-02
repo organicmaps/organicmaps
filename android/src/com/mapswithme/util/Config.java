@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 
 import static com.mapswithme.util.Counters.KEY_APP_FIRST_INSTALL_FLAVOR;
 import static com.mapswithme.util.Counters.KEY_APP_FIRST_INSTALL_VERSION;
@@ -207,36 +208,39 @@ public final class Config
   }
 
   @NonNull
-  public static String getCurrentUiTheme()
+  public static String getCurrentUiTheme(@NonNull Context context)
   {
-    String res = getString(KEY_MISC_UI_THEME, ThemeUtils.THEME_DEFAULT);
-    if (ThemeUtils.isValidTheme(res))
+    String defaultTheme = MwmApplication.from(context).getString(R.string.theme_default);
+    String res = getString(KEY_MISC_UI_THEME, defaultTheme);
+
+    if (ThemeUtils.isValidTheme(context, res))
       return res;
 
-    return ThemeUtils.THEME_DEFAULT;
+    return defaultTheme;
   }
 
-  static void setCurrentUiTheme(@NonNull String theme)
+  static void setCurrentUiTheme(@NonNull Context context, @NonNull String theme)
   {
-    if (getCurrentUiTheme().equals(theme))
+    if (getCurrentUiTheme(context).equals(theme))
       return;
 
     setString(KEY_MISC_UI_THEME, theme);
   }
 
   @NonNull
-  public static String getUiThemeSettings()
+  public static String getUiThemeSettings(@NonNull Context context)
   {
-    String res = getString(KEY_MISC_UI_THEME_SETTINGS, ThemeUtils.THEME_AUTO);
-    if (ThemeUtils.isValidTheme(res) || ThemeUtils.isAutoTheme(res))
+    String autoTheme = MwmApplication.from(context).getString(R.string.theme_auto);
+    String res = getString(KEY_MISC_UI_THEME_SETTINGS, autoTheme);
+    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res))
       return res;
 
-    return ThemeUtils.THEME_AUTO;
+    return autoTheme;
   }
 
-  public static boolean setUiThemeSettings(String theme)
+  public static boolean setUiThemeSettings(@NonNull Context context, String theme)
   {
-    if (getUiThemeSettings().equals(theme))
+    if (getUiThemeSettings(context).equals(theme))
       return false;
 
     setString(KEY_MISC_UI_THEME_SETTINGS, theme);

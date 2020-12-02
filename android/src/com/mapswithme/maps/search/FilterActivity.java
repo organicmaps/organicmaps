@@ -54,7 +54,7 @@ public class FilterActivity extends BaseMwmFragmentActivity
   @Override
   public int getThemeResourceId(@NonNull String theme)
   {
-    return ThemeUtils.getCardBgThemeResourceId(theme);
+    return ThemeUtils.getCardBgThemeResourceId(getApplicationContext(), theme);
   }
 
   @Override

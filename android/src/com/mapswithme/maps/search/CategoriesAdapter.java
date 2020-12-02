@@ -1,5 +1,7 @@
 package com.mapswithme.maps.search;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ActionMenuView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,8 +61,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   void updateCategories(@NonNull Fragment fragment)
   {
-    final String packageName = fragment.getActivity().getPackageName();
-    final Resources resources = fragment.getActivity().getResources();
+    final Activity activity = fragment.getActivity();
+    final String packageName = activity.getPackageName();
 
     final String[] keys = getAllCategories();
     final int numKeys = keys.length;
@@ -69,12 +72,12 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     for (int i = 0; i < numKeys; i++)
     {
       String key = keys[i];
-      mCategoryResIds[i] = getStringResIdByKey(resources, packageName, key);
+      mCategoryResIds[i] = getStringResIdByKey(activity.getResources(), packageName, key);
 
       if (mCategoryResIds[i] == 0)
         throw new IllegalStateException("Can't get string resource id for category:" + key);
 
-      mIconResIds[i] = getDrawableResIdByKey(resources, packageName, key);
+      mIconResIds[i] = getDrawableResIdByKey(activity.getApplicationContext(), packageName, key);
       if (mIconResIds[i] == 0)
         throw new IllegalStateException("Can't get icon resource id for category:" + key);
     }
@@ -124,10 +127,11 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   }
 
   @DrawableRes
-  private static int getDrawableResIdByKey(@NonNull Resources resources, @NonNull String packageName,
+  private static int getDrawableResIdByKey(@NonNull Context context,
+                                           @NonNull String packageName,
                                            @NonNull String key)
   {
-    final boolean isNightTheme = ThemeUtils.isNightTheme();
+    final boolean isNightTheme = ThemeUtils.isNightTheme(context);
     try
     {
       PromoCategory promoCategory = PromoCategory.valueOf(key);
@@ -138,7 +142,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       String iconId = "ic_category_" + key;
       if (isNightTheme)
         iconId = iconId + "_night";
-      return resources.getIdentifier(iconId, "drawable", packageName);
+      return context.getResources().getIdentifier(iconId, "drawable", packageName);
     }
   }
 

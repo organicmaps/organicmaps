@@ -113,7 +113,7 @@ class NearbyAdapter extends BaseAdapter
     {
       mItem = item;
       String packageName = mType.getContext().getPackageName();
-      final boolean isNightTheme = ThemeUtils.isNightTheme();
+      final boolean isNightTheme = ThemeUtils.isNightTheme(mType.getContext());
       Resources resources = mType.getResources();
       int categoryRes = resources.getIdentifier(item.getCategory(), "string", packageName);
       if (categoryRes == 0)

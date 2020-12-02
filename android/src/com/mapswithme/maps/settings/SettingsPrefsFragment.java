@@ -844,7 +844,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    String curTheme = Config.getUiThemeSettings();
+    String curTheme = Config.getUiThemeSettings(requireContext());
     pref.setValue(curTheme);
     pref.setSummary(pref.getEntry());
     pref.setOnPreferenceChangeListener(this::onMapStylePrefChanged);
@@ -853,7 +853,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private boolean onMapStylePrefChanged(@NonNull Preference pref, @NonNull Object newValue)
   {
     String themeName = (String) newValue;
-    if (!Config.setUiThemeSettings(themeName))
+    if (!Config.setUiThemeSettings(requireContext(), themeName))
       return true;
 
     ThemeSwitcher.INSTANCE.restart(false);

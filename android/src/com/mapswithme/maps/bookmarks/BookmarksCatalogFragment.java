@@ -300,7 +300,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     if (!TextUtils.isEmpty(productDetailsBundle))
       headers.put(HttpClient.HEADER_BUNDLE_TIERS, productDetailsBundle);
 
-    if (ThemeUtils.isNightTheme())
+    if (ThemeUtils.isNightTheme(requireContext()))
       headers.put(HttpClient.HEADER_THEME_KEY, HttpClient.HEADER_THEME_DARK);
 
     for (KeyValue header : BookmarkManager.INSTANCE.getCatalogHeaders())

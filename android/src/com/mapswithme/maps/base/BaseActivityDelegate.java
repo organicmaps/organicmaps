@@ -37,7 +37,7 @@ public class BaseActivityDelegate
   public void onCreate()
   {
     logLifecycleMethod("onCreate()");
-    mThemeName = Config.getCurrentUiTheme();
+    mThemeName = Config.getCurrentUiTheme(mActivity.get().getApplicationContext());
     if (!TextUtils.isEmpty(mThemeName))
       mActivity.get().setTheme(mActivity.getThemeResourceId(mThemeName));
   }
@@ -93,16 +93,12 @@ public class BaseActivityDelegate
   public void onPostResume()
   {
     logLifecycleMethod("onPostResume()");
-    if (!TextUtils.isEmpty(mThemeName) && mThemeName.equals(Config.getCurrentUiTheme()))
+    if (!TextUtils.isEmpty(mThemeName) &&
+        mThemeName.equals(Config.getCurrentUiTheme(mActivity.get().getApplicationContext())))
       return;
 
     // Workaround described in https://code.google.com/p/android/issues/detail?id=93731
-    UiThread.runLater(new Runnable() {
-      @Override
-      public void run() {
-        mActivity.get().recreate();
-      }
-    });
+    UiThread.runLater(() -> mActivity.get().recreate());
   }
 
   private void logLifecycleMethod(@NonNull String method)

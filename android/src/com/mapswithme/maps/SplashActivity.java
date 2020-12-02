@@ -541,10 +541,11 @@ public class SplashActivity extends AppCompatActivity
   @Override
   public int getThemeResourceId(@NonNull String theme)
   {
-    if (ThemeUtils.isDefaultTheme(theme))
+    Context context = getApplicationContext();
+    if (ThemeUtils.isDefaultTheme(context, theme))
       return R.style.MwmTheme;
 
-    if (ThemeUtils.isNightTheme(theme))
+    if (ThemeUtils.isNightTheme(context, theme))
       return R.style.MwmTheme_Night;
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);

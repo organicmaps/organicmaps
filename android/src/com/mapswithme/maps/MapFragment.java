@@ -312,13 +312,14 @@ public class MapFragment extends BaseMwmFragment
 
   private boolean isThemeChangingProcess()
   {
-    return mUiThemeOnPause != null && !mUiThemeOnPause.equals(Config.getCurrentUiTheme());
+    return mUiThemeOnPause != null &&
+           !mUiThemeOnPause.equals(Config.getCurrentUiTheme(requireContext()));
   }
 
   @Override
   public void onPause()
   {
-    mUiThemeOnPause = Config.getCurrentUiTheme();
+    mUiThemeOnPause = Config.getCurrentUiTheme(requireContext());
 
     // Pause/Resume can be called without surface creation/destroy.
     if (mSurfaceAttached)

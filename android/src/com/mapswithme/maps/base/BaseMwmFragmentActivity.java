@@ -1,6 +1,7 @@
 package com.mapswithme.maps.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -43,10 +44,12 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @StyleRes
   public int getThemeResourceId(@NonNull String theme)
   {
-    if (ThemeUtils.isDefaultTheme(theme))
+    Context context = getApplicationContext();
+
+    if (ThemeUtils.isDefaultTheme(context, theme))
         return R.style.MwmTheme;
 
-    if (ThemeUtils.isNightTheme(theme))
+    if (ThemeUtils.isNightTheme(context, theme))
       return R.style.MwmTheme_Night;
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
@@ -115,14 +118,15 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @ColorRes
   protected int getStatusBarColor()
   {
-    String theme = Config.getCurrentUiTheme();
-    if (ThemeUtils.isDefaultTheme(theme))
+    Context context = getApplicationContext();
+    if (ThemeUtils.isDefaultTheme(context))
       return R.color.bg_statusbar;
 
-    if (ThemeUtils.isNightTheme(theme))
+    if (ThemeUtils.isNightTheme(context))
       return R.color.bg_statusbar_night;
 
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+    throw new IllegalArgumentException("Attempt to apply unsupported theme: "
+                                       + Config.getCurrentUiTheme(context));
   }
 
   protected boolean useColorStatusBar()

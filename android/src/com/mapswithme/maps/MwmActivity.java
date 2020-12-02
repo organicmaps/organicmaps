@@ -540,10 +540,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @StyleRes
   public int getThemeResourceId(@NonNull String theme)
   {
-    if (ThemeUtils.isDefaultTheme(theme))
+    Context context = getApplicationContext();
+
+    if (ThemeUtils.isDefaultTheme(context, theme))
       return R.style.MwmTheme_MainActivity;
 
-    if (ThemeUtils.isNightTheme(theme))
+    if (ThemeUtils.isNightTheme(context, theme))
       return R.style.MwmTheme_Night_MainActivity;
 
     return super.getThemeResourceId(theme);

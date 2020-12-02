@@ -52,7 +52,7 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
   @StyleRes
   public int getThemeResourceId(@NonNull String theme)
   {
-    return ThemeUtils.getWindowBgThemeResourceId(theme);
+    return ThemeUtils.getWindowBgThemeResourceId(getApplicationContext(), theme);
   }
 
   @Override

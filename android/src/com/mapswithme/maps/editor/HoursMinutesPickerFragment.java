@@ -8,6 +8,7 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -72,8 +73,11 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     final View root = createView();
     //noinspection ConstantConditions
     mTabs.getTabAt(mSelectedTab).select();
-    final int theme = ThemeUtils.isNightTheme() ? R.style.MwmMain_DialogFragment_TimePicker_Night
-                                                : R.style.MwmMain_DialogFragment_TimePicker;
+
+    @StyleRes
+    final int theme = ThemeUtils.isNightTheme(requireContext()) ?
+                      R.style.MwmMain_DialogFragment_TimePicker_Night :
+                      R.style.MwmMain_DialogFragment_TimePicker;
     final AlertDialog dialog = new AlertDialog.Builder(getActivity(), theme)
                                    .setView(root)
                                    .setNegativeButton(android.R.string.cancel, null)
@@ -81,32 +85,27 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
                                    .setCancelable(true)
                                    .create();
 
-    dialog.setOnShowListener(new DialogInterface.OnShowListener()
-    {
-      @Override
-      public void onShow(DialogInterface dialogInterface)
+    dialog.setOnShowListener(dialogInterface -> {
+      mOkButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+      mOkButton.setOnClickListener(new View.OnClickListener()
       {
-        mOkButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        mOkButton.setOnClickListener(new View.OnClickListener()
+        @Override
+        public void onClick(View v)
         {
-          @Override
-          public void onClick(View v)
+          if (mSelectedTab == TAB_FROM)
           {
-            if (mSelectedTab == TAB_FROM)
-            {
-              //noinspection ConstantConditions
-              mTabs.getTabAt(TAB_TO).select();
-              return;
-            }
-
-            saveHoursMinutes();
-            dismiss();
-            if (getParentFragment() instanceof OnPickListener)
-              ((OnPickListener) getParentFragment()).onHoursMinutesPicked(mFrom, mTo, mId);
+            //noinspection ConstantConditions
+            mTabs.getTabAt(TAB_TO).select();
+            return;
           }
-        });
-        refreshPicker();
-      }
+
+          saveHoursMinutes();
+          dismiss();
+          if (getParentFragment() instanceof OnPickListener)
+            ((OnPickListener) getParentFragment()).onHoursMinutesPicked(mFrom, mTo, mId);
+        }
+      });
+      refreshPicker();
     });
 
     return dialog;
@@ -142,8 +141,9 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     TextView tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);
     // TODO @yunik add translations
     tabView.setText("From");
-    final ColorStateList textColor = getResources().getColorStateList(ThemeUtils.isNightTheme() ? R.color.accent_color_selector_night
-                                                                                                : R.color.accent_color_selector);
+    final ColorStateList textColor = getResources().getColorStateList(
+        ThemeUtils.isNightTheme(requireContext()) ? R.color.accent_color_selector_night
+                                                  : R.color.accent_color_selector);
     tabView.setTextColor(textColor);
     mTabs.addTab(mTabs.newTab().setCustomView(tabView), true);
     tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);
