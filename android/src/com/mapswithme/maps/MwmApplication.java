@@ -130,16 +130,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     return (MwmApplication) context.getApplicationContext();
   }
 
-  /**
-   *
-   * Use {@link #backgroundTracker(Context)} instead.
-   */
-  @Deprecated
-  public static AppBackgroundTracker backgroundTracker()
-  {
-    return sSelf.mBackgroundTracker;
-  }
-
   @NonNull
   public static AppBackgroundTracker backgroundTracker(@NonNull Context context)
   {
@@ -271,11 +261,12 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     MapManager.nativeSubscribe(mStorageCallbacks);
 
     initNativeStrings();
+    ThemeSwitcher.INSTANCE.initialize(this);
     SearchEngine.INSTANCE.initialize(null);
     BookmarkManager.loadBookmarks();
     TtsPlayer.INSTANCE.initialize(this);
-    ThemeSwitcher.restart(false);
-    LocationHelper.INSTANCE.initialize(null);
+    ThemeSwitcher.INSTANCE.restart(false);
+    LocationHelper.INSTANCE.initialize(this);
     RoutingController.get().initialize(null);
     TrafficManager.INSTANCE.initialize(null);
     SubwayManager.from(this).initialize(null);

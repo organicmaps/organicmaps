@@ -1,22 +1,27 @@
 package com.mapswithme.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 import androidx.annotation.NonNull;
 
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.concurrency.UiThread;
 
-public final class ThemeSwitcher
+public enum ThemeSwitcher implements Initializable<Context>
 {
-  private static final long CHECK_INTERVAL_MS = 30 * 60 * 1000;
-  private static boolean sRendererActive = false;
+  INSTANCE;
 
-  private static final Runnable AUTO_THEME_CHECKER = new Runnable()
+  private static final long CHECK_INTERVAL_MS = 30 * 60 * 1000;
+  private static boolean mRendererActive = false;
+
+  private final Runnable mAutoThemeChecker = new Runnable()
   {
     @Override
     public void run()
@@ -39,14 +44,28 @@ public final class ThemeSwitcher
       }
 
       setThemeAndMapStyle(theme);
-      UiThread.cancelDelayedTasks(AUTO_THEME_CHECKER);
+      UiThread.cancelDelayedTasks(mAutoThemeChecker);
 
       if (ThemeUtils.isAutoTheme())
-        UiThread.runLater(AUTO_THEME_CHECKER, CHECK_INTERVAL_MS);
+        UiThread.runLater(mAutoThemeChecker, CHECK_INTERVAL_MS);
     }
   };
 
-  private ThemeSwitcher() {}
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private Context mContext;
+
+  @Override
+  public void initialize(@Nullable Context context)
+  {
+    mContext = context;
+  }
+
+  @Override
+  public void destroy()
+  {
+    // No op.
+  }
 
   /**
    * Changes the UI theme of application and the map style if necessary. If the contract regarding
@@ -58,21 +77,21 @@ public final class ThemeSwitcher
    *                         at this moment, otherwise <code>false</code>.
    */
   @androidx.annotation.UiThread
-  public static void restart(boolean isRendererActive)
+  public void restart(boolean isRendererActive)
   {
-    sRendererActive = isRendererActive;
+    mRendererActive = isRendererActive;
     String theme = Config.getUiThemeSettings();
     if (ThemeUtils.isAutoTheme(theme))
     {
-      AUTO_THEME_CHECKER.run();
+      mAutoThemeChecker.run();
       return;
     }
 
-    UiThread.cancelDelayedTasks(AUTO_THEME_CHECKER);
+    UiThread.cancelDelayedTasks(mAutoThemeChecker);
     setThemeAndMapStyle(theme);
   }
 
-  private static void setThemeAndMapStyle(@NonNull String theme)
+  private void setThemeAndMapStyle(@NonNull String theme)
   {
     String oldTheme = Config.getCurrentUiTheme();
     Config.setCurrentUiTheme(theme);
@@ -80,7 +99,7 @@ public final class ThemeSwitcher
   }
 
   @androidx.annotation.UiThread
-  private static void changeMapStyle(@NonNull String newTheme, @NonNull String oldTheme)
+  private void changeMapStyle(@NonNull String newTheme, @NonNull String oldTheme)
   {
     @Framework.MapStyle
     int style = RoutingController.get().isVehicleNavigation()
@@ -95,7 +114,7 @@ public final class ThemeSwitcher
 
       DownloaderStatusIcon.clearCache();
 
-      Activity a = MwmApplication.backgroundTracker().getTopActivity();
+      Activity a = MwmApplication.backgroundTracker(mContext).getTopActivity();
       if (a != null && !a.isFinishing())
         a.recreate();
     }
@@ -109,11 +128,11 @@ public final class ThemeSwitcher
     }
   }
 
-  private static void SetMapStyle(@Framework.MapStyle int style)
+  private void SetMapStyle(@Framework.MapStyle int style)
   {
     // If rendering is not active we can mark map style, because all graphics
     // will be recreated after rendering activation.
-    if (sRendererActive)
+    if (mRendererActive)
       Framework.nativeSetMapStyle(style);
     else
       Framework.nativeMarkMapStyle(style);

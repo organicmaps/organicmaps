@@ -2313,7 +2313,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     mNavigationController.stop(this);
     updateSearchBar();
-    ThemeSwitcher.restart(isMapRendererActive());
+    ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     if (mRoutingPlanInplaceController == null)
       return;
 
@@ -2323,7 +2323,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationStarted()
   {
-    ThemeSwitcher.restart(isMapRendererActive());
+    ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
   }
 
   @Override

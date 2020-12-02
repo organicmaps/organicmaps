@@ -1,6 +1,7 @@
 package com.mapswithme.maps.location;
 
 import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 
 import androidx.annotation.NonNull;
@@ -22,7 +23,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-public enum LocationHelper implements Initializable<Void>
+public enum LocationHelper implements Initializable<Context>
 {
   INSTANCE;
 
@@ -41,6 +42,10 @@ public enum LocationHelper implements Initializable<Void>
   // TODO (trashkalmar): Correct value
   private static final long INTERVAL_NAVIGATION_BICYCLE_MS = 1000;
   private static final long INTERVAL_NAVIGATION_PEDESTRIAN_MS = 1000;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private Context mContext;
 
   @NonNull
   private final TransitionListener mOnTransition = new TransitionListener();
@@ -79,7 +84,7 @@ public enum LocationHelper implements Initializable<Void>
       if (mCompassData == null)
         mCompassData = new CompassData();
 
-      mCompassData.update(north);
+      mCompassData.update(mContext, north);
 
       if (mUiCallback != null)
         mUiCallback.onCompassUpdated(mCompassData);
@@ -144,24 +149,20 @@ public enum LocationHelper implements Initializable<Void>
 
   @SuppressWarnings("FieldCanBeLocal")
   private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener =
-      new LocationState.LocationPendingTimeoutListener()
-  {
-    @Override
-    public void onLocationPendingTimeout()
-    {
-      stop();
-      if (LocationUtils.areLocationServicesTurnedOn())
-        notifyLocationNotFound();
-    }
-  };
+      () -> {
+        stop();
+        if (LocationUtils.areLocationServicesTurnedOn())
+          notifyLocationNotFound();
+      };
 
   @Override
-  public void initialize(@Nullable Void aVoid)
+  public void initialize(@Nullable Context context)
   {
+    mContext = context;
     initProvider();
     LocationState.nativeSetListener(mMyPositionModeListener);
     LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
-    MwmApplication.backgroundTracker().addListener(mOnTransition);
+    MwmApplication.backgroundTracker(context).addListener(mOnTransition);
   }
 
   @Override

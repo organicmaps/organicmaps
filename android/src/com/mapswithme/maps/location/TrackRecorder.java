@@ -66,7 +66,7 @@ public enum TrackRecorder implements Initializable<Context>
     LOGGER.d(TAG, "Initialization of track recorder and setting the listener for track changes");
     mContext = context;
 
-    MwmApplication.backgroundTracker().addListener(foreground -> {
+    MwmApplication.backgroundTracker(context).addListener(foreground -> {
       LOGGER.d(TAG, "Transit to foreground: " + foreground);
 
       UiThread.cancelDelayedTasks(mStartupAwaitProc);
@@ -148,14 +148,14 @@ public enum TrackRecorder implements Initializable<Context>
     nativeSetDuration(hours);
   }
 
-  void onWakeAlarm(@NonNull Context context)
+  void onWakeAlarm()
   {
     LOGGER.d(TAG, "onWakeAlarm(). Enabled: " + nativeIsEnabled());
 
     UiThread.cancelDelayedTasks(mStartupAwaitProc);
 
-    if (nativeIsEnabled() && !MwmApplication.backgroundTracker().isForeground())
-      TrackRecorderWakeService.start(context);
+    if (nativeIsEnabled() && !MwmApplication.backgroundTracker(mContext).isForeground())
+      TrackRecorderWakeService.start(mContext);
     else
       stop();
   }
@@ -202,7 +202,7 @@ public enum TrackRecorder implements Initializable<Context>
       LOGGER.d(TAG, "onServiceStopped(): actually runs here");
       LocationHelper.INSTANCE.removeListener(mLocationListener);
 
-      if (!MwmApplication.backgroundTracker().isForeground())
+      if (!MwmApplication.backgroundTracker(mContext).isForeground())
         restartAlarmIfEnabled();
     });
   }
