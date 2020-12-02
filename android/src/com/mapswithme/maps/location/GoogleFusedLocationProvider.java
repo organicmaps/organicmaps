@@ -2,8 +2,8 @@ package com.mapswithme.maps.location;
 
 import android.location.Location;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 
+import androidx.annotation.NonNull;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;

@@ -4,14 +4,15 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.mapswithme.maps.MwmApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 class AndroidNativeProvider extends BaseLocationProvider
 {
@@ -24,10 +25,11 @@ class AndroidNativeProvider extends BaseLocationProvider
   @NonNull
   private final List<LocationListener> mListeners = new ArrayList<>();
 
-  AndroidNativeProvider(@NonNull LocationFixChecker locationFixChecker)
+  AndroidNativeProvider(@NonNull LocationFixChecker locationFixChecker, @NonNull Context context)
   {
     super(locationFixChecker);
-    mLocationManager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
+    Objects.requireNonNull(context, "Context should be passed!");
+    mLocationManager = (LocationManager) MwmApplication.from(context).getSystemService(Context.LOCATION_SERVICE);
   }
 
   @SuppressWarnings("MissingPermission")
@@ -92,9 +94,9 @@ class AndroidNativeProvider extends BaseLocationProvider
   }
 
   @Nullable
-  static Location findBestLocation()
+  static Location findBestLocation(@NonNull Context context)
   {
-    final LocationManager manager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
+    final LocationManager manager = (LocationManager) MwmApplication.from(context).getSystemService(Context.LOCATION_SERVICE);
     return findBestLocation(manager, getAvailableProviders(manager));
   }
 

@@ -2,11 +2,13 @@ package com.mapswithme.maps.background;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.SparseArray;
 
 import java.lang.ref.WeakReference;
 
+import androidx.annotation.NonNull;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.concurrency.UiThread;
@@ -120,9 +122,9 @@ public final class AppBackgroundTracker
     void onVisibleAppLaunch();
   }
 
-  public AppBackgroundTracker()
+  public AppBackgroundTracker(@NonNull Context context)
   {
-    MwmApplication.get().registerActivityLifecycleCallbacks(mAppLifecycleCallbacks);
+    MwmApplication.from(context).registerActivityLifecycleCallbacks(mAppLifecycleCallbacks);
   }
 
   public boolean isForeground()

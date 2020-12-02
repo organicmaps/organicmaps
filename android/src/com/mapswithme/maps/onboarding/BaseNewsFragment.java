@@ -70,7 +70,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
     Adapter()
     {
-      Resources res = MwmApplication.get().getResources();
+      Resources res = MwmApplication.from(requireContext()).getResources();
 
       mTitles = getTitles(res);
       mSubtitles = res.getStringArray(getSubtitles1());

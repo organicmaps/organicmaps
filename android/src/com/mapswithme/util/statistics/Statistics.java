@@ -1268,9 +1268,9 @@ public enum Statistics implements Initializable<Context>
                    .get());
   }
 
-  public void trackColdStartupInfo()
+  public void trackColdStartupInfo(@NonNull Context context)
   {
-    BatteryState.State state = BatteryState.getState();
+    BatteryState.State state = BatteryState.getState(context);
     final String charging;
     switch (state.getChargingStatus())
     {

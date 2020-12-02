@@ -73,7 +73,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     if (initialIntent != null)
       setIntent(initialIntent);
 
-    if (!MwmApplication.get().arePlatformAndCoreInitialized()
+    if (!MwmApplication.from(this).arePlatformAndCoreInitialized()
         || !PermissionsUtils.isExternalStorageGranted())
     {
       super.onCreate(savedInstanceState);

@@ -13,8 +13,6 @@ import com.mapswithme.util.UiUtils;
 
 public abstract class BaseMenu
 {
-  public static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
-
   final View mFrame;
   final View mLineFrame;
 
@@ -35,14 +33,9 @@ public abstract class BaseMenu
     View res = frame.findViewById(item.getViewId());
     if (res != null)
     {
-      res.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          //noinspection unchecked
-          mItemClickListener.onItemClick(item);
-        }
+      res.setOnClickListener(v -> {
+        //noinspection unchecked
+        mItemClickListener.onItemClick(item);
       });
     }
     return res;

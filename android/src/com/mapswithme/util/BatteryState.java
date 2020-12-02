@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
@@ -25,12 +26,12 @@ public final class BatteryState
   private BatteryState() {}
 
   @NonNull
-  public static State getState()
+  public static State getState(@NonNull Context context)
   {
     IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
     // Because it's a sticky intent, you don't need to register a BroadcastReceiver
     // by simply calling registerReceiver passing in null
-    Intent batteryStatus = MwmApplication.get().registerReceiver(null, filter);
+    Intent batteryStatus = MwmApplication.from(context).registerReceiver(null, filter);
     if (batteryStatus == null)
       return new State(0, CHARGING_STATUS_UNKNOWN);
 
@@ -38,15 +39,9 @@ public final class BatteryState
   }
 
   @IntRange(from=0, to=100)
-  public static int getLevel()
+  public static int getLevel(@NonNull Context context)
   {
-    return getState().getLevel();
-  }
-
-  @ChargingStatus
-  public static int getChargingStatus()
-  {
-    return getState().getChargingStatus();
+    return getState(context).getLevel();
   }
 
   @IntRange(from=0, to=100)

@@ -170,7 +170,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     
     initNotificationChannels();
 
-    mBackgroundTracker = new AppBackgroundTracker();
+    mBackgroundTracker = new AppBackgroundTracker(this);
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
@@ -410,12 +410,12 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     return mGuidesManager;
   }
 
-  private static class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener
+  private class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener
   {
     @Override
     public void onVisibleAppLaunch()
     {
-      Statistics.INSTANCE.trackColdStartupInfo();
+      Statistics.INSTANCE.trackColdStartupInfo(MwmApplication.this);
     }
   }
 

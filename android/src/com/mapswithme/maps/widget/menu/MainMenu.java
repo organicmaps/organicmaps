@@ -11,7 +11,6 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.util.Animations;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.StatisticValueConverter;
@@ -344,19 +343,5 @@ public class MainMenu extends BaseMenu
     final View itemInButtonsFrame = mButtonsFrame.findViewById(item.mViewId);
     if (itemInButtonsFrame != null)
       UiUtils.showIf(show, itemInButtonsFrame);
-  }
-
-  public void showLineFrame(boolean show)
-  {
-    if (show)
-    {
-      UiUtils.hide(mFrame);
-      Animations.appearSliding(mFrame, Animations.BOTTOM, null);
-    }
-    else
-    {
-      UiUtils.show(mFrame);
-      Animations.disappearSliding(mFrame, Animations.BOTTOM, null);
-    }
   }
 }

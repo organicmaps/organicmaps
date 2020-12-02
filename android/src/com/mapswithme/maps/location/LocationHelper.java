@@ -175,8 +175,7 @@ public enum LocationHelper implements Initializable<Context>
   private void initProvider()
   {
     mLogger.d(TAG, "initProvider", new Throwable());
-    final MwmApplication application = MwmApplication.get();
-    final boolean containsGoogleServices = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(application) == ConnectionResult.SUCCESS;
+    final boolean containsGoogleServices = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(mContext) == ConnectionResult.SUCCESS;
     final boolean googleServicesTurnedInSettings = Config.useGoogleServices();
     if (containsGoogleServices && googleServicesTurnedInSettings)
     {
@@ -192,7 +191,7 @@ public enum LocationHelper implements Initializable<Context>
   void initNativeProvider()
   {
     mLogger.d(TAG, "Use native provider");
-    mLocationProvider = new AndroidNativeProvider(new DefaultLocationFixChecker());
+    mLocationProvider = new AndroidNativeProvider(new DefaultLocationFixChecker(), mContext);
   }
 
   public void onLocationUpdated(@NonNull Location location)
@@ -652,7 +651,7 @@ public enum LocationHelper implements Initializable<Context>
     if (mSavedLocation != null)
       return mSavedLocation;
 
-    return AndroidNativeProvider.findBestLocation();
+    return AndroidNativeProvider.findBestLocation(mContext);
   }
 
   @Nullable

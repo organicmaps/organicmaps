@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.sound.TtsPlayer;
@@ -19,6 +21,8 @@ import com.mapswithme.util.UiUtils;
 
 public class NavMenu extends BaseMenu
 {
+  @IntegerRes
+  private final int mAnimationDuration;
   private final RotateDrawable mToggleImage;
   @NonNull
   private final ImageView mTts;
@@ -75,6 +79,8 @@ public class NavMenu extends BaseMenu
   public NavMenu(View frame, ItemClickListener<Item> listener)
   {
     super(frame, listener);
+    mAnimationDuration = MwmApplication.from(frame.getContext())
+                                       .getResources().getInteger(R.integer.anim_menu);
     mContentFrame = mFrame.findViewById(R.id.content_frame);
     mToggleImage = new RotateDrawable(Graphics.tint(mFrame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight));
     ImageView toggle = (ImageView) mLineFrame.findViewById(R.id.toggle);
@@ -126,7 +132,7 @@ public class NavMenu extends BaseMenu
 
     mFrame.setTranslationY(mContentHeight);
     mFrame.animate()
-          .setDuration(ANIMATION_DURATION)
+          .setDuration(mAnimationDuration)
           .translationY(0.0f)
           .setListener(new AnimationListener())
           .start();
@@ -160,7 +166,7 @@ public class NavMenu extends BaseMenu
     }
 
     mFrame.animate()
-          .setDuration(ANIMATION_DURATION)
+          .setDuration(mAnimationDuration)
           .translationY(mContentHeight)
           .setListener(new AnimationListener()
           {
@@ -259,7 +265,7 @@ public class NavMenu extends BaseMenu
       }
     });
 
-    animator.setDuration(ANIMATION_DURATION);
+    animator.setDuration(mAnimationDuration);
     animator.start();
   }
 
