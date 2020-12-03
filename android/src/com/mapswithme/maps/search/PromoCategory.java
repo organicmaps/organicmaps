@@ -103,7 +103,7 @@ public enum PromoCategory
         @Override
         boolean isSupported()
         {
-          return ConnectionState.isConnected() && Framework.nativeHasCitymobilCategoryBanner();
+          return ConnectionState.INSTANCE.isConnected() && Framework.nativeHasCitymobilCategoryBanner();
         }
 
         @Override

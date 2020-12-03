@@ -76,7 +76,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
       if (mOnlineMode)
         return;
 
-      if (ConnectionState.isConnected())
+      if (ConnectionState.INSTANCE.isConnected())
         NetworkPolicy.checkNetworkPolicy(getFragmentManager(), DiscoveryFragment.this::onNetworkPolicyResult);
     }
   };

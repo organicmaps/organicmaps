@@ -18,7 +18,7 @@ class JobServiceDelegate
 
   boolean onStartJob()
   {
-    ConnectionState.Type type = ConnectionState.requestCurrentType(mApp);
+    ConnectionState.Type type = ConnectionState.INSTANCE.requestCurrentType();
     if (type == ConnectionState.Type.WIFI)
       NotificationService.startOnConnectivityChanged(mApp);
 

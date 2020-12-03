@@ -78,7 +78,7 @@ public class SearchToolbarController extends ToolbarController
   private FilterUtils.RoomGuestCounts mRoomGuestCounts;
   @NonNull
   private final View.OnClickListener mChooseDatesClickListener = v -> {
-    if (!ConnectionState.isConnected())
+    if (!ConnectionState.INSTANCE.isConnected())
     {
       Statistics.INSTANCE.trackQuickFilterClickError(Statistics.EventParam.HOTEL,
                                                      Statistics.ParamValue.DATE,
@@ -103,7 +103,7 @@ public class SearchToolbarController extends ToolbarController
   private MenuController mGuestsRoomsMenuController;
   @NonNull
   private final View.OnClickListener mRoomsClickListener = v -> {
-    if (!ConnectionState.isConnected())
+    if (!ConnectionState.INSTANCE.isConnected())
     {
       Statistics.INSTANCE.trackQuickFilterClickError(Statistics.EventParam.HOTEL,
                                                      Statistics.ParamValue.ROOMS,

@@ -172,7 +172,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                 Config.isAutodownloadEnabled() &&
                 !sAutodownloadLocked &&
                 !failed &&
-                ConnectionState.isWifiConnected())
+                ConnectionState.INSTANCE.isWifiConnected())
             {
               Location loc = LocationHelper.INSTANCE.getSavedLocation();
               if (loc != null)

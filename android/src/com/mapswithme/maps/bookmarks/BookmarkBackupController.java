@@ -101,7 +101,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
 
   private void requestRestoring()
   {
-    if (!ConnectionState.isConnected())
+    if (!ConnectionState.INSTANCE.isConnected())
     {
       DialogInterface.OnClickListener clickListener
           = (dialog, which) -> Utils.showSystemConnectionSettings(mContext);

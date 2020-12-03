@@ -270,7 +270,7 @@ public final class Config
   public static void setUseMobileDataSettings(@NonNull NetworkPolicy.Type value)
   {
     setInt(KEY_MISC_USE_MOBILE_DATA, value.ordinal());
-    setBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, ConnectionState.isInRoaming());
+    setBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, ConnectionState.INSTANCE.isInRoaming());
   }
 
   public static void setMobileDataTimeStamp(long timestamp)

@@ -85,7 +85,7 @@ public enum LikesManager
   {
     mActivityRef = new WeakReference<>(activity);
 
-    if (!ConnectionState.isConnected())
+    if (!ConnectionState.INSTANCE.isConnected())
       return;
 
     Context context = activity.getApplicationContext();

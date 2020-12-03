@@ -77,7 +77,7 @@ public class BookmarkHeaderView extends LinearLayout
     {
       final Context context = getContext();
       final String imageUrl = category.getImageUrl();
-      if (TextUtils.isEmpty(imageUrl) || !ConnectionState.isConnected())
+      if (TextUtils.isEmpty(imageUrl) || !ConnectionState.INSTANCE.isConnected())
       {
         UiUtils.hide(mImageView);
       }

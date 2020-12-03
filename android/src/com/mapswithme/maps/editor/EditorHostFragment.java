@@ -326,7 +326,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     Context context = requireContext();
     Statistics.INSTANCE.trackEditorSuccess(mIsNewObject,
                                            String.valueOf(OsmOAuth.isAuthorized(context)));
-    if (OsmOAuth.isAuthorized(context) || !ConnectionState.isConnected())
+    if (OsmOAuth.isAuthorized(context) || !ConnectionState.INSTANCE.isConnected())
     {
       Utils.navigateToParent(getActivity());
       return;

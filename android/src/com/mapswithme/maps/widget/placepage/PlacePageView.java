@@ -1451,7 +1451,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
     }
 
-    boolean isConnected = ConnectionState.isConnected();
+    boolean isConnected = ConnectionState.INSTANCE.isConnected();
     if (isConnected && policy.canUseNetwork())
       showHotelDetailViews();
     else
@@ -1473,7 +1473,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     boolean showTaxiOffer = taxiTypes != null && !taxiTypes.isEmpty() &&
                             LocationHelper.INSTANCE.getMyPosition() != null &&
-                            ConnectionState.isConnected()
+                            ConnectionState.INSTANCE.isConnected()
                             && mapObject.getRoadWarningMarkType() == RoadWarningMarkType.UNKNOWN;
     UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiShadow, mTaxiDivider);
 

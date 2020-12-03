@@ -35,7 +35,7 @@ public class ErrorCatalogPromoListener<T extends Items.Item> implements com.maps
   @Override
   public void onItemSelected(@NonNull T item, int position)
   {
-    if (ConnectionState.isConnected())
+    if (ConnectionState.INSTANCE.isConnected())
       NetworkPolicy.checkNetworkPolicy(mActivity.getSupportFragmentManager(),  mListener, true);
     else
       Utils.showSystemConnectionSettings(getActivity());

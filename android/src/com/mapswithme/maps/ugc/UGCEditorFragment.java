@@ -117,7 +117,7 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
       UserActionsLogger.logUgcSaved();
       Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_SUCCESS);
 
-      if (!ConnectionState.isConnected())
+      if (!ConnectionState.INSTANCE.isConnected())
       {
         if (isAuthorized())
           Utils.toastShortcut(getContext(), R.string.ugc_thanks_message_auth);

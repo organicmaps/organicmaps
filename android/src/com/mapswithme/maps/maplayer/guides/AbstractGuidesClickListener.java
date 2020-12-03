@@ -27,7 +27,7 @@ public abstract class AbstractGuidesClickListener extends DefaultClickListener
   public void onItemClick(@NonNull View v, @NonNull BottomSheetItem item)
   {
     Mode mode = item.getMode();
-    if (!mode.isEnabled(v.getContext()) && !ConnectionState.isConnected())
+    if (!mode.isEnabled(v.getContext()) && !ConnectionState.INSTANCE.isConnected())
     {
       mNoConnectionListener.onNoConnectionError();
       return;

@@ -113,7 +113,7 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
         return;
       }
 
-      if (!ConnectionState.isWifiConnected())
+      if (!ConnectionState.INSTANCE.isWifiConnected())
       {
         LOGGER.i(TAG, "Validation postponed, connection not WI-FI.");
         return;

@@ -165,7 +165,7 @@ public class BookingFilterParams implements Parcelable
   public static BookingFilterParams createParams(
       long checkIn, long checkOut, @Nullable FilterUtils.RoomGuestCounts roomGuestCounts)
   {
-    if (!ConnectionState.isConnected())
+    if (!ConnectionState.INSTANCE.isConnected())
       return null;
 
     return new BookingFilterParams(checkIn, checkOut, FilterUtils.toRooms(roomGuestCounts));

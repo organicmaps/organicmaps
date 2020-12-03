@@ -335,7 +335,7 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     mLogger.d(TAG, "build");
     mTaxiRequestHandled = false;
     mLastBuildProgress = 0;
-    mInternetConnected = ConnectionState.isConnected();
+    mInternetConnected = ConnectionState.INSTANCE.isConnected();
 
     if (isTaxiRouterType())
     {

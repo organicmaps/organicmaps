@@ -493,7 +493,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
       UiUtils.show(frag.mRetryBtn);
       UiUtils.hide(frag.mWebView, frag.mProgressView);
-      if (ConnectionState.isConnected())
+      if (ConnectionState.INSTANCE.isConnected())
       {
         LOGGER.e(TAG, "Failed to load catalog: " + mError + ", description: " + description);
         Statistics.INSTANCE.trackDownloadCatalogError(Statistics.ParamValue.UNKNOWN);

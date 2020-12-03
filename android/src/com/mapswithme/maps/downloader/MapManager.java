@@ -185,7 +185,7 @@ public final class MapManager
 
   private static boolean warnOn3gInternal(Activity activity, @NonNull final Runnable onAcceptListener)
   {
-    if (nativeIsDownloadOn3gEnabled() || !ConnectionState.isMobileConnected())
+    if (nativeIsDownloadOn3gEnabled() || !ConnectionState.INSTANCE.isMobileConnected())
     {
       onAcceptListener.run();
       return false;

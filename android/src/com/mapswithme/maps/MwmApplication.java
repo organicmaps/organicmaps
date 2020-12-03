@@ -34,6 +34,7 @@ import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.SharedPropertiesUtils;
@@ -164,6 +165,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mMediator.initSensitiveDataToleranceLibraries();
     mMediator.initSensitiveDataStrictLibrariesAsync();
     Statistics.INSTANCE.initialize(this);
+    ConnectionState.INSTANCE.initialize(this);
     Statistics.INSTANCE.setMediator(mMediator);
     
     initNotificationChannels();

@@ -1060,14 +1060,14 @@ public enum Statistics implements Initializable<Context>
 
   public void trackConnectionState()
   {
-    if (ConnectionState.isConnected())
+    if (ConnectionState.INSTANCE.isConnected())
     {
-      final NetworkInfo info = ConnectionState.getActiveNetwork();
+      final NetworkInfo info = ConnectionState.INSTANCE.getActiveNetwork();
       boolean isConnectionMetered = false;
       //noinspection ConstantConditions
       trackEvent(EventName.ACTIVE_CONNECTION,
                  params().add(EventParam.CONNECTION_TYPE, info.getTypeName() + ":" + info.getSubtypeName())
-                         .add(EventParam.CONNECTION_FAST, String.valueOf(ConnectionState.isConnectionFast(info)))
+                         .add(EventParam.CONNECTION_FAST, String.valueOf(ConnectionState.INSTANCE.isConnectionFast(info)))
                          .add(EventParam.CONNECTION_METERED, String.valueOf(isConnectionMetered)));
     }
     else
@@ -1094,7 +1094,7 @@ public enum Statistics implements Initializable<Context>
   {
     trackEvent(newObject ? EventName.EDITOR_START_CREATE : EventName.EDITOR_START_EDIT,
                editorMwmParams().add(EventParam.IS_AUTHENTICATED, valueOfIsAuthorized)
-                                .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
+                                .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.INSTANCE.isConnected())));
 
     if (newObject)
       PushwooshHelper.nativeSendEditorAddObjectTag();
@@ -1113,14 +1113,14 @@ public enum Statistics implements Initializable<Context>
   {
     trackEvent(newObject ? EventName.EDITOR_SUCCESS_CREATE : EventName.EDITOR_SUCCESS_EDIT,
                editorMwmParams().add(EventParam.IS_AUTHENTICATED, valueOfIsAuthorized)
-                                .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
+                                .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.INSTANCE.isConnected())));
   }
 
   public void trackEditorError(boolean newObject, String valueOfIsAuthorized)
   {
     trackEvent(newObject ? EventName.EDITOR_ERROR_CREATE : EventName.EDITOR_ERROR_EDIT,
                editorMwmParams().add(EventParam.IS_AUTHENTICATED, valueOfIsAuthorized)
-                                .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
+                                .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.INSTANCE.isConnected())));
   }
 
   public void trackNetworkUsageAlert(@NonNull String event, @NonNull String param)
@@ -1302,13 +1302,13 @@ public enum Statistics implements Initializable<Context>
   private String getConnectionState()
   {
     final String network;
-    if (ConnectionState.isWifiConnected())
+    if (ConnectionState.INSTANCE.isWifiConnected())
     {
       network = "wifi";
     }
-    else if (ConnectionState.isMobileConnected())
+    else if (ConnectionState.INSTANCE.isMobileConnected())
     {
-      if (ConnectionState.isInRoaming())
+      if (ConnectionState.INSTANCE.isInRoaming())
         network = "roaming";
       else
         network = "mobile";
@@ -1552,7 +1552,7 @@ public enum Statistics implements Initializable<Context>
     trackEvent(UGC_REVIEW_START,
                params()
                    .add(EventParam.IS_AUTHENTICATED, Framework.nativeIsUserAuthenticated())
-                   .add(EventParam.IS_ONLINE, ConnectionState.isConnected())
+                   .add(EventParam.IS_ONLINE, ConnectionState.INSTANCE.isConnected())
                    .add(EventParam.MODE, isEdit ? ParamValue.EDIT : ParamValue.ADD)
                    .add(EventParam.FROM, isPPPreview ? ParamValue.PLACEPAGE_PREVIEW :
                                          isFromNotification ? ParamValue.NOTIFICATION : ParamValue.PLACEPAGE)

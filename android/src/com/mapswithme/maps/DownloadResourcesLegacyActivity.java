@@ -227,7 +227,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
       setAction(DOWNLOAD);
 
-      if (ConnectionState.isWifiConnected())
+      if (ConnectionState.INSTANCE.isWifiConnected())
         onDownloadClicked();
 
       return;
@@ -421,7 +421,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return R.string.disconnect_usb_cable;
 
     case ERR_DOWNLOAD_ERROR:
-      return (ConnectionState.isConnected() ? R.string.download_has_failed
+      return (ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
                                             : R.string.common_check_internet_connection_dialog);
     default:
       return R.string.not_enough_memory;

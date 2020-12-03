@@ -542,7 +542,7 @@ public class Holders
     {
       super.bind(item);
       getButton().setText(R.string.gallery_pp_download_guides_offline_cta);
-      boolean isBtnInvisible = ConnectionState.isConnected() &&
+      boolean isBtnInvisible = ConnectionState.INSTANCE.isConnected() &&
                                NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus()).canUseNetwork();
 
       if (isBtnInvisible)

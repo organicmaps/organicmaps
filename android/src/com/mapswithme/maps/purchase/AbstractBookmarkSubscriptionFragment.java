@@ -243,7 +243,7 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   @Override
   public void onCheckNetworkConnection()
   {
-    if (ConnectionState.isConnected())
+    if (ConnectionState.INSTANCE.isConnected())
     {
       onNetworkCheckPassed();
       return;

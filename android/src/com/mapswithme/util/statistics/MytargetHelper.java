@@ -43,7 +43,7 @@ public final class MytargetHelper
 
   public MytargetHelper(final @NonNull Listener<Void> listener, @NonNull Context context)
   {
-    if (!ConnectionState.isConnected())
+    if (!ConnectionState.INSTANCE.isConnected())
     {
       listener.onNoAds();
       return;

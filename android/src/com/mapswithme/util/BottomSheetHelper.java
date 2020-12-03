@@ -144,10 +144,4 @@ public final class BottomSheetHelper
   {
     return create(context, title).grid();
   }
-
-  public static Builder sheet(Builder builder, int id, @DrawableRes int iconRes, CharSequence text)
-  {
-    Drawable icon = ContextCompat.getDrawable(MwmApplication.get(), iconRes);
-    return builder.sheet(id, icon, text);
-  }
 }

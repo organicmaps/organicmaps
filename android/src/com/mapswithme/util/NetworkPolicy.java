@@ -36,7 +36,7 @@ public final class NetworkPolicy
           public void check(@NonNull FragmentManager fragmentManager,
                             @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
           {
-            boolean nowInRoaming = ConnectionState.isInRoaming();
+            boolean nowInRoaming = ConnectionState.INSTANCE.isInRoaming();
             boolean acceptedInRoaming = Config.getMobileDataRoaming();
 
             if (nowInRoaming && !acceptedInRoaming)
@@ -100,7 +100,7 @@ public final class NetworkPolicy
           public void check(@NonNull FragmentManager fragmentManager,
                             @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
           {
-            boolean nowInRoaming = ConnectionState.isInRoaming();
+            boolean nowInRoaming = ConnectionState.INSTANCE.isInRoaming();
             boolean acceptedInRoaming = Config.getMobileDataRoaming();
 
             if (nowInRoaming && !acceptedInRoaming)
@@ -137,13 +137,13 @@ public final class NetworkPolicy
                                         @NonNull final NetworkPolicyListener listener,
                                         boolean isDialogAllowed)
   {
-    if (ConnectionState.isWifiConnected())
+    if (ConnectionState.INSTANCE.isWifiConnected())
     {
       listener.onResult(new NetworkPolicy(true));
       return;
     }
 
-    if (!ConnectionState.isMobileConnected())
+    if (!ConnectionState.INSTANCE.isMobileConnected())
     {
       listener.onResult(new NetworkPolicy(false));
       return;
@@ -161,13 +161,13 @@ public final class NetworkPolicy
 
   public static boolean getCurrentNetworkUsageStatus()
   {
-    if (ConnectionState.isWifiConnected())
+    if (ConnectionState.INSTANCE.isWifiConnected())
       return true;
 
-    if (!ConnectionState.isMobileConnected())
+    if (!ConnectionState.INSTANCE.isMobileConnected())
       return false;
 
-    boolean nowInRoaming = ConnectionState.isInRoaming();
+    boolean nowInRoaming = ConnectionState.INSTANCE.isInRoaming();
     boolean acceptedInRoaming = Config.getMobileDataRoaming();
     if (nowInRoaming && !acceptedInRoaming)
       return false;

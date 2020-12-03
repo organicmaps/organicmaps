@@ -296,7 +296,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private boolean isNetworkConnectionAbsent()
   {
-    return !ConnectionState.isConnected();
+    return !ConnectionState.INSTANCE.isConnected();
   }
 
   private void openTagsScreen()

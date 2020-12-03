@@ -343,9 +343,10 @@ public class Utils
     return res;
   }
 
-  public static void checkConnection(final Context context, final @StringRes int message, final Proc<Boolean> onCheckPassedCallback)
+  public static void checkConnection(final Context context, final @StringRes int message,
+                                     final Proc<Boolean> onCheckPassedCallback)
   {
-    if (ConnectionState.isConnected())
+    if (ConnectionState.INSTANCE.isConnected())
     {
       onCheckPassedCallback.invoke(true);
       return;
