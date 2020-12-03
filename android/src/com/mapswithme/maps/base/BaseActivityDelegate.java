@@ -104,7 +104,7 @@ public class BaseActivityDelegate
   private void logLifecycleMethod(@NonNull String method)
   {
     String msg = mActivity.getClass().getSimpleName() + ": " + method + " activity: " + mActivity;
-    CrashlyticsUtils.log(Log.INFO, TAG, msg);
+    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
     LOGGER.i(TAG, msg);
   }
 }

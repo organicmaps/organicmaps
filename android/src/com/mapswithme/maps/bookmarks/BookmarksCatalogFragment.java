@@ -409,7 +409,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       }
       catch (Throwable e)
       {
-        CrashlyticsUtils.logException(e);
+        CrashlyticsUtils.INSTANCE.logException(e);
         return false;
       }
 
@@ -585,7 +585,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       {
         String msg = "Failed to encode details bundle '" + bundle + "': ";
         LOGGER.e(TAG, msg, e);
-        CrashlyticsUtils.logException(new RuntimeException(msg, e));
+        CrashlyticsUtils.INSTANCE.logException(new RuntimeException(msg, e));
       }
 
       return encodedBundle;

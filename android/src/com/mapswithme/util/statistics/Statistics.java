@@ -2047,7 +2047,7 @@ public enum Statistics implements Initializable<Context>
     }
     catch (Exception e)
     {
-      CrashlyticsUtils.logException(new RuntimeException("Failed to parse url: " + url, e));
+      CrashlyticsUtils.INSTANCE.logException(new RuntimeException("Failed to parse url: " + url, e));
     }
 
     result.add(TYPE, type);

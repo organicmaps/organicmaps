@@ -35,7 +35,7 @@ public class TrackRecorderWakeService extends JobIntentService
     String msg = "onHandleIntent: " + intent + " app in background = "
                  + !MwmApplication.backgroundTracker(getApplicationContext()).isForeground();
     LOGGER.i(TAG, msg);
-    CrashlyticsUtils.log(Log.INFO, TAG, msg);
+    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
 
     synchronized (sLock)
     {
@@ -81,7 +81,7 @@ public class TrackRecorderWakeService extends JobIntentService
         {
           scheduler.cancel(each.getId());
           String logMsg = "Canceled job: " + each + ". All jobs: " + jobsRepresentation;
-          CrashlyticsUtils.log(Log.INFO, TAG, logMsg);
+          CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, logMsg);
         }
       }
     }

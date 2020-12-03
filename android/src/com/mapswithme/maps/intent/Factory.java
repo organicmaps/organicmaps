@@ -196,7 +196,7 @@ public class Factory
       String msg = this.getClass().getSimpleName() + ": incoming intent uri: " + uri;
       LOGGER.i(this.getClass().getSimpleName(), msg);
       org.alohalytics.Statistics.logEvent(msg);
-      CrashlyticsUtils.log(Log.INFO, getClass().getSimpleName(), msg);
+      CrashlyticsUtils.INSTANCE.log(Log.INFO, getClass().getSimpleName(), msg);
       return createMapTask(uri);
     }
 

@@ -127,7 +127,7 @@ public class ConnectivityJobScheduler implements ConnectivityListener
     {
       IllegalStateException exception = new IllegalStateException("Play services doesn't exist on" +
                                                                   " the device");
-      CrashlyticsUtils.logException(exception);
+      CrashlyticsUtils.INSTANCE.logException(exception);
     }
 
     @Override

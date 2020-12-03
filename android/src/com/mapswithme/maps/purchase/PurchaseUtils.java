@@ -109,7 +109,7 @@ public class PurchaseUtils
         String tag = PurchaseUtils.class.getSimpleName();
         String msg = "Failed to form product details bundle for '" + details + "': ";
         logger.e(tag, msg, e);
-        CrashlyticsUtils.logException(new RuntimeException(msg, e));
+        CrashlyticsUtils.INSTANCE.logException(new RuntimeException(msg, e));
         return "";
       }
     }
@@ -129,7 +129,7 @@ public class PurchaseUtils
       if (Period.getInstance(each.getSubscriptionPeriod()) == null)
       {
         String msg = "Unsupported subscription period: '" + each.getSubscriptionPeriod() + "'";
-        CrashlyticsUtils.logException(new IllegalStateException(msg));
+        CrashlyticsUtils.INSTANCE.logException(new IllegalStateException(msg));
         LOGGER.e(TAG, msg);
         return true;
       }
@@ -190,7 +190,7 @@ public class PurchaseUtils
     List<String> uriGroups = uri.getQueryParameters(GROUPS);
     if (uriGroups == null || uriGroups.isEmpty())
     {
-      CrashlyticsUtils.logException(
+      CrashlyticsUtils.INSTANCE.logException(
           new IllegalArgumentException("'" + GROUPS
                                        + "' parameter is required! URI: " + uri));
       return SubscriptionType.BOOKMARKS_ALL.getServerId();

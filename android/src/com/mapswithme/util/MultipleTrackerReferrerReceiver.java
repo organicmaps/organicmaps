@@ -25,7 +25,7 @@ public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
     String msg = "onReceive: " + intent + " app in background = "
                  + !backgroundTracker(context).isForeground();
     LOGGER.i(TAG, msg);
-    CrashlyticsUtils.log(Log.INFO, TAG, msg);
+    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
     Counters.initCounters(context);
     // parse & send referrer to Aloha
     try

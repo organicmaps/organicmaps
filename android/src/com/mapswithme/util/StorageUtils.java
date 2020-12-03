@@ -173,7 +173,7 @@ public class StorageUtils
       LOGGER.e(TAG, "Can't create directories for: " + path
                     + " state = " + Environment.getExternalStorageState()
                     + " isPermissionGranted = " + isPermissionGranted);
-      CrashlyticsUtils.logException(error);
+      CrashlyticsUtils.INSTANCE.logException(error);
       return false;
     }
     return true;

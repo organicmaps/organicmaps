@@ -53,7 +53,7 @@ public class WorkerService extends JobIntentService
     String msg = "onHandleIntent: " + intent + " app in background = "
                  + !MwmApplication.backgroundTracker(getApplicationContext()).isForeground();
     LOGGER.i(TAG, msg);
-    CrashlyticsUtils.log(Log.INFO, TAG, msg);
+    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
     final String action = intent.getAction();
 
     if (TextUtils.isEmpty(action))

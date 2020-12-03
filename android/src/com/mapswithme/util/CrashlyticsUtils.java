@@ -1,14 +1,23 @@
 package com.mapswithme.util;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.base.Initializable;
 
-public final class CrashlyticsUtils
+public enum CrashlyticsUtils implements Initializable<Context>
 {
-  public static void logException(@NonNull Throwable exception)
+  INSTANCE;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private Context mContext;
+
+  public void logException(@NonNull Throwable exception)
   {
     if (!checkCrashlytics())
       return;
@@ -16,7 +25,7 @@ public final class CrashlyticsUtils
     FirebaseCrashlytics.getInstance().recordException(exception);
   }
 
-  public static void log(int priority, @NonNull String tag, @NonNull String msg)
+  public void log(int priority, @NonNull String tag, @NonNull String msg)
   {
     if (!checkCrashlytics())
       return;
@@ -24,9 +33,9 @@ public final class CrashlyticsUtils
     FirebaseCrashlytics.getInstance().log(toLevel(priority) + "/" + tag + ": " + msg);
   }
 
-  private static boolean checkCrashlytics()
+  private boolean checkCrashlytics()
   {
-    MwmApplication app = MwmApplication.get();
+    MwmApplication app = MwmApplication.from(mContext);
     return app.getMediator().isCrashlyticsEnabled();
   }
 
@@ -50,5 +59,15 @@ public final class CrashlyticsUtils
     }
   }
 
-  private CrashlyticsUtils() {}
+  @Override
+  public void initialize(@Nullable Context context)
+  {
+    mContext = MwmApplication.from(context);
+  }
+
+  @Override
+  public void destroy()
+  {
+    // No op
+  }
 }

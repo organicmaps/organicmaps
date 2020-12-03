@@ -249,11 +249,11 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
-      CrashlyticsUtils.logException(e);
+      CrashlyticsUtils.INSTANCE.logException(e);
     }
     catch (AndroidRuntimeException e)
     {
-      CrashlyticsUtils.logException(e);
+      CrashlyticsUtils.INSTANCE.logException(e);
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       context.startActivity(intent);
     }
@@ -270,12 +270,12 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
-      CrashlyticsUtils.logException(e);
+      CrashlyticsUtils.INSTANCE.logException(e);
       return false;
     }
     catch (AndroidRuntimeException e)
     {
-      CrashlyticsUtils.logException(e);
+      CrashlyticsUtils.INSTANCE.logException(e);
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       context.startActivity(intent);
       return false;
@@ -875,7 +875,7 @@ public class Utils
         }
         catch (ActivityNotFoundException e)
         {
-          CrashlyticsUtils.logException(e);
+          CrashlyticsUtils.INSTANCE.logException(e);
         }
       });
     }

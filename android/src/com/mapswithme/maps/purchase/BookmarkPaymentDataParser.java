@@ -50,7 +50,7 @@ public class BookmarkPaymentDataParser implements PaymentDataParser
     String parameter = uri.getQueryParameter(name);
     if (TextUtils.isEmpty(parameter))
     {
-      CrashlyticsUtils.logException(
+      CrashlyticsUtils.INSTANCE.logException(
         new IllegalArgumentException("'" + name + "' parameter is required! URI: " + uri));
       return "";
     }

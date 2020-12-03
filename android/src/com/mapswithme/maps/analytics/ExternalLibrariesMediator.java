@@ -318,7 +318,7 @@ public class ExternalLibrariesMediator
           | GooglePlayServicesRepairableException | TimeoutException e)
       {
         LOGGER.e(TAG, "Failed to obtain advertising id: ", e);
-        CrashlyticsUtils.logException(e);
+        CrashlyticsUtils.INSTANCE.logException(e);
         return new AdvertisingInfo(null);
       }
     }
