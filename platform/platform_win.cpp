@@ -161,12 +161,6 @@ string Platform::DeviceModel() const
   return {};
 }
 
-void Platform::RunOnGuiThread(TFunctor const & fn)
-{
-  /// @todo
-  fn();
-}
-
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   // @TODO Add implementation

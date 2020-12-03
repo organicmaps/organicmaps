@@ -190,17 +190,17 @@ void GuidesManager::RequestGuides(bool suggestZoom)
     mercator::ClampPoint(p);
 
   auto const requestNumber = ++m_requestCounter;
-  auto const id = m_api.GetGuidesOnMap(
+  auto const pushResult = m_api.GetGuidesOnMap(
       corners, m_zoom, suggestZoom, kRequestingRectIncrease * 100,
       std::bind(&GuidesManager::OnRequestSucceed, this, _1, suggestZoom, requestNumber),
       std::bind(&GuidesManager::OnRequestError, this));
 
-  if (id != base::TaskLoop::kIncorrectId)
+  if (pushResult.m_id != base::TaskLoop::kIncorrectId)
   {
     if (m_previousRequestsId != base::TaskLoop::kIncorrectId)
       GetPlatform().CancelTask(Platform::Thread::Network, m_previousRequestsId);
 
-    m_previousRequestsId = id;
+    m_previousRequestsId = pushResult.m_id;
   }
 }
 
@@ -276,7 +276,7 @@ void GuidesManager::OnRequestError()
 
   ChangeState(GuidesState::NetworkError, true /* force */, !m_silentMode /* needNotify */);
 
-  m_retryAfterErrorRequestId =
+  auto const pushResult =
       GetPlatform().RunDelayedTask(Platform::Thread::Background, kErrorTimeout, [this]() {
         GetPlatform().RunTask(Platform::Thread::Gui, [this]() {
           if (m_state != GuidesState::NetworkError)
@@ -286,6 +286,8 @@ void GuidesManager::OnRequestError()
           RequestGuides();
         });
       });
+
+  m_retryAfterErrorRequestId = pushResult.m_id;
 }
 
 void GuidesManager::Clear()

@@ -217,11 +217,6 @@ void AndroidThreadDetachFromJVM()
   LOG(LWARNING, ("AndroidThreadDetachFromJVM() is not implemented."));
 }
 
-void Platform::RunOnGuiThread(TFunctor const & fn)
-{
-  LOG(LWARNING, ("Platform::RunOnGuiThread() is not implemented."));
-}
-
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   LOG(LWARNING, ("Platform::ConnectionStatus() is not implemented."));

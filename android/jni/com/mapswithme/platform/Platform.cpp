@@ -103,16 +103,6 @@ std::string Platform::DeviceModel() const
   return jni::ToNativeString(env, deviceModel);
 }
 
-void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
-{
-  android::Platform::Instance().RunOnGuiThread(std::move(task));
-}
-
-void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
-{
-  android::Platform::Instance().RunOnGuiThread(task);
-}
-
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   JNIEnv * env = jni::GetEnv();
@@ -156,11 +146,6 @@ uint8_t Platform::GetBatteryLevel()
       jni::GetStaticMethodID(env, clazzBatteryState, "getLevel", "()I");
 
   return static_cast<uint8_t>(env->CallStaticIntMethod(clazzBatteryState, getLevelMethodId));
-}
-
-void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
-{
-  android::Platform::Instance().SetGuiThread(move(guiThread));
 }
 
 namespace platform
@@ -308,11 +293,6 @@ void Platform::SendMarketingEvent(std::string const & tag,
   env->CallVoidMethod(m_functorProcessObject, m_sendAppsFlyerTagsMethod,
                       jni::TScopedLocalRef(env, jni::ToJavaString(env, tag)).get(),
                       jni::TScopedLocalObjectArrayRef(env, jni::ToKeyValueArray(env, params)).get());
-}
-
-void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
-{
-  m_guiThread = std::move(guiThread);
 }
 
 void Platform::AndroidSecureStorage::Init(JNIEnv * env)

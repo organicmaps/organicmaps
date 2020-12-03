@@ -13,9 +13,17 @@ public:
 
   static TaskId constexpr kIncorrectId = 0;
 
+  struct PushResult
+  {
+    // Contains true when task is posted successfully.
+    bool m_isSuccess = false;
+    // Contains id of posted task.
+    TaskId m_id = kIncorrectId;
+  };
+
   virtual ~TaskLoop() = default;
 
-  virtual TaskId Push(Task && task) = 0;
-  virtual TaskId Push(Task const & task) = 0;
+  virtual PushResult Push(Task && task) = 0;
+  virtual PushResult Push(Task const & task) = 0;
 };
 }  // namespace base

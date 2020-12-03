@@ -7,7 +7,7 @@ namespace platform
 class GuiThread : public base::TaskLoop
 {
 public:
-  TaskId Push(Task && task) override;
-  TaskId Push(Task const & task) override;
+  PushResult Push(Task && task) override;
+  PushResult Push(Task const & task) override;
 };
 }  // namespace platform

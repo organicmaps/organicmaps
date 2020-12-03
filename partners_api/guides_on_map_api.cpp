@@ -133,17 +133,18 @@ void Api::SetDelegate(std::unique_ptr<Delegate> delegate)
   m_delegate = std::move(delegate);
 }
 
-base::TaskLoop::TaskId Api::GetGuidesOnMap(m2::AnyRectD::Corners const & corners, uint8_t zoomLevel,
-                                           bool suggestZoom, uint8_t rectIncreasedPercent,
-                                           GuidesOnMapCallback const & onSuccess,
-                                           OnError const & onError) const
+base::TaskLoop::PushResult Api::GetGuidesOnMap(m2::AnyRectD::Corners const & corners,
+                                               uint8_t zoomLevel, bool suggestZoom,
+                                               uint8_t rectIncreasedPercent,
+                                               GuidesOnMapCallback const & onSuccess,
+                                               OnError const & onError) const
 {
   auto const url = MakeGalleryUrl(m_baseUrl, corners, zoomLevel, suggestZoom, rectIncreasedPercent,
                                   languages::GetCurrentNorm());
   if (url.empty())
   {
     onSuccess({});
-    return base::TaskLoop::kIncorrectId;
+    return {};
   }
 
   auto const headers = m_delegate->GetHeaders();

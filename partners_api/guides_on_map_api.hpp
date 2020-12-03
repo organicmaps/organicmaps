@@ -67,10 +67,11 @@ public:
 
   void SetDelegate(std::unique_ptr<Delegate> delegate);
 
-  base::TaskLoop::TaskId GetGuidesOnMap(m2::AnyRectD::Corners const & corners, uint8_t zoomLevel,
-                                        bool suggestZoom, uint8_t rectIncreasedPercent,
-                                        GuidesOnMapCallback const & onSuccess,
-                                        OnError const & onError) const;
+  base::TaskLoop::PushResult GetGuidesOnMap(m2::AnyRectD::Corners const & corners,
+                                            uint8_t zoomLevel, bool suggestZoom,
+                                            uint8_t rectIncreasedPercent,
+                                            GuidesOnMapCallback const & onSuccess,
+                                            OnError const & onError) const;
 
 private:
   std::unique_ptr<Delegate> m_delegate;

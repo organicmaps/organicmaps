@@ -179,18 +179,6 @@ std::string Platform::DeviceModel() const
   return deviceModel.UTF8String;
 }
 
-void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
-{
-  ASSERT(m_guiThread, ());
-  m_guiThread->Push(std::move(task));
-}
-
-void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
-{
-  ASSERT(m_guiThread, ());
-  m_guiThread->Push(task);
-}
-
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   struct sockaddr_in zero;
@@ -253,11 +241,6 @@ void Platform::SetupMeasurementSystem() const
       [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
   units = isMetric ? measurement_utils::Units::Metric : measurement_utils::Units::Imperial;
   settings::Set(settings::kMeasurementUnits, units);
-}
-
-void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
-{
-  m_guiThread = std::move(guiThread);
 }
 
 ////////////////////////////////////////////////////////////////////////

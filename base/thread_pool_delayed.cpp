@@ -35,28 +35,28 @@ ThreadPool::~ThreadPool()
   ShutdownAndJoin();
 }
 
-TaskLoop::TaskId ThreadPool::Push(Task && t)
+TaskLoop::PushResult ThreadPool::Push(Task && t)
 {
   return AddImmediate(move(t));
 }
 
-TaskLoop::TaskId ThreadPool::Push(Task const & t)
+TaskLoop::PushResult ThreadPool::Push(Task const & t)
 {
   return AddImmediate(t);
 }
 
-TaskLoop::TaskId ThreadPool::PushDelayed(Duration const & delay, Task && t)
+TaskLoop::PushResult ThreadPool::PushDelayed(Duration const & delay, Task && t)
 {
   return AddDelayed(delay, move(t));
 }
 
-TaskLoop::TaskId ThreadPool::PushDelayed(Duration const & delay, Task const & t)
+TaskLoop::PushResult ThreadPool::PushDelayed(Duration const & delay, Task const & t)
 {
   return AddDelayed(delay, t);
 }
 
 template <typename T>
-TaskLoop::TaskId ThreadPool::AddImmediate(T && task)
+TaskLoop::PushResult ThreadPool::AddImmediate(T && task)
 {
   return AddTask([&]() {
     auto const newId = MakeNextId(m_immediateLastId, kImmediateMinId, kImmediateMaxId);
@@ -67,7 +67,7 @@ TaskLoop::TaskId ThreadPool::AddImmediate(T && task)
 }
 
 template <typename T>
-TaskLoop::TaskId ThreadPool::AddDelayed(Duration const & delay, T && task)
+TaskLoop::PushResult ThreadPool::AddDelayed(Duration const & delay, T && task)
 {
   auto const when = Now() + delay;
   return AddTask([&]() {
@@ -79,15 +79,15 @@ TaskLoop::TaskId ThreadPool::AddDelayed(Duration const & delay, T && task)
 }
 
 template <typename Add>
-TaskLoop::TaskId ThreadPool::AddTask(Add && add)
+TaskLoop::PushResult ThreadPool::AddTask(Add && add)
 {
   lock_guard<mutex> lk(m_mu);
   if (m_shutdown)
-    return kIncorrectId;
+    return {};
 
   auto const newId = add();
   m_cv.notify_one();
-  return newId;
+  return {true, newId};
 }
 
 void ThreadPool::ProcessTasks()

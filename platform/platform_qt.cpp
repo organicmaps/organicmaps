@@ -88,20 +88,6 @@ void Platform::SetupMeasurementSystem() const
   settings::Set(settings::kMeasurementUnits, units);
 }
 
-#if defined(OMIM_OS_LINUX)
-void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
-{
-  ASSERT(m_guiThread, ());
-  m_guiThread->Push(std::move(task));
-}
-
-void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
-{
-  ASSERT(m_guiThread, ());
-  m_guiThread->Push(task);
-}
-#endif  // defined(OMIM_OS_LINUX)
-
 extern Platform & GetPlatform()
 {
   static Platform platform;

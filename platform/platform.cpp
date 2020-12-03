@@ -363,6 +363,11 @@ void Platform::RunThreads()
   m_backgroundThread = make_unique<base::thread_pool::delayed::ThreadPool>();
 }
 
+void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
+{
+  m_guiThread = std::move(guiThread);
+}
+
 void Platform::CancelTask(Thread thread, base::TaskLoop::TaskId id)
 {
   ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());

@@ -50,17 +50,13 @@ public:
   ~ThreadPool() override;
 
   // Pushes task to the end of the thread's queue of immediate tasks.
-  // Returns task id or |TaskLoop::kIncorrectId| when any error occurs
-  // or the thread is shut down.
   //
   // The task |t| is going to be executed after all immediate tasks
   // that were pushed pushed before it.
-  TaskId Push(Task && t) override;
-  TaskId Push(Task const & t) override;
+  PushResult Push(Task && t) override;
+  PushResult Push(Task const & t) override;
 
   // Pushes task to the thread's queue of delayed tasks.
-  // Returns task id or |TaskLoop::kIncorrectId| when any error occurs
-  // or the thread is shut down.
   //
   // The task |t| is going to be executed not earlier than after
   // |delay|.  No other guarantees about execution order are made.  In
@@ -73,8 +69,8 @@ public:
   //
   // NOTE: current implementation depends on the fact that
   // steady_clock is the same for different threads.
-  TaskId PushDelayed(Duration const & delay, Task && t);
-  TaskId PushDelayed(Duration const & delay, Task const & t);
+  PushResult PushDelayed(Duration const & delay, Task && t);
+  PushResult PushDelayed(Duration const & delay, Task const & t);
 
   // Cancels task if it is in queue and is not running yet.
   // Returns false when thread is shut down,
@@ -146,11 +142,11 @@ private:
   };
 
   template <typename T>
-  TaskId AddImmediate(T && task);
+  PushResult AddImmediate(T && task);
   template <typename T>
-  TaskId AddDelayed(Duration const & delay, T && task);
+  PushResult AddDelayed(Duration const & delay, T && task);
   template <typename Add>
-  TaskId AddTask(Add && add);
+  PushResult AddTask(Add && add);
 
   void ProcessTasks();
 

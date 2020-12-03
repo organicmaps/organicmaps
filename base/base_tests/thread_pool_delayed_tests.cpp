@@ -40,14 +40,25 @@ UNIT_TEST(ThreadPoolDelayed_SimpleSync)
   bool done = false;
 
   ThreadPool thread;
-  TEST_NOT_EQUAL(thread.Push([&value]() { ++value; }), ThreadPool::kIncorrectId,  ());
-  TEST_NOT_EQUAL(thread.Push([&value]() { value *= 2; }), ThreadPool::kIncorrectId, ());
-  TEST_NOT_EQUAL(thread.Push([&value]() { value = value * value * value; }), ThreadPool::kIncorrectId, ());
-  TEST_NOT_EQUAL(thread.Push([&]() {
+  auto pushResult = thread.Push([&value]() { ++value; });
+  TEST(pushResult.m_isSuccess, ());
+  TEST_NOT_EQUAL(pushResult.m_id, ThreadPool::kIncorrectId, ());
+
+  pushResult = thread.Push([&value]() { value *= 2; });
+  TEST(pushResult.m_isSuccess, ());
+  TEST_NOT_EQUAL(pushResult.m_id, ThreadPool::kIncorrectId, ());
+
+  pushResult = thread.Push([&value]() { value = value * value * value; });
+  TEST(pushResult.m_isSuccess, ());
+  TEST_NOT_EQUAL(pushResult.m_id, ThreadPool::kIncorrectId, ());
+
+  pushResult = thread.Push([&]() {
     lock_guard<mutex> lk(mu);
     done = true;
     cv.notify_one();
-  }), ThreadPool::kIncorrectId, ());
+  });
+  TEST(pushResult.m_isSuccess, ());
+  TEST_NOT_EQUAL(pushResult.m_id, ThreadPool::kIncorrectId, ());
 
   {
     unique_lock<mutex> lk(mu);
@@ -62,11 +73,17 @@ UNIT_TEST(ThreadPoolDelayed_SimpleFlush)
   int value = 0;
   {
     ThreadPool thread;
-    TEST_NOT_EQUAL(thread.Push([&value]() { ++value; }), ThreadPool::kIncorrectId, ());
-    TEST_NOT_EQUAL(thread.Push([&value]() {
+    auto pushResult = thread.Push([&value]() { ++value; });
+    TEST(pushResult.m_isSuccess, ());
+    TEST_NOT_EQUAL(pushResult.m_id, ThreadPool::kIncorrectId, ());
+
+    pushResult = thread.Push([&value]() {
       for (int i = 0; i < 10; ++i)
         value *= 2;
-    }), ThreadPool::kIncorrectId, ());
+    });
+    TEST(pushResult.m_isSuccess, ());
+    TEST_NOT_EQUAL(pushResult.m_id, ThreadPool::kIncorrectId, ());
+
     TEST(thread.Shutdown(ThreadPool::Exit::ExecPending), ());
   }
   TEST_EQUAL(value, 1024, ());
@@ -80,12 +97,15 @@ UNIT_TEST(ThreadPoolDelayed_PushFromPendingTask)
   auto f = p.get_future();
 
   ThreadPool thread;
-  auto const id = thread.Push([&f, &thread]() {
+  auto const pushResult = thread.Push([&f, &thread]() {
     f.get();
-    auto const id = thread.Push([]() { TEST(false, ("This task should not be executed")); });
-    TEST_EQUAL(id, ThreadPool::kIncorrectId, ());
+    auto const pushResult = thread.Push([]() { TEST(false, ("This task should not be executed")); });
+    TEST(!pushResult.m_isSuccess, ());
+    TEST_EQUAL(pushResult.m_id, ThreadPool::kIncorrectId, ());
   });
-  TEST_NOT_EQUAL(id, ThreadPool::kIncorrectId, ());
+  TEST(pushResult.m_isSuccess, ());
+  TEST_NOT_EQUAL(pushResult.m_id, ThreadPool::kIncorrectId, ());
+
   thread.Shutdown(ThreadPool::Exit::ExecPending);
   p.set_value();
 }
@@ -112,15 +132,19 @@ UNIT_TEST(ThreadPoolDelayed_DelayedAndImmediateTasks)
       auto & entry = delayedEntries[i];
       entry.m_start = thread.Now();
       entry.m_delay = milliseconds(i + 1);
-      auto const id = thread.PushDelayed(entry.m_delay, [&]() { entry.m_end = thread.Now(); });
-      TEST_NOT_EQUAL(id, ThreadPool::kIncorrectId, ());
+
+      auto const pushResult = thread.PushDelayed(entry.m_delay, [&]() { entry.m_end = thread.Now(); });
+      TEST(pushResult.m_isSuccess, ());
+      TEST_NOT_EQUAL(pushResult.m_id, ThreadPool::kIncorrectId, ());
     }
 
     for (int i = 0; i < kNumTasks; ++i)
     {
       auto & entry = immediateEntries[i];
-      auto const id = thread.Push([&]() { entry = thread.Now(); });
-      TEST_NOT_EQUAL(id, ThreadPool::kIncorrectId, ());
+      auto const pushResult = thread.Push([&]() { entry = thread.Now(); });
+
+      TEST(pushResult.m_isSuccess, ());
+      TEST_NOT_EQUAL(pushResult.m_id, ThreadPool::kIncorrectId, ());
     }
 
     thread.Shutdown(ThreadPool::Exit::ExecPending);
@@ -147,23 +171,26 @@ UNIT_TEST(ThreadPoolDelayed_CancelImmediate)
     TaskLoop::TaskId cancelTaskId;
     ThreadPool thread;
     {
-      auto const id = thread.Push([&value]() {
+      auto const pushResult = thread.Push([&value]() {
         ++value;
         testing::Wait();
       });
-      TEST_EQUAL(id, ThreadPool::kImmediateMinId, ());
+      TEST(pushResult.m_isSuccess, ());
+      TEST_EQUAL(pushResult.m_id, ThreadPool::kImmediateMinId, ());
     }
 
     {
-      cancelTaskId = thread.Push([&]() { value += 1023; });
+      auto const pushResult = thread.Push([&]() { value += 1023; });
+      TEST(pushResult.m_isSuccess, ());
+      TEST_EQUAL(pushResult.m_id, ThreadPool::kImmediateMinId + 1, ());
 
-      TEST_EQUAL(cancelTaskId, ThreadPool::kImmediateMinId + 1, ());
+      cancelTaskId = pushResult.m_id;
     }
 
     {
-      auto const id = thread.Push([&]() { ++value; });
-
-      TEST_EQUAL(id, ThreadPool::kImmediateMinId + 2, ());
+      auto const pushResult = thread.Push([&]() { ++value; });
+      TEST(pushResult.m_isSuccess, ());
+      TEST_EQUAL(pushResult.m_id, ThreadPool::kImmediateMinId + 2, ());
     }
 
     TEST(thread.Cancel(cancelTaskId), ());
@@ -184,23 +211,29 @@ UNIT_TEST(ThreadPoolDelayed_CancelDelayed)
     TaskLoop::TaskId cancelTaskId;
     ThreadPool thread;
     {
-      auto const id = thread.Push([]() { testing::Wait(); });
-      TEST_EQUAL(id, ThreadPool::kImmediateMinId, ());
+      auto const pushResult = thread.Push([]() { testing::Wait(); });
+      TEST(pushResult.m_isSuccess, ());
+      TEST_EQUAL(pushResult.m_id, ThreadPool::kImmediateMinId, ());
     }
 
     {
-      auto const delayedId = thread.PushDelayed(milliseconds(1), [&value]() { ++value; });
-      TEST_EQUAL(delayedId, ThreadPool::kDelayedMinId, ());
+      auto const pushResult = thread.PushDelayed(milliseconds(1), [&value]() { ++value; });
+      TEST(pushResult.m_isSuccess, ());
+      TEST_EQUAL(pushResult.m_id, ThreadPool::kDelayedMinId, ());
     }
 
     {
-      cancelTaskId = thread.PushDelayed(milliseconds(2), [&]() { value += 1023; });
-      TEST_EQUAL(cancelTaskId, ThreadPool::kDelayedMinId + 1, ());
+      auto const pushResult = thread.PushDelayed(milliseconds(2), [&]() { value += 1023; });
+      TEST(pushResult.m_isSuccess, ());
+      TEST_EQUAL(pushResult.m_id, ThreadPool::kDelayedMinId + 1, ());
+
+      cancelTaskId = pushResult.m_id;
     }
 
     {
-      auto const delayedId = thread.PushDelayed(milliseconds(3), [&value]() { ++value; });
-      TEST_EQUAL(delayedId, ThreadPool::kDelayedMinId + 2, ());
+      auto const pushResult = thread.PushDelayed(milliseconds(3), [&value]() { ++value; });
+      TEST(pushResult.m_isSuccess, ());
+      TEST_EQUAL(pushResult.m_id, ThreadPool::kDelayedMinId + 2, ());
     }
 
     TEST(thread.Cancel(cancelTaskId), ());

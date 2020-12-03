@@ -267,7 +267,3 @@ void Platform::SetupMeasurementSystem() const
   units = measurement_utils::Units::Metric;
   settings::Set(settings::kMeasurementUnits, units);
 }
-
-/// @see implementation of methods below in android/jni/com/.../Platform.cpp
-//  void RunOnGuiThread(base::TaskLoop::Task && task);
-//  void RunOnGuiThread(base::TaskLoop::Task const & task);

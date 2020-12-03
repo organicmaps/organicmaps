@@ -139,18 +139,6 @@ std::string Platform::DeviceModel() const
   return {};
 }
 
-void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
-{
-  ASSERT(m_guiThread, ());
-  m_guiThread->Push(std::move(task));
-}
-
-void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
-{
-  ASSERT(m_guiThread, ());
-  m_guiThread->Push(task);
-}
-
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   struct sockaddr_in zero;
@@ -182,9 +170,3 @@ uint8_t Platform::GetBatteryLevel()
   // This value is always 100 for desktop.
   return 100;
 }
-
-void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
-{
-  m_guiThread = std::move(guiThread);
-}
-

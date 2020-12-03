@@ -35,13 +35,6 @@ public:
 
   bool HasAvailableSpaceForWriting(uint64_t size) const;
 
-  template <typename Task>
-  void RunOnGuiThread(Task && task)
-  {
-    ASSERT(m_guiThread, ());
-    m_guiThread->Push(std::forward<Task>(task));
-  }
-
   void SendPushWooshTag(std::string const & tag, std::vector<std::string> const & values);
   void SendMarketingEvent(std::string const & tag, std::map<std::string, std::string> const & params);
 
@@ -71,8 +64,6 @@ private:
   jmethodID m_sendPushWooshTagsMethod = nullptr;
   jmethodID m_sendAppsFlyerTagsMethod = nullptr;
   AndroidSecureStorage m_secureStorage;
-
-  std::unique_ptr<base::TaskLoop> m_guiThread;
 };
 
 extern int GetAndroidSdkVersion();

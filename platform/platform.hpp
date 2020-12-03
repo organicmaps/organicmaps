@@ -315,20 +315,20 @@ public:
   /// \note |task| cannot be moved in case of |Thread::Gui|. This way unique_ptr cannot be used
   /// in |task|. Use shared_ptr instead.
   template <typename Task>
-  base::TaskLoop::TaskId RunTask(Thread thread, Task && task)
+  base::TaskLoop::PushResult RunTask(Thread thread, Task && task)
   {
     ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
     switch (thread)
     {
     case Thread::File: return m_fileThread->Push(std::forward<Task>(task));
     case Thread::Network: return m_networkThread->Push(std::forward<Task>(task));
-    case Thread::Gui: RunOnGuiThread(std::forward<Task>(task)); return base::TaskLoop::kIncorrectId;
+    case Thread::Gui: return m_guiThread->Push(std::forward<Task>(task));
     case Thread::Background: return m_backgroundThread->Push(std::forward<Task>(task));
     }
   }
 
   template <typename Task>
-  base::TaskLoop::TaskId RunDelayedTask(
+  base::TaskLoop::PushResult RunDelayedTask(
       Thread thread, base::thread_pool::delayed::ThreadPool::Duration const & delay, Task && task)
   {
     ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
@@ -338,7 +338,7 @@ public:
     case Thread::Network: return m_networkThread->PushDelayed(delay, std::forward<Task>(task));
     case Thread::Gui:
       CHECK(false, ("Delayed tasks for gui thread are not supported yet"));
-      return base::TaskLoop::kIncorrectId;
+      return {};
     case Thread::Background:
       return m_backgroundThread->PushDelayed(delay, std::forward<Task>(task));
     }
@@ -354,9 +354,6 @@ public:
 private:
   void RunThreads();
   void ShutdownThreads();
-
-  void RunOnGuiThread(base::TaskLoop::Task && task);
-  void RunOnGuiThread(base::TaskLoop::Task const & task);
 
   void GetSystemFontNames(FilesList & res) const;
 };
