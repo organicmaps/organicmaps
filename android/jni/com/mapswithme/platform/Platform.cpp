@@ -22,8 +22,11 @@ std::string Platform::UniqueClientId() const
 {
   JNIEnv * env = jni::GetEnv();
   static jmethodID const getInstallationId = jni::GetStaticMethodID(env, g_utilsClazz, "getInstallationId",
-                                                                    "()Ljava/lang/String;");
-  static jstring const installationId = (jstring)env->CallStaticObjectMethod(g_utilsClazz, getInstallationId);
+                                                                    "(Landroid/content/Context;)"
+                                                                    "Ljava/lang/String;");
+  jobject context = android::Platform::Instance().GetContext();
+  static jstring const installationId
+    = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz, getInstallationId, context));
   static std::string const result = jni::ToNativeString(env, installationId);
   return result;
 }
@@ -48,9 +51,13 @@ std::string Platform::MacAddress(bool md5Decoded) const
 {
   JNIEnv * env = jni::GetEnv();
   static jmethodID const getMacAddressMethod = jni::GetStaticMethodID(env, g_utilsClazz, "getMacAddress",
+                                                                      "(Landroid/content/Context;)"
                                                                       "(Z)Ljava/lang/String;");
-  jstring const macAddr = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz, getMacAddressMethod,
-                                                                           static_cast<jboolean>(md5Decoded)));
+  jobject context = android::Platform::Instance().GetContext();
+  auto const macAddr = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz,
+                                                                        getMacAddressMethod,
+                                                                        context,
+                                                                        static_cast<jboolean>(md5Decoded)));
   return jni::ToNativeString(env, macAddr);
 }
 
@@ -320,9 +327,12 @@ void Platform::AndroidSecureStorage::Save(std::string const & key, std::string c
   Init(env);
 
   static jmethodID const saveMethodId =
-    jni::GetStaticMethodID(env, m_secureStorageClass, "save", "(Ljava/lang/String;Ljava/lang/String;)V");
-
+    jni::GetStaticMethodID(env, m_secureStorageClass, "save",
+                           "(Landroid/content/Context;Ljava/lang/String;"
+                           "Ljava/lang/String;)V");
+  jobject context = android::Platform::Instance().GetContext();
   env->CallStaticVoidMethod(m_secureStorageClass, saveMethodId,
+                            context,
                             jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get(),
                             jni::TScopedLocalRef(env, jni::ToJavaString(env, value)).get());
 }
@@ -336,9 +346,12 @@ bool Platform::AndroidSecureStorage::Load(std::string const & key, std::string &
   Init(env);
 
   static jmethodID const loadMethodId =
-    jni::GetStaticMethodID(env, m_secureStorageClass, "load", "(Ljava/lang/String;)Ljava/lang/String;");
-
-  auto const resultString = static_cast<jstring>(env->CallStaticObjectMethod(m_secureStorageClass, loadMethodId,
+    jni::GetStaticMethodID(env, m_secureStorageClass, "load",
+                           "(Landroid/content/Context;Ljava/lang/String;)"
+                           "Ljava/lang/String;");
+  jobject context = android::Platform::Instance().GetContext();
+  auto const resultString = static_cast<jstring>(env->CallStaticObjectMethod(m_secureStorageClass,
+    loadMethodId, context,
     jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get()));
   if (resultString == nullptr)
     return false;
@@ -356,9 +369,10 @@ void Platform::AndroidSecureStorage::Remove(std::string const & key)
   Init(env);
 
   static jmethodID const removeMethodId =
-    jni::GetStaticMethodID(env, m_secureStorageClass, "remove", "(Ljava/lang/String;)V");
-
-  env->CallStaticVoidMethod(m_secureStorageClass, removeMethodId,
+    jni::GetStaticMethodID(env, m_secureStorageClass, "remove",
+                           "(Landroid/content/Context;Ljava/lang/String;)V");
+  jobject context = android::Platform::Instance().GetContext();
+  env->CallStaticVoidMethod(m_secureStorageClass, removeMethodId, context,
                             jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get());
 }
 

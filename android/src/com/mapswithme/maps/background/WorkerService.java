@@ -22,9 +22,6 @@ public class WorkerService extends JobIntentService
   private static final String ACTION_UPLOAD_OSM_CHANGES = "com.mapswithme.maps.action.upload_osm_changes";
   private static final String ACTION_UPLOAD_UGC = "com.mapswithme.maps.action.upload_ugc";
 
-  private final boolean mArePlatformAndCoreInitialized =
-      MwmApplication.get().arePlatformAndCoreInitialized();
-
   /**
    * Starts this service to upload map edits to osm servers.
    */
@@ -50,8 +47,9 @@ public class WorkerService extends JobIntentService
   @Override
   protected void onHandleWork(@NonNull Intent intent)
   {
+    final Context context = getApplicationContext();
     String msg = "onHandleIntent: " + intent + " app in background = "
-                 + !MwmApplication.backgroundTracker(getApplicationContext()).isForeground();
+                 + !MwmApplication.backgroundTracker(context).isForeground();
     LOGGER.i(TAG, msg);
     CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
     final String action = intent.getAction();
@@ -59,13 +57,13 @@ public class WorkerService extends JobIntentService
     if (TextUtils.isEmpty(action))
       return;
 
-    if (!mArePlatformAndCoreInitialized)
+    if (!MwmApplication.from(context).arePlatformAndCoreInitialized())
       return;
 
     switch (action)
     {
       case ACTION_UPLOAD_OSM_CHANGES:
-        handleActionUploadOsmChanges(getApplicationContext());
+        handleActionUploadOsmChanges(context);
         break;
 
       case ACTION_UPLOAD_UGC:

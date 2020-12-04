@@ -164,9 +164,9 @@ public class Utils
     return "[" + joined + "]";
   }
 
-  public static boolean isPackageInstalled(String packageUri)
+  public static boolean isPackageInstalled(@NonNull Context context, String packageUri)
   {
-    PackageManager pm = MwmApplication.get().getPackageManager();
+    PackageManager pm = context.getPackageManager();
     boolean installed;
     try
     {
@@ -380,11 +380,11 @@ public class Utils
                    }).show();
   }
 
-  public static String getInstallationId()
+  @NonNull
+  public static String getInstallationId(@NonNull Context context)
   {
-    final Context context = MwmApplication.get();
     final SharedPreferences sharedPrefs = context.getSharedPreferences(
-      org.alohalytics.Statistics.PREF_FILE, Context.MODE_PRIVATE);
+        org.alohalytics.Statistics.PREF_FILE, Context.MODE_PRIVATE);
     // "UNIQUE_ID" is the value of org.alohalytics.Statistics.PREF_UNIQUE_ID, but it private.
     String installationId = sharedPrefs.getString("UNIQUE_ID", null);
 
@@ -403,9 +403,8 @@ public class Utils
   }
 
   @NonNull
-  public static String getMacAddress(boolean md5Decoded)
+  public static String getMacAddress(@NonNull Context context,  boolean md5Decoded)
   {
-    final Context context = MwmApplication.get();
     byte[] macBytes = null;
     String address = "";
     try

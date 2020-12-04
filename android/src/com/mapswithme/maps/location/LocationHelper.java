@@ -48,9 +48,6 @@ public enum LocationHelper implements Initializable<Context>
   private Context mContext;
 
   @NonNull
-  private final TransitionListener mOnTransition = new TransitionListener();
-
-  @NonNull
   private final LocationListener mCoreLocationListener = new LocationListener()
   {
     @Override
@@ -163,7 +160,8 @@ public enum LocationHelper implements Initializable<Context>
     initProvider();
     LocationState.nativeSetListener(mMyPositionModeListener);
     LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
-    MwmApplication.backgroundTracker(context).addListener(mOnTransition);
+    TransitionListener transitionListener = new TransitionListener(mContext);
+    MwmApplication.backgroundTracker(context).addListener(transitionListener);
   }
 
   @Override

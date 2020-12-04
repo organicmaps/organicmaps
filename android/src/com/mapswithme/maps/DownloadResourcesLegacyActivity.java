@@ -1,6 +1,7 @@
 package com.mapswithme.maps;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
@@ -268,7 +269,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private void suggestRemoveLiteOrSamsung()
   {
-    if (Utils.isPackageInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isPackageInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE))
+    Context context = getApplicationContext();
+    if (Utils.isPackageInstalled(context, Constants.Package.MWM_LITE_PACKAGE) ||
+        Utils.isPackageInstalled(context, Constants.Package.MWM_SAMSUNG_PACKAGE))
       Toast.makeText(this, R.string.suggest_uninstall_lite, Toast.LENGTH_LONG).show();
   }
 
