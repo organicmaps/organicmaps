@@ -2,10 +2,8 @@ package com.mapswithme.maps.editor.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.IntRange;
-import android.text.format.DateFormat;
 
-import com.mapswithme.maps.MwmApplication;
+import androidx.annotation.IntRange;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,25 +14,27 @@ public class HoursMinutes implements Parcelable
 {
   public final long hours;
   public final long minutes;
+  private final boolean m24HourFormat;
 
-  public HoursMinutes(@IntRange(from = 0, to = 23) long hours, @IntRange(from = 0, to = 59) long minutes)
+  public HoursMinutes(@IntRange(from = 0, to = 23) long hours,
+                      @IntRange(from = 0, to = 59) long minutes, boolean is24HourFormat)
   {
     this.hours = hours;
     this.minutes = minutes;
+    m24HourFormat = is24HourFormat;
   }
 
   protected HoursMinutes(Parcel in)
   {
     hours = in.readLong();
     minutes = in.readLong();
+    m24HourFormat = in.readByte() != 0;
   }
-
-  private boolean is24HourFormat() { return DateFormat.is24HourFormat(MwmApplication.get()); }
 
   @Override
   public String toString()
   {
-    if (is24HourFormat())
+    if (m24HourFormat)
       return String.format(Locale.US, "%02d:%02d", hours, minutes);
 
     Calendar calendar = new GregorianCalendar();
@@ -57,6 +57,7 @@ public class HoursMinutes implements Parcelable
   {
     dest.writeLong(hours);
     dest.writeLong(minutes);
+    dest.writeByte((byte) (m24HourFormat ? 1 : 0));
   }
 
   public static final Creator<HoursMinutes> CREATOR = new Creator<HoursMinutes>()

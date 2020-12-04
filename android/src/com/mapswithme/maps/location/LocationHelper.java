@@ -178,7 +178,7 @@ public enum LocationHelper implements Initializable<Context>
     if (containsGoogleServices && googleServicesTurnedInSettings)
     {
       mLogger.d(TAG, "Use fused provider.");
-      mLocationProvider = new GoogleFusedLocationProvider(new FusedLocationFixChecker());
+      mLocationProvider = new GoogleFusedLocationProvider(new FusedLocationFixChecker(), mContext);
     }
     else
     {

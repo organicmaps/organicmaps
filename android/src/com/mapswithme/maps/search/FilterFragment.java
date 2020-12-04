@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.CustomNavigateUpListener;
@@ -23,6 +23,7 @@ import com.mapswithme.maps.widget.recycler.TagLayoutManager;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static com.mapswithme.maps.search.FilterUtils.combineFilters;
@@ -46,9 +47,6 @@ public class FilterFragment extends BaseMwmToolbarFragment
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private PriceFilterView mPrice;
-  @NonNull
-  private final Drawable mTagsDecorator
-      = ContextCompat.getDrawable(MwmApplication.get(), R.drawable.divider_transparent_half);
   @NonNull
   private final Set<HotelsFilter.HotelType> mHotelTypes = new HashSet<>();
   @Nullable
@@ -105,7 +103,9 @@ public class FilterFragment extends BaseMwmToolbarFragment
     RecyclerView type = content.findViewById(R.id.type);
     type.setLayoutManager(new TagLayoutManager());
     type.setNestedScrollingEnabled(false);
-    type.addItemDecoration(new TagItemDecoration(mTagsDecorator));
+    int tagsDecorator = R.drawable.divider_transparent_half;
+    Drawable drawable = ContextCompat.getDrawable(requireContext(), tagsDecorator);
+    type.addItemDecoration(new TagItemDecoration(Objects.requireNonNull(drawable)));
     mTypeAdapter = new HotelsTypeAdapter(this);
     type.setAdapter(mTypeAdapter);
     root.findViewById(R.id.done).setOnClickListener(v -> onFilterClicked());

@@ -6,12 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * FrameLayout which presses out the children which can not be fully fit by height.<br/>
@@ -30,7 +29,7 @@ public class HeightLimitedFrameLayout extends FrameLayout
   private void collectViews(View v)
   {
     if (mTag == null)
-      mTag = MwmApplication.get().getString(R.string.tag_height_limited);
+      mTag = v.getContext().getString(R.string.tag_height_limited);
 
     if (mTag.equals(v.getTag()))
     {

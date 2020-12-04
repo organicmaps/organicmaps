@@ -2,17 +2,17 @@ package com.mapswithme.maps.search;
 
 import android.content.Context;
 import android.content.res.Resources;
-import androidx.annotation.ColorRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.mapswithme.maps.MwmApplication;
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
@@ -27,9 +27,6 @@ class HotelsTypeAdapter extends RecyclerView.Adapter<HotelsTypeAdapter.HotelsTyp
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = HotelsTypeAdapter.class.getName();
 
-  @NonNull
-  private static final String SEARCH_HOTEL_FILTER = MwmApplication
-      .get().getString(R.string.search_hotel_filter);
   @NonNull
   private static final HotelsFilter.HotelType[] TYPES = SearchEngine.nativeGetHotelTypes();
 
@@ -126,7 +123,8 @@ class HotelsTypeAdapter extends RecyclerView.Adapter<HotelsTypeAdapter.HotelsTyp
       {
         Context context = mFrame.getContext();
         Resources resources = context.getResources();
-        return resources.getString(resources.getIdentifier(String.format(SEARCH_HOTEL_FILTER, tag),
+        String searchHotelFilter = resources.getString(R.string.search_hotel_filter);
+        return resources.getString(resources.getIdentifier(String.format(searchHotelFilter, tag),
                                                     "string",
                                                     context.getPackageName()));
       }

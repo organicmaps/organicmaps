@@ -3,7 +3,6 @@ package com.mapswithme.maps.editor;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import androidx.annotation.IntRange;
@@ -23,6 +22,7 @@ import android.widget.TimePicker;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.editor.data.HoursMinutes;
+import com.mapswithme.util.DateUtils;
 import com.mapswithme.util.ThemeUtils;
 
 public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
@@ -177,7 +177,9 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
 
   private void saveHoursMinutes()
   {
-    final HoursMinutes hoursMinutes = new HoursMinutes(mPicker.getCurrentHour(), mPicker.getCurrentMinute());
+    boolean is24HourFormat = DateUtils.is24HourFormat(requireContext());
+    final HoursMinutes hoursMinutes = new HoursMinutes(mPicker.getCurrentHour(),
+                                                       mPicker.getCurrentMinute(), is24HourFormat);
     if (mSelectedTab == TAB_FROM)
       mFrom = hoursMinutes;
     else

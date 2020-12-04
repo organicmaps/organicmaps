@@ -2,20 +2,20 @@ package com.mapswithme.maps.widget;
 
 import android.animation.Animator;
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
-import com.mapswithme.maps.MwmApplication;
+import androidx.annotation.IntegerRes;
+import androidx.annotation.NonNull;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 
 public class FadeView extends FrameLayout
 {
   private static final float FADE_ALPHA_VALUE = 0.4f;
-  private static final String PROPERTY_ALPHA = "alpha";
-  private static final int DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_fade_main);
+  @IntegerRes
+  private static final int DURATION_RES_ID = R.integer.anim_fade_main;
   
   private final Animator.AnimatorListener mFadeInListener = new UiUtils.SimpleAnimatorListener()
   {
@@ -70,7 +70,7 @@ public class FadeView extends FrameLayout
     setAlpha(0.0f);
     UiUtils.show(this);
     animate().alpha(FADE_ALPHA_VALUE)
-             .setDuration(DURATION)
+             .setDuration(getResources().getInteger(DURATION_RES_ID))
              .setListener(mFadeInListener)
              .start();
   }
@@ -79,7 +79,7 @@ public class FadeView extends FrameLayout
   {
     setAlpha(FADE_ALPHA_VALUE);
     animate().alpha(0.0f)
-             .setDuration(DURATION)
+             .setDuration(getResources().getInteger(DURATION_RES_ID))
              .setListener(mFadeOutListener)
              .start();
   }

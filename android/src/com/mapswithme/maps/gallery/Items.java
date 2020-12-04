@@ -1,16 +1,19 @@
 package com.mapswithme.maps.gallery;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import androidx.annotation.StringRes;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.search.SearchResult;
+import com.mapswithme.util.UiUtils;
 
 import static com.mapswithme.maps.gallery.Constants.TYPE_MORE;
 import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
@@ -27,7 +30,18 @@ public class Items
     private final String mCurrency;
     private final double mRating;
 
-    public LocalExpertItem(@Constants.ViewType int viewType, @NonNull String title,
+    public LocalExpertItem(@Constants.ViewType int viewType, @StringRes int titleId,
+                           @Nullable String url, @Nullable String photoUrl, double price,
+                           @NonNull String currency, double rating)
+    {
+      super(viewType, titleId, null, url);
+      mPhotoUrl = photoUrl;
+      mPrice = price;
+      mCurrency = currency;
+      mRating = rating;
+    }
+
+    public LocalExpertItem(@Constants.ViewType int viewType, @Nullable String title,
                            @Nullable String url, @Nullable String photoUrl, double price,
                            @NonNull String currency, double rating)
     {
@@ -66,7 +80,7 @@ public class Items
 
     public LocalExpertMoreItem(@Nullable String url)
     {
-      super(TYPE_MORE, MwmApplication.get().getString(R.string.placepage_more_button), url,
+      super(TYPE_MORE, R.string.placepage_more_button, url,
             null, 0, "", 0);
     }
   }
@@ -165,23 +179,35 @@ public class Items
 
   public static class Item implements Parcelable
   {
-    @NonNull
+    @StringRes
+    private final int mTitleId;
+    @Nullable
     private final String mTitle;
     @Nullable
     private final String mUrl;
     @Nullable
     private final String mSubtitle;
 
-    public Item(@NonNull String title, @Nullable String url,
+    public Item(@StringRes int titleId, @Nullable String url,
                 @Nullable String subtitle)
     {
-      mTitle = title;
+      mTitleId = titleId;
+      mTitle = null;
       mUrl = url;
       mSubtitle = subtitle;
     }
 
+    public Item(@Nullable String title, @Nullable String url,
+                @Nullable String subtitle)
+    {
+      mTitleId = UiUtils.NO_ID;
+      mTitle = title;
+      mUrl = url;
+      mSubtitle = subtitle;
+    }
     protected Item(Parcel in)
     {
+      mTitleId = in.readInt();
       mTitle = in.readString();
       mUrl = in.readString();
       mSubtitle = in.readString();
@@ -202,10 +228,13 @@ public class Items
       }
     };
 
-    @NonNull
-    public String getTitle()
+    @Nullable
+    public String getTitle(@NonNull Context context)
     {
-      return mTitle;
+      if(mTitle == null)
+        return context.getString(mTitleId);
+      else
+        return mTitle;
     }
 
     @Nullable
@@ -229,6 +258,7 @@ public class Items
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
+      dest.writeInt(mTitleId);
       dest.writeString(mTitle);
       dest.writeString(mUrl);
       dest.writeString(mSubtitle);

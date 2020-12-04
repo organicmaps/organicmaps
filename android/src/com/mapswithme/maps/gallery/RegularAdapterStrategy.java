@@ -2,6 +2,7 @@ package com.mapswithme.maps.gallery;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -78,7 +79,14 @@ public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.It
     @Constants.ViewType
     private final int mType;
 
-    public Item(@Constants.ViewType int type, @NonNull String title,
+    public Item(@Constants.ViewType int type, @StringRes int titleId,
+                @Nullable String subtitle, @Nullable String url)
+    {
+      super(titleId, url, subtitle);
+      mType = type;
+    }
+
+    public Item(@Constants.ViewType int type, @Nullable String title,
                 @Nullable String subtitle, @Nullable String url)
     {
       super(title, url, subtitle);

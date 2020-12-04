@@ -1,5 +1,6 @@
 package com.mapswithme.maps.location;
 
+import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -14,7 +15,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.mapswithme.maps.MwmApplication;
 
 class GoogleFusedLocationProvider extends BaseLocationProvider
                                implements GoogleApiClient.ConnectionCallbacks,
@@ -27,10 +27,11 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @NonNull
   private final BaseLocationListener mListener;
 
-  GoogleFusedLocationProvider(@NonNull LocationFixChecker locationFixChecker)
+  GoogleFusedLocationProvider(@NonNull LocationFixChecker locationFixChecker,
+                              @NonNull Context context)
   {
     super(locationFixChecker);
-    mGoogleApiClient = new GoogleApiClient.Builder(MwmApplication.get())
+    mGoogleApiClient = new GoogleApiClient.Builder(context)
                                           .addApi(LocationServices.API)
                                           .addConnectionCallbacks(this)
                                           .addOnConnectionFailedListener(this)

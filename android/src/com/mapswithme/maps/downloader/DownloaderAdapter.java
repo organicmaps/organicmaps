@@ -27,7 +27,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.location.LocationHelper;
@@ -668,9 +667,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     AdViewHolder(View frame)
     {
-      mIcon = (ImageView)frame.findViewById(R.id.downloader_ad_icon);
-      mTitle = (TextView)frame.findViewById(R.id.downloader_ad_title);
-      mSubtitle = (TextView)frame.findViewById(R.id.downloader_ad_subtitle);
+      mIcon = frame.findViewById(R.id.downloader_ad_icon);
+      mTitle = frame.findViewById(R.id.downloader_ad_title);
+      mSubtitle = frame.findViewById(R.id.downloader_ad_subtitle);
 
       frame.setOnClickListener(mClickListener);
     }
@@ -704,7 +703,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         if (ci.category != prev)
         {
           headerId = CountryItem.CATEGORY_NEAR_ME;
-          mHeaders.put(headerId, MwmApplication.get().getString(R.string.downloader_near_me_subtitle));
+          mHeaders.put(headerId, mActivity.getString(R.string.downloader_near_me_subtitle));
           prev = ci.category;
         }
 
@@ -715,7 +714,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         if (ci.category != prev)
         {
           headerId = CountryItem.CATEGORY_DOWNLOADED;
-          mHeaders.put(headerId, MwmApplication.get().getString(R.string.downloader_downloaded_subtitle));
+          mHeaders.put(headerId, mActivity.getString(R.string.downloader_downloaded_subtitle));
           prev = ci.category;
         }
         break;

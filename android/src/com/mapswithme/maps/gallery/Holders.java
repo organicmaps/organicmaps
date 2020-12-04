@@ -217,8 +217,9 @@ public class Holders
       super.bind(item);
 
       String featureType = item.getFeatureType();
-      String localizedType = Utils.getLocalizedFeatureType(mSubtitle.getContext(), featureType);
-      String title = TextUtils.isEmpty(item.getTitle()) ? localizedType : item.getTitle();
+      Context context = mSubtitle.getContext();
+      String localizedType = Utils.getLocalizedFeatureType(context, featureType);
+      String title = TextUtils.isEmpty(item.getTitle(context)) ? localizedType : item.getTitle(context);
 
       UiUtils.setTextAndHideIfEmpty(getTitle(), title);
       UiUtils.setTextAndHideIfEmpty(mSubtitle, localizedType);
@@ -256,8 +257,9 @@ public class Holders
     public void bind(@NonNull Items.SearchItem item)
     {
       String featureType = item.getFeatureType();
-      String localizedType = Utils.getLocalizedFeatureType(mSubtitle.getContext(), featureType);
-      String title = TextUtils.isEmpty(item.getTitle()) ? localizedType : item.getTitle();
+      Context context = mSubtitle.getContext();
+      String localizedType = Utils.getLocalizedFeatureType(context, featureType);
+      String title = TextUtils.isEmpty(item.getTitle(context)) ? localizedType : item.getTitle(context);
 
       UiUtils.setTextAndHideIfEmpty(mTitle, title);
       UiUtils.setTextAndHideIfEmpty(mSubtitle, formatDescription(item.getStars(),
@@ -314,7 +316,7 @@ public class Holders
 
     public void bind(@NonNull I item)
     {
-      mTitle.setText(item.getTitle());
+      mTitle.setText(item.getTitle(mTitle.getContext()));
     }
 
     @Override
