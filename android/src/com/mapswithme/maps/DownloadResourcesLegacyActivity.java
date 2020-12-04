@@ -59,7 +59,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   private static final int ERR_FILE_IN_PROGRESS = -6;
 
   private TextView mTvMessage;
-  private TextView mTvLocation;
   private ProgressBar mProgress;
   private Button mBtnDownload;
   private CheckBox mChbDownloadCountry;
@@ -129,29 +128,15 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
       int status = MapManager.nativeGetStatus(mCurrentCountry);
       String name = MapManager.nativeGetName(mCurrentCountry);
 
-      UiUtils.show(mTvLocation);
-
-      if (status == CountryItem.STATUS_DONE)
-        mTvLocation.setText(String.format(getString(R.string.download_location_map_up_to_date), name));
-      else
+      if (status != CountryItem.STATUS_DONE)
       {
         UiUtils.show(mChbDownloadCountry);
-
-        String locationText;
         String checkBoxText;
-
         if (status == CountryItem.STATUS_UPDATABLE)
-        {
-          locationText = getString(R.string.download_location_update_map_proposal);
           checkBoxText = String.format(getString(R.string.update_country_ask), name);
-        }
         else
-        {
-          locationText = getString(R.string.download_location_map_proposal);
           checkBoxText = String.format(getString(R.string.download_country_ask), name);
-        }
 
-        mTvLocation.setText(locationText);
         mChbDownloadCountry.setText(checkBoxText);
       }
 
@@ -281,7 +266,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   private void setDownloadMessage(int bytesToDownload)
   {
     mTvMessage.setText(getString(R.string.download_resources,
-                                 StringUtils.getFileSizeString(getApplicationContext(), bytesToDownload)));
+                                 StringUtils.getFileSizeString(this, bytesToDownload)));
   }
 
   private boolean prepareFilesDownload(boolean showMap)
@@ -315,7 +300,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     mProgress = findViewById(R.id.progressbar);
     mBtnDownload = findViewById(R.id.btn_download_resources);
     mChbDownloadCountry = findViewById(R.id.chb_download_country);
-    mTvLocation = findViewById(R.id.tv_location);
+
     mBtnListeners = new View.OnClickListener[BTN_COUNT];
     mBtnNames = new String[BTN_COUNT];
 
@@ -398,7 +383,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     }
   }
 
-  private static @StringRes int getErrorTitle(int res)
+  @StringRes
+  private static int getErrorTitle(int res)
   {
     switch (res)
     {
@@ -446,7 +432,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
       if (mCurrentCountry != null && mChbDownloadCountry.isChecked())
       {
         CountryItem item = CountryItem.fill(mCurrentCountry);
-        UiUtils.hide(mChbDownloadCountry, mTvLocation);
+        UiUtils.hide(mChbDownloadCountry);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
         mProgress.setMax((int)item.totalSize);
         mProgress.setProgress(0);
@@ -494,14 +480,15 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     return null;
   }
 
-  private void showErrorDialog(int result){
-      AlertDialog dialog = new AlertDialog.Builder()
-            .setTitleId(getErrorTitle(result))
-            .setMessageId(getErrorMessage(result))
-            .setPositiveBtnId(R.string.try_again)
-            .setReqCode(ERROR_LOADING_DIALOG_REQ_CODE)
-            .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
-            .build();
+  private void showErrorDialog(int result)
+  {
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(getErrorTitle(result))
+        .setMessageId(getErrorMessage(result))
+        .setPositiveBtnId(R.string.try_again)
+        .setReqCode(ERROR_LOADING_DIALOG_REQ_CODE)
+        .setFragManagerStrategyType(AlertDialog.FragManagerStrategyType.ACTIVITY_FRAGMENT_MANAGER)
+        .build();
     dialog.show(this, ERROR_LOADING_DIALOG_TAG);
   }
 
@@ -509,6 +496,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
     setAction(TRY_AGAIN);
+    onTryAgainClicked();
   }
 
   @Override
