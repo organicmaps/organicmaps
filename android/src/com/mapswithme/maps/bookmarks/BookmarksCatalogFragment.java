@@ -543,8 +543,10 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     @Override
     public void onAuthorizationRequired()
     {
-      mDelegate.authorize(() -> mFailedPurchaseController.validateExistingPurchases());
-      loadCatalog(mProductDetailsBundle);
+      mDelegate.authorize(() -> {
+        mFailedPurchaseController.validateExistingPurchases();
+        loadCatalog(mProductDetailsBundle);
+      });
     }
 
     @Override
