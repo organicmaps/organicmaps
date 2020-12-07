@@ -5,7 +5,6 @@
 #include "routing/async_router.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
-#include "routing/online_absent_fetcher.hpp"
 
 #include "geometry/point2d.hpp"
 

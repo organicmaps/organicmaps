@@ -7,8 +7,6 @@
 #include "map/features_fetcher.hpp"
 
 #include "routing/index_router.hpp"
-#include "routing/online_absent_fetcher.hpp"
-#include "routing/online_cross_fetcher.hpp"
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
 #include "routing/routing_callbacks.hpp"
