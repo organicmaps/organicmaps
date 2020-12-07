@@ -101,11 +101,11 @@ void NormalizeDigits(UniString & us);
 size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 
 void AsciiToLower(std::string & s);
-// TODO(AlexZ): current boost impl uses default std::locale() to trim.
+// TODO(AlexZ): current impl works as boost trim, that uses default std::locale() to trim.
 // In general, it does not work for any unicode whitespace except ASCII U+0020 one.
-void Trim(std::string & s);
+std::string & Trim(std::string & s);
 /// Remove any characters that contain in "anyOf" on left and right side of string s
-void Trim(std::string & s, char const * anyOf);
+std::string & Trim(std::string & s, char const * anyOf);
 
 // Replace the first match of the search substring in the input with the format string.
 // str - An input string
