@@ -1293,19 +1293,21 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void setPlaceDescription(@NonNull MapObject mapObject)
   {
-    if (TextUtils.isEmpty(mapObject.getDescription()))
+    boolean isBookmark = MapObject.isOfType(MapObject.BOOKMARK, mapObject);
+    if (TextUtils.isEmpty(mapObject.getDescription()) && !isBookmark)
     {
       UiUtils.hide(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
       return;
     }
 
     String authorId = null;
-    if (MapObject.isOfType(MapObject.BOOKMARK, mapObject))
+    if (isBookmark)
     {
       Bookmark bmk = (Bookmark) mapObject;
       if (!TextUtils.isEmpty(bmk.getBookmarkDescription()))
       {
-        UiUtils.hide(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
+        UiUtils.show(mPlaceDescriptionHeaderContainer);
+        UiUtils.hide(mPlaceDescriptionContainer, mPromoDivider);
         return;
       }
       authorId = bmk.getRelatedAuthorId();
