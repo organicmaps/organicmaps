@@ -1,13 +1,11 @@
 package com.mapswithme.util;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
-import androidx.annotation.Nullable;
-import com.mapswithme.maps.MwmApplication;
+import androidx.annotation.NonNull;
 
 import java.util.Locale;
 

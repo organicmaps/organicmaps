@@ -71,11 +71,13 @@ std::string Platform::GetMemoryInfo() const
   ASSERT(classMemLogging, ());
 
   jobject context = android::Platform::Instance().GetContext();
-  static jmethodID const getMemoryInfoId = jni::GetStaticMethodID(env,
-    static_cast<jclass>(*classMemLogging), "getMemoryInfo",
-    "(Landroid/content/Context;)Ljava/lang/String;");
-  jstring const memInfoString = (jstring)env->CallStaticObjectMethod(
-    static_cast<jclass>(*classMemLogging), getMemoryInfoId, context);
+  static jmethodID const getMemoryInfoId
+    = jni::GetStaticMethodID(env,
+                             static_cast<jclass>(*classMemLogging),
+                             "getMemoryInfo",
+                             "(Landroid/content/Context;)Ljava/lang/String;");
+  jstring const memInfoString = static_cast<jstring>(env->CallStaticObjectMethod(
+    static_cast<jclass>(*classMemLogging), getMemoryInfoId, context));
   ASSERT(memInfoString, ());
 
   return jni::ToNativeString(env, memInfoString);
