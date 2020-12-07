@@ -11,14 +11,15 @@ public:
   using Task = std::function<void()>;
   using TaskId = uint64_t;
 
-  static TaskId constexpr kIncorrectId = 0;
+  static TaskId constexpr kNoId = 0;
 
   struct PushResult
   {
     // Contains true when task is posted successfully.
     bool m_isSuccess = false;
-    // Contains id of posted task.
-    TaskId m_id = kIncorrectId;
+    // Contains id of posted task which can be used to access the task to cancel/suspend/etc it.
+    // kNoId is returned for tasks that cannot be accessed.
+    TaskId m_id = kNoId;
   };
 
   virtual ~TaskLoop() = default;

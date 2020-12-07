@@ -20,12 +20,12 @@ namespace platform
 base::TaskLoop::PushResult GuiThread::Push(Task && task)
 {
   dispatch_async_f(dispatch_get_main_queue(), new Task(std::move(task)), &PerformImpl);
-  return {true, TaskLoop::kIncorrectId};
+  return {true, TaskLoop::kNoId};
 }
 
 base::TaskLoop::PushResult GuiThread::Push(Task const & task)
 {
   dispatch_async_f(dispatch_get_main_queue(), new Task(task), &PerformImpl);
-  return {true, TaskLoop::kIncorrectId};
+  return {true, TaskLoop::kNoId};
 }
 }  // namespace platform

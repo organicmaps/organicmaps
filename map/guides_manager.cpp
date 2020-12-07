@@ -195,9 +195,9 @@ void GuidesManager::RequestGuides(bool suggestZoom)
       std::bind(&GuidesManager::OnRequestSucceed, this, _1, suggestZoom, requestNumber),
       std::bind(&GuidesManager::OnRequestError, this));
 
-  if (pushResult.m_id != base::TaskLoop::kIncorrectId)
+  if (pushResult.m_id != base::TaskLoop::kNoId)
   {
-    if (m_previousRequestsId != base::TaskLoop::kIncorrectId)
+    if (m_previousRequestsId != base::TaskLoop::kNoId)
       GetPlatform().CancelTask(Platform::Thread::Network, m_previousRequestsId);
 
     m_previousRequestsId = pushResult.m_id;
@@ -211,10 +211,10 @@ void GuidesManager::OnRequestSucceed(guides_on_map::GuidesOnMap const & guides, 
     return;
 
   m_errorRequestsCount = 0;
-  if (m_retryAfterErrorRequestId != base::TaskLoop::kIncorrectId)
+  if (m_retryAfterErrorRequestId != base::TaskLoop::kNoId)
   {
     GetPlatform().CancelTask(Platform::Thread::Background, m_retryAfterErrorRequestId);
-    m_retryAfterErrorRequestId = base::TaskLoop::kIncorrectId;
+    m_retryAfterErrorRequestId = base::TaskLoop::kNoId;
   }
 
   if (requestNumber != m_requestCounter)
@@ -259,7 +259,7 @@ void GuidesManager::OnRequestSucceed(guides_on_map::GuidesOnMap const & guides, 
 void GuidesManager::OnRequestError()
 {
   if (m_state == GuidesState::Disabled || m_state == GuidesState::FatalNetworkError ||
-      m_retryAfterErrorRequestId != base::TaskLoop::kIncorrectId)
+      m_retryAfterErrorRequestId != base::TaskLoop::kNoId)
   {
     return;
   }
@@ -282,7 +282,7 @@ void GuidesManager::OnRequestError()
           if (m_state != GuidesState::NetworkError)
             return;
 
-          m_retryAfterErrorRequestId = base::TaskLoop::kIncorrectId;
+          m_retryAfterErrorRequestId = base::TaskLoop::kNoId;
           RequestGuides();
         });
       });

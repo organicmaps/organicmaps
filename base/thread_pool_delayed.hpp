@@ -114,7 +114,7 @@ private:
     }
     bool operator>(DelayedTask const & rhs) const { return rhs < *this; }
 
-    TaskId m_id = kIncorrectId;
+    TaskId m_id = kNoId;
     TimePoint m_when = {};
     Task m_task = {};
   };

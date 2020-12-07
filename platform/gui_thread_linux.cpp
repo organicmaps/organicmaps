@@ -13,7 +13,7 @@ base::TaskLoop::PushResult GuiThread::Push(Task && task)
   QObject source;
   QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), std::move(task));
 
-  return {true, base::TaskLoop::kIncorrectId};
+  return {true, base::TaskLoop::kNoId};
 }
 
 base::TaskLoop::PushResult GuiThread::Push(Task const & task)
@@ -23,6 +23,6 @@ base::TaskLoop::PushResult GuiThread::Push(Task const & task)
   QObject source;
   QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), task);
 
-  return {true, base::TaskLoop::kIncorrectId};
+  return {true, base::TaskLoop::kNoId};
 }
 }  // namespace platform

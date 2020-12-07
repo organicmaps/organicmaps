@@ -147,8 +147,8 @@ private:
 
   uint64_t m_requestCounter = 0;
   uint8_t m_errorRequestsCount = 0;
-  base::TaskLoop::TaskId m_retryAfterErrorRequestId = base::TaskLoop::kIncorrectId;
-  base::TaskLoop::TaskId m_previousRequestsId = base::TaskLoop::kIncorrectId;
+  base::TaskLoop::TaskId m_retryAfterErrorRequestId = base::TaskLoop::kNoId;
+  base::TaskLoop::TaskId m_previousRequestsId = base::TaskLoop::kNoId;
 
   guides_on_map::Api m_api;
   guides_on_map::GuidesOnMap m_guides;

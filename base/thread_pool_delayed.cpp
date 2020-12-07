@@ -187,7 +187,7 @@ bool ThreadPool::Cancel(TaskId id)
 {
   lock_guard<mutex> lk(m_mu);
 
-  if (m_shutdown || id == kIncorrectId)
+  if (m_shutdown || id == kNoId)
     return false;
 
   if (id <= kImmediateMaxId)
