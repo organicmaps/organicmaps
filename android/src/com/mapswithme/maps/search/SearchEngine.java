@@ -1,5 +1,7 @@
 package com.mapswithme.maps.search;
 
+import android.content.Context;
+
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -145,17 +147,19 @@ public enum SearchEngine implements NativeSearchListener,
   private native void nativeInit();
 
   /**
+   *
+   * @param context
    * @param timestamp Search results are filtered according to it after multiple requests.
    * @return whether search was actually started.
    */
   @MainThread
-  public boolean search(String query, long timestamp, boolean hasLocation,
-                               double lat, double lon, @Nullable HotelsFilter hotelsFilter,
-                               @Nullable BookingFilterParams bookingParams)
+  public boolean search(@NonNull Context context, String query, long timestamp, boolean hasLocation,
+                        double lat, double lon, @Nullable HotelsFilter hotelsFilter,
+                        @Nullable BookingFilterParams bookingParams)
   {
     try
     {
-      return nativeRunSearch(query.getBytes("utf-8"), Language.getKeyboardLocale(),
+      return nativeRunSearch(query.getBytes("utf-8"), Language.getKeyboardLocale(context),
                              timestamp, hasLocation, lat, lon, hotelsFilter, bookingParams);
     } catch (UnsupportedEncodingException ignored) { }
 
@@ -175,18 +179,20 @@ public enum SearchEngine implements NativeSearchListener,
   }
 
   @MainThread
-  public void searchInteractive(@NonNull String query, long timestamp, boolean isMapAndTable,
-                                       @Nullable HotelsFilter hotelsFilter, @Nullable BookingFilterParams bookingParams)
+  public void searchInteractive(@NonNull Context context, @NonNull String query, long timestamp,
+                                boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter,
+                                @Nullable BookingFilterParams bookingParams)
   {
-    searchInteractive(query, Language.getKeyboardLocale(), timestamp, isMapAndTable, hotelsFilter, bookingParams);
+    searchInteractive(query, Language.getKeyboardLocale(context), timestamp, isMapAndTable, hotelsFilter, bookingParams);
   }
 
   @MainThread
-  public static void searchMaps(String query, long timestamp)
+  public static void searchMaps(@NonNull Context context, String query, long timestamp)
   {
     try
     {
-      nativeRunSearchMaps(query.getBytes("utf-8"), Language.getKeyboardLocale(), timestamp);
+      nativeRunSearchMaps(query.getBytes("utf-8"), Language.getKeyboardLocale(context),
+                          timestamp);
     } catch (UnsupportedEncodingException ignored) { }
   }
 

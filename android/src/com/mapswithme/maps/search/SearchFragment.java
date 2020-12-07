@@ -538,7 +538,7 @@ public class SearchFragment extends BaseMwmFragment
   void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
   {
     final String query = getQuery();
-    SearchRecents.add(query);
+    SearchRecents.add(query, requireContext());
     SearchEngine.INSTANCE.cancel();
 
     if (!RoutingController.get().isWaitingPoiPick())
@@ -556,7 +556,7 @@ public class SearchFragment extends BaseMwmFragment
     SearchEngine.INSTANCE.cancel();
 
     final String query = getQuery();
-    SearchRecents.add(query);
+    SearchRecents.add(query, requireContext());
     mLastQueryTimestamp = System.nanoTime();
 
     HotelsFilter hotelsFilter = null;
@@ -569,7 +569,7 @@ public class SearchFragment extends BaseMwmFragment
 
     SearchEngine.INSTANCE.searchInteractive(
         query, !TextUtils.isEmpty(mInitialLocale)
-               ? mInitialLocale : com.mapswithme.util.Language.getKeyboardLocale(),
+               ? mInitialLocale : com.mapswithme.util.Language.getKeyboardLocale(requireContext()),
         mLastQueryTimestamp, false /* isMapAndTable */,
         hotelsFilter, bookingFilterParams);
     SearchEngine.INSTANCE.setQuery(query);
@@ -621,12 +621,12 @@ public class SearchFragment extends BaseMwmFragment
     mLastQueryTimestamp = System.nanoTime();
     if (isTabletSearch())
     {
-      SearchEngine.INSTANCE.searchInteractive(getQuery(), mLastQueryTimestamp, true /* isMapAndTable */,
+      SearchEngine.INSTANCE.searchInteractive(requireContext(), getQuery(), mLastQueryTimestamp, true /* isMapAndTable */,
                                      hotelsFilter, bookingFilterParams);
     }
     else
     {
-      if (!SearchEngine.INSTANCE.search(getQuery(), mLastQueryTimestamp, mLastPosition.valid,
+      if (!SearchEngine.INSTANCE.search(requireContext(), getQuery(), mLastQueryTimestamp, mLastPosition.valid,
                                mLastPosition.lat, mLastPosition.lon,
                                hotelsFilter, bookingFilterParams))
       {

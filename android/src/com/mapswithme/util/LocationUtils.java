@@ -102,9 +102,9 @@ public class LocationUtils
 
   @SuppressLint("InlinedApi")
   @SuppressWarnings("deprecation")
-  public static boolean areLocationServicesTurnedOn()
+  public static boolean areLocationServicesTurnedOn(@NonNull Context context)
   {
-    final ContentResolver resolver = MwmApplication.get().getContentResolver();
+    final ContentResolver resolver = context.getContentResolver();
     try
     {
       return Settings.Secure.getInt(resolver, Settings.Secure.LOCATION_MODE)
@@ -116,9 +116,9 @@ public class LocationUtils
     }
   }
 
-  private static void logAvailableProviders()
+  private static void logAvailableProviders(@NonNull Context context)
   {
-    LocationManager locMngr = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
+    LocationManager locMngr = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     List<String> providers = locMngr.getProviders(true);
     StringBuilder sb;
     if (!providers.isEmpty())
@@ -134,20 +134,9 @@ public class LocationUtils
     LOGGER.i(TAG, sb.toString());
   }
 
-  /**
-   *
-   * Use {@link #checkProvidersAvailability(Application)} instead.
-   */
-  @SuppressWarnings("DeprecatedIsStillUsed")
-  @Deprecated
-  public static boolean checkProvidersAvailability()
+  public static boolean checkProvidersAvailability(@NonNull Context context)
   {
-    return checkProvidersAvailability(MwmApplication.get());
-  }
-
-  public static boolean checkProvidersAvailability(@NonNull Application application)
-  {
-    LocationManager locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
+    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     if (locationManager == null)
     {
       LOGGER.e(TAG, "This device doesn't support the location service.");
@@ -156,7 +145,7 @@ public class LocationUtils
 
     boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    LocationUtils.logAvailableProviders();
+    LocationUtils.logAvailableProviders(context);
     return networkEnabled || gpsEnabled;
   }
 }

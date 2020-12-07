@@ -738,7 +738,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // results are no longer needed.
     SearchEngine.INSTANCE.cancel();
 
-    SearchEngine.INSTANCE.searchInteractive(mSearchController.getQuery(), System.nanoTime(),
+    SearchEngine.INSTANCE.searchInteractive(this, mSearchController.getQuery(), System.nanoTime(),
                                             false /* isMapAndTable */,
                                             mFilterController != null ? mFilterController.getFilter() : null,
                                             mFilterController != null ? mFilterController.getBookingFilterParams() : null);
@@ -1745,7 +1745,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           return;
 
         request.setPointData(object.getLat(), object.getLon(), object.getTitle(), object.getApiId());
-        object.setSubtitle(request.getCallerName(MwmApplication.get()).toString());
+        object.setSubtitle(request.getCallerName(MwmApplication.from(this)).toString());
       }
     }
 

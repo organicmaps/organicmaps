@@ -296,7 +296,7 @@ class SearchWheel implements View.OnClickListener
   {
     mCurrentOption = searchOption;
     final String query = mFrame.getContext().getString(searchOption.mQueryId);
-    SearchEngine.INSTANCE.searchInteractive(query, System.nanoTime(), false /* isMapAndTable */,
+    SearchEngine.INSTANCE.searchInteractive(mFrame.getContext(), query, System.nanoTime(), false /* isMapAndTable */,
                                    null /* hotelsFilter */, null /* bookingParams */);
     refreshSearchButtonImage();
 

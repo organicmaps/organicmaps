@@ -75,7 +75,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   {
     mSearchRunning = true;
     mCurrentSearch = System.nanoTime();
-    SearchEngine.searchMaps(mToolbarController.getQuery(), mCurrentSearch);
+    SearchEngine.searchMaps(requireContext(), mToolbarController.getQuery(), mCurrentSearch);
     mToolbarController.showProgress(true);
     if (mAdapter != null)
       mAdapter.clearAdsAndCancelMyTarget();

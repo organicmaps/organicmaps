@@ -4,18 +4,20 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Debug;
 import android.os.Build;
+
+import androidx.annotation.NonNull;
 import com.mapswithme.maps.MwmApplication;
 
-
+@SuppressWarnings("unused")
 public class MemLogging
 {
-  public static String getMemoryInfo()
+  public static String getMemoryInfo(@NonNull Context context)
   {
     final Debug.MemoryInfo debugMI = new Debug.MemoryInfo();
     Debug.getMemoryInfo(debugMI);
     final ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
     final ActivityManager activityManager =
-            (ActivityManager) MwmApplication.get().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+            (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
     activityManager.getMemoryInfo(mi);
 
     StringBuilder log = new StringBuilder("Memory info: ");

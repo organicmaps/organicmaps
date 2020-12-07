@@ -70,8 +70,12 @@ std::string Platform::GetMemoryInfo() const
   static std::shared_ptr<jobject> classMemLogging = jni::make_global_ref(env->FindClass("com/mapswithme/util/log/MemLogging"));
   ASSERT(classMemLogging, ());
 
-  static jmethodID const getMemoryInfoId = jni::GetStaticMethodID(env, static_cast<jclass>(*classMemLogging), "getMemoryInfo", "()Ljava/lang/String;");
-  jstring const memInfoString = (jstring)env->CallStaticObjectMethod(static_cast<jclass>(*classMemLogging), getMemoryInfoId);
+  jobject context = android::Platform::Instance().GetContext();
+  static jmethodID const getMemoryInfoId = jni::GetStaticMethodID(env,
+    static_cast<jclass>(*classMemLogging), "getMemoryInfo",
+    "(Landroid/content/Context;)Ljava/lang/String;");
+  jstring const memInfoString = (jstring)env->CallStaticObjectMethod(
+    static_cast<jclass>(*classMemLogging), getMemoryInfoId, context);
   ASSERT(memInfoString, ());
 
   return jni::ToNativeString(env, memInfoString);

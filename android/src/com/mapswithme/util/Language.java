@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
+import androidx.annotation.Nullable;
 import com.mapswithme.maps.MwmApplication;
 
 import java.util.Locale;
@@ -35,9 +36,8 @@ public class Language
   // After some testing on Galaxy S4, looks like this method doesn't work on all devices:
   // sometime it always returns the same value as getDefaultLocale()
   @NonNull
-  public static String getKeyboardLocale()
+  public static String getKeyboardLocale(@NonNull Context context)
   {
-    Context context = MwmApplication.get();
     InputMethodManager imm = (InputMethodManager) context
         .getSystemService(Context.INPUT_METHOD_SERVICE);
     if (imm == null)

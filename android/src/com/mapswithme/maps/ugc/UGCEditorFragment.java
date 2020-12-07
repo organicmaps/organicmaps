@@ -191,7 +191,7 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
     modifiedRatings.toArray(ratings);
     UGCUpdate update = new UGCUpdate(ratings, mReviewEditText.getText().toString(),
                                      System.currentTimeMillis(), Language.getDefaultLocale(),
-                                     Language.getKeyboardLocale());
+                                     Language.getKeyboardLocale(requireContext()));
     FeatureId featureId = getArguments().getParcelable(ARG_FEATURE_ID);
     if (featureId == null)
     {

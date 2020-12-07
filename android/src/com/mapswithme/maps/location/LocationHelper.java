@@ -148,7 +148,7 @@ public enum LocationHelper implements Initializable<Context>
   private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener =
       () -> {
         stop();
-        if (LocationUtils.areLocationServicesTurnedOn())
+        if (LocationUtils.areLocationServicesTurnedOn(mContext))
           notifyLocationNotFound();
       };
 
@@ -469,7 +469,7 @@ public enum LocationHelper implements Initializable<Context>
 
     addListener(mCoreLocationListener, true);
 
-    if (!LocationUtils.checkProvidersAvailability())
+    if (!LocationUtils.checkProvidersAvailability(mContext))
     {
       // No need to notify about an error in first run mode
       if (!mInFirstRun)
