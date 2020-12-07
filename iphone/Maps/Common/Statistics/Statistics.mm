@@ -46,7 +46,6 @@ NSInteger convertToAlohalyticsChannel(StatisticsChannel cnannel) {
                              withAppVersion:[AppInfo sharedInfo].bundleVersion];
       [sessionBuilder withDataSaleOptOut:true];
       [Flurry startSession:@(FLURRY_KEY) withSessionBuilder:sessionBuilder];
-      [Flurry logAllPageViewsForTarget:application.windows.firstObject.rootViewController];
     }
 
     [Alohalytics setup:@[@(ALOHALYTICS_URL), [NSString stringWithFormat:@"%@/%@", @(ALOHALYTICS_URL), @"realtime"]]

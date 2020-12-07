@@ -24,6 +24,7 @@
  *
  *  @param consentStrings          NSDictionary* <NSString*,NSString*> => <consent sting format , consent string>.
  *
+ *  @note  The values for ConsentStrings should be of correct base64url-encoded representation.
  *  @note  ConsentStrings must be provided if "isGDPRScope" is set to YES for the consent information to be valid
  *
  */

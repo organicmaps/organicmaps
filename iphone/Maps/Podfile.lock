@@ -56,7 +56,7 @@ PODS:
     - GoogleUtilities/Environment (~> 6.6)
     - GoogleUtilities/UserDefaults (~> 6.6)
     - PromisesObjC (~> 1.2)
-  - Flurry-iOS-SDK/FlurrySDK (10.1.0)
+  - Flurry-iOS-SDK/FlurrySDK (11.1.0)
   - GoogleAppMeasurement (6.6.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -126,7 +126,7 @@ DEPENDENCIES:
   - FBSDKLoginKit (= 5.15.1)
   - Firebase/Analytics (= 6.26.0)
   - Firebase/Crashlytics (= 6.26.0)
-  - Flurry-iOS-SDK/FlurrySDK (= 10.1)
+  - Flurry-iOS-SDK/FlurrySDK (= 11.1)
   - MoPub-FacebookAudienceNetwork-Adapters (= 5.9.0)
   - mopub-ios-sdk (= 5.12)
   - Pushwoosh (= 5.16.0)
@@ -169,7 +169,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
   FirebaseCrashlytics: a87cce5746d3335995bd18b1b60d073cd05a6920
   FirebaseInstallations: 6f5f680e65dc374397a483c32d1799ba822a395b
-  Flurry-iOS-SDK: be6bfad47f3b3c15a38b5e396935ef74512f1c38
+  Flurry-iOS-SDK: 88c0399d6d276325dc9f74f6183c1070e6c3f21e
   GoogleAppMeasurement: 67458367830514fb20fd9e233496f1eef9d90185
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
@@ -180,6 +180,6 @@ SPEC CHECKSUMS:
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Pushwoosh: 6cba171e52f3f7b8ccd280f492a5831deac2f594
 
-PODFILE CHECKSUM: 8a9705a6477e83ec21530a12f6522770e57f6ca4
+PODFILE CHECKSUM: 6a5506aaa77abf026437e209f61e422241c8e153
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.9.3

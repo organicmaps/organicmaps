@@ -61,7 +61,7 @@ To use FlurrySDK for Apple Watch 2.x Extension:
 ```ruby
 target 'Your Apple Watch 2.x Extension Target' do 
   platform :watchos, '2.0'
-  pod 'Flurry-iOS-SDK/FlurrySDK'
+  pod 'Flurry-iOS-SDK/FlurryWatchOSSDK'
 end   
 ```
 

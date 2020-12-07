@@ -8,13 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #if !TARGET_OS_WATCH
-#import <StoreKit/StoreKit.h>
+@class SKPaymentTransaction;
 #endif
 #if TARGET_OS_TV
 @class JSContext;
 #endif
 
 #import "FlurrySessionBuilder.h"
+
+/*!
+ *  @brief Enum for payment transaction state
+ */
+typedef enum {
+    FlurryPaymentTransactionStatePurchasing = 0,
+    FlurryPaymentTransactionStateSuccess = 1,
+    FlurryPaymentTransactionStateFailure = 2,
+    FlurryPaymentTransactionStateRestored = 3,
+    FlurryPaymentTransactionStateDeferred = 4
+} FlurryPaymentTransactionState;
+
 
 typedef enum {
     FlurryEventFailed = 0,
@@ -810,10 +822,12 @@ typedef enum {
 + (void) logPaymentTransaction:(nonnull SKPaymentTransaction *)transaction
                 statusCallback:(nullable void(^)(FlurryTransactionRecordStatus))statusCallback;
 
+
 /*!
  *  @brief Records Apple store IAP transaction params and user defined transaction params manually.
  *  @since 10.0.0
  *
+ *  @deprecated since 11.0.0.
  *  @param transactionId a string Id for this IAP transaction
  *  @param productId a string Id for this IAP transaction product
  *  @param quantity a string representation of quantity of items purchased
@@ -834,7 +848,33 @@ typedef enum {
                                           productName:(nonnull NSString *)productName
                                      transactionState:(nonnull NSString *)transactionState
                                     userDefinedParams:(nullable NSDictionary*)transactionParams
-                                       statusCallback:(nullable void(^)(FlurryTransactionRecordStatus))statusCallback;
+                                       statusCallback:(nullable void(^)(FlurryTransactionRecordStatus))statusCallback __attribute__((deprecated("use +logFlurryPaymentTransactionParamsWithTransactionId:productId:quantity:price:currency:productName:transactionState:userDefinedParams:statusCallback:")));
+
+/*!
+ *  @brief Records Apple store IAP transaction params and user defined transaction params manually.
+ *  @since 11.0.0
+ *
+ *  @param transactionId a string Id for this IAP transaction
+ *  @param productId a string Id for this IAP transaction product
+ *  @param quantity an integer representation of quantity of items purchased
+ *  @param price a float representation of price of the item
+ *  @param currency a string representation of currency of the transaction
+ *  @param productName a string representation of product name
+ *  @param transactionState an enum to convert transaction state to integer: 0:Purchasing, 1:Success, 2:Failure, 3:Restored, 4:Deferred
+ *  @param transactionParams a dictionary of user defined transaction params to record
+ *  @param statusCallback a callback gettign called when the status of ID that is associated with the event
+ *
+ */
+
++ (void) logFlurryPaymentTransactionParamsWithTransactionId:(nonnull NSString *)transactionId
+                                                  productId:(nonnull NSString *)productId
+                                                   quantity:(nonnull NSUInteger*)quantity
+                                                      price:(nonnull NSDecimalNumber*)price
+                                                   currency:(nonnull NSString *)currency
+                                                productName:(nonnull NSString *)productName
+                                           transactionState:(FlurryPaymentTransactionState)transactionState
+                                          userDefinedParams:(nullable NSDictionary *)transactionParams
+                                             statusCallback:(nullable void(^)(FlurryTransactionRecordStatus))statusCallback;
 
 
 #pragma mark - Timed Event Logging
@@ -1111,89 +1151,6 @@ typedef enum {
  */
 + (void)leaveBreadcrumb:(nonnull NSString*)breadcrumb;
 //@}
-
-#pragma mark - Page view methods
-
-#if !TARGET_OS_TV
-/** @name Page View Methods
- *  Count page views. 
- */
-//@{
-
-/*!
- *  @brief Automatically track page views on a @c UINavigationController or @c UITabBarController.
- *  @since 4.3
- *
- *  @deprecated since 10.0.0.
- *  This method will be removed in a future version of the SDK.
- *
- *  This method increments the page view count for a session based on traversing a UINavigationController
- *  or UITabBarController. The page view count is only a counter for the number of transitions in your
- *  app. It does not associate a name with the page count. To associate a name with a count of occurences
- *  see #logEvent:.
- * 
- *  @note If you need to release passed target, you should call counterpart method + (void)stopLogPageViewsForTarget:(id)target before;
- *
- *  @see #logPageView for details on explictly incrementing page view count.
- *
- *  @code
- *  -(void) trackViewsFromTabBar:(UITabBarController*) tabBar
-    {
-        [Flurry logAllPageViewsForTarget:tabBar];
-    }
- *  @endcode
- * 
- *  @param target The navigation or tab bar controller.
- */
-+ (void)logAllPageViewsForTarget:(nullable id)target __attribute__ ((deprecated));
-
-/*!
- *  @brief Stops logging page views on previously observed with logAllPageViewsForTarget: @c UINavigationController or @c UITabBarController.
- *  @since 4.3
- *
- *  @deprecated since 10.0.0.
- *  This method will be removed in a future version of the SDK.
- * 
- *  Call this method before instance of @c UINavigationController or @c UITabBarController observed with logAllPageViewsForTarget: is released.
- *
- *  @code
- * -(void) dealloc
-    {
-        [Flurry stopLogPageViewsForTarget:_tabBarController];
-        [_tabBarController release];
-        [super dealloc];
-    }
- *  @endcode
- * 
- *  @param target The navigation or tab bar controller.
- */
-+ (void)stopLogPageViewsForTarget:(nullable id)target __attribute__ ((deprecated));
-
-/*!
- *  @brief Explicitly track a page view during a session.
- *  @since 2.7
- *
- *  @deprecated since 10.0.0.
- *  This method will be removed in a future version of the SDK.
- * 
- *  This method increments the page view count for a session when invoked. It does not associate a name
- *  with the page count. To associate a name with a count of occurences see #logEvent:.
- *
- *  @see #logAllPageViews for details on automatically incrementing page view count based on user
- *  traversing navigation or tab bar controller.
- *
- *  @code
- *  -(void) trackView 
-    {
-        [Flurry logPageView];
-    }
- *  @endcode
- *
- */
-+ (void)logPageView __attribute__ ((deprecated));
-
-//@}
-#endif
 
 #pragma mark - TVML JSContext
 
