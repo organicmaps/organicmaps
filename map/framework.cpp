@@ -25,7 +25,6 @@
 
 #include "routing/city_roads.hpp"
 #include "routing/index_router.hpp"
-#include "routing/online_absent_fetcher.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
 

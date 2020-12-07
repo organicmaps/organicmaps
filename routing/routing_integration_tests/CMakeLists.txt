@@ -23,7 +23,6 @@ set(
   cross_country_routing_tests.cpp
   get_altitude_test.cpp
   guides_tests.cpp
-  online_cross_tests.cpp
   pedestrian_route_test.cpp
   road_graph_tests.cpp
   roundabouts_tests.cpp

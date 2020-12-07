@@ -307,56 +307,6 @@ TestTurn GetNthTurn(routing::Route const & route, uint32_t turnNumber)
   return TestTurn(route.GetPoly().GetPoint(turn.m_index), turn.m_turn, turn.m_exitNum);
 }
 
-void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                       vector<string> const & expected, IRouterComponents & routerComponents)
-{
-  auto countryFileGetter = [&routerComponents](m2::PointD const & p) -> string
-  {
-    return routerComponents.GetCountryInfoGetter().GetRegionCountryId(p);
-  };
-  auto localFileChecker = [](string const & /* countryFile */) -> bool {
-    // Always returns that the file is absent.
-    return false;
-  };
-  routing::OnlineAbsentCountriesFetcher fetcher(countryFileGetter, localFileChecker);
-  fetcher.GenerateRequest(Checkpoints(mercator::FromLatLon(startPoint), mercator::FromLatLon(finalPoint)));
-  set<string> absent;
-  fetcher.GetAbsentCountries(absent);
-  if (expected.size() < 2)
-  {
-    // Single MWM case. Do not use online routing.
-    TEST(absent.empty(), ());
-    return;
-  }
-  TEST_EQUAL(absent.size(), expected.size(), ());
-  for (string const & name : expected)
-    TEST(find(absent.begin(), absent.end(), name) != absent.end(), ("Can't find", name));
-}
-
-void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                       vector<string> const & expected,
-                       IRouterComponents & routerComponents)
-{
-  TCountryFileFn const countryFileGetter = [&](m2::PointD const & p) {
-    return routerComponents.GetCountryInfoGetter().GetRegionCountryId(p);
-  };
-  routing::OnlineCrossFetcher fetcher(countryFileGetter, OSRM_ONLINE_SERVER_URL,
-                                      Checkpoints(mercator::FromLatLon(startPoint), mercator::FromLatLon(finalPoint)));
-  fetcher.Do();
-  vector<m2::PointD> const & points = fetcher.GetMwmPoints();
-  set<string> foundMwms;
-
-  for (m2::PointD const & point : points)
-  {
-    string const mwmName = routerComponents.GetCountryInfoGetter().GetRegionCountryId(point);
-    TEST(find(expected.begin(), expected.end(), mwmName) != expected.end(),
-         ("Can't find ", mwmName));
-    foundMwms.insert(mwmName);
-  }
-
-  TEST_EQUAL(expected.size(), foundMwms.size(), ());
-}
-
 bool IsSubwayExists(Route const & route)
 {
   auto const & routeSegments = route.GetRouteSegments();

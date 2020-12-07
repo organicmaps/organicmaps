@@ -99,10 +99,6 @@ set(
   mwm_hierarchy_handler.hpp
   nearest_edge_finder.cpp
   nearest_edge_finder.hpp
-  online_absent_fetcher.cpp
-  online_absent_fetcher.hpp
-  online_cross_fetcher.cpp
-  online_cross_fetcher.hpp
   opening_hours_serdes.cpp
   opening_hours_serdes.hpp
   pedestrian_directions.cpp

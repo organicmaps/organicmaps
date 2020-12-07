@@ -57,20 +57,6 @@ public:
   }
 };
 
-class DummyFetcher : public IOnlineFetcher
-{
-  set<string> m_absent;
-
-public:
-  explicit DummyFetcher(set<string> const & absent) : m_absent(absent) {}
-
-  // IOnlineFetcher overrides:
-  void GenerateRequest(Checkpoints const &) override {}
-  void GetAbsentCountries(set<string> & countries) override { countries = m_absent; }
-};
-
-void DummyStatisticsCallback(map<string, string> const &) {}
-
 struct DummyRoutingCallbacks
 {
   vector<RouterResultCode> m_codes;

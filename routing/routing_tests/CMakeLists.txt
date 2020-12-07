@@ -22,7 +22,6 @@ set(
   index_graph_tools.hpp
   maxspeeds_tests.cpp
   nearest_edge_finder_tests.cpp
-  online_cross_fetcher_test.cpp
   opening_hours_serdes_tests.cpp
   position_accumulator_tests.cpp
   restriction_test.cpp
