@@ -19,6 +19,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Objects;
@@ -98,11 +99,11 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
 
   private void openSharingOptionsScreen()
   {
-    UgcRouteSharingOptionsActivity.startForResult(getActivity(), mCategory);
+    UgcRouteSharingOptionsActivity.startForResult(requireActivity(), mCategory);
   }
 
   @Override
-  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+  public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater)
   {
     inflater.inflate(R.menu.menu_done, menu);
   }
@@ -113,7 +114,6 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     if (item.getItemId() == R.id.done)
     {
       onEditDoneClicked();
-      getActivity().finish();
       return true;
     }
     return super.onOptionsItemSelected(item);
@@ -130,21 +130,45 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
 
   private void onEditDoneClicked()
   {
+    final String newCategoryName = getEditableCategoryName();
+    if (!validateCategoryName(newCategoryName))
+      return;
+
     if (isCategoryNameChanged())
-      BookmarkManager.INSTANCE.setCategoryName(mCategory.getId(), getEditableCategoryName());
+      BookmarkManager.INSTANCE.setCategoryName(mCategory.getId(), newCategoryName);
 
     if (isCategoryDescChanged())
     {
       BookmarkManager.INSTANCE.setCategoryDescription(mCategory.getId(), getEditableCategoryDesc());
       Statistics.INSTANCE.trackCategoryDescChanged();
     }
+
     Statistics.INSTANCE.trackEditSettingsConfirm();
+    requireActivity().finish();
   }
 
   private boolean isCategoryNameChanged()
   {
     String categoryName = getEditableCategoryName();
     return !TextUtils.equals(categoryName, mCategory.getName());
+  }
+
+  private boolean validateCategoryName(@Nullable String name)
+  {
+    if (TextUtils.isEmpty(name))
+    {
+      DialogUtils.showAlertDialog(requireContext(), R.string.bookmarks_error_title_empty_list_name,
+                                  R.string.bookmarks_error_message_empty_list_name);
+      return false;
+    }
+
+    if (BookmarkManager.INSTANCE.isUsedCategoryName(name))
+    {
+      DialogUtils.showAlertDialog(requireContext(), R.string.bookmarks_error_title_list_name_already_taken,
+                                  R.string.bookmarks_error_message_list_name_already_taken);
+      return false;
+    }
+    return true;
   }
 
   @NonNull
