@@ -74,7 +74,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
       setIntent(initialIntent);
 
     if (!MwmApplication.from(this).arePlatformAndCoreInitialized()
-        || !PermissionsUtils.isExternalStorageGranted())
+        || !PermissionsUtils.isExternalStorageGranted(getApplicationContext()))
     {
       super.onCreate(savedInstanceState);
       goToSplashScreen(getIntent());
@@ -217,7 +217,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected void onResume()
   {
     super.onResume();
-    if (!PermissionsUtils.isExternalStorageGranted())
+    if (!PermissionsUtils.isExternalStorageGranted(getApplicationContext()))
     {
       goToSplashScreen(null);
       return;

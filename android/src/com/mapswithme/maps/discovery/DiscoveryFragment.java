@@ -244,7 +244,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     RecyclerView gallery = getGallery(R.id.attractions);
     GalleryAdapter adapter = Factory.createSearchBasedAdapter(results, listener, SEARCH_ATTRACTIONS,
                                                               DISCOVERY,
-                                                              new Items.MoreSearchItem());
+                                                              new Items.MoreSearchItem(requireContext()));
     gallery.setAdapter(adapter);
   }
 
@@ -258,7 +258,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
                                                                               ItemType.CAFES);
     RecyclerView gallery = getGallery(R.id.food);
     gallery.setAdapter(Factory.createSearchBasedAdapter(results, listener, SEARCH_RESTAURANTS,
-                                                        DISCOVERY, new Items.MoreSearchItem()));
+                                                        DISCOVERY,
+                                                        new Items.MoreSearchItem(requireContext())));
   }
 
   @Override
@@ -266,8 +267,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   {
     updateViewsVisibility(results, R.id.hotelsTitle, R.id.hotels);
     ItemSelectedListener<Items.SearchItem> listener = new HotelListener(this);
-    GalleryAdapter adapter = Factory.createHotelAdapter(results, listener, SEARCH_HOTELS,
-                                                        DISCOVERY);
+    GalleryAdapter adapter = Factory.createHotelAdapter(requireContext(), results, listener,
+                                                        SEARCH_HOTELS, DISCOVERY);
     RecyclerView gallery = getGallery(R.id.hotels);
     gallery.setAdapter(adapter);
   }

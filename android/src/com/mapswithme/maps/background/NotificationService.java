@@ -52,14 +52,14 @@ public class NotificationService extends JobIntentService
       return false;
     }
 
-    final long lastEventTimestamp = prefs(getApplicationContext())
+    final long lastEventTimestamp = prefs(this)
         .getLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, 0);
 
     if (System.currentTimeMillis() - lastEventTimestamp > MIN_AUTH_EVENT_DELTA_MILLIS)
     {
       LOGGER.d(TAG, "Authentication notification will be sent.");
 
-      prefs(getApplicationContext()).edit()
+      prefs(this).edit()
                                     .putLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, System.currentTimeMillis())
                                     .apply();
 
@@ -104,14 +104,14 @@ public class NotificationService extends JobIntentService
 
   private void tryToShowNotification()
   {
-    if (!PermissionsUtils.isExternalStorageGranted())
+    if (!PermissionsUtils.isExternalStorageGranted(this))
     {
       LOGGER.d(TAG, "Notification is rejected. External storage is not granted.");
       return;
     }
 
     // Do not show push when user is in the navigation mode.
-    if (MwmApplication.from(getApplicationContext()).arePlatformAndCoreInitialized()
+    if (MwmApplication.from(this).arePlatformAndCoreInitialized()
         && RoutingController.get().isNavigating())
     {
       LOGGER.d(TAG, "Notification is rejected. The user is in navigation mode.");

@@ -56,7 +56,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   private Logger mLogger;
   public final static String TAG = "MwmApplication";
 
-  private static MwmApplication sSelf;
   private AppBackgroundTracker mBackgroundTracker;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -114,16 +113,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public MwmApplication()
   {
     super();
-    sSelf = this;
-  }
-
-  /**
-   * Use the {@link #from(Context)} method instead.
-   */
-  @Deprecated
-  public static MwmApplication get()
-  {
-    return sSelf;
   }
 
   @NonNull
@@ -253,9 +242,9 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     if (SharedPropertiesUtils.shouldEmulateBadExternalStorage(this))
       return false;
 
-    return StorageUtils.createDirectory(settingsPath) &&
-           StorageUtils.createDirectory(filesPath) &&
-           StorageUtils.createDirectory(tempPath);
+    return StorageUtils.createDirectory(this, settingsPath) &&
+           StorageUtils.createDirectory(this, filesPath) &&
+           StorageUtils.createDirectory(this, tempPath);
   }
 
   private void initNativeFramework()

@@ -2,6 +2,8 @@ package com.mapswithme.maps.gallery.impl;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +19,11 @@ import java.util.List;
 
 public class HotelAdapterStrategy extends RegularAdapterStrategy<Items.SearchItem>
 {
-  HotelAdapterStrategy(@NonNull SearchResult[] results,
+  HotelAdapterStrategy(@NonNull Context context,
+                       @NonNull SearchResult[] results,
                        @Nullable ItemSelectedListener<Items.SearchItem> listener)
   {
-    this(SearchBasedAdapterStrategy.convertItems(results), new Items.MoreSearchItem(), listener);
+    this(SearchBasedAdapterStrategy.convertItems(results), new Items.MoreSearchItem(context), listener);
   }
 
   private HotelAdapterStrategy(@NonNull List<Items.SearchItem> items,

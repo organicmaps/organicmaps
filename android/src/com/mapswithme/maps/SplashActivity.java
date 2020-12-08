@@ -225,7 +225,7 @@ public class SplashActivity extends AppCompatActivity
     // If the user revoked the external storage permission while the app was killed
     // we can't update maps automatically during recovering process, so just dismiss updater fragment
     // and ask the user to grant the permission.
-    if (!PermissionsUtils.isExternalStorageGranted())
+    if (!PermissionsUtils.isExternalStorageGranted(this))
     {
       fm.beginTransaction().remove(updaterFragment).commitAllowingStateLoss();
       fm.executePendingTransactions();
@@ -303,7 +303,7 @@ public class SplashActivity extends AppCompatActivity
 
   private boolean processPermissionGranting()
   {
-    mPermissionsGranted = PermissionsUtils.isExternalStorageGranted();
+    mPermissionsGranted = PermissionsUtils.isExternalStorageGranted(this);
     DialogFragment storagePermissionsDialog = StoragePermissionsDialogFragment.find(this);
     DialogFragment permissionsDialog = PermissionsDialogFragment.find(this);
     if (!mPermissionsGranted)

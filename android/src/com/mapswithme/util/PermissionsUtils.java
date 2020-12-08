@@ -59,9 +59,9 @@ public final class PermissionsUtils
         || shouldShowRequestPermissionRationale(activity, ACCESS_FINE_LOCATION);
   }
 
-  public static boolean isExternalStorageGranted()
+  public static boolean isExternalStorageGranted(@NonNull Context context)
   {
-    return checkPermissions(MwmApplication.get()).isExternalStorageGranted();
+    return checkPermissions(context).isExternalStorageGranted();
   }
 
   @NonNull

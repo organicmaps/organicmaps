@@ -53,14 +53,15 @@ public class Factory
   }
 
   @NonNull
-  public static GalleryAdapter createHotelAdapter(@NonNull SearchResult[] results,
+  public static GalleryAdapter createHotelAdapter(@NonNull Context context,
+                                                  @NonNull SearchResult[] results,
                                                   @Nullable ItemSelectedListener<Items
                                                       .SearchItem> listener,
                                                   @NonNull GalleryType type,
                                                   @NonNull GalleryPlacement placement)
   {
     trackProductGalleryShownOrError(results, type, OFFLINE, placement);
-    return new GalleryAdapter<>(new HotelAdapterStrategy(results, listener));
+    return new GalleryAdapter<>(new HotelAdapterStrategy(context, results, listener));
   }
 
   @NonNull

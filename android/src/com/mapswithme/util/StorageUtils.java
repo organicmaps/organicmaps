@@ -161,12 +161,12 @@ public class StorageUtils
     return storagePath.concat(String.format(Constants.OBB_PATH, BuildConfig.APPLICATION_ID));
   }
 
-  public static boolean createDirectory(@NonNull String path)
+  public static boolean createDirectory(@NonNull Context context, @NonNull String path)
   {
     File directory = new File(path);
     if (!directory.exists() && !directory.mkdirs())
     {
-      boolean isPermissionGranted = PermissionsUtils.isExternalStorageGranted();
+      boolean isPermissionGranted = PermissionsUtils.isExternalStorageGranted(context);
       Throwable error = new IllegalStateException("Can't create directories for: " + path
                                                   + " state = " + Environment.getExternalStorageState()
                                                   + " isPermissionGranted = " + isPermissionGranted);

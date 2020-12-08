@@ -171,9 +171,9 @@ public class Items
 
   public static class MoreSearchItem extends SearchItem
   {
-    public MoreSearchItem()
+    public MoreSearchItem(@NonNull Context context)
     {
-      super(MwmApplication.get().getString(R.string.placepage_more_button));
+      super(context.getString(R.string.placepage_more_button));
     }
   }
 
