@@ -47,7 +47,9 @@ SourceReader::SourceReader(istringstream & stream)
 uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 {
   m_file->read(buffer, bufferSize);
-  return m_file->gcount();
+  auto const gcount = static_cast<uint64_t>(m_file->gcount());
+  m_pos += gcount;
+  return gcount;
 }
 
 // Functions ---------------------------------------------------------------------------------------
