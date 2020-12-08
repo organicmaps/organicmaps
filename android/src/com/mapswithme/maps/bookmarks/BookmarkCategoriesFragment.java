@@ -12,11 +12,13 @@ import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.widget.BookmarkBackupView;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.sharing.SharingHelper;
 
 public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
-    implements TargetFragmentCallback, AuthCompleteListener
+    implements TargetFragmentCallback, AuthCompleteListener, BookmarkManager.BookmarksSharingListener
 {
   @Nullable
   private BookmarkBackupController mBackupController;
@@ -27,15 +29,21 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
     Authorizer authorizer = new Authorizer(this);
     BookmarkBackupView backupView = view.findViewById(R.id.backup);
 
-
     mBackupController = new BookmarkBackupController(requireActivity(), backupView, authorizer,
                                                      this);
+  }
+
+  @Override
+  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
+  {
+    SharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), result);
   }
 
   @Override
   public void onStart()
   {
     super.onStart();
+    BookmarkManager.INSTANCE.addSharingListener(this);
     if (mBackupController != null)
       mBackupController.onStart();
   }
@@ -52,6 +60,7 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
   public void onStop()
   {
     super.onStop();
+    BookmarkManager.INSTANCE.removeSharingListener(this);
     if (mBackupController != null)
       mBackupController.onStop();
   }

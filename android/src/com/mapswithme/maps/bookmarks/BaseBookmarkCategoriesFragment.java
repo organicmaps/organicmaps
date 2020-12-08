@@ -40,7 +40,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     implements EditTextDialogFragment.EditTextDialogInterface,
                MenuItem.OnMenuItemClickListener,
                BookmarkManager.BookmarksLoadingListener,
-               BookmarkManager.BookmarksSharingListener,
                CategoryListCallback,
                KmlImportController.ImportKmlCallback,
                OnItemClickListener<BookmarkCategory>,
@@ -125,7 +124,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   {
     super.onStart();
     BookmarkManager.INSTANCE.addLoadingListener(this);
-    BookmarkManager.INSTANCE.addSharingListener(this);
     BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
   }
 
@@ -134,7 +132,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   {
     super.onStop();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
-    BookmarkManager.INSTANCE.removeSharingListener(this);
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
   }
 
@@ -230,12 +227,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   public void onBookmarksFileLoaded(boolean success)
   {
     // Do nothing here.
-  }
-
-  @Override
-  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
-  {
-    SharingHelper.INSTANCE.onPreparedFileForSharing(getActivity(), result);
   }
 
   @Override
