@@ -123,7 +123,10 @@ void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *
   ProcessorOsmElementsFromXml processorOsmElementsFromXml(stream);
   OsmElement element;
   while (processorOsmElementsFromXml.TryRead(element))
+  {
     processor(&element);
+    element.Clear();
+  }
 }
 
 void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateDataWriter & cache,
@@ -144,7 +147,10 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
   ProcessorOsmElementsFromO5M processorOsmElementsFromO5M(stream);
   OsmElement element;
   while (processorOsmElementsFromO5M.TryRead(element))
+  {
     processor(&element);
+    element.Clear();
+  }
 }
 
 ProcessorOsmElementsFromO5M::ProcessorOsmElementsFromO5M(SourceReader & stream)
@@ -171,8 +177,6 @@ bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
     default: return OsmElement::EntityType::Unknown;
     }
   };
-
-  element = {};
 
   // Be careful, we could call Nodes(), Members(), Tags() from O5MSource::Entity
   // only once (!). Because these functions read data from file simultaneously with

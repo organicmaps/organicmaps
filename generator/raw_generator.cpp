@@ -183,8 +183,11 @@ bool RawGenerator::GenerateFilteredFeatures()
     if (++element_pos != m_chunkSize)
       continue;
 
-    translators.Emit(std::move(elements));
-    elements = std::vector<OsmElement>(m_chunkSize);
+    translators.Emit(elements);
+    
+    for (auto & e : elements)
+      e.Clear();
+
     element_pos = 0;
   }
   elements.resize(element_pos);
