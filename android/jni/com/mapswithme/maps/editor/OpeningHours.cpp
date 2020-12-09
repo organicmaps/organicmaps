@@ -1,16 +1,17 @@
 #include <jni.h>
 
 #include "com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
 
 #include "editor/opening_hours_ui.hpp"
+
 #include "editor/ui2oh.hpp"
 
 #include "base/logging.hpp"
-
 #include <algorithm>
 #include <set>
-#include <vector>
 
+#include <vector>
 #include "3party/opening_hours/opening_hours.hpp"
 
 namespace
@@ -41,7 +42,22 @@ jfieldID g_fidWeekdays;
 
 jobject JavaHoursMinutes(JNIEnv * env, jlong hours, jlong minutes)
 {
-  jobject const hoursMinutes = env->NewObject(g_clazzHoursMinutes, g_ctorHoursMinutes, hours, minutes);
+  static const jclass dateUtilsClass = jni::GetGlobalClassRef(env,
+                                                              "com/mapswithme/util/DateUtils");
+  static jmethodID const is24HourFormatMethod =
+    jni::GetStaticMethodID(env,
+                           dateUtilsClass,
+                           "is24HourFormat",
+                           "(Landroid/content/Context;)Z");
+  jobject context = android::Platform::Instance().GetContext();
+  jboolean const is24HourFormat = env->CallStaticBooleanMethod(dateUtilsClass,
+                                                               is24HourFormatMethod,
+                                                               context);
+  jobject const hoursMinutes = env->NewObject(g_clazzHoursMinutes,
+                                              g_ctorHoursMinutes,
+                                              hours,
+                                              minutes,
+                                              is24HourFormat);
   ASSERT(hoursMinutes, (jni::DescribeException()));
   return hoursMinutes;
 }
@@ -170,7 +186,7 @@ Java_com_mapswithme_maps_editor_OpeningHours_nativeInit(JNIEnv * env, jclass cla
 {
   g_clazzHoursMinutes = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/HoursMinutes");
   // Java signature : HoursMinutes(@IntRange(from = 0, to = 24) long hours, @IntRange(from = 0, to = 60) long minutes)
-  g_ctorHoursMinutes = env->GetMethodID(g_clazzHoursMinutes, "<init>", "(JJ)V");
+  g_ctorHoursMinutes = env->GetMethodID(g_clazzHoursMinutes, "<init>", "(JJZ)V");
   ASSERT(g_ctorHoursMinutes, (jni::DescribeException()));
   g_fidHours = env->GetFieldID(g_clazzHoursMinutes, "hours", "J");
   ASSERT(g_fidHours, (jni::DescribeException()));
