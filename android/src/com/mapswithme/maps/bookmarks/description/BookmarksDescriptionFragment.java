@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks.description;
 
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,8 @@ public class BookmarksDescriptionFragment extends BaseMwmFragment
     TextView btnDescription = view.findViewById(R.id.btn_description);
     UiUtils.hide(btnDescription);
     WebView webView = view.findViewById(R.id.webview);
-    webView.loadData(mBookmarkCategory.getDescription(), Utils.TEXT_HTML, Utils.UTF_8);
+    String base64version = Base64.encodeToString(mBookmarkCategory.getDescription().getBytes(),
+                                                 Base64.DEFAULT);
+    webView.loadData(base64version, Utils.TEXT_HTML, Utils.BASE_64);
   }
 }

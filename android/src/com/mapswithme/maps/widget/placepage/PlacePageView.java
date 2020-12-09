@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -1621,7 +1622,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     if (StringUtils.nativeIsHtml(notes))
     {
-      mWvBookmarkNote.loadData(notes, "text/html; charset=utf-8", null);
+      String base64version = Base64.encodeToString(notes.getBytes(), Base64.DEFAULT);
+      mWvBookmarkNote.loadData(base64version, Utils.TEXT_HTML, Utils.BASE_64);
       UiUtils.show(mWvBookmarkNote);
       UiUtils.hide(mTvBookmarkNote);
     }
