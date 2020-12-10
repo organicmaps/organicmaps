@@ -99,9 +99,9 @@ UNIT_TEST(ThreadPoolDelayed_PushFromPendingTask)
   ThreadPool thread;
   auto const pushResult = thread.Push([&f, &thread]() {
     f.get();
-    auto const pushResult = thread.Push([]() { TEST(false, ("This task should not be executed")); });
-    TEST(!pushResult.m_isSuccess, ());
-    TEST_EQUAL(pushResult.m_id, ThreadPool::kNoId, ());
+    auto const innerPushResult = thread.Push([]() { TEST(false, ("This task should not be executed")); });
+    TEST(!innerPushResult.m_isSuccess, ());
+    TEST_EQUAL(innerPushResult.m_id, ThreadPool::kNoId, ());
   });
   TEST(pushResult.m_isSuccess, ());
   TEST_NOT_EQUAL(pushResult.m_id, ThreadPool::kNoId, ());
