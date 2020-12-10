@@ -13,6 +13,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.auth.AuthorizationListener;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.base.Detachable;
@@ -46,6 +47,8 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   @Nullable
   private Runnable mAuthCompletionRunnable;
 
+  @Nullable
+  private final AuthorizationListener mAuthorizationListener;
   @NonNull
   private final ExpiredCategoriesListener mExpiredCategoriesListener;
   @NonNull
@@ -53,14 +56,17 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
 
   BookmarksDownloadFragmentDelegate(@NonNull Fragment fragment)
   {
-    this(fragment, AuthBundleFactory.guideCatalogue());
+    this(fragment, AuthBundleFactory.guideCatalogue(), null);
   }
 
-  BookmarksDownloadFragmentDelegate(@NonNull Fragment fragment, @NonNull Bundle bundle)
+  BookmarksDownloadFragmentDelegate(@NonNull Fragment fragment,
+                                    @NonNull Bundle bundle,
+                                    @Nullable AuthorizationListener authorizationListener)
   {
     mFragment = fragment;
     mExpiredCategoriesListener = new ExpiredCategoriesListener(fragment);
     mBundle = bundle;
+    mAuthorizationListener = authorizationListener;
   }
 
   void onCreate(@Nullable Bundle savedInstanceState)
@@ -185,7 +191,11 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   @Override
   public void onAuthorizationRequired()
   {
-    authorize(this::retryBookmarkDownload);
+    authorize(() -> {
+      if (mAuthorizationListener != null)
+        mAuthorizationListener.onAuthorized(true);
+      retryBookmarkDownload();
+    });
   }
 
   @Override

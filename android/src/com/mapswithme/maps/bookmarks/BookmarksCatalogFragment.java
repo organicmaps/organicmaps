@@ -30,6 +30,7 @@ import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.auth.AuthorizationListener;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -106,13 +107,21 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   @Nullable
   private String mProductDetailsBundle;
 
+  @NonNull
+  private final AuthorizationListener mAuthorizationListener = success -> {
+    if (!success)
+      return;
+
+    loadCatalog(mProductDetailsBundle);
+  };
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     Bundle extra = requireActivity().getIntent()
                                     .getBundleExtra(BookmarksCatalogActivity.EXTRA_ARGS);
-    mDelegate = new BookmarksDownloadFragmentDelegate(this, extra);
+    mDelegate = new BookmarksDownloadFragmentDelegate(this, extra, mAuthorizationListener);
     mDelegate.onCreate(savedInstanceState);
     mInvalidSubsDialogCallback = new InvalidSubscriptionAlertDialogCallback(this);
   }
