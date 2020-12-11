@@ -52,7 +52,7 @@ RoadsFromOsm GetRoadsFromOsm(generator::SourceReader & reader,
 
 // Fills |graph| with new segments starting from |curSegmentId|. Segments are calculated from the
 // road consisting of |nodeIds| from OSM.
-void FillCrossBorderGraph(CrossBorderGraph & graph, RegionSegmentId & curSegmentId,
+bool FillCrossBorderGraph(CrossBorderGraph & graph, RegionSegmentId & curSegmentId,
                           std::vector<uint64_t> const & nodeIds,
                           std::unordered_map<uint64_t, ms::LatLon> const & nodes,
                           feature::CountriesFilesAffiliation const & mwmMatcher,

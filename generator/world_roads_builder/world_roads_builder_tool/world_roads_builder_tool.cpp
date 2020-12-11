@@ -80,10 +80,11 @@ int main(int argc, char ** argv)
       if (wayData.m_regions.size() == 1)
         continue;
 
-      FillCrossBorderGraph(graph, curSegmentId, wayData.m_way.Nodes(), roadsFromOsm.m_nodes,
-                           mwmMatcher, regionsToIds);
+      bool const foundSegments =
+          FillCrossBorderGraph(graph, curSegmentId, wayData.m_way.Nodes(), roadsFromOsm.m_nodes,
+                               mwmMatcher, regionsToIds);
 
-      LOG(LINFO, ("Found segments for", wayId));
+      LOG(LINFO, ("Found segments for", wayId, ":", foundSegments));
     }
   }
 

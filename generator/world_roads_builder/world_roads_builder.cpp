@@ -10,17 +10,32 @@ namespace
 {
 using namespace routing;
 
-size_t constexpr kMaxRoadsForRegion = 10;
+size_t constexpr kMaxRoadsCount = 5;
 std::string const kDelim = " ";
+double constexpr kMinSegmentLengthM = 200.0;
+double constexpr kHalfSegmentLengthM = kMinSegmentLengthM / 2.0;
 
-// Returns true if roads count for |mwmId| in |graph| exceeds max value.
-bool MwmRoadsAreFilled(routing::NumMwmId const & mwmId, CrossBorderGraph & graph)
+// Returns true if roads count between |mwmId1| and |mwmId2| in |graph| exceeds max value.
+bool MwmRoadsAreFilled(routing::NumMwmId const & mwmId1, routing::NumMwmId const & mwmId2,
+                       CrossBorderGraph & graph)
 {
-  auto const it = graph.m_mwms.find(mwmId);
+  auto const it = graph.m_mwms.find(mwmId1);
   if (it == graph.m_mwms.end())
     return false;
 
-  return it->second.size() >= kMaxRoadsForRegion;
+  size_t count = 0;
+
+  for (auto segId : it->second)
+  {
+    auto const segDataIt = graph.m_segments.find(segId);
+    CHECK(segDataIt != graph.m_segments.end(), (segId));
+    auto const & segData = segDataIt->second;
+
+    if (segData.m_start.m_numMwmId == mwmId2 || segData.m_end.m_numMwmId == mwmId2)
+      ++count;
+  }
+
+  return count >= kMaxRoadsCount;
 }
 
 void WriteEndingToSteam(CrossBorderSegmentEnding const & segEnding, std::ofstream & output)
@@ -93,12 +108,25 @@ RoadsFromOsm GetRoadsFromOsm(generator::SourceReader & reader,
   return roadsFromOsm;
 }
 
-void FillCrossBorderGraph(CrossBorderGraph & graph, RegionSegmentId & curSegmentId,
-                          std::vector<uint64_t> const & nodeIds,
-                          std::unordered_map<uint64_t, ms::LatLon> const & nodes,
-                          feature::CountriesFilesAffiliation const & mwmMatcher,
-                          std::unordered_map<std::string, NumMwmId> const & regionToIdMap)
+struct NodePoint
 {
+  NodePoint(m2::PointD const & point, NumMwmId const & mwm) : m_point(point), m_mwm(mwm) {}
+
+  m2::PointD m_point;
+  NumMwmId m_mwm = 0;
+};
+
+using NodePoints = std::vector<NodePoint>;
+using CrossBorderIndexes = std::vector<size_t>;
+
+std::pair<NodePoints, CrossBorderIndexes> GetCrossBorderPoints(
+    std::vector<uint64_t> const & nodeIds, std::unordered_map<uint64_t, ms::LatLon> const & nodes,
+    feature::CountriesFilesAffiliation const & mwmMatcher,
+    std::unordered_map<std::string, NumMwmId> const & regionToIdMap)
+{
+  NodePoints nodePoints;
+  CrossBorderIndexes crossBorderIndexes;
+
   std::string prevRegion;
   m2::PointD prevPoint;
 
@@ -122,22 +150,17 @@ void FillCrossBorderGraph(CrossBorderGraph & graph, RegionSegmentId & curSegment
       continue;
     }
 
-    if (auto const & curRegion = regions[0]; curRegion != prevRegion)
+    auto const & curRegion = regions[0];
+    auto const & curMwmId = regionToIdMap.at(curRegion);
+    nodePoints.emplace_back(curPoint, curMwmId);
+
+    if (curRegion != prevRegion)
     {
       if (!prevRegion.empty())
       {
-        auto const & prevMwmId = regionToIdMap.at(prevRegion);
-        auto const & curMwmId = regionToIdMap.at(curRegion);
-
-        if (MwmRoadsAreFilled(prevMwmId, graph) && MwmRoadsAreFilled(curMwmId, graph))
-          continue;
-
-        CrossBorderSegment seg;
-        seg.m_weight = mercator::DistanceOnEarth(prevPoint, curPoint);
-        seg.m_start = CrossBorderSegmentEnding(prevPoint, prevMwmId);
-        seg.m_end = CrossBorderSegmentEnding(curPoint, curMwmId);
-
-        graph.AddCrossBorderSegment(curSegmentId++, seg);
+        CHECK_GREATER(nodePoints.size(), 1, ());
+        // We add index of the previous point.
+        crossBorderIndexes.push_back(nodePoints.size() - 2);
       }
 
       prevRegion = curRegion;
@@ -145,6 +168,80 @@ void FillCrossBorderGraph(CrossBorderGraph & graph, RegionSegmentId & curSegment
 
     prevPoint = curPoint;
   }
+
+  return std::make_pair(nodePoints, crossBorderIndexes);
+}
+
+std::optional<std::pair<m2::PointD, double>> GetPointInMwm(NodePoints const & points, size_t index,
+                                                           bool forward)
+{
+  auto const & pointOnBorder = points[index];
+
+  m2::PointD newPoint = pointOnBorder.m_point;
+  double dist = 0.0;
+
+  while ((!forward && index > 0) || (forward && index < points.size() - 1))
+  {
+    if (forward)
+      ++index;
+    else
+      --index;
+
+    auto const & point = points[index];
+
+    if (point.m_mwm != pointOnBorder.m_mwm)
+      break;
+
+    double const curDist = mercator::DistanceOnEarth(pointOnBorder.m_point, point.m_point);
+
+    if (curDist >= kHalfSegmentLengthM)
+      return std::make_pair(point.m_point, curDist);
+
+    newPoint = point.m_point;
+    dist = curDist;
+  }
+
+  return std::make_pair(newPoint, dist);
+}
+
+bool FillCrossBorderGraph(CrossBorderGraph & graph, RegionSegmentId & curSegmentId,
+                          std::vector<uint64_t> const & nodeIds,
+                          std::unordered_map<uint64_t, ms::LatLon> const & nodes,
+                          feature::CountriesFilesAffiliation const & mwmMatcher,
+                          std::unordered_map<std::string, NumMwmId> const & regionToIdMap)
+{
+  auto const & [nodePoints, crossBorderIndexes] =
+      GetCrossBorderPoints(nodeIds, nodes, mwmMatcher, regionToIdMap);
+
+  bool insertedRoad = false;
+
+  for (auto i : crossBorderIndexes)
+  {
+    auto const & p1 = nodePoints[i];
+    auto const & p2 = nodePoints[i + 1];
+
+    if (MwmRoadsAreFilled(p1.m_mwm, p2.m_mwm, graph))
+      continue;
+
+    auto const pMwm1 = GetPointInMwm(nodePoints, i, false /* forward */);
+    if (!pMwm1)
+      continue;
+
+    auto const pMwm2 = GetPointInMwm(nodePoints, i + 1, true /* forward */);
+    if (!pMwm2)
+      continue;
+
+    double const d = mercator::DistanceOnEarth(p1.m_point, p2.m_point);
+
+    CrossBorderSegment seg;
+    seg.m_weight = pMwm1->second + d + pMwm2->second;
+    seg.m_start = CrossBorderSegmentEnding(pMwm1->first /* point */, p1.m_mwm);
+    seg.m_end = CrossBorderSegmentEnding(pMwm2->first /* point */, p2.m_mwm);
+    graph.AddCrossBorderSegment(curSegmentId++, seg);
+    insertedRoad = true;
+  }
+
+  return insertedRoad;
 }
 
 bool WriteGraphToFile(CrossBorderGraph const & graph, std::string const & path, bool overwrite)
@@ -173,5 +270,23 @@ void ShowRegionsStats(CrossBorderGraph const & graph, std::shared_ptr<routing::N
 {
   for (auto const & [mwmId, segmentIds] : graph.m_mwms)
     LOG(LINFO, (numMwmIds->GetFile(mwmId).GetName(), "roads:", segmentIds.size()));
+
+  std::string const delimRegions = " - ";
+
+  std::map<std::string, size_t> statsByMwm;
+
+  for (auto const & [segId, segData] : graph.m_segments)
+  {
+    std::string reg1 = numMwmIds->GetFile(segData.m_start.m_numMwmId).GetName();
+    std::string reg2 = numMwmIds->GetFile(segData.m_end.m_numMwmId).GetName();
+
+    std::string k = reg1 < reg2 ? reg1 + delimRegions + reg2 : reg2 + delimRegions + reg1;
+    ++statsByMwm[k];
+  }
+
+  LOG(LINFO, ("Count of roads between mwm pairs:"));
+
+  for (auto const & [k, count] : statsByMwm)
+    LOG(LINFO, (k, " -> ", count));
 }
 }  // namespace routing
