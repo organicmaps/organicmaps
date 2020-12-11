@@ -227,7 +227,8 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
         }
         else if (IsRegionsGraphMode())
         {
-          m_regionsGraph->GetEdgeList(real, isOutgoing, edges, ingoingSegmentWeight);
+          m_regionsGraph->GetEdgeList(real, isOutgoing, edges,
+                                      GetJunction(segment, true /* front */).GetLatLon());
         }
         else
         {
@@ -250,7 +251,8 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
   }
   else if (IsRegionsGraphMode())
   {
-    m_regionsGraph->GetEdgeList(segment, isOutgoing, edges, ingoingSegmentWeight);
+    m_regionsGraph->GetEdgeList(segment, isOutgoing, edges,
+                                GetJunction(segment, true /* front */).GetLatLon());
   }
   else
   {
@@ -296,11 +298,12 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment,
     // Theoretically it may be differ from |RouteWeight(0)| because some road access block
     // may be kept in it and it is up to |RouteWeight| to know how to multiply by zero.
 
+    if (IsRegionsGraphMode())
+      return RouteWeight(partLen);
+
     Weight weight;
     if (IsGuidesSegment(real))
       weight = CalcGuidesSegmentWeight(real, purpose);
-    else if (IsRegionsGraphMode())
-      weight = m_regionsGraph->CalcSegmentWeight(real);
     else
       weight = m_graph.CalcSegmentWeight(real, purpose);
     if (fullLen == 0.0)

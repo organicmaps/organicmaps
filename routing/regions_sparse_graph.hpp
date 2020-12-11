@@ -9,6 +9,7 @@
 
 #include "indexer/data_source.hpp"
 
+#include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
@@ -36,7 +37,7 @@ public:
   std::optional<FakeEnding> GetFakeEnding(m2::PointD const & point) const;
 
   void GetEdgeList(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges,
-                   RouteWeight const & prevWeight) const;
+                   ms::LatLon const & prevSegFront) const;
 
   routing::LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) const;
 

@@ -7,6 +7,7 @@
 
 #include "coding/file_reader.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -38,6 +39,7 @@ void RegionsSparseGraph::LoadRegionsSparseGraph()
 
   ReaderSource<FilesContainerR::TReader> reader(mwmValue.m_cont.GetReader(ROUTING_WORLD_FILE_TAG));
   CrossBorderGraphSerializer::Deserialize(m_graph, reader, m_numMwmIds);
+  ASSERT(!m_graph.m_segments.empty(), ());
 }
 
 std::optional<FakeEnding> RegionsSparseGraph::GetFakeEnding(m2::PointD const & point) const
@@ -58,6 +60,7 @@ std::optional<FakeEnding> RegionsSparseGraph::GetFakeEnding(m2::PointD const & p
     bool const oneWay = false;
     auto const & frontJunction = data.m_end.m_point;
     auto const & backJunction = data.m_start.m_point;
+
     auto const & projectedJunction = CalcProjectionToSegment(backJunction, frontJunction, point);
 
     Segment const segment(data.m_start.m_numMwmId, segmentId /* featureId */, 0 /* segmentIdx */,
@@ -70,9 +73,19 @@ std::optional<FakeEnding> RegionsSparseGraph::GetFakeEnding(m2::PointD const & p
   return ending;
 }
 
+double GetWeight(CrossBorderSegment const & toSeg, LatLonWithAltitude const & coordFrom,
+                 NumMwmId fromMwm)
+{
+  auto const & coordTo =
+      toSeg.m_start.m_numMwmId == fromMwm ? toSeg.m_start.m_point : toSeg.m_end.m_point;
+  CHECK(toSeg.m_start.m_numMwmId == fromMwm || toSeg.m_end.m_numMwmId == fromMwm,
+        (fromMwm, toSeg.m_start.m_numMwmId, toSeg.m_end.m_numMwmId, coordTo));
+  return toSeg.m_weight + ms::DistanceOnEarth(coordFrom.GetLatLon(), coordTo.GetLatLon());
+}
+
 void RegionsSparseGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
                                      std::vector<SegmentEdge> & edges,
-                                     RouteWeight const & prevWeight) const
+                                     ms::LatLon const & prevSegFront) const
 {
   auto const & data = GetDataById(segment.GetFeatureId());
 
@@ -83,12 +96,25 @@ void RegionsSparseGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
   if (it == m_graph.m_mwms.end())
     return;
 
+  LatLonWithAltitude const & segCoord =
+      (segment.IsForward() == isOutgoing) ? data.m_end.m_point : data.m_start.m_point;
+
   for (auto const & id : it->second)
   {
     auto const outData = GetDataById(id);
-    auto const weight = isOutgoing ? RouteWeight(outData.m_weight) : prevWeight;
+    if (id == segment.GetFeatureId())
+      continue;
+    LatLonWithAltitude const segFront =
+        segment.IsForward() ? outData.m_end.m_point : outData.m_start.m_point;
 
-    Segment const edge(outData.m_start.m_numMwmId, id /* featureId */, 0 /* segmentIdx */,
+    auto const weight = isOutgoing
+                            ? RouteWeight(GetWeight(outData, segCoord, targetMwm))
+                            : RouteWeight(ms::DistanceOnEarth(segFront.GetLatLon(), prevSegFront));
+
+    auto const outMwm = targetMwm == outData.m_start.m_numMwmId ? outData.m_end.m_numMwmId
+                                                                : outData.m_start.m_numMwmId;
+
+    Segment const edge(outMwm, id /* featureId */, 0 /* segmentIdx */,
                        segment.IsForward() /* isForward */);
     edges.emplace_back(edge, weight);
   }
