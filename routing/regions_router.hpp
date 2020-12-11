@@ -42,7 +42,9 @@ private:
       typename AStarAlgorithm<Vertex, Edge, Weight>::Result result) const;
 
   RouterResultCode CalculateSubrouteNoLeapsMode(IndexGraphStarter & starter,
-                                                std::vector<Segment> & subroute);
+                                                std::vector<Segment> & subroute,
+                                                m2::PointD const & startCheckpoint,
+                                                m2::PointD const & finishCheckpoint);
 
   // Gets checkpoint with |index| from |m_checkpoints| and returns its location and mwm number.
   std::pair<m2::PointD, std::string> GetCheckpointRegion(size_t index) const;

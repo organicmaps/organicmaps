@@ -8,6 +8,8 @@
 
 #include "routing_common/car_model.hpp"
 
+#include "base/scope_guard.hpp"
+
 namespace routing
 {
 RegionsRouter::RegionsRouter(CountryFileGetterFn const & countryFileGetter,
@@ -36,13 +38,21 @@ RouterResultCode RegionsRouter::ConvertResult(
 }
 
 RouterResultCode RegionsRouter::CalculateSubrouteNoLeapsMode(IndexGraphStarter & starter,
-                                                             std::vector<Segment> & subroute)
+                                                             std::vector<Segment> & subroute,
+                                                             m2::PointD const & startCheckpoint,
+                                                             m2::PointD const & finishCheckpoint)
 {
   using Vertex = IndexGraphStarter::Vertex;
   using Edge = IndexGraphStarter::Edge;
   using Weight = IndexGraphStarter::Weight;
 
+  double constexpr almostZeroContribution = 1e-7;
   auto progress = std::make_shared<AStarProgress>();
+  AStarSubProgress subProgress(mercator::ToLatLon(startCheckpoint),
+                               mercator::ToLatLon(finishCheckpoint), almostZeroContribution);
+
+  progress->AppendSubProgress(subProgress);
+  SCOPE_GUARD(eraseProgress, [&progress]() { progress->PushAndDropLastSubProgress(); });
 
   using Visitor = JunctionVisitor<IndexGraphStarter>;
   uint32_t constexpr kVisitPeriod = 40;
@@ -106,20 +116,22 @@ void RegionsRouter::Do()
 
     std::vector<Segment> subroute;
 
-    auto const result = CalculateSubrouteNoLeapsMode(subrouteStarter, subroute);
+    auto const result = CalculateSubrouteNoLeapsMode(
+        subrouteStarter, subroute, m_checkpoints.GetPoint(i), m_checkpoints.GetPoint(i + 1));
 
     if (result != RouterResultCode::NoError)
-    {
-      m_mwmNames.clear();
       return;
-    }
 
     for (auto const & s : subroute)
     {
-      for (bool front : {true, false})
+      for (bool front : {false, true})
       {
         LatLonWithAltitude const & point = subrouteStarter.GetJunction(s, front);
         std::string name = m_countryFileGetterFn(mercator::FromLatLon(point.GetLatLon()));
+
+        if (name.empty() && !IndexGraphStarter::IsFakeSegment(s))
+          name = m_numMwmIds->GetFile(s.GetMwmId()).GetName();
+
         m_mwmNames.emplace(name);
       }
     }
