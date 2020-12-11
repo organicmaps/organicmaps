@@ -3,6 +3,7 @@
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/world_graph.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 
 #include "base/assert.hpp"
@@ -70,7 +71,7 @@ public:
 
   RouteWeight HeuristicCostEstimate(ms::LatLon const & from, ms::LatLon const & to) override
   {
-    return RouteWeight();
+    return RouteWeight(ms::DistanceOnEarth(from, to));
   }
 
   RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) override
@@ -87,7 +88,7 @@ public:
   RouteWeight CalcOffroadWeight(ms::LatLon const & from, ms::LatLon const & to,
                                 EdgeEstimator::Purpose purpose) const override
   {
-    return RouteWeight();
+    return RouteWeight(ms::DistanceOnEarth(from, to));
   }
 
   double CalculateETA(Segment const & from, Segment const & to) override
