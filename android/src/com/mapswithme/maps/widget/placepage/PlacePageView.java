@@ -1301,28 +1301,25 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
     }
 
-    String authorId = null;
     if (isBookmark)
     {
       Bookmark bmk = (Bookmark) mapObject;
-      if (!TextUtils.isEmpty(bmk.getBookmarkDescription()))
+      String authorId = bmk.getRelatedAuthorId();
+      if (!TextUtils.isEmpty(authorId) && authorId.equals(AUTHOR_LONELY_PLANET_ID))
       {
-        UiUtils.show(mPlaceDescriptionHeaderContainer);
-        UiUtils.hide(mPlaceDescriptionContainer, mPromoDivider);
-        return;
+        UiUtils.show(mPlaceDescriptionImage);
+        mPlaceDescriptionImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_lp_logo));
       }
-      authorId = bmk.getRelatedAuthorId();
-    }
+      else
+        UiUtils.hide(mPlaceDescriptionImage);
 
+      UiUtils.showIf(!TextUtils.isEmpty(bmk.getBookmarkDescription()), mPlaceDescriptionHeaderContainer);
+      UiUtils.hide(mPlaceDescriptionContainer, mPromoDivider);
+      return;
+    }
     UiUtils.show(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
-    UiUtils.hide(mPromoDivider);
+    UiUtils.hide(mPromoDivider, mPlaceDescriptionImage);
     mPlaceDescriptionView.setText(Html.fromHtml(mapObject.getDescription()));
-
-    if (authorId != null && authorId.equals(AUTHOR_LONELY_PLANET_ID))
-    {
-      UiUtils.show(mPlaceDescriptionImage);
-      mPlaceDescriptionImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_lp_logo));
-    }
   }
 
   private void setTextAndColorizeSubtitle(@NonNull MapObject mapObject)
