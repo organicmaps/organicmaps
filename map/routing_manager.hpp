@@ -226,6 +226,8 @@ public:
     m_routingSession.GetRouteForTests()->GetTurnsForTesting(turns);
     return turns;
   }
+
+  Callbacks & GetCallbacksForTests() { return m_callbacks; }
   /// \brief Adds to @param notifications strings - notifications, which are ready to be
   /// pronounced to end user right now.
   /// Adds notifications about turns and speed camera on the road.
