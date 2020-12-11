@@ -16,6 +16,7 @@ include_directories(
 
 set(
   SRC
+  absent_regions_finder_tests.cpp
   archival_reporter_tests.cpp
   bicycle_route_test.cpp
   bicycle_turn_test.cpp
