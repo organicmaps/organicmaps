@@ -37,7 +37,23 @@ void AbsentRegionsFinder::GenerateAbsentRegions(Checkpoints const & checkpoints,
 
 void AbsentRegionsFinder::GetAbsentRegions(std::set<std::string> & absentCountries)
 {
+  std::set<std::string> countries;
+  GetAllRegions(countries);
+
   absentCountries.clear();
+
+  for (auto const & mwmName : countries)
+  {
+    if (m_localFileCheckerFn(mwmName))
+      continue;
+
+    absentCountries.emplace(mwmName);
+  }
+}
+
+void AbsentRegionsFinder::GetAllRegions(std::set<std::string> & countries)
+{
+  countries.clear();
 
   if (!m_routerThread)
     return;
@@ -46,10 +62,8 @@ void AbsentRegionsFinder::GetAbsentRegions(std::set<std::string> & absentCountri
 
   for (auto const & mwmName : m_routerThread->GetRoutineAs<RegionsRouter>()->GetMwmNames())
   {
-    if (mwmName.empty() || m_localFileCheckerFn(mwmName))
-      continue;
-
-    absentCountries.emplace(mwmName);
+    if (!mwmName.empty())
+      countries.emplace(mwmName);
   }
 
   m_routerThread.reset();

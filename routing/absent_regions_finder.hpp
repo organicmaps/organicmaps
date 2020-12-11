@@ -34,6 +34,8 @@ public:
   // Creates new thread |m_routerThread| and starts routing in it.
   void GenerateAbsentRegions(Checkpoints const & checkpoints, RouterDelegate const & delegate);
   // Waits for the routing thread |m_routerThread| to finish and returns results from it.
+  void GetAllRegions(std::set<std::string> & countries);
+  // Waits for the results from GetAllRegions() and returns only regions absent on the device.
   void GetAbsentRegions(std::set<std::string> & absentCountries);
 
 private:
