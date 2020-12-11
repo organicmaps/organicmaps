@@ -442,7 +442,6 @@ void AsyncRouter::CalculateRoute()
 
   bool const needAbsentRegions = (code != RouterResultCode::Cancelled);
 
-  // Check online response if we have.
   set<string> absent;
   if (absentRegionsFinder && needAbsentRegions)
     absentRegionsFinder->GetAbsentRegions(absent);
