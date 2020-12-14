@@ -110,10 +110,8 @@ namespace feature
     ModelReaderPtr headerReader = cont.GetReader(HEADER_FILE_TAG);
     version::MwmVersion version;
 
-    if (version::ReadVersion(cont, version))
-      Load(headerReader, version.GetFormat());
-    else
-      LoadV1(headerReader);
+    CHECK(version::ReadVersion(cont, version), ());
+    Load(headerReader, version.GetFormat());
   }
 
   void DataHeader::Load(ModelReaderPtr const & r, version::Format format)
@@ -138,24 +136,6 @@ namespace feature
     }
 
     // Place all new serializable staff here.
-  }
-
-  void DataHeader::LoadV1(ModelReaderPtr const & r)
-  {
-    ReaderSource<ModelReaderPtr> src(r);
-    int64_t const base = ReadPrimitiveFromSource<int64_t>(src);
-    m_codingParams = serial::GeometryCodingParams(kPointCoordBits, base);
-
-    m_bounds.first = ReadVarInt<int64_t>(src) + base;
-    m_bounds.second = ReadVarInt<int64_t>(src) + base;
-
-    uint32_t const count = 4;
-    m_scales.resize(count);
-    src.Read(m_scales.data(), count);
-
-    m_type = MapType::Country;
-
-    m_format = version::Format::v1;
   }
 
   string DebugPrint(DataHeader::MapType type)

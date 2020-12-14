@@ -83,7 +83,6 @@ namespace feature
     /// Use lastFormat as a default value for indexes building.
     /// Pass the valid format from mwm in all other cases.
     void Load(ModelReaderPtr const & r, version::Format format);
-    void LoadV1(ModelReaderPtr const & r);
 
     version::Format m_format = version::Format::unknownFormat;
     MapType m_type = MapType::World;
