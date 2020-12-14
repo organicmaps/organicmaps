@@ -30,7 +30,9 @@ double Uint32ToDouble(uint32_t x, double min, double max, uint8_t coordBits)
 {
   ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
   ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
-  return min + static_cast<double>(x) * (max - min) / bits::GetFullMask(coordBits);
+  auto const res = min + static_cast<double>(x) * (max - min) / bits::GetFullMask(coordBits);
+  // Clamp to avoid floating point calculation errors.
+  return base::Clamp(res, min, max);
 }
 
 m2::PointU PointDToPointU(double x, double y, uint8_t coordBits)
