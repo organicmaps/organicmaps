@@ -2,20 +2,21 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?cardBackground"
   android:baselineAligned="false"
   android:layout_margin="@dimen/margin_base_plus"
   android:orientation="horizontal">
-  <ImageView
+  <androidx.appcompat.widget.AppCompatImageView
     android:id="@+id/image"
     android:layout_weight="1"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:paddingEnd="@dimen/margin_base_plus"
-    android:src="@drawable/ic_download_map"
+    app:srcCompat="@drawable/ic_download_map"
     tools:ignore="ContentDescription" />
   <RelativeLayout
     android:layout_width="0dp"
