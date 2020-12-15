@@ -98,12 +98,7 @@ void RelationTagsWay::Process(RelationElement const & e)
   }
 
   if (type == "building")
-  {
-    // If this way has "outline" role, add [building=has_parts] type.
-    if (e.GetWayRole(m_current->m_id) == "outline")
-      Base::AddCustomTag({"building", "has_parts"});
     return;
-  }
 
   bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
   bool const processAssociatedStreet = type == "associatedStreet" &&

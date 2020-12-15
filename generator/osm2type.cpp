@@ -720,8 +720,6 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       {"wheelchair", "designated",
        [&params] { params.AddType(types.Get(CachedTypes::Type::WheelchairYes)); }},
       {"wifi", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::Wlan)); }},
-      {"building:part", "no", [&params] { params.AddType(types.Get(CachedTypes::Type::HasParts)); }},
-      {"building:parts", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::HasParts)); }},
   });
 
   bool highwayDone = false;

@@ -48,6 +48,7 @@ private:
   void AddIsolines();
   void DropProhibitedSpeedCameras();
   void Finish();
+  void ProcessBuildingParts();
 
   bool IsCountry(std::string const & filename);
 

@@ -2,6 +2,7 @@
 
 #include "generator/affiliation.hpp"
 #include "generator/booking_dataset.hpp"
+#include "generator/boost_helpers.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/final_processor_utils.hpp"
 #include "generator/isolines_generator.hpp"
@@ -22,6 +23,13 @@
 
 #include <utility>
 #include <vector>
+
+#include "3party/boost/boost/geometry.hpp"
+#include "3party/boost/boost/geometry/geometries/register/point.hpp"
+#include "3party/boost/boost/geometry/geometries/register/ring.hpp"
+
+BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y)
+BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>)
 
 using namespace base::thread_pool::computational;
 using namespace feature;
@@ -111,6 +119,7 @@ void CountryFinalProcessor::Process()
     AddIsolines();
 
   DropProhibitedSpeedCameras();
+  ProcessBuildingParts();
   Finish();
 }
 
@@ -192,6 +201,77 @@ void CountryFinalProcessor::ProcessRoundabouts()
     // Transforms points on roads to connect them with these new roundabout junctions.
     for (auto const & fb : transformer.ProcessRoundabouts())
       writer.Write(fb);
+  }, m_threadsCount);
+}
+
+bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding,
+                                m4::Tree<FeatureBuilder> const & buildingPartsKDTree)
+{
+  namespace bg = boost::geometry;
+  using BoostPoint = bg::model::point<double, 2, bg::cs::cartesian>;
+  using BoostPolygon = bg::model::polygon<BoostPoint>;
+  using BoostMultiPolygon = bg::model::multi_polygon<BoostPolygon>;
+
+  BoostPolygon building;
+  BoostMultiPolygon partsUnion;
+
+  buildingPartsKDTree.ForEachInRect(fbBuilding.GetLimitRect(), [&](auto const & fbPart) {
+    // Lazy initialization that will not occur with high probability
+    if (bg::is_empty(building))
+      generator::boost_helpers::FillPolygon(building, fbBuilding);
+
+    BoostPolygon part;
+    generator::boost_helpers::FillPolygon(part, fbPart);
+
+    BoostMultiPolygon newPartsUnion;
+    bg::union_(partsUnion, part, newPartsUnion);
+    partsUnion = std::move(newPartsUnion);
+  });
+
+  if (bg::is_empty(building))
+    return false;
+
+  BoostMultiPolygon partsWithinBuilding;
+  bg::intersection(building, partsUnion, partsWithinBuilding);
+
+  // Consider a building as consisting of parts if the building footprint
+  // is covered with parts at least by 90%.
+  return bg::area(partsWithinBuilding) >= 0.9 * bg::area(building);
+}
+
+void CountryFinalProcessor::ProcessBuildingParts()
+{
+  static auto const & classificator = classif();
+  static auto const buildingClassifType = classificator.GetTypeByPath({"building"});
+  static auto const buildingPartClassifType = classificator.GetTypeByPath({"building:part"});
+  static auto const buildingWithPartsClassifType = classificator.GetTypeByPath({"building", "has_parts"});
+
+  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path) {
+    if (!IsCountry(name))
+      return;
+
+    // All "building:part" features in MWM
+    m4::Tree<FeatureBuilder> buildingPartsKDTree;
+
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto && fb, auto /* pos */) {
+      if (!(fb.IsArea() && fb.IsValid()))
+        return;
+
+      if (fb.HasType(buildingPartClassifType))
+        buildingPartsKDTree.Add(fb);
+    });
+
+    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto && fb, auto /* pos */) {
+      if (fb.IsArea() && fb.IsValid() &&
+          fb.HasType(buildingClassifType) &&
+          DoesBuildingConsistOfParts(fb, buildingPartsKDTree))
+      {
+        fb.AddType(buildingWithPartsClassifType);
+      }
+
+      writer.Write(fb);
+    });
   }, m_threadsCount);
 }
 
