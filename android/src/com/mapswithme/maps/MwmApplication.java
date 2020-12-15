@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.multidex.MultiDex;
@@ -42,6 +43,7 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
@@ -172,6 +174,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mPurchaseOperationObservable = new PurchaseOperationObservable();
     mPlayer = new MediaPlayerWrapper(this);
     mGeofenceRegistry = new GeofenceRegistryImpl(this);
+    WebView.setWebContentsDebuggingEnabled(Utils.isDebugOrBeta());
   }
 
   private void initNotificationChannels()

@@ -681,13 +681,18 @@ public class Utils
     catch (RuntimeException e)
     {
       LOGGER.e(TAG, "Failed to get string with id '" + key + "'", e);
-      if (BuildConfig.BUILD_TYPE.equals("debug") || BuildConfig.BUILD_TYPE.equals("beta"))
+      if (isDebugOrBeta())
       {
         Toast.makeText(context, "Add string id for '" + key + "'!",
                        Toast.LENGTH_LONG).show();
       }
     }
     return INVALID_ID;
+  }
+
+  public static boolean isDebugOrBeta()
+  {
+    return BuildConfig.BUILD_TYPE.equals("debug") || BuildConfig.BUILD_TYPE.equals("beta");
   }
 
   /**
