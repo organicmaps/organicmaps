@@ -7,6 +7,8 @@ using namespace std;
 namespace routing
 {
 // static
+uint32_t constexpr CrossMwmConnectorSerializer::kVersion0;
+uint32_t constexpr CrossMwmConnectorSerializer::kVersion1;
 uint32_t constexpr CrossMwmConnectorSerializer::kLastVersion;
 
 // static

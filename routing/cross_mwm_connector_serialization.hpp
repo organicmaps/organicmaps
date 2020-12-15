@@ -305,7 +305,9 @@ private:
   using Weight = connector::Weight;
   using WeightsLoadState = connector::WeightsLoadState;
 
-  static uint32_t constexpr kLastVersion = 0;
+  static uint32_t constexpr kVersion0 = 0;
+  static uint32_t constexpr kVersion1 = 1;
+  static uint32_t constexpr kLastVersion = kVersion1;
   static uint8_t constexpr kNoRouteBit = 0;
   static uint8_t constexpr kRouteBit = 1;
 
@@ -376,8 +378,6 @@ private:
       WriteToSink(sink, m_numTransitions);
       WriteToSink(sink, m_sizeTransitions);
       WriteToSink(sink, m_granularity);
-      // TODO (@gmoryes) Get rid of geometry coding params.
-      serial::GeometryCodingParams().Save(sink);
       WriteToSink(sink, m_bitsPerCrossMwmId);
       WriteToSink(sink, m_bitsPerMask);
 
@@ -390,7 +390,7 @@ private:
     void Deserialize(Source & src)
     {
       m_version = ReadPrimitiveFromSource<decltype(m_version)>(src);
-      if (m_version != kLastVersion)
+      if (m_version != kVersion0 && m_version != kVersion1)
       {
         MYTHROW(CorruptedDataException, ("Unknown cross mwm section version ", m_version,
                                          ", current version ", kLastVersion));
@@ -399,8 +399,8 @@ private:
       m_numTransitions = ReadPrimitiveFromSource<decltype(m_numTransitions)>(src);
       m_sizeTransitions = ReadPrimitiveFromSource<decltype(m_sizeTransitions)>(src);
       m_granularity = ReadPrimitiveFromSource<decltype(m_granularity)>(src);
-      // TODO (@gmoryes) Get rid from geometry coding params.
-      serial::GeometryCodingParams().Load(src);
+      if (m_version == kVersion0)
+        serial::GeometryCodingParams().Load(src);
       m_bitsPerCrossMwmId = ReadPrimitiveFromSource<decltype(m_bitsPerCrossMwmId)>(src);
       m_bitsPerMask = ReadPrimitiveFromSource<decltype(m_bitsPerMask)>(src);
 
