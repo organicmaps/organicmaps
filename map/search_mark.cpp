@@ -828,7 +828,7 @@ void SearchMarks::OnActivate(FeatureID const & featureId)
 {
   m_selectedFeature = featureId;
   m_visitedSearchMarks.erase(featureId);
-  ProcessMarks([this, &featureId](SearchMarkPoint * mark) -> base::ControlFlow
+  ProcessMarks([&featureId](SearchMarkPoint * mark) -> base::ControlFlow
   {
     if (featureId != mark->GetFeatureID())
       return base::ControlFlow::Continue;
