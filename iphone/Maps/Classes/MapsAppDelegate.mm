@@ -23,13 +23,9 @@
 #import <CarPlay/CarPlay.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <UserNotifications/UserNotifications.h>
 
-#import <AppsFlyerLib/AppsFlyerTracker.h>
-#import <Firebase/Firebase.h>
-
-#include <CoreApi/Framework.h>
+#import <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 
 #include "map/framework_light.hpp"
@@ -78,18 +74,10 @@ void InitCrashTrackers() {
 #ifdef OMIM_PRODUCTION
   if ([MWMSettings crashReportingDisabled])
     return;
-
-  NSString *googleConfig = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist"];
-  if ([[NSFileManager defaultManager] fileExistsAtPath:googleConfig]) {
-    [FIRApp configure];
-  }
 #endif
 }
 
 void ConfigCrashTrackers() {
-#ifdef OMIM_PRODUCTION
-  [[FIRCrashlytics crashlytics] setUserID:[Alohalytics installationId]];
-#endif
 }
 
 void OverrideUserAgent() {
@@ -104,7 +92,6 @@ using namespace osm_auth_ios;
 
 @interface MapsAppDelegate () <MWMStorageObserver,
                                NotificationManagerDelegate,
-                               AppsFlyerTrackerDelegate,
                                CPApplicationDelegate>
 
 @property(nonatomic) NSInteger standbyCounter;
@@ -214,8 +201,6 @@ using namespace osm_auth_ios;
   }
   [self enableTTSForTheFirstTime];
 
-  [GIDSignIn sharedInstance].clientID = @(GOOGLE_WEB_CLIENT_ID);
-
   self.notificationManager = [[NotificationManager alloc] init];
   self.notificationManager.delegate = self;
   [UNUserNotificationCenter currentNotificationCenter].delegate = self.notificationManager;
@@ -296,23 +281,10 @@ using namespace osm_auth_ios;
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
-#ifdef OMIM_PRODUCTION
-  auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
-                                        code:1
-                                    userInfo:@{@"Description": @"applicationDidReceiveMemoryWarning"}];
-  [[FIRCrashlytics crashlytics] recordError:err];
-#endif
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
   [self.mapViewController onTerminate];
-
-#ifdef OMIM_PRODUCTION
-  auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
-                                        code:2
-                                    userInfo:@{@"Description": @"applicationWillTerminate"}];
-  [[FIRCrashlytics crashlytics] recordError:err];
-#endif
 
   // Global cleanup
   DeleteFramework();
@@ -493,15 +465,6 @@ using namespace osm_auth_ios;
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
-  BOOL isGoogleURL = [[GIDSignIn sharedInstance] handleURL:url
-                                         sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-                                                annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
-  if (isGoogleURL)
-    return YES;
-
-  BOOL isFBURL = [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options];
-  if (isFBURL)
-    return YES;
 
   return [DeepLinkHandler.shared applicationDidOpenUrl:url];
 }
@@ -689,9 +652,6 @@ using namespace osm_auth_ios;
 }
 
 - (void)onConversionDataRequestFailure:(NSError *)error {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [[FIRCrashlytics crashlytics] recordError:error];
-  });
 }
 
 #pragma mark - CPApplicationDelegate implementation

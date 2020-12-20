@@ -4,8 +4,7 @@
 
 #import "3party/Alohalytics/src/alohalytics.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <AdSupport/ASIdentifierManager.h>
+
 #import <CoreApi/AppInfo.h>
 
 #include "platform/platform.hpp"
@@ -38,8 +37,8 @@ NSInteger convertToAlohalyticsChannel(StatisticsChannel cnannel) {
     [Alohalytics setup:@[@(ALOHALYTICS_URL), [NSString stringWithFormat:@"%@/%@", @(ALOHALYTICS_URL), @"realtime"]]
      withLaunchOptions:launchOptions];
   }
-  // Always call Facebook method, looks like it is required to handle some url schemes and sign on scenarios.
-  return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+
+  return YES;
 }
 
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
@@ -91,7 +90,7 @@ NSInteger convertToAlohalyticsChannel(StatisticsChannel cnannel) {
 - (void)applicationDidBecomeActive {
   if (![MWMSettings statisticsEnabled])
     return;
-  [FBSDKAppEvents activateApp];
+
   // Special FB events to improve marketing campaigns quality.
   [MWMCustomFacebookEvents optimizeExpenses];
 }

@@ -5,6 +5,8 @@
 #import "MWMRouterTransitStepInfo.h"
 #import "SwiftBridge.h"
 
+#import <AudioToolbox/AudioServices.h>
+
 #include "routing/following_info.hpp"
 #include "routing/turns.hpp"
 
