@@ -22,6 +22,7 @@
 
 #import <CarPlay/CarPlay.h>
 #import <CoreSpotlight/CoreSpotlight.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <UserNotifications/UserNotifications.h>
 
@@ -176,7 +177,6 @@ using namespace osm_auth_ios;
   self.standbyCounter = 0;
   NSTimeInterval const minimumBackgroundFetchIntervalInSeconds = 6 * 60 * 60;
   [UIApplication.sharedApplication setMinimumBackgroundFetchInterval:minimumBackgroundFetchIntervalInSeconds];
-  [MWMMyTarget startAdServerForbiddenCheckTimer];
   [self updateApplicationIconBadgeNumber];
 }
 
@@ -185,8 +185,6 @@ using namespace osm_auth_ios;
   OverrideUserAgent();
 
   InitCrashTrackers();
-
-  [self initMarketingTrackers];
 
   // Initialize all 3party engines.
   [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
@@ -243,17 +241,6 @@ using namespace osm_auth_ios;
       ws.pendingTransactionHandler = nil;
     }];
   }
-
-  MPMoPubConfiguration *sdkConfig =
-    [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@(ads::Mopub::InitializationBannerId().c_str())];
-  NSDictionary *facebookConfig = @{@"native_banner": @true};
-  NSMutableDictionary *config = [@{@"FacebookAdapterConfiguration": facebookConfig} mutableCopy];
-  sdkConfig.mediatedNetworkConfigurations = config;
-  sdkConfig.loggingLevel = MPBLogLevelDebug;
-  [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:nil];
-
-  if ([MoPubKit shouldShowConsentDialog])
-    [MoPubKit grantConsent];
 
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
   if (@available(iOS 13, *)) {
@@ -389,9 +376,7 @@ using namespace osm_auth_ios;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
 
-  [self trackMarketingAppLaunch];
-
-  auto &f = GetFramework();
+  auto & f = GetFramework();
   f.EnterForeground();
   [self.mapViewController onGetFocus:YES];
   [[Statistics instance] applicationDidBecomeActive];
@@ -426,23 +411,6 @@ using namespace osm_auth_ios;
   }
 
   return NO;
-}
-
-- (void)initMarketingTrackers {
-  NSString *appsFlyerDevKey = @(APPSFLYER_KEY);
-  NSString *appsFlyerAppIdKey = @(APPSFLYER_APP_ID_IOS);
-  if (appsFlyerDevKey.length != 0 && appsFlyerAppIdKey.length != 0) {
-    [AppsFlyerTracker sharedTracker].appsFlyerDevKey = appsFlyerDevKey;
-    [AppsFlyerTracker sharedTracker].appleAppID = appsFlyerAppIdKey;
-    [AppsFlyerTracker sharedTracker].delegate = self;
-#if DEBUG
-    [AppsFlyerTracker sharedTracker].isDebug = YES;
-#endif
-  }
-}
-
-- (void)trackMarketingAppLaunch {
-  [[AppsFlyerTracker sharedTracker] trackAppLaunch];
 }
 
 - (BOOL)initStatistics:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -689,15 +657,6 @@ using namespace osm_auth_ios;
 }
 
 #pragma mark - Showcase
-
-- (MWMMyTarget *)myTarget {
-  if (![ASIdentifierManager sharedManager].advertisingTrackingEnabled)
-    return nil;
-
-  if (!_myTarget)
-    _myTarget = [[MWMMyTarget alloc] init];
-  return _myTarget;
-}
 
 #pragma mark - NotificationManagerDelegate
 

@@ -14,8 +14,6 @@ class PlacePageElevationLayout: IPlacePageLayout {
     return placePageNavigationViewController
   }
 
-  var adState: AdBannerState = .unset
-
   lazy var header: PlacePageHeaderViewController? = {
     return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)
   } ()

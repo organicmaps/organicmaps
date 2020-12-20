@@ -2,7 +2,8 @@
 #import "MWMCoreUnits.h"
 #import "MWMMapViewControlsManager.h"
 #import "SwiftBridge.h"
-#import "Flurry.h"
+
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include <CoreApi/Framework.h>
 
@@ -99,13 +100,11 @@ NSString * const kCrashReportingDisabled = @"CrashReportingDisabled";
   if (statisticsEnabled)
   {
     [Alohalytics enable];
-    [Flurry trackPreciseLocation:YES];
   }
   else
   {
     [Alohalytics logEvent:@"statisticsDisabled"];
     [Alohalytics disable];
-    [Flurry trackPreciseLocation:NO];
   }
   settings::Set(kStatisticsEnabledSettingsKey, static_cast<bool>(statisticsEnabled));
 }

@@ -9,12 +9,9 @@
 #import "FBAudienceNetwork/FBAudienceNetwork.h"
 #import "FBSDKLoginKit/FBSDKLoginKit.h"
 #import "GoogleSignIn/GIDSignIn.h"
-#import "MyTargetSDK/MyTargetSDK.h"
-#import "Pushwoosh/PushNotificationManager.h"
 #import "UIKit/UIKit.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
-#import "MPNativeAd+MWM.h"
 #import "UIKitCategories.h"
 
 #import "private.h"

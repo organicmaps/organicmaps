@@ -1,5 +1,4 @@
 #import "DownloadIndicatorProtocol.h"
-#import "MWMMyTarget.h"
 #import "MWMNavigationController.h"
 
 @class MapViewController;
@@ -18,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) MWMCarPlayService *carplayService API_AVAILABLE(ios(12.0));
 @property(nonatomic, readonly) MapViewController * mapViewController;
 @property(nonatomic, readonly) BOOL isDrapeEngineCreated;
-
-@property(nonatomic) MWMMyTarget * myTarget;
 
 + (MapsAppDelegate *)theApp;
 
