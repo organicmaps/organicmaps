@@ -11,12 +11,12 @@ class CitySubscriptionBuilder {
                                     subscriptionGroupType: subscriptionGroupType,
                                     completion: completion)
     let interactor = SubscriptionInteractor(viewController: viewController,
-                                            subscriptionManager: InAppPurchase.bookmarksSubscriptionManager,
+                                            subscriptionManager: InAppPurchase.bookmarksSubscriptionManager!,
                                             bookmarksManager: BookmarksManager.shared())
     let presenter = SubscriptionPresenter(view: viewController,
                                           router: router,
                                           interactor: interactor,
-                                          subscriptionManager: InAppPurchase.bookmarksSubscriptionManager,
+                                          subscriptionManager: InAppPurchase.bookmarksSubscriptionManager!,
                                           source: source)
 
     interactor.presenter = presenter

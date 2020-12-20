@@ -12,12 +12,12 @@ class AllPassSubscriptionBuilder {
                                     subscriptionGroupType: subscriptionGroupType,
                                     completion: completion)
     let interactor = SubscriptionInteractor(viewController: viewController,
-                                            subscriptionManager: InAppPurchase.allPassSubscriptionManager,
+                                            subscriptionManager: InAppPurchase.allPassSubscriptionManager!,
                                             bookmarksManager: BookmarksManager.shared())
     let presenter = SubscriptionPresenter(view: viewController,
                                           router: router,
                                           interactor: interactor,
-                                          subscriptionManager: InAppPurchase.allPassSubscriptionManager,
+                                          subscriptionManager: InAppPurchase.allPassSubscriptionManager!,
                                           source: source)
 
     interactor.presenter = presenter

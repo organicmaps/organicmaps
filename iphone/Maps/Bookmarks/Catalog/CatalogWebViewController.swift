@@ -224,7 +224,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private func buildHeaders(completion: @escaping ([String: String]?) -> Void) {
-    billing.requestProducts(Set(MWMPurchaseManager.bookmarkInappIds()), completion: { products, error in
+    billing?.requestProducts(Set(MWMPurchaseManager.bookmarkInappIds()), completion: { products, error in
       var productsInfo: [String: [String: String]] = [:]
       if let products = products {
         let formatter = NumberFormatter()
@@ -250,7 +250,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private func handlePendingTransactions(completion: @escaping (Bool) -> Void) {
-    pendingTransactionsHandler.handlePendingTransactions { [weak self] status in
+    pendingTransactionsHandler?.handlePendingTransactions { [weak self] status in
       switch status {
       case .none:
         fallthrough
@@ -368,29 +368,6 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private func showPaymentScreen(_ productInfo: CatalogCategoryInfo) {
-    guard let productId = productInfo.productId else {
-      MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
-                                                            text: L("subtitle_error_downloading_guide"))
-      return
-    }
-
-    let purchase = InAppPurchase.paidRoutePurchase(serverId: productInfo.id,
-                                                   productId: productId)
-    let testGroup = ABTestManager.manager().paidRoutesSubscriptionCampaign.testGroupStatName
-    let stats = InAppPurchase.paidRouteStatistics(serverId: productInfo.id,
-                                                  productId: productId,
-                                                  testGroup: testGroup,
-                                                  source: kStatWebView)
-    let paymentVC = PaidRouteViewController(name: productInfo.name,
-                                            author: productInfo.author,
-                                            imageUrl: URL(string: productInfo.imageUrl ?? ""),
-                                            subscriptionType: productInfo.subscriptionType,
-                                            purchase: purchase,
-                                            statistics: stats)
-    paymentVC.delegate = self
-    paymentVC.modalTransitionStyle = .coverVertical
-    paymentVC.modalPresentationStyle = .fullScreen
-    navigationController?.present(paymentVC, animated: true)
   }
 
   private func showSubscriptionScreen(_ productInfo: CatalogCategoryInfo) {
