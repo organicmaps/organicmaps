@@ -28,7 +28,7 @@ class PaidRouteViewController: MWMViewController {
 
   private var product: IStoreProduct?
   private var subscription: ISubscription?
-  private let subscriptionManager: ISubscriptionManager
+  private let subscriptionManager: ISubscriptionManager? = nil
   private let subscriptionType: SubscriptionGroupType
   private let paidRoutesSubscriptionCampaign = ABTestManager.manager().paidRoutesSubscriptionCampaign
 
@@ -46,15 +46,9 @@ class PaidRouteViewController: MWMViewController {
     self.purchase = purchase
     self.statistics = statistics
     self.subscriptionType = subscriptionType
-    switch subscriptionType {
-    case .city:
-      subscriptionManager = InAppPurchase.bookmarksSubscriptionManager
-    case .allPass:
-      subscriptionManager = InAppPurchase.allPassSubscriptionManager
-    }
     super.init(nibName: nil, bundle: nil)
     if paidRoutesSubscriptionCampaign.actionType == .instant {
-      subscriptionManager.addListener(self)
+      subscriptionManager?.addListener(self)
     }
   }
 
@@ -64,7 +58,7 @@ class PaidRouteViewController: MWMViewController {
 
   deinit {
     if paidRoutesSubscriptionCampaign.actionType == .instant {
-      subscriptionManager.removeListener(self)
+      subscriptionManager?.removeListener(self)
     }
   }
 
@@ -88,7 +82,7 @@ class PaidRouteViewController: MWMViewController {
     }
 
     dispatchGroup.enter()
-    subscriptionManager.getAvailableSubscriptions { s, error in
+    subscriptionManager?.getAvailableSubscriptions { s, error in
       subscriptions = s
       dispatchGroup.leave()
     }
@@ -127,12 +121,6 @@ class PaidRouteViewController: MWMViewController {
       self?.subscribeButton.setTitle(title, for: .normal)
       self?.subscribeButton.isEnabled = true
       self?.subscription = subscriptionItem.subscription
-      Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: self?.subscriptionManager.vendorId ?? "",
-                                                           kStatProduct: subscriptionItem.productId,
-                                                           kStatPurchase: self?.subscriptionManager.serverId ?? "",
-                                                           kStatTestGroup: self?.paidRoutesSubscriptionCampaign.testGroupStatName ?? "",
-                                                           kStatInappTrial: false],
-                          with: .realtime)
     }
 
     statistics.logPreviewShow()
@@ -238,13 +226,7 @@ class PaidRouteViewController: MWMViewController {
         return
       }
 
-      Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct: subscription.productId,
-                                                             kStatPurchase: self?.subscriptionManager.serverId ?? "",
-                                                             kStatInappTrial: false])
-      Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: self?.subscriptionManager.serverId ?? "",
-                                                          kStatInappTrial: false],
-                          with: .realtime)
-      self?.subscriptionManager.subscribe(to: subscription)
+      self?.subscriptionManager?.subscribe(to: subscription)
     }
   }
 
@@ -262,7 +244,6 @@ class PaidRouteViewController: MWMViewController {
 
   @IBAction func onCancel(_ sender: UIButton) {
     statistics.logCancel()
-    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase: subscriptionManager.serverId])
     delegate?.didCancelPurchase(self)
   }
 
@@ -307,7 +288,7 @@ extension PaidRouteViewController: SubscriptionManagerListener {
   }
 
   func didSubscribe(_ subscription: ISubscription) {
-    subscriptionManager.setSubscriptionActive(true, isTrial: false)
+    subscriptionManager?.setSubscriptionActive(true, isTrial: false)
     BookmarksManager.shared().resetExpiredCategories()
   }
 

@@ -311,7 +311,6 @@
 		4715273524907F8200E91BBA /* BookmarkColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4715273424907F8200E91BBA /* BookmarkColorViewController.swift */; };
 		471527372491C20500E91BBA /* SelectBookmarkGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471527362491C20500E91BBA /* SelectBookmarkGroupViewController.swift */; };
 		4716EABA21A325310029B886 /* IPaidRouteStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4716EAB921A325310029B886 /* IPaidRouteStatistics.swift */; };
-		4719A643219CB61D009F9AA7 /* BillingPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A642219CB61D009F9AA7 /* BillingPendingTransaction.swift */; };
 		4719A645219CBD65009F9AA7 /* IPendingTransactionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */; };
 		4719A647219CBD7F009F9AA7 /* IBillingPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */; };
 		4719A64E21A30C3B009F9AA7 /* PaidRouteStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */; };
@@ -384,7 +383,6 @@
 		47B9065321C7FA400079C85E /* MWMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B9064A21C7FA3C0079C85E /* MWMImageCache.m */; };
 		47B9065421C7FA400079C85E /* UIImageView+WebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B9064F21C7FA3E0079C85E /* UIImageView+WebImage.m */; };
 		47B9065521C7FA400079C85E /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B9065021C7FA3F0079C85E /* NSString+MD5.m */; };
-		47C7F9732191E15A00C2760C /* InAppBilling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7F9722191E15A00C2760C /* InAppBilling.swift */; };
 		47C7F97521930F5300C2760C /* IInAppBilling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7F97421930F5300C2760C /* IInAppBilling.swift */; };
 		47C8789022DF525A00A772DA /* SubscriptionSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C8788E22DF525A00A772DA /* SubscriptionSuccessViewController.swift */; };
 		47C8789122DF525A00A772DA /* SubscriptionSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C8788F22DF525A00A772DA /* SubscriptionSuccessViewController.xib */; };
@@ -1431,7 +1429,6 @@
 		471527362491C20500E91BBA /* SelectBookmarkGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBookmarkGroupViewController.swift; sourceTree = "<group>"; };
 		4716EAB921A325310029B886 /* IPaidRouteStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPaidRouteStatistics.swift; sourceTree = "<group>"; };
 		4716EACA21B01C270029B886 /* MWMUGCReviewSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUGCReviewSource.h; sourceTree = "<group>"; };
-		4719A642219CB61D009F9AA7 /* BillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingPendingTransaction.swift; sourceTree = "<group>"; };
 		4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPendingTransactionsHandler.swift; sourceTree = "<group>"; };
 		4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBillingPendingTransaction.swift; sourceTree = "<group>"; };
 		4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRouteStatistics.swift; sourceTree = "<group>"; };
@@ -1516,7 +1513,6 @@
 		47B9064F21C7FA3E0079C85E /* UIImageView+WebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebImage.m"; sourceTree = "<group>"; };
 		47B9065021C7FA3F0079C85E /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		47B9065121C7FA400079C85E /* IMWMImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMWMImageCache.h; sourceTree = "<group>"; };
-		47C7F9722191E15A00C2760C /* InAppBilling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppBilling.swift; sourceTree = "<group>"; };
 		47C7F97421930F5300C2760C /* IInAppBilling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IInAppBilling.swift; sourceTree = "<group>"; };
 		47C8788E22DF525A00A772DA /* SubscriptionSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionSuccessViewController.swift; sourceTree = "<group>"; };
 		47C8788F22DF525A00A772DA /* SubscriptionSuccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubscriptionSuccessViewController.xib; sourceTree = "<group>"; };
@@ -3378,8 +3374,6 @@
 		4719A648219CBD9E009F9AA7 /* Impl */ = {
 			isa = PBXGroup;
 			children = (
-				4719A642219CB61D009F9AA7 /* BillingPendingTransaction.swift */,
-				47C7F9722191E15A00C2760C /* InAppBilling.swift */,
 				470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */,
 				47D0026621999DA900F651A2 /* PendingTransactionsHandler.swift */,
 				4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */,
@@ -5633,7 +5627,6 @@
 				47B06DF021B697230094CCAD /* MWMGeoTrackerCore.mm in Sources */,
 				99B6A74C2362F5AA002C94CB /* PromoButton.swift in Sources */,
 				99F3EB1123F418C900C713F8 /* PlacePageBuilder.swift in Sources */,
-				4719A643219CB61D009F9AA7 /* BillingPendingTransaction.swift in Sources */,
 				4735008A23A83CF700661A95 /* DownloadedMapsDataSource.swift in Sources */,
 				CD9AD96F2281DF3600EC174A /* CategoryInfo.swift in Sources */,
 				3DEE1AEB21F72CD300054A91 /* MWMPowerManagmentViewController.mm in Sources */,
@@ -5952,7 +5945,6 @@
 				F5BD29FF26AD58255766C51A /* DiscoverySpinnerCell.swift in Sources */,
 				47E3C72B2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift in Sources */,
 				F5BD255A0838E70EC012748E /* DiscoverySearchCell.swift in Sources */,
-				47C7F9732191E15A00C2760C /* InAppBilling.swift in Sources */,
 				F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */,
 				4796037524482E3900F3BDD0 /* KeychainStorage.swift in Sources */,
 				471A7BC4248471BE00A0D4C1 /* BookmarkUIUtils.swift in Sources */,

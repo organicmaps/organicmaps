@@ -1,14 +1,8 @@
 @objc
 final class InAppPurchase: NSObject {
   static func paidRoutePurchase(serverId: String,
-                                productId: String) -> IPaidRoutePurchase {
-    let validation = MWMPurchaseValidation(vendorId: BOOKMARKS_VENDOR)
-    let billing = InAppBilling()
-    return PaidRoutePurchase(serverId: serverId,
-                             vendorId: BOOKMARKS_VENDOR,
-                             productId: productId,
-                             purchaseValidation: validation,
-                             billing: billing)
+                                productId: String) -> IPaidRoutePurchase? {
+    return nil
   }
 
   static func paidRouteStatistics(serverId: String,
@@ -23,31 +17,17 @@ final class InAppPurchase: NSObject {
   }
 
   @objc
-  static func pendingTransactionsHandler() -> IPendingTransactionsHandler {
-    let validation = MWMPurchaseValidation(vendorId: BOOKMARKS_VENDOR)
-    let pendingTransaction = BillingPendingTransaction()
-    return PendingTransactionsHandler(validation: validation, pendingTransaction: pendingTransaction)
+  static func pendingTransactionsHandler() -> IPendingTransactionsHandler? {
+    return nil
   }
 
-  static func inAppBilling() -> IInAppBilling {
-    return InAppBilling()
+  static func inAppBilling() -> IInAppBilling? {
+    return nil
   }
 
-  @objc static var adsRemovalSubscriptionManager: ISubscriptionManager = {
-    SubscriptionManager(productIds: MWMPurchaseManager.productIds(),
-                        serverId: MWMPurchaseManager.adsRemovalServerId(),
-                        vendorId: MWMPurchaseManager.adsRemovalVendorId())
-  }()
+  @objc static var adsRemovalSubscriptionManager: ISubscriptionManager? = nil
 
-  @objc static var bookmarksSubscriptionManager: ISubscriptionManager = {
-    SubscriptionManager(productIds: MWMPurchaseManager.bookmakrsProductIds(),
-                        serverId: MWMPurchaseManager.bookmarksSubscriptionServerId(),
-                        vendorId: MWMPurchaseManager.bookmarksSubscriptionVendorId())
-  }()
+  @objc static var bookmarksSubscriptionManager: ISubscriptionManager? = nil
 
-  @objc static var allPassSubscriptionManager: ISubscriptionManager = {
-    SubscriptionManager(productIds: MWMPurchaseManager.allPassProductIds(),
-                        serverId: MWMPurchaseManager.allPassSubscriptionServerId(),
-                        vendorId: MWMPurchaseManager.allPassSubscriptionVendorId())
-  }()
+  @objc static var allPassSubscriptionManager: ISubscriptionManager? = nil
 }
