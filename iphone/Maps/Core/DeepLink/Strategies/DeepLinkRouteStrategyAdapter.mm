@@ -1,6 +1,5 @@
 #import "DeepLinkRouteStrategyAdapter.h"
 #import <CoreApi/Framework.h>
-#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 #import "MWMCoreRouterType.h"
 #import "MWMRoutePoint+CPP.h"
 
@@ -21,10 +20,6 @@
                                              intermediateIndex:0];
       _type = routerType(parsedData.m_type);
     } else {
-      NSError *err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
-                                                code:5
-                                            userInfo:@{@"Description": @"Invalid number of route points", @"URL": url}];
-      [[FIRCrashlytics crashlytics] recordError:err];
       return nil;
     }
   }

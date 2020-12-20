@@ -1,5 +1,4 @@
 #import "MWMRouter.h"
-#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 #import "MWMAlertViewController+CPP.h"
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
@@ -148,12 +147,6 @@ void logPointEvent(MWMRoutePoint *point, NSString *eventType) {
             kStatToLocation: makeLocationEventValue(p2.latitude, p2.longitude)
           }
               atLocation:[MWMLocationManager lastLocation]];
-  } else {
-    auto err = [[NSError alloc]
-      initWithDomain:kMapsmeErrorDomain
-                code:5
-            userInfo:@{@"Description": @"Invalid number of taxi route points", @"Count": @(routePoints.size())}];
-    [[FIRCrashlytics crashlytics] recordError:err];
   }
 
   [taxiDataSource taxiURL:^(NSURL *url) {
@@ -466,12 +459,6 @@ void logPointEvent(MWMRoutePoint *point, NSString *eventType) {
           }
                                needToRebuild:needToRebuild];
       }
-    } else {
-      auto err = [[NSError alloc]
-        initWithDomain:kMapsmeErrorDomain
-                  code:5
-              userInfo:@{@"Description": @"Invalid number of route points", @"Count": @(routePoints.size())}];
-      [[FIRCrashlytics crashlytics] recordError:err];
     }
   };
 

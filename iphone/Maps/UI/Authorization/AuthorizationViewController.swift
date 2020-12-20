@@ -1,9 +1,5 @@
-import FBSDKCoreKit
-import FBSDKLoginKit
-import GoogleSignIn
 import SafariServices
 import AuthenticationServices
-import Firebase
 
 @objc enum AuthorizationError: Int {
   case cancelled
@@ -66,15 +62,6 @@ final class AuthorizationViewController: MWMViewController {
   }
 
   @IBAction func googleSignIn() {
-    let gid = GIDSignIn.sharedInstance()!
-    if var scopes = gid.scopes {
-      scopes.append("https://www.googleapis.com/auth/plus.login")
-      gid.scopes = scopes
-    }
-    gid.delegate = self
-    gid.uiDelegate = self
-    gid.signIn()
-    logStatStart(type: .google)
   }
 
   @IBOutlet private var facebookButton: UIButton! {
@@ -84,15 +71,6 @@ final class AuthorizationViewController: MWMViewController {
   }
   
   @IBAction func facebookSignIn() {
-    let fbLoginManager = LoginManager()
-    fbLoginManager.logIn(permissions: ["public_profile", "email"], from: self) { [weak self] (result, error) in
-      if let error = error {
-        self?.process(error: error, type: .facebook)
-      } else if let token = result?.token {
-        self?.process(token: token.tokenString, type: .facebook)
-      }
-    }
-    logStatStart(type: .facebook)
   }
 
   @IBAction private func phoneSignIn() {
@@ -276,7 +254,6 @@ final class AuthorizationViewController: MWMViewController {
       kStatError: error.localizedDescription
     ])
     textLabel.text = L("profile_authorization_error")
-    Crashlytics.crashlytics().record(error: error)
   }
 
   private func process(token: String,
@@ -318,19 +295,6 @@ final class AuthorizationViewController: MWMViewController {
       Statistics.logEvent(kStatAuthRequestSucces, withParameters: [kStatProvider: provider])
     } else {
       Statistics.logEvent(kStatAuthError, withParameters: [kStatProvider: provider, kStatError: ""])
-    }
-  }
-}
-
-extension AuthorizationViewController: GIDSignInUIDelegate {
-}
-
-extension AuthorizationViewController: GIDSignInDelegate {
-  func sign(_: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-    if let error = error {
-      process(error: error, type: .google)
-    } else {
-      process(token: user.authentication.idToken, type: .google)
     }
   }
 }

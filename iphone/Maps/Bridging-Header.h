@@ -6,9 +6,6 @@
 
 #import "AuthenticationServices/AuthenticationServices.h"
 #import "CarPlay/CarPlay.h"
-#import "FBAudienceNetwork/FBAudienceNetwork.h"
-#import "FBSDKLoginKit/FBSDKLoginKit.h"
-#import "GoogleSignIn/GIDSignIn.h"
 #import "UIKit/UIKit.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"

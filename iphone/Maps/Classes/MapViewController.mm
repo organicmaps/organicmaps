@@ -16,15 +16,13 @@
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 
-#include <CoreApi/Framework.h>
+#import <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 #import <CoreApi/PlacePageData.h>
 
 #include "drape_frontend/user_event_stream.hpp"
 
 #include "geometry/mercator.hpp"
-
-#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
@@ -730,12 +728,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)processCountryEvent:(NSString *)countryId {
   if (countryId.length == 0) {
-#ifdef OMIM_PRODUCTION
-    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
-                                          code:1
-                                      userInfo:@{@"Description": @"attempt to get info from empty countryId"}];
-    [[FIRCrashlytics crashlytics] recordError:err];
-#endif
     return;
   }
 

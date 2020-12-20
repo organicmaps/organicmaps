@@ -36,7 +36,6 @@
 		340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416521E7C09C200E2B6D6 /* PhotoScalingView.swift */; };
 		340416581E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */; };
 		3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */; };
-		340474F41E08199D00C92850 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340474DD1E08199D00C92850 /* Fabric.framework */; };
 		3404754D1E081A4600C92850 /* MWMKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 340475191E081A4600C92850 /* MWMKeyboard.m */; };
 		340475501E081A4600C92850 /* fabric_logging_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475201E081A4600C92850 /* fabric_logging_ios.mm */; };
 		340475531E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475221E081A4600C92850 /* MWMCustomFacebookEvents.mm */; };
@@ -107,8 +106,6 @@
 		3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7B31E07F045004AF2AD /* UITextField+RuntimeAttributes.m */; };
 		3454D7E31E07F045004AF2AD /* UITextView+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3454D7B51E07F045004AF2AD /* UITextView+RuntimeAttributes.m */; };
 		3457C4261F680F1900028233 /* String+BoundingRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3457C4241F680F1900028233 /* String+BoundingRect.swift */; };
-		345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C71F82362900E86251 /* GoogleSignIn.framework */; };
-		345E8F4F1F83984500A826CC /* GoogleSignInDependencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */; };
 		3462258F1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3462258D1DDC5DBA001E8752 /* MWMSearchNoResultsAlert.mm */; };
 		346225921DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 346225901DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib */; };
 		3463BA671DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3463BA641DE81DB90082417F /* MWMTrafficButtonViewController.mm */; };
@@ -533,9 +530,7 @@
 		67B78B3F1E422C110018E590 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B3E1E422C110018E590 /* SafariServices.framework */; };
 		67B78B411E422C360018E590 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B401E422C360018E590 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		67B78B431E422C620018E590 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B421E422C620018E590 /* MessageUI.framework */; };
-		67B78B451E422C970018E590 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B441E422C970018E590 /* iAd.framework */; };
 		67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B461E422E0A0018E590 /* MobileCoreServices.framework */; };
-		67B78B551E42333C0018E590 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B541E42333C0018E590 /* AdSupport.framework */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		7BD07E4A8D71CA41F082BEC7 /* Pods_MAPS_ME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E5736C23FC4E77509C9946 /* Pods_MAPS_ME.framework */; };
 		99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012846243F0D6900C72B10 /* UIViewController+alternative.swift */; };
@@ -2189,8 +2184,6 @@
 				1DA7908820762CEB008BDD6B /* libopen_location_code.a in Frameworks */,
 				45CBCCBA20590AAB006B55C2 /* libkml.a in Frameworks */,
 				56EE14D11FE804550036F20C /* libtransit.a in Frameworks */,
-				345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */,
-				345E8F4F1F83984500A826CC /* GoogleSignInDependencies.framework in Frameworks */,
 				4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */,
 				4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */,
 				34E6F2DB1F459C05008E14F9 /* GLKit.framework in Frameworks */,
@@ -2199,9 +2192,7 @@
 				45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */,
 				34D1B6F11E95096B0057E9C7 /* libicu.a in Frameworks */,
 				671E78D31E6A423300B2859B /* librouting_common.a in Frameworks */,
-				67B78B551E42333C0018E590 /* AdSupport.framework in Frameworks */,
 				67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */,
-				67B78B451E422C970018E590 /* iAd.framework in Frameworks */,
 				67B78B431E422C620018E590 /* MessageUI.framework in Frameworks */,
 				67B78B411E422C360018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B3F1E422C110018E590 /* SafariServices.framework in Frameworks */,
@@ -2219,7 +2210,6 @@
 				6741AAC21BF356BA002C974C /* libcoding.a in Frameworks */,
 				6741AAC31BF356BA002C974C /* libexpat.a in Frameworks */,
 				6741AAC41BF356BA002C974C /* libfreetype.a in Frameworks */,
-				340474F41E08199D00C92850 /* Fabric.framework in Frameworks */,
 				6741AAC61BF356BA002C974C /* libgeometry.a in Frameworks */,
 				674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */,
 				6741AAC91BF356BA002C974C /* libindexer.a in Frameworks */,
@@ -4945,7 +4935,6 @@
 				6741A9411BF340DE002C974C /* Resources */,
 				6741A9A01BF340DE002C974C /* Sources */,
 				6741AA311BF340DE002C974C /* Frameworks */,
-				AED76F73852BBAF00EEF9E66 /* [CP] Embed Pods Frameworks */,
 				4740184523F5BDE900A93C81 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -5263,36 +5252,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n../../tools/unix/check_cert.sh\n";
-		};
-		AED76F73852BBAF00EEF9E66 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
-				"${BUILT_PRODUCTS_DIR}/mopub-ios-sdk/MoPub.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoPub.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		DC18E8E671D9B333180B1B98 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

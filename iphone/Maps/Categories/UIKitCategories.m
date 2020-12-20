@@ -2,7 +2,6 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIImageView+Coloring.h"
 
-#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 #import <SafariServices/SafariServices.h>
 
 @implementation NSObject (Optimized)
@@ -175,25 +174,12 @@
   if (!url)
   {
     NSAssert(false, @"URL is nil!");
-    NSError *err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
-                                          code:0
-                                      userInfo:@{
-                                        @"Trying to open nil url" : @YES
-                                      }];
-    [[FIRCrashlytics crashlytics] recordError:err];
     return;
   }
   NSString * scheme = url.scheme;
   if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]))
   {
     NSAssert(false, @"Incorrect url's scheme!");
-    NSString *urlString = url.absoluteString;
-    NSError *err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
-                                          code:0
-                                      userInfo:@{
-                                        @"Trying to open incorrect url" : urlString
-                                      }];
-    [[FIRCrashlytics crashlytics] recordError:err];
     return;
   }
 

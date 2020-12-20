@@ -1,5 +1,4 @@
 #import <CoreSpotlight/CoreSpotlight.h>
-#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <CoreApi/CoreApi.h>
 #import "MWMSearch+CoreSpotlight.h"
@@ -59,7 +58,6 @@
            if (error)
            {
              NSError * err = error;
-             [[FIRCrashlytics crashlytics] recordError:err];
              LOG(LERROR,
                  ("addCategoriesToSpotlight failed: ", err.localizedDescription.UTF8String));
            }

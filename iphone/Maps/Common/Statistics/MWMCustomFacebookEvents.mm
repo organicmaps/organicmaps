@@ -1,8 +1,6 @@
 #import "MWMCustomFacebookEvents.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-
 #include <CoreApi/Framework.h>
 
 #include "platform/downloader_defines.hpp"
@@ -13,11 +11,11 @@
 static NSString * const kEnableCustomFBEventsForNewUsers = @"FBEnableCustomEventsForNewUsers";
 // Special one-time events to improve marketing targeting.
 // NOTE: Event names are using some default FB names by Alexander Bobko's request.
-static NSString * const kFirstSessionIsLongerThanXMinutesEvent = FBSDKAppEventNameAchievedLevel;
+static NSString * const kFirstSessionIsLongerThanXMinutesEvent = @"FBSDKAppEventNameAchievedLevel";
 static NSInteger const kFirstSessionLengthInSeconds = 5 * 60;
-static NSString * const kNextLaunchAfterHoursInterval = FBSDKAppEventNameCompletedRegistration;
+static NSString * const kNextLaunchAfterHoursInterval = @"FBSDKAppEventNameCompletedRegistration";
 static NSInteger const kNextLaunchMinHoursInterval = 6;
-static NSString * const kDownloadedSecondMapEvent = FBSDKAppEventNameUnlockedAchievement;
+static NSString * const kDownloadedSecondMapEvent = @"FBSDKAppEventNameUnlockedAchievement";
 
 static constexpr int kNotSubscribed = -1;
 static int gStorageSubscriptionId = kNotSubscribed;
@@ -33,10 +31,7 @@ static int gStorageSubscriptionId = kNotSubscribed;
 + (void)applicationDidEnterBackgroundOnlyOnceInAnAppLifeTimeAtTheEndOfVeryFirstSession:(NSNotification *)notification
 {
   [NSNotificationCenter.defaultCenter removeObserver:[MWMCustomFacebookEvents class]];
-  NSInteger const seconds = [Alohalytics totalSecondsSpentInTheApp];
-  if (seconds >= kFirstSessionLengthInSeconds)
-    [FBSDKAppEvents logEvent:kFirstSessionIsLongerThanXMinutesEvent
-                  parameters:@{FBSDKAppEventParameterNameLevel : [NSNumber numberWithInteger:(seconds / 60)]}];
+
   [MWMCustomFacebookEvents markEventAsAlreadyFired:kFirstSessionIsLongerThanXMinutesEvent];
 }
 
@@ -73,7 +68,6 @@ static int gStorageSubscriptionId = kNotSubscribed;
           (-[Alohalytics firstLaunchDate].timeIntervalSinceNow) / 3600;
       if (hoursFromFirstLaunch >= kNextLaunchMinHoursInterval)
       {
-        [FBSDKAppEvents logEvent:kNextLaunchAfterHoursInterval];
         [MWMCustomFacebookEvents markEventAsAlreadyFired:kNextLaunchAfterHoursInterval];
       }
     }
@@ -86,7 +80,6 @@ static int gStorageSubscriptionId = kNotSubscribed;
             [](storage::CountryId const &) {
               if (GetFramework().GetStorage().GetDownloadedFilesCount() >= 2)
               {
-                [FBSDKAppEvents logEvent:kDownloadedSecondMapEvent];
                 [MWMCustomFacebookEvents markEventAsAlreadyFired:kDownloadedSecondMapEvent];
                 // We can't unsubscribe from this callback immediately now, it will crash Storage's
                 // observers notification.

@@ -8,14 +8,4 @@ target 'MAPS.ME' do
 
   # Pods for MAPS.ME
 
-pod 'AppsFlyerFramework', '4.9.0'
-pod 'Pushwoosh', '5.16.0'
-pod 'FBSDKCoreKit', '5.15.1'
-pod 'FBSDKLoginKit', '5.15.1'
-pod 'Flurry-iOS-SDK/FlurrySDK', '11.1'
-pod 'mopub-ios-sdk', '5.12'
-pod 'MoPub-FacebookAudienceNetwork-Adapters', '5.9.0'
-pod 'Firebase/Crashlytics', '6.26.0'
-pod 'Firebase/Analytics', '6.26.0'
-
 end
