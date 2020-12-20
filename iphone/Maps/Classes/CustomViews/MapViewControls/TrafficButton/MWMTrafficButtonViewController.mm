@@ -128,26 +128,6 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
 }
 
 - (void)handleGuidesState:(MWMMapOverlayGuidesState)state {
-  switch (state) {
-    case MWMMapOverlayGuidesStateDisabled:
-    case MWMMapOverlayGuidesStateEnabled:
-      break;
-    case MWMMapOverlayGuidesStateHasData:
-      performOnce(^{
-        [[MWMToast toastWithText:L(@"routes_layer_is_on_toast")] showWithAlignment:MWMToastAlignmentTop];
-      }, @"routes_layer_is_on_toast");
-      break;
-    case MWMMapOverlayGuidesStateNetworkError:
-      [[MWMToast toastWithText:L(@"connection_error_toast_guides")] show];
-      break;
-    case MWMMapOverlayGuidesStateFatalNetworkError:
-      [MWMMapOverlayManager setGuidesEnabled:NO];
-      [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
-      break;
-    case MWMMapOverlayGuidesStateNoData:
-      [[MWMToast toastWithText:L(@"no_routes_in_the_area_toast")] show];
-      break;
-  }
 }
 
 - (void)handleIsolinesState:(MWMMapOverlayIsolinesState)state {

@@ -45,8 +45,10 @@ import UIKit
     switch state {
     case .opened:
       guard let bookmarksControllers = bookmarksControllers else {
-        navigationController.pushViewController(BookmarksTabViewController(coordinator: self),
-                                                animated: true)
+        // Instead of BookmarksTabViewController
+        let bookmarks = BMCViewController(coordinator: self)
+        bookmarks.title = L("bookmarks")
+        navigationController.pushViewController(bookmarks, animated: true)
         return
       }
       var controllers = navigationController.viewControllers
