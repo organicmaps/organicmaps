@@ -3,7 +3,6 @@ final class PlacePageGalleryLayout: IPlacePageLayout {
   var header: PlacePageHeaderViewController? { nil }
   var actionBar: ActionBarViewController? { nil }
   var navigationBar: UIViewController? { nil }
-  var adState: AdBannerState = .unset
 
   var viewControllers: [UIViewController] {
     [guidesGalleryViewController]

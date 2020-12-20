@@ -44,11 +44,6 @@ final class PlacePagePreviewViewController: UIViewController {
   lazy var fullScreenDirectionView: DirectionView = {
     return Bundle.main.load(viewClass: DirectionView.self)!
   }()
-  lazy var adView: AdBannerView = {
-    let view = Bundle.main.load(viewClass: AdBannerView.self)?.first as! AdBannerView
-    view.isHidden = true
-    return view
-  }()
 
   var placePagePreviewData: PlacePagePreviewData! {
     didSet {
@@ -79,8 +74,6 @@ final class PlacePagePreviewViewController: UIViewController {
     } else {
       placePageDirectionView?.imageView.isHidden = true
     }
-
-    stackView.addArrangedSubview(adView)
   }
 
   private func updateViews() {
@@ -127,13 +120,6 @@ final class PlacePagePreviewViewController: UIViewController {
     configSchedule()
     configUgc()
     ugcContainerView.isHidden = !placePagePreviewData.isBookingPlace
-  }
-
-  func updateBanner(_ banner: MWMBanner) {
-    adView.isHidden = false
-    adView.config(ad: banner, containerType: .placePage, canRemoveAds: true) { [weak self] in
-      self?.delegate?.previewDidPressRemoveAds()
-    }
   }
 
   func updateUgc(_ ugcData: UgcData) {

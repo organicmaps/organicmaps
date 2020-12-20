@@ -54,7 +54,6 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
   tableView.rowHeight = UITableViewAutomaticDimension;
   [tableView registerNibWithCellClass:[MWMSearchSuggestionCell class]];
   [tableView registerNibWithCellClass:[MWMSearchCommonCell class]];
-  [tableView registerClassWithCellClass:[MWMAdBannerCell class]];
 }
 
 - (void)reloadData {
@@ -104,16 +103,6 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
     }
     case MWMSearchItemTypeMopub:
     case MWMSearchItemTypeFacebook: {
-      auto cell = static_cast<MWMAdBannerCell *>([tableView dequeueReusableCellWithCellClass:[MWMAdBannerCell class]
-                                                                                   indexPath:indexPath]);
-      auto ad = [MWMSearch adWithContainerIndex:containerIndex];
-      [cell configWithAd:ad
-           containerType:MWMAdBannerContainerTypeSearch
-            canRemoveAds:[SubscriptionManager canMakePayments]
-             onRemoveAds:^{
-               [[MapViewController sharedController] showRemoveAds];
-             }];
-      return cell;
     }
     case MWMSearchItemTypeSuggestion: {
       auto cell = static_cast<MWMSearchSuggestionCell *>(

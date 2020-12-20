@@ -1,12 +1,10 @@
 #import "MWMSearch.h"
-#import "MWMBannerHelpers.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
 
-#include "partners_api/ads/ads_engine.hpp"
 #include "platform/network_policy.hpp"
 
 namespace {
@@ -54,8 +52,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
 @property(nonatomic) MWMHotelParams *filter;
 
 @property(nonatomic) MWMSearchIndex *itemsIndex;
-
-@property(nonatomic) MWMSearchBanners *banners;
 
 @property(nonatomic) NSInteger searchCount;
 
@@ -220,13 +216,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   manager->m_everywhereParams.m_query = text;
   manager->m_viewportParams.m_query = text;
   manager.textChanged = YES;
-  auto const &adsEngine = GetFramework().GetAdsEngine();
-  auto const banners = adsEngine.GetSearchBanners();
-
-  if (!banners.empty()) {
-    auto coreBanners = banner_helpers::MatchPriorityBanners(banners, manager.lastQuery);
-    [[MWMBannersCache cache] refreshWithCoreBanners:coreBanners];
-  }
   [manager update];
 }
 
@@ -239,10 +228,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
 
 + (search::ProductInfo const &)productInfoWithContainerIndex:(NSUInteger)index {
   return [MWMSearch manager]->m_productInfo[index];
-}
-
-+ (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index {
-  return [[MWMSearch manager].banners bannerAtIndex:index];
 }
 
 + (BOOL)isFeatureAt:(NSUInteger)index in:(std::vector<FeatureID> const &)array {
@@ -379,27 +364,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   auto const resultsCount = self->m_everywhereResults.GetCount();
   auto const itemsIndex = [[MWMSearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
                                                               resultsCount:resultsCount];
-  if (resultsCount > 0) {
-    auto const &adsEngine = GetFramework().GetAdsEngine();
-    auto const banners = adsEngine.GetSearchBanners();
-
-    if (!banners.empty()) {
-      self.banners = [[MWMSearchBanners alloc] initWithSearchIndex:itemsIndex];
-      __weak auto weakSelf = self;
-      [[MWMBannersCache cache] getWithCoreBanners:banner_helpers::MatchPriorityBanners(banners, self.lastQuery)
-                                        cacheOnly:YES
-                                          loadNew:reloadBanner
-                                       completion:^(id<MWMBanner> ad, BOOL isAsync) {
-                                         __strong auto self = weakSelf;
-                                         if (!self)
-                                           return;
-                                         NSAssert(isAsync == NO, @"Banner is not from cache!");
-                                         [self.banners add:ad];
-                                       }];
-    }
-  } else {
-    self.banners = nil;
-  }
   [itemsIndex build];
   self.itemsIndex = itemsIndex;
 }

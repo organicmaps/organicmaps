@@ -1,6 +1,4 @@
 #import "MWMPushNotifications.h"
-#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
-#import <Pushwoosh/PushNotificationManager.h>
 #import "Statistics.h"
 
 #include "platform/marketing_service.hpp"
@@ -20,29 +18,16 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 
 + (void)setup
 {
-  PushNotificationManager * pushManager = [PushNotificationManager pushManager];
-
-  // make sure we count app open in Pushwoosh stats
-  [pushManager sendAppOpen];
-
-  // register for push notifications!
-  [pushManager registerForPushNotifications];
 }
 
 + (void)application:(UIApplication *)application
     didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-  PushNotificationManager * pushManager = [PushNotificationManager pushManager];
-  [pushManager handlePushRegistration:deviceToken];
-  NSLog(@"Pushwoosh token: %@", [pushManager getPushToken]);
-  [Alohalytics logEvent:kPushDeviceTokenLogEvent withValue:pushManager.getHWID];
 }
 
 + (void)application:(UIApplication *)application
     didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-  [[PushNotificationManager pushManager] handlePushRegistrationFailure:error];
-  [[FIRCrashlytics crashlytics] recordError:error];
 }
 
 + (void)application:(UIApplication *)application
@@ -72,18 +57,12 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
        willPresentNotification:(UNNotification *)notification
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
 {
-  [[PushNotificationManager pushManager].notificationCenterDelegate userNotificationCenter:center
-                                                                   willPresentNotification:notification
-                                                                     withCompletionHandler:completionHandler];
 }
 
 + (void)userNotificationCenter:(UNUserNotificationCenter *)center
 didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void(^)(void))completionHandler
 {
-  [[PushNotificationManager pushManager].notificationCenterDelegate userNotificationCenter:center
-                                                            didReceiveNotificationResponse:response
-                                                                     withCompletionHandler:completionHandler];
 }
 
 + (NSString * _Nonnull)formattedTimestamp {

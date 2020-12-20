@@ -1,7 +1,6 @@
 #import "MWMMapDownloadDialog.h"
 #import <SafariServices/SafariServices.h>
 #import "CLLocation+Mercator.h"
-#import "MWMBannerHelpers.h"
 #import "MWMCircularProgress.h"
 #import "MWMStorage+UI.h"
 #import "MapViewController.h"
@@ -9,9 +8,6 @@
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
-
-#include "partners_api/ads/ads_engine.hpp"
-#include "partners_api/ads/banner.hpp"
 
 #include "storage/country_info_getter.hpp"
 
@@ -39,6 +35,7 @@ BOOL canAutoDownload(storage::CountryId const &countryId) {
   return YES;
 }
 
+/*
 ads::Banner getPromoBanner(std::string const &mwmId) {
   auto const pos = GetFramework().GetCurrentPosition();
   auto const banners =
@@ -49,6 +46,7 @@ ads::Banner getPromoBanner(std::string const &mwmId) {
 
   return banners[0];
 }
+*/
 }  // namespace
 
 using namespace storage;
@@ -69,7 +67,6 @@ using namespace storage;
 @property(nonatomic) MWMCircularProgress *progress;
 @property(nonatomic) NSMutableArray<NSDate *> *skipDownloadTimes;
 @property(nonatomic) BOOL isAutoDownloadCancelled;
-@property(strong, nonatomic) UIViewController *bannerViewController;
 
 @end
 
@@ -125,7 +122,6 @@ using namespace storage;
     switch (nodeAttrs.m_status) {
       case NodeStatus::NotDownloaded:
       case NodeStatus::Partly: {
-        [self removePreviousBunnerIfNeeded];
         MapViewController *controller = self.controller;
         BOOL const isMapVisible = [controller.navigationController.topViewController isEqual:controller];
         if (isMapVisible && !self.isAutoDownloadCancelled && canAutoDownload(m_countryId)) {
@@ -154,7 +150,6 @@ using namespace storage;
         if (nodeAttrs.m_downloadingProgress.m_bytesTotal != 0)
           [self showDownloading:(CGFloat)nodeAttrs.m_downloadingProgress.m_bytesDownloaded /
                                 nodeAttrs.m_downloadingProgress.m_bytesTotal];
-        [self showBannerIfNeeded];
         break;
       case NodeStatus::Applying:
       case NodeStatus::InQueue:
@@ -163,7 +158,6 @@ using namespace storage;
       case NodeStatus::Undefined:
       case NodeStatus::Error:
         if (p.IsAutoRetryDownloadFailed()) {
-          [self removePreviousBunnerIfNeeded];
           [self showError:nodeAttrs.m_error];
         } else {
           [self showInQueue];
@@ -240,7 +234,6 @@ using namespace storage;
 }
 
 - (void)showDownloadRequest {
-  [self hideBanner];
   self.downloadButton.hidden = NO;
   self.progressWrapper.hidden = YES;
   [self addToSuperview];
@@ -257,7 +250,6 @@ using namespace storage;
 }
 
 - (void)showInQueue {
-  [self showBannerIfNeeded];
   self.nodeSize.textColor = [UIColor blackSecondaryText];
   self.nodeSize.text = L(@"downloader_queued");
   self.downloadButton.hidden = YES;
@@ -274,6 +266,7 @@ using namespace storage;
     [self configDialog];
 }
 
+/*
 - (NSString *)getStatProvider:(MWMBannerType)bannerType {
   switch (bannerType) {
   case MWMBannerTypeTinkoffAllAirlines: return kStatTinkoffAirlines;
@@ -399,6 +392,7 @@ using namespace storage;
   self.bannerView.hidden = YES;
   [self layoutIfNeeded];
 }
+*/
 
 #pragma mark - MWMStorageObserver
 
