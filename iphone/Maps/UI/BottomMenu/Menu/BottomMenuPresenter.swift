@@ -5,7 +5,7 @@ protocol BottomMenuPresenterProtocol: UITableViewDelegate, UITableViewDataSource
 class BottomMenuPresenter: NSObject {
   enum CellType: Int, CaseIterable {
     case addPlace
-    case downloadRoutes
+    //case downloadRoutes
     case downloadMaps
     case settings
     case share
@@ -64,8 +64,8 @@ extension BottomMenuPresenter {
                        title: L("placepage_add_place_button"),
                        badgeCount: 0,
                        enabled: enabled)
-      case .downloadRoutes:
-        cell.configure(imageName: "ic_menu_routes", title: L("download_guides"))
+//      case .downloadRoutes:
+//        cell.configure(imageName: "ic_menu_routes", title: L("download_guides"))
       case .downloadMaps:
         cell.configure(imageName: "ic_menu_download",
                        title: L("download_maps"),
@@ -113,8 +113,8 @@ extension BottomMenuPresenter {
     switch CellType(rawValue: indexPath.row)! {
     case .addPlace:
       interactor.addPlace()
-    case .downloadRoutes:
-      interactor.downloadRoutes()
+//    case .downloadRoutes:
+//      interactor.downloadRoutes()
     case .downloadMaps:
       interactor.downloadMaps()
     case .settings:

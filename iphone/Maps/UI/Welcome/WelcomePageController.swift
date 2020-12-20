@@ -31,9 +31,10 @@ final class WelcomePageController: UIPageViewController {
   }
 
   static func shouldShowWelcome() -> Bool {
-    return WelcomeStorage.shouldShowTerms ||
-      Alohalytics.isFirstSession() ||
-      (WelcomeStorage.shouldShowWhatsNew && !DeepLinkHandler.shared.isLaunchedByDeeplink)
+//    return WelcomeStorage.shouldShowTerms ||
+//      Alohalytics.isFirstSession() ||
+//      (WelcomeStorage.shouldShowWhatsNew && !DeepLinkHandler.shared.isLaunchedByDeeplink)
+    return false
   }
 
   @objc static func controller(parent: WelcomePageControllerProtocol) -> WelcomePageController? {
