@@ -1,6 +1,0 @@
-framework module MoPub {
-  umbrella header "mopub-ios-sdk-umbrella.h"
-
-  export *
-  module * { export * }
-}
