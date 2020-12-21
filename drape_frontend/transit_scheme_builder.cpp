@@ -49,6 +49,7 @@ int constexpr kFinalStationMinZoomLevel = 10;
 int constexpr kTransferMinZoomLevel = 11;
 int constexpr kStopMinZoomLevel = 12;
 uint16_t constexpr kFinalStationPriorityInc = 2;
+double constexpr kEps = 1e-5;
 
 float constexpr kOuterMarkerDepth = kBaseMarkerDepth + 0.5f;
 float constexpr kInnerMarkerDepth = kBaseMarkerDepth + 1.0f;
@@ -851,14 +852,12 @@ void TransitSchemeBuilder::PrepareSchemeSubway(MwmSchemeData & scheme)
 void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & newDir,
                       std::set<std::string> const & colors)
 {
-  static double constexpr eps = 1e-5;
-
   auto const newDirReverse = -newDir;
 
   for (ShapeInfoPT & info : shapeInfos)
   {
-    if (base::AlmostEqualAbs(info.m_direction, newDir, eps) ||
-        base::AlmostEqualAbs(info.m_direction, newDirReverse, eps))
+    if (base::AlmostEqualAbs(info.m_direction, newDir, kEps) ||
+        base::AlmostEqualAbs(info.m_direction, newDirReverse, kEps))
     {
       for (auto const & color : colors)
         info.m_colors.insert(color);
@@ -1243,10 +1242,25 @@ std::pair<m2::PointD, size_t> GetFittingDirectionAndSize(
   auto const dirSizeIn = GetFittingDirectionAndSize(shapeInfosIn);
   auto const dirSizeOut = GetFittingDirectionAndSize(shapeInfosOut);
 
-  if (dirSizeIn.second > dirSizeOut.second)
-    return dirSizeIn;
+  return dirSizeIn.second > dirSizeOut.second ? dirSizeIn : dirSizeOut;
+}
 
-  return dirSizeOut;
+bool StopHasMultipleShapes(std::vector<ShapeInfoPT> const & shapeInfosIn,
+                           std::vector<ShapeInfoPT> const & shapeInfosOut)
+{
+  size_t count = 0;
+
+  for (auto const & si : shapeInfosIn)
+  {
+    auto const it =
+        std::find_if(shapeInfosOut.begin(), shapeInfosOut.end(), [&si](ShapeInfoPT const & so) {
+          return base::AlmostEqualAbs(si.m_direction, so.m_direction, kEps);
+        });
+    if (it != shapeInfosOut.end())
+      ++count;
+  }
+
+  return std::max(shapeInfosIn.size(), shapeInfosOut.size()) - count > 1;
 }
 
 void TransitSchemeBuilder::GenerateStop(
@@ -1257,7 +1271,7 @@ void TransitSchemeBuilder::GenerateStop(
   auto const & [dir, linesCount] =
       GetFittingDirectionAndSize(stopParams.m_shapeInfoIn, stopParams.m_shapeInfoOut);
   bool const severalRoads =
-      std::max(stopParams.m_shapeInfoIn.size(), stopParams.m_shapeInfoOut.size()) > 1;
+      StopHasMultipleShapes(stopParams.m_shapeInfoIn, stopParams.m_shapeInfoOut);
 
   if (linesCount > 1 || severalRoads)
   {
