@@ -266,7 +266,7 @@ def init(default_settings_path: AnyStr):
     os.makedirs(os.path.dirname(os.path.abspath(LOG_FILE_PATH)), exist_ok=True)
     LOGGING["handlers"]["file"]["filename"] = LOG_FILE_PATH
 
-    # External sction:
+    # External section:
     global PLANET_URL
     global PLANET_MD5_URL
     global PLANET_COASTS_URL
