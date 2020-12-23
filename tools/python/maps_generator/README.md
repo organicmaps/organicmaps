@@ -186,7 +186,7 @@ optional arguments:
 
 If you are not from the maps.me team, then you do not need the option --production when generating maps.
 
-To generate maps for the whole planet you need 400 GB of hard disk space and a computer with more than 64 GB.
+To generate maps for the whole planet you need 400 GB of hard disk space and a computer with more than 64 GB RAM.
 
 
 If you want to generate a lot of maps, then it may be important for you to order the generation of maps.
