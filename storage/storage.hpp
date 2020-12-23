@@ -648,6 +648,9 @@ private:
 
   void LoadDiffScheme();
   void ApplyDiff(CountryId const & countryId, std::function<void(bool isSuccess)> const & fn);
+
+  using IsDiffAbsentForCountry = std::function<bool(CountryId const & id)>;
+  void SetMapSchemeForCountriesWithAbsentDiffs(IsDiffAbsentForCountry const & isAbsent);
   void AbortDiffScheme();
 
   // Should be called once on startup, downloading process should be suspended until this method

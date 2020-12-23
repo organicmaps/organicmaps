@@ -1152,15 +1152,15 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
   if (GetNodeStatus(*node).status == NodeStatus::OnDisk)
     return;
 
-  auto const fileType =
-      isUpdate && (m_areDiffsPending || m_diffsDataSource->GetStatus() == diffs::Status::Available)
-          ? MapFileType::Diff
-          : MapFileType::Map;
-  auto downloadAction = [this, fileType](CountryTree::Node const & descendantNode) {
+  auto downloadAction = [this, isUpdate](CountryTree::Node const & descendantNode) {
     if (descendantNode.ChildrenCount() == 0 &&
         GetNodeStatus(descendantNode).status != NodeStatus::OnDisk)
     {
       auto const countryId = descendantNode.Value().Name();
+      auto const fileType =
+          isUpdate && (m_areDiffsPending || m_diffsDataSource->HasDiffFor(countryId))
+              ? MapFileType::Diff
+              : MapFileType::Map;
 
       DownloadCountry(countryId, fileType);
     }
@@ -1315,20 +1315,25 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
       });
 }
 
-void Storage::AbortDiffScheme()
+void Storage::SetMapSchemeForCountriesWithAbsentDiffs(IsDiffAbsentForCountry const & isAbsent)
 {
   std::vector<CountryId> countriesToReplace;
-  m_downloader->GetQueue().ForEachCountry([&countriesToReplace](QueuedCountry const & queuedCountry)
-                                          {
-                                            if (queuedCountry.GetFileType() == MapFileType::Diff)
-                                              countriesToReplace.push_back(queuedCountry.GetCountryId());
-                                          });
+  m_downloader->GetQueue().ForEachCountry([&countriesToReplace, &isAbsent](QueuedCountry const & queuedCountry)
+  {
+    if (queuedCountry.GetFileType() == MapFileType::Diff && isAbsent(queuedCountry.GetCountryId()))
+      countriesToReplace.push_back(queuedCountry.GetCountryId());
+  });
 
   for (auto const & countryId : countriesToReplace)
   {
     DeleteCountryFilesFromDownloader(countryId);
     DownloadCountry(countryId, MapFileType::Map);
   }
+}
+
+void Storage::AbortDiffScheme()
+{
+  SetMapSchemeForCountriesWithAbsentDiffs([](auto const &) { return true; });
   m_diffsDataSource->AbortDiffScheme();
 }
 
@@ -1398,11 +1403,14 @@ void Storage::OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs)
 {
   m_areDiffsPending = false;
   m_diffsDataSource->SetDiffInfo(move(diffs));
-  if (m_diffsDataSource->GetStatus() == diffs::Status::NotAvailable)
+
+  SetMapSchemeForCountriesWithAbsentDiffs([this] (auto const & id)
   {
-    AbortDiffScheme();
+    return !m_diffsDataSource->HasDiffFor(id);
+  });
+
+  if (m_diffsDataSource->GetStatus() == diffs::Status::NotAvailable)
     return;
-  }
   
   for (auto const & localDiff : m_notAppliedDiffs)
   {
