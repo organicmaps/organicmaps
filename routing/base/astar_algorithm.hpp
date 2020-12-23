@@ -460,7 +460,12 @@ void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(
 // that ensures l_r(v, w) >= 0 for every edge. We set pi() to calculate
 // the shortest possible distance to a goal node, and this is a common
 // heuristic that people use in A*.
-// Refer to these papers for more information:
+//
+// For a detailed explanation of the reweighting idea refer to David Eppstein's
+// post "Reweighting a graph for faster shortest paths" at
+// https://11011110.github.io/blog/2008/04/03/reweighting-graph-for.html
+//
+// For more information on A* refer to
 // http://research.microsoft.com/pubs/154937/soda05.pdf
 // http://www.cs.princeton.edu/courses/archive/spr06/cos423/Handouts/EPP%20shortest%20path%20algorithms.pdf
 
