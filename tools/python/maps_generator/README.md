@@ -255,7 +255,15 @@ python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="Coastlin
 ```
 
 #### Generate all possible mwms from .osm.pbf file
-If you cut some area (with http://geojson.io and osmium tool for example) and you don't want to think what mwms got into this .osm.pbf file, you just:
+If you have some .osm.pbf file, want to cut some area from it and generate maps from this area, but don't want to think what mwms got into this .osm.pbf file, you may follow the steps:
+1. If you don't already have the .osm.pbf file, download applicable area of the world in .osm.pbf format, for example from [Geofabrik](http://download.geofabrik.de/index.html).
+2. Generate area in geojson format of the territory in which you are interested. You can do it via [geojson.io](http://geojson.io/). Select the area on the map and copy corresponding part of the resulting geojson. You need to copy the contents of the `features: [ { ... } ]`, without features array, but with inner braces: `{...}`.
+3. Save selected geojson in some file with .geojson extension. For example, `borders.geojson`.
+4. Extract this area from .osm.pbf file with the help of `osmium` tool:
+```
+osmium extract -p borders.geojson germany-latest.osm.pbf -o germany_part.osm.pbf
+```
+5. Run the `maps_generator` tool:
 ```sh
 python$ python3.6 -m maps_generator --skip="Coastline" --without_countries="World*"
 ```
