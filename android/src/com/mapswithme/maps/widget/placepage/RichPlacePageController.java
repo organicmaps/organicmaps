@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GestureDetectorCompat;
+import com.google.android.material.appbar.AppBarLayout;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.CompoundNativeAdLoader;
@@ -63,6 +64,9 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @SuppressWarnings("NullableProblems")
   @NonNull
   private Toolbar mToolbar;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private AppBarLayout mToolbarLayout;
   private int mViewportMinHeight;
   private int mCurrentTop;
   private boolean mPeekHeightAnimating;
@@ -102,6 +106,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     {
       mBannerController.onPlacePageDetails();
       mPlacePageTracker.onDetails();
+      UiUtils.show(mToolbarLayout);
     }
 
     @Override
@@ -110,6 +115,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       mPlacePage.resetScroll();
       mBannerController.onPlacePagePreview();
       setPeekHeight();
+      UiUtils.show(mToolbarLayout);
     }
 
     @Override
@@ -141,6 +147,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
     UiUtils.invisible(mButtonsLayout);
     mPlacePageTracker.onHidden();
+    UiUtils.hide(mToolbarLayout);
   }
 
   private void resizeBanner()
@@ -212,6 +219,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mOpenBannerTouchSlop = res.getDimensionPixelSize(R.dimen.placepage_banner_open_touch_slop);
     mToolbar = activity.findViewById(R.id.pp_toolbar);
+    mToolbarLayout = activity.findViewById(R.id.app_bar);
     UiUtils.extendViewWithStatusBar(mToolbar);
     UiUtils.showHomeUpButton(mToolbar);
     mToolbar.setNavigationOnClickListener(v -> close(true));

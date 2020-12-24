@@ -101,7 +101,6 @@
   <include layout="@layout/guests_and_rooms_menu_bottom_sheet" />
   <com.google.android.material.appbar.AppBarLayout
     android:id="@+id/app_bar"
-    app:layout_behavior="@string/placepage_toolbar_behavior"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:elevation="@dimen/appbar_elevation"

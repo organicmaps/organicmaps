@@ -48,7 +48,6 @@ import com.mapswithme.maps.tips.Tutorial;
 import com.mapswithme.maps.ugc.EditParams;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.ugc.UGCEditorActivity;
-import com.mapswithme.maps.widget.placepage.ToolbarBehavior;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.KeyValue;
