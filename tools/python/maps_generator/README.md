@@ -257,9 +257,81 @@ python$ python3.6 -m maps_generator --countries="Russia_Moscow" --skip="Coastlin
 #### Generate all possible mwms from .osm.pbf file
 If you have some .osm.pbf file, want to cut some area from it and generate maps from this area, but don't want to think what mwms got into this .osm.pbf file, you may follow the steps:
 1. If you don't already have the .osm.pbf file, download applicable area of the world in .osm.pbf format, for example from [Geofabrik](http://download.geofabrik.de/index.html).
-2. Generate area in geojson format of the territory in which you are interested. You can do it via [geojson.io](http://geojson.io/). Select the area on the map and copy corresponding part of the resulting geojson. You need to copy the contents of the `features: [ { ... } ]`, without features array, but with inner braces: `{...}`.
+2. Generate area in geojson format of the territory in which you are interested. You can do it via [geojson.io](http://geojson.io/). Select the area on the map and copy corresponding part of the resulting geojson. You need to copy the contents of the `features: [ { ... } ]`, without features array, but with inner braces: `{...}`. For example, here is the full geojson of the rectangle area around Melbourne:
+```json   
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              143.75610351562497,
+              -39.21523130910491
+            ],
+            [
+              147.98583984375,
+              -39.21523130910491
+            ],
+            [
+              147.98583984375,
+              -36.03133177633187
+            ],
+            [
+              143.75610351562497,
+              -36.03133177633187
+            ],
+            [
+              143.75610351562497,
+              -39.21523130910491
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
+```
+You need to copy this part of the geojson:
+```json
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              143.75610351562497,
+              -39.21523130910491
+            ],
+            [
+              147.98583984375,
+              -39.21523130910491
+            ],
+            [
+              147.98583984375,
+              -36.03133177633187
+            ],
+            [
+              143.75610351562497,
+              -36.03133177633187
+            ],
+            [
+              143.75610351562497,
+              -39.21523130910491
+            ]
+          ]
+        ]
+      }
+    }
+```
 3. Save selected geojson in some file with .geojson extension. For example, `borders.geojson`.
-4. Extract this area from .osm.pbf file with the help of `osmium` tool:
+4. Extract this area from .osm.pbf file with the help of [osmium tool:](https://osmcode.org/osmium-tool/)
 ```
 osmium extract -p borders.geojson germany-latest.osm.pbf -o germany_part.osm.pbf
 ```
@@ -267,3 +339,4 @@ osmium extract -p borders.geojson germany-latest.osm.pbf -o germany_part.osm.pbf
 ```sh
 python$ python3.6 -m maps_generator --skip="Coastline" --without_countries="World*"
 ```
+In this example we skipped generation of the World* files because they are ones of the most time- and resources-consuming mwms.
