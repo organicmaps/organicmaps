@@ -159,16 +159,16 @@ class PlacePageInfoViewController: UIViewController {
     coordinatesView?.accessoryImage.isHidden = false
     coordinatesView?.canShowMenu = true
 
-    switch placePageInfoData.localAdsStatus {
-    case .candidate:
-      localAdsButton = createLocalAdsButton(L("create_campaign_button"))
-    case .customer:
-      localAdsButton = createLocalAdsButton(L("view_campaign_button"))
-    case .notAvailable, .hidden:
-      coordinatesView?.separatorView.isHidden = true
-    @unknown default:
-      fatalError()
-    }
+//    switch placePageInfoData.localAdsStatus {
+//    case .candidate:
+//      localAdsButton = createLocalAdsButton(L("create_campaign_button"))
+//    case .customer:
+//      localAdsButton = createLocalAdsButton(L("view_campaign_button"))
+//    case .notAvailable, .hidden:
+//      coordinatesView?.separatorView.isHidden = true
+//    @unknown default:
+//      fatalError()
+//    }
   }
 
   // MARK: private

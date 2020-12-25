@@ -6,13 +6,14 @@ protocol PlacePageButtonsViewControllerDelegate: AnyObject {
 }
 
 class PlacePageButtonsViewController: UIViewController {
-  @IBOutlet var bookingButton: UIButton!
+//  @IBOutlet var bookingButton: UIButton!
   @IBOutlet var addPlaceButton: UIButton!
   @IBOutlet var editPlaceButton: UIButton!
-  @IBOutlet var addBusinessButton: UIButton!
+//  @IBOutlet var addBusinessButton: UIButton!
 
   private var buttons: [UIButton?] {
-    [bookingButton, addPlaceButton, editPlaceButton, addBusinessButton]
+//    [bookingButton, addPlaceButton, editPlaceButton, addBusinessButton]
+    [addPlaceButton, editPlaceButton]
   }
 
   var buttonsData: PlacePageButtonsData!
@@ -29,10 +30,10 @@ class PlacePageButtonsViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    bookingButton.isHidden = !buttonsData.showHotelDescription
+//    bookingButton.isHidden = !buttonsData.showHotelDescription
     addPlaceButton.isHidden = !buttonsData.showAddPlace
     editPlaceButton.isHidden = !buttonsData.showEditPlace
-    addBusinessButton.isHidden = !buttonsData.showAddBusiness
+//    addBusinessButton.isHidden = !buttonsData.showAddBusiness
 
     buttons.forEach {
       $0?.isEnabled = buttonsEnabled

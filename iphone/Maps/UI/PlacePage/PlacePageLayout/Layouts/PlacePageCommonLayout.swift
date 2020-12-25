@@ -205,10 +205,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       }
     }
 
-    viewControllers.append(hotelPhotosViewController)
-    viewControllers.append(hotelDescriptionViewController)
-    viewControllers.append(hotelFacilitiesViewController)
-    viewControllers.append(hotelReviewsViewController)
+//    viewControllers.append(hotelPhotosViewController)
+//    viewControllers.append(hotelDescriptionViewController)
+//    viewControllers.append(hotelFacilitiesViewController)
+//    viewControllers.append(hotelReviewsViewController)
 
     if placePageData.infoData != nil {
       viewControllers.append(keyInformationDividerViewController)
@@ -216,18 +216,24 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       viewControllers.append(infoViewController)
     }
 
-    if placePageData.previewData.showUgc {
-      viewControllers.append(ratingSummaryViewController)
-      viewControllers.append(addReviewViewController)
-      viewControllers.append(reviewsViewController)
-      placePageData.loadUgc(completion: onLoadUgc)
-    }
+//    if placePageData.taxiProvider != .none &&
+//      !LocationManager.isLocationProhibited() &&
+//      FrameworkHelper.isNetworkConnected() {
+//        viewControllers.append(taxiViewController)
+//    }
+
+//    if placePageData.previewData.showUgc {
+//      viewControllers.append(ratingSummaryViewController)
+//      viewControllers.append(addReviewViewController)
+//      viewControllers.append(reviewsViewController)
+//      placePageData.loadUgc(completion: onLoadUgc)
+//    }
 
     if placePageData.buttonsData != nil {
       viewControllers.append(buttonsViewController)
     }
     
-    placePageData.loadOnlineData(completion: onLoadOnlineData)
+//    placePageData.loadOnlineData(completion: onLoadOnlineData)
     placePageData.onBookmarkStatusUpdate = { [weak self] in
       guard let self = self else { return }
       if self.placePageData.bookmarkData == nil {
@@ -236,9 +242,9 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       self.previewViewController.placePagePreviewData = self.placePageData.previewData
       self.updateBookmarkRelatedSections()
     }
-    placePageData.onUgcStatusUpdate = { [weak self] in
-      self?.onLoadUgc()
-    }
+//    placePageData.onUgcStatusUpdate = { [weak self] in
+//      self?.onLoadUgc()
+//    }
 
     LocationManager.add(observer: self)
     if let lastLocation = LocationManager.lastLocation() {

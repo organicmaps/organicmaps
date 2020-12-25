@@ -101,8 +101,8 @@ class TutorialViewController: UIViewController {
 extension TutorialViewController {
   @objc static func tutorial(_ type: TutorialType,
                              target: UIControl,
-                             delegate: TutorialViewControllerDelegate) -> TutorialViewController {
-    let result: TutorialViewController
+                             delegate: TutorialViewControllerDelegate) -> TutorialViewController? {
+    let result: TutorialViewController?
     switch type {
     case .search:
       result = searchTutorialBlur()
@@ -115,8 +115,9 @@ extension TutorialViewController {
     case .bookmarks:
       result = bookmarksTutorialBlur()
     }
-    result.targetView = target
-    result.delegate = delegate
+
+    result?.targetView = target
+    result?.delegate = delegate
     return result
   }
 
@@ -124,25 +125,28 @@ extension TutorialViewController {
     return TutorialViewController(nibName: "BookmarksTutorial", bundle: nil)
   }
 
-  private static func bookmarksTutorialBlur() -> TutorialViewController {
-    let result = TutorialViewController(nibName: "BookmarksTutorialBlur", bundle: nil)
-    result.customAction = {
-      MapViewController.shared().openCatalog(animated: true, utm: .tipsAndTricks)
-    }
-    return result
+  private static func bookmarksTutorialBlur() -> TutorialViewController? {
+//    let result = TutorialViewController(nibName: "BookmarksTutorialBlur", bundle: nil)
+//    result.customAction = {
+//      MapViewController.shared().openCatalog(animated: true, utm: .tipsAndTricks)
+//    }
+//    return result
+    return nil
   }
 
-  private static func searchTutorialBlur() -> TutorialViewController {
-    let result = TutorialViewController(nibName: "SearchTutorialBlur", bundle: nil)
-    result.customAction = {
-      MapViewController.shared().searchText(L("hotel").appending(" "))
-    }
-    return result
+  private static func searchTutorialBlur() -> TutorialViewController? {
+//    let result = TutorialViewController(nibName: "SearchTutorialBlur", bundle: nil)
+//    result.customAction = {
+//      MapViewController.shared().searchText(L("hotel").appending(" "))
+//    }
+//    return result
+    return nil
   }
 
-  private static func discoveryTutorialBlur() -> TutorialViewController {
-    let result = TutorialViewController(nibName: "DiscoveryTutorialBlur", bundle: nil)
-    return result
+  private static func discoveryTutorialBlur() -> TutorialViewController? {
+//    let result = TutorialViewController(nibName: "DiscoveryTutorialBlur", bundle: nil)
+//    return result
+    return nil
   }
 
   private static func subwayTutorialBlur() -> TutorialViewController {
