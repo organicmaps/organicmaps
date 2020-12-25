@@ -111,15 +111,15 @@ final class PlacePagePreviewViewController: UIViewController {
       addressContainerView.isHidden = true
     }
 
-    if let pricing = placePagePreviewData.pricing {
-      priceLabel.text = pricing
-    } else {
-      priceLabel.isHidden = true
-    }
-    searchSimilarContainerView.isHidden = placePagePreviewData.hotelType == .none
+//    if let pricing = placePagePreviewData.pricing {
+//      priceLabel.text = pricing
+//    } else {
+//      priceLabel.isHidden = true
+//    }
+//    searchSimilarContainerView.isHidden = placePagePreviewData.hotelType == .none
     configSchedule()
-    configUgc()
-    ugcContainerView.isHidden = !placePagePreviewData.isBookingPlace
+//    configUgc()
+//    ugcContainerView.isHidden = !placePagePreviewData.isBookingPlace
   }
 
   func updateUgc(_ ugcData: UgcData) {
