@@ -109,7 +109,7 @@ static CGFloat const kDrivingOptionsHeight = 48;
   for (auto const & progress : m_progresses)
     progress.second.state = MWMCircularProgressStateNormal;
 
-  if (!MWMLocationManager.lastLocation || !Platform::IsConnected())
+  //if (!MWMLocationManager.lastLocation || !Platform::IsConnected())
     [self.taxi removeFromSuperview];
 }
 
