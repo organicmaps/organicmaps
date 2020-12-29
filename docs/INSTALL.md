@@ -37,14 +37,22 @@ The `build_omim.sh` script basically runs these commands:
 It will compile binaries to the current directory. For a compiler, Clang
 is preferred, but GCC 6+ would also work.
 
-### Ubuntu 16.04
+### Ubuntu 20.04
 
 Install Qt 5, CMake, Clang and SQLite:
 
-    sudo apt-get update
-    sudo apt-get install qtbase5-dev cmake
-    sudo apt-get install clang libc++-dev libboost-iostreams-dev libglu1-mesa-dev
-    sudo apt-get install libsqlite3-dev
+    sudo apt-get update && sudo apt-get install -y \
+        build-essential \
+        cmake \
+        clang \
+        python \
+        qtbase5-dev \
+        libqt5svg5-dev \
+        libc++-dev \
+        libboost-iostreams-dev \
+        libglu1-mesa-dev \
+        libsqlite3-dev \
+        zlib1g-dev
 
 Do a git clone:
 
@@ -62,11 +70,17 @@ You would need 1.5 GB of memory to compile the `stats` module.
 The generated binaries appear in `omim-build-release`.
 Run tests from this directory with `omim/tools/unix/run_tests.sh`.
 
-### Fedora 27
+### Fedora 33
 
 Install dependencies:
 
-    dnf install clang qt5-qtbase-devel boost-devel libstdc++-devel libsqlite3-devel
+    sudo dnf install -y \
+        clang \
+        qt5-qtbase-devel \
+        qt5-qtsvg-devel \
+        boost-devel \
+        libstdc++-devel \
+        sqlite-devel
 
 Then do a git clone, run `configure.sh` and compile with linux-clang spec:
 
