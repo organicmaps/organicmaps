@@ -151,7 +151,7 @@ DEFINE_bool(disable_cross_mwm_progress, false,
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
-DEFINE_string(worldroads_path, "",
+DEFINE_string(world_roads_path, "",
               "Path to a file with roads that should end up on the world map. If set, generates a "
               "section with these roads in World.mwm. The roads may be used to identify which mwm "
               "files are touched by an arbitrary route.");
@@ -491,10 +491,10 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       }
     }
 
-    if (country == WORLD_FILE_NAME && !FLAGS_worldroads_path.empty())
+    if (country == WORLD_FILE_NAME && !FLAGS_world_roads_path.empty())
     {
       LOG(LINFO, ("Generating routing section for World."));
-      if (!routing::BuildWorldRoads(dataFile, FLAGS_worldroads_path))
+      if (!routing::BuildWorldRoads(dataFile, FLAGS_world_roads_path))
       {
         LOG(LCRITICAL, ("Generating routing section for World has failed."));
         return EXIT_FAILURE;
