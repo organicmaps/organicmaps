@@ -231,12 +231,16 @@ class PathProvider:
         )
 
     @property
-    def worldroads_path(self) -> AnyStr:
+    def world_roads_path(self) -> AnyStr:
         return (
-            os.path.join(self.intermediate_data_path, "worldroads.txt")
-            if settings.WORLDROADS_URL
+            os.path.join(self.intermediate_data_path, "world_roads.txt")
+            if settings.BUILD_WORLD_ROADS
             else ""
         )
+
+    @property
+    def need_to_build_world_roads(self) -> bool:
+        return settings.BUILD_WORLD_ROADS
 
     @property
     def planet_osm_pbf(self) -> AnyStr:
@@ -434,6 +438,9 @@ class Env:
                 if item.endswith(".download"):
                     os.remove(os.path.join(self.paths.status_path, item))
 
+        if self.paths.need_to_build_world_roads:
+            self.world_roads_builder_tool = self.setup_world_roads_builder_tool()
+
         self.main_status = status.Status()
         # self.countries_meta stores log files and statuses for each country.
         self.countries_meta = collections.defaultdict(dict)
@@ -522,6 +529,14 @@ class Env:
             return gen_tool_path
 
         raise Exception(exceptions)
+
+    @staticmethod
+    def setup_world_roads_builder_tool() -> AnyStr:
+        logger.info(f"Check world_roads_builder_tool. Looking for it in {settings.BUILD_PATH} ...")
+        world_roads_builder_tool_path = find_executable(settings.BUILD_PATH, "world_roads_builder_tool")
+        logger.info(f"world_roads_builder_tool found - {world_roads_builder_tool_path}")
+        return world_roads_builder_tool_path
+
 
     @staticmethod
     def setup_osm_tools() -> Dict[AnyStr, AnyStr]:
