@@ -60,12 +60,25 @@ See [CPP_STYLE.md](CPP_STYLE.md). Use `clang-format` when in doubt.
 ## Pull Requests
 
 All contributions to MAPS.ME source code should be submitted via github pull requests.
-Each pull request is reviewed by MAPS.ME employees, to ensure consistent code style
+Each pull request is reviewed by MAPS.ME maintainers, to ensure consistent code style
 and quality. Sometimes the review process even for smallest commits can be
 very thorough.
 
-To contribute you must sign the [license agreement](CLA.md): the same one you
-sign for Google or Facebook open-source projects.
+To contribute you must assure that you have read and are following the rules
+stated in the [Developers Certificate of Origin](DCO.md) (DCO). We have
+borrowed this procedure from the Linux kernel project to improve tracking of
+who did what, and for legal reasons.
+
+To sign-off a patch, just add a line in the commit message saying:
+
+    Signed-off-by: Some Developer somedev@example.com
+
+Git has a flag that can sign a commit for you. An example using it is:
+
+    git commit -s -m 'An example commit message'
+
+Use your real name or on some rare cases a company email address, but we
+disallow pseudonyms or anonymous contributions.
 
 ## Directories
 
