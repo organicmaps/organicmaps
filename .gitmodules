@@ -1,21 +1,21 @@
 [submodule "tools/osmctools"]
   path = tools/osmctools
-  url = git://github.com/mapsme/osmctools.git
+  url = git://github.com/omapsapp/osmctools.git
 [submodule "tools/kothic"]
   path = tools/kothic
-  url = git://github.com/mapsme/kothic.git
+  url = git://github.com/omapsapp/kothic.git
 [submodule "3party/Alohalytics"]
   path = 3party/Alohalytics
-  url = git://github.com/mapsme/Alohalytics.git
+  url = git://github.com/omapsapp/Alohalytics.git
 [submodule "tools/macdeployqtfix"]
   path = tools/macdeployqtfix
   url = git://github.com/aurelien-rainone/macdeployqtfix.git
 [submodule "3party/protobuf/protobuf"]
   path = 3party/protobuf/protobuf
-  url = git://github.com/mapsme/protobuf.git
+  url = git://github.com/omapsapp/protobuf.git
 [submodule "tools/twine"]
   path = tools/twine
-  url = https://github.com/mapsme/twine.git
+  url = https://github.com/omapsapp/twine.git
 [submodule "3party/Vulkan-Headers"]
   path = 3party/Vulkan-Headers
   url = https://github.com/KhronosGroup/Vulkan-Headers.git
@@ -26,7 +26,7 @@
   ignore = dirty
 [submodule "3party/just_gtfs"]
   path = 3party/just_gtfs
-  url = https://github.com/mapsme/just_gtfs.git
+  url = https://github.com/omapsapp/just_gtfs.git
   branch = for-usage-as-submodule
 [submodule "3party/expat"]
   path = 3party/expat
