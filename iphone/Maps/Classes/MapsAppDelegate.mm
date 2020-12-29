@@ -506,7 +506,11 @@ using namespace osm_auth_ios;
 #pragma mark - Properties
 
 - (MapViewController *)mapViewController {
-  return [(UINavigationController *)self.window.rootViewController viewControllers].firstObject;
+  auto obj = [(UINavigationController *)self.window.rootViewController viewControllers].firstObject;
+  if ([obj isKindOfClass:[MapViewController class]])
+    return obj;
+  else
+    return nil;
 }
 
 - (MWMCarPlayService *)carplayService {
