@@ -43,7 +43,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 @property(nonatomic) BOOL disableStandbyOnRouteFollowing;
 @property(nonatomic) MWMTip tutorialType;
 @property(nonatomic) MWMTutorialViewController *tutorialViewContoller;
-@property(nonatomic) PromoDiscoveryCampaign *promoDiscoveryCampaign;
+//@property(nonatomic) PromoDiscoveryCampaign *promoDiscoveryCampaign;
 
 @end
 
@@ -64,6 +64,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
   self.menuRestoreState = MWMBottomMenuStateInactive;
+  /*
   self.promoDiscoveryCampaign = [ABTestManager manager].promoDiscoveryCampaign;
   if (_promoDiscoveryCampaign.enabled) {
     [controller.controlsView addSubview:self.promoButton];
@@ -74,6 +75,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     ]];
     [Statistics logEvent:kStatMapSponsoredButtonShow withParameters:@{kStatTarget: kStatGuidesSubscription}];
   }
+   */
   return self;
 }
 
@@ -244,11 +246,12 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   [self.navigationManager onRouteStop];
   self.disableStandbyOnRouteFollowing = NO;
   self.trafficButtonHidden = NO;
-  self.promoButton.hidden = _promoDiscoveryCampaign.hasBeenActivated;
+  self.promoButton.hidden = YES;
 }
 
 #pragma mark - Properties
 
+/*
 - (UIButton *)promoButton {
   if (!_promoButton) {
     PromoCoordinator *coordinator = [[PromoCoordinator alloc] initWithViewController:self.ownerController
@@ -257,6 +260,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   }
   return _promoButton;
 }
+*/
 
 - (MWMSideButtons *)sideButtons {
   if (!_sideButtons)
