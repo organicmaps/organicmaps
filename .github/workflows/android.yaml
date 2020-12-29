@@ -1,0 +1,45 @@
+name: Android
+on: [push]
+
+jobs:
+  android:
+    name: Android
+    runs-on: [self-hosted, linux, X64]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - uses: actions/checkout@v2
+        with:
+          repository: omapsapp/omapsapp-private
+          path: private
+          ref: master
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Configure
+        shell: bash
+        run: |
+          echo | ./configure.sh
+          cp -pRv ./private/* .
+
+      - name: Set up SDK
+        shell: bash
+        run: |
+          (cd tools/android; ./set_up_android.py --sdk /opt/Android/sdk --ndk /opt/Android/ndk)
+
+      - name: Compile
+        shell: bash
+        run: (cd android; ./gradlew bundleWebBeta packageWebBetaUniversalApk)
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: android-universal-bundle
+          path: android/build/outputs/bundle/webBeta/android-web-beta.aab
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: android-universal-apk
+          path: android/build/outputs/universal_apk/webBeta/android-web-beta-universal.apk
+          if-no-files-found: error

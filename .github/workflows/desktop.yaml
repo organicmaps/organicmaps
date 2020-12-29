@@ -1,0 +1,33 @@
+name: Desktop
+on: [push]
+
+jobs:
+  test:
+    name: Desktop
+    runs-on: [self-hosted, linux, X64]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - uses: actions/checkout@v2
+        with:
+          repository: omapsapp/omapsapp-private
+          path: private
+          ref: master
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Configure
+        shell: bash
+        run: |
+          echo | ./configure.sh
+          cp -pRv ./private/* .
+
+      - name: Compile
+        shell: bash
+        run: |
+          (mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo && make -j $(($(nproc)*2)))
+
+#      - name: Test
+#        shell: bash
+#        run: ./tools/python/run_desktop_tests.py -f build/ -e generator_integration_tests,opening_hours_integration_tests,opening_hours_supported_features_tests,routing_consistency_tests,routing_integration_tests,routing_quality_tests,storage_integration_tests

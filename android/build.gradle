@@ -103,7 +103,7 @@ def getDate() {
 def osName = System.properties['os.name'].toLowerCase()
 
 project.ext.versionCodes = ['armeabi-v7a': 30, 'x86': 40, 'arm64-v8a': 50, 'x86_64' : 60]
-project.ext.appId = 'com.mapswithme.maps.pro'
+project.ext.appId = 'app.omaps'
 
 configurations.all {
   if (it.getName().contains("lint"))

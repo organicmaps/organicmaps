@@ -173,12 +173,14 @@ server
 iphone/Maps/com.mapswithme.full/
 iphone/Maps/com.my.maps-beta-enterprise/
 iphone/Maps/mapsme.release/
+private/
 
 *.li
 
 *.autosave
 
 cmake-build-*
+build/
 
 qt/res/Info.plist
 
