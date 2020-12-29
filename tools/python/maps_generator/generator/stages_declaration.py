@@ -179,7 +179,8 @@ class StageMwm(Stage):
     @staticmethod
     def make_mwm(country: AnyStr, env: Env):
         world_stages = {
-            WORLD_NAME: [StageIndex, StageCitiesIdsWorld, StageRoutingWorld, StageMwmStatistics],
+            WORLD_NAME: [StageIndex, StageCitiesIdsWorld, StagePrepareRoutingWorld, StageRoutingWorld,
+                         StageMwmStatistics],
             WORLD_COASTS_NAME: [StageIndex, StageMwmStatistics],
         }
 
@@ -232,10 +233,17 @@ class StageCitiesIdsWorld(Stage):
 
 
 @country_stage
-@depends_from_internal(D(settings.WORLDROADS_URL, PathProvider.worldroads_path),)
+class StagePrepareRoutingWorld(Stage):
+    def apply(self, env: Env, country, **kwargs):
+        if env.paths.need_to_build_world_roads:
+            steps.step_prepare_routing_world(env, country, **kwargs)
+
+
+@country_stage
 class StageRoutingWorld(Stage):
     def apply(self, env: Env, country, **kwargs):
-        steps.step_routing_world(env, country, **kwargs)
+        if env.paths.need_to_build_world_roads:
+            steps.step_routing_world(env, country, **kwargs)
 
 
 @country_stage
