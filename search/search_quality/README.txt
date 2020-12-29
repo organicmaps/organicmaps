@@ -3,7 +3,7 @@ This document describes how to use the tools for search quality analysis.
 
 1. Prerequisites.
 
-   * Get the latest version of omim (https://github.com/mapsme/omim) and build it.
+   * Get the latest version of omim (https://github.com/omapsapp/omapsapp) and build it.
 
    * Get the latest samples.lisp file with search queries. If you don't know
      how to get it, please, contact the search team.

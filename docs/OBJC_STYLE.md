@@ -404,6 +404,6 @@ If a method declaration/call does not fit on a single line, put each parameter o
 
 ## Objective-C and C++
 
-In general, C++ should be avoided in iOS-specific code. C++ can only be used when you need to call our Core API. In this case you should create some adapter classes which will work with both Objective-C and Swift. If .mm file contains C++ class, all code inside that class should be formatted according to [C++ coding style](https://github.com/mapsme/omim/blob/master/docs/CPP_STYLE.md), even if it contains Objective-C code lines.
+In general, C++ should be avoided in iOS-specific code. C++ can only be used when you need to call our Core API. In this case you should create some adapter classes which will work with both Objective-C and Swift. If .mm file contains C++ class, all code inside that class should be formatted according to [C++ coding style](https://github.com/omapsapp/omapsapp/blob/master/docs/CPP_STYLE.md), even if it contains Objective-C code lines.
 
 C++ can't be used in Objective-C header files.

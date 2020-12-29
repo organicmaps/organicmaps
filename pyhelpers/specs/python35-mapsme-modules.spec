@@ -32,7 +32,7 @@ License:	Apache Public License 2.0
 Vendor:         Mail.Ru Group
 
 Group:          Development/Languages/Python
-URL:		https://github.com/mapsme/omim
+URL:		https://github.com/omapsapp/omapsapp
 Source:		omim-py-modules-%{version}.tar.gz
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -63,7 +63,7 @@ if [ -e %{S:0} ]; then
         %{__tar} xzf %{S:0}
         %{__chmod} -Rf a+rX,u+w,g-w,o-w %{_builddir}/%{name}-%{version}
 else
-        git clone --depth=1 https://github.com/mapsme/omim.git %{_builddir}/%{name}-%{version}/omim
+        git clone --depth=1 https://github.com/omapsapp/omapsapp.git %{_builddir}/%{name}-%{version}/omim
         pushd %{_builddir}/%{name}-%{version}/omim
 	git fetch origin tag %{tag} --depth=1
         git checkout %{tag}

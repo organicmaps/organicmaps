@@ -2,7 +2,7 @@
 
 For the subway layer to be available on Maps.Me maps a `SUBWAY_URL` 
 parameter ought to be provided to the
-[map generator](https://github.com/mapsme/omim/tree/master/tools/python/maps_generator).
+[map generator](https://github.com/omapsapp/omapsapp/tree/master/tools/python/maps_generator).
 Normally you can specify the link http://osm-subway.maps.me/mapsme/latest.json
 to a regularily updatable file. 
 This instruction describes how to manually build subway layer file.

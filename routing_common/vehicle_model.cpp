@@ -247,7 +247,7 @@ bool VehicleModel::IsOneWay(FeatureType & f) const
   // It should be processed on map generation stage together with other implied one way features
   // rules like: motorway_link (if not set oneway == "no")
   // motorway (if not set oneway == "no"). Please see
-  // https://github.com/mapsme/omim/blob/master/3party/osrm/osrm-backend/profiles/car.lua#L392
+  // https://github.com/omapsapp/omapsapp/blob/master/3party/osrm/osrm-backend/profiles/car.lua#L392
   // for further details.
   // TODO(@Zverik, @bykoianko) Please process the rules on map generation stage.
   return HasOneWayType(feature::TypesHolder(f)) || ftypes::IsRoundAboutChecker::Instance()(f);

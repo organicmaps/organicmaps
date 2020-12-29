@@ -509,7 +509,7 @@ def setup_omim_pybinding(
     version=None,
     author='My.com B.V. (Mail.Ru Group)',
     author_email='dev@maps.me',
-    url='https://github.com/mapsme/omim',
+    url='https://github.com/omapsapp/omapsapp',
     license='Apache-2.0',
     supported_pythons=('2', '2.7', '3', '3.5', '3.6', '3.7', '3.8', '3.9'),
 ):

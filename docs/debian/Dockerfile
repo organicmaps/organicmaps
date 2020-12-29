@@ -1,7 +1,7 @@
 FROM debian:jessie
 MAINTAINER Andrey Ivanov stayhardordie@gmail.com
 
-ENV REPOSITORY=https://github.com/mapsme/omim.git \
+ENV REPOSITORY=https://github.com/omapsapp/omapsapp.git \
     DIR=/srv
 
 RUN apt-get update && \

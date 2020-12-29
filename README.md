@@ -14,7 +14,7 @@ run `git submodule update --init --recursive`.
 
 ## Translations
 
-If you want to improve app translations or add more search synonyms, please check our [wiki](https://github.com/mapsme/omim/wiki).
+If you want to improve app translations or add more search synonyms, please check our [wiki](https://github.com/omapsapp/omapsapp/wiki).
 
 ## Compilation
 
@@ -23,11 +23,11 @@ To compile the project, you would need to initialize private key files. Run
 and Android debug packages.
 
 For detailed installation instructions and Android/iOS building process,
-see [INSTALL.md](https://github.com/mapsme/omim/tree/master/docs/INSTALL.md).
+see [INSTALL.md](https://github.com/omapsapp/omapsapp/tree/master/docs/INSTALL.md).
 
 ## Building maps
 
-To create one or many map files, first build the project, then use python module [maps_generator](https://github.com/mapsme/omim/tree/master/tools/python/maps_generator).
+To create one or many map files, first build the project, then use python module [maps_generator](https://github.com/omapsapp/omapsapp/tree/master/tools/python/maps_generator).
 
 ## Map styles
 
@@ -40,7 +40,7 @@ For development, use MAPS.ME Designer app along with its generator tool: these a
 for quick rebuilding of a style and symbols, and for producing a zoom-independent
 feature set in MWM files.
 
-See [STYLES.md](https://github.com/mapsme/omim/tree/master/docs/STYLES.md) for the
+See [STYLES.md](https://github.com/omapsapp/omapsapp/tree/master/docs/STYLES.md) for the
 format description, instructions on building a style and some links.
 
 ## Development
@@ -48,22 +48,22 @@ format description, instructions on building a style and some links.
 You would need Qt 5 for development, most other libraries are included into the
 repository: see `3party` directory. The team uses mostly XCode and Qt Creator,
 though these are not mandatory. We have an established
-[c++ coding style](https://github.com/mapsme/omim/blob/master/docs/CPP_STYLE.md) and [Objective-C coding style](https://github.com/mapsme/omim/blob/master/docs/OBJC_STYLE.md).
+[c++ coding style](https://github.com/omapsapp/omapsapp/blob/master/docs/CPP_STYLE.md) and [Objective-C coding style](https://github.com/omapsapp/omapsapp/blob/master/docs/OBJC_STYLE.md).
 
-See [CONTRIBUTING.md](https://github.com/mapsme/omim/blob/master/docs/CONTRIBUTING.md)
+See [CONTRIBUTING.md](https://github.com/omapsapp/omapsapp/blob/master/docs/CONTRIBUTING.md)
 for the repository initialization process, the description of all the directories
 of this repository and other development-related information.
 
-All contributors must sign a [Contributor Agreement](https://github.com/mapsme/omim/blob/master/docs/CLA.md),
+All contributors must sign a [Contributor Agreement](https://github.com/omapsapp/omapsapp/blob/master/docs/CLA.md),
 so both our and their rights are protected.
 
 ## Feedback
 
-Please report bugs and suggestions to [the issue tracker](https://github.com/mapsme/omim/issues),
+Please report bugs and suggestions to [the issue tracker](https://github.com/omapsapp/omapsapp/issues),
 or by mail to bugs@maps.me.
 
 ## Authors and License
 
 This source code is Copyright (C) 2020 My.com B.V. (Mail.Ru Group), published under Apache Public License 2.0,
-except third-party libraries. See [NOTICE](https://github.com/mapsme/omim/blob/master/NOTICE)
-and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/mapsme/omim/blob/master/data/copyright.html) files for more information.
+except third-party libraries. See [NOTICE](https://github.com/omapsapp/omapsapp/blob/master/NOTICE)
+and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/omapsapp/omapsapp/blob/master/data/copyright.html) files for more information.

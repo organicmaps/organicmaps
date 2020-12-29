@@ -2,7 +2,7 @@
 
 ## Issues
 
-The simplest way to contribute is to [submit an issue](https://github.com/mapsme/omim/issues).
+The simplest way to contribute is to [submit an issue](https://github.com/omapsapp/omapsapp/issues).
 Please give developers as much information as possible: OS and application versions,
 list of actions leading to a bug, a log file produced by the app.
 

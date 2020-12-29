@@ -76,7 +76,7 @@ Pip installation
 ----------------
 One can install pybinding straight from source:
 
-  $ pip install git+https://github.com/mapsme/omim.git@master#egg=pykmlib&subdirectory=kml/pykmlib
+  $ pip install git+https://github.com/omapsapp/omapsapp.git@master#egg=pykmlib&subdirectory=kml/pykmlib
 
 But this can be a long wait, it is better to use already compiled .whl
 distribution.
