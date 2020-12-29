@@ -200,6 +200,23 @@ def step_cities_ids_world(env: Env, country: AnyStr, **kwargs):
     )
 
 
+def step_prepare_routing_world(env: Env, country: AnyStr, **kwargs):
+    world_roads_builder_tool_with_args = [env.world_roads_builder_tool,
+                                          f"--path_roads_file={env.paths.planet_o5m}",
+                                          f"--path_resources={env.paths.user_resource_path}",
+                                          f"--path_res_file={env.paths.world_roads_path}"]
+    logger.info(f"Starting {world_roads_builder_tool_with_args}")
+    sub_proc = subprocess.Popen(
+        world_roads_builder_tool_with_args,
+        stdout=env.get_subprocess_out(country),
+        stderr=env.get_subprocess_out(country),
+        env=os.environ
+    )
+
+    if sub_proc.wait() != 0:
+        raise Exception(f"Error running {world_roads_builder_tool_with_args}")
+
+
 def step_routing_world(env: Env, country: AnyStr, **kwargs):
     run_gen_tool_with_recovery_country(
         env,
@@ -209,7 +226,7 @@ def step_routing_world(env: Env, country: AnyStr, **kwargs):
         data_path=env.paths.mwm_path,
         user_resource_path=env.paths.user_resource_path,
         output=country,
-        worldroads_path=env.paths.worldroads_path,
+        world_roads_path=env.paths.world_roads_path,
         **kwargs,
     )
 
