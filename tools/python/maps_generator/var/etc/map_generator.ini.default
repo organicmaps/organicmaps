@@ -59,7 +59,7 @@ DIFF_VERSION_DEPTH: 2
 # PLANET_COASTS_URL:
 # Set to 'true' to build special routing section in World.mwm for alerting about absent regions without which the
 # route can't be built.
-BUILD_WORLD_ROADS: true
+NEED_BUILD_WORLD_ROADS: true
 # The url to the subway file.
 SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
 

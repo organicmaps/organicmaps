@@ -233,17 +233,16 @@ class StageCitiesIdsWorld(Stage):
 
 
 @country_stage
+@helper_stage_for("StageRoutingWorld")
 class StagePrepareRoutingWorld(Stage):
     def apply(self, env: Env, country, **kwargs):
-        if env.paths.need_to_build_world_roads:
-            steps.step_prepare_routing_world(env, country, **kwargs)
+        steps.step_prepare_routing_world(env, country, **kwargs)
 
 
 @country_stage
 class StageRoutingWorld(Stage):
     def apply(self, env: Env, country, **kwargs):
-        if env.paths.need_to_build_world_roads:
-            steps.step_routing_world(env, country, **kwargs)
+        steps.step_routing_world(env, country, **kwargs)
 
 
 @country_stage

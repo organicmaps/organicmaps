@@ -15,7 +15,7 @@ from maps_generator.generator.env import PathProvider
 from maps_generator.generator.env import WORLDS_NAMES
 from maps_generator.generator.env import WORLD_NAME
 from maps_generator.generator.env import get_all_countries_list
-from maps_generator.generator.exceptions import ValidationError
+from maps_generator.generator.exceptions import ValidationError, wait_and_raise_if_fail
 from maps_generator.generator.gen_tool import run_gen_tool
 from maps_generator.generator.osmtools import osmconvert
 from maps_generator.generator.osmtools import osmupdate
@@ -213,8 +213,7 @@ def step_prepare_routing_world(env: Env, country: AnyStr, **kwargs):
         env=os.environ
     )
 
-    if sub_proc.wait() != 0:
-        raise Exception(f"Error running {world_roads_builder_tool_with_args}")
+    wait_and_raise_if_fail(sub_proc)
 
 
 def step_routing_world(env: Env, country: AnyStr, **kwargs):

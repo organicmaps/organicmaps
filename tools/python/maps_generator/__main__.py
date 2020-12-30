@@ -278,6 +278,9 @@ def main():
     if not settings.NEED_PLANET_UPDATE:
         skipped_stages.add(sd.StageUpdatePlanet)
 
+    if not settings.NEED_BUILD_WORLD_ROADS:
+        skipped_stages.add(sd.StageRoutingWorld)
+
     # Make env and run maps generation.
     env = Env(
         countries=countries,

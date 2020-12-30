@@ -234,13 +234,9 @@ class PathProvider:
     def world_roads_path(self) -> AnyStr:
         return (
             os.path.join(self.intermediate_data_path, "world_roads.txt")
-            if settings.BUILD_WORLD_ROADS
+            if settings.NEED_BUILD_WORLD_ROADS
             else ""
         )
-
-    @property
-    def need_to_build_world_roads(self) -> bool:
-        return settings.BUILD_WORLD_ROADS
 
     @property
     def planet_osm_pbf(self) -> AnyStr:
@@ -438,8 +434,7 @@ class Env:
                 if item.endswith(".download"):
                     os.remove(os.path.join(self.paths.status_path, item))
 
-        if self.paths.need_to_build_world_roads:
-            self.world_roads_builder_tool = self.setup_world_roads_builder_tool()
+        self.world_roads_builder_tool = self.setup_world_roads_builder_tool()
 
         self.main_status = status.Status()
         # self.countries_meta stores log files and statuses for each country.
