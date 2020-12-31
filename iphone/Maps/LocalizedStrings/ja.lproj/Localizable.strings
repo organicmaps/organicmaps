@@ -47,7 +47,7 @@
 "get_it_now" = "今すぐ入手";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "MAPS.MEをご利用いただきありがとうございます! このアプリが好きですか? お友達にも教えてあげてください! アプリを広めていただければ大変嬉しく思います。";
+"share_on_facebook_text" = "OMapsをご利用いただきありがとうございます! このアプリが好きですか? お友達にも教えてあげてください! アプリを広めていただければ大変嬉しく思います。";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -138,9 +138,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再実行";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
-"about_menu_title" = "MAPS.MEについて";
+"about_menu_title" = "OMapsについて";
 
 "downloading_touch_to_cancel" = "%d%%をダウンロード中です。キャンセルするには画面をタッチしてください。";
 
@@ -158,7 +158,7 @@
 
 "external_storage_is_not_available" = "マップをダウンロードしたSDカード/USBストレージへ接続できません";
 
-"disconnect_usb_cable" = "MAPS.MEを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください";
+"disconnect_usb_cable" = "OMapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください";
 
 "not_enough_free_space_on_sdcard" = "アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "以下のマップが更新されています:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "MAPS.ME Liteは削除してもかまいません";
+"suggest_uninstall_lite" = "OMaps Liteは削除してもかまいません";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@のダウンロードが成功しました";
@@ -249,10 +249,10 @@
 "set" = "セット";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nMAPS.ME以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
+"bookmarks_usage_hint" = "未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nOMaps以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "MAPS.ME以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
+"bookmarks_usage_hint_import_only" = "OMaps以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
 
 /* Settings button in system menu */
 "settings" = "設定";
@@ -354,9 +354,9 @@
 "share_by_email" = "Eメールで共有";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "MAPS.MEの位置情報シェア";
+"share_bookmarks_email_subject" = "OMapsの位置情報シェア";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "ブックマークの読み込み中";
@@ -386,7 +386,7 @@
 "downloading_is_active" = "ダウンロードを実行中です";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "MAPS.MEの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！";
+"appStore_message" = "OMapsの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！";
 
 /* No, thanks */
 "no_thanks" = "いいえ";
@@ -398,10 +398,10 @@
 "my_position_share_sms" = "私は今ここにいます。リンク: %1$@, %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "MAPS.MEでピン情報を確認";
+"bookmark_share_email_subject" = "OMapsでピン情報を確認";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "MAPS.MEで現在地を確認";
+"my_position_share_email_subject" = "OMapsで現在地を確認";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@";
@@ -582,16 +582,16 @@
 "download_map_notification" = "あなたがいる場所のマップをダウンロードしよう";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.MEのフルバージョンが本日無料！今すぐダウンロードして友達に教えてあげましょう。";
+"pro_version_is_free_today" = "OMapsのフルバージョンが本日無料！今すぐダウンロードして友達に教えてあげましょう。";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "ダウンロード済みの地図をMAPS.ME LiteからMAPS.MEに転送します。完了までに数分かかるかもしれません。";
+"move_lite_maps_to_pro" = "ダウンロード済みの地図をOMaps LiteからOMapsに転送します。完了までに数分かかるかもしれません。";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "ダウンロード済みの地図は無事MAPS.MEに転送されました";
+"move_lite_maps_to_pro_ok" = "ダウンロード済みの地図は無事OMapsに転送されました";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "地図の転送に失敗しました。MAPS.ME Liteを削除してから地図を再度ダウンロードしてください。";
+"move_lite_maps_to_pro_failed" = "地図の転送に失敗しました。OMaps Liteを削除してから地図を再度ダウンロードしてください。";
 
 /* Text in menu */
 "settings_and_more" = "設定&その他";
@@ -600,7 +600,7 @@
 "website" = "ウェブサイト";
 
 /* Text in menu */
-"maps_me_community" = "MAPS.MEコミュニティ";
+"maps_me_community" = "OMapsコミュニティ";
 
 /* Text in menu */
 "like_on_facebook" = "Facebookでいいねをクリック";
@@ -630,13 +630,13 @@
 "report_a_bug" = "バグを報告";
 
 /* Email subject */
-"subscribe_me_subject" = "MAPS.MEニュースレターを購読します";
+"subscribe_me_subject" = "OMapsニュースレターを購読します";
 
 /* Email body */
 "subscribe_me_body" = "最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。";
 
 /* About text */
-"about_text" = "MAPS.MEは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもMAPS.MEの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、MAPS.MEの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@maps.meまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nMAPS.MEが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/mapswithme\n- MAPS.MEのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、https://www.openstreetmap.orgでユーザーが直接修正ができます。このような変更はMAPS.MEのその後のバージョンリリースの際に反映されます。";
+"about_text" = "OMapsは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもOMapsの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、OMapsの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@omaps.appまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nOMapsが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/mapswithme\n- OMapsのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、https://www.openstreetmap.orgでユーザーが直接修正ができます。このような変更はOMapsのその後のバージョンリリースの際に反映されます。";
 
 /* Alert text */
 "email_error_body" = "このメールクライアントはセットアップされていません。設定するか、他の方法で%@にご連絡ください。";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "ルートを作成するためにマップを更新してください。";
 
 /* Update maps suggestion */
-"routing_update_maps" = "新バージョンのMAPS.MEは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。";
+"routing_update_maps" = "新バージョンのOMapsは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。";
 
 /* Update all button text */
 "downloader_update_all_button" = "全てをアップデート";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "見つかりました";
 
 /* Disclaimer message */
-"routing_disclaimer" = "MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！";
+"routing_disclaimer" = "OMapsアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "旧式";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "選択した出発地と目的地との間にルートが見つかりません。別の出発地点と到着地点を選択してください。";
 
 /* InternalError */
-"routing_failed_internal_error" = "内部エラーが発生しました。もう一度地図をダウンロードしてください。問題が解決しない場合は、support@maps.meまでご連絡ください。";
+"routing_failed_internal_error" = "内部エラーが発生しました。もう一度地図をダウンロードしてください。問題が解決しない場合は、support@omaps.appまでご連絡ください。";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "地図とルートをダウンロード";
@@ -765,10 +765,10 @@
 "rating_just_rated" = "たった今アプリを評価したところです";
 
 /* Text for rating dialog */
-"rating_user_since" = "私は%@年からMAPS.MEのユーザーです";
+"rating_user_since" = "私は%@年からOMapsのユーザーです";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "MAPS.MEをお気に入りいただいていますか？";
+"rating_do_like_maps" = "OMapsをお気に入りいただいていますか？";
 
 /* Text for rating dialog */
 "rating_tap_star" = "星印をタップしてアプリを評価してください。";
@@ -792,7 +792,7 @@
 "routing_download_map" = "地図を入手";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "最新の地図とルートデータを入手して、MAPS.MEの全機能をご利用ください。";
+"routing_download_map_and_routing" = "最新の地図とルートデータを入手して、OMapsの全機能をご利用ください。";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "ルートデータを入手";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "このアプリが好きですか?";
 
-"rate_alert_default_message" = "MAPS.MEをご使用いただきありがとうございます。アプリの評価をお願いいたします。皆様からのフィードバックはアプリの改善に役立つものです。";
+"rate_alert_default_message" = "OMapsをご使用いただきありがとうございます。アプリの評価をお願いいたします。皆様からのフィードバックはアプリの改善に役立つものです。";
 
 "rate_alert_five_star_message" = "やったー! 相思相愛!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "重複している場所";
 
-"first_launch_congrats_title" = "MAPS.MEを使用する準備が整いました";
+"first_launch_congrats_title" = "OMapsを使用する準備が整いました";
 
 "first_launch_congrats_text" = "世界中どこでも無料で検索・ナビゲーションできます。";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。";
 
-"whatsnew_editor_message_2" = "* MAPS.MEはOpenStreetMapコミュニティのデータを使用しています。";
+"whatsnew_editor_message_2" = "* OMapsはOpenStreetMapコミュニティのデータを使用しています。";
 
 "onboarding_offline_navigation_title" = "もう道に迷うことは絶対ありません";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "車や徒歩での最短ルートを計画できます。";
 
-"onboarding_offline_maps_title" = "MAPS.ME — 世界中の地図にインターネットなしでアクセス";
+"onboarding_offline_maps_title" = "OMaps — 世界中の地図にインターネットなしでアクセス";
 
 "onboarding_offline_maps_message" = "希望するエリアの地図を一回ダウンロードするだけで、インターネット接続なしでもナビゲーションや検索の機能を使用できます。";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります";
 
-"onboarding_permissions_title" = "MAPS.ME によるストレージと位置情報へのアクセスを許可する";
+"onboarding_permissions_title" = "OMaps によるストレージと位置情報へのアクセスを許可する";
 
 "onboarding_permissions_message" = "これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "ダウンロードするには空き容量がさらに必要です。不必要なデータを削除してください。";
 
-"editor_sharing_title" = "MAPS.MEの地図を改善しました";
+"editor_sharing_title" = "OMapsの地図を改善しました";
 
 "editor_comment_will_be_sent" = "いただいたコメントを地図製作者に送ります。";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "詳細なコメント";
 
-"editor_detailed_description" = "あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。MAPS.MEで編集できない詳細を説明してください。";
+"editor_detailed_description" = "あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。OMapsで編集できない詳細を説明してください。";
 
 "editor_more_about_osm" = "OpenStreetMapについての詳細";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "マップエディタを更新しました";
 
-"whatsnew_update_editor_message" = "MAPS.MEユーザーは200000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！";
+"whatsnew_update_editor_message" = "OMapsユーザーは200000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "マップエディタを利用するには、全てのアップをアップデートしてください。";
@@ -1598,7 +1598,7 @@
 
 "continue_recent_track_background_button" = "続行";
 
-"recent_track_background_dialog_message" = "MAPS.MEは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";
+"recent_track_background_dialog_message" = "OMapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";
 
 "whatsnew_car_navigation_header" = "ユーザーフレンドリーなカーナビゲーション";
 
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "バイクナビゲーション（ベータ版）";
 
-"whatsnew_cycle_navigation_message" = "新シーズンに向けてバイクナビゲーションをテスト中です。MAPS.MEで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。";
+"whatsnew_cycle_navigation_message" = "新シーズンに向けてバイクナビゲーションをテスト中です。OMapsで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Google Play で評価";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "友達に教える";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "こんにちは！MAPS.ME をインストールしましょう！";
+"tell_friends_text" = "こんにちは！OMaps をインストールしましょう！";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME は旅に必要不可欠なオフラインアプリケーションです。MAPS.ME は OpenStreetMap データに基づいており、データを編集することができます。";
+"about_description" = "OMaps は旅に必要不可欠なオフラインアプリケーションです。OMaps は OpenStreetMap データに基づいており、データを編集することができます。";
 
 /* Text in menu */
 "blog" = "ブログ";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "開始";
 
-"whatsnew_uber_header" = "MAPS.ME & Uber";
+"whatsnew_uber_header" = "OMaps & Uber";
 
 "whatsnew_uber_message" = "アプリから直接Uberの配車リクエストができます！";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "地図上のフォントサイズを大きく";
 
-"traffic_update_app" = "MAPS.ME をアップデートしてください";
+"traffic_update_app" = "OMaps をアップデートしてください";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "交通データを表示するには、アプリケーションをアップデートする必要があります。";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "アクセス権の付与";
 
-"onboarding_storage_permissions_message" = "お使いのデバイスのアクセス許可設定を変更してください。MAPS.ME を使用するには、ストレージへのアクセス権限が必要です。";
+"onboarding_storage_permissions_message" = "お使いのデバイスのアクセス許可設定を変更してください。OMaps を使用するには、ストレージへのアクセス権限が必要です。";
 
 "button_exit" = "終了";
 
-"onboarding_detail_permissions_title" = "MAPS.ME がアクセス許可を必要とする項目";
+"onboarding_detail_permissions_title" = "OMaps がアクセス許可を必要とする項目";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "ストレージ";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "ストレージアクセスの問題";
 
-"dialog_error_storage_message" = "外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損している、あるいはファイルシステムが読み取り専用になっています。確認後、support@maps.me までご連絡ください。";
+"dialog_error_storage_message" = "外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損している、あるいはファイルシステムが読み取り専用になっています。確認後、support@omaps.app までご連絡ください。";
 
 "setting_emulate_bad_storage" = "壊れたストレージをエミュレート";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "<a href=\"%s\">利用規約</a>に同意します";
 
-"sign_agree_news_gdpr" = "MAPS.ME製品に関する最新ニュースを受け取ることに同意します";
+"sign_agree_news_gdpr" = "OMaps製品に関する最新ニュースを受け取ることに同意します";
 
 "whats_new_localbiz_title" = "小企業に注目の価値あり";
 
-"whats_new_localbiz_message" = "旅を忘れがたきものにしてくれる現地のカフェ、居心地の良いホテルと店。MAPS.MEで、お客様のページが際立つように最適化いたします。";
+"whats_new_localbiz_message" = "旅を忘れがたきものにしてくれる現地のカフェ、居心地の良いホテルと店。OMapsで、お客様のページが際立つように最適化いたします。";
 
 "whats_new_order_button" = "リクエストを残す";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "新しい場所をダウンロード";
 
-"cached_bookmarks_placeholder_subtitle" = "MAPS.MEユーザーが作成した数千ものおもしろい場所やルートをダウンロードするには、このボタンを押します。インターネット接続が必要です。";
+"cached_bookmarks_placeholder_subtitle" = "OMapsユーザーが作成した数千ものおもしろい場所やルートをダウンロードするには、このボタンを押します。インターネット接続が必要です。";
 
 "downloader_download_routers" = "ブックマークをダウンロード";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "クラッシュレポート";
 
-"opt_out_fabric_description" = "MAPS.ME体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。";
+"opt_out_fabric_description" = "OMaps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "ブックマークはダウンロードされませんでした";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.MEにルートカタログができました";
+"whats_new_bookmarks_catalog_title" = "OMapsにルートカタログができました";
 
 "whats_new_bookmarks_catalog_message" = "世界各地の数百もの詳細なルート：どこに行って、何を見て、何を食べようか。";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "広告を削除";
 
-"remove_ads_title" = "すべての広告を削除してMAPS.MEをサポート";
+"remove_ads_title" = "すべての広告を削除してOMapsをサポート";
 
 "paybtn_title" = "年間%sの支払い";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "他のオプション";
 
-"why_support" = "MAPS.MEをサポートする理由？";
+"why_support" = "OMapsをサポートする理由？";
 
 "options_dropdown_item1" = "%s/月（%s/年の割引）";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "お客さまのためにすべての広告を削除いたします";
 
-"why_support_item2" = "MAPS.MEの改善にご協力いただいております";
+"why_support_item2" = "OMapsの改善にご協力いただいております";
 
 "why_support_item3" = "オープンマップOpenStreetMap.orgの改善にご協力いただいております";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "サーバーは利用できません";
 
-"server_unavailable_message" = "ご購入は後ほど完了します。エラーが続く場合は、support@maps.meまでご連絡ください。";
+"server_unavailable_message" = "ご購入は後ほど完了します。エラーが続く場合は、support@omaps.appまでご連絡ください。";
 
 "offline_fiters_check_in" = "インターネットに接続して、ホテルを日付で絞り込み検索します。";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "このガイドはパブリックのMAPS.MEカタログにアップロードされ、他のユーザーに対して利用可能になります";
+"upload_and_publish_desc" = "このガイドはパブリックのOMapsカタログにアップロードされ、他のユーザーに対して利用可能になります";
 
 "upload_and_publish" = "アップロードおよび公開";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "レビューを残して旅行者を助けましょう！";
 
-"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。MAPS.MEを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。OMapsを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: http://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "印象を共有するのは簡単です";
 
-"whats_new_ugc_routes_subtitle" = "記憶に残る場所を保存して、ブックマークでルートを作成し MAPS.MEカタログを利用するすべての人達と共有しましょう。";
+"whats_new_ugc_routes_subtitle" = "記憶に残る場所を保存して、ブックマークでルートを作成し OMapsカタログを利用するすべての人達と共有しましょう。";
 
 "whats_new_webeditor_title" = "ルートをストーリーに変えましょう";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "パブリックカタログにあなたのガイドをアップロードするには少なくとも3つのブックマークが必要です";
 
-"bookmark_public_upload_alert_title" = "全てのMAPS.MEの旅行者とあなたのブックマークを共有するために必要なステップはあと少しです！";
+"bookmark_public_upload_alert_title" = "全てのOMapsの旅行者とあなたのブックマークを共有するために必要なステップはあと少しです！";
 
 "bookmark_public_upload_alert_subtitle" = "リストに具体的な名前と説明が記載されている事、全てのブックマークに場所についての情報が記載されている事をお確かめください。そうする事であなたのリストを他の人が発見および利用できるようになります。";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "最大電力節約";
 
-"enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはMAPS.MEにリクエストされた場合にのみ有効にしてください。";
+"enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOMapsにリクエストされた場合にのみ有効にしてください。";
 
 "html_error_upload_message_try_again" = "ネットワーク設定をチェックして、もう一度お試しください";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "あなたのID：%s。";
 
-"gdpr_request_window_message" = "これをコピーしてsupport@maps.meにリクエストを送信してください";
+"gdpr_request_window_message" = "これをコピーしてsupport@omaps.appにリクエストを送信してください";
 
 "gdpr_request_window_copy" = "IDをコピー";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "フェリー航路を回避";
 
-"cached_guides_placeholder_subtitle" = "MAPS.MEはマップに表示されたオフラインで利用できる写真と説明文がついた選択された場所への便利なガイドを提供しています。";
+"cached_guides_placeholder_subtitle" = "OMapsはマップに表示されたオフラインで利用できる写真と説明文がついた選択された場所への便利なガイドを提供しています。";
 
 "guides_catalogue_title" = "ガイドのカタログ";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "ウズベキスタン料理";
 
-"onboarding_welcome_title" = "MAPS.MEで計画および旅行";
+"onboarding_welcome_title" = "OMapsで計画および旅行";
 
 "onboarding_welcome_first_subtitle" = "興味のある場所をブックマークし、ホテルを予約して、オフラインでルートを検索";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "ダウンロード";
 
-"onboarding_bydeeplink_guide_title" = "MAPS.MEのすぐに利用できるガイド";
+"onboarding_bydeeplink_guide_title" = "OMapsのすぐに利用できるガイド";
 
 "onboarding_bydeeplink_guide_subtitle" = "写真と説明文がついたマップ上に表示された名所。オフラインでも機能します。";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "ホテルを予約しましたか？";
 
-"popup_booking_download_guides_message" = "MAPS.MEのレディメイドなガイドでルートを計画しましょう";
+"popup_booking_download_guides_message" = "OMapsのレディメイドなガイドでルートを計画しましょう";
 
 "popup_mwm_download_guides_title" = "オフライン都市ガイド";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "ご覧ください";
 
-"gallery_pp_download_guides_offline_title" = "MAPS.MEで休暇の計画をたてましょう!";
+"gallery_pp_download_guides_offline_title" = "OMapsで休暇の計画をたてましょう!";
 
 "gallery_pp_download_guides_offline_subtitle" = "熟練の旅行者が作ったガイドをお見逃しなく";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "ご購入確定時にお客様のiTunesアカウントにお支払いが請求されます。現在のご利用期間が終了する最低でも24時間前に自動更新が解除されなければ、サブスクリプションは自動的に更新されます。現在のご利用期間が終了する24時間以内に、ご利用プランの更新がアカウントに請求されます。ご購入期間中にApple IDアカウント設定より自動更新を管理または解除することができます。";
 
-"whatsnew_carplay_title" = "CarPlay対応MAPS.MEのカーナビゲーションです！";
+"whatsnew_carplay_title" = "CarPlay対応OMapsのカーナビゲーションです！";
 
 "whatsnew_carplay_message" = "ブックマークや、検索、自動速度違反取締装置、運転オプションがオフラインで利用できます";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "速度警告";
 
-"download_map_carplay" = "あなたの機器のMAPS.MEのアプリにマップをダウンロードしてください";
+"download_map_carplay" = "あなたの機器のOMapsのアプリにマップをダウンロードしてください";
 
 "carplay_roundabout_exit" = "第%s出口";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "おめでとうございます、サブスクライブしました!";
 
-"popup_subscription_success_map_message" = "MAPS.MEのカタログで最高の観光地を見つけましょう";
+"popup_subscription_success_map_message" = "OMapsのカタログで最高の観光地を見つけましょう";
 
 "popup_subscription_success_map_start_button" = "ブラウジングを開始";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "開始";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "オールインワンの旅の友";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "カタログを開く";
 
-"new_onboarding_step5.2_message" = "MAPS.MEのガイドのカタログのサブスクリプションは大変お得です。世界中の都市とアウトドアのガイドへのフルアクセスをゲットしましょう！";
+"new_onboarding_step5.2_message" = "OMapsのガイドのカタログのサブスクリプションは大変お得です。世界中の都市とアウトドアのガイドへのフルアクセスをゲットしましょう！";
 
 "new_onboarding_step5.2_button" = "規約をご確認ください";
 
-"new_onboarding_step5.3_message" = "MAPS.MEの無料セレクションでレディメイドな都市とアウトドアのルートのサンプルをご覧ください！";
+"new_onboarding_step5.3_message" = "OMapsの無料セレクションでレディメイドな都市とアウトドアのルートのサンプルをご覧ください！";
 
 "new_onboarding_step5.3_button" = "無料ダウンロード";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "Outdooractiveが提供する冬と夏の旅のためのルートをカタログから利用できます!";
 
-"whatsnew_guides_galleries_title" = "MAPS.MEで今後の旅の計画を立てましょう";
+"whatsnew_guides_galleries_title" = "OMapsで今後の旅の計画を立てましょう";
 
 "whatsnew_guides_galleries_message" = "人気の観光都市と景色の場所のページでお勧めのガイドを見つける事ができるようになりました";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "地形";
 
-"tips_map_layers_title_countour" = "MAPS.MEの新要素：オフラインのトポグラフィーレイヤー！";
+"tips_map_layers_title_countour" = "OMapsの新要素：オフラインのトポグラフィーレイヤー！";
 
 "tips_map_layers_message_countour" = "自然の旅で訪れる地域を全てを把握しながら計画を立て楽しみましょう";
 

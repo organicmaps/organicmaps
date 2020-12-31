@@ -7,7 +7,7 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-static NSString * const kiOSEmail = @"ios@maps.me";
+static NSString * const kiOSEmail = @"ios@omaps.app";
 
 @interface MWMHelpController ()<MFMailComposeViewControllerDelegate>
 
@@ -27,7 +27,7 @@ static NSString * const kiOSEmail = @"ios@maps.me";
 
   NSString * html;
   if ([MWMFrameworkHelper isNetworkConnected]) {
-    NSURL *url = [NSURL URLWithString:@"https://support.maps.me"];
+    NSURL *url = [NSURL URLWithString:@"https://support.omaps.app"];
     self.aboutViewController = [[WebViewController alloc] initWithUrl:url title:nil];
   } else {
     NSString *path = [NSBundle.mainBundle pathForResource:@"faq" ofType:@"html"];
@@ -137,7 +137,7 @@ static NSString * const kiOSEmail = @"ios@maps.me";
                     value:locale];
     NSString * bundleVersion = [AppInfo sharedInfo].bundleVersion;
     NSString * buildNumber = [AppInfo sharedInfo].buildNumber;
-    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@ (%@)\n- %@/%@",
+    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- OMaps %@ (%@)\n- %@/%@",
                                                  deviceModel, UIDevice.currentDevice.systemVersion,
                                                  bundleVersion, buildNumber, language, country];
     NSString * alohalyticsId = [Alohalytics installationId];

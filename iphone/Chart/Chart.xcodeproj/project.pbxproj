@@ -179,7 +179,7 @@
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = maps.me;
+				ORGANIZATIONNAME = omaps.app;
 				TargetAttributes = {
 					47375D952420D4DB00FFCC49 = {
 						CreatedOnToolsVersion = 11.3;
@@ -445,7 +445,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.Chart;
+				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.Chart;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -471,7 +471,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.Chart;
+				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.Chart;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -555,7 +555,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.Chart;
+				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.Chart;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

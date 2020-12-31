@@ -60,7 +60,7 @@ int main(int argc, char * argv[])
   base::SetAssertFunction(platform::IosAssertMessage);
 #endif
   auto & p = GetPlatform();
-  LOG(LINFO, ("maps.me started, detected CPU cores:", p.CpuCores()));
+  LOG(LINFO, ("omaps started, detected CPU cores:", p.CpuCores()));
 
   setPushWooshSender();
   setMarketingSender();

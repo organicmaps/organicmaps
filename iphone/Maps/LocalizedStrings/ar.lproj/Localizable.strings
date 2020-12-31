@@ -47,7 +47,7 @@
 "get_it_now" = "احصل عليه الآن";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "شكرا لاستخدامك MAPS.ME! هل يعجبك التطبيق؟ أخبر أصدقاءك عن التطبيق! سيكون ذلك هو غاية الامتنان بالنسبة لنا.";
+"share_on_facebook_text" = "شكرا لاستخدامك OMaps! هل يعجبك التطبيق؟ أخبر أصدقاءك عن التطبيق! سيكون ذلك هو غاية الامتنان بالنسبة لنا.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "ك.ب.";
@@ -138,9 +138,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "محاولة مرة أخرى";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
-"about_menu_title" = "حول MAPS.ME";
+"about_menu_title" = "حول OMaps";
 
 "downloading_touch_to_cancel" = "جاري تنزيل %d%% ، انقر للإلغاء";
 
@@ -158,7 +158,7 @@
 
 "external_storage_is_not_available" = "خاصية التخزين بواسطة البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل غير متاحة مع الخرائط التي تم تنزيلها.";
 
-"disconnect_usb_cable" = "الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام MAPS.ME.";
+"disconnect_usb_cable" = "الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام OMaps.";
 
 "not_enough_free_space_on_sdcard" = "الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "هناك تحديثات متوافرة للخرائط التالية:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "أنت لست بحاجة الى  MAPS.ME Lite بعد الآن، لذلك يمكنك إلغاء تثبيته.";
+"suggest_uninstall_lite" = "أنت لست بحاجة الى  OMaps Lite بعد الآن، لذلك يمكنك إلغاء تثبيته.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "تم تنزيل %@ بنجاح.";
@@ -249,10 +249,10 @@
 "set" = "المجموعة";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "ليس لديك أي إشارات مرجعية بعد.\nانقر على أي مكان على الخريطة لإضافة إشارة مرجعية.\nيمكنك أيضا استيراد الإشارات المرجعية من المصادر الأخرى وعرضها في MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الدبابيس المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.";
+"bookmarks_usage_hint" = "ليس لديك أي إشارات مرجعية بعد.\nانقر على أي مكان على الخريطة لإضافة إشارة مرجعية.\nيمكنك أيضا استيراد الإشارات المرجعية من المصادر الأخرى وعرضها في OMaps. افتح ملف KML/KMZ الذي يحتوي على الدبابيس المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "يمكن استيراد الإشارات المرجعية من المصادر الأخرى و عرضها على MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الإشارات المرجعية المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.";
+"bookmarks_usage_hint_import_only" = "يمكن استيراد الإشارات المرجعية من المصادر الأخرى و عرضها على OMaps. افتح ملف KML/KMZ الذي يحتوي على الإشارات المرجعية المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.";
 
 /* Settings button in system menu */
 "settings" = "الإعدادات";
@@ -354,9 +354,9 @@
 "share_by_email" = "مشاركة بواسطة البريد الالكتروني";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "تم مشاركة اشارات MAPS.ME المرجعية معك";
+"share_bookmarks_email_subject" = "تم مشاركة اشارات OMaps المرجعية معك";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "تحميل الإشارات المرجعية";
@@ -386,22 +386,22 @@
 "downloading_is_active" = "جاري الآن تنزيل الدولة";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "نأمل أن تكون قد استمتعت باستخدام MAPS.ME! إذا كان الأمر كذلك، الرجاء تقييم التطبيق في App Store. يستغرق ذلك أقل من دقيقة لكنه يفيدنا بالفعل. شكرا لك على دعمك!";
+"appStore_message" = "نأمل أن تكون قد استمتعت باستخدام OMaps! إذا كان الأمر كذلك، الرجاء تقييم التطبيق في App Store. يستغرق ذلك أقل من دقيقة لكنه يفيدنا بالفعل. شكرا لك على دعمك!";
 
 /* No, thanks */
 "no_thanks" = "لا، شكرا";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "هاي، تفقد الدبوس الخاص بي على MAPS.ME! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get";
+"bookmark_share_sms" = "هاي، تفقد الدبوس الخاص بي على OMaps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "هاي، تفقد الموقع الخاص بي على MAPS.ME! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get";
+"my_position_share_sms" = "هاي، تفقد الموقع الخاص بي على OMaps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://omaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!";
+"bookmark_share_email_subject" = "هاي، تفقد الدبوس الخاص بي على خريطة OMaps!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!";
+"my_position_share_email_subject" = "يا هلا، تحقق من موقعي الحالي على خريطة OMaps!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "مرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.";
@@ -549,7 +549,7 @@
 "search_show_on_map" = "مشاهدة على الخريطة";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "تم تحسين وسيلة تخزين بيانات الخريطة. الرجاء اعادة تشغيل التطبيق .\n\nلا حاجة بعد الآن لمجلد MAPS.ME في البطاقة الرقمية الآمنة، يمكنك حذفه.";
+"kitkat_migrate_ok" = "تم تحسين وسيلة تخزين بيانات الخريطة. الرجاء اعادة تشغيل التطبيق .\n\nلا حاجة بعد الآن لمجلد OMaps في البطاقة الرقمية الآمنة، يمكنك حذفه.";
 
 /* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_failed" = "بسبب التغييرات في نظام أندرويد4.4 ، نحن بحاجة لتحسين وسيلة تخزين بيانات الخريطة، لكن لا يوجد حيز كافٍ لنسخ بيانات الخريطة.\n\nالرجاء إخلاء الذاكرة، وإلا ستتوافر الخرائط في وضع القراءة فقط.";
@@ -582,16 +582,16 @@
 "download_map_notification" = "تنزيل خريطة المكان الذي توجد فيه";
 
 /* text of notification */
-"pro_version_is_free_today" = "تطبيق MAPS.ME مجاني اليوم! قم بتنزيله الآن وأخبر أصدقائك.";
+"pro_version_is_free_today" = "تطبيق OMaps مجاني اليوم! قم بتنزيله الآن وأخبر أصدقائك.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "نحن ننقل خرائط التنزيلات الخاصة بك من MAPS.ME Lite إلى MAPS.ME. يمكن أن يستغرق بضع دقائق";
+"move_lite_maps_to_pro" = "نحن ننقل خرائط التنزيلات الخاصة بك من OMaps Lite إلى OMaps. يمكن أن يستغرق بضع دقائق";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "تم بنجاح نقل خرائطك التي تم تنزيلها إلى MAPS.ME.";
+"move_lite_maps_to_pro_ok" = "تم بنجاح نقل خرائطك التي تم تنزيلها إلى OMaps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "فشل نقل خرائطك يُرجى حذف MAPS.ME Lite وتنزيل الخرائط مرة أخرى.";
+"move_lite_maps_to_pro_failed" = "فشل نقل خرائطك يُرجى حذف OMaps Lite وتنزيل الخرائط مرة أخرى.";
 
 /* Text in menu */
 "settings_and_more" = "الإعدادات والمزيد";
@@ -600,7 +600,7 @@
 "website" = "الموقع الإلكتروني";
 
 /* Text in menu */
-"maps_me_community" = "مجتمع MAPS.ME";
+"maps_me_community" = "مجتمع OMaps";
 
 /* Text in menu */
 "like_on_facebook" = "أعجبني على الفيسبوك";
@@ -630,13 +630,13 @@
 "report_a_bug" = "الإبلاغ عن خطأ";
 
 /* Email subject */
-"subscribe_me_subject" = "يرجى اشتراكي في النشرة البريدية لدى MAPS.ME";
+"subscribe_me_subject" = "يرجى اشتراكي في النشرة البريدية لدى OMaps";
 
 /* Email body */
 "subscribe_me_body" = "أريد أن أكون أول من يعرف آخر الأخبار والتحديثات والترقيات. يمكنني إلغاء اشتراكي في أي وقت.";
 
 /* About text */
-"about_text" = "توفر لكم MAPS.ME أحدث الخرائط دون الاتصال بالإنترنت لكافة دول وكافة مدن العالم. سافر وتمتع بالثقة التامة: إينما كنت، تساعدك MAPS.ME على تحديد مكانك على الخريطة، والعثور على أقرب مطعم أو فندق أو بنك أو محطة غاز الخ لا يتطلب الاتصال بالإنترنت.\n\nنحن نعمل دوماً على إدخال مزايا جديدة على التطبيق ونود أن نسمع منك رأيك عن الكيفية التي يمكن بها تحسين تطبيق MAPS.ME في رأيك. إذا واجهتك أي مشاكل مع التطبيق، لا تتردد في الاتصال بنا على support@maps.me. نحن نرد على كافة الطلبات.\n\nهل أعجبك تطبيق MAPS.ME وترغب في دعمنا؟ هناك بعض الطرق السهلة والمجانية بالكامل لعمل ذلك.\n\n- انشر رأيك على متجر التطبيقات الخاص بك\n- اعجب بصفحتنا على موقع Facebook http://www.facebook.com/mapswithme\n- أو أخبر والدتك وأصدقائك وزملائك عن تطبيق MAPS.ME :)\n\nشكراً لك على وجودك معنا. نحن نقدر جداً دعمك لنا!\n\nيُرجى ملاحظة نحن نستقي بيانات الخرائط من OpenStreetMap، مشروع خرائط يشبه موسوعة Wikipedia ويتيح هذا المشروع للمستخدمين إنشاء وتحرير الخرائط. إذا كنت ترى أن هناك خطأ ما أو شيء غير موجود على الخريطة، يمكنك تصحيح الخرائط مباشرة على https://www.openstreetmap.org، وسوف تظهر تغييراتك على تطبيق MAPS.ME في الإصدار القادم للتطبيق.";
+"about_text" = "توفر لكم OMaps أحدث الخرائط دون الاتصال بالإنترنت لكافة دول وكافة مدن العالم. سافر وتمتع بالثقة التامة: إينما كنت، تساعدك OMaps على تحديد مكانك على الخريطة، والعثور على أقرب مطعم أو فندق أو بنك أو محطة غاز الخ لا يتطلب الاتصال بالإنترنت.\n\nنحن نعمل دوماً على إدخال مزايا جديدة على التطبيق ونود أن نسمع منك رأيك عن الكيفية التي يمكن بها تحسين تطبيق OMaps في رأيك. إذا واجهتك أي مشاكل مع التطبيق، لا تتردد في الاتصال بنا على support@omaps.app. نحن نرد على كافة الطلبات.\n\nهل أعجبك تطبيق OMaps وترغب في دعمنا؟ هناك بعض الطرق السهلة والمجانية بالكامل لعمل ذلك.\n\n- انشر رأيك على متجر التطبيقات الخاص بك\n- اعجب بصفحتنا على موقع Facebook http://www.facebook.com/mapswithme\n- أو أخبر والدتك وأصدقائك وزملائك عن تطبيق OMaps :)\n\nشكراً لك على وجودك معنا. نحن نقدر جداً دعمك لنا!\n\nيُرجى ملاحظة نحن نستقي بيانات الخرائط من OpenStreetMap، مشروع خرائط يشبه موسوعة Wikipedia ويتيح هذا المشروع للمستخدمين إنشاء وتحرير الخرائط. إذا كنت ترى أن هناك خطأ ما أو شيء غير موجود على الخريطة، يمكنك تصحيح الخرائط مباشرة على https://www.openstreetmap.org، وسوف تظهر تغييراتك على تطبيق OMaps في الإصدار القادم للتطبيق.";
 
 /* Alert text */
 "email_error_body" = "لم يتم تعيين البريد الإلكتروني للعميل. يرجى تكوينه أو استخدام أي وسيلة أخرى للاتصال بنا على %@";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "يرجى تحديث الخريطة لإنشاء مسار.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "إصدار MAPS.ME الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.";
+"routing_update_maps" = "إصدار OMaps الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.";
 
 /* Update all button text */
 "downloader_update_all_button" = "تحديث الكل";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "تم العثور على";
 
 /* Disclaimer message */
-"routing_disclaimer" = "عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!";
+"routing_disclaimer" = "عند إنشاء مسارات الطرق في تطبيق OMaps، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "انتهت صلاحيته";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "لم يتم العثور على مسار بين المنشأ والوُجْهَة المحددة. الرجاء تحديد نقطة بداية أو نهاية مختلفة.";
 
 /* InternalError */
-"routing_failed_internal_error" = "حدث خطأ داخلي. يرجى محاولة حذف الخريطة وإعادة تنزيلها مرة أخرى. إذا استمرت المشكلة يرجى الاتصال بنا على support@maps.me.";
+"routing_failed_internal_error" = "حدث خطأ داخلي. يرجى محاولة حذف الخريطة وإعادة تنزيلها مرة أخرى. إذا استمرت المشكلة يرجى الاتصال بنا على support@omaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "تنزيل الخريطة + تحديد المسار";
@@ -765,10 +765,10 @@
 "rating_just_rated" = "لقد قمت بتقييم تطبيقك للتو";
 
 /* Text for rating dialog */
-"rating_user_since" = "أنا مستخدم لتطبيق MAPS.ME منذ %@";
+"rating_user_since" = "أنا مستخدم لتطبيق OMaps منذ %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "هل تطبيق MAPS.ME يعجبك؟";
+"rating_do_like_maps" = "هل تطبيق OMaps يعجبك؟";
 
 /* Text for rating dialog */
 "rating_tap_star" = "انقر على النجمة لتقييم التطبيق.";
@@ -792,7 +792,7 @@
 "routing_download_map" = "Scarica la mappa";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità MAPS.ME.";
+"routing_download_map_and_routing" = "Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità OMaps.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Ottieni i dati del percorso";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "يعجبك التطبيق؟";
 
-"rate_alert_default_message" = "شكرا لاستخدامك MAPS.ME. من فضلك، أَعْطِ تقييمك للتطبيق. ملاحظاتك تساعدنا على أن نصبح أفضل.";
+"rate_alert_default_message" = "شكرا لاستخدامك OMaps. من فضلك، أَعْطِ تقييمك للتطبيق. ملاحظاتك تساعدنا على أن نصبح أفضل.";
 
 "rate_alert_five_star_message" = "مرحا! نحن أيضا نحبك!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "مكان متكرر";
 
-"first_launch_congrats_title" = "MAPS.ME جاهز للاستخدام";
+"first_launch_congrats_title" = "OMaps جاهز للاستخدام";
 
 "first_launch_congrats_text" = "ابحث وتصفح كل مكان في العالم بدون اتصال, مجانا.";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.";
 
-"whatsnew_editor_message_2" = "*تستخدم MAPS.ME البيانات الخاصة بخريطة OpenStreetMap.";
+"whatsnew_editor_message_2" = "*تستخدم OMaps البيانات الخاصة بخريطة OpenStreetMap.";
 
 "onboarding_offline_navigation_title" = "لن تضل الطريق أبدا بعد الآن";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "خطط أفضل طرق السيارات والمشاة.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — وصول إلى الخرائط على مستوى العالم دون إنترنت";
+"onboarding_offline_maps_title" = "OMaps — وصول إلى الخرائط على مستوى العالم دون إنترنت";
 
 "onboarding_offline_maps_message" = "قم بتنزيل خرائط للمنطقة المطلوب مرة واحدة، واستخدم وظائف الملاحة والبحث دون الحاجة للاتصال بالإنترنت.";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.";
 
-"onboarding_permissions_title" = "السماح لـ MAPS.ME بالوصول إلى ذاكرة التخزين والموقع";
+"onboarding_permissions_title" = "السماح لـ OMaps بالوصول إلى ذاكرة التخزين والموقع";
 
 "onboarding_permissions_message" = "من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، احذف البيانات غير الضرورية.";
 
-"editor_sharing_title" = "لقد قمت بتحديث خرائط تطبيق MAPS.ME";
+"editor_sharing_title" = "لقد قمت بتحديث خرائط تطبيق OMaps";
 
 "editor_comment_will_be_sent" = "سوف نرسل تعليقك إلى فريق رسم الخرائط.";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "تعليق مفصل";
 
-"editor_detailed_description" = "سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في MAPS.ME";
+"editor_detailed_description" = "سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في OMaps";
 
 "editor_more_about_osm" = "المزيد عن OpenStreetMap";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "لقد قمنا بتحديث محرر الخريطة";
 
-"whatsnew_update_editor_message" = "قام مستخدمو MAPS.ME بإجراء 200000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!";
+"whatsnew_update_editor_message" = "قام مستخدمو OMaps بإجراء 200000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "لاستخدام مُحَرّر الخريطة، يرجى تحديث جميع الخرائط.";
@@ -1598,7 +1598,7 @@
 
 "continue_recent_track_background_button" = "استمرار";
 
-"recent_track_background_dialog_message" = "يستخدم MAPS.ME موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.";
+"recent_track_background_dialog_message" = "يستخدم OMaps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.";
 
 "whatsnew_car_navigation_header" = "ملاحة المركبات سهلة الاستخدام";
 
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "التوجيه الملاحي مع الدراجات (إصدار تجريبي)";
 
-"whatsnew_cycle_navigation_message" = "نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام MAPS.ME، واطلعنا على رأيك.";
+"whatsnew_cycle_navigation_message" = "نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام OMaps، واطلعنا على رأيك.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "تصنيف على Google Play";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "أخبر صديق";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "مرحبًا! تثبيت MAPS.ME!";
+"tell_friends_text" = "مرحبًا! تثبيت OMaps!";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME هو تطبيق أساسي للسفر بدون اتصال بالإنترنت. يعتمد برنامج MAPS.ME على بيانات OpenStreetMap ويتيح تحريرها.";
+"about_description" = "OMaps هو تطبيق أساسي للسفر بدون اتصال بالإنترنت. يعتمد برنامج OMaps على بيانات OpenStreetMap ويتيح تحريرها.";
 
 /* Text in menu */
 "blog" = "المدونة";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "فتح";
 
-"whatsnew_uber_header" = "MAPS.ME وUber";
+"whatsnew_uber_header" = "OMaps وUber";
 
 "whatsnew_uber_message" = "اطلب تاكسي Uber مباشرة من التطبيق!";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "زيادة حجم الخط على الخريطة";
 
-"traffic_update_app" = "الرجاء تحديث MAPS.ME";
+"traffic_update_app" = "الرجاء تحديث OMaps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "لعرض البيانات المرورية، يجب تحديث التطبيق.";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "منح حق الوصول";
 
-"onboarding_storage_permissions_message" = "قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام MAPS.ME.";
+"onboarding_storage_permissions_message" = "قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام OMaps.";
 
 "button_exit" = "خروج";
 
-"onboarding_detail_permissions_title" = "MAPS.ME يحتاج إلى الوصول إلى";
+"onboarding_detail_permissions_title" = "OMaps يحتاج إلى الوصول إلى";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "ذاكرة التخزين";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "مشكلة الوصول للتخزين";
 
-"dialog_error_storage_message" = "التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو ملف النظام للقراءة فقط. افحصه واتصل بنا على support@maps.me";
+"dialog_error_storage_message" = "التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو ملف النظام للقراءة فقط. افحصه واتصل بنا على support@omaps.app";
 
 "setting_emulate_bad_storage" = "محاكاة التخزين السيء";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "أوافق على <a href=\"%s\">شروط الاستخدام</a>";
 
-"sign_agree_news_gdpr" = "أوافق على تلقي آخر الأخبار حول منتجات MAPS.ME";
+"sign_agree_news_gdpr" = "أوافق على تلقي آخر الأخبار حول منتجات OMaps";
 
 "whats_new_localbiz_title" = "تستحق الأعمال الصغيرة العناية";
 
-"whats_new_localbiz_message" = "ومن المقاهي المحلية والفنادق المريحة والمحلات التجارية التي من خلالها لم ننسى رحلاتنا. سنقوم بتحسين صفحتك في MAPS.ME لنجعلها ذات تميز.";
+"whats_new_localbiz_message" = "ومن المقاهي المحلية والفنادق المريحة والمحلات التجارية التي من خلالها لم ننسى رحلاتنا. سنقوم بتحسين صفحتك في OMaps لنجعلها ذات تميز.";
 
 "whats_new_order_button" = "اترك طلب";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "تحميل أماكن جديدة";
 
-"cached_bookmarks_placeholder_subtitle" = "اضغط على الزر لتحميل الآلاف من الأماكن المثيرة للاهتمام والطرق التي تم إنشاؤها من قبل لمستخدمين MAPS.ME. سوف تحتاج إلى اتصال بالإنترنت.";
+"cached_bookmarks_placeholder_subtitle" = "اضغط على الزر لتحميل الآلاف من الأماكن المثيرة للاهتمام والطرق التي تم إنشاؤها من قبل لمستخدمين OMaps. سوف تحتاج إلى اتصال بالإنترنت.";
 
 "downloader_download_routers" = "تحميل الإشارات";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "تقرير الحادث";
 
-"opt_out_fabric_description" = "قد نستخدم بياناتك لتحسين تجربة MAPS.ME. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.";
+"opt_out_fabric_description" = "قد نستخدم بياناتك لتحسين تجربة OMaps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "لم يتم تنزيل الإشارات";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME لديها الآن كتاب الطريق";
+"whats_new_bookmarks_catalog_title" = "OMaps لديها الآن كتاب الطريق";
 
 "whats_new_bookmarks_catalog_message" = "تحدد المئات من الطرق التفصيلية في جميع أنحاء العالم: إلى أين نذهب و ماذا نرى و مكان لتناول الطعام.";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "ازالة الاعلانات";
 
-"remove_ads_title" = "إزالة جميع الإعلانات ودعم MAPS.ME";
+"remove_ads_title" = "إزالة جميع الإعلانات ودعم OMaps";
 
 "paybtn_title" = "دفع%s/ سنة";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "مزيد من الخيارات";
 
-"why_support" = "لماذا تدعم MAPS.ME؟";
+"why_support" = "لماذا تدعم OMaps؟";
 
 "options_dropdown_item1" = "%s/الشهر (حفظ%s/سنة)";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "سنقوم بإزالة جميع الإعلانات لك";
 
-"why_support_item2" = "أنت تساعدنا على تحسين MAPS.ME";
+"why_support_item2" = "أنت تساعدنا على تحسين OMaps";
 
 "why_support_item3" = "يمكنك مساعدتنا في تحسين خرائط مفتوحة OpenStreetMap.org";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "الخدمة غير متوفرة";
 
-"server_unavailable_message" = "سيتم الانتهاء من الشراء في وقت لاحق. إذا استمر الخطأ ، يرجى الاتصال بـ support@maps.me.";
+"server_unavailable_message" = "سيتم الانتهاء من الشراء في وقت لاحق. إذا استمر الخطأ ، يرجى الاتصال بـ support@omaps.app.";
 
 "offline_fiters_check_in" = "اتصل بالإنترنت لتصفية الفنادق حسب التواريخ.";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "سيتم تحميل هذا الدليل إلى كتالوج MAPS.ME العام وسيكون متاحًا للمستخدمين الآخرين";
+"upload_and_publish_desc" = "سيتم تحميل هذا الدليل إلى كتالوج OMaps العام وسيكون متاحًا للمستخدمين الآخرين";
 
 "upload_and_publish" = "تحميل ونشر";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "مساعدة المسافرين من خلال ترك رأي!";
 
-"share_bookmarks_email_body_link" = "مرحبًا!\n\nللوصول إلى التطبيق: http://maps.me/get?kmzهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر MAPS.ME واستمتع برحلتك!\n\n";
+"share_bookmarks_email_body_link" = "مرحبًا!\n\nللوصول إلى التطبيق: http://omaps.app/get?kmzهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر OMaps واستمتع برحلتك!\n\n";
 
 "warning_speedcams_title" = "سوف يحذرك المستكشف من الكاميرات عندما تتجاوز الحد الأقصى للسرعة %d كم / س";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "من السهل مشاركة انطباعاتك";
 
-"whats_new_ugc_routes_subtitle" = "يمكنك حفظ الأماكن التي لا تنسى وإنشاء مسارات باستخدام الإشارات المرجعية ومشاركتها مع الجميع في كتالوج MAPS.ME";
+"whats_new_ugc_routes_subtitle" = "يمكنك حفظ الأماكن التي لا تنسى وإنشاء مسارات باستخدام الإشارات المرجعية ومشاركتها مع الجميع في كتالوج OMaps";
 
 "whats_new_webeditor_title" = "حوّل مساراتك إلى قصص";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "يجب أن يكون هناك 3 معلمات على الأقل لرفع دليلك إلى الدليل العام";
 
-"bookmark_public_upload_alert_title" = "أنت على بعد خطوات قليلة لمشاركة معلماتك مع جميع مسافري MAPS.ME!";
+"bookmark_public_upload_alert_title" = "أنت على بعد خطوات قليلة لمشاركة معلماتك مع جميع مسافري OMaps!";
 
 "bookmark_public_upload_alert_subtitle" = "يرجي التأكد من وجود اسم ووصف محدد لقائمتك، و جميع المعلمات تحتوي على بعض المعلومات عن الأماكن. بهذه الطريقة يمكن العثور على قائمتك و استخدامها بواسطة الآخرين.";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "توفير الطاقة القصوى";
 
-"enable_logging_warning_message" = "يتحول الخيار إلى التسجيل لإغراض التشخيص. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا الذين يعملون على استكشاف أخطاء التطبيق وإصلاحها. قم بتفعيل هذا الخيار فقط في حالة طلب الدعم من MAPS.ME.";
+"enable_logging_warning_message" = "يتحول الخيار إلى التسجيل لإغراض التشخيص. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا الذين يعملون على استكشاف أخطاء التطبيق وإصلاحها. قم بتفعيل هذا الخيار فقط في حالة طلب الدعم من OMaps.";
 
 "html_error_upload_message_try_again" = "يرجى التحقق من إعدادات الشبكة الخاصة بك و حاول مرة أخرى";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "اسم المستخدم: %s.";
 
-"gdpr_request_window_message" = "يرجى نسخه وإرسال الطلب إلى support@maps.me";
+"gdpr_request_window_message" = "يرجى نسخه وإرسال الطلب إلى support@omaps.app";
 
 "gdpr_request_window_copy" = "انسخ اسم المستخدم";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "تجنب تقاطع العبارات";
 
-"cached_guides_placeholder_subtitle" = "توفر MAPS.ME دلائل جاهزة لإماكن مختارة مع الصور والوصف الذي يتم عرضه على الخريطة وهو متاح بدون اتصال بالانترنت.";
+"cached_guides_placeholder_subtitle" = "توفر OMaps دلائل جاهزة لإماكن مختارة مع الصور والوصف الذي يتم عرضه على الخريطة وهو متاح بدون اتصال بالانترنت.";
 
 "guides_catalogue_title" = "قائمة الدلائل";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "مطعم أوزبكي";
 
-"onboarding_welcome_title" = "خطط وسافر مع MAPS.ME";
+"onboarding_welcome_title" = "خطط وسافر مع OMaps";
 
 "onboarding_welcome_first_subtitle" = "ضع علامة مرجعية على الأماكن المثيرة للاهتمام، احجز الفنادق، احسب الطرق بدون اتصال بالانترنت";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "تحميل";
 
-"onboarding_bydeeplink_guide_title" = "دلائل جاهزة للاستخدام في MAPS.ME";
+"onboarding_bydeeplink_guide_title" = "دلائل جاهزة للاستخدام في OMaps";
 
 "onboarding_bydeeplink_guide_subtitle" = "أفضل الأماكن لزيارتها معروضة على الخريطة مع الصور والوصف. يعمل بدون اتصال بالانترنت.";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "هل حجزت فندقًا؟";
 
-"popup_booking_download_guides_message" = "خطط لوجهتك باستخدام دلائل جاهزة من MAPS.ME";
+"popup_booking_download_guides_message" = "خطط لوجهتك باستخدام دلائل جاهزة من OMaps";
 
 "popup_mwm_download_guides_title" = "أدلة المدينة غير متصلة";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "الق نظرة";
 
-"gallery_pp_download_guides_offline_title" = "خطط لعطلتك مع MAPS.ME!";
+"gallery_pp_download_guides_offline_title" = "خطط لعطلتك مع OMaps!";
 
 "gallery_pp_download_guides_offline_subtitle" = "لا تفوت أي شىء مع دلائل تم اعدادها بواسطة خبراء السفر";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "سيتم خصم المبلغ من حساب iTunes الخاص بك عند تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائياً ما لم يتم إيقاف التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية. سيتم الخصم من حسابك وفقاً لخطة التجديد الخاصة بك وذلك خلال 24 ساعة قبل انتهاء الفترة الحالية. يمكنك إدارة أو إيقاف التجديد التلقائي عبر إعدادات حساب Apple ID الخاص بك في أي وقت عند الشراء.";
 
-"whatsnew_carplay_title" = "نظام ملاحة السيارات MAPS.ME في CarPlay!";
+"whatsnew_carplay_title" = "نظام ملاحة السيارات OMaps في CarPlay!";
 
 "whatsnew_carplay_message" = "خصائص تحديد علامات الأماكن، والبحث، وكاميرات السرعة والمسارات متاحة بدون اتصال بالانترنت";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "تحذير سريع";
 
-"download_map_carplay" = "يُرجى تحميل الخرائط في تطبيق MAPS.ME على جهازك";
+"download_map_carplay" = "يُرجى تحميل الخرائط في تطبيق OMaps على جهازك";
 
 "carplay_roundabout_exit" = "المخرج رقم %s";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "يا للروعة، لقد قمت بالاشتراك!";
 
-"popup_subscription_success_map_message" = "اكتشف الآن أفضل المعالم السياحية في كتالوج MAPS.ME";
+"popup_subscription_success_map_message" = "اكتشف الآن أفضل المعالم السياحية في كتالوج OMaps";
 
 "popup_subscription_success_map_start_button" = "ابدأ البحث";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "ابدأ الآن";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "كل ما تريده في صديق سفر واحد";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "افتح القائمة";
 
-"new_onboarding_step5.2_message" = "اشتراكك في قائمة دلائل MAPS.ME له قيمة كبيرة. يمكنك الوصول الكامل إلى أدلة المدينة والأنشطة الخارجية في جميع أنحاء العالم!";
+"new_onboarding_step5.2_message" = "اشتراكك في قائمة دلائل OMaps له قيمة كبيرة. يمكنك الوصول الكامل إلى أدلة المدينة والأنشطة الخارجية في جميع أنحاء العالم!";
 
 "new_onboarding_step5.2_button" = "تحقق من الشروط";
 
-"new_onboarding_step5.3_message" = "تحقق من عينات مجانية لمسارات جاهزة للمدن والمناطق الخارجية مع مجموعة مختارة مجانية من MAPS.ME!";
+"new_onboarding_step5.3_message" = "تحقق من عينات مجانية لمسارات جاهزة للمدن والمناطق الخارجية مع مجموعة مختارة مجانية من OMaps!";
 
 "new_onboarding_step5.3_button" = "تحميل مجاني";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "تتواجد الطرق من Outdooractive لرحلات الشتاء والصيف في القائمة!";
 
-"whatsnew_guides_galleries_title" = "خطط لرحلتك القادمة مع MAPS.ME";
+"whatsnew_guides_galleries_title" = "خطط لرحلتك القادمة مع OMaps";
 
 "whatsnew_guides_galleries_message" = "يمكنك الآن العثور على دلائل موصى بها في صفحات الأماكن للمدن والمعالم السياحية الشهيرة";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "تضاريس";
 
-"tips_map_layers_title_countour" = "الجديد في MAPS.ME: طبقة طبوغرافية بدون انترنت!";
+"tips_map_layers_title_countour" = "الجديد في OMaps: طبقة طبوغرافية بدون انترنت!";
 
 "tips_map_layers_message_countour" = "خطط و استمتع برحلاتك في الطبيعة و أنت متأكد من أنك تعرف كل شيء عن المنطقة";
 

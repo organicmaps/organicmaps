@@ -10,9 +10,7 @@
 	</array>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:dlink.maps.me</string>
-		<string>applinks:dlink.mapsme.devmail.ru</string>
-		<string>applinks:mapsme.onelink.me</string>
+		<string>applinks:dlink.omaps.app</string>
 	</array>
 	<key>com.apple.developer.carplay-maps</key>
 	<true/>

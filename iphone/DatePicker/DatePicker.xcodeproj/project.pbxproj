@@ -143,7 +143,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = maps.me;
+				ORGANIZATIONNAME = omaps.app;
 				TargetAttributes = {
 					47A13C6424B4A86000027D4F = {
 						CreatedOnToolsVersion = 11.3;

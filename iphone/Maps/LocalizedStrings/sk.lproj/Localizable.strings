@@ -47,7 +47,7 @@
 "get_it_now" = "Získať teraz";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Ďakujeme, že používate MAPS.ME! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.";
+"share_on_facebook_text" = "Ďakujeme, že používate OMaps! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -138,9 +138,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Skúsiť znova";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
-"about_menu_title" = "O aplikácii MAPS.ME";
+"about_menu_title" = "O aplikácii OMaps";
 
 "downloading_touch_to_cancel" = "Sťahovanie %d%%,stlačte pre zrušenie";
 
@@ -158,7 +158,7 @@
 
 "external_storage_is_not_available" = "SD karta/USB úložisko s uloženými mapami nie je k dispozícii";
 
-"disconnect_usb_cable" = "Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s MAPS.ME";
+"disconnect_usb_cable" = "Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s OMaps";
 
 "not_enough_free_space_on_sdcard" = "Prosím, uvoľnite najprv miesto na SD karte/USB úložisku";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "K dispozícii je aktualizácia pre tieto mapy:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Aplikáciu MAPS.ME Lite uz teraz nepotrebujete, takže si ju môžete kľudne odinštalovať.";
+"suggest_uninstall_lite" = "Aplikáciu OMaps Lite uz teraz nepotrebujete, takže si ju môžete kľudne odinštalovať.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "Úspešne stiahnuté: %@";
@@ -249,10 +249,10 @@
 "set" = "Skupina";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.";
+"bookmarks_usage_hint" = "Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV OMaps môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "V MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.";
+"bookmarks_usage_hint_import_only" = "V OMaps môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.";
 
 /* Settings button in system menu */
 "settings" = "Nastavenia";
@@ -354,9 +354,9 @@
 "share_by_email" = "Share by email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Zdielané záložky MAPS.ME";
+"share_bookmarks_email_subject" = "Zdielané záložky OMaps";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Načítavanie záložiek";
@@ -386,7 +386,7 @@
 "downloading_is_active" = "Práve prebieha sťahovanie krajiny.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Dúfame, že sa vám používánie MAPS.ME páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!";
+"appStore_message" = "Dúfame, že sa vám používánie OMaps páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!";
 
 /* No, thanks */
 "no_thanks" = "Nie, ďakujem";
@@ -398,10 +398,10 @@
 "my_position_share_sms" = "Pozri kde som. Otvor odkaz: %1$@ alebo %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Pozri na moju značku na mape MAPS.ME";
+"bookmark_share_email_subject" = "Pozri na moju značku na mape OMaps";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Pozrite si moju aktuálnu polohu na mape MAPS.ME";
+"my_position_share_email_subject" = "Pozrite si moju aktuálnu polohu na mape OMaps";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Ahoj,\n\nPráve som tu: %1$@. Stlačte jeden z týchto odkazov %2$@, %3$@ a uvidíte toto miesto na mape.\n\nVďaka";
@@ -582,16 +582,16 @@
 "download_map_notification" = "Stiahnite si mapu miesta, kde sa práve nachádzate";
 
 /* text of notification */
-"pro_version_is_free_today" = "Plná verzia MAPS.ME dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.";
+"pro_version_is_free_today" = "Plná verzia OMaps dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Práve prenášame Vaše stiahnuté mapy z MAPS.ME lite na MAPS.ME. Môže to trvať niekoľko minút.";
+"move_lite_maps_to_pro" = "Práve prenášame Vaše stiahnuté mapy z OMaps lite na OMaps. Môže to trvať niekoľko minút.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Vaše stiahnuté mapy sú úspešne prenesené na MAPS.ME.";
+"move_lite_maps_to_pro_ok" = "Vaše stiahnuté mapy sú úspešne prenesené na OMaps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Vaše mapy sa nepodarilo preniesť. Vymažte prosím MAPS.ME Lite a stiahnite si mapy znova.";
+"move_lite_maps_to_pro_failed" = "Vaše mapy sa nepodarilo preniesť. Vymažte prosím OMaps Lite a stiahnite si mapy znova.";
 
 /* Text in menu */
 "settings_and_more" = "Nastavenia a viac";
@@ -600,7 +600,7 @@
 "website" = "Webové stránky";
 
 /* Text in menu */
-"maps_me_community" = "Komunita MAPS.ME";
+"maps_me_community" = "Komunita OMaps";
 
 /* Text in menu */
 "like_on_facebook" = "Označiť pomocou Páči sa mi to na Facebooku";
@@ -630,13 +630,13 @@
 "report_a_bug" = "Nahlásiť chybu";
 
 /* Email subject */
-"subscribe_me_subject" = "Prihláste ma prosím k odberu spravodaja MAPS.ME";
+"subscribe_me_subject" = "Prihláste ma prosím k odberu spravodaja OMaps";
 
 /* Email body */
 "subscribe_me_body" = "Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.";
 
 /* About text */
-"about_text" = "MAPS.ME ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, MAPS.ME vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť MAPS.ME. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support@maps.me. Odpovedáme na každú požiadavku!\n\nPáči sa vám MAPS.ME a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o MAPS.ME svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMap, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na https://www.openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii MAPS.ME.";
+"about_text" = "OMaps ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, OMaps vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť OMaps. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support@omaps.app. Odpovedáme na každú požiadavku!\n\nPáči sa vám OMaps a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o OMaps svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMap, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na https://www.openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii OMaps.";
 
 /* Alert text */
 "email_error_body" = "Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %@";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "Pre vytvorenie trasy si, prosím, aktualizujte mapu.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Nová verzia aplikácie MAPS.ME umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.";
+"routing_update_maps" = "Nová verzia aplikácie OMaps umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Aktualizovať všetko";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "Nájdených";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Tvorenie trás v aplikácii MAPS.ME, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!";
+"routing_disclaimer" = "Tvorenie trás v aplikácii OMaps, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Zastarané";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "Nebol nájdená trasa medzi vybraným východiskom a cieľom. Prosím vyberte iný počiatočný a koncový bod.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support@maps.me.";
+"routing_failed_internal_error" = "Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support@omaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Na stiahnutie Mapa + Trasa";
@@ -765,10 +765,10 @@
 "rating_just_rated" = "Práve som hodnotil vašu aplikáciu";
 
 /* Text for rating dialog */
-"rating_user_since" = "Som používateľ MAPS.ME od roku %@";
+"rating_user_since" = "Som používateľ OMaps od roku %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Páči sa vám MAPS.ME?";
+"rating_do_like_maps" = "Páči sa vám OMaps?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Kliknutím na hviezdu ohodnotíte našu aplikáciu.";
@@ -792,7 +792,7 @@
 "routing_download_map" = "Stiahnuť mapu";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie MAPS.ME.";
+"routing_download_map_and_routing" = "Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie OMaps.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Získať trasové dáta";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "Páči sa vám aplikácia?";
 
-"rate_alert_default_message" = "Ďakujeme, že používate MAPS.ME. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.";
+"rate_alert_default_message" = "Ďakujeme, že používate OMaps. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.";
 
 "rate_alert_five_star_message" = "Hurá! Aj my vás taky páči!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Duplicitné miesto";
 
-"first_launch_congrats_title" = "Aplikácia MAPS.ME je pripravená na použitie";
+"first_launch_congrats_title" = "Aplikácia OMaps je pripravená na použitie";
 
 "first_launch_congrats_text" = "Vyhľadávajte a určujte trasu bez pripojenia všade na svete bez poplatkov.";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.";
 
-"whatsnew_editor_message_2" = "* MAPS.ME využíva dáta komunity OpenStreetMap.";
+"whatsnew_editor_message_2" = "* OMaps využíva dáta komunity OpenStreetMap.";
 
 "onboarding_offline_navigation_title" = "Už sa nikdy nestratíte";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "Naplánujte si vhodné trasy na cestu autom alebo peši.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — globálny prístup k mapám bez internetu";
+"onboarding_offline_maps_title" = "OMaps — globálny prístup k mapám bez internetu";
 
 "onboarding_offline_maps_message" = "Stiahnite si jednorázovo potrebné mapy - navigáciu a funkcie vyhľadávania môžete využívať aj bez internetového pripojenia.";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.";
 
-"onboarding_permissions_title" = "Povoliť aplikácii MAPS.ME prístup do ukladacieho priestoru a k polohe";
+"onboarding_permissions_title" = "Povoliť aplikácii OMaps prístup do ukladacieho priestoru a k polohe";
 
 "onboarding_permissions_message" = "Tak si budete môcť sťahovať mapy, prezerať miesta a dopravnú situáciu vo svojom okolí a používať navigáciu.";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.";
 
-"editor_sharing_title" = "Vďaka mne sú mapy na MAPS.ME lepšie";
+"editor_sharing_title" = "Vďaka mne sú mapy na OMaps lepšie";
 
 "editor_comment_will_be_sent" = "Pošleme Váš príspevok kartografom.";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "Zmazaná poznámka";
 
-"editor_detailed_description" = "Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.";
+"editor_detailed_description" = "Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v OMaps.";
 
 "editor_more_about_osm" = "Viac o OpenStreetMap";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "Aktualizovali sme program na úpravu máp";
 
-"whatsnew_update_editor_message" = "Používatelia MAPS.ME urobili 200 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!";
+"whatsnew_update_editor_message" = "Používatelia OMaps urobili 200 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.";
@@ -1598,7 +1598,7 @@
 
 "continue_recent_track_background_button" = "Pokračovať";
 
-"recent_track_background_dialog_message" = "MAPS.ME používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.";
+"recent_track_background_dialog_message" = "OMaps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.";
 
 "whatsnew_car_navigation_header" = "Užívateľsky prívetivá navigácia do vozidiel";
 
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "Navigácia pre cyklistov (beta verzia)";
 
-"whatsnew_cycle_navigation_message" = "Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.";
+"whatsnew_cycle_navigation_message" = "Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou OMaps a podeľte sa s nami o svoj názor.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Ohodnotiť v službe Google Play";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "Povedať priateľovi";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Ahoj! Nainštaluj si aplikáciu MAPS.ME";
+"tell_friends_text" = "Ahoj! Nainštaluj si aplikáciu OMaps";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME je offine aplikácia na cestovanie. Základom aplikácie MAPS.ME sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.";
+"about_description" = "OMaps je offine aplikácia na cestovanie. Základom aplikácie OMaps sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Otvoriť";
 
-"whatsnew_uber_header" = "MAPS.ME & Uber";
+"whatsnew_uber_header" = "OMaps & Uber";
 
 "whatsnew_uber_message" = "Objednajte si Uber priamo z aplikácie!";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "Zväčšiť veľkosť písma na mape";
 
-"traffic_update_app" = "Aktualizujte si aplikáciu MAPS.ME";
+"traffic_update_app" = "Aktualizujte si aplikáciu OMaps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "Prideliť prístup";
 
-"onboarding_storage_permissions_message" = "Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie MAPS.ME je potrebné povoliť prístup do ukladacieho priestoru.";
+"onboarding_storage_permissions_message" = "Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie OMaps je potrebné povoliť prístup do ukladacieho priestoru.";
 
 "button_exit" = "Ukončiť";
 
-"onboarding_detail_permissions_title" = "Aplikácia MAPS.ME si vyžaduje prístup k";
+"onboarding_detail_permissions_title" = "Aplikácia OMaps si vyžaduje prístup k";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "Ukladací priestor";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "Problém s prístupom k úložisku";
 
-"dialog_error_storage_message" = "Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support@maps.me";
+"dialog_error_storage_message" = "Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support@omaps.app";
 
 "setting_emulate_bad_storage" = "Imitovať poškodené úložisko";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "Súhlasím s <a href=\"%s\">zmluvnými podmienkami</a>";
 
-"sign_agree_news_gdpr" = "Súhlasím so zasielaním najnovších správ o produktoch MAPS.ME";
+"sign_agree_news_gdpr" = "Súhlasím so zasielaním najnovších správ o produktoch OMaps";
 
 "whats_new_localbiz_title" = "Malé podniky si zaslúžia pozornosť";
 
-"whats_new_localbiz_message" = "Jedná sa o miestne kaviarne, útulné hostely a obchody, ktoré spravia z vašich ciest nezabudnuteľné. Vašu stránku optimalizujeme v MAPS.ME, aby vynikla.";
+"whats_new_localbiz_message" = "Jedná sa o miestne kaviarne, útulné hostely a obchody, ktoré spravia z vašich ciest nezabudnuteľné. Vašu stránku optimalizujeme v OMaps, aby vynikla.";
 
 "whats_new_order_button" = "Zanechať žiadosť";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "Prevziať nové miesta";
 
-"cached_bookmarks_placeholder_subtitle" = "Stlačením tlačidla stiahnete tisíce zaujímavých miest a trás vytvorených používateľmi MAPS.ME. Budete potrebovať internetové pripojenie.";
+"cached_bookmarks_placeholder_subtitle" = "Stlačením tlačidla stiahnete tisíce zaujímavých miest a trás vytvorených používateľmi OMaps. Budete potrebovať internetové pripojenie.";
 
 "downloader_download_routers" = "Prevziať záložky";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "Hlásenie chýb";
 
-"opt_out_fabric_description" = "Vaše údaje môžeme použiť na zlepšenie skúseností s programom MAPS.ME. Zmeny sa prejavia po reštartovaní aplikácie.";
+"opt_out_fabric_description" = "Vaše údaje môžeme použiť na zlepšenie skúseností s programom OMaps. Zmeny sa prejavia po reštartovaní aplikácie.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "Záložky neboli stiahnuté";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME má teraz katalóg trás";
+"whats_new_bookmarks_catalog_title" = "OMaps má teraz katalóg trás";
 
 "whats_new_bookmarks_catalog_message" = "Stovky podrobných trás po celom svete: kam ísť, čo vidieť, kde sa ísť najesť.";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "Odstrániť reklamy";
 
-"remove_ads_title" = "Odstráňte všetky reklamy a podporte MAPS.ME";
+"remove_ads_title" = "Odstráňte všetky reklamy a podporte OMaps";
 
 "paybtn_title" = "Zaplaťte %s/rok";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "Viac možností";
 
-"why_support" = "Prečo podporiť MAPS.ME?";
+"why_support" = "Prečo podporiť OMaps?";
 
 "options_dropdown_item1" = "%s/mesačne (ušetrite %s/ročne)";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "Odstránime pre vás všetky reklamy";
 
-"why_support_item2" = "Pomôžete nám zlepšiť MAPS.ME";
+"why_support_item2" = "Pomôžete nám zlepšiť OMaps";
 
 "why_support_item3" = "Pomôžete nám vylepšiť otvorené mapy OpenStreetMap.org";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "Server je nedostupný";
 
-"server_unavailable_message" = "Nákup bude dokončený neskôr. Ak chyba pretrváva, kontaktujte support@maps.me.";
+"server_unavailable_message" = "Nákup bude dokončený neskôr. Ak chyba pretrváva, kontaktujte support@omaps.app.";
 
 "offline_fiters_check_in" = "Pripojte sa na internet, aby ste filtrovali hotely podľa dátumov.";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Táto príručka bude nahraná do verejného katalógu MAPS.ME a bude dostupná ostatným používateľom";
+"upload_and_publish_desc" = "Táto príručka bude nahraná do verejného katalógu OMaps a bude dostupná ostatným používateľom";
 
 "upload_and_publish" = "Nahrať a publikovať";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "Pomôžte cestujúcim tým, že zanecháte recenziu!";
 
-"share_bookmarks_email_body_link" = "Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby MAPS.ME a užite si výlet!\n\nZískajte aplikáciu: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby OMaps a užite si výlet!\n\nZískajte aplikáciu: http://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "Je ľahké podeliť sa o vaše dojmy";
 
-"whats_new_ugc_routes_subtitle" = "Uložte si nezabudnuteľné miesta, vytvorte trasy pomocou záložiek a zdieľajte ich so všetkými v katalógu MAPS.ME.";
+"whats_new_ugc_routes_subtitle" = "Uložte si nezabudnuteľné miesta, vytvorte trasy pomocou záložiek a zdieľajte ich so všetkými v katalógu OMaps.";
 
 "whats_new_webeditor_title" = "Premeňte svoje trasy na príbehy";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "Mali by ste mať minimálne 3 záložky, aby ste mohli nahrať sprievodcu do verejného katalógu";
 
-"bookmark_public_upload_alert_title" = "Ste pár krokov od zdieľania vašich záložiek so všetkými cestujúcimi MAPS.ME!";
+"bookmark_public_upload_alert_title" = "Ste pár krokov od zdieľania vašich záložiek so všetkými cestujúcimi OMaps!";
 
 "bookmark_public_upload_alert_subtitle" = "Uistite sa, že máte presný názov a popis svojho zoznamu a všetky záložky obsahujú určité informácie o miestach. Týmto spôsobom môžu váš zoznam nájsť a používať iní.";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "Maximálna úspora batérie";
 
-"enable_logging_warning_message" = "Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory MAPS.ME.";
+"enable_logging_warning_message" = "Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory OMaps.";
 
 "html_error_upload_message_try_again" = "Skontrolujte svoje sieťové nastavenia a skúste to znova";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "Vaše ID: %s.";
 
-"gdpr_request_window_message" = "Skopírujte ho a pošlite žiadosť na adresu support@maps.me";
+"gdpr_request_window_message" = "Skopírujte ho a pošlite žiadosť na adresu support@omaps.app";
 
 "gdpr_request_window_copy" = "Skopírujte ID";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "Vyhnúť sa prechodom na trajekte";
 
-"cached_guides_placeholder_subtitle" = "MAPS.ME ponúka hotových sprievodcov pre vybrané miesta s fotografiami a popismi, ktoré sú zobrazené na mape a sú dostupné v režime offline.";
+"cached_guides_placeholder_subtitle" = "OMaps ponúka hotových sprievodcov pre vybrané miesta s fotografiami a popismi, ktoré sú zobrazené na mape a sú dostupné v režime offline.";
 
 "guides_catalogue_title" = "Katalóg sprievodcov";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "Uzbecká kuchyňa";
 
-"onboarding_welcome_title" = "Plánujte a cestujte s MAPS.ME";
+"onboarding_welcome_title" = "Plánujte a cestujte s OMaps";
 
 "onboarding_welcome_first_subtitle" = "Pridajte si k záložkám zaujímavé miesta, zarezervujte si hotely, vypočítajte si trasy offline";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "Stiahnuť";
 
-"onboarding_bydeeplink_guide_title" = "Sprievodcovia pripravení na používanie v aplikácii MAPS.ME";
+"onboarding_bydeeplink_guide_title" = "Sprievodcovia pripravení na používanie v aplikácii OMaps";
 
 "onboarding_bydeeplink_guide_subtitle" = "Najlepšie miesta na navštívenie zobrazené na mape s fotografiami a popismi. Pracujú offline.";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "Rezervovaný hotel?";
 
-"popup_booking_download_guides_message" = "Naplánujte si trasu s hotovými sprievodcami z MAPS.ME";
+"popup_booking_download_guides_message" = "Naplánujte si trasu s hotovými sprievodcami z OMaps";
 
 "popup_mwm_download_guides_title" = "Offline mestskí sprievodcovia";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "Pozrite sa";
 
-"gallery_pp_download_guides_offline_title" = "Naplánujte si dovolenku s MAPS.ME!";
+"gallery_pp_download_guides_offline_title" = "Naplánujte si dovolenku s OMaps!";
 
 "gallery_pp_download_guides_offline_subtitle" = "Nenechajte si ujsť nič so sprievodcami skúsených cestovateľov";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "Platba bude účtovaná na váš účet iTunes pri potvrdení nákupu. Predplatné sa automaticky obnoví, pokiaľ nebude automatické obnovenie vypnuté minimálne 24 hodín pred koncom aktuálneho obdobia. Váš účet sa bude účtovať podľa vášho plánu obnovy do 24 hodín pred koncom aktuálneho obdobia. Automatickú obnovu vo vašom ID nastavení účtu Apple môžete spravovať alebo vypnúť kedykoľvek pri kúpe.";
 
-"whatsnew_carplay_title" = "MAPS.ME automobilová navigácia v CarPlay!";
+"whatsnew_carplay_title" = "OMaps automobilová navigácia v CarPlay!";
 
 "whatsnew_carplay_message" = "Záložky, vyhľadávanie, rýchlostné kamery a možnosti navigovania sú k dispozícii v režime offline";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "Rýchl. upozorn.";
 
-"download_map_carplay" = "Prosím stiahnite si mapy v aplikácii MAPS.ME vo vašom zariadení";
+"download_map_carplay" = "Prosím stiahnite si mapy v aplikácii OMaps vo vašom zariadení";
 
 "carplay_roundabout_exit" = "%s výjazd";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "Woohoo, ste prihlásení!";
 
-"popup_subscription_success_map_message" = "Teraz objavte najlepšie turistické body v katalógu MAPS.ME";
+"popup_subscription_success_map_message" = "Teraz objavte najlepšie turistické body v katalógu OMaps";
 
 "popup_subscription_success_map_start_button" = "Začnite si prehliadať";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "Začať";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "Všestranný pomocník na cestovanie";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "Otvoriť katalóg";
 
-"new_onboarding_step5.2_message" = "Vaše predplatné katalógu sprievodcov MAPS.ME má skvelú hodnotu. Získajte plný prístup k mestským a outdoorovým sprievodcom po celom svete!";
+"new_onboarding_step5.2_message" = "Vaše predplatné katalógu sprievodcov OMaps má skvelú hodnotu. Získajte plný prístup k mestským a outdoorovým sprievodcom po celom svete!";
 
 "new_onboarding_step5.2_button" = "Skontrolovať podmienky";
 
-"new_onboarding_step5.3_message" = "Vyskúšajte bezplatné ukážky hotových mestských a vonkajších trás s bezplatným výberom MAPS.ME!";
+"new_onboarding_step5.3_message" = "Vyskúšajte bezplatné ukážky hotových mestských a vonkajších trás s bezplatným výberom OMaps!";
 
 "new_onboarding_step5.3_button" = "Bezplatné stiahnutie";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "V katalógu čakajú trasy z Outdooractive na zimné a letné cesty!";
 
-"whatsnew_guides_galleries_title" = "Naplánujte si svoj nadchádzajúci výlet s MAPS.ME";
+"whatsnew_guides_galleries_title" = "Naplánujte si svoj nadchádzajúci výlet s OMaps";
 
 "whatsnew_guides_galleries_message" = "Teraz nájdete odporúčaných sprievodcov na stránkach obľúbených turistických miest a pamiatok";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "Terén";
 
-"tips_map_layers_title_countour" = "Nové v MAPS.ME: offline topografická vrstva!";
+"tips_map_layers_title_countour" = "Nové v OMaps: offline topografická vrstva!";
 
 "tips_map_layers_message_countour" = "Naplánujte a užite si výlety do prírody s istotou, že viete o tejto oblasti všetko";
 

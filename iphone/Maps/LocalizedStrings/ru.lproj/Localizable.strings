@@ -47,7 +47,7 @@
 "get_it_now" = "Установить";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Спасибо, что пользуетесь MAPS.ME! Нравится приложение? Расскажите о нём своим друзьям. Это будет лучшей благодарностью для нас.";
+"share_on_facebook_text" = "Спасибо, что пользуетесь OMaps! Нравится приложение? Расскажите о нём своим друзьям. Это будет лучшей благодарностью для нас.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "кБ";
@@ -138,7 +138,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Попробуйте еще раз";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
 "about_menu_title" = "О программе";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "Доступно обновление для следующих карт:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "MAPS.ME Lite больше не нужна. Рекомендуем её удалить.";
+"suggest_uninstall_lite" = "OMaps Lite больше не нужна. Рекомендуем её удалить.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ успешно загружена";
@@ -249,10 +249,10 @@
 "set" = "Группа";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
+"bookmarks_usage_hint" = "У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из OMaps либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
+"bookmarks_usage_hint_import_only" = "Метки можно импортировать из OMaps либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
 
 /* Settings button in system menu */
 "settings" = "Настройки";
@@ -354,9 +354,9 @@
 "share_by_email" = "Послать по email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "С вами поделились метками MAPS.ME";
+"share_bookmarks_email_subject" = "С вами поделились метками OMaps";
 
-"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт MAPS.ME. Для того чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!";
+"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт OMaps. Для того чтобы открыть этот файл, вам потребуется приложение OMaps, которое можно установить по ссылке: http://omaps.app/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка меток";
@@ -386,7 +386,7 @@
 "downloading_is_active" = "Идет процесс загрузки карт.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Надеемся, вам нравится пользоваться MAPS.ME! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!";
+"appStore_message" = "Надеемся, вам нравится пользоваться OMaps! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!";
 
 /* No, thanks */
 "no_thanks" = "Нет, спасибо";
@@ -398,13 +398,13 @@
 "my_position_share_sms" = "Смотри где я сейчас. Жми %1$@ или %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Смотри мою метку на карте MAPS.ME";
+"bookmark_share_email_subject" = "Смотри мою метку на карте OMaps";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Посмотри на карте MAPS.ME, где я сейчас нахожусь";
+"my_position_share_email_subject" = "Посмотри на карте OMaps, где я сейчас нахожусь";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте MAPS.ME, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.";
+"my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте OMaps, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.";
 
 /* Android share by Message/SMS button text (including SMS) */
 "share_by_message" = "Отправить сообщением";
@@ -582,16 +582,16 @@
 "download_map_notification" = "Скачайте карту места, где вы находитесь";
 
 /* text of notification */
-"pro_version_is_free_today" = "Полная версия MAPS.ME сегодня бесплатна! Скачай сейчас и расскажи друзьям.";
+"pro_version_is_free_today" = "Полная версия OMaps сегодня бесплатна! Скачай сейчас и расскажи друзьям.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Мы переносим загруженные карты из MAPS.ME Lite в MAPS.ME. Это может занять несколько минут.";
+"move_lite_maps_to_pro" = "Мы переносим загруженные карты из OMaps Lite в OMaps. Это может занять несколько минут.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Ваши карты успешно перенесены в MAPS.ME.";
+"move_lite_maps_to_pro_ok" = "Ваши карты успешно перенесены в OMaps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "При переносе карт возникла ошибка. Пожалуйста, удалите MAPS.ME Lite и загрузите карты заново.";
+"move_lite_maps_to_pro_failed" = "При переносе карт возникла ошибка. Пожалуйста, удалите OMaps Lite и загрузите карты заново.";
 
 /* Text in menu */
 "settings_and_more" = "Настройки и другое";
@@ -600,13 +600,13 @@
 "website" = "Вебсайт";
 
 /* Text in menu */
-"maps_me_community" = "Сообщество MAPS.ME";
+"maps_me_community" = "Сообщество OMaps";
 
 /* Text in menu */
-"like_on_facebook" = "MAPS.ME в Facebook";
+"like_on_facebook" = "OMaps в Facebook";
 
 /* Text in menu */
-"follow_on_twitter" = "MAPS.ME в Twitter";
+"follow_on_twitter" = "OMaps в Twitter";
 
 /* Text in menu */
 "contact_us" = "Свяжитесь с нами";
@@ -630,13 +630,13 @@
 "report_a_bug" = "Сообщить о проблеме";
 
 /* Email subject */
-"subscribe_me_subject" = "Подпишите меня на email-рассылку MAPS.ME";
+"subscribe_me_subject" = "Подпишите меня на email-рассылку OMaps";
 
 /* Email body */
 "subscribe_me_body" = "Я хочу первым узнавать обо всех новостях, обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.";
 
 /* About text */
-"about_text" = "MAPS.ME предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, MAPS.ME помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению MAPS.ME, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@maps.me. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/mapswithme\n- или просто расскажите о MAPS.ME своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте https://www.openstreetmap.org, и эти исправления появятся во время следующего обновления MAPS.ME.";
+"about_text" = "OMaps предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, OMaps помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению OMaps, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@omaps.app. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/mapswithme\n- или просто расскажите о OMaps своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте https://www.openstreetmap.org, и эти исправления появятся во время следующего обновления OMaps.";
 
 /* Alert text */
 "email_error_body" = "Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %@.";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "Пожалуйста, обновите карту для того, чтобы проложить маршрут.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.";
+"routing_update_maps" = "В новой версии OMaps вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Обновить все";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "Найдено";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!";
+"routing_disclaimer" = "Используя маршруты в приложении OMaps, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Неактуальные";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "Невозможно проложить маршрут между выбранными точками. Пожалуйста, измените начало или конец маршрута.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Внутренняя ошибка. Пожалуйста, удалите карту и скачайте её еще раз. Если это не помогло, напишите нам на support@maps.me";
+"routing_failed_internal_error" = "Внутренняя ошибка. Пожалуйста, удалите карту и скачайте её еще раз. Если это не помогло, напишите нам на support@omaps.app";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Загрузить карту + маршруты";
@@ -762,16 +762,16 @@
 "pref_use_google_play" = "Использовать Google Play Services для определения позиции";
 
 /* Text for rating dialog */
-"rating_just_rated" = "Я только что оценил MAPS.ME";
+"rating_just_rated" = "Я только что оценил OMaps";
 
 /* Text for rating dialog */
-"rating_user_since" = "Я пользуюсь MAPS.ME c %@";
+"rating_user_since" = "Я пользуюсь OMaps c %@";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "Нравится приложение?";
 
 /* Text for rating dialog */
-"rating_tap_star" = "Оцените MAPS.ME.";
+"rating_tap_star" = "Оцените OMaps.";
 
 /* Text for rating dialog */
 "rating_thanks" = "Спасибо!";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "Нравится приложение?";
 
-"rate_alert_default_message" = "Спасибо что пользуетесь картами MAPS.ME. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.";
+"rate_alert_default_message" = "Спасибо что пользуетесь картами OMaps. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.";
 
 "rate_alert_five_star_message" = "Ура! Мы вас тоже любим!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Повторяющееся место";
 
-"first_launch_congrats_title" = "MAPS.ME готов к работе";
+"first_launch_congrats_title" = "OMaps готов к работе";
 
 "first_launch_congrats_text" = "Пользуйтесь поиском и навигацией по всему миру без интернета и бесплатно.";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "Добавляйте новые объекты и редактируйте старые прямо из приложения.";
 
-"whatsnew_editor_message_2" = "* MAPS.ME использует данные открытых карт сообщества OpenStreetMap.";
+"whatsnew_editor_message_2" = "* OMaps использует данные открытых карт сообщества OpenStreetMap.";
 
 "onboarding_offline_navigation_title" = "Вы никогда больше не заблудитесь";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "Прокладывайте оптимальные автомобильные и пешеходные маршруты.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — используй карты всего мира без интернета";
+"onboarding_offline_maps_title" = "OMaps — используй карты всего мира без интернета";
 
 "onboarding_offline_maps_message" = "Загрузите карты необходимого региона один раз и пользуйтесь навигацией и поиском без подключения к интернету.";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.";
 
-"onboarding_permissions_title" = "Предоставьте MAPS.ME доступ к памяти и местоположению.";
+"onboarding_permissions_title" = "Предоставьте OMaps доступ к памяти и местоположению.";
 
 "onboarding_permissions_message" = "Чтобы скачивать карты, смотреть места вокруг вас и пользоваться навигацией.";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.";
 
-"editor_sharing_title" = "Я улучшил карты MAPS.ME";
+"editor_sharing_title" = "Я улучшил карты OMaps";
 
 "editor_comment_will_be_sent" = "Мы обязательно отправим ваш комментарий картографам.";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "Подробный комментарий";
 
-"editor_detailed_description" = "Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые MAPS.ME не позволяет отредактировать.";
+"editor_detailed_description" = "Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые OMaps не позволяет отредактировать.";
 
 "editor_more_about_osm" = "Подробнее об OpenStreetMap";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "Мы обновили редактор";
 
-"whatsnew_update_editor_message" = "Пользователи MAPS.ME внесли уже 200 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!";
+"whatsnew_update_editor_message" = "Пользователи OMaps внесли уже 200 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Обновите все карты, чтобы использовать редактор.";
@@ -1598,7 +1598,7 @@
 
 "continue_recent_track_background_button" = "Продолжить";
 
-"recent_track_background_dialog_message" = "MAPS.ME использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
+"recent_track_background_dialog_message" = "OMaps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
 
 "whatsnew_car_navigation_header" = "Режим автонавигации стал удобнее";
 
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "Велонавигация (бета-версия)";
 
-"whatsnew_cycle_navigation_message" = "К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому веломаршруту с MAPS.ME и поделитесь с нами впечатлениями.";
+"whatsnew_cycle_navigation_message" = "К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому веломаршруту с OMaps и поделитесь с нами впечатлениями.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Оценить в Google Play";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "Рассказать друзьям";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Привет! Установи MAPS.ME!";
+"tell_friends_text" = "Привет! Установи OMaps!";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME — незаменимое приложение для путешествий, работающее без подключения к интернету. MAPS.ME использует данные OpenStreetMap и позволяет их улучшать.";
+"about_description" = "OMaps — незаменимое приложение для путешествий, работающее без подключения к интернету. OMaps использует данные OpenStreetMap и позволяет их улучшать.";
 
 /* Text in menu */
 "blog" = "Блог";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Открыть";
 
-"whatsnew_uber_header" = "MAPS.ME и Uber";
+"whatsnew_uber_header" = "OMaps и Uber";
 
 "whatsnew_uber_message" = "Закажите такси прямо из приложения!";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "Увеличить шрифт на карте";
 
-"traffic_update_app" = "Обновите MAPS.ME";
+"traffic_update_app" = "Обновите OMaps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Для отображения пробок необходимо обновить приложение.";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "Предоставьте доступ";
 
-"onboarding_storage_permissions_message" = "Предоставьте MAPS.ME доступ к памяти в настройках вашего устройства, иначе использовать MAPS.ME будет невозможно.";
+"onboarding_storage_permissions_message" = "Предоставьте OMaps доступ к памяти в настройках вашего устройства, иначе использовать OMaps будет невозможно.";
 
 "button_exit" = "Выход";
 
-"onboarding_detail_permissions_title" = "MAPS.ME нужен доступ к";
+"onboarding_detail_permissions_title" = "OMaps нужен доступ к";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "Память";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "Проблема с доступом к хранилищу";
 
-"dialog_error_storage_message" = "Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@maps.me";
+"dialog_error_storage_message" = "Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@omaps.app";
 
 "setting_emulate_bad_storage" = "Эмуляция ошибки с внешней памятью";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "Я согласен с <a href=\"%s\">Условиями использования</a>";
 
-"sign_agree_news_gdpr" = "Я согласен получать последние новости о MAPS.ME";
+"sign_agree_news_gdpr" = "Я согласен получать последние новости о OMaps";
 
 "whats_new_localbiz_title" = "Малый бизнес заслуживает внимания";
 
-"whats_new_localbiz_message" = "Именно локальные кафе, хостелы и магазинчики делают путешествия незабываемыми. Мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME, чтобы его заметили.";
+"whats_new_localbiz_message" = "Именно локальные кафе, хостелы и магазинчики делают путешествия незабываемыми. Мы бесплатно оптимизируем страницу вашего бизнеса в OMaps, чтобы его заметили.";
 
 "whats_new_order_button" = "Оставить заявку";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "Загрузите новые места";
 
-"cached_bookmarks_placeholder_subtitle" = "Нажмите кнопку, чтобы загрузить тысячи интересных мест и маршрутов, созданных пользователями MAPS.ME. Вам понадобится подключение к интернету.";
+"cached_bookmarks_placeholder_subtitle" = "Нажмите кнопку, чтобы загрузить тысячи интересных мест и маршрутов, созданных пользователями OMaps. Вам понадобится подключение к интернету.";
 
 "downloader_download_routers" = "Загрузить метки";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "Отчеты об ошибках";
 
-"opt_out_fabric_description" = "Мы можем использовать ваши данные, чтобы развивать и улучшать MAPS.ME. Изменения вступят в силу после перезапуска приложения.";
+"opt_out_fabric_description" = "Мы можем использовать ваши данные, чтобы развивать и улучшать OMaps. Изменения вступят в силу после перезапуска приложения.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "Метки не были загружены";
 
-"whats_new_bookmarks_catalog_title" = "В MAPS.ME появился каталог маршрутов";
+"whats_new_bookmarks_catalog_title" = "В OMaps появился каталог маршрутов";
 
 "whats_new_bookmarks_catalog_message" = "Десятки подробных маршрутов по всем миру: куда сходить, что посмотреть, где поесть.";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "Отключить рекламу";
 
-"remove_ads_title" = "Отключите всю рекламу и поддержите MAPS.ME";
+"remove_ads_title" = "Отключите всю рекламу и поддержите OMaps";
 
 "paybtn_title" = "Заплатить %s/год";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "Другие варианты";
 
-"why_support" = "Зачем поддерживать MAPS.ME?";
+"why_support" = "Зачем поддерживать OMaps?";
 
 "options_dropdown_item1" = "%s/месяц (экономия %s/год)";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "Мы отключим для вас всю рекламу";
 
-"why_support_item2" = "Вы помогаете нам улучшать MAPS.ME";
+"why_support_item2" = "Вы помогаете нам улучшать OMaps";
 
 "why_support_item3" = "Вы помогаете нам улучшать карты OpenStreetMap.org";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "Сервер недоступен";
 
-"server_unavailable_message" = "Покупка будет завершена позже. Если ошибка повторится, свяжитесь с support@maps.me.";
+"server_unavailable_message" = "Покупка будет завершена позже. Если ошибка повторится, свяжитесь с support@omaps.app.";
 
 "offline_fiters_check_in" = "Подключитесь к интернету, чтобы выбрать дату заезда и выезда.";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Этот путеводитель будет загружен в публичный каталог MAPS.ME и будет доступен другим пользователям";
+"upload_and_publish_desc" = "Этот путеводитель будет загружен в публичный каталог OMaps и будет доступен другим пользователям";
 
 "upload_and_publish" = "Загрузить и опубликовать";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "Оставьте отзыв и помогите путешественникам!";
 
-"share_bookmarks_email_body_link" = "Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью MAPS.ME и наслаждайтесь поездкой!\n\nСкачать приложение: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью OMaps и наслаждайтесь поездкой!\n\nСкачать приложение: http://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "Делиться впечатлениями просто";
 
-"whats_new_ugc_routes_subtitle" = "Сохраняй запомнившиеся места, создавай из меток маршруты и делись со всеми в каталоге MAPS.ME.";
+"whats_new_ugc_routes_subtitle" = "Сохраняй запомнившиеся места, создавай из меток маршруты и делись со всеми в каталоге OMaps.";
 
 "whats_new_webeditor_title" = "Превращай маршруты в истории";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "В вашем маршруте должно быть как минимум 3 метки, чтобы загрузить его в публичный каталог";
 
-"bookmark_public_upload_alert_title" = "Вы всего в паре шагов от загрузки вашего маршрута в каталог MAPS.ME!";
+"bookmark_public_upload_alert_title" = "Вы всего в паре шагов от загрузки вашего маршрута в каталог OMaps!";
 
 "bookmark_public_upload_alert_subtitle" = "Убедитесь, что у маршрута есть название и описание, а все метки содержат информацию о местах. Благодаря этому, пользователи найдут маршрут и смогут воспользоваться им в поездке.";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "Максимальное энергосбережение";
 
-"enable_logging_warning_message" = "Данная настройка включается для записи действий в целях диагностики. Это помогает команде выявить проблемы с приложением. Включайте настройку только по просьбе поддержки MAPS.ME.";
+"enable_logging_warning_message" = "Данная настройка включается для записи действий в целях диагностики. Это помогает команде выявить проблемы с приложением. Включайте настройку только по просьбе поддержки OMaps.";
 
 "html_error_upload_message_try_again" = "Проверьте доступ к сети и повторите попытку";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "Ваш ID: %s.";
 
-"gdpr_request_window_message" = "Пожалуйста, скопируйте его и отправьте запрос на support@maps.me";
+"gdpr_request_window_message" = "Пожалуйста, скопируйте его и отправьте запрос на support@omaps.app";
 
 "gdpr_request_window_copy" = "Скопировать ID";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "Избегать паромных переправ";
 
-"cached_guides_placeholder_subtitle" = "Готовые путеводители в MAPS.ME – это избранные места с фотографиями и описаниями, которые отображаются на карте и доступны офлайн.";
+"cached_guides_placeholder_subtitle" = "Готовые путеводители в OMaps – это избранные места с фотографиями и описаниями, которые отображаются на карте и доступны офлайн.";
 
 "guides_catalogue_title" = "Каталог путеводителей";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "Узбекская кухня";
 
-"onboarding_welcome_title" = "Планируйте и путешествуйте с MAPS.ME";
+"onboarding_welcome_title" = "Планируйте и путешествуйте с OMaps";
 
 "onboarding_welcome_first_subtitle" = "Сохраняйте интересные места, бронируйте отели, стройте маршруты офлайн";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "Скачать";
 
-"onboarding_bydeeplink_guide_title" = "Готовые путеводители в MAPS.ME";
+"onboarding_bydeeplink_guide_title" = "Готовые путеводители в OMaps";
 
 "onboarding_bydeeplink_guide_subtitle" = "Избранные места с фотографиями и описаниями отображаются на карте и доступны офлайн.";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "Забронирован отель?";
 
-"popup_booking_download_guides_message" = "Спланируйте маршрут с готовыми путеводителями MAPS.ME";
+"popup_booking_download_guides_message" = "Спланируйте маршрут с готовыми путеводителями OMaps";
 
 "popup_mwm_download_guides_title" = "Офлайн путеводители";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "Посмотреть";
 
-"gallery_pp_download_guides_offline_title" = "Планируйте свой отдых с MAPS.ME!";
+"gallery_pp_download_guides_offline_title" = "Планируйте свой отдых с OMaps!";
 
 "gallery_pp_download_guides_offline_subtitle" = "Не упустите самое важное с маршрутами от опытных путешественников";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "Оплата будет списана с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Деньги будут списываться с вашей учетной записи в соответствии с вашим планом продления в течение 24 часов до конца текущего периода. Вы можете управлять или отключать автоматическое продление в настройках учетной записи Apple ID в любое время после покупки.";
 
-"whatsnew_carplay_title" = "Автонавигация MAPS.ME в CarPlay!";
+"whatsnew_carplay_title" = "Автонавигация OMaps в CarPlay!";
 
 "whatsnew_carplay_message" = "Метки, поиск, камеры скорости и настройки объезда — все работает без Интернета";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "Инфо о камерах";
 
-"download_map_carplay" = "Скачайте карты в приложении MAPS.ME на своем устройстве";
+"download_map_carplay" = "Скачайте карты в приложении OMaps на своем устройстве";
 
 "carplay_roundabout_exit" = "%s съезд";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "Ура! Вы подписаны!";
 
-"popup_subscription_success_map_message" = "Теперь исследуйте лучшие туристические достопримечательности в каталоге MAPS.ME";
+"popup_subscription_success_map_message" = "Теперь исследуйте лучшие туристические достопримечательности в каталоге OMaps";
 
 "popup_subscription_success_map_start_button" = "Просмотреть";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "Начать";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "Универсальный помощник в путешествиях";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "Открыть каталог";
 
-"new_onboarding_step5.2_message" = "Подписка на каталог путеводителей в MAPS.ME – это выгодно. Получите полный доступ к маршрутам для городских прогулок и активного отдыха!";
+"new_onboarding_step5.2_message" = "Подписка на каталог путеводителей в OMaps – это выгодно. Получите полный доступ к маршрутам для городских прогулок и активного отдыха!";
 
 "new_onboarding_step5.2_button" = "Посмотреть условия";
 
-"new_onboarding_step5.3_message" = "Скачайте и оцените маршруты для городских прогулок и активного отдыха с бесплатной подборкой MAPS.ME!";
+"new_onboarding_step5.3_message" = "Скачайте и оцените маршруты для городских прогулок и активного отдыха с бесплатной подборкой OMaps!";
 
 "new_onboarding_step5.3_button" = "Скачать бесплатно";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "Маршруты от Outdooractive для зимних и летних отпусков ждут в каталоге!";
 
-"whatsnew_guides_galleries_title" = "Планируйте ближайшую поездку с MAPS.ME";
+"whatsnew_guides_galleries_title" = "Планируйте ближайшую поездку с OMaps";
 
 "whatsnew_guides_galleries_message" = "Теперь вы можете найти рекомендованные путеводители в карточках популярных городов и достопримечательностей";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "Высоты";
 
-"tips_map_layers_title_countour" = "Линии высот офлайн в MAPS.ME!";
+"tips_map_layers_title_countour" = "Линии высот офлайн в OMaps!";
 
 "tips_map_layers_message_countour" = "Линии высот помогут спланировать путешествие на природу и не потеряться на местности";
 

@@ -48,7 +48,7 @@
 
     CSSearchableItem * item =
         [[CSSearchableItem alloc] initWithUniqueIdentifier:categoryKeyString
-                                          domainIdentifier:@"maps.me.categories"
+                                          domainIdentifier:@"omaps.app.categories"
                                               attributeSet:attrSet];
     [items addObject:item];
   }
