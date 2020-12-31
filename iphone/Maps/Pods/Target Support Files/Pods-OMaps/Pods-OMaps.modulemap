@@ -1,0 +1,6 @@
+framework module Pods_OMaps {
+  umbrella header "Pods-OMaps-umbrella.h"
+
+  export *
+  module * { export * }
+}

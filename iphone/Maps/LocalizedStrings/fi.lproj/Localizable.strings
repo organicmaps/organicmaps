@@ -47,7 +47,7 @@
 "get_it_now" = "Hanki nyt";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Kiitos kun käytät MAPS.ME:tä! Pidätkö sovelluksesta? Kerro kavereillesi siitä! Se on meille paras mahdollinen kiitos.";
+"share_on_facebook_text" = "Kiitos kun käytät OMaps:tä! Pidätkö sovelluksesta? Kerro kavereillesi siitä! Se on meille paras mahdollinen kiitos.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "Kt";
@@ -138,9 +138,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Yritä uudelleen";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
-"about_menu_title" = "Tietoa MAPS.ME:stä";
+"about_menu_title" = "Tietoa OMaps:stä";
 
 "downloading_touch_to_cancel" = "Ladataan %d%%, peruuta koskettamalla";
 
@@ -158,7 +158,7 @@
 
 "external_storage_is_not_available" = "SD-kortti/USB-massamuisti, jolle kartat on ladattu, ei ole käytettävissä";
 
-"disconnect_usb_cable" = "Irrota USB-kaapeli tai syötä muistikortti käyttääksesi MAPS.ME -sovellusta";
+"disconnect_usb_cable" = "Irrota USB-kaapeli tai syötä muistikortti käyttääksesi OMaps -sovellusta";
 
 "not_enough_free_space_on_sdcard" = "Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "Päivitys saatavissa seuraaville kartoille:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Et tarvitse enää MAPS.ME Lite:ä, joten voit poistaa sen.";
+"suggest_uninstall_lite" = "Et tarvitse enää OMaps Lite:ä, joten voit poistaa sen.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ ladattu onnistuneesti";
@@ -249,10 +249,10 @@
 "set" = "Aseta";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Sinulla ei vielä ole kirjanmerkkejä.\nLisää kirjanmerkki napsauttamalla mitä tahansa paikkaa kartalla.\nVoit myös tuoda kirjanmerkkejä muista lähteistä MAPS.ME:ssä käytettäviksi avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.";
+"bookmarks_usage_hint" = "Sinulla ei vielä ole kirjanmerkkejä.\nLisää kirjanmerkki napsauttamalla mitä tahansa paikkaa kartalla.\nVoit myös tuoda kirjanmerkkejä muista lähteistä OMaps:ssä käytettäviksi avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Voit tuoda kirjanmerkkejä MAPS.ME:ssä käytettäväksi muista lähteistä avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.";
+"bookmarks_usage_hint_import_only" = "Voit tuoda kirjanmerkkejä OMaps:ssä käytettäväksi muista lähteistä avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.";
 
 /* Settings button in system menu */
 "settings" = "Asetukset";
@@ -354,9 +354,9 @@
 "share_by_email" = "Jaa sähköpostilla";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Jaetut MAPS.ME-kirjanmerkit";
+"share_bookmarks_email_subject" = "Jaetut OMaps-kirjanmerkit";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Ladataan kirjanmerkkejä";
@@ -386,22 +386,22 @@
 "downloading_is_active" = "Maata ladataan parhaillaan.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Toivottavasti nautit MAPS.ME -sovelluksen käyttämisestä! Olisimme tyytyväisiä, jos voisit arvioida sovelluksen App Storessa. Se kesää alle minuutin, ja auttaa meitä todella paljon. Kiitos tuestasi!";
+"appStore_message" = "Toivottavasti nautit OMaps -sovelluksen käyttämisestä! Olisimme tyytyväisiä, jos voisit arvioida sovelluksen App Storessa. Se kesää alle minuutin, ja auttaa meitä todella paljon. Kiitos tuestasi!";
 
 /* No, thanks */
 "no_thanks" = "Ei kiitos";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hei, katso merkintäni MAPS.ME-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: http://maps.me/get";
+"bookmark_share_sms" = "Hei, katso merkintäni OMaps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: http://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hei, katso sijaintini MAPS.ME-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: http://maps.me/get";
+"my_position_share_sms" = "Hei, katso sijaintini OMaps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: http://omaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hei, katso merkintäni MAPS.ME-kartalla";
+"bookmark_share_email_subject" = "Hei, katso merkintäni OMaps-kartalla";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hei, kurkkaa tämänhetkinen sijaintini MAPS.ME:n kartalla!";
+"my_position_share_email_subject" = "Hei, kurkkaa tämänhetkinen sijaintini OMaps:n kartalla!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hei,n\nOlen nyt täällä: %1$@. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. Kiitos.";
@@ -582,16 +582,16 @@
 "download_map_notification" = "Lataa sijaintisi kartta";
 
 /* text of notification */
-"pro_version_is_free_today" = "Full version of MAPS.ME is free today! Download now and tell your friends.";
+"pro_version_is_free_today" = "Full version of OMaps is free today! Download now and tell your friends.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Me siirrämme lataamasi kartat MAPS.ME Lite:stä MAPS.ME:hen. Siirtäminen voi viedä muutaman minuutin.";
+"move_lite_maps_to_pro" = "Me siirrämme lataamasi kartat OMaps Lite:stä OMaps:hen. Siirtäminen voi viedä muutaman minuutin.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Lataamasi kartat on siirretty onnistuneesti MAPS.ME:hen.";
+"move_lite_maps_to_pro_ok" = "Lataamasi kartat on siirretty onnistuneesti OMaps:hen.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Karttoja ei voitu siirtää. Ole hyvä ja poista MAPS.ME Lite ja lataa kartat uudelleen.";
+"move_lite_maps_to_pro_failed" = "Karttoja ei voitu siirtää. Ole hyvä ja poista OMaps Lite ja lataa kartat uudelleen.";
 
 /* Text in menu */
 "settings_and_more" = "Asetukset &amp; Lisää";
@@ -600,7 +600,7 @@
 "website" = "Kotisivut";
 
 /* Text in menu */
-"maps_me_community" = "MAPS.ME -yhteisö";
+"maps_me_community" = "OMaps -yhteisö";
 
 /* Text in menu */
 "like_on_facebook" = "Tykkää meistä Facebookissa";
@@ -630,13 +630,13 @@
 "report_a_bug" = "Ilmoita virheestä";
 
 /* Email subject */
-"subscribe_me_subject" = "Lisätkää minut MAPS.ME:n uutiskirjeen tilaajaksi";
+"subscribe_me_subject" = "Lisätkää minut OMaps:n uutiskirjeen tilaajaksi";
 
 /* Email body */
-"subscribe_me_body" = "Liittäkää minut MAPS.ME -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.";
+"subscribe_me_body" = "Liittäkää minut OMaps -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.";
 
 /* About text */
-"about_text" = "MAPS.ME tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, MAPS.ME auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support@maps.me. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö MAPS.ME -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan MAPS.ME -päivityksen jälkeen.";
+"about_text" = "OMaps tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, OMaps auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa OMaps -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support@omaps.app. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö OMaps -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro OMaps:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan OMaps -päivityksen jälkeen.";
 
 /* Alert text */
 "email_error_body" = "Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %@";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "Päivitä kartta luodaksesi reitin";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Uusi MAPS.ME -versio mahdollistaa reittien luonnin nykyisestä sijainnista määränpäähäsi.Päivitä kartat käyttääksesi tätä ominaisuutta.";
+"routing_update_maps" = "Uusi OMaps -versio mahdollistaa reittien luonnin nykyisestä sijainnista määränpäähäsi.Päivitä kartat käyttääksesi tätä ominaisuutta.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Päivitä kaikki";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "Löytyi";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Pidä mielessä seuraavat seikat luodessasi reittejä MAPS.ME -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!";
+"routing_disclaimer" = "Pidä mielessä seuraavat seikat luodessasi reittejä OMaps -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Vanhentunut";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "Lähtöpisteen ja määränpään välillä ei löytynyt reittiä. Valitse toinen lähtöpiste tai määränpää.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Sisäinen virhe. Kokeile asentaa kartta uudelleen. Mikäli ongelma jatkuu, ota yhteyttä asiakaspalveluun osoitteessa support@maps.me.";
+"routing_failed_internal_error" = "Sisäinen virhe. Kokeile asentaa kartta uudelleen. Mikäli ongelma jatkuu, ota yhteyttä asiakaspalveluun osoitteessa support@omaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Lataa kartta + reititys";
@@ -765,10 +765,10 @@
 "rating_just_rated" = "Olen juuri arvostellut sovelluksesi.";
 
 /* Text for rating dialog */
-"rating_user_since" = "Olen MAPS.ME käyttäjä vuodesta %@.";
+"rating_user_since" = "Olen OMaps käyttäjä vuodesta %@.";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Pidätkö MAPS.ME sovelluksesta?";
+"rating_do_like_maps" = "Pidätkö OMaps sovelluksesta?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Napauta tähteä arvostellaksesi sovelluksemme.";
@@ -792,7 +792,7 @@
 "routing_download_map" = "Hanki kartta";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Lataa päivitetty kartta ja reititysdata saadaksesi kaikki MAPS.ME -ominaisuudet.";
+"routing_download_map_and_routing" = "Lataa päivitetty kartta ja reititysdata saadaksesi kaikki OMaps -ominaisuudet.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Hanki reitityskartta";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "Pidätkö sovelluksesta?";
 
-"rate_alert_default_message" = "Kiitos kun käytät MAPS.ME:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.";
+"rate_alert_default_message" = "Kiitos kun käytät OMaps:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.";
 
 "rate_alert_five_star_message" = "Hurraa! Mekin rakastamme sinua!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Paikan kaksoiskappale";
 
-"first_launch_congrats_title" = "MAPS.ME on valmiina käyttöön";
+"first_launch_congrats_title" = "OMaps on valmiina käyttöön";
 
 "first_launch_congrats_text" = "Etsi ja navigoi ympäri maailman ilman verkkoyhteyttä, ilmaiseksi.";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.";
 
-"whatsnew_editor_message_2" = "* MAPS.ME käyttää OpenStreetMap -yhteisön dataa.";
+"whatsnew_editor_message_2" = "* OMaps käyttää OpenStreetMap -yhteisön dataa.";
 
 "onboarding_offline_navigation_title" = "Et eksy enää koskaan";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "Suunnittele ihanteelliset autoilu- ja kävelyreitit.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — koko maailman kartat ilman Internet-yhteyttä";
+"onboarding_offline_maps_title" = "OMaps — koko maailman kartat ilman Internet-yhteyttä";
 
 "onboarding_offline_maps_message" = "Lataa haluamasi alueen kartat yhden kerran ja voit käyttää navigointi- ja hakutoimintoja ilman Internet-yhteyttä.";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.";
 
-"onboarding_permissions_title" = "Anna MAPS:ME:lle tallennustilan ja sijainnin käyttöoikeus";
+"onboarding_permissions_title" = "Anna OMaps:lle tallennustilan ja sijainnin käyttöoikeus";
 
 "onboarding_permissions_message" = "Jotta voisit ladata karttoja, nähdä lähistöllä olevat paikan ja liikenteen sekä käyttää navigointia.";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.";
 
-"editor_sharing_title" = "Paransin MAPS.ME-karttoja";
+"editor_sharing_title" = "Paransin OMaps-karttoja";
 
 "editor_comment_will_be_sent" = "Lähetämme kommenttisi kartanpiirtäjille.";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "Yksityiskohtainen kommentti";
 
-"editor_detailed_description" = "Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata MAPS.ME:ssä.";
+"editor_detailed_description" = "Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata OMaps:ssä.";
 
 "editor_more_about_osm" = "Lisätietoja OpenStreetMap:ista";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "Olemme päivittäneet karttamuokkaimen";
 
-"whatsnew_update_editor_message" = "MAPS.ME -käyttäjät ovat tehneet 200 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!";
+"whatsnew_update_editor_message" = "OMaps -käyttäjät ovat tehneet 200 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Päivitä kaikki kartat käyttääksesi Karttamuokkainta.";
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "Polkupyöränavigointi (betaversio)";
 
-"whatsnew_cycle_navigation_message" = "Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.";
+"whatsnew_cycle_navigation_message" = "Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi OMaps-sovelluksella ja jaa mielipiteesi kanssamme.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Arvioi Google Playssa";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "Kerro kaverille";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Hei, asenna MAPS.ME!";
+"tell_friends_text" = "Hei, asenna OMaps!";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME on ehdoton offline-sovellus matkoja varten. MAPS.ME perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.";
+"about_description" = "OMaps on ehdoton offline-sovellus matkoja varten. OMaps perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.";
 
 /* Text in menu */
 "blog" = "Blogi";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Avaa";
 
-"whatsnew_uber_header" = "MAPS.ME & Uber";
+"whatsnew_uber_header" = "OMaps & Uber";
 
 "whatsnew_uber_message" = "Tilaa Uber -taksi suoraan sovelluksesta!";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "Suurenna fonttikokoa kartalla";
 
-"traffic_update_app" = "Päivitä MAPS.ME";
+"traffic_update_app" = "Päivitä OMaps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Liikennetietojen näyttämiseksi sovellus on päivitettävä.";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "Myönnä käyttöoikeus";
 
-"onboarding_storage_permissions_message" = "Muuta laitteesi käyttöoikeusasetuksia. MAPS:ME:n käyttö edellyttää tallennustilan käyttöoikeutta.";
+"onboarding_storage_permissions_message" = "Muuta laitteesi käyttöoikeusasetuksia. OMaps:n käyttö edellyttää tallennustilan käyttöoikeutta.";
 
 "button_exit" = "Poistu";
 
-"onboarding_detail_permissions_title" = "MAPS.ME tarvitsee seuraavat käyttöoikeudet:";
+"onboarding_detail_permissions_title" = "OMaps tarvitsee seuraavat käyttöoikeudet:";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "Tallennustila";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "Ongelma tallennustilan käyttämisessä";
 
-"dialog_error_storage_message" = "Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support@maps.me";
+"dialog_error_storage_message" = "Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support@omaps.app";
 
 "setting_emulate_bad_storage" = "Jäljittele virheellistä tallennustilaa";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "Hyväksyn <a href=\"%s\">käyttöehdot</a>";
 
-"sign_agree_news_gdpr" = "Hyväksyn viimeisimmät uutiset MAPS.ME-tuotteista";
+"sign_agree_news_gdpr" = "Hyväksyn viimeisimmät uutiset OMaps-tuotteista";
 
 "whats_new_localbiz_title" = "Pienet yritykset ansaitsevat huomiota";
 
-"whats_new_localbiz_message" = "Juuri paikalliset kahvilat, kotoisat hostellit ja kaupat tekevät matkastasi unohtumattoman. Me optimoimme sivusi MAPS.ME:ssä saadaksesi sen erottumaan joukosta.";
+"whats_new_localbiz_message" = "Juuri paikalliset kahvilat, kotoisat hostellit ja kaupat tekevät matkastasi unohtumattoman. Me optimoimme sivusi OMaps:ssä saadaksesi sen erottumaan joukosta.";
 
 "whats_new_order_button" = "Jätä pyyntö";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "Lataa uudet paikat";
 
-"cached_bookmarks_placeholder_subtitle" = "Paina nappulaa ladataksesi tuhansia kiinnostavia paikkoja ja reittejä joita MAPS.ME käyttäjät ovat luoneet. Tarvitset internet yhteyden.";
+"cached_bookmarks_placeholder_subtitle" = "Paina nappulaa ladataksesi tuhansia kiinnostavia paikkoja ja reittejä joita OMaps käyttäjät ovat luoneet. Tarvitset internet yhteyden.";
 
 "downloader_download_routers" = "Lataa kirjanmerkit";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "Kaatumisraportti";
 
-"opt_out_fabric_description" = "Me saatamme käyttää tietojasi parantaaksemme MAPS.ME kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.";
+"opt_out_fabric_description" = "Me saatamme käyttää tietojasi parantaaksemme OMaps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "Kirjanmerkkejä ei ole ladattu";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME:ssä on nyt reitti katalogi";
+"whats_new_bookmarks_catalog_title" = "OMaps:ssä on nyt reitti katalogi";
 
 "whats_new_bookmarks_catalog_message" = "Satoja yksityiskohtaisia reittejä kaikkialta maailmasta: minne mennä, mitä nähdä, missä syödä.";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "Poista mainokset";
 
-"remove_ads_title" = "Poista kaikki mainokset ja tue MAPS.ME:tä";
+"remove_ads_title" = "Poista kaikki mainokset ja tue OMaps:tä";
 
 "paybtn_title" = "Maksa %s/vuosi";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "Lisää vaihtoehtoja";
 
-"why_support" = "Miksi tukea MAPS.ME?";
+"why_support" = "Miksi tukea OMaps?";
 
 "options_dropdown_item1" = "%s/kuukausi (Säästä %s/vuosi)";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "Poistamme kaikki mainokset sinulta";
 
-"why_support_item2" = "Sinä autat meitä parantamaan MAPS.ME:tä";
+"why_support_item2" = "Sinä autat meitä parantamaan OMaps:tä";
 
 "why_support_item3" = "Auta meitä parantamaan avoimia karttoja OpenStreetMap.org";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "Serveri ei ole saatavilla";
 
-"server_unavailable_message" = "Ostos viimeistellään myöhemmin. Jos virhe jatkuu, ota yhteyttä support@maps.me.";
+"server_unavailable_message" = "Ostos viimeistellään myöhemmin. Jos virhe jatkuu, ota yhteyttä support@omaps.app.";
 
 "offline_fiters_check_in" = "Yhdistä internettiin suodattaaksesi hotelleja päivillä.";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Tämä matkaopas lähetetään julkiseen hakemistoon MAPS.ME ja se on muiden käyttäjien käytettävissä";
+"upload_and_publish_desc" = "Tämä matkaopas lähetetään julkiseen hakemistoon OMaps ja se on muiden käyttäjien käytettävissä";
 
 "upload_and_publish" = "Ladata ja julkaista";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "Kirjoita arvostelu ja auta matkustajia!";
 
-"share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo MAPS.ME: llä ja nauti matkasta!\n\nLataa sovellus: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo OMaps: llä ja nauti matkasta!\n\nLataa sovellus: http://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "Voit helposti jakaa kokemuksiasi";
 
-"whats_new_ugc_routes_subtitle" = "Tallenna ikimuistoiset paikat, luo reittejä kirjainmerkkien avulla ja jaa ne kaikkien kanssa MAPS.ME-luettelossa.";
+"whats_new_ugc_routes_subtitle" = "Tallenna ikimuistoiset paikat, luo reittejä kirjainmerkkien avulla ja jaa ne kaikkien kanssa OMaps-luettelossa.";
 
 "whats_new_webeditor_title" = "Muuta reittisi tarinoiksi";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "Sinulla täytyy olla vähintään 3 kirjanmerkkiä, jotta voit lähettää oppaan julkiseen luetteloon";
 
-"bookmark_public_upload_alert_title" = "Muutama askel vielä, niin voit jakaa kirjanmerkkisi kaikkien MAPS.ME-matkailijoiden kanssa!";
+"bookmark_public_upload_alert_title" = "Muutama askel vielä, niin voit jakaa kirjanmerkkisi kaikkien OMaps-matkailijoiden kanssa!";
 
 "bookmark_public_upload_alert_subtitle" = "Varmista, että listallasi on kunnollinen nimi ja kuvaus, ja että kaikissa kirjanmerkeissäsi on paikoista jotain tietoa. Näin muut voivat löytää listasi ja käyttää sitä.";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "Täysi virransäästö";
 
-"enable_logging_warning_message" = "Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos MAPS.ME:n tuki pyytää.";
+"enable_logging_warning_message" = "Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos OMaps:n tuki pyytää.";
 
 "html_error_upload_message_try_again" = "Tarkista verkkoasetukset ja kokeile uudelleen";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "Sinun ID: %s.";
 
-"gdpr_request_window_message" = "Kopioi se ja lähetä pyyntö osoitteeseen support@maps.me";
+"gdpr_request_window_message" = "Kopioi se ja lähetä pyyntö osoitteeseen support@omaps.app";
 
 "gdpr_request_window_copy" = "Kopioi ID";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "Vältä lautan käyttöä";
 
-"cached_guides_placeholder_subtitle" = "MAPS.ME:n valmiit oppaat ovat valittuja paikkoja valokuvien ja kuvauksien kanssa, jotka näkyvät kartalla ja ovat käytettävissä offline-tilassa.";
+"cached_guides_placeholder_subtitle" = "OMaps:n valmiit oppaat ovat valittuja paikkoja valokuvien ja kuvauksien kanssa, jotka näkyvät kartalla ja ovat käytettävissä offline-tilassa.";
 
 "guides_catalogue_title" = "Oppaiden luettelo";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "Uzbekistanilainen ruokaa";
 
-"onboarding_welcome_title" = "Suunnittele ja matkusta MAPS.ME:n kanssa";
+"onboarding_welcome_title" = "Suunnittele ja matkusta OMaps:n kanssa";
 
 "onboarding_welcome_first_subtitle" = "Tallenna mielenkiintoisia paikkoja, varaa hotelleja, luo reittejä offline-tilassa";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "Ladata";
 
-"onboarding_bydeeplink_guide_title" = "Valmiit oppaat MAPS.ME:ssä";
+"onboarding_bydeeplink_guide_title" = "Valmiit oppaat OMaps:ssä";
 
 "onboarding_bydeeplink_guide_subtitle" = "Valittuja paikkoja valokuvien ja kuvauksien kanssa, jotka näkyvät kartalla ja ovat käytettävissä offline-tilassa.";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "Onko hotellin jo varattu?";
 
-"popup_booking_download_guides_message" = "Suunnittele reittisi valmiilla MAPS.ME -matkaoppailla";
+"popup_booking_download_guides_message" = "Suunnittele reittisi valmiilla OMaps -matkaoppailla";
 
 "popup_mwm_download_guides_title" = "Offline-matkaoppaat";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "Katso";
 
-"gallery_pp_download_guides_offline_title" = "Suunnittele lomasi MAPS.ME:n kanssa!";
+"gallery_pp_download_guides_offline_title" = "Suunnittele lomasi OMaps:n kanssa!";
 
 "gallery_pp_download_guides_offline_subtitle" = "Älä missaa tärkeimpiä reittejä kokeneilta matkustajilta";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "Maksu veloitetaan iTunes-tililtäsi maksuvahvistuksen yhteydessä. Tilauksesi uusitaan automaattisesti ellei automaattista uusintaa ole otettu pois käytöstä vähintään 24 tuntia ennen nykyisen tilausjakson päättymistä. Tilauksen uusinta veloitetaan tililtäsi 24 tunnin kuluessa ennen nykyisen tilausjakson päättymistä. Voit hallita tai ottaa tilausten automaattisen uusinnan pois käytöstä Apple ID -tilisi asetuksissa oston jälkeen.";
 
-"whatsnew_carplay_title" = "MAPS.ME -autonavigointi CarPlayssa!";
+"whatsnew_carplay_title" = "OMaps -autonavigointi CarPlayssa!";
 
 "whatsnew_carplay_message" = "Kirjanmerkit, haku, nopeuskamerat ja kiertotien asetukset ovat käytettävissä offline-tilassa";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "Nopeuskamerat";
 
-"download_map_carplay" = "Lataa kartat laitteesi MAPS.ME-sovelluksessa";
+"download_map_carplay" = "Lataa kartat laitteesi OMaps-sovelluksessa";
 
 "carplay_roundabout_exit" = "Poistumisramppi %s";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "Hurraa! Tilauksesi on voimassa!";
 
-"popup_subscription_success_map_message" = "Tutustu nyt parhaisiin nähtävyyksiin MAPS.ME-luettelossa";
+"popup_subscription_success_map_message" = "Tutustu nyt parhaisiin nähtävyyksiin OMaps-luettelossa";
 
 "popup_subscription_success_map_start_button" = "Näytä";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "Aloita";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "Yleisavustaja matkojen aikana";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "Avaa luettelo";
 
-"new_onboarding_step5.2_message" = "MAPS.ME -matkaoppaiden tilaus on löytöostos. Käytä vapaasti matkaoppaiden kaikkia mahdollisuuksia!";
+"new_onboarding_step5.2_message" = "OMaps -matkaoppaiden tilaus on löytöostos. Käytä vapaasti matkaoppaiden kaikkia mahdollisuuksia!";
 
 "new_onboarding_step5.2_button" = "Näytä ehdot";
 
-"new_onboarding_step5.3_message" = "Lataa ja arvioi kaupunkikierroksia ja ulkoiluaktiviteetteja ilmaisella MAPS.ME-valinnalla!";
+"new_onboarding_step5.3_message" = "Lataa ja arvioi kaupunkikierroksia ja ulkoiluaktiviteetteja ilmaisella OMaps-valinnalla!";
 
 "new_onboarding_step5.3_button" = "Lataa ilmaiseksi";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "Outdooractiven talvi- ja kesälomareitit odottavat luettelossa!";
 
-"whatsnew_guides_galleries_title" = "Suunnittele seuraava matka MAPS.ME:n kanssa";
+"whatsnew_guides_galleries_title" = "Suunnittele seuraava matka OMaps:n kanssa";
 
 "whatsnew_guides_galleries_message" = "Nyt te voitte löytää suositeltuja matkaoppaita suosittujen kaupunkien ja nähtävyyksien korteista";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "Korkeudet";
 
-"tips_map_layers_title_countour" = "Korkeuslinjat offline-tilassa MAPS.ME:ssä!";
+"tips_map_layers_title_countour" = "Korkeuslinjat offline-tilassa OMaps:ssä!";
 
 "tips_map_layers_message_countour" = "Korkeuslinjat auttavat suunnittelemaan luontomatkan etkä enää eksy maastolla";
 

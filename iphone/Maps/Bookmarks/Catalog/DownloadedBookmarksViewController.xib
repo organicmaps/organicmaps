@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DownloadedBookmarksViewController" customModule="maps_me" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DownloadedBookmarksViewController" customModule="omaps_app" customModuleProvider="target">
             <connections>
                 <outlet property="bottomView" destination="A19-bw-qEr" id="kih-zB-eh4"/>
                 <outlet property="bottomViewDownloadButton" destination="Yjf-3F-Ewf" id="ELj-ol-N9n"/>
@@ -53,7 +53,7 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZi-fE-uf3">
                     <rect key="frame" x="16" y="41" width="343" height="50.5"/>
-                    <string key="text">Press the button to download thousands of intresting places and routes created by MAPS.ME users. You will need the internet connection.</string>
+                    <string key="text">Press the button to download thousands of intresting places and routes created by OMaps users. You will need the internet connection.</string>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.0" alpha="0.54010595034246578" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -63,6 +63,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="nPB-bx-EIH"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="TnJ-F3-v3h" secondAttribute="trailing" constant="16" id="60Y-LP-DTq"/>
@@ -77,7 +78,6 @@
                 <constraint firstItem="lZi-fE-uf3" firstAttribute="top" secondItem="TnJ-F3-v3h" secondAttribute="bottom" constant="12" id="vO0-Ba-ex8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="nPB-bx-EIH"/>
             <point key="canvasLocation" x="458.5" y="471.5"/>
         </view>
         <view contentMode="scaleToFill" id="Q8q-x4-Mvv">
@@ -86,7 +86,7 @@
             <subviews>
                 <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bouncesZoom="NO" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TableView:PressBackground"/>
                     </userDefinedRuntimeAttributes>
@@ -116,7 +116,7 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gY-vv-QfN">
                             <rect key="frame" x="16" y="285.5" width="343" height="50.5"/>
-                            <string key="text">Press the button to download thousands of intresting places and routes created by MAPS.ME users. You will need the internet connection.</string>
+                            <string key="text">Press the button to download thousands of intresting places and routes created by OMaps users. You will need the internet connection.</string>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="0.0" alpha="0.53735017123287676" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -164,6 +164,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="Ceu-pi-1ck"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Ceu-pi-1ck" firstAttribute="bottom" secondItem="EF0-Bq-c6F" secondAttribute="bottom" id="5y4-yL-yj0"/>
@@ -175,11 +176,13 @@
                 <constraint firstItem="i5M-Pr-FkT" firstAttribute="leading" secondItem="Ceu-pi-1ck" secondAttribute="leading" id="gVE-Vs-wgj"/>
                 <constraint firstItem="Ceu-pi-1ck" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="pYZ-O3-uHP"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="Ceu-pi-1ck"/>
             <point key="canvasLocation" x="-442" y="26"/>
         </view>
     </objects>
     <resources>
         <image name="img_empty_bookmarks" width="200" height="200"/>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

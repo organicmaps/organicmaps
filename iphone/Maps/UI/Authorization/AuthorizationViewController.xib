@@ -187,7 +187,7 @@
                                                                 <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="radioBtnOn"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to recieve the latest news about MAPS.ME products" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p04-D7-97V">
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to recieve the latest news about OMaps products" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p04-D7-97V">
                                                             <rect key="frame" x="40" y="0.0" width="298.5" height="54.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>

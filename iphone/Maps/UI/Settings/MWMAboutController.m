@@ -53,7 +53,7 @@
   if (cell == self.websiteCell)
   {
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"website"];
-    [self openUrl:[NSURL URLWithString:@"https://maps.me"]];
+    [self openUrl:[NSURL URLWithString:@"https://omaps.app"]];
   }
   else if (cell == self.facebookCell)
   {
@@ -63,7 +63,7 @@
   else if (cell == self.twitterCell)
   {
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"followOnTwitter"];
-    [self openUrl:[NSURL URLWithString:@"https://twitter.com/MAPS_ME"]];
+    [self openUrl:[NSURL URLWithString:@"https://twitter.com/OMaps"]];
   }
   else if (cell == self.osmCell)
   {

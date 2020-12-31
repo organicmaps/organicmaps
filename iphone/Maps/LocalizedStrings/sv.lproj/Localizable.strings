@@ -47,7 +47,7 @@
 "get_it_now" = "Skaffa det nu";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Tack för att du använder MAPS.ME! Gillar du appen? Berätta för dina vänner om den! Det skulle vara höjden av tacksamhet för oss.";
+"share_on_facebook_text" = "Tack för att du använder OMaps! Gillar du appen? Berätta för dina vänner om den! Det skulle vara höjden av tacksamhet för oss.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -138,9 +138,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Försök igen";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
-"about_menu_title" = "Om MAPS.ME";
+"about_menu_title" = "Om OMaps";
 
 "downloading_touch_to_cancel" = "Laddar ner %d%%, tryck för att avbryta";
 
@@ -158,7 +158,7 @@
 
 "external_storage_is_not_available" = "SD-kort/USB-lagring med nedladdade kartor är inte tillgänglig.";
 
-"disconnect_usb_cable" = "Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda MAPS.ME";
+"disconnect_usb_cable" = "Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda OMaps";
 
 "not_enough_free_space_on_sdcard" = "Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "Uppdatering tillgänglig för dessa kartor:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Du behöver inte MAPS.ME Lite mer, så du kan avinstallera den.";
+"suggest_uninstall_lite" = "Du behöver inte OMaps Lite mer, så du kan avinstallera den.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ nedladdat lyckat";
@@ -249,10 +249,10 @@
 "set" = "Samling";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Du har inga bokmärken än.\nTryck var som helst på kartan för att lägga till ett bokmärke.\nBokmärken från andra källor kan också importeras och visas i MAPS.ME. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.";
+"bookmarks_usage_hint" = "Du har inga bokmärken än.\nTryck var som helst på kartan för att lägga till ett bokmärke.\nBokmärken från andra källor kan också importeras och visas i OMaps. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Bokmärken från andra källor kan importeras och visas i MAPS.ME. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.";
+"bookmarks_usage_hint_import_only" = "Bokmärken från andra källor kan importeras och visas i OMaps. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.";
 
 /* Settings button in system menu */
 "settings" = "Inställningar";
@@ -354,9 +354,9 @@
 "share_by_email" = "Dela via email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "MAPS.ME bokmärken har delats med dig";
+"share_bookmarks_email_subject" = "OMaps bokmärken har delats med dig";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Läser in bokmärken";
@@ -386,22 +386,22 @@
 "downloading_is_active" = "Nedladdning av landet är startat nu.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Hoppas du gillar att använda MAPS.ME! I så fall, skriv en recension eller ge ett betyg på App Store. Det tar mindre än en minut men kan verkligen hjälpa oss. Tack för din hjälp!";
+"appStore_message" = "Hoppas du gillar att använda OMaps! I så fall, skriv en recension eller ge ett betyg på App Store. Det tar mindre än en minut men kan verkligen hjälpa oss. Tack för din hjälp!";
 
 /* No, thanks */
 "no_thanks" = "Nej, tack";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hej, kolla på min pin på MAPS.ME! %1$@ eller %2$@ Har du inte offline-kartor installerat? Ladda ner här: http://maps.me/get";
+"bookmark_share_sms" = "Hej, kolla på min pin på OMaps! %1$@ eller %2$@ Har du inte offline-kartor installerat? Ladda ner här: http://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hej, kolla på min nuvarande position på MAPS.ME! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: http://maps.me/get";
+"my_position_share_sms" = "Hej, kolla på min nuvarande position på OMaps! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: http://omaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hej, kolla på min pin på MAPS.ME kartan";
+"bookmark_share_email_subject" = "Hej, kolla på min pin på OMaps kartan";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hej, kolla på min nuvarande position på MAPS.ME kartan!";
+"my_position_share_email_subject" = "Hej, kolla på min nuvarande position på OMaps kartan!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hej,\n\nJag är här nu: %1$@. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.";
@@ -582,16 +582,16 @@
 "download_map_notification" = "Ladda ner kartan över din nuvarande plats";
 
 /* text of notification */
-"pro_version_is_free_today" = "Fullständig version av MAPS.ME är gratis idag! Ladda ner den nu och berätta för dina vänner.";
+"pro_version_is_free_today" = "Fullständig version av OMaps är gratis idag! Ladda ner den nu och berätta för dina vänner.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Vi flyttar dina nedladdade kartor från MAPS.ME Lite till MAPS.ME. Det kan ta några minuter.";
+"move_lite_maps_to_pro" = "Vi flyttar dina nedladdade kartor från OMaps Lite till OMaps. Det kan ta några minuter.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Dina nedladdade kartor flyttades till MAPS.ME.";
+"move_lite_maps_to_pro_ok" = "Dina nedladdade kartor flyttades till OMaps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Flytten av dina kartor misslyckades. Vänligen ta bort MAPS.ME Lite och ladda ner kartorna igen.";
+"move_lite_maps_to_pro_failed" = "Flytten av dina kartor misslyckades. Vänligen ta bort OMaps Lite och ladda ner kartorna igen.";
 
 /* Text in menu */
 "settings_and_more" = "Inställningar & Mer";
@@ -600,7 +600,7 @@
 "website" = "Webbplats";
 
 /* Text in menu */
-"maps_me_community" = "MAPS.ME Gemenskap";
+"maps_me_community" = "OMaps Gemenskap";
 
 /* Text in menu */
 "like_on_facebook" = "Gilla på Facebook";
@@ -630,13 +630,13 @@
 "report_a_bug" = "Rapportera en bugg";
 
 /* Email subject */
-"subscribe_me_subject" = "Anmäl mig till MAPS.ME nyhetsbrev";
+"subscribe_me_subject" = "Anmäl mig till OMaps nyhetsbrev";
 
 /* Email body */
 "subscribe_me_body" = "Jag vill bli först att veta om de senaste uppdateringarna och erbjudandena. Jag kan avbryta min prenumeration när som helst.";
 
 /* About text */
-"about_text" = "MAPS.ME erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper MAPS.ME dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra MAPS.ME. Ifall du har problem med appen, tveka inte att kontakta oss på support@maps.me. Vi svarar på alla mail!\n\nGillar du MAPS.ME och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/mapswithme\n- eller berätta bara om MAPS.ME för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på https://www.openstreetmap.org och dina ändringar kommer att finns i MAPS.ME appen när nästa version släpps.";
+"about_text" = "OMaps erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper OMaps dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra OMaps. Ifall du har problem med appen, tveka inte att kontakta oss på support@omaps.app. Vi svarar på alla mail!\n\nGillar du OMaps och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/mapswithme\n- eller berätta bara om OMaps för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på https://www.openstreetmap.org och dina ändringar kommer att finns i OMaps appen när nästa version släpps.";
 
 /* Alert text */
 "email_error_body" = "Emailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %@";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "Uppdatera kartan för att skapa en rutt.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Den nya versionen av MAPS.ME låter dig skapa rutter från din nuvarande position till en destinationspunkt. Uppdatera kartan för att använda den här funktionen.";
+"routing_update_maps" = "Den nya versionen av OMaps låter dig skapa rutter från din nuvarande position till en destinationspunkt. Uppdatera kartan för att använda den här funktionen.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Uppdatera alla";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "Hittat";
 
 /* Disclaimer message */
-"routing_disclaimer" = "När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!";
+"routing_disclaimer" = "När du skapar rutter i appen OMaps, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Gammal";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "Ingen rutt hittades mellan vald startpunkt och målet. Välj en annan start- eller slutpunkt.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Ett internt fel inträffade. Försök att radera och ladda ner kartan igen. Kontakta oss på support@maps.me om problemet kvarstår.";
+"routing_failed_internal_error" = "Ett internt fel inträffade. Försök att radera och ladda ner kartan igen. Kontakta oss på support@omaps.app om problemet kvarstår.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Ladda ner karta + anvisningar";
@@ -765,10 +765,10 @@
 "rating_just_rated" = "Jag har precis betygsatt er app";
 
 /* Text for rating dialog */
-"rating_user_since" = "Jag har använt MAPS.ME sedan %@";
+"rating_user_since" = "Jag har använt OMaps sedan %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Gillar du MAPS.ME?";
+"rating_do_like_maps" = "Gillar du OMaps?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Tryck på en stjärna för att betygsätta vår app.";
@@ -792,7 +792,7 @@
 "routing_download_map" = "Hämta karta";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Ladda ner uppdaterad karta och navigeringsdata för att få tillgång till alla MAPS.ME funktioner.";
+"routing_download_map_and_routing" = "Ladda ner uppdaterad karta och navigeringsdata för att få tillgång till alla OMaps funktioner.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Hämta navigeringsdata";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "Gillar du appen?";
 
-"rate_alert_default_message" = "Tack för att du använder MAPS.ME. Betygsätt gärna appen. Din feedback hjälper oss att bli bättre.";
+"rate_alert_default_message" = "Tack för att du använder OMaps. Betygsätt gärna appen. Din feedback hjälper oss att bli bättre.";
 
 "rate_alert_five_star_message" = "Hurra! Vi älskar dig också!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Duplicerad plats";
 
-"first_launch_congrats_title" = "Du kan nu använda MAPS.ME";
+"first_launch_congrats_title" = "Du kan nu använda OMaps";
 
 "first_launch_congrats_text" = "Sök och navigera offline var som helst i världen, helt gratis.";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "Lägg till nya platser till kartan och redigera de befintliga direkt från appen.";
 
-"whatsnew_editor_message_2" = "* MAPS.ME använder data från OpenStreetMaps community.";
+"whatsnew_editor_message_2" = "* OMaps använder data från OpenStreetMaps community.";
 
 "onboarding_offline_navigation_title" = "Du kommer aldrig att gå vilse igen";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "Planera optimala bil- och promenadrutter.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — se världsomspännande kartor utan internet";
+"onboarding_offline_maps_title" = "OMaps — se världsomspännande kartor utan internet";
 
 "onboarding_offline_maps_message" = "Ladda ned kartorna för önskat område en gång och använd funktionerna för navigering och sökning utan en internetanslutning.";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.";
 
-"onboarding_permissions_title" = "Ge MAPS.ME åtkomst till lagring och plats";
+"onboarding_permissions_title" = "Ge OMaps åtkomst till lagring och plats";
 
 "onboarding_permissions_message" = "Så att du kan ladda ned kartor, visa platser och trafik i närheten och använda navigering.";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Du behöver mer utrymme för att ladda ned. Radera onödig data.";
 
-"editor_sharing_title" = "Jag förbättrade kartorna hos MAPS.ME";
+"editor_sharing_title" = "Jag förbättrade kartorna hos OMaps";
 
 "editor_comment_will_be_sent" = "Vi vidarebefordrar din kommentar till kartritarna.";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "Detaljerad kommentar";
 
-"editor_detailed_description" = "Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i MAPS.ME.";
+"editor_detailed_description" = "Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i OMaps.";
 
 "editor_more_about_osm" = "Mer om OpenStreetMap";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "Vi har uppdaterat kartredigeraren";
 
-"whatsnew_update_editor_message" = "MAPS.ME-användare har gjort 200 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!";
+"whatsnew_update_editor_message" = "OMaps-användare har gjort 200 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Uppdatera alla kartor för att använda kartredigeraren.";
@@ -1598,7 +1598,7 @@
 
 "continue_recent_track_background_button" = "Fortsätt";
 
-"recent_track_background_dialog_message" = "MAPS.ME använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
+"recent_track_background_dialog_message" = "OMaps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
 
 "whatsnew_car_navigation_header" = "Användarvänlig fordonsnavigering";
 
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "Cykelnavigering (betaversion)";
 
-"whatsnew_cycle_navigation_message" = "Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med MAPS.ME och berätta för oss vad du tycker.";
+"whatsnew_cycle_navigation_message" = "Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med OMaps och berätta för oss vad du tycker.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Betygsätt på Google Play";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "Tipsa en vän";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Hej! Installera MAPS.ME!";
+"tell_friends_text" = "Hej! Installera OMaps!";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME är en offline-applikation som du behöver när du reser. MAPS.ME baseras på OpenStreetMap-data och tillåter redigering i den.";
+"about_description" = "OMaps är en offline-applikation som du behöver när du reser. OMaps baseras på OpenStreetMap-data och tillåter redigering i den.";
 
 /* Text in menu */
 "blog" = "Blogg";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Öppna";
 
-"whatsnew_uber_header" = "MAPS.ME och Uber";
+"whatsnew_uber_header" = "OMaps och Uber";
 
 "whatsnew_uber_message" = "Beställ en Uber direkt från appen!";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "Öka teckenstorlek på kartan";
 
-"traffic_update_app" = "Uppdatera MAPS.ME";
+"traffic_update_app" = "Uppdatera OMaps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Applikationen måste uppdateras för att trafikdata ska kunna visas.";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "Bevilja åtkomst";
 
-"onboarding_storage_permissions_message" = "Ändra behörighetsinställningarna på din enhet. Lagringsåtkomst krävs för att använda MAPS.ME.";
+"onboarding_storage_permissions_message" = "Ändra behörighetsinställningarna på din enhet. Lagringsåtkomst krävs för att använda OMaps.";
 
 "button_exit" = "Avsluta";
 
-"onboarding_detail_permissions_title" = "MAPS.ME behöver åtkomst till";
+"onboarding_detail_permissions_title" = "OMaps behöver åtkomst till";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "Lagring";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "Lagringsåtkomstproblem";
 
-"dialog_error_storage_message" = "Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support@maps.me";
+"dialog_error_storage_message" = "Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support@omaps.app";
 
 "setting_emulate_bad_storage" = "Emulera dålig lagring";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "Jag godkänner <a href=\"%s\">användarvillkoren</a>";
 
-"sign_agree_news_gdpr" = "Jag håller med om att få de senaste nyheterna om MAPS.ME produkter";
+"sign_agree_news_gdpr" = "Jag håller med om att få de senaste nyheterna om OMaps produkter";
 
 "whats_new_localbiz_title" = "Småföretag förtjänar uppmärksamhet";
 
-"whats_new_localbiz_message" = "Det är lokala kaféer, mysiga hotell och affärer som gör din resa oförglömlig. Vi vill optimera din sida på MAPS.Me för att den ska sticka ut.";
+"whats_new_localbiz_message" = "Det är lokala kaféer, mysiga hotell och affärer som gör din resa oförglömlig. Vi vill optimera din sida på OMaps för att den ska sticka ut.";
 
 "whats_new_order_button" = "Lämna en förfrågan";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "Ladda ner nya platser";
 
-"cached_bookmarks_placeholder_subtitle" = "Tryck på knappen för att ladda ner tusentals intressanta platser och rutter skapade av MAPS.ME användare. Du behöver internetanslutning.";
+"cached_bookmarks_placeholder_subtitle" = "Tryck på knappen för att ladda ner tusentals intressanta platser och rutter skapade av OMaps användare. Du behöver internetanslutning.";
 
 "downloader_download_routers" = "Ladda ner bokmärken";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "Olycksrapport";
 
-"opt_out_fabric_description" = "Vi kan komma att använda din data för att förbättra MAPS.ME upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.";
+"opt_out_fabric_description" = "Vi kan komma att använda din data för att förbättra OMaps upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "Bokmärkena laddades inte ner";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME har nu en ruttkatalog";
+"whats_new_bookmarks_catalog_title" = "OMaps har nu en ruttkatalog";
 
 "whats_new_bookmarks_catalog_message" = "Hundratals av detaljerade rutter, runt om i världen; Var du än är, vad du än vill se, var du än vill äta.";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "Ta bort reklam";
 
-"remove_ads_title" = "Ta bort all reklam och stöd MAPS.ME";
+"remove_ads_title" = "Ta bort all reklam och stöd OMaps";
 
 "paybtn_title" = "Betala %s/år";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "Fler val";
 
-"why_support" = "Varför stödja MAPS.ME?";
+"why_support" = "Varför stödja OMaps?";
 
 "options_dropdown_item1" = "%s/månad (spara %s/år)";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "Vi tar bort all reklam för dig";
 
-"why_support_item2" = "Du hjälper oss att förbättra MAPS.ME";
+"why_support_item2" = "Du hjälper oss att förbättra OMaps";
 
 "why_support_item3" = "Du hjälper oss att förbättra de offentliga kartorna OpenStreetMap.org";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "Servern är inte tillgänglig";
 
-"server_unavailable_message" = "Köpet fullbordas senare. Om felet kvarstår, vänligen kontakta support@maps.me.";
+"server_unavailable_message" = "Köpet fullbordas senare. Om felet kvarstår, vänligen kontakta support@omaps.app.";
 
 "offline_fiters_check_in" = "Koppla upp dig mot internet för att filtrera hotellen per datum.";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Den här reseguiden kommer att laddas upp i den offentliga katalogen MAPS.ME och kommer att vara tillgänglig för andra användare";
+"upload_and_publish_desc" = "Den här reseguiden kommer att laddas upp i den offentliga katalogen OMaps och kommer att vara tillgänglig för andra användare";
 
 "upload_and_publish" = "Ladda upp och publicera";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "Lämna en recension och hjälp resenärer!";
 
-"share_bookmarks_email_body_link" = "Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av MAPS.ME och njut av resan!\n\nLadda ner appen: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av OMaps och njut av resan!\n\nLadda ner appen: http://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "Det är lätt att dela dina intryck";
 
-"whats_new_ugc_routes_subtitle" = "Spara minnesvärda platser, skapa rutter genom att använda bokmärken och dela dem med alla i MAPS:ME katalogen.";
+"whats_new_ugc_routes_subtitle" = "Spara minnesvärda platser, skapa rutter genom att använda bokmärken och dela dem med alla i OMaps katalogen.";
 
 "whats_new_webeditor_title" = "Gör dina rutter till berättelser";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "Din resrutt måste ha minst 3 etiketter för att laddas upp till den offentliga katalogen";
 
-"bookmark_public_upload_alert_title" = "Det är bara ett par steg från att ladda din resrutt till MAPS.ME katalog!";
+"bookmark_public_upload_alert_title" = "Det är bara ett par steg från att ladda din resrutt till OMaps katalog!";
 
 "bookmark_public_upload_alert_subtitle" = "Se till att resrutten har ett namn och en beskrivning och alla etiketter innehåller information om platser. På grund av detta kommer användare att hitta resrutten och kunna använda den på resan.";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "Maximal energibesparing";
 
-"enable_logging_warning_message" = "Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av MAPS.ME supporttjänst.";
+"enable_logging_warning_message" = "Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av OMaps supporttjänst.";
 
 "html_error_upload_message_try_again" = "Kontrollera nätverksåtkomst och försök igen";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "Ditt ID: %s.";
 
-"gdpr_request_window_message" = "Vänligen kopiera det och skicka förfrågan till support@maps.me";
+"gdpr_request_window_message" = "Vänligen kopiera det och skicka förfrågan till support@omaps.app";
 
 "gdpr_request_window_copy" = "Kopiera ID";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "Undvik färjetrafik";
 
-"cached_guides_placeholder_subtitle" = "Färdiga guider i MAPS.ME är valda platser med bilder och beskrivningar som visas på kartan och är tillgängliga offline.";
+"cached_guides_placeholder_subtitle" = "Färdiga guider i OMaps är valda platser med bilder och beskrivningar som visas på kartan och är tillgängliga offline.";
 
 "guides_catalogue_title" = "Guidebok katalogen";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "Uzbekiska mat";
 
-"onboarding_welcome_title" = "Planera och resa med MAPS.ME";
+"onboarding_welcome_title" = "Planera och resa med OMaps";
 
 "onboarding_welcome_first_subtitle" = "Spara intressanta platser, boka hotell, bygga rutten offline";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "Ladda ner";
 
-"onboarding_bydeeplink_guide_title" = "Färdiga guider i MAPS.ME";
+"onboarding_bydeeplink_guide_title" = "Färdiga guider i OMaps";
 
 "onboarding_bydeeplink_guide_subtitle" = "Valda platser med bilder och beskrivningar visas på kartan och är tillgängliga offline.";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "Har bokat ett hotell?";
 
-"popup_booking_download_guides_message" = "Planera din rutt med färdiga reseguider MAPS.ME";
+"popup_booking_download_guides_message" = "Planera din rutt med färdiga reseguider OMaps";
 
 "popup_mwm_download_guides_title" = "Offline guider";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "Se";
 
-"gallery_pp_download_guides_offline_title" = "Planera din semester med MAPS.ME!";
+"gallery_pp_download_guides_offline_title" = "Planera din semester med OMaps!";
 
 "gallery_pp_download_guides_offline_subtitle" = "Missa inte det viktigaste med rutter från erfarna resenärer";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "Betalning kommer att debiteras ditt iTunes-konto vid bekräftelsen av köpet. Prenumerationen kommer att förnyas automatiskt om inte automat-förnyelse är avstängt minst 24 timmar före utgången av innevarande period. Ditt konto kommer att debiteras enligt din plan för förnyelse inom 24 timmar före utgången av innevarande period. Du kan hantera eller stänga av automatisk förnyelse för ditt inköp när som helst i ditt Apple-ID-konto.";
 
-"whatsnew_carplay_title" = "MAPS.ME autonavigering i CarPlay!";
+"whatsnew_carplay_title" = "OMaps autonavigering i CarPlay!";
 
 "whatsnew_carplay_message" = "Bokmärken, sök, hastighetskameror och omvägsinställningar - allt fungerar utan internet";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "Info om kameror";
 
-"download_map_carplay" = "Ladda ner kartor i applikation MAPS.ME på din enhet";
+"download_map_carplay" = "Ladda ner kartor i applikation OMaps på din enhet";
 
 "carplay_roundabout_exit" = "%s utgången";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "Hurra! Du är prenumererad!";
 
-"popup_subscription_success_map_message" = "Nu kan du utforska de bästa turistiska sevärdheterna i MAPS.ME-katalogen";
+"popup_subscription_success_map_message" = "Nu kan du utforska de bästa turistiska sevärdheterna i OMaps-katalogen";
 
 "popup_subscription_success_map_start_button" = "Börja surfa";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "Börja";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "Universell reseassistent";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "Öppna katalog";
 
-"new_onboarding_step5.2_message" = "Prenumerationen på guidebok katalogen i MAPS.ME är lönsam. Få full tillgång till rutter för stadspromenader och utomhusaktiviteter!";
+"new_onboarding_step5.2_message" = "Prenumerationen på guidebok katalogen i OMaps är lönsam. Få full tillgång till rutter för stadspromenader och utomhusaktiviteter!";
 
 "new_onboarding_step5.2_button" = "Kolla villkoren";
 
-"new_onboarding_step5.3_message" = "Ladda ner och betygsätt rutter för stadspromenader och utomhusaktiviteter med ett gratis urval av MAPS.ME!";
+"new_onboarding_step5.3_message" = "Ladda ner och betygsätt rutter för stadspromenader och utomhusaktiviteter med ett gratis urval av OMaps!";
 
 "new_onboarding_step5.3_button" = "Ladda ner gratis";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "Rutter från Outdooractive för vinter- och sommarresor väntar i katalogen!";
 
-"whatsnew_guides_galleries_title" = "Planera din kommande resa med MAPS.ME";
+"whatsnew_guides_galleries_title" = "Planera din kommande resa med OMaps";
 
 "whatsnew_guides_galleries_message" = "Nu kan du hitta rekommenderade guider på platssidor för populära städer och attraktioner";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "Terräng";
 
-"tips_map_layers_title_countour" = "Höjningslinjer offline i MAPS.ME!";
+"tips_map_layers_title_countour" = "Höjningslinjer offline i OMaps!";
 
 "tips_map_layers_message_countour" = "Höjdlinjer hjälper dig att planera din resa till naturen och inte gå vilse på marken";
 

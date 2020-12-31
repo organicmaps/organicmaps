@@ -47,7 +47,7 @@
 "get_it_now" = "Obțineți acum";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Vă mulțumim că folosiți MAPS.ME! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.";
+"share_on_facebook_text" = "Vă mulțumim că folosiți OMaps! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -138,9 +138,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Încercați din nou";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
-"about_menu_title" = "Despre MAPS.ME";
+"about_menu_title" = "Despre OMaps";
 
 "downloading_touch_to_cancel" = "Se descarcă %d%%. Atingeți pentru a anula.";
 
@@ -158,7 +158,7 @@
 
 "external_storage_is_not_available" = "Cartela SD/dispozitivul de stocare USB cu hărțile descărcate nu este disponibil.";
 
-"disconnect_usb_cable" = "Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza MAPS.ME.";
+"disconnect_usb_cable" = "Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza OMaps.";
 
 "not_enough_free_space_on_sdcard" = "Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "Actualizări disponibile pentru aceste hărți:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Nu mai aveți nevoie de MAPS.ME Lite, îl puteți dezinstala.";
+"suggest_uninstall_lite" = "Nu mai aveți nevoie de OMaps Lite, îl puteți dezinstala.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@, descărcată cu succes";
@@ -249,10 +249,10 @@
 "set" = "Set";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.";
+"bookmarks_usage_hint" = "Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe OMaps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Pot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.";
+"bookmarks_usage_hint_import_only" = "Pot fi importate și afișate pe OMaps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.";
 
 /* Settings button in system menu */
 "settings" = "Setări";
@@ -354,9 +354,9 @@
 "share_by_email" = "Partajare prin email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Marcaje MAPS.ME partajate";
+"share_bookmarks_email_subject" = "Marcaje OMaps partajate";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Se încarcă marcajele";
@@ -386,22 +386,22 @@
 "downloading_is_active" = "Descărcarea hărților pentru țara dorită este în curs.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Sperăm că vă place MAPS.ME! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!";
+"appStore_message" = "Sperăm că vă place OMaps! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!";
 
 /* No, thanks */
 "no_thanks" = "Nu, mulțumesc";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hei, poți vedea care este poziția mea pe MAPS.ME! %1$@ sau %2$@ Nu ai instalate hărțile offline? Descarcă de aici: http://maps.me/get";
+"bookmark_share_sms" = "Hei, poți vedea care este poziția mea pe OMaps! %1$@ sau %2$@ Nu ai instalate hărțile offline? Descarcă de aici: http://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hei, îmi poți vedea poziția actuală pe MAPS.ME! %1$@ sau %2$@ Nu ai hărțile offline? Descarcă de aici: http://maps.me/get";
+"my_position_share_sms" = "Hei, îmi poți vedea poziția actuală pe OMaps! %1$@ sau %2$@ Nu ai hărțile offline? Descarcă de aici: http://omaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hei, poți vedea care este poziția mea pe harta MAPS.ME!";
+"bookmark_share_email_subject" = "Hei, poți vedea care este poziția mea pe harta OMaps!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hei, îmi poți vedea poziția actuală pe harta MAPS.ME!";
+"my_position_share_email_subject" = "Hei, îmi poți vedea poziția actuală pe harta OMaps!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.";
@@ -582,16 +582,16 @@
 "download_map_notification" = "Descărcați harta locului în care vă aflați";
 
 /* text of notification */
-"pro_version_is_free_today" = "Full version of MAPS.ME is free today! Download now and tell your friends.";
+"pro_version_is_free_today" = "Full version of OMaps is free today! Download now and tell your friends.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Transferăm hărțile dvs. descărcate din MAPS.ME Lite în MAPS.ME. Acest lucru poate dura câteva minute.";
+"move_lite_maps_to_pro" = "Transferăm hărțile dvs. descărcate din OMaps Lite în OMaps. Acest lucru poate dura câteva minute.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Hărțile dvs. descărcate sunt transferate cu succes către MAPS.ME.";
+"move_lite_maps_to_pro_ok" = "Hărțile dvs. descărcate sunt transferate cu succes către OMaps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Your maps failed to transfer. Please delete MAPS.ME Lite and download the maps again.";
+"move_lite_maps_to_pro_failed" = "Your maps failed to transfer. Please delete OMaps Lite and download the maps again.";
 
 /* Text in menu */
 "settings_and_more" = "Setări și altele";
@@ -600,7 +600,7 @@
 "website" = "Site web";
 
 /* Text in menu */
-"maps_me_community" = "Comunitatea MAPS.ME";
+"maps_me_community" = "Comunitatea OMaps";
 
 /* Text in menu */
 "like_on_facebook" = "Apreciați-ne pe Facebook";
@@ -630,13 +630,13 @@
 "report_a_bug" = "Raportați o eroare";
 
 /* Email subject */
-"subscribe_me_subject" = "Abonează-mă la buletinul informativ MAPS.ME.";
+"subscribe_me_subject" = "Abonează-mă la buletinul informativ OMaps.";
 
 /* Email body */
 "subscribe_me_body" = "Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.";
 
 /* About text */
-"about_text" = "MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.";
+"about_text" = "OMaps oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, OMaps vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți OMaps. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@omaps.app. Răspundem la fiecare solicitare!\n\nVă place OMaps și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre OMaps. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația OMaps atunci când va fi lansată versiunea următoare.";
 
 /* Alert text */
 "email_error_body" = "Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %@.";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "Vă rugăm să actualizați harta pentru a crea o rută.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Noua versiune a MAPS.ME vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.";
+"routing_update_maps" = "Noua versiune a OMaps vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Actualizați toate";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "S-au găsit";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!";
+"routing_disclaimer" = "Atunci când creați rute în aplicația OMaps, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Neactualizată";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "Nu am găsit nicio rută între punctul de pornire și destinația selectată. Vă rugăm să alegeți un alt punct de pornire sau de destinație.";
 
 /* InternalError */
-"routing_failed_internal_error" = "A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support@maps.me.";
+"routing_failed_internal_error" = "A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support@omaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Descărcare hartă + traseu";
@@ -765,10 +765,10 @@
 "rating_just_rated" = "Tocmai ți-am votat aplicația";
 
 /* Text for rating dialog */
-"rating_user_since" = "Sunt utilizator MAPS.ME din %@";
+"rating_user_since" = "Sunt utilizator OMaps din %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Îți place MAPS.ME?";
+"rating_do_like_maps" = "Îți place OMaps?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Apasă pe una dintre stele pentru a ne vota aplicația";
@@ -792,7 +792,7 @@
 "routing_download_map" = "Descărcați harta";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Descărcați harta actualizată și informațiile pentru direcționare, pentru a beneficia de toate funcțiile MAPS.ME.";
+"routing_download_map_and_routing" = "Descărcați harta actualizată și informațiile pentru direcționare, pentru a beneficia de toate funcțiile OMaps.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Descărcați informațiile pentru direcționare";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "Vă place aplicația?";
 
-"rate_alert_default_message" = "Vă mulțumim că folosiți MAPS.ME. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.";
+"rate_alert_default_message" = "Vă mulțumim că folosiți OMaps. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.";
 
 "rate_alert_five_star_message" = "Ura! Și noi vă iubim!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Locație dublată";
 
-"first_launch_congrats_title" = "MAPS.ME este gata pentru utilizare";
+"first_launch_congrats_title" = "OMaps este gata pentru utilizare";
 
 "first_launch_congrats_text" = "Căutați și navigați în regim offline oriunde în lume, în mod gratuit.";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.";
 
-"whatsnew_editor_message_2" = "* MAPS.ME folosește datele comunității OpenStreetMap community.";
+"whatsnew_editor_message_2" = "* OMaps folosește datele comunității OpenStreetMap community.";
 
 "onboarding_offline_navigation_title" = "Niciodată nu vă veți rătăci din nou";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "Planificați traseele optime cu mașina și cele pietonale.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — accesați hărți din întreaga lume fără conexiune Internet";
+"onboarding_offline_maps_title" = "OMaps — accesați hărți din întreaga lume fără conexiune Internet";
 
 "onboarding_offline_maps_message" = "Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.";
 
-"onboarding_permissions_title" = "Permiteți aplicației MAPS.ME accesul la spațiul de stocare și locație";
+"onboarding_permissions_title" = "Permiteți aplicației OMaps accesul la spațiul de stocare și locație";
 
 "onboarding_permissions_message" = "Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Aveți nevoie de mai mult spațiu ca să descărcați. Vă rugăm să ștergeți toate informațiile inutile.";
 
-"editor_sharing_title" = "Am îmbunătățit hărțile MAPS.ME";
+"editor_sharing_title" = "Am îmbunătățit hărțile OMaps";
 
 "editor_comment_will_be_sent" = "Vom trimite comentariul dumneavoastră cartografilor.";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "Comentariu detaliat";
 
-"editor_detailed_description" = "Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in MAPS.ME.";
+"editor_detailed_description" = "Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in OMaps.";
 
 "editor_more_about_osm" = "Mai multe despre OpenStreetMap";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "Am actualizat editorul de hărți";
 
-"whatsnew_update_editor_message" = "Utilizatorii MAPS.ME au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!";
+"whatsnew_update_editor_message" = "Utilizatorii OMaps au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.";
@@ -1598,7 +1598,7 @@
 
 "continue_recent_track_background_button" = "Continuare";
 
-"recent_track_background_dialog_message" = "MAPS.ME folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.";
+"recent_track_background_dialog_message" = "OMaps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.";
 
 "whatsnew_car_navigation_header" = "Navigație pentru vehicule, ușor de folosit";
 
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "Navigaţie pentru biciclete (versiune beta)";
 
-"whatsnew_cycle_navigation_message" = "În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.";
+"whatsnew_cycle_navigation_message" = "În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu OMaps şi împărtăşiţi-ne opinia dvs.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Dați un calificativ pe Google Play";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "Spuneți unui prieten";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Bună! Instalați MAPS.ME!";
+"tell_friends_text" = "Bună! Instalați OMaps!";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME este o aplicație offline esențială când călătoriți. MAPS.ME utilizează datele OpenStreeMap și permite editarea acestora.";
+"about_description" = "OMaps este o aplicație offline esențială când călătoriți. OMaps utilizează datele OpenStreeMap și permite editarea acestora.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Deschideți";
 
-"whatsnew_uber_header" = "MAPS.ME și Uber";
+"whatsnew_uber_header" = "OMaps și Uber";
 
 "whatsnew_uber_message" = "Comandați un taxi Uber direct din aplicație!";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "Măriți dimensiunea fontului pe hartă";
 
-"traffic_update_app" = "Vă rugăm să actualizaţi MAPS.ME";
+"traffic_update_app" = "Vă rugăm să actualizaţi OMaps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Pentru a afişa datele privind traficul, aplicația trebuie actualizată.";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "Acordați acces";
 
-"onboarding_storage_permissions_message" = "Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza MAPS.ME este nevoie de acces la spațiul de stocare.";
+"onboarding_storage_permissions_message" = "Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza OMaps este nevoie de acces la spațiul de stocare.";
 
 "button_exit" = "Ieșire";
 
-"onboarding_detail_permissions_title" = "MAPS.ME necesită acces la";
+"onboarding_detail_permissions_title" = "OMaps necesită acces la";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "Stocare";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "Problemă de accesare spațiu de stocare";
 
-"dialog_error_storage_message" = "Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este read-only. Verifică și contactează-ne la support@maps.me";
+"dialog_error_storage_message" = "Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este read-only. Verifică și contactează-ne la support@omaps.app";
 
 "setting_emulate_bad_storage" = "Emulare stocare eronată";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "Sunt de acord cu <a href=\"%s\">Termenii și condițiile</a>";
 
-"sign_agree_news_gdpr" = "Sunt de acord să primesc ultimele știri despre produsele MAPS.ME";
+"sign_agree_news_gdpr" = "Sunt de acord să primesc ultimele știri despre produsele OMaps";
 
 "whats_new_localbiz_title" = "Întreprinderile mici merită atenție";
 
-"whats_new_localbiz_message" = "Anume cafenelele, hostelele și magazinele locale fac călătoriile de neuitat. Optimizăm gratuit pagina dvs. de afaceri în MAPS.ME, astfel încât să o putem observa.";
+"whats_new_localbiz_message" = "Anume cafenelele, hostelele și magazinele locale fac călătoriile de neuitat. Optimizăm gratuit pagina dvs. de afaceri în OMaps, astfel încât să o putem observa.";
 
 "whats_new_order_button" = "Solicitați";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "Încărcați locuri noi";
 
-"cached_bookmarks_placeholder_subtitle" = "Faceți clic pe butonul pentru a descărca mii de locuri interesante și rute create de utilizatori MAPS.ME. Veți avea nevoie de o conexiune la Internet.";
+"cached_bookmarks_placeholder_subtitle" = "Faceți clic pe butonul pentru a descărca mii de locuri interesante și rute create de utilizatori OMaps. Veți avea nevoie de o conexiune la Internet.";
 
 "downloader_download_routers" = "Descărcați tag-urile";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "Rapoarte de eroare";
 
-"opt_out_fabric_description" = "Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți MAPS.ME. Modificările vor intra în vigoare după repornirea aplicației.";
+"opt_out_fabric_description" = "Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți OMaps. Modificările vor intra în vigoare după repornirea aplicației.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "Tag-urile nu au fost încărcate";
 
-"whats_new_bookmarks_catalog_title" = "În MAPS.ME a apărut un director de rute";
+"whats_new_bookmarks_catalog_title" = "În OMaps a apărut un director de rute";
 
 "whats_new_bookmarks_catalog_message" = "Zeci de trasee detaliate din întreaga lume: unde să mergi, ce să vezi, în unde să mănânci.";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "Dezactivați reclama";
 
-"remove_ads_title" = "Dezactivați toată reclama și susțineți MAPS.ME";
+"remove_ads_title" = "Dezactivați toată reclama și susțineți OMaps";
 
 "paybtn_title" = "Achitați %s/an";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "Alte variante";
 
-"why_support" = "Pentru ce să susțineți MAPS.ME?";
+"why_support" = "Pentru ce să susțineți OMaps?";
 
 "options_dropdown_item1" = "%s/lună (economia %s/an)";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "Vom dezactiva toate reclamele pentru dvs";
 
-"why_support_item2" = "Voi ne ajutați să îmbunătățim MAPS.ME";
+"why_support_item2" = "Voi ne ajutați să îmbunătățim OMaps";
 
 "why_support_item3" = "Voi ne ajutați să îmbunătățim hărțile OpenStreetMap.org";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "Serverul nu este disponibil";
 
-"server_unavailable_message" = "Achiziția va fi finalizată mai târziu. Dacă eroarea se repetă, contactați support@maps.me.";
+"server_unavailable_message" = "Achiziția va fi finalizată mai târziu. Dacă eroarea se repetă, contactați support@omaps.app.";
 
 "offline_fiters_check_in" = "Conectați-vă la internet pentru a putea alege data sosirii și plecării.";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Acest ghid va fi încărcat în catalogul public MAPS.ME și va fi disponibil altor utilizatori";
+"upload_and_publish_desc" = "Acest ghid va fi încărcat în catalogul public OMaps și va fi disponibil altor utilizatori";
 
 "upload_and_publish" = "Descărcați și publicați";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "Lăsați comentariile dvs. și ajutați alți călători!";
 
-"share_bookmarks_email_body_link" = "Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul MAPS.ME și primiți plăcere de la călătorie!\n\nDescărcați aplicația: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul OMaps și primiți plăcere de la călătorie!\n\nDescărcați aplicația: http://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "Este ușor să vă împărtășiți impresiile";
 
-"whats_new_ugc_routes_subtitle" = "Salvați locurile memorabile, creați rute cu ajutorul marcajelor și distribuiți-le tuturor în catalogul MAPS.ME.";
+"whats_new_ugc_routes_subtitle" = "Salvați locurile memorabile, creați rute cu ajutorul marcajelor și distribuiți-le tuturor în catalogul OMaps.";
 
 "whats_new_webeditor_title" = "Transformați-vă rutele în povești";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "Pe traseul dvs. trebuie să fie cel puțin 3 etichete, pentru a le încărca în catalogul public";
 
-"bookmark_public_upload_alert_title" = "Sunteți doar la câțiva pași de încărcarea traseului dvs. în catalogul MAPS.ME!";
+"bookmark_public_upload_alert_title" = "Sunteți doar la câțiva pași de încărcarea traseului dvs. în catalogul OMaps!";
 
 "bookmark_public_upload_alert_subtitle" = "Verificați ca traseul dvs. să aibă un nume și o descriere, iar etichetele să conțină informație despre locurile date. Datorită acestui fapt, utilizatorii vor găsi traseul și vor putea să se folosească de el în timpul călătoriei.";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "Economisire maximă a energiei";
 
-"enable_logging_warning_message" = "Aceasta opțiune se pornește pentru logarea acțiunii în scopul diagnosticării. Aceasta va ajuta echipei să găsească problemele legate de aplicație. Conectați opțiunea numai la solicitarea serviciului de suport MAPS.ME.";
+"enable_logging_warning_message" = "Aceasta opțiune se pornește pentru logarea acțiunii în scopul diagnosticării. Aceasta va ajuta echipei să găsească problemele legate de aplicație. Conectați opțiunea numai la solicitarea serviciului de suport OMaps.";
 
 "html_error_upload_message_try_again" = "Verificați accesul la rețea și încercați încă o dată";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "ID dvs.: %s.";
 
-"gdpr_request_window_message" = "Vă rugăm să copiați și să expediați cererea pe support@maps.me";
+"gdpr_request_window_message" = "Vă rugăm să copiați și să expediați cererea pe support@omaps.app";
 
 "gdpr_request_window_copy" = "Copierea ID";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "De evitat trecerile cu bac";
 
-"cached_guides_placeholder_subtitle" = "Ghiduri pregătire de MAPS.ME sunt locuri selectare cu fotografii și descrieri, care se reflectă pe hartă și sunt accesibile off-line.";
+"cached_guides_placeholder_subtitle" = "Ghiduri pregătire de OMaps sunt locuri selectare cu fotografii și descrieri, care se reflectă pe hartă și sunt accesibile off-line.";
 
 "guides_catalogue_title" = "Catalogul ghidurilor";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "Bucătărie uzbecă";
 
-"onboarding_welcome_title" = "Planifică și călătorește cu MAPS.ME";
+"onboarding_welcome_title" = "Planifică și călătorește cu OMaps";
 
 "onboarding_welcome_first_subtitle" = "Salvați locurile interesante, rezervați hotele, elaborați trasee";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "De descărcat";
 
-"onboarding_bydeeplink_guide_title" = "Ghiduri elaborate în MAPS.ME";
+"onboarding_bydeeplink_guide_title" = "Ghiduri elaborate în OMaps";
 
 "onboarding_bydeeplink_guide_subtitle" = "Locuri alese cu fotografii și descrieri se reflectă pe hartă și sunt accesibile off-line.";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "Rezervare hotel?";
 
-"popup_booking_download_guides_message" = "Planificați traseul cu ghidurile MAPS.ME";
+"popup_booking_download_guides_message" = "Planificați traseul cu ghidurile OMaps";
 
 "popup_mwm_download_guides_title" = "Ghiduri offline";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "Privește";
 
-"gallery_pp_download_guides_offline_title" = "Planifică odihna ta cu MAPS.ME!";
+"gallery_pp_download_guides_offline_title" = "Planifică odihna ta cu OMaps!";
 
 "gallery_pp_download_guides_offline_subtitle" = "Nu ratați cel mai important cu traseele de la călători experimentați";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.";
 
-"whatsnew_carplay_title" = "Autonavigare MAPS.ME în CarPlay!";
+"whatsnew_carplay_title" = "Autonavigare OMaps în CarPlay!";
 
 "whatsnew_carplay_message" = "Marcaje, căutare, camere-radar și setări de ocolire - totul funcționează fără Internet";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "Info camere";
 
-"download_map_carplay" = "Vă rugăm să descărcați hărțile în aplicația MAPS.ME de pe dispozitivul dvs.";
+"download_map_carplay" = "Vă rugăm să descărcați hărțile în aplicația OMaps de pe dispozitivul dvs.";
 
 "carplay_roundabout_exit" = "%s ieșire";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "Ura! Sunteți abonat!";
 
-"popup_subscription_success_map_message" = "Explorați acum cele mai faimoase obiective turistice în catalogul MAPS.ME";
+"popup_subscription_success_map_message" = "Explorați acum cele mai faimoase obiective turistice în catalogul OMaps";
 
 "popup_subscription_success_map_start_button" = "Uitați-vă";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "Începeți";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "Asistent universal în călătorii";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "Deschide directorul";
 
-"new_onboarding_step5.2_message" = "Abonamentul la catalogul ghidurilor de călătorie din MAPS.ME – este profitabil. Obțineți acces complet la rute pentru plimbări prin oraș și activități în aer liber!";
+"new_onboarding_step5.2_message" = "Abonamentul la catalogul ghidurilor de călătorie din OMaps – este profitabil. Obțineți acces complet la rute pentru plimbări prin oraș și activități în aer liber!";
 
 "new_onboarding_step5.2_button" = "Vezi termenii";
 
-"new_onboarding_step5.3_message" = "Descărcați și evaluați rutele pentru plimbări prin oraș și activități în aer liber, cu o selecție gratuită din MAPS.ME!";
+"new_onboarding_step5.3_message" = "Descărcați și evaluați rutele pentru plimbări prin oraș și activități în aer liber, cu o selecție gratuită din OMaps!";
 
 "new_onboarding_step5.3_button" = "Descarcă gratuit";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "Rute Outdooractive de vacanță de iarnă și de vară te așteaptă în catalog!";
 
-"whatsnew_guides_galleries_title" = "Planificați-vă următoarea călătorie cu MAPS.ME";
+"whatsnew_guides_galleries_title" = "Planificați-vă următoarea călătorie cu OMaps";
 
 "whatsnew_guides_galleries_message" = "Acum puteți găsi ghiduri recomandate în cartelele orașelor și atracțiilor populare";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "Înălțimi";
 
-"tips_map_layers_title_countour" = "Linii de înălțimi offline pe MAPS.ME!";
+"tips_map_layers_title_countour" = "Linii de înălțimi offline pe OMaps!";
 
 "tips_map_layers_message_countour" = "Liniile de înălțimi vă vor ajuta să planificați o călătorie în natură și să nu vă pierdeți";
 

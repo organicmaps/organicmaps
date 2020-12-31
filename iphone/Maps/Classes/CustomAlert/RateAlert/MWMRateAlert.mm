@@ -14,7 +14,7 @@ extern NSString * const kUDAlreadyRatedKey;
 
 static NSString * const kRateAlertEventName = @"rateAlertEvent";
 static NSString * const kRateAlertNibName = @"MWMRateAlert";
-static NSString * const kRateEmail = @"rating@maps.me";
+static NSString * const kRateEmail = @"rating@omaps.app";
 
 static NSString * const kStatisticsEvent = @"Rate Alert";
 
@@ -151,7 +151,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
         displayNameForKey:NSLocaleCountryCode
                     value:locale];
     NSString * bundleVersion = AppInfo.sharedInfo.bundleVersion;
-    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@",
+    NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- OMaps %@\n- %@/%@",
                                                  deviceModel, UIDevice.currentDevice.systemVersion,
                                                  bundleVersion, language, country];
     MWMMailViewController * mailController = [[MWMMailViewController alloc] init];

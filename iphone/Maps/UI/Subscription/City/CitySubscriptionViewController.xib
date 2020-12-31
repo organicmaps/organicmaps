@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CitySubscriptionViewController" customModule="maps_me" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CitySubscriptionViewController" customModule="omaps_app" customModuleProvider="target">
             <connections>
                 <outlet property="annualDiscountLabel" destination="YH0-h4-ZEb" id="onk-lS-6im"/>
                 <outlet property="annualSubscriptionButton" destination="neX-0h-hs4" id="I6s-8S-Qks"/>
@@ -162,7 +163,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pHi-wc-Fah">
                                     <rect key="frame" x="20" y="564" width="374" height="144"/>
                                     <subviews>
-                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neX-0h-hs4" userLabel="Continue" customClass="BookmarksSubscriptionButton" customModule="maps_me" customModuleProvider="target">
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neX-0h-hs4" userLabel="Continue" customClass="BookmarksSubscriptionButton" customModule="omaps_app" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="64"/>
                                             <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_subscription_annual"/>
@@ -181,7 +182,7 @@
                                                 <action selector="onAnnualButtonTap:" destination="-1" eventType="touchUpInside" id="KEE-ZN-J9Y"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sj5-ey-SEv" userLabel="Continue" customClass="BookmarksSubscriptionButton" customModule="maps_me" customModuleProvider="target">
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sj5-ey-SEv" userLabel="Continue" customClass="BookmarksSubscriptionButton" customModule="omaps_app" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="80" width="374" height="64"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_subscription_monthly"/>
@@ -190,7 +191,7 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                             <state key="normal" title="!! Monthly">
-                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleColor" systemColor="darkTextColor"/>
                                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
@@ -202,9 +203,9 @@
                                         </button>
                                     </subviews>
                                 </stackView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YH0-h4-ZEb" customClass="InsetsLabel" customModule="maps_me" customModuleProvider="target">
-                                    <rect key="frame" x="28" y="541" width="48.5" height="35"/>
-                                    <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- $38" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YH0-h4-ZEb" customClass="InsetsLabel" customModule="omaps_app" customModuleProvider="target">
+                                    <rect key="frame" x="28" y="541" width="48" height="35"/>
+                                    <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="ix5-N3-6ov"/>
                                     </constraints>
@@ -291,7 +292,7 @@
                                 </imageView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MPt-NS-DbA">
                                     <rect key="frame" x="0.0" y="1014.5" width="414" height="896"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="BookmarkSubscriptionFooterBackground"/>
                                     </userDefinedRuntimeAttributes>
@@ -385,6 +386,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="k4r-ns-RCJ"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="0eE-hs-sId" secondAttribute="trailing" id="7gZ-TD-rRu"/>
@@ -396,7 +398,6 @@
                 <constraint firstItem="0eE-hs-sId" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="sv4-ek-sAP"/>
                 <constraint firstAttribute="top" secondItem="BHb-cU-Ze3" secondAttribute="top" id="vTu-oZ-veb"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="k4r-ns-RCJ"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
             </userDefinedRuntimeAttributes>
@@ -418,5 +419,14 @@
         <image name="bookmarksSubscriptionClose" width="24" height="24"/>
         <image name="bookmarksSubscriptionFooter" width="375" height="208"/>
         <image name="bookmarksSubscriptionHeader" width="375" height="212.5"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

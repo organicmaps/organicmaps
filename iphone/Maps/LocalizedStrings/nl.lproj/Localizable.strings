@@ -47,7 +47,7 @@
 "get_it_now" = "Installeren";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Bedankt om MAPS.ME te gebruiken! Vindt u de app leuk? Vertel uw vrienden erover! Dit is voor ons het beste dankgebaar.";
+"share_on_facebook_text" = "Bedankt om OMaps te gebruiken! Vindt u de app leuk? Vertel uw vrienden erover! Dit is voor ons het beste dankgebaar.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "KB";
@@ -138,9 +138,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Probeer opnieuw";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
-"about_menu_title" = "Over MAPS.ME";
+"about_menu_title" = "Over OMaps";
 
 "downloading_touch_to_cancel" = "%d%% aan het downloaden, klik om te annuleren";
 
@@ -158,7 +158,7 @@
 
 "external_storage_is_not_available" = "SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar";
 
-"disconnect_usb_cable" = "Verwijder de USB kabel of plaats een geheugen kaart om MAPS.ME te gebruiken";
+"disconnect_usb_cable" = "Verwijder de USB kabel of plaats een geheugen kaart om OMaps te gebruiken";
 
 "not_enough_free_space_on_sdcard" = "Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "Update beschikbaar voor deze kaarten:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "U heeft MAPS.ME Lite niet meer nodig, dus u kunt de app deïnstalleren";
+"suggest_uninstall_lite" = "U heeft OMaps Lite niet meer nodig, dus u kunt de app deïnstalleren";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ is succesvol gedownload";
@@ -249,10 +249,10 @@
 "set" = "Groep";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
+"bookmarks_usage_hint" = "Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de OMaps app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
+"bookmarks_usage_hint_import_only" = "Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de OMaps app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
 
 /* Settings button in system menu */
 "settings" = "Instellingen";
@@ -354,9 +354,9 @@
 "share_by_email" = "Delen via email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Bladwijzers van MAPS.ME met u gedeeld";
+"share_bookmarks_email_subject" = "Bladwijzers van OOMapst u gedeeld";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Bladwijzers aan het uploaden";
@@ -386,7 +386,7 @@
 "downloading_is_active" = "Het downloaden van het land is nu aan de gang.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Ik hoop dat u veel plezier hebt met MAPS.ME! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!";
+"appStore_message" = "Ik hoop dat u veel plezier hebt met OMaps! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!";
 
 /* No, thanks */
 "no_thanks" = "Nee, bedankt";
@@ -398,10 +398,10 @@
 "my_position_share_sms" = "Kijk waar ik nu ben. Open %1$@ of %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Kijk naar mijn pin op MAPS.ME kaart";
+"bookmark_share_email_subject" = "Kijk naar mijn pin op OMaps kaart";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Kijk naar mijn huidige locatie op MAPS.ME kaart";
+"my_position_share_email_subject" = "Kijk naar mijn huidige locatie op OMaps kaart";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.";
@@ -582,16 +582,16 @@
 "download_map_notification" = "Download de kaart van de plaats waar u bent";
 
 /* text of notification */
-"pro_version_is_free_today" = "Volledige versie van MAPS.ME is nu gratis! Download nu en vertel het je vrienden.";
+"pro_version_is_free_today" = "Volledige versie van OMaps is nu gratis! Download nu en vertel het je vrienden.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "We verplaatsen uw gedownloade kaarten van MAPS.ME Lite naar MAPS.ME. Dit kan enkele minuten duren.";
+"move_lite_maps_to_pro" = "We verplaatsen uw gedownloade kaarten van OMaps Lite naar OMaps. Dit kan enkele minuten duren.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Uw gedownloade kaarten werden met succes verplaatst naar MAPS.ME.";
+"move_lite_maps_to_pro_ok" = "Uw gedownloade kaarten werden met succes verplaatst naar OMaps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Verplaatsing van uw kaarten mislukt. Gelieve MAPS.ME Lite te verwijderen en de kaarten opnieuw te downloaden.";
+"move_lite_maps_to_pro_failed" = "Verplaatsing van uw kaarten mislukt. Gelieve OMaps Lite te verwijderen en de kaarten opnieuw te downloaden.";
 
 /* Text in menu */
 "settings_and_more" = "Instellingen & meer";
@@ -600,7 +600,7 @@
 "website" = "Website";
 
 /* Text in menu */
-"maps_me_community" = "Gemeenschap van MAPS.ME";
+"maps_me_community" = "Gemeenschap van OMaps";
 
 /* Text in menu */
 "like_on_facebook" = "Ons leuk vinden op Facebook";
@@ -630,13 +630,13 @@
 "report_a_bug" = "Meld een fout";
 
 /* Email subject */
-"subscribe_me_subject" = "Ik meld mij aan voor de nieuwsbrief MAPS.ME";
+"subscribe_me_subject" = "Ik meld mij aan voor de nieuwsbrief OMaps";
 
 /* Email body */
 "subscribe_me_body" = "Ik wil graag als eerste horen over het laatste nieuws updates en acties. Ik kan mijn abonnement te allen tijde annuleren.";
 
 /* About text */
-"about_text" = "MAPS.ME biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nMAPS.ME zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.\n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we MAPS.ME volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support@maps.me. We reageren op elke aanvraag!\n\nVindt je MAPS.ME leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren:\n- plaats een beoordeling op je App Market\n- like onze Facebook-pagina http://www.facebook.com/mapswithme\n- of vertel gewoon je ma, vrienden en collega’s over MAPS.ME :) Dank je dat je ons steunt. Wij waarderen dit heel erg!\n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op https://www.openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in MAPS.ME verschijnen.";
+"about_text" = "OMaps biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nOMaps zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.\n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we OMaps volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support@omaps.app. We reageren op elke aanvraag!\n\nVindt je OMaps leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren:\n- plaats een beoordeling op je App Market\n- like onze Facebook-pagina http://www.facebook.com/mapswithme\n- of vertel gewoon je ma, vrienden en collega’s over OMaps :) Dank je dat je ons steunt. Wij waarderen dit heel erg!\n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op https://www.openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in OMaps verschijnen.";
 
 /* Alert text */
 "email_error_body" = "De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %@";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "Werk de kaart bij om een route te maken.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.";
+"routing_update_maps" = "Met de nieuwe versie van OMaps kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Update alles";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "Gevonden";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Bij het creëren van routes in MAPS.ME-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!";
+"routing_disclaimer" = "Bij het creëren van routes in OMaps-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Verouderd";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "Er is geen route gevonden tussen het geselecteerde beginpunt en de bestemming. Gelieve een andere beginpunt of een eindbestemming te kiezen.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Er is een interne fout opgetreden. Probeer het kaart te verwijderen en opnieuw te downloaden. Indien het probleem blijft optreden, neem dan contact met ons op support@maps.me.";
+"routing_failed_internal_error" = "Er is een interne fout opgetreden. Probeer het kaart te verwijderen en opnieuw te downloaden. Indien het probleem blijft optreden, neem dan contact met ons op support@omaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Download kaart + routering";
@@ -765,10 +765,10 @@
 "rating_just_rated" = "Ik heb je app zojuist gewaardeerd";
 
 /* Text for rating dialog */
-"rating_user_since" = "Ik ben een MAPS.ME-gebruiker vanaf %@";
+"rating_user_since" = "Ik ben een OMaps-gebruiker vanaf %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Vind je MAPS.ME leuk?";
+"rating_do_like_maps" = "Vind je OMaps leuk?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Druk op een ster om onze app te waarderen.";
@@ -792,7 +792,7 @@
 "routing_download_map" = "Krijg kaart";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Download bijgewerkte kaart en routegegevens om alle functies van MAPS.ME te krijgen.";
+"routing_download_map_and_routing" = "Download bijgewerkte kaart en routegegevens om alle functies van OMaps te krijgen.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Krijg routegegevens";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "Vindt u de app leuk?";
 
-"rate_alert_default_message" = "Bedankt om MAPS.ME te gebruiken. Gelieve de app te beoordelen. Uw feedback helpt ons beter te worden.";
+"rate_alert_default_message" = "Bedankt om OMaps te gebruiken. Gelieve de app te beoordelen. Uw feedback helpt ons beter te worden.";
 
 "rate_alert_five_star_message" = "Hoera! Wij houden ook van u!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Dubbele plaats";
 
-"first_launch_congrats_title" = "MAPS.ME is klaar voor gebruik";
+"first_launch_congrats_title" = "OMaps is klaar voor gebruik";
 
 "first_launch_congrats_text" = "Zoek en navigeer overal ter wereld offline, gratis.";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.";
 
-"whatsnew_editor_message_2" = "* MAPS.ME gebruikt OpenStreetMap-communitiedata.";
+"whatsnew_editor_message_2" = "* OMaps gebruikt OpenStreetMap-communitiedata.";
 
 "onboarding_offline_navigation_title" = "Je zult nooit meer verdwalen";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "Plan optimale auto- en wandelroutes.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — toegang tot kaarten van de hele wereld, zonder verbinding met het internet";
+"onboarding_offline_maps_title" = "OMaps — toegang tot kaarten van de hele wereld, zonder verbinding met het internet";
 
 "onboarding_offline_maps_message" = "Download eenmaal de kaarten voor het gewenste gebied en gebruik de navigatie- en zoekfuncties zonder een internetverbinding.";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.";
 
-"onboarding_permissions_title" = "MAPS.ME toegang geven tot opslag en locatie";
+"onboarding_permissions_title" = "OMaps toegang geven tot opslag en locatie";
 
 "onboarding_permissions_message" = "Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Om te kunnen downloaden, heb je meer ruimte nodig. Verwijder overbodige gegevens.";
 
-"editor_sharing_title" = "Ik heb de MAPS.ME-kaarten verbeterd";
+"editor_sharing_title" = "Ik heb de OMaps-kaarten verbeterd";
 
 "editor_comment_will_be_sent" = "We zullen uw opmerking doorsturen naar de kaartmakers.";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "Gedetailleerde reactie";
 
-"editor_detailed_description" = "Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-community. Beschrijf de details die niet kunnen worden bewerkt in MAPS.ME.";
+"editor_detailed_description" = "Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-community. Beschrijf de details die niet kunnen worden bewerkt in OMaps.";
 
 "editor_more_about_osm" = "Meer over OpenStreetMap";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "We hebben de kaarteditor bijgewerkt";
 
-"whatsnew_update_editor_message" = "MAPS.ME-gebruikers hebben 200.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!";
+"whatsnew_update_editor_message" = "OMaps-gebruikers hebben 200.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Om de kaartaanpasser te kunnen gebruiken, moet je alle kaarten actualiseren.";
@@ -1598,7 +1598,7 @@
 
 "continue_recent_track_background_button" = "Verdergaan";
 
-"recent_track_background_dialog_message" = "MAPS.ME gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.";
+"recent_track_background_dialog_message" = "OMaps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.";
 
 "whatsnew_car_navigation_header" = "Gebruikersvriendelijke voertuignavigatie";
 
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "Fietsnavigatie (bèta-versie)";
 
-"whatsnew_cycle_navigation_message" = "We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met MAPS.ME en deel uw ervaringen met ons.";
+"whatsnew_cycle_navigation_message" = "We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met OMaps en deel uw ervaringen met ons.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Beoordeel op Google Play";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "Vertel een Vriend";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Hallo! Installeer MAPS.ME!";
+"tell_friends_text" = "Hallo! Installeer OMaps!";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME is een essentiële offline applicatie om te reizen. MAPS.ME is gebaseerd op OpenStreetMap gegevens en laat bewerking toe.";
+"about_description" = "OMaps is een essentiële offline applicatie om te reizen. OMaps is gebaseerd op OpenStreetMap gegevens en laat bewerking toe.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Openen";
 
-"whatsnew_uber_header" = "MAPS.ME en Uber";
+"whatsnew_uber_header" = "OMaps en Uber";
 
 "whatsnew_uber_message" = "Bestel een Uber-taxi rechtstreeks vanuit de app!";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "Lettergrootte op de kaart vergroten";
 
-"traffic_update_app" = "Gelieve MAPS.ME bij te werken";
+"traffic_update_app" = "Gelieve OMaps bij te werken";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Om de verkeersgegevens weer te geven, moet de applicatie bijgewerkt worden.";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "Toegang verlenen";
 
-"onboarding_storage_permissions_message" = "Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik MAPS.ME.";
+"onboarding_storage_permissions_message" = "Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik OMaps.";
 
 "button_exit" = "Verlaten";
 
-"onboarding_detail_permissions_title" = "MAPS.ME heeft toegang nodig tot";
+"onboarding_detail_permissions_title" = "OMaps heeft toegang nodig tot";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "Opslag";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "Probleem met opslagtoegang";
 
-"dialog_error_storage_message" = "Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve het te controleren en ons te contacteren via support@maps.me";
+"dialog_error_storage_message" = "Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve het te controleren en ons te contacteren via support@omaps.app";
 
 "setting_emulate_bad_storage" = "Slechte opslag emuleren";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "Ik accepteer <a href=\"%s\">de gebruiksvoorwaarden</a>";
 
-"sign_agree_news_gdpr" = "Ik ga ermee akkoord dat ik het recentste nieuws over de producten van MAPS.ME zal ontvangen";
+"sign_agree_news_gdpr" = "Ik ga ermee akkoord dat ik het recentste nieuws over de producten van OMaps zal ontvangen";
 
 "whats_new_localbiz_title" = "Kleine ondernemingen verdienen aandacht";
 
-"whats_new_localbiz_message" = "Het zijn de lokale cafés, gezellige herbergen en winkels die onze reizen onvergetelijk maken. We optimaliseren uw pagina in MAPS.ME zodat deze opvalt.";
+"whats_new_localbiz_message" = "Het zijn de lokale cafés, gezellige herbergen en winkels die onze reizen onvergetelijk maken. We optimaliseren uw pagina in OMaps zodat deze opvalt.";
 
 "whats_new_order_button" = "Dien een aanvraag in";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "Download nieuwe plaatsen";
 
-"cached_bookmarks_placeholder_subtitle" = "Druk op de knop om duizenden interessante plaatsen en routes te downloaden, gecreëerd door MAPS.ME-gebruikers. U hebt een internet-verbinding nodig.";
+"cached_bookmarks_placeholder_subtitle" = "Druk op de knop om duizenden interessante plaatsen en routes te downloaden, gecreëerd door OMaps-gebruikers. U hebt een internet-verbinding nodig.";
 
 "downloader_download_routers" = "Download bladwijzers";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "Crash rapport";
 
-"opt_out_fabric_description" = "Wij kunnen uw gegevens gebruiken om MAPS.ME te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.";
+"opt_out_fabric_description" = "Wij kunnen uw gegevens gebruiken om OMaps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "Bladwijzers werden niet gedownload";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME heeft nu een route catalogus";
+"whats_new_bookmarks_catalog_title" = "OMaps heeft nu een route catalogus";
 
 "whats_new_bookmarks_catalog_message" = "Honderden gedetailleerde routes over de hele wereld: waar te gaan, wat te zien, waar te eten.";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "Schakel advertenties uit";
 
-"remove_ads_title" = "Schakel alle advertenties uit en steun MAPS.ME";
+"remove_ads_title" = "Schakel alle advertenties uit en steun OMaps";
 
 "paybtn_title" = "Betaal %s/jaar";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "Andere opties";
 
-"why_support" = "Waarom MAPS.ME ondersteunen?";
+"why_support" = "Waarom OMaps ondersteunen?";
 
 "options_dropdown_item1" = "%s/maand (besparing %s/jaar)";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "We zullen alle advertenties voor u uitschakelen";
 
-"why_support_item2" = "U helpt ons MAPS.ME te verbeteren";
+"why_support_item2" = "U helpt ons OMaps te verbeteren";
 
 "why_support_item3" = "U helpt ons de kaarten van OpenStreetMap.org te verbeteren";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "Server niet beschikbaar";
 
-"server_unavailable_message" = "De aankoop zal later worden voltooid. Neem contact op met support@maps.me als de fout aanhoudt.";
+"server_unavailable_message" = "De aankoop zal later worden voltooid. Neem contact op met support@omaps.app als de fout aanhoudt.";
 
 "offline_fiters_check_in" = "Verbind met internet om de datum van aankomst en vertrek te selecteren.";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Deze gids zal worden geüpload naar de openbare MAPS.ME catalogus en zal voor andere gebruikers beschikbaar zijn";
+"upload_and_publish_desc" = "Deze gids zal worden geüpload naar de openbare OMaps catalogus en zal voor andere gebruikers beschikbaar zijn";
 
 "upload_and_publish" = "Upload en publiceer";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "Help reizigers door een beoordeling achter te laten!";
 
-"share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via MAPS.ME en geniet van uw reis!\n\nHaal de applicatie op: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via OMaps en geniet van uw reis!\n\nHaal de applicatie op: http://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigator waarschuwt u over camera's wanneer u de maximumsnelheid van %d km/h overschrijdt";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "Het is eenvoudig om je indrukken te delen";
 
-"whats_new_ugc_routes_subtitle" = "Bewaar gedenkwaardige plaatsen, maak routes met behulp van bladwijzers en deel ze met iedereen in de MAPS.ME-catalogus.";
+"whats_new_ugc_routes_subtitle" = "Bewaar gedenkwaardige plaatsen, maak routes met behulp van bladwijzers en deel ze met iedereen in de OMaps-catalogus.";
 
 "whats_new_webeditor_title" = "Maak verhalen van je routes";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "Uw route moet minimaal 3 tags bevatten, zodat deze kan worden geüpload naar de openbare map";
 
-"bookmark_public_upload_alert_title" = "U bent slechts een paar stappen verwijderd van het laden van uw route in de MAPS.ME catalogus!";
+"bookmark_public_upload_alert_title" = "U bent slechts een paar stappen verwijderd van het laden van uw route in de OMaps catalogus!";
 
 "bookmark_public_upload_alert_subtitle" = "Zorg ervoor dat de route een naam en beschrijving heeft en dat alle tags informatie over de plaatsen bevatten. Dankzij dit zullen gebruikers de route vinden en deze tijdens een reis kunnen gebruiken.";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "Maximale energiebesparing";
 
-"enable_logging_warning_message" = "Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van MAPS.ME-ondersteuning.";
+"enable_logging_warning_message" = "Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van OMaps-ondersteuning.";
 
 "html_error_upload_message_try_again" = "Controleer de netwerktoegang en probeer het opnieuw";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "Uw ID: %s.";
 
-"gdpr_request_window_message" = "Alstublieft, kopieer het en stuur een verzoek naar support@maps.me";
+"gdpr_request_window_message" = "Alstublieft, kopieer het en stuur een verzoek naar support@omaps.app";
 
 "gdpr_request_window_copy" = "ID kopiëren";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "Ferries vermijden";
 
-"cached_guides_placeholder_subtitle" = "Klare reisgids op MAPS.ME bevatten geselecteerde plaatsen met foto's en beschrijvingen die op de kaart worden weergegeven en offline beschikbaar zijn.";
+"cached_guides_placeholder_subtitle" = "Klare reisgids op OMaps bevatten geselecteerde plaatsen met foto's en beschrijvingen die op de kaart worden weergegeven en offline beschikbaar zijn.";
 
 "guides_catalogue_title" = "Reisgidscatalogus";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "Oezbeekse keuken";
 
-"onboarding_welcome_title" = "Plan en reis met MAPS.ME";
+"onboarding_welcome_title" = "Plan en reis met OMaps";
 
 "onboarding_welcome_first_subtitle" = "Slaat op interessante plaatsen, boek hotels, bouw routen offline";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "Downloaden";
 
-"onboarding_bydeeplink_guide_title" = "Klare reisgids op MAPS.ME";
+"onboarding_bydeeplink_guide_title" = "Klare reisgids op OMaps";
 
 "onboarding_bydeeplink_guide_subtitle" = "Geselecteerde plaatsen met foto's en beschrijvingen worden op de kaart weergegeven en zijn offline beschikbaar.";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "Hebt u een hotel geboekt?";
 
-"popup_booking_download_guides_message" = "Plan uw route met kant-en-klare reisgidsen van MAPS.ME";
+"popup_booking_download_guides_message" = "Plan uw route met kant-en-klare reisgidsen van OMaps";
 
 "popup_mwm_download_guides_title" = "Offline handleidingen";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "Kijken";
 
-"gallery_pp_download_guides_offline_title" = "Plan uw vakantie met MAPS.ME!";
+"gallery_pp_download_guides_offline_title" = "Plan uw vakantie met OMaps!";
 
 "gallery_pp_download_guides_offline_subtitle" = "Pas op voor de belangrijkste routes van ervaren reizigers";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
 
-"whatsnew_carplay_title" = "Automatische navigatie MAPS.ME met CarPlay!";
+"whatsnew_carplay_title" = "Automatische navigatie OOMapst CarPlay!";
 
 "whatsnew_carplay_message" = "Bladwijzers, zoeken, snelheidscamera's en omweginstellingen – alles werkt zonder internet";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "Over cameras";
 
-"download_map_carplay" = "Download kaarten in de MAPS.ME app op uw apparaat";
+"download_map_carplay" = "Download kaarten in de OMaps app op uw apparaat";
 
 "carplay_roundabout_exit" = "Afrit nr. %s";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "Hoera! U bent opgeschreven!";
 
-"popup_subscription_success_map_message" = "Ontdekt u nu de beste toeristische attracties in de MAPS.ME catalogus";
+"popup_subscription_success_map_message" = "Ontdekt u nu de beste toeristische attracties in de OMaps catalogus";
 
 "popup_subscription_success_map_start_button" = "Kijken";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "Start";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "Een universele reisadviseur";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "Catalogus openen";
 
-"new_onboarding_step5.2_message" = "Uw abonnement op de MAPS.ME-reisgidsencatalogus is van grote waarde. Krijg volledige toegang tot stads- en buitengidsen over de hele wereld!";
+"new_onboarding_step5.2_message" = "Uw abonnement op de OMaps-reisgidsencatalogus is van grote waarde. Krijg volledige toegang tot stads- en buitengidsen over de hele wereld!";
 
 "new_onboarding_step5.2_button" = "Bekijk de voorwaarden";
 
-"new_onboarding_step5.3_message" = "Bekijk gratis voorbeelden van kant-en-klare stads- en buitenroutes met een gratis selectie van MAPS.ME!";
+"new_onboarding_step5.3_message" = "Bekijk gratis voorbeelden van kant-en-klare stads- en buitenroutes met een gratis selectie van OMaps!";
 
 "new_onboarding_step5.3_button" = "Gratis downloaden";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "Routes van Outdooractive voor winter- en zomerreizen wachten op u in de catalogus!";
 
-"whatsnew_guides_galleries_title" = "Plan uw volgende reis met MAPS.ME";
+"whatsnew_guides_galleries_title" = "Plan uw volgende reis met OMaps";
 
 "whatsnew_guides_galleries_message" = "Nu kunt u de aanbevolen handleidingen in de populaire steden en sightseeing kaarten vinden";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "Hoogtes";
 
-"tips_map_layers_title_countour" = "Hoogtelijnen offline in MAPS.ME!";
+"tips_map_layers_title_countour" = "Hoogtelijnen offline in OMaps!";
 
 "tips_map_layers_message_countour" = "Dankzij de hoogtelijnen kunt u probleemloos natuurreizen plannen en er zeker van zijn dat u niet verdwalen zult";
 

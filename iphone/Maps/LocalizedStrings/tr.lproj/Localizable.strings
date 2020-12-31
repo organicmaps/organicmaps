@@ -47,7 +47,7 @@
 "get_it_now" = "Hemen al";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "MAPS.ME’yi kullandığınız için teşekkür ederiz! Uygulamayı beğendiniz mi? Bundan arkadaşlarınıza bahsedin! Bundan büyük memnuniyet duyarız.";
+"share_on_facebook_text" = "OMaps’yi kullandığınız için teşekkür ederiz! Uygulamayı beğendiniz mi? Bundan arkadaşlarınıza bahsedin! Bundan büyük memnuniyet duyarız.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -138,9 +138,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Tekrar Deneyin";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
-"about_menu_title" = "MAPS.ME Hakkında";
+"about_menu_title" = "OMaps Hakkında";
 
 "downloading_touch_to_cancel" = "%d%% indiriliyor, iptal etmek için dokunun";
 
@@ -158,7 +158,7 @@
 
 "external_storage_is_not_available" = "İndirilen haritalarla SD kart/USB depolama aygıtı kullanılamıyor";
 
-"disconnect_usb_cable" = "MAPS.ME’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın";
+"disconnect_usb_cable" = "OMaps’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın";
 
 "not_enough_free_space_on_sdcard" = "Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "Bu haritalar için güncelleme kullanılabilir:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "MAPS.ME Lite’e artık ihtiyacınız yok; bu nedenle uygulamayı kaldırabilirsiniz.";
+"suggest_uninstall_lite" = "OMaps Lite’e artık ihtiyacınız yok; bu nedenle uygulamayı kaldırabilirsiniz.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ başarılı bir şekilde indirildi";
@@ -249,10 +249,10 @@
 "set" = "Ayarla";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp MAPS.ME’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.";
+"bookmarks_usage_hint" = "Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp OMaps’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Başka kaynaklardan yer imleri alınıp MAPS.ME’de gösterilebilir. KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen yer imleriyle aç.";
+"bookmarks_usage_hint_import_only" = "Başka kaynaklardan yer imleri alınıp OMaps’de gösterilebilir. KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen yer imleriyle aç.";
 
 /* Settings button in system menu */
 "settings" = "Ayarlar";
@@ -354,9 +354,9 @@
 "share_by_email" = "E-postayla paylaş";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Paylaşılan MAPS.ME yer imleri";
+"share_bookmarks_email_subject" = "Paylaşılan OMaps yer imleri";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Yer İmleri Yükleniyor";
@@ -386,22 +386,22 @@
 "downloading_is_active" = "Ülke indirme işlemi şu anda sürüyor.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "MAPS.ME kullanmaktan keyif aldığınızı umuyoruz! Öyleyse, lütfen App Store’da uygulamaya puan verin veya uygulama hakkında yorum yapın. Bir dakikadan daha kısa sürer ama bize gerçekten yardımcı olabilir. Desteğiniz için teşekkürler!";
+"appStore_message" = "OMaps kullanmaktan keyif aldığınızı umuyoruz! Öyleyse, lütfen App Store’da uygulamaya puan verin veya uygulama hakkında yorum yapın. Bir dakikadan daha kısa sürer ama bize gerçekten yardımcı olabilir. Desteğiniz için teşekkürler!";
 
 /* No, thanks */
 "no_thanks" = "Hayır, teşekkürler";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, MAPS.ME’de pinimi incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: http://maps.me/get";
+"bookmark_share_sms" = "Hey, OMaps’de pinimi incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: http://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, MAPS.ME’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: http://maps.me/get";
+"my_position_share_sms" = "Hey, OMaps’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: http://omaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, MAPS.ME haritasında pinimi incele!";
+"bookmark_share_email_subject" = "Hey, OMaps haritasında pinimi incele!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, MAPS.ME’de geçerli konumumu incele!";
+"my_position_share_email_subject" = "Hey, OMaps’de geçerli konumumu incele!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.";
@@ -549,7 +549,7 @@
 "search_show_on_map" = "Haritada görüntüle";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Harita veri depolama optimize edildi. Lütfen uygulamayı yeniden başlatın.\n\nSD kart kaynağındaki MAPS.ME klasörüne artık ihtiyaç yok; silebilirsiniz.";
+"kitkat_migrate_ok" = "Harita veri depolama optimize edildi. Lütfen uygulamayı yeniden başlatın.\n\nSD kart kaynağındaki OMaps klasörüne artık ihtiyaç yok; silebilirsiniz.";
 
 /* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_failed" = "Android 4.4’de yapılan değişikliklerden dolayı harita veri depolamasını optimize etmemiz gerekiyor ancak harita verilerini kopyalayacak yeterli alan yok.\n\nLütfen hafızayı boşaltın, aksi takdirde haritalar salt okunur modda kullanılabilir olacaktır.";
@@ -582,16 +582,16 @@
 "download_map_notification" = "Bulunduğun yerin haritasını indir";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.";
+"pro_version_is_free_today" = "OMaps tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "MAPS.ME Lite'den indirmiş olduğunuz haritaları MAPS.ME'ye aktarıyoruz. Bu bir kaç dakika sürebilir.";
+"move_lite_maps_to_pro" = "OMaps Lite'den indirmiş olduğunuz haritaları OMaps'ye aktarıyoruz. Bu bir kaç dakika sürebilir.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "İndirmiş olduğunuz haritalar başarılı bir şekilde MAPS.ME'ye aktarıldı.";
+"move_lite_maps_to_pro_ok" = "İndirmiş olduğunuz haritalar başarılı bir şekilde OMaps'ye aktarıldı.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite'yi silin ve haritaları tekrar indirin.";
+"move_lite_maps_to_pro_failed" = "Haritanızın aktarımı başarısız oldu. Lütfen OMaps Lite'yi silin ve haritaları tekrar indirin.";
 
 /* Text in menu */
 "settings_and_more" = "Ayarlar & Fazlası";
@@ -600,7 +600,7 @@
 "website" = "Web Sitesi";
 
 /* Text in menu */
-"maps_me_community" = "MAPS.ME Topluluğu";
+"maps_me_community" = "OMaps Topluluğu";
 
 /* Text in menu */
 "like_on_facebook" = "Facebook'da beğen";
@@ -630,13 +630,13 @@
 "report_a_bug" = "Hata bildir";
 
 /* Email subject */
-"subscribe_me_subject" = "Lütfen MAPS.ME haber bültenine beni abone yap";
+"subscribe_me_subject" = "Lütfen OMaps haber bültenine beni abone yap";
 
 /* Email body */
 "subscribe_me_body" = "En son haberlerden güncellemelerden ve tanıtımlardan ilk önce haberdar olmak istiyorum. Aboneliğimi herhangi bir zaman iptal edebilirim.";
 
 /* About text */
-"about_text" = "MAPS.ME dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, MAPS.ME harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin MAPS.ME'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@maps.me adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nMAPS.ME'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza MAPS.ME'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttps://www.openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler MAPS.ME'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.";
+"about_text" = "OMaps dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, OMaps harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin OMaps'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@omaps.app adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nOMaps'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza OMaps'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttps://www.openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler OMaps'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.";
 
 /* Alert text */
 "email_error_body" = "E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %@ adresinden ulaşmak için başka bir yöntem deneyin";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "MAPS.ME'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.";
+"routing_update_maps" = "OMaps'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Hepsini güncelle";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "Bulundu";
 
 /* Disclaimer message */
-"routing_disclaimer" = "MAPS.ME uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!";
+"routing_disclaimer" = "OMaps uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Güncel değil";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "Seçilen kalkış yeriyle varış yeri arasında hiçbir rota bulunamadı. Lütfen farklı bir başlangıç veya bitiş noktası seçin.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support@maps.me adresinden bize ulaşın.";
+"routing_failed_internal_error" = "Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support@omaps.app adresinden bize ulaşın.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Harita + Rota İndir";
@@ -765,10 +765,10 @@
 "rating_just_rated" = "Uygulamanıza az önce puan verdim";
 
 /* Text for rating dialog */
-"rating_user_since" = "%@ yılından beri MAPS.ME kullanıcısıyım";
+"rating_user_since" = "%@ yılından beri OMaps kullanıcısıyım";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "MAPS.ME'yi beğeniyor musunuz?";
+"rating_do_like_maps" = "OMaps'yi beğeniyor musunuz?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Uygulamamıza puan vermek için bir yıldıza dokunun.";
@@ -792,7 +792,7 @@
 "routing_download_map" = "Harita alın";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Tüm MAPS.ME özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.";
+"routing_download_map_and_routing" = "Tüm OMaps özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Rota verileri edin";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "Uygulamayı beğendiniz mi?";
 
-"rate_alert_default_message" = "MAPS.ME’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.";
+"rate_alert_default_message" = "OMaps’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.";
 
 "rate_alert_five_star_message" = "Yaşasın! Biz de sizi seviyoruz!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Kopyalanmış yer";
 
-"first_launch_congrats_title" = "MAPS.ME kullanıma hazır";
+"first_launch_congrats_title" = "OMaps kullanıma hazır";
 
 "first_launch_congrats_text" = "Dünyanın her yerinde çevrimdışı olarak ücretsiz arama yapın ve gezinin.";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.";
 
-"whatsnew_editor_message_2" = "* MAPS.ME, OpenStreetMap topluluğu verilerini kullanmaktadır.";
+"whatsnew_editor_message_2" = "* OMaps, OpenStreetMap topluluğu verilerini kullanmaktadır.";
 
 "onboarding_offline_navigation_title" = "Bir daha asla kaybolmayacaksınız";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "En iyi araba ve yaya rotalarını planlayın.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — dünya genelinde haritaya internetsiz erişim";
+"onboarding_offline_maps_title" = "OMaps — dünya genelinde haritaya internetsiz erişim";
 
 "onboarding_offline_maps_message" = "İlk önce istenilen alanın haritasını indirin ve internet bağlantısı olmadan navigasyonu ve arama fonksiyonlarını kullanın.";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.";
 
-"onboarding_permissions_title" = "MAPS.ME'nin depolama alanına ve konum bilgilerine erişmesine izin verin";
+"onboarding_permissions_title" = "OMaps'nin depolama alanına ve konum bilgilerine erişmesine izin verin";
 
 "onboarding_permissions_message" = "Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.";
 
-"editor_sharing_title" = "MAPS.ME haritalarını iyileştirdim";
+"editor_sharing_title" = "OMaps haritalarını iyileştirdim";
 
 "editor_comment_will_be_sent" = "Yorumunuzu haritacılara göndereceğiz.";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "Ayrıntılı yorum";
 
-"editor_detailed_description" = "Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. MAPS.ME’de düzenlenemeyen ayrıntıları açıklayın.";
+"editor_detailed_description" = "Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. OMaps’de düzenlenemeyen ayrıntıları açıklayın.";
 
 "editor_more_about_osm" = "OpenStreetMap hakkında ek bilgi";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "Harita düzenleyicisini güncelledik";
 
-"whatsnew_update_editor_message" = "MAPS.ME kullanıcıları, haritalar üzerinde 200.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!";
+"whatsnew_update_editor_message" = "OMaps kullanıcıları, haritalar üzerinde 200.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Harita Editörü'nü kullanmak için lütfen tüm haritaları güncelleyin.";
@@ -1598,7 +1598,7 @@
 
 "continue_recent_track_background_button" = "Devam Et";
 
-"recent_track_background_dialog_message" = "MAPS.ME, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
+"recent_track_background_dialog_message" = "OMaps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
 
 "whatsnew_car_navigation_header" = "Kullanıcı dostu araç navigasyonu";
 
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "Bisiklet navigasyonu (beta sürüm)";
 
-"whatsnew_cycle_navigation_message" = "Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.";
+"whatsnew_cycle_navigation_message" = "Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını OMaps ile deneyin ve görüşlerinizi bizimle paylaşın.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Google Play'de Oy Ver";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "Arkadaşınıza söyleyin";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Merhaba! MAPS.ME'yi hemen yükle!";
+"tell_friends_text" = "Merhaba! OMaps'yi hemen yükle!";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. MAPS.ME, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.";
+"about_description" = "OMaps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. OMaps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Aç";
 
-"whatsnew_uber_header" = "MAPS.ME ve Uber";
+"whatsnew_uber_header" = "OMaps ve Uber";
 
 "whatsnew_uber_message" = "Doğrudan uygulamadan Uber taksi isteyin!";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "Harita üzerindeki yazı tipi boyutunu artır";
 
-"traffic_update_app" = "Lütfen MAPS.ME uygulamasını güncelleyin";
+"traffic_update_app" = "Lütfen OMaps uygulamasını güncelleyin";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "Erişime izin ver";
 
-"onboarding_storage_permissions_message" = "Cihazınızdaki izin ayarlarını değiştirin. MAPS.ME'yi kullanmak için depolama alanına erişim izni gerekiyor.";
+"onboarding_storage_permissions_message" = "Cihazınızdaki izin ayarlarını değiştirin. OMaps'yi kullanmak için depolama alanına erişim izni gerekiyor.";
 
 "button_exit" = "Çık";
 
-"onboarding_detail_permissions_title" = "MAPS.ME'nin şuraya erişmesi gerekiyor:";
+"onboarding_detail_permissions_title" = "OMaps'nin şuraya erişmesi gerekiyor:";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "Depolama Alanı";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "Depolama alanı erişim sorunu";
 
-"dialog_error_storage_message" = "Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support@maps.me adresinden bizimle iletişime geçin";
+"dialog_error_storage_message" = "Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support@omaps.app adresinden bizimle iletişime geçin";
 
 "setting_emulate_bad_storage" = "Bozuk depolama alanını taklit et";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "<a href=\"%s\">Kullanım Şartları</a> bölümünü kabul ediyorum";
 
-"sign_agree_news_gdpr" = "MAPS.ME ürünleri hakkında en yeni haberleri almayı kabul ediyorum";
+"sign_agree_news_gdpr" = "OMaps ürünleri hakkında en yeni haberleri almayı kabul ediyorum";
 
 "whats_new_localbiz_title" = "Küçük işletmeler de ilgi hak ediyor";
 
-"whats_new_localbiz_message" = "Seyahatlerinizi unutulmaz kılan bölgedeki kafeler, konforlu oteller ve alışveriş yapabileceğiniz mağazalardır. Tüm bunların ön plana çıkabilmesi için MAPS.ME sayfanızı optimize edeceğiz.";
+"whats_new_localbiz_message" = "Seyahatlerinizi unutulmaz kılan bölgedeki kafeler, konforlu oteller ve alışveriş yapabileceğiniz mağazalardır. Tüm bunların ön plana çıkabilmesi için OMaps sayfanızı optimize edeceğiz.";
 
 "whats_new_order_button" = "İsteğinizi iletin";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "Yeni yerler indirin";
 
-"cached_bookmarks_placeholder_subtitle" = "MAPS.ME kullanıcılarının oluşturduğu binlerce ilgi çekici yeri ve rotayı indirmek için düğmeye basın. İnternet bağlantınızın olması gerekir.";
+"cached_bookmarks_placeholder_subtitle" = "OMaps kullanıcılarının oluşturduğu binlerce ilgi çekici yeri ve rotayı indirmek için düğmeye basın. İnternet bağlantınızın olması gerekir.";
 
 "downloader_download_routers" = "İndirilen yer imleri";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "Kilitlenme raporu";
 
-"opt_out_fabric_description" = "MAPS.ME deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.";
+"opt_out_fabric_description" = "OMaps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "Yer imleri indirilmedi";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME'de artık yeni bir rota kategorisi var";
+"whats_new_bookmarks_catalog_title" = "OMaps'de artık yeni bir rota kategorisi var";
 
 "whats_new_bookmarks_catalog_message" = "Dünyanın dört bir yanından yüzlerce ayrıntılı rota: Nereye gidilir? Nereleri ziyaret edilir? Ne yenir?";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "Reklamları kaldır";
 
-"remove_ads_title" = "Tüm reklamları kaldırın ve MAPS.ME'ye destek olun";
+"remove_ads_title" = "Tüm reklamları kaldırın ve OMaps'ye destek olun";
 
 "paybtn_title" = "Yıllık %s/ödeyin";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "Diğer seçenekler";
 
-"why_support" = "MAPS.ME'yi neden desteklemeliyim?";
+"why_support" = "OMaps'yi neden desteklemeliyim?";
 
 "options_dropdown_item1" = "%s/ay (yıllık %s tasarruf)";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "Sizin için tüm reklamları kaldıracağız";
 
-"why_support_item2" = "MAPS.ME'yi geliştirmemize yardımcı oldunuz";
+"why_support_item2" = "OMaps'yi geliştirmemize yardımcı oldunuz";
 
 "why_support_item3" = "OpenStreetMap.org'daki açık haritaları geliştirmemize yardımcı oldunuz";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "Hizmet kullanılamıyor";
 
-"server_unavailable_message" = "Satın alma işlemi daha sonra tamamlanacak. Sorun devam ederse lütfen support@maps.me adresine ulaşın.";
+"server_unavailable_message" = "Satın alma işlemi daha sonra tamamlanacak. Sorun devam ederse lütfen support@omaps.app adresine ulaşın.";
 
 "offline_fiters_check_in" = "Otelleri tarihe göre filtrelemek için internete bağlanın.";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Bu kılavuz, herkese açık MAPS.ME kataloğuna yüklenecek ve diğer kullanıcılara sunulacaktır";
+"upload_and_publish_desc" = "Bu kılavuz, herkese açık OMaps kataloğuna yüklenecek ve diğer kullanıcılara sunulacaktır";
 
 "upload_and_publish" = "Yükle ve yayınla";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "Yorum bırakarak gezginlere yardım edin!";
 
-"share_bookmarks_email_body_link" = "Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. OMaps ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: http://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "İzlenimlerinizi paylaşmak çok kolay";
 
-"whats_new_ugc_routes_subtitle" = "nutulmaz mekanları kaydedin, sayfa işaretleri kullanarak rotalar oluşturun ve bunları MAPS.ME kataloğundaki herkesle paylaşın.";
+"whats_new_ugc_routes_subtitle" = "nutulmaz mekanları kaydedin, sayfa işaretleri kullanarak rotalar oluşturun ve bunları OMaps kataloğundaki herkesle paylaşın.";
 
 "whats_new_webeditor_title" = "Rotalarınızı hikayelere dönüştürün";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "Kılavuzunuzu genel kataloğa yükleyebilmek için en az 3 yer iminiz olmalı";
 
-"bookmark_public_upload_alert_title" = "Yer imlerinizi tüm MAPS.ME gezginleriyle paylaşmanıza az kaldı!";
+"bookmark_public_upload_alert_title" = "Yer imlerinizi tüm OMaps gezginleriyle paylaşmanıza az kaldı!";
 
 "bookmark_public_upload_alert_subtitle" = "Lütfen listeniz için belirli bir ad ve açıklamanız olduğundan ve tüm yer imlerinde yerler hakkında biraz bilgi bulunduğundan emin olun. Bu şekilde listeniz başkaları tarafından bulunabilir ve kullanılabilir.";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "Maksimum güç tasarrufu";
 
-"enable_logging_warning_message" = "Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca MAPS.ME desteğinin isteği üzerine etkinleştirin.";
+"enable_logging_warning_message" = "Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca OMaps desteğinin isteği üzerine etkinleştirin.";
 
 "html_error_upload_message_try_again" = "Lütfen ağ ayarlarınızı kontrol edip tekrar deneyin";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "Kimliğiniz: %s.";
 
-"gdpr_request_window_message" = "Lütfen kopyalayın ve talebi support@maps.me adresine gönderin";
+"gdpr_request_window_message" = "Lütfen kopyalayın ve talebi support@omaps.app adresine gönderin";
 
 "gdpr_request_window_copy" = "Kimliği kopyala";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "Feribot geçişlerinden kaçın";
 
-"cached_guides_placeholder_subtitle" = "MAPS.ME, harita üzerinde görüntülenen ve çevrimdışı kullanılabilen, fotoğraf ve açıklamaların bulunduğu seçili yerler için hazır rehberler sunar.";
+"cached_guides_placeholder_subtitle" = "OMaps, harita üzerinde görüntülenen ve çevrimdışı kullanılabilen, fotoğraf ve açıklamaların bulunduğu seçili yerler için hazır rehberler sunar.";
 
 "guides_catalogue_title" = "Rehber kataloğu";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "Özbek mutfağı";
 
-"onboarding_welcome_title" = "MAPS.ME ile planlayın ve seyahat edin";
+"onboarding_welcome_title" = "OMaps ile planlayın ve seyahat edin";
 
 "onboarding_welcome_first_subtitle" = "İlginç yerleri işaretleyin, otel rezervasyonu yapın, çevrimdışıyken rota hesaplayın";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "İndir";
 
-"onboarding_bydeeplink_guide_title" = "MAPS.ME’de kullanıma hazır rehberler";
+"onboarding_bydeeplink_guide_title" = "OMaps’de kullanıma hazır rehberler";
 
 "onboarding_bydeeplink_guide_subtitle" = "Ziyaret edilecek en iyi yerler fotoğraf ve açıklamalarla birlikte haritada görüntülenir. Çevrimdışı kullanın.";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "Otel rezervasyonu yaptırdınız mı?";
 
-"popup_booking_download_guides_message" = "MAPS.ME adresinden, hazır rehberler ile rotanızı planlayın";
+"popup_booking_download_guides_message" = "OMaps adresinden, hazır rehberler ile rotanızı planlayın";
 
 "popup_mwm_download_guides_title" = "Çevrimdışı şehir rehberleri";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "Bir göz atın";
 
-"gallery_pp_download_guides_offline_title" = "Tatilinizi MAPS.ME ile planlayın!";
+"gallery_pp_download_guides_offline_title" = "Tatilinizi OMaps ile planlayın!";
 
 "gallery_pp_download_guides_offline_subtitle" = "Deneyimli gezginler tarafından yapılan rehberlerle, hiçbir şeyi kaçırmayın";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "Ödeme, satın alma onayında iTunes hesabınızdan alınacaktır. Otomatik yenileme geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınızdan, geçerli dönemin sona ermesinden önce 24 saat içinde planınıza göre yenileme için ücret alınacaktır. Otomatik yenilemeyi satın alma işleminizde dilediğiniz zaman Apple ID hesap ayarlarınızda yönetebilir veya kapatabilirsiniz.";
 
-"whatsnew_carplay_title" = "CarPlay'de MAPS.ME araç navigasyonu!";
+"whatsnew_carplay_title" = "CarPlay'de OMaps araç navigasyonu!";
 
 "whatsnew_carplay_message" = "Yer imleri, arama, hız kameraları ve sürüş seçenekleri çevrimdışı da mevcut";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "Hız uyarıları";
 
-"download_map_carplay" = "Lütfen haritaları cihazınıza MAPS.ME uygulamasından indirin";
+"download_map_carplay" = "Lütfen haritaları cihazınıza OMaps uygulamasından indirin";
 
 "carplay_roundabout_exit" = "%s çıkış";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "Yaşasın, abone oldun!";
 
-"popup_subscription_success_map_message" = "Şimdi MAPS.ME kataloğunda en iyi turistik yerleri keşfedin";
+"popup_subscription_success_map_message" = "Şimdi OMaps kataloğunda en iyi turistik yerleri keşfedin";
 
 "popup_subscription_success_map_start_button" = "Göz atmaya başla";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "Başla";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "Her şey dahil seyahat arkadaşı";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "Kataloğu aç";
 
-"new_onboarding_step5.2_message" = "MAPS.ME rehber kataloğu aboneliğiniz çok değerlidir. Tüm dünyadan hem şehir içi hem de doğa rehberlerine tam erişim elde edin!";
+"new_onboarding_step5.2_message" = "OMaps rehber kataloğu aboneliğiniz çok değerlidir. Tüm dünyadan hem şehir içi hem de doğa rehberlerine tam erişim elde edin!";
 
 "new_onboarding_step5.2_button" = "Şartlara göz at";
 
-"new_onboarding_step5.3_message" = "Ücretsiz MAPS.ME seçeneği ile hazır şehir ve açık hava güzergahlarından ücretsiz örnekleri inceleyin!";
+"new_onboarding_step5.3_message" = "Ücretsiz OMaps seçeneği ile hazır şehir ve açık hava güzergahlarından ücretsiz örnekleri inceleyin!";
 
 "new_onboarding_step5.3_button" = "Ücretsiz indir";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "Outdooractive'in kış ve yaz seyahatleri için güzergahlar katalogda bekliyor!";
 
-"whatsnew_guides_galleries_title" = "Yaklaşan seyahatinizi MAPS.ME ile planlayın";
+"whatsnew_guides_galleries_title" = "Yaklaşan seyahatinizi OMaps ile planlayın";
 
 "whatsnew_guides_galleries_message" = "Artık popüler turistik şehirlerin ve turistik mekanların yer sayfalarında önerilen rehberleri bulabilirsiniz";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "Yükseklikler";
 
-"tips_map_layers_title_countour" = "MAPS.ME'de yükseklik çizgileri çevrimdışı!";
+"tips_map_layers_title_countour" = "OMaps'de yükseklik çizgileri çevrimdışı!";
 
 "tips_map_layers_message_countour" = "Yükseklik çizgileri, doğaya bir gezi planlamanıza ve arazide kaybolmamanıza yardımcı olacaktır";
 

@@ -357,7 +357,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/OMAPS.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "tracking-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -367,7 +367,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/OMAPS.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "tracking-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -393,7 +393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/OMAPS.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "tracking-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

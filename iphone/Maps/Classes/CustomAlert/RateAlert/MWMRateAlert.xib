@@ -50,7 +50,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="rate_alert_title"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Спасибо что пользуетесь картами MAPS.ME. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aP7-fq-KaH" userLabel="Message">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Спасибо что пользуетесь картами OMaps. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aP7-fq-KaH" userLabel="Message">
                             <rect key="frame" x="20" y="45" width="240" height="82"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="240" id="HJM-e9-0wo"/>

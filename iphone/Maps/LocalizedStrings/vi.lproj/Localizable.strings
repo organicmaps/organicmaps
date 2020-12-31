@@ -47,7 +47,7 @@
 "get_it_now" = "Tải xuống ngay";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Cám ơn bạn đã sử dụng MAPS.ME! Bạn thích ứng dụng chứ? Kể cho bạn bè về ứng dụng này! Đây sẽ là sự biết ơn tuyệt vời nhất đối với chúng tôi.";
+"share_on_facebook_text" = "Cám ơn bạn đã sử dụng OMaps! Bạn thích ứng dụng chứ? Kể cho bạn bè về ứng dụng này! Đây sẽ là sự biết ơn tuyệt vời nhất đối với chúng tôi.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -138,9 +138,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Thử lại";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
-"about_menu_title" = "Giới thiệu về MAPS.ME";
+"about_menu_title" = "Giới thiệu về OMaps";
 
 "downloading_touch_to_cancel" = "Đang tải xuống %d%%, chạm để hủy bỏ";
 
@@ -158,7 +158,7 @@
 
 "external_storage_is_not_available" = "Không hỗ trợ lưu trữ trên thẻ SD/USB với các bản đồ được tải xuống";
 
-"disconnect_usb_cable" = "Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng MAPS.ME";
+"disconnect_usb_cable" = "Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng OMaps";
 
 "not_enough_free_space_on_sdcard" = "Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Bạn không cần MAPS.ME Lite nữa, vì vậy bạn có thể gỡ cài đặt nó.";
+"suggest_uninstall_lite" = "Bạn không cần OMaps Lite nữa, vì vậy bạn có thể gỡ cài đặt nó.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@, descărcată cu succes";
@@ -249,10 +249,10 @@
 "set" = "Đặt";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ email, Dropbox hoặc liên kết web.";
+"bookmarks_usage_hint" = "Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong OMaps. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ email, Dropbox hoặc liên kết web.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.";
+"bookmarks_usage_hint_import_only" = "Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong OMaps. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.";
 
 /* Settings button in system menu */
 "settings" = "Thiết lập";
@@ -354,9 +354,9 @@
 "share_by_email" = "Chia sẻ bằng email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Điểm đánh dấu MAPS.ME được chia sẻ";
+"share_bookmarks_email_subject" = "Điểm đánh dấu OMaps được chia sẻ";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Tải Điểm đánh dấu";
@@ -386,22 +386,22 @@
 "downloading_is_active" = "Hiện đang tải xuống quốc gia.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Hi vọng bạn thích sử dụng MAPS.ME! Nếu vậy, bạn vui lòng cho điểm hoặc đánh giá ứng dụng trên App Store. Việc này chỉ tốn dưới một phút và sẽ giúp chúng tôi rất nhiều. Cảm ơn bạn đã ủng hộ!";
+"appStore_message" = "Hi vọng bạn thích sử dụng OMaps! Nếu vậy, bạn vui lòng cho điểm hoặc đánh giá ứng dụng trên App Store. Việc này chỉ tốn dưới một phút và sẽ giúp chúng tôi rất nhiều. Cảm ơn bạn đã ủng hộ!";
 
 /* No, thanks */
 "no_thanks" = "Không, cảm ơn";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Này, hãy xem ghim của tôi tại MAPS.ME! %1$@ hoặc %2$@ Bạn chưa cài đặt bản đồ ngoại tuyến? Tải xuống tại đây: http://maps.me/get";
+"bookmark_share_sms" = "Này, hãy xem ghim của tôi tại OMaps! %1$@ hoặc %2$@ Bạn chưa cài đặt bản đồ ngoại tuyến? Tải xuống tại đây: http://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: http://maps.me/get";
+"my_position_share_sms" = "Này, hãy xem vị trí hiện tại của tôi tại OMaps! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: http://omaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Này, hãy xem ghim của tôi tại MAPS.ME map";
+"bookmark_share_email_subject" = "Này, hãy xem ghim của tôi tại OMaps map";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME map!";
+"my_position_share_email_subject" = "Này, hãy xem vị trí hiện tại của tôi tại OMaps map!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.";
@@ -582,16 +582,16 @@
 "download_map_notification" = "Tải xuống bản đồ của vị trí của bạn";
 
 /* text of notification */
-"pro_version_is_free_today" = "Full version of MAPS.ME is free today! Download now and tell your friends.";
+"pro_version_is_free_today" = "Full version of OMaps is free today! Download now and tell your friends.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Chúng tôi đang chuyển bản đồ đã tải xuống của bạn từ MAPS.ME Lite sang MAPS.ME. Việc này có thể mất vài phút.";
+"move_lite_maps_to_pro" = "Chúng tôi đang chuyển bản đồ đã tải xuống của bạn từ OMaps Lite sang OMaps. Việc này có thể mất vài phút.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Bản đồ đã tải xuống của bạn đã được chuyển thành công sang MAPS.ME.";
+"move_lite_maps_to_pro_ok" = "Bản đồ đã tải xuống của bạn đã được chuyển thành công sang OMaps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Bản đồ của bạn không chuyển được. Vui lòng xóa MAPS.ME Lite và tải xuống lại bản đồ.";
+"move_lite_maps_to_pro_failed" = "Bản đồ của bạn không chuyển được. Vui lòng xóa OMaps Lite và tải xuống lại bản đồ.";
 
 /* Text in menu */
 "settings_and_more" = "Thiết lập &amp; Khác";
@@ -600,7 +600,7 @@
 "website" = "Trang web";
 
 /* Text in menu */
-"maps_me_community" = "Cộng đồng MAPS.ME";
+"maps_me_community" = "Cộng đồng OMaps";
 
 /* Text in menu */
 "like_on_facebook" = "Thích trên Facebook";
@@ -630,13 +630,13 @@
 "report_a_bug" = "Báo cáo lỗi";
 
 /* Email subject */
-"subscribe_me_subject" = "Vui lòng đăng ký tôi vào danh sách nhận thư định kỳ MAPS.ME";
+"subscribe_me_subject" = "Vui lòng đăng ký tôi vào danh sách nhận thư định kỳ OMaps";
 
 /* Email body */
 "subscribe_me_body" = "Tôi muốn là người đầu tiên được biết về các thông tin cập nhật và quảng bá mới nhất. Tôi có thể hủy bỏ đăng ký nhận tin của mình bất cứ lúc nào.";
 
 /* About text */
-"about_text" = "MAPS.ME cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, MAPS.ME vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v… gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện MAPS.ME. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@maps.me. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích MAPS.ME và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về MAPS.ME với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại https://www.openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng MAPS.ME ở phiên bản kế tiếp.";
+"about_text" = "OMaps cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, OMaps vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v… gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện OMaps. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@omaps.app. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích OMaps và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về OMaps với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại https://www.openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng OMaps ở phiên bản kế tiếp.";
 
 /* Alert text */
 "email_error_body" = "Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %@";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "Vui lòng cập nhật bản đồ để tạo tuyến đường";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Phiên bản MAPS.ME mới cho phép tạo các tuyến đường từ vị trí hiện tại của bạn đến điểm đến. Vui lòng cập nhật bản đồ để sử dụng tính năng này.";
+"routing_update_maps" = "Phiên bản OMaps mới cho phép tạo các tuyến đường từ vị trí hiện tại của bạn đến điểm đến. Vui lòng cập nhật bản đồ để sử dụng tính năng này.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Cập nhật tất cả";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "Đã tìm thấy";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Tạo các tuyến đường trong ứng dụng MAPS.ME, xin lưu ý điều sau:\n\n – Các tuyến đường được gợi ý chỉ có thể được xem là đề xuất.\n – Điều kiện con đường, luật giao thông và biển báo có mức ưu tiên cao hơn lời khuyên dẫn hướng.\n – Bản đồ có thể không chính xác hoặc lỗi thời, tuyến đường có thể không được tạo theo cách tốt nhất có thể.\n\n Hãy lái xe an toàn trên đường và bảo trọng!";
+"routing_disclaimer" = "Tạo các tuyến đường trong ứng dụng OMaps, xin lưu ý điều sau:\n\n – Các tuyến đường được gợi ý chỉ có thể được xem là đề xuất.\n – Điều kiện con đường, luật giao thông và biển báo có mức ưu tiên cao hơn lời khuyên dẫn hướng.\n – Bản đồ có thể không chính xác hoặc lỗi thời, tuyến đường có thể không được tạo theo cách tốt nhất có thể.\n\n Hãy lái xe an toàn trên đường và bảo trọng!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Lỗi thời";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "Không tìm thấy tuyến đường nào giữa điểm gốc và điểm đến được chọn. Vui lòng chọn điểm bắt đầu hoặc điểm cuối khác.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Đã xảy ra lỗi nội bộ. Vui lòng thử xóa và tải lại xuống bản đồ. Nếu vấn đề vẫn còn tồn tại, vui lòng liên hệ với chúng tôi tại support@maps.me.";
+"routing_failed_internal_error" = "Đã xảy ra lỗi nội bộ. Vui lòng thử xóa và tải lại xuống bản đồ. Nếu vấn đề vẫn còn tồn tại, vui lòng liên hệ với chúng tôi tại support@omaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Tải xuống Bản đồ + Định tuyến";
@@ -765,10 +765,10 @@
 "rating_just_rated" = "Tôi vừa đánh giá ứng dụng của bạn";
 
 /* Text for rating dialog */
-"rating_user_since" = "Tôi là người dùng MAPS.ME từ năm %@";
+"rating_user_since" = "Tôi là người dùng OMaps từ năm %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Bạn có thích MAPS.ME?";
+"rating_do_like_maps" = "Bạn có thích OMaps?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Chạm vào một ngôi sao để đánh giá ứng dụng của chúng tôi.";
@@ -792,7 +792,7 @@
 "routing_download_map" = "Nhận bản đồ";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Tải bản đồ và dữ liệu đường đi cập nhật để nhận được tất cả các tính năng của MAPS.ME.";
+"routing_download_map_and_routing" = "Tải bản đồ và dữ liệu đường đi cập nhật để nhận được tất cả các tính năng của OMaps.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Nhận dữ liệu đường đi";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "Bạn thích ứng dụng chứ?";
 
-"rate_alert_default_message" = "Cám ơn bạn đã sử dụng MAPS.ME. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.";
+"rate_alert_default_message" = "Cám ơn bạn đã sử dụng OMaps. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.";
 
 "rate_alert_five_star_message" = "Hoan hô! Chúng tôi cũng yêu bạn!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Địa điểm trùng lặp";
 
-"first_launch_congrats_title" = "MAPS.ME đã sẵn sàng để sử dụng";
+"first_launch_congrats_title" = "OMaps đã sẵn sàng để sử dụng";
 
 "first_launch_congrats_text" = "Tìm kiếm và điều hướng ngoại tuyến, miễn phí khắp mọi nơi trên thế giới.";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.";
 
-"whatsnew_editor_message_2" = "* MAPS.ME sử dụng dữ liệu của cộng đồng OpenStreetMap.";
+"whatsnew_editor_message_2" = "* OMaps sử dụng dữ liệu của cộng đồng OpenStreetMap.";
 
 "onboarding_offline_navigation_title" = "Bạn sẽ không bao giờ bị lạc nữa";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "Lập tuyến đường xe hơi và đi bộ tối ưu.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — truy cập bản đồ trên toàn thế giới không cần Internet";
+"onboarding_offline_maps_title" = "OMaps — truy cập bản đồ trên toàn thế giới không cần Internet";
 
 "onboarding_offline_maps_message" = "Chỉ tải xuống các bản đồ của khu vực bạn muốn một lần, và sử dụng các chức năng dẫn đường và tìm kiếm mà không cần kết nối Internet.";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "Để sử dụng tính năng dẫn đường và các tính năng khác, chúng tôi cần truy cập vị trí địa lý của bạn.";
 
-"onboarding_permissions_title" = "Cho phép MAPS.ME truy cập ổ lưu trữ và vị trí";
+"onboarding_permissions_title" = "Cho phép OMaps truy cập ổ lưu trữ và vị trí";
 
 "onboarding_permissions_message" = "Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Để tải xuống, bạn cần thêm dung lượng. Xin xóa mọi dữ liệu không cần thiết.";
 
-"editor_sharing_title" = "Tôi đã cải thiện các bản đồ MAPS.ME";
+"editor_sharing_title" = "Tôi đã cải thiện các bản đồ OMaps";
 
 "editor_comment_will_be_sent" = "Chúng tôi sẽ gửi bình luận của bạn đến những người lập bản đồ.";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "Nhận xét chi tiết";
 
-"editor_detailed_description" = "Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong MAPS.ME.";
+"editor_detailed_description" = "Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong OMaps.";
 
 "editor_more_about_osm" = "Thông tin bổ sung về OpenStreetMap";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "Chúng tôi đã cập nhật trình biên tập bản đồ";
 
-"whatsnew_update_editor_message" = "Người dùng MAPS.ME đã thực hiện 200 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!";
+"whatsnew_update_editor_message" = "Người dùng OMaps đã thực hiện 200 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Để sử dụng Ứng dụng Điều chỉnh Bản đồ, xin vui lòng cập nhật tất cả các bản đồ.";
@@ -1598,7 +1598,7 @@
 
 "continue_recent_track_background_button" = "Tiếp tục";
 
-"recent_track_background_dialog_message" = "MAPS.ME sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.";
+"recent_track_background_dialog_message" = "OMaps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.";
 
 "whatsnew_car_navigation_header" = "Phần mềm dẫn đường dành cho xe cộ thân thiện với người dùng";
 
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "Định vị xe đạp (phiên bản beta)";
 
-"whatsnew_cycle_navigation_message" = "Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.";
+"whatsnew_cycle_navigation_message" = "Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với OMaps, và chia sẻ ý kiến của bạn với chúng tôi.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Cho điểm trên Google Play";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "Giới thiệu với Bạn bè";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Xin chào! Hãy cài đặt MAPS.ME!";
+"tell_friends_text" = "Xin chào! Hãy cài đặt OMaps!";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. MAPS.ME được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.";
+"about_description" = "OMaps là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. OMaps được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Mở";
 
-"whatsnew_uber_header" = "MAPS.ME & Uber";
+"whatsnew_uber_header" = "OMaps & Uber";
 
 "whatsnew_uber_message" = "Đặt taxi Uber trực tiếp từ ứng dụng!";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "Tăng kích cỡ phông chữ trên bản đồ";
 
-"traffic_update_app" = "Vui lòng cập nhật MAPS.ME";
+"traffic_update_app" = "Vui lòng cập nhật OMaps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "Cho phép truy cập";
 
-"onboarding_storage_permissions_message" = "Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng MAPS.ME.";
+"onboarding_storage_permissions_message" = "Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng OMaps.";
 
 "button_exit" = "Thoát";
 
-"onboarding_detail_permissions_title" = "MAPS.ME cần quyền truy cập đến";
+"onboarding_detail_permissions_title" = "OMaps cần quyền truy cập đến";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "Ổ lưu trữ";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "Vấn đề truy cập ổ lưu trữ";
 
-"dialog_error_storage_message" = "Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support@maps.me";
+"dialog_error_storage_message" = "Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support@omaps.app";
 
 "setting_emulate_bad_storage" = "Giả lập ổ lưu trữ hỏng";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "Tôi đồng ý với <a href=\"%s\">Điều khoản sử dụng</a>";
 
-"sign_agree_news_gdpr" = "Tôi đồng ý nhận tin tức mới nhất về các sản phẩm MAPS.ME";
+"sign_agree_news_gdpr" = "Tôi đồng ý nhận tin tức mới nhất về các sản phẩm OMaps";
 
 "whats_new_localbiz_title" = "Doanh nghiệp nhỏ xứng đáng để được chú ý";
 
-"whats_new_localbiz_message" = "Chính các quán cà phê địa phương, nhà khách nhỏ và các cửa hàng ấm cúng mới làm cho hành trình của chúng ta thật khó quên. Chúng tôi sẽ tối ưu hóa trang của bạn trong MAPS.ME để làm nổi bật nó lên.";
+"whats_new_localbiz_message" = "Chính các quán cà phê địa phương, nhà khách nhỏ và các cửa hàng ấm cúng mới làm cho hành trình của chúng ta thật khó quên. Chúng tôi sẽ tối ưu hóa trang của bạn trong OMaps để làm nổi bật nó lên.";
 
 "whats_new_order_button" = "Để lại yêu cầu";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "Tải xuống các địa điểm mới";
 
-"cached_bookmarks_placeholder_subtitle" = "Nhấn nút để tải xuống hàng ngàn địa điểm và tuyến đường thú vị được tạo bởi người dùng MAPS.ME. Bạn sẽ cần kết nối internet.";
+"cached_bookmarks_placeholder_subtitle" = "Nhấn nút để tải xuống hàng ngàn địa điểm và tuyến đường thú vị được tạo bởi người dùng OMaps. Bạn sẽ cần kết nối internet.";
 
 "downloader_download_routers" = "Tải dấu trang xuống";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "Báo cáo sự cố";
 
-"opt_out_fabric_description" = "Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên MAPS.ME. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.";
+"opt_out_fabric_description" = "Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên OMaps. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "Dấu trang chưa được tải xuống";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME hiện đã có danh mục tuyến đường";
+"whats_new_bookmarks_catalog_title" = "OMaps hiện đã có danh mục tuyến đường";
 
 "whats_new_bookmarks_catalog_message" = "Hàng trăm tuyến đường chi tiết trên toàn thế giới: đi đâu, xem gì, ăn ở đâu.";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "Xóa quảng cáo";
 
-"remove_ads_title" = "Xóa tất cả quảng cáo và hỗ trợ MAPS.ME";
+"remove_ads_title" = "Xóa tất cả quảng cáo và hỗ trợ OMaps";
 
 "paybtn_title" = "Thanh toán %s/năm";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "Nhiều lựa chọn hơn";
 
-"why_support" = "Tại sao hỗ trợ MAPS.ME?";
+"why_support" = "Tại sao hỗ trợ OMaps?";
 
 "options_dropdown_item1" = "%s/tháng (tiết kiệm %s/năm)";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "Chúng tôi sẽ xóa tất cả quảng cáo cho bạn";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "You help us to improve OMaps";
 
 "why_support_item3" = "Bạn giúp chúng tôi cải thiện bản đồ mở OpenStreetMap.org";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "Máy chủ không khả dụng";
 
-"server_unavailable_message" = "Giao dịch mua sẽ được hoàn thành sau. Nếu vẫn còn lỗi, vui lòng liên hệ với support@maps.me.";
+"server_unavailable_message" = "Giao dịch mua sẽ được hoàn thành sau. Nếu vẫn còn lỗi, vui lòng liên hệ với support@omaps.app.";
 
 "offline_fiters_check_in" = "Kết nối với internet để lọc khách sạn theo ngày tháng.";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Hướng dẫn này sẽ được tải lên danh mục MAPS.ME công khai và sẽ có sẵn cho những người dùng khác";
+"upload_and_publish_desc" = "Hướng dẫn này sẽ được tải lên danh mục OMaps công khai và sẽ có sẵn cho những người dùng khác";
 
 "upload_and_publish" = "Tải lên và phát hành";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "Giúp khách du lịch bằng cách để lại đánh giá!";
 
-"share_bookmarks_email_body_link" = "Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua MAPS.ME và tận hưởng chuyến đi của bạn!\n\nNhận đơn đăng ký: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua OMaps và tận hưởng chuyến đi của bạn!\n\nNhận đơn đăng ký: http://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "Rất dễ để chia sẻ những sự ấn tượng của bạn";
 
-"whats_new_ugc_routes_subtitle" = "Lưu các địa điểm đáng nhớ, tạo tuyến đường bằng cách sử dụng chỉ mục và chia sẻ chúng với mọi người trong danh mục MAPS.ME.";
+"whats_new_ugc_routes_subtitle" = "Lưu các địa điểm đáng nhớ, tạo tuyến đường bằng cách sử dụng chỉ mục và chia sẻ chúng với mọi người trong danh mục OMaps.";
 
 "whats_new_webeditor_title" = "Biến tuyến đường của bạn thành câu chuyện";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "Trong hướng dẫn tuyến du lịch của bạn phải có ít nhất 3 thẻ đánh dấu để có thể tải lên công khai";
 
-"bookmark_public_upload_alert_title" = "Bạn chỉ cần thêm vài bước nữa là có thể chia sẻ hướng dẫn của mình với tất cả khách du lịch của MAPS.ME!";
+"bookmark_public_upload_alert_title" = "Bạn chỉ cần thêm vài bước nữa là có thể chia sẻ hướng dẫn của mình với tất cả khách du lịch của OMaps!";
 
 "bookmark_public_upload_alert_subtitle" = "Hãy chắc chắn rằng tuyến hướng dẫn của bạn có đầy đủ tên gọi, mô tả, và tất nhiên tất cả thẻ đánh dấu đều có thông tin về các địa điểm. Chính nhờ điều này, người dùng sẽ tìm được tuyến hướng dẫn và có thể áp dụng vào chuyến đi của mình.";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "Tiết kiệm năng lượng tối đa";
 
-"enable_logging_warning_message" = "Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ MAPS.ME.";
+"enable_logging_warning_message" = "Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ OMaps.";
 
 "html_error_upload_message_try_again" = "Vui lòng kiểm tra kết nối internet và thử lại";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "ID của bạn: %s.";
 
-"gdpr_request_window_message" = "Xin vui lòng sao chép nó và gửi yêu cầu tới địa chỉ support@maps.me";
+"gdpr_request_window_message" = "Xin vui lòng sao chép nó và gửi yêu cầu tới địa chỉ support@omaps.app";
 
 "gdpr_request_window_copy" = "Sao chép ID";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "Tránh bến phà";
 
-"cached_guides_placeholder_subtitle" = "Sách hướng dẫn sẵn có trong MAPS.ME – là những điểm được lựa chọn cùng với hình ảnh và mô tả, chúng được hiển thị trên bản đồ và cho phép truy cập ngoại tuyến.";
+"cached_guides_placeholder_subtitle" = "Sách hướng dẫn sẵn có trong OMaps – là những điểm được lựa chọn cùng với hình ảnh và mô tả, chúng được hiển thị trên bản đồ và cho phép truy cập ngoại tuyến.";
 
 "guides_catalogue_title" = "Danh mục sách hướng dẫn";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "Ẩm thực của Uzbekistan";
 
-"onboarding_welcome_title" = "Hãy lên kế hoạch và đi du lịch cùng với MAPS.ME";
+"onboarding_welcome_title" = "Hãy lên kế hoạch và đi du lịch cùng với OMaps";
 
 "onboarding_welcome_first_subtitle" = "Hãy lưu lại những địa chỉ hấp dẫn, đặt phòng khách sạn và xây dựng lộ trình đi ngoại tuyến";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "Tải về";
 
-"onboarding_bydeeplink_guide_title" = "Sác hướng dẫn sẵn có trong MAPS.ME";
+"onboarding_bydeeplink_guide_title" = "Sác hướng dẫn sẵn có trong OMaps";
 
 "onboarding_bydeeplink_guide_subtitle" = "Những địa điểm đã lựa chọn cùng hình ảnh và mô tả được hiển thị trên bản đồ và cho phép truy cập ngoại tuyến.";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "Đặt phòng khách sạn?";
 
-"popup_booking_download_guides_message" = "Lên kế hoạch chô lộ trình du lịch cùng với những sách hướng dẫn sẵn có từ MAPS.ME";
+"popup_booking_download_guides_message" = "Lên kế hoạch chô lộ trình du lịch cùng với những sách hướng dẫn sẵn có từ OMaps";
 
 "popup_mwm_download_guides_title" = "Hướng dẫn ngoại tuyến";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "Xem";
 
-"gallery_pp_download_guides_offline_title" = "Lên kết hoạch nghỉ ngơi cùng MAPS.ME!";
+"gallery_pp_download_guides_offline_title" = "Lên kết hoạch nghỉ ngơi cùng OMaps!";
 
 "gallery_pp_download_guides_offline_subtitle" = "Đừng bỏ lỡ những thứ quan trọng cùng với các tuyến được những du khách có kinh nghiệm đề xuất";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "Thanh toán sẽ được tính vào tài khoản iTunes của bạn khi xác nhận mua. Đăng ký sẽ tự động gia hạn trừ khi tính năng tự động gia hạn được tắt ít nhất 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Tài khoản của bạn sẽ được tính phí theo gói gia hạn trong vòng 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Bạn có thể quản lý hoặc tắt tính năng tự động gia hạn trong cài đặt tài khoản Apple ID của mình bất kỳ lúc nào sau khi mua.";
 
-"whatsnew_carplay_title" = "Điều hướng tự động MAPS.ME trong CarPlay!";
+"whatsnew_carplay_title" = "Điều hướng tự động OMaps trong CarPlay!";
 
 "whatsnew_carplay_message" = "Đánh dấu, tìm kiếm, camera tốc độ và thiết lập đi vòng, đường tránh – tất cả đều hoạt động mà không cần Internet";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "Cảnh báo tốc độ";
 
-"download_map_carplay" = "Vui lòng tải xuống bản đồ trong ứng dụng MAPS.ME trên thiết bị của bạn";
+"download_map_carplay" = "Vui lòng tải xuống bản đồ trong ứng dụng OMaps trên thiết bị của bạn";
 
 "carplay_roundabout_exit" = "Lối ra %s của vòng xuyến";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "Ura! Bạn đã đăng ký mua!";
 
-"popup_subscription_success_map_message" = "Bây giờ hãy khám phá những điểm du lịch tốt nhất trong danh mục của MAPS.ME";
+"popup_subscription_success_map_message" = "Bây giờ hãy khám phá những điểm du lịch tốt nhất trong danh mục của OMaps";
 
 "popup_subscription_success_map_start_button" = "Xem xét";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "Bắt đầu";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "Người trợ lý độc đáo cho các chuyến du lịch";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "Mở danh sách";
 
-"new_onboarding_step5.2_message" = "Đăng ký danh mục hướng dẫn trong MAPS.ME – đó là một điều hoàn toàn có lợi. Nhận được quyền truy cập toàn bộ vào các tuyến cho những chuyến dạo chơi quanh thành phố hay hoạt động ngoài trời!";
+"new_onboarding_step5.2_message" = "Đăng ký danh mục hướng dẫn trong OMaps – đó là một điều hoàn toàn có lợi. Nhận được quyền truy cập toàn bộ vào các tuyến cho những chuyến dạo chơi quanh thành phố hay hoạt động ngoài trời!";
 
 "new_onboarding_step5.2_button" = "Xem các điều khoản";
 
-"new_onboarding_step5.3_message" = "Tải xuống và đánh giá các tuyến đường cho các chuyến đi trong thành phố và các hoạt động ngoài trời với lựa chọn MAPS.ME miễn phí!";
+"new_onboarding_step5.3_message" = "Tải xuống và đánh giá các tuyến đường cho các chuyến đi trong thành phố và các hoạt động ngoài trời với lựa chọn OMaps miễn phí!";
 
 "new_onboarding_step5.3_button" = "Tải miễn phí";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "Các tuyến đường từ Outdooractive cho kỳ nghỉ mùa đông, mùa hè đang chờ đón bạn trong danh sách!";
 
-"whatsnew_guides_galleries_title" = "Hãy lên kế hoạch cho chuyến đi sắp tới cùng với MAPS.ME";
+"whatsnew_guides_galleries_title" = "Hãy lên kế hoạch cho chuyến đi sắp tới cùng với OMaps";
 
 "whatsnew_guides_galleries_message" = "Bây giờ bạn có thể tìm thấy hướng dẫn được đề xuất trong các thẻ của các thành phố và điểm tham quan nổi tiếng";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "Độ cao";
 
-"tips_map_layers_title_countour" = "Đường độ cao ngoại tuyến trong MAPS.ME!";
+"tips_map_layers_title_countour" = "Đường độ cao ngoại tuyến trong OMaps!";
 
 "tips_map_layers_message_countour" = "Đường độ cao giúp lên kế hoạch du lịch hòa mình với thiên nhiên và không bị lạc khi di chuyển";
 

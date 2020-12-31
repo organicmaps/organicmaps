@@ -47,7 +47,7 @@
 "get_it_now" = "Dapatkan sekarang";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Terima kasih karena menggunakan MAPS.ME! Apakah Anda suka aplikasi ini? Beri tahukan kepada teman-teman Anda! Ini akan menjadi ungkapan terima kasih yang terbaik bagi kami.";
+"share_on_facebook_text" = "Terima kasih karena menggunakan OMaps! Apakah Anda suka aplikasi ini? Beri tahukan kepada teman-teman Anda! Ini akan menjadi ungkapan terima kasih yang terbaik bagi kami.";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -138,9 +138,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Coba Lagi";
 
-"app_name" = "MAPS.ME";
+"app_name" = "OMaps";
 
-"about_menu_title" = "Tentang MAPS.ME";
+"about_menu_title" = "Tentang OMaps";
 
 "downloading_touch_to_cancel" = "Sedang mengunduh %d%%, sentuh untuk membatalkan";
 
@@ -158,7 +158,7 @@
 
 "external_storage_is_not_available" = "Penyimpanan kartu SD/USB dengan peta terunduh tidak tersedia";
 
-"disconnect_usb_cable" = "Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan MAPS.ME";
+"disconnect_usb_cable" = "Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan OMaps";
 
 "not_enough_free_space_on_sdcard" = "Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi";
 
@@ -204,7 +204,7 @@
 "advise_update_maps" = "Tersedia pembaruan untuk peta ini:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Anda tidak lagi memerlukan MAPS.ME Lite, sehingga Anda dapat menghapusnya.";
+"suggest_uninstall_lite" = "Anda tidak lagi memerlukan OMaps Lite, sehingga Anda dapat menghapusnya.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ berhasil diunduh";
@@ -249,10 +249,10 @@
 "set" = "Set";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.";
+"bookmarks_usage_hint" = "Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada OMaps. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Penanda dari sumber lainnya dapat diimpor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.";
+"bookmarks_usage_hint_import_only" = "Penanda dari sumber lainnya dapat diimpor dan ditampilkan pada OMaps. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.";
 
 /* Settings button in system menu */
 "settings" = "Pengaturan";
@@ -354,9 +354,9 @@
 "share_by_email" = "Bagikan menggunakan surel";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Bagikan penanda MAPS.ME";
+"share_bookmarks_email_subject" = "Bagikan penanda OMaps";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Memuat Penanda";
@@ -386,22 +386,22 @@
 "downloading_is_active" = "Pengunduhan negara sedang berjalan.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Kami harap Anda senang menggunakan MAPS.ME! Jika ya, mohon beri nilai atau ulasan untuk aplikasi ini di App Store. Hanya memakan waktu kurang dari satu menit tetapi hal itu dapat benar-benar membantu kami. Terima kasih atas dukungan Anda!";
+"appStore_message" = "Kami harap Anda senang menggunakan OMaps! Jika ya, mohon beri nilai atau ulasan untuk aplikasi ini di App Store. Hanya memakan waktu kurang dari satu menit tetapi hal itu dapat benar-benar membantu kami. Terima kasih atas dukungan Anda!";
 
 /* No, thanks */
 "no_thanks" = "Tidak, terima kasih";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hei, lihat pinku di MAPS.ME! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: http://maps.me/get";
+"bookmark_share_sms" = "Hei, lihat pinku di OMaps! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: http://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hei, lihat lokasiku saat ini di MAPS.ME! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: http://maps.me/get";
+"my_position_share_sms" = "Hei, lihat lokasiku saat ini di OMaps! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: http://omaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hei, lihat pinku di peta MAPS.ME";
+"bookmark_share_email_subject" = "Hei, lihat pinku di peta OMaps";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hei, lihat lokasiku saat ini di peta MAPS.ME!";
+"my_position_share_email_subject" = "Hei, lihat lokasiku saat ini di peta OMaps!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hai,\n\nSekarang saya ada di sini: %1$@. Klik tautan ini %2$@ atau yang ini %3$@ untuk melihat tempatnya di peta.\n\nTerima kasih.";
@@ -582,16 +582,16 @@
 "download_map_notification" = "Unduh peta tempat di mana Anda berada sekarang";
 
 /* text of notification */
-"pro_version_is_free_today" = "Full version of MAPS.ME is free today! Download now and tell your friends.";
+"pro_version_is_free_today" = "Full version of OMaps is free today! Download now and tell your friends.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Kami sedang mentransfer peta unduhan Anda dari MAPS.ME Lite ke MAPS.ME. Proses ini mungkin membutuhkan waktu beberapa menit.";
+"move_lite_maps_to_pro" = "Kami sedang mentransfer peta unduhan Anda dari OMaps Lite ke OMaps. Proses ini mungkin membutuhkan waktu beberapa menit.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Peta unduhan Anda berhasil ditransfer ke MAPS.ME.";
+"move_lite_maps_to_pro_ok" = "Peta unduhan Anda berhasil ditransfer ke OMaps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Peta Anda gagal ditransfer. Silakan hapus MAPS.ME Lite dan unduh peta lagi.";
+"move_lite_maps_to_pro_failed" = "Peta Anda gagal ditransfer. Silakan hapus OMaps Lite dan unduh peta lagi.";
 
 /* Text in menu */
 "settings_and_more" = "Setelan &amp; Lebih Banyak";
@@ -600,7 +600,7 @@
 "website" = "Situs Web";
 
 /* Text in menu */
-"maps_me_community" = "Komunitas MAPS.ME";
+"maps_me_community" = "Komunitas OMaps";
 
 /* Text in menu */
 "like_on_facebook" = "Sukai di Facebook";
@@ -630,13 +630,13 @@
 "report_a_bug" = "Laporkan gangguan";
 
 /* Email subject */
-"subscribe_me_subject" = "Mohon daftarkan saya untuk berlangganan berita MAPS.ME";
+"subscribe_me_subject" = "Mohon daftarkan saya untuk berlangganan berita OMaps";
 
 /* Email body */
 "subscribe_me_body" = "Saya ingin menjadi yang pertama untuk mengetahui kabar dan promosi terbaru. Saya dapat membatalkan langganan saya kapan saja.";
 
 /* About text */
-"about_text" = "MAPS.ME menawarkan peta offline tercepat dari semua kota, semua negara di dunia. Berpergianlah dengan kepercayaan diri yang penuh: di nana pun Anda berada, MAPS.ME akan membantu Anda mengetahui posisi Anda pada peta, menemukan restoran, hotel, bank, stasiun bahan bakar terdekat, dll. Tidak perlu koneksi internet.Kami selalu membuat fitur-fitur baru dan ingin mendengar pendapat Anda mengenai bagaimana kami dapat membuat MAPS.ME menjadi lebih baik. Jika Anda memiliki masalah apa pun dengan aplikasinya, jangan segan untuk menghubungi kami di support@maps.me. Kami akan merespons setiap permintaan!Apakah Anda menyukai MAPS.ME an ingin membantu kami? Terdapat beberapa cara yang mudah dan sepenuhnya gratis:- tulis ulasan di App Market Anda";
+"about_text" = "OOMapsnawarkan peta offline tercepat dari semua kota, semua negara di dunia. Berpergianlah dengan kepercayaan diri yang penuh: di nana pun Anda berada, OMaps akan membantu Anda mengetahui posisi Anda pada peta, menemukan restoran, hotel, bank, stasiun bahan bakar terdekat, dll. Tidak perlu koneksi internet.Kami selalu membuat fitur-fitur baru dan ingin mendengar pendapat Anda mengenai bagaimana kami dapat membuat OOMapsnjadi lebih baik. Jika Anda memiliki masalah apa pun dengan aplikasinya, jangan segan untuk menghubungi kami di support@omaps.app. Kami akan merespons setiap permintaan!Apakah Anda menyukai OMaps an ingin membantu kami? Terdapat beberapa cara yang mudah dan sepenuhnya gratis:- tulis ulasan di App Market Anda";
 
 /* Alert text */
 "email_error_body" = "Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %@";
@@ -654,7 +654,7 @@
 "routing_map_outdated" = "Mohon perbarui peta untuk membuat rute";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Versi MAPS.ME yang terbaru memungkinkan pembuatan rute dari posisi Anda saat itu ke titik tujuan. Mohon perbarui peta untuk menggunakan fitur ini.";
+"routing_update_maps" = "Versi OMaps yang terbaru memungkinkan pembuatan rute dari posisi Anda saat itu ke titik tujuan. Mohon perbarui peta untuk menggunakan fitur ini.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Perbarui semua";
@@ -682,7 +682,7 @@
 "downloader_search_results" = "Ditemukan";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Dalam membuat rute di aplikasi MAPS.ME, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!";
+"routing_disclaimer" = "Dalam membuat rute di aplikasi OMaps, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Usang";
@@ -718,7 +718,7 @@
 "routing_failed_route_not_found" = "Tidak ada rute yang ditemukan antara tempat asal dan tujuan yang dipilih. Mohon pilih titik mulai atau tujuan yang berbeda.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Terjadi gangguan internal. Mohon coba menghapus dan mengunduh petanya lagi. Jika masih terjadi masalah mohon hubungi kami di support@maps.me.";
+"routing_failed_internal_error" = "Terjadi gangguan internal. Mohon coba menghapus dan mengunduh petanya lagi. Jika masih terjadi masalah mohon hubungi kami di support@omaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Untuh Peta + Rute";
@@ -765,10 +765,10 @@
 "rating_just_rated" = "Saya baru saja menilai app Anda";
 
 /* Text for rating dialog */
-"rating_user_since" = "Saya pengguna MAPS.ME sejak %@";
+"rating_user_since" = "Saya pengguna OMaps sejak %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Anda suka MAPS.ME?";
+"rating_do_like_maps" = "Anda suka OMaps?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Ketuk bintang untuk menilai app kami.";
@@ -792,7 +792,7 @@
 "routing_download_map" = "Dapatkan peta";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Unduh peta yang diperbarui dan data perutean untuk mendapatkan semua fitur MAPS.ME.";
+"routing_download_map_and_routing" = "Unduh peta yang diperbarui dan data perutean untuk mendapatkan semua fitur OMaps.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Dapatkan data perutean";
@@ -1013,7 +1013,7 @@
 
 "rate_alert_title" = "Suka aplikasi ini?";
 
-"rate_alert_default_message" = "Terima kasih karena menggunakan MAPS.ME. Mohon beri peringkat untuk aplikasi ini. Masukan dari Anda membantu kami untuk menjadi lebih baik.";
+"rate_alert_default_message" = "Terima kasih karena menggunakan OMaps. Mohon beri peringkat untuk aplikasi ini. Masukan dari Anda membantu kami untuk menjadi lebih baik.";
 
 "rate_alert_five_star_message" = "Hore! Kami juga sangat menyukai Anda!";
 
@@ -1124,7 +1124,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Tempat ganda";
 
-"first_launch_congrats_title" = "MAPS.ME siap digunakan";
+"first_launch_congrats_title" = "OMaps siap digunakan";
 
 "first_launch_congrats_text" = "Cari dan bernavigasilah ke mana saja di dunia secara offline, bebas biaya.";
 
@@ -1320,7 +1320,7 @@
 
 "whatsnew_editor_message_1" = "Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.";
 
-"whatsnew_editor_message_2" = "* MAPS.ME menggunakan data komunitas OpenStreetMap.";
+"whatsnew_editor_message_2" = "* OOMapsnggunakan data komunitas OpenStreetMap.";
 
 "onboarding_offline_navigation_title" = "Anda tidak akan tersesat lagi";
 
@@ -1330,7 +1330,7 @@
 
 "onboarding_offline_navigation_message_2" = "Rencanakan rute mobil dan pejalan kaki yang optimal.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — akses peta seluruh dunia tanpa internet";
+"onboarding_offline_maps_title" = "OMaps — akses peta seluruh dunia tanpa internet";
 
 "onboarding_offline_maps_message" = "Unduh peta untuk daerah yang diinginkan sekali, dan gunakan navigasi dan fungsi pencarian tanpa koneksi internet.";
 
@@ -1342,7 +1342,7 @@
 
 "onboarding_location_message" = "Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.";
 
-"onboarding_permissions_title" = "Izinkan MAPS.ME mengakses penyimpanan dan lokasi";
+"onboarding_permissions_title" = "Izinkan OOMapsngakses penyimpanan dan lokasi";
 
 "onboarding_permissions_message" = "Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.";
 
@@ -1359,7 +1359,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Untuk mengunduh, Anda perlu ruang lebih banyak. Harap menghapus data yang tidak diperlukan.";
 
-"editor_sharing_title" = "Saya meningkatkan peta MAPS.ME";
+"editor_sharing_title" = "Saya meningkatkan peta OMaps";
 
 "editor_comment_will_be_sent" = "Kami akan mengirim komen Anda ke pembuat peta.";
 
@@ -1390,7 +1390,7 @@
 
 "editor_detailed_description_hint" = "Komentar mendetail";
 
-"editor_detailed_description" = "Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di MAPS.ME.";
+"editor_detailed_description" = "Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di OMaps.";
 
 "editor_more_about_osm" = "Selengkapnya tentang OpenStreetMap";
 
@@ -1430,7 +1430,7 @@
 
 "whatsnew_update_editor_title" = "Kami telah memperbarui editor peta";
 
-"whatsnew_update_editor_message" = "Pengguna MAPS.ME telah membuat 200 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!";
+"whatsnew_update_editor_message" = "Pengguna OMaps telah membuat 200 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!";
 
 /* Additional text in whats new */
 "whatsnew_update_editor_message_update" = "Untuk menggunakan editor peta, silakan perbarui semua peta.";
@@ -1598,7 +1598,7 @@
 
 "continue_recent_track_background_button" = "Teruskan";
 
-"recent_track_background_dialog_message" = "MAPS.ME menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.";
+"recent_track_background_dialog_message" = "OOMapsnggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.";
 
 "whatsnew_car_navigation_header" = "Navigasi kendaraan yang mudah digunakan";
 
@@ -1614,7 +1614,7 @@
 
 "whatsnew_cycle_navigation_header" = "Navigasi bersepeda (versi beta)";
 
-"whatsnew_cycle_navigation_message" = "Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.";
+"whatsnew_cycle_navigation_message" = "Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan OMaps dan sampaikan pendapat Anda.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Beri nilai di Google Play";
@@ -1623,10 +1623,10 @@
 "tell_friends" = "Beri Tahu Teman";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Hai! Instal MAPS.ME yuk!";
+"tell_friends_text" = "Hai! Instal OMaps yuk!";
 
 /* About short text (below logo) */
-"about_description" = "MAPS.ME adalah aplikasi offline yang sangat berguna untuk bepergian. MAPS.ME didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.";
+"about_description" = "OMaps adalah aplikasi offline yang sangat berguna untuk bepergian. OMaps didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1721,7 +1721,7 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Buka";
 
-"whatsnew_uber_header" = "MAPS.ME & Uber";
+"whatsnew_uber_header" = "OMaps & Uber";
 
 "whatsnew_uber_message" = "Pesan taksi Uber langsung dari aplikasi!";
 
@@ -1754,7 +1754,7 @@
 
 "big_font" = "Perbesar ukuran huruf pada peta";
 
-"traffic_update_app" = "Perbarui MAPS.ME";
+"traffic_update_app" = "Perbarui OMaps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Untuk menampilkan data lalu lintas, aplikasi ini harus diperbarui.";
@@ -1943,11 +1943,11 @@
 
 "onboarding_storage_permissions_title" = "Berikan akses";
 
-"onboarding_storage_permissions_message" = "Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan MAPS.ME.";
+"onboarding_storage_permissions_message" = "Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan OMaps.";
 
 "button_exit" = "Keluar";
 
-"onboarding_detail_permissions_title" = "MAPS.ME membutuhkan akses ke";
+"onboarding_detail_permissions_title" = "OOMapsmbutuhkan akses ke";
 
 /* Default permission's name from Android settings. */
 "onboarding_detail_permissions_storage_title" = "Penyimpanan";
@@ -2099,7 +2099,7 @@
 
 "dialog_error_storage_title" = "Masalah akses penyimpanan";
 
-"dialog_error_storage_message" = "Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support@ maps.me";
+"dialog_error_storage_message" = "Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support@ omaps.app";
 
 "setting_emulate_bad_storage" = "Emulasi penyimpanan yang buruk";
 
@@ -2277,11 +2277,11 @@
 
 "sign_agree_tof_gdpr" = "Saya setuju dengan <a href=\"%s\">Ketentuan Penggunaan</a>";
 
-"sign_agree_news_gdpr" = "Saya setuju untuk menerima berita terbaru tentang produk MAPS.ME";
+"sign_agree_news_gdpr" = "Saya setuju untuk menerima berita terbaru tentang produk OMaps";
 
 "whats_new_localbiz_title" = "Bisnis kecil layak mendapatkan perhatian";
 
-"whats_new_localbiz_message" = "Kafe lokal, hostel nyaman, dan pertokoan adalah yang membuat perjalanan kita tak terlupakan. Kami akan mengoptimalkan halaman Anda di MAPS.ME untuk membuatnya menonjol.";
+"whats_new_localbiz_message" = "Kafe lokal, hostel nyaman, dan pertokoan adalah yang membuat perjalanan kita tak terlupakan. Kami akan mengoptimalkan halaman Anda di OMaps untuk membuatnya menonjol.";
 
 "whats_new_order_button" = "Tinggalkan permintaan";
 
@@ -2295,7 +2295,7 @@
 
 "cached_bookmarks_placeholder_title" = "Unduh tempat baru";
 
-"cached_bookmarks_placeholder_subtitle" = "Tekan tombol untuk mengunduh ribuan tempat dan rute menarik yang dibuat oleh pengguna MAPS.ME. Anda akan memerlukan koneksi internet.";
+"cached_bookmarks_placeholder_subtitle" = "Tekan tombol untuk mengunduh ribuan tempat dan rute menarik yang dibuat oleh pengguna OMaps. Anda akan memerlukan koneksi internet.";
 
 "downloader_download_routers" = "Unduh bookmark";
 
@@ -2311,7 +2311,7 @@
 
 "opt_out_fabric" = "Laporan tabrakan";
 
-"opt_out_fabric_description" = "Kami dapat menggunakan data Anda untuk meningkatkan pengalaman MAPS.ME. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.";
+"opt_out_fabric_description" = "Kami dapat menggunakan data Anda untuk meningkatkan pengalaman OMaps. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2357,7 +2357,7 @@
 
 "subtitle_error_downloading_bookmarks" = "Bookmark tidak terunduh";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME sekarang memiliki katalog rute";
+"whats_new_bookmarks_catalog_title" = "OMaps sekarang memiliki katalog rute";
 
 "whats_new_bookmarks_catalog_message" = "Ratusan rute yang detail di seluruh dunia: tempat untuk dikunjungi, untuk melihat-lihat, untuk makan.";
 
@@ -2398,7 +2398,7 @@
 
 "remove_ads" = "Hapus iklan";
 
-"remove_ads_title" = "Hapus semua iklan dan dukungan MAPS.ME";
+"remove_ads_title" = "Hapus semua iklan dan dukungan OMaps";
 
 "paybtn_title" = "Bayar %s/tahun";
 
@@ -2406,7 +2406,7 @@
 
 "options_dropdown_title" = "Opsi lainnya";
 
-"why_support" = "Kenapa dukungan MAPS.ME?";
+"why_support" = "Kenapa dukungan OMaps?";
 
 "options_dropdown_item1" = "%s/bulan (hemat %s/tahun)";
 
@@ -2414,7 +2414,7 @@
 
 "why_support_item1" = "Kami akan menghapus semua iklan untuk Anda";
 
-"why_support_item2" = "Anda membantu kami meningkatkan MAPS.ME";
+"why_support_item2" = "Anda membantu kami meningkatkan OMaps";
 
 "why_support_item3" = "Anda membantu kami meningkatkan peta terbuka OpenStreetMap.org";
 
@@ -2450,7 +2450,7 @@
 
 "server_unavailable_title" = "Server tidak tersedia";
 
-"server_unavailable_message" = "Pembelian akan diselesaikan nanti. Jika kesalahan tetap terjadi, silakan hubungi support@maps.me.";
+"server_unavailable_message" = "Pembelian akan diselesaikan nanti. Jika kesalahan tetap terjadi, silakan hubungi support@omaps.app.";
 
 "offline_fiters_check_in" = "Sambungkan ke internet untuk memfilter hotel berdasar tanggal.";
 
@@ -2497,7 +2497,7 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Panduan ini akan diunggah ke katalog MAPS.ME umum dan akan tersedia untuk pengguna lain";
+"upload_and_publish_desc" = "Panduan ini akan diunggah ke katalog OMaps umum dan akan tersedia untuk pengguna lain";
 
 "upload_and_publish" = "Unggah dan publikasikan";
 
@@ -2598,7 +2598,7 @@
 
 "notification_leave_review_content" = "Bantu para pelancong dengan meninggalkan ulasan!";
 
-"share_bookmarks_email_body_link" = "Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui MAPS.ME dan nikmati perjalanan Anda!\n\nDapatkan aplikasi: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui OMaps dan nikmati perjalanan Anda!\n\nDapatkan aplikasi: http://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam";
 
@@ -2608,7 +2608,7 @@
 
 "whats_new_ugc_routes_title" = "Mudah untuk membagikan kesan Anda";
 
-"whats_new_ugc_routes_subtitle" = "Simpan tempat-tempat penuh kenangan, buat rute menggunakan markah dan bagikan kepada semua orang di katalog MAPS.ME.";
+"whats_new_ugc_routes_subtitle" = "Simpan tempat-tempat penuh kenangan, buat rute menggunakan markah dan bagikan kepada semua orang di katalog OMaps.";
 
 "whats_new_webeditor_title" = "Ubah rute Anda menjadi cerita";
 
@@ -2642,7 +2642,7 @@
 
 "error_public_not_enought_subtitle" = "Anda setidaknya harus memiliki 3 bookmark untuk dapat mengunggah panduan ke katalog publik";
 
-"bookmark_public_upload_alert_title" = "Tinggal sedikit lagi untuk dapat membagikan bookmark dengan para traveler MAPS.ME!";
+"bookmark_public_upload_alert_title" = "Tinggal sedikit lagi untuk dapat membagikan bookmark dengan para traveler OMaps!";
 
 "bookmark_public_upload_alert_subtitle" = "Pastikan Anda memiliki nama yang spesifik dan deskripsi untuk daftar Anda, dan semua bookmark memiliki sedikit info tentang tempat-tempat tersebut. Dengan begini, daftar Anda dapat ditemukan dan digunakan oleh orang lain.";
 
@@ -2702,7 +2702,7 @@
 
 "power_managment_setting_manual_max" = "Hemat daya maksimum";
 
-"enable_logging_warning_message" = "Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan MAPS.ME.";
+"enable_logging_warning_message" = "Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan OMaps.";
 
 "html_error_upload_message_try_again" = "Periksa pengaturan jaringan Anda dan coba lagi";
 
@@ -2722,7 +2722,7 @@
 
 "gdpr_request_window_title" = "ID Anda: %s.";
 
-"gdpr_request_window_message" = "Salin dan kirim permintaan ke support@maps.me";
+"gdpr_request_window_message" = "Salin dan kirim permintaan ke support@omaps.app";
 
 "gdpr_request_window_copy" = "Salin ID";
 
@@ -2768,7 +2768,7 @@
 
 "avoid_ferry_crossing_placepage" = "Hindari penyeberangan kapal feri";
 
-"cached_guides_placeholder_subtitle" = "MAPS.ME menawarkan panduan siap pakai ke tempat pilihan dilengkapi foto dan keterangan pada peta dan tersedia offline.";
+"cached_guides_placeholder_subtitle" = "OOMapsnawarkan panduan siap pakai ke tempat pilihan dilengkapi foto dan keterangan pada peta dan tersedia offline.";
 
 "guides_catalogue_title" = "Katalog panduan";
 
@@ -2776,7 +2776,7 @@
 
 "type.cuisine.uzbek" = "Masakan Uzbek";
 
-"onboarding_welcome_title" = "Rencanakan dan bepergian dengan MAPS.ME";
+"onboarding_welcome_title" = "Rencanakan dan bepergian dengan OMaps";
 
 "onboarding_welcome_first_subtitle" = "Menandai tempat menarik, memesan hotel, menghitung rute secara offline";
 
@@ -2786,7 +2786,7 @@
 
 "onboarding_guide_direct_download_button" = "Unduh";
 
-"onboarding_bydeeplink_guide_title" = "Panduan siap pakai di MAPS.ME";
+"onboarding_bydeeplink_guide_title" = "Panduan siap pakai di OMaps";
 
 "onboarding_bydeeplink_guide_subtitle" = "Kunjungi tempat terbaik di peta lengkap dengan foto dan keterangan. Berfungsi offline.";
 
@@ -2850,7 +2850,7 @@
 
 "popup_booking_download_guides_title" = "Pesan kamar hotel?";
 
-"popup_booking_download_guides_message" = "Rencanakan rute perjalanan anda bersama panduan dari MAPS.ME";
+"popup_booking_download_guides_message" = "Rencanakan rute perjalanan anda bersama panduan dari OMaps";
 
 "popup_mwm_download_guides_title" = "Panduan kota offline";
 
@@ -2858,7 +2858,7 @@
 
 "popup_mwm_download_guides_cta_1" = "Lihat";
 
-"gallery_pp_download_guides_offline_title" = "Rencanakan liburan anda bersama MAPS.ME!";
+"gallery_pp_download_guides_offline_title" = "Rencanakan liburan anda bersama OMaps!";
 
 "gallery_pp_download_guides_offline_subtitle" = "Jangan lewatkan panduan panduan yang telah dibuat oleh para pelancong";
 
@@ -2918,7 +2918,7 @@
 
 "subscription_terms" = "Pembayaran akan dibebankan ke akun iTunes Anda pada konfirmasi pembelian. Langganan akan diperbarui secara otomatis kecuali jika langganan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berjalan. Akun Anda akan dikenakan biaya sesuai dengan paket langganan Anda untuk perpanjangan dalam 24 jam sebelum akhir periode berjalan. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis pada pengaturan akun ID Apple Anda kapan saja dari pembelian Anda.";
 
-"whatsnew_carplay_title" = "Navigasi MAPS.ME ada di CarPlay!";
+"whatsnew_carplay_title" = "Navigasi OMaps ada di CarPlay!";
 
 "whatsnew_carplay_message" = "Kini fitur penanda, pencarian, kamera kecepatan dan pemilihan rute bisa dilakukan secara offline";
 
@@ -2946,7 +2946,7 @@
 
 "speedcams_alert_title_carplay_2" = "Info kecepatan";
 
-"download_map_carplay" = "Silakan unduh peta di apl MAPS.ME pada perangkat Anda";
+"download_map_carplay" = "Silakan unduh peta di apl OMaps pada perangkat Anda";
 
 "carplay_roundabout_exit" = "Jalan keluar ke %s";
 
@@ -3039,7 +3039,7 @@
 
 "popup_subscription_success_map_title" = "Woohoo, anda telah berlangganan!";
 
-"popup_subscription_success_map_message" = "Kini saatnya menemukan tempat wisata terbaik di katalog MAPS.ME";
+"popup_subscription_success_map_message" = "Kini saatnya menemukan tempat wisata terbaik di katalog OMaps";
 
 "popup_subscription_success_map_start_button" = "Mulai menjelajah";
 
@@ -3085,7 +3085,7 @@
 
 "new_onboarding_button_2" = "Memulai";
 
-"new_onboarding_step1_header" = "MAPS.ME";
+"new_onboarding_step1_header" = "OMaps";
 
 "new_onboarding_step1_header_2" = "Teman perjalanan yang lengkap";
 
@@ -3105,11 +3105,11 @@
 
 "new_onboarding_step5.1_button" = "Buka katalog";
 
-"new_onboarding_step5.2_message" = "Berlangganan Anda ke katalog panduan MAPS.ME adalah nilai yang bagus. Dapatkan akses penuh ke panduan kota dan luar ruangan di seluruh dunia!";
+"new_onboarding_step5.2_message" = "Berlangganan Anda ke katalog panduan OMaps adalah nilai yang bagus. Dapatkan akses penuh ke panduan kota dan luar ruangan di seluruh dunia!";
 
 "new_onboarding_step5.2_button" = "Lihat ketentuannya";
 
-"new_onboarding_step5.3_message" = "Lihatlah contoh rute perjalanan dan kota secara gratis dengan berbagai macam pilihan dari MAPS.ME!";
+"new_onboarding_step5.3_message" = "Lihatlah contoh rute perjalanan dan kota secara gratis dengan berbagai macam pilihan dari OMaps!";
 
 "new_onboarding_step5.3_button" = "Download Gratis";
 
@@ -3172,7 +3172,7 @@
 
 "whatsnew_outdoor_guides_message" = "Rute dari Outdooractive untuk perjalanan musim dingin dan panas tengah menunggu di katalog!";
 
-"whatsnew_guides_galleries_title" = "Rencanakan perjalanan Anda selanjutnya dengan MAPS.ME";
+"whatsnew_guides_galleries_title" = "Rencanakan perjalanan Anda selanjutnya dengan OMaps";
 
 "whatsnew_guides_galleries_message" = "Kini Anda dapat menemukan panduan yang disarankan di halaman tempat wisata yang paling populer dikunjungi turis";
 
@@ -3198,7 +3198,7 @@
 
 "button_layer_isolines" = "Isometrik";
 
-"tips_map_layers_title_countour" = "Yang baru di MAPS.ME: lapisan topografi offline!";
+"tips_map_layers_title_countour" = "Yang baru di OMaps: lapisan topografi offline!";
 
 "tips_map_layers_message_countour" = "Rencanakan dan nikmati perjalanan alam Anda dan pastikan Anda tahu segalanya tentang daerah tersebut";
 
