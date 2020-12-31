@@ -52,8 +52,8 @@ def setup(
         setuptools.setup(
             name="omim-data-{}".format(suffix),
             version=str(get_version()),
-            author="My.com B.V. (Mail.Ru Group)",
-            author_email="dev@maps.me",
+            author="The OMaps Project",
+            author_email="dev@omaps.app",
             description="This package contains {} data files.".format(suffix),
             url="https://github.com/mapsme",
             packages=[] if packages is None else packages,

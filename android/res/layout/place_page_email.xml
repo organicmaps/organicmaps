@@ -17,5 +17,5 @@
     android:id="@+id/tv__place_email"
     style="@style/PlacePageMetadataText"
     android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
-    tools:text="email@maps.me" />
+    tools:text="email@omaps.app" />
 </LinearLayout>

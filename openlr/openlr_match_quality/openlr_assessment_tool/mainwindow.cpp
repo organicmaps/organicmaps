@@ -252,7 +252,7 @@ MainWindow::MainWindow(Framework & framework)
 
   setCentralWidget(window);
 
-  // setWindowTitle(tr("MAPS.ME"));
+  // setWindowTitle(tr("OMaps"));
   // setWindowIcon(QIcon(":/ui/logo.png"));
 
   QMenu * fileMenu = new QMenu("File", this);

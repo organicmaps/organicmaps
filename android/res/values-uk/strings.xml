@@ -31,7 +31,7 @@
 	<string name="downloading">Завантажується…</string>
 	<string name="get_it_now">Встановити</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Дякуємо за використання MAPS.ME! Чи подобається вам ця програма? Розкажіть своїм друзям про неї! Це буде найкраща подяка для нас.</string>
+	<string name="share_on_facebook_text">Дякуємо за використання OMaps! Чи подобається вам ця програма? Розкажіть своїм друзям про неї! Це буде найкраща подяка для нас.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">кБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -127,7 +127,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Доступні оновлення для наступних карт:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">MAPS.ME Lite більше не потрібна. Рекомендуємо її видалити.</string>
+	<string name="suggest_uninstall_lite">OMaps Lite більше не потрібна. Рекомендуємо її видалити.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s успішно завантажена</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -157,9 +157,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Група</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">У вас ще немає мiток.\nНатисніть на будь-яке місце на карті, щоб зберегти мiтку.\nМiтки з інших ресурсів також можна імпортувати для застосунка MAPS.ME. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.</string>
+	<string name="bookmarks_usage_hint">У вас ще немає мiток.\nНатисніть на будь-яке місце на карті, щоб зберегти мiтку.\nМiтки з інших ресурсів також можна імпортувати для застосунка OMaps. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Мітки з інших ресурсів можна імпортувати для застосунка MAPS.ME. Відкрийте файл KML/KMZ із збереженими мітками з почти, Dropbox або інтернет посилання.</string>
+	<string name="bookmarks_usage_hint_import_only">Мітки з інших ресурсів можна імпортувати для застосунка OMaps. Відкрийте файл KML/KMZ із збереженими мітками з почти, Dropbox або інтернет посилання.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Налаштування</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -227,7 +227,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Подiлитися по електронній пошті</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">З вами поділилися мiтками MAPS.ME</string>
+	<string name="share_bookmarks_email_subject">З вами поділилися мiтками OMaps</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Завантаження мiток</string>
 	<!-- Kmz file successful loading -->
@@ -247,7 +247,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Зараз відбувається завантаження країни.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Сподіваємося, що вам сподобалося користуватися MAPS.ME! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!</string>
+	<string name="appStore_message">Сподіваємося, що вам сподобалося користуватися OMaps! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Ні, дякую</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -255,9 +255,9 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Глянь де я зараз. Іди %1$s або %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Поглянь на мою мiтку на карті MAPS.ME</string>
+	<string name="bookmark_share_email_subject">Поглянь на мою мiтку на карті OMaps</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Поглянь на моє поточне місцезнаходження на карті MAPS.ME</string>
+	<string name="my_position_share_email_subject">Поглянь на моє поточне місцезнаходження на карті OMaps</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Привіт,\n\nЯ зараз тут: %1$s. Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на карті.\n\nДякую.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -363,23 +363,23 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Завантажуйте карту тієї місцевості, де ви знаходитесь</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Повна версія MAPS.ME сьогодні безкоштовна! Завантажуй та розкажи друзям.</string>
+	<string name="pro_version_is_free_today">Повна версія OMaps сьогодні безкоштовна! Завантажуй та розкажи друзям.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Ми переносимо завантажені карти з MAPS.ME Lite в MAPS.ME. Це може зайняти декілька хвилин.</string>
+	<string name="move_lite_maps_to_pro">Ми переносимо завантажені карти з OMaps Lite в OMaps. Це може зайняти декілька хвилин.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Ваші карти успішно перенесено в MAPS.ME.</string>
+	<string name="move_lite_maps_to_pro_ok">Ваші карти успішно перенесено в OMaps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">При переносі карт виникла помилка. Будь ласка, видаліть MAPS.ME Lite і завантажте карти знову.</string>
+	<string name="move_lite_maps_to_pro_failed">При переносі карт виникла помилка. Будь ласка, видаліть OMaps Lite і завантажте карти знову.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Налаштування</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Спільнота MAPS.ME</string>
+	<string name="maps_me_community">Спільнота OMaps</string>
 	<!-- Text in menu -->
-	<string name="like_on_facebook">MAPS.ME у Facebook</string>
+	<string name="like_on_facebook">OMaps у Facebook</string>
 	<!-- Text in menu -->
-	<string name="follow_on_twitter">MAPS.ME у Twitter</string>
+	<string name="follow_on_twitter">OMaps у Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Контакти</string>
 	<!-- Settings: Send feedback button and dialog title -->
@@ -395,11 +395,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Сповістити про помилку</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Підпишіть мене на email-розсилку MAPS.ME</string>
+	<string name="subscribe_me_subject">Підпишіть мене на email-розсилку OMaps</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Я хочу першим дізнаватися про всі новини оновлення програм і акції. Я можу відписатися від розсилки в будь-який момент.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME пропонує карти всіх міст, всіх країн світу, які працюють без підключення до інтернету. Подорожуйте з впевненістю: де б ви не були, MAPS.ME допоможуть вирішити будь-яку вашу проблему - допоможуть визначити ваше місцезнаходження, знайти ресторан, готель, заправку, банк, туалет і т.д.\n\nМи постійно працюємо над додаванням нових функцій, тому, якщо у вас є ідеї або пропозиції з покращення MAPS.ME, пишіть нам. Якщо у вам виникла проблема з програмою, сповістіть нас, будь ласка, про неї. Наш емейл support\@maps.me. Ми відповідаємо на всі листи!\n\nЯкщо вам подобається програма і ви хочете підтримати нас, є декілька простих і абсолютно безкоштовних способів:\n\n- залиште відгук у вашому магазині програм\n- підпишіться на наші новини на сторінці у Facebook http://www.facebook.com/mapswithme\n- або просто розкажіть про MAPS.ME своїй мамі, друзям і колегам :)\n\nДякуємо за вашу підтримку!\n\nP.S. У програмі ми використовуємо картографічні дані проекту OpenStreetMap, який працює за принципом Вікіпедії, надаючи можливість користувачам зі всього світу створювати і редагувати карти. Якщо ви помітили, що на карті щось не відповідає дійсності або відсутнє, ви можете виправити це прямо на сайті https://www.openstreetmap.org, і ці виправлення з\'являться під час наступного оновлення MAPS.ME.</string>
+	<string name="about_text">OMaps пропонує карти всіх міст, всіх країн світу, які працюють без підключення до інтернету. Подорожуйте з впевненістю: де б ви не були, OMaps допоможуть вирішити будь-яку вашу проблему - допоможуть визначити ваше місцезнаходження, знайти ресторан, готель, заправку, банк, туалет і т.д.\n\nМи постійно працюємо над додаванням нових функцій, тому, якщо у вас є ідеї або пропозиції з покращення OMaps, пишіть нам. Якщо у вам виникла проблема з програмою, сповістіть нас, будь ласка, про неї. Наш емейл support\@omaps.app. Ми відповідаємо на всі листи!\n\nЯкщо вам подобається програма і ви хочете підтримати нас, є декілька простих і абсолютно безкоштовних способів:\n\n- залиште відгук у вашому магазині програм\n- підпишіться на наші новини на сторінці у Facebook http://www.facebook.com/mapswithme\n- або просто розкажіть про OMaps своїй мамі, друзям і колегам :)\n\nДякуємо за вашу підтримку!\n\nP.S. У програмі ми використовуємо картографічні дані проекту OpenStreetMap, який працює за принципом Вікіпедії, надаючи можливість користувачам зі всього світу створювати і редагувати карти. Якщо ви помітили, що на карті щось не відповідає дійсності або відсутнє, ви можете виправити це прямо на сайті https://www.openstreetmap.org, і ці виправлення з\'являться під час наступного оновлення OMaps.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв\'язку. Наша адреса – %s.</string>
 	<!-- Alert title -->
@@ -411,7 +411,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Будь ласка, оновіть карту, щоб прокласти маршрут.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.</string>
+	<string name="routing_update_maps">В новій версії OMaps ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Оновити всі</string>
 	<!-- Cancel all button text -->
@@ -428,7 +428,7 @@
 	<string name="downloader_downloading">Завантажується:</string>
 	<string name="downloader_search_results">Знайдено</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною, а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!</string>
+	<string name="routing_disclaimer">Використовуючи маршрути в програмі OMaps, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною, а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Неактуальні</string>
 	<!-- Up to date maps category -->
@@ -452,7 +452,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Неможливо прокласти маршрут між вибраними точками. Будь ласка, змініть початок і кінець маршруту.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Внутрішня помилка. Будь ласка, видаліть мапу і завантажте її ще раз. Якщо це не допомогло, напишіть нам на support\@maps.me</string>
+	<string name="routing_failed_internal_error">Внутрішня помилка. Будь ласка, видаліть мапу і завантажте її ще раз. Якщо це не допомогло, напишіть нам на support\@omaps.app</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Завантажити карту + маршрути</string>
 	<!-- Context menu item for downloader. -->
@@ -483,9 +483,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Я щойно оцінив вашу програму</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Я користувач MAPS.ME з %s року</string>
+	<string name="rating_user_since">Я користувач OMaps з %s року</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Вам подобається MAPS.ME?</string>
+	<string name="rating_do_like_maps">Вам подобається OMaps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Торкніться зірочки, щоб оцінити нашу програму.</string>
 	<!-- Text for rating dialog -->
@@ -501,7 +501,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Отримати карту</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Завантажте оновлену карту та дані про маршрут, щоб отримати всі можливості MAPS.ME.</string>
+	<string name="routing_download_map_and_routing">Завантажте оновлену карту та дані про маршрут, щоб отримати всі можливості OMaps.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Отримати дані про маршрут</string>
 	<!-- Text for routing error dialog -->
@@ -633,7 +633,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.</string>
 	<string name="rate_alert_title">Подобається програма?</string>
-	<string name="rate_alert_default_message">Дякуємо за використання MAPS.ME. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.</string>
+	<string name="rate_alert_default_message">Дякуємо за використання OMaps. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.</string>
 	<string name="rate_alert_five_star_message">Ура! Ми теж вас любимо!</string>
 	<string name="rate_alert_four_star_message">Дякуємо, ми зробимо все можливе!</string>
 	<string name="rate_alert_less_than_four_star_message">Є пропозиції щодо того, як ми можемо її вдосконалити?</string>
@@ -688,7 +688,7 @@
 	<string name="editor_report_problem_no_place_title">Місце не існує</string>
 	<string name="editor_report_problem_under_construction_title">Зачинено на ремонт</string>
 	<string name="editor_report_problem_duplicate_place_title">Дубльовані місця</string>
-	<string name="first_launch_congrats_title">MAPS.ME готовий до роботи</string>
+	<string name="first_launch_congrats_title">OMaps готовий до роботи</string>
 	<string name="first_launch_congrats_text">Користуйтесь пошуком і навігацією по всьому світу без інтернету і безкоштовно.</string>
 	<string name="migrate_title">Важливо!</string>
 	<!-- Android uses image instead of text. -->
@@ -792,18 +792,18 @@
 	<string name="whatsnew_search_message">Якісно покращили пошук по адресам. Перевірте.</string>
 	<string name="whatsnew_editor_title">Редагувати карту*</string>
 	<string name="whatsnew_editor_message_1">Додати нові місця до карти і редагувати існуючі місця прямо з програми.</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME використовує дані спільноти OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* OMaps використовує дані спільноти OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Ви ніколи не загубитеся знову</string>
 	<string name="onboarding_offline_navigation_message">Плануйте оптимальні маршрути для поїздок і піших походів навіть без Інтернет з\'єднання!</string>
 	<string name="onboarding_offline_navigation_title_2">Офлайн навігація</string>
 	<string name="onboarding_offline_navigation_message_2">Плануйте оптимальні маршрути для поїздок і піших походів.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — використовуй карти всього світу без інтернету</string>
+	<string name="onboarding_offline_maps_title">OMaps — використовуй карти всього світу без інтернету</string>
 	<string name="onboarding_offline_maps_message">Завантажте мапи необхідного регіону один раз та користуйтесь навігацією та пошуком без підключення до інтернету.</string>
 	<string name="onboarding_notifications_message">Отримуйте повідомлення про оновлення, щоб завжди мати актуальні мапи</string>
 	<string name="onboarding_notifications_title">Дозвольте відправлення повідомлень</string>
 	<string name="onboarding_location_title">Допоможіть знайти вас</string>
 	<string name="onboarding_location_message">Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.</string>
-	<string name="onboarding_permissions_title">Дозволити MAPS.ME доступ до сховища та функції визначення геолокації</string>
+	<string name="onboarding_permissions_title">Дозволити OMaps доступ до сховища та функції визначення геолокації</string>
 	<string name="onboarding_permissions_message">Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.</string>
 	<string name="onboarding_welcome_second_subtitle">Використовуючи цей додаток, ви погоджуєтеся з &lt;a href="%1$s">Умовами використання&lt;/a> та &lt;a href="%2$s">Політикою конфіденційності&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
@@ -812,7 +812,7 @@
 	<string name="no_migration_during_navigation">Під час навігації оновлення заборонено.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.</string>
-	<string name="editor_sharing_title">Я покращив мапи MAPS.ME</string>
+	<string name="editor_sharing_title">Я покращив мапи OMaps</string>
 	<string name="editor_comment_will_be_sent">Ми обов\'язково відправимо ваш коментар картографам.</string>
 	<string name="editor_unsupported_category_message">Ви додали об\'єкт, категорію якого ми поки що не підтримуємо. У майбутньому він з\'явиться на мапі.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -829,7 +829,7 @@
 	<string name="core_placepage_unknown_place">Невідоме місце</string>
 	<string name="editor_other_info">Надіслати нотатку редакторам OSM</string>
 	<string name="editor_detailed_description_hint">Докладний коментар</string>
-	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у MAPS.ME.</string>
+	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у OMaps.</string>
 	<string name="editor_more_about_osm">Більше про OpenStreetMap</string>
 	<string name="editor_operator">Володар</string>
 	<string name="editor_tag_description">Вкажіть компанію, організацію або особу, що відповідає за працездатність об\'єкта</string>
@@ -850,7 +850,7 @@
 	<string name="current_location_unknown_error_title">Місцезнаходження не знайдено.</string>
 	<string name="current_location_unknown_error_message">Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.</string>
 	<string name="whatsnew_update_editor_title">Ми обновили редактор</string>
-	<string name="whatsnew_update_editor_message">Користувачі MAPS.ME вже внесли 200 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!</string>
+	<string name="whatsnew_update_editor_message">Користувачі OMaps вже внесли 200 000 виправлень на мапі. Разом ми зробимо мапи найбільш докладними у світі. Приєднуйся!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Для використання редактору карт, будь ласка, оновіть всі карти.</string>
 	<string name="location_services_disabled_header">Ідентифікацію місцезнаходження відключено</string>
@@ -939,7 +939,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Подивись,</string>
 	<string name="continue_recent_track_background_button">Продовжити</string>
-	<string name="recent_track_background_dialog_message">MAPS.ME використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.</string>
+	<string name="recent_track_background_dialog_message">OMaps використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.</string>
 	<string name="whatsnew_car_navigation_header">Режим автонавігації став зручнішим</string>
 	<string name="whatsnew_car_navigation_message">• Елементи навігації займають менше місця.\n• Показуємо швидкість і додали автозум.</string>
 	<string name="whatsnew_cycle_navigation_2_header">Велонавігація</string>
@@ -947,15 +947,15 @@
 	<string name="whatsnew_booking_2_header">Пошук готелів став простішим</string>
 	<string name="whatsnew_booking_2_message">При пошуку відображається рейтинг і цінова категорія готелю.</string>
 	<string name="whatsnew_cycle_navigation_header">Велонавігація (бета-версія)</string>
-	<string name="whatsnew_cycle_navigation_message">До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з MAPS.ME та поділіться враженнями з нами.</string>
+	<string name="whatsnew_cycle_navigation_message">До відкриття сезону ми тестуємо велонавігацію. Проїдьтесь за своїм улюбленим маршрутом з OMaps та поділіться враженнями з нами.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Рейтинг на Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Розповісти другу</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Привіт! Встанови MAPS.ME!</string>
+	<string name="tell_friends_text">Привіт! Встанови OMaps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME — це додаток must-have для мандрівників. У MAPS.ME використовуються офлайн-дані OpenStreetMap, які можна редагувати.</string>
+	<string name="about_description">OMaps — це додаток must-have для мандрівників. У OMaps використовуються офлайн-дані OpenStreetMap, які можна редагувати.</string>
 	<!-- Text in menu -->
 	<string name="blog">Блог</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -1010,7 +1010,7 @@
 	<string name="chat">Геочат</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Відкрити</string>
-	<string name="whatsnew_uber_header">MAPS.ME і Uber</string>
+	<string name="whatsnew_uber_header">OMaps і Uber</string>
 	<string name="whatsnew_uber_message">Замовляйте таксі прямо з додатку!</string>
 	<string name="dialog_taxi_offline">Замовлення таксі неможливе в автономному режимі.</string>
 	<string name="dialog_taxi_error">Замовлення таксі тимчасово недоступне.</string>
@@ -1025,7 +1025,7 @@
 	<string name="traffic_update_maps_text">Для відображення інформації про трафік необхідно оновити карти.</string>
 	<string name="traffic_outdated">Дані про трафік застаріли.</string>
 	<string name="big_font">Збільшити розмір шрифту на карті</string>
-	<string name="traffic_update_app">Будь ласка, встановіть оновлення MAPS.ME</string>
+	<string name="traffic_update_app">Будь ласка, встановіть оновлення OMaps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Для відображення даних про трафік оновіть додаток.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1123,9 +1123,9 @@
 	<string name="button_accept_and_continue">Прийняти та продовжити</string>
 	<string name="button_learn_more">Докладніше</string>
 	<string name="onboarding_storage_permissions_title">Надати доступ</string>
-	<string name="onboarding_storage_permissions_message">Внесіть зміни до прав доступу на вашому пристрої. Для використання MAPS.ME необхідно надати додатку права доступу до сховища.</string>
+	<string name="onboarding_storage_permissions_message">Внесіть зміни до прав доступу на вашому пристрої. Для використання OMaps необхідно надати додатку права доступу до сховища.</string>
 	<string name="button_exit">Вихід</string>
-	<string name="onboarding_detail_permissions_title">MAPS.ME необхідно надати доступ до</string>
+	<string name="onboarding_detail_permissions_title">OMaps необхідно надати доступ до</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Сховище</string>
 	<string name="onboarding_detail_permissions_storage_message">Для збереження та використання завантажених карт в автономному режимі, а також зберігання закладок.</string>
@@ -1196,7 +1196,7 @@
 	<string name="whats_new_ugc_title_updated_v840">Оцінки й відгуки</string>
 	<string name="whats_new_ugc_message">Тепер ви можете ставити оцінки й залишати відгуки навіть в автономному режимі! Не забудьте оновити свої карти, щоб переглянути зміни.</string>
 	<string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>
-	<string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв\'яжіться з нами, написавши на адресу електронну пошту support\@maps.me</string>
+	<string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв\'яжіться з нами, написавши на адресу електронну пошту support\@omaps.app</string>
 	<string name="setting_emulate_bad_storage">Емулювати проблемне сховище</string>
 	<string name="discovery_button_title">Поблизу</string>
 	<string name="discovery_button_subtitle_things_to_do">Чим зайнятися</string>
@@ -1292,16 +1292,16 @@
 	<string name="sign_message_gdpr">Щоб продовжити роботу, ви повинні прийняти наші Умови використання та Політику конфіденційності. Будь ласка, уважно їх прочитайте.</string>
 	<string name="sign_agree_pp_gdpr">Я згоден з &lt;a href="%s">Політикою конфіденційності&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Я згоден з &lt;a href="%s">Умовами використання&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Я згоден отримувати останні новини про MAPS.ME</string>
+	<string name="sign_agree_news_gdpr">Я згоден отримувати останні новини про OMaps</string>
 	<string name="whats_new_localbiz_title">Малий бізнес заслуговує на увагу</string>
-	<string name="whats_new_localbiz_message">Саме локальні кав’ярні, хостели та магазинчики роблять мандрівки незабутніми. Ми безкоштовно оптимізуємо вашу бізнес-сторінку в MAPS.ME, для того, щоб його помітили.</string>
+	<string name="whats_new_localbiz_message">Саме локальні кав’ярні, хостели та магазинчики роблять мандрівки незабутніми. Ми безкоштовно оптимізуємо вашу бізнес-сторінку в OMaps, для того, щоб його помітили.</string>
 	<string name="whats_new_order_button">Залишити заявку</string>
 	<string name="bookmarks_page_downloaded">Завантажені</string>
 	<string name="bookmarks_page_my">Мої</string>
 	<string name="routes_and_bookmarks">Маршрути та позначки</string>
 	<string name="bookmarks_webview_success_toast">Мітки успішно завантажені</string>
 	<string name="cached_bookmarks_placeholder_title">Завантажте нові місця</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Натисніть кнопку, щоб завантажити тисячі цікавих місць і маршрутів, створених користувачами MAPS.ME. Вам знадобиться підключення до Інтернету.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Натисніть кнопку, щоб завантажити тисячі цікавих місць і маршрутів, створених користувачами OMaps. Вам знадобиться підключення до Інтернету.</string>
 	<string name="downloader_download_routers">Завантажити позначки</string>
 	<string name="bookmarks_groups_cached">Завантажені списки</string>
 	<string name="author_name_by_prefix">%s</string>
@@ -1321,7 +1321,7 @@
 	<string name="opt_out_flurry">Статистика</string>
 	<string name="opt_out_mopub">Персоналізована реклама</string>
 	<string name="opt_out_fabric">Звіти про помилки</string>
-	<string name="opt_out_fabric_description">Ми можемо використовувати ваші дані, щоб розвивати та покращувати MAPS.ME. Зміни вступлять у силу після перезапуску програми</string>
+	<string name="opt_out_fabric_description">Ми можемо використовувати ваші дані, щоб розвивати та покращувати OMaps. Зміни вступлять у силу після перезапуску програми</string>
 	<string name="opt_out_help_ios_1">Ви можете відмовитися від отримання цільової реклами в налаштуваннях пристрою.</string>
 	<string name="opt_out_help_ios_2">iOS 9 або вище</string>
 	<string name="opt_out_help_ios_3">Відкрийте Налаштування → Конфіденційність → Реклама → Увімкніть «Обмеження трекінгу»</string>
@@ -1342,7 +1342,7 @@
 	<string name="category_desc_more">…ще</string>
 	<string name="title_error_downloading_bookmarks">Виникла помилка</string>
 	<string name="subtitle_error_downloading_bookmarks">Позначки не були завантажені</string>
-	<string name="whats_new_bookmarks_catalog_title">У MAPS.ME з’явився каталог маршрутів</string>
+	<string name="whats_new_bookmarks_catalog_title">У OMaps з’явився каталог маршрутів</string>
 	<string name="whats_new_bookmarks_catalog_message">Десятки докладних маршрутів по всьому світу: куди сходити, що подивитися, де поїсти.</string>
 	<string name="whats_new_popularity_label_title">Популярне поблизу</string>
 	<string name="whats_new_popularity_label_message">Розділ «Поблизу» допоможе знайти найпопулярніші місця в місті.</string>
@@ -1359,15 +1359,15 @@
 	<string name="guide_downloaded_subtitle">Натисніть на \"Подивитись на карті\", щоб дослідити путівник</string>
 	<string name="bookmarks_guides">Мітки та путівники</string>
 	<string name="remove_ads">Відключити рекламу</string>
-	<string name="remove_ads_title">Відключіть всю рекламу та підтримайте MAPS.ME</string>
+	<string name="remove_ads_title">Відключіть всю рекламу та підтримайте OMaps</string>
 	<string name="paybtn_title">Заплатити %s/рік</string>
 	<string name="paybtn_subtitle">Економія %s/рік</string>
 	<string name="options_dropdown_title">Інші варіанти</string>
-	<string name="why_support">Навіщо підтримувати MAPS.ME?</string>
+	<string name="why_support">Навіщо підтримувати OMaps?</string>
 	<string name="options_dropdown_item1">%1$s/місяць (економія %2$s/рік)</string>
 	<string name="options_dropdown_item2">%s/тиждень (економії немає)</string>
 	<string name="why_support_item1">Ми відключимо для вас всю рекламу</string>
-	<string name="why_support_item2">Ви допомагаєте нам покращувати MAPS.ME</string>
+	<string name="why_support_item2">Ви допомагаєте нам покращувати OMaps</string>
 	<string name="why_support_item3">Ви допомагаєте нам покращувати карти OpenStreetMap.org</string>
 	<string name="purchase_processing">Ваша покупка в опрацюванні…</string>
 	<string name="tips_bookmarks_catalog_title">Офлайн-путівники для всіх видів подорожей</string>
@@ -1385,7 +1385,7 @@
 	<string name="awaiting_approval">Чекаємо підтвердження батьків</string>
 	<string name="whats_new_leave_review">Залиште відгук! Поділіться своєю думкою про місця, які відвідали у відпустці.</string>
 	<string name="server_unavailable_title">Сервер недоступний</string>
-	<string name="server_unavailable_message">Купівля буде завершена пізніше. Якщо помилка повториться, зв’яжіться з support\@maps.me.</string>
+	<string name="server_unavailable_message">Купівля буде завершена пізніше. Якщо помилка повториться, зв’яжіться з support\@omaps.app.</string>
 	<string name="offline_fiters_check_in">Підключіться до інтернету, щоб вибрати дату заїзду та виїзду.</string>
 	<string name="restore_subscription">Відновити підписку</string>
 	<string name="restore_success_alert">Підписку успішно відновлено</string>
@@ -1402,7 +1402,7 @@
 	<string name="ugc_route_tags_progress_msg">Завантажуємо теги…</string>
 	<string name="public_access">Публічний доступ</string>
 	<string name="limited_access">Приватний доступ</string>
-	<string name="upload_and_publish_desc">Цей путівник буде завантажено у публічний каталог MAPS.ME та буде доступний іншим користувачам</string>
+	<string name="upload_and_publish_desc">Цей путівник буде завантажено у публічний каталог OMaps та буде доступний іншим користувачам</string>
 	<string name="upload_and_publish">Завантажити та опублікувати</string>
 	<string name="upload_and_get_direct_link">Завантажити та отримати посилання</string>
 	<string name="get_direct_link_desc">Ваш путівник буде доступний по прямому посиланні</string>
@@ -1453,12 +1453,12 @@
 	<string name="notification_channel_downloader">Завантаження мап</string>
 	<string name="notification_leave_review_title">%s - як вам тут?</string>
 	<string name="notification_leave_review_content">Залиште відгук та допоможіть мандрівникам!</string>
-	<string name="share_bookmarks_email_body_link">Вітаємо!\n\nВаші мітки можна завантажити за посиланням: %s. Відкривайте список за допомогою MAPS.ME та насолоджуйтесь подорожжю!\n\nЗавантажити додаток: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Вітаємо!\n\nВаші мітки можна завантажити за посиланням: %s. Відкривайте список за допомогою OMaps та насолоджуйтесь подорожжю!\n\nЗавантажити додаток: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Навігатор вас попередить про камери при перевищенні швидкісного режиму на %d км/г</string>
 	<string name="warning_speedcams_subtitle">Не забудьте ознайомитися з правилами дорожнього руху у країні подорожі.</string>
 	<string name="speedcams_notice_message">Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери</string>
 	<string name="whats_new_ugc_routes_title">Ділитись враженнями легко</string>
-	<string name="whats_new_ugc_routes_subtitle">Зберігай пам\'ятні місця, створюй маршрути, використовуючи закладки, та ділись ними з усіма в каталозі MAPS.ME.</string>
+	<string name="whats_new_ugc_routes_subtitle">Зберігай пам\'ятні місця, створюй маршрути, використовуючи закладки, та ділись ними з усіма в каталозі OMaps.</string>
 	<string name="whats_new_webeditor_title">Перетворюй свої маршрути у історії</string>
 	<string name="whats_new_ugc_routes_message2">Додавай фото та детальні історії у веб-редакторі.</string>
 	<string name="whatsnew_standard_routes_title">Стандартні маршрути</string>
@@ -1475,7 +1475,7 @@
 	<string name="notification_leave_review_v2_title">Залишіть відгук і допоможіть мандрівникам!</string>
 	<string name="error_public_not_enought_title">Недостатньо міток</string>
 	<string name="error_public_not_enought_subtitle">У вашому маршруті має бути мінімум 3 мітки, щоб його можна було завантажити до публічного каталогу</string>
-	<string name="bookmark_public_upload_alert_title">Ви всього в парі кроків від завантаження вашого маршруту до каталогу MAPS.ME!</string>
+	<string name="bookmark_public_upload_alert_title">Ви всього в парі кроків від завантаження вашого маршруту до каталогу OMaps!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Переконайтеся, що маршрут має назву й опис, а всі мітки містять інформацію про місця. Завдяки цьому користувачі знайдуть маршрут і зможуть скористатися ним у мандрівці.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Так, усе добре!</string>
 	<string name="name_title">Введіть назву</string>
@@ -1505,7 +1505,7 @@
 	<string name="power_managment_setting_never">Ніколи</string>
 	<string name="power_managment_setting_auto">Автоматично</string>
 	<string name="power_managment_setting_manual_max">Максимальне енергозбереження</string>
-	<string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Вмикайте цю опцію тільки на прохання служби підтримки MAPS.ME.</string>
+	<string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Вмикайте цю опцію тільки на прохання служби підтримки OMaps.</string>
 	<string name="html_error_upload_message_try_again">Перевірте доступ до мережі та спробуйте ще раз</string>
 	<string name="html_error_upload_title_try_again">Немає з’єднання з Інтернетом</string>
 	<string name="notification_leave_review_v2_android_short_title">Залишайте відгук і допомагайте мандрівникам!</string>
@@ -1514,7 +1514,7 @@
 	<string name="privacy_settings_menu">Налаштування конфіденційності</string>
 	<string name="gdpr_request_setting">Отримати ID для GDPR запиту</string>
 	<string name="gdpr_request_window_title">Ваш ID: %s.</string>
-	<string name="gdpr_request_window_message">Будь ласка, скопіюйте його й надішліть запит на support\@maps.me</string>
+	<string name="gdpr_request_window_message">Будь ласка, скопіюйте його й надішліть запит на support\@omaps.app</string>
 	<string name="gdpr_request_window_copy">Скопіювати ID</string>
 	<string name="unable_upadate_error_title">Не вдалося оновити маршрут</string>
 	<string name="unable_upadate_error_message">Виникли помилки під час оновлення. Перевірте зміни та спробуйте ще раз</string>
@@ -1537,7 +1537,7 @@
 	<string name="avoid_toll_roads_placepage">Уникати платних доріг</string>
 	<string name="avoid_unpaved_roads_placepage">Уникати ґрунтових доріг</string>
 	<string name="avoid_ferry_crossing_placepage">Уникати поромних переправ</string>
-	<string name="cached_guides_placeholder_subtitle">Готові путівники в MAPS.ME – це вибрані місця з фотографіями та описами, що відображаються на карті та доступні офлайн.</string>
+	<string name="cached_guides_placeholder_subtitle">Готові путівники в OMaps – це вибрані місця з фотографіями та описами, що відображаються на карті та доступні офлайн.</string>
 	<string name="guides_catalogue_title">Каталог путівників</string>
 	<string name="download_guides_button">Перейти до каталогу</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1545,12 +1545,12 @@
 	  <item quantity="other">На основі %d відгуків</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Узбецька кухня</string>
-	<string name="onboarding_welcome_title">Плануйте та подорожуйте з MAPS.ME</string>
+	<string name="onboarding_welcome_title">Плануйте та подорожуйте з OMaps</string>
 	<string name="onboarding_welcome_first_subtitle">Зберігайте цікаві місця, бронюйте готелі, будуйте маршрути офлайн</string>
 	<string name="onboarding_guide_direct_download_title">Путівник готовий до завантаження</string>
 	<string name="onboarding_guide_direct_download_subtitle">Він буде відображений на карті й буде працювати офлайн</string>
 	<string name="onboarding_guide_direct_download_button">Завантажити</string>
-	<string name="onboarding_bydeeplink_guide_title">Готові путівники в MAPS.ME</string>
+	<string name="onboarding_bydeeplink_guide_title">Готові путівники в OMaps</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">Вибрані місця з фотографіями та описами відображаються на карті та доступні офлайн.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Перш ніж перейти до путівників…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Оновіть карти для отримання актуальної інформації про об’єкти!</string>
@@ -1581,11 +1581,11 @@
 	<string name="ok">Ок</string>
 	<string name="booking_button_toolbar">Підібрати готель на карті</string>
 	<string name="popup_booking_download_guides_title">Готель заброньовано?</string>
-	<string name="popup_booking_download_guides_message">Заплануйте маршрут із готовими путівниками MAPS.ME</string>
+	<string name="popup_booking_download_guides_message">Заплануйте маршрут із готовими путівниками OMaps</string>
 	<string name="popup_mwm_download_guides_title">Офлайн-путівники</string>
 	<string name="popup_mwm_download_guides_cta">Вибрати</string>
 	<string name="popup_mwm_download_guides_cta_1">Переглянути</string>
-	<string name="gallery_pp_download_guides_offline_title">Плануйте свій відпочинок із MAPS.ME!</string>
+	<string name="gallery_pp_download_guides_offline_title">Плануйте свій відпочинок із OMaps!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Не проґавте найважливіше з маршрутами від досвідчених мандрівників</string>
 	<string name="gallery_pp_download_guides_offline_cta">Увімкнути Інтернет</string>
 	<string name="gallery_pp_download_guides_title">Путівники</string>
@@ -1614,7 +1614,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Повний доступ за %s/рік</string>
 	<string name="subscription_terms_guides">Оплату буде стягнуто з вашого рахунку iTunes під час підтвердження придбання. Передплату буде відновлено автоматично, якщо автоматичне подовження не буде вимкнено принаймні за 24 години до завершення поточного періоду. Грошові кошти буде списано з вашого облікового запису відповідно до вашого тарифного плану продовження протягом 24 годин до завершення поточного періоду. Ви можете керувати автоматичним продовженням або вимкнути його в налаштуваннях облікового запису Apple ID будь-коли після придбання. Ви можете користуватися путівниками, завантаженими за передплатою, лише протягом її терміну дії. Після 30 днів від дати завершення передплати путівники з усіма закладками буде автоматично видалено.</string>
 	<string name="subscription_terms">Оплату буде стягнуто з вашого облікового запису iTunes при підтвердженні покупки. Передплату буде автоматично поновлено, якщо автоматичне оновлення не буде вимкнено принаймні за 24 години до кінця поточного періоду. З вашого обліквого запису буде стягнуто плату відповідно до вашого плану про поновлення протягом 24 годин до кінця поточного періоду. Ви можете керувати або вимкнути автоматичне оновлення у налаштуваннях облікового запису Apple ID у будь-який час вашої покупки.</string>
-	<string name="whatsnew_carplay_title">Автонавигація MAPS.ME в CarPlay!</string>
+	<string name="whatsnew_carplay_title">Автонавигація OMaps в CarPlay!</string>
 	<string name="whatsnew_carplay_message">Мітки, пошук, камери швидкості та налаштування об’їзду — все працює без Інтернету</string>
 	<string name="whatsnew_subscription_title">Відкрийте світ за передплатою!</string>
 	<string name="whatsnew_subscription_message">Необмежений доступ до каталогу маршрутів вигідніший, ніж одноразове придбання</string>
@@ -1628,7 +1628,7 @@
 	<string name="avoid_tolls_carplay_2">Без платних</string>
 	<string name="speedcams_alert_title_carplay_1">Камери</string>
 	<string name="speedcams_alert_title_carplay_2">Інфо о камерах</string>
-	<string name="download_map_carplay">Завантажте карти в додатку MAPS.ME на своєму пристрої</string>
+	<string name="download_map_carplay">Завантажте карти в додатку OMaps на своєму пристрої</string>
 	<string name="carplay_roundabout_exit">%s з’їзд</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортувати</string>
@@ -1679,7 +1679,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Порядок у мітках — зручність під час подорожі</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Сортуйте обрані місця за категоріями, часом завантаження та геолокацією, а також швидко знаходьте конкретні мітки за назвою</string>
 	<string name="popup_subscription_success_map_title">Ура! Ви оформили підписку!</string>
-	<string name="popup_subscription_success_map_message">Тепер досліджуйте найкращі туристичні пам’ятки в каталозі MAPS.ME</string>
+	<string name="popup_subscription_success_map_message">Тепер досліджуйте найкращі туристичні пам’ятки в каталозі OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Переглянути</string>
 	<string name="popup_subscription_success_map_not_now_button">Не зараз</string>
 	<string name="religious_places">Святі місця</string>
@@ -1711,9 +1711,9 @@
 	<string name="new_onboarding_step5.1_header">Перш ніж почати…</string>
 	<string name="new_onboarding_step5.1_message">Не забудьте відвідати наш новий каталог путівників, щоб знайти офлайновий гід до найближчої поїздки!</string>
 	<string name="new_onboarding_step5.1_button">Відкрити каталог</string>
-	<string name="new_onboarding_step5.2_message">Передплата каталогу путівників у MAPS.ME – це вигідно. Отримай повний доступ до маршрутів для міських прогулянок і активного відпочинку!</string>
+	<string name="new_onboarding_step5.2_message">Передплата каталогу путівників у OMaps – це вигідно. Отримай повний доступ до маршрутів для міських прогулянок і активного відпочинку!</string>
 	<string name="new_onboarding_step5.2_button">Переглянути умови</string>
-	<string name="new_onboarding_step5.3_message">Завантажте й оцініть маршрути для прогулянок містом і активного відпочинку з безкоштовною підбіркою MAPS.ME!</string>
+	<string name="new_onboarding_step5.3_message">Завантажте й оцініть маршрути для прогулянок містом і активного відпочинку з безкоштовною підбіркою OMaps!</string>
 	<string name="new_onboarding_step5.3_button">Завантажити безкоштовно</string>
 	<string name="new_onboarding_additional_steps_later_button">Не зараз</string>
 	<string name="all_pass_subscription_header">Передплата</string>
@@ -1746,7 +1746,7 @@
 	<string name="dialog_pedestrian_route_is_long">Добиратися до транспорту пішки задовго</string>
 	<string name="whatsnew_outdoor_guides_title">Мі додали понад 15 000 стежок для активного відпочинку!</string>
 	<string name="whatsnew_outdoor_guides_message">Маршрути від Outdooractive для зимових і літніх відпусток уже у каталозі!</string>
-	<string name="whatsnew_guides_galleries_title">Плануйте найближчу поїздку з MAPS.ME</string>
+	<string name="whatsnew_guides_galleries_title">Плануйте найближчу поїздку з OMaps</string>
 	<string name="whatsnew_guides_galleries_message">Тепер ви можете знайти рекомендовані путівники в картках популярних міст і пам’яток</string>
 	<string name="new_onboarding_step3_header">Подорожуйте</string>
 	<string name="all_pass_screen_best_value">Вигідна ціна</string>
@@ -1760,7 +1760,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Орієнтуйтеся в гірській місцевості – увімкніть шар, натиснувши кнопку в лівому верхньому куті екрана</string>
 	<string name="button_layer_isolines">Висоти</string>
-	<string name="tips_map_layers_title_countour">Лінії висот офлайн у MAPS.ME!</string>
+	<string name="tips_map_layers_title_countour">Лінії висот офлайн у OMaps!</string>
 	<string name="tips_map_layers_message_countour">Лінії висот допоможуть спланувати подорож на природу та не загубитися на місцевості</string>
 	<string name="isolines_activation_error_dialog">Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості</string>
 	<string name="isolines_location_error_dialog">Лінії висот ще недоступні в цьому регіоні</string>

@@ -141,7 +141,7 @@ OPEN_SOURCE_MAPS_GENERATION_DAG = MapsGenerationDAG(
     "Generate_open_source_maps",
     schedule_interval=timedelta(days=7),
     default_args={
-        "owner": "MAPS.ME",
+        "owner": "OMaps",
         "depends_on_past": True,
         "start_date": days_ago(0),
         "email": settings.EMAILS,

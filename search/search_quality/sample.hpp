@@ -50,7 +50,7 @@ struct Sample
 
     strings::UniString m_name;
     std::string m_houseNumber;
-    std::vector<std::string> m_types;  // MAPS.ME types, not OSM types.
+    std::vector<std::string> m_types;  // OMaps types, not OSM types.
     Relevance m_relevance = Relevance::Irrelevant;
   };
 

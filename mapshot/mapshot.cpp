@@ -174,7 +174,7 @@ void RenderPlace(Framework & framework, Place const & place, string const & file
 int main(int argc, char * argv[])
 {
   google::SetUsageMessage(
-      "Generate screenshots of MAPS.ME maps in chosen places, specified by coordinates and zoom.");
+      "Generate screenshots of OMaps maps in chosen places, specified by coordinates and zoom.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   if (!FLAGS_c && FLAGS_place.empty())

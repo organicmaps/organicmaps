@@ -20,7 +20,7 @@ DAG = DAG(
     "Update_planet",
     schedule_interval=timedelta(days=1),
     default_args={
-        "owner": "MAPS.ME",
+        "owner": "OMaps",
         "depends_on_past": True,
         "start_date": days_ago(0),
         "email": settings.EMAILS,

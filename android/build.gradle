@@ -175,7 +175,7 @@ android {
     minSdkVersion propMinSdkVersion.toInteger()
     targetSdkVersion propTargetSdkVersion.toInteger()
     applicationId project.ext.appId
-    buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
+    buildConfigField 'String', 'SUPPORT_MAIL', '"android@omaps.app"'
     buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
 
@@ -251,14 +251,14 @@ android {
     google {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Google'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@omaps.app"'
     }
 
     samsung {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Samsung'
       buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@maps.me"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@omaps.app"'
       android.sourceSets.samsung.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
@@ -266,7 +266,7 @@ android {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Amazon'
       buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@maps.me"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@omaps.app"'
       buildConfigField 'int', 'RATING_THRESHOLD', '4'
       android.sourceSets.amazon.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
@@ -281,7 +281,7 @@ android {
     preinstall {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Preinstall'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@omaps.app"'
     }
 
     cipherlab {
@@ -306,7 +306,7 @@ android {
     web {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Web'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@omaps.app"'
       android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
@@ -366,7 +366,7 @@ android {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Huawei'
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
-      buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@maps.me"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@omaps.app"'
       android.sourceSets.huawei.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
   }

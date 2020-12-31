@@ -24,7 +24,7 @@
 
 using namespace routing;
 
-DEFINE_string(path_resources, "", "MAPS.ME resources directory");
+DEFINE_string(path_resources, "", "OMaps resources directory");
 DEFINE_string(path_roads_file, "", "OSM file in o5m format.");
 DEFINE_string(path_res_file, "", "Path to the resulting file with roads for generator_tool.");
 

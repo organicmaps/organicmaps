@@ -29,7 +29,7 @@ DEFINE_string(api_results, "", "Path to directory with api router results.");
 DEFINE_string(save_results, "", "The directory where results of tool will be saved.");
 
 DEFINE_double(kml_percent, 0.0, "The percent of routes for which kml file will be generated."
-                                "With kml files you can make screenshots with desktop app of MAPS.ME");
+                                "With kml files you can make screenshots with desktop app of OMaps");
 
 DEFINE_bool(benchmark_stat, false, "Dump statistics about route time building.");
 

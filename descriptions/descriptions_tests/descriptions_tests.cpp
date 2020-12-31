@@ -190,49 +190,49 @@ UNIT_TEST(Descriptions_Html)
                   "<p lang=\"uk\">Картографічні дані &copy; учасники <a href=\"https://www.openstreetmap.org/\">"
                   "OpenStreetMap</a>, ODbL.</p>"
                   "</div>"}}},
-      {101, {{1, "<p lang=\"en\"><strong>maps.me</strong> would not be possible without the generous contributions of "
+      {101, {{1, "<p lang=\"en\"><strong>omaps.app</strong> would not be possible without the generous contributions of "
                  "the following projects:</p>\n"},
-             {2, "<p lang=\"ru\">Приложение <strong>maps.me</strong> было бы невозможно без участия следующих"
+             {2, "<p lang=\"ru\">Приложение <strong>omaps.app</strong> было бы невозможно без участия следующих"
                  " проектов:</p>\n"},
-             {3, "<p lang=\"vi\"><strong>maps.me</strong> sẽ không thành hiện thực nếu không có sự đóng góp hào phóng"
+             {3, "<p lang=\"vi\"><strong>omaps.app</strong> sẽ không thành hiện thực nếu không có sự đóng góp hào phóng"
                  " từ các dự án sau:</p>\n"},
-             {4, "<p lang=\"tr\"><strong>maps.me</strong>, aşağıdaki projelerin cömert katkıları olmadan mümkün "
+             {4, "<p lang=\"tr\"><strong>omaps.app</strong>, aşağıdaki projelerin cömert katkıları olmadan mümkün "
                  "olmazdı:</p>\n"},
-             {5, "<p lang=\"th\"><strong>maps.me</strong> จะสำเร็จลุล่วงไม่ได้เลยหากปราศจากความเอื้อเฟื้อเพื่อการร่วมมือของโป"
+             {5, "<p lang=\"th\"><strong>omaps.app</strong> จะสำเร็จลุล่วงไม่ได้เลยหากปราศจากความเอื้อเฟื้อเพื่อการร่วมมือของโป"
                  "รเจกต์ดังต่อไปนี้:</p>\n"},
-             {6, "<p lang=\"sv\"><strong>maps.me</strong> skulle inte vara möjlig utan följande projekts generösa"
+             {6, "<p lang=\"sv\"><strong>omaps.app</strong> skulle inte vara möjlig utan följande projekts generösa"
                  " bidrag:</p>\n"},
-             {7, "<p lang=\"es\"><strong>maps.me</strong> no sería posible sin las generosas aportaciones de los"
+             {7, "<p lang=\"es\"><strong>omaps.app</strong> no sería posible sin las generosas aportaciones de los"
                  " siguientes proyectos:</p>\n"},
-             {8, "<p lang=\"pt\">O <strong>maps.me</strong> não seria possível sem as contribuições generosas dos "
+             {8, "<p lang=\"pt\">O <strong>omaps.app</strong> não seria possível sem as contribuições generosas dos "
                  "seguintes projetos:</p>\n"},
-             {9, "<p lang=\"pl\">Aplikacja <strong>maps.me</strong> nie powstałaby bez znaczącego wkładu ze strony "
+             {9, "<p lang=\"pl\">Aplikacja <strong>omaps.app</strong> nie powstałaby bez znaczącego wkładu ze strony "
                  "twórców poniższych projektów:</p>\n"},
-             {10, "<p lang=\"nb\"><strong>maps.me</strong> ville ikke vært mulig uten de generøse bidragene fra "
+             {10, "<p lang=\"nb\"><strong>omaps.app</strong> ville ikke vært mulig uten de generøse bidragene fra "
                   "følgende prosjekter:</p>\n"},
-             {11, "<p lang=\"ko\"><strong>maps.me</strong>는 다음 프로젝트의 아낌없는 기부없이 가능하지 않습니다:</p>\n"},
-             {12, "<p lang=\"ja\"><strong>maps.me</strong>は次のプロジェクトの手厚い貢献なしには不可能です：</p>\n"},
-             {13, "<p lang=\"it\"><strong>maps.me</strong> non sarebbe realizzabile senza il generoso contributo "
+             {11, "<p lang=\"ko\"><strong>omaps.app</strong>는 다음 프로젝트의 아낌없는 기부없이 가능하지 않습니다:</p>\n"},
+             {12, "<p lang=\"ja\"><strong>omaps.app</strong>は次のプロジェクトの手厚い貢献なしには不可能です：</p>\n"},
+             {13, "<p lang=\"it\"><strong>omaps.app</strong> non sarebbe realizzabile senza il generoso contributo "
                   "dei seguenti progetti:</p>\n"},
-             {14, "<p lang=\"id\"><strong>maps.me</strong> tidak mungkin tercipta tanpa kontribusi yang tulus dari "
+             {14, "<p lang=\"id\"><strong>omaps.app</strong> tidak mungkin tercipta tanpa kontribusi yang tulus dari "
                   "proyek-proyek berikut ini:</p>\n"},
-             {15, "<p lang=\"hu\">A <strong>maps.me</strong> nem jöhetett volna létre az alábbi projektek nagylelkű "
+             {15, "<p lang=\"hu\">A <strong>omaps.app</strong> nem jöhetett volna létre az alábbi projektek nagylelkű "
                   "közreműködése nélkül:</p>\n"},
-             {16, "<p lang=\"de\"><strong>maps.me</strong> wäre ohne die großzügigen Spenden der folgenden Projekte "
+             {16, "<p lang=\"de\"><strong>omaps.app</strong> wäre ohne die großzügigen Spenden der folgenden Projekte "
                   "nicht möglich:</p>\n"},
-             {17, "<p lang=\"fr\">L'existence de <strong>maps.me</strong> serait impossible sans les généreuses "
+             {17, "<p lang=\"fr\">L'existence de <strong>omaps.app</strong> serait impossible sans les généreuses "
                   "contributions des projets suivants :</p>\n"},
-             {18, "<p lang=\"fi\"><strong>maps.me</strong> ei olisi mahdollinen ilman seuraavien projektien aulista "
+             {18, "<p lang=\"fi\"><strong>omaps.app</strong> ei olisi mahdollinen ilman seuraavien projektien aulista "
                   "tukea:</p>\n"},
-             {19, "<p lang=\"nl\"><strong>maps.me</strong> zou niet mogelijk zijn zonder de genereuze bijdragen voor "
+             {19, "<p lang=\"nl\"><strong>omaps.app</strong> zou niet mogelijk zijn zonder de genereuze bijdragen voor "
                   "de volgende projecten:</p>\n"},
-             {20, "<p lang=\"cs\"><strong>maps.me</strong> by nemohlo existovat bez štědrých přispění následujících "
+             {20, "<p lang=\"cs\"><strong>omaps.app</strong> by nemohlo existovat bez štědrých přispění následujících "
                   "projektů:</p>\n"},
-             {21, "<p lang=\"zh-Hans\">沒有下面項目的慷慨貢獻，<strong>maps.me</strong> 不可能出現：</p>\n"},
-             {22, "<p lang=\"zh-Hant\">沒有下面項目的慷慨貢獻，<strong>maps.me</strong> 不可能出現：</p>\n"},
+             {21, "<p lang=\"zh-Hans\">沒有下面項目的慷慨貢獻，<strong>omaps.app</strong> 不可能出現：</p>\n"},
+             {22, "<p lang=\"zh-Hant\">沒有下面項目的慷慨貢獻，<strong>omaps.app</strong> 不可能出現：</p>\n"},
              {23, "<p lang=\"ar\">    ما كان لـ <strong>maps.me"
                   "</strong> أن تأتي للوجود بدون المساهمات العظيمة للمشاريع التالية:</p>"},
-             {24, "<p lang=\"uk\"><strong>maps.me</strong> був би неможливим без щедрої участі таких проектів:</p>"}}},
+             {24, "<p lang=\"uk\"><strong>omaps.app</strong> був би неможливим без щедрої участі таких проектів:</p>"}}},
     };
 
   {

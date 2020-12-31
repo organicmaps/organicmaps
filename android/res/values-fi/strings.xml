@@ -31,7 +31,7 @@
 	<string name="downloading">Ladataan…</string>
 	<string name="get_it_now">Hanki nyt</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Kiitos kun käytät MAPS.ME:tä! Pidätkö sovelluksesta? Kerro kavereillesi siitä! Se on meille paras mahdollinen kiitos.</string>
+	<string name="share_on_facebook_text">Kiitos kun käytät OMaps:tä! Pidätkö sovelluksesta? Kerro kavereillesi siitä! Se on meille paras mahdollinen kiitos.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">Kt</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -90,7 +90,7 @@
 	<string name="country_status_download_failed">Lataus epäonnistui</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Yritä uudelleen</string>
-	<string name="about_menu_title">Tietoa MAPS.ME:stä</string>
+	<string name="about_menu_title">Tietoa OMaps:stä</string>
 	<string name="downloading_touch_to_cancel">Ladataan %d%%, peruuta koskettamalla</string>
 	<string name="downloaded_touch_to_delete">Ladattu (%s), poista koskettamalla</string>
 	<string name="connection_settings">Yhteysasetukset</string>
@@ -99,7 +99,7 @@
 	<string name="unsupported_phone">Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.</string>
 	<string name="download">Lataa</string>
 	<string name="external_storage_is_not_available">SD-kortti/USB-massamuisti, jolle kartat on ladattu, ei ole käytettävissä</string>
-	<string name="disconnect_usb_cable">Irrota USB-kaapeli tai syötä muistikortti käyttääksesi MAPS.ME -sovellusta</string>
+	<string name="disconnect_usb_cable">Irrota USB-kaapeli tai syötä muistikortti käyttääksesi OMaps -sovellusta</string>
 	<string name="not_enough_free_space_on_sdcard">Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta</string>
 	<string name="not_enough_memory">Ei tarpeeksi muistia sovelluksen avaamiseksi</string>
 	<string name="free_space_for_country">Ole hyvä ja vapauta ensin %1$s laitteeltasi ladataksesi %2$s</string>
@@ -126,7 +126,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Päivitys saatavissa seuraaville kartoille:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Et tarvitse enää MAPS.ME Lite:ä, joten voit poistaa sen.</string>
+	<string name="suggest_uninstall_lite">Et tarvitse enää OMaps Lite:ä, joten voit poistaa sen.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s ladattu onnistuneesti</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -156,9 +156,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Aseta</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Sinulla ei vielä ole kirjanmerkkejä.\nLisää kirjanmerkki napsauttamalla mitä tahansa paikkaa kartalla.\nVoit myös tuoda kirjanmerkkejä muista lähteistä MAPS.ME:ssä käytettäviksi avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.</string>
+	<string name="bookmarks_usage_hint">Sinulla ei vielä ole kirjanmerkkejä.\nLisää kirjanmerkki napsauttamalla mitä tahansa paikkaa kartalla.\nVoit myös tuoda kirjanmerkkejä muista lähteistä OMaps:ssä käytettäviksi avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Voit tuoda kirjanmerkkejä MAPS.ME:ssä käytettäväksi muista lähteistä avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.</string>
+	<string name="bookmarks_usage_hint_import_only">Voit tuoda kirjanmerkkejä OMaps:ssä käytettäväksi muista lähteistä avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Asetukset</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -220,7 +220,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Jaa sähköpostilla</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Jaetut MAPS.ME-kirjanmerkit</string>
+	<string name="share_bookmarks_email_subject">Jaetut OMaps-kirjanmerkit</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Ladataan kirjanmerkkejä</string>
 	<!-- Kmz file successful loading -->
@@ -240,17 +240,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Maata ladataan parhaillaan.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Toivottavasti nautit MAPS.ME -sovelluksen käyttämisestä! Olisimme tyytyväisiä, jos voisit arvioida sovelluksen App Storessa. Se kesää alle minuutin, ja auttaa meitä todella paljon. Kiitos tuestasi!</string>
+	<string name="appStore_message">Toivottavasti nautit OMaps -sovelluksen käyttämisestä! Olisimme tyytyväisiä, jos voisit arvioida sovelluksen App Storessa. Se kesää alle minuutin, ja auttaa meitä todella paljon. Kiitos tuestasi!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Ei kiitos</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hei, katso merkintäni MAPS.ME-sovelluksessa! %1$s tai %2$s Eikö sinulla ole offline-karttoja? Lataa ne täältä: http://maps.me/get</string>
+	<string name="bookmark_share_sms">Hei, katso merkintäni OMaps-sovelluksessa! %1$s tai %2$s Eikö sinulla ole offline-karttoja? Lataa ne täältä: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hei, katso sijaintini MAPS.ME-sovelluksessa! %1$s tai %2$s Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: http://maps.me/get</string>
+	<string name="my_position_share_sms">Hei, katso sijaintini OMaps-sovelluksessa! %1$s tai %2$s Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hei, katso merkintäni MAPS.ME-kartalla</string>
+	<string name="bookmark_share_email_subject">Hei, katso merkintäni OMaps-kartalla</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hei, kurkkaa tämänhetkinen sijaintini MAPS.ME:n kartalla!</string>
+	<string name="my_position_share_email_subject">Hei, kurkkaa tämänhetkinen sijaintini OMaps:n kartalla!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Hei,n\nOlen nyt täällä: %1$s. Klikkaa linkkiä %2$s tai %3$s nähdäksesi paikan kartalla. Kiitos.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -354,17 +354,17 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Lataa sijaintisi kartta</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Me siirrämme lataamasi kartat MAPS.ME Lite:stä MAPS.ME:hen. Siirtäminen voi viedä muutaman minuutin.</string>
+	<string name="move_lite_maps_to_pro">Me siirrämme lataamasi kartat OMaps Lite:stä OMaps:hen. Siirtäminen voi viedä muutaman minuutin.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Lataamasi kartat on siirretty onnistuneesti MAPS.ME:hen.</string>
+	<string name="move_lite_maps_to_pro_ok">Lataamasi kartat on siirretty onnistuneesti OMaps:hen.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Karttoja ei voitu siirtää. Ole hyvä ja poista MAPS.ME Lite ja lataa kartat uudelleen.</string>
+	<string name="move_lite_maps_to_pro_failed">Karttoja ei voitu siirtää. Ole hyvä ja poista OMaps Lite ja lataa kartat uudelleen.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Asetukset &amp;amp; Lisää</string>
 	<!-- Text in menu -->
 	<string name="website">Kotisivut</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">MAPS.ME -yhteisö</string>
+	<string name="maps_me_community">OMaps -yhteisö</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Tykkää meistä Facebookissa</string>
 	<!-- Text in menu -->
@@ -384,11 +384,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Ilmoita virheestä</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Lisätkää minut MAPS.ME:n uutiskirjeen tilaajaksi</string>
+	<string name="subscribe_me_subject">Lisätkää minut OMaps:n uutiskirjeen tilaajaksi</string>
 	<!-- Email body -->
-	<string name="subscribe_me_body">Liittäkää minut MAPS.ME -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.</string>
+	<string name="subscribe_me_body">Liittäkää minut OMaps -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, MAPS.ME auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support\@maps.me. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö MAPS.ME -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan MAPS.ME -päivityksen jälkeen.</string>
+	<string name="about_text">OMaps tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, OMaps auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support\@omaps.app. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö OMaps -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan OMaps -päivityksen jälkeen.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %s</string>
 	<!-- Alert title -->
@@ -400,7 +400,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Päivitä kartta luodaksesi reitin</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Uusi MAPS.ME -versio mahdollistaa reittien luonnin nykyisestä sijainnista määränpäähäsi.Päivitä kartat käyttääksesi tätä ominaisuutta.</string>
+	<string name="routing_update_maps">Uusi OMaps -versio mahdollistaa reittien luonnin nykyisestä sijainnista määränpäähäsi.Päivitä kartat käyttääksesi tätä ominaisuutta.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Päivitä kaikki</string>
 	<!-- Cancel all button text -->
@@ -417,7 +417,7 @@
 	<string name="downloader_downloading">Ladataan:</string>
 	<string name="downloader_search_results">Löytyi</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Pidä mielessä seuraavat seikat luodessasi reittejä MAPS.ME -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!</string>
+	<string name="routing_disclaimer">Pidä mielessä seuraavat seikat luodessasi reittejä OMaps -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Vanhentunut</string>
 	<!-- Up to date maps category -->
@@ -441,7 +441,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Lähtöpisteen ja määränpään välillä ei löytynyt reittiä. Valitse toinen lähtöpiste tai määränpää.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Sisäinen virhe. Kokeile asentaa kartta uudelleen. Mikäli ongelma jatkuu, ota yhteyttä asiakaspalveluun osoitteessa support\@maps.me.</string>
+	<string name="routing_failed_internal_error">Sisäinen virhe. Kokeile asentaa kartta uudelleen. Mikäli ongelma jatkuu, ota yhteyttä asiakaspalveluun osoitteessa support\@omaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Lataa kartta + reititys</string>
 	<!-- Context menu item for downloader. -->
@@ -472,9 +472,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Olen juuri arvostellut sovelluksesi.</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Olen MAPS.ME käyttäjä vuodesta %s.</string>
+	<string name="rating_user_since">Olen OMaps käyttäjä vuodesta %s.</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Pidätkö MAPS.ME sovelluksesta?</string>
+	<string name="rating_do_like_maps">Pidätkö OMaps sovelluksesta?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Napauta tähteä arvostellaksesi sovelluksemme.</string>
 	<!-- Text for rating dialog -->
@@ -490,7 +490,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Hanki kartta</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Lataa päivitetty kartta ja reititysdata saadaksesi kaikki MAPS.ME -ominaisuudet.</string>
+	<string name="routing_download_map_and_routing">Lataa päivitetty kartta ja reititysdata saadaksesi kaikki OMaps -ominaisuudet.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Hanki reitityskartta</string>
 	<!-- Text for routing error dialog -->
@@ -622,7 +622,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.</string>
 	<string name="rate_alert_title">Pidätkö sovelluksesta?</string>
-	<string name="rate_alert_default_message">Kiitos kun käytät MAPS.ME:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.</string>
+	<string name="rate_alert_default_message">Kiitos kun käytät OMaps:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.</string>
 	<string name="rate_alert_five_star_message">Hurraa! Mekin rakastamme sinua!</string>
 	<string name="rate_alert_four_star_message">Kiitos, teemme parhaamme!</string>
 	<string name="rate_alert_less_than_four_star_message">Kertoisitko missä voisimme parantaa?</string>
@@ -677,7 +677,7 @@
 	<string name="editor_report_problem_no_place_title">Paikkaa ei ole olemassa</string>
 	<string name="editor_report_problem_under_construction_title">Suljettu huoltoa varten</string>
 	<string name="editor_report_problem_duplicate_place_title">Paikan kaksoiskappale</string>
-	<string name="first_launch_congrats_title">MAPS.ME on valmiina käyttöön</string>
+	<string name="first_launch_congrats_title">OMaps on valmiina käyttöön</string>
 	<string name="first_launch_congrats_text">Etsi ja navigoi ympäri maailman ilman verkkoyhteyttä, ilmaiseksi.</string>
 	<string name="migrate_title">Tärkeää!</string>
 	<!-- Android uses image instead of text. -->
@@ -781,18 +781,18 @@
 	<string name="whatsnew_search_message">Olemme selkeästi parantaneet osoitehakua - kokeile vaikka itse.</string>
 	<string name="whatsnew_editor_title">Muokkaa karttaa*</string>
 	<string name="whatsnew_editor_message_1">Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME käyttää OpenStreetMap -yhteisön dataa.</string>
+	<string name="whatsnew_editor_message_2">* OMaps käyttää OpenStreetMap -yhteisön dataa.</string>
 	<string name="onboarding_offline_navigation_title">Et eksy enää koskaan</string>
 	<string name="onboarding_offline_navigation_message">Suunnittele ihanteellinen autoilu- tai kävelyreitti jopa ilman Internet-yhteyttä!</string>
 	<string name="onboarding_offline_navigation_title_2">Offline-navigointi</string>
 	<string name="onboarding_offline_navigation_message_2">Suunnittele ihanteelliset autoilu- ja kävelyreitit.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — koko maailman kartat ilman Internet-yhteyttä</string>
+	<string name="onboarding_offline_maps_title">OMaps — koko maailman kartat ilman Internet-yhteyttä</string>
 	<string name="onboarding_offline_maps_message">Lataa haluamasi alueen kartat yhden kerran ja voit käyttää navigointi- ja hakutoimintoja ilman Internet-yhteyttä.</string>
 	<string name="onboarding_notifications_message">Ota päivitysilmoitukset käyttöön saadaksesi tuoreimmat kartat</string>
 	<string name="onboarding_notifications_title">Ota päivitysilmoitukset käyttöön</string>
 	<string name="onboarding_location_title">Auta meitä löytämään sinut</string>
 	<string name="onboarding_location_message">Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.</string>
-	<string name="onboarding_permissions_title">Anna MAPS:ME:lle tallennustilan ja sijainnin käyttöoikeus</string>
+	<string name="onboarding_permissions_title">Anna OMaps:lle tallennustilan ja sijainnin käyttöoikeus</string>
 	<string name="onboarding_permissions_message">Jotta voisit ladata karttoja, nähdä lähistöllä olevat paikan ja liikenteen sekä käyttää navigointia.</string>
 	<string name="onboarding_welcome_second_subtitle">Käynnistämällä sovelluksen hyväksyt &lt;a href="%1$s">käyttöehdot&lt;/a> ja &lt;a href="%2$s">tietosuojakäytännön&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
@@ -801,7 +801,7 @@
 	<string name="no_migration_during_navigation">Päivittäminen ei ole mahdollista navigoinnin aikana.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.</string>
-	<string name="editor_sharing_title">Paransin MAPS.ME-karttoja</string>
+	<string name="editor_sharing_title">Paransin OMaps-karttoja</string>
 	<string name="editor_comment_will_be_sent">Lähetämme kommenttisi kartanpiirtäjille.</string>
 	<string name="editor_unsupported_category_message">Olet lisännyt sijainnin katergoriaan jota emme vielä tue. Se tulee näkyviin kartalle hieman myöhemmin.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -818,7 +818,7 @@
 	<string name="core_placepage_unknown_place">Tuntematon paikka</string>
 	<string name="editor_other_info">Lähetä muistilapun OSM-toimittajille</string>
 	<string name="editor_detailed_description_hint">Yksityiskohtainen kommentti</string>
-	<string name="editor_detailed_description">Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata MAPS.ME:ssä.</string>
+	<string name="editor_detailed_description">Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata OMaps:ssä.</string>
 	<string name="editor_more_about_osm">Lisätietoja OpenStreetMap:ista</string>
 	<string name="editor_operator">Operaattori</string>
 	<string name="editor_tag_description">Syötä tiloista vastuussa oleva yhtiö, organisaatio tai henkilö</string>
@@ -839,7 +839,7 @@
 	<string name="current_location_unknown_error_title">Nykyinen sijainti on tuntematon.</string>
 	<string name="current_location_unknown_error_message">Tapahtui virhe määritettäessä sijaintiasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.</string>
 	<string name="whatsnew_update_editor_title">Olemme päivittäneet karttamuokkaimen</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME -käyttäjät ovat tehneet 200 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!</string>
+	<string name="whatsnew_update_editor_message">OMaps -käyttäjät ovat tehneet 200 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Päivitä kaikki kartat käyttääksesi Karttamuokkainta.</string>
 	<string name="location_services_disabled_header">Sijaintipalvelut on poistettu käytöstä</string>
@@ -936,15 +936,15 @@
 	<string name="whatsnew_booking_2_header">Helppo hotellihaku</string>
 	<string name="whatsnew_booking_2_message">Hakutulokset näyttävät hotellin arvostelut ja hintaluokan.</string>
 	<string name="whatsnew_cycle_navigation_header">Polkupyöränavigointi (betaversio)</string>
-	<string name="whatsnew_cycle_navigation_message">Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi MAPS.ME-sovelluksella ja jaa mielipiteesi kanssamme.</string>
+	<string name="whatsnew_cycle_navigation_message">Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi OMaps-sovelluksella ja jaa mielipiteesi kanssamme.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Arvioi Google Playssa</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Kerro kaverille</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hei, asenna MAPS.ME!</string>
+	<string name="tell_friends_text">Hei, asenna OMaps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME on ehdoton offline-sovellus matkoja varten. MAPS.ME perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.</string>
+	<string name="about_description">OMaps on ehdoton offline-sovellus matkoja varten. OMaps perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blogi</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -999,7 +999,7 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Avaa</string>
-	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
 	<string name="whatsnew_uber_message">Tilaa Uber -taksi suoraan sovelluksesta!</string>
 	<string name="dialog_taxi_offline">Taksin tilaaminen ei ole mahdollista ilman verkkoyhteyttä.</string>
 	<string name="dialog_taxi_error">Taksin tilaaminen ei ole tällä hetkellä mahdollista.</string>
@@ -1014,7 +1014,7 @@
 	<string name="traffic_update_maps_text">Liikennetietojen näyttämiseksi kartat on päivitettävä.</string>
 	<string name="traffic_outdated">Liikennetiedot ovat vanhentuneet.</string>
 	<string name="big_font">Suurenna fonttikokoa kartalla</string>
-	<string name="traffic_update_app">Päivitä MAPS.ME</string>
+	<string name="traffic_update_app">Päivitä OMaps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Liikennetietojen näyttämiseksi sovellus on päivitettävä.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1112,9 +1112,9 @@
 	<string name="button_accept_and_continue">Hyväksy ja jatka</string>
 	<string name="button_learn_more">Lisätietoja</string>
 	<string name="onboarding_storage_permissions_title">Myönnä käyttöoikeus</string>
-	<string name="onboarding_storage_permissions_message">Muuta laitteesi käyttöoikeusasetuksia. MAPS:ME:n käyttö edellyttää tallennustilan käyttöoikeutta.</string>
+	<string name="onboarding_storage_permissions_message">Muuta laitteesi käyttöoikeusasetuksia. OMaps:n käyttö edellyttää tallennustilan käyttöoikeutta.</string>
 	<string name="button_exit">Poistu</string>
-	<string name="onboarding_detail_permissions_title">MAPS.ME tarvitsee seuraavat käyttöoikeudet:</string>
+	<string name="onboarding_detail_permissions_title">OMaps tarvitsee seuraavat käyttöoikeudet:</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Tallennustila</string>
 	<string name="onboarding_detail_permissions_storage_message">Jotta voisit tallentaa ja käyttää ladattuja karttoja offline-tilassa sekä tallentaa kirjanmerkkejä.</string>
@@ -1185,7 +1185,7 @@
 	<string name="whats_new_ugc_title_updated_v840">Arviot ja arvostelut</string>
 	<string name="whats_new_ugc_message">Nyt voit jättää arvioita ja arvosteluja myös offline-tilassa! Älä unohda päivittää karttojasi, jotta näet muutokset.</string>
 	<string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
-	<string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support\@maps.me</string>
+	<string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support\@omaps.app</string>
 	<string name="setting_emulate_bad_storage">Jäljittele virheellistä tallennustilaa</string>
 	<string name="discovery_button_title">Löydä lähistöllä olevia kohteita</string>
 	<string name="discovery_button_subtitle_things_to_do">Tekemistä</string>
@@ -1280,16 +1280,16 @@
 	<string name="sign_message_gdpr">Jotta voit jatkaa, sinun on hyväksyttävä käyttöehdot ja tietosuojakäytäntö. Lue ne huolellisesti.</string>
 	<string name="sign_agree_pp_gdpr">Hyväksyn &lt;a href="%s">tietosuojakäytännön&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Hyväksyn &lt;a href="%s">käyttöehdot&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Hyväksyn viimeisimmät uutiset MAPS.ME-tuotteista</string>
+	<string name="sign_agree_news_gdpr">Hyväksyn viimeisimmät uutiset OMaps-tuotteista</string>
 	<string name="whats_new_localbiz_title">Pienet yritykset ansaitsevat huomiota</string>
-	<string name="whats_new_localbiz_message">Juuri paikalliset kahvilat, kotoisat hostellit ja kaupat tekevät matkastasi unohtumattoman. Me optimoimme sivusi MAPS.ME:ssä saadaksesi sen erottumaan joukosta.</string>
+	<string name="whats_new_localbiz_message">Juuri paikalliset kahvilat, kotoisat hostellit ja kaupat tekevät matkastasi unohtumattoman. Me optimoimme sivusi OMaps:ssä saadaksesi sen erottumaan joukosta.</string>
 	<string name="whats_new_order_button">Jätä pyyntö</string>
 	<string name="bookmarks_page_downloaded">Ladattu</string>
 	<string name="bookmarks_page_my">Minun</string>
 	<string name="routes_and_bookmarks">Reitit ja kirjanmerkit</string>
 	<string name="bookmarks_webview_success_toast">Kirjanmerkit ladattu onnistuneesti</string>
 	<string name="cached_bookmarks_placeholder_title">Lataa uudet paikat</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Paina nappulaa ladataksesi tuhansia kiinnostavia paikkoja ja reittejä joita MAPS.ME käyttäjät ovat luoneet. Tarvitset internet yhteyden.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Paina nappulaa ladataksesi tuhansia kiinnostavia paikkoja ja reittejä joita OMaps käyttäjät ovat luoneet. Tarvitset internet yhteyden.</string>
 	<string name="downloader_download_routers">Lataa kirjanmerkit</string>
 	<string name="bookmarks_groups_cached">Ladatut lista</string>
 	<string name="author_name_by_prefix">%s</string>
@@ -1309,7 +1309,7 @@
 	<string name="opt_out_flurry">Tilasto</string>
 	<string name="opt_out_mopub">Yksilöity mainonta</string>
 	<string name="opt_out_fabric">Kaatumisraportti</string>
-	<string name="opt_out_fabric_description">Me saatamme käyttää tietojasi parantaaksemme MAPS.ME kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.</string>
+	<string name="opt_out_fabric_description">Me saatamme käyttää tietojasi parantaaksemme OMaps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.</string>
 	<string name="opt_out_help_ios_1">Mobiililaitteesi saattaa tarjota ”Rajoittettu Mainos Seuranta” tai ”Poistu internet-perusteisesta mainnonnasta” asetuksia.</string>
 	<string name="opt_out_help_ios_2">iOS 9 tai Korkeampi</string>
 	<string name="opt_out_help_ios_3">Mene Asetuksiisi → Yksityisyys → Mainonta → Salli ”Rajoita Mainos Seurantaa” asetus</string>
@@ -1330,7 +1330,7 @@
 	<string name="category_desc_more">…lisää</string>
 	<string name="title_error_downloading_bookmarks">Tapahtui virhe</string>
 	<string name="subtitle_error_downloading_bookmarks">Kirjanmerkkejä ei ole ladattu</string>
-	<string name="whats_new_bookmarks_catalog_title">MAPS.ME:ssä on nyt reitti katalogi</string>
+	<string name="whats_new_bookmarks_catalog_title">OMaps:ssä on nyt reitti katalogi</string>
 	<string name="whats_new_bookmarks_catalog_message">Satoja yksityiskohtaisia reittejä kaikkialta maailmasta: minne mennä, mitä nähdä, missä syödä.</string>
 	<string name="whats_new_popularity_label_title">Suosittuja kohteita lähellä</string>
 	<string name="whats_new_popularity_label_message">Mitä Tehdä osio auttaa sinua löytämään suosituimmat paikat kaupungissa.</string>
@@ -1347,15 +1347,15 @@
 	<string name="guide_downloaded_subtitle">Paina \'Näytä kartalla\' tutkiaksesi opasta</string>
 	<string name="bookmarks_guides">Kirjanmerkit ja oppaat</string>
 	<string name="remove_ads">Poista mainokset</string>
-	<string name="remove_ads_title">Poista kaikki mainokset ja tue MAPS.ME:tä</string>
+	<string name="remove_ads_title">Poista kaikki mainokset ja tue OMaps:tä</string>
 	<string name="paybtn_title">Maksa %s/vuosi</string>
 	<string name="paybtn_subtitle">Säästä %s/vuosi</string>
 	<string name="options_dropdown_title">Lisää vaihtoehtoja</string>
-	<string name="why_support">Miksi tukea MAPS.ME?</string>
+	<string name="why_support">Miksi tukea OMaps?</string>
 	<string name="options_dropdown_item1">%1$s/kuukausi (Säästä %2$s/vuosi)</string>
 	<string name="options_dropdown_item2">%s/viikko (ei säästöä)</string>
 	<string name="why_support_item1">Poistamme kaikki mainokset sinulta</string>
-	<string name="why_support_item2">Sinä autat meitä parantamaan MAPS.ME:tä</string>
+	<string name="why_support_item2">Sinä autat meitä parantamaan OMaps:tä</string>
 	<string name="why_support_item3">Auta meitä parantamaan avoimia karttoja OpenStreetMap.org</string>
 	<string name="purchase_processing">Ostostasi käsitellään…</string>
 	<string name="tips_bookmarks_catalog_title">Offline ohjeet kaikenlaisille matkoille</string>
@@ -1373,7 +1373,7 @@
 	<string name="awaiting_approval">Odotetaan vanhemman hyväksyntää</string>
 	<string name="whats_new_leave_review">Jätä arvio! Jaa mielipiteesi paikoista joissa olet käynyt lomallasi.</string>
 	<string name="server_unavailable_title">Serveri ei ole saatavilla</string>
-	<string name="server_unavailable_message">Ostos viimeistellään myöhemmin. Jos virhe jatkuu, ota yhteyttä support\@maps.me.</string>
+	<string name="server_unavailable_message">Ostos viimeistellään myöhemmin. Jos virhe jatkuu, ota yhteyttä support\@omaps.app.</string>
 	<string name="offline_fiters_check_in">Yhdistä internettiin suodattaaksesi hotelleja päivillä.</string>
 	<string name="restore_subscription">Palauta tilaus</string>
 	<string name="restore_success_alert">Tilaus on palautettu onnistuneesti</string>
@@ -1390,7 +1390,7 @@
 	<string name="ugc_route_tags_progress_msg">Lataamme tunnisteita…</string>
 	<string name="public_access">Julkinen pääsy</string>
 	<string name="limited_access">Yksityinen pääsy</string>
-	<string name="upload_and_publish_desc">Tämä matkaopas lähetetään julkiseen hakemistoon MAPS.ME ja se on muiden käyttäjien käytettävissä</string>
+	<string name="upload_and_publish_desc">Tämä matkaopas lähetetään julkiseen hakemistoon OMaps ja se on muiden käyttäjien käytettävissä</string>
 	<string name="upload_and_publish">Ladata ja julkaista</string>
 	<string name="upload_and_get_direct_link">Ladata ja saada linkki</string>
 	<string name="get_direct_link_desc">Matkaoppaanne on saatavana suoralla linkillä</string>
@@ -1441,12 +1441,12 @@
 	<string name="notification_channel_downloader">Karttojen lataaminen</string>
 	<string name="notification_leave_review_title">%s - miten on täällä?</string>
 	<string name="notification_leave_review_content">Kirjoita arvostelu ja auta matkustajia!</string>
-	<string name="share_bookmarks_email_body_link">Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo MAPS.ME: llä ja nauti matkasta!\n\nLataa sovellus: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo OMaps: llä ja nauti matkasta!\n\nLataa sovellus: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t</string>
 	<string name="warning_speedcams_subtitle">Muista tutustua matkustusmaan liikennesääntöihin.</string>
 	<string name="speedcams_notice_message">Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista</string>
 	<string name="whats_new_ugc_routes_title">Voit helposti jakaa kokemuksiasi</string>
-	<string name="whats_new_ugc_routes_subtitle">Tallenna ikimuistoiset paikat, luo reittejä kirjainmerkkien avulla ja jaa ne kaikkien kanssa MAPS.ME-luettelossa.</string>
+	<string name="whats_new_ugc_routes_subtitle">Tallenna ikimuistoiset paikat, luo reittejä kirjainmerkkien avulla ja jaa ne kaikkien kanssa OMaps-luettelossa.</string>
 	<string name="whats_new_webeditor_title">Muuta reittisi tarinoiksi</string>
 	<string name="whats_new_ugc_routes_message2">Lisää verkkoeditorin avulla kuvia ja yksityiskohtaisia ​​tarinoita.</string>
 	<string name="whatsnew_standard_routes_title">Vakioreitit</string>
@@ -1463,7 +1463,7 @@
 	<string name="notification_leave_review_v2_title">Arvostele paikka, jossa kävit, ja auta matkailijoita!</string>
 	<string name="error_public_not_enought_title">Ei tarpeeksi kirjanmerkkejä</string>
 	<string name="error_public_not_enought_subtitle">Sinulla täytyy olla vähintään 3 kirjanmerkkiä, jotta voit lähettää oppaan julkiseen luetteloon</string>
-	<string name="bookmark_public_upload_alert_title">Muutama askel vielä, niin voit jakaa kirjanmerkkisi kaikkien MAPS.ME-matkailijoiden kanssa!</string>
+	<string name="bookmark_public_upload_alert_title">Muutama askel vielä, niin voit jakaa kirjanmerkkisi kaikkien OMaps-matkailijoiden kanssa!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Varmista, että listallasi on kunnollinen nimi ja kuvaus, ja että kaikissa kirjanmerkeissäsi on paikoista jotain tietoa. Näin muut voivat löytää listasi ja käyttää sitä.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Kyllä, tottakai!</string>
 	<string name="name_title">Kirjoita oppaasi nimi</string>
@@ -1493,7 +1493,7 @@
 	<string name="power_managment_setting_never">Ei koskaan</string>
 	<string name="power_managment_setting_auto">Automaattinen</string>
 	<string name="power_managment_setting_manual_max">Täysi virransäästö</string>
-	<string name="enable_logging_warning_message">Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos MAPS.ME:n tuki pyytää.</string>
+	<string name="enable_logging_warning_message">Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos OMaps:n tuki pyytää.</string>
 	<string name="html_error_upload_message_try_again">Tarkista verkkoasetukset ja kokeile uudelleen</string>
 	<string name="html_error_upload_title_try_again">Ei nettiyhteyttä</string>
 	<string name="notification_leave_review_v2_android_short_title">Arvostele ja auta matkailijoita!</string>
@@ -1502,7 +1502,7 @@
 	<string name="privacy_settings_menu">Yksityisyysasetukset</string>
 	<string name="gdpr_request_setting">ID:n hankkiminen GDPR-pyyntöä varten</string>
 	<string name="gdpr_request_window_title">Sinun ID: %s.</string>
-	<string name="gdpr_request_window_message">Kopioi se ja lähetä pyyntö osoitteeseen support\@maps.me</string>
+	<string name="gdpr_request_window_message">Kopioi se ja lähetä pyyntö osoitteeseen support\@omaps.app</string>
 	<string name="gdpr_request_window_copy">Kopioi ID</string>
 	<string name="unable_upadate_error_title">Tiedoston päivitys epäonnistui</string>
 	<string name="unable_upadate_error_message">Päivityksen aikana tapahtui jokin virhe. Tarkista muutokset ja yritä uudelleen</string>
@@ -1525,7 +1525,7 @@
 	<string name="avoid_toll_roads_placepage">Vältä maksullisia teitä</string>
 	<string name="avoid_unpaved_roads_placepage">Vältä maanteitä</string>
 	<string name="avoid_ferry_crossing_placepage">Vältä lautan käyttöä</string>
-	<string name="cached_guides_placeholder_subtitle">MAPS.ME:n valmiit oppaat ovat valittuja paikkoja valokuvien ja kuvauksien kanssa, jotka näkyvät kartalla ja ovat käytettävissä offline-tilassa.</string>
+	<string name="cached_guides_placeholder_subtitle">OMaps:n valmiit oppaat ovat valittuja paikkoja valokuvien ja kuvauksien kanssa, jotka näkyvät kartalla ja ovat käytettävissä offline-tilassa.</string>
 	<string name="guides_catalogue_title">Oppaiden luettelo</string>
 	<string name="download_guides_button">Mene hakemistoon</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1533,12 +1533,12 @@
 	  <item quantity="other">%d palautteen perusteella</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Uzbekistanilainen ruokaa</string>
-	<string name="onboarding_welcome_title">Suunnittele ja matkusta MAPS.ME:n kanssa</string>
+	<string name="onboarding_welcome_title">Suunnittele ja matkusta OMaps:n kanssa</string>
 	<string name="onboarding_welcome_first_subtitle">Tallenna mielenkiintoisia paikkoja, varaa hotelleja, luo reittejä offline-tilassa</string>
 	<string name="onboarding_guide_direct_download_title">Opas on valmis ladattavaksi</string>
 	<string name="onboarding_guide_direct_download_subtitle">Opas näkyy kartalla ja toimii offline-tilassa</string>
 	<string name="onboarding_guide_direct_download_button">Ladata</string>
-	<string name="onboarding_bydeeplink_guide_title">Valmiit oppaat MAPS.ME:ssä</string>
+	<string name="onboarding_bydeeplink_guide_title">Valmiit oppaat OMaps:ssä</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">Valittuja paikkoja valokuvien ja kuvauksien kanssa, jotka näkyvät kartalla ja ovat käytettävissä offline-tilassa.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Ennen kuin siirtytään oppaille…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Päivitä kartat saadaksesi ajankohtaista tietoa kohteista!</string>
@@ -1569,11 +1569,11 @@
 	<string name="ok">Ok</string>
 	<string name="booking_button_toolbar">Etsi hotelli kartalla</string>
 	<string name="popup_booking_download_guides_title">Onko hotellin jo varattu?</string>
-	<string name="popup_booking_download_guides_message">Suunnittele reittisi valmiilla MAPS.ME -matkaoppailla</string>
+	<string name="popup_booking_download_guides_message">Suunnittele reittisi valmiilla OMaps -matkaoppailla</string>
 	<string name="popup_mwm_download_guides_title">Offline-matkaoppaat</string>
 	<string name="popup_mwm_download_guides_cta">Valitse</string>
 	<string name="popup_mwm_download_guides_cta_1">Katso</string>
-	<string name="gallery_pp_download_guides_offline_title">Suunnittele lomasi MAPS.ME:n kanssa!</string>
+	<string name="gallery_pp_download_guides_offline_title">Suunnittele lomasi OMaps:n kanssa!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Älä missaa tärkeimpiä reittejä kokeneilta matkustajilta</string>
 	<string name="gallery_pp_download_guides_offline_cta">Ota Internet käyttöön</string>
 	<string name="gallery_pp_download_guides_title">Matkaoppaat</string>
@@ -1602,7 +1602,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Rajoittamaton pääsy hintaan %s/vuosi</string>
 	<string name="subscription_terms_guides">Maksu suoritetaan iTunes-tililtäsi oston vahvistamisen jälkeen. Tilaus uusitaan automaattisesti, ellei automaattinen uusiminen ole laitettu pois päältä vähintään 24 tuntia ennen nykyisen kauden päättymistä. Varat veloitetaan tililtäsi uusintasuunnitelmasi mukaisesti 24 tunnin kuluessa nykyisen kauden päättymisestä. Sinä voit hallita automaattista uusimista tai poistaa sen käytöstä Apple ID -tili-asetuksissa milloin tahansa oston jälkeen. Voit käyttää tilauksen kautta ladattuja oppaita vain sen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat kaikkine kirjanmerkkeineen poistetaan automaattisesti.</string>
 	<string name="subscription_terms">Maksu veloitetaan iTunes-tililtäsi maksuvahvistuksen yhteydessä. Tilauksesi uusitaan automaattisesti ellei automaattista uusintaa ole otettu pois käytöstä vähintään 24 tuntia ennen nykyisen tilausjakson päättymistä. Tilauksen uusinta veloitetaan tililtäsi 24 tunnin kuluessa ennen nykyisen tilausjakson päättymistä. Voit hallita tai ottaa tilausten automaattisen uusinnan pois käytöstä Apple ID -tilisi asetuksissa oston jälkeen.</string>
-	<string name="whatsnew_carplay_title">MAPS.ME -autonavigointi CarPlayssa!</string>
+	<string name="whatsnew_carplay_title">OMaps -autonavigointi CarPlayssa!</string>
 	<string name="whatsnew_carplay_message">Kirjanmerkit, haku, nopeuskamerat ja kiertotien asetukset ovat käytettävissä offline-tilassa</string>
 	<string name="whatsnew_subscription_title">Tilauksella koko maailma!</string>
 	<string name="whatsnew_subscription_message">Rajaton käyttöoikeus ohjekirjoihin on hyödyllisempi kuin kertaluontoinen ostos</string>
@@ -1616,7 +1616,7 @@
 	<string name="avoid_tolls_carplay_2">Ei maksua</string>
 	<string name="speedcams_alert_title_carplay_1">Nopeuskamera</string>
 	<string name="speedcams_alert_title_carplay_2">Nopeuskamerat</string>
-	<string name="download_map_carplay">Lataa kartat laitteesi MAPS.ME-sovelluksessa</string>
+	<string name="download_map_carplay">Lataa kartat laitteesi OMaps-sovelluksessa</string>
 	<string name="carplay_roundabout_exit">Poistumisramppi %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Järjestä…</string>
@@ -1667,7 +1667,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Järjestellyt kirjanmerkit tekevät matkailusta mukavampaa</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Järjestä suosikkipaikkasi kategorian, sijainnin tai kronologisen järjestyksen mukaan ja etsi kirjanmerkkejä nopeasti nimen perusteella</string>
 	<string name="popup_subscription_success_map_title">Hurraa! Tilauksesi on voimassa!</string>
-	<string name="popup_subscription_success_map_message">Tutustu nyt parhaisiin nähtävyyksiin MAPS.ME-luettelossa</string>
+	<string name="popup_subscription_success_map_message">Tutustu nyt parhaisiin nähtävyyksiin OMaps-luettelossa</string>
 	<string name="popup_subscription_success_map_start_button">Näytä</string>
 	<string name="popup_subscription_success_map_not_now_button">Ei nyt</string>
 	<string name="religious_places">Pyhät paikat</string>
@@ -1699,9 +1699,9 @@
 	<string name="new_onboarding_step5.1_header">Ennen aloittamista…</string>
 	<string name="new_onboarding_step5.1_message">Muista vierailla meidän uuden reittiluettelossamme löytääksesi offline-oppaan seuraavaa matkaa varten!</string>
 	<string name="new_onboarding_step5.1_button">Avaa luettelo</string>
-	<string name="new_onboarding_step5.2_message">MAPS.ME -matkaoppaiden tilaus on löytöostos. Käytä vapaasti matkaoppaiden kaikkia mahdollisuuksia!</string>
+	<string name="new_onboarding_step5.2_message">OMaps -matkaoppaiden tilaus on löytöostos. Käytä vapaasti matkaoppaiden kaikkia mahdollisuuksia!</string>
 	<string name="new_onboarding_step5.2_button">Näytä ehdot</string>
-	<string name="new_onboarding_step5.3_message">Lataa ja arvioi kaupunkikierroksia ja ulkoiluaktiviteetteja ilmaisella MAPS.ME-valinnalla!</string>
+	<string name="new_onboarding_step5.3_message">Lataa ja arvioi kaupunkikierroksia ja ulkoiluaktiviteetteja ilmaisella OMaps-valinnalla!</string>
 	<string name="new_onboarding_step5.3_button">Lataa ilmaiseksi</string>
 	<string name="new_onboarding_additional_steps_later_button">Ei nyt</string>
 	<string name="all_pass_subscription_header">Tilaa</string>
@@ -1734,7 +1734,7 @@
 	<string name="dialog_pedestrian_route_is_long">Liian pitkä jalankulkumatka joukkoliikenteen pysäkille</string>
 	<string name="whatsnew_outdoor_guides_title">Me olemme lisänneet 15000+ polkua ulkoilua varten!</string>
 	<string name="whatsnew_outdoor_guides_message">Outdooractiven talvi- ja kesälomareitit odottavat luettelossa!</string>
-	<string name="whatsnew_guides_galleries_title">Suunnittele seuraava matka MAPS.ME:n kanssa</string>
+	<string name="whatsnew_guides_galleries_title">Suunnittele seuraava matka OMaps:n kanssa</string>
 	<string name="whatsnew_guides_galleries_message">Nyt te voitte löytää suositeltuja matkaoppaita suosittujen kaupunkien ja nähtävyyksien korteista</string>
 	<string name="new_onboarding_step3_header">Matkusta</string>
 	<string name="all_pass_screen_best_value">Edullinen hinta</string>
@@ -1748,7 +1748,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Suunnistaudu vuorimaastossa – käynnistä kerros päälle näytön vasemmassa yläkulmassa olevalla painikkeella</string>
 	<string name="button_layer_isolines">Korkeudet</string>
-	<string name="tips_map_layers_title_countour">Korkeuslinjat offline-tilassa MAPS.ME:ssä!</string>
+	<string name="tips_map_layers_title_countour">Korkeuslinjat offline-tilassa OMaps:ssä!</string>
 	<string name="tips_map_layers_message_countour">Korkeuslinjat auttavat suunnittelemaan luontomatkan etkä enää eksy maastolla</string>
 	<string name="isolines_activation_error_dialog">Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuslinjoja</string>
 	<string name="isolines_location_error_dialog">Korkeus linjat eivät ole vielä saatavilla tällä alueella</string>

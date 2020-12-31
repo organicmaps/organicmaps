@@ -31,7 +31,7 @@
 	<string name="downloading">İndiriliyor…</string>
 	<string name="get_it_now">Hemen al</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">MAPS.ME’yi kullandığınız için teşekkür ederiz! Uygulamayı beğendiniz mi? Bundan arkadaşlarınıza bahsedin! Bundan büyük memnuniyet duyarız.</string>
+	<string name="share_on_facebook_text">OMaps’yi kullandığınız için teşekkür ederiz! Uygulamayı beğendiniz mi? Bundan arkadaşlarınıza bahsedin! Bundan büyük memnuniyet duyarız.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -90,7 +90,7 @@
 	<string name="country_status_download_failed">Indirme işlemi başarısız oldu</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tekrar Deneyin</string>
-	<string name="about_menu_title">MAPS.ME Hakkında</string>
+	<string name="about_menu_title">OMaps Hakkında</string>
 	<string name="downloading_touch_to_cancel">%d%% indiriliyor, iptal etmek için dokunun</string>
 	<string name="downloaded_touch_to_delete">(%s) indirildi, silmek için dokunun</string>
 	<string name="connection_settings">Bağlantı Ayarları</string>
@@ -99,7 +99,7 @@
 	<string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
 	<string name="download">İndir</string>
 	<string name="external_storage_is_not_available">İndirilen haritalarla SD kart/USB depolama aygıtı kullanılamıyor</string>
-	<string name="disconnect_usb_cable">MAPS.ME’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
+	<string name="disconnect_usb_cable">OMaps’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
 	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
 	<string name="not_enough_memory">Uygulamayı başlatmak için yeterli hafıza yok</string>
 	<string name="free_space_for_country">%2$s indirebilmeniz için lütfen ilk önce cihazınızda %1$s alan boşaltın</string>
@@ -126,7 +126,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Bu haritalar için güncelleme kullanılabilir:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">MAPS.ME Lite’e artık ihtiyacınız yok; bu nedenle uygulamayı kaldırabilirsiniz.</string>
+	<string name="suggest_uninstall_lite">OMaps Lite’e artık ihtiyacınız yok; bu nedenle uygulamayı kaldırabilirsiniz.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s başarılı bir şekilde indirildi</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -156,9 +156,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Ayarla</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp MAPS.ME’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.</string>
+	<string name="bookmarks_usage_hint">Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp OMaps’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Başka kaynaklardan yer imleri alınıp MAPS.ME’de gösterilebilir. KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen yer imleriyle aç.</string>
+	<string name="bookmarks_usage_hint_import_only">Başka kaynaklardan yer imleri alınıp OMaps’de gösterilebilir. KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen yer imleriyle aç.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ayarlar</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -226,7 +226,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">E-postayla paylaş</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Paylaşılan MAPS.ME yer imleri</string>
+	<string name="share_bookmarks_email_subject">Paylaşılan OMaps yer imleri</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Yer İmleri Yükleniyor</string>
 	<!-- Kmz file successful loading -->
@@ -246,17 +246,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Ülke indirme işlemi şu anda sürüyor.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">MAPS.ME kullanmaktan keyif aldığınızı umuyoruz! Öyleyse, lütfen App Store’da uygulamaya puan verin veya uygulama hakkında yorum yapın. Bir dakikadan daha kısa sürer ama bize gerçekten yardımcı olabilir. Desteğiniz için teşekkürler!</string>
+	<string name="appStore_message">OMaps kullanmaktan keyif aldığınızı umuyoruz! Öyleyse, lütfen App Store’da uygulamaya puan verin veya uygulama hakkında yorum yapın. Bir dakikadan daha kısa sürer ama bize gerçekten yardımcı olabilir. Desteğiniz için teşekkürler!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Hayır, teşekkürler</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hey, MAPS.ME’de pinimi incele! %1$s veya %2$s Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: http://maps.me/get</string>
+	<string name="bookmark_share_sms">Hey, OMaps’de pinimi incele! %1$s veya %2$s Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hey, MAPS.ME’de geçerli konumumu incele! %1$s veya %2$s Çevrimiçi haritalar sende yok mu? Buradan indir: http://maps.me/get</string>
+	<string name="my_position_share_sms">Hey, OMaps’de geçerli konumumu incele! %1$s veya %2$s Çevrimiçi haritalar sende yok mu? Buradan indir: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hey, MAPS.ME haritasında pinimi incele!</string>
+	<string name="bookmark_share_email_subject">Hey, OMaps haritasında pinimi incele!</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hey, MAPS.ME’de geçerli konumumu incele!</string>
+	<string name="my_position_share_email_subject">Hey, OMaps’de geçerli konumumu incele!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için bu bağlantıya %2$s veya şuna %3$s tıkla.\n\nTeşekkürler.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -342,7 +342,7 @@
 	<string name="placepage_unsorted">Sıralanmamış</string>
 	<string name="search_show_on_map">Haritada görüntüle</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_ok">Harita veri depolama optimize edildi. Lütfen uygulamayı yeniden başlatın.\n\nSD kart kaynağındaki MAPS.ME klasörüne artık ihtiyaç yok; silebilirsiniz.</string>
+	<string name="kitkat_migrate_ok">Harita veri depolama optimize edildi. Lütfen uygulamayı yeniden başlatın.\n\nSD kart kaynağındaki OMaps klasörüne artık ihtiyaç yok; silebilirsiniz.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">Android 4.4’de yapılan değişikliklerden dolayı harita veri depolamasını optimize etmemiz gerekiyor ancak harita verilerini kopyalayacak yeterli alan yok.\n\nLütfen hafızayı boşaltın, aksi takdirde haritalar salt okunur modda kullanılabilir olacaktır.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
@@ -364,19 +364,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Bulunduğun yerin haritasını indir</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">MAPS.ME tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.</string>
+	<string name="pro_version_is_free_today">OMaps tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">MAPS.ME Lite\'den indirmiş olduğunuz haritaları MAPS.ME\'ye aktarıyoruz. Bu bir kaç dakika sürebilir.</string>
+	<string name="move_lite_maps_to_pro">OMaps Lite\'den indirmiş olduğunuz haritaları OMaps\'ye aktarıyoruz. Bu bir kaç dakika sürebilir.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">İndirmiş olduğunuz haritalar başarılı bir şekilde MAPS.ME\'ye aktarıldı.</string>
+	<string name="move_lite_maps_to_pro_ok">İndirmiş olduğunuz haritalar başarılı bir şekilde OMaps\'ye aktarıldı.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite\'yi silin ve haritaları tekrar indirin.</string>
+	<string name="move_lite_maps_to_pro_failed">Haritanızın aktarımı başarısız oldu. Lütfen OMaps Lite\'yi silin ve haritaları tekrar indirin.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Ayarlar &amp; Fazlası</string>
 	<!-- Text in menu -->
 	<string name="website">Web Sitesi</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">MAPS.ME Topluluğu</string>
+	<string name="maps_me_community">OMaps Topluluğu</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebook\'da beğen</string>
 	<!-- Text in menu -->
@@ -396,11 +396,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Hata bildir</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Lütfen MAPS.ME haber bültenine beni abone yap</string>
+	<string name="subscribe_me_subject">Lütfen OMaps haber bültenine beni abone yap</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">En son haberlerden güncellemelerden ve tanıtımlardan ilk önce haberdar olmak istiyorum. Aboneliğimi herhangi bir zaman iptal edebilirim.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, MAPS.ME harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin MAPS.ME\'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support\@maps.me adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nMAPS.ME\'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza MAPS.ME\'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap\'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttps://www.openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler MAPS.ME\'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.</string>
+	<string name="about_text">OMaps dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, OMaps harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin OMaps\'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support\@omaps.app adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nOMaps\'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza OMaps\'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap\'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttps://www.openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler OMaps\'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %s adresinden ulaşmak için başka bir yöntem deneyin</string>
 	<!-- Alert title -->
@@ -412,7 +412,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">MAPS.ME\'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.</string>
+	<string name="routing_update_maps">OMaps\'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Hepsini güncelle</string>
 	<!-- Cancel all button text -->
@@ -429,7 +429,7 @@
 	<string name="downloader_downloading">İndiriliyor:</string>
 	<string name="downloader_search_results">Bulundu</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">MAPS.ME uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!</string>
+	<string name="routing_disclaimer">OMaps uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Güncel değil</string>
 	<!-- Up to date maps category -->
@@ -453,7 +453,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Seçilen kalkış yeriyle varış yeri arasında hiçbir rota bulunamadı. Lütfen farklı bir başlangıç veya bitiş noktası seçin.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support\@maps.me adresinden bize ulaşın.</string>
+	<string name="routing_failed_internal_error">Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support\@omaps.app adresinden bize ulaşın.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Harita + Rota İndir</string>
 	<!-- Context menu item for downloader. -->
@@ -484,9 +484,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Uygulamanıza az önce puan verdim</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">%s yılından beri MAPS.ME kullanıcısıyım</string>
+	<string name="rating_user_since">%s yılından beri OMaps kullanıcısıyım</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">MAPS.ME\'yi beğeniyor musunuz?</string>
+	<string name="rating_do_like_maps">OMaps\'yi beğeniyor musunuz?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Uygulamamıza puan vermek için bir yıldıza dokunun.</string>
 	<!-- Text for rating dialog -->
@@ -502,7 +502,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Harita alın</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Tüm MAPS.ME özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.</string>
+	<string name="routing_download_map_and_routing">Tüm OMaps özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Rota verileri edin</string>
 	<!-- Text for routing error dialog -->
@@ -634,7 +634,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Bir rota oluşturmak için lütfen rota üzerindeki tüm haritaları indirin ve güncelleyin.</string>
 	<string name="rate_alert_title">Uygulamayı beğendiniz mi?</string>
-	<string name="rate_alert_default_message">MAPS.ME’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.</string>
+	<string name="rate_alert_default_message">OMaps’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.</string>
 	<string name="rate_alert_five_star_message">Yaşasın! Biz de sizi seviyoruz!</string>
 	<string name="rate_alert_four_star_message">Teşekkür ederiz, elimizden geleni yapacağız!</string>
 	<string name="rate_alert_less_than_four_star_message">Daha iyi hale getirebilmemiz için herhangi bir fikriniz var mı?</string>
@@ -689,7 +689,7 @@
 	<string name="editor_report_problem_no_place_title">Yer mevcut değil</string>
 	<string name="editor_report_problem_under_construction_title">Bakım için kapalı</string>
 	<string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
-	<string name="first_launch_congrats_title">MAPS.ME kullanıma hazır</string>
+	<string name="first_launch_congrats_title">OMaps kullanıma hazır</string>
 	<string name="first_launch_congrats_text">Dünyanın her yerinde çevrimdışı olarak ücretsiz arama yapın ve gezinin.</string>
 	<string name="migrate_title">Önemli!</string>
 	<!-- Android uses image instead of text. -->
@@ -793,18 +793,18 @@
 	<string name="whatsnew_search_message">Adres ile aramayı önemli ölçüde geliştirdik. Kendiniz görün.</string>
 	<string name="whatsnew_editor_title">Haritayı düzenleyin*</string>
 	<string name="whatsnew_editor_message_1">Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME, OpenStreetMap topluluğu verilerini kullanmaktadır.</string>
+	<string name="whatsnew_editor_message_2">* OMaps, OpenStreetMap topluluğu verilerini kullanmaktadır.</string>
 	<string name="onboarding_offline_navigation_title">Bir daha asla kaybolmayacaksınız</string>
 	<string name="onboarding_offline_navigation_message">En iyi araba ve yaya rotalarını planlayın, hatta internet bağlantısı olmadığında bile!</string>
 	<string name="onboarding_offline_navigation_title_2">Farklı bir problem</string>
 	<string name="onboarding_offline_navigation_message_2">En iyi araba ve yaya rotalarını planlayın.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — dünya genelinde haritaya internetsiz erişim</string>
+	<string name="onboarding_offline_maps_title">OMaps — dünya genelinde haritaya internetsiz erişim</string>
 	<string name="onboarding_offline_maps_message">İlk önce istenilen alanın haritasını indirin ve internet bağlantısı olmadan navigasyonu ve arama fonksiyonlarını kullanın.</string>
 	<string name="onboarding_notifications_message">En son haritaları almak için güncelleme bildirimlerini alın</string>
 	<string name="onboarding_notifications_title">Güncelleme bildirimlerini etkinleştir</string>
 	<string name="onboarding_location_title">Sizi bulmamıza yardım edin</string>
 	<string name="onboarding_location_message">Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.</string>
-	<string name="onboarding_permissions_title">MAPS.ME\'nin depolama alanına ve konum bilgilerine erişmesine izin verin</string>
+	<string name="onboarding_permissions_title">OMaps\'nin depolama alanına ve konum bilgilerine erişmesine izin verin</string>
 	<string name="onboarding_permissions_message">Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.</string>
 	<string name="onboarding_welcome_second_subtitle">Uygulamayı başlatarak &lt;a href="%1$s">Kullanım Koşullarını&lt;/a> ve &lt;a href="%2$s">Gizlilik Politikasını&lt;/a> kabul etmiş sayılırsınız.</string>
 	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
@@ -813,7 +813,7 @@
 	<string name="no_migration_during_navigation">Navigasyon sırasında güncelleme yasaktır.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.</string>
-	<string name="editor_sharing_title">MAPS.ME haritalarını iyileştirdim</string>
+	<string name="editor_sharing_title">OMaps haritalarını iyileştirdim</string>
 	<string name="editor_comment_will_be_sent">Yorumunuzu haritacılara göndereceğiz.</string>
 	<string name="editor_unsupported_category_message">Henüz desteklemediğimiz bir kategori yeri eklediniz. Bir süre sonra haritada yer alacaktır.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -830,7 +830,7 @@
 	<string name="core_placepage_unknown_place">Bilinmeyen Yer</string>
 	<string name="editor_other_info">OSM editörlerine bir not gönderin</string>
 	<string name="editor_detailed_description_hint">Ayrıntılı yorum</string>
-	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. MAPS.ME’de düzenlenemeyen ayrıntıları açıklayın.</string>
+	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. OMaps’de düzenlenemeyen ayrıntıları açıklayın.</string>
 	<string name="editor_more_about_osm">OpenStreetMap hakkında ek bilgi</string>
 	<string name="editor_operator">İşletmeci</string>
 	<string name="editor_tag_description">Tesislerden sorumlu şirketi, kurumu veya bireyi girin.</string>
@@ -851,7 +851,7 @@
 	<string name="current_location_unknown_error_title">Geçerli konum bilinmiyor.</string>
 	<string name="current_location_unknown_error_message">Konumunuz aranırken bir hata oluştu. Cihazının düzgün çalışıp çalışmadığını kontrol edip daha sonra tekrar deneyin.</string>
 	<string name="whatsnew_update_editor_title">Harita düzenleyicisini güncelledik</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME kullanıcıları, haritalar üzerinde 200.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!</string>
+	<string name="whatsnew_update_editor_message">OMaps kullanıcıları, haritalar üzerinde 200.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Harita Editörü\'nü kullanmak için lütfen tüm haritaları güncelleyin.</string>
 	<string name="location_services_disabled_header">Konum tanımlama devre dışı bırakıldı</string>
@@ -940,7 +940,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">İncele</string>
 	<string name="continue_recent_track_background_button">Devam Et</string>
-	<string name="recent_track_background_dialog_message">MAPS.ME, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
+	<string name="recent_track_background_dialog_message">OMaps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
 	<string name="whatsnew_car_navigation_header">Kullanıcı dostu araç navigasyonu</string>
 	<string name="whatsnew_car_navigation_message">• Navigasyon ögeleri daha az yer kaplıyor.\n• Hızı gösteriyoruz ve otomatik yakınlaştırma ilave ettik.</string>
 	<string name="whatsnew_cycle_navigation_2_header">Bisiklet navigasyonu</string>
@@ -948,15 +948,15 @@
 	<string name="whatsnew_booking_2_header">Kolay otel arama</string>
 	<string name="whatsnew_booking_2_message">Arama sonuçları otel puan ve fiyat kategorisini gösterir.</string>
 	<string name="whatsnew_cycle_navigation_header">Bisiklet navigasyonu (beta sürüm)</string>
-	<string name="whatsnew_cycle_navigation_message">Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını MAPS.ME ile deneyin ve görüşlerinizi bizimle paylaşın.</string>
+	<string name="whatsnew_cycle_navigation_message">Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını OMaps ile deneyin ve görüşlerinizi bizimle paylaşın.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Google Play\'de Oy Ver</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Arkadaşınıza söyleyin</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Merhaba! MAPS.ME\'yi hemen yükle!</string>
+	<string name="tell_friends_text">Merhaba! OMaps\'yi hemen yükle!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. MAPS.ME, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.</string>
+	<string name="about_description">OMaps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. OMaps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -1011,7 +1011,7 @@
 	<string name="chat">GeoChat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Aç</string>
-	<string name="whatsnew_uber_header">MAPS.ME ve Uber</string>
+	<string name="whatsnew_uber_header">OMaps ve Uber</string>
 	<string name="whatsnew_uber_message">Doğrudan uygulamadan Uber taksi isteyin!</string>
 	<string name="dialog_taxi_offline">Taksi çağırma çevrimdışı modda kullanılamıyor.</string>
 	<string name="dialog_taxi_error">Taksi çağırma geçici olarak kullanılamıyor.</string>
@@ -1026,7 +1026,7 @@
 	<string name="traffic_update_maps_text">Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.</string>
 	<string name="traffic_outdated">Trafik verileri güncel değil.</string>
 	<string name="big_font">Harita üzerindeki yazı tipi boyutunu artır</string>
-	<string name="traffic_update_app">Lütfen MAPS.ME uygulamasını güncelleyin</string>
+	<string name="traffic_update_app">Lütfen OMaps uygulamasını güncelleyin</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1124,9 +1124,9 @@
 	<string name="button_accept_and_continue">Kabul et ve devam et</string>
 	<string name="button_learn_more">Daha fazla bilgi edinin</string>
 	<string name="onboarding_storage_permissions_title">Erişime izin ver</string>
-	<string name="onboarding_storage_permissions_message">Cihazınızdaki izin ayarlarını değiştirin. MAPS.ME\'yi kullanmak için depolama alanına erişim izni gerekiyor.</string>
+	<string name="onboarding_storage_permissions_message">Cihazınızdaki izin ayarlarını değiştirin. OMaps\'yi kullanmak için depolama alanına erişim izni gerekiyor.</string>
 	<string name="button_exit">Çık</string>
-	<string name="onboarding_detail_permissions_title">MAPS.ME\'nin şuraya erişmesi gerekiyor:</string>
+	<string name="onboarding_detail_permissions_title">OMaps\'nin şuraya erişmesi gerekiyor:</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Depolama Alanı</string>
 	<string name="onboarding_detail_permissions_storage_message">İndirilen haritaları çevrimdışı olarak kullanmak ve yer imlerini kaydetmek.</string>
@@ -1197,7 +1197,7 @@
 	<string name="whats_new_ugc_title_updated_v840">Puanlamalar ve değerlendirmeler</string>
 	<string name="whats_new_ugc_message">Artık puanlamalarınızı ve değerlendirmelerinizi çevrimdışıyken bırakabilirsiniz! Değişiklikleri görebilmek için haritalarınızı güncellemeyi unutmayın.</string>
 	<string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
-	<string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support\@maps.me adresinden bizimle iletişime geçin</string>
+	<string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support\@omaps.app adresinden bizimle iletişime geçin</string>
 	<string name="setting_emulate_bad_storage">Bozuk depolama alanını taklit et</string>
 	<string name="discovery_button_title">Yakın çevreyi keşfedin</string>
 	<string name="discovery_button_subtitle_things_to_do">Yapılacaklar</string>
@@ -1291,16 +1291,16 @@
 	<string name="sign_message_gdpr">Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun.</string>
 	<string name="sign_agree_pp_gdpr">&lt;a href="%s">Gizlilik Politikası&lt;/a> bölümünü kabul ediyorum</string>
 	<string name="sign_agree_tof_gdpr">&lt;a href="%s">Kullanım Şartları&lt;/a> bölümünü kabul ediyorum</string>
-	<string name="sign_agree_news_gdpr">MAPS.ME ürünleri hakkında en yeni haberleri almayı kabul ediyorum</string>
+	<string name="sign_agree_news_gdpr">OMaps ürünleri hakkında en yeni haberleri almayı kabul ediyorum</string>
 	<string name="whats_new_localbiz_title">Küçük işletmeler de ilgi hak ediyor</string>
-	<string name="whats_new_localbiz_message">Seyahatlerinizi unutulmaz kılan bölgedeki kafeler, konforlu oteller ve alışveriş yapabileceğiniz mağazalardır. Tüm bunların ön plana çıkabilmesi için MAPS.ME sayfanızı optimize edeceğiz.</string>
+	<string name="whats_new_localbiz_message">Seyahatlerinizi unutulmaz kılan bölgedeki kafeler, konforlu oteller ve alışveriş yapabileceğiniz mağazalardır. Tüm bunların ön plana çıkabilmesi için OMaps sayfanızı optimize edeceğiz.</string>
 	<string name="whats_new_order_button">İsteğinizi iletin</string>
 	<string name="bookmarks_page_downloaded">İndirildi</string>
 	<string name="bookmarks_page_my">Bana ait</string>
 	<string name="routes_and_bookmarks">Rotalar ve yer imleri</string>
 	<string name="bookmarks_webview_success_toast">Yer imleri başarıyla indirildi</string>
 	<string name="cached_bookmarks_placeholder_title">Yeni yerler indirin</string>
-	<string name="cached_bookmarks_placeholder_subtitle">MAPS.ME kullanıcılarının oluşturduğu binlerce ilgi çekici yeri ve rotayı indirmek için düğmeye basın. İnternet bağlantınızın olması gerekir.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">OMaps kullanıcılarının oluşturduğu binlerce ilgi çekici yeri ve rotayı indirmek için düğmeye basın. İnternet bağlantınızın olması gerekir.</string>
 	<string name="downloader_download_routers">İndirilen yer imleri</string>
 	<string name="bookmarks_groups_cached">İndirilen listeler</string>
 	<string name="author_name_by_prefix">- %s</string>
@@ -1320,7 +1320,7 @@
 	<string name="opt_out_flurry">İstatistik</string>
 	<string name="opt_out_mopub">Kişiye özel reklamcılık</string>
 	<string name="opt_out_fabric">Kilitlenme raporu</string>
-	<string name="opt_out_fabric_description">MAPS.ME deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
+	<string name="opt_out_fabric_description">OMaps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
 	<string name="opt_out_help_ios_1">Mobil cihazınız, “Reklam İzlemeyi Sınırla” veya “İlgiye dayalı reklamcılığı devre dışı bırak” ayarı sunar.</string>
 	<string name="opt_out_help_ios_2">iOS 9 veya Üstü</string>
 	<string name="opt_out_help_ios_3">Ayarlar → Gizlilik → Reklamcılık\'a gidin ve “Reklam İzlemeyi Sınırla” ayarını etkinleştirin</string>
@@ -1341,7 +1341,7 @@
 	<string name="category_desc_more">…daha fazla</string>
 	<string name="title_error_downloading_bookmarks">Bir hata oluştu</string>
 	<string name="subtitle_error_downloading_bookmarks">Yer imleri indirilmedi</string>
-	<string name="whats_new_bookmarks_catalog_title">MAPS.ME\'de artık yeni bir rota kategorisi var</string>
+	<string name="whats_new_bookmarks_catalog_title">OMaps\'de artık yeni bir rota kategorisi var</string>
 	<string name="whats_new_bookmarks_catalog_message">Dünyanın dört bir yanından yüzlerce ayrıntılı rota: Nereye gidilir? Nereleri ziyaret edilir? Ne yenir?</string>
 	<string name="whats_new_popularity_label_title">Yakındaki popüler yerler</string>
 	<string name="whats_new_popularity_label_message">Yakın çevreyi keşfedin kısmı şehirdeki en popüler yerleri bulmana yardımcı olacak.</string>
@@ -1358,15 +1358,15 @@
 	<string name="guide_downloaded_subtitle">El kitabını keşfetmek için ‘Haritada görüntüle’ düğmesine bas</string>
 	<string name="bookmarks_guides">Yer imleri ve el kitapları</string>
 	<string name="remove_ads">Reklamları kaldır</string>
-	<string name="remove_ads_title">Tüm reklamları kaldırın ve MAPS.ME\'ye destek olun</string>
+	<string name="remove_ads_title">Tüm reklamları kaldırın ve OMaps\'ye destek olun</string>
 	<string name="paybtn_title">Yıllık %s/ödeyin</string>
 	<string name="paybtn_subtitle">Yıllık %s tasarruf edin</string>
 	<string name="options_dropdown_title">Diğer seçenekler</string>
-	<string name="why_support">MAPS.ME\'yi neden desteklemeliyim?</string>
+	<string name="why_support">OMaps\'yi neden desteklemeliyim?</string>
 	<string name="options_dropdown_item1">%1$s/ay (yıllık %2$s tasarruf)</string>
 	<string name="options_dropdown_item2">%s/hafta (tasarruf yok)</string>
 	<string name="why_support_item1">Sizin için tüm reklamları kaldıracağız</string>
-	<string name="why_support_item2">MAPS.ME\'yi geliştirmemize yardımcı oldunuz</string>
+	<string name="why_support_item2">OMaps\'yi geliştirmemize yardımcı oldunuz</string>
 	<string name="why_support_item3">OpenStreetMap.org\'daki açık haritaları geliştirmemize yardımcı oldunuz</string>
 	<string name="purchase_processing">Alışverişin işleniyor…</string>
 	<string name="tips_bookmarks_catalog_title">Her türlü seyahat için çevrimdışı kılavuzlar</string>
@@ -1384,7 +1384,7 @@
 	<string name="awaiting_approval">Ebeveyn onayı bekleniyor</string>
 	<string name="whats_new_leave_review">İnceleme yazın! Tatiliniz boyunca ziyaret ettiğiniz yerler hakkındaki görüşlerinizi paylaşın.</string>
 	<string name="server_unavailable_title">Hizmet kullanılamıyor</string>
-	<string name="server_unavailable_message">Satın alma işlemi daha sonra tamamlanacak. Sorun devam ederse lütfen support\@maps.me adresine ulaşın.</string>
+	<string name="server_unavailable_message">Satın alma işlemi daha sonra tamamlanacak. Sorun devam ederse lütfen support\@omaps.app adresine ulaşın.</string>
 	<string name="offline_fiters_check_in">Otelleri tarihe göre filtrelemek için internete bağlanın.</string>
 	<string name="restore_subscription">Aboneliği geri yükle</string>
 	<string name="restore_success_alert">Abonelik başarılı bir şekilde geri yüklendi</string>
@@ -1401,7 +1401,7 @@
 	<string name="ugc_route_tags_progress_msg">Etiketler yükleniyor…</string>
 	<string name="public_access">Genel erişim</string>
 	<string name="limited_access">Sınırlı erişim</string>
-	<string name="upload_and_publish_desc">Bu kılavuz, herkese açık MAPS.ME kataloğuna yüklenecek ve diğer kullanıcılara sunulacaktır</string>
+	<string name="upload_and_publish_desc">Bu kılavuz, herkese açık OMaps kataloğuna yüklenecek ve diğer kullanıcılara sunulacaktır</string>
 	<string name="upload_and_publish">Yükle ve yayınla</string>
 	<string name="upload_and_get_direct_link">Yükle ve direkt bağlantı al</string>
 	<string name="get_direct_link_desc">Kılavuzunuz, bağlantıya sahip olan herkese açık olacak</string>
@@ -1452,12 +1452,12 @@
 	<string name="notification_channel_downloader">Harita indiricisi</string>
 	<string name="notification_leave_review_title">%s - nasıldı?</string>
 	<string name="notification_leave_review_content">Yorum bırakarak gezginlere yardım edin!</string>
-	<string name="share_bookmarks_email_body_link">Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. OMaps ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak</string>
 	<string name="warning_speedcams_subtitle">Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.</string>
 	<string name="speedcams_notice_message">Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma</string>
 	<string name="whats_new_ugc_routes_title">İzlenimlerinizi paylaşmak çok kolay</string>
-	<string name="whats_new_ugc_routes_subtitle">nutulmaz mekanları kaydedin, sayfa işaretleri kullanarak rotalar oluşturun ve bunları MAPS.ME kataloğundaki herkesle paylaşın.</string>
+	<string name="whats_new_ugc_routes_subtitle">nutulmaz mekanları kaydedin, sayfa işaretleri kullanarak rotalar oluşturun ve bunları OMaps kataloğundaki herkesle paylaşın.</string>
 	<string name="whats_new_webeditor_title">Rotalarınızı hikayelere dönüştürün</string>
 	<string name="whats_new_ugc_routes_message2">Web editöre fotoğraflar ve detaylı hikayeler ekleyin.</string>
 	<string name="whatsnew_standard_routes_title">Standart rotalar</string>
@@ -1474,7 +1474,7 @@
 	<string name="notification_leave_review_v2_title">Ziyaret edilen bir yere puan verin ve gezginlere yardım edin!</string>
 	<string name="error_public_not_enought_title">Yeterli yer imi yok</string>
 	<string name="error_public_not_enought_subtitle">Kılavuzunuzu genel kataloğa yükleyebilmek için en az 3 yer iminiz olmalı</string>
-	<string name="bookmark_public_upload_alert_title">Yer imlerinizi tüm MAPS.ME gezginleriyle paylaşmanıza az kaldı!</string>
+	<string name="bookmark_public_upload_alert_title">Yer imlerinizi tüm OMaps gezginleriyle paylaşmanıza az kaldı!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Lütfen listeniz için belirli bir ad ve açıklamanız olduğundan ve tüm yer imlerinde yerler hakkında biraz bilgi bulunduğundan emin olun. Bu şekilde listeniz başkaları tarafından bulunabilir ve kullanılabilir.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Evet, eminim!</string>
 	<string name="name_title">Kılavuzunuzun adını girin</string>
@@ -1504,7 +1504,7 @@
 	<string name="power_managment_setting_never">Asla</string>
 	<string name="power_managment_setting_auto">Otomatik</string>
 	<string name="power_managment_setting_manual_max">Maksimum güç tasarrufu</string>
-	<string name="enable_logging_warning_message">Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca MAPS.ME desteğinin isteği üzerine etkinleştirin.</string>
+	<string name="enable_logging_warning_message">Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca OMaps desteğinin isteği üzerine etkinleştirin.</string>
 	<string name="html_error_upload_message_try_again">Lütfen ağ ayarlarınızı kontrol edip tekrar deneyin</string>
 	<string name="html_error_upload_title_try_again">İnternet bağlantısı yok</string>
 	<string name="notification_leave_review_v2_android_short_title">İnceleyin ve gezginlere yardım edin!</string>
@@ -1513,7 +1513,7 @@
 	<string name="privacy_settings_menu">Gizlilik ayarları</string>
 	<string name="gdpr_request_setting">GDPR isteği için kimlik al</string>
 	<string name="gdpr_request_window_title">Kimliğiniz: %s.</string>
-	<string name="gdpr_request_window_message">Lütfen kopyalayın ve talebi support\@maps.me adresine gönderin</string>
+	<string name="gdpr_request_window_message">Lütfen kopyalayın ve talebi support\@omaps.app adresine gönderin</string>
 	<string name="gdpr_request_window_copy">Kimliği kopyala</string>
 	<string name="unable_upadate_error_title">Dosya güncellemesi başarısız oldu</string>
 	<string name="unable_upadate_error_message">Güncelleme sırasında bazı hatalar oluştu. Lütfen değişiklikleri kontrol edip tekrar deneyin</string>
@@ -1536,7 +1536,7 @@
 	<string name="avoid_toll_roads_placepage">Paralı yollardan kaçın</string>
 	<string name="avoid_unpaved_roads_placepage">Asfaltsız yollardan kaçın</string>
 	<string name="avoid_ferry_crossing_placepage">Feribot geçişlerinden kaçın</string>
-	<string name="cached_guides_placeholder_subtitle">MAPS.ME, harita üzerinde görüntülenen ve çevrimdışı kullanılabilen, fotoğraf ve açıklamaların bulunduğu seçili yerler için hazır rehberler sunar.</string>
+	<string name="cached_guides_placeholder_subtitle">OMaps, harita üzerinde görüntülenen ve çevrimdışı kullanılabilen, fotoğraf ve açıklamaların bulunduğu seçili yerler için hazır rehberler sunar.</string>
 	<string name="guides_catalogue_title">Rehber kataloğu</string>
 	<string name="download_guides_button">Kataloğa</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1544,12 +1544,12 @@
 	  <item quantity="other">%d incelemeye göre</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Özbek mutfağı</string>
-	<string name="onboarding_welcome_title">MAPS.ME ile planlayın ve seyahat edin</string>
+	<string name="onboarding_welcome_title">OMaps ile planlayın ve seyahat edin</string>
 	<string name="onboarding_welcome_first_subtitle">İlginç yerleri işaretleyin, otel rezervasyonu yapın, çevrimdışıyken rota hesaplayın</string>
 	<string name="onboarding_guide_direct_download_title">Rehber indirmeye hazır</string>
 	<string name="onboarding_guide_direct_download_subtitle">Haritada görüntülenecek ve çevrimdışı kullanılabilecek</string>
 	<string name="onboarding_guide_direct_download_button">İndir</string>
-	<string name="onboarding_bydeeplink_guide_title">MAPS.ME’de kullanıma hazır rehberler</string>
+	<string name="onboarding_bydeeplink_guide_title">OMaps’de kullanıma hazır rehberler</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">Ziyaret edilecek en iyi yerler fotoğraf ve açıklamalarla birlikte haritada görüntülenir. Çevrimdışı kullanın.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Rehberlere geçmeden önce…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Nesneler hakkındaki bilgileri güncel tutmak için haritaları güncelleyin!</string>
@@ -1580,11 +1580,11 @@
 	<string name="ok">Tamam</string>
 	<string name="booking_button_toolbar">Haritada bir otel seçin</string>
 	<string name="popup_booking_download_guides_title">Otel rezervasyonu yaptırdınız mı?</string>
-	<string name="popup_booking_download_guides_message">MAPS.ME adresinden, hazır rehberler ile rotanızı planlayın</string>
+	<string name="popup_booking_download_guides_message">OMaps adresinden, hazır rehberler ile rotanızı planlayın</string>
 	<string name="popup_mwm_download_guides_title">Çevrimdışı şehir rehberleri</string>
 	<string name="popup_mwm_download_guides_cta">Birini seçin</string>
 	<string name="popup_mwm_download_guides_cta_1">Bir göz atın</string>
-	<string name="gallery_pp_download_guides_offline_title">Tatilinizi MAPS.ME ile planlayın!</string>
+	<string name="gallery_pp_download_guides_offline_title">Tatilinizi OMaps ile planlayın!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Deneyimli gezginler tarafından yapılan rehberlerle, hiçbir şeyi kaçırmayın</string>
 	<string name="gallery_pp_download_guides_offline_cta">İnterneti aç</string>
 	<string name="gallery_pp_download_guides_title">Rehberler</string>
@@ -1613,7 +1613,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">%s/yıl için sınırsız erişim</string>
 	<string name="subscription_terms_guides">Satın alma onayından sonra, ödeme iTunes hesabınızdan ücretlendirilecektir. Otomatik yenileme özelliği, geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça, abonelik otomatik olarak yenilenecektir. Hesabınız cari dönem sonundan önce, 24 saat içinde yenileme planınıza göre tahsil edilecektir. Apple ID hesap ayarlarınızdaki otomatik yenileme özelliğini, satın aldığınız her an, yönetebilir veya kapatabilirsiniz. Abonelikle indirilen rehberleri yalnızca son kullanma tarihine kadar kullanabilirsiniz. Abonelik bitiminden 30 gün sonra, son kullanma tarihi geçmiş yer imleri olan rehberler, otomatik olarak silinir.</string>
 	<string name="subscription_terms">Ödeme, satın alma onayında iTunes hesabınızdan alınacaktır. Otomatik yenileme geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınızdan, geçerli dönemin sona ermesinden önce 24 saat içinde planınıza göre yenileme için ücret alınacaktır. Otomatik yenilemeyi satın alma işleminizde dilediğiniz zaman Apple ID hesap ayarlarınızda yönetebilir veya kapatabilirsiniz.</string>
-	<string name="whatsnew_carplay_title">CarPlay\'de MAPS.ME araç navigasyonu!</string>
+	<string name="whatsnew_carplay_title">CarPlay\'de OMaps araç navigasyonu!</string>
 	<string name="whatsnew_carplay_message">Yer imleri, arama, hız kameraları ve sürüş seçenekleri çevrimdışı da mevcut</string>
 	<string name="whatsnew_subscription_title">Tüm dünya abonelikle elinizin altında!</string>
 	<string name="whatsnew_subscription_message">Rehber kataloğuna sınırsız erişim, bir kerelik satın almadan daha karlıdır</string>
@@ -1627,7 +1627,7 @@
 	<string name="avoid_tolls_carplay_2">Paralı hariç</string>
 	<string name="speedcams_alert_title_carplay_1">Hız kamerası</string>
 	<string name="speedcams_alert_title_carplay_2">Hız uyarıları</string>
-	<string name="download_map_carplay">Lütfen haritaları cihazınıza MAPS.ME uygulamasından indirin</string>
+	<string name="download_map_carplay">Lütfen haritaları cihazınıza OMaps uygulamasından indirin</string>
 	<string name="carplay_roundabout_exit">%s çıkış</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sırala…</string>
@@ -1678,7 +1678,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Yer imlerine göre sıralamak yolculuğunuzu rahatlaştırır</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Favori yerleri kategori, konum ve kronolojik sıraya göre sıralayın ve belirli yer imlerini isimleriyle hızlı bir şekilde bulun</string>
 	<string name="popup_subscription_success_map_title">Yaşasın, abone oldun!</string>
-	<string name="popup_subscription_success_map_message">Şimdi MAPS.ME kataloğunda en iyi turistik yerleri keşfedin</string>
+	<string name="popup_subscription_success_map_message">Şimdi OMaps kataloğunda en iyi turistik yerleri keşfedin</string>
 	<string name="popup_subscription_success_map_start_button">Göz atmaya başla</string>
 	<string name="popup_subscription_success_map_not_now_button">Şimdi değil</string>
 	<string name="religious_places">Dini yerler</string>
@@ -1710,9 +1710,9 @@
 	<string name="new_onboarding_step5.1_header">Başlamadan önce bir şey daha…</string>
 	<string name="new_onboarding_step5.1_message">Yaklaşan seyahatiniz için çevrimdışı bir rehber bulmak adına yeni rehber kataloğumuzu ziyaret etmeyi unutmayın!</string>
 	<string name="new_onboarding_step5.1_button">Kataloğu aç</string>
-	<string name="new_onboarding_step5.2_message">MAPS.ME rehber kataloğu aboneliğiniz çok değerlidir. Tüm dünyadan hem şehir içi hem de doğa rehberlerine tam erişim elde edin!</string>
+	<string name="new_onboarding_step5.2_message">OMaps rehber kataloğu aboneliğiniz çok değerlidir. Tüm dünyadan hem şehir içi hem de doğa rehberlerine tam erişim elde edin!</string>
 	<string name="new_onboarding_step5.2_button">Şartlara göz at</string>
-	<string name="new_onboarding_step5.3_message">Ücretsiz MAPS.ME seçeneği ile hazır şehir ve açık hava güzergahlarından ücretsiz örnekleri inceleyin!</string>
+	<string name="new_onboarding_step5.3_message">Ücretsiz OMaps seçeneği ile hazır şehir ve açık hava güzergahlarından ücretsiz örnekleri inceleyin!</string>
 	<string name="new_onboarding_step5.3_button">Ücretsiz indir</string>
 	<string name="new_onboarding_additional_steps_later_button">Sonra</string>
 	<string name="all_pass_subscription_header">Üye olun</string>
@@ -1745,7 +1745,7 @@
 	<string name="dialog_pedestrian_route_is_long">Araç biniş noktasına giden yaya yolu çok uzun</string>
 	<string name="whatsnew_outdoor_guides_title">15000\'den fazla açık hava güzergahı ekledik!</string>
 	<string name="whatsnew_outdoor_guides_message">Outdooractive\'in kış ve yaz seyahatleri için güzergahlar katalogda bekliyor!</string>
-	<string name="whatsnew_guides_galleries_title">Yaklaşan seyahatinizi MAPS.ME ile planlayın</string>
+	<string name="whatsnew_guides_galleries_title">Yaklaşan seyahatinizi OMaps ile planlayın</string>
 	<string name="whatsnew_guides_galleries_message">Artık popüler turistik şehirlerin ve turistik mekanların yer sayfalarında önerilen rehberleri bulabilirsiniz</string>
 	<string name="new_onboarding_step3_header">Deneyimle</string>
 	<string name="all_pass_screen_best_value">En İyi Teklif</string>
@@ -1759,7 +1759,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Dağlık alanda kendinizi yönlendirin – ekranın sol üst köşesindeki düğmeyi kullanarak katmanı açın</string>
 	<string name="button_layer_isolines">Yükseklikler</string>
-	<string name="tips_map_layers_title_countour">MAPS.ME\'de yükseklik çizgileri çevrimdışı!</string>
+	<string name="tips_map_layers_title_countour">OMaps\'de yükseklik çizgileri çevrimdışı!</string>
 	<string name="tips_map_layers_message_countour">Yükseklik çizgileri, doğaya bir gezi planlamanıza ve arazide kaybolmamanıza yardımcı olacaktır</string>
 	<string name="isolines_activation_error_dialog">Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin</string>
 	<string name="isolines_location_error_dialog">Bu bölgede henüz yükseklik çizgileri mevcut değil</string>

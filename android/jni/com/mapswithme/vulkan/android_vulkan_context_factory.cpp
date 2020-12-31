@@ -100,7 +100,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory(int appVersionCode, int
   appInfo.apiVersion = VK_MAKE_VERSION(1, 0, 0);
   appInfo.applicationVersion = static_cast<uint32_t>(appVersionCode);
   appInfo.engineVersion = static_cast<uint32_t>(appVersionCode);
-  appInfo.pApplicationName = "MAPS.ME";
+  appInfo.pApplicationName = "OMaps";
   appInfo.pEngineName = "Drape Engine";
 
   bool enableDiagnostics = false;

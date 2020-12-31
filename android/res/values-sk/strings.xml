@@ -31,7 +31,7 @@
 	<string name="downloading">Sťahovanie…</string>
 	<string name="get_it_now">Získať teraz</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Ďakujeme, že používate MAPS.ME! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.</string>
+	<string name="share_on_facebook_text">Ďakujeme, že používate OMaps! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
 	<!-- Leave Review dialog - Review button -->
@@ -86,7 +86,7 @@
 	<string name="country_status_download_failed">Sťahovanie zlyhalo</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Skúsiť znova</string>
-	<string name="about_menu_title">O aplikácii MAPS.ME</string>
+	<string name="about_menu_title">O aplikácii OMaps</string>
 	<string name="downloading_touch_to_cancel">Sťahovanie %d%%,stlačte pre zrušenie</string>
 	<string name="downloaded_touch_to_delete">Stiahnuté (%s), stlačte pre zmazanie</string>
 	<string name="connection_settings">Nastavenie pripojenia</string>
@@ -95,7 +95,7 @@
 	<string name="unsupported_phone">Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.</string>
 	<string name="download">Stiahnuť</string>
 	<string name="external_storage_is_not_available">SD karta/USB úložisko s uloženými mapami nie je k dispozícii</string>
-	<string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s MAPS.ME</string>
+	<string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Prosím, uvoľnite najprv miesto na SD karte/USB úložisku</string>
 	<string name="not_enough_memory">Nedostatok pamäti k spusteniu aplikácie</string>
 	<string name="free_space_for_country">Prosím, uvoľnite najprv %1$s vo vašom zariadení, abyste mohol/a stiahnuť %2$s</string>
@@ -122,7 +122,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">K dispozícii je aktualizácia pre tieto mapy:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Aplikáciu MAPS.ME Lite uz teraz nepotrebujete, takže si ju môžete kľudne odinštalovať.</string>
+	<string name="suggest_uninstall_lite">Aplikáciu OMaps Lite uz teraz nepotrebujete, takže si ju môžete kľudne odinštalovať.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">Úspešne stiahnuté: %s</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -152,9 +152,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Skupina</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.</string>
+	<string name="bookmarks_usage_hint">Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV OMaps môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">V MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.</string>
+	<string name="bookmarks_usage_hint_import_only">V OMaps môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Nastavenia</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -220,7 +220,7 @@
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Poznámky</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Zdielané záložky MAPS.ME</string>
+	<string name="share_bookmarks_email_subject">Zdielané záložky OMaps</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Načítavanie záložiek</string>
 	<!-- Kmz file successful loading -->
@@ -240,7 +240,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Práve prebieha sťahovanie krajiny.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Dúfame, že sa vám používánie MAPS.ME páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!</string>
+	<string name="appStore_message">Dúfame, že sa vám používánie OMaps páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nie, ďakujem</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -248,9 +248,9 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Pozri kde som. Otvor odkaz: %1$s alebo %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Pozri na moju značku na mape MAPS.ME</string>
+	<string name="bookmark_share_email_subject">Pozri na moju značku na mape OMaps</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Pozrite si moju aktuálnu polohu na mape MAPS.ME</string>
+	<string name="my_position_share_email_subject">Pozrite si moju aktuálnu polohu na mape OMaps</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Ahoj,\n\nPráve som tu: %1$s. Stlačte jeden z týchto odkazov %2$s, %3$s a uvidíte toto miesto na mape.\n\nVďaka</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -358,19 +358,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Stiahnite si mapu miesta, kde sa práve nachádzate</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Plná verzia MAPS.ME dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.</string>
+	<string name="pro_version_is_free_today">Plná verzia OMaps dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Práve prenášame Vaše stiahnuté mapy z MAPS.ME lite na MAPS.ME. Môže to trvať niekoľko minút.</string>
+	<string name="move_lite_maps_to_pro">Práve prenášame Vaše stiahnuté mapy z OMaps lite na OMaps. Môže to trvať niekoľko minút.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Vaše stiahnuté mapy sú úspešne prenesené na MAPS.ME.</string>
+	<string name="move_lite_maps_to_pro_ok">Vaše stiahnuté mapy sú úspešne prenesené na OMaps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Vaše mapy sa nepodarilo preniesť. Vymažte prosím MAPS.ME Lite a stiahnite si mapy znova.</string>
+	<string name="move_lite_maps_to_pro_failed">Vaše mapy sa nepodarilo preniesť. Vymažte prosím OMaps Lite a stiahnite si mapy znova.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Nastavenia a viac</string>
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Komunita MAPS.ME</string>
+	<string name="maps_me_community">Komunita OMaps</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Označiť pomocou Páči sa mi to na Facebooku</string>
 	<!-- Text in menu -->
@@ -390,11 +390,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Nahlásiť chybu</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Prihláste ma prosím k odberu spravodaja MAPS.ME</string>
+	<string name="subscribe_me_subject">Prihláste ma prosím k odberu spravodaja OMaps</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, MAPS.ME vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť MAPS.ME. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support\@maps.me. Odpovedáme na každú požiadavku!\n\nPáči sa vám MAPS.ME a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o MAPS.ME svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMap, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na https://www.openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii MAPS.ME.</string>
+	<string name="about_text">OMaps ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, OMaps vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť OMaps. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support\@omaps.app. Odpovedáme na každú požiadavku!\n\nPáči sa vám OMaps a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o OMaps svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMap, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na https://www.openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii OMaps.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %s</string>
 	<!-- Alert title -->
@@ -406,7 +406,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Pre vytvorenie trasy si, prosím, aktualizujte mapu.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Nová verzia aplikácie MAPS.ME umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.</string>
+	<string name="routing_update_maps">Nová verzia aplikácie OMaps umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aktualizovať všetko</string>
 	<!-- Cancel all button text -->
@@ -423,7 +423,7 @@
 	<string name="downloader_downloading">Sťahovanie:</string>
 	<string name="downloader_search_results">Nájdených</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Tvorenie trás v aplikácii MAPS.ME, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!</string>
+	<string name="routing_disclaimer">Tvorenie trás v aplikácii OMaps, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Zastarané</string>
 	<!-- Up to date maps category -->
@@ -447,7 +447,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Nebol nájdená trasa medzi vybraným východiskom a cieľom. Prosím vyberte iný počiatočný a koncový bod.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support\@maps.me.</string>
+	<string name="routing_failed_internal_error">Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support\@omaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Na stiahnutie Mapa + Trasa</string>
 	<!-- Context menu item for downloader. -->
@@ -478,9 +478,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Práve som hodnotil vašu aplikáciu</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Som používateľ MAPS.ME od roku %s</string>
+	<string name="rating_user_since">Som používateľ OMaps od roku %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Páči sa vám MAPS.ME?</string>
+	<string name="rating_do_like_maps">Páči sa vám OMaps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Kliknutím na hviezdu ohodnotíte našu aplikáciu.</string>
 	<!-- Text for rating dialog -->
@@ -496,7 +496,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Stiahnuť mapu</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie MAPS.ME.</string>
+	<string name="routing_download_map_and_routing">Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie OMaps.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Získať trasové dáta</string>
 	<!-- Text for routing error dialog -->
@@ -626,7 +626,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Prosím, pre vytvorenie trasy si stiahnite a aktualizujte všetky mapy pozdĺž trasy.</string>
 	<string name="rate_alert_title">Páči sa vám aplikácia?</string>
-	<string name="rate_alert_default_message">Ďakujeme, že používate MAPS.ME. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.</string>
+	<string name="rate_alert_default_message">Ďakujeme, že používate OMaps. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.</string>
 	<string name="rate_alert_five_star_message">Hurá! Aj my vás taky páči!</string>
 	<string name="rate_alert_four_star_message">Ďakujeme vám, urobíme, čo bude v našich silách!</string>
 	<string name="rate_alert_less_than_four_star_message">Nejaký nápad, ako ju môžeme vylepšiť?</string>
@@ -681,7 +681,7 @@
 	<string name="editor_report_problem_no_place_title">Dané miesto neexistuje</string>
 	<string name="editor_report_problem_under_construction_title">Zatvorené kvôli prebiehajúcej údržbe</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicitné miesto</string>
-	<string name="first_launch_congrats_title">Aplikácia MAPS.ME je pripravená na použitie</string>
+	<string name="first_launch_congrats_title">Aplikácia OMaps je pripravená na použitie</string>
 	<string name="first_launch_congrats_text">Vyhľadávajte a určujte trasu bez pripojenia všade na svete bez poplatkov.</string>
 	<string name="migrate_title">Dôležité!</string>
 	<!-- Android uses image instead of text. -->
@@ -785,18 +785,18 @@
 	<string name="whatsnew_search_message">Významne sme zlepšili vyhľadávanie pomocou adresy. Pozrite sa sami.</string>
 	<string name="whatsnew_editor_title">Upraviť mapu*</string>
 	<string name="whatsnew_editor_message_1">Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME využíva dáta komunity OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* OMaps využíva dáta komunity OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Už sa nikdy nestratíte</string>
 	<string name="onboarding_offline_navigation_message">Naplánujte si vhodné trasy na cestu autom alebo peši. Internetové pripojenie sa nevyžaduje!</string>
 	<string name="onboarding_offline_navigation_title_2">Offline navigácia</string>
 	<string name="onboarding_offline_navigation_message_2">Naplánujte si vhodné trasy na cestu autom alebo peši.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — globálny prístup k mapám bez internetu</string>
+	<string name="onboarding_offline_maps_title">OMaps — globálny prístup k mapám bez internetu</string>
 	<string name="onboarding_offline_maps_message">Stiahnite si jednorázovo potrebné mapy - navigáciu a funkcie vyhľadávania môžete využívať aj bez internetového pripojenia.</string>
 	<string name="onboarding_notifications_message">Ak chcete získavať najnovšie mapy, zapnite si notifikácie aktualizácií</string>
 	<string name="onboarding_notifications_title">Povoliť notifikácie aktualizácií</string>
 	<string name="onboarding_location_title">Pomôžte nám a my vás nájdeme</string>
 	<string name="onboarding_location_message">Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.</string>
-	<string name="onboarding_permissions_title">Povoliť aplikácii MAPS.ME prístup do ukladacieho priestoru a k polohe</string>
+	<string name="onboarding_permissions_title">Povoliť aplikácii OMaps prístup do ukladacieho priestoru a k polohe</string>
 	<string name="onboarding_permissions_message">Tak si budete môcť sťahovať mapy, prezerať miesta a dopravnú situáciu vo svojom okolí a používať navigáciu.</string>
 	<string name="onboarding_welcome_second_subtitle">Spustením aplikácie súhlasíte s &lt;a href="%1$s">Podmienkami používania&lt;/a> a &lt;a href="%2$s">Zásadami ochrany osobných údajov&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Zmeniť polohu</string>
@@ -805,7 +805,7 @@
 	<string name="no_migration_during_navigation">Počas hľadania trasy nie je možné vykonať aktualizáciu.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.</string>
-	<string name="editor_sharing_title">Vďaka mne sú mapy na MAPS.ME lepšie</string>
+	<string name="editor_sharing_title">Vďaka mne sú mapy na OMaps lepšie</string>
 	<string name="editor_comment_will_be_sent">Pošleme Váš príspevok kartografom.</string>
 	<string name="editor_unsupported_category_message">Pridali ste miesto z kategórie, ktorú zatiaľ nepodporujeme. Na mape sa zobrazí až za istú dobu.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -822,7 +822,7 @@
 	<string name="core_placepage_unknown_place">Neznáme miesto</string>
 	<string name="editor_other_info">Odoslať poznámku OSM editorom</string>
 	<string name="editor_detailed_description_hint">Zmazaná poznámka</string>
-	<string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v MAPS.ME.</string>
+	<string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v OMaps.</string>
 	<string name="editor_more_about_osm">Viac o OpenStreetMap</string>
 	<string name="editor_operator">Prevádzkovateľ</string>
 	<string name="editor_tag_description">Zadajte spoločnosť, organizáciu alebo osobu zodpovednú za prevádzku.</string>
@@ -843,7 +843,7 @@
 	<string name="current_location_unknown_error_title">Súčasná pozícia je neznáma.</string>
 	<string name="current_location_unknown_error_message">Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.</string>
 	<string name="whatsnew_update_editor_title">Aktualizovali sme program na úpravu máp</string>
-	<string name="whatsnew_update_editor_message">Používatelia MAPS.ME urobili 200 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!</string>
+	<string name="whatsnew_update_editor_message">Používatelia OMaps urobili 200 000 zmien v mapách. Spoločne vytvárame najpodrobnejšie mapy na svete. Pridajte sa!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Ak chcete použiť editor máp, prosím, aktualizujte všetky mapy.</string>
 	<string name="location_services_disabled_header">Identifikácia lokality je zablokovaná</string>
@@ -932,7 +932,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Pozrite si</string>
 	<string name="continue_recent_track_background_button">Pokračovať</string>
-	<string name="recent_track_background_dialog_message">MAPS.ME používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
+	<string name="recent_track_background_dialog_message">OMaps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
 	<string name="whatsnew_car_navigation_header">Užívateľsky prívetivá navigácia do vozidiel</string>
 	<string name="whatsnew_car_navigation_message">• Navigačné prvky zaberajú menej miesta.\n• Zobrazujeme rýchlosť a pridali sme auto zoom.</string>
 	<string name="whatsnew_cycle_navigation_2_header">Navigácia na bicykle</string>
@@ -940,15 +940,15 @@
 	<string name="whatsnew_booking_2_header">Jednoduché vyhľadávanie hotelov</string>
 	<string name="whatsnew_booking_2_message">Výsledky vyhľadávania ukazujú hodnotenie hotelov a cenové kategórie.</string>
 	<string name="whatsnew_cycle_navigation_header">Navigácia pre cyklistov (beta verzia)</string>
-	<string name="whatsnew_cycle_navigation_message">Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou MAPS.ME a podeľte sa s nami o svoj názor.</string>
+	<string name="whatsnew_cycle_navigation_message">Testujeme navigáciu pre cyklistov na novú sezónu. Vyskúšajte svoju obľúbenú cyklotrasu s aplikáciou OMaps a podeľte sa s nami o svoj názor.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Ohodnotiť v službe Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Povedať priateľovi</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Ahoj! Nainštaluj si aplikáciu MAPS.ME</string>
+	<string name="tell_friends_text">Ahoj! Nainštaluj si aplikáciu OMaps</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME je offine aplikácia na cestovanie. Základom aplikácie MAPS.ME sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.</string>
+	<string name="about_description">OMaps je offine aplikácia na cestovanie. Základom aplikácie OMaps sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -1003,7 +1003,7 @@
 	<string name="chat">GeoChat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Otvoriť</string>
-	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
 	<string name="whatsnew_uber_message">Objednajte si Uber priamo z aplikácie!</string>
 	<string name="dialog_taxi_offline">Objednanie taxíka nie je k dispozícii v režime offline.</string>
 	<string name="dialog_taxi_error">Objednanie taxíka je dočasne nedostupné.</string>
@@ -1018,7 +1018,7 @@
 	<string name="traffic_update_maps_text">Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.</string>
 	<string name="traffic_outdated">Dopravné informácie sú neaktuálne.</string>
 	<string name="big_font">Zväčšiť veľkosť písma na mape</string>
-	<string name="traffic_update_app">Aktualizujte si aplikáciu MAPS.ME</string>
+	<string name="traffic_update_app">Aktualizujte si aplikáciu OMaps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1116,9 +1116,9 @@
 	<string name="button_accept_and_continue">Prijať a pokračovať</string>
 	<string name="button_learn_more">Zistiť viac</string>
 	<string name="onboarding_storage_permissions_title">Prideliť prístup</string>
-	<string name="onboarding_storage_permissions_message">Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie MAPS.ME je potrebné povoliť prístup do ukladacieho priestoru.</string>
+	<string name="onboarding_storage_permissions_message">Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie OMaps je potrebné povoliť prístup do ukladacieho priestoru.</string>
 	<string name="button_exit">Ukončiť</string>
-	<string name="onboarding_detail_permissions_title">Aplikácia MAPS.ME si vyžaduje prístup k</string>
+	<string name="onboarding_detail_permissions_title">Aplikácia OMaps si vyžaduje prístup k</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Ukladací priestor</string>
 	<string name="onboarding_detail_permissions_storage_message">Na ukladanie a používanie máp v režime offline a na ukladanie záložiek.</string>
@@ -1189,7 +1189,7 @@
 	<string name="whats_new_ugc_title_updated_v840">Hodnotenia a recenzie</string>
 	<string name="whats_new_ugc_message">Teraz môžete napísať hodnotenia a recenzie aj offline! Nezabudnite si aktualizovať mapy, aby ste videli zmeny.</string>
 	<string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
-	<string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@maps.me</string>
+	<string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@omaps.app</string>
 	<string name="setting_emulate_bad_storage">Imitovať poškodené úložisko</string>
 	<string name="discovery_button_title">Poznávajte svoje okolie</string>
 	<string name="discovery_button_subtitle_things_to_do">Aktivity</string>
@@ -1285,16 +1285,16 @@
 	<string name="sign_message_gdpr">Musíte prijať naše Zmluvné podmienky a Pravidlá ochrany osobných údajov. Prečítajte si ich pozorne.</string>
 	<string name="sign_agree_pp_gdpr">Súhlasím s &lt;a href="%s">Zásadami ochrany osobných údajov&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Súhlasím s &lt;a href="%s">zmluvnými podmienkami&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Súhlasím so zasielaním najnovších správ o produktoch MAPS.ME</string>
+	<string name="sign_agree_news_gdpr">Súhlasím so zasielaním najnovších správ o produktoch OMaps</string>
 	<string name="whats_new_localbiz_title">Malé podniky si zaslúžia pozornosť</string>
-	<string name="whats_new_localbiz_message">Jedná sa o miestne kaviarne, útulné hostely a obchody, ktoré spravia z vašich ciest nezabudnuteľné. Vašu stránku optimalizujeme v MAPS.ME, aby vynikla.</string>
+	<string name="whats_new_localbiz_message">Jedná sa o miestne kaviarne, útulné hostely a obchody, ktoré spravia z vašich ciest nezabudnuteľné. Vašu stránku optimalizujeme v OMaps, aby vynikla.</string>
 	<string name="whats_new_order_button">Zanechať žiadosť</string>
 	<string name="bookmarks_page_downloaded">Prevzaté</string>
 	<string name="bookmarks_page_my">Moje</string>
 	<string name="routes_and_bookmarks">Trasy a záložky</string>
 	<string name="bookmarks_webview_success_toast">Záložky úspešne prevzaté</string>
 	<string name="cached_bookmarks_placeholder_title">Prevziať nové miesta</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Stlačením tlačidla stiahnete tisíce zaujímavých miest a trás vytvorených používateľmi MAPS.ME. Budete potrebovať internetové pripojenie.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Stlačením tlačidla stiahnete tisíce zaujímavých miest a trás vytvorených používateľmi OMaps. Budete potrebovať internetové pripojenie.</string>
 	<string name="downloader_download_routers">Prevziať záložky</string>
 	<string name="bookmarks_groups_cached">Prevziať zoznamy</string>
 	<string name="author_name_by_prefix">od %s</string>
@@ -1314,7 +1314,7 @@
 	<string name="opt_out_flurry">Štatistika</string>
 	<string name="opt_out_mopub">Personalizovaná reklama</string>
 	<string name="opt_out_fabric">Hlásenie chýb</string>
-	<string name="opt_out_fabric_description">Vaše údaje môžeme použiť na zlepšenie skúseností s programom MAPS.ME. Zmeny sa prejavia po reštartovaní aplikácie.</string>
+	<string name="opt_out_fabric_description">Vaše údaje môžeme použiť na zlepšenie skúseností s programom OMaps. Zmeny sa prejavia po reštartovaní aplikácie.</string>
 	<string name="opt_out_help_ios_1">Vaše mobilné zariadenie môže poskytnúť nastavenie „Obmedziť reklamné sledovanie“ alebo „Zrušiť inzerciu založenú na záujmoch“.</string>
 	<string name="opt_out_help_ios_2">iOS 9 alebo vyšší</string>
 	<string name="opt_out_help_ios_3">Prejdite do nastavenia → Ochrana osobných údajov → Reklama → Povolenie nastavenia „Obmedziť reklamné sledovanie“</string>
@@ -1335,7 +1335,7 @@
 	<string name="category_desc_more">…viac</string>
 	<string name="title_error_downloading_bookmarks">Vyskytla sa chyba</string>
 	<string name="subtitle_error_downloading_bookmarks">Záložky neboli stiahnuté</string>
-	<string name="whats_new_bookmarks_catalog_title">MAPS.ME má teraz katalóg trás</string>
+	<string name="whats_new_bookmarks_catalog_title">OMaps má teraz katalóg trás</string>
 	<string name="whats_new_bookmarks_catalog_message">Stovky podrobných trás po celom svete: kam ísť, čo vidieť, kde sa ísť najesť.</string>
 	<string name="whats_new_popularity_label_title">Obľúbené miesta v okolí</string>
 	<string name="whats_new_popularity_label_message">Sekcia Čo robiť vám pomôže nájsť najobľúbenejšie miesta v meste.</string>
@@ -1352,15 +1352,15 @@
 	<string name="guide_downloaded_subtitle">Stlačením tlačidla ,Zobraziť na mape\' si spustíte príručku</string>
 	<string name="bookmarks_guides">Záložky a príručky</string>
 	<string name="remove_ads">Odstrániť reklamy</string>
-	<string name="remove_ads_title">Odstráňte všetky reklamy a podporte MAPS.ME</string>
+	<string name="remove_ads_title">Odstráňte všetky reklamy a podporte OMaps</string>
 	<string name="paybtn_title">Zaplaťte %s/rok</string>
 	<string name="paybtn_subtitle">Ušetrite %s/rok</string>
 	<string name="options_dropdown_title">Viac možností</string>
-	<string name="why_support">Prečo podporiť MAPS.ME?</string>
+	<string name="why_support">Prečo podporiť OMaps?</string>
 	<string name="options_dropdown_item1">%1$s/mesačne (ušetrite %2$s/ročne)</string>
 	<string name="options_dropdown_item2">%s/týždenne (žiadne šetrenie)</string>
 	<string name="why_support_item1">Odstránime pre vás všetky reklamy</string>
-	<string name="why_support_item2">Pomôžete nám zlepšiť MAPS.ME</string>
+	<string name="why_support_item2">Pomôžete nám zlepšiť OMaps</string>
 	<string name="why_support_item3">Pomôžete nám vylepšiť otvorené mapy OpenStreetMap.org</string>
 	<string name="purchase_processing">Váš nákup sa spracováva…</string>
 	<string name="tips_bookmarks_catalog_title">Offline sprievodcovia pre akýkoľvek druh cesty</string>
@@ -1378,7 +1378,7 @@
 	<string name="awaiting_approval">Očakáva sa schválenie rodiča</string>
 	<string name="whats_new_leave_review">Zanechať recenziu! Podeľte sa o svoj názor o miestach, ktoré ste navštívili počas dovolenky.</string>
 	<string name="server_unavailable_title">Server je nedostupný</string>
-	<string name="server_unavailable_message">Nákup bude dokončený neskôr. Ak chyba pretrváva, kontaktujte support\@maps.me.</string>
+	<string name="server_unavailable_message">Nákup bude dokončený neskôr. Ak chyba pretrváva, kontaktujte support\@omaps.app.</string>
 	<string name="offline_fiters_check_in">Pripojte sa na internet, aby ste filtrovali hotely podľa dátumov.</string>
 	<string name="restore_subscription">Obnovte si predplatné</string>
 	<string name="restore_success_alert">Predplatné bolo úspešne obnovené</string>
@@ -1395,7 +1395,7 @@
 	<string name="ugc_route_tags_progress_msg">Načítavanie značiek…</string>
 	<string name="public_access">Verejný prístup</string>
 	<string name="limited_access">Obmedzený prístup</string>
-	<string name="upload_and_publish_desc">Táto príručka bude nahraná do verejného katalógu MAPS.ME a bude dostupná ostatným používateľom</string>
+	<string name="upload_and_publish_desc">Táto príručka bude nahraná do verejného katalógu OMaps a bude dostupná ostatným používateľom</string>
 	<string name="upload_and_publish">Nahrať a publikovať</string>
 	<string name="upload_and_get_direct_link">Nahrať a získať priamy odkaz</string>
 	<string name="get_direct_link_desc">Váš sprievodca bude dostupný každému, kto má odkaz</string>
@@ -1446,12 +1446,12 @@
 	<string name="notification_channel_downloader">Sťahovač máp</string>
 	<string name="notification_leave_review_title">%s - aké to bolo?</string>
 	<string name="notification_leave_review_content">Pomôžte cestujúcim tým, že zanecháte recenziu!</string>
-	<string name="share_bookmarks_email_body_link">Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby MAPS.ME a užite si výlet!\n\nZískajte aplikáciu: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby OMaps a užite si výlet!\n\nZískajte aplikáciu: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h</string>
 	<string name="warning_speedcams_subtitle">Dodržujte pravidlá cestnej premávky v krajine, do ktorej cestujete.</string>
 	<string name="speedcams_notice_message">Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery</string>
 	<string name="whats_new_ugc_routes_title">Je ľahké podeliť sa o vaše dojmy</string>
-	<string name="whats_new_ugc_routes_subtitle">Uložte si nezabudnuteľné miesta, vytvorte trasy pomocou záložiek a zdieľajte ich so všetkými v katalógu MAPS.ME.</string>
+	<string name="whats_new_ugc_routes_subtitle">Uložte si nezabudnuteľné miesta, vytvorte trasy pomocou záložiek a zdieľajte ich so všetkými v katalógu OMaps.</string>
 	<string name="whats_new_webeditor_title">Premeňte svoje trasy na príbehy</string>
 	<string name="whats_new_ugc_routes_message2">Pridajte fotografie a podrobné príbehy do webového editora.</string>
 	<string name="whatsnew_standard_routes_title">Štandardné trasy</string>
@@ -1468,7 +1468,7 @@
 	<string name="notification_leave_review_v2_title">Ohodnoťte navštívené miesto a pomôžte cestujúcim!</string>
 	<string name="error_public_not_enought_title">Nie je dostatok záložiek</string>
 	<string name="error_public_not_enought_subtitle">Mali by ste mať minimálne 3 záložky, aby ste mohli nahrať sprievodcu do verejného katalógu</string>
-	<string name="bookmark_public_upload_alert_title">Ste pár krokov od zdieľania vašich záložiek so všetkými cestujúcimi MAPS.ME!</string>
+	<string name="bookmark_public_upload_alert_title">Ste pár krokov od zdieľania vašich záložiek so všetkými cestujúcimi OMaps!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Uistite sa, že máte presný názov a popis svojho zoznamu a všetky záložky obsahujú určité informácie o miestach. Týmto spôsobom môžu váš zoznam nájsť a používať iní.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Áno som si istý!</string>
 	<string name="name_title">Zadajte názov sprievodcu</string>
@@ -1498,7 +1498,7 @@
 	<string name="power_managment_setting_never">Nikdy</string>
 	<string name="power_managment_setting_auto">Automaticky</string>
 	<string name="power_managment_setting_manual_max">Maximálna úspora batérie</string>
-	<string name="enable_logging_warning_message">Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory MAPS.ME.</string>
+	<string name="enable_logging_warning_message">Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory OMaps.</string>
 	<string name="html_error_upload_message_try_again">Skontrolujte svoje sieťové nastavenia a skúste to znova</string>
 	<string name="html_error_upload_title_try_again">Žiadne internetové pripojenie</string>
 	<string name="notification_leave_review_v2_android_short_title">Ohodnotiť a pomôcť cestujúcim!</string>
@@ -1507,7 +1507,7 @@
 	<string name="privacy_settings_menu">Nastavenia ochrany osobných údajov</string>
 	<string name="gdpr_request_setting">Získajte ID pre GDPR žiadosť</string>
 	<string name="gdpr_request_window_title">Vaše ID: %s.</string>
-	<string name="gdpr_request_window_message">Skopírujte ho a pošlite žiadosť na adresu support\@maps.me</string>
+	<string name="gdpr_request_window_message">Skopírujte ho a pošlite žiadosť na adresu support\@omaps.app</string>
 	<string name="gdpr_request_window_copy">Skopírujte ID</string>
 	<string name="unable_upadate_error_title">Aktualizácia súboru zlyhala</string>
 	<string name="unable_upadate_error_message">Počas aktualizácie sa vyskytli určité chyby. Skontrolujte zmeny a skúste to znova</string>
@@ -1530,7 +1530,7 @@
 	<string name="avoid_toll_roads_placepage">Vyhnúť sa spoplatneným cestám</string>
 	<string name="avoid_unpaved_roads_placepage">Vyhnúť sa nespevneným cestám</string>
 	<string name="avoid_ferry_crossing_placepage">Vyhnúť sa prechodom na trajekte</string>
-	<string name="cached_guides_placeholder_subtitle">MAPS.ME ponúka hotových sprievodcov pre vybrané miesta s fotografiami a popismi, ktoré sú zobrazené na mape a sú dostupné v režime offline.</string>
+	<string name="cached_guides_placeholder_subtitle">OMaps ponúka hotových sprievodcov pre vybrané miesta s fotografiami a popismi, ktoré sú zobrazené na mape a sú dostupné v režime offline.</string>
 	<string name="guides_catalogue_title">Katalóg sprievodcov</string>
 	<string name="download_guides_button">Do katalógu</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1538,12 +1538,12 @@
 	  <item quantity="other">Na základe %d recenzií</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Uzbecká kuchyňa</string>
-	<string name="onboarding_welcome_title">Plánujte a cestujte s MAPS.ME</string>
+	<string name="onboarding_welcome_title">Plánujte a cestujte s OMaps</string>
 	<string name="onboarding_welcome_first_subtitle">Pridajte si k záložkám zaujímavé miesta, zarezervujte si hotely, vypočítajte si trasy offline</string>
 	<string name="onboarding_guide_direct_download_title">Sprievodca je pripravený na stiahnutie</string>
 	<string name="onboarding_guide_direct_download_subtitle">Zobrazí sa na mape a bude pracovať v režime offline</string>
 	<string name="onboarding_guide_direct_download_button">Stiahnuť</string>
-	<string name="onboarding_bydeeplink_guide_title">Sprievodcovia pripravení na používanie v aplikácii MAPS.ME</string>
+	<string name="onboarding_bydeeplink_guide_title">Sprievodcovia pripravení na používanie v aplikácii OMaps</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">Najlepšie miesta na navštívenie zobrazené na mape s fotografiami a popismi. Pracujú offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Skôr ako prejdete na sprievodcu…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Aktualizujte mapy, aby boli informácie o objektoch aktuálne!</string>
@@ -1574,11 +1574,11 @@
 	<string name="ok">Ok</string>
 	<string name="booking_button_toolbar">Vyberte si hotel na mape</string>
 	<string name="popup_booking_download_guides_title">Rezervovaný hotel?</string>
-	<string name="popup_booking_download_guides_message">Naplánujte si trasu s hotovými sprievodcami z MAPS.ME</string>
+	<string name="popup_booking_download_guides_message">Naplánujte si trasu s hotovými sprievodcami z OMaps</string>
 	<string name="popup_mwm_download_guides_title">Offline mestskí sprievodcovia</string>
 	<string name="popup_mwm_download_guides_cta">Zvoľte jedno</string>
 	<string name="popup_mwm_download_guides_cta_1">Pozrite sa</string>
-	<string name="gallery_pp_download_guides_offline_title">Naplánujte si dovolenku s MAPS.ME!</string>
+	<string name="gallery_pp_download_guides_offline_title">Naplánujte si dovolenku s OMaps!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Nenechajte si ujsť nič so sprievodcami skúsených cestovateľov</string>
 	<string name="gallery_pp_download_guides_offline_cta">Zapnite internet</string>
 	<string name="gallery_pp_download_guides_title">Sprievodcovia</string>
@@ -1607,7 +1607,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Neobmedzený prístup za %s/rok</string>
 	<string name="subscription_terms_guides">Platba bude účtovaná cez váš účet iTunes po potvrdení nákupu. Predplatné sa automaticky obnoví, pokiaľ sa funkcia automatického obnovenia nevypne aspoň 24 hodín pred koncom aktuálneho obdobia. Vaše predplatné bude účtované podľa plánu na obnovenie do 24 hodín pred koncom aktuálneho obdobia. Funkciu automatického obnovenia v nastaveniach účtu Apple ID môžete kedykoľvek spravovať alebo vypnúť. Sprievodcov prevzatých prostredníctvom predplatného môžete používať len do dátumu vypršania platnosti. Po 30 dňoch od dátumu skončenia platnosti sa automaticky odstránia sprievodcovia so záložkami.</string>
 	<string name="subscription_terms">Platba bude účtovaná na váš účet iTunes pri potvrdení nákupu. Predplatné sa automaticky obnoví, pokiaľ nebude automatické obnovenie vypnuté minimálne 24 hodín pred koncom aktuálneho obdobia. Váš účet sa bude účtovať podľa vášho plánu obnovy do 24 hodín pred koncom aktuálneho obdobia. Automatickú obnovu vo vašom ID nastavení účtu Apple môžete spravovať alebo vypnúť kedykoľvek pri kúpe.</string>
-	<string name="whatsnew_carplay_title">MAPS.ME automobilová navigácia v CarPlay!</string>
+	<string name="whatsnew_carplay_title">OMaps automobilová navigácia v CarPlay!</string>
 	<string name="whatsnew_carplay_message">Záložky, vyhľadávanie, rýchlostné kamery a možnosti navigovania sú k dispozícii v režime offline</string>
 	<string name="whatsnew_subscription_title">Celý svet vďaka predplatnému!</string>
 	<string name="whatsnew_subscription_message">Neobmedzený prístup do katalógu sprievodcov je výhodnejší ako jednorazový nákup</string>
@@ -1621,7 +1621,7 @@
 	<string name="avoid_tolls_carplay_2">Spoplatnené ÁNO</string>
 	<string name="speedcams_alert_title_carplay_1">Radary</string>
 	<string name="speedcams_alert_title_carplay_2">Rýchl. upozorn.</string>
-	<string name="download_map_carplay">Prosím stiahnite si mapy v aplikácii MAPS.ME vo vašom zariadení</string>
+	<string name="download_map_carplay">Prosím stiahnite si mapy v aplikácii OMaps vo vašom zariadení</string>
 	<string name="carplay_roundabout_exit">%s výjazd</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Zoradiť…</string>
@@ -1672,7 +1672,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Poradie v záložkách umožňuje pohodlnú cestu</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Zoraďte obľúbené miesta podľa kategórie, umiestnenia a chronologického poradia a rýchlo vyhľadajte konkrétne záložky podľa ich názvu</string>
 	<string name="popup_subscription_success_map_title">Woohoo, ste prihlásení!</string>
-	<string name="popup_subscription_success_map_message">Teraz objavte najlepšie turistické body v katalógu MAPS.ME</string>
+	<string name="popup_subscription_success_map_message">Teraz objavte najlepšie turistické body v katalógu OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Začnite si prehliadať</string>
 	<string name="popup_subscription_success_map_not_now_button">Teraz nie</string>
 	<string name="religious_places">Náboženské miesta</string>
@@ -1704,9 +1704,9 @@
 	<string name="new_onboarding_step5.1_header">Ešte jedna vec, než začnete…</string>
 	<string name="new_onboarding_step5.1_message">Nezabudnite navštíviť náš úplne nový katalóg sprievodcov a nájsť offline sprievodcu pre svoju nadchádzajúcu cestu!</string>
 	<string name="new_onboarding_step5.1_button">Otvoriť katalóg</string>
-	<string name="new_onboarding_step5.2_message">Vaše predplatné katalógu sprievodcov MAPS.ME má skvelú hodnotu. Získajte plný prístup k mestským a outdoorovým sprievodcom po celom svete!</string>
+	<string name="new_onboarding_step5.2_message">Vaše predplatné katalógu sprievodcov OMaps má skvelú hodnotu. Získajte plný prístup k mestským a outdoorovým sprievodcom po celom svete!</string>
 	<string name="new_onboarding_step5.2_button">Skontrolovať podmienky</string>
-	<string name="new_onboarding_step5.3_message">Vyskúšajte bezplatné ukážky hotových mestských a vonkajších trás s bezplatným výberom MAPS.ME!</string>
+	<string name="new_onboarding_step5.3_message">Vyskúšajte bezplatné ukážky hotových mestských a vonkajších trás s bezplatným výberom OMaps!</string>
 	<string name="new_onboarding_step5.3_button">Bezplatné stiahnutie</string>
 	<string name="new_onboarding_additional_steps_later_button">Neskôr</string>
 	<string name="all_pass_subscription_header">Prihlásiť sa do</string>
@@ -1739,7 +1739,7 @@
 	<string name="dialog_pedestrian_route_is_long">Trasa pre chodcov k miestu nalodenia je príliš dlhá</string>
 	<string name="whatsnew_outdoor_guides_title">Pridali sme 15 000+ vonkajších trás!</string>
 	<string name="whatsnew_outdoor_guides_message">V katalógu čakajú trasy z Outdooractive na zimné a letné cesty!</string>
-	<string name="whatsnew_guides_galleries_title">Naplánujte si svoj nadchádzajúci výlet s MAPS.ME</string>
+	<string name="whatsnew_guides_galleries_title">Naplánujte si svoj nadchádzajúci výlet s OMaps</string>
 	<string name="whatsnew_guides_galleries_message">Teraz nájdete odporúčaných sprievodcov na stránkach obľúbených turistických miest a pamiatok</string>
 	<string name="new_onboarding_step3_header">Zážitok</string>
 	<string name="all_pass_screen_best_value">Najlepšia hodnota</string>
@@ -1753,7 +1753,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Cíťte sa sebaisto v horskej oblasti. Stačí zapnúť vrstvu v ľavom hornom rohu</string>
 	<string name="button_layer_isolines">Terén</string>
-	<string name="tips_map_layers_title_countour">Nové v MAPS.ME: offline topografická vrstva!</string>
+	<string name="tips_map_layers_title_countour">Nové v OMaps: offline topografická vrstva!</string>
 	<string name="tips_map_layers_message_countour">Naplánujte a užite si výlety do prírody s istotou, že viete o tejto oblasti všetko</string>
 	<string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
 	<string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>

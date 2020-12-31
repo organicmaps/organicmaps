@@ -35,7 +35,7 @@
 // 2013-04-10 - Added wrapper to apply a patch directly to files.
 //                --Joshua Pawlicki <waffles@chromium.org>
 // 2017-08-14 - Moved "apply" and "create" to the header file, rewrote
-//              all routines to use MAPS.ME readers and writers instead
+//              all routines to use OMaps readers and writers instead
 //              of Courgette streams and files.
 //                --Maxim Pimenov <m@maps.me>
 // 2019-01-24 - Got rid of the paged array. We have enough address space

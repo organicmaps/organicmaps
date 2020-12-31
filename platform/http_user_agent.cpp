@@ -14,7 +14,7 @@ HttpUserAgent::HttpUserAgent()
 std::string HttpUserAgent::Get() const
 {
   std::stringstream ss;
-  ss << "MAPS.ME/";
+  ss << "OMaps/";
 #if defined(OMIM_OS_IPHONE)
   ss << "iOS/";
 #elif defined(OMIM_OS_ANDROID)

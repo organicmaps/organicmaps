@@ -31,7 +31,7 @@
 	<string name="downloading">다운로드 중…</string>
 	<string name="get_it_now">지금 가져오기</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">MAPS.ME를 사용해 주셔서 감사합니다! 앱을 좋아하십니까? 이 앱에 대해 친구들에게 널리 알려 주십시오! 그러면 저희는 매우 감사할 것입니다.</string>
+	<string name="share_on_facebook_text">OMaps를 사용해 주셔서 감사합니다! 앱을 좋아하십니까? 이 앱에 대해 친구들에게 널리 알려 주십시오! 그러면 저희는 매우 감사할 것입니다.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">킬로미터</string>
 	<!-- Leave Review dialog - Review button -->
@@ -95,7 +95,7 @@
 	<string name="unsupported_phone">하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.</string>
 	<string name="download">다운로드</string>
 	<string name="external_storage_is_not_available">다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다</string>
-	<string name="disconnect_usb_cable">MAPS.ME를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
+	<string name="disconnect_usb_cable">OMaps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
 	<string name="not_enough_free_space_on_sdcard">응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오</string>
 	<string name="not_enough_memory">응용 프로그램을 실행하기위한 메모리가 충분하지 않다</string>
 	<string name="free_space_for_country">%2$s를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$s를주세요</string>
@@ -122,7 +122,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">이지도에 사용할 수있는 업데이트:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">당신은 더 이상 MAPS.ME 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.</string>
+	<string name="suggest_uninstall_lite">당신은 더 이상 OMaps 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s이 성공적으로 다운로드</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -152,9 +152,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">집합</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 MAPS.ME 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.</string>
+	<string name="bookmarks_usage_hint">즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 OMaps 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">다른 소스에서 북마크는 MAPS.ME 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.</string>
+	<string name="bookmarks_usage_hint_import_only">다른 소스에서 북마크는 OMaps 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">설정</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -222,7 +222,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">이메일로 공유</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">귀하와 공유된 MAPS.ME 즐겨찾기</string>
+	<string name="share_bookmarks_email_subject">귀하와 공유된 OMaps 즐겨찾기</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">즐겨찾기 로드</string>
 	<!-- Kmz file successful loading -->
@@ -242,7 +242,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">국가 다운로드가 지금 진행 중입니다.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">MAPS.ME로 즐거운 시간을 보내시기 바랍니다! MAPS.ME가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!</string>
+	<string name="appStore_message">OMaps로 즐거운 시간을 보내시기 바랍니다! OMaps가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">평가하지 않겠습니다</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -250,9 +250,9 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">현재 위치를 알아 보십시오. %1$s 또는 %2$s 열기</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">MAPS.ME 지도에서 내 핀 보기</string>
+	<string name="bookmark_share_email_subject">OMaps 지도에서 내 핀 보기</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">MAPS.ME 지도에서 제 현재 위치를 살펴 보시기 바랍니다</string>
+	<string name="my_position_share_email_subject">OMaps 지도에서 제 현재 위치를 살펴 보시기 바랍니다</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">안녕하세요.\n\n지금 다음 위치에 있습니다: %1$s. %2$s 또는 %3$s 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -354,19 +354,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">당신이 있는 장소의지도를 다운로드 하십시오</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">MAPS.ME의 전체 버전 오늘 무료! 지금 다운로드하고 친구들에게 알리세요.</string>
+	<string name="pro_version_is_free_today">OMaps의 전체 버전 오늘 무료! 지금 다운로드하고 친구들에게 알리세요.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">우리는 MAPS.ME. Lite에서 MAPS.ME로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.</string>
+	<string name="move_lite_maps_to_pro">우리는 OMaps. Lite에서 OMaps로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">다운로드된 지도가 성공적으로 MAPS.ME에 전송됨</string>
+	<string name="move_lite_maps_to_pro_ok">다운로드된 지도가 성공적으로 OMaps에 전송됨</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">지도를 전송하지 못했습니다. MAPS.ME Lite를 삭제하고 다시지도를 다운로드하십시오.</string>
+	<string name="move_lite_maps_to_pro_failed">지도를 전송하지 못했습니다. OMaps Lite를 삭제하고 다시지도를 다운로드하십시오.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">설정 및 기타</string>
 	<!-- Text in menu -->
 	<string name="website">웹사이트</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">MAPS.ME 커뮤니티</string>
+	<string name="maps_me_community">OMaps 커뮤니티</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebook에서 좋아요</string>
 	<!-- Text in menu -->
@@ -386,11 +386,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">오류 신고</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">MAPS.ME 뉴스 레터로 나를 구독해 주십시오.</string>
+	<string name="subscribe_me_subject">OMaps 뉴스 레터로 나를 구독해 주십시오.</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">나는 최신 뉴스 업데이트 및 프로모션에 대해 알게될 첫번째 사람이 되고 싶습니다. 나는 언제나 구독을 취소할 수 있습니다.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME는 가장 빠른 전 세계 모든 국가 및 도시의 오프라인 지도를 제공하고 있습니다. 자신있게 여행하세요. 계신 곳이 어디이든 MAPS.ME는 지도상에서 위치하고 계신 곳이 어디 있지 알려 주고 가장 가까운 식당, 호텔 및 주유소 등을 찾아 줍니다. 인터넷 접속이 필요없는 서비스입니다.\n\nMAPS.ME는 항상 새로운 기능들에 대해 연구하고 있습니다. MAPS.ME가 더 훌륭한 서비스를 제공할 수 있도록 많은 의견 주시면 감사하겠습니다. 앱을 사용하시다 불편한 점이 있으시면, 주저 마시고 support\@maps.me으로 문의해 주세요. MAPS.ME는 어떤 요청에도 기꺼이 응답할 것입니다.\n\nMAPS.ME가 좋은 앱이라고 생각하시나요? MAPS.ME을 후원할 수 있는 간단하면서도 비용이 전혀 들지 않는 몇 가지 방법을 소개합니다.\n\n- 앱 마켓에 리뷰를 올려주세요.\n- MAPS.ME의 페이스북 페이지 http://www.facebook.com/mapswithme 에 “좋아요”를 남겨 주세요.\n- 가족, 친구 및 동료들에게 MAPS.ME를 자랑해 주세요.\n\nMAPS.ME와 함께 해 주셔서 감사합니다. 여러분의 후원에 정말 감사드립니다!\n\nP.S. MAPS.ME는 OpenStreetMap으로부터 맵 데이터를 수집하고 있습니다. OpenStreetMap은 위키피디아처럼 유저들이 맵을 만들고 편집할 수 있는 맵핑 프로젝트입니다.\n\n혹 맵에서 누락된 곳이나 잘못된 점을 발견하실 경우, https://www.openstreetmap.org에서 직접 맵을 수정하실 수 있습니다. 수정한 부분은 다음 버전으로 출시되는 MAPS.ME 앱에 반영될 것입니다.</string>
+	<string name="about_text">OMaps는 가장 빠른 전 세계 모든 국가 및 도시의 오프라인 지도를 제공하고 있습니다. 자신있게 여행하세요. 계신 곳이 어디이든 OMaps는 지도상에서 위치하고 계신 곳이 어디 있지 알려 주고 가장 가까운 식당, 호텔 및 주유소 등을 찾아 줍니다. 인터넷 접속이 필요없는 서비스입니다.\n\nOMaps는 항상 새로운 기능들에 대해 연구하고 있습니다. OMaps가 더 훌륭한 서비스를 제공할 수 있도록 많은 의견 주시면 감사하겠습니다. 앱을 사용하시다 불편한 점이 있으시면, 주저 마시고 support\@omaps.app으로 문의해 주세요. OMaps는 어떤 요청에도 기꺼이 응답할 것입니다.\n\nOMaps가 좋은 앱이라고 생각하시나요? OMaps을 후원할 수 있는 간단하면서도 비용이 전혀 들지 않는 몇 가지 방법을 소개합니다.\n\n- 앱 마켓에 리뷰를 올려주세요.\n- OMaps의 페이스북 페이지 http://www.facebook.com/mapswithme 에 “좋아요”를 남겨 주세요.\n- 가족, 친구 및 동료들에게 OMaps를 자랑해 주세요.\n\nOMaps와 함께 해 주셔서 감사합니다. 여러분의 후원에 정말 감사드립니다!\n\nP.S. OMaps는 OpenStreetMap으로부터 맵 데이터를 수집하고 있습니다. OpenStreetMap은 위키피디아처럼 유저들이 맵을 만들고 편집할 수 있는 맵핑 프로젝트입니다.\n\n혹 맵에서 누락된 곳이나 잘못된 점을 발견하실 경우, https://www.openstreetmap.org에서 직접 맵을 수정하실 수 있습니다. 수정한 부분은 다음 버전으로 출시되는 OMaps 앱에 반영될 것입니다.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %s로 연락할 다른 방법을 사용하십시오.</string>
 	<!-- Alert title -->
@@ -402,7 +402,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">경로를 생성하도록 지도를 업데이트하십시오.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">MAPS.ME의 새로운 버전으로 당신의 현재 위치에서 목적지 지점으로 경로를 생성할 수 있습니다. 이 기능을 사용하려면 지도를 업데이트하십시오.</string>
+	<string name="routing_update_maps">OMaps의 새로운 버전으로 당신의 현재 위치에서 목적지 지점으로 경로를 생성할 수 있습니다. 이 기능을 사용하려면 지도를 업데이트하십시오.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">모두 업데이트</string>
 	<!-- Cancel all button text -->
@@ -419,7 +419,7 @@
 	<string name="downloader_downloading">다운로드 중:</string>
 	<string name="downloader_search_results">검색 결과</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!</string>
+	<string name="routing_disclaimer">OMaps 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">만료됨</string>
 	<!-- Up to date maps category -->
@@ -443,7 +443,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">선택한 출발지와 목적지 사이에서 발견있는 경로가 없습니다. 다른 출발지 또는 도착지를 선택하십시오.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">내부 오류가 발생했습니다. 다시지도를 삭제하고 다운로드하도록 시도하십시오. 문제가 지속되면 support\@maps.me로 문의하시기 바랍니다.</string>
+	<string name="routing_failed_internal_error">내부 오류가 발생했습니다. 다시지도를 삭제하고 다운로드하도록 시도하십시오. 문제가 지속되면 support\@omaps.app로 문의하시기 바랍니다.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">지도 + 라우팅 다운로드</string>
 	<!-- Context menu item for downloader. -->
@@ -474,9 +474,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">앱 평가 완료</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">%s 이후로 MAPS.ME 사용자임</string>
+	<string name="rating_user_since">%s 이후로 OMaps 사용자임</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">MAPS.ME를 좋아하나요?</string>
+	<string name="rating_do_like_maps">OMaps를 좋아하나요?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">별을 눌러 우리의 앱을 평가하세요.</string>
 	<!-- Text for rating dialog -->
@@ -492,7 +492,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">지도 가져오기</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">업데이트된 지도와 라우팅 데이터를 다운로드하여 모든 MAPS.ME 기능을 가져옵니다.</string>
+	<string name="routing_download_map_and_routing">업데이트된 지도와 라우팅 데이터를 다운로드하여 모든 OMaps 기능을 가져옵니다.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">라우팅 데이터 가져오기</string>
 	<!-- Text for routing error dialog -->
@@ -624,7 +624,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.</string>
 	<string name="rate_alert_title">앱을 좋아하나요?</string>
-	<string name="rate_alert_default_message">MAPS.ME를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.</string>
+	<string name="rate_alert_default_message">OMaps를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.</string>
 	<string name="rate_alert_five_star_message">야호! 저희는 당신도 사랑합니다!</string>
 	<string name="rate_alert_four_star_message">감사합니다. 최선을 다할 것입니다!</string>
 	<string name="rate_alert_less_than_four_star_message">더 낫게 만드는 아이디어가 있습니까?</string>
@@ -679,7 +679,7 @@
 	<string name="editor_report_problem_no_place_title">장소가 존재하지 않음</string>
 	<string name="editor_report_problem_under_construction_title">유지 보수를 위해 닫음</string>
 	<string name="editor_report_problem_duplicate_place_title">중복된 장소</string>
-	<string name="first_launch_congrats_title">MAPS.ME를 사용할 준비가 완료되었습니다</string>
+	<string name="first_launch_congrats_title">OMaps를 사용할 준비가 완료되었습니다</string>
 	<string name="first_launch_congrats_text">무료로 세계 어디에서나 오프라인으로 검색하고 탐색할 수 있습니다.</string>
 	<string name="migrate_title">중요!</string>
 	<!-- Android uses image instead of text. -->
@@ -783,18 +783,18 @@
 	<string name="whatsnew_search_message">저희는 주소에 의한 검색을 놀랍게 개선 했습니다. 직접 경험해 보세요.</string>
 	<string name="whatsnew_editor_title">지도 편집*</string>
 	<string name="whatsnew_editor_message_1">지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME는 OpenStreetMap 커뮤니티 데이터를 사용합니다.</string>
+	<string name="whatsnew_editor_message_2">* OMaps는 OpenStreetMap 커뮤니티 데이터를 사용합니다.</string>
 	<string name="onboarding_offline_navigation_title">다시 손실되지 않을 것임</string>
 	<string name="onboarding_offline_navigation_message">인터넷에 연결이 없는 경우에도, 최적의 자동차와 보행자 경로를 계획하십시오!</string>
 	<string name="onboarding_offline_navigation_title_2">오프라인 탐색</string>
 	<string name="onboarding_offline_navigation_message_2">최적의 자동차와 보행자 경로를 계획합니다.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — 인터넷 연결 없이 전 세계 지도 사용</string>
+	<string name="onboarding_offline_maps_title">OMaps — 인터넷 연결 없이 전 세계 지도 사용</string>
 	<string name="onboarding_offline_maps_message">한 번에 원하는 지역의 지도를 다운로드하고, 인터넷 연결없이 탐색 및 검색 기능을 사용합니다.</string>
 	<string name="onboarding_notifications_message">최신지도를 받으려면, 업데이트 알림 받기</string>
 	<string name="onboarding_notifications_title">업데이트 알림 활성화</string>
 	<string name="onboarding_location_title">사용자를 찾도록 돕기</string>
 	<string name="onboarding_location_message">탐색 및 기타 기능을 사용하려면, 위치 정보에 액세스해야 합니다.</string>
-	<string name="onboarding_permissions_title">저장소 및 위치에 대한 MAPS.ME 액세스 허용</string>
+	<string name="onboarding_permissions_title">저장소 및 위치에 대한 OMaps 액세스 허용</string>
 	<string name="onboarding_permissions_message">따라서 지도를 다운로드하고, 근처의 장소와 교통 상황을 보고, 네비게이션을 사용할 수 있습니다.</string>
 	<string name="onboarding_welcome_second_subtitle">애플리케이션을 시작하면, &lt;a href="%1$s">이용 약관&lt;/a> 및 &lt;a href="%2$s">개인정보취급방침&lt;/a>에 동의하는 것입니다.</string>
 	<string name="dialog_incorrect_feature_position">위치 변경</string>
@@ -803,7 +803,7 @@
 	<string name="no_migration_during_navigation">업데이트는 탐색 중 금지되어 있습니다.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.</string>
-	<string name="editor_sharing_title">나는 MAPS.ME 지도를 향상함</string>
+	<string name="editor_sharing_title">나는 OMaps 지도를 향상함</string>
 	<string name="editor_comment_will_be_sent">지도 제작자에게 의견을 보낼 것입니다.</string>
 	<string name="editor_unsupported_category_message">아직 지원하지 않는 카테고리의 장소를 추가했습니다. 시간이 좀 흐른 나중에 이 지도에 표시될 것입니다.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -820,7 +820,7 @@
 	<string name="core_placepage_unknown_place">장소 알 수 없음</string>
 	<string name="editor_other_info">OSM 편집인들에게 쪽지 보내기</string>
 	<string name="editor_detailed_description_hint">상세 설명</string>
-	<string name="editor_detailed_description">귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. MAPS.ME에서 편집할 수 없는 세부정보를 작성해 주세요.</string>
+	<string name="editor_detailed_description">귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. OMaps에서 편집할 수 없는 세부정보를 작성해 주세요.</string>
 	<string name="editor_more_about_osm">OpenStreetMap 정보</string>
 	<string name="editor_operator">소유자</string>
 	<string name="editor_tag_description">회사, 조직 또는 시설 책임자를 입력하세요.</string>
@@ -841,7 +841,7 @@
 	<string name="current_location_unknown_error_title">현재 위치를 알 수 없습니다.</string>
 	<string name="current_location_unknown_error_message">위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.</string>
 	<string name="whatsnew_update_editor_title">지도 편집기를 업데이트했습니다</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME 사용자는 200000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!</string>
+	<string name="whatsnew_update_editor_message">OMaps 사용자는 200000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">지도 편집기를 사용하려면, 모든 지도를 업데이트하십시오.</string>
 	<string name="location_services_disabled_header">위치 식별 사용할 수 없음</string>
@@ -930,7 +930,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">체크아웃</string>
 	<string name="continue_recent_track_background_button">계속</string>
-	<string name="recent_track_background_dialog_message">MAPS.ME는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.</string>
+	<string name="recent_track_background_dialog_message">OMaps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.</string>
 	<string name="whatsnew_car_navigation_header">사용자 친화적인 차량 네비게이션</string>
 	<string name="whatsnew_car_navigation_message">• 탐색 요소는 더 적은 공간을 차지합니다.\n• 저희는 속도를 표시하고 자동 줌을 추가했습니다.</string>
 	<string name="whatsnew_cycle_navigation_2_header">자전거 네비게이션</string>
@@ -938,15 +938,15 @@
 	<string name="whatsnew_booking_2_header">쉬운 호텔 검색</string>
 	<string name="whatsnew_booking_2_message">검색 결과는 호텔 평가 및 가격 범주를 표시합니다.</string>
 	<string name="whatsnew_cycle_navigation_header">자전거 네비게이션 (베타 버전)</string>
-	<string name="whatsnew_cycle_navigation_message">저희는 새로운 시즌을 맞이하여 자전거 네비게이션을 테스트하고 있습니다. MAPS.ME에서 귀하가 자주 이용하는 자전거 경로를 사용해 보고, 사용 소감을 알려주세요.</string>
+	<string name="whatsnew_cycle_navigation_message">저희는 새로운 시즌을 맞이하여 자전거 네비게이션을 테스트하고 있습니다. OMaps에서 귀하가 자주 이용하는 자전거 경로를 사용해 보고, 사용 소감을 알려주세요.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Google Play에서 평가</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">친구에게 알려주기</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">안녕하세요! MAPS.ME를 설치하세요!</string>
+	<string name="tell_friends_text">안녕하세요! OMaps를 설치하세요!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME는 여행용 필수 오프라인 응용 프로그램입니다. MAPS.ME는 OpenStreetMap 데이터를 기반으로 하며 이 데이터 편집을 허용합니다.</string>
+	<string name="about_description">OMaps는 여행용 필수 오프라인 응용 프로그램입니다. OMaps는 OpenStreetMap 데이터를 기반으로 하며 이 데이터 편집을 허용합니다.</string>
 	<!-- Text in menu -->
 	<string name="blog">블로그</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -1001,7 +1001,7 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">열기</string>
-	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
 	<string name="whatsnew_uber_message">Uber 택시를 직접 앱에서 예약하세요.</string>
 	<string name="dialog_taxi_offline">오프라인 모드에서는 택시를 예약할 수 없습니다.</string>
 	<string name="dialog_taxi_error">일시적으로 택시를 예약할 수 없습니다.</string>
@@ -1016,7 +1016,7 @@
 	<string name="traffic_update_maps_text">교통 데이터를 표시하려면 지도를 업데이트해야 합니다.</string>
 	<string name="traffic_outdated">교통 데이터가 오래되었습니다.</string>
 	<string name="big_font">지도에서 글꼴 크기 늘리기</string>
-	<string name="traffic_update_app">MAPS.ME를 업데이트하세요.</string>
+	<string name="traffic_update_app">OMaps를 업데이트하세요.</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1114,9 +1114,9 @@
 	<string name="button_accept_and_continue">동의하고 계속 진행</string>
 	<string name="button_learn_more">자세히 알아보기</string>
 	<string name="onboarding_storage_permissions_title">액세스 승인</string>
-	<string name="onboarding_storage_permissions_message">장치에서 권한 설정을 변경하세요. MAPS.ME를 사용하려면 저장소 액세스가 필요합니다.</string>
+	<string name="onboarding_storage_permissions_message">장치에서 권한 설정을 변경하세요. OMaps를 사용하려면 저장소 액세스가 필요합니다.</string>
 	<string name="button_exit">끝내기</string>
-	<string name="onboarding_detail_permissions_title">MAPS.ME에는 다음에 대한 액세스가 필요합니다:</string>
+	<string name="onboarding_detail_permissions_title">OMaps에는 다음에 대한 액세스가 필요합니다:</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">저장소</string>
 	<string name="onboarding_detail_permissions_storage_message">오프라인으로 지도를 저장 및 사용하고 책갈피를 저장하기 위한 것입니다.</string>
@@ -1187,7 +1187,7 @@
 	<string name="whats_new_ugc_title_updated_v840">평점 및 리뷰</string>
 	<string name="whats_new_ugc_message">이제 평점과 리뷰를 오프라인에서도 남길 수 있습니다! 변경 사항을 볼 수 있도록 지도를 업데이트하는 것을 잊지 마세요.</string>
 	<string name="dialog_error_storage_title">저장소 액세스 문제</string>
-	<string name="dialog_error_storage_message">외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support\@maps.me로 문의하세요.</string>
+	<string name="dialog_error_storage_message">외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support\@omaps.app로 문의하세요.</string>
 	<string name="setting_emulate_bad_storage">불량 저장소 에뮬레이션</string>
 	<string name="discovery_button_title">근처에 대해 알아보기</string>
 	<string name="discovery_button_subtitle_things_to_do">할 일</string>
@@ -1281,16 +1281,16 @@
 	<string name="sign_message_gdpr">계속하려면 이용 약관 및 개인 정보 보호 정책에 동의해야합니다. 주의 깊게 읽으십시오.</string>
 	<string name="sign_agree_pp_gdpr">&lt;a href="%s">개인 정보 보호 정책&lt;/a>에 동의합니다.</string>
 	<string name="sign_agree_tof_gdpr">&lt;a href="%s">이용 약관&lt;/a>에 동의합니다.</string>
-	<string name="sign_agree_news_gdpr">MAPS.ME 제품에 대한 최신 뉴스를받는 것에 동의합니다.</string>
+	<string name="sign_agree_news_gdpr">OMaps 제품에 대한 최신 뉴스를받는 것에 동의합니다.</string>
 	<string name="whats_new_localbiz_title">스몰 비즈니스는 관심을 받을 가치가 있습니다.</string>
-	<string name="whats_new_localbiz_message">이는 우리의 여행을 잊혀지지 않도록 해주는 지역 카페, 아늑한 호스텔 그리고 상점입니다. 당사는 귀사의 페이지를 MAPS.ME에서 최적화하여 두드러지게 할 것입니다.</string>
+	<string name="whats_new_localbiz_message">이는 우리의 여행을 잊혀지지 않도록 해주는 지역 카페, 아늑한 호스텔 그리고 상점입니다. 당사는 귀사의 페이지를 OMaps에서 최적화하여 두드러지게 할 것입니다.</string>
 	<string name="whats_new_order_button">요청사항을 남겨주세요.</string>
 	<string name="bookmarks_page_downloaded">다운로드 되었습니다.</string>
 	<string name="bookmarks_page_my">나의</string>
 	<string name="routes_and_bookmarks">경로 및 북마크</string>
 	<string name="bookmarks_webview_success_toast">성공적으로 북마크를 다운로드 하였습니다.</string>
 	<string name="cached_bookmarks_placeholder_title">새로운 장소를 다운로드 하세요.</string>
-	<string name="cached_bookmarks_placeholder_subtitle">버튼을 눌러 MAPS.ME 사용자들이 작성한 수천 개의 흥미로운 장소와 경로를 다운로드 하세요. 인터넷 연결이 필요합니다.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">버튼을 눌러 OMaps 사용자들이 작성한 수천 개의 흥미로운 장소와 경로를 다운로드 하세요. 인터넷 연결이 필요합니다.</string>
 	<string name="downloader_download_routers">북마크를 다운로드 하세요.</string>
 	<string name="bookmarks_groups_cached">목록을 다운로드 하세요.</string>
 	<string name="author_name_by_prefix">%s를 통해</string>
@@ -1310,7 +1310,7 @@
 	<string name="opt_out_flurry">통계</string>
 	<string name="opt_out_mopub">개별 광고</string>
 	<string name="opt_out_fabric">오류 보고서</string>
-	<string name="opt_out_fabric_description">당사는 MAPS.ME 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.</string>
+	<string name="opt_out_fabric_description">당사는 OMaps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.</string>
 	<string name="opt_out_help_ios_1">귀하의 모바일 장치는 \"\"광고 추적 제한\"\" 혹은 \"\"관심 기반의 광고의 옵트아웃\"\" 설정을 제공할 수 있습니다.</string>
 	<string name="opt_out_help_ios_2">iOS 9 혹은 이상</string>
 	<string name="opt_out_help_ios_3">설정 → 개인정보 → 광고 → “광고 추적 제한” 설정을 활성화합니다.</string>
@@ -1331,7 +1331,7 @@
 	<string name="category_desc_more">…기타 정보</string>
 	<string name="title_error_downloading_bookmarks">오류가 발생했습니다.</string>
 	<string name="subtitle_error_downloading_bookmarks">북마크가 다운로드 되지 않았습니다.</string>
-	<string name="whats_new_bookmarks_catalog_title">MAPS.ME가 현재 경로 카탈로그를 보유하고 있습니다.</string>
+	<string name="whats_new_bookmarks_catalog_title">OMaps가 현재 경로 카탈로그를 보유하고 있습니다.</string>
 	<string name="whats_new_bookmarks_catalog_message">전세계 수백 개의 세부 경로: 가볼 장소, 볼거리, 먹거리.</string>
 	<string name="whats_new_popularity_label_title">근처 인기 있는 장소</string>
 	<string name="whats_new_popularity_label_message">근처에 대해 알아보기 섹션은 도시에서 가장 인기 있는 장소를 찾을 수 있도록 도와드립니다.</string>
@@ -1348,15 +1348,15 @@
 	<string name="guide_downloaded_subtitle">안내를 이용하려면 \'지도 보기\'를 누르세요</string>
 	<string name="bookmarks_guides">북마크 및 안내</string>
 	<string name="remove_ads">광고 없애기</string>
-	<string name="remove_ads_title">모든 광고를 없애고 MAPS.ME를 지원</string>
+	<string name="remove_ads_title">모든 광고를 없애고 OMaps를 지원</string>
 	<string name="paybtn_title">%s/년 내세요</string>
 	<string name="paybtn_subtitle">%s/년마다 저축하세요</string>
 	<string name="options_dropdown_title">더 많은 옵션</string>
-	<string name="why_support">왜 MAPS.ME를 지원하죠?</string>
+	<string name="why_support">왜 OMaps를 지원하죠?</string>
 	<string name="options_dropdown_item1">%1$s/달 ( %2$s/년 저축)</string>
 	<string name="options_dropdown_item2">%s/주 (저축금 없음)</string>
 	<string name="why_support_item1">당신을 위해 모든 광고를 없애줄께요</string>
-	<string name="why_support_item2">당신은 MAPS.ME를 개선하는데 우리를 도와주세요</string>
+	<string name="why_support_item2">당신은 OMaps를 개선하는데 우리를 도와주세요</string>
 	<string name="why_support_item3">오픈 지도들 OpenStreetMap.org를 개선하는데 도와주세요</string>
 	<string name="purchase_processing">구매가 처리되고 있습니다…</string>
 	<string name="tips_bookmarks_catalog_title">모든 종류의 여행을 위한 오프라인 가이드</string>
@@ -1374,7 +1374,7 @@
 	<string name="awaiting_approval">부모의 승인을 기다리는 중입니다</string>
 	<string name="whats_new_leave_review">리뷰를 남기세요! 휴가를 통해 방문한 장소에 대한 당신의 의견을 공유하십시오.</string>
 	<string name="server_unavailable_title">서버를 사용할 수 없습니다</string>
-	<string name="server_unavailable_message">구매가 나중에 완료됩니다. 계속 에러 지속시, support\@maps.me로 연락 바랍니다.</string>
+	<string name="server_unavailable_message">구매가 나중에 완료됩니다. 계속 에러 지속시, support\@omaps.app로 연락 바랍니다.</string>
 	<string name="offline_fiters_check_in">인터넷에 연결해 날짜를 통해서 호텔들을 필터 하세요.</string>
 	<string name="restore_subscription">구독 복구</string>
 	<string name="restore_success_alert">구독이 성공적으로 복구 되었습니다</string>
@@ -1391,7 +1391,7 @@
 	<string name="ugc_route_tags_progress_msg">태그 불러오는 중…</string>
 	<string name="public_access">일반 접근</string>
 	<string name="limited_access">제한 접근</string>
-	<string name="upload_and_publish_desc">이 가이드는 MAPS.ME 카탈로그에 업로드되며 다른 사용자들에게 제공됩니다</string>
+	<string name="upload_and_publish_desc">이 가이드는 OMaps 카탈로그에 업로드되며 다른 사용자들에게 제공됩니다</string>
 	<string name="upload_and_publish">업로드와 발간</string>
 	<string name="upload_and_get_direct_link">업로드와 다이렉트 링크 얻기</string>
 	<string name="get_direct_link_desc">당신의 가이드가 링크를 가진 모든 이에게 허락됩니다</string>
@@ -1442,12 +1442,12 @@
 	<string name="notification_channel_downloader">맵 다운로더</string>
 	<string name="notification_leave_review_title">%s - 어떠셨나요?</string>
 	<string name="notification_leave_review_content">리뷰를 남겨서 여행자들을 도와주세요!</string>
-	<string name="share_bookmarks_email_body_link">안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. MAPS.ME 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. OMaps 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">네비게이터가 %d km/h의 속도 제한을 초과시 카메라에 대해 경고 할 것입니다</string>
 	<string name="warning_speedcams_subtitle">여행하시는 나라의 운전 법규를 준수하시길 바랍니다.</string>
 	<string name="speedcams_notice_message">자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기</string>
 	<string name="whats_new_ugc_routes_title">당신의 감동을 공유하기 좋습니다</string>
-	<string name="whats_new_ugc_routes_subtitle">잊지 못할 장소들을 저장하고 즐겨찾기를 사용해 길을 만들어 MAPS.ME의 모두와 나눠보세요.</string>
+	<string name="whats_new_ugc_routes_subtitle">잊지 못할 장소들을 저장하고 즐겨찾기를 사용해 길을 만들어 OMaps의 모두와 나눠보세요.</string>
 	<string name="whats_new_webeditor_title">당신의 지나온 길들을 이야기로 바꿔보세요</string>
 	<string name="whats_new_ugc_routes_message2">웹 에디터 안에서 사진들과 자세한 이야기들을 추가해보세요.</string>
 	<string name="whatsnew_standard_routes_title">표준 루트</string>
@@ -1464,7 +1464,7 @@
 	<string name="notification_leave_review_v2_title">방문하신 장소를 평가하셔서 여행객들을 도와주세요!</string>
 	<string name="error_public_not_enought_title">즐겨찾기가 충분하지 않습니다</string>
 	<string name="error_public_not_enought_subtitle">공공 카탈로그에 가이드를 업로드를 하시려면 적어도 3개의 즐겨찾기를 갖고 계셔야 합니다</string>
-	<string name="bookmark_public_upload_alert_title">모든 MAPS.ME 여행객들과 즐겨찾기를 공유하기까지 몇 단계 밖에 남지 않았습니다!</string>
+	<string name="bookmark_public_upload_alert_title">모든 OMaps 여행객들과 즐겨찾기를 공유하기까지 몇 단계 밖에 남지 않았습니다!</string>
 	<string name="bookmark_public_upload_alert_subtitle">귀하의 목록을 위한 특정한 이름과 설명이 있는지 확인해주세요. 모든 즐겨찾기는 장소에 대한 정보를 갖고 있습니다. 귀하의 목록이 다른 사용자들에게 발견되고 사용됩니다.</string>
 	<string name="bookmark_public_upload_alert_ok_button">네, 물론입니다!</string>
 	<string name="name_title">귀하의 가이드 이름을 입력하세요</string>
@@ -1494,7 +1494,7 @@
 	<string name="power_managment_setting_never">안함</string>
 	<string name="power_managment_setting_auto">자동</string>
 	<string name="power_managment_setting_manual_max">최대 전력 절약</string>
-	<string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 MAPS.ME 지원 요청에서만 가능합니다.</string>
+	<string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 OMaps 지원 요청에서만 가능합니다.</string>
 	<string name="html_error_upload_message_try_again">네트워크 설정을 확인하신 후 다시 시도해주세요</string>
 	<string name="html_error_upload_title_try_again">인터넷이 연결되지 않았습니다</string>
 	<string name="notification_leave_review_v2_android_short_title">리뷰하고 여행객들을 도우세요!</string>
@@ -1503,7 +1503,7 @@
 	<string name="privacy_settings_menu">개인정보 설정</string>
 	<string name="gdpr_request_setting">GDPR 요청을 위해 ID 만들기</string>
 	<string name="gdpr_request_window_title">귀하의 ID: %s.</string>
-	<string name="gdpr_request_window_message">복사하신 뒤 support\@maps.me 에 요청을 보내세요</string>
+	<string name="gdpr_request_window_message">복사하신 뒤 support\@omaps.app 에 요청을 보내세요</string>
 	<string name="gdpr_request_window_copy">ID 복사하기</string>
 	<string name="unable_upadate_error_title">파일 업데이트 실패</string>
 	<string name="unable_upadate_error_message">업데이트 중 무언가 실수가 일어났습니다. 변경점들을 확인하시고 다시 시도해주세요</string>
@@ -1526,7 +1526,7 @@
 	<string name="avoid_toll_roads_placepage">유료 도로 피하기</string>
 	<string name="avoid_unpaved_roads_placepage">비포장 도로 피하기</string>
 	<string name="avoid_ferry_crossing_placepage">여객선 횡단길 피하기</string>
-	<string name="cached_guides_placeholder_subtitle">MAPS.ME는 선택된 장소의 사진과 묘사가 지도에 표시되는 미리 만들어진 가이드를 제공하고 오프라인에서도 사용이 가능합니다.</string>
+	<string name="cached_guides_placeholder_subtitle">OMaps는 선택된 장소의 사진과 묘사가 지도에 표시되는 미리 만들어진 가이드를 제공하고 오프라인에서도 사용이 가능합니다.</string>
 	<string name="guides_catalogue_title">가이드 카탈로그</string>
 	<string name="download_guides_button">카탈로그로</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1534,12 +1534,12 @@
 	  <item quantity="other">%d 리뷰들에 기반함</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">우즈벡 요리</string>
-	<string name="onboarding_welcome_title">MAPS.ME와 계획하고 여행하세요</string>
+	<string name="onboarding_welcome_title">OMaps와 계획하고 여행하세요</string>
 	<string name="onboarding_welcome_first_subtitle">흥미로운 장소들 즐겨찾기, 호텔 예약 하기, 루트 계산하기를 오프라인으로</string>
 	<string name="onboarding_guide_direct_download_title">가이드 다운로드가 준비가 되었습니다</string>
 	<string name="onboarding_guide_direct_download_subtitle">지도에 표시가 되고 오프라인에서도 작동합니다</string>
 	<string name="onboarding_guide_direct_download_button">다운로드</string>
-	<string name="onboarding_bydeeplink_guide_title">MAPS.ME의 가이드가 사용 준비되었습니다</string>
+	<string name="onboarding_bydeeplink_guide_title">OMaps의 가이드가 사용 준비되었습니다</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">사진과 묘사가 있는 지도에 방문하기에 최고의 장소가 표시됩니다. 오프라인으로 작동하기.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">가이드를 진행하시기 전에…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">맵들을 업데이트하셔서 최신 사항에 대한 정보를 유지하세요!</string>
@@ -1570,11 +1570,11 @@
 	<string name="ok">OK</string>
 	<string name="booking_button_toolbar">지도에서 호텔을 고르세요</string>
 	<string name="popup_booking_download_guides_title">호텔을 예약하셨나요?</string>
-	<string name="popup_booking_download_guides_message">귀하의 루트를 MAPS.ME의 준비된 가이드들로 계획해보세요</string>
+	<string name="popup_booking_download_guides_message">귀하의 루트를 OMaps의 준비된 가이드들로 계획해보세요</string>
 	<string name="popup_mwm_download_guides_title">오프라인 도시 가이드</string>
 	<string name="popup_mwm_download_guides_cta">하나를 고르세요</string>
 	<string name="popup_mwm_download_guides_cta_1">살펴보세요</string>
-	<string name="gallery_pp_download_guides_offline_title">휴가를 MAPS.ME와 함께 계획해보세요!</string>
+	<string name="gallery_pp_download_guides_offline_title">휴가를 OMaps와 함께 계획해보세요!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">경험 많은 여행자들이 만든 가이드의 모든 것을 놓치지 마세요</string>
 	<string name="gallery_pp_download_guides_offline_cta">인터넷 키기</string>
 	<string name="gallery_pp_download_guides_title">가이드들</string>
@@ -1603,7 +1603,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">%s/년 으로 무제한 액세스</string>
 	<string name="subscription_terms_guides">구매 확인 후 비용이 귀하의 iTunes 계정에 청구됩니다. 현재 기한 종료 전 적어도 24시간 전에 자동 갱신 기능이 꺼져있어야 합니다. 그렇지 않으면 구독은 자동 갱신됩니다. 현재 기한 종료 후 24시간 이내에 갱신에 대한 귀하의 계획에 따라 계정에 비용이 청구됩니다. 귀하가 구매 시 아무 때나 귀하의 Apple ID 계정에서 자동 갱신 기능을 끄거나 관리할 수 있습니다. 구독 만료 기간까지만 구독 시 다운로드한 가이드를 사용할 수 있습니다. 구독 만료일에서 30일이 지나면 북마크와 가이드는 자동으로 삭제됩니다.</string>
 	<string name="subscription_terms">결제 확인시 iTunes 계정에 요금이 부과됩니다. 현재 구독 기간 종료 최소 24 시간 전에 자동 갱신을 해제하지 않을 경우, 구독은 자동으로 갱신됩니다. 현재 구독 기간 종료 최소 24 시간 이전에 갱신하신 플랜의 상세 정보에 따라 계정의 비용이 청구될 것입니다. 구입 시 Apple ID 계정 설정에서 자동 갱신을 관리하거나 해제할 수 있습니다.</string>
-	<string name="whatsnew_carplay_title">CarPlay의 MAPS.ME 자동차 내비게이션!</string>
+	<string name="whatsnew_carplay_title">CarPlay의 OMaps 자동차 내비게이션!</string>
 	<string name="whatsnew_carplay_message">북마크, 찾기, 속도 감시 카메라 및 루트 옵션이 오프라인에서 가능합니다</string>
 	<string name="whatsnew_subscription_title">구독으로 전 세계를 알게 됩니다!</string>
 	<string name="whatsnew_subscription_message">안내 카탈로그의 무제한 액세스는 한번 구매보다 더 이득입니다</string>
@@ -1617,7 +1617,7 @@
 	<string name="avoid_tolls_carplay_2">유료 도로 없음</string>
 	<string name="speedcams_alert_title_carplay_1">속도단속 카메라</string>
 	<string name="speedcams_alert_title_carplay_2">속도단속 카메라</string>
-	<string name="download_map_carplay">MAPS.ME 앱 안의 지도들을 디바이스에 다운로드하세요</string>
+	<string name="download_map_carplay">OMaps 앱 안의 지도들을 디바이스에 다운로드하세요</string>
 	<string name="carplay_roundabout_exit">%s번 출구</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">분류…</string>
@@ -1668,7 +1668,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">북마크를 정리하시고 편안한 여행되세요</string>
 	<string name="whatsnew_bookmarks_search_sort_message">카테고리, 위치, 추가한 시간대 별로 좋아하는 장소를 분류하세요. 이름으로 특정한 북마크를 빠르게 찾으실 수도 있습니다</string>
 	<string name="popup_subscription_success_map_title">우후, 구독을 하셨군요!</string>
-	<string name="popup_subscription_success_map_message">지금 MAPS.ME 카탈로그와 함께 최고의 여행 명소를 찾아보세요</string>
+	<string name="popup_subscription_success_map_message">지금 OMaps 카탈로그와 함께 최고의 여행 명소를 찾아보세요</string>
 	<string name="popup_subscription_success_map_start_button">보기 시작</string>
 	<string name="popup_subscription_success_map_not_now_button">지금은 아님</string>
 	<string name="religious_places">종교적 장소</string>
@@ -1700,9 +1700,9 @@
 	<string name="new_onboarding_step5.1_header">시작하기 전에 한 가지 더…</string>
 	<string name="new_onboarding_step5.1_message">우리의 새로운 가이드 카탈로그를 살펴보는 것을 잊지마세요. 다가오는 여행을 위한 오프라인 가이드를 찾아볼 수 있습니다!</string>
 	<string name="new_onboarding_step5.1_button">카탈로그 열기</string>
-	<string name="new_onboarding_step5.2_message">MAPS.ME 카탈로그를 구독하신다면 만족하실 겁니다. 전세계의 도시 및 아웃도어 가이드에 완전한 액세스를 하실 수 있습니다!</string>
+	<string name="new_onboarding_step5.2_message">OMaps 카탈로그를 구독하신다면 만족하실 겁니다. 전세계의 도시 및 아웃도어 가이드에 완전한 액세스를 하실 수 있습니다!</string>
 	<string name="new_onboarding_step5.2_button">약관 확인하기</string>
-	<string name="new_onboarding_step5.3_message">MAPS.ME의 무료 모음집에서 미리 준비된 도시 및 야외 경로의 무료 샘플을 확인하세요!</string>
+	<string name="new_onboarding_step5.3_message">OMaps의 무료 모음집에서 미리 준비된 도시 및 야외 경로의 무료 샘플을 확인하세요!</string>
 	<string name="new_onboarding_step5.3_button">무료 다운로드</string>
 	<string name="new_onboarding_additional_steps_later_button">나중에</string>
 	<string name="all_pass_subscription_header">구독하기</string>
@@ -1735,7 +1735,7 @@
 	<string name="dialog_pedestrian_route_is_long">교통 탑승지까지 보행자 경로는 너무 기네요</string>
 	<string name="whatsnew_outdoor_guides_title">1만 5천개 이상의 야외 길을 추가했습니다!</string>
 	<string name="whatsnew_outdoor_guides_message">여름과 겨울 여행을 위한 Outdooractive에서 온 경로들이 카탈로그에서 기다리고 있습니다!</string>
-	<string name="whatsnew_guides_galleries_title">MAPS.ME와 함께 앞으로의 여행을 계획해보세요</string>
+	<string name="whatsnew_guides_galleries_title">OMaps와 함께 앞으로의 여행을 계획해보세요</string>
 	<string name="whatsnew_guides_galleries_message">이제 인기 있는 관광 도시와 명소들의 장소 페이지에서 추천 가이드를 찾을 수 있습니다</string>
 	<string name="new_onboarding_step3_header">경험하세요</string>
 	<string name="all_pass_screen_best_value">최고가치</string>
@@ -1749,7 +1749,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">산 지형에서도 자신감 있게. 왼쪽 구성 상단의 레이어를 키세요</string>
 	<string name="button_layer_isolines">지형</string>
-	<string name="tips_map_layers_title_countour">MAPS.ME의 새 기능: 오프라인 지형 레이어!</string>
+	<string name="tips_map_layers_title_countour">OMaps의 새 기능: 오프라인 지형 레이어!</string>
 	<string name="tips_map_layers_message_countour">이 지역에 대한 모든 것을 알고 있는지 확인하면서 자연 여행을 계획하고 즐기세요</string>
 	<string name="isolines_activation_error_dialog">지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오</string>
 	<string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>

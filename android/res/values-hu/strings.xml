@@ -31,7 +31,7 @@
 	<string name="downloading">Letöltés…</string>
 	<string name="get_it_now">Telepítés most</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Köszönjük, hogy a MAPS.ME-t használja! Kedveli az appot? Akkor számoljon be a barátainak róla. Ez lenne a legnagyobb hála, amit adhat nekünk.</string>
+	<string name="share_on_facebook_text">Köszönjük, hogy a OMaps-t használja! Kedveli az appot? Akkor számoljon be a barátainak róla. Ez lenne a legnagyobb hála, amit adhat nekünk.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilométer</string>
 	<!-- Leave Review dialog - Review button -->
@@ -86,7 +86,7 @@
 	<string name="country_status_download_failed">Letöltése sikertelen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Újrapróbálkozás</string>
-	<string name="about_menu_title">A MAPS.ME programról</string>
+	<string name="about_menu_title">A OMaps programról</string>
 	<string name="downloading_touch_to_cancel">%d%% letöltése, elvetéshez érintse meg</string>
 	<string name="downloaded_touch_to_delete">Letöltve (%s), érintse meg törléshez</string>
 	<string name="connection_settings">Kapcsolat beállítások</string>
@@ -95,7 +95,7 @@
 	<string name="unsupported_phone">Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
 	<string name="download">Letöltés</string>
 	<string name="external_storage_is_not_available">Nem található téképeket tartalmazó SD kártya / USB tároló</string>
-	<string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a MAPS.ME használatához</string>
+	<string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a OMaps használatához</string>
 	<string name="not_enough_free_space_on_sdcard">Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!</string>
 	<string name="not_enough_memory">Nincs elegendő memória az alkalmazás futtatásához</string>
 	<string name="free_space_for_country">Kérjük szabadítson fel %1$s-t az eszközön %2$s letöltéséhez!</string>
@@ -122,7 +122,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Az aktuális térképhez elérhető frissítések:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Már nincs szüksége a MAPS.ME lite alkalmazásra, nyugodtan letörölheti.</string>
+	<string name="suggest_uninstall_lite">Már nincs szüksége a OMaps lite alkalmazásra, nyugodtan letörölheti.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s letöltése sikeres</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -152,9 +152,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Csoport</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
+	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a OMaps programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
+	<string name="bookmarks_usage_hint_import_only">Más forrásokból származó könyvjelzőket is beolvashat a OMaps programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Beállítások</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -222,7 +222,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Megosztás email-en</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Egy MAPS.ME könyvjelzőt osztottak meg Önnel</string>
+	<string name="share_bookmarks_email_subject">Egy OMaps könyvjelzőt osztottak meg Önnel</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Könyvjelzők letöltése</string>
 	<!-- Kmz file successful loading -->
@@ -242,17 +242,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Országletöltés folyamatban.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Reméljük élvezi a MAPS.ME használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!</string>
+	<string name="appStore_message">Reméljük élvezi a OMaps használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Köszönöm, nem</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Nézd meg a MAPS.ME jelzőt! %1$s vagy %2$s A program letöltése: http://maps.me/get</string>
+	<string name="bookmark_share_sms">Nézd meg a OMaps jelzőt! %1$s vagy %2$s A program letöltése: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Nézd meg a MAPS.ME helyzetemet! %1$s vagy %2$s A program letöltése: http://maps.me/get</string>
+	<string name="my_position_share_sms">Nézd meg a OMaps helyzetemet! %1$s vagy %2$s A program letöltése: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Nézze meg a MAPS.ME jelzőmet</string>
+	<string name="bookmark_share_email_subject">Nézze meg a OMaps jelzőmet</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Nézze meg a helyzetemet a MAPS.ME térképen!</string>
+	<string name="my_position_share_email_subject">Nézze meg a helyzetemet a OMaps térképen!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt vagyok: %1$s Kattintson erre a hivatkozásra %2$s vagy erre %3$s, hogy lássa a helyet a térképen.\n\nKöszönöm.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -360,19 +360,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Töltsd le annak a helynek a térképét, ahol most vagy</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">A teljes verzió MAPS.ME ma ingyenes! Töltsd le most és meséld el barátaidnak.</string>
+	<string name="pro_version_is_free_today">A teljes verzió OMaps ma ingyenes! Töltsd le most és meséld el barátaidnak.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Letöltött térképeidet áthelyezzük a MAPS.ME Lite-ból a MAPS.ME-be. Ez eltarthat pár percig.</string>
+	<string name="move_lite_maps_to_pro">Letöltött térképeidet áthelyezzük a OMaps Lite-ból a OMaps-be. Ez eltarthat pár percig.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Letöltött térképeidet sikeresen áthelyeztük a MAPS.ME-be.</string>
+	<string name="move_lite_maps_to_pro_ok">Letöltött térképeidet sikeresen áthelyeztük a OMaps-be.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Térképeid áthelyezése nem sikerült. Kérjük, töröld a MAPS.ME Lite-t és töltsd le a térképet megint.</string>
+	<string name="move_lite_maps_to_pro_failed">Térképeid áthelyezése nem sikerült. Kérjük, töröld a OMaps Lite-t és töltsd le a térképet megint.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Beállítások és egyéb</string>
 	<!-- Text in menu -->
 	<string name="website">Honlap</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">MAPS.ME közösség</string>
+	<string name="maps_me_community">OMaps közösség</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Lájkolj minket Facebookon</string>
 	<!-- Text in menu -->
@@ -392,11 +392,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Hibabejelentés</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Fel szeretnék iratkozni a MAPS.ME hírlevelére</string>
+	<string name="subscribe_me_subject">Fel szeretnék iratkozni a OMaps hírlevelére</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Elsőként szeretnék értesülni a legújabb hírekről frissítésekről és promóciókról. A feliratkozásom bármikor törölhetem.</string>
 	<!-- About text -->
-	<string name="about_text">A MAPS.ME kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a MAPS.ME segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a MAPS.ME-t. Bármely probléma esetén írj nekünk a support\@maps.me email címre. Minden levélre válaszolunk!\n\nSzereted a MAPS.ME-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a MAPS.ME-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a https://www.openstreetmap.org-on és változtatásaid a MAPS.ME következő verziójában már meg fognak jelenni.</string>
+	<string name="about_text">A OMaps kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a OMaps segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a OMaps-t. Bármely probléma esetén írj nekünk a support\@omaps.app email címre. Minden levélre válaszolunk!\n\nSzereted a OMaps-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a OMaps-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a https://www.openstreetmap.org-on és változtatásaid a OMaps következő verziójában már meg fognak jelenni.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %s email címen keresztül.</string>
 	<!-- Alert title -->
@@ -408,7 +408,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Kérjük, útvonal létrehozásához frissítsd a térképet.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">A MAPS.ME új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.</string>
+	<string name="routing_update_maps">A OMaps új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Mindegyik frissítése</string>
 	<!-- Cancel all button text -->
@@ -425,7 +425,7 @@
 	<string name="downloader_downloading">Letöltés:</string>
 	<string name="downloader_search_results">Megtalálva</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Amikor útvonalakat készít a MAPS.ME appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!</string>
+	<string name="routing_disclaimer">Amikor útvonalakat készít a OMaps appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Elavult</string>
 	<!-- Up to date maps category -->
@@ -449,7 +449,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Nem találtunk útvonalat a kiválasztott kiindulópont és az úti cél között. Kérjük, válasszon másik kiinduló- vagy végpontot.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support\@maps.me email címen.</string>
+	<string name="routing_failed_internal_error">Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support\@omaps.app email címen.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Térkép + útvonal letöltése</string>
 	<!-- Context menu item for downloader. -->
@@ -480,9 +480,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Most értékeltem az alkalmazásodat</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">MAPS.ME felhasználó vagyok %s óta</string>
+	<string name="rating_user_since">OMaps felhasználó vagyok %s óta</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Szereted a MAPS.ME-t?</string>
+	<string name="rating_do_like_maps">Szereted a OMaps-t?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Érints meg egy csillagot az alkalmazás értékeléséhez.</string>
 	<!-- Text for rating dialog -->
@@ -498,7 +498,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Térkép megszerzése</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Frissített térkép és útvonaltervezési adatok letöltése az összes MAPS.ME tulajdonság megszerzése érdekében.</string>
+	<string name="routing_download_map_and_routing">Frissített térkép és útvonaltervezési adatok letöltése az összes OMaps tulajdonság megszerzése érdekében.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Útvonaltervezési adatok megszerzése</string>
 	<!-- Text for routing error dialog -->
@@ -630,7 +630,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Útvonal létrehozásához kérjük, töltse le és frissítse az összes térképet az útvonal mentén.</string>
 	<string name="rate_alert_title">Tetszik az app?</string>
-	<string name="rate_alert_default_message">Köszönjük, hogy a MAPS.ME-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk.</string>
+	<string name="rate_alert_default_message">Köszönjük, hogy a OMaps-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk.</string>
 	<string name="rate_alert_five_star_message">Hurrá! Mi is szeretjük magát!</string>
 	<string name="rate_alert_four_star_message">Köszönjük, igyekszünk a legjobbunkat nyújtani!</string>
 	<string name="rate_alert_less_than_four_star_message">Van valami ötlete, amivel jobbá tehetnénk?</string>
@@ -685,7 +685,7 @@
 	<string name="editor_report_problem_no_place_title">A hely nem létezik</string>
 	<string name="editor_report_problem_under_construction_title">Karbantartás miatt nem elérhető</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplikált hely</string>
-	<string name="first_launch_congrats_title">A MAPS.ME használatra készen áll</string>
+	<string name="first_launch_congrats_title">A OMaps használatra készen áll</string>
 	<string name="first_launch_congrats_text">Keress és navigálj offline a világon mindenhol, térítésmentesen.</string>
 	<string name="migrate_title">Fontos!</string>
 	<!-- Android uses image instead of text. -->
@@ -789,18 +789,18 @@
 	<string name="whatsnew_search_message">Jelentősen javítottunk a címen alapuló keresésünkön. Nézd meg magadnak.</string>
 	<string name="whatsnew_editor_title">Térkép szerkesztése*</string>
 	<string name="whatsnew_editor_message_1">Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.</string>
-	<string name="whatsnew_editor_message_2">* A MAPS.ME az OpenStreetMap közösség adatait használja.</string>
+	<string name="whatsnew_editor_message_2">* A OMaps az OpenStreetMap közösség adatait használja.</string>
 	<string name="onboarding_offline_navigation_title">Többé nem fogsz eltévedni</string>
 	<string name="onboarding_offline_navigation_message">Tervezd meg az optimális autós és gyalogos útvonalakat, akkor is, ha nincs internetkapcsolat!</string>
 	<string name="onboarding_offline_navigation_title_2">Offline navigáció</string>
 	<string name="onboarding_offline_navigation_message_2">Tervezd meg az optimális autós és gyalogos útvonalakat.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — hozzáférés a világ térképéhez Internet nélkül</string>
+	<string name="onboarding_offline_maps_title">OMaps — hozzáférés a világ térképéhez Internet nélkül</string>
 	<string name="onboarding_offline_maps_message">Mindössze egyszer kell letöltened egy adott helyszín térképét, azt követően internetkapcsolat nélkül is használhatod a navigációs és keresési funkciókat.</string>
 	<string name="onboarding_notifications_message">Fogadj értesítő üzeneteket a legfrissebb térképekről</string>
 	<string name="onboarding_notifications_title">Értesítések engedélyezése</string>
 	<string name="onboarding_location_title">Segíts, hogy megtaláljunk</string>
 	<string name="onboarding_location_message">A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.</string>
-	<string name="onboarding_permissions_title">Engedélyezi a MAPS.ME számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez</string>
+	<string name="onboarding_permissions_title">Engedélyezi a OMaps számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez</string>
 	<string name="onboarding_permissions_message">Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.</string>
 	<string name="onboarding_welcome_second_subtitle">Az alkalmazás indításával Ön elfogadja a &lt;a href="%1$s">Felhasználási feltételeket&lt;/a> és &lt;a href="%2$s">az Adatvédelmi szabályzatot&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
@@ -809,7 +809,7 @@
 	<string name="no_migration_during_navigation">Navigáció közbeni módosítás nem engedélyezett.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.</string>
-	<string name="editor_sharing_title">Én fejlesztettem a MAPS.ME térképeket</string>
+	<string name="editor_sharing_title">Én fejlesztettem a OMaps térképeket</string>
 	<string name="editor_comment_will_be_sent">Megjegyzését elküldjük a térképészeknek.</string>
 	<string name="editor_unsupported_category_message">Olyan kategóriához adott helyet, amelyet még nem támogatunk. Ez a kategória később fog megjelenni a térképen.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -826,7 +826,7 @@
 	<string name="core_placepage_unknown_place">Ismeretlen hely</string>
 	<string name="editor_other_info">Küldjön jegyzetet az OSM editornak</string>
 	<string name="editor_detailed_description_hint">Részletes megjegyzés</string>
-	<string name="editor_detailed_description">Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a MAPS.ME-ben.</string>
+	<string name="editor_detailed_description">Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a OMaps-ben.</string>
 	<string name="editor_more_about_osm">További részletek az OpenStreetMap-ról</string>
 	<string name="editor_operator">Üzemeltető</string>
 	<string name="editor_tag_description">Írja ide a működtetésért felelős cég, szervezet vagy magánszemély nevét.</string>
@@ -846,7 +846,7 @@
 	<string name="current_location_unknown_stop_button">Leállítás</string>
 	<string name="current_location_unknown_error_message">Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.</string>
 	<string name="whatsnew_update_editor_title">Frissítettük a szerkesztőt</string>
-	<string name="whatsnew_update_editor_message">A MAPS.ME felhasználói 200 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!</string>
+	<string name="whatsnew_update_editor_message">A OMaps felhasználói 200 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">A térképszerkesztő használatához, kérjük, frissítsd az összes térképet.</string>
 	<string name="location_services_disabled_header">Helyzetmeghatározás kikapcsolva</string>
@@ -935,7 +935,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Tekintse meg</string>
 	<string name="continue_recent_track_background_button">Folytatás</string>
-	<string name="recent_track_background_dialog_message">A MAPS.ME a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
+	<string name="recent_track_background_dialog_message">A OMaps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
 	<string name="whatsnew_car_navigation_header">Felhasználóbarát járműnavigáció</string>
 	<string name="whatsnew_car_navigation_message">• A navigációs elemek kevesebb helyet foglalnak.\n• Megjelenítjük a sebességet és hozzáadtunk egy automatikus nagyítási lehetőséget is.</string>
 	<string name="whatsnew_cycle_navigation_2_header">Biciklinavigáció</string>
@@ -943,15 +943,15 @@
 	<string name="whatsnew_booking_2_header">Könnyű szállodakeresés</string>
 	<string name="whatsnew_booking_2_message">A keresési eredmények megjelenítik a szálloda értékelését és árkategóriáját.</string>
 	<string name="whatsnew_cycle_navigation_header">Kerékpáros navigáció (béta verzió)</string>
-	<string name="whatsnew_cycle_navigation_message">Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a MAPS.ME-vel és oszd meg velünk véleményedet.</string>
+	<string name="whatsnew_cycle_navigation_message">Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a OMaps-vel és oszd meg velünk véleményedet.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Arány a Google Play-n</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Mondja el egy ismerősének</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Szia! Telepítsd a MAPS.ME alkalmazást!</string>
+	<string name="tell_friends_text">Szia! Telepítsd a OMaps alkalmazást!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">A MAPS.ME egy nélkülözhetetlen alkalmazás utazáshoz. A MAPS.ME az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.</string>
+	<string name="about_description">A OMaps egy nélkülözhetetlen alkalmazás utazáshoz. A OMaps az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -1006,7 +1006,7 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Megnyitás</string>
-	<string name="whatsnew_uber_header">MAPS.ME és Uber</string>
+	<string name="whatsnew_uber_header">OMaps és Uber</string>
 	<string name="whatsnew_uber_message">Hívj Uber-taxit közvetlenül az alkalmazásból!</string>
 	<string name="dialog_taxi_offline">Taxirendelés offline módban nem lehetséges.</string>
 	<string name="dialog_taxi_error">A taxirendelés átmenetileg nem elérhető.</string>
@@ -1021,7 +1021,7 @@
 	<string name="traffic_update_maps_text">Forgalmi adatok megjelenítéséhez a térképeket frissíteni kell.</string>
 	<string name="traffic_outdated">A forgalmi adatok elavultak.</string>
 	<string name="big_font">Betűméret növelése a térképen</string>
-	<string name="traffic_update_app">Kérjük, frissítse a MAPS.ME alkalmazást</string>
+	<string name="traffic_update_app">Kérjük, frissítse a OMaps alkalmazást</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">A forgalmi adatok megjelenítéséhez frissíteni kell az alkalmazást.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1119,9 +1119,9 @@
 	<string name="button_accept_and_continue">Fogadja el, és folytassa</string>
 	<string name="button_learn_more">Tudjon meg többet</string>
 	<string name="onboarding_storage_permissions_title">Hozzáférés biztosítása</string>
-	<string name="onboarding_storage_permissions_message">Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a MAPS.ME alkalmazást.</string>
+	<string name="onboarding_storage_permissions_message">Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a OMaps alkalmazást.</string>
 	<string name="button_exit">Kilépés</string>
-	<string name="onboarding_detail_permissions_title">A MAPS.ME.-nek hozzáférésre van szüksége a következőhöz:\u0020</string>
+	<string name="onboarding_detail_permissions_title">A OMaps.-nek hozzáférésre van szüksége a következőhöz:\u0020</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Tárolás</string>
 	<string name="onboarding_detail_permissions_storage_message">A letöltött térképek offline használatához és könyvjelzők mentéséhez.</string>
@@ -1192,7 +1192,7 @@
 	<string name="whats_new_ugc_title_updated_v840">Minősítések és értékelések</string>
 	<string name="whats_new_ugc_message">Most már kapcsolat nélkül is hagyhat minősítéseket és értékeléseket! Ne felejtse el frissíteni a térképeket, hogy láthassa a módosításokat.</string>
 	<string name="dialog_error_storage_title">Tároló hozzáférési hiba</string>
-	<string name="dialog_error_storage_message">Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support\@maps.me címen</string>
+	<string name="dialog_error_storage_message">Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support\@omaps.app címen</string>
 	<string name="setting_emulate_bad_storage">Sérült tároló emulálása</string>
 	<string name="discovery_button_title">A közelben felfedezi</string>
 	<string name="discovery_button_subtitle_things_to_do">Teendők</string>
@@ -1287,16 +1287,16 @@
 	<string name="sign_message_gdpr">A folytatáshoz el kell fogadnia a Felhasználási feltételeinket és az adatvédelmi irányelveinket. Kérjük, figyelmesen olvassa el őket.</string>
 	<string name="sign_agree_pp_gdpr">Elfogadom a &lt;a href="%s">adatvédelmi irányelveket&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Elfogadom a &lt;a href="%s">Általános Szerződési Feltételeket&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Elfogadom, hogy megkapja a MAPS.ME termékekkel kapcsolatos legfrissebb híreke</string>
+	<string name="sign_agree_news_gdpr">Elfogadom, hogy megkapja a OMaps termékekkel kapcsolatos legfrissebb híreke</string>
 	<string name="whats_new_localbiz_title">A kis cégek is figyelmet érdemelnek</string>
-	<string name="whats_new_localbiz_message">Legyenek helyi kávézók, kényelmes szállók és üzletek, amik feledhetetlenné teszik az utazást. A weboldaladat úgy optimalizáljuk a MAPS.ME-ben, hogy igazán kitűnjön.</string>
+	<string name="whats_new_localbiz_message">Legyenek helyi kávézók, kényelmes szállók és üzletek, amik feledhetetlenné teszik az utazást. A weboldaladat úgy optimalizáljuk a OMaps-ben, hogy igazán kitűnjön.</string>
 	<string name="whats_new_order_button">Kérés küldése</string>
 	<string name="bookmarks_page_downloaded">Letöltött</string>
 	<string name="bookmarks_page_my">Az én</string>
 	<string name="routes_and_bookmarks">Útvonalaim és könyvjelzőim</string>
 	<string name="bookmarks_webview_success_toast">Könyvjelzők sikeresen letöltve</string>
 	<string name="cached_bookmarks_placeholder_title">Új helyek letöltése</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Nyomja meg a gombot, hogy MAPS.ME felhasználók ezrei által gyűjtött érdekes helyet és útvonalat tölthessen le. Ehhez internetkapcsolatra van szükség.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Nyomja meg a gombot, hogy OMaps felhasználók ezrei által gyűjtött érdekes helyet és útvonalat tölthessen le. Ehhez internetkapcsolatra van szükség.</string>
 	<string name="downloader_download_routers">Könyvjelzők letöltése</string>
 	<string name="bookmarks_groups_cached">Letöltött listák</string>
 	<string name="author_name_by_prefix">%s</string>
@@ -1316,7 +1316,7 @@
 	<string name="opt_out_flurry">Statisztika</string>
 	<string name="opt_out_mopub">Személyre szabott reklámok</string>
 	<string name="opt_out_fabric">Hibajelentés</string>
-	<string name="opt_out_fabric_description">A MAPS.ME fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.</string>
+	<string name="opt_out_fabric_description">A OMaps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.</string>
 	<string name="opt_out_help_ios_1">A mobileszköz „Reklámkövetés korlátozása” vagy „Érdeklődési kör alapú reklámozás” beállítással rendelkezhet.</string>
 	<string name="opt_out_help_ios_2">iOS 9 vagy újabb</string>
 	<string name="opt_out_help_ios_3">Nyissa meg a Beállítások → Adatvédelem→ Reklámok→ és engedélyezze a “Reklámkövetés korlátozása” beállítást</string>
@@ -1337,7 +1337,7 @@
 	<string name="category_desc_more">…tovább</string>
 	<string name="title_error_downloading_bookmarks">Hiba történt</string>
 	<string name="subtitle_error_downloading_bookmarks">Nem került letöltésre könyvjelző</string>
-	<string name="whats_new_bookmarks_catalog_title">A MAPS.ME már útvonal-katalógussal is rendelkezik</string>
+	<string name="whats_new_bookmarks_catalog_title">A OMaps már útvonal-katalógussal is rendelkezik</string>
 	<string name="whats_new_bookmarks_catalog_message">Több száz részletes útvonal a világszerte: hova érdemes menni, mit érdemes megnézni, hol együnk.</string>
 	<string name="whats_new_popularity_label_title">Népszerű helyek a közelben</string>
 	<string name="whats_new_popularity_label_message">A közelben felfedezni rész segít neked megtalálni a legnépszerűbb helyeket a városban.</string>
@@ -1354,15 +1354,15 @@
 	<string name="guide_downloaded_subtitle">Az Útmutató megtekintéséhez nyomd meg a „Megtekintés a térképen” lehetőséget</string>
 	<string name="bookmarks_guides">Könyvjelzők és útmutatók</string>
 	<string name="remove_ads">Reklámok eltávolítása</string>
-	<string name="remove_ads_title">Reklámok eltávolítása és MAPS.ME támogatása</string>
+	<string name="remove_ads_title">Reklámok eltávolítása és OMaps támogatása</string>
 	<string name="paybtn_title">Fizessen %s/év</string>
 	<string name="paybtn_subtitle">%s/év megtakarítás</string>
 	<string name="options_dropdown_title">További lehetőségek</string>
-	<string name="why_support">Miért éri meg támogatni a MAPS.ME-t?</string>
+	<string name="why_support">Miért éri meg támogatni a OMaps-t?</string>
 	<string name="options_dropdown_item1">%1$s/hó (%2$s/év megtakarítás)</string>
 	<string name="options_dropdown_item2">%s/hét (nincs megtakarítás)</string>
 	<string name="why_support_item1">Eltávolítjuk a reklámokat</string>
-	<string name="why_support_item2">Ön segít a MAPS.ME-t fejleszteni</string>
+	<string name="why_support_item2">Ön segít a OMaps-t fejleszteni</string>
 	<string name="why_support_item3">Segítsen a térkép fejlesztésében az OpenStreetMap.org-on</string>
 	<string name="purchase_processing">Vásárlása feldolgozás alatt van…</string>
 	<string name="tips_bookmarks_catalog_title">Kapcsolat nélküli útmutatók mindenféle utazáshoz</string>
@@ -1380,7 +1380,7 @@
 	<string name="awaiting_approval">Szülői jóváhagyásra vár</string>
 	<string name="whats_new_leave_review">Hagyjon értékelést! Ossza meg véleményét a meglátogatott helyekkel kapcsolatban.</string>
 	<string name="server_unavailable_title">A szerver nem elérhető</string>
-	<string name="server_unavailable_message">A vásárlás később kerül befejezésre. Ha továbbra is fennáll a hiba írjon ide: support\@maps.me.</string>
+	<string name="server_unavailable_message">A vásárlás később kerül befejezésre. Ha továbbra is fennáll a hiba írjon ide: support\@omaps.app.</string>
 	<string name="offline_fiters_check_in">Csatlakozzon az internetre a hotelek dátum alapú szűréséhez.</string>
 	<string name="restore_subscription">Előfizetés visszaállítása</string>
 	<string name="restore_success_alert">Az előfizetés sikeresen visszaállításra került</string>
@@ -1397,7 +1397,7 @@
 	<string name="ugc_route_tags_progress_msg">Tag-ek betöltése…</string>
 	<string name="public_access">Nyílt hozzáférés</string>
 	<string name="limited_access">Személyes hozzáférés</string>
-	<string name="upload_and_publish_desc">Ez az útikalauz a MAPS.ME nyitott katalógusba lesz feltöltve, és mindenki számára elérhető lesz</string>
+	<string name="upload_and_publish_desc">Ez az útikalauz a OMaps nyitott katalógusba lesz feltöltve, és mindenki számára elérhető lesz</string>
 	<string name="upload_and_publish">Feltöltés és megjelenítés</string>
 	<string name="upload_and_get_direct_link">Feltöltés és hivatkozás elérése</string>
 	<string name="get_direct_link_desc">Az Ön útikalauza egyenes hivatkozásban lesz elérhető</string>
@@ -1448,12 +1448,12 @@
 	<string name="notification_channel_downloader">Kártyák letöltése</string>
 	<string name="notification_leave_review_title">%s - hogy érzi itt magát?</string>
 	<string name="notification_leave_review_content">Írja meg a véleményét és segítsen a kirándulóknak!</string>
-	<string name="share_bookmarks_email_body_link">Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát MAPS.ME segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát OMaps segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra</string>
 	<string name="warning_speedcams_subtitle">Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.</string>
 	<string name="speedcams_notice_message">Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról</string>
 	<string name="whats_new_ugc_routes_title">Könnyű megosztani a benyomásaidat</string>
-	<string name="whats_new_ugc_routes_subtitle">Ments el emlékezetes helyeket, hozz létre útvonalakat könyvjelzők segítségével és oszd meg őket mindenkivel a MAPS.ME katalógusban.</string>
+	<string name="whats_new_ugc_routes_subtitle">Ments el emlékezetes helyeket, hozz létre útvonalakat könyvjelzők segítségével és oszd meg őket mindenkivel a OMaps katalógusban.</string>
 	<string name="whats_new_webeditor_title">Alakítsd át az útvonalaidat történetekké</string>
 	<string name="whats_new_ugc_routes_message2">Adj hozzá fényképeket és részletes történeteket a webes szerkesztőben.</string>
 	<string name="whatsnew_standard_routes_title">Normál útvonalak</string>
@@ -1470,7 +1470,7 @@
 	<string name="notification_leave_review_v2_title">Értékelj egy meglátogatott helyet és segíts az utazóknak!</string>
 	<string name="error_public_not_enought_title">Nincs elegendő könyvjelző</string>
 	<string name="error_public_not_enought_subtitle">Legalább 3 könyvjelződnek kell lennie, hogy az útmutatódat feltölthesd a nyilvános katalógusba</string>
-	<string name="bookmark_public_upload_alert_title">Csak pár lépésnyire vagy attól, hogy megoszthasd a könyvjelzőidet minden MAPS.ME utazóval!</string>
+	<string name="bookmark_public_upload_alert_title">Csak pár lépésnyire vagy attól, hogy megoszthasd a könyvjelzőidet minden OMaps utazóval!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Kéjük győződj meg róla, hogy egy jellemző neved és leírásod van a listádhoz, és hogy minden könyvjelzőnél van információ a helyekről. Ily módon a listádat mások is megtalálhatják és használhatják.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Igen, biztos vagyok benne!</string>
 	<string name="name_title">Add meg az útmutatód nevét</string>
@@ -1500,7 +1500,7 @@
 	<string name="power_managment_setting_never">Soha</string>
 	<string name="power_managment_setting_auto">Automatikus</string>
 	<string name="power_managment_setting_manual_max">Maximális energiatakarékosság</string>
-	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a MAPS.ME support kérésére kapcsold be ezt az opciót.</string>
+	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a OMaps support kérésére kapcsold be ezt az opciót.</string>
 	<string name="html_error_upload_message_try_again">Kérjük ellenőrizd a hálózati beállításaidat és próbáld újra</string>
 	<string name="html_error_upload_title_try_again">Nincs internetkapcsolat</string>
 	<string name="notification_leave_review_v2_android_short_title">Értékelj és segítsd az utazókat!</string>
@@ -1509,7 +1509,7 @@
 	<string name="privacy_settings_menu">Adatvédelmi beállítások</string>
 	<string name="gdpr_request_setting">ID beszerzése GDPR kéréshez</string>
 	<string name="gdpr_request_window_title">A te ID-d: %s.</string>
-	<string name="gdpr_request_window_message">Kérjük másold le és küldd el a kérést a support\@maps.me címre</string>
+	<string name="gdpr_request_window_message">Kérjük másold le és küldd el a kérést a support\@omaps.app címre</string>
 	<string name="gdpr_request_window_copy">ID lemásolása</string>
 	<string name="unable_upadate_error_title">Fájl frissítés sikertelen</string>
 	<string name="unable_upadate_error_message">Néhány hiba történt frissítés közben. Kérjük ellenőrizd a változtatásokat és próbáld újra</string>
@@ -1532,7 +1532,7 @@
 	<string name="avoid_toll_roads_placepage">Fizetős utak elkerülése</string>
 	<string name="avoid_unpaved_roads_placepage">Kövezetlen utak elkerülése</string>
 	<string name="avoid_ferry_crossing_placepage">Kompátkelők elkerülése</string>
-	<string name="cached_guides_placeholder_subtitle">A MAPS.ME használatra kész útmutatókat kínál azon kiválasztott helyekhez fényképekkel és leírásokkal, amelyek a térképen jelölve vannak és offline elérhetőek.</string>
+	<string name="cached_guides_placeholder_subtitle">A OMaps használatra kész útmutatókat kínál azon kiválasztott helyekhez fényképekkel és leírásokkal, amelyek a térképen jelölve vannak és offline elérhetőek.</string>
 	<string name="guides_catalogue_title">Útmutató katalógus</string>
 	<string name="download_guides_button">A katalógushoz</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1540,12 +1540,12 @@
 	  <item quantity="other">%d értékelés alapján</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Üzbég konyha</string>
-	<string name="onboarding_welcome_title">Tervezz és utazz a MAPS.ME-vel</string>
+	<string name="onboarding_welcome_title">Tervezz és utazz a OMaps-vel</string>
 	<string name="onboarding_welcome_first_subtitle">Könyvjelzőzz érdekes helyeket, foglalj szállásokat, számíts ki útvonalakat offline</string>
 	<string name="onboarding_guide_direct_download_title">Az útmutató készen áll a letöltésre</string>
 	<string name="onboarding_guide_direct_download_subtitle">Jelölve lesz a térképen és offline fog működni</string>
 	<string name="onboarding_guide_direct_download_button">Letöltés</string>
-	<string name="onboarding_bydeeplink_guide_title">Használatra kész útmutatók a MAPS.ME-ben</string>
+	<string name="onboarding_bydeeplink_guide_title">Használatra kész útmutatók a OMaps-ben</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">A legjobb meglátogatandó helyeket a térkép fényképekkel és leírásokkal jelöli. Offline munka.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Mielőtt továbblépnél az útmutatókhoz…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Frissítsd a térképeket, hogy az objektumok információi naprakészek legyenek!</string>
@@ -1576,11 +1576,11 @@
 	<string name="ok">Oké</string>
 	<string name="booking_button_toolbar">Válassz egy hotelt a térképeb</string>
 	<string name="popup_booking_download_guides_title">Foglaltál egy hotelben?</string>
-	<string name="popup_booking_download_guides_message">Tervezd meg az útvonaladat a naprakész útikönyvekkel a MAPS.ME-től</string>
+	<string name="popup_booking_download_guides_message">Tervezd meg az útvonaladat a naprakész útikönyvekkel a OMaps-től</string>
 	<string name="popup_mwm_download_guides_title">Offline városi útikönyvek</string>
 	<string name="popup_mwm_download_guides_cta">Válassz egyet</string>
 	<string name="popup_mwm_download_guides_cta_1">Vess rá egy pillantást</string>
-	<string name="gallery_pp_download_guides_offline_title">Tervezd meg a nyaralásodat MAPS.ME-vel!</string>
+	<string name="gallery_pp_download_guides_offline_title">Tervezd meg a nyaralásodat OMaps-vel!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Ne mulassz el semmit az útikönyvekkel, amiket tapasztalt utazók készítettek</string>
 	<string name="gallery_pp_download_guides_offline_cta">Kapcsold be az internetet</string>
 	<string name="gallery_pp_download_guides_title">Útikönyvek</string>
@@ -1609,7 +1609,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Korlátlan hozzáférés %s/év-ért</string>
 	<string name="subscription_terms_guides">A fizetség az iTunes fiókodat fogja megterhelni a fizetés megerősítése után. Az előfizetés automatikusan meg fog újulni, hacsak az automatikus megújítás ki nem lesz kapcsolva legalább 24 órával a jelenlegi időszak vége előtt. A fiókod meg lesz terhelve a megújítási tervednek megfelelően, 24 órával a jelenlegi időszak vége előtt. Kezelheted vagy bármikor kikapcsolhatod a vásárlásod automatikus megújítás funkcióját az Apple ID fiókbeállításaidban Az előfizetéssel letöltött útikönyveket azok lejárati idejéig használhatod. Harminc nappal az előfizetés lejárta után a könyvjelzőkkel ellátott útikönyvek automatikusan törölve lesznek.</string>
 	<string name="subscription_terms">A vásárlás megerősítésekor az összeg az iTunes számládra lesz terhelve. Az előfizetés automatikusan megújul, ha csak az automatikus megújítást 24 órával a jelenlegi időszak vége előtt ki nem kapcsolod. A számlád az előfizetésednek megfelelően a jelenlegi időszak lejárta előtti 24 órában lesz megterhelve. Az automatikus megújítást az Apple ID fiókod beállításaidban az előfizetés bármely szakaszában kikapcsolhatod.</string>
-	<string name="whatsnew_carplay_title">MAPS.ME autós navigáció CarPlayben!</string>
+	<string name="whatsnew_carplay_title">OMaps autós navigáció CarPlayben!</string>
 	<string name="whatsnew_carplay_message">Könyvjelzők, keresés, traffipax és útvonalválasztási lehetőség offline is elérhető</string>
 	<string name="whatsnew_subscription_title">Az egész világ az előfizetésed által!</string>
 	<string name="whatsnew_subscription_message">A korlátlan hozzáférés az útikönyvkatalógushoz sokkal gazdaságosabb, mint az egyszeri vásárlás</string>
@@ -1623,7 +1623,7 @@
 	<string name="avoid_tolls_carplay_2">Útdíj kerülése</string>
 	<string name="speedcams_alert_title_carplay_1">Traffipaxok</string>
 	<string name="speedcams_alert_title_carplay_2">Sebességjelzés</string>
-	<string name="download_map_carplay">Kérjük, töltsd le a térképeket a MAPS.ME alkalmazásban az eszközödre</string>
+	<string name="download_map_carplay">Kérjük, töltsd le a térképeket a OMaps alkalmazásban az eszközödre</string>
 	<string name="carplay_roundabout_exit">%s kijárat</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Rendezd…</string>
@@ -1674,7 +1674,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">A könyvjelzők rendezése kényelmes utazást tesz lehetővé</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Rendezze kedvenc helyeit kategóriánként, helyenként és időrendbe, és találja meg őket gyorsan a nevük alapján</string>
 	<string name="popup_subscription_success_map_title">Hohó, előfizettél!</string>
-	<string name="popup_subscription_success_map_message">Most már felfedezheted a legjobb turisztikai dolgokat a MAPS.ME katalógusban</string>
+	<string name="popup_subscription_success_map_message">Most már felfedezheted a legjobb turisztikai dolgokat a OMaps katalógusban</string>
 	<string name="popup_subscription_success_map_start_button">Böngészés megkezdése</string>
 	<string name="popup_subscription_success_map_not_now_button">Ne most</string>
 	<string name="religious_places">Vallási helyek</string>
@@ -1706,9 +1706,9 @@
 	<string name="new_onboarding_step5.1_header">Még egy dolog kezdés előtt…</string>
 	<string name="new_onboarding_step5.1_message">Ne felejtsd el megnézni az új útmutató katalógusunkat és találd meg a következő utazásodhoz az offline útmutatókat!</string>
 	<string name="new_onboarding_step5.1_button">Katalógus megnyitása</string>
-	<string name="new_onboarding_step5.2_message">A MAPS.ME útmutató katalógusra való feliratkozás nagyon értékes. Legyen teljes hozzáférés a városi és szabadtéri útmutatókhoz az egész világon!</string>
+	<string name="new_onboarding_step5.2_message">A OMaps útmutató katalógusra való feliratkozás nagyon értékes. Legyen teljes hozzáférés a városi és szabadtéri útmutatókhoz az egész világon!</string>
 	<string name="new_onboarding_step5.2_button">Nézd meg a feltételeinket</string>
-	<string name="new_onboarding_step5.3_message">Nézd meg a szabadon válaztható városi és szabadtéri túrák ingyenes példáit a MAPS.ME-ről!</string>
+	<string name="new_onboarding_step5.3_message">Nézd meg a szabadon válaztható városi és szabadtéri túrák ingyenes példáit a OMaps-ről!</string>
 	<string name="new_onboarding_step5.3_button">Ingyenes letöltés</string>
 	<string name="new_onboarding_additional_steps_later_button">Később</string>
 	<string name="all_pass_subscription_header">Iratkozzon fel az</string>
@@ -1741,7 +1741,7 @@
 	<string name="dialog_pedestrian_route_is_long">A gyalogos útvonal az utazás indulási pontjáig túl hosszú</string>
 	<string name="whatsnew_outdoor_guides_title">Hozzáadásra került 15 000+ szabadtéri útvonal!</string>
 	<string name="whatsnew_outdoor_guides_message">Az Outdooractive téli és nyári utazásai várnak rád a katalógusban!</string>
-	<string name="whatsnew_guides_galleries_title">Tervezd meg a következő utad a MAPS.ME-vel</string>
+	<string name="whatsnew_guides_galleries_title">Tervezd meg a következő utad a OMaps-vel</string>
 	<string name="whatsnew_guides_galleries_message">Megtalálhatod az ajánlott útmutatókat a népszerű túristavárosok és látnivalók helyoldalain</string>
 	<string name="new_onboarding_step3_header">Éld át</string>
 	<string name="all_pass_screen_best_value">Legjobb ajánlat</string>
@@ -1755,7 +1755,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Legyen magabiztos a hegyvidéki területen. Csak kapcsolja be a réteget a bal felső sarokban</string>
 	<string name="button_layer_isolines">Terep</string>
-	<string name="tips_map_layers_title_countour">Újdonság a MAPS.ME-n: offline topográfiai réteg!</string>
+	<string name="tips_map_layers_title_countour">Újdonság a OMaps-n: offline topográfiai réteg!</string>
 	<string name="tips_map_layers_message_countour">Tervezze meg és élvezze a természetjáró kirándulásait, és tudjon meg mindent a környékről</string>
 	<string name="isolines_activation_error_dialog">A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét</string>
 	<string name="isolines_location_error_dialog">Ezen a területen a topográfiai réteg még nem elérhető</string>

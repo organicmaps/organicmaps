@@ -507,8 +507,8 @@ def get_requirements(path="", omim_package_version=get_version()):
 def setup_omim_pybinding(
     name,
     version=None,
-    author='My.com B.V. (Mail.Ru Group)',
-    author_email='dev@maps.me',
+    author='The OMaps Project',
+    author_email='dev@omaps.app',
     url='https://github.com/omapsapp/omapsapp',
     license='Apache-2.0',
     supported_pythons=('2', '2.7', '3', '3.5', '3.6', '3.7', '3.8', '3.9'),

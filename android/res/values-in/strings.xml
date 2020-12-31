@@ -31,7 +31,7 @@
 	<string name="downloading">Sedang mengunduh…</string>
 	<string name="get_it_now">Dapatkan sekarang</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Terima kasih karena menggunakan MAPS.ME! Apakah Anda suka aplikasi ini? Beri tahukan kepada teman-teman Anda! Ini akan menjadi ungkapan terima kasih yang terbaik bagi kami.</string>
+	<string name="share_on_facebook_text">Terima kasih karena menggunakan OMaps! Apakah Anda suka aplikasi ini? Beri tahukan kepada teman-teman Anda! Ini akan menjadi ungkapan terima kasih yang terbaik bagi kami.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -90,7 +90,7 @@
 	<string name="country_status_download_failed">Sedang Mengunduh telah gagal</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Coba Lagi</string>
-	<string name="about_menu_title">Tentang MAPS.ME</string>
+	<string name="about_menu_title">Tentang OMaps</string>
 	<string name="downloading_touch_to_cancel">Sedang mengunduh %d%%, sentuh untuk membatalkan</string>
 	<string name="downloaded_touch_to_delete">(%s) telah diunduh, sentuh untuk menghapus</string>
 	<string name="connection_settings">Pengaturan Koneksi</string>
@@ -99,7 +99,7 @@
 	<string name="unsupported_phone">OpenGL yang dipercepat oleh OpenGL diperlukan. Sayangnya, perangkat Anda tidak mendukung.</string>
 	<string name="download">Unduh</string>
 	<string name="external_storage_is_not_available">Penyimpanan kartu SD/USB dengan peta terunduh tidak tersedia</string>
-	<string name="disconnect_usb_cable">Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan MAPS.ME</string>
+	<string name="disconnect_usb_cable">Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi</string>
 	<string name="not_enough_memory">Memori tidak cukup untuk meluncurkan aplikasi</string>
 	<string name="free_space_for_country">Mohon bebaskan %1$s pada perangkat Anda terlebih dahulu untuk mengunduh %2$s</string>
@@ -126,7 +126,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Tersedia pembaruan untuk peta ini:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Anda tidak lagi memerlukan MAPS.ME Lite, sehingga Anda dapat menghapusnya.</string>
+	<string name="suggest_uninstall_lite">Anda tidak lagi memerlukan OMaps Lite, sehingga Anda dapat menghapusnya.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s berhasil diunduh</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -156,9 +156,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
+	<string name="bookmarks_usage_hint">Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada OMaps. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Penanda dari sumber lainnya dapat diimpor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
+	<string name="bookmarks_usage_hint_import_only">Penanda dari sumber lainnya dapat diimpor dan ditampilkan pada OMaps. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Pengaturan</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -220,7 +220,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Bagikan menggunakan surel</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Bagikan penanda MAPS.ME</string>
+	<string name="share_bookmarks_email_subject">Bagikan penanda OMaps</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Memuat Penanda</string>
 	<!-- Kmz file successful loading -->
@@ -240,17 +240,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Pengunduhan negara sedang berjalan.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Kami harap Anda senang menggunakan MAPS.ME! Jika ya, mohon beri nilai atau ulasan untuk aplikasi ini di App Store. Hanya memakan waktu kurang dari satu menit tetapi hal itu dapat benar-benar membantu kami. Terima kasih atas dukungan Anda!</string>
+	<string name="appStore_message">Kami harap Anda senang menggunakan OMaps! Jika ya, mohon beri nilai atau ulasan untuk aplikasi ini di App Store. Hanya memakan waktu kurang dari satu menit tetapi hal itu dapat benar-benar membantu kami. Terima kasih atas dukungan Anda!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Tidak, terima kasih</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hei, lihat pinku di MAPS.ME! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: http://maps.me/get</string>
+	<string name="bookmark_share_sms">Hei, lihat pinku di OMaps! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hei, lihat lokasiku saat ini di MAPS.ME! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: http://maps.me/get</string>
+	<string name="my_position_share_sms">Hei, lihat lokasiku saat ini di OMaps! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hei, lihat pinku di peta MAPS.ME</string>
+	<string name="bookmark_share_email_subject">Hei, lihat pinku di peta OMaps</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hei, lihat lokasiku saat ini di peta MAPS.ME!</string>
+	<string name="my_position_share_email_subject">Hei, lihat lokasiku saat ini di peta OMaps!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Hai,\n\nSekarang saya ada di sini: %1$s. Klik tautan ini %2$s atau yang ini %3$s untuk melihat tempatnya di peta.\n\nTerima kasih.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -354,17 +354,17 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Unduh peta tempat di mana Anda berada sekarang</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Kami sedang mentransfer peta unduhan Anda dari MAPS.ME Lite ke MAPS.ME. Proses ini mungkin membutuhkan waktu beberapa menit.</string>
+	<string name="move_lite_maps_to_pro">Kami sedang mentransfer peta unduhan Anda dari OMaps Lite ke OMaps. Proses ini mungkin membutuhkan waktu beberapa menit.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Peta unduhan Anda berhasil ditransfer ke MAPS.ME.</string>
+	<string name="move_lite_maps_to_pro_ok">Peta unduhan Anda berhasil ditransfer ke OMaps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Peta Anda gagal ditransfer. Silakan hapus MAPS.ME Lite dan unduh peta lagi.</string>
+	<string name="move_lite_maps_to_pro_failed">Peta Anda gagal ditransfer. Silakan hapus OMaps Lite dan unduh peta lagi.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Setelan &amp;amp; Lebih Banyak</string>
 	<!-- Text in menu -->
 	<string name="website">Situs Web</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Komunitas MAPS.ME</string>
+	<string name="maps_me_community">Komunitas OMaps</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Sukai di Facebook</string>
 	<!-- Text in menu -->
@@ -384,11 +384,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Laporkan gangguan</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Mohon daftarkan saya untuk berlangganan berita MAPS.ME</string>
+	<string name="subscribe_me_subject">Mohon daftarkan saya untuk berlangganan berita OMaps</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Saya ingin menjadi yang pertama untuk mengetahui kabar dan promosi terbaru. Saya dapat membatalkan langganan saya kapan saja.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME menawarkan peta offline tercepat dari semua kota, semua negara di dunia. Berpergianlah dengan kepercayaan diri yang penuh: di nana pun Anda berada, MAPS.ME akan membantu Anda mengetahui posisi Anda pada peta, menemukan restoran, hotel, bank, stasiun bahan bakar terdekat, dll. Tidak perlu koneksi internet.Kami selalu membuat fitur-fitur baru dan ingin mendengar pendapat Anda mengenai bagaimana kami dapat membuat MAPS.ME menjadi lebih baik. Jika Anda memiliki masalah apa pun dengan aplikasinya, jangan segan untuk menghubungi kami di support\@maps.me. Kami akan merespons setiap permintaan!Apakah Anda menyukai MAPS.ME an ingin membantu kami? Terdapat beberapa cara yang mudah dan sepenuhnya gratis:- tulis ulasan di App Market Anda</string>
+	<string name="about_text">OMaps menawarkan peta offline tercepat dari semua kota, semua negara di dunia. Berpergianlah dengan kepercayaan diri yang penuh: di nana pun Anda berada, OMaps akan membantu Anda mengetahui posisi Anda pada peta, menemukan restoran, hotel, bank, stasiun bahan bakar terdekat, dll. Tidak perlu koneksi internet.Kami selalu membuat fitur-fitur baru dan ingin mendengar pendapat Anda mengenai bagaimana kami dapat membuat OMaps menjadi lebih baik. Jika Anda memiliki masalah apa pun dengan aplikasinya, jangan segan untuk menghubungi kami di support\@omaps.app. Kami akan merespons setiap permintaan!Apakah Anda menyukai OMaps an ingin membantu kami? Terdapat beberapa cara yang mudah dan sepenuhnya gratis:- tulis ulasan di App Market Anda</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %s</string>
 	<!-- Alert title -->
@@ -400,7 +400,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Mohon perbarui peta untuk membuat rute</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Versi MAPS.ME yang terbaru memungkinkan pembuatan rute dari posisi Anda saat itu ke titik tujuan. Mohon perbarui peta untuk menggunakan fitur ini.</string>
+	<string name="routing_update_maps">Versi OMaps yang terbaru memungkinkan pembuatan rute dari posisi Anda saat itu ke titik tujuan. Mohon perbarui peta untuk menggunakan fitur ini.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Perbarui semua</string>
 	<!-- Cancel all button text -->
@@ -417,7 +417,7 @@
 	<string name="downloader_downloading">Mengunduh:</string>
 	<string name="downloader_search_results">Ditemukan</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Dalam membuat rute di aplikasi MAPS.ME, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!</string>
+	<string name="routing_disclaimer">Dalam membuat rute di aplikasi OMaps, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Usang</string>
 	<!-- Up to date maps category -->
@@ -441,7 +441,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Tidak ada rute yang ditemukan antara tempat asal dan tujuan yang dipilih. Mohon pilih titik mulai atau tujuan yang berbeda.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Terjadi gangguan internal. Mohon coba menghapus dan mengunduh petanya lagi. Jika masih terjadi masalah mohon hubungi kami di support\@maps.me.</string>
+	<string name="routing_failed_internal_error">Terjadi gangguan internal. Mohon coba menghapus dan mengunduh petanya lagi. Jika masih terjadi masalah mohon hubungi kami di support\@omaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Untuh Peta + Rute</string>
 	<!-- Context menu item for downloader. -->
@@ -472,9 +472,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Saya baru saja menilai app Anda</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Saya pengguna MAPS.ME sejak %s</string>
+	<string name="rating_user_since">Saya pengguna OMaps sejak %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Anda suka MAPS.ME?</string>
+	<string name="rating_do_like_maps">Anda suka OMaps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Ketuk bintang untuk menilai app kami.</string>
 	<!-- Text for rating dialog -->
@@ -490,7 +490,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Dapatkan peta</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Unduh peta yang diperbarui dan data perutean untuk mendapatkan semua fitur MAPS.ME.</string>
+	<string name="routing_download_map_and_routing">Unduh peta yang diperbarui dan data perutean untuk mendapatkan semua fitur OMaps.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Dapatkan data perutean</string>
 	<!-- Text for routing error dialog -->
@@ -621,7 +621,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.</string>
 	<string name="rate_alert_title">Suka aplikasi ini?</string>
-	<string name="rate_alert_default_message">Terima kasih karena menggunakan MAPS.ME. Mohon beri peringkat untuk aplikasi ini. Masukan dari Anda membantu kami untuk menjadi lebih baik.</string>
+	<string name="rate_alert_default_message">Terima kasih karena menggunakan OMaps. Mohon beri peringkat untuk aplikasi ini. Masukan dari Anda membantu kami untuk menjadi lebih baik.</string>
 	<string name="rate_alert_five_star_message">Hore! Kami juga sangat menyukai Anda!</string>
 	<string name="rate_alert_four_star_message">Terima kasih, kami akan melakukan yang terbaik!</string>
 	<string name="rate_alert_less_than_four_star_message">Anda punya ide agar kami bisa membuatnya menjadi lebih baik?</string>
@@ -676,7 +676,7 @@
 	<string name="editor_report_problem_no_place_title">Tempat tidak ada</string>
 	<string name="editor_report_problem_under_construction_title">Ditutup karena pemeliharaan</string>
 	<string name="editor_report_problem_duplicate_place_title">Tempat ganda</string>
-	<string name="first_launch_congrats_title">MAPS.ME siap digunakan</string>
+	<string name="first_launch_congrats_title">OMaps siap digunakan</string>
 	<string name="first_launch_congrats_text">Cari dan bernavigasilah ke mana saja di dunia secara offline, bebas biaya.</string>
 	<string name="migrate_title">Penting!</string>
 	<!-- Android uses image instead of text. -->
@@ -780,18 +780,18 @@
 	<string name="whatsnew_search_message">Kami secara signifikan telah meningkatkan pencarian menurut alamat. Lihat sendiri.</string>
 	<string name="whatsnew_editor_title">Edit peta*</string>
 	<string name="whatsnew_editor_message_1">Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME menggunakan data komunitas OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* OMaps menggunakan data komunitas OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Anda tidak akan tersesat lagi</string>
 	<string name="onboarding_offline_navigation_message">Rencanakan rute mobil dan pejalan kaki yang optimal, meskipun tidak ada koneksi internet!</string>
 	<string name="onboarding_offline_navigation_title_2">Navigasi Offline</string>
 	<string name="onboarding_offline_navigation_message_2">Rencanakan rute mobil dan pejalan kaki yang optimal.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — akses peta seluruh dunia tanpa internet</string>
+	<string name="onboarding_offline_maps_title">OMaps — akses peta seluruh dunia tanpa internet</string>
 	<string name="onboarding_offline_maps_message">Unduh peta untuk daerah yang diinginkan sekali, dan gunakan navigasi dan fungsi pencarian tanpa koneksi internet.</string>
 	<string name="onboarding_notifications_message">Untuk menerima peta-peta terbaru, dapatkan pemberitahuan pembaruan</string>
 	<string name="onboarding_notifications_title">Aktifkan pemberitahuan pembaruan</string>
 	<string name="onboarding_location_title">Membantu kami menemukan Anda</string>
 	<string name="onboarding_location_message">Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.</string>
-	<string name="onboarding_permissions_title">Izinkan MAPS.ME mengakses penyimpanan dan lokasi</string>
+	<string name="onboarding_permissions_title">Izinkan OMaps mengakses penyimpanan dan lokasi</string>
 	<string name="onboarding_permissions_message">Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.</string>
 	<string name="onboarding_welcome_second_subtitle">Dengan menjalankan aplikasi ini, Anda menyetujui &lt;a href="%1$s">Syarat-Syarat Penggunaan&lt;/a> dan &lt;a href="%2$s">Kebijakan Privasi&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
@@ -800,7 +800,7 @@
 	<string name="no_migration_during_navigation">Memperbarui tidak diperbolehkan selama navigasi.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Untuk mengunduh, Anda perlu ruang lebih banyak. Harap menghapus data yang tidak diperlukan.</string>
-	<string name="editor_sharing_title">Saya meningkatkan peta MAPS.ME</string>
+	<string name="editor_sharing_title">Saya meningkatkan peta OMaps</string>
 	<string name="editor_comment_will_be_sent">Kami akan mengirim komen Anda ke pembuat peta.</string>
 	<string name="editor_unsupported_category_message">Anda telah menambahkan sebuah tempat kategori yang belum kami dukung. Tempat itu akan muncul di peta beberapa saat kemudian.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -817,7 +817,7 @@
 	<string name="core_placepage_unknown_place">Tempat Tidak Dikenal</string>
 	<string name="editor_other_info">Kirim catatan ke editor OSM</string>
 	<string name="editor_detailed_description_hint">Komentar mendetail</string>
-	<string name="editor_detailed_description">Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di MAPS.ME.</string>
+	<string name="editor_detailed_description">Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di OMaps.</string>
 	<string name="editor_more_about_osm">Selengkapnya tentang OpenStreetMap</string>
 	<string name="editor_operator">Pemilik</string>
 	<string name="editor_tag_description">Masukkan perusahaan, organisasi, atau individu yang bertanggung jawab atas fasilitas tersebut.</string>
@@ -838,7 +838,7 @@
 	<string name="current_location_unknown_error_title">Lokasi saat ini tidak diketahui.</string>
 	<string name="current_location_unknown_error_message">Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.</string>
 	<string name="whatsnew_update_editor_title">Kami telah memperbarui editor peta</string>
-	<string name="whatsnew_update_editor_message">Pengguna MAPS.ME telah membuat 200 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!</string>
+	<string name="whatsnew_update_editor_message">Pengguna OMaps telah membuat 200 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Untuk menggunakan editor peta, silakan perbarui semua peta.</string>
 	<string name="location_services_disabled_header">Identifikasi lokasi dinonaktifkan</string>
@@ -927,7 +927,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Lihat</string>
 	<string name="continue_recent_track_background_button">Teruskan</string>
-	<string name="recent_track_background_dialog_message">MAPS.ME menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.</string>
+	<string name="recent_track_background_dialog_message">OMaps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.</string>
 	<string name="whatsnew_car_navigation_header">Navigasi kendaraan yang mudah digunakan</string>
 	<string name="whatsnew_car_navigation_message">• Elemen-elemen navigasi membutuhkan ruang lebih sedikit\n• Kami menampilkan kecepatan dan telah menambahkan zoom otomatis</string>
 	<string name="whatsnew_cycle_navigation_2_header">Navigasi sepeda</string>
@@ -935,15 +935,15 @@
 	<string name="whatsnew_booking_2_header">Pencarian hotel mudah</string>
 	<string name="whatsnew_booking_2_message">Hasil pencarian menampilkan kategori peringkat dan harga hotel</string>
 	<string name="whatsnew_cycle_navigation_header">Navigasi bersepeda (versi beta)</string>
-	<string name="whatsnew_cycle_navigation_message">Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan MAPS.ME dan sampaikan pendapat Anda.</string>
+	<string name="whatsnew_cycle_navigation_message">Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan OMaps dan sampaikan pendapat Anda.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Beri nilai di Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Beri Tahu Teman</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hai! Instal MAPS.ME yuk!</string>
+	<string name="tell_friends_text">Hai! Instal OMaps yuk!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME adalah aplikasi offline yang sangat berguna untuk bepergian. MAPS.ME didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.</string>
+	<string name="about_description">OMaps adalah aplikasi offline yang sangat berguna untuk bepergian. OMaps didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -998,7 +998,7 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Buka</string>
-	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
 	<string name="whatsnew_uber_message">Pesan taksi Uber langsung dari aplikasi!</string>
 	<string name="dialog_taxi_offline">Memesan taksi tidak tersedia dalam modus offline.</string>
 	<string name="dialog_taxi_error">Memesan taksi untuk sementara tidak tersedia.</string>
@@ -1013,7 +1013,7 @@
 	<string name="traffic_update_maps_text">Untuk memperlihatkan data lalu lintas, peta harus diperbarui.</string>
 	<string name="traffic_outdated">Data lalu lintas belum diperbarui.</string>
 	<string name="big_font">Perbesar ukuran huruf pada peta</string>
-	<string name="traffic_update_app">Perbarui MAPS.ME</string>
+	<string name="traffic_update_app">Perbarui OMaps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Untuk menampilkan data lalu lintas, aplikasi ini harus diperbarui.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1111,9 +1111,9 @@
 	<string name="button_accept_and_continue">Terima dan lanjutkan</string>
 	<string name="button_learn_more">Pelajari selengkapnya</string>
 	<string name="onboarding_storage_permissions_title">Berikan akses</string>
-	<string name="onboarding_storage_permissions_message">Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan MAPS.ME.</string>
+	<string name="onboarding_storage_permissions_message">Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan OMaps.</string>
 	<string name="button_exit">Keluar</string>
-	<string name="onboarding_detail_permissions_title">MAPS.ME membutuhkan akses ke</string>
+	<string name="onboarding_detail_permissions_title">OMaps membutuhkan akses ke</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Penyimpanan</string>
 	<string name="onboarding_detail_permissions_storage_message">Untuk menyimpan dan menggunakan peta yang diunduh tanpa internet dan menyimpan markah.</string>
@@ -1279,16 +1279,16 @@
 	<string name="sign_message_gdpr">Untuk melanjutkan, Anda harus menerima Ketentuan Penggunaan dan Kebijakan Privasi kami. Silakan baca dengan seksama.</string>
 	<string name="sign_agree_pp_gdpr">Saya setuju dengan &lt;a href="%s">Kebijakan Privasi&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Saya setuju dengan &lt;a href="%s">Ketentuan Penggunaan&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Saya setuju untuk menerima berita terbaru tentang produk MAPS.ME</string>
+	<string name="sign_agree_news_gdpr">Saya setuju untuk menerima berita terbaru tentang produk OMaps</string>
 	<string name="whats_new_localbiz_title">Bisnis kecil layak mendapatkan perhatian</string>
-	<string name="whats_new_localbiz_message">Kafe lokal, hostel nyaman, dan pertokoan adalah yang membuat perjalanan kita tak terlupakan. Kami akan mengoptimalkan halaman Anda di MAPS.ME untuk membuatnya menonjol.</string>
+	<string name="whats_new_localbiz_message">Kafe lokal, hostel nyaman, dan pertokoan adalah yang membuat perjalanan kita tak terlupakan. Kami akan mengoptimalkan halaman Anda di OMaps untuk membuatnya menonjol.</string>
 	<string name="whats_new_order_button">Tinggalkan permintaan</string>
 	<string name="bookmarks_page_downloaded">Diunduh</string>
 	<string name="bookmarks_page_my">Milik saya</string>
 	<string name="routes_and_bookmarks">Rute dan bookmark</string>
 	<string name="bookmarks_webview_success_toast">Bookmark berhasil diunduh</string>
 	<string name="cached_bookmarks_placeholder_title">Unduh tempat baru</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Tekan tombol untuk mengunduh ribuan tempat dan rute menarik yang dibuat oleh pengguna MAPS.ME. Anda akan memerlukan koneksi internet.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Tekan tombol untuk mengunduh ribuan tempat dan rute menarik yang dibuat oleh pengguna OMaps. Anda akan memerlukan koneksi internet.</string>
 	<string name="downloader_download_routers">Unduh bookmark</string>
 	<string name="bookmarks_groups_cached">Daftar yang telah diunduh.</string>
 	<string name="author_name_by_prefix">oleh %s</string>
@@ -1308,7 +1308,7 @@
 	<string name="opt_out_flurry">Statistik</string>
 	<string name="opt_out_mopub">Iklan yang telah dipersonalisasi</string>
 	<string name="opt_out_fabric">Laporan tabrakan</string>
-	<string name="opt_out_fabric_description">Kami dapat menggunakan data Anda untuk meningkatkan pengalaman MAPS.ME. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.</string>
+	<string name="opt_out_fabric_description">Kami dapat menggunakan data Anda untuk meningkatkan pengalaman OMaps. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.</string>
 	<string name="opt_out_help_ios_1">Perangkat seluler Anda mungkin menyediakan pengaturan \"\"Batasi Treking Iklan\"\" atau \"\"Keluar dari iklan berbasis ketertarikan\"\".</string>
 	<string name="opt_out_help_ios_2">iOS 9 atau Lebih Tinggi</string>
 	<string name="opt_out_help_ios_3">Ke Pengaturan → Privasi → Iklan → Aktifkan pengaturan \"\"Batasi Treking Iklan\"\"</string>
@@ -1329,7 +1329,7 @@
 	<string name="category_desc_more">…selengkapnya</string>
 	<string name="title_error_downloading_bookmarks">Terjadi kesalahan</string>
 	<string name="subtitle_error_downloading_bookmarks">Bookmark tidak terunduh</string>
-	<string name="whats_new_bookmarks_catalog_title">MAPS.ME sekarang memiliki katalog rute</string>
+	<string name="whats_new_bookmarks_catalog_title">OMaps sekarang memiliki katalog rute</string>
 	<string name="whats_new_bookmarks_catalog_message">Ratusan rute yang detail di seluruh dunia: tempat untuk dikunjungi, untuk melihat-lihat, untuk makan.</string>
 	<string name="whats_new_popularity_label_title">Lokasi populer terdekat</string>
 	<string name="whats_new_popularity_label_message">Bagian temukan di sekitar akan membantu Anda menemukan tempat paling populer di kota.</string>
@@ -1346,15 +1346,15 @@
 	<string name="guide_downloaded_subtitle">Tekan ‘Tampilkan pada peta’ untuk menjelajahi panduan</string>
 	<string name="bookmarks_guides">Penanda dan panduan</string>
 	<string name="remove_ads">Hapus iklan</string>
-	<string name="remove_ads_title">Hapus semua iklan dan dukungan MAPS.ME</string>
+	<string name="remove_ads_title">Hapus semua iklan dan dukungan OMaps</string>
 	<string name="paybtn_title">Bayar %s/tahun</string>
 	<string name="paybtn_subtitle">Hemat %s/tahun</string>
 	<string name="options_dropdown_title">Opsi lainnya</string>
-	<string name="why_support">Kenapa dukungan MAPS.ME?</string>
+	<string name="why_support">Kenapa dukungan OMaps?</string>
 	<string name="options_dropdown_item1">%1$s/bulan (hemat %2$s/tahun)</string>
 	<string name="options_dropdown_item2">%s/minggu (tanpa penghematan)</string>
 	<string name="why_support_item1">Kami akan menghapus semua iklan untuk Anda</string>
-	<string name="why_support_item2">Anda membantu kami meningkatkan MAPS.ME</string>
+	<string name="why_support_item2">Anda membantu kami meningkatkan OMaps</string>
 	<string name="why_support_item3">Anda membantu kami meningkatkan peta terbuka OpenStreetMap.org</string>
 	<string name="purchase_processing">Pembelian Anda sedang dalam proses…</string>
 	<string name="tips_bookmarks_catalog_title">Panduan offline untuk setiap jenis perjalanan</string>
@@ -1372,7 +1372,7 @@
 	<string name="awaiting_approval">Menunggu persetujuan orang tua</string>
 	<string name="whats_new_leave_review">Tinggalkan ulasan! Bagikan opini tentang lokasi yang Anda kunjungi selama berlibur.</string>
 	<string name="server_unavailable_title">Server tidak tersedia</string>
-	<string name="server_unavailable_message">Pembelian akan diselesaikan nanti. Jika kesalahan tetap terjadi, silakan hubungi support\@maps.me.</string>
+	<string name="server_unavailable_message">Pembelian akan diselesaikan nanti. Jika kesalahan tetap terjadi, silakan hubungi support\@omaps.app.</string>
 	<string name="offline_fiters_check_in">Sambungkan ke internet untuk memfilter hotel berdasar tanggal.</string>
 	<string name="restore_subscription">Pulihkan langganan</string>
 	<string name="restore_success_alert">Langganan telah berhasil dipulihkan</string>
@@ -1389,7 +1389,7 @@
 	<string name="ugc_route_tags_progress_msg">Memuat tag…</string>
 	<string name="public_access">Akses umum</string>
 	<string name="limited_access">Akses terbatas</string>
-	<string name="upload_and_publish_desc">Panduan ini akan diunggah ke katalog MAPS.ME umum dan akan tersedia untuk pengguna lain</string>
+	<string name="upload_and_publish_desc">Panduan ini akan diunggah ke katalog OMaps umum dan akan tersedia untuk pengguna lain</string>
 	<string name="upload_and_publish">Unggah dan publikasikan</string>
 	<string name="upload_and_get_direct_link">Unggah dan dapatkan tautan langsung</string>
 	<string name="get_direct_link_desc">Panduan Anda akan tersedia untuk siapa pun yang memiliki tautan ini</string>
@@ -1440,12 +1440,12 @@
 	<string name="notification_channel_downloader">Pengunduh peta</string>
 	<string name="notification_leave_review_title">%s - bagaimana?</string>
 	<string name="notification_leave_review_content">Bantu para pelancong dengan meninggalkan ulasan!</string>
-	<string name="share_bookmarks_email_body_link">Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui MAPS.ME dan nikmati perjalanan Anda!\n\nDapatkan aplikasi: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui OMaps dan nikmati perjalanan Anda!\n\nDapatkan aplikasi: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam</string>
 	<string name="warning_speedcams_subtitle">Harap perhatikan aturan berkendara di negara tempat Anda bepergian.</string>
 	<string name="speedcams_notice_message">Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan</string>
 	<string name="whats_new_ugc_routes_title">Mudah untuk membagikan kesan Anda</string>
-	<string name="whats_new_ugc_routes_subtitle">Simpan tempat-tempat penuh kenangan, buat rute menggunakan markah dan bagikan kepada semua orang di katalog MAPS.ME.</string>
+	<string name="whats_new_ugc_routes_subtitle">Simpan tempat-tempat penuh kenangan, buat rute menggunakan markah dan bagikan kepada semua orang di katalog OMaps.</string>
 	<string name="whats_new_webeditor_title">Ubah rute Anda menjadi cerita</string>
 	<string name="whats_new_ugc_routes_message2">Tambahkan foto dan kisah detail di editor web.</string>
 	<string name="whatsnew_standard_routes_title">Rute Standar</string>
@@ -1462,7 +1462,7 @@
 	<string name="notification_leave_review_v2_title">Beri nilai tempat yang sudah dikunjungi dan bantu para traveler!</string>
 	<string name="error_public_not_enought_title">Bookmark tidak mencukupi</string>
 	<string name="error_public_not_enought_subtitle">Anda setidaknya harus memiliki 3 bookmark untuk dapat mengunggah panduan ke katalog publik</string>
-	<string name="bookmark_public_upload_alert_title">Tinggal sedikit lagi untuk dapat membagikan bookmark dengan para traveler MAPS.ME!</string>
+	<string name="bookmark_public_upload_alert_title">Tinggal sedikit lagi untuk dapat membagikan bookmark dengan para traveler OMaps!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Pastikan Anda memiliki nama yang spesifik dan deskripsi untuk daftar Anda, dan semua bookmark memiliki sedikit info tentang tempat-tempat tersebut. Dengan begini, daftar Anda dapat ditemukan dan digunakan oleh orang lain.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Ya, saya yakin!</string>
 	<string name="name_title">Masukkan nama panduan Anda</string>
@@ -1492,7 +1492,7 @@
 	<string name="power_managment_setting_never">Jangan pernah</string>
 	<string name="power_managment_setting_auto">Otomatis</string>
 	<string name="power_managment_setting_manual_max">Hemat daya maksimum</string>
-	<string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan MAPS.ME.</string>
+	<string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan OMaps.</string>
 	<string name="html_error_upload_message_try_again">Periksa pengaturan jaringan Anda dan coba lagi</string>
 	<string name="html_error_upload_title_try_again">Tidak ada koneksi internet</string>
 	<string name="notification_leave_review_v2_android_short_title">Ulas dan bantu traveler!</string>
@@ -1501,7 +1501,7 @@
 	<string name="privacy_settings_menu">Pengaturan privasi</string>
 	<string name="gdpr_request_setting">Dapatkan ID untuk permintaan GDPR</string>
 	<string name="gdpr_request_window_title">ID Anda: %s.</string>
-	<string name="gdpr_request_window_message">Salin dan kirim permintaan ke support\@maps.me</string>
+	<string name="gdpr_request_window_message">Salin dan kirim permintaan ke support\@omaps.app</string>
 	<string name="gdpr_request_window_copy">Salin ID</string>
 	<string name="unable_upadate_error_title">Pembaruan file gagal</string>
 	<string name="unable_upadate_error_message">Beberapa kesalahan terjadi saat memperbarui. Periksa perubahan dan coba lagi</string>
@@ -1524,7 +1524,7 @@
 	<string name="avoid_toll_roads_placepage">Hindari jalan tol</string>
 	<string name="avoid_unpaved_roads_placepage">Hindari jalan tanah</string>
 	<string name="avoid_ferry_crossing_placepage">Hindari penyeberangan kapal feri</string>
-	<string name="cached_guides_placeholder_subtitle">MAPS.ME menawarkan panduan siap pakai ke tempat pilihan dilengkapi foto dan keterangan pada peta dan tersedia offline.</string>
+	<string name="cached_guides_placeholder_subtitle">OMaps menawarkan panduan siap pakai ke tempat pilihan dilengkapi foto dan keterangan pada peta dan tersedia offline.</string>
 	<string name="guides_catalogue_title">Katalog panduan</string>
 	<string name="download_guides_button">Ke katalog</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1532,12 +1532,12 @@
 	  <item quantity="other">Berdasarkan ulasan %d</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Masakan Uzbek</string>
-	<string name="onboarding_welcome_title">Rencanakan dan bepergian dengan MAPS.ME</string>
+	<string name="onboarding_welcome_title">Rencanakan dan bepergian dengan OMaps</string>
 	<string name="onboarding_welcome_first_subtitle">Menandai tempat menarik, memesan hotel, menghitung rute secara offline</string>
 	<string name="onboarding_guide_direct_download_title">Panduan siap diunduh</string>
 	<string name="onboarding_guide_direct_download_subtitle">Panduan akan ditampilkan di peta dan berfungsi offline</string>
 	<string name="onboarding_guide_direct_download_button">Unduh</string>
-	<string name="onboarding_bydeeplink_guide_title">Panduan siap pakai di MAPS.ME</string>
+	<string name="onboarding_bydeeplink_guide_title">Panduan siap pakai di OMaps</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">Kunjungi tempat terbaik di peta lengkap dengan foto dan keterangan. Berfungsi offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Sebelum Anda lanjut ke panduan…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Perbarui peta agar informasi tentang obyek tetap terbaru!</string>
@@ -1568,11 +1568,11 @@
 	<string name="ok">Oke</string>
 	<string name="booking_button_toolbar">Pilih hotel yang ada di peta</string>
 	<string name="popup_booking_download_guides_title">Pesan kamar hotel?</string>
-	<string name="popup_booking_download_guides_message">Rencanakan rute perjalanan anda bersama panduan dari MAPS.ME</string>
+	<string name="popup_booking_download_guides_message">Rencanakan rute perjalanan anda bersama panduan dari OMaps</string>
 	<string name="popup_mwm_download_guides_title">Panduan kota offline</string>
 	<string name="popup_mwm_download_guides_cta">Pilih salah satu</string>
 	<string name="popup_mwm_download_guides_cta_1">Lihat</string>
-	<string name="gallery_pp_download_guides_offline_title">Rencanakan liburan anda bersama MAPS.ME!</string>
+	<string name="gallery_pp_download_guides_offline_title">Rencanakan liburan anda bersama OMaps!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Jangan lewatkan panduan panduan yang telah dibuat oleh para pelancong</string>
 	<string name="gallery_pp_download_guides_offline_cta">Hidupkan internet</string>
 	<string name="gallery_pp_download_guides_title">Panduan</string>
@@ -1601,7 +1601,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Akses tanpa batas seharga %s/tahun</string>
 	<string name="subscription_terms_guides">Pembayaran akan dibebankan pada akun iTunes anda setelah dilakukan pembelian. Program berlangganan akan diperbarui secara otomatis selama fitur pembaruan otomatis tetap menyala dalam waktu 24 jam sebelum waktu berlangganan berakhir. Anda akan dikenai biaya sesuai dengan program berlangganan anda yang baru dalam waktu 24 jam sebelum masa berlangganan yang lama berakhir. Anda setiap waktu bisa mengatur atau mematikan fitur perbarui otomatis di pengaturan akun Apple ID anda. Anda hanya bisa menggunakan panduan yang telah diunduh lewat program berlangganan sampai masa berlangganan tersebut habis. Setelah 30 hari dari habisnya masa berlangganan, panduan dengan bookmark akan dihapus secara otomatis.</string>
 	<string name="subscription_terms">Pembayaran akan dibebankan ke akun iTunes Anda pada konfirmasi pembelian. Langganan akan diperbarui secara otomatis kecuali jika langganan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berjalan. Akun Anda akan dikenakan biaya sesuai dengan paket langganan Anda untuk perpanjangan dalam 24 jam sebelum akhir periode berjalan. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis pada pengaturan akun ID Apple Anda kapan saja dari pembelian Anda.</string>
-	<string name="whatsnew_carplay_title">Navigasi MAPS.ME ada di CarPlay!</string>
+	<string name="whatsnew_carplay_title">Navigasi OMaps ada di CarPlay!</string>
 	<string name="whatsnew_carplay_message">Kini fitur penanda, pencarian, kamera kecepatan dan pemilihan rute bisa dilakukan secara offline</string>
 	<string name="whatsnew_subscription_title">Dapatkan semua akses dengan berlangganan!</string>
 	<string name="whatsnew_subscription_message">Lebih hemat dengan akses tanpa batas ke katalog panduan tanpa harus membelinya</string>
@@ -1615,7 +1615,7 @@
 	<string name="avoid_tolls_carplay_2">Hindari tol</string>
 	<string name="speedcams_alert_title_carplay_1">Speedcam</string>
 	<string name="speedcams_alert_title_carplay_2">Info kecepatan</string>
-	<string name="download_map_carplay">Silakan unduh peta di apl MAPS.ME pada perangkat Anda</string>
+	<string name="download_map_carplay">Silakan unduh peta di apl OMaps pada perangkat Anda</string>
 	<string name="carplay_roundabout_exit">Jalan keluar ke %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Urutkan…</string>
@@ -1666,7 +1666,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Bookmark yang rapi membuat perjalanan menjadi nyaman</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Urutkan tempat favorit berdasarkan kategori, lokasi dan waktu kunjungan, serta temukan bookmark secara cepat hanya dengan menggunakan nama</string>
 	<string name="popup_subscription_success_map_title">Woohoo, anda telah berlangganan!</string>
-	<string name="popup_subscription_success_map_message">Kini saatnya menemukan tempat wisata terbaik di katalog MAPS.ME</string>
+	<string name="popup_subscription_success_map_message">Kini saatnya menemukan tempat wisata terbaik di katalog OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Mulai menjelajah</string>
 	<string name="popup_subscription_success_map_not_now_button">Jangan sekarang</string>
 	<string name="religious_places">Tempat ibadah</string>
@@ -1698,9 +1698,9 @@
 	<string name="new_onboarding_step5.1_header">Satu hal sebelum Anda mulai…</string>
 	<string name="new_onboarding_step5.1_message">Jangan lupa untuk mengunjungi katalog panduan baru kami dan temukan panduan offline untuk perjalanan Anda selanjutnya!</string>
 	<string name="new_onboarding_step5.1_button">Buka katalog</string>
-	<string name="new_onboarding_step5.2_message">Berlangganan Anda ke katalog panduan MAPS.ME adalah nilai yang bagus. Dapatkan akses penuh ke panduan kota dan luar ruangan di seluruh dunia!</string>
+	<string name="new_onboarding_step5.2_message">Berlangganan Anda ke katalog panduan OMaps adalah nilai yang bagus. Dapatkan akses penuh ke panduan kota dan luar ruangan di seluruh dunia!</string>
 	<string name="new_onboarding_step5.2_button">Lihat ketentuannya</string>
-	<string name="new_onboarding_step5.3_message">Lihatlah contoh rute perjalanan dan kota secara gratis dengan berbagai macam pilihan dari MAPS.ME!</string>
+	<string name="new_onboarding_step5.3_message">Lihatlah contoh rute perjalanan dan kota secara gratis dengan berbagai macam pilihan dari OMaps!</string>
 	<string name="new_onboarding_step5.3_button">Download Gratis</string>
 	<string name="new_onboarding_additional_steps_later_button">Nanti</string>
 	<string name="all_pass_subscription_header">Berlangganan ke</string>
@@ -1733,7 +1733,7 @@
 	<string name="dialog_pedestrian_route_is_long">Rute pejalan kaki ke halte atau stasiun terlalu jauh</string>
 	<string name="whatsnew_outdoor_guides_title">Kami telah menambahkan 15000+ jalur luar ruangan!</string>
 	<string name="whatsnew_outdoor_guides_message">Rute dari Outdooractive untuk perjalanan musim dingin dan panas tengah menunggu di katalog!</string>
-	<string name="whatsnew_guides_galleries_title">Rencanakan perjalanan Anda selanjutnya dengan MAPS.ME</string>
+	<string name="whatsnew_guides_galleries_title">Rencanakan perjalanan Anda selanjutnya dengan OMaps</string>
 	<string name="whatsnew_guides_galleries_message">Kini Anda dapat menemukan panduan yang disarankan di halaman tempat wisata yang paling populer dikunjungi turis</string>
 	<string name="new_onboarding_step3_header">Pengalaman</string>
 	<string name="all_pass_screen_best_value">Harga terbaik</string>
@@ -1747,7 +1747,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Merasa percaya diri di daerah pegunungan. Cukup aktifkan layer di sudut kiri atas</string>
 	<string name="button_layer_isolines">Isometrik</string>
-	<string name="tips_map_layers_title_countour">Yang baru di MAPS.ME: lapisan topografi offline!</string>
+	<string name="tips_map_layers_title_countour">Yang baru di OMaps: lapisan topografi offline!</string>
 	<string name="tips_map_layers_message_countour">Rencanakan dan nikmati perjalanan alam Anda dan pastikan Anda tahu segalanya tentang daerah tersebut</string>
 	<string name="isolines_activation_error_dialog">Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area</string>
 	<string name="isolines_location_error_dialog">Lapisan topografi belum tersedia untuk wilayah ini</string>

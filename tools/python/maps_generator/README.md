@@ -15,11 +15,11 @@ Further we will call them world and coastlines.
 You must have Python version not lower than 3.6 and complete the following steps:
 
 0. Switch to the branch of your app's version (see the note of #maps_generator section). 
-For example, if you use MAPS.ME 9.2.3 you should do:
+For example, if you use OMaps 9.2.3 you should do:
 ```sh
 git checkout release-92
 ```
-The app version can be found in the "About" section in the settings menu of MAPS.ME.
+The app version can be found in the "About" section in the settings menu of OMaps.
 1. [Build and install generator_tool.](https://github.com/omapsapp/omapsapp/blob/master/docs/INSTALL.md#maps-generator)
 2. Change directory:
 ```sh

@@ -165,6 +165,7 @@ private.h
 routing_common/car_model_coefs.hpp
 tools/android/mapswithme.keystore
 tools/android/yota.keystore
+android/debug.keystore
 android/secure.properties
 android/pushwoosh.properties
 android/libnotify.properties

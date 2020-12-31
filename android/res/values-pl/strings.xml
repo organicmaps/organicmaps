@@ -31,7 +31,7 @@
 	<string name="downloading">Pobieranie…</string>
 	<string name="get_it_now">Pobierz</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Dziękujemy za korzystanie z MAPS.ME! Czy podoba Ci się nasza aplikacja? Opowiedz o niej swoim znajomym! W taki sposób najlepiej nam podziękujesz.</string>
+	<string name="share_on_facebook_text">Dziękujemy za korzystanie z OMaps! Czy podoba Ci się nasza aplikacja? Opowiedz o niej swoim znajomym! W taki sposób najlepiej nam podziękujesz.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">KB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -88,7 +88,7 @@
 	<string name="country_status_download_failed">Nie udało się pobrać</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Spróbuj ponownie</string>
-	<string name="about_menu_title">O aplikacji MAPS.ME</string>
+	<string name="about_menu_title">O aplikacji OMaps</string>
 	<string name="downloading_touch_to_cancel">Pobieranie %d%%. Proszę nacisnąć, aby anulować.</string>
 	<string name="downloaded_touch_to_delete">Pobrano (%s). Proszę nacisnąć, aby usunąć.</string>
 	<string name="connection_settings">Ustawienia połączenia</string>
@@ -97,7 +97,7 @@
 	<string name="unsupported_phone">Wymagana jest sprzętowa akceleracja OpenGL. Aktualne urządzenie nie jest obsługiwane.</string>
 	<string name="download">Pobierz</string>
 	<string name="external_storage_is_not_available">Karta SD/Pamięć USB z pobranymi mapami nie jest dostępna</string>
-	<string name="disconnect_usb_cable">Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z MAPS.ME</string>
+	<string name="disconnect_usb_cable">Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji</string>
 	<string name="not_enough_memory">Za mało pamięci, aby uruchomić aplikację</string>
 	<string name="free_space_for_country">Proszę zwolnić %1$s na urządzeniu, aby pobrać %2$s</string>
@@ -124,7 +124,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Dostępne uaktualnienia dla tych map:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Nie potrzeba już więcej MAPS.ME Lite, więc można je usunąć.</string>
+	<string name="suggest_uninstall_lite">Nie potrzeba już więcej OMaps Lite, więc można je usunąć.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">Pobrano %s</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -224,7 +224,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Udostępnij przez email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Udostępnione zakładki z MAPS.ME</string>
+	<string name="share_bookmarks_email_subject">Udostępnione zakładki z OMaps</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Wczytywanie zakładek</string>
 	<!-- Kmz file successful loading -->
@@ -244,17 +244,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Trwa pobieranie mapy kraju.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Mamy nadzieję, że podoba ci się aplikacja MAPS.ME! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!</string>
+	<string name="appStore_message">Mamy nadzieję, że podoba ci się aplikacja OMaps! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nie, dziękuję</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Mój znacznik w MAPS.ME %1$s i %2$s</string>
+	<string name="bookmark_share_sms">Mój znacznik w OMaps %1$s i %2$s</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Zobacz gdzie jestem. Link %1$s lub %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Obejrzyj mój znacznik na mapie w MAPS.ME</string>
+	<string name="bookmark_share_email_subject">Obejrzyj mój znacznik na mapie w OMaps</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Zobacz moją aktualną lokalizację na mapie przy użyciu MAPS.ME</string>
+	<string name="my_position_share_email_subject">Zobacz moją aktualną lokalizację na mapie przy użyciu OMaps</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Cześć,\n\nJestem teraz tutaj: %1$s. Naciśnij na ten link %2$s lub ten %3$s, aby zobaczyć to miejsce na mapie.\n\nDziękuję.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -368,19 +368,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Pobierz mapę miejsca, w którym się zajdujesz</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Pełna wersja MAPS.ME jest dziś za darmo! Pobierz teraz i powiedz znajomym.</string>
+	<string name="pro_version_is_free_today">Pełna wersja OMaps jest dziś za darmo! Pobierz teraz i powiedz znajomym.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Przenosimy twoje pobrane mapy z MAPS.ME Lite do MAPS.ME. Może to zająć kilka minut.</string>
+	<string name="move_lite_maps_to_pro">Przenosimy twoje pobrane mapy z OMaps Lite do OMaps. Może to zająć kilka minut.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Pomyślnie przeniesiono twoje pobrane mapy do MAPS.ME.</string>
+	<string name="move_lite_maps_to_pro_ok">Pomyślnie przeniesiono twoje pobrane mapy do OMaps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Nie udało się przenieść twoich map. Proszę skasować MAPS.ME Lite i pobrać mapy ponownie.</string>
+	<string name="move_lite_maps_to_pro_failed">Nie udało się przenieść twoich map. Proszę skasować OMaps Lite i pobrać mapy ponownie.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Ustawienia i inne</string>
 	<!-- Text in menu -->
 	<string name="website">Strona internetowa</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Społeczność MAPS.ME</string>
+	<string name="maps_me_community">Społeczność OMaps</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Polub nas na Facebooku</string>
 	<!-- Text in menu -->
@@ -400,11 +400,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Zgłoś błąd</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Chcę subskrybować biuletyn MAPS.ME</string>
+	<string name="subscribe_me_subject">Chcę subskrybować biuletyn OMaps</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Chcę w pierwszej kolejności otrzymywać powiadomienia o nowościach aktualizacjach i promocjach. Mogę w każdej chwili anulować swoją subskrypcję.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME oferuje najszybsze mapy offline wszystkich miast we wszystkich krajach świata. Podróżuj bez obaw: gdziekolwiek jesteś, MAPS.ME pomoże Ci odszukać się na mapie, znaleźć najbliższą restaurację, hotel, bank, stację benzynową itp. Aplikacja nie wymaga połączenia z Internetem.\n\nNieustannie pracujemy nad nowymi funkcjami i chcielibyśmy dowiedzieć się, jak Twoim zdaniem moglibyśmy poprawić MAPS.ME. Jeśli masz jakieś problemy z aplikacją, skontaktuj się z nami, pisząc na adres support\@maps.me. Odpowiemy na każde zapytanie!\n\nLubisz aplikację MAPS.ME i chcesz udzielić nam wsparcia? Istnieje kilka prostych i absolutnie darmowych sposobów, jak to zrobić:\n\n- napisz recenzję w swoim sklepie z aplikacjami\n- polub naszą stronę na Facebooku: http://www.facebook.com/mapswithme\n- albo po prostu opowiedz o MAPS.ME swojej mamie, znajomym i kolegom :)\n\nDziękujemy, że jesteś z nami. Jesteśmy bardzo wdzięczni za Twoje wsparcie!\n\nP.S. Dane mapy pochodzą z OpenStreetMap, projektu kartograficznego podobnego do Wikipedii, który umożliwia użytkownikom tworzenie i edytowanie map. Jeśli zauważysz, że na mapie czegoś brakuje albo jest błąd, możesz nanieść poprawki bezpośrednio na stronie https://www.openstreetmap.org, a Twoje zmiany pojawią się w aplikacji MAPS.ME po wydaniu kolejnej wersji.</string>
+	<string name="about_text">OMaps oferuje najszybsze mapy offline wszystkich miast we wszystkich krajach świata. Podróżuj bez obaw: gdziekolwiek jesteś, OMaps pomoże Ci odszukać się na mapie, znaleźć najbliższą restaurację, hotel, bank, stację benzynową itp. Aplikacja nie wymaga połączenia z Internetem.\n\nNieustannie pracujemy nad nowymi funkcjami i chcielibyśmy dowiedzieć się, jak Twoim zdaniem moglibyśmy poprawić OMaps. Jeśli masz jakieś problemy z aplikacją, skontaktuj się z nami, pisząc na adres support\@omaps.app. Odpowiemy na każde zapytanie!\n\nLubisz aplikację OMaps i chcesz udzielić nam wsparcia? Istnieje kilka prostych i absolutnie darmowych sposobów, jak to zrobić:\n\n- napisz recenzję w swoim sklepie z aplikacjami\n- polub naszą stronę na Facebooku: http://www.facebook.com/mapswithme\n- albo po prostu opowiedz o OMaps swojej mamie, znajomym i kolegom :)\n\nDziękujemy, że jesteś z nami. Jesteśmy bardzo wdzięczni za Twoje wsparcie!\n\nP.S. Dane mapy pochodzą z OpenStreetMap, projektu kartograficznego podobnego do Wikipedii, który umożliwia użytkownikom tworzenie i edytowanie map. Jeśli zauważysz, że na mapie czegoś brakuje albo jest błąd, możesz nanieść poprawki bezpośrednio na stronie https://www.openstreetmap.org, a Twoje zmiany pojawią się w aplikacji OMaps po wydaniu kolejnej wersji.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Email klienta nie został założony. Proszę skonfigurować adres email, bądź skorzystać z innych opcji, aby się z nami skontaktować na %s</string>
 	<!-- Alert title -->
@@ -416,7 +416,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Proszę zaktualizować mapę, by utworzyć trasę.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Nowa wersja aplikacji MAPS.ME pozwala na tworzenie tras z Twojej bieżącej lokalizacji do punktu docelowego. Proszę zaktualizować mapy, by móc korzystać z tej funkcji.</string>
+	<string name="routing_update_maps">Nowa wersja aplikacji OMaps pozwala na tworzenie tras z Twojej bieżącej lokalizacji do punktu docelowego. Proszę zaktualizować mapy, by móc korzystać z tej funkcji.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aktualizuj wszystkie</string>
 	<!-- Cancel all button text -->
@@ -433,7 +433,7 @@
 	<string name="downloader_downloading">Pobieranie:</string>
 	<string name="downloader_search_results">Znaleziono</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Podczas tworzenia tras w aplikacji MAPS.ME pamiętaj o poniższych zasadach:\n\n  - Sugerowane trasy mogą być traktowane jedynie jako propozycje.\n - Warunki na drodze, przepisy ruchu drogowego i znaki mają większy priorytet niż wskazówki nawigacyjne.\n - Mapa może okazać się nieprawidłowa lub nieaktualna a trasy mogą nie zostać utworzone w sposób najlepszy z możliwych.\n\n  Szerokiej drogi, uważaj na siebie!</string>
+	<string name="routing_disclaimer">Podczas tworzenia tras w aplikacji OMaps pamiętaj o poniższych zasadach:\n\n  - Sugerowane trasy mogą być traktowane jedynie jako propozycje.\n - Warunki na drodze, przepisy ruchu drogowego i znaki mają większy priorytet niż wskazówki nawigacyjne.\n - Mapa może okazać się nieprawidłowa lub nieaktualna a trasy mogą nie zostać utworzone w sposób najlepszy z możliwych.\n\n  Szerokiej drogi, uważaj na siebie!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Nieaktualne</string>
 	<!-- Up to date maps category -->
@@ -457,7 +457,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Nie znaleziono trasy pomiędzy wybranym punktem rozpoczęcia podróży a jej celem. Wybierz inny punkt początkowy lub końcowy.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Wystąpił wewnętrzny błąd. Spróbuj usunąć mapę i pobrać ją ponownie. Jeśli problem będzie się nadal powtarzał, skontaktuj się z nami pod adresem support\@maps.me.</string>
+	<string name="routing_failed_internal_error">Wystąpił wewnętrzny błąd. Spróbuj usunąć mapę i pobrać ją ponownie. Jeśli problem będzie się nadal powtarzał, skontaktuj się z nami pod adresem support\@omaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Pobierz mapę + wyznaczanie tras</string>
 	<!-- Context menu item for downloader. -->
@@ -488,9 +488,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Właśnie oceniłem Waszą aplikację</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Jestem użytkownikiem MAPS.ME od %s r.</string>
+	<string name="rating_user_since">Jestem użytkownikiem OMaps od %s r.</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Lubisz MAPS.ME?</string>
+	<string name="rating_do_like_maps">Lubisz OMaps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Stuknij gwiazdkę, by ocenić naszą aplikację.</string>
 	<!-- Text for rating dialog -->
@@ -506,7 +506,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Pobierz mapę</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Pobierz zaktualizowaną mapę i dane ustalania tras, by mieć dostęp do wszystkich funkcji MAPS.ME.</string>
+	<string name="routing_download_map_and_routing">Pobierz zaktualizowaną mapę i dane ustalania tras, by mieć dostęp do wszystkich funkcji OMaps.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Pobierz dane ustalania tras</string>
 	<!-- Text for routing error dialog -->
@@ -638,7 +638,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Aby utworzyć trasę, pobierz i zaktualizuj wszystkie właściwe dla niej mapy.</string>
 	<string name="rate_alert_title">Lubisz tę aplikację?</string>
-	<string name="rate_alert_default_message">Dziękujemy za korzystanie z MAPS.ME. Prosimy wystawić aplikacji ocenę. Twoja opinia pozwoli nam udoskonalać nasze produkty.</string>
+	<string name="rate_alert_default_message">Dziękujemy za korzystanie z OMaps. Prosimy wystawić aplikacji ocenę. Twoja opinia pozwoli nam udoskonalać nasze produkty.</string>
 	<string name="rate_alert_five_star_message">Hurra! My też Cię uwielbiamy!</string>
 	<string name="rate_alert_four_star_message">Dziękujemy, zrobimy co w naszej mocy!</string>
 	<string name="rate_alert_less_than_four_star_message">Czy masz pomysł, w jaki sposób możemy dokonać ulepszeń?</string>
@@ -693,7 +693,7 @@
 	<string name="editor_report_problem_no_place_title">To miejsce nie istnieje</string>
 	<string name="editor_report_problem_under_construction_title">Zamknięte z powodu prac konserwacyjnych</string>
 	<string name="editor_report_problem_duplicate_place_title">Powielone miejsce</string>
-	<string name="first_launch_congrats_title">Aplikacja MAPS.ME jest gotowa</string>
+	<string name="first_launch_congrats_title">Aplikacja OMaps jest gotowa</string>
 	<string name="first_launch_congrats_text">Wyszukuj i nawiguj w każdym zakątku świata — offline i bezpłatnie.</string>
 	<string name="migrate_title">Ważne!</string>
 	<!-- Android uses image instead of text. -->
@@ -797,18 +797,18 @@
 	<string name="whatsnew_search_message">Znacząco usprawniliśmy wyszukiwanie po adresie. Przekonaj się sam.</string>
 	<string name="whatsnew_editor_title">Edytuj mapę*</string>
 	<string name="whatsnew_editor_message_1">Dodawaj nowe miejsca do mapy i edytuj już istniejące bezpośrednio z poziomu aplikacji.</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME korzysta z danych społeczności OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* OMaps korzysta z danych społeczności OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Nigdy się już nie zgubisz</string>
 	<string name="onboarding_offline_navigation_message">Planuj optymalne trasy samochodowe i piesze, nawet gdy nie masz połączenia z Internetem!</string>
 	<string name="onboarding_offline_navigation_title_2">Nawigacja offline</string>
 	<string name="onboarding_offline_navigation_message_2">Planuj optymalne trasy samochodowe i piesze.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — uzyskaj dostęp do map świata bez łączenia się z Internetem</string>
+	<string name="onboarding_offline_maps_title">OMaps — uzyskaj dostęp do map świata bez łączenia się z Internetem</string>
 	<string name="onboarding_offline_maps_message">Pobierz jednorazowo mapy dla wybranego obszaru, aby korzystać z nawigacji i wyszukiwania bez połączenia sieciowego.</string>
 	<string name="onboarding_notifications_message">Aby pobierać najnowsze mapy, włącz powiadomienia o aktualizacjach</string>
 	<string name="onboarding_notifications_title">Włącz powiadomienia o aktualizacjach</string>
 	<string name="onboarding_location_title">Pomaga nam znaleźć Ciebie</string>
 	<string name="onboarding_location_message">Abyś mógł korzystać z nawigacji i innych funkcji, musimy uzyskać dostęp do twojej geolokalizacji.</string>
-	<string name="onboarding_permissions_title">Zezwól MAPS.ME na dostęp do pamięci masowej i lokalizacji</string>
+	<string name="onboarding_permissions_title">Zezwól OMaps na dostęp do pamięci masowej i lokalizacji</string>
 	<string name="onboarding_permissions_message">Aby pobierać mapy, sprawdzać miejsca i ruch drogowy w twojej okolicy i móc korzystać z nawigacji.</string>
 	<string name="onboarding_welcome_second_subtitle">Poprzez uruchomienie aplikacji wyrażasz zgodę na &lt;a href="%1$s">warunki użytkowania&lt;/a> i &lt;a href="%2$s">politykę prywatności&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Zmień lokalizację</string>
@@ -817,7 +817,7 @@
 	<string name="no_migration_during_navigation">Podczas nawigacji aktualizacja jest niemożliwa.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Aby pobrać, potrzebujesz więcej miejsca. Usuń niepotrzebne dane.</string>
-	<string name="editor_sharing_title">Dokonałem poprawek map na MAPS.ME</string>
+	<string name="editor_sharing_title">Dokonałem poprawek map na OMaps</string>
 	<string name="editor_comment_will_be_sent">Prześlemy Twoje komentarze kartografom.</string>
 	<string name="editor_unsupported_category_message">Dodałeś miejsce w kategorii, której jeszcze nie obsługujemy. Pojawi się ono na mapie za jakiś czas.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -834,7 +834,7 @@
 	<string name="core_placepage_unknown_place">Nieznane miejsce</string>
 	<string name="editor_other_info">Poinformuj redaktorów OSM</string>
 	<string name="editor_detailed_description_hint">Szczegółowy komentarz</string>
-	<string name="editor_detailed_description">Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w MAPS.ME.</string>
+	<string name="editor_detailed_description">Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w OMaps.</string>
 	<string name="editor_more_about_osm">Więcej o OpenStreetMap</string>
 	<string name="editor_operator">Operator</string>
 	<string name="editor_tag_description">Wprowadź nazwę firmy, organizacji lub osoby odpowiedzialnej za obiekty.</string>
@@ -855,7 +855,7 @@
 	<string name="current_location_unknown_error_title">Aktualna lokalizacja jest nieznana.</string>
 	<string name="current_location_unknown_error_message">Podczas szukania twojej lokalizacji wystąpił błąd. Sprawdź czy twoje urządzenie działa poprawnie i spróbuj ponownie później.</string>
 	<string name="whatsnew_update_editor_title">Zaktualizowaliśmy edytor map</string>
-	<string name="whatsnew_update_editor_message">Użytkownicy MAPS.ME dokonali 200 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!</string>
+	<string name="whatsnew_update_editor_message">Użytkownicy OMaps dokonali 200 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Aby korzystać z edytora map, zaktualizuj wszystkie mapy.</string>
 	<string name="location_services_disabled_header">Identyfikacja lokalizacji jest wyłączona</string>
@@ -944,7 +944,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Sprawdź</string>
 	<string name="continue_recent_track_background_button">Kontynuuj</string>
-	<string name="recent_track_background_dialog_message">MAPS.ME używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.</string>
+	<string name="recent_track_background_dialog_message">OMaps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.</string>
 	<string name="whatsnew_car_navigation_header">Przyjazna użytkownikowi nawigacja dla pojazdów</string>
 	<string name="whatsnew_car_navigation_message">• Elementy nawigacji zajmują mniej miejsca.\n• Wyświetlamy prędkość i dodaliśmy automatyczne powiększanie.</string>
 	<string name="whatsnew_cycle_navigation_2_header">Nawigacja dla rowerów</string>
@@ -952,15 +952,15 @@
 	<string name="whatsnew_booking_2_header">Łatwe wyszukiwanie hoteli</string>
 	<string name="whatsnew_booking_2_message">Wyniki wyszukiwania pokazują kategorie oceny hoteli i ceny.</string>
 	<string name="whatsnew_cycle_navigation_header">Nawigacja rowerowa (wersja beta)</string>
-	<string name="whatsnew_cycle_navigation_message">Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z MAPS.ME i napisz nam, co myślisz o naszej nawigacji.</string>
+	<string name="whatsnew_cycle_navigation_message">Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z OMaps i napisz nam, co myślisz o naszej nawigacji.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Oceń w Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Powiadom znajomego</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Cześć! Zainstaluj MAPS.ME!</string>
+	<string name="tell_friends_text">Cześć! Zainstaluj OMaps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME to niezbędna aplikacja do podróży działająca w trybie offline. MAPS.ME opiera się o dane OpenStreetMap oraz umożliwia ich edycję.</string>
+	<string name="about_description">OMaps to niezbędna aplikacja do podróży działająca w trybie offline. OMaps opiera się o dane OpenStreetMap oraz umożliwia ich edycję.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -1015,7 +1015,7 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Otwórz</string>
-	<string name="whatsnew_uber_header">MAPS.ME i Uber</string>
+	<string name="whatsnew_uber_header">OMaps i Uber</string>
 	<string name="whatsnew_uber_message">Zamów taksówkę Uber bezpośrednio z aplikacji!</string>
 	<string name="dialog_taxi_offline">Zamawianie taksówek nie jest dostępne w trybie offline.</string>
 	<string name="dialog_taxi_error">Zamawianie taksówek jest tymczasowo niedostępne.</string>
@@ -1030,7 +1030,7 @@
 	<string name="traffic_update_maps_text">Aby wyświetlić dane o ruchu, muszą zostać zaktualizowane mapy.</string>
 	<string name="traffic_outdated">Dane o ruchu są przestarzałe.</string>
 	<string name="big_font">Powiększ rozmiar czcionki na mapie</string>
-	<string name="traffic_update_app">Zaktualizuj MAPS.ME</string>
+	<string name="traffic_update_app">Zaktualizuj OMaps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1128,7 +1128,7 @@
 	<string name="button_accept_and_continue">Zaakceptuj i kontynuuj</string>
 	<string name="button_learn_more">Dowiedz się więcej</string>
 	<string name="onboarding_storage_permissions_title">Udziel dostępu</string>
-	<string name="onboarding_storage_permissions_message">Zmień ustawienia uprawnień w urządzeniu. Do korzystania z MAPS.ME wymagany jest dostęp do pamięci masowej.</string>
+	<string name="onboarding_storage_permissions_message">Zmień ustawienia uprawnień w urządzeniu. Do korzystania z OMaps wymagany jest dostęp do pamięci masowej.</string>
 	<string name="button_exit">Wyjdź</string>
 	<string name="onboarding_detail_permissions_title">MAPY.ME wymaga dostępu do</string>
 	<!-- Default permission's name from Android settings. -->
@@ -1201,7 +1201,7 @@
 	<string name="whats_new_ugc_title_updated_v840">Oceny i recenzje</string>
 	<string name="whats_new_ugc_message">Możesz od teraz zamieszczać oceny i recenzje offline! Nie zapomnij zaktualizować map, aby zobaczyć wprowadzone zmiany.</string>
 	<string name="dialog_error_storage_title">Problem z dostępem do pamięci masowej</string>
-	<string name="dialog_error_storage_message">Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support\@maps.me</string>
+	<string name="dialog_error_storage_message">Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support\@omaps.app</string>
 	<string name="setting_emulate_bad_storage">Emuluj wadliwą pamięć masową</string>
 	<string name="discovery_button_title">Odkryj okolicę</string>
 	<string name="discovery_button_subtitle_things_to_do">Atrakcje</string>
@@ -1297,16 +1297,16 @@
 	<string name="sign_message_gdpr">Aby kontynuować, musisz zaakceptować nasze Warunki użytkowania i Politykę prywatności. Prosimy o ich uważne przeczytanie.</string>
 	<string name="sign_agree_pp_gdpr">Akceptuję &lt;a href="%s">Privacy Policy&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Akceptuję &lt;a href="%s">Terms of Use&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Chcę otrzymywać aktualności na temat produktów MAPS.ME</string>
+	<string name="sign_agree_news_gdpr">Chcę otrzymywać aktualności na temat produktów OMaps</string>
 	<string name="whats_new_localbiz_title">Mały biznes wymaga uwagi</string>
-	<string name="whats_new_localbiz_message">To lokalne kawiarnie, przytulne hotele i sklepy sprawiają, że nasze podróże są niezapomniane. Zoptymalizujemy Twoją stronę w MAPS.ME, aby się wyróżniała.</string>
+	<string name="whats_new_localbiz_message">To lokalne kawiarnie, przytulne hotele i sklepy sprawiają, że nasze podróże są niezapomniane. Zoptymalizujemy Twoją stronę w OMaps, aby się wyróżniała.</string>
 	<string name="whats_new_order_button">Zostaw żądanie</string>
 	<string name="bookmarks_page_downloaded">Pobrane</string>
 	<string name="bookmarks_page_my">Moje</string>
 	<string name="routes_and_bookmarks">Trasy i zakładki</string>
 	<string name="bookmarks_webview_success_toast">Zakładki pobrane pomyślnie</string>
 	<string name="cached_bookmarks_placeholder_title">Pobierz nowe miejsca</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Naciśnij przycisk, aby pobrać tysiące interesujących miejsc i tras utworzonych przez użytkowników MAPS.ME. Wymagane jest połączenie internetowe.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Naciśnij przycisk, aby pobrać tysiące interesujących miejsc i tras utworzonych przez użytkowników OMaps. Wymagane jest połączenie internetowe.</string>
 	<string name="downloader_download_routers">Pobierz zakładki</string>
 	<string name="bookmarks_groups_cached">Pobrane listy</string>
 	<string name="author_name_by_prefix">przez %s</string>
@@ -1326,7 +1326,7 @@
 	<string name="opt_out_flurry">Statystyka</string>
 	<string name="opt_out_mopub">Spersonalizowane reklamy</string>
 	<string name="opt_out_fabric">Raport o błędzie</string>
-	<string name="opt_out_fabric_description">Możemy używać Twoich danych do usprawnienia działania MAPS.ME. Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji.</string>
+	<string name="opt_out_fabric_description">Możemy używać Twoich danych do usprawnienia działania OMaps. Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji.</string>
 	<string name="opt_out_help_ios_1">W Twoim urządzeniu mobilnym może być dostępne ustawienie „Limit Ad Tracking” lub „Opt out of interest-based advertising”.</string>
 	<string name="opt_out_help_ios_2">iOS 9 lub nowszy</string>
 	<string name="opt_out_help_ios_3">Przejdź do Ustawień → Prywatność→ Reklamy→ Włącz ustawienie „Limit Ad Tracking”</string>
@@ -1347,7 +1347,7 @@
 	<string name="category_desc_more">…więcej</string>
 	<string name="title_error_downloading_bookmarks">Wystąpił błąd</string>
 	<string name="subtitle_error_downloading_bookmarks">Zakładki nie zostały pobrane</string>
-	<string name="whats_new_bookmarks_catalog_title">W aplikacji MAPS.ME jest teraz dostępny katalog tras</string>
+	<string name="whats_new_bookmarks_catalog_title">W aplikacji OMaps jest teraz dostępny katalog tras</string>
 	<string name="whats_new_bookmarks_catalog_message">Setki szczegółowych map całego świata: dokąd pójść, co zobaczyć, gdzie zjeść.</string>
 	<string name="whats_new_popularity_label_title">Popularne lokalizacje w pobliżu</string>
 	<string name="whats_new_popularity_label_message">Sekcja Odkryj okolicę pomoże w znalezieniu najpopularniejszych miejsc w mieście.</string>
@@ -1364,15 +1364,15 @@
 	<string name="guide_downloaded_subtitle">Naciśnij „Wyświetl na mapie”, by zapoznać się z przewodnikiem</string>
 	<string name="bookmarks_guides">Zakładki i przewodniki</string>
 	<string name="remove_ads">Wyłączyć reklamę</string>
-	<string name="remove_ads_title">Wyłącz wszystkie reklamy i wspieraj MAPS.ME</string>
+	<string name="remove_ads_title">Wyłącz wszystkie reklamy i wspieraj OMaps</string>
 	<string name="paybtn_title">Zapłacić %s/rok</string>
 	<string name="paybtn_subtitle">Oszczędzaj %s/rok</string>
 	<string name="options_dropdown_title">Inne opcje</string>
-	<string name="why_support">Po co wspierać MAPS.ME?</string>
+	<string name="why_support">Po co wspierać OMaps?</string>
 	<string name="options_dropdown_item1">%1$s/miesiąc (oszczędzaj %2$s/rok)</string>
 	<string name="options_dropdown_item2">%s/tydzień (bez oszczędzania)</string>
 	<string name="why_support_item1">Wyłączymy wszystkie reklamy dla Ciebie</string>
-	<string name="why_support_item2">Pomagasz nam udoskonalać MAPS.ME</string>
+	<string name="why_support_item2">Pomagasz nam udoskonalać OMaps</string>
 	<string name="why_support_item3">Pomagasz nam udoskonalać mapy OpenStreetMap.org</string>
 	<string name="purchase_processing">Twój zakup jest przetwarzany…</string>
 	<string name="tips_bookmarks_catalog_title">Przewodniki offline dla wszystkich rodzajów podróży</string>
@@ -1390,7 +1390,7 @@
 	<string name="awaiting_approval">Czekamy na potwierdzenie od rodziców</string>
 	<string name="whats_new_leave_review">Podziel się opinią! Podziel się swoją opinią o miejscach, które odwiedziłeś podczas wyjazdu.</string>
 	<string name="server_unavailable_title">Serwer jest niedostępny</string>
-	<string name="server_unavailable_message">Zakup zostanie sfinalizowany później. Jeśli błąd wystąpi ponownie, prosimy o kontakt z support\@maps.me.</string>
+	<string name="server_unavailable_message">Zakup zostanie sfinalizowany później. Jeśli błąd wystąpi ponownie, prosimy o kontakt z support\@omaps.app.</string>
 	<string name="offline_fiters_check_in">Połącz się z іnternetem aby wybrać datę zameldowania i wymeldowania.</string>
 	<string name="restore_subscription">Przywróć subskrypcję</string>
 	<string name="restore_success_alert">Subskrypcja została pomyślnie przywrócona</string>
@@ -1407,7 +1407,7 @@
 	<string name="ugc_route_tags_progress_msg">Trwa pobieranie tagów…</string>
 	<string name="public_access">Dostęp publiczny</string>
 	<string name="limited_access">Dostęp prywatny</string>
-	<string name="upload_and_publish_desc">Ten przewodnik zostanie pobrany do publicznego katalogu MAPS.ME i będzie dostępny dla innych użytkowników</string>
+	<string name="upload_and_publish_desc">Ten przewodnik zostanie pobrany do publicznego katalogu OMaps i będzie dostępny dla innych użytkowników</string>
 	<string name="upload_and_publish">Prześlij i udostępnij</string>
 	<string name="upload_and_get_direct_link">Prześlij i udostępnij link</string>
 	<string name="get_direct_link_desc">Twój przewodnik będzie dostępny pod linkiem bezpośrednim</string>
@@ -1458,12 +1458,12 @@
 	<string name="notification_channel_downloader">Pobieranie map</string>
 	<string name="notification_leave_review_title">%s - jak Tobie tu?</string>
 	<string name="notification_leave_review_content">Zostaw recenzję i pomóż podróżującym!</string>
-	<string name="share_bookmarks_email_body_link">Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając MAPS.ME i ciesz się podrożą!\n\nPobierz aplikację: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając OMaps i ciesz się podrożą!\n\nPobierz aplikację: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Nawigator powiadomi Cibie o kamerach, gdy przekrocz prędkość na %d km/h</string>
 	<string name="warning_speedcams_subtitle">Nie zapomnij zapoznać się z zasadami ruchu drogowego w kraju podróży.</string>
 	<string name="speedcams_notice_message">Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach</string>
 	<string name="whats_new_ugc_routes_title">Chce się podzielić wrażeniami? To proste!</string>
-	<string name="whats_new_ugc_routes_subtitle">Zapisuj zapamiętane miejsca, twórz trasy ze znaczników i udostępniaj je wszystkim w katalogu MAPS.ME.</string>
+	<string name="whats_new_ugc_routes_subtitle">Zapisuj zapamiętane miejsca, twórz trasy ze znaczników i udostępniaj je wszystkim w katalogu OMaps.</string>
 	<string name="whats_new_webeditor_title">Przeistaczaj trasy w historii</string>
 	<string name="whats_new_ugc_routes_message2">Dodaj zdjęcia i szczegółowe historie w edytorze stron internetowych.</string>
 	<string name="whatsnew_standard_routes_title">Trasy standardowe</string>
@@ -1480,7 +1480,7 @@
 	<string name="notification_leave_review_v2_title">Zostaw komentarz i pomóż podróżującym!</string>
 	<string name="error_public_not_enought_title">Zbyt mało znaczników</string>
 	<string name="error_public_not_enought_subtitle">Twoja trasa musi zawierać co najmniej 3 znaczniki, wtedy będziesz mogli wysłać ją do katalogu publicznego</string>
-	<string name="bookmark_public_upload_alert_title">Jesteś zaledwie o kilka kroków od załadowania trasy do katalogu MAPS.ME!</string>
+	<string name="bookmark_public_upload_alert_title">Jesteś zaledwie o kilka kroków od załadowania trasy do katalogu OMaps!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Upewnij się, że trasa zawiera nazwę i opis, a wszystkie znaczniki zawierają informacje o miejscach. Dzięki temu, użytkownicy znajdą trasę i będą mogli z niej skorzystać podczas podróży.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Tak, wszystko gra!</string>
 	<string name="name_title">Wpisz nazwę</string>
@@ -1510,7 +1510,7 @@
 	<string name="power_managment_setting_never">Nigdy</string>
 	<string name="power_managment_setting_auto">Auto</string>
 	<string name="power_managment_setting_manual_max">Maksymalna oszczędność energii</string>
-	<string name="enable_logging_warning_message">Ta opcja zostaje włączona do logowania działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego MAPS.ME.</string>
+	<string name="enable_logging_warning_message">Ta opcja zostaje włączona do logowania działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego OMaps.</string>
 	<string name="html_error_upload_message_try_again">Sprawdź dostęp do sieci i spróbuj ponownie</string>
 	<string name="html_error_upload_title_try_again">Brak połączenia z Internetem</string>
 	<string name="notification_leave_review_v2_android_short_title">Pozostaw komentarze i pomóż podróżującym!</string>
@@ -1519,7 +1519,7 @@
 	<string name="privacy_settings_menu">Ustawienia prywatności</string>
 	<string name="gdpr_request_setting">Otrzymaj ID dla GDPR zapytania</string>
 	<string name="gdpr_request_window_title">Twój ID: %s.</string>
-	<string name="gdpr_request_window_message">Skopiuj jego i wyślij zapytanie pod adres support\@maps.me</string>
+	<string name="gdpr_request_window_message">Skopiuj jego i wyślij zapytanie pod adres support\@omaps.app</string>
 	<string name="gdpr_request_window_copy">Skopiuj ID</string>
 	<string name="unable_upadate_error_title">Nieudana próba aktualizacji trasy</string>
 	<string name="unable_upadate_error_message">Podczas aktualizacji wystąpiły błędy. Sprawdź zmiany i spróbuj ponownie</string>
@@ -1542,7 +1542,7 @@
 	<string name="avoid_toll_roads_placepage">Unikać dróg płatnych</string>
 	<string name="avoid_unpaved_roads_placepage">Unikać dróg gruntowych</string>
 	<string name="avoid_ferry_crossing_placepage">Unikać przepraw promowych</string>
-	<string name="cached_guides_placeholder_subtitle">Gotowe przewodniki w MAPS.ME – to wybrane miejsca ze zdjęciami oraz opisami, które są wyświetlane na mapie i są dostępne w trybie offline.</string>
+	<string name="cached_guides_placeholder_subtitle">Gotowe przewodniki w OMaps – to wybrane miejsca ze zdjęciami oraz opisami, które są wyświetlane na mapie i są dostępne w trybie offline.</string>
 	<string name="guides_catalogue_title">Katalog przewodników</string>
 	<string name="download_guides_button">Przejdź do katalogu</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1550,12 +1550,12 @@
 	  <item quantity="other">Na podstawie %d wielu recenzji</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Kuchnia uzbecka</string>
-	<string name="onboarding_welcome_title">Planuj i podróżuj z MAPS.ME</string>
+	<string name="onboarding_welcome_title">Planuj i podróżuj z OMaps</string>
 	<string name="onboarding_welcome_first_subtitle">Zapisuj ciekawe miejsca, rezerwuj hotele, buduj trasy offline</string>
 	<string name="onboarding_guide_direct_download_title">Przewodnik jest gotowy do pobrania</string>
 	<string name="onboarding_guide_direct_download_subtitle">Zostanie wyświetlony na mapie i będzie działać w trybie offline</string>
 	<string name="onboarding_guide_direct_download_button">Pobierz</string>
-	<string name="onboarding_bydeeplink_guide_title">Gotowe przewodniki w MAPS.ME</string>
+	<string name="onboarding_bydeeplink_guide_title">Gotowe przewodniki w OMaps</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">Wybrane miejsca ze zdjęciami i opisami są wyświetlane na mapie i są dostępne w trybie offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Zanim przejdziesz do przewodników…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Zaktualizuj mapy, aby uzyskać aktualne informacje o obiektach!</string>
@@ -1586,11 +1586,11 @@
 	<string name="ok">Ok</string>
 	<string name="booking_button_toolbar">Znajdź hotel na mapie</string>
 	<string name="popup_booking_download_guides_title">Zarezerwowałeś hotel?</string>
-	<string name="popup_booking_download_guides_message">Zaplanuj trasę, korzystając z gotowych przewodników MAPS.ME</string>
+	<string name="popup_booking_download_guides_message">Zaplanuj trasę, korzystając z gotowych przewodników OMaps</string>
 	<string name="popup_mwm_download_guides_title">Przewodniki offline</string>
 	<string name="popup_mwm_download_guides_cta">Wybierz</string>
 	<string name="popup_mwm_download_guides_cta_1">Zobacz</string>
-	<string name="gallery_pp_download_guides_offline_title">Zaplanuj swoje wakacje z MAPS.ME!</string>
+	<string name="gallery_pp_download_guides_offline_title">Zaplanuj swoje wakacje z OMaps!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Nie przegap tego, co najważniejsze wraz z trasami od doświadczonych podróżników</string>
 	<string name="gallery_pp_download_guides_offline_cta">Połącz się z Internetem</string>
 	<string name="gallery_pp_download_guides_title">Przewodniki</string>
@@ -1619,7 +1619,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Pełny dostęp już za %s/rok</string>
 	<string name="subscription_terms_guides">Twoje konto iTunes zostanie obciążono opłatą po potwierdzeniu zakupu. Subskrypcja zostanie automatycznie odnowiona, jeżeli nie wyłączysz automatycznego odnawiania co najmniej 24 godziny przed zakończeniem bieżącego okresu subskrypcji. Twoje konto zostanie obciążono opłatą zgodnie z Twoim planem taryfowym w ciągu 24 godzin przed zakończeniem bieżącego okresu subskrypcji. Możesz zarządzać automatycznym odnawianiem subskrypcji lub wyłączyć automatyczne odnawianie subskrypcji w ustawieniach konta Apple ID w dowolnym momencie po zakupie. Będziesz mógł korzystać z przewodników pobranych w ramach subskrypcji tylko dopóki masz aktywną subskrypcję. Po upływie 30 dni po wygaśnięciu subskrypcji przewodniki ze wszystkimi zakładkami zostaną automatycznie usunięte.</string>
 	<string name="subscription_terms">Po zatwierdzeniu płatności zostanie nią obciążone Twoje konto iTunes. Subskrypcja odnowi się automatycznie, chyba że opcja automatycznego odnawiania zostanie wyłączona co najmniej 24 godziny przed końcem bieżącego okresu rozliczeniowego. Twoje konto zostanie obciążone kwotą za odnowienie subskrypcji zgodnie z wybranym planem w przeciągu 24 godzin przed końcem bieżącego okresu rozliczeniowego. Automatycznym odnawianiem zarządzać można lub wyłączyć je w ustawieniach konta Apple ID w dowolnej chwili po dokonaniu zakupu.</string>
-	<string name="whatsnew_carplay_title">Nawigacja automatyczna MAPS.ME w CarPlay!</string>
+	<string name="whatsnew_carplay_title">Nawigacja automatyczna OMaps w CarPlay!</string>
 	<string name="whatsnew_carplay_message">Zakładki, wyszukiwanie, fotoradary i ustawienia objazdu — wszystko działa bez Internetu</string>
 	<string name="whatsnew_subscription_title">Otwórz świat, używając subskrypcji!</string>
 	<string name="whatsnew_subscription_message">Nieograniczony dostęp do katalogu tras jest bardziej opłacalny, w porównaniu z jednorazowym zakupem</string>
@@ -1633,7 +1633,7 @@
 	<string name="avoid_tolls_carplay_2">Wyłącz płatne</string>
 	<string name="speedcams_alert_title_carplay_1">Kamery</string>
 	<string name="speedcams_alert_title_carplay_2">Info o kamerach</string>
-	<string name="download_map_carplay">Pobierz mapy do aplikacji MAPS.ME na swoje urządzenie</string>
+	<string name="download_map_carplay">Pobierz mapy do aplikacji OMaps na swoje urządzenie</string>
 	<string name="carplay_roundabout_exit">%s zjazd</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortuj…</string>
@@ -1684,7 +1684,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Porządek w znacznikach — wygoda w podróży</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortuj ulubione miejsca wg kategorii, czasu dodania i geolokalizacji, również szybko wyszukaj konkretne znaczniki wg nazwy</string>
 	<string name="popup_subscription_success_map_title">Hura! Jesteś subskrybentem!</string>
-	<string name="popup_subscription_success_map_message">Teraz odkryj najlepsze atrakcje turystyczne w katalogu MAPS.ME</string>
+	<string name="popup_subscription_success_map_message">Teraz odkryj najlepsze atrakcje turystyczne w katalogu OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Rozpocznij przeglądanie</string>
 	<string name="popup_subscription_success_map_not_now_button">Nie teraz</string>
 	<string name="religious_places">Święte miejsca</string>
@@ -1716,9 +1716,9 @@
 	<string name="new_onboarding_step5.1_header">Zanim zaczniesz…</string>
 	<string name="new_onboarding_step5.1_message">Nie zapomnij sprawdzić nasz nowy katalog tras, aby znaleźć przewodnik offline do najbliższej podróży!</string>
 	<string name="new_onboarding_step5.1_button">Otwórz katalog</string>
-	<string name="new_onboarding_step5.2_message">Subskrypcja katalogu przewodników turystycznych MAPS.ME jest opłacalna. Uzyskaj pełny dostęp do tras spacerowych po mieście i wypoczynku aktywnego!</string>
+	<string name="new_onboarding_step5.2_message">Subskrypcja katalogu przewodników turystycznych OMaps jest opłacalna. Uzyskaj pełny dostęp do tras spacerowych po mieście i wypoczynku aktywnego!</string>
 	<string name="new_onboarding_step5.2_button">Sprawdź warunki</string>
-	<string name="new_onboarding_step5.3_message">Pobierz i oceń trasy do zwiedzania i aktywnego wypoczynku poza miastem z bezpłatnym doborem MAPS.ME!</string>
+	<string name="new_onboarding_step5.3_message">Pobierz i oceń trasy do zwiedzania i aktywnego wypoczynku poza miastem z bezpłatnym doborem OMaps!</string>
 	<string name="new_onboarding_step5.3_button">Darmowe pobieranie</string>
 	<string name="new_onboarding_additional_steps_later_button">Nie teraz</string>
 	<string name="all_pass_subscription_header">Subskrypcja</string>
@@ -1751,7 +1751,7 @@
 	<string name="dialog_pedestrian_route_is_long">Zbyt długie dojście do transportu na piechotę</string>
 	<string name="whatsnew_outdoor_guides_title">Dodaliśmy 15000+ szlaków do aktywnego wypoczynku!</string>
 	<string name="whatsnew_outdoor_guides_message">Trasy z Outdooractive do zimowych i letnich wakacji czekają w katalogu!</string>
-	<string name="whatsnew_guides_galleries_title">Zaplanuj swoją nadchodzącą podróż z MAPS.ME</string>
+	<string name="whatsnew_guides_galleries_title">Zaplanuj swoją nadchodzącą podróż z OMaps</string>
 	<string name="whatsnew_guides_galleries_message">Teraz możesz znaleźć polecane przewodniki na stronach popularnych miast turystycznych i zabytków</string>
 	<string name="new_onboarding_step3_header">Podróżuj</string>
 	<string name="all_pass_screen_best_value">Atrakcyjna cena</string>
@@ -1765,7 +1765,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Nawiguj w górach – włącz warstwę za pomocą przycisku w lewym górnym rogu ekranu</string>
 	<string name="button_layer_isolines">Wysokości</string>
-	<string name="tips_map_layers_title_countour">Linie wysokości w trybie offline w MAPS.ME!</string>
+	<string name="tips_map_layers_title_countour">Linie wysokości w trybie offline w OMaps!</string>
 	<string name="tips_map_layers_message_countour">Linie wysokości pomogą zaplanować podróż i nie zgubić się w terenie</string>
 	<string name="isolines_activation_error_dialog">Do skorzystania z linii wysokości, zaktualizuj lub pobierz mapę obszaru, który potrzebujesz</string>
 	<string name="isolines_location_error_dialog">W tej chwili nie są dostępne linie wysokości w tym regionie</string>

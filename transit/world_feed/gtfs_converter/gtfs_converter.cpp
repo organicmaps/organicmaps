@@ -20,9 +20,9 @@ DEFINE_string(path_mapping_edges, "",
               "Path to the mapping file of TransitId to GTFS hash for edges");
 // One of these two paths should be specified: |path_gtfs_feeds| and/or |path_subway_json|.
 DEFINE_string(path_gtfs_feeds, "", "Directory with GTFS feeds subdirectories");
-DEFINE_string(path_subway_json, "", "MAPS.ME json file with subway data from OSM");
+DEFINE_string(path_subway_json, "", "OMaps json file with subway data from OSM");
 DEFINE_string(path_json, "", "Output directory for dumping json files");
-DEFINE_string(path_resources, "", "MAPS.ME resources directory");
+DEFINE_string(path_resources, "", "OMaps resources directory");
 DEFINE_string(start_feed, "", "Optional. Feed directory from which the process continues");
 DEFINE_string(stop_feed, "", "Optional. Feed directory on which to stop the process");
 

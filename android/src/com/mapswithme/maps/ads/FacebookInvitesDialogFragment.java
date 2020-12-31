@@ -19,7 +19,7 @@ import com.mapswithme.util.statistics.Statistics;
 public class FacebookInvitesDialogFragment extends BaseMwmDialogFragment
 {
   private static final String INVITE_APP_URL = "https://fb.me/958251974218933";
-  private static final String INVITE_IMAGE = "http://maps.me/images/fb_app_invite_banner.png";
+  private static final String INVITE_IMAGE = "https://omaps.app/images/fb_app_invite_banner.png";
 
   private boolean mHasInvited;
 

@@ -18,7 +18,7 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Λήψη…</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Σας ευχαριστούμε που χρησιμοποιείτε το MAPS.ME! Σας αρέσει η εφαρμογή; Πείτε το στους φίλους σας! Είναι ότι καλύτερο μπορείτε να κάνετε για εμάς.</string>
+	<string name="share_on_facebook_text">Σας ευχαριστούμε που χρησιμοποιείτε το OMaps! Σας αρέσει η εφαρμογή; Πείτε το στους φίλους σας! Είναι ότι καλύτερο μπορείτε να κάνετε για εμάς.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Χιλιόμετρα</string>
 	<!-- Leave Review dialog - Review button -->
@@ -62,13 +62,13 @@
 	<string name="country_status_download_failed">Η λήψη απέτυχε</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Δοκιμάστε ξανά</string>
-	<string name="app_name">MAPS.ME</string>
-	<string name="about_menu_title">Σχετικά με το MAPS.ME</string>
+	<string name="app_name">OMaps</string>
+	<string name="about_menu_title">Σχετικά με το OMaps</string>
 	<string name="connection_settings">Ρυθμίσεις σύνδεσης</string>
 	<string name="close">Κλείσιμο</string>
 	<string name="unsupported_phone">Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.</string>
 	<string name="download">Λήψη</string>
-	<string name="disconnect_usb_cable">Αποσυνδέστε το καλώδιο USB ή τοποθετήστε την κάρτα μνήμης για να χρησιμοποιήσετε το MAPS.ME</string>
+	<string name="disconnect_usb_cable">Αποσυνδέστε το καλώδιο USB ή τοποθετήστε την κάρτα μνήμης για να χρησιμοποιήσετε το OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Ελευθερώσετε  χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή</string>
 	<string name="not_enough_memory">Δεν υπάρχει αρκετή μνήμη για την έναρξη εφαρμογής</string>
 	<string name="download_resources">Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας. \nIt θα χρησιμοποιήσει %s αποθηκευτικού χώρου.</string>
@@ -90,7 +90,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Υπάρχει διαθέσιμη ενημέρωση για τους παρακάτω χάρτες:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Δε χρειάζεστε το MAPS.ME Lite πλέον, μπορείτε να το απεγκαταστήσετε.</string>
+	<string name="suggest_uninstall_lite">Δε χρειάζεστε το OMaps Lite πλέον, μπορείτε να το απεγκαταστήσετε.</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">η λήψη %s απέτυχε</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -112,9 +112,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Σύνολο</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Δεν έχετε αγαπημένα ακόμα.\nΠατήστε σε οποιοδήποτε σημείο στο χάρτη για να προσθέσετε αγαπημένο.\nΜπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο MAPS.ME. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.</string>
+	<string name="bookmarks_usage_hint">Δεν έχετε αγαπημένα ακόμα.\nΠατήστε σε οποιοδήποτε σημείο στο χάρτη για να προσθέσετε αγαπημένο.\nΜπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο OMaps. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Μπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο MAPS.ME. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.</string>
+	<string name="bookmarks_usage_hint_import_only">Μπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο OMaps. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ρυθμίσεις</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -172,7 +172,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Κοινοποίηση μέσω ηλεκτρονικού ταχυδρομείου</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Κοινοποιήθηκαν αγαπημένα MAPS.ME με σας</string>
+	<string name="share_bookmarks_email_subject">Κοινοποιήθηκαν αγαπημένα OMaps με σας</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Φόρτωση αγαπημένων</string>
 	<!-- Kmz file successful loading -->
@@ -190,13 +190,13 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Λήψη χάρτη σε εξέλιξη.</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο MAPS.ME! %1$s ή %2$s εάν δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: http://maps.me/get</string>
+	<string name="bookmark_share_sms">Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο OMaps! %1$s ή %2$s εάν δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Έλεγξε την τρέχουσα τοποθεσία μου στο MAPS.ME! %1$s ή %2$s στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: http://maps.me/get</string>
+	<string name="my_position_share_sms">Έλεγξε την τρέχουσα τοποθεσία μου στο OMaps! %1$s ή %2$s στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο MAPS.ME!</string>
+	<string name="bookmark_share_email_subject">Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο OMaps!</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Έλεγξε την τρέχουσα τοποθεσία μου στο χάρτη MAPS.ME!</string>
+	<string name="my_position_share_email_subject">Έλεγξε την τρέχουσα τοποθεσία μου στο χάρτη OMaps!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Γεια,\n\nείμαι εδώ τώρα: %1$s. Κάνε κλικ σε αυτό το σύνδεσμο %2$s ή σε αυτόν %3$s για να δεις την τοποθεσία στο χάρτη.\n\nΕυχαριστώ.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -282,7 +282,7 @@
 	<!-- Text in menu -->
 	<string name="website">Ιστότοπος</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Κοινότητα MAPS.ME\u0020</string>
+	<string name="maps_me_community">Κοινότητα OMaps\u0020</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Κάντε Like στο Facebook</string>
 	<!-- Text in menu -->
@@ -302,7 +302,7 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Αναφορά σφάλματος</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Εγγράψτε με στο ενημερωτικό δελτίο MAPS.ME</string>
+	<string name="subscribe_me_subject">Εγγράψτε με στο ενημερωτικό δελτίο OMaps</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Θέλω να μαθαίνω πρώτος(η) τις τελευταίες ειδήσεις, ενημερώσεις εφαρμογών και προωθητικές ενέργειεςς. Καταλαβαίνω ότι μπορώ να ακυρώσω τη συνδρομή μου ανά πάσα στιγμή.</string>
 	<!-- Alert text -->
@@ -347,7 +347,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Δεν βρέθηκε καμία διαδρομή μεταξύ της επιλεγμένης προέλευσης και προορισμού. Επιλέξτε ένα διαφορετικό σημείο έναρξης ή λήξης.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Παρουσιάστηκε εσωτερικό σφάλμα. Δοκιμάστε να διαγράψετε και να κατεβάσετε το χάρτη ξανά. Εάν το πρόβλημα παραμένει, επικοινωνήστε μαζί μας στη διεύθυνση support\@maps.me.</string>
+	<string name="routing_failed_internal_error">Παρουσιάστηκε εσωτερικό σφάλμα. Δοκιμάστε να διαγράψετε και να κατεβάσετε το χάρτη ξανά. Εάν το πρόβλημα παραμένει, επικοινωνήστε μαζί μας στη διεύθυνση support\@omaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Λήψη χάρτη</string>
 	<!-- Item status in downloader. -->
@@ -361,9 +361,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Μόλις βαθμολόγησα την εφαρμογή σας</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Χρησιμοποιώ το MAPS.ME από τις %s</string>
+	<string name="rating_user_since">Χρησιμοποιώ το OMaps από τις %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Σας αρέσει το MAPS.ME;</string>
+	<string name="rating_do_like_maps">Σας αρέσει το OMaps;</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Πατήστε ένα αστέρι να βαθμολογήσετε την εφαρμογή μας.</string>
 	<!-- Text for rating dialog -->
@@ -379,7 +379,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Λήψη χάρτη</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Κάντε λήψη ενημερωμένου χάρτη και δεδομένων πλοήγησης για να έχετε όλα τα χαρακτηριστικά του MAPS.ME.</string>
+	<string name="routing_download_map_and_routing">Κάντε λήψη ενημερωμένου χάρτη και δεδομένων πλοήγησης για να έχετε όλα τα χαρακτηριστικά του OMaps.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Λήψη δεδομένων πλοήγησης</string>
 	<!-- Text for routing error dialog -->
@@ -481,7 +481,7 @@
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Άφιξη στις %s</string>
 	<string name="rate_alert_title">Σας αρέσει η εφαρμογή;</string>
-	<string name="rate_alert_default_message">Σας ευχαριστούμε που χρησιμοποιείτε το MAPS.ME. Βαθμολογήστε την εφαρμογή. Τα σχόλιά σας μας βοηθάνε να βελτιώσουμε το προϊόν μας.</string>
+	<string name="rate_alert_default_message">Σας ευχαριστούμε που χρησιμοποιείτε το OMaps. Βαθμολογήστε την εφαρμογή. Τα σχόλιά σας μας βοηθάνε να βελτιώσουμε το προϊόν μας.</string>
 	<string name="rate_alert_five_star_message">Ζήτω! Σας ευχαριστούμε πάρα πολύ!</string>
 	<string name="rate_alert_four_star_message">Σας ευχαριστούμε, θα κάνουμε το καλύτερο δυνατό!</string>
 	<string name="rate_alert_less_than_four_star_message">Έχετε κάποια ιδέα για το πώς μπορούμε να το κάνουμε καλύτερο;</string>
@@ -532,7 +532,7 @@
 	<string name="editor_report_problem_no_place_title">Η τοποθεσία δεν υπάρχει</string>
 	<string name="editor_report_problem_under_construction_title">Εκτός λειτουργίας για συντήρηση</string>
 	<string name="editor_report_problem_duplicate_place_title">Διπλότυπη τοποθεσία</string>
-	<string name="first_launch_congrats_title">Το MAPS.ME είναι έτοιμο για χρήση</string>
+	<string name="first_launch_congrats_title">Το OMaps είναι έτοιμο για χρήση</string>
 	<string name="first_launch_congrats_text">Κάντε αναζήτηση και πλοηγηθείτε παντού στον κόσμο χωρίς σύνδεση και χωρίς χρέωση.</string>
 	<string name="migrate_title">Σημαντικό!</string>
 	<string name="autodownload">Αυτόματη λήψη</string>
@@ -608,16 +608,16 @@
 	<string name="whatsnew_search_message">Έχουμε βελτιώσει σημαντικά την αναζήτηση μέσω διεύθυνσης. Δοκιμάστε το.</string>
 	<string name="whatsnew_editor_title">Επεξεργαστείτε το χάρτη*</string>
 	<string name="whatsnew_editor_message_1">Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.</string>
-	<string name="whatsnew_editor_message_2">* Το MAPS.ME χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* Το OMaps χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Δεν θα χαθείτε ποτέ ξανά</string>
 	<string name="onboarding_offline_navigation_message">Σχεδιασμός βέλτισης διαδρομής αυτοκινήτων και πεζών, ακόμα και χωρίς σύνδεση στο Internet!</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — χρησιμοποιήστε χάρτες από όλο τον κόσμο χωρίς σύνδεση στο Internet</string>
+	<string name="onboarding_offline_maps_title">OMaps — χρησιμοποιήστε χάρτες από όλο τον κόσμο χωρίς σύνδεση στο Internet</string>
 	<string name="onboarding_offline_maps_message">Κατεβάστε τους χάρτες της περιοχής που επιθυμείτε μια φορά και χρησιμοποιήστε τις λειτουργίες πλοήγησης και αναζήτησης χωρίς σύνδεση στο Internet.</string>
 	<string name="onboarding_notifications_message">Για να λάβετε τους πιο πρόσφατους χάρτες, επιλέξτε να λαμβάνετε ειδοποιήσεις ενημερώσεων</string>
 	<string name="onboarding_notifications_title">Ενεργοποιήσετε τις ειδοποιήσεις για ενημερώσεις</string>
 	<string name="onboarding_location_title">Βοηθήστε μας να σας βρούμε</string>
-	<string name="onboarding_location_message">Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του MAPS.ME χρειάζεται πρόσβαση στη γεωγραφική σας θέση.</string>
-	<string name="onboarding_permissions_title">Να επιτραπεί στο MAPS.ME πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία</string>
+	<string name="onboarding_location_message">Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του OMaps χρειάζεται πρόσβαση στη γεωγραφική σας θέση.</string>
+	<string name="onboarding_permissions_title">Να επιτραπεί στο OMaps πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία</string>
 	<string name="onboarding_permissions_message">Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.</string>
 	<string name="onboarding_welcome_second_subtitle">Με την εκκίνηση της εφαρμογής συμφωνείτε με &lt;a href="%1$s">τους Όρους χρήσης&lt;/a> και &lt;a href="%2$s">την Πολιτική απορρήτου&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Αλλαγή τοποθεσίας</string>
@@ -626,7 +626,7 @@
 	<string name="no_migration_during_navigation">Δεν επιτρέπεται η ενημέρωση κατά τη διάρκεια της πλοήγησης.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Για να το κατεβάσετε, χρειάζεστε περισσότερο χώρο. Διαγράψτε τυχόν μη απαραίτητα δεδομένα.</string>
-	<string name="editor_sharing_title">Βελτίωσα τους χάρτες MAPS.ME</string>
+	<string name="editor_sharing_title">Βελτίωσα τους χάρτες OMaps</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d από %2$d</string>
 	<string name="download_over_mobile_header">Να γίνει λήψη μέσω δικτύου κινητής τηλεφωνίας;</string>
@@ -641,7 +641,7 @@
 	<string name="core_placepage_unknown_place">Άγνωστο μέρος</string>
 	<string name="editor_other_info">Σημείωμα στους συντάκτες του OSM</string>
 	<string name="editor_detailed_description_hint">Αναλυτικό σχόλιο</string>
-	<string name="editor_detailed_description">Οι προτεινόμενες αλλαγές χάρτη θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο MAPS.ME.</string>
+	<string name="editor_detailed_description">Οι προτεινόμενες αλλαγές χάρτη θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο OMaps.</string>
 	<string name="editor_more_about_osm">Περισσότερα σχετικά με το OpenStreetMap</string>
 	<string name="editor_operator">Ιδιοκτήτης</string>
 	<string name="downloader_my_maps_title">Οι χάρτες μου</string>
@@ -656,7 +656,7 @@
 	<string name="current_location_unknown_error_title">Η τρέχουσα τοποθεσία είναι άγνωστη.</string>
 	<string name="current_location_unknown_error_message">Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.</string>
 	<string name="whatsnew_update_editor_title">Έχουμε ενημερωθεί το πρόγραμμα επεξεργασίας του χάρτη</string>
-	<string name="whatsnew_update_editor_message">Οι χρήστες MAPS.ME έχουν ήδη κάνει 200.000 αλλαγές χάρτη. Μαζί δημιουργούμε τους πιο λεπτομερείς χάρτες του κόσμου. Ελάτε μαζί μας!</string>
+	<string name="whatsnew_update_editor_message">Οι χρήστες OMaps έχουν ήδη κάνει 200.000 αλλαγές χάρτη. Μαζί δημιουργούμε τους πιο λεπτομερείς χάρτες του κόσμου. Ελάτε μαζί μας!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Ενημερώστε όλους τους χάρτες για να χρησιμοποιήσετε το πρόγραμμα επεξεργασίας του χάρτη.</string>
 	<string name="location_services_disabled_header">Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες</string>
@@ -703,7 +703,7 @@
 	<string name="off_recent_track_background_button">Απενεργοποίηση</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Αναχώρηση</string>
-	<string name="recent_track_background_dialog_message">Το MAPS.ME χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.</string>
+	<string name="recent_track_background_dialog_message">Το OMaps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.</string>
 	<string name="whatsnew_car_navigation_header">Πλοήγηση οχήματος φιλική προς το χρήστη</string>
 	<string name="whatsnew_car_navigation_message">• Τα στοιχεία πλοήγησης καταλαμβάνουν λιγότερο χώρο. \n• Εμφανίζεται η ταχύτητα και προστέθηκε αυτόματη μεγέθυνση.</string>
 	<string name="whatsnew_cycle_navigation_2_header">Πλοήγηση με ποδήλατο</string>
@@ -711,15 +711,15 @@
 	<string name="whatsnew_booking_2_header">Εύκολη αναζήτηση ξενοδοχείου</string>
 	<string name="whatsnew_booking_2_message">Τα αποτελέσματα αναζήτησης δείχνουν τη βαθμολογία του ξενοδοχείου και την κατηγορία τιμής.</string>
 	<string name="whatsnew_cycle_navigation_header">Πλοήγηση με ποδήλατο (έκδοση beta)</string>
-	<string name="whatsnew_cycle_navigation_message">Δοκιμάζουμε την πλοήγησης με ποδήλατο για τη νέα σεζόν. Δοκιμάστε την αγαπημένη σας διαδρομή με ποδήλατο με το MAPS.ME και μοιραστείτε τη γνώμη σας μαζί μας.</string>
+	<string name="whatsnew_cycle_navigation_message">Δοκιμάζουμε την πλοήγησης με ποδήλατο για τη νέα σεζόν. Δοκιμάστε την αγαπημένη σας διαδρομή με ποδήλατο με το OMaps και μοιραστείτε τη γνώμη σας μαζί μας.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Βαθμολογήστε το στο Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Πείτε το σε ένα φίλο</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Γεια σας! Εγκαταστήστε το MAPS.ME!</string>
+	<string name="tell_friends_text">Γεια σας! Εγκαταστήστε το OMaps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">Το MAPS.ME είναι η απαραίτητη εφαρμογή γα ταξίδια που λειτουργεί εκτός σύνδεσης. Το MAPS.ME βασίζεται σε δεδομένα OpenStreetMap και σας επιτρέπει να τα επεξεργαστείτε.</string>
+	<string name="about_description">Το OMaps είναι η απαραίτητη εφαρμογή γα ταξίδια που λειτουργεί εκτός σύνδεσης. Το OMaps βασίζεται σε δεδομένα OpenStreetMap και σας επιτρέπει να τα επεξεργαστείτε.</string>
 	<!-- Text in menu -->
 	<string name="blog">Ιστολόγιο</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -774,7 +774,7 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Άνοιγμα</string>
-	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
 	<string name="whatsnew_uber_message">Καλέστε ταξί Uber απευθείας μέσα από την εφαρμογή!</string>
 	<string name="dialog_taxi_offline">Η παραγγελία ταξί δεν είναι διαθέσιμη σε offline ρύθμιση.</string>
 	<string name="dialog_taxi_error">Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.</string>
@@ -789,7 +789,7 @@
 	<string name="traffic_update_maps_text">Για να εμφανίσετε πληροφορίες για την κίνηση, πρέπει να ενημερωθούν οι χάρτες.</string>
 	<string name="traffic_outdated">Οι πληροφορίες για την κίνηση είναι παλιές.</string>
 	<string name="big_font">Αύξηση μεγέθους γραμματοσειράς στο χάρτη</string>
-	<string name="traffic_update_app">Κάντε ενημέρωση του MAPS.ME</string>
+	<string name="traffic_update_app">Κάντε ενημέρωση του OMaps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -887,9 +887,9 @@
 	<string name="button_accept_and_continue">Αποδοχή και συνέχεια</string>
 	<string name="button_learn_more">Μάθετε περισσότερα</string>
 	<string name="onboarding_storage_permissions_title">Εκχώρηση άδειας</string>
-	<string name="onboarding_storage_permissions_message">Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του MAPS.ME</string>
+	<string name="onboarding_storage_permissions_message">Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του OMaps</string>
 	<string name="button_exit">Έξοδος</string>
-	<string name="onboarding_detail_permissions_title">Το MAPS.ME χρειάζεται πρόσβαση στο</string>
+	<string name="onboarding_detail_permissions_title">Το OMaps χρειάζεται πρόσβαση στο</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Αποθηκευτικός χώρος</string>
 	<string name="onboarding_detail_permissions_storage_message">Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.</string>
@@ -960,7 +960,7 @@
 	<string name="whats_new_ugc_title_updated_v840">Βαθμολογίες και κριτικές</string>
 	<string name="whats_new_ugc_message">Μπορείτε πλέον να αφήσετε βαθμολογίεςς και κριτικές ακόμα και όταν δεν είστε συνδεδεμένοι! Μην ξεχάσετε να ενημερώσετε τους χάρτες σας για να μπορείτε να δείτε τις αλλαγές.</string>
 	<string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
-	<string name="dialog_error_storage_message">Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support\@maps.me</string>
+	<string name="dialog_error_storage_message">Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support\@omaps.app</string>
 	<string name="setting_emulate_bad_storage">Εξομείωση κακού αποθηκευτικού χώρου</string>
 	<string name="discovery_button_title">Ανακαλύψτε κοντά</string>
 	<string name="discovery_button_subtitle_things_to_do">Πράγματα που πρέπει να κάνω</string>
@@ -1055,16 +1055,16 @@
 	<string name="sign_message_gdpr">Πρέπει να αποδεχτείτε τους Όρους Χρήσης και την Πολιτική Απορρήτου. Διαβάστε τις προσεκτικά.</string>
 	<string name="sign_agree_pp_gdpr">Συμφωνώ με την &lt;a href="%s">Πολιτική Απορρήτου&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Συμφωνώ με τους &lt;a href="%s">Όρους Χρήσης&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Συμφωνώ να λαμβάνω τα τελευταία νέα σχετικά με τα προϊόντα MAPS.ME</string>
+	<string name="sign_agree_news_gdpr">Συμφωνώ να λαμβάνω τα τελευταία νέα σχετικά με τα προϊόντα OMaps</string>
 	<string name="whats_new_localbiz_title">Οι μικρές επιχειρήσεις αξίζουν προσοχή</string>
-	<string name="whats_new_localbiz_message">Οι τοπικές καφετέριες, τα άνετα πανδοχεία και τα καταστήματα είναι που κάνουν τα ταξίδι μας αξέχαστα. Θα βελτιστοποιήσουμε τη σελίδα σας στο MAPS.ME για να την κάνουμε να ξεχωρίσει.</string>
+	<string name="whats_new_localbiz_message">Οι τοπικές καφετέριες, τα άνετα πανδοχεία και τα καταστήματα είναι που κάνουν τα ταξίδι μας αξέχαστα. Θα βελτιστοποιήσουμε τη σελίδα σας στο OMaps για να την κάνουμε να ξεχωρίσει.</string>
 	<string name="whats_new_order_button">Αφήστε μια αίτηση</string>
 	<string name="bookmarks_page_downloaded">Κατέβηκε</string>
 	<string name="bookmarks_page_my">Μου</string>
 	<string name="routes_and_bookmarks">Διαδρομές και σελιδοδείκτες</string>
 	<string name="bookmarks_webview_success_toast">Οι σελιδοδείκτες κατέβηκαν επιτυχώς</string>
 	<string name="cached_bookmarks_placeholder_title">Κατεβάστε νέα μέρη</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Πιέστε το κουμπί για να κατεβάστε χιλιάδες ενδιαφέροντα μέρη και διαδρομές που δημιουργήθηκαν από τους χρήστες του MAPS.ME. Θα χρειαστείτε σύνδεση στο διαδίκτυο.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Πιέστε το κουμπί για να κατεβάστε χιλιάδες ενδιαφέροντα μέρη και διαδρομές που δημιουργήθηκαν από τους χρήστες του OMaps. Θα χρειαστείτε σύνδεση στο διαδίκτυο.</string>
 	<string name="downloader_download_routers">Κατεβάστε σελιδοδείκτες</string>
 	<string name="bookmarks_groups_cached">Κατεβάστε λίστες</string>
 	<string name="author_name_by_prefix">από %s</string>
@@ -1084,7 +1084,7 @@
 	<string name="opt_out_flurry">Στατιστικές</string>
 	<string name="opt_out_mopub">Προσωπικές διαφημίσεις</string>
 	<string name="opt_out_fabric">Αναφορά σφάλματος</string>
-	<string name="opt_out_fabric_description">Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του MAPS.ME. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.</string>
+	<string name="opt_out_fabric_description">Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του OMaps. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.</string>
 	<string name="opt_out_help_ios_1">Η συσκευή σας μπορεί να παρέχει μια ρύθμιση «Περιορισμένη παρακολούθηση διαφημίσεων» ή «Αποκλεισμό διαφημίσεων με βάση το ενδιαφέρον».</string>
 	<string name="opt_out_help_ios_2">iOS 9 ή υψηλότερο</string>
 	<string name="opt_out_help_ios_3">Πηγαίνετε στις ρυθμίσεις → Απόρρητο → Διαφήμιση → Ενεργοποιήστε την επιλογή «Περιορισμένη παρακολούθηση διαφημίσεων»</string>
@@ -1105,7 +1105,7 @@
 	<string name="category_desc_more">…περισσότερα</string>
 	<string name="title_error_downloading_bookmarks">Συνέβη σφάλμα</string>
 	<string name="subtitle_error_downloading_bookmarks">Οι σελιδοδείκτες δεν κατέβηκαν</string>
-	<string name="whats_new_bookmarks_catalog_title">Το MAPS.ME έχει τώρα κατάλογο διαδρομών</string>
+	<string name="whats_new_bookmarks_catalog_title">Το OMaps έχει τώρα κατάλογο διαδρομών</string>
 	<string name="whats_new_bookmarks_catalog_message">Εκατοντάδες λεπτομερείς διαδρομές από όλο τον κόσμο: πού να πας, τι να δεις, πού να φας.</string>
 	<string name="whats_new_popularity_label_title">Δημοφιλείς τοποθεσίες κοντά σας</string>
 	<string name="whats_new_popularity_label_message">Η ενότητα \"Ανακαλύψτε κοντά\" θα σας βοηθήσει να βρείτε τα πιο δημοφιλή μέρη στην πόλη.</string>
@@ -1122,15 +1122,15 @@
 	<string name="guide_downloaded_subtitle">Πατήστε ‘Προβολή στο χάρτη’ για να δείτε το εγχειρίδιο</string>
 	<string name="bookmarks_guides">Αγαπημένα και εγχειρίδια</string>
 	<string name="remove_ads">Αφαιρέστε τις διαφημίσεις</string>
-	<string name="remove_ads_title">Αφαιρέστε όλες τις διαφημίσεις και υποστηρίξτε το MAPS.ME</string>
+	<string name="remove_ads_title">Αφαιρέστε όλες τις διαφημίσεις και υποστηρίξτε το OMaps</string>
 	<string name="paybtn_title">Πληρώστε %s/χρόνο</string>
 	<string name="paybtn_subtitle">Εξοικονομήστε %s/χρόνο</string>
 	<string name="options_dropdown_title">Περισσότερες επιλογές</string>
-	<string name="why_support">Γιατί να υποστηρίξετε το MAPS.ME?</string>
+	<string name="why_support">Γιατί να υποστηρίξετε το OMaps?</string>
 	<string name="options_dropdown_item1">%1$s/το μήνα (εξοικονομήστε %2$s/χρόνο)</string>
 	<string name="options_dropdown_item2">%s/βδομάδα (καμία εξοικονόμηση)</string>
 	<string name="why_support_item1">Θα αφαιρέσουμε όλες τις διαφημίσεις για σας</string>
-	<string name="why_support_item2">Μας βοηθάτε να βελτιώσουμε το MAPS.ME</string>
+	<string name="why_support_item2">Μας βοηθάτε να βελτιώσουμε το OMaps</string>
 	<string name="why_support_item3">Μας βοηθάτε να βελτιώσουμε ανοιχτούς χάρτες στο OpenStreetMap.org</string>
 	<string name="purchase_processing">Γίνεται επεξεργασία της αγοράς σας…</string>
 	<string name="tips_bookmarks_catalog_title">Οδηγοί εκτός σύνδεσης για κάθε είδους ταξίδι</string>
@@ -1148,7 +1148,7 @@
 	<string name="awaiting_approval">Αναμονή γονεϊκής συναίνεσης</string>
 	<string name="whats_new_leave_review">Αφήστε μια κριτική! Μοιραστείτε τη γνώμη σας για τις τοποθεσίες που επισκεφθήκατε στις διακοπές σας.</string>
 	<string name="server_unavailable_title">Ο εξυπηρετητής δεν είναι διαθέσιμος</string>
-	<string name="server_unavailable_message">Η αγορά θα ολοκληρωθεί αργότερα. Αν το σφάλμα επιμένει, παρακαλώ επικοινωνήστε στο support\@maps.me.</string>
+	<string name="server_unavailable_message">Η αγορά θα ολοκληρωθεί αργότερα. Αν το σφάλμα επιμένει, παρακαλώ επικοινωνήστε στο support\@omaps.app.</string>
 	<string name="offline_fiters_check_in">Συνδεθείτε στο διαδίκτυο για να φιλτράρετε ξενοδοχεία με βάση τις ημερομηνίες.</string>
 	<string name="restore_subscription">Επαναφορά της συνδρομής</string>
 	<string name="restore_success_alert">Η συνδρομή έχει αποκατασταθεί με επιτυχία</string>
@@ -1165,7 +1165,7 @@
 	<string name="ugc_route_tags_progress_msg">Φόρτωση ετικετών…</string>
 	<string name="public_access">Δημόσια πρόσβαση</string>
 	<string name="limited_access">Περιορισμένη πρόσβαση</string>
-	<string name="upload_and_publish_desc">Αυτός ο οδηγός θα ανέβει στο δημόσιο κατάλογο MAPS.ME και θα είναι διαθέσιμος για άλλους χρήστες</string>
+	<string name="upload_and_publish_desc">Αυτός ο οδηγός θα ανέβει στο δημόσιο κατάλογο OMaps και θα είναι διαθέσιμος για άλλους χρήστες</string>
 	<string name="upload_and_publish">Ανέβασμα και δημοσίευση</string>
 	<string name="upload_and_get_direct_link">Ανέβασμα και πάρτε έναν απευθείας σύνδεσμο</string>
 	<string name="get_direct_link_desc">Ο οδηγός σας θα είναι διαθέσιμος σε οποιονδήποτε έχει το σύνδεσμο</string>
@@ -1214,7 +1214,7 @@
 	<string name="notification_channel_downloader">Κατέβασμα χαρτών</string>
 	<string name="notification_leave_review_title">%s- πώς ήταν?</string>
 	<string name="notification_leave_review_content">Βοηθήστε ταξιδιώτες αφήνοντας μια κριτική!</string>
-	<string name="share_bookmarks_email_body_link">Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω MAPS.ME και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω OMaps και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h</string>
 	<string name="warning_speedcams_subtitle">Παρακαλώ να προσέχετε τους κανόνες οδήγησης της χώρας στην οποία ταξιδεύετε.</string>
 	<string name="speedcams_notice_message">Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες</string>
@@ -1231,7 +1231,7 @@
 	<string name="notification_leave_review_v2_title">Αφήστε τα σχόλιά σας και βοηθήστε τους ταξιδιώτες!</string>
 	<string name="error_public_not_enought_title">Δεν υπάρχουν αρκετά σημάδια</string>
 	<string name="error_public_not_enought_subtitle">Η διαδρομή σας πρέπει να έχει τουλάχιστον 3 σημάδια για να μεταφορτωθεί στον δημόσιο κατάλογο</string>
-	<string name="bookmark_public_upload_alert_title">Είστε μόνο μερικά βήματα μακριά από τη φόρτωση της διαδρομής σας στον κατάλογο MAPS.ME!</string>
+	<string name="bookmark_public_upload_alert_title">Είστε μόνο μερικά βήματα μακριά από τη φόρτωση της διαδρομής σας στον κατάλογο OMaps!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Βεβαιωθείτε ότι η διαδρομή έχει τίτλο και περιγραφή και ότι όλα τα σημάδια περιέχουν πληροφορίες σχετικά με τις τοποθεσίες. Χάρη σε αυτό, οι χρήστες θα βρουν τη διαδρομή και θα μπορέσουν να τη χρησιμοποιήσουν στο ταξίδι τους.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Ναι, όλα είναι καλά!</string>
 	<string name="name_title">Εισαγάγετε έναν τίτλο</string>
@@ -1261,7 +1261,7 @@
 	<string name="power_managment_setting_never">Ποτέ</string>
 	<string name="power_managment_setting_auto">Αυτόματα</string>
 	<string name="power_managment_setting_manual_max">Μέγιστη εξοικονόμηση ενέργειας</string>
-	<string name="enable_logging_warning_message">Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του MAPS.ME.</string>
+	<string name="enable_logging_warning_message">Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του OMaps.</string>
 	<string name="html_error_upload_message_try_again">Ελέγξτε την πρόσβαση στο δίκτυο και δοκιμάστε ξανά</string>
 	<string name="html_error_upload_title_try_again">Δεν υπάρχει σύνδεση με το διαδίκτυο</string>
 	<string name="notification_leave_review_v2_android_short_title">Αφήνετε τα σχόλιά σας και βοηθάτε τους ταξιδιώτες!</string>
@@ -1270,7 +1270,7 @@
 	<string name="privacy_settings_menu">Ρυθμίσεις απορρήτου</string>
 	<string name="gdpr_request_setting">Λήψη του αναγνωριστικού αριθμού για το αίτημα GDPR</string>
 	<string name="gdpr_request_window_title">Ο αναγνωριστικός αριθμός σας είναι: %s.</string>
-	<string name="gdpr_request_window_message">Αντιγράψτε το και στείλτε το αίτημα στη διεύθυνση support\@maps.me</string>
+	<string name="gdpr_request_window_message">Αντιγράψτε το και στείλτε το αίτημα στη διεύθυνση support\@omaps.app</string>
 	<string name="gdpr_request_window_copy">Αντιγραφή του αναγνωριστικού αριθμού</string>
 	<string name="unable_upadate_error_title">Δεν ήταν δυνατή η ενημέρωση της διαδρομής</string>
 	<string name="unable_upadate_error_message">Παρουσιάστηκαν σφάλματα κατά την ενημέρωση. Ελέγξτε τις αλλαγές και δοκιμάστε ξανά</string>
@@ -1293,7 +1293,7 @@
 	<string name="avoid_toll_roads_placepage">Αποφυγή των δρόμων με διόδια</string>
 	<string name="avoid_unpaved_roads_placepage">Αποφυγή των χωματόδρομων</string>
 	<string name="avoid_ferry_crossing_placepage">Αποφυγή των πορθμείων</string>
-	<string name="cached_guides_placeholder_subtitle">Οι έτοιμοι οδηγοί του MAPS.ME προσφέρουν κάποια επιλεγμένα μέρη με φωτογραφίες και περιγραφές που εμφανίζονται στον χάρτη και είναι διαθέσιμα εκτός σύνδεσης.</string>
+	<string name="cached_guides_placeholder_subtitle">Οι έτοιμοι οδηγοί του OMaps προσφέρουν κάποια επιλεγμένα μέρη με φωτογραφίες και περιγραφές που εμφανίζονται στον χάρτη και είναι διαθέσιμα εκτός σύνδεσης.</string>
 	<string name="guides_catalogue_title">Κατάλογος οδηγών</string>
 	<string name="download_guides_button">Μετάβαση στον κατάλογο</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1301,12 +1301,12 @@
 	  <item quantity="other">Βάσει %d κριτικών</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Ουζμπεκική κουζίνα</string>
-	<string name="onboarding_welcome_title">Σχεδιάστε και ταξιδέψτε με το MAPS.ME</string>
+	<string name="onboarding_welcome_title">Σχεδιάστε και ταξιδέψτε με το OMaps</string>
 	<string name="onboarding_welcome_first_subtitle">Αποθηκεύετε τα ενδιαφέροντα μέρη, κάντε κράτηση ξενοδοχείων, χτίστε τις διαδρομές εκτός σύνδεσης</string>
 	<string name="onboarding_guide_direct_download_title">Ο οδηγός είναι έτοιμος για λήψη</string>
 	<string name="onboarding_guide_direct_download_subtitle">Θα εμφανίζεται στον χάρτη και θα λειτουργεί εκτός σύνδεσης</string>
 	<string name="onboarding_guide_direct_download_button">Λήψη</string>
-	<string name="onboarding_bydeeplink_guide_title">Έτοιμοι οδηγοί στο MAPS.ME</string>
+	<string name="onboarding_bydeeplink_guide_title">Έτοιμοι οδηγοί στο OMaps</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">Επιλεγμένα μέρη με φωτογραφίες και περιγραφές εμφανίζονται στον χάρτη και είναι διαθέσιμα εκτός σύνδεσης.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Πριν τη μετάβαση στους οδηγούς…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Ενημερώστε τους χάρτες για να λάβετε τις έγκυρες πληροφορίες σχετικά με τα αντικείμενα!</string>
@@ -1337,11 +1337,11 @@
 	<string name="ok">Καλώς</string>
 	<string name="booking_button_toolbar">Επιλέξτε ξενοδοχείο στον χάρτη</string>
 	<string name="popup_booking_download_guides_title">Έχετε κράτηση ξενοδοχείου;</string>
-	<string name="popup_booking_download_guides_message">Προγραμματίστε τη διαδρομή σας με τους έτοιμους οδηγούς MAPS.ME</string>
+	<string name="popup_booking_download_guides_message">Προγραμματίστε τη διαδρομή σας με τους έτοιμους οδηγούς OMaps</string>
 	<string name="popup_mwm_download_guides_title">Οδηγοί εκτός σύνδεσης</string>
 	<string name="popup_mwm_download_guides_cta">Επιλογή</string>
 	<string name="popup_mwm_download_guides_cta_1">Προβολή</string>
-	<string name="gallery_pp_download_guides_offline_title">Προγραμματίστε τις διακοπές σας με το MAPS.ME!</string>
+	<string name="gallery_pp_download_guides_offline_title">Προγραμματίστε τις διακοπές σας με το OMaps!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Μην χάσετε τα πιο σημαντικά πράγματα με τη χρήση των διαδρομών από έμπειρους ταξιδιώτες</string>
 	<string name="gallery_pp_download_guides_offline_cta">Ενεργοποίηση της σύνδεσης με το διαδίκτυο</string>
 	<string name="gallery_pp_download_guides_title">Ταξιδιωτικοί οδηγοί</string>
@@ -1370,7 +1370,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Πλήρης πρόσβαση για %s/το έτος</string>
 	<string name="subscription_terms_guides">Η πληρωμή θα πραγματοποιηθεί από το λογαριασμό σας στο iTunes μετά την επιβεβαίωση αγοράς. Η συνδρομή σας θα ανανεώνεται αυτόματα εκτός εάν η αυτόματη ανανέωση απενεργοποιηθεί τουλάχιστον 24 ώρες πριν από τη λήξη της τρέχουσας περιόδου. Τα ποσά θα χρεώνονται στο λογαριασμό σας σύμφωνα με το πρόγραμμα ανανέωσής σας εντός των 24 ωρών πριν από τη λήξη της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε την αυτόματη ανανέωση ή να την απενεργοποιήσετε στις ρυθμίσεις λογαριασμού Apple ID οποιαδήποτε στιγμή μετά την αγορά. Θα μπορείτε να χρησιμοποιήσετε τους οδηγούς που έχετε κατεβάσει με τη συνδρομή μόνο κατά τη διάρκεια της περιόδου ισχύος της. Οι οδηγοί με όλους τους σελιδοδείκτες θα διαγραφτούν αυτόματα αφού περάσουν 30 ημέρες μετά τη λήξη της συνδρομής.</string>
 	<string name="subscription_terms">Η πληρωμή θα χρεωθεί στον iTunes λογαριασμό σας κατά την επιβεβαίωση της αγοράς. Η συνδρομή θα ανανεωθεί αυτόματα εκτός εάν η αυτόματη ανανέωση είναι απενεργοποιημένη τουλάχιστον 24 ώρες πριν από το τέλος της τρέχουσας περιόδου. Ο λογαριασμός σας θα χρεωθεί σύμφωνα με το σχέδιο ανανέωσής σας εντός 24 ωρών πριν από το τέλος της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε ή να απενεργοποιήσετε την αυτόματη ανανέωση στις ρυθμίσεις του Apple ID λογαριασμού σας ανά πάσα στιγμή κατά την αγορά σας.</string>
-	<string name="whatsnew_carplay_title">Αυτοπλοήγηση MAPS.ME στο CarPlay!</string>
+	<string name="whatsnew_carplay_title">Αυτοπλοήγηση OMaps στο CarPlay!</string>
 	<string name="whatsnew_carplay_message">Ετικέτες, αναζήτηση, κάμερες ταχύτητας και ρυθμίσεις παράκαμψης — όλα λειτουργούν χωρίς την πρόσβαση στο διαδίκτυο</string>
 	<string name="whatsnew_subscription_title">Ανακάλυψε τον κόσμο με συνδρομή!</string>
 	<string name="whatsnew_subscription_message">Η απεριόριστη πρόσβαση στον κατάλογο των διαδρομών συμφέρει πιο πολύ από μια μεμονωμένη αγορά</string>
@@ -1384,7 +1384,7 @@
 	<string name="avoid_tolls_carplay_2">Χωρίς διόδια</string>
 	<string name="speedcams_alert_title_carplay_1">Κάμερες</string>
 	<string name="speedcams_alert_title_carplay_2">Πληροφ. γιαόρια</string>
-	<string name="download_map_carplay">Κάντε λήψη χαρτών στην εφαρμογή MAPS.ME στη συσκευή σας</string>
+	<string name="download_map_carplay">Κάντε λήψη χαρτών στην εφαρμογή OMaps στη συσκευή σας</string>
 	<string name="carplay_roundabout_exit">%s έξοδος</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ταξινόμηση</string>
@@ -1435,7 +1435,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Τάξη στους σελιδοδείκτες κάνει το ταξίδι άνετο</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Ταξινόμηση των αγαπημένων σας τοποθεσιών ανά κατηγορία, ώρα προσθήκης και γεωγραφική κατανομή και γρήγορη εύρεση συγκεκριμένων σελιδοδεικτών με το όνομα</string>
 	<string name="popup_subscription_success_map_title">Ζήτω! Είστε συνδρομητής!</string>
-	<string name="popup_subscription_success_map_message">Τώρα μελετήστε τα καλύτερα τουριστικά αξιοθέατα στον κατάλογο MAPS.ME</string>
+	<string name="popup_subscription_success_map_message">Τώρα μελετήστε τα καλύτερα τουριστικά αξιοθέατα στον κατάλογο OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Προβολή</string>
 	<string name="popup_subscription_success_map_not_now_button">Όχι τώρα</string>
 	<string name="religious_places">Άγιοι τόποι</string>
@@ -1467,9 +1467,9 @@
 	<string name="new_onboarding_step5.1_header">Προτού ξεκινήσετε…</string>
 	<string name="new_onboarding_step5.1_message">Μην ξεχάσετε να επισκεφθείτε τον καινούριο μας κατάλογο διαδρομών για να βρείτε τον οδηγό εκτός σύνδεσης για το επόμενο ταξίδι σας!</string>
 	<string name="new_onboarding_step5.1_button">Άνοιγμα καταλόγου</string>
-	<string name="new_onboarding_step5.2_message">Η εγγραφή στον κατάλογο οδηγών στο MAPS.ME συμφέρει. Αποκτήστε πλήρη πρόσβαση σε διαδρομές για περιπάτους στην πόλη και υπαίθριες δραστηριότητες!</string>
+	<string name="new_onboarding_step5.2_message">Η εγγραφή στον κατάλογο οδηγών στο OMaps συμφέρει. Αποκτήστε πλήρη πρόσβαση σε διαδρομές για περιπάτους στην πόλη και υπαίθριες δραστηριότητες!</string>
 	<string name="new_onboarding_step5.2_button">Προβολή όρων</string>
-	<string name="new_onboarding_step5.3_message">Κάντε λήψη και αξιολογήστε διαδρομές για περιπάτους στην πόλη και υπαίθριες δραστηριότητες με δωρεάν συλλογή του MAPS.ME!</string>
+	<string name="new_onboarding_step5.3_message">Κάντε λήψη και αξιολογήστε διαδρομές για περιπάτους στην πόλη και υπαίθριες δραστηριότητες με δωρεάν συλλογή του OMaps!</string>
 	<string name="new_onboarding_step5.3_button">Δωρεάν λήψη</string>
 	<string name="new_onboarding_additional_steps_later_button">Αργότερα</string>
 	<string name="all_pass_subscription_header">Συνδρομή στον</string>
@@ -1502,7 +1502,7 @@
 	<string name="dialog_pedestrian_route_is_long">Η διαδρομή με τα πόδια μέχρι το σημείο επιβίβασης είναι πολύ μεγάλη</string>
 	<string name="whatsnew_outdoor_guides_title">Έχουμε προσθέσει 15.000 + μονοπάτια για υπαίθριες δραστηριότητες!</string>
 	<string name="whatsnew_outdoor_guides_message">Οι διαδρομές από την Outdooractive για χειμερινές και καλοκαιρινές διακοπές σας περιμένουν στον κατάλογο!</string>
-	<string name="whatsnew_guides_galleries_title">Προγραμματίστε το επόμενο ταξίδι με το MAPS.ME</string>
+	<string name="whatsnew_guides_galleries_title">Προγραμματίστε το επόμενο ταξίδι με το OMaps</string>
 	<string name="whatsnew_guides_galleries_message">Τώρα μπορείτε να βρείτε τους συνιστώμενους οδηγούς στις κάρτες των δημοφιλών πόλεων και αξιοθέατων</string>
 	<string name="new_onboarding_step3_header">Ταξιδέψτε</string>
 	<string name="all_pass_screen_best_value">Καλύτερη τιμή</string>
@@ -1516,7 +1516,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Νιώστε σίγουροι στα ορεινά – ενεργοποιήστε το στρώμα στην πάνω αριστερή γωνία της οθόνης</string>
 	<string name="button_layer_isolines">Υψόμετρα</string>
-	<string name="tips_map_layers_title_countour">Τοπογραφικά στρώματα εκτός σύνδεσης στο MAPS.ME!</string>
+	<string name="tips_map_layers_title_countour">Τοπογραφικά στρώματα εκτός σύνδεσης στο OMaps!</string>
 	<string name="tips_map_layers_message_countour">Τα τοπογραφικά στρώματα θα σας βοηθήσουν να σχεδιάσετε το ταξίδι σας στη φύση και να μην χαθείτε στην περιοχή</string>
 	<string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε τοπογραφικά στρώματα, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
 	<string name="isolines_location_error_dialog">Τα τοπογραφικά στρώματα δεν είναι ακόμα διαθέσιμα σε αυτή την περιοχή</string>

@@ -1277,7 +1277,7 @@ bool Editor::IsFeatureUploadedImpl(FeaturesContainer const & features, MwmSet::M
 }
 
 const char * const Editor::kPlaceDoesNotExistMessage =
-    "The place has gone or never existed. This is an auto-generated note from MAPS.ME application: "
+    "The place has gone or never existed. This is an auto-generated note from OMaps application: "
     "a user reports a POI that is visible on a map (which can be outdated), but cannot be found on "
     "the ground.";
 

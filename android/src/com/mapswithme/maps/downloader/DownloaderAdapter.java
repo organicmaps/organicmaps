@@ -52,7 +52,7 @@ import java.util.Stack;
 class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolderWrapper>
                      implements StickyRecyclerHeadersAdapter<DownloaderAdapter.HeaderViewHolder>
 {
-  private static final String HEADER_ADVERTISMENT_TITLE = "MY.COM";
+  private static final String HEADER_ADVERTISMENT_TITLE = "OMAPS.APP";
   private static final int HEADER_ADVERTISMENT_ID = CountryItem.CATEGORY__LAST + 1;
   private static final int HEADER_ADS_OFFSET = 10;
 

@@ -41,7 +41,7 @@ private:
   std::string m_idMappingPath;
 };
 
-// Here are MAPS.ME representations for GTFS entities, e.g. networks for GTFS agencies.
+// Here are OMaps representations for GTFS entities, e.g. networks for GTFS agencies.
 // https://developers.google.com/transit/gtfs/reference
 
 struct Networks

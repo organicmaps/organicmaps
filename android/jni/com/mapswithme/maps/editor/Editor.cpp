@@ -404,7 +404,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass 
 {
   // TODO: Handle upload status in callback
   Editor::Instance().UploadChanges(jni::ToNativeString(env, token), jni::ToNativeString(env, secret),
-      {{"created_by", "MAPS.ME " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
+      {{"created_by", "OMaps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
        {"bundle_id", jni::ToNativeString(env, appId)}}, nullptr);
 }
 

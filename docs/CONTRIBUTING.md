@@ -1,4 +1,4 @@
-# MAPS.ME Development
+# OMaps Development
 
 ## Issues
 
@@ -6,9 +6,9 @@ The simplest way to contribute is to [submit an issue](https://github.com/omapsa
 Please give developers as much information as possible: OS and application versions,
 list of actions leading to a bug, a log file produced by the app.
 
-When using the MAPS.ME app on a device, use the built-in "Report a bug" option:
+When using the OMaps app on a device, use the built-in "Report a bug" option:
 it creates a new e-mail with a log file attached. Your issue will be processed much
-faster if you send it to bugs@maps.me.
+faster if you send it to bugs@omaps.app.
 
 ## Initializing the Repository
 
@@ -51,7 +51,7 @@ you'll need to create a "data" symlink in the shadow-dir path to the /repo/data 
 
 * Install [Homebrew](http://brew.sh/) and run `brew install qt5`.
 * Run XCode, open `xcode/omim.xcworkspace`.
-* Select "xcMAPS.ME" scheme and run the product.
+* Select "xcOMaps" scheme and run the product.
 
 ## Coding Style
 
@@ -59,8 +59,8 @@ See [CPP_STYLE.md](CPP_STYLE.md). Use `clang-format` when in doubt.
 
 ## Pull Requests
 
-All contributions to MAPS.ME source code should be submitted via github pull requests.
-Each pull request is reviewed by MAPS.ME maintainers, to ensure consistent code style
+All contributions to OMaps source code should be submitted via github pull requests.
+Each pull request is reviewed by OMaps maintainers, to ensure consistent code style
 and quality. Sometimes the review process even for smallest commits can be
 very thorough.
 
@@ -124,7 +124,7 @@ Some of these contain their own README files.
 * `mapshot` - generate screenshots of maps, specified by coordinates and zoom level.
 * `metrics` -
 * `openlr` -
-* `partners_api` - API for partners of the MAPS.ME project.
+* `partners_api` - API for partners of the OMaps project.
 * `pyhelpers` -
 * `qt` - desktop application.
 * `qt_tstfrm` - widgets for visual testing.
@@ -140,5 +140,5 @@ Some of these contain their own README files.
 
 ## Questions?
 
-For any questions about developing MAPS.ME and relevant services - virtually about anything related,
-please write to us at bugs@maps.me, we'll be happy to help.
+For any questions about developing OMaps and relevant services - virtually about anything related,
+please write to us at bugs@omaps.app, we'll be happy to help.

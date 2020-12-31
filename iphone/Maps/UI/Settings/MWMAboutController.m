@@ -78,11 +78,11 @@
   }
   else if (cell == self.privacyPolicyCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://legal.my.com/us/maps/privacy/"]];
+    [self openUrl:[NSURL URLWithString:@"https://omaps.app/terms"]];
   }
   else if (cell == self.termsOfUseCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://legal.my.com/us/maps/tou/"]];
+    [self openUrl:[NSURL URLWithString:@"https://omaps.app/privacy"]];
   }
   else if (cell == self.copyrightCell)
   {

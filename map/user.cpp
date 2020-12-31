@@ -694,13 +694,13 @@ std::string User::GetPhoneAuthUrl(std::string const & redirectUri)
 // static
 std::string User::GetPrivacyPolicyLink()
 {
-  return "https://legal.my.com/us/maps/privacy/";
+  return "https://omaps.app/privacy";
 }
 
 // static
 std::string User::GetTermsOfUseLink()
 {
-  return "https://legal.my.com/us/maps/tou/";
+  return "https://omaps.app/terms";
 }
 
 void User::Request(std::string const & url, BuildRequestHandler const & onBuildRequest,

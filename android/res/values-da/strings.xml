@@ -31,7 +31,7 @@
 	<string name="downloading">Downloader…</string>
 	<string name="get_it_now">Få det nu</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Tak for at du bruger MAPS.ME! Kan du lide appen? Fortæl dine venner om den! Det vil vi være så glade for.</string>
+	<string name="share_on_facebook_text">Tak for at du bruger OMaps! Kan du lide appen? Fortæl dine venner om den! Det vil vi være så glade for.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
 	<!-- Leave Review dialog - Review button -->
@@ -88,7 +88,7 @@
 	<string name="country_status_download_failed">Download mislykket</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Prøv igen</string>
-	<string name="about_menu_title">Om MAPS.ME</string>
+	<string name="about_menu_title">Om OMaps</string>
 	<string name="downloading_touch_to_cancel">Downloader %d%%, tryk for at afbryde</string>
 	<string name="downloaded_touch_to_delete">Downloaded (%s), tryk for at slette</string>
 	<string name="connection_settings">Forbindelsesindstillinger</string>
@@ -97,7 +97,7 @@
 	<string name="unsupported_phone">En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.</string>
 	<string name="download">Download</string>
 	<string name="external_storage_is_not_available">SD-kort/USB lagring med de downloadede kort er ikke tilgængeligt</string>
-	<string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge MAPS.ME</string>
+	<string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app</string>
 	<string name="not_enough_memory">Ikke nok hukommelse til at åbne app</string>
 	<string name="free_space_for_country">Frigør venligst %1$s på din enhed først for at downloade %2$s</string>
@@ -124,7 +124,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Der er opdateringer klar til følgende kort:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Du har ikke brug for MAPS.ME Lite længere, så du kan godt afinstallere den.</string>
+	<string name="suggest_uninstall_lite">Du har ikke brug for OMaps Lite længere, så du kan godt afinstallere den.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s download succesfuldt</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -154,9 +154,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Sæt</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i MAPS.ME.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.</string>
+	<string name="bookmarks_usage_hint">Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i OMaps.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Du har ingen bogmærker endnu. Tryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i MAPS.ME. Åbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.</string>
+	<string name="bookmarks_usage_hint_import_only">Du har ingen bogmærker endnu. Tryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i OMaps. Åbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Indstillinger</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -224,7 +224,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Del via email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">MAPS.ME bogmærker er blevet delt med dig</string>
+	<string name="share_bookmarks_email_subject">OMaps bogmærker er blevet delt med dig</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Indlæser Bogmærker</string>
 	<!-- Kmz file successful loading -->
@@ -244,17 +244,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Download af kort over land er i gang nu.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Vi håber du er glad for at bruge MAPS.ME! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!</string>
+	<string name="appStore_message">Vi håber du er glad for at bruge OMaps! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nej, tak</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hey, tjek min knappenål på MAPS.ME ud! %1$s or %2$s Har du ikke offline kort? Download her: http://maps.me/get</string>
+	<string name="bookmark_share_sms">Hey, tjek min knappenål på OMaps ud! %1$s or %2$s Har du ikke offline kort? Download her: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hey, tjek min nuværende lokation ud på MAPS.ME! %1$s or %2$s. Har du ikke offline kort? Download her: http://maps.me/get</string>
+	<string name="my_position_share_sms">Hey, tjek min nuværende lokation ud på OMaps! %1$s or %2$s. Har du ikke offline kort? Download her: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hey, tjek min knappenål på MAPS.ME kortet ud!</string>
+	<string name="bookmark_share_email_subject">Hey, tjek min knappenål på OMaps kortet ud!</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hey, tjek min nuværende lokation ud på MAPS.ME kortet!</string>
+	<string name="my_position_share_email_subject">Hey, tjek min nuværende lokation ud på OMaps kortet!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Hey, her er jeg nu: %1$s. Tryk på dette link %2$s eller dette %3$s for at se stedet på kortet. Tak.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -340,7 +340,7 @@
 	<string name="placepage_unsorted">Usorteret</string>
 	<string name="search_show_on_map">Vis på kortet</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_ok">Kort data lagring er blevet optimeret. Genstart venligst applikationen.\n\nMAPS.ME mappen i SD-kortet er ikke nødvendig mere. Du kan derfor slette den.</string>
+	<string name="kitkat_migrate_ok">Kort data lagring er blevet optimeret. Genstart venligst applikationen.\n\nOMaps mappen i SD-kortet er ikke nødvendig mere. Du kan derfor slette den.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">På grund af ændringer i Android 4.4 er vi nødsaget til at optimere kort data lagringen, men der er ikke nok plads til at kopiere kort dataen.\n\nFrigør venligst noget plads på din enhed, ellers vil kortene være skrivebeskyttede.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
@@ -362,19 +362,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Download kortet over det sted, hvor du befinder dig</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Fuld version af MAPS.ME er gratis i dag! Download nu og fortæl dine venner om det.</string>
+	<string name="pro_version_is_free_today">Fuld version af OMaps er gratis i dag! Download nu og fortæl dine venner om det.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Vi overfører dine downloadede kort fra MAPS.ME Lite til MAPS.ME. Det kan tage et par minutter.</string>
+	<string name="move_lite_maps_to_pro">Vi overfører dine downloadede kort fra OMaps Lite til OMaps. Det kan tage et par minutter.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Dine downloadede kort er blevet succesfuldt overført til MAPS.ME.</string>
+	<string name="move_lite_maps_to_pro_ok">Dine downloadede kort er blevet succesfuldt overført til OMaps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.</string>
+	<string name="move_lite_maps_to_pro_failed">Det lykkedes ikke at overføre dine kort. Slet venligst OMaps Lite og download kortene igen.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Indstillinger &amp; Mere</string>
 	<!-- Text in menu -->
 	<string name="website">Hjemmeside</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">MAPS.ME Samfund</string>
+	<string name="maps_me_community">OMaps Samfund</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Synes godt om på Facebook</string>
 	<!-- Text in menu -->
@@ -394,11 +394,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Rapportér fejl</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Tilmeld mig MAPS.ME-nyhedsbrev</string>
+	<string name="subscribe_me_subject">Tilmeld mig OMaps-nyhedsbrev</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support\@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på https://www.openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.</string>
+	<string name="about_text">OMaps tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper OMaps med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre OMaps. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support\@omaps.app. Vi besvarer alle henvendelser!\n\nSynes du om OMaps, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om OMaps :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på https://www.openstreetmap.org, og dine ændringer vil figurere på OMaps-appen i forbindelse med frigivelsen af den næste version.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %s</string>
 	<!-- Alert title -->
@@ -410,7 +410,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Venligst opdatér kortet for at oprette en rute.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.</string>
+	<string name="routing_update_maps">Den nye version af OMaps gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Opdatér alle</string>
 	<!-- Cancel all button text -->
@@ -427,7 +427,7 @@
 	<string name="downloader_downloading">Downloader:</string>
 	<string name="downloader_search_results">Fundet</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Ved oprettelse af ruter i MAPS.ME appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!</string>
+	<string name="routing_disclaimer">Ved oprettelse af ruter i OMaps appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Uddateret</string>
 	<!-- Up to date maps category -->
@@ -451,7 +451,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Der blev ikke fundet en rute mellem det valgte begyndelsespunkt og destinationen. Venligst vælg et andet start- eller slutpunkt.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support\@maps.me.</string>
+	<string name="routing_failed_internal_error">Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support\@omaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Hent kort + ruteangivelse</string>
 	<!-- Context menu item for downloader. -->
@@ -482,9 +482,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Jeg har netop bedømt jeres app</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Jeg er MAPS.ME bruger siden %s</string>
+	<string name="rating_user_since">Jeg er OMaps bruger siden %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Kan du lide MAPS.ME?</string>
+	<string name="rating_do_like_maps">Kan du lide OMaps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Tryk på en stjerne for at bedømme vores app.</string>
 	<!-- Text for rating dialog -->
@@ -500,7 +500,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Få kort</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Download opdaterede kort og routing data for at få alle MAPS.ME funktioner.</string>
+	<string name="routing_download_map_and_routing">Download opdaterede kort og routing data for at få alle OMaps funktioner.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Få routing data</string>
 	<!-- Text for routing error dialog -->
@@ -632,7 +632,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">For at oprette en rute skal du hente og opdatere alle kort langs ruten.</string>
 	<string name="rate_alert_title">Kan du lide appen?</string>
-	<string name="rate_alert_default_message">Tak for at du bruger MAPS.ME. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.</string>
+	<string name="rate_alert_default_message">Tak for at du bruger OMaps. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.</string>
 	<string name="rate_alert_five_star_message">Hurra! Vi elsker også dig!</string>
 	<string name="rate_alert_four_star_message">Mange tak, vi vil gøre vores bedste!</string>
 	<string name="rate_alert_less_than_four_star_message">Har du en idé om, hvordan vi kan gøre den bedre?</string>
@@ -687,7 +687,7 @@
 	<string name="editor_report_problem_no_place_title">Stedet findes ikke</string>
 	<string name="editor_report_problem_under_construction_title">Lukket for vedligeholdelse</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplikeret sted</string>
-	<string name="first_launch_congrats_title">MAPS.ME er klart til brug</string>
+	<string name="first_launch_congrats_title">OMaps er klart til brug</string>
 	<string name="first_launch_congrats_text">Søg og navigér i kort over alle verdens lande gratis.</string>
 	<string name="migrate_title">Vigtigt!</string>
 	<!-- Android uses image instead of text. -->
@@ -791,18 +791,18 @@
 	<string name="whatsnew_search_message">Vi har forbedret søgningen efter adresse betydeligt. Se selv.</string>
 	<string name="whatsnew_editor_title">Redigér kortet*</string>
 	<string name="whatsnew_editor_message_1">Tilføj nye steder til kortet og redigér eksisterende direkte fra app\'en.</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME bruger fællesskabsdata fra OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* OMaps bruger fællesskabsdata fra OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Du vil aldrig fare vild igen</string>
 	<string name="onboarding_offline_navigation_message">Planlæg de optimale ruter i bil og til fods selv uden internetforbindelse!</string>
 	<string name="onboarding_offline_navigation_title_2">Offline navigering</string>
 	<string name="onboarding_offline_navigation_message_2">Planlæg de optimale ruter i bil og til fods.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — adgang til verdensomspændende kort uden internet</string>
+	<string name="onboarding_offline_maps_title">OMaps — adgang til verdensomspændende kort uden internet</string>
 	<string name="onboarding_offline_maps_message">Download kortene til det ønskede område en gang, og brug navigerings- og søgefunktionerne uden internetforbindelse.</string>
 	<string name="onboarding_notifications_message">For at modtage de nyeste kort kan du få opdateringsnotifikationer</string>
 	<string name="onboarding_notifications_title">Aktivér opdateringsnotifikationer</string>
 	<string name="onboarding_location_title">Hjælp os med at finde dig</string>
 	<string name="onboarding_location_message">For at bruge navigering og andre funktioner skal vi have adgang til din geolokation.</string>
-	<string name="onboarding_permissions_title">Giv MAPS.ME adgang til lager og position</string>
+	<string name="onboarding_permissions_title">Giv OMaps adgang til lager og position</string>
 	<string name="onboarding_permissions_message">Så du kan hente kort, se steder og trafik i nærheden af dig og benytte navigation.</string>
 	<string name="onboarding_welcome_second_subtitle">Ved at åbne appen accepterer du vores &lt;a href="%1$s">Vilkår for anvendelse&lt;/a> og &lt;a href="%2$s">Fortrolighedspolitik&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Skift lokation</string>
@@ -811,7 +811,7 @@
 	<string name="no_migration_during_navigation">Opdatering er ikke tilladt under navigering.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">For at opdatere app\'en skal du bruge mere plads. Slet unødvendig data.</string>
-	<string name="editor_sharing_title">Jeg forbedrede MAPS.ME kortene</string>
+	<string name="editor_sharing_title">Jeg forbedrede OMaps kortene</string>
 	<string name="editor_comment_will_be_sent">Vi vil sende dine kommentarer til kartograferne.</string>
 	<string name="editor_unsupported_category_message">Du har tilføjet en placering i en kategori som vi ikke understøtter på nuværende tidspunkt. Den vil vises på kortet på et senere tidspunkt.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -828,7 +828,7 @@
 	<string name="core_placepage_unknown_place">Ukendt sted</string>
 	<string name="editor_other_info">Send en besked til OSM-redaktører</string>
 	<string name="editor_detailed_description_hint">Detaljerede bemærkninger</string>
-	<string name="editor_detailed_description">Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i MAPS.ME.</string>
+	<string name="editor_detailed_description">Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i OMaps.</string>
 	<string name="editor_more_about_osm">Mere om OpenStreetMap</string>
 	<string name="editor_operator">Bruger</string>
 	<string name="editor_tag_description">Angiv firmaet, organisationen eller personen som er ansvarlig for faciliteterne.</string>
@@ -849,7 +849,7 @@
 	<string name="current_location_unknown_error_title">Aktuel position er ukendt.</string>
 	<string name="current_location_unknown_error_message">Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.</string>
 	<string name="whatsnew_update_editor_title">Har vi opdateret korteditoren</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME brugere har foretaget 200.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!</string>
+	<string name="whatsnew_update_editor_message">OMaps brugere har foretaget 200.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">For at bruge kortredigering, bedes du opdatere alle kort.</string>
 	<string name="location_services_disabled_header">Placeringsservices er slået fra</string>
@@ -938,7 +938,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Tjek</string>
 	<string name="continue_recent_track_background_button">Fortsæt</string>
-	<string name="recent_track_background_dialog_message">MAPS.ME anvender din geoposition i baggrunden til at gemme din seneste rejserute.</string>
+	<string name="recent_track_background_dialog_message">OMaps anvender din geoposition i baggrunden til at gemme din seneste rejserute.</string>
 	<string name="whatsnew_car_navigation_header">Brugervenlig navigation i køretøjer</string>
 	<string name="whatsnew_car_navigation_message">• Navigationselementerne fylder mindre.\n• Vi viser hastigheden og har tilføjet auto-zoom.</string>
 	<string name="whatsnew_cycle_navigation_2_header">Cykelnavigation</string>
@@ -946,15 +946,15 @@
 	<string name="whatsnew_booking_2_header">Enkel hotelsøgning</string>
 	<string name="whatsnew_booking_2_message">Søgeresultaterne viser hotelbedømmelser og priskategori.</string>
 	<string name="whatsnew_cycle_navigation_header">Cykelnavigation (beta-version)</string>
-	<string name="whatsnew_cycle_navigation_message">Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med MAPS.ME, og del dine kommentarer med os.</string>
+	<string name="whatsnew_cycle_navigation_message">Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med OMaps, og del dine kommentarer med os.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Bedøm på Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Sig det videre til en ven</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hej! Installer MAPS.ME!</string>
+	<string name="tell_friends_text">Hej! Installer OMaps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME er en essentiel offline-app for rejsende. MAPS.ME er baseret på data fra OpenStreetMap, og gør det muligt at redigere disse data.</string>
+	<string name="about_description">OMaps er en essentiel offline-app for rejsende. OMaps er baseret på data fra OpenStreetMap, og gør det muligt at redigere disse data.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -1009,7 +1009,7 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Åbn</string>
-	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
 	<string name="whatsnew_uber_message">Bestil Uber taxi direkte fra app\'en!</string>
 	<string name="dialog_taxi_offline">Det er ikke muligt at bestille en taxi i offlinetilstand.</string>
 	<string name="dialog_taxi_error">Bestilling af en taxi er ikke muligt lige nu.</string>
@@ -1024,7 +1024,7 @@
 	<string name="traffic_update_maps_text">Kortet opdateres for kunne vise trafikdata.</string>
 	<string name="traffic_outdated">Trafikdata er forældede.</string>
 	<string name="big_font">Forøg skriftstørrelsen på kortet</string>
-	<string name="traffic_update_app">Opdater MAPS.ME</string>
+	<string name="traffic_update_app">Opdater OMaps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Appen skal opdateres for at kunne vise trafikdata.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1122,9 +1122,9 @@
 	<string name="button_accept_and_continue">Accepter og fortsæt</string>
 	<string name="button_learn_more">Flere oplysninger</string>
 	<string name="onboarding_storage_permissions_title">Giv adgang</string>
-	<string name="onboarding_storage_permissions_message">Rediger tilladelsesindstillingerne i din enhed. Brug af MAPS.ME kræver adgang til lager.</string>
+	<string name="onboarding_storage_permissions_message">Rediger tilladelsesindstillingerne i din enhed. Brug af OMaps kræver adgang til lager.</string>
 	<string name="button_exit">Afslut</string>
-	<string name="onboarding_detail_permissions_title">MAPS.ME skal have adgang til</string>
+	<string name="onboarding_detail_permissions_title">OMaps skal have adgang til</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Lager</string>
 	<string name="onboarding_detail_permissions_storage_message">For at gemme og bruge hentede kort offline og gemme bogmærker.</string>
@@ -1195,7 +1195,7 @@
 	<string name="whats_new_ugc_title_updated_v840">Vurderinger og anmeldelser</string>
 	<string name="whats_new_ugc_message">Du kan nu afgive vurderinger og anmeldelser, selv offline! Glem ikke at opdatere dit kort, så du kan se ændringerne.</string>
 	<string name="dialog_error_storage_title">Problem med lageradgang</string>
-	<string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support\@maps.me</string>
+	<string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support\@omaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulere beskadiget lager</string>
 	<string name="discovery_button_title">Find noget i nærheden</string>
 	<string name="discovery_button_subtitle_things_to_do">Aktiviteter</string>
@@ -1290,16 +1290,16 @@
 	<string name="sign_message_gdpr">For at fortsætte skal du acceptere vores Vilkår for brug og Privacy Policy. Læs dem grundigt.</string>
 	<string name="sign_agree_pp_gdpr">Jeg accepterer &lt;a href="%s">Politik til beskyttelse af personlige oplysninger&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Jeg accepterer &lt;a href="%s">Vilkår for brug&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Jeg accepterer at modtage de seneste nyheder om MAPS.ME produkter</string>
+	<string name="sign_agree_news_gdpr">Jeg accepterer at modtage de seneste nyheder om OMaps produkter</string>
 	<string name="whats_new_localbiz_title">Mindre virksomheder fortjener opmærksomhed</string>
-	<string name="whats_new_localbiz_message">Det være sig de lokale caféer, hyggelige hoteller og de butikker, som gør vores rejser uforglemmelige. Vi kan optimere din side på MAPS.ME, så den skiller sig ud fra mængden.</string>
+	<string name="whats_new_localbiz_message">Det være sig de lokale caféer, hyggelige hoteller og de butikker, som gør vores rejser uforglemmelige. Vi kan optimere din side på OMaps, så den skiller sig ud fra mængden.</string>
 	<string name="whats_new_order_button">Send en forespørgsel</string>
 	<string name="bookmarks_page_downloaded">Downloadet</string>
 	<string name="bookmarks_page_my">Mine</string>
 	<string name="routes_and_bookmarks">Ruter og bogmærker</string>
 	<string name="bookmarks_webview_success_toast">Bogmærker er downloadet</string>
 	<string name="cached_bookmarks_placeholder_title">Download nye steder</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Tryk på knappen for at downloade tusindvis af interessanter steder og ruter oprettet af brugerne på MAPS.ME. Du skal bruge en internetforbindelse.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Tryk på knappen for at downloade tusindvis af interessanter steder og ruter oprettet af brugerne på OMaps. Du skal bruge en internetforbindelse.</string>
 	<string name="downloader_download_routers">Download bogmærker</string>
 	<string name="bookmarks_groups_cached">Downloadede lister</string>
 	<string name="author_name_by_prefix">af %s</string>
@@ -1319,7 +1319,7 @@
 	<string name="opt_out_flurry">Statistik</string>
 	<string name="opt_out_mopub">Personaliserede reklamer</string>
 	<string name="opt_out_fabric">Nedbrudsrapport</string>
-	<string name="opt_out_fabric_description">Vi kan anvende dine data til at forbedre brugeroplevelsen på MAPS.ME. Ændringerne træder i kraft, når du har genstartet appen.</string>
+	<string name="opt_out_fabric_description">Vi kan anvende dine data til at forbedre brugeroplevelsen på OMaps. Ændringerne træder i kraft, når du har genstartet appen.</string>
 	<string name="opt_out_help_ios_1">Din mobilenhed kan indeholde en »Begræns reklamesporing« eller »Afmeld Tilpasset annoncering« indstiling.</string>
 	<string name="opt_out_help_ios_2">iOS 9 eller højere</string>
 	<string name="opt_out_help_ios_3">Gå til Indstillinger → Generelt → Begræsninger → Reklamer → Aktiver »Begræns reklamesporing« funktionen</string>
@@ -1340,7 +1340,7 @@
 	<string name="category_desc_more">…mere</string>
 	<string name="title_error_downloading_bookmarks">Der er opstået en fejl</string>
 	<string name="subtitle_error_downloading_bookmarks">Bogmærker er ikke blevet downloadet</string>
-	<string name="whats_new_bookmarks_catalog_title">MAPS.ME har nu et rutekatalog</string>
+	<string name="whats_new_bookmarks_catalog_title">OMaps har nu et rutekatalog</string>
 	<string name="whats_new_bookmarks_catalog_message">Hundreder af detaljerede ruter over hele verden: hvor man kan tage hen, hvad man kan se, hvad man kan spise.</string>
 	<string name="whats_new_popularity_label_title">Populære steder i nærheden</string>
 	<string name="whats_new_popularity_label_message">Hvad man kan lave-sektionen hjælper dig til at finde de mest populære steder i byen.</string>
@@ -1357,15 +1357,15 @@
 	<string name="guide_downloaded_subtitle">Tryk på \'Se på kort\' for at udforske vejledningen</string>
 	<string name="bookmarks_guides">Bogmærker og vejledninger</string>
 	<string name="remove_ads">Fjern reklamer</string>
-	<string name="remove_ads_title">Fjern alle reklamer, og støt MAPS.ME</string>
+	<string name="remove_ads_title">Fjern alle reklamer, og støt OMaps</string>
 	<string name="paybtn_title">Betal %s/år</string>
 	<string name="paybtn_subtitle">Spar %s/år</string>
 	<string name="options_dropdown_title">Flere valgmuligheder</string>
-	<string name="why_support">Hvorfor støtte MAPS.ME?</string>
+	<string name="why_support">Hvorfor støtte OMaps?</string>
 	<string name="options_dropdown_item1">%1$s/måned (spar %2$s/år)</string>
 	<string name="options_dropdown_item2">%s/uge (ingen rabat)</string>
 	<string name="why_support_item1">Vi fjerner alle reklamer for dig</string>
-	<string name="why_support_item2">Du hjælper os med at forbedre MAPS.ME</string>
+	<string name="why_support_item2">Du hjælper os med at forbedre OMaps</string>
 	<string name="why_support_item3">Du hjælper os med at forbedre de åbne kort på OpenStreetMap.org</string>
 	<string name="purchase_processing">Dit køb er under behandling…</string>
 	<string name="tips_bookmarks_catalog_title">Offline-vejvisere til enhver rejse</string>
@@ -1383,7 +1383,7 @@
 	<string name="awaiting_approval">Afventer forældregodkendelse</string>
 	<string name="whats_new_leave_review">Skriv en anmeldelse! Del din mening om de steder, du har besøgt på din ferie.</string>
 	<string name="server_unavailable_title">Server er utilgængelig</string>
-	<string name="server_unavailable_message">Købet vil blive gennemført senere. Hvis fejlen bliver ved med at opstå, så kontakt venligst support\@maps.me.</string>
+	<string name="server_unavailable_message">Købet vil blive gennemført senere. Hvis fejlen bliver ved med at opstå, så kontakt venligst support\@omaps.app.</string>
 	<string name="offline_fiters_check_in">Tilslutter til internettet for at filtrere hoteller efter datoer.</string>
 	<string name="restore_subscription">Genopret abonnementet</string>
 	<string name="restore_success_alert">Abonnementet er blevet genoprettet</string>
@@ -1400,7 +1400,7 @@
 	<string name="ugc_route_tags_progress_msg">Indlæser tags…</string>
 	<string name="public_access">Offentlig adgang</string>
 	<string name="limited_access">Begrænset adgang</string>
-	<string name="upload_and_publish_desc">Denne guide vil blive uploadet til det offentlige MAPS.ME katalog, hvor den vil være tilgængelig for andre brugere</string>
+	<string name="upload_and_publish_desc">Denne guide vil blive uploadet til det offentlige OMaps katalog, hvor den vil være tilgængelig for andre brugere</string>
 	<string name="upload_and_publish">Upload og offentliggør</string>
 	<string name="upload_and_get_direct_link">Upload og få et direkte link</string>
 	<string name="get_direct_link_desc">Din guide vil være tilgængelig for alle, som har linket</string>
@@ -1451,12 +1451,12 @@
 	<string name="notification_channel_downloader">Korthenter</string>
 	<string name="notification_leave_review_title">%s - hvordan var det?</string>
 	<string name="notification_leave_review_content">Hjælp rejsende ved at skrive en anmeldelse!</string>
-	<string name="share_bookmarks_email_body_link">Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via MAPS.ME og nyd turen!\n\nHent applikation: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via OMaps og nyd turen!\n\nHent applikation: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t</string>
 	<string name="warning_speedcams_subtitle">Vær opmærksom på færdselsreglerne i det land, du rejser til.</string>
 	<string name="speedcams_notice_message">Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer</string>
 	<string name="whats_new_ugc_routes_title">Det er nemt at dele dine indtryk</string>
-	<string name="whats_new_ugc_routes_subtitle">Gem mindeværdige steder, lav ruter ved hjælp af bogmærker og del dem med alle i MAPS.ME kataloget.</string>
+	<string name="whats_new_ugc_routes_subtitle">Gem mindeværdige steder, lav ruter ved hjælp af bogmærker og del dem med alle i OMaps kataloget.</string>
 	<string name="whats_new_webeditor_title">Lav dine ruter om til historier</string>
 	<string name="whats_new_ugc_routes_message2">Tilføj fotos og detaljerede historier i webredaktøren.</string>
 	<string name="whatsnew_standard_routes_title">Standard ruter</string>
@@ -1473,7 +1473,7 @@
 	<string name="notification_leave_review_v2_title">Vurder et besøgt sted og hjælp rejsende!</string>
 	<string name="error_public_not_enought_title">Ikke nok bogmærker</string>
 	<string name="error_public_not_enought_subtitle">Du skal have mindst 3 bogmærker, for at kunne uploade din guide til det offentlige katalog</string>
-	<string name="bookmark_public_upload_alert_title">Du er et par skridt væk fra at dele dine bogmærker med alle MAPS.ME rejsende!</string>
+	<string name="bookmark_public_upload_alert_title">Du er et par skridt væk fra at dele dine bogmærker med alle OMaps rejsende!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Sørg for, at du har et bestemt navn og en beskrivelse til din liste, og at alle bogmærker har oplysninger om stederne. På denne måde kan din liste findes og bruges af andre.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Ja, jeg er sikker!</string>
 	<string name="name_title">Indtast navn på din guide</string>
@@ -1503,7 +1503,7 @@
 	<string name="power_managment_setting_never">Aldrig</string>
 	<string name="power_managment_setting_auto">Automatisk</string>
 	<string name="power_managment_setting_manual_max">Maksimum strømbesparelse</string>
-	<string name="enable_logging_warning_message">Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra MAPS.ME support.</string>
+	<string name="enable_logging_warning_message">Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra OMaps support.</string>
 	<string name="html_error_upload_message_try_again">Kontroller dine netværksindstillinger, og prøv igen</string>
 	<string name="html_error_upload_title_try_again">Ingen internetforbindelse</string>
 	<string name="notification_leave_review_v2_android_short_title">Anmeld og hjælpe rejsende!</string>
@@ -1512,7 +1512,7 @@
 	<string name="privacy_settings_menu">Indstillinger for beskyttelse af personlige oplysninger</string>
 	<string name="gdpr_request_setting">Få ID til GDPR anmodning</string>
 	<string name="gdpr_request_window_title">Dit ID: %s.</string>
-	<string name="gdpr_request_window_message">Kopiere det og send anmodningen til support\@maps.me</string>
+	<string name="gdpr_request_window_message">Kopiere det og send anmodningen til support\@omaps.app</string>
 	<string name="gdpr_request_window_copy">Kopier ID\'et</string>
 	<string name="unable_upadate_error_title">Fil opdatering fejlede</string>
 	<string name="unable_upadate_error_message">Der opstod nogle fejl under opdatering. Kontroller ændringerne, og prøv igen</string>
@@ -1535,7 +1535,7 @@
 	<string name="avoid_toll_roads_placepage">Undgå betalingsveje</string>
 	<string name="avoid_unpaved_roads_placepage">Undgå grusveje</string>
 	<string name="avoid_ferry_crossing_placepage">Undgå færgeoverfarter</string>
-	<string name="cached_guides_placeholder_subtitle">MAPS.ME tilbyder færdiglavede guides med fotos og beskrivelser til de udvalgte steder, der vises på kortet, som er tilgængelige offline.</string>
+	<string name="cached_guides_placeholder_subtitle">OMaps tilbyder færdiglavede guides med fotos og beskrivelser til de udvalgte steder, der vises på kortet, som er tilgængelige offline.</string>
 	<string name="guides_catalogue_title">Katalog over Guides</string>
 	<string name="download_guides_button">Gå til Kataloget</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1543,12 +1543,12 @@
 	  <item quantity="other">Baseret på %d anmeldelser</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Usbekisk køkken</string>
-	<string name="onboarding_welcome_title">Planlæg og rejs med MAPS.ME</string>
+	<string name="onboarding_welcome_title">Planlæg og rejs med OMaps</string>
 	<string name="onboarding_welcome_first_subtitle">Bookmark interessante steder, book hoteller og beregn ruter offline</string>
 	<string name="onboarding_guide_direct_download_title">Guide er klar til download</string>
 	<string name="onboarding_guide_direct_download_subtitle">Det vil blive vist på kort og fungerer offline</string>
 	<string name="onboarding_guide_direct_download_button">Download</string>
-	<string name="onboarding_bydeeplink_guide_title">Klar-til-brug guider i MAPS.ME</string>
+	<string name="onboarding_bydeeplink_guide_title">Klar-til-brug guider i OMaps</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">De bedste steder at besøge er vist på kort med fotos og beskrivelser. Fungerer offline.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Før du fortsætter til guider…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Opdater kort for at holde informationen opdateret!</string>
@@ -1579,11 +1579,11 @@
 	<string name="ok">Ok</string>
 	<string name="booking_button_toolbar">Vælg et hotel på kortet</string>
 	<string name="popup_booking_download_guides_title">Book et hotel?</string>
-	<string name="popup_booking_download_guides_message">Planlæg din rute med færdiglavede guider fra MAPS.ME</string>
+	<string name="popup_booking_download_guides_message">Planlæg din rute med færdiglavede guider fra OMaps</string>
 	<string name="popup_mwm_download_guides_title">Offline byguides</string>
 	<string name="popup_mwm_download_guides_cta">Vælg en</string>
 	<string name="popup_mwm_download_guides_cta_1">Tag et kig</string>
-	<string name="gallery_pp_download_guides_offline_title">Planlæg din ferie med MAPS.ME!</string>
+	<string name="gallery_pp_download_guides_offline_title">Planlæg din ferie med OMaps!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Gå ikke glip af noget med guider lavet af erfarne rejsende</string>
 	<string name="gallery_pp_download_guides_offline_cta">Tilslut internettet</string>
 	<string name="gallery_pp_download_guides_title">Guider</string>
@@ -1612,7 +1612,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Ubegrænset adgang til %s/år</string>
 	<string name="subscription_terms_guides">Betalingen vil blive opkrævet via din iTunes konto, efter købet er bekræftet. Abonnementet fornys automatisk, medmindre automatisk fornyelse er slået fra mindst 24 timer før udgangen af nuværende periode. Din konto vil blive ændret ifølge din fornyelsesplan, indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller deaktivere automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt for dit køb. Du kan kun bruge downloadede guider indtil dennes udløbsdato. Efter 30 dage fra abonnementets udløbsdato, vil guider med bookmarks automatisk blive slettet.</string>
 	<string name="subscription_terms">Betalingen opkræves via din iTunes-konto ved bekræftelse af købet. Abonnementet fornys automatisk, medmindre den automatiske fornyelse er slået fra senest 24 timer før udgangen af den aktuelle periode. Din konto debiteres i overensstemmelse med din plan for fornyelse indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller slukke for automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt af dit køb.</string>
-	<string name="whatsnew_carplay_title">MAPS.ME bil navigation i CarPlay!</string>
+	<string name="whatsnew_carplay_title">OMaps bil navigation i CarPlay!</string>
 	<string name="whatsnew_carplay_message">Bogmærker, søgning, fartkameraer og køre muligheder er tilgængelige offline</string>
 	<string name="whatsnew_subscription_title">Hele verdenen via abonnement!</string>
 	<string name="whatsnew_subscription_message">Ubegrænset adgang til Katalog over Guider er mere rentabelt end et engangskøb</string>
@@ -1626,7 +1626,7 @@
 	<string name="avoid_tolls_carplay_2">Undgå betaling</string>
 	<string name="speedcams_alert_title_carplay_1">Radarkontrol</string>
 	<string name="speedcams_alert_title_carplay_2">Radar advarsel</string>
-	<string name="download_map_carplay">Download kort i MAPS.ME appen, på din enhed</string>
+	<string name="download_map_carplay">Download kort i OMaps appen, på din enhed</string>
 	<string name="carplay_roundabout_exit">%s exit</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sort…</string>
@@ -1677,7 +1677,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Rækkefølgen i bookmarks gør en rejse behagelig</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortere favoritsteder efter kategori, placering og rækkefølge, samt finde specifikke bogmærker hurtigt, efter deres navn</string>
 	<string name="popup_subscription_success_map_title">Juuhuu, du har abonnement!</string>
-	<string name="popup_subscription_success_map_message">Opdag nu de bedste turisthøjdepunkter i MAPS.ME kataloget</string>
+	<string name="popup_subscription_success_map_message">Opdag nu de bedste turisthøjdepunkter i OMaps kataloget</string>
 	<string name="popup_subscription_success_map_start_button">Begynd at udforske</string>
 	<string name="popup_subscription_success_map_not_now_button">Ikke nu</string>
 	<string name="religious_places">Religiøse steder</string>
@@ -1709,9 +1709,9 @@
 	<string name="new_onboarding_step5.1_header">En ting mere før du starter…</string>
 	<string name="new_onboarding_step5.1_message">Glem ikke at besøge vores helt nye guidekatalog for at en finde en offline guide til din kommende rejse!</string>
 	<string name="new_onboarding_step5.1_button">Åbent katalog</string>
-	<string name="new_onboarding_step5.2_message">Dit abonnement til MAPS.ME guidekatalog er af stor værdi. Få fuld adgang til byen og udendørsguider i hele verden!</string>
+	<string name="new_onboarding_step5.2_message">Dit abonnement til OMaps guidekatalog er af stor værdi. Få fuld adgang til byen og udendørsguider i hele verden!</string>
 	<string name="new_onboarding_step5.2_button">Check betingelserne ud</string>
-	<string name="new_onboarding_step5.3_message">Check de gratis prøver på færdige by- og udendørsruter med et gratis udvalg af MAPS.ME!</string>
+	<string name="new_onboarding_step5.3_message">Check de gratis prøver på færdige by- og udendørsruter med et gratis udvalg af OMaps!</string>
 	<string name="new_onboarding_step5.3_button">Gratis download</string>
 	<string name="new_onboarding_additional_steps_later_button">Senere</string>
 	<string name="all_pass_subscription_header">Abonner på</string>
@@ -1744,7 +1744,7 @@
 	<string name="dialog_pedestrian_route_is_long">Gåturen til transportens boardingsted er for lang</string>
 	<string name="whatsnew_outdoor_guides_title">Vi har tilføjet 15000+ udendørs ruter!</string>
 	<string name="whatsnew_outdoor_guides_message">Ruter fra Outdooractive til vinter- og summerture venter i kataloget!</string>
-	<string name="whatsnew_guides_galleries_title">Planlæg din kommende tur med MAPS.ME</string>
+	<string name="whatsnew_guides_galleries_title">Planlæg din kommende tur med OMaps</string>
 	<string name="whatsnew_guides_galleries_message">Nu kan du finde anbefalede guides på stedsiderne om populære turistbyer og syn</string>
 	<string name="new_onboarding_step3_header">Oplevelse</string>
 	<string name="all_pass_screen_best_value">Bedste værdi</string>
@@ -1758,7 +1758,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Følg dig selvsikker i det bjergrige område. Tænd bare for laget i det øverste venstre hjørne</string>
 	<string name="button_layer_isolines">Terræn</string>
-	<string name="tips_map_layers_title_countour">Nyt på MAPS.ME: offline topografiske lag!</string>
+	<string name="tips_map_layers_title_countour">Nyt på OMaps: offline topografiske lag!</string>
 	<string name="tips_map_layers_message_countour">Planlæg og nyd din naturtur ved at være sikker på, at du ved alt om området</string>
 	<string name="isolines_activation_error_dialog">For at aktivere og bruge de topografiske lag, opdater venligst eller download kortet for området</string>
 	<string name="isolines_location_error_dialog">Det topografiske lag er endnu ikke tilgængeligt i dette område</string>

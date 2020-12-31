@@ -40,7 +40,7 @@ std::string const kKmlFooter =
     "</kml>\n";
 
 std::string const kExtendedDataHeader =
-  "<ExtendedData xmlns:mwm=\"https://maps.me\">\n";
+  "<ExtendedData xmlns:mwm=\"https://omaps.app\">\n";
 
 std::string const kExtendedDataFooter =
   "</ExtendedData>\n";
@@ -200,7 +200,7 @@ void SaveStyle(KmlWriter::WriterWrapper & writer, std::string const & style,
   writer << offsetStr << kIndent2 << "<Style id=\"" << style << "\">\n"
          << offsetStr << kIndent4 << "<IconStyle>\n"
          << offsetStr << kIndent6 << "<Icon>\n"
-         << offsetStr << kIndent8 << "<href>http://maps.me/placemarks/" << style << ".png</href>\n"
+         << offsetStr << kIndent8 << "<href>https://omaps.app/placemarks/" << style << ".png</href>\n"
          << offsetStr << kIndent6 << "</Icon>\n"
          << offsetStr << kIndent4 << "</IconStyle>\n"
          << offsetStr << kIndent2 << "</Style>\n";
@@ -921,7 +921,7 @@ void KmlParser::Pop(std::string const & tag)
   {
     // This code assumes that <Style> is stored inside <Placemark>.
     // It is a violation of KML format, but it must be here to support
-    // loading of KML files which were stored by older versions of MAPS.ME.
+    // loading of KML files which were stored by older versions of OMaps.
     TrackLayer layer;
     layer.m_lineWidth = m_trackWidth;
     layer.m_color.m_predefinedColor = PredefinedColor::None;

@@ -38,7 +38,7 @@
       <true/>
       <key>NSExceptionDomains</key>
       <dict>
-        <key>maps.me</key>
+        <key>omaps.app</key>
         <dict>
           <key>NSExceptionAllowsInsecureHTTPLoads</key>
           <true/>

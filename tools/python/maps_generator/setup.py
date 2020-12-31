@@ -16,8 +16,8 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
     setuptools.setup(
         name="omim-maps_generator",
         version=str(get_version()),
-        author="My.com B.V. (Mail.Ru Group)",
-        author_email="dev@maps.me",
+        author="The OMaps Project",
+        author_email="dev@omaps.app",
         description="This package contains tools for maps generation.",
         url="https://github.com/mapsme",
         package_dir={"maps_generator": ""},

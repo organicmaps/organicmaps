@@ -31,7 +31,7 @@
 	<string name="downloading">Se descarcă…</string>
 	<string name="get_it_now">Obțineți acum</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Vă mulțumim că folosiți MAPS.ME! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.</string>
+	<string name="share_on_facebook_text">Vă mulțumim că folosiți OMaps! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -90,7 +90,7 @@
 	<string name="country_status_download_failed">Se descarcă a eșuat</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Încercați din nou</string>
-	<string name="about_menu_title">Despre MAPS.ME</string>
+	<string name="about_menu_title">Despre OMaps</string>
 	<string name="downloading_touch_to_cancel">Se descarcă %d%%. Atingeți pentru a anula.</string>
 	<string name="downloaded_touch_to_delete">Descărcat (%s). Atingeți pentru a șterge.</string>
 	<string name="connection_settings">Setări conexiune</string>
@@ -99,7 +99,7 @@
 	<string name="unsupported_phone">Este necesar un OpenGL accelerat din hardware. Din păcate, dispozitivul nu este acceptat.</string>
 	<string name="download">Descărcare</string>
 	<string name="external_storage_is_not_available">Cartela SD/dispozitivul de stocare USB cu hărțile descărcate nu este disponibil.</string>
-	<string name="disconnect_usb_cable">Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza MAPS.ME.</string>
+	<string name="disconnect_usb_cable">Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza OMaps.</string>
 	<string name="not_enough_free_space_on_sdcard">Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.</string>
 	<string name="not_enough_memory">Nu este suficientă memorie pentru a lansa aplicația.</string>
 	<string name="free_space_for_country">Vă rugăm să eliberați %1$s spațiu pe dispozitivul dvs., pentru a putea descărca %2$s.</string>
@@ -126,7 +126,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Actualizări disponibile pentru aceste hărți:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Nu mai aveți nevoie de MAPS.ME Lite, îl puteți dezinstala.</string>
+	<string name="suggest_uninstall_lite">Nu mai aveți nevoie de OMaps Lite, îl puteți dezinstala.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s, descărcată cu succes</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -156,9 +156,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.</string>
+	<string name="bookmarks_usage_hint">Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe OMaps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Pot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.</string>
+	<string name="bookmarks_usage_hint_import_only">Pot fi importate și afișate pe OMaps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Setări</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -220,7 +220,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Partajare prin email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Marcaje MAPS.ME partajate</string>
+	<string name="share_bookmarks_email_subject">Marcaje OMaps partajate</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Se încarcă marcajele</string>
 	<!-- Kmz file successful loading -->
@@ -240,17 +240,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Descărcarea hărților pentru țara dorită este în curs.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Sperăm că vă place MAPS.ME! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!</string>
+	<string name="appStore_message">Sperăm că vă place OMaps! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nu, mulțumesc</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hei, poți vedea care este poziția mea pe MAPS.ME! %1$s sau %2$s Nu ai instalate hărțile offline? Descarcă de aici: http://maps.me/get</string>
+	<string name="bookmark_share_sms">Hei, poți vedea care este poziția mea pe OMaps! %1$s sau %2$s Nu ai instalate hărțile offline? Descarcă de aici: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hei, îmi poți vedea poziția actuală pe MAPS.ME! %1$s sau %2$s Nu ai hărțile offline? Descarcă de aici: http://maps.me/get</string>
+	<string name="my_position_share_sms">Hei, îmi poți vedea poziția actuală pe OMaps! %1$s sau %2$s Nu ai hărțile offline? Descarcă de aici: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hei, poți vedea care este poziția mea pe harta MAPS.ME!</string>
+	<string name="bookmark_share_email_subject">Hei, poți vedea care este poziția mea pe harta OMaps!</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hei, îmi poți vedea poziția actuală pe harta MAPS.ME!</string>
+	<string name="my_position_share_email_subject">Hei, îmi poți vedea poziția actuală pe harta OMaps!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Chào,\n\nTôi hiện đang ở đây: %1$s. Hãy nhấn vào liên kết này %2$s hoặc liên kết này %3$s để xem địa điểm trên bản đồ.\n\nCám ơn.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -354,15 +354,15 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Descărcați harta locului în care vă aflați</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Transferăm hărțile dvs. descărcate din MAPS.ME Lite în MAPS.ME. Acest lucru poate dura câteva minute.</string>
+	<string name="move_lite_maps_to_pro">Transferăm hărțile dvs. descărcate din OMaps Lite în OMaps. Acest lucru poate dura câteva minute.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Hărțile dvs. descărcate sunt transferate cu succes către MAPS.ME.</string>
+	<string name="move_lite_maps_to_pro_ok">Hărțile dvs. descărcate sunt transferate cu succes către OMaps.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Setări și altele</string>
 	<!-- Text in menu -->
 	<string name="website">Site web</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Comunitatea MAPS.ME</string>
+	<string name="maps_me_community">Comunitatea OMaps</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Apreciați-ne pe Facebook</string>
 	<!-- Text in menu -->
@@ -382,11 +382,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Raportați o eroare</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Abonează-mă la buletinul informativ MAPS.ME.</string>
+	<string name="subscribe_me_subject">Abonează-mă la buletinul informativ OMaps.</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support\@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.</string>
+	<string name="about_text">OMaps oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, OMaps vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți OMaps. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support\@omaps.app. Răspundem la fiecare solicitare!\n\nVă place OMaps și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre OMaps. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația OMaps atunci când va fi lansată versiunea următoare.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %s.</string>
 	<!-- Alert title -->
@@ -398,7 +398,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Vă rugăm să actualizați harta pentru a crea o rută.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Noua versiune a MAPS.ME vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.</string>
+	<string name="routing_update_maps">Noua versiune a OMaps vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Actualizați toate</string>
 	<!-- Cancel all button text -->
@@ -415,7 +415,7 @@
 	<string name="downloader_downloading">Descărcare:</string>
 	<string name="downloader_search_results">S-au găsit</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!</string>
+	<string name="routing_disclaimer">Atunci când creați rute în aplicația OMaps, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Neactualizată</string>
 	<!-- Up to date maps category -->
@@ -439,7 +439,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Nu am găsit nicio rută între punctul de pornire și destinația selectată. Vă rugăm să alegeți un alt punct de pornire sau de destinație.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support\@maps.me.</string>
+	<string name="routing_failed_internal_error">A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support\@omaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Descărcare hartă + traseu</string>
 	<!-- Context menu item for downloader. -->
@@ -470,9 +470,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Tocmai ți-am votat aplicația</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Sunt utilizator MAPS.ME din %s</string>
+	<string name="rating_user_since">Sunt utilizator OMaps din %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Îți place MAPS.ME?</string>
+	<string name="rating_do_like_maps">Îți place OMaps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Apasă pe una dintre stele pentru a ne vota aplicația</string>
 	<!-- Text for rating dialog -->
@@ -488,7 +488,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Descărcați harta</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Descărcați harta actualizată și informațiile pentru direcționare, pentru a beneficia de toate funcțiile MAPS.ME.</string>
+	<string name="routing_download_map_and_routing">Descărcați harta actualizată și informațiile pentru direcționare, pentru a beneficia de toate funcțiile OMaps.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Descărcați informațiile pentru direcționare</string>
 	<!-- Text for routing error dialog -->
@@ -619,7 +619,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Pentru a crea o rută, vă rugăm să descărcați și să actualizați toate hărțile de pe parcursul rutei.</string>
 	<string name="rate_alert_title">Vă place aplicația?</string>
-	<string name="rate_alert_default_message">Vă mulțumim că folosiți MAPS.ME. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.</string>
+	<string name="rate_alert_default_message">Vă mulțumim că folosiți OMaps. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.</string>
 	<string name="rate_alert_five_star_message">Ura! Și noi vă iubim!</string>
 	<string name="rate_alert_four_star_message">Vă mulțumim, vom face tot ce ne stă în putință!</string>
 	<string name="rate_alert_less_than_four_star_message">Aveți vreo idee prin care putem să îmbunătățim aplicația?</string>
@@ -674,7 +674,7 @@
 	<string name="editor_report_problem_no_place_title">Această locație nu există</string>
 	<string name="editor_report_problem_under_construction_title">Închis pentru întreținere</string>
 	<string name="editor_report_problem_duplicate_place_title">Locație dublată</string>
-	<string name="first_launch_congrats_title">MAPS.ME este gata pentru utilizare</string>
+	<string name="first_launch_congrats_title">OMaps este gata pentru utilizare</string>
 	<string name="first_launch_congrats_text">Căutați și navigați în regim offline oriunde în lume, în mod gratuit.</string>
 	<string name="migrate_title">Important!</string>
 	<!-- Android uses image instead of text. -->
@@ -778,18 +778,18 @@
 	<string name="whatsnew_search_message">Am îmbunătățit semnificativ căutarea după adresă. Convinge-te singur.</string>
 	<string name="whatsnew_editor_title">Editați harta*</string>
 	<string name="whatsnew_editor_message_1">Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME folosește datele comunității OpenStreetMap community.</string>
+	<string name="whatsnew_editor_message_2">* OMaps folosește datele comunității OpenStreetMap community.</string>
 	<string name="onboarding_offline_navigation_title">Niciodată nu vă veți rătăci din nou</string>
 	<string name="onboarding_offline_navigation_message">Planificați traseele optime cu mașina și cele pietonale, chiar dacă nu există conexiune la Internet!</string>
 	<string name="onboarding_offline_navigation_title_2">Navigare offline</string>
 	<string name="onboarding_offline_navigation_message_2">Planificați traseele optime cu mașina și cele pietonale.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — accesați hărți din întreaga lume fără conexiune Internet</string>
+	<string name="onboarding_offline_maps_title">OMaps — accesați hărți din întreaga lume fără conexiune Internet</string>
 	<string name="onboarding_offline_maps_message">Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.</string>
 	<string name="onboarding_notifications_message">Pentru a obține cele mai recente hărți, obțineți notificările de actualizări</string>
 	<string name="onboarding_notifications_title">Activați notificările de actualizări</string>
 	<string name="onboarding_location_title">Ajutați-ne să vă găsim</string>
 	<string name="onboarding_location_message">Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.</string>
-	<string name="onboarding_permissions_title">Permiteți aplicației MAPS.ME accesul la spațiul de stocare și locație</string>
+	<string name="onboarding_permissions_title">Permiteți aplicației OMaps accesul la spațiul de stocare și locație</string>
 	<string name="onboarding_permissions_message">Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.</string>
 	<string name="onboarding_welcome_second_subtitle">Lansând aplicația confirmați că sunteți de acord cu &lt;a href="%1$s">Condițiile de utilizare&lt;/a> și &lt;a href="%2$s">Politica de confidențialitate&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
@@ -798,7 +798,7 @@
 	<string name="no_migration_during_navigation">În timpul navigării, actualizarea este interzisă.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Aveți nevoie de mai mult spațiu ca să descărcați. Vă rugăm să ștergeți toate informațiile inutile.</string>
-	<string name="editor_sharing_title">Am îmbunătățit hărțile MAPS.ME</string>
+	<string name="editor_sharing_title">Am îmbunătățit hărțile OMaps</string>
 	<string name="editor_comment_will_be_sent">Vom trimite comentariul dumneavoastră cartografilor.</string>
 	<string name="editor_unsupported_category_message">Ați adăugat o locație pentru care nu avem încă o categorie creată. Aceasta va apărea pe hartă în viitorul apropiat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -815,7 +815,7 @@
 	<string name="core_placepage_unknown_place">Loc necunoscut</string>
 	<string name="editor_other_info">Trimite o notă editorilor OSM</string>
 	<string name="editor_detailed_description_hint">Comentariu detaliat</string>
-	<string name="editor_detailed_description">Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in MAPS.ME.</string>
+	<string name="editor_detailed_description">Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in OMaps.</string>
 	<string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
 	<string name="editor_operator">Operator</string>
 	<string name="editor_tag_description">Introduceți compania, organizația sau persoana responsabilă de facilități.</string>
@@ -836,7 +836,7 @@
 	<string name="current_location_unknown_error_title">Locația curentă este necunoscută.</string>
 	<string name="current_location_unknown_error_message">S-a produs o eroare la căutarea locației. Verificați dacă dispozitivul funcționează corect și încercați din nou.</string>
 	<string name="whatsnew_update_editor_title">Am actualizat editorul de hărți</string>
-	<string name="whatsnew_update_editor_message">Utilizatorii MAPS.ME au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!</string>
+	<string name="whatsnew_update_editor_message">Utilizatorii OMaps au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.</string>
 	<string name="location_services_disabled_header">Geolocalizarea este dezactivată</string>
@@ -924,7 +924,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Aruncați o privire</string>
 	<string name="continue_recent_track_background_button">Continuare</string>
-	<string name="recent_track_background_dialog_message">MAPS.ME folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.</string>
+	<string name="recent_track_background_dialog_message">OMaps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.</string>
 	<string name="whatsnew_car_navigation_header">Navigație pentru vehicule, ușor de folosit</string>
 	<string name="whatsnew_car_navigation_message">• Elementele aparținând navigației ocupă mai puțin spațiu.\n• Afișăm viteza și am adăugat o funcție de zoom automat.</string>
 	<string name="whatsnew_cycle_navigation_2_header">Navigație pentru biciclete</string>
@@ -932,15 +932,15 @@
 	<string name="whatsnew_booking_2_header">Căutarea hotelurilor este mai ușoară</string>
 	<string name="whatsnew_booking_2_message">Rezultatele de căutare indică nota hotelului și categoria de preț.</string>
 	<string name="whatsnew_cycle_navigation_header">Navigaţie pentru biciclete (versiune beta)</string>
-	<string name="whatsnew_cycle_navigation_message">În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu MAPS.ME şi împărtăşiţi-ne opinia dvs.</string>
+	<string name="whatsnew_cycle_navigation_message">În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu OMaps şi împărtăşiţi-ne opinia dvs.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Dați un calificativ pe Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Spuneți unui prieten</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Bună! Instalați MAPS.ME!</string>
+	<string name="tell_friends_text">Bună! Instalați OMaps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME este o aplicație offline esențială când călătoriți. MAPS.ME utilizează datele OpenStreeMap și permite editarea acestora.</string>
+	<string name="about_description">OMaps este o aplicație offline esențială când călătoriți. OMaps utilizează datele OpenStreeMap și permite editarea acestora.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -995,7 +995,7 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Deschideți</string>
-	<string name="whatsnew_uber_header">MAPS.ME și Uber</string>
+	<string name="whatsnew_uber_header">OMaps și Uber</string>
 	<string name="whatsnew_uber_message">Comandați un taxi Uber direct din aplicație!</string>
 	<string name="dialog_taxi_offline">Comandarea unui taxi nu se poate face în modul offline.</string>
 	<string name="dialog_taxi_error">Comandarea unui taxi este momentan indisponibilă.</string>
@@ -1010,7 +1010,7 @@
 	<string name="traffic_update_maps_text">Pentru a afişa datele privind traficul, hărțile trebuie actualizate.</string>
 	<string name="traffic_outdated">Datele privind traficul sunt învechite.</string>
 	<string name="big_font">Măriți dimensiunea fontului pe hartă</string>
-	<string name="traffic_update_app">Vă rugăm să actualizaţi MAPS.ME</string>
+	<string name="traffic_update_app">Vă rugăm să actualizaţi OMaps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Pentru a afişa datele privind traficul, aplicația trebuie actualizată.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1108,9 +1108,9 @@
 	<string name="button_accept_and_continue">Acceptare și continuare</string>
 	<string name="button_learn_more">Aflați mai multe</string>
 	<string name="onboarding_storage_permissions_title">Acordați acces</string>
-	<string name="onboarding_storage_permissions_message">Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza MAPS.ME este nevoie de acces la spațiul de stocare.</string>
+	<string name="onboarding_storage_permissions_message">Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza OMaps este nevoie de acces la spațiul de stocare.</string>
 	<string name="button_exit">Ieșire</string>
-	<string name="onboarding_detail_permissions_title">MAPS.ME necesită acces la</string>
+	<string name="onboarding_detail_permissions_title">OMaps necesită acces la</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Stocare</string>
 	<string name="onboarding_detail_permissions_storage_message">Pentru a salva și a utiliza offline hărțile descărcate și pentru a salva semne de carte.</string>
@@ -1181,7 +1181,7 @@
 	<string name="whats_new_ugc_title_updated_v840">Calificative și recenzii</string>
 	<string name="whats_new_ugc_message">Acum puteți lăsa calificative și recenzii chiar și când sunteți offline! Nu uitați să vă actualizați hărțile pentru a vedea modificările.</string>
 	<string name="dialog_error_storage_title">Problemă de accesare spațiu de stocare</string>
-	<string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este read-only. Verifică și contactează-ne la support\@maps.me</string>
+	<string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este read-only. Verifică și contactează-ne la support\@omaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulare stocare eronată</string>
 	<string name="discovery_button_title">Descoperire în apropiere</string>
 	<string name="discovery_button_subtitle_things_to_do">Activități</string>
@@ -1276,16 +1276,16 @@
 	<string name="sign_message_gdpr">Pentru a continua, trebuie să acceptați Termenii de utilizare și Politica de confidențialitate. Citiți-le cu atenție.</string>
 	<string name="sign_agree_pp_gdpr">Sunt de acord cu &lt;a href="%s">Politica de confidențialitate&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Sunt de acord cu &lt;a href="%s">Termenii și condițiile&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Sunt de acord să primesc ultimele știri despre produsele MAPS.ME</string>
+	<string name="sign_agree_news_gdpr">Sunt de acord să primesc ultimele știri despre produsele OMaps</string>
 	<string name="whats_new_localbiz_title">Întreprinderile mici merită atenție</string>
-	<string name="whats_new_localbiz_message">Anume cafenelele, hostelele și magazinele locale fac călătoriile de neuitat. Optimizăm gratuit pagina dvs. de afaceri în MAPS.ME, astfel încât să o putem observa.</string>
+	<string name="whats_new_localbiz_message">Anume cafenelele, hostelele și magazinele locale fac călătoriile de neuitat. Optimizăm gratuit pagina dvs. de afaceri în OMaps, astfel încât să o putem observa.</string>
 	<string name="whats_new_order_button">Solicitați</string>
 	<string name="bookmarks_page_downloaded">Fișierele descărcate</string>
 	<string name="bookmarks_page_my">Al mele</string>
 	<string name="routes_and_bookmarks">Rute și tag-uri</string>
 	<string name="bookmarks_webview_success_toast">Locațiile au fost descărcate cu succes</string>
 	<string name="cached_bookmarks_placeholder_title">Încărcați locuri noi</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Faceți clic pe butonul pentru a descărca mii de locuri interesante și rute create de utilizatori MAPS.ME. Veți avea nevoie de o conexiune la Internet.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Faceți clic pe butonul pentru a descărca mii de locuri interesante și rute create de utilizatori OMaps. Veți avea nevoie de o conexiune la Internet.</string>
 	<string name="downloader_download_routers">Descărcați tag-urile</string>
 	<string name="bookmarks_groups_cached">Listele descărcate</string>
 	<string name="author_name_by_prefix">%s</string>
@@ -1305,7 +1305,7 @@
 	<string name="opt_out_flurry">Statisticile</string>
 	<string name="opt_out_mopub">Publicitate personalizată</string>
 	<string name="opt_out_fabric">Rapoarte de eroare</string>
-	<string name="opt_out_fabric_description">Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți MAPS.ME. Modificările vor intra în vigoare după repornirea aplicației.</string>
+	<string name="opt_out_fabric_description">Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți OMaps. Modificările vor intra în vigoare după repornirea aplicației.</string>
 	<string name="opt_out_help_ios_1">Puteți renunța la primirea de publicitate țintă în setările aparatului.</string>
 	<string name="opt_out_help_ios_2">iOS 9 sau mai sus</string>
 	<string name="opt_out_help_ios_3">Deschideți Setări → Confidențialitate → Publicitate → „Activați Limitarea trackking”</string>
@@ -1326,7 +1326,7 @@
 	<string name="category_desc_more">…mai mult</string>
 	<string name="title_error_downloading_bookmarks">A apărut o eroare</string>
 	<string name="subtitle_error_downloading_bookmarks">Tag-urile nu au fost încărcate</string>
-	<string name="whats_new_bookmarks_catalog_title">În MAPS.ME a apărut un director de rute</string>
+	<string name="whats_new_bookmarks_catalog_title">În OMaps a apărut un director de rute</string>
 	<string name="whats_new_bookmarks_catalog_message">Zeci de trasee detaliate din întreaga lume: unde să mergi, ce să vezi, în unde să mănânci.</string>
 	<string name="whats_new_popularity_label_title">Popular în apropiere</string>
 	<string name="whats_new_popularity_label_message">Secțiunea „Descoperire în apropiere” va ajuta să găsi cele mai populare locații din oraș.</string>
@@ -1343,15 +1343,15 @@
 	<string name="guide_downloaded_subtitle">Apasă butonul „Vizualizare pe hartă” pentru a explora ghidul</string>
 	<string name="bookmarks_guides">Marcaje și ghiduri</string>
 	<string name="remove_ads">Dezactivați reclama</string>
-	<string name="remove_ads_title">Dezactivați toată reclama și susțineți MAPS.ME</string>
+	<string name="remove_ads_title">Dezactivați toată reclama și susțineți OMaps</string>
 	<string name="paybtn_title">Achitați %s/an</string>
 	<string name="paybtn_subtitle">Economisiți %s/an</string>
 	<string name="options_dropdown_title">Alte variante</string>
-	<string name="why_support">Pentru ce să susțineți MAPS.ME?</string>
+	<string name="why_support">Pentru ce să susțineți OMaps?</string>
 	<string name="options_dropdown_item1">%1$s/lună (economia %2$s/an)</string>
 	<string name="options_dropdown_item2">%s/săptămână (nu există economie)</string>
 	<string name="why_support_item1">Vom dezactiva toate reclamele pentru dvs</string>
-	<string name="why_support_item2">Voi ne ajutați să îmbunătățim MAPS.ME</string>
+	<string name="why_support_item2">Voi ne ajutați să îmbunătățim OMaps</string>
 	<string name="why_support_item3">Voi ne ajutați să îmbunătățim hărțile OpenStreetMap.org</string>
 	<string name="purchase_processing">Achiziția dvs. este în curs de procesare…</string>
 	<string name="tips_bookmarks_catalog_title">Ghiduri offline pentru toate tipurile de călătorii</string>
@@ -1369,7 +1369,7 @@
 	<string name="awaiting_approval">Așteptăm confirmarea părinților</string>
 	<string name="whats_new_leave_review">Lăsați un comentariu! Împărtășiți părerea dumneavoastră despre locurile pe care le-ați vizitat în vacanță.</string>
 	<string name="server_unavailable_title">Serverul nu este disponibil</string>
-	<string name="server_unavailable_message">Achiziția va fi finalizată mai târziu. Dacă eroarea se repetă, contactați support\@maps.me.</string>
+	<string name="server_unavailable_message">Achiziția va fi finalizată mai târziu. Dacă eroarea se repetă, contactați support\@omaps.app.</string>
 	<string name="offline_fiters_check_in">Conectați-vă la internet pentru a putea alege data sosirii și plecării.</string>
 	<string name="restore_subscription">Restabiliți abonamentul</string>
 	<string name="restore_success_alert">Abonamentul a fost restabilit</string>
@@ -1386,7 +1386,7 @@
 	<string name="ugc_route_tags_progress_msg">Încărcăm tag-urile…</string>
 	<string name="public_access">Acces public</string>
 	<string name="limited_access">Acces privat</string>
-	<string name="upload_and_publish_desc">Acest ghid va fi încărcat în catalogul public MAPS.ME și va fi disponibil altor utilizatori</string>
+	<string name="upload_and_publish_desc">Acest ghid va fi încărcat în catalogul public OMaps și va fi disponibil altor utilizatori</string>
 	<string name="upload_and_publish">Descărcați și publicați</string>
 	<string name="upload_and_get_direct_link">Descărcați și primiți linkul</string>
 	<string name="get_direct_link_desc">Ghidul dumneavoastră va fi disponibil printr-un link direct</string>
@@ -1437,12 +1437,12 @@
 	<string name="notification_channel_downloader">Încărcarea hărților</string>
 	<string name="notification_leave_review_title">%s - cum vă place aici?</string>
 	<string name="notification_leave_review_content">Lăsați comentariile dvs. și ajutați alți călători!</string>
-	<string name="share_bookmarks_email_body_link">Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul MAPS.ME și primiți plăcere de la călătorie!\n\nDescărcați aplicația: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul OMaps și primiți plăcere de la călătorie!\n\nDescărcați aplicația: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h</string>
 	<string name="warning_speedcams_subtitle">Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.</string>
 	<string name="speedcams_notice_message">Auto - De avertizat despre camerele video de înregistrare a vitezei, dacă există riscul depășirii limitei de viteză\nMereu - De avertizat întotdeauna despre camerele video\nNiciodată - De nu avertizat niciodată despre camerele video</string>
 	<string name="whats_new_ugc_routes_title">Este ușor să vă împărtășiți impresiile</string>
-	<string name="whats_new_ugc_routes_subtitle">Salvați locurile memorabile, creați rute cu ajutorul marcajelor și distribuiți-le tuturor în catalogul MAPS.ME.</string>
+	<string name="whats_new_ugc_routes_subtitle">Salvați locurile memorabile, creați rute cu ajutorul marcajelor și distribuiți-le tuturor în catalogul OMaps.</string>
 	<string name="whats_new_webeditor_title">Transformați-vă rutele în povești</string>
 	<string name="whats_new_ugc_routes_message2">Adăugați fotografii și povești detaliate în editorul web.</string>
 	<string name="whatsnew_standard_routes_title">Trasee standarte</string>
@@ -1459,7 +1459,7 @@
 	<string name="notification_leave_review_v2_title">Lăsați comentarii și ajutați călătorii!</string>
 	<string name="error_public_not_enought_title">Etichete insuficiente</string>
 	<string name="error_public_not_enought_subtitle">Pe traseul dvs. trebuie să fie cel puțin 3 etichete, pentru a le încărca în catalogul public</string>
-	<string name="bookmark_public_upload_alert_title">Sunteți doar la câțiva pași de încărcarea traseului dvs. în catalogul MAPS.ME!</string>
+	<string name="bookmark_public_upload_alert_title">Sunteți doar la câțiva pași de încărcarea traseului dvs. în catalogul OMaps!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Verificați ca traseul dvs. să aibă un nume și o descriere, iar etichetele să conțină informație despre locurile date. Datorită acestui fapt, utilizatorii vor găsi traseul și vor putea să se folosească de el în timpul călătoriei.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Da, totul e ok!</string>
 	<string name="name_title">Introduceți denumirea</string>
@@ -1489,7 +1489,7 @@
 	<string name="power_managment_setting_never">Niciodată</string>
 	<string name="power_managment_setting_auto">Auto</string>
 	<string name="power_managment_setting_manual_max">Economisire maximă a energiei</string>
-	<string name="enable_logging_warning_message">Aceasta opțiune se pornește pentru logarea acțiunii în scopul diagnosticării. Aceasta va ajuta echipei să găsească problemele legate de aplicație. Conectați opțiunea numai la solicitarea serviciului de suport MAPS.ME.</string>
+	<string name="enable_logging_warning_message">Aceasta opțiune se pornește pentru logarea acțiunii în scopul diagnosticării. Aceasta va ajuta echipei să găsească problemele legate de aplicație. Conectați opțiunea numai la solicitarea serviciului de suport OMaps.</string>
 	<string name="html_error_upload_message_try_again">Verificați accesul la rețea și încercați încă o dată</string>
 	<string name="html_error_upload_title_try_again">Aveți o problemă cu conexiunea dvs. la internet</string>
 	<string name="notification_leave_review_v2_android_short_title">Lăsați un comentariu și ajutați călătorii!</string>
@@ -1498,7 +1498,7 @@
 	<string name="privacy_settings_menu">Setarea confidențialității</string>
 	<string name="gdpr_request_setting">Primiți ID pentru GDPR-ul solicitării</string>
 	<string name="gdpr_request_window_title">ID dvs.: %s.</string>
-	<string name="gdpr_request_window_message">Vă rugăm să copiați și să expediați cererea pe support\@maps.me</string>
+	<string name="gdpr_request_window_message">Vă rugăm să copiați și să expediați cererea pe support\@omaps.app</string>
 	<string name="gdpr_request_window_copy">Copierea ID</string>
 	<string name="unable_upadate_error_title">Nu s-a actualizat traseul</string>
 	<string name="unable_upadate_error_message">Au intervenit erori de actualizare. Verificați modificările și încercați încă o dată</string>
@@ -1521,7 +1521,7 @@
 	<string name="avoid_toll_roads_placepage">De evitat drumurile cu plată</string>
 	<string name="avoid_unpaved_roads_placepage">De evitat drumurile de țară</string>
 	<string name="avoid_ferry_crossing_placepage">De evitat trecerile cu bac</string>
-	<string name="cached_guides_placeholder_subtitle">Ghiduri pregătire de MAPS.ME sunt locuri selectare cu fotografii și descrieri, care se reflectă pe hartă și sunt accesibile off-line.</string>
+	<string name="cached_guides_placeholder_subtitle">Ghiduri pregătire de OMaps sunt locuri selectare cu fotografii și descrieri, care se reflectă pe hartă și sunt accesibile off-line.</string>
 	<string name="guides_catalogue_title">Catalogul ghidurilor</string>
 	<string name="download_guides_button">De trecut în catalog</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1529,12 +1529,12 @@
 	  <item quantity="other">În baza %d comentariilor</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Bucătărie uzbecă</string>
-	<string name="onboarding_welcome_title">Planifică și călătorește cu MAPS.ME</string>
+	<string name="onboarding_welcome_title">Planifică și călătorește cu OMaps</string>
 	<string name="onboarding_welcome_first_subtitle">Salvați locurile interesante, rezervați hotele, elaborați trasee</string>
 	<string name="onboarding_guide_direct_download_title">Ghidul este gata pentru a fi încărcat</string>
 	<string name="onboarding_guide_direct_download_subtitle">Se va reflecta pe hartă și va funcționa on-line</string>
 	<string name="onboarding_guide_direct_download_button">De descărcat</string>
-	<string name="onboarding_bydeeplink_guide_title">Ghiduri elaborate în MAPS.ME</string>
+	<string name="onboarding_bydeeplink_guide_title">Ghiduri elaborate în OMaps</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">Locuri alese cu fotografii și descrieri se reflectă pe hartă și sunt accesibile off-line.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Înainte de a trece la ghiduri…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Actualizați hărțile pentru a primi informație actuală despre obiecte!</string>
@@ -1565,11 +1565,11 @@
 	<string name="ok">Ok</string>
 	<string name="booking_button_toolbar">Selectează hotel pe hartă</string>
 	<string name="popup_booking_download_guides_title">Rezervare hotel?</string>
-	<string name="popup_booking_download_guides_message">Planificați traseul cu ghidurile MAPS.ME</string>
+	<string name="popup_booking_download_guides_message">Planificați traseul cu ghidurile OMaps</string>
 	<string name="popup_mwm_download_guides_title">Ghiduri offline</string>
 	<string name="popup_mwm_download_guides_cta">Selectează</string>
 	<string name="popup_mwm_download_guides_cta_1">Privește</string>
-	<string name="gallery_pp_download_guides_offline_title">Planifică odihna ta cu MAPS.ME!</string>
+	<string name="gallery_pp_download_guides_offline_title">Planifică odihna ta cu OMaps!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Nu ratați cel mai important cu traseele de la călători experimentați</string>
 	<string name="gallery_pp_download_guides_offline_cta">Conectare Internet</string>
 	<string name="gallery_pp_download_guides_title">Ghiduri</string>
@@ -1598,7 +1598,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Acces complet de %s/an</string>
 	<string name="subscription_terms_guides">Plata se va efectua de pe contul dvs. iTunes la confirmarea cumpărăturii. Abonamentul va fi reînnoit automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Banii vor fi debitați din contul dvs. în conformitate cu planul dvs. de tarifare de reînnoire în termen de 24 de ore de la sfârșitul perioadei curente. Aveți posibilitatea să gestionați reînnoirea automată sau s-o dezactivați în setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament numai în perioada de valabilitate a acestuia. La expirarea a 30 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.</string>
 	<string name="subscription_terms">Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.</string>
-	<string name="whatsnew_carplay_title">Autonavigare MAPS.ME în CarPlay!</string>
+	<string name="whatsnew_carplay_title">Autonavigare OMaps în CarPlay!</string>
 	<string name="whatsnew_carplay_message">Marcaje, căutare, camere-radar și setări de ocolire - totul funcționează fără Internet</string>
 	<string name="whatsnew_subscription_title">Descoperă lumea la abonament!</string>
 	<string name="whatsnew_subscription_message">Acces nelimitat la catalogul traseelor sunt mai convenabile decât achizițiile unice</string>
@@ -1612,7 +1612,7 @@
 	<string name="avoid_tolls_carplay_2">Gratis</string>
 	<string name="speedcams_alert_title_carplay_1">Cameră video</string>
 	<string name="speedcams_alert_title_carplay_2">Info camere</string>
-	<string name="download_map_carplay">Vă rugăm să descărcați hărțile în aplicația MAPS.ME de pe dispozitivul dvs.</string>
+	<string name="download_map_carplay">Vă rugăm să descărcați hărțile în aplicația OMaps de pe dispozitivul dvs.</string>
 	<string name="carplay_roundabout_exit">%s ieșire</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortați…</string>
@@ -1663,7 +1663,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Ordine în inscripții – comoditate în călătorie</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Sortați locurile preferate după categorie, ora adăugării și geolocalizarea și găsiți rapid inscripțiile după nume</string>
 	<string name="popup_subscription_success_map_title">Ura! Sunteți abonat!</string>
-	<string name="popup_subscription_success_map_message">Explorați acum cele mai faimoase obiective turistice în catalogul MAPS.ME</string>
+	<string name="popup_subscription_success_map_message">Explorați acum cele mai faimoase obiective turistice în catalogul OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Uitați-vă</string>
 	<string name="popup_subscription_success_map_not_now_button">Nu acum</string>
 	<string name="religious_places">Locuri sfinte</string>
@@ -1695,9 +1695,9 @@
 	<string name="new_onboarding_step5.1_header">Înainte de a începe…</string>
 	<string name="new_onboarding_step5.1_message">Nu uita să vizitezi noul nostru director de rute pentru a găsi un ghid offline pentru următoarea călătorie!</string>
 	<string name="new_onboarding_step5.1_button">Deschide directorul</string>
-	<string name="new_onboarding_step5.2_message">Abonamentul la catalogul ghidurilor de călătorie din MAPS.ME – este profitabil. Obțineți acces complet la rute pentru plimbări prin oraș și activități în aer liber!</string>
+	<string name="new_onboarding_step5.2_message">Abonamentul la catalogul ghidurilor de călătorie din OMaps – este profitabil. Obțineți acces complet la rute pentru plimbări prin oraș și activități în aer liber!</string>
 	<string name="new_onboarding_step5.2_button">Vezi termenii</string>
-	<string name="new_onboarding_step5.3_message">Descărcați și evaluați rutele pentru plimbări prin oraș și activități în aer liber, cu o selecție gratuită din MAPS.ME!</string>
+	<string name="new_onboarding_step5.3_message">Descărcați și evaluați rutele pentru plimbări prin oraș și activități în aer liber, cu o selecție gratuită din OMaps!</string>
 	<string name="new_onboarding_step5.3_button">Descarcă gratuit</string>
 	<string name="new_onboarding_additional_steps_later_button">Nu acum</string>
 	<string name="all_pass_subscription_header">Abonați-vă la</string>
@@ -1730,7 +1730,7 @@
 	<string name="dialog_pedestrian_route_is_long">E prea mult timp ca sa ajungi la vehicul pe jos</string>
 	<string name="whatsnew_outdoor_guides_title">Am adăugat 15000+ de trasee pentru activități în aer liber!</string>
 	<string name="whatsnew_outdoor_guides_message">Rute Outdooractive de vacanță de iarnă și de vară te așteaptă în catalog!</string>
-	<string name="whatsnew_guides_galleries_title">Planificați-vă următoarea călătorie cu MAPS.ME</string>
+	<string name="whatsnew_guides_galleries_title">Planificați-vă următoarea călătorie cu OMaps</string>
 	<string name="whatsnew_guides_galleries_message">Acum puteți găsi ghiduri recomandate în cartelele orașelor și atracțiilor populare</string>
 	<string name="new_onboarding_step3_header">Călătoriți</string>
 	<string name="all_pass_screen_best_value">Preț avantajos</string>
@@ -1744,7 +1744,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Ghidați-vă în zona montană-activați butonul de strat în colțul din stânga sus pe ecran</string>
 	<string name="button_layer_isolines">Înălțimi</string>
-	<string name="tips_map_layers_title_countour">Linii de înălțimi offline pe MAPS.ME!</string>
+	<string name="tips_map_layers_title_countour">Linii de înălțimi offline pe OMaps!</string>
 	<string name="tips_map_layers_message_countour">Liniile de înălțimi vă vor ajuta să planificați o călătorie în natură și să nu vă pierdeți</string>
 	<string name="isolines_activation_error_dialog">Pentru a utiliza liniile de înălțimi, actualizați sau descărcați harta zonei dorite</string>
 	<string name="isolines_location_error_dialog">Liniile de înălțimi pană ce nu sunt disponibile în această regiune</string>

@@ -164,119 +164,119 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
   <Style id="placemark-red">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-red.png</href>
+        <href>https://omaps.app/placemarks/placemark-red.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-blue">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-blue.png</href>
+        <href>https://omaps.app/placemarks/placemark-blue.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-purple">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-purple.png</href>
+        <href>https://omaps.app/placemarks/placemark-purple.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-yellow">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-yellow.png</href>
+        <href>https://omaps.app/placemarks/placemark-yellow.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-pink">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-pink.png</href>
+        <href>https://omaps.app/placemarks/placemark-pink.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-brown">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-brown.png</href>
+        <href>https://omaps.app/placemarks/placemark-brown.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-green">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-green.png</href>
+        <href>https://omaps.app/placemarks/placemark-green.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-orange">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-orange.png</href>
+        <href>https://omaps.app/placemarks/placemark-orange.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-deeppurple">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-deeppurple.png</href>
+        <href>https://omaps.app/placemarks/placemark-deeppurple.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-lightblue">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-lightblue.png</href>
+        <href>https://omaps.app/placemarks/placemark-lightblue.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-cyan">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-cyan.png</href>
+        <href>https://omaps.app/placemarks/placemark-cyan.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-teal">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-teal.png</href>
+        <href>https://omaps.app/placemarks/placemark-teal.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-lime">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-lime.png</href>
+        <href>https://omaps.app/placemarks/placemark-lime.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-deeporange">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-deeporange.png</href>
+        <href>https://omaps.app/placemarks/placemark-deeporange.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-gray">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-gray.png</href>
+        <href>https://omaps.app/placemarks/placemark-gray.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-bluegray">
     <IconStyle>
       <Icon>
-        <href>http://maps.me/placemarks/placemark-bluegray.png</href>
+        <href>https://omaps.app/placemarks/placemark-bluegray.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <name>Test category</name>
   <description>Test description</description>
   <visibility>1</visibility>
-  <ExtendedData xmlns:mwm="https://maps.me">
+  <ExtendedData xmlns:mwm="https://omaps.app">
     <mwm:serverId>AAAA-BBBB-CCCC-DDDD</mwm:serverId>
     <mwm:name>
       <mwm:lang code="ru">Тестовая категория</mwm:lang>
@@ -397,7 +397,7 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
     <TimeStamp><when>1970-01-01T00:13:20Z</when></TimeStamp>
     <styleUrl>#placemark-blue</styleUrl>
     <Point><coordinates>45.9242,49.326859</coordinates></Point>
-    <ExtendedData xmlns:mwm="https://maps.me">
+    <ExtendedData xmlns:mwm="https://omaps.app">
       <mwm:name>
         <mwm:lang code="ru">Тестовая метка</mwm:lang>
         <mwm:lang code="default">Test bookmark</mwm:lang>
@@ -438,7 +438,7 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
     </LineStyle></Style>
     <TimeStamp><when>1970-01-01T00:15:00Z</when></TimeStamp>
     <LineString><coordinates>45.9242,49.326859,1 45.2244,48.941288,2 45.1964,49.401948,3</coordinates></LineString>
-    <ExtendedData xmlns:mwm="https://maps.me">
+    <ExtendedData xmlns:mwm="https://omaps.app">
       <mwm:name>
         <mwm:lang code="ru">Тестовый трек</mwm:lang>
         <mwm:lang code="default">Test track</mwm:lang>

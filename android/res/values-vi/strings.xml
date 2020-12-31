@@ -31,7 +31,7 @@
 	<string name="downloading">Đang tải xuống…</string>
 	<string name="get_it_now">Tải xuống ngay</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Cám ơn bạn đã sử dụng MAPS.ME! Bạn thích ứng dụng chứ? Kể cho bạn bè về ứng dụng này! Đây sẽ là sự biết ơn tuyệt vời nhất đối với chúng tôi.</string>
+	<string name="share_on_facebook_text">Cám ơn bạn đã sử dụng OMaps! Bạn thích ứng dụng chứ? Kể cho bạn bè về ứng dụng này! Đây sẽ là sự biết ơn tuyệt vời nhất đối với chúng tôi.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -90,7 +90,7 @@
 	<string name="country_status_download_failed">Tải xuống đã thất bại</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Thử lại</string>
-	<string name="about_menu_title">Giới thiệu về MAPS.ME</string>
+	<string name="about_menu_title">Giới thiệu về OMaps</string>
 	<string name="downloading_touch_to_cancel">Đang tải xuống %d%%, chạm để hủy bỏ</string>
 	<string name="downloaded_touch_to_delete">Đã tải xuống (%s), chạm để xóa</string>
 	<string name="connection_settings">Thiết lập Kết nối</string>
@@ -99,7 +99,7 @@
 	<string name="unsupported_phone">Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.</string>
 	<string name="download">Tải xuống</string>
 	<string name="external_storage_is_not_available">Không hỗ trợ lưu trữ trên thẻ SD/USB với các bản đồ được tải xuống</string>
-	<string name="disconnect_usb_cable">Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng MAPS.ME</string>
+	<string name="disconnect_usb_cable">Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng</string>
 	<string name="not_enough_memory">Không đủ bộ nhớ để chạy ứng dụng</string>
 	<string name="free_space_for_country">Bạn vui lòng giải phóng %1$s trên thiết bị của mình để có thể tải xuống %2$s</string>
@@ -126,7 +126,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Bạn không cần MAPS.ME Lite nữa, vì vậy bạn có thể gỡ cài đặt nó.</string>
+	<string name="suggest_uninstall_lite">Bạn không cần OMaps Lite nữa, vì vậy bạn có thể gỡ cài đặt nó.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s, descărcată cu succes</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -156,9 +156,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Đặt</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ email, Dropbox hoặc liên kết web.</string>
+	<string name="bookmarks_usage_hint">Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong OMaps. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ email, Dropbox hoặc liên kết web.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.</string>
+	<string name="bookmarks_usage_hint_import_only">Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong OMaps. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Thiết lập</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -220,7 +220,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Chia sẻ bằng email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Điểm đánh dấu MAPS.ME được chia sẻ</string>
+	<string name="share_bookmarks_email_subject">Điểm đánh dấu OMaps được chia sẻ</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Tải Điểm đánh dấu</string>
 	<!-- Kmz file successful loading -->
@@ -240,17 +240,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Hiện đang tải xuống quốc gia.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Hi vọng bạn thích sử dụng MAPS.ME! Nếu vậy, bạn vui lòng cho điểm hoặc đánh giá ứng dụng trên App Store. Việc này chỉ tốn dưới một phút và sẽ giúp chúng tôi rất nhiều. Cảm ơn bạn đã ủng hộ!</string>
+	<string name="appStore_message">Hi vọng bạn thích sử dụng OMaps! Nếu vậy, bạn vui lòng cho điểm hoặc đánh giá ứng dụng trên App Store. Việc này chỉ tốn dưới một phút và sẽ giúp chúng tôi rất nhiều. Cảm ơn bạn đã ủng hộ!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Không, cảm ơn</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Này, hãy xem ghim của tôi tại MAPS.ME! %1$s hoặc %2$s Bạn chưa cài đặt bản đồ ngoại tuyến? Tải xuống tại đây: http://maps.me/get</string>
+	<string name="bookmark_share_sms">Này, hãy xem ghim của tôi tại OMaps! %1$s hoặc %2$s Bạn chưa cài đặt bản đồ ngoại tuyến? Tải xuống tại đây: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME! %1$s hoặc %2$s Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: http://maps.me/get</string>
+	<string name="my_position_share_sms">Này, hãy xem vị trí hiện tại của tôi tại OMaps! %1$s hoặc %2$s Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Này, hãy xem ghim của tôi tại MAPS.ME map</string>
+	<string name="bookmark_share_email_subject">Này, hãy xem ghim của tôi tại OMaps map</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Này, hãy xem vị trí hiện tại của tôi tại MAPS.ME map!</string>
+	<string name="my_position_share_email_subject">Này, hãy xem vị trí hiện tại của tôi tại OMaps map!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Chào,\n\nTôi hiện đang ở đây: %1$s. Hãy nhấn vào liên kết này %2$s hoặc liên kết này %3$s để xem địa điểm trên bản đồ.\n\nCám ơn.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -354,17 +354,17 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Tải xuống bản đồ của vị trí của bạn</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Chúng tôi đang chuyển bản đồ đã tải xuống của bạn từ MAPS.ME Lite sang MAPS.ME. Việc này có thể mất vài phút.</string>
+	<string name="move_lite_maps_to_pro">Chúng tôi đang chuyển bản đồ đã tải xuống của bạn từ OMaps Lite sang OMaps. Việc này có thể mất vài phút.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Bản đồ đã tải xuống của bạn đã được chuyển thành công sang MAPS.ME.</string>
+	<string name="move_lite_maps_to_pro_ok">Bản đồ đã tải xuống của bạn đã được chuyển thành công sang OMaps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Bản đồ của bạn không chuyển được. Vui lòng xóa MAPS.ME Lite và tải xuống lại bản đồ.</string>
+	<string name="move_lite_maps_to_pro_failed">Bản đồ của bạn không chuyển được. Vui lòng xóa OMaps Lite và tải xuống lại bản đồ.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Thiết lập &amp;amp; Khác</string>
 	<!-- Text in menu -->
 	<string name="website">Trang web</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Cộng đồng MAPS.ME</string>
+	<string name="maps_me_community">Cộng đồng OMaps</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Thích trên Facebook</string>
 	<!-- Text in menu -->
@@ -384,11 +384,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Báo cáo lỗi</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Vui lòng đăng ký tôi vào danh sách nhận thư định kỳ MAPS.ME</string>
+	<string name="subscribe_me_subject">Vui lòng đăng ký tôi vào danh sách nhận thư định kỳ OMaps</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Tôi muốn là người đầu tiên được biết về các thông tin cập nhật và quảng bá mới nhất. Tôi có thể hủy bỏ đăng ký nhận tin của mình bất cứ lúc nào.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, MAPS.ME vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v… gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện MAPS.ME. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support\@maps.me. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích MAPS.ME và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về MAPS.ME với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại https://www.openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng MAPS.ME ở phiên bản kế tiếp.</string>
+	<string name="about_text">OMaps cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, OMaps vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v… gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện OMaps. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support\@omaps.app. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích OMaps và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về OMaps với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại https://www.openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng OMaps ở phiên bản kế tiếp.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %s</string>
 	<!-- Alert title -->
@@ -400,7 +400,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Vui lòng cập nhật bản đồ để tạo tuyến đường</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Phiên bản MAPS.ME mới cho phép tạo các tuyến đường từ vị trí hiện tại của bạn đến điểm đến. Vui lòng cập nhật bản đồ để sử dụng tính năng này.</string>
+	<string name="routing_update_maps">Phiên bản OMaps mới cho phép tạo các tuyến đường từ vị trí hiện tại của bạn đến điểm đến. Vui lòng cập nhật bản đồ để sử dụng tính năng này.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Cập nhật tất cả</string>
 	<!-- Cancel all button text -->
@@ -417,7 +417,7 @@
 	<string name="downloader_downloading">Đang tải về:</string>
 	<string name="downloader_search_results">Đã tìm thấy</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Tạo các tuyến đường trong ứng dụng MAPS.ME, xin lưu ý điều sau:\n\n – Các tuyến đường được gợi ý chỉ có thể được xem là đề xuất.\n – Điều kiện con đường, luật giao thông và biển báo có mức ưu tiên cao hơn lời khuyên dẫn hướng.\n – Bản đồ có thể không chính xác hoặc lỗi thời, tuyến đường có thể không được tạo theo cách tốt nhất có thể.\n\n Hãy lái xe an toàn trên đường và bảo trọng!</string>
+	<string name="routing_disclaimer">Tạo các tuyến đường trong ứng dụng OMaps, xin lưu ý điều sau:\n\n – Các tuyến đường được gợi ý chỉ có thể được xem là đề xuất.\n – Điều kiện con đường, luật giao thông và biển báo có mức ưu tiên cao hơn lời khuyên dẫn hướng.\n – Bản đồ có thể không chính xác hoặc lỗi thời, tuyến đường có thể không được tạo theo cách tốt nhất có thể.\n\n Hãy lái xe an toàn trên đường và bảo trọng!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Lỗi thời</string>
 	<!-- Up to date maps category -->
@@ -441,7 +441,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Không tìm thấy tuyến đường nào giữa điểm gốc và điểm đến được chọn. Vui lòng chọn điểm bắt đầu hoặc điểm cuối khác.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Đã xảy ra lỗi nội bộ. Vui lòng thử xóa và tải lại xuống bản đồ. Nếu vấn đề vẫn còn tồn tại, vui lòng liên hệ với chúng tôi tại support\@maps.me.</string>
+	<string name="routing_failed_internal_error">Đã xảy ra lỗi nội bộ. Vui lòng thử xóa và tải lại xuống bản đồ. Nếu vấn đề vẫn còn tồn tại, vui lòng liên hệ với chúng tôi tại support\@omaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Tải xuống Bản đồ + Định tuyến</string>
 	<!-- Context menu item for downloader. -->
@@ -472,9 +472,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Tôi vừa đánh giá ứng dụng của bạn</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Tôi là người dùng MAPS.ME từ năm %s</string>
+	<string name="rating_user_since">Tôi là người dùng OMaps từ năm %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Bạn có thích MAPS.ME?</string>
+	<string name="rating_do_like_maps">Bạn có thích OMaps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Chạm vào một ngôi sao để đánh giá ứng dụng của chúng tôi.</string>
 	<!-- Text for rating dialog -->
@@ -490,7 +490,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Nhận bản đồ</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Tải bản đồ và dữ liệu đường đi cập nhật để nhận được tất cả các tính năng của MAPS.ME.</string>
+	<string name="routing_download_map_and_routing">Tải bản đồ và dữ liệu đường đi cập nhật để nhận được tất cả các tính năng của OMaps.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Nhận dữ liệu đường đi</string>
 	<!-- Text for routing error dialog -->
@@ -622,7 +622,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.</string>
 	<string name="rate_alert_title">Bạn thích ứng dụng chứ?</string>
-	<string name="rate_alert_default_message">Cám ơn bạn đã sử dụng MAPS.ME. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.</string>
+	<string name="rate_alert_default_message">Cám ơn bạn đã sử dụng OMaps. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.</string>
 	<string name="rate_alert_five_star_message">Hoan hô! Chúng tôi cũng yêu bạn!</string>
 	<string name="rate_alert_four_star_message">Cám ơn, chúng tôi sẽ nỗ lực hết mình!</string>
 	<string name="rate_alert_less_than_four_star_message">Có bất kỳ ý tưởng nào về cách chúng tôi có thể giúp ứng dụng tốt hơn?</string>
@@ -677,7 +677,7 @@
 	<string name="editor_report_problem_no_place_title">Địa điểm này không tồn tại</string>
 	<string name="editor_report_problem_under_construction_title">Tạm dừng để bảo trì</string>
 	<string name="editor_report_problem_duplicate_place_title">Địa điểm trùng lặp</string>
-	<string name="first_launch_congrats_title">MAPS.ME đã sẵn sàng để sử dụng</string>
+	<string name="first_launch_congrats_title">OMaps đã sẵn sàng để sử dụng</string>
 	<string name="first_launch_congrats_text">Tìm kiếm và điều hướng ngoại tuyến, miễn phí khắp mọi nơi trên thế giới.</string>
 	<string name="migrate_title">Quan trọng!</string>
 	<!-- Android uses image instead of text. -->
@@ -781,18 +781,18 @@
 	<string name="whatsnew_search_message">Chúng tôi đã cải thiện đáng kể việc tìm kiếm theo địa chỉ. Bạn hãy tự xem thử.</string>
 	<string name="whatsnew_editor_title">Chỉnh sửa bản đồ*</string>
 	<string name="whatsnew_editor_message_1">Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME sử dụng dữ liệu của cộng đồng OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* OMaps sử dụng dữ liệu của cộng đồng OpenStreetMap.</string>
 	<string name="onboarding_offline_navigation_title">Bạn sẽ không bao giờ bị lạc nữa</string>
 	<string name="onboarding_offline_navigation_message">Lập tuyến đường xe hơi và đi bộ tối ưu, mặc dù không có kết nối Internet!</string>
 	<string name="onboarding_offline_navigation_title_2">Chỉ đường ngoại tuyến</string>
 	<string name="onboarding_offline_navigation_message_2">Lập tuyến đường xe hơi và đi bộ tối ưu.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — truy cập bản đồ trên toàn thế giới không cần Internet</string>
+	<string name="onboarding_offline_maps_title">OMaps — truy cập bản đồ trên toàn thế giới không cần Internet</string>
 	<string name="onboarding_offline_maps_message">Chỉ tải xuống các bản đồ của khu vực bạn muốn một lần, và sử dụng các chức năng dẫn đường và tìm kiếm mà không cần kết nối Internet.</string>
 	<string name="onboarding_notifications_message">Để nhận các bản đồ mới nhất, hãy nhận thông báo cập nhật</string>
 	<string name="onboarding_notifications_title">Cho phép thông báo cập nhật</string>
 	<string name="onboarding_location_title">Giúp chúng tôi tìm bạn</string>
 	<string name="onboarding_location_message">Để sử dụng tính năng dẫn đường và các tính năng khác, chúng tôi cần truy cập vị trí địa lý của bạn.</string>
-	<string name="onboarding_permissions_title">Cho phép MAPS.ME truy cập ổ lưu trữ và vị trí</string>
+	<string name="onboarding_permissions_title">Cho phép OMaps truy cập ổ lưu trữ và vị trí</string>
 	<string name="onboarding_permissions_message">Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.</string>
 	<string name="onboarding_welcome_second_subtitle">Bằng cách khởi chạy ứng dụng, bạn đồng ý với &lt;a href="%1$s">Điều khoản Sử dụng&lt;/a> và &lt;a href="%2$s">Chính sách Riêng tư&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Thay đổi địa điểm</string>
@@ -801,7 +801,7 @@
 	<string name="no_migration_during_navigation">Không cho phép cập nhật trong khi điều hướng.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Để tải xuống, bạn cần thêm dung lượng. Xin xóa mọi dữ liệu không cần thiết.</string>
-	<string name="editor_sharing_title">Tôi đã cải thiện các bản đồ MAPS.ME</string>
+	<string name="editor_sharing_title">Tôi đã cải thiện các bản đồ OMaps</string>
 	<string name="editor_comment_will_be_sent">Chúng tôi sẽ gửi bình luận của bạn đến những người lập bản đồ.</string>
 	<string name="editor_unsupported_category_message">Bạn đã thêm một địa điểm của một hạng mục mà chúng tôi chưa hỗ trợ. Nó sẽ xuất hiện trên bản đồ một thời gian sau đó.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -818,7 +818,7 @@
 	<string name="core_placepage_unknown_place">Địa Điểm Chưa Biết</string>
 	<string name="editor_other_info">Gửi ghi chú cho ban biên tập OSM</string>
 	<string name="editor_detailed_description_hint">Nhận xét chi tiết</string>
-	<string name="editor_detailed_description">Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong MAPS.ME.</string>
+	<string name="editor_detailed_description">Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong OMaps.</string>
 	<string name="editor_more_about_osm">Thông tin bổ sung về OpenStreetMap</string>
 	<string name="editor_operator">Đơn vị điều hành</string>
 	<string name="editor_tag_description">Nhập công ty, tổ chức hoặc cá nhân phụ trách cơ sở.</string>
@@ -839,7 +839,7 @@
 	<string name="current_location_unknown_error_title">Chưa biết địa điểm hiện tại.</string>
 	<string name="current_location_unknown_error_message">Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.</string>
 	<string name="whatsnew_update_editor_title">Chúng tôi đã cập nhật trình biên tập bản đồ</string>
-	<string name="whatsnew_update_editor_message">Người dùng MAPS.ME đã thực hiện 200 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!</string>
+	<string name="whatsnew_update_editor_message">Người dùng OMaps đã thực hiện 200 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">Để sử dụng Ứng dụng Điều chỉnh Bản đồ, xin vui lòng cập nhật tất cả các bản đồ.</string>
 	<string name="location_services_disabled_header">Chức năng nhận biết địa điểm bị tắt</string>
@@ -928,7 +928,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Xem</string>
 	<string name="continue_recent_track_background_button">Tiếp tục</string>
-	<string name="recent_track_background_dialog_message">MAPS.ME sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.</string>
+	<string name="recent_track_background_dialog_message">OMaps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.</string>
 	<string name="whatsnew_car_navigation_header">Phần mềm dẫn đường dành cho xe cộ thân thiện với người dùng</string>
 	<string name="whatsnew_car_navigation_message">• Các thành phần của phần mềm dẫn đường chiếm ít bộ nhớ.\n• Phần mềm có hiển thị tốc độ và đã được thêm tính năng tự động thu phóng.</string>
 	<string name="whatsnew_cycle_navigation_2_header">Phần mềm dẫn đường dành cho xe đạp</string>
@@ -936,15 +936,15 @@
 	<string name="whatsnew_booking_2_header">Tìm kiếm khách sạn dễ dàng</string>
 	<string name="whatsnew_booking_2_message">Kết quả tìm kiếm cho thấy các đánh giá và mức giá của khách sạn.</string>
 	<string name="whatsnew_cycle_navigation_header">Định vị xe đạp (phiên bản beta)</string>
-	<string name="whatsnew_cycle_navigation_message">Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với MAPS.ME, và chia sẻ ý kiến của bạn với chúng tôi.</string>
+	<string name="whatsnew_cycle_navigation_message">Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với OMaps, và chia sẻ ý kiến của bạn với chúng tôi.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Cho điểm trên Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Giới thiệu với Bạn bè</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Xin chào! Hãy cài đặt MAPS.ME!</string>
+	<string name="tell_friends_text">Xin chào! Hãy cài đặt OMaps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. MAPS.ME được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.</string>
+	<string name="about_description">OMaps là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. OMaps được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -999,7 +999,7 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Mở</string>
-	<string name="whatsnew_uber_header">MAPS.ME &amp; Uber</string>
+	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
 	<string name="whatsnew_uber_message">Đặt taxi Uber trực tiếp từ ứng dụng!</string>
 	<string name="dialog_taxi_offline">Gọi taxi không khả dụng trong chế độ ngoại tuyến.</string>
 	<string name="dialog_taxi_error">Gọi taxi tạm thời không khả dụng.</string>
@@ -1014,7 +1014,7 @@
 	<string name="traffic_update_maps_text">Để hiển thị dữ liệu giao thông, cần cập nhật bản đồ.</string>
 	<string name="traffic_outdated">Dữ liệu giao thông đã lỗi thời.</string>
 	<string name="big_font">Tăng kích cỡ phông chữ trên bản đồ</string>
-	<string name="traffic_update_app">Vui lòng cập nhật MAPS.ME</string>
+	<string name="traffic_update_app">Vui lòng cập nhật OMaps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1112,9 +1112,9 @@
 	<string name="button_accept_and_continue">Chấp nhận và tiếp tục</string>
 	<string name="button_learn_more">Tìm hiểu thêm</string>
 	<string name="onboarding_storage_permissions_title">Cho phép truy cập</string>
-	<string name="onboarding_storage_permissions_message">Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng MAPS.ME.</string>
+	<string name="onboarding_storage_permissions_message">Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng OMaps.</string>
 	<string name="button_exit">Thoát</string>
-	<string name="onboarding_detail_permissions_title">MAPS.ME cần quyền truy cập đến</string>
+	<string name="onboarding_detail_permissions_title">OMaps cần quyền truy cập đến</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">Ổ lưu trữ</string>
 	<string name="onboarding_detail_permissions_storage_message">Để lưu và sử dụng ngoại tuyến các bản đồ đã tải về và lưu lại các dấu trang.</string>
@@ -1185,7 +1185,7 @@
 	<string name="whats_new_ugc_title_updated_v840">Điểm và đánh giá</string>
 	<string name="whats_new_ugc_message">Giờ đây bạn có thể để lại điểm và đánh giá kể cả khi ngoại tuyến! Đừng quên cập nhật bản đồ của bạn để có thể thấy các thay đổi.</string>
 	<string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
-	<string name="dialog_error_storage_message">Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support\@maps.me</string>
+	<string name="dialog_error_storage_message">Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support\@omaps.app</string>
 	<string name="setting_emulate_bad_storage">Giả lập ổ lưu trữ hỏng</string>
 	<string name="discovery_button_title">Khám phá gần đây</string>
 	<string name="discovery_button_subtitle_things_to_do">Những việc có thể làm</string>
@@ -1276,16 +1276,16 @@
 	<string name="sign_message_gdpr">Bạn phải chấp nhận Điều khoản sử dụng và Chính sách bảo mật của chúng tôi. Vui lòng đọc kỹ chúng.</string>
 	<string name="sign_agree_pp_gdpr">Tôi đồng ý với &lt;a href="%s">Chính sách bảo mật&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Tôi đồng ý với &lt;a href="%s">Điều khoản sử dụng&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Tôi đồng ý nhận tin tức mới nhất về các sản phẩm MAPS.ME</string>
+	<string name="sign_agree_news_gdpr">Tôi đồng ý nhận tin tức mới nhất về các sản phẩm OMaps</string>
 	<string name="whats_new_localbiz_title">Doanh nghiệp nhỏ xứng đáng để được chú ý</string>
-	<string name="whats_new_localbiz_message">Chính các quán cà phê địa phương, nhà khách nhỏ và các cửa hàng ấm cúng mới làm cho hành trình của chúng ta thật khó quên. Chúng tôi sẽ tối ưu hóa trang của bạn trong MAPS.ME để làm nổi bật nó lên.</string>
+	<string name="whats_new_localbiz_message">Chính các quán cà phê địa phương, nhà khách nhỏ và các cửa hàng ấm cúng mới làm cho hành trình của chúng ta thật khó quên. Chúng tôi sẽ tối ưu hóa trang của bạn trong OMaps để làm nổi bật nó lên.</string>
 	<string name="whats_new_order_button">Để lại yêu cầu</string>
 	<string name="bookmarks_page_downloaded">Đã tải về</string>
 	<string name="bookmarks_page_my">của tôi</string>
 	<string name="routes_and_bookmarks">Tuyến đường và dấu trang</string>
 	<string name="bookmarks_webview_success_toast">Đã tải xuống thành công dấu trang</string>
 	<string name="cached_bookmarks_placeholder_title">Tải xuống các địa điểm mới</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Nhấn nút để tải xuống hàng ngàn địa điểm và tuyến đường thú vị được tạo bởi người dùng MAPS.ME. Bạn sẽ cần kết nối internet.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Nhấn nút để tải xuống hàng ngàn địa điểm và tuyến đường thú vị được tạo bởi người dùng OMaps. Bạn sẽ cần kết nối internet.</string>
 	<string name="downloader_download_routers">Tải dấu trang xuống</string>
 	<string name="bookmarks_groups_cached">Danh sách đã tải xuống</string>
 	<string name="author_name_by_prefix">%s</string>
@@ -1305,7 +1305,7 @@
 	<string name="opt_out_flurry">Thống kê</string>
 	<string name="opt_out_mopub">Quảng cáo được cá nhân hóa</string>
 	<string name="opt_out_fabric">Báo cáo sự cố</string>
-	<string name="opt_out_fabric_description">Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên MAPS.ME. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.</string>
+	<string name="opt_out_fabric_description">Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên OMaps. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.</string>
 	<string name="opt_out_help_ios_1">Thiết bị di động của bạn có thể cung cấp cài đặt \"\"Giới hạn theo dõi quảng cáo\"\" hoặc \"\"Chọn không tham gia quảng cáo dựa trên sở thích\"\".</string>
 	<string name="opt_out_help_ios_2">iOS 9 hoặc lớn hơn</string>
 	<string name="opt_out_help_ios_3">Đến Cài đặt → Bảo mật → Quảng cáo → Bật cài đặt \"\"Giới hạn theo dõi quảng cáo\"\"</string>
@@ -1326,7 +1326,7 @@
 	<string name="category_desc_more">…thêm</string>
 	<string name="title_error_downloading_bookmarks">Đã xảy ra lỗi</string>
 	<string name="subtitle_error_downloading_bookmarks">Dấu trang chưa được tải xuống</string>
-	<string name="whats_new_bookmarks_catalog_title">MAPS.ME hiện đã có danh mục tuyến đường</string>
+	<string name="whats_new_bookmarks_catalog_title">OMaps hiện đã có danh mục tuyến đường</string>
 	<string name="whats_new_bookmarks_catalog_message">Hàng trăm tuyến đường chi tiết trên toàn thế giới: đi đâu, xem gì, ăn ở đâu.</string>
 	<string name="whats_new_popularity_label_title">Vị trí phổ biến lân cận</string>
 	<string name="whats_new_popularity_label_message">Khám phá khu vực gần đây sẽ giúp bạn tìm thấy những địa điểm nổi tiếng nhất trong thành phố.</string>
@@ -1343,15 +1343,15 @@
 	<string name="guide_downloaded_subtitle">Nhấn “Xem trên bản đồ” để khám phá chỉ dẫn.</string>
 	<string name="bookmarks_guides">Đánh dấu trang và Hướng dẫn</string>
 	<string name="remove_ads">Xóa quảng cáo</string>
-	<string name="remove_ads_title">Xóa tất cả quảng cáo và hỗ trợ MAPS.ME</string>
+	<string name="remove_ads_title">Xóa tất cả quảng cáo và hỗ trợ OMaps</string>
 	<string name="paybtn_title">Thanh toán %s/năm</string>
 	<string name="paybtn_subtitle">Tiết kiệm %s/năm</string>
 	<string name="options_dropdown_title">Nhiều lựa chọn hơn</string>
-	<string name="why_support">Tại sao hỗ trợ MAPS.ME?</string>
+	<string name="why_support">Tại sao hỗ trợ OMaps?</string>
 	<string name="options_dropdown_item1">%1$s/tháng (tiết kiệm %2$s/năm)</string>
 	<string name="options_dropdown_item2">%s/tuần (không tiết kiệm được gì)</string>
 	<string name="why_support_item1">Chúng tôi sẽ xóa tất cả quảng cáo cho bạn</string>
-	<string name="why_support_item2">You help us to improve MAPS.ME</string>
+	<string name="why_support_item2">You help us to improve OMaps</string>
 	<string name="why_support_item3">Bạn giúp chúng tôi cải thiện bản đồ mở OpenStreetMap.org</string>
 	<string name="purchase_processing">Giao dịch mua của bạn đang được xử lý…</string>
 	<string name="tips_bookmarks_catalog_title">Hướng dẫn ngoại tuyến cho mọi loại hành trình</string>
@@ -1369,7 +1369,7 @@
 	<string name="awaiting_approval">Đang chờ phê duyệt của phụ huynh</string>
 	<string name="whats_new_leave_review">Để lại một đánh giá! Chia sẻ ý kiến của bạn về các địa điểm bạn đã ghé thăm trong kỳ nghỉ của bạn.</string>
 	<string name="server_unavailable_title">Máy chủ không khả dụng</string>
-	<string name="server_unavailable_message">Giao dịch mua sẽ được hoàn thành sau. Nếu vẫn còn lỗi, vui lòng liên hệ với support\@maps.me.</string>
+	<string name="server_unavailable_message">Giao dịch mua sẽ được hoàn thành sau. Nếu vẫn còn lỗi, vui lòng liên hệ với support\@omaps.app.</string>
 	<string name="offline_fiters_check_in">Kết nối với internet để lọc khách sạn theo ngày tháng.</string>
 	<string name="restore_subscription">Khôi phục đăng ký</string>
 	<string name="restore_success_alert">Đăng ký đã được khôi phục thành công</string>
@@ -1386,7 +1386,7 @@
 	<string name="ugc_route_tags_progress_msg">Đang tải thẻ…</string>
 	<string name="public_access">Truy cập công khai</string>
 	<string name="limited_access">Truy cập hạn chế</string>
-	<string name="upload_and_publish_desc">Hướng dẫn này sẽ được tải lên danh mục MAPS.ME công khai và sẽ có sẵn cho những người dùng khác</string>
+	<string name="upload_and_publish_desc">Hướng dẫn này sẽ được tải lên danh mục OMaps công khai và sẽ có sẵn cho những người dùng khác</string>
 	<string name="upload_and_publish">Tải lên và phát hành</string>
 	<string name="upload_and_get_direct_link">Tải lên và nhận liên kết trực tiếp</string>
 	<string name="get_direct_link_desc">Hướng dẫn của bạn sẽ có sẵn cho bất kỳ ai có liên kết</string>
@@ -1437,12 +1437,12 @@
 	<string name="notification_channel_downloader">Trình tải xuống bản đồ</string>
 	<string name="notification_leave_review_title">%s - nó như thế nào?</string>
 	<string name="notification_leave_review_content">Giúp khách du lịch bằng cách để lại đánh giá!</string>
-	<string name="share_bookmarks_email_body_link">Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua MAPS.ME và tận hưởng chuyến đi của bạn!\n\nNhận đơn đăng ký: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua OMaps và tận hưởng chuyến đi của bạn!\n\nNhận đơn đăng ký: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h</string>
 	<string name="warning_speedcams_subtitle">Hãy nhớ lái xe quy định của đất nước bạn đang đi du lịch đến.</string>
 	<string name="speedcams_notice_message">Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams</string>
 	<string name="whats_new_ugc_routes_title">Rất dễ để chia sẻ những sự ấn tượng của bạn</string>
-	<string name="whats_new_ugc_routes_subtitle">Lưu các địa điểm đáng nhớ, tạo tuyến đường bằng cách sử dụng chỉ mục và chia sẻ chúng với mọi người trong danh mục MAPS.ME.</string>
+	<string name="whats_new_ugc_routes_subtitle">Lưu các địa điểm đáng nhớ, tạo tuyến đường bằng cách sử dụng chỉ mục và chia sẻ chúng với mọi người trong danh mục OMaps.</string>
 	<string name="whats_new_webeditor_title">Biến tuyến đường của bạn thành câu chuyện</string>
 	<string name="whats_new_ugc_routes_message2">Thêm ảnh và câu chuyện chi tiết trong trình chỉnh sửa web.</string>
 	<string name="whatsnew_standard_routes_title">Các tuyến đường chuẩn</string>
@@ -1459,7 +1459,7 @@
 	<string name="notification_leave_review_v2_title">Hãy để lại ý kiến nhận xét và giúp đỡ du khách!</string>
 	<string name="error_public_not_enought_title">Không đủ thẻ đánh dấu</string>
 	<string name="error_public_not_enought_subtitle">Trong hướng dẫn tuyến du lịch của bạn phải có ít nhất 3 thẻ đánh dấu để có thể tải lên công khai</string>
-	<string name="bookmark_public_upload_alert_title">Bạn chỉ cần thêm vài bước nữa là có thể chia sẻ hướng dẫn của mình với tất cả khách du lịch của MAPS.ME!</string>
+	<string name="bookmark_public_upload_alert_title">Bạn chỉ cần thêm vài bước nữa là có thể chia sẻ hướng dẫn của mình với tất cả khách du lịch của OMaps!</string>
 	<string name="bookmark_public_upload_alert_subtitle">Hãy chắc chắn rằng tuyến hướng dẫn của bạn có đầy đủ tên gọi, mô tả, và tất nhiên tất cả thẻ đánh dấu đều có thông tin về các địa điểm. Chính nhờ điều này, người dùng sẽ tìm được tuyến hướng dẫn và có thể áp dụng vào chuyến đi của mình.</string>
 	<string name="bookmark_public_upload_alert_ok_button">Vâng, tôi chắc chắn!</string>
 	<string name="name_title">Nhập tên gọi</string>
@@ -1489,7 +1489,7 @@
 	<string name="power_managment_setting_never">Không bao giờ</string>
 	<string name="power_managment_setting_auto">Tự động</string>
 	<string name="power_managment_setting_manual_max">Tiết kiệm năng lượng tối đa</string>
-	<string name="enable_logging_warning_message">Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ MAPS.ME.</string>
+	<string name="enable_logging_warning_message">Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ OMaps.</string>
 	<string name="html_error_upload_message_try_again">Vui lòng kiểm tra kết nối internet và thử lại</string>
 	<string name="html_error_upload_title_try_again">Không có kết nối internet</string>
 	<string name="notification_leave_review_v2_android_short_title">Hãy để lại nhận xét và giúp khách du lịch!</string>
@@ -1498,7 +1498,7 @@
 	<string name="privacy_settings_menu">Cài đặt bảo mật</string>
 	<string name="gdpr_request_setting">Nhận ID cho yêu cầu GDPR</string>
 	<string name="gdpr_request_window_title">ID của bạn: %s.</string>
-	<string name="gdpr_request_window_message">Xin vui lòng sao chép nó và gửi yêu cầu tới địa chỉ support\@maps.me</string>
+	<string name="gdpr_request_window_message">Xin vui lòng sao chép nó và gửi yêu cầu tới địa chỉ support\@omaps.app</string>
 	<string name="gdpr_request_window_copy">Sao chép ID</string>
 	<string name="unable_upadate_error_title">Cập nhận hướng dẫn không thành công</string>
 	<string name="unable_upadate_error_message">Xuất hiện lỗi khi cập nhật. Hãy kiểm tra lại những thay đổi và thử lại lần nữa</string>
@@ -1521,7 +1521,7 @@
 	<string name="avoid_toll_roads_placepage">Tránh đường trả phí</string>
 	<string name="avoid_unpaved_roads_placepage">Tránh đường đất</string>
 	<string name="avoid_ferry_crossing_placepage">Tránh bến phà</string>
-	<string name="cached_guides_placeholder_subtitle">Sách hướng dẫn sẵn có trong MAPS.ME – là những điểm được lựa chọn cùng với hình ảnh và mô tả, chúng được hiển thị trên bản đồ và cho phép truy cập ngoại tuyến.</string>
+	<string name="cached_guides_placeholder_subtitle">Sách hướng dẫn sẵn có trong OMaps – là những điểm được lựa chọn cùng với hình ảnh và mô tả, chúng được hiển thị trên bản đồ và cho phép truy cập ngoại tuyến.</string>
 	<string name="guides_catalogue_title">Danh mục sách hướng dẫn</string>
 	<string name="download_guides_button">Chuyển tới danh mục</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1529,12 +1529,12 @@
 	  <item quantity="other">Căn cứ vào %d những nhận xét</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Ẩm thực của Uzbekistan</string>
-	<string name="onboarding_welcome_title">Hãy lên kế hoạch và đi du lịch cùng với MAPS.ME</string>
+	<string name="onboarding_welcome_title">Hãy lên kế hoạch và đi du lịch cùng với OMaps</string>
 	<string name="onboarding_welcome_first_subtitle">Hãy lưu lại những địa chỉ hấp dẫn, đặt phòng khách sạn và xây dựng lộ trình đi ngoại tuyến</string>
 	<string name="onboarding_guide_direct_download_title">Sác hướng dẫn đã sẵn sàng cho phép tải xuống</string>
 	<string name="onboarding_guide_direct_download_subtitle">Nó hiển thị trên bản đồ và sẽ hoạt động ngoại tuyến</string>
 	<string name="onboarding_guide_direct_download_button">Tải về</string>
-	<string name="onboarding_bydeeplink_guide_title">Sác hướng dẫn sẵn có trong MAPS.ME</string>
+	<string name="onboarding_bydeeplink_guide_title">Sác hướng dẫn sẵn có trong OMaps</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">Những địa điểm đã lựa chọn cùng hình ảnh và mô tả được hiển thị trên bản đồ và cho phép truy cập ngoại tuyến.</string>
 	<string name="whats_new_auto_update_bydeeplink_title">Trước khi chuyển sang hướng dẫn…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Hãy cập nhật bản đồ để nhận được những thông tin mới nhất về các đối tượng, chủ thể!</string>
@@ -1565,11 +1565,11 @@
 	<string name="ok">Ok</string>
 	<string name="booking_button_toolbar">Lựa chọn khách sạn trên bản đồ</string>
 	<string name="popup_booking_download_guides_title">Đặt phòng khách sạn?</string>
-	<string name="popup_booking_download_guides_message">Lên kế hoạch chô lộ trình du lịch cùng với những sách hướng dẫn sẵn có từ MAPS.ME</string>
+	<string name="popup_booking_download_guides_message">Lên kế hoạch chô lộ trình du lịch cùng với những sách hướng dẫn sẵn có từ OMaps</string>
 	<string name="popup_mwm_download_guides_title">Hướng dẫn ngoại tuyến</string>
 	<string name="popup_mwm_download_guides_cta">Lựa chọn</string>
 	<string name="popup_mwm_download_guides_cta_1">Xem</string>
-	<string name="gallery_pp_download_guides_offline_title">Lên kết hoạch nghỉ ngơi cùng MAPS.ME!</string>
+	<string name="gallery_pp_download_guides_offline_title">Lên kết hoạch nghỉ ngơi cùng OMaps!</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">Đừng bỏ lỡ những thứ quan trọng cùng với các tuyến được những du khách có kinh nghiệm đề xuất</string>
 	<string name="gallery_pp_download_guides_offline_cta">Bật kết nối Internet</string>
 	<string name="gallery_pp_download_guides_title">Sách hướng dẫn</string>
@@ -1598,7 +1598,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Truy cập toàn với %s/năm</string>
 	<string name="subscription_terms_guides">Thanh toán sẽ được thực hiện từ tài khoản iTunes khi xác nhận mua. Việc đăng ký sẽ tự động gia hạn nếu như tự động gia hạn không bị tắt ít nhất 24h trước khi kết thúc kỳ đăng ký hiện tại. Tiền sẽ được trừ từ tài khoản của bạn tương ứng với gói dịch vụ bạn chọn và kéo dài trong 24h đồng hồ đến khi kết thúc kỳ đăng ký hiện tại. Bạn cũng có thể điều chỉnh việc tự động gia hạn hoặc tắt nó đi trong phần cài đặt tài khoản Apple ID vào bất cứ thời gian nào sau khi mua. Bạn chỉ có thể sử dụng các sách hướng dẫn đã tải khi đăng ký trong thời gian chúng có hiệu lực. Sau thời hạn 30 ngày kể từ khi kết thúc việc đăng ký, các sách hướng dẫn cùng với phần đánh dấu trang sẽ được xóa một cách tự động.</string>
 	<string name="subscription_terms">Thanh toán sẽ được tính vào tài khoản iTunes của bạn khi xác nhận mua. Đăng ký sẽ tự động gia hạn trừ khi tính năng tự động gia hạn được tắt ít nhất 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Tài khoản của bạn sẽ được tính phí theo gói gia hạn trong vòng 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Bạn có thể quản lý hoặc tắt tính năng tự động gia hạn trong cài đặt tài khoản Apple ID của mình bất kỳ lúc nào sau khi mua.</string>
-	<string name="whatsnew_carplay_title">Điều hướng tự động MAPS.ME trong CarPlay!</string>
+	<string name="whatsnew_carplay_title">Điều hướng tự động OMaps trong CarPlay!</string>
 	<string name="whatsnew_carplay_message">Đánh dấu, tìm kiếm, camera tốc độ và thiết lập đi vòng, đường tránh – tất cả đều hoạt động mà không cần Internet</string>
 	<string name="whatsnew_subscription_title">Hãy mở cánh cửa thế giới bằng cách đăng ký!</string>
 	<string name="whatsnew_subscription_message">Truy cập không giới hạn tới cả danh mục các tuyến đường có lợi hơn là mua từng tuyến một</string>
@@ -1612,7 +1612,7 @@
 	<string name="avoid_tolls_carplay_2">Trừ đg có phí</string>
 	<string name="speedcams_alert_title_carplay_1">Сam tốc độ</string>
 	<string name="speedcams_alert_title_carplay_2">Cảnh báo tốc độ</string>
-	<string name="download_map_carplay">Vui lòng tải xuống bản đồ trong ứng dụng MAPS.ME trên thiết bị của bạn</string>
+	<string name="download_map_carplay">Vui lòng tải xuống bản đồ trong ứng dụng OMaps trên thiết bị của bạn</string>
 	<string name="carplay_roundabout_exit">Lối ra %s của vòng xuyến</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sắp xếp…</string>
@@ -1663,7 +1663,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">Trật tự trong các dấu trang – đó là sự tiện nghi, thoải mái cho chuyến du lịch</string>
 	<string name="whatsnew_bookmarks_search_sort_message">Hãy sắp xếp các địa điểm yêu thích theo thể loại, thời gian thêm vào và vị trí địa lý, đồng thời bạn cũng sẽ nhanh chóng tìm thấy các dấu trang cụ thể theo tên gọi</string>
 	<string name="popup_subscription_success_map_title">Ura! Bạn đã đăng ký mua!</string>
-	<string name="popup_subscription_success_map_message">Bây giờ hãy khám phá những điểm du lịch tốt nhất trong danh mục của MAPS.ME</string>
+	<string name="popup_subscription_success_map_message">Bây giờ hãy khám phá những điểm du lịch tốt nhất trong danh mục của OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Xem xét</string>
 	<string name="popup_subscription_success_map_not_now_button">Không phải bây giờ</string>
 	<string name="religious_places">Những nơi tôn nghiêm</string>
@@ -1695,9 +1695,9 @@
 	<string name="new_onboarding_step5.1_header">Trước khi bắt đầu…</string>
 	<string name="new_onboarding_step5.1_message">Đừng quên truy cập danh mục tuyến đường mới của chúng tôi để tìm hướng dẫn ngoại tuyến cho chuyến đi tiếp theo của bạn!</string>
 	<string name="new_onboarding_step5.1_button">Mở danh sách</string>
-	<string name="new_onboarding_step5.2_message">Đăng ký danh mục hướng dẫn trong MAPS.ME – đó là một điều hoàn toàn có lợi. Nhận được quyền truy cập toàn bộ vào các tuyến cho những chuyến dạo chơi quanh thành phố hay hoạt động ngoài trời!</string>
+	<string name="new_onboarding_step5.2_message">Đăng ký danh mục hướng dẫn trong OMaps – đó là một điều hoàn toàn có lợi. Nhận được quyền truy cập toàn bộ vào các tuyến cho những chuyến dạo chơi quanh thành phố hay hoạt động ngoài trời!</string>
 	<string name="new_onboarding_step5.2_button">Xem các điều khoản</string>
-	<string name="new_onboarding_step5.3_message">Tải xuống và đánh giá các tuyến đường cho các chuyến đi trong thành phố và các hoạt động ngoài trời với lựa chọn MAPS.ME miễn phí!</string>
+	<string name="new_onboarding_step5.3_message">Tải xuống và đánh giá các tuyến đường cho các chuyến đi trong thành phố và các hoạt động ngoài trời với lựa chọn OMaps miễn phí!</string>
 	<string name="new_onboarding_step5.3_button">Tải miễn phí</string>
 	<string name="new_onboarding_additional_steps_later_button">Không phải bây giờ</string>
 	<string name="all_pass_subscription_header">Đăng ký</string>
@@ -1730,7 +1730,7 @@
 	<string name="dialog_pedestrian_route_is_long">ĐI bộ đến phương tiện quá lâu</string>
 	<string name="whatsnew_outdoor_guides_title">Chúng tôi đã bổ sung hơn 15000 đường mòn cho các hoạt động ngoài trời!</string>
 	<string name="whatsnew_outdoor_guides_message">Các tuyến đường từ Outdooractive cho kỳ nghỉ mùa đông, mùa hè đang chờ đón bạn trong danh sách!</string>
-	<string name="whatsnew_guides_galleries_title">Hãy lên kế hoạch cho chuyến đi sắp tới cùng với MAPS.ME</string>
+	<string name="whatsnew_guides_galleries_title">Hãy lên kế hoạch cho chuyến đi sắp tới cùng với OMaps</string>
 	<string name="whatsnew_guides_galleries_message">Bây giờ bạn có thể tìm thấy hướng dẫn được đề xuất trong các thẻ của các thành phố và điểm tham quan nổi tiếng</string>
 	<string name="new_onboarding_step3_header">Đi du lịch nào</string>
 	<string name="all_pass_screen_best_value">Giá tốt</string>
@@ -1744,7 +1744,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">Xác định phương hướng ở vùng đồi núi – hãy bật nút chỉ lớp ở góc trái trên màn hình</string>
 	<string name="button_layer_isolines">Độ cao</string>
-	<string name="tips_map_layers_title_countour">Đường độ cao ngoại tuyến trong MAPS.ME!</string>
+	<string name="tips_map_layers_title_countour">Đường độ cao ngoại tuyến trong OMaps!</string>
 	<string name="tips_map_layers_message_countour">Đường độ cao giúp lên kế hoạch du lịch hòa mình với thiên nhiên và không bị lạc khi di chuyển</string>
 	<string name="isolines_activation_error_dialog">Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn</string>
 	<string name="isolines_location_error_dialog">Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này</string>

@@ -31,7 +31,7 @@
 	<string name="downloading">下載中…</string>
 	<string name="get_it_now">馬上取得</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">感謝您使用 MAPS.ME！您喜歡此應用程式嗎？告訴好友們吧！這會是對我們最好的感謝。</string>
+	<string name="share_on_facebook_text">感謝您使用 OMaps！您喜歡此應用程式嗎？告訴好友們吧！這會是對我們最好的感謝。</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">公里</string>
 	<!-- Leave Review dialog - Review button -->
@@ -86,7 +86,7 @@
 	<string name="country_status_download_failed">下載失敗</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再試一次</string>
-	<string name="about_menu_title">關於 MAPS.ME</string>
+	<string name="about_menu_title">關於 OMaps</string>
 	<string name="downloading_touch_to_cancel">正在下載 %d%%, 輕觸以取消</string>
 	<string name="downloaded_touch_to_delete">已下載的 (%s)，輕觸以刪除</string>
 	<string name="connection_settings">連線設定</string>
@@ -95,7 +95,7 @@
 	<string name="unsupported_phone">需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！</string>
 	<string name="download">下載</string>
 	<string name="external_storage_is_not_available">SD 卡/USB 無法有效儲存下載的地圖</string>
-	<string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 MAPS.ME</string>
+	<string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間</string>
 	<string name="not_enough_memory">沒有足夠的記憶體以啟動應用程式</string>
 	<string name="free_space_for_country">請先釋放 %1$s 系統空間以下載 %2$s</string>
@@ -122,7 +122,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">以下為可更新的地圖：</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">你再也不需要 MAPS.ME Lite 了，所以您可以移除它！</string>
+	<string name="suggest_uninstall_lite">你再也不需要 OMaps Lite 了，所以您可以移除它！</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s 已成功下載</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -152,9 +152,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">收藏夾</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">您還沒有任何書籤。\n點擊地圖上的任何地方以新增書籤。\n其他來源的書籤也可導入在 MAPS.ME 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。</string>
+	<string name="bookmarks_usage_hint">您還沒有任何書籤。\n點擊地圖上的任何地方以新增書籤。\n其他來源的書籤也可導入在 OMaps 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">其他來源的書籤也可導入在 MAPS.ME 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。</string>
+	<string name="bookmarks_usage_hint_import_only">其他來源的書籤也可導入在 OMaps 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -222,7 +222,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">以電子郵件分享</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">已分享 MAPS.ME 書籤</string>
+	<string name="share_bookmarks_email_subject">已分享 OMaps 書籤</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">正在載入書籤…</string>
 	<!-- Kmz file successful loading -->
@@ -242,17 +242,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">國家地圖正在進行下載</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">祝您使用 MAPS.ME 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！</string>
+	<string name="appStore_message">祝您使用 OMaps 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">不，謝了</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">嘿，看看我在 MAPS.ME 標記的圖釘吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: http://maps.me/get</string>
+	<string name="bookmark_share_sms">嘿，看看我在 OMaps 標記的圖釘吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">嘿，在 MAPS.ME 查看我的目前位置吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: http://maps.me/get</string>
+	<string name="my_position_share_sms">嘿，在 OMaps 查看我的目前位置吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">嘿，看看我在 MAPS.ME 地圖上的圖釘！</string>
+	<string name="bookmark_share_email_subject">嘿，看看我在 OMaps 地圖上的圖釘！</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">嗨，到 MAPS.ME 地圖查看我的目前位置！</string>
+	<string name="my_position_share_email_subject">嗨，到 OMaps 地圖查看我的目前位置！</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">嗨，\n\n我現在在這：%1$s。點擊此連結 %2$s 或此連結 %3$s 來查看在地圖上的位置。\n\n謝謝。</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -362,19 +362,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">下載您所在地方的地圖</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">現在完整版 MAPS.ME 是免費的！馬上下載並告訴您的朋友。</string>
+	<string name="pro_version_is_free_today">現在完整版 OMaps 是免費的！馬上下載並告訴您的朋友。</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">我們正在將您從 MAPS.ME Lite 下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。</string>
+	<string name="move_lite_maps_to_pro">我們正在將您從 OMaps Lite 下載的地圖傳輸至 OMaps。這可能需要幾分鐘的時間。</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">您下載的地圖已成功傳輸至 MAPS.ME。</string>
+	<string name="move_lite_maps_to_pro_ok">您下載的地圖已成功傳輸至 OMaps。</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">您的地圖傳輸失敗。請刪除 MAPS.ME Lite，然後再次下載地圖。</string>
+	<string name="move_lite_maps_to_pro_failed">您的地圖傳輸失敗。請刪除 OMaps Lite，然後再次下載地圖。</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">設定及更多</string>
 	<!-- Text in menu -->
 	<string name="website">網站</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">MAPS.ME 社群</string>
+	<string name="maps_me_community">OMaps 社群</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">在 Facebook 上按讚</string>
 	<!-- Text in menu -->
@@ -394,11 +394,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">報告錯誤</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">請幫我訂閱 MAPS.ME 新聞郵件、</string>
+	<string name="subscribe_me_subject">請幫我訂閱 OMaps 新聞郵件、</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 MAPS.ME 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support\@maps.me。我們會回覆每一條請求！\n\n您喜歡 MAPS.ME 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 https://www.openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 MAPS.ME 應用程式中。</string>
+	<string name="about_text">OMaps 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，OMaps都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 OMaps 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support\@omaps.app。我們會回覆每一條請求！\n\n您喜歡 OMaps 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 OMaps :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 https://www.openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 OMaps 應用程式中。</string>
 	<!-- Alert text -->
 	<string name="email_error_body">電子郵件客戶端尚未建立。請設定或使用任何其他方式與我們聯絡%s</string>
 	<!-- Alert title -->
@@ -410,7 +410,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">請更新地圖以建立一條路線。</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">使用新版本的 MAPS.ME 可以建立從您的目前位置至一個目的地的路線。請更新地圖以使用該功能。</string>
+	<string name="routing_update_maps">使用新版本的 OMaps 可以建立從您的目前位置至一個目的地的路線。請更新地圖以使用該功能。</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">更新全部</string>
 	<!-- Cancel all button text -->
@@ -427,7 +427,7 @@
 	<string name="downloader_downloading">正在下載：</string>
 	<string name="downloader_search_results">已找到</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">在 MAPS.ME 應用程式中建立路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式建立的。\n\n  行車安全，請照顧好您自己！</string>
+	<string name="routing_disclaimer">在 OMaps 應用程式中建立路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式建立的。\n\n  行車安全，請照顧好您自己！</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">過時的</string>
 	<!-- Up to date maps category -->
@@ -451,7 +451,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">找不到所選起點和終點間的路程。請選擇不同的起點或終點。</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">出現內部錯誤。請嘗試刪除並再次下載地圖。如果還有問題請聯絡我們：support\@maps.me。</string>
+	<string name="routing_failed_internal_error">出現內部錯誤。請嘗試刪除並再次下載地圖。如果還有問題請聯絡我們：support\@omaps.app。</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">下載地圖 + 路線</string>
 	<!-- Context menu item for downloader. -->
@@ -480,9 +480,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">我剛剛評價了您的應用</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">我是從 %s 年起的 MAPS.ME 使用者</string>
+	<string name="rating_user_since">我是從 %s 年起的 OMaps 使用者</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">您喜歡 MAPS.ME 嗎？</string>
+	<string name="rating_do_like_maps">您喜歡 OMaps 嗎？</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">點擊星星給我們應用程式評分。</string>
 	<!-- Text for rating dialog -->
@@ -498,7 +498,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">獲取地圖</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">下載更新的地圖和路線數據，獲取所有 MAPS.ME 的特色功能。</string>
+	<string name="routing_download_map_and_routing">下載更新的地圖和路線數據，獲取所有 OMaps 的特色功能。</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">獲取所需的路線數據</string>
 	<!-- Text for routing error dialog -->
@@ -630,7 +630,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">要建立路線，請下載並更新所有沿線的地圖。</string>
 	<string name="rate_alert_title">喜歡這個應用程式嗎？</string>
-	<string name="rate_alert_default_message">感謝您使用 MAPS.ME。請評價此應用程式。您的回饋幫助我們改善我們的產品。</string>
+	<string name="rate_alert_default_message">感謝您使用 OMaps。請評價此應用程式。您的回饋幫助我們改善我們的產品。</string>
 	<string name="rate_alert_five_star_message">太棒了！我們也愛您！</string>
 	<string name="rate_alert_four_star_message">謝謝您，我們會盡可能做好!</string>
 	<string name="rate_alert_less_than_four_star_message">有沒有想法我們能怎麽把它變得更好？</string>
@@ -687,7 +687,7 @@
 	<string name="editor_report_problem_no_place_title">該地點不存在</string>
 	<string name="editor_report_problem_under_construction_title">因維護而關閉</string>
 	<string name="editor_report_problem_duplicate_place_title">重複的地點</string>
-	<string name="first_launch_congrats_title">MAPS.ME 已做好使用準備</string>
+	<string name="first_launch_congrats_title">OMaps 已做好使用準備</string>
 	<string name="first_launch_congrats_text">在世界各地離線搜尋和導航，免費。</string>
 	<string name="migrate_title">重要！</string>
 	<!-- Android uses image instead of text. -->
@@ -791,18 +791,18 @@
 	<string name="whatsnew_search_message">我們已明顯改進了按地址的搜尋。親自看看。</string>
 	<string name="whatsnew_editor_title">編輯此地圖*</string>
 	<string name="whatsnew_editor_message_1">新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。</string>
-	<string name="whatsnew_editor_message_2">* MAPS.ME 使用 OpenStreetMap 社群的數據。</string>
+	<string name="whatsnew_editor_message_2">* OMaps 使用 OpenStreetMap 社群的數據。</string>
 	<string name="onboarding_offline_navigation_title">您將不再迷路</string>
 	<string name="onboarding_offline_navigation_message">規劃最佳的行車和步行路線，即使在沒有網絡連接的情況下！</string>
 	<string name="onboarding_offline_navigation_title_2">離線導航</string>
 	<string name="onboarding_offline_navigation_message_2">規劃最佳的行車和步行路線。</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — 無需網際網路獲取全球地圖</string>
+	<string name="onboarding_offline_maps_title">OMaps — 無需網際網路獲取全球地圖</string>
 	<string name="onboarding_offline_maps_message">一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。</string>
 	<string name="onboarding_notifications_message">為了接收最新的地圖，請接收更新通知</string>
 	<string name="onboarding_notifications_title">啟用更新通知</string>
 	<string name="onboarding_location_title">幫我們找到您</string>
 	<string name="onboarding_location_message">如要使用導航和其他功能，我們需要能獲取您的地理位置.</string>
-	<string name="onboarding_permissions_title">允許 MAPS.ME 存儲和定位的權限</string>
+	<string name="onboarding_permissions_title">允許 OMaps 存儲和定位的權限</string>
 	<string name="onboarding_permissions_message">所以，您可以下載地圖，查看您附近的地點和交通，以及使用導航服務。</string>
 	<string name="onboarding_welcome_second_subtitle">啟用本應用程式，即表示您同意 &lt;a href="%1$s">服務條款&lt;/a>和 &lt;a href="%2$s">隱私權原則&lt;/a>。</string>
 	<string name="dialog_incorrect_feature_position">改變位置</string>
@@ -811,7 +811,7 @@
 	<string name="no_migration_during_navigation">導航中禁止更新。</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">為了下載，您需要更多的空間。請刪除不必要的數據。</string>
-	<string name="editor_sharing_title">我改進了 MAPS.ME 地圖</string>
+	<string name="editor_sharing_title">我改進了 OMaps 地圖</string>
 	<string name="editor_comment_will_be_sent">我們將把您的評論發送給地圖編輯者。</string>
 	<string name="editor_unsupported_category_message">您已新增了一個我們尚未支援的類別的地點。它未來會顯示在地圖上。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -828,7 +828,7 @@
 	<string name="core_placepage_unknown_place">未知的位置</string>
 	<string name="editor_other_info">給OSM編輯器發送標記</string>
 	<string name="editor_detailed_description_hint">詳細註釋</string>
-	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 MAPS.ME 中編輯的詳細資料。</string>
+	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 OMaps 中編輯的詳細資料。</string>
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
 	<string name="editor_operator">營運者</string>
 	<string name="editor_tag_description">輸入公司、組織或設施負責人。</string>
@@ -849,7 +849,7 @@
 	<string name="current_location_unknown_error_title">目前位置未知。</string>
 	<string name="current_location_unknown_error_message">搜尋您的位置時發生錯誤。請檢查您的裝置是否正常運作，然後重試。</string>
 	<string name="whatsnew_update_editor_title">我們已更新地圖編輯器</string>
-	<string name="whatsnew_update_editor_message">MAPS.ME 使用者已經進行了 200,000 處地圖變更。我們正在齊心協力打造世界上最詳細的地圖，加入我們吧！</string>
+	<string name="whatsnew_update_editor_message">OMaps 使用者已經進行了 200,000 處地圖變更。我們正在齊心協力打造世界上最詳細的地圖，加入我們吧！</string>
 	<!-- Additional text in whats new -->
 	<string name="whatsnew_update_editor_message_update">如要使用地圖編輯器，請更新所有地圖。</string>
 	<string name="location_services_disabled_header">地點定位被禁用</string>
@@ -938,7 +938,7 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">看一看</string>
 	<string name="continue_recent_track_background_button">繼續</string>
-	<string name="recent_track_background_dialog_message">MAPS.ME使用背景中的地理位置記錄您最近去過的路徑。</string>
+	<string name="recent_track_background_dialog_message">OMaps使用背景中的地理位置記錄您最近去過的路徑。</string>
 	<string name="whatsnew_car_navigation_header">方便用戶使用的車輛導航</string>
 	<string name="whatsnew_car_navigation_message">• 導航元素所佔用的空間更小。\n• 我們顯示了速度並且已經添加了自動縮放功能。</string>
 	<string name="whatsnew_cycle_navigation_2_header">自行車導航</string>
@@ -946,15 +946,15 @@
 	<string name="whatsnew_booking_2_header">便捷的酒店搜索</string>
 	<string name="whatsnew_booking_2_message">該搜索結果顯示酒店星級和價格分類。</string>
 	<string name="whatsnew_cycle_navigation_header">自行車導航（beta 版）</string>
-	<string name="whatsnew_cycle_navigation_message">我們正在為新的一季測試自行車導航功能。請使用 MAPS.ME 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。</string>
+	<string name="whatsnew_cycle_navigation_message">我們正在為新的一季測試自行車導航功能。請使用 OMaps 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">在 Google Play 評分</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">告訴朋友</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">嗨！安裝 MAPS.ME！</string>
+	<string name="tell_friends_text">嗨！安裝 OMaps！</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">MAPS.ME 是一款基本離線旅遊應用程式。MAPS.ME 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。</string>
+	<string name="about_description">OMaps 是一款基本離線旅遊應用程式。OMaps 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。</string>
 	<!-- Text in menu -->
 	<string name="blog">部落格</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -1009,7 +1009,7 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">開放</string>
-	<string name="whatsnew_uber_header">優步 &amp; MAPS.ME離綫地圖</string>
+	<string name="whatsnew_uber_header">優步 &amp; OMaps離綫地圖</string>
 	<string name="whatsnew_uber_message">直接從應用程序預訂計程車！</string>
 	<string name="dialog_taxi_offline">叫計程車服務在離線模式下無法使用。</string>
 	<string name="dialog_taxi_error">叫計程車服務暫時無法使用。</string>
@@ -1024,7 +1024,7 @@
 	<string name="traffic_update_maps_text">若要顯示交通資料，必須更新地圖。</string>
 	<string name="traffic_outdated">交通資料已過時。</string>
 	<string name="big_font">增加地圖上的字體大小</string>
-	<string name="traffic_update_app">請更新 MAPS.ME</string>
+	<string name="traffic_update_app">請更新 OMaps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">若要顯示交通資訊，必須更新應用程式。</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -1122,9 +1122,9 @@
 	<string name="button_accept_and_continue">接受並繼續</string>
 	<string name="button_learn_more">瞭解更多資訊</string>
 	<string name="onboarding_storage_permissions_title">授與存取權</string>
-	<string name="onboarding_storage_permissions_message">變更您裝置中的權限設定。需要存儲權限才能使用 MAPS.ME。</string>
+	<string name="onboarding_storage_permissions_message">變更您裝置中的權限設定。需要存儲權限才能使用 OMaps。</string>
 	<string name="button_exit">退出</string>
-	<string name="onboarding_detail_permissions_title">MAPS.ME 需要下列存取權限：</string>
+	<string name="onboarding_detail_permissions_title">OMaps 需要下列存取權限：</string>
 	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_storage_title">存儲空間</string>
 	<string name="onboarding_detail_permissions_storage_message">儲存和離線使用下載的地圖並儲存書籤。</string>
@@ -1195,7 +1195,7 @@
 	<string name="whats_new_ugc_title_updated_v840">評分與評論</string>
 	<string name="whats_new_ugc_message">現在即使離線，您也能留下評分和評論！別忘了更新地圖，才能看到變更。</string>
 	<string name="dialog_error_storage_title">儲存空間存取問題</string>
-	<string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support\@maps.me 方式聯繫我們</string>
+	<string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support\@omaps.app 方式聯繫我們</string>
 	<string name="setting_emulate_bad_storage">模擬不良儲存空間</string>
 	<string name="discovery_button_title">探索鄰近區域</string>
 	<string name="discovery_button_subtitle_things_to_do">活動</string>
@@ -1289,15 +1289,15 @@
 	<string name="sign_message_gdpr">您必須接受我們的使用條款和隱私政策。 請仔細閱讀。</string>
 	<string name="sign_agree_pp_gdpr">我同意&lt;a href="%s">隱私政策&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">我同意&lt;a href="%s">使用條款&lt;/a></string>
-	<string name="sign_agree_news_gdpr">我同意接收有關MAPS.ME產品的最新消息</string>
-	<string name="whats_new_localbiz_message">當地的咖啡館、旅館和小商店令旅行難以忘懷。我們在MAPS.ME中免費優化您的商家頁面，以便它可以被看見。</string>
+	<string name="sign_agree_news_gdpr">我同意接收有關OMaps產品的最新消息</string>
+	<string name="whats_new_localbiz_message">當地的咖啡館、旅館和小商店令旅行難以忘懷。我們在OMaps中免費優化您的商家頁面，以便它可以被看見。</string>
 	<string name="whats_new_order_button">留下申請表</string>
 	<string name="bookmarks_page_downloaded">加載</string>
 	<string name="bookmarks_page_my">我的</string>
 	<string name="routes_and_bookmarks">路線和標籤</string>
 	<string name="bookmarks_webview_success_toast">標籤已成功加載</string>
 	<string name="cached_bookmarks_placeholder_title">上傳新地點</string>
-	<string name="cached_bookmarks_placeholder_subtitle">單擊按鈕下載MAPS.ME用戶創建的數千個有趣的地點和路線。您需要網絡連接。</string>
+	<string name="cached_bookmarks_placeholder_subtitle">單擊按鈕下載OMaps用戶創建的數千個有趣的地點和路線。您需要網絡連接。</string>
 	<string name="downloader_download_routers">加載標籤</string>
 	<string name="bookmarks_groups_cached">加載的列表</string>
 	<string name="author_name_by_prefix">%s</string>
@@ -1317,7 +1317,7 @@
 	<string name="opt_out_flurry">統計</string>
 	<string name="opt_out_mopub">個性化廣告</string>
 	<string name="opt_out_fabric">錯誤報告</string>
-	<string name="opt_out_fabric_description">我們可以使用您的數據來開發和改進MAPS.ME。更改將再重新啟動應用程序后生效。</string>
+	<string name="opt_out_fabric_description">我們可以使用您的數據來開發和改進OMaps。更改將再重新啟動應用程序后生效。</string>
 	<string name="opt_out_help_ios_1">您可以選擇停止在設備設置中接受定向廣告。</string>
 	<string name="opt_out_help_ios_2">iOS 9或更高版本</string>
 	<string name="opt_out_help_ios_3">請打開設置 → 隱私 → 廣告 → 啟用“跟蹤限制”</string>
@@ -1338,7 +1338,7 @@
 	<string name="category_desc_more">…更多</string>
 	<string name="title_error_downloading_bookmarks">發生錯誤</string>
 	<string name="subtitle_error_downloading_bookmarks">標籤未加載</string>
-	<string name="whats_new_bookmarks_catalog_title">在MAPS.ME中有路線目錄</string>
+	<string name="whats_new_bookmarks_catalog_title">在OMaps中有路線目錄</string>
 	<string name="whats_new_bookmarks_catalog_message">全球數十條詳細路線去哪裡、看什麼、在哪吃飯。</string>
 	<string name="whats_new_popularity_label_title">附近景點</string>
 	<string name="whats_new_popularity_label_message">“探索鄰近區域”部分將幫您找到該城市最受歡迎的地方。</string>
@@ -1355,15 +1355,15 @@
 	<string name="guide_downloaded_subtitle">按下‘在地圖上查看’探索指南</string>
 	<string name="bookmarks_guides">書籤和指南</string>
 	<string name="remove_ads">關閉廣告</string>
-	<string name="remove_ads_title">關閉所有廣告并支持 MAPS.ME</string>
+	<string name="remove_ads_title">關閉所有廣告并支持 OMaps</string>
 	<string name="paybtn_title">支付%s/年</string>
 	<string name="paybtn_subtitle">節省%s/年</string>
 	<string name="options_dropdown_title">其他選擇</string>
-	<string name="why_support">為什麼支持MAPS.ME?</string>
+	<string name="why_support">為什麼支持OMaps?</string>
 	<string name="options_dropdown_item1">%1$s/月 (節省%2$s/年)</string>
 	<string name="options_dropdown_item2">%s/周 (未節省)</string>
 	<string name="why_support_item1">我們將為您關閉所有廣告</string>
-	<string name="why_support_item2">您幫助我們改進MAPS.ME</string>
+	<string name="why_support_item2">您幫助我們改進OMaps</string>
 	<string name="why_support_item3">您幫助我們改進OpenStreetMap.org地圖</string>
 	<string name="purchase_processing">正在處理您的購買訂單……</string>
 	<string name="tips_bookmarks_catalog_title">所有類型旅行的離線指南</string>
@@ -1381,7 +1381,7 @@
 	<string name="awaiting_approval">我們正在等待父母確認</string>
 	<string name="whats_new_leave_review">請留言！請分享您對度假時索取過的地方的看法。</string>
 	<string name="server_unavailable_title">服務不可用</string>
-	<string name="server_unavailable_message">購買將在稍後完成。如果錯誤仍然存在，請聯繫support\@maps.me。</string>
+	<string name="server_unavailable_message">購買將在稍後完成。如果錯誤仍然存在，請聯繫support\@omaps.app。</string>
 	<string name="offline_fiters_check_in">連接到網絡已選擇到達和離開的日期。</string>
 	<string name="restore_subscription">恢復訂閱</string>
 	<string name="restore_success_alert">訂閱已成功恢復</string>
@@ -1398,7 +1398,7 @@
 	<string name="ugc_route_tags_progress_msg">正在加載標籤......</string>
 	<string name="public_access">公共訪問</string>
 	<string name="limited_access">私人訪問</string>
-	<string name="upload_and_publish_desc">本指南將上傳到MAPS.ME公共目錄，並可供其他用戶使用</string>
+	<string name="upload_and_publish_desc">本指南將上傳到OMaps公共目錄，並可供其他用戶使用</string>
 	<string name="upload_and_publish">加載並發布</string>
 	<string name="upload_and_get_direct_link">加載並獲取鏈接</string>
 	<string name="get_direct_link_desc">您的指南將通過直接鏈接提供</string>
@@ -1449,12 +1449,12 @@
 	<string name="notification_channel_downloader">加載地圖</string>
 	<string name="notification_leave_review_title">%s - 您在這裡怎麼樣?</string>
 	<string name="notification_leave_review_content">請發表評論並幫助旅客！</string>
-	<string name="share_bookmarks_email_body_link">您好！\n\n您的標籤可以從鏈接下載：%s.使用MAPS.ME打開列表並享受旅行!\n\n下載應用程序：http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">您好！\n\n您的標籤可以從鏈接下載：%s.使用OMaps打開列表並享受旅行!\n\n下載應用程序：https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">當速度限制超過%d km / h時，導航會通知您的攝像機</string>
 	<string name="warning_speedcams_subtitle">請不要忘記閱讀旅行國的道路規則。</string>
 	<string name="speedcams_notice_message">自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告</string>
 	<string name="whats_new_ugc_routes_title">分享您的印象很容易</string>
-	<string name="whats_new_ugc_routes_subtitle">保存有印象的地点、用书签创建路线，并在MAPS.ME目录中和大家分享。</string>
+	<string name="whats_new_ugc_routes_subtitle">保存有印象的地点、用书签创建路线，并在OMaps目录中和大家分享。</string>
 	<string name="whats_new_webeditor_title">把路线变成故事</string>
 	<string name="whats_new_ugc_routes_message2">在网页编辑工具里添加照片和详细的故事。</string>
 	<string name="whatsnew_standard_routes_title">標準路線</string>
@@ -1471,7 +1471,7 @@
 	<string name="notification_leave_review_v2_title">請發表評論來幫助旅行者們！</string>
 	<string name="error_public_not_enought_title">標籤不足</string>
 	<string name="error_public_not_enought_subtitle">您的路線至少應有3個標籤才能上傳到公共目錄中</string>
-	<string name="bookmark_public_upload_alert_title">您只需幾步即可將您的路徑加載到MAPS.ME目錄中！</string>
+	<string name="bookmark_public_upload_alert_title">您只需幾步即可將您的路徑加載到OMaps目錄中！</string>
 	<string name="bookmark_public_upload_alert_subtitle">請確保路線具有名稱和描述，並且所有標籤都包含場地信息。這樣用戶就能找到路線並在旅途中使用它們。</string>
 	<string name="bookmark_public_upload_alert_ok_button">是的，全部正確！</string>
 	<string name="name_title">請輸入名稱</string>
@@ -1501,7 +1501,7 @@
 	<string name="power_managment_setting_never">從不</string>
 	<string name="power_managment_setting_auto">自動</string>
 	<string name="power_managment_setting_manual_max">最大程度省電</string>
-	<string name="enable_logging_warning_message">此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在MAPS.ME支持請求時開啟該選項。</string>
+	<string name="enable_logging_warning_message">此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在OMaps支持請求時開啟該選項。</string>
 	<string name="html_error_upload_message_try_again">請檢查網絡訪問，然後再重試</string>
 	<string name="html_error_upload_title_try_again">未連接到網絡</string>
 	<string name="notification_leave_review_v2_android_short_title">請發表評論來幫助旅行者們！</string>
@@ -1510,7 +1510,7 @@
 	<string name="privacy_settings_menu">隱私設置</string>
 	<string name="gdpr_request_setting">GDPR請求獲取ID</string>
 	<string name="gdpr_request_window_title">您的ID：%s。</string>
-	<string name="gdpr_request_window_message">請複制並發送請求至support\@maps.me</string>
+	<string name="gdpr_request_window_message">請複制並發送請求至support\@omaps.app</string>
 	<string name="gdpr_request_window_copy">複製ID</string>
 	<string name="unable_upadate_error_title">無法更新路線</string>
 	<string name="unable_upadate_error_message">更新時出錯。請檢查更改，然後再重試</string>
@@ -1533,7 +1533,7 @@
 	<string name="avoid_toll_roads_placepage">規避收費公路</string>
 	<string name="avoid_unpaved_roads_placepage">規避土路</string>
 	<string name="avoid_ferry_crossing_placepage">規避輪渡</string>
-	<string name="cached_guides_placeholder_subtitle">MAPS.ME中的現有指南是精選出來的地點，其中包含在地圖上顯示並可離線使用的照片和說明。</string>
+	<string name="cached_guides_placeholder_subtitle">OMaps中的現有指南是精選出來的地點，其中包含在地圖上顯示並可離線使用的照片和說明。</string>
 	<string name="guides_catalogue_title">指南目錄</string>
 	<string name="download_guides_button">轉至目錄</string>
 	<plurals name="placepage_summary_rating_description">
@@ -1541,12 +1541,12 @@
 	  <item quantity="other">基於%d的評論</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">烏茲別克美食</string>
-	<string name="onboarding_welcome_title">請使用MAPS.ME開始規劃和旅行</string>
+	<string name="onboarding_welcome_title">請使用OMaps開始規劃和旅行</string>
 	<string name="onboarding_welcome_first_subtitle">請保存有趣的地方，預訂酒店，離線規劃路線</string>
 	<string name="onboarding_guide_direct_download_title">該指南已準備好下載</string>
 	<string name="onboarding_guide_direct_download_subtitle">它將在地圖上顯示並將脫機工作</string>
 	<string name="onboarding_guide_direct_download_button">下載</string>
-	<string name="onboarding_bydeeplink_guide_title">MAPS.ME上現成的指南</string>
+	<string name="onboarding_bydeeplink_guide_title">OMaps上現成的指南</string>
 	<string name="onboarding_bydeeplink_guide_subtitle">帶有照片和說明的競選地點會顯示在地圖中，並且可以離線使用。</string>
 	<string name="whats_new_auto_update_bydeeplink_title">在轉到指南之前……</string>
 	<string name="whats_new_auto_update_bydeeplink_message">請更新有關對像以獲取實時信息的地圖!</string>
@@ -1577,11 +1577,11 @@
 	<string name="ok">好的</string>
 	<string name="booking_button_toolbar">在地圖上選擇酒店</string>
 	<string name="popup_booking_download_guides_title">已預訂酒店？</string>
-	<string name="popup_booking_download_guides_message">和MAPS.ME壹起規劃行程吧</string>
+	<string name="popup_booking_download_guides_message">和OMaps壹起規劃行程吧</string>
 	<string name="popup_mwm_download_guides_title">在線指南</string>
 	<string name="popup_mwm_download_guides_cta">選擇</string>
 	<string name="popup_mwm_download_guides_cta_1">查看</string>
-	<string name="gallery_pp_download_guides_offline_title">和 MAPS.ME壹起規劃妳的假期吧！</string>
+	<string name="gallery_pp_download_guides_offline_title">和 OMaps壹起規劃妳的假期吧！</string>
 	<string name="gallery_pp_download_guides_offline_subtitle">不要錯過資深驢友提供線路中最重要的內容</string>
 	<string name="gallery_pp_download_guides_offline_cta">開啟網絡</string>
 	<string name="gallery_pp_download_guides_title">旅行指南</string>
@@ -1610,7 +1610,7 @@
 	<string name="buy_btn_for_subscription_ios_only_year">%s/年起可自由訪問</string>
 	<string name="subscription_terms_guides">在確認購買後，將通過您的 iTunes賬戶完成付款。如果在當前使用期限結束前的24小時內未關閉自動延長功能，則訂閱將自動更新。在當前使用期限結束前的24小時內，將根據您所選擇的套餐計劃，從您的賬戶中扣除相應金額。您可在購買後的任意時間內，在Apple ID的賬戶設置中調節或關閉自動延長功能。 您只能在訂閱有效期內使用通過訂閱下載的旅行指南。在訂閱結束後的30天內，旅行指南和全部書簽將被自動刪除。</string>
 	<string name="subscription_terms">確認購買後將向您的iTunes賬戶收費。除非在當前周期結束前至少24小時關閉自動續訂，訂購會自動延續。在當前周期結束前24小時內，我們會根據您的方案向您的賬戶收費。您能在購買後在Apple ID賬戶設置中隨時管理或關閉自動續訂。</string>
-	<string name="whatsnew_carplay_title">MAPS.ME 自動導航已被納入CarPlay系統中！</string>
+	<string name="whatsnew_carplay_title">OMaps 自動導航已被納入CarPlay系統中！</string>
 	<string name="whatsnew_carplay_message">可在無網絡的條件下使用標記、搜索、車速攝像頭和繞道設置</string>
 	<string name="whatsnew_subscription_title">訂閱我們的服務，探索新世界！</string>
 	<string name="whatsnew_subscription_message">無限次使用線路目錄比壹次性購買更劃算</string>
@@ -1624,7 +1624,7 @@
 	<string name="avoid_tolls_carplay_2">無付費路段</string>
 	<string name="speedcams_alert_title_carplay_1">攝像頭</string>
 	<string name="speedcams_alert_title_carplay_2">攝像頭信息</string>
-	<string name="download_map_carplay">將MAPS.ME軟件中的地圖下載至個人設備中</string>
+	<string name="download_map_carplay">將OMaps軟件中的地圖下載至個人設備中</string>
 	<string name="carplay_roundabout_exit">%s號坡道</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">分類……</string>
@@ -1675,7 +1675,7 @@
 	<string name="whatsnew_bookmarks_search_sort_title">標籤中的順序 – 便於旅行</string>
 	<string name="whatsnew_bookmarks_search_sort_message">請根據類別、添加時間和地理位置對您喜歡的地點進行排序，還可以按名稱快速查找具體的標籤</string>
 	<string name="popup_subscription_success_map_title">耶！您已訂閱！</string>
-	<string name="popup_subscription_success_map_message">現在在MAPS.ME畫冊中探索最佳的旅遊景點</string>
+	<string name="popup_subscription_success_map_message">現在在OMaps畫冊中探索最佳的旅遊景點</string>
 	<string name="popup_subscription_success_map_start_button">瀏覽</string>
 	<string name="popup_subscription_success_map_not_now_button">不是現在</string>
 	<string name="religious_places">聖地</string>
@@ -1707,9 +1707,9 @@
 	<string name="new_onboarding_step5.1_header">在開始前……</string>
 	<string name="new_onboarding_step5.1_message">不要忘記訪問我們新的線路，爲即將的出行找到離線導航！</string>
 	<string name="new_onboarding_step5.1_button">打開目錄</string>
-	<string name="new_onboarding_step5.2_message">订阅MAPS.ME中的旅行指南会让您受益匪浅。全面访问城市散步路线和户外活动路线！</string>
+	<string name="new_onboarding_step5.2_message">订阅OMaps中的旅行指南会让您受益匪浅。全面访问城市散步路线和户外活动路线！</string>
 	<string name="new_onboarding_step5.2_button">查看條件</string>
-	<string name="new_onboarding_step5.3_message">下載或評論帶有 MAPS.ME免費編錄的市內旅行和休閑運動的線路！</string>
+	<string name="new_onboarding_step5.3_message">下載或評論帶有 OMaps免費編錄的市內旅行和休閑運動的線路！</string>
 	<string name="new_onboarding_step5.3_button">免費下載</string>
 	<string name="new_onboarding_additional_steps_later_button">稍後</string>
 	<string name="all_pass_subscription_header">訂閱</string>
@@ -1742,7 +1742,7 @@
 	<string name="dialog_pedestrian_route_is_long">步行到達交通工具處需要很長時間</string>
 	<string name="whatsnew_outdoor_guides_title">我們添加了超過15000條休閑運動道路！</string>
 	<string name="whatsnew_outdoor_guides_message">目錄中添加了Outdooractive 的冬季和夏季旅行線路！</string>
-	<string name="whatsnew_guides_galleries_title">與MAPS.ME共同規劃即將到來的旅行</string>
+	<string name="whatsnew_guides_galleries_title">與OMaps共同規劃即將到來的旅行</string>
 	<string name="whatsnew_guides_galleries_message">現在你可在熱門城市與名勝古迹地圖上查找推薦的旅行指南</string>
 	<string name="new_onboarding_step3_header">去旅行吧</string>
 	<string name="all_pass_screen_best_value">優惠的價格</string>
@@ -1756,7 +1756,7 @@
 	<!-- as less symbols as possible -->
 	<string name="whatsnew_isolines_message">在山地中導航–使用屏幕左上角的按鈕打開圖層</string>
 	<string name="button_layer_isolines">高度</string>
-	<string name="tips_map_layers_title_countour">離線高度線在MAPS.ME中！</string>
+	<string name="tips_map_layers_title_countour">離線高度線在OMaps中！</string>
 	<string name="tips_map_layers_message_countour">高度線可以幫您規劃通往大自然地區的路線，不會迷路</string>
 	<string name="isolines_activation_error_dialog">如需使用高度线，请更新或下载所需区域的地图</string>
 	<string name="isolines_location_error_dialog">暫時無法獲取該地區的高低線</string>

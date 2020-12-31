@@ -1,4 +1,4 @@
-# Styling MAPS.ME
+# Styling OMaps
 
 ## MapCSS Source
 

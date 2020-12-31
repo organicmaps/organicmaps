@@ -1,6 +1,6 @@
-# MAPS.ME
+# OMaps
 
-[MAPS.ME](https://maps.me) is an open source cross-platform offline maps application,
+[OMaps](https://omaps.app) is an open source cross-platform offline maps application,
 built on top of crowd-sourced OpenStreetMap data. It was publicly released
 for [iOS](https://itunes.apple.com/app/id510623322) and
 [Android](https://play.google.com/store/apps/details?id=com.mapswithme.maps.pro).
@@ -31,12 +31,12 @@ To create one or many map files, first build the project, then use python module
 
 ## Map styles
 
-MAPS.ME uses its own binary format for map styles, `drules_proto.bin`, which is compiled from
+OMaps uses its own binary format for map styles, `drules_proto.bin`, which is compiled from
 [MapCSS](https://wiki.openstreetmap.org/wiki/MapCSS) using modified Kothic library.
 Feature set in MWM files depends on a compiled style, so make sure to rebuild maps after
 releasing a style.
 
-For development, use MAPS.ME Designer app along with its generator tool: these allow
+For development, use OMaps Designer app along with its generator tool: these allow
 for quick rebuilding of a style and symbols, and for producing a zoom-independent
 feature set in MWM files.
 
@@ -60,7 +60,7 @@ so both our and their rights are protected.
 ## Feedback
 
 Please report bugs and suggestions to [the issue tracker](https://github.com/omapsapp/omapsapp/issues),
-or by mail to bugs@maps.me.
+or by mail to bugs@omaps.app.
 
 ## Authors and License
 

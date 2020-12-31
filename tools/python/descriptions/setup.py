@@ -16,8 +16,8 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
     setuptools.setup(
         name="omim-descriptions",
         version=str(get_version()),
-        author="My.com B.V. (Mail.Ru Group)",
-        author_email="dev@maps.me",
+        author="The OMaps Project",
+        author_email="dev@omaps.app",
         description="This package is a library that provides descriptions "
         "(such as those from Wikipedia) to geographic objects.",
         url="https://github.com/mapsme",
