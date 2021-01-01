@@ -169,14 +169,14 @@ android {
 
   defaultConfig {
     vectorDrawables.useSupportLibrary = true
-    // Default package name is taken from the manifest and should be com.mapswithme.maps
+    // Default package name is taken from the manifest and should be app.omaps
     versionCode propVersionCode.toInteger()
     versionName propVersionName
     minSdkVersion propMinSdkVersion.toInteger()
     targetSdkVersion propTargetSdkVersion.toInteger()
     applicationId project.ext.appId
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@omaps.app"'
-    buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
+    buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.omaps"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
 
     // PushWoosh keys
@@ -257,7 +257,7 @@ android {
     samsung {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Samsung'
-      buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/app.omaps"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@omaps.app"'
       android.sourceSets.samsung.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
@@ -265,7 +265,7 @@ android {
     amazon {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Amazon'
-      buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=app.omaps"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@omaps.app"'
       buildConfigField 'int', 'RATING_THRESHOLD', '4'
       android.sourceSets.amazon.assets.srcDirs = ['flavors/mwm-ttf-assets']
@@ -274,7 +274,7 @@ android {
     yandex {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Yandex'
-      buildConfigField 'String', 'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"yastore://details?id=app.omaps"'
       android.sourceSets.yandex.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
@@ -329,7 +329,7 @@ android {
       versionName = android.defaultConfig.versionName + '-Tencent'
       versionCode TENCENT_VERSION_CODE_BASE + android.defaultConfig.versionCode
       android.sourceSets.tencent.assets.srcDirs = ['flavors/mwm-ttf-assets']
-      buildConfigField 'String', 'REVIEW_URL', '"http://android.myapp.com/myapp/detail.htm?apkName=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"http://android.myapp.com/myapp/detail.htm?apkName=app.omaps"'
     }
 
     baidu {
@@ -343,7 +343,7 @@ android {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-AppChina'
       android.sourceSets.appChina.assets.srcDirs = ['flavors/mwm-ttf-assets']
-      buildConfigField 'String', 'REVIEW_URL', '"http://www.appchina.com/app/com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"http://www.appchina.com/app/app.omaps"'
     }
 
     moboMarket {
