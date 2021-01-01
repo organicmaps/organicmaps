@@ -21,15 +21,19 @@ public class LayersUtils
     Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> subway
         = new Pair<>(BottomSheetItem.Subway.makeInstance(context), subwayListener);
 
+    /*
     Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> traffic
         = new Pair<>(BottomSheetItem.Traffic.makeInstance(context), trafficListener);
+     */
 
     Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> isoLines
         = new Pair<>(BottomSheetItem.Isolines.makeInstance(context), isoLinesListener);
 
+    /*
     Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> guides
         = new Pair<>(BottomSheetItem.Guides.makeInstance(context), guidesListener);
+     */
 
-    return Arrays.asList(guides, traffic, isoLines, subway);
+    return Arrays.asList(/*guides, traffic,*/ isoLines, subway);
   }
 }

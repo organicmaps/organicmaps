@@ -50,6 +50,7 @@
       android:drawableTint="?attr/colorAccent"
       android:text="@string/download_guides"
       android:textColor="?attr/colorAccent"
+      android:visibility="gone"
       tools:background="#403033FF"
       tools:targetApi="m" />
     <FrameLayout

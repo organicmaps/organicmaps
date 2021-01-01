@@ -539,9 +539,11 @@ public class Factory
     {
       if (isFirstLaunch())
       {
+        /*
         MapTask introductionTask = createIntroductionTask(url);
         if (introductionTask != null)
           return introductionTask;
+        */
       }
 
       return createTargetTask(url);
