@@ -82,31 +82,34 @@
 
   <include
     android:id="@+id/place_page_taxi_shadow"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     layout="@layout/place_page_fat_shadow"/>
 
   <include
     android:id="@+id/place_page_taxi_divider"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="@dimen/divider_height"
     layout="@layout/divider_horizontal"/>
 
-  <include layout="@layout/place_page_taxi"/>
+  <include android:visibility="gone" layout="@layout/place_page_taxi"/>
 
-  <include layout="@layout/place_page_ugc"/>
+  <include android:visibility="gone" layout="@layout/place_page_ugc"/>
 
   <include
     layout="@layout/place_page_fat_shadow"
     android:id="@+id/edit_top_space"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 
-  <include layout="@layout/place_page_editor"/>
+  <include android:visibility="gone" layout="@layout/place_page_editor"/>
 
-  <include layout="@layout/place_page_add_business"/>
+  <include android:visibility="gone" layout="@layout/place_page_add_business"/>
 
-  <include layout="@layout/place_page_add"/>
+  <include android:visibility="gone" layout="@layout/place_page_add"/>
 
   <androidx.legacy.widget.Space
     android:layout_width="match_parent"

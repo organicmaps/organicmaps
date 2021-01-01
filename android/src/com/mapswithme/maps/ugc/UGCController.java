@@ -193,11 +193,11 @@ public class UGCController implements View.OnClickListener, UGC.ReceiveUGCListen
   public void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @UGC.Impress int impress,
                             @NonNull String rating)
   {
-    UiUtils.show(mUgcRootView);
-    UiUtils.showIf(ugc != null || canUserRate(ugcUpdate) || ugcUpdate != null, mPreviewUgcInfoView);
-    UiUtils.showIf(canUserRate(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
-    UiUtils.showIf(ugc != null, mUgcMoreReviews);
-    UiUtils.showIf(ugc != null && impress != UGC.RATING_NONE, mSummaryRootView);
+    //UiUtils.show(mUgcRootView);
+    //UiUtils.showIf(ugc != null || canUserRate(ugcUpdate) || ugcUpdate != null, mPreviewUgcInfoView);
+    //UiUtils.showIf(canUserRate(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
+    //UiUtils.showIf(ugc != null, mUgcMoreReviews);
+    //UiUtils.showIf(ugc != null && impress != UGC.RATING_NONE, mSummaryRootView);
     RatingView ratingView = mPreviewUgcInfoView.findViewById(R.id.rating_view);
     if (ugc == null)
     {
@@ -220,10 +220,10 @@ public class UGCController implements View.OnClickListener, UGC.ReceiveUGCListen
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)
       mUGCReviewAdapter.setItems(ugc.getReviews());
-    UiUtils.showIf(reviews != null, mReviewListDivider);
+    //UiUtils.showIf(reviews != null, mReviewListDivider);
     // TODO: don't show "more reviews" button while reviews screen activity is not ready.
-    UiUtils.showIf(false /* reviews != null && reviews.size() > UGCReviewAdapter.MAX_COUNT */,
-                   mUgcMoreReviews);
+    //UiUtils.showIf(false /* reviews != null && reviews.size() > UGCReviewAdapter.MAX_COUNT */,
+    //               mUgcMoreReviews);
   }
 
   private void setSummaryViews(@NonNull UGC ugc, @UGC.Impress int impress, @NonNull String rating)
