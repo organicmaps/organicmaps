@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto"
-    android:sharedUserId="com.mapswithme"
+    android:sharedUserId="app.omaps"
     android:sharedUserLabel="@string/shared_user_label">
 
   <!-- Mentioned MoPub dependencies use 16 API level as a min SDK version, which conflicts

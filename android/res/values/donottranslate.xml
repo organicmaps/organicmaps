@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="shared_user_label" translatable="false">Maps With Me</string>
+  <string name="shared_user_label" translatable="false">OMaps</string>
 
   <!-- Dev facebook credentials
   <string name="facebook_app_id" translatable="false">462405334160274</string>
