@@ -17,7 +17,7 @@ AdsEngineDelegate::AdsEngineDelegate(storage::CountryInfoGetter const & infoGett
 
 bool AdsEngineDelegate::IsAdsRemoved() const
 {
-  return m_purchase.IsSubscriptionActive(SubscriptionType::RemoveAds);
+  return true;
 }
 
 storage::CountryId AdsEngineDelegate::GetCountryId(m2::PointD const & pos)
