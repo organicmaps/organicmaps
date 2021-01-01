@@ -91,7 +91,6 @@
   <string name="pref_subtittle_opt_out" translatable="false">pref_subtittle_opt_out</string>
   <string name="pref_opt_out_fabric" translatable="false">pref_opt_out_fabric</string>
   <string name="pref_opt_out_fabric_activated" translatable="false">pref_opt_out_fabric_activated</string>
-  <string name="pref_opt_out_mopub" translatable="false">pref_opt_out_mopub</string>
   <string name="pref_opt_out_flurry" translatable="false">pref_opt_out_flurry</string>
   <string name="never_enum_value" translatable="false">NEVER</string>
   <string name="always_enum_value" translatable="false">ALWAYS</string>

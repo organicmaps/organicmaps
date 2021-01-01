@@ -83,10 +83,6 @@
       android:summary="@string/pref_use_google_play"
       android:defaultValue="true"
       android:order="10"/>
-    <Preference
-      android:key="@string/pref_showcase_switched_on"
-      android:title="@string/remove_ads"
-      android:order="11"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_enable_logging"
       android:title="@string/enable_logging"
@@ -196,14 +192,6 @@
     android:key="@string/pref_subtittle_opt_out"
     android:title="@string/subtittle_opt_out"
     android:order="7">
-    <Preference
-      android:key="@string/pref_opt_out_mopub"
-      android:title="@string/opt_out_mopub">
-      <intent
-        android:targetClass="com.mapswithme.maps.gdpr.MwmOptOutActivity"
-        android:targetPackage="@string/app_id">
-      </intent>
-    </Preference>
     <SwitchPreferenceCompat
       android:key="@string/pref_opt_out_fabric_activated"
       android:defaultValue="true"

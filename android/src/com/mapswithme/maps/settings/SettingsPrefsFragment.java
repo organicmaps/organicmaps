@@ -334,7 +334,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initStatisticsPrefsCallback();
     initPlayServicesPrefsCallbacks();
     initAutoZoomPrefsCallbacks();
-    initDisplayShowcasePrefs();
     initLoggingEnabledPrefsCallbacks();
     initEmulationBadStorage();
     initUseMobileDataPrefsCallbacks();
@@ -423,24 +422,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       startActivity(new Intent(getActivity(), ProfileActivity.class));
     }
     return super.onPreferenceTreeClick(preference);
-  }
-
-  private void initDisplayShowcasePrefs()
-  {
-    Preference pref = findPreference(getString(R.string.pref_showcase_switched_on));
-    if (pref == null)
-      return;
-
-    if (Framework.nativeHasActiveSubscription(Framework.SUBSCRIPTION_TYPE_REMOVE_ADS))
-    {
-      removePreference(getString(R.string.pref_settings_general), pref);
-      return;
-    }
-
-    pref.setOnPreferenceClickListener(preference -> {
-      AdsRemovalPurchaseDialog.show(SettingsPrefsFragment.this);
-      return true;
-    });
   }
 
   private void initLangInfoLink()
@@ -978,7 +959,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   @Override
   public void onAdsRemovalActivation()
   {
-    initDisplayShowcasePrefs();
+
   }
 
   @Nullable
