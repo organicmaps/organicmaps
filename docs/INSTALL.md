@@ -5,8 +5,8 @@ First, do not forget to initialize a cloned repository, see
 
 ## Desktop
 
-You would need Cmake, Boost and Qt 5. With that, just run `omim/tools/unix/build_omim.sh`.
-It will build both debug and release versions to `omim/../omim-build-<target>`.
+You would need Cmake, Boost and Qt 5. With that, just run `tools/unix/build_omim.sh`.
+It will build both debug and release versions to `../omim-build-<target>`.
 Command-line switches are:
 
 * `-r` to build a release version
@@ -146,13 +146,13 @@ find a line with `hdiutil` in the script, copy it to a console, and if needed, i
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html), place these somewhere
 easy to type.
 
-* Go to `omim/tools/android` and run `./set_up_android.py`. It would ask for absolute paths
-to SDK and NDK. Or specify these in command line:
+* Run `tools/android/set_up_android.py` to configure SDK and NDK paths:
 
-        --sdk /Users/$(whoami)/Library/Android/sdk \
-        --ndk /Users/$(whoami)/Library/Android/ndk
+        ./tools/android/set_up_android.py \
+            --sdk $HOME/Android/Sdk \
+            --ndk $HOME/Android/Sdk/ndk/21.3.6528147/
 
-* Go to `omim/android` and run `./gradlew clean assembleWebRelease`.
+* Go to `android` and run `./gradlew clean assembleWebRelease`.
     * There are `Release`, `Beta` and `Debug` builds.
     * `assemble` produces apk files in `build/outputs/apk`, `install` installs one
         on a connected device, and `run` immediately starts it.
