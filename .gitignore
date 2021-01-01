@@ -162,7 +162,6 @@ tizen/*/crash-info/*
 .private_repository_url
 .private_repository_branch
 private.h
-routing_common/car_model_coefs.hpp
 tools/android/mapswithme.keystore
 tools/android/yota.keystore
 android/debug.keystore

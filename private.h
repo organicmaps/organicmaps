@@ -15,7 +15,7 @@
 #define RESOURCES_METASERVER_URL ""
 #define METASERVER_URL ""
 #define DIFF_LIST_URL ""
-#define DEFAULT_URLS_JSON ""
+#define DEFAULT_URLS_JSON "[ \"https://cdn.omaps.app/\" ]"
 #define AD_PERMISION_SERVER_URL ""
 #define AD_PERMISION_CHECK_DURATION 2 * 60 * 60
 #define HOCKEY_APP_KEY ""

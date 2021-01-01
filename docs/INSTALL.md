@@ -57,8 +57,8 @@ Install Qt 5, CMake, Clang and SQLite:
 Do a git clone:
 
     git clone --depth=1 --recursive https://github.com/omapsapp/omapsapp.git
-    cd omim
-    echo | ./configure.sh
+    cd omaps
+    ./configure.sh
 
 Then:
 

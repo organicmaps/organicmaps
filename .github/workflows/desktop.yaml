@@ -10,18 +10,10 @@ jobs:
         with:
           submodules: true
 
-      - uses: actions/checkout@v2
-        with:
-          repository: omapsapp/omapsapp-private
-          path: private
-          ref: master
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
       - name: Configure
         shell: bash
         run: |
-          echo | ./configure.sh
-          cp -pRv ./private/* .
+          ./configure.sh
 
       - name: Compile
         shell: bash
