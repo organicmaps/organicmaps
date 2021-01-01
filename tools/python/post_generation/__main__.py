@@ -90,7 +90,7 @@ The post_generation commands are:
             help="Output countries.txt file (default is stdout)",
         )
         args = parser.parse_args(sys.argv[2:])
-        countries_json = hierarchy_to_countries_(
+        countries = hierarchy_to_countries_(
             args.old,
             args.osm,
             args.countries_synonyms,
@@ -100,9 +100,9 @@ The post_generation commands are:
         )
         if args.output:
             with open(args.output, "w") as f:
-                f.write(countries_json)
+                json.dump(countries, f, ensure_ascii=True, indent=1)
         else:
-            print(countries_json)
+            print(json.dumps(countries, ensure_ascii=True, indent=1))
 
     @staticmethod
     def inject_promo_ids():
@@ -152,7 +152,7 @@ The post_generation commands are:
         )
 
         with open(args.output, "w") as f:
-            json.dump(countries, f, indent=1)
+            json.dump(countries, f, ensure_ascii=True, indent=1)
 
 
 PostGeneration()

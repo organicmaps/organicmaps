@@ -185,4 +185,4 @@ def hierarchy_to_countries(
             stack[-1]["g"].append(g)
 
     collapse_single(stack[-1])
-    return json.dumps(stack[-1], ensure_ascii=True, indent=1)
+    return stack[-1]
