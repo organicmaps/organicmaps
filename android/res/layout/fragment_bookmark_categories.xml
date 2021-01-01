@@ -18,6 +18,7 @@
         android:id="@+id/backup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:background="?cardBackground"/>
       <include
         layout="@layout/recycler_default"

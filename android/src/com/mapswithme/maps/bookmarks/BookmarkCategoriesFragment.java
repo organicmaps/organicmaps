@@ -52,8 +52,9 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
   protected void updateLoadingPlaceholder()
   {
     super.updateLoadingPlaceholder();
-    boolean isLoading = BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress();
-    UiUtils.showIf(!isLoading, getView(), R.id.backup, R.id.recycler);
+    // Sic: temporary disable bookmark backups.
+    //boolean isLoading = BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress();
+    //UiUtils.showIf(!isLoading, getView(), R.id.backup, R.id.recycler);
   }
 
   @Override

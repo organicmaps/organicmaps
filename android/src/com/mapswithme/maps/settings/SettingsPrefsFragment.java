@@ -807,6 +807,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
+    // Sic: temporary disable bookmark backups.
+    removePreference(getString(R.string.pref_settings_general), pref);
+
     boolean curValue = BookmarkManager.INSTANCE.isCloudEnabled();
     pref.setChecked(curValue);
     pref.setOnPreferenceChangeListener(
