@@ -252,6 +252,7 @@ android {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@omaps.app"'
+      android.sourceSets.google.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     samsung {
