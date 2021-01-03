@@ -1,7 +1,8 @@
-# Building OMaps
+# Building
 
-First, do not forget to initialize a cloned repository, see
-[CONTRIBUTING.md](CONTRIBUTING.md).
+First, do not forget to initialize a cloned repository:
+
+    ./configure.sh
 
 ## Desktop
 

@@ -1,4 +1,4 @@
-# OMaps Development
+# Contributing
 
 ## Issues
 
