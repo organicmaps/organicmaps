@@ -9,10 +9,6 @@
 		<string>Default</string>
 	</array>
 	<key>com.apple.developer.associated-domains</key>
-	<array>
-		<string>applinks:dlink.omaps.app</string>
-	</array>
-	<key>com.apple.developer.carplay-maps</key>
-	<true/>
+	<array/>
 </dict>
 </plist>

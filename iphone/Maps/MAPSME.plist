@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>omaps.app dbg</string>
+	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -54,7 +54,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>${CURRENT_PROJECT_VERSION}</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -63,7 +63,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
-			<string>app.omaps.maps</string>
+			<string>com.mapswithme.maps</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>mapswithme</string>
@@ -102,7 +102,7 @@
 	<key>FacebookAppID</key>
 	<string>185237551520383</string>
 	<key>FacebookDisplayName</key>
-	<string>OMaps, offline maps</string>
+	<string>MapsWithMe, offline maps</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -151,7 +151,7 @@
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
-			<key>omaps.app</key>
+			<key>maps.me</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>

@@ -866,7 +866,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1020;
-				ORGANIZATIONNAME = omaps.app;
+				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					470015EE2342509C00EBF03D = {
 						CreatedOnToolsVersion = 10.2;
@@ -1117,7 +1117,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = CoreApi.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.CoreApi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.CoreApi;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1154,7 +1154,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = CoreApi.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.CoreApi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.CoreApi;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1247,7 +1247,7 @@
 				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = CoreApi.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.CoreApi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapswithme.CoreApi;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

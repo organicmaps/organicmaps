@@ -3,10 +3,10 @@ platform :ios, '11.0'
 
 workspace './../../xcode/omim.xcworkspace'
 
-target 'OMaps' do
+target 'MAPS.ME' do
   use_frameworks!
 
-  # Pods for OMaps
+  # Pods for MAPS.ME
 
 pod 'AppsFlyerFramework', '4.9.0'
 pod 'Pushwoosh', '5.16.0'

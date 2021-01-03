@@ -953,8 +953,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0B07BBB5C2EFC6F60EF51BC8 /* Pods-OMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OMaps.debug.xcconfig"; path = "Target Support Files/Pods-OMaps/Pods-OMaps.debug.xcconfig"; sourceTree = "<group>"; };
-		166595280BE641CF8ADE2209 /* Pods-OMaps.production full.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OMaps.production full.xcconfig"; path = "Target Support Files/Pods-OMaps/Pods-OMaps.production full.xcconfig"; sourceTree = "<group>"; };
+		0B07BBB5C2EFC6F60EF51BC8 /* Pods-MAPS.ME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAPS.ME.debug.xcconfig"; path = "Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME.debug.xcconfig"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1DA7908720762B6F008BDD6B /* libopen_location_code.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopen_location_code.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1329,7 +1328,7 @@
 		34D3B0151E389D05004100F9 /* MWMNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMNoteCell.m; sourceTree = "<group>"; };
 		34D3B0161E389D05004100F9 /* MWMNoteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNoteCell.xib; sourceTree = "<group>"; };
 		34D3B04D1E38A20C004100F9 /* Bundle+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Init.swift"; sourceTree = "<group>"; };
-		34D7DB77204ED3DD0041D015 /* omaps dbg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "omaps dbg.entitlements"; sourceTree = "<group>"; };
+		34D7DB77204ED3DD0041D015 /* maps.me dbg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "maps.me dbg.entitlements"; sourceTree = "<group>"; };
 		34E6F2DA1F459C05008E14F9 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		34E7270820444A7A009E4CED /* MWMAlertViewController+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMAlertViewController+CPP.h"; sourceTree = "<group>"; };
 		34E7270920444B95009E4CED /* MWMAlert+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMAlert+CPP.h"; sourceTree = "<group>"; };
@@ -1640,7 +1639,7 @@
 		56EE14D21FE804550036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		58E5736C23FC4E77509C9946 /* Pods_MAPS_ME.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAPS_ME.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		671E78D21E6A423300B2859B /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/librouting_common.a"; sourceTree = "<group>"; };
-		6741AA5D1BF340DE002C974C /* omaps.app dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "omaps.app dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6741AA5D1BF340DE002C974C /* OMaps Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OMaps Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAA21BF356B9002C974C /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
 		6741AAA31BF356B9002C974C /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		6741AAA61BF356B9002C974C /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
@@ -1671,8 +1670,8 @@
 		67B78B461E422E0A0018E590 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		67B78B541E42333C0018E590 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
-		8022FD18AD3EEA9E8C75A7A7 /* Pods-OMaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OMaps.release.xcconfig"; path = "Target Support Files/Pods-OMaps/Pods-OMaps.release.xcconfig"; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* OMAPS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OMAPS.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		8022FD18AD3EEA9E8C75A7A7 /* Pods-MAPS.ME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAPS.ME.release.xcconfig"; path = "Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME.release.xcconfig"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
 		99012846243F0D6900C72B10 /* UIViewController+alternative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+alternative.swift"; sourceTree = "<group>"; };
@@ -1918,8 +1917,7 @@
 		BB8123D52130427E00ADE512 /* MetalContextFactory.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalContextFactory.mm; sourceTree = "<group>"; };
 		CD08887222B7ABB400C1368D /* MWMDiscoveryCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryCollectionView.h; sourceTree = "<group>"; };
 		CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryCollectionView.mm; sourceTree = "<group>"; };
-		CD08888322BCF1C800C1368D /* omaps rel.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "omaps rel.entitlements"; sourceTree = "<group>"; };
-		CD08888422BCF1C900C1368D /* omaps full.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "omaps full.entitlements"; sourceTree = "<group>"; };
+		CD08888322BCF1C800C1368D /* maps.me rel.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "maps.me rel.entitlements"; sourceTree = "<group>"; };
 		CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoBookingPresentationController.swift; sourceTree = "<group>"; };
 		CD4A1F19230EADC100F2A6B6 /* CatalogConnectionErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogConnectionErrorView.swift; sourceTree = "<group>"; };
 		CD4A1F1B230EB43B00F2A6B6 /* CatalogConnectionErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogConnectionErrorView.xib; sourceTree = "<group>"; };
@@ -2310,9 +2308,8 @@
 		044715AD432F538B6F731670 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0B07BBB5C2EFC6F60EF51BC8 /* Pods-OMaps.debug.xcconfig */,
-				8022FD18AD3EEA9E8C75A7A7 /* Pods-OMaps.release.xcconfig */,
-				166595280BE641CF8ADE2209 /* Pods-OMaps.production full.xcconfig */,
+				0B07BBB5C2EFC6F60EF51BC8 /* Pods-MAPS.ME.debug.xcconfig */,
+				8022FD18AD3EEA9E8C75A7A7 /* Pods-MAPS.ME.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -2352,7 +2349,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6741AA5D1BF340DE002C974C /* omaps.app dbg.app */,
+				6741AA5D1BF340DE002C974C /* OMaps Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2373,7 +2370,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				34F73FA11E08300E00AC1FD6 /* Images.xcassets */,
 				34F73F5E1E082FF700AC1FD6 /* LocalizedStrings */,
-				8D1107310486CEB800E47090 /* OMAPS.plist */,
+				8D1107310486CEB800E47090 /* MAPSME.plist */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -2399,9 +2396,8 @@
 			isa = PBXGroup;
 			children = (
 				F6C3A1B121AC22810060EEC8 /* Alert 5.m4a */,
-				34D7DB77204ED3DD0041D015 /* omaps dbg.entitlements */,
-				CD08888422BCF1C900C1368D /* omaps full.entitlements */,
-				CD08888322BCF1C800C1368D /* omaps rel.entitlements */,
+				34D7DB77204ED3DD0041D015 /* maps.me dbg.entitlements */,
+				CD08888322BCF1C800C1368D /* maps.me rel.entitlements */,
 				34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */,
 				4A300ED31C6DCFD400140018 /* countries-strings */,
 				5605022E1B6211E100169CAD /* sound-strings */,
@@ -5081,9 +5077,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6741A93D1BF340DE002C974C /* OMaps */ = {
+		6741A93D1BF340DE002C974C /* MAPS.ME */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "OMaps" */;
+			buildConfigurationList = 6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "MAPS.ME" */;
 			buildPhases = (
 				DC18E8E671D9B333180B1B98 /* [CP] Check Pods Manifest.lock */,
 				47C7F96D2191A3B600C2760C /* ShellScript */,
@@ -5099,9 +5095,9 @@
 			);
 			dependencies = (
 			);
-			name = OMaps;
+			name = MAPS.ME;
 			productName = Maps;
-			productReference = 6741AA5D1BF340DE002C974C /* omaps.app dbg.app */;
+			productReference = 6741AA5D1BF340DE002C974C /* OMaps Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -5111,12 +5107,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = OMaps;
+				ORGANIZATIONNAME = OMaps.app;
 				TargetAttributes = {
 					6741A93D1BF340DE002C974C = {
-						DevelopmentTeam = N9X2A789QT;
+						DevelopmentTeam = W55CJ2SCF7;
 						LastSwiftMigration = 1110;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 1;
@@ -5177,7 +5173,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6741A93D1BF340DE002C974C /* OMaps */,
+				6741A93D1BF340DE002C974C /* MAPS.ME */,
 			);
 		};
 /* End PBXProject section */
@@ -5458,7 +5454,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OMaps/Pods-OMaps-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
@@ -5479,7 +5475,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OMaps/Pods-OMaps-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DC18E8E671D9B333180B1B98 /* [CP] Check Pods Manifest.lock */ = {
@@ -5497,7 +5493,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OMaps-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MAPS.ME-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -6276,12 +6272,13 @@
 /* Begin XCBuildConfiguration section */
 		6741AA571BF340DE002C974C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0B07BBB5C2EFC6F60EF51BC8 /* Pods-OMaps.debug.xcconfig */;
+			baseConfigurationReference = 0B07BBB5C2EFC6F60EF51BC8 /* Pods-MAPS.ME.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "omaps.app dbg.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development: Aleksey Belousov (8P35JSY4C8)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = "OMaps-Debug.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = W55CJ2SCF7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6291,21 +6288,23 @@
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.full;
-				PROVISIONING_PROFILE_SPECIFIER = "OMaps Carplay";
+				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.debug;
+				PRODUCT_NAME = "OMaps Debug";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
 		6741AA5A1BF340DE002C974C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8022FD18AD3EEA9E8C75A7A7 /* Pods-OMaps.release.xcconfig */;
+			baseConfigurationReference = 8022FD18AD3EEA9E8C75A7A7 /* Pods-MAPS.ME.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "omaps.app rel.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development: Aleksey Belousov (8P35JSY4C8)";
-				CODE_SIGN_STYLE = Manual;
+				BUNDLE_IDENTIFIER = app.omaps;
+				CODE_SIGN_ENTITLEMENTS = "OMaps-Release.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = W55CJ2SCF7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6315,33 +6314,12 @@
 					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.full;
-				PROVISIONING_PROFILE_SPECIFIER = "OMaps Carplay";
+				PRODUCT_BUNDLE_IDENTIFIER = app.omaps;
+				PRODUCT_NAME = OMaps;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
-		};
-		6741AA5C1BF340DE002C974C /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 166595280BE641CF8ADE2209 /* Pods-OMaps.production full.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "omaps.app full.entitlements";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/GoogleSignIn",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/AdMob/SDK",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.0.1;
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.full;
-			};
-			name = "Production Full";
 		};
 		FAAB411B149BA84700C245B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -6349,9 +6327,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUNDLE_IDENTIFIER = mapsme.debug;
+				BUNDLE_IDENTIFIER = app.omaps.debug;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = N9X2A789QT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6368,7 +6345,7 @@
 					"$(PROJECT_DIR)/3party/MoPubSDK/**",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
-				INFOPLIST_FILE = OMAPS.plist;
+				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/Flurry",
@@ -6386,7 +6363,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
-				PRODUCT_NAME = "omaps.app dbg";
+				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -6398,63 +6375,6 @@
 			};
 			name = Debug;
 		};
-		FAAB411F149BA86000C245B1 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 347526FB1DC0B00F00918CF5 /* common-release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUNDLE_IDENTIFIER = com.mapswithme.full;
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 0.0.1;
-				DEVELOPMENT_TEAM = N9X2A789QT;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party",
-					"$(PROJECT_DIR)/3party/MyTarget",
-				);
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-					"$(PROJECT_DIR)/3party/MoPubSDK/**",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
-				INFOPLIST_FILE = OMAPS.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party/Flurry",
-				);
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-Wall",
-					"-Wno-unused-local-typedef",
-					"-Wimplicit-retain-self",
-					"-fcxx-modules",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-fcxx-modules",
-				);
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
-				PRODUCT_NAME = omaps.app;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "Production Full";
-		};
 		FABB561E149CD957006969C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 347526FB1DC0B00F00918CF5 /* common-release.xcconfig */;
@@ -6463,7 +6383,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = mapsme.release;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = N9X2A789QT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6483,7 +6402,7 @@
 					"$(PROJECT_DIR)/3party/MoPubSDK/**",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
-				INFOPLIST_FILE = OMAPS.plist;
+				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/Flurry",
@@ -6501,7 +6420,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
-				PRODUCT_NAME = "omaps.app rel";
+				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -6516,12 +6435,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "OMaps" */ = {
+		6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "MAPS.ME" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6741AA571BF340DE002C974C /* Debug */,
 				6741AA5A1BF340DE002C974C /* Release */,
-				6741AA5C1BF340DE002C974C /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -6531,7 +6449,6 @@
 			buildConfigurations = (
 				FAAB411B149BA84700C245B1 /* Debug */,
 				FABB561E149CD957006969C0 /* Release */,
-				FAAB411F149BA86000C245B1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

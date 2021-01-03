@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>939321867014-b9p6kkrf7i15uo4o6vfd9hh7lnoikg4f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.939321867014-b9p6kkrf7i15uo4o6vfd9hh7lnoikg4f</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>939321867014-a6hdk1ugg7n6o8k3uvl7lvf2sdak2ki6.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDgAzSdJjRQtcmyw76UJgNSBq3rK7_MzcQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>939321867014</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>app.omaps.debug</string>
+	<key>PROJECT_ID</key>
+	<string>omapsapp</string>
+	<key>STORAGE_BUCKET</key>
+	<string>omapsapp.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:939321867014:ios:5a529d8137d8760b587c87</string>
+</dict>
+</plist>
