@@ -12,17 +12,9 @@ faster if you send it to bugs@omaps.app.
 
 ## Initializing the Repository
 
-The repository needs a lot of header and configuration files with private keys and such.
-To initialize, run `configure.sh` from its root, and press "Enter" when asked for a
-repository. The script will create two files, `private.h` and `android/secure.properties`,
-which are required for compiling the project. If you have a private repository with
-these files (and some other, like private keystores), pass the link like this:
+To initialize the repository, run `configure.sh`:
 
-    echo git@repository:org/omim-private.git | ./configure.sh
-
-Without keys, downloading of maps won't work, as well as statistics and online routing
-assisting. For android, you would need private keys to build a release version (but
-a debug one can be built without keys).
+    ./configure.sh
 
 ## Setting up IDE
 
