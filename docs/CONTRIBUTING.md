@@ -53,16 +53,18 @@ you'll need to create a "data" symlink in the shadow-dir path to the /repo/data 
 * Run XCode, open `xcode/omim.xcworkspace`.
 * Select "xcOMaps" scheme and run the product.
 
-## Coding Style
+## Guidelines
 
-See [CPP_STYLE.md](CPP_STYLE.md). Use `clang-format` when in doubt.
+- [C++ Style Guide](CPP_STYLE.md) - use `clang-format` when in doubt.
+- [Objective-C Style Guide](OBJC_STYLE.md).
+- [How to write a commit message](COMMIT_MESSAGES.md).
 
 ## Pull Requests
 
 All contributions to OMaps source code should be submitted via github pull requests.
 Each pull request is reviewed by OMaps maintainers, to ensure consistent code style
 and quality. Sometimes the review process even for smallest commits can be
-very thorough.
+very thorough. Please follow [the developer guidelines](#guidelines).
 
 To contribute you must assure that you have read and are following the rules
 stated in the [Developers Certificate of Origin](DCO.md) (DCO). We have

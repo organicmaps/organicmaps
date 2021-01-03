@@ -1,4 +1,4 @@
-# The official maps.me Objective-C style guide.
+# Objective-C Style Guide
 
 ## Credits
 
