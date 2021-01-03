@@ -64,6 +64,5 @@ or by mail to bugs@omaps.app.
 
 ## Authors and License
 
-This source code is Copyright (C) 2020 My.com B.V. (Mail.Ru Group), published under Apache Public License 2.0,
-except third-party libraries. See [NOTICE](https://github.com/omapsapp/omapsapp/blob/master/NOTICE)
+See [NOTICE](https://github.com/omapsapp/omapsapp/blob/master/NOTICE)
 and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/omapsapp/omapsapp/blob/master/data/copyright.html) files for more information.
