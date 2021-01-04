@@ -462,6 +462,7 @@ android {
       firebaseAppDistribution {
         releaseNotesFile="RELEASE"
         groups="android-qa"
+        apkPath="./build/outputs/apk/android-web-arm64-v8a-beta.apk"
         serviceCredentialsFile="firebase-app-distribution.json"
       }
     }
