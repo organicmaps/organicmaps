@@ -167,6 +167,7 @@ android/secure.properties
 android/pushwoosh.properties
 android/libnotify.properties
 android/google-services.json
+android/firebase-app-distribution.json
 server
 iphone/Maps/com.mapswithme.full/
 iphone/Maps/com.my.maps-beta-enterprise/

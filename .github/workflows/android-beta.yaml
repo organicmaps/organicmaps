@@ -73,3 +73,9 @@ jobs:
       - name: Upload debug symbols
         shell: bash
         run: (cd android; ./gradlew uploadCrashlyticsSymbolFileWebBeta)
+
+      - name: Upload to App Distribution
+        shell: bash
+        run: |
+           git --no-pager show -s --format='%s%n%n%b' HEAD > android/RELEASE
+           (cd android; ./gradlew -x lint -x lintVitalWebBeta assembleWebBeta appDistributionUploadWebBeta)

@@ -7,6 +7,7 @@ buildscript {
   dependencies {
     classpath 'com.android.tools.build:gradle:4.0.1'
     classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
+    classpath 'com.google.firebase:firebase-appdistribution-gradle:2.0.1'
     classpath 'com.google.gms:google-services:4.3.3'
   }
 }
@@ -35,6 +36,7 @@ repositories {
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.firebase.appdistribution'
 apply from: 'secure.properties'
 
 dependencies {
@@ -456,6 +458,11 @@ android {
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       firebaseCrashlytics {
         nativeSymbolUploadEnabled true
+      }
+      firebaseAppDistribution {
+        releaseNotesFile="RELEASE"
+        groups="android-qa"
+        serviceCredentialsFile="firebase-app-distribution.json"
       }
     }
   }
