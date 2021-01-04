@@ -54,9 +54,6 @@ See [CONTRIBUTING.md](https://github.com/omapsapp/omapsapp/blob/master/docs/CONT
 for the repository initialization process, the description of all the directories
 of this repository and other development-related information.
 
-All contributors must sign a [Contributor Agreement](https://github.com/omapsapp/omapsapp/blob/master/docs/CLA.md),
-so both our and their rights are protected.
-
 ## Feedback
 
 Please report bugs and suggestions to [the issue tracker](https://github.com/omapsapp/omapsapp/issues),
