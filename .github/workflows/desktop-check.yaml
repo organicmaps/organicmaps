@@ -1,14 +1,19 @@
-name: Desktop
-on: [push]
+name: Check
+on:
+  push:
+    branches:
+      - '!master'
 
 jobs:
-  test:
-    name: Desktop
+  desktop-check:
+    name: Desktop Check
     runs-on: [self-hosted, linux, X64]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout sources
+        uses: actions/checkout@v2
         with:
           submodules: true
+          clean: false
 
       - name: Configure
         shell: bash

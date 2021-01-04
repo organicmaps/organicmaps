@@ -1,0 +1,71 @@
+name: Beta
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  android-beta:
+    name: Android Beta
+    runs-on: [self-hosted, linux, X64]
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          clean: false # speed up builds
+
+      - name: Checkout keys
+        uses: actions/checkout@v2
+        with:
+          repository: omapsapp/omapsapp-beta-keys
+          path: private/beta
+          ref: beta
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Remove old APKs
+        shell: bash
+        run: |
+          find -name '*.apk' -delete
+
+      - name: Configure
+        shell: bash
+        run: |
+          ./configure.sh beta
+
+      - name: Set up SDK
+        shell: bash
+        run: |
+          (cd tools/android; ./set_up_android.py --sdk /opt/Android/sdk --ndk /opt/Android/ndk)
+
+      - name: Compile
+        shell: bash
+        run: (cd android; ./gradlew -PsplitApk=true -x lint -x lintVitalWebBeta assembleWebBeta)
+
+      - name: Upload arm64-v8a beta apk
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-web-arm64-v8a-beta
+          path: android/build/outputs/apk/android-web-arm64-v8a-beta-*.apk
+          if-no-files-found: error
+
+      - name: Upload armeabi-v7a beta apk
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-web-armeabi-v7a-beta
+          path: android/build/outputs/apk/android-web-armeabi-v7a-beta-*.apk
+          if-no-files-found: error
+
+      - name: Upload x86_64 beta apk
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-web-x86_64-beta
+          path: android/build/outputs/apk/android-web-x86_64-beta-*.apk
+          if-no-files-found: error
+
+      - name: Upload x86 beta apk
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-web-x86-beta
+          path: android/build/outputs/apk/android-web-x86-beta-*.apk
+          if-no-files-found: error

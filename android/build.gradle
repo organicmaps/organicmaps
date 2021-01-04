@@ -307,8 +307,8 @@ android {
     web {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Web'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@omaps.app"'
-      android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      buildConfigField 'String', 'SUPPORT_MAIL', '"apk@omaps.app"'
+      //android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     nineApp {
@@ -423,13 +423,6 @@ android {
       keyAlias spropKeyAlias
       keyPassword spropKeyPassword
     }
-
-    mapswithmeDebug {
-      storeFile file('../tools/android/debug.keystore')
-      storePassword '12345678'
-      keyAlias 'debug'
-      keyPassword '12345678'
-    }
   }
 
   buildTypes {
@@ -438,7 +431,7 @@ android {
       versionNameSuffix '-debug'
       jniDebuggable true           // Enable jni debug build
       zipAlignEnabled true
-      signingConfig signingConfigs.mapswithmeDebug
+      signingConfig signingConfigs.mapswithme
       android.sourceSets.debug.setRoot('flavors/debug')
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
     }

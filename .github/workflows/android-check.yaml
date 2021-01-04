@@ -1,0 +1,36 @@
+name: Check
+on:
+  push:
+    branches:
+      - '!master'
+
+jobs:
+  android-check:
+    name: Android Check
+    runs-on: [self-hosted, linux, X64]
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          clean: false # speed up builds
+
+      - name: Remove old bundles
+        shell: bash
+        run: |
+          find -name '*.aab' -delete
+
+      - name: Configure
+        shell: bash
+        run: |
+          ./configure.sh
+
+      - name: Set up SDK
+        shell: bash
+        run: |
+          (cd tools/android; ./set_up_android.py --sdk /opt/Android/sdk --ndk /opt/Android/ndk)
+
+      - name: Compile
+        shell: bash
+        # Just check compilation for one architecture
+        run: (cd android; ./gradlew -Parm64 bundleWebDebug)
