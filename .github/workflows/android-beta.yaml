@@ -23,10 +23,10 @@ jobs:
           ref: beta
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Remove old APKs
+      - name: Remove old outputs
         shell: bash
         run: |
-          find -name '*.apk' -delete
+          rm -rf android/build/outputs/
 
       - name: Configure
         shell: bash

@@ -15,10 +15,10 @@ jobs:
           submodules: true
           clean: false # speed up builds
 
-      - name: Remove old bundles
+      - name: Remove old outputs
         shell: bash
         run: |
-          find -name '*.aab' -delete
+          rm -rf android/build/outputs/
 
       - name: Configure
         shell: bash
