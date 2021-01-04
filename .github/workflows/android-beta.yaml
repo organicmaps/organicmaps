@@ -69,3 +69,7 @@ jobs:
           name: android-web-x86-beta
           path: android/build/outputs/apk/android-web-x86-beta-*.apk
           if-no-files-found: error
+
+      - name: Upload debug symbols
+        shell: bash
+        run: (cd android; ./gradlew uploadCrashlyticsSymbolFileWebBeta)
