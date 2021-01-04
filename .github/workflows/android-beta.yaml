@@ -35,12 +35,14 @@ jobs:
 
       - name: Set up SDK
         shell: bash
+        working-directory: tools/android
         run: |
-          (cd tools/android; ./set_up_android.py --sdk /opt/Android/sdk --ndk /opt/Android/ndk)
+          ./set_up_android.py --sdk /opt/Android/sdk --ndk /opt/Android/ndk
 
       - name: Compile
         shell: bash
-        run: (cd android; ./gradlew -PsplitApk=true -x lint -x lintVitalWebBeta assembleWebBeta)
+        working-directory: android
+        run: ./gradlew -PsplitApk=true -x lint -x lintVitalWebBeta assembleWebBeta uploadCrashlyticsSymbolFileWebBeta
 
       - name: Upload arm64-v8a beta apk
         uses: actions/upload-artifact@v2
@@ -70,12 +72,10 @@ jobs:
           path: android/build/outputs/apk/android-web-x86-beta-*.apk
           if-no-files-found: error
 
-      - name: Upload debug symbols
+      - name: Upload universal beta apk to App Distribution
         shell: bash
-        run: (cd android; ./gradlew uploadCrashlyticsSymbolFileWebBeta)
-
-      - name: Upload to App Distribution
-        shell: bash
+        working-directory: android
         run: |
-           git --no-pager show -s --format='%s%n%n%b' HEAD > android/RELEASE
-           (cd android; ./gradlew -x lint -x lintVitalWebBeta assembleWebBeta appDistributionUploadWebBeta)
+           git --no-pager show -s --format='%s%n%n%b' HEAD > RELEASE
+           # Sic: Firebase App Distribution doesn't support splits
+           ./gradlew -Parm64 -x lint -x lintVitalWebBeta assembleWebBeta uploadCrashlyticsSymbolFileWebBeta appDistributionUploadWebBeta
