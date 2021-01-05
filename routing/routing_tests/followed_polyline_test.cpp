@@ -10,8 +10,8 @@ using namespace routing;
 
 namespace
 {
-  static const m2::PolylineD kTestDirectedPolyline1({{0.0, 0.0}, {3.0, 0.0}, {5.0, 0.0}});
-  static const m2::PolylineD kTestDirectedPolyline2({{6.0, 0.0}, {7.0, 0.0}});
+  static const m2::PolylineD kTestDirectedPolyline1(std::vector<m2::PointD>{{0.0, 0.0}, {3.0, 0.0}, {5.0, 0.0}});
+  static const m2::PolylineD kTestDirectedPolyline2(std::vector<m2::PointD>{{6.0, 0.0}, {7.0, 0.0}});
 }  // namespace
 
 UNIT_TEST(FollowedPolylineAppend)
@@ -100,7 +100,7 @@ UNIT_TEST(FollowedPolylineDistanceCalculationTest)
 
 UNIT_TEST(FollowedPolylineDirectionTest)
 {
-  m2::PolylineD testPolyline({{0, 0}, {1.00003, 0}, {1.00003, 1}});
+  m2::PolylineD testPolyline(std::vector<m2::PointD>{{0, 0}, {1.00003, 0}, {1.00003, 1}});
   FollowedPolyline polyline(testPolyline.Begin(), testPolyline.End());
   TEST_EQUAL(polyline.GetCurrentIter().m_ind, 0, ());
   m2::PointD directionPoint;
@@ -115,7 +115,7 @@ UNIT_TEST(FollowedPolylineDirectionTest)
 
 UNIT_TEST(FollowedPolylineGetDistanceFromBeginM)
 {
-  m2::PolylineD testPolyline({{0, 0}, {1, 0}, {2, 0}, {3, 0}, {5, 0}, {6, 0}});
+  m2::PolylineD testPolyline(std::vector<m2::PointD>{{0, 0}, {1, 0}, {2, 0}, {3, 0}, {5, 0}, {6, 0}});
   FollowedPolyline polyline(testPolyline.Begin(), testPolyline.End());
   m2::PointD point(4, 0);
   polyline.UpdateProjection(mercator::RectByCenterXYAndSizeInMeters(point, 2));

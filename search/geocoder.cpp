@@ -1223,7 +1223,7 @@ void Geocoder::GreedilyMatchStreetsWithSuburbs(BaseContext & ctx,
       auto & layers = ctx.m_layers;
       ASSERT(layers.empty(), ());
       layers.emplace_back();
-      SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
+      SCOPE_GUARD(cleanupGuard, [&]{ layers.pop_back(); });
 
       auto & layer = layers.back();
       InitLayer(Model::TYPE_SUBURB, suburb.m_tokenRange, layer);
@@ -1262,7 +1262,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   auto & layers = ctx.m_layers;
 
   layers.emplace_back();
-  SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
+  SCOPE_GUARD(cleanupGuard, [&]{ layers.pop_back(); });
 
   auto & layer = layers.back();
   InitLayer(Model::TYPE_STREET, prediction.m_tokenRange, layer);
@@ -1353,7 +1353,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
     // Following code creates a fake layer with buildings and
     // intersects it with the streets layer.
     layers.emplace_back();
-    SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
+    SCOPE_GUARD(cleanupGuard, [&]{ layers.pop_back(); });
 
     auto & layer = layers.back();
     InitLayer(Model::TYPE_BUILDING, m_postcodes.m_tokenRange, layer);
@@ -1367,7 +1367,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken, CBV con
   }
 
   layers.emplace_back();
-  SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
+  SCOPE_GUARD(cleanupGuard, [&]{ layers.pop_back(); });
 
   // Clusters of features by search type. Each cluster is a sorted
   // list of ids.
