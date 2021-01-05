@@ -1,8 +1,8 @@
 name: Check
 on:
   push:
-    branches:
-      - '!master'
+    branches-ignore:
+      - 'master'
 
 jobs:
   android-check:

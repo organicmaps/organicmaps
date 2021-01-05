@@ -1,0 +1,34 @@
+name: Check
+on:
+  push:
+#    branches-ignore:
+#      - 'master'
+
+jobs:
+  ios-check:
+    name: iOS Check
+    runs-on: [self-hosted, macOS, X64]
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          clean: false # speed up builds
+
+      - name: Configure
+        shell: bash
+        run: |
+          ./configure.sh
+
+      - name: Compile
+        shell: bash
+        # Just check compilation
+        run: |
+          xcodebuild \
+             -workspace xcode/omim.xcworkspace \
+             -scheme MAPS.ME \
+             -configuration Debug build \
+             'generic/platform=iOS' \
+             CODE_SIGNING_REQUIRED=NO \
+             CODE_SIGNING_ALLOWED=NO \
+          |xcpretty
