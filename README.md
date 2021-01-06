@@ -1,5 +1,12 @@
 # OMaps
 
+[![Android][android-badge]][android-url]
+[![iOS][ios-badge]][ios-url]
+[![Slack][slack-badge]][slack-url]
+[![Telegram][telegram-badge]][telegram-url]
+[![Telegram RU][telegramru-badge]][telegramru-url]
+[![Build][build-badge]][build-url]
+
 [OMaps](https://omaps.app) is an open source cross-platform offline maps application,
 built on top of crowd-sourced OpenStreetMap data. It was publicly released
 for [iOS](https://itunes.apple.com/app/id510623322) and
@@ -63,3 +70,16 @@ or by mail to bugs@omaps.app.
 
 See [NOTICE](https://github.com/omapsapp/omapsapp/blob/master/NOTICE)
 and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/omapsapp/omapsapp/blob/master/data/copyright.html) files for more information.
+
+[android-badge]: https://img.shields.io/badge/Android-Beta-green.svg?style=flat
+[android-url]: https://appdistribution.firebase.dev/i/4fa64e2439ca20ff
+[ios-badge]: https://img.shields.io/badge/iOS-Shortlist-white.svg?style=flat
+[ios-url]: https://docs.google.com/forms/d/e/1FAIpQLSeugR3rxsOpGS4nbq-0
+[slack-badge]: https://img.shields.io/badge/Slack-Community-yellow.svg?style=flat
+[slack-url]: https://slack.omaps.app/
+[telegram-badge]: https://img.shields.io/badge/Telegram-Group-blue.svg?style=flat
+[telegram-url]: https://t.me/omaps
+[telegramru-badge]: https://img.shields.io/badge/Telegram-Group_RU-red.svg?style=flat
+[telegramru-url]: https://t.me/omaps_ru
+[build-badge]: https://github.com/omapsapp/omapsapp/workflows/Check/badge.svg?branch=master
+[build-url]: https://github.com/omapsapp/omapsapp/actions
