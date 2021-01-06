@@ -74,7 +74,7 @@ and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/omaps
 [android-badge]: https://img.shields.io/badge/Android-Beta-green.svg?style=flat
 [android-url]: https://appdistribution.firebase.dev/i/4fa64e2439ca20ff
 [ios-badge]: https://img.shields.io/badge/iOS-Shortlist-white.svg?style=flat
-[ios-url]: https://docs.google.com/forms/d/e/1FAIpQLSeugR3rxsOpGS4nbq-0
+[ios-url]: https://docs.google.com/forms/d/e/1FAIpQLSeugR3rxsOpGS4nbq-0726kHKd8qDZAFgTsfWxWIwDf4sfcYQ/viewform
 [slack-badge]: https://img.shields.io/badge/Slack-Community-yellow.svg?style=flat
 [slack-url]: https://slack.omaps.app/
 [telegram-badge]: https://img.shields.io/badge/Telegram-Group-blue.svg?style=flat
