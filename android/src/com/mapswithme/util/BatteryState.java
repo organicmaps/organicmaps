@@ -51,6 +51,12 @@ public final class BatteryState
   }
 
   @ChargingStatus
+  public static int getChargingStatus(@NonNull Context context)
+  {
+    return getState(context).getChargingStatus();
+  }
+
+  @ChargingStatus
   private static int getChargingStatus(@NonNull Intent batteryStatus)
   {
     // Extra for {@link android.content.Intent#ACTION_BATTERY_CHANGED}:
