@@ -181,18 +181,15 @@ void CrossMwmOsmWaysCollector::CrossMwmInfo::Dump(CrossMwmInfo const & info, std
 std::set<CrossMwmOsmWaysCollector::CrossMwmInfo>
 CrossMwmOsmWaysCollector::CrossMwmInfo::LoadFromFileToSet(std::string const & path)
 {
-  if (!Platform::IsFileExistsByFullPath(path))
+  std::ifstream input(path);
+  if (!input)
   {
     LOG(LWARNING, ("No info about cross mwm ways:", path));
     return {};
   }
-
-  std::set<CrossMwmInfo> result;
-  std::ifstream input;
-  input.exceptions(std::fstream::failbit | std::fstream::badbit);
-  input.open(path);
   input.exceptions(std::fstream::badbit);
 
+  std::set<CrossMwmInfo> result;
   uint64_t osmId;
   size_t segmentsNumber;
   while (input >> osmId >> segmentsNumber)
