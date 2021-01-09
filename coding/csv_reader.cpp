@@ -92,9 +92,11 @@ std::optional<std::string> CSVReader::ReaderWrapper::ReadLine()
 }
 
 CSVReader::DefaultReader::DefaultReader(std::string const & filename)
+: m_stream(filename)
 {
-  m_stream.exceptions(std::ios::failbit | std::ios::badbit);
-  m_stream.open(filename);
+  if (!m_stream)
+    LOG(LERROR, ("Can't open file ", filename));
+
   m_stream.exceptions(std::ios::badbit);
 }
 
