@@ -268,14 +268,12 @@ class StagePopularity(Stage):
 
 
 @country_stage
-@production_only
 class StageSrtm(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_srtm(env, country, **kwargs)
 
 
 @country_stage
-@production_only
 class StageIsolinesInfo(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_isolines_info(env, country, **kwargs)
