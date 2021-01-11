@@ -156,7 +156,8 @@ public enum Tutorial
         .setBackgroundColour(ThemeUtils.getColor(activity, R.attr.tipsBgColor))
         .setFocalColour(activity.getResources().getColor(android.R.color.transparent))
         .setPromptBackground(new ImmersiveModeCompatPromptBackground(activity.getWindowManager()))
-        .setPromptStateChangeListener(listener);
+        .setPromptStateChangeListener(listener)
+        .setIgnoreStatusBar(true);
     builder.show();
   }
 
