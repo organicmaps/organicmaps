@@ -35,9 +35,6 @@ def get_feeds_links(data):
 
     for feed in data:
         if feed["feed_format"] != "gtfs" or feed["spec"] != "gtfs":
-            # Warning about strange format - not gtfs and not real-time gtfs:
-            if feed["feed_format"] != "gtfs-rt":
-                logger.warning(f"Skipped feed: feed_format {feed['feed_format']}, spec {feed['spec']}")
             continue
 
         if "url" in feed and feed["url"] is not None and feed["url"]:
@@ -51,25 +48,30 @@ def parse_transitland_page(url):
     retries = MAX_RETRIES
 
     while retries > 0:
-        with requests.get(url) as response:
-            if response.status_code != 200:
-                logger.error(f"Failed loading feeds: {response.status_code}")
-                if response.status_code == 429:
-                    logger.error("Too many requests.")
-                    time.sleep(MAX_SLEEP_TIMEOUT_S)
+        try:
+            with requests.get(url) as response:
+                if response.status_code != 200:
+                    logger.error(f"Failed loading feeds: {response.status_code}")
+                    if response.status_code == 429:
+                        logger.error("Too many requests.")
+                        time.sleep(MAX_SLEEP_TIMEOUT_S)
+                    else:
+                        time.sleep(AVG_SLEEP_TIMEOUT_S)
+                    retries -= 1
+                    continue
+
+                data = json.loads(response.text)
+                if "feeds" in data:
+                    gtfs_feeds_urls = get_feeds_links(data["feeds"])
                 else:
-                    time.sleep(AVG_SLEEP_TIMEOUT_S)
-                retries -= 1
-                continue
+                    gtfs_feeds_urls = []
 
-            data = json.loads(response.text)
-            if "feeds" in data:
-                gtfs_feeds_urls = get_feeds_links(data["feeds"])
-            else:
-                gtfs_feeds_urls = []
-
-            next_page = data["meta"]["next"] if "next" in data["meta"] else ""
-            return gtfs_feeds_urls, next_page
+                next_page = data["meta"]["next"] if "next" in data["meta"] else ""
+                return gtfs_feeds_urls, next_page
+        except requests.exceptions.RequestException as ex:
+            logger.error(f"Exception {ex} for url {url}")
+            retries -= 1
+            time.sleep(AVG_SLEEP_TIMEOUT_S)
 
     return [], ""
 
@@ -82,7 +84,10 @@ def extract_to_path(content, out_path):
         return True
     except zipfile.BadZipfile:
         logger.exception("BadZipfile exception.")
-        return False
+    except Exception as e:
+        logger.exception(f"Exception while unzipping feed: {e}")
+
+    return False
 
 
 def load_gtfs_feed_zip(path, url):
@@ -137,7 +142,7 @@ def parse_openmobilitydata_pages(omd_api_key):
 
             if page == 1:
                 pages_count = data["results"]["numPages"]
-                logger.info(f"Pages count {pages_count}")
+                logger.info(f"There are {pages_count} Openmobilitydata pages with feed urls.")
 
             for feed in data["results"]["feeds"]:
                 params = {
