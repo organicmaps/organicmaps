@@ -133,32 +133,38 @@ def parse_openmobilitydata_pages(omd_api_key):
             "type": "gtfs"
         }
 
-        with requests.get(url_page, params=params, headers=HEADERS_OMD) as response:
-            if response.status_code != 200:
-                logger.error(f"Http code {response.status_code} loading feed ids: {url_page}")
-                return [], ""
+        try:
+            with requests.get(url_page, params=params, headers=HEADERS_OMD) as response:
+                if response.status_code != 200:
+                    logger.error(f"Http code {response.status_code} loading feed ids: {url_page}")
+                    return [], ""
 
-            data = json.loads(response.text)
+                data = json.loads(response.text)
 
-            if page == 1:
-                pages_count = data["results"]["numPages"]
-                logger.info(f"There are {pages_count} Openmobilitydata pages with feed urls.")
+                if page == 1:
+                    pages_count = data["results"]["numPages"]
+                    logger.info(f"There are {pages_count} Openmobilitydata pages with feed urls.")
 
-            for feed in data["results"]["feeds"]:
-                params = {
-                    "key": omd_api_key,
-                    "feed": feed["id"]
-                }
+                for feed in data["results"]["feeds"]:
+                    params = {
+                        "key": omd_api_key,
+                        "feed": feed["id"]
+                    }
+                    try:
+                        with requests.get(url_with_redirect, params=params, headers=HEADERS_OMD, allow_redirects=True) \
+                                as response_redirect:
+                            if response_redirect.history:
+                                urls.append(response_redirect.url)
+                            else:
+                                logger.error(f"Could not get link to zip with feed {feed['id']} from {url_with_redirect}")
+                    except requests.exceptions.RequestException as ex_redirect:
+                        logger.error(f"Exception {ex_redirect} while getting link to zip with "
+                                     f"feed {feed['id']} from {url_with_redirect}")
+        except requests.exceptions.RequestException as ex:
+            logger.error(f"Exception {ex} while getting {url_page} (page {page}) from Openmobilitydata.")
 
-                with requests.get(url_with_redirect, params=params, headers=HEADERS_OMD, allow_redirects=True) \
-                        as response_redirect:
-                    if response_redirect.history:
-                        urls.append(response_redirect.url)
-                    else:
-                        logger.error(f"Could not get link to zip with feed {feed['id']} from {url_with_redirect}")
-
-            logger.info(f"page {page}")
-            page += 1
+        logger.info(f"Crawled {page}/{pages_count} page of Openmobilitydata.")
+        page += 1
 
     return urls
 
