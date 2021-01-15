@@ -50,15 +50,7 @@ def parse_transitland_page(url):
     while retries > 0:
         try:
             with requests.get(url) as response:
-                if response.status_code != 200:
-                    logger.error(f"Failed loading feeds: {response.status_code}")
-                    if response.status_code == 429:
-                        logger.error("Too many requests.")
-                        time.sleep(MAX_SLEEP_TIMEOUT_S)
-                    else:
-                        time.sleep(AVG_SLEEP_TIMEOUT_S)
-                    retries -= 1
-                    continue
+                response.raise_for_status()
 
                 data = json.loads(response.text)
                 if "feeds" in data:
@@ -69,9 +61,15 @@ def parse_transitland_page(url):
                 next_page = data["meta"]["next"] if "next" in data["meta"] else ""
                 return gtfs_feeds_urls, next_page
         except requests.exceptions.RequestException as ex:
-            logger.error(f"Exception {ex} for url {url}")
+            logger.error(
+                f"Exception {ex} while parsing Transitland url {url} with code {response.status_code}"
+            )
+            if response.status_code == 429:
+                logger.error("Too many requests.")
+                time.sleep(MAX_SLEEP_TIMEOUT_S)
+            else:
+                time.sleep(AVG_SLEEP_TIMEOUT_S)
             retries -= 1
-            time.sleep(AVG_SLEEP_TIMEOUT_S)
 
     return [], ""
 
@@ -96,11 +94,7 @@ def load_gtfs_feed_zip(path, url):
     while retries > 0:
         try:
             with requests.get(url, stream=True) as response:
-                if response.status_code != 200:
-                    logger.error(f"HTTP code {response.status_code} loading gtfs {url}")
-                    retries -= 1
-                    time.sleep(MAX_SLEEP_TIMEOUT_S)
-                    continue
+                response.raise_for_status()
 
                 if not extract_to_path(response.content, path):
                     retries -= 1
@@ -110,7 +104,9 @@ def load_gtfs_feed_zip(path, url):
                 return True
 
         except requests.exceptions.RequestException as ex:
-            logger.error(f"Exception {ex} for url {url}")
+            logger.error(
+                f"Exception {ex} downloading zip from url {url}, HTTP code {response.status_code}"
+            )
             retries -= 1
             time.sleep(AVG_SLEEP_TIMEOUT_S)
 
