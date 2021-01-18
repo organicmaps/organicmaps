@@ -160,14 +160,6 @@ final class BMCViewController: MWMViewController {
       Statistics.logEvent(kStatBookmarksListSettingsClick,
                           withParameters: [kStatOption : kStatSendAsFile])
     }))
-    let share = L("sharing_options")
-    let shareAction = UIAlertAction(title: share, style: .default, handler: { _ in
-      self.shareCategory(category: category, anchor: anchor)
-      Statistics.logEvent(kStatBookmarksListSettingsClick,
-                          withParameters: [kStatOption : kStatSharingOptions])
-    })
-    shareAction.isEnabled = BookmarksManager.shared().isCategoryNotEmpty(category.categoryId)
-    actionSheet.addAction(shareAction)
     let delete = L("delete_list")
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in
       viewModel!.deleteCategory(at: index)
