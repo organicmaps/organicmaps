@@ -1,13 +1,11 @@
 package com.mapswithme.maps.routing;
 
-import android.location.Location;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 
 import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 
 public class RoutingInfo
 {
