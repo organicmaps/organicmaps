@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +84,7 @@ class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.ViewHolde
     @Override
     public void onClick(View v)
     {
-      Toast.makeText(mName.getContext(), mName.getText(), Toast.LENGTH_LONG).show();
+      Utils.showSnackbar(v.getRootView(), mName.getText().toString());
     }
 
     public void bind(Sponsored.FacilityType facility)

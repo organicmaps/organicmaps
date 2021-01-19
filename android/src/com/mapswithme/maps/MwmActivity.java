@@ -19,7 +19,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -1345,7 +1344,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!successful)
       return;
 
-    Toast.makeText(this, R.string.guide_downloaded_title, Toast.LENGTH_LONG).show();
+    Utils.showSnackbar(this, findViewById(R.id.coordinator),
+                       findViewById(R.id.menu_frame), R.string.guide_downloaded_title);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GUIDEDOWNLOADTOAST_SHOWN);
   }
 
@@ -2675,8 +2675,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBookmarksFileLoaded(boolean success)
   {
-    Utils.toastShortcut(MwmActivity.this, success ? R.string.load_kmz_successful :
-                                          R.string.load_kmz_failed);
+    Utils.showSnackbar(this, findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
+                        success ? R.string.load_kmz_successful : R.string.load_kmz_failed);
   }
 
   @Override
@@ -2862,8 +2862,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (PermissionsUtils.isLocationExplanationNeeded(MwmActivity.this))
           PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
         else
-          Toast.makeText(MwmActivity.this, R.string.enable_location_services, Toast.LENGTH_SHORT)
-               .show();
+          Utils.showSnackbar(getActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
+                             R.string.enable_location_services);
         return;
       }
 

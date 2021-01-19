@@ -1977,8 +1977,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     final String tagStr = tag == null ? "" : tag.toString();
     AlohaHelper.logLongClick(tagStr);
 
-    Context wrapper = new ContextThemeWrapper(getContext(), R.style.MwmWidget_PopupMenu);
-    final PopupMenu popup = new PopupMenu(wrapper, v);
+    final PopupMenu popup = new PopupMenu(getContext(), v);
     final Menu menu = popup.getMenu();
     final List<String> items = new ArrayList<>();
     switch (v.getId())
@@ -2030,9 +2029,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
       final int id = item.getItemId();
       final Context ctx = getContext();
       Utils.copyTextToClipboard(ctx, items.get(id));
-      Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, items.get(id)));
       Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_METADATA_COPY + ":" + tagStr);
       AlohaHelper.logClick(AlohaHelper.PP_METADATA_COPY + ":" + tagStr);
+      Utils.showSnackbarAbove(findViewById(R.id.pp__details_frame),
+                              getRootView().findViewById(R.id.menu_frame),
+                              ctx.getString(R.string.copied_to_clipboard, items.get(id)));
       return true;
     });
 
