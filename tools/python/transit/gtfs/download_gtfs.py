@@ -14,8 +14,7 @@ import zipfile
 
 import requests
 
-MAX_RETRIES = 3
-AVG_SLEEP_TIMEOUT_S = 10
+MAX_RETRIES = 2
 MAX_SLEEP_TIMEOUT_S = 30
 
 URLS_FILE_TRANSITLAND = "feed_urls_transitland.txt"
@@ -49,27 +48,28 @@ def parse_transitland_page(url):
 
     while retries > 0:
         try:
-            with requests.get(url) as response:
-                response.raise_for_status()
+            response = requests.get(url)
+            response.raise_for_status()
 
-                data = json.loads(response.text)
-                if "feeds" in data:
-                    gtfs_feeds_urls = get_feeds_links(data["feeds"])
-                else:
-                    gtfs_feeds_urls = []
+            data = json.loads(response.text)
+            if "feeds" in data:
+                gtfs_feeds_urls = get_feeds_links(data["feeds"])
+            else:
+                gtfs_feeds_urls = []
 
-                next_page = data["meta"]["next"] if "next" in data["meta"] else ""
-                return gtfs_feeds_urls, next_page
+            next_page = data["meta"]["next"] if "next" in data["meta"] else ""
+            return gtfs_feeds_urls, next_page
+
+        except requests.exceptions.HTTPError as http_err:
+            logger.error(f"HTTP error {http_err} downloading zip from url {url}")
+            if http_err == 429:
+                time.sleep(MAX_SLEEP_TIMEOUT_S)
         except requests.exceptions.RequestException as ex:
             logger.error(
                 f"Exception {ex} while parsing Transitland url {url} with code {response.status_code}"
             )
-            if response.status_code == 429:
-                logger.error("Too many requests.")
-                time.sleep(MAX_SLEEP_TIMEOUT_S)
-            else:
-                time.sleep(AVG_SLEEP_TIMEOUT_S)
-            retries -= 1
+
+        retries -= 1
 
     return [], ""
 
@@ -93,22 +93,23 @@ def load_gtfs_feed_zip(path, url):
     retries = MAX_RETRIES
     while retries > 0:
         try:
-            with requests.get(url, stream=True) as response:
-                response.raise_for_status()
+            response = requests.get(url, stream=True)
+            response.raise_for_status()
 
-                if not extract_to_path(response.content, path):
-                    retries -= 1
-                    logger.error(f"Could not extract zip: {url}")
-                    continue
+            if not extract_to_path(response.content, path):
+                retries -= 1
+                logger.error(f"Could not extract zip: {url}")
+                continue
 
-                return True
+            return True
 
+        except requests.exceptions.HTTPError as http_err:
+            logger.error(f"HTTP error {http_err} downloading zip from url {url}")
         except requests.exceptions.RequestException as ex:
             logger.error(
-                f"Exception {ex} downloading zip from url {url}, HTTP code {response.status_code}"
+                f"Exception {ex} downloading zip from url {url}"
             )
-            retries -= 1
-            time.sleep(AVG_SLEEP_TIMEOUT_S)
+        retries -= 1
 
     return False
 
@@ -202,12 +203,11 @@ def crawl_transitland_for_feed_urls(out_path):
 
 
 def get_filename(file_prefix, index):
-    index_str = str(index)
-    index_len = len(index_str)
+    index_len = len(str(index))
     zeroes_prefix = (
         "" if MAX_INDEX_LEN < index_len else "0" * (MAX_INDEX_LEN - index_len)
     )
-    return file_prefix + "_" + zeroes_prefix + index_str
+    return f"{file_prefix}_{zeroes_prefix}{index}"
 
 
 def load_gtfs_zips_from_urls(path, urls_file, threads_count, file_prefix):
