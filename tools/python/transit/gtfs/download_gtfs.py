@@ -106,9 +106,7 @@ def load_gtfs_feed_zip(path, url):
         except requests.exceptions.HTTPError as http_err:
             logger.error(f"HTTP error {http_err} downloading zip from url {url}")
         except requests.exceptions.RequestException as ex:
-            logger.error(
-                f"Exception {ex} downloading zip from url {url}"
-            )
+            logger.error(f"Exception {ex} downloading zip from url {url}")
         retries -= 1
 
     return False
