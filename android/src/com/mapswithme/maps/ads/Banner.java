@@ -48,8 +48,6 @@ public final class Banner implements Parcelable
   {
     switch (Type.values()[mType])
     {
-      case TYPE_FACEBOOK:
-        return Providers.FACEBOOK;
       case TYPE_RB:
         return Providers.MY_TARGET;
       case TYPE_MOPUB:
@@ -111,7 +109,6 @@ public final class Banner implements Parcelable
   public enum Type
   {
     TYPE_NONE,
-    TYPE_FACEBOOK,
     TYPE_RB,
     TYPE_MOPUB,
     TYPE_GOOGLE

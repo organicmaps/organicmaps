@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">درحال دانلود</string>
 	<string name="get_it_now">هم اکنون دریافت کنید</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">ایا از کارکرد این اپلیکیشن رضایت دارید؟ درمورد این اپلیکیشن به دوستانتان بگویید! این بهترین تشکر از ماست.!OMapsباتشکر از شما برای استفاده از</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">کیلوبایت</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -348,8 +346,6 @@
 	<string name="website">وب سایت</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">انجمن OMaps</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">ما را در فیسبوک لایک کنید</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">ما را در توییتر دنبال کنید</string>
 	<!-- Text in menu -->
@@ -694,7 +690,6 @@
 	<string name="you_have_edited_your_first_object">شما اولین ویرایشتان را انجام دادید!</string>
 	<string name="thank_you">متشکریم</string>
 	<string name="login_with_google">ورود با حساب گوگل</string>
-	<string name="login_with_facebook">ورود با حساب فیسبوک</string>
 	<string name="login_with_openstreetmap">ورود با حساب www.openstreetmap.org</string>
 	<string name="edit_place">ویرایش مکان</string>
 	<string name="place_name">نام مکان</string>

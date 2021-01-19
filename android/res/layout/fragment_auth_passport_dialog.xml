@@ -101,25 +101,6 @@
       android:layout_marginTop="@dimen/margin_base"
       tools:targetApi="jelly_bean"/>
     <TextView
-      android:id="@+id/facebook_button"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:foreground="?clickableBackground"
-      android:background="?facebookButtonBackground"
-      android:textColor="?accentButtonTextColor"
-      android:drawableStart="@drawable/img_facebook"
-      android:paddingLeft="@dimen/margin_half_plus"
-      android:paddingStart="@dimen/margin_half_plus"
-      android:paddingRight="@dimen/margin_base_plus"
-      android:paddingEnd="@dimen/margin_base_plus"
-      android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
-      android:fontFamily="@string/robotoMedium"
-      android:text="@string/facebook"
-      android:gravity="center"
-      android:minHeight="@dimen/primary_button_min_height"
-      android:layout_marginTop="@dimen/margin_base"
-      tools:targetApi="jelly_bean"/>
-    <TextView
       android:id="@+id/phone_button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Sťahovanie…</string>
 	<string name="get_it_now">Získať teraz</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Ďakujeme, že používate OMaps! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
 	<!-- Leave Review dialog - Review button -->
@@ -371,8 +369,6 @@
 	<string name="website">Webové stránky</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">Komunita OMaps</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Označiť pomocou Páči sa mi to na Facebooku</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Sledovať na Twitteri</string>
 	<!-- Text in menu -->
@@ -722,7 +718,6 @@
 	<string name="you_have_edited_your_first_object">Upravili ste svoj prvý objekt!</string>
 	<string name="thank_you">Ďakujeme Vám</string>
 	<string name="login_with_google">Prihlásiť sa cez Google</string>
-	<string name="login_with_facebook">Prihlásiť sa cez Facebook</string>
 	<string name="login_with_openstreetmap">Prihlásiť sa cez www.openstreetmap.org</string>
 	<string name="edit_place">Upraviť miesto</string>
 	<string name="place_name">Názov miesta</string>

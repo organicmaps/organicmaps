@@ -6,16 +6,10 @@ import android.net.Uri;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 
-import java.util.Locale;
-
-import com.facebook.FacebookSdk;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 import com.mapswithme.util.UiUtils;
 
 public class ViralEditorShareable extends BaseShareable
 {
-  private static final String FACEBOOK_SHARE_URL = "https://omaps.app/fb-editor-v1?lang=" + Locale.getDefault().getLanguage();
   private static final String VIRAL_TAIL = " https://omaps.app/im_get";
 
   private final Uri mUri;
@@ -45,12 +39,6 @@ public class ViralEditorShareable extends BaseShareable
     Intent intent = getTargetIntent(target);
     String lowerCaseName = target.activityName.toLowerCase();
 
-    if (lowerCaseName.contains("facebook"))
-    {
-      shareFacebook();
-      return;
-    }
-
     setText(mText + VIRAL_TAIL);
 
     if (lowerCaseName.contains("sms") || lowerCaseName.contains("mms"))
@@ -66,19 +54,5 @@ public class ViralEditorShareable extends BaseShareable
     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
     super.share(target);
-  }
-
-  private void shareFacebook()
-  {
-    FacebookSdk.sdkInitialize(getActivity());
-    ShareDialog shareDialog = new ShareDialog(getActivity());
-    if (ShareDialog.canShow(ShareLinkContent.class))
-    {
-      ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                                         .setContentUrl(Uri.parse(FACEBOOK_SHARE_URL))
-                                         .build();
-
-      shareDialog.show(linkContent);
-    }
   }
 }

@@ -19,7 +19,6 @@ public class NativeAdWrapper implements MwmNativeAd
   {
     {
       put(NetworkType.MOPUB, UiType.DEFAULT);
-      put(NetworkType.FACEBOOK, UiType.DEFAULT);
       put(NetworkType.MYTARGET, UiType.DEFAULT);
     }
   };

@@ -1489,10 +1489,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       LikesManager.INSTANCE.showRateDialogForOldUser(this);
       Counters.setShowReviewForOldUser(context, false);
     }
-    else
-    {
-      LikesManager.INSTANCE.showDialogs(this);
-    }
   }
 
   @Override

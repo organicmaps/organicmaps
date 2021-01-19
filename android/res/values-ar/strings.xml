@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">جاري التنزيل…</string>
 	<string name="get_it_now">احصل عليه الآن</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">شكرا لاستخدامك OMaps! هل يعجبك التطبيق؟ أخبر أصدقاءك عن التطبيق! سيكون ذلك هو غاية الامتنان بالنسبة لنا.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">ك.ب.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -377,8 +375,6 @@
 	<string name="website">الموقع الإلكتروني</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">مجتمع OMaps</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">أعجبني على الفيسبوك</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">تابعونا على تويتر</string>
 	<!-- Text in menu -->
@@ -730,7 +726,6 @@
 	<string name="you_have_edited_your_first_object">لقد قمت بتعديلك الأول!</string>
 	<string name="thank_you">شكرا لك</string>
 	<string name="login_with_google">تسجيل الدخول عبر جوجل</string>
-	<string name="login_with_facebook">تسجيل الدخول عبر فيسبوك</string>
 	<string name="login_with_openstreetmap">قم بتسجيل الدخول في www.openstreetmap.org</string>
 	<string name="edit_place">تعديل المكان</string>
 	<string name="place_name">اسم المكان</string>

@@ -17,8 +17,6 @@
 	<string name="download_has_failed">Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Λήψη…</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Σας ευχαριστούμε που χρησιμοποιείτε το OMaps! Σας αρέσει η εφαρμογή; Πείτε το στους φίλους σας! Είναι ότι καλύτερο μπορείτε να κάνετε για εμάς.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Χιλιόμετρα</string>
 	<!-- Leave Review dialog - Review button -->
@@ -283,8 +281,6 @@
 	<string name="website">Ιστότοπος</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">Κοινότητα OMaps\u0020</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Κάντε Like στο Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Ακολουθήστε στο Twitter</string>
 	<!-- Text in menu -->

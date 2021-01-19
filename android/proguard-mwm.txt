@@ -10,7 +10,6 @@
 # parse
 -dontwarn com.squareup.okhttp.**
 -dontwarn okio.**
--dontwarn com.facebook.**
 
 # pushwoosh
 -keep class com.pushwoosh.** { *; }

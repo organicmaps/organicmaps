@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Letöltés…</string>
 	<string name="get_it_now">Telepítés most</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Köszönjük, hogy a OMaps-t használja! Kedveli az appot? Akkor számoljon be a barátainak róla. Ez lenne a legnagyobb hála, amit adhat nekünk.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilométer</string>
 	<!-- Leave Review dialog - Review button -->
@@ -373,8 +371,6 @@
 	<string name="website">Honlap</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">OMaps közösség</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Lájkolj minket Facebookon</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Kövess minket Twitteren</string>
 	<!-- Text in menu -->
@@ -726,7 +722,6 @@
 	<string name="you_have_edited_your_first_object">Szerkesztetted az első objektumod!</string>
 	<string name="thank_you">Köszönjük</string>
 	<string name="login_with_google">Bejelentkezés Google- vel</string>
-	<string name="login_with_facebook">Bejelentkezés Facebookkal</string>
 	<string name="login_with_openstreetmap">Jelentkezz be a www.openstreetmap.org oldalon</string>
 	<string name="edit_place">Hely szerkesztése</string>
 	<string name="place_name">Hely neve</string>

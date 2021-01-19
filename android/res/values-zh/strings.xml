@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">下载…</string>
 	<string name="get_it_now">现在就获取它</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">感谢您使用 OMaps！您喜欢此应用吗？告诉您的好友们吧！这会是对我们最好的感谢。</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">千米</string>
 	<!-- Leave Review dialog - Review button -->
@@ -373,8 +371,6 @@
 	<string name="website">网站</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">OMaps社区</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">在Facebook 上点赞</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">在Twitter 上关注</string>
 	<!-- Text in menu -->
@@ -724,7 +720,6 @@
 	<string name="you_have_edited_your_first_object">您已编辑您的第一件物品！</string>
 	<string name="thank_you">谢谢您</string>
 	<string name="login_with_google">用谷歌登陆</string>
-	<string name="login_with_facebook">用脸书登陆</string>
 	<string name="login_with_openstreetmap">登录到www.openstreetmap.org</string>
 	<string name="edit_place">编辑地点</string>
 	<string name="place_name">地点名</string>

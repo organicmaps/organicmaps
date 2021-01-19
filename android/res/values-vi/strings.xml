@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Đang tải xuống…</string>
 	<string name="get_it_now">Tải xuống ngay</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Cám ơn bạn đã sử dụng OMaps! Bạn thích ứng dụng chứ? Kể cho bạn bè về ứng dụng này! Đây sẽ là sự biết ơn tuyệt vời nhất đối với chúng tôi.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -365,8 +363,6 @@
 	<string name="website">Trang web</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">Cộng đồng OMaps</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Thích trên Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Theo dõi trên Twitter</string>
 	<!-- Text in menu -->
@@ -718,7 +714,6 @@
 	<string name="you_have_edited_your_first_object">Bạn đã chỉnh sửa đối tượng đầu tiên của mình!</string>
 	<string name="thank_you">Cảm ơn bạn</string>
 	<string name="login_with_google">Đăng nhập với Google</string>
-	<string name="login_with_facebook">Đăng nhập với Facebook</string>
 	<string name="login_with_openstreetmap">Đăng nhập với www.openstreetmap.org</string>
 	<string name="edit_place">Chỉnh sửa địa điểm</string>
 	<string name="place_name">Tên địa điểm</string>

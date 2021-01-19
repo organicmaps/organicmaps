@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Загружается…</string>
 	<string name="get_it_now">Установить</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Спасибо, что пользуетесь OMaps! Нравится приложение? Расскажите о нём своим друзьям. Это будет лучшей благодарностью для нас.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">кБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -386,8 +384,6 @@
 	<!-- Text in menu -->
 	<string name="maps_me_community">Сообщество OMaps</string>
 	<!-- Text in menu -->
-	<string name="like_on_facebook">OMaps в Facebook</string>
-	<!-- Text in menu -->
 	<string name="follow_on_twitter">OMaps в Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Свяжитесь с нами</string>
@@ -738,7 +734,6 @@
 	<string name="you_have_edited_your_first_object">Вы отредактировали свой первый объект!</string>
 	<string name="thank_you">Спасибо</string>
 	<string name="login_with_google">Войти через Google</string>
-	<string name="login_with_facebook">Войти через Facebook</string>
 	<string name="login_with_openstreetmap">Войти через www.openstreetmap.org</string>
 	<string name="edit_place">Редактировать место</string>
 	<string name="place_name">Название</string>
