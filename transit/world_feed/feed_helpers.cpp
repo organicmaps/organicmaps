@@ -159,13 +159,19 @@ std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point,
   return {proj->m_indexOnShape, proj->m_needsInsertion};
 }
 
-bool IsRelevantType(const gtfs::RouteType & routeType)
+bool IsRelevantType(gtfs::RouteType const & routeType)
 {
   // All types and constants are described in GTFS:
   // https://developers.google.com/transit/gtfs/reference
 
+  auto const isSubway = [](gtfs::RouteType const & routeType) {
+    return routeType == gtfs::RouteType::Subway ||
+           routeType == gtfs::RouteType::MetroService ||
+           routeType == gtfs::RouteType::UndergroundService;
+  };
+
   // We skip all subways because we extract subway data from OSM, not from GTFS.
-  if (routeType == gtfs::RouteType::Subway)
+  if (isSubway(routeType))
     return false;
 
   auto const val = static_cast<size_t>(routeType);
@@ -183,8 +189,6 @@ bool IsRelevantType(const gtfs::RouteType & routeType)
       gtfs::RouteType::CarTransportRailService,
       gtfs::RouteType::LorryTransportRailService,
       gtfs::RouteType::VehicleTransportRailService,
-      gtfs::RouteType::MetroService,
-      gtfs::RouteType::UndergroundService,
       gtfs::RouteType::PostBusService,
       gtfs::RouteType::SpecialNeedsBus,
       gtfs::RouteType::MobilityBusService,
