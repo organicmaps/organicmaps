@@ -77,7 +77,6 @@ static CGFloat const kDrivingOptionsHeight = 48;
           imageName:@"ic_train"
          routerType:MWMRouterTypePublicTransport];
   [self addProgress:self.bicycle imageName:@"ic_bike" routerType:MWMRouterTypeBicycle];
-  [self addProgress:self.taxi imageName:@"ic_taxi" routerType:MWMRouterTypeTaxi];
 }
 
 - (void)addProgress:(UIView *)parentView
