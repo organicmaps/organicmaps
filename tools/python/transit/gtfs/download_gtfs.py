@@ -61,7 +61,7 @@ def parse_transitland_page(url):
             return gtfs_feeds_urls, next_page
 
         except requests.exceptions.HTTPError as http_err:
-            logger.error(f"HTTP error {http_err} downloading zip from url {url}")
+            logger.error(f"HTTP error {http_err} downloading zip from {url}")
             if http_err == 429:
                 time.sleep(MAX_SLEEP_TIMEOUT_S)
         except requests.exceptions.RequestException as ex:
@@ -104,9 +104,9 @@ def load_gtfs_feed_zip(path, url):
             return True
 
         except requests.exceptions.HTTPError as http_err:
-            logger.error(f"HTTP error {http_err} downloading zip from url {url}")
+            logger.error(f"HTTP error {http_err} downloading zip from {url}")
         except requests.exceptions.RequestException as ex:
-            logger.error(f"Exception {ex} downloading zip from url {url}")
+            logger.error(f"Exception {ex} downloading zip from {url}")
         retries -= 1
 
     return False
@@ -201,11 +201,7 @@ def crawl_transitland_for_feed_urls(out_path):
 
 
 def get_filename(file_prefix, index):
-    index_len = len(str(index))
-    zeroes_prefix = (
-        "" if MAX_INDEX_LEN < index_len else "0" * (MAX_INDEX_LEN - index_len)
-    )
-    return f"{file_prefix}_{zeroes_prefix}{index}"
+    return f"{file_prefix}_{index:0{MAX_INDEX_LEN}d}"
 
 
 def load_gtfs_zips_from_urls(path, urls_file, threads_count, file_prefix):
