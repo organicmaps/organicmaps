@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">ダウンロード中…</string>
 	<string name="get_it_now">今すぐ入手</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">OMapsをご利用いただきありがとうございます! このアプリが好きですか? お友達にも教えてあげてください! アプリを広めていただければ大変嬉しく思います。</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">キロメートル</string>
 	<!-- Leave Review dialog - Review button -->
@@ -365,8 +363,6 @@
 	<string name="website">ウェブサイト</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">OMapsコミュニティ</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Facebookでいいねをクリック</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Twitterでフォロー</string>
 	<!-- Text in menu -->
@@ -718,7 +714,6 @@
 	<string name="you_have_edited_your_first_object">初めてオブジェクトを編集しました！</string>
 	<string name="thank_you">ありがとうございます</string>
 	<string name="login_with_google">Googleでログイン</string>
-	<string name="login_with_facebook">Facebookでログイン</string>
 	<string name="login_with_openstreetmap">www.openstreetmap.orgでログインしてください</string>
 	<string name="edit_place">場所を編集</string>
 	<string name="place_name">場所の名前</string>

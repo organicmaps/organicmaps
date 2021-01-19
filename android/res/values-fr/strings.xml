@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Téléchargement…</string>
 	<string name="get_it_now">Obtenez-la maintenant</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Merci d’avoir utilisé OMaps ! Vous aimez cette application ? Parlez-en à vos amis ! Ce serait la meilleure preuve de gratitude à notre égard.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">ko</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -381,8 +379,6 @@
 	<string name="website">Site internet</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">Communauté OMaps</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Aimer sur Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Suivre sur Twitter</string>
 	<!-- Text in menu -->
@@ -736,7 +732,6 @@
 	<string name="you_have_edited_your_first_object">Vous avez modifié votre premier objet!</string>
 	<string name="thank_you">Merci</string>
 	<string name="login_with_google">Connectez-vous avec Google</string>
-	<string name="login_with_facebook">Connectez-vous avec Facebook</string>
 	<string name="login_with_openstreetmap">Connectez-vous sur www.openstreetmap.org</string>
 	<string name="edit_place">Modifier le lieu</string>
 	<string name="place_name">Nom du lieu</string>

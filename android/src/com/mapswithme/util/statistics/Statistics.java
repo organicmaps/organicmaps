@@ -12,11 +12,8 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.android.billingclient.api.BillingClient;
-import com.facebook.ads.AdError;
-import com.facebook.appevents.AppEventsLogger;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
@@ -35,7 +32,6 @@ import com.mapswithme.maps.purchase.ValidationStatus;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingOptions;
 import com.mapswithme.maps.settings.RoadType;
-import com.mapswithme.maps.taxi.TaxiInfoError;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -90,10 +86,8 @@ import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE
 import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_PRODUCT_DELIVERED;
 import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_STORE_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_VALIDATION_ERROR;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_CLOSE;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERROR;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_OWNERSHIP_BUTTON_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_ERROR;
@@ -166,7 +160,6 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.BACKUP;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BICYCLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.DISK_NO_SPACE;
-import static com.mapswithme.util.statistics.Statistics.ParamValue.FACEBOOK;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.FALSE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.GOOGLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
@@ -499,7 +492,6 @@ public enum Statistics implements Initializable<Context>
     static final String PP_SPONSORED_USER_ITEM = "Placepage_SponsoredGallery_UsersItem_shown";
     static final String PP_BANNER_SHOW = "Placepage_Banner_show";
     static final String PP_BANNER_ERROR = "Placepage_Banner_error";
-    static final String PP_BANNER_BLANK = "Placepage_Banner_blank";
     static final String PP_BANNER_CLOSE = "Placepage_Banner_close";
     static final String PP_OWNERSHIP_BUTTON_CLICK = "Placepage_OwnershipButton_click";
 
@@ -514,8 +506,6 @@ public enum Statistics implements Initializable<Context>
 
     // dialogs
     public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";
-    public static final String FACEBOOK_INVITE_LATER = "Facebook invites dialog cancelled.";
-    public static final String FACEBOOK_INVITE_INVITED = "Facebook invites dialog accepted.";
     static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
 
     // misc
@@ -680,7 +670,6 @@ public enum Statistics implements Initializable<Context>
     public static final String IS_SUCCESS = "is_success_message";
     public static final String ERR_MSG = "error_message";
     public static final String OSM = "OSM";
-    public static final String FACEBOOK = "Facebook";
     public static final String PROVIDER = "provider";
     public static final String HOTEL = "hotel";
     public static final String ERROR = "error";
@@ -793,7 +782,6 @@ public enum Statistics implements Initializable<Context>
     public static final String NEXT = "next";
     public static final String NO_PRODUCTS = "no_products";
     public static final String EDIT = "edit";
-    public static final String FACEBOOK = "facebook";
     public static final String CHECKIN = "check_in";
     public static final String CHECKOUT = "check_out";
     public static final String ANY = "any";
@@ -993,7 +981,6 @@ public enum Statistics implements Initializable<Context>
   {
     if (mEnabled)
     {
-      AppEventsLogger.activateApp(activity.getApplication());
       org.alohalytics.Statistics.onStart(activity);
     }
 
@@ -1223,15 +1210,13 @@ public enum Statistics implements Initializable<Context>
   public void trackPPBannerError(@NonNull String bannerId, @NonNull String provider,
                                  @Nullable NativeAdError error, int state)
   {
-    boolean isAdBlank = error != null && error.getCode() == AdError.NO_FILL_ERROR_CODE;
-    String eventName = isAdBlank ? PP_BANNER_BLANK : PP_BANNER_ERROR;
     Statistics.ParameterBuilder builder = Statistics.params();
     builder.add(BANNER, !TextUtils.isEmpty(bannerId) ? bannerId : "N/A")
            .add(ERROR_CODE, error != null ? String.valueOf(error.getCode()) : "N/A")
            .add(ERROR_MESSAGE, error != null ? error.getMessage() : "N/A")
            .add(PROVIDER, provider)
            .add(STATE, String.valueOf(state));
-    trackEvent(eventName, builder.get());
+    trackEvent(PP_BANNER_ERROR, builder.get());
   }
 
   public void trackBookingSearchEvent(@NonNull MapObject mapObject)
@@ -1616,8 +1601,6 @@ public enum Statistics implements Initializable<Context>
   {
     switch (type)
     {
-      case Framework.SOCIAL_TOKEN_FACEBOOK:
-        return FACEBOOK;
       case Framework.SOCIAL_TOKEN_GOOGLE:
         return GOOGLE;
       case Framework.SOCIAL_TOKEN_PHONE:

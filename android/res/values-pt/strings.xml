@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">A descarregar…</string>
 	<string name="get_it_now">Instale agora</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Obrigado por usar OMaps! Gosta do aplicativo? Conte para seus amigos! Será a melhor forma de nos agradecer.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Quilómetros</string>
 	<!-- Leave Review dialog - Review button -->
@@ -373,8 +371,6 @@
 	<string name="website">Site</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">Comunidade OMaps</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Gostar no Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Seguir no Twitter</string>
 	<!-- Text in menu -->
@@ -728,7 +724,6 @@
 	<string name="you_have_edited_your_first_object">Você editou o seu primeiro objeto!</string>
 	<string name="thank_you">Obrigado</string>
 	<string name="login_with_google">Entrar com Google</string>
-	<string name="login_with_facebook">Entrar com Facebook</string>
 	<string name="login_with_openstreetmap">Entrar com www.openstreetmap.org</string>
 	<string name="edit_place">Editar o local</string>
 	<string name="place_name">Nome do local</string>

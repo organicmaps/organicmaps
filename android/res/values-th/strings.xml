@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">กำลังดาวน์โหลด…</string>
 	<string name="get_it_now">รับมันตอนนี้</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">ขอบพระคุณสำหรับการใช้ OMaps! คุณชอบแอปหรือไม่? บอกเพื่อนของคุณเกี่ยวกับมัน! นี่จะเป็นการขอบคุณที่ดีที่สุดสำหรับเรา</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">กิโลไบต์</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -377,8 +375,6 @@
 	<string name="website">เว็บไซต์</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">ชุมชน OMaps</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">ถูกใจบน Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">ติดตามบน Twitter</string>
 	<!-- Text in menu -->
@@ -730,7 +726,6 @@
 	<string name="you_have_edited_your_first_object">คุณได้แก้ไขวัตถุแรกของคุณ!</string>
 	<string name="thank_you">ขอบพระคุณ</string>
 	<string name="login_with_google">ล็อกอินด้วย Google</string>
-	<string name="login_with_facebook">ล็อกอินด้วย Facebook</string>
 	<string name="login_with_openstreetmap">ล็อกอินที่ www.openstreetmap.org</string>
 	<string name="edit_place">แก้ไขสถานที่</string>
 	<string name="place_name">ชื่อสถานที่</string>

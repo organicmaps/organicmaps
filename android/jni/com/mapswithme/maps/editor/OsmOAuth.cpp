@@ -75,21 +75,6 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeAuthWithWebviewToken(JNIEnv * env
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetFacebookAuthUrl(JNIEnv * env, jclass clazz)
-{
-  try
-  {
-    OsmOAuth::UrlRequestToken const uks = OsmOAuth::ServerAuth().GetFacebookOAuthURL();
-    return ToStringArray(env, uks);
-  }
-  catch (std::exception const & ex)
-  {
-    LOG(LWARNING, ("nativeGetFacebookAuthUrl error ", ex.what()));
-    return nullptr;
-  }
-}
-
-JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetGoogleAuthUrl(JNIEnv * env, jclass clazz)
 {
   try

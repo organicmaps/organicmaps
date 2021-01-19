@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Ladataan…</string>
 	<string name="get_it_now">Hanki nyt</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Kiitos kun käytät OMaps:tä! Pidätkö sovelluksesta? Kerro kavereillesi siitä! Se on meille paras mahdollinen kiitos.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">Kt</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -365,8 +363,6 @@
 	<string name="website">Kotisivut</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">OMaps -yhteisö</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Tykkää meistä Facebookissa</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Seuraa meitä Twitterissä</string>
 	<!-- Text in menu -->
@@ -718,7 +714,6 @@
 	<string name="you_have_edited_your_first_object">Olet muokannut ensimmäistä kohdettasi!</string>
 	<string name="thank_you">Kiitos</string>
 	<string name="login_with_google">Kirjaudu sisään Google-tunnuksillasi</string>
-	<string name="login_with_facebook">Kirjaudu sisään Facebook-tunnuksillasi</string>
 	<string name="login_with_openstreetmap">Kirjaudu sisään osoitteessa www.openstreetmap.org</string>
 	<string name="edit_place">Muokkaa kohdetta</string>
 	<string name="place_name">Paikan nimi</string>

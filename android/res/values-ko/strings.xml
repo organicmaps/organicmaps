@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">다운로드 중…</string>
 	<string name="get_it_now">지금 가져오기</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">OMaps를 사용해 주셔서 감사합니다! 앱을 좋아하십니까? 이 앱에 대해 친구들에게 널리 알려 주십시오! 그러면 저희는 매우 감사할 것입니다.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">킬로미터</string>
 	<!-- Leave Review dialog - Review button -->
@@ -367,8 +365,6 @@
 	<string name="website">웹사이트</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">OMaps 커뮤니티</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Facebook에서 좋아요</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Twitter에서 팔로우</string>
 	<!-- Text in menu -->
@@ -720,7 +716,6 @@
 	<string name="you_have_edited_your_first_object">로그인하고 전 세계 수백만 사람들을 위해 변화를 더하십시오!</string>
 	<string name="thank_you">고맙습니다.</string>
 	<string name="login_with_google">Google로 로그인</string>
-	<string name="login_with_facebook">Facebook으로 로그인</string>
 	<string name="login_with_openstreetmap">www.openstreetmap.org에 로그인</string>
 	<string name="edit_place">장소 편집</string>
 	<string name="place_name">지명</string>

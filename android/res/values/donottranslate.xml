@@ -2,13 +2,6 @@
 <resources>
   <string name="shared_user_label" translatable="false">OMaps</string>
 
-  <!-- Dev facebook credentials
-  <string name="facebook_app_id" translatable="false">462405334160274</string>
-  <string name="fb_login_protocol_scheme">fb462405334160274</string> -->
-
-  <string name="facebook_app_id" translatable="false">185237551520383</string>
-  <string name="fb_login_protocol_scheme">fb185237551520383</string>
-
   <!-- App names -->
   <string name="facebook" translatable="false">Facebook</string>
   <string name="twitter" translatable="false">Twitter</string>

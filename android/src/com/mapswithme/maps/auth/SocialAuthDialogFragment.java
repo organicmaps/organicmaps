@@ -5,10 +5,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +12,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -33,7 +28,6 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -46,10 +40,9 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   @NonNull
   private GoogleSignInClient mGoogleSignInClient;
   @NonNull
-  private final CallbackManager mFacebookCallbackManager = CallbackManager.Factory.create();
-  @NonNull
   private final List<TokenHandler> mTokenHandlers = Arrays.asList(
-      new FacebookTokenHandler(), new GoogleTokenHandler(), new PhoneTokenHandler());
+      new GoogleTokenHandler(), new PhoneTokenHandler()
+  );
   @Nullable
   private TokenHandler mCurrentTokenHandler;
   @NonNull
@@ -68,14 +61,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
       startActivityForResult(intent, Constants.REQ_CODE_GOOGLE_SIGN_IN);
       trackStatsIfArgsExist(Statistics.EventName.AUTH_START);
     }
-  };
-  @NonNull
-  private final View.OnClickListener mFacebookClickListener = v -> {
-    LoginManager lm = LoginManager.getInstance();
-    lm.logInWithReadPermissions(SocialAuthDialogFragment.this,
-                                  Constants.FACEBOOK_PERMISSIONS);
-    lm.registerCallback(mFacebookCallbackManager, new FBCallback(SocialAuthDialogFragment.this));
-    trackStatsIfArgsExist(Statistics.EventName.AUTH_START);
   };
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -140,20 +125,19 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     View view = inflater.inflate(R.layout.fragment_auth_passport_dialog, container, false);
 
     setLoginButton(view, R.id.google_button, mGoogleClickListener);
-    setLoginButton(view, R.id.facebook_button, mFacebookClickListener);
     setLoginButton(view, R.id.phone_button, mPhoneClickListener);
 
     mPromoCheck = view.findViewById(R.id.newsCheck);
     mPrivacyPolicyCheck = view.findViewById(R.id.privacyPolicyCheck);
     mPrivacyPolicyCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
       setButtonAvailability(view, isChecked && mTermOfUseCheck.isChecked(),
-                            R.id.google_button, R.id.facebook_button, R.id.phone_button);
+                            R.id.google_button, R.id.phone_button);
     });
 
     mTermOfUseCheck = view.findViewById(R.id.termOfUseCheck);
     mTermOfUseCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
       setButtonAvailability(view, isChecked && mPrivacyPolicyCheck.isChecked(),
-                            R.id.google_button, R.id.facebook_button, R.id.phone_button);
+                            R.id.google_button, R.id.phone_button);
     });
 
     UiUtils.linkifyView(view, R.id.privacyPolicyLink, R.string.sign_agree_pp_gdpr,
@@ -162,8 +146,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     UiUtils.linkifyView(view, R.id.termOfUseLink, R.string.sign_agree_tof_gdpr,
                         Framework.nativeGetTermsOfUseLink());
 
-    setButtonAvailability(view, false, R.id.google_button, R.id.facebook_button,
-                          R.id.phone_button);
+    setButtonAvailability(view, false, R.id.google_button, R.id.phone_button);
 
     trackStatsIfArgsExist(Statistics.EventName.AUTH_SHOWN);
     return view;
@@ -214,7 +197,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
 
     if (resultCode != Activity.RESULT_OK || data == null)
       return;
@@ -262,47 +244,4 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     super.onDismiss(dialog);
   }
 
-  private static class FBCallback implements FacebookCallback<LoginResult>
-  {
-    @NonNull
-    private final WeakReference<SocialAuthDialogFragment> mFragmentRef;
-
-    private FBCallback(@NonNull SocialAuthDialogFragment fragment)
-    {
-      mFragmentRef = new WeakReference<>(fragment);
-    }
-
-    @Override
-    public void onSuccess(LoginResult loginResult)
-    {
-      Statistics.INSTANCE.trackUGCExternalAuthSucceed(Statistics.ParamValue.FACEBOOK);
-      LOGGER.d(TAG, "onSuccess");
-    }
-
-    @Override
-    public void onCancel()
-    {
-      LOGGER.w(TAG, "onCancel");
-      sendEmptyResult(Activity.RESULT_CANCELED, Framework.SOCIAL_TOKEN_FACEBOOK,
-                      null, true);
-    }
-
-    @Override
-    public void onError(FacebookException error)
-    {
-      LOGGER.e(TAG, "onError", error);
-      sendEmptyResult(Activity.RESULT_CANCELED, Framework.SOCIAL_TOKEN_FACEBOOK,
-                 error != null ? error.getMessage() : null, false);
-    }
-
-    private void sendEmptyResult(int resultCode, @Framework.AuthTokenType int type,
-                                 @Nullable String error, boolean isCancel)
-    {
-      SocialAuthDialogFragment fragment = mFragmentRef.get();
-      if (fragment == null)
-        return;
-
-      fragment.sendResult(resultCode, null, type, error, isCancel);
-    }
-  }
 }

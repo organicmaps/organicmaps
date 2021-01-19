@@ -20,7 +20,6 @@ public final class OsmOAuth
   public enum AuthType
   {
     OSM("OSM"),
-    FACEBOOK("Facebook"),
     GOOGLE("Google");
 
     public final String name;
@@ -138,13 +137,6 @@ public final class OsmOAuth
   @Size(2)
   @Nullable
   public static native String[] nativeAuthWithWebviewToken(String key, String secret, String verifier);
-
-  /**
-   * @return url for web auth, and token with secret for finishing authorization later
-   */
-  @Size(3)
-  @Nullable
-  public static native String[] nativeGetFacebookAuthUrl();
 
   /**
    * @return url for web auth, and token with secret for finishing authorization later

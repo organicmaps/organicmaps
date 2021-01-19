@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Se descarcă…</string>
 	<string name="get_it_now">Obțineți acum</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Vă mulțumim că folosiți OMaps! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -363,8 +361,6 @@
 	<string name="website">Site web</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">Comunitatea OMaps</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Apreciați-ne pe Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Urmăriți-ne pe Twitter</string>
 	<!-- Text in menu -->
@@ -715,7 +711,6 @@
 	<string name="you_have_edited_your_first_object">Ați editat primul dvs. obiect!</string>
 	<string name="thank_you">Vă mulțumim</string>
 	<string name="login_with_google">Logați-vă cu contul de Google</string>
-	<string name="login_with_facebook">Logați-vă cu contul de Facebook</string>
 	<string name="login_with_openstreetmap">Logați-vă cu contul de www.openstreetmap.org</string>
 	<string name="edit_place">Editați loc</string>
 	<string name="place_name">Denumire loc</string>

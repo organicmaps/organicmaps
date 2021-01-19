@@ -1,8 +1,5 @@
 package com.mapswithme.maps.auth;
 
-import java.util.Collections;
-import java.util.List;
-
 class Constants
 {
   static final int REQ_CODE_PHONE_AUTH_RESULT = 102;
@@ -15,6 +12,4 @@ class Constants
   static final String EXTRA_PRIVACY_POLICY_ACCEPTED = "extra_privacy_policy_accepted";
   static final String EXTRA_TERMS_OF_USE_ACCEPTED = "extra_terms_of_use_accepted";
   static final String EXTRA_PROMO_ACCEPTED = "extra_promo_accepted";
-  static final List<String> FACEBOOK_PERMISSIONS =
-      Collections.singletonList("email");
 }

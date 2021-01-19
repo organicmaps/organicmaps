@@ -30,8 +30,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Downloader…</string>
 	<string name="get_it_now">Få det nu</string>
-	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Tak for at du bruger OMaps! Kan du lide appen? Fortæl dine venner om den! Det vil vi være så glade for.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
 	<!-- Leave Review dialog - Review button -->
@@ -375,8 +373,6 @@
 	<string name="website">Hjemmeside</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">OMaps Samfund</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Synes godt om på Facebook</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Følg på Twitter</string>
 	<!-- Text in menu -->
@@ -728,7 +724,6 @@
 	<string name="you_have_edited_your_first_object">Du har redigeret dit første objekt!</string>
 	<string name="thank_you">Mange tak</string>
 	<string name="login_with_google">Log ind med Google</string>
-	<string name="login_with_facebook">Log ind med Facebook</string>
 	<string name="login_with_openstreetmap">Log ind med www.openstreetmap.org</string>
 	<string name="edit_place">Redigér stedet</string>
 	<string name="place_name">Navn på sted</string>

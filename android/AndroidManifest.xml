@@ -74,10 +74,6 @@
         android:value="@integer/google_play_services_version"/>
 
     <meta-data
-        android:name="com.facebook.sdk.ApplicationId"
-        android:value="@string/facebook_app_id"/>
-
-    <meta-data
         android:name="PW_APPID"
         android:value="${PW_APPID}"/>
 
@@ -328,23 +324,6 @@
     <activity
       android:name=".discovery.DiscoveryActivity"
       android:parentActivityName=".MwmActivity" />
-
-    <activity
-      android:name="com.facebook.FacebookActivity"
-      android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-      android:label="@string/app_name"/>
-    <activity
-      android:name="com.facebook.CustomTabActivity"
-      android:exported="true">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-
-        <data android:scheme="@string/fb_login_protocol_scheme"/>
-      </intent-filter>
-    </activity>
 
     <activity
       android:name="com.mapswithme.maps.auth.PhoneAuthActivity"
