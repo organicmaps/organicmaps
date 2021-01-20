@@ -222,12 +222,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       viewControllers.append(infoViewController)
     }
 
-    if placePageData.taxiProvider != .none &&
-      !LocationManager.isLocationProhibited() &&
-      FrameworkHelper.isNetworkConnected() {
-        viewControllers.append(taxiViewController)
-    }
-
     if placePageData.previewData.showUgc {
       viewControllers.append(ratingSummaryViewController)
       viewControllers.append(addReviewViewController)
