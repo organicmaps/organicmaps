@@ -1,114 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:background="?cardBackground"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:background="?cardBackground"
+  android:orientation="vertical">
   <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:theme="@style/MwmWidget.ToolbarTheme"/>
+    android:theme="@style/MwmWidget.ToolbarTheme" />
   <androidx.core.widget.NestedScrollView
-    android:scrollbars="none"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fillViewport="true"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-  <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:scrollbars="none">
     <LinearLayout
-      android:orientation="vertical"
-      android:paddingStart="@dimen/margin_base"
-      android:paddingEnd="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      android:paddingLeft="@dimen/margin_base"
-      android:paddingBottom="@dimen/bookmark_hide_btn_padding_top"
-      android:paddingTop="@dimen/margin_half_plus"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-      <TextView
-        android:text="@string/ugc_route_edit_list_name"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+      android:layout_height="match_parent"
+      android:orientation="vertical">
       <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/edit_name_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-          android:id="@+id/edit_category_name_view"
-          android:layout_weight="1"
-          android:layout_width="0dp"
-          android:background="@null"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingLeft="@dimen/margin_base"
+        android:paddingTop="@dimen/margin_half_plus"
+        android:paddingEnd="@dimen/margin_base"
+        android:paddingRight="@dimen/margin_base"
+        android:paddingBottom="@dimen/bookmark_hide_btn_padding_top">
+        <TextView
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginRight="@dimen/margin_base"
-          android:layout_marginEnd="@dimen/margin_base"/>
-        <ImageView
-          android:id="@+id/edit_text_clear_btn"
-          android:src="?attr/icClearRounded"
-          android:background="?selectableItemBackgroundBorderless"
-          android:layout_gravity="center"
-          android:layout_weight="0"
-          android:layout_width="@dimen/margin_base_plus"
-          android:layout_height="@dimen/margin_base_plus"/>
+          android:text="@string/ugc_route_edit_list_name"
+          android:textAppearance="?android:attr/textAppearanceSmall" />
+        <LinearLayout
+          android:id="@+id/edit_name_container"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+          <EditText
+            android:id="@+id/edit_category_name_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_base"
+            android:layout_marginRight="@dimen/margin_base"
+            android:layout_weight="1"
+            android:background="@null" />
+          <ImageView
+            android:id="@+id/edit_text_clear_btn"
+            android:layout_width="@dimen/margin_base_plus"
+            android:layout_height="@dimen/margin_base_plus"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="?attr/icClearRounded" />
+        </LinearLayout>
+        <View
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/divider_height"
+          android:layout_marginTop="@dimen/margin_half"
+          android:background="?attr/iconTintDisabled" />
       </LinearLayout>
+      <include layout="@layout/list_divider" />
+      <LinearLayout
+        android:id="@+id/open_sharing_options_screen_btn_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingLeft="@dimen/margin_base"
+        android:paddingTop="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_base"
+        android:paddingRight="@dimen/margin_base"
+        android:paddingBottom="@dimen/margin_half_plus">
+        <TextView
+          android:id="@+id/sharing_options_title"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/sharing_options"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:textColor="?android:attr/textColorPrimary" />
+        <TextView
+          android:id="@+id/sharing_options_desc"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/sharing_options"
+          android:textAppearance="?android:attr/textAppearance" />
+      </LinearLayout>
+      <include layout="@layout/list_divider" />
+      <EditText
+        android:id="@+id/edit_description"
+        style="?fontBody1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint="@string/ugc_route_edit_description_hint"
+        android:minHeight="@dimen/height_item_multiline"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_base"
+        android:textColorHint="?android:textColorSecondary" />
       <View
-        android:background="?attr/iconTintDisabled"
-        android:layout_marginTop="@dimen/margin_half"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"/>
+        android:layout_height="match_parent"
+        android:background="?android:attr/windowBackground" />
     </LinearLayout>
-    <include layout="@layout/list_divider"/>
-    <LinearLayout
-      android:id="@+id/open_sharing_options_screen_btn_container"
-      android:orientation="vertical"
-      android:paddingStart="@dimen/margin_base"
-      android:paddingEnd="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      android:paddingLeft="@dimen/margin_base"
-      android:paddingTop="@dimen/margin_base"
-      android:paddingBottom="@dimen/margin_half_plus"
-      android:background="?attr/selectableItemBackground"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-      <TextView
-        android:id="@+id/sharing_options_title"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColorPrimary"
-        android:text="@string/sharing_options"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-      <TextView
-        android:id="@+id/sharing_options_desc"
-        android:textAppearance="?android:attr/textAppearance"
-        android:text="@string/sharing_options"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <include layout="@layout/list_divider"/>
-    <EditText
-      android:id="@+id/edit_description"
-      android:background="@null"
-      android:hint="@string/ugc_route_edit_description_hint"
-      android:minHeight="@dimen/height_item_multiline"
-      android:paddingStart="@dimen/margin_base"
-      android:paddingEnd="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      android:paddingLeft="@dimen/margin_base"
-      android:textAppearance="?android:attr/textAppearance"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-    <View
-      android:background="?android:attr/windowBackground"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
-  </LinearLayout>
   </androidx.core.widget.NestedScrollView>
 </LinearLayout>
 

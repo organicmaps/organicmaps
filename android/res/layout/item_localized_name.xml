@@ -7,22 +7,20 @@
   android:animateLayoutChanges="true"
   android:gravity="center_vertical"
   android:orientation="horizontal">
-
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/input_layout"
+    style="?fontBody1"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_weight="1">
-
+    android:layout_weight="1"
+    android:textColorHint="?android:textColorSecondary">
     <EditText
       android:id="@+id/input"
       style="@style/MwmWidget.Editor.FieldLayout.EditText"
       android:hint="@string/editor_edit_place_name_hint"
       android:inputType="textCapSentences"
-      android:singleLine="true"/>
-
+      android:singleLine="true" />
   </com.google.android.material.textfield.TextInputLayout>
-
   <ImageButton
     android:id="@+id/delete"
     android:layout_width="wrap_content"
@@ -30,6 +28,5 @@
     android:background="?selectableItemBackgroundBorderless"
     android:padding="@dimen/margin_half"
     android:src="@drawable/ic_close"
-    android:tint="@color/base_red"/>
-
+    android:tint="@color/base_red" />
 </LinearLayout>

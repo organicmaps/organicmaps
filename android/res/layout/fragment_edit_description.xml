@@ -19,9 +19,8 @@
       android:gravity="center_vertical"
       android:padding="@dimen/margin_half"
       android:text="@string/save"
-      android:textAppearance="@style/MwmTextAppearance.Toolbar.Title.Button"/>
+      android:textAppearance="@style/MwmTextAppearance.Toolbar.Title.Button" />
   </androidx.appcompat.widget.Toolbar>
-
   <FrameLayout
     style="@style/MwmWidget.FrameLayout.Elevation"
     android:layout_width="match_parent"
@@ -36,6 +35,7 @@
       android:layout_height="wrap_content"
       android:hint="@string/edit_description_hint"
       android:includeFontPadding="false"
-      android:inputType="textMultiLine"/>
+      android:inputType="textMultiLine"
+      android:textColorHint="?android:textColorSecondary" />
   </FrameLayout>
 </RelativeLayout>

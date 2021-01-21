@@ -20,46 +20,46 @@
       android:layout_gravity="end|center_vertical"
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="centerInside"
-      android:src="@drawable/ic_done"/>
+      android:src="@drawable/ic_done"
+      tools:ignore="ContentDescription" />
   </androidx.appcompat.widget.Toolbar>
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
-      android:orientation="vertical"
-      android:paddingTop="@dimen/margin_half"
-      android:background="?cardBackground"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:background="?cardBackground"
+      android:orientation="vertical"
+      android:paddingTop="@dimen/margin_half">
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ratings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_ugc_rating"/>
+        tools:listitem="@layout/item_ugc_rating" />
       <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
-        android:background="?dividerHorizontal"/>
+        android:background="?dividerHorizontal" />
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout"
-        android:layout_marginTop="@dimen/margin_base"
+        style="?fontBody1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:textColorHint="?android:textColorSecondary">
         <EditText
           android:id="@+id/review"
           android:layout_width="match_parent"
           android:layout_height="@dimen/rating_user_review_min_height"
-          android:textAppearance="@style/MwmTextAppearance.Body1"
           android:gravity="top"
+          android:hint="@string/placepage_reviews_hint"
+          android:inputType="textMultiLine|textCapSentences"
           android:maxLength="600"
-          android:paddingLeft="@dimen/margin_base"
           android:paddingStart="@dimen/margin_base"
-          android:paddingRight="@dimen/margin_base"
           android:paddingEnd="@dimen/margin_base"
           android:paddingBottom="@dimen/margin_base"
-          android:textColorHint="?android:textColorSecondary"
-          android:inputType="textMultiLine|textCapSentences"
-          android:hint="@string/placepage_reviews_hint"/>
+          android:textAppearance="?fontBody1" />
       </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
   </ScrollView>
