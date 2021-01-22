@@ -264,7 +264,7 @@ UNIT_TEST(RoadAccessWriter_Merge)
   c1->Merge(*c2);
   c1->Merge(*c3);
 
-  c1->Save();
+  c1->Finalize();
 
   ifstream stream;
   stream.exceptions(fstream::failbit | fstream::badbit);
@@ -392,7 +392,7 @@ UNIT_TEST(RoadAccessWriter_ConditionalMerge)
   c1->Merge(*c2);
   c1->Merge(*c3);
 
-  c1->Save();
+  c1->Finalize();
 
   ifstream stream;
   stream.exceptions(fstream::failbit | fstream::badbit);
@@ -446,7 +446,7 @@ UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
   c1->CollectFeature(MakeFbForTest(w2), w2);
 
   c1->Finish();
-  c1->Save();
+  c1->Finalize();
 
   ifstream stream;
   stream.exceptions(fstream::failbit | fstream::badbit);

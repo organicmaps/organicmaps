@@ -1,6 +1,7 @@
 #include "generator/collector_city_area.hpp"
 
 #include "generator/feature_generator.hpp"
+#include "generator/final_processor_utils.hpp"
 #include "generator/intermediate_data.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
@@ -50,6 +51,15 @@ void CityAreaCollector::Save()
   CHECK(!m_writer, ("Finish() has not been called."));
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
+}
+
+void CityAreaCollector::OrderCollectedData()
+{
+  auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(GetFilename());
+  Order(fbs);
+  FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(GetFilename());
+  for (auto const & fb : fbs)
+    writer.Write(fb);
 }
 
 void CityAreaCollector::Merge(generator::CollectorInterface const & collector)

@@ -35,7 +35,6 @@ class RoadAccessWriter;
 namespace generator
 {
 class BoundaryPostcodeCollector;
-class CollectorAddresses;
 class CollectorCollection;
 class CollectorTag;
 class MaxspeedsCollector;
@@ -49,16 +48,14 @@ namespace cache
 {
 class IntermediateDataReaderInterface;
 }  // namespace cache
-namespace regions
-{
-class CollectorRegionInfo;
-}  // namespace regions
 
 // Implementing this interface allows an object to collect data from RelationElement,
 // OsmElement and FeatureBuilder elements.
 class CollectorInterface
 {
 public:
+  friend class CollectorCollection;
+
   CollectorInterface(std::string const & filename = {}) : m_id(CreateId()), m_filename(filename) {}
   virtual ~CollectorInterface() { CHECK(Platform::RemoveFileIfExists(GetTmpFilename()), (GetTmpFilename())); }
 
@@ -69,28 +66,36 @@ public:
   virtual void CollectRelation(RelationElement const &) {}
   virtual void CollectFeature(feature::FeatureBuilder const &, OsmElement const &) {}
   virtual void Finish() {}
-  virtual void Save() = 0;
 
   virtual void Merge(CollectorInterface const &) = 0;
 
+  virtual void MergeInto(CollectorCollection &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(BoundaryPostcodeCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(CityAreaCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(routing::CameraCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(MiniRoundaboutCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(routing::RestrictionWriter &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(routing::RoadAccessWriter &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(CollectorAddresses &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(CollectorTag &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(MaxspeedsCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(feature::MetalinesBuilder &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(regions::CollectorRegionInfo &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(CollectorCollection &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(CrossMwmOsmWaysCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(RoutingCityBoundariesCollector &) const { FailIfMethodUnsupported(); }
   virtual void MergeInto(BuildingPartsCollector &) const { FailIfMethodUnsupported(); }
 
+  virtual void Finalize(bool isStable = false)
+  {
+    Save();
+    if (isStable)
+      OrderCollectedData();
+  }
+
   std::string GetTmpFilename() const { return m_filename + "." + std::to_string(m_id); }
   std::string const & GetFilename() const { return m_filename; }
+
+protected:
+  virtual void Save() = 0;
+  virtual void OrderCollectedData() {}
 
 private:
   void FailIfMethodUnsupported() const { CHECK(false, ("This method is unsupported.")); }

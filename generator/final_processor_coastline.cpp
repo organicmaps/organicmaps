@@ -26,7 +26,7 @@ void CoastlineFinalProcessor::SetCoastlinesFilenames(std::string const & geomFil
 void CoastlineFinalProcessor::Process()
 {
   auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(m_filename);
-  Sort(fbs);
+  Order(fbs);
   for (auto && fb : fbs)
     m_generator.Process(std::move(fb));
 

@@ -124,8 +124,8 @@ public:
     rawGenerator.GenerateCustom(translator);
     CHECK(rawGenerator.Execute(), ());
     set<pair<uint64_t, uint64_t>> answers;
-    collector->m_processor.ForEachCamera([&](auto const & camera, auto const & ways) {
-      for (auto const & w : ways)
+    collector->m_processor.ForEachCamera([&](auto const & camera) {
+      for (auto const & w : camera.m_ways)
         answers.emplace(camera.m_id, w);
     });
 
@@ -197,8 +197,8 @@ public:
       {1, 10}, {1, 20}, {2, 20}, {3, 20}
     };
     set<pair<uint64_t, uint64_t>> answers;
-    collector1->m_processor.ForEachCamera([&](auto const & camera, auto const & ways) {
-      for (auto const & w : ways)
+    collector1->m_processor.ForEachCamera([&](auto const & camera) {
+      for (auto const & w : camera.m_ways)
         answers.emplace(camera.m_id, w);
     });
 

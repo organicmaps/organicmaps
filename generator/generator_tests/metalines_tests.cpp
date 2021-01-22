@@ -181,7 +181,7 @@ UNIT_TEST(MetalinesTest_MetalinesBuilderMarge)
   c1->Finish();
   c2->Finish();
   c1->Merge(*c2);
-  c1->Save();
+  c1->Finalize();
 
   FileReader reader(filename);
   ReaderSource<FileReader> src(reader);

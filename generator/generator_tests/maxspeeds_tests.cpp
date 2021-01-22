@@ -388,7 +388,7 @@ UNIT_TEST(MaxspeedCollector_Merge)
   c1->Finish();
   c2->Finish();
   c1->Merge(*c2);
-  c1->Save();
+  c1->Finalize();
 
   OsmIdToMaxspeed osmIdToMaxspeed;
   ParseMaxspeeds(filename, osmIdToMaxspeed);

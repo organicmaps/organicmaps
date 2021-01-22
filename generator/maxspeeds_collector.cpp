@@ -1,5 +1,6 @@
 #include "generator/maxspeeds_collector.hpp"
 
+#include "generator/final_processor_utils.hpp"
 #include "generator/maxspeeds_parser.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
@@ -129,6 +130,8 @@ void MaxspeedsCollector::Save()
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
+
+void MaxspeedsCollector::OrderCollectedData() { OrderTextFileByLine(GetFilename()); }
 
 void MaxspeedsCollector::Merge(CollectorInterface const & collector)
 {

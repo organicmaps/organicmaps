@@ -7,6 +7,8 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <fstream>
+#include <iterator>
 #include <mutex>
 #include <tuple>
 #include <utility>
@@ -31,6 +33,7 @@ void ProcessorCities::SetPromoCatalog(std::string const & filename) { m_citiesFi
 void ProcessorCities::Process()
 {
   std::mutex mutex;
+  std::vector<FeatureBuilder> allCities;
   ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path) {
     if (!m_affiliation.HasCountryByName(country))
       return;
@@ -45,10 +48,12 @@ void ProcessorCities::Process()
     });
 
     std::lock_guard<std::mutex> lock(mutex);
-    for (auto const & city : cities)
-      m_citiesHelper.Process(city);
-
+    std::move(std::begin(cities), std::end(cities), std::back_inserter(allCities));
   }, m_threadsCount);
+
+  Order(allCities);
+  for (auto const & city : allCities)
+    m_citiesHelper.Process(city);
 
   auto fbsWithIds = m_citiesHelper.GetFeatures();
   if (!m_citiesFilename.empty())
@@ -111,24 +116,41 @@ std::vector<PlaceProcessor::PlaceWithIds> PlaceHelper::GetFeatures()
 
 std::shared_ptr<OsmIdToBoundariesTable> PlaceHelper::GetTable() const { return m_table; }
 
-void Sort(std::vector<FeatureBuilder> & fbs)
+bool Less(FeatureBuilder const & lhs, FeatureBuilder const & rhs)
 {
-  std::sort(std::begin(fbs), std::end(fbs), [](auto const & l, auto const & r) {
-    auto const lGeomType = static_cast<int8_t>(l.GetGeomType());
-    auto const rGeomType = static_cast<int8_t>(r.GetGeomType());
+  auto const lGeomType = static_cast<int8_t>(lhs.GetGeomType());
+  auto const rGeomType = static_cast<int8_t>(rhs.GetGeomType());
 
-    auto const lId = l.HasOsmIds() ? l.GetMostGenericOsmId() : base::GeoObjectId();
-    auto const rId = r.HasOsmIds() ? r.GetMostGenericOsmId() : base::GeoObjectId();
+  auto const lId = lhs.HasOsmIds() ? lhs.GetMostGenericOsmId() : base::GeoObjectId();
+  auto const rId = rhs.HasOsmIds() ? rhs.GetMostGenericOsmId() : base::GeoObjectId();
 
-    auto const lPointsCount = l.GetPointsCount();
-    auto const rPointsCount = r.GetPointsCount();
+  auto const lPointsCount = lhs.GetPointsCount();
+  auto const rPointsCount = rhs.GetPointsCount();
 
-    auto const lKeyPoint = l.GetKeyPoint();
-    auto const rKeyPoint = r.GetKeyPoint();
+  auto const lKeyPoint = lhs.GetKeyPoint();
+  auto const rKeyPoint = rhs.GetKeyPoint();
 
-    return std::tie(lGeomType, lId, lPointsCount, lKeyPoint) <
-           std::tie(rGeomType, rId, rPointsCount, rKeyPoint);
-  });
+  return std::tie(lGeomType, lId, lPointsCount, lKeyPoint) <
+         std::tie(rGeomType, rId, rPointsCount, rKeyPoint);
+}
+
+void Order(std::vector<FeatureBuilder> & fbs) { std::sort(std::begin(fbs), std::end(fbs), Less); }
+
+void OrderTextFileByLine(std::string const & filename)
+{
+  std::ifstream istream;
+  istream.exceptions(std::fstream::badbit);
+  istream.open(filename);
+  std::vector<std::string> lines(std::istream_iterator<std::string>(istream),
+                                 (std::istream_iterator<std::string>()));
+
+  std::sort(std::begin(lines), std::end(lines));
+  istream.close();
+
+  std::ofstream ostream;
+  ostream.exceptions(std::fstream::failbit | std::fstream::badbit);
+  ostream.open(filename);
+  std::copy(std::begin(lines), std::end(lines), std::ostream_iterator<std::string>(ostream, "\n"));
 }
 
 std::vector<std::vector<std::string>> GetAffiliations(std::vector<FeatureBuilder> const & fbs,

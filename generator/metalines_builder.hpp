@@ -74,10 +74,13 @@ public:
 
   /// Add a highway segment to the collection of metalines.
   void CollectFeature(FeatureBuilder const & feature, OsmElement const & element) override;
-  void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(MetalinesBuilder & collector) const override;
+
+protected:
+  void Save() override;
+  void OrderCollectedData() override;
 
 private:
   std::unordered_multimap<size_t, std::shared_ptr<LineString>> m_data;

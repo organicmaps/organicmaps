@@ -1,6 +1,7 @@
 #include "generator/road_access_generator.hpp"
 
 #include "generator/feature_builder.hpp"
+#include "generator/final_processor_utils.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/road_access.hpp"
@@ -623,6 +624,12 @@ void RoadAccessWriter::Save()
   outConditional.open(GetFilename() + ROAD_ACCESS_CONDITIONAL_EXT);
   for (auto & p : m_tagProcessors)
     p.WriteWayToAccessConditional(outConditional);
+}
+
+void RoadAccessWriter::OrderCollectedData()
+{
+  for (auto const & filename : {GetFilename(), GetFilename() + ROAD_ACCESS_CONDITIONAL_EXT})
+    OrderTextFileByLine(filename);
 }
 
 void RoadAccessWriter::Merge(generator::CollectorInterface const & collector)

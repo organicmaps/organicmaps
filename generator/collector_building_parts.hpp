@@ -10,9 +10,15 @@
 #include <fstream>
 #include <memory>
 #include <string>
+#include <tuple>
 #include <vector>
 
 struct OsmElement;
+
+class FileReader;
+
+template <typename>
+class ReaderSource;
 
 namespace feature
 {
@@ -30,6 +36,20 @@ namespace generator
 class BuildingPartsCollector : public CollectorInterface
 {
 public:
+  struct BuildingParts
+  {
+    friend bool operator<(BuildingParts const & lhs, BuildingParts const & rhs)
+    {
+      return std::tie(lhs.m_id, lhs.m_buildingParts) < std::tie(rhs.m_id, rhs.m_buildingParts);
+    }
+
+    static void Write(FileWriter & writer, BuildingParts const & pb);
+    static BuildingParts Read(ReaderSource<FileReader> & src);
+
+    CompositeId m_id;
+    std::vector<base::GeoObjectId> m_buildingParts;
+  };
+
   explicit BuildingPartsCollector(std::string const & filename,
                                   std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache);
 
@@ -40,15 +60,17 @@ public:
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const &) override;
 
   void Finish() override;
-  void Save() override;
 
   void Merge(CollectorInterface const & collector) override;
   void MergeInto(BuildingPartsCollector & collector) const override;
 
+protected:
+  void Save() override;
+  void OrderCollectedData() override;
+
 private:
   base::GeoObjectId FindTopRelation(base::GeoObjectId elId);
   std::vector<base::GeoObjectId> FindAllBuildingParts(base::GeoObjectId const & id);
-  void WriteBuildingParts(CompositeId const & id, std::vector<base::GeoObjectId> const & buildingParts);
 
   std::shared_ptr<cache::IntermediateDataReaderInterface> m_cache;
   std::unique_ptr<FileWriter> m_writer;

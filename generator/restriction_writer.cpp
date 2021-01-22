@@ -1,5 +1,6 @@
 #include "generator/restriction_writer.hpp"
 
+#include "generator/final_processor_utils.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/intermediate_elements.hpp"
 #include "generator/osm_element.hpp"
@@ -17,8 +18,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <fstream>
-#include <string>
+#include <iterator>
 #include <utility>
 #include <vector>
 
@@ -219,6 +219,8 @@ void RestrictionWriter::Save()
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
+
+void RestrictionWriter::OrderCollectedData() { generator::OrderTextFileByLine(GetFilename()); }
 
 void RestrictionWriter::Merge(generator::CollectorInterface const & collector)
 {

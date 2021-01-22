@@ -109,6 +109,10 @@ std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::Featur
   return affiliations;
 }
 
-// Sorting for stable features order in final processors.
-void Sort(std::vector<feature::FeatureBuilder> & fbs);
+bool Less(feature::FeatureBuilder const & lhs, feature::FeatureBuilder const & rhs);
+
+// Ordering for stable features order in final processors.
+void Order(std::vector<feature::FeatureBuilder> & fbs);
+
+void OrderTextFileByLine(std::string const & filename);
 }  // namespace generator

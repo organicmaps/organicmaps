@@ -2,8 +2,8 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/intermediate_data.hpp"
-#include "generator/osm_element.hpp"
 #include "generator/maxspeeds_parser.hpp"
+#include "generator/osm_element.hpp"
 
 #include "routing/routing_helpers.hpp"
 
@@ -12,13 +12,14 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "platform/measurement_utils.hpp"
-
 #include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
-#include "coding/write_to_sink.hpp"
+#include "coding/reader.hpp"
 #include "coding/reader_writer_ops.hpp"
+#include "coding/write_to_sink.hpp"
+#include "coding/writer.hpp"
 
 #include "geometry/latlon.hpp"
 
@@ -63,22 +64,50 @@ CameraProcessor::CameraInfo::CameraInfo(OsmElement const & element)
     LOG(LWARNING, ("Bad speed format of camera:", maxspeed, ", osmId:", element.m_id));
 }
 
+void CameraProcessor::CameraInfo::Normalize() { std::sort(std::begin(m_ways), std::end(m_ways)); }
+
+// static
+CameraProcessor::CameraInfo CameraProcessor::CameraInfo::Read(ReaderSource<FileReader> & src)
+{
+  CameraInfo camera;
+  auto const latInt = ReadPrimitiveFromSource<uint32_t>(src);
+  auto const lonInt = ReadPrimitiveFromSource<uint32_t>(src);
+  camera.m_lat = Uint32ToDouble(latInt, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);
+  camera.m_lon = Uint32ToDouble(lonInt, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kPointCoordBits);
+  ReadPrimitiveFromSource(src, camera.m_speedKmPH);
+  auto relatedWaysNumber = ReadPrimitiveFromSource<uint32_t>(src);
+  camera.m_ways.reserve(relatedWaysNumber);
+  while (relatedWaysNumber--)
+    camera.m_ways.push_back(ReadPrimitiveFromSource<uint64_t>(src));
+
+  return camera;
+}
+
+// static
+void CameraProcessor::CameraInfo::Write(FileWriter & writer, CameraInfo const & camera)
+{
+  uint32_t const lat =
+      DoubleToUint32(camera.m_lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);
+  WriteToSink(writer, lat);
+
+  uint32_t const lon =
+      DoubleToUint32(camera.m_lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kPointCoordBits);
+  WriteToSink(writer, lon);
+
+  WriteToSink(writer, camera.m_speedKmPH);
+
+  auto const size = static_cast<uint32_t>(camera.m_ways.size());
+  WriteToSink(writer, size);
+  for (auto wayId : camera.m_ways)
+    WriteToSink(writer, wayId);
+}
+
 CameraProcessor::CameraProcessor(std::string const & filename)
   : m_waysFilename(filename + ".roads_ids"), m_waysWriter(std::make_unique<FileWriter>(m_waysFilename)) {}
 
 CameraProcessor::~CameraProcessor()
 {
   CHECK(Platform::RemoveFileIfExists(m_waysFilename), ());
-}
-
-void CameraProcessor::ForEachCamera(Fn && toDo) const
-{
-  std::vector<uint64_t> empty;
-  for (auto const & p : m_speedCameras)
-  {
-    auto const & ways = m_cameraToWays.count(p.first) != 0 ? m_cameraToWays.at(p.first) : empty;
-    toDo(p.second, ways);
-  }
 }
 
 void CameraProcessor::ProcessWay(OsmElement const & element)
@@ -105,6 +134,12 @@ void CameraProcessor::FillCameraInWays()
       m_cameraToWays[itCamera->first].push_back(wayId);
     }
   }
+
+  std::vector<uint64_t> empty;
+  for (auto & p : m_speedCameras)
+    p.second.m_ways = m_cameraToWays.count(p.first) != 0 ? m_cameraToWays.at(p.first) : empty;
+
+  ForEachCamera([](auto c) { c.Normalize(); });
 }
 
 void CameraProcessor::ProcessNode(OsmElement const & element)
@@ -124,6 +159,50 @@ void CameraProcessor::Merge(CameraProcessor const & cameraProcessor)
   m_speedCameras.insert(std::begin(otherCameras), std::end(otherCameras));
 
   base::AppendFileToFile(cameraProcessor.m_waysFilename, m_waysFilename);
+}
+
+void CameraProcessor::Save(std::string const & filename)
+{
+  FillCameraInWays();
+  FileWriter writer(filename);
+  ForEachCamera([&](auto const & camera) { CameraInfo::Write(writer, camera); });
+}
+
+void CameraProcessor::OrderCollectedData(std::string const & filename)
+{
+  {
+    std::vector<CameraProcessor::CameraInfo> collectedData;
+    {
+      FileReader reader(filename);
+      ReaderSource src(reader);
+      while (src.Size() > 0)
+        collectedData.emplace_back(CameraInfo::Read(src));
+    }
+    std::sort(std::begin(collectedData), std::end(collectedData));
+    FileWriter writer(filename);
+    for (auto const & camera : collectedData)
+      CameraInfo::Write(writer, camera);
+  }
+  {
+    std::vector<std::pair<uint64_t, std::vector<uint64_t>>> collectedData;
+    {
+      FileReader reader(m_waysFilename);
+      ReaderSource src(reader);
+      while (src.Size() > 0)
+      {
+        collectedData.resize(collectedData.size() + 1);
+        src.Read(&collectedData.back().first, sizeof(collectedData.back().first));
+        rw::ReadVectorOfPOD(src, collectedData.back().second);
+      }
+    }
+    std::sort(std::begin(collectedData), std::end(collectedData));
+    FileWriter writer(m_waysFilename);
+    for (auto const & p : collectedData)
+    {
+      WriteToSink(writer, p.first);
+      rw::WriteVectorOfPOD(writer, p.second);
+    }
+  }
 }
 
 CameraCollector::CameraCollector(std::string const & filename) :
@@ -156,39 +235,14 @@ void CameraCollector::CollectFeature(FeatureBuilder const & feature, OsmElement 
   }
 }
 
-void CameraCollector::Write(FileWriter & writer, CameraProcessor::CameraInfo const & camera,
-                            std::vector<uint64_t> const & ways)
-{
-  uint32_t const lat =
-      DoubleToUint32(camera.m_lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);
-  WriteToSink(writer, lat);
-
-  uint32_t const lon =
-      DoubleToUint32(camera.m_lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kPointCoordBits);
-  WriteToSink(writer, lon);
-
-  WriteToSink(writer, camera.m_speedKmPH);
-
-  auto const size = static_cast<uint32_t>(ways.size());
-  WriteToSink(writer, size);
-  for (auto wayId : ways)
-    WriteToSink(writer, wayId);
-}
-
 void CameraCollector::Finish()
 {
   m_processor.Finish();
 }
 
-void CameraCollector::Save()
-{
-  using namespace std::placeholders;
-  m_processor.FillCameraInWays();
-  FileWriter writer(GetFilename());
-  m_processor.ForEachCamera([&](auto const & camera, auto const & ways) {
-    Write(writer, camera, ways);
-  });
-}
+void CameraCollector::Save() { m_processor.Save(GetFilename()); }
+
+void CameraCollector::OrderCollectedData() { m_processor.OrderCollectedData(GetFilename()); }
 
 void CameraCollector::Merge(generator::CollectorInterface const & collector)
 {

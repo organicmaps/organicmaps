@@ -5,11 +5,16 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/file_reader.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/read_write_utils.hpp"
+#include "coding/reader.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/assert.hpp"
+
+#include <algorithm>
+#include <iterator>
 
 using namespace feature;
 
@@ -60,6 +65,28 @@ void BoundaryPostcodeCollector::Save()
   CHECK(!m_writer, ("Finish() has not been called."));
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
+}
+
+void BoundaryPostcodeCollector::OrderCollectedData()
+{
+  std::vector<std::pair<std::string, FeatureBuilder::PointSeq>> collectedData;
+  {
+    FileReader reader(GetFilename());
+    ReaderSource src(reader);
+    while (src.Size() > 0)
+    {
+      collectedData.resize(collectedData.size() + 1);
+      utils::ReadString(src, collectedData.back().first);
+      rw::ReadVectorOfPOD(src, collectedData.back().second);
+    }
+  }
+  std::sort(std::begin(collectedData), std::end(collectedData));
+  FileWriter writer(GetFilename());
+  for (auto const & p : collectedData)
+  {
+    utils::WriteString(writer, p.first);
+    rw::WriteVectorOfPOD(writer, p.second);
+  }
 }
 
 void BoundaryPostcodeCollector::Merge(generator::CollectorInterface const & collector)

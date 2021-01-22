@@ -36,10 +36,13 @@ public:
 
   void Collect(OsmElement const & el) override;
   void Finish() override;
-  void Save() override;
 
   void Merge(CollectorInterface const & collector) override;
   void MergeInto(CollectorTag & collector) const override;
+
+protected:
+  void Save() override;
+  void OrderCollectedData() override;
 
 private:
   std::ofstream m_stream;

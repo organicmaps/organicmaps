@@ -103,6 +103,8 @@ void CountryFinalProcessor::SetIsolinesDir(std::string const & dir) { m_isolines
 
 void CountryFinalProcessor::Process()
 {
+  Order();
+
   if (!m_hotelsFilename.empty())
     ProcessBooking();
   if (!m_routingCityBoundariesCollectorFilename.empty())
@@ -121,6 +123,24 @@ void CountryFinalProcessor::Process()
   DropProhibitedSpeedCameras();
   ProcessBuildingParts();
   Finish();
+}
+
+void CountryFinalProcessor::Order()
+{
+  ForEachMwmTmp(
+      m_temporaryMwmPath,
+      [&](auto const & country, auto const & path) {
+        if (!IsCountry(country))
+          return;
+
+        auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(path);
+        generator::Order(fbs);
+
+        FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path);
+        for (auto const & fb : fbs)
+          writer.Write(fb);
+      },
+      m_threadsCount);
 }
 
 void CountryFinalProcessor::ProcessBooking()
@@ -368,10 +388,10 @@ void CountryFinalProcessor::Finish()
       return;
 
     auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(path);
-    Sort(fbs);
+    generator::Order(fbs);
 
     FeatureBuilderWriter<> writer(path);
-    for (auto & fb : fbs)
+    for (auto const & fb : fbs)
       writer.Write(fb);
 
   }, m_threadsCount);

@@ -2,14 +2,13 @@
 
 #include "generator/collector_interface.hpp"
 
-#include "coding/file_writer.hpp"
-
 #include <cstdint>
 #include <fstream>
 #include <functional>
 #include <memory>
 #include <optional>
 #include <string>
+#include <tuple>
 #include <unordered_map>
 #include <vector>
 
@@ -26,6 +25,13 @@ class IntermediateDataReaderInterface;
 }  // namespace generator
 
 struct OsmElement;
+
+template <typename T>
+class ReaderSource;
+
+class FileReader;
+
+class FileWriter;
 
 namespace feature
 {
@@ -48,11 +54,22 @@ class CameraProcessor
 {
 public:
   struct CameraInfo;
-  using Fn = std::function<void (CameraInfo const &, std::vector<uint64_t> const &)>;
 
   struct CameraInfo
   {
+    CameraInfo() = default;
     explicit CameraInfo(OsmElement const & element);
+
+    friend bool operator<(CameraInfo const & lhs, CameraInfo const & rhs)
+    {
+      return std::tie(lhs.m_id, lhs.m_lon, lhs.m_lat, lhs.m_speedKmPH, lhs.m_ways) <
+             std::tie(rhs.m_id, rhs.m_lon, rhs.m_lat, rhs.m_speedKmPH, rhs.m_ways);
+    }
+
+    static CameraInfo Read(ReaderSource<FileReader> & src);
+    static void Write(FileWriter & writer, CameraInfo const & camera);
+
+    void Normalize();
 
     uint64_t m_id = 0;
     double m_lon = 0.0;
@@ -66,7 +83,13 @@ public:
   CameraProcessor(std::string const & filename);
   ~CameraProcessor();
 
-  void ForEachCamera(Fn && toDo) const;
+  template <typename Fn>
+  void ForEachCamera(Fn && toDo)
+  {
+    for (auto & p : m_speedCameras)
+      toDo(p.second);
+  }
+
   void ProcessNode(OsmElement const & element);
   void ProcessWay(OsmElement const & element);
 
@@ -74,6 +97,8 @@ public:
 
   void Finish();
   void Merge(CameraProcessor const & cameraProcessor);
+  void Save(std::string const & filename);
+  void OrderCollectedData(std::string const & filename);
 
 private:
   std::string m_waysFilename;
@@ -97,15 +122,15 @@ public:
   // all nodes are first, then all ways, then all relations.
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Finish() override;
-  void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(CameraCollector & collector) const override;
 
-private:
-  void Write(FileWriter & writer, CameraProcessor::CameraInfo const & camera,
-             std::vector<uint64_t> const & ways);
+protected:
+  void Save() override;
+  void OrderCollectedData() override;
 
+private:
   CameraProcessor m_processor;
 };
 }  // namespace routing

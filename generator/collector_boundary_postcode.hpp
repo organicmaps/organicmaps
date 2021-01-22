@@ -30,10 +30,13 @@ public:
 
   void Collect(OsmElement const & el) override;
   void Finish() override;
-  void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(BoundaryPostcodeCollector & collector) const override;
+
+protected:
+  void Save() override;
+  void OrderCollectedData() override;
 
 private:
   std::unique_ptr<FileWriter> m_writer;

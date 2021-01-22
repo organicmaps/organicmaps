@@ -45,12 +45,16 @@ public:
 
   void CollectRelation(RelationElement const & relationElement) override;
   void Finish() override;
-  void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(RestrictionWriter & collector) const override;
 
   static ViaType ConvertFromString(std::string const & str);
+
+protected:
+  // generator::CollectorInterface overrides:
+  void Save() override;
+  void OrderCollectedData() override;
 
 private:
   std::ofstream m_stream;

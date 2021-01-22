@@ -32,9 +32,12 @@ public:
   void CollectRelation(RelationElement const & element) override;
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Finish() override;
-  void Save() override;
 
   void Merge(CollectorInterface const & collector) override;
   void MergeInto(CollectorCollection & collector) const override;
+
+protected:
+  void Save() override;
+  void OrderCollectedData() override;
 };
 }  // namespace generator

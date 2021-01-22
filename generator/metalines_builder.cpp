@@ -211,6 +211,24 @@ void MetalinesBuilder::Save()
                     "ways] with OSM IDs for the entire planet to", GetFilename()));
 }
 
+void MetalinesBuilder::OrderCollectedData()
+{
+  std::vector<LineString::Ways> collectedData;
+  {
+    FileReader reader(GetFilename());
+    ReaderSource src(reader);
+    while (src.Size() > 0)
+    {
+      collectedData.resize(collectedData.size() + 1);
+      rw::ReadVectorOfPOD(src, collectedData.back());
+    }
+  }
+  std::sort(std::begin(collectedData), std::end(collectedData));
+  FileWriter writer(GetFilename());
+  for (auto const & ways : collectedData)
+    rw::WriteVectorOfPOD(writer, ways);
+}
+
 void MetalinesBuilder::Merge(generator::CollectorInterface const & collector)
 {
   collector.MergeInto(*this);

@@ -1,6 +1,7 @@
 #include "generator/cross_mwm_osm_ways_collector.hpp"
 
 #include "generator/feature_builder.hpp"
+#include "generator/final_processor_utils.hpp"
 #include "generator/osm_element.hpp"
 
 #include "routing/routing_helpers.hpp"
@@ -141,6 +142,14 @@ void CrossMwmOsmWaysCollector::Save()
     for (auto const & wayInfo : waysInfo)
       CrossMwmInfo::Dump(wayInfo, output);
   }
+}
+
+void CrossMwmOsmWaysCollector::OrderCollectedData()
+{
+  auto const & crossMwmOsmWaysDir = base::JoinPath(m_intermediateDir, CROSS_MWM_OSM_WAYS_DIR);
+  CHECK(Platform::MkDirChecked(crossMwmOsmWaysDir), (crossMwmOsmWaysDir));
+  for (auto const & item : m_mwmToCrossMwmOsmIds)
+    OrderTextFileByLine(base::JoinPath(crossMwmOsmWaysDir, item.first));
 }
 
 void CrossMwmOsmWaysCollector::Merge(generator::CollectorInterface const & collector)

@@ -68,7 +68,7 @@ void Translator::Finish()
 
 bool Translator::Save()
 {
-  m_collector->Save();
+  m_collector->Finalize(true /* isStable */);
   return true;
 }
 }  // namespace generator

@@ -30,10 +30,13 @@ public:
 
   void CollectFeature(feature::FeatureBuilder const &, OsmElement const & p) override;
   void Finish() override;
-  void Save() override;
 
   void Merge(CollectorInterface const & collector) override;
   void MergeInto(MaxspeedsCollector & collector) const override;
+
+protected:
+  void Save() override;
+  void OrderCollectedData() override;
 
 private:
   // |m_data| contains strings with maxspeed tags value for corresponding features in one of the
