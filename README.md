@@ -57,6 +57,8 @@ repository: see `3party` directory. The team uses mostly XCode and Qt Creator,
 though these are not mandatory. We have an established
 [c++ coding style](https://github.com/omapsapp/omapsapp/blob/master/docs/CPP_STYLE.md) and [Objective-C coding style](https://github.com/omapsapp/omapsapp/blob/master/docs/OBJC_STYLE.md).
 
+**You can turn on experimental public transport support.** For details please read [simple instruction.](https://github.com/omapsapp/omapsapp/blob/master/docs/EXPERIMENTAL_PUBLIC_TRANSPORT_SUPPORT.md)
+
 See [CONTRIBUTING.md](https://github.com/omapsapp/omapsapp/blob/master/docs/CONTRIBUTING.md)
 for the repository initialization process, the description of all the directories
 of this repository and other development-related information.

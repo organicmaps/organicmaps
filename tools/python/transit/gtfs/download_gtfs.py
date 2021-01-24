@@ -14,8 +14,7 @@ import zipfile
 
 import requests
 
-MAX_RETRIES = 3
-AVG_SLEEP_TIMEOUT_S = 10
+MAX_RETRIES = 2
 MAX_SLEEP_TIMEOUT_S = 30
 
 URLS_FILE_TRANSITLAND = "feed_urls_transitland.txt"
@@ -35,9 +34,6 @@ def get_feeds_links(data):
 
     for feed in data:
         if feed["feed_format"] != "gtfs" or feed["spec"] != "gtfs":
-            # Warning about strange format - not gtfs and not real-time gtfs:
-            if feed["feed_format"] != "gtfs-rt":
-                logger.warning(f"Skipped feed: feed_format {feed['feed_format']}, spec {feed['spec']}")
             continue
 
         if "url" in feed and feed["url"] is not None and feed["url"]:
@@ -51,16 +47,9 @@ def parse_transitland_page(url):
     retries = MAX_RETRIES
 
     while retries > 0:
-        with requests.get(url) as response:
-            if response.status_code != 200:
-                logger.error(f"Failed loading feeds: {response.status_code}")
-                if response.status_code == 429:
-                    logger.error("Too many requests.")
-                    time.sleep(MAX_SLEEP_TIMEOUT_S)
-                else:
-                    time.sleep(AVG_SLEEP_TIMEOUT_S)
-                retries -= 1
-                continue
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
 
             data = json.loads(response.text)
             if "feeds" in data:
@@ -70,6 +59,17 @@ def parse_transitland_page(url):
 
             next_page = data["meta"]["next"] if "next" in data["meta"] else ""
             return gtfs_feeds_urls, next_page
+
+        except requests.exceptions.HTTPError as http_err:
+            logger.error(f"HTTP error {http_err} downloading zip from {url}")
+            if http_err == 429:
+                time.sleep(MAX_SLEEP_TIMEOUT_S)
+        except requests.exceptions.RequestException as ex:
+            logger.error(
+                f"Exception {ex} while parsing Transitland url {url} with code {response.status_code}"
+            )
+
+        retries -= 1
 
     return [], ""
 
@@ -82,7 +82,10 @@ def extract_to_path(content, out_path):
         return True
     except zipfile.BadZipfile:
         logger.exception("BadZipfile exception.")
-        return False
+    except Exception as e:
+        logger.exception(f"Exception while unzipping feed: {e}")
+
+    return False
 
 
 def load_gtfs_feed_zip(path, url):
@@ -90,24 +93,21 @@ def load_gtfs_feed_zip(path, url):
     retries = MAX_RETRIES
     while retries > 0:
         try:
-            with requests.get(url, stream=True) as response:
-                if response.status_code != 200:
-                    logger.error(f"HTTP code {response.status_code} loading gtfs {url}")
-                    retries -= 1
-                    time.sleep(MAX_SLEEP_TIMEOUT_S)
-                    continue
+            response = requests.get(url, stream=True)
+            response.raise_for_status()
 
-                if not extract_to_path(response.content, path):
-                    retries -= 1
-                    logger.error(f"Could not extract zip: {url}")
-                    continue
+            if not extract_to_path(response.content, path):
+                retries -= 1
+                logger.error(f"Could not extract zip: {url}")
+                continue
 
-                return True
+            return True
 
+        except requests.exceptions.HTTPError as http_err:
+            logger.error(f"HTTP error {http_err} downloading zip from {url}")
         except requests.exceptions.RequestException as ex:
-            logger.error(f"Exception {ex} for url {url}")
-            retries -= 1
-            time.sleep(AVG_SLEEP_TIMEOUT_S)
+            logger.error(f"Exception {ex} downloading zip from {url}")
+        retries -= 1
 
     return False
 
@@ -125,35 +125,52 @@ def parse_openmobilitydata_pages(omd_api_key):
             "location": "undefined",
             "descendants": 1,
             "limit": 100,
-            "type": "gtfs"
+            "type": "gtfs",
         }
 
-        with requests.get(url_page, params=params, headers=HEADERS_OMD) as response:
-            if response.status_code != 200:
-                logger.error(f"Http code {response.status_code} loading feed ids: {url_page}")
-                return [], ""
+        try:
+            with requests.get(url_page, params=params, headers=HEADERS_OMD) as response:
+                if response.status_code != 200:
+                    logger.error(
+                        f"Http code {response.status_code} loading feed ids: {url_page}"
+                    )
+                    return [], ""
 
-            data = json.loads(response.text)
+                data = json.loads(response.text)
 
-            if page == 1:
-                pages_count = data["results"]["numPages"]
-                logger.info(f"Pages count {pages_count}")
+                if page == 1:
+                    pages_count = data["results"]["numPages"]
+                    logger.info(
+                        f"There are {pages_count} Openmobilitydata pages with feed urls."
+                    )
 
-            for feed in data["results"]["feeds"]:
-                params = {
-                    "key": omd_api_key,
-                    "feed": feed["id"]
-                }
+                for feed in data["results"]["feeds"]:
+                    params = {"key": omd_api_key, "feed": feed["id"]}
+                    try:
+                        with requests.get(
+                            url_with_redirect,
+                            params=params,
+                            headers=HEADERS_OMD,
+                            allow_redirects=True,
+                        ) as response_redirect:
+                            if response_redirect.history:
+                                urls.append(response_redirect.url)
+                            else:
+                                logger.error(
+                                    f"Could not get link to zip with feed {feed['id']} from {url_with_redirect}"
+                                )
+                    except requests.exceptions.RequestException as ex_redirect:
+                        logger.error(
+                            f"Exception {ex_redirect} while getting link to zip with "
+                            f"feed {feed['id']} from {url_with_redirect}"
+                        )
+        except requests.exceptions.RequestException as ex:
+            logger.error(
+                f"Exception {ex} while getting {url_page} (page {page}) from Openmobilitydata."
+            )
 
-                with requests.get(url_with_redirect, params=params, headers=HEADERS_OMD, allow_redirects=True) \
-                        as response_redirect:
-                    if response_redirect.history:
-                        urls.append(response_redirect.url)
-                    else:
-                        logger.error(f"Could not get link to zip with feed {feed['id']} from {url_with_redirect}")
-
-            logger.info(f"page {page}")
-            page += 1
+        logger.info(f"Crawled {page}/{pages_count} page of Openmobilitydata.")
+        page += 1
 
     return urls
 
@@ -184,10 +201,7 @@ def crawl_transitland_for_feed_urls(out_path):
 
 
 def get_filename(file_prefix, index):
-    index_str = str(index)
-    index_len = len(index_str)
-    zeroes_prefix = "" if MAX_INDEX_LEN < index_len else "0" * (MAX_INDEX_LEN - index_len)
-    return file_prefix + "_" + zeroes_prefix + index_str
+    return f"{file_prefix}_{index:0{MAX_INDEX_LEN}d}"
 
 
 def load_gtfs_zips_from_urls(path, urls_file, threads_count, file_prefix):
@@ -200,11 +214,18 @@ def load_gtfs_zips_from_urls(path, urls_file, threads_count, file_prefix):
     err_count = 0
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=threads_count) as executor:
-        future_to_url = {executor.submit(load_gtfs_feed_zip,
-                                         os.path.join(path, get_filename(file_prefix, i)), url):
-                             url for i, url in enumerate(urls)}
+        future_to_url = {
+            executor.submit(
+                load_gtfs_feed_zip,
+                os.path.join(path, get_filename(file_prefix, i)),
+                url,
+            ): url
+            for i, url in enumerate(urls)
+        }
 
-        for j, future in enumerate(concurrent.futures.as_completed(future_to_url), start=1):
+        for j, future in enumerate(
+            concurrent.futures.as_completed(future_to_url), start=1
+        ):
             url = future_to_url[future]
 
             loaded = future.result()
@@ -227,25 +248,45 @@ def main():
     """Downloads urls of feeds from feed aggregators and saves to the file.
     Downloads feeds from these urls and saves to the directory."""
 
-    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
 
     parser.add_argument("-p", "--path", required=True, help="working directory path")
 
-    parser.add_argument("-m", "--mode", required=True,
-                        help="fullrun | load_feed_urls | load_feed_zips")
+    parser.add_argument(
+        "-m", "--mode", required=True, help="fullrun | load_feed_urls | load_feed_zips"
+    )
 
-    parser.add_argument("-s", "--source", default="transitland",
-                        help="source of feeds: transitland | openmobilitydata | all")
+    parser.add_argument(
+        "-s",
+        "--source",
+        default="transitland",
+        help="source of feeds: transitland | openmobilitydata | all",
+    )
 
-    parser.add_argument("-t", "--threads", type=int, default=THREADS_COUNT,
-                        help="threads count for loading zips")
+    parser.add_argument(
+        "-t",
+        "--threads",
+        type=int,
+        default=THREADS_COUNT,
+        help="threads count for loading zips",
+    )
 
-    parser.add_argument("-k", "--omd_api_key", default="",
-                        help="user key for working with openmobilitydata API")
+    parser.add_argument(
+        "-k",
+        "--omd_api_key",
+        default="",
+        help="user key for working with openmobilitydata API",
+    )
 
     args = parser.parse_args()
 
-    logging.basicConfig(filename=os.path.join(args.path, "crawling.log"), filemode="w", level=logging.INFO)
+    logging.basicConfig(
+        filename=os.path.join(args.path, "crawling.log"),
+        filemode="w",
+        level=logging.INFO,
+    )
 
     if args.mode in ["fullrun", "load_feed_urls"]:
 
@@ -253,14 +294,18 @@ def main():
             crawl_transitland_for_feed_urls(args.path)
         if args.source in ["all", "openmobilitydata"]:
             if not args.omd_api_key:
-                logger.error("No key provided for openmobilitydata. Set omd_api_key argument.")
+                logger.error(
+                    "No key provided for openmobilitydata. Set omd_api_key argument."
+                )
                 return
             crawl_openmobilitydata_for_feed_urls(args.path, args.omd_api_key)
 
     if args.mode in ["fullrun", "load_feed_zips"]:
 
         if args.source in ["all", "transitland"]:
-            load_gtfs_zips_from_urls(args.path, URLS_FILE_TRANSITLAND, args.threads, "tl")
+            load_gtfs_zips_from_urls(
+                args.path, URLS_FILE_TRANSITLAND, args.threads, "tl"
+            )
         if args.source in ["all", "openmobilitydata"]:
             load_gtfs_zips_from_urls(args.path, URLS_FILE_OMD, args.threads, "omd")
 

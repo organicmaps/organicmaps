@@ -54,7 +54,14 @@ def download_file(url: AnyStr, name: AnyStr, download_if_exists: bool = True):
         session.mount("file://", FileAdapter())
         with open(tmp_name, "wb") as handle:
             response = session.get(url, stream=True)
-            file_length = int(response.headers["Content-Length"])
+            file_length = None
+            try:
+                file_length = int(response.headers["Content-Length"])
+            except KeyError:
+                logger.warning(
+                    f"There is no attribute Content-Length in headers [{url}]: {response.headers}"
+                )
+
             current = 0
             max_attempts = 32
             attempts = max_attempts
@@ -63,7 +70,7 @@ def download_file(url: AnyStr, name: AnyStr, download_if_exists: bool = True):
                     current += len(data)
                     handle.write(data)
 
-                if file_length == current:
+                if file_length is None or file_length == current:
                     break
 
                 logger.warning(

@@ -38,6 +38,8 @@ public final class BatteryState
     return new State(getLevel(batteryStatus), getChargingStatus(batteryStatus));
   }
 
+  // Called from JNI.
+  @SuppressWarnings("unused")
   @IntRange(from=0, to=100)
   public static int getLevel(@NonNull Context context)
   {
@@ -50,6 +52,8 @@ public final class BatteryState
     return batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
   }
 
+  // Called from JNI.
+  @SuppressWarnings("unused")
   @ChargingStatus
   public static int getChargingStatus(@NonNull Context context)
   {

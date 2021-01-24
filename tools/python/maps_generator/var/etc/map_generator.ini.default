@@ -57,14 +57,14 @@ DIFF_VERSION_DEPTH: 2
 # The https://somesite.com/download/latest_coasts.geom url will be used to download latest_coasts.geom and
 # the https://somesite.com/download/latest_coasts.rawgeom url will be used to download latest_coasts.rawgeom.
 # PLANET_COASTS_URL:
+# Set to 'true' to build special routing section in World.mwm for alerting about absent regions without which the
+# route can't be built.
+NEED_BUILD_WORLD_ROADS: true
 # The url to the subway file.
 SUBWAY_URL: http://osm-subway.maps.me/mapsme/latest.json
 
 # The url of the location with the transit files extracted from GTFS.
 # TRANSIT_URL:
-
-# The url of the file with info about main roads between mwms for special routing section in World mwm.
-# WORLDROADS_URL:
 
 # Urls for production maps generation.
 # UGC_URL:

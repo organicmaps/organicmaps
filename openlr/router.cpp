@@ -648,20 +648,22 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, std::vector<routing::Edg
 
   double const kFakeCoverageThreshold = 0.5;
 
-  base::EraseIf(edges, std::mem_fn(&Edge::IsSpecial));
+  base::EraseIf(edges, [](auto && e) { return e.IsSpecial(); });
 
   {
+    auto toPair = [](auto && e) { return e.ToPair(); };
     size_t const n = FindPrefixLengthToConsume(
-        make_transform_iterator(edges.begin(), std::mem_fn(&Edge::ToPair)),
-        make_transform_iterator(edges.end(), std::mem_fn(&Edge::ToPair)), m_positiveOffsetM);
+        make_transform_iterator(edges.begin(), toPair),
+        make_transform_iterator(edges.end(), toPair), m_positiveOffsetM);
     CHECK_LESS_OR_EQUAL(n, edges.size(), ());
     edges.erase(edges.begin(), edges.begin() + n);
   }
 
   {
+    auto toPairRev = [](auto && e) { return e.ToPairRev(); };
     size_t const n = FindPrefixLengthToConsume(
-        make_transform_iterator(edges.rbegin(), std::mem_fn(&Edge::ToPairRev)),
-        make_transform_iterator(edges.rend(), std::mem_fn(&Edge::ToPairRev)), m_negativeOffsetM);
+        make_transform_iterator(edges.rbegin(), toPairRev),
+        make_transform_iterator(edges.rend(), toPairRev), m_negativeOffsetM);
     CHECK_LESS_OR_EQUAL(n, edges.size(), ());
     edges.erase(edges.begin() + edges.size() - n, edges.end());
   }
@@ -671,10 +673,11 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, std::vector<routing::Edg
   ForStagePrefix(edges.begin(), edges.end(), 0, [&](EdgeIt e) {
     ForEachNonFakeEdge(e->m_u, false /* outgoing */, m_points[0].m_lfrcnp,
                        [&](routing::Edge const & edge) {
+                         auto toPairRev = [](auto && e) { return e.ToPairRev(); };
                          double const score = GetMatchingScore(
                              edge.GetEndJunction().GetPoint(), edge.GetStartJunction().GetPoint(),
-                             make_transform_iterator(EdgeItRev(e), std::mem_fn(&Edge::ToPairRev)),
-                             make_transform_iterator(edges.rend(), std::mem_fn(&Edge::ToPairRev)));
+                             make_transform_iterator(EdgeItRev(e), toPairRev),
+                             make_transform_iterator(edges.rend(), toPairRev));
                          if (score > frontEdgeScore)
                          {
                            frontEdgeScore = score;
@@ -688,10 +691,11 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, std::vector<routing::Edg
   ForStagePrefix(edges.rbegin(), edges.rend(), m_points.size() - 2 /* stage */, [&](EdgeItRev e) {
     ForEachNonFakeEdge(e->m_v, true /* outgoing */, m_points[m_points.size() - 2].m_lfrcnp,
                        [&](routing::Edge const & edge) {
+                         auto toPair = [](auto && e) { return e.ToPair(); };
                          double const score = GetMatchingScore(
                              edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint(),
-                             make_transform_iterator(e.base(), std::mem_fn(&Edge::ToPair)),
-                             make_transform_iterator(edges.end(), std::mem_fn(&Edge::ToPair)));
+                             make_transform_iterator(e.base(), toPair),
+                             make_transform_iterator(edges.end(), toPair));
                          if (score > backEdgeScore)
                          {
                            backEdgeScore = score;
@@ -727,7 +731,7 @@ void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges,
 {
   double const kCoverageThreshold = 0.5;
 
-  CHECK(all_of(edges.begin(), edges.end(), std::mem_fn(&Edge::IsFake)), ());
+  CHECK(all_of(edges.begin(), edges.end(), [](auto && e) { return e.IsFake(); }), ());
 
   double expectedLength = 0;
   for (auto const & edge : edges)

@@ -254,20 +254,18 @@ void CountryFinalProcessor::ProcessBuildingParts()
     m4::Tree<FeatureBuilder> buildingPartsKDTree;
 
     ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto && fb, auto /* pos */) {
-      if (!(fb.IsArea() && fb.IsValid()))
-        return;
-
-      if (fb.HasType(buildingPartClassifType))
+      if (fb.IsArea() && fb.HasType(buildingPartClassifType))
         buildingPartsKDTree.Add(fb);
     });
 
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
     ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto && fb, auto /* pos */) {
-      if (fb.IsArea() && fb.IsValid() &&
+      if (fb.IsArea() &&
           fb.HasType(buildingClassifType) &&
           DoesBuildingConsistOfParts(fb, buildingPartsKDTree))
       {
         fb.AddType(buildingWithPartsClassifType);
+        fb.GetParams().FinishAddingTypes();
       }
 
       writer.Write(fb);
