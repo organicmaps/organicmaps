@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -90,14 +90,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
     mBottomFrame = mFrame.findViewById(R.id.nav_bottom_frame);
-    mBottomFrame.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        switchTimeFormat();
-      }
-    });
+    mBottomFrame.setOnClickListener(v -> switchTimeFormat());
     mNavMenu = createNavMenu();
     mNavMenu.refresh();
 
@@ -114,7 +107,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     mStreetFrame = topFrame.findViewById(R.id.street_frame);
     mNextStreet = (TextView) mStreetFrame.findViewById(R.id.street);
     View shadow = topFrame.findViewById(R.id.shadow_top);
-    UiUtils.showIf(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP, shadow);
+    UiUtils.show(shadow);
 
     UiUtils.extendViewWithStatusBar(mStreetFrame);
     UiUtils.extendViewMarginWithStatusBar(turnFrame);
@@ -196,12 +189,17 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
   private void updateVehicle(RoutingInfo info)
   {
-    mNextTurnDistance.setText(Utils.formatUnitsText(mFrame.getContext(),
-                                                    R.dimen.text_size_nav_number,
-                                                    R.dimen.text_size_nav_dimension,
-                                                    info.distToTurn,
-                                                    info.turnUnits));
-    info.carDirection.setTurnDrawable(mNextTurnImage);
+    if (!TextUtils.isEmpty(info.distToTurn))
+    {
+      SpannableStringBuilder nextTurnDistance = Utils.formatUnitsText(mFrame.getContext(),
+                                                                      R.dimen.text_size_nav_number,
+                                                                      R.dimen.text_size_nav_dimension,
+                                                                      info.distToTurn,
+                                                                      info.turnUnits);
+      mNextTurnDistance.setText(nextTurnDistance);
+      info.carDirection.setTurnDrawable(mNextTurnImage);
+    }
+
     if (RoutingInfo.CarDirection.isRoundAbout(info.carDirection))
       UiUtils.setTextAndShow(mCircleExit, String.valueOf(info.exitNum));
     else

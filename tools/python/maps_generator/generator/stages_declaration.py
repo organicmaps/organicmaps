@@ -112,7 +112,9 @@ class StagePreprocess(Stage):
     D(settings.FOOD_URL, PathProvider.food_paths, "p"),
     D(settings.FOOD_TRANSLATIONS_URL, PathProvider.food_translations_path, "p"),
 )
-@test_stage(Test(st.make_test_booking_data(max_days=7), lambda e, _: e.production, True))
+@test_stage(
+    Test(st.make_test_booking_data(max_days=7), lambda e, _: e.production, True)
+)
 class StageFeatures(Stage):
     def apply(self, env: Env):
         extra = {}
@@ -179,7 +181,13 @@ class StageMwm(Stage):
     @staticmethod
     def make_mwm(country: AnyStr, env: Env):
         world_stages = {
-            WORLD_NAME: [StageIndex, StageCitiesIdsWorld, StageRoutingWorld, StageMwmStatistics],
+            WORLD_NAME: [
+                StageIndex,
+                StageCitiesIdsWorld,
+                StagePrepareRoutingWorld,
+                StageRoutingWorld,
+                StageMwmStatistics,
+            ],
             WORLD_COASTS_NAME: [StageIndex, StageMwmStatistics],
         }
 
@@ -232,7 +240,13 @@ class StageCitiesIdsWorld(Stage):
 
 
 @country_stage
-@depends_from_internal(D(settings.WORLDROADS_URL, PathProvider.worldroads_path),)
+@helper_stage_for("StageRoutingWorld")
+class StagePrepareRoutingWorld(Stage):
+    def apply(self, env: Env, country, **kwargs):
+        steps.step_prepare_routing_world(env, country, **kwargs)
+
+
+@country_stage
 class StageRoutingWorld(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_routing_world(env, country, **kwargs)
@@ -295,12 +309,11 @@ class StageRoutingTransit(Stage):
 class StageMwmDiffs(Stage):
     def apply(self, env: Env, country, logger, **kwargs):
         data_dir = diffs.DataDir(
-            mwm_name=env.build_name, new_version_dir=env.build_path,
-            old_version_root_dir=settings.DATA_ARCHIVE_DIR
+            mwm_name=env.build_name,
+            new_version_dir=env.build_path,
+            old_version_root_dir=settings.DATA_ARCHIVE_DIR,
         )
-        diffs.mwm_diff_calculation(
-            data_dir, logger, depth=settings.DIFF_VERSION_DEPTH
-        )
+        diffs.mwm_diff_calculation(data_dir, logger, depth=settings.DIFF_VERSION_DEPTH)
 
 
 @country_stage
@@ -316,7 +329,8 @@ class StageMwmStatistics(Stage):
         settings.PROMO_CATALOG_COUNTRIES_URL,
         PathProvider.promo_catalog_countries_path,
         "p",
-    )
+    ),
+    D(settings.PROMO_CATALOG_CITIES_URL, PathProvider.promo_catalog_cities_path, "p"),
 )
 class StageCountriesTxt(Stage):
     def apply(self, env: Env):
@@ -329,9 +343,8 @@ class StageCountriesTxt(Stage):
             env.paths.mwm_version,
         )
         if env.production:
-            countries_json = json.loads(countries)
             inject_promo_ids(
-                countries_json,
+                countries,
                 env.paths.promo_catalog_cities_path,
                 env.paths.promo_catalog_countries_path,
                 env.paths.mwm_path,
@@ -339,8 +352,8 @@ class StageCountriesTxt(Stage):
                 env.paths.mwm_path,
             )
 
-            with open(env.paths.counties_txt_path, "w") as f:
-                json.dump(countries_json, f, ensure_ascii=True, indent=1)
+        with open(env.paths.counties_txt_path, "w") as f:
+            json.dump(countries, f, ensure_ascii=True, indent=1)
 
 
 @outer_stage
