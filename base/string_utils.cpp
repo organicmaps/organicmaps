@@ -204,20 +204,20 @@ char ascii_to_lower(char in)
 
 void AsciiToLower(std::string & s) { transform(s.begin(), s.end(), s.begin(), &ascii_to_lower); }
 
-std::string & Ltrim(std::string & s)
+std::string & TrimLeft(std::string & s)
 {
   s.erase(s.begin(), std::find_if(s.cbegin(), s.cend(), [](auto c) { return !std::isspace(c); }));
   return s;
 }
 
-std::string & Rtrim(std::string & s)
+std::string & TrimRight(std::string & s)
 {
   s.erase(std::find_if(s.crbegin(), s.crend(), [](auto c) { return !std::isspace(c); }).base(),
           s.end());
   return s;
 }
 
-std::string & Trim(std::string & s) { return Ltrim(Rtrim(s)); }
+std::string & Trim(std::string & s) { return TrimLeft(TrimRight(s)); }
 
 std::string & Trim(std::string & s, char const * anyOf)
 {
