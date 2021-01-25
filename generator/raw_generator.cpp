@@ -33,49 +33,49 @@ public:
     for (auto const & e : elements)
     {
       if (e.IsNode())
-        ++m_node_counter;
+        ++m_nodeCounter;
       else if (e.IsWay())
-        ++m_way_counter;
+        ++m_wayCounter;
       else if (e.IsRelation())
-        ++m_relation_counter;
+        ++m_relationCounter;
     }
 
     m_element_counter += elements.size();
     if (!forcePrint && m_callCount != m_logCallCountThreshold)
     {
-      m_callCount++;
+      ++m_callCount;
       return;
     }
 
-    auto static constexpr kBInMB = 1024.0 * 1024.0;
-    auto const posMB = pos / kBInMB;
+    auto static constexpr kBytesInMiB = 1024.0 * 1024.0;
+    auto const posMiB = pos / kBytesInMiB;
     auto const elapsedSeconds = m_timer.ElapsedSeconds();
-    auto const avgSpeedMBPerSec = posMB / elapsedSeconds;
-    auto const speedMBPerSec =
-        (pos - m_prevFilePos) / (elapsedSeconds - m_prevElapsedSeconds) / kBInMB;
+    auto const avgSpeedMiBPerSec = posMiB / elapsedSeconds;
+    auto const speedMiBPerSec =
+        (pos - m_prevFilePos) / (elapsedSeconds - m_prevElapsedSeconds) / kBytesInMiB;
 
-    LOG(LINFO, ("Readed", m_element_counter, "elements [pos:", posMB, "MB, avg r:",
-                avgSpeedMBPerSec, " MB/s, r:", speedMBPerSec, "MB/s [n:", m_node_counter,
-                ", w:", m_way_counter, ", r:", m_relation_counter, "]]"));
+    LOG(LINFO, ("Read", m_element_counter, "elements [pos:", posMiB,
+                "MiB, avg read speed:", avgSpeedMiBPerSec, " MiB/s, read speed:", speedMiBPerSec,
+                "MiB/s [n:", m_nodeCounter, ", w:", m_wayCounter, ", r:", m_relationCounter, "]]"));
 
     m_prevFilePos = pos;
     m_prevElapsedSeconds = elapsedSeconds;
-    m_node_counter = 0;
-    m_way_counter = 0;
-    m_relation_counter = 0;
+    m_nodeCounter = 0;
+    m_wayCounter = 0;
+    m_relationCounter = 0;
     m_callCount = 0;
   }
 
 private:
-  const size_t m_logCallCountThreshold = 0;
   base::Timer m_timer;
+  size_t const m_logCallCountThreshold = 0;
   size_t m_callCount = 0;
   uint64_t m_prevFilePos = 0;
   double m_prevElapsedSeconds = 0.0;
   size_t m_element_counter = 0;
-  size_t m_node_counter = 0;
-  size_t m_way_counter = 0;
-  size_t m_relation_counter = 0;
+  size_t m_nodeCounter = 0;
+  size_t m_wayCounter = 0;
+  size_t m_relationCounter = 0;
 };
 }  // namespace
 
