@@ -42,17 +42,6 @@ StripCygwinPrefix() {
 # 3rd param: additional qmake parameters
 BuildQt() {
   (
-    SHADOW_DIR="$1"
-    MKSPEC="$2"
-    QMAKE_PARAMS="$3"
-
-    mkdir -p "$SHADOW_DIR"
-    cd "$SHADOW_DIR"
-    echo "Launching qmake..."
-    # This call is needed to correctly rebuild c++ sources after switching between branches with added or removed source files.
-    # Otherwise we get build errors.
-    "$QMAKE" -r CONFIG-=sdk "$QMAKE_PARAMS" -spec "$(StripCygwinPrefix $MKSPEC)" "$(StripCygwinPrefix $MY_PATH)/../../omim.pro"
-#    make clean > /dev/null || true
-    make -j $(GetCPUCores)
+    echo "ERROR! The script is obsolete. Rewrite with cmake"
   )
 }
