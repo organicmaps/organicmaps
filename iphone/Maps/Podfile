@@ -7,5 +7,7 @@ target 'MAPS.ME' do
   use_frameworks!
 
   # Pods for MAPS.ME
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Analytics'
 
 end
