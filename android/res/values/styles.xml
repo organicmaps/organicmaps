@@ -130,6 +130,10 @@
     <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
   </style>
 
+  <style name="MwmWidget.PopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+    <item name="android:background">?cardBackground</item>
+  </style>
+
   <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:background">?colorPrimary</item>
     <item name="android:elevation" tools:ignore="NewApi">@dimen/appbar_elevation</item>
