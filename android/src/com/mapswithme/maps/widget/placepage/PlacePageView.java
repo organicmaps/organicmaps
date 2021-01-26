@@ -1583,7 +1583,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
 
     if (mBookmarkSet)
-      mBookmarkButtonIcon.setImageResource(R.drawable.ic_bookmarks_on);
+      mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_on, R.attr.iconTint));
     else
       mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
 
