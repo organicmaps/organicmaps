@@ -1,1 +1,4 @@
 Pods
+app.omaps.debug
+app.omaps.release
+app.omaps.production

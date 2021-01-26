@@ -2287,7 +2287,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
 				47AEF83F2231249E00D20538 /* categories_brands.txt */,
@@ -4937,6 +4937,7 @@
 				6741AA311BF340DE002C974C /* Frameworks */,
 				4740184523F5BDE900A93C81 /* Embed Frameworks */,
 				B4C96EE056F4E85FC735BCD2 /* [CP] Embed Pods Frameworks */,
+				6B92E5CF25C090C200304F2D /* Firebase Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -5012,7 +5013,7 @@
 				"en-GB",
 				el,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -5253,6 +5254,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n../../tools/unix/check_cert.sh\n";
+		};
+		6B92E5CF25C090C200304F2D /* Firebase Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Firebase Crashlytics";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\necho \"[Firebase Crashlytics] start\"\n\nLOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nPLIST_PATH=\"${PROJECT_DIR}/${BUNDLE_IDENTIFIER}/GoogleService-Info.plist\"\nDSYM_PATH=${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\n\necho \"[Firebase Crashlytics] dsyms: ${DSYM_PATH}\"\necho \"[Firebase Crashlytics] plist: ${PLIST_PATH}\"\n\nif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  if [ ! -f \"${PLIST_PATH}\" ]; then\n    echo \"[Firebase Crashlytics] Google plist not found!\"\n    exit 1\n  fi\n  bash \"${PODS_ROOT}/FirebaseCrashlytics/run -gsp ${PLIST_PATH} -p ios ${DSYM_PATH}\"\n  echo \"[Firebase Crashlytics] done\"\nfi\n";
 		};
 		B4C96EE056F4E85FC735BCD2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

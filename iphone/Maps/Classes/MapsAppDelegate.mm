@@ -25,6 +25,8 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <UserNotifications/UserNotifications.h>
 
+#import <Firebase/Firebase.h>
+
 #import <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 
@@ -74,10 +76,18 @@ void InitCrashTrackers() {
 #ifdef OMIM_PRODUCTION
   if ([MWMSettings crashReportingDisabled])
     return;
+
+  NSString *googleConfig = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist"];
+  if ([[NSFileManager defaultManager] fileExistsAtPath:googleConfig]) {
+    [FIRApp configure];
+  }
 #endif
 }
 
 void ConfigCrashTrackers() {
+#ifdef OMIM_PRODUCTION
+  [[FIRCrashlytics crashlytics] setUserID:[Alohalytics installationId]];
+#endif
 }
 
 void OverrideUserAgent() {
@@ -281,10 +291,23 @@ using namespace osm_auth_ios;
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+#ifdef OMIM_PRODUCTION
+  auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                  code:1
+                                  userInfo:@{@"Description": @"applicationDidReceiveMemoryWarning"}];
+  [[FIRCrashlytics crashlytics] recordError:err];
+#endif
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
   [self.mapViewController onTerminate];
+
+#ifdef OMIM_PRODUCTION
+  auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                  code:2
+                                  userInfo:@{@"Description": @"applicationWillTerminate"}];
+  [[FIRCrashlytics crashlytics] recordError:err];
+#endif
 
   // Global cleanup
   DeleteFramework();
@@ -656,6 +679,11 @@ using namespace osm_auth_ios;
 }
 
 - (void)onConversionDataRequestFailure:(NSError *)error {
+#ifdef OMIM_PRODUCTION
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [[FIRCrashlytics crashlytics] recordError:error];
+  });
+#endif
 }
 
 #pragma mark - CPApplicationDelegate implementation
