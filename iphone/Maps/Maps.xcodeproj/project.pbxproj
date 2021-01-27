@@ -4926,9 +4926,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6741A93D1BF340DE002C974C /* MAPS.ME */ = {
+		6741A93D1BF340DE002C974C /* OMaps */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "MAPS.ME" */;
+			buildConfigurationList = 6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "OMaps" */;
 			buildPhases = (
 				DC18E8E671D9B333180B1B98 /* [CP] Check Pods Manifest.lock */,
 				47C7F96D2191A3B600C2760C /* ShellScript */,
@@ -4943,7 +4943,7 @@
 			);
 			dependencies = (
 			);
-			name = MAPS.ME;
+			name = OMaps;
 			productName = Maps;
 			productReference = 6741AA5D1BF340DE002C974C /* OMaps Debug.app */;
 			productType = "com.apple.product-type.application";
@@ -5018,7 +5018,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6741A93D1BF340DE002C974C /* MAPS.ME */,
+				6741A93D1BF340DE002C974C /* OMaps */,
 			);
 		};
 /* End PBXProject section */
@@ -6227,7 +6227,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "MAPS.ME" */ = {
+		6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "OMaps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6741AA571BF340DE002C974C /* Debug */,
