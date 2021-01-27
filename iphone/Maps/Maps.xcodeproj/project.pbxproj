@@ -5263,7 +5263,6 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			name = "Firebase Crashlytics";
 			outputFileListPaths = (
@@ -5272,7 +5271,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\necho \"[Firebase Crashlytics] start\"\n\nLOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nPLIST_PATH=\"${PROJECT_DIR}/${BUNDLE_IDENTIFIER}/GoogleService-Info.plist\"\nDSYM_PATH=${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\n\necho \"[Firebase Crashlytics] dsyms: ${DSYM_PATH}\"\necho \"[Firebase Crashlytics] plist: ${PLIST_PATH}\"\n\nif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  if [ ! -f \"${PLIST_PATH}\" ]; then\n    echo \"[Firebase Crashlytics] Google plist not found!\"\n    exit 1\n  fi\n  bash \"${PODS_ROOT}/FirebaseCrashlytics/run -gsp ${PLIST_PATH} -p ios ${DSYM_PATH}\"\n  echo \"[Firebase Crashlytics] done\"\nfi\n";
+			shellScript = "#!/bin/bash\necho \"[Firebase Crashlytics] start\"\n\nLOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\n\nPLIST_PATH=\"${PROJECT_DIR}/${BUNDLE_IDENTIFIER}/GoogleService-Info.plist\"\nDSYM_PATH=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\nBUILD_APP_DIR=\"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\"\n\necho \"[Firebase Crashlytics] dsyms: ${DSYM_PATH}\"\necho \"[Firebase Crashlytics] plist: ${PLIST_PATH}\"\n\nif [[ $LOWERED_CONFIG == *release* ]]; then\n  if [ ! -f ${PLIST_PATH} ]; then\n    echo \"[Firebase Crashlytics] Google plist not found!\"\n    exit 1\n  fi\n  cp ${PLIST_PATH} $BUILD_APP_DIR/GoogleService-Info.plist\n  \n  #TODO: Do not upload symbols each build (too large). Do it manually or move to production config. \n  #${PODS_ROOT}/FirebaseCrashlytics/upload-symbols -gsp ${PLIST_PATH} -p ios ${DSYM_PATH}\n  \n  echo \"[Firebase Crashlytics] done\"\nfi\n";
 		};
 		B4C96EE056F4E85FC735BCD2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
