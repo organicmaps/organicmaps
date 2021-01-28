@@ -18,9 +18,9 @@ jobs:
       - name: Checkout keys
         uses: actions/checkout@v2
         with:
-          repository: omapsapp/omapsapp-beta-keys
-          path: private/beta
-          ref: beta
+          repository: omapsapp/omapsapp-release-keys
+          path: private/release
+          ref: release
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Remove old outputs
@@ -31,7 +31,7 @@ jobs:
       - name: Configure
         shell: bash
         run: |
-          ./configure.sh beta
+          ./configure.sh release
 
       - name: Set up SDK
         shell: bash
