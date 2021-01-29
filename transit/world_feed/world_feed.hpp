@@ -309,7 +309,7 @@ private:
   // Gets frequencies of trips from GTFS.
 
   // Adds shape with mercator points instead of WGS84 lat/lon.
-  bool AddShape(GtfsIdToHash::iterator & iter, std::string const & gtfsShapeId, TransitId lineId);
+  void AddShape(GtfsIdToHash::iterator & iter, gtfs::Shape const & shapeItems, TransitId lineId);
   // Fills stops data, corresponding fields in |m_lines| and builds edges for the road graph.
   bool FillStopsEdges();
 

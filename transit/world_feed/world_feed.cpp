@@ -12,6 +12,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/newtype.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -509,16 +510,9 @@ bool WorldFeed::SetFeedLanguage()
   return false;
 }
 
-bool WorldFeed::AddShape(GtfsIdToHash::iterator & iter, std::string const & gtfsShapeId,
+void WorldFeed::AddShape(GtfsIdToHash::iterator & iter, gtfs::Shape const & shapeItems,
                          TransitId lineId)
 {
-  auto const & shapeItems = m_feed.get_shape(gtfsShapeId, true);
-  if (shapeItems.size() < 2)
-  {
-    LOG(LINFO, ("Invalid shape. Length:", shapeItems.size(), "Shape id", gtfsShapeId));
-    return false;
-  }
-
   std::string const shapeHash = BuildHash(m_gtfsHash, shapeItems[0].shape_id);
   iter->second = shapeHash;
   auto const shapeId = m_idGenerator.MakeId(shapeHash);
@@ -538,8 +532,6 @@ bool WorldFeed::AddShape(GtfsIdToHash::iterator & iter, std::string const & gtfs
   }
 
   it->second.m_lineIds.insert(lineId);
-
-  return true;
 }
 
 bool WorldFeed::UpdateStop(TransitId stopId, gtfs::StopTime const & stopTime,
@@ -670,6 +662,19 @@ bool WorldFeed::FillStopsEdges()
 
 bool WorldFeed::FillLinesAndShapes()
 {
+  std::unordered_map<gtfs::Id, gtfs::Shape> shapes;
+  for (const auto & shape : m_feed.get_shapes())
+    shapes[shape.shape_id].emplace_back(shape);
+
+  for (auto & shape : shapes)
+  {
+    std::sort(shape.second.begin(), shape.second.end(),
+              base::LessBy(&gtfs::ShapePoint::shape_pt_sequence));
+  }
+  auto const getShape = [&shapes](gtfs::Id const & gtfsShapeId) -> gtfs::Shape const & {
+    return shapes[gtfsShapeId];
+  };
+
   for (const auto & trip : m_feed.get_trips())
   {
     // We skip routes filtered on the route preparation stage.
@@ -699,9 +704,15 @@ bool WorldFeed::FillLinesAndShapes()
 
     if (insertedShape)
     {
+      auto const & shapeItems = getShape(trip.shape_id);
       // Skip trips with corrupted shapes.
-      if (!AddShape(itShape, trip.shape_id, lineId))
+      if (shapeItems.size() < 2)
+      {
+        LOG(LINFO, ("Invalid shape. Length:", shapeItems.size(), "Shape id", trip.shape_id));
         continue;
+      }
+
+      AddShape(itShape, shapeItems, lineId);
     }
 
     auto [it, inserted] = m_lines.m_data.emplace(lineId, LineData());
