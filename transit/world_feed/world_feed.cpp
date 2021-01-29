@@ -671,9 +671,20 @@ bool WorldFeed::FillLinesAndShapes()
     std::sort(shape.second.begin(), shape.second.end(),
               base::LessBy(&gtfs::ShapePoint::shape_pt_sequence));
   }
+
   auto const getShape = [&shapes](gtfs::Id const & gtfsShapeId) -> gtfs::Shape const & {
     return shapes[gtfsShapeId];
   };
+
+  std::unordered_map<gtfs::Id, gtfs::StopTimes> stopTimes;
+  for (const auto & stop_time : m_feed.get_stop_times())
+    stopTimes[stop_time.trip_id].emplace_back(stop_time);
+
+  for (auto & stop_time : stopTimes)
+  {
+    std::sort(stop_time.second.begin(), stop_time.second.end(),
+              base::LessBy(&gtfs::StopTime::stop_sequence));
+  }
 
   for (const auto & trip : m_feed.get_trips())
   {
@@ -690,7 +701,7 @@ bool WorldFeed::FillLinesAndShapes()
 
     std::string stopIds;
 
-    for (auto const & stopTime : m_feed.get_stop_times_for_trip(trip.trip_id))
+    for (auto const & stopTime : stopTimes[trip.trip_id])
       stopIds += stopTime.stop_id + kDelimiter;
 
     std::string const & lineHash = BuildHash(routeHash, trip.shape_id, stopIds);
