@@ -108,7 +108,6 @@
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					BBD4571121A6BD0300B0A79C = {
 						CreatedOnToolsVersion = 10.0;

@@ -3,10 +3,10 @@ platform :ios, '11.0'
 
 workspace './../../xcode/omim.xcworkspace'
 
-target 'MAPS.ME' do
+target 'OMaps' do
   use_frameworks!
 
-  # Pods for MAPS.ME
+  # Pods for OMaps
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Analytics'
 

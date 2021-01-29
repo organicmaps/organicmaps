@@ -690,7 +690,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					3949168E1BAC3A5F002A8C4F = {
 						CreatedOnToolsVersion = 7.0;
@@ -811,7 +810,7 @@
 		394916941BAC3A5F002A8C4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -821,7 +820,7 @@
 		394916951BAC3A5F002A8C4F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -912,7 +911,7 @@
 		A8E541421F9FBD6B00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
