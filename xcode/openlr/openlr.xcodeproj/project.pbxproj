@@ -203,7 +203,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = Mail.Ru;
 				TargetAttributes = {
 					671E78F21E6A4FE400B2859B = {
 						CreatedOnToolsVersion = 8.2.1;

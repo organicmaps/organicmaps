@@ -179,7 +179,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					3496AB751DC1F6CD00C5DDBA = {
 						CreatedOnToolsVersion = 8.0;
@@ -246,7 +245,7 @@
 		3496AB8A1DC1F6CE00C5DDBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.ge0_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -255,7 +254,7 @@
 		3496AB8B1DC1F6CE00C5DDBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.ge0_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -309,7 +308,7 @@
 		A8E5413C1F9FBD5B00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.ge0_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

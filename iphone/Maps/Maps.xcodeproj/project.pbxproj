@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04972684853070C687B7DEB5 /* Pods_OMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AACEA6A52B8EC27EF04388 /* Pods_OMaps.framework */; };
 		1DA7908820762CEB008BDD6B /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA7908920762CEB008BDD6B /* libopen_location_code.a */; };
 		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.m */; };
 		3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */; };
@@ -532,7 +533,6 @@
 		67B78B431E422C620018E590 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B421E422C620018E590 /* MessageUI.framework */; };
 		67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B461E422E0A0018E590 /* MobileCoreServices.framework */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
-		7BD07E4A8D71CA41F082BEC7 /* Pods_MAPS_ME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E5736C23FC4E77509C9946 /* Pods_MAPS_ME.framework */; };
 		99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012846243F0D6900C72B10 /* UIViewController+alternative.swift */; };
 		9901284F244732DB00C72B10 /* BottomTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012849244732DB00C72B10 /* BottomTabBarPresenter.swift */; };
 		99012851244732DB00C72B10 /* BottomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9901284B244732DB00C72B10 /* BottomTabBarViewController.swift */; };
@@ -921,7 +921,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0B07BBB5C2EFC6F60EF51BC8 /* Pods-MAPS.ME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAPS.ME.debug.xcconfig"; path = "Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME.debug.xcconfig"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1DA7908720762B6F008BDD6B /* libopen_location_code.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopen_location_code.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -931,6 +930,7 @@
 		1DFA2F6E20D3CA9200FB2C66 /* UIColorRoutines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIColorRoutines.h; sourceTree = "<group>"; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
+		2ED44CE4F4879D8E8BC4A9E0 /* Pods-OMaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OMaps.release.xcconfig"; path = "Target Support Files/Pods-OMaps/Pods-OMaps.release.xcconfig"; sourceTree = "<group>"; };
 		3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryCell.swift; sourceTree = "<group>"; };
 		33046831219C57180041F3A8 /* CategorySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViewController.swift; sourceTree = "<group>"; };
 		330473E821F7440C00DC4AEA /* MWMHotelParams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMHotelParams.h; sourceTree = "<group>"; };
@@ -1581,7 +1581,7 @@
 		4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_dark"; path = "../../data/resources-xxhdpi_dark"; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
 		56EE14D21FE804550036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		58E5736C23FC4E77509C9946 /* Pods_MAPS_ME.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MAPS_ME.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6713C7E64B4DBC46FEB37991 /* Pods-OMaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OMaps.debug.xcconfig"; path = "Target Support Files/Pods-OMaps/Pods-OMaps.debug.xcconfig"; sourceTree = "<group>"; };
 		671E78D21E6A423300B2859B /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/librouting_common.a"; sourceTree = "<group>"; };
 		6741AA5D1BF340DE002C974C /* OMaps Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OMaps Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAA21BF356B9002C974C /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
@@ -1613,8 +1613,8 @@
 		67B78B461E422E0A0018E590 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		67B78B541E42333C0018E590 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
-		8022FD18AD3EEA9E8C75A7A7 /* Pods-MAPS.ME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MAPS.ME.release.xcconfig"; path = "Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME.release.xcconfig"; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		81AACEA6A52B8EC27EF04388 /* Pods_OMaps.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OMaps.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107310486CEB800E47090 /* OMaps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OMaps.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
 		99012846243F0D6900C72B10 /* UIViewController+alternative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+alternative.swift"; sourceTree = "<group>"; };
@@ -2231,7 +2231,7 @@
 				4563158920E264C20076E9DB /* libshaders.a in Frameworks */,
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
 				34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */,
-				7BD07E4A8D71CA41F082BEC7 /* Pods_MAPS_ME.framework in Frameworks */,
+				04972684853070C687B7DEB5 /* Pods_OMaps.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2241,8 +2241,8 @@
 		044715AD432F538B6F731670 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0B07BBB5C2EFC6F60EF51BC8 /* Pods-MAPS.ME.debug.xcconfig */,
-				8022FD18AD3EEA9E8C75A7A7 /* Pods-MAPS.ME.release.xcconfig */,
+				6713C7E64B4DBC46FEB37991 /* Pods-OMaps.debug.xcconfig */,
+				2ED44CE4F4879D8E8BC4A9E0 /* Pods-OMaps.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -2287,7 +2287,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* Maps */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				47AEF83F2231249E00D20538 /* categories_brands.txt */,
@@ -2303,7 +2303,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				34F73FA11E08300E00AC1FD6 /* Images.xcassets */,
 				34F73F5E1E082FF700AC1FD6 /* LocalizedStrings */,
-				8D1107310486CEB800E47090 /* MAPSME.plist */,
+				8D1107310486CEB800E47090 /* OMaps.plist */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -2401,7 +2401,7 @@
 				3446C6761DDCA9A200146687 /* libtraffic.a */,
 				3462FD8A1DC1DF3A00906FD7 /* SDK */,
 				4598438921394D7700F8CAB2 /* shaders_metal.metallib */,
-				58E5736C23FC4E77509C9946 /* Pods_MAPS_ME.framework */,
+				81AACEA6A52B8EC27EF04388 /* Pods_OMaps.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5013,7 +5013,7 @@
 				"en-GB",
 				el,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -5279,7 +5279,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-OMaps/Pods-OMaps-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
@@ -5302,7 +5302,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MAPS.ME/Pods-MAPS.ME-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OMaps/Pods-OMaps-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DC18E8E671D9B333180B1B98 /* [CP] Check Pods Manifest.lock */ = {
@@ -5320,7 +5320,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MAPS.ME-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-OMaps-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -6079,7 +6079,7 @@
 /* Begin XCBuildConfiguration section */
 		6741AA571BF340DE002C974C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0B07BBB5C2EFC6F60EF51BC8 /* Pods-MAPS.ME.debug.xcconfig */;
+			baseConfigurationReference = 6713C7E64B4DBC46FEB37991 /* Pods-OMaps.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "OMaps-Debug.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -6101,7 +6101,7 @@
 		};
 		6741AA5A1BF340DE002C974C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8022FD18AD3EEA9E8C75A7A7 /* Pods-MAPS.ME.release.xcconfig */;
+			baseConfigurationReference = 2ED44CE4F4879D8E8BC4A9E0 /* Pods-OMaps.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "OMaps-Release.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -6144,7 +6144,7 @@
 					"$(PROJECT_DIR)/3party/MoPubSDK/**",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
-				INFOPLIST_FILE = MAPSME.plist;
+				INFOPLIST_FILE = OMaps.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/Flurry",
@@ -6196,7 +6196,7 @@
 					"$(PROJECT_DIR)/3party/MoPubSDK/**",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
-				INFOPLIST_FILE = MAPSME.plist;
+				INFOPLIST_FILE = OMaps.plist;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -6211,7 +6211,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
-				PRODUCT_NAME = "OMaps";
+				PRODUCT_NAME = OMaps;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
