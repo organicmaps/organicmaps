@@ -219,7 +219,6 @@
 		34B846A32029DFEB0081ECCD /* BMCPermissionsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B846A22029DFEB0081ECCD /* BMCPermissionsHeader.swift */; };
 		34B846A82029E8110081ECCD /* BMCDefaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B846A72029E8110081ECCD /* BMCDefaultViewModel.swift */; };
 		34B924431DC8A29C0008D971 /* MWMMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B924411DC8A29C0008D971 /* MWMMailViewController.m */; };
-		34BBD6471F82649D0070CA50 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */; };
 		34BBD64C1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD64A1F826DB10070CA50 /* AuthorizationViewController.swift */; };
 		34BBD6581F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD6561F826F810070CA50 /* AuthorizationTransitioningManager.swift */; };
 		34BBD65C1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBD65A1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift */; };
@@ -959,7 +958,6 @@
 		340416521E7C09C200E2B6D6 /* PhotoScalingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoScalingView.swift; sourceTree = "<group>"; };
 		340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosOverlayView.swift; sourceTree = "<group>"; };
 		3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosInteractionAnimator.swift; sourceTree = "<group>"; };
-		340474DD1E08199D00C92850 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		340475181E081A4600C92850 /* MWMKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMKeyboard.h; sourceTree = "<group>"; };
 		340475191E081A4600C92850 /* MWMKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMKeyboard.m; sourceTree = "<group>"; };
 		3404751A1E081A4600C92850 /* MWMKeyboardObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMKeyboardObserver.h; sourceTree = "<group>"; };
@@ -1114,8 +1112,6 @@
 		3477528D1F7251C7000D46A3 /* UGCAddReviewTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UGCAddReviewTextCell.swift; sourceTree = "<group>"; };
 		3477528E1F7251C7000D46A3 /* UGCAddReviewTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UGCAddReviewTextCell.xib; sourceTree = "<group>"; };
 		347AD8081F28B4E6007ACB68 /* MWMSearchManagerObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchManagerObserver.h; sourceTree = "<group>"; };
-		347D15C71F82362900E86251 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = GoogleSignIn/GoogleSignIn.framework; sourceTree = "<group>"; };
-		347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignInDependencies.framework; path = GoogleSignIn/GoogleSignInDependencies.framework; sourceTree = "<group>"; };
 		347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+InputLanguage.swift"; sourceTree = "<group>"; };
 		34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloaderNoResultsEmbedViewController.swift; sourceTree = "<group>"; };
 		34845DB11E165E24003D55B9 /* SearchNoResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNoResultsViewController.swift; sourceTree = "<group>"; };
@@ -1140,7 +1136,6 @@
 		3490D2DC1CE9DD2500D0B838 /* MWMSideButtonsView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSideButtonsView.mm; sourceTree = "<group>"; };
 		3490D2DD1CE9DD2500D0B838 /* MWMSideButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSideButtonsView.xib; sourceTree = "<group>"; };
 		34943BB91E2626B200B14F84 /* WelcomePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomePageController.swift; sourceTree = "<group>"; };
-		3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = 3party/MoPubSDK/Internal/Common/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		349A137F1DEC138C00C7DB60 /* MWMMobileInternetAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMobileInternetAlert.h; sourceTree = "<group>"; };
 		349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MWMMobileInternetAlert.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		349A13811DEC138C00C7DB60 /* MWMMobileInternetAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMMobileInternetAlert.xib; sourceTree = "<group>"; };
@@ -1241,7 +1236,6 @@
 		34B846A72029E8110081ECCD /* BMCDefaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCDefaultViewModel.swift; sourceTree = "<group>"; };
 		34B924401DC8A29C0008D971 /* MWMMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMailViewController.h; sourceTree = "<group>"; };
 		34B924411DC8A29C0008D971 /* MWMMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMMailViewController.m; sourceTree = "<group>"; };
-		34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = 3party/GoogleSignIn/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		34BBD64A1F826DB10070CA50 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		34BBD6561F826F810070CA50 /* AuthorizationTransitioningManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTransitioningManager.swift; sourceTree = "<group>"; };
 		34BBD65A1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationiPhonePresentationController.swift; sourceTree = "<group>"; };
@@ -1291,7 +1285,6 @@
 		34D3B0151E389D05004100F9 /* MWMNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMNoteCell.m; sourceTree = "<group>"; };
 		34D3B0161E389D05004100F9 /* MWMNoteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNoteCell.xib; sourceTree = "<group>"; };
 		34D3B04D1E38A20C004100F9 /* Bundle+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Init.swift"; sourceTree = "<group>"; };
-		34D7DB77204ED3DD0041D015 /* maps.me dbg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "maps.me dbg.entitlements"; sourceTree = "<group>"; };
 		34E6F2DA1F459C05008E14F9 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		34E7270820444A7A009E4CED /* MWMAlertViewController+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMAlertViewController+CPP.h"; sourceTree = "<group>"; };
 		34E7270920444B95009E4CED /* MWMAlert+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMAlert+CPP.h"; sourceTree = "<group>"; };
@@ -1397,7 +1390,6 @@
 		4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmwm_diff.a; path = ../../xcode/mwm_diff/build/Debug/libmwm_diff.a; sourceTree = "<group>"; };
 		4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		4598438921394D7700F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
-		45A37B9D20B33F5D005FBDBB /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBAudienceNetwork.framework; path = MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK/FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		45CBCCBB20590AAB006B55C2 /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45FFD65C1E965EBE00DB854E /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/local_ads/../../../omim-build/xcode/Debug/liblocal_ads.a"; sourceTree = "<absolute>"; };
 		46F26CD610F623BA00ECCA39 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EAGLView.h; sourceTree = "<group>"; };
@@ -1858,7 +1850,6 @@
 		BB8123D52130427E00ADE512 /* MetalContextFactory.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalContextFactory.mm; sourceTree = "<group>"; };
 		CD08887222B7ABB400C1368D /* MWMDiscoveryCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDiscoveryCollectionView.h; sourceTree = "<group>"; };
 		CD08887322B7ABB400C1368D /* MWMDiscoveryCollectionView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDiscoveryCollectionView.mm; sourceTree = "<group>"; };
-		CD08888322BCF1C800C1368D /* maps.me rel.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "maps.me rel.entitlements"; sourceTree = "<group>"; };
 		CD4A1F122305872700F2A6B6 /* PromoBookingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoBookingPresentationController.swift; sourceTree = "<group>"; };
 		CD4A1F19230EADC100F2A6B6 /* CatalogConnectionErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogConnectionErrorView.swift; sourceTree = "<group>"; };
 		CD4A1F1B230EB43B00F2A6B6 /* CatalogConnectionErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CatalogConnectionErrorView.xib; sourceTree = "<group>"; };
@@ -2287,7 +2278,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
 				47AEF83F2231249E00D20538 /* categories_brands.txt */,
@@ -2329,9 +2320,6 @@
 			isa = PBXGroup;
 			children = (
 				F6C3A1B121AC22810060EEC8 /* Alert 5.m4a */,
-				34D7DB77204ED3DD0041D015 /* maps.me dbg.entitlements */,
-				CD08888322BCF1C800C1368D /* maps.me rel.entitlements */,
-				34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */,
 				4A300ED31C6DCFD400140018 /* countries-strings */,
 				5605022E1B6211E100169CAD /* sound-strings */,
 			);
@@ -2459,10 +2447,6 @@
 		340474DB1E08199D00C92850 /* 3party */ = {
 			isa = PBXGroup;
 			children = (
-				45A37B9D20B33F5D005FBDBB /* FBAudienceNetwork.framework */,
-				340474DD1E08199D00C92850 /* Fabric.framework */,
-				347D15C71F82362900E86251 /* GoogleSignIn.framework */,
-				347D15C81F82362900E86251 /* GoogleSignInDependencies.framework */,
 			);
 			path = 3party;
 			sourceTree = "<group>";
@@ -4881,7 +4865,6 @@
 				EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */,
 				BB7626B41E8559980031D71C /* icudt57l.dat */,
 				450703081E9E6CF000E8C029 /* local_ads_symbols.txt */,
-				3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */,
 				F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */,
 				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
 				451950391B7A3E070085DA05 /* patterns.txt */,
@@ -5013,7 +4996,7 @@
 				"en-GB",
 				el,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -5156,7 +5139,6 @@
 				F6E407D41FC4722F001F7821 /* MWMDiscoveryController.xib in Resources */,
 				F6E2FE7F1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				34AB66711FC5AA330078E451 /* TransportTransitTrain.xib in Resources */,
-				34BBD6471F82649D0070CA50 /* GoogleSignIn.bundle in Resources */,
 				47C8789A22DF622400A772DA /* SubscriptionFailViewController.xib in Resources */,
 				47DF72BB225356BF0004AB10 /* DrivingOptions.storyboard in Resources */,
 				F6E2FE851E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
@@ -6090,9 +6072,6 @@
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/3party/GoogleSignIn",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/AdMob/SDK",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -6112,9 +6091,6 @@
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/3party/GoogleSignIn",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/AdMob/SDK",
-					"$(PROJECT_DIR)/3party/MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -6132,7 +6108,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
-					"$(PROJECT_DIR)/3party/MyTarget",
 				);
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
@@ -6141,13 +6116,11 @@
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(PROJECT_DIR)/3party/MoPubSDK/**",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				INFOPLIST_FILE = OMaps.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/3party/Flurry",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -6193,7 +6166,6 @@
 					"$(OMIM_ROOT)",
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/glm",
-					"$(PROJECT_DIR)/3party/MoPubSDK/**",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				INFOPLIST_FILE = OMaps.plist;
