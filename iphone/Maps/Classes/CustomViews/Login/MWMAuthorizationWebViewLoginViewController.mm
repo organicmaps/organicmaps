@@ -8,6 +8,8 @@
 #include "base/logging.hpp"
 #include "editor/osm_auth.hpp"
 
+#import <WebKit/WKWebView.h>
+
 using namespace osm;
 
 namespace
@@ -36,9 +38,9 @@ NSString * getVerifier(NSString * urlString)
 }
 }  // namespace
 
-@interface MWMAuthorizationWebViewLoginViewController ()<UIWebViewDelegate>
+@interface MWMAuthorizationWebViewLoginViewController ()<WKNavigationDelegate>
 
-@property(weak, nonatomic) IBOutlet UIWebView * webView;
+@property(weak, nonatomic) IBOutlet WKWebView * webView;
 @property(weak, nonatomic) IBOutlet UIView * spinnerView;
 
 @property(nonatomic) MWMCircularProgress * spinner;
@@ -181,13 +183,13 @@ NSString * getVerifier(NSString * urlString)
 #pragma mark - Actions
 
 - (void)onCancel { [self.navigationController popViewControllerAnimated:YES]; }
-#pragma mark - UIWebViewDelegate
+#pragma mark - WKWebViewNavigation
 
-- (void)webViewDidStartLoad:(UIWebView *)webView { [self startSpinner]; }
-- (void)webViewDidFinishLoad:(UIWebView *)webView
+- (void)webViewDidStartLoad:(WKWebView *)webView { [self startSpinner]; }
+- (void)webViewDidFinishLoad:(WKWebView *)webView
 {
   [self stopSpinner];
-  NSString * urlString = webView.request.URL.absoluteString;
+  NSString * urlString = webView.URL.absoluteString;
 
   if (checkURLNeedsReload(urlString))
   {
@@ -202,7 +204,7 @@ NSString * getVerifier(NSString * urlString)
   }
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+- (void)webView:(WKWebView *)webView didFailLoadWithError:(NSError *)error
 {
   [[MWMAlertViewController activeAlertController] presentInternalErrorAlert];
 }
