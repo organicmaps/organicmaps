@@ -1548,7 +1548,7 @@ void Stops::Write(IdSet const & ids, std::ofstream & stream) const
 
     json_object_set_new(node.get(), "point", PointToJson(stop.m_point).release());
 
-    if (stop.m_title.empty())
+    if (!stop.m_title.empty())
       ToJSONObject(*node, "title", stop.m_title);
 
     if (!stop.m_timetable.empty())
