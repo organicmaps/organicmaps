@@ -1317,7 +1317,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (type != IsolinesState.EXPIREDDATA)
     {
-      type.activate(getApplicationContext());
+      type.activate(this, findViewById(R.id.coordinator), findViewById(R.id.menu_frame));
       return;
     }
 
@@ -1548,7 +1548,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else if (state == GuidesState.ENABLED)
       onGuidesEnabled();
     else
-      state.activate(getApplicationContext());
+      state.activate(this, findViewById(R.id.coordinator), findViewById(R.id.menu_frame));
   }
 
   private void onGuidesEnabled()
@@ -3032,8 +3032,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mFadeView.fadeIn();
       if (!SharedPropertiesUtils.shouldShowLayerTutorialToast(getApplicationContext()))
         return;
-
-      UiUtils.showToastAtTop(getApplicationContext(), R.string.routes_layer_in_menu_toast);
+      Utils.showSnackbar(getApplicationContext(), findViewById(R.id.coordinator),
+                         findViewById(R.id.menu_frame), R.string.routes_layer_in_menu_toast);
     }
 
     @Override

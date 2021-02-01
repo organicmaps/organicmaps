@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -23,6 +22,7 @@ import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.ResolveFragmentManagerStrategy;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
@@ -181,8 +181,7 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     hideProgress();
     if (!success)
     {
-      Toast.makeText(requireContext(), R.string.profile_authorization_error, Toast.LENGTH_LONG)
-           .show();
+      Utils.showSnackbar(requireContext(), getViewOrThrow(), R.string.profile_authorization_error);
       return;
     }
 
