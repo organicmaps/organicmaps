@@ -226,7 +226,7 @@ public class NavMenu extends BaseMenu
   public void refresh()
   {
     refreshTts();
-    refreshTraffic();
+//    refreshTraffic();
   }
 
   public void refreshTts()
@@ -241,7 +241,7 @@ public class NavMenu extends BaseMenu
     Drawable onIcon = Graphics.tint(mFrame.getContext(), R.drawable.ic_setting_traffic_on,
                                     R.attr.colorAccent);
     Drawable offIcon = Graphics.tint(mFrame.getContext(), R.drawable.ic_setting_traffic_off);
-    mTraffic.setImageDrawable(TrafficManager.INSTANCE.isEnabled() ? onIcon : offIcon);
+   mTraffic.setImageDrawable(TrafficManager.INSTANCE.isEnabled() ? onIcon : offIcon);
   }
 
   @Override
@@ -286,6 +286,6 @@ public class NavMenu extends BaseMenu
     @Framework.RouterType
     int routerType = Framework.nativeGetRouter();
     UiUtils.showIf(show, mTts);
-    UiUtils.showIf(show && routerType == Framework.ROUTER_TYPE_VEHICLE, mTraffic);
+//    UiUtils.showIf(show && routerType == Framework.ROUTER_TYPE_VEHICLE, mTraffic);
   }
 }
