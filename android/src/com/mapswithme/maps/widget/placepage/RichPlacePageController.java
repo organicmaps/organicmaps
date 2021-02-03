@@ -122,7 +122,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     public void onSheetSliding(int top)
     {
       mSlideListener.onPlacePageSlide(top);
-      mPlacePageTracker.onMove();
+    //  mPlacePageTracker.onMove();
     }
 
     @Override

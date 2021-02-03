@@ -33,8 +33,8 @@ public class PlacePageTracker implements Savable<Bundle>
   private final PlacePageView mPlacePageView;
   @NonNull
   private final View mBottomButtons;
-  @NonNull
-  private final View mTaxi;
+//  @NonNull
+//  private final View mTaxi;
   @Nullable
   private MapObject mMapObject;
   private boolean mTaxiTracked;
@@ -47,7 +47,7 @@ public class PlacePageTracker implements Savable<Bundle>
   {
     mPlacePageView = placePageView;
     mBottomButtons = bottomButtons;
-    mTaxi = mPlacePageView.findViewById(R.id.ll__place_page_taxi);
+//  mTaxi = mPlacePageView.findViewById(R.id.ll__place_page_taxi);
   }
 
   public void setMapObject(@Nullable MapObject mapObject)
@@ -57,7 +57,7 @@ public class PlacePageTracker implements Savable<Bundle>
 
   public void onMove()
   {
-    trackTaxiVisibility();
+   // trackTaxiVisibility();
   }
 
   public void onHidden()
@@ -107,20 +107,20 @@ public class PlacePageTracker implements Savable<Bundle>
     }
   }
 
-  private void trackTaxiVisibility()
-  {
-    if (!mTaxiTracked && isViewOnScreen(mTaxi, VISIBILITY_RATIO_TAXI) && mMapObject != null)
-    {
-      List<TaxiType> taxiTypes = mMapObject.getReachableByTaxiTypes();
-      if (taxiTypes != null && !taxiTypes.isEmpty())
-      {
-        String providerName = taxiTypes.get(0).getProviderName();
-        Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW,
-                                           providerName);
-        mTaxiTracked = true;
-      }
-    }
-  }
+//  private void trackTaxiVisibility()
+//  {
+//    if (!mTaxiTracked && isViewOnScreen(mTaxi, VISIBILITY_RATIO_TAXI) && mMapObject != null)
+//    {
+//      List<TaxiType> taxiTypes = mMapObject.getReachableByTaxiTypes();
+//      if (taxiTypes != null && !taxiTypes.isEmpty())
+//      {
+//        String providerName = taxiTypes.get(0).getProviderName();
+//        Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW,
+//                                           providerName);
+//        mTaxiTracked = true;
+//      }
+//    }
+//  }
 
   /**
    *

@@ -459,9 +459,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
     mTaxiShadow = findViewById(R.id.place_page_taxi_shadow);
     mTaxiDivider = findViewById(R.id.place_page_taxi_divider);
-    mTaxi = findViewById(R.id.ll__place_page_taxi);
-    TextView orderTaxi = mTaxi.findViewById(R.id.tv__place_page_order_taxi);
-    orderTaxi.setOnClickListener(this);
+//    mTaxi = findViewById(R.id.ll__place_page_taxi);
+//    TextView orderTaxi = mTaxi.findViewById(R.id.tv__place_page_order_taxi);
+//    orderTaxi.setOnClickListener(this);
     mEditPlace = findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
     mAddOrganisation = findViewById(R.id.ll__add_organisation);
@@ -1427,7 +1427,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     UiUtils.showIf(mapObject.hasMetadata(), mKeyInfo);
     refreshOpeningHours(mapObject);
 
-    showTaxiOffer(mapObject);
+//    showTaxiOffer(mapObject);
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
@@ -1470,26 +1470,26 @@ public class PlacePageView extends NestedScrollViewClickFixed
       hideHotelDetailViews();
   }
 
-  private void showTaxiOffer(@NonNull MapObject mapObject)
-  {
-    List<TaxiType> taxiTypes = mapObject.getReachableByTaxiTypes();
-
-    boolean showTaxiOffer = taxiTypes != null && !taxiTypes.isEmpty() &&
-                            LocationHelper.INSTANCE.getMyPosition() != null &&
-                            ConnectionState.INSTANCE.isConnected()
-                            && mapObject.getRoadWarningMarkType() == RoadWarningMarkType.UNKNOWN;
-    UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiShadow, mTaxiDivider);
-
-    if (!showTaxiOffer)
-      return;
-
-    // At this moment we display only a one taxi provider at the same time.
-    TaxiType type = taxiTypes.get(0);
-    ImageView logo = mTaxi.findViewById(R.id.iv__place_page_taxi);
-    logo.setImageResource(type.getIcon());
-    TextView title = mTaxi.findViewById(R.id.tv__place_page_taxi);
-    title.setText(type.getTitle());
-  }
+//  private void showTaxiOffer(@NonNull MapObject mapObject)
+//  {
+//    List<TaxiType> taxiTypes = mapObject.getReachableByTaxiTypes();
+//
+//    boolean showTaxiOffer = taxiTypes != null && !taxiTypes.isEmpty() &&
+//                            LocationHelper.INSTANCE.getMyPosition() != null &&
+//                            ConnectionState.INSTANCE.isConnected()
+//                            && mapObject.getRoadWarningMarkType() == RoadWarningMarkType.UNKNOWN;
+//    UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiShadow, mTaxiDivider);
+//
+//    if (!showTaxiOffer)
+//      return;
+//
+//    // At this moment we display only a one taxi provider at the same time.
+//    TaxiType type = taxiTypes.get(0);
+//    ImageView logo = mTaxi.findViewById(R.id.iv__place_page_taxi);
+//    logo.setImageResource(type.getIcon());
+//    TextView title = mTaxi.findViewById(R.id.tv__place_page_taxi);
+//    title.setText(type.getTitle());
+//  }
 
   private void hideHotelDetailViews()
   {
