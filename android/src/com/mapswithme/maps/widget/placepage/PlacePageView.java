@@ -147,7 +147,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private TextView mTvDistance;
   private TextView mTvAddress;
   private View mPreviewRatingInfo;
-  private RatingView mRatingView;
+//  private RatingView mRatingView;
   private TextView mTvSponsoredPrice;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -426,7 +426,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mPreview.findViewById(R.id.search_hotels_btn).setOnClickListener(this);
 
     mPreviewRatingInfo = mPreview.findViewById(R.id.preview_rating_info);
-    mRatingView = mPreviewRatingInfo.findViewById(R.id.rating_view);
+//    mRatingView = mPreviewRatingInfo.findViewById(R.id.rating_view);
     mTvSponsoredPrice = mPreviewRatingInfo.findViewById(R.id.tv__hotel_price);
     mHotelDiscount = mPreviewRatingInfo.findViewById(R.id.discount_in_percents);
 
@@ -936,8 +936,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
       String text = getResources().getQuantityString(
           R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount);
       mHotelRatingBase.setText(text);
-      TextView previewReviewCountView = mPreviewRatingInfo.findViewById(R.id.tv__review_count);
-      previewReviewCountView.setText(text);
+//      TextView previewReviewCountView = mPreviewRatingInfo.findViewById(R.id.tv__review_count);
+//      previewReviewCountView.setText(text);
     }
   }
 
@@ -1374,8 +1374,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     @SuppressWarnings("ConstantConditions")
     boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.getRating());
     Impress impress = Impress.values()[mSponsored.getImpress()];
-    mRatingView.setRating(impress, mSponsored.getRating());
-    UiUtils.showIf(!isRatingEmpty, mRatingView);
+//    mRatingView.setRating(impress, mSponsored.getRating());
+//    UiUtils.showIf(!isRatingEmpty, mRatingView);
     mTvSponsoredPrice.setText(mSponsoredPrice);
     UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
     boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
