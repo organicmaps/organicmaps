@@ -198,11 +198,11 @@ public class UGCController implements View.OnClickListener, UGC.ReceiveUGCListen
     //UiUtils.showIf(canUserRate(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
     //UiUtils.showIf(ugc != null, mUgcMoreReviews);
     //UiUtils.showIf(ugc != null && impress != UGC.RATING_NONE, mSummaryRootView);
-    RatingView ratingView = mPreviewUgcInfoView.findViewById(R.id.rating_view);
+//    RatingView ratingView = mPreviewUgcInfoView.findViewById(R.id.rating_view);
     if (ugc == null)
     {
       mReviewCount.setText(ugcUpdate != null ? R.string.placepage_reviewed : R.string.placepage_no_reviews);
-      ratingView.setRating(ugcUpdate == null ? Impress.NONE : Impress.COMING_SOON, rating);
+//      ratingView.setRating(ugcUpdate == null ? Impress.NONE : Impress.COMING_SOON, rating);
       setUserReviewAndRatingsView(ugcUpdate);
       return;
     }
@@ -215,7 +215,7 @@ public class UGCController implements View.OnClickListener, UGC.ReceiveUGCListen
           R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount));
       setSummaryViews(ugc, impress, rating);
     }
-    ratingView.setRating(Impress.values()[impress], rating);
+//    ratingView.setRating(Impress.values()[impress], rating);
     setUserReviewAndRatingsView(ugcUpdate);
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)

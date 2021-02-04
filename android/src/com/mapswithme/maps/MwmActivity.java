@@ -678,7 +678,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     mNavigationController = new NavigationController(this);
-    TrafficManager.INSTANCE.attach(mNavigationController);
+    //TrafficManager.INSTANCE.attach(mNavigationController);
 
     initMainMenu();
     initOnmapDownloader();

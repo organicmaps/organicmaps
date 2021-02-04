@@ -147,7 +147,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private TextView mTvDistance;
   private TextView mTvAddress;
   private View mPreviewRatingInfo;
-  private RatingView mRatingView;
+//  private RatingView mRatingView;
   private TextView mTvSponsoredPrice;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -426,7 +426,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mPreview.findViewById(R.id.search_hotels_btn).setOnClickListener(this);
 
     mPreviewRatingInfo = mPreview.findViewById(R.id.preview_rating_info);
-    mRatingView = mPreviewRatingInfo.findViewById(R.id.rating_view);
+//    mRatingView = mPreviewRatingInfo.findViewById(R.id.rating_view);
     mTvSponsoredPrice = mPreviewRatingInfo.findViewById(R.id.tv__hotel_price);
     mHotelDiscount = mPreviewRatingInfo.findViewById(R.id.discount_in_percents);
 
@@ -459,9 +459,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
     mTaxiShadow = findViewById(R.id.place_page_taxi_shadow);
     mTaxiDivider = findViewById(R.id.place_page_taxi_divider);
-    mTaxi = findViewById(R.id.ll__place_page_taxi);
-    TextView orderTaxi = mTaxi.findViewById(R.id.tv__place_page_order_taxi);
-    orderTaxi.setOnClickListener(this);
+//    mTaxi = findViewById(R.id.ll__place_page_taxi);
+//    TextView orderTaxi = mTaxi.findViewById(R.id.tv__place_page_order_taxi);
+//    orderTaxi.setOnClickListener(this);
     mEditPlace = findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
     mAddOrganisation = findViewById(R.id.ll__add_organisation);
@@ -936,8 +936,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
       String text = getResources().getQuantityString(
           R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount);
       mHotelRatingBase.setText(text);
-      TextView previewReviewCountView = mPreviewRatingInfo.findViewById(R.id.tv__review_count);
-      previewReviewCountView.setText(text);
+//      TextView previewReviewCountView = mPreviewRatingInfo.findViewById(R.id.tv__review_count);
+//      previewReviewCountView.setText(text);
     }
   }
 
@@ -1374,8 +1374,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     @SuppressWarnings("ConstantConditions")
     boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.getRating());
     Impress impress = Impress.values()[mSponsored.getImpress()];
-    mRatingView.setRating(impress, mSponsored.getRating());
-    UiUtils.showIf(!isRatingEmpty, mRatingView);
+//    mRatingView.setRating(impress, mSponsored.getRating());
+//    UiUtils.showIf(!isRatingEmpty, mRatingView);
     mTvSponsoredPrice.setText(mSponsoredPrice);
     UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
     boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
@@ -1427,7 +1427,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     UiUtils.showIf(mapObject.hasMetadata(), mKeyInfo);
     refreshOpeningHours(mapObject);
 
-    showTaxiOffer(mapObject);
+//    showTaxiOffer(mapObject);
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
@@ -1470,26 +1470,26 @@ public class PlacePageView extends NestedScrollViewClickFixed
       hideHotelDetailViews();
   }
 
-  private void showTaxiOffer(@NonNull MapObject mapObject)
-  {
-    List<TaxiType> taxiTypes = mapObject.getReachableByTaxiTypes();
-
-    boolean showTaxiOffer = taxiTypes != null && !taxiTypes.isEmpty() &&
-                            LocationHelper.INSTANCE.getMyPosition() != null &&
-                            ConnectionState.INSTANCE.isConnected()
-                            && mapObject.getRoadWarningMarkType() == RoadWarningMarkType.UNKNOWN;
-    UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiShadow, mTaxiDivider);
-
-    if (!showTaxiOffer)
-      return;
-
-    // At this moment we display only a one taxi provider at the same time.
-    TaxiType type = taxiTypes.get(0);
-    ImageView logo = mTaxi.findViewById(R.id.iv__place_page_taxi);
-    logo.setImageResource(type.getIcon());
-    TextView title = mTaxi.findViewById(R.id.tv__place_page_taxi);
-    title.setText(type.getTitle());
-  }
+//  private void showTaxiOffer(@NonNull MapObject mapObject)
+//  {
+//    List<TaxiType> taxiTypes = mapObject.getReachableByTaxiTypes();
+//
+//    boolean showTaxiOffer = taxiTypes != null && !taxiTypes.isEmpty() &&
+//                            LocationHelper.INSTANCE.getMyPosition() != null &&
+//                            ConnectionState.INSTANCE.isConnected()
+//                            && mapObject.getRoadWarningMarkType() == RoadWarningMarkType.UNKNOWN;
+//    UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiShadow, mTaxiDivider);
+//
+//    if (!showTaxiOffer)
+//      return;
+//
+//    // At this moment we display only a one taxi provider at the same time.
+//    TaxiType type = taxiTypes.get(0);
+//    ImageView logo = mTaxi.findViewById(R.id.iv__place_page_taxi);
+//    logo.setImageResource(type.getIcon());
+//    TextView title = mTaxi.findViewById(R.id.tv__place_page_taxi);
+//    title.setText(type.getTitle());
+//  }
 
   private void hideHotelDetailViews()
   {

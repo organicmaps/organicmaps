@@ -169,12 +169,12 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
       TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
       mNavMenu.refreshTts();
       break;
-    case TRAFFIC:
-      TrafficManager.INSTANCE.toggle();
-      parent.onTrafficLayerSelected();
-      mNavMenu.refreshTraffic();
-      //TODO: Add statistics reporting (in separate task)
-      break;
+//    case TRAFFIC:
+//      TrafficManager.INSTANCE.toggle();
+//      parent.onTrafficLayerSelected();
+//      mNavMenu.refreshTraffic();
+//      //TODO: Add statistics reporting (in separate task)
+//      break;
     case TOGGLE:
       mNavMenu.toggle(true);
       parent.refreshFade();
@@ -384,13 +384,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
   @Override
   public void onEnabled()
   {
-    mNavMenu.refreshTraffic();
+   // mNavMenu.refreshTraffic();
   }
 
   @Override
   public void onDisabled()
   {
-    mNavMenu.refreshTraffic();
+   // mNavMenu.refreshTraffic();
   }
 
   @Override
