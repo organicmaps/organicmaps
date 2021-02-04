@@ -42,8 +42,9 @@ public class RoutingPlanController extends ToolbarController
   private final WheelProgressView mProgressTransit;
   @NonNull
   private final WheelProgressView mProgressBicycle;
-  @NonNull
-  private final WheelProgressView mProgressTaxi;
+
+//  @NonNull
+//  private final WheelProgressView mProgressTaxi;
 
   @NonNull
   private final RoutingBottomMenuController mRoutingBottomMenuController;
@@ -100,7 +101,7 @@ public class RoutingPlanController extends ToolbarController
     mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
     mProgressTransit = (WheelProgressView) progressFrame.findViewById(R.id.progress_transit);
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
-    mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
+//    mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
     mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(requireActivity(), mFrame, listener);
 
@@ -131,7 +132,7 @@ public class RoutingPlanController extends ToolbarController
     setupRouterButton(R.id.vehicle, R.drawable.ic_car, this::onVehicleModeSelected);
     setupRouterButton(R.id.pedestrian, R.drawable.ic_pedestrian, this::onPedestrianModeSelected);
     setupRouterButton(R.id.bicycle, R.drawable.ic_bike, this::onBicycleModeSelected);
-    setupRouterButton(R.id.taxi, R.drawable.ic_taxi, this::onTaxiModeSelected);
+//    setupRouterButton(R.id.taxi, R.drawable.ic_taxi, this::onTaxiModeSelected);
     setupRouterButton(R.id.transit, R.drawable.ic_transit, v -> onTransitModeSelected());
   }
 
@@ -217,7 +218,7 @@ public class RoutingPlanController extends ToolbarController
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressTransit,
-                      mProgressBicycle, mProgressTaxi);
+                      mProgressBicycle);
     WheelProgressView progressView;
     if (router == Framework.ROUTER_TYPE_VEHICLE)
     {
@@ -229,11 +230,11 @@ public class RoutingPlanController extends ToolbarController
       mRouterTypes.check(R.id.pedestrian);
       progressView = mProgressPedestrian;
     }
-    else if (router == Framework.ROUTER_TYPE_TAXI)
-    {
-      mRouterTypes.check(R.id.taxi);
-      progressView = mProgressTaxi;
-    }
+//    else if (router == Framework.ROUTER_TYPE_TAXI)
+//    {
+//      mRouterTypes.check(R.id.taxi);
+//      progressView = mProgressTaxi;
+//    }
     else if (router == Framework.ROUTER_TYPE_TRANSIT)
     {
       mRouterTypes.check(R.id.transit);

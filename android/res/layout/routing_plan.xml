@@ -81,14 +81,14 @@
               tools:button="@drawable/ic_bike"
               tools:buttonTint="?iconTintLight" />
 
-          <com.mapswithme.maps.widget.RoutingToolbarButton
-            android:id="@+id/taxi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/routing_selector_wheel_margin"
-            android:layout_marginEnd="@dimen/routing_selector_wheel_margin"
-            tools:button="@drawable/ic_taxi"
-            tools:buttonTint="?iconTintLight" />
+<!--          <com.mapswithme.maps.widget.RoutingToolbarButton-->
+<!--            android:id="@+id/taxi"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginRight="@dimen/routing_selector_wheel_margin"-->
+<!--            android:layout_marginEnd="@dimen/routing_selector_wheel_margin"-->
+<!--            tools:button="@drawable/ic_taxi"-->
+<!--            tools:buttonTint="?iconTintLight" />-->
         </RadioGroup>
 
         <LinearLayout
@@ -136,13 +136,13 @@
             android:layout_marginRight="12dp"
             android:layout_marginEnd="12dp"/>
 
-          <com.mapswithme.maps.widget.WheelProgressView
-            android:id="@+id/progress_taxi"
-            style="@style/MwmWidget.ProgressWheel.RoutingPlan"
-            android:layout_marginTop="@dimen/routing_selector_wheel_margin"
-            android:layout_marginBottom="@dimen/routing_selector_wheel_margin"
-            android:layout_marginRight="@dimen/routing_selector_wheel_margin"
-            android:layout_marginEnd="@dimen/routing_selector_wheel_margin"/>
+<!--          <com.mapswithme.maps.widget.WheelProgressView-->
+<!--            android:id="@+id/progress_taxi"-->
+<!--            style="@style/MwmWidget.ProgressWheel.RoutingPlan"-->
+<!--            android:layout_marginTop="@dimen/routing_selector_wheel_margin"-->
+<!--            android:layout_marginBottom="@dimen/routing_selector_wheel_margin"-->
+<!--            android:layout_marginRight="@dimen/routing_selector_wheel_margin"-->
+<!--            android:layout_marginEnd="@dimen/routing_selector_wheel_margin"/>-->
 
         </LinearLayout>
 
