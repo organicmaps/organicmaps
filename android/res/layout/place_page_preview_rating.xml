@@ -8,30 +8,30 @@
   android:orientation="horizontal"
   tools:background="#8000FFFF"
   tools:showIn="@layout/place_page_preview">
-  <com.mapswithme.maps.widget.RatingView
-    android:id="@+id/rating_view"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/rating_view_height_small"
-    android:paddingLeft="@dimen/margin_quarter_plus"
-    android:paddingStart="@dimen/margin_quarter_plus"
-    android:paddingRight="@dimen/margin_quarter_plus"
-    android:paddingEnd="@dimen/margin_quarter_plus"
-    android:paddingTop="@dimen/margin_quarter"
-    android:paddingBottom="@dimen/margin_quarter"
-    android:layout_gravity="center_vertical"
-    android:textSize="@dimen/text_size_body_4"
-    tools:visibility="visible"/>
-  <TextView
-    android:id="@+id/tv__review_count"
-    android:layout_marginStart="@dimen/margin_half"
-    android:layout_marginLeft="@dimen/margin_half"
-    android:ellipsize="end"
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_gravity="center_vertical"
-    android:layout_height="wrap_content"
-    android:textAppearance="@style/MwmTextAppearance.Body4"
-    tools:text="1309 reviews"/>
+<!--  <com.mapswithme.maps.widget.RatingView-->
+<!--    android:id="@+id/rating_view"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="@dimen/rating_view_height_small"-->
+<!--    android:paddingLeft="@dimen/margin_quarter_plus"-->
+<!--    android:paddingStart="@dimen/margin_quarter_plus"-->
+<!--    android:paddingRight="@dimen/margin_quarter_plus"-->
+<!--    android:paddingEnd="@dimen/margin_quarter_plus"-->
+<!--    android:paddingTop="@dimen/margin_quarter"-->
+<!--    android:paddingBottom="@dimen/margin_quarter"-->
+<!--    android:layout_gravity="center_vertical"-->
+<!--    android:textSize="@dimen/text_size_body_4"-->
+<!--    tools:visibility="visible"/>-->
+<!--  <TextView-->
+<!--    android:id="@+id/tv__review_count"-->
+<!--    android:layout_marginStart="@dimen/margin_half"-->
+<!--    android:layout_marginLeft="@dimen/margin_half"-->
+<!--    android:ellipsize="end"-->
+<!--    android:layout_width="0dp"-->
+<!--    android:layout_weight="1"-->
+<!--    android:layout_gravity="center_vertical"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:textAppearance="@style/MwmTextAppearance.Body4"-->
+<!--    tools:text="1309 reviews"/>-->
   <TextView
     android:id="@+id/tv__hotel_price"
     android:layout_width="wrap_content"
