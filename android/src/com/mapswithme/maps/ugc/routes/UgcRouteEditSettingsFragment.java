@@ -78,9 +78,9 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     mEditDescView.setText(mCategory.getDescription());
     View clearNameBtn = root.findViewById(R.id.edit_text_clear_btn);
     clearNameBtn.setOnClickListener(v -> mEditCategoryNameView.getEditableText().clear());
-    View sharingOptionsBtn = root.findViewById(R.id.open_sharing_options_screen_btn_container);
-    sharingOptionsBtn.setOnClickListener(v -> onSharingOptionsClicked());
-    sharingOptionsBtn.setEnabled(mCategory.isSharingOptionsAllowed());
+//    View sharingOptionsBtn = root.findViewById(R.id.open_sharing_options_screen_btn_container);
+//    sharingOptionsBtn.setOnClickListener(v -> onSharingOptionsClicked());
+//    sharingOptionsBtn.setEnabled(mCategory.isSharingOptionsAllowed());
   }
 
   @Override
