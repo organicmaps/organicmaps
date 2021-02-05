@@ -7,9 +7,9 @@
   <item android:id="@+id/share"
         android:title="@string/export_file"
         android:icon="@drawable/ic_share"/>
-  <item android:id="@+id/sharing_options"
-        android:title="@string/sharing_options"
-        android:icon="@drawable/ic_add_members"/>
+<!--  <item android:id="@+id/sharing_options"-->
+<!--        android:title="@string/sharing_options"-->
+<!--        android:icon="@drawable/ic_add_members"/>-->
   <item android:id="@+id/delete"
         android:title="@string/delete"
         android:icon="@drawable/ic_delete"/>
