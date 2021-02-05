@@ -171,7 +171,7 @@
 		675344451A3F664300A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					6753444C1A3F664300A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
@@ -180,10 +180,11 @@
 			};
 			buildConfigurationList = 675344481A3F664300A0A8C3 /* Build configuration list for PBXProject "jansson" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 675344441A3F664300A0A8C3;
 			productRefGroup = 6753444E1A3F664300A0A8C3 /* Products */;
@@ -228,6 +229,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -240,6 +242,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -268,6 +271,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};

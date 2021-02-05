@@ -41,7 +41,7 @@
 }
 
 - (NSString *)imageUrl {
-  return [self.manager getCategoryImageUrl:self.categoryId];
+  return [[self.manager getCategoryImageUrl:self.categoryId] absoluteString];
 }
 
 - (NSInteger)bookmarksCount {

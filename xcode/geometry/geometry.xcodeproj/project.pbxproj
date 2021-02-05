@@ -521,7 +521,7 @@
 		675344891A3F684600A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					670F295B1BA9D39A00F2ABF4 = {
 						CreatedOnToolsVersion = 6.4;
@@ -533,11 +533,11 @@
 			};
 			buildConfigurationList = 6753448C1A3F684600A0A8C3 /* Build configuration list for PBXProject "geometry" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 675344881A3F684600A0A8C3;
 			productRefGroup = 675344921A3F684600A0A8C3 /* Products */;
@@ -633,6 +633,7 @@
 		670F29611BA9D39A00F2ABF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
@@ -646,6 +647,7 @@
 		670F29621BA9D39A00F2ABF4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
@@ -660,6 +662,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CD1DBE517700E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -667,6 +671,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CE1DBE517700E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -692,6 +698,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CE1DBE517700E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};
@@ -707,6 +715,7 @@
 		A8E5414C1F9FBD8B00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",

@@ -10,6 +10,7 @@
 		04972684853070C687B7DEB5 /* Pods_OMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AACEA6A52B8EC27EF04388 /* Pods_OMaps.framework */; };
 		1DA7908820762CEB008BDD6B /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA7908920762CEB008BDD6B /* libopen_location_code.a */; };
 		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.m */; };
+		308FB50025CDCE73006E2234 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308FB4FF25CDCE73006E2234 /* CoreServices.framework */; };
 		3304306D21D4EAFB00317CA3 /* SearchCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */; };
 		33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33046831219C57180041F3A8 /* CategorySettingsViewController.swift */; };
 		330473EA21F7440C00DC4AEA /* MWMHotelParams.mm in Sources */ = {isa = PBXBuildFile; fileRef = 330473E921F7440C00DC4AEA /* MWMHotelParams.mm */; };
@@ -359,7 +360,6 @@
 		479603732446F17C00F3BDD0 /* User+AppleId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479603722446F17C00F3BDD0 /* User+AppleId.swift */; };
 		4796037524482E3900F3BDD0 /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796037424482E3800F3BDD0 /* KeychainStorage.swift */; };
 		479EE94A2292FB03009DEBA6 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479EE9492292FB03009DEBA6 /* ActivityIndicator.swift */; };
-		47A13CA424BE872600027D4F /* DatePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A13CA324BE872600027D4F /* DatePicker.framework */; };
 		47A13CA524BE872600027D4F /* DatePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 47A13CA324BE872600027D4F /* DatePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		47A13CA724BE874D00027D4F /* DatePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A13CA624BE874D00027D4F /* DatePicker.framework */; };
 		47A13CAA24BE881000027D4F /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A13CA824BE881000027D4F /* DatePickerViewController.swift */; };
@@ -530,7 +530,6 @@
 		67B78B3F1E422C110018E590 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B3E1E422C110018E590 /* SafariServices.framework */; };
 		67B78B411E422C360018E590 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B401E422C360018E590 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		67B78B431E422C620018E590 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B421E422C620018E590 /* MessageUI.framework */; };
-		67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B461E422E0A0018E590 /* MobileCoreServices.framework */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012846243F0D6900C72B10 /* UIViewController+alternative.swift */; };
 		9901284F244732DB00C72B10 /* BottomTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012849244732DB00C72B10 /* BottomTabBarPresenter.swift */; };
@@ -930,6 +929,7 @@
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
 		2ED44CE4F4879D8E8BC4A9E0 /* Pods-OMaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OMaps.release.xcconfig"; path = "Target Support Files/Pods-OMaps/Pods-OMaps.release.xcconfig"; sourceTree = "<group>"; };
+		308FB4FF25CDCE73006E2234 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		3304306C21D4EAFB00317CA3 /* SearchCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategoryCell.swift; sourceTree = "<group>"; };
 		33046831219C57180041F3A8 /* CategorySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViewController.swift; sourceTree = "<group>"; };
 		330473E821F7440C00DC4AEA /* MWMHotelParams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMHotelParams.h; sourceTree = "<group>"; };
@@ -2183,7 +2183,6 @@
 				45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */,
 				34D1B6F11E95096B0057E9C7 /* libicu.a in Frameworks */,
 				671E78D31E6A423300B2859B /* librouting_common.a in Frameworks */,
-				67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */,
 				67B78B431E422C620018E590 /* MessageUI.framework in Frameworks */,
 				67B78B411E422C360018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B3F1E422C110018E590 /* SafariServices.framework in Frameworks */,
@@ -2207,7 +2206,6 @@
 				6741AACA1BF356BA002C974C /* libjansson.a in Frameworks */,
 				47D48BCD242A0F7200FEFB1F /* Chart.framework in Frameworks */,
 				6741AACC1BF356BA002C974C /* libmap.a in Frameworks */,
-				47A13CA424BE872600027D4F /* DatePicker.framework in Frameworks */,
 				6741AACE1BF356BA002C974C /* libopening_hours.a in Frameworks */,
 				347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */,
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
@@ -2223,6 +2221,7 @@
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
 				34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */,
 				04972684853070C687B7DEB5 /* Pods_OMaps.framework in Frameworks */,
+				308FB50025CDCE73006E2234 /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2329,6 +2328,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				308FB4FF25CDCE73006E2234 /* CoreServices.framework */,
 				47A13CA624BE874D00027D4F /* DatePicker.framework */,
 				47A13CA324BE872600027D4F /* DatePicker.framework */,
 				47D48BCF242A475700FEFB1F /* AuthenticationServices.framework */,
@@ -4937,7 +4937,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = OMaps.app;
 				TargetAttributes = {
 					6741A93D1BF340DE002C974C = {
@@ -6070,10 +6070,9 @@
 				DEVELOPMENT_TEAM = W55CJ2SCF7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 10.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 			};
 			name = Debug;
@@ -6089,10 +6088,9 @@
 				DEVELOPMENT_TEAM = W55CJ2SCF7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 10.5.1;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 			};
 			name = Release;
@@ -6105,12 +6103,17 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = app.omaps.debug;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY = NO;
+				CLANG_WARN_COMMA = NO;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
 				);
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",
@@ -6119,13 +6122,14 @@
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				INFOPLIST_FILE = OMaps.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-Wall",
 					"-Wno-unused-local-typedef",
+					"-Wno-nonnull",
+					"-Wno-nullability-completeness",
 					"-Wimplicit-retain-self",
 					"-fcxx-modules",
 				);
@@ -6133,7 +6137,7 @@
 					"$(OTHER_CFLAGS)",
 					"-fcxx-modules",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -Wno-nullability-completeness";
 				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = "OMaps Debug";
 				SDKROOT = iphoneos;
@@ -6143,7 +6147,9 @@
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = GLKit;
 				VERSIONING_SYSTEM = "apple-generic";
+				WARNING_CFLAGS = "";
 			};
 			name = Debug;
 		};
@@ -6155,12 +6161,17 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = app.omaps.release;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY = NO;
+				CLANG_WARN_COMMA = NO;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party",
 				);
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",
@@ -6169,11 +6180,14 @@
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				INFOPLIST_FILE = OMaps.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-Wall",
 					"-Wno-unused-local-typedef",
+					"-Wno-nonnull",
+					"-Wno-nullability-completeness",
 					"-Wimplicit-retain-self",
 					"-fcxx-modules",
 				);
@@ -6191,7 +6205,9 @@
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = SwiftBridge.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = GLKit;
 				VERSIONING_SYSTEM = "apple-generic";
+				WARNING_CFLAGS = "";
 			};
 			name = Release;
 		};

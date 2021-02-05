@@ -12,7 +12,6 @@ static NSString * const kEnableCustomFBEventsForNewUsers = @"FBEnableCustomEvent
 // Special one-time events to improve marketing targeting.
 // NOTE: Event names are using some default FB names by Alexander Bobko's request.
 static NSString * const kFirstSessionIsLongerThanXMinutesEvent = @"FBSDKAppEventNameAchievedLevel";
-static NSInteger const kFirstSessionLengthInSeconds = 5 * 60;
 static NSString * const kNextLaunchAfterHoursInterval = @"FBSDKAppEventNameCompletedRegistration";
 static NSInteger const kNextLaunchMinHoursInterval = 6;
 static NSString * const kDownloadedSecondMapEvent = @"FBSDKAppEventNameUnlockedAchievement";

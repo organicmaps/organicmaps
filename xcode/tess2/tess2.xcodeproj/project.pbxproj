@@ -137,7 +137,7 @@
 		6719DD301B95A8E70018166F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					6719DD371B95A8E70018166F = {
 						CreatedOnToolsVersion = 6.4;
@@ -146,10 +146,11 @@
 			};
 			buildConfigurationList = 6719DD331B95A8E70018166F /* Build configuration list for PBXProject "tess2" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 6719DD2F1B95A8E70018166F;
 			productRefGroup = 6719DD391B95A8E70018166F /* Products */;
@@ -190,6 +191,7 @@
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/libtess2/Include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -204,6 +206,7 @@
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/libtess2/Include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -234,6 +237,7 @@
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/libtess2/Include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};

@@ -95,7 +95,7 @@
 		4586D0CA1F48130600DF9CE5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					4586D0D11F48130600DF9CE5 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -105,10 +105,11 @@
 			};
 			buildConfigurationList = 4586D0CD1F48130600DF9CE5 /* Build configuration list for PBXProject "mwm_diff" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 4586D0C91F48130600DF9CE5;
 			productRefGroup = 4586D0D31F48130600DF9CE5 /* Products */;
@@ -136,6 +137,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4586D0E01F48132A00DF9CE5 /* common-debug.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -143,6 +145,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4586D0E11F48132A00DF9CE5 /* common-release.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -168,6 +171,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4586D0E11F48132A00DF9CE5 /* common-release.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};

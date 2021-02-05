@@ -378,7 +378,7 @@
 		67534D391A40B7ED00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					67534D401A40B7ED00A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
@@ -387,7 +387,7 @@
 			};
 			buildConfigurationList = 67534D3C1A40B7ED00A0A8C3 /* Build configuration list for PBXProject "osrm" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -409,6 +409,7 @@
 				th,
 				tr,
 				uk,
+				Base,
 			);
 			mainGroup = 67534D381A40B7ED00A0A8C3;
 			productRefGroup = 67534D421A40B7ED00A0A8C3 /* Products */;
@@ -455,6 +456,7 @@
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -468,6 +470,7 @@
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -497,6 +500,7 @@
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};

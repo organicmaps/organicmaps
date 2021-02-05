@@ -72,9 +72,9 @@
 		4563B062205909290057556D /* sha1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4563B05F205909280057556D /* sha1.cpp */; };
 		4563B063205909290057556D /* sha1.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4563B060205909280057556D /* sha1.hpp */; };
 		45C108BA1E9CFF8E000FE1F6 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C108B91E9CFF8E000FE1F6 /* libgeometry.a */; };
-		56DAC3642399206A000BC50D /* test_polylines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56DAC3632399206A000BC50D /* test_polylines.hpp */; };
 		4740184823F5BE0800A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740184623F5BE0200A93C81 /* minizip.framework */; };
-		4740184923F5BE0800A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740184623F5BE0200A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4740184923F5BE0800A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740184623F5BE0200A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		56DAC3642399206A000BC50D /* test_polylines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56DAC3632399206A000BC50D /* test_polylines.hpp */; };
 		670BAACB1D0B0C1E000302DA /* huffman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 394917221BAC3C2F002A8C4F /* huffman.cpp */; };
 		670D04BD1B0BA92D0013A7AC /* expat_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 670D04B31B0BA9050013A7AC /* expat_impl.h */; };
 		670D04BE1B0BA92D0013A7AC /* file64_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670D04B41B0BA9050013A7AC /* file64_api.hpp */; };
@@ -248,8 +248,8 @@
 		4563B05F205909280057556D /* sha1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sha1.cpp; sourceTree = "<group>"; };
 		4563B060205909280057556D /* sha1.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sha1.hpp; sourceTree = "<group>"; };
 		45C108B91E9CFF8E000FE1F6 /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/geometry/../../../omim-build/xcode/Debug/libgeometry.a"; sourceTree = "<absolute>"; };
-		56DAC3632399206A000BC50D /* test_polylines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_polylines.hpp; sourceTree = "<group>"; };
 		4740184623F5BE0200A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56DAC3632399206A000BC50D /* test_polylines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_polylines.hpp; sourceTree = "<group>"; };
 		670D04B31B0BA9050013A7AC /* expat_impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = expat_impl.h; sourceTree = "<group>"; };
 		670D04B41B0BA9050013A7AC /* file64_api.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = file64_api.hpp; sourceTree = "<group>"; };
 		670D04B51B0BA9050013A7AC /* file_data.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = file_data.cpp; sourceTree = "<group>"; };
@@ -689,7 +689,7 @@
 		675342131A3F586300A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					3949168E1BAC3A5F002A8C4F = {
 						CreatedOnToolsVersion = 7.0;
@@ -701,11 +701,11 @@
 			};
 			buildConfigurationList = 675342161A3F586300A0A8C3 /* Build configuration list for PBXProject "coding" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 675342121A3F586300A0A8C3;
 			productRefGroup = 6753421C1A3F586300A0A8C3 /* Products */;
@@ -810,6 +810,7 @@
 		394916941BAC3A5F002A8C4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;
@@ -820,6 +821,7 @@
 		394916951BAC3A5F002A8C4F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;
@@ -842,6 +844,7 @@
 					"$(OMIM_ROOT)/3party/icu/common",
 					"$(OMIM_ROOT)/3party/icu/i18n",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -860,6 +863,7 @@
 					"$(OMIM_ROOT)/3party/icu/common",
 					"$(OMIM_ROOT)/3party/icu/i18n",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -896,6 +900,7 @@
 					"$(OMIM_ROOT)/3party/icu/common",
 					"$(OMIM_ROOT)/3party/icu/i18n",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};
@@ -911,6 +916,7 @@
 		A8E541421F9FBD6B00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;

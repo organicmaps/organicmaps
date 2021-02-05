@@ -594,7 +594,7 @@ bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt,
     {
       pt = mercator::FromLatLon(lat, lon);
 
-      double rawAltitude;
+      double rawAltitude = 0.0;
       if (++iter && strings::to_double(*iter, rawAltitude))
         altitude = static_cast<geometry::Altitude>(round(rawAltitude));
 

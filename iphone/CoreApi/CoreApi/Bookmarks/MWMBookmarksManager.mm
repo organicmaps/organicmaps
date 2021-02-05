@@ -408,8 +408,9 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
       return MWMBookmarkGroupTypeCollection;
     case kml::CompilationType::Day:
       return MWMBookmarkGroupTypeDay;
+    default:
+      return MWMBookmarkGroupTypeRoot;
   }
-  return MWMBookmarkGroupTypeRoot;
 }
 
 - (nullable NSURL *)getCategoryImageUrl:(MWMMarkGroupID)groupId {

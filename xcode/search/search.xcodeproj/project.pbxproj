@@ -161,8 +161,6 @@
 		39BBC1401F9FD683009D1687 /* point_rect_matcher_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC13F1F9FD683009D1687 /* point_rect_matcher_tests.cpp */; };
 		39BBC1421F9FD68C009D1687 /* highlighting_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC1411F9FD68C009D1687 /* highlighting_tests.cpp */; };
 		3D0AEB021FBB102C00AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB041FBB102C00AD042B /* libgenerator_tests_support.a */; };
-		3D0BBB9F23F3FDE100A50354 /* helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D0BBB9D23F3FDE100A50354 /* helpers.hpp */; };
-		3D0BBBA023F3FDE100A50354 /* helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BBB9E23F3FDE100A50354 /* helpers.cpp */; };
 		3DA5722B20C1956D007BDE27 /* integration_tests_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5722920C1956D007BDE27 /* integration_tests_helpers.hpp */; };
 		3DFEBF761EF2D55800317D5C /* city_finder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF751EF2D55800317D5C /* city_finder.hpp */; };
 		405DB10720FF472300EE3824 /* utils_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405DB10620FF472300EE3824 /* utils_test.cpp */; };
@@ -185,7 +183,7 @@
 		45A008531FE9088400D77690 /* idf_map.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45A0084F1FE9088300D77690 /* idf_map.hpp */; };
 		45A008541FE9088400D77690 /* idf_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A008501FE9088300D77690 /* idf_map.cpp */; };
 		4740185E23F5BEF900A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185D23F5BEF900A93C81 /* minizip.framework */; };
-		4740185F23F5BEF900A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185D23F5BEF900A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4740185F23F5BEF900A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185D23F5BEF900A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		56D5456E1C74A48C00E3719C /* mode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D5456C1C74A48C00E3719C /* mode.cpp */; };
 		56D5456F1C74A48C00E3719C /* mode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D5456D1C74A48C00E3719C /* mode.hpp */; };
 		56DAC34123991253000BC50D /* helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56DAC33F23991253000BC50D /* helpers.hpp */; };
@@ -449,8 +447,6 @@
 		39BBC1411F9FD68C009D1687 /* highlighting_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = highlighting_tests.cpp; sourceTree = "<group>"; };
 		3D0AEB041FBB102C00AD042B /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0AEB051FBB102C00AD042B /* libindexer_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D0BBB9D23F3FDE100A50354 /* helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = helpers.hpp; sourceTree = "<group>"; };
-		3D0BBB9E23F3FDE100A50354 /* helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = helpers.cpp; sourceTree = "<group>"; };
 		3DA5722820C1956D007BDE27 /* integration_tests_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = integration_tests_helpers.cpp; sourceTree = "<group>"; };
 		3DA5722920C1956D007BDE27 /* integration_tests_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = integration_tests_helpers.hpp; sourceTree = "<group>"; };
 		3DFEBF751EF2D55800317D5C /* city_finder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = city_finder.hpp; sourceTree = "<group>"; };
@@ -1207,7 +1203,7 @@
 		675346A81A4055CF00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					671C620B1AE9225100076BD0 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -1222,11 +1218,11 @@
 			};
 			buildConfigurationList = 675346AB1A4055CF00A0A8C3 /* Build configuration list for PBXProject "search" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 675346A71A4055CF00A0A8C3;
 			productRefGroup = 675346B11A4055CF00A0A8C3 /* Products */;
@@ -1407,6 +1403,7 @@
 		34E7184D1FBB074300FC98CC /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = search_tests;
@@ -1416,6 +1413,7 @@
 		39AEF87F1FB45E1600943FC9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_integration_tests;
@@ -1426,6 +1424,7 @@
 		39AEF8801FB45E1600943FC9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_integration_tests;
@@ -1436,6 +1435,7 @@
 		671C62111AE9225100076BD0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1445,6 +1445,7 @@
 		671C62121AE9225100076BD0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1455,6 +1456,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558371DBF2C8B00A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -1462,6 +1464,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558381DBF2C8B00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -1503,6 +1506,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558381DBF2C8B00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};
@@ -1518,6 +1522,7 @@
 		A8E541621F9FBDC400A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.search_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

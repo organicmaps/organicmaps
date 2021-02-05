@@ -159,7 +159,7 @@
 		670D04F01B0BAEE50013A7AC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					670D04F71B0BAEE50013A7AC = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -168,11 +168,11 @@
 			};
 			buildConfigurationList = 670D04F31B0BAEE50013A7AC /* Build configuration list for PBXProject "expat" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 670D04EF1B0BAEE50013A7AC;
 			productRefGroup = 670D04F91B0BAEE50013A7AC /* Products */;
@@ -210,6 +210,7 @@
 					HAVE_MEMMOVE,
 				);
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -223,6 +224,7 @@
 					HAVE_MEMMOVE,
 				);
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -252,6 +254,7 @@
 					XML_POOR_ENTROPY,
 				);
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};

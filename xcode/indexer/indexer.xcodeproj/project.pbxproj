@@ -943,7 +943,7 @@
 		675340921A3F53CB00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					670C61241AB0661100C38A8C = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -955,11 +955,11 @@
 			};
 			buildConfigurationList = 675340951A3F53CB00A0A8C3 /* Build configuration list for PBXProject "indexer" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 675340911A3F53CB00A0A8C3;
 			productRefGroup = 6753409B1A3F53CB00A0A8C3 /* Products */;
@@ -1106,6 +1106,7 @@
 		670C612A1AB0661100C38A8C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "";
@@ -1117,6 +1118,7 @@
 		670C612B1AB0661100C38A8C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "";
@@ -1133,6 +1135,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -1144,6 +1147,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -1173,6 +1177,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};
@@ -1188,6 +1193,7 @@
 		A8E541581F9FBDA300A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "";

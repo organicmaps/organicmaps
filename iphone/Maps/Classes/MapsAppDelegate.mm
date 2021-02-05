@@ -672,7 +672,7 @@ using namespace osm_auth_ios;
     NSURL *deeplinkUrl = [NSURL URLWithString:deeplink];
     if (deeplinkUrl != nil) {
       dispatch_async(dispatch_get_main_queue(), ^{
-        [[DeepLinkHandler shared] applicationDidReceiveUniversalLink:deeplinkUrl provider:DeepLinkProviderAppsflyer];
+        (void)[[DeepLinkHandler shared] applicationDidReceiveUniversalLink:deeplinkUrl provider:DeepLinkProviderAppsflyer];
       });
     }
   }

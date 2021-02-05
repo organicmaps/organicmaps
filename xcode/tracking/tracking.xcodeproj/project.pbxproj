@@ -248,7 +248,7 @@
 		675E88481DB7AC0300F8EBDA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					675E884F1DB7AC0300F8EBDA = {
 						CreatedOnToolsVersion = 8.0;
@@ -262,10 +262,9 @@
 			};
 			buildConfigurationList = 675E884B1DB7AC0300F8EBDA /* Build configuration list for PBXProject "tracking" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -324,6 +323,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558511DBF38A000A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -331,6 +331,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558521DBF38A000A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -356,6 +357,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/OMaps.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "tracking-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -366,6 +368,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/OMaps.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "tracking-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -376,6 +379,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558521DBF38A000A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};
@@ -392,6 +396,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(SRCROOT)/../../iphone/Maps/OMaps.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "tracking-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -830,7 +830,7 @@
 		670947321BDF9B82005014C0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					670947391BDF9B82005014C0 = {
 						CreatedOnToolsVersion = 7.1;
@@ -839,11 +839,11 @@
 			};
 			buildConfigurationList = 670947351BDF9B82005014C0 /* Build configuration list for PBXProject "drape_frontend" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 670947311BDF9B82005014C0;
 			productRefGroup = 6709473B1BDF9B82005014C0 /* Products */;
@@ -966,6 +966,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CC1DBE508400E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
 				ENABLE_TESTABILITY = YES;
 				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -982,6 +983,7 @@
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -989,6 +991,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CC1DBE508400E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"U_DISABLE_RENAMING=1",
@@ -1002,6 +1005,7 @@
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -1027,6 +1031,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CC1DBE508400E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"U_DISABLE_RENAMING=1",
@@ -1039,6 +1044,7 @@
 					"$(OMIM_ROOT)/3party/protobuf",
 					"$(OMIM_ROOT)/3party/freetype/include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};

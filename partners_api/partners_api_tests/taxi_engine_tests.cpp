@@ -23,6 +23,9 @@
 
 using namespace platform::tests_support;
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunreachable-code"
+
 namespace
 {
 class BelarusMinskDelegate : public taxi::Delegate
@@ -601,3 +604,5 @@ UNIT_TEST(TaxiEngine_GetProvidersAtPos)
   TEST_EQUAL(providers[0], taxi::Provider::Type::Citymobil, ());
 }
 }  // namespace
+
+#pragma GCC diagnostic pop

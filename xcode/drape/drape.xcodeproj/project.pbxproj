@@ -615,7 +615,7 @@
 		6729A4E91A691F6A007D5872 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					6729A4F01A691F6A007D5872 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -624,10 +624,11 @@
 			};
 			buildConfigurationList = 6729A4EC1A691F6A007D5872 /* Build configuration list for PBXProject "drape" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 6729A4E81A691F6A007D5872;
 			productRefGroup = 6729A4F21A691F6A007D5872 /* Products */;
@@ -719,6 +720,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CA1DBE4F4900E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
 				ENABLE_TESTABILITY = YES;
 				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -726,6 +728,7 @@
 					"U_DISABLE_RENAMING=1",
 					DEBUG_DRAPE_XCODE,
 				);
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm/",
@@ -736,6 +739,7 @@
 					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
 					"$(OMIM_ROOT)/3party/vulkan_wrapper",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -743,10 +747,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CA1DBE4F4900E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"U_DISABLE_RENAMING=1",
 				);
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm/",
@@ -757,6 +763,7 @@
 					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
 					"$(OMIM_ROOT)/3party/vulkan_wrapper",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -826,10 +833,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CA1DBE4F4900E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_COMMA = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"U_DISABLE_RENAMING=1",
 				);
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm/",
@@ -840,6 +849,7 @@
 					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
 					"$(OMIM_ROOT)/3party/vulkan_wrapper",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};

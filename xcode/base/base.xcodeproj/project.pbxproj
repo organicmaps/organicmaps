@@ -672,7 +672,7 @@
 		6753416F1A3F57BF00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					39FD27061CC65A7100AFF551 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -685,10 +685,9 @@
 			};
 			buildConfigurationList = 675341721A3F57BF00A0A8C3 /* Build configuration list for PBXProject "base" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -813,6 +812,7 @@
 		39FD271C1CC65A7100AFF551 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
@@ -826,6 +826,7 @@
 		39FD271D1CC65A7100AFF551 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
@@ -842,6 +843,7 @@
 			baseConfigurationReference = 34BA2D6A1DBE169E00FAB345 /* common-debug.xcconfig */;
 			buildSettings = {
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -850,6 +852,7 @@
 			baseConfigurationReference = 34BA2D6B1DBE169E00FAB345 /* common-release.xcconfig */;
 			buildSettings = {
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -874,6 +877,7 @@
 			baseConfigurationReference = 34BA2D6B1DBE169E00FAB345 /* common-release.xcconfig */;
 			buildSettings = {
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};
@@ -888,6 +892,7 @@
 		A8E5413F1F9FBD6300A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",

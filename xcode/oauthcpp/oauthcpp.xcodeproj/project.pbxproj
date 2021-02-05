@@ -123,7 +123,7 @@
 		340C20E71C3E5E5000111D22 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					340C20EE1C3E5E5000111D22 = {
 						CreatedOnToolsVersion = 7.2;
@@ -132,10 +132,11 @@
 			};
 			buildConfigurationList = 340C20EA1C3E5E5000111D22 /* Build configuration list for PBXProject "oauthcpp" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 340C20E61C3E5E5000111D22;
 			productRefGroup = 340C20F01C3E5E5000111D22 /* Products */;
@@ -172,6 +173,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/liboauthcpp/include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -184,6 +186,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/liboauthcpp/include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -212,6 +215,7 @@
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/liboauthcpp/include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};

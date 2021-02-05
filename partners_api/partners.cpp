@@ -57,6 +57,8 @@ PartnerInfo::PartnerInfo(int partnerIndex, std::string && name)
 
 std::string const & PartnerInfo::GetBannerPlacementId() const
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunreachable-code"
 #if defined(OMIM_OS_IPHONE)
   return m_iosBannerPlacementId;
 #elif defined(OMIM_OS_ANDROID)
@@ -64,6 +66,7 @@ std::string const & PartnerInfo::GetBannerPlacementId() const
 #endif
   static std::string kEmptyStr;
   return kEmptyStr;
+#pragma GCC diagnostic pop
 }
 
 PartnerChecker::PartnerChecker()

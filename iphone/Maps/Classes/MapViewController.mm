@@ -456,6 +456,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   switch (todo) {
     case Framework::DoAfterUpdate::Nothing:
       break;
+    case Framework::DoAfterUpdate::Migrate:
+      break;
     case Framework::DoAfterUpdate::AutoupdateMaps:
     case Framework::DoAfterUpdate::AskForUpdateMaps:
       [self presentViewController:[MWMAutoupdateController instanceWithPurpose:todo] animated:YES completion:nil];

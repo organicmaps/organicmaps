@@ -301,7 +301,7 @@
 		F6F8E39C1EF83D7600F2DE8F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					670E7B7B1EF97C1000A8E9ED = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -315,10 +315,9 @@
 			};
 			buildConfigurationList = F6F8E39F1EF83D7600F2DE8F /* Build configuration list for PBXProject "ugc" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -376,6 +375,7 @@
 		670E7B901EF97C1000A8E9ED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.ugc-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -385,6 +385,7 @@
 		670E7B911EF97C1000A8E9ED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.ugc-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -401,6 +402,7 @@
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = "Production Full";
 		};
@@ -415,6 +417,7 @@
 		A8E541001F9FBBB600A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.ugc-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -431,6 +434,7 @@
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -444,6 +448,7 @@
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};

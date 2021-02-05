@@ -56,7 +56,7 @@
 		45B5B5A61CA422EE00D93E36 /* resources-xxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5A11CA422EE00D93E36 /* resources-xxhdpi_dark */; };
 		45D7ADA4210B519300160DE3 /* bookmark_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADA2210B519300160DE3 /* bookmark_dialog.cpp */; };
 		4740186723F5BF3900A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186623F5BF3900A93C81 /* minizip.framework */; };
-		4740186823F5BF3900A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186623F5BF3900A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4740186823F5BF3900A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740186623F5BF3900A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		670D05931B0CBD320013A7AC /* about.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753456D1A404CB200A0A8C3 /* about.hpp */; };
 		670D05941B0CBD320013A7AC /* info_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345731A404CB200A0A8C3 /* info_dialog.hpp */; };
 		670D05951B0CBD320013A7AC /* preferences_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345781A404CB200A0A8C3 /* preferences_dialog.hpp */; };
@@ -712,21 +712,20 @@
 		675345411A404C6100A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					675345481A404C6100A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 3T6FSDE8C7;
+						DevelopmentTeam = W55CJ2SCF7;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "qtMapsMe" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -861,6 +860,7 @@
 					"$(OMIM_ROOT)/3party/gflags/src",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				SUPPORTED_PLATFORMS = macosx;
 				SYMROOT = build;
@@ -890,6 +890,7 @@
 					"$(OMIM_ROOT)/3party/gflags/src",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				SUPPORTED_PLATFORMS = macosx;
 				SYMROOT = build;
@@ -900,15 +901,17 @@
 		675345671A404C6100A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
+				DEVELOPMENT_TEAM = W55CJ2SCF7;
+				ENABLE_HARDENED_RUNTIME = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "mail.$(PRODUCT_NAME:rfc1034identifier)";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.desktop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -917,10 +920,11 @@
 		675345681A404C6100A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
+				DEVELOPMENT_TEAM = W55CJ2SCF7;
+				ENABLE_HARDENED_RUNTIME = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -931,7 +935,8 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "mail.$(PRODUCT_NAME:rfc1034identifier)";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = app.omaps.desktop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
