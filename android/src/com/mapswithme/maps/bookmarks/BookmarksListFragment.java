@@ -748,10 +748,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
             getLastSortingType(), requireActivity(), getChildFragmentManager());
         return false;
 
-      case R.id.sharing_options:
-        openSharingOptionsScreen();
-        trackBookmarkListSharingOptions();
-        return false;
+//      case R.id.sharing_options:
+//        openSharingOptionsScreen();
+//        trackBookmarkListSharingOptions();
+//        return false;
 
       case R.id.share_category:
         long catId = mCategoryDataSource.getData().getId();
@@ -820,7 +820,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
 
       if (isDownloadedCategory())
       {
-        bs.getMenu().findItem(R.id.sharing_options).setVisible(false);
+//        bs.getMenu().findItem(R.id.sharing_options).setVisible(false);
         bs.getMenu().findItem(R.id.share_category).setVisible(false);
         bs.getMenu().findItem(R.id.settings).setVisible(false);
       }
