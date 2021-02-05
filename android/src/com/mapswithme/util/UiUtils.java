@@ -23,8 +23,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -307,9 +305,9 @@ public final class UiUtils
     return rotation;
   }
 
-  public static boolean isTablet(@NonNull Context context)
+  public static boolean isTablet()
   {
-    return MwmApplication.from(context).getResources().getBoolean(R.bool.tabletLayout);
+    return MwmApplication.get().getResources().getBoolean(R.bool.tabletLayout);
   }
 
   public static int dimen(@NonNull Context context, @DimenRes int id)

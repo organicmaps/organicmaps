@@ -66,10 +66,10 @@ public enum TrackRecorder implements Initializable<Context>
   {
     LOGGER.d(TAG, "Initialization of track recorder and setting the listener for track changes");
     mContext = context;
-    mAlarmManager = (AlarmManager) MwmApplication.from(context)
+    mAlarmManager = (AlarmManager) MwmApplication.get()
                                                  .getSystemService(Context.ALARM_SERVICE);
 
-    MwmApplication.backgroundTracker(context).addListener(foreground -> {
+    MwmApplication.backgroundTracker().addListener(foreground -> {
       LOGGER.d(TAG, "Transit to foreground: " + foreground);
 
       UiThread.cancelDelayedTasks(mStartupAwaitProc);
@@ -101,8 +101,8 @@ public enum TrackRecorder implements Initializable<Context>
 
   private PendingIntent getAlarmIntent()
   {
-    Intent intent = new Intent(MwmApplication.from(mContext), TrackRecorderWakeReceiver.class);
-    return PendingIntent.getBroadcast(MwmApplication.from(mContext), 0, intent, 0);
+    Intent intent = new Intent(MwmApplication.get(), TrackRecorderWakeReceiver.class);
+    return PendingIntent.getBroadcast(MwmApplication.get(), 0, intent, 0);
   }
 
   private void restartAlarmIfEnabled()
@@ -157,7 +157,7 @@ public enum TrackRecorder implements Initializable<Context>
 
     UiThread.cancelDelayedTasks(mStartupAwaitProc);
 
-    if (nativeIsEnabled() && !MwmApplication.backgroundTracker(mContext).isForeground())
+    if (nativeIsEnabled() && !MwmApplication.backgroundTracker().isForeground())
       TrackRecorderWakeService.start(mContext);
     else
       stop();
@@ -165,7 +165,7 @@ public enum TrackRecorder implements Initializable<Context>
 
   long getAwaitTimeout()
   {
-    return MwmApplication.prefs(mContext).getLong(LOCATION_TIMEOUT_STORED_KEY, LOCATION_TIMEOUT_MIN_MS);
+    return MwmApplication.prefs().getLong(LOCATION_TIMEOUT_STORED_KEY, LOCATION_TIMEOUT_MIN_MS);
   }
 
   private void setAwaitTimeout(long timeout)
@@ -173,7 +173,7 @@ public enum TrackRecorder implements Initializable<Context>
     LOGGER.d(TAG, "setAwaitTimeout(): " + timeout);
 
     if (timeout != getAwaitTimeout())
-      MwmApplication.prefs(mContext).edit().putLong(LOCATION_TIMEOUT_STORED_KEY, timeout).apply();
+      MwmApplication.prefs().edit().putLong(LOCATION_TIMEOUT_STORED_KEY, timeout).apply();
   }
 
   void incrementAwaitTimeout()
@@ -205,7 +205,7 @@ public enum TrackRecorder implements Initializable<Context>
       LOGGER.d(TAG, "onServiceStopped(): actually runs here");
       LocationHelper.INSTANCE.removeListener(mLocationListener);
 
-      if (!MwmApplication.backgroundTracker(mContext).isForeground())
+      if (!MwmApplication.backgroundTracker().isForeground())
         restartAlarmIfEnabled();
     });
   }

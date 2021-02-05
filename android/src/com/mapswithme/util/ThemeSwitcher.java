@@ -27,8 +27,8 @@ public enum ThemeSwitcher implements Initializable<Context>
     @Override
     public void run()
     {
-      String nightTheme = MwmApplication.from(mContext).getString(R.string.theme_night);
-      String defaultTheme = MwmApplication.from(mContext).getString(R.string.theme_default);
+      String nightTheme = MwmApplication.get().getString(R.string.theme_night);
+      String defaultTheme = MwmApplication.get().getString(R.string.theme_default);
       String theme = defaultTheme;
 
       if (RoutingController.get().isNavigating())
@@ -117,7 +117,7 @@ public enum ThemeSwitcher implements Initializable<Context>
 
       DownloaderStatusIcon.clearCache();
 
-      Activity a = MwmApplication.backgroundTracker(mContext).getTopActivity();
+      Activity a = MwmApplication.backgroundTracker().getTopActivity();
       if (a != null && !a.isFinishing())
         a.recreate();
     }

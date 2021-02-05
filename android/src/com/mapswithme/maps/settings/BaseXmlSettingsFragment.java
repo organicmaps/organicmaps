@@ -9,7 +9,6 @@ import androidx.preference.PreferenceFragmentCompat;
 import android.view.View;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -28,7 +27,7 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
   public void onAttach(Context context)
   {
     super.onAttach(context);
-    Utils.detachFragmentIfCoreNotInitialized(context, this);
+    Utils.detachFragmentIfCoreNotInitialized(this);
   }
 
   @Override

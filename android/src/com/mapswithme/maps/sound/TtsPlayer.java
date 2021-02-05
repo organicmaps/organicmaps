@@ -48,10 +48,6 @@ public enum TtsPlayer implements Initializable<Context>
   private TextToSpeech mTts;
   private boolean mInitializing;
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private Context mContext;
-
   // TTS is locked down due to absence of supported languages
   private boolean mUnavailable;
 
@@ -144,8 +140,6 @@ public enum TtsPlayer implements Initializable<Context>
   @Override
   public void initialize(@Nullable Context context)
   {
-    mContext = context;
-
     if (mTts != null || mInitializing || mUnavailable)
       return;
 
@@ -235,7 +229,7 @@ public enum TtsPlayer implements Initializable<Context>
 
   private boolean getUsableLanguages(List<LanguageData> outList)
   {
-    Resources resources = MwmApplication.from(mContext).getResources();
+    Resources resources = MwmApplication.get().getResources();
     String[] codes = resources.getStringArray(R.array.tts_languages_supported);
     String[] names = resources.getStringArray(R.array.tts_language_names);
 

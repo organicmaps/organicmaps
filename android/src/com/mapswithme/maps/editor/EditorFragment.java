@@ -347,8 +347,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     {
       final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(openingHours);
       String content = timetables == null ? openingHours
-                                          : TimeFormatUtils.formatTimetables(requireContext(),
-                                                                             timetables);
+                                          : TimeFormatUtils.formatTimetables(timetables);
       UiUtils.hide(mEmptyOpeningHours);
       UiUtils.setTextAndShow(mOpeningHours, content);
       UiUtils.show(mEditOpeningHours);

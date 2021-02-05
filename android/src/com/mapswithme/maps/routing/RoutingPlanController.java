@@ -111,8 +111,7 @@ public class RoutingPlanController extends ToolbarController
 
     btn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity()));
     mDriverOptionsLayoutListener = new SelfTerminatedDrivingOptionsLayoutListener();
-    mAnimToggle = MwmApplication.from(activity.getApplicationContext())
-                                .getResources().getInteger(R.integer.anim_default);
+    mAnimToggle = MwmApplication.get().getResources().getInteger(R.integer.anim_default);
   }
 
   @NonNull

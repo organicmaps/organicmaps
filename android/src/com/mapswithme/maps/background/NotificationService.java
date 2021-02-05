@@ -52,16 +52,15 @@ public class NotificationService extends JobIntentService
       return false;
     }
 
-    final long lastEventTimestamp = prefs(this)
-        .getLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, 0);
+    final long lastEventTimestamp = prefs().getLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, 0);
 
     if (System.currentTimeMillis() - lastEventTimestamp > MIN_AUTH_EVENT_DELTA_MILLIS)
     {
       LOGGER.d(TAG, "Authentication notification will be sent.");
 
-      prefs(this).edit()
-                                    .putLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, System.currentTimeMillis())
-                                    .apply();
+      prefs().edit()
+              .putLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, System.currentTimeMillis())
+              .apply();
 
       Notifier notifier = Notifier.from(getApplication());
       notifier.notifyAuthentication();
@@ -75,7 +74,7 @@ public class NotificationService extends JobIntentService
 
   private boolean notifySmart()
   {
-    if (MwmApplication.backgroundTracker(getApplication()).isForeground())
+    if (MwmApplication.backgroundTracker().isForeground())
       return false;
 
     NotificationCandidate candidate = LightFramework.nativeGetNotification();
@@ -111,14 +110,14 @@ public class NotificationService extends JobIntentService
     }
 
     // Do not show push when user is in the navigation mode.
-    if (MwmApplication.from(this).arePlatformAndCoreInitialized()
+    if (MwmApplication.get().arePlatformAndCoreInitialized()
         && RoutingController.get().isNavigating())
     {
       LOGGER.d(TAG, "Notification is rejected. The user is in navigation mode.");
       return;
     }
 
-    final NotificationExecutor notifyOrder[] =
+    final NotificationExecutor[] notifyOrder =
     {
       this::notifyIsNotAuthenticated,
       this::notifySmart

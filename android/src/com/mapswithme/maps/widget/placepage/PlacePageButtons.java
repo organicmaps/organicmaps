@@ -91,7 +91,7 @@ public final class PlacePageButtons
       }
 
       @DrawableRes
-      public int getEnabledStateResId(@NonNull Context context)
+      public int getEnabledStateResId()
       {
         return mEnabledStateResId;
       }
@@ -110,7 +110,7 @@ public final class PlacePageButtons
         }
 
         @Override
-        public int getEnabledStateResId(@NonNull Context context)
+        public int getEnabledStateResId()
         {
           throw new UnsupportedOperationException("Not supported here");
         }
@@ -294,9 +294,9 @@ public final class PlacePageButtons
         new ImageResources.Stub()
         {
           @Override
-          public int getEnabledStateResId(@NonNull Context context)
+          public int getEnabledStateResId()
           {
-            return ThemeUtils.getResource(MwmApplication.from(context),
+            return ThemeUtils.getResource(MwmApplication.get(),
                                           android.R.attr.homeAsUpIndicator);
           }
         },
@@ -494,7 +494,7 @@ public final class PlacePageButtons
     for (int i = mMaxButtons; i < buttons.size(); i++)
     {
       PlacePageButton bsItem = buttons.get(i);
-      int iconRes = bsItem.getIcon().getEnabledStateResId(mPlacePage.getContext());
+      int iconRes = bsItem.getIcon().getEnabledStateResId();
       bs.sheet(i, iconRes, bsItem.getTitle());
     }
 
@@ -522,7 +522,7 @@ public final class PlacePageButtons
     TextView title = (TextView) parent.findViewById(R.id.title);
 
     title.setText(current.getTitle());
-    icon.setImageResource(current.getIcon().getEnabledStateResId(context));
+    icon.setImageResource(current.getIcon().getEnabledStateResId());
     mItemListener.onPrepareVisibleView(current, parent, icon, title);
     parent.setOnClickListener(new ShowPopupClickListener(current, items));
     return parent;

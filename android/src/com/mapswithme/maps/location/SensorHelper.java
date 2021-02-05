@@ -48,9 +48,9 @@ class SensorHelper implements SensorEventListener
   @Override
   public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
-  SensorHelper(@NonNull Context context)
+  SensorHelper()
   {
-    mMwmApplication = MwmApplication.from(context);
+    mMwmApplication = MwmApplication.get();
     mSensorManager = (SensorManager) mMwmApplication.getSystemService(Context.SENSOR_SERVICE);
     if (mSensorManager != null)
       mRotation = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);

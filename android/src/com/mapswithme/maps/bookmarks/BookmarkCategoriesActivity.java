@@ -88,13 +88,13 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
 
   public static void startForResult(@NonNull Activity context)
   {
-    int initialPage = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(context);
+    int initialPage = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage();
     startForResult(context, initialPage, null, null);
   }
 
   public static void startForResult(@NonNull Activity context, @Nullable BookmarkCategory category)
   {
-    int initialPage = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(context);
+    int initialPage = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage();
     startForResult(context, initialPage, null, category);
   }
 }

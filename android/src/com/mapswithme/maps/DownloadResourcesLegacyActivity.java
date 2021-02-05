@@ -266,7 +266,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   private void setDownloadMessage(int bytesToDownload)
   {
     mTvMessage.setText(getString(R.string.download_resources,
-                                 StringUtils.getFileSizeString(this, bytesToDownload)));
+                                 StringUtils.getFileSizeString(bytesToDownload)));
   }
 
   private boolean prepareFilesDownload(boolean showMap)
@@ -461,7 +461,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     if (intent == null)
       return null;
 
-    MwmApplication application = MwmApplication.from(this);
+    MwmApplication application = MwmApplication.get();
     intent.putExtra(Factory.EXTRA_IS_FIRST_LAUNCH, application.isFirstLaunch());
     if (intent.getData() == null)
     {

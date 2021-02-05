@@ -64,7 +64,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
         mRating = rating;
         if (rating >= BuildConfig.RATING_THRESHOLD)
         {
-          Counters.setRatingApplied(requireContext(), RateStoreDialogFragment.class);
+          Counters.setRatingApplied(RateStoreDialogFragment.class);
           dismiss();
           Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
         }
@@ -115,7 +115,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
       long installTime = 0;
       try
       {
-        info = MwmApplication.from(requireContext())
+        info = MwmApplication.get()
                              .getPackageManager()
                              .getPackageInfo(BuildConfig.APPLICATION_ID, 0);
         installTime = info.firstInstallTime;

@@ -95,7 +95,7 @@ public class ExternalLibrariesMediator
   public boolean isCrashlyticsEnabled()
   {
     String prefKey = mApplication.getResources().getString(R.string.pref_opt_out_fabric_activated);
-    return MwmApplication.prefs(mApplication).getBoolean(prefKey, true);
+    return MwmApplication.prefs().getBoolean(prefKey, true);
   }
 
   @NonNull

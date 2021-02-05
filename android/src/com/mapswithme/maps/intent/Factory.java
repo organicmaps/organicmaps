@@ -1334,7 +1334,7 @@ public class Factory
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      Tutorial tutorial = Tutorial.requestCurrent(target, target.getClass());
+      Tutorial tutorial = Tutorial.requestCurrent(target.getClass());
       if (tutorial == Tutorial.STUB)
         return false;
 

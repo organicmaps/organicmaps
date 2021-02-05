@@ -37,7 +37,6 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
-import com.mapswithme.maps.purchase.AdsRemovalPurchaseDialog;
 import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
@@ -595,7 +594,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    if (!SharedPropertiesUtils.shouldShowEmulateBadStorageSetting(requireContext()))
+    if (!SharedPropertiesUtils.shouldShowEmulateBadStorageSetting())
       removePreference(getString(R.string.pref_settings_general), pref);
   }
 
@@ -656,13 +655,13 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    ((TwoStatePreference)pref).setChecked(SharedPropertiesUtils.isStatisticsEnabled(requireContext()));
+    ((TwoStatePreference)pref).setChecked(SharedPropertiesUtils.isStatisticsEnabled());
     pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        Statistics.INSTANCE.setStatEnabled(requireContext(), (Boolean) newValue);
+        Statistics.INSTANCE.setStatEnabled((Boolean) newValue);
         return true;
       }
     });
@@ -689,7 +688,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       {
         boolean enabled = (Boolean) newValue;
         TrackRecorder.INSTANCE.setEnabled(enabled);
-        Statistics.INSTANCE.setStatEnabled(requireContext(), enabled);
+        Statistics.INSTANCE.setStatEnabled(enabled);
         trackPref.setEnabled(enabled);
         if (root != null)
           root.setSummary(enabled ? R.string.on : R.string.off);

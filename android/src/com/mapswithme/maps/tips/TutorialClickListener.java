@@ -27,7 +27,7 @@ public abstract class TutorialClickListener implements View.OnClickListener
   @Override
   public final void onClick(View v)
   {
-    Tutorial tutorial = Tutorial.requestCurrent(mActivity, mActivity.getClass());
+    Tutorial tutorial = Tutorial.requestCurrent(mActivity.getClass());
     if (tutorial == mTutorial && tutorial != Tutorial.STUB)
     {
       MwmActivity mwmActivity = (MwmActivity) mActivity;

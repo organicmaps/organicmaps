@@ -2,7 +2,6 @@ package com.mapswithme.maps.onboarding;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -110,14 +109,14 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
   public static boolean isFirstLaunch(@NonNull FragmentActivity activity)
   {
-    if (Counters.getFirstInstallVersion(activity.getApplicationContext()) < BuildConfig.VERSION_CODE)
+    if (Counters.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
       return false;
 
     FragmentManager fm = activity.getSupportFragmentManager();
     if (fm.isDestroyed())
       return false;
 
-    return !Counters.isFirstStartDialogSeen(activity);
+    return !Counters.isFirstStartDialogSeen();
   }
 
   private static void create(@NonNull FragmentActivity activity, @Nullable Bundle args)
@@ -235,11 +234,11 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   {
     mTermOfUseCheckbox = mContentView.findViewById(R.id.term_of_use_welcome_checkbox);
     mTermOfUseCheckbox.setChecked(
-        SharedPropertiesUtils.isTermOfUseAgreementConfirmed(requireContext()));
+        SharedPropertiesUtils.isTermOfUseAgreementConfirmed());
 
     mPrivacyPolicyCheckbox = mContentView.findViewById(R.id.privacy_policy_welcome_checkbox);
     mPrivacyPolicyCheckbox.setChecked(
-        SharedPropertiesUtils.isPrivacyPolicyAgreementConfirmed(requireContext()));
+        SharedPropertiesUtils.isPrivacyPolicyAgreementConfirmed());
 
     mTermOfUseCheckbox.setOnCheckedChangeListener(
         (buttonView, isChecked) -> onTermsOfUseViewChanged(isChecked));
@@ -255,13 +254,13 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
   private void onPrivacyPolicyViewChanged(boolean isChecked)
   {
-    SharedPropertiesUtils.putPrivacyPolicyAgreement(requireContext(), isChecked);
+    SharedPropertiesUtils.putPrivacyPolicyAgreement(isChecked);
     onCheckedValueChanged(isChecked, mTermOfUseCheckbox.isChecked());
   }
 
   private void onTermsOfUseViewChanged(boolean isChecked)
   {
-    SharedPropertiesUtils.putTermOfUseAgreement(requireContext(), isChecked);
+    SharedPropertiesUtils.putTermOfUseAgreement(isChecked);
     onCheckedValueChanged(isChecked, mPrivacyPolicyCheckbox.isChecked());
   }
 
@@ -308,7 +307,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
   private void onDeclineBtnClicked()
   {
-    Counters.setFirstStartDialogSeen(requireContext());
+    Counters.setFirstStartDialogSeen();
     trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_DECLINE);
     dismissAllowingStateLoss();
   }
@@ -341,7 +340,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     if (mOnboardinStep != null && mOnboardingStepPassedListener != null)
       mOnboardingStepPassedListener.onOnboardingStepPassed(mOnboardinStep);
 
-    Counters.setFirstStartDialogSeen(requireContext());
+    Counters.setFirstStartDialogSeen();
     dismissAllowingStateLoss();
 
     if (mOnboardingStepPassedListener != null)
@@ -352,16 +351,16 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   public void onCancel(DialogInterface dialog)
   {
     super.onCancel(dialog);
-    if (!isAgreementDeclined(requireContext()))
-      Counters.setFirstStartDialogSeen(requireContext());
+    if (!isAgreementDeclined())
+      Counters.setFirstStartDialogSeen();
     if (mOnboardingStepPassedListener != null)
       mOnboardingStepPassedListener.onOnboardingStepCancelled();
   }
 
-  public static boolean isAgreementDeclined(@NonNull Context context)
+  public static boolean isAgreementDeclined()
   {
-    return !SharedPropertiesUtils.isTermOfUseAgreementConfirmed(context)
-           || !SharedPropertiesUtils.isPrivacyPolicyAgreementConfirmed(context);
+    return !SharedPropertiesUtils.isTermOfUseAgreementConfirmed()
+           || !SharedPropertiesUtils.isPrivacyPolicyAgreementConfirmed();
 
   }
 

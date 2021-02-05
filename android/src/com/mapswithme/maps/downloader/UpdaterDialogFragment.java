@@ -181,7 +181,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
     final Bundle args = new Bundle();
     args.putBoolean(ARG_UPDATE_IMMEDIATELY, result == Framework.DO_AFTER_UPDATE_AUTO_UPDATE);
-    args.putString(ARG_TOTAL_SIZE, StringUtils.getFileSizeString(activity.getApplicationContext(), info.totalSize));
+    args.putString(ARG_TOTAL_SIZE, StringUtils.getFileSizeString(info.totalSize));
     args.putLong(ARG_TOTAL_SIZE_BYTES, info.totalSize);
     args.putStringArray(ARG_OUTDATED_MAPS, Framework.nativeGetOutdatedCountries());
 
@@ -379,7 +379,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   {
     return getString(R.string.downloader_percent, progress + "%",
                      localSize / Constants.MB + getString(R.string.mb),
-                     StringUtils.getFileSizeString(requireContext(), remoteSize));
+                     StringUtils.getFileSizeString(remoteSize));
   }
 
   void setProgress(int progress, long localSize, long remoteSize)
@@ -405,7 +405,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   void updateTotalSizes(long totalSize)
   {
-    mTotalSize = StringUtils.getFileSizeString(requireContext(), totalSize);
+    mTotalSize = StringUtils.getFileSizeString(totalSize);
     mTotalSizeBytes = totalSize;
   }
 

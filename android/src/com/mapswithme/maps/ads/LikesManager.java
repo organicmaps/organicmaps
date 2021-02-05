@@ -5,7 +5,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import android.content.Context;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmActivity;
@@ -58,19 +57,18 @@ public enum LikesManager
   private Runnable mLikeRunnable;
   private WeakReference<FragmentActivity> mActivityRef;
 
-  public boolean isNewUser(@NonNull Context context)
+  public boolean isNewUser()
   {
-    return (Counters.getFirstInstallVersion(context) == BuildConfig.VERSION_CODE);
+    return (Counters.getFirstInstallVersion() == BuildConfig.VERSION_CODE);
   }
 
   public void showRateDialogForOldUser(FragmentActivity activity)
   {
-    Context context = activity.getApplicationContext();
-    if (isNewUser(context))
+    if (isNewUser())
       return;
 
     mActivityRef = new WeakReference<>(activity);
-    displayLikeDialog(context, LikeType.GPLAY_OLD_USERS.clazz, LikeType.GPLAY_OLD_USERS.delay);
+    displayLikeDialog(LikeType.GPLAY_OLD_USERS.clazz, LikeType.GPLAY_OLD_USERS.delay);
   }
 
   public void cancelDialogs()
@@ -89,16 +87,15 @@ public enum LikesManager
     return false;
   }
 
-  private void displayLikeDialog(@NonNull Context context,
-                                 final Class<? extends DialogFragment> dialogFragmentClass,
+  private void displayLikeDialog(final Class<? extends DialogFragment> dialogFragmentClass,
                                  final int delayMillis)
   {
-    int sessionCount = Counters.getSessionCount(context);
-    if (Counters.isSessionRated(context, sessionCount) ||
-        Counters.isRatingApplied(context, dialogFragmentClass))
+    int sessionCount = Counters.getSessionCount();
+    if (Counters.isSessionRated(sessionCount) ||
+        Counters.isRatingApplied(dialogFragmentClass))
       return;
 
-    Counters.setRatedSession(context, sessionCount);
+    Counters.setRatedSession(sessionCount);
 
     UiThread.cancelDelayedTasks(mLikeRunnable);
     mLikeRunnable = new Runnable()

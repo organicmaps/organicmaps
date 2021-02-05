@@ -13,7 +13,7 @@ public class BaseMwmFragment extends Fragment implements OnBackPressListener
   public void onAttach(Context context)
   {
     super.onAttach(context);
-    Utils.detachFragmentIfCoreNotInitialized(context, this);
+    Utils.detachFragmentIfCoreNotInitialized(this);
   }
 
   @Override

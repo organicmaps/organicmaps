@@ -24,7 +24,6 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
@@ -175,11 +174,11 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     if (args != null && args.containsKey(ARG_CATEGORIES_PAGE))
     {
       int page = args.getInt(ARG_CATEGORIES_PAGE);
-      SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(requireActivity(), page);
+      SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(page);
       return page;
     }
 
-    return SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(requireActivity());
+    return SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage();
   }
 
   @NonNull
@@ -262,7 +261,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     @Override
     public void onPageSelected(int position)
     {
-      SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(requireActivity(), position);
+      SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(position);
       BookmarksPageFactory factory = mAdapter.getItemFactory(position);
       Statistics.INSTANCE.trackBookmarksTabEvent(factory.getAnalytics().getName());
     }

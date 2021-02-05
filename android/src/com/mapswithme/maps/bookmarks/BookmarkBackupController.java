@@ -200,7 +200,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
   {
     mAuthorizer.attach(this);
     BookmarkManager.INSTANCE.addCloudListener(this);
-    mBackupView.setExpanded(SharedPropertiesUtils.getBackupWidgetExpanded(mContext));
+    mBackupView.setExpanded(SharedPropertiesUtils.getBackupWidgetExpanded());
     updateWidget();
   }
 
@@ -208,7 +208,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
   {
     mAuthorizer.detach();
     BookmarkManager.INSTANCE.removeCloudListener(this);
-    SharedPropertiesUtils.setBackupWidgetExpanded(mContext, mBackupView.getExpanded());
+    SharedPropertiesUtils.setBackupWidgetExpanded(mBackupView.getExpanded());
   }
 
   public void onTargetFragmentResult(int resultCode, @Nullable Intent data)

@@ -12,9 +12,9 @@ public final class CompassData
 {
   private double mNorth;
 
-  public void update(@NonNull Context context, double north)
+  public void update(double north)
   {
-    Activity top = MwmApplication.backgroundTracker(context).getTopActivity();
+    Activity top = MwmApplication.backgroundTracker().getTopActivity();
     if (top == null)
       return;
 

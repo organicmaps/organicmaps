@@ -1,9 +1,7 @@
 package com.mapswithme.maps.editor;
 
-import android.content.Context;
 
 import androidx.annotation.IntDef;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
@@ -73,40 +71,39 @@ public final class OsmOAuth
 
   public static final String URL_PARAM_VERIFIER = "oauth_verifier";
 
-  public static boolean isAuthorized(@NonNull Context context)
+  public static boolean isAuthorized()
   {
-    return MwmApplication.prefs(context).contains(PREF_OSM_TOKEN) &&
-           MwmApplication.prefs(context).contains(PREF_OSM_SECRET);
+    return MwmApplication.prefs().contains(PREF_OSM_TOKEN) &&
+           MwmApplication.prefs().contains(PREF_OSM_SECRET);
   }
 
-  public static String getAuthToken(@NonNull Context context)
+  public static String getAuthToken()
   {
-    return MwmApplication.prefs(context).getString(PREF_OSM_TOKEN, "");
+    return MwmApplication.prefs().getString(PREF_OSM_TOKEN, "");
   }
 
-  public static String getAuthSecret(@NonNull Context context)
+  public static String getAuthSecret()
   {
-    return MwmApplication.prefs(context).getString(PREF_OSM_SECRET, "");
+    return MwmApplication.prefs().getString(PREF_OSM_SECRET, "");
   }
 
-  public static String getUsername(@NonNull Context context)
+  public static String getUsername()
   {
-    return MwmApplication.prefs(context).getString(PREF_OSM_USERNAME, "");
+    return MwmApplication.prefs().getString(PREF_OSM_USERNAME, "");
   }
 
-  public static void setAuthorization(@NonNull Context context, String token,
-                                      String secret, String username)
+  public static void setAuthorization(String token, String secret, String username)
   {
-    MwmApplication.prefs(context).edit()
+    MwmApplication.prefs().edit()
                   .putString(PREF_OSM_TOKEN, token)
                   .putString(PREF_OSM_SECRET, secret)
                   .putString(PREF_OSM_USERNAME, username)
                   .apply();
   }
 
-  public static void clearAuthorization(@NonNull Context context)
+  public static void clearAuthorization()
   {
-    MwmApplication.prefs(context).edit()
+    MwmApplication.prefs().edit()
                   .remove(PREF_OSM_TOKEN)
                   .remove(PREF_OSM_SECRET)
                   .remove(PREF_OSM_USERNAME)

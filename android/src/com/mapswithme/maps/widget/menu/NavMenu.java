@@ -79,8 +79,7 @@ public class NavMenu extends BaseMenu
   public NavMenu(View frame, ItemClickListener<Item> listener)
   {
     super(frame, listener);
-    mAnimationDuration = MwmApplication.from(frame.getContext())
-                                       .getResources().getInteger(R.integer.anim_menu);
+    mAnimationDuration = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
     mContentFrame = mFrame.findViewById(R.id.content_frame);
     mToggleImage = new RotateDrawable(Graphics.tint(mFrame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight));
     ImageView toggle = (ImageView) mLineFrame.findViewById(R.id.toggle);

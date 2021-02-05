@@ -20,7 +20,7 @@ public class StatisticMapTaskWrapper implements MapTask
   public boolean run(@NonNull MwmActivity target)
   {
     boolean success = mMapTask.run(target);
-    boolean firstLaunch = MwmApplication.from(target).isFirstLaunch();
+    boolean firstLaunch = MwmApplication.get().isFirstLaunch();
     if (success)
       Statistics.INSTANCE.trackDeeplinkEvent(Statistics.EventName.DEEPLINK_CALL,
                                              mMapTask.toStatisticParams(), firstLaunch);

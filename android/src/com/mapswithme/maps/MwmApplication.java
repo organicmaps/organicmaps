@@ -58,6 +58,8 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   private Logger mLogger;
   public final static String TAG = "MwmApplication";
 
+  private static MwmApplication instance;
+
   private AppBackgroundTracker mBackgroundTracker;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -112,28 +114,23 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     return mIsolinesManager;
   }
 
-  public MwmApplication()
+  @NonNull
+  public static MwmApplication get()
   {
-    super();
+    return instance;
   }
 
   @NonNull
-  public static MwmApplication from(@NonNull Context context)
+  public static AppBackgroundTracker backgroundTracker()
   {
-    return (MwmApplication) context.getApplicationContext();
+    return instance.getBackgroundTracker();
   }
 
   @NonNull
-  public static AppBackgroundTracker backgroundTracker(@NonNull Context context)
+  public static SharedPreferences prefs()
   {
-    return ((MwmApplication) context.getApplicationContext()).getBackgroundTracker();
-  }
-
-  @NonNull
-  public static SharedPreferences prefs(@NonNull Context context)
-  {
-    String prefFile = context.getString(R.string.pref_file_name);
-    return context.getSharedPreferences(prefFile, MODE_PRIVATE);
+    String prefFile = instance.getString(R.string.pref_file_name);
+    return instance.getSharedPreferences(prefFile, MODE_PRIVATE);
   }
 
   @Override
@@ -148,6 +145,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public void onCreate()
   {
     super.onCreate();
+    instance = this;
     LoggerFactory.INSTANCE.initialize(this);
     mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
     mBackgroundListener = new AppBaseTransitionListener(this);
@@ -157,13 +155,11 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mMediator.initSensitiveDataToleranceLibraries();
     mMediator.initSensitiveDataStrictLibrariesAsync();
     Statistics.INSTANCE.initialize(this);
-    ConnectionState.INSTANCE.initialize(this);
-    CrashlyticsUtils.INSTANCE.initialize(this);
     Statistics.INSTANCE.setMediator(mMediator);
     
     initNotificationChannels();
 
-    mBackgroundTracker = new AppBackgroundTracker(this);
+    mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
@@ -225,9 +221,9 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
                        StorageUtils.getStoragePath(settingsPath),
                        filesPath, tempPath, StorageUtils.getObbGooglePath(),
                        BuildConfig.FLAVOR,
-                       BuildConfig.BUILD_TYPE, UiUtils.isTablet(this));
+                       BuildConfig.BUILD_TYPE, UiUtils.isTablet());
 
-    Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled(this));
+    Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled());
 
     if (!isInstallationIdFound)
       mMediator.setInstallationIdToCrashlytics();
@@ -242,7 +238,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
                                             @NonNull String filesPath,
                                             @NonNull String tempPath)
   {
-    if (SharedPropertiesUtils.shouldEmulateBadExternalStorage(this))
+    if (SharedPropertiesUtils.shouldEmulateBadExternalStorage())
       return false;
 
     return StorageUtils.createDirectory(this, settingsPath) &&
@@ -330,9 +326,9 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     return mPurchaseOperationObservable;
   }
 
-  public static void onUpgrade(@NonNull Context context)
+  public static void onUpgrade()
   {
-    Counters.resetAppSessionCounters(context);
+    Counters.resetAppSessionCounters();
   }
 
   @SuppressWarnings("unused")
@@ -409,7 +405,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     @Override
     public void onVisibleAppLaunch()
     {
-      Statistics.INSTANCE.trackColdStartupInfo(MwmApplication.this);
+      Statistics.INSTANCE.trackColdStartupInfo();
     }
   }
 

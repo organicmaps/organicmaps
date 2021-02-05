@@ -29,7 +29,7 @@ public abstract class AbstractLogBroadcastReceiver extends BroadcastReceiver
     }
 
     String msg = "onReceive: " + intent + " app in background = "
-                 + !backgroundTracker(context).isForeground();
+                 + !backgroundTracker().isForeground();
     LOGGER.i(getTag(), msg);
     CrashlyticsUtils.INSTANCE.log(Log.INFO, getTag(), msg);
     onReceiveInternal(context, intent);

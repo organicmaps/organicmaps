@@ -112,8 +112,8 @@ public enum Mode
 
   public abstract void toggle(@NonNull Context context);
 
-  public boolean isNew(@NonNull Context context)
+  public boolean isNew()
   {
-    return SharedPropertiesUtils.shouldShowNewMarkerForLayerMode(context, this);
+    return SharedPropertiesUtils.shouldShowNewMarkerForLayerMode(this);
   }
 }

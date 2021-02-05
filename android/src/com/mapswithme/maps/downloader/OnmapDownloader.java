@@ -166,7 +166,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           }
           else
           {
-            sizeText = StringUtils.getFileSizeString(mActivity.getApplicationContext(), mCurrentCountry.totalSize);
+            sizeText = StringUtils.getFileSizeString(mCurrentCountry.totalSize);
 
             if (shouldAutoDownload &&
                 Config.isAutodownloadEnabled() &&

@@ -33,7 +33,7 @@ public class TrackRecorderWakeService extends JobIntentService
   protected void onHandleWork(@NonNull Intent intent)
   {
     String msg = "onHandleIntent: " + intent + " app in background = "
-                 + !MwmApplication.backgroundTracker(getApplicationContext()).isForeground();
+                 + !MwmApplication.backgroundTracker().isForeground();
     LOGGER.i(TAG, msg);
     CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
 

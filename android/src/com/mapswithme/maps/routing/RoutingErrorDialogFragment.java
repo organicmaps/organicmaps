@@ -33,7 +33,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     super.beforeDialogCreated(builder);
 
     ResultCodesHelper.ResourcesHolder resHolder =
-        ResultCodesHelper.getDialogTitleSubtitle(requireContext(), mResultCode, mMissingMaps.size());
+        ResultCodesHelper.getDialogTitleSubtitle(mResultCode, mMissingMaps.size());
     Pair<String, String> titleMessage = resHolder.getTitleMessage();
 
     builder.setTitle(titleMessage.first);

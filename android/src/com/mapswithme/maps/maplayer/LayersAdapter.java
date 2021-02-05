@@ -53,8 +53,7 @@ public class LayersAdapter extends RecyclerView.Adapter<LayerHolder>
     holder.mButton.setSelected(isEnabled);
     holder.mTitle.setSelected(isEnabled);
     holder.mTitle.setText(item.getTitle());
-    boolean isNewLayer = SharedPropertiesUtils.shouldShowNewMarkerForLayerMode(context,
-                                                                               item.getMode());
+    boolean isNewLayer = SharedPropertiesUtils.shouldShowNewMarkerForLayerMode(item.getMode());
     UiUtils.showIf(isNewLayer, holder.mNewMarker);
     holder.mButton.setImageResource(isEnabled ? item.getEnabledStateDrawable()
                                               : item.getDisabledStateDrawable());

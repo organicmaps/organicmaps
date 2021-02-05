@@ -41,7 +41,7 @@ public final class MytargetHelper
     void onDataReady(@Nullable T data);
   }
 
-  public MytargetHelper(final @NonNull Listener<Void> listener, @NonNull Context context)
+  public MytargetHelper(final @NonNull Listener<Void> listener)
   {
     if (!ConnectionState.INSTANCE.isConnected())
     {
@@ -54,7 +54,7 @@ public final class MytargetHelper
       @Override
       public void run()
       {
-        final boolean showShowcase = getShowcaseSetting(context);
+        final boolean showShowcase = getShowcaseSetting();
 
         if (mCancelled)
           return;
@@ -83,12 +83,12 @@ public final class MytargetHelper
   }
 
   @WorkerThread
-  private static boolean getShowcaseSetting(@NonNull Context context)
+  private static boolean getShowcaseSetting()
   {
-    final long lastCheckMillis = prefs(context).getLong(PREF_CHECK_MILLIS, 0);
+    final long lastCheckMillis = prefs().getLong(PREF_CHECK_MILLIS, 0);
     final long currentMillis = System.currentTimeMillis();
     if (currentMillis - lastCheckMillis < CHECK_INTERVAL_MILLIS)
-      return isShowcaseSwitchedOnServer(context);
+      return isShowcaseSwitchedOnServer();
 
     HttpURLConnection connection = null;
     try
@@ -103,7 +103,7 @@ public final class MytargetHelper
       connection.connect();
 
       final boolean showShowcase = connection.getResponseCode() == HttpURLConnection.HTTP_OK;
-      setShowcaseSwitchedOnServer(showShowcase, context);
+      setShowcaseSwitchedOnServer(showShowcase);
 
       return showShowcase;
     } catch (MalformedURLException ignored)
@@ -181,14 +181,14 @@ public final class MytargetHelper
       mShowcase.handleBannerClick(banner);
   }
 
-  public static boolean isShowcaseSwitchedOnServer(@NonNull Context context)
+  public static boolean isShowcaseSwitchedOnServer()
   {
-    return prefs(context).getBoolean(PREF_CHECK, true);
+    return prefs().getBoolean(PREF_CHECK, true);
   }
 
-  private static void setShowcaseSwitchedOnServer(boolean switchedOn, @NonNull Context context)
+  private static void setShowcaseSwitchedOnServer(boolean switchedOn)
   {
-    prefs(context).edit()
+    prefs().edit()
                   .putLong(PREF_CHECK_MILLIS, System.currentTimeMillis())
                   .putBoolean(PREF_CHECK, switchedOn)
                   .apply();

@@ -1,6 +1,5 @@
 package com.mapswithme.util;
 
-import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
@@ -28,59 +27,59 @@ public final class Counters
 
   private Counters() {}
 
-  public static void initCounters(@NonNull Context context)
+  public static void initCounters()
   {
-    PreferenceManager.setDefaultValues(context, R.xml.prefs_main, false);
-    updateLaunchCounter(context);
+    PreferenceManager.setDefaultValues(MwmApplication.get(), R.xml.prefs_main, false);
+    updateLaunchCounter();
   }
 
-  public static int getFirstInstallVersion(@NonNull Context context)
+  public static int getFirstInstallVersion()
   {
-    return MwmApplication.prefs(context).getInt(KEY_APP_FIRST_INSTALL_VERSION, 0);
+    return MwmApplication.prefs().getInt(KEY_APP_FIRST_INSTALL_VERSION, 0);
   }
 
-  public static boolean isFirstStartDialogSeen(@NonNull Context context)
+  public static boolean isFirstStartDialogSeen()
   {
-    return MwmApplication.prefs(context).getBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, false);
+    return MwmApplication.prefs().getBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, false);
   }
 
-  public static void setFirstStartDialogSeen(@NonNull Context context)
+  public static void setFirstStartDialogSeen()
   {
-    MwmApplication.prefs(context)
+    MwmApplication.prefs()
                   .edit()
                   .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true)
                   .apply();
   }
 
 
-  public static void setWhatsNewShown(@NonNull Context context)
+  public static void setWhatsNewShown()
   {
-    MwmApplication.prefs(context)
+    MwmApplication.prefs()
                   .edit()
                   .putInt(KEY_MISC_NEWS_LAST_VERSION, BuildConfig.VERSION_CODE)
                   .apply();
   }
 
-  public static void resetAppSessionCounters(@NonNull Context context)
+  public static void resetAppSessionCounters()
   {
-    MwmApplication.prefs(context).edit()
+    MwmApplication.prefs().edit()
                   .putInt(KEY_APP_LAUNCH_NUMBER, 0)
                   .putInt(KEY_APP_SESSION_NUMBER, 0)
                   .putLong(KEY_APP_LAST_SESSION_TIMESTAMP, 0L)
                   .putInt(KEY_LIKES_LAST_RATED_SESSION, 0)
                   .apply();
-    incrementSessionNumber(context);
+    incrementSessionNumber();
   }
 
-  public static boolean isSessionRated(@NonNull Context context, int session)
+  public static boolean isSessionRated(int session)
   {
-    return (MwmApplication.prefs(context).getInt(KEY_LIKES_LAST_RATED_SESSION,
+    return (MwmApplication.prefs().getInt(KEY_LIKES_LAST_RATED_SESSION,
                                                  0) >= session);
   }
 
-  public static void setRatedSession(@NonNull Context context, int session)
+  public static void setRatedSession(int session)
   {
-    MwmApplication.prefs(context).edit()
+    MwmApplication.prefs().edit()
                   .putInt(KEY_LIKES_LAST_RATED_SESSION, session)
                   .apply();
   }
@@ -88,108 +87,106 @@ public final class Counters
   /**
    * Session = single day, when app was started any number of times.
    */
-  public static int getSessionCount(@NonNull Context context)
+  public static int getSessionCount()
   {
-    return MwmApplication.prefs(context).getInt(KEY_APP_SESSION_NUMBER, 0);
+    return MwmApplication.prefs().getInt(KEY_APP_SESSION_NUMBER, 0);
   }
 
-  public static boolean isRatingApplied(@NonNull Context context,
-                                        Class<? extends DialogFragment> dialogFragmentClass)
+  public static boolean isRatingApplied(Class<? extends DialogFragment> dialogFragmentClass)
   {
-    return MwmApplication.prefs(context)
+    return MwmApplication.prefs()
                          .getBoolean(KEY_LIKES_RATED_DIALOG + dialogFragmentClass.getSimpleName(),
                                      false);
   }
 
-  public static void setRatingApplied(@NonNull Context context,
-                                      Class<? extends DialogFragment> dialogFragmentClass)
+  public static void setRatingApplied(Class<? extends DialogFragment> dialogFragmentClass)
   {
-    MwmApplication.prefs(context).edit()
+    MwmApplication.prefs().edit()
                   .putBoolean(KEY_LIKES_RATED_DIALOG + dialogFragmentClass.getSimpleName(), true)
                   .apply();
   }
 
-  public static String getInstallFlavor(@NonNull Context context)
+  public static String getInstallFlavor()
   {
-    return MwmApplication.prefs(context).getString(KEY_APP_FIRST_INSTALL_FLAVOR, "");
+    return MwmApplication.prefs().getString(KEY_APP_FIRST_INSTALL_FLAVOR, "");
   }
 
-  private static void updateLaunchCounter(@NonNull Context context)
+  private static void updateLaunchCounter()
   {
-    if (incrementLaunchNumber(context) == 0)
+    if (incrementLaunchNumber() == 0)
     {
-      if (getFirstInstallVersion(context) == 0)
+      if (getFirstInstallVersion() == 0)
       {
-        MwmApplication.prefs(context)
+        MwmApplication.prefs()
                       .edit()
                       .putInt(KEY_APP_FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE)
                       .apply();
       }
 
-      updateInstallFlavor(context);
+      updateInstallFlavor();
     }
 
-    incrementSessionNumber(context);
+    incrementSessionNumber();
   }
 
-  private static int incrementLaunchNumber(@NonNull Context context)
+  private static int incrementLaunchNumber()
   {
-    return increment(context, KEY_APP_LAUNCH_NUMBER);
+    return increment(KEY_APP_LAUNCH_NUMBER);
   }
 
-  private static void updateInstallFlavor(@NonNull Context context)
+  private static void updateInstallFlavor()
   {
-    String installedFlavor = getInstallFlavor(context);
+    String installedFlavor = getInstallFlavor();
     if (TextUtils.isEmpty(installedFlavor))
     {
-      MwmApplication.prefs(context).edit()
+      MwmApplication.prefs().edit()
                     .putString(KEY_APP_FIRST_INSTALL_FLAVOR, BuildConfig.FLAVOR)
                     .apply();
     }
   }
 
-  private static void incrementSessionNumber(@NonNull Context context)
+  private static void incrementSessionNumber()
   {
-    long lastSessionTimestamp = MwmApplication.prefs(context)
+    long lastSessionTimestamp = MwmApplication.prefs()
                                               .getLong(KEY_APP_LAST_SESSION_TIMESTAMP, 0);
     if (DateUtils.isToday(lastSessionTimestamp))
       return;
 
-    MwmApplication.prefs(context).edit()
+    MwmApplication.prefs().edit()
                   .putLong(KEY_APP_LAST_SESSION_TIMESTAMP, System.currentTimeMillis())
                   .apply();
-    increment(context, KEY_APP_SESSION_NUMBER);
+    increment(KEY_APP_SESSION_NUMBER);
   }
 
-  private static int increment(@NonNull Context context, @NonNull String key)
+  private static int increment(@NonNull String key)
   {
-    int value = MwmApplication.prefs(context).getInt(key, 0);
-    MwmApplication.prefs(context).edit()
+    int value = MwmApplication.prefs().getInt(key, 0);
+    MwmApplication.prefs().edit()
                   .putInt(key, ++value)
                   .apply();
     return value;
   }
 
-  public static void setShowReviewForOldUser(@NonNull Context context, boolean value)
+  public static void setShowReviewForOldUser(boolean value)
   {
-    MwmApplication.prefs(context).edit()
+    MwmApplication.prefs().edit()
                   .putBoolean(KEY_SHOW_REVIEW_FOR_OLD_USER, value)
                   .apply();
   }
 
-  public static boolean isShowReviewForOldUser(@NonNull Context context)
+  public static boolean isShowReviewForOldUser()
   {
-    return MwmApplication.prefs(context).getBoolean(KEY_SHOW_REVIEW_FOR_OLD_USER, false);
+    return MwmApplication.prefs().getBoolean(KEY_SHOW_REVIEW_FOR_OLD_USER, false);
   }
 
-  public static boolean isMigrationNeeded(@NonNull Context context)
+  public static boolean isMigrationNeeded()
   {
-    return !MwmApplication.prefs(context).getBoolean(KEY_MIGRATION_EXECUTED, false);
+    return !MwmApplication.prefs().getBoolean(KEY_MIGRATION_EXECUTED, false);
   }
 
-  public static void setMigrationExecuted(@NonNull Context context)
+  public static void setMigrationExecuted()
   {
-    MwmApplication.prefs(context).edit()
+    MwmApplication.prefs().edit()
                   .putBoolean(KEY_MIGRATION_EXECUTED, true)
                   .apply();
   }

@@ -14,10 +14,9 @@ import com.mapswithme.maps.gallery.Items;
 
 public class LocalExpertsErrorAdapterStrategy extends SimpleErrorAdapterStrategy
 {
-  LocalExpertsErrorAdapterStrategy(@NonNull Context context,
-                                   @Nullable ItemSelectedListener<Items.Item> listener)
+  LocalExpertsErrorAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener)
   {
-    super(context, listener);
+    super(listener);
   }
 
   @NonNull

@@ -49,7 +49,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
               @Override
               public void onClick(DialogInterface dialog, int which)
               {
-                OsmOAuth.clearAuthorization(fragment.requireContext());
+                OsmOAuth.clearAuthorization();
                 fragment.refreshViews();
               }
             })
@@ -64,7 +64,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
       @Override
       void invoke(ProfileFragment fragment)
       {
-        OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername(fragment.requireContext()), true /* forceUpdate */);
+        OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername(), true /* forceUpdate */);
       }
     };
 
@@ -88,7 +88,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     initViews(view);
     refreshViews();
     OsmOAuth.setUserStatsListener(this);
-    OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername(requireContext()), false /* forceUpdate */);
+    OsmOAuth.nativeUpdateOsmUserStats(OsmOAuth.getUsername(), false /* forceUpdate */);
   }
 
   private void initViews(View view)
@@ -110,7 +110,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
 
   private void refreshViews()
   {
-    if (OsmOAuth.isAuthorized(requireContext()))
+    if (OsmOAuth.isAuthorized())
     {
       UiUtils.show(mMore, mRatingBlock, mSentBlock);
       UiUtils.hide(mAuthBlock);

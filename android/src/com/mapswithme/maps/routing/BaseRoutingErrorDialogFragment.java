@@ -24,7 +24,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.DisabledChildSimpleExpandableListAdapter;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.downloader.CountryItem;
-import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
@@ -106,7 +105,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     ((TextView) countryView.findViewById(R.id.tv__title)).setText(map.name);
 
     final TextView szView = (TextView) countryView.findViewById(R.id.tv__size);
-    szView.setText(StringUtils.getFileSizeString(requireContext(), map.totalSize));
+    szView.setText(StringUtils.getFileSizeString(map.totalSize));
     ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) szView.getLayoutParams();
     lp.rightMargin = 0;
     szView.setLayoutParams(lp);
@@ -167,7 +166,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
 
     Map<String, String> group = new HashMap<>();
     group.put(GROUP_NAME, getString(R.string.maps) + " (" + mMissingMaps.size() + ") ");
-    group.put(GROUP_SIZE, StringUtils.getFileSizeString(requireContext(), size));
+    group.put(GROUP_SIZE, StringUtils.getFileSizeString(size));
 
     List<Map<String, String>> groups = new ArrayList<>();
     groups.add(group);

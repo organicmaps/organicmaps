@@ -48,7 +48,7 @@ public class UGC
   public static void init(final @NonNull Context context)
   {
     final AppBackgroundTracker.OnTransitionListener listener = new UploadUgcTransitionListener(context);
-    MwmApplication.backgroundTracker(context).addListener(listener);
+    MwmApplication.backgroundTracker().addListener(listener);
   }
 
   private UGC(@NonNull Rating[] ratings, float averageRating, @Nullable Review[] reviews,

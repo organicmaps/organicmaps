@@ -401,7 +401,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs);
-    mIsLatLonDms = MwmApplication.prefs(context).getBoolean(PREF_USE_DMS, false);
+    mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
     mGalleryAdapter = new com.mapswithme.maps.widget.placepage.GalleryAdapter(context);
     init(attrs, defStyleAttr);
   }
@@ -1566,7 +1566,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       }
     }
 
-    UiUtils.setTextAndShow(mFullOpeningHours, TimeFormatUtils.formatTimetables(getContext(), timetables));
+    UiUtils.setTextAndShow(mFullOpeningHours, TimeFormatUtils.formatTimetables(timetables));
     if (!containsCurrentWeekday)
       refreshTodayOpeningHours(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
   }
@@ -1862,7 +1862,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_latlon:
         mIsLatLonDms = !mIsLatLonDms;
-        MwmApplication.prefs(getContext()).edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).apply();
+        MwmApplication.prefs().edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).apply();
         if (mMapObject == null)
         {
           LOGGER.e(TAG, "A LatLon cannot be refreshed, mMapObject is null");
@@ -2081,7 +2081,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     mDownloaderIcon.update(country);
 
-    StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(getContext(), country.totalSize));
+    StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(country.totalSize));
     if (country.isExpandable())
       sb.append(String.format(Locale.US, "  •  %s: %d", getContext().getString(R.string.downloader_status_maps), country.totalChildCount));
 

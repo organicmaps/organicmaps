@@ -97,7 +97,7 @@ class BottomPanel
   private void setUpdateAllState(UpdateInfo info)
   {
     mButton.setText(String.format(Locale.US, "%s (%s)", mFragment.getString(R.string.downloader_update_all_button),
-                                  StringUtils.getFileSizeString(mFragment.requireContext(), info.totalSize)));
+                                  StringUtils.getFileSizeString(info.totalSize)));
     mButton.setOnClickListener(mUpdateListener);
   }
 

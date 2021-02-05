@@ -105,10 +105,10 @@ public final class Config
     nativeSetBoolean(key, value);
   }
 
-  public static void migrateCountersToSharedPrefs(@NonNull Context context)
+  public static void migrateCountersToSharedPrefs()
   {
     int version = getInt(KEY_APP_FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
-    MwmApplication.prefs(context)
+    MwmApplication.prefs()
                   .edit()
                   .putInt(KEY_APP_LAUNCH_NUMBER, getInt(KEY_APP_LAUNCH_NUMBER))
                   .putInt(KEY_APP_FIRST_INSTALL_VERSION, version)
@@ -210,7 +210,7 @@ public final class Config
   @NonNull
   public static String getCurrentUiTheme(@NonNull Context context)
   {
-    String defaultTheme = MwmApplication.from(context).getString(R.string.theme_default);
+    String defaultTheme = MwmApplication.get().getString(R.string.theme_default);
     String res = getString(KEY_MISC_UI_THEME, defaultTheme);
 
     if (ThemeUtils.isValidTheme(context, res))
@@ -230,7 +230,7 @@ public final class Config
   @NonNull
   public static String getUiThemeSettings(@NonNull Context context)
   {
-    String autoTheme = MwmApplication.from(context).getString(R.string.theme_auto);
+    String autoTheme = MwmApplication.get().getString(R.string.theme_auto);
     String res = getString(KEY_MISC_UI_THEME_SETTINGS, autoTheme);
     if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res))
       return res;

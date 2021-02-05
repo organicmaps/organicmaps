@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public enum SharingHelper implements Initializable<Context>
+public enum SharingHelper implements Initializable<Void>
 {
   INSTANCE;
 
@@ -49,9 +49,6 @@ public enum SharingHelper implements Initializable<Context>
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private Context mContext;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
   private SharedPreferences mPrefs;
   private final Map<String, SharingTarget> mItems = new HashMap<>();
 
@@ -59,10 +56,9 @@ public enum SharingHelper implements Initializable<Context>
   private ProgressDialog mProgressDialog;
 
   @Override
-  public void initialize(@Nullable Context context)
+  public void initialize(Void nothing)
   {
-    mContext = context;
-    mPrefs = MwmApplication.from(context).getSharedPreferences(PREFS_STORAGE, Context.MODE_PRIVATE);
+    mPrefs = MwmApplication.get().getSharedPreferences(PREFS_STORAGE, Context.MODE_PRIVATE);
 
     ThreadPool.getStorage().execute(
         () ->
@@ -125,7 +121,7 @@ public enum SharingHelper implements Initializable<Context>
     Set<String> missed = new HashSet<>(mItems.keySet());
 
     Intent it = data.getTargetIntent(null);
-    PackageManager pm = MwmApplication.from(mContext).getPackageManager();
+    PackageManager pm = MwmApplication.get().getPackageManager();
     List<ResolveInfo> rlist = pm.queryIntentActivities(it, 0);
 
     final List<SharingTarget> res = new ArrayList<>(rlist.size());

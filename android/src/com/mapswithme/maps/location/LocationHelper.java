@@ -81,7 +81,7 @@ public enum LocationHelper implements Initializable<Context>
       if (mCompassData == null)
         mCompassData = new CompassData();
 
-      mCompassData.update(mContext, north);
+      mCompassData.update(north);
 
       if (mUiCallback != null)
         mUiCallback.onCompassUpdated(mCompassData);
@@ -156,12 +156,12 @@ public enum LocationHelper implements Initializable<Context>
   public void initialize(@Nullable Context context)
   {
     mContext = context;
-    mSensorHelper = new SensorHelper(context);
+    mSensorHelper = new SensorHelper();
     initProvider();
     LocationState.nativeSetListener(mMyPositionModeListener);
     LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
-    TransitionListener transitionListener = new TransitionListener(mContext);
-    MwmApplication.backgroundTracker(context).addListener(transitionListener);
+    TransitionListener transitionListener = new TransitionListener();
+    MwmApplication.backgroundTracker().addListener(transitionListener);
   }
 
   @Override
@@ -649,7 +649,7 @@ public enum LocationHelper implements Initializable<Context>
     if (mSavedLocation != null)
       return mSavedLocation;
 
-    return AndroidNativeProvider.findBestLocation(mContext);
+    return AndroidNativeProvider.findBestLocation();
   }
 
   @Nullable

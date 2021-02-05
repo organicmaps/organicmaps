@@ -19,10 +19,10 @@ public class GPSCheck extends BroadcastReceiver
   public void onReceive(Context context, Intent intent)
   {
     String msg = "onReceive: " + intent + " app in background = "
-                 + !backgroundTracker(context).isForeground();
+                 + !backgroundTracker().isForeground();
     LOGGER.i(TAG, msg);
-    if (MwmApplication.from(context).arePlatformAndCoreInitialized() &&
-        MwmApplication.backgroundTracker(context).isForeground())
+    if (MwmApplication.get().arePlatformAndCoreInitialized() &&
+        MwmApplication.backgroundTracker().isForeground())
     {
       LocationHelper.INSTANCE.restart();
     }

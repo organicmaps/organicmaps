@@ -49,7 +49,7 @@ public class WorkerService extends JobIntentService
   {
     final Context context = getApplicationContext();
     String msg = "onHandleIntent: " + intent + " app in background = "
-                 + !MwmApplication.backgroundTracker(context).isForeground();
+                 + !MwmApplication.backgroundTracker().isForeground();
     LOGGER.i(TAG, msg);
     CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
     final String action = intent.getAction();
@@ -57,7 +57,7 @@ public class WorkerService extends JobIntentService
     if (TextUtils.isEmpty(action))
       return;
 
-    if (!MwmApplication.from(context).arePlatformAndCoreInitialized())
+    if (!MwmApplication.get().arePlatformAndCoreInitialized())
       return;
 
     switch (action)

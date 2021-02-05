@@ -882,7 +882,7 @@ public enum Statistics implements Initializable<Context>
   @Override
   public void initialize(@Nullable Context context)
   {
-    mEnabled = SharedPropertiesUtils.isStatisticsEnabled(context);
+    mEnabled = SharedPropertiesUtils.isStatisticsEnabled();
     // At the moment we need special handling for Alohalytics to enable/disable logging of events in core C++ code.
     if (mEnabled)
       org.alohalytics.Statistics.enable(context);
@@ -996,13 +996,13 @@ public enum Statistics implements Initializable<Context>
     mMediator.getEventLogger().stopActivity(activity);
   }
 
-  public void setStatEnabled(@NonNull Context context, boolean isEnabled)
+  public void setStatEnabled(boolean isEnabled)
   {
-    SharedPropertiesUtils.setStatisticsEnabled(context, isEnabled);
+    SharedPropertiesUtils.setStatisticsEnabled(isEnabled);
     Config.setStatisticsEnabled(isEnabled);
 
     // We track if user turned on/off statistics to understand data better.
-    trackEvent(EventName.STATISTICS_STATUS_CHANGED + " " + Counters.getInstallFlavor(context),
+    trackEvent(EventName.STATISTICS_STATUS_CHANGED + " " + Counters.getInstallFlavor(),
                params().add(EventParam.ENABLED, String.valueOf(isEnabled)));
   }
 
@@ -1253,9 +1253,9 @@ public enum Statistics implements Initializable<Context>
                    .get());
   }
 
-  public void trackColdStartupInfo(@NonNull Context context)
+  public void trackColdStartupInfo()
   {
-    BatteryState.State state = BatteryState.getState(context);
+    BatteryState.State state = BatteryState.getState();
     final String charging;
     switch (state.getChargingStatus())
     {

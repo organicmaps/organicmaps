@@ -3,7 +3,6 @@ package com.mapswithme.maps.gallery.impl;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +16,15 @@ import com.mapswithme.maps.gallery.SimpleSingleItemAdapterStrategy;
 public class SimpleLoadingAdapterStrategy
     extends SimpleSingleItemAdapterStrategy<Holders.SimpleViewHolder>
 {
-  SimpleLoadingAdapterStrategy(@NonNull Context context,
-                               @Nullable ItemSelectedListener<Items.Item> listener)
+  SimpleLoadingAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener)
   {
-    this(context, listener, null);
+    this(listener, null);
   }
 
-  public SimpleLoadingAdapterStrategy(@NonNull Context context,
-                                      @Nullable ItemSelectedListener<Items.Item> listener,
+  public SimpleLoadingAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener,
                                       @Nullable String url)
   {
-    super(context, listener, url);
+    super(listener, url);
   }
 
   @Override

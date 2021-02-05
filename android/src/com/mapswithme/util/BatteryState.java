@@ -26,12 +26,12 @@ public final class BatteryState
   private BatteryState() {}
 
   @NonNull
-  public static State getState(@NonNull Context context)
+  public static State getState()
   {
     IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
     // Because it's a sticky intent, you don't need to register a BroadcastReceiver
     // by simply calling registerReceiver passing in null
-    Intent batteryStatus = MwmApplication.from(context).registerReceiver(null, filter);
+    Intent batteryStatus = MwmApplication.get().registerReceiver(null, filter);
     if (batteryStatus == null)
       return new State(0, CHARGING_STATUS_UNKNOWN);
 
@@ -43,7 +43,7 @@ public final class BatteryState
   @IntRange(from=0, to=100)
   public static int getLevel(@NonNull Context context)
   {
-    return getState(context).getLevel();
+    return getState().getLevel();
   }
 
   @IntRange(from=0, to=100)
@@ -57,7 +57,7 @@ public final class BatteryState
   @ChargingStatus
   public static int getChargingStatus(@NonNull Context context)
   {
-    return getState(context).getChargingStatus();
+    return getState().getChargingStatus();
   }
 
   @ChargingStatus

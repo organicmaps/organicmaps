@@ -490,8 +490,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // TODO(yunikkk) think about refactoring. It probably should be called in editor.
     Editor.nativeStartEdit();
-    Statistics.INSTANCE.trackEditorLaunch(false,
-                                          String.valueOf(OsmOAuth.isAuthorized(getApplicationContext())));
+    Statistics.INSTANCE.trackEditorLaunch(false, String.valueOf(OsmOAuth.isAuthorized()));
     if (mIsTabletLayout)
       replaceFragment(EditorHostFragment.class, null, null);
     else
@@ -598,7 +597,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     SearchEngine.INSTANCE.addListener(this);
 
-    SharingHelper.INSTANCE.initialize(this);
+    SharingHelper.INSTANCE.initialize(null);
 
     initControllersAndValidatePurchases(savedInstanceState);
 
@@ -606,7 +605,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
     // or it's the first launch (onboarding) we haven't to try restoring the route,
     // showing the tips, etc.
-    if (isConsumed || MwmApplication.from(this).isFirstLaunch())
+    if (isConsumed || MwmApplication.get().isFirstLaunch())
       return;
 
     if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
@@ -758,8 +757,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPositionChooser.findViewById(R.id.done).setOnClickListener(
         v ->
         {
-          Statistics.INSTANCE.trackEditorLaunch(true,
-                                                String.valueOf(OsmOAuth.isAuthorized(getApplicationContext())));
+          Statistics.INSTANCE.trackEditorLaunch(true, String.valueOf(OsmOAuth.isAuthorized()));
           hidePositionChooser();
           if (Framework.nativeIsDownloadedMapAtScreenCenter())
             startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
@@ -1484,10 +1482,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     Context context = getApplicationContext();
 
-    if (!LikesManager.INSTANCE.isNewUser(context) && Counters.isShowReviewForOldUser(context))
+    if (!LikesManager.INSTANCE.isNewUser() && Counters.isShowReviewForOldUser())
     {
       LikesManager.INSTANCE.showRateDialogForOldUser(this);
-      Counters.setShowReviewForOldUser(context, false);
+      Counters.setShowReviewForOldUser(false);
     }
   }
 
@@ -1516,7 +1514,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       LocationHelper.INSTANCE.attach(this);
     mPlacePageController.onActivityStarted(this);
     mSearchController.attach(this);
-    MwmApplication.backgroundTracker(getActivity()).addListener(this);
+    MwmApplication.backgroundTracker().addListener(this);
   }
 
   @Override
@@ -1529,7 +1527,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
     mPlacePageController.onActivityStopped(this);
-    MwmApplication.backgroundTracker(getActivity()).removeListener(this);
+    MwmApplication.backgroundTracker().removeListener(this);
     IsolinesManager.from(getApplicationContext()).detach();
     GuidesManager.from(getApplicationContext()).detach();
     mSearchController.detach();
@@ -1741,7 +1739,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           return;
 
         request.setPointData(object.getLat(), object.getLon(), object.getTitle(), object.getApiId());
-        object.setSubtitle(request.getCallerName(MwmApplication.from(this)).toString());
+        object.setSubtitle(request.getCallerName(MwmApplication.get()).toString());
       }
     }
 
@@ -2895,7 +2893,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public final void onMenuItemClick()
     {
-      Tutorial api = Tutorial.requestCurrent(getActivity(), getActivity().getClass());
+      Tutorial api = Tutorial.requestCurrent(getActivity().getClass());
       LOGGER.d(TAG, "Tutorial = " + api);
       if (getItem() == api.getSiblingMenuItem())
       {
@@ -3026,7 +3024,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public void onMenuOpen()
     {
       mFadeView.fadeIn();
-      if (!SharedPropertiesUtils.shouldShowLayerTutorialToast(getApplicationContext()))
+      if (!SharedPropertiesUtils.shouldShowLayerTutorialToast())
         return;
 
       UiUtils.showToastAtTop(getApplicationContext(), R.string.routes_layer_in_menu_toast);

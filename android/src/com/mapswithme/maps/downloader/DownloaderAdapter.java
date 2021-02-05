@@ -613,7 +613,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         size = ((!mSearchResultsMode && mMyMapsMode) ? mItem.size : mItem.totalSize);
       }
 
-      mSize.setText(StringUtils.getFileSizeString(mFragment.requireContext(), size));
+      mSize.setText(StringUtils.getFileSizeString(size));
       mStatusIcon.update(mItem);
     }
   }
@@ -1066,7 +1066,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           }
         }, mActivity);
       }
-    }, mActivity.getApplicationContext());
+    });
   }
 
   private void clearAdsInternal()

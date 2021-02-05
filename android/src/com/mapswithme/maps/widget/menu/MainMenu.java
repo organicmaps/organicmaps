@@ -250,7 +250,7 @@ public class MainMenu extends BaseMenu
 
     for (Mode mode : Mode.values())
     {
-      show = SharedPropertiesUtils.shouldShowNewMarkerForLayerMode(mFrame.getContext(), mode);
+      show = SharedPropertiesUtils.shouldShowNewMarkerForLayerMode(mode);
       if (show)
         break;
     }

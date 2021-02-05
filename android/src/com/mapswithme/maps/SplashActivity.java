@@ -110,7 +110,7 @@ public class SplashActivity extends AppCompatActivity
         return;
       }
 
-      ExternalLibrariesMediator mediator = MwmApplication.from(getApplicationContext()).getMediator();
+      ExternalLibrariesMediator mediator = MwmApplication.get().getMediator();
       if (!mediator.isAdvertisingInfoObtained())
       {
         LOGGER.i(TAG, "Advertising info not obtained yet, wait...");
@@ -187,7 +187,7 @@ public class SplashActivity extends AppCompatActivity
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
-    Counters.initCounters(this);
+    Counters.initCounters();
     initView();
   }
 
@@ -236,7 +236,7 @@ public class SplashActivity extends AppCompatActivity
       // If external permissions are still granted we just need to check platform
       // and core initialization, because we may be in the recovering process,
       // i.e. method onResume() may not be invoked in that case.
-      if (!MwmApplication.from(getApplicationContext()).arePlatformAndCoreInitialized())
+      if (!MwmApplication.get().arePlatformAndCoreInitialized())
       {
         init();
       }
@@ -249,7 +249,7 @@ public class SplashActivity extends AppCompatActivity
     super.onStart();
     mBaseDelegate.onStart();
     mAdvertisingObserver.attach(this);
-    ExternalLibrariesMediator mediator = MwmApplication.from(this).getMediator();
+    ExternalLibrariesMediator mediator = MwmApplication.get().getMediator();
     LOGGER.d(TAG, "Add advertising observer");
     mediator.addAdvertisingObserver(mAdvertisingObserver);
   }
@@ -261,16 +261,15 @@ public class SplashActivity extends AppCompatActivity
     mBaseDelegate.onResume();
     mCanceled = false;
 
-    Context context = getApplicationContext();
-    if (Counters.isMigrationNeeded(context))
+    if (Counters.isMigrationNeeded())
     {
-      Config.migrateCountersToSharedPrefs(context);
-      Counters.setMigrationExecuted(context);
+      Config.migrateCountersToSharedPrefs();
+      Counters.setMigrationExecuted();
     }
     
     final boolean isFirstLaunch = WelcomeDialogFragment.isFirstLaunch(this);
     if (isFirstLaunch)
-      MwmApplication.from(this).setFirstLaunch(true);
+      MwmApplication.get().setFirstLaunch(true);
 
     boolean isWelcomeFragmentOnScreen = false;
     DialogFragment welcomeFragment = WelcomeDialogFragment.find(this);
@@ -282,7 +281,7 @@ public class SplashActivity extends AppCompatActivity
 
     if (isFirstLaunch || isWelcomeFragmentOnScreen)
     {
-      if (WelcomeDialogFragment.isAgreementDeclined(this))
+      if (WelcomeDialogFragment.isAgreementDeclined())
       {
         UiThread.runLater(mUserAgreementDelayedTask, FIRST_START_DELAY);
         return;
@@ -356,7 +355,7 @@ public class SplashActivity extends AppCompatActivity
     super.onStop();
     mBaseDelegate.onStop();
     mAdvertisingObserver.detach();
-    ExternalLibrariesMediator mediator = MwmApplication.from(this).getMediator();
+    ExternalLibrariesMediator mediator = MwmApplication.get().getMediator();
     LOGGER.d(TAG, "Remove advertising observer");
     mediator.removeAdvertisingObserver(mAdvertisingObserver);
   }
@@ -391,7 +390,7 @@ public class SplashActivity extends AppCompatActivity
     boolean showNews = NewsFragment.showOn(this, this);
     if (!showNews)
     {
-      if (ViralFragment.shouldDisplay(getApplicationContext()))
+      if (ViralFragment.shouldDisplay())
       {
         UiUtils.hide(mIvLogo, mAppName);
         ViralFragment dialog = new ViralFragment();
@@ -498,7 +497,7 @@ public class SplashActivity extends AppCompatActivity
 
   private void init()
   {
-    MwmApplication app = MwmApplication.from(this);
+    MwmApplication app = MwmApplication.get();
     boolean success = app.initCore();
     if (!success || !app.isFirstLaunch())
       return;

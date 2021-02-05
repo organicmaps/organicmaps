@@ -29,7 +29,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   {
     super(locationFixChecker);
     Objects.requireNonNull(context, "Context should be passed!");
-    mLocationManager = (LocationManager) MwmApplication.from(context).getSystemService(Context.LOCATION_SERVICE);
+    mLocationManager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
   }
 
   @SuppressWarnings("MissingPermission")
@@ -94,9 +94,9 @@ class AndroidNativeProvider extends BaseLocationProvider
   }
 
   @Nullable
-  static Location findBestLocation(@NonNull Context context)
+  static Location findBestLocation()
   {
-    final LocationManager manager = (LocationManager) MwmApplication.from(context).getSystemService(Context.LOCATION_SERVICE);
+    final LocationManager manager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
     return findBestLocation(manager, getAvailableProviders(manager));
   }
 

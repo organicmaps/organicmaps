@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,7 +69,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
     Adapter()
     {
-      Resources res = MwmApplication.from(requireContext()).getResources();
+      Resources res = MwmApplication.get().getResources();
 
       mTitles = getTitles(res);
       mSubtitles = res.getStringArray(getSubtitles1());
@@ -252,7 +251,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
   {
     Context context = requireContext();
 
-    if (!UiUtils.isTablet(context))
+    if (!UiUtils.isTablet())
       return;
 
     UiUtils.waitLayout(mPager, () -> {
@@ -272,8 +271,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
   @Override
   protected int getCustomTheme()
   {
-    return (UiUtils.isTablet(requireContext()) ? super.getCustomTheme()
-                                               : getFullscreenTheme());
+    return (UiUtils.isTablet() ? super.getCustomTheme() : getFullscreenTheme());
   }
 
   @StyleRes

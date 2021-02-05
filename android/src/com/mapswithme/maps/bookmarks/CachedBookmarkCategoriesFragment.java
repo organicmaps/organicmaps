@@ -58,7 +58,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     downloadRoutesBtn.setOnClickListener(btn -> openBookmarksCatalogScreen());
     View closeHeaderBtn = view.findViewById(R.id.header_close);
     closeHeaderBtn.setOnClickListener(new CloseHeaderClickListener());
-    boolean isClosed = SharedPropertiesUtils.isCatalogCategoriesHeaderClosed(requireContext());
+    boolean isClosed = SharedPropertiesUtils.isCatalogCategoriesHeaderClosed();
     View header = view.findViewById(R.id.header);
     UiUtils.hideIf(isClosed, header);
     ImageView imageView = downloadRoutesBtn.findViewById(R.id.image);
@@ -181,7 +181,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     {
       View header = mPayloadContainer.findViewById(R.id.header);
       header.setVisibility(View.GONE);
-      SharedPropertiesUtils.setCatalogCategoriesHeaderClosed(requireContext(), true);
+      SharedPropertiesUtils.setCatalogCategoriesHeaderClosed(true);
     }
   }
 

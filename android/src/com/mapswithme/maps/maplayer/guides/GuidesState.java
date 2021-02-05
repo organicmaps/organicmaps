@@ -17,7 +17,7 @@ public enum GuidesState
         @Override
         public void activate(@NonNull Context context)
         {
-          if (!SharedPropertiesUtils.shouldShowHowToUseGuidesLayerToast(context))
+          if (!SharedPropertiesUtils.shouldShowHowToUseGuidesLayerToast())
             return;
 
           UiUtils.showToastAtTop(context, R.string.routes_layer_is_on_toast);

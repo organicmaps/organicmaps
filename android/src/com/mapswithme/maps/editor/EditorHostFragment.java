@@ -292,7 +292,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
           return;
 
         // Save object edits
-        if (!MwmApplication.prefs(requireContext()).contains(NOOB_ALERT_SHOWN))
+        if (!MwmApplication.prefs().contains(NOOB_ALERT_SHOWN))
         {
           showNoobDialog();
         }
@@ -316,17 +316,15 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void processNoFeatures()
   {
-    Statistics.INSTANCE.trackEditorError(mIsNewObject,
-                                         String.valueOf(OsmOAuth.isAuthorized(requireContext())));
+    Statistics.INSTANCE.trackEditorError(mIsNewObject, String.valueOf(OsmOAuth.isAuthorized()));
     DialogUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
   }
 
   private void processEditedFeatures()
   {
     Context context = requireContext();
-    Statistics.INSTANCE.trackEditorSuccess(mIsNewObject,
-                                           String.valueOf(OsmOAuth.isAuthorized(context)));
-    if (OsmOAuth.isAuthorized(context) || !ConnectionState.INSTANCE.isConnected())
+    Statistics.INSTANCE.trackEditorSuccess(mIsNewObject, String.valueOf(OsmOAuth.isAuthorized()));
+    if (OsmOAuth.isAuthorized() || !ConnectionState.INSTANCE.isConnected())
     {
       Utils.navigateToParent(getActivity());
       return;
@@ -389,7 +387,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         @Override
         public void onClick(DialogInterface dlg, int which)
         {
-          MwmApplication.prefs(requireContext()).edit()
+          MwmApplication.prefs().edit()
                         .putBoolean(NOOB_ALERT_SHOWN, true)
                         .apply();
           saveNote();

@@ -19,7 +19,7 @@ public abstract class BaseMwmListFragment extends ListFragment
   public void onAttach(Context context)
   {
     super.onAttach(context);
-    Utils.detachFragmentIfCoreNotInitialized(context, this);
+    Utils.detachFragmentIfCoreNotInitialized(this);
   }
 
   @Override

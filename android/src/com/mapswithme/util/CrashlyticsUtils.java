@@ -1,21 +1,15 @@
 package com.mapswithme.util;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.base.Initializable;
 
-public enum CrashlyticsUtils implements Initializable<Context>
+public enum CrashlyticsUtils
 {
   INSTANCE;
-
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private Context mContext;
 
   public void logException(@NonNull Throwable exception)
   {
@@ -35,7 +29,7 @@ public enum CrashlyticsUtils implements Initializable<Context>
 
   private boolean checkCrashlytics()
   {
-    MwmApplication app = MwmApplication.from(mContext);
+    MwmApplication app = MwmApplication.get();
     return app.getMediator().isCrashlyticsEnabled();
   }
 
@@ -57,17 +51,5 @@ public enum CrashlyticsUtils implements Initializable<Context>
       default:
         throw new IllegalArgumentException("Undetermined log level: " + level);
     }
-  }
-
-  @Override
-  public void initialize(@Nullable Context context)
-  {
-    mContext = MwmApplication.from(context);
-  }
-
-  @Override
-  public void destroy()
-  {
-    // No op
   }
 }

@@ -396,9 +396,9 @@ public class Utils
   }
 
   @Nullable
-  public static String getAdvertisingId(@NonNull Context context)
+  public static String getAdvertisingId()
   {
-    MwmApplication application = MwmApplication.from(context);
+    MwmApplication application = MwmApplication.get();
     ExternalLibrariesMediator mediator = application.getMediator();
     return mediator.getAdvertisingId();
   }
@@ -743,10 +743,9 @@ public class Utils
     return c;
   }
 
-  public static void detachFragmentIfCoreNotInitialized(@NonNull Context context,
-                                                        @NonNull Fragment fragment)
+  public static void detachFragmentIfCoreNotInitialized(@NonNull Fragment fragment)
   {
-    if (MwmApplication.from(context).arePlatformAndCoreInitialized())
+    if (MwmApplication.get().arePlatformAndCoreInitialized())
       return;
 
     FragmentManager manager = fragment.getFragmentManager();

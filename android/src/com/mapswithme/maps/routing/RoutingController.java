@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.Pair;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
@@ -386,7 +385,7 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     for (int resId : new int[] { R.string.dialog_routing_disclaimer_priority, R.string.dialog_routing_disclaimer_precision,
                                  R.string.dialog_routing_disclaimer_recommendations, R.string.dialog_routing_disclaimer_borders,
                                  R.string.dialog_routing_disclaimer_beware })
-      builder.append(MwmApplication.from(activity.getApplicationContext()).getString(resId)).append("\n\n");
+      builder.append(MwmApplication.get().getString(resId)).append("\n\n");
 
     new AlertDialog.Builder(activity)
         .setTitle(R.string.dialog_routing_disclaimer_title)

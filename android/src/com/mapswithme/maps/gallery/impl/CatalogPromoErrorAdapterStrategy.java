@@ -3,7 +3,6 @@ package com.mapswithme.maps.gallery.impl;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,9 @@ import com.mapswithme.maps.gallery.Items;
 
 class CatalogPromoErrorAdapterStrategy extends SimpleErrorAdapterStrategy
 {
-  CatalogPromoErrorAdapterStrategy(@NonNull Context context, @Nullable ItemSelectedListener<Items.Item> listener)
+  CatalogPromoErrorAdapterStrategy(@Nullable ItemSelectedListener<Items.Item> listener)
   {
-    super(context, listener);
+    super(listener);
   }
 
   @NonNull

@@ -1,6 +1,5 @@
 package com.mapswithme.util;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -35,119 +34,117 @@ public final class SharedPropertiesUtils
     throw new IllegalStateException("Try instantiate utility class SharedPropertiesUtils");
   }
 
-  public static boolean isStatisticsEnabled(@NonNull Context context)
+  public static boolean isStatisticsEnabled()
   {
-    return MwmApplication.prefs(context).getBoolean(KEY_PREF_STATISTICS, true);
+    return MwmApplication.prefs().getBoolean(KEY_PREF_STATISTICS, true);
   }
 
-  public static void setStatisticsEnabled(@NonNull Context context, boolean enabled)
+  public static void setStatisticsEnabled(boolean enabled)
   {
-    MwmApplication.prefs(context).edit().putBoolean(KEY_PREF_STATISTICS, enabled).apply();
+    MwmApplication.prefs().edit().putBoolean(KEY_PREF_STATISTICS, enabled).apply();
   }
 
-  public static void setShouldShowEmulateBadStorageSetting(@NonNull Context context, boolean show)
+  public static void setShouldShowEmulateBadStorageSetting(boolean show)
   {
     SharedPreferences prefs = PreferenceManager
-        .getDefaultSharedPreferences(MwmApplication.from(context));
+        .getDefaultSharedPreferences(MwmApplication.get());
     prefs.edit().putBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, show).apply();
   }
 
-  public static boolean shouldShowEmulateBadStorageSetting(@NonNull Context context)
+  public static boolean shouldShowEmulateBadStorageSetting()
   {
     SharedPreferences prefs = PreferenceManager
-        .getDefaultSharedPreferences(MwmApplication.from(context));
+        .getDefaultSharedPreferences(MwmApplication.get());
     return prefs.getBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, false);
   }
 
-  public static boolean shouldEmulateBadExternalStorage(@NonNull Context context)
+  public static boolean shouldEmulateBadExternalStorage()
   {
     SharedPreferences prefs = PreferenceManager
-        .getDefaultSharedPreferences(MwmApplication.from(context));
-    String key = MwmApplication.from(context).getString(R.string.pref_emulate_bad_external_storage);
+        .getDefaultSharedPreferences(MwmApplication.get());
+    String key = MwmApplication.get().getString(R.string.pref_emulate_bad_external_storage);
     return prefs.getBoolean(key, false);
   }
 
-  public static void setBackupWidgetExpanded(@NonNull Context context, boolean expanded)
+  public static void setBackupWidgetExpanded(boolean expanded)
   {
     SharedPreferences prefs = PreferenceManager
-        .getDefaultSharedPreferences(MwmApplication.from(context));
+        .getDefaultSharedPreferences(MwmApplication.get());
     prefs.edit().putBoolean(PREFS_BACKUP_WIDGET_EXPANDED, expanded).apply();
   }
 
-  public static boolean getBackupWidgetExpanded(@NonNull Context context)
+  public static boolean getBackupWidgetExpanded()
   {
     SharedPreferences prefs = PreferenceManager
-        .getDefaultSharedPreferences(MwmApplication.from(context));
+        .getDefaultSharedPreferences(MwmApplication.get());
     return prefs.getBoolean(PREFS_BACKUP_WIDGET_EXPANDED, true);
   }
 
   @Nullable
-  public static String getWhatsNewTitleConcatenation(@NonNull Context context)
+  public static String getWhatsNewTitleConcatenation()
   {
     SharedPreferences prefs = PreferenceManager
-        .getDefaultSharedPreferences(MwmApplication.from(context));
+        .getDefaultSharedPreferences(MwmApplication.get());
     return prefs.getString(PREFS_WHATS_NEW_TITLE_CONCATENATION, null);
   }
 
-  public static void setWhatsNewTitleConcatenation(@NonNull Context context,
-                                                   @NonNull String concatenation)
+  public static void setWhatsNewTitleConcatenation(@NonNull String concatenation)
   {
     SharedPreferences prefs = PreferenceManager
-        .getDefaultSharedPreferences(MwmApplication.from(context));
+        .getDefaultSharedPreferences(MwmApplication.get());
     prefs.edit().putString(PREFS_WHATS_NEW_TITLE_CONCATENATION, concatenation).apply();
   }
 
-  public static boolean isCatalogCategoriesHeaderClosed(@NonNull Context context)
+  public static boolean isCatalogCategoriesHeaderClosed()
   {
-    return MwmApplication.prefs(context)
+    return MwmApplication.prefs()
                          .getBoolean(PREFS_CATALOG_CATEGORIES_HEADER_CLOSED, false);
   }
 
-  public static void setCatalogCategoriesHeaderClosed(@NonNull Context context, boolean value)
+  public static void setCatalogCategoriesHeaderClosed(boolean value)
   {
-    MwmApplication.prefs(context)
+    MwmApplication.prefs()
                   .edit()
                   .putBoolean(PREFS_CATALOG_CATEGORIES_HEADER_CLOSED, value)
                   .apply();
   }
 
-  public static int getLastVisibleBookmarkCategoriesPage(@NonNull Context context)
+  public static int getLastVisibleBookmarkCategoriesPage()
   {
-    return MwmApplication.prefs(context)
+    return MwmApplication.prefs()
                          .getInt(PREFS_BOOKMARK_CATEGORIES_LAST_VISIBLE_PAGE,
                                  BookmarksPageFactory.PRIVATE.ordinal());
   }
 
-  public static void setLastVisibleBookmarkCategoriesPage(@NonNull Context context, int pageIndex)
+  public static void setLastVisibleBookmarkCategoriesPage(int pageIndex)
   {
-    MwmApplication.prefs(context)
+    MwmApplication.prefs()
                   .edit()
                   .putInt(PREFS_BOOKMARK_CATEGORIES_LAST_VISIBLE_PAGE, pageIndex)
                   .apply();
   }
 
-  public static boolean isTermOfUseAgreementConfirmed(@NonNull Context context)
+  public static boolean isTermOfUseAgreementConfirmed()
   {
-    return getBoolean(context, USER_AGREEMENT_TERM_OF_USE);
+    return getBoolean(USER_AGREEMENT_TERM_OF_USE);
   }
 
-  public static boolean isPrivacyPolicyAgreementConfirmed(@NonNull Context context)
+  public static boolean isPrivacyPolicyAgreementConfirmed()
   {
-    return getBoolean(context, USER_AGREEMENT_PRIVACY_POLICY);
+    return getBoolean(USER_AGREEMENT_PRIVACY_POLICY);
   }
 
-  public static void putPrivacyPolicyAgreement(@NonNull Context context, boolean isChecked)
+  public static void putPrivacyPolicyAgreement(boolean isChecked)
   {
-    putBoolean(context, USER_AGREEMENT_PRIVACY_POLICY, isChecked);
+    putBoolean(USER_AGREEMENT_PRIVACY_POLICY, isChecked);
   }
 
-  public static void putTermOfUseAgreement(@NonNull Context context, boolean isChecked)
+  public static void putTermOfUseAgreement(boolean isChecked)
   {
-    putBoolean(context, USER_AGREEMENT_TERM_OF_USE, isChecked);
+    putBoolean(USER_AGREEMENT_TERM_OF_USE, isChecked);
   }
 
-  public static boolean shouldShowNewMarkerForLayerMode(@NonNull Context context,
-                                                        @NonNull Mode mode)
+  public static boolean shouldShowNewMarkerForLayerMode(@NonNull Mode mode)
   {
     switch (mode)
     {
@@ -156,55 +153,54 @@ public final class SharedPropertiesUtils
       case ISOLINES:
         return false;
       default:
-        return getBoolean(context, PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name()
+        return getBoolean(PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name()
                                                                             .toLowerCase(Locale.ENGLISH),
                           true);
     }
   }
 
-  public static boolean shouldShowNewMarkerForLayerMode(@NonNull Context context, @NonNull String mode)
+  public static boolean shouldShowNewMarkerForLayerMode(@NonNull String mode)
   {
-    return shouldShowNewMarkerForLayerMode(context, Mode.valueOf(mode));
+    return shouldShowNewMarkerForLayerMode(Mode.valueOf(mode));
   }
 
-  public static boolean shouldShowLayerTutorialToast(@NonNull Context context)
+  public static boolean shouldShowLayerTutorialToast()
   {
-    boolean result = getBoolean(context, PREFS_SHOULD_SHOW_LAYER_TUTORIAL_TOAST, true);
-    putBoolean(context, PREFS_SHOULD_SHOW_LAYER_TUTORIAL_TOAST, false);
+    boolean result = getBoolean(PREFS_SHOULD_SHOW_LAYER_TUTORIAL_TOAST, true);
+    putBoolean(PREFS_SHOULD_SHOW_LAYER_TUTORIAL_TOAST, false);
     return result;
   }
 
-  public static boolean shouldShowHowToUseGuidesLayerToast(@NonNull Context context)
+  public static boolean shouldShowHowToUseGuidesLayerToast()
   {
-    boolean result = getBoolean(context, PREFS_SHOULD_SHOW_HOW_TO_USE_GUIDES_LAYER_TOAST, true);
-    putBoolean(context, PREFS_SHOULD_SHOW_HOW_TO_USE_GUIDES_LAYER_TOAST, false);
+    boolean result = getBoolean(PREFS_SHOULD_SHOW_HOW_TO_USE_GUIDES_LAYER_TOAST, true);
+    putBoolean(PREFS_SHOULD_SHOW_HOW_TO_USE_GUIDES_LAYER_TOAST, false);
     return result;
   }
 
-  public static void setLayerMarkerShownForLayerMode(@NonNull Context context, @NonNull Mode mode)
+  public static void setLayerMarkerShownForLayerMode(@NonNull Mode mode)
   {
-    putBoolean(context, PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name()
-                                                                 .toLowerCase(Locale.ENGLISH), false);
+    putBoolean(PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name().toLowerCase(Locale.ENGLISH), false);
   }
 
-  public static void setLayerMarkerShownForLayerMode(@NonNull Context context, @NonNull String mode)
+  public static void setLayerMarkerShownForLayerMode(@NonNull String mode)
   {
-    setLayerMarkerShownForLayerMode(context, Mode.valueOf(mode));
+    setLayerMarkerShownForLayerMode(Mode.valueOf(mode));
   }
 
-  private static boolean getBoolean(@NonNull Context context,  @NonNull String key)
+  private static boolean getBoolean(@NonNull String key)
   {
-    return getBoolean(context, key, false);
+    return getBoolean(key, false);
   }
 
-  private static boolean getBoolean(@NonNull Context context,  @NonNull String key, boolean defValue)
+  private static boolean getBoolean(@NonNull String key, boolean defValue)
   {
-    return MwmApplication.prefs(context).getBoolean(key, defValue);
+    return MwmApplication.prefs().getBoolean(key, defValue);
   }
 
-  private static void putBoolean(@NonNull Context context,  @NonNull String key, boolean value)
+  private static void putBoolean(@NonNull String key, boolean value)
   {
-    MwmApplication.prefs(context)
+    MwmApplication.prefs()
                   .edit()
                   .putBoolean(key, value)
                   .apply();

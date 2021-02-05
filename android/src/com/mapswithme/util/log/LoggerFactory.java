@@ -72,7 +72,7 @@ public class LoggerFactory
       return false;
     }
 
-    SharedPreferences prefs = MwmApplication.prefs(mApplication);
+    SharedPreferences prefs = MwmApplication.prefs();
     String enableLoggingKey = mApplication.getString(R.string.pref_enable_logging);
     //noinspection ConstantConditions
     return prefs.getBoolean(enableLoggingKey, BuildConfig.BUILD_TYPE.equals("beta"));
@@ -82,7 +82,7 @@ public class LoggerFactory
   {
     Objects.requireNonNull(mApplication);
     nativeToggleCoreDebugLogs(enabled);
-    SharedPreferences prefs = MwmApplication.prefs(mApplication);
+    SharedPreferences prefs = MwmApplication.prefs();
     SharedPreferences.Editor editor = prefs.edit();
     String enableLoggingKey = mApplication.getString(R.string.pref_enable_logging);
     editor.putBoolean(enableLoggingKey, enabled).apply();

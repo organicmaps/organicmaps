@@ -20,7 +20,7 @@ public abstract class DefaultClickListener implements OnItemClickListener<Bottom
   public void onItemClick(@NonNull View v, @NonNull BottomSheetItem item)
   {
     Mode mode = item.getMode();
-    SharedPropertiesUtils.setLayerMarkerShownForLayerMode(v.getContext(), mode);
+    SharedPropertiesUtils.setLayerMarkerShownForLayerMode(mode);
     mode.toggle(v.getContext());
     onItemClickInternal(v, item);
     mAdapter.notifyDataSetChanged();

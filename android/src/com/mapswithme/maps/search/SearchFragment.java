@@ -502,7 +502,7 @@ public class SearchFragment extends BaseMwmFragment
     if (mHiddenCommands.isEmpty())
     {
       mHiddenCommands.addAll(
-          Arrays.asList(new BadStorageCommand("?emulateBadStorage", requireContext()),
+          Arrays.asList(new BadStorageCommand("?emulateBadStorage"),
                         new JavaCrashCommand("?emulateJavaCrash"),
                         new NativeCrashCommand("?emulateNativeCrash"),
                         new PushTokenCommand("?pushToken")));
@@ -773,19 +773,16 @@ public class SearchFragment extends BaseMwmFragment
 
   private static class BadStorageCommand extends HiddenCommand.BaseHiddenCommand
   {
-    @NonNull
-    Context mContext;
 
-    BadStorageCommand(@NonNull String command, @NonNull Context context)
+    BadStorageCommand(@NonNull String command)
     {
       super(command);
-      mContext = context;
     }
 
     @Override
     void executeInternal()
     {
-      SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(mContext, true);
+      SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(true);
     }
   }
 

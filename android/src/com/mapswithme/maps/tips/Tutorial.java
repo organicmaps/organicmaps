@@ -1,7 +1,6 @@
 package com.mapswithme.maps.tips;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Typeface;
 import android.view.View;
 
@@ -171,10 +170,9 @@ public enum Tutorial
   public abstract ClickInterceptor createClickInterceptor();
 
   @NonNull
-  public static <T> Tutorial requestCurrent(@NonNull Context context,
-                                            @NonNull Class<T> requiredScreenClass)
+  public static <T> Tutorial requestCurrent(@NonNull Class<T> requiredScreenClass)
   {
-    if (MwmApplication.from(context).isFirstLaunch())
+    if (MwmApplication.get().isFirstLaunch())
       return STUB;
 
     int index = Framework.nativeGetCurrentTipIndex();

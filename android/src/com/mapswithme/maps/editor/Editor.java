@@ -48,14 +48,14 @@ public final class Editor
 
   public static void init(@NonNull Context context)
   {
-    MwmApplication.backgroundTracker(context).addListener(new OsmUploadListener(context));
+    MwmApplication.backgroundTracker().addListener(new OsmUploadListener(context));
   }
 
   @WorkerThread
   public static void uploadChanges(@NonNull Context context)
   {
-    if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized(context))
-      nativeUploadChanges(OsmOAuth.getAuthToken(context), OsmOAuth.getAuthSecret(context),
+    if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized())
+      nativeUploadChanges(OsmOAuth.getAuthToken(), OsmOAuth.getAuthSecret(),
                           BuildConfig.VERSION_NAME, BuildConfig.APPLICATION_ID);
   }
 

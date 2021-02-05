@@ -8,11 +8,10 @@ import android.telephony.TelephonyManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.base.Initializable;
 
 import static com.mapswithme.util.ConnectionState.Type.NONE;
 
-public enum ConnectionState implements Initializable<Context>
+public enum ConnectionState
 {
   INSTANCE;
 
@@ -20,9 +19,6 @@ public enum ConnectionState implements Initializable<Context>
   private static final byte CONNECTION_NONE = 0;
   private static final byte CONNECTION_WIFI = 1;
   private static final byte CONNECTION_WWAN = 2;
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private Context mContext;
 
   public enum Type
   {
@@ -50,18 +46,6 @@ public enum ConnectionState implements Initializable<Context>
     }
   }
 
-  @Override
-  public void initialize(@Nullable Context context)
-  {
-    mContext = MwmApplication.from(context);
-  }
-
-  @Override
-  public void destroy()
-  {
-    // No op
-  }
-
   private boolean isNetworkConnected(int networkType)
   {
     final NetworkInfo info = getActiveNetwork();
@@ -72,7 +56,7 @@ public enum ConnectionState implements Initializable<Context>
   public NetworkInfo getActiveNetwork()
   {
     ConnectivityManager manager =
-        ((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE));
+        ((ConnectivityManager) MwmApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE));
     if (manager == null)
       return null;
 
