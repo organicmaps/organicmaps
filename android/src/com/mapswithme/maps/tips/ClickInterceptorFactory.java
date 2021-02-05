@@ -24,11 +24,11 @@ class ClickInterceptorFactory
     return new ActivateSubwayLayer();
   }
 
-  @NonNull
-  static ClickInterceptor createOpenDiscoveryScreenListener()
-  {
-    return new OpenDiscoveryScreen();
-  }
+//  @NonNull
+//  static ClickInterceptor createOpenDiscoveryScreenListener()
+//  {
+//    return new OpenDiscoveryScreen();
+//  }
 
   @NonNull
   static ClickInterceptor createSearchHotelsListener()
@@ -104,17 +104,17 @@ class ClickInterceptorFactory
     }
   }
 
-  static class OpenDiscoveryScreen extends AbstractClickInterceptor
-  {
-    OpenDiscoveryScreen()
-    {
-      super(Tutorial.DISCOVERY);
-    }
-
-    @Override
-    public void onInterceptClickInternal(@NonNull MwmActivity activity)
-    {
-      activity.showDiscovery();
-    }
-  }
+//  static class OpenDiscoveryScreen extends AbstractClickInterceptor
+//  {
+//    OpenDiscoveryScreen()
+//    {
+//      super(Tutorial.DISCOVERY);
+//    }
+//
+//    @Override
+//    public void onInterceptClickInternal(@NonNull MwmActivity activity)
+//    {
+//      activity.showDiscovery();
+//    }
+//  }
 }

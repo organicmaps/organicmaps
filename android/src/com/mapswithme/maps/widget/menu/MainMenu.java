@@ -103,16 +103,16 @@ public class MainMenu extends BaseMenu
             return new MwmActivity.PointToPointDelegate(activity, item);
           }
         },
-    DISCOVERY(R.id.discovery)
-        {
-          @NonNull
-          @Override
-          public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
-                                                       @NonNull Item item)
-          {
-            return new MwmActivity.DiscoveryDelegate(activity, item);
-          }
-        },
+//    DISCOVERY(R.id.discovery)
+//        {
+//          @NonNull
+//          @Override
+//          public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+//                                                       @NonNull Item item)
+//          {
+//            return new MwmActivity.DiscoveryDelegate(activity, item);
+//          }
+//        },
     BOOKMARKS(R.id.bookmarks)
         {
           @NonNull
@@ -270,7 +270,7 @@ public class MainMenu extends BaseMenu
     mapItem(Item.DOWNLOAD_GUIDES);
     mapItem(Item.SEARCH);
     mapItem(Item.POINT_TO_POINT);
-    mapItem(Item.DISCOVERY);
+//    mapItem(Item.DISCOVERY);
     mapItem(Item.BOOKMARKS);
     mapItem(Item.SHARE_MY_LOCATION);
     mapItem(Item.DOWNLOAD_MAPS);
