@@ -211,7 +211,8 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(ref_ptr<dp::GraphicsContext
       std::make_pair(WIDGET_RULER, std::bind(&LayerCacher::CacheRuler, this, _1, _2, _3, _4)),
       std::make_pair(WIDGET_COPYRIGHT, std::bind(&LayerCacher::CacheCopyright, this, _1, _2, _3, _4)),
       std::make_pair(WIDGET_SCALE_FPS_LABEL, std::bind(&LayerCacher::CacheScaleFpsLabel, this, _1, _2, _3, _4)),
-      std::make_pair(WIDGET_WATERMARK, std::bind(&LayerCacher::CacheWatermark, this, _1, _2, _3, _4))};
+//      std::make_pair(WIDGET_WATERMARK, std::bind(&LayerCacher::CacheWatermark, this, _1, _2, _3, _4))
+  };
 
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
   for (auto const & node : initInfo)
