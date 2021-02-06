@@ -67,7 +67,7 @@ private:
           it->second = item;
       }
     }
-  };
+  }
 
   void FillLinesAndRoutes(::transit::experimental::TransitData const & transitData);
 
