@@ -47,14 +47,13 @@ public:
   IndexGraph(std::shared_ptr<Geometry> geometry, std::shared_ptr<EdgeEstimator> estimator,
              RoutingOptions routingOptions = RoutingOptions());
 
-  inline static Parents<Segment> kEmptyParentsSegments = {};
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
   void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
                    bool useRoutingOptions, std::vector<SegmentEdge> & edges,
-                   Parents<Segment> const & parents = kEmptyParentsSegments);
+                   Parents<Segment> const & parents = {});
   void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
                    std::vector<SegmentEdge> & edges,
-                   Parents<Segment> const & parents = kEmptyParentsSegments);
+                   Parents<Segment> const & parents = {});
 
   void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
                    Segment const & parent, bool isOutgoing, std::vector<JointEdge> & edges,
