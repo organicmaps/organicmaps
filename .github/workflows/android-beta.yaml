@@ -9,19 +9,15 @@ jobs:
     name: Android Beta
     runs-on: [self-hosted, linux, X64]
     steps:
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
       - name: Checkout sources
         uses: actions/checkout@v2
         with:
-          submodules: true
-          clean: false # speed up builds
-
-      - name: Checkout keys
-        uses: actions/checkout@v2
-        with:
-          repository: omapsapp/omapsapp-release-keys
-          path: private/release
-          ref: release
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          submodules: recursive
 
       - name: Remove old outputs
         shell: bash
@@ -35,9 +31,8 @@ jobs:
 
       - name: Set up SDK
         shell: bash
-        working-directory: tools/android
         run: |
-          ./set_up_android.py --sdk /opt/Android/sdk --ndk /opt/Android/ndk
+          (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT= --ndk $ANDROID_NDK_ROOT)
 
       - name: Compile
         shell: bash
