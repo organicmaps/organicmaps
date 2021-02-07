@@ -1,29 +1,52 @@
 name: Check
 on:
   push:
-    branches:
-      - '!master'
+  pull_request:
 
 jobs:
   desktop-check:
     name: Desktop Check
-    runs-on: [self-hosted, linux, X64]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
         with:
-          submodules: true
-          clean: false
+          submodules: recursive
 
       - name: Configure
         shell: bash
         run: |
           ./configure.sh
 
+      - name: Install dependencies
+        shell: bash
+        run: |
+          sudo apt-get update && sudo apt-get install -y \
+              build-essential \
+              cmake \
+              clang \
+              ccache \
+              python \
+              qtbase5-dev \
+              libqt5svg5-dev \
+              libc++-dev \
+              libboost-iostreams-dev \
+              libglu1-mesa-dev \
+              libsqlite3-dev \
+              zlib1g-dev
+
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.ccache
+          key: desktop-cache
+
       - name: Compile
         shell: bash
         run: |
-          (mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo && make -j $(($(nproc)*2)))
+          export PATH="/usr/lib/ccache:${PATH}"
+          ccache -M 4G
+          (mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo && make desktop -j $(($(nproc)*2)))
 
 #      - name: Test
 #        shell: bash
