@@ -55,9 +55,9 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   @NonNull
   private View mContentView;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private ImageView mImage;
+//  @SuppressWarnings("NullableProblems")
+//  @NonNull
+//  private ImageView mImage;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -179,8 +179,8 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     res.setContentView(mContentView);
     mAcceptBtn = mContentView.findViewById(R.id.accept_btn);
     mAcceptBtn.setOnClickListener(this);
-    mImage = mContentView.findViewById(R.id.iv__image);
-    mImage.setImageResource(R.drawable.img_welcome);
+//    mImage = mContentView.findViewById(R.id.iv__image);
+//    mImage.setImageResource(R.drawable.img_welcome);
     mTitle = mContentView.findViewById(R.id.tv__title);
     List<String> headers = Arrays.asList(getString(R.string.new_onboarding_step1_header),
                                          getString(R.string.new_onboarding_step1_header_2));
@@ -300,7 +300,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
       return;
 
     mTitle.setText(mOnboardinStep.getTitle());
-    mImage.setImageResource(mOnboardinStep.getImage());
+//    mImage.setImageResource(mOnboardinStep.getImage());
     mAcceptBtn.setText(mOnboardinStep.getAcceptButtonResId());
     declineBtn.setOnClickListener(v -> onDeclineBtnClicked());
     mSubtitle.setText(mOnboardinStep.getSubtitle());

@@ -76,7 +76,6 @@ public class StoragePermissionsDialogFragment extends BaseMwmDialogFragment impl
     declineBtn.setText(R.string.back);
 
     ImageView image = (ImageView) content.findViewById(R.id.iv__image);
-    image.setImageResource(R.drawable.img_no_storage_permission);
     TextView title = (TextView) content.findViewById(R.id.tv__title);
     title.setText(R.string.onboarding_storage_permissions_title);
     TextView subtitle = (TextView) content.findViewById(R.id.tv__subtitle1);

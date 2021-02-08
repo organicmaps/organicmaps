@@ -346,7 +346,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     UiUtils.hide(view, R.id.galleriesLayout);
 
     PlaceholderView placeholder = (PlaceholderView) view.findViewById(R.id.placeholder);
-    placeholder.setContent(R.drawable.img_cactus, R.string.discovery_button_404_error_title,
+    placeholder.setContent(R.string.discovery_button_404_error_title,
                            R.string.discovery_button_404_error_message);
     UiUtils.show(placeholder);
   }

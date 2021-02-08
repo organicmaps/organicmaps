@@ -303,14 +303,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
   {
     if (isEmptySearchResults())
     {
-      requirePlaceholder().setContent(R.drawable.img_search_nothing_found_light,
-                                      R.string.search_not_found,
+      requirePlaceholder().setContent(R.string.search_not_found,
                                       R.string.search_not_found_query);
     }
     else if (isEmpty())
     {
-      requirePlaceholder().setContent(R.drawable.img_empty_bookmarks,
-                                      R.string.bookmarks_empty_list_title,
+      requirePlaceholder().setContent(R.string.bookmarks_empty_list_title,
                                       R.string.bookmarks_empty_list_message);
     }
 
