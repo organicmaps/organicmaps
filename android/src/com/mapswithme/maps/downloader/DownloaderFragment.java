@@ -227,10 +227,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
       return;
 
     if (mAdapter != null && mAdapter.isSearchResultsMode())
-      placeholder.setContent(R.drawable.img_search_nothing_found_light,
-                             R.string.search_not_found, R.string.search_not_found_query);
+      placeholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
     else
-      placeholder.setContent(R.drawable.img_search_no_maps,
-                             R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
+      placeholder.setContent(R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
   }
 }

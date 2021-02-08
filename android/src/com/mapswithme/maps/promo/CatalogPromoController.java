@@ -270,11 +270,6 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       final PromoCityGallery.Item item = items[0];
 
       ImageView poiImage = mPlacePageView.findViewById(R.id.promo_poi_image);
-      Glide.with(poiImage.getContext())
-           .load(item.getImageUrl())
-           .centerCrop()
-           .placeholder(R.drawable.img_guidespp_placeholder)
-           .into(poiImage);
       TextView bookmarkName = mPlacePageView.findViewById(R.id.place_single_bookmark_name);
       bookmarkName.setText(item.getName());
       TextView subtitle = mPlacePageView.findViewById(R.id.place_single_bookmark_subtitle);

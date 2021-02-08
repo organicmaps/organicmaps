@@ -12,8 +12,7 @@ public enum OnboardingStep implements StatisticValueConverter<String>
   CHECK_OUT_SIGHTS(R.string.new_onboarding_step5_3_button,
                    R.string.later,
                    R.string.new_onboarding_step5_1_header,
-                   R.string.new_onboarding_step5_3_message,
-                   R.drawable.img_check_sights_out)
+                   R.string.new_onboarding_step5_3_message)
       {
         @NonNull
         @Override
@@ -25,8 +24,7 @@ public enum OnboardingStep implements StatisticValueConverter<String>
   SUBSCRIBE_TO_CATALOG(R.string.new_onboarding_step5_2_button,
                        R.string.later,
                        R.string.new_onboarding_step5_1_header,
-                       R.string.new_onboarding_step5_2_message,
-                       R.drawable.img_discover_guides)
+                       R.string.new_onboarding_step5_2_message)
       {
         @NonNull
         @Override
@@ -38,8 +36,7 @@ public enum OnboardingStep implements StatisticValueConverter<String>
   DISCOVER_GUIDES(R.string.new_onboarding_step5_1_button,
                   R.string.later,
                   R.string.new_onboarding_step5_1_header,
-                  R.string.new_onboarding_step5_1_message,
-                  R.drawable.img_discover_guides)
+                  R.string.new_onboarding_step5_1_message)
       {
         @NonNull
         @Override
@@ -52,7 +49,7 @@ public enum OnboardingStep implements StatisticValueConverter<String>
                  UiUtils.NO_ID,
                  R.string.new_onboarding_step4_header,
                  R.string.new_onboarding_step4_message,
-                 R.drawable.img_share_emptions, false)
+               false)
       {
         @NonNull
         @Override
@@ -65,7 +62,7 @@ public enum OnboardingStep implements StatisticValueConverter<String>
              UiUtils.NO_ID,
              R.string.new_onboarding_step3_header,
              R.string.new_onboarding_step3_message,
-             R.drawable.img_experience, false)
+         false)
       {
         @NonNull
         @Override
@@ -78,7 +75,7 @@ public enum OnboardingStep implements StatisticValueConverter<String>
                  UiUtils.NO_ID,
                  R.string.new_onboarding_step2_header,
                  R.string.new_onboarding_step2_message,
-                 R.drawable.img_dream_and_plan, false)
+          false)
       {
         @NonNull
         @Override
@@ -90,8 +87,7 @@ public enum OnboardingStep implements StatisticValueConverter<String>
   PERMISSION_EXPLANATION(R.string.new_onboarding_button,
                          R.string.learn_more,
                          R.string.onboarding_permissions_title,
-                         R.string.onboarding_permissions_message,
-                         R.drawable.img_welcome)
+                         R.string.onboarding_permissions_message)
       {
         @NonNull
         @Override
@@ -109,27 +105,25 @@ public enum OnboardingStep implements StatisticValueConverter<String>
   private final int mTitle;
   @StringRes
   private final int mSubtitle;
-  @DrawableRes
-  private final int mImage;
+
 
   private final boolean mDeclinedButton;
 
   OnboardingStep(@StringRes int acceptButtonResId, @StringRes int declineButtonResId,
-                 @StringRes int title, @StringRes int subtitle, @DrawableRes int image)
+                 @StringRes int title, @StringRes int subtitle)
   {
 
-    this(acceptButtonResId, declineButtonResId, title, subtitle, image, true);
+    this(acceptButtonResId, declineButtonResId, title, subtitle,true);
   }
 
   OnboardingStep(@StringRes int acceptButtonResId, @StringRes int declineButtonResId,
-                 @StringRes int title, @StringRes int subtitle, @DrawableRes int image,
+                 @StringRes int title, @StringRes int subtitle,
                  boolean hasDeclinedButton)
   {
     mAcceptButtonResId = acceptButtonResId;
     mDeclineButtonResId = declineButtonResId;
     mTitle = title;
     mSubtitle = subtitle;
-    mImage = image;
     mDeclinedButton = hasDeclinedButton;
   }
 
@@ -154,7 +148,7 @@ public enum OnboardingStep implements StatisticValueConverter<String>
   @DrawableRes
   public int getImage()
   {
-    return mImage;
+    return 0;
   }
 
   public boolean hasDeclinedButton()

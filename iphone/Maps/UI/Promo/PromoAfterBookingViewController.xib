@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="307" height="339"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_booking_popup_pholder_light" translatesAutoresizingMaskIntoConstraints="NO" id="sDQ-mR-Qzk" userLabel="City Image">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sDQ-mR-Qzk" userLabel="City Image">
                     <rect key="frame" x="0.0" y="0.0" width="307" height="128"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="128" id="NJk-9b-9g9"/>
@@ -107,7 +107,5 @@
             <point key="canvasLocation" x="-779.46026986506752" y="-103.2"/>
         </view>
     </objects>
-    <resources>
-        <image name="img_booking_popup_pholder_light" width="307" height="128"/>
-    </resources>
+
 </document>

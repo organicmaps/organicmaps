@@ -468,7 +468,6 @@ public class Holders
 
       bindProLabel(item);
       bindSubTitle(item);
-      bindImage(item);
     }
 
     private void bindSubTitle(@NonNull PromoEntity item)
@@ -476,13 +475,7 @@ public class Holders
       mSubTitle.setText(item.getSubtitle());
     }
 
-    private void bindImage(@NonNull PromoEntity item)
-    {
-      Glide.with(itemView.getContext())
-           .load(Uri.parse(item.getImageUrl()))
-           .placeholder(R.drawable.img_guides_gallery_placeholder)
-           .into(mImage);
-    }
+
 
     private void bindProLabel(@NonNull PromoEntity item)
     {

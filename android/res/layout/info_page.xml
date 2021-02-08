@@ -20,8 +20,7 @@
         android:layout_height="@dimen/info_page_image_size"
         android:layout_marginBottom="@dimen/margin_base"
         android:layout_gravity="center_horizontal"
-        android:tag="@string/tag_height_limited"
-        tools:src="@drawable/img_welcome"/>
+        android:tag="@string/tag_height_limited" />
       <TextView
         android:id="@+id/tv__title"
         android:layout_width="wrap_content"
