@@ -387,7 +387,7 @@ public class SplashActivity extends AppCompatActivity
       return;
     }
 
-    boolean showNews = NewsFragment.showOn(this, this);
+    boolean showNews = false;
     if (!showNews)
     {
       if (ViralFragment.shouldDisplay(getApplicationContext()))
