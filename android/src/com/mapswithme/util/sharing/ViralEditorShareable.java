@@ -12,19 +12,16 @@ public class ViralEditorShareable extends BaseShareable
 {
   private static final String VIRAL_TAIL = " https://omaps.app/im_get";
 
-  private final Uri mUri;
-
-  public ViralEditorShareable(Activity context, @DrawableRes int resId)
+  public ViralEditorShareable(Activity context)
   {
     super(context);
-    mUri = UiUtils.getUriToResId(context, resId);
   }
 
   @Override
   protected void modifyIntent(Intent intent, @Nullable SharingTarget target)
   {
     super.modifyIntent(intent, target);
-    intent.putExtra(Intent.EXTRA_STREAM, mUri);
+//    intent.putExtra(Intent.EXTRA_STREAM);
   }
 
   @Override

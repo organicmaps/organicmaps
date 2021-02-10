@@ -249,9 +249,9 @@ public enum SharingHelper implements Initializable<Context>
     }
   }
 
-  public static void shareViralEditor(Activity context, @DrawableRes int imageId, @StringRes int subject, @StringRes int text)
+  public static void shareViralEditor(Activity context,@StringRes int subject, @StringRes int text)
   {
-    shareOutside(new ViralEditorShareable(context, imageId)
+    shareOutside(new ViralEditorShareable(context)
                      .setText(text)
                      .setSubject(subject));
   }

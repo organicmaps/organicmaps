@@ -187,10 +187,9 @@ public class PlaceholderView extends LinearLayout
     return view.getMeasuredHeight() + params.bottomMargin + params.topMargin;
   }
 
-  public void setContent(@DrawableRes int imageRes, @StringRes int titleRes,
+  public void setContent(@StringRes int titleRes,
                          @StringRes int subtitleRes)
   {
-    mImage.setImageResource(imageRes);
     mTitle.setText(titleRes);
     mSubtitle.setText(subtitleRes);
   }

@@ -46,8 +46,8 @@ public class IntroductionDialogFragment extends BaseMwmDialogFragment
     TextView button = content.findViewById(R.id.accept_btn);
     button.setText(factory.getAction());
     button.setOnClickListener(v -> onAcceptClicked());
-    ImageView image = content.findViewById(R.id.iv__image);
-    image.setImageResource(factory.getImage());
+//    ImageView image = content.findViewById(R.id.iv__image);
+//    image.setImageResource(factory.getImage());
     TextView title = content.findViewById(R.id.tv__title);
     title.setText(factory.getTitle());
     TextView subtitle = content.findViewById(R.id.tv__subtitle1);

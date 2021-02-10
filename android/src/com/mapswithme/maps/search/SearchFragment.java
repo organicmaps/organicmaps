@@ -42,7 +42,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
-import com.pushwoosh.Pushwoosh;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -326,8 +325,7 @@ public class SearchFragment extends BaseMwmFragment
     mResults = mResultsFrame.findViewById(R.id.recycler);
     setRecyclerScrollListener(mResults);
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
-    mResultsPlaceholder.setContent(R.drawable.img_search_nothing_found_light,
-                                   R.string.search_not_found, R.string.search_not_found_query);
+    mResultsPlaceholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
     mFilterController = new SearchFilterController(root.findViewById(R.id.filter_frame),
                                                    new SearchFilterController.DefaultFilterListener()
     {
@@ -829,7 +827,6 @@ public class SearchFragment extends BaseMwmFragment
     {
       Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.THIRD_PARTY);
       String tag = PushTokenCommand.class.getSimpleName();
-      logger.i(tag, "Push token: " + Pushwoosh.getInstance().getPushToken());
     }
   }
 }

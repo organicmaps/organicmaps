@@ -39,7 +39,6 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
       android:layout_marginTop="@dimen/margin_half"
-      android:src="@drawable/img_mappy_heart"
       android:visibility="invisible"
       tools:visibility="visible"/>
     <include

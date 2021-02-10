@@ -1083,10 +1083,6 @@ public enum Statistics implements Initializable<Context>
                editorMwmParams().add(EventParam.IS_AUTHENTICATED, valueOfIsAuthorized)
                                 .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.INSTANCE.isConnected())));
 
-    if (newObject)
-      PushwooshHelper.nativeSendEditorAddObjectTag();
-    else
-      PushwooshHelper.nativeSendEditorEditObjectTag();
   }
 
   public void trackMapLayerClick(@NonNull Mode mode, @NonNull String from, boolean turnOn)
