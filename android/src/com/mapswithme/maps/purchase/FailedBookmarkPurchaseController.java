@@ -5,13 +5,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.SkuDetails;
+
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import java.util.List;
 
 public class FailedBookmarkPurchaseController implements PurchaseController<FailedPurchaseChecker>
 {
@@ -25,8 +23,7 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
   private FailedPurchaseChecker mCallback;
   @NonNull
   private final ValidationCallback mValidationCallback = new ValidationCallbackImpl(null);
-  @NonNull
-  private final PlayStoreBillingCallback mBillingCallback = new PlayStoreBillingCallbackImpl();
+
 
   FailedBookmarkPurchaseController(@NonNull PurchaseValidator<ValidationCallback> validator,
                                    @NonNull BillingManager<PlayStoreBillingCallback> billingManager)
@@ -43,7 +40,6 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
 
     mBillingManager.initialize(activity);
     mValidator.addCallback(mValidationCallback);
-    mBillingManager.addCallback(mBillingCallback);
   }
 
   @Override
@@ -51,7 +47,6 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
   {
     mBillingManager.destroy();
     mValidator.removeCallback();
-    mBillingManager.removeCallback(mBillingCallback);
   }
 
   @Override
@@ -131,81 +126,12 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
     void consumePurchase(@NonNull String purchaseData)
     {
       LOGGER.i(TAG, "Failed bookmark purchase consuming...");
-      mBillingManager.consumePurchase(PurchaseUtils.parseToken(purchaseData));
+
     }
   }
 
-  private class PlayStoreBillingCallbackImpl implements PlayStoreBillingCallback
+  private class PlayStoreBillingCallbackImpl
   {
-    @Override
-    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
-    {
-      // Do nothing by default.
-    }
 
-    @Override
-    public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
-    {
-      // Do nothing by default.
-    }
-
-    @Override
-    public void onPurchaseFailure(int error)
-    {
-      // Do nothing by default.
-    }
-
-    @Override
-    public void onProductDetailsFailure()
-    {
-      // Do nothing by default.
-    }
-
-    @Override
-    public void onStoreConnectionFailed()
-    {
-      if (mCallback != null)
-        mCallback.onStoreConnectionFailed();
-    }
-
-    @Override
-    public void onPurchasesLoaded(@NonNull List<Purchase> purchases)
-    {
-      if (purchases.isEmpty())
-      {
-        LOGGER.i(TAG, "Non-consumed bookmark purchases not found");
-        if (mCallback != null)
-          mCallback.onFailedPurchaseDetected(false);
-        return;
-      }
-
-      if (purchases.size() > 1)
-      {
-        if (mCallback != null)
-          mCallback.onFailedPurchaseDetected(true);
-        return;
-      }
-
-      Purchase target = purchases.get(0);
-      LOGGER.i(TAG, "Validating failed purchase data for '" + target.getSku()
-                    + " " + target.getOrderId() + "'...");
-      mValidator.validate(null, PrivateVariables.bookmarksVendor(), target.getOriginalJson());
-    }
-
-    @Override
-    public void onConsumptionSuccess()
-    {
-      LOGGER.i(TAG, "Failed bookmark purchase consumed");
-      if (mCallback != null)
-        mCallback.onFailedPurchaseDetected(false);
-    }
-
-    @Override
-    public void onConsumptionFailure()
-    {
-      LOGGER.w(TAG, "Failed bookmark purchase not consumed");
-      if (mCallback != null)
-        mCallback.onFailedPurchaseDetected(true);
-    }
   }
 }

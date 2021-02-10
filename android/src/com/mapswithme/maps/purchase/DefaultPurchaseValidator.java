@@ -33,9 +33,7 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
   public void validate(@Nullable String serverId, @NonNull String vendor,
                        @NonNull String purchaseData)
   {
-    final String orderId = PurchaseUtils.parseOrderId(purchaseData);
-    mValidatedOrderId = orderId;
-    mOperationObservable.addValidationObserver(orderId, this);
+
     String encodedPurchaseData = Base64.encodeToString(purchaseData.getBytes(), Base64.DEFAULT);
     Framework.nativeValidatePurchase(serverId == null ? "" : serverId, vendor, encodedPurchaseData);
   }
@@ -74,8 +72,6 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
                                  boolean isTrial)
   {
     LOGGER.i(TAG, "Validation code: " + status);
-    String orderId = PurchaseUtils.parseOrderId(purchaseData);
-    mOperationObservable.removeValidationObserver(orderId);
     mValidatedOrderId = null;
     if (mCallback != null)
       mCallback.onValidate(purchaseData, status, isTrial);

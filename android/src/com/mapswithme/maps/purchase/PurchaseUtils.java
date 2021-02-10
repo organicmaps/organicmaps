@@ -6,8 +6,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.SkuDetails;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.ConfirmationDialogFactory;
@@ -51,91 +50,6 @@ public class PurchaseUtils
     // Utility class.
   }
 
-  @NonNull
-  static String parseToken(@NonNull String purchaseData)
-  {
-    try
-    {
-      return new Purchase(purchaseData, null).getPurchaseToken();
-    }
-    catch (JSONException e)
-    {
-      throw new IllegalArgumentException("Failed to parse purchase token!");
-    }
-  }
-
-  @NonNull
-  public static String parseOrderId(@NonNull String purchaseData)
-  {
-    try
-    {
-      return new Purchase(purchaseData, null).getOrderId();
-    }
-    catch (JSONException e)
-    {
-      throw new IllegalArgumentException("Failed to parse purchase order id!");
-    }
-  }
-
-  @NonNull
-  static ProductDetails toProductDetails(@NonNull SkuDetails skuDetails)
-  {
-    float price = normalizePrice(skuDetails.getPriceAmountMicros());
-    String currencyCode = skuDetails.getPriceCurrencyCode();
-    return new ProductDetails(skuDetails.getSku(), price, currencyCode, skuDetails.getTitle(),
-                              skuDetails.getFreeTrialPeriod());
-  }
-
-  @NonNull
-  public static String toProductDetailsBundle(@NonNull List<SkuDetails> skuDetails)
-  {
-    if (skuDetails.isEmpty())
-      return "";
-
-    JSONObject bundleJson = new JSONObject();
-    for (SkuDetails details: skuDetails)
-    {
-      JSONObject priceJson = new JSONObject();
-      try
-      {
-        float price = normalizePrice(details.getPriceAmountMicros());
-        String currencyCode = details.getPriceCurrencyCode();
-        priceJson.put("price_string", Utils.formatCurrencyString(price, currencyCode));
-        bundleJson.put(details.getSku(), priceJson);
-      }
-      catch (Exception e)
-      {
-        Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
-        String tag = PurchaseUtils.class.getSimpleName();
-        String msg = "Failed to form product details bundle for '" + details + "': ";
-        logger.e(tag, msg, e);
-        CrashlyticsUtils.INSTANCE.logException(new RuntimeException(msg, e));
-        return "";
-      }
-    }
-
-    return bundleJson.toString();
-  }
-
-  private static float normalizePrice(long priceMicros)
-  {
-    return priceMicros / 1000000f;
-  }
-
-  static boolean hasIncorrectSkuDetails(@NonNull List<SkuDetails> skuDetails)
-  {
-    for (SkuDetails each : skuDetails)
-    {
-      if (Period.getInstance(each.getSubscriptionPeriod()) == null)
-      {
-        String msg = "Unsupported subscription period: '" + each.getSubscriptionPeriod() + "'";
-        CrashlyticsUtils.INSTANCE.logException(new IllegalStateException(msg));
-        LOGGER.e(TAG, msg);
-        return true;
-      }
-    }
-    return false;
-  }
 
   static void showPaymentFailureDialog(@NonNull Fragment fragment, @Nullable String tag)
   {

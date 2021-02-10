@@ -600,7 +600,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     SharingHelper.INSTANCE.initialize(this);
 
-    initControllersAndValidatePurchases(savedInstanceState);
 
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
@@ -640,31 +639,28 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                 R.string.ok, listener);
   }
 
-  private void initControllersAndValidatePurchases(@Nullable Bundle savedInstanceState)
-  {
-    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController(this);
-    mAdsRemovalPurchaseController.initialize(this);
-
-    mBookmarkInappPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(this);
-    mBookmarkInappPurchaseController.initialize(this);
-
-    mBookmarksAllSubscriptionController
-        = PurchaseFactory.createBookmarksAllSubscriptionController(this);
-    mBookmarksAllSubscriptionController.initialize(this);
-
-    mBookmarksSightsSubscriptionController
-        = PurchaseFactory.createBookmarksSightsSubscriptionController(this);
-    mBookmarksSightsSubscriptionController.initialize(this);
-
-    // To reduce number of parasite validation requests during orientation change.
-    if (savedInstanceState == null)
-    {
-      mAdsRemovalPurchaseController.validateExistingPurchases();
-      mBookmarkInappPurchaseController.validateExistingPurchases();
-      mBookmarksAllSubscriptionController.validateExistingPurchases();
-      mBookmarksSightsSubscriptionController.validateExistingPurchases();
-    }
-  }
+//  private void initControllersAndValidatePurchases(@Nullable Bundle savedInstanceState)
+//  {
+//    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController(this);
+//
+//
+//    mBookmarksAllSubscriptionController
+//        = PurchaseFactory.createBookmarksAllSubscriptionController(this);
+//    mBookmarksAllSubscriptionController.initialize(this);
+//
+//    mBookmarksSightsSubscriptionController
+//        = PurchaseFactory.createBookmarksSightsSubscriptionController(this);
+//    mBookmarksSightsSubscriptionController.initialize(this);
+//
+//    // To reduce number of parasite validation requests during orientation change.
+//    if (savedInstanceState == null)
+//    {
+//      mAdsRemovalPurchaseController.validateExistingPurchases();
+//      mBookmarkInappPurchaseController.validateExistingPurchases();
+//      mBookmarksAllSubscriptionController.validateExistingPurchases();
+//      mBookmarksSightsSubscriptionController.validateExistingPurchases();
+//    }
+//  }
 
   private void initViews(boolean isLaunchByDeeplink)
   {

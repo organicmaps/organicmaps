@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseAuthFragment;
@@ -128,7 +127,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   public final void onStart()
   {
     super.onStart();
-    mPurchaseController.addCallback(mPurchaseCallback);
     mPurchaseCallback.attach(this);
   }
 
@@ -148,16 +146,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   private void launchPurchaseFlow(@NonNull String productId)
   {
     mPurchaseController.launchPurchaseFlow(productId);
-  }
-
-  private void handleProductDetails(@NonNull List<SkuDetails> details)
-  {
-    mProductDetails = new ProductDetails[PurchaseUtils.Period.values().length];
-    for (SkuDetails sku : details)
-    {
-      PurchaseUtils.Period period = PurchaseUtils.Period.valueOf(sku.getSubscriptionPeriod());
-      mProductDetails[period.ordinal()] = PurchaseUtils.toProductDetails(sku);
-    }
   }
 
   @NonNull
@@ -487,12 +475,10 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   private static class BookmarkSubscriptionCallback
       extends StatefulPurchaseCallback<BookmarkSubscriptionPaymentState,
       AbstractBookmarkSubscriptionFragment>
-      implements PurchaseCallback
+
   {
     @NonNull
     private final SubscriptionType mType;
-    @Nullable
-    private List<SkuDetails> mPendingDetails;
     private Boolean mPendingValidationResult;
 
     private BookmarkSubscriptionCallback(@NonNull SubscriptionType type)
@@ -500,68 +486,10 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
       mType = type;
     }
 
-    @Override
-    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
-    {
-      if (PurchaseUtils.hasIncorrectSkuDetails(details))
-      {
-        activateStateSafely(BookmarkSubscriptionPaymentState.PRODUCT_DETAILS_FAILURE);
-        return;
-      }
-
-      if (getUiObject() == null)
-        mPendingDetails = Collections.unmodifiableList(details);
-      else
-        getUiObject().handleProductDetails(details);
-      activateStateSafely(BookmarkSubscriptionPaymentState.PRICE_SELECTION);
-    }
-
-    @Override
-    public void onPaymentFailure(int error)
-    {
-      Statistics.INSTANCE.trackPurchaseStoreError(mType.getServerId(), error);
-      activateStateSafely(BookmarkSubscriptionPaymentState.PAYMENT_FAILURE);
-    }
-
-    @Override
-    public void onProductDetailsFailure()
-    {
-      activateStateSafely(BookmarkSubscriptionPaymentState.PRODUCT_DETAILS_FAILURE);
-    }
-
-    @Override
-    public void onStoreConnectionFailed()
-    {
-      activateStateSafely(BookmarkSubscriptionPaymentState.PRODUCT_DETAILS_FAILURE);
-    }
-
-    @Override
-    public void onValidationStarted()
-    {
-      Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
-                                             mType.getServerId());
-      activateStateSafely(BookmarkSubscriptionPaymentState.VALIDATION);
-    }
-
-    @Override
-    public void onValidationFinish(boolean success)
-    {
-      if (getUiObject() == null)
-        mPendingValidationResult = success;
-      else
-        getUiObject().handleValidationResult(success);
-
-      activateStateSafely(BookmarkSubscriptionPaymentState.VALIDATION_FINISH);
-    }
 
     @Override
     void onAttach(@NonNull AbstractBookmarkSubscriptionFragment fragment)
     {
-      if (mPendingDetails != null)
-      {
-        fragment.handleProductDetails(mPendingDetails);
-        mPendingDetails = null;
-      }
 
       if (mPendingValidationResult != null)
       {

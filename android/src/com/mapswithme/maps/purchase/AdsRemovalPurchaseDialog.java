@@ -16,9 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.SkuDetails;
-import com.mapswithme.maps.PrivateVariables;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
@@ -30,7 +28,6 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
@@ -159,7 +156,6 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   public void onStart()
   {
     super.onStart();
-    getControllerOrThrow().addCallback(mPurchaseCallback);
     mPurchaseCallback.attach(this);
   }
 
@@ -300,7 +296,6 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1M);
     String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
     String saving = Utils.formatCurrencyString(calculateMonthlySaving(), details.getCurrencyCode());
-    mMonthlyButton.setText(getString(R.string.options_dropdown_item1, price, saving));
   }
 
   private void updateWeeklyButton()
@@ -364,15 +359,6 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     }
   }
 
-  private void handleProductDetails(@NonNull List<SkuDetails> details)
-  {
-    mProductDetails = new ProductDetails[PurchaseUtils.Period.values().length];
-    for (SkuDetails sku: details)
-    {
-      PurchaseUtils.Period period = PurchaseUtils.Period.valueOf(sku.getSubscriptionPeriod());
-      mProductDetails[period.ordinal()] = PurchaseUtils.toProductDetails(sku);
-    }
-  }
 
   private void handleActivationResult(boolean result)
   {
@@ -381,80 +367,11 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
 
   private static class AdsRemovalPurchaseCallback
       extends StatefulPurchaseCallback<AdsRemovalPaymentState, AdsRemovalPurchaseDialog>
-      implements PurchaseCallback
+
   {
-    @Nullable
-    private List<SkuDetails> mPendingDetails;
+
     private Boolean mPendingActivationResult;
 
-    @Override
-    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
-    {
-      if (PurchaseUtils.hasIncorrectSkuDetails(details))
-      {
-        activateStateSafely(AdsRemovalPaymentState.PRODUCT_DETAILS_FAILURE);
-        return;
-      }
 
-      if (getUiObject() == null)
-        mPendingDetails = Collections.unmodifiableList(details);
-      else
-        getUiObject().handleProductDetails(details);
-      activateStateSafely(AdsRemovalPaymentState.PRICE_SELECTION);
-    }
-
-    @Override
-    public void onPaymentFailure(@BillingClient.BillingResponse int error)
-    {
-      Statistics.INSTANCE.trackPurchaseStoreError(SubscriptionType.ADS_REMOVAL.getServerId(), error);
-      activateStateSafely(AdsRemovalPaymentState.PAYMENT_FAILURE);
-    }
-
-    @Override
-    public void onProductDetailsFailure()
-    {
-      activateStateSafely(AdsRemovalPaymentState.PRODUCT_DETAILS_FAILURE);
-    }
-
-    @Override
-    public void onStoreConnectionFailed()
-    {
-      activateStateSafely(AdsRemovalPaymentState.PRODUCT_DETAILS_FAILURE);
-    }
-
-    @Override
-    public void onValidationStarted()
-    {
-      Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
-                                             SubscriptionType.ADS_REMOVAL.getServerId());
-      activateStateSafely(AdsRemovalPaymentState.VALIDATION);
-    }
-
-    @Override
-    public void onValidationFinish(boolean success)
-    {
-      if (getUiObject() == null)
-        mPendingActivationResult = success;
-      else
-        getUiObject().handleActivationResult(success);
-
-      activateStateSafely(AdsRemovalPaymentState.VALIDATION_FINISH);
-    }
-
-    @Override
-    void onAttach(@NonNull AdsRemovalPurchaseDialog uiObject)
-    {
-      if (mPendingDetails != null)
-      {
-        uiObject.handleProductDetails(mPendingDetails);
-        mPendingDetails = null;
-      }
-
-      if (mPendingActivationResult != null)
-      {
-        uiObject.handleActivationResult(mPendingActivationResult);
-        mPendingActivationResult = null;
-      }
-    }
   }
 }

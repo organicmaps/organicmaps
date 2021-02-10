@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
-import com.android.billingclient.api.Purchase;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.List;
 
 class SubscriptionPurchaseController extends AbstractPurchaseController<ValidationCallback,
     PlayStoreBillingCallback, PurchaseCallback>
@@ -20,8 +18,7 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
   private static final String TAG = SubscriptionPurchaseController.class.getSimpleName();
   @NonNull
   private final ValidationCallback mValidationCallback = new ValidationCallbackImpl();
-  @NonNull
-  private final PlayStoreBillingCallback mBillingCallback = new PlayStoreBillingCallbackImpl();
+
   @NonNull
   private final SubscriptionType mType;
 
@@ -38,14 +35,12 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
   void onInitialize(@NonNull Activity activity)
   {
     getValidator().addCallback(mValidationCallback);
-    getBillingManager().addCallback(mBillingCallback);
   }
 
   @Override
   void onDestroy()
   {
     getValidator().removeCallback();
-    getBillingManager().removeCallback(mBillingCallback);
   }
 
   private class ValidationCallbackImpl implements ValidationCallback
@@ -90,37 +85,6 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
       getValidator().validate(mType.getServerId(), mType.getVendor(), purchaseData);
     }
 
-    @Override
-    public void onPurchasesLoaded(@NonNull List<Purchase> purchases)
-    {
-      String purchaseData = null;
-      String productId = null;
-      Purchase target = findTargetPurchase(purchases);
-      if (target != null)
-      {
-        purchaseData = target.getOriginalJson();
-        productId = target.getSku();
-      }
 
-      if (TextUtils.isEmpty(purchaseData))
-      {
-        LOGGER.i(TAG, "Existing purchase data for '" + mType + "' not found");
-        if (Framework.nativeHasActiveSubscription(mType.ordinal()))
-        {
-          LOGGER.i(TAG, "'" + mType + "' subscription deactivated");
-          Framework.nativeSetActiveSubscription(mType.ordinal(), false, false);
-        }
-        return;
-      }
-
-      if (!ConnectionState.INSTANCE.isWifiConnected())
-      {
-        LOGGER.i(TAG, "Validation postponed, connection not WI-FI.");
-        return;
-      }
-
-      LOGGER.i(TAG, "Validating existing purchase data for '" + productId + "'...");
-      getValidator().validate(mType.getServerId(), mType.getVendor(), purchaseData);
-    }
   }
 }

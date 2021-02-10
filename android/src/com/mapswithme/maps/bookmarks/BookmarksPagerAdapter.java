@@ -40,7 +40,7 @@ public class BookmarksPagerAdapter extends FragmentStatePagerAdapter
   @Override
   public int getCount()
   {
-    return mFactories.size();
+    return 1;
   }
 
   @NonNull

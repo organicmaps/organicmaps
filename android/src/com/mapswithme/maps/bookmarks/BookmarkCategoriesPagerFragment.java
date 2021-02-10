@@ -92,14 +92,13 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   {
     View root = inflater.inflate(R.layout.fragment_bookmark_categories_pager, container, false);
     mViewPager = root.findViewById(R.id.viewpager);
-    TabLayout tabLayout = root.findViewById(R.id.sliding_tabs_layout);
-
+//    TabLayout tabLayout = root.findViewById(R.id.sliding_tabs_layout);
     FragmentManager fm = requireActivity().getSupportFragmentManager();
     List<BookmarksPageFactory> dataSet = getAdapterDataSet();
     mAdapter = new BookmarksPagerAdapter(requireContext(), fm, dataSet);
     mViewPager.setAdapter(mAdapter);
     mViewPager.setCurrentItem(saveAndGetInitialPage());
-    tabLayout.setupWithViewPager(mViewPager);
+//    tabLayout.setupWithViewPager(mViewPager);
     mViewPager.addOnPageChangeListener(new PageChangeListener());
     mDelegate.onCreateView(savedInstanceState);
     mKmlImportController = new KmlImportController(requireActivity(), this);

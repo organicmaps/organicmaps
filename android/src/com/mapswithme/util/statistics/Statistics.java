@@ -11,7 +11,6 @@ import android.util.Pair;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.android.billingclient.api.BillingClient;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
@@ -1859,11 +1858,9 @@ public enum Statistics implements Initializable<Context>
                                                     .add(PURCHASE, purchaseId));
   }
 
-  public void trackPurchaseStoreError(@NonNull String purchaseId,
-                                      @BillingClient.BillingResponse int error)
+  public void trackPurchaseStoreError(@NonNull String purchaseId)
   {
-    trackEvent(INAPP_PURCHASE_STORE_ERROR, params().add(ERROR, "Billing error: " + error)
-                                                   .add(PURCHASE, purchaseId));
+
   }
 
   public void trackPurchaseValidationError(@NonNull String purchaseId, @NonNull ValidationStatus status)

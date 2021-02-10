@@ -4,7 +4,6 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.android.billingclient.api.BillingClient;
 import com.mapswithme.maps.PurchaseOperationObservable;
 
 public class PurchaseFactory
@@ -36,45 +35,42 @@ public class PurchaseFactory
   private static PurchaseController<PurchaseCallback> createSubscriptionPurchaseController(
       @NonNull Context context, @NonNull SubscriptionType type)
   {
-    BillingManager<PlayStoreBillingCallback> billingManager
-        = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
+
     PurchaseOperationObservable observable = PurchaseOperationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     String[] productIds = type.getProductIds();
-    return new SubscriptionPurchaseController(validator, billingManager, type, productIds);
+    return  null;
   }
 
   @NonNull
   static PurchaseController<PurchaseCallback> createBookmarkPurchaseController(
       @NonNull Context context, @Nullable String productId, @Nullable String serverId)
   {
-    BillingManager<PlayStoreBillingCallback> billingManager
-        = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
+
     PurchaseOperationObservable observable = PurchaseOperationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
-    return new BookmarkPurchaseController(validator, billingManager, productId, serverId);
+    return null;
   }
 
   @NonNull
   public static PurchaseController<FailedPurchaseChecker> createFailedBookmarkPurchaseController(
       @NonNull Context context)
   {
-    BillingManager<PlayStoreBillingCallback> billingManager
-      = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
+
     PurchaseOperationObservable observable = PurchaseOperationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
-    return new FailedBookmarkPurchaseController(validator, billingManager);
+    return null;
   }
 
   @NonNull
   public static BillingManager<PlayStoreBillingCallback> createInAppBillingManager()
   {
-    return new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
+    return null;
   }
 
   @NonNull
   static BillingManager<PlayStoreBillingCallback> createSubscriptionBillingManager()
   {
-    return new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
+    return null;
   }
 }

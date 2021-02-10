@@ -26,7 +26,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
@@ -160,10 +159,10 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     super.onDestroyView();
     mDelegate.onDestroyView();
     mWebViewClient.clear();
-    mFailedPurchaseController.removeCallback();
-    mFailedPurchaseController.destroy();
-    mProductDetailsLoadingManager.removeCallback(mProductDetailsLoadingCallback);
-    mProductDetailsLoadingManager.destroy();
+//    mFailedPurchaseController.removeCallback();
+//    mFailedPurchaseController.destroy();
+//    mProductDetailsLoadingManager.removeCallback(mProductDetailsLoadingCallback);
+//    mProductDetailsLoadingManager.destroy();
   }
 
   @Nullable
@@ -179,16 +178,15 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     mProgressView = root.findViewById(R.id.progress);
     initWebView();
 
-    mFailedPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(requireContext());
-    mFailedPurchaseController.initialize(requireActivity());
+//    mFailedPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(requireContext());
+//    mFailedPurchaseController.initialize(requireActivity());
     mPurchaseChecker = new FailedBookmarkPurchaseChecker();
-    mFailedPurchaseController.addCallback(mPurchaseChecker);
-    mFailedPurchaseController.validateExistingPurchases();
+//    mFailedPurchaseController.addCallback(mPurchaseChecker);
+//    mFailedPurchaseController.validateExistingPurchases();
 
-    mProductDetailsLoadingManager = PurchaseFactory.createInAppBillingManager();
-    mProductDetailsLoadingManager.initialize(requireActivity());
-    mProductDetailsLoadingCallback = new ProductDetailsLoadingCallback();
-    mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
+//    mProductDetailsLoadingManager = PurchaseFactory.createInAppBillingManager();
+//    mProductDetailsLoadingManager.initialize(requireActivity());
+//    mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
 
     mRetryBtn.setOnClickListener(v -> onRetryClick());
     mDelegate.onCreateView(savedInstanceState);
@@ -200,7 +198,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     mWebViewClient.retry();
     UiUtils.hide(mRetryBtn, mWebView);
     UiUtils.show(mProgressView);
-    mFailedPurchaseController.validateExistingPurchases();
+//    mFailedPurchaseController.validateExistingPurchases();
   }
 
   @SuppressLint("SetJavaScriptEnabled")
@@ -564,49 +562,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       LOGGER.e(TAG, "Failed to check failed bookmarks due play store connection failure");
       loadCatalog(null);
     }
-  }
 
-  private class ProductDetailsLoadingCallback extends AbstractProductDetailsLoadingCallback
-  {
-    @Override
-    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
-    {
-      if (details.isEmpty())
-      {
-        LOGGER.i(TAG, "Product details not found.");
-        loadCatalog(null);
-        return;
-      }
-
-      LOGGER.i(TAG, "Product details for web catalog loaded: " + details);
-      mProductDetailsBundle = toDetailsBundle(details);
-      loadCatalog(mProductDetailsBundle);
-    }
-
-    @Nullable
-    private String toDetailsBundle(@NonNull List<SkuDetails> details)
-    {
-      String bundle = PurchaseUtils.toProductDetailsBundle(details);
-      String encodedBundle = null;
-      try
-      {
-        encodedBundle = URLEncoder.encode(bundle, "UTF-8");
-      }
-      catch (UnsupportedEncodingException e)
-      {
-        String msg = "Failed to encode details bundle '" + bundle + "': ";
-        LOGGER.e(TAG, msg, e);
-        CrashlyticsUtils.INSTANCE.logException(new RuntimeException(msg, e));
-      }
-
-      return encodedBundle;
-    }
-
-    @Override
-    public void onProductDetailsFailure()
-    {
-      LOGGER.e(TAG, "Failed to load product details for web catalog");
-      loadCatalog(null);
-    }
   }
 }

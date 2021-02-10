@@ -5,9 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.SkuDetails;
+
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -113,20 +111,7 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
     return mBillingManager;
   }
 
-  @Nullable
-  final Purchase findTargetPurchase(@NonNull List<Purchase> purchases)
-  {
-    if (mProductIds == null)
-      return null;
 
-    for (Purchase purchase: purchases)
-    {
-      if (mProductIds.contains(purchase.getSku()))
-        return purchase;
-    }
-
-    return null;
-  }
 
   abstract void onInitialize(@NonNull Activity activity);
 
@@ -144,61 +129,8 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
     mValidator.onRestore(inState);
   }
 
-  abstract class AbstractPlayStoreBillingCallback implements PlayStoreBillingCallback
+  abstract class AbstractPlayStoreBillingCallback
   {
-    @Override
-    public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
-    {
-      Purchase target = findTargetPurchase(purchases);
-      if (target == null)
-        return;
-
-      LOGGER.i(TAG, "Validating purchase '" + target.getSku() + " " + target.getOrderId()
-                    + "' on backend server...");
-      validate(target.getOriginalJson());
-      if (getUiCallback() != null)
-        getUiCallback().onValidationStarted();
-    }
-
-    @Override
-    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
-    {
-      if (getUiCallback() != null)
-        getUiCallback().onProductDetailsLoaded(details);
-    }
-
-    @Override
-    public void onPurchaseFailure(@BillingClient.BillingResponse int error)
-    {
-      if (getUiCallback() != null)
-        getUiCallback().onPaymentFailure(error);
-    }
-
-    @Override
-    public void onProductDetailsFailure()
-    {
-      if (getUiCallback() != null)
-        getUiCallback().onProductDetailsFailure();
-    }
-
-    @Override
-    public void onStoreConnectionFailed()
-    {
-      if (getUiCallback() != null)
-        getUiCallback().onStoreConnectionFailed();
-    }
-
-    @Override
-    public void onConsumptionSuccess()
-    {
-      // Do nothing by default.
-    }
-
-    @Override
-    public void onConsumptionFailure()
-    {
-      // Do nothing by default.
-    }
 
     abstract void validate(@NonNull String purchaseData);
   }

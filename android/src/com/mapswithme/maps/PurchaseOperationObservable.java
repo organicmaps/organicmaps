@@ -66,17 +66,8 @@ public class PurchaseOperationObservable implements Framework.PurchaseValidation
   {
     byte[] tokenBytes = Base64.decode(encodedPurchaseData, Base64.DEFAULT);
     String purchaseData = new String(tokenBytes);
-    String orderId = PurchaseUtils.parseOrderId(purchaseData);
-    CoreValidationObserver observer = mValidationObservers.get(orderId);
     ValidationStatus status = ValidationStatus.values()[code];
-    if (observer == null)
-    {
-      PendingResult result = new PendingResult(status, serverId, vendorId, purchaseData, isTrial);
-      mValidationPendingResults.put(orderId, result);
-      return;
-    }
 
-    observer.onValidatePurchase(status, serverId, vendorId, purchaseData, isTrial);
   }
 
   @Override

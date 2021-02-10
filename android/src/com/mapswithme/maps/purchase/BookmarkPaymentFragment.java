@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.android.billingclient.api.SkuDetails;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
@@ -227,7 +226,6 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     super.onStart();
     PurchaseOperationObservable observable = PurchaseOperationObservable.from(requireContext());
     observable.addTransactionObserver(mPurchaseCallback);
-    mPurchaseController.addCallback(mPurchaseCallback);
     mPurchaseCallback.attach(this);
   }
 
@@ -283,23 +281,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     author.setText(mPaymentData.getAuthorName());
   }
 
-  void handleProductDetails(@NonNull List<SkuDetails> details)
-  {
-    if (details.isEmpty())
-      return;
 
-    SkuDetails skuDetails = details.get(0);
-    mProductDetails = PurchaseUtils.toProductDetails(skuDetails);
-  }
-
-  void handleSubsProductDetails(@NonNull List<SkuDetails> details)
-  {
-    if (details.isEmpty())
-      return;
-
-    SkuDetails skuDetails = details.get(0);
-    mSubsProductDetails = PurchaseUtils.toProductDetails(skuDetails);
-  }
 
   void handleValidationResult(boolean validationResult)
   {
