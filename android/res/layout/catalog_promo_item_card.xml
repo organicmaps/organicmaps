@@ -24,7 +24,6 @@
         android:orientation="vertical">
         <ImageView
           android:id="@+id/image"
-          android:src="@drawable/img_guides_placeholder"
           android:scaleType="centerCrop"
           android:layout_width="@dimen/gallery_product_width"
           android:layout_height="@dimen/placeholder_margin_top_no_image"/>

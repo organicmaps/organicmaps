@@ -11,8 +11,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PushwooshHelper;
-import com.pushwoosh.Pushwoosh;
-import com.pushwoosh.notification.PushwooshNotificationSettings;
+
 
 class PushWooshEventLogger extends DefaultEventLogger
 {
@@ -37,9 +36,6 @@ class PushWooshEventLogger extends DefaultEventLogger
 
       @ColorInt
       int color = UiUtils.getNotificationColor(getApplication());
-      PushwooshNotificationSettings.setNotificationIconBackgroundColor(color);
-      Pushwoosh pushManager = Pushwoosh.getInstance();
-      pushManager.registerForPushNotifications();
       mPushwooshHelper = new PushwooshHelper();
     }
     catch(Exception e)

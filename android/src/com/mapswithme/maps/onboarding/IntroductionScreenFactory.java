@@ -43,7 +43,7 @@ public enum IntroductionScreenFactory implements StatisticValueConverter<String>
         @Override
         public int getImage()
         {
-          return R.drawable.img_onboarding_guide;
+          return 0;
         }
 
         @NonNull
@@ -92,7 +92,7 @@ public enum IntroductionScreenFactory implements StatisticValueConverter<String>
         @Override
         public int getImage()
         {
-          return R.drawable.img_onboarding_guide;
+          return 0;
         }
 
         @NonNull

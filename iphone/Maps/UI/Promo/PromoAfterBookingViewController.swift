@@ -50,8 +50,7 @@ class PromoAfterBookingViewController: UIViewController {
   
   private func setCityImage(_ imageUrl: String) {
     cityImageView.image = UIColor.isNightMode()
-        ? UIImage(named: "img_booking_popup_pholder_dark")
-        : UIImage(named: "img_booking_popup_pholder_light")
+
     if !imageUrl.isEmpty, let url = URL(string: imageUrl) {
       cityImageView.wi_setImage(with: url, transitionDuration: kDefaultAnimationDuration)
     }

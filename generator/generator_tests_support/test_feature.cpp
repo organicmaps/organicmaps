@@ -355,7 +355,7 @@ string TestPOI::ToDebugString() const
 TypesHolder TestPOI::GetTypes() const
 {
   TypesHolder types;
-  for (auto const path : m_types)
+  for (auto const & path : m_types)
     types.Add(classif().GetTypeByPath(path));
   return types;
 }

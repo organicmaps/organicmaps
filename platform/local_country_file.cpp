@@ -133,7 +133,7 @@ string DebugPrint(LocalCountryFile const & file)
   ostringstream filesStream;
   filesStream << "[";
   bool fileAdded = false;
-  for (auto const mapFile : file.m_files)
+  for (auto const & mapFile : file.m_files)
   {
     if (mapFile)
     {
