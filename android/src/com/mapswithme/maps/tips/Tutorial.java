@@ -37,10 +37,7 @@ public enum Tutorial
         }
       },
 
-  SEARCH(R.string.tips_book_hotel_title,
-         R.string.tips_book_hotel_message,
-         R.id.search, MainMenu.Item.SEARCH, MwmActivity.class)
-      {
+    SEARCH {
         @NonNull
         @Override
         public ClickInterceptor createClickInterceptor()
