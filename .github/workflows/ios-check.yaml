@@ -1,34 +1,52 @@
 name: Check
 on:
   push:
-#    branches-ignore:
-#      - 'master'
+  pull_request:
 
 jobs:
   ios-check:
     name: iOS Check
-    runs-on: [self-hosted, macOS, X64]
+    runs-on: macos-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
         with:
-          submodules: true
-          clean: false # speed up builds
+          submodules: recursive
 
       - name: Configure
         shell: bash
         run: |
           ./configure.sh
 
+      - name: Install pods
+        shell: bash
+        run: (cd iphone/Maps && pod install)
+
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData/omim-*/Build
+          key: macos-cache
+
       - name: Compile
         shell: bash
         # Just check compilation
         run: |
+          # Run twice as a workaround for a dependency problem.
+          # https://github.com/omapsapp/omapsapp/issues/133
           xcodebuild \
-             -workspace xcode/omim.xcworkspace \
-             -scheme MAPS.ME \
-             -configuration Debug build \
-             'generic/platform=iOS' \
-             CODE_SIGNING_REQUIRED=NO \
-             CODE_SIGNING_ALLOWED=NO \
+            -workspace xcode/omim.xcworkspace \
+            -scheme OMaps \
+            -configuration Debug build \
+            'generic/platform=iOS' \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+          |xcpretty || true
+          xcodebuild \
+            -workspace xcode/omim.xcworkspace \
+            -scheme OMaps \
+            -configuration Debug build \
+            'generic/platform=iOS' \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
           |xcpretty
