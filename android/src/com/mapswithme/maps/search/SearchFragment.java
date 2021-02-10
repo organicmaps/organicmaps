@@ -42,7 +42,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
-import com.pushwoosh.Pushwoosh;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -829,7 +828,6 @@ public class SearchFragment extends BaseMwmFragment
     {
       Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.THIRD_PARTY);
       String tag = PushTokenCommand.class.getSimpleName();
-      logger.i(tag, "Push token: " + Pushwoosh.getInstance().getPushToken());
     }
   }
 }

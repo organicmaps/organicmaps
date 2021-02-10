@@ -36,7 +36,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.PushwooshHelper;
 
 public class SplashActivity extends AppCompatActivity
     implements BaseNewsFragment.NewsDialogListener, BaseActivity,
@@ -503,7 +502,6 @@ public class SplashActivity extends AppCompatActivity
     if (!success || !app.isFirstLaunch())
       return;
 
-    PushwooshHelper.nativeProcessFirstLaunch();
     LocationHelper.INSTANCE.onEnteredIntoFirstRun();
     if (!LocationHelper.INSTANCE.isActive())
       LocationHelper.INSTANCE.start();
