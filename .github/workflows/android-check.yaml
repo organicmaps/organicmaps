@@ -1,6 +1,5 @@
 name: Check
 on:
-  push:
   pull_request:
 
 jobs:
@@ -27,12 +26,6 @@ jobs:
         shell: bash
         run: |
           (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT --ndk $ANDROID_NDK_ROOT)
-
-      - name: Restore cache
-        uses: actions/cache@v2
-        with:
-          path: android/nativeOutputs
-          key: android-cache
 
       - name: Compile
         shell: bash
