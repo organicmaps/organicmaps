@@ -476,13 +476,7 @@
         <action android:name="com.google.android.gms.iid.InstanceID"/>
       </intent-filter>
     </service>
-    <service
-      android:name="com.pushwoosh.GCMRegistrationService"
-      android:exported="false"/>
-    <service
-      android:name="com.pushwoosh.location.GeoLocationService"/>
-    <service android:name="com.mapswithme.util.push.GcmInstanceIDListenerService"/>
-    <service android:name="com.mapswithme.util.push.GcmMessageHandlerService"/>
+
     <service
       android:name="com.mapswithme.maps.geofence.GeofenceTransitionsIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"
