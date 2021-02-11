@@ -219,7 +219,7 @@ void MetalinesBuilder::OrderCollectedData()
     ReaderSource src(reader);
     while (src.Size() > 0)
     {
-      collectedData.resize(collectedData.size() + 1);
+      collectedData.push_back({});
       rw::ReadVectorOfPOD(src, collectedData.back());
     }
   }

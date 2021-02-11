@@ -147,7 +147,6 @@ void CrossMwmOsmWaysCollector::Save()
 void CrossMwmOsmWaysCollector::OrderCollectedData()
 {
   auto const & crossMwmOsmWaysDir = base::JoinPath(m_intermediateDir, CROSS_MWM_OSM_WAYS_DIR);
-  CHECK(Platform::MkDirChecked(crossMwmOsmWaysDir), (crossMwmOsmWaysDir));
   for (auto const & item : m_mwmToCrossMwmOsmIds)
     OrderTextFileByLine(base::JoinPath(crossMwmOsmWaysDir, item.first));
 }

@@ -75,7 +75,7 @@ void BoundaryPostcodeCollector::OrderCollectedData()
     ReaderSource src(reader);
     while (src.Size() > 0)
     {
-      collectedData.resize(collectedData.size() + 1);
+      collectedData.push_back({});
       utils::ReadString(src, collectedData.back().first);
       rw::ReadVectorOfPOD(src, collectedData.back().second);
     }

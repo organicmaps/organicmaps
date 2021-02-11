@@ -68,7 +68,7 @@ ftypes::LocalityType GetPlaceType(FeatureBuilder const & feature)
 void TruncateAndWriteCount(std::string const & file, size_t n)
 {
   FileWriter writer(file, FileWriter::Op::OP_WRITE_TRUNCATE);
-  writer.Write(&n, sizeof(n));
+  WriteToSink(writer, n);
 }
 }  // namespace
 
@@ -112,29 +112,29 @@ bool RoutingCityBoundariesCollector::FilterOsmElement(OsmElement const & osmElem
 void RoutingCityBoundariesCollector::LocalityData::Serialize(FileWriter & writer,
                                                              LocalityData const & localityData)
 {
-  writer.Write(&localityData.m_population, sizeof(localityData.m_population));
+  WriteToSink(writer, localityData.m_population);
 
   auto const placeType = static_cast<uint32_t>(localityData.m_place);
-  writer.Write(&placeType, sizeof(placeType));
+  WriteToSink(writer, placeType);
 
   auto const pointU = PointDToPointU(localityData.m_position, kPointCoordBits);
-  writer.Write(&pointU.x, sizeof(pointU.x));
-  writer.Write(&pointU.y, sizeof(pointU.y));
+  WriteToSink(writer, pointU.x);
+  WriteToSink(writer, pointU.y);
 }
 
 RoutingCityBoundariesCollector::LocalityData
 RoutingCityBoundariesCollector::LocalityData::Deserialize(ReaderSource<FileReader> & reader)
 {
   LocalityData localityData;
-  reader.Read(&localityData.m_population, sizeof(localityData.m_population));
+  ReadPrimitiveFromSource(reader, localityData.m_population);
 
   uint32_t placeType = 0;
-  reader.Read(&placeType, sizeof(placeType));
+  ReadPrimitiveFromSource(reader, placeType);
   localityData.m_place = static_cast<ftypes::LocalityType>(placeType);
 
   m2::PointU pointU;
-  reader.Read(&pointU.x, sizeof(pointU.x));
-  reader.Read(&pointU.y, sizeof(pointU.y));
+  ReadPrimitiveFromSource(reader, pointU.x);
+  ReadPrimitiveFromSource(reader, pointU.y);
   localityData.m_position = PointUToPointD(pointU, kPointCoordBits);
 
   return localityData;
@@ -363,20 +363,22 @@ void RoutingCityBoundariesWriter::OrderCollectedData(std::string const & finalFi
     {
       FileReader reader(nodeToLocalityFilename);
       ReaderSource src(reader);
-      src.Read(&count, sizeof(count));
+      ReadPrimitiveFromSource(src, count);
+      collectedData.reserve(count);
       while (src.Size() > 0)
       {
-        collectedData.resize(collectedData.size() + 1);
-        src.Read(&collectedData.back().first, sizeof(collectedData.back().first));
+        collectedData.push_back({});
+        ReadPrimitiveFromSource(src, collectedData.back().first);
         collectedData.back().second = LocalityData::Deserialize(src);
       }
+      CHECK_EQUAL(collectedData.size(), count, ());
     }
     std::sort(std::begin(collectedData), std::end(collectedData));
     FileWriter writer(nodeToLocalityFilename);
-    writer.Write(&count, sizeof(count));
+    WriteToSink(writer, count);
     for (auto const & p : collectedData)
     {
-      writer.Write(&p.first, sizeof(p.first));
+      WriteToSink(writer, p.first);
       LocalityData::Serialize(writer, p.second);
     }
   }
@@ -387,23 +389,25 @@ void RoutingCityBoundariesWriter::OrderCollectedData(std::string const & finalFi
     {
       FileReader reader(nodeToBoundariesFilename);
       ReaderSource src(reader);
-      src.Read(&count, sizeof(count));
+      ReadPrimitiveFromSource(src, count);
+      collectedData.reserve(count);
       while (src.Size() > 0)
       {
-        collectedData.resize(collectedData.size() + 1);
-        src.Read(&collectedData.back().first, sizeof(collectedData.back().first));
+        collectedData.push_back({});
+        ReadPrimitiveFromSource(src, collectedData.back().first);
         ReadFromSourceRawFormat(src, collectedData.back().second);
       }
+      CHECK_EQUAL(collectedData.size(), count, ());
     }
     std::sort(
         std::begin(collectedData), std::end(collectedData), [](auto const & lhs, auto const & rhs) {
           return lhs.first == rhs.first ? Less(lhs.second, rhs.second) : lhs.first < rhs.first;
         });
     FileWriter writer(nodeToBoundariesFilename);
-    writer.Write(&count, sizeof(count));
+    WriteToSink(writer, count);
     for (auto const & p : collectedData)
     {
-      writer.Write(&p.first, sizeof(p.first));
+      WriteToSink(writer, p.first);
       FeatureWriter::Write(writer, p.second);
     }
   }
@@ -414,7 +418,7 @@ void RoutingCityBoundariesWriter::OrderCollectedData(std::string const & finalFi
       ReaderSource src(reader);
       while (src.Size() > 0)
       {
-        collectedData.resize(collectedData.size() + 1);
+        collectedData.push_back({});
         rw::ReadVectorOfPOD(src, collectedData.back());
       }
     }

@@ -139,7 +139,7 @@ void CameraProcessor::FillCameraInWays()
   for (auto & p : m_speedCameras)
     p.second.m_ways = m_cameraToWays.count(p.first) != 0 ? m_cameraToWays.at(p.first) : empty;
 
-  ForEachCamera([](auto c) { c.Normalize(); });
+  ForEachCamera([](auto & c) { c.Normalize(); });
 }
 
 void CameraProcessor::ProcessNode(OsmElement const & element)
@@ -190,7 +190,7 @@ void CameraProcessor::OrderCollectedData(std::string const & filename)
       ReaderSource src(reader);
       while (src.Size() > 0)
       {
-        collectedData.resize(collectedData.size() + 1);
+        collectedData.push_back({});
         src.Read(&collectedData.back().first, sizeof(collectedData.back().first));
         rw::ReadVectorOfPOD(src, collectedData.back().second);
       }
