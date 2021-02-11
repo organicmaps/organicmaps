@@ -55,19 +55,17 @@ public class NotificationService extends JobIntentService
     final long lastEventTimestamp = prefs(this)
         .getLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, 0);
 
-    if (System.currentTimeMillis() - lastEventTimestamp > MIN_AUTH_EVENT_DELTA_MILLIS)
-    {
-      LOGGER.d(TAG, "Authentication notification will be sent.");
-
-      prefs(this).edit()
-                                    .putLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, System.currentTimeMillis())
-                                    .apply();
-
-      Notifier notifier = Notifier.from(getApplication());
-      notifier.notifyAuthentication();
-
-      return true;
-    }
+//    if (System.currentTimeMillis() - lastEventTimestamp > MIN_AUTH_EVENT_DELTA_MILLIS)
+//    {
+//      LOGGER.d(TAG, "Authentication notification will be sent.");
+//
+//      prefs(this).edit().putLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, System.currentTimeMillis()).apply();
+//
+//      Notifier notifier = Notifier.from(getApplication());
+//      notifier.notifyAuthentication();
+//
+//      return true;
+//    }
     LOGGER.d(TAG, "Authentication notification is rejected. Last event timestamp: " +
                   lastEventTimestamp + "Current time milliseconds: " + System.currentTimeMillis());
     return false;
@@ -83,12 +81,12 @@ public class NotificationService extends JobIntentService
     if (candidate == null)
       return false;
 
-    if (candidate.getType() == NotificationCandidate.TYPE_UGC_REVIEW)
-    {
-      Notifier notifier = Notifier.from(getApplication());
-      notifier.notifyLeaveReview((NotificationCandidate.UgcReview) candidate);
-      return true;
-    }
+//    if (candidate.getType() == NotificationCandidate.TYPE_UGC_REVIEW)
+//    {
+//      Notifier notifier = Notifier.from(getApplication());
+//      notifier.notifyLeaveReview((NotificationCandidate.UgcReview) candidate);
+//      return true;
+//    }
 
     return false;
   }
