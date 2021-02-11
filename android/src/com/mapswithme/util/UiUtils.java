@@ -227,9 +227,10 @@ public final class UiUtils
       invisible(views);
   }
 
-  public static void showIf(boolean condition, View view)
-  {
-    view.setVisibility(condition ? View.VISIBLE : View.GONE);
+  public static void showIf(boolean condition, View view) {
+    if (view != null) {
+      view.setVisibility(condition ? View.VISIBLE : View.GONE);
+    }
   }
 
   public static void hideIf(boolean condition, View... views)
