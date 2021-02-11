@@ -10,6 +10,8 @@ import android.util.TypedValue;
 
 import com.mapswithme.maps.R;
 
+import java.util.Objects;
+
 public final class ThemeUtils
 {
   private static final TypedValue VALUE_BUFFER = new TypedValue();
@@ -79,10 +81,14 @@ public final class ThemeUtils
 
   public static boolean isValidTheme(@NonNull Context context, String theme)
   {
-    String defaultTheme = context.getString(R.string.theme_default);
-    String nightTheme = context.getString(R.string.theme_night);
-    return (defaultTheme.equals(theme) || nightTheme.equals(theme));
-  }
+    if (context == null) {
+      throw new NullPointerException("context is marked @NonNull but is null");
+    }
+      String defaultTheme = context.getString(R.string.theme_default);
+      String nightTheme = context.getString(R.string.theme_night);
+      return (defaultTheme.equals(theme) || nightTheme.equals(theme));
+    }
+
 
   @StyleRes
   public static int getCardBgThemeResourceId(@NonNull Context context, @NonNull String theme)
