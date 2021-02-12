@@ -47,7 +47,9 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.NetworkInterface;
 import java.security.MessageDigest;
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
@@ -846,6 +848,22 @@ public class Utils
   public static Calendar getCalendarInstance()
   {
     return Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+  }
+
+  @NonNull
+  public static String calculateFinishTime(int seconds)
+  {
+    Calendar calendar = getCalendarInstance();
+    calendar.add(Calendar.SECOND, seconds);
+    DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    return dateFormat.format(calendar.getTime());
+  }
+
+  @NonNull
+  public static String fixCaseInString(@NonNull String string)
+  {
+    char firstChar = string.charAt(0);
+    return firstChar + string.substring(1).toLowerCase();
   }
 
   private static class SupportInfoWithLogsCallback implements LoggerFactory.OnZipCompletedListener

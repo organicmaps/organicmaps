@@ -1011,7 +1011,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         fragment.saveRoutingPanelState(outState);
     }
 
-    mNavigationController.onSaveState(outState);
+    mNavigationController.onActivitySaveInstanceState(this, outState);
 
     RoutingController.get().onSaveState();
     outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, mLocationErrorDialogAnnoying);
@@ -1052,7 +1052,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!mIsTabletLayout && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
 
-    mNavigationController.onRestoreState(savedInstanceState);
+    mNavigationController.onRestoreState(savedInstanceState, this);
 
     if (mFilterController != null)
       mFilterController.onRestoreState(savedInstanceState);
@@ -1459,7 +1459,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mOnmapDownloader != null)
       mOnmapDownloader.onResume();
 
-    mNavigationController.onResume();
+    mNavigationController.onActivityResumed(this);
 
     if (mNavAnimationController != null)
       mNavAnimationController.onResume();
@@ -1498,11 +1498,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onPause()
   {
-    TtsPlayer.INSTANCE.stop();
+    if (!RoutingController.get().isNavigating())
+      TtsPlayer.INSTANCE.stop();
     LikesManager.INSTANCE.cancelDialogs();
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
     mPlacePageController.onActivityPaused(this);
+    mNavigationController.onActivityPaused(this);
     super.onPause();
   }
 
@@ -2315,19 +2317,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationCancelled()
   {
-    mNavigationController.stop(this);
     updateSearchBar();
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     if (mRoutingPlanInplaceController == null)
       return;
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
+    mNavigationController.stop(this);
   }
 
   @Override
   public void onNavigationStarted()
   {
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+    mNavigationController.start(this);
   }
 
   @Override
@@ -2478,22 +2481,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
             mLocationErrorDialogAnnoying = true;
           }
         })
-        .setOnCancelListener(new DialogInterface.OnCancelListener()
-        {
-          @Override
-          public void onCancel(DialogInterface dialog)
-          {
-            mLocationErrorDialogAnnoying = true;
-          }
-        })
-        .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            startActivity(intent);
-          }
-        }).show();
+        .setOnCancelListener(dialog -> mLocationErrorDialogAnnoying = true)
+        .setPositiveButton(R.string.connection_settings, (dialog, which) -> startActivity(intent)).show();
   }
 
   @Override
