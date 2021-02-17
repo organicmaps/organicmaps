@@ -37,14 +37,12 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.metrics.UserActionsLogger;
-import com.mapswithme.maps.purchase.AbstractProductDetailsLoadingCallback;
 import com.mapswithme.maps.purchase.BillingManager;
 import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
 import com.mapswithme.maps.purchase.BookmarksSightsSubscriptionActivity;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
 import com.mapswithme.maps.purchase.PlayStoreBillingCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
-import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.maps.purchase.SubscriptionType;
 import com.mapswithme.util.ConnectionState;
@@ -58,9 +56,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
-import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -159,10 +155,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     super.onDestroyView();
     mDelegate.onDestroyView();
     mWebViewClient.clear();
-//    mFailedPurchaseController.removeCallback();
-//    mFailedPurchaseController.destroy();
-//    mProductDetailsLoadingManager.removeCallback(mProductDetailsLoadingCallback);
-//    mProductDetailsLoadingManager.destroy();
   }
 
   @Nullable
@@ -178,15 +170,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     mProgressView = root.findViewById(R.id.progress);
     initWebView();
 
-//    mFailedPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(requireContext());
-//    mFailedPurchaseController.initialize(requireActivity());
     mPurchaseChecker = new FailedBookmarkPurchaseChecker();
-//    mFailedPurchaseController.addCallback(mPurchaseChecker);
-//    mFailedPurchaseController.validateExistingPurchases();
 
-//    mProductDetailsLoadingManager = PurchaseFactory.createInAppBillingManager();
-//    mProductDetailsLoadingManager.initialize(requireActivity());
-//    mProductDetailsLoadingManager.addCallback(mProductDetailsLoadingCallback);
 
     mRetryBtn.setOnClickListener(v -> onRetryClick());
     mDelegate.onCreateView(savedInstanceState);
@@ -198,7 +183,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     mWebViewClient.retry();
     UiUtils.hide(mRetryBtn, mWebView);
     UiUtils.show(mProgressView);
-//    mFailedPurchaseController.validateExistingPurchases();
   }
 
   @SuppressLint("SetJavaScriptEnabled")

@@ -201,10 +201,6 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   public void onDestroyView()
   {
     super.onDestroyView();
-    mPurchaseController.destroy();
-    mSubsProductDetailsLoadingManager.removeCallback(mSubsProductDetailsCallback);
-    mSubsProductDetailsCallback.detach();
-    mSubsProductDetailsLoadingManager.destroy();
   }
 
   private void startPurchaseTransaction()

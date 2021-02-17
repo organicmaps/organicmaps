@@ -639,28 +639,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                 R.string.ok, listener);
   }
 
-//  private void initControllersAndValidatePurchases(@Nullable Bundle savedInstanceState)
-//  {
-//    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController(this);
-//
-//
-//    mBookmarksAllSubscriptionController
-//        = PurchaseFactory.createBookmarksAllSubscriptionController(this);
-//    mBookmarksAllSubscriptionController.initialize(this);
-//
-//    mBookmarksSightsSubscriptionController
-//        = PurchaseFactory.createBookmarksSightsSubscriptionController(this);
-//    mBookmarksSightsSubscriptionController.initialize(this);
-//
-//    // To reduce number of parasite validation requests during orientation change.
-//    if (savedInstanceState == null)
-//    {
-//      mAdsRemovalPurchaseController.validateExistingPurchases();
-//      mBookmarkInappPurchaseController.validateExistingPurchases();
-//      mBookmarksAllSubscriptionController.validateExistingPurchases();
-//      mBookmarksSightsSubscriptionController.validateExistingPurchases();
-//    }
-//  }
 
   private void initViews(boolean isLaunchByDeeplink)
   {
