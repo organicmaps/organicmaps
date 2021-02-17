@@ -41,6 +41,9 @@
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="android.permission.BATTERY_STATS"/>
 
+  <!-- Temporary disable in-app purchases //-->
+  <uses-permission android:name="com.android.vending.BILLING" tools:node="remove" />
+
   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
   <permission
