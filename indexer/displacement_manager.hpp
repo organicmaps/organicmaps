@@ -82,7 +82,7 @@ public:
 
     // Pass feature to the index otherwise.
     for (auto const & cell : cells)
-      m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, index), bucket));
+      m_sorter(CellFeatureBucketTuple(CellFeaturePair(cell, index), bucket));
   }
 
   /// Check features intersection and supress drawing of intersected features.
@@ -211,7 +211,7 @@ private:
   void AddNodeToSorter(DisplaceableNode const & node, uint32_t scale)
   {
     for (auto const & cell : node.m_cells)
-      m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, node.m_index), scale));
+      m_sorter(CellFeatureBucketTuple(CellFeaturePair(cell, node.m_index), scale));
   }
 
   Sorter & m_sorter;

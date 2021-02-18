@@ -122,33 +122,30 @@ private:
 
 template <class FeaturesVector, class Writer>
 void IndexScales(feature::DataHeader const & header, FeaturesVector const & features,
-                 Writer & writer, std::string const & tmpFilePrefix)
+                 Writer & writer, std::string const &)
 {
   // TODO: Make scale bucketing dynamic.
 
   uint32_t const bucketsCount = header.GetLastScale() + 1;
 
-  std::string const cellsToFeatureAllBucketsFile =
-      tmpFilePrefix + CELL2FEATURE_SORTED_EXT + ".allbuckets";
-  SCOPE_GUARD(cellsToFeatureAllBucketsFileGuard,
-              bind(&FileWriter::DeleteFileX, cellsToFeatureAllBucketsFile));
+  std::vector<CellFeatureBucketTuple> cellsToFeaturesAllBuckets;
   {
-    FileWriter cellsToFeaturesAllBucketsWriter(cellsToFeatureAllBucketsFile);
+    auto const PushCFT = [&cellsToFeaturesAllBuckets](CellFeatureBucketTuple const & v)
+    {
+      cellsToFeaturesAllBuckets.push_back(v);
+    };
+    using TDisplacementManager = DisplacementManager<decltype(PushCFT)>;
 
-    using TSorter = FileSorter<CellFeatureBucketTuple, WriterFunctor<FileWriter>>;
-    using TDisplacementManager = DisplacementManager<TSorter>;
-    WriterFunctor<FileWriter> out(cellsToFeaturesAllBucketsWriter);
-    TSorter sorter(1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2FEATURE_TMP_EXT, out);
     // Heuristically rearrange and filter single-point features to simplify
     // the runtime decision of whether we should draw a feature
     // or sacrifice it for the sake of more important ones.
-    TDisplacementManager manager(sorter);
+    TDisplacementManager manager(PushCFT);
     std::vector<uint32_t> featuresInBucket(bucketsCount);
     std::vector<uint32_t> cellsInBucket(bucketsCount);
     features.ForEach(
         FeatureCoverer<TDisplacementManager>(header, manager, featuresInBucket, cellsInBucket));
     manager.Displace();
-    sorter.SortAndFinish();
+    std::sort(cellsToFeaturesAllBuckets.begin(), cellsToFeaturesAllBuckets.end());
 
     for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
     {
@@ -161,35 +158,24 @@ void IndexScales(feature::DataHeader const & header, FeaturesVector const & feat
     }
   }
 
-  FileReader reader(cellsToFeatureAllBucketsFile);
-  DDVector<CellFeatureBucketTuple, FileReader, uint64_t> cellsToFeaturesAllBuckets(reader);
-
   VarSerialVectorWriter<Writer> recordWriter(writer, bucketsCount);
   auto it = cellsToFeaturesAllBuckets.begin();
 
   for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
   {
-    std::string const cellsToFeatureFile = tmpFilePrefix + CELL2FEATURE_SORTED_EXT;
-    SCOPE_GUARD(cellsToFeatureFileGuard, bind(&FileWriter::DeleteFileX, cellsToFeatureFile));
+    /// @todo Can avoid additional vector here with the smart iterator adapter.
+    std::vector<CellFeatureBucketTuple::CellFeaturePair> cellsToFeatures;
+    while (it < cellsToFeaturesAllBuckets.end() && it->GetBucket() == bucket)
     {
-      FileWriter cellsToFeaturesWriter(cellsToFeatureFile);
-      WriterFunctor<FileWriter> out(cellsToFeaturesWriter);
-      while (it < cellsToFeaturesAllBuckets.end() && it->GetBucket() == bucket)
-      {
-        out(it->GetCellFeaturePair());
-        ++it;
-      }
+      cellsToFeatures.push_back(it->GetCellFeaturePair());
+      ++it;
     }
 
-    {
-      FileReader reader(cellsToFeatureFile);
-      DDVector<CellFeatureBucketTuple::CellFeaturePair, FileReader, uint64_t> cellsToFeatures(
-          reader);
-      SubWriter<Writer> subWriter(writer);
-      LOG(LINFO, ("Building interval index for bucket:", bucket));
-      BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter,
-                         RectId::DEPTH_LEVELS * 2 + 1);
-    }
+    SubWriter<Writer> subWriter(writer);
+    LOG(LINFO, ("Building interval index for bucket:", bucket));
+    BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter,
+                       RectId::DEPTH_LEVELS * 2 + 1);
+
     recordWriter.FinishRecord();
   }
 
