@@ -125,21 +125,6 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
   return self;
 }
 
-/// We cancel and don't support any redirects to avoid data corruption
-/// @TODO Display content to user - router is redirecting us somewhere
-- (void)URLSession:(NSURLSession *)session
-              task:(NSURLSessionTask *)task
-willPerformHTTPRedirection:(NSHTTPURLResponse *)response
-        newRequest:(NSURLRequest *)request
- completionHandler:(void (^)(NSURLRequest *))completionHandler
-{
-  LOG(LWARNING, ("Canceling because of redirect from", response.URL.absoluteString.UTF8String, "to",
-                 request.URL.absoluteString.UTF8String));
-  completionHandler(nil);
-  m_callback->OnFinish(static_cast<NSHTTPURLResponse *>(response).statusCode, m_begRange,
-                       m_endRange);
-}
-
 /// @return -1 if can't decode
 + (int64_t)getContentRange:(NSDictionary *)httpHeader
 {
