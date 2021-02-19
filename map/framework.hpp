@@ -11,7 +11,6 @@
 #include "map/features_fetcher.hpp"
 #include "map/guides_manager.hpp"
 #include "map/isolines_manager.hpp"
-#include "map/local_ads_manager.hpp"
 #include "map/mwm_url.hpp"
 #include "map/notifications/notification_manager.hpp"
 #include "map/place_page_info.hpp"
@@ -142,14 +141,12 @@ class NotificationCandidate;
 
 struct FrameworkParams
 {
-  bool m_enableLocalAds = true;
   bool m_enableDiffs = true;
   size_t m_numSearchAPIThreads = 1;
 
   FrameworkParams() = default;
-  FrameworkParams(bool enableLocalAds, bool enableDiffs)
-    : m_enableLocalAds(enableLocalAds)
-    , m_enableDiffs(enableDiffs)
+  FrameworkParams(bool enableDiffs)
+    : m_enableDiffs(enableDiffs)
   {}
 };
 
@@ -198,8 +195,6 @@ protected:
   // m_FeaturesFetcher must be initialized before
   // search::Engine and, therefore, destroyed after search::Engine.
   std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
-
-  LocalAdsManager m_localAdsManager;
 
   // The order matters here: ugc::Api should be destroyed after
   // SearchAPI and notifications::NotificationManager.
@@ -771,8 +766,6 @@ public:
   void SaveAutoZoom(bool allowAutoZoom);
 
   TrafficManager & GetTrafficManager();
-
-  LocalAdsManager & GetLocalAdsManager();
 
   TransitReadManager & GetTransitManager();
 

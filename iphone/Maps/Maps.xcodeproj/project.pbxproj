@@ -78,7 +78,6 @@
 		341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 341F09831C20138100F18AC5 /* libpugixml.a */; };
 		34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */; };
 		34201E0C1DC0E33100D24118 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34201E0B1DC0E33100D24118 /* libtracking.a */; };
-		342639361EA0E60A0025EB89 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 450703081E9E6CF000E8C029 /* local_ads_symbols.txt */; };
 		342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */; };
 		342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
 		343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430643F1E9FDC7300DC7665 /* SearchIndex.swift */; };
@@ -287,7 +286,6 @@
 		4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */; };
 		4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		45CBCCBA20590AAB006B55C2 /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CBCCBB20590AAB006B55C2 /* libkml.a */; };
-		45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD65C1E965EBE00DB854E /* liblocal_ads.a */; };
 		4701A93D243A917900B87683 /* TouchTransparentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4701A93C243A917800B87683 /* TouchTransparentView.swift */; };
 		4707E4B12372FE860017DF6E /* PlacePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4707E4AF2372FE860017DF6E /* PlacePageViewController.swift */; };
 		4707E4B42372FF480017DF6E /* PlacePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4707E4B32372FF480017DF6E /* PlacePage.storyboard */; };
@@ -369,11 +367,6 @@
 		47A6F3C4235F47B90053FBA4 /* CitySubscriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A6F3C1235F47B90053FBA4 /* CitySubscriptionViewController.xib */; };
 		47A6F3C5235F47B90053FBA4 /* BookmarksSubscriptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A6F3C2235F47B90053FBA4 /* BookmarksSubscriptionButton.swift */; };
 		47AEF8402231249E00D20538 /* categories_brands.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47AEF83F2231249E00D20538 /* categories_brands.txt */; };
-		47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEC21B696C20094CCAD /* GeoTracker.swift */; };
-		47B06DF021B697230094CCAD /* MWMGeoTrackerCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEF21B697230094CCAD /* MWMGeoTrackerCore.mm */; };
-		47B06DF921B95F5E0094CCAD /* IGeoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DF821B95F5E0094CCAD /* IGeoTracker.swift */; };
-		47B06DFE21B965950094CCAD /* Geo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DFD21B965950094CCAD /* Geo.swift */; };
-		47B06E0021BAAC270094CCAD /* GeoZoneTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DFF21BAAC270094CCAD /* GeoZoneTracker.swift */; };
 		47B505542136B0C2009CBB55 /* DiscoveryTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B505522136AB41009CBB55 /* DiscoveryTutorialBlur.xib */; };
 		47B505552136B0CF009CBB55 /* SearchTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B505532136AD69009CBB55 /* SearchTutorialBlur.xib */; };
 		47B9065221C7FA400079C85E /* MWMWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B9064921C7FA3B0079C85E /* MWMWebImage.m */; };
@@ -1377,7 +1370,6 @@
 		408645FB21495EB1000A4A1D /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_cuisines.txt; path = ../../data/categories_cuisines.txt; sourceTree = "<group>"; };
 		4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_clear"; path = "../../data/resources-xxxhdpi_clear"; sourceTree = "<group>"; };
 		4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_dark"; path = "../../data/resources-xxxhdpi_dark"; sourceTree = "<group>"; };
-		450703081E9E6CF000E8C029 /* local_ads_symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = local_ads_symbols.txt; path = ../../data/local_ads_symbols.txt; sourceTree = "<group>"; };
 		450B5C822355F50200E9019E /* libweb_api.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libweb_api.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
@@ -1391,7 +1383,6 @@
 		4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		4598438921394D7700F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CBCCBB20590AAB006B55C2 /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		45FFD65C1E965EBE00DB854E /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/local_ads/../../../omim-build/xcode/Debug/liblocal_ads.a"; sourceTree = "<absolute>"; };
 		46F26CD610F623BA00ECCA39 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EAGLView.h; sourceTree = "<group>"; };
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; };
@@ -1481,14 +1472,6 @@
 		47A6F3C1235F47B90053FBA4 /* CitySubscriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitySubscriptionViewController.xib; sourceTree = "<group>"; };
 		47A6F3C2235F47B90053FBA4 /* BookmarksSubscriptionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksSubscriptionButton.swift; sourceTree = "<group>"; };
 		47AEF83F2231249E00D20538 /* categories_brands.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = "<group>"; };
-		47B06DEC21B696C20094CCAD /* GeoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoTracker.swift; sourceTree = "<group>"; };
-		47B06DEE21B697230094CCAD /* MWMGeoTrackerCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMGeoTrackerCore.h; sourceTree = "<group>"; };
-		47B06DEF21B697230094CCAD /* MWMGeoTrackerCore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMGeoTrackerCore.mm; sourceTree = "<group>"; };
-		47B06DF821B95F5E0094CCAD /* IGeoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGeoTracker.swift; sourceTree = "<group>"; };
-		47B06DFA21B960080094CCAD /* IMWMGeoTrackerCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMWMGeoTrackerCore.h; sourceTree = "<group>"; };
-		47B06DFB21B960CE0094CCAD /* IMWMGeoTrackerZone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMWMGeoTrackerZone.h; sourceTree = "<group>"; };
-		47B06DFD21B965950094CCAD /* Geo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geo.swift; sourceTree = "<group>"; };
-		47B06DFF21BAAC270094CCAD /* GeoZoneTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoZoneTracker.swift; sourceTree = "<group>"; };
 		47B505522136AB41009CBB55 /* DiscoveryTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryTutorialBlur.xib; sourceTree = "<group>"; };
 		47B505532136AD69009CBB55 /* SearchTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTutorialBlur.xib; sourceTree = "<group>"; };
 		47B9064921C7FA3B0079C85E /* MWMWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMWebImage.m; sourceTree = "<group>"; };
@@ -2180,7 +2163,6 @@
 				34E6F2DB1F459C05008E14F9 /* GLKit.framework in Frameworks */,
 				F6F8E3C51EF8469700F2DE8F /* libugc.a in Frameworks */,
 				3488B03B1E9D13EF0068AFD8 /* UserNotifications.framework in Frameworks */,
-				45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */,
 				34D1B6F11E95096B0057E9C7 /* libicu.a in Frameworks */,
 				671E78D31E6A423300B2859B /* librouting_common.a in Frameworks */,
 				67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */,
@@ -2370,7 +2352,6 @@
 				34D1B6F01E95096B0057E9C7 /* libicu.a */,
 				6741AAAE1BF356B9002C974C /* libindexer.a */,
 				6741AAAF1BF356B9002C974C /* libjansson.a */,
-				45FFD65C1E965EBE00DB854E /* liblocal_ads.a */,
 				6741AAB11BF356B9002C974C /* libmap.a */,
 				340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */,
 				6741AAB31BF356B9002C974C /* libopening_hours.a */,
@@ -2520,7 +2501,6 @@
 		340475291E081A4600C92850 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				47B06DEB21B6962D0094CCAD /* GeoTracker */,
 				3404752A1E081A4600C92850 /* MWMLocationHelpers.h */,
 				3404752B1E081A4600C92850 /* MWMLocationManager.h */,
 				3404752C1E081A4600C92850 /* MWMLocationManager.mm */,
@@ -3387,29 +3367,6 @@
 			children = (
 			);
 			path = Metrics;
-			sourceTree = "<group>";
-		};
-		47B06DEB21B6962D0094CCAD /* GeoTracker */ = {
-			isa = PBXGroup;
-			children = (
-				47B06DFD21B965950094CCAD /* Geo.swift */,
-				47B06DFC21B965450094CCAD /* Impl */,
-				47B06DF821B95F5E0094CCAD /* IGeoTracker.swift */,
-				47B06DFB21B960CE0094CCAD /* IMWMGeoTrackerZone.h */,
-				47B06DFA21B960080094CCAD /* IMWMGeoTrackerCore.h */,
-			);
-			path = GeoTracker;
-			sourceTree = "<group>";
-		};
-		47B06DFC21B965450094CCAD /* Impl */ = {
-			isa = PBXGroup;
-			children = (
-				47B06DEC21B696C20094CCAD /* GeoTracker.swift */,
-				47B06DFF21BAAC270094CCAD /* GeoZoneTracker.swift */,
-				47B06DEE21B697230094CCAD /* MWMGeoTrackerCore.h */,
-				47B06DEF21B697230094CCAD /* MWMGeoTrackerCore.mm */,
-			);
-			path = Impl;
 			sourceTree = "<group>";
 		};
 		47B9064821C7FA100079C85E /* WebImage */ = {
@@ -4864,7 +4821,6 @@
 				EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */,
 				EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */,
 				BB7626B41E8559980031D71C /* icudt57l.dat */,
-				450703081E9E6CF000E8C029 /* local_ads_symbols.txt */,
 				F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */,
 				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
 				451950391B7A3E070085DA05 /* patterns.txt */,
@@ -5119,7 +5075,6 @@
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				CD96C70D22A681C400DB7CFE /* DiscoveryGuideCell.xib in Resources */,
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
-				342639361EA0E60A0025EB89 /* local_ads_symbols.txt in Resources */,
 				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				47CA68F2250B54AF00671019 /* BookmarkCell.xib in Resources */,
 				337F98A321D37B5800C8AC27 /* SearchHistoryViewController.xib in Resources */,
@@ -5353,7 +5308,6 @@
 				993DF12123F6BDB100AC231A /* UIViewControllerRenderer.swift in Sources */,
 				34D3AFF61E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
 				4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */,
-				47B06DFE21B965950094CCAD /* Geo.swift in Sources */,
 				6741A9A91BF340DE002C974C /* MWMDefaultAlert.mm in Sources */,
 				990F33B624BC915200D0F426 /* SearchActionBarView.swift in Sources */,
 				99514BBA23E82B450085D3A7 /* ElevationProfileViewController.swift in Sources */,
@@ -5617,7 +5571,6 @@
 				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				348A8DFB1F66775A00D83026 /* RatingViewSettings.swift in Sources */,
 				3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */,
-				47B06DF021B697230094CCAD /* MWMGeoTrackerCore.mm in Sources */,
 				99B6A74C2362F5AA002C94CB /* PromoButton.swift in Sources */,
 				99F3EB1123F418C900C713F8 /* PlacePageBuilder.swift in Sources */,
 				4735008A23A83CF700661A95 /* DownloadedMapsDataSource.swift in Sources */,
@@ -5738,7 +5691,6 @@
 				F6E2FF4E1E097BA00083EBEC /* MWMAboutController.m in Sources */,
 				993F5512237C622700545511 /* DeepLinkFileStrategy.swift in Sources */,
 				47EF73FE247056A600D32AB8 /* GuidesGalleryCell.swift in Sources */,
-				47B06DF921B95F5E0094CCAD /* IGeoTracker.swift in Sources */,
 				CDCA27812243F59800167D87 /* CarPlayRouter.swift in Sources */,
 				99CB34BD2369EAAC001D28AD /* TermsOfUsePresenter.swift in Sources */,
 				34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
@@ -5905,7 +5857,6 @@
 				3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.m in Sources */,
-				47B06E0021BAAC270094CCAD /* GeoZoneTracker.swift in Sources */,
 				99A906DD23F6F7030005872B /* AddReviewViewController.swift in Sources */,
 				993DF11323F6BDB100AC231A /* UITableViewRenderer.swift in Sources */,
 				3404F4952028A1B80090E401 /* BMCPermissionsCell.swift in Sources */,
@@ -5923,7 +5874,6 @@
 				99A906E023F6F7030005872B /* RatingSummaryViewController.swift in Sources */,
 				993F550D237C622700545511 /* DeepLinkLeadStrategy.swift in Sources */,
 				337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */,
-				47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */,
 				349FC54B1F680DAE00968C9F /* ExpandableReviewSettings.swift in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7DA1E07F045004AF2AD /* UILabel+RuntimeAttributes.m in Sources */,
@@ -6070,9 +6020,7 @@
 				DEVELOPMENT_TEAM = W55CJ2SCF7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 			};
@@ -6089,9 +6037,7 @@
 				DEVELOPMENT_TEAM = W55CJ2SCF7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 			};
@@ -6119,9 +6065,7 @@
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				INFOPLIST_FILE = OMaps.plist;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-Wall",

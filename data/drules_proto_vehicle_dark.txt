@@ -42163,9 +42163,6 @@ colors {
     color: 2147483648
   }
   value {
-    name: "LocalAdsSecondaryTextOutline"
-  }
-  value {
     name: "BookmarkGreen"
     color: 3968060
   }
@@ -42291,13 +42288,6 @@ colors {
     color: 8947848
   }
   value {
-    name: "LocalAdsPrimaryText"
-    color: 8947848
-  }
-  value {
-    name: "LocalAdsPrimaryTextOutline"
-  }
-  value {
     name: "BookmarkPurple"
     color: 10167474
   }
@@ -42331,10 +42321,6 @@ colors {
   }
   value {
     name: "RouteMarkPrimaryTextOutline"
-  }
-  value {
-    name: "LocalAdsSecondaryText"
-    color: 8947848
   }
   value {
     name: "Route"

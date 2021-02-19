@@ -9,7 +9,6 @@ std::array<drape_ptr<RenderStateExtension>, static_cast<size_t>(DepthLayer::Laye
     make_unique_dp<RenderStateExtension>(DepthLayer::Geometry3dLayer),
     make_unique_dp<RenderStateExtension>(DepthLayer::UserLineLayer),
     make_unique_dp<RenderStateExtension>(DepthLayer::OverlayLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::LocalAdsMarkLayer),
     make_unique_dp<RenderStateExtension>(DepthLayer::TransitSchemeLayer),
     make_unique_dp<RenderStateExtension>(DepthLayer::UserMarkLayer),
     make_unique_dp<RenderStateExtension>(DepthLayer::NavigationLayer),

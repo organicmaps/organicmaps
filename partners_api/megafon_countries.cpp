@@ -50,14 +50,4 @@ bool HasMegafonCategoryBanner(storage::Storage const & storage,
 
   return ContainsCountry(storage, countries, kCountries);
 }
-
-std::string GetMegafonDownloaderBannerUrl()
-{
-  return "https://localads.maps.me/redirects/megafon_downloader";
-}
-
-std::string GetMegafonCategoryBannerUrl()
-{
-  return "https://localads.maps.me/redirects/megafon_search_category";
-}
 }  // namespace ads

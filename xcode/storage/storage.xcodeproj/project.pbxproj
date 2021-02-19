@@ -194,12 +194,10 @@
 		F66D56A61EAE37EE0081E883 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D56A51EAE37EE0081E883 /* libicu.a */; };
 		F66D56A81EAE37F90081E883 /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D56A71EAE37F90081E883 /* librouting_common.a */; };
 		F66D56AA1EAE38030081E883 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D56A91EAE38030081E883 /* libtraffic.a */; };
-		F66D56AC1EAE38150081E883 /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F66D56AB1EAE38150081E883 /* liblocal_ads.a */; };
 		F66D56AD1EAE383E0081E883 /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = F66D569F1EAE374B0081E883 /* drules_proto_vehicle_dark.bin */; };
 		F66D56AE1EAE383E0081E883 /* drules_proto_vehicle_dark.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D56A01EAE374B0081E883 /* drules_proto_vehicle_dark.txt */; };
 		F66D56AF1EAE383E0081E883 /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = F66D569B1EAE37160081E883 /* drules_proto_vehicle_clear.bin */; };
 		F66D56B01EAE383E0081E883 /* drules_proto_vehicle_clear.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D569C1EAE37160081E883 /* drules_proto_vehicle_clear.txt */; };
-		F66D56B21EAE385B0081E883 /* local_ads_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D56B11EAE385B0081E883 /* local_ads_symbols.txt */; };
 		F68CC5C01F38B967007527C7 /* diff_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F68CC5BD1F38B967007527C7 /* diff_types.hpp */; };
 		F6BC312B2034366100F677FE /* pinger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6BC31292034366100F677FE /* pinger.hpp */; };
 		F6BC312C2034366100F677FE /* pinger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6BC312A2034366100F677FE /* pinger.cpp */; };
@@ -382,8 +380,6 @@
 		F66D56A51EAE37EE0081E883 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-fbvotunmmtqmjnezabjibwxwryev/Build/Products/Debug/libicu.a"; sourceTree = "<group>"; };
 		F66D56A71EAE37F90081E883 /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-fbvotunmmtqmjnezabjibwxwryev/Build/Products/Debug/librouting_common.a"; sourceTree = "<group>"; };
 		F66D56A91EAE38030081E883 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = ../traffic/build/Debug/libtraffic.a; sourceTree = "<group>"; };
-		F66D56AB1EAE38150081E883 /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = ../local_ads/build/Debug/liblocal_ads.a; sourceTree = "<group>"; };
-		F66D56B11EAE385B0081E883 /* local_ads_symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = local_ads_symbols.txt; sourceTree = "<group>"; };
 		F68CC5BD1F38B967007527C7 /* diff_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = diff_types.hpp; path = diff_scheme/diff_types.hpp; sourceTree = "<group>"; };
 		F6BC31292034366100F677FE /* pinger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pinger.hpp; sourceTree = "<group>"; };
 		F6BC312A2034366100F677FE /* pinger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pinger.cpp; sourceTree = "<group>"; };
@@ -458,7 +454,6 @@
 				5670EAFE1FF11558002495D8 /* libbsdiff.a in Frameworks */,
 				5670EAFC1FF11535002495D8 /* libmwm_diff.a in Frameworks */,
 				5670EAFA1FF1150C002495D8 /* libtransit.a in Frameworks */,
-				F66D56AC1EAE38150081E883 /* liblocal_ads.a in Frameworks */,
 				F66D56AA1EAE38030081E883 /* libtraffic.a in Frameworks */,
 				F66D56A81EAE37F90081E883 /* librouting_common.a in Frameworks */,
 				F66D56A61EAE37EE0081E883 /* libicu.a in Frameworks */,
@@ -520,7 +515,6 @@
 				56EE14E21FE813FC0036F20C /* libbsdiff.a */,
 				56EE14E01FE813D00036F20C /* libmwm_diff.a */,
 				56EE14DE1FE813BC0036F20C /* libtransit.a */,
-				F66D56AB1EAE38150081E883 /* liblocal_ads.a */,
 				F66D56A91EAE38030081E883 /* libtraffic.a */,
 				F66D56A71EAE37F90081E883 /* librouting_common.a */,
 				F66D56A51EAE37EE0081E883 /* libicu.a */,
@@ -704,7 +698,6 @@
 				678CB37F1CA5881B00E9118D /* editor.config */,
 				676109C81C99A941007C4E67 /* countries-strings */,
 				F66D56A31EAE37B90081E883 /* countries_meta.txt */,
-				F66D56B11EAE385B0081E883 /* local_ads_symbols.txt */,
 				676C84151C63888200DC9603 /* packed_polygons.bin */,
 				676C83F91C63884300DC9603 /* categories.txt */,
 				4069AD9F21495A5A005EB75C /* categories_cuisines.txt */,
@@ -896,7 +889,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F66D56B21EAE385B0081E883 /* local_ads_symbols.txt in Resources */,
 				F66D56AD1EAE383E0081E883 /* drules_proto_vehicle_dark.bin in Resources */,
 				F66D56AE1EAE383E0081E883 /* drules_proto_vehicle_dark.txt in Resources */,
 				F66D56AF1EAE383E0081E883 /* drules_proto_vehicle_clear.bin in Resources */,

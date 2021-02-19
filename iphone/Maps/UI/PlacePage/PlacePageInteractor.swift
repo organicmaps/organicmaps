@@ -52,10 +52,6 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   func didPressEmail() {
 
   }
-
-  func didPressLocalAd() {
-    MWMPlacePageManagerHelper.openLocalAdsURL(placePageData)
-  }
 }
 
 // MARK: - WikiDescriptionViewControllerDelegate

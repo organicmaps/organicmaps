@@ -53,14 +53,6 @@ enum class SponsoredType
   PromoCatalogOutdoor,
 };
 
-enum class LocalAdsStatus
-{
-  NotAvailable,
-  Candidate,
-  Customer,
-  Hidden
-};
-
 enum class LocalsStatus
 {
   NotAvailable,
@@ -274,13 +266,6 @@ public:
   void SetLocalsPageUrl(std::string const & url) { m_localsUrl = url; }
   std::string const & GetLocalsPageUrl() const { return m_localsUrl; }
 
-  /// Local ads
-  void SetLocalAdsStatus(LocalAdsStatus status) { m_localAdsStatus = status; }
-  LocalAdsStatus GetLocalAdsStatus() const { return m_localAdsStatus; }
-  void SetLocalAdsUrl(std::string const & url) { m_localAdsUrl = url; }
-  std::string const & GetLocalAdsUrl() const { return m_localAdsUrl; }
-  void SetAdsEngine(ads::Engine * const engine) { m_adsEngine = engine; }
-
   /// Routing
   void SetRouteMarkType(RouteMarkType type) { m_routeMarkType = type; }
   RouteMarkType GetRouteMarkType() const { return m_routeMarkType; }
@@ -393,8 +378,6 @@ private:
 
   /// Ads
   std::vector<taxi::Provider::Type> m_reachableByProviders;
-  std::string m_localAdsUrl;
-  LocalAdsStatus m_localAdsStatus = LocalAdsStatus::NotAvailable;
   /// Ads source.
   ads::Engine * m_adsEngine = nullptr;
   /// Sponsored type or None.

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "map/bookmark_manager.hpp"
-#include "map/local_ads_manager.hpp"
 #include "map/notifications/notification_manager.hpp"
 #include "map/user.hpp"
 
@@ -33,8 +32,8 @@ enum RequestType
   // and takes much time.  For example it takes ~50ms on LG Nexus 5, ~100ms on Samsung A5, ~200ms on
   // Fly IQ4403.
   REQUEST_TYPE_LOCATION = 1u << 4,
-  REQUEST_TYPE_LOCAL_ADS_FEATURES = 1u << 5,
-  REQUEST_TYPE_LOCAL_ADS_STATISTICS = 1u << 6,
+  // REQUEST_TYPE_LOCAL_ADS_FEATURES = 1u << 5,
+  // REQUEST_TYPE_LOCAL_ADS_STATISTICS = 1u << 6,
   REQUEST_TYPE_NOTIFICATION = 1u << 7,
 };
 
@@ -64,9 +63,6 @@ public:
   size_t GetNumberOfUnsentEdits() const;
   bool IsBookmarksCloudEnabled() const;
   CountryInfoReader::Info GetLocation(m2::PointD const & pt) const;
-  std::vector<CampaignFeature> GetLocalAdsFeatures(double lat, double lon, double radiusInMeters,
-                                                   uint32_t maxCount);
-  Statistics * GetLocalAdsStatistics();
   notifications::Notification GetNotification() const;
 
 private:
@@ -77,8 +73,6 @@ private:
   size_t m_numberOfUnsentEdits = 0;
   bool m_bookmarksCloudEnabled = false;
   std::unique_ptr<CountryInfoReader> m_countryInfoReader;
-  std::unique_ptr<LocalAdsFeaturesReader> m_localAdsFeaturesReader;
-  std::unique_ptr<Statistics> m_localAdsStatistics;
 };
 
 std::string FeatureParamsToString(int64_t mwmVersion, std::string const & countryId, uint32_t featureIndex);

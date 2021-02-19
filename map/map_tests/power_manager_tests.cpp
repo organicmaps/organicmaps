@@ -273,10 +273,8 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_state, false, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_facility, Facility::UgcUploading, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_state, false, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_facility, Facility::LocalAdsDataDownloading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_facility, Facility::AdsDownloading, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_state, false, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[6].m_facility, Facility::AdsDownloading, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[6].m_state, false, ());
 
   subscriber.m_onShemeEvents.clear();
   subscriber.m_onFacilityEvents.clear();

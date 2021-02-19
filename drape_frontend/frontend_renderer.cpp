@@ -1493,12 +1493,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       }
     }
 
-    {
-      StencilWriterGuard guard(make_ref(m_postprocessRenderer), m_context);
-      RenderOverlayLayer(modelView);
-      RenderUserMarksLayer(modelView, DepthLayer::LocalAdsMarkLayer);
-    }
-
     m_gpsTrackRenderer->RenderTrack(m_context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel,
                                     m_frameValues);
 
@@ -1886,7 +1880,6 @@ void FrontendRenderer::RenderFrame()
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
   static std::vector<DepthLayer> layers = {DepthLayer::OverlayLayer,
-                                           DepthLayer::LocalAdsMarkLayer,
                                            DepthLayer::NavigationLayer,
                                            DepthLayer::RoutingBottomMarkLayer,
                                            DepthLayer::RoutingMarkLayer};

@@ -82,7 +82,6 @@ std::string const kPriceChipDiscount = "price-chips-discount";
 std::string const kPriceChipSelectedDiscount = "price-chips-selected-discount";
 
 std::string const kRatedDefaultSearchIcon = "rated-default-search-result";
-std::string const kRatedDefaultSearchIconAds = "local_ads_rated-default-search-result";
 
 std::string const kBookingNoRatingSearchIcon = "norating-default-l";
 std::string const & kOsmHotelSearchIcon = kBookingNoRatingSearchIcon;
@@ -136,28 +135,21 @@ int constexpr kUGCBadgeMinZoomLevel = scales::GetUpperCountryScale();
 int constexpr kGoodRatingZoomLevel = kWorldZoomLevel;
 int constexpr kBadRatingZoomLevel = scales::GetUpperComfortScale();
 
-std::string GetSymbol(SearchMarkType searchMarkType, bool hasLocalAds, bool hasRating)
+std::string GetSymbol(SearchMarkType searchMarkType, bool hasRating)
 {
   if (searchMarkType == SearchMarkType::Default && hasRating)
-    return hasLocalAds ? kRatedDefaultSearchIconAds : kRatedDefaultSearchIcon;
+    return kRatedDefaultSearchIcon;
 
   if (searchMarkType == SearchMarkType::Booking && !hasRating)
     return kBookingNoRatingSearchIcon;
 
-  if (searchMarkType == SearchMarkType::Hotel && !hasLocalAds)
+  if (searchMarkType == SearchMarkType::Hotel)
     return kOsmHotelSearchIcon;
 
   auto const index = static_cast<size_t>(searchMarkType);
   ASSERT_LESS(index, kSymbols.size(), ());
-  if (hasLocalAds)
-    return "local_ads_" + kSymbols[index];
 
   return kSymbols[index];
-}
-
-bool HasLocalAdsVariant(SearchMarkType searchMarkType)
-{
-  return searchMarkType != SearchMarkType::NotFound;
 }
 
 class SearchMarkTypeChecker
@@ -394,8 +386,6 @@ df::ColorConstant SearchMarkPoint::GetColorConstant() const
       return m_isSelected ? "SearchmarkSelectedNotAvailable" : "SearchmarkNotAvailable";
     if (m_isPreparing)
       return "SearchmarkPreparing";
-    if (m_hasLocalAds)
-      return "RatingGood";
     if (!HasRating())
       return "RatingNone";
     if (!HasGoodRating())
@@ -526,27 +516,23 @@ void SearchMarkPoint::SetMatchedName(std::string const & name)
   SetAttributeValue(m_matchedName, name);
 }
 
-void SearchMarkPoint::SetFromType(uint32_t type, bool hasLocalAds)
+void SearchMarkPoint::SetFromType(uint32_t type)
 {
-  SetAttributeValue(m_hasLocalAds, hasLocalAds);
   SetAttributeValue(m_type, GetSearchMarkType(type));
 }
 
-void SearchMarkPoint::SetBookingType(bool hasLocalAds)
+void SearchMarkPoint::SetBookingType()
 {
-  SetAttributeValue(m_hasLocalAds, hasLocalAds);
   SetAttributeValue(m_type, SearchMarkType::Booking);
 }
 
-void SearchMarkPoint::SetHotelType(bool hasLocalAds)
+void SearchMarkPoint::SetHotelType()
 {
-  SetAttributeValue(m_hasLocalAds, hasLocalAds);
   SetAttributeValue(m_type, SearchMarkType::Hotel);
 }
 
 void SearchMarkPoint::SetNotFoundType()
 {
-  SetAttributeValue(m_hasLocalAds, false);
   SetAttributeValue(m_type, SearchMarkType::NotFound);
 }
 
@@ -624,7 +610,7 @@ std::string SearchMarkPoint::GetSymbolName() const
   if (m_type >= SearchMarkType::Count)
   {
     ASSERT(false, ("Unknown search mark symbol."));
-    symbolName = GetSymbol(SearchMarkType::Default, false /* hasLocalAds */, HasRating());
+    symbolName = GetSymbol(SearchMarkType::Default, HasRating());
   }
   else
   {
@@ -635,11 +621,11 @@ std::string SearchMarkPoint::GetSymbolName() const
       else if (m_isPreparing)
         symbolName = kColoredmarkSmall;
       else
-        symbolName = GetSymbol(m_type, m_hasLocalAds, HasRating());
+        symbolName = GetSymbol(m_type, HasRating());
     }
     else
     {
-      symbolName = GetSymbol(m_type, m_hasLocalAds, HasRating());
+      symbolName = GetSymbol(m_type, HasRating());
     }
   }
 
@@ -705,13 +691,8 @@ void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   for (uint32_t t = 0; t < searchMarkTypesCount; ++t)
   {
     auto const searchMarkType = static_cast<SearchMarkType>(t);
-    symbols.push_back(GetSymbol(searchMarkType, false /* hasLocalAds */, false /* isRated */));
-    symbols.push_back(GetSymbol(searchMarkType, false /* hasLocalAds */, true /* isRated */));
-    if (HasLocalAdsVariant(searchMarkType))
-    {
-      symbols.push_back(GetSymbol(searchMarkType, true /* hasLocalAds */, false /* isRated */));
-      symbols.push_back(GetSymbol(searchMarkType, true /* hasLocalAds */, true /* isRated */));
-    }
+    symbols.push_back(GetSymbol(searchMarkType, false /* isRated */));
+    symbols.push_back(GetSymbol(searchMarkType, true /* isRated */));
   }
 
   symbols.push_back(kColoredmarkSmall);
@@ -725,7 +706,6 @@ void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   symbols.push_back(kPriceChipSelectedDiscount);
 
   symbols.push_back(kRatedDefaultSearchIcon);
-  symbols.push_back(kRatedDefaultSearchIconAds);
 
   symbols.push_back(kBookingNoRatingSearchIcon);
 

@@ -90,7 +90,6 @@ omim_link_libraries(
   drape
   partners_api
   web_api
-  local_ads
   kml
   editor
   indexer
@@ -200,7 +199,6 @@ copy_resources(
   World.mwm
   WorldCoasts.mwm
   icudt57l.dat
-  local_ads_symbols.txt
 
   01_dejavusans.ttf
   02_droidsans-fallback.ttf

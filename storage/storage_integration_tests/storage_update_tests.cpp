@@ -25,7 +25,7 @@ using namespace storage;
 
 namespace
 {
-static FrameworkParams const kFrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */);
+static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
 
 string const kCountriesTxtFile = COUNTRIES_FILE;
 

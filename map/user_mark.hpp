@@ -46,7 +46,6 @@ public:
     SPEED_CAM,
     ROAD_WARNING,
     TRANSIT,
-    LOCAL_ADS,
     TRACK_INFO,
     TRACK_SELECTION,
     GUIDE,

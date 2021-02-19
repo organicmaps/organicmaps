@@ -7,7 +7,6 @@ from post_generation.hierarchy_to_countries import (
     hierarchy_to_countries as hierarchy_to_countries_,
 )
 from post_generation.inject_promo_ids import inject_promo_ids
-from post_generation.localads_mwm_to_csv import create_csv
 
 
 class PostGeneration:
@@ -16,7 +15,6 @@ class PostGeneration:
             description="Post-generation instruments",
             usage="""post_generation <command> [<args>]
 The post_generation commands are:
-    localads_mwm_to_csv    Prepares CSV files for uploading to localads database from mwm files.
     hierarchy_to_countries Produces countries.txt from hierarchy.txt.
     inject_promo_ids       Injects promo osm ids into countries.txt
     """,
@@ -29,43 +27,7 @@ The post_generation commands are:
             exit(1)
         getattr(self, args.command)()
 
-    @staticmethod
-    def localads_mwm_to_csv():
-        parser = argparse.ArgumentParser(
-            description="Prepares CSV files for uploading to localads database "
-            "from mwm files."
-        )
-        parser.add_argument("mwm", help="path to mwm files")
-        parser.add_argument(
-            "--osm2ft", help="path to osm2ft files (default is the same as mwm)"
-        )
-        parser.add_argument(
-            "--output", default=".", help="path to generated files ('.' by default)"
-        )
-        types_default = os.path.join(
-            os.path.dirname(__file__), "..", "..", "..", "data", "types.txt"
-        )
-        parser.add_argument(
-            "--types", default=types_default, help="path to omim/data/types.txt"
-        )
-        parser.add_argument(
-            "--threads", type=int, default=1, help="number of threads to process files"
-        )
-        parser.add_argument(
-            "--mwm_version", type=int, required=True, help="Mwm version"
-        )
-        args = parser.parse_args(sys.argv[2:])
-        if not args.osm2ft:
-            args.osm2ft = args.mwm
-
-        create_csv(
-            args.output,
-            args.mwm,
-            args.osm2ft,
-            args.mwm_version,
-            args.threads,
-        )
-
+  
     @staticmethod
     def hierarchy_to_countries():
         parser = argparse.ArgumentParser(

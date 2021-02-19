@@ -15,7 +15,7 @@ std::unordered_map<Scheme, FacilitiesState> const kSchemeToState =
     {{
        /* Buildings3d */ true, /* PerspectiveView */ true, /* TrackRecording */ true,
        /* TrafficJams */ true, /* GpsTrackingForTraffic */ true, /* OsmEditsUploading */ true,
-       /* UgcUploading */ true, /* BookmarkCloudUploading */ true, /* LocalAdsDataDownloading */ true,
+       /* UgcUploading */ true, /* BookmarkCloudUploading */ true,
        /* MapDownloader */ true, /* StatisticsUploading */ true, /* AdsDownloading */ true
      }}
   },
@@ -24,7 +24,7 @@ std::unordered_map<Scheme, FacilitiesState> const kSchemeToState =
     {{
        /* Buildings3d */ true, /* PerspectiveView */ false, /* TrackRecording */ true,
        /* TrafficJams */ true, /* GpsTrackingForTraffic */ true, /* OsmEditsUploading */ true,
-       /* UgcUploading */ true, /* BookmarkCloudUploading */ false, /* LocalAdsDataDownloading */ true,
+       /* UgcUploading */ true, /* BookmarkCloudUploading */ false,
        /* MapDownloader */ true, /* StatisticsUploading */ true, /* AdsDownloading */ true
      }}
   },
@@ -33,7 +33,7 @@ std::unordered_map<Scheme, FacilitiesState> const kSchemeToState =
     {{
        /* Buildings3d */ false, /* PerspectiveView */ false, /* TrackRecording */ false,
        /* TrafficJams */ false, /* GpsTrackingForTraffic */ false, /* OsmEditsUploading */ false,
-       /* UgcUploading */ false, /* BookmarkCloudUploading */ false, /* LocalAdsDataDownloading */ true,
+       /* UgcUploading */ false, /* BookmarkCloudUploading */ false,
        /* MapDownloader */ true, /* StatisticsUploading */ true, /* AdsDownloading */ true
      }}
   },
@@ -46,7 +46,7 @@ std::unordered_map<AutoScheme, FacilitiesState> const kAutoSchemeToState =
     {{
        /* Buildings3d */ true, /* PerspectiveView */ true, /* TrackRecording */ true,
        /* TrafficJams */ true, /* GpsTrackingForTraffic */ true, /* OsmEditsUploading */ true,
-       /* UgcUploading */ true, /* BookmarkCloudUploading */ true, /* LocalAdsDataDownloading */ true,
+       /* UgcUploading */ true, /* BookmarkCloudUploading */ true,
        /* MapDownloader */ true, /* StatisticsUploading */ true, /* AdsDownloading */ true
      }}
   },
@@ -55,7 +55,7 @@ std::unordered_map<AutoScheme, FacilitiesState> const kAutoSchemeToState =
     {{
        /* Buildings3d */ true, /* PerspectiveView */ false, /* TrackRecording */ true,
        /* TrafficJams */ true, /* GpsTrackingForTraffic */ false, /* OsmEditsUploading */ true,
-       /* UgcUploading */ true, /* BookmarkCloudUploading */ false, /* LocalAdsDataDownloading */ true,
+       /* UgcUploading */ true, /* BookmarkCloudUploading */ false,
        /* MapDownloader */ false, /* StatisticsUploading */ false, /* AdsDownloading */ true
      }}
   },
@@ -64,7 +64,7 @@ std::unordered_map<AutoScheme, FacilitiesState> const kAutoSchemeToState =
     {{
        /* Buildings3d */ false, /* PerspectiveView */ false, /* TrackRecording */ false,
        /* TrafficJams */ false, /* GpsTrackingForTraffic */ false, /* OsmEditsUploading */ false,
-       /* UgcUploading */ false, /* BookmarkCloudUploading */ false, /* LocalAdsDataDownloading */ false,
+       /* UgcUploading */ false, /* BookmarkCloudUploading */ false,
        /* MapDownloader */ false, /* StatisticsUploading */ false, /* AdsDownloading */ false
      }}
   },
@@ -98,7 +98,6 @@ std::string DebugPrint(Facility const facility)
   case Facility::OsmEditsUploading: return "OsmEditsUploading";
   case Facility::UgcUploading: return "UgcUploading";
   case Facility::BookmarkCloudUploading: return "BookmarkCloudUploading";
-  case Facility::LocalAdsDataDownloading: return "LocalAdsDataDownloading";
   case Facility::MapDownloader: return "MapDownloader";
   case Facility::StatisticsUploading: return "StatisticsUploading";
   case Facility::AdsDownloading: return "AdsDownloading";

@@ -34,7 +34,7 @@ namespace
 {
 using Runner = Platform::ThreadRunner;
 
-static FrameworkParams const kFrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */);
+static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
 
 char const * kmlString =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"

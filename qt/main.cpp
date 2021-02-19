@@ -232,9 +232,6 @@ int main(int argc, char * argv[])
       msgBox.exec();
       return returnCode;
     }
-
-    // Designer tool can regenerate geometry index, so local ads can't work.
-    frameworkParams.m_enableLocalAds = false;
 #endif // BUILD_DESIGNER
 
     Framework framework(frameworkParams);

@@ -129,7 +129,6 @@ void setShowLocationAlert(BOOL needShow) {
 @property(nonatomic) Observers * observers;
 @property(nonatomic) MWMLocationFrameworkUpdate frameworkUpdateMode;
 @property(nonatomic) location::TLocationSource locationSource;
-@property(nonatomic) id<IGeoTracker> geoTracker;
 
 @end
 
@@ -153,7 +152,6 @@ void setShowLocationAlert(BOOL needShow) {
   if (self)
   {
     _observers = [Observers weakObjectsHashTable];
-    _geoTracker = [Geo geoTracker];
   }
   return self;
 }
@@ -479,7 +477,6 @@ void setShowLocationAlert(BOOL needShow) {
     if ([locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
       [locationManager requestAlwaysAuthorization];
     [locationManager startUpdatingLocation];
-    [self.geoTracker startTracking];
     setPermissionRequested();
     if ([CLLocationManager headingAvailable])
       [locationManager startUpdatingHeading];

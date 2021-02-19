@@ -269,7 +269,6 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
 #endif
 
   m_routingManager.OnLocationUpdate(rInfo);
-  m_localAdsManager.OnLocationUpdate(rInfo, GetDrawScale());
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -304,11 +303,6 @@ void Framework::SetMyPositionPendingTimeoutListener(df::DrapeEngine::UserPositio
 TrafficManager & Framework::GetTrafficManager()
 {
   return m_trafficManager;
-}
-
-LocalAdsManager & Framework::GetLocalAdsManager()
-{
-  return m_localAdsManager;
 }
 
 TransitReadManager & Framework::GetTransitManager()
@@ -358,7 +352,6 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
 
   GetBookmarkManager().UpdateViewport(m_currentModelView);
   m_trafficManager.UpdateViewport(m_currentModelView);
-  m_localAdsManager.UpdateViewport(m_currentModelView);
   m_transitManager.UpdateViewport(m_currentModelView);
   m_isolinesManager.UpdateViewport(m_currentModelView);
   m_guidesManager.UpdateViewport(m_currentModelView);
@@ -368,11 +361,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
 }
 
 Framework::Framework(FrameworkParams const & params)
-  : m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
-                      bind(&Framework::GetMwmIdByName, this, _1),
-                      bind(&Framework::ReadFeatures, this, _1, _2),
-                      bind(&Framework::GetMapObjectByID, this, _1))
-  , m_enabledDiffs(params.m_enableDiffs)
+  : m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
   , m_transitManager(m_featuresFetcher.GetDataSource(),
                      [this](FeatureCallback const & fn, vector<FeatureID> const & features) {
@@ -501,14 +490,6 @@ Framework::Framework(FrameworkParams const & params)
   // Need to reload cities boundaries because maps in indexer were updated.
   GetSearchAPI().LoadCitiesBoundaries();
   GetSearchAPI().CacheWorldLocalities();
-
-  // Local ads manager should be initialized after storage initialization.
-  if (params.m_enableLocalAds)
-  {
-    auto const isActive = m_purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
-    m_localAdsManager.Startup(m_bmManager.get(), !isActive);
-    m_purchase->RegisterSubscription(&m_localAdsManager);
-  }
 
   m_routingManager.SetRouterImpl(RouterType::Vehicle);
 
@@ -665,7 +646,6 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const & countryId,
   m_trafficManager.Invalidate();
   m_transitManager.Invalidate();
   m_isolinesManager.Invalidate();
-  m_localAdsManager.OnDownloadCountry(countryId);
   InvalidateRect(rect);
   GetSearchAPI().ClearCaches();
 }
@@ -700,7 +680,6 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 {
   auto action = [this, localFile]
   {
-    m_localAdsManager.OnMwmDeregistered(localFile);
     m_transitManager.OnMwmDeregistered(localFile);
     m_isolinesManager.OnMwmDeregistered(localFile);
     m_trafficManager.OnMwmDeregistered(localFile);
@@ -1006,20 +985,6 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   bool const canEditOrAdd = featureStatus != FeatureStatus::Obsolete && CanEditMap() &&
                             !info.IsNotEditableSponsored() && isMapVersionEditable;
   info.SetCanEditOrAdd(canEditOrAdd);
-
-  if (m_localAdsManager.IsSupportedType(info.GetTypes()))
-  {
-    info.SetLocalAdsUrl(m_localAdsManager.GetCompanyUrl(ft.GetID()));
-    auto status = m_localAdsManager.HasAds(ft.GetID()) ? place_page::LocalAdsStatus::Customer
-                                                       : place_page::LocalAdsStatus::Candidate;
-    if (status == place_page::LocalAdsStatus::Customer && !m_localAdsManager.HasVisualization(ft.GetID()))
-      status = place_page::LocalAdsStatus::Hidden;
-    info.SetLocalAdsStatus(status);
-  }
-  else
-  {
-    info.SetLocalAdsStatus(place_page::LocalAdsStatus::NotAvailable);
-  }
 
   auto const latlon = mercator::ToLatLon(feature::GetCenter(ft));
   ASSERT(m_taxiEngine, ());
@@ -1837,17 +1802,16 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
     if (r.m_details.m_isSponsoredHotel)
     {
-      mark->SetBookingType(isFeature && m_localAdsManager.HasVisualization(r.GetFeatureID()) /* hasLocalAds */);
+      mark->SetBookingType();
       mark->SetRating(r.m_details.m_hotelRating);
       mark->SetPricing(r.m_details.m_hotelPricing);
     }
     else if (isFeature)
     {
-      bool const hasLocalAds = m_localAdsManager.HasVisualization(r.GetFeatureID());
       if (r.m_details.m_isHotel)
-        mark->SetHotelType(hasLocalAds);
+        mark->SetHotelType();
       else
-        mark->SetFromType(r.GetFeatureType(), hasLocalAds);
+        mark->SetFromType(r.GetFeatureType());
       auto product = GetProductInfo(r);
       if (product.m_ugcRating != search::ProductInfo::kInvalidRating)
         mark->SetRating(product.m_ugcRating);
@@ -1930,22 +1894,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   {
     if (events.empty())
       return;
-
-    list<local_ads::Event> statEvents;
-    for (auto const & event : events)
-    {
-      auto const & mwmInfo = event.m_feature.m_mwmId.GetInfo();
-      if (!mwmInfo || !m_localAdsManager.HasAds(event.m_feature))
-        continue;
-
-      statEvents.emplace_back(local_ads::EventType::ShowPoint,
-                              mwmInfo->GetVersion(), mwmInfo->GetCountryName(),
-                              event.m_feature.m_index, event.m_zoomLevel, event.m_timestamp,
-                              mercator::YToLat(event.m_myPosition.y),
-                              mercator::XToLon(event.m_myPosition.x),
-                              static_cast<uint16_t>(event.m_gpsAccuracy));
-    }
-    m_localAdsManager.GetStatistics().RegisterEvents(std::move(statEvents));
   };
 
   auto onGraphicsContextInitialized = [this]()
@@ -2035,7 +1983,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   m_transitManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_isolinesManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_guidesManager.SetDrapeEngine(make_ref(m_drapeEngine));
-  m_localAdsManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_searchMarks.SetDrapeEngine(make_ref(m_drapeEngine));
 
   InvalidateUserMarks();
@@ -2069,7 +2016,6 @@ void Framework::OnRecoverSurface(int width, int height, bool recreateContextDepe
   m_trafficManager.OnRecoverSurface();
   m_transitManager.Invalidate();
   m_isolinesManager.Invalidate();
-  m_localAdsManager.Invalidate();
 }
 
 void Framework::OnDestroySurface()
@@ -2104,7 +2050,6 @@ void Framework::DestroyDrapeEngine()
     m_transitManager.SetDrapeEngine(nullptr);
     m_isolinesManager.SetDrapeEngine(nullptr);
     m_guidesManager.SetDrapeEngine(nullptr);
-    m_localAdsManager.SetDrapeEngine(nullptr);
     m_searchMarks.SetDrapeEngine(nullptr);
     GetBookmarkManager().SetDrapeEngine(nullptr);
 
@@ -2211,7 +2156,6 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   if (m_drapeEngine != nullptr)
     m_drapeEngine->UpdateMapStyle();
   InvalidateUserMarks();
-  m_localAdsManager.Invalidate();
   UpdateMinBuildingsTapZoom();
 }
 
@@ -2721,7 +2665,6 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     return {};
 
   outInfo.SetBuildInfo(buildInfo);
-  outInfo.SetAdsEngine(m_adsEngine.get());
 
   if (buildInfo.IsUserMarkMatchingEnabled())
   {
@@ -4062,8 +4005,6 @@ search::ProductInfo Framework::GetProductInfo(search::Result const & result) con
     return {};
 
   search::ProductInfo productInfo;
-
-  productInfo.m_isLocalAdsCustomer = m_localAdsManager.HasVisualization(result.GetFeatureID());
 
   auto const ugc = m_ugcApi->GetLoader().GetUGC(result.GetFeatureID());
   productInfo.m_ugcRating = ugc.m_totalRating;

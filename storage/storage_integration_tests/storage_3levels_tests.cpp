@@ -38,7 +38,7 @@ UNIT_TEST(SmallMwms_3levels_Test)
 
   Platform & platform = GetPlatform();
 
-  Framework f(FrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */));
+  Framework f(FrameworkParams(false /* m_enableDiffs */));
   auto & storage = f.GetStorage();
   std::string const version = strings::to_string(storage.GetCurrentDataVersion());
 

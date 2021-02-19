@@ -7,19 +7,6 @@
 using namespace place_page;
 using namespace osm;
 
-static PlacePageDataLocalAdsStatus convertLocalAdsStatus(LocalAdsStatus status) {
-  switch (status) {
-    case LocalAdsStatus::NotAvailable:
-      return PlacePageDataLocalAdsStatusNotAvailable;
-    case LocalAdsStatus::Candidate:
-      return PlacePageDataLocalAdsStatusCandidate;
-    case LocalAdsStatus::Customer:
-      return PlacePageDataLocalAdsStatusCustomer;
-    case LocalAdsStatus::Hidden:
-      return PlacePageDataLocalAdsStatusHidden;
-  }
-}
-
 @implementation PlacePageInfoData
 
 @end
@@ -71,8 +58,6 @@ static PlacePageDataLocalAdsStatus convertLocalAdsStatus(LocalAdsStatus status) 
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
     _rawCoordinates = @(rawData.GetFormattedCoordinate(true).c_str());
     _formattedCoordinates = @(rawData.GetFormattedCoordinate(false).c_str());
-    _localAdsStatus = convertLocalAdsStatus(rawData.GetLocalAdsStatus());
-    _localAdsUrl = rawData.GetLocalAdsUrl().empty() ? nil : @(rawData.GetLocalAdsUrl().c_str());
   }
   return self;
 }

@@ -18,7 +18,6 @@ enum class Facility : uint8_t
   OsmEditsUploading,
   UgcUploading,
   BookmarkCloudUploading,
-  LocalAdsDataDownloading,
   MapDownloader,
   StatisticsUploading,
   AdsDownloading,
