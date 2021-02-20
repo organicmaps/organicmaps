@@ -14,6 +14,7 @@
 
 namespace
 {
+std::string const kMapsPath = "maps";
 std::string const kDiffsPath = "diffs";
 }  // namespace
 
@@ -23,7 +24,7 @@ std::string GetFileDownloadUrl(std::string const & fileName, int64_t dataVersion
                                uint64_t diffVersion)
 {
   if (diffVersion == 0)
-    return url::Join(OMIM_OS_NAME, strings::to_string(dataVersion), url::UrlEncode(fileName));
+    return url::Join(kMapsPath, strings::to_string(dataVersion), url::UrlEncode(fileName));
 
   return url::Join(kDiffsPath, strings::to_string(dataVersion), strings::to_string(diffVersion),
                    url::UrlEncode(fileName));
