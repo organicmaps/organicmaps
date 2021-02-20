@@ -861,19 +861,6 @@ std::string Framework::GetPromoCityUrl(JNIEnv * env, jobject policy, jdouble lat
 
 void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double lon, uint16_t accuracy)
 {
-  ::Framework * frm = g_framework->NativeFramework();
-  if (!frm->HasPlacePageInfo())
-    return;
-
-  auto const & info = g_framework->GetPlacePageInfo();
-  auto const & featureID = info.GetID();
-  auto const & mwmInfo = featureID.m_mwmId.GetInfo();
-  if (!mwmInfo)
-    return;
-
-  local_ads::Event event(type, mwmInfo->GetVersion(), mwmInfo->GetCountryName(), featureID.m_index,
-                         m_work.GetDrawScale(), local_ads::Clock::now(), lat, lon, accuracy);
-  m_work.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)

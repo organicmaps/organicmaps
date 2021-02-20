@@ -11,7 +11,6 @@
 #include "map/features_fetcher.hpp"
 #include "map/guides_manager.hpp"
 #include "map/isolines_manager.hpp"
-#include "map/local_ads_manager.hpp"
 #include "map/mwm_url.hpp"
 #include "map/notifications/notification_manager.hpp"
 #include "map/place_page_info.hpp"
@@ -198,8 +197,6 @@ protected:
   // m_FeaturesFetcher must be initialized before
   // search::Engine and, therefore, destroyed after search::Engine.
   std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
-
-  LocalAdsManager m_localAdsManager;
 
   // The order matters here: ugc::Api should be destroyed after
   // SearchAPI and notifications::NotificationManager.
@@ -771,8 +768,6 @@ public:
   void SaveAutoZoom(bool allowAutoZoom);
 
   TrafficManager & GetTrafficManager();
-
-  LocalAdsManager & GetLocalAdsManager();
 
   TransitReadManager & GetTransitManager();
 
