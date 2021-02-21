@@ -23,9 +23,6 @@ public class TrackRecorderWakeReceiver extends BroadcastReceiver
                  + !backgroundTracker(context).isForeground();
     LOGGER.i(TAG, msg);
     CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
-    TrackRecorder.INSTANCE.onWakeAlarm();
-    TrackRecorder.INSTANCE.onWakeAlarm();
-
     try {
       TrackRecorder.INSTANCE.onWakeAlarm();
     }catch(NullPointerException e){
