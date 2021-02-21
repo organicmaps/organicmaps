@@ -85,9 +85,9 @@ Platform::Platform()
       NSString * supportDir = [dirPaths objectAtIndex:0];
       m_writableDir = supportDir.UTF8String;
 #ifdef BUILD_DESIGNER
-      m_writableDir += "/OMaps.Designer/";
+      m_writableDir += "/OMapsData.Designer/";
 #else // BUILD_DESIGNER
-      m_writableDir += "/MapsWithMe/";
+      m_writableDir += "/OMapsData/";
 #endif // BUILD_DESIGNER
       ::mkdir(m_writableDir.c_str(), 0755);
     }

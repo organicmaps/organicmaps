@@ -262,6 +262,6 @@ int main(int argc, char * argv[])
   }
 #endif // BUILD_DESIGNER
 
-  LOG_SHORT(LINFO, ("MapsWithMe finished with code", returnCode));
+  LOG_SHORT(LINFO, ("OMaps finished with code", returnCode));
   return returnCode;
 }

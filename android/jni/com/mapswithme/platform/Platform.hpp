@@ -27,9 +27,9 @@ public:
 
   void OnExternalStorageStatusChanged(bool isAvailable);
 
-  /// get storage path without ending "/MapsWithMe/"
+  /// get storage path without ending "/OMapsData/"
   std::string GetStoragePathPrefix() const;
-  /// assign storage path (should contain ending "/MapsWithMe/")
+  /// assign storage path (should contain ending "/OMapsData/")
   void SetWritableDir(std::string const & dir);
   void SetSettingsDir(std::string const & dir);
 
