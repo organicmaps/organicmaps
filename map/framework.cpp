@@ -888,6 +888,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
 
   info.SetFromFeatureType(ft);
 
+  /* Ban all promos now. Actually, they are already banned on generation phase but anyway.
   if (ftypes::IsBookingChecker::Instance()(ft))
   {
     ASSERT(m_bookingApi, ());
@@ -978,6 +979,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
                         : place_page::OpeningMode::PreviewPlus);
     info.SetSponsoredType(SponsoredType::PromoCatalogOutdoor);
   }
+  */
 
   FillLocalExperts(ft, info);
   FillDescription(ft, info);
