@@ -1362,7 +1362,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     boolean sponsored = isSponsored();
     UiUtils.showIf(sponsored || mapObject.shouldShowUGC(), mPreviewRatingInfo);
     UiUtils.showIf(sponsored, mHotelDiscount);
-    UiUtils.showIf(mapObject.getHotelType() != null, mPreview, R.id.search_hotels_btn);
+//   UiUtils.showIf(mapObject.getHotelType() != null, mPreview, R.id.search_hotels_btn);
     if (sponsored)
       refreshSponsoredViews(mapObject, priceInfo);
   }
