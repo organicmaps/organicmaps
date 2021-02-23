@@ -1,22 +1,22 @@
 package com.mapswithme.maps.location;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.MwmBroadcastReceiver;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import static com.mapswithme.maps.MwmApplication.backgroundTracker;
 
-public class GPSCheck extends BroadcastReceiver
+public class GPSCheck extends MwmBroadcastReceiver
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   private static final String TAG = GPSCheck.class.getSimpleName();
 
   @Override
-  public void onReceive(Context context, Intent intent)
+  public void onReceiveInitialized(Context context, Intent intent)
   {
     String msg = "onReceive: " + intent + " app in background = "
                  + !backgroundTracker(context).isForeground();
