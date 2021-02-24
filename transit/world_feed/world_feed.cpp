@@ -211,19 +211,41 @@ struct StopOnShape
   size_t m_index = 0;
 };
 
-size_t GetStopIndex(std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
-                    transit::TransitId id, size_t index = 0)
+enum class Direction
+{
+  Forward,
+  Backward
+};
+
+std::optional<size_t> GetStopIndex(
+    std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
+    transit::TransitId id, size_t fromIndex, Direction direction)
 {
   auto it = stopIndexes.find(id);
   CHECK(it != stopIndexes.end(), (id));
-  CHECK(index < it->second.size(), (index, it->second.size()));
 
-  return *(it->second.begin() + index);
+  auto stops = it->second;
+  std::sort(stops.begin(), stops.end());
+
+  if (direction == Direction::Forward)
+  {
+    auto const stopIt =
+        std::find_if(stops.begin(), stops.end(), [&](size_t index) { return index >= fromIndex; });
+    if (stopIt == stops.end())
+      return {};
+    return *stopIt;
+  }
+
+  auto const stopIt =
+      std::find_if(stops.rbegin(), stops.rend(), [&](size_t index) { return index <= fromIndex; });
+  if (stopIt == stops.rend())
+    return {};
+  return *stopIt;
 }
 
-std::pair<StopOnShape, StopOnShape> GetStopPairOnShape(
+std::optional<std::pair<StopOnShape, StopOnShape>> GetStopPairOnShape(
     std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
-    transit::StopsOnLines const & stopsOnLines, size_t index)
+    transit::StopsOnLines const & stopsOnLines, size_t index, size_t fromIndex, Direction direction)
 {
   auto const & stopIds = stopsOnLines.m_stopSeq;
 
@@ -238,11 +260,16 @@ std::pair<StopOnShape, StopOnShape> GetStopPairOnShape(
 
   if (stopsOnLines.m_isValid)
   {
-    stop1.m_index = GetStopIndex(stopIndexes, stop1.m_id);
-    stop2.m_index = stop1.m_id == stop2.m_id ? GetStopIndex(stopIndexes, stop1.m_id, 1)
-                                             : GetStopIndex(stopIndexes, stop2.m_id);
+    auto const index1 = GetStopIndex(stopIndexes, stop1.m_id, fromIndex, direction);
+    if (!index1)
+      return {};
+    stop1.m_index = *index1;
+    auto const index2 = GetStopIndex(stopIndexes, stop2.m_id, *index1, direction);
+    if (!index2)
+      return {};
+    stop2.m_index = *index2;
   }
-  return {stop1, stop2};
+  return std::pair<StopOnShape, StopOnShape>(stop1, stop2);
 }
 
 struct Link
@@ -256,6 +283,35 @@ struct Link
 Link::Link(transit::TransitId lineId, transit::TransitId shapeId, size_t shapeSize)
   : m_lineId(lineId), m_shapeId(shapeId), m_shapeSize(shapeSize)
 {
+}
+
+Direction GetDirection(
+    transit::StopsOnLines const & stopsOnLines,
+    std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes)
+{
+  auto const & stopIds = stopsOnLines.m_stopSeq;
+
+  if (stopIds.size() <= 1 || !stopsOnLines.m_isValid)
+    return Direction::Forward;
+
+  for (size_t i = 0; i < stopIds.size() - 1; ++i)
+  {
+    auto const id1 = stopIds[i];
+    auto const id2 = stopIds[i + 1];
+    auto const indexes1 = stopIndexes.find(id1);
+    auto const indexes2 = stopIndexes.find(id2);
+    CHECK(indexes1 != stopIndexes.end(), ());
+    CHECK(indexes2 != stopIndexes.end(), ());
+    if (indexes1->second.size() != 1 || indexes2->second.size() != 1)
+      continue;
+    auto const index1 = indexes1->second[0];
+    auto const index2 = indexes2->second[0];
+    if (index2 == index1)
+      continue;
+    return index2 > index1 ? Direction::Forward : Direction::Backward;
+  }
+
+  return Direction::Forward;
 }
 }  // namespace
 
@@ -1027,15 +1083,28 @@ size_t WorldFeed::ModifyShapes()
         return invalidStopSequences;
     }
 
-    for (auto const & stopsOnLines : stopsLists)
+    for (auto & stopsOnLines : stopsLists)
     {
       IdList const & stopIds = stopsOnLines.m_stopSeq;
       auto const & lineIds = stopsOnLines.m_lines;
       auto indexes = stopToShapeIndex;
 
+      auto const direction = GetDirection(stopsOnLines, indexes);
+
+      size_t lastIndex = direction == Direction::Forward ? 0 : std::numeric_limits<size_t>::max();
       for (size_t i = 0; i < stopIds.size() - 1; ++i)
       {
-        auto const [stop1, stop2] = GetStopPairOnShape(indexes, stopsOnLines, i);
+        auto const stops = GetStopPairOnShape(indexes, stopsOnLines, i, lastIndex, direction);
+        if (!stops)
+        {
+          stopsOnLines.m_isValid = false;
+          ++invalidStopSequences;
+
+          if (invalidStopSequences > kMaxInvalidShapesCount)
+            return invalidStopSequences;
+        }
+        auto const [stop1, stop2] = *stops;
+        lastIndex = stop2.m_index;
 
         for (auto const lineId : lineIds)
         {
