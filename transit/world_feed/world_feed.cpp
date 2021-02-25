@@ -224,23 +224,15 @@ std::optional<size_t> GetStopIndex(
   auto it = stopIndexes.find(id);
   CHECK(it != stopIndexes.end(), (id));
 
-  auto stops = it->second;
-  std::sort(stops.begin(), stops.end());
-
-  if (direction == Direction::Forward)
+  std::optional<size_t> bestIdx;
+  for (auto const & index : it->second)
   {
-    auto const stopIt =
-        std::find_if(stops.begin(), stops.end(), [&](size_t index) { return index >= fromIndex; });
-    if (stopIt == stops.end())
-      return {};
-    return *stopIt;
+    if (direction == Direction::Forward && index >= fromIndex && (!bestIdx || index < bestIdx))
+      bestIdx = index;
+    if (direction == Direction::Backward && index <= fromIndex && (!bestIdx || index > bestIdx))
+      bestIdx = index;
   }
-
-  auto const stopIt =
-      std::find_if(stops.rbegin(), stops.rend(), [&](size_t index) { return index <= fromIndex; });
-  if (stopIt == stops.rend())
-    return {};
-  return *stopIt;
+  return bestIdx;
 }
 
 std::optional<std::pair<StopOnShape, StopOnShape>> GetStopPairOnShape(
