@@ -6,8 +6,6 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/zip_reader.hpp"
-
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/string_utils.hpp"
@@ -18,9 +16,8 @@
 
 namespace
 {
-// You can download this archive to current directory by running:
-// rsync -v -p testdata.mapsme.cloud.devmail.ru::testdata/gtfs-feeds-for-tests.zip .
-std::string const kArchiveWithFeeds = "gtfs-feeds-for-tests";
+// You can clone data from repo https://github.com/mapsme/world_feed_integration_tests_data
+std::string const kFeedsSubdir = "world_feed_integration_tests_data";
 }  // namespace
 
 namespace transit
@@ -35,27 +32,12 @@ public:
     auto const & options = GetTestingOptions();
 
     GetPlatform().SetResourceDir(options.m_resourcePath);
-    m_testPath = base::JoinPath(GetPlatform().WritableDir(), kArchiveWithFeeds);
-    CHECK(GetPlatform().MkDirRecursively(m_testPath), ());
+    m_testPath = base::JoinPath(GetPlatform().WritableDir(), kFeedsSubdir);
+    CHECK(GetPlatform().IsFileExistsByFullPath(m_testPath), ());
 
     m_generator = IdGenerator(base::JoinPath(m_testPath, "mapping.txt"));
     m_generatorEdges = IdGenerator(base::JoinPath(m_testPath, "mapping_edges.txt"));
-
-    auto const src = base::JoinPath(options.m_resourcePath, kArchiveWithFeeds + ".zip");
-    ZipFileReader::FileList filesAndSizes;
-    ZipFileReader::FilesList(src, filesAndSizes);
-
-    for (auto const & fileAndSize : filesAndSizes)
-    {
-      auto const output = base::JoinPath(m_testPath, fileAndSize.first);
-      if (strings::EndsWith(output, base::GetNativeSeparator()))
-        CHECK(GetPlatform().MkDirRecursively(output), ());
-      else
-        ZipFileReader::UnzipFile(src, fileAndSize.first, output);
-    }
   }
-
-  ~WorldFeedIntegrationTests() { CHECK(Platform::RmDirRecursively(m_testPath), ()); }
 
   void ReadMinimalisticFeed()
   {
