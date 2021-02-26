@@ -285,34 +285,40 @@ void ParseRoadAccessConditional(
   VehicleType vehicleType = VehicleType::Count;
   while (getline(stream, line))
   {
-    using It = strings::TokenizeIterator<strings::SimpleDelimiter, std::string::const_iterator, true>;
+    using It = strings::SimpleTokenizer;
     It strIt(line, strings::SimpleDelimiter('\t'));
-
+    CHECK(strIt, ());
     buffer = *strIt;
     strings::Trim(buffer);
     FromString(buffer, vehicleType);
     CHECK_NOT_EQUAL(vehicleType, VehicleType::Count, (buffer));
 
+    auto const moveIterAndCheck = [&]() {
+      ++strIt;
+      CHECK(strIt, ());
+      return *strIt;
+    };
+
     uint64_t osmId = 0;
-    buffer = *(++strIt);
+    buffer = moveIterAndCheck();
     strings::Trim(buffer);
     CHECK(strings::to_uint64(buffer, osmId), (buffer));
 
     size_t accessNumber = 0;
-    buffer = *(++strIt);
+    buffer = moveIterAndCheck();
     strings::Trim(buffer);
     CHECK(strings::to_size_t(buffer, accessNumber), (buffer));
     CHECK_NOT_EQUAL(accessNumber, 0, ());
     RoadAccess::Conditional conditional;
     for (size_t i = 0; i < accessNumber; ++i)
     {
-      buffer = *(++strIt);
+      buffer = moveIterAndCheck();
       strings::Trim(buffer);
       RoadAccess::Type roadAccessType = RoadAccess::Type::Count;
       FromString(buffer, roadAccessType);
       CHECK_NOT_EQUAL(roadAccessType, RoadAccess::Type::Count, ());
 
-      buffer = *(++strIt);
+      buffer = moveIterAndCheck();
       strings::Trim(buffer);
       osmoh::OpeningHours openingHours(buffer);
       if (!openingHours.IsValid())
