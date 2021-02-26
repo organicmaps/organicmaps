@@ -388,6 +388,7 @@ class Env:
             setattr(self, k, v)
 
         self.gen_tool = self.setup_generator_tool()
+        self.world_roads_builder_tool = self.setup_world_roads_builder_tool()
 
         self.production = production
         self.force_download_files = force_download_files
@@ -433,8 +434,6 @@ class Env:
             for item in os.listdir(self.paths.status_path):
                 if item.endswith(".download"):
                     os.remove(os.path.join(self.paths.status_path, item))
-
-        self.world_roads_builder_tool = self.setup_world_roads_builder_tool()
 
         self.main_status = status.Status()
         # self.countries_meta stores log files and statuses for each country.
