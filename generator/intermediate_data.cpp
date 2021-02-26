@@ -75,8 +75,8 @@ private:
 class RawFilePointStorageMmapReader : public PointStorageReaderInterface
 {
 public:
-  explicit RawFilePointStorageMmapReader(string const & name) :
-    m_mmapReader(name)
+  explicit RawFilePointStorageMmapReader(string const & name)
+    : m_mmapReader(name, MmapReader::Advise::Random)
   {}
 
   // PointStorageReaderInterface overrides:
