@@ -141,8 +141,10 @@ void OrderTextFileByLine(std::string const & filename)
   std::ifstream istream;
   istream.exceptions(std::fstream::badbit);
   istream.open(filename);
-  std::vector<std::string> lines(std::istream_iterator<std::string>(istream),
-                                 (std::istream_iterator<std::string>()));
+  std::vector<std::string> lines;
+  std::string line;
+  while (std::getline(istream, line))
+    lines.emplace_back(std::move(line));
 
   std::sort(std::begin(lines), std::end(lines));
   istream.close();
