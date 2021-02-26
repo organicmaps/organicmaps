@@ -21,7 +21,7 @@ using namespace std;
 class MmapReader::MmapData
 {
 public:
-  explicit MmapData(string const & fileName, Advise advise)
+  explicit MmapData(string const & fileName, Advice advice)
   {
     // @TODO add windows support
 #ifndef OMIM_OS_WINDOWS
@@ -43,11 +43,11 @@ public:
     }
 
     int adv = MADV_NORMAL;
-    switch (advise)
+    switch (advice)
     {
-    case Advise::Random: adv = MADV_RANDOM; break;
-    case Advise::Sequential: adv = MADV_SEQUENTIAL; break;
-    case Advise::Normal: adv = MADV_NORMAL; break;
+    case Advice::Random: adv = MADV_RANDOM; break;
+    case Advice::Sequential: adv = MADV_SEQUENTIAL; break;
+    case Advice::Normal: adv = MADV_NORMAL; break;
     }
 
     if (madvise(m_memory, s.st_size, adv) != 0)
@@ -71,9 +71,9 @@ private:
   int m_fd = 0;
 };
 
-MmapReader::MmapReader(string const & fileName, Advise advise)
+MmapReader::MmapReader(string const & fileName, Advice advice)
   : base_type(fileName)
-  , m_data(std::make_shared<MmapData>(fileName, advise))
+  , m_data(std::make_shared<MmapData>(fileName, advice))
   , m_offset(0)
   , m_size(m_data->m_size)
 {
