@@ -161,22 +161,23 @@ namespace tesselator
     void ProcessPortions(PointsInfo const & points, EmitterT & emitter, bool goodOrder = true) const
     {
       // process portions and push out result chains
-      std::vector<Edge> chain;
-      for (std::list<ListInfo>::const_iterator i = m_triangles.begin(); i != m_triangles.end(); ++i)
+      for (auto const & trg : m_triangles)
       {
-        i->Start();
+        trg.Start();
 
         do
         {
-          typename ListInfo::TIterator start = i->FindStartTriangle(points);
-          i->MakeTrianglesChain(points, start, chain, goodOrder);
+          auto start = trg.FindStartTriangle(points);
+
+          std::vector<Edge> chain;
+          trg.MakeTrianglesChain(points, start, chain, goodOrder);
 
           m2::PointU arr[] = { points.m_points[start->first.first],
                                points.m_points[start->first.second],
-                               points.m_points[i->GetTriangle(start->second).GetPoint3(start->first)] };
+                               points.m_points[trg.GetTriangle(start->second).GetPoint3(start->first)] };
 
-          emitter(arr, chain);
-        } while (i->HasUnvisited());
+          emitter(arr, std::move(chain));
+        } while (trg.HasUnvisited());
       }
     }
   };

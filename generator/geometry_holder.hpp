@@ -10,6 +10,7 @@
 #include "geometry/polygon.hpp"
 #include "geometry/simplification.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/data_header.hpp"
 
 #include <cstdint>
@@ -178,7 +179,7 @@ private:
     tesselator::TrianglesInfo info;
     if (0 == tesselator::TesselateInterior(polys, info))
     {
-      LOG(LINFO, ("NO TRIANGLES in", polys));
+      LOG(LINFO, ("GeometryHolder: No triangles in", m_fb.GetMostGenericOsmId()));
       return;
     }
 
@@ -188,9 +189,21 @@ private:
 
     // points conversion
     tesselator::PointsInfo points;
-    m2::PointU (*D2U)(m2::PointD const &, uint8_t) = &PointDToPointU;
     info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(),
-                       std::bind(D2U, std::placeholders::_1, cp.GetCoordBits()), points);
+                       [bits = cp.GetCoordBits()](m2::PointD const & p) { return PointDToPointU(p, bits); }, points);
+
+    size_t const ptsCount = points.m_points.size();
+    if (ptsCount > 10000)
+    {
+      static auto const buildingType = classif().GetTypeByPath({"building"});
+      if (m_fb.HasType(buildingType))
+      {
+        // Big feature is critical for building type in drape (3D drawing).
+        LOG(LERROR, ("GeometryHolder: Large building feature", m_fb.GetMostGenericOsmId(), "with", ptsCount, "points"));
+      }
+      else
+        LOG(LWARNING, ("GeometryHolder: Large feature", m_fb.GetMostGenericOsmId(), "with", ptsCount, "points"));
+    }
 
     // triangles processing (should be optimal)
     info.ProcessPortions(points, saver, true);

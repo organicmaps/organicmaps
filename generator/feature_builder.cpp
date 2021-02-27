@@ -547,7 +547,9 @@ base::GeoObjectId FeatureBuilder::GetLastOsmId() const
 
 base::GeoObjectId FeatureBuilder::GetMostGenericOsmId() const
 {
-  ASSERT(!m_osmIds.empty(), ());
+  if (m_osmIds.empty())
+    return base::GeoObjectId();
+
   auto result = m_osmIds.front();
   for (auto const & id : m_osmIds)
   {
