@@ -395,14 +395,6 @@ public class Utils
     return installationId;
   }
 
-  @Nullable
-  public static String getAdvertisingId(@NonNull Context context)
-  {
-    MwmApplication application = MwmApplication.from(context);
-    ExternalLibrariesMediator mediator = application.getMediator();
-    return mediator.getAdvertisingId();
-  }
-
   @NonNull
   public static String getMacAddress(@NonNull Context context,  boolean md5Decoded)
   {

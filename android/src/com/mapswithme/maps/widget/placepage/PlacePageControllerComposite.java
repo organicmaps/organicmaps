@@ -6,15 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.guides.GuidesGalleryListener;
-import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class PlacePageControllerComposite implements PlacePageController
 {
-  @NonNull
-  private final AdsRemovalPurchaseControllerProvider mAdsProvider;
   @NonNull
   private final PlacePageController.SlideListener mSlideListener;
   @Nullable
@@ -27,12 +24,10 @@ class PlacePageControllerComposite implements PlacePageController
   @NonNull
   private PlacePageController mActiveController;
 
-  PlacePageControllerComposite(@NonNull AdsRemovalPurchaseControllerProvider adsProvider,
-                               @NonNull SlideListener slideListener,
+  PlacePageControllerComposite(@NonNull SlideListener slideListener,
                                @Nullable RoutingModeListener routingModeListener,
                                @Nullable GuidesGalleryListener galleryListener)
   {
-    mAdsProvider = adsProvider;
     mSlideListener = slideListener;
     mRoutingModeListener = routingModeListener;
     mGuidesGalleryListener = galleryListener;
@@ -118,8 +113,7 @@ class PlacePageControllerComposite implements PlacePageController
       throw new AssertionError("Place page controllers already initialized!");
 
     PlacePageController richController =
-        PlacePageFactory.createRichController(mAdsProvider, mSlideListener,
-                                              mRoutingModeListener);
+        PlacePageFactory.createRichController(mSlideListener, mRoutingModeListener);
     richController.initialize(activity);
     mControllers.add(richController);
 

@@ -1026,16 +1026,6 @@
 	<string name="traffic_update_app_message">Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafik verileri kullanılamıyor</string>
-	<string name="banner_deliveryclub_title">Gıda teslimatı</string>
-	<string name="banner_deliveryclub_message">4.000\'den fazla restorandan hızlı teslimat. Siparişinizi Delivery Club ile verin.</string>
-	<string name="banner_lamoda_title">Çevrimiçi giyim ve ayakkabı mağazası</string>
-	<string name="banner_lamoda_message">1.000\'den fazla marka. %70\'e varan indirimler. Ülkenin her yerine ücretsiz teslimat.</string>
-	<string name="banner_tutu_title">Çevrimiçi tren biletleri</string>
-	<string name="banner_tutu_message">Tüm şehirler için çevrimiçi tren biletleri - fiyat bilgileri, arama yapma ve rezervasyon.</string>
-	<string name="banner_geerbest_title">Çevrimiçi elektronik mağazası</string>
-	<string name="banner_geerbest_message">En uygun fiyatlarla 50.000\'den fazla ürün için hızlı arama yapın.</string>
-	<string name="banner_rentalcars_title">Çevrimiçi araba kiralama</string>
-	<string name="banner_rentalcars_message">49.000\'den fazla araç kiralama bölgesinde yer alan 800 araç kiralama şirketi.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36 Ülkeden Trafik Verileri</string>
 	<!-- december -->
@@ -1312,10 +1302,8 @@
 	  <item quantity="other">%d izleme</item>
 	</plurals>
 	<string name="subtittle_opt_out">İzleme ayarları</string>
-	<string name="opt_out_flurry">İstatistik</string>
-	<string name="opt_out_mopub">Kişiye özel reklamcılık</string>
-	<string name="opt_out_fabric">Kilitlenme raporu</string>
-	<string name="opt_out_fabric_description">OMaps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
+	<string name="crash_reports">Kilitlenme raporu</string>
+	<string name="crash_reports_description">OMaps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
 	<string name="opt_out_help_ios_1">Mobil cihazınız, “Reklam İzlemeyi Sınırla” veya “İlgiye dayalı reklamcılığı devre dışı bırak” ayarı sunar.</string>
 	<string name="opt_out_help_ios_2">iOS 9 veya Üstü</string>
 	<string name="opt_out_help_ios_3">Ayarlar → Gizlilik → Reklamcılık\'a gidin ve “Reklam İzlemeyi Sınırla” ayarını etkinleştirin</string>
@@ -1323,8 +1311,6 @@
 	<string name="privacy_policy">Gizlilik politikası</string>
 	<string name="terms_of_use">Kullanım koşulları</string>
 	<string name="backup_notification_failed">Yer imlerinizin yedeklenmesi işlemi askıya alındı. İşlemi devam ettirmek için oturum açın.</string>
-	<string name="banner_megafon_banner_message">Uluslararası dolaşıma güle güle deyin!</string>
-	<string name="banner_megafon_banner_button">Güle güle!</string>
 	<string name="button_layer_traffic">Trafik</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="layers_title">Harita katmanları</string>

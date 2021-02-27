@@ -1014,16 +1014,6 @@
 	<string name="traffic_update_app_message">Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dữ liệu giao thông không khả dụng</string>
-	<string name="banner_deliveryclub_title">Giao thực phẩm</string>
-	<string name="banner_deliveryclub_message">Giao hàng nhanh từ 4.000 nhà hàng. Đặt hàng từ Delivery Club.</string>
-	<string name="banner_lamoda_title">Cửa hàng quần áo và giầy dép trực tuyến</string>
-	<string name="banner_lamoda_message">Hơn 1.000 nhãn hiệu. Giảm đến 70%. Giao hàng miễn phí toàn quốc.</string>
-	<string name="banner_tutu_title">Vé tàu trực tuyến</string>
-	<string name="banner_tutu_message">Mua vé tàu trực tuyến đến bất kỳ thành phố nào - giá cả, tìm kiếm và đặt vé.</string>
-	<string name="banner_geerbest_title">Cửa hàng điện tử trực tuyến</string>
-	<string name="banner_geerbest_message">Tìm kiếm nhanh hơn 50.000 sản phẩm ở mức giá thấp.</string>
-	<string name="banner_rentalcars_title">Thuê ô tô trực tuyến</string>
-	<string name="banner_rentalcars_message">800 công ty thuê ô tô ở hơn 49.000 địa điểm thuê ô tô.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Dữ liệu Giao thông tại 36 Quốc gia</string>
 	<!-- december -->
@@ -1297,10 +1287,8 @@
 	  <item quantity="other">%d các chặn đường</item>
 	</plurals>
 	<string name="subtittle_opt_out">Thiết lập theo dõi</string>
-	<string name="opt_out_flurry">Thống kê</string>
-	<string name="opt_out_mopub">Quảng cáo được cá nhân hóa</string>
-	<string name="opt_out_fabric">Báo cáo sự cố</string>
-	<string name="opt_out_fabric_description">Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên OMaps. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.</string>
+	<string name="crash_reports">Báo cáo sự cố</string>
+	<string name="crash_reports_description">Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên OMaps. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.</string>
 	<string name="opt_out_help_ios_1">Thiết bị di động của bạn có thể cung cấp cài đặt \"\"Giới hạn theo dõi quảng cáo\"\" hoặc \"\"Chọn không tham gia quảng cáo dựa trên sở thích\"\".</string>
 	<string name="opt_out_help_ios_2">iOS 9 hoặc lớn hơn</string>
 	<string name="opt_out_help_ios_3">Đến Cài đặt → Bảo mật → Quảng cáo → Bật cài đặt \"\"Giới hạn theo dõi quảng cáo\"\"</string>
@@ -1308,8 +1296,6 @@
 	<string name="privacy_policy">Chính sách bảo mật</string>
 	<string name="terms_of_use">Điều khoảng sử dụng</string>
 	<string name="backup_notification_failed">Sao lưu dấu trang của bạn đã bị tạm ngưng. Đăng nhập để bật lại.</string>
-	<string name="banner_megafon_banner_message">Nói lời tạm biệt với chuyển vùng quốc tế!</string>
-	<string name="banner_megafon_banner_button">Tạm biệt!</string>
 	<string name="button_layer_traffic">Giao thông</string>
 	<string name="button_layer_subway">Xe điện ngầm</string>
 	<string name="layers_title">Các lớp bản đồ</string>

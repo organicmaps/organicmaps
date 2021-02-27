@@ -48,12 +48,6 @@ public final class Banner implements Parcelable
   {
     switch (Type.values()[mType])
     {
-      case TYPE_RB:
-        return Providers.MY_TARGET;
-      case TYPE_MOPUB:
-        return Providers.MOPUB;
-      case TYPE_GOOGLE:
-        return Providers.GOOGLE;
       default:
         throw new AssertionError("Unsupported banner type: " + mType);
     }
@@ -108,10 +102,7 @@ public final class Banner implements Parcelable
 
   public enum Type
   {
-    TYPE_NONE,
-    TYPE_RB,
-    TYPE_MOPUB,
-    TYPE_GOOGLE
+    TYPE_NONE
   }
 
   public enum Place

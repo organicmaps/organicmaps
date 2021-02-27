@@ -18,36 +18,26 @@ import androidx.core.view.GestureDetectorCompat;
 import com.google.android.material.appbar.AppBarLayout;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.ads.CompoundNativeAdLoader;
-import com.mapswithme.maps.ads.DefaultAdTracker;
-import com.mapswithme.maps.ads.Factory;
-import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.promo.Promo;
-import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.PlacePageTracker;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 import java.util.Objects;
 
 public class RichPlacePageController implements PlacePageController, LocationListener,
                                                 View.OnLayoutChangeListener,
-                                                BannerController.BannerStateRequester,
-                                                BannerController.BannerStateListener,
                                                 Closable
 {
   private static final float ANCHOR_RATIO = 0.3f;
   private static final float PREVIEW_PLUS_RATIO = 0.45f;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = RichPlacePageController.class.getSimpleName();
-  private static final int ANIM_BANNER_APPEARING_MS = 300;
   private static final int ANIM_CHANGE_PEEK_HEIGHT_MS = 100;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -60,9 +50,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   private PlacePageView mPlacePage;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private PlacePageTracker mPlacePageTracker;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private Toolbar mToolbar;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -70,18 +57,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   private int mViewportMinHeight;
   private int mCurrentTop;
   private boolean mPeekHeightAnimating;
-  private int mOpenBannerTouchSlop;
-  /**
-   * Represents a value that describes how much banner details are opened.
-   * Must be in the range [0;1]. 0 means that the banner details are completely closed,
-   * 1 - the details are completely opened.
-   */
-  private float mBannerRatio;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private BannerController mBannerController;
-  @NonNull
-  private final AdsRemovalPurchaseControllerProvider mPurchaseControllerProvider;
   @NonNull
   private final SlideListener mSlideListener;
   @Nullable
@@ -104,8 +79,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     @Override
     public void onSheetDetailsOpened()
     {
-      mBannerController.onPlacePageDetails();
-      mPlacePageTracker.onDetails();
       UiUtils.show(mToolbarLayout);
     }
 
@@ -113,7 +86,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     public void onSheetCollapsed()
     {
       mPlacePage.resetScroll();
-      mBannerController.onPlacePagePreview();
       setPeekHeight();
       UiUtils.show(mToolbarLayout);
     }
@@ -129,7 +101,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     public void onSheetSlideFinish()
     {
       PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
-      resizeBanner();
     }
   };
 
@@ -146,66 +117,12 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     mDeactivateMapSelection = true;
     PlacePageUtils.moveViewportUp(mPlacePage, mViewportMinHeight);
     UiUtils.invisible(mButtonsLayout);
-    mPlacePageTracker.onHidden();
     UiUtils.hide(mToolbarLayout);
   }
 
-  private void resizeBanner()
-  {
-    int lastTop = mCurrentTop;
-    mCurrentTop = mPlacePage.getTop();
-
-    if (!mBannerController.hasAd())
-      return;
-
-    int bannerMaxY = calculateBannerMaxY();
-    int bannerMinY = calculateBannerMinY();
-    int maxDistance = Math.abs(bannerMaxY - bannerMinY);
-    int yDistance = Math.abs(mCurrentTop - bannerMinY);
-    float ratio = (float) yDistance / maxDistance;
-    mBannerRatio = ratio;
-
-    if (ratio >= 1)
-    {
-      mBannerController.zoomOut(1);
-      mBannerController.open();
-      return;
-    }
-
-    if (ratio == 0)
-    {
-      mBannerController.zoomIn(ratio);
-      mBannerController.close();
-      return;
-    }
-
-    if (mCurrentTop < lastTop)
-      mBannerController.zoomOut(ratio);
-    else
-      mBannerController.zoomIn(ratio);
-  }
-
-  private int calculateBannerMaxY()
-  {
-    View coordinatorLayout = (ViewGroup) mPlacePage.getParent();
-    int height = coordinatorLayout.getHeight();
-    int maxY = mPlacePage.getHeight() > height * (1 - ANCHOR_RATIO)
-               ? (int) (height * ANCHOR_RATIO) : height - mPlacePage.getHeight();
-    return maxY + mOpenBannerTouchSlop;
-  }
-
-  private int calculateBannerMinY()
-  {
-    View coordinatorLayout = (ViewGroup) mPlacePage.getParent();
-    int height = coordinatorLayout.getHeight();
-    return height - mPlacePageBehavior.getPeekHeight();
-  }
-
-  RichPlacePageController(@NonNull AdsRemovalPurchaseControllerProvider provider,
-                          @NonNull SlideListener listener,
+  RichPlacePageController(@NonNull SlideListener listener,
                           @Nullable RoutingModeListener routingModeListener)
   {
-    mPurchaseControllerProvider = provider;
     mSlideListener = listener;
     mRoutingModeListener = routingModeListener;
   }
@@ -217,7 +134,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     Objects.requireNonNull(activity);
     Resources res = activity.getResources();
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
-    mOpenBannerTouchSlop = res.getDimensionPixelSize(R.dimen.placepage_banner_open_touch_slop);
     mToolbar = activity.findViewById(R.id.pp_toolbar);
     mToolbarLayout = activity.findViewById(R.id.app_bar);
     UiUtils.extendViewWithStatusBar(mToolbar);
@@ -232,19 +148,12 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     mPlacePage.addOnLayoutChangeListener(this);
     mPlacePage.addClosable(this);
     mPlacePage.setRoutingModeListener(mRoutingModeListener);
-    ViewGroup bannerContainer = mPlacePage.findViewById(R.id.banner_container);
-    DefaultAdTracker tracker = new DefaultAdTracker();
-    CompoundNativeAdLoader loader = Factory.createCompoundLoader(tracker,
-                                                                 tracker);
-    mBannerController = new BannerController(bannerContainer, loader, tracker,
-                                             mPurchaseControllerProvider, this, this);
 
     mButtonsLayout = activity.findViewById(R.id.pp_buttons_layout);
     ViewGroup buttons = mButtonsLayout.findViewById(R.id.container);
     mPlacePage.initButtons(buttons);
     UiUtils.bringViewToFrontOf(mButtonsLayout, mPlacePage);
     UiUtils.bringViewToFrontOf(activity.findViewById(R.id.app_bar), mPlacePage);
-    mPlacePageTracker = new PlacePageTracker(mPlacePage, mButtonsLayout);
     LocationHelper.INSTANCE.addListener(this);
   }
 
@@ -265,7 +174,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       if (isSameObject && !PlacePageUtils.isHiddenState(state))
         return;
 
-      mBannerRatio = 0;
       mPlacePage.resetScroll();
 
       if (object.getOpeningMode() == MapObject.OPENING_MODE_DETAILS)
@@ -276,20 +184,9 @@ public class RichPlacePageController implements PlacePageController, LocationLis
 
       UiUtils.show(mButtonsLayout);
       openPlacePage();
-      showBanner(object, policy);
     });
 
     mToolbar.setTitle(object.getTitle());
-    mPlacePageTracker.setMapObject(object);
-    Framework.logLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_OPEN_INFO, object);
-  }
-
-  private void showBanner(@NonNull MapObject object, NetworkPolicy policy)
-  {
-    boolean canShowBanner = object.getMapObjectType() != MapObject.MY_POSITION
-                            && policy.canUseNetwork()
-                            && object.getRoadWarningMarkType() == RoadWarningMarkType.UNKNOWN;
-    mBannerController.updateData(canShowBanner ? object.getBanners() : null);
   }
 
   private void openPlacePage()
@@ -308,12 +205,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       Log.d(TAG, "Peek animation in progress, ignore.");
       return;
     }
-
-    // If banner details are little bit or completely opened we haven't to change the peek height,
-    // because the peek height is reasonable only for collapsed state and banner details are always
-    // closed in collapsed state.
-    if (mBannerRatio > 0)
-      return;
 
     final int peekHeight = calculatePeekHeight();
     if (peekHeight == mPlacePageBehavior.getPeekHeight())
@@ -340,8 +231,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   {
     int delta = peekHeight - mPlacePageBehavior.getPeekHeight();
     ObjectAnimator animator = ObjectAnimator.ofFloat(mPlacePage, "translationY", -delta);
-    animator.setDuration(delta == mBannerController.getClosedHeight() ? ANIM_BANNER_APPEARING_MS
-                                                                      : ANIM_CHANGE_PEEK_HEIGHT_MS);
+    animator.setDuration(ANIM_CHANGE_PEEK_HEIGHT_MS);
     animator.addListener(new UiUtils.SimpleAnimatorListener()
     {
       @Override
@@ -456,14 +346,12 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @Override
   public void onSave(@NonNull Bundle outState)
   {
-    mPlacePageTracker.onSave(outState);
     outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mPlacePage.getMapObject());
   }
 
   @Override
   public void onRestore(@NonNull Bundle inState)
   {
-    mPlacePageTracker.onRestore(inState);
     if (mPlacePageBehavior.getState() == AnchorBottomSheetBehavior.STATE_HIDDEN)
       return;
 
@@ -493,7 +381,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
       mPlacePageBehavior.setState(state);
       UiUtils.show(mButtonsLayout);
       setPeekHeight();
-      showBanner(object, policy);
       PlacePageUtils.setPullDrawable(mPlacePageBehavior, mPlacePage, R.id.pull_icon);
     });
   }
@@ -506,26 +393,22 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @Override
   public void onActivityStarted(Activity activity)
   {
-    mBannerController.attach();
     mPlacePage.attach(activity);
   }
 
   @Override
   public void onActivityResumed(Activity activity)
   {
-    mBannerController.onChangedVisibility(true);
   }
 
   @Override
   public void onActivityPaused(Activity activity)
   {
-    mBannerController.onChangedVisibility(false);
   }
 
   @Override
   public void onActivityStopped(Activity activity)
   {
-    mBannerController.detach();
     mPlacePage.detach();
   }
 
@@ -539,34 +422,6 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   public void onActivityDestroyed(Activity activity)
   {
     Promo.INSTANCE.setListener(null);
-  }
-
-  @Nullable
-  @Override
-  public BannerController.BannerState requestBannerState()
-  {
-    @AnchorBottomSheetBehavior.State
-    int state = mPlacePageBehavior.getState();
-    if (PlacePageUtils.isSettlingState(state) || PlacePageUtils.isDraggingState(state)
-        || PlacePageUtils.isHiddenState(state))
-      return null;
-
-    if (PlacePageUtils.isAnchoredState(state) || PlacePageUtils.isExpandedState(state))
-      return BannerController.BannerState.DETAILS;
-
-    return BannerController.BannerState.PREVIEW;
-  }
-
-  @Override
-  public void onBannerDetails(@NonNull MwmNativeAd ad)
-  {
-    mPlacePageTracker.onBannerDetails(ad);
-  }
-
-  @Override
-  public void onBannerPreview(@NonNull MwmNativeAd ad)
-  {
-    mPlacePageTracker.onBannerPreview(ad);
   }
 
   @Override

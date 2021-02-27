@@ -1020,16 +1020,6 @@
 	<string name="traffic_update_app_message">Applikationen måste uppdateras för att trafikdata ska kunna visas.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafikdata är inte tillgänglig</string>
-	<string name="banner_deliveryclub_title">Matleverans</string>
-	<string name="banner_deliveryclub_message">Snabbleverans från 4000 restauranger. Beställ från Delivery Club.</string>
-	<string name="banner_lamoda_title">Kläd- och skobutik online</string>
-	<string name="banner_lamoda_message">Över 1000 varumärken. Upp till 70 % i rabatt. Gratis leverans över hela landet.</string>
-	<string name="banner_tutu_title">Tågbiljetter online</string>
-	<string name="banner_tutu_message">Tågbiljetter till vilken stad som helst online - priser, sökning och bokning.</string>
-	<string name="banner_geerbest_title">Elektronisk onlinebutik</string>
-	<string name="banner_geerbest_message">Snabbsökning i över 50000 föremål till låga priser.</string>
-	<string name="banner_rentalcars_title">Biluthyrning online</string>
-	<string name="banner_rentalcars_message">800 biluthyrningsföretag på mer än 49000 biluthyrningsplatser.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Trafikdata i 36 länder</string>
 	<!-- december -->
@@ -1307,10 +1297,8 @@
 	  <item quantity="other">%d spår</item>
 	</plurals>
 	<string name="subtittle_opt_out">Spårningsinställningar</string>
-	<string name="opt_out_flurry">Statistik</string>
-	<string name="opt_out_mopub">Personlig annonsering</string>
-	<string name="opt_out_fabric">Olycksrapport</string>
-	<string name="opt_out_fabric_description">Vi kan komma att använda din data för att förbättra OMaps upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.</string>
+	<string name="crash_reports">Olycksrapport</string>
+	<string name="crash_reports_description">Vi kan komma att använda din data för att förbättra OMaps upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.</string>
 	<string name="opt_out_help_ios_1">Din mobila enhet kan tillhandahålla en ”Begränsad annonsspårning” eller ”Välj bort intressebaserad annonsering” inställning.</string>
 	<string name="opt_out_help_ios_2">iOS 9 eller nyare</string>
 	<string name="opt_out_help_ios_3">Gå till Inställningar → Integritet → Annonsering → Tillåt inställningen ”Begränsad annonsspårning”</string>
@@ -1318,8 +1306,6 @@
 	<string name="privacy_policy">Integritetspolicy</string>
 	<string name="terms_of_use">Allmänna villkor</string>
 	<string name="backup_notification_failed">Säkerhetskopiering av dina bokmärken har avbrutits. Logga in för att starta det igen.</string>
-	<string name="banner_megafon_banner_message">Säg farväl till internationell roaming!</string>
-	<string name="banner_megafon_banner_button">Hej då!</string>
 	<string name="button_layer_traffic">Trafik</string>
 	<string name="button_layer_subway">Tunnelbana</string>
 	<string name="layers_title">Kartlager</string>
