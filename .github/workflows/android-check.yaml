@@ -7,10 +7,10 @@ jobs:
     name: Android Check
     runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK 1.8
+      - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
 
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -21,11 +21,6 @@ jobs:
         shell: bash
         run: |
           ./configure.sh
-
-      - name: Set up SDK
-        shell: bash
-        run: |
-          (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT --ndk $ANDROID_NDK_ROOT)
 
       - name: Compile
         shell: bash

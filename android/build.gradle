@@ -6,7 +6,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:4.1.2'
+    classpath 'com.android.tools.build:gradle:7.0.0-alpha08'
     classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.1'
     classpath 'com.google.firebase:firebase-appdistribution-gradle:2.1.0'
     classpath 'com.google.gms:google-services:4.3.5'
