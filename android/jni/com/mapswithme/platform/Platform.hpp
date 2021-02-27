@@ -35,9 +35,6 @@ public:
 
   bool HasAvailableSpaceForWriting(uint64_t size) const;
 
-  void SendPushWooshTag(std::string const & tag, std::vector<std::string> const & values);
-  void SendMarketingEvent(std::string const & tag, std::map<std::string, std::string> const & params);
-
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
 
   class AndroidSecureStorage
@@ -61,8 +58,6 @@ public:
 
 private:
   jobject m_functorProcessObject = nullptr;
-  jmethodID m_sendPushWooshTagsMethod = nullptr;
-  jmethodID m_sendAppsFlyerTagsMethod = nullptr;
   AndroidSecureStorage m_secureStorage;
 };
 

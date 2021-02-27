@@ -179,10 +179,6 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
 {
   m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
   jclass const functorProcessClass = env->GetObjectClass(functorProcessObject);
-  m_sendPushWooshTagsMethod = env->GetMethodID(functorProcessClass, "sendPushWooshTags",
-      "(Ljava/lang/String;[Ljava/lang/String;)V");
-  m_sendAppsFlyerTagsMethod = env->GetMethodID(functorProcessClass, "sendAppsFlyerTags",
-      "(Ljava/lang/String;[Lcom/mapswithme/util/KeyValue;)V");
 
   m_guiThread = std::make_unique<GuiThread>(m_functorProcessObject);
 
@@ -268,32 +264,6 @@ Platform & Platform::Instance()
 {
   static Platform platform;
   return platform;
-}
-
-void Platform::SendPushWooshTag(std::string const & tag, std::vector<std::string> const & values)
-{
-  ASSERT(m_functorProcessObject, ());
-  ASSERT(m_sendPushWooshTagsMethod, ());
-
-  if (values.empty())
-    return;
-
-  JNIEnv * env = jni::GetEnv();
-  env->CallVoidMethod(m_functorProcessObject, m_sendPushWooshTagsMethod,
-                      jni::TScopedLocalRef(env, jni::ToJavaString(env, tag)).get(),
-                      jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, values)).get());
-}
-
-void Platform::SendMarketingEvent(std::string const & tag,
-                                  std::map<std::string, std::string> const & params)
-{
-  JNIEnv * env = jni::GetEnv();
-
-  ASSERT(m_functorProcessObject, ());
-  ASSERT(m_sendAppsFlyerTagsMethod, ());
-  env->CallVoidMethod(m_functorProcessObject, m_sendAppsFlyerTagsMethod,
-                      jni::TScopedLocalRef(env, jni::ToJavaString(env, tag)).get(),
-                      jni::TScopedLocalObjectArrayRef(env, jni::ToKeyValueArray(env, params)).get());
 }
 
 void Platform::AndroidSecureStorage::Init(JNIEnv * env)

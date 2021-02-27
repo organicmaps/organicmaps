@@ -1010,16 +1010,6 @@
 	<string name="traffic_update_app_message">Pentru a afişa datele privind traficul, aplicația trebuie actualizată.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Datele privind traficul nu sunt disponibile</string>
-	<string name="banner_deliveryclub_title">Livrare mâncare</string>
-	<string name="banner_deliveryclub_message">Livrare rapidă din 4.000 de restaurante. Comandați de la Delivery Club.</string>
-	<string name="banner_lamoda_title">Îmbrăcăminte și magazin de pantofi online</string>
-	<string name="banner_lamoda_message">Peste 1.000 de branduri. Până la 70% reducere. Livrare gratuită în toată țara.</string>
-	<string name="banner_tutu_title">Bilete de tren online</string>
-	<string name="banner_tutu_message">Bilete de tren către orice oraș online - prețuri, căutare şi rezervare.</string>
-	<string name="banner_geerbest_title">Magazin de produse electronice online</string>
-	<string name="banner_geerbest_message">Căutare instantanee printre peste 50.000 de articole la prețuri mici.</string>
-	<string name="banner_rentalcars_title">Închiriere mașini online</string>
-	<string name="banner_rentalcars_message">800 de firme care închiriază mașini în peste 49.000 de locații de închiriere mașini.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Date privind traficul în 36 de țări</string>
 	<!-- december -->
@@ -1297,10 +1287,8 @@
 	  <item quantity="other">%d bande</item>
 	</plurals>
 	<string name="subtittle_opt_out">Setări de servire</string>
-	<string name="opt_out_flurry">Statisticile</string>
-	<string name="opt_out_mopub">Publicitate personalizată</string>
-	<string name="opt_out_fabric">Rapoarte de eroare</string>
-	<string name="opt_out_fabric_description">Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți OMaps. Modificările vor intra în vigoare după repornirea aplicației.</string>
+	<string name="crash_reports">Rapoarte de eroare</string>
+	<string name="crash_reports_description">Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți OMaps. Modificările vor intra în vigoare după repornirea aplicației.</string>
 	<string name="opt_out_help_ios_1">Puteți renunța la primirea de publicitate țintă în setările aparatului.</string>
 	<string name="opt_out_help_ios_2">iOS 9 sau mai sus</string>
 	<string name="opt_out_help_ios_3">Deschideți Setări → Confidențialitate → Publicitate → „Activați Limitarea trackking”</string>
@@ -1308,8 +1296,6 @@
 	<string name="privacy_policy">Politica de confidențialitate</string>
 	<string name="terms_of_use">Termeni de utilizare</string>
 	<string name="backup_notification_failed">Copierea de rezervă a tag-uri lor a fost suspendată. Conectați-vă pentru a activa copierea de rezervă.</string>
-	<string name="banner_megafon_banner_message">Spune roamingului internațional hood bai!</string>
-	<string name="banner_megafon_banner_button">Hood bai!</string>
 	<string name="button_layer_traffic">Dopuri</string>
 	<string name="button_layer_subway">Metrou</string>
 	<string name="layers_title">Straturile hărții</string>

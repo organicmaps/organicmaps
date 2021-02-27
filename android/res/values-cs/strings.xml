@@ -1022,16 +1022,6 @@
 	<string name="traffic_update_app_message">Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Data o provozu nejsou k dispozici</string>
-	<string name="banner_deliveryclub_title">Rozvoz jídel</string>
-	<string name="banner_deliveryclub_message">Rychlé rozvoz z 4000 restaurací. Objednejte si u Delivery Club.</string>
-	<string name="banner_lamoda_title">Online obchod s oděvy a obuví</string>
-	<string name="banner_lamoda_message">Více než 1000 značek. Sleva až 70 %. Doručení zdarma po celé zemi.</string>
-	<string name="banner_tutu_title">Vlakové jízdenky online</string>
-	<string name="banner_tutu_message">Vlakové jízdenky do kteréhokoli města onlive - ceny, vyhledávání a rezervace.</string>
-	<string name="banner_geerbest_title">Online obchod s elektronikou</string>
-	<string name="banner_geerbest_message">Rychlé hledání ve více než 50 000 položkách za nízké ceny.</string>
-	<string name="banner_rentalcars_title">Pronájem auta online</string>
-	<string name="banner_rentalcars_message">800 autopůjčoven na více než 49 000 místech.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Údaje o provozu ve 36 zemích</string>
 	<!-- december -->
@@ -1310,10 +1300,8 @@
 	  <item quantity="other">%d cest</item>
 	</plurals>
 	<string name="subtittle_opt_out">Natavení doprovodu</string>
-	<string name="opt_out_flurry">Statistika</string>
-	<string name="opt_out_mopub">Personalizovaná reklama</string>
-	<string name="opt_out_fabric">Zprávy o chybách</string>
-	<string name="opt_out_fabric_description">Můžeme používat vaše údaje pro vývoj a zlepšení OMaps. Změny se projeví po restartování aplikace.</string>
+	<string name="crash_reports">Zprávy o chybách</string>
+	<string name="crash_reports_description">Můžeme používat vaše údaje pro vývoj a zlepšení OMaps. Změny se projeví po restartování aplikace.</string>
 	<string name="opt_out_help_ios_1">Cílovou reklamu můžete vypnout v nastavení vašeho zařízení.</string>
 	<string name="opt_out_help_ios_2">iOS 9 nebo vyšší</string>
 	<string name="opt_out_help_ios_3">Otevřete Nastavení → Důvěrnost → Reklama → Zapněte „Omezení trackingu“</string>
@@ -1321,8 +1309,6 @@
 	<string name="privacy_policy">Politika důvěrnosti</string>
 	<string name="terms_of_use">Podmínky užívání</string>
 	<string name="backup_notification_failed">Zálohování značek bylo pozastaveno. Pro zapnutí zálohování vejděte.</string>
-	<string name="banner_megafon_banner_message">Rozluč se s mezinárodním roamingem!</string>
-	<string name="banner_megafon_banner_button">Good Bye!</string>
 	<string name="button_layer_traffic">Zácpy</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="layers_title">Úrovně mapy</string>

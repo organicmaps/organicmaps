@@ -17,9 +17,7 @@
 
 #include "partners_api/ads/ads_engine.hpp"
 #include "partners_api/ads/banner.hpp"
-#include "partners_api/ads/mopub_ads.hpp"
 #include "partners_api/booking_block_params.hpp"
-#include "partners_api/megafon_countries.hpp"
 
 #include "web_api/utils.hpp"
 
@@ -2042,83 +2040,6 @@ JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetFilterRating(JNIEnv * env, jclass, jfloat rawRating)
 {
   return static_cast<jint>(place_page::rating::GetFilterRating(rawRating));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeMoPubInitializationBannerId(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, ads::Mopub::InitializationBannerId());
-}
-
-JNIEXPORT jobject JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetDownloaderPromoBanner(JNIEnv * env, jclass,
-                                                                  jstring mwmId)
-{
-  static jclass const downloaderPromoBannerClass = jni::GetGlobalClassRef(env,
-      "com/mapswithme/maps/downloader/DownloaderPromoBanner");
-  // Java signature : DownloaderPromoBanner(@DownloaderPromoType int type, @NonNull String url)
-  static jmethodID const downloaderPromoBannerConstructor = jni::GetConstructorID(env,
-      downloaderPromoBannerClass, "(ILjava/lang/String;)V");
-
-  auto const pos = frm()->GetCurrentPosition();
-  auto const banners =
-      frm()->GetAdsEngine().GetDownloadOnMapBanners(jni::ToNativeString(env, mwmId), pos,
-                                                    languages::GetCurrentNorm());
-
-  if (banners.empty())
-    return nullptr;
-
-  jni::TScopedLocalRef const url(env, jni::ToJavaString(env, banners[0].m_value));
-  return env->NewObject(downloaderPromoBannerClass, downloaderPromoBannerConstructor,
-                        static_cast<jint>(banners[0].m_type), url.get());
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeHasMegafonCategoryBanner(JNIEnv * env, jclass)
-{
-  auto const & purchase = frm()->GetPurchase();
-  if (purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
-    return static_cast<jboolean>(false);
-
-  auto const position = frm()->GetCurrentPosition();
-  if (!position)
-    return static_cast<jboolean>(false);
-
-  auto const latLon = mercator::ToLatLon(*position);
-  return static_cast<jboolean>(ads::HasMegafonCategoryBanner(frm()->GetStorage(),
-                                                             frm()->GetTopmostCountries(latLon),
-                                                             languages::GetCurrentNorm()));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetMegafonCategoryBannerUrl(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, ads::GetMegafonCategoryBannerUrl());
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeHasCitymobilCategoryBanner(JNIEnv * env, jclass)
-{
-  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
-    return static_cast<jboolean>(false);
-
-  auto const pos = frm()->GetCurrentPosition();
-  auto const banners = frm()->GetAdsEngine().GetSearchCategoryBanners(pos);
-
-  return static_cast<jboolean>(!banners.empty() &&
-                               banners.front().m_type == ads::Banner::Type::Citymobil);
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetCitymobilCategoryBannerUrl(JNIEnv * env, jclass)
-{
-  auto const pos = frm()->GetCurrentPosition();
-  auto const banners = frm()->GetAdsEngine().GetSearchCategoryBanners(pos);
-
-  if (banners.empty() || banners.front().m_type != ads::Banner::Type::Citymobil)
-    return jni::ToJavaString(env, "");
-
-  return jni::ToJavaString(env, banners.front().m_value);
 }
 
 JNIEXPORT void JNICALL

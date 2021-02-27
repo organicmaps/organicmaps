@@ -53,23 +53,11 @@
     <attr name="routingButtonHint" format="color" />
     <attr name="routingButtonPressedHint" format="color" />
     <attr name="routingButtonActivatedHint" format="color" />
-    <attr name="bannerText" format="color" />
-    <attr name="bannerBackground" format="reference" />
-    <attr name="searchCategoryBannerBackground" format="reference" />
-    <attr name="bannerButtonBackground" format="reference" />
-    <attr name="bannerButtonBackgroundColor" format="color" />
-    <attr name="adsBackground" format="reference" />
-    <attr name="adsText" format="color" />
-    <attr name="adsActionBackground" format="reference" />
-    <attr name="searchCategoryAdsActionBackground" format="reference" />
-    <attr name="searchCategoryAdsActionTextColor" format="reference" />
-    <attr name="textBannerTitle" format="color" />
     <attr name="steadyIconTint" format="color" />
     <attr name="steadyIconBackground" format="reference" />
     <attr name="activeIconTint" format="color" />
     <attr name="activeIconBackground" format="reference" />
     <attr name="warmGray" format="color" />
-    <attr name="localAdSearchResBackground" format="color" />
     <attr name="tagBackground" format="reference" />
     <attr name="sponsoredGalleryMore" format="reference" />
     <attr name="luggageLogo" format="reference" />

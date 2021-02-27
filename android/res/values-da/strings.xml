@@ -1024,16 +1024,6 @@
 	<string name="traffic_update_app_message">Appen skal opdateres for at kunne vise trafikdata.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafikdata er ikke tilgængelige</string>
-	<string name="banner_deliveryclub_title">Udbringning af mad</string>
-	<string name="banner_deliveryclub_message">Hurtig levering fra 4.000 restauranter. Bestil fra Delivery Club.</string>
-	<string name="banner_lamoda_title">Online sko- og tøjbutik</string>
-	<string name="banner_lamoda_message">Mere end 1.000 mærker. Op til 70% rabat. Gratis levering over hele landet.</string>
-	<string name="banner_tutu_title">Togbilletter online</string>
-	<string name="banner_tutu_message">Køb togbilletter til enhver by online - priser, søgning og bestilling.</string>
-	<string name="banner_geerbest_title">Online elektronikbutik</string>
-	<string name="banner_geerbest_message">Hurtig søgning blandt over 50.000 varer til lave priser.</string>
-	<string name="banner_rentalcars_title">Udlejning biler online</string>
-	<string name="banner_rentalcars_message">800 biludlejningsselskaber på mere end 49.000 steder.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Trafikdata i 36 lande</string>
 	<!-- december -->
@@ -1311,10 +1301,8 @@
 	  <item quantity="other">%d ruter</item>
 	</plurals>
 	<string name="subtittle_opt_out">Tracking-indstillinger</string>
-	<string name="opt_out_flurry">Statistik</string>
-	<string name="opt_out_mopub">Personaliserede reklamer</string>
-	<string name="opt_out_fabric">Nedbrudsrapport</string>
-	<string name="opt_out_fabric_description">Vi kan anvende dine data til at forbedre brugeroplevelsen på OMaps. Ændringerne træder i kraft, når du har genstartet appen.</string>
+	<string name="crash_reports">Nedbrudsrapport</string>
+	<string name="crash_reports_description">Vi kan anvende dine data til at forbedre brugeroplevelsen på OMaps. Ændringerne træder i kraft, når du har genstartet appen.</string>
 	<string name="opt_out_help_ios_1">Din mobilenhed kan indeholde en »Begræns reklamesporing« eller »Afmeld Tilpasset annoncering« indstiling.</string>
 	<string name="opt_out_help_ios_2">iOS 9 eller højere</string>
 	<string name="opt_out_help_ios_3">Gå til Indstillinger → Generelt → Begræsninger → Reklamer → Aktiver »Begræns reklamesporing« funktionen</string>
@@ -1322,8 +1310,6 @@
 	<string name="privacy_policy">Privatlivspolitik</string>
 	<string name="terms_of_use">Vilkår for bruger</string>
 	<string name="backup_notification_failed">Backup af dine bogmærker er blevet suspenderet. Log ind for at slå til igen.</string>
-	<string name="banner_megafon_banner_message">Sig farvel til international roaming!</string>
-	<string name="banner_megafon_banner_button">Farvel!</string>
 	<string name="button_layer_traffic">Trafik</string>
 	<string name="button_layer_subway">Undergrundsbane</string>
 	<string name="layers_title">Kortlag</string>

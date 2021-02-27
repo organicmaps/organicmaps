@@ -1872,13 +1872,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_phone:
         Utils.callPhone(getContext(), mTvPhone.getText().toString());
-        if (mMapObject != null)
-          Framework.logLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_CLICKED_PHONE, mMapObject);
         break;
       case R.id.ll__place_website:
         Utils.openUrl(getContext(), mTvWebsite.getText().toString());
-        if (mMapObject != null)
-          Framework.logLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_CLICKED_WEBSITE, mMapObject);
         break;
       case R.id.ll__place_wiki:
         // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.

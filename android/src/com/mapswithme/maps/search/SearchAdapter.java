@@ -367,31 +367,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     }
   }
 
-  private class LocalAdsCustomerViewHolder extends ResultViewHolder
-  {
-    LocalAdsCustomerViewHolder(@NonNull View view)
-    {
-      super(view);
-    }
-
-    @Override
-    boolean needSpecificBackground()
-    {
-      return true;
-    }
-
-    @Override
-    @DrawableRes
-    int getSpecificBackground()
-    {
-      @DrawableRes
-      int resId = ThemeUtils.isNightTheme(mSearchFragment.requireContext()) ?
-                  R.drawable.search_la_customer_result_night :
-                  R.drawable.search_la_customer_result;
-      return resId;
-    }
-  }
-
   SearchAdapter(SearchFragment fragment)
   {
     mSearchFragment = fragment;
@@ -413,9 +388,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
       case TYPE_RESULT:
         return new ResultViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
-
-      case TYPE_LOCAL_ADS_CUSTOMER:
-        return new LocalAdsCustomerViewHolder(inflater.inflate(R.layout.item_search_result, parent, false));
 
       default:
         throw new IllegalArgumentException("Unhandled view type given");

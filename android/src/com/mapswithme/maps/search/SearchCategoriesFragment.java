@@ -47,13 +47,6 @@ public class SearchCategoriesFragment extends BaseMwmRecyclerFragment<Categories
   }
 
   @Override
-  public void onPromoCategorySelected(@NonNull PromoCategory promo)
-  {
-    PromoCategoryProcessor processor = promo.createProcessor(getActivity());
-    processor.process();
-  }
-
-  @Override
   public void onAdsRemovalSelected()
   {
     AdsRemovalPurchaseDialog.show(this);

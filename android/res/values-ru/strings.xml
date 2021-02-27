@@ -1035,16 +1035,6 @@
 	<string name="traffic_update_app_message">Для отображения пробок необходимо обновить приложение.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Данные о пробках недоступны</string>
-	<string name="banner_deliveryclub_title">Доставка еды</string>
-	<string name="banner_deliveryclub_message">Быстрая доставка еды из 4 тысяч ресторанов. Закажите на Delivery Club.</string>
-	<string name="banner_lamoda_title">Интернет-магазин одежды и обуви</string>
-	<string name="banner_lamoda_message">Более тысячи брендов. Скидки до 70%. Доставка по всей стране бесплатно.</string>
-	<string name="banner_tutu_title">Ж/д билеты онлайн</string>
-	<string name="banner_tutu_message">Ж/д билеты в любой город онлайн – цены, поиск и бронирование.</string>
-	<string name="banner_geerbest_title">Интернет-магазин электроники</string>
-	<string name="banner_geerbest_message">Мгновенный поиск по более чем 50 тысячам товаров по низким ценам.</string>
-	<string name="banner_rentalcars_title">Прокат автомобилей онлайн</string>
-	<string name="banner_rentalcars_message">800 прокатных компаний в более чем 49 тысячах пунктах проката.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Пробки в 36 странах мира</string>
 	<!-- december -->
@@ -1346,10 +1336,8 @@
 	  <item quantity="other">%d треков</item>
 	</plurals>
 	<string name="subtittle_opt_out">Настройки сопровождения</string>
-	<string name="opt_out_flurry">Статистика</string>
-	<string name="opt_out_mopub">Персонализированная реклама</string>
-	<string name="opt_out_fabric">Отчеты об ошибках</string>
-	<string name="opt_out_fabric_description">Мы можем использовать ваши данные, чтобы развивать и улучшать OMaps. Изменения вступят в силу после перезапуска приложения.</string>
+	<string name="crash_reports">Отчеты об ошибках</string>
+	<string name="crash_reports_description">Мы можем использовать ваши данные, чтобы развивать и улучшать OMaps. Изменения вступят в силу после перезапуска приложения.</string>
 	<string name="opt_out_help_ios_1">Вы можете отказаться от получения целевой рекламы в настройках устройства.</string>
 	<string name="opt_out_help_ios_2">iOS 9 или выше</string>
 	<string name="opt_out_help_ios_3">Откройте Настройки → Конфиденциальность → Реклама → Включите «Ограничение трекинга»</string>
@@ -1357,8 +1345,6 @@
 	<string name="privacy_policy">Политика конфиденциальности</string>
 	<string name="terms_of_use">Условия использования</string>
 	<string name="backup_notification_failed">Резервное копирование меток было приостановлено. Войдите, чтобы включить резервное копирование.</string>
-	<string name="banner_megafon_banner_message">Скажи международному роумингу гудбай!</string>
-	<string name="banner_megafon_banner_button">Гудбай!</string>
 	<string name="button_layer_traffic">Пробки</string>
 	<string name="button_layer_subway">Метро</string>
 	<string name="layers_title">Слои карты</string>

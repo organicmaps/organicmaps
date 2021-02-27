@@ -1021,16 +1021,6 @@
 	<string name="traffic_update_app_message">Om de verkeersgegevens weer te geven, moet de applicatie bijgewerkt worden.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Verkeersgegevens zijn niet beschikbaar</string>
-	<string name="banner_deliveryclub_title">Levering maaltijden</string>
-	<string name="banner_deliveryclub_message">Snelle levering van 4.000 restaurants. Bestel via Delivery Club.</string>
-	<string name="banner_lamoda_title">Online kleding- en schoenenwinkel</string>
-	<string name="banner_lamoda_message">Meer dan 1.000 merken. Tot 70% korting. Gratis levering over het hele land.</string>
-	<string name="banner_tutu_title">Treintickets online</string>
-	<string name="banner_tutu_message">Treintickets naar elke staf online - prijzen, zoeken en reserveren.</string>
-	<string name="banner_geerbest_title">Online elektronicawinkel</string>
-	<string name="banner_geerbest_message">Onmiddellijk zoeken tussen meer dan 50.000 artikelen aan lage prijzen.</string>
-	<string name="banner_rentalcars_title">Online auto\'s huren</string>
-	<string name="banner_rentalcars_message">800 autoverhuurbedrijven in meer dan 49.000 locaties voor autoverhuur.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Verkeersgegevens in 36 Landen</string>
 	<!-- december -->
@@ -1308,10 +1298,8 @@
 	  <item quantity="other">%d routes</item>
 	</plurals>
 	<string name="subtittle_opt_out">Tracking-instellingen</string>
-	<string name="opt_out_flurry">Statistieken</string>
-	<string name="opt_out_mopub">Gepersonaliseerde reclame</string>
-	<string name="opt_out_fabric">Crash rapport</string>
-	<string name="opt_out_fabric_description">Wij kunnen uw gegevens gebruiken om OMaps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.</string>
+	<string name="crash_reports">Crash rapport</string>
+	<string name="crash_reports_description">Wij kunnen uw gegevens gebruiken om OMaps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.</string>
 	<string name="opt_out_help_ios_1">Uw mobiele apparaat kan voorzien zijn van een instelling voor „Gelimiteerde advertentie-tracking” of „afmelden voor op interesses gebaseerd adverteren”.</string>
 	<string name="opt_out_help_ios_2">iOS 9 of hoger</string>
 	<string name="opt_out_help_ios_3">Ga naar uw Instellingen → Privacy → Advertenties → Inschakelen van de „Gelimiteerde advertentie-tracking” - instelling</string>
@@ -1319,8 +1307,6 @@
 	<string name="privacy_policy">Privacy beleid</string>
 	<string name="terms_of_use">Gebruiksvoorwaarden</string>
 	<string name="backup_notification_failed">Een back-up van uw bladwijzers werd opgeschort. Log in om weer op te starten.</string>
-	<string name="banner_megafon_banner_message">Zeg vaarwel tegen internationale roaming!</string>
-	<string name="banner_megafon_banner_button">Vaarwel!</string>
 	<string name="button_layer_traffic">Verkeer</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="layers_title">Map layers</string>

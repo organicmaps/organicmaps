@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.UiThread;
-import com.mapswithme.maps.ads.Banner;
-import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
@@ -21,7 +19,6 @@ import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.downloader.DownloaderPromoBanner;
 import com.mapswithme.maps.gdpr.UserBindingListener;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RouteMarkData;
@@ -203,20 +200,6 @@ public class Framework
     return Bitmap.createBitmap(altitudeChartBits, width, height, Bitmap.Config.ARGB_8888);
   }
 
-  public static void logLocalAdsEvent(@NonNull LocalAdsEventType type,
-                                      @NonNull MapObject mapObject)
-  {
-    LocalAdInfo info = mapObject.getLocalAdInfo();
-    if (info == null || (!info.isCustomer() && !info.isHidden()))
-      return;
-
-    Location location = LocationHelper.INSTANCE.getLastKnownLocation();
-    double lat = location != null ? location.getLatitude() : 0;
-    double lon = location != null ? location.getLongitude() : 0;
-    int accuracy = location != null ? (int) location.getAccuracy() : 0;
-    nativeLogLocalAdsEvent(type.ordinal(), lat, lon, accuracy);
-  }
-
   @FilterUtils.RatingDef
   public static int getFilterRating(@Nullable String ratingString)
   {
@@ -234,11 +217,6 @@ public class Framework
     }
 
     return FilterUtils.RATING_ANY;
-  }
-
-  public static void disableAdProvider(@NonNull Banner.Type type)
-  {
-    nativeDisableAdProvider(type.ordinal(), Banner.Place.DEFAULT.ordinal());
   }
 
   public static void setSpeedCamerasMode(@NonNull SettingsPrefsFragment.SpeedCameraMode mode)
@@ -483,8 +461,6 @@ public class Framework
   public static native void nativeSaveRoutePoints();
   public static native void nativeDeleteSavedRoutePoints();
 
-  public static native Banner[] nativeGetSearchBanners();
-
   public static native void nativeAuthenticateUser(@NonNull String socialToken,
                                                    @AuthTokenType int socialTokenType,
                                                    boolean privacyAccepted,
@@ -505,22 +481,6 @@ public class Framework
   public static native void nativeShowBookmarkCategory(long cat);
 
   private static native int nativeGetFilterRating(float rawRating);
-
-  @NonNull
-  public static native String nativeMoPubInitializationBannerId();
-
-  @Nullable
-  public static native DownloaderPromoBanner nativeGetDownloaderPromoBanner(@NonNull String mwmId);
-
-  public static native boolean nativeHasMegafonCategoryBanner();
-
-  @NonNull
-  public static native String nativeGetMegafonCategoryBannerUrl();
-
-  public static native boolean nativeHasCitymobilCategoryBanner();
-
-  @NonNull
-  public static native String nativeGetCitymobilCategoryBannerUrl();
 
   public static native void nativeMakeCrash();
 
