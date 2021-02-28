@@ -127,7 +127,6 @@ def step_features(env: Env, **kwargs):
         osm_file_name=env.paths.planet_o5m,
         node_storage=env.node_storage,
         user_resource_path=env.paths.user_resource_path,
-        dump_cities_boundaries=True,
         cities_boundaries_data=env.paths.cities_boundaries_path,
         generate_features=True,
         threads_count=settings.THREADS_COUNT_FEATURES_STAGE,

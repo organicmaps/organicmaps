@@ -248,6 +248,7 @@ class StageCitiesIdsWorld(Stage):
 
 @country_stage
 @helper_stage_for("StageRoutingWorld")
+# ToDo: Are we sure that this stage will be skipped if StageRoutingWorld is skipped?
 class StagePrepareRoutingWorld(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_prepare_routing_world(env, country, **kwargs)
