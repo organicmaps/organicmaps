@@ -234,10 +234,8 @@ using Observers = NSHashTable<Observer>;
     return;
   } else {
     AVAudioSessionMode mode = AVAudioSessionModeDefault;
-    if (@available(iOS 12.0, *)) {
-      if ([MWMCarPlayService shared].isCarplayActivated) {
-        mode = AVAudioSessionModeVoicePrompt;
-      }
+    if ([MWMCarPlayService shared].isCarplayActivated) {
+      mode = AVAudioSessionModeVoicePrompt;
     }
     if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
                                                  mode:mode

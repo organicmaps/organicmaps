@@ -10,10 +10,8 @@ final class VisibleArea: AvailableArea {
   }
 
   override func notifyObserver() {
-    if #available(iOS 12.0, *) {
-      if CarPlayService.shared.isCarplayActivated {
-        return
-      }
+    if CarPlayService.shared.isCarplayActivated {
+      return
     }
     FrameworkHelper.setVisibleViewport(areaFrame, scaleFactor: MapViewController.shared()?.mapView.contentScaleFactor ?? 1)
   }

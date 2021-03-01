@@ -1,7 +1,6 @@
 import CarPlay
 import Contacts
 
-@available(iOS 12.0, *)
 protocol CarPlayRouterListener: class {
   func didCreateRoute(routeInfo: RouteInfo,
                       trip: CPTrip)
@@ -11,7 +10,6 @@ protocol CarPlayRouterListener: class {
 }
 
 
-@available(iOS 12.0, *)
 @objc(MWMCarPlayRouter)
 final class CarPlayRouter: NSObject {
   private let listenerContainer: ListenerContainer<CarPlayRouterListener>
@@ -205,7 +203,6 @@ final class CarPlayRouter: NSObject {
 }
 
 // MARK: - Navigation session management
-@available(iOS 12.0, *)
 extension CarPlayRouter {
   func startNavigationSession(forTrip trip: CPTrip, template: CPMapTemplate) {
     routeSession = template.startNavigationSession(for: trip)
@@ -311,7 +308,6 @@ extension CarPlayRouter {
 }
 
 // MARK: - RoutingManagerListener implementation
-@available(iOS 12.0, *)
 extension CarPlayRouter: RoutingManagerListener {
   func updateCameraInfo(isCameraOnRoute: Bool, speedLimit limit: String?) {
     CarPlayService.shared.updateCameraUI(isCameraOnRoute: isCameraOnRoute, speedLimit: limit)

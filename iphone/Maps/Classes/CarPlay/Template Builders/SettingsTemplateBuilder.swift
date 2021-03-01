@@ -1,6 +1,5 @@
 import CarPlay
 
-@available(iOS 12.0, *)
 final class SettingsTemplateBuilder {
   // MARK: - CPGridTemplate builder
   class func buildGridTemplate() -> CPGridTemplate {

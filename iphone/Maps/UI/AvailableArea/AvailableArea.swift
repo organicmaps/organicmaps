@@ -12,7 +12,7 @@ class AvailableArea: UIView {
   }
 
   var shouldUpdateAreaFrame: Bool {
-    if #available(iOS 11.0, *), let insets = UIApplication.shared.delegate?.window??.safeAreaInsets {
+    if let insets = UIApplication.shared.delegate?.window??.safeAreaInsets {
       return insets.left > 0 || insets.right > 0
     } else {
       return false

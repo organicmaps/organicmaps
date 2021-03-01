@@ -36,12 +36,6 @@ class TutorialBlurView: UIVisualEffectView {
     if superview != nil {
       targetView?.centerXAnchor.constraint(equalTo: layoutView.centerXAnchor).isActive = true
       targetView?.centerYAnchor.constraint(equalTo: layoutView.centerYAnchor).isActive = true
-      guard #available(iOS 11.0, *) else {
-        DispatchQueue.main.async {
-          self.setNeedsLayout()
-        }
-        return
-      }
     }
   }
 

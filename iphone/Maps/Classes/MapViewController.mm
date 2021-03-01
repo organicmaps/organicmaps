@@ -292,10 +292,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)sendTouchType:(df::TouchEvent::ETouchType)type withTouches:(NSSet *)touches andEvent:(UIEvent *)event {
-  if (@available(iOS 12.0, *)) {
-    if ([MWMCarPlayService shared].isCarplayActivated) {
-      return;
-    }
+  if ([MWMCarPlayService shared].isCarplayActivated) {
+    return;
   }
   NSArray *allTouches = [[event allTouches] allObjects];
   if ([allTouches count] < 1)

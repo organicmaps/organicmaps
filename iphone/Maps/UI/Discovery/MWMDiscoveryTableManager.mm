@@ -64,8 +64,7 @@ using namespace discovery;
     tableView.dataSource = self;
     tableView.rowHeight = UITableViewAutomaticDimension;
     tableView.estimatedRowHeight = 218;
-    if (@available(iOS 11.0, *))
-      tableView.insetsContentViewsToSafeArea = NO;
+    tableView.insetsContentViewsToSafeArea = NO;
     [self registerCells];
   }
   return self;
