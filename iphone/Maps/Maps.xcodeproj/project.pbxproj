@@ -530,7 +530,6 @@
 		67B78B3F1E422C110018E590 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B3E1E422C110018E590 /* SafariServices.framework */; };
 		67B78B411E422C360018E590 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B401E422C360018E590 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		67B78B431E422C620018E590 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B421E422C620018E590 /* MessageUI.framework */; };
-		67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B461E422E0A0018E590 /* MobileCoreServices.framework */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012846243F0D6900C72B10 /* UIViewController+alternative.swift */; };
 		9901284F244732DB00C72B10 /* BottomTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012849244732DB00C72B10 /* BottomTabBarPresenter.swift */; };
@@ -901,6 +900,7 @@
 		F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FE3C371CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m */; };
 		F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FE3C3A1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib */; };
 		F6FEA82E1C58F108007223CC /* MWMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA82C1C58E89B007223CC /* MWMButton.m */; };
+		FACE202625ED912900518E88 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACE202525ED912900518E88 /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1602,7 +1602,6 @@
 		67B78B401E422C360018E590 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		67B78B421E422C620018E590 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		67B78B441E422C970018E590 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		67B78B461E422E0A0018E590 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		67B78B541E42333C0018E590 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		81AACEA6A52B8EC27EF04388 /* Pods_OMaps.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OMaps.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2152,6 +2151,7 @@
 		FA85F632145DDDC20090E1A0 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons.bin; path = ../../data/packed_polygons.bin; sourceTree = SOURCE_ROOT; };
 		FAAEA7D0161BD26600CCD661 /* synonyms.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synonyms.txt; path = ../../data/synonyms.txt; sourceTree = "<group>"; };
 		FAAFD696139D9BE2000AE70C /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = SOURCE_ROOT; };
+		FACE202725ED913A00518E88 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 07_roboto_medium.ttf; path = ../../data/07_roboto_medium.ttf; sourceTree = "<group>"; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2183,7 +2183,6 @@
 				45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */,
 				34D1B6F11E95096B0057E9C7 /* libicu.a in Frameworks */,
 				671E78D31E6A423300B2859B /* librouting_common.a in Frameworks */,
-				67B78B471E422E0A0018E590 /* MobileCoreServices.framework in Frameworks */,
 				67B78B431E422C620018E590 /* MessageUI.framework in Frameworks */,
 				67B78B411E422C360018E590 /* CoreSpotlight.framework in Frameworks */,
 				67B78B3F1E422C110018E590 /* SafariServices.framework in Frameworks */,
@@ -2223,6 +2222,7 @@
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
 				34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */,
 				04972684853070C687B7DEB5 /* Pods_OMaps.framework in Frameworks */,
+				FACE202625ED912900518E88 /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2329,6 +2329,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FACE202525ED912900518E88 /* CoreServices.framework */,
 				47A13CA624BE874D00027D4F /* DatePicker.framework */,
 				47A13CA324BE872600027D4F /* DatePicker.framework */,
 				47D48BCF242A475700FEFB1F /* AuthenticationServices.framework */,
@@ -2801,11 +2802,11 @@
 				34E6F2DA1F459C05008E14F9 /* GLKit.framework */,
 				67B78B541E42333C0018E590 /* AdSupport.framework */,
 				67B78B3C1E422BF60018E590 /* CoreData.framework */,
+				FACE202725ED913A00518E88 /* CoreServices.framework */,
 				67B78B401E422C360018E590 /* CoreSpotlight.framework */,
 				67B78B441E422C970018E590 /* iAd.framework */,
 				34570A3A1B13222600E6D4FD /* libz.dylib */,
 				67B78B421E422C620018E590 /* MessageUI.framework */,
-				67B78B461E422E0A0018E590 /* MobileCoreServices.framework */,
 				67B78B3E1E422C110018E590 /* SafariServices.framework */,
 				344D63161E795A2D006F17CB /* SystemConfiguration.framework */,
 				3488B03A1E9D13EF0068AFD8 /* UserNotifications.framework */,
