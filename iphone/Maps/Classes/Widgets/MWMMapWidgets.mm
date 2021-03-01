@@ -35,12 +35,10 @@
   if (m_skin != nullptr)
     m_skin->Resize(size.width, size.height);
   dispatch_async(dispatch_get_main_queue(), ^{
-    if (@available(iOS 12.0, *)) {
-      if ([MWMCarPlayService shared].isCarplayActivated) {
-        CGRect bounds = [MapViewController sharedController].mapView.bounds;
-        [self updateLayout: bounds];
-        return;
-      }
+    if ([MWMCarPlayService shared].isCarplayActivated) {
+      CGRect bounds = [MapViewController sharedController].mapView.bounds;
+      [self updateLayout: bounds];
+      return;
     }
     [self updateLayoutForAvailableArea];
   });
@@ -51,10 +49,8 @@
   if (CGRectEqualToRect(self.availableArea, frame))
     return;
   self.availableArea = frame;
-  if (@available(iOS 12.0, *)) {
-    if ([MWMCarPlayService shared].isCarplayActivated) {
-      return;
-    }
+  if ([MWMCarPlayService shared].isCarplayActivated) {
+    return;
   }
   [self updateLayout:frame];
 }

@@ -122,11 +122,7 @@ final class CatalogWebViewController: WebViewController {
     noInternetView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     noInternetView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20.0).isActive = true
 
-    if #available(iOS 11, *) {
-      progressBgView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
-    } else {
-      progressBgView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
-    }
+    progressBgView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
 
     progressView.styleName = "MWMWhite"
     view.styleName = "Background"

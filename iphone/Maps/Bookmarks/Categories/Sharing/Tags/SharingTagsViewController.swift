@@ -98,9 +98,7 @@ final class SharingTagsViewController: MWMViewController {
                 enabled: cell.isSelected || isSelectionAvailable)
     
     //we need to do this because of bug - ios 12 doesnt apply layout to cells until scrolling
-    if #available(iOS 12.0, *) {
-      cell.layoutIfNeeded()
-    }
+    cell.layoutIfNeeded()
   
     return cell
   }

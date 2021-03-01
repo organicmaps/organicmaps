@@ -43,8 +43,6 @@ class DownloadedBookmarksViewController: MWMViewController {
         self?.reloadData()
       }
     }
-    if #available(iOS 11, *) { return } // workaround for https://jira.mail.ru/browse/MAPSME-8101
-    reloadData()
   }
 
   override func viewWillAppear(_ animated: Bool) {

@@ -91,12 +91,10 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     var lAnchor = ownerView.leadingAnchor
     var tAnchor = ownerView.trailingAnchor
     var bAnchor = ownerView.bottomAnchor
-    if #available(iOS 11.0, *) {
-      let layoutGuide = ownerView.safeAreaLayoutGuide
-      lAnchor = layoutGuide.leadingAnchor
-      tAnchor = layoutGuide.trailingAnchor
-      bAnchor = layoutGuide.bottomAnchor
-    }
+    let layoutGuide = ownerView.safeAreaLayoutGuide
+    lAnchor = layoutGuide.leadingAnchor
+    tAnchor = layoutGuide.trailingAnchor
+    bAnchor = layoutGuide.bottomAnchor
 
     leadingAnchor.constraint(equalTo: lAnchor).isActive = true
     trailingAnchor.constraint(equalTo: tAnchor).isActive = true

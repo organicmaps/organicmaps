@@ -299,8 +299,7 @@ id<MTLFunction> MetalProgramPool::GetFunction(std::string const & name)
   {
     id<MTLFunction> f = [m_library newFunctionWithName:@(name.c_str())];
     CHECK(f != nil, ());
-    if (@available(iOS 10.0, *))
-      f.label = [@"Function " stringByAppendingString:@(name.c_str())];
+    f.label = [@"Function " stringByAppendingString:@(name.c_str())];
     m_functions.insert(std::make_pair(name, f));
     return f;
   }

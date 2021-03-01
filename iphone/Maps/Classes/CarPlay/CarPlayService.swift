@@ -1,7 +1,6 @@
 import CarPlay
 import Contacts
 
-@available(iOS 12.0, *)
 @objc(MWMCarPlayService)
 final class CarPlayService: NSObject {
   @objc static let shared = CarPlayService()
@@ -240,7 +239,6 @@ final class CarPlayService: NSObject {
 }
 
 // MARK: - CPInterfaceControllerDelegate implementation
-@available(iOS 12.0, *)
 extension CarPlayService: CPInterfaceControllerDelegate {
   func templateWillAppear(_ aTemplate: CPTemplate, animated: Bool) {
     guard let info = aTemplate.userInfo as? MapInfo else {
@@ -299,7 +297,6 @@ extension CarPlayService: CPInterfaceControllerDelegate {
 }
 
 // MARK: - CPSessionConfigurationDelegate implementation
-@available(iOS 12.0, *)
 extension CarPlayService: CPSessionConfigurationDelegate {
   func sessionConfiguration(_ sessionConfiguration: CPSessionConfiguration,
                             limitedUserInterfacesChanged limitedUserInterfaces: CPLimitableUserInterface) {
@@ -308,7 +305,6 @@ extension CarPlayService: CPSessionConfigurationDelegate {
 }
 
 // MARK: - CPMapTemplateDelegate implementation
-@available(iOS 12.0, *)
 extension CarPlayService: CPMapTemplateDelegate {
   public func mapTemplateDidShowPanningInterface(_ mapTemplate: CPMapTemplate) {
     isUserPanMap = false
@@ -414,7 +410,6 @@ extension CarPlayService: CPMapTemplateDelegate {
 
 
 // MARK: - CPListTemplateDelegate implementation
-@available(iOS 12.0, *)
 extension CarPlayService: CPListTemplateDelegate {
   func listTemplate(_ listTemplate: CPListTemplate, didSelect item: CPListItem, completionHandler: @escaping () -> Void) {
     if let userInfo = item.userInfo as? ListItemInfo {
@@ -465,7 +460,6 @@ extension CarPlayService: CPListTemplateDelegate {
 }
 
 // MARK: - CPSearchTemplateDelegate implementation
-@available(iOS 12.0, *)
 extension CarPlayService: CPSearchTemplateDelegate {
   func searchTemplate(_ searchTemplate: CPSearchTemplate, updatedSearchText searchText: String, completionHandler: @escaping ([CPListItem]) -> Void) {
     let locale = window?.textInputMode?.primaryLanguage ?? "en"
@@ -497,7 +491,6 @@ extension CarPlayService: CPSearchTemplateDelegate {
 }
 
 // MARK: - CarPlayRouterListener implementation
-@available(iOS 12.0, *)
 extension CarPlayService: CarPlayRouterListener {
   func didCreateRoute(routeInfo: RouteInfo, trip: CPTrip) {
     guard let currentTemplate = interfaceController?.topTemplate as? CPMapTemplate,
@@ -542,7 +535,6 @@ extension CarPlayService: CarPlayRouterListener {
 }
 
 // MARK: - LocationModeListener implementation
-@available(iOS 12.0, *)
 extension CarPlayService: LocationModeListener {
   func processMyPositionStateModeEvent(_ mode: MWMMyPositionMode) {
     currentPositionMode = mode
@@ -570,7 +562,6 @@ extension CarPlayService: LocationModeListener {
 }
 
 // MARK: - Alerts and Trip Previews
-@available(iOS 12.0, *)
 extension CarPlayService {
   func preparePreviewForSearchResults(selectedRow row: Int) {
     var results = searchService?.lastResults ?? []

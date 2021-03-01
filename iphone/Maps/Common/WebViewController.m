@@ -69,13 +69,11 @@
   NSLayoutYAxisAnchor *bottomAnchor = view.bottomAnchor;
   NSLayoutXAxisAnchor *leadingAnchor = view.leadingAnchor;
   NSLayoutXAxisAnchor *trailingAnchor = view.trailingAnchor;
-  if (@available(iOS 11.0, *)) {
-    UILayoutGuide *safeAreaLayoutGuide = view.safeAreaLayoutGuide;
-    topAnchor = safeAreaLayoutGuide.topAnchor;
-    bottomAnchor = safeAreaLayoutGuide.bottomAnchor;
-    leadingAnchor = safeAreaLayoutGuide.leadingAnchor;
-    trailingAnchor = safeAreaLayoutGuide.trailingAnchor;
-  }
+  UILayoutGuide *safeAreaLayoutGuide = view.safeAreaLayoutGuide;
+  topAnchor = safeAreaLayoutGuide.topAnchor;
+  bottomAnchor = safeAreaLayoutGuide.bottomAnchor;
+  leadingAnchor = safeAreaLayoutGuide.leadingAnchor;
+  trailingAnchor = safeAreaLayoutGuide.trailingAnchor;
 
   [self.webView.topAnchor constraintEqualToAnchor:topAnchor].active = YES;
   [self.webView.bottomAnchor constraintEqualToAnchor:bottomAnchor].active = YES;

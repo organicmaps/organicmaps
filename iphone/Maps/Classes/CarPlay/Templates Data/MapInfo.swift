@@ -1,4 +1,3 @@
-@available(iOS 12.0, *)
 struct MapInfo {
   let type: String
   let trips: [CPTrip]?

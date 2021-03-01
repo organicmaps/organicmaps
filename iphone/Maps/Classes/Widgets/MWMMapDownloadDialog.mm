@@ -141,9 +141,7 @@ using namespace storage;
           m_autoDownloadCountryId = kInvalidCountryId;
           [self showDownloadRequest];
         }
-        if (@available(iOS 12.0, *)) {
-          [[MWMCarPlayService shared] showNoMapAlert];
-        }
+        [[MWMCarPlayService shared] showNoMapAlert];
         break;
       }
       case NodeStatus::Downloading:
@@ -185,9 +183,7 @@ using namespace storage;
 }
 
 - (void)removeFromSuperview {
-  if (@available(iOS 12.0, *)) {
-    [[MWMCarPlayService shared] hideNoMapAlert];
-  }
+  [[MWMCarPlayService shared] hideNoMapAlert];
   self.progress.state = MWMCircularProgressStateNormal;
   [[MWMStorage sharedStorage] removeObserver:self];
   [super removeFromSuperview];
