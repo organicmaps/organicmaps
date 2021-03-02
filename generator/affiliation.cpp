@@ -9,7 +9,10 @@
 #include <cmath>
 #include <functional>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcomma"
 #include <boost/geometry.hpp>
+#pragma clang diagnostic pop
 #include <boost/geometry/geometries/register/ring.hpp>
 #include <boost/geometry/geometries/register/point.hpp>
 

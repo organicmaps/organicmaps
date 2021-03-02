@@ -4,7 +4,10 @@
 
 #include <iterator>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcomma"
 #include <boost/geometry.hpp>
+#pragma clang diagnostic pop
 
 namespace generator
 {
