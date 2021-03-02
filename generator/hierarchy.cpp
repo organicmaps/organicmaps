@@ -17,7 +17,10 @@
 #include <limits>
 #include <numeric>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcomma"
 #include <boost/geometry.hpp>
+#pragma clang diagnostic pop
 #include <boost/geometry/geometries/register/point.hpp>
 #include <boost/geometry/geometries/register/ring.hpp>
 
