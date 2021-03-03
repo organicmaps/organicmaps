@@ -148,6 +148,9 @@ set(
   drules_struct.proto
 )
 
+# Disable warnings.
+set_source_files_properties(drules_struct.pb.cc PROPERTIES COMPILE_FLAGS -Wno-shorten-64-to-32)
+
 file(COPY ${OTHER_FILES} DESTINATION ${CMAKE_BINARY_DIR})
 
 omim_add_library(${PROJECT_NAME} ${SRC})

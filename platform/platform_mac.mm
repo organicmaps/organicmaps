@@ -145,7 +145,7 @@ Platform::EConnectionType Platform::ConnectionStatus()
   bzero(&zero, sizeof(zero));
   zero.sin_len = sizeof(zero);
   zero.sin_family = AF_INET;
-  SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr*)&zero);
+  SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, reinterpret_cast<const struct sockaddr*>(&zero));
   if (!reachability)
     return EConnectionType::CONNECTION_NONE;
   SCNetworkReachabilityFlags flags;

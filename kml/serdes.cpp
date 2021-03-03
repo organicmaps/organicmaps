@@ -596,7 +596,10 @@ bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt,
 
       double rawAltitude;
       if (++iter && strings::to_double(*iter, rawAltitude))
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconditional-uninitialized"
         altitude = static_cast<geometry::Altitude>(round(rawAltitude));
+#pragma clang diagnostic pop
 
       return true;
     }

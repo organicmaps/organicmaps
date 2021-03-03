@@ -1,5 +1,8 @@
 #include "geometry/region2d/binary_operators.hpp"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreturn-std-move"
 #include "geometry/region2d/boost_concept.hpp"
+#pragma clang diagnostic pop
 
 #include <cstddef>
 
