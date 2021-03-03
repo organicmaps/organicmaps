@@ -6,6 +6,7 @@
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wshorten-64-to-32"
+#pragma clang diagnostic ignored "-Wreturn-std-move"
 #include "3party/boost/boost/polygon/detail/polygon_sort_adaptor.hpp"
 #include "3party/boost/boost/polygon/polygon.hpp"
 #pragma clang diagnostic pop

@@ -37,7 +37,6 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
   double pToGScale = 1.0 / m_params.m_baseGtoPScale;
   splineIter.Advance(m_params.m_offset * pToGScale);
   auto const step = static_cast<float>(m_params.m_step * pToGScale);
-  glsl::vec2 dummy(0.0, 0.0);
   while (!splineIter.BeginAgain())
   {
     glsl::vec2 const pivot =

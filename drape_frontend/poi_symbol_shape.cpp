@@ -91,7 +91,7 @@ void SolidBatch(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batch
   state.SetTextureFilter(dp::TextureFilter::Nearest);
   state.SetTextureIndex(symbolRegion.GetTextureIndex());
 
-  dp::AttributeProvider provider(1 /* streamCount */, vertexes.size());
+  dp::AttributeProvider provider(1 /* streamCount */, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0 /* streamIndex */, SV::GetBindingInfo(), make_ref(vertexes.data()));
   batcher->InsertTriangleStrip(context, state, make_ref(&provider), createOverlayHandle(vertexes));
 }
@@ -150,7 +150,7 @@ void MaskedBatch(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batc
   state.SetTextureFilter(dp::TextureFilter::Nearest);
   state.SetTextureIndex(symbolRegion.GetTextureIndex());
 
-  dp::AttributeProvider provider(1 /* streamCount */, vertexes.size());
+  dp::AttributeProvider provider(1 /* streamCount */, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0 /* streamIndex */, MV::GetBindingInfo(), make_ref(vertexes.data()));
   batcher->InsertTriangleStrip(context, state, make_ref(&provider), createOverlayHandle(vertexes));
 }
