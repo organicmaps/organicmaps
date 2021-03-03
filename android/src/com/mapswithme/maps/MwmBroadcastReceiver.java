@@ -12,10 +12,8 @@ public abstract class MwmBroadcastReceiver extends BroadcastReceiver {
     public final void onReceive(Context context, Intent intent)
     {
         MwmApplication app = MwmApplication.from(context);
-        if (!app.arePlatformAndCoreInitialized())
-        {
-            app.initCore();
-        }
+        if (!app.arePlatformAndCoreInitialized() && !app.initCore())
+            return;
         onReceiveInitialized(context, intent);
     }
 

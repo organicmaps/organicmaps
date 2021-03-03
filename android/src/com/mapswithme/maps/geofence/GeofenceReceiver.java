@@ -1,14 +1,13 @@
 package com.mapswithme.maps.geofence;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.mapswithme.maps.MwmBroadcastReceiver;
-
-public class GeofenceReceiver extends MwmBroadcastReceiver
+public class GeofenceReceiver extends BroadcastReceiver
 {
   @Override
-  public void onReceiveInitialized(Context context, Intent intent)
+  public void onReceive(Context context, Intent intent)
   {
     GeofenceTransitionsIntentService.enqueueWork(context, intent);
   }
