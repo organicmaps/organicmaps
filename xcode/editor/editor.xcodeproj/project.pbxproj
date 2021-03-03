@@ -433,7 +433,7 @@
 		341138631C15AD97002E3B3E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					3411386A1C15AD97002E3B3E = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -449,10 +449,9 @@
 			};
 			buildConfigurationList = 341138661C15AD97002E3B3E /* Build configuration list for PBXProject "editor" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -537,6 +536,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F5586E1DBF49B200A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Debug;
 		};
@@ -544,6 +544,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F5586F1DBF49B200A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Release;
 		};
@@ -568,6 +569,7 @@
 		3496ABCE1DC2031900C5DDBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mail.editor_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -577,6 +579,7 @@
 		3496ABCF1DC2031900C5DDBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mail.editor_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -611,6 +614,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F5586F1DBF49B200A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = "Production Full";
 		};
@@ -626,6 +630,7 @@
 		A8E541491F9FBD8400A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mail.editor_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

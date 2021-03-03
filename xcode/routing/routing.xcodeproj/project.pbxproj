@@ -110,7 +110,7 @@
 		44F4EDC723A78C2E005254C4 /* latlon_with_altitude.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44F4EDC523A78C2D005254C4 /* latlon_with_altitude.cpp */; };
 		44F4EDC823A78C2E005254C4 /* latlon_with_altitude.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44F4EDC623A78C2E005254C4 /* latlon_with_altitude.hpp */; };
 		4740185A23F5BEE500A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185923F5BEE500A93C81 /* minizip.framework */; };
-		4740185B23F5BEE600A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185923F5BEE500A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4740185B23F5BEE600A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185923F5BEE500A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		56099E291CC7C97D00A7772A /* loaded_path_segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */; };
 		56099E2A1CC7C97D00A7772A /* routing_result_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E261CC7C97D00A7772A /* routing_result_graph.hpp */; };
 		56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E271CC7C97D00A7772A /* turn_candidate.hpp */; };
@@ -1286,7 +1286,7 @@
 		675343F01A3F640D00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					6742AD0D1C68A91B009CB89E = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -1301,10 +1301,9 @@
 			};
 			buildConfigurationList = 675343F31A3F640D00A0A8C3 /* Build configuration list for PBXProject "routing" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -1536,6 +1535,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = mail.ru.routing_benchmarks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1546,6 +1546,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = mail.ru.routing_benchmarks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1556,6 +1557,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1570,6 +1572,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1584,6 +1587,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558351DBF2A2600A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/jansson/src",
@@ -1595,6 +1599,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558361DBF2A2600A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/jansson/src",
@@ -1624,6 +1629,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1639,6 +1645,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1654,6 +1661,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558361DBF2A2600A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/jansson/src",
@@ -1674,6 +1682,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1688,6 +1697,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1703,6 +1713,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = mail.ru.routing_benchmarks;
 				PRODUCT_NAME = "$(TARGET_NAME)";

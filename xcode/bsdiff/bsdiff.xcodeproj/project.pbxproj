@@ -121,7 +121,7 @@
 		4586D0991F480FE600DF9CE5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					4586D0A01F480FE600DF9CE5 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -131,11 +131,11 @@
 			};
 			buildConfigurationList = 4586D09C1F480FE600DF9CE5 /* Build configuration list for PBXProject "bsdiff" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 4586D0981F480FE600DF9CE5;
 			productRefGroup = 4586D0A21F480FE600DF9CE5 /* Products */;
@@ -165,6 +165,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4586D0AF1F4810A700DF9CE5 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Debug;
 		};
@@ -172,6 +173,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4586D0B01F4810A700DF9CE5 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Release;
 		};
@@ -197,6 +199,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4586D0B01F4810A700DF9CE5 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = "Production Full";
 		};

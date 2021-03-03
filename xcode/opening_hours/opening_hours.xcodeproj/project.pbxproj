@@ -358,7 +358,7 @@
 		670C61DF1AC3511700C38A8C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					670C61E61AC3511700C38A8C = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -382,7 +382,7 @@
 			};
 			buildConfigurationList = 670C61E21AC3511700C38A8C /* Build configuration list for PBXProject "opening_hours" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -485,6 +485,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558641DBF460300A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Debug;
@@ -493,6 +494,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558651DBF460300A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Release;
@@ -518,6 +520,7 @@
 		670C62041AC351AC00C38A8C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -525,6 +528,7 @@
 		670C62051AC351AC00C38A8C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -533,6 +537,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558651DBF460300A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = "Production Full";
@@ -549,6 +554,7 @@
 		A8E541271F9FBD0F00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Production Full";
@@ -556,6 +562,7 @@
 		A8E541281F9FBD0F00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Production Full";
@@ -563,6 +570,7 @@
 		A8E541291F9FBD0F00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Production Full";
@@ -571,6 +579,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = opening_hours_tests_ios/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = opening_hours_tests_ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -581,6 +590,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = opening_hours_integration_tests_ios/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = opening_hours_integration_tests_ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -590,6 +600,7 @@
 		E91738B81BECD02B00717F6E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -597,6 +608,7 @@
 		E91738B91BECD02B00717F6E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -604,6 +616,7 @@
 		E91738C51BECD08500717F6E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -611,6 +624,7 @@
 		E91738C61BECD08500717F6E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -619,6 +633,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = opening_hours_tests_ios/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = opening_hours_tests_ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -629,6 +644,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = opening_hours_tests_ios/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = opening_hours_tests_ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -639,6 +655,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = opening_hours_integration_tests_ios/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = opening_hours_integration_tests_ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -649,6 +666,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = opening_hours_integration_tests_ios/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = opening_hours_integration_tests_ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";

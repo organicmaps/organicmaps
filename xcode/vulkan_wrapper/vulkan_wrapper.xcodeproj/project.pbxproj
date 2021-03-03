@@ -95,7 +95,7 @@
 		4577B26521F2044300864FAC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					4577B26C21F2044300864FAC = {
 						CreatedOnToolsVersion = 10.1;
@@ -108,6 +108,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 4577B26421F2044300864FAC;
 			productRefGroup = 4577B26E21F2044300864FAC /* Products */;
