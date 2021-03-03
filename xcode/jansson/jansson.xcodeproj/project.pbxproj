@@ -171,7 +171,7 @@
 		675344451A3F664300A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					6753444C1A3F664300A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
@@ -180,10 +180,11 @@
 			};
 			buildConfigurationList = 675344481A3F664300A0A8C3 /* Build configuration list for PBXProject "jansson" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 675344441A3F664300A0A8C3;
 			productRefGroup = 6753444E1A3F664300A0A8C3 /* Products */;
@@ -223,6 +224,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558681DBF483000A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -235,6 +237,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558691DBF483000A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -263,6 +266,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558691DBF483000A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

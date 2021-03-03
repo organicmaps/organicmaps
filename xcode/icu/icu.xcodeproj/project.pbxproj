@@ -2093,7 +2093,7 @@
 		BBB165CF1E8275120058BF1E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					BBB165D61E8275120058BF1E = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -2103,10 +2103,11 @@
 			};
 			buildConfigurationList = BBB165D21E8275120058BF1E /* Build configuration list for PBXProject "icu" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = BBB165CE1E8275120058BF1E;
 			productRefGroup = BBB165D81E8275120058BF1E /* Products */;
@@ -2515,6 +2516,7 @@
 			baseConfigurationReference = BBB16C1B1E8276A50058BF1E /* common-release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"U_I18N_IMPLEMENTATION=1",
@@ -2547,6 +2549,7 @@
 			baseConfigurationReference = BBB16C1A1E8276A50058BF1E /* common-debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"U_I18N_IMPLEMENTATION=1",
@@ -2571,6 +2574,7 @@
 			baseConfigurationReference = BBB16C1B1E8276A50058BF1E /* common-release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = NO;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"U_I18N_IMPLEMENTATION=1",

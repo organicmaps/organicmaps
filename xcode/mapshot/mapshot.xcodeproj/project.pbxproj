@@ -18,7 +18,7 @@
 		453FEE221F35E87B005C1BB4 /* libsoftware_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 453FEE211F35E87B005C1BB4 /* libsoftware_renderer.a */; };
 		453FEE241F35E8C1005C1BB4 /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 453FEE231F35E8C1005C1BB4 /* libagg.a */; };
 		4740185723F5BEA000A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185623F5BEA000A93C81 /* minizip.framework */; };
-		4740185823F5BEA000A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185623F5BEA000A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4740185823F5BEA000A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185623F5BEA000A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		675D213D1BFB717400717E4F /* mapshot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D213C1BFB717400717E4F /* mapshot.cpp */; };
 		675D21411BFB76B000717E4F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D213E1BFB76B000717E4F /* libbase.a */; };
 		675D21431BFB76B000717E4F /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21401BFB76B000717E4F /* libmap.a */; };
@@ -278,7 +278,7 @@
 		675D21291BFB6F3D00717E4F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					675D21301BFB6F3D00717E4F = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -287,11 +287,11 @@
 			};
 			buildConfigurationList = 675D212C1BFB6F3D00717E4F /* Build configuration list for PBXProject "mapshot" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 675D21281BFB6F3D00717E4F;
 			productRefGroup = 675D21321BFB6F3D00717E4F /* Products */;
@@ -319,6 +319,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3475E0DF1DBF57AC004C7E69 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
@@ -331,6 +332,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3475E0E01DBF57AC004C7E69 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
@@ -342,6 +344,7 @@
 		675D21391BFB6F3D00717E4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -349,6 +352,7 @@
 		675D213A1BFB6F3D00717E4F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -357,6 +361,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3475E0E01DBF57AC004C7E69 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
@@ -368,6 +373,7 @@
 		A8E5415D1F9FBDB300A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Production Full";

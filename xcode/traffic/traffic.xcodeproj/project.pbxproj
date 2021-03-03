@@ -239,7 +239,7 @@
 		67BECB421DDA43AF00FC4E99 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					67BECB491DDA43AF00FC4E99 = {
 						CreatedOnToolsVersion = 8.1;
@@ -253,10 +253,9 @@
 			};
 			buildConfigurationList = 67BECB451DDA43AF00FC4E99 /* Build configuration list for PBXProject "traffic" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -308,6 +307,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 67BECB581DDA43FB00FC4E99 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Debug;
 		};
@@ -315,6 +315,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 67BECB591DDA440100FC4E99 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Release;
 		};
@@ -339,6 +340,7 @@
 		67BECB7C1DDA466800FC4E99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.traffic-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -348,6 +350,7 @@
 		67BECB7D1DDA466800FC4E99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.traffic-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -358,6 +361,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 67BECB591DDA440100FC4E99 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = "Production Full";
 		};
@@ -373,6 +377,7 @@
 		A8E5416A1F9FBDD200A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.traffic-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

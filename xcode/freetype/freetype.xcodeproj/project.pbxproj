@@ -1690,7 +1690,7 @@
 		6753484A1A408D9300A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					675348511A408D9300A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
@@ -1699,10 +1699,11 @@
 			};
 			buildConfigurationList = 6753484D1A408D9300A0A8C3 /* Build configuration list for PBXProject "freetype" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 675348491A408D9300A0A8C3;
 			productRefGroup = 675348531A408D9300A0A8C3 /* Products */;
@@ -1927,6 +1928,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558661DBF474D00A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				FT2_BUILD_LIBRARY = 1;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1941,6 +1943,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558671DBF474D00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				FT2_BUILD_LIBRARY = 1;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1979,6 +1982,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558671DBF474D00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				FT2_BUILD_LIBRARY = 1;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (

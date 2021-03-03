@@ -134,7 +134,7 @@
 			isa = PBXProject;
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					474017F523F5B2CE00A93C81 = {
 						CreatedOnToolsVersion = 11.3;
@@ -390,6 +390,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB47C1DBF525A005BE9B8 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"NOCRYPT=1",
@@ -402,6 +403,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB47D1DBF525A005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"NOCRYPT=1",
@@ -414,6 +416,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB47D1DBF525A005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"NOCRYPT=1",

@@ -154,7 +154,7 @@
 		56D7F2EC1FE7F0F200D99E62 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					56D7F2F31FE7F0F200D99E62 = {
 						CreatedOnToolsVersion = 9.2;
@@ -168,6 +168,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 56D7F2EB1FE7F0F200D99E62;
 			productRefGroup = 56D7F2F51FE7F0F200D99E62 /* Products */;
@@ -200,6 +201,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56EE14C81FE7F20A0036F20C /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = "Production Full";
 		};
@@ -222,6 +224,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56EE14C71FE7F1FF0036F20C /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Debug;
 		};
@@ -229,6 +232,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56EE14C81FE7F20A0036F20C /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Release;
 		};

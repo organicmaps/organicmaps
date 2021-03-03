@@ -159,7 +159,7 @@
 		670D04F01B0BAEE50013A7AC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					670D04F71B0BAEE50013A7AC = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -168,11 +168,11 @@
 			};
 			buildConfigurationList = 670D04F31B0BAEE50013A7AC /* Build configuration list for PBXProject "expat" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 670D04EF1B0BAEE50013A7AC;
 			productRefGroup = 670D04F91B0BAEE50013A7AC /* Products */;
@@ -204,6 +204,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB47A1DBF51D4005BE9B8 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					XML_POOR_ENTROPY,
@@ -217,6 +218,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB47B1DBF51D4005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					XML_POOR_ENTROPY,
@@ -246,6 +248,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB47B1DBF51D4005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					HAVE_MEMMOVE,

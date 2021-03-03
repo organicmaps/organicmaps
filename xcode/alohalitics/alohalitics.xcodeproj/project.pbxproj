@@ -112,7 +112,7 @@
 		67D1C7D71AE507D700A239E3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					67D1C7DE1AE507D700A239E3 = {
 						CreatedOnToolsVersion = 6.3;
@@ -121,10 +121,11 @@
 			};
 			buildConfigurationList = 67D1C7DA1AE507D700A239E3 /* Build configuration list for PBXProject "alohalitics" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 67D1C7D61AE507D700A239E3;
 			productRefGroup = 67D1C7E01AE507D700A239E3 /* Products */;
@@ -155,6 +156,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB4781DBF5159005BE9B8 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Debug;
 		};
@@ -162,6 +164,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB4791DBF5159005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Release;
 		};
@@ -185,6 +188,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB4791DBF5159005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = "Production Full";
 		};

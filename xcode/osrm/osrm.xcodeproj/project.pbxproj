@@ -378,7 +378,7 @@
 		67534D391A40B7ED00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					67534D401A40B7ED00A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
@@ -387,7 +387,7 @@
 			};
 			buildConfigurationList = 67534D3C1A40B7ED00A0A8C3 /* Build configuration list for PBXProject "osrm" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -409,6 +409,7 @@
 				th,
 				tr,
 				uk,
+				Base,
 			);
 			mainGroup = 67534D381A40B7ED00A0A8C3;
 			productRefGroup = 67534D421A40B7ED00A0A8C3 /* Products */;
@@ -449,6 +450,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558721DBF4B3400A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -462,6 +464,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558731DBF4B3400A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -491,6 +494,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558731DBF4B3400A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

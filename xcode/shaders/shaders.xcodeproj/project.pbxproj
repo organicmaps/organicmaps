@@ -489,7 +489,7 @@
 		4566606620E254060085E8C1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					4566606D20E254060085E8C1 = {
 						CreatedOnToolsVersion = 9.4;
@@ -626,6 +626,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4566607B20E254A60085E8C1 /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",
@@ -642,6 +643,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4566607C20E254A60085E8C1 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",
@@ -691,6 +693,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4566607C20E254A60085E8C1 /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",
@@ -722,6 +725,7 @@
 		456660E920E25A3A0085E8C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -737,6 +741,7 @@
 		456660EA20E25A3A0085E8C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -752,6 +757,7 @@
 		456660EB20E25A3A0085E8C1 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

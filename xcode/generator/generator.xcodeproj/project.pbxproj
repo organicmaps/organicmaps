@@ -1285,7 +1285,7 @@
 		675340131A3F2A1B00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					6753401A1A3F2A1B00A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
@@ -1297,11 +1297,11 @@
 			};
 			buildConfigurationList = 675340161A3F2A1B00A0A8C3 /* Build configuration list for PBXProject "generator" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 675340121A3F2A1B00A0A8C3;
 			productRefGroup = 6753401C1A3F2A1B00A0A8C3 /* Products */;
@@ -1457,6 +1457,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87CF1DBE52DC00E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/gflags/src",
@@ -1471,6 +1472,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87D01DBE52DC00E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/gflags/src",
@@ -1519,6 +1521,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87D01DBE52DC00E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/gflags/src",

@@ -114,7 +114,7 @@
 		1D5F8AA4207616D300CAADFC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					1D5F8AAB207616D300CAADFC = {
 						CreatedOnToolsVersion = 9.2;
@@ -128,6 +128,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 1D5F8AA3207616D300CAADFC;
 			productRefGroup = 1D5F8AAD207616D300CAADFC /* Products */;
