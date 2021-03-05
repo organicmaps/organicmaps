@@ -26,6 +26,7 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
+#include <iterator>
 #include <map>
 #include <string>
 #include <vector>
@@ -72,26 +73,6 @@ size_t GetLinesNumber(string const & text)
   while (getline(ss, line))
     ++n;
   return n;
-}
-
-bool ExistsConsecutiveLines(string const & text, vector<string> const & lines)
-{
-  stringstream ss;
-  ss << text.data();
-  size_t lineIndex = 0;
-  string lineFromText;
-  while (getline(ss, lineFromText))
-  {
-    if (lineFromText == lines[lineIndex])
-      ++lineIndex;
-    else
-      lineIndex = 0;
-
-    if (lineIndex == lines.size())
-      return true;
-  }
-
-  return false;
 }
 
 void LoadRoadAccess(string const & mwmFilePath, VehicleType vehicleType, RoadAccess & roadAccess)
@@ -392,37 +373,19 @@ UNIT_TEST(RoadAccessWriter_ConditionalMerge)
   c1->Merge(*c2);
   c1->Merge(*c3);
 
-  c1->Finalize();
+  c1->Finalize(true /*isStable*/);
 
   ifstream stream;
   stream.exceptions(fstream::failbit | fstream::badbit);
   stream.open(filename + ROAD_ACCESS_CONDITIONAL_EXT);
-  stringstream buffer;
-  buffer << stream.rdbuf();
+  string const resultFile((istreambuf_iterator<char>(stream)), istreambuf_iterator<char>());
 
-  size_t linesNumber = 0;
-  auto const test = [&linesNumber, &buffer](vector<string> const & lines) {
-    TEST(ExistsConsecutiveLines(buffer.str(), lines), (buffer.str(), lines));
-    linesNumber += lines.size();
-  };
+  string const expectedFile =
+      "Car\t1\t1\tNo\tMo-Su\t\n"
+      "Car\t2\t1\tPrivate\t10:00-20:00\t\n"
+      "Car\t3\t2\tPrivate\t12:00-19:00\tNo\tMo-Su\t\n";
 
-  test({"Car 3 2",
-        "Private",
-        "12:00-19:00",
-        "No",
-        "Mo-Su"});
-
-  test({
-      "Car 2 1",
-      "Private",
-      "10:00-20:00"});
-
-  test({
-      "Car 1 1",
-      "No",
-      "Mo-Su"});
-
-  TEST_EQUAL(GetLinesNumber(buffer.str()), linesNumber, ());
+  TEST_EQUAL(resultFile, expectedFile, ());
 }
 
 UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
@@ -446,39 +409,21 @@ UNIT_TEST(RoadAccessWriter_Conditional_WinterRoads)
   c1->CollectFeature(MakeFbForTest(w2), w2);
 
   c1->Finish();
-  c1->Finalize();
+  c1->Finalize(true /*isStable*/);
 
   ifstream stream;
   stream.exceptions(fstream::failbit | fstream::badbit);
   stream.open(filename + ROAD_ACCESS_CONDITIONAL_EXT);
-  stringstream buffer;
-  buffer << stream.rdbuf();
+  string const resultFile((istreambuf_iterator<char>(stream)), istreambuf_iterator<char>());
 
-  size_t linesNumber = 0;
-  auto const test = [&linesNumber, &buffer](vector<string> const & lines) {
-    TEST(ExistsConsecutiveLines(buffer.str(), lines), (buffer.str(), lines));
-    linesNumber += lines.size();
-  };
+  string const expectedFile =
+      "Bicycle\t1\t1\tNo\tMar - Nov\t\n"
+      "Bicycle\t2\t1\tNo\tMar - Nov\t\n"
+      "Car\t1\t1\tNo\tMar - Nov\t\n"
+      "Car\t2\t1\tNo\tMar - Nov\t\n"
+      "Pedestrian\t1\t1\tNo\tMar - Nov\t\n"
+      "Pedestrian\t2\t1\tNo\tMar - Nov\t\n";
 
-  test({"Pedestrian 2 1",
-        "No",
-        "Mar - Nov"});
-  test({"Pedestrian 1 1",
-        "No",
-        "Mar - Nov"});
-  test({"Bicycle 2 1",
-        "No",
-        "Mar - Nov"});
-  test({"Bicycle 1 1",
-        "No",
-        "Mar - Nov"});
-  test({"Car 2 1",
-        "No",
-        "Mar - Nov"});
-  test({"Car 1 1",
-        "No",
-        "Mar - Nov"});
-
-  TEST_EQUAL(GetLinesNumber(buffer.str()), linesNumber, ());
+  TEST_EQUAL(resultFile, expectedFile, ());
 }
 }  // namespace
