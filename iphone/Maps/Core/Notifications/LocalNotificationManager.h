@@ -7,7 +7,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)shouldShowAuthNotification;
 + (void)authNotificationWasShown;
 + (CoreNotificationWrapper * _Nullable)reviewNotificationWrapper;
-+ (void)reviewNotificationWasShown;
 
 @end
 

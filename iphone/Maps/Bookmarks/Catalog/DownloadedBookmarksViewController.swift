@@ -48,9 +48,6 @@ class DownloadedBookmarksViewController: MWMViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     reloadData()
-    
-    Statistics.logEvent(kStatGuidesShown, withParameters: [kStatServerIds : dataSource.guideIds],
-                        with: .realtime)
   }
 
   override func viewDidLayoutSubviews() {
@@ -65,7 +62,6 @@ class DownloadedBookmarksViewController: MWMViewController {
   }
 
   @IBAction func onDownloadBookmarks(_ sender: Any) {
-    Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom: kStatDownloaded])
     let webViewController = CatalogWebViewController.catalogFromAbsoluteUrl(nil, utm: .bookmarksPageCatalogButton)
     MapViewController.topViewController().navigationController?.pushViewController(webViewController, animated: true)
   }
@@ -81,8 +77,6 @@ class DownloadedBookmarksViewController: MWMViewController {
     if let categoriesHeader = tableView.headerView(forSection: 0) as? BMCCategoriesHeader {
       categoriesHeader.isShowAll = dataSource.allCategoriesHidden
     }
-    Statistics.logEvent(kStatBookmarkVisibilityChange, withParameters: [kStatFrom : kStatBookmarkList,
-                                                                        kStatAction : visible ? kStatShow : kStatHide])
   }
 
   private func deleteCategory(at index: Int) {
@@ -136,8 +130,6 @@ extension DownloadedBookmarksViewController: UITableViewDelegate {
     tableView.deselectRow(at: indexPath, animated: true)
     
     if (dataSource.isGuide(at: indexPath.row)) {
-      Statistics.logEvent(kStatGuidesOpen, withParameters: [kStatServerId : dataSource.getServerId(at: indexPath.row)],
-                          with: .realtime)
     }
     
     let category = dataSource.category(at: indexPath.row)

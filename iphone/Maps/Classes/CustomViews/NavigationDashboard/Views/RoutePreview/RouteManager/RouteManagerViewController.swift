@@ -79,8 +79,6 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
         tv.cellForRow(at: newIP)?.isHidden = true
 
         self.indexPath = newIP
-
-        Statistics.logEvent(kStatRouteManagerRearrange)
       }
     }
 
@@ -165,8 +163,6 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
     super.viewDidAppear(animated)
     dimView.setViews(container: containerView, controller: view, manager: managerView)
     containerView.insertSubview(chromeView, at: 0)
-
-    Statistics.logEvent(kStatRouteManagerOpen)
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -193,13 +189,11 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
 
   @IBAction func onCancel() {
     viewModel.cancelTransaction()
-    Statistics.logEvent(kStatRouteManagerClose, withParameters: [kStatType : kStatCancel])
     dismiss(animated: true, completion: nil)
   }
 
   @IBAction func onPlan() {
     viewModel.finishTransaction()
-    Statistics.logEvent(kStatRouteManagerClose, withParameters: [kStatType : kStatDone])
     dismiss(animated: true, completion: nil)
   }
 

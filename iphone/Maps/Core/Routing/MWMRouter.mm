@@ -38,38 +38,6 @@ using namespace routing;
 
 namespace {
 char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeImagesQueue";
-
-void logPointEvent(MWMRoutePoint *point, NSString *eventType) {
-  if (point == nullptr)
-    return;
-
-  NSString *pointTypeStr = nil;
-  switch (point.type) {
-    case MWMRoutePointTypeStart:
-      pointTypeStr = kStatRoutingPointTypeStart;
-      break;
-    case MWMRoutePointTypeIntermediate:
-      pointTypeStr = kStatRoutingPointTypeIntermediate;
-      break;
-    case MWMRoutePointTypeFinish:
-      pointTypeStr = kStatRoutingPointTypeFinish;
-      break;
-  }
-  NSString *method = nil;
-  if ([MWMRouter router].isAPICall)
-    method = kStatRoutingPointMethodApi;
-  else if ([MWMNavigationDashboardManager sharedManager].state != MWMNavigationDashboardStateHidden)
-    method = kStatRoutingPointMethodPlanning;
-  else
-    method = kStatRoutingPointMethodNoPlanning;
-  [Statistics logEvent:eventType
-        withParameters:@{
-          kStatRoutingPointType: pointTypeStr,
-          kStatRoutingPointValue: (point.isMyPosition ? kStatRoutingPointValueMyPosition : kStatRoutingPointValuePoint),
-          kStatRoutingPointMethod: method,
-          kStatMode: ([MWMRouter isOnRoute] ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
-        }];
-}
 }  // namespace
 
 @implementation MWMRouter
@@ -105,62 +73,12 @@ void logPointEvent(MWMRoutePoint *point, NSString *eventType) {
   }
 
   auto taxiDataSource = [MWMNavigationDashboardManager sharedManager].taxiDataSource;
-  auto &rm = GetFramework().GetRoutingManager();
-  auto const routePoints = rm.GetRoutePoints();
-  if (routePoints.size() >= 2) {
-    auto eventName = taxiDataSource.isTaxiInstalled ? kStatRoutingTaxiOrder : kStatRoutingTaxiInstall;
-    auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
-    auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
-
-    NSString *provider = nil;
-    switch (taxiDataSource.type) {
-      case MWMRoutePreviewTaxiCellTypeTaxi:
-        provider = kStatUnknown;
-        break;
-      case MWMRoutePreviewTaxiCellTypeUber:
-        provider = kStatUber;
-        break;
-      case MWMRoutePreviewTaxiCellTypeYandex:
-        provider = kStatYandex;
-        break;
-      case MWMRoutePreviewTaxiCellTypeMaxim:
-        provider = kStatMaxim;
-        break;
-      case MWMRoutePreviewTaxiCellTypeVezet:
-        provider = kStatVezet;
-        break;
-      case MWMRoutePreviewTaxiCellTypeFreenow:
-        provider = kStatFreenow;
-        break;
-      case MWMRoutePreviewTaxiCellTypeYango:
-        provider = kStatYango;
-        break;
-      case MWMRoutePreviewTaxiCellTypeCitymobil:
-        provider = kStatCitymobil;
-        break;
-    }
-
-    [Statistics logEvent:eventName
-          withParameters:@{
-            kStatProvider: provider,
-            kStatFromLocation: makeLocationEventValue(p1.latitude, p1.longitude),
-            kStatToLocation: makeLocationEventValue(p2.latitude, p2.longitude)
-          }
-              atLocation:[MWMLocationManager lastLocation]];
-  }
-
   [taxiDataSource taxiURL:^(NSURL *url) {
     [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
   }];
 }
 
 + (void)stopRouting {
-  auto type = GetFramework().GetRoutingManager().GetRouter();
-  [Statistics logEvent:kStatRoutingRouteFinish
-        withParameters:@{
-          kStatMode: @(routing::ToString(type).c_str()),
-          kStatRoutingInterrupted: @([self isRouteFinished])
-        }];
   [self stop:YES];
 }
 
@@ -313,7 +231,6 @@ void logPointEvent(MWMRoutePoint *point, NSString *eventType) {
 }
 
 + (void)removePoint:(MWMRoutePoint *)point {
-  logPointEvent(point, kStatRoutingRemovePoint);
   [self applyTaxiTransaction];
   RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
@@ -335,7 +252,6 @@ void logPointEvent(MWMRoutePoint *point, NSString *eventType) {
     NSAssert(NO, @"Point can not be nil");
     return;
   }
-  logPointEvent(point, kStatRoutingAddPoint);
   [self applyTaxiTransaction];
   RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
@@ -395,19 +311,6 @@ void logPointEvent(MWMRoutePoint *point, NSString *eventType) {
     [[MWMMapViewControlsManager manager] onRoutePrepare];
     return;
   }
-  if (pointsCount == 2) {
-    if (points.front().m_isMyPosition) {
-      [Statistics logEvent:kStatPointToPoint
-            withParameters:@{kStatAction: kStatBuildRoute, kStatValue: kStatFromMyPosition}];
-    } else if (points.back().m_isMyPosition) {
-      [Statistics logEvent:kStatPointToPoint
-            withParameters:@{kStatAction: kStatBuildRoute, kStatValue: kStatToMyPosition}];
-    } else {
-      [Statistics logEvent:kStatPointToPoint
-            withParameters:@{kStatAction: kStatBuildRoute, kStatValue: kStatPointToPoint}];
-    }
-  }
-
   // Taxi can't be used as best router.
   if (bestRouter && ![[self class] isTaxi])
     self.type = routerType(rm.GetBestRouter(points.front().m_position, points.back().m_position));
@@ -424,23 +327,6 @@ void logPointEvent(MWMRoutePoint *point, NSString *eventType) {
     if (routePoints.size() >= 2) {
       auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
       auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
-
-      if (p1.isMyPosition)
-        [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
-              withParameters:@{kStatValue: kStatFromMyPosition}];
-      else if (p2.isMyPosition)
-        [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
-              withParameters:@{kStatValue: kStatToMyPosition}];
-      else
-        [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
-              withParameters:@{kStatValue: kStatPointToPoint}];
-
-      auto type = GetFramework().GetRoutingManager().GetRouter();
-      [Statistics logEvent:kStatRoutingRouteStart
-            withParameters:@{
-              kStatMode: @(routing::ToString(type).c_str()),
-              kStatTraffic: @(GetFramework().GetTrafficManager().IsEnabled())
-            }];
 
       if (p1.isMyPosition && [MWMLocationManager lastLocation]) {
         rm.FollowRoute();

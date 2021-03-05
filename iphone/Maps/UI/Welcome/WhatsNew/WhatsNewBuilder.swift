@@ -8,7 +8,6 @@ class WhatsNewBuilder {
                                        isCloseButtonHidden: false,
                                        action: {
                                         let subscribeViewController = SubscriptionViewBuilder.buildLonelyPlanet(parentViewController: MapViewController.shared(),
-                                                                                                                source: kStatWhatsNew,
                                                                                                                 successDialog: .goToCatalog,
                                                                                                                 completion: nil)
                                         MapViewController.shared().present(subscribeViewController, animated: true)

@@ -2,7 +2,6 @@
 #import "MWMSearchCommonCell.h"
 #import "MWMSearchSuggestionCell.h"
 #import "MWMSearchTableView.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "platform/localization.hpp"
@@ -135,8 +134,6 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
     case MWMSearchItemTypeSuggestion: {
       auto const &suggestion = [MWMSearch resultWithContainerIndex:containerIndex];
       NSString *suggestionString = @(suggestion.GetSuggestionString().c_str());
-      [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
-            withParameters:@{kStatValue: suggestionString, kStatScreen: kStatSearch}];
       [delegate searchText:suggestionString forInputLocale:nil];
     }
   }

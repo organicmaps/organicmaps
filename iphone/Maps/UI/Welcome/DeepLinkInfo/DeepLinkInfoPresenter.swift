@@ -36,14 +36,10 @@ extension DeepLinkInfoPresenter: IDeepLinkInfoPresenter {
   }
 
   func onAppear() {
-    guard let dlUrl = deeplinkURL, let host = dlUrl.host else { return }
-    Statistics.logEvent(kStatOnboardingDlShow, withParameters: [kStatType : host])
   }
 
   func onNext() {
     router.onNext()
-    guard let dlUrl = deeplinkURL, let host = dlUrl.host else { return }
-    Statistics.logEvent(kStatOnboardingDlAccept, withParameters: [kStatType : host])
   }
 
   func onClose() {

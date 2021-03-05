@@ -34,20 +34,8 @@ class PromoAfterBookingViewController: UIViewController {
   
   override func viewDidLoad() {
     setCityImage(cityImageUrl)
-    let eventParams = [kStatProvider: kStatMapsmeGuides, kStatScenario: kStatBooking]
-    Statistics.logEvent(kStatMapsmeInAppSuggestionShown, withParameters: eventParams)
   }
-  
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
-    if !isOnButtonClosed {
-      let eventParams = [kStatProvider: kStatMapsmeGuides,
-                         kStatScenario: kStatBooking,
-                         kStatOption: kStatOffscreen]
-      Statistics.logEvent(kStatMapsmeInAppSuggestionClosed, withParameters: eventParams)
-    }
-  }
-  
+
   private func setCityImage(_ imageUrl: String) {
     cityImageView.image = UIColor.isNightMode()
         ? UIImage(named: "img_booking_popup_pholder_dark")
@@ -58,17 +46,11 @@ class PromoAfterBookingViewController: UIViewController {
   }
   
   @IBAction func onOk() {
-    let eventParams = [kStatProvider: kStatMapsmeGuides, kStatScenario: kStatBooking]
-    Statistics.logEvent(kStatMapsmeInAppSuggestionClicked, withParameters: eventParams)
     isOnButtonClosed = true
     okClosure()
   }
   
   @IBAction func onCancel() {
-    let eventParams = [kStatProvider: kStatMapsmeGuides,
-                       kStatScenario: kStatBooking,
-                       kStatOption: kStatCancel]
-    Statistics.logEvent(kStatMapsmeInAppSuggestionClosed, withParameters: eventParams)
     isOnButtonClosed = true
     cancelClosure()
   }

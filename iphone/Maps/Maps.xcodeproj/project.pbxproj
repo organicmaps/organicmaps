@@ -38,9 +38,6 @@
 		340416581E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416561E7C0D4100E2B6D6 /* PhotosOverlayView.swift */; };
 		3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404165A1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift */; };
 		3404754D1E081A4600C92850 /* MWMKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 340475191E081A4600C92850 /* MWMKeyboard.m */; };
-		340475501E081A4600C92850 /* fabric_logging_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475201E081A4600C92850 /* fabric_logging_ios.mm */; };
-		340475531E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475221E081A4600C92850 /* MWMCustomFacebookEvents.mm */; };
-		340475561E081A4600C92850 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340475241E081A4600C92850 /* Statistics.mm */; };
 		340475591E081A4600C92850 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 340475271E081A4600C92850 /* WebViewController.m */; };
 		3404755C1E081A4600C92850 /* MWMLocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404752C1E081A4600C92850 /* MWMLocationManager.mm */; };
 		3404755F1E081A4600C92850 /* MWMLocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404752F1E081A4600C92850 /* MWMLocationPredictor.mm */; };
@@ -310,7 +307,6 @@
 		4716EABA21A325310029B886 /* IPaidRouteStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4716EAB921A325310029B886 /* IPaidRouteStatistics.swift */; };
 		4719A645219CBD65009F9AA7 /* IPendingTransactionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */; };
 		4719A647219CBD7F009F9AA7 /* IBillingPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */; };
-		4719A64E21A30C3B009F9AA7 /* PaidRouteStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */; };
 		471A7BB8247FE3C300A0D4C1 /* URL+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471A7BB7247FE3C300A0D4C1 /* URL+Query.swift */; };
 		471A7BBE2481A3D000A0D4C1 /* EditBookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471A7BBD2481A3D000A0D4C1 /* EditBookmarkViewController.swift */; };
 		471A7BC02481C82500A0D4C1 /* BookmarkTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471A7BBF2481C82500A0D4C1 /* BookmarkTitleCell.swift */; };
@@ -502,7 +498,6 @@
 		6741AA2B1BF340DE002C974C /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.m */; };
 		6741AA361BF340DE002C974C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3A1B13222600E6D4FD /* libz.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		6741AABD1BF356BA002C974C /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA21BF356B9002C974C /* libagg.a */; };
-		6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA31BF356B9002C974C /* libalohalitics.a */; };
 		6741AAC11BF356BA002C974C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA61BF356B9002C974C /* libbase.a */; };
 		6741AAC21BF356BA002C974C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA71BF356B9002C974C /* libcoding.a */; };
 		6741AAC31BF356BA002C974C /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA81BF356B9002C974C /* libexpat.a */; };
@@ -605,7 +600,6 @@
 		993F550A237C622700545511 /* DeepLinkGeoStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FB237C622700545511 /* DeepLinkGeoStrategy.swift */; };
 		993F550B237C622700545511 /* DeepLinkIncorrectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FC237C622700545511 /* DeepLinkIncorrectStrategy.swift */; };
 		993F550C237C622700545511 /* DeepLinkSubscriptionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FD237C622700545511 /* DeepLinkSubscriptionStrategy.swift */; };
-		993F550D237C622700545511 /* DeepLinkLeadStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FE237C622700545511 /* DeepLinkLeadStrategy.swift */; };
 		993F550E237C622700545511 /* DeepLinkCataloguePathStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FF237C622700545511 /* DeepLinkCataloguePathStrategy.swift */; };
 		993F550F237C622700545511 /* DeepLinkMapStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5500237C622700545511 /* DeepLinkMapStrategy.swift */; };
 		993F5510237C622700545511 /* DeepLinkRouteStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5501237C622700545511 /* DeepLinkRouteStrategy.swift */; };
@@ -900,6 +894,8 @@
 		F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FE3C371CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m */; };
 		F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FE3C3A1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib */; };
 		F6FEA82E1C58F108007223CC /* MWMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA82C1C58E89B007223CC /* MWMButton.m */; };
+		FA8E808925F412E2002A1434 /* FirstSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA8E808825F412E2002A1434 /* FirstSession.mm */; };
+		FA8E808C25F43692002A1434 /* DeepLinkLeadStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8E808B25F43691002A1434 /* DeepLinkLeadStrategy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -961,13 +957,6 @@
 		340475191E081A4600C92850 /* MWMKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMKeyboard.m; sourceTree = "<group>"; };
 		3404751A1E081A4600C92850 /* MWMKeyboardObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMKeyboardObserver.h; sourceTree = "<group>"; };
 		3404751C1E081A4600C92850 /* MWMMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMacros.h; sourceTree = "<group>"; };
-		3404751F1E081A4600C92850 /* fabric_logging.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fabric_logging.hpp; sourceTree = "<group>"; };
-		340475201E081A4600C92850 /* fabric_logging_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = fabric_logging_ios.mm; sourceTree = "<group>"; };
-		340475211E081A4600C92850 /* MWMCustomFacebookEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCustomFacebookEvents.h; sourceTree = "<group>"; };
-		340475221E081A4600C92850 /* MWMCustomFacebookEvents.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCustomFacebookEvents.mm; sourceTree = "<group>"; };
-		340475231E081A4600C92850 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
-		340475241E081A4600C92850 /* Statistics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Statistics.mm; sourceTree = "<group>"; };
-		340475251E081A4600C92850 /* StatisticsStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticsStrings.h; sourceTree = "<group>"; };
 		340475261E081A4600C92850 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		340475271E081A4600C92850 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		3404752A1E081A4600C92850 /* MWMLocationHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationHelpers.h; sourceTree = "<group>"; };
@@ -1417,7 +1406,6 @@
 		4716EACA21B01C270029B886 /* MWMUGCReviewSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUGCReviewSource.h; sourceTree = "<group>"; };
 		4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPendingTransactionsHandler.swift; sourceTree = "<group>"; };
 		4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBillingPendingTransaction.swift; sourceTree = "<group>"; };
-		4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRouteStatistics.swift; sourceTree = "<group>"; };
 		471A7BB7247FE3C300A0D4C1 /* URL+Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Query.swift"; sourceTree = "<group>"; };
 		471A7BBD2481A3D000A0D4C1 /* EditBookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookmarkViewController.swift; sourceTree = "<group>"; };
 		471A7BBF2481C82500A0D4C1 /* BookmarkTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTitleCell.swift; sourceTree = "<group>"; };
@@ -1576,7 +1564,6 @@
 		671E78D21E6A423300B2859B /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/librouting_common.a"; sourceTree = "<group>"; };
 		6741AA5D1BF340DE002C974C /* OMaps Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OMaps Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AAA21BF356B9002C974C /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
-		6741AAA31BF356B9002C974C /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		6741AAA61BF356B9002C974C /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		6741AAA71BF356B9002C974C /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		6741AAA81BF356B9002C974C /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
@@ -1682,7 +1669,6 @@
 		993F54FB237C622700545511 /* DeepLinkGeoStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkGeoStrategy.swift; sourceTree = "<group>"; };
 		993F54FC237C622700545511 /* DeepLinkIncorrectStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkIncorrectStrategy.swift; sourceTree = "<group>"; };
 		993F54FD237C622700545511 /* DeepLinkSubscriptionStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkSubscriptionStrategy.swift; sourceTree = "<group>"; };
-		993F54FE237C622700545511 /* DeepLinkLeadStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkLeadStrategy.swift; sourceTree = "<group>"; };
 		993F54FF237C622700545511 /* DeepLinkCataloguePathStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkCataloguePathStrategy.swift; sourceTree = "<group>"; };
 		993F5500237C622700545511 /* DeepLinkMapStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkMapStrategy.swift; sourceTree = "<group>"; };
 		993F5501237C622700545511 /* DeepLinkRouteStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkRouteStrategy.swift; sourceTree = "<group>"; };
@@ -2148,6 +2134,9 @@
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
 		FA85F632145DDDC20090E1A0 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons.bin; path = ../../data/packed_polygons.bin; sourceTree = SOURCE_ROOT; };
+		FA8E808825F412E2002A1434 /* FirstSession.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FirstSession.mm; sourceTree = "<group>"; };
+		FA8E808A25F41337002A1434 /* FirstSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstSession.h; sourceTree = "<group>"; };
+		FA8E808B25F43691002A1434 /* DeepLinkLeadStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkLeadStrategy.swift; sourceTree = "<group>"; };
 		FAAEA7D0161BD26600CCD661 /* synonyms.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synonyms.txt; path = ../../data/synonyms.txt; sourceTree = "<group>"; };
 		FAAFD696139D9BE2000AE70C /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = SOURCE_ROOT; };
 		FACE202725ED913A00518E88 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -2194,7 +2183,6 @@
 				4740184323F5BDE800A93C81 /* minizip.framework in Frameworks */,
 				3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */,
 				6741AABD1BF356BA002C974C /* libagg.a in Frameworks */,
-				6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */,
 				6741AAC11BF356BA002C974C /* libbase.a in Frameworks */,
 				6741AAC21BF356BA002C974C /* libcoding.a in Frameworks */,
 				6741AAC31BF356BA002C974C /* libexpat.a in Frameworks */,
@@ -2264,6 +2252,8 @@
 				340837101B7243B500B5C185 /* Share */,
 				F6588E291B15C25C00EE1E58 /* TextView */,
 				34FE4C421BCC013500066718 /* Widgets */,
+				FA8E808825F412E2002A1434 /* FirstSession.mm */,
+				FA8E808A25F41337002A1434 /* FirstSession.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -2356,7 +2346,6 @@
 				AC79F11E1E534D0B00B7D954 /* AVFoundation.framework */,
 				340474DB1E08199D00C92850 /* 3party */,
 				6741AAA21BF356B9002C974C /* libagg.a */,
-				6741AAA31BF356B9002C974C /* libalohalitics.a */,
 				6741AAA61BF356B9002C974C /* libbase.a */,
 				6741AAA71BF356B9002C974C /* libcoding.a */,
 				674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */,
@@ -2455,7 +2444,6 @@
 				34845DB51E166084003D55B9 /* Common.swift */,
 				340475171E081A4600C92850 /* Keyboard */,
 				3404751C1E081A4600C92850 /* MWMMacros.h */,
-				3404751E1E081A4600C92850 /* Statistics */,
 				340475261E081A4600C92850 /* WebViewController.h */,
 				340475271E081A4600C92850 /* WebViewController.m */,
 				3427AF0B1E49E3A500D466DB /* MWMConsts.h */,
@@ -2471,20 +2459,6 @@
 				3404751A1E081A4600C92850 /* MWMKeyboardObserver.h */,
 			);
 			path = Keyboard;
-			sourceTree = "<group>";
-		};
-		3404751E1E081A4600C92850 /* Statistics */ = {
-			isa = PBXGroup;
-			children = (
-				3404751F1E081A4600C92850 /* fabric_logging.hpp */,
-				340475201E081A4600C92850 /* fabric_logging_ios.mm */,
-				340475211E081A4600C92850 /* MWMCustomFacebookEvents.h */,
-				340475221E081A4600C92850 /* MWMCustomFacebookEvents.mm */,
-				340475231E081A4600C92850 /* Statistics.h */,
-				340475241E081A4600C92850 /* Statistics.mm */,
-				340475251E081A4600C92850 /* StatisticsStrings.h */,
-			);
-			path = Statistics;
 			sourceTree = "<group>";
 		};
 		340475281E081A4600C92850 /* Core */ = {
@@ -3348,7 +3322,6 @@
 			children = (
 				470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */,
 				47D0026621999DA900F651A2 /* PendingTransactionsHandler.swift */,
-				4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */,
 			);
 			path = Impl;
 			sourceTree = "<group>";
@@ -3688,6 +3661,7 @@
 		993F54F7237C622700545511 /* Strategies */ = {
 			isa = PBXGroup;
 			children = (
+				FA8E808B25F43691002A1434 /* DeepLinkLeadStrategy.swift */,
 				993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */,
 				993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */,
 				993F5503237C622700545511 /* DeepLinkRouteStrategyAdapter.h */,
@@ -3695,7 +3669,6 @@
 				993F54FB237C622700545511 /* DeepLinkGeoStrategy.swift */,
 				993F54FC237C622700545511 /* DeepLinkIncorrectStrategy.swift */,
 				993F54FD237C622700545511 /* DeepLinkSubscriptionStrategy.swift */,
-				993F54FE237C622700545511 /* DeepLinkLeadStrategy.swift */,
 				993F54FF237C622700545511 /* DeepLinkCataloguePathStrategy.swift */,
 				993F5500237C622700545511 /* DeepLinkMapStrategy.swift */,
 				993F5501237C622700545511 /* DeepLinkRouteStrategy.swift */,
@@ -5381,7 +5354,6 @@
 				3467CEB2202C6EEE00D3C670 /* BMCNotificationsHeader.swift in Sources */,
 				34D3B0211E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.m in Sources */,
 				99D363192358685300941BF4 /* SubscriptionGroupItem.swift in Sources */,
-				340475501E081A4600C92850 /* fabric_logging_ios.mm in Sources */,
 				47D48BF52432A7CA00FEFB1F /* ChartViewRenderer.swift in Sources */,
 				CDCA273A2237FCFE00167D87 /* SearchTemplateBuilder.swift in Sources */,
 				993DF10B23F6BDB100AC231A /* CheckmarkRenderer.swift in Sources */,
@@ -5547,7 +5519,6 @@
 				F6E2FE4F1E097BA00083EBEC /* MWMActionBarButton.m in Sources */,
 				47F86CFF20C936FC00FEE291 /* TabView.swift in Sources */,
 				34AB66741FC5AA330078E451 /* BaseRoutePreviewStatus.swift in Sources */,
-				340475531E081A4600C92850 /* MWMCustomFacebookEvents.mm in Sources */,
 				349D1CE41E3F836900A878FD /* UIViewController+Hierarchy.swift in Sources */,
 				CDB4D4E1222D70DF00104869 /* CarPlayMapViewController.swift in Sources */,
 				991A7270250F6C4A0075348C /* GuideDescriptionViewController.swift in Sources */,
@@ -5670,9 +5641,9 @@
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.m in Sources */,
 				34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */,
+				FA8E808C25F43692002A1434 /* DeepLinkLeadStrategy.swift in Sources */,
 				346DB82E1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
 				4728F69322CF89A400E00028 /* GradientView.swift in Sources */,
-				340475561E081A4600C92850 /* Statistics.mm in Sources */,
 				CD96C71722A7B5DE00DB7CFE /* MWMDiscoveryCityGalleryObjects.mm in Sources */,
 				F6381BF61CD12045004CA943 /* LocaleTranslator.mm in Sources */,
 				9917D17F2397B1D600A7E06E /* IPadModalPresentationController.swift in Sources */,
@@ -5704,6 +5675,7 @@
 				471BBD942130390F00EB17C9 /* TutorialViewController.swift in Sources */,
 				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				993DF10D23F6BDB100AC231A /* UIPageControlRenderer.swift in Sources */,
+				FA8E808925F412E2002A1434 /* FirstSession.mm in Sources */,
 				F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
 				CDCA27382237F1BD00167D87 /* BookmarkInfo.swift in Sources */,
@@ -5753,7 +5725,6 @@
 				472E3F4A2146C4CD0020E412 /* MWMPurchaseManager.mm in Sources */,
 				34ABA6211C2D517500FE1BEC /* MWMInputValidator.m in Sources */,
 				47C7F97521930F5300C2760C /* IInAppBilling.swift in Sources */,
-				4719A64E21A30C3B009F9AA7 /* PaidRouteStatistics.swift in Sources */,
 				99A906EB23F6F7030005872B /* TaxiViewController.swift in Sources */,
 				993DF12623F6BDB100AC231A /* SwizzleStyle.m in Sources */,
 				993DF10E23F6BDB100AC231A /* UIButtonRenderer.swift in Sources */,
@@ -5915,7 +5886,6 @@
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
 				34B846A32029DFEB0081ECCD /* BMCPermissionsHeader.swift in Sources */,
 				99A906E023F6F7030005872B /* RatingSummaryViewController.swift in Sources */,
-				993F550D237C622700545511 /* DeepLinkLeadStrategy.swift in Sources */,
 				337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */,
 				47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */,
 				349FC54B1F680DAE00968C9F /* ExpandableReviewSettings.swift in Sources */,

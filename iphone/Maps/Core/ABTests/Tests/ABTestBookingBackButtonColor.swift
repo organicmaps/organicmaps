@@ -16,7 +16,6 @@
     }
     if let stored = UserDefaults.standard.value(forKey: storageKey) as? Int,
       let type = ABTestBookingBackButtonColorType(rawValue: stored) {
-      Statistics.logEvent(ABTestInitialized, withParameters: [kStatTestGroup: stat(type)])
       return type
     } else {
       let rawValue = distribution()

@@ -1,9 +1,7 @@
 #import "MWMRoutingDisclaimerAlert.h"
 #import "MWMAlertViewController.h"
-#import "Statistics.h"
 
 static CGFloat const kMinimumOffset = 20.;
-static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 
 @interface MWMRoutingDisclaimerAlert ()
 
@@ -17,7 +15,6 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 
 + (instancetype)alertWithOkBlock:(MWMVoidBlock)block
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMRoutingDisclaimerAlert * alert =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   NSString * message = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@\n\n%@",
@@ -42,13 +39,11 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 
 - (IBAction)okTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
   [self close:self.okBlock];
 }
 
 - (IBAction)cancelTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatCancel}];
   [self close:nil];
 }
 

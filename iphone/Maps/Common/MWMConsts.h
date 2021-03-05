@@ -7,4 +7,4 @@ static uint64_t const MB = 1024 * 1024;
 // The last 5% are left for applying diffs.
 static float const kMaxProgress = 0.95f;
 static NSString * const kLocaleUsedInSupportEmails = @"en_gb";
-static NSString * const kAlohalyticsTapEventKey = @"$onClick";
+static NSString * const kTapEventKey = @"$onClick";

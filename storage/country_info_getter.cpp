@@ -19,7 +19,6 @@
 #include <limits>
 #include <utility>
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 namespace storage
 {

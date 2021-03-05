@@ -8,7 +8,6 @@
 #import "MWMSearchManager+Layout.h"
 #import "MWMSearchTableViewController.h"
 #import "MapViewController.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 namespace {
@@ -111,24 +110,10 @@ using Observers = NSHashTable<Observer>;
 }
 
 - (IBAction)cancelButtonPressed {
-  [Statistics logEvent:kStatEventName(kStatSearch, kStatCancel)];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"searchCancel"];
   self.state = MWMSearchManagerStateHidden;
 }
 
 - (IBAction)backButtonPressed {
-  NSString *statFrom = kStatUnknown;
-  if (self.state == MWMSearchManagerStateResult) {
-    statFrom = kStatSearchMapOneResult;
-  } else if (self.state == MWMSearchManagerStateResult) {
-    statFrom = kStatSearchMapSearch;
-  }
-  if (GetFramework().HasPlacePageInfo()) {
-    [Statistics logEvent:kStatBackClick
-          withParameters:@{kStatFrom: statFrom, kStatTo: kStatSearchResults, kStatPlacePage: kStatPreview}];
-  } else {
-    [Statistics logEvent:kStatBackClick withParameters:@{kStatFrom: statFrom, kStatTo: kStatSearchResults}];
-  }
   self.state = MWMSearchManagerStateTableSearch;
 }
 
@@ -137,9 +122,6 @@ using Observers = NSHashTable<Observer>;
 
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE) {
     [MWMAlertViewController.activeAlertController presentSearchQuickFilterNoConnectionAlert];
-    [Statistics logEvent:kStatSearchQuickFilterError withParameters:@{kStatCategory: kStatHotel,
-                                                                      kStatError: @"no internet",
-                                                                      kStatFilter: kStatDate}];
     return;
   }
 
@@ -160,9 +142,6 @@ using Observers = NSHashTable<Observer>;
 
   if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE) {
     [MWMAlertViewController.activeAlertController presentSearchQuickFilterNoConnectionAlert];
-    [Statistics logEvent:kStatSearchQuickFilterError withParameters:@{kStatCategory: kStatHotel,
-                                                                      kStatError: @"no internet",
-                                                                      kStatFilter: kStatSearchRooms}];
     return;
   }
 
@@ -463,15 +442,6 @@ using Observers = NSHashTable<Observer>;
   [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)datePickerDidClick:(DatePickerViewController *)datePicker
-        didSelectStartDate:(NSDate *)startDate
-                   endDate:(NSDate *)endDate {
-  NSString *startString = startDate ? [self.dateFormatter stringFromDate:startDate] : kStatNone;
-  NSString *endString = endDate ? [self.dateFormatter stringFromDate:endDate] : kStatNone;
-  [Statistics logEvent:kStatSearchQuickFilterClick withParameters:@{ kStatCategory: kStatHotel,
-                                                                     kStatDate: @[startString, endString]}];
-}
-
 #pragma mark - GuestsPickerViewControllerDelegate
 
 - (void)guestsPicker:(GuestsPickerViewController *)guestsPicker
@@ -492,18 +462,6 @@ using Observers = NSHashTable<Observer>;
   [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)guestPickerDidClick:(GuestsPickerViewController *)guestsPicker
-             didSelectRooms:(NSInteger)rooms
-                     adults:(NSInteger)adults
-                   children:(NSInteger)children
-                    infants:(NSInteger)infants {
-  [Statistics logEvent:kStatSearchQuickFilterClick withParameters:@{kStatCategory: kStatHotel,
-                                                                    kStatSearchRooms: @(rooms),
-                                                                    kStatSearchAdults: @(adults),
-                                                                    kStatSearchChildren: @(children),
-                                                                    kStatSearchInfants: @(infants)}];
-}
-
 - (void)guestsPickerDidCancel:(GuestsPickerViewController *)guestsPicker {
   [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
 }
@@ -514,11 +472,9 @@ using Observers = NSHashTable<Observer>;
   switch (self.state) {
     case MWMSearchManagerStateTableSearch:
       self.state = MWMSearchManagerStateMapSearch;
-      [Statistics logEvent:kStatSearchContextAreaClick withParameters:@{kStatValue: kStatMap}];
       break;
     case MWMSearchManagerStateMapSearch:
       self.state = MWMSearchManagerStateTableSearch;
-      [Statistics logEvent:kStatSearchContextAreaClick withParameters:@{kStatValue: kStatList}];
       break;
     default:
       break;
@@ -579,23 +535,18 @@ using Observers = NSHashTable<Observer>;
   [self updateTopController];
   switch (state) {
     case MWMSearchManagerStateHidden:
-      [Statistics logEvent:kStatSearchEnteredState withParameters:@{kStatName: kStatClose}];
       [self changeToHiddenState];
       break;
     case MWMSearchManagerStateDefault:
-      [Statistics logEvent:kStatSearchEnteredState withParameters:@{kStatName: kStatOpen}];
       [self changeToDefaultState];
       break;
     case MWMSearchManagerStateTableSearch:
-      [Statistics logEvent:kStatSearchEnteredState withParameters:@{kStatName: kStatTable}];
       [self changeToTableSearchState];
       break;
     case MWMSearchManagerStateMapSearch:
-      [Statistics logEvent:kStatSearchEnteredState withParameters:@{kStatName: kStatMapSearch}];
       [self changeToMapSearchState];
       break;
     case MWMSearchManagerStateResult:
-      [Statistics logEvent:kStatSearchEnteredState withParameters:@{kStatName: kStatSearchMapOneResult}];
       [self changeToResultSearchState];
       break;
   }

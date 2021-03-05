@@ -51,9 +51,6 @@ final class SearchCategoriesViewController: MWMTableViewController {
     }
     let selectedCategory = category(at: indexPath)
     delegate?.categoriesViewController(self, didSelect: selectedCategory)
-    
-    Statistics.logEvent(kStatEventName(kStatSearch, kStatSelectResult),
-                        withParameters: [kStatValue : selectedCategory, kStatScreen : kStatCategories])
   }
   
   func category(at indexPath: IndexPath) -> String {
@@ -67,7 +64,7 @@ final class SearchCategoriesViewController: MWMTableViewController {
   
   private func bannerStatProvider(_ bannerType: MWMBannerType) -> String {
     switch bannerType {
-      case .citymobil: return kStatCitymobil
+      case .citymobil: return "citymobil"
       default: return ""
     }
   }
@@ -85,8 +82,6 @@ final class SearchCategoriesViewController: MWMTableViewController {
     }
     if (!bannerShown) {
       bannerShown = true;
-      let provider = bannerStatProvider(banner.mwmType)
-      Statistics.logEvent(kStatSearchSponsoredShow, withParameters: [kStatProvider: provider]);
     }
     return cell
 
@@ -97,8 +92,6 @@ final class SearchCategoriesViewController: MWMTableViewController {
     if let url = URL(string: banner.bannerID) {
       UIApplication.shared.open(url)
     }
-    let provider = bannerStatProvider(banner.mwmType)
-    Statistics.logEvent(kStatSearchSponsoredSelect, withParameters: [kStatProvider: provider]);
   }
 }
 

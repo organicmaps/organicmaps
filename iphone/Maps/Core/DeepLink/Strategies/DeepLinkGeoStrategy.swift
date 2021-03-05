@@ -8,8 +8,6 @@ class DeepLinkGeoStrategy: IDeepLinkHandlerStrategy {
   func execute() {
     if (DeepLinkParser.showMap(for: deeplinkURL.url)) {
       MapsAppDelegate.theApp().showMap()
-      Statistics.logEvent(kStatEventName(kStatApplication, kStatImport),
-                          withParameters: [kStatValue: deeplinkURL.url.scheme ?? ""])
     }
   }
 }

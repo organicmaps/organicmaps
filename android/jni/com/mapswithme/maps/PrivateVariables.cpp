@@ -11,18 +11,6 @@
 extern "C"
 {
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_PrivateVariables_alohalyticsUrl(JNIEnv * env, jclass clazz)
-  {
-    return env->NewStringUTF(ALOHALYTICS_URL);
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_PrivateVariables_alohalyticsRealtimeUrl(JNIEnv * env, jclass clazz)
-  {
-    return env->NewStringUTF(url::Join(ALOHALYTICS_URL, "realtime").c_str());
-  }
-
-  JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_PrivateVariables_flurryKey(JNIEnv * env, jclass clazz)
   {
     return env->NewStringUTF(FLURRY_KEY);

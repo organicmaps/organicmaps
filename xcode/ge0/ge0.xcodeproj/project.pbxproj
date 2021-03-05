@@ -12,7 +12,6 @@
 		391A145E23E0FC8400A448F4 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A145D23E0FC8400A448F4 /* libcoding.a */; };
 		391A146023E0FC8700A448F4 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A145F23E0FC8700A448F4 /* libbase.a */; };
 		391A146223E0FC8B00A448F4 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146123E0FC8B00A448F4 /* liboauthcpp.a */; };
-		391A146423E0FC9200A448F4 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146323E0FC9200A448F4 /* libalohalitics.a */; };
 		391A146623E0FC9A00A448F4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146523E0FC9A00A448F4 /* libz.tbd */; };
 		391A146823E0FC9E00A448F4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146723E0FC9E00A448F4 /* Security.framework */; };
 		391A146A23E0FCB700A448F4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146923E0FCB700A448F4 /* CoreLocation.framework */; };
@@ -33,7 +32,6 @@
 		391A145D23E0FC8400A448F4 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		391A145F23E0FC8700A448F4 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		391A146123E0FC8B00A448F4 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		391A146323E0FC9200A448F4 /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		391A146523E0FC9A00A448F4 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		391A146723E0FC9E00A448F4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		391A146923E0FCB700A448F4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -55,7 +53,6 @@
 				391A146A23E0FCB700A448F4 /* CoreLocation.framework in Frameworks */,
 				391A146823E0FC9E00A448F4 /* Security.framework in Frameworks */,
 				391A146623E0FC9A00A448F4 /* libz.tbd in Frameworks */,
-				391A146423E0FC9200A448F4 /* libalohalitics.a in Frameworks */,
 				391A146223E0FC8B00A448F4 /* liboauthcpp.a in Frameworks */,
 				391A146023E0FC8700A448F4 /* libbase.a in Frameworks */,
 				391A145E23E0FC8400A448F4 /* libcoding.a in Frameworks */,
@@ -90,7 +87,6 @@
 				391A146923E0FCB700A448F4 /* CoreLocation.framework */,
 				391A146723E0FC9E00A448F4 /* Security.framework */,
 				391A146523E0FC9A00A448F4 /* libz.tbd */,
-				391A146323E0FC9200A448F4 /* libalohalitics.a */,
 				391A146123E0FC8B00A448F4 /* liboauthcpp.a */,
 				391A145F23E0FC8700A448F4 /* libbase.a */,
 				391A145D23E0FC8400A448F4 /* libcoding.a */,

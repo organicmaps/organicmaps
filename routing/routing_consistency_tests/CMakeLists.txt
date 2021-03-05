@@ -38,7 +38,6 @@ omim_link_libraries(
   protobuf
   bsdiff
   succinct
-  stats_client
   generator
   gflags
   pugixml

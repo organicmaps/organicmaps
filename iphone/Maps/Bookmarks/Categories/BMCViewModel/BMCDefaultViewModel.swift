@@ -39,10 +39,8 @@ final class BMCDefaultViewModel: NSObject {
   private func setPermissions() {
     isAuthenticated = User.isAuthenticated()
     if !isAuthenticated {
-      Statistics.logEvent(kStatBookmarksSyncProposalShown, withParameters: [kStatHasAuthorization: 0])
       permissions = [.signup]
     } else if !manager.isCloudEnabled() {
-      Statistics.logEvent(kStatBookmarksSyncProposalShown, withParameters: [kStatHasAuthorization: 1])
       isPendingPermission = false
       permissions = [.backup]
     } else {
@@ -184,11 +182,6 @@ extension BMCDefaultViewModel {
       case .signup:
         assertionFailure()
       case .backup:
-        Statistics.logEvent(kStatBookmarksSyncProposalApproved,
-                            withParameters: [
-                              kStatNetwork: Statistics.connectionTypeString(),
-                              kStatHasAuthorization: isAuthenticated ? 1 : 0
-                            ])
         manager.setCloudEnabled(true)
       case .restore:
         assertionFailure("Not implemented")
@@ -225,22 +218,11 @@ extension BMCDefaultViewModel {
   }
 
   func requestRestoring() {
-    let statusStr: String
-    switch NetworkPolicy.shared().connectionType {
-    case .none:
-      statusStr = kStatOffline
-    case .wifi:
-      statusStr = kStatWifi
-    case .cellular:
-      statusStr = kStatMobile
-    }
-    Statistics.logEvent(kStatBookmarksRestoreProposalClick, withParameters: [kStatNetwork: statusStr])
     manager.requestRestoring()
   }
 
   func applyRestoring() {
     manager.applyRestoring()
-    Statistics.logEvent(kStatBookmarksRestoreProposalSuccess)
   }
 
   func cancelRestoring() {
@@ -249,7 +231,6 @@ extension BMCDefaultViewModel {
     }
 
     manager.cancelRestoring()
-    Statistics.logEvent(kStatBookmarksRestoreProposalCancel)
   }
 
   func showSyncErrorMessage() {
@@ -265,7 +246,6 @@ extension BMCDefaultViewModel {
 
 extension BMCDefaultViewModel: BookmarksObserver {
   func onBackupStarted() {
-    Statistics.logEvent(kStatBookmarksSyncStarted)
   }
 
   func onRestoringStarted() {
@@ -283,21 +263,16 @@ extension BMCDefaultViewModel: BookmarksObserver {
       switch result {
       case .invalidCall:
         s.showSyncErrorMessage()
-        Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatInvalidCall])
       case .networkError:
         s.showSyncErrorMessage()
-        Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatNetwork])
       case .authError:
         s.showSyncErrorMessage()
-        Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatAuth])
       case .diskError:
         MWMAlertViewController.activeAlert().presentInternalErrorAlert()
-        Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatDisk])
       case .userInterrupted:
-        Statistics.logEvent(kStatBookmarksSyncError, withParameters: [kStatType: kStatUserInterrupted])
+        break
       case .success:
         s.reloadData()
-        Statistics.logEvent(kStatBookmarksSyncSuccess)
       @unknown default:
         fatalError()
       }
@@ -331,8 +306,6 @@ extension BMCDefaultViewModel: BookmarksObserver {
           }, leftButtonAction: cancelAction)
 
       case .noBackup:
-        Statistics.logEvent(kStatBookmarksRestoreProposalError,
-                            withParameters: [kStatType: kStatNoBackup, kStatError: ""])
         MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("bookmarks_restore_empty_title"),
                                                                  message: L("bookmarks_restore_empty_message"),
                                                                  rightButtonTitle: L("ok"),
@@ -340,8 +313,6 @@ extension BMCDefaultViewModel: BookmarksObserver {
                                                                  rightButtonAction: nil)
 
       case .notEnoughDiskSpace:
-        Statistics.logEvent(kStatBookmarksRestoreProposalError,
-                            withParameters: [kStatType: kStatDisk, kStatError: "Not enough disk space"])
         MWMAlertViewController.activeAlert().presentNotEnoughSpaceAlert()
       case .requestError:
         assertionFailure()

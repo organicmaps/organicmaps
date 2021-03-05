@@ -45,7 +45,6 @@ final class BannersCache: NSObject {
       }
     }
     if let banner = banner {
-      Statistics.logEvent(kStatPlacePageBannerShow, withParameters: banner.statisticsDescription)
       completion(banner, isAsync)
       banner.isBannerOnScreen = true
       self.completion = nil
@@ -89,7 +88,6 @@ final class BannersCache: NSObject {
     }, failure: { [unowned self] bannerType, event, errorDetails, error in
       var statParams = errorDetails
       statParams[kStatErrorMessage] = (error as NSError).userInfo.reduce("") { $0 + "\($1.key) : \($1.value)\n" }
-      Statistics.logEvent(event, withParameters: statParams)
       Crashlytics.crashlytics().record(error: error)
       self.setError(bannerType: bannerType)
     }, click: { banner in

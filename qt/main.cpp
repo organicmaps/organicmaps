@@ -18,7 +18,6 @@
 #include <cstdlib>
 #include <sstream>
 
-#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/gflags/src/gflags/gflags.h"
 
 #include <QtCore/QDir>
@@ -136,10 +135,6 @@ int main(int argc, char * argv[])
   UNUSED_VALUE(mainGuard);
 
   QApplication a(argc, argv);
-
-#ifdef DEBUG
-  alohalytics::Stats::Instance().SetDebugMode(true);
-#endif
 
   platform.SetupMeasurementSystem();
 

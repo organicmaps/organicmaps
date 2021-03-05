@@ -50,12 +50,10 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
   _selectedCell = selectedCell;
   auto & f = GetFramework();
   auto & tracker = GpsTracker::Instance();
-  NSString * statValue = nil;
   if ([selectedCell isEqual:self.none])
   {
     f.DisconnectFromGpsTracker();
     tracker.SetEnabled(false);
-    statValue = kStatOff;
   }
   else
   {
@@ -76,11 +74,8 @@ typedef NS_ENUM(NSUInteger, DurationInHours) { One = 1, Two = 2, Six = 6, Twelve
       tracker.SetDuration(std::chrono::hours(Twelve));
     else
       tracker.SetDuration(std::chrono::hours(Day));
-
-    statValue = [NSString stringWithFormat:@"%@ hour(s)", @(tracker.GetDuration().count())];
   }
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
-  [Statistics logEvent:kStatChangeRecentTrack withParameters:@{kStatValue : statValue}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

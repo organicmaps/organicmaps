@@ -16,9 +16,6 @@ NS_SWIFT_NAME(Settings)
 + (BOOL)compassCalibrationEnabled;
 + (void)setCompassCalibrationEnabled:(BOOL)compassCalibrationEnabled;
 
-+ (BOOL)statisticsEnabled;
-+ (void)setStatisticsEnabled:(BOOL)statisticsEnabled;
-
 + (MWMTheme)theme;
 + (void)setTheme:(MWMTheme)theme;
 

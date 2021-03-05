@@ -22,7 +22,6 @@
 		675D213D1BFB717400717E4F /* mapshot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D213C1BFB717400717E4F /* mapshot.cpp */; };
 		675D21411BFB76B000717E4F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D213E1BFB76B000717E4F /* libbase.a */; };
 		675D21431BFB76B000717E4F /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21401BFB76B000717E4F /* libmap.a */; };
-		675D21551BFB779A00717E4F /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21441BFB779A00717E4F /* libalohalitics.a */; };
 		675D21561BFB779A00717E4F /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21451BFB779A00717E4F /* libcoding.a */; };
 		675D21571BFB779A00717E4F /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21461BFB779A00717E4F /* libdrape_frontend.a */; };
 		675D21581BFB779A00717E4F /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21471BFB779A00717E4F /* libdrape.a */; };
@@ -91,7 +90,6 @@
 		675D213C1BFB717400717E4F /* mapshot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapshot.cpp; sourceTree = "<group>"; };
 		675D213E1BFB76B000717E4F /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		675D21401BFB76B000717E4F /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = "../../../omim-xcode-build/Debug/libmap.a"; sourceTree = "<group>"; };
-		675D21441BFB779A00717E4F /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		675D21451BFB779A00717E4F /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		675D21461BFB779A00717E4F /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		675D21471BFB779A00717E4F /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 				675D21761BFB828900717E4F /* CoreFoundation.framework in Frameworks */,
 				675D21741BFB828200717E4F /* OpenGL.framework in Frameworks */,
 				675D21721BFB827B00717E4F /* CoreLocation.framework in Frameworks */,
-				675D21551BFB779A00717E4F /* libalohalitics.a in Frameworks */,
 				675D21561BFB779A00717E4F /* libcoding.a in Frameworks */,
 				675D21571BFB779A00717E4F /* libdrape_frontend.a in Frameworks */,
 				675D21581BFB779A00717E4F /* libdrape.a in Frameworks */,
@@ -230,7 +227,6 @@
 				675D21751BFB828900717E4F /* CoreFoundation.framework */,
 				675D21731BFB828200717E4F /* OpenGL.framework */,
 				675D21711BFB827B00717E4F /* CoreLocation.framework */,
-				675D21441BFB779A00717E4F /* libalohalitics.a */,
 				675D21451BFB779A00717E4F /* libcoding.a */,
 				675D21461BFB779A00717E4F /* libdrape_frontend.a */,
 				675D21471BFB779A00717E4F /* libdrape.a */,

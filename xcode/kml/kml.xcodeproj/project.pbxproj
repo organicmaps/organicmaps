@@ -19,7 +19,6 @@
 		56C633AC239933190003891E /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633AB239933190003891E /* libplatform.a */; };
 		56C633AE2399331E0003891E /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633AD2399331E0003891E /* libgeometry.a */; };
 		56C633B0239933600003891E /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633AF239933600003891E /* libindexer.a */; };
-		56C633B2239933670003891E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633B1239933670003891E /* libalohalitics.a */; };
 		56C633B4239933850003891E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633B3239933850003891E /* libprotobuf.a */; };
 		56C633B62399338A0003891E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633B52399338A0003891E /* liboauthcpp.a */; };
 		56C633B8239933900003891E /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C633B7239933900003891E /* libicu.a */; };
@@ -64,7 +63,6 @@
 		56C633AB239933190003891E /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C633AD2399331E0003891E /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C633AF239933600003891E /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		56C633B1239933670003891E /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C633B3239933850003891E /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C633B52399338A0003891E /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C633B7239933900003891E /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,7 +99,6 @@
 				56C633B8239933900003891E /* libicu.a in Frameworks */,
 				56C633B62399338A0003891E /* liboauthcpp.a in Frameworks */,
 				56C633B4239933850003891E /* libprotobuf.a in Frameworks */,
-				56C633B2239933670003891E /* libalohalitics.a in Frameworks */,
 				56C633B0239933600003891E /* libindexer.a in Frameworks */,
 				56C633AE2399331E0003891E /* libgeometry.a in Frameworks */,
 				56C633AC239933190003891E /* libplatform.a in Frameworks */,
@@ -182,7 +179,6 @@
 				56C633B7239933900003891E /* libicu.a */,
 				56C633B52399338A0003891E /* liboauthcpp.a */,
 				56C633B3239933850003891E /* libprotobuf.a */,
-				56C633B1239933670003891E /* libalohalitics.a */,
 				56C633AF239933600003891E /* libindexer.a */,
 				56C633AD2399331E0003891E /* libgeometry.a */,
 				56C633AB239933190003891E /* libplatform.a */,

@@ -36,7 +36,6 @@ omim_link_libraries(
   geometry
   coding
   base
-  stats_client
   jansson
   oauthcpp
   protobuf

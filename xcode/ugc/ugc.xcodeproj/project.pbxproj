@@ -15,7 +15,6 @@
 		670E7B991EF97D1600A8E9ED /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E7B961EF97D0E00A8E9ED /* testingmain.cpp */; };
 		670E7B9B1EF9803C00A8E9ED /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7B9A1EF9803C00A8E9ED /* libbase.a */; };
 		670E7B9D1EF9805700A8E9ED /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7B9C1EF9805700A8E9ED /* libplatform.a */; };
-		670E7BA01EF9807700A8E9ED /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7B9E1EF9807700A8E9ED /* libalohalitics.a */; };
 		670E7BA11EF9807700A8E9ED /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7B9F1EF9807700A8E9ED /* libindexer.a */; };
 		670E7BA31EF980A600A8E9ED /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BA21EF980A600A8E9ED /* libz.tbd */; };
 		670E7BA51EF980B300A8E9ED /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BA41EF980B300A8E9ED /* libcoding.a */; };
@@ -72,7 +71,6 @@
 		670E7B961EF97D0E00A8E9ED /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		670E7B9A1EF9803C00A8E9ED /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libbase.a"; sourceTree = "<group>"; };
 		670E7B9C1EF9805700A8E9ED /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libplatform.a"; sourceTree = "<group>"; };
-		670E7B9E1EF9807700A8E9ED /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		670E7B9F1EF9807700A8E9ED /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libindexer.a"; sourceTree = "<group>"; };
 		670E7BA21EF980A600A8E9ED /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		670E7BA41EF980B300A8E9ED /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libcoding.a"; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 				670E7BCC1EFA66DD00A8E9ED /* libugc.a in Frameworks */,
 				670E7BA51EF980B300A8E9ED /* libcoding.a in Frameworks */,
 				670E7BA31EF980A600A8E9ED /* libz.tbd in Frameworks */,
-				670E7BA01EF9807700A8E9ED /* libalohalitics.a in Frameworks */,
 				670E7BA11EF9807700A8E9ED /* libindexer.a in Frameworks */,
 				670E7B9D1EF9805700A8E9ED /* libplatform.a in Frameworks */,
 				670E7B9B1EF9803C00A8E9ED /* libbase.a in Frameworks */,
@@ -250,7 +247,6 @@
 				670E7BD21EFA774800A8E9ED /* libjansson.a */,
 				670E7BA41EF980B300A8E9ED /* libcoding.a */,
 				670E7BA21EF980A600A8E9ED /* libz.tbd */,
-				670E7B9E1EF9807700A8E9ED /* libalohalitics.a */,
 				670E7B9F1EF9807700A8E9ED /* libindexer.a */,
 				670E7B9C1EF9805700A8E9ED /* libplatform.a */,
 				670E7B9A1EF9803C00A8E9ED /* libbase.a */,

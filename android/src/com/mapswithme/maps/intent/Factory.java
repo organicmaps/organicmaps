@@ -194,7 +194,6 @@ public class Factory
       final String uri = data.toString();
       String msg = this.getClass().getSimpleName() + ": incoming intent uri: " + uri;
       LOGGER.i(this.getClass().getSimpleName(), msg);
-      org.alohalytics.Statistics.logEvent(msg);
       CrashlyticsUtils.INSTANCE.log(Log.INFO, getClass().getSimpleName(), msg);
       return createMapTask(uri);
     }
@@ -287,7 +286,6 @@ public class Factory
     {
       final Uri data = intent.getData();
       final String ge0Url = "ge0:/" + data.getPath();
-      org.alohalytics.Statistics.logEvent("HttpGe0IntentProcessor::process", ge0Url);
       return StatisticMapTaskWrapper.wrap(new OpenUrlTask(ge0Url, "http_ge0_me"));
     }
   }
@@ -308,7 +306,6 @@ public class Factory
     public MapTask process(@NonNull final Intent intent)
     {
       final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
-      org.alohalytics.Statistics.logEvent("MapsWithMeIntentProcessor::process", apiUrl == null ? "null" : apiUrl);
       if (apiUrl != null)
       {
         SearchEngine.INSTANCE.cancelInteractiveSearch();
@@ -568,10 +565,6 @@ public class Factory
     public MapTask process(@NonNull Intent intent)
     {
       String countryId = intent.getStringExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY);
-
-      org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process",
-                                          new String[] { "autoDownload", "false" },
-                                          LocationHelper.INSTANCE.getSavedLocation());
       return StatisticMapTaskWrapper.wrap(new ShowCountryTask(countryId));
     }
   }

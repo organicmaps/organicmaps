@@ -123,7 +123,6 @@
 		5631B66B219B125D009F47D4 /* maxspeeds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5631B667219B125C009F47D4 /* maxspeeds.cpp */; };
 		5631B66C219B125D009F47D4 /* maxspeeds.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5631B668219B125C009F47D4 /* maxspeeds.hpp */; };
 		56473D74214825B6007E6FBA /* city_roads_serialization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56473D72214825B4007E6FBA /* city_roads_serialization.hpp */; };
-		56555E561D897C90009D786D /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE61C68A23B009CB89E /* libalohalitics.a */; };
 		56555E581D897C9D009D786D /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */; };
 		56555E591D897D28009D786D /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACDE1C68A13F009CB89E /* testingmain.cpp */; };
 		5670595A1F3AF96D0062672D /* checkpoint_predictor_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567059591F3AF96D0062672D /* checkpoint_predictor_test.cpp */; };
@@ -234,7 +233,6 @@
 		6742AD411C68AA04009CB89E /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACED1C68A27C009CB89E /* libplatform.a */; };
 		6742AD421C68AA04009CB89E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEE1C68A27C009CB89E /* libpugixml.a */; };
 		6742AD431C68AA04009CB89E /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEF1C68A27C009CB89E /* libsearch.a */; };
-		6742AD441C68AA04009CB89E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE61C68A23B009CB89E /* libalohalitics.a */; };
 		6742AD451C68AA04009CB89E /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE71C68A23B009CB89E /* libgeometry.a */; };
 		6742AD461C68AA04009CB89E /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE81C68A23B009CB89E /* libindexer.a */; };
 		6742AD471C68AA04009CB89E /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE21C68A203009CB89E /* libbase.a */; };
@@ -275,7 +273,6 @@
 		67BD35CA1C69F121003AA26F /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACED1C68A27C009CB89E /* libplatform.a */; };
 		67BD35CB1C69F121003AA26F /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEE1C68A27C009CB89E /* libpugixml.a */; };
 		67BD35CC1C69F121003AA26F /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEF1C68A27C009CB89E /* libsearch.a */; };
-		67BD35CD1C69F121003AA26F /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE61C68A23B009CB89E /* libalohalitics.a */; };
 		67BD35CE1C69F121003AA26F /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE71C68A23B009CB89E /* libgeometry.a */; };
 		67BD35CF1C69F121003AA26F /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE81C68A23B009CB89E /* libindexer.a */; };
 		67BD35D01C69F121003AA26F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE21C68A203009CB89E /* libbase.a */; };
@@ -544,7 +541,6 @@
 		6742ACDE1C68A13F009CB89E /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		6742ACE21C68A203009CB89E /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		6742ACE31C68A203009CB89E /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
-		6742ACE61C68A23B009CB89E /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		6742ACE71C68A23B009CB89E /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug/libgeometry.a"; sourceTree = "<group>"; };
 		6742ACE81C68A23B009CB89E /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		6742ACED1C68A27C009CB89E /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
@@ -639,7 +635,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				56555E581D897C9D009D786D /* liboauthcpp.a in Frameworks */,
-				56555E561D897C90009D786D /* libalohalitics.a in Frameworks */,
 				56F0D7341D896A5300045886 /* libmap.a in Frameworks */,
 				56F0D7391D896A5300045886 /* libstorage.a in Frameworks */,
 				56F0D73A1D896A5300045886 /* librouting.a in Frameworks */,
@@ -681,7 +676,6 @@
 				6742AD411C68AA04009CB89E /* libplatform.a in Frameworks */,
 				6742AD461C68AA04009CB89E /* libindexer.a in Frameworks */,
 				6742AD3A1C68AA04009CB89E /* libsuccinct.a in Frameworks */,
-				6742AD441C68AA04009CB89E /* libalohalitics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -727,7 +721,6 @@
 				67BD35CA1C69F121003AA26F /* libplatform.a in Frameworks */,
 				67BD35CF1C69F121003AA26F /* libindexer.a in Frameworks */,
 				67BD35C31C69F121003AA26F /* libsuccinct.a in Frameworks */,
-				67BD35CD1C69F121003AA26F /* libalohalitics.a in Frameworks */,
 				408B55C11FD9541300F4E78B /* libbsdiff.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -837,7 +830,6 @@
 				6742ACED1C68A27C009CB89E /* libplatform.a */,
 				6742ACEE1C68A27C009CB89E /* libpugixml.a */,
 				6742ACEF1C68A27C009CB89E /* libsearch.a */,
-				6742ACE61C68A23B009CB89E /* libalohalitics.a */,
 				6742ACE71C68A23B009CB89E /* libgeometry.a */,
 				6742ACE81C68A23B009CB89E /* libindexer.a */,
 				6742ACE21C68A203009CB89E /* libbase.a */,

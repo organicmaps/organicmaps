@@ -2,10 +2,8 @@
 #import <CoreApi/AppInfo.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 #import "MWMMailViewController.h"
-#import "Statistics.h"
 #import "WebViewController.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 static NSString * const kiOSEmail = @"ios@omaps.app";
 
@@ -106,16 +104,12 @@ static NSString * const kiOSEmail = @"ios@omaps.app";
 
 - (void)commonReportAction
 {
-  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatFeedback}];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"contactUs"];
   // Do not localize subject. Support team uses it to filter emails.
   [self sendEmailWithSubject:@"Feedback from user" toRecipient:kiOSEmail];
 }
 
 - (void)bugReportAction
 {
-  [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatReport}];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"reportABug"];
   // Do not localize subject. Support team uses it to filter emails.
   [self sendEmailWithSubject:@"Bugreport from user" toRecipient:kiOSEmail];
 }
@@ -140,9 +134,6 @@ static NSString * const kiOSEmail = @"ios@omaps.app";
     NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- OMaps %@ (%@)\n- %@/%@",
                                                  deviceModel, UIDevice.currentDevice.systemVersion,
                                                  bundleVersion, buildNumber, language, country];
-    NSString * alohalyticsId = [Alohalytics installationId];
-    if (alohalyticsId)
-      text = [NSString stringWithFormat:@"%@\n- %@", text, alohalyticsId];
 
     MWMMailViewController * vc = [[MWMMailViewController alloc] init];
     vc.mailComposeDelegate = self;

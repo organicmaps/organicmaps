@@ -49,6 +49,6 @@
                      rightButtonTitle:(NSString *)rightButtonTitle
                       leftButtonTitle:(NSString *)leftButtonTitle
                     rightButtonAction:(MWMVoidBlock)action
-                      statisticsEvent:(NSString *)statisticsEvent;
+                      log:(NSString *)log;
 
 @end

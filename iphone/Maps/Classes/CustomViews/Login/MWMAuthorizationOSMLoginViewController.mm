@@ -3,7 +3,6 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMCircularProgress.h"
 #import "MWMSettingsViewController.h"
-#import "Statistics.h"
 #import "UITextField+RuntimeAttributes.h"
 
 #include "base/logging.hpp"
@@ -138,20 +137,12 @@ using namespace osm;
       catch (std::exception const & ex)
       {
         LOG(LWARNING, ("Error login", ex.what()));
-        [Statistics logEvent:@"Editor_Auth_request_result"
-              withParameters:@{
-                kStatIsSuccess : kStatNo,
-                kStatErrorData : @(ex.what()),
-                kStatType : kStatOSM
-              }];
       }
       dispatch_async(dispatch_get_main_queue(), ^{
         [self stopSpinner];
         if (auth.IsAuthorized())
         {
           osm_auth_ios::AuthorizationStoreCredentials(auth.GetKeySecret());
-          [Statistics logEvent:@"Editor_Auth_request_result"
-                withParameters:@{kStatIsSuccess : kStatYes, kStatType : kStatOSM}];
           UIViewController * svc = nil;
           for (UIViewController * vc in self.navigationController.viewControllers)
           {

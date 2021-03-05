@@ -17,7 +17,6 @@ omim_link_libraries(
   oauthcpp
   coding
   base
-  stats_client
   ${Boost_LIBRARIES}
   ${LIBZ}
 )

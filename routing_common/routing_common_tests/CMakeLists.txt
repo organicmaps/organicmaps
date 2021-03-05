@@ -23,7 +23,6 @@ omim_link_libraries(
   opening_hours
   protobuf
   pugixml
-  stats_client
   succinct
   ${LIBZ}
 )

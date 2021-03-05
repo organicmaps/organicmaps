@@ -12,7 +12,6 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import static com.mapswithme.maps.MwmApplication.backgroundTracker;
 
 /**
- * Custom broadcast receiver to send intent to MyTracker & Alohalytics at the same time
  */
 public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
 {
@@ -44,11 +43,7 @@ public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
             parsedValues[i++] = keyValue[0];
             parsedValues[i++] = keyValue.length == 2 ? keyValue[1] : "";
           }
-
-          org.alohalytics.Statistics.logEvent(AlohaHelper.GPLAY_INSTALL_REFERRER, parsedValues);
         }
-        else
-          org.alohalytics.Statistics.logEvent(AlohaHelper.GPLAY_INSTALL_REFERRER, referrer);
       }
     }
     catch (Exception e)

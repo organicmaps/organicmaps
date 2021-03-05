@@ -12,7 +12,6 @@
 		56DAC38F2399305F000BC50D /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC38E2399305F000BC50D /* libicu.a */; };
 		56DAC39123993068000BC50D /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC39023993068000BC50D /* librouting_common.a */; };
 		56DAC3932399307A000BC50D /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC3922399307A000BC50D /* libsuccinct.a */; };
-		672292AB1DE2F673005BA3A7 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AA1DE2F673005BA3A7 /* libalohalitics.a */; };
 		672292AD1DE2F683005BA3A7 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AC1DE2F683005BA3A7 /* libz.tbd */; };
 		672292AF1DE2FF0F005BA3A7 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 672292AE1DE2FF0F005BA3A7 /* libindexer.a */; };
 		674231CD1DFAB03800913FEB /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674231CC1DFAB03800913FEB /* libgeometry.a */; };
@@ -41,7 +40,6 @@
 		56DAC38E2399305F000BC50D /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DAC39023993068000BC50D /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DAC3922399307A000BC50D /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		672292AA1DE2F673005BA3A7 /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		672292AC1DE2F683005BA3A7 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		672292AE1DE2FF0F005BA3A7 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-build/xcode/Debug/libindexer.a"; sourceTree = "<group>"; };
 		674231CC1DFAB03800913FEB /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-build/xcode/Debug/libgeometry.a"; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 				674231CD1DFAB03800913FEB /* libgeometry.a in Frameworks */,
 				672292AF1DE2FF0F005BA3A7 /* libindexer.a in Frameworks */,
 				672292AD1DE2F683005BA3A7 /* libz.tbd in Frameworks */,
-				672292AB1DE2F673005BA3A7 /* libalohalitics.a in Frameworks */,
 				67BECB891DDA476A00FC4E99 /* libcoding.a in Frameworks */,
 				67BECB871DDA475500FC4E99 /* libplatform.a in Frameworks */,
 				67BECB851DDA474400FC4E99 /* libbase.a in Frameworks */,
@@ -166,7 +163,6 @@
 				674231CC1DFAB03800913FEB /* libgeometry.a */,
 				672292AE1DE2FF0F005BA3A7 /* libindexer.a */,
 				672292AC1DE2F683005BA3A7 /* libz.tbd */,
-				672292AA1DE2F673005BA3A7 /* libalohalitics.a */,
 				67BECB881DDA476A00FC4E99 /* libcoding.a */,
 				67BECB861DDA475500FC4E99 /* libplatform.a */,
 				67BECB841DDA474400FC4E99 /* libbase.a */,

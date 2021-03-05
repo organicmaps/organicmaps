@@ -54,7 +54,6 @@ omim_link_libraries(
   jansson
   tess2
   protobuf
-  stats_client
   minizip
   succinct
   pugixml

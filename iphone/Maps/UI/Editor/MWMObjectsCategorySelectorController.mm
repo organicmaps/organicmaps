@@ -4,7 +4,6 @@
 #import "MWMEditorViewController.h"
 #import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
@@ -89,16 +88,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   dest.isCreating = YES;
   auto const object = self.createdObject;
   [dest setEditableMapObject:object];
-
-  using namespace osm_auth_ios;
-  auto const & featureID = object.GetID();
-  [Statistics logEvent:kStatEditorAddStart
-        withParameters:@{
-          kStatIsAuthenticated: @(AuthorizationHaveCredentials()),
-          kStatIsOnline: Platform::IsConnected() ? kStatYes : kStatNo,
-          kStatMWMName: @(featureID.GetMwmName().c_str()),
-          kStatEditorMWMVersion: @(featureID.GetMwmVersion())
-        }];
 }
 
 #pragma mark - MWMKeyboard

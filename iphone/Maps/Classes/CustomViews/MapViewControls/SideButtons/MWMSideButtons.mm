@@ -5,9 +5,7 @@
 #import "MWMRouter.h"
 #import "MWMSettings.h"
 #import "MWMSideButtonsView.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include <CoreApi/Framework.h>
 
@@ -60,15 +58,11 @@ NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";
 + (void)updateAvailableArea:(CGRect)frame { [[self buttons].sideView updateAvailableArea:frame]; }
 - (void)zoomIn
 {
-  [Statistics logEvent:kStatEventName(kStatZoom, kStatIn)];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"+"];
   GetFramework().Scale(Framework::SCALE_MAG, true);
 }
 
 - (void)zoomOut
 {
-  [Statistics logEvent:kStatEventName(kStatZoom, kStatOut)];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"-"];
   GetFramework().Scale(Framework::SCALE_MIN, true);
 }
 
@@ -126,7 +120,6 @@ NSString * const kMWMSideButtonsViewNibName = @"MWMSideButtonsView";
 
 - (IBAction)locationTouchUpInside
 {
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatLocation}];
   [MWMLocationManager enableLocationAlert];
   GetFramework().SwitchMyPositionNextMode();
 }

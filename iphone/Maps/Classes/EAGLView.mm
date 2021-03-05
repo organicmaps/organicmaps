@@ -3,7 +3,6 @@
 #import "MWMMapWidgets.h"
 #import "SwiftBridge.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -171,7 +170,7 @@ double getExactDPI(double contentScaleFactor)
   p.m_surfaceWidth = width;
   p.m_surfaceHeight = height;
   p.m_visualScale = dp::VisualScale(getExactDPI(self.contentScaleFactor));
-  p.m_hints.m_isFirstLaunch = [Alohalytics isFirstSession];
+  p.m_hints.m_isFirstLaunch = [FirstSession isFirstSession];
   p.m_hints.m_isLaunchByDeepLink = self.isLaunchByDeepLink;
 
   [self.widgetsManager setupWidgets:p];

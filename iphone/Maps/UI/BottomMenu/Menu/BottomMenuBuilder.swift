@@ -5,8 +5,7 @@
     return BottomMenuBuilder.build(mapViewController: mapViewController,
                                    controlsManager: controlsManager,
                                    delegate: delegate,
-                                   sections: [.layers, .items],
-                                   source: kStatMenu)
+                                   sections: [.layers, .items])
   }
 
   @objc static func buildLayers(mapViewController: MapViewController,
@@ -15,21 +14,19 @@
     return BottomMenuBuilder.build(mapViewController: mapViewController,
                                    controlsManager: controlsManager,
                                    delegate: delegate,
-                                   sections: [.layers],
-                                   source: kStatMap)
+                                   sections: [.layers])
   }
 
   private static func build(mapViewController: MapViewController,
                             controlsManager: MWMMapViewControlsManager,
                             delegate: BottomMenuDelegate,
-                            sections: [BottomMenuPresenter.Sections],
-                            source: String) -> UIViewController {
+                            sections: [BottomMenuPresenter.Sections]) -> UIViewController {
     let viewController = BottomMenuViewController(nibName: nil, bundle: nil)
     let interactor = BottomMenuInteractor(viewController: viewController,
                                           mapViewController: mapViewController,
                                           controlsManager: controlsManager,
                                           delegate: delegate)
-    let presenter = BottomMenuPresenter(view: viewController, interactor: interactor, sections: sections, source: source)
+    let presenter = BottomMenuPresenter(view: viewController, interactor: interactor, sections: sections)
     
     interactor.presenter = presenter
     viewController.presenter = presenter

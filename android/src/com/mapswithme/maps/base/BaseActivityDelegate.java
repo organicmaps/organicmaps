@@ -79,15 +79,12 @@ public class BaseActivityDelegate
   public void onResume()
   {
     logLifecycleMethod("onResume()");
-    org.alohalytics.Statistics.logEvent("$onResume", mActivity.getClass().getSimpleName() + ":" +
-                                                     UiUtils.deviceOrientationAsString(mActivity.get()));
     ViewServer.get(mActivity.get()).setFocusedWindow(mActivity.get());
   }
 
   public void onPause()
   {
     logLifecycleMethod("onPause()");
-    org.alohalytics.Statistics.logEvent("$onPause", mActivity.getClass().getSimpleName());
   }
 
   public void onPostResume()

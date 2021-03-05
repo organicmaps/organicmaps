@@ -29,7 +29,6 @@
 		671E78BA1E6A407500B2859B /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78B81E6A407500B2859B /* libbase.a */; };
 		671E78BB1E6A407500B2859B /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78B91E6A407500B2859B /* libcoding.a */; };
 		671E78BD1E6A40A000B2859B /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78BC1E6A40A000B2859B /* libindexer.a */; };
-		671E78C31E6A40EC00B2859B /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78BE1E6A40EC00B2859B /* libalohalitics.a */; };
 		671E78C41E6A40EC00B2859B /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78BF1E6A40EC00B2859B /* libeditor.a */; };
 		671E78C51E6A40EC00B2859B /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78C01E6A40EC00B2859B /* libgeometry.a */; };
 		671E78C61E6A40EC00B2859B /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671E78C11E6A40EC00B2859B /* liboauthcpp.a */; };
@@ -68,7 +67,6 @@
 		671E78B81E6A407500B2859B /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libbase.a"; sourceTree = "<group>"; };
 		671E78B91E6A407500B2859B /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libcoding.a"; sourceTree = "<group>"; };
 		671E78BC1E6A40A000B2859B /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libindexer.a"; sourceTree = "<group>"; };
-		671E78BE1E6A40EC00B2859B /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libalohalitics.a"; sourceTree = "<group>"; };
 		671E78BF1E6A40EC00B2859B /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libeditor.a"; sourceTree = "<group>"; };
 		671E78C01E6A40EC00B2859B /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libgeometry.a"; sourceTree = "<group>"; };
 		671E78C11E6A40EC00B2859B /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/liboauthcpp.a"; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 				671E78CF1E6A414600B2859B /* libjansson.a in Frameworks */,
 				671E78CD1E6A413F00B2859B /* libz.tbd in Frameworks */,
 				671E78C91E6A410200B2859B /* libprotobuf.a in Frameworks */,
-				671E78C31E6A40EC00B2859B /* libalohalitics.a in Frameworks */,
 				671E78C41E6A40EC00B2859B /* libeditor.a in Frameworks */,
 				671E78C51E6A40EC00B2859B /* libgeometry.a in Frameworks */,
 				671E78C61E6A40EC00B2859B /* liboauthcpp.a in Frameworks */,
@@ -180,7 +177,6 @@
 				671E78CC1E6A413F00B2859B /* libz.tbd */,
 				671E78CA1E6A411E00B2859B /* libdz.tbd */,
 				671E78C81E6A410200B2859B /* libprotobuf.a */,
-				671E78BE1E6A40EC00B2859B /* libalohalitics.a */,
 				671E78BF1E6A40EC00B2859B /* libeditor.a */,
 				671E78C01E6A40EC00B2859B /* libgeometry.a */,
 				671E78C11E6A40EC00B2859B /* liboauthcpp.a */,

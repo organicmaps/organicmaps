@@ -11,7 +11,6 @@ enum TutorialType: Int {
 protocol TutorialViewControllerDelegate: AnyObject {
   func didPressTarget(_ viewController: TutorialViewController)
   func didPressCancel(_ viewController: TutorialViewController)
-  func didPressOnScreen(_ viewController: TutorialViewController)
 }
 
 fileprivate struct TargetAction {
@@ -55,10 +54,6 @@ class TutorialViewController: UIViewController {
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { }
 
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) { }
-
-  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    delegate?.didPressOnScreen(self)
-  }
 
   func fadeOut(withCompletion completion: (() -> Void)?) {
     tutorialView.animateFadeOut(kDefaultAnimationDuration) {

@@ -190,7 +190,6 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
 
   private func startUploadAndPublishFlow() {
-    Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatPublic])
     let alert = EditOnWebAlertViewController(with: L("bookmark_public_upload_alert_title"),
                                              message: L("bookmark_public_upload_alert_subtitle"),
                                              acceptButtonTitle: L("bookmark_public_upload_alert_ok_button"))
@@ -235,10 +234,6 @@ final class BookmarksSharingViewController: MWMTableViewController {
         self.showErrorAlert(error)
       } else {
         self.uploadAndPublishCell.cellState = .completed
-        Statistics.logEvent(kStatSharingOptionsUploadSuccess, withParameters:
-          [kStatTracks : self.category.trackCount,
-           kStatPoints : self.category.bookmarksCount])
-
         self.getDirectLinkCell.cellState = .disabled
         self.directLinkInstructionsLabel.text = L("unable_get_direct_link_desc")
         self.tableView.beginUpdates()
@@ -260,7 +255,6 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
   
   private func uploadAndGetDirectLink(update: Bool) {
-    Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatPrivate])
     performAfterValidation(anchor: getDirectLinkCell) { [weak self] in
       guard let s = self else {
         assert(false, "Unexpected self == nil")
@@ -280,9 +274,6 @@ final class BookmarksSharingViewController: MWMTableViewController {
         } else {
           s.getDirectLinkCell.cellState = .completed
           s.delegate?.didShareCategory()
-          Statistics.logEvent(kStatSharingOptionsUploadSuccess, withParameters:
-            [kStatTracks : s.category.trackCount,
-             kStatPoints : s.category.bookmarksCount])
           s.tableView.insertRows(at: [IndexPath(item: s.directLinkUpdateRowIndex,
                                                 section: s.privateSectionIndex)],
                                  with: .automatic)
@@ -304,11 +295,9 @@ final class BookmarksSharingViewController: MWMTableViewController {
           MWMAlertViewController.activeAlert().presentAuthErrorAlert {
             self?.performAfterValidation(anchor: anchor, action: action)
           }
-          Statistics.logEvent(kStatSharingOptionsError, withParameters: [kStatError : 1])
         }
       })
     } else {
-      Statistics.logEvent(kStatSharingOptionsError, withParameters: [kStatError : 0])
       MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("common_check_internet_connection_dialog_title"),
                                                                message: L("common_check_internet_connection_dialog"),
                                                                rightButtonTitle: L("downloader_retry"),
@@ -329,22 +318,16 @@ final class BookmarksSharingViewController: MWMTableViewController {
     
     switch (status) {
     case .networkError:
-      Statistics.logEvent(kStatSharingOptionsUploadError, withParameters: [kStatError : 1])
       self.showUploadError()
     case .serverError:
-      Statistics.logEvent(kStatSharingOptionsUploadError, withParameters: [kStatError : 2])
       self.showUploadError()
     case .authError:
-      Statistics.logEvent(kStatSharingOptionsUploadError, withParameters: [kStatError : 3])
       self.showUploadError()
     case .malformedData:
-      Statistics.logEvent(kStatSharingOptionsUploadError, withParameters: [kStatError : 4])
       self.showMalformedDataError()
     case .accessError:
-      Statistics.logEvent(kStatSharingOptionsUploadError, withParameters: [kStatError : 5])
       self.showAccessError()
     case .invalidCall:
-      Statistics.logEvent(kStatSharingOptionsUploadError, withParameters: [kStatError : 6])
       assert(false, "sharing is not available for paid bookmarks")
     }
   }
@@ -389,7 +372,6 @@ final class BookmarksSharingViewController: MWMTableViewController {
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
     if segue.identifier == kEditOnWebSegueIdentifier {
-      Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatEditOnWeb])
       if let vc = segue.destination as? EditOnWebViewController {
         vc.delegate = self
         vc.category = category
@@ -470,13 +452,9 @@ extension BookmarksSharingViewController: UploadActionCellDelegate {
       return
     }
     
-    Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatCopyLink])
     let message = String(coreFormat: L("share_bookmarks_email_body_link"), arguments: [url.absoluteString])
     let shareController = ActivityViewController.share(for: nil, message: message) {
       _, success, _, _ in
-      if success {
-        Statistics.logEvent(kStatSharingLinkSuccess, withParameters: [kStatFrom : kStatSharingOptions])
-      }
     }
     shareController?.present(inParentViewController: self, anchorView: senderView)
   }

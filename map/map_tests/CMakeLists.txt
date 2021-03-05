@@ -80,7 +80,6 @@ omim_link_libraries(
   stb_image
   succinct
   tess2
-  stats_client
   vulkan_wrapper
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Network_LIBRARIES}

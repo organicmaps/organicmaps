@@ -23,7 +23,6 @@ class BottomMenuLayersCell: UITableViewCell {
   }
   
   var onClose: (()->())?
-  var source: String = kStatMenu
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -70,32 +69,20 @@ class BottomMenuLayersCell: UITableViewCell {
   @IBAction func onGuidesButtonPressed(_ sender: Any) {
     let enable = !MapOverlayManager.guidesEnabled()
     MapOverlayManager.setGuidesEnabled(enable)
-    Statistics.logEvent(kStatLayersClick, withParameters: [kStatName : kStatGuides,
-                                                           kStatFrom : source,
-                                                           kStatTurnOn : enable])
   }
   @IBAction func onTrafficButton(_ sender: Any) {
     let enable = !MapOverlayManager.trafficEnabled()
     MapOverlayManager.setTrafficEnabled(enable)
-    Statistics.logEvent(kStatLayersClick, withParameters: [kStatName : kStatTraffic,
-                                                           kStatFrom : source,
-                                                           kStatTurnOn : enable])
   }
   
   @IBAction func onSubwayButton(_ sender: Any) {
     let enable = !MapOverlayManager.transitEnabled()
     MapOverlayManager.setTransitEnabled(enable)
-    Statistics.logEvent(kStatLayersClick, withParameters: [kStatName : kStatSubway,
-                                                           kStatFrom : source,
-                                                           kStatTurnOn : enable])
   }
   
   @IBAction func onIsoLinesButton(_ sender: Any) {
     let enable = !MapOverlayManager.isoLinesEnabled()
     MapOverlayManager.setIsoLinesEnabled(enable)
-    Statistics.logEvent(kStatLayersClick, withParameters: [kStatName : kStatIsolines,
-                                                           kStatFrom : source,
-                                                           kStatTurnOn : enable])
   }
 }
 

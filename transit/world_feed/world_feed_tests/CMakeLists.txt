@@ -43,7 +43,6 @@ omim_link_libraries(
     agg
     jansson
     protobuf
-    stats_client
     minizip
     succinct
     pugixml

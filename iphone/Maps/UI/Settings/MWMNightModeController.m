@@ -1,6 +1,5 @@
 #import "MWMNightModeController.h"
 #import "MWMSettings.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 @interface MWMNightModeController ()
@@ -37,23 +36,12 @@
     return;
 
   _selectedCell = cell;
-  NSString * statValue = @"";
   if ([cell isEqual:self.on])
-  {
     [MWMSettings setTheme:MWMThemeNight];
-    statValue = kStatOn;
-  }
   else if ([cell isEqual:self.off])
-  {
     [MWMSettings setTheme:MWMThemeDay];
-    statValue = kStatOff;
-  }
   else if ([cell isEqual:self.autoSwitch])
-  {
     [MWMSettings setTheme:MWMThemeAuto];
-    statValue = kStatValue;
-  }
-  [Statistics logEvent:kStatNightMode withParameters:@{kStatValue : statValue}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -44,30 +44,25 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
   }
 
   func addPlace() {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatItem : kStatAddPlace])
     delegate?.addPlace()
   }
 
   func downloadRoutes() {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatItem : kStatDownloadGuides])
     close()
     mapViewController?.openCatalog(animated: true, utm: .toolbarButton)
   }
 
   func downloadMaps() {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatItem : kStatDownloadMaps])
     close()
     self.delegate?.actionDownloadMaps(.downloaded)
   }
 
   func openSettings() {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatItem : kStatSettings])
     close()
     mapViewController?.performSegue(withIdentifier: "Map2Settings", sender: nil)
   }
 
   func shareLocation(cell: BottomMenuItemCell) {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatItem : kStatShareMyLocation])
     let lastLocation = LocationManager.lastLocation()
     guard let coordinates = lastLocation?.coordinate else {
       UIAlertView(title: L("unknown_current_position"),

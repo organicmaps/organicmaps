@@ -351,22 +351,6 @@ extension PlacePageCommonLayout {
       return
     }
 
-    let statPlacement: String
-    switch (self.placePageData.sponsoredType)
-    {
-    case .promoCatalogCity:
-      statPlacement = kStatPlacePageToponims;
-    case .promoCatalogSightseeings:
-      statPlacement = kStatPlacePageSightSeeing;
-    case .promoCatalogOutdoor:
-      statPlacement = kStatPlacePageOutdoor;
-    default:
-      statPlacement =  kStatUnknownError;
-    }
-    Statistics.logEvent(kStatPlacepageSponsoredShow, withParameters: [kStatProvider: kStatMapsmeGuides,
-                                                                      kStatState: kStatOnline,
-                                                                      kStatCount: catalogPromo.promoItems.count,
-                                                                      kStatPlacement: statPlacement])
     updateCatalogPromoVisibility()
   }
 

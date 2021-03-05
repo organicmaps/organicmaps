@@ -7,18 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3462FD911DC1E1C400906FD7 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD901DC1E1C400906FD7 /* libalohalitics.a */; };
 		3462FD931DC1E1DD00906FD7 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD921DC1E1DD00906FD7 /* libeditor.a */; };
 		3462FD951DC1E1EF00906FD7 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD941DC1E1EF00906FD7 /* libpugixml.a */; };
 		3462FD971DC1E1FC00906FD7 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD961DC1E1FC00906FD7 /* liboauthcpp.a */; };
-		3462FD981DC1E22800906FD7 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD901DC1E1C400906FD7 /* libalohalitics.a */; };
 		3462FD9A1DC1E24400906FD7 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD991DC1E24400906FD7 /* libjansson.a */; };
 		3462FD9B1DC1E26800906FD7 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD921DC1E1DD00906FD7 /* libeditor.a */; };
 		3462FD9C1DC1E27300906FD7 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD941DC1E1EF00906FD7 /* libpugixml.a */; };
 		3462FD9D1DC1E27D00906FD7 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD961DC1E1FC00906FD7 /* liboauthcpp.a */; };
 		3462FD9F1DC1E28D00906FD7 /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD9E1DC1E28D00906FD7 /* libsearch.a */; };
 		3462FDA11DC1E29E00906FD7 /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FDA01DC1E29E00906FD7 /* libsuccinct.a */; };
-		3462FDA21DC1E2D300906FD7 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD901DC1E1C400906FD7 /* libalohalitics.a */; };
 		3462FDA31DC1E2D600906FD7 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD941DC1E1EF00906FD7 /* libpugixml.a */; };
 		3462FDA41DC1E2DA00906FD7 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD921DC1E1DD00906FD7 /* libeditor.a */; };
 		3462FDA51DC1E2F300906FD7 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD961DC1E1FC00906FD7 /* liboauthcpp.a */; };
@@ -265,7 +262,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3462FD901DC1E1C400906FD7 /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Release/libalohalitics.a"; sourceTree = "<group>"; };
 		3462FD921DC1E1DD00906FD7 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-build/xcode/Release/libeditor.a"; sourceTree = "<group>"; };
 		3462FD941DC1E1EF00906FD7 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-build/xcode/Release/libpugixml.a"; sourceTree = "<group>"; };
 		3462FD961DC1E1FC00906FD7 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-build/xcode/Release/liboauthcpp.a"; sourceTree = "<group>"; };
@@ -421,7 +417,6 @@
 				674A28D61B1C8001001A525C /* librouting.a in Frameworks */,
 				674A28CE1B1C7FED001A525C /* libcoding.a in Frameworks */,
 				674A28CF1B1C7FED001A525C /* libgenerator.a in Frameworks */,
-				3462FD981DC1E22800906FD7 /* libalohalitics.a in Frameworks */,
 				674A28D01B1C7FED001A525C /* libgeometry.a in Frameworks */,
 				674A28D11B1C7FED001A525C /* libgflags.a in Frameworks */,
 				674A28D21B1C7FED001A525C /* libindexer.a in Frameworks */,
@@ -443,7 +438,6 @@
 				673746771CF47E83005E6D1F /* Cocoa.framework in Frameworks */,
 				3462FDAA1DC1E32C00906FD7 /* libsearch.a in Frameworks */,
 				6737466B1CF47D82005E6D1F /* libplatform.a in Frameworks */,
-				3462FDA21DC1E2D300906FD7 /* libalohalitics.a in Frameworks */,
 				673746711CF47E14005E6D1F /* librouting.a in Frameworks */,
 				6737466D1CF47D82005E6D1F /* libgeometry.a in Frameworks */,
 				3462FDA51DC1E2F300906FD7 /* liboauthcpp.a in Frameworks */,
@@ -478,7 +472,6 @@
 				3462FD971DC1E1FC00906FD7 /* liboauthcpp.a in Frameworks */,
 				3462FD951DC1E1EF00906FD7 /* libpugixml.a in Frameworks */,
 				3462FD931DC1E1DD00906FD7 /* libeditor.a in Frameworks */,
-				3462FD911DC1E1C400906FD7 /* libalohalitics.a in Frameworks */,
 				34F558571DBF3CD800A4FC11 /* libstdc++.tbd in Frameworks */,
 				67BC92C61D17FDE600A4A378 /* OpenGL.framework in Frameworks */,
 				67BC92BC1D17FD5800A4A378 /* libagg.a in Frameworks */,
@@ -581,7 +574,6 @@
 				3462FD961DC1E1FC00906FD7 /* liboauthcpp.a */,
 				3462FD941DC1E1EF00906FD7 /* libpugixml.a */,
 				3462FD921DC1E1DD00906FD7 /* libeditor.a */,
-				3462FD901DC1E1C400906FD7 /* libalohalitics.a */,
 				34F558561DBF3CD800A4FC11 /* libstdc++.tbd */,
 			);
 			name = Frameworks;

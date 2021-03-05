@@ -43,7 +43,6 @@ omim_link_libraries(
   protobuf
   minizip
   icu
-  stats_client
   gflags
   ${LIBZ}
 )

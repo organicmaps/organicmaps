@@ -64,7 +64,6 @@
 		3DA5714320B5CC80007BDE27 /* booking_filter_processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5713E20B5CC7F007BDE27 /* booking_filter_processor.hpp */; };
 		3DA571F020C19262007BDE27 /* interactive_search_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA571EF20C19262007BDE27 /* interactive_search_test.cpp */; };
 		3DA571F120C19289007BDE27 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29EE1B26FD5F001A525C /* testingmain.cpp */; };
-		3DA571F320C1935B007BDE27 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA571F220C1935B007BDE27 /* libalohalitics.a */; };
 		3DA571F520C1935B007BDE27 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA571F420C1935B007BDE27 /* libbase.a */; };
 		3DA571F720C1935B007BDE27 /* libeditor_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA571F620C1935B007BDE27 /* libeditor_tests_support.a */; };
 		3DA571F920C1935B007BDE27 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA571F820C1935B007BDE27 /* libeditor.a */; };
@@ -175,7 +174,6 @@
 		671ED39120D4046D00D4317E /* libeditor_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED39020D4046D00D4317E /* libeditor_tests_support.a */; };
 		674231CB1DF984F600913FEB /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674231CA1DF984F600913FEB /* libtraffic.a */; };
 		674A29F01B26FD6F001A525C /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29EE1B26FD5F001A525C /* testingmain.cpp */; };
-		674A2A0D1B26FE62001A525C /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F11B26FE62001A525C /* libalohalitics.a */; };
 		674A2A101B26FE62001A525C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F41B26FE62001A525C /* libbase.a */; };
 		674A2A111B26FE62001A525C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F51B26FE62001A525C /* libcoding.a */; };
 		674A2A131B26FE62001A525C /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29F71B26FE62001A525C /* libexpat.a */; };
@@ -371,7 +369,6 @@
 		3DA5713E20B5CC7F007BDE27 /* booking_filter_processor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter_processor.hpp; sourceTree = "<group>"; };
 		3DA571D820C1921D007BDE27 /* map_integration_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = map_integration_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA571EF20C19262007BDE27 /* interactive_search_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interactive_search_test.cpp; sourceTree = "<group>"; };
-		3DA571F220C1935B007BDE27 /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA571F420C1935B007BDE27 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA571F620C1935B007BDE27 /* libeditor_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeditor_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA571F820C1935B007BDE27 /* libeditor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeditor.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -483,7 +480,6 @@
 		674A29CF1B26FCFE001A525C /* mwm_url_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_url_tests.cpp; sourceTree = "<group>"; };
 		674A29DF1B26FD1C001A525C /* map_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = map_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		674A29EE1B26FD5F001A525C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
-		674A29F11B26FE62001A525C /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		674A29F41B26FE62001A525C /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		674A29F51B26FE62001A525C /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		674A29F61B26FE62001A525C /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
@@ -606,7 +602,6 @@
 				3DA5721A20C1946F007BDE27 /* libcoding.a in Frameworks */,
 				3DA5721C20C1946F007BDE27 /* libgeometry.a in Frameworks */,
 				3DA5721820C1935C007BDE27 /* libmap.a in Frameworks */,
-				3DA571F320C1935B007BDE27 /* libalohalitics.a in Frameworks */,
 				3DA571F520C1935B007BDE27 /* libbase.a in Frameworks */,
 				3DA571F720C1935B007BDE27 /* libeditor_tests_support.a in Frameworks */,
 				3DA571F920C1935B007BDE27 /* libeditor.a in Frameworks */,
@@ -671,7 +666,6 @@
 				67F183841BD5049500AB1840 /* libtess2.a in Frameworks */,
 				67F183751BD5041700AB1840 /* libz.tbd in Frameworks */,
 				674A2A2F1B26FF7B001A525C /* libmap.a in Frameworks */,
-				674A2A0D1B26FE62001A525C /* libalohalitics.a in Frameworks */,
 				674A2A101B26FE62001A525C /* libbase.a in Frameworks */,
 				674A2A111B26FE62001A525C /* libcoding.a in Frameworks */,
 				674A2A131B26FE62001A525C /* libexpat.a in Frameworks */,
@@ -732,7 +726,6 @@
 				3DA5722520C194B8007BDE27 /* libpugixml.a */,
 				3DA5721920C1946F007BDE27 /* libcoding.a */,
 				3DA5721B20C1946F007BDE27 /* libgeometry.a */,
-				3DA571F220C1935B007BDE27 /* libalohalitics.a */,
 				3DA571F420C1935B007BDE27 /* libbase.a */,
 				3DA571F620C1935B007BDE27 /* libeditor_tests_support.a */,
 				3DA571F820C1935B007BDE27 /* libeditor.a */,
@@ -866,7 +859,6 @@
 				674A2A2D1B26FF4F001A525C /* Cocoa.framework */,
 				674A2A2B1B26FF38001A525C /* IOKit.framework */,
 				674A2A291B26FF24001A525C /* CoreFoundation.framework */,
-				674A29F11B26FE62001A525C /* libalohalitics.a */,
 				674A29F41B26FE62001A525C /* libbase.a */,
 				674A29F51B26FE62001A525C /* libcoding.a */,
 				674A29F61B26FE62001A525C /* libdrape.a */,

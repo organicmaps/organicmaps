@@ -22,7 +22,6 @@
 #include <sys/utsname.h>
 #include <sys/xattr.h>
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #import <AdSupport/AdSupport.h>
 #import <CoreFoundation/CFURL.h>
@@ -128,7 +127,7 @@ std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::
 int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
 int Platform::PreCachingDepth() const { return 2; }
 
-std::string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
+std::string Platform::UniqueClientId() const { return "TODO"; }
 
 std::string Platform::AdvertisingId() const
 {

@@ -32,22 +32,6 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
   }
 
   @Override
-  public void onResume()
-  {
-    super.onResume();
-    org.alohalytics.Statistics.logEvent("$onResume", getClass().getSimpleName() + ":" +
-                                                     UiUtils.deviceOrientationAsString(getActivity()));
-  }
-
-  @Override
-  public void onPause()
-  {
-    super.onPause();
-    org.alohalytics.Statistics.logEvent("$onPause", getClass().getSimpleName() + ":" +
-                                                    UiUtils.deviceOrientationAsString(getActivity()));
-  }
-
-  @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);

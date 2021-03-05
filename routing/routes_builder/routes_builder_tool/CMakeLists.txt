@@ -33,7 +33,6 @@ omim_link_libraries(
   opening_hours
   protobuf
   opening_hours
-  stats_client
   succinct
   gflags
   ${LIBZ}

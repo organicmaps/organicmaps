@@ -1,9 +1,7 @@
 #import "MWMLocationAlert.h"
 #import "MWMAlertViewController.h"
-#import "Statistics.h"
 
 static NSString * const kLocationAlertNibName = @"MWMLocationAlert";
-static NSString * const kStatisticsEvent = @"Location Alert";
 
 @interface MWMLocationAlert ()
 
@@ -16,7 +14,6 @@ static NSString * const kStatisticsEvent = @"Location Alert";
 
 + (instancetype)alertWithCancelBlock:(MWMVoidBlock)cancelBlock
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMLocationAlert * alert =
       [NSBundle.mainBundle loadNibNamed:kLocationAlertNibName owner:nil options:nil].firstObject;
   [alert setNeedsCloseAlertAfterEnterBackground];
@@ -26,7 +23,6 @@ static NSString * const kStatisticsEvent = @"Location Alert";
 
 - (IBAction)settingsTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
   [self close:^{
     NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     UIApplication * a = UIApplication.sharedApplication;
@@ -37,7 +33,6 @@ static NSString * const kStatisticsEvent = @"Location Alert";
 
 - (IBAction)closeTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
   [self close:self.cancelBlock];
 }
 

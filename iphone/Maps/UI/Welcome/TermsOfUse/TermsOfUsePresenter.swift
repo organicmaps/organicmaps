@@ -26,7 +26,6 @@ extension TermsOfUsePresenter: ITermsOfUsePresenter {
   }
 
   func onAppear() {
-    Statistics.logEvent(kStatOnboardingScreenShow, withParameters: [kStatType: kStatAgreement])
   }
 
   func onNext() {
@@ -35,10 +34,8 @@ extension TermsOfUsePresenter: ITermsOfUsePresenter {
     WelcomeStorage.termsOfUseLink = termsOfUseLink
     WelcomeStorage.acceptTime = Date()
     router.onNext()
-    Statistics.logEvent(kStatOnboardingScreenAccept, withParameters: [kStatType: kStatAgreement])
   }
 
   func onClose() {
-
   }
 }

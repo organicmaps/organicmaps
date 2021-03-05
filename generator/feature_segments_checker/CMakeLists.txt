@@ -30,7 +30,6 @@ omim_link_libraries(
   oauthcpp
   opening_hours
   protobuf
-  stats_client
   succinct
   ${LIBZ}
 )

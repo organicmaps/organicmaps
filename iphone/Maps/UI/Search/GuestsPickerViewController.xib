@@ -109,7 +109,6 @@
                                         <constraint firstAttribute="width" constant="100" id="KqJ-Cs-Aug"/>
                                     </constraints>
                                     <connections>
-                                        <action selector="onStepperValueChanged:" destination="-1" eventType="valueChanged" id="v6h-4b-t3o"/>
                                     </connections>
                                 </view>
                             </subviews>
@@ -170,7 +169,6 @@
                                         <constraint firstAttribute="height" constant="38" id="sap-u6-Aam"/>
                                     </constraints>
                                     <connections>
-                                        <action selector="onStepperValueChanged:" destination="-1" eventType="valueChanged" id="t6F-CW-gcf"/>
                                     </connections>
                                 </view>
                             </subviews>
@@ -231,7 +229,6 @@
                                         <constraint firstAttribute="width" constant="100" id="QLu-c2-LGX"/>
                                     </constraints>
                                     <connections>
-                                        <action selector="onStepperValueChanged:" destination="-1" eventType="valueChanged" id="8WU-RP-hOq"/>
                                     </connections>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="3 - 16 years old" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sc-U2-ZDP">
@@ -295,7 +292,6 @@
                                         <constraint firstAttribute="height" constant="38" id="ycS-ih-Kec"/>
                                     </constraints>
                                     <connections>
-                                        <action selector="onStepperValueChanged:" destination="-1" eventType="valueChanged" id="1lY-4P-4fL"/>
                                     </connections>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="0 - 3 years old" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s1L-9S-yeM">

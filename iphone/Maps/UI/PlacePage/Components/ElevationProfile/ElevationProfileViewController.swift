@@ -45,16 +45,6 @@ class ElevationProfileViewController: UIViewController {
     }
   }
 
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    presenter?.onAppear()
-  }
-
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
-    presenter?.onDissapear()
-  }
-
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     descriptionCollectionView.reloadData()

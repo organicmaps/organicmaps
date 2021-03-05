@@ -94,12 +94,6 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
     [request setHTTPMethod:@"POST"];
     [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
   }
-  // set user-agent with unique client id only for mapswithme requests
-  if (url.find("mapswithme.com") != std::string::npos)
-  {
-    static std::string const uid = GetPlatform().UniqueClientId();
-    [request addValue:@(uid.c_str()) forHTTPHeaderField:@"User-Agent"];
-  }
   
 #ifdef OMIM_OS_IPHONE
   [downloadIndicator disableStandby];

@@ -64,8 +64,6 @@ class GuidesNavigationBarViewController: UIViewController {
 
   @objc func onBackPressed(_ sender: Any) {
     MapViewController.shared()?.bookmarksCoordinator.open()
-    Statistics.logEvent(kStatBackClick, withParameters: [kStatFrom: kStatMap,
-                                                         kStatTo: kStatBookmarks])
   }
 
   @objc func onCancelPessed(_ sender: Any) {

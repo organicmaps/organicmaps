@@ -1,7 +1,5 @@
 #import "MWMShareActivityItem.h"
-#import "Statistics.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include <CoreApi/Framework.h>
 #import <CoreApi/PlacePageData.h>
@@ -93,11 +91,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 - (id)activityViewController:(UIActivityViewController *)activityViewController
          itemForActivityType:(NSString *)activityType
 {
-  NSString * event = @"MWMShareLocationActivityItem:activityViewController:itemForActivityType:";
   NSString * type = activityType;
-  [Statistics logEvent:kStatEventName(kStatShare, kStatLocation)
-        withParameters:@{kStatAction : type}];
-  [Alohalytics logEvent:event withValue:type];
   if ([UIActivityTypePostToTwitter isEqualToString:type])
     return self.itemForTwitter;
   return [self itemDefaultWithActivityType:type];

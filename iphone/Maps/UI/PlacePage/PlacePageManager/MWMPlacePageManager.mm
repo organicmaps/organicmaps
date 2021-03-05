@@ -18,34 +18,7 @@
 
 using namespace storage;
 
-namespace
-{
-void logSponsoredEvent(PlacePageData *data, NSString *eventName)
-{
-  NSMutableDictionary *stat = [NSMutableDictionary dictionary];
-  if (data.hotelBooking != nil)
-  {
-    stat[kStatProvider] = kStatBooking;
-    stat[kStatHotel] = data.hotelBooking.hotelId;
-    stat[kStatHotelLocation] = makeLocationEventValue(data.locationCoordinate.latitude,
-                                                      data.locationCoordinate.longitude);
-  }
-  else if (data.isPartner)
-  {
-    stat[kStatProvider] = data.partnerName;
-    stat[kStatObjectLat] = @(data.locationCoordinate.latitude);
-    stat[kStatObjectLon] = @(data.locationCoordinate.longitude);
-  }
-  else
-  {
-    stat[kStatProvider] = kStatPlacePageHotelSearch;
-    stat[kStatHotelLocation] = makeLocationEventValue(data.locationCoordinate.latitude,
-                                                      data.locationCoordinate.longitude);
-  }
-
-  [Statistics logEvent:eventName withParameters:stat atLocation:[MWMLocationManager lastLocation]];
-}
-
+namespace {
 void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 {
   auto const userPos = GetFramework().GetCurrentPosition();
@@ -57,8 +30,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 @interface MWMPlacePageManager ()<MWMGCReviewSaver>
 
 @property(nonatomic) storage::NodeStatus currentDownloaderStatus;
-
-@property(nonatomic) BOOL isSponsoredOpenLogged;
 
 @end
 
@@ -77,18 +48,12 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 - (void)closePlacePage { GetFramework().DeactivateMapSelection(true); }
 
 - (void)routeFrom:(PlacePageData *)data {
-  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
-        withParameters:@{kStatValue : kStatSource}];
-
   MWMRoutePoint *point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:0];
   [MWMRouter buildFromPoint:point bestRouter:YES];
   [self closePlacePage];
 }
 
 - (void)routeTo:(PlacePageData *)data {
-  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
-        withParameters:@{kStatValue : kStatDestination}];
-
   if ([MWMRouter isOnRoute]) {
     [MWMRouter stopRouting];
   }
@@ -126,37 +91,12 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   [self closePlacePage];
 }
 
-+ (NSString *)taxiProviderStatisticsString:(PlacePageTaxiProvider)provider
-{
-  switch (provider)
-  {
-  case PlacePageTaxiProviderNone: return kStatUnknown;
-  case PlacePageTaxiProviderUber: return kStatUber;
-  case PlacePageTaxiProviderYandex: return kStatYandex;
-  case PlacePageTaxiProviderMaxim: return kStatMaxim;
-  case PlacePageTaxiProviderRutaxi: return kStatVezet;
-  case PlacePageTaxiProviderFreenow: return kStatFreenow;
-  case PlacePageTaxiProviderYango: return kStatYango;
-  case PlacePageTaxiProviderCitymobil: return kStatCitymobil;
-  }
-}
-
 - (void)orderTaxi:(PlacePageData *)data
 {
-  NSString * providerString = [MWMPlacePageManager taxiProviderStatisticsString:data.taxiProvider];
-
-  [Statistics logEvent:kStatPlacePageTaxiClick
-        withParameters:@{kStatProvider : providerString, kStatTags : data.statisticsTags}];
   [MWMRouter setType:MWMRouterTypeTaxi];
   MWMRoutePoint * point = [self routePointWithData:data pointType:MWMRoutePointTypeFinish intermediateIndex:0];
   [MWMRouter buildToPoint:point bestRouter:NO];
   [self closePlacePage];
-}
-
-- (void)logTaxiShown:(PlacePageData *)data
-{
-  NSString * providerString = [MWMPlacePageManager taxiProviderStatisticsString:data.taxiProvider];
-  [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{kStatProvider : providerString}];
 }
 
 - (MWMRoutePoint *)routePointWithData:(PlacePageData *)data
@@ -227,34 +167,28 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 }
 
 - (void)share:(PlacePageData *)data {
-  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatShare)];
   MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForPlacePage:data];
   [shareVC presentInParentViewController:self.ownerViewController anchorView:nil]; // TODO: add anchor for iPad
 }
 
 - (void)editPlace
 {
-  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
   GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kEditorEditDiscovered);
   [self.ownerViewController openEditor];
 }
 
 - (void)addBusiness
 {
-  [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatPlacePage}];
   [[MWMMapViewControlsManager manager] addPlace:YES hasPoint:NO point:m2::PointD()];
 }
 
 - (void)addPlace:(CLLocationCoordinate2D)coordinate
 {
-  [Statistics logEvent:kStatEditorAddClick
-        withParameters:@{kStatValue : kStatPlacePageNonBuilding}];
   [[MWMMapViewControlsManager manager] addPlace:NO hasPoint:YES point:location_helpers::ToMercator(coordinate)];
 }
 
 - (void)addBookmark:(PlacePageData *)data {
   RegisterEventIfPossible(eye::MapObject::Event::Type::AddToBookmark);
-  [Statistics logEvent:kStatBookmarkCreated];
 
   auto &f = GetFramework();
   auto &bmManager = f.GetBookmarkManager();
@@ -279,9 +213,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 
 - (void)removeBookmark:(PlacePageData *)data
 {
-  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
-        withParameters:@{kStatValue : kStatRemove}];
-
   auto &f = GetFramework();
   f.GetBookmarkManager().GetEditSession().DeleteBookmark(data.bookmarkData.bookmarkId);
 
@@ -312,16 +243,13 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 }
 
 - (void)searchBookingHotels:(PlacePageData *)data {
-  logSponsoredEvent(data, kStatPlacePageHotelBook);
   NSURL *url = [NSURL URLWithString:data.bookingSearchUrl];
   NSAssert(url, @"Search url can't be nil!");
   [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
 }
 
-- (void)openPartner:(PlacePageData *)data withStatisticLog:(NSString *)eventName proposedUrl:(NSURL *)proposedUrl
+- (void)openPartner:(PlacePageData *)data proposedUrl:(NSURL *)proposedUrl
 {
-  logSponsoredEvent(data, eventName);
-
   NSURL *deeplink = [NSURL URLWithString:data.sponsoredDeeplink];
   if (deeplink != nil && [UIApplication.sharedApplication canOpenURL:deeplink]) {
     [UIApplication.sharedApplication openURL:deeplink options:@{} completionHandler:nil];
@@ -340,18 +268,17 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 
 - (void)book:(PlacePageData *)data {
   NSURL *url = [NSURL URLWithString:data.sponsoredURL];
-  [self openPartner:data withStatisticLog:kStatPlacePageHotelBook proposedUrl:url];
+  [self openPartner:data proposedUrl:url];
 }
 
 - (void)openDescriptionUrl:(PlacePageData *)data {
   NSURL *url = [NSURL URLWithString:data.sponsoredDescriptionURL];
-  [self openPartner:data withStatisticLog:kStatPlacePageHotelDetails proposedUrl:url];
+  [self openPartner:data proposedUrl:url];
 }
 
 - (void)openMoreUrl:(PlacePageData *)data {
   NSURL *url = [NSURL URLWithString:data.sponsoredMoreURL];
   if (!url) { return; }
-  logSponsoredEvent(data, kStatPlacePageHotelMore);
   [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
   auto mercator = location_helpers::ToMercator(data.locationCoordinate);
   [MWMEye transitionToBookingWithPos:CGPointMake(mercator.x, mercator.y)];
@@ -359,36 +286,29 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 
 - (void)openReviewUrl:(PlacePageData *)data {
   NSURL *url = [NSURL URLWithString:data.sponsoredReviewURL];
-  [self openPartner:data withStatisticLog:kStatPlacePageHotelReviews proposedUrl:url];
+  [self openPartner:data proposedUrl:url];
 }
 
 - (void)openPartner:(PlacePageData *)data
 {
-  logSponsoredEvent(data, kStatPlacePageSponsoredActionButtonClick);
   NSURL *url = [NSURL URLWithString:data.sponsoredURL];
   NSAssert(url, @"Partner url can't be nil!");
   [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
 }
 
 - (void)avoidDirty {
-  [Statistics logEvent:kStatPlacepageDrivingOptionsAction
-        withParameters:@{kStatType : [kStatUnpaved capitalizedString]}];
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeDirty];
   [self closePlacePage];
 }
 
 
 - (void)avoidFerry {
-  [Statistics logEvent:kStatPlacepageDrivingOptionsAction
-        withParameters:@{kStatType : [kStatFerry capitalizedString]}];
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeFerry];
   [self closePlacePage];
 }
 
 
 - (void)avoidToll {
-  [Statistics logEvent:kStatPlacepageDrivingOptionsAction
-        withParameters:@{kStatType : [kStatToll capitalizedString]}];
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeToll];
   [self closePlacePage];
 }
@@ -397,26 +317,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
                   rating:(UgcSummaryRatingType)value
               fromSource:(MWMUGCReviewSource)source {
   RegisterEventIfPossible(eye::MapObject::Event::Type::UgcEditorOpened);
-  NSString *sourceString;
-  switch (source) {
-    case MWMUGCReviewSourcePlacePage:
-      sourceString = kStatPlacePage;
-      break;
-    case MWMUGCReviewSourcePlacePagePreview:
-      sourceString = kStatPlacePagePreview;
-      break;
-    case MWMUGCReviewSourceNotification:
-      sourceString = kStatNotification;
-      break;
-  }
-  [Statistics logEvent:kStatUGCReviewStart
-        withParameters:@{
-          kStatIsAuthenticated: @([MWMUser isAuthenticated]),
-          kStatIsOnline: @(GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_NONE),
-          kStatMode: kStatAdd,
-          kStatFrom: sourceString
-        }];
-
   MWMUGCAddReviewController *ugcVC = [[MWMUGCAddReviewController alloc] initWithPlacePageData:data
                                                                                        rating:value
                                                                                         saver:self];
@@ -425,9 +325,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 
 - (void)searchSimilar:(PlacePageData *)data
 {
-  [Statistics logEvent:@"Placepage_Hotel_search_similar"
-        withParameters:@{kStatProvider : data.sponsoredType == PlacePageSponsoredTypeBooking ? kStatBooking : kStatOSM}];
-
   MWMHotelParams * params = [[MWMHotelParams alloc] initWithPlacePageData:data];
   [[MWMSearchManager manager] showHotelFilterWithParams:params
                       onFinishCallback:^{
@@ -437,7 +334,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 }
 
 - (void)showAllFacilities:(PlacePageData *)data {
-  logSponsoredEvent(data, kStatPlacePageHotelFacilities);
   MWMFacilitiesController *vc = [[MWMFacilitiesController alloc] init];
   vc.name = data.previewData.title;
   vc.facilities = data.hotelBooking.facilities;
@@ -448,15 +344,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   NSURL *url = [NSURL URLWithString:data.infoData.localAdsUrl];
   if (!url)
     return;
-
-  auto const & feature = GetFramework().GetCurrentPlacePageInfo().GetID();
-  [Statistics logEvent:kStatPlacePageOwnershipButtonClick
-        withParameters:@{
-                         @"mwm_name" : @(feature.GetMwmName().c_str()),
-                         @"mwm_version" : @(feature.GetMwmVersion()),
-                         @"feature_id" : @(feature.m_index)
-                         }
-            atLocation:[MWMLocationManager lastLocation]];
 
   [self.ownerViewController openUrl:url];
 }
@@ -470,13 +357,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 }
 
 - (void)openCatalogSingleItem:(PlacePageData *)data atIndex:(NSInteger)index {
-  [Statistics logEvent:kStatPlacepageSponsoredItemSelected
-        withParameters:@{
-                         kStatProvider: kStatMapsmeGuides,
-                         kStatPlacement: data.isLargeToponim ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
-                         kStatItem: @(index),
-                         kStatDestination: kStatCatalogue
-                         }];
   NSURL *url = [NSURL URLWithString:data.catalogPromo.promoItems[index].catalogUrl];
   NSURL *patchedUrl = [[MWMBookmarksManager sharedManager] injectCatalogUTMContent:url content:MWMUTMContentView];
   [self openCatalogForURL:patchedUrl];
@@ -484,11 +364,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 
 - (void)openCatalogMoreItems:(PlacePageData *)data {
   [self openCatalogForURL:data.catalogPromo.moreUrl];
-  [Statistics logEvent:kStatPlacepageSponsoredMoreSelected
-        withParameters:@{
-                         kStatProvider: kStatMapsmeGuides,
-                         kStatPlacement: data.isLargeToponim ? kStatPlacePageToponims : kStatPlacePageSightSeeing,
-                         }];
 }
 
 - (void)showRemoveAds {

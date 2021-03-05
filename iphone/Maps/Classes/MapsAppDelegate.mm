@@ -15,10 +15,8 @@
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "NSDate+TimeDistance.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #import <CarPlay/CarPlay.h>
 #import <CoreSpotlight/CoreSpotlight.h>
@@ -183,9 +181,6 @@ using namespace osm_auth_ios;
 
   InitCrashTrackers();
 
-  // Initialize all 3party engines.
-  [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
-
   // We send Alohalytics installation id to Fabric.
   // To make sure id is created, ConfigCrashTrackers must be called after Statistics initialization.
   ConfigCrashTrackers();
@@ -197,13 +192,9 @@ using namespace osm_auth_ios;
 
   [self commonInit];
 
-  if ([Alohalytics isFirstSession]) {
+  if ([FirstSession isFirstSession]) {
     [self firstLaunchSetup];
   } else {
-    if ([MWMSettings statisticsEnabled])
-      [Alohalytics enable];
-    else
-      [Alohalytics disable];
     [self incrementSessionsCountAndCheckForAlert];
 
     // For first launch setup is called by FirstLaunchController
@@ -282,12 +273,7 @@ using namespace osm_auth_ios;
                                                                  text:text
                                                   notificationWrapper:reviewNotification];
     [self.notificationManager showNotification:n];
-    [LocalNotificationManager reviewNotificationWasShown];
   }
-
-  [self runBackgroundTasks:@ [[MWMBackgroundStatisticsUpload new], [MWMBackgroundEditsUpload new],
-                              [MWMBackgroundUGCUpload new]]
-    completionHandler:completionHandler];
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
@@ -374,7 +360,6 @@ using namespace osm_auth_ios;
   auto & f = GetFramework();
   f.EnterForeground();
   [self.mapViewController onGetFocus:YES];
-  [[Statistics instance] applicationDidBecomeActive];
   f.SetRenderingEnabled();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.
@@ -406,46 +391,6 @@ using namespace osm_auth_ios;
   }
 
   return NO;
-}
-
-- (BOOL)initStatistics:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  Statistics *statistics = [Statistics instance];
-  BOOL returnValue = [statistics application:application didFinishLaunchingWithOptions:launchOptions];
-
-  NSString *connectionType;
-  NSString *network = [Statistics connectionTypeString];
-  switch (Platform::ConnectionStatus()) {
-    case Platform::EConnectionType::CONNECTION_NONE:
-      break;
-    case Platform::EConnectionType::CONNECTION_WIFI:
-      connectionType = @"Wi-Fi";
-      break;
-    case Platform::EConnectionType::CONNECTION_WWAN:
-      connectionType = [[CTTelephonyNetworkInfo alloc] init].currentRadioAccessTechnology;
-      break;
-  }
-  if (!connectionType)
-    connectionType = @"Offline";
-  [Statistics logEvent:kStatDeviceInfo
-        withParameters:@{kStatCountry: [AppInfo sharedInfo].countryCode, kStatConnection: connectionType}];
-
-  auto device = UIDevice.currentDevice;
-  device.batteryMonitoringEnabled = YES;
-  auto charging = kStatUnknown;
-  auto const state = device.batteryState;
-  if (state == UIDeviceBatteryStateCharging || state == UIDeviceBatteryStateFull)
-    charging = kStatOn;
-  else if (state == UIDeviceBatteryStateUnplugged)
-    charging = kStatOff;
-
-  [Statistics logEvent:kStatApplicationColdStartupInfo
-        withParameters:@{
-          kStatBattery: @(UIDevice.currentDevice.batteryLevel * 100),
-          kStatCharging: charging,
-          kStatNetwork: network
-        }];
-
-  return returnValue;
 }
 
 - (void)disableDownloadIndicator {
@@ -565,7 +510,6 @@ using namespace osm_auth_ios;
 #pragma mark - Alert logic
 
 - (void)firstLaunchSetup {
-  [MWMSettings setStatisticsEnabled:YES];
   NSString *currentVersion = [NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
   NSUserDefaults *standartDefaults = NSUserDefaults.standardUserDefaults;
   [standartDefaults setObject:currentVersion forKey:kUDFirstVersionKey];
@@ -652,12 +596,10 @@ using namespace osm_auth_ios;
 
 - (void)didOpenNotification:(Notification *)notification {
   if (notification.class == ReviewNotification.class) {
-    [Statistics logEvent:kStatUGCReviewNotificationClicked];
     ReviewNotification *reviewNotification = (ReviewNotification *)notification;
     if (GetFramework().MakePlacePageForNotification(reviewNotification.notificationWrapper.notificationCandidate))
       [[MapViewController sharedController].controlsManager showPlacePageReview];
   } else if (notification.class == AuthNotification.class) {
-    [Statistics logEvent:@"UGC_UnsentNotification_clicked"];
     MapViewController *mapViewController = [MapViewController sharedController];
     [mapViewController.navigationController popToRootViewControllerAnimated:NO];
     [mapViewController showUGCAuth];
@@ -696,8 +638,6 @@ using namespace osm_auth_ios;
     window.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
   }
   [self updateAppearanceFromWindow:self.window toWindow:window isCarplayActivated:YES];
-
-  [Statistics logEvent:kStatCarplayActivated];
 }
 
 - (void)application:(UIApplication *)application
@@ -705,8 +645,6 @@ using namespace osm_auth_ios;
                            fromWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
   [self.carplayService destroy];
   [self updateAppearanceFromWindow:window toWindow:self.window isCarplayActivated:NO];
-
-  [Statistics logEvent:kStatCarplayDeactivated];
 }
 
 - (void)updateAppearanceFromWindow:(UIWindow *)sourceWindow

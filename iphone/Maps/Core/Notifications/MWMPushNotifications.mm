@@ -1,10 +1,8 @@
 #import "MWMPushNotifications.h"
-#import "Statistics.h"
 
 #include "platform/marketing_service.hpp"
 #include "platform/platform.hpp"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
@@ -34,7 +32,6 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
     didReceiveRemoteNotification:(NSDictionary *)userInfo
           fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  [Statistics logEvent:kStatEventName(kStatApplication, kStatPushReceived) withParameters:userInfo];
   completionHandler(UIBackgroundFetchResultNoData);
 }
 

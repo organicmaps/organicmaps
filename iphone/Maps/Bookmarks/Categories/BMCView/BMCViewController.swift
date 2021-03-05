@@ -128,8 +128,6 @@ final class BMCViewController: MWMViewController {
     if let categoriesHeader = tableView.headerView(forSection: viewModel.sectionIndex(section: .categories)) as? BMCCategoriesHeader {
       categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
     }
-    Statistics.logEvent(kStatBookmarkVisibilityChange, withParameters: [kStatFrom : kStatBookmarkList,
-                                                                        kStatAction : visible ? kStatShow : kStatHide])
   }
 
   private func editCategory(at index: Int, anchor: UIView) {
@@ -143,28 +141,20 @@ final class BMCViewController: MWMViewController {
     let settings = L("list_settings")
     actionSheet.addAction(UIAlertAction(title: settings, style: .default, handler: { _ in
       self.openCategorySettings(category: category)
-      Statistics.logEvent(kStatBookmarksListSettingsClick,
-                          withParameters: [kStatOption : kStatListSettings])
     }))
     let showHide = L(category.isVisible ? "hide_from_map" : "zoom_to_country")
     actionSheet.addAction(UIAlertAction(title: showHide, style: .default, handler: { _ in
       self.setCategoryVisible(!category.isVisible, at: index)
       let sectionIndex = self.viewModel.sectionIndex(section: .categories)
       self.tableView.reloadRows(at: [IndexPath(row: index, section: sectionIndex)], with: .none)
-      Statistics.logEvent(kStatBookmarksListSettingsClick,
-                          withParameters: [kStatOption : kStatMakeInvisibleOnMap])
     }))
     let exportFile = L("export_file")
     actionSheet.addAction(UIAlertAction(title: exportFile, style: .default, handler: { _ in
       self.shareCategoryFile(at: index, anchor: anchor)
-      Statistics.logEvent(kStatBookmarksListSettingsClick,
-                          withParameters: [kStatOption : kStatSendAsFile])
     }))
     let delete = L("delete_list")
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in
       viewModel!.deleteCategory(at: index)
-      Statistics.logEvent(kStatBookmarksListSettingsClick,
-                          withParameters: [kStatOption : kStatDeleteGroup])
     })
     deleteAction.isEnabled = (viewModel.numberOfRows(section: .categories) > 1)
     actionSheet.addAction(deleteAction)
@@ -313,7 +303,6 @@ extension BMCViewController: BMCPermissionsCellDelegate {
         } else if result == .cancel {
           viewModel?.pendingPermission(isPending: false)
         } else if result == .error {
-          Statistics.logEvent(kStatBookmarksAuthRequestError)
           viewModel?.pendingPermission(isPending: false)
           MWMAlertViewController.activeAlert().presentAuthErrorAlert {
             self?.permissionAction(permission: permission, anchor: anchor)

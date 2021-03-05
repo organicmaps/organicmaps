@@ -62,19 +62,6 @@ final class GuidesGalleryPresenter {
       $0.guideId == activeGuideId
     }) else { return }
     view.setActiveItem(activeIndex, animated: false)
-    logShowItemAtIndex(activeIndex)
-  }
-
-  private func logShowItemAtIndex(_ index: Int) {
-    let item = galleryItems[index]
-    guard item.downloaded else { return }
-    Statistics.logEvent(kStatPlacepageSponsoredUserItemShown,
-                        withParameters: [kStatProvider : kStatMapsmeGuides,
-                                         kStatPlacement : kStatMap,
-                                         kStatState : kStatOnline,
-                                         kStatItem : index,
-                                         kStatId : item.guideId],
-                        with: .realtime)
   }
 }
 
@@ -89,28 +76,17 @@ extension GuidesGalleryPresenter: IGuidesGalleryPresenter {
       }
       self?.setActiveItem()
     }
-
-
-    Statistics.logEvent(kStatPlacepageSponsoredShow, withParameters: [kStatProvider : kStatMapsmeGuides,
-                                                                      kStatPlacement : kStatMap,
-                                                                      kStatState : kStatOnline,
-                                                                      kStatCount : galleryItems.count])
   }
 
   func selectItemAtIndex(_ index: Int) {
     let galleryItem = galleryItems[index]
     guard let url = URL(string: galleryItem.url) else { return }
     router.openCatalogUrl(url)
-    Statistics.logEvent(kStatPlacepageSponsoredItemSelected, withParameters: [kStatProvider : kStatMapsmeGuides,
-                                                                              kStatPlacement : kStatMap,
-                                                                              kStatItem : index,
-                                                                              kStatDestination : kStatCatalogue])
   }
 
   func scrollToItemAtIndex(_ index: Int) {
     let galleryItem = galleryItems[index]
     interactor.setActiveItem(galleryItem)
-    logShowItemAtIndex(index)
   }
 
   func toggleVisibilityAtIndex(_ index: Int) {

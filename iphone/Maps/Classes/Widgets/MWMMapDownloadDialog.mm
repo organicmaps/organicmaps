@@ -4,7 +4,6 @@
 #import "MWMCircularProgress.h"
 #import "MWMStorage+UI.h"
 #import "MapViewController.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
@@ -125,13 +124,6 @@ using namespace storage;
         MapViewController *controller = self.controller;
         BOOL const isMapVisible = [controller.navigationController.topViewController isEqual:controller];
         if (isMapVisible && !self.isAutoDownloadCancelled && canAutoDownload(m_countryId)) {
-          [Statistics logEvent:kStatDownloaderMapAction
-                withParameters:@{
-                  kStatAction: kStatDownload,
-                  kStatIsAuto: kStatYes,
-                  kStatFrom: kStatMap,
-                  kStatScenario: kStatDownload
-                }];
           m_autoDownloadCountryId = m_countryId;
           [[MWMStorage sharedStorage] downloadNode:@(m_countryId.c_str())
                                          onSuccess:^{
@@ -200,18 +192,10 @@ using namespace storage;
   MWMAlertViewController *avc = self.controller.alertController;
   [self addToSuperview];
   auto const retryBlock = ^{
-    [Statistics logEvent:kStatDownloaderMapAction
-          withParameters:@{
-            kStatAction: kStatRetry,
-            kStatIsAuto: kStatNo,
-            kStatFrom: kStatMap,
-            kStatScenario: kStatDownload
-          }];
     [self showInQueue];
     [[MWMStorage sharedStorage] retryDownloadNode:@(self->m_countryId.c_str())];
   };
   auto const cancelBlock = ^{
-    [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom: kStatMap}];
     [[MWMStorage sharedStorage] cancelDownloadNode:@(self->m_countryId.c_str())];
   };
   switch (errorCode) {
@@ -300,12 +284,6 @@ using namespace storage;
         __weak __typeof(self) ws = self;
         MWMVoidBlock onClick = ^{
           [ws bannerAction];
-          [Statistics logEvent:kStatDownloaderBannerClick
-                withParameters:@{
-                  kStatFrom: kStatMap,
-                  kStatProvider: statProvider,
-                  kStatMWMName: @(self->m_countryId.c_str())
-                }];
         };
 
         UIViewController *controller = [PartnerBannerBuilder buildWithType:bannerType tapHandler:onClick];
@@ -322,11 +300,6 @@ using namespace storage;
           }
           NSURL *url = [NSURL URLWithString:urlString];
           [self.controller openCatalogAbsoluteUrl:url animated:YES utm:MWMUTMDownloadMwmBanner];
-          [Statistics logEvent:kStatDownloaderBannerClick
-                withParameters:@{
-                                 kStatFrom: kStatMap,
-                                 kStatProvider: statProvider
-                                 }];
         }];
         break;
       }
@@ -354,9 +327,6 @@ using namespace storage;
                          self.bannerView.alpha = 1;
                          [self layoutIfNeeded];
                        }];
-      [Statistics
-              logEvent:kStatDownloaderBannerShow
-        withParameters:@{kStatFrom: kStatMap, kStatProvider: statProvider, kStatMWMName: @(self->m_countryId.c_str())}];
     }
   }
 }
@@ -412,17 +382,9 @@ using namespace storage;
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress {
   if (progress.state == MWMCircularProgressStateFailed) {
-    [Statistics logEvent:kStatDownloaderMapAction
-          withParameters:@{
-            kStatAction: kStatRetry,
-            kStatIsAuto: kStatNo,
-            kStatFrom: kStatMap,
-            kStatScenario: kStatDownload
-          }];
     [self showInQueue];
     [[MWMStorage sharedStorage] retryDownloadNode:@(m_countryId.c_str())];
   } else {
-    [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom: kStatMap}];
     if (m_autoDownloadCountryId == m_countryId)
       self.isAutoDownloadCancelled = YES;
     [[MWMStorage sharedStorage] cancelDownloadNode:@(m_countryId.c_str())];
@@ -441,13 +403,6 @@ using namespace storage;
 }
 
 - (IBAction)downloadAction {
-  [Statistics logEvent:kStatDownloaderMapAction
-        withParameters:@{
-          kStatAction: kStatDownload,
-          kStatIsAuto: kStatNo,
-          kStatFrom: kStatMap,
-          kStatScenario: kStatDownload
-        }];
   [[MWMStorage sharedStorage] downloadNode:@(m_countryId.c_str())
                                  onSuccess:^{ [self showInQueue]; }];
 }

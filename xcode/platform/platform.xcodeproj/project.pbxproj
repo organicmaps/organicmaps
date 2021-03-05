@@ -12,7 +12,6 @@
 		34513AFA1DCB37C100471BDA /* marketing_service_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34513AF71DCB37C100471BDA /* marketing_service_ios.mm */; };
 		34513AFB1DCB37C100471BDA /* marketing_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34513AF81DCB37C100471BDA /* marketing_service.cpp */; };
 		34513AFC1DCB37C100471BDA /* marketing_service.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34513AF91DCB37C100471BDA /* marketing_service.hpp */; };
-		3496AB711DC1F5AB00C5DDBA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496AB701DC1F5AB00C5DDBA /* libalohalitics.a */; };
 		34C624BD1DABCCD100510300 /* socket_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C624BB1DABCCD100510300 /* socket_apple.mm */; };
 		34C624BE1DABCCD100510300 /* socket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624BC1DABCCD100510300 /* socket.hpp */; };
 		3D061D1F243F5A6500DA45CB /* downloader_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D061D1D243F5A6500DA45CB /* downloader_utils.hpp */; };
@@ -149,7 +148,6 @@
 		34513AF71DCB37C100471BDA /* marketing_service_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = marketing_service_ios.mm; sourceTree = "<group>"; };
 		34513AF81DCB37C100471BDA /* marketing_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = marketing_service.cpp; sourceTree = "<group>"; };
 		34513AF91DCB37C100471BDA /* marketing_service.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = marketing_service.hpp; sourceTree = "<group>"; };
-		3496AB701DC1F5AB00C5DDBA /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libalohalitics.a"; sourceTree = "<group>"; };
 		34C624BB1DABCCD100510300 /* socket_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = socket_apple.mm; sourceTree = "<group>"; };
 		34C624BC1DABCCD100510300 /* socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socket.hpp; sourceTree = "<group>"; };
 		34F558331DBF273C00A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 				56DAC38223992707000BC50D /* libgeometry.a in Frameworks */,
 				56DAC380239926EF000BC50D /* liboauthcpp.a in Frameworks */,
 				67B30B2A2084B7D8008AEBFD /* CoreLocation.framework in Frameworks */,
-				3496AB711DC1F5AB00C5DDBA /* libalohalitics.a in Frameworks */,
 				678338A71C6DE5E300FD6263 /* libplatform_tests_support.a in Frameworks */,
 				678338A81C6DE5E300FD6263 /* libplatform.a in Frameworks */,
 				678338A21C6DE5BA00FD6263 /* libcoding.a in Frameworks */,
@@ -323,7 +320,6 @@
 				56DAC38123992707000BC50D /* libgeometry.a */,
 				56DAC37F239926EF000BC50D /* liboauthcpp.a */,
 				67B30B292084B7D7008AEBFD /* CoreLocation.framework */,
-				3496AB701DC1F5AB00C5DDBA /* libalohalitics.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

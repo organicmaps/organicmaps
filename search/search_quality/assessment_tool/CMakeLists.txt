@@ -82,7 +82,6 @@ omim_link_libraries(
   protobuf
   pugixml
   sdf_image
-  stats_client
   stb_image
   succinct
   vulkan_wrapper

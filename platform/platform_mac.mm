@@ -9,7 +9,6 @@
 #include <string>
 #include <utility>
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include <IOKit/IOKitLib.h>
 #include <Foundation/NSBundle.h>
@@ -115,7 +114,7 @@ Platform::Platform()
   LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
 }
 
-std::string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
+std::string Platform::UniqueClientId() const { return "TODO"; }
 
 std::string Platform::AdvertisingId() const
 {

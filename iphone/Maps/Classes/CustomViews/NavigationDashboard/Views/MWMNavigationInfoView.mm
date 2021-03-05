@@ -144,8 +144,6 @@ BOOL defaultOrientation(CGSize const &size) {
 
 - (IBAction)openSearch {
   BOOL const isStart = self.toastView.isStart;
-  auto const type = isStart ? kStatRoutingPointTypeStart : kStatRoutingPointTypeFinish;
-  [Statistics logEvent:kStatRoutingTooltipClicked withParameters:@{kStatRoutingPointType: type}];
   auto searchManager = [MWMSearchManager manager];
 
   searchManager.routingTooltipSearch =
@@ -169,12 +167,10 @@ BOOL defaultOrientation(CGSize const &size) {
     case NavigationSearchState::Maximized:
       [MWMSearchManager manager].state = MWMSearchManagerStateDefault;
       [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
-      [Statistics logEvent:kStatRoutingSearchClicked withParameters:@{kStatMode: kStatRoutingModeOnRoute}];
       break;
     case NavigationSearchState::MinimizedNormal:
       if (self.state == MWMNavigationInfoViewStatePrepare) {
         [MWMSearchManager manager].state = MWMSearchManagerStateDefault;
-        [Statistics logEvent:kStatRoutingSearchClicked withParameters:@{kStatMode: kStatRoutingModePlanning}];
       } else {
         [self setSearchState:NavigationSearchState::Maximized animated:YES];
       }
@@ -214,9 +210,6 @@ BOOL defaultOrientation(CGSize const &size) {
 }
 
 - (IBAction)bookmarksButtonTouchUpInside {
-  BOOL const isOnRoute = (self.state == MWMNavigationInfoViewStateNavigation);
-  [Statistics logEvent:kStatRoutingBookmarksClicked
-        withParameters:@{kStatMode: (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)}];
   [[MapViewController sharedController].bookmarksCoordinator open];
 }
 

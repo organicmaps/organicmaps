@@ -44,7 +44,6 @@ omim_link_libraries(
   base
   icu
   jansson
-  stats_client
   pugixml
   tess2
   protobuf

@@ -18,19 +18,16 @@ class SubscriptionPresenter {
 
   private var subscriptionGroup: ISubscriptionGroup?
   private let subscriptionManager: ISubscriptionManager
-  private var source: String = kStatWebView
   private var _debugTrial: Bool = false
 
   init(view: SubscriptionViewProtocol,
        router: SubscriptionRouterProtocol,
        interactor: SubscriptionInteractorProtocol,
-       subscriptionManager: ISubscriptionManager,
-       source: String) {
+       subscriptionManager: ISubscriptionManager) {
     self.view = view
     self.router = router
     self.interactor = interactor
     self.subscriptionManager = subscriptionManager
-    self.source = source
     debugTrial = subscriptionManager === InAppPurchase.allPassSubscriptionManager
   }
 
@@ -39,12 +36,6 @@ class SubscriptionPresenter {
       fatalError()
     }
     view?.setModel(SubscriptionViewModel.trial(SubscriptionViewModel.TrialData(price: trialSubscriptionItem.formattedPrice)))
-
-    Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: subscriptionManager.vendorId,
-                                                         kStatPurchase: subscriptionManager.serverId,
-                                                         kStatProduct: subscriptionManager.productIds[0],
-                                                         kStatFrom: source,
-                                                         kStatInappTrial: true], with: .realtime)
   }
 
   private func configureSubscriptions() {
@@ -60,12 +51,6 @@ class SubscriptionPresenter {
                                                          discount: L("all_pass_screen_best_value")))
     }
     view?.setModel(SubscriptionViewModel.subsctiption(data))
-
-    Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor: subscriptionManager.vendorId,
-                                                         kStatPurchase: subscriptionManager.serverId,
-                                                         kStatProduct: subscriptionManager.productIds[0],
-                                                         kStatFrom: source,
-                                                         kStatInappTrial: false], with: .realtime)
   }
 }
 
@@ -128,13 +113,6 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
       return
     }
     interactor.purchase(anchor: anchor, subscription: subscription, trial: false)
-    Statistics.logEvent(kStatInappSelect, withParameters: [kStatPurchase: subscriptionManager.serverId,
-                                                           kStatProduct: subscription.productId,
-                                                           kStatInappTrial: false],
-                        with: .realtime)
-    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager.serverId,
-                                                        kStatInappTrial: false],
-                        with: .realtime)
   }
 
   func onTermsPressed() {
@@ -147,12 +125,10 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
 
   func onClose() {
     router.cancel()
-    Statistics.logEvent(kStatInappCancel, withParameters: [kStatPurchase: subscriptionManager.serverId])
   }
 
   func restore(anchor: UIView) {
     interactor.restore(anchor: anchor)
-    Statistics.logEvent(kStatInappRestore, withParameters: [kStatPurchase: subscriptionManager.serverId])
   }
 
   func trial(anchor: UIView) {
@@ -160,14 +136,6 @@ extension SubscriptionPresenter: SubscriptionPresenterProtocol {
       return
     }
     interactor.purchase(anchor: anchor, subscription: subscription, trial: true)
-
-    Statistics.logEvent(kStatInappSelect, withParameters: [kStatPurchase: subscriptionManager.serverId,
-                                                           kStatProduct: subscription.productId,
-                                                           kStatInappTrial: true],
-                        with: .realtime)
-    Statistics.logEvent(kStatInappPay, withParameters: [kStatPurchase: subscriptionManager.serverId,
-                                                        kStatInappTrial: true],
-                        with: .realtime)
   }
 
   func onSubscribe() {

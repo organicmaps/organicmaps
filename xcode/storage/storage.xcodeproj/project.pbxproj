@@ -131,7 +131,6 @@
 		67F90B891C6A278800CD458E /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709A81C6215000093DD1B /* libexpat.a */; };
 		67F90B8A1C6A278800CD458E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709A91C6215000093DD1B /* libpugixml.a */; };
 		67F90B8B1C6A278800CD458E /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709A51C6213F10093DD1B /* libmap.a */; };
-		67F90B8C1C6A278800CD458E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF71C60BD5900EDE56A /* libalohalitics.a */; };
 		67F90B8E1C6A278800CD458E /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF31C60BD4000EDE56A /* libcoding.a */; };
 		67F90B8F1C6A278800CD458E /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF41C60BD4000EDE56A /* libjansson.a */; };
 		67F90B901C6A278800CD458E /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF11C60BD1400EDE56A /* libindexer.a */; };
@@ -162,7 +161,6 @@
 		67F90BE51C6A2A3000CD458E /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709A81C6215000093DD1B /* libexpat.a */; };
 		67F90BE61C6A2A3000CD458E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709A91C6215000093DD1B /* libpugixml.a */; };
 		67F90BE71C6A2A3000CD458E /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674709A51C6213F10093DD1B /* libmap.a */; };
-		67F90BE81C6A2A3000CD458E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF71C60BD5900EDE56A /* libalohalitics.a */; };
 		67F90BEA1C6A2A3000CD458E /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF31C60BD4000EDE56A /* libcoding.a */; };
 		67F90BEB1C6A2A3000CD458E /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF41C60BD4000EDE56A /* libjansson.a */; };
 		67F90BEC1C6A2A3000CD458E /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF11C60BD1400EDE56A /* libindexer.a */; };
@@ -318,7 +316,6 @@
 		67247FF11C60BD1400EDE56A /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		67247FF31C60BD4000EDE56A /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		67247FF41C60BD4000EDE56A /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
-		67247FF71C60BD5900EDE56A /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		67247FFF1C60BD7E00EDE56A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		6724800E1C60CE7300EDE56A /* storage_group_download_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_group_download_tests.cpp; sourceTree = "<group>"; };
 		6724800F1C60CE7300EDE56A /* storage_http_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_http_tests.cpp; sourceTree = "<group>"; };
@@ -418,7 +415,6 @@
 				67F90B871C6A278800CD458E /* libdrape_frontend.a in Frameworks */,
 				67F90B791C6A278800CD458E /* libeditor.a in Frameworks */,
 				67F90B7F1C6A278800CD458E /* libopening_hours.a in Frameworks */,
-				67F90B8C1C6A278800CD458E /* libalohalitics.a in Frameworks */,
 				67F90B841C6A278800CD458E /* libsearch.a in Frameworks */,
 				67F90B831C6A278800CD458E /* libsdf_image.a in Frameworks */,
 				67F90B911C6A278800CD458E /* libbase.a in Frameworks */,
@@ -471,7 +467,6 @@
 				67F90BE31C6A2A3000CD458E /* libdrape_frontend.a in Frameworks */,
 				67F90BD51C6A2A3000CD458E /* libeditor.a in Frameworks */,
 				67F90BDB1C6A2A3000CD458E /* libopening_hours.a in Frameworks */,
-				67F90BE81C6A2A3000CD458E /* libalohalitics.a in Frameworks */,
 				67F90BE01C6A2A3000CD458E /* libsearch.a in Frameworks */,
 				67F90BDF1C6A2A3000CD458E /* libsdf_image.a in Frameworks */,
 				67F90BED1C6A2A3000CD458E /* libbase.a in Frameworks */,
@@ -589,7 +584,6 @@
 				674709A81C6215000093DD1B /* libexpat.a */,
 				674709A91C6215000093DD1B /* libpugixml.a */,
 				674709A51C6213F10093DD1B /* libmap.a */,
-				67247FF71C60BD5900EDE56A /* libalohalitics.a */,
 				67247FF31C60BD4000EDE56A /* libcoding.a */,
 				67247FF41C60BD4000EDE56A /* libjansson.a */,
 				67247FF11C60BD1400EDE56A /* libindexer.a */,

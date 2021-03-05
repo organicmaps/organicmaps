@@ -1,6 +1,5 @@
 class AllPassSubscriptionBuilder {
   static func build(parentViewController: UIViewController,
-                    source: String,
                     successDialog: SubscriptionSuccessDialog,
                     subscriptionGroupType: SubscriptionGroupType,
                     completion: ((Bool) -> Void)?,
@@ -17,8 +16,7 @@ class AllPassSubscriptionBuilder {
     let presenter = SubscriptionPresenter(view: viewController,
                                           router: router,
                                           interactor: interactor,
-                                          subscriptionManager: InAppPurchase.allPassSubscriptionManager!,
-                                          source: source)
+                                          subscriptionManager: InAppPurchase.allPassSubscriptionManager!)
 
     interactor.presenter = presenter
     viewController.presenter = presenter

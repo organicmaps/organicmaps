@@ -67,7 +67,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @end
 
 @interface MapViewController () <MWMFrameworkDrapeObserver,
-                                 MWMStorageObserver,
                                  MWMWelcomePageControllerProtocol,
                                  MWMKeyboardObserver,
                                  MWMBookmarksObserver>
@@ -531,7 +530,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [[MWMBookmarksManager sharedManager] addObserver:self];
   [[MWMBookmarksManager sharedManager] loadBookmarks];
   [MWMFrameworkListener addObserver:self];
-  [[MWMStorage sharedStorage] addObserver:self];
 }
 
 - (void)dealloc {
@@ -550,22 +548,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 #pragma mark - Open controllers
 
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode {
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
   [self performSegueWithIdentifier:kDownloaderSegue sender:@(mode)];
 }
 
 - (void)openEditor {
-  using namespace osm_auth_ios;
-
-  auto const &featureID = GetFramework().GetCurrentPlacePageInfo().GetID();
-
-  [Statistics logEvent:kStatEditorEditStart
-        withParameters:@{
-          kStatIsAuthenticated: @(AuthorizationHaveCredentials()),
-          kStatIsOnline: Platform::IsConnected() ? kStatYes : kStatNo,
-          kStatMWMName: @(featureID.GetMwmName().c_str()),
-          kStatEditorMWMVersion: @(featureID.GetMwmVersion())
-        }];
   [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.featureHolder];
 }
 
@@ -574,9 +560,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)openFullPlaceDescriptionWithHtml:(NSString *)htmlString {
-  [Statistics logEvent:kStatPlacePageDescriptionMore
-        withParameters:@{kStatSource: kStatWikipedia}
-           withChannel:StatisticsChannelRealtime];
   WebViewController *descriptionViewController =
     [[PlacePageDescriptionViewController alloc] initWithHtml:htmlString
                                                      baseUrl:nil
@@ -628,7 +611,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)openCatalogAnimated:(BOOL)animated utm:(MWMUTM)utm {
-  [Statistics logEvent:kStatCatalogOpen withParameters:@{kStatFrom: kStatMenu}];
   [self openCatalogAbsoluteUrl:nil animated:animated utm:utm];
 }
 
@@ -681,7 +663,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     case MWMMyPositionModeNotFollowNoPosition:
       break;
     case MWMMyPositionModePendingPosition:
-      if (self.welcomePageController && [Alohalytics isFirstSession]) {
+      if (self.welcomePageController && [FirstSession isFirstSession]) {
         break;
       }
       [MWMLocationManager start];
@@ -723,32 +705,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [self.downloadDialog processViewportCountryEvent:countryId];
 }
 
-#pragma mark - MWMStorageObserver
-
-- (void)processCountryEvent:(NSString *)countryId {
-  if (countryId.length == 0) {
-    return;
-  }
-
-  NodeStatuses nodeStatuses{};
-  GetFramework().GetStorage().GetNodeStatuses(countryId.UTF8String, nodeStatuses);
-  if (nodeStatuses.m_status != NodeStatus::Error)
-    return;
-  switch (nodeStatuses.m_error) {
-    case NodeErrorCode::NoError:
-      break;
-    case NodeErrorCode::UnknownError:
-      [Statistics logEvent:kStatDownloaderMapError withParameters:@{kStatType: kStatUnknownError}];
-      break;
-    case NodeErrorCode::OutOfMemFailed:
-      [Statistics logEvent:kStatDownloaderMapError withParameters:@{kStatType: kStatNoSpace}];
-      break;
-    case NodeErrorCode::NoInetConnection:
-      [Statistics logEvent:kStatDownloaderMapError withParameters:@{kStatType: kStatNoConnection}];
-      break;
-  }
-}
-
 #pragma mark - Authorization
 
 - (void)checkAuthorization {
@@ -758,8 +714,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     AuthorizationSetNeedCheck(NO);
     if (!Platform::IsConnected())
       return;
-    [Statistics logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
-          withParameters:@{kStatValue: kStatAuthorization}];
     [self.alertController presentOsmAuthAlert];
   }
 }
@@ -908,7 +862,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 #pragma mark - MWMBookmarksObserver
 - (void)onBookmarksFileLoadSuccess {
   [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"load_kmz_title") text:L(@"load_kmz_successful")];
-  [Statistics logEvent:kStatEventName(kStatApplication, kStatImport) withParameters:@{kStatValue: kStatImport}];
 }
 
 - (void)onBookmarksFileLoadError {

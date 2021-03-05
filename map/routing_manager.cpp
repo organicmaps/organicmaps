@@ -44,7 +44,6 @@
 #include <map>
 #include <sstream>
 
-#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
 
 using namespace routing;
@@ -319,7 +318,6 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
         [this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
 {
   auto const routingStatisticsFn = [](map<string, string> const & statistics) {
-    alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
     GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kRoutingCalculatingRoute, {});
   };
 
@@ -373,7 +371,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
     {
       if (m_routeSpeedCamShowCallback)
         m_routeSpeedCamShowCallback(point, cameraSpeedKmPH);
-      
+
       auto editSession = m_bmManager->GetEditSession();
       auto mark = editSession.CreateUserMark<SpeedCameraMark>(point);
 
@@ -795,7 +793,7 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
   m_extrapolator.Enable(false);
   // Hide preview.
   HidePreviewSegments();
-  
+
   if (m_routingSession.IsBuilt())
     m_routingSession.EmitCloseRoutingEvent();
   m_routingSession.Reset();

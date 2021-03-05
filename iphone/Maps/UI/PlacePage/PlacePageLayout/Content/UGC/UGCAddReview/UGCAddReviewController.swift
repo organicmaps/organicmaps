@@ -43,13 +43,6 @@ final class UGCAddReviewController: MWMTableViewController {
     configTableView()
   }
 
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
-    if isMovingFromParent && !reviewPosted {
-      Statistics.logEvent(kStatUGCReviewCancel)
-    }
-  }
-
   private func configTableView() {
     tableView.registerNib(cellClass: UGCAddReviewRatingCell.self)
     tableView.registerNib(cellClass: UGCAddReviewTextCell.self)
@@ -77,8 +70,6 @@ final class UGCAddReviewController: MWMTableViewController {
         nc.popViewController(animated: true)
         return
       }
-      
-      Statistics.logEvent(kStatUGCReviewSuccess)
       
       let onSuccess = { Toast.toast(withText: L("ugc_thanks_message_auth")).show() }
       let onError = { Toast.toast(withText: L("ugc_thanks_message_not_auth")).show() }

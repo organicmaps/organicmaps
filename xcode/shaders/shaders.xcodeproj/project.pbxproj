@@ -27,7 +27,6 @@
 		456660F620E25E2E0085E8C1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 456660F520E25E2E0085E8C1 /* libdrape.a */; };
 		456660F720E25E360085E8C1 /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566606E20E254060085E8C1 /* libshaders.a */; };
 		456660F920E25E4C0085E8C1 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456660F820E25E4C0085E8C1 /* OpenGL.framework */; };
-		456660FB20E25EC40085E8C1 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 456660FA20E25EC40085E8C1 /* libalohalitics.a */; };
 		456660FD20E25EDD0085E8C1 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 456660FC20E25EDD0085E8C1 /* libexpat.a */; };
 		456660FF20E25EE30085E8C1 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 456660FE20E25EE30085E8C1 /* libbase.a */; };
 		4566610120E25EE90085E8C1 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566610020E25EE90085E8C1 /* libgeometry.a */; };
@@ -171,7 +170,6 @@
 		456660F220E25AD40085E8C1 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		456660F520E25E2E0085E8C1 /* libdrape.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdrape.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		456660F820E25E4C0085E8C1 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		456660FA20E25EC40085E8C1 /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		456660FC20E25EDD0085E8C1 /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		456660FE20E25EE30085E8C1 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4566610020E25EE90085E8C1 /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,7 +222,6 @@
 				4566610120E25EE90085E8C1 /* libgeometry.a in Frameworks */,
 				456660FF20E25EE30085E8C1 /* libbase.a in Frameworks */,
 				456660FD20E25EDD0085E8C1 /* libexpat.a in Frameworks */,
-				456660FB20E25EC40085E8C1 /* libalohalitics.a in Frameworks */,
 				456660F920E25E4C0085E8C1 /* OpenGL.framework in Frameworks */,
 				4566610720E25F560085E8C1 /* libz.tbd in Frameworks */,
 			);
@@ -393,7 +390,6 @@
 				4566610020E25EE90085E8C1 /* libgeometry.a */,
 				456660FE20E25EE30085E8C1 /* libbase.a */,
 				456660FC20E25EDD0085E8C1 /* libexpat.a */,
-				456660FA20E25EC40085E8C1 /* libalohalitics.a */,
 				456660F820E25E4C0085E8C1 /* OpenGL.framework */,
 				456660F520E25E2E0085E8C1 /* libdrape.a */,
 			);

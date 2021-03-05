@@ -53,7 +53,7 @@ final class WelcomePageController: UIPageViewController {
       controllersToShow.append(TermsOfUseBuilder.build(delegate: vc))
       controllersToShow.append(contentsOf: FirstLaunchBuilder.build(delegate: vc))
     } else {
-      if Alohalytics.isFirstSession() {
+      if FirstSession.isFirstSession() {
         WelcomeStorage.shouldShowTerms = true
         controllersToShow.append(TermsOfUseBuilder.build(delegate: vc))
         controllersToShow.append(contentsOf: FirstLaunchBuilder.build(delegate: vc))

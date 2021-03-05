@@ -23,7 +23,6 @@ omim_link_libraries(
   geometry
   coding
   base
-  stats_client
   oauthcpp
   gflags
   ${LIBZ}

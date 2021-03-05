@@ -20,7 +20,6 @@ omim_link_libraries(
   base
   geometry
   oauthcpp
-  stats_client
   minizip
   ${LIBZ}
   ${Qt5Widgets_LIBRARIES}

@@ -30,7 +30,6 @@
 		3496ABE71DC2035800C5DDBA /* user_stats_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3496ABD71DC2034900C5DDBA /* user_stats_test.cpp */; };
 		3496ABE81DC2035800C5DDBA /* xml_feature_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3496ABD81DC2034900C5DDBA /* xml_feature_test.cpp */; };
 		3496ABE91DC2041800C5DDBA /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3411386B1C15AD97002E3B3E /* libeditor.a */; };
-		3496ABEE1DC2041800C5DDBA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABEB1DC2041800C5DDBA /* libalohalitics.a */; };
 		3496ABEF1DC2041800C5DDBA /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABEC1DC2041800C5DDBA /* libopening_hours.a */; };
 		3496ABF01DC2041800C5DDBA /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABED1DC2041800C5DDBA /* libpugixml.a */; };
 		3496ABF51DC2043800C5DDBA /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABF11DC2043800C5DDBA /* libbase.a */; };
@@ -105,7 +104,6 @@
 		3496ABD61DC2034900C5DDBA /* ui2oh_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ui2oh_test.cpp; sourceTree = "<group>"; };
 		3496ABD71DC2034900C5DDBA /* user_stats_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_stats_test.cpp; sourceTree = "<group>"; };
 		3496ABD81DC2034900C5DDBA /* xml_feature_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xml_feature_test.cpp; sourceTree = "<group>"; };
-		3496ABEB1DC2041800C5DDBA /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		3496ABEC1DC2041800C5DDBA /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-build/xcode/Debug/libopening_hours.a"; sourceTree = "<group>"; };
 		3496ABED1DC2041800C5DDBA /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-build/xcode/Debug/libpugixml.a"; sourceTree = "<group>"; };
 		3496ABF11DC2043800C5DDBA /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-build/xcode/Debug/libbase.a"; sourceTree = "<group>"; };
@@ -194,7 +192,6 @@
 				3496ABF61DC2043800C5DDBA /* libgeometry.a in Frameworks */,
 				3496ABF71DC2043800C5DDBA /* liboauthcpp.a in Frameworks */,
 				3496ABF81DC2043800C5DDBA /* libplatform.a in Frameworks */,
-				3496ABEE1DC2041800C5DDBA /* libalohalitics.a in Frameworks */,
 				3496ABEF1DC2041800C5DDBA /* libopening_hours.a in Frameworks */,
 				3496ABF01DC2041800C5DDBA /* libpugixml.a in Frameworks */,
 				3496ABE91DC2041800C5DDBA /* libeditor.a in Frameworks */,
@@ -322,7 +319,6 @@
 				3496ABF21DC2043800C5DDBA /* libgeometry.a */,
 				3496ABF31DC2043800C5DDBA /* liboauthcpp.a */,
 				3496ABF41DC2043800C5DDBA /* libplatform.a */,
-				3496ABEB1DC2041800C5DDBA /* libalohalitics.a */,
 				3496ABEC1DC2041800C5DDBA /* libopening_hours.a */,
 				3496ABED1DC2041800C5DDBA /* libpugixml.a */,
 			);

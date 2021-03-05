@@ -19,7 +19,6 @@ omim_link_libraries(
   base
   jansson
   oauthcpp
-  stats_client
   ${LIBZ}
 )
 

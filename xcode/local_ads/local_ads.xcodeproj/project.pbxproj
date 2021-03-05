@@ -29,7 +29,6 @@
 		45FFD6821E96634B00DB854E /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD6811E96634B00DB854E /* libbase.a */; };
 		45FFD6841E96635B00DB854E /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD6831E96635B00DB854E /* libplatform.a */; };
 		45FFD6861E96636A00DB854E /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD6851E96636A00DB854E /* libcoding.a */; };
-		45FFD6881E96637C00DB854E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD6871E96637C00DB854E /* libalohalitics.a */; };
 		45FFD68A1E96639400DB854E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD6891E96639400DB854E /* libz.tbd */; };
 		56DAC36A239923C1000BC50D /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC369239923C1000BC50D /* liboauthcpp.a */; };
 		56DAC36C239923E9000BC50D /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DAC36B239923E9000BC50D /* libjansson.a */; };
@@ -61,7 +60,6 @@
 		45FFD6811E96634B00DB854E /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-build/xcode/Debug/libbase.a"; sourceTree = "<group>"; };
 		45FFD6831E96635B00DB854E /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/platform/../../../omim-build/xcode/Debug/libplatform.a"; sourceTree = "<absolute>"; };
 		45FFD6851E96636A00DB854E /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/coding/../../../omim-build/xcode/Debug/libcoding.a"; sourceTree = "<absolute>"; };
-		45FFD6871E96637C00DB854E /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/alohalitics/../../../omim-build/xcode/Debug/libalohalitics.a"; sourceTree = "<absolute>"; };
 		45FFD6891E96639400DB854E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		56DAC369239923C1000BC50D /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DAC36B239923E9000BC50D /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,7 +81,6 @@
 				56DAC36A239923C1000BC50D /* liboauthcpp.a in Frameworks */,
 				4580DAC61E9D2C3D00E8BCDE /* libgeometry.a in Frameworks */,
 				45FFD68A1E96639400DB854E /* libz.tbd in Frameworks */,
-				45FFD6881E96637C00DB854E /* libalohalitics.a in Frameworks */,
 				45FFD6861E96636A00DB854E /* libcoding.a in Frameworks */,
 				45812AB51E9781D500D7D3B3 /* libplatform_tests_support.a in Frameworks */,
 				45FFD6841E96635B00DB854E /* libplatform.a in Frameworks */,
@@ -156,7 +153,6 @@
 				4580DAC51E9D2C3D00E8BCDE /* libgeometry.a */,
 				45812AB41E9781D500D7D3B3 /* libplatform_tests_support.a */,
 				45FFD6891E96639400DB854E /* libz.tbd */,
-				45FFD6871E96637C00DB854E /* libalohalitics.a */,
 				45FFD6851E96636A00DB854E /* libcoding.a */,
 				45FFD6831E96635B00DB854E /* libplatform.a */,
 				45FFD6811E96634B00DB854E /* libbase.a */,

@@ -1,7 +1,6 @@
 #import "MWMTTSSettingsViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MWMTextToSpeech+CPP.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
@@ -104,8 +103,6 @@ struct LanguageCellStrategy : BaseCellStategy
     NSInteger const row = indexPath.row;
     if (row == controller.languages.size())
     {
-      [Statistics logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
-            withParameters:@{kStatValue: kStatOther}];
       [controller performSegueWithIdentifier:kSelectTTSLanguageSegueName sender:nil];
       return;
     }
@@ -178,10 +175,6 @@ struct CamerasCellStrategy : BaseCellStategy
     auto const mode = static_cast<SpeedCameraManagerMode>(indexPath.row);
     CHECK_NOT_EQUAL(mode, SpeedCameraManagerMode::MaxValue, ());
     scm.SetMode(mode);
-    [Statistics logEvent:kStatSettingsSpeedCameras
-          withParameters:@{
-            kStatValue: @(DebugPrint(mode).c_str())
-          }];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     m_selectedCell = cell;
   }
@@ -340,20 +333,10 @@ struct CamerasCellStrategy : BaseCellStategy
   auto indexSet = [NSIndexSet
       indexSetWithIndexesInRange:{base::Underlying(Section::Language), base::Underlying(Section::Count) - 1}];
   auto const animation = UITableViewRowAnimationFade;
-  NSString * statValue = nil;
   if (value)
-  {
     [self.tableView insertSections:indexSet withRowAnimation:animation];
-    statValue = kStatOn;
-  }
   else
-  {
     [self.tableView deleteSections:indexSet withRowAnimation:animation];
-    statValue = kStatOff;
-  }
-
-  [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
-        withParameters:@{kStatValue: statValue}];
 }
 
 @end

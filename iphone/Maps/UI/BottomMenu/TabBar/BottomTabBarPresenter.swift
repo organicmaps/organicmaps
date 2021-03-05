@@ -29,27 +29,22 @@ extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
   }
 
   func onSearchButtonPressed() {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatButton: kStatSearch])
     interactor.openSearch()
   }
   
   func onPoint2PointButtonPressed() {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatButton: kStatPointToPoint])
     interactor.openPoint2Point()
   }
   
   func onDiscoveryButtonPressed() {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatButton: kStatDiscovery])
     interactor.openDiscovery()
   }
   
   func onBookmarksButtonPressed() {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatButton: kStatDiscovery])
     interactor.openBookmarks()
   }
   
   func onMenuButtonPressed() {
-    Statistics.logEvent(kStatToolbarClick, withParameters: [kStatButton : kStatMenu])
     interactor.openMenu()
   }
 }

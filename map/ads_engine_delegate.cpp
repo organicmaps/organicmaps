@@ -10,7 +10,6 @@ AdsEngineDelegate::AdsEngineDelegate(storage::CountryInfoGetter const & infoGett
   : m_countryInfoGetter(infoGetter)
   , m_storage(storage)
   , m_promoApi(promoApi)
-  , m_purchase(purchase)
   , m_taxiEngine(taxiEngine)
 {
 }

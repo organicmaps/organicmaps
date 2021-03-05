@@ -251,19 +251,15 @@ using Observers = NSHashTable<Observer>;
 
 - (IBAction)ttsButtonAction {
   BOOL const isEnabled = [MWMTextToSpeech tts].active;
-  [Statistics logEvent:kStatMenu withParameters:@{kStatTTS: isEnabled ? kStatOn : kStatOff}];
   [MWMTextToSpeech tts].active = !isEnabled;
 }
 
 - (IBAction)trafficButtonAction {
   BOOL const switchOn = ([MWMMapOverlayManager trafficState] == MWMMapOverlayTrafficStateDisabled);
-  [Statistics logEvent:kStatMenu withParameters:@{kStatTraffic: switchOn ? kStatOn : kStatOff}];
   [MWMMapOverlayManager setTrafficEnabled:switchOn];
 }
 
 - (IBAction)settingsButtonAction {
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton: kStatSettings}];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
   [[MapViewController sharedController] performSegueWithIdentifier:@"Map2Settings" sender:nil];
 }
 

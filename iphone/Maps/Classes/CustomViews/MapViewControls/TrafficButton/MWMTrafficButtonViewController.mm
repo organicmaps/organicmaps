@@ -135,10 +135,8 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
     case MWMMapOverlayIsolinesStateDisabled:
       break;
     case MWMMapOverlayIsolinesStateEnabled:
-      if (![MWMMapOverlayManager isolinesVisible]) {
+      if (![MWMMapOverlayManager isolinesVisible])
         [[MWMToast toastWithText:L(@"isolines_toast_zooms_1_10")] show];
-        [Statistics logEvent:kStatMapToastShow withParameters:@{kStatType: kStatIsolines}];
-      }
       break;
     case MWMMapOverlayIsolinesStateExpiredData:
       [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_activation_error_dialog")];
