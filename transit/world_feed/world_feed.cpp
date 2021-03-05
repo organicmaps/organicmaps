@@ -211,15 +211,9 @@ struct StopOnShape
   size_t m_index = 0;
 };
 
-enum class Direction
-{
-  Forward,
-  Backward
-};
-
 std::optional<size_t> GetStopIndex(
     std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
-    transit::TransitId id, size_t fromIndex, Direction direction)
+    transit::TransitId id, size_t fromIndex, transit::Direction direction)
 {
   auto it = stopIndexes.find(id);
   CHECK(it != stopIndexes.end(), (id));
@@ -227,9 +221,11 @@ std::optional<size_t> GetStopIndex(
   std::optional<size_t> bestIdx;
   for (auto const & index : it->second)
   {
-    if (direction == Direction::Forward && index >= fromIndex && (!bestIdx || index < bestIdx))
+    if (direction == transit::Direction::Forward && index >= fromIndex &&
+        (!bestIdx || index < bestIdx))
       bestIdx = index;
-    if (direction == Direction::Backward && index <= fromIndex && (!bestIdx || index > bestIdx))
+    if (direction == transit::Direction::Backward && index <= fromIndex &&
+        (!bestIdx || index > bestIdx))
       bestIdx = index;
   }
   return bestIdx;
@@ -237,7 +233,8 @@ std::optional<size_t> GetStopIndex(
 
 std::optional<std::pair<StopOnShape, StopOnShape>> GetStopPairOnShape(
     std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
-    transit::StopsOnLines const & stopsOnLines, size_t index, size_t fromIndex, Direction direction)
+    transit::StopsOnLines const & stopsOnLines, size_t index, size_t fromIndex,
+    transit::Direction direction)
 {
   auto const & stopIds = stopsOnLines.m_stopSeq;
 
@@ -277,14 +274,14 @@ Link::Link(transit::TransitId lineId, transit::TransitId shapeId, size_t shapeSi
 {
 }
 
-Direction GetDirection(
+transit::Direction GetDirection(
     transit::StopsOnLines const & stopsOnLines,
     std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes)
 {
   auto const & stopIds = stopsOnLines.m_stopSeq;
 
   if (stopIds.size() <= 1 || !stopsOnLines.m_isValid)
-    return Direction::Forward;
+    return transit::Direction::Forward;
 
   for (size_t i = 0; i < stopIds.size() - 1; ++i)
   {
@@ -300,10 +297,10 @@ Direction GetDirection(
     auto const index2 = indexes2->second[0];
     if (index2 == index1)
       continue;
-    return index2 > index1 ? Direction::Forward : Direction::Backward;
+    return index2 > index1 ? transit::Direction::Forward : transit::Direction::Backward;
   }
 
-  return Direction::Forward;
+  return transit::Direction::Forward;
 }
 }  // namespace
 
@@ -949,61 +946,67 @@ bool WorldFeed::ProjectStopsToShape(
 {
   IdList const & stopIds = stopsOnLines.m_stopSeq;
   TransitId const shapeId = itShape->first;
-  auto & shape = itShape->second.m_points;
-  std::optional<m2::PointD> prevPoint = std::nullopt;
 
-  for (size_t i = 0; i < stopIds.size(); ++i)
-  {
-    auto const & stopId = stopIds[i];
-    auto const itStop = m_stops.m_data.find(stopId);
-    CHECK(itStop != m_stops.m_data.end(), (stopId));
-    auto const & stop = itStop->second;
-
-    size_t const startIdx = i == 0 ? 0 : stopsToIndexes[stopIds[i - 1]].back();
-    auto const [curIdx, pointInserted] =
-        PrepareNearestPointOnTrack(stop.m_point, prevPoint, startIdx, shape);
-
-    if (curIdx > shape.size())
+  auto const tryProject = [&](Direction direction) {
+    auto shape = itShape->second.m_points;
+    std::optional<m2::PointD> prevPoint = std::nullopt;
+    for (size_t i = 0; i < stopIds.size(); ++i)
     {
-      CHECK(!itShape->second.m_lineIds.empty(), (shapeId));
-      TransitId const lineId = *stopsOnLines.m_lines.begin();
+      auto const & stopId = stopIds[i];
+      auto const itStop = m_stops.m_data.find(stopId);
+      CHECK(itStop != m_stops.m_data.end(), (stopId));
+      auto const & stop = itStop->second;
 
-      LOG(LWARNING,
-          ("Error projecting stops to the shape. GTFS trip id", m_lines.m_data[lineId].m_gtfsTripId,
-           "shapeId", shapeId, "stopId", stopId, "i", i, "start index on shape", startIdx,
-           "trips count", stopsOnLines.m_lines.size()));
-      return false;
-    }
+      size_t const prevIdx = i == 0 ? direction == Direction::Forward ? 0 : shape.size()
+                                    : stopsToIndexes[stopIds[i - 1]].back();
+      auto const [curIdx, pointInserted] =
+          PrepareNearestPointOnTrack(stop.m_point, prevPoint, prevIdx, direction, shape);
 
-    prevPoint = std::optional<m2::PointD>(stop.m_point);
-
-    if (pointInserted)
-    {
-      for (auto & indexesList : stopsToIndexes)
+      if (curIdx > shape.size())
       {
-        for (auto & stopIndex : indexesList.second)
+        CHECK(!itShape->second.m_lineIds.empty(), (shapeId));
+        TransitId const lineId = *stopsOnLines.m_lines.begin();
+
+        LOG(LWARNING,
+            ("Error projecting stops to the shape. GTFS trip id",
+             m_lines.m_data[lineId].m_gtfsTripId, "shapeId", shapeId, "stopId", stopId, "i", i,
+             "previous index on shape", prevIdx, "trips count", stopsOnLines.m_lines.size()));
+        return false;
+      }
+
+      prevPoint = std::optional<m2::PointD>(stop.m_point);
+
+      if (pointInserted)
+      {
+        for (auto & indexesList : stopsToIndexes)
         {
-          if (stopIndex >= curIdx)
-            ++stopIndex;
+          for (auto & stopIndex : indexesList.second)
+          {
+            if (stopIndex >= curIdx)
+              ++stopIndex;
+          }
+        }
+
+        for (auto const & lineId : m_shapes.m_data[shapeId].m_lineIds)
+        {
+          auto & line = m_lines.m_data[lineId];
+
+          if (line.m_shapeLink.m_startIndex >= curIdx)
+            ++line.m_shapeLink.m_startIndex;
+
+          if (line.m_shapeLink.m_endIndex >= curIdx)
+            ++line.m_shapeLink.m_endIndex;
         }
       }
 
-      for (auto const & lineId : m_shapes.m_data[shapeId].m_lineIds)
-      {
-        auto & line = m_lines.m_data[lineId];
-
-        if (line.m_shapeLink.m_startIndex >= curIdx)
-          ++line.m_shapeLink.m_startIndex;
-
-        if (line.m_shapeLink.m_endIndex >= curIdx)
-          ++line.m_shapeLink.m_endIndex;
-      }
+      stopsToIndexes[stopId].push_back(curIdx);
     }
 
-    stopsToIndexes[stopId].push_back(curIdx);
-  }
+    itShape->second.m_points = shape;
+    return true;
+  };
 
-  return true;
+  return tryProject(Direction::Forward) || tryProject(Direction::Backward);
 }
 
 std::unordered_map<TransitId, std::vector<StopsOnLines>> WorldFeed::GetStopsForShapeMatching()

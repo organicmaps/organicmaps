@@ -20,6 +20,12 @@ struct ProjectionToShape
   double m_dist;
 };
 
+enum class Direction
+{
+  Forward,
+  Backward
+};
+
 /// \returns |stopPoint| projection to the track segment [|point1|, |point2|] and
 /// distance from the |stopPoint| to its projection.
 ProjectionToShape ProjectStopOnTrack(m2::PointD const & stopPoint, m2::PointD const & point1,
@@ -30,7 +36,7 @@ ProjectionToShape ProjectStopOnTrack(m2::PointD const & stopPoint, m2::PointD co
 /// the |polyline| and the flag is set to true.
 std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point,
                                                    std::optional<m2::PointD> const & prevPoint,
-                                                   size_t startIndex,
+                                                   size_t prevIndex, Direction direction,
                                                    std::vector<m2::PointD> & polyline);
 
 /// \returns true if we should not skip routes with this GTFS |routeType|.
