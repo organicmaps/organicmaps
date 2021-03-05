@@ -900,7 +900,6 @@
 		F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FE3C371CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m */; };
 		F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FE3C3A1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib */; };
 		F6FEA82E1C58F108007223CC /* MWMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA82C1C58E89B007223CC /* MWMButton.m */; };
-		FACE202625ED912900518E88 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACE202525ED912900518E88 /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -2222,7 +2221,6 @@
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
 				34201E091DC0DC7300D24118 /* libpartners_api.a in Frameworks */,
 				04972684853070C687B7DEB5 /* Pods_OMaps.framework in Frameworks */,
-				FACE202625ED912900518E88 /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2329,7 +2327,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FACE202525ED912900518E88 /* CoreServices.framework */,
 				47A13CA624BE874D00027D4F /* DatePicker.framework */,
 				47A13CA324BE872600027D4F /* DatePicker.framework */,
 				47D48BCF242A475700FEFB1F /* AuthenticationServices.framework */,
@@ -4938,7 +4935,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = OMaps.app;
 				TargetAttributes = {
 					6741A93D1BF340DE002C974C = {
@@ -4958,13 +4955,9 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Maps" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
 				en,
 				ru,
 				de,
