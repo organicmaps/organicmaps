@@ -164,7 +164,10 @@ LineStringMerger::OutputData LineStringMerger::OrderData(InputData const & data)
 
 // MetalinesBuilder --------------------------------------------------------------------------------
 MetalinesBuilder::MetalinesBuilder(std::string const & filename)
-  : generator::CollectorInterface(filename) {}
+  : generator::CollectorInterface(filename)
+  , m_writer(std::make_unique<FileWriter>(GetTmpFilename()))
+{
+}
 
 std::shared_ptr<generator::CollectorInterface> MetalinesBuilder::Clone(
     std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
@@ -187,15 +190,27 @@ void MetalinesBuilder::CollectFeature(FeatureBuilder const & feature, OsmElement
     return;
 
   auto const key = std::hash<std::string>{}(name + '\0' + params.ref);
-  m_data.emplace(key, std::make_shared<LineString>(element));
+  WriteVarUint(*m_writer, key);
+  LineString(element).Serialize(*m_writer);
 }
+
+void MetalinesBuilder::Finish() { m_writer.reset(); }
 
 void MetalinesBuilder::Save()
 {
+  std::unordered_multimap<size_t, std::shared_ptr<LineString>> keyToLineString;
+  FileReader reader(GetTmpFilename());
+  ReaderSource<FileReader> src(reader);
+  while (src.Size() > 0)
+  {
+    auto const key = ReadVarUint<size_t>(src);
+    keyToLineString.emplace(key, std::make_shared<LineString>(LineString::Deserialize(src)));
+  }
+
   FileWriter writer(GetFilename());
   uint32_t countLines = 0;
   uint32_t countWays = 0;
-  auto const mergedData = LineStringMerger::Merge(m_data);
+  auto const mergedData = LineStringMerger::Merge(keyToLineString);
   for (auto const & p : mergedData)
   {
     for (auto const & lineString : p.second)
@@ -236,7 +251,8 @@ void MetalinesBuilder::Merge(generator::CollectorInterface const & collector)
 
 void MetalinesBuilder::MergeInto(MetalinesBuilder & collector) const
 {
-  collector.m_data.insert(std::begin(m_data), std::end(m_data));
+  CHECK(!m_writer || !collector.m_writer, ("Finish() has not been called."));
+  base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 
 // Functions --------------------------------------------------------------------------------
