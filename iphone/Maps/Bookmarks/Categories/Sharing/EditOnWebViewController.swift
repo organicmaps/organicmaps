@@ -33,7 +33,6 @@ final class EditOnWebViewController: MWMViewController {
   }
 
   @IBAction func sendMeLinkButtonPressed(_ sender: Any) {
-    Statistics.logEvent(kStatEditOnWebClick, withParameters: [kStatItem : kStatCopyLink])
     switch category.accessStatus {
     case .local:
       uploadCategory()
@@ -103,7 +102,6 @@ final class EditOnWebViewController: MWMViewController {
     let shareController = ActivityViewController.share(for: nil, message: message) {
       [weak self] _, success, _, _ in
       if success {
-        Statistics.logEvent(kStatSharingLinkSuccess, withParameters: [kStatFrom : kStatEditOnWeb])
         if let self = self {
           self.delegate?.editOnWebViewControllerDidFinish(self)
         }

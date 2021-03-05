@@ -2,8 +2,6 @@
 
 #include "routing/speed_camera.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
-
 #include <cmath>
 
 namespace routing
@@ -371,12 +369,6 @@ void SpeedCameraManager::SendNotificationStat(double passedDistanceMeters, doubl
        measurement_utils::MpsToKmph(speedMpS), m_beepSignalCounter, m_voiceSignalCounter,
        m_hasEnteredTheZone, m_speedLimitExceeded, m_firstNotCheckedSpeedCameraIndex,
        mercator::ToLatLon(camera.m_position)));
-
-  alohalytics::TStringMap params = {{"type", m_makeBeepSignal ? "beep" : "voice"},
-                                    {"distance", strings::to_string(distToCameraMeters)},
-                                    {"speed", strings::to_string(measurement_utils::MpsToKmph(speedMpS))}};
-
-  alohalytics::LogEvent("SpeedCameras_alert", params);
 }
 
 void SpeedCameraManager::SendEnterZoneStat(double distToCameraMeters, double speedMpS,
@@ -387,16 +379,6 @@ void SpeedCameraManager::SendEnterZoneStat(double distToCameraMeters, double spe
   if (m_hasEnteredTheZone)
     return;
   m_hasEnteredTheZone = true;
-
-  auto const latlon = mercator::ToLatLon(camera.m_position);
-  alohalytics::TStringMap params = {
-    {"distance", to_string(distToCameraMeters)},
-    {"speed", to_string(measurement_utils::MpsToKmph(speedMpS))},
-    {"speedlimit", camera.NoSpeed() ? "0" : to_string(camera.m_maxSpeedKmH)},
-    {"coord", "(" + to_string(latlon.m_lat) + "," + to_string(latlon.m_lon) + ")"}
-  };
-
-  alohalytics::LogEvent("SpeedCameras_enter_zone", params);
 }
 
 void SpeedCameraManager::SetMode(SpeedCameraManagerMode mode)

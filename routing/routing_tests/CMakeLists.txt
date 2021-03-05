@@ -72,7 +72,6 @@ omim_link_libraries(
   pugixml
   bsdiff
   succinct
-  stats_client
   icu
   generator_tests_support
 

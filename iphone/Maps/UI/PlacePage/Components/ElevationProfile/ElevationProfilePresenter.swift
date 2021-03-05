@@ -2,8 +2,6 @@ import Chart
 
 protocol ElevationProfilePresenterProtocol: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   func configure()
-  func onAppear()
-  func onDissapear()
 
   func onDifficultyButtonPressed()
   func onSelectedPointChanged(_ point: CGFloat)
@@ -86,15 +84,6 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     BookmarksManager.shared().setElevationMyPositionChanged(data.trackId) { [weak self] distance in
       self?.view?.setMyPosition(distance)
     }
-  }
-
-  func onAppear() {
-    Statistics.logEvent(kStatElevationProfilePageOpen, withParameters: [kStatServerId: data.serverId,
-                                                                        kStatState: "preview"])
-  }
-
-  func onDissapear() {
-    Statistics.logEvent(kStatElevationProfilePageClose, withParameters: [kStatServerId: data.serverId])
   }
 
   func onDifficultyButtonPressed() {

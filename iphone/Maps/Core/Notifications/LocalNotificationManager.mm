@@ -1,7 +1,6 @@
 #import "LocalNotificationManager.h"
 #import "CoreNotificationWrapper+Core.h"
 #import "NSDate+TimeDistance.h"
-#import "Statistics.h"
 
 #include "map/framework_light.hpp"
 #include "map/framework_light_delegate.hpp"
@@ -38,7 +37,6 @@ static NSString * const kLastUGCNotificationDate = @"LastUGCNotificationDate";
   auto ud = [NSUserDefaults standardUserDefaults];
   [ud setObject:[NSDate date] forKey:kLastUGCNotificationDate];
   [ud synchronize];
-  [Statistics logEvent:@"UGC_UnsentNotification_shown"];
 }
 
 + (CoreNotificationWrapper *)reviewNotificationWrapper
@@ -58,11 +56,6 @@ static NSString * const kLastUGCNotificationDate = @"LastUGCNotificationDate";
   }
 
   return nil;
-}
-
-+ (void)reviewNotificationWasShown
-{
-  [Statistics logEvent:kStatUGCReviewNotificationShown];
 }
 
 @end

@@ -7,8 +7,6 @@
 #import "AuthenticationServices/AuthenticationServices.h"
 #import "CarPlay/CarPlay.h"
 #import "UIKit/UIKit.h"
-
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 #import "UIKitCategories.h"
 
 #import "private.h"
@@ -18,6 +16,7 @@
 #import "CoreNotificationWrapper.h"
 #import "DeepLinkRouteStrategyAdapter.h"
 #import "EAGLView.h"
+#import "FirstSession.h"
 #import "MWMActionBarButton.h"
 #import "MWMActivityViewController.h"
 #import "MWMAlertViewController.h"
@@ -76,7 +75,6 @@
 #import "MWMViewController.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
-#import "Statistics.h"
 #import "SwizzleStyle.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"

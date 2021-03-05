@@ -183,7 +183,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
 
 - (void)viewDidLoad
 {
-  [Statistics logEvent:kStatEventName(kStatEdit, kStatOpen)];
   [super viewDidLoad];
   [self configTable];
   [self configNavBar];
@@ -257,22 +256,10 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
     return;
 
   auto & f = GetFramework();
-  auto const & featureID = m_mapObject.GetID();
-  NSDictionary * info = @{
-    kStatMWMName : @(featureID.GetMwmName().c_str()),
-    kStatEditorMWMVersion : @(featureID.GetMwmVersion())
-  };
   BOOL const haveNote = self.note.length;
 
   if (haveNote)
-  {
-    auto const latLon = m_mapObject.GetLatLon();
-    NSMutableDictionary * noteInfo = [info mutableCopy];
-    noteInfo[kStatProblem] = self.note;
-    CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.m_lat longitude:latLon.m_lon];
-    [Statistics logEvent:kStatEditorProblemReport withParameters:noteInfo atLocation:location];
     f.CreateNote(m_mapObject, osm::Editor::NoteProblemType::General, self.note.UTF8String);
-  }
 
   switch (f.SaveEditedMapObject(m_mapObject))
   {
@@ -286,15 +273,11 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
       [self showDropDown];
     break;
   case osm::Editor::SaveResult::SavedSuccessfully:
-    [Statistics logEvent:(self.isCreating ? kStatEditorAddSuccess : kStatEditorEditSuccess)
-          withParameters:info];
     osm_auth_ios::AuthorizationSetNeedCheck(YES);
     f.UpdatePlacePageInfoForCurrentSelection();
     [self.navigationController popToRootViewControllerAnimated:YES];
     break;
   case osm::Editor::SaveResult::NoFreeSpaceError:
-    [Statistics logEvent:(self.isCreating ? kStatEditorAddError : kStatEditorEditError)
-          withParameters:info];
     [self.alertController presentNotEnoughSpaceAlert];
     break;
   }
@@ -943,8 +926,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
 - (void)tapOnButtonCell:(UITableViewCell *)cell
 {
   auto const & fid = m_mapObject.GetID();
-  auto const latLon = m_mapObject.GetLatLon();
-  CLLocation * location = [[CLLocation alloc] initWithLatitude:latLon.m_lat longitude:latLon.m_lon];
   self.isFeatureUploaded = osm::Editor::Instance().IsFeatureUploaded(fid.m_mwmId, fid.m_index);
   NSIndexPath * ip = [self.tableView indexPathForCell:cell];
   [self.tableView reloadRowsAtIndexPaths:@[ ip ] withRowAnimation:UITableViewRowAnimationFade];
@@ -952,13 +933,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
   auto placeDoesntExistAction = ^{
     [self.alertController presentPlaceDoesntExistAlertWithBlock:^(NSString * additionalMessage) {
       std::string const additional = additionalMessage.length ? additionalMessage.UTF8String : "";
-      [Statistics logEvent:kStatEditorProblemReport
-            withParameters:@{
-              kStatMWMName : @(fid.GetMwmName().c_str()),
-              kStatEditorMWMVersion : @(fid.GetMwmVersion()),
-              kStatProblem : @(osm::Editor::kPlaceDoesNotExistMessage)
-            }
-                atLocation:location];
       GetFramework().CreateNote(self->m_mapObject, osm::Editor::NoteProblemType::PlaceDoesNotExist,
                                 additional);
       [self goBack];
@@ -967,12 +941,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
   };
 
   auto revertAction = ^(BOOL isCreated) {
-    [Statistics logEvent:isCreated ? kStatEditorAddCancel : kStatEditorEditCancel
-          withParameters:@{
-            kStatMWMName : @(fid.GetMwmName().c_str()),
-            kStatEditorMWMVersion : @(fid.GetMwmVersion())
-          }
-              atLocation:location];
     auto & f = GetFramework();
     if (!f.RollBackChanges(fid))
       NSAssert(false, @"We shouldn't call this if we can't roll back!");

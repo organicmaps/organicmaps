@@ -68,8 +68,6 @@ additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
   StringUtf8Multilang::Lang const & language = m_languages[index];
   cell.textLabel.text = @(language.m_name.c_str());
   cell.detailTextLabel.text = @(language.m_code.c_str());
-
-  int8_t const languageIndex = StringUtf8Multilang::GetLangIndex(language.m_code);
   cell.accessoryType = UITableViewCellAccessoryNone;
   return cell;
 }

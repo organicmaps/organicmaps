@@ -29,7 +29,6 @@ omim_link_libraries(
   jansson
   oauthcpp
   protobuf
-  stats_client
   succinct
   ${LIBZ}
 )

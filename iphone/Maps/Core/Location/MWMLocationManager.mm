@@ -192,7 +192,7 @@ void setShowLocationAlert(BOOL needShow) {
 
 + (void)applicationDidBecomeActive
 {
-  if (isPermissionRequested() || ![Alohalytics isFirstSession])
+  if (isPermissionRequested() || ![FirstSession isFirstSession])
   {
     [self start];
     [[self manager] updateFrameworkInfo];

@@ -8,7 +8,6 @@
 #include "base/stl_helpers.hpp"
 #include "base/thread_pool_delayed.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 #include <sstream>
 #include <utility>
@@ -42,13 +41,6 @@ void DoPing(string const & url, size_t index, vector<string> & readyUrls)
     LOG(LINFO, (ost.str()));
   }
 }
-
-void SendStatistics(size_t serversLeft)
-{
-  alohalytics::Stats::Instance().LogEvent(
-      "Downloader_ServerList_check",
-      {{"lang", languages::GetCurrentNorm()}, {"servers", to_string(serversLeft)}});
-}
 }  // namespace
 
 namespace storage
@@ -69,7 +61,6 @@ Pinger::Endpoints Pinger::ExcludeUnavailableEndpoints(Endpoints const & urls)
   }
 
   base::EraseIf(readyUrls, [](auto const & url) { return url.empty(); });
-  SendStatistics(readyUrls.size());
   return readyUrls;
 }
 }  // namespace storage

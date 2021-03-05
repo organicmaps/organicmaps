@@ -1,15 +1,6 @@
 @objc enum DeepLinkProvider: Int {
   case native
   case appsflyer
-
-  var statName: String {
-    switch self {
-    case .native:
-      return kStatNative
-    case .appsflyer:
-      return kStatAppsflyer
-    }
-  }
 }
 
 class DeepLinkURL {

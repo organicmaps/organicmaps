@@ -37,7 +37,6 @@ omim_link_libraries(
   jansson
   protobuf
   bsdiff
-  stats_client
   succinct
   pugixml
   icu

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3496ABB21DC2026E00C5DDBA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABB11DC2026E00C5DDBA /* libalohalitics.a */; };
 		3496ABB41DC2028F00C5DDBA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABB31DC2028F00C5DDBA /* libz.tbd */; };
 		349756271DC1EBEE0058742A /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349756261DC1EBEE0058742A /* libcoding.a */; };
 		349756291DC1EC060058742A /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349756281DC1EC060058742A /* libgeometry.a */; };
@@ -40,7 +39,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3496ABB11DC2026E00C5DDBA /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-build/xcode/Debug-iphonesimulator/libalohalitics.a"; sourceTree = "<group>"; };
 		3496ABB31DC2028F00C5DDBA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		349756261DC1EBEE0058742A /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-build/xcode/Debug/libcoding.a"; sourceTree = "<group>"; };
 		349756281DC1EC060058742A /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-build/xcode/Debug/libgeometry.a"; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 				D57BDA172396A24200505BE6 /* libtraffic.a in Frameworks */,
 				D57BDA152396A23800505BE6 /* librouting.a in Frameworks */,
 				3496ABB41DC2028F00C5DDBA /* libz.tbd in Frameworks */,
-				3496ABB21DC2026E00C5DDBA /* libalohalitics.a in Frameworks */,
 				3497562D1DC1EC3F0058742A /* libbase.a in Frameworks */,
 				3497562B1DC1EC220058742A /* libplatform.a in Frameworks */,
 				349756291DC1EC060058742A /* libgeometry.a in Frameworks */,
@@ -170,7 +167,6 @@
 				D57BDA142396A23800505BE6 /* librouting.a */,
 				D57BDA122396A22800505BE6 /* librouting_common.a */,
 				3496ABB31DC2028F00C5DDBA /* libz.tbd */,
-				3496ABB11DC2026E00C5DDBA /* libalohalitics.a */,
 				3497562C1DC1EC3F0058742A /* libbase.a */,
 				3497562A1DC1EC220058742A /* libplatform.a */,
 				349756281DC1EC060058742A /* libgeometry.a */,

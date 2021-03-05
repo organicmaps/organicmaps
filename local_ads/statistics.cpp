@@ -28,7 +28,6 @@
 #include <sstream>
 #include <utility>
 
-#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
 
 namespace
@@ -495,15 +494,6 @@ void Statistics::ExtractMetadata(std::string const & fileName)
 
     auto const expectedFileName =
         GetPath(countryId + "_" + strings::to_string(mwmVersion) + kStatisticsExt);
-
-    if (fileName != expectedFileName)
-    {
-      alohalytics::TStringMap const info = {
-          {"expectedFilename", expectedFileName},
-          {"actualFilename", fileName},
-      };
-      alohalytics::LogEvent("localAdsBadFile", info);
-    }
 
     MetadataKey const key = std::make_pair(countryId, mwmVersion);
     auto it = m_metadataCache.find(key);

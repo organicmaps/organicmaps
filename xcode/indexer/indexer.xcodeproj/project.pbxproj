@@ -127,7 +127,6 @@
 		670BAAB01D0B07AA000302DA /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAAAA1D0B07AA000302DA /* libpugixml.a */; };
 		670BAAB31D0B07BF000302DA /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAAB11D0B07BF000302DA /* libplatform.a */; };
 		670BAAB41D0B07BF000302DA /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAAB21D0B07BF000302DA /* libprotobuf.a */; };
-		670BAAB71D0B07D1000302DA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAAB51D0B07D1000302DA /* libalohalitics.a */; };
 		670BAAB81D0B07D1000302DA /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAAB61D0B07D1000302DA /* libgeometry.a */; };
 		670BAABA1D0B07E9000302DA /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAAB91D0B07E9000302DA /* libjansson.a */; };
 		670BAABD1D0B07FE000302DA /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670BAABB1D0B07FE000302DA /* libsuccinct.a */; };
@@ -350,7 +349,6 @@
 		670BAAAA1D0B07AA000302DA /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-xcode-build/Debug/libpugixml.a"; sourceTree = "<group>"; };
 		670BAAB11D0B07BF000302DA /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
 		670BAAB21D0B07BF000302DA /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = "<group>"; };
-		670BAAB51D0B07D1000302DA /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		670BAAB61D0B07D1000302DA /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug/libgeometry.a"; sourceTree = "<group>"; };
 		670BAAB91D0B07E9000302DA /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
 		670BAABB1D0B07FE000302DA /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
@@ -487,7 +485,6 @@
 				670BAAC01D0B0849000302DA /* Foundation.framework in Frameworks */,
 				670BAABD1D0B07FE000302DA /* libsuccinct.a in Frameworks */,
 				670BAABA1D0B07E9000302DA /* libjansson.a in Frameworks */,
-				670BAAB71D0B07D1000302DA /* libalohalitics.a in Frameworks */,
 				670BAAB81D0B07D1000302DA /* libgeometry.a in Frameworks */,
 				670BAAB31D0B07BF000302DA /* libplatform.a in Frameworks */,
 				670BAAB41D0B07BF000302DA /* libprotobuf.a in Frameworks */,
@@ -568,7 +565,6 @@
 				670BAABF1D0B0849000302DA /* Foundation.framework */,
 				670BAABB1D0B07FE000302DA /* libsuccinct.a */,
 				670BAAB91D0B07E9000302DA /* libjansson.a */,
-				670BAAB51D0B07D1000302DA /* libalohalitics.a */,
 				670BAAB61D0B07D1000302DA /* libgeometry.a */,
 				670BAAB11D0B07BF000302DA /* libplatform.a */,
 				670BAAB21D0B07BF000302DA /* libprotobuf.a */,

@@ -2,7 +2,6 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
-#import "Statistics.h"
 
 #include <CoreApi/Framework.h>
 
@@ -42,7 +41,6 @@ using namespace osm_auth_ios;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  [Statistics logEvent:kStatEventName(kStatAuthorization, kStatOpen)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,7 +101,6 @@ using namespace osm_auth_ios;
 {
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatGoogle, kStatFrom : kStatProfile}];
     [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginGoogleButton];
   }];
 }
@@ -112,7 +109,6 @@ using namespace osm_auth_ios;
 {
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatFacebook, kStatFrom : kStatProfile}];
     [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginFacebookButton];
   }];
 }
@@ -121,7 +117,6 @@ using namespace osm_auth_ios;
 {
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEditorAuthRequets withParameters:@{kStatValue : kStatOSM, kStatFrom : kStatProfile}];
     [self performSegueWithIdentifier:kOSMAuthSegue sender:self.loginOSMButton];
   }];
 }
@@ -130,7 +125,6 @@ using namespace osm_auth_ios;
 {
   [self performOnlineAction:^
   {
-    [Statistics logEvent:kStatEditorRegRequest withParameters:@{kStatFrom : kStatProfile}];
     [self openUrl:[NSURL URLWithString:@(OsmOAuth::ServerAuth().GetRegistrationURL().c_str())]];
   }];
 }
@@ -142,7 +136,6 @@ using namespace osm_auth_ios;
 
 - (void)logout
 {
-  [Statistics logEvent:kStatEventName(kStatAuthorization, kStatLogout)];
   NSString * osmUserName = OSMUserName();
   if (osmUserName.length > 0)
     GetFramework().DropUserStats(osmUserName.UTF8String);

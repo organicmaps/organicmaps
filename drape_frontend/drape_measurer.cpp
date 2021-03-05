@@ -4,7 +4,6 @@
 
 #include "geometry/mercator.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 #include <iomanip>
 
@@ -94,28 +93,6 @@ void DrapeMeasurer::Stop(bool forceProcessRealtimeStats /* = false */ )
   if ((forceProcessRealtimeStats && m_realtimeTotalFramesCount > 0) ||
       m_realtimeTotalFramesCount >= 1000)
   {
-    auto const minMs = duration_cast<milliseconds>(m_realtimeMinFrameRenderTime).count();
-    auto const maxMs = duration_cast<milliseconds>(m_realtimeMaxFrameRenderTime).count();
-    auto const avgMs = duration_cast<milliseconds>(m_realtimeTotalFrameRenderTime).count() /
-                       m_realtimeTotalFramesCount;
-
-    auto const latLonRect = mercator::ToLatLonRect(m_realtimeRenderingBox);
-    alohalytics::Stats::Instance().LogEvent(
-        "RenderingStats", {{"version", GetPlatform().GetAppUserAgent().GetAppVersion()},
-                           {"device", GetPlatform().DeviceModel()},
-                           {"gpu", m_gpuName},
-                           {"api", DebugPrint(m_apiVersion)},
-                           {"width", strings::to_string(m_resolution.x)},
-                           {"height", strings::to_string(m_resolution.y)},
-                           {"minFrameTime", strings::to_string(minMs)},
-                           {"maxFrameTime", strings::to_string(maxMs)},
-                           {"avgFrameTime", strings::to_string(avgMs)},
-                           {"slowFrames", strings::to_string(m_realtimeSlowFramesCount)},
-                           {"frames", strings::to_string(m_realtimeTotalFramesCount)},
-                           {"viewportMinLat", strings::to_string(latLonRect.minX())},
-                           {"viewportMinLon", strings::to_string(latLonRect.minY())},
-                           {"viewportMaxLat", strings::to_string(latLonRect.maxX())},
-                           {"viewportMaxLon", strings::to_string(latLonRect.maxY())}});
     m_realtimeTotalFramesCount = 0;
   }
 #endif

@@ -5,9 +5,6 @@
   }
 
   let actionType: SubscribeActionType
-  lazy var testGroupStatName: String = {
-    return actionType == .instant ? kStatTestGroup95PurchaseFlow1 : kStatTestGroup95PurchaseFlow2
-  }()
 
   var enabled: Bool {
     return true

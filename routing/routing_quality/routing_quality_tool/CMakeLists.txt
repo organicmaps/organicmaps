@@ -42,7 +42,6 @@ omim_link_libraries(
   opening_hours
   oauthcpp
   protobuf
-  stats_client
   gflags
   ${LIBZ}
 )

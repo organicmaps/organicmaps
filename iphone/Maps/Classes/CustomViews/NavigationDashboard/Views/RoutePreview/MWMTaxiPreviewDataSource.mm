@@ -110,50 +110,39 @@ using namespace taxi;
       if (providers.empty())
       {
         failure(L(@"taxi_no_providers"));
-        [Statistics logEvent:kStatRoutingBuildTaxi
-              withParameters:@{@"error": @"No providers (Taxi isn't in the city)"}];
         return;
       }
       auto const & provider = providers.front();
       auto const & products = provider.GetProducts();
       auto const type = provider.GetType();
       self->m_products = products;
-      NSString * providerName = nil;
       switch (type)
       {
       case taxi::Provider::Type::Uber:
         self.type = MWMRoutePreviewTaxiCellTypeUber;
-        providerName = kStatUber;
         break;
       case taxi::Provider::Type::Yandex:
         self.type = MWMRoutePreviewTaxiCellTypeYandex;
-        providerName = kStatYandex;
         break;
       case taxi::Provider::Type::Maxim:
         self.type = MWMRoutePreviewTaxiCellTypeMaxim;
-        providerName = kStatMaxim;
         break;
       case taxi::Provider::Type::Rutaxi:
         self.type = MWMRoutePreviewTaxiCellTypeVezet;
-        providerName = kStatVezet;
         break;
       case taxi::Provider::Type::Freenow:
         self.type = MWMRoutePreviewTaxiCellTypeFreenow;
-        providerName = kStatFreenow;
         break;
       case taxi::Provider::Type::Yango:
         self.type = MWMRoutePreviewTaxiCellTypeYango;
-        providerName = kStatYango;
         break;
       case taxi::Provider::Type::Citymobil:
         self.type = MWMRoutePreviewTaxiCellTypeCitymobil;
-        providerName = kStatCitymobil;
         break;
       case taxi::Provider::Type::Count:
         LOG(LERROR, ("Incorrect taxi provider"));
         break;
       }
-      [Statistics logEvent:kStatRoutingBuildTaxi withParameters:@{@"provider": providerName}];
       auto cv = self.collectionView;
       cv.hidden = NO;
       cv.pageControl.hidden = products.size() == 1;
@@ -176,33 +165,15 @@ using namespace taxi;
       }
       auto const & error = errors.front();
       auto const errorCode = error.m_code;
-      auto const type = error.m_type;
-      NSString * provider = nil;
-      switch (type)
-      {
-      case taxi::Provider::Type::Uber: provider = kStatUber; break;
-      case taxi::Provider::Type::Yandex: provider = kStatYandex; break;
-      case taxi::Provider::Type::Maxim: provider = kStatMaxim; break;
-      case taxi::Provider::Type::Rutaxi: provider = kStatVezet; break;
-      case taxi::Provider::Type::Freenow: provider = kStatFreenow; break;
-      case taxi::Provider::Type::Yango: provider = kStatYango; break;
-      case taxi::Provider::Type::Citymobil: provider = kStatCitymobil; break;
-      case taxi::Provider::Type::Count: LOG(LERROR, ("Incorrect taxi provider")); break;
-      }
-      NSString * errorValue = nil;
       switch (errorCode)
       {
       case taxi::ErrorCode::NoProducts:
-        errorValue = @"No products (Taxi is in the city, but no offers)";
         failure(L(@"taxi_not_found"));
         break;
       case taxi::ErrorCode::RemoteError:
-        errorValue = @"Server error (The taxi server responded with an error)";
         failure(L(@"dialog_taxi_error"));
         break;
       }
-      [Statistics logEvent:kStatRoutingBuildTaxi
-            withParameters:@{@"provider": provider, @"error": errorValue}];
     });
   };
 

@@ -18,16 +18,13 @@ class BottomMenuPresenter: NSObject {
   private weak var view: BottomMenuViewProtocol?
   private let interactor: BottomMenuInteractorProtocol
   private let sections: [Sections]
-  private let source: String
 
   init(view: BottomMenuViewProtocol, 
        interactor: BottomMenuInteractorProtocol,
-       sections: [Sections],
-       source: String) {
+       sections: [Sections]) {
     self.view = view
     self.interactor = interactor
     self.sections = sections
-    self.source = source
   }
 }
 
@@ -52,7 +49,6 @@ extension BottomMenuPresenter {
     if indexPath.section == Sections.layers.rawValue {
       let cell = tableView.dequeueReusableCell(cell: BottomMenuLayersCell.self)!
       cell.onClose = { [weak self] in self?.onClosePressed() }
-      cell.source = source
       return cell
     }
     if indexPath.section == Sections.items.rawValue {

@@ -3,7 +3,6 @@ import UIKit
 
 @objc protocol DatePickerViewControllerDelegate: AnyObject {
   func datePicker(_ datePicker: DatePickerViewController, didSelectStartDate startDate: Date, endDate: Date)
-  func datePickerDidClick(_ datePicker: DatePickerViewController, didSelectStartDate startDate: Date?, endDate: Date?)
   func datePickerDidCancel(_ datePicker: DatePickerViewController)
 }
 
@@ -82,7 +81,6 @@ extension DatePickerViewController: DatePickerViewDelegate {
       } else {
         numberOfDaysLabel.text = nil
       }
-      delegate?.datePickerDidClick(self, didSelectStartDate: view.startDate, endDate: view.endDate)
     }
 
     guard let startDate = view.startDate else {

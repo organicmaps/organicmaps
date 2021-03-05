@@ -1,6 +1,5 @@
 #import "MWMPowerManagmentViewController.h"
 
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
@@ -65,7 +64,6 @@ using namespace power_management;
   CHECK_NOT_EQUAL(scheme, Scheme::None, ());
   
   GetFramework().GetPowerManager().SetScheme(scheme);
-  [Statistics logEvent:kStatEnergySavingChange withParameters:@{kStatValue: statisticValue}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -38,7 +38,6 @@ omim_link_libraries(
   coding
   base
   expat
-  stats_client
   oauthcpp
   freetype
   stb_image

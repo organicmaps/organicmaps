@@ -36,18 +36,10 @@ final class BookmarksTabViewController: TabViewController {
 
     title = L("bookmarks_guides");
     tabView.selectedIndex = activeTab.rawValue
-    tabView.delegate = self
   }
 
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     activeTab = ActiveTab(rawValue: tabView.selectedIndex ?? 0) ?? .user
-  }
-}
-
-extension BookmarksTabViewController: TabViewDelegate {
-  func tabView(_ tabView: TabView, didSelectTabAt index: Int) {
-    let selectedTab = index == 0 ? "my" : "downloaded"
-    Statistics.logEvent("Bookmarks_Tab_click", withParameters: [kStatValue : selectedTab])
   }
 }

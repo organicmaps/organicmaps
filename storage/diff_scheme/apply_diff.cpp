@@ -7,7 +7,6 @@
 #include "base/assert.hpp"
 #include "base/cancellable.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 namespace storage
 {
@@ -68,10 +67,6 @@ void ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable,
         break;
       case DiffApplicationResult::Failed:
         diffFile->DeleteFromDisk(MapFileType::Diff);
-        alohalytics::Stats::Instance().LogEvent(
-          "Downloader_DiffScheme_error",
-          {{"type", "patching"},
-           {"error", isFilePrepared ? "Cannot apply diff" : "Cannot prepare file"}});
         break;
     }
 

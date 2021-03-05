@@ -5,7 +5,6 @@
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRouter.h"
 #import "MWMTaxiPreviewDataSource.h"
-#import "Statistics.h"
 #import "UIButton+Orientation.h"
 #import "UIImageView+Coloring.h"
 
@@ -138,8 +137,6 @@ static CGFloat const kDrivingOptionsHeight = 48;
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
-  [Statistics logEvent:kStatEventName(kStatNavigationDashboard, kStatButton)
-        withParameters:@{kStatValue : kStatProgress}];
   MWMCircularProgressState const s = progress.state;
   if (s == MWMCircularProgressStateSelected || s == MWMCircularProgressStateCompleted)
     return;
@@ -154,17 +151,6 @@ static CGFloat const kDrivingOptionsHeight = 48;
     [self selectRouter:routerType];
     [MWMRouter setType:routerType];
     [MWMRouter rebuildWithBestRouter:NO];
-    NSString * routerTypeString = nil;
-    switch (routerType)
-    {
-    case MWMRouterTypeVehicle: routerTypeString = kStatVehicle; break;
-    case MWMRouterTypePedestrian: routerTypeString = kStatPedestrian; break;
-    case MWMRouterTypePublicTransport: routerTypeString = kStatPublicTransport; break;
-    case MWMRouterTypeBicycle: routerTypeString = kStatBicycle; break;
-    case MWMRouterTypeTaxi: routerTypeString = kStatTaxi; break;
-    }
-    [Statistics logEvent:kStatPointToPoint
-          withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : routerTypeString}];
   }
 }
 

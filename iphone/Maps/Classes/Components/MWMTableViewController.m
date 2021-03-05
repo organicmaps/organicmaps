@@ -5,7 +5,6 @@
 #import "MWMTableViewController.h"
 #import "SwiftBridge.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 @interface MWMTableViewController ()
 
@@ -30,18 +29,6 @@
          forCellReuseIdentifier:[UITableViewCell className]];
   [self.tableView registerClass:[MWMTableViewSubtitleCell class]
          forCellReuseIdentifier:[MWMTableViewSubtitleCell className]];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-  [Alohalytics logEvent:@"$viewWillAppear" withValue:NSStringFromClass([self class])];
-  [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-  [Alohalytics logEvent:@"$viewWillDisappear" withValue:NSStringFromClass([self class])];
-  [super viewWillDisappear:animated];
 }
 
 #pragma mark - Properties

@@ -46,7 +46,6 @@
 #include <unordered_map>
 #include <utility>
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 #include "private.h"
 
@@ -219,7 +218,7 @@ Cloud::ConvertionResult ConvertAfterDownloading(std::string const & filePath,
     r.m_needSkip = true;
     return r;
   }
-  
+
   Cloud::ConvertionResult result;
   result.m_hash = hash;
   result.m_isSuccessful = SaveKmlFileSafe(*kmlData, convertedFilePath, KmlFileType::Binary);
@@ -367,18 +366,11 @@ bool ConvertBookmarks(std::vector<std::string> const & files,
 void OnMigrationSuccess(size_t originalCount, size_t convertedCount)
 {
   settings::Set(kSettingsParam, true /* is completed */);
-  alohalytics::TStringMap details{
-    {"original_count", strings::to_string(originalCount)},
-    {"converted_count", strings::to_string(convertedCount)}};
-  alohalytics::Stats::Instance().LogEvent("Bookmarks_migration_success", details);
 }
 
 void OnMigrationFailure(std::string && failedStage)
 {
-  alohalytics::TStringMap details{
-    {"stage", std::move(failedStage)},
-    {"free_space", strings::to_string(GetPlatform().GetWritableStorageSpace())}};
-  alohalytics::Stats::Instance().LogEvent("Bookmarks_migration_failure", details);
+  LOG(LWARNING, ("Failed to migrate bookmarks at stage", failedStage));
 }
 
 bool IsMigrationCompleted()
@@ -442,13 +434,13 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection,
   bool isHotelPlacemarksExtracted;
   if (settings::Get(kSettingsKey, isHotelPlacemarksExtracted) && isHotelPlacemarksExtracted)
     return;
-  
+
   if (!isMigrationCompleted)
   {
     settings::Set(kSettingsKey, true);
     return;
   }
-  
+
   // Find all hotel bookmarks in backup.
   Platform::FilesList files;
   Platform::GetFilesRecursively(GetBackupFolderName(), files);
@@ -457,12 +449,12 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection,
   {
     if (GetFileExt(f) != kKmzExtension)
       continue;
-    
+
     std::string hash;
     auto kmlData = LoadKmzFile(f, hash);
     if (kmlData == nullptr)
       continue;
-    
+
     for (auto & b : kmlData->m_bookmarksData)
     {
       if (b.m_icon == kml::BookmarkIcon::Hotel)
@@ -474,10 +466,10 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection,
     settings::Set(kSettingsKey, true);
     return;
   }
-  
+
   if (!collection)
     collection = std::make_shared<BookmarkManager::KMLDataCollection>();
-  
+
   if (collection->empty())
   {
     auto fileData = std::make_unique<kml::FileData>();
@@ -487,7 +479,7 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection,
     settings::Set(kSettingsKey, true);
     return;
   }
-  
+
   // Match found hotel bookmarks with existing bookmarks.
   double constexpr kEps = 1e-5;
   for (auto const & p : *collection)
@@ -514,7 +506,7 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection,
       SaveKmlFileSafe(*p.second, p.first, KmlFileType::Binary);
     }
   }
-  
+
   // Add not-matched hotel bookmarks.
   auto fileData = std::make_unique<kml::FileData>();
   kml::SetDefaultStr(fileData->m_categoryData.m_name, kHotelsBookmarks);
@@ -629,13 +621,6 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGro
     if (i + 1 < bm.m_featureTypes.size())
       ss << ",";
   }
-  auto const latLon = mercator::ToLatLon(bm.m_point);
-  alohalytics::TStringMap details{
-    {"action", "create"},
-    {"lat", strings::to_string(latLon.m_lat)},
-    {"lon", strings::to_string(latLon.m_lon)},
-    {"tags", ss.str()}};
-  alohalytics::Stats::Instance().LogEvent("Bookmarks_Bookmark_action", details);
 
   bm.m_timestamp = std::chrono::system_clock::now();
   bm.m_viewportScale = static_cast<uint8_t>(df::GetZoomLevel(m_viewport.GetScale()));
@@ -897,7 +882,7 @@ void BookmarkManager::ResetLastSortingType(kml::MarkGroupId groupId)
   auto const entryName = GetMetadataEntryName(groupId);
   if (entryName.empty())
     return;
-  
+
   m_metadata.m_entriesProperties[entryName].m_values.erase(kSortingTypeProperty);
   SaveMetadata();
 }
@@ -2212,7 +2197,7 @@ void BookmarkManager::SaveMetadata()
     coding::SerializerJson<Sink> ser(sink);
     ser(m_metadata);
   }
-  
+
   try
   {
     FileWriter w(metadataFilePath);
@@ -2240,7 +2225,7 @@ void BookmarkManager::LoadMetadata()
       FileReader r(metadataFilePath);
       r.ReadAsString(jsonStr);
     }
-    
+
     if (jsonStr.empty())
       return;
 
@@ -2322,14 +2307,14 @@ void BookmarkManager::LoadBookmarks()
     bool const migrated = migration::MigrateIfNeeded();
     std::string const dir = migrated ? GetBookmarksDirectory() : GetPlatform().SettingsDir();
     std::string const filesExt = migrated ? kKmbExtension : kKmlExtension;
-    
+
     std::vector<std::string> cloudFilePaths;
     auto collection = LoadBookmarks(dir, filesExt, migrated ? KmlFileType::Binary : KmlFileType::Text,
       [](kml::FileData const & kmlData)
     {
       return true;  // Allow to load any files from the bookmarks directory.
     }, cloudFilePaths);
-    
+
     migration::FixUpHotelPlacemarks(collection, isMigrationCompleted);
 
     // Load files downloaded from catalog.
@@ -2339,7 +2324,7 @@ void BookmarkManager::LoadBookmarks()
     {
       return FromCatalog(kmlData);
     }, unusedFilePaths);
-    
+
     collection->reserve(collection->size() + catalogCollection->size());
     for (auto & p : *catalogCollection)
       collection->emplace_back(p.first, std::move(p.second));
@@ -2426,7 +2411,7 @@ void BookmarkManager::NotifyAboutStartAsyncLoading()
 {
   if (m_needTeardown)
     return;
-  
+
   GetPlatform().RunTask(Platform::Thread::Gui, [this]()
   {
     m_asyncLoadingInProgress = true;
@@ -2439,7 +2424,7 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
 {
   if (m_needTeardown)
     return;
-  
+
   GetPlatform().RunTask(Platform::Thread::Gui, [this, collection]()
   {
     if (m_migrationInProgress)
@@ -2480,7 +2465,7 @@ void BookmarkManager::NotifyAboutFile(bool success, std::string const & filePath
 {
   if (m_needTeardown)
     return;
-  
+
   GetPlatform().RunTask(Platform::Thread::Gui, [this, success, filePath, isTemporaryFile]()
   {
     if (success)
@@ -4003,9 +3988,6 @@ void BookmarkManager::DeleteExpiredCategories()
 
   auto const now = GetPlatform().GetMarketingService().GetPushWooshTimestamp();
   GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kSubscriptionContentDeleted, now);
-
-  alohalytics::Stats::Instance().LogEvent("InAppPurchase_Content_deleted",
-      {{"vendor", BOOKMARKS_SUBSCRIPTION_VENDOR}, {"purchases", serverIds}});
 }
 
 void BookmarkManager::ResetExpiredCategories()

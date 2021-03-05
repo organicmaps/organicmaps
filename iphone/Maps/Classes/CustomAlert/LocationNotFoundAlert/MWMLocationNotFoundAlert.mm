@@ -17,7 +17,7 @@
                  rightButtonTitle:L(@"current_location_unknown_continue_button")
                   leftButtonTitle:L(@"current_location_unknown_stop_button")
                 rightButtonAction:okBlock
-                  statisticsEvent:@"Location Not Found Alert"];
+                  log:@"Location Not Found Alert"];
   [alert setNeedsCloseAlertAfterEnterBackground];
   [MWMLocationManager addObserver:alert];
   return alert;

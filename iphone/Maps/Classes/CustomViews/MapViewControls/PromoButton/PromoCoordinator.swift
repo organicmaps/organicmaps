@@ -16,7 +16,6 @@
 
   func onPromoButtonPress(completion: @escaping () -> Void) {
     presentPromoDiscoveryOnboarding(completion: completion)
-    Statistics.logEvent(kStatMapSponsoredButtonClick, withParameters: [kStatTarget: kStatGuidesSubscription])
   }
 
   private func presentPromoDiscoveryOnboarding(completion: @escaping () -> Void) {

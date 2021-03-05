@@ -30,9 +30,6 @@ final class SettingsTemplateBuilder {
                                     options.save()
                                     CarPlayService.shared.updateRouteAfterChangingSettings()
                                     CarPlayService.shared.popTemplate(animated: true)
-                                    Statistics.logEvent(kStatCarplaySettingsChange,
-                                                        withParameters: [kStatOption : kStatToll,
-                                                                         kStatValue : (options.avoidToll ? kStatOn : kStatOff)])
     }
     return tollButton
   }
@@ -47,9 +44,6 @@ final class SettingsTemplateBuilder {
                                       options.save()
                                       CarPlayService.shared.updateRouteAfterChangingSettings()
                                       CarPlayService.shared.popTemplate(animated: true)
-                                      Statistics.logEvent(kStatCarplaySettingsChange,
-                                                          withParameters: [kStatOption : kStatUnpaved,
-                                                                           kStatValue : (options.avoidDirty ? kStatOn : kStatOff)])
     }
     return unpavedButton
   }
@@ -64,9 +58,6 @@ final class SettingsTemplateBuilder {
                                     options.save()
                                     CarPlayService.shared.updateRouteAfterChangingSettings()
                                     CarPlayService.shared.popTemplate(animated: true)
-                                    Statistics.logEvent(kStatCarplaySettingsChange,
-                                                        withParameters: [kStatOption : kStatFerry,
-                                                                         kStatValue : (options.avoidFerry ? kStatOn : kStatOff)])
     }
     return ferryButton
   }
@@ -79,9 +70,6 @@ final class SettingsTemplateBuilder {
                                      image: UIImage(named: trafficIconName)!) { _ in
                                       MapOverlayManager.setTrafficEnabled(!isTrafficEnabled)
                                       CarPlayService.shared.popTemplate(animated: true)
-                                      Statistics.logEvent(kStatCarplaySettingsChange,
-                                                          withParameters: [kStatOption : kStatTraffic,
-                                                                           kStatValue : MapOverlayManager.trafficEnabled() ? kStatOn : kStatOff])
     }
     return trafficButton
   }
@@ -95,9 +83,6 @@ final class SettingsTemplateBuilder {
                                    image: UIImage(named: speedcamIconName)!) { _ in
                                     CarPlayService.shared.isSpeedCamActivated = !isSpeedCamActivated
                                     CarPlayService.shared.popTemplate(animated: true)
-                                    Statistics.logEvent(kStatCarplaySettingsChange,
-                                                        withParameters: [kStatOption : kStatCamera,
-                                                                         kStatValue : (CarPlayService.shared.isSpeedCamActivated ? kStatOn : kStatOff)])
     }
     return speedButton
   }

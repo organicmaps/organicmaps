@@ -12,21 +12,6 @@ final class FilterRatingCell: MWMTableViewCell {
 
     ratingButtons.forEach { $0.isSelected = false }
     sender.isSelected = true
-
-    let rating: String
-    switch sender {
-    case any: rating = kStatAny
-    case good: rating = kStat7
-    case veryGood: rating = kStat8
-    case excellent: rating = kStat9
-    default:
-      rating = ""
-      assert(false)
-    }
-    Statistics.logEvent(kStatSearchFilterClick, withParameters: [
-      kStatCategory: kStatHotel,
-      kStatRating: rating,
-    ])
   }
 
   override func awakeFromNib() {

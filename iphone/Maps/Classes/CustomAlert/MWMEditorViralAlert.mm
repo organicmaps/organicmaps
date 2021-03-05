@@ -2,7 +2,6 @@
 #import "MWMActivityViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 @interface MWMEditorViralAlert ()
@@ -18,7 +17,6 @@
 }
 
 - (IBAction)shareTap {
-  [Statistics logEvent:kStatEditorSecondTimeShareClick];
   [self close:^{
     MWMActivityViewController* shareVC = [MWMActivityViewController shareControllerForEditorViral];
     [shareVC presentInParentViewController:self.alertController.ownerViewController

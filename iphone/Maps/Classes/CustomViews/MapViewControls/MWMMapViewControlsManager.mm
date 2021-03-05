@@ -73,7 +73,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
       [self.promoButton.centerXAnchor constraintEqualToAnchor:self.trafficButton.view.centerXAnchor],
       [self.promoButton.topAnchor constraintEqualToAnchor:self.sideButtons.view.topAnchor]
     ]];
-    [Statistics logEvent:kStatMapSponsoredButtonShow withParameters:@{kStatTarget: kStatGuidesSubscription}];
   }
    */
   return self;
@@ -499,7 +498,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   if (!self.tutorialViewContoller)
     return NO;
 
-  [self logTutorialEvent:kStatTipsTricksShow additionalOptions:nil];
   self.hidden = NO;
   [ownerController addChildViewController:self.tutorialViewContoller];
   self.tutorialViewContoller.view.frame = ownerController.view.bounds;
@@ -511,19 +509,13 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (void)didPressCancel:(MWMTutorialViewController *)viewController {
-  [self logTutorialEvent:kStatTipsTricksClose additionalOptions:@{kStatOption: kStatGotIt}];
   [MWMEye tipClickedWithType:self.tutorialType event:MWMTipEventGotIt];
   [self fadeOutTutorial:viewController];
 }
 
 - (void)didPressTarget:(MWMTutorialViewController *)viewController {
-  [self logTutorialEvent:kStatTipsTricksClick additionalOptions:nil];
   [MWMEye tipClickedWithType:self.tutorialType event:MWMTipEventAction];
   [self fadeOutTutorial:viewController];
-}
-
-- (void)didPressOnScreen:(MWMTutorialViewController *)viewController {
-  [self logTutorialEvent:kStatTipsTricksClose additionalOptions:@{kStatOption: kStatOffscreen}];
 }
 
 - (void)fadeOutTutorial:(MWMTutorialViewController *)viewController {
@@ -533,35 +525,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
     [viewController removeFromParentViewController];
   }];
   self.tutorialViewContoller = nil;
-}
-
-- (void)logTutorialEvent:(NSString *)eventName additionalOptions:(NSDictionary<NSString *, NSString *> *)options {
-  MWMTip type = self.tutorialType;
-  NSNumber *statTutorialType;
-  switch (type) {
-    case MWMTipSearch:
-      statTutorialType = @1;
-      break;
-    case MWMTipDiscovery:
-      statTutorialType = @2;
-      break;
-    case MWMTipBookmarks:
-      statTutorialType = @0;
-      break;
-    case MWMTipSubway:
-      statTutorialType = @3;
-      break;
-    case MWMTipIsolines:
-      statTutorialType = @4;
-      break;
-    case MWMTipNone:
-      return;
-  }
-  NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObject:statTutorialType forKey:kStatType];
-  if (options != nil) {
-    [params addEntriesFromDictionary:options];
-  }
-  [Statistics logEvent:eventName withParameters:params];
 }
 
 @end

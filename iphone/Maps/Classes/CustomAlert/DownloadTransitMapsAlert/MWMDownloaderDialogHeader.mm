@@ -1,6 +1,5 @@
 #import "MWMDownloaderDialogHeader.h"
 #import "MWMDownloadTransitMapAlert.h"
-#import "Statistics.h"
 
 static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHeader";
 
@@ -29,8 +28,6 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
 - (IBAction)headerButtonTap:(UIButton *)sender
 {
   BOOL const currentState = sender.selected;
-  [Statistics logEvent:kStatEventName(kStatDownloaderDialog, kStatExpand)
-                   withParameters:@{kStatValue : currentState ? kStatOff : kStatOn}];
   sender.selected = !currentState;
   self.dividerView.hidden = currentState;
   [UIView animateWithDuration:kDefaultAnimationDuration animations:^

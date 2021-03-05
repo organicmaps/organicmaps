@@ -76,7 +76,6 @@ omim_link_libraries(
   protobuf
   bsdiff
   succinct
-  stats_client
   minizip
   pugixml
   opening_hours

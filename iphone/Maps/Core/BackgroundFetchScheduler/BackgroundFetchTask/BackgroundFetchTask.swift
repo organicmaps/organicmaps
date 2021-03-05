@@ -26,17 +26,6 @@
   }
 }
 
-@objc(MWMBackgroundStatisticsUpload)
-final class BackgroundStatisticsUpload: BackgroundFetchTask {
-  override fileprivate func fire() {
-    Alohalytics.forceUpload(self.finish)
-  }
-
-  override var description: String {
-    return "Statistics upload"
-  }
-}
-
 @objc(MWMBackgroundEditsUpload)
 final class BackgroundEditsUpload: BackgroundFetchTask {
   override fileprivate func fire() {

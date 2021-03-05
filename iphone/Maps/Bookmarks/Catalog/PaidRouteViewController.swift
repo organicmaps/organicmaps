@@ -233,7 +233,6 @@ class PaidRouteViewController: MWMViewController {
   private func onWindowSubscribe() {
     let subscriptionView = SubscriptionViewBuilder.build(type: subscriptionType,
                                                          parentViewController: self,
-                                                         source: kStatCard,
                                                          successDialog: .none) { [weak self] success in
                                                           if success, self != nil {
                                                             self?.delegate?.didCompleteSubscription(self!)

@@ -8,9 +8,6 @@ class DeepLinkMapStrategy: IDeepLinkHandlerStrategy {
   func execute() {
     if (DeepLinkParser.showMap(for: deeplinkURL.url)) {
       MapsAppDelegate.theApp().showMap()
-      sendStatisticsOnSuccess(type: kStatMap)
-    } else {
-      sendStatisticsOnFail(type: kStatMap)
     }
   }
 }

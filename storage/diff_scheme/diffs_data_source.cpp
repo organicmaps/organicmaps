@@ -2,7 +2,6 @@
 
 #include <algorithm>
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 namespace
 {
@@ -24,8 +23,6 @@ void DiffsDataSource::SetDiffInfo(NameDiffInfoMap && info)
   if (info.empty())
   {
     m_status = Status::NotAvailable;
-
-    alohalytics::Stats::Instance().LogEvent("Downloader_DiffScheme_OnStart_fallback");
   }
   else
   {

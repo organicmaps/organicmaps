@@ -23,8 +23,6 @@
 #include <chrono>
 #include <sstream>
 
-#include "3party/Alohalytics/src/alohalytics.h"
-
 #include "private.h"
 
 using namespace std::chrono;
@@ -950,9 +948,6 @@ Cloud::RequestResult Cloud::ExecuteUploading(UploadingResponseData const & respo
     if (code >= 500 && code < 600)
     {
       ASSERT_LESS_OR_EQUAL(i, ARRAY_SIZE(kStatErrors), ());
-      alohalytics::TStringMap details{
-          {"service", m_params.m_serverPathName}, {"type", kStatErrors[i]}, {"error", errorStr}};
-      alohalytics::Stats::Instance().LogEvent("Cloud_Backup_error", details);
       return {RequestStatus::NetworkError, errorStr};
     }
   }
@@ -1420,12 +1415,6 @@ void Cloud::DownloadingTask(std::string const & dirPath, bool useFallbackUrl,
       }
       else
       {
-        alohalytics::TStringMap details{
-          {"service", m_params.m_serverPathName},
-          {"type", useFallbackUrl ? "fallback_server" : "download_server"},
-          {"error", downloadResult.m_description}};
-        alohalytics::Stats::Instance().LogEvent("Cloud_Restore_error", details);
-
         if (!useFallbackUrl)
         {
           // Retry to download by means of fallback url.

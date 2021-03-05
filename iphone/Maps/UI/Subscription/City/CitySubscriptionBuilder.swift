@@ -1,6 +1,5 @@
 class CitySubscriptionBuilder {
   static func build(parentViewController: UIViewController,
-                    source: String,
                     successDialog: SubscriptionSuccessDialog,
                     subscriptionGroupType: SubscriptionGroupType,
                     completion: ((Bool) -> Void)?) -> UIViewController {
@@ -16,8 +15,7 @@ class CitySubscriptionBuilder {
     let presenter = SubscriptionPresenter(view: viewController,
                                           router: router,
                                           interactor: interactor,
-                                          subscriptionManager: InAppPurchase.bookmarksSubscriptionManager!,
-                                          source: source)
+                                          subscriptionManager: InAppPurchase.bookmarksSubscriptionManager!)
 
     interactor.presenter = presenter
     viewController.presenter = presenter

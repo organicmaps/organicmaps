@@ -13,7 +13,6 @@
 
 #include "base/math.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 #include <algorithm>
 #include <chrono>
@@ -38,24 +37,6 @@ int const kZoomThreshold = 10;
 int const kMaxScaleZoomLevel = 16;
 int const kDefaultAutoZoom = 16;
 double const kUnknownAutoZoom = -1.0;
-
-std::string LocationModeStatisticsName(location::EMyPositionMode mode)
-{
-  switch (mode)
-  {
-  case location::PendingPosition:
-    return "@PendingPosition";
-  case location::NotFollowNoPosition:
-    return "@NotFollowNoPosition";
-  case location::NotFollow:
-    return "@NotFollow";
-  case location::Follow:
-    return "@Follow";
-  case location::FollowAndRotate:
-    return "@FollowAndRotate";
-  }
-  return "@UnknownMode";
-}
 
 int GetZoomLevel(ScreenBase const & screen)
 {
@@ -342,19 +323,14 @@ void MyPositionController::ResetRenderShape()
 
 void MyPositionController::NextMode(ScreenBase const & screen)
 {
-  std::string const kAlohalyticsClickEvent = "$onClick";
 
   // Skip switching to next mode while we are waiting for position.
   if (IsWaitingForLocation())
   {
     m_desiredInitMode = location::Follow;
-
-    alohalytics::LogEvent(kAlohalyticsClickEvent,
-                          LocationModeStatisticsName(location::PendingPosition));
     return;
   }
 
-  alohalytics::LogEvent(kAlohalyticsClickEvent, LocationModeStatisticsName(m_mode));
 
   // Start looking for location.
   if (m_mode == location::NotFollowNoPosition)
@@ -712,8 +688,6 @@ void MyPositionController::OnEnterBackground()
 
 void MyPositionController::OnCompassTapped()
 {
-  alohalytics::LogEvent("$compassClicked", {{"mode", LocationModeStatisticsName(m_mode)},
-                                            {"routing", strings::to_string(IsInRouting())}});
   if (m_mode == location::FollowAndRotate)
   {
     ChangeMode(location::Follow);

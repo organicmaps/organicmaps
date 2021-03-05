@@ -22,8 +22,6 @@ extension ElevationDetailsPresenter: ElevationDetailsPresenterProtocol {
     view?.setDifficulty(data.difficulty)
 //    view?.setExtendedDifficultyGrade(data.extendedDifficultyGrade ?? "")
 //    view?.setDifficultyDescription(data.extendedDifficultyDescription ?? "")
-
-    Statistics.logEvent(kStatElevationProfilePageDetailsOpen, withParameters: [kStatType: data.difficulty.rawValue]);
   }
 
   func onOkButtonPressed() {

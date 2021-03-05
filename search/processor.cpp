@@ -67,7 +67,6 @@
 #include <sstream>
 #include <utility>
 
-#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/open-location-code/openlocationcode.h"
 
 using namespace std;
@@ -90,57 +89,6 @@ m2::RectD GetRectAroundPosition(m2::PointD const & position)
 {
   double constexpr kMaxPositionRadiusM = 50.0 * 1000;
   return mercator::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
-}
-
-string GetStatisticsMode(SearchParams const & params)
-{
-  switch (params.m_mode)
-  {
-  case Mode::Viewport:
-    return "Viewport";
-  case Mode::Everywhere:
-    return "Everywhere";
-  case Mode::Downloader:
-    return "Downloader";
-  case Mode::Bookmarks:
-    if (params.m_bookmarksGroupId != bookmarks::kInvalidGroupId)
-      return "BookmarksList";
-    return "Bookmarks";
-  case Mode::Count:
-    UNREACHABLE();
-  }
-  UNREACHABLE();
-}
-
-void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Results const & res)
-{
-
-  string resultString = strings::to_string(res.GetCount());
-  for (size_t i = 0; i < res.GetCount(); ++i)
-    resultString.append("\t" + res[i].ToStringForStats());
-
-  string posX, posY;
-  if (params.m_position)
-  {
-    auto const position = *params.m_position;
-    posX = strings::to_string(position.x);
-    posY = strings::to_string(position.y);
-  }
-
-  alohalytics::TStringMap const stats = {
-      {"posX", posX},
-      {"posY", posY},
-      {"viewportMinX", strings::to_string(viewport.minX())},
-      {"viewportMinY", strings::to_string(viewport.minY())},
-      {"viewportMaxX", strings::to_string(viewport.maxX())},
-      {"viewportMaxY", strings::to_string(viewport.maxY())},
-      {"query", params.m_query},
-      {"locale", params.m_inputLocale},
-      {"results", resultString},
-      {"mode", GetStatisticsMode(params)}
-  };
-  alohalytics::LogEvent("searchEmitResultsAndCoords", stats);
-  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kSearchEmitResultsAndCoords, {});
 }
 
 // Removes all full-token stop words from |tokens|.
@@ -703,9 +651,10 @@ void Processor::Search(SearchParams const & params)
   case Mode::Count: ASSERT(false, ("Invalid mode")); break;
   }
 
-  // todo(@m) Send the fact of cancelling by timeout to stats?
   if (!viewportSearch && cancellationStatus != Cancellable::Status::CancelCalled)
-    SendStatistics(params, viewport, m_emitter.GetResults());
+  {
+    LOG(LWARNING, ("Search cancelled by timeout"));
+  }
 }
 
 void Processor::SearchDebug()

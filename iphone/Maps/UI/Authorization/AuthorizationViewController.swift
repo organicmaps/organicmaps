@@ -12,21 +12,6 @@ import AuthenticationServices
   case guideCatalogue
   case exportBookmarks
   case subscription
-
-  var stat: String {
-    switch self {
-    case .afterSaveReview:
-      return kStatAuthFromAfterSaveReview
-    case .bookmarksBackup:
-      return kStatAuthFromBookmarksBackup
-    case .guideCatalogue:
-      return kStatAuthFromGuideCatalogue
-    case .exportBookmarks:
-      return kStatAuthFromExportBookmarks
-    case .subscription:
-      return kStatAuthFromSubscription
-    }
-  }
 }
 
 @objc(MWMAuthorizationViewController)
@@ -84,7 +69,6 @@ final class AuthorizationViewController: MWMViewController {
     })
     let navVC = MWMNavigationController(rootViewController: authVC)
     self.present(navVC, animated: true)
-    logStatStart(type: .phone)
   }
   
   @IBOutlet private var phoneSignInButton: UIButton! {
@@ -201,7 +185,6 @@ final class AuthorizationViewController: MWMViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    Statistics.logEvent(kStatAuthShown, withParameters: [kStatFrom: source.stat])
   }
 
   override func viewDidLayoutSubviews() {
@@ -223,11 +206,9 @@ final class AuthorizationViewController: MWMViewController {
     authorizationController.delegate = self
     authorizationController.presentationContextProvider = self
     authorizationController.performRequests()
-    logStatStart(type: .apple)
   }
 
   @IBAction func onCancel() {
-    Statistics.logEvent(kStatAuthDeclined, withParameters: [kStatFrom: source.stat])
     errorHandler?(.cancelled)
     onClose()
   }
@@ -237,22 +218,7 @@ final class AuthorizationViewController: MWMViewController {
     completionHandler?(self)
   }
   
-  private func getProviderStatStr(type: SocialTokenType) -> String {
-    switch type {
-    case .facebook: return kStatFacebook
-    case .google: return kStatGoogle
-    case .phone: return kStatPhone
-    case .apple: return kStatApple
-    @unknown default:
-      fatalError()
-    }
-  }
-
   private func process(error: Error, type: SocialTokenType) {
-    Statistics.logEvent(kStatAuthError, withParameters: [
-      kStatProvider: getProviderStatStr(type: type),
-      kStatError: error.localizedDescription
-    ])
     textLabel.text = L("profile_authorization_error")
   }
 
@@ -260,8 +226,6 @@ final class AuthorizationViewController: MWMViewController {
                        type: SocialTokenType,
                        firstName: String = "",
                        lastName: String = "") {
-    Statistics.logEvent(kStatAuthExternalRequestSuccess,
-                        withParameters: [kStatProvider: getProviderStatStr(type: type)])
     User.authenticate(withToken: token,
                       type: type,
                       privacyAccepted: privacyPolicyCheck.isChecked,
@@ -269,7 +233,6 @@ final class AuthorizationViewController: MWMViewController {
                       promoAccepted: latestNewsCheck.isChecked,
                       firstName: firstName,
                       lastName: lastName) { success in
-                        self.logStatEnd(type: type, success: success)
                         if success {
                           self.successHandler?(type)
                         } else {
@@ -277,25 +240,6 @@ final class AuthorizationViewController: MWMViewController {
                         }
     }
     onClose()
-  }
-
-  private func logStatStart(type: SocialTokenType) {
-    var agreements = [kStatAgreePrivacy, kStatAgreeTerms]
-    if latestNewsCheck.isChecked {
-      agreements.append(kStatAgreeNews)
-    }
-    Statistics.logEvent(kStatAuthStart, withParameters: [kStatFrom: source.stat,
-                                                         kStatProvider: getProviderStatStr(type: type),
-                                                         kStatAgree: agreements])
-  }
-
-  private func logStatEnd(type: SocialTokenType, success: Bool) {
-    let provider = getProviderStatStr(type: type)
-    if success {
-      Statistics.logEvent(kStatAuthRequestSucces, withParameters: [kStatProvider: provider])
-    } else {
-      Statistics.logEvent(kStatAuthError, withParameters: [kStatProvider: provider, kStatError: ""])
-    }
   }
 }
 

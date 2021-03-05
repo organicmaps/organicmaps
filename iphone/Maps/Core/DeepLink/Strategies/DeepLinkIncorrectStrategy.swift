@@ -9,31 +9,5 @@ class DeepLinkIncorrectStrategy: IDeepLinkHandlerStrategy {
 
   func execute() {
     LOG(.warning, "Incorrect parsing result for url: \(deeplinkURL.url)")
-    sendStatisticsOnFail(type: data?.urlType.getStatName() ?? kStatUnknown)
-  }
-}
-
-private extension DeeplinkUrlType {
-  func getStatName() -> String {
-    switch self {
-    case .catalogue:
-      return kStatCatalogue
-    case .cataloguePath:
-      return kStatCataloguePath
-    case .incorrect:
-      return kStatUnknown
-    case .lead:
-      return kStatLead
-    case .map:
-      return kStatMap
-    case .route:
-      return kStatRoute
-    case .search:
-      return kStatSearch
-    case .subscription:
-      return kStatSubscription
-    @unknown default:
-      fatalError()
-    }
   }
 }

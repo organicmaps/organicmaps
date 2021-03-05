@@ -36,7 +36,6 @@ private:
   storage::CountryInfoGetter const & m_countryInfoGetter;
   storage::Storage const & m_storage;
   promo::Api const & m_promoApi;
-  Purchase const & m_purchase;
   taxi::Engine const & m_taxiEngine;
 };
 }  // namespace ads

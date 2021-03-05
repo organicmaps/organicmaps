@@ -34,7 +34,6 @@ omim_link_libraries(
   jansson
   protobuf
   bsdiff
-  stats_client
   minizip
   succinct
   pugixml

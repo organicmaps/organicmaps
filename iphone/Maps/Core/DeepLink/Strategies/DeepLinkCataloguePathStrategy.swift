@@ -7,7 +7,6 @@ class DeepLinkCataloguePathStrategy: IDeepLinkHandlerStrategy {
 
   func execute() {
     MapViewController.shared()?.openCatalogDeeplink(deeplinkURL.url, animated: false, utm: .none);
-    sendStatisticsOnSuccess(type: kStatCataloguePath)
   }
 }
 

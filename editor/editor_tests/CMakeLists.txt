@@ -34,7 +34,6 @@ omim_link_libraries(
   geometry
   coding
   base
-  stats_client
   opening_hours
   pugixml
   tess2

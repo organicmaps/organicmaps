@@ -91,23 +91,19 @@ final class BookmarksListPresenter {
         case .distance:
           return BookmarksListMenuItem(title: L("sort_distance"), action: { [weak self] in
             self?.sort(.distance)
-            Statistics.logEvent(kStatBookmarksListSort, withParameters: [kStatOption : kStatSortByDistance])
           })
         case .date:
           return BookmarksListMenuItem(title: L("sort_date"), action: { [weak self] in
             self?.sort(.date)
-            Statistics.logEvent(kStatBookmarksListSort, withParameters: [kStatOption : kStatSortByDate])
           })
         case .type:
           return BookmarksListMenuItem(title: L("sort_type"), action: { [weak self] in
             self?.sort(.type)
-            Statistics.logEvent(kStatBookmarksListSort, withParameters: [kStatOption : kStatSortByType])
           })
         }
     }
     sortItems.append(BookmarksListMenuItem(title: L("sort_default"), action: { [weak self] in
       self?.setDefaultSections()
-      Statistics.logEvent(kStatBookmarksListSort, withParameters: [kStatOption : kStatSortByDefault])
     }))
     view.showMenu(sortItems)
   }
@@ -119,16 +115,13 @@ final class BookmarksListPresenter {
                                            action: { [weak self] in
       guard let self = self else { return }
       self.router.sharingOptions(self.bookmarkGroup)
-      Statistics.logEvent(kStatBookmarksListItemSettings, withParameters: [kStatOption : kStatSharingOptions])
     }))
     moreItems.append(BookmarksListMenuItem(title: L("search_show_on_map"), action: { [weak self] in
       self?.viewOnMap()
-      Statistics.logEvent(kStatBookmarksListItemMoreClick, withParameters: [kStatOption : kStatViewOnMap])
     }))
     moreItems.append(BookmarksListMenuItem(title: L("list_settings"), action: { [weak self] in
       guard let self = self else { return }
       self.router.listSettings(self.bookmarkGroup, delegate: self)
-      Statistics.logEvent(kStatBookmarksListItemMoreClick, withParameters: [kStatOption : kStatSettings])
     }))
     moreItems.append(BookmarksListMenuItem(title: L("export_file"), action: { [weak self] in
       self?.interactor.exportFile { (url, status) in
@@ -146,7 +139,6 @@ final class BookmarksListPresenter {
                                message: L("bookmarks_error_message_share_general"))
         }
       }
-      Statistics.logEvent(kStatBookmarksListItemMoreClick, withParameters: [kStatOption : kStatSendAsFile])
     }))
     moreItems.append(BookmarksListMenuItem(title: L("delete_list"),
                                            destructive: true,
@@ -154,12 +146,8 @@ final class BookmarksListPresenter {
                                            action: { [weak self] in
                                             self?.interactor.deleteBookmarksGroup()
                                             self?.delegate?.bookmarksListDidDeleteGroup()
-                                            Statistics.logEvent(kStatBookmarksListItemMoreClick,
-                                                                withParameters: [kStatOption : kStatDelete])
-
                                            }))
     view.showMenu(moreItems)
-    Statistics.logEvent(kStatBookmarksListItemSettings, withParameters: [kStatOption : kStatMore])
   }
 
   private func viewOnMap() {
@@ -218,7 +206,6 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
       let bookmarks = self.mapBookmarks($0)
       self.view.setSections(bookmarks.isEmpty ? [] : [BookmarksSectionViewModel(title: L("bookmarks"),
                                                                                  bookmarks: bookmarks)])
-      Statistics.logEvent(kStatBookmarksSearch, withParameters: [kStatFrom : kStatBookmarksList])
     }
   }
 
@@ -249,20 +236,15 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
       let bookmark = bookmarksSection.bookmarks[index] as! BookmarkViewModel
       interactor.viewBookmarkOnMap(bookmark.bookmarkId)
       router.viewOnMap(bookmarkGroup)
-      Statistics.logEvent(kStatEventName(kStatBookmarks, kStatShowOnMap))
-      logSelectEvent(kStatGuidesBookmarkSelect, type: bookmarkGroup.type)
     case let tracksSection as ITracksSectionViewModel:
       let track = tracksSection.tracks[index] as! TrackViewModel
       interactor.viewTrackOnMap(track.trackId)
       router.viewOnMap(bookmarkGroup)
-      logSelectEvent(kStatGuidesTrackSelect)
     case let subgroupsSection as ISubgroupsSectionViewModel:
       let subgroup = subgroupsSection.subgroups[index] as! SubgroupViewModel
       router.showSubgroup(subgroup.groupId)
       if subgroup.type == .collection {
-        logSelectEvent(kStatGuidesCollectionSelect, name: subgroup.subgroupName)
       } else if subgroup.type == .category {
-        logSelectEvent(kStatGuidesCategorySelect, name: subgroup.subgroupName)
       } else {
         assertionFailure()
       }
@@ -276,9 +258,6 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     case let subgroupsSection as ISubgroupsSectionViewModel:
       let subgroup = subgroupsSection.subgroups[index] as! SubgroupViewModel
       interactor.setGroup(subgroup.groupId, visible: checked)
-      logVisibleEvent(serverId: bookmarkGroup.serverId,
-                      type: subgroup.type,
-                      action: checked ? kStatShow : kStatHide)
       reload()
     default:
       fatalError("Wrong section type: \(section.self)")
@@ -302,9 +281,6 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
         interactor.setGroup(subgroup.groupId, visible: visible)
       }
       reload()
-      logVisibleEvent(serverId: bookmarkGroup.serverId,
-                      type: subgroupsSection.type,
-                      action: visible ? kStatShowAll : kStatHideAll)
     default:
       fatalError("Wrong section type: \(section.self)")
     }
@@ -312,36 +288,6 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
 
   func showDescription() {
     router.showDescription(bookmarkGroup)
-  }
-
-  private func logSelectEvent(_ eventName: String, type: BookmarkGroupType? = nil, name: String? = nil) {
-    var eventArguments: [AnyHashable: Any] = [:]
-    if let type = type {
-      eventArguments[kStatFrom] = type.getStatName()
-    }
-    if let name = name {
-      eventArguments[kStatName] = name
-    }
-    if !bookmarkGroup.serverId.isEmpty {
-      eventArguments[kStatServerId] = bookmarkGroup.serverId
-    }
-
-    Statistics.logEvent(eventName,
-                        withParameters: eventArguments,
-                        with: .realtime)
-  }
-
-  private func logVisibleEvent(serverId: String, type: BookmarkGroupType, action: String) {
-    var eventArguments: [AnyHashable: Any] = [:]
-    if !serverId.isEmpty {
-      eventArguments[kStatServerId] = bookmarkGroup.serverId
-    }
-    eventArguments[kStatType] = type.getStatName()
-    eventArguments[kStatAction] = action
-
-    Statistics.logEvent(kStatGuidesVisibilityChange,
-                        withParameters: eventArguments,
-                        with: .realtime)
   }
 }
 
@@ -503,22 +449,5 @@ fileprivate struct BookmarksListInfo: IBookmakrsListInfoViewModel {
     self.hasDescription = hasDescription
     self.imageUrl = imageUrl
     self.hasLogo = hasLogo
-  }
-}
-
-fileprivate extension BookmarkGroupType {
-  func getStatName() -> String {
-    switch self {
-    case .root:
-      return kStatMain
-    case .collection:
-      return kStatCollection
-    case .category:
-      return kStatCategory
-    case .day:
-      return kStatDay
-    @unknown default:
-      fatalError()
-    }
   }
 }

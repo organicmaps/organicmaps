@@ -1,7 +1,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "MWMRouter.h"
 #import "MWMTextToSpeech+CPP.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "LocaleTranslator.h"
@@ -120,8 +119,6 @@ using Observers = NSHashTable<Observer>;
 }
 - (std::vector<std::pair<std::string, std::string>>)availableLanguages { return _availableLanguages; }
 - (void)setNotificationsLocale:(NSString *)locale {
-  [Statistics logEvent:kStatEventName(kStatTTSSettings, kStatChangeLanguage)
-        withParameters:@{kStatValue : locale}];
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];
   [ud synchronize];

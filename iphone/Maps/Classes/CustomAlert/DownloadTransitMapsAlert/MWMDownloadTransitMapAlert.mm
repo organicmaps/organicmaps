@@ -3,7 +3,6 @@
 #import "MWMDownloaderDialogCell.h"
 #import "MWMDownloaderDialogHeader.h"
 #import "MWMStorage+UI.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 #import "UILabel+RuntimeAttributes.h"
 
@@ -14,7 +13,6 @@
 namespace
 {
 NSString * const kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert";
-NSString * const kStatisticsEvent = @"Map download Alert";
 
 CGFloat const kCellHeight = 32.;
 CGFloat const kHeaderHeight = 44.;
@@ -62,7 +60,6 @@ CGFloat const kAnimationDuration = .05;
                           downloadBlock:(MWMDownloadBlock)downloadBlock
                   downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMDownloadTransitMapAlert * alert = [self alertWithCountries:countries];
   switch (code)
   {
@@ -192,13 +189,11 @@ CGFloat const kAnimationDuration = .05;
 
 - (IBAction)cancelButtonTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
   [self close:self.cancelBlock];
 }
 
 - (IBAction)downloadButtonTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
   [self updateCountriesList];
   if (m_countries.empty())
   {

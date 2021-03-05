@@ -59,7 +59,6 @@ final class CatalogWebViewController: WebViewController {
         } else {
           deeplink = url
         }
-        Statistics.logEvent(kStatCatalogOpen, withParameters: [kStatFrom: kStatDeeplink])
       }
     }
     super.init(url: catalogUrl, title: L("guides_catalogue_title"))!
@@ -111,11 +110,6 @@ final class CatalogWebViewController: WebViewController {
     progressBgView.heightAnchor.constraint(equalToConstant: 48).isActive = true
 
     let connected = FrameworkHelper.isNetworkConnected()
-    if !connected {
-      Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
-                          withParameters: [kStatError: "no_internet"])
-    }
-
     noInternetView.isHidden = connected
     noInternetView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(noInternetView)
@@ -201,16 +195,12 @@ final class CatalogWebViewController: WebViewController {
 
   override func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
     loadingIndicator.stopAnimating()
-    Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
-                        withParameters: [kStatError: kStatUnknown])
   }
 
   override func webView(_ webView: WKWebView,
                         didFailProvisionalNavigation navigation: WKNavigation!,
                         withError error: Error) {
     loadingIndicator.stopAnimating()
-    Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
-                        withParameters: [kStatError: kStatUnknown])
   }
 
   private func showOnMap(_ serverId: String) {
@@ -352,9 +342,6 @@ final class CatalogWebViewController: WebViewController {
         }
       } else {
         if BookmarksManager.shared().getCatalogDownloadsCount() == 0 {
-          Statistics.logEvent(kStatInappProductDelivered, withParameters: [kStatVendor: BOOKMARKS_VENDOR,
-                                                                           kStatPurchase: categoryInfo.id],
-                              with: .realtime)
           logToPushWoosh(categoryInfo)
           MapViewController.shared().showBookmarksLoadedAlert(categoryId)
         }
@@ -369,7 +356,6 @@ final class CatalogWebViewController: WebViewController {
   private func showSubscriptionScreen(_ productInfo: CatalogCategoryInfo) {
     let subscribeViewController = SubscriptionViewBuilder.build(type: productInfo.subscriptionType,
                                                                 parentViewController: self,
-                                                                source: kStatWebView,
                                                                 successDialog: .none) { [weak self] success in
                                                                   if success {
                                                                     self?.reloadFromOrigin()
@@ -382,7 +368,6 @@ final class CatalogWebViewController: WebViewController {
   private func showSubscriptionBannerScreen(_ type: SubscriptionGroupType) {
     let subscribeViewController = SubscriptionViewBuilder.build(type: type,
                                                                 parentViewController: self,
-                                                                source: kStatWebView,
                                                                 successDialog: .success) { [weak self] success in
                                                                   if success {
                                                                     self?.reloadFromOrigin()
@@ -422,16 +407,13 @@ final class CatalogWebViewController: WebViewController {
   @objc private func onBackPressed() {
     if webView.canGoBack {
       back()
-      Statistics.logEvent(kStatGuidesBack, withParameters: [kStatMethod: kStatBack])
     } else {
       navigationController?.popViewController(animated: true)
-      Statistics.logEvent(kStatGuidesClose, withParameters: [kStatMethod: kStatBack])
     }
   }
 
   @objc private func onExitPressed() {
     goBack()
-    Statistics.logEvent(kStatGuidesClose, withParameters: [kStatMethod: kStatDone])
   }
 
   @objc private func onFwd() {

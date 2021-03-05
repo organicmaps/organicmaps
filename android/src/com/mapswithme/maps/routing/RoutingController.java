@@ -358,9 +358,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     updatePlan();
 
     Statistics.INSTANCE.trackRouteBuild(mLastRouterType, getStartPoint(), getEndPoint());
-    org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD,
-            new String[]{Statistics.EventParam.FROM, Statistics.getPointType(getStartPoint()),
-                         Statistics.EventParam.TO, Statistics.getPointType(getEndPoint())});
 
     Framework.nativeBuildRoute();
   }

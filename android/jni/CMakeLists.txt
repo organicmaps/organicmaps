@@ -153,7 +153,6 @@ target_link_libraries(
   minizip
   jansson
   protobuf
-  stats_client
   succinct
   stb_image
   sdf_image

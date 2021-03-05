@@ -15,7 +15,6 @@ class WhatsNewPresenter {
   private weak var view: IWelcomeView?
   private let router: WelcomeRouter
   private let config: WhatsNewConfig
-  private let appVersion = AppInfo.shared().bundleVersion ?? ""
 
   init(view: IWelcomeView, router: WelcomeRouter, config: WhatsNewConfig) {
     self.view = view
@@ -30,8 +29,6 @@ extension WhatsNewPresenter: IWhatsNewPresenter {
   }
 
   func onAppear() {
-    Statistics.logEvent(kStatWhatsNewAction, withParameters: [kStatAction: kStatOpen,
-                                                              kStatVersion: appVersion])
   }
 
   func onNext() {
@@ -39,13 +36,9 @@ extension WhatsNewPresenter: IWhatsNewPresenter {
       action()
     }
     router.onNext()
-    Statistics.logEvent(kStatWhatsNewAction, withParameters: [kStatAction: kStatNext,
-                                                              kStatVersion: appVersion])
   }
 
   func onClose() {
     router.onClose()
-    Statistics.logEvent(kStatWhatsNewAction, withParameters: [kStatAction: kStatClose,
-                                                              kStatVersion: appVersion])
   }
 }

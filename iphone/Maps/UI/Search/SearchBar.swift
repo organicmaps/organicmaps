@@ -35,10 +35,6 @@ final class SearchBar: SolidTouchView {
   @objc var isBookingSearchViewHidden: Bool = true {
     didSet {
       if oldValue != isBookingSearchViewHidden {
-        if isBookingSearchViewHidden {
-          Statistics.logEvent(kStatSearchQuickFilterOpen, withParameters: [kStatCategory: kStatHotel,
-                                                                           kStatNetwork: Statistics.connectionTypeString()])
-        }
         UIView.animate(withDuration: kDefaultAnimationDuration / 2,
                        delay: 0,
                        options: [.beginFromCurrentState],

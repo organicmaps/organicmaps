@@ -2,7 +2,6 @@
 
 #import <CoreApi/MWMFrameworkHelper.h>
 
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 @interface MWMAboutController () <SettingsTableViewSwitchCellDelegate>
@@ -52,28 +51,22 @@
   SettingsTableViewLinkCell *cell = [tableView cellForRowAtIndexPath:indexPath];
   if (cell == self.websiteCell)
   {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"website"];
     [self openUrl:[NSURL URLWithString:@"https://omaps.app"]];
   }
   else if (cell == self.facebookCell)
   {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"likeOnFb"];
     [self openUrl:[NSURL URLWithString:@"https://facebook.com/MapsWithMe"]];
   }
   else if (cell == self.twitterCell)
   {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"followOnTwitter"];
     [self openUrl:[NSURL URLWithString:@"https://twitter.com/OMaps"]];
   }
   else if (cell == self.osmCell)
   {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"osm"];
     [self openUrl:[NSURL URLWithString:@"https://www.openstreetmap.org"]];
   }
   else if (cell == self.rateCell)
   {
-    [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatRate}];
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"rate"];
     [UIApplication.sharedApplication rateApp];
   }
   else if (cell == self.privacyPolicyCell)
@@ -86,8 +79,6 @@
   }
   else if (cell == self.copyrightCell)
   {
-    [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatCopyright}];
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"copyright"];
     NSError * error;
     NSString * filePath = [[NSBundle mainBundle] pathForResource:@"copyright" ofType:@"html"];
     NSString * s = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
@@ -96,11 +87,6 @@
         [[WebViewController alloc] initWithHtml:text baseUrl:nil title:L(@"copyright")];
     aboutViewController.openInSafari = YES;
     [self.navigationController pushViewController:aboutViewController animated:YES];
-  }
-  else if (cell == self.adsCell)
-  {
-    [Statistics logEvent:@"Settings_Tracking_details"
-          withParameters:@{kStatType: @"personal_ads"}];
   }
 }
 
@@ -121,12 +107,7 @@
 - (void)switchCell:(SettingsTableViewSwitchCell *)cell didChangeValue:(BOOL)value
 {
   if (cell == self.crashlyticsCell)
-  {
-    [Statistics logEvent:@"Settings_Tracking_toggle"
-          withParameters:@{kStatType: @"crash_reports",
-                           kStatValue: value ? @"on" : @"off"}];
     [MWMSettings setCrashReportingDisabled:!value];
-  }
 }
 
 @end

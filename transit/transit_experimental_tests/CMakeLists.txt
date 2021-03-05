@@ -17,7 +17,6 @@ omim_link_libraries(
   geometry
   base
   jansson
-  stats_client
   opening_hours
   oauthcpp
   ${LIBZ}

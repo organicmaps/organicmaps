@@ -19,7 +19,6 @@ omim_link_libraries(
   routing_common
   search
   storage
-  stats_client
   editor
   indexer
   ge0

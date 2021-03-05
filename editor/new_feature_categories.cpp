@@ -9,7 +9,6 @@
 #include <algorithm>
 #include <utility>
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 namespace osm
 {
@@ -68,8 +67,6 @@ NewFeatureCategories::TypeNames NewFeatureCategories::Search(std::string const &
   {
     result[i] = c.GetReadableObjectName(resultTypes[i]);
   }
-
-  alohalytics::LogEvent("searchNewFeatureCategory", {{"query", query}});
 
   return result;
 }

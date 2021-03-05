@@ -29,7 +29,6 @@
 
 #include "private.h"
 
-#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
 
 namespace
@@ -121,18 +120,6 @@ std::string ReviewReceiverUrl()
   ss << kUGCServerUrl << "/"
      << static_cast<int>(ReviewReceiverProtocol::LatestVersion)
      << "/receive/";
-  return ss.str();
-}
-
-std::string UserBindingRequestUrl(std::string const & advertisingId)
-{
-  if (kUserBindingRequestUrl.empty())
-    return {};
-
-  std::ostringstream ss;
-  ss << kUserBindingRequestUrl
-     << "?vendor=" << kVendor
-     << "&advertising_id=" << url::UrlEncode(advertisingId);
   return ss.str();
 }
 
@@ -578,16 +565,13 @@ void User::UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchroniz
   GetPlatform().RunTask(Platform::Thread::Network,
                         [this, url, dataStr, numberOfUnsynchronized, onCompleteUploading]()
   {
-    size_t const bytesCount = dataStr.size();
     Request(url, [this, dataStr](platform::HttpClient & request)
     {
       request.SetRawHeader("Authorization", BuildAuthorizationToken(m_accessToken));
       request.SetBodyData(dataStr, kApplicationJson);
     },
-    [bytesCount, onCompleteUploading](std::string const &)
+    [onCompleteUploading](std::string const &)
     {
-      alohalytics::Stats::Instance().LogEvent("UGC_DataUpload_finished",
-                                              strings::to_string(bytesCount));
       LOG(LINFO, ("Reviews have been uploaded."));
 
       if (onCompleteUploading != nullptr)
@@ -595,10 +579,7 @@ void User::UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchroniz
     },
     [onCompleteUploading, numberOfUnsynchronized](int errorCode, std::string const & response)
     {
-      alohalytics::Stats::Instance().LogEvent("UGC_DataUpload_error",
-                                              {{"error", strings::to_string(errorCode)},
-                                               {"num", strings::to_string(numberOfUnsynchronized)}});
-      LOG(LWARNING, ("Reviews have not been uploaded. Code =", errorCode, "Response =", response));
+      LOG(LWARNING, (numberOfUnsynchronized, "reviews have not been uploaded. Code =", errorCode, "Response =", response));
 
       if (onCompleteUploading != nullptr)
         onCompleteUploading(false /* isSuccessful */);
@@ -608,76 +589,6 @@ void User::UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchroniz
 
 void User::BindUser(CompleteUserBindingHandler && completionHandler)
 {
-  auto const url = UserBindingRequestUrl(GetPlatform().AdvertisingId());
-  if (url.empty() || m_accessToken.empty())
-  {
-    if (completionHandler)
-      completionHandler(false /* isSuccessful */);
-    return;
-  }
-
-  GetPlatform().RunTask(Platform::Thread::File,
-                        [this, url, completionHandler = std::move(completionHandler)]() mutable
-  {
-    alohalytics::Stats::Instance().CollectBlobsToUpload(false /* delete files */,
-      [this, url, completionHandler = std::move(completionHandler)](std::vector<std::string> & blobs) mutable
-    {
-      if (blobs.empty())
-      {
-        LOG(LWARNING, ("Binding request error. There is no any statistics data blob."));
-        if (completionHandler)
-          completionHandler(false /* isSuccessful */);
-        return;
-      }
-
-      // Save data blob for sending to the temporary file.
-      size_t indexToSend = 0;
-      for (size_t i = 1; i < blobs.size(); i++)
-      {
-        if (blobs[i].size() > blobs[indexToSend].size())
-          indexToSend = i;
-      }
-      auto const filePath = base::JoinPath(GetPlatform().TmpDir(), "binding_request");
-      try
-      {
-        FileWriter writer(filePath);
-        writer.Write(blobs[indexToSend].data(), blobs[indexToSend].size());
-      }
-      catch (Writer::Exception const & e)
-      {
-        LOG(LWARNING, ("Binding request error. Blob writing error."));
-        if (completionHandler)
-          completionHandler(false /* isSuccessful */);
-        return;
-      }
-
-      // Send request.
-      GetPlatform().RunTask(Platform::Thread::Network,
-                            [this, url, filePath, completionHandler = std::move(completionHandler)]()
-      {
-        SCOPE_GUARD(tmpFileGuard, std::bind(&base::DeleteFileX, std::cref(filePath)));
-        platform::HttpPayload payload;
-        payload.m_url = url;
-        payload.m_needClientAuth = true;
-        payload.m_headers = {{"Authorization", BuildAuthorizationToken(m_accessToken)},
-                             {"User-Agent", GetPlatform().GetAppUserAgent()}};
-        payload.m_filePath = filePath;
-        platform::HttpUploader request(payload);
-        auto const result = request.Upload();
-        if (result.m_httpCode >= 200 && result.m_httpCode < 300)
-        {
-          if (completionHandler)
-            completionHandler(true /* isSuccessful */);
-        }
-        else
-        {
-          LOG(LWARNING, ("Binding request error. Code =", result.m_httpCode, result.m_description));
-          if (completionHandler)
-            completionHandler(false /* isSuccessful */);
-        }
-      });
-    });
-  });
 }
 
 // static

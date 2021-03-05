@@ -4,9 +4,7 @@
 
 #import "MWMAlertViewController.h"
 #import "MWMMailViewController.h"
-#import "Statistics.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "platform/platform.hpp"
 
@@ -15,8 +13,6 @@ extern NSString * const kUDAlreadyRatedKey;
 static NSString * const kRateAlertEventName = @"rateAlertEvent";
 static NSString * const kRateAlertNibName = @"MWMRateAlert";
 static NSString * const kRateEmail = @"rating@omaps.app";
-
-static NSString * const kStatisticsEvent = @"Rate Alert";
 
 @interface MWMRateAlert ()<MFMailComposeViewControllerDelegate>
 
@@ -32,7 +28,6 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 
 + (instancetype)alert
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMRateAlert * alert =
       [NSBundle.mainBundle loadNibNamed:kRateAlertNibName owner:self options:nil].firstObject;
   [alert configureButtons];
@@ -104,22 +99,15 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 
 - (IBAction)doneTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
-  [Alohalytics logEvent:kRateAlertEventName withValue:@"notNowTap"];
   [self close:nil];
 }
 
 - (IBAction)rateTap
 {
   NSUInteger const tag = self.selectedTag;
-  [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatRate)
-        withParameters:@{
-          kStatValue : @(tag).stringValue
-        }];
   if (tag == 5)
   {
     [UIApplication.sharedApplication rateApp];
-    [Alohalytics logEvent:kRateAlertEventName withValue:@"fiveStar"];
     [self close:^{
       auto ud = NSUserDefaults.standardUserDefaults;
       [ud setBool:YES forKey:kUDAlreadyRatedKey];
@@ -134,8 +122,6 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
 
 - (void)sendFeedback
 {
-  [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatSendEmail)];
-  [Alohalytics logEvent:kRateAlertEventName withValue:@"sendFeedback"];
   self.alpha = 0.;
   MWMAlertViewController * alertController = self.alertController;
   alertController.view.alpha = 0.;
@@ -185,7 +171,6 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
   [self.alertController.ownerViewController
       dismissViewControllerAnimated:YES
                          completion:^{
-                           [Statistics logEvent:kStatEventName(kStatisticsEvent, kStatClose)];
                            [self close:nil];
                          }];
 }

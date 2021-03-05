@@ -2,7 +2,6 @@ project(ugc)
 
 include_directories(
   ${OMIM_ROOT}/3party/jansson/src
-  ${OMIM_ROOT}/Alohalytics/src
 )
 
 set(

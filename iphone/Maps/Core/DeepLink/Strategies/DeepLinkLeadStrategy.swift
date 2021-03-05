@@ -6,6 +6,5 @@ class DeepLinkLeadStrategy: IDeepLinkHandlerStrategy {
   }
 
   func execute() {
-    sendStatisticsOnSuccess(type: kStatLead)
   }
 }

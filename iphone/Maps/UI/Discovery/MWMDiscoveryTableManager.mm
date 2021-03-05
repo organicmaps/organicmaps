@@ -5,7 +5,6 @@
 #import "MWMDiscoveryHotelViewModel.h"
 #import "MWMDiscoverySearchViewModel.h"
 #import "MWMNetworkPolicy+UI.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #import <CoreApi/CatalogPromoItem+Core.h>
@@ -15,21 +14,6 @@
 #include "search/result.hpp"
 
 using namespace std;
-
-namespace discovery
-{
-NSString * StatProvider(ItemType const type)
-{
-  switch (type) {
-    case ItemType::Attractions: return kStatSearchAttractions;
-    case ItemType::Cafes: return kStatSearchRestaurants;
-    case ItemType::Hotels: return kStatBooking;
-    case ItemType::Promo: return kStatMapsmeGuides;
-    case ItemType::LocalExperts: return @"";
-  }
-}
-}  // namespace discovery
-
 using namespace discovery;
 
 @interface MWMDiscoveryTableManager ()<UITableViewDataSource, UICollectionViewDelegate,
@@ -80,9 +64,6 @@ using namespace discovery;
   if (!self.canUseNetwork) {
     m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), ItemType:: Promo), m_loadingTypes.end());
     m_failedTypes.push_back(ItemType:: Promo);
-    [Statistics logEvent:kStatPlacepageSponsoredError
-          withParameters:@{kStatProvider: StatProvider(ItemType:: Promo),
-                           kStatPlacement: kStatDiscovery}];
   }
   [self.tableView reloadData];
 }
@@ -115,13 +96,6 @@ using namespace discovery;
   NSInteger position = [self position:type];
   [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:position]
                 withRowAnimation:UITableViewRowAnimationFade];
-
-  [Statistics logEvent:kStatPlacepageSponsoredShow
-        withParameters:@{
-          kStatProvider: StatProvider(type),
-          kStatPlacement: kStatDiscovery,
-          kStatState: self.hasOnlineSections ? kStatOnline : kStatOffline
-        }];
 }
 
 - (void)errorAtItem:(ItemType const)type {
@@ -130,11 +104,6 @@ using namespace discovery;
   m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type), m_loadingTypes.end());
   m_failedTypes.push_back(type);
   NSInteger position = [self position:type];
-
-  [Statistics logEvent:kStatPlacepageSponsoredError
-        withParameters:@{kStatProvider: StatProvider(type),
-                         kStatPlacement: kStatDiscovery}];
-
   [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:position]
                 withRowAnimation:UITableViewRowAnimationFade];
 }

@@ -48,13 +48,6 @@ final class CategorySettingsViewController: MWMTableViewController {
     tableView.registerNib(cell: MWMNoteCell.self)
   }
   
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
-    if isMovingFromParent && !changesMade {
-      Statistics.logEvent(kStatBookmarkSettingsCancel)
-    }
-  }
-
   override func numberOfSections(in tableView: UITableView) -> Int {
     Sections.count.rawValue
   }
@@ -114,7 +107,6 @@ final class CategorySettingsViewController: MWMTableViewController {
         as! BookmarksSharingViewController
       sharingViewController.category = bookmarkGroup
       navigationController?.pushViewController(sharingViewController, animated: true)
-      Statistics.logEvent(kStatBookmarkSettingsClick, withParameters: [kStatOption : kStatSharingOptions])
       break
     default:
       break
@@ -134,7 +126,6 @@ final class CategorySettingsViewController: MWMTableViewController {
     }
 
     delegate?.categorySettingsController(self, didEndEditing: bookmarkGroup.categoryId)
-    Statistics.logEvent(kStatBookmarkSettingsConfirm)
   }
 }
 
@@ -163,7 +154,5 @@ extension CategorySettingsViewController: MWMButtonCellDelegate {
   func cellDidPressButton(_ cell: UITableViewCell) {
     BookmarksManager.shared().deleteCategory(bookmarkGroup.categoryId)
     delegate?.categorySettingsController(self, didDelete: bookmarkGroup.categoryId)
-    Statistics.logEvent(kStatBookmarkSettingsClick,
-                        withParameters: [kStatOption : kStatDelete])
   }
 }

@@ -11,7 +11,6 @@
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MWMSearchManager+Filter.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "platform/localization.hpp"
@@ -146,54 +145,38 @@ struct Callback
 }
 
 - (void)tapOnItem:(ItemType const)type atIndex:(NSInteger)index {
-  NSString * dest = @"";
-  NSString * event = kStatPlacepageSponsoredItemSelected;
   MWMEyeDiscoveryEvent eyeEvent;
   switch (type) {
     case ItemType::Attractions:
       if (index == [self.viewModel itemsCountForType:type]) {
         [self searchTourism];
-        event = kStatPlacepageSponsoredMoreSelected;
         eyeEvent = MWMEyeDiscoveryEventMoreAttractions;
       } else {
         [self showSearchResult:[self.viewModel.attractions searchResultAtIndex:index]];
         eyeEvent = MWMEyeDiscoveryEventAttractions;
       }
-      
-      dest = kStatPlacePage;
       break;
     case ItemType::Cafes:
       if (index == [self.viewModel itemsCountForType:type]) {
         [self searchFood];
-        event = kStatPlacepageSponsoredMoreSelected;
         eyeEvent = MWMEyeDiscoveryEventMoreCafes;
       } else {
         [self showSearchResult:[self.viewModel.cafes searchResultAtIndex:index]];
         eyeEvent = MWMEyeDiscoveryEventCafes;
       }
-      
-      dest = kStatPlacePage;
       break;
     case ItemType::Hotels:
       if (index == [self.viewModel itemsCountForType:type]) {
         [self openFilters];
-        event = kStatPlacepageSponsoredMoreSelected;
-        dest = kStatSearchFilterOpen;
         eyeEvent = MWMEyeDiscoveryEventMoreHotels;
       } else {
         [self showSearchResult:[self.viewModel.hotels searchResultAtIndex:index]];
-        dest = kStatPlacePage;
         eyeEvent = MWMEyeDiscoveryEventHotels;
       }
       break;
     case ItemType::Promo:
       if (index == [self.viewModel itemsCountForType:type]) {
         [self openURLForItem:ItemType::Promo];
-        [Statistics logEvent:kStatPlacepageSponsoredMoreSelected
-              withParameters:@{
-                               kStatProvider: StatProvider(type),
-                               kStatPlacement: kStatDiscovery
-                               }];
       } else {
         [self openURLForItem:ItemType::Promo atIndex:index];
       }
@@ -202,26 +185,8 @@ struct Callback
     case ItemType::LocalExperts:
       return;
   }
-  
-  [self logEvent:event
-            type:type
-           index:index
-     destination:dest];
-  [MWMEye discoveryItemClickedWithEvent:eyeEvent];
-}
 
-- (void)logEvent:(NSString *)eventName
-            type:(ItemType const)type
-           index:(NSInteger)index
-     destination:(NSString *)destination {
-  NSAssert(destination.length > 0, @"");
-  [Statistics logEvent:eventName
-        withParameters:@{
-                         kStatProvider: StatProvider(type),
-                         kStatPlacement: kStatDiscovery,
-                         kStatItem: @(index + 1),
-                         kStatDestination: destination
-                         }];
+  [MWMEye discoveryItemClickedWithEvent:eyeEvent];
 }
 
 - (void)openFilters {
@@ -284,11 +249,6 @@ struct Callback
   [MWMRouter setType:MWMRouterTypePedestrian];
   [MWMRouter buildToPoint:pt bestRouter:NO];
   [self.navigationController popViewControllerAnimated:YES];
-
-  [self logEvent:kStatPlacepageSponsoredItemSelected
-            type:type
-           index:index
-     destination:kStatRouting];
 }
 
 - (void)openURLForItem:(ItemType const)type atIndex:(NSInteger)index {
@@ -306,11 +266,6 @@ struct Callback
       }
       NSURL *url = [NSURL URLWithString:itemPath];
       [self openCatalogForURL:url];
-      
-      [self logEvent:kStatPlacepageSponsoredItemSelected
-                type:type
-               index:index
-         destination:kStatCatalogue];
       break;
   }
 }

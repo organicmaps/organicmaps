@@ -1,5 +1,4 @@
 #import "MWMMobileInternetViewController.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 @interface MWMMobileInternetViewController ()
@@ -42,24 +41,12 @@
     return;
 
   _selected = selected;
-  NSString * statValue = @"";
   if ([selected isEqual:self.always])
-  {
-    statValue = kStatAlways;
     [MWMNetworkPolicy sharedPolicy].permission = MWMNetworkPolicyPermissionAlways;
-  }
   else if ([selected isEqual:self.ask])
-  {
-    statValue = kStatAsk;
     [MWMNetworkPolicy sharedPolicy].permission = MWMNetworkPolicyPermissionAsk;
-  }
   else if ([selected isEqual:self.never])
-  {
-    statValue = kStatNever;
     [MWMNetworkPolicy sharedPolicy].permission = MWMNetworkPolicyPermissionNever;
-  }
-
-  [Statistics logEvent:kStatSettingsMobileInternetChange withParameters:@{kStatValue : statValue}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

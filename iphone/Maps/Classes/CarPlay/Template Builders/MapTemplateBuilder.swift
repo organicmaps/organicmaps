@@ -47,7 +47,6 @@ final class MapTemplateBuilder {
       mapTemplate.userInfo = MapInfo(type: CPConstants.TemplateType.previewSettings)
       let gridTemplate = SettingsTemplateBuilder.buildGridTemplate()
       CarPlayService.shared.pushTemplate(gridTemplate, animated: true)
-      Statistics.logEvent(kStatCarplaySettingsOpen, withParameters: [kStatFrom : kStatOverview])
     }
     mapTemplate.trailingNavigationBarButtons = [settingsButton]
     return mapTemplate
@@ -61,20 +60,15 @@ final class MapTemplateBuilder {
     }
     let zoomInButton = buildMapButton(type: .zoomIn) { _ in
       FrameworkHelper.zoomMap(.in)
-      Alohalytics.logEvent(kStatCarplayZoom, with: [kStatIsZoomIn : true,
-                                                    kStatIsPanActivated: false])
     }
     let zoomOutButton = buildMapButton(type: .zoomOut) { _ in
       FrameworkHelper.zoomMap(.out)
-      Alohalytics.logEvent(kStatCarplayZoom, with: [kStatIsZoomIn : false,
-                                                    kStatIsPanActivated: false])
     }
     mapTemplate.mapButtons = [panningButton, zoomInButton, zoomOutButton]
     
     let settingsButton = buildBarButton(type: .settings) { _ in
       let gridTemplate = SettingsTemplateBuilder.buildGridTemplate()
       CarPlayService.shared.pushTemplate(gridTemplate, animated: true)
-      Statistics.logEvent(kStatCarplaySettingsOpen, withParameters: [kStatFrom : kStatMap])
     }
     mapTemplate.trailingNavigationBarButtons = [settingsButton]
   }
@@ -82,23 +76,17 @@ final class MapTemplateBuilder {
   class func configurePanUI(mapTemplate: CPMapTemplate) {
     let zoomInButton = buildMapButton(type: .zoomIn) { _ in
       FrameworkHelper.zoomMap(.in)
-      Alohalytics.logEvent(kStatCarplayZoom, with: [kStatIsZoomIn : true,
-                                                    kStatIsPanActivated: true])
     }
     let zoomOutButton = buildMapButton(type: .zoomOut) { _ in
       FrameworkHelper.zoomMap(.out)
-      Alohalytics.logEvent(kStatCarplayZoom, with: [kStatIsZoomIn : false,
-                                                    kStatIsPanActivated: true])
     }
     mapTemplate.mapButtons = [zoomInButton, zoomOutButton]
     
     let doneButton = buildBarButton(type: .dismissPaning) { _ in
       mapTemplate.dismissPanningInterface(animated: true)
-      Alohalytics.logEvent(kStatCarplayPanDeactivated, with: [kStatUsedButtons: CarPlayService.shared.isUserPanMap])
     }
     mapTemplate.leadingNavigationBarButtons = []
     mapTemplate.trailingNavigationBarButtons = [doneButton]
-    Alohalytics.logEvent(kStatCarplayPanActivated)
   }
   
   class func configureNavigationUI(mapTemplate: CPMapTemplate) {
@@ -119,7 +107,6 @@ final class MapTemplateBuilder {
     let destinationButton = buildBarButton(type: .destination) { _ in
       let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
       CarPlayService.shared.pushTemplate(listTemplate, animated: true)
-      Statistics.logEvent(kStatCarplayDestinationsOpen, withParameters: [kStatFrom : kStatMap])
     }
     mapTemplate.leadingNavigationBarButtons = [destinationButton]
   }
@@ -127,7 +114,6 @@ final class MapTemplateBuilder {
   class func setupRecenterButton(mapTemplate: CPMapTemplate) {
     let recenterButton = buildBarButton(type: .recenter) { _ in
       FrameworkHelper.switchMyPositionMode()
-      Alohalytics.logEvent(kStatCarplayRecenter)
     }
     mapTemplate.leadingNavigationBarButtons = [recenterButton]
   }
@@ -140,7 +126,6 @@ final class MapTemplateBuilder {
     let redirectButton = buildBarButton(type: .redirectRoute) { _ in
       let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
       CarPlayService.shared.pushTemplate(listTemplate, animated: true)
-      Statistics.logEvent(kStatCarplayDestinationsOpen, withParameters: [kStatFrom : kStatNavigation])
     }
     template.leadingNavigationBarButtons = [muteButton, redirectButton]
   }
@@ -153,7 +138,6 @@ final class MapTemplateBuilder {
     let redirectButton = buildBarButton(type: .redirectRoute) { _ in
       let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)
       CarPlayService.shared.pushTemplate(listTemplate, animated: true)
-      Statistics.logEvent(kStatCarplayDestinationsOpen, withParameters: [kStatFrom : kStatNavigation])
     }
     template.leadingNavigationBarButtons = [unmuteButton, redirectButton]
   }

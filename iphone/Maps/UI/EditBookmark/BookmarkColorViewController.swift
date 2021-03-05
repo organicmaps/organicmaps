@@ -42,7 +42,5 @@ final class BookmarkColorViewController: MWMTableViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let color = colors[indexPath.row]
     delegate?.bookmarkColorViewController(self, didSelect: color)
-    Statistics.logEvent(kStatEventName(kStatPlacePage, kStatChangeBookmarkColor),
-                        withParameters: [kStatValue : color.title])
   }
 }

@@ -25,7 +25,6 @@ omim_link_libraries(
   gflags
   jansson
   protobuf
-  stats_client
   minizip
   succinct
   opening_hours

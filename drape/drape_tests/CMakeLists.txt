@@ -51,7 +51,6 @@ omim_link_libraries(
   base
   icu
   expat
-  stats_client
   oauthcpp
   freetype
   gmock

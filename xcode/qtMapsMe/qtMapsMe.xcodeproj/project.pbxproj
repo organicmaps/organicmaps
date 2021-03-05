@@ -95,7 +95,6 @@
 		6729A66E1A695C70007D5872 /* eula.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A66B1A695C70007D5872 /* eula.html */; };
 		6729A66F1A695C70007D5872 /* welcome.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A66C1A695C70007D5872 /* welcome.html */; };
 		6729A6711A695CA8007D5872 /* languages.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6729A6701A695CA8007D5872 /* languages.txt */; };
-		674A29AB1B26F0AE001A525C /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29901B26F0AE001A525C /* libalohalitics.a */; };
 		674A29AE1B26F0AE001A525C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29931B26F0AE001A525C /* libbase.a */; };
 		674A29AF1B26F0AE001A525C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29941B26F0AE001A525C /* libcoding.a */; };
 		674A29B11B26F0AE001A525C /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A29961B26F0AE001A525C /* libexpat.a */; };
@@ -330,7 +329,6 @@
 		6729A66B1A695C70007D5872 /* eula.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = eula.html; sourceTree = "<group>"; };
 		6729A66C1A695C70007D5872 /* welcome.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = welcome.html; sourceTree = "<group>"; };
 		6729A6701A695CA8007D5872 /* languages.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = languages.txt; sourceTree = "<group>"; };
-		674A29901B26F0AE001A525C /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		674A29931B26F0AE001A525C /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
 		674A29941B26F0AE001A525C /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
 		674A29961B26F0AE001A525C /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
@@ -417,7 +415,6 @@
 				674A7E311C0DB727003D48E1 /* libgeometry.a in Frameworks */,
 				67E8DC931BBC1D3F0053C5BA /* libagg.a in Frameworks */,
 				671F59021B8755FE0032311E /* libz.dylib in Frameworks */,
-				674A29AB1B26F0AE001A525C /* libalohalitics.a in Frameworks */,
 				674A29AE1B26F0AE001A525C /* libbase.a in Frameworks */,
 				674A29AF1B26F0AE001A525C /* libcoding.a in Frameworks */,
 				674A29B11B26F0AE001A525C /* libexpat.a in Frameworks */,
@@ -469,7 +466,6 @@
 				674A7E351C0DB727003D48E1 /* libstb_image.a */,
 				67E8DC911BBC1D3F0053C5BA /* libagg.a */,
 				671F59011B8755FE0032311E /* libz.dylib */,
-				674A29901B26F0AE001A525C /* libalohalitics.a */,
 				674A29931B26F0AE001A525C /* libbase.a */,
 				674A29941B26F0AE001A525C /* libcoding.a */,
 				674A29961B26F0AE001A525C /* libexpat.a */,

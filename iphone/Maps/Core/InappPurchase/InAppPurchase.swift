@@ -5,17 +5,6 @@ final class InAppPurchase: NSObject {
     return nil
   }
 
-  static func paidRouteStatistics(serverId: String,
-                                  productId: String,
-                                  testGroup: String,
-                                  source: String) -> IPaidRouteStatistics {
-    return PaidRouteStatistics(serverId: serverId,
-                               productId: productId,
-                               vendor: BOOKMARKS_VENDOR,
-                               testGroup: testGroup,
-                               source: source)
-  }
-
   @objc
   static func pendingTransactionsHandler() -> IPendingTransactionsHandler? {
     return nil

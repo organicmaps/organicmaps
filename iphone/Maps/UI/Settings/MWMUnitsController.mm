@@ -1,6 +1,5 @@
 #import "MWMUnitsController.h"
 #import "MWMSettings.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 @interface MWMUnitsController ()
@@ -36,17 +35,9 @@
   cell.selected = NO;
   _selectedCell = cell;
   if (cell == self.kilometers)
-  {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
-          withParameters:@{kStatValue : kStatKilometers}];
     [MWMSettings setMeasurementUnits:MWMUnitsMetric];
-  }
   else
-  {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
-          withParameters:@{kStatValue : kStatMiles}];
     [MWMSettings setMeasurementUnits:MWMUnitsImperial];
-  }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

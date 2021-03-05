@@ -25,7 +25,6 @@ using namespace power_management;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *transliterationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *compassCalibrationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *showOffersCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *statisticsCell;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewSelectableProgressCell *restoreSubscriptionCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *manageSubscriptionsCell;
@@ -169,8 +168,6 @@ using namespace power_management;
   bool const hasSubscription = purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
   [self.showOffersCell configWithDelegate:self title:L(@"showcase_settings_title") isOn:!hasSubscription];
   self.showOffersCell.isEnabled = !hasSubscription;
-
-  [self.statisticsCell configWithDelegate:self title:L(@"allow_statistics") isOn:[MWMSettings statisticsEnabled]];
 }
 
 - (void)configSubsriptionsSection {
@@ -221,12 +218,8 @@ using namespace power_management;
 
 - (void)switchCell:(SettingsTableViewSwitchCell *)cell didChangeValue:(BOOL)value {
   if (cell == self.zoomButtonsCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
-          withParameters:@{kStatValue: (value ? kStatVisible : kStatHidden)}];
     [MWMSettings setZoomButtonsEnabled:value];
   } else if (cell == self.is3dCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStat3DBuildings)
-          withParameters:@{kStatValue: (value ? kStatOn : kStatOff)}];
     auto &f = GetFramework();
     bool _ = true, is3dBuildings = true;
     f.Load3dMode(_, is3dBuildings);
@@ -234,35 +227,18 @@ using namespace power_management;
     f.Save3dMode(_, is3dBuildings);
     f.Allow3dMode(_, is3dBuildings);
   } else if (cell == self.autoDownloadCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatAutoDownload)
-          withParameters:@{kStatValue: (value ? kStatOn : kStatOff)}];
     [MWMSettings setAutoDownloadEnabled:value];
   } else if (cell == self.backupBookmarksCell) {
-    [Statistics logEvent:kStatSettingsBookmarksSyncToggle withParameters:@{kStatState: (value ? @1 : @0)}];
     [[MWMBookmarksManager sharedManager] setCloudEnabled:value];
   } else if (cell == self.fontScaleCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleLargeFontSize)
-          withParameters:@{kStatValue: (value ? kStatOn : kStatOff)}];
     [MWMSettings setLargeFontSize:value];
   } else if (cell == self.transliterationCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleTransliteration)
-          withParameters:@{kStatValue: (value ? kStatOn : kStatOff)}];
     [MWMSettings setTransliteration:value];
   } else if (cell == self.compassCalibrationCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleCompassCalibration)
-          withParameters:@{kStatValue: (value ? kStatOn : kStatOff)}];
     [MWMSettings setCompassCalibrationEnabled:value];
   } else if (cell == self.showOffersCell) {
     [self showRemoveAds];
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatAd)
-          withParameters:@{kStatAction: kStatAd, kStatValue: (value ? kStatOn : kStatOff)}];
-  } else if (cell == self.statisticsCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleStatistics)
-          withParameters:@{kStatAction: kStatToggleStatistics, kStatValue: (value ? kStatOn : kStatOff)}];
-    [MWMSettings setStatisticsEnabled:value];
   } else if (cell == self.perspectiveViewCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStat3D)
-          withParameters:@{kStatValue: (value ? kStatOn : kStatOff)}];
     auto &f = GetFramework();
     bool _ = true, is3d = true;
     f.Load3dMode(is3d, _);
@@ -270,8 +246,6 @@ using namespace power_management;
     f.Save3dMode(is3d, _);
     f.Allow3dMode(is3d, _);
   } else if (cell == self.autoZoomCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatAutoZoom)
-          withParameters:@{kStatValue: value ? kStatOn : kStatOff}];
     auto &f = GetFramework();
     f.AllowAutoZoom(value);
     f.SaveAutoZoom(value);
@@ -283,37 +257,24 @@ using namespace power_management;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   auto cell = [tableView cellForRowAtIndexPath:indexPath];
   if (cell == self.profileCell) {
-    [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName: kStatAuthorization}];
     [self performSegueWithIdentifier:@"SettingsToProfileSegue" sender:nil];
   } else if (cell == self.unitsCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
-          withParameters:@{kStatAction: kStatChangeMeasureUnits}];
     [self performSegueWithIdentifier:@"SettingsToUnits" sender:nil];
   } else if (cell == self.mobileInternetCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatMobileInternet)
-          withParameters:@{kStatAction: kStatChangeMobileInternet}];
     [self performSegueWithIdentifier:@"SettingsToMobileInternetSegue" sender:nil];
   } else if (cell == self.powerManagementCell) {
     [self performSegueWithIdentifier:@"SettingsToPowerManagementSegue" sender:nil];
   } else if (cell == self.recentTrackCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatRecentTrack)
-          withParameters:@{kStatAction: kStatChangeRecentTrack}];
     [self performSegueWithIdentifier:@"SettingsToRecentTrackSegue" sender:nil];
   } else if (cell == self.nightModeCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatNightMode)
-          withParameters:@{kStatAction: kStatChangeNightMode}];
     [self performSegueWithIdentifier:@"SettingsToNightMode" sender:nil];
   } else if (cell == self.voiceInstructionsCell) {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS) withParameters:@{kStatAction: kStatChangeLanguage}];
     [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
   } else if (cell == self.drivingOptionsCell) {
     [self performSegueWithIdentifier:@"settingsToDrivingOptionsSegue" sender:nil];
   } else if (cell == self.helpCell) {
-    [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName: kStatHelp}];
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"help"];
     [self performSegueWithIdentifier:@"SettingsToHelp" sender:nil];
   } else if (cell == self.aboutCell) {
-    [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName: kStatAbout}];
     [self performSegueWithIdentifier:@"SettingsToAbout" sender:nil];
   } else if (cell == self.restoreSubscriptionCell) {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -357,15 +318,6 @@ using namespace power_management;
       return L(@"prefs_group_route");
     case 4:
       return L(@"info");
-    default:
-      return nil;
-  }
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-  switch (section) {
-    case 1:
-      return L(@"allow_statistics_hint");
     default:
       return nil;
   }

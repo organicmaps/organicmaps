@@ -1,5 +1,4 @@
 #import "MWMMobileInternetAlert.h"
-#import "Statistics.h"
 
 @interface MWMMobileInternetAlert ()
 
@@ -19,7 +18,6 @@
 
 - (IBAction)alwaysTap
 {
-  [Statistics logEvent:kStatMobileInternetAlert withParameters:@{kStatValue : kStatAlways}];
   [self close:^{
     self.completionBlock(MWMMobileInternetAlertResultAlways);
   }];
@@ -27,7 +25,6 @@
 
 - (IBAction)askTap
 {
-  [Statistics logEvent:kStatMobileInternetAlert withParameters:@{kStatValue: kStatToday}];
   [self close:^{
     self.completionBlock(MWMMobileInternetAlertResultToday);
   }];
@@ -35,7 +32,6 @@
 
 - (IBAction)neverTap
 {
-  [Statistics logEvent:kStatMobileInternetAlert withParameters:@{kStatAction: kStatNotToday}];
   [self close:^{
     self.completionBlock(MWMMobileInternetAlertResultNotToday);
   }];

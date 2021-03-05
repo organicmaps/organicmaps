@@ -26,6 +26,5 @@ class DeepLinkSearchStrategy: IDeepLinkHandlerStrategy{
     } else {
       MWMMapViewControlsManager.manager()?.searchText(data.query, forInputLocale: data.locale)
     }
-    sendStatisticsOnSuccess(type: kStatSearch)
   }
 }

@@ -81,14 +81,9 @@ extension SearchHistoryViewController: UITableViewDelegate {
       }) { _ in
         self.showNoResultsView()
       }
-
-      Statistics.logEvent(kStatEventName(kStatSearch, kStatSelectResult),
-                          withParameters: [ kStatValue : kStatClear, kStatScreen : kStatHistory ])
     } else {
       let query = lastQueries[indexPath.row]
       delegate?.searchHistoryViewController(self, didSelect: query)
-      Statistics.logEvent(kStatEventName(kStatSearch, kStatSelectResult),
-                          withParameters: [ kStatValue : query, kStatScreen : kStatHistory ])
     }
   }
 }

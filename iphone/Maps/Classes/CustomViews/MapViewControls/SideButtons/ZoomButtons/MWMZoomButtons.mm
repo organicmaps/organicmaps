@@ -2,7 +2,6 @@
 #import "MWMZoomButtonsView.h"
 #import "Statistics.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
 #include "platform/settings.hpp"
@@ -10,7 +9,6 @@
 
 static NSString * const kMWMZoomButtonsViewNibName = @"MWMZoomButtonsView";
 
-extern NSString * const kAlohalyticsTapEventKey;
 
 @interface MWMZoomButtons()
 
@@ -53,14 +51,12 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)zoomIn
 {
   [Statistics logEvent:kStatEventName(kStatZoom, kStatIn)];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"+"];
   GetFramework().Scale(Framework::SCALE_MAG, true);
 }
 
 - (void)zoomOut
 {
   [Statistics logEvent:kStatEventName(kStatZoom, kStatOut)];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"-"];
   GetFramework().Scale(Framework::SCALE_MIN, true);
 }
 

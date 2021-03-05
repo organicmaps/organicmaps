@@ -11,7 +11,6 @@ extension UIViewController {
           return
         }
         let subscriptionDialog = AllPassSubscriptionBuilder.build(parentViewController: parentViewController,
-                                                                  source: kStatWebView,
                                                                   successDialog: .none,
                                                                   subscriptionGroupType: .allPass) { result in
                                                                     if !result {

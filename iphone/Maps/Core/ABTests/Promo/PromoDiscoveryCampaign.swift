@@ -12,7 +12,7 @@
   @objc private(set) var hasBeenActivated: Bool = false
 
   var enabled: Bool {
-    return adapter.canShowTipButton() && Alohalytics.isFirstSession() && !hasBeenActivated;
+    return adapter.canShowTipButton() && FirstSession.isFirstSession() && !hasBeenActivated;
   }
 
   required override init() {

@@ -108,21 +108,6 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
     throw new IllegalStateException("Placeholder not found in layout");
   }
 
-  @Override
-  public void onResume()
-  {
-    super.onResume();
-    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName()
-        + ":" + UiUtils.deviceOrientationAsString(requireActivity()));
-  }
-
-  @Override
-  public void onPause()
-  {
-    super.onPause();
-    org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
-  }
-
   protected void setupPlaceholder(@Nullable PlaceholderView placeholder) {}
 
   public void setupPlaceholder()

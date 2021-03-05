@@ -1,5 +1,4 @@
 #import "MWMSearchCell.h"
-#import "Statistics.h"
 
 #include <CoreApi/Framework.h>
 
@@ -43,9 +42,6 @@
     }
     else
     {
-      [Statistics logEvent:@"Incorrect_highlight_range" withParameters:@{@"range.first" : @(range.first),
-                                                                        @"range.second" : @(range.second),
-                                                                        @"string" : title}];
       LOG(LERROR, ("Incorrect range: ", range, " for string: ", result.GetString()));
     }
   }

@@ -3,7 +3,6 @@
 #import "MWMMapViewControlsManager.h"
 #import "SwiftBridge.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include <CoreApi/Framework.h>
 
@@ -14,7 +13,6 @@ char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
 char const * kZoomButtonsEnabledKey = "ZoomButtonsEnabled";
 char const * kCompassCalibrationEnabledKey = "CompassCalibrationEnabled";
 char const * kRoutingDisclaimerApprovedKey = "IsDisclaimerApproved";
-char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 
 // TODO(igrechuhin): Remove outdated kUDAutoNightModeOff
 NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
@@ -86,27 +84,6 @@ NSString * const kCrashReportingDisabled = @"CrashReportingDisabled";
 + (void)setCompassCalibrationEnabled:(BOOL)compassCalibrationEnabled
 {
   settings::Set(kCompassCalibrationEnabledKey, static_cast<bool>(compassCalibrationEnabled));
-}
-
-+ (BOOL)statisticsEnabled
-{
-  bool enabled = true;
-  UNUSED_VALUE(settings::Get(kStatisticsEnabledSettingsKey, enabled));
-  return enabled;
-}
-
-+ (void)setStatisticsEnabled:(BOOL)statisticsEnabled
-{
-  if (statisticsEnabled)
-  {
-    [Alohalytics enable];
-  }
-  else
-  {
-    [Alohalytics logEvent:@"statisticsDisabled"];
-    [Alohalytics disable];
-  }
-  settings::Set(kStatisticsEnabledSettingsKey, static_cast<bool>(statisticsEnabled));
 }
 
 + (MWMTheme)theme

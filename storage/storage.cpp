@@ -31,8 +31,6 @@
 #include <limits>
 #include <sstream>
 
-#include "3party/Alohalytics/src/alohalytics.h"
-
 using namespace downloader;
 using namespace generator::mwm_diff;
 using namespace platform;
@@ -77,10 +75,6 @@ bool ValidateIntegrity(LocalFilePtr mapLocalFile, string const & countryId, stri
   if (mapLocalFile->ValidateIntegrity())
     return true;
 
-  alohalytics::LogEvent("$MapIntegrityFailure",
-                        alohalytics::TStringMap({{"mwm", countryId},
-                                                 {"version", strings::to_string(version)},
-                                                 {"source", source}}));
   return false;
 }
 
@@ -103,34 +97,6 @@ bool IsFileDownloaded(string const fileDownloadPath, MapFileType type)
   // no need to request servers list and download file.  Let's
   // switch to next file.
   return isDownloadedDiff || GetPlatform().IsFileExistsByFullPath(readyFilePath);
-}
-
-void SendStatisticsAfterDownloading(CountryId const & countryId, DownloadStatus status,
-                                    MapFileType type, int64_t dataVersion,
-                                    std::map<CountryId, std::list<LocalFilePtr>> const & localFiles)
-{
-  // Send statistics to PushWoosh. We send these statistics only for the newly downloaded
-  // mwms, not for updated ones.
-  if (status == DownloadStatus::Completed && type != MapFileType::Diff)
-  {
-    auto const it = localFiles.find(countryId);
-    if (it == localFiles.end())
-    {
-      auto & marketingService = GetPlatform().GetMarketingService();
-      marketingService.SendPushWooshTag(marketing::kMapLastDownloaded, countryId);
-      auto const nowStr = marketingService.GetPushWooshTimestamp();
-      marketingService.SendPushWooshTag(marketing::kMapLastDownloadedTimestamp, nowStr);
-    }
-  }
-
-  alohalytics::LogEvent("$OnMapDownloadFinished",
-                        alohalytics::TStringMap(
-                          {{"name", countryId},
-                           {"status", status == DownloadStatus::Completed ? "ok" : "failed"},
-                           {"version", strings::to_string(dataVersion)},
-                           {"option", DebugPrint(type)}}));
-  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kDownloaderMapActionFinished,
-                                                         {{"action", "download"}});
 }
 }  // namespace
 
@@ -810,8 +776,6 @@ void Storage::OnMapDownloadFinished(CountryId const & countryId, DownloadStatus 
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_didDownload != nullptr, ("Storage::Init wasn't called"));
 
-  SendStatisticsAfterDownloading(countryId, status, type, GetCurrentDataVersion(), m_localFiles);
-
   if (status != DownloadStatus::Completed)
   {
     if (status == DownloadStatus::FileNotFound && type == MapFileType::Diff)
@@ -862,7 +826,7 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
 bool Storage::IsCountryInQueue(CountryId const & countryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-    
+
   return m_downloader->GetQueue().Contains(countryId);
 }
 
@@ -1411,7 +1375,7 @@ void Storage::OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs)
 
   if (m_diffsDataSource->GetStatus() == diffs::Status::NotAvailable)
     return;
-  
+
   for (auto const & localDiff : m_notAppliedDiffs)
   {
     auto const countryId = FindCountryIdByFile(localDiff.GetCountryName());

@@ -210,7 +210,7 @@
                                rightButtonTitle:rightButtonTitle
                                 leftButtonTitle:leftButtonTitle
                               rightButtonAction:action
-                                statisticsEvent:nil];
+                                log:nil];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {

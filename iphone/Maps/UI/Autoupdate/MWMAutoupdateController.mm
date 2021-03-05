@@ -1,7 +1,6 @@
 #import "MWMAutoupdateController.h"
 #import "MWMCircularProgress.h"
 #import "MWMStorage+UI.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "platform/downloader_defines.hpp"
@@ -171,8 +170,6 @@ using namespace storage;
 {
   [super viewWillAppear:animated];
   self.progressFinished = NO;
-  [Statistics logEvent:kStatDownloaderOnStartScreenShow
-        withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
   MWMAutoupdateView *view = (MWMAutoupdateView *)self.view;
   if (self.todo == Framework::DoAfterUpdate::AutoupdateMaps)
   {
@@ -181,8 +178,6 @@ using namespace storage;
       [self updateSize];
       [view stateWaiting];
     }];
-    [Statistics logEvent:kStatDownloaderOnStartScreenAutoDownload
-          withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
   }
   else
   {
@@ -218,8 +213,6 @@ using namespace storage;
     [self updateSize];
     [view stateWaiting];
   }];
-  [Statistics logEvent:kStatDownloaderOnStartScreenManualDownload
-        withParameters:@{kStatMapDataSize : @(self.sizeInMB)}];
 }
 - (IBAction)hideTap { [self dismiss]; }
 
@@ -238,12 +231,6 @@ using namespace storage;
                              handler:^(UIAlertAction * action) {
                                [[MWMStorage sharedStorage] cancelDownloadNode:RootId()];
                                [self dismiss];
-                               [Statistics logEvent:view.state == State::Downloading
-                                                        ? kStatDownloaderOnStartScreenCancelDownload
-                                                        : kStatDownloaderOnStartScreenSelectLater
-                                     withParameters:@{
-                                       kStatMapDataSize : @(self.sizeInMB)
-                                     }];
                              }];
   [alertController addAction:cancelDownloadAction];
   auto cancelAction =
@@ -312,24 +299,6 @@ using namespace storage;
   [self updateSize];
   [static_cast<MWMAutoupdateView *>(self.view) stateWaiting];
   [[MWMStorage sharedStorage] cancelDownloadNode:RootId()];
-  auto errorType = ^NSString * (NodeErrorCode code)
-  {
-    switch (code)
-    {
-    case storage::NodeErrorCode::NoError:
-      LOG(LWARNING, ("Incorrect error type"));
-      return @"";
-    case storage::NodeErrorCode::NoInetConnection:
-      return @"no internet connection";
-    case storage::NodeErrorCode::UnknownError:
-      return  @"unknown error";
-    case storage::NodeErrorCode::OutOfMemFailed:
-      return @"not enough space";
-    }
-  }(self.errorCode);
-  
-  [Statistics logEvent:kStatDownloaderOnStartScreenError
-        withParameters:@{kStatMapDataSize : @(self.sizeInMB), kStatType : errorType}];
 }
 
 - (void)processCountry:(NSString *)countryId

@@ -117,7 +117,6 @@
 #include "defines.hpp"
 #include "private.h"
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 using namespace location;
 using namespace notifications;
@@ -413,7 +412,7 @@ Framework::Framework(FrameworkParams const & params)
   df::LoadTransitColors();
 
   m_connectToGpsTrack = GpsTracker::Instance().IsEnabled();
-  
+
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
   // It's better to use strings from strings.txt instead of hardcoding them here.
@@ -483,7 +482,7 @@ Framework::Framework(FrameworkParams const & params)
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   m_storage.SetStartDownloadingCallback([this]() { UpdatePlacePageInfoForCurrentSelection(); });
   LOG(LDEBUG, ("Storage initialized"));
-  
+
   RegisterAllMaps();
   LOG(LDEBUG, ("Maps initialized"));
 
@@ -528,9 +527,6 @@ Framework::Framework(FrameworkParams const & params)
                                                   *m_infoGetter));
   m_notificationManager.Load();
   m_notificationManager.TrimExpired();
-
-  alohalytics::Stats::Instance().LogEvent("UGC_ReviewNotification_queue",
-    {{"unshown", std::to_string(m_notificationManager.GetCandidatesCount())}});
 
   eye::Eye::Instance().TrimExpired();
   eye::Eye::Instance().Subscribe(&m_notificationManager);
@@ -749,9 +745,6 @@ void Framework::RegisterAllMaps()
 
   if (needStatisticsUpdate)
   {
-    alohalytics::Stats::Instance().LogEvent("Downloader_Map_list",
-    {{"AvailableStorageSpace", strings::to_string(GetPlatform().GetWritableStorageSpace())},
-      {"DownloadedMaps", listRegisteredMaps.str()}});
     settings::Set(kLastDownloadedMapsCheck,
                   static_cast<uint64_t>(duration_cast<seconds>(
                                           system_clock::now().time_since_epoch()).count()));
@@ -1383,7 +1376,7 @@ int Framework::GetDrawScale() const
 {
   if (m_drapeEngine != nullptr)
     return df::GetDrawTileScale(m_currentModelView);
-  
+
   return 0;
 }
 
@@ -1469,11 +1462,6 @@ void Framework::EnterBackground()
   m_routingManager.SetAllowSendingPoints(false);
   m_tipsApi.SetEnabled(true);
 
-  ms::LatLon const ll = mercator::ToLatLon(GetViewportCenter());
-  alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
-                                          {"foregroundSeconds", strings::to_string(
-                                           static_cast<int>(m_startBackgroundTime - m_startForegroundTime))}},
-                                          alohalytics::Location::FromLatLon(ll.m_lat, ll.m_lon));
   // Do not clear caches for Android. This function is called when main activity is paused,
   // but at the same time search activity (for example) is enabled.
   // TODO(AlexZ): Use onStart/onStop on Android to correctly detect app background and remove #ifndef.
@@ -1493,12 +1481,8 @@ void Framework::EnterForeground()
     if (m_guidesManager.IsEnabled() &&
       secondsInBackground / 60 / 60 > kGuidesEnabledInBackgroundMaxHours)
     {
-      auto const shownCount = m_guidesManager.GetShownGuidesCount();
       m_guidesManager.SetEnabled(false);
       SaveGuidesEnabled(false);
-
-      alohalytics::LogEvent("Map_Layers_deactivate",
-                            {{"name", "guides"}, {"count", strings::to_string(shownCount)}});
     }
   }
 
@@ -1519,13 +1503,10 @@ void Framework::InitUGC()
 {
   ASSERT(!m_ugcApi.get(), ("InitUGC() must be called only once."));
 
-  m_ugcApi = make_unique<ugc::Api>(m_featuresFetcher.GetDataSource(), [this](size_t numberOfUnsynchronized) {
+  m_ugcApi = make_unique<ugc::Api>(m_featuresFetcher.GetDataSource(), [](size_t numberOfUnsynchronized) {
     if (numberOfUnsynchronized == 0)
       return;
-
-    alohalytics::Stats::Instance().LogEvent(
-        "UGC_unsent", {{"num", strings::to_string(numberOfUnsynchronized)},
-                       {"is_authenticated", strings::to_string(m_user.IsAuthenticated())}});
+    LOG(LWARNING, ("UGC Unsent", numberOfUnsynchronized));
   });
 
   bool ugcStorageValidationExecuted = false;
@@ -1688,7 +1669,7 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
       results.AddResultNoChecks(move(copy));
       ShowViewportSearchResults(results, true, m_activeFilters);
     }
-  
+
     if (scale < 0)
       scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
 
@@ -1704,9 +1685,6 @@ void Framework::ShowSearchResult(search::Result const & res, bool animation)
 {
   GetSearchAPI().CancelAllSearches();
   StopLocationFollow();
-
-  alohalytics::LogEvent("searchShowResult", {{"pos", strings::to_string(res.GetPositionInResults())},
-                                             {"result", res.ToStringForStats()}});
   SelectSearchResult(res, animation);
 }
 
@@ -2148,9 +2126,6 @@ void Framework::MarkMapStyle(MapStyle mapStyle)
   }
   settings::Set(kMapStyleKey, mapStyleStr);
   GetStyleReader().SetCurrentStyle(mapStyle);
-
-  alohalytics::TStringMap details {{"mapStyle", mapStyleStr}};
-  alohalytics::Stats::Instance().LogEvent("MapStyle_Changed", details);
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)
@@ -2502,71 +2477,6 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
     m_currentPlacePageInfo = placePageInfo;
 
-    // Log statistics events.
-    {
-      auto const ll = m_currentPlacePageInfo->GetLatLon();
-      double metersToTap = -1;
-      if (m_currentPlacePageInfo->IsMyPosition())
-      {
-        metersToTap = 0;
-      }
-      else if (auto const position = GetCurrentPosition())
-      {
-        auto const tapPoint = mercator::FromLatLon(ll);
-        metersToTap = mercator::DistanceOnEarth(*position, tapPoint);
-      }
-
-      alohalytics::TStringMap kv = {{"longTap", buildInfo.m_isLongTap ? "1" : "0"},
-                                    {"title", m_currentPlacePageInfo->GetTitle()},
-                                    {"bookmark", m_currentPlacePageInfo->IsBookmark() ? "1" : "0"},
-                                    {"meters", strings::to_string_dac(metersToTap, 0)}};
-      if (m_currentPlacePageInfo->IsFeature())
-        kv["types"] = DebugPrint(m_currentPlacePageInfo->GetTypes());
-
-      if (m_currentPlacePageInfo->GetSponsoredType() == SponsoredType::Holiday)
-      {
-        kv["holiday"] = "1";
-        auto const & mwmInfo = m_currentPlacePageInfo->GetID().m_mwmId.GetInfo();
-        if (mwmInfo)
-          kv["mwmVersion"] = strings::to_string(mwmInfo->GetVersion());
-      }
-      else if (m_currentPlacePageInfo->GetSponsoredType() == SponsoredType::Partner)
-      {
-        if (!m_currentPlacePageInfo->GetPartnerName().empty())
-          kv["partner"] = m_currentPlacePageInfo->GetPartnerName();
-      }
-
-      if (m_currentPlacePageInfo->IsRoadType())
-        kv["road_warning"] = DebugPrint(m_currentPlacePageInfo->GetRoadType());
-
-      // Older version of statistics used "$GetUserMark" event.
-      alohalytics::Stats::Instance().LogEvent("$SelectMapObject", kv,
-                                              alohalytics::Location::FromLatLon(ll.m_lat, ll.m_lon));
-
-      // Send realtime statistics about bookmark selection.
-      if (m_currentPlacePageInfo->IsBookmark())
-      {
-        auto const categoryId = m_currentPlacePageInfo->GetBookmarkCategoryId();
-        auto const serverId = m_bmManager->GetCategoryServerId(categoryId);
-        if (!serverId.empty())
-        {
-          auto const accessRules = m_bmManager->GetCategoryData(categoryId).m_accessRules;
-          if (BookmarkManager::IsGuide(accessRules))
-          {
-            alohalytics::TStringMap params = {{"server_id", serverId}};
-            alohalytics::Stats::Instance().LogEvent("Map_GuideBookmark_open", params, alohalytics::kAllChannels);
-          }
-        }
-      }
-
-      if (m_currentPlacePageInfo->GetSponsoredType() == SponsoredType::Booking)
-      {
-        GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kBookHotelOnBookingComDiscovered);
-        GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kPlacepageHotelBook,
-                                                               {{"provider", "booking.com"}});
-      }
-    }
-
     if (m_currentPlacePageInfo->GetTrackId() != kml::kInvalidTrackId)
     {
       if (m_currentPlacePageInfo->GetTrackId() == prevTrackId)
@@ -2599,8 +2509,6 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   {
     m_guidesManager.ResetActiveGuide();
 
-    bool const somethingWasAlreadySelected = (m_currentPlacePageInfo.has_value());
-    alohalytics::Stats::Instance().LogEvent(somethingWasAlreadySelected ? "$DelectMapObject" : "$EmptyTapOnMap");
     // UI is always notified even if empty map is tapped,
     // because empty tap event switches on/off full screen map view mode.
     DeactivateMapSelection(true /* notifyUI */);

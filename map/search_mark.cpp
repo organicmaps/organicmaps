@@ -19,7 +19,6 @@
 #include <array>
 #include <limits>
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 enum class SearchMarkPoint::SearchMarkType : uint32_t
 {
@@ -362,7 +361,7 @@ drape_ptr<df::UserPointMark::BageInfo> SearchMarkPoint::GetBadgeInfo() const
     badgeInfo->m_zoomInfo.emplace(kUGCBadgeMinZoomLevel, badgeName);
     return badgeInfo;
   }
-  
+
   return nullptr;
 }
 
@@ -683,7 +682,7 @@ std::string SearchMarkPoint::GetBadgeName() const
 
   if (badgeName.empty() || !SearchMarks::GetSize(badgeName))
     return {};
-  
+
   return badgeName;
 }
 
@@ -834,14 +833,6 @@ void SearchMarks::OnActivate(FeatureID const & featureId)
       return base::ControlFlow::Continue;
     mark->SetVisited(false);
     mark->SetSelected(true);
-    if (!mark->IsAvailable())
-    {
-      if (auto const & reasonKey = mark->GetReason(); !reasonKey.empty())
-      {
-        alohalytics::Stats::Instance().LogEvent("Search_Map_Notification",
-                                                {{"message", reasonKey}});
-      }
-    }
     return base::ControlFlow::Break;
   });
 }

@@ -41,7 +41,6 @@ final class SearchTabViewController: TabViewController {
     } else {
       tabView.selectedIndex = activeTab.rawValue
     }
-    tabView.delegate = self
   }
   
   override func viewDidDisappear(_ animated: Bool) {
@@ -62,12 +61,5 @@ extension SearchTabViewController: SearchHistoryViewControllerDelegate {
   func searchHistoryViewController(_ viewController: SearchHistoryViewController,
                              didSelect query: String) {
     delegate?.searchTabController(self, didSearch: query)
-  }
-}
-
-extension SearchTabViewController: TabViewDelegate {
-  func tabView(_ tabView: TabView, didSelectTabAt index: Int) {
-    let selectedTab = index == 0 ? kStatHistory.uppercased() : kStatCategories.uppercased()
-    Statistics.logEvent(kStatSearchTabSelected, withParameters: [kStatTab : selectedTab])
   }
 }

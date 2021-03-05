@@ -1,13 +1,7 @@
 #import "MWMSearchNoResultsAlert.h"
 #import "MWMSearch.h"
-#import "Statistics.h"
 
 #include <CoreApi/Framework.h>
-
-namespace
-{
-NSString * const kStatisticsEvent = @"Search No Results Alert";
-}
 
 @interface MWMSearchNoResultsAlert ()
 
@@ -20,7 +14,6 @@ NSString * const kStatisticsEvent = @"Search No Results Alert";
 
 + (instancetype)alert
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMSearchNoResultsAlert * alert =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   return alert;
@@ -48,7 +41,6 @@ NSString * const kStatisticsEvent = @"Search No Results Alert";
 
 - (IBAction)expandSearchAreaTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatExpand}];
   [self close:^{
     GetFramework().Scale(Framework::SCALE_MIN, true);
   }];
@@ -56,7 +48,6 @@ NSString * const kStatisticsEvent = @"Search No Results Alert";
 
 - (IBAction)resetFiltersTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatRemove}];
   [self close:^{
     [MWMSearch clearFilter];
   }];
@@ -64,7 +55,6 @@ NSString * const kStatisticsEvent = @"Search No Results Alert";
 
 - (IBAction)cancelTap
 {
-  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatCancel}];
   [self close:nil];
 }
 

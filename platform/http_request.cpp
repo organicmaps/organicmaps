@@ -19,7 +19,6 @@
 
 #include "defines.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 using namespace std;
 
@@ -89,9 +88,6 @@ class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
     {
       auto const message = non_http_error_code::DebugPrint(httpOrErrorCode);
       LOG(LWARNING, ("HttpRequest error:", message));
-      alohalytics::LogEvent(
-          "$httpRequestError",
-          {{"url", m_requestUrl}, {"code", message}, {"servers", "1"}});
       if (httpOrErrorCode == 404)
         m_status = DownloadStatus::FileNotFound;
       else
@@ -241,10 +237,6 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     {
       auto const message = non_http_error_code::DebugPrint(httpOrErrorCode);
       LOG(LWARNING, (m_filePath, "HttpRequest error:", message));
-      alohalytics::LogEvent("$httpRequestError",
-                            {{"url", urlError},
-                             {"code", message},
-                             {"servers", strings::to_string(m_strategy.ActiveServersCount())}});
     }
 
     ChunksDownloadStrategy::ResultT const result = StartThreads();

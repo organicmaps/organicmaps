@@ -6,7 +6,6 @@
 
 #include "base/logging.hpp"
 
-#include "3party/Alohalytics/src/alohalytics.h"
 
 #include "std/target_os.hpp"
 
@@ -35,8 +34,6 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
   m_rendererName = context->GetRendererName();
   m_rendererVersion = context->GetRendererVersion();
   LOG(LINFO, ("Renderer =", m_rendererName, "| Api =", context->GetApiVersion(), "| Version =", m_rendererVersion));
-
-  alohalytics::Stats::Instance().LogEvent("GPU", m_rendererName);
 
   m_isSamsungGoogleNexus = (m_rendererName == "PowerVR SGX 540" &&
                             m_rendererVersion.find("GOOGLENEXUS.ED945322") != std::string::npos);
@@ -103,8 +100,6 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
 
 void SupportManager::ForbidVulkan()
 {
-  alohalytics::Stats::Instance().LogEvent("VulkanForbidden", {{"GPU", m_rendererName},
-                                                              {"Driver", m_rendererVersion}});
   settings::Set(kVulkanForbidden, true);
 }
 
