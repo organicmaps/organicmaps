@@ -225,6 +225,7 @@ def make_world_road_graph(
     path_roads_file,
     path_resources,
     path_res_file,
+    logger,
     output=subprocess.DEVNULL,
     error=subprocess.DEVNULL,
 ):
@@ -242,7 +243,7 @@ def make_world_road_graph(
     wait_and_raise_if_fail(world_roads_builder_tool)
 
 
-def step_prepare_routing_world(env: Env, country: AnyStr, **kwargs):
+def step_prepare_routing_world(env: Env, country: AnyStr, logger, **kwargs):
     filter_roads(
         env[settings.OSM_TOOL_FILTER],
         env.paths.planet_o5m,
@@ -255,8 +256,9 @@ def step_prepare_routing_world(env: Env, country: AnyStr, **kwargs):
         env.paths.world_roads_o5m,
         env.paths.user_resource_path,
         env.paths.world_roads_path,
+        logger,
         env.get_subprocess_out(country),
-        env.get_subprocess_out(country),
+        env.get_subprocess_out(country)
     )
 
 

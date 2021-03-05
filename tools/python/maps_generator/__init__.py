@@ -10,3 +10,8 @@ CONFIG_PATH = os.path.join(
 )
 
 settings.init(CONFIG_PATH)
+
+from maps_generator.generator import stages_declaration
+from maps_generator.generator.stages import stages
+
+stages.init()

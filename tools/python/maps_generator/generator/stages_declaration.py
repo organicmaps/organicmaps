@@ -39,7 +39,6 @@ from maps_generator.generator.stages import helper_stage_for
 from maps_generator.generator.stages import mwm_stage
 from maps_generator.generator.stages import outer_stage
 from maps_generator.generator.stages import production_only
-from maps_generator.generator.stages import stages
 from maps_generator.generator.stages import test_stage
 from maps_generator.generator.statistics import get_stages_info
 from maps_generator.utils.file import download_files
@@ -435,5 +434,3 @@ class StageCleanup(Stage):
         logger.info(f"{env.paths.draft_path} will be removed.")
         shutil.rmtree(env.paths.draft_path)
 
-
-stages.init()
