@@ -19,6 +19,7 @@ from maps_generator.generator.exceptions import ValidationError
 from maps_generator.generator.exceptions import wait_and_raise_if_fail
 from maps_generator.generator.gen_tool import run_gen_tool
 from maps_generator.generator.osmtools import osmconvert
+from maps_generator.generator.osmtools import osmfilter
 from maps_generator.generator.osmtools import osmupdate
 from maps_generator.generator.statistics import make_stats
 from maps_generator.utils.file import download_files
@@ -201,20 +202,62 @@ def step_cities_ids_world(env: Env, country: AnyStr, **kwargs):
     )
 
 
-def step_prepare_routing_world(env: Env, country: AnyStr, **kwargs):
-    world_roads_builder_tool_with_args = [env.world_roads_builder_tool,
-                                          f"--path_roads_file={env.paths.planet_o5m}",
-                                          f"--path_resources={env.paths.user_resource_path}",
-                                          f"--path_res_file={env.paths.world_roads_path}"]
-    logger.info(f"Starting {world_roads_builder_tool_with_args}")
-    sub_proc = subprocess.Popen(
-        world_roads_builder_tool_with_args,
-        stdout=env.get_subprocess_out(country),
-        stderr=env.get_subprocess_out(country),
-        env=os.environ
+def filter_roads(
+    name_executable,
+    in_file,
+    out_file,
+    output=subprocess.DEVNULL,
+    error=subprocess.DEVNULL,
+):
+    osmfilter(
+        name_executable,
+        in_file,
+        out_file,
+        output=output,
+        error=error,
+        keep="",
+        keep_ways="highway=*",
     )
 
-    wait_and_raise_if_fail(sub_proc)
+
+def make_world_road_graph(
+    name_executable,
+    path_roads_file,
+    path_resources,
+    path_res_file,
+    output=subprocess.DEVNULL,
+    error=subprocess.DEVNULL,
+):
+    world_roads_builder_tool_cmd = [
+        name_executable,
+        f"--path_roads_file={path_roads_file}",
+        f"--path_resources={path_resources}",
+        f"--path_res_file={path_res_file}",
+    ]
+    logger.info(f"Starting {' '.join(world_roads_builder_tool_cmd)}")
+    world_roads_builder_tool = subprocess.Popen(
+        world_roads_builder_tool_cmd, stdout=output, stderr=error, env=os.environ
+    )
+
+    wait_and_raise_if_fail(world_roads_builder_tool)
+
+
+def step_prepare_routing_world(env: Env, country: AnyStr, **kwargs):
+    filter_roads(
+        env[settings.OSM_TOOL_FILTER],
+        env.paths.planet_o5m,
+        env.paths.world_roads_o5m,
+        env.get_subprocess_out(country),
+        env.get_subprocess_out(country),
+    )
+    make_world_road_graph(
+        env.world_roads_builder_tool,
+        env.paths.world_roads_o5m,
+        env.paths.user_resource_path,
+        env.paths.world_roads_path,
+        env.get_subprocess_out(country),
+        env.get_subprocess_out(country),
+    )
 
 
 def step_routing_world(env: Env, country: AnyStr, **kwargs):
