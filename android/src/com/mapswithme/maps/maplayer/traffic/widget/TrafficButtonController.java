@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.maplayer.MapLayerController;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
+import com.mapswithme.util.Utils;
 
 public class TrafficButtonController implements TrafficManager.TrafficCallback, MapLayerController
 {
@@ -110,7 +111,9 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback, 
   public void onNoData()
   {
     turnOn();
-    Toast.makeText(mActivity, R.string.traffic_data_unavailable, Toast.LENGTH_SHORT).show();
+    Utils.showSnackbar(mActivity, mActivity.findViewById(R.id.coordinator),
+                       mActivity.findViewById(R.id.navigation_frame),
+                       R.string.traffic_data_unavailable);
   }
 
   @Override
@@ -151,13 +154,17 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback, 
   public void onExpiredData()
   {
     turnOn();
-    Toast.makeText(mActivity, R.string.traffic_update_maps_text, Toast.LENGTH_SHORT).show();
+    Utils.showSnackbar(mActivity, mActivity.findViewById(R.id.coordinator),
+                       mActivity.findViewById(R.id.navigation_frame),
+                       R.string.traffic_update_maps_text);
   }
 
   @Override
   public void onExpiredApp()
   {
     turnOn();
-    Toast.makeText(mActivity, R.string.traffic_update_app, Toast.LENGTH_SHORT).show();
+    Utils.showSnackbar(mActivity, mActivity.findViewById(R.id.coordinator),
+                       mActivity.findViewById(R.id.navigation_frame),
+                       R.string.traffic_update_app);
   }
 }

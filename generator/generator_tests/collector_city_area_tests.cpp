@@ -62,7 +62,7 @@ UNIT_TEST(CollectorCityArea_Merge)
   c1->Finish();
   c2->Finish();
   c1->Merge(*c2);
-  c1->Save();
+  c1->Finalize();
 
   auto const fbs = feature::ReadAllDatRawFormat<feature::serialization_policy::MaxAccuracy>(filename);
   TEST_EQUAL(fbs.size(), 3, ());

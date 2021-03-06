@@ -12,6 +12,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/newtype.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -210,19 +211,33 @@ struct StopOnShape
   size_t m_index = 0;
 };
 
-size_t GetStopIndex(std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
-                    transit::TransitId id, size_t index = 0)
+enum class Direction
+{
+  Forward,
+  Backward
+};
+
+std::optional<size_t> GetStopIndex(
+    std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
+    transit::TransitId id, size_t fromIndex, Direction direction)
 {
   auto it = stopIndexes.find(id);
   CHECK(it != stopIndexes.end(), (id));
-  CHECK(index < it->second.size(), (index, it->second.size()));
 
-  return *(it->second.begin() + index);
+  std::optional<size_t> bestIdx;
+  for (auto const & index : it->second)
+  {
+    if (direction == Direction::Forward && index >= fromIndex && (!bestIdx || index < bestIdx))
+      bestIdx = index;
+    if (direction == Direction::Backward && index <= fromIndex && (!bestIdx || index > bestIdx))
+      bestIdx = index;
+  }
+  return bestIdx;
 }
 
-std::pair<StopOnShape, StopOnShape> GetStopPairOnShape(
+std::optional<std::pair<StopOnShape, StopOnShape>> GetStopPairOnShape(
     std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
-    transit::StopsOnLines const & stopsOnLines, size_t index)
+    transit::StopsOnLines const & stopsOnLines, size_t index, size_t fromIndex, Direction direction)
 {
   auto const & stopIds = stopsOnLines.m_stopSeq;
 
@@ -237,11 +252,16 @@ std::pair<StopOnShape, StopOnShape> GetStopPairOnShape(
 
   if (stopsOnLines.m_isValid)
   {
-    stop1.m_index = GetStopIndex(stopIndexes, stop1.m_id);
-    stop2.m_index = stop1.m_id == stop2.m_id ? GetStopIndex(stopIndexes, stop1.m_id, 1)
-                                             : GetStopIndex(stopIndexes, stop2.m_id);
+    auto const index1 = GetStopIndex(stopIndexes, stop1.m_id, fromIndex, direction);
+    if (!index1)
+      return {};
+    stop1.m_index = *index1;
+    auto const index2 = GetStopIndex(stopIndexes, stop2.m_id, *index1, direction);
+    if (!index2)
+      return {};
+    stop2.m_index = *index2;
   }
-  return {stop1, stop2};
+  return std::pair<StopOnShape, StopOnShape>(stop1, stop2);
 }
 
 struct Link
@@ -255,6 +275,35 @@ struct Link
 Link::Link(transit::TransitId lineId, transit::TransitId shapeId, size_t shapeSize)
   : m_lineId(lineId), m_shapeId(shapeId), m_shapeSize(shapeSize)
 {
+}
+
+Direction GetDirection(
+    transit::StopsOnLines const & stopsOnLines,
+    std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes)
+{
+  auto const & stopIds = stopsOnLines.m_stopSeq;
+
+  if (stopIds.size() <= 1 || !stopsOnLines.m_isValid)
+    return Direction::Forward;
+
+  for (size_t i = 0; i < stopIds.size() - 1; ++i)
+  {
+    auto const id1 = stopIds[i];
+    auto const id2 = stopIds[i + 1];
+    auto const indexes1 = stopIndexes.find(id1);
+    auto const indexes2 = stopIndexes.find(id2);
+    CHECK(indexes1 != stopIndexes.end(), ());
+    CHECK(indexes2 != stopIndexes.end(), ());
+    if (indexes1->second.size() != 1 || indexes2->second.size() != 1)
+      continue;
+    auto const index1 = indexes1->second[0];
+    auto const index2 = indexes2->second[0];
+    if (index2 == index1)
+      continue;
+    return index2 > index1 ? Direction::Forward : Direction::Backward;
+  }
+
+  return Direction::Forward;
 }
 }  // namespace
 
@@ -509,16 +558,9 @@ bool WorldFeed::SetFeedLanguage()
   return false;
 }
 
-bool WorldFeed::AddShape(GtfsIdToHash::iterator & iter, std::string const & gtfsShapeId,
+void WorldFeed::AddShape(GtfsIdToHash::iterator & iter, gtfs::Shape const & shapeItems,
                          TransitId lineId)
 {
-  auto const & shapeItems = m_feed.get_shape(gtfsShapeId, true);
-  if (shapeItems.size() < 2)
-  {
-    LOG(LINFO, ("Invalid shape. Length:", shapeItems.size(), "Shape id", gtfsShapeId));
-    return false;
-  }
-
   std::string const shapeHash = BuildHash(m_gtfsHash, shapeItems[0].shape_id);
   iter->second = shapeHash;
   auto const shapeId = m_idGenerator.MakeId(shapeHash);
@@ -538,8 +580,6 @@ bool WorldFeed::AddShape(GtfsIdToHash::iterator & iter, std::string const & gtfs
   }
 
   it->second.m_lineIds.insert(lineId);
-
-  return true;
 }
 
 bool WorldFeed::UpdateStop(TransitId stopId, gtfs::StopTime const & stopTime,
@@ -670,6 +710,30 @@ bool WorldFeed::FillStopsEdges()
 
 bool WorldFeed::FillLinesAndShapes()
 {
+  std::unordered_map<gtfs::Id, gtfs::Shape> shapes;
+  for (const auto & shape : m_feed.get_shapes())
+    shapes[shape.shape_id].emplace_back(shape);
+
+  for (auto & shape : shapes)
+  {
+    std::sort(shape.second.begin(), shape.second.end(),
+              base::LessBy(&gtfs::ShapePoint::shape_pt_sequence));
+  }
+
+  auto const getShape = [&shapes](gtfs::Id const & gtfsShapeId) -> gtfs::Shape const & {
+    return shapes[gtfsShapeId];
+  };
+
+  std::unordered_map<gtfs::Id, gtfs::StopTimes> stopTimes;
+  for (const auto & stop_time : m_feed.get_stop_times())
+    stopTimes[stop_time.trip_id].emplace_back(stop_time);
+
+  for (auto & stop_time : stopTimes)
+  {
+    std::sort(stop_time.second.begin(), stop_time.second.end(),
+              base::LessBy(&gtfs::StopTime::stop_sequence));
+  }
+
   for (const auto & trip : m_feed.get_trips())
   {
     // We skip routes filtered on the route preparation stage.
@@ -685,7 +749,7 @@ bool WorldFeed::FillLinesAndShapes()
 
     std::string stopIds;
 
-    for (auto const & stopTime : m_feed.get_stop_times_for_trip(trip.trip_id))
+    for (auto const & stopTime : stopTimes[trip.trip_id])
       stopIds += stopTime.stop_id + kDelimiter;
 
     std::string const & lineHash = BuildHash(routeHash, trip.shape_id, stopIds);
@@ -699,9 +763,15 @@ bool WorldFeed::FillLinesAndShapes()
 
     if (insertedShape)
     {
+      auto const & shapeItems = getShape(trip.shape_id);
       // Skip trips with corrupted shapes.
-      if (!AddShape(itShape, trip.shape_id, lineId))
+      if (shapeItems.size() < 2)
+      {
+        LOG(LINFO, ("Invalid shape. Length:", shapeItems.size(), "Shape id", trip.shape_id));
         continue;
+      }
+
+      AddShape(itShape, shapeItems, lineId);
     }
 
     auto [it, inserted] = m_lines.m_data.emplace(lineId, LineData());
@@ -1005,15 +1075,28 @@ size_t WorldFeed::ModifyShapes()
         return invalidStopSequences;
     }
 
-    for (auto const & stopsOnLines : stopsLists)
+    for (auto & stopsOnLines : stopsLists)
     {
       IdList const & stopIds = stopsOnLines.m_stopSeq;
       auto const & lineIds = stopsOnLines.m_lines;
       auto indexes = stopToShapeIndex;
 
+      auto const direction = GetDirection(stopsOnLines, indexes);
+
+      size_t lastIndex = direction == Direction::Forward ? 0 : std::numeric_limits<size_t>::max();
       for (size_t i = 0; i < stopIds.size() - 1; ++i)
       {
-        auto const [stop1, stop2] = GetStopPairOnShape(indexes, stopsOnLines, i);
+        auto const stops = GetStopPairOnShape(indexes, stopsOnLines, i, lastIndex, direction);
+        if (!stops)
+        {
+          stopsOnLines.m_isValid = false;
+          ++invalidStopSequences;
+
+          if (invalidStopSequences > kMaxInvalidShapesCount)
+            return invalidStopSequences;
+        }
+        auto const [stop1, stop2] = *stops;
+        lastIndex = stop2.m_index;
 
         for (auto const lineId : lineIds)
         {
@@ -1526,7 +1609,7 @@ void Stops::Write(IdSet const & ids, std::ofstream & stream) const
 
     json_object_set_new(node.get(), "point", PointToJson(stop.m_point).release());
 
-    if (stop.m_title.empty())
+    if (!stop.m_title.empty())
       ToJSONObject(*node, "title", stop.m_title);
 
     if (!stop.m_timetable.empty())

@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
@@ -540,8 +539,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
     int successMsgResId = isRefreshManual ? R.string.direct_link_updating_success
                                           : isDirectLinkMode ? R.string.direct_link_success
                                                              : R.string.upload_and_publish_success;
-
-    Toast.makeText(getContext(), successMsgResId, Toast.LENGTH_SHORT).show();
+    Utils.showSnackbar(requireContext(), getViewOrThrow(), successMsgResId);
     toggleViews();
     Statistics.INSTANCE.trackSharingOptionsUploadSuccess(mCategory);
   }

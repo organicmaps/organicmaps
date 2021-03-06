@@ -20,13 +20,8 @@ using namespace std;
 
 class MmapReader::MmapData
 {
-  int m_fd;
-
 public:
-  uint8_t * m_memory;
-  uint64_t m_size;
-
-  explicit MmapData(string const & fileName)
+  explicit MmapData(string const & fileName, Advice advice)
   {
     // @TODO add windows support
 #ifndef OMIM_OS_WINDOWS
@@ -40,12 +35,23 @@ public:
     m_size = s.st_size;
 
     m_memory = static_cast<uint8_t *>(
-        mmap(0, static_cast<size_t>(m_size), PROT_READ, MAP_SHARED, m_fd, 0));
+        mmap(0, static_cast<size_t>(m_size), PROT_READ, MAP_PRIVATE, m_fd, 0));
     if (m_memory == MAP_FAILED)
     {
       close(m_fd);
       MYTHROW(OpenException, ("mmap failed for file", fileName));
     }
+
+    int adv = MADV_NORMAL;
+    switch (advice)
+    {
+    case Advice::Random: adv = MADV_RANDOM; break;
+    case Advice::Sequential: adv = MADV_SEQUENTIAL; break;
+    case Advice::Normal: adv = MADV_NORMAL; break;
+    }
+
+    if (madvise(m_memory, s.st_size, adv) != 0)
+      LOG(LWARNING, ("madvise error:", strerror(errno)));
 #endif
   }
 
@@ -57,13 +63,20 @@ public:
     close(m_fd);
 #endif
   }
+
+  uint8_t * m_memory = nullptr;
+  uint64_t m_size = 0;
+
+private:
+  int m_fd = 0;
 };
 
-MmapReader::MmapReader(string const & fileName)
-  : base_type(fileName), m_offset(0)
+MmapReader::MmapReader(string const & fileName, Advice advice)
+  : base_type(fileName)
+  , m_data(std::make_shared<MmapData>(fileName, advice))
+  , m_offset(0)
+  , m_size(m_data->m_size)
 {
-  m_data = shared_ptr<MmapData>(new MmapData(fileName));
-  m_size = m_data->m_size;
 }
 
 MmapReader::MmapReader(MmapReader const & reader, uint64_t offset, uint64_t size)

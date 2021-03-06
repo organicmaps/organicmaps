@@ -53,11 +53,15 @@ public:
       std::shared_ptr<cache::IntermediateDataReaderInterface> const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & element) override;
-  void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(CrossMwmOsmWaysCollector & collector) const override;
   // @}
+
+protected:
+  // generator::CollectorInterface overrides:
+  void Save() override;
+  void OrderCollectedData() override;
 
 private:
   std::string m_intermediateDir;

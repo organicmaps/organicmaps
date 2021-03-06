@@ -37,7 +37,7 @@ public class GuidesManager implements Initializable<Void>, Detachable<GuidesErro
   {
     GuidesState state = GuidesState.values()[index];
     if (mGuidesDialogListener == null)
-      state.activate(mApplication);
+      state.activate(mApplication, null, null);
     else
       mGuidesDialogListener.onStateChanged(state);
   }

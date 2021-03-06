@@ -41,7 +41,7 @@ UNIT_TEST(MergeCollector_MergeCase1)
   collector1->Finish();
   collector2->Finish();
   collector1->Merge(*collector2);
-  collector1->Save();
+  collector1->Finalize();
 
   std::vector<std::string> const answers = {
     std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 1 /* id */).GetEncodedId()) + "\t1",
@@ -77,7 +77,7 @@ UNIT_TEST(MergeCollector_MergeCase2)
   collection1->Finish();
   collection2->Finish();
   collection1->Merge(*collection2);
-  collection1->Save();
+  collection1->Finalize();
 
   std::vector<std::string> const answers = {
     std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 1 /* id */).GetEncodedId()) + "\t1",

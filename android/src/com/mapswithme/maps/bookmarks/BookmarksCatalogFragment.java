@@ -21,7 +21,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -510,8 +509,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       }
 
       Statistics.INSTANCE.trackDownloadCatalogError(Statistics.ParamValue.NO_INTERNET);
-      Toast.makeText(frag.getContext(), R.string.common_check_internet_connection_dialog_title,
-                     Toast.LENGTH_SHORT).show();
+      Utils.showSnackbar(frag.requireContext(), frag.getViewOrThrow(),
+                         R.string.common_check_internet_connection_dialog_title);
     }
 
     private void retry()

@@ -15,8 +15,10 @@
     android:layout_marginRight="@dimen/margin_half"
     android:orientation="vertical">
     <com.mapswithme.maps.widget.CustomTextInputLayout
+      style="?fontBody1"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:textColorHint="?android:textColorSecondary">
       <EditText
         android:id="@+id/et__bookmark_name"
         style="@style/MwmWidget.PlacePage.EditText"
@@ -24,10 +26,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/name"
         android:inputType="textCapSentences"
-        android:singleLine="true"/>
+        android:singleLine="true" />
     </com.mapswithme.maps.widget.CustomTextInputLayout>
   </LinearLayout>
-
   <RelativeLayout
     android:id="@+id/rl__bookmark_set"
     android:layout_width="match_parent"
@@ -39,11 +40,10 @@
       android:id="@+id/tv__bookmark_set_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_quadruple"
       android:layout_marginTop="@dimen/margin_base"
+      android:layout_marginRight="@dimen/margin_quadruple"
       android:text="@string/set"
-      android:textAppearance="@style/MwmTextAppearance.Body3"/>
-
+      android:textAppearance="@style/MwmTextAppearance.Body3" />
     <TextView
       android:id="@+id/tv__bookmark_set"
       android:layout_width="match_parent"
@@ -54,47 +54,40 @@
       android:background="?attr/selectableItemBackground"
       android:clickable="true"
       android:drawableRight="@drawable/ic_arrow_down"
-      android:paddingBottom="@dimen/margin_half"
       android:paddingTop="@dimen/margin_quarter_plus"
-      android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
+      android:paddingBottom="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.Body1" />
     <View
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:layout_alignParentBottom="true"
-      android:layout_marginBottom="@dimen/margin_half"
       android:layout_marginRight="@dimen/margin_quadruple"
-      android:background="@color/divider"/>
-
+      android:layout_marginBottom="@dimen/margin_half"
+      android:background="@color/divider" />
     <ImageView
       android:id="@+id/iv__bookmark_color"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
       android:layout_alignParentRight="true"
+      android:layout_alignParentBottom="true"
       android:background="?clickableBackground"
       android:padding="@dimen/margin_half"
-      tools:src="@drawable/ic_bookmark_none"/>
+      tools:src="@drawable/ic_bookmark_none" />
   </RelativeLayout>
-
-  <LinearLayout
+  <com.mapswithme.maps.widget.CustomTextInputLayout
+    style="?fontBody1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/rl__bookmark_set"
     android:layout_margin="@dimen/margin_half"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/margin_base">
-
-    <com.mapswithme.maps.widget.CustomTextInputLayout
+    android:paddingTop="@dimen/margin_half"
+    android:textColorHint="?android:textColorSecondary">
+    <EditText
+      android:id="@+id/et__description"
+      style="@style/MwmWidget.PlacePage.EditText"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-      <EditText
-        android:id="@+id/et__description"
-        style="@style/MwmWidget.PlacePage.EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/edit_description_hint"
-        android:inputType="textMultiLine"/>
-    </com.mapswithme.maps.widget.CustomTextInputLayout>
-  </LinearLayout>
+      android:layout_height="wrap_content"
+      android:hint="@string/edit_description_hint"
+      android:inputType="textMultiLine" />
+  </com.mapswithme.maps.widget.CustomTextInputLayout>
 </RelativeLayout>

@@ -232,7 +232,7 @@ UNIT_TEST(RestrictionWriter_Merge)
   c1->Finish();
   c2->Finish();
   c1->Merge(*c2);
-  c1->Save();
+  c1->Finalize();
 
   std::ifstream stream;
   stream.exceptions(std::fstream::failbit | std::fstream::badbit);

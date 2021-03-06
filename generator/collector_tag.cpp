@@ -1,5 +1,6 @@
 #include "generator/collector_tag.hpp"
 
+#include "generator/final_processor_utils.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 
@@ -48,6 +49,8 @@ void CollectorTag::Save()
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
+
+void CollectorTag::OrderCollectedData() { OrderTextFileByLine(GetFilename()); }
 
 void CollectorTag::Merge(CollectorInterface const & collector)
 {

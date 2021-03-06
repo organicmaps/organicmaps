@@ -22,7 +22,7 @@ class OnIsolinesChangedListenerImpl implements OnIsolinesChangedListener, Detach
     IsolinesState state = IsolinesState.values()[type];
     if (mListener == null)
     {
-      state.activate(mApp);
+      state.activate(mApp, null, null);
       return;
     }
 

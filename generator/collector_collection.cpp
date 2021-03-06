@@ -47,6 +47,12 @@ void CollectorCollection::Save()
     c->Save();
 }
 
+void CollectorCollection::OrderCollectedData()
+{
+  for (auto & c : m_collection)
+    c->OrderCollectedData();
+}
+
 void CollectorCollection::Merge(CollectorInterface const & collector)
 {
   collector.MergeInto(*this);

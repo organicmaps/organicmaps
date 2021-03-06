@@ -12,11 +12,73 @@
 #include "generator/translators_pool.hpp"
 
 #include "base/thread_pool_computational.hpp"
+#include "base/timer.hpp"
 
 #include "defines.hpp"
 
 namespace generator
 {
+namespace
+{
+class Stats
+{
+public:
+  Stats(size_t logCallCountThreshold)
+    : m_timer(true /* start */), m_logCallCountThreshold(logCallCountThreshold)
+  {
+  }
+
+  void Log(std::vector<OsmElement> const & elements, uint64_t pos, bool forcePrint = false)
+  {
+    for (auto const & e : elements)
+    {
+      if (e.IsNode())
+        ++m_nodeCounter;
+      else if (e.IsWay())
+        ++m_wayCounter;
+      else if (e.IsRelation())
+        ++m_relationCounter;
+    }
+
+    m_element_counter += elements.size();
+    if (!forcePrint && m_callCount != m_logCallCountThreshold)
+    {
+      ++m_callCount;
+      return;
+    }
+
+    auto static constexpr kBytesInMiB = 1024.0 * 1024.0;
+    auto const posMiB = pos / kBytesInMiB;
+    auto const elapsedSeconds = m_timer.ElapsedSeconds();
+    auto const avgSpeedMiBPerSec = posMiB / elapsedSeconds;
+    auto const speedMiBPerSec =
+        (pos - m_prevFilePos) / (elapsedSeconds - m_prevElapsedSeconds) / kBytesInMiB;
+
+    LOG(LINFO, ("Read", m_element_counter, "elements [pos:", posMiB,
+                "MiB, avg read speed:", avgSpeedMiBPerSec, " MiB/s, read speed:", speedMiBPerSec,
+                "MiB/s [n:", m_nodeCounter, ", w:", m_wayCounter, ", r:", m_relationCounter, "]]"));
+
+    m_prevFilePos = pos;
+    m_prevElapsedSeconds = elapsedSeconds;
+    m_nodeCounter = 0;
+    m_wayCounter = 0;
+    m_relationCounter = 0;
+    m_callCount = 0;
+  }
+
+private:
+  base::Timer m_timer;
+  size_t const m_logCallCountThreshold = 0;
+  size_t m_callCount = 0;
+  uint64_t m_prevFilePos = 0;
+  double m_prevElapsedSeconds = 0.0;
+  size_t m_element_counter = 0;
+  size_t m_nodeCounter = 0;
+  size_t m_wayCounter = 0;
+  size_t m_relationCounter = 0;
+};
+}  // namespace
+
 RawGenerator::RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount, size_t chunkSize)
   : m_genInfo(genInfo)
   , m_threadsCount(threadsCount)
@@ -176,6 +238,8 @@ bool RawGenerator::GenerateFilteredFeatures()
   RawGeneratorWriter rawGeneratorWriter(m_queue, m_genInfo.m_tmpDir);
   rawGeneratorWriter.Run();
 
+  Stats stats(100 * m_threadsCount /* logCallCountThreshold */);
+
   size_t element_pos = 0;
   std::vector<OsmElement> elements(m_chunkSize);
   while (sourceProcessor->TryRead(elements[element_pos]))
@@ -183,11 +247,16 @@ bool RawGenerator::GenerateFilteredFeatures()
     if (++element_pos != m_chunkSize)
       continue;
 
-    translators.Emit(std::move(elements));
-    elements = std::vector<OsmElement>(m_chunkSize);
+    stats.Log(elements, reader.Pos());
+    translators.Emit(elements);
+    
+    for (auto & e : elements)
+      e.Clear();
+
     element_pos = 0;
   }
   elements.resize(element_pos);
+  stats.Log(elements, reader.Pos(), true /* forcePrint */);
   translators.Emit(std::move(elements));
 
   LOG(LINFO, ("Input was processed."));

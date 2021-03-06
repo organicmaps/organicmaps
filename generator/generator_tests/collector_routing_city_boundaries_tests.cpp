@@ -220,7 +220,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_1)
   Collect(*c1, {placeNode1, placeNode2, placeNode3, placeNode4});
 
   c1->Finish();
-  c1->Save();
+  c1->Finalize();
 
   Check(filename, kDumpFileName);
 }
@@ -247,7 +247,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorRoutingCityBoundaries_2)
   c1->Finish();
   c2->Finish();
   c1->Merge(*c2);
-  c1->Save();
+  c1->Finalize();
 
   Check(filename, kDumpFileName);
 }

@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -260,7 +259,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     Context context = getApplicationContext();
     if (Utils.isPackageInstalled(context, Constants.Package.MWM_LITE_PACKAGE) ||
         Utils.isPackageInstalled(context, Constants.Package.MWM_SAMSUNG_PACKAGE))
-      Toast.makeText(this, R.string.suggest_uninstall_lite, Toast.LENGTH_LONG).show();
+      Utils.showSnackbar(context, findViewById(R.id.layout),
+                         findViewById(R.id.button_container), R.string.suggest_uninstall_lite);
   }
 
   private void setDownloadMessage(int bytesToDownload)

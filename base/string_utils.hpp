@@ -101,11 +101,15 @@ void NormalizeDigits(UniString & us);
 size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 
 void AsciiToLower(std::string & s);
-// TODO(AlexZ): current boost impl uses default std::locale() to trim.
-// In general, it does not work for any unicode whitespace except ASCII U+0020 one.
-void Trim(std::string & s);
+
+// All triming functions return a reference on an input string.
+// They do in-place trimming. In general, it does not work for any unicode whitespace except
+// ASCII U+0020 one.
+std::string & TrimLeft(std::string & s);
+std::string & TrimRight(std::string & s);
+std::string & Trim(std::string & s);
 /// Remove any characters that contain in "anyOf" on left and right side of string s
-void Trim(std::string & s, char const * anyOf);
+std::string & Trim(std::string & s, char const * anyOf);
 
 // Replace the first match of the search substring in the input with the format string.
 // str - An input string
@@ -454,6 +458,22 @@ WARN_UNUSED_RESULT inline bool to_int64(char const * s, int64_t & i)
   return internal::ToInteger(s, i);
 }
 
+// Unlike the 64-bit version, to_uint32 is not guaranteed to convert negative values.
+// Current implementation conflates fixed-width types (uint32, uint64) with types that have no
+// guarantees on their exact sizes (unsigned long, unsigned long long) so results of internal
+// conversions may differ between platforms.
+// Converting strings representing negative numbers to unsigned integers looks like a bad
+// idea anyway and it's not worth changing the implementation solely for this reason.
+WARN_UNUSED_RESULT inline bool to_uint32(char const * s, uint32_t & i, int base = 10)
+{
+  return internal::ToInteger(s, i, base);
+}
+
+WARN_UNUSED_RESULT inline bool to_int32(char const * s, int32_t & i)
+{
+  return internal::ToInteger(s, i);
+}
+
 WARN_UNUSED_RESULT bool to_size_t(char const * s, size_t & i, int base = 10);
 WARN_UNUSED_RESULT bool to_float(char const * s, float & f);
 WARN_UNUSED_RESULT bool to_double(char const * s, double & d);
@@ -482,6 +502,14 @@ WARN_UNUSED_RESULT inline bool to_uint64(std::string const & s, uint64_t & i, in
 WARN_UNUSED_RESULT inline bool to_int64(std::string const & s, int64_t & i)
 {
   return to_int64(s.c_str(), i);
+}
+WARN_UNUSED_RESULT inline bool to_uint32(std::string const & s, uint32_t & i, int base = 10)
+{
+  return to_uint32(s.c_str(), i, base);
+}
+WARN_UNUSED_RESULT inline bool to_int32(std::string const & s, int32_t & i)
+{
+  return to_int32(s.c_str(), i);
 }
 WARN_UNUSED_RESULT inline bool to_size_t(std::string const & s, size_t & i)
 {
@@ -629,6 +657,13 @@ bool EndsWith(UniString const & s1, UniString const & s2);
 bool EndsWith(std::string const & s1, char const * s2);
 
 bool EndsWith(std::string const & s1, std::string const & s2);
+
+// If |s| starts with |prefix|, deletes it from |s| and returns true.
+// Otherwise, leaves |s| unmodified and returns false.
+bool EatPrefix(std::string & s, std::string const & prefix);
+// If |s| ends with |suffix|, deletes it from |s| and returns true.
+// Otherwise, leaves |s| unmodified and returns false.
+bool EatSuffix(std::string & s, std::string const & suffix);
 
 /// Try to guess if it's HTML or not. No guarantee.
 bool IsHTML(std::string const & utf8);

@@ -203,8 +203,27 @@ char ascii_to_lower(char in)
 }  // namespace
 
 void AsciiToLower(std::string & s) { transform(s.begin(), s.end(), s.begin(), &ascii_to_lower); }
-void Trim(std::string & s) { boost::trim(s); }
-void Trim(std::string & s, char const * anyOf) { boost::trim_if(s, boost::is_any_of(anyOf)); }
+
+std::string & TrimLeft(std::string & s)
+{
+  s.erase(s.begin(), std::find_if(s.cbegin(), s.cend(), [](auto c) { return !std::isspace(c); }));
+  return s;
+}
+
+std::string & TrimRight(std::string & s)
+{
+  s.erase(std::find_if(s.crbegin(), s.crend(), [](auto c) { return !std::isspace(c); }).base(),
+          s.end());
+  return s;
+}
+
+std::string & Trim(std::string & s) { return TrimLeft(TrimRight(s)); }
+
+std::string & Trim(std::string & s, char const * anyOf)
+{
+  boost::trim_if(s, boost::is_any_of(anyOf));
+  return s;
+}
 
 bool ReplaceFirst(std::string & str, std::string const & from, std::string const & to)
 {
@@ -304,6 +323,26 @@ bool EndsWith(std::string const & s1, char const * s2)
 bool EndsWith(std::string const & s1, std::string const & s2)
 {
   return s1.size() >= s2.size() && s1.compare(s1.size() - s2.size(), s2.size(), s2) == 0;
+}
+
+bool EatPrefix(std::string & s, std::string const & prefix)
+{
+  if (!StartsWith(s, prefix))
+    return false;
+
+  CHECK_LESS_OR_EQUAL(prefix.size(), s.size(), ());
+  s = s.substr(prefix.size());
+  return true;
+}
+
+bool EatSuffix(std::string & s, std::string const & suffix)
+{
+  if (!EndsWith(s, suffix))
+    return false;
+
+  CHECK_LESS_OR_EQUAL(suffix.size(), s.size(), ());
+  s = s.substr(0, s.size() - suffix.size());
+  return true;
 }
 
 std::string to_string_dac(double d, int dac)

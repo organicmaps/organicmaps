@@ -47,6 +47,33 @@ private:
 
 namespace generator
 {
+// static
+void BuildingPartsCollector::BuildingParts::Write(FileWriter & writer, BuildingParts const & pb)
+{
+  WriteToSink(writer, pb.m_id.m_mainId.GetEncodedId());
+  WriteToSink(writer, pb.m_id.m_additionalId.GetEncodedId());
+  auto const contSize = base::checked_cast<uint32_t>(pb.m_buildingParts.size());
+  WriteVarUint(writer, contSize);
+  for (auto const & id : pb.m_buildingParts)
+    WriteToSink(writer, id.GetEncodedId());
+}
+
+// static
+BuildingPartsCollector::BuildingParts BuildingPartsCollector::BuildingParts::Read(
+    ReaderSource<FileReader> & src)
+{
+  BuildingParts bp;
+  auto const first = base::GeoObjectId(ReadPrimitiveFromSource<uint64_t>(src));
+  auto const second = base::GeoObjectId(ReadPrimitiveFromSource<uint64_t>(src));
+  bp.m_id = CompositeId(first, second);
+  auto contSize = ReadVarUint<uint32_t>(src);
+  bp.m_buildingParts.reserve(contSize);
+  while (contSize--)
+    bp.m_buildingParts.emplace_back(base::GeoObjectId(ReadPrimitiveFromSource<uint64_t>(src)));
+
+  return bp;
+}
+
 BuildingPartsCollector::BuildingPartsCollector(
     std::string const & filename, std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
   : CollectorInterface(filename)
@@ -71,9 +98,15 @@ void BuildingPartsCollector::CollectFeature(feature::FeatureBuilder const & fb, 
   if (topId == base::GeoObjectId())
     return;
 
-  auto const parts = FindAllBuildingParts(topId);
+  auto parts = FindAllBuildingParts(topId);
   if (!parts.empty())
-    WriteBuildingParts(MakeCompositeId(fb), parts);
+  {
+    BuildingParts bp;
+    bp.m_id = MakeCompositeId(fb);
+    bp.m_buildingParts = std::move(parts);
+
+    BuildingParts::Write(*m_writer, bp);
+  }
 }
 
 std::vector<base::GeoObjectId> BuildingPartsCollector::FindAllBuildingParts(
@@ -127,17 +160,6 @@ base::GeoObjectId BuildingPartsCollector::FindTopRelation(base::GeoObjectId elId
   return it != std::end(elements) ? base::MakeOsmRelation(it->first) : base::GeoObjectId();
 }
 
-void BuildingPartsCollector::WriteBuildingParts(CompositeId const & id,
-                                                std::vector<base::GeoObjectId> const & buildingParts)
-{
-  WriteToSink(m_writer, id.m_mainId.GetEncodedId());
-  WriteToSink(m_writer, id.m_additionalId.GetEncodedId());
-  auto const contSize = base::checked_cast<uint32_t>(buildingParts.size());
-  WriteVarUint(m_writer, contSize);
-  for (auto const & id : buildingParts)
-    WriteToSink(m_writer, id.GetEncodedId());
-}
-
 void BuildingPartsCollector::Finish() { m_writer.reset(); }
 
 void BuildingPartsCollector::Save()
@@ -145,6 +167,21 @@ void BuildingPartsCollector::Save()
   CHECK(!m_writer, ("Finish() has not been called."));
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
+}
+
+void BuildingPartsCollector::OrderCollectedData()
+{
+  std::vector<BuildingParts> collectedData;
+  {
+    FileReader reader(GetFilename());
+    ReaderSource src(reader);
+    while (src.Size() > 0)
+      collectedData.emplace_back(BuildingParts::Read(src));
+  }
+  std::sort(std::begin(collectedData), std::end(collectedData));
+  FileWriter writer(GetFilename());
+  for (auto const & bp : collectedData)
+    BuildingParts::Write(writer, bp);
 }
 
 void BuildingPartsCollector::Merge(CollectorInterface const & collector)
@@ -164,20 +201,11 @@ BuildingToBuildingPartsMap::BuildingToBuildingPartsMap(std::string const & filen
   ReaderSource<FileReader> src(reader);
   while (src.Size() > 0)
   {
-    base::GeoObjectId const mainId(ReadPrimitiveFromSource<uint64_t>(src));
-    base::GeoObjectId const additionalId(ReadPrimitiveFromSource<uint64_t>(src));
-    CompositeId const outlineId(mainId, additionalId);
-    std::vector<base::GeoObjectId> buildingParts;
-    auto contSize = ReadVarUint<uint32_t>(src);
-    buildingParts.reserve(contSize);
-    while (contSize--)
-    {
-      base::GeoObjectId const id(ReadPrimitiveFromSource<uint64_t>(src));
-      buildingParts.emplace_back(id);
-    }
-    m_buildingParts.insert(std::end(m_buildingParts),
-                           std::begin(buildingParts), std::end(buildingParts));
-    m_outlineToBuildingPart.emplace_back(outlineId, std::move(buildingParts));
+    auto const buildingParts = BuildingPartsCollector::BuildingParts::Read(src);
+    m_buildingParts.insert(std::end(m_buildingParts), std::begin(buildingParts.m_buildingParts),
+                           std::end(buildingParts.m_buildingParts));
+    m_outlineToBuildingPart.emplace_back(buildingParts.m_id,
+                                         std::move(buildingParts.m_buildingParts));
   }
 
   m_outlineToBuildingPart.shrink_to_fit();

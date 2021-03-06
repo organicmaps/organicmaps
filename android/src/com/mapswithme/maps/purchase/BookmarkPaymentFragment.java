@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -154,8 +153,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   {
     if (mState == BookmarkPaymentState.VALIDATION)
     {
-      Toast.makeText(requireContext(), R.string.purchase_please_wait_toast, Toast.LENGTH_SHORT)
-           .show();
+      Utils.showSnackbar(requireContext(), getView(),
+                         R.string.purchase_please_wait_toast);
       return true;
     }
 

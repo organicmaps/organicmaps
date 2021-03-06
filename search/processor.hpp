@@ -23,10 +23,12 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
+#include "base/mem_trie.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <optional>
 #include <string>
 #include <utility>
@@ -35,6 +37,7 @@
 class FeatureType;
 class CategoriesHolder;
 class DataSource;
+class MwmInfo;
 
 namespace coding
 {
@@ -72,6 +75,8 @@ public:
 
   void Search(SearchParams const & params);
 
+  // Tries to parse a custom debugging command from |m_query|.
+  void SearchDebug();
   // Tries to generate a (lat, lon) result from |m_query|.
   void SearchCoordinates();
   // Tries to parse a plus code from |m_query| and generate a (lat, lon) result.
@@ -112,6 +117,16 @@ public:
   bool IsCancelled() const override;
 
 protected:
+  // Show feature by FeatureId. May try to guess as much as possible after the "fid=" prefix but
+  // at least supports the formats below.
+  // 0. fid=123 or ?fid=123 to search for the feature with index 123, results ordered by distance
+  //    from |m_position| or |m_viewport|, whichever is present and closer.
+  // 1. fid=MwmName,123 or fid=(MwmName,123) to search for the feature with
+  //    index 123 in the Mwm "MwmName" (for example, "Laos" or "Laos.mwm").
+  // 2. fid={ MwmId [Laos, 200623], 123 } or just { MwmId [Laos, 200623], 123 } or whatever current
+  //    format of the string returned by FeatureID's DebugPrint is.
+  void SearchByFeatureId();
+
   Locales GetCategoryLocales() const;
 
   template <typename ToDo>
@@ -125,8 +140,18 @@ protected:
 
   m2::RectD const & GetViewport() const;
 
+  void EmitFeatureIfExists(std::vector<std::shared_ptr<MwmInfo>> const & infos,
+                           storage::CountryId const & mwmName, std::optional<uint32_t> version,
+                           uint32_t fid);
+  // The results are sorted by distance (to a point from |m_viewport| or |m_position|)
+  // before being emitted.
+  void EmitFeaturesByIndexFromAllMwms(std::vector<std::shared_ptr<MwmInfo>> const & infos,
+                                      uint32_t fid);
+
   CategoriesHolder const & m_categories;
   storage::CountryInfoGetter const & m_infoGetter;
+  using CountriesTrie = base::MemTrie<storage::CountryId, base::VectorValues<bool>>;
+  CountriesTrie m_countriesTrie;
 
   std::string m_region;
   std::string m_query;

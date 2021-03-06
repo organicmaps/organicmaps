@@ -11,7 +11,14 @@
 class MmapReader : public ModelReader
 {
 public:
-  explicit MmapReader(std::string const & fileName);
+  enum class Advice
+  {
+    Normal,
+    Random,
+    Sequential
+  };
+
+  explicit MmapReader(std::string const & fileName, Advice advice = Advice::Normal);
 
   uint64_t Size() const override;
   void Read(uint64_t pos, void * p, size_t size) const override;

@@ -11,6 +11,7 @@
 
 #include <cstdint>
 #include <memory>
+#include <tuple>
 
 namespace generator
 {
@@ -32,6 +33,12 @@ public:
     {
     }
 
+    friend bool operator<(LocalityData const & lhs, LocalityData const & rhs)
+    {
+      return std::tie(lhs.m_population, lhs.m_place, lhs.m_position) <
+             std::tie(rhs.m_population, rhs.m_place, rhs.m_position);
+    }
+
     static void Serialize(FileWriter & writer, LocalityData const & localityData);
     static LocalityData Deserialize(ReaderSource<FileReader> & reader);
 
@@ -50,13 +57,17 @@ public:
 
   void Collect(OsmElement const & osmElement) override;
   void Finish() override;
-  void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(RoutingCityBoundariesCollector & collector) const override;
 
   static bool FilterOsmElement(OsmElement const & osmElement);
   void Process(feature::FeatureBuilder & feature, OsmElement const & osmElement);
+
+protected:
+  // CollectorInterface overrides:
+  void Save() override;
+  void OrderCollectedData() override;
 
 private:
   std::unique_ptr<RoutingCityBoundariesWriter> m_writer;
@@ -84,6 +95,7 @@ public:
   void Reset();
   void MergeInto(RoutingCityBoundariesWriter & writer);
   void Save(std::string const & finalFileName, std::string const & dumpFilename);
+  void OrderCollectedData(std::string const & finalFileName, std::string const & dumpFilename);
 
 private:
   using MinAccuracy = feature::serialization_policy::MinSize;

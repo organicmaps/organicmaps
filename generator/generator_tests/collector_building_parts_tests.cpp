@@ -198,7 +198,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorBuildingParts_Case1)
     generator::BuildingPartsCollector collector(file.GetFullPath(), intermediateReader);
     collector.CollectFeature(fb, OsmElement());
     collector.Finish();
-    collector.Save();
+    collector.Finalize();
   }
   TestCollector(file.GetFullPath(), fb, *intermediateReader,
                 IntermediateDataReaderTest::kTopRelationId1);
@@ -233,7 +233,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorBuildingParts_Case2)
     collector2->Finish();
 
     collector1->Merge(*collector2);
-    collector1->Save();
+    collector1->Finalize();
   }
 
   TestCollector(file.GetFullPath(), fb1, *intermediateReader,

@@ -9,7 +9,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +30,7 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -472,7 +472,8 @@ public class SearchToolbarController extends ToolbarController
       }
       else if (!FilterUtils.isWithinMaxStayingDays(checkinMillis, checkoutMillis))
       {
-        Toast.makeText(requireActivity(), R.string.thirty_days_limit_dialog, Toast.LENGTH_LONG).show();
+        Utils.showSnackbar(requireActivity(), mToolbarContainer.getRootView(),
+                           R.string.thirty_days_limit_dialog);
         formatAndSetChosenDates(checkinMillis, FilterUtils.getMaxCheckoutInMillis(checkinMillis));
       }
       else

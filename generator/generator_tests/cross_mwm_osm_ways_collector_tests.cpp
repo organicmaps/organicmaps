@@ -181,7 +181,7 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, OneCollectorTest)
   AppendSecondWayFromRomaniaToHungary(collection1);
   AppendThirdWayEndsExactlyAtRussiaMoscowBorder(collection1);
 
-  collection1->Save();
+  collection1->Finalize();
 
   Checker();
 }
@@ -198,7 +198,7 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, TwoCollectorTest)
   collection1->Finish();
   collection2->Finish();
   collection1->Merge(*collection2);
-  collection1->Save();
+  collection1->Finalize();
 
   Checker();
 }

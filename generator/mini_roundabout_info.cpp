@@ -2,6 +2,8 @@
 
 #include "coding/file_reader.hpp"
 
+#include <algorithm>
+#include <iterator>
 #include <utility>
 
 namespace generator
@@ -16,6 +18,8 @@ MiniRoundaboutInfo::MiniRoundaboutInfo(uint64_t id, ms::LatLon const & coord,
   : m_id(id), m_coord(coord), m_ways(std::move(ways))
 {
 }
+
+void MiniRoundaboutInfo::Normalize() { std::sort(std::begin(m_ways), std::end(m_ways)); }
 
 std::vector<MiniRoundaboutInfo> ReadMiniRoundabouts(std::string const & filePath)
 {

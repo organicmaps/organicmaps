@@ -174,7 +174,7 @@ UNIT_TEST(CollectorBoundaryPostcode_1)
   collector->Collect(postcodeAreaRelation4);
 
   collector->Finish();
-  collector->Save();
+  collector->Finalize();
 
   Check(kDumpFileName);
 }
@@ -196,7 +196,7 @@ UNIT_TEST(CollectorBoundaryPostcode_2)
   collector1->Finish();
   collector2->Finish();
   collector1->Merge(*collector2);
-  collector1->Save();
+  collector1->Finalize();
 
   Check(kDumpFileName);
 }

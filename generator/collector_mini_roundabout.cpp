@@ -31,15 +31,6 @@ MiniRoundaboutProcessor::~MiniRoundaboutProcessor()
   CHECK(Platform::RemoveFileIfExists(m_waysFilename), ());
 }
 
-void MiniRoundaboutProcessor::ForEachMiniRoundabout(Fn && toDo) const
-{
-  for (auto const & p : m_miniRoundabouts)
-  {
-    if (m_miniRoundaboutsExceptions.find(p.first) == m_miniRoundaboutsExceptions.end())
-      toDo(p.second);
-  }
-}
-
 void MiniRoundaboutProcessor::ProcessWay(OsmElement const & element)
 {
   WriteToSink(*m_waysWriter, element.m_id);
@@ -62,6 +53,8 @@ void MiniRoundaboutProcessor::FillMiniRoundaboutsInWays()
         itMiniRoundabout->second.m_ways.push_back(wayId);
     }
   }
+
+  ForEachMiniRoundabout([](auto & rb) { rb.Normalize(); });
 }
 
 void MiniRoundaboutProcessor::ProcessNode(OsmElement const & element)
@@ -138,6 +131,15 @@ void MiniRoundaboutCollector::Save()
   FileWriter writer(GetFilename());
   m_processor.ForEachMiniRoundabout(
       [&](auto const & miniRoundabout) { WriteMiniRoundabout(writer, miniRoundabout); });
+}
+
+void MiniRoundaboutCollector::OrderCollectedData()
+{
+  auto collectedData = ReadMiniRoundabouts(GetFilename());
+  std::sort(std::begin(collectedData), std::end(collectedData));
+  FileWriter writer(GetFilename());
+  for (auto const & miniRoundabout : collectedData)
+    WriteMiniRoundabout(writer, miniRoundabout);
 }
 
 void MiniRoundaboutCollector::Merge(generator::CollectorInterface const & collector)

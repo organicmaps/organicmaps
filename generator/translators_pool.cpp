@@ -15,7 +15,7 @@ TranslatorsPool::TranslatorsPool(std::shared_ptr<TranslatorInterface> const & or
     m_translators.Push(original->Clone());
 }
 
-void TranslatorsPool::Emit(std::vector<OsmElement> && elements)
+void TranslatorsPool::Emit(std::vector<OsmElement> elements)
 {
   std::shared_ptr<TranslatorInterface> translator;
   m_translators.WaitAndPop(translator);

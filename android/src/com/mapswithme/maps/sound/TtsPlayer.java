@@ -208,6 +208,16 @@ public enum TtsPlayer implements Initializable<Context>
         speak(textToSpeak);
   }
 
+  public void playTurnNotifications(@NonNull Context context, @NonNull String[] turnNotifications)
+  {
+    if (MediaPlayerWrapper.from(context).isPlaying())
+      return;
+
+    if (isReady())
+      for (String textToSpeak : turnNotifications)
+        speak(textToSpeak);
+  }
+
   public void stop()
   {
     if (isReady())

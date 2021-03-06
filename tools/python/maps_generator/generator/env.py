@@ -20,7 +20,6 @@ from maps_generator.generator import settings
 from maps_generator.generator import status
 from maps_generator.generator.osmtools import build_osmtools
 from maps_generator.generator.stages import Stage
-from maps_generator.generator.status import Status
 from maps_generator.utils.file import find_executable
 from maps_generator.utils.file import is_executable
 from maps_generator.utils.file import make_symlink
@@ -247,6 +246,10 @@ class PathProvider:
         return os.path.join(self.build_path, f"{settings.PLANET}.o5m")
 
     @property
+    def world_roads_o5m(self) -> AnyStr:
+        return os.path.join(self.build_path, "world_roads.o5m")
+
+    @property
     def main_status_path(self) -> AnyStr:
         return os.path.join(self.status_path, status.with_stat_ext("stages"))
 
@@ -387,8 +390,6 @@ class Env:
         for k, v in self.setup_osm_tools().items():
             setattr(self, k, v)
 
-        self.gen_tool = self.setup_generator_tool()
-
         self.production = production
         self.force_download_files = force_download_files
         self.countries = countries
@@ -420,6 +421,10 @@ class Env:
         self.build_path = os.path.join(settings.MAIN_OUT_PATH, build_name)
         self.build_name = build_name
 
+        self.gen_tool = self.setup_generator_tool()
+        if WORLD_NAME in self.countries:
+            self.world_roads_builder_tool = self.setup_world_roads_builder_tool()
+
         logger.info(f"Build name is {self.build_name}.")
         logger.info(f"Build path is {self.build_path}.")
 
@@ -433,8 +438,6 @@ class Env:
             for item in os.listdir(self.paths.status_path):
                 if item.endswith(".download"):
                     os.remove(os.path.join(self.paths.status_path, item))
-
-        self.world_roads_builder_tool = self.setup_world_roads_builder_tool()
 
         self.main_status = status.Status()
         # self.countries_meta stores log files and statuses for each country.

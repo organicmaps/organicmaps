@@ -23,10 +23,13 @@ public:
 
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const &) override;
   void Finish() override;
-  void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(CityAreaCollector & collector) const override;
+
+protected:
+  void Save() override;
+  void OrderCollectedData() override;
 
 private:
   std::unique_ptr<feature::FeatureBuilderWriter<feature::serialization_policy::MaxAccuracy>> m_writer;

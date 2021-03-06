@@ -41,7 +41,7 @@ void WorldFinalProcessor::Process()
     ProcessCities();
 
   auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(m_worldTmpFilename);
-  Sort(fbs);
+  Order(fbs);
   WorldGenerator generator(m_worldTmpFilename, m_coastlineGeomFilename, m_popularPlacesFilename);
   for (auto & fb : fbs)
     generator.Process(fb);

@@ -1,6 +1,7 @@
 #include "generator/road_access_generator.hpp"
 
 #include "generator/feature_builder.hpp"
+#include "generator/final_processor_utils.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/road_access.hpp"
@@ -280,29 +281,45 @@ void ParseRoadAccessConditional(
   array<RoadAccess::PointToAccessConditional, kVehicleCount> pointToAccessConditional;
 
   string buffer;
+  string line;
   VehicleType vehicleType = VehicleType::Count;
-  while (stream >> buffer)
+  while (getline(stream, line))
   {
+    using It = strings::SimpleTokenizer;
+    It strIt(line, strings::SimpleDelimiter('\t'));
+    CHECK(strIt, ());
+    buffer = *strIt;
+    strings::Trim(buffer);
     FromString(buffer, vehicleType);
     CHECK_NOT_EQUAL(vehicleType, VehicleType::Count, (buffer));
 
+    auto const moveIterAndCheck = [&]() {
+      ++strIt;
+      CHECK(strIt, ());
+      return *strIt;
+    };
+
     uint64_t osmId = 0;
-    stream >> osmId;
+    buffer = moveIterAndCheck();
+    strings::Trim(buffer);
+    CHECK(strings::to_uint64(buffer, osmId), (buffer));
 
     size_t accessNumber = 0;
-    stream >> accessNumber;
+    buffer = moveIterAndCheck();
+    strings::Trim(buffer);
+    CHECK(strings::to_size_t(buffer, accessNumber), (buffer));
     CHECK_NOT_EQUAL(accessNumber, 0, ());
     RoadAccess::Conditional conditional;
-    char const newline = stream.get();
-    CHECK_EQUAL(newline, '\n', ());
     for (size_t i = 0; i < accessNumber; ++i)
     {
-      getline(stream, buffer);
+      buffer = moveIterAndCheck();
+      strings::Trim(buffer);
       RoadAccess::Type roadAccessType = RoadAccess::Type::Count;
       FromString(buffer, roadAccessType);
       CHECK_NOT_EQUAL(roadAccessType, RoadAccess::Type::Count, ());
 
-      getline(stream, buffer);
+      buffer = moveIterAndCheck();
+      strings::Trim(buffer);
       osmoh::OpeningHours openingHours(buffer);
       if (!openingHours.IsValid())
         continue;
@@ -498,9 +515,14 @@ void RoadAccessTagProcessor::WriteWayToAccessConditional(std::ostream & stream)
   for (auto const & [osmId, accesses] : m_wayToAccessConditional)
   {
     CHECK(!accesses.empty(), ());
-    stream << ToString(m_vehicleType) << " " << osmId << " " << accesses.size() << endl;
+    stream << ToString(m_vehicleType) << '\t' << osmId << '\t' << accesses.size() << '\t';
     for (auto const & access : accesses)
-      stream << ToString(access.m_accessType) << endl << access.m_openingHours << endl;
+    {
+      string oh;
+      replace_copy(cbegin(access.m_openingHours), cend(access.m_openingHours), back_inserter(oh), '\t', ' ');
+      stream << ToString(access.m_accessType) << '\t' << oh << '\t';
+    }
+    stream << endl;
   }
 }
 
@@ -623,6 +645,12 @@ void RoadAccessWriter::Save()
   outConditional.open(GetFilename() + ROAD_ACCESS_CONDITIONAL_EXT);
   for (auto & p : m_tagProcessors)
     p.WriteWayToAccessConditional(outConditional);
+}
+
+void RoadAccessWriter::OrderCollectedData()
+{
+  for (auto const & filename : {GetFilename(), GetFilename() + ROAD_ACCESS_CONDITIONAL_EXT})
+    OrderTextFileByLine(filename);
 }
 
 void RoadAccessWriter::Merge(generator::CollectorInterface const & collector)

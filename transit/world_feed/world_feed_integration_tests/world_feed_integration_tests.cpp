@@ -6,8 +6,6 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/zip_reader.hpp"
-
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/string_utils.hpp"
@@ -18,9 +16,8 @@
 
 namespace
 {
-// You can download this archive to current directory by running:
-// rsync -v -p testdata.mapsme.cloud.devmail.ru::testdata/gtfs-feeds-for-tests.zip .
-std::string const kArchiveWithFeeds = "gtfs-feeds-for-tests";
+// You can clone data from repo https://github.com/mapsme/world_feed_integration_tests_data
+std::string const kFeedsSubdir = "world_feed_integration_tests_data";
 }  // namespace
 
 namespace transit
@@ -35,27 +32,12 @@ public:
     auto const & options = GetTestingOptions();
 
     GetPlatform().SetResourceDir(options.m_resourcePath);
-    m_testPath = base::JoinPath(GetPlatform().WritableDir(), kArchiveWithFeeds);
-    CHECK(GetPlatform().MkDirRecursively(m_testPath), ());
+    m_testPath = base::JoinPath(GetPlatform().WritableDir(), kFeedsSubdir);
+    CHECK(GetPlatform().IsFileExistsByFullPath(m_testPath), ());
 
     m_generator = IdGenerator(base::JoinPath(m_testPath, "mapping.txt"));
     m_generatorEdges = IdGenerator(base::JoinPath(m_testPath, "mapping_edges.txt"));
-
-    auto const src = base::JoinPath(options.m_resourcePath, kArchiveWithFeeds + ".zip");
-    ZipFileReader::FileList filesAndSizes;
-    ZipFileReader::FilesList(src, filesAndSizes);
-
-    for (auto const & fileAndSize : filesAndSizes)
-    {
-      auto const output = base::JoinPath(m_testPath, fileAndSize.first);
-      if (strings::EndsWith(output, base::GetNativeSeparator()))
-        CHECK(GetPlatform().MkDirRecursively(output), ());
-      else
-        ZipFileReader::UnzipFile(src, fileAndSize.first, output);
-    }
   }
-
-  ~WorldFeedIntegrationTests() { CHECK(Platform::RmDirRecursively(m_testPath), ()); }
 
   void ReadMinimalisticFeed()
   {
@@ -90,6 +72,31 @@ public:
     TEST_EQUAL(m_globalFeed.m_transfers.m_data.size(), 0, ());
     TEST_EQUAL(m_globalFeed.m_edges.m_data.size(), 3999, ());
     TEST_EQUAL(m_globalFeed.m_edgesTransfers.m_data.size(), 0, ());
+  }
+
+  void ReadFeedWithMultipleShapeProjections()
+  {
+    gtfs::Feed feed(base::JoinPath(m_testPath, "feed_with_multiple_shape_projections"));
+    TEST_EQUAL(feed.read_feed().code, gtfs::ResultCode::OK, ());
+    TEST(m_globalFeed.SetFeed(std::move(feed)), ());
+
+    TEST_EQUAL(m_globalFeed.m_networks.m_data.size(), 1, ());
+    TEST_EQUAL(m_globalFeed.m_routes.m_data.size(), 1, ());
+    TEST_EQUAL(m_globalFeed.m_lines.m_data.size(), 2, ());
+    TEST_EQUAL(m_globalFeed.m_stops.m_data.size(), 16, ());
+    TEST_EQUAL(m_globalFeed.m_shapes.m_data.size(), 1, ());
+    TEST_EQUAL(m_globalFeed.m_gates.m_data.size(), 0, ());
+    TEST_EQUAL(m_globalFeed.m_transfers.m_data.size(), 2, ());
+    TEST_EQUAL(m_globalFeed.m_edges.m_data.size(), 27, ());
+    TEST_EQUAL(m_globalFeed.m_edgesTransfers.m_data.size(), 2, ());
+  }
+
+  void ReadFeedWithWrongStopsOrder()
+  {
+    gtfs::Feed feed(base::JoinPath(m_testPath, "feed_with_wrong_stops_order"));
+    TEST_EQUAL(feed.read_feed().code, gtfs::ResultCode::OK, ());
+    // Feed has wrong stops order (impossible for trip shape) and should be rejected.
+    TEST(!m_globalFeed.SetFeed(std::move(feed)), ());
   }
 
   // Test for train itinerary that passes through 4 regions in Europe and consists of 4 stops
@@ -155,5 +162,15 @@ UNIT_CLASS_TEST(WorldFeedIntegrationTests, RealLifeFeed)
 UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithLongItinerary)
 {
   SplitFeedIntoMultipleRegions();
+}
+
+UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithMultipleShapeProjections)
+{
+  ReadFeedWithMultipleShapeProjections();
+}
+
+UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithWrongStopsOrder)
+{
+  ReadFeedWithWrongStopsOrder();
 }
 }  // namespace transit

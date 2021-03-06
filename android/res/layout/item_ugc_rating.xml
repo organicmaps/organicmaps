@@ -18,7 +18,7 @@
     tools:text="Service"/>
   <RatingBar
     android:id="@+id/rb__rate"
-    style="@style/MwmWidget.RatingBar.Ugc"
+    style="?ratingBarStyle"
     android:layout_width="wrap_content"
     android:layout_height="24dp"
     android:layout_alignParentRight="true"

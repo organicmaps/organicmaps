@@ -30,12 +30,19 @@ class IntermediateDataReaderInterface;
 class MiniRoundaboutProcessor
 {
 public:
-  using Fn = std::function<void(MiniRoundaboutInfo const &)>;
-
   explicit MiniRoundaboutProcessor(std::string const & filename);
   ~MiniRoundaboutProcessor();
 
-  void ForEachMiniRoundabout(Fn && toDo) const;
+  template <typename Fn>
+  void ForEachMiniRoundabout(Fn && toDo)
+  {
+    for (auto & p : m_miniRoundabouts)
+    {
+      if (m_miniRoundaboutsExceptions.find(p.first) == m_miniRoundaboutsExceptions.end())
+        toDo(p.second);
+    }
+  }
+
   void ProcessNode(OsmElement const & element);
   void ProcessWay(OsmElement const & element);
   void ProcessRestriction(uint64_t osmId);
@@ -65,10 +72,13 @@ public:
   void Collect(OsmElement const & element) override;
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
   void Finish() override;
-  void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(MiniRoundaboutCollector & collector) const override;
+
+protected:
+  void Save() override;
+  void OrderCollectedData() override;
 
 private:
   MiniRoundaboutProcessor m_processor;

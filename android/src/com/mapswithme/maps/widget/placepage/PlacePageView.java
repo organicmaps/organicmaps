@@ -34,6 +34,7 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
@@ -2020,19 +2021,16 @@ public class PlacePageView extends NestedScrollViewClickFixed
     for (int i = 0; i < items.size(); i++)
       menu.add(Menu.NONE, i, i, String.format("%s %s", copyText, items.get(i)));
 
-    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
-    {
-      @Override
-      public boolean onMenuItemClick(MenuItem item)
-      {
-        final int id = item.getItemId();
-        final Context ctx = getContext();
-        Utils.copyTextToClipboard(ctx, items.get(id));
-        Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, items.get(id)));
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_METADATA_COPY + ":" + tagStr);
-        AlohaHelper.logClick(AlohaHelper.PP_METADATA_COPY + ":" + tagStr);
-        return true;
-      }
+    popup.setOnMenuItemClickListener(item -> {
+      final int id = item.getItemId();
+      final Context ctx = getContext();
+      Utils.copyTextToClipboard(ctx, items.get(id));
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_METADATA_COPY + ":" + tagStr);
+      AlohaHelper.logClick(AlohaHelper.PP_METADATA_COPY + ":" + tagStr);
+      Utils.showSnackbarAbove(findViewById(R.id.pp__details_frame),
+                              getRootView().findViewById(R.id.menu_frame),
+                              ctx.getString(R.string.copied_to_clipboard, items.get(id)));
+      return true;
     });
 
     popup.show();

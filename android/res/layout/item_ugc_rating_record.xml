@@ -13,7 +13,7 @@
     tools:text="Label"/>
   <RatingBar
     android:id="@+id/rating"
-    style="@style/MwmWidget.RatingBarSmall.Ugc"
+    style="?ratingBarStyleSmall"
     android:layout_marginTop="@dimen/margin_quarter"
     android:numStars="5"
     android:layout_width="wrap_content"

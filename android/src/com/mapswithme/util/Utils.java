@@ -31,6 +31,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import com.google.android.material.snackbar.Snackbar;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -46,7 +47,9 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.NetworkInterface;
 import java.security.MessageDigest;
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
@@ -115,15 +118,30 @@ public class Utils
       w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
 
-  public static void toastShortcut(Context context, String message)
+  public static void showSnackbar(@NonNull View view, @NonNull String message)
   {
-    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
   }
 
-  public static void toastShortcut(Context context, int messageResId)
+  public static void showSnackbarAbove(@NonNull View view, @NonNull View viewAbove, @NonNull String message)
+  {
+    Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+            .setAnchorView(viewAbove).show();
+  }
+
+  public static void showSnackbar(@NonNull Context context, @NonNull View view, int messageResId)
+  {
+    showSnackbar(context, view, null, messageResId);
+  }
+
+  public static void showSnackbar(@NonNull Context context, @NonNull View view,
+                                  @Nullable View viewAbove, int messageResId)
   {
     final String message = context.getString(messageResId);
-    toastShortcut(context, message);
+    if (viewAbove == null)
+      showSnackbar(view, message);
+    else
+      showSnackbarAbove(view, viewAbove, message);
   }
 
   public static boolean isIntentSupported(Context context, Intent intent)
@@ -676,8 +694,7 @@ public class Utils
       LOGGER.e(TAG, "Failed to get string with id '" + key + "'", e);
       if (isDebugOrBeta())
       {
-        Toast.makeText(context, "Add string id for '" + key + "'!",
-                       Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Add string id for '" + key + "'!", Toast.LENGTH_LONG).show();
       }
     }
     return INVALID_ID;
@@ -823,6 +840,22 @@ public class Utils
   public static Calendar getCalendarInstance()
   {
     return Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+  }
+
+  @NonNull
+  public static String calculateFinishTime(int seconds)
+  {
+    Calendar calendar = getCalendarInstance();
+    calendar.add(Calendar.SECOND, seconds);
+    DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    return dateFormat.format(calendar.getTime());
+  }
+
+  @NonNull
+  public static String fixCaseInString(@NonNull String string)
+  {
+    char firstChar = string.charAt(0);
+    return firstChar + string.substring(1).toLowerCase();
   }
 
   private static class SupportInfoWithLogsCallback implements LoggerFactory.OnZipCompletedListener

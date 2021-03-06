@@ -34,6 +34,7 @@ class SourceReader
   };
 
   std::unique_ptr<std::istream, Deleter> m_file;
+  uint64_t m_pos = 0;
 
 public:
   SourceReader();
@@ -41,6 +42,7 @@ public:
   explicit SourceReader(std::istringstream & stream);
 
   uint64_t Read(char * buffer, uint64_t bufferSize);
+  uint64_t Pos() const { return m_pos; }
 };
 
 bool GenerateIntermediateData(feature::GenerateInfo & info);

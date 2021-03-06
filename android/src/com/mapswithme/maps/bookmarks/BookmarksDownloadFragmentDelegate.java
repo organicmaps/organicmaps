@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,9 +26,12 @@ import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
 import com.mapswithme.maps.purchase.BookmarksSightsSubscriptionActivity;
 import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.maps.purchase.SubscriptionType;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.Objects;
 
 class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, BookmarkDownloadCallback,
                                                    TargetFragmentCallback
@@ -161,8 +163,8 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
     hideAuthorizationProgress();
     if (!success)
     {
-      Toast.makeText(mFragment.getContext(), R.string.profile_authorization_error,
-                     Toast.LENGTH_LONG).show();
+      Utils.showSnackbar(mFragment.requireContext(), Objects.requireNonNull(mFragment.getView()),
+                         R.string.profile_authorization_error);
       return;
     }
 

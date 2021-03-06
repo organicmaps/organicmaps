@@ -105,10 +105,13 @@ public:
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & elem) override;
   void Finish() override;
-  void Save() override;
 
   void Merge(generator::CollectorInterface const & collector) override;
   void MergeInto(RoadAccessWriter & collector) const override;
+
+protected:
+  void Save() override;
+  void OrderCollectedData() override;
 
 private:
   std::string m_waysFilename;

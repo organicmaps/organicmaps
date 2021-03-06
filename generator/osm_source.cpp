@@ -47,7 +47,9 @@ SourceReader::SourceReader(istringstream & stream)
 uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 {
   m_file->read(buffer, bufferSize);
-  return m_file->gcount();
+  auto const gcount = static_cast<uint64_t>(m_file->gcount());
+  m_pos += gcount;
+  return gcount;
 }
 
 // Functions ---------------------------------------------------------------------------------------
@@ -123,7 +125,10 @@ void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *
   ProcessorOsmElementsFromXml processorOsmElementsFromXml(stream);
   OsmElement element;
   while (processorOsmElementsFromXml.TryRead(element))
+  {
     processor(&element);
+    element.Clear();
+  }
 }
 
 void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateDataWriter & cache,
@@ -144,7 +149,10 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
   ProcessorOsmElementsFromO5M processorOsmElementsFromO5M(stream);
   OsmElement element;
   while (processorOsmElementsFromO5M.TryRead(element))
+  {
     processor(&element);
+    element.Clear();
+  }
 }
 
 ProcessorOsmElementsFromO5M::ProcessorOsmElementsFromO5M(SourceReader & stream)
@@ -172,14 +180,12 @@ bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
     }
   };
 
-  element = {};
-
   // Be careful, we could call Nodes(), Members(), Tags() from O5MSource::Entity
   // only once (!). Because these functions read data from file simultaneously with
   // iterating in loop. Furthermore, into Tags() method calls Nodes.Skip() and Members.Skip(),
   // thus first call of Nodes (Members) after Tags() will not return any results.
   // So don not reorder the "for" loops (!).
-  auto const entity = *m_pos;
+  auto const & entity = *m_pos;
   element.m_id = entity.id;
   switch (entity.type)
   {

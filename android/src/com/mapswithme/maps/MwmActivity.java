@@ -19,7 +19,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -1012,7 +1011,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         fragment.saveRoutingPanelState(outState);
     }
 
-    mNavigationController.onSaveState(outState);
+    mNavigationController.onActivitySaveInstanceState(this, outState);
 
     RoutingController.get().onSaveState();
     outState.putBoolean(EXTRA_LOCATION_DIALOG_IS_ANNOYING, mLocationErrorDialogAnnoying);
@@ -1053,7 +1052,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!mIsTabletLayout && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
 
-    mNavigationController.onRestoreState(savedInstanceState);
+    mNavigationController.onRestoreState(savedInstanceState, this);
 
     if (mFilterController != null)
       mFilterController.onRestoreState(savedInstanceState);
@@ -1318,7 +1317,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (type != IsolinesState.EXPIREDDATA)
     {
-      type.activate(getApplicationContext());
+      type.activate(this, findViewById(R.id.coordinator), findViewById(R.id.menu_frame));
       return;
     }
 
@@ -1345,7 +1344,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!successful)
       return;
 
-    Toast.makeText(this, R.string.guide_downloaded_title, Toast.LENGTH_LONG).show();
+    Utils.showSnackbar(this, findViewById(R.id.coordinator),
+                       findViewById(R.id.menu_frame), R.string.guide_downloaded_title);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GUIDEDOWNLOADTOAST_SHOWN);
   }
 
@@ -1459,7 +1459,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mOnmapDownloader != null)
       mOnmapDownloader.onResume();
 
-    mNavigationController.onResume();
+    mNavigationController.onActivityResumed(this);
 
     if (mNavAnimationController != null)
       mNavAnimationController.onResume();
@@ -1494,11 +1494,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onPause()
   {
-    TtsPlayer.INSTANCE.stop();
+    if (!RoutingController.get().isNavigating())
+      TtsPlayer.INSTANCE.stop();
     LikesManager.INSTANCE.cancelDialogs();
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
     mPlacePageController.onActivityPaused(this);
+    mNavigationController.onActivityPaused(this);
     super.onPause();
   }
 
@@ -1544,7 +1546,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else if (state == GuidesState.ENABLED)
       onGuidesEnabled();
     else
-      state.activate(getApplicationContext());
+      state.activate(this, findViewById(R.id.coordinator), findViewById(R.id.menu_frame));
   }
 
   private void onGuidesEnabled()
@@ -2311,19 +2313,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationCancelled()
   {
-    mNavigationController.stop(this);
     updateSearchBar();
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     if (mRoutingPlanInplaceController == null)
       return;
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
+    mNavigationController.stop(this);
   }
 
   @Override
   public void onNavigationStarted()
   {
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+    mNavigationController.start(this);
   }
 
   @Override
@@ -2474,22 +2477,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
             mLocationErrorDialogAnnoying = true;
           }
         })
-        .setOnCancelListener(new DialogInterface.OnCancelListener()
-        {
-          @Override
-          public void onCancel(DialogInterface dialog)
-          {
-            mLocationErrorDialogAnnoying = true;
-          }
-        })
-        .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            startActivity(intent);
-          }
-        }).show();
+        .setOnCancelListener(dialog -> mLocationErrorDialogAnnoying = true)
+        .setPositiveButton(R.string.connection_settings, (dialog, which) -> startActivity(intent)).show();
   }
 
   @Override
@@ -2671,8 +2660,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onBookmarksFileLoaded(boolean success)
   {
-    Utils.toastShortcut(MwmActivity.this, success ? R.string.load_kmz_successful :
-                                          R.string.load_kmz_failed);
+    Utils.showSnackbar(this, findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
+                        success ? R.string.load_kmz_successful : R.string.load_kmz_failed);
   }
 
   @Override
@@ -2858,8 +2847,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (PermissionsUtils.isLocationExplanationNeeded(MwmActivity.this))
           PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
         else
-          Toast.makeText(MwmActivity.this, R.string.enable_location_services, Toast.LENGTH_SHORT)
-               .show();
+          Utils.showSnackbar(getActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
+                             R.string.enable_location_services);
         return;
       }
 
@@ -3028,8 +3017,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mFadeView.fadeIn();
       if (!SharedPropertiesUtils.shouldShowLayerTutorialToast(getApplicationContext()))
         return;
-
-      UiUtils.showToastAtTop(getApplicationContext(), R.string.routes_layer_in_menu_toast);
+      Utils.showSnackbar(getApplicationContext(), findViewById(R.id.coordinator),
+                         findViewById(R.id.menu_frame), R.string.routes_layer_in_menu_toast);
     }
 
     @Override

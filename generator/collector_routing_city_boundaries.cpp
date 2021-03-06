@@ -1,5 +1,6 @@
 #include "generator/collector_routing_city_boundaries.hpp"
 
+#include "generator/final_processor_utils.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_element_helpers.hpp"
@@ -67,7 +68,7 @@ ftypes::LocalityType GetPlaceType(FeatureBuilder const & feature)
 void TruncateAndWriteCount(std::string const & file, size_t n)
 {
   FileWriter writer(file, FileWriter::Op::OP_WRITE_TRUNCATE);
-  writer.Write(&n, sizeof(n));
+  WriteToSink(writer, n);
 }
 }  // namespace
 
@@ -111,29 +112,29 @@ bool RoutingCityBoundariesCollector::FilterOsmElement(OsmElement const & osmElem
 void RoutingCityBoundariesCollector::LocalityData::Serialize(FileWriter & writer,
                                                              LocalityData const & localityData)
 {
-  writer.Write(&localityData.m_population, sizeof(localityData.m_population));
+  WriteToSink(writer, localityData.m_population);
 
   auto const placeType = static_cast<uint32_t>(localityData.m_place);
-  writer.Write(&placeType, sizeof(placeType));
+  WriteToSink(writer, placeType);
 
   auto const pointU = PointDToPointU(localityData.m_position, kPointCoordBits);
-  writer.Write(&pointU.x, sizeof(pointU.x));
-  writer.Write(&pointU.y, sizeof(pointU.y));
+  WriteToSink(writer, pointU.x);
+  WriteToSink(writer, pointU.y);
 }
 
 RoutingCityBoundariesCollector::LocalityData
 RoutingCityBoundariesCollector::LocalityData::Deserialize(ReaderSource<FileReader> & reader)
 {
   LocalityData localityData;
-  reader.Read(&localityData.m_population, sizeof(localityData.m_population));
+  ReadPrimitiveFromSource(reader, localityData.m_population);
 
   uint32_t placeType = 0;
-  reader.Read(&placeType, sizeof(placeType));
+  ReadPrimitiveFromSource(reader, placeType);
   localityData.m_place = static_cast<ftypes::LocalityType>(placeType);
 
   m2::PointU pointU;
-  reader.Read(&pointU.x, sizeof(pointU.x));
-  reader.Read(&pointU.y, sizeof(pointU.y));
+  ReadPrimitiveFromSource(reader, pointU.x);
+  ReadPrimitiveFromSource(reader, pointU.y);
   localityData.m_position = PointUToPointD(pointU, kPointCoordBits);
 
   return localityData;
@@ -180,7 +181,7 @@ void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
 {
   ASSERT(FilterOsmElement(osmElement), ());
 
-  if (feature.IsArea() && IsSuitablePlaceType(GetPlaceType(feature)))
+  if (feature.IsArea() && IsSuitablePlaceType(::GetPlaceType(feature)))
   {
     if (feature.PreSerialize())
       m_writer->Process(feature);
@@ -207,7 +208,7 @@ void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
   }
   else if (feature.IsPoint())
   {
-    auto const placeType = GetPlaceType(feature);
+    auto const placeType = ::GetPlaceType(feature);
 
     // Elements which have multiple place tags i.e. "place=country" + "place=city" will pass FilterOsmElement()
     // but can have bad placeType here. As we do not know what's the real place type let's skip such places.
@@ -232,6 +233,11 @@ void RoutingCityBoundariesCollector::Finish() { m_writer->Reset(); }
 void RoutingCityBoundariesCollector::Save()
 {
   m_writer->Save(GetFilename(), m_dumpFilename);
+}
+
+void RoutingCityBoundariesCollector::OrderCollectedData()
+{
+  m_writer->OrderCollectedData(GetFilename(), m_dumpFilename);
 }
 
 void RoutingCityBoundariesCollector::Merge(generator::CollectorInterface const & collector)
@@ -345,5 +351,81 @@ void RoutingCityBoundariesWriter::Save(std::string const & finalFileName,
 
   if (Platform::IsFileExistsByFullPath(m_finalBoundariesGeometryFilename))
     CHECK(base::CopyFileX(m_finalBoundariesGeometryFilename, dumpFilename), ());
+}
+
+void RoutingCityBoundariesWriter::OrderCollectedData(std::string const & finalFileName,
+                                                     std::string const & dumpFilename)
+{
+  {
+    auto const nodeToLocalityFilename = GetNodeToLocalityDataFilename(finalFileName);
+    std::vector<std::pair<uint64_t, LocalityData>> collectedData;
+    uint64_t count = 0;
+    {
+      FileReader reader(nodeToLocalityFilename);
+      ReaderSource src(reader);
+      ReadPrimitiveFromSource(src, count);
+      collectedData.reserve(count);
+      while (src.Size() > 0)
+      {
+        collectedData.push_back({});
+        ReadPrimitiveFromSource(src, collectedData.back().first);
+        collectedData.back().second = LocalityData::Deserialize(src);
+      }
+      CHECK_EQUAL(collectedData.size(), count, ());
+    }
+    std::sort(std::begin(collectedData), std::end(collectedData));
+    FileWriter writer(nodeToLocalityFilename);
+    WriteToSink(writer, count);
+    for (auto const & p : collectedData)
+    {
+      WriteToSink(writer, p.first);
+      LocalityData::Serialize(writer, p.second);
+    }
+  }
+  {
+    auto const nodeToBoundariesFilename = GetNodeToBoundariesFilename(finalFileName);
+    std::vector<std::pair<uint64_t, FeatureBuilder>> collectedData;
+    uint64_t count = 0;
+    {
+      FileReader reader(nodeToBoundariesFilename);
+      ReaderSource src(reader);
+      ReadPrimitiveFromSource(src, count);
+      collectedData.reserve(count);
+      while (src.Size() > 0)
+      {
+        collectedData.push_back({});
+        ReadPrimitiveFromSource(src, collectedData.back().first);
+        ReadFromSourceRawFormat(src, collectedData.back().second);
+      }
+      CHECK_EQUAL(collectedData.size(), count, ());
+    }
+    std::sort(
+        std::begin(collectedData), std::end(collectedData), [](auto const & lhs, auto const & rhs) {
+          return lhs.first == rhs.first ? Less(lhs.second, rhs.second) : lhs.first < rhs.first;
+        });
+    FileWriter writer(nodeToBoundariesFilename);
+    WriteToSink(writer, count);
+    for (auto const & p : collectedData)
+    {
+      WriteToSink(writer, p.first);
+      FeatureWriter::Write(writer, p.second);
+    }
+  }
+  {
+    std::vector<FeatureBuilder::PointSeq> collectedData;
+    {
+      FileReader reader(dumpFilename);
+      ReaderSource src(reader);
+      while (src.Size() > 0)
+      {
+        collectedData.push_back({});
+        rw::ReadVectorOfPOD(src, collectedData.back());
+      }
+    }
+    std::sort(std::begin(collectedData), std::end(collectedData));
+    FileWriter writer(dumpFilename);
+    for (auto const & p : collectedData)
+      rw::WriteVectorOfPOD(writer, p);
+  }
 }
 }  // namespace generator

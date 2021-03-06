@@ -22,13 +22,13 @@
     android:id="@+id/text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_half"
-    android:layout_marginStart="@dimen/margin_half"
     android:layout_gravity="center_vertical"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:textAllCaps="true"
-    android:text="@string/bookmarks_create_new_group"
-    android:textColor="?colorAccent"
+    android:layout_marginStart="@dimen/margin_half"
+    android:layout_marginLeft="@dimen/margin_half"
     android:fontFamily="@string/robotoMedium"
-    tools:targetApi="jelly_bean"/>
+    android:text="@string/bookmarks_create_new_group"
+    android:textAllCaps="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:textColor="?colorAccent"
+    tools:targetApi="jelly_bean" />
 </LinearLayout>
