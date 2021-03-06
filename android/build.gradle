@@ -1,14 +1,15 @@
 buildscript {
   repositories {
     google()
+    mavenCentral()
     jcenter()
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:4.0.1'
-    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
-    classpath 'com.google.firebase:firebase-appdistribution-gradle:2.0.1'
-    classpath 'com.google.gms:google-services:4.3.3'
+    classpath 'com.android.tools.build:gradle:4.1.2'
+    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.1'
+    classpath 'com.google.firebase:firebase-appdistribution-gradle:2.1.0'
+    classpath 'com.google.gms:google-services:4.3.5'
   }
 }
 
@@ -39,6 +40,8 @@ apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.firebase.appdistribution'
 apply from: 'secure.properties'
 
+import java.text.SimpleDateFormat
+
 dependencies {
 
   implementation 'androidx.multidex:multidex:' + propMultiDexVersion
@@ -49,8 +52,6 @@ dependencies {
   implementation 'com.google.android.gms:play-services-auth:17.0.0'
   implementation 'com.google.android.gms:play-services-basement:17.1.1'
 
-  // statistics
-  implementation 'com.flurry.android:analytics:12.1.0@aar'
   // crash reporting
   implementation 'com.google.firebase:firebase-analytics:17.4.4'
   implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
@@ -58,14 +59,6 @@ dependencies {
 
   // 3-party
   implementation 'com.google.code.gson:gson:2.6.1'
-  implementation ('com.my.target:mytarget-sdk:5.2.2') {
-    exclude group: 'com.google.android.exoplayer', module:'exoplayer-core'
-    exclude group: 'com.google.android.exoplayer', module:'exoplayer-dash'
-    exclude group: 'com.google.android.exoplayer', module:'exoplayer-hls'
-  }
-  implementation('com.mopub:mopub-sdk-native-static:5.10.0@aar') {
-    transitive = true;
-  }
   // BottomSheet
   implementation 'com.cocosw:bottomsheet:1.5.0@aar'
   implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
@@ -73,8 +66,6 @@ dependencies {
   implementation 'com.github.bumptech.glide:glide:3.7.0'
   // Java concurrency annotations
   implementation 'net.jcip:jcip-annotations:1.0'
-  implementation 'com.appsflyer:af-android-sdk:4.9.0'
-  implementation 'com.android.installreferrer:installreferrer:1.0'
 
   implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
   implementation 'androidx.work:work-runtime:2.2.0'
@@ -96,7 +87,8 @@ dependencies {
 
 def getDate() {
   def date = new Date()
-  def formattedDate = date.format('yyMMdd')
+  def dateFormat = new SimpleDateFormat("yyMMdd")
+  def formattedDate = dateFormat.format(date)
   return formattedDate
 }
 
@@ -160,9 +152,8 @@ configurations.all {
 }
 
 android {
-  ndkVersion = "21.4.7075529"
-  dataBinding {
-    enabled = true
+  buildFeatures {
+    dataBinding = true
   }
   // All properties are read from gradle.properties file
   compileSdkVersion propCompileSdkVersion.toInteger()
@@ -178,17 +169,6 @@ android {
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@omaps.app"'
     buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.omaps"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
-
-    // PushWoosh keys
-    Properties pwProps = new Properties()
-    pwProps.load(new FileInputStream("${projectDir}/pushwoosh.properties"));
-    manifestPlaceholders += ['PW_APPID': pwProps['pwAppId']]
-    buildConfigField 'String', 'PW_APPID', /"${pwProps['pwAppId']}"/
-    def pwProjectIdKey = 'PW_PROJECT_ID'
-    manifestPlaceholders += [pwProjectId : pwProps['pwProjectId']]
-    manifestPlaceholders += ['PW_PROJECT_ID_KEY' : pwProjectIdKey]
-    resValue 'string', 'pw_project_id', pwProps['pwProjectId']
-    buildConfigField "String", 'PW_PROJECT_ID',  "\"" + pwProjectIdKey + "\""
 
     multiDexEnabled true
     multiDexKeepFile file('multidex-config.txt')
@@ -376,8 +356,6 @@ android {
     if (!variant.getFlavors().get(0).name.equals("web")
             && !variant.getFlavors().get(0).name.equals("google")
             && !project.hasProperty("anyVariant")) {
-      println("Variant '" + variant.name + "' is ignored. If you want to build it please " +
-              "add gradle parameter '-PanyVariant'")
       variant.setIgnore(true)
     }
   }
@@ -402,16 +380,18 @@ android {
       project.task(type: Exec, "run${task}", dependsOn: "install${task}") {
         commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/com.mapswithme.maps.SplashActivity"
       }
+    }
+  }
 
-      variant.outputs.all { output ->
-        if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
-          def file = output.outputFile
-          // version at the end of each built apk
-          outputFileName = "../../" + file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk")
-          // set different versionCodes for different ABIs
-          int abiVersionCode = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI)) ?: 0
-          output.versionCodeOverride = (abiVersionCode * 1000) + variant.versionCode
-        }
+  android.applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+      if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
+        def file = output.outputFile
+        // version at the end of each built apk
+        output.outputFileName = "../../" + file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk")
+        // set different versionCodes for different ABIs
+        int abiVersionCode = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI)) ?: 0
+        output.versionCodeOverride = (abiVersionCode * 1000) + variant.versionCode
       }
     }
   }

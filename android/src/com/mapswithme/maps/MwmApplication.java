@@ -9,7 +9,6 @@ import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.multidex.MultiDex;
-import com.appsflyer.AppsFlyerLib;
 import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationChannelFactory;
@@ -154,8 +153,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     getLogger().d(TAG, "Application is created");
     mMainLoopHandler = new Handler(getMainLooper());
     mMediator = new ExternalLibrariesMediator(this);
-    mMediator.initSensitiveDataToleranceLibraries();
-    mMediator.initSensitiveDataStrictLibrariesAsync();
     Statistics.INSTANCE.initialize(this);
     ConnectionState.INSTANCE.initialize(this);
     CrashlyticsUtils.INSTANCE.initialize(this);
@@ -205,8 +202,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     if (mPlatformInitialized)
       return;
 
-    final boolean isInstallationIdFound = mMediator.setInstallationIdToCrashlytics();
-
     final String settingsPath = StorageUtils.getSettingsPath();
     getLogger().d(TAG, "onCreate(), setting path = " + settingsPath);
     final String filesPath = StorageUtils.getFilesPath(this);
@@ -228,9 +223,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
                        BuildConfig.BUILD_TYPE, UiUtils.isTablet(this));
 
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled(this));
-
-    if (!isInstallationIdFound)
-      mMediator.setInstallationIdToCrashlytics();
 
     mBackgroundTracker.addListener(mBackgroundListener);
     Editor.init(this);
@@ -302,20 +294,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   static
   {
     System.loadLibrary("mapswithme");
-  }
-
-  @SuppressWarnings("unused")
-  void sendAppsFlyerTags(@NonNull String tag, @NonNull KeyValue[] params)
-  {
-    HashMap<String, Object> paramsMap = new HashMap<>();
-    for (KeyValue p : params)
-      paramsMap.put(p.getKey(), p.getValue());
-    AppsFlyerLib.getInstance().trackEvent(this, tag, paramsMap);
-  }
-
-  public void sendPushWooshTags(String tag, String[] values)
-  {
-    getMediator().getEventLogger().sendTags(tag, values);
   }
 
   @NonNull

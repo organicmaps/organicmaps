@@ -1016,16 +1016,6 @@
 	<string name="traffic_update_app_message">교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">교통 데이터를 사용할 수 없습니다</string>
-	<string name="banner_deliveryclub_title">음식 배달</string>
-	<string name="banner_deliveryclub_message">4,000곳의 레스토랑에서 신속하게 배달합니다. Delivery Club에서 주문하세요.</string>
-	<string name="banner_lamoda_title">온라인 의류 및 신발 스토어</string>
-	<string name="banner_lamoda_message">1,000개 이상의 브랜드. 최대 70% 할인. 전국 무료 배송.</string>
-	<string name="banner_tutu_title">온라인 기차표</string>
-	<string name="banner_tutu_message">온라인으로 이용하는 모든 도시행 기차표 - 가격, 검색 및 예약.</string>
-	<string name="banner_geerbest_title">온라인 전자 기기 스토어</string>
-	<string name="banner_geerbest_message">저렴한 가격의 50,000개 이상 품목에서 즉시 검색.</string>
-	<string name="banner_rentalcars_title">온라인 자동차 렌트</string>
-	<string name="banner_rentalcars_message">800개의 자동차 렌트 회사와 49,000곳 이상의 자동차 렌트 지점</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36개국의 교통 데이터</string>
 	<!-- december -->
@@ -1302,10 +1292,8 @@
 	  <item quantity="other">%d 추적</item>
 	</plurals>
 	<string name="subtittle_opt_out">추적 설정</string>
-	<string name="opt_out_flurry">통계</string>
-	<string name="opt_out_mopub">개별 광고</string>
-	<string name="opt_out_fabric">오류 보고서</string>
-	<string name="opt_out_fabric_description">당사는 OMaps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.</string>
+	<string name="crash_reports">오류 보고서</string>
+	<string name="crash_reports_description">당사는 OMaps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.</string>
 	<string name="opt_out_help_ios_1">귀하의 모바일 장치는 \"\"광고 추적 제한\"\" 혹은 \"\"관심 기반의 광고의 옵트아웃\"\" 설정을 제공할 수 있습니다.</string>
 	<string name="opt_out_help_ios_2">iOS 9 혹은 이상</string>
 	<string name="opt_out_help_ios_3">설정 → 개인정보 → 광고 → “광고 추적 제한” 설정을 활성화합니다.</string>
@@ -1313,8 +1301,6 @@
 	<string name="privacy_policy">개인정보 보호 방침</string>
 	<string name="terms_of_use">사용 약관</string>
 	<string name="backup_notification_failed">북마크의 백업이 중단되었습니다. 다시 작동시키려면 로그인하세요.</string>
-	<string name="banner_megafon_banner_message">국제 로밍이 더 이상 필요 없습니다!</string>
-	<string name="banner_megafon_banner_button">안녕!</string>
 	<string name="button_layer_traffic">트래픽</string>
 	<string name="button_layer_subway">지하철</string>
 	<string name="layers_title">맵 레이어</string>

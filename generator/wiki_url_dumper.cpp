@@ -71,10 +71,11 @@ void WikiUrlDumper::DumpOne(std::string const & path, std::ostream & stream)
 WikiDataFilter::WikiDataFilter(std::string const & path, std::vector<std::string> const & dataFiles)
   :  m_path(path), m_dataFiles(dataFiles)
 {
-  std::ifstream stream;
-  stream.exceptions(std::fstream::failbit | std::fstream::badbit);
-  stream.open(m_path);
+  std::ifstream stream(m_path);
+  if (!stream)
+    LOG(LERROR, ("File ", m_path, " not found. Consider skipping Descriptions stage."));
   stream.exceptions(std::fstream::badbit);
+
   uint64_t id;
   std::string wikidata;
   while (stream)

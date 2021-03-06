@@ -27,16 +27,13 @@ public:
 
   void OnExternalStorageStatusChanged(bool isAvailable);
 
-  /// get storage path without ending "/MapsWithMe/"
+  /// get storage path without ending "/OMapsData/"
   std::string GetStoragePathPrefix() const;
-  /// assign storage path (should contain ending "/MapsWithMe/")
+  /// assign storage path (should contain ending "/OMapsData/")
   void SetWritableDir(std::string const & dir);
   void SetSettingsDir(std::string const & dir);
 
   bool HasAvailableSpaceForWriting(uint64_t size) const;
-
-  void SendPushWooshTag(std::string const & tag, std::vector<std::string> const & values);
-  void SendMarketingEvent(std::string const & tag, std::map<std::string, std::string> const & params);
 
   void SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread);
 
@@ -61,8 +58,6 @@ public:
 
 private:
   jobject m_functorProcessObject = nullptr;
-  jmethodID m_sendPushWooshTagsMethod = nullptr;
-  jmethodID m_sendAppsFlyerTagsMethod = nullptr;
   AndroidSecureStorage m_secureStorage;
 };
 

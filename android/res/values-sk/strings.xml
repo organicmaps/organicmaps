@@ -1018,16 +1018,6 @@
 	<string name="traffic_update_app_message">Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dopravné informácie nie sú k dispozícii</string>
-	<string name="banner_deliveryclub_title">Donáška jedla</string>
-	<string name="banner_deliveryclub_message">Rýchle dodanie zo 4 000 reštaurácií. Objednávky od spoločnosti Delivery Club.</string>
-	<string name="banner_lamoda_title">Online obchod s odevmi a obuvou</string>
-	<string name="banner_lamoda_message">Viac ako 1 000 značiek. Zľavy až 70%. Doručenie zdarma po celej krajine.</string>
-	<string name="banner_tutu_title">Lístky na vlak online</string>
-	<string name="banner_tutu_message">Lístky vlak do ktoréhokoľvek mesta online - ceny, vyhľadávanie a rezervácia.</string>
-	<string name="banner_geerbest_title">Online predajňa elektroniky</string>
-	<string name="banner_geerbest_message">Okamžité vyhľadávanie vo viac ako 50 000 druhoch tovaru za nízke ceny.</string>
-	<string name="banner_rentalcars_title">Prenájom auta online</string>
-	<string name="banner_rentalcars_message">800 spoločností prenajímajúcich vozidlá vo viac ako 49 000 prevádzkach.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Dopravné informácie v 36 krajinách</string>
 	<!-- december -->
@@ -1306,10 +1296,8 @@
 	  <item quantity="other">%d sledovania</item>
 	</plurals>
 	<string name="subtittle_opt_out">Nastavenie sledovania</string>
-	<string name="opt_out_flurry">Štatistika</string>
-	<string name="opt_out_mopub">Personalizovaná reklama</string>
-	<string name="opt_out_fabric">Hlásenie chýb</string>
-	<string name="opt_out_fabric_description">Vaše údaje môžeme použiť na zlepšenie skúseností s programom OMaps. Zmeny sa prejavia po reštartovaní aplikácie.</string>
+	<string name="crash_reports">Hlásenie chýb</string>
+	<string name="crash_reports_description">Vaše údaje môžeme použiť na zlepšenie skúseností s programom OMaps. Zmeny sa prejavia po reštartovaní aplikácie.</string>
 	<string name="opt_out_help_ios_1">Vaše mobilné zariadenie môže poskytnúť nastavenie „Obmedziť reklamné sledovanie“ alebo „Zrušiť inzerciu založenú na záujmoch“.</string>
 	<string name="opt_out_help_ios_2">iOS 9 alebo vyšší</string>
 	<string name="opt_out_help_ios_3">Prejdite do nastavenia → Ochrana osobných údajov → Reklama → Povolenie nastavenia „Obmedziť reklamné sledovanie“</string>
@@ -1317,8 +1305,6 @@
 	<string name="privacy_policy">Zásady ochrany osobných údajov</string>
 	<string name="terms_of_use">Podmienky používania</string>
 	<string name="backup_notification_failed">Zálohovanie záložiek bolo pozastavené. Pre opätovné zapnutie sa prihláste.</string>
-	<string name="banner_megafon_banner_message">Rozlúčte sa s medzinárodným roamingom!</string>
-	<string name="banner_megafon_banner_button">Zbohom!</string>
 	<string name="button_layer_traffic">Vyťaženie</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="layers_title">Vrstvy mapy</string>

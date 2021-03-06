@@ -1014,16 +1014,6 @@
 	<string name="traffic_update_app_message">Liikennetietojen näyttämiseksi sovellus on päivitettävä.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Liikennetietoja ei ole saatavilla</string>
-	<string name="banner_deliveryclub_title">Ruoan toimitus</string>
-	<string name="banner_deliveryclub_message">Nopea toimitus 4 000 ravintolasta. Tilaa Delivery Clubilta.</string>
-	<string name="banner_lamoda_title">Vaate- ja kenkäkauppa verkossa</string>
-	<string name="banner_lamoda_message">Yli 1 000 merkkiä. Jopa 70 % alea. Ilmainen toimitus kaikkialle maahan.</string>
-	<string name="banner_tutu_title">Junaliput verkossa</string>
-	<string name="banner_tutu_message">Junaliput kaikkiin kaupunkeihin verkossa – hinnat, haku ja varaus.</string>
-	<string name="banner_geerbest_title">Elektroniikkaliike verkossa</string>
-	<string name="banner_geerbest_message">Hae nopeasti yli 50 000 kohteesta edullisin hinnoin.</string>
-	<string name="banner_rentalcars_title">Autonvuokraus verkossa</string>
-	<string name="banner_rentalcars_message">800 autonvuokrausyritystä yli 49 000 autonvuokrauskohteessa.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Liikennetiedot 36 maassa</string>
 	<!-- december -->
@@ -1301,10 +1291,8 @@
 	  <item quantity="other">%d radat</item>
 	</plurals>
 	<string name="subtittle_opt_out">Seuranta-asetukset</string>
-	<string name="opt_out_flurry">Tilasto</string>
-	<string name="opt_out_mopub">Yksilöity mainonta</string>
-	<string name="opt_out_fabric">Kaatumisraportti</string>
-	<string name="opt_out_fabric_description">Me saatamme käyttää tietojasi parantaaksemme OMaps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.</string>
+	<string name="crash_reports">Kaatumisraportti</string>
+	<string name="crash_reports_description">Me saatamme käyttää tietojasi parantaaksemme OMaps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.</string>
 	<string name="opt_out_help_ios_1">Mobiililaitteesi saattaa tarjota ”Rajoittettu Mainos Seuranta” tai ”Poistu internet-perusteisesta mainnonnasta” asetuksia.</string>
 	<string name="opt_out_help_ios_2">iOS 9 tai Korkeampi</string>
 	<string name="opt_out_help_ios_3">Mene Asetuksiisi → Yksityisyys → Mainonta → Salli ”Rajoita Mainos Seurantaa” asetus</string>
@@ -1312,8 +1300,6 @@
 	<string name="privacy_policy">Yksityisyyskäytäntö</string>
 	<string name="terms_of_use">Käyttöehdot</string>
 	<string name="backup_notification_failed">Kirjanmerkkiesi varmuuskopionti on keskeytetty. Kirjaudu sisään ja laita se takaisin päälle.</string>
-	<string name="banner_megafon_banner_message">Sano hyvästit roaming-datalle!</string>
-	<string name="banner_megafon_banner_button">Hyvästi!</string>
 	<string name="button_layer_traffic">Liikenne</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="layers_title">Kartan tasot</string>

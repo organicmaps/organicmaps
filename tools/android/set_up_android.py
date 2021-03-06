@@ -75,7 +75,7 @@ def write_local_properties(sdkDir, ndkDir):
     f.write(content)
 
   # Copy files to folders
-  for folder in ['YoPme', 'YoPme2', 'UnitTests']:
+  for folder in []:
     destFolder = os.path.join(androidRoot, folder)
     if not os.path.exists(destFolder):
       os.makedirs(destFolder)

@@ -79,10 +79,8 @@
 
   <string name="search_hotel_filter" translatable="false">search_hotel_filter_%s</string>
 
-  <string name="pref_subtittle_opt_out" translatable="false">pref_subtittle_opt_out</string>
-  <string name="pref_opt_out_fabric" translatable="false">pref_opt_out_fabric</string>
-  <string name="pref_opt_out_fabric_activated" translatable="false">pref_opt_out_fabric_activated</string>
-  <string name="pref_opt_out_flurry" translatable="false">pref_opt_out_flurry</string>
+  <string name="pref_subtittle_opt_out" translatable="false">pref_opt_out</string>
+  <string name="pref_crash_reports" translatable="false">pref_crash_reports</string>
   <string name="never_enum_value" translatable="false">NEVER</string>
   <string name="always_enum_value" translatable="false">ALWAYS</string>
   <string name="auto_enum_value" translatable="false">AUTO</string>

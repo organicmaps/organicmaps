@@ -36,12 +36,13 @@ WikidataHelper::WikidataHelper(std::string const & mwmPath, std::string const & 
 {
   std::string const osmIdsToFeatureIdsPath = m_mwmPath + OSM2FEATURE_FILE_EXTENSION;
   if (!ParseFeatureIdToOsmIdMapping(osmIdsToFeatureIdsPath, m_featureIdToOsmId))
-    LOG(LCRITICAL, ("Error parse OsmIdToFeatureId mapping."));
+    LOG(LCRITICAL, ("Mapping parse error for file ", osmIdsToFeatureIdsPath));
 
-  std::ifstream stream;
-  stream.exceptions(std::fstream::failbit | std::fstream::badbit);
-  stream.open(m_idToWikidataPath);
+  std::ifstream stream(m_idToWikidataPath);
+  if (!stream)
+    LOG(LERROR, ("File ", m_idToWikidataPath, " not found. Consider skipping Descriptions stage."));
   stream.exceptions(std::fstream::badbit);
+
   uint64_t id;
   std::string wikidataId;
   while (stream)

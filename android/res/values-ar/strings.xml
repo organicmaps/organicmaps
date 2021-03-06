@@ -1026,16 +1026,6 @@
 	<string name="traffic_update_app_message">لعرض البيانات المرورية، يجب تحديث التطبيق.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">البيانات المرورية غير متاحة</string>
-	<string name="banner_deliveryclub_title">توصيل الطعام</string>
-	<string name="banner_deliveryclub_message">توصيل سريع من 4000 مطعم. اطلب من Delivery Club.</string>
-	<string name="banner_lamoda_title">متجر الملابس والأحذية على الإنترنت</string>
-	<string name="banner_lamoda_message">أكثر من 1000 علامة تجارية. خصم يصل إلى 70%. توصيل مجاني في كافة أنحاء البلاد.</string>
-	<string name="banner_tutu_title">تذاكر القطار على الإنترنت</string>
-	<string name="banner_tutu_message">تذاكر القطار إلى أي مدينة على الإنترنت - الأسعار والبحث والحجز.</string>
-	<string name="banner_geerbest_title">متجر إلكترونيات على الإنترنت</string>
-	<string name="banner_geerbest_message">بحث سريع في أكثر من 50000 صنف بأسعار منخفضة.</string>
-	<string name="banner_rentalcars_title">إيجار السيارات على الإنترنت</string>
-	<string name="banner_rentalcars_message">800 شركة تأجير سيارات في أكثر من 49000 مكان لتأجير السيارات.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">البيانات المرورية في 36 دولة</string>
 	<!-- december -->
@@ -1312,10 +1302,8 @@
 	  <item quantity="other">المسارات %d</item>
 	</plurals>
 	<string name="subtittle_opt_out">إعدادات التتبع</string>
-	<string name="opt_out_flurry">الإحصاء</string>
-	<string name="opt_out_mopub">الإعلان الشخصي</string>
-	<string name="opt_out_fabric">تقرير الحادث</string>
-	<string name="opt_out_fabric_description">قد نستخدم بياناتك لتحسين تجربة OMaps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.</string>
+	<string name="crash_reports">تقرير الحادث</string>
+	<string name="crash_reports_description">قد نستخدم بياناتك لتحسين تجربة OMaps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.</string>
 	<string name="opt_out_help_ios_1">يمكن أن يوفر جهازك الجوّال إعداد \"\"تقييد الإعلان المخصص\"\" أو \"\"تعطيل الإعلان الذي يستهدف الاهتمامات\"\".</string>
 	<string name="opt_out_help_ios_2">نظام تشغيل آي 9 فما فوق</string>
 	<string name="opt_out_help_ios_3">انتقل إلى إعداداتك ← الخصوصية ← الإعلانات ← تمكين إعداد \"\"تحديد تتبع الإعلانات\"\"</string>
@@ -1323,8 +1311,6 @@
 	<string name="privacy_policy">سياسة الخصوصية</string>
 	<string name="terms_of_use">شروط الاستخدام</string>
 	<string name="backup_notification_failed">قد تم تعليق احتياطي المواقع المفضلة لديك. سجل الدخول لإعادة تشغيله.</string>
-	<string name="banner_megafon_banner_message">قل وداعا للتجوال الدولي!</string>
-	<string name="banner_megafon_banner_button">وداعا!</string>
 	<string name="button_layer_traffic">حركة مرور</string>
 	<string name="button_layer_subway">مترو الانفاق</string>
 	<string name="layers_title">طبقات الخريطة</string>

@@ -1024,16 +1024,6 @@
 	<string name="traffic_update_app_message">若要顯示交通資訊，必須更新應用程式。</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">無法使用交通資訊</string>
-	<string name="banner_deliveryclub_title">送餐</string>
-	<string name="banner_deliveryclub_message">4,000 家餐廳的快速外送。向 Delivery Club 訂餐。</string>
-	<string name="banner_lamoda_title">線上服飾與鞋店</string>
-	<string name="banner_lamoda_message">超過 1,000 個品牌。最低三折起。全國免運費。</string>
-	<string name="banner_tutu_title">線上火車票</string>
-	<string name="banner_tutu_message">線上訂購前往任何城市的火車票 - 瞭解價格、搜尋並預訂。</string>
-	<string name="banner_geerbest_title">線上電器行</string>
-	<string name="banner_geerbest_message">立即搜尋超過 50,000 樣低價品項。</string>
-	<string name="banner_rentalcars_title">線上租車</string>
-	<string name="banner_rentalcars_message">營運 49,000 多個租車地點的 800 家租車公司。</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36 個國家的交通資料</string>
 	<!-- december -->
@@ -1309,10 +1299,8 @@
 	  <item quantity="other">%d 軌跡</item>
 	</plurals>
 	<string name="subtittle_opt_out">跟蹤設置</string>
-	<string name="opt_out_flurry">統計</string>
-	<string name="opt_out_mopub">個性化廣告</string>
-	<string name="opt_out_fabric">錯誤報告</string>
-	<string name="opt_out_fabric_description">我們可以使用您的數據來開發和改進OMaps。更改將再重新啟動應用程序后生效。</string>
+	<string name="crash_reports">錯誤報告</string>
+	<string name="crash_reports_description">我們可以使用您的數據來開發和改進OMaps。更改將再重新啟動應用程序后生效。</string>
 	<string name="opt_out_help_ios_1">您可以選擇停止在設備設置中接受定向廣告。</string>
 	<string name="opt_out_help_ios_2">iOS 9或更高版本</string>
 	<string name="opt_out_help_ios_3">請打開設置 → 隱私 → 廣告 → 啟用“跟蹤限制”</string>
@@ -1320,8 +1308,6 @@
 	<string name="privacy_policy">隱私政策</string>
 	<string name="terms_of_use">使用條款</string>
 	<string name="backup_notification_failed">標籤的備份已暫停。請登錄以啟用設備。</string>
-	<string name="banner_megafon_banner_message">請向國際漫遊說再見！</string>
-	<string name="banner_megafon_banner_button">Goodbye！</string>
 	<string name="button_layer_traffic">堵塞</string>
 	<string name="button_layer_subway">地鐵</string>
 	<string name="layers_title">地圖圖層</string>
