@@ -2,9 +2,11 @@ package com.mapswithme.maps.location;
 
 import android.content.Context;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -17,26 +19,32 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 class GoogleFusedLocationProvider extends BaseLocationProvider
-                               implements GoogleApiClient.ConnectionCallbacks,
-                                          GoogleApiClient.OnConnectionFailedListener
+    implements GoogleApiClient.ConnectionCallbacks,
+    GoogleApiClient.OnConnectionFailedListener
 {
   private final static String TAG = GoogleFusedLocationProvider.class.getSimpleName();
   private final GoogleApiClient mGoogleApiClient;
   private LocationRequest mLocationRequest;
   private PendingResult<LocationSettingsResult> mLocationSettingsResult;
+
+  private class GoogleLocationListener extends BaseLocationListener implements com.google.android.gms.location.LocationListener
+  {
+    private GoogleLocationListener(@NonNull LocationFixChecker locationFixChecker) {super(locationFixChecker);}
+  }
+
   @NonNull
-  private final BaseLocationListener mListener;
+  private final GoogleLocationListener mListener;
 
   GoogleFusedLocationProvider(@NonNull LocationFixChecker locationFixChecker,
                               @NonNull Context context)
   {
     super(locationFixChecker);
     mGoogleApiClient = new GoogleApiClient.Builder(context)
-                                          .addApi(LocationServices.API)
-                                          .addConnectionCallbacks(this)
-                                          .addOnConnectionFailedListener(this)
-                                          .build();
-    mListener = new BaseLocationListener(locationFixChecker);
+        .addApi(LocationServices.API)
+        .addConnectionCallbacks(this)
+        .addOnConnectionFailedListener(this)
+        .build();
+    mListener = new GoogleLocationListener(locationFixChecker);
   }
 
   @Override
@@ -54,7 +62,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     long interval = LocationHelper.INSTANCE.getInterval();
     mLocationRequest.setInterval(interval);
     LOGGER.d(TAG, "Request Google fused provider to provide locations at this interval = "
-                  + interval + " ms");
+        + interval + " ms");
     mLocationRequest.setFastestInterval(interval / 2);
 
     mGoogleApiClient.connect();
