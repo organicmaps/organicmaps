@@ -14,6 +14,7 @@ import com.mapswithme.maps.maplayer.Mode;
 import java.util.Locale;
 
 import static com.mapswithme.util.Config.KEY_PREF_STATISTICS;
+import static com.mapswithme.util.Config.KEY_PREF_CRASHLYTICS;
 
 public final class SharedPropertiesUtils
 {
@@ -43,6 +44,16 @@ public final class SharedPropertiesUtils
   public static void setStatisticsEnabled(@NonNull Context context, boolean enabled)
   {
     MwmApplication.prefs(context).edit().putBoolean(KEY_PREF_STATISTICS, enabled).apply();
+  }
+
+  public static boolean isCrashlyticsEnabled(@NonNull Context context)
+  {
+    return MwmApplication.prefs(context).getBoolean(KEY_PREF_CRASHLYTICS, true);
+  }
+
+  public static void setCrashlyticsEnabled(@NonNull Context context, boolean enabled)
+  {
+    MwmApplication.prefs(context).edit().putBoolean(KEY_PREF_CRASHLYTICS, enabled).apply();
   }
 
   public static void setShouldShowEmulateBadStorageSetting(@NonNull Context context, boolean show)

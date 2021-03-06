@@ -13,11 +13,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import com.mapswithme.maps.analytics.AdvertisingObserver;
-import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
-import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.location.LocationHelper;
@@ -321,7 +318,6 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onStop();
     mBaseDelegate.onStop();
-    ExternalLibrariesMediator mediator = MwmApplication.from(this).getMediator();
   }
 
   @Override

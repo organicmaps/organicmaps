@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -43,6 +42,7 @@ import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.maps.sound.LanguageData;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.PowerManagment;
 import com.mapswithme.util.SharedPropertiesUtils;
@@ -281,7 +281,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private boolean onToggleCrashReports(Object newValue)
   {
     boolean isEnabled = (boolean) newValue;
-    FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(isEnabled);
+    CrashlyticsUtils.INSTANCE.setEnabled(isEnabled);
     return true;
   }
 
@@ -869,6 +869,14 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     Preference pref = findPreference(key);
     if (pref == null)
       return;
+
+    if (!CrashlyticsUtils.INSTANCE.isAvailable())
+    {
+      removePreference(getString(R.string.pref_subtittle_opt_out), pref);
+      return;
+    }
+
+    ((TwoStatePreference)pref).setChecked(CrashlyticsUtils.INSTANCE.isEnabled());
     pref.setOnPreferenceChangeListener((preference, newValue) -> onToggleCrashReports(newValue));
   }
 
