@@ -14,8 +14,8 @@ buildscript {
 
   dependencies {
     classpath 'com.android.tools.build:gradle:4.1.2'
-    classpath 'com.google.gms:google-services:4.3.5'
     if (googleServiceEnabled) {
+      classpath 'com.google.gms:google-services:4.3.5'
       classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.1'
       classpath 'com.google.firebase:firebase-appdistribution-gradle:2.1.0'
     }
@@ -57,14 +57,10 @@ dependencies {
 
   implementation 'androidx.multidex:multidex:' + propMultiDexVersion
 
-  implementation 'com.google.android.gms:play-services-location:17.0.0'
-  implementation 'com.google.android.gms:play-services-analytics:17.0.0'
-  implementation 'com.google.android.gms:play-services-gcm:17.0.0'
+  // Google Services
   implementation 'com.google.android.gms:play-services-auth:17.0.0'
-  implementation 'com.google.android.gms:play-services-basement:17.1.1'
-
-  // crash reporting
   if (googleServiceEnabled) {
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.firebase:firebase-analytics:17.4.4'
     implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
     implementation 'com.google.firebase:firebase-crashlytics-ndk:17.1.1'

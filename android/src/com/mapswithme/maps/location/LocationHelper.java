@@ -7,8 +7,6 @@ import android.location.Location;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.base.Initializable;
@@ -173,18 +171,7 @@ public enum LocationHelper implements Initializable<Context>
 
   private void initProvider()
   {
-    mLogger.d(TAG, "initProvider", new Throwable());
-    final boolean containsGoogleServices = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(mContext) == ConnectionResult.SUCCESS;
-    final boolean googleServicesTurnedInSettings = Config.useGoogleServices();
-    if (containsGoogleServices && googleServicesTurnedInSettings)
-    {
-      mLogger.d(TAG, "Use fused provider.");
-      mLocationProvider = new GoogleFusedLocationProvider(new FusedLocationFixChecker(), mContext);
-    }
-    else
-    {
-      initNativeProvider();
-    }
+    mLocationProvider = LocationProviderFactory.getProvider(mContext);
   }
 
   void initNativeProvider()

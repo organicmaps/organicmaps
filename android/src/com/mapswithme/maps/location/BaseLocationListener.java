@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-class BaseLocationListener implements LocationListener, com.google.android.gms.location.LocationListener
+class BaseLocationListener implements LocationListener
 {
   private static final String TAG = BaseLocationListener.class.getSimpleName();
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);

@@ -24,8 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -33,6 +31,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.OnmapDownloader;
 import com.mapswithme.maps.editor.ProfileActivity;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.location.LocationProviderFactory;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
@@ -599,8 +598,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (pref == null)
       return;
 
-    if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getActivity().getApplicationContext())
-        != ConnectionResult.SUCCESS)
+    if (!LocationProviderFactory.isGoogleLocationAvailable(getActivity().getApplicationContext()))
     {
       removePreference(getString(R.string.pref_subtittle_opt_out), pref);
     }
