@@ -37,7 +37,6 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
-import com.mapswithme.maps.purchase.AdsRemovalPurchaseDialog;
 import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
@@ -283,7 +282,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     return R.xml.prefs_main;
   }
 
-  private boolean onToggleOptOut(Object newValue)
+  private boolean onToggleCrashReports(Object newValue)
   {
     boolean isEnabled = (boolean) newValue;
     Statistics.INSTANCE.trackSettingsToggle(isEnabled);
@@ -338,7 +337,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initEmulationBadStorage();
     initUseMobileDataPrefsCallbacks();
     initPowerManagementPrefsCallbacks();
-    initOptOut();
+    initCrashReports();
     updateTts();
   }
 
@@ -627,7 +626,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getActivity().getApplicationContext())
         != ConnectionResult.SUCCESS)
     {
-      removePreference(getString(R.string.pref_settings_general), pref);
+      removePreference(getString(R.string.pref_subtittle_opt_out), pref);
     }
     else
     {
@@ -666,6 +665,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         return true;
       }
     });
+
+    // Sic: temporary disable statistics
+    removePreference(getString(R.string.pref_subtittle_opt_out), pref);
   }
 
   private void initTrackRecordPrefsCallbacks()
@@ -916,13 +918,13 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     });
   }
 
-  private void initOptOut()
+  private void initCrashReports()
   {
-    String key = getString(R.string.pref_opt_out_fabric_activated);
+    String key = getString(R.string.pref_crash_reports);
     Preference pref = findPreference(key);
     if (pref == null)
       return;
-    pref.setOnPreferenceChangeListener((preference, newValue) -> onToggleOptOut(newValue));
+    pref.setOnPreferenceChangeListener((preference, newValue) -> onToggleCrashReports(newValue));
   }
 
   private void removePreference(@NonNull String categoryKey, @NonNull Preference preference)

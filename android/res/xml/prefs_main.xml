@@ -73,17 +73,6 @@
       android:summary="@string/maps_storage_summary"
       android:order="8"/>
     <SwitchPreferenceCompat
-      android:key="@string/pref_send_statistics"
-      android:title="@string/allow_statistics"
-      android:summary="@string/allow_statistics_hint"
-      android:order="9"/>
-    <SwitchPreferenceCompat
-      android:key="@string/pref_play_services"
-      android:title="Google Play Services"
-      android:summary="@string/pref_use_google_play"
-      android:defaultValue="true"
-      android:order="10"/>
-    <SwitchPreferenceCompat
       android:key="@string/pref_enable_logging"
       android:title="@string/enable_logging"
       android:summary="@string/enable_logging_warning_message"
@@ -174,9 +163,32 @@
     </PreferenceScreen>
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
+    android:key="@string/pref_subtittle_opt_out"
+    android:title="@string/subtittle_opt_out"
+    android:order="6">
+    <SwitchPreferenceCompat
+      android:key="@string/pref_play_services"
+      android:title="Google Play Services"
+      android:summary="@string/pref_use_google_play"
+      android:defaultValue="true"
+      android:order="1"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_crash_reports"
+      android:defaultValue="true"
+      android:title="@string/crash_reports"
+      android:summary="@string/crash_reports_description"
+      android:order="2">
+    </SwitchPreferenceCompat>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_send_statistics"
+      android:title="@string/allow_statistics"
+      android:summary="@string/allow_statistics_hint"
+      android:order="3"/>
+  </androidx.preference.PreferenceCategory>
+  <androidx.preference.PreferenceCategory
     android:key="@string/pref_information"
     android:title="@string/prefs_group_information"
-    android:order="6">
+    android:order="7">
     <Preference
       android:key="@string/pref_help"
       android:title="@string/help"
@@ -187,16 +199,5 @@
       android:title="@string/about_menu_title"
       android:fragment="com.mapswithme.maps.settings.AboutFragment"
       android:order="2"/>
-  </androidx.preference.PreferenceCategory>
-  <androidx.preference.PreferenceCategory
-    android:key="@string/pref_subtittle_opt_out"
-    android:title="@string/subtittle_opt_out"
-    android:order="7">
-    <SwitchPreferenceCompat
-      android:key="@string/pref_opt_out_fabric_activated"
-      android:defaultValue="true"
-      android:title="@string/opt_out_fabric"
-      android:summary="@string/opt_out_fabric_description">
-    </SwitchPreferenceCompat>
   </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

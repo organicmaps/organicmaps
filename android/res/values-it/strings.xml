@@ -1020,16 +1020,6 @@
 	<string name="traffic_update_app_message">Per visualizzare i dati sul traffico, l\'applicazione deve essere aggiornata.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dati sul traffico non disponibili</string>
-	<string name="banner_deliveryclub_title">Cibo a domicilio</string>
-	<string name="banner_deliveryclub_message">Consegna rapida da 4000 ristoranti. Ordina da Delivery Club.</string>
-	<string name="banner_lamoda_title">Store di abbigliamento e scarpe online</string>
-	<string name="banner_lamoda_message">Più di 1000 brand. Fino al 70% di sconto. Spedizione gratuita in tutto il Paese.</string>
-	<string name="banner_tutu_title">Biglietti ferroviari online</string>
-	<string name="banner_tutu_message">Biglietti ferroviari per qualsiasi città online: prezzi, ricerca e prenotazione.</string>
-	<string name="banner_geerbest_title">Store di elettronica online</string>
-	<string name="banner_geerbest_message">Ricerca istantanea fra oltre 50.000 articoli a prezzo scontato.</string>
-	<string name="banner_rentalcars_title">Autonoleggio online</string>
-	<string name="banner_rentalcars_message">800 società di autonoleggio in oltre 49.000 località.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Dati sul traffico in 36 Paesi</string>
 	<!-- december -->
@@ -1307,10 +1297,8 @@
 	  <item quantity="other">%d tracce</item>
 	</plurals>
 	<string name="subtittle_opt_out">Impostazioni di tracciamento</string>
-	<string name="opt_out_flurry">Statistica</string>
-	<string name="opt_out_mopub">Pubblicità personalizzata</string>
-	<string name="opt_out_fabric">Rapporto incidenti</string>
-	<string name="opt_out_fabric_description">Potremmo utilizzare i tuoi dati per migliorare l\'esperienza OMaps. Le modifiche avranno effetto dopo il riavvio dell\'applicazione.</string>
+	<string name="crash_reports">Rapporto incidenti</string>
+	<string name="crash_reports_description">Potremmo utilizzare i tuoi dati per migliorare l\'esperienza OMaps. Le modifiche avranno effetto dopo il riavvio dell\'applicazione.</string>
 	<string name="opt_out_help_ios_1">Il tuo dispositivo mobile potrebbe fornire un\'impostazione «Limita monitoraggio annunci» o «Disattiva la pubblicità mirata».</string>
 	<string name="opt_out_help_ios_2">iOS 9 o versioni successive</string>
 	<string name="opt_out_help_ios_3">Vai a Impostazioni → Privacy → Pubblicità → Abilita l\'impostazione «Limita monitoraggio degli annunci»</string>
@@ -1318,8 +1306,6 @@
 	<string name="privacy_policy">Politica sulla riservatezza</string>
 	<string name="terms_of_use">Condizioni d\'uso</string>
 	<string name="backup_notification_failed">Il backup dei segnalibri è stato sospeso. Accedi per riaccenderlo.</string>
-	<string name="banner_megafon_banner_message">Dì addio al roaming internazionale!</string>
-	<string name="banner_megafon_banner_button">Addio!</string>
 	<string name="button_layer_traffic">Traffico</string>
 	<string name="button_layer_subway">Metropolitana</string>
 	<string name="layers_title">Livelli mappa</string>

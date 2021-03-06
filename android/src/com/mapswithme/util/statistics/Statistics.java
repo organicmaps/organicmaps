@@ -15,8 +15,6 @@ import com.android.billingclient.api.BillingClient;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
-import com.mapswithme.maps.ads.MwmNativeAd;
-import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.Initializable;
@@ -1193,26 +1191,6 @@ public enum Statistics implements Initializable<Context>
   {
     ParameterBuilder params = params().add(EventParam.ERROR, value);
     trackEvent(EventName.BM_DOWNLOADED_CATALOGUE_ERROR, params);
-  }
-
-  public void trackPPBanner(@NonNull String eventName, @NonNull MwmNativeAd ad, @BannerState int state)
-  {
-    trackEvent(eventName, Statistics.params()
-                                    .add(BANNER, ad.getBannerId())
-                                    .add(PROVIDER, ad.getProvider())
-                                    .add(STATE, String.valueOf(state)));
-  }
-
-  public void trackPPBannerError(@NonNull String bannerId, @NonNull String provider,
-                                 @Nullable NativeAdError error, int state)
-  {
-    Statistics.ParameterBuilder builder = Statistics.params();
-    builder.add(BANNER, !TextUtils.isEmpty(bannerId) ? bannerId : "N/A")
-           .add(ERROR_CODE, error != null ? String.valueOf(error.getCode()) : "N/A")
-           .add(ERROR_MESSAGE, error != null ? error.getMessage() : "N/A")
-           .add(PROVIDER, provider)
-           .add(STATE, String.valueOf(state));
-    trackEvent(PP_BANNER_ERROR, builder.get());
   }
 
   public void trackBookingSearchEvent(@NonNull MapObject mapObject)

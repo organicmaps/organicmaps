@@ -968,16 +968,6 @@
 	<string name="traffic_update_app_message">برای نمایش ترافیک باید اپلیکیشن را بروزرسانی کنید.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">اطلاعات ترافیکی موجود نیست</string>
-	<string name="banner_deliveryclub_title">ارسال غذا</string>
-	<string name="banner_deliveryclub_message">تحویل سریع از 4000 رستوران. سفارش از تحویل باشگاه.</string>
-	<string name="banner_lamoda_title">فروشگاه آنلاین پوشاک و کفش</string>
-	<string name="banner_lamoda_message">بیش از 1000 علامت تجاری تا 70٪ تخفیف. تحویل رایگان در سراسر کشور.</string>
-	<string name="banner_tutu_title">بلیط های قطار آنلاین</string>
-	<string name="banner_tutu_message">بلیط های قطار به هر شهر آنلاین - قیمت ها، جستجو و رزرو.</string>
-	<string name="banner_geerbest_title">فروشگاه الکترونیک آنلاین</string>
-	<string name="banner_geerbest_message">جستجوی سریع در بیش از 50،000 مورد با قیمت پایین.</string>
-	<string name="banner_rentalcars_title">اجاره اتومبیل ها آنلاین</string>
-	<string name="banner_rentalcars_message">شرکت کرایه ماشین در بیش از 49،000 مکان اجاره ماشین.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">اطلاعات ترافیکی در 36 کشور</string>
 	<!-- december -->
@@ -1258,10 +1248,8 @@
 	  <item quantity="other">%d رد</item>
 	</plurals>
 	<string name="subtittle_opt_out">تنظیمات ردیابی</string>
-	<string name="opt_out_flurry">آمار</string>
-	<string name="opt_out_mopub">تبلیغات شخصی‌شده</string>
-	<string name="opt_out_fabric">گزارش خرابی</string>
-	<string name="opt_out_fabric_description">ما از داده‌های شما برای بهبود OMaps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.</string>
+	<string name="crash_reports">گزارش خرابی</string>
+	<string name="crash_reports_description">ما از داده‌های شما برای بهبود OMaps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.</string>
 	<string name="opt_out_help_ios_1">در دستگاه همراهتان تنظیمی با نام “Limit Ad Tracking” یا “Opt out of interest-based advertising” وجود دارد.</string>
 	<string name="opt_out_help_ios_2">آی‌اواس ۹ یا بالاتر</string>
 	<string name="opt_out_help_ios_3">به تنظیمات خود بروید ← حریم خصوصی ← تبلیغات ← گزینه  «محدود کردن ردیابی آگهی» را فعال کنید</string>
@@ -1269,8 +1257,6 @@
 	<string name="privacy_policy">سیاست حریم خصوصی</string>
 	<string name="terms_of_use">شرایط استفاده</string>
 	<string name="backup_notification_failed">پشتیبانگیری از نشانکهای شما به حالت تعلیق درآمده است وارد شوید تا آن را دوباره روشن کنید</string>
-	<string name="banner_megafon_banner_message">خداحافظی با رومینگ بین المللی!</string>
-	<string name="banner_megafon_banner_button">خداحافظ!</string>
 	<string name="button_layer_traffic">ترافیک</string>
 	<string name="button_layer_subway">مترو</string>
 	<string name="layers_title">لایه های نقشه</string>

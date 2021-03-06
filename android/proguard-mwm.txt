@@ -4,30 +4,9 @@
 # support library bug
 -dontwarn android.support.**
 
-# flurry
--dontwarn com.flurry.**
-
 # parse
 -dontwarn com.squareup.okhttp.**
 -dontwarn okio.**
-
-# pushwoosh
--keep class com.pushwoosh.** { *; }
--keep class com.arellomobile.** { *; }
--dontwarn com.pushwoosh.**
--dontwarn com.arellomobile.**
-
-# appsFlyer
--keep class com.appsflyer.** { *; }
--dontwarn com.appsflyer.**
--dontwarn com.android.installreferrer
-
-# myTarget
-# Remove this dontwarn when MyTarget is updated to 4.6.15
--dontwarn com.my.target.nativeads.mediation.**
-# Remove this dontwarn when MyTarget is updated to 4.6.16
--dontwarn com.my.target.core.net.cookie.**
--dontwarn com.mopub.**
 
 -dontoptimize
 -keepattributes **

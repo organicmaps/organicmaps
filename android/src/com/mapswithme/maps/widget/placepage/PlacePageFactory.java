@@ -4,28 +4,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.guides.GuidesGalleryListener;
-import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 
 public class PlacePageFactory
 {
   @NonNull
   public static PlacePageController createCompositePlacePageController(
-      @NonNull AdsRemovalPurchaseControllerProvider provider,
       @NonNull PlacePageController.SlideListener slideListener,
       @NonNull RoutingModeListener routingModeListener,
       @Nullable GuidesGalleryListener galleryListener)
   {
-    return new PlacePageControllerComposite(provider, slideListener, routingModeListener,
+    return new PlacePageControllerComposite(slideListener, routingModeListener,
                                             galleryListener);
   }
 
   @NonNull
   static PlacePageController createRichController(
-      @NonNull AdsRemovalPurchaseControllerProvider provider,
       @NonNull PlacePageController.SlideListener listener,
       @Nullable RoutingModeListener routingModeListener)
   {
-    return new RichPlacePageController(provider, listener, routingModeListener);
+    return new RichPlacePageController(listener, routingModeListener);
   }
 
   @NonNull
