@@ -94,6 +94,7 @@ def osName = System.properties['os.name'].toLowerCase()
 
 project.ext.versionCodes = ['armeabi-v7a': 30, 'x86': 40, 'arm64-v8a': 50, 'x86_64' : 60]
 project.ext.appId = 'app.omaps'
+project.ext.appName = 'OMaps'
 
 configurations.all {
   if (it.getName().contains("lint"))
@@ -412,8 +413,8 @@ android {
       jniDebuggable true           // Enable jni debug build
       zipAlignEnabled true
       signingConfig signingConfigs.mapswithme
-      android.sourceSets.debug.setRoot('flavors/debug')
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
+      resValue 'string', 'app_name', project.ext.appName + applicationIdSuffix
     }
 
     release {
@@ -422,6 +423,7 @@ android {
       shrinkResources true
       proguardFile('proguard-mwm.txt')
       resValue 'string', 'app_id', android.defaultConfig.applicationId
+      resValue 'string', 'app_name', project.ext.appName
       firebaseCrashlytics {
         nativeSymbolUploadEnabled true
       }
@@ -431,9 +433,9 @@ android {
       applicationIdSuffix '.beta'
       versionNameSuffix '-beta'
       signingConfig signingConfigs.mapswithme
-      android.sourceSets.beta.setRoot('flavors/beta')
       matchingFallbacks = ['debug', 'release']
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
+      resValue 'string', 'app_name', project.ext.appName + applicationIdSuffix
       firebaseCrashlytics {
         nativeSymbolUploadEnabled true
       }

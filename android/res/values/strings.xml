@@ -89,7 +89,6 @@
 	<string name="country_status_download_failed">Download has failed</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Try Again</string>
-	<string name="app_name">OMaps</string>
 	<string name="about_menu_title">About OMaps</string>
 	<string name="downloading_touch_to_cancel">Downloading %d%%, touch to cancel</string>
 	<string name="downloaded_touch_to_delete">Downloaded (%s), touch to delete</string>
