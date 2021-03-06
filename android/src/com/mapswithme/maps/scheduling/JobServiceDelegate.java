@@ -3,9 +3,6 @@ package com.mapswithme.maps.scheduling;
 import android.app.Application;
 import androidx.annotation.NonNull;
 
-import com.mapswithme.maps.background.NotificationService;
-import com.mapswithme.util.ConnectionState;
-
 class JobServiceDelegate
 {
   @NonNull
@@ -18,10 +15,6 @@ class JobServiceDelegate
 
   boolean onStartJob()
   {
-    ConnectionState.Type type = ConnectionState.INSTANCE.requestCurrentType();
-    if (type == ConnectionState.Type.WIFI)
-      NotificationService.startOnConnectivityChanged(mApp);
-
     retryJob();
     return true;
   }
