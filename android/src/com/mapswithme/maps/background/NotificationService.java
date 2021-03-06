@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
-import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.scheduling.JobIdMap;
@@ -24,8 +23,6 @@ public class NotificationService extends JobIntentService
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = NotificationService.class.getSimpleName();
   private static final String LAST_AUTH_NOTIFICATION_TIMESTAMP = "DownloadOrUpdateTimestamp";
-  private static final int MIN_COUNT_UNSENT_UGC = 2;
-  private static final long MIN_AUTH_EVENT_DELTA_MILLIS = TimeUnit.DAYS.toMillis(5);
 
   private interface NotificationExecutor
   {
@@ -43,15 +40,6 @@ public class NotificationService extends JobIntentService
 
   private boolean notifyIsNotAuthenticated()
   {
-    if (LightFramework.nativeIsAuthenticated()
-        || LightFramework.nativeGetNumberUnsentUGC() < MIN_COUNT_UNSENT_UGC)
-    {
-      LOGGER.d(TAG, "Authentication notification is rejected. Is user authenticated: " +
-                    LightFramework.nativeIsAuthenticated() + ". Number of unsent UGC: " +
-                    LightFramework.nativeGetNumberUnsentUGC());
-      return false;
-    }
-
     final long lastEventTimestamp = prefs(this)
         .getLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, 0);
 
@@ -73,21 +61,6 @@ public class NotificationService extends JobIntentService
 
   private boolean notifySmart()
   {
-    if (MwmApplication.backgroundTracker(getApplication()).isForeground())
-      return false;
-
-    NotificationCandidate candidate = LightFramework.nativeGetNotification();
-
-    if (candidate == null)
-      return false;
-
-//    if (candidate.getType() == NotificationCandidate.TYPE_UGC_REVIEW)
-//    {
-//      Notifier notifier = Notifier.from(getApplication());
-//      notifier.notifyLeaveReview((NotificationCandidate.UgcReview) candidate);
-//      return true;
-//    }
-
     return false;
   }
 

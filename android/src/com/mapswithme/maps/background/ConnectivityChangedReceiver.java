@@ -11,7 +11,6 @@ public class ConnectivityChangedReceiver extends AbstractLogBroadcastReceiver
   @Override
   public void onReceiveInternal(@NonNull Context context, @NonNull Intent intent)
   {
-    NotificationService.startOnConnectivityChanged(context);
   }
 
   @NonNull

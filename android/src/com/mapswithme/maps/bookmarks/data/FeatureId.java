@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import android.text.TextUtils;
-import com.mapswithme.maps.LightFramework;
 
 public class FeatureId implements Parcelable
 {
@@ -42,12 +41,6 @@ public class FeatureId implements Parcelable
       throw new AssertionError("Wrong feature id string format");
 
     return new FeatureId(parts[1], Long.parseLong(parts[0]), Integer.parseInt(parts[2]));
-  }
-
-  @NonNull
-  public String toFeatureIdString()
-  {
-    return LightFramework.nativeMakeFeatureId(mMwmName, mMwmVersion, mFeatureIndex);
   }
 
   public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
