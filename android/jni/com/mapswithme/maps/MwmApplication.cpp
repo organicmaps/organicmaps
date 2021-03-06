@@ -1,7 +1,5 @@
 #include "com/mapswithme/maps/Framework.hpp"
 
-#include "com/mapswithme/util/crashlytics.h"
-
 #include "com/mapswithme/platform/GuiThread.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 

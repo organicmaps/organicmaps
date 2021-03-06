@@ -465,7 +465,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     intent.putExtra(Factory.EXTRA_IS_FIRST_LAUNCH, application.isFirstLaunch());
     if (intent.getData() == null)
     {
-      String firstLaunchDeeplink = application.getMediator().retrieveFirstLaunchDeeplink();
+      /* Sic: the deep link library has been removed */
+      String firstLaunchDeeplink = null;
       if (!TextUtils.isEmpty(firstLaunchDeeplink))
         intent.setData(Uri.parse(firstLaunchDeeplink));
     }

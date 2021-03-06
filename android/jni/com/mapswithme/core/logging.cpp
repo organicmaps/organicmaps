@@ -6,7 +6,6 @@
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/core/logging.hpp"
 #include "com/mapswithme/core/ScopedEnv.hpp"
-#include "com/mapswithme/util/crashlytics.h"
 
 #include <android/log.h>
 #include <cassert>
