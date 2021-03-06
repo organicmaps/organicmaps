@@ -39,12 +39,16 @@ class BottomMenuLayersCell: UITableViewCell {
   }
   
   private func updateGuidesButton() {
+    // TODO: Either remove guides or enable button back in xib.
+    if guidesButton == nil { return }
     let enabled = MapOverlayManager.guidesEnabled()
     guidesButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
     guidesButton.isBadgeHidden = !MapOverlayManager.guidesFirstLaunch()
   }
   
   private func updateTrafficButton() {
+    // TODO: enable button back in xib.
+    if trafficButton == nil { return }
     let enabled = MapOverlayManager.trafficEnabled()
     trafficButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
   }
