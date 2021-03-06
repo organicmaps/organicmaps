@@ -1,14 +1,15 @@
 buildscript {
   repositories {
     google()
+    mavenCentral()
     jcenter()
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:4.0.1'
-    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
-    classpath 'com.google.firebase:firebase-appdistribution-gradle:2.0.1'
-    classpath 'com.google.gms:google-services:4.3.3'
+    classpath 'com.android.tools.build:gradle:4.1.2'
+    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.1'
+    classpath 'com.google.firebase:firebase-appdistribution-gradle:2.1.0'
+    classpath 'com.google.gms:google-services:4.3.5'
   }
 }
 
@@ -38,6 +39,8 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.firebase.appdistribution'
 apply from: 'secure.properties'
+
+import java.text.SimpleDateFormat
 
 dependencies {
 
@@ -84,7 +87,8 @@ dependencies {
 
 def getDate() {
   def date = new Date()
-  def formattedDate = date.format('yyMMdd')
+  def dateFormat = new SimpleDateFormat("yyMMdd")
+  def formattedDate = dateFormat.format(date)
   return formattedDate
 }
 
@@ -148,9 +152,8 @@ configurations.all {
 }
 
 android {
-  ndkVersion = "21.4.7075529"
-  dataBinding {
-    enabled = true
+  buildFeatures {
+    dataBinding = true
   }
   // All properties are read from gradle.properties file
   compileSdkVersion propCompileSdkVersion.toInteger()
@@ -353,8 +356,6 @@ android {
     if (!variant.getFlavors().get(0).name.equals("web")
             && !variant.getFlavors().get(0).name.equals("google")
             && !project.hasProperty("anyVariant")) {
-      println("Variant '" + variant.name + "' is ignored. If you want to build it please " +
-              "add gradle parameter '-PanyVariant'")
       variant.setIgnore(true)
     }
   }
@@ -379,16 +380,18 @@ android {
       project.task(type: Exec, "run${task}", dependsOn: "install${task}") {
         commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/com.mapswithme.maps.SplashActivity"
       }
+    }
+  }
 
-      variant.outputs.all { output ->
-        if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
-          def file = output.outputFile
-          // version at the end of each built apk
-          outputFileName = "../../" + file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk")
-          // set different versionCodes for different ABIs
-          int abiVersionCode = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI)) ?: 0
-          output.versionCodeOverride = (abiVersionCode * 1000) + variant.versionCode
-        }
+  android.applicationVariants.all { variant ->
+    variant.outputs.all { output ->
+      if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
+        def file = output.outputFile
+        // version at the end of each built apk
+        output.outputFileName = "../../" + file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk")
+        // set different versionCodes for different ABIs
+        int abiVersionCode = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI)) ?: 0
+        output.versionCodeOverride = (abiVersionCode * 1000) + variant.versionCode
       }
     }
   }

@@ -29,7 +29,13 @@ jobs:
 
       - name: Compile
         shell: bash
-        run: (cd android; ./gradlew -Parm64 assembleWebDebug)
+        working-directory: android
+        run: |
+          export PATH="$(dirname $ANDROID_SDK_ROOT/cmake/*/bin/.|tail -n1):$PATH" # Use CMake from SDK
+          echo $PATH
+          cmake --version
+          ninja --version
+          ./gradlew -Parm64 assembleWebDebug
 
       - name: Upload arm64-v8a debug apk
         uses: actions/upload-artifact@v2
