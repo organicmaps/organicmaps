@@ -103,8 +103,6 @@
 		3DFEBF9F1EFBFC1500317D5C /* yandex_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF991EFBFC1500317D5C /* yandex_api.hpp */; };
 		3DFEBFA31EFBFC2300317D5C /* taxi_engine_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBFA01EFBFC2300317D5C /* taxi_engine_tests.cpp */; };
 		3DFEBFA41EFBFC2300317D5C /* yandex_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBFA11EFBFC2300317D5C /* yandex_tests.cpp */; };
-		4566605020D91FEE0085E8C1 /* megafon_countries.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566604E20D91FED0085E8C1 /* megafon_countries.cpp */; };
-		4566605120D91FEE0085E8C1 /* megafon_countries.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4566604F20D91FEE0085E8C1 /* megafon_countries.hpp */; };
 		4566605320D920000085E8C1 /* megafon_countries_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566605220D920000085E8C1 /* megafon_countries_tests.cpp */; };
 		4566605520D920220085E8C1 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566605420D920220085E8C1 /* libstorage.a */; };
 		45AC338F22C4F449004DC574 /* utm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45AC338E22C4F448004DC574 /* utm.hpp */; };
@@ -238,8 +236,6 @@
 		3DFEBF991EFBFC1500317D5C /* yandex_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = yandex_api.hpp; sourceTree = "<group>"; };
 		3DFEBFA01EFBFC2300317D5C /* taxi_engine_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_engine_tests.cpp; sourceTree = "<group>"; };
 		3DFEBFA11EFBFC2300317D5C /* yandex_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = yandex_tests.cpp; sourceTree = "<group>"; };
-		4566604E20D91FED0085E8C1 /* megafon_countries.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = megafon_countries.cpp; sourceTree = "<group>"; };
-		4566604F20D91FEE0085E8C1 /* megafon_countries.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = megafon_countries.hpp; sourceTree = "<group>"; };
 		4566605220D920000085E8C1 /* megafon_countries_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = megafon_countries_tests.cpp; sourceTree = "<group>"; };
 		4566605420D920220085E8C1 /* libstorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libstorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45AC338E22C4F448004DC574 /* utm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utm.hpp; sourceTree = "<group>"; };
@@ -394,8 +390,6 @@
 				BB1956E51F543D7C003ECE6C /* locals_api.hpp */,
 				349CFD09204571FF00569949 /* maxim_api.cpp */,
 				349CFD08204571FF00569949 /* maxim_api.hpp */,
-				4566604E20D91FED0085E8C1 /* megafon_countries.cpp */,
-				4566604F20D91FEE0085E8C1 /* megafon_countries.hpp */,
 				F67E75231DB8F06F00D6741F /* opentable_api.cpp */,
 				F67E75241DB8F06F00D6741F /* opentable_api.hpp */,
 				45C380752094C5B400C18D81 /* partners.cpp */,
@@ -533,7 +527,6 @@
 				3DFEBF9C1EFBFC1500317D5C /* taxi_engine.hpp in Headers */,
 				3DBD7C0124251BF000ED9FE8 /* banner.hpp in Headers */,
 				45AC338F22C4F449004DC574 /* utm.hpp in Headers */,
-				4566605120D91FEE0085E8C1 /* megafon_countries.hpp in Headers */,
 				F6B536431DA520E40067EEA5 /* uber_api.hpp in Headers */,
 				3DCF64A824DC0A0300C49963 /* mastercard_sber_ads.hpp in Headers */,
 				3D035CA2245195E600C21B57 /* guides_on_map_api.hpp in Headers */,
@@ -666,7 +659,6 @@
 				F6B536421DA520E40067EEA5 /* uber_api.cpp in Sources */,
 				F6539537207FBED70057B97C /* taxi_places_loader.cpp in Sources */,
 				3DCAC69524D1CFE900518E8B /* booking_ordering_params.cpp in Sources */,
-				4566605020D91FEE0085E8C1 /* megafon_countries.cpp in Sources */,
 				3DBD7C1024251BF000ED9FE8 /* ads_engine.cpp in Sources */,
 				3DFEBF9B1EFBFC1500317D5C /* taxi_engine.cpp in Sources */,
 				3DBD7C0F24251BF000ED9FE8 /* mopub_ads.cpp in Sources */,

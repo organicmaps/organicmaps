@@ -1028,16 +1028,6 @@
 	<string name="traffic_update_app_message">Um Verkehrsdaten anzuzeigen, muss die Anwendung aktualisiert werden.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Verkehrsdaten sind nicht verfügbar</string>
-	<string name="banner_deliveryclub_title">Essensbringdienst</string>
-	<string name="banner_deliveryclub_message">Schnelle Lieferung von 4000 Restaurants. Bestellen mit Delivery Club.</string>
-	<string name="banner_lamoda_title">Onlinegeschäft für Kleidung und Schuhe</string>
-	<string name="banner_lamoda_message">Über 1000 Marken. Bis zu 70 % Rabatt. Kostenlose Lieferung landesweit.</string>
-	<string name="banner_tutu_title">Zugfahrkarten online</string>
-	<string name="banner_tutu_message">Zugfahrkarten in jede Stadt online – Preise, Suche und Buchung.</string>
-	<string name="banner_geerbest_title">Online-Elektronikgeschäft</string>
-	<string name="banner_geerbest_message">Sofortsuche bei über 50.000 Artikeln zu günstigen Preisen.</string>
-	<string name="banner_rentalcars_title">Autos online mieten</string>
-	<string name="banner_rentalcars_message">800 Autovermietungen mit über 49.000 Mietstationen.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Verkehrsdaten in 36 Ländern</string>
 	<!-- december -->
@@ -1315,10 +1305,8 @@
 	  <item quantity="other">%d Strecken</item>
 	</plurals>
 	<string name="subtittle_opt_out">Einstellungen der Begleitung</string>
-	<string name="opt_out_flurry">Statistiken</string>
-	<string name="opt_out_mopub">Personalisierte Werbung</string>
-	<string name="opt_out_fabric">Berichte über die Fehler</string>
-	<string name="opt_out_fabric_description">Wir können Ihre Daten benutzen, um OMaps zu entwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App in Kraft treten.</string>
+	<string name="crash_reports">Berichte über die Fehler</string>
+	<string name="crash_reports_description">Wir können Ihre Daten benutzen, um OMaps zu entwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App in Kraft treten.</string>
 	<string name="opt_out_help_ios_1">Sie können der Erhalt von gezielter Werbung in den Einstellungen des Geräts verbieten.</string>
 	<string name="opt_out_help_ios_2">iOS 9 oder höher</string>
 	<string name="opt_out_help_ios_3">Öffnen Sie die Einstellungen → Vertraulichkeit → Werbung → Schalten Sie „Tracking einschränken“ ein</string>
@@ -1326,8 +1314,6 @@
 	<string name="privacy_policy">Datenschutzerklärung</string>
 	<string name="terms_of_use">Nutzungsbedingungen</string>
 	<string name="backup_notification_failed">Das Reservekopieren von Markierungen wurde angehalten. Loggen Sie sich ein, um das Reservekopieren einzuschalten.</string>
-	<string name="banner_megafon_banner_message">Sage dem internationalen Roaming goodbye!</string>
-	<string name="banner_megafon_banner_button">Goodbye!</string>
 	<string name="button_layer_traffic">Staus</string>
 	<string name="button_layer_subway">U-Bahn</string>
 	<string name="layers_title">Kartenschichten</string>

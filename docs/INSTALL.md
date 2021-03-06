@@ -1,12 +1,81 @@
 # Building
 
-First, do not forget to initialize a cloned repository:
+- [Desktop](#desktop-app)
+- [Android](#android-app)
+- [iOS](#ios-app)
 
-    ./configure.sh
+## Desktop app
 
-## Desktop
+### Preparing
 
-You would need Cmake, Boost and Qt 5. With that, just run `tools/unix/build_omim.sh`.
+You need a Linux or a Mac machine to build OMaps.
+
+ - We haven't compiled OMaps on Windows in a long time, though it is possible.
+   It is likely some make files should be updated.
+   If you succeed, please submit a tutorial.
+
+Ensure that you have at least 20GB of free space.
+
+Install Cmake, Boost, Qt 5 and other dependencies.
+
+**Ubuntu 20.04**:
+
+```bash
+sudo apt-get update && sudo apt-get install -y \
+    build-essential \
+    cmake \
+    clang \
+    python \
+    qtbase5-dev \
+    libqt5svg5-dev \
+    libc++-dev \
+    libboost-iostreams-dev \
+    libglu1-mesa-dev \
+    libsqlite3-dev \
+    zlib1g-dev
+```
+
+**Fedora 33**:
+
+```bash
+sudo dnf install -y \
+    clang \
+    qt5-qtbase-devel \
+    qt5-qtsvg-devel \
+    boost-devel \
+    libstdc++-devel \
+    sqlite-devel
+```
+
+**macOS**:
+
+```bash
+brew install qt cmake
+```
+
+### Getting sources
+
+Clone the repository:
+
+```bash
+git clone --recursive https://github.com/omapsapp/omapsapp.git
+```
+
+Update git submodules (sometimes doesn't work automatically):
+
+```bash
+git update submodules --init --recursive
+```
+
+Configure the repository for the debug mode:
+
+```bash
+./configure debug
+```
+
+### Building
+
+With all tools installed, just run `tools/unix/build_omim.sh`.
 It will build both debug and release versions to `../omim-build-<target>`.
 Command-line switches are:
 
@@ -19,7 +88,32 @@ Command-line switches are:
 After switches, you can specify a target (everything by default). For example,
 to build a generator tool only, use `generator_tool`.  If you have Qt installed
 in an unusual directory, use `QMAKE` variable. You can skip building tests
-with `CMAKE_CONFIG=-DSKIP_TESTS` variable.
+with `CMAKE_CONFIG=-DSKIP_TESTS` variable. You would need 1.5 GB of memory
+to compile the `stats` module.
+
+The `build_omim.sh` script basically runs these commands:
+
+    cmake <path_to_omim> -DCMAKE_BUILD_TYPE={Debug|Release}
+    make [<target>] -j <number_of_processes>
+
+
+### Running
+
+The generated binaries appear in `../omim-build-release`.
+
+Run `OMaps` binary from `../omim-build-release`:
+
+**Linux**:
+
+```
+../omim-build-release/OMaps -data-path ./data
+```
+
+**macOS**:
+
+```bash
+../omim-build-release/OMaps.app/Contents/MacOS/OMaps
+```
 
 When using a lot of maps, increase open files limit, which is only 256 on Mac OS X.
 Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
@@ -28,174 +122,178 @@ and run
 
     echo 'ulimit -n 2048' | sudo tee -a /etc/profile
 
-### Building Manually
+### Testing
 
-The `build_omim.sh` script basically runs these commands:
+Run tests from the binary directory with `omim/tools/unix/run_tests.sh`.
 
-    cmake <path_to_omim> -DCMAKE_BUILD_TYPE={Debug|Release}
-    make [<target>] -j <number_of_processes>
+## Android app
 
-It will compile binaries to the current directory. For a compiler, Clang
-is preferred, but GCC 6+ would also work.
+### Preparing
 
-### Ubuntu 20.04
+You need a Linux or a Mac machine to build OMaps for Android.
 
-Install Qt 5, CMake, Clang and SQLite:
+ - We haven't compiled OMaps on Windows in a long time, though it is possible.
+   It is likely some make files should be updated.
+   If you succeed, please submit a tutorial.
 
-    sudo apt-get update && sudo apt-get install -y \
-        build-essential \
-        cmake \
-        clang \
-        python \
-        qtbase5-dev \
-        libqt5svg5-dev \
-        libc++-dev \
-        libboost-iostreams-dev \
-        libglu1-mesa-dev \
-        libsqlite3-dev \
-        zlib1g-dev
+Ensure that you have at least 20GB of free space.
 
-Do a git clone:
+Install [Android Studio](https://developer.android.com/studio).
 
-    git clone --depth=1 --recursive https://github.com/omapsapp/omapsapp.git
-    cd omaps
-    ./configure.sh
+Install [Android SDK](https://developer.android.com/sdk/index.html) and
+[NDK](https://developer.android.com/tools/sdk/ndk/index.html):
 
-Then:
+ - Run the Android Studio.
+ - Open "SDK Manager" ("Tools" → "SDK Manager").
+ - Choose "Android 10 (Q) API Level 29" SDK.
+ - Choose "version "29" and click "OK".
+ - Open "SDK Tools", choose "NDK (side by side)" and "CMake" and click "OK"
 
-    tools/unix/build_omim.sh -r
+Alternatively, you can install only
+[Android SDK](https://developer.android.com/sdk/index.html) and
+[NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
+installing Android Studio.
 
-Append `generator_tool` if only generator_tool is needed, or `desktop` if you need a desktop app.
-You would need 1.5 GB of memory to compile the `stats` module.
+### Getting sources
 
-The generated binaries appear in `omim-build-release`.
-Run tests from this directory with `omim/tools/unix/run_tests.sh`.
+Clone the repository:
 
-### Fedora 33
+```bash
+git clone --recursive https://github.com/omapsapp/omapsapp.git
+```
 
-Install dependencies:
+Update git submodules (sometimes doesn't work automatically):
 
-    sudo dnf install -y \
-        clang \
-        qt5-qtbase-devel \
-        qt5-qtsvg-devel \
-        boost-devel \
-        libstdc++-devel \
-        sqlite-devel
+```
+git update submodules --init --recursive
+```
 
-Then do a git clone, run `configure.sh` and compile with linux-clang spec:
+Configure the repository for the debug mode:
 
-    SPEC=linux-clang tools/unix/build_omim.sh -r
+```bash
+./configure debug
+```
 
-### Windows
+Set Android SDK and NDK path:
 
-We haven't compiled OMaps on Windows in a long time, though it is possible. It is likely
-some make files should be updated. If you succeed, please submit a tutorial.
+```bash
+./tools/android/set_up_android.py \
+    --sdk $HOME/Android/Sdk \
+    --ndk $HOME/Android/Sdk/ndk/22.0.7026061/ # Update for the actual NDK version
+```
 
-See also [Android compilation instructions](android_toolchain_windows.txt) (also possibly outdated).
+### Building
 
-### Download maps
+There is a matrix of different build variants:
 
-To browse maps in an application, you need first to download some. We maintain an archive
-of all released versions of data at [direct.mapswithme.com](http://direct.mapswithme.com/direct/).
-Place `.mwm` files to `~/Library/Application Support/MapsWithMe` for
-a desktop version.
+- Type:
+  * `Debug` is a debug version with all checks enabled.
+  * `Beta` is a manual pre-release build.
+  * `Release` is a fully optimized version for stores.
 
-For an Android application, place maps into `/MapsWithMe` directory on a device. For
-iOS devices, use iTunes.
-
-`World.mwm` and `WorldCoasts.mwm` are low-zoom overview maps and should be placed
-into a resource directory, e.g. `/Applications/OMaps/Content/Resources` on macOS.
-Placing these into a maps directory should also work.
-
-For instructions on making your own maps, see [MAPS.md](MAPS.md).
-
-## Maps Generator
-
-The generator tool is build together with the desktop app, but you can choose to skip
-other modules. Use this line:
-
-    omim/tools/unix/build_omim.sh -sr generator_tool
-
-Dependencies for generator tool:
-
-* boost-iostreams
-* glu1-mesa
-* protobuf
-
-## Designer Tool
-
-### Building the tool
-
-The designer tool has been merged into the master branch. You can build a package for macOS with:
-
-    omim/tools/unix/build_omim.sh -rt
-
-* If you got "hdiutil -5341" error, you would need to build a dmg package yourself:
-find a line with `hdiutil` in the script, copy it to a console, and if needed, increase
-`-size` argument value.
-* The resulting dmg package will be put into `omim/out`.
-
-### Building data
-
-* Build both the generator_tool and the designer tool
-* Generate data as usual (either with `generate_mwm.sh` or `generate_planet.sh`).
-
-## Android
-
-* Install [Android SDK](https://developer.android.com/sdk/index.html) and
-[NDK](https://developer.android.com/tools/sdk/ndk/index.html), place these somewhere
-easy to type.
-
-* Run `tools/android/set_up_android.py` to configure SDK and NDK paths:
-
-        ./tools/android/set_up_android.py \
-            --sdk $HOME/Android/Sdk \
-            --ndk $HOME/Android/Sdk/ndk/21.3.6528147/
-
-* Go to `android` and run `./gradlew clean assembleWebRelease`.
-    * There are `Release`, `Beta` and `Debug` builds.
-    * `assemble` produces apk files in `build/outputs/apk`, `install` installs one
-        on a connected device, and `run` immediately starts it.
-    * `Web` creates a full apk with World files, `Google` builds a store version
-        without these, and there are also `Amazon`, `Samsung`, `Xiaomi`, `Yandex`
+- Flavor:
+  * `Web` is a light apk without any bundled maps.
+  * `Google` is a full store version without low-zoom overview world map.
+  * There are also `Amazon`, `Samsung`, `Xiaomi`, `Yandex`
         and other targets.
 
-* If you encounter errors, try updating your Android SDK:
-    * In [SDK Manager](http://developer.android.com/tools/help/sdk-manager.html)
-        (for Android Studio: Tools → Android → SDK Manager) enable fresh
-        _build-tools_ and click on "Install packages..."
-    * In command line, go to `android-sdk/tools`, then
-        * `./android list sdk` for a list of packages to update.
-        * `./android update sdk --no-ui --filter 1,2,3` to update chosen packages.
+To run a debug version on your device/emulator:
 
-* To enable logging in case of crashes, after installing a debug version, run:
-        adb shell pm grant com.mapswithme.maps.pro.debug android.permission.READ_LOGS
-    After a crash, go to "Menu → Settings → Report a bug" and enter your e-mail to
-    receive a log file.
+```bash
+(cd android; ./gradlew clean runWebDebug)
+```
 
-## iOS
+To compile a redistributable `.apk` for testing:
 
-* Open `xcode/omim.xcworkspace` in XCode.
-* Select "xcOMaps" product scheme for developing, or "OMaps" to make a distribution package.
-* Run the project (Product → Run).
+```bash
+(cd android; ./gradlew clean assembleWebBeta)
+ls -la ./android/build/outputs/apk/android-web-beta-*.apk
+```
 
-If a script has trouble finding your Qt 5 installation, edit `omim/tools/autobuild/detect_qmake.sh`,
-adding a path to `qmake` there.
+### Debugging
 
-## Map Servers
+To enable logging in case of crashes, after installing a debug version, run:
 
-The "guest" configuration does not have any map server addresses built-in. That means, while your
-application would work well with [downloaded maps](http://direct.mapswithme.com/direct/latest/),
-it won't be able to download them by itself. To fix this, add some servers to
-`DEFAULT_URLS_JSON` define in the `private.h` file. These servers should have mwm files
-in `/maps/151231` paths, symlinked to `/ios`, `/android`, `/mac` and `/win` (depending on operating
-systems from which your maps will be downloaded).
+```bash
+adb shell pm grant app.omaps.debug android.permission.READ_LOGS
+```
 
-`151231` is a version number, which should be a six-digit integer, usually in form
-`YYMMDD` of the date map data was downloaded. The version and file sizes of all mwm and
-routing files should be put into `data/countries.txt` file.
+## iOS app
 
-Android application may also download some resources - fonts and World files - from the same
-servers. It checks sizes of existing files via `external_resources.txt`, and if some of these
-don't match, it considers them obsolete and downloads new resource files.
+### Preparing
+
+Building OMaps for iOS requires a Mac.
+
+Ensure that you have at least 20GB of free space.
+
+Install Command Line Tools:
+
+ - Launch Terminal application on your Mac.
+ - Type `git` in the command line.
+ - Follow the instructions in GUI.
+
+Install [Xcode](https://apps.apple.com/ru/app/xcode/id497799835?mt=12) from AppStore.
+
+Enroll in the [Apple Developer Program](https://developer.apple.com/programs/).
+
+### Getting sources
+
+Clone the repository:
+
+```bash
+git clone --recursive https://github.com/omapsapp/omapsapp.git
+```
+
+Update git submodules (sometimes doesn't work automatically):
+
+```
+git update submodules --init --recursive
+```
+
+Configure the repository for the debug mode:
+
+```bash
+./configure debug
+```
+
+Install [CocoaPods](https://cocoapods.org/):
+
+```bash
+brew install cocoapods
+```
+
+Install required pods for the project:
+
+```bash
+(cd iphone/Maps && pod install)
+```
+
+### Configuring Xcode
+
+Set up your developer account and add certificates:
+
+ - Run Xcode.
+ - Click "Xcode" → "Preferences".
+ - Open "Account" tab.
+ - Enter account credentials from the previous step.
+ - Click "Manage Certificates".
+ - Click "+" and choose "Apple Development".
+ - You may also need to register your Mac in your Apple Developer account.
+
+Reconfigure the project to use your developer signing keys:
+
+- Open `xcode/omim.xcworkspace` in Xcode.
+- Click on "Maps" project.
+- Open "Signing & Capabilities" tab.
+- Choose your team and your signing certificate.
+
+### Building and running
+
+Open `xcode/omim.xcworkspace` in XCode.
+
+Select "OMaps" product scheme.
+
+ * Choose "Your Mac (Designed for iPad)" to run on Mac without using Simulator.
+ * Choose arbitrary "iPhone *" or "iPad *" to run on Simulator.
+
+Compile and run the project ("Product" → "Run").

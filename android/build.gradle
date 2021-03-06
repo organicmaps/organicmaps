@@ -49,8 +49,6 @@ dependencies {
   implementation 'com.google.android.gms:play-services-auth:17.0.0'
   implementation 'com.google.android.gms:play-services-basement:17.1.1'
 
-  // statistics
-  implementation 'com.flurry.android:analytics:12.1.0@aar'
   // crash reporting
   implementation 'com.google.firebase:firebase-analytics:17.4.4'
   implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
@@ -58,14 +56,6 @@ dependencies {
 
   // 3-party
   implementation 'com.google.code.gson:gson:2.6.1'
-  implementation ('com.my.target:mytarget-sdk:5.2.2') {
-    exclude group: 'com.google.android.exoplayer', module:'exoplayer-core'
-    exclude group: 'com.google.android.exoplayer', module:'exoplayer-dash'
-    exclude group: 'com.google.android.exoplayer', module:'exoplayer-hls'
-  }
-  implementation('com.mopub:mopub-sdk-native-static:5.10.0@aar') {
-    transitive = true;
-  }
   // BottomSheet
   implementation 'com.cocosw:bottomsheet:1.5.0@aar'
   implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
@@ -73,8 +63,6 @@ dependencies {
   implementation 'com.github.bumptech.glide:glide:3.7.0'
   // Java concurrency annotations
   implementation 'net.jcip:jcip-annotations:1.0'
-  implementation 'com.appsflyer:af-android-sdk:4.9.0'
-  implementation 'com.android.installreferrer:installreferrer:1.0'
 
   implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
   implementation 'androidx.work:work-runtime:2.2.0'
@@ -178,17 +166,6 @@ android {
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@omaps.app"'
     buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.omaps"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
-
-    // PushWoosh keys
-    Properties pwProps = new Properties()
-    pwProps.load(new FileInputStream("${projectDir}/pushwoosh.properties"));
-    manifestPlaceholders += ['PW_APPID': pwProps['pwAppId']]
-    buildConfigField 'String', 'PW_APPID', /"${pwProps['pwAppId']}"/
-    def pwProjectIdKey = 'PW_PROJECT_ID'
-    manifestPlaceholders += [pwProjectId : pwProps['pwProjectId']]
-    manifestPlaceholders += ['PW_PROJECT_ID_KEY' : pwProjectIdKey]
-    resValue 'string', 'pw_project_id', pwProps['pwProjectId']
-    buildConfigField "String", 'PW_PROJECT_ID',  "\"" + pwProjectIdKey + "\""
 
     multiDexEnabled true
     multiDexKeepFile file('multidex-config.txt')

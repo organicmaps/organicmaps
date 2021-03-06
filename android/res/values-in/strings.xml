@@ -1013,16 +1013,6 @@
 	<string name="traffic_update_app_message">Untuk menampilkan data lalu lintas, aplikasi ini harus diperbarui.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Data lalu lintas tidak tersedia</string>
-	<string name="banner_deliveryclub_title">Pengiriman makanan</string>
-	<string name="banner_deliveryclub_message">Pengiriman cepat dari 4.000 restoran. Pesan dari Delivery Club.</string>
-	<string name="banner_lamoda_title">Toko pakaian dan sepatu online</string>
-	<string name="banner_lamoda_message">Lebih dari 1.000 merek. Diskon hingga 70%f. Gratis pengiriman ke seluruh negeri.</string>
-	<string name="banner_tutu_title">Tiket kereta api online</string>
-	<string name="banner_tutu_message">Tiket kereta ke setiap kota online - harga, pencarian, dan pemesanan.</string>
-	<string name="banner_geerbest_title">Toko elektronik online</string>
-	<string name="banner_geerbest_message">Cari cepat di antara lebih dari 50.000 barang berharga murah.</string>
-	<string name="banner_rentalcars_title">Penyewaan mobil online</string>
-	<string name="banner_rentalcars_message">800 perusahaan penyewaan mobil di lebih dari 49.000 lokasi penyewaan mobil.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Data Lalu Lintas di 36 Negara</string>
 	<!-- december -->
@@ -1300,10 +1290,8 @@
 	  <item quantity="other">trek %d</item>
 	</plurals>
 	<string name="subtittle_opt_out">Pengaturan treking</string>
-	<string name="opt_out_flurry">Statistik</string>
-	<string name="opt_out_mopub">Iklan yang telah dipersonalisasi</string>
-	<string name="opt_out_fabric">Laporan tabrakan</string>
-	<string name="opt_out_fabric_description">Kami dapat menggunakan data Anda untuk meningkatkan pengalaman OMaps. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.</string>
+	<string name="crash_reports">Laporan tabrakan</string>
+	<string name="crash_reports_description">Kami dapat menggunakan data Anda untuk meningkatkan pengalaman OMaps. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.</string>
 	<string name="opt_out_help_ios_1">Perangkat seluler Anda mungkin menyediakan pengaturan \"\"Batasi Treking Iklan\"\" atau \"\"Keluar dari iklan berbasis ketertarikan\"\".</string>
 	<string name="opt_out_help_ios_2">iOS 9 atau Lebih Tinggi</string>
 	<string name="opt_out_help_ios_3">Ke Pengaturan → Privasi → Iklan → Aktifkan pengaturan \"\"Batasi Treking Iklan\"\"</string>
@@ -1311,8 +1299,6 @@
 	<string name="privacy_policy">Kebijakan privasi</string>
 	<string name="terms_of_use">Ketentuan penggunaan</string>
 	<string name="backup_notification_failed">Mencadangkan bookmark Anda telah dihentikan. Masuk untuk kembali mengaktifkannya.</string>
-	<string name="banner_megafon_banner_message">Katakan selamat tinggal pada roaming internasional!</string>
-	<string name="banner_megafon_banner_button">Selamat tinggal!</string>
 	<string name="button_layer_traffic">Lalu lintas</string>
 	<string name="button_layer_subway">Kereta bawah tanah</string>
 	<string name="layers_title">Lapisan peta</string>

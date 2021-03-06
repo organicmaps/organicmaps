@@ -2,7 +2,6 @@ package com.mapswithme.maps.downloader;
 
 import android.location.Location;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -10,12 +9,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.mapswithme.maps.Framework;
+
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
-import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.WheelProgressView;
@@ -23,7 +20,6 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
@@ -43,16 +39,11 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
   @NonNull
   private final View mPromoContentDivider;
-  @NonNull
-  private final ViewGroup mBannerFrame;
 
   private int mStorageSubscriptionSlot;
 
   @Nullable
   private CountryItem mCurrentCountry;
-
-  @Nullable
-  private DownloaderPromoBanner mPromoBanner;
 
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
@@ -202,7 +193,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     }
 
     UiUtils.showIf(showFrame, mFrame);
-    updateBannerVisibility();
   }
 
   public OnmapDownloader(MwmActivity activity)
@@ -265,46 +255,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
      });
 
     mPromoContentDivider = mFrame.findViewById(R.id.onmap_downloader_divider);
-    mBannerFrame = mFrame.findViewById(R.id.banner_frame);
-  }
-
-  private void updateBannerVisibility()
-  {
-    if (mCurrentCountry == null || TextUtils.isEmpty(mCurrentCountry.id))
-      return;
-
-    DownloaderPromoBanner promoBanner = Framework.nativeGetDownloaderPromoBanner(mCurrentCountry.id);
-
-    if (!isMapDownloading(mCurrentCountry) || promoBanner == null)
-    {
-      mPromoBanner = null;
-      UiUtils.hide(mPromoContentDivider, mBannerFrame);
-      return;
-    }
-
-    // No need to do anything when banners are equal.
-    if (mPromoBanner != null && mPromoBanner.getType() == promoBanner.getType())
-      return;
-
-    mPromoBanner = promoBanner;
-
-    mBannerFrame.removeAllViewsInLayout();
-
-    LayoutInflater inflater = LayoutInflater.from(mActivity);
-    View root = inflater.inflate(mPromoBanner.getType().getLayoutId(), mBannerFrame, true);
-    View button = root.findViewById(R.id.banner_button);
-
-    mPromoBanner.getType().getViewConfigStrategy().configureView(root, R.id.icon, R.id.text,
-                                                                 R.id.banner_button);
-    button.setOnClickListener(new BannerCallToActionListener());
-
-    UiUtils.show(mPromoContentDivider, mBannerFrame);
-
-    Statistics.ParameterBuilder builder =
-        Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
-                                                    mCurrentCountry.id);
-
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_SHOW, builder);
   }
 
   @Override
@@ -343,25 +293,5 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   public static void setAutodownloadLocked(boolean locked)
   {
     sAutodownloadLocked = locked;
-  }
-
-  private class BannerCallToActionListener implements View.OnClickListener
-  {
-    @Override
-    public void onClick(View v)
-    {
-      if (mPromoBanner == null)
-        return;
-
-      mPromoBanner.getType().onAction(mActivity, mPromoBanner.getUrl());
-
-      if (mCurrentCountry == null)
-        return;
-
-      Statistics.ParameterBuilder builder =
-          Statistics.makeDownloaderBannerParamBuilder(mPromoBanner.getType().toStatisticValue(),
-                                                      mCurrentCountry.id);
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_BANNER_CLICK, builder);
-    }
   }
 }

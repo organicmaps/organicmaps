@@ -1020,16 +1020,6 @@
 	<string name="traffic_update_app_message">要显示交通数据，必须更新应用。</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">交通数据不可用</string>
-	<string name="banner_deliveryclub_title">送餐</string>
-	<string name="banner_deliveryclub_message">4,000 家餐厅的快速送餐。从 Delivery Club 订餐。</string>
-	<string name="banner_lamoda_title">在线服装和鞋店</string>
-	<string name="banner_lamoda_message">超过 1,000 个品牌。最低三折起。全国免费派送。</string>
-	<string name="banner_tutu_title">在线火车票</string>
-	<string name="banner_tutu_message">在线购买前往任何城市的火车票 - 价格、搜索和预订。</string>
-	<string name="banner_geerbest_title">在线电子产品商店</string>
-	<string name="banner_geerbest_message">立即搜索价格超低的 50,000 余种商品。</string>
-	<string name="banner_rentalcars_title">在线租车</string>
-	<string name="banner_rentalcars_message">800 家租车公司，超过 49,000 个租车网点。</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36 个国家/地区的交通数据</string>
 	<!-- december -->
@@ -1305,10 +1295,8 @@
 	  <item quantity="other">%d 跟踪</item>
 	</plurals>
 	<string name="subtittle_opt_out">支持设置</string>
-	<string name="opt_out_flurry">统计</string>
-	<string name="opt_out_mopub">个性化广告</string>
-	<string name="opt_out_fabric">错误报告</string>
-	<string name="opt_out_fabric_description">我们可以使用您的数据来开发和改进OMaps.更改将在重新启动应用程序后生效。</string>
+	<string name="crash_reports">错误报告</string>
+	<string name="crash_reports_description">我们可以使用您的数据来开发和改进OMaps.更改将在重新启动应用程序后生效。</string>
 	<string name="opt_out_help_ios_1">您可以选择停止在设备设置中接收定位广告。</string>
 	<string name="opt_out_help_ios_2">iOS 9或更高版本</string>
 	<string name="opt_out_help_ios_3">打开设置→隐私→广告→启用“跟踪限制”</string>
@@ -1316,8 +1304,6 @@
 	<string name="privacy_policy">隐私政策</string>
 	<string name="terms_of_use">使用条款</string>
 	<string name="backup_notification_failed">标签备份已暂停。登录以启用备份。</string>
-	<string name="banner_megafon_banner_message">请对Goodbye国际漫游说！</string>
-	<string name="banner_megafon_banner_button">Goodbye！</string>
 	<string name="button_layer_traffic">堵塞</string>
 	<string name="button_layer_subway">地铁</string>
 	<string name="layers_title">地图图层</string>

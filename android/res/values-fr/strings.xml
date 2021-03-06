@@ -1033,16 +1033,6 @@
 	<string name="traffic_update_app_message">Pour afficher les données de circulation, l\'application doit être actualisée.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Les données de circulation ne sont pas disponibles</string>
-	<string name="banner_deliveryclub_title">Livraison de nourriture</string>
-	<string name="banner_deliveryclub_message">Livraison rapide de 4 000 restaurants. Commandez via Delivery Club.</string>
-	<string name="banner_lamoda_title">Boutique de chaussures et de vêtements en ligne</string>
-	<string name="banner_lamoda_message">Plus de 1.000 marques. Jusqu\'à 70 % de réduction. Livraison gratuite dans tout le pays.</string>
-	<string name="banner_tutu_title">Billets de train en ligne</string>
-	<string name="banner_tutu_message">Billets de train vers n’importe quelle ville en ligne - prix, recherche et réservation.</string>
-	<string name="banner_geerbest_title">Magasin d’électronique en ligne</string>
-	<string name="banner_geerbest_message">Recherche instantanée parmi plus de 50.000 articles à bas prix.</string>
-	<string name="banner_rentalcars_title">Location de voitures en ligne</string>
-	<string name="banner_rentalcars_message">800 sociétés de location de voiture dans plus de 49.000 points de location de voiture.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Données de circulation dans 36 pays</string>
 	<!-- december -->
@@ -1321,10 +1311,8 @@
 	  <item quantity="other">pistes %d</item>
 	</plurals>
 	<string name="subtittle_opt_out">Paramètres de suivi</string>
-	<string name="opt_out_flurry">Statistique</string>
-	<string name="opt_out_mopub">Publicité personnalisée</string>
-	<string name="opt_out_fabric">Rapport d\'accident</string>
-	<string name="opt_out_fabric_description">Nous pouvons utiliser vos données pour améliorer l\'expérience de OMaps. Les modifications prendront effet après le redémarrage de l\'application.</string>
+	<string name="crash_reports">Rapport d\'accident</string>
+	<string name="crash_reports_description">Nous pouvons utiliser vos données pour améliorer l\'expérience de OMaps. Les modifications prendront effet après le redémarrage de l\'application.</string>
 	<string name="opt_out_help_ios_1">Votre appareil mobile peut fournir un paramètre «Limiter le suivi des annonces» ou «Désactiver la publicité ciblée par centres d\'intérêt».</string>
 	<string name="opt_out_help_ios_2">iOS 9 ou plus récent</string>
 	<string name="opt_out_help_ios_3">Accédez à vos paramètres → Confidentialité → Publicité → Activer le paramètre «Limiter le suivi des annonces»</string>
@@ -1332,8 +1320,6 @@
 	<string name="privacy_policy">Politique de confidentialité</string>
 	<string name="terms_of_use">Conditions d\'utilisation</string>
 	<string name="backup_notification_failed">La sauvegarde de vos favoris a été suspendue. Connectez-vous pour la réactiver.</string>
-	<string name="banner_megafon_banner_message">Dites adieu à l\'itinérance internationale !</string>
-	<string name="banner_megafon_banner_button">Au revoir !</string>
 	<string name="button_layer_traffic">Trafic</string>
 	<string name="button_layer_subway">Métro</string>
 	<string name="layers_title">Couches de carte</string>

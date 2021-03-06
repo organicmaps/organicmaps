@@ -13,7 +13,6 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
@@ -25,7 +24,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cocosw.bottomsheet.BottomSheet;
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.intent.Factory;
@@ -33,11 +31,8 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.StringUtils;
-import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
-import com.my.target.nativeads.banners.NativeAppwallBanner;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
@@ -52,12 +47,10 @@ import java.util.Stack;
 class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolderWrapper>
                      implements StickyRecyclerHeadersAdapter<DownloaderAdapter.HeaderViewHolder>
 {
-  private static final String HEADER_ADVERTISMENT_TITLE = "OMAPS.APP";
   private static final int HEADER_ADVERTISMENT_ID = CountryItem.CATEGORY__LAST + 1;
   private static final int HEADER_ADS_OFFSET = 10;
 
   private static final int TYPE_COUNTRY = 0;
-  private static final int TYPE_ADVERTISMENT = 1;
 
   private final RecyclerView mRecycler;
   private final Activity mActivity;
@@ -65,23 +58,17 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private final StickyRecyclerHeadersDecoration mHeadersDecoration;
 
   private boolean mMyMapsMode = true;
-  private boolean mAdsLoaded;
-  private boolean mAdsLoading;
-  private boolean mShowAds;
   private boolean mSearchResultsMode;
   private String mSearchQuery;
 
   private final List<CountryItem> mItems = new ArrayList<>();
   private final Map<String, CountryItem> mCountryIndex = new HashMap<>();  // Country.id -> Country
-  private final List<NativeAppwallBanner> mAds = new ArrayList<>();
 
   private final SparseArray<String> mHeaders = new SparseArray<>();
   private final Stack<PathEntry> mPath = new Stack<>();  // Holds navigation history. The last element is the current level.
   private int mNearMeCount;
 
   private int mListenerSlot;
-  @Nullable
-  private MytargetHelper mMytargetHelper;
 
   private enum MenuItem
   {
@@ -315,8 +302,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private View createViewHolderFrame(ViewGroup parent, int kind)
   {
-    return inflate(parent, (kind == TYPE_ADVERTISMENT ? R.layout.downloader_item_ad
-                                                      : R.layout.downloader_item));
+    return inflate(parent, R.layout.downloader_item);
   }
 
   class ViewHolderWrapper extends RecyclerView.ViewHolder
@@ -330,23 +316,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       super(createViewHolderFrame(parent, kind));
 
       mKind = kind;
-      mHolder = (kind == TYPE_ADVERTISMENT) ? new AdViewHolder(itemView)
-                                            : new ItemViewHolder(itemView);
+      mHolder = new ItemViewHolder(itemView);
     }
 
     @SuppressWarnings("unchecked")
     void bind(int position)
     {
-      int kind = DownloaderAdapter.this.getItemViewType(position);
-      if (kind == TYPE_ADVERTISMENT)
-      {
-        mHolder.bind(mAds.get(position - mNearMeCount));
-        return;
-      }
-
-      if (position > mNearMeCount)
-        position -= getAdsCount();
-
       mHolder.bind(mItems.get(position));
     }
   }
@@ -631,58 +606,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     void bind(int position)
     {
-      if (position >= mNearMeCount && position < mNearMeCount + getAdsCount())
-      {
-        mTitle.setText(HEADER_ADVERTISMENT_TITLE);
-      }
-      else
-      {
-        if (position > mNearMeCount)
-          position -= getAdsCount();
         CountryItem ci = mItems.get(position);
         mTitle.setText(mHeaders.get(ci.headerId));
-      }
-    }
-  }
-
-  private class AdViewHolder extends BaseInnerViewHolder<NativeAppwallBanner>
-  {
-    private final ImageView mIcon;
-    private final TextView mTitle;
-    private final TextView mSubtitle;
-
-    private NativeAppwallBanner mData;
-
-    @NonNull
-    private final View.OnClickListener mClickListener = new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        if (mData != null)
-          if (mMytargetHelper != null)
-            mMytargetHelper.onBannerClick(mData);
-      }
-    };
-
-    AdViewHolder(View frame)
-    {
-      mIcon = frame.findViewById(R.id.downloader_ad_icon);
-      mTitle = frame.findViewById(R.id.downloader_ad_title);
-      mSubtitle = frame.findViewById(R.id.downloader_ad_subtitle);
-
-      frame.setOnClickListener(mClickListener);
-    }
-
-    @Override
-    void bind(NativeAppwallBanner item)
-    {
-      mData = item;
-      super.bind(item);
-
-      mIcon.setImageBitmap(item.getIcon().getBitmap());
-      mTitle.setText(item.getTitle());
-      mSubtitle.setText(item.getDescription());
     }
   }
 
@@ -755,7 +680,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     MapManager.nativeListItems(parent, lat, lon, hasLocation, mMyMapsMode, mItems);
     processData();
-    loadAds();
   }
 
   void setSearchResultsMode(@NonNull Collection<CountryItem> results, String query)
@@ -766,18 +690,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mItems.clear();
     mItems.addAll(results);
     processData();
-  }
-
-  void clearAdsAndCancelMyTarget()
-  {
-    if (mAds.isEmpty())
-      return;
-
-    if (mMytargetHelper != null)
-      mMytargetHelper.cancel();
-
-    clearAdsInternal();
-    mAdsLoaded = false;
   }
 
   void resetSearchResultsMode()
@@ -825,12 +737,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   @Override
   public int getItemViewType(int position)
   {
-    if (position < mNearMeCount)
-      return TYPE_COUNTRY;
-
-    if (position < mNearMeCount + getAdsCount())
-      return TYPE_ADVERTISMENT;
-
     return TYPE_COUNTRY;
   }
 
@@ -863,24 +769,17 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     if (position >= mNearMeCount)
     {
-      if (position < mNearMeCount + getAdsCount())
+      if (position < mNearMeCount)
         return HEADER_ADVERTISMENT_ID;
-
-      position -= getAdsCount();
     }
 
     return mItems.get(position).headerId;
   }
 
-  private int getAdsCount()
-  {
-    return (mShowAds ? mAds.size() : 0);
-  }
-
   @Override
   public int getItemCount()
   {
-    return mItems.size() + getAdsCount();
+    return mItems.size();
   }
 
   private void goDeeper(CountryItem child, boolean refresh)
@@ -966,120 +865,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     return mMyMapsMode;
   }
 
-  /**
-   * Loads banner if:
-   * <ul>
-   *   <li>There is not active ads removal subscription</li>
-   *   <li>Not in `my maps` mode;</li>
-   *   <li>Currently at root level;</li>
-   *   <li>Day mode is active;</li>
-   *   <li>There is at least one map downloaded.</li>
-   * </ul>
-   */
-  private void loadAds()
-  {
-    mShowAds = false;
-
-    if (Framework.nativeHasActiveSubscription(Framework.SUBSCRIPTION_TYPE_REMOVE_ADS))
-      return;
-
-    if (mAdsLoading)
-      return;
-
-    if (mMyMapsMode || !CountryItem.isRoot(getCurrentRootId()))
-      return;
-
-    if (!ThemeUtils.isDefaultTheme(mActivity.getApplicationContext()))
-      return;
-
-    if (MapManager.nativeGetDownloadedCount() < 1)
-      return;
-
-    mShowAds = true;
-    if (mAdsLoaded)
-    {
-      mHeadersDecoration.invalidateHeaders();
-      notifyItemRangeInserted(mNearMeCount, mAds.size());
-      return;
-    }
-
-    mAdsLoading = true;
-
-    if (mMytargetHelper == null)
-      initMytargetHelper();
-  }
-
-  private void handleBannersShow(@NonNull List<NativeAppwallBanner> ads)
-  {
-    if (mMytargetHelper != null)
-      mMytargetHelper.handleBannersShow(ads);
-  }
-
-  private void initMytargetHelper()
-  {
-    mMytargetHelper = new MytargetHelper(new MytargetHelper.Listener<Void>()
-    {
-      private void onNoAdsInternal()
-      {
-        mAdsLoading = false;
-        mAdsLoaded = true;
-
-        clearAdsInternal();
-      }
-
-      @Override
-      public void onNoAds()
-      {
-        onNoAdsInternal();
-      }
-
-      @Override
-      public void onDataReady(@Nullable Void data)
-      {
-        //noinspection ConstantConditions
-        mMytargetHelper.loadShowcase(new MytargetHelper.Listener<List<NativeAppwallBanner>>()
-        {
-          @Override
-          public void onNoAds()
-          {
-            onNoAdsInternal();
-          }
-
-          @Override
-          public void onDataReady(@Nullable List<NativeAppwallBanner> banners)
-          {
-            mAdsLoading = false;
-            mAdsLoaded = true;
-            mAds.clear();
-
-            if (banners != null)
-            {
-              for (NativeAppwallBanner banner : banners)
-                if (!banner.isAppInstalled())
-                  mAds.add(banner);
-
-              handleBannersShow(banners);
-            }
-
-            mHeadersDecoration.invalidateHeaders();
-            notifyDataSetChanged();
-          }
-        }, mActivity);
-      }
-    }, mActivity.getApplicationContext());
-  }
-
-  private void clearAdsInternal()
-  {
-    int oldSize = mAds.size();
-    mAds.clear();
-    if (oldSize > 0)
-    {
-      mHeadersDecoration.invalidateHeaders();
-      notifyItemRangeRemoved(mNearMeCount, oldSize);
-    }
-  }
-
   void attach()
   {
     mListenerSlot = MapManager.nativeSubscribe(mStorageCallback);
@@ -1088,11 +873,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   void detach()
   {
     MapManager.nativeUnsubscribe(mListenerSlot);
-
-    if (mMytargetHelper != null)
-      mMytargetHelper.cancel();
-
-    mAdsLoading = false;
   }
 
   boolean isSearchResultsMode()

@@ -1024,16 +1024,6 @@
 	<string name="traffic_update_app_message">Para mostrar os dados de tráfego, a aplicação deve ser atualizada.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Não existem dados de tráfego</string>
-	<string name="banner_deliveryclub_title">Entrega de alimentos</string>
-	<string name="banner_deliveryclub_message">Entrega rápida de 4.000 restaurantes. Encomente ao Delivery Club.</string>
-	<string name="banner_lamoda_title">Loja online de vestuário e calçado</string>
-	<string name="banner_lamoda_message">Mais de 1.000 marcas. Até 70% de desconto. Entrega gratuita em todo o país.</string>
-	<string name="banner_tutu_title">Bilhetes de comboio online</string>
-	<string name="banner_tutu_message">Bilhetes de comboio online para qualquer cidade - preços, pesquisa e reserva.</string>
-	<string name="banner_geerbest_title">Loja de eletrônica online</string>
-	<string name="banner_geerbest_message">Pesquisa instantânea em mais de 50.000 itens a preços baixos.</string>
-	<string name="banner_rentalcars_title">Aluguer de carros online</string>
-	<string name="banner_rentalcars_message">800 empresas de aluguer de automóveis em mais de 49.000 locais de aluguer de automóveis.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Dados de tráfego em 36 países</string>
 	<!-- december -->
@@ -1311,10 +1301,8 @@
 	  <item quantity="other">%d rastreamentos</item>
 	</plurals>
 	<string name="subtittle_opt_out">Configurações de rastreamento</string>
-	<string name="opt_out_flurry">Estatísticas</string>
-	<string name="opt_out_mopub">Propaganda personalizada</string>
-	<string name="opt_out_fabric">Relatório de erros</string>
-	<string name="opt_out_fabric_description">Podemos utilizar seus dados para melhorar a experiência no OMaps. As mudanças entrarão em vigor após você reiniciar o aplicativo.</string>
+	<string name="crash_reports">Relatório de erros</string>
+	<string name="crash_reports_description">Podemos utilizar seus dados para melhorar a experiência no OMaps. As mudanças entrarão em vigor após você reiniciar o aplicativo.</string>
 	<string name="opt_out_help_ios_1">O seu dispositivo móvel pode fornecer as opções de «Limitar rastreamento de anúncios» ou «Desativar publicidade baseada em interesse».</string>
 	<string name="opt_out_help_ios_2">iOS 9 ou Superior</string>
 	<string name="opt_out_help_ios_3">Vá para: Configurações → Privacidade → Anúncios → Habilitar «Limitar Rastreamento de Anúncios»</string>
@@ -1322,8 +1310,6 @@
 	<string name="privacy_policy">Política de privacidade</string>
 	<string name="terms_of_use">Termos de uso</string>
 	<string name="backup_notification_failed">O back-up dos seus favoritos foi suspenso. É preciso logar para ligá-lo de volta.</string>
-	<string name="banner_megafon_banner_message">Diga adeus ao roaming internacional!</string>
-	<string name="banner_megafon_banner_button">Adeus!</string>
 	<string name="button_layer_traffic">Tráfego</string>
 	<string name="button_layer_subway">Metrô</string>
 	<string name="layers_title">Map Layers</string>

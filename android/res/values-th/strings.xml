@@ -1026,16 +1026,6 @@
 	<string name="traffic_update_app_message">ในการแสดงข้อมูลการจราจร แอปพลิเคชั่นจะต้องอัปเดตก่อน</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">ไม่มีข้อมูลการจราจร</string>
-	<string name="banner_deliveryclub_title">อาหารส่งถึงที่</string>
-	<string name="banner_deliveryclub_message">อาหารส่งถึงที่จาก 4,000 ร้าน สั่งจาก Delivery Club.</string>
-	<string name="banner_lamoda_title">ร้านค้าเสื้อผ้าและรองเท้าออนไลน์</string>
-	<string name="banner_lamoda_message">กว่า 1,000 ยี่ห้อ ลดถึง 70% จัดส่งฟรีทั่วประเทศ</string>
-	<string name="banner_tutu_title">ตั๋วรถไฟออนไลน์</string>
-	<string name="banner_tutu_message">ตั๋วรถไฟออนไลน์ไปทุกเมือง - ราคา การค้นหา และการจอง</string>
-	<string name="banner_geerbest_title">ร้านอุปกรณ์อิเล็กทรอนิกส์ออนไลน์</string>
-	<string name="banner_geerbest_message">การค้นหาทันทีในกว่า 50,000 รายการในราคาที่ต่ำ</string>
-	<string name="banner_rentalcars_title">การเช่ารถออนไลน์</string>
-	<string name="banner_rentalcars_message">800 บริษัทเช่ารถในสถานเช่ารถมากกว่า 49,000 แห่ง</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">ข้อมูลการจราจรใน 36 ประเทศ</string>
 	<!-- december -->
@@ -1312,10 +1302,8 @@
 	  <item quantity="other">%d ติดตามต่าง ๆ</item>
 	</plurals>
 	<string name="subtittle_opt_out">การตั้งค่าการติดตาม</string>
-	<string name="opt_out_flurry">สถิติ</string>
-	<string name="opt_out_mopub">การโฆษณาในแบบของคุณ</string>
-	<string name="opt_out_fabric">รายงานข้อขัดข้อง</string>
-	<string name="opt_out_fabric_description">เราอาจใช้ข้อมูลของคุณเพื่อพัฒนาประสบการณ์ของ OMaps การเปลี่ยนแปลงจะมีผลหลังจากที่คุณเปิดแอพฯ ขึ้นใหม่</string>
+	<string name="crash_reports">รายงานข้อขัดข้อง</string>
+	<string name="crash_reports_description">เราอาจใช้ข้อมูลของคุณเพื่อพัฒนาประสบการณ์ของ OMaps การเปลี่ยนแปลงจะมีผลหลังจากที่คุณเปิดแอพฯ ขึ้นใหม่</string>
 	<string name="opt_out_help_ios_1">อุปกรณ์มือถือของคุณอาจมีการตั้งค่า \"\"จำกัดการติดตามโฆษณา\"\" หรือ \"\"เลือกไม่ใช้การโฆษณาตามความสนใจ\"\"</string>
 	<string name="opt_out_help_ios_2">iOS 9 หรือสูงกว่า</string>
 	<string name="opt_out_help_ios_3">ไปที่การตั้งค่าของคุณ → ความเป็นส่วนตัว → การโฆษณา → เปิดใช้งานการตั้งค่า “จำกัดการติดตามโฆษณา”</string>
@@ -1323,8 +1311,6 @@
 	<string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
 	<string name="terms_of_use">ข้อกำหนดในการใช้งาน</string>
 	<string name="backup_notification_failed">การเก็บสำรองบุ๊กมาร์กของคุณได้ถูกระงับ เข้าสู่ระบบเพื่อเปิดใช้งานอีกครั้ง</string>
-	<string name="banner_megafon_banner_message">บอกลาบริการโรมมิ่งระหว่างประเทศ!</string>
-	<string name="banner_megafon_banner_button">ลาก่อน!</string>
 	<string name="button_layer_traffic">การจราจร</string>
 	<string name="button_layer_subway">รถไฟใต้ดิน</string>
 	<string name="layers_title">ชั้นแผนที่</string>

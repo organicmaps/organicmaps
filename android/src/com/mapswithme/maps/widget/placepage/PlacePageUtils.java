@@ -85,7 +85,7 @@ class PlacePageUtils
       return;
 
     Drawable drawable = Graphics.tint(bottomSheet.getContext(), drawableId,
-                                      R.attr.bannerButtonBackgroundColor);
+                                      R.attr.colorOnPrimary); /// TODO OMG
     img.setImageDrawable(drawable);
   }
 

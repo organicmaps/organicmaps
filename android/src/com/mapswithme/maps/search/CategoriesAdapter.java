@@ -29,10 +29,9 @@ import java.util.List;
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_CATEGORY, TYPE_PROMO_CATEGORY })
+  @IntDef({ TYPE_CATEGORY })
   @interface ViewType {}
   private static final int TYPE_CATEGORY = 0;
-  private static final int TYPE_PROMO_CATEGORY = 1;
 
   @StringRes
   private int mCategoryResIds[];
@@ -45,7 +44,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   interface CategoriesUiListener
   {
     void onSearchCategorySelected(@Nullable String category);
-    void onPromoCategorySelected(@NonNull PromoCategory promo);
     void onAdsRemovalSelected();
   }
 
@@ -87,17 +85,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   private static String[] getAllCategories()
   {
     String[] searchCategories = DisplayedCategories.getKeys();
-    List<PromoCategory> promos = PromoCategory.supportedValues();
-    int amountSize = searchCategories.length + promos.size();
+    int amountSize = searchCategories.length;
     String[] allCategories = new String[amountSize];
-    for (PromoCategory promo : promos)
-    {
-      if (promo.getPosition() >= amountSize)
-        throw new AssertionError("Promo position must be in range: "
-                                 + "[0 - " + amountSize + ")");
-
-      allCategories[promo.getPosition()] = promo.name();
-    }
 
     for (int i = 0, j = 0; i < amountSize; i++)
     {
@@ -115,15 +104,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   private static int getStringResIdByKey(@NonNull Resources resources, @NonNull String packageName,
                                          @NonNull String key)
   {
-    try
-    {
-      PromoCategory promoCategory = PromoCategory.valueOf(key);
-      return promoCategory.getStringId();
-    }
-    catch (IllegalArgumentException ex)
-    {
-      return resources.getIdentifier(key, "string", packageName);
-    }
+    return resources.getIdentifier(key, "string", packageName);
   }
 
   @DrawableRes
@@ -132,27 +113,16 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
                                            @NonNull String key)
   {
     final boolean isNightTheme = ThemeUtils.isNightTheme(context);
-    try
-    {
-      PromoCategory promoCategory = PromoCategory.valueOf(key);
-      return promoCategory.getIconId(isNightTheme);
-    }
-    catch (IllegalArgumentException ex)
-    {
-      String iconId = "ic_category_" + key;
-      if (isNightTheme)
-        iconId = iconId + "_night";
-      return context.getResources().getIdentifier(iconId, "drawable", packageName);
-    }
+    String iconId = "ic_category_" + key;
+    if (isNightTheme)
+      iconId = iconId + "_night";
+    return context.getResources().getIdentifier(iconId, "drawable", packageName);
   }
 
   @Override
   @ViewType
   public int getItemViewType(int position)
   {
-    PromoCategory promo = PromoCategory.findByStringId(mCategoryResIds[position]);
-    if (promo != null)
-      return TYPE_PROMO_CATEGORY;
     return TYPE_CATEGORY;
   }
 
@@ -166,10 +136,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       case TYPE_CATEGORY:
         view = mInflater.inflate(R.layout.item_search_category, parent, false);
         viewHolder = new ViewHolder(view, (TextView) view);
-        break;
-      case TYPE_PROMO_CATEGORY:
-        view = mInflater.inflate(R.layout.item_search_promo_category, parent, false);
-        viewHolder = new PromoViewHolder(view, view.findViewById(R.id.promo_title));
         break;
       default:
         throw new AssertionError("Unsupported type detected: " + viewType);
@@ -189,76 +155,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   public int getItemCount()
   {
     return mCategoryResIds.length;
-  }
-
-  private class PromoViewHolder extends ViewHolder
-  {
-    @NonNull
-    private final ImageView mIcon;
-    @NonNull
-    private final View mRemoveAds;
-    @NonNull
-    private final TextView mCallToActionView;
-
-    PromoViewHolder(@NonNull View v, @NonNull TextView tv)
-    {
-      super(v, tv);
-      mIcon = v.findViewById(R.id.promo_icon);
-      mRemoveAds = v.findViewById(R.id.remove_ads);
-      mCallToActionView = v.findViewById(R.id.promo_action);
-      Resources res = v.getResources();
-      int crossArea = res.getDimensionPixelSize(R.dimen.margin_base);
-      UiUtils.expandTouchAreaForView(mRemoveAds, crossArea);
-    }
-
-    @Override
-    void setupClickListeners()
-    {
-      View action = getView().findViewById(R.id.promo_action);
-      action.setOnClickListener(this);
-      mRemoveAds.setOnClickListener(new RemoveAdsClickListener());
-    }
-
-    @Override
-    void onItemClicked(int position)
-    {
-      @StringRes
-      int categoryId = mCategoryResIds[position];
-      PromoCategory promo = PromoCategory.findByStringId(categoryId);
-      if (promo != null)
-      {
-        String event = Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SELECTED;
-        Statistics.INSTANCE.trackSearchPromoCategory(event, promo.getProvider());
-        if (mListener != null)
-          mListener.onPromoCategorySelected(promo);
-      }
-    }
-
-    @Override
-    void setTextAndIcon(int textResId, int iconResId)
-    {
-      getTitle().setText(textResId);
-      mIcon.setImageResource(iconResId);
-      @StringRes
-      int categoryId = mCategoryResIds[getAdapterPosition()];
-      PromoCategory promo = PromoCategory.findByStringId(categoryId);
-      if (promo != null)
-      {
-        mCallToActionView.setText(promo.getCallToActionText());
-        String event = Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN;
-        Statistics.INSTANCE.trackSearchPromoCategory(event, promo.getProvider());
-      }
-    }
-
-    private class RemoveAdsClickListener implements View.OnClickListener
-    {
-      @Override
-      public void onClick(View v)
-      {
-        if (mListener != null)
-          mListener.onAdsRemovalSelected();
-      }
-    }
   }
 
   class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener

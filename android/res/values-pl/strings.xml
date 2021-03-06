@@ -1030,16 +1030,6 @@
 	<string name="traffic_update_app_message">Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dane o ruchu są niedostępne</string>
-	<string name="banner_deliveryclub_title">Dostawa jedzenia</string>
-	<string name="banner_deliveryclub_message">Szybka dostawa z 4000 restauracji. Zamawiaj z Delivery Club.</string>
-	<string name="banner_lamoda_title">Sklep internetowy z odzieżą i obuwiem</string>
-	<string name="banner_lamoda_message">Ponad 1000 marek. Zniżki do 70%. Bezpłatna dostawa w całym kraju.</string>
-	<string name="banner_tutu_title">Bilety kolejowe online</string>
-	<string name="banner_tutu_message">Bilety kolejowe do każdego miasta online - ceny, wyszukiwanie i rezerwacja.</string>
-	<string name="banner_geerbest_title">Sklep z elektroniką online</string>
-	<string name="banner_geerbest_message">Natychmiastowe wyszukiwanie ponad 50.000 towarów w niskich cenach.</string>
-	<string name="banner_rentalcars_title">Wynajem samochodów online</string>
-	<string name="banner_rentalcars_message">800 wypożyczalni samochodów w ponad 49.000 miejscowościach.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Dane o ruchu w 36 krajach</string>
 	<!-- december -->
@@ -1318,10 +1308,8 @@
 	  <item quantity="other">%d tras</item>
 	</plurals>
 	<string name="subtittle_opt_out">Ustawienia śledzenia</string>
-	<string name="opt_out_flurry">Statystyka</string>
-	<string name="opt_out_mopub">Spersonalizowane reklamy</string>
-	<string name="opt_out_fabric">Raport o błędzie</string>
-	<string name="opt_out_fabric_description">Możemy używać Twoich danych do usprawnienia działania OMaps. Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji.</string>
+	<string name="crash_reports">Raport o błędzie</string>
+	<string name="crash_reports_description">Możemy używać Twoich danych do usprawnienia działania OMaps. Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji.</string>
 	<string name="opt_out_help_ios_1">W Twoim urządzeniu mobilnym może być dostępne ustawienie „Limit Ad Tracking” lub „Opt out of interest-based advertising”.</string>
 	<string name="opt_out_help_ios_2">iOS 9 lub nowszy</string>
 	<string name="opt_out_help_ios_3">Przejdź do Ustawień → Prywatność→ Reklamy→ Włącz ustawienie „Limit Ad Tracking”</string>
@@ -1329,8 +1317,6 @@
 	<string name="privacy_policy">Polityka prywatności</string>
 	<string name="terms_of_use">Warunki użytkowania</string>
 	<string name="backup_notification_failed">Tworzenie kopii zapasowych Twoich zakładek zostało zawieszone. Zaloguj się, aby włączyć je ponownie.</string>
-	<string name="banner_megafon_banner_message">Pożegnaj się z międzynarodowym roamingiem!</string>
-	<string name="banner_megafon_banner_button">Do widzenia!</string>
 	<string name="button_layer_traffic">Ruch drogowy</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="layers_title">Warstwy map</string>

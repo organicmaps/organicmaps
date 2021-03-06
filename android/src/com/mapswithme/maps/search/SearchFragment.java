@@ -669,12 +669,6 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onPromoCategorySelected(@NonNull PromoCategory promo)
-  {
-    // Do nothing by default.
-  }
-
-  @Override
   public void onAdsRemovalSelected()
   {
     // Do nothing by default.
