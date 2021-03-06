@@ -15,7 +15,7 @@ public class JobIdMap
   private static final Map<Class<?>, Integer> MAP = new HashMap<>();
 
   static {
-    MAP.put(Utils.isLollipopOrLater() ? NativeJobService.class : FirebaseJobService.class, calcIdentifier(MAP.size()));
+    MAP.put(NativeJobService.class, calcIdentifier(MAP.size()));
     MAP.put(NotificationService.class, calcIdentifier(MAP.size()));
     MAP.put(TrackRecorderWakeService.class, calcIdentifier(MAP.size()));
     MAP.put(SystemDownloadCompletedService.class, calcIdentifier(MAP.size()));

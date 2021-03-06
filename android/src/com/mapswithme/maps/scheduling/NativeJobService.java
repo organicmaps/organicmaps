@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class NativeJobService extends JobService
 {
   private static final String TAG = NativeJobService.class.getSimpleName();

@@ -73,10 +73,8 @@ dependencies {
   implementation('uk.co.samuelwall:material-tap-target-prompt:3.1.0', {
     exclude group: 'androidx.lifecycle', module: 'lifecycle-extensions'
   })
-  implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
   implementation 'com.google.android:flexbox:1.0.0'
   implementation 'com.trafi:anchor-bottom-sheet-behavior:0.13-alpha'
-  implementation 'com.google.firebase:firebase-messaging:17.0.0'
   implementation 'com.github.yoksnod:MPAndroidChart:3.2.0-alpha'
   implementation 'com.google.android.material:material:1.3.0-alpha03'
   implementation 'androidx.appcompat:appcompat:1.2.0'
