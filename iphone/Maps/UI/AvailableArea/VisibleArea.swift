@@ -13,7 +13,7 @@ final class VisibleArea: AvailableArea {
     if CarPlayService.shared.isCarplayActivated {
       return
     }
-    FrameworkHelper.setVisibleViewport(areaFrame, scaleFactor: MapViewController.shared()?.mapView.contentScaleFactor ?? 1)
+    FrameworkHelper.setVisibleViewport(areaFrame, scaleFactor: MapViewController.shared()?.mapView.contentScaleFactor ?? 1.0)
   }
 }
 

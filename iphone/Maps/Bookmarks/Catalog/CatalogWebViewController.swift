@@ -343,7 +343,7 @@ final class CatalogWebViewController: WebViewController {
       } else {
         if BookmarksManager.shared().getCatalogDownloadsCount() == 0 {
           logToPushWoosh(categoryInfo)
-          MapViewController.shared().showBookmarksLoadedAlert(categoryId)
+          MapViewController.shared()?.showBookmarksLoadedAlert(categoryId)
         }
       }
       self?.updateProgress()

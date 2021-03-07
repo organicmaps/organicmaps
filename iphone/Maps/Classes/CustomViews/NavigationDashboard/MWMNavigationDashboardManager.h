@@ -13,19 +13,19 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 @interface MWMNavigationDashboardManager : NSObject
 
 + (nonnull MWMNavigationDashboardManager *)sharedManager;
-+ (void)addObserver:(id<MWMNavigationDashboardObserver>)observer;
-+ (void)removeObserver:(id<MWMNavigationDashboardObserver>)observer;
++ (void)addObserver:(id<MWMNavigationDashboardObserver>_Nonnull)observer;
++ (void)removeObserver:(id<MWMNavigationDashboardObserver>_Nonnull)observer;
 
 @property(nonatomic, readonly) MWMNavigationDashboardState state;
-@property(nonatomic, readonly) MWMTaxiPreviewDataSource *taxiDataSource;
+@property(nonatomic, readonly) MWMTaxiPreviewDataSource * _Nonnull taxiDataSource;
 
-- (instancetype)init __attribute__((unavailable("init is not available")));
-- (instancetype)initWithParentView:(UIView *)view;
+- (instancetype _Nonnull)init __attribute__((unavailable("init is not available")));
+- (instancetype _Nonnull)initWithParentView:(UIView *_Nonnull)view;
 - (void)setRouteBuilderProgress:(CGFloat)progress;
 
 - (void)onRoutePrepare;
 - (void)onRoutePlanning;
-- (void)onRouteError:(NSString *)error;
+- (void)onRouteError:(NSString *_Nonnull)error;
 - (void)onRouteReady:(BOOL)hasWarnings;
 - (void)onRouteStart;
 - (void)onRouteStop;

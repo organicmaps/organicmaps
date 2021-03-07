@@ -9,7 +9,8 @@ class DeepLinkSubscriptionStrategy: IDeepLinkHandlerStrategy {
 
   func execute() {
     guard let mapViewController = MapViewController.shared() else {
-      return;
+      LOG(.error, "DeepLinkSubscriptionStrategy: mapViewController is nil");
+      return
     }
     guard let type: SubscriptionGroupType = SubscriptionGroupType(serverId: data.groups) else {
       LOG(.error, "Groups is wrong: \(deeplinkURL.url)");

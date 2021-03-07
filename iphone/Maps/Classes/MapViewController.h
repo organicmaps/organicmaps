@@ -13,9 +13,9 @@
 
 @interface MapViewController : MWMViewController
 
-+ (MapViewController *)sharedController;
-- (void)addListener:(id<MWMLocationModeListener>)listener;
-- (void)removeListener:(id<MWMLocationModeListener>)listener;
++ (MapViewController *_Nullable)sharedController;
+- (void)addListener:(id<MWMLocationModeListener>_Nonnull)listener;
+- (void)removeListener:(id<MWMLocationModeListener>_Nonnull)listener;
 
 // called when app is terminated by system
 - (void)onTerminate;
@@ -23,18 +23,18 @@
 
 - (void)updateStatusBarStyle;
 
-- (void)performAction:(NSString *)action;
+- (void)performAction:(NSString *_Nonnull)action;
 
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode;
 - (void)openEditor;
 - (void)openBookmarkEditor;
-- (void)openFullPlaceDescriptionWithHtml:(NSString *)htmlString;
+- (void)openFullPlaceDescriptionWithHtml:(NSString *_Nonnull)htmlString;
 - (void)showUGCAuth;
 - (void)showBookmarksLoadedAlert:(UInt64)categoryId;
 - (void)openCatalogAnimated:(BOOL)animated utm:(MWMUTM)utm;
-- (void)openCatalogDeeplink:(NSURL *)deeplinkUrl animated:(BOOL)animated utm:(MWMUTM)utm;
-- (void)openCatalogAbsoluteUrl:(NSURL *)url animated:(BOOL)animated utm:(MWMUTM)utm;
-- (void)searchText:(NSString *)text;
+- (void)openCatalogDeeplink:(NSURL *_Nonnull)deeplinkUrl animated:(BOOL)animated utm:(MWMUTM)utm;
+- (void)openCatalogAbsoluteUrl:(NSURL *_Nullable)url animated:(BOOL)animated utm:(MWMUTM)utm;
+- (void)searchText:(NSString *_Nonnull)text;
 - (void)openDrivingOptions;
 
 - (void)showRemoveAds;
@@ -48,10 +48,10 @@
 
 - (void)dismissPlacePage;
 
-@property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
-@property(nonatomic) MWMWelcomePageController * welcomePageController;
-@property(nonatomic, readonly) MWMMapDownloadDialog * downloadDialog;
-@property(nonatomic, readonly) BookmarksCoordinator * bookmarksCoordinator;
+@property(nonatomic, readonly) MWMMapViewControlsManager * _Nonnull controlsManager;
+@property(nonatomic) MWMWelcomePageController * _Nullable welcomePageController;
+@property(nonatomic, readonly) MWMMapDownloadDialog * _Nonnull downloadDialog;
+@property(nonatomic, readonly) BookmarksCoordinator * _Nonnull bookmarksCoordinator;
 
 @property(nonatomic) MWMMyPositionMode currentPositionMode;
 @property(strong, nonatomic) IBOutlet EAGLView * _Nonnull mapView;
