@@ -58,7 +58,6 @@ dependencies {
   implementation 'androidx.multidex:multidex:' + propMultiDexVersion
 
   // Google Services
-  implementation 'com.google.android.gms:play-services-auth:17.0.0'
   if (googleServiceEnabled) {
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.firebase:firebase-analytics:17.4.4'
