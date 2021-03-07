@@ -271,8 +271,6 @@
 	<string name="more_info">Daha Fazla Bilgi Göster</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Panoya Kopyalandı: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">İstatistikleri Gönder</string>
 	<!-- place preview title -->
 	<string name="info">Bilgi</string>
 	<!-- Used for bookmark editing -->
@@ -954,8 +952,6 @@
 	<string name="about_description">OMaps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. OMaps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Anonim kullanım istatistiklerinin toplanması uygulamanın geliştirilmesi konusunda bize yardımcı olacak.</string>
 	<string name="general_settings">Genel ayarlar</string>
 	<string name="date">Tarih %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

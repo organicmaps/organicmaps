@@ -267,8 +267,6 @@
 	<string name="more_info">顯示更多資訊</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">已複製到剪貼簿：%1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">啟用匿名使用數據</string>
 	<!-- place preview title -->
 	<string name="info">簡介</string>
 	<!-- Used for bookmark editing -->
@@ -952,8 +950,6 @@
 	<string name="about_description">OMaps 是一款基本離線旅遊應用程式。OMaps 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。</string>
 	<!-- Text in menu -->
 	<string name="blog">部落格</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">收集匿名使用統計資訊有助於我們改善應用程式。</string>
 	<string name="general_settings">一般設定</string>
 	<string name="date">日期 %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

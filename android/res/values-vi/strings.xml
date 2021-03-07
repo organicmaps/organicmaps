@@ -265,8 +265,6 @@
 	<string name="more_info">Hiển thị thêm thông tin</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Đã sao chép vào Bảng tạm: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Gửi thống kê</string>
 	<!-- place preview title -->
 	<string name="info">Thông tin</string>
 	<!-- Used for bookmark editing -->
@@ -942,8 +940,6 @@
 	<string name="about_description">OMaps là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. OMaps được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Việc thu thập số liệu sử dụng ẩn danh giúp chúng tôi cải thiện ứng dụng.</string>
 	<string name="general_settings">Thiết lập chung</string>
 	<string name="date">Ngày %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

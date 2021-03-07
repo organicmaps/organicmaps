@@ -46,9 +46,6 @@
 
 "get_it_now" = "Získať teraz";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Ďakujeme, že používate OMaps! Páči sa vám táto aplikácia? Povedzte o nej svojim priateľom! Bude to pre nás najlepšia odmena.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Zdielané záložky OMaps";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Načítavanie záložiek";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Skopírované do schránky: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Odosielať štatistiky";
 
 /* place preview title */
 "info" = "Viacej informácií";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "Komunita OMaps";
-
-/* Text in menu */
-"like_on_facebook" = "Označiť pomocou Páči sa mi to na Facebooku";
 
 /* Text in menu */
 "follow_on_twitter" = "Sledovať na Twitteri";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Prihlásiť sa cez Google";
 
-"login_with_facebook" = "Prihlásiť sa cez Facebook";
-
 "login_with_openstreetmap" = "Prihlásiť sa cez www.openstreetmap.org";
 
 "edit_place" = "Upraviť miesto";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blog";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Zhromažďovanie anonymných štatistických údajov o používaní nám umožňuje vylepšovať aplikáciu.";
-
 "general_settings" = "Všeobecné nastavenia";
 
 "date" = "Dátum %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dopravné informácie nie sú k dispozícii";
-
-"banner_deliveryclub_title" = "Donáška jedla";
-
-"banner_deliveryclub_message" = "Rýchle dodanie zo 4 000 reštaurácií. Objednávky od spoločnosti Delivery Club.";
-
-"banner_lamoda_title" = "Online obchod s odevmi a obuvou";
-
-"banner_lamoda_message" = "Viac ako 1 000 značiek. Zľavy až 70%. Doručenie zdarma po celej krajine.";
-
-"banner_tutu_title" = "Lístky na vlak online";
-
-"banner_tutu_message" = "Lístky vlak do ktoréhokoľvek mesta online - ceny, vyhľadávanie a rezervácia.";
-
-"banner_geerbest_title" = "Online predajňa elektroniky";
-
-"banner_geerbest_message" = "Okamžité vyhľadávanie vo viac ako 50 000 druhoch tovaru za nízke ceny.";
-
-"banner_rentalcars_title" = "Prenájom auta online";
-
-"banner_rentalcars_message" = "800 spoločností prenajímajúcich vozidlá vo viac ako 49 000 prevádzkach.";
 
 /* december */
 "whatsnew_traffic" = "Dopravné informácie v 36 krajinách";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Nastavenie sledovania";
 
-"opt_out_flurry" = "Štatistika";
+"crash_reports" = "Hlásenie chýb";
 
-"opt_out_mopub" = "Personalizovaná reklama";
-
-"opt_out_fabric" = "Hlásenie chýb";
-
-"opt_out_fabric_description" = "Vaše údaje môžeme použiť na zlepšenie skúseností s programom OMaps. Zmeny sa prejavia po reštartovaní aplikácie.";
+"crash_reports_description" = "Vaše údaje môžeme použiť na zlepšenie skúseností s programom OMaps. Zmeny sa prejavia po reštartovaní aplikácie.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Podmienky používania";
 
 "backup_notification_failed" = "Zálohovanie záložiek bolo pozastavené. Pre opätovné zapnutie sa prihláste.";
-
-"banner_megafon_banner_message" = "Rozlúčte sa s medzinárodným roamingom!";
-
-"banner_megafon_banner_button" = "Zbohom!";
 
 "button_layer_traffic" = "Vyťaženie";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Pomôžte cestujúcim tým, že zanecháte recenziu!";
 
-"share_bookmarks_email_body_link" = "Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby OMaps a užite si výlet!\n\nZískajte aplikáciu: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby OMaps a užite si výlet!\n\nZískajte aplikáciu: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h";
 

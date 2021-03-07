@@ -46,9 +46,6 @@
 
 "get_it_now" = "هم اکنون دریافت کنید";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "ایا از کارکرد این اپلیکیشن رضایت دارید؟ درمورد این اپلیکیشن به دوستانتان بگویید! این بهترین تشکر از ماست.!OMapsباتشکر از شما برای استفاده از";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "کیلوبایت";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "OMaps bookmarks were shared with you";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "در حال بارگیری نشانه ها";
@@ -392,10 +389,10 @@
 "no_thanks" = "نه ,متشکرم";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, check out my pin at OMaps! %1$@ or %2$@ Don't have offline maps installed? Download here: http://omaps.app/get";
+"bookmark_share_sms" = "Hey, check out my pin at OMaps! %1$@ or %2$@ Don't have offline maps installed? Download here: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, check out my current location in OMaps! %1$@ or %2$@ Don't have offline maps? Download here: http://omaps.app/get";
+"my_position_share_sms" = "Hey, check out my current location in OMaps! %1$@ or %2$@ Don't have offline maps? Download here: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, check out my pin in OMaps!";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "کپی در کلیپ برد :%1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "ارسال مختصات";
 
 /* place preview title */
 "info" = "اطلاعات";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "انجمن OMaps";
-
-/* Text in menu */
-"like_on_facebook" = "ما را در فیسبوک لایک کنید";
 
 /* Text in menu */
 "follow_on_twitter" = "ما را در توییتر دنبال کنید";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "ورود با حساب گوگل";
 
-"login_with_facebook" = "ورود با حساب فیسبوک";
-
 "login_with_openstreetmap" = "ورود با حساب www.openstreetmap.org";
 
 "edit_place" = "ویرایش مکان";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "وبلاگ";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "جمع اوری داده های ناشناس به ما در بهتر کردن این اپلیکیشن کمک می کند.";
-
 "general_settings" = "تنظیمات عمومی";
 
 "date" = "تاریخ %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "اطلاعات ترافیکی موجود نیست";
-
-"banner_deliveryclub_title" = "ارسال غذا";
-
-"banner_deliveryclub_message" = "تحویل سریع از 4000 رستوران. سفارش از تحویل باشگاه.";
-
-"banner_lamoda_title" = "فروشگاه آنلاین پوشاک و کفش";
-
-"banner_lamoda_message" = "بیش از 1000 علامت تجاری تا 70٪ تخفیف. تحویل رایگان در سراسر کشور.";
-
-"banner_tutu_title" = "بلیط های قطار آنلاین";
-
-"banner_tutu_message" = "بلیط های قطار به هر شهر آنلاین - قیمت ها، جستجو و رزرو.";
-
-"banner_geerbest_title" = "فروشگاه الکترونیک آنلاین";
-
-"banner_geerbest_message" = "جستجوی سریع در بیش از 50،000 مورد با قیمت پایین.";
-
-"banner_rentalcars_title" = "اجاره اتومبیل ها آنلاین";
-
-"banner_rentalcars_message" = "شرکت کرایه ماشین در بیش از 49،000 مکان اجاره ماشین.";
 
 /* december */
 "whatsnew_traffic" = "اطلاعات ترافیکی در 36 کشور";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "تنظیمات ردیابی";
 
-"opt_out_flurry" = "آمار";
+"crash_reports" = "گزارش خرابی";
 
-"opt_out_mopub" = "تبلیغات شخصی‌شده";
-
-"opt_out_fabric" = "گزارش خرابی";
-
-"opt_out_fabric_description" = "ما از داده‌های شما برای بهبود OMaps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.";
+"crash_reports_description" = "ما از داده‌های شما برای بهبود OMaps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "شرایط استفاده";
 
 "backup_notification_failed" = "پشتیبانگیری از نشانکهای شما به حالت تعلیق درآمده است وارد شوید تا آن را دوباره روشن کنید";
-
-"banner_megafon_banner_message" = "خداحافظی با رومینگ بین المللی!";
-
-"banner_megafon_banner_button" = "خداحافظ!";
 
 "button_layer_traffic" = "ترافیک";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "با بیان نظر خود به مسافران کمک نمایید!";
 
-"share_bookmarks_email_body_link" = "سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق OMaps باز کرده و از سفر خود لذت ببرید!\n\nدریافت برنامه: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق OMaps باز کرده و از سفر خود لذت ببرید!\n\nدریافت برنامه: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "هدایتگر هنگامی که از محدوده سرعت %d کیلومتر بر ساعت تجاوز نمایید، در مورد دوربین هشدار می دهد";
 

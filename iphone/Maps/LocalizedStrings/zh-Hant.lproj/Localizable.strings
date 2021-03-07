@@ -46,9 +46,6 @@
 
 "get_it_now" = "馬上取得";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "感謝您使用 OMaps！您喜歡此應用程式嗎？告訴好友們吧！這會是對我們最好的感謝。";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "已分享 OMaps 書籤";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "正在載入書籤…";
@@ -392,10 +389,10 @@
 "no_thanks" = "不，謝了";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "嘿，看看我在 OMaps 標記的圖釘吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: http://omaps.app/get";
+"bookmark_share_sms" = "嘿，看看我在 OMaps 標記的圖釘吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "嘿，在 OMaps 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: http://omaps.app/get";
+"my_position_share_sms" = "嘿，在 OMaps 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "嘿，看看我在 OMaps 地圖上的圖釘！";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "已複製到剪貼簿：%1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "啟用匿名使用數據";
 
 /* place preview title */
 "info" = "簡介";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "OMaps 社群";
-
-/* Text in menu */
-"like_on_facebook" = "在 Facebook 上按讚";
 
 /* Text in menu */
 "follow_on_twitter" = "在Twitter 上關注";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "用 Google 登入";
 
-"login_with_facebook" = "用 Facebook 登入";
-
 "login_with_openstreetmap" = "登入到 www.openstreetmap.org";
 
 "edit_place" = "編輯地點";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "部落格";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "收集匿名使用統計資訊有助於我們改善應用程式。";
-
 "general_settings" = "一般設定";
 
 "date" = "日期 %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "無法使用交通資訊";
-
-"banner_deliveryclub_title" = "送餐";
-
-"banner_deliveryclub_message" = "4,000 家餐廳的快速外送。向 Delivery Club 訂餐。";
-
-"banner_lamoda_title" = "線上服飾與鞋店";
-
-"banner_lamoda_message" = "超過 1,000 個品牌。最低三折起。全國免運費。";
-
-"banner_tutu_title" = "線上火車票";
-
-"banner_tutu_message" = "線上訂購前往任何城市的火車票 - 瞭解價格、搜尋並預訂。";
-
-"banner_geerbest_title" = "線上電器行";
-
-"banner_geerbest_message" = "立即搜尋超過 50,000 樣低價品項。";
-
-"banner_rentalcars_title" = "線上租車";
-
-"banner_rentalcars_message" = "營運 49,000 多個租車地點的 800 家租車公司。";
 
 /* december */
 "whatsnew_traffic" = "36 個國家的交通資料";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "跟蹤設置";
 
-"opt_out_flurry" = "統計";
+"crash_reports" = "錯誤報告";
 
-"opt_out_mopub" = "個性化廣告";
-
-"opt_out_fabric" = "錯誤報告";
-
-"opt_out_fabric_description" = "我們可以使用您的數據來開發和改進OMaps。更改將再重新啟動應用程序后生效。";
+"crash_reports_description" = "我們可以使用您的數據來開發和改進OMaps。更改將再重新啟動應用程序后生效。";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "使用條款";
 
 "backup_notification_failed" = "標籤的備份已暫停。請登錄以啟用設備。";
-
-"banner_megafon_banner_message" = "請向國際漫遊說再見！";
-
-"banner_megafon_banner_button" = "Goodbye！";
 
 "button_layer_traffic" = "堵塞";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "請發表評論並幫助旅客！";
 
-"share_bookmarks_email_body_link" = "您好！\n\n您的標籤可以從鏈接下載：%s.使用OMaps打開列表並享受旅行!\n\n下載應用程序：http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "您好！\n\n您的標籤可以從鏈接下載：%s.使用OMaps打開列表並享受旅行!\n\n下載應用程序：https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "當速度限制超過%d km / h時，導航會通知您的攝像機";
 

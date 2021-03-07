@@ -245,8 +245,6 @@
 	<string name="more_info">نمایش اطلاعات بیشتر</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">کپی در کلیپ برد :%1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">ارسال مختصات</string>
 	<!-- place preview title -->
 	<string name="info">اطلاعات</string>
 	<!-- Used for bookmark editing -->
@@ -904,8 +902,6 @@
 	<string name="about_description">OMaps یک نرم افزار افلاین مخصوص سفر است. OMaps بر پایه دیتای OpenStreetMap است و به شما اجازه ویرایش در ان را می دهد.</string>
 	<!-- Text in menu -->
 	<string name="blog">وبلاگ</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">جمع اوری داده های ناشناس به ما در بهتر کردن این اپلیکیشن کمک می کند.</string>
 	<string name="general_settings">تنظیمات عمومی</string>
 	<string name="date">تاریخ %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

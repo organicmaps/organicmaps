@@ -267,8 +267,6 @@
 	<string name="more_info">Zobrazit další informace</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Zkopírováno do schránky: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Odesílat statistiky</string>
 	<!-- place preview title -->
 	<string name="info">Více informací</string>
 	<!-- Used for bookmark editing -->
@@ -950,8 +948,6 @@
 	<string name="about_description">OMaps je základní aplikace pro každého cestovatele. OMaps je založena na datech z OpenStreetMap a umožňuje je upravovat.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Shromažďování anonymních statistik využívání nám pomáhá zlepšovat aplikaci.</string>
 	<string name="general_settings">Obecná nastavení</string>
 	<string name="date">Datum %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

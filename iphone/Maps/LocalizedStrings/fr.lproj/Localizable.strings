@@ -46,9 +46,6 @@
 
 "get_it_now" = "Obtenez-la maintenant";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Merci d’avoir utilisé OMaps ! Vous aimez cette application ? Parlez-en à vos amis ! Ce serait la meilleure preuve de gratitude à notre égard.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "ko";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Signets OMaps partagés";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Chargement des signets";
@@ -392,10 +389,10 @@
 "no_thanks" = "Non, merci";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hé, regarde mon épingle sur OMaps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://omaps.app/get";
+"bookmark_share_sms" = "Hé, regarde mon épingle sur OMaps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hé, regarde ma position actuelle sur OMaps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://omaps.app/get";
+"my_position_share_sms" = "Hé, regarde ma position actuelle sur OMaps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hé, regarde mon épingle sur la carte OMaps !";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Copié dans le presse-papiers : %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Envoyer des statistiques";
 
 /* place preview title */
 "info" = "Infos";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "Communauté OMaps";
-
-/* Text in menu */
-"like_on_facebook" = "Aimer sur Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Suivre sur Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Connectez-vous avec Google";
 
-"login_with_facebook" = "Connectez-vous avec Facebook";
-
 "login_with_openstreetmap" = "Connectez-vous sur www.openstreetmap.org";
 
 "edit_place" = "Modifier le lieu";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blog";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "La collecte des statistiques d’utilisation anonymes nous permet d’améliorer l’application.";
-
 "general_settings" = "Paramètres généraux";
 
 "date" = "Date %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Les données de circulation ne sont pas disponibles";
-
-"banner_deliveryclub_title" = "Livraison de nourriture";
-
-"banner_deliveryclub_message" = "Livraison rapide de 4 000 restaurants. Commandez via Delivery Club.";
-
-"banner_lamoda_title" = "Boutique de chaussures et de vêtements en ligne";
-
-"banner_lamoda_message" = "Plus de 1.000 marques. Jusqu'à 70 % de réduction. Livraison gratuite dans tout le pays.";
-
-"banner_tutu_title" = "Billets de train en ligne";
-
-"banner_tutu_message" = "Billets de train vers n’importe quelle ville en ligne - prix, recherche et réservation.";
-
-"banner_geerbest_title" = "Magasin d’électronique en ligne";
-
-"banner_geerbest_message" = "Recherche instantanée parmi plus de 50.000 articles à bas prix.";
-
-"banner_rentalcars_title" = "Location de voitures en ligne";
-
-"banner_rentalcars_message" = "800 sociétés de location de voiture dans plus de 49.000 points de location de voiture.";
 
 /* december */
 "whatsnew_traffic" = "Données de circulation dans 36 pays";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Paramètres de suivi";
 
-"opt_out_flurry" = "Statistique";
+"crash_reports" = "Rapport d'accident";
 
-"opt_out_mopub" = "Publicité personnalisée";
-
-"opt_out_fabric" = "Rapport d'accident";
-
-"opt_out_fabric_description" = "Nous pouvons utiliser vos données pour améliorer l'expérience de OMaps. Les modifications prendront effet après le redémarrage de l'application.";
+"crash_reports_description" = "Nous pouvons utiliser vos données pour améliorer l'expérience de OMaps. Les modifications prendront effet après le redémarrage de l'application.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Conditions d'utilisation";
 
 "backup_notification_failed" = "La sauvegarde de vos favoris a été suspendue. Connectez-vous pour la réactiver.";
-
-"banner_megafon_banner_message" = "Dites adieu à l'itinérance internationale !";
-
-"banner_megafon_banner_button" = "Au revoir !";
 
 "button_layer_traffic" = "Trafic";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Aidez les voyageurs en leur laissant un avis !";
 
-"share_bookmarks_email_body_link" = "Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via OMaps et profitez de votre voyage !\n\nInstaller l'application : http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via OMaps et profitez de votre voyage !\n\nInstaller l'application : https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigator vous avertira des caméras lorsque vous dépassez la limite de vitesse de %d km/h";
 

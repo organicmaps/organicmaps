@@ -46,9 +46,6 @@
 
 "get_it_now" = "Obțineți acum";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Vă mulțumim că folosiți OMaps! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Marcaje OMaps partajate";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Se încarcă marcajele";
@@ -392,10 +389,10 @@
 "no_thanks" = "Nu, mulțumesc";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hei, poți vedea care este poziția mea pe OMaps! %1$@ sau %2$@ Nu ai instalate hărțile offline? Descarcă de aici: http://omaps.app/get";
+"bookmark_share_sms" = "Hei, poți vedea care este poziția mea pe OMaps! %1$@ sau %2$@ Nu ai instalate hărțile offline? Descarcă de aici: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hei, îmi poți vedea poziția actuală pe OMaps! %1$@ sau %2$@ Nu ai hărțile offline? Descarcă de aici: http://omaps.app/get";
+"my_position_share_sms" = "Hei, îmi poți vedea poziția actuală pe OMaps! %1$@ sau %2$@ Nu ai hărțile offline? Descarcă de aici: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hei, poți vedea care este poziția mea pe harta OMaps!";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Copiat în clipboard: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Trimitere statistici";
 
 /* place preview title */
 "info" = "Informații";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "Comunitatea OMaps";
-
-/* Text in menu */
-"like_on_facebook" = "Apreciați-ne pe Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Urmăriți-ne pe Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Logați-vă cu contul de Google";
 
-"login_with_facebook" = "Logați-vă cu contul de Facebook";
-
 "login_with_openstreetmap" = "Logați-vă cu contul de www.openstreetmap.org";
 
 "edit_place" = "Editați loc";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blog";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Colectarea statisticilor de utilizare anonime ne ajută să îmbunătățim aplicația.";
-
 "general_settings" = "Setări generale";
 
 "date" = "Data %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Datele privind traficul nu sunt disponibile";
-
-"banner_deliveryclub_title" = "Livrare mâncare";
-
-"banner_deliveryclub_message" = "Livrare rapidă din 4.000 de restaurante. Comandați de la Delivery Club.";
-
-"banner_lamoda_title" = "Îmbrăcăminte și magazin de pantofi online";
-
-"banner_lamoda_message" = "Peste 1.000 de branduri. Până la 70% reducere. Livrare gratuită în toată țara.";
-
-"banner_tutu_title" = "Bilete de tren online";
-
-"banner_tutu_message" = "Bilete de tren către orice oraș online - prețuri, căutare şi rezervare.";
-
-"banner_geerbest_title" = "Magazin de produse electronice online";
-
-"banner_geerbest_message" = "Căutare instantanee printre peste 50.000 de articole la prețuri mici.";
-
-"banner_rentalcars_title" = "Închiriere mașini online";
-
-"banner_rentalcars_message" = "800 de firme care închiriază mașini în peste 49.000 de locații de închiriere mașini.";
 
 /* december */
 "whatsnew_traffic" = "Date privind traficul în 36 de țări";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Setări de servire";
 
-"opt_out_flurry" = "Statisticile";
+"crash_reports" = "Rapoarte de eroare";
 
-"opt_out_mopub" = "Publicitate personalizată";
-
-"opt_out_fabric" = "Rapoarte de eroare";
-
-"opt_out_fabric_description" = "Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți OMaps. Modificările vor intra în vigoare după repornirea aplicației.";
+"crash_reports_description" = "Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți OMaps. Modificările vor intra în vigoare după repornirea aplicației.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Termeni de utilizare";
 
 "backup_notification_failed" = "Copierea de rezervă a tag-uri lor a fost suspendată. Conectați-vă pentru a activa copierea de rezervă.";
-
-"banner_megafon_banner_message" = "Spune roamingului internațional hood bai!";
-
-"banner_megafon_banner_button" = "Hood bai!";
 
 "button_layer_traffic" = "Dopuri";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Lăsați comentariile dvs. și ajutați alți călători!";
 
-"share_bookmarks_email_body_link" = "Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul OMaps și primiți plăcere de la călătorie!\n\nDescărcați aplicația: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul OMaps și primiți plăcere de la călătorie!\n\nDescărcați aplicația: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h";
 

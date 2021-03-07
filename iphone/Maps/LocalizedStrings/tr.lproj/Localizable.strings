@@ -46,9 +46,6 @@
 
 "get_it_now" = "Hemen al";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "OMaps’yi kullandığınız için teşekkür ederiz! Uygulamayı beğendiniz mi? Bundan arkadaşlarınıza bahsedin! Bundan büyük memnuniyet duyarız.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Paylaşılan OMaps yer imleri";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Yer İmleri Yükleniyor";
@@ -392,10 +389,10 @@
 "no_thanks" = "Hayır, teşekkürler";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, OMaps’de pinimi incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: http://omaps.app/get";
+"bookmark_share_sms" = "Hey, OMaps’de pinimi incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, OMaps’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: http://omaps.app/get";
+"my_position_share_sms" = "Hey, OMaps’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, OMaps haritasında pinimi incele!";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Panoya Kopyalandı: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "İstatistikleri Gönder";
 
 /* place preview title */
 "info" = "Bilgi";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "OMaps Topluluğu";
-
-/* Text in menu */
-"like_on_facebook" = "Facebook'da beğen";
 
 /* Text in menu */
 "follow_on_twitter" = "Twitter'da takip et";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Google ile giriş";
 
-"login_with_facebook" = "Facebook ile giriş";
-
 "login_with_openstreetmap" = "www.openstreetmap.org adresinden oturum aç";
 
 "edit_place" = "Yeri düzenle";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blog";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Anonim kullanım istatistiklerinin toplanması uygulamanın geliştirilmesi konusunda bize yardımcı olacak.";
-
 "general_settings" = "Genel ayarlar";
 
 "date" = "Tarih %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafik verileri kullanılamıyor";
-
-"banner_deliveryclub_title" = "Gıda teslimatı";
-
-"banner_deliveryclub_message" = "4.000'den fazla restorandan hızlı teslimat. Siparişinizi Delivery Club ile verin.";
-
-"banner_lamoda_title" = "Çevrimiçi giyim ve ayakkabı mağazası";
-
-"banner_lamoda_message" = "1.000'den fazla marka. %70'e varan indirimler. Ülkenin her yerine ücretsiz teslimat.";
-
-"banner_tutu_title" = "Çevrimiçi tren biletleri";
-
-"banner_tutu_message" = "Tüm şehirler için çevrimiçi tren biletleri - fiyat bilgileri, arama yapma ve rezervasyon.";
-
-"banner_geerbest_title" = "Çevrimiçi elektronik mağazası";
-
-"banner_geerbest_message" = "En uygun fiyatlarla 50.000'den fazla ürün için hızlı arama yapın.";
-
-"banner_rentalcars_title" = "Çevrimiçi araba kiralama";
-
-"banner_rentalcars_message" = "49.000'den fazla araç kiralama bölgesinde yer alan 800 araç kiralama şirketi.";
 
 /* december */
 "whatsnew_traffic" = "36 Ülkeden Trafik Verileri";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "İzleme ayarları";
 
-"opt_out_flurry" = "İstatistik";
+"crash_reports" = "Kilitlenme raporu";
 
-"opt_out_mopub" = "Kişiye özel reklamcılık";
-
-"opt_out_fabric" = "Kilitlenme raporu";
-
-"opt_out_fabric_description" = "OMaps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.";
+"crash_reports_description" = "OMaps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Kullanım koşulları";
 
 "backup_notification_failed" = "Yer imlerinizin yedeklenmesi işlemi askıya alındı. İşlemi devam ettirmek için oturum açın.";
-
-"banner_megafon_banner_message" = "Uluslararası dolaşıma güle güle deyin!";
-
-"banner_megafon_banner_button" = "Güle güle!";
 
 "button_layer_traffic" = "Trafik";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Yorum bırakarak gezginlere yardım edin!";
 
-"share_bookmarks_email_body_link" = "Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. OMaps ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. OMaps ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak";
 

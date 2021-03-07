@@ -46,9 +46,6 @@
 
 "get_it_now" = "Telepítés most";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Köszönjük, hogy a OMaps-t használja! Kedveli az appot? Akkor számoljon be a barátainak róla. Ez lenne a legnagyobb hála, amit adhat nekünk.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Egy OMaps könyvjelzőt osztottak meg Önnel";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Könyvjelzők letöltése";
@@ -392,10 +389,10 @@
 "no_thanks" = "Köszönöm, nem";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Nézd meg a OMaps jelzőt! %1$@ vagy %2$@ A program letöltése: http://omaps.app/get";
+"bookmark_share_sms" = "Nézd meg a OMaps jelzőt! %1$@ vagy %2$@ A program letöltése: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Nézd meg a OMaps helyzetemet! %1$@ vagy %2$@ A program letöltése: http://omaps.app/get";
+"my_position_share_sms" = "Nézd meg a OMaps helyzetemet! %1$@ vagy %2$@ A program letöltése: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Nézze meg a OMaps jelzőmet";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "A vágólapra másolva: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Statisztika küldése";
 
 /* place preview title */
 "info" = "Info";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "OMaps közösség";
-
-/* Text in menu */
-"like_on_facebook" = "Lájkolj minket Facebookon";
 
 /* Text in menu */
 "follow_on_twitter" = "Kövess minket Twitteren";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Bejelentkezés Google- vel";
 
-"login_with_facebook" = "Bejelentkezés Facebookkal";
-
 "login_with_openstreetmap" = "Jelentkezz be a www.openstreetmap.org oldalon";
 
 "edit_place" = "Hely szerkesztése";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blog";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "A névtelen használati statisztikák gyűjtésével segít nekünk az alkalmazás tökéletesítésében.";
-
 "general_settings" = "Általános beállítások";
 
 "date" = "Dátum %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Forgalmi adatok nem állnak rendelkezésre";
-
-"banner_deliveryclub_title" = "Ételfutár";
-
-"banner_deliveryclub_message" = "Gyors házhozszállítás 4000 étteremből. Rendelés a Delivery Club-ból.";
-
-"banner_lamoda_title" = "Online ruházati és cipő üzlet";
-
-"banner_lamoda_message" = "Több mint 1000 márka. Akár 70 % kedvezmény. Ingyenes szállítás az ország egész területén.";
-
-"banner_tutu_title" = "Vonatjegy az interneten keresztül";
-
-"banner_tutu_message" = "Vonatjegy interneten minden városba - árak, keresés és foglalás.";
-
-"banner_geerbest_title" = "Internetes elektronikai áruház";
-
-"banner_geerbest_message" = "Több mint 50.000 cikk azonnali keresése alacsony áron.";
-
-"banner_rentalcars_title" = "Autóbérlés az interneten";
-
-"banner_rentalcars_message" = "800 autókölcsönző cég több mint 49.000 autókölcsönzési helyszínen.";
 
 /* december */
 "whatsnew_traffic" = "Forgalmi adatok 36 országban";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Követési beállítások";
 
-"opt_out_flurry" = "Statisztika";
+"crash_reports" = "Hibajelentés";
 
-"opt_out_mopub" = "Személyre szabott reklámok";
-
-"opt_out_fabric" = "Hibajelentés";
-
-"opt_out_fabric_description" = "A OMaps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.";
+"crash_reports_description" = "A OMaps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Felhasználási feltételek";
 
 "backup_notification_failed" = "A könyvjelzői biztonsági mentése felfüggesztésre került. Jelentkezz be a visszakapcsoláshoz.";
-
-"banner_megafon_banner_message" = "Köszönjünk el a nemzetközi roamingdíjaktól!";
-
-"banner_megafon_banner_button" = "Viszlát!";
 
 "button_layer_traffic" = "Forgalom";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Írja meg a véleményét és segítsen a kirándulóknak!";
 
-"share_bookmarks_email_body_link" = "Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát OMaps segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát OMaps segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra";
 
