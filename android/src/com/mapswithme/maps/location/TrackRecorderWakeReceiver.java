@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.MwmBroadcastReceiver;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;
@@ -17,7 +20,7 @@ public class TrackRecorderWakeReceiver extends MwmBroadcastReceiver
   private static final String TAG = TrackRecorderWakeReceiver.class.getSimpleName();
 
   @Override
-  public void onReceiveInitialized(Context context, Intent intent)
+  public void onReceiveInitialized(@NonNull Context context, @Nullable Intent intent)
   {
     String msg = "onReceive: " + intent + " app in background = "
                  + !backgroundTracker(context).isForeground();
