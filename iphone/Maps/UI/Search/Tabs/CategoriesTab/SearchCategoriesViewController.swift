@@ -101,6 +101,6 @@ extension SearchCategoriesViewController: SearchBannerCellDelegate {
   }
   
   func cellDidPressClose(_ cell: SearchBannerCell) {
-    MapViewController.shared().showRemoveAds()
+    MapViewController.shared()?.showRemoveAds()
   }
 }

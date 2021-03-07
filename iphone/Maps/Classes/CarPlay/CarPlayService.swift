@@ -60,8 +60,10 @@ final class CarPlayService: NSObject {
     if let carplayVC = carplayVC {
       carplayVC.removeMapView()
     }
-    MapViewController.shared()?.disableCarPlayRepresentation()
-    MapViewController.shared()?.remove(self)
+    if let mvc = MapViewController.shared() {
+      mvc.disableCarPlayRepresentation()
+      mvc.remove(self)
+    }
     router?.removeListener(self)
     router?.unsubscribeFromEvents()
     router?.setupInitialSpeedCameraMode()

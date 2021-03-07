@@ -3,7 +3,7 @@ final class BookmarksListBuilder {
                     bookmarksCoordinator: BookmarksCoordinator?,
                     delegate: BookmarksListDelegate? = nil) -> BookmarksListViewController {
     let viewController = BookmarksListViewController()
-    let router = BookmarksListRouter(MapViewController.shared(), bookmarksCoordinator: bookmarksCoordinator)
+    let router = BookmarksListRouter(MapViewController.shared()!, bookmarksCoordinator: bookmarksCoordinator)
     let interactor = BookmarksListInteractor(markGroupId: markGroupId)
     let presenter = BookmarksListPresenter(view: viewController,
                                            router: router,

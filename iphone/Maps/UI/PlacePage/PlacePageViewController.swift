@@ -24,7 +24,7 @@ final class PlacePageScrollView: UIScrollView {
 
   var beginDragging = false
   var rootViewController: MapViewController {
-    MapViewController.shared()
+    MapViewController.shared()!
   }
 
   private var previousTraitCollection: UITraitCollection?
