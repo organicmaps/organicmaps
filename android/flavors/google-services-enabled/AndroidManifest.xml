@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <meta-data
+      android:name="com.google.android.gms.version"
+      android:value="@integer/google_play_services_version"/>
+
+    <service
+      android:exported="false"
+      android:name="com.mapswithme.maps.scheduling.FirebaseJobService">
+      <intent-filter>
+        <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+      </intent-filter>
+    </service>
+
+    <receiver
+        android:name="com.google.android.gms.gcm.GcmReceiver"
+        android:exported="true"
+        android:permission="com.google.android.c2dm.permission.SEND">
+      <intent-filter>
+        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+        <category android:name="${applicationId}"/>
+      </intent-filter>
+    </receiver>
+</manifest>

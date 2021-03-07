@@ -82,25 +82,6 @@
         android:text="@string/sign_agree_news_gdpr"/>
     </LinearLayout>
     <TextView
-      android:id="@+id/google_button"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:foreground="?clickableBackground"
-      android:background="?ghostButtonBackground"
-      android:textColor="?ghostButtonTextColor"
-      android:drawableStart="@drawable/img_google"
-      android:paddingLeft="@dimen/margin_half_plus"
-      android:paddingStart="@dimen/margin_half_plus"
-      android:paddingRight="@dimen/margin_base_plus"
-      android:paddingEnd="@dimen/margin_base_plus"
-      android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
-      android:fontFamily="@string/robotoMedium"
-      android:text="@string/google"
-      android:gravity="center"
-      android:minHeight="@dimen/primary_button_min_height"
-      android:layout_marginTop="@dimen/margin_base"
-      tools:targetApi="jelly_bean"/>
-    <TextView
       android:id="@+id/phone_button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
